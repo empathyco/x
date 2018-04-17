@@ -2,10 +2,13 @@
   "name": "@empathybroker/deep-merge",
   "version": "1.0.0",
   "description": "Clones an array of objects into another object.",
-  "scripts": {
-    "build": "tsc --pretty",
-    "test": "jest"
-  },
+  "keywords": [
+    "deep",
+    "merge",
+    "assign",
+    "clone",
+    "copy"
+  ],
   "main": "dist/deep-merge.js",
   "typings": "dist/deep-merge.d.ts",
   "files": [
@@ -15,16 +18,18 @@
     "type": "git",
     "url": "git+https://bitbucket.org/colbenson/eb-deep-merge.git"
   },
-  "keywords": [
-    "deep",
-    "merge",
-    "assign",
-    "clone",
-    "copy"
-  ],
-  "author": "EmpathyBroker",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/colbenson/eb-deep-merge#readme",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "build": "tsc --pretty",
+    "clean": "rimraf dist && rimraf coverage",
+    "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
+    "lint": "tslint --force --format verbose \"src/**/*.ts\"",
+    "prepublishOnly": "npm run build",
+    "prebuild": "npm run clean && npm run lint && echo Using TypeScript && tsc --version",
+    "test": "jest"
+  },
   "devDependencies": {
     "@empathybroker/eb-tslint": "0.0.8",
     "@types/jest": "^22.2.3",

@@ -8,6 +8,7 @@
       "es2015",
       "dom"
     ],
+    "removeComments": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "./dist",
