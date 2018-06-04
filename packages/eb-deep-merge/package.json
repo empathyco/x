@@ -1,6 +1,6 @@
 {
   "name": "@empathybroker/deep-merge",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Clones an array of objects into another object.",
   "keywords": [
     "deep",
@@ -22,7 +22,7 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "build": "tsc --pretty",
+    "build": "webpack",
     "clean": "rimraf dist && rimraf coverage",
     "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
     "lint": "tslint --force --format verbose \"src/**/*.ts\"",
@@ -33,12 +33,18 @@
   "devDependencies": {
     "@empathybroker/eb-tslint": "0.0.8",
     "@types/jest": "^22.2.3",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
     "cpx": "^1.5.0",
     "jest": "^22.4.3",
     "rimraf": "^2.6.2",
     "ts-jest": "^22.4.3",
+    "ts-loader": "^4.3.1",
     "ts-node": "^5.0.1",
     "tslint": "^5.9.1",
-    "typescript": "^2.8.1"
+    "typescript": "^2.8.1",
+    "webpack": "^4.10.2",
+    "webpack-cli": "^3.0.1"
   }
 }
