@@ -9,7 +9,7 @@
     "removeComments": true,
     "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "./dist",
+    "outDir": "./",
     "strict": true,
     "target": "es6",
     "typeRoots": [
