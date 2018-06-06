@@ -92,4 +92,20 @@ describe('deep-merge.ts', () => {
     deepMerge(target, firstSource, secondSource);
     expect(target).toEqual({ a: 1 });
   });
+
+  it('removes target object properties if they are `undefined` in the source object', () => {
+    const target = { a: 1, b: 'b', c: [1, 2, 3], d: { e: 5 } };
+    const firstSource = { a: undefined, b: undefined };
+    const secondSource = { c: undefined, d: undefined };
+    deepMerge(target, firstSource, secondSource);
+    expect(target).toEqual({});
+  });
+
+  it('does not remove target object properties if they are `null` in the source object', () => {
+    const target = { a: 1, b: 'b', c: [1, 2, 3], d: { e: 5 } };
+    const firstSource = { a: null, b: undefined };
+    const secondSource = { c: null, d: undefined };
+    deepMerge(target, firstSource, secondSource);
+    expect(target).toEqual({ a: null, c: null });
+  });
 });

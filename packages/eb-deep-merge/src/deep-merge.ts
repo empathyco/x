@@ -19,7 +19,9 @@ function cloneSourcesProperties(target: any, source: any): (source: any) => void
 }
 
 function cloneObjectProperties(target: any, [key, value]: any): any {
-  if (isObject(value)) {
+  if (value === undefined) {
+    delete target[key];
+  } else if (isObject(value)) {
     target[key] = deepMerge(target[key] || {}, value);
   } else if (Array.isArray(value)) {
     target[key] = [...value];

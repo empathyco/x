@@ -1,6 +1,6 @@
 {
   "name": "@empathybroker/deep-merge",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Clones an array of objects into another object.",
   "keywords": [
     "deep",
