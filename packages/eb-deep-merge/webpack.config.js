@@ -11,7 +11,7 @@ module.exports = {
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
-
+  
   module: {
     rules: [
       {

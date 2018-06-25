@@ -7,14 +7,28 @@
  * @returns {any} The target modified.
  */
 export function deepMerge(target: any, ...sources: any[]): any {
-  return sources.reduce(cloneSourcesProperties, target);
+  return sources.reduce(cloneSourcesProperties, target || {});
 }
+
+export function replaceBehaviour<T>(obj: T): T {
+  Reflect.defineMetadata(behaviourMetadataKey, Behaviour.Replace, obj);
+  return obj;
+}
+
+export function deepMergeBehaviour<T>(obj: T): T {
+  Reflect.defineMetadata(behaviourMetadataKey, Behaviour.DeepMerge, obj);
+  return obj;
+}
+
+const behaviourMetadataKey = 'deep-merge-behaviour';
+
+enum Behaviour { Replace = 'replace', DeepMerge = 'deep-merge' }
 
 function cloneSourcesProperties(target: any, source: any): (source: any) => void {
   if (source) {
     return Object.entries(source).reduce(cloneObjectProperties, target);
   } else {
-    return target;
+    return target || {};
   }
 }
 
@@ -22,7 +36,7 @@ function cloneObjectProperties(target: any, [key, value]: any): any {
   if (value === undefined) {
     delete target[key];
   } else if (isObject(value)) {
-    target[key] = deepMerge(target[key] || {}, value);
+    mergeObject(target, [key, value]);
   } else if (Array.isArray(value)) {
     target[key] = [...value];
   } else {
@@ -33,5 +47,17 @@ function cloneObjectProperties(target: any, [key, value]: any): any {
 
 function isObject(obj: any): boolean {
   return obj && typeof obj === 'object' && !Array.isArray(obj);
+}
+
+function mergeObject(target: any, [key, value]: any): any {
+  if (getMergeBehaviour(target[key], value) === Behaviour.Replace) {
+    target[key] = replaceBehaviour(value);
+  } else {
+    target[key] = deepMerge(deepMergeBehaviour(target[key] || {}), value);
+  }
+}
+
+function getMergeBehaviour(targetValue: any, sourceValue: any): Behaviour {
+  return Reflect.getMetadata(behaviourMetadataKey, sourceValue || {}) || Reflect.getMetadata(behaviourMetadataKey, targetValue || {});
 }
 

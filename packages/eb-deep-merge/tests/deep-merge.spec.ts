@@ -1,4 +1,5 @@
-import { deepMerge } from '../src/deep-merge';
+import 'reflect-metadata';
+import { deepMerge, deepMergeBehaviour, replaceBehaviour } from '../src/deep-merge';
 
 describe('deep-merge.ts', () => {
   it('copies simple objects', () => {
@@ -89,23 +90,55 @@ describe('deep-merge.ts', () => {
     const target = { a: 1 };
     const firstSource = undefined;
     const secondSource = null;
-    deepMerge(target, firstSource, secondSource);
-    expect(target).toEqual({ a: 1 });
+    const thirdSource = { a: 2, b: 3 };
+    deepMerge(target, firstSource, secondSource, thirdSource);
+    expect(target).toEqual({ a: 2, b: 3 });
   });
 
   it('removes target object properties if they are `undefined` in the source object', () => {
-    const target = { a: 1, b: 'b', c: [1, 2, 3], d: { e: 5 } };
+    const target = { a: 1, b: 'b', c: [1, 2, 3], d: { d1: 5 }, f: { f1: 'f1', f2: 'f2' } };
     const firstSource = { a: undefined, b: undefined };
     const secondSource = { c: undefined, d: undefined };
-    deepMerge(target, firstSource, secondSource);
-    expect(target).toEqual({});
+    const thirdSource = { f: { f1: undefined, f2: 'f2' } };
+    deepMerge(target, firstSource, secondSource, thirdSource);
+    expect(target).toEqual({ f: { f2: 'f2' } });
   });
 
   it('does not remove target object properties if they are `null` in the source object', () => {
-    const target = { a: 1, b: 'b', c: [1, 2, 3], d: { e: 5 } };
+    const target = { a: 1, b: 'b', c: [1, 2, 3], d: { d1: 5 } };
     const firstSource = { a: null, b: undefined };
     const secondSource = { c: null, d: undefined };
     deepMerge(target, firstSource, secondSource);
     expect(target).toEqual({ a: null, c: null });
+  });
+
+  it('merges into a new object if target is undefined', () => {
+    const target = undefined;
+    const firstSource = { a: 1, b: 2 };
+    const result = deepMerge(target, firstSource);
+    expect(result).toEqual({ a: 1, b: 2 });
+  });
+
+  it('fully replaces object if replace behaviour is selected on source object', () => {
+    const target = { children: { a: 1, b: 2, c: 3 } };
+    const firstSource = { children: replaceBehaviour({ c: 4, d: 5 }) };
+    deepMerge(target, firstSource);
+    expect(target).toEqual({ children: { c: 4, d: 5 } });
+  });
+
+  it('passes replace behaviour to the sources objects if it\'s present in target object', () => {
+    const target = { children: replaceBehaviour({ a: 1, b: 2, c: 3 }) };
+    const firstSource = { children: { c: 4, d: 5 } };
+    const secondSource = { children: { e: 5, f: 6 } };
+    deepMerge(target, firstSource, secondSource);
+    expect(target).toEqual({ children: { e: 5, f: 6 } });
+  });
+
+  it('stops passing replace behaviour to the sources objects if deep-merge behaviour is specified', () => {
+    const target = { children: replaceBehaviour({ a: 1, b: 2, c: 3 }) };
+    const firstSource = { children: deepMergeBehaviour({ c: 4, d: 5 }) };
+    const secondSource = { children: { e: 5, f: 6 } };
+    deepMerge(target, firstSource, secondSource);
+    expect(target).toEqual({ children: { a: 1, b: 2, c: 4, d: 5, e: 5, f: 6 } });
   });
 });

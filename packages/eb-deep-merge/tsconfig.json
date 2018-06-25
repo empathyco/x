@@ -14,6 +14,10 @@
     "target": "es5",
     "typeRoots": [
       "./node_modules/@types"
+    ],
+    "types": [
+      "jest",
+      "reflect-metadata"
     ]
   },
   "include": [
