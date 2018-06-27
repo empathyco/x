@@ -50,10 +50,13 @@ function isObject(obj: any): boolean {
 }
 
 function mergeObject(target: any, [key, value]: any): any {
-  if (getMergeBehaviour(target[key], value) === Behaviour.Replace) {
+  const mergeBehaviour = getMergeBehaviour(target[key], value);
+  if (mergeBehaviour === Behaviour.Replace) {
     target[key] = replaceBehaviour(value);
-  } else {
+  } else if (mergeBehaviour === Behaviour.DeepMerge) {
     target[key] = deepMerge(deepMergeBehaviour(target[key] || {}), value);
+  } else {
+    target[key] = deepMerge(target[key], value);
   }
 }
 
