@@ -126,6 +126,13 @@ describe('deep-merge.ts', () => {
     expect(target).toEqual({ children: { c: 4, d: 5 } });
   });
 
+  it('makes a copy of the object when replacing, to avoid unexpected modifications', () => {
+    const target = { children: { a: 1, b: 2, c: 3 } };
+    const firstSource = { children: replaceBehaviour({ c: 4, d: 5 }) };
+    deepMerge(target, firstSource);
+    expect(target.children).not.toBe(firstSource.children);
+  });
+
   it('passes replace behaviour to the sources objects if it\'s present in target object', () => {
     const target = { children: replaceBehaviour({ a: 1, b: 2, c: 3 }) };
     const firstSource = { children: { c: 4, d: 5 } };

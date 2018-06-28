@@ -52,9 +52,11 @@ function isObject(obj: any): boolean {
 function mergeObject(target: any, [key, value]: any): any {
   const mergeBehaviour = getMergeBehaviour(target[key], value);
   if (mergeBehaviour === Behaviour.Replace) {
-    target[key] = replaceBehaviour(value);
+    target[key] = deepMerge({}, value);
+    replaceBehaviour(target[key]);
   } else if (mergeBehaviour === Behaviour.DeepMerge) {
-    target[key] = deepMerge(deepMergeBehaviour(target[key] || {}), value);
+    target[key] = deepMerge(target[key] || {}, value);
+    deepMergeBehaviour(target[key]);
   } else {
     target[key] = deepMerge(target[key], value);
   }
