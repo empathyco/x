@@ -2,8 +2,8 @@
   "name": "@empathy/get-safe-property-chain",
   "version": "1.0.0",
   "description": "A utility for safely retrieving nested values",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/get-safe-property-chain.js",
+  "types": "dist/get-safe-property-chain.d.ts",
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
