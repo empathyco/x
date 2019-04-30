@@ -1,0 +1,34 @@
+{
+  "name": "@empathy/search-types",
+  "version": "1.0.0",
+  "description": "Empathy search types",
+  "main": "dist/index.js",
+  "types": "dist/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://cbn-javieri@bitbucket.org/colbenson/search-types.git"
+  },
+  "keywords": [
+    "search",
+    "types",
+    "models",
+    "interfaces"
+  ],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/colbenson/search-types#readme",
+  "devDependencies": {
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5"
+  },
+  "dependencies": {
+    "@empathybroker/eb-tslint": "0.0.8"
+  },
+  "files": [
+    "dist/**/*"
+  ]
+}
