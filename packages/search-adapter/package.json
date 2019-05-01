@@ -1,0 +1,45 @@
+{
+  "name": "@empathy/search-adapter",
+  "version": "1.0.0",
+  "description": "A search client for the Empathy search API ",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://cbn-javieri@bitbucket.org/colbenson/search-adapter.git"
+  },
+  "keywords": [
+    "search",
+    "adapter",
+    "client",
+    "fetch"
+  ],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/colbenson/search-adapter#readme",
+  "devDependencies": {
+    "@empathy/get-safe-property-chain": "^1.0.0",
+    "@empathy/search-types": "~1.0.0",
+    "@types/jest": "^24.0.12",
+    "jest": "^24.7.1",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5"
+  },
+  "dependencies": {
+    "@empathybroker/deep-merge": "^1.1.2",
+    "@empathybroker/eb-tslint": "0.0.8",
+    "inversify": "^5.0.1",
+    "reflect-metadata": "^0.1.13"
+  },
+  "files": [
+    "dist/**/*"
+  ]
+}
