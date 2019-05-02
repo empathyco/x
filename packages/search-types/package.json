@@ -1,9 +1,9 @@
 {
   "name": "@empathy/search-types",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Empathy search types",
   "main": "dist/index.js",
-  "types": "dist/index.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch"
