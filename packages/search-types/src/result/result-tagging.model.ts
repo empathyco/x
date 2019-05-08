@@ -6,4 +6,5 @@ export interface ResultTagging {
   conversion?: Tagging;
   wishlist?: Tagging;
   query: Tagging;
+  [key: string]: Tagging | undefined;
 }

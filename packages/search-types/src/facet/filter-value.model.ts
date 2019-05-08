@@ -3,8 +3,8 @@ export interface FilterValue {
 }
 
 export interface RangeFilterValue extends FilterValue {
-  min: number;
-  max: number;
+  min: number | null;
+  max: number | null;
 }
 
 export interface SimpleFilterValue extends FilterValue {

@@ -11,7 +11,7 @@ export interface Result extends NamedModel {
   name: string;
   price?: ResultPrice;
   rating?: ResultRating;
-  tagging?: ResultTagging;
+  tagging: ResultTagging;
   identifier?: ResultIdentifier;
   url: string;
   callbackInfo?: any;
