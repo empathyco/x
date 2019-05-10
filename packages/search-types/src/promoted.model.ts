@@ -6,7 +6,7 @@ export interface Promoted extends NamedModel {
   title: string;
   url: string;
   image: string;
-  tagging?: {
+  tagging: {
     click: Tagging;
   };
 }

@@ -6,13 +6,13 @@ import { ResultTagging } from './result-tagging.model';
 
 export interface Result extends NamedModel {
   id: string;
-  type?: string;
+  type: string;
   images: string[];
   name: string;
-  price?: ResultPrice;
-  rating?: ResultRating;
+  price: ResultPrice;
+  rating: ResultRating;
   tagging: ResultTagging;
-  identifier?: ResultIdentifier;
+  identifier: ResultIdentifier;
   url: string;
-  callbackInfo?: any;
+  callbackInfo: any;
 }

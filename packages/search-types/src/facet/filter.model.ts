@@ -3,17 +3,17 @@ import { Facet } from './facet.model';
 import { FilterValue, RangeFilterValue, SimpleFilterValue } from './filter-value.model';
 
 export interface Filter extends NamedModel {
-  children?: this[];
+  children: this[];
   count: number;
-  entityDetected?: boolean;
+  entityDetected: boolean;
   facet: Facet;
   id: string;
-  needsParentFilter?: boolean;
-  parent?: this;
+  needsParentFilter: boolean;
+  parent: this | null;
   selected: boolean;
   value: FilterValue;
   title: string;
-  callbackInfo?: any;
+  callbackInfo: any;
 }
 
 export interface SimpleFilter extends Filter {

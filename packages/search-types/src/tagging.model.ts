@@ -1,4 +1,4 @@
 export interface Tagging {
   url: string;
-  params: any;
+  params: Record<string, any>;
 }

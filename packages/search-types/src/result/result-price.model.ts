@@ -1,5 +1,5 @@
 export interface ResultPrice {
-  originalValue?: number;
+  originalValue: number | null;
   value: number;
 }
 

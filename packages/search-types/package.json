@@ -1,6 +1,6 @@
 {
   "name": "@empathy/search-types",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Empathy search types",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,7 +18,7 @@
     "models",
     "interfaces"
   ],
-  "author": "",
+  "author": "Empathy",
   "license": "ISC",
   "homepage": "https://bitbucket.org/colbenson/search-types#readme",
   "devDependencies": {

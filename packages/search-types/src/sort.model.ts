@@ -1,5 +1,5 @@
 export interface Sort {
-  direction?: SortDirection;
+  direction: SortDirection;
   title: string;
   value: string;
 }
