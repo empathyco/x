@@ -14,5 +14,5 @@ export interface Result extends NamedModel {
   tagging: ResultTagging;
   identifier: ResultIdentifier;
   url: string;
-  callbackInfo: any;
+  callbackInfo: Record<string, any>;
 }

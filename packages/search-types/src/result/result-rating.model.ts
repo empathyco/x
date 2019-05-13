@@ -1,3 +1,3 @@
 export interface ResultRating {
-  value: number;
+  value: number | null;
 }

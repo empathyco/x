@@ -1,6 +1,7 @@
 export interface ResultPrice {
-  originalValue: number | null;
+  originalValue: number;
   value: number;
+  hasDiscount: boolean;
 }
 
 

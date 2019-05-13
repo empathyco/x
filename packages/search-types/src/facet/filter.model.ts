@@ -1,8 +1,8 @@
 import { NamedModel } from '../named-model.model';
 import { Facet } from './facet.model';
-import { FilterValue, RangeFilterValue, SimpleFilterValue } from './filter-value.model';
 
-export interface Filter extends NamedModel {
+export interface Filter<ValueType = SimpleValue> extends NamedModel {
+  callbackInfo: Record<string, any>;
   children: this[];
   count: number;
   entityDetected: boolean;
@@ -11,21 +11,22 @@ export interface Filter extends NamedModel {
   needsParentFilter: boolean;
   parent: this | null;
   selected: boolean;
-  value: FilterValue;
   title: string;
-  callbackInfo: any;
+  value: ValueType;
 }
 
-export interface SimpleFilter extends Filter {
-  value: SimpleFilterValue;
-}
-
-export interface RangeFilter extends Filter {
-  value: RangeFilterValue;
-}
+export type SimpleFilter = Filter<SimpleValue>;
+export type RangeFilter = Filter<RangeValue>;
 
 export enum FilterModel {
   simple = 'SimpleFilter',
   range = 'RangeFilter',
   currencyRange = 'CurrencyRangeFilter',
 }
+
+export interface RangeValue {
+  min: number | null;
+  max: number | null;
+}
+
+export type SimpleValue = string;
