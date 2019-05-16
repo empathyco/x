@@ -1,6 +1,6 @@
 import { Logger, LogLevel } from './logger.interfaces';
 
-export class CustomLogger implements Logger {
+export class SimpleLogger implements Logger {
   private static commonConsoleLevel: LogLevel = LogLevel.warn;
   private static commonServerLevel: LogLevel = LogLevel.error;
   private readonly instanceTags: any[] = [];
@@ -10,19 +10,19 @@ export class CustomLogger implements Logger {
   }
 
   set consoleLevel(level: LogLevel) {
-    CustomLogger.commonConsoleLevel = level;
+    SimpleLogger.commonConsoleLevel = level;
   }
 
   get consoleLevel() {
-    return CustomLogger.commonConsoleLevel;
+    return SimpleLogger.commonConsoleLevel;
   }
 
   set serverLevel(level: LogLevel) {
-    CustomLogger.commonServerLevel = level;
+    SimpleLogger.commonServerLevel = level;
   }
 
   get serverLevel() {
-    return CustomLogger.commonServerLevel;
+    return SimpleLogger.commonServerLevel;
   }
 
   error(...args: any[]) {
@@ -46,7 +46,7 @@ export class CustomLogger implements Logger {
   }
 
   child(...args: any[]): Logger {
-    return new CustomLogger(...this.instanceTags, ...args);
+    return new SimpleLogger(...this.instanceTags, ...args);
   }
 
   private log(level: LogLevel, args: any[]) {
