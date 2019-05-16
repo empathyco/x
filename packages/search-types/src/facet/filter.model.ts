@@ -1,7 +1,7 @@
 import { NamedModel } from '../named-model.model';
 import { Facet } from './facet.model';
 
-export interface Filter<ValueType = SimpleValue> extends NamedModel {
+export interface Filter<ValueType = any> extends NamedModel {
   callbackInfo: Record<string, any>;
   children: this[];
   count: number;
@@ -29,4 +29,6 @@ export interface RangeValue {
   max: number | null;
 }
 
-export type SimpleValue = string;
+export interface SimpleValue {
+  filter: string;
+}
