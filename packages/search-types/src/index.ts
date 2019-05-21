@@ -17,3 +17,15 @@ export * from './sort.model';
 export * from './suggestion.model';
 export * from './tagging.model';
 export * from './user-info.model';
+
+// Schemas for jest testing
+export * from './banner.schema';
+export * from './facet/facet.schema';
+export * from './facet/filter.schema';
+export * from './promoted.model';
+export * from './query-signals/next-query.schema';
+export * from './query-signals/related-tag.schema';
+export * from './redirection.schema';
+export * from './result/result.schema';
+export * from './suggestion.schema';
+export * from './tagging.schema';
