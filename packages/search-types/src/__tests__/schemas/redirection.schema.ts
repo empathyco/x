@@ -1,4 +1,4 @@
-import { Redirection } from './redirection.model';
+import { Redirection } from '../../redirection.model';
 import { TaggingSchema } from './tagging.schema';
 
 export const RedirectionSchema: Redirection = {

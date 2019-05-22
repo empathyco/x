@@ -1,5 +1,5 @@
-import { TaggingSchema } from '../tagging.schema';
-import { Result } from './result.model';
+import { Result } from '../../result/result.model';
+import { TaggingSchema } from './tagging.schema';
 
 export const ResultSchema: Result = {
   callbackInfo: expect.any(Object),

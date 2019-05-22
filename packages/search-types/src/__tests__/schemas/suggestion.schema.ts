@@ -1,4 +1,4 @@
-import { Suggestion } from './suggestion.model';
+import { Suggestion } from '../../suggestion.model';
 
 export const SuggestionSchema: Suggestion = {
   modelName: expect.any(String),

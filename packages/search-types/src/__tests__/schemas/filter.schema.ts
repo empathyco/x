@@ -1,4 +1,4 @@
-import { Filter } from './filter.model';
+import { Filter } from '../../facet/filter.model';
 
 export const FilterSchema: Filter = {
   callbackInfo: expect.any(Object),

@@ -1,4 +1,4 @@
-import { RelatedTag } from './related-tag.model';
+import { RelatedTag } from '../../query-signals/related-tag.model';
 
 export const RelatedTagSchema: RelatedTag = {
   previous: expect.any(String),

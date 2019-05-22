@@ -1,6 +1,6 @@
 {
   "name": "@empathy/search-types",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Empathy search types",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -32,6 +32,7 @@
     "@empathybroker/eb-tslint": "0.0.8"
   },
   "files": [
-    "dist/**/*"
+    "dist/**/*",
+    "schemas.js"
   ]
 }

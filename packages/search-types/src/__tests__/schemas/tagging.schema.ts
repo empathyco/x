@@ -1,4 +1,4 @@
-import { Tagging } from './tagging.model';
+import { Tagging } from '../../tagging.model';
 
 export const TaggingSchema: Tagging = {
   params: expect.any(Object),

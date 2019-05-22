@@ -1,4 +1,4 @@
-import { NextQuery } from './next-query.model';
+import { NextQuery } from '../../query-signals/next-query.model';
 
 export const NextQuerySchema: NextQuery = {
   id: expect.any(String),

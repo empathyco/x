@@ -1,7 +1,7 @@
-import { Promoted } from './promoted.model';
+import { Banner } from '../../banner.model';
 import { TaggingSchema } from './tagging.schema';
 
-export const PromotedSchema: Promoted = {
+export const BannerSchema: Banner = {
   id: expect.any(String),
   image: expect.any(String),
   modelName: expect.any(String),
