@@ -1,6 +1,6 @@
 {
   "name": "@empathy/search-types",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Empathy search types",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -33,6 +33,7 @@
   },
   "files": [
     "dist/**/*",
-    "schemas.js"
+    "schemas.js",
+    "schemas.d.ts"
   ]
 }
