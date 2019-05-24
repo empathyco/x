@@ -1,6 +1,6 @@
 {
   "name": "@empathy/jest-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Jest extensions for easier testing",
   "main": "dist/jest-utils.js",
   "types": "dist/jest-utils.d.ts",

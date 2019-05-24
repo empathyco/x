@@ -15,6 +15,7 @@ const extendOptions: Record<keyof (ExtendedExpect & ExtendedMatchers), Function>
   undefinedOr,
   nullOrUndefinedOr,
   arrayOf,
+  arrayOfItemsMatching: everyItemToMatch,
   // Extensions for expect(...).xxx
   toBeNullOr: nullOr,
   toBeUndefinedOr: undefinedOr,

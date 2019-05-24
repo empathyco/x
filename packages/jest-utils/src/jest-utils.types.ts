@@ -1,5 +1,6 @@
 export interface ExtendedExpect {
   arrayOf(classType: Newable): any;
+  arrayOfItemsMatching(schema: {}): any;
   nullOr(classType: Newable): any;
   nullOrMatch(schema: {}): any;
   nullOrUndefinedOr(classType: Newable): any;
