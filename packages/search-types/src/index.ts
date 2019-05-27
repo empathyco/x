@@ -1,6 +1,7 @@
 export * from './banner.model';
 export * from './facet/facet.model';
 export * from './facet/filter.model';
+export * from './facet/multi-select.model';
 export * from './history-term.model';
 export * from './named-model.model';
 export * from './partial-result.model';

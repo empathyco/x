@@ -26,10 +26,8 @@
     "@types/jest": "^24.0.13",
     "jest": "^24.8.0",
     "tslint": "^5.16.0",
-    "typescript": "^3.4.5"
-  },
-  "dependencies": {
-    "@empathybroker/eb-tslint": "0.0.8"
+    "typescript": "^3.4.5",
+    "@empathybroker/eb-tslint": "0.0.15"
   },
   "files": [
     "dist/**/*",
