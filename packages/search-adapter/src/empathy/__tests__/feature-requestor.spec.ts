@@ -15,6 +15,7 @@ import { DEPENDENCIES } from '../container/container.const';
 import { BindingDictionary } from '../container/container.types';
 import { EmpathyEndpointsService } from '../endpoints-services/empathy-endpoints.service';
 import { HttpClient } from '../http-clients/http-client.types';
+import { EmpathySimpleValueMapper } from '../mappers';
 import { FeatureRequestor } from '../requestors/feature.requestor';
 import clearAllMocks = jest.clearAllMocks;
 
@@ -39,13 +40,29 @@ const bindingDictionary: BindingDictionary = {
           responsePaths: {
             suggestions: 'data.suggestions'
           }
+        },
+        primitive: {
+          endpoint: 'does-not-matter',
+          responsePaths: {
+            number: 'number',
+            string: 'string',
+            boolean: 'boolean'
+          }
         }
       }
     }
   },
   [DEPENDENCIES.featureName]: { toConstant: 'suggestions' },
-  [DEPENDENCIES.entityMappers]: { toConstant: { suggestions: [new SuggestionMapper1(), new SuggestionMapper2()] } }
+  [DEPENDENCIES.entityMappers]: {
+    toConstant: {
+      suggestions: [new SuggestionMapper1(), new SuggestionMapper2()],
+      number: [new EmpathySimpleValueMapper()],
+      boolean: [new EmpathySimpleValueMapper()],
+      string: [new EmpathySimpleValueMapper()]
+    }
+  }
 };
+
 new ContainerConfigParser(bindingDictionary, container).parse();
 
 beforeEach(() => {
@@ -111,6 +128,23 @@ it('Maps response array values', async () => {
     modelName: 'TermSuggestion',
     term
   })));
+});
+
+it('Maps falsy values', async () => {
+  const mockedResponse = {
+    number: 0,
+    boolean: false,
+    string: ''
+  };
+  container.rebind('MockedResponse').toConstantValue(mockedResponse);
+  container.rebind('FeatureName').toConstantValue('primitive');
+  const requestor = container.get<FeatureRequestor<{}, { number: number, boolean: boolean, string: string }>>('Requestor');
+
+  const { number, boolean, string } = await requestor.request({});
+
+  expect(number).toEqual(0);
+  expect(boolean).toEqual(false);
+  expect(string).toEqual('');
 });
 
 it('Calls single hooks', async () => {

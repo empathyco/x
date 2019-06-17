@@ -75,7 +75,7 @@ export class FeatureRequestor<RequestType, ResponseType extends Dictionary<any>>
     return Object.entries(this.featureConfig.responsePaths)
       .reduce((transformedResponse, [entityName, rawResponsePath]) => {
         const rawResponseSelection = getSafePropertyChain(rawResponse, rawResponsePath);
-        if (rawResponseSelection) {
+        if (rawResponseSelection !== undefined) {
           // @ts-ignore The error does not make sense: Record<string, any> cannot be indexed with type string???
           transformedResponse[entityName] = this.transformResponseSelection(rawResponseSelection, entityName as EntityNames, context);
         }
