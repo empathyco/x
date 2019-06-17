@@ -28,13 +28,13 @@
     "@empathy/get-safe-property-chain": "~1.0.0",
     "@empathy/logger": "~1.0.0",
     "@empathy/search-types": "~1.0.9",
-    "@empathybroker/deep-merge": "^1.1.2",
+    "@empathybroker/deep-merge": "~1.1.2",
     "inversify": "~5.0.1",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "~0.1.13"
   },
   "devDependencies": {
     "@empathy/jest-utils": "~1.0.1",
-    "@empathybroker/eb-tslint": "0.0.15",
+    "@empathybroker/eb-tslint": "~0.0.15",
     "@types/jest": "~24.0.12",
     "jest": "~24.7.1",
     "ts-jest": "~24.0.2",
