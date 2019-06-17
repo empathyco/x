@@ -4,8 +4,5 @@
   ],
   "extends": [
     "@empathybroker/eb-tslint/tslint-base"
-  ],
-  "rules": {
-    "no-empty-interface": false
-  }
+  ]
 }

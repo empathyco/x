@@ -1,32 +1,35 @@
+import { FilterModel, MultiSelect } from '@empathy/search-types';
 import { EmpathyAdapterConfig } from './empathy-adapter-config.types';
 
-// TODO Default config
 export const DEFAULT_EMPATHY_ADAPTER_CONFIG: EmpathyAdapterConfig = {
-  env: 'staging',
+  env: 'live',
   instance: 'demo',
-  searchLang: 'es',
+  requestParams: {
+    scope: 'desktop',
+    lang: 'en'
+  },
   features: {
     nextQueries: {
-      endpoint: '',
-      responsePath: {
-        nextQueries: 'nextQueries'
+      endpoint: 'api{env}.empathybroker.com/search/v1/query/{instance}/nextqueries',
+      responsePaths: {
+        nextQueries: ''
       }
     },
     recommendations: {
-      endpoint: '',
-      responsePath: {
+      endpoint: 'api{env}.empathybroker.com/search/v1/query/{instance}/topclicked',
+      responsePaths: {
         results: 'topclicked.docs'
       }
     },
     relatedTags: {
-      endpoint: '',
-      responsePath: {
-        relatedTags: 'relatedTags'
+      endpoint: 'api{env}.empathybroker.com/search/v1/query/{instance}/relatedtags',
+      responsePaths: {
+        relatedTags: ''
       }
     },
     search: {
-      endpoint: '',
-      responsePath: {
+      endpoint: 'api{env}.empathybroker.com/search/v1/query/{instance}/search',
+      responsePaths: {
         banners: 'banner',
         facets: 'content.facets',
         partialResults: 'content.suggestions',
@@ -39,23 +42,46 @@ export const DEFAULT_EMPATHY_ADAPTER_CONFIG: EmpathyAdapterConfig = {
       }
     },
     searchById: {
-      endpoint: '',
-      responsePath: {
+      endpoint: 'api{env}.empathybroker.com/search/v1/query/{instance}/skusearch',
+      responsePaths: {
         results: 'content.docs'
       }
     },
     suggestions: {
-      endpoint: '',
-      responsePath: {
+      endpoint: 'api{env}.empathybroker.com/search/v1/query/{instance}/empathize',
+      responsePaths: {
         suggestions: 'topTrends'
       }
+    },
+    track: {
+      endpoint: '',
+      responsePaths: {}
     }
   },
   mappings: {
     query: {
-      maxLength: 1,
-      maxWords: 1
+      maxLength: 128,
+      maxWords: 8
     },
-    facets: {}
+    facets: {
+      default: {
+        filterModelName: FilterModel.simple,
+        isDynamic: false,
+        multiSelectable: MultiSelect.Disabled,
+        needsParentFilters: false,
+        showUnselectedValues: true,
+        preselected: false,
+        prefix: {
+          facetName: ({ facetName }) => facetName,
+          noTagFacetName: ({ facetName }) => facetName
+        }
+      }, named: {}
+    },
+    tracking: {
+      result: {
+        add2cart: 'ebTagging.add2cart',
+        click: 'ebTagging.click'
+      }
+    }
   }
 };

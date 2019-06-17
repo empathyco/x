@@ -5,6 +5,9 @@
     "declaration": true,
     "outDir": "./dist",
     "declarationDir": "./dist",
+    "rootDir": "./src",
+    "sourceMap": true,
+    "inlineSources": true,
     "strict": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
@@ -12,6 +15,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "importHelpers": true,
     "types": [
       "jest",
       "reflect-metadata"
@@ -26,5 +30,7 @@
   },
   "include": [
     "./src/**/*.ts"
+  ],
+  "exclude": [
   ]
 }

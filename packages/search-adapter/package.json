@@ -9,7 +9,9 @@
     "build:watch": "tsc --watch",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "lint": "tslint --project tsconfig.json",
+    "link": "npm link @empathy/search-types && npm link @empathy/logger"
   },
   "repository": {
     "type": "git",
@@ -21,23 +23,23 @@
     "client",
     "fetch"
   ],
-  "author": "",
-  "license": "ISC",
   "homepage": "https://bitbucket.org/colbenson/search-adapter#readme",
-  "devDependencies": {
-    "@empathy/get-safe-property-chain": "^1.0.0",
-    "@empathy/search-types": "~1.0.0",
-    "@types/jest": "^24.0.12",
-    "jest": "^24.7.1",
-    "ts-jest": "^24.0.2",
-    "tslint": "^5.16.0",
-    "typescript": "^3.4.5"
-  },
   "dependencies": {
+    "@empathy/get-safe-property-chain": "~1.0.0",
+    "@empathy/logger": "~1.0.0",
+    "@empathy/search-types": "~1.0.9",
     "@empathybroker/deep-merge": "^1.1.2",
-    "@empathybroker/eb-tslint": "0.0.8",
-    "inversify": "^5.0.1",
+    "inversify": "~5.0.1",
     "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@empathy/jest-utils": "~1.0.1",
+    "@empathybroker/eb-tslint": "0.0.15",
+    "@types/jest": "~24.0.12",
+    "jest": "~24.7.1",
+    "ts-jest": "~24.0.2",
+    "tslint": "~5.16.0",
+    "typescript": "~3.5.1"
   },
   "files": [
     "dist/**/*"
