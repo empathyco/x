@@ -32,7 +32,7 @@ it('Allows you to add global mappers', () => {
   builder.addClassMapper(CustomResultMapper, 'results')
     .build();
   const mappers = container.getAll<ResponseMapper>(DEPENDENCIES.ResponseMappers.results);
-  expect(mappers.find(mapper => mapper instanceof CustomResultMapper)).toBeTruthy();
+  expect(mappers.find(mapper => mapper instanceof CustomResultMapper)).toBeDefined();
   expect(mappers.length).toBeGreaterThanOrEqual(2);
 });
 
@@ -67,7 +67,7 @@ it('Allows you to add request global mappers', () => {
   builder.addClassRequestMapper(CustomRequestMapper)
     .build();
   const mappers = container.getAll<RequestMapper>(DEPENDENCIES.requestMappers);
-  expect(mappers.find(mapper => mapper instanceof CustomRequestMapper)).toBeTruthy();
+  expect(mappers.find(mapper => mapper instanceof CustomRequestMapper)).toBeDefined();
   expect(mappers.length).toBeGreaterThanOrEqual(2);
 });
 

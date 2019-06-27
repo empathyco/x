@@ -6,7 +6,7 @@ export interface EmpathyFacet {
 export interface EmpathyFilter {
   count: number;
   filter: string;
-  selected: boolean;
+  selected?: boolean;
   value: string;
   values?: EmpathyFilter[];
 }

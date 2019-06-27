@@ -14,8 +14,8 @@ export class EmpathyFilterMapper implements ResponseMapper<EmpathyFilter, Filter
     return Object.assign(filter, {
       count: rawFilter.count,
       title: rawFilter.value,
-      selected: previouslySelected || rawFilter.selected || false,
-      entityDetected: !previouslySelected && rawFilter.selected,
+      selected: previouslySelected || !!rawFilter.selected,
+      entityDetected: !previouslySelected && !!rawFilter.selected,
       parent: filter.parent || null,
       callbackInfo: {}
     });
