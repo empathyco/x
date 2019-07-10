@@ -8,7 +8,7 @@ beforeEach(jest.clearAllMocks);
 it('gets result recommendations successfully', async () => {
   window.fetch = jest.fn(getFetchMock(RecommendationsSimpleResponse));
 
-  const response = await adapter.getRecommendations({ start: 0, rows: 24, origin: 'test' });
+  const response = await adapter.getRecommendations({ start: 0, rows: 24, origin: 'test', query: 'test' });
 
   // Recommendations are the same as results, but without the query tagging
   expect(response.results).toHaveLength(RecommendationsSimpleResponse.topclicked.docs.length);

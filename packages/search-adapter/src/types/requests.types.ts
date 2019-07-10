@@ -6,7 +6,7 @@ export interface SearchRequest extends QueryableRequest, FilterableRequest, Page
   sort?: string;
 }
 
-export interface RecommendationsRequest extends FilterableRequest, PageableRequest, TrackableRequest {}
+export interface RecommendationsRequest extends FilterableRequest, PageableRequest, TrackableRequest, Partial<QueryableRequest> {}
 
 export interface SearchByIdRequest extends QueryableRequest, PageableRequest, TrackableRequest {}
 
