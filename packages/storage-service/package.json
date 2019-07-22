@@ -1,0 +1,21 @@
+{
+  "name": "@empathy/storage-service",
+  "version": "1.0.0-alpha.1",
+  "description": "Storage service with TTL",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/colbenson/storage-service.git"
+  },
+  "keywords": [
+    "storage",
+    "cache",
+    "service",
+    "ttl",
+    "local",
+    "session"
+  ],
+  "author": "empathy.co",
+  "homepage": "https://bitbucket.org/colbenson/storage-service#readme"
+}
