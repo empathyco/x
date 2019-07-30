@@ -37,63 +37,46 @@ it('Empathy facets mapping', () => {
 
 it('maps a filters previous selection state', () => {
   const filterId = 'hierarchical_category:"juegos_de_manualidades\\/construye"';
-  const context = deepMerge({}, emptyContext, {
-    rawRequest: {
-      filters: {
-        hierarchical_category: [
-          { id: filterId, selected: true } as Filter
-        ]
-      }
-    } as FilterableRequest
-  });
+  const context = createContextWithFilterSelected(filterId);
 
   const mappedFacet = mapFacet(deepFacet as any, {} as Facet, context);
-  const targetFilter = findFiltersDeep(mappedFacet.filters, filter => filterId === filter.id);
+  const targetFilter = findFilterById(mappedFacet.filters, filterId);
 
-  if (targetFilter) {
-    expect(targetFilter.selected).toEqual(true);
-  } else {
-    fail(`Filter with id ${ filterId } couldn't be found`);
-  }
+  expectFacetToMatchMock(mappedFacet, deepFacet);
+  expectAllFiltersToBeValid(mappedFacet.filters);
+  expectFilterAncestorsToBeSelected(targetFilter);
 });
 
 it('maps filters correctly if the response does not have the selected property', () => {
-  const filterId = 'hierarchical_category:"juegos_de_manualidades\\/construye"';
-  const context = deepMerge({}, emptyContext, {
-    rawRequest: {
-      filters: {
-        hierarchical_category: [
-          { id: filterId, selected: true } as Filter
-        ]
-      }
-    } as FilterableRequest
-  });
+  const filterId = 'hierarchical_category:"juegos_de_manualidades\\/construye\\/construye-hija"';
+  const context = createContextWithFilterSelected(filterId);
 
   const mappedFacet = mapFacet(deepFacetWithNoSelectedProperty as any, {} as Facet, context);
-  const targetFilter = findFiltersDeep(mappedFacet.filters, filter => filterId === filter.id);
+  const targetFilter = findFilterById(mappedFacet.filters, filterId);
 
-  expect(mappedFacet).toMatchObject(FacetSchema);
-  expect(mappedFacet.title).toEqual(deepFacetWithNoSelectedProperty.facet);
-  expect(mappedFacet.filters.length).toEqual(deepFacetWithNoSelectedProperty.values.length);
-  expect(mappedFacet.filters[1].children[0].children[0]).toBeDefined();
+  expectFacetToMatchMock(mappedFacet, deepFacetWithNoSelectedProperty);
   expectAllFiltersToBeValid(mappedFacet.filters);
-  if (targetFilter) {
-    expect(targetFilter.selected).toEqual(true);
-  } else {
-    fail(`Filter with id ${ filterId } couldn't be found`);
-  }
+  expectFilterAncestorsToBeSelected(targetFilter);
+  expect(mappedFacet.filters[1].children[0].children[0]).toBeDefined();
 });
 
 it('maps filters selected property to false by default', () => {
   const mappedFacet = mapFacet(deepFacetWithNoSelectedProperty as any, {} as Facet, emptyContext);
 
-  expect(mappedFacet).toMatchObject(FacetSchema);
-  expect(mappedFacet.title).toEqual(deepFacetWithNoSelectedProperty.facet);
-  expect(mappedFacet.filters.length).toEqual(deepFacetWithNoSelectedProperty.values.length);
-  expect(mappedFacet.filters[1].children[0].children[0]).toBeDefined();
+  expectFacetToMatchMock(mappedFacet, deepFacetWithNoSelectedProperty);
   expectAllFiltersToBeValid(mappedFacet.filters);
   expectAllFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
 });
+
+function createContextWithFilterSelected(filterId: string): FilterableRequest {
+  return deepMerge({}, emptyContext, {
+    rawRequest: {
+      filters: {
+        hierarchical_category: [{ id: filterId, selected: true } as Filter]
+      }
+    } as FilterableRequest
+  });
+}
 
 function expectAllFiltersToBeValid(filters: Filter[]): void {
   return filters.forEach(filter => {
@@ -102,16 +85,14 @@ function expectAllFiltersToBeValid(filters: Filter[]): void {
   });
 }
 
-function findFiltersDeep(filters: Filter[], predicate: (filter: Filter) => boolean): Filter | undefined {
-  let foundFilter: Filter | undefined;
-  filters.some(filter => {
-    if (predicate(filter)) {
-      foundFilter = filter;
-    } else {
-      foundFilter = findFiltersDeep(filter.children, predicate);
-    }
-    return !!foundFilter;
-  });
+function findFilterById(filters: Filter[], id: string): Filter {
+  const searchFn = (target: Filter | null, filter: Filter): Filter | null => target || filter.id === id
+    ? filter
+    : filter.children.reduce(searchFn, null);
+  const foundFilter = filters.reduce(searchFn, null);
+  if (!foundFilter) {
+    throw new Error(`Filter with id ${ id } couldn't be found`);
+  }
   return foundFilter;
 }
 
@@ -120,4 +101,17 @@ function expectAllFiltersToHaveSelectedPropertyTo(filters: Filter[], selected: b
     expect(filter.selected).toEqual(selected);
     expectAllFiltersToHaveSelectedPropertyTo(filter.children, selected);
   });
+}
+
+function expectFilterAncestorsToBeSelected(filter: Filter) {
+  expect(filter.selected).toEqual(true);
+  if (filter.parent) {
+    expectFilterAncestorsToBeSelected(filter.parent);
+  }
+}
+
+function expectFacetToMatchMock(facet: Facet, rawFacet: EmpathyFacet) {
+  expect(facet).toMatchObject(FacetSchema);
+  expect(facet.title).toEqual(rawFacet.facet);
+  expect(facet.filters.length).toEqual(rawFacet.values.length);
 }

@@ -9,15 +9,23 @@ export class EmpathyFilterMapper implements ResponseMapper<EmpathyFilter, Filter
 
   map(rawFilter: EmpathyFilter, filter: Filter, context: ResponseMapperContext): Filter {
     const selectedFilters: Dictionary<Filter> = context.selectedFilters || {};
-    const previouslySelected = selectedFilters[filter.id] && selectedFilters[filter.id].selected;
+    const selected = !!selectedFilters[filter.id];
 
-    return Object.assign(filter, {
+    Object.assign(filter, {
       count: rawFilter.count,
       title: rawFilter.value,
-      selected: previouslySelected || !!rawFilter.selected,
-      entityDetected: !previouslySelected && !!rawFilter.selected,
+      entityDetected: false, // TODO Remove this from the facet model as it is not used anymore
       parent: filter.parent || null,
       callbackInfo: {}
     });
+    this.mapSelectedPropertyInHierarchy(filter, selected);
+    return filter;
+  }
+
+  protected mapSelectedPropertyInHierarchy(filter: Filter, selected: boolean) {
+    filter.selected = selected;
+    if (filter.parent && selected) {
+      this.mapSelectedPropertyInHierarchy(filter.parent, selected);
+    }
   }
 }

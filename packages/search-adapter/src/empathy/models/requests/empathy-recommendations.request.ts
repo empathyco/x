@@ -6,4 +6,5 @@ export interface EmpathyRecommendationsRequest {
   scope: string;
   store?: string;
   warehouse?: string;
+  q?: string;
 }

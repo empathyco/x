@@ -55,7 +55,7 @@ export const deepFacetWithNoSelectedProperty: EmpathyFacet = {
             {
               'value': 'Construye Hija',
               'count': 10,
-              'filter': '{!tag=hierarchical_category}hierarchical_category:"juegos_de_manualidades\\/construye/construye-hija"'
+              'filter': '{!tag=hierarchical_category}hierarchical_category:"juegos_de_manualidades\\/construye\\/construye-hija"'
             }
           ]
         }

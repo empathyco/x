@@ -37,7 +37,7 @@ export class EmpathyResultMapper implements ResponseMapper<EmpathyResult, Result
       modelName: 'Result',
       type: 'default',
       id: rawResult.id,
-      name: rawResult.name ? rawResult.name.toLowerCase() : '',
+      name: rawResult.name || '',
       url: rawResult.url,
       images: rawResult.image ? [rawResult.image] : [],
       price: {

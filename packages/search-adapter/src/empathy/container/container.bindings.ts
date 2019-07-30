@@ -5,7 +5,6 @@ import { EmpathyResultMapper, EmpathyResultQueryTaggingMapper } from '../mappers
 import { EmpathyQueryableRequestMapper } from '../mappers/request/empathy-queryable-request.mapper';
 import { EmpathyRequestParamsMapper } from '../mappers/request/empathy-request-params.mapper';
 import { EmpathySearchRequestMapper } from '../mappers/request/empathy-search-request.mapper';
-import { EmpathySimpleRequestMapper } from '../mappers/request/empathy-simple-request.mapper';
 import { EmpathyRequestFiltersSolrSyntaxMapper } from '../mappers/request/params/empathy-request-filters-solr-syntax.mapper';
 import { EmpathyRequestFiltersMapper } from '../mappers/request/params/empathy-request-filters.mapper';
 import { EmpathyRequestQueryMapper } from '../mappers/request/params/empathy-request-query.mapper';
@@ -59,7 +58,7 @@ export const BINDINGS: BindingDictionary = {
     default: EmpathyRequestParamsMapper,
     whenInjectedInto: {
       [DEPENDENCIES.Requestors.nextQueries]: EmpathyQueryableRequestMapper,
-      [DEPENDENCIES.Requestors.recommendations]: EmpathySimpleRequestMapper,
+      [DEPENDENCIES.Requestors.recommendations]: EmpathyQueryableRequestMapper,
       [DEPENDENCIES.Requestors.search]: EmpathySearchRequestMapper,
       [DEPENDENCIES.Requestors.relatedTags]: EmpathyQueryableRequestMapper,
       [DEPENDENCIES.Requestors.searchById]: EmpathyQueryableRequestMapper,

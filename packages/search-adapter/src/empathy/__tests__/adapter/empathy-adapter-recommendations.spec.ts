@@ -1,16 +1,38 @@
 import { RecommendationSchema } from '@empathy/search-types/schemas';
 import { RecommendationsSimpleResponse } from '../../__fixtures__/responses/recommendations.response';
 import { adapter } from '../../__mocks__/adapter.mocks';
-import { getFetchMock } from '../../__mocks__/fetch.mock';
+import { getFetchMock, okFetchMock } from '../../__mocks__/fetch.mock';
+
+const baseRequest = { start: 0, rows: 24, origin: 'no_results', query: 'test' };
 
 beforeEach(jest.clearAllMocks);
 
 it('gets result recommendations successfully', async () => {
   window.fetch = jest.fn(getFetchMock(RecommendationsSimpleResponse));
 
-  const response = await adapter.getRecommendations({ start: 0, rows: 24, origin: 'test' });
+  const response = await adapter.getRecommendations(baseRequest);
 
   // Recommendations are the same as results, but without the query tagging
   expect(response.results).toHaveLength(RecommendationsSimpleResponse.topclicked.docs.length);
   expect(response.results).everyItemToMatch(RecommendationSchema);
+});
+
+it('adds the query to recommendations', async () => {
+  window.fetch = okFetchMock as any;
+
+  await adapter.getRecommendations(baseRequest);
+
+  expect(okFetchMock.mock.calls[0][0]).toContain('q=test');
+});
+
+it('DOES NOT add the query to recommendations when it is undefined/not passed', async () => {
+  window.fetch = okFetchMock as any;
+  const { origin } = baseRequest;
+
+  // Origin is the only required field
+  await adapter.getRecommendations({ origin, query: undefined });
+  await adapter.getRecommendations({ origin });
+
+  expect(okFetchMock.mock.calls[0][0]).not.toContain('q=');
+  expect(okFetchMock.mock.calls[1][0]).not.toContain('q=');
 });

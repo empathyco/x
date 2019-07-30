@@ -10,8 +10,8 @@ import { pipeMappers } from '../pipe-mappers';
 
 @injectable()
 export class EmpathyFacetMapper implements ResponseMapper<EmpathyFacet, Facet> {
-  private readonly facetsConfig: FacetsConfig;
-  private readonly mapFilter: MapFn<EmpathyFilter, Filter>;
+  protected readonly facetsConfig: FacetsConfig;
+  protected readonly mapFilter: MapFn<EmpathyFilter, Filter>;
 
   constructor(
     @multiInject(DEPENDENCIES.ResponseMappers.filters) filterMappers: ResponseMapper<EmpathyFilter, Filter>[],
@@ -29,12 +29,11 @@ export class EmpathyFacetMapper implements ResponseMapper<EmpathyFacet, Facet> {
       title: rawFacet.facet,
       preselected: facetConfig.preselected
     });
-    return Object.assign<Facet, Partial<Facet>>(facet, {
-      filters: this.mapFiltersTree(facet, rawFacet.values, context)
-    });
+    facet.filters = this.mapFiltersTree(facet, rawFacet.values, context);
+    return facet;
   }
 
-  private addSelectedFiltersToContext(context: ResponseMapperContext) {
+  protected addSelectedFiltersToContext(context: ResponseMapperContext) {
     if (this.hasRequestFilters(context.rawRequest) && !context.selectedFilters) {
       context.selectedFilters = Object.values(context.rawRequest.filters)
         .reduce((filters, facetFilters) => {
@@ -44,27 +43,25 @@ export class EmpathyFacetMapper implements ResponseMapper<EmpathyFacet, Facet> {
     }
   }
 
-  private createFilter(rawFilter: EmpathyFilter, filter: Filter, context: ResponseMapperContext): Filter {
-    return this.mapFilter(rawFilter, Object.assign(filter, {
-      children: this.mapFilters(rawFilter.values, { ...filter, parent: filter }, context)
-    }), context);
-  }
-
-  private hasRequestFilters(request: any): request is Required<FilterableRequest> {
+  protected hasRequestFilters(request: any): request is Required<FilterableRequest> {
     return !!(request as FilterableRequest).filters;
   }
 
-  private mapFilters(rawFilters: EmpathyFilter[] = [], initialFilterProperties: Readonly<Partial<Filter>>,
-    context: ResponseMapperContext) {
-    return rawFilters.map(rawFilter => this.createFilter(rawFilter, { ...initialFilterProperties } as Filter, context));
-  }
-
-  private mapFiltersTree(facet: Facet, rawFilters: EmpathyFilter[], context: ResponseMapperContext): Filter[] {
+  protected mapFiltersTree(facet: Facet, rawFilters: EmpathyFilter[], context: ResponseMapperContext): Filter[] {
     const { filterModelName, needsParentFilters, isDynamic } = this.facetsConfig.named[facet.modelName] || this.facetsConfig.default;
     const initialFilterProperties: Partial<Filter> = { facet, needsParentFilter: needsParentFilters, modelName: filterModelName };
     return isDynamic
-      // We only map the first filter because its values will be overriden dynamically by the user
-      ? [this.createFilter(rawFilters[0], initialFilterProperties as Filter, context)]
+      // We only map the first filter because its values will be overridden dynamically by the user
+      ? [this.mapFilter(rawFilters[0], initialFilterProperties as Filter, context)]
       : this.mapFilters(rawFilters, initialFilterProperties, context);
+  }
+
+  protected mapFilters(rawFilters: EmpathyFilter[] = [], initialFilterProperties: Readonly<Partial<Filter>>,
+    context: ResponseMapperContext): Filter[] {
+    return rawFilters.map(rawFilter => {
+      const filter = this.mapFilter(rawFilter, { ...initialFilterProperties } as Filter, context);
+      filter.children = this.mapFilters(rawFilter.values, { ...initialFilterProperties, parent: filter }, context);
+      return filter;
+    });
   }
 }
