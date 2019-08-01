@@ -4,6 +4,14 @@
   "description": "Storage service with TTL",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "tslint --project tsconfig.json"
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/colbenson/storage-service.git"
@@ -17,5 +25,13 @@
     "session"
   ],
   "author": "empathy.co",
-  "homepage": "https://bitbucket.org/colbenson/storage-service#readme"
+  "homepage": "https://bitbucket.org/colbenson/storage-service#readme",
+  "devDependencies": {
+    "@empathybroker/eb-tslint": "~0.0.15",
+    "@types/jest": "~24.0.15",
+    "jest": "~24.8.0",
+    "ts-jest": "~24.0.2",
+    "tslint": "~5.18.0",
+    "typescript": "~3.5.3"
+  }
 }
