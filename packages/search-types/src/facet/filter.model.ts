@@ -5,10 +5,8 @@ export interface Filter<ValueType = any> extends NamedModel {
   callbackInfo: Record<string, any>;
   children: this[];
   count: number;
-  entityDetected: boolean;
   facet: Facet;
   id: string;
-  needsParentFilter: boolean;
   parent: this | null;
   selected: boolean;
   title: string;
