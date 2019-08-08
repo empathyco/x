@@ -14,7 +14,6 @@ export class EmpathyFilterMapper implements ResponseMapper<EmpathyFilter, Filter
     Object.assign(filter, {
       count: rawFilter.count,
       title: rawFilter.value,
-      entityDetected: false, // TODO Remove this from the facet model as it is not used anymore
       parent: filter.parent || null,
       callbackInfo: {}
     });

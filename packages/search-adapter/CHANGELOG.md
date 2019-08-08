@@ -1,5 +1,9 @@
 # Search Adapter Changelog
 
+> ## 2.0.0
+>
+> EX-1240 Remove needsParentFilter and entityDetected properties
+
 > ## 1.1.0
 >
 > EX-1187 Fixed hierarchical filters not mapping parent selected property correctly

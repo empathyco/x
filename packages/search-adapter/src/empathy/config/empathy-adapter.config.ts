@@ -68,7 +68,6 @@ export const DEFAULT_EMPATHY_ADAPTER_CONFIG: EmpathyAdapterConfig = {
         filterModelName: FilterModel.simple,
         isDynamic: false,
         multiSelectable: MultiSelect.Disabled,
-        needsParentFilters: false,
         showUnselectedValues: true,
         preselected: false,
         prefix: {

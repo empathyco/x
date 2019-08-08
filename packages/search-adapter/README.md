@@ -81,7 +81,6 @@ This is the full set of properties supported by the EmpathyAdapter. As you saw a
 | `mappings.facets.default.filterModelName` | `'SimpleFilter'` | `FilterModel`, string | The filter type |
 | `mappings.facets.default.isDynamic` | `false` | `boolean` | If the facet is dynamic (the users can input whatever they want) or not |
 | `mappings.facets.default.multiSelectable` | `'disabled'` | `MultiSelect` | Whether the facet is multi-selectable or not, and if it is when should this multiselection be mapped (front-end or back-end) |
-| `mappings.facets.default.needsParentFilters` | `false` | `boolean` | Some hierarchical facets (like the rootCategories) need to send the whole selected hierarchy in every request. This is the parameter to configure it |
 | `mappings.facets.default.showUnselectedValues` | `true` | `boolean` | If you want the response to send us the rest of unselected filters of a facet or not|
 | `mappings.facets.default.preselected` | `false` | `boolean` | A preselected facet can be unselected. It is sent in every request. It only can be changed to another filter of the same facet. |
 | `mappings.facets.default.prefix.facetName` | The facetName | `string`, `(context: FilterValueMapperParams) => string` | The facet name prefix used by Solr |

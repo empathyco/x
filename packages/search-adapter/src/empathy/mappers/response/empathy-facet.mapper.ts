@@ -48,8 +48,8 @@ export class EmpathyFacetMapper implements ResponseMapper<EmpathyFacet, Facet> {
   }
 
   protected mapFiltersTree(facet: Facet, rawFilters: EmpathyFilter[], context: ResponseMapperContext): Filter[] {
-    const { filterModelName, needsParentFilters, isDynamic } = this.facetsConfig.named[facet.modelName] || this.facetsConfig.default;
-    const initialFilterProperties: Partial<Filter> = { facet, needsParentFilter: needsParentFilters, modelName: filterModelName };
+    const { filterModelName, isDynamic } = this.facetsConfig.named[facet.modelName] || this.facetsConfig.default;
+    const initialFilterProperties: Partial<Filter> = { facet, modelName: filterModelName };
     return isDynamic
       // We only map the first filter because its values will be overridden dynamically by the user
       ? [this.mapFilter(rawFilters[0], initialFilterProperties as Filter, context)]

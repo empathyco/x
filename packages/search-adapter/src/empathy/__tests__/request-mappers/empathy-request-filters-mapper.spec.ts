@@ -54,24 +54,6 @@ it('Composes filters with OR on frontend', () => {
   expect(mappedFilters).toEqual(['{!tag=color}color:(blue OR red)']);
 });
 
-it('Adds parent filters if needed', () => {
-  const facet = getMockedFacet('category');
-  const manFilter = getMockedSimpleFilter('man', facet, { needsParentFilter: true });
-  const summerFilter = getMockedSimpleFilter('summer', facet, { needsParentFilter: true, parent: manFilter });
-  const shirtsFilter = getMockedSimpleFilter('shirts', facet, { needsParentFilter: true, parent: summerFilter });
-  const filters: Dictionary<Filter[]> = {
-    category: [shirtsFilter]
-  };
-
-  const mappedFilters = filtersMapper.map(filters, [], emptyContext);
-
-  expect(mappedFilters).toEqual([
-    '{!tag=category}category:shirts',
-    '{!tag=category}category:summer',
-    '{!tag=category}category:man'
-  ]);
-});
-
 it('Removes the no-tag when you don\'t want to show unselected values', () => {
   config.mappings.facets.default.showUnselectedValues = false;
   const facet = getMockedFacet('category');
@@ -124,11 +106,9 @@ function getMockedSimpleFilter(name: string, facet: Facet, partial?: DeepPartial
     parent: null,
     callbackInfo: {},
     modelName: FilterModel.simple,
-    entityDetected: false,
     count: 10,
     id: name,
     title: name,
-    needsParentFilter: false,
     value: {
       filter: name
     }

@@ -57,7 +57,6 @@ export interface FacetConfig {
   filterModelName: string;
   isDynamic: boolean;
   multiSelectable: MultiSelect;
-  needsParentFilters: boolean;
   preselected: boolean;
   showUnselectedValues: boolean;
   prefix: {
