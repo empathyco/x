@@ -63,3 +63,19 @@ it('clears all the items', () => {
   expect(storage.clear()).toEqual(2);
   expect(localStorage).toHaveLength(0);
 });
+
+it('does not allow you to save undefined values', () => {
+  storage.setItem(key, undefined);
+  expect(localStorage).toHaveLength(0);
+});
+
+it('allows you to save null values', () => {
+  storage.setItem(key, null);
+  expect(storage.getItem(key)).toEqual(null);
+});
+
+it('returns null if you try to retrieve a non valid JSON item', () => {
+  localStorage.setItem(`empathy-${key}`, '{a: 1}');
+  expect(localStorage).toHaveLength(1);
+  expect(storage.getItem(key)).toEqual(null);
+});
