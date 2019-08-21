@@ -29,7 +29,7 @@ export class StorageService {
     return null;
   }
 
-  removeItem<T = any>(key: string): T {
+  removeItem<T = any>(key: string): T | null {
     const item = this.getItem(key);
     const prefixedKey = this.prefixKey(key);
     this.storage.removeItem(prefixedKey);

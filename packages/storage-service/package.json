@@ -1,6 +1,6 @@
 {
   "name": "@empathy/storage-service",
-  "version": "1.1.0",
+  "version": "1.2.0-alpha.1",
   "description": "Storage service with TTL",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
