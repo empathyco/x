@@ -1,7 +1,6 @@
 import { getSafePropertyChain } from '@empathy/get-safe-property-chain';
 import { inject, injectable, multiInject, optional } from 'inversify';
-import { FeatureNames, RequestOptions } from '../../types';
-import { Dictionary } from '../../utils/utils.types';
+import { Dictionary, FeatureNames, RequestOptions } from '../../types';
 import { EmpathyAdapterConfig, FeatureConfig } from '../config/empathy-adapter-config.types';
 import { DEPENDENCIES } from '../container/container.const';
 import {
@@ -17,10 +16,10 @@ import {
   ResponseTransformed,
   ResponseTransformedContext
 } from '../empathy-adapter.types';
-import { EndpointsService } from '../endpoints-services/endpoints-service.types';
 import { EntityNames } from '../entities.types';
 import { HttpClient } from '../http-clients/http-client.types';
 import { pipeMappers } from '../mappers/pipe-mappers';
+import { EndpointsService } from '../services/endpoints-service.types';
 
 @injectable()
 export class FeatureRequestor<RequestType, ResponseType extends Dictionary<any>> implements Requestor<RequestType, ResponseType> {
@@ -29,16 +28,16 @@ export class FeatureRequestor<RequestType, ResponseType extends Dictionary<any>>
   protected featureConfig: FeatureConfig<any>;
 
   constructor(
-    @inject(DEPENDENCIES.config) readonly config: EmpathyAdapterConfig,
-    @inject(DEPENDENCIES.featureName) private readonly feature: FeatureNames,
-    @inject(DEPENDENCIES.httpClient) private readonly httpClient: HttpClient,
-    @inject(DEPENDENCIES.endpointsService) private readonly endpointsService: EndpointsService,
+    @inject(DEPENDENCIES.config) protected readonly config: EmpathyAdapterConfig,
+    @inject(DEPENDENCIES.featureName) protected readonly feature: FeatureNames,
+    @inject(DEPENDENCIES.httpClient) protected readonly httpClient: HttpClient,
+    @inject(DEPENDENCIES.endpointsService) protected readonly endpointsService: EndpointsService,
     @multiInject(DEPENDENCIES.requestMappers) requestMappers: ResponseMapper[],
     @inject(DEPENDENCIES.entityMappers) mappers: Record<EntityNames, ResponseMapper[]>,
-    @optional() @multiInject(DEPENDENCIES.Hooks.beforeRequest) private readonly beforeRequest: BeforeRequest[] = [],
+    @optional() @multiInject(DEPENDENCIES.Hooks.beforeRequest) protected readonly beforeRequest: BeforeRequest[] = [],
     @optional() @multiInject(
-      DEPENDENCIES.Hooks.beforeResponseTransformed) private readonly beforeResponseTransformed: BeforeResponseTransform[] = [],
-    @optional() @multiInject(DEPENDENCIES.Hooks.responseTransformed) private readonly responseTransformed: ResponseTransformed[] = []
+      DEPENDENCIES.Hooks.beforeResponseTransformed) protected readonly beforeResponseTransformed: BeforeResponseTransform[] = [],
+    @optional() @multiInject(DEPENDENCIES.Hooks.responseTransformed) protected readonly responseTransformed: ResponseTransformed[] = []
   ) {
     this.mapRequest = pipeMappers(...requestMappers);
     this.featureConfig = config.features[feature];
@@ -51,11 +50,14 @@ export class FeatureRequestor<RequestType, ResponseType extends Dictionary<any>>
   request(rawRequest: RequestType, requestOptions: RequestOptions = {}): Promise<ResponseType> {
     const feature = this.feature;
     const url = this.endpointsService.buildUrl(this.featureConfig.endpoint);
+    if (requestOptions.ttlInMinutes === undefined) {
+      requestOptions.ttlInMinutes = this.featureConfig.cacheTTLInMinutes;
+    }
     const requestContext = { requestOptions, feature, url };
     const request = this.mapRequest(rawRequest, {}, requestContext);
     const beforeRequestContext = { ...requestContext, rawRequest, request };
     this.runHooks(this.beforeRequest, beforeRequestContext);
-    return this.httpClient.get<Dictionary<any>, any>(url, request, requestOptions)
+    return this.httpClient.get<any>(url, request, requestOptions)
       .then(rawResponse => {
         const beforeResponseTransformedContext = { ...beforeRequestContext, rawRequest, request };
         this.runHooks(this.beforeResponseTransformed, beforeResponseTransformedContext);

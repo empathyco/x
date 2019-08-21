@@ -1,5 +1,5 @@
 import { Filter, RelatedTag } from '@empathy/search-types';
-import { Dictionary } from '../utils/utils.types';
+import { Dictionary } from './utils.types';
 
 export interface SearchRequest extends QueryableRequest, FilterableRequest, PageableRequest, TrackableRequest {
   relatedTags?: RelatedTag[];
@@ -41,5 +41,6 @@ export interface TrackableRequest {
 
 export interface RequestOptions {
   requestId?: string;
+  ttlInMinutes?: number;
   [key: string]: any;
 }

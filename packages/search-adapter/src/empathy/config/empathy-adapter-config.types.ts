@@ -1,5 +1,6 @@
 import { Filter, MultiSelect } from '@empathy/search-types';
 import {
+  Dictionary,
   FeatureNames,
   NextQueriesResponse,
   RecommendationsResponse,
@@ -8,7 +9,6 @@ import {
   SearchResponse,
   SuggestionsResponse
 } from '../../types';
-import { Dictionary } from '../../utils/utils.types';
 
 export interface EmpathyAdapterConfig {
   env: 'live' | 'staging' | 'test';
@@ -31,6 +31,7 @@ export interface EmpathyAdapterConfig {
 export interface FeatureConfig<Feature extends FeatureNames> {
   endpoint: string;
   responsePaths: Record<(keyof (FeaturesResponseTypes[Feature]) | string), string>;
+  cacheTTLInMinutes?: number;
 }
 
 export interface FeaturesResponseTypes {

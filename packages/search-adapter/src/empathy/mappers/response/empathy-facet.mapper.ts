@@ -1,7 +1,6 @@
 import { Facet, Filter } from '@empathy/search-types';
 import { inject, injectable, multiInject } from 'inversify';
-import { FilterableRequest } from '../../../types';
-import { Dictionary } from '../../../utils/utils.types';
+import { Dictionary, FilterableRequest } from '../../../types';
 import { EmpathyAdapterConfig, FacetsConfig } from '../../config/empathy-adapter-config.types';
 import { DEPENDENCIES } from '../../container/container.const';
 import { MapFn, ResponseMapper, ResponseMapperContext } from '../../empathy-adapter.types';

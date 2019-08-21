@@ -1,5 +1,5 @@
+import { StorageService } from '@empathy/storage-service';
 import { DEFAULT_EMPATHY_ADAPTER_CONFIG } from '../config/empathy-adapter.config';
-import { EmpathyEndpointsService } from '../endpoints-services/empathy-endpoints.service';
 import { FetchHttpClient } from '../http-clients/fetch-http-client';
 import { EmpathyResultMapper, EmpathyResultQueryTaggingMapper } from '../mappers';
 import { EmpathyQueryableRequestMapper } from '../mappers/request/empathy-queryable-request.mapper';
@@ -26,6 +26,7 @@ import { EmpathySuggestionFacetsMapper } from '../mappers/response/suggestions/e
 import { EmpathySuggestionMapper } from '../mappers/response/suggestions/empathy-suggestion.mapper';
 import { BeaconTrackingRequestor } from '../requestors/beacon-tracking.requestor';
 import { FeatureRequestor } from '../requestors/feature.requestor';
+import { EmpathyEndpointsService } from '../services/empathy-endpoints.service';
 import { DEPENDENCIES } from './container.const';
 import { BindingDictionary } from './container.types';
 
@@ -33,6 +34,7 @@ export const BINDINGS: BindingDictionary = {
   [DEPENDENCIES.config]: { toConstant: DEFAULT_EMPATHY_ADAPTER_CONFIG },
   [DEPENDENCIES.httpClient]: FetchHttpClient,
   [DEPENDENCIES.endpointsService]: EmpathyEndpointsService,
+  [DEPENDENCIES.storageService]: { toConstant: new StorageService(localStorage, 'empathy-adapter') },
   [DEPENDENCIES.entityMappers]: ResponseMappers,
   [DEPENDENCIES.featureName]: {
     toConstantWhenInjectedInto: {

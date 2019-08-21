@@ -1,11 +1,12 @@
 import { Suggestion } from '@empathy/search-types';
 import { inject, injectable } from 'inversify';
-import { Dictionary } from '../../utils/utils.types';
+import { Dictionary } from '../../types';
 import { FeatureConfig } from '../config/empathy-adapter-config.types';
 import { ResponseMapper } from '../empathy-adapter.types';
 import { HttpClient } from '../http-clients/http-client.types';
 
 export const featureConfig: FeatureConfig<'suggestions'> = {
+  cacheTTLInMinutes: 0,
   endpoint: 'endpoint',
   responsePaths: {
     suggestions: 'data.suggestions'

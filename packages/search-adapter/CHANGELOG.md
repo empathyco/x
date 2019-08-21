@@ -1,5 +1,9 @@
 # Search Adapter Changelog
 
+> ## 2.1.0
+>
+> EX-1246 Cache API responses with a configurable TTL per feature and invalidation
+
 > ## 2.0.0
 >
 > EX-1240 Remove needsParentFilter and entityDetected properties

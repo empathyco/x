@@ -1,7 +1,6 @@
 import { Filter, RelatedTag } from '@empathy/search-types';
 import { injectable, multiInject } from 'inversify';
-import { SearchRequest } from '../../../types';
-import { Dictionary } from '../../../utils/utils.types';
+import { Dictionary, SearchRequest } from '../../../types';
 import { DEPENDENCIES } from '../../container/container.const';
 import { MapRequest, RequestMapper, RequestMapperContext } from '../../empathy-adapter.types';
 import { EmpathySearchRequest } from '../../models';

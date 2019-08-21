@@ -1,4 +1,5 @@
 import { FilterModel, MultiSelect } from '@empathy/search-types';
+import { DEFAULT_CACHE_CONFIG } from './cache.config';
 import { EmpathyAdapterConfig } from './empathy-adapter-config.types';
 
 export const DEFAULT_EMPATHY_ADAPTER_CONFIG: EmpathyAdapterConfig = {
@@ -13,19 +14,22 @@ export const DEFAULT_EMPATHY_ADAPTER_CONFIG: EmpathyAdapterConfig = {
       endpoint: 'api{env}.empathybroker.com/search/v1/query/{instance}/nextqueries',
       responsePaths: {
         nextQueries: ''
-      }
+      },
+      cacheTTLInMinutes: DEFAULT_CACHE_CONFIG.TTLInMinutes.Side
     },
     recommendations: {
       endpoint: 'api{env}.empathybroker.com/search/v1/query/{instance}/topclicked',
       responsePaths: {
         results: 'topclicked.docs'
-      }
+      },
+      cacheTTLInMinutes: DEFAULT_CACHE_CONFIG.TTLInMinutes.Side
     },
     relatedTags: {
       endpoint: 'api{env}.empathybroker.com/search/v1/query/{instance}/relatedtags',
       responsePaths: {
         relatedTags: ''
-      }
+      },
+      cacheTTLInMinutes: DEFAULT_CACHE_CONFIG.TTLInMinutes.Side
     },
     search: {
       endpoint: 'api{env}.empathybroker.com/search/v1/query/{instance}/search',
@@ -39,19 +43,22 @@ export const DEFAULT_EMPATHY_ADAPTER_CONFIG: EmpathyAdapterConfig = {
         results: 'content.docs',
         spellcheck: 'content.spellchecked',
         totalResults: 'content.numFound'
-      }
+      },
+      cacheTTLInMinutes: DEFAULT_CACHE_CONFIG.TTLInMinutes.Catalog
     },
     searchById: {
       endpoint: 'api{env}.empathybroker.com/search/v1/query/{instance}/skusearch',
       responsePaths: {
         results: 'content.docs'
-      }
+      },
+      cacheTTLInMinutes: DEFAULT_CACHE_CONFIG.TTLInMinutes.Catalog
     },
     suggestions: {
       endpoint: 'api{env}.empathybroker.com/search/v1/query/{instance}/empathize',
       responsePaths: {
         suggestions: 'topTrends'
-      }
+      },
+      cacheTTLInMinutes: DEFAULT_CACHE_CONFIG.TTLInMinutes.Side
     },
     track: {
       endpoint: '',

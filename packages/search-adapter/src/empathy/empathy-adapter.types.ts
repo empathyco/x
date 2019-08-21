@@ -1,5 +1,4 @@
-import { RequestOptions } from '../types';
-import { Dictionary } from '../utils/utils.types';
+import { Dictionary, RequestOptions } from '../types';
 
 export interface Requestor<RequestType = any, ResponseType = any> {
   request(params: RequestType, requestOptions?: RequestOptions): Promise<ResponseType>;

@@ -1,6 +1,8 @@
 export const DEPENDENCIES = {
   httpClient: 'HttpClient',
   endpointsService: 'EndpointsService',
+  cacheService: 'CacheService',
+  storageService: 'StorageService',
   config: 'Config',
   entityMappers: 'EntityMappers',
   featureName: 'FeatureName',

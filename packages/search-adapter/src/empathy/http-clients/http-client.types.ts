@@ -1,5 +1,5 @@
-import { RequestOptions } from '../../types';
+import { Dictionary, RequestOptions } from '../../types';
 
 export interface HttpClient {
-  get<Params, Response>(url: string, params?: Params, requestOptions?: RequestOptions): Promise<Response>;
+  get<T>(url: string, params?: Dictionary<any>, requestOptions?: RequestOptions): Promise<T>;
 }

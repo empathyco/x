@@ -18,6 +18,7 @@ import {
 } from './response.types';
 
 export interface SearchAdapter {
+  // Required functions
   getNextQueries(request: NextQueriesRequest, requestOptions?: RequestOptions): Promise<NextQueriesResponse>;
   getRecommendations(request: RecommendationsRequest, requestOptions?: RequestOptions): Promise<RecommendationsResponse>;
   getRelatedTags(request: RelatedTagsRequest, requestOptions?: RequestOptions): Promise<RelatedTagsResponse>;
@@ -25,4 +26,8 @@ export interface SearchAdapter {
   search(request: SearchRequest, requestOptions?: RequestOptions): Promise<SearchResponse>;
   searchById(request: SearchByIdRequest, requestOptions?: RequestOptions): Promise<SearchByIdResponse>;
   track(request: TrackingRequest): Promise<void>;
+
+  // Optional functions
+  invalidateCache?(): void;
+  setConfig?<T>(config: T): void;
 }

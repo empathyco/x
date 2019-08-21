@@ -1,8 +1,8 @@
 import { UserInfo } from '@empathy/search-types';
 import { deepMerge } from '@empathybroker/deep-merge';
 import { Container, injectable } from 'inversify';
-import { FeatureNames } from '../../types';
-import { DeepPartial, Newable } from '../../utils/utils.types';
+import { CacheService } from '..';
+import { DeepPartial, FeatureNames, Newable } from '../../types';
 import { EmpathyAdapterConfig, FacetConfig, FeatureConfig } from '../config/empathy-adapter-config.types';
 import { ContainerConfigParser } from '../container/container-config-parser';
 import { BINDINGS } from '../container/container.bindings';
@@ -18,6 +18,7 @@ import {
 } from '../empathy-adapter.types';
 import { EmpathyAdapter } from '../empathy.adapter';
 import { EntityNames } from '../entities.types';
+import { EmpathyCacheService } from '../services/empathy-cache.service';
 
 type ConfiguratorCallback = (container: Container) => void;
 
@@ -33,6 +34,11 @@ export class EmpathyAdapterBuilder {
     this.initContainerBindings();
     // There is only one config object. As it has been binded with inversify toConstant() method, we are just getting a reference to it here
     this.config = container.get(DEPENDENCIES.config);
+  }
+
+  enableCache(cacheService: Newable<CacheService> = EmpathyCacheService): this {
+    this.container.bind(DEPENDENCIES.cacheService).to(cacheService);
+    return this;
   }
 
   addClassMapper<Entity>(mapper: Newable<ResponseMapper<Entity>>, entity: EntityNames, feature?: FeatureNames): this {

@@ -1,7 +1,7 @@
 import { Facet, Filter, FilterModel, MultiSelect, SimpleFilter } from '@empathy/search-types';
 import { deepMerge } from '@empathybroker/deep-merge';
 import { Container } from 'inversify';
-import { DeepPartial, Dictionary } from '../../../utils/utils.types';
+import { DeepPartial, Dictionary } from '../../../types';
 import { EmpathyAdapterConfig } from '../../config/empathy-adapter-config.types';
 import { DEFAULT_EMPATHY_ADAPTER_CONFIG } from '../../config/empathy-adapter.config';
 import { DEPENDENCIES } from '../../container/container.const';

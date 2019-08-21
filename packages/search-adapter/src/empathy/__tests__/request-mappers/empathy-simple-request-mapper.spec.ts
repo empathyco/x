@@ -1,4 +1,4 @@
-import { Dictionary } from '../../../utils/utils.types';
+import { Dictionary } from '../../../types';
 import { EmpathySimpleRequestMapper } from '../../mappers/request/empathy-simple-request.mapper';
 
 it('Copies the parameters to a new object', () => {

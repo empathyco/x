@@ -8,13 +8,15 @@ Empathy Search Adapter is a library for making it easier to consume Empathy Sear
     1. [How can I get an instance of the Empathy Search Adapter?](#markdown-header-how-can-i-get-an-instance-of-the-empathy-search-adapter)
     2. [How can I use the Empathy Search Adapter?](#markdown-header-how-can-i-use-the-empathy-search-adapter)
     3. [How can I configure the Empathy Search Adapter?](#markdown-header-how-can-i-configure-the-empathy-search-adapter)    
+    4. [How can I invalidate the cache?](#markdown-header-how-can-i-invalidate-the-cache)    
 2. [Extending the Empathy Search Adapter](#markdown-header-extending-the-empathy-search-adapter)
     1. [How can I modify the response mappers?](#markdown-header-how-can-i-modify-the-response-mappers)
     2. [How can I modify the request mappers?](#markdown-header-how-can-i-modify-the-request-mappers)
     3. [How can I add hooks?](#markdown-header-how-can-i-add-hooks)
     4. [What parameters are available in the context?](#markdown-header-what-parameters-are-available-in-the-context)
-    5. [How can I do more advanced injection?](#markdown-header-how-can-i-do-more-advanced-injection)
-    6. [Which is the Empathy Adapter Architecture?](#markdown-header-which-is-the-empathy-adapter-architecture)    
+    5. [How can I enable the cache?](#markdown-header-how-can-i-enable-the-cache)
+    6. [How can I do more advanced injection?](#markdown-header-how-can-i-do-more-advanced-injection)
+    7. [Which is the Empathy Adapter Architecture?](#markdown-header-which-is-the-empathy-adapter-architecture)    
 3. [Building your own adapter](#markdown-header-building-your-own-adapter)
 
 ## Using the Empathy Search Adapter
@@ -74,6 +76,7 @@ This is the full set of properties supported by the EmpathyAdapter. As you saw a
 | `instance` | `'demo'` | `string` | The client instance that the adapter is going to target |
 | `requestParams.scope` | `'desktop'` | `string` | The scope (device) from where the requests are going to be made. By default the Empathy API can only use `desktop` and `mobile` (both in lowercase), but you can request us to add more devices |
 | `requestParams.lang` | `'en'` | `string` | The requested language for every request |
+| `features[featureName].cacheTtlInMinutes` | `5` for catalog <br><br> `60` for side indices | `number` | The default cache TTL (in minutes) for this feature (0 means disabled) |
 | `features[featureName].endpoint` | N/A | `string` | The endpoint that is going to be called for each one the features |
 | `features[featureName].responsePaths` | N/A | `Record<string, string>` | A record of strings where the key is the parsed response path (AKA the entity name), and the value is the raw response path |
 | `mappings.query.maxLength` | `128` | `number` | How many characters should the query parameter have |
@@ -95,6 +98,16 @@ If you need to customize any of the configurations of the adapter after creating
 ```javascript
 adapter.setConfig({requestParams: {lang: 'fr'}})
 ```
+
+### How can I invalidate the cache?
+
+There might be situations where you need to invalidate the cache, for instance after a new deployment or when the APIs are returning inconsistent data. To clear all entries in the cache and force the Adapter to hit the API for the next round of requests, you can use the `invalidateCache` function.
+
+```javascript
+adapter.invalidateCache()
+```
+
+By default the `EmpathyAdapter` cache is disabled. See [How can I enable the cache?](#markdown-header-how-can-i-enable-the-cache) to learn how to activate it.
 
 ## Extending the Empathy Search Adapter
 
@@ -311,6 +324,16 @@ Depending on where you are use the context, you have available more parameters t
 
 You may seem surprised because the request mapper context does not contain the `rawRequest` property, but this is because these mappers receive it as the first parameter.
 
+### How can I enable the cache?
+
+The `EmpathyAdapter` supports caching some request responses to minimize network load, but this feature comes disabled by default. You can enable it by simply calling the `enableCache` method on the builder. This method also supports passing a custom implementation of the `CacheService`.
+
+```javascript
+const adapter = new EmpathyAdapterBuilder()
+    .enableCache()
+    .build();
+```
+
 ### How can I do more advanced injection?
 
 The purpose of the builder is to simplify the most common use cases encapsulating Inversify, but maybe you need to add some advancing binding behaviour. There is a method called `configureContainer`, which receives a callback that has access to the Inversify container. If you need to re-bind other things apart from mappers and hooks this is the place to do it. You have a global constant with the binding keys, called `DEPENDENCIES`, which you can use for it.
@@ -324,6 +347,7 @@ const adapter = new EmpathyAdapterBuilder()
     })
     .build();
 ```
+
 
 With this code, you are basically rebinding the search requestor to some custom class. So when you call the `adapter.search({...})` method, instead of using the default `FeatureRequestor`, your custom one will be executed.
 
@@ -382,3 +406,8 @@ export class CustomAdapter implements SearchAdapter {
   track(trackingRequest: TrackingRequest): Promise<void> { ... }
 }
 ```
+
+These are the basic methods for a custom adapter to work, but there are also some optional methods that you can implement, and which may help you build a more advanced adapter with standardized function names:
+
+* `setConfig<T>(config: T): void` If your adapter has any kind of configurations, that can be changed dynamically, you can implement this method. As this method is generic, you can pass to it whatever you want.
+* `invalidateCache(): void` If your adapter has any cache, you may have the need of invalidate it. Then, you can implement the `invalidateCache` method

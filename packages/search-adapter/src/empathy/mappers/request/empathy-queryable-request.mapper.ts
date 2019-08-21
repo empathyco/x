@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { Dictionary } from '../../../utils/utils.types';
+import { Dictionary } from '../../../types';
 import { DEPENDENCIES } from '../../container/container.const';
 import { RequestMapper, RequestMapperContext } from '../../empathy-adapter.types';
 

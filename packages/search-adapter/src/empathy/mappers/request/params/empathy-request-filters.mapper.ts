@@ -1,6 +1,6 @@
 import { Filter } from '@empathy/search-types';
 import { injectable, multiInject } from 'inversify';
-import { Dictionary } from '../../../../utils/utils.types';
+import { Dictionary } from '../../../../types';
 import { DEPENDENCIES } from '../../../container/container.const';
 import { Mapper, MapRequest, RequestMapper, RequestMapperContext } from '../../../empathy-adapter.types';
 import { pipeMappers } from '../../pipe-mappers';

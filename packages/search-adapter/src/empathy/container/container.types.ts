@@ -1,5 +1,5 @@
 import { interfaces } from 'inversify';
-import { Dictionary, Newable } from '../../utils/utils.types';
+import { Dictionary, Newable } from '../../types';
 
 export type BindingDictionary = Dictionary<Binding>;
 export type Binding = ClassBinding | ParentBinding | AncestorBinding | ConstantBinding | DynamicBinding;

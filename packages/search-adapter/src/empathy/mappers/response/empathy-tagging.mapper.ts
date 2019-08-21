@@ -1,6 +1,6 @@
 import { Tagging } from '@empathy/search-types';
 import { injectable } from 'inversify';
-import { Dictionary } from '../../../utils/utils.types';
+import { Dictionary } from '../../../types';
 import { ResponseMapper } from '../../empathy-adapter.types';
 import { Logger } from '../../logger';
 

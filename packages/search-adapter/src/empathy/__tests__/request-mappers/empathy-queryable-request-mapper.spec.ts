@@ -1,5 +1,5 @@
 import { Container } from 'inversify';
-import { Dictionary } from '../../../utils/utils.types';
+import { Dictionary } from '../../../types';
 import { DEPENDENCIES } from '../../container/container.const';
 import { RequestMapperContext } from '../../empathy-adapter.types';
 import { EmpathyQueryableRequestMapper } from '../../mappers/request/empathy-queryable-request.mapper';

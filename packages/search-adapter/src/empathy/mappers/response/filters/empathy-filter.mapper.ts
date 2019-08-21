@@ -1,6 +1,6 @@
 import { Filter } from '@empathy/search-types';
 import { injectable } from 'inversify';
-import { Dictionary } from '../../../../utils/utils.types';
+import { Dictionary } from '../../../../types';
 import { ResponseMapper, ResponseMapperContext } from '../../../empathy-adapter.types';
 import { EmpathyFilter } from '../../../models';
 
