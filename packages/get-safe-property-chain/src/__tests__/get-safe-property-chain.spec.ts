@@ -15,13 +15,13 @@ it('retrieves deep values', () => {
 it('returns "undefined" if the property chain is not found at level 1', () => {
   const obj = { nestedObject: { anotherNestedObject: { message: 'Fuck yeah!' } } };
   const result = getSafePropertyChain(obj, 'thisDoesNotExist.anotherNestedObject.message');
-  expect(result).toBe(undefined);
+  expect(result).toEqual(undefined);
 });
 
 it('returns "undefined" if the property chain is not found at any deepness level', () => {
   const obj = { nestedObject: { anotherNestedObject: { message: 'Hell yeah!' } } };
   const result = getSafePropertyChain(obj, 'nestedObject.anotherNestedObject.thisDoesNotExist');
-  expect(result).toBe(undefined);
+  expect(result).toEqual(undefined);
 });
 
 it('returns a default value if the property chain is not found and a default value has been provided', () => {
@@ -41,6 +41,12 @@ it('works with falsy values', () => {
   const values = [false, 0, null, '', NaN];
   values.forEach(value => {
     const result = getSafePropertyChain({ value: value }, 'value');
-    expect(result).toBe(value);
+    expect(result).toEqual(value);
   });
+});
+
+it('returns undefined if a middle result is null', () => {
+  const obj = { grandpa: { parent: null } };
+  const result = getSafePropertyChain(obj, 'grandpa.parent.child');
+  expect(result).toEqual(undefined);
 });
