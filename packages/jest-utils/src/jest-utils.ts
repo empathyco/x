@@ -21,7 +21,9 @@ const extendOptions: Record<keyof (ExtendedExpect & ExtendedMatchers), Function>
   toBeUndefinedOr: undefinedOr,
   toBeNullOrUndefinedOr: nullOrUndefinedOr,
   everyItemToBe: arrayOf,
-  everyItemToMatch
+  everyItemToMatch,
+  toBeAValidURLWithExactQueryParameters,
+  toBeAValidURLWithQueryParameters
 };
 
 expect.extend(extendOptions as any);
@@ -70,4 +72,60 @@ function everyItemToMatch(received: any[], schema: {}): any {
   }
 
   throw new TypeError(`Expected every item of "${ received }" to match "${ schema }"`);
+}
+
+/**
+ * Asserts that an string is a valid URL which has exactly, and only the parameters passed.
+ * If the URL contains another parameter not present in the parameters parameter the assertion will fail
+ * @param parameters The query parameters that the url must have.
+ */
+function toBeAValidURLWithExactQueryParameters(urlString: any, parameters: Record<string, string | string[]>): any {
+  const url = new URL(urlString);
+  url.searchParams.forEach((value, key) => {
+    const expectedValue = parameters[key];
+    if (!(key in parameters)) {
+      throw new TypeError(`Expected parameter "${ key }" to equal value "${ expectedValue }", but it is not present`);
+    }
+    if (Array.isArray(expectedValue)) {
+      const received = url.searchParams.getAll(key);
+      try {
+        expect(received).toEqual(expectedValue);
+      } catch {
+        throw new TypeError(
+          `Expected parameters with key "${ key }" to equal array "${ expectedValue }", but it has value "${ received }"`);
+      }
+    } else if (value !== expectedValue) {
+      throw new TypeError(`Expected parameter "${ key }" to equal value "${ expectedValue }", but it has value "${ value }"`);
+    }
+  });
+  return ok;
+}
+
+/**
+ * Asserts that an string is a valid URL which contains the parameters passed.
+ * @param parameters The query parameters that the url must contain.
+ */
+function toBeAValidURLWithQueryParameters(urlString: any, parameters: Record<string, string | string[]>): any {
+  const url = new URL(urlString);
+  Object.keys(parameters).forEach((key) => {
+    const expectedValue = parameters[key];
+    if (!url.searchParams.has(key)) {
+      throw new TypeError(
+        `Expected URL to include parameter "${ key }" with value "${ parameters[key] }", but it is not present"`);
+    }
+
+    if (Array.isArray(expectedValue)) {
+      const received = url.searchParams.getAll(key);
+      try {
+        expect(received).toEqual(expectedValue);
+      } catch {
+        throw new TypeError(
+          `Expected parameters with key "${ key }" to equal array "${ expectedValue }", but it has value "${ received }"`);
+      }
+    } else if (url.searchParams.get(key) !== expectedValue) {
+      throw new TypeError(
+        `Expected parameter "${ key }" to equal value "${ expectedValue }", but it has value "${ url.searchParams.get(key) }"`);
+    }
+  });
+  return ok;
 }
