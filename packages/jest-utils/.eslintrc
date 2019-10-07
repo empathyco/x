@@ -1,0 +1,7 @@
+{
+  "extends": ["plugin:@empathyco/x/all"],
+  "rules": {
+    "@typescript-eslint/no-namespace": "off",
+    "@typescript-eslint/restrict-template-expressions": "off"
+  }
+}
