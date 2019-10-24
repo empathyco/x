@@ -7,6 +7,7 @@ export const DEPENDENCIES = {
   entityMappers: 'EntityMappers',
   featureName: 'FeatureName',
   requestMappers: 'RequestMappers',
+  requestors: 'Requestors',
   Hooks: {
     beforeRequest: 'BeforeRequestHook',
     beforeResponseTransformed: 'BeforeResponseTransformedHook',
@@ -15,7 +16,11 @@ export const DEPENDENCIES = {
   Requestors: {
     search: 'SearchRequestor',
     nextQueries: 'NextQueriesRequestor',
-    recommendations: 'ReccommendationsRequestor',
+    topRecommendations: 'TopRecommendationsRequestor',
+    sectionRecommendations: 'SectionRecommendationsRequestor',
+    clicksRecommendations: 'ClicksRecommendationsRequestor',
+    queriesRecommendations: 'QueriesRecommendationsRequestor',
+    userRecommendations: 'UserRecommendationsRequestor',
     relatedTags: 'RelatedTagsRequestor',
     suggestions: 'SuggestionsRequestor',
     searchById: 'SearchByIdRequestor',
@@ -40,6 +45,7 @@ export const DEPENDENCIES = {
     partialResults: 'PartialResultsMapper',
     promoteds: 'PromotedsMapper',
     queryTagging: 'QueryTaggingMapper',
+    showTagging: 'ShowTaggingMapper',
     redirections: 'RedirectionsMapper',
     relatedTags: 'RelatedTagsMapper',
     results: 'ResultsMapper',

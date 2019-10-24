@@ -6,7 +6,25 @@ export interface SearchRequest extends QueryableRequest, FilterableRequest, Page
   sort?: string;
 }
 
-export interface RecommendationsRequest extends FilterableRequest, PageableRequest, TrackableRequest, Partial<QueryableRequest> {}
+export interface TopRecommendationsRequest extends PageableRequest, TrackableRequest, Partial<QueryableRequest> {}
+
+export interface SectionRecommendationsRequest extends TrackableRequest, PageableRequest, UserContextRequest {
+  section: string;
+}
+
+export interface QueriesRecommendationsRequest extends TrackableRequest, PageableRequest, UserContextRequest {
+  section?: string;
+  queries: string[];
+}
+
+export interface ClicksRecommendationsRequest extends TrackableRequest, PageableRequest, UserContextRequest {
+  section?: string;
+  productIds: string[];
+}
+
+export interface UserRecommendationsRequest extends TrackableRequest, PageableRequest, UserContextRequest {
+  section?: string;
+}
 
 export interface SearchByIdRequest extends QueryableRequest, PageableRequest, TrackableRequest {}
 
@@ -37,6 +55,12 @@ export interface PageableRequest {
 
 export interface TrackableRequest {
   origin: string;
+}
+
+export interface UserContextRequest {
+  user: string;
+  session: string;
+  userType: string;
 }
 
 export interface RequestOptions {

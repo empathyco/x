@@ -27,8 +27,27 @@ export interface NextQueriesResponse {
   nextQueries: NextQuery[];
 }
 
-export interface RecommendationsResponse {
+export interface TopRecommendationsResponse {
   results: Result[];
+}
+
+export interface SectionRecommendationsResponse extends TrackableShowResponse {
+  results: Result[];
+}
+
+export interface ClicksRecommendationsResponse extends TrackableShowResponse {
+  results: Result[];
+  totalResults: number;
+}
+
+export interface QueriesRecommendationsResponse extends TrackableShowResponse {
+  results: Result[];
+  totalResults: number;
+}
+
+export interface UserRecommendationsResponse extends TrackableShowResponse {
+  results: Result[];
+  totalResults: number;
 }
 
 export interface RelatedTagsResponse {
@@ -41,4 +60,8 @@ export interface SuggestionsResponse {
 
 export interface SearchByIdResponse {
   results: Result[];
+}
+
+export interface TrackableShowResponse {
+  showTagging: Tagging;
 }

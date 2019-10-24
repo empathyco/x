@@ -10,7 +10,7 @@ beforeEach(jest.clearAllMocks);
 it('gets result recommendations successfully', async () => {
   window.fetch = jest.fn(getFetchMock(RecommendationsSimpleResponse));
 
-  const response = await adapter.getRecommendations(baseRequest);
+  const response = await adapter.getTopRecommendations(baseRequest);
 
   // Recommendations are the same as results, but without the query tagging
   expect(response.results).toHaveLength(RecommendationsSimpleResponse.topclicked.docs.length);
@@ -20,7 +20,7 @@ it('gets result recommendations successfully', async () => {
 it('adds the query to recommendations', async () => {
   window.fetch = okFetchMock as any;
 
-  await adapter.getRecommendations(baseRequest);
+  await adapter.getTopRecommendations(baseRequest);
 
   expect(okFetchMock.mock.calls[0][0]).toContain('q=test');
 });
@@ -30,8 +30,8 @@ it('DOES NOT add the query to recommendations when it is undefined/not passed', 
   const { origin } = baseRequest;
 
   // Origin is the only required field
-  await adapter.getRecommendations({ origin, query: undefined });
-  await adapter.getRecommendations({ origin });
+  await adapter.getTopRecommendations({ origin, query: undefined });
+  await adapter.getTopRecommendations({ origin });
 
   expect(okFetchMock.mock.calls[0][0]).not.toContain('q=');
   expect(okFetchMock.mock.calls[1][0]).not.toContain('q=');

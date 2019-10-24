@@ -1,1 +1,11 @@
-export type FeatureNames = 'nextQueries' | 'recommendations' | 'relatedTags' | 'suggestions' | 'search' | 'searchById' | 'track';
+export type FeatureNames = 'nextQueries'
+  | 'topRecommendations'
+  | 'sectionRecommendations'
+  | 'clicksRecommendations'
+  | 'queriesRecommendations'
+  | 'userRecommendations'
+  | 'relatedTags'
+  | 'suggestions'
+  | 'search'
+  | 'searchById'
+  | 'track';

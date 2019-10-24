@@ -1,6 +1,6 @@
 {
   "name": "@empathy/search-adapter",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "A search client for the Empathy search API ",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -27,16 +27,17 @@
   "dependencies": {
     "@empathy/get-safe-property-chain": "~1.0.0",
     "@empathy/logger": "~1.0.0",
-    "@empathy/search-types": "~2.0.0",
+    "@empathy/search-types": "~3.0.0",
     "@empathy/storage-service": "^1.2.0",
     "@empathybroker/deep-merge": "~1.1.2",
     "inversify": "~5.0.1",
     "reflect-metadata": "~0.1.13"
   },
   "devDependencies": {
-    "@empathy/jest-utils": "~1.0.1",
+    "@empathy/jest-utils": "^1.1.0",
     "@empathybroker/eb-tslint": "~0.0.15",
     "@types/jest": "~24.0.12",
+    "@types/node": "^12.7.5",
     "jest": "~24.7.1",
     "ts-jest": "~24.0.2",
     "tslint": "~5.16.0",

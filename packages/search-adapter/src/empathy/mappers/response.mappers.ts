@@ -15,9 +15,10 @@ export class ResponseMappers implements Record<EntityNames, ResponseMapper[]> {
     @multiInject(DEPENDENCIES.ResponseMappers.redirections) public readonly redirections: ResponseMapper[],
     @multiInject(DEPENDENCIES.ResponseMappers.relatedTags) public readonly relatedTags: ResponseMapper[],
     @multiInject(DEPENDENCIES.ResponseMappers.results) public readonly results: ResponseMapper[],
+    @multiInject(DEPENDENCIES.ResponseMappers.showTagging) public readonly showTagging: ResponseMapper[],
     @multiInject(DEPENDENCIES.ResponseMappers.spellcheck) public readonly spellcheck: ResponseMapper[],
     @multiInject(DEPENDENCIES.ResponseMappers.suggestions) public readonly suggestions: ResponseMapper[],
     @multiInject(DEPENDENCIES.ResponseMappers.totalResults) public readonly totalResults: ResponseMapper[],
-    @multiInject(DEPENDENCIES.ResponseMappers.totalResults) public readonly filters: ResponseMapper[]
+    @multiInject(DEPENDENCIES.ResponseMappers.filters) public readonly filters: ResponseMapper[]
   ) {}
 }

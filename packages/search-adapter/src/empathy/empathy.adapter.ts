@@ -1,11 +1,14 @@
 import { deepMerge } from '@empathybroker/deep-merge';
 import { inject, injectable, optional } from 'inversify';
 import {
+  ClicksRecommendationsRequest,
+  ClicksRecommendationsResponse,
   DeepPartial,
+  FeatureNames,
   NextQueriesRequest,
   NextQueriesResponse,
-  RecommendationsRequest,
-  RecommendationsResponse,
+  QueriesRecommendationsRequest,
+  QueriesRecommendationsResponse,
   RelatedTagsRequest,
   RelatedTagsResponse,
   RequestOptions,
@@ -14,9 +17,15 @@ import {
   SearchByIdResponse,
   SearchRequest,
   SearchResponse,
+  SectionRecommendationsRequest,
+  SectionRecommendationsResponse,
   SuggestionsRequest,
   SuggestionsResponse,
-  TrackingRequest
+  TopRecommendationsRequest,
+  TopRecommendationsResponse,
+  TrackingRequest,
+  UserRecommendationsRequest,
+  UserRecommendationsResponse
 } from '../types';
 import { EmpathyAdapterConfig } from './config/empathy-adapter-config.types';
 import { DEPENDENCIES } from './container/container.const';
@@ -28,54 +37,60 @@ export class EmpathyAdapter implements SearchAdapter {
   constructor(
     @inject(DEPENDENCIES.config)
     protected readonly config: EmpathyAdapterConfig,
-    @inject(DEPENDENCIES.Requestors.nextQueries)
-    protected readonly nextQueriesRequestor: Requestor<NextQueriesRequest, NextQueriesResponse>,
-    @inject(DEPENDENCIES.Requestors.recommendations)
-    protected readonly recommendationsRequestor: Requestor<RecommendationsRequest, RecommendationsResponse>,
-    @inject(DEPENDENCIES.Requestors.relatedTags)
-    protected readonly relatedTagsRequestor: Requestor<RelatedTagsRequest, RelatedTagsResponse>,
-    @inject(DEPENDENCIES.Requestors.searchById)
-    protected readonly searchByIdRequestor: Requestor<SearchByIdRequest, SearchByIdResponse>,
-    @inject(DEPENDENCIES.Requestors.search)
-    protected readonly searchRequestor: Requestor<SearchRequest, SearchResponse>,
-    @inject(DEPENDENCIES.Requestors.suggestions)
-    protected readonly suggestionsRequestor: Requestor<SuggestionsRequest, SuggestionsResponse>,
-    @inject(DEPENDENCIES.Requestors.track)
-    protected readonly trackingRequestor: Requestor<TrackingRequest, void>,
+    @inject(DEPENDENCIES.requestors)
+    protected readonly requestors: Record<FeatureNames, Requestor>,
     @optional() @inject(DEPENDENCIES.cacheService)
     protected readonly cache: CacheService
   ) {}
 
   getNextQueries(request: NextQueriesRequest, requestOptions: RequestOptions = {}): Promise<NextQueriesResponse> {
-    return this.nextQueriesRequestor.request(request, requestOptions);
+    return this.requestors.nextQueries.request(request, requestOptions);
   }
 
-  getRecommendations(request: RecommendationsRequest, requestOptions: RequestOptions = {}): Promise<RecommendationsResponse> {
-    return this.recommendationsRequestor.request(request, requestOptions);
+  getTopRecommendations(request: TopRecommendationsRequest, requestOptions: RequestOptions = {}): Promise<TopRecommendationsResponse> {
+    return this.requestors.topRecommendations.request(request, requestOptions);
+  }
+
+  getClicksRecommendations(request: ClicksRecommendationsRequest, requestOptions?: RequestOptions): Promise<ClicksRecommendationsResponse> {
+    return this.requestors.clicksRecommendations.request(request, requestOptions);
+  }
+
+  getQueriesRecommendations(request: QueriesRecommendationsRequest,
+    requestOptions?: RequestOptions): Promise<QueriesRecommendationsResponse> {
+    return this.requestors.queriesRecommendations.request(request, requestOptions);
+  }
+
+  getSectionRecommendations(request: SectionRecommendationsRequest,
+    requestOptions?: RequestOptions): Promise<SectionRecommendationsResponse> {
+    return this.requestors.sectionRecommendations.request(request, requestOptions);
+  }
+
+  getUserRecommendations(request: UserRecommendationsRequest, requestOptions?: RequestOptions): Promise<UserRecommendationsResponse> {
+    return this.requestors.userRecommendations.request(request, requestOptions);
   }
 
   getRelatedTags(request: RelatedTagsRequest, requestOptions: RequestOptions = {}): Promise<RelatedTagsResponse> {
-    return this.relatedTagsRequestor.request(request, requestOptions);
+    return this.requestors.relatedTags.request(request, requestOptions);
   }
 
   getSuggestions(request: SuggestionsRequest, requestOptions: RequestOptions = {}): Promise<SuggestionsResponse> {
-    return this.suggestionsRequestor.request(request, requestOptions);
+    return this.requestors.suggestions.request(request, requestOptions);
   }
 
   search(request: SearchRequest, requestOptions: RequestOptions = {}): Promise<SearchResponse> {
-    return this.searchRequestor.request(request, requestOptions);
+    return this.requestors.search.request(request, requestOptions);
   }
 
   searchById(request: SearchByIdRequest, requestOptions: RequestOptions = {}): Promise<SearchByIdResponse> {
-    return this.searchByIdRequestor.request(request, requestOptions);
+    return this.requestors.searchById.request(request, requestOptions);
   }
 
   track(trackingRequest: TrackingRequest): Promise<void> {
-    return this.trackingRequestor.request(trackingRequest);
+    return this.requestors.track.request(trackingRequest);
   }
 
   invalidateCache(): void {
-    if(this.cache) {
+    if (this.cache) {
       this.cache.clear();
     }
   }

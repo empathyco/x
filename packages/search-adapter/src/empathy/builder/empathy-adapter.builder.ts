@@ -1,7 +1,6 @@
 import { UserInfo } from '@empathy/search-types';
 import { deepMerge } from '@empathybroker/deep-merge';
 import { Container, injectable } from 'inversify';
-import { CacheService } from '..';
 import { DeepPartial, FeatureNames, Newable } from '../../types';
 import { EmpathyAdapterConfig, FacetConfig, FeatureConfig } from '../config/empathy-adapter-config.types';
 import { ContainerConfigParser } from '../container/container-config-parser';
@@ -18,6 +17,7 @@ import {
 } from '../empathy-adapter.types';
 import { EmpathyAdapter } from '../empathy.adapter';
 import { EntityNames } from '../entities.types';
+import { CacheService } from '../services/cache-service.types';
 import { EmpathyCacheService } from '../services/empathy-cache.service';
 
 type ConfiguratorCallback = (container: Container) => void;

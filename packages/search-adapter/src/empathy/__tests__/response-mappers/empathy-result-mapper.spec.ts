@@ -87,3 +87,10 @@ it('maps rating property', () => {
   expect(resultWithRating.rating.value).toEqual(0);
   expect(resultWithoutRating.rating.value).toEqual(null);
 });
+
+it('maps checkout tagging successfully', () => {
+  const mappedResult = mapResult(SearchSimpleResponse.content.docs[0], {} as Result, emptyContext);
+
+  expect(mappedResult).toMatchObject(ResultSchema);
+  expect(mappedResult).toHaveProperty(['tagging', 'checkout']);
+});

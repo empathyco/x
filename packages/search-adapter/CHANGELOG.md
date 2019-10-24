@@ -1,12 +1,24 @@
 # Search Adapter Changelog
 
+> ## 3.0.0
+>
+> EX-1443 Add new entity `showTagging` used for tracking when te response of a feature has been displayed to the user.
+>
+> EX-1380 Remove first filter auto-selection from `empathy-suggestion-facets.mapper`
+>
+> EX-1276 Add `checkout` to `TrackingResultConfig` interface
+> 
+> EX-1355 Removed `preselected` property 
+>
+> EX-1292 Added discovery wall features: `getClicksRecommendations`, `getQueriesRecommendations`, `getSectionRecommendations`, `getUserRecommendations`
+
 > ## 2.1.0
 >
 > EX-1246 Cache API responses with a configurable TTL per feature and invalidation
 
 > ## 2.0.0
 >
-> EX-1240 Remove needsParentFilter and entityDetected properties
+> EX-1240 Remove `needsParentFilter` and `entityDetected` properties
 
 > ## 1.1.0
 >

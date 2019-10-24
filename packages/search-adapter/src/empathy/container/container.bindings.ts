@@ -1,10 +1,13 @@
 import { StorageService } from '@empathy/storage-service';
 import { DEFAULT_EMPATHY_ADAPTER_CONFIG } from '../config/empathy-adapter.config';
 import { FetchHttpClient } from '../http-clients/fetch-http-client';
-import { EmpathyResultMapper, EmpathyResultQueryTaggingMapper } from '../mappers';
+import { EmpathyClicksRecommendationsRequestMapper } from '../mappers/request/empathy-clicks-recommendations-request.mapper';
+import { EmpathyQueriesRecommendationsRequestMapper } from '../mappers/request/empathy-queries-recommendations-request.mapper';
 import { EmpathyQueryableRequestMapper } from '../mappers/request/empathy-queryable-request.mapper';
 import { EmpathyRequestParamsMapper } from '../mappers/request/empathy-request-params.mapper';
 import { EmpathySearchRequestMapper } from '../mappers/request/empathy-search-request.mapper';
+import { EmpathySectionRecommendationsRequestMapper } from '../mappers/request/empathy-section-recommendations-request.mapper';
+import { EmpathyUserInfoMapper } from '../mappers/request/empathy-user-data-request.mapper';
 import { EmpathyRequestFiltersSolrSyntaxMapper } from '../mappers/request/params/empathy-request-filters-solr-syntax.mapper';
 import { EmpathyRequestFiltersMapper } from '../mappers/request/params/empathy-request-filters.mapper';
 import { EmpathyRequestQueryMapper } from '../mappers/request/params/empathy-request-query.mapper';
@@ -22,10 +25,13 @@ import { EmpathyTaggingMapper } from '../mappers/response/empathy-tagging.mapper
 import { EmpathyFilterMapper } from '../mappers/response/filters/empathy-filter.mapper';
 import { EmpathyRangeFilterMapper } from '../mappers/response/filters/empathy-range-filter.mapper';
 import { EmpathySimpleFilterMapper } from '../mappers/response/filters/empathy-simple-filter.mapper';
+import { EmpathyResultQueryTaggingMapper } from '../mappers/response/results/empathy-result-query-tagging.mapper';
+import { EmpathyResultMapper } from '../mappers/response/results/empathy-result.mapper';
 import { EmpathySuggestionFacetsMapper } from '../mappers/response/suggestions/empathy-suggestion-facets.mapper';
 import { EmpathySuggestionMapper } from '../mappers/response/suggestions/empathy-suggestion.mapper';
 import { BeaconTrackingRequestor } from '../requestors/beacon-tracking.requestor';
 import { FeatureRequestor } from '../requestors/feature.requestor';
+import { Requestors } from '../requestors/requestors';
 import { EmpathyEndpointsService } from '../services/empathy-endpoints.service';
 import { DEPENDENCIES } from './container.const';
 import { BindingDictionary } from './container.types';
@@ -36,10 +42,15 @@ export const BINDINGS: BindingDictionary = {
   [DEPENDENCIES.endpointsService]: EmpathyEndpointsService,
   [DEPENDENCIES.storageService]: { toConstant: new StorageService(localStorage, 'empathy-adapter') },
   [DEPENDENCIES.entityMappers]: ResponseMappers,
+  [DEPENDENCIES.requestors]: Requestors,
   [DEPENDENCIES.featureName]: {
     toConstantWhenInjectedInto: {
       [DEPENDENCIES.Requestors.nextQueries]: 'nextQueries',
-      [DEPENDENCIES.Requestors.recommendations]: 'recommendations',
+      [DEPENDENCIES.Requestors.topRecommendations]: 'topRecommendations',
+      [DEPENDENCIES.Requestors.sectionRecommendations]: 'sectionRecommendations',
+      [DEPENDENCIES.Requestors.clicksRecommendations]: 'clicksRecommendations',
+      [DEPENDENCIES.Requestors.queriesRecommendations]: 'queriesRecommendations',
+      [DEPENDENCIES.Requestors.userRecommendations]: 'userRecommendations',
       [DEPENDENCIES.Requestors.search]: 'search',
       [DEPENDENCIES.Requestors.relatedTags]: 'relatedTags',
       [DEPENDENCIES.Requestors.searchById]: 'searchById',
@@ -49,7 +60,11 @@ export const BINDINGS: BindingDictionary = {
   },
   // Requestors
   [DEPENDENCIES.Requestors.nextQueries]: FeatureRequestor,
-  [DEPENDENCIES.Requestors.recommendations]: FeatureRequestor,
+  [DEPENDENCIES.Requestors.topRecommendations]: FeatureRequestor,
+  [DEPENDENCIES.Requestors.sectionRecommendations]: FeatureRequestor,
+  [DEPENDENCIES.Requestors.clicksRecommendations]: FeatureRequestor,
+  [DEPENDENCIES.Requestors.queriesRecommendations]: FeatureRequestor,
+  [DEPENDENCIES.Requestors.userRecommendations]: FeatureRequestor,
   [DEPENDENCIES.Requestors.search]: FeatureRequestor,
   [DEPENDENCIES.Requestors.relatedTags]: FeatureRequestor,
   [DEPENDENCIES.Requestors.searchById]: FeatureRequestor,
@@ -60,7 +75,16 @@ export const BINDINGS: BindingDictionary = {
     default: EmpathyRequestParamsMapper,
     whenInjectedInto: {
       [DEPENDENCIES.Requestors.nextQueries]: EmpathyQueryableRequestMapper,
-      [DEPENDENCIES.Requestors.recommendations]: EmpathyQueryableRequestMapper,
+      [DEPENDENCIES.Requestors.topRecommendations]: EmpathyQueryableRequestMapper,
+      [DEPENDENCIES.Requestors.sectionRecommendations]: [EmpathySectionRecommendationsRequestMapper, EmpathyUserInfoMapper],
+      [DEPENDENCIES.Requestors.clicksRecommendations]: [EmpathyClicksRecommendationsRequestMapper, EmpathyUserInfoMapper],
+      EmpathySectionRecommendationsRequestMapper,
+      [DEPENDENCIES.Requestors.queriesRecommendations]: [
+        EmpathyQueriesRecommendationsRequestMapper,
+        EmpathySectionRecommendationsRequestMapper,
+        EmpathyUserInfoMapper
+      ],
+      [DEPENDENCIES.Requestors.userRecommendations]: [EmpathyUserInfoMapper, EmpathySectionRecommendationsRequestMapper],
       [DEPENDENCIES.Requestors.search]: EmpathySearchRequestMapper,
       [DEPENDENCIES.Requestors.relatedTags]: EmpathyQueryableRequestMapper,
       [DEPENDENCIES.Requestors.searchById]: EmpathyQueryableRequestMapper,
@@ -88,6 +112,7 @@ export const BINDINGS: BindingDictionary = {
       [DEPENDENCIES.Requestors.searchById]: EmpathyResultQueryTaggingMapper
     }
   },
+  [DEPENDENCIES.ResponseMappers.showTagging]: EmpathyTaggingMapper,
   [DEPENDENCIES.ResponseMappers.spellcheck]: EmpathySimpleValueMapper,
   [DEPENDENCIES.ResponseMappers.suggestions]: [EmpathySuggestionMapper, EmpathySuggestionFacetsMapper],
   [DEPENDENCIES.ResponseMappers.totalResults]: EmpathySimpleValueMapper,

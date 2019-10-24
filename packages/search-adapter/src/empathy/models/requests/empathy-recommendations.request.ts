@@ -1,4 +1,4 @@
-export interface EmpathyRecommendationsRequest {
+export interface EmpathyTopRecommendationsRequest {
   catalogue?: string;
   lang: string;
   origin?: string;

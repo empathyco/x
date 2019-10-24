@@ -16,9 +16,6 @@ export class EmpathySuggestionFacetsMapper implements ResponseMapper<EmpathySugg
   }
 
   map({ facets }: EmpathySuggestion, suggestion: Suggestion, context: ResponseMapperContext): Suggestion {
-    if (!context.queryHighlightingClass) {
-      context.queryHighlightingClass = 'ebx-suggestion__query';
-    }
     return Object.assign<Suggestion, Partial<Suggestion>>(suggestion, {
       facets: facets ? this.generateFacets(facets, context) : []
     });
@@ -27,14 +24,7 @@ export class EmpathySuggestionFacetsMapper implements ResponseMapper<EmpathySugg
   private generateFacets(rawFacets: EmpathyFacet[], context: ResponseMapperContext): Facet[] {
     return rawFacets.map(rawFacet => {
       const mappedFacet = this.mapFacet(rawFacet, {} as Facet, context);
-      this.selectFirstFilterInFacets(mappedFacet);
       return mappedFacet;
     });
-  }
-
-  private selectFirstFilterInFacets(facet: Facet) {
-    if (facet.filters.length) {
-      facet.filters[0].selected = true;
-    }
   }
 }

@@ -17,10 +17,45 @@ export const DEFAULT_EMPATHY_ADAPTER_CONFIG: EmpathyAdapterConfig = {
       },
       cacheTTLInMinutes: DEFAULT_CACHE_CONFIG.TTLInMinutes.Side
     },
-    recommendations: {
+    topRecommendations: {
       endpoint: 'api{env}.empathybroker.com/search/v1/query/{instance}/topclicked',
       responsePaths: {
         results: 'topclicked.docs'
+      },
+      cacheTTLInMinutes: DEFAULT_CACHE_CONFIG.TTLInMinutes.Side
+    },
+    sectionRecommendations: {
+      endpoint: 'api{env}.empathybroker.com/search/v1/query/{instance}/dw-topclicked',
+      responsePaths: {
+        results: 'docs',
+        showTagging: 'ebTagging.query'
+      },
+      cacheTTLInMinutes: DEFAULT_CACHE_CONFIG.TTLInMinutes.Side
+    },
+    clicksRecommendations: {
+      endpoint: 'api{env}.empathybroker.com/search/v1/query/{instance}/dw-lastsearches',
+      responsePaths: {
+        results: 'docs',
+        totalResults: 'numFound',
+        showTagging: 'ebTagging.query'
+      },
+      cacheTTLInMinutes: DEFAULT_CACHE_CONFIG.TTLInMinutes.Side
+    },
+    queriesRecommendations: {
+      endpoint: 'api{env}.empathybroker.com/search/v1/query/{instance}/dw-productsbyqueries',
+      responsePaths: {
+        results: 'docs',
+        totalResults: 'numFound',
+        showTagging: 'ebTagging.query'
+      },
+      cacheTTLInMinutes: DEFAULT_CACHE_CONFIG.TTLInMinutes.Side
+    },
+    userRecommendations: {
+      endpoint: 'api{env}.empathybroker.com/search/v1/query/{instance}/dw-contextualizedproducts',
+      responsePaths: {
+        results: 'docs',
+        totalResults: 'numFound',
+        showTagging: 'ebTagging.query'
       },
       cacheTTLInMinutes: DEFAULT_CACHE_CONFIG.TTLInMinutes.Side
     },
@@ -76,7 +111,6 @@ export const DEFAULT_EMPATHY_ADAPTER_CONFIG: EmpathyAdapterConfig = {
         isDynamic: false,
         multiSelectable: MultiSelect.Disabled,
         showUnselectedValues: true,
-        preselected: false,
         prefix: {
           facetName: ({ facetName }) => facetName,
           noTagFacetName: ({ facetName }) => facetName
@@ -86,7 +120,8 @@ export const DEFAULT_EMPATHY_ADAPTER_CONFIG: EmpathyAdapterConfig = {
     tracking: {
       result: {
         add2cart: 'ebTagging.add2cart',
-        click: 'ebTagging.click'
+        click: 'ebTagging.click',
+        checkout: 'ebTagging.checkout'
       }
     }
   }

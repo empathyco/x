@@ -1,13 +1,17 @@
 import { Filter, MultiSelect } from '@empathy/search-types';
 import {
+  ClicksRecommendationsResponse,
   Dictionary,
   FeatureNames,
   NextQueriesResponse,
-  RecommendationsResponse,
+  QueriesRecommendationsResponse,
   RelatedTagsResponse,
   SearchByIdResponse,
   SearchResponse,
-  SuggestionsResponse
+  SectionRecommendationsResponse,
+  SuggestionsResponse,
+  TopRecommendationsResponse,
+  UserRecommendationsResponse
 } from '../../types';
 
 export interface EmpathyAdapterConfig {
@@ -36,7 +40,11 @@ export interface FeatureConfig<Feature extends FeatureNames> {
 
 export interface FeaturesResponseTypes {
   nextQueries: NextQueriesResponse;
-  recommendations: RecommendationsResponse;
+  topRecommendations: TopRecommendationsResponse;
+  sectionRecommendations: SectionRecommendationsResponse;
+  clicksRecommendations: ClicksRecommendationsResponse;
+  queriesRecommendations: QueriesRecommendationsResponse;
+  userRecommendations: UserRecommendationsResponse;
   relatedTags: RelatedTagsResponse;
   search: SearchResponse;
   searchById: SearchByIdResponse;
@@ -58,7 +66,6 @@ export interface FacetConfig {
   filterModelName: string;
   isDynamic: boolean;
   multiSelectable: MultiSelect;
-  preselected: boolean;
   showUnselectedValues: boolean;
   prefix: {
     facetName: string | ((context: FilterValueMapperParams) => string);
@@ -76,5 +83,6 @@ export interface FilterValueMapperParams {
 export interface TrackingResultConfig {
   add2cart: string;
   click: string;
+  checkout: string;
   [key: string]: string;
 }

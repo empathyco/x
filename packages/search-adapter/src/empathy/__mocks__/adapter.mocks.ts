@@ -8,7 +8,11 @@ export const BASE_TEST_CONFIG: DeepPartial<EmpathyAdapterConfig> = {
   requestParams: { lang: 'es' },
   features: {
     nextQueries: { cacheTTLInMinutes: 0 },
-    recommendations: { cacheTTLInMinutes: 0 },
+    topRecommendations: { cacheTTLInMinutes: 0 },
+    sectionRecommendations: { cacheTTLInMinutes: 0 },
+    clicksRecommendations: { cacheTTLInMinutes: 0 },
+    queriesRecommendations: { cacheTTLInMinutes: 0 },
+    userRecommendations: { cacheTTLInMinutes: 0 },
     relatedTags: { cacheTTLInMinutes: 0 },
     search: { cacheTTLInMinutes: 0 },
     searchById: { cacheTTLInMinutes: 0 },

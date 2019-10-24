@@ -93,8 +93,7 @@ function getMockedFacet(name: string): Facet {
   return {
     modelName: name,
     title: name,
-    filters: [],
-    preselected: false
+    filters: []
   };
 }
 

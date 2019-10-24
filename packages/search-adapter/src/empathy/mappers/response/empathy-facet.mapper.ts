@@ -22,11 +22,9 @@ export class EmpathyFacetMapper implements ResponseMapper<EmpathyFacet, Facet> {
 
   map(rawFacet: EmpathyFacet, facet: Facet, context: ResponseMapperContext): Facet {
     this.addSelectedFiltersToContext(context);
-    const facetConfig = this.facetsConfig.named[rawFacet.facet] || this.facetsConfig.default;
     Object.assign<Facet, Partial<Facet>>(facet, {
       modelName: rawFacet.facet,
-      title: rawFacet.facet,
-      preselected: facetConfig.preselected
+      title: rawFacet.facet
     });
     facet.filters = this.mapFiltersTree(facet, rawFacet.values, context);
     return facet;

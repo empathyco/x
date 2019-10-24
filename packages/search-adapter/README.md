@@ -50,7 +50,11 @@ adapter.search({ start: 0, rows: 24, origin: 'default', query: 'awesome things' 
 This is an example of how to use the adapter for searching, but there are other methods which correspond with the features that are currently supported:
 
 - `getNextQueries`: Given a query, it retrieves a list of common queries that have been made by other users after the first one.
-- `getRecommendations`: Returns popular results.
+- `getTopRecommendations`: Returns popular results.
+- `getSectionRecommendations`: Returns popular results filtered by a section.
+- `getClicksRecommendations`: Returns popular results for a given list of result ids.
+- `getQueriesRecommendations`: Returns popular results for a given list of queries.
+- `getUserRecommendations`: Returns result recommendations specially selected for a user.
 - `getRelatedTags`:  Related tags are used for refining a search. E.g You search for *shirt* and a common related tag would be a color, for example *red*.
 - `getSuggestions`: Retrieves query suggestions. A query can be passed inside the request parameters, and then the suggestions retrieved will contain that query.
 - `search`: Normal search. It can be filtered, sorted and paged.
@@ -85,7 +89,6 @@ This is the full set of properties supported by the EmpathyAdapter. As you saw a
 | `mappings.facets.default.isDynamic` | `false` | `boolean` | If the facet is dynamic (the users can input whatever they want) or not |
 | `mappings.facets.default.multiSelectable` | `'disabled'` | `MultiSelect` | Whether the facet is multi-selectable or not, and if it is when should this multiselection be mapped (front-end or back-end) |
 | `mappings.facets.default.showUnselectedValues` | `true` | `boolean` | If you want the response to send us the rest of unselected filters of a facet or not|
-| `mappings.facets.default.preselected` | `false` | `boolean` | A preselected facet can be unselected. It is sent in every request. It only can be changed to another filter of the same facet. |
 | `mappings.facets.default.prefix.facetName` | The facetName | `string`, `(context: FilterValueMapperParams) => string` | The facet name prefix used by Solr |
 | `mappings.facets.default.prefix.noTagFacetName` | The facetName | `string`, `(context: FilterValueMapperParams) => string` | The name of the facet in the no-tag part of the Solr query |
 | `mappings.facets.named` | N/A | `Record<string, DeepPartial<FacetConfig>>` | A record of partials configurations for a concrete facet. The key is the facet name, and the partial configuration will be merged with the default one |

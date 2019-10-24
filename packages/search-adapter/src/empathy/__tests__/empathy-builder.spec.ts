@@ -39,13 +39,13 @@ it('Allows you to add global mappers', () => {
 it('Allows you to add mappers to a single feature', () => {
   builder
     .configureContainer(() => {
-      container.rebind(DEPENDENCIES.Requestors.recommendations).to(CustomRequestor);
+      container.rebind(DEPENDENCIES.Requestors.topRecommendations).to(CustomRequestor);
       container.rebind(DEPENDENCIES.Requestors.search).to(CustomRequestor);
     })
-    .addClassMapper(CustomResultMapper, 'results', 'recommendations')
+    .addClassMapper(CustomResultMapper, 'results', 'topRecommendations')
     .build();
 
-  const recommendationsRequestor = getRequestor<CustomRequestor>('recommendations');
+  const recommendationsRequestor = getRequestor<CustomRequestor>('topRecommendations');
   const recommendationsResultMappers: ResponseMapper[] = recommendationsRequestor.mappers.results;
   expect(recommendationsResultMappers.length).toBeGreaterThanOrEqual(2);
   expect(recommendationsResultMappers.find(mapper => mapper instanceof CustomResultMapper)).toBeDefined();
@@ -74,13 +74,13 @@ it('Allows you to add request global mappers', () => {
 it('Allows you to add request mappers to a single feature', () => {
   builder
     .configureContainer(() => {
-      container.rebind(DEPENDENCIES.Requestors.recommendations).to(CustomRequestor);
+      container.rebind(DEPENDENCIES.Requestors.topRecommendations).to(CustomRequestor);
       container.rebind(DEPENDENCIES.Requestors.search).to(CustomRequestor);
     })
-    .addClassRequestMapper(CustomRequestMapper, 'recommendations')
+    .addClassRequestMapper(CustomRequestMapper, 'topRecommendations')
     .build();
 
-  const recommendationsRequestor = getRequestor<CustomRequestor>('recommendations');
+  const recommendationsRequestor = getRequestor<CustomRequestor>('topRecommendations');
   expect(recommendationsRequestor.requestMappers.length).toBeGreaterThanOrEqual(2);
   expect(recommendationsRequestor.requestMappers.find(requestMapper => requestMapper instanceof CustomRequestMapper)).toBeDefined();
 
@@ -179,12 +179,12 @@ it('Allows you to add hooks to a single feature', () => {
 
   builder
     .configureContainer(() => {
-      container.rebind(DEPENDENCIES.Requestors.recommendations).to(CustomRequestor);
+      container.rebind(DEPENDENCIES.Requestors.topRecommendations).to(CustomRequestor);
       container.rebind(DEPENDENCIES.Requestors.search).to(CustomRequestor);
     })
-    .onBeforeRequest(onBeforeRequest, 'recommendations');
+    .onBeforeRequest(onBeforeRequest, 'topRecommendations');
 
-  const recommendationsRequestor = container.get<CustomRequestor>(DEPENDENCIES.Requestors.recommendations);
+  const recommendationsRequestor = container.get<CustomRequestor>(DEPENDENCIES.Requestors.topRecommendations);
   const searchRequestor = container.get<CustomRequestor>(DEPENDENCIES.Requestors.search);
 
   expect(recommendationsRequestor.beforeRequest[0]).toEqual(onBeforeRequest);
@@ -247,9 +247,7 @@ it('Allows to modify facets mapping config', () => {
     .setFacetConfig({
       multiSelectable: MultiSelect.OnFrontend
     }, 'price')
-    .setFacetConfig({
-      preselected: true
-    }, 'rootCategories')
+    .setFacetConfig({}, 'rootCategories')
     .build();
   const defaultFacetConfig = config.mappings.facets.default;
   const priceFacetConfig = config.mappings.facets.named.price;
@@ -258,7 +256,6 @@ it('Allows to modify facets mapping config', () => {
   expect(defaultFacetConfig.multiSelectable).toEqual(MultiSelect.OnBackend);
   expect(priceFacetConfig.multiSelectable).toEqual(MultiSelect.OnFrontend);
   expect(rootCategoriesFacetConfig.multiSelectable).toEqual(MultiSelect.OnBackend);
-  expect(rootCategoriesFacetConfig.preselected).toEqual(true);
 });
 
 it('Allows to modify result tracking config', () => {
