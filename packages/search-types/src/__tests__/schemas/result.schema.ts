@@ -22,7 +22,8 @@ export const ResultSchema: Result = {
   tagging: {
     query: TaggingSchema,
     click: TaggingSchema,
-    add2cart: TaggingSchema
+    add2cart: TaggingSchema,
+    checkout: TaggingSchema
   },
   type: expect.any(String),
   url: expect.any(String)
@@ -48,7 +49,8 @@ export const RecommendationSchema: Result = {
   },
   tagging: {
     click: TaggingSchema,
-    add2cart: TaggingSchema
+    add2cart: TaggingSchema,
+    checkout: TaggingSchema
   },
   type: expect.any(String),
   url: expect.any(String)
