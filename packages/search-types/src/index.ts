@@ -1,4 +1,5 @@
 export * from './banner.model';
+export * from './callback-info.model';
 export * from './facet/facet.model';
 export * from './facet/filter.model';
 export * from './facet/multi-select.model';

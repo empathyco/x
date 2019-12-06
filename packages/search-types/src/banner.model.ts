@@ -1,7 +1,8 @@
+import { CallbackInfo } from './callback-info.model';
 import { NamedModel } from './named-model.model';
 import { Tagging } from './tagging.model';
 
-export interface Banner extends NamedModel {
+export interface Banner extends NamedModel, CallbackInfo {
   id: string;
   title: string;
   url: string;

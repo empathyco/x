@@ -1,10 +1,11 @@
+import { CallbackInfo } from '../callback-info.model';
 import { NamedModel } from '../named-model.model';
 import { ResultIdentifier } from './result-identifier.model';
 import { ResultPrice } from './result-price.model';
 import { ResultRating } from './result-rating.model';
 import { ResultTagging } from './result-tagging.model';
 
-export interface Result extends NamedModel {
+export interface Result extends NamedModel, CallbackInfo {
   id: string;
   type: string;
   images: string[];
@@ -14,5 +15,4 @@ export interface Result extends NamedModel {
   tagging: ResultTagging;
   identifier: ResultIdentifier;
   url: string;
-  callbackInfo: Record<string, any>;
 }
