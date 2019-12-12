@@ -1,6 +1,6 @@
 {
   "name": "@empathy/storage-service",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Storage service with TTL",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -27,7 +27,7 @@
   "author": "empathy.co",
   "homepage": "https://bitbucket.org/colbenson/storage-service#readme",
   "devDependencies": {
-    "@empathybroker/eb-tslint": "~0.0.15",
+    "@empathybroker/eb-tslint": "0.0.15",
     "@types/jest": "~24.0.15",
     "jest": "~24.8.0",
     "ts-jest": "~24.0.2",
@@ -35,6 +35,6 @@
     "typescript": "~3.5.3"
   },
   "dependencies": {
-    "@empathy/logger": "~1.0.0"
+    "@empathy/logger": "^1.0.0"
   }
 }
