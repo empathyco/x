@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.1
+
+> EX-1540 Update `@empathy/jest-utils` to use minor version
+
 ## 3.1.0
 
 > EX-1454 Add optional `callbackInfo` object to Promoted, Banner and Result models
