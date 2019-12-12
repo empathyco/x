@@ -1,5 +1,11 @@
 # Search Adapter Changelog
 
+> ## 3.0.1
+>
+> EX-1540 Update `@empathy/get-safe-property-chain`, `@empathy/logger`, `@empathy/search-types` and `@empathybroker/deep-merge` to use minor version
+>
+> EX-1540 Set a fixed `@empathybroker/eb-tslint` version
+
 > ## 3.0.0
 >
 > EX-1443 Add new entity `showTagging` used for tracking when te response of a feature has been displayed to the user.
