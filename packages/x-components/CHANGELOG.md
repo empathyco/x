@@ -2,6 +2,14 @@
 
 ## 1.0.0-alpha
 
+> EX-1554 Add X Component API, with `emit(event, payload)`, `on(event)` methods
+>
+> EX-1554 Add `CreateComponentAPIMixin` to add X Component API to each component
+>
+> EX-1554 Add `XPlugin` which modifies the Vue instance with the X Component API, and exposes a `registerXModule` method
+>
+> EX-1554 Add `reflect-metadata`, `@empathybroker/deep-merge` dependencies
+>
 > EX-1564 Add `commit`, `dispatch`, `commitWithoutPayload` and `dispatchWithoutPayload` methods to the wiring factory
 >
 > EX-1564 Add wiring and EmpathyX events types

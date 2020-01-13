@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from 'vuex';
-import { XEvent, XEventPayload } from './events.types';
 import { Dictionary } from '../utils';
+import { XEvent, XEventPayload } from './events.types';
 
 /**
  * A Wire is a function that receives an observable, the store, and returns a subscription
@@ -27,3 +27,13 @@ export type AnyWire = Wire<any>;
 export type Wiring = {
   [E in XEvent]: Dictionary<WireForEvent<E>>;
 };
+
+/**
+ * Type that removing, modifying or adding wires based on a concrete wiring type.
+ * @param T the base wiring type
+ */
+export type WiringOptions<T extends Partial<Wiring>> = {
+  [E in keyof T]?: {
+    [W in keyof T[E]]?: E extends XEvent ? WireForEvent<E> | undefined : never;
+  };
+} | Partial<Wiring>;

@@ -1,6 +1,6 @@
 {
   "name": "@empathy/x-components",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -9,6 +9,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@empathybroker/deep-merge": "^1.1.2",
+    "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.4",
     "rxjs-compat": "^6.5.4",
     "vue": "^2.6.10",
