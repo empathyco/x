@@ -13,6 +13,7 @@ export default [
     plugins: [
       del({ targets: 'dist' }),
       typescript({
+        clean: true,
         tsconfigOverride: {
           compilerOptions: {
             declaration: true,
@@ -37,7 +38,7 @@ export default [
     external: ['@empathy/jest-utils'],
     plugins: [
       del({ targets: 'schemas' }),
-      typescript(),
+      typescript({ clean: true }),
       execute([
         'api-extractor run -c schema-extractor.json --local',
         'api-documenter markdown -i temp -o docs/tests'

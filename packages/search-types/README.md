@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.0.0
+## 4.0.0 - 2020/01/20
 
 > EX-1506 Add `isWishlisted` field to result model
 >
