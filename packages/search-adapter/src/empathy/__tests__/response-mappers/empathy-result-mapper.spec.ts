@@ -94,3 +94,18 @@ it('maps checkout tagging successfully', () => {
   expect(mappedResult).toMatchObject(ResultSchema);
   expect(mappedResult).toHaveProperty(['tagging', 'checkout']);
 });
+
+it('maps isWishlist to every result', () => {
+  const results = SearchSimpleResponse.content.docs;
+  results.forEach(result => {
+    const mappedResult = mapResult(result, {} as Result, emptyContext);
+    expect(mappedResult).toHaveProperty('isWishlisted');
+  });
+});
+
+it('maps isWishlisted to the existing rawResult.isWishlisted value if property exists', () => {
+  const mappedResult = mapResult(SearchSimpleResponse.content.docs[0], {} as Result, emptyContext);
+
+  expect(mappedResult).toMatchObject(ResultSchema);
+  expect(mappedResult).toHaveProperty('isWishlisted', true);
+});

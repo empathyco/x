@@ -54,7 +54,8 @@ export const SearchSimpleResponse = {
           'add2cart': 'https://api.empathybroker.com/tagging/v1/track/juguettos/add2cart?productId=A0244399&session=ccb6470f-1740-4aab-a04f-d43647c9e5ad&catalog=default&origin=default&store=default&title=LEGO+Classic+Ladrillos+Creativos+-+10692&type=4&follow=false&contextualizeApplied=none&url=A0244399&q=lego&user_type=recurrent&contextualizeEnabled=false&spellcheck=false&scope=desktop&page=1&position=1&lang=es&user=b3cf9212-ecc4-4986-a55a-2aac6c4f2449',
           'checkout': 'https://api.empathybroker.com/tagging/v1/track/juguettos/checkout?productId=A0244399&session=ccb6470f-1740-4aab-a04f-d43647c9e5ad&catalog=default&origin=default&store=default&title=LEGO+Classic+Ladrillos+Creativos+-+10692&type=4&follow=false&contextualizeApplied=none&url=A0244399&q=lego&user_type=recurrent&contextualizeEnabled=false&spellcheck=false&scope=desktop&page=1&position=1&lang=es&user=b3cf9212-ecc4-4986-a55a-2aac6c4f2449',
           'conversion': 'https://api.empathybroker.com/tagging/v1/track/juguettos/conversion?productId=A0244399&session=ccb6470f-1740-4aab-a04f-d43647c9e5ad&catalog=default&origin=default&store=default&title=LEGO+Classic+Ladrillos+Creativos+-+10692&type=4&follow=false&contextualizeApplied=none&url=A0244399&q=lego&user_type=recurrent&contextualizeEnabled=false&spellcheck=false&scope=desktop&page=1&position=1&lang=es&user=b3cf9212-ecc4-4986-a55a-2aac6c4f2449'
-        }
+        },
+        'isWishlisted': true
       },
       {
         'id': 'A0244400',

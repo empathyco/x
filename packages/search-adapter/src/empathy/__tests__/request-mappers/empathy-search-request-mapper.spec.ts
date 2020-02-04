@@ -1,6 +1,6 @@
 import { RelatedTag } from '@empathy/search-types';
 import { Container } from 'inversify';
-import { SearchRequest } from '../../../types';
+import { QueryableRequest, SearchRequest } from '../../../types';
 import { DEPENDENCIES } from '../../container/container.const';
 import { RequestMapperContext } from '../../empathy-adapter.types';
 import { EmpathySearchRequestMapper } from '../../mappers/request/empathy-search-request.mapper';
@@ -8,8 +8,14 @@ import { EmpathySearchRequest } from '../../models';
 import clearAllMocks = jest.clearAllMocks;
 
 const container = new Container();
+const mockedRelatedTagsQueryMapper = {
+  map: jest.fn(({ relatedTags = [] }: QueryableRequest, query: string) =>
+    relatedTags.length > 0 ? relatedTags.reduce((chain, rt) => `${ chain } ${ rt.tag }`, query).trim() : query)
+};
 const mockedQueryMapper = { map: jest.fn((_rawQuery: string, query: string) => query) };
 const mockedFiltersMapper = { map: jest.fn(() => ['size=xxl']) };
+
+container.bind(DEPENDENCIES.RequestMappers.Parameters.query).toConstantValue(mockedRelatedTagsQueryMapper);
 container.bind(DEPENDENCIES.RequestMappers.Parameters.query).toConstantValue(mockedQueryMapper);
 container.bind(DEPENDENCIES.RequestMappers.Parameters.filters).toConstantValue(mockedFiltersMapper);
 let mapper: EmpathySearchRequestMapper;
@@ -40,6 +46,7 @@ it('Maps related tags to query', () => {
   expect(request.q).toContain('jeans');
   expect(request).toBe(returnedRequest);
   expect(mockedQueryMapper.map).toHaveBeenCalledTimes(1);
+  expect(mockedRelatedTagsQueryMapper.map).toHaveBeenCalledTimes(1);
   expect(mockedFiltersMapper.map).toHaveBeenCalledTimes(1);
 });
 

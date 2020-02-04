@@ -13,6 +13,7 @@ import {
 import { ContainerConfigParser } from '../container/container-config-parser';
 import { DEPENDENCIES } from '../container/container.const';
 import { BindingDictionary } from '../container/container.types';
+import { BeforeResponseTransform } from '../empathy-adapter.types';
 import { HttpClient } from '../http-clients/http-client.types';
 import { EmpathySimpleValueMapper } from '../mappers';
 import { FeatureRequestor } from '../requestors/feature.requestor';
@@ -166,4 +167,12 @@ it('Calls multiple hooks', async () => {
 
   Object.values(hooks).forEach(hook => expect(hook).toHaveBeenCalledTimes(1));
   Object.values(extraHooks).forEach(hook => expect(hook).toHaveBeenCalledTimes(1));
+});
+
+it('beforeResponseTransformed context has the rawResponse', async () => {
+  const beforeResponseTransformed: BeforeResponseTransform = context => expect(context).toHaveProperty('rawResponse');
+  container.bind(DEPENDENCIES.Hooks.beforeResponseTransformed).toFunction(beforeResponseTransformed);
+  const requestor = container.get<FeatureRequestor<FromRequest, SuggestionsResponse>>('Requestor');
+
+  await requestor.request({ a: 'Hello', b: 'World' });
 });

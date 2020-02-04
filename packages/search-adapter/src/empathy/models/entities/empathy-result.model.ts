@@ -13,4 +13,5 @@ export interface EmpathyResult {
   price?: number | string;
   rating?: string;
   url: string;
+  isWishlisted?: boolean;
 }

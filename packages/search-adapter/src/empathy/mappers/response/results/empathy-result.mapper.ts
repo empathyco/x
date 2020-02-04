@@ -52,7 +52,8 @@ export class EmpathyResultMapper implements ResponseMapper<EmpathyResult, Result
         value: sku,
         html: sku ? this.highlightWithQuery(sku, sku, context) : sku
       },
-      tagging: this.createResultTagging(rawResult, result.tagging || {}, context)
+      tagging: this.createResultTagging(rawResult, result.tagging || {}, context),
+      isWishlisted: rawResult.isWishlisted || false
     });
   }
 

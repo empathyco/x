@@ -11,6 +11,7 @@ import { EmpathyUserInfoMapper } from '../mappers/request/empathy-user-data-requ
 import { EmpathyRequestFiltersSolrSyntaxMapper } from '../mappers/request/params/empathy-request-filters-solr-syntax.mapper';
 import { EmpathyRequestFiltersMapper } from '../mappers/request/params/empathy-request-filters.mapper';
 import { EmpathyRequestQueryMapper } from '../mappers/request/params/empathy-request-query.mapper';
+import { EmpathyRequestRelatedTagsQueryMapper } from '../mappers/request/params/empathy-request-related-tags-query.mapper';
 import { ResponseMappers } from '../mappers/response.mappers';
 import { EmpathyBannerMapper } from '../mappers/response/empathy-banner.mapper';
 import { EmpathyFacetMapper } from '../mappers/response/empathy-facet.mapper';
@@ -92,7 +93,7 @@ export const BINDINGS: BindingDictionary = {
     }
   },
   // Request params mappers
-  [DEPENDENCIES.RequestMappers.Parameters.query]: EmpathyRequestQueryMapper,
+  [DEPENDENCIES.RequestMappers.Parameters.query]: [EmpathyRequestRelatedTagsQueryMapper, EmpathyRequestQueryMapper],
   [DEPENDENCIES.RequestMappers.Parameters.filters]: EmpathyRequestFiltersMapper,
   [DEPENDENCIES.RequestMappers.Parameters.filtersValue]: EmpathyRequestFiltersSolrSyntaxMapper,
   // Response mappers

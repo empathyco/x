@@ -59,9 +59,8 @@ export class FeatureRequestor<RequestType, ResponseType extends Dictionary<any>>
     this.runHooks(this.beforeRequest, beforeRequestContext);
     return this.httpClient.get<any>(url, request, requestOptions)
       .then(rawResponse => {
-        const beforeResponseTransformedContext = { ...beforeRequestContext, rawRequest, request };
-        this.runHooks(this.beforeResponseTransformed, beforeResponseTransformedContext);
-        const responseContext = { ...beforeResponseTransformedContext, rawResponse };
+        const responseContext = { ...beforeRequestContext, rawResponse };
+        this.runHooks(this.beforeResponseTransformed, responseContext);
         const response = this.transformResponse(rawResponse, responseContext);
         const responseTransformedContext = { ...responseContext, response };
         this.runHooks(this.responseTransformed, responseTransformedContext);

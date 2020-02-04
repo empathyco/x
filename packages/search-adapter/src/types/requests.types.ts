@@ -2,11 +2,10 @@ import { Filter, RelatedTag } from '@empathy/search-types';
 import { Dictionary } from './utils.types';
 
 export interface SearchRequest extends QueryableRequest, FilterableRequest, PageableRequest, TrackableRequest {
-  relatedTags?: RelatedTag[];
   sort?: string;
 }
 
-export interface TopRecommendationsRequest extends PageableRequest, TrackableRequest, Partial<QueryableRequest> {}
+export interface TopRecommendationsRequest extends Partial<QueryableRequest>, PageableRequest, TrackableRequest {}
 
 export interface SectionRecommendationsRequest extends TrackableRequest, PageableRequest, UserContextRequest {
   section: string;
@@ -42,6 +41,7 @@ export interface TrackingRequest {
 // Request utils:
 export interface QueryableRequest {
   query: string;
+  relatedTags?: RelatedTag[];
 }
 
 export interface FilterableRequest {

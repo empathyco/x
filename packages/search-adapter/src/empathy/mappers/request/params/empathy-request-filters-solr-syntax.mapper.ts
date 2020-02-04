@@ -7,8 +7,7 @@ import { Mapper } from '../../../empathy-adapter.types';
 // TODO When the backend updates their services to be agnostic of the solr db syntax, we can remove this class
 @injectable()
 export class EmpathyRequestFiltersSolrSyntaxMapper implements Mapper<Filter[], string[]> {
-  constructor(@inject(DEPENDENCIES.config) private readonly config: EmpathyAdapterConfig
-  ) {}
+  constructor(@inject(DEPENDENCIES.config) private readonly config: EmpathyAdapterConfig) {}
 
   map(filters: Filter[], filterValues: string[]): string[] {
     const facetName = filters[0].facet.modelName;

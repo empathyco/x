@@ -1,5 +1,19 @@
 # Search Adapter Changelog
 
+> ## 3.1.0 - 2020/02/04
+>
+> EX-1506 Add `isWishlisted` field mapping to `mapResult`'s
+>
+> EX-1376 Externalized in `empathy-search-request.mapper` the logic of appending related tags to the query to a new mapper 
+>
+> EX-1376 Now `empathy-queryable-request.mapper` uses `empathy-request-related-tags-query.mapper` to generate the new query with related tags
+>
+> EX-1376 Added new request param mapper `empathy-request-related-tags-query.mapper` which concatenates related tags with the query
+>
+> EX-1376 Now `QueryableRequest` request type allows optionally related tags
+> 
+> EX-1489 Add the `rawResponse` to `beforeResponseTransformed`'s hook context
+
 > ## 3.0.1
 >
 > EX-1540 Update `@empathy/get-safe-property-chain`, `@empathy/logger`, `@empathy/search-types` and `@empathybroker/deep-merge` to use minor version
