@@ -1,1 +1,0 @@
-import '@empathy/jest-utils';

@@ -11,6 +11,7 @@ export * from './query-signals/next-queries.model';
 export * from './query-signals/next-query.model';
 export * from './query-signals/related-tag.model';
 export * from './redirection.model';
+export * from './result/result-identifier.model';
 export * from './result/result-price.model';
 export * from './result/result-rating.model';
 export * from './result/result-tagging.model';

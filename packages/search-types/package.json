@@ -1,12 +1,13 @@
 {
   "name": "@empathy/search-types",
-  "version": "3.1.1",
+  "version": "4.0.0",
   "description": "Empathy search types",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/search-types.d.ts",
   "scripts": {
-    "build": "tsc",
-    "build:watch": "tsc --watch"
+    "build": "rollup -c",
+    "build:watch": "rollup -c -w",
+    "release": "npm install && npm run build"
   },
   "repository": {
     "type": "git",
@@ -22,16 +23,21 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/colbenson/search-types#readme",
   "devDependencies": {
-    "@empathy/jest-utils": "^1.0.0",
+    "@empathy/jest-utils": "^1.1.0",
+    "@empathybroker/eb-tslint": "0.0.15",
+    "@microsoft/api-documenter": "^7.5.8",
+    "@microsoft/api-extractor": "^7.5.6",
     "@types/jest": "^24.0.13",
     "jest": "^24.8.0",
+    "rollup": "^1.26.5",
+    "rollup-plugin-delete": "^1.1.0",
+    "rollup-plugin-execute": "^1.1.1",
+    "rollup-plugin-typescript2": "^0.25.2",
     "tslint": "^5.16.0",
-    "typescript": "^3.4.5",
-    "@empathybroker/eb-tslint": "0.0.15"
+    "typescript": "^3.7.2"
   },
   "files": [
     "dist/**/*",
-    "schemas.js",
-    "schemas.d.ts"
+    "schemas/**/*"
   ]
 }

@@ -1,3 +1,5 @@
+import '@empathy/jest-utils';
+
 export * from './banner.schema';
 export * from './facet.schema';
 export * from './filter.schema';

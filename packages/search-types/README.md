@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.0.0
+
+> EX-1506 Add `isWishlisted` field to result model
+>
+> EX-1437 Add RollupJS build process with document support
+>
+> EX-1437 Concatenate types in a single file
+
 ## 3.1.1
 
 > EX-1540 Update `@empathy/jest-utils` to use minor version

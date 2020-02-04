@@ -1,6 +1,10 @@
-import { Result } from '../../result/result.model';
+import { Result } from '../result/result.model';
 import { TaggingSchema } from './tagging.schema';
 
+/**
+ * @public
+ * Jest schema for validating Result entities
+ */
 export const ResultSchema: Result = {
   callbackInfo: expect.any(Object),
   id: expect.any(String),
@@ -26,9 +30,14 @@ export const ResultSchema: Result = {
     checkout: TaggingSchema
   },
   type: expect.any(String),
-  url: expect.any(String)
+  url: expect.any(String),
+  isWishlisted: expect.any(Boolean)
 };
 
+/**
+ * @public
+ * Jest schema for validating Recommendation (AKA Result) entities
+ */
 export const RecommendationSchema: Result = {
   callbackInfo: expect.any(Object),
   id: expect.any(String),
@@ -53,5 +62,6 @@ export const RecommendationSchema: Result = {
     checkout: TaggingSchema
   },
   type: expect.any(String),
-  url: expect.any(String)
+  url: expect.any(String),
+  isWishlisted: expect.any(Boolean)
 };

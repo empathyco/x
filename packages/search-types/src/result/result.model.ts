@@ -5,8 +5,18 @@ import { ResultPrice } from './result-price.model';
 import { ResultRating } from './result-rating.model';
 import { ResultTagging } from './result-tagging.model';
 
+/**
+ * @public
+ * A search result
+ */
 export interface Result extends NamedModel, CallbackInfo {
+  /**
+   * A unique ID that identifies each result
+   */
   id: string;
+  /**
+   * The type of the result. i.e. product, article, pack...
+   */
   type: string;
   images: string[];
   name: string;
@@ -15,4 +25,5 @@ export interface Result extends NamedModel, CallbackInfo {
   tagging: ResultTagging;
   identifier: ResultIdentifier;
   url: string;
+  isWishlisted: boolean;
 }

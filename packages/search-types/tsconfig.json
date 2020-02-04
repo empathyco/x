@@ -1,10 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
-    "declaration": true,
+    "module": "esnext",
     "outDir": "./dist",
-    "declarationDir": "./dist",
     "strict": true,
     "noImplicitAny": true,
     "noImplicitThis": true,

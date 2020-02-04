@@ -1,6 +1,10 @@
-import { Banner } from '../../banner.model';
+import { Banner } from '../banner.model';
 import { TaggingSchema } from './tagging.schema';
 
+/**
+ * @public
+ * Jest schema for validating Banner entities
+ */
 export const BannerSchema: Banner = {
   id: expect.any(String),
   image: expect.any(String),

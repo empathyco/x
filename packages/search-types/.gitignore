@@ -1,6 +1,11 @@
 .DS_Store
 node_modules
 /dist
+/types
+/temp
+/api
+/docs
+/schemas
 
 /tests/e2e/reports/
 selenium-debug.log
