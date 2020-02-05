@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import Vue from 'vue';
 import { XEvent, XEventPayload } from '../wiring/events.types';
-import { Emitters, XBus } from './x.types';
+import { Emitters, XBus } from './x-bus.types';
 
 /**
  * Basic {@link XBus} implementation, which is used as default
@@ -31,7 +31,10 @@ export class BaseXBus implements XBus {
    * @param event The event to emit
    * @param payload The payload of the event if it has
    */
-  protected emitXEventAsVueEvent<E extends XEvent>(event: E, payload?: XEventPayload<E>) {
+  protected emitXEventAsVueEvent<E extends XEvent>(
+    event: E,
+    payload?: XEventPayload<E>
+  ) {
     let component = this.component;
     while (component !== undefined) {
       component.$emit(event, payload);
@@ -42,9 +45,15 @@ export class BaseXBus implements XBus {
   /**
    * Retrieves an event emitter for a given event
    * @param event The event to retrieve the emitter for
+   * @returns The emitter for the event passed
    */
-  protected getOrCreateEmitter<E extends XEvent>(event: E): Subject<XEventPayload<E>> {
+  protected getOrCreateEmitter<E extends XEvent>(
+    event: E
+  ): Subject<XEventPayload<E>> {
     // TODO I Don't get why the types are not working here
-    return BaseXBus.emitters[event] ?? (BaseXBus.emitters[event] = new Subject<XEventPayload<E>>() as any);
+    return (
+      BaseXBus.emitters[event] ??
+      (BaseXBus.emitters[event] = new Subject<XEventPayload<E>>() as any)
+    );
   }
 }

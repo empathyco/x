@@ -1,6 +1,6 @@
 import Vue, { ComponentOptions } from 'vue';
-import { BaseXBus } from './x.bus';
-import { XComponentAPI } from './x.types';
+import { BaseXBus } from './x-bus';
+import { XComponentAPI } from './x-plugin.types';
 
 declare module 'vue/types/vue' {
   export interface Vue {

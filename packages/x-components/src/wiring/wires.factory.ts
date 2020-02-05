@@ -15,11 +15,15 @@ export function commit(mutation: string, staticPayload: any): AnyWire;
  * @returns [Wire<Payload>] A wire that commits the mutation with the payload that it receives in the observable
  */
 export function commit<Payload>(mutation: string): Wire<Payload>;
-export function commit<Payload>(mutation: string, staticPayload?: any): Wire<Payload> {
+export function commit<Payload>(
+  mutation: string,
+  staticPayload?: any
+): Wire<Payload> {
   return function commitWire(observable, store) {
-    return observable.subscribe(staticPayload !== undefined
-      ? () => store.commit(mutation, staticPayload)
-      : payload => store.commit(mutation, payload)
+    return observable.subscribe(
+      staticPayload !== undefined
+        ? () => store.commit(mutation, staticPayload)
+        : payload => store.commit(mutation, payload)
     );
   };
 }
@@ -51,11 +55,16 @@ export function dispatch(action: string, staticPayload: any): AnyWire;
  * @returns [Wire<Payload>] A wire that dispatches the action with the payload that it receives in the observable
  */
 export function dispatch<Payload>(action: string): Wire<Payload>;
-export function dispatch<Payload>(action: string, staticPayload?: Payload): Wire<Payload> {
+export function dispatch<Payload>(
+  action: string,
+  staticPayload?: Payload
+): Wire<Payload> {
   return function dispatchWire(observable, store) {
-    return observable.subscribe(staticPayload !== undefined
-      ? () => store.dispatch(action, staticPayload)
-      : payload => store.dispatch(action, payload));
+    return observable.subscribe(
+      staticPayload !== undefined
+        ? () => store.dispatch(action, staticPayload)
+        : payload => store.dispatch(action, payload)
+    );
   };
 }
 

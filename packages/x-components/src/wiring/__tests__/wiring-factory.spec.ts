@@ -1,7 +1,12 @@
 import { Subject } from 'rxjs/Subject';
 import Vue from 'vue';
 import { default as Vuex, Store } from 'vuex';
-import { commit, commitWithoutPayload, dispatch, dispatchWithoutPayload } from './wires.factory';
+import {
+  commit,
+  commitWithoutPayload,
+  dispatch,
+  dispatchWithoutPayload
+} from '../wires.factory';
 
 Vue.use(Vuex);
 const store = new Store({
@@ -48,7 +53,10 @@ it('commit creates a wire that calls a store mutation with the observable payloa
   subject.next(10);
 
   expect(mutationSubscription).toHaveBeenCalledTimes(1);
-  expect(mutationSubscription).toHaveBeenCalledWith({ type: 'add', payload: 10 }, expect.any(Object));
+  expect(mutationSubscription).toHaveBeenCalledWith(
+    { type: 'add', payload: 10 },
+    expect.any(Object)
+  );
 });
 
 it('commit creates a wire that calls a store mutation with a static payload', () => {
@@ -58,7 +66,10 @@ it('commit creates a wire that calls a store mutation with a static payload', ()
   subject.next(10);
 
   expect(mutationSubscription).toHaveBeenCalledTimes(1);
-  expect(mutationSubscription).toHaveBeenCalledWith({ type: 'add', payload: 1 }, expect.any(Object));
+  expect(mutationSubscription).toHaveBeenCalledWith(
+    { type: 'add', payload: 1 },
+    expect.any(Object)
+  );
 });
 
 it('commitWithoutPayload creates a wire that calls a store mutation without any payload', () => {
@@ -68,7 +79,10 @@ it('commitWithoutPayload creates a wire that calls a store mutation without any 
   subject.next(10);
 
   expect(mutationSubscription).toHaveBeenCalledTimes(1);
-  expect(mutationSubscription).toHaveBeenCalledWith({ type: 'increment', payload: undefined }, expect.any(Object));
+  expect(mutationSubscription).toHaveBeenCalledWith(
+    { type: 'increment', payload: undefined },
+    expect.any(Object)
+  );
 });
 
 it('dispatch creates a wire that calls a store action with the observable payload', () => {
@@ -78,7 +92,10 @@ it('dispatch creates a wire that calls a store action with the observable payloa
   subject.next(10);
 
   expect(actionSubscription).toHaveBeenCalledTimes(1);
-  expect(actionSubscription).toHaveBeenCalledWith({ type: 'addTwice', payload: 10 }, expect.any(Object));
+  expect(actionSubscription).toHaveBeenCalledWith(
+    { type: 'addTwice', payload: 10 },
+    expect.any(Object)
+  );
 });
 
 it('dispatch creates a wire that calls a store action with a static payload', () => {
@@ -88,7 +105,10 @@ it('dispatch creates a wire that calls a store action with a static payload', ()
   subject.next(10);
 
   expect(actionSubscription).toHaveBeenCalledTimes(1);
-  expect(actionSubscription).toHaveBeenCalledWith({ type: 'addTwice', payload: 1 }, expect.any(Object));
+  expect(actionSubscription).toHaveBeenCalledWith(
+    { type: 'addTwice', payload: 1 },
+    expect.any(Object)
+  );
 });
 
 it('dispatchWithoutPayload creates a wire that calls a store action without any payload', () => {
@@ -98,5 +118,8 @@ it('dispatchWithoutPayload creates a wire that calls a store action without any 
   subject.next(10);
 
   expect(actionSubscription).toHaveBeenCalledTimes(1);
-  expect(actionSubscription).toHaveBeenCalledWith({ type: 'incrementTwice', payload: undefined }, expect.any(Object));
+  expect(actionSubscription).toHaveBeenCalledWith(
+    { type: 'incrementTwice', payload: undefined },
+    expect.any(Object)
+  );
 });
