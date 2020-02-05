@@ -9,18 +9,11 @@ import { GettersTree } from './getters.types';
 import { MutationsDictionary, MutationsTree } from './mutations.types';
 
 /**
- * Dictionary where each key is the name of the module, and the value is the corresponding {@link XStoreModule}
- */
-export type XStoreTree = {
-  [Module in keyof XModulesTree]: XModulesTree[Module]['storeModule'];
-};
-
-/**
  * Base X store state type. All {@link XStoreModule} are nested under the `x` module for safe scoping.
  */
 export interface RootXStoreState {
   x: {
-    [Module in keyof XStoreTree]: XStoreTree[Module] extends XStoreModule<
+    [Module in keyof XModulesTree]: XModulesTree[Module]['storeModule'] extends XStoreModule<
       infer State,
       any,
       any,

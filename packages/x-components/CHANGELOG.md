@@ -2,6 +2,8 @@
 
 ## 1.0.0-alpha
 
+> EX-1612 Remove unnecessary `XStoreTree` type
+>
 > EX-1584 Add `withModule` function to create `XModule` scoped wires
 >
 > EX-1613 Remove `Emitters` and `Wiring` generic types from `XModule`
