@@ -2,6 +2,8 @@
 
 ## 1.0.0-alpha
 
+> EX-1613 Remove `Emitters` and `Wiring` generic types from `XModule`
+>
 > EX-1559 Add Store and StoreEmitters to the X-Module
 >
 > EX-1554 Add wiring system

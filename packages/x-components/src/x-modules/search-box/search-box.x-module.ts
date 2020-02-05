@@ -64,8 +64,6 @@ const searchBoxEmitters = createStoreEmitters(searchBoxXStoreModule, {
   SearchBoxQueryChanged: state => state.query
 });
 
-export type SearchBoxEmitters = typeof searchBoxEmitters;
-
 // Wiring
 
 const searchBoxWiring = createWiring({
@@ -74,11 +72,5 @@ const searchBoxWiring = createWiring({
   }
 });
 
-type SearchBoxWiring = typeof searchBoxWiring;
-
 // XModule
-export type SearchBoxXModule = XModule<
-  SearchBoxXStoreModule,
-  SearchBoxEmitters,
-  SearchBoxWiring
->;
+export type SearchBoxXModule = XModule<SearchBoxXStoreModule>;

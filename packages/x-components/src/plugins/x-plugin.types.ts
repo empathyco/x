@@ -2,10 +2,10 @@ import { Store } from 'vuex';
 import { ActionsTree, AnyActionsTree } from '../store/actions.types';
 import { AnyGettersTree, GettersTree } from '../store/getters.types';
 import { AnyMutationsTree, MutationsTree } from '../store/mutations.types';
-import { AnyStoreEmitters } from '../store/store-emitters.types';
+import { StoreEmitters } from '../store/store-emitters.types';
 import { AnyXStoreModule, XStoreModule } from '../store/store.types';
 import { DeepPartial, Dictionary } from '../utils';
-import { WiringOptions } from '../wiring/wiring.types';
+import { Wiring } from '../wiring/wiring.types';
 import {
   AnyXModule,
   XModuleName,
@@ -29,14 +29,6 @@ export interface XPluginOptions {
 export interface XComponentAPI extends XBus {}
 
 /**
- * Options to modify the {@link StoreEmitters}
- * @param StoreEmitters The default store emitters type to modify
- */
-export type StoreEmittersOptions<StoreEmitters extends AnyStoreEmitters> =
-  | DeepPartial<StoreEmitters>
-  | AnyStoreEmitters;
-
-/**
  * Options for overriding the default XModules configuration
  */
 export type XModulesOptions = {
@@ -47,13 +39,13 @@ export type XModulesOptions = {
  * Options for overriding a default XModule configuration
  * @param M The module name to modify its default configuration
  */
-export interface XModuleOptions<M extends AnyXModule> {
+export interface XModuleOptions<Module extends AnyXModule> {
   /** The options to override events that will be emitted when a the getters value or the state of the store changes */
-  storeEmitters?: StoreEmittersOptions<M['storeEmitters']>;
+  storeEmitters?: Partial<StoreEmitters<Module['storeModule']>>;
   /** The options to override the default store module configuration */
-  storeModule?: XStoreModuleOptions<M['storeModule']>;
+  storeModule?: XStoreModuleOptions<Module['storeModule']>;
   /** The options to override the default wiring configuration for the module */
-  wiring?: WiringOptions<M['wiring']>;
+  wiring?: Partial<Wiring>;
 }
 
 /**

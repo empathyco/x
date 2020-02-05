@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from 'vuex';
-import { DeepPartial, Dictionary } from '../utils';
+import { Dictionary } from '../utils';
 import { XEvent, XEventPayload } from './events.types';
 
 /**
@@ -30,11 +30,3 @@ export type AnyWire = Wire<any>;
 export type Wiring = {
   [E in XEvent]: Dictionary<WireForEvent<E>>;
 };
-
-/**
- * Type that removing, modifying or adding wires based on a concrete wiring type.
- * @param T the base wiring type
- */
-export type WiringOptions<T extends Partial<Wiring>> =
-  | DeepPartial<T>
-  | Partial<Wiring>;

@@ -1,4 +1,4 @@
-import { AnyStoreEmitters, StoreEmitters } from '../store/store-emitters.types';
+import { StoreEmitters } from '../store/store-emitters.types';
 import { AnyXStoreModule } from '../store/store.types';
 import { Wiring } from '../wiring/wiring.types';
 import { SearchBoxXModule } from './search-box/search-box.x-module';
@@ -21,26 +21,18 @@ export type XModuleName = keyof XModulesTree;
  * @param Emitters The emitters concrete type
  * @param Wiring The wiring concrete type
  */
-export interface XModule<
-  StoreModule extends AnyXStoreModule,
-  Emitters extends StoreEmitters<StoreModule>,
-  Wiring extends Partial<Wiring>
-> {
+export interface XModule<StoreModule extends AnyXStoreModule> {
   /** A unique name that identifies this XModule */
   name: XModuleName;
   /** Watchers for the store module that will emit an XEvent when changed */
-  storeEmitters: Emitters;
+  storeEmitters: StoreEmitters<StoreModule>;
   /** The Vuex Store module associated to this module */
   storeModule: StoreModule;
   /** The wiring associated to this module. It must only access to the store module of this XModule */
-  wiring: Wiring;
+  wiring: Partial<Wiring>;
 }
 
 /**
  * Alias for any XModule. Use with caution
  */
-export type AnyXModule = XModule<
-  AnyXStoreModule,
-  AnyStoreEmitters,
-  Partial<Wiring>
->;
+export type AnyXModule = XModule<AnyXStoreModule>;
