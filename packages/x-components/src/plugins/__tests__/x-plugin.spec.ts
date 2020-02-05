@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { default as Vue, VueConstructor } from 'vue';
 import Vuex, { Store } from 'vuex';
 import { createStoreEmitters, XStoreModule } from '../../store';
-import { commit } from '../../wiring/wires.factory';
+import { wireCommit } from '../../wiring/wires.factory';
 import { AnyWire } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 import { AnyXModule } from '../../x-modules/x-modules.types';
@@ -371,7 +371,7 @@ describe('X-Modules system', () => {
   });
   const wiring = createWiring({
     UserTyped: {
-      setSearchBoxQuery: commit<string>('x/searchBox/setQuery')
+      setSearchBoxQuery: wireCommit<string>('x/searchBox/setQuery')
     },
     SearchBoxQueryChanged: {
       registerSearchBoxQueryChanged: (observable: Observable<string>) =>

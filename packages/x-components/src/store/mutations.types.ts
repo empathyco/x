@@ -1,4 +1,5 @@
 import { Dictionary } from '../utils';
+import { ExtractPayload } from './store.types';
 
 /**
  * Intermediate type that must be extended to implement a store module mutations definitions. This type will then be used by {@link ActionsTree}
@@ -17,7 +18,7 @@ export type MutationsTree<
 > = {
   [Key in keyof Mutations]: (
     state: State,
-    payload: Parameters<Mutations[Key]>[0]
+    payload: ExtractPayload<Mutations[Key]>
   ) => void;
 };
 

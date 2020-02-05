@@ -1,7 +1,7 @@
 import { ActionContext } from 'vuex';
 import { Dictionary, PropsWithType } from '../utils';
 import { MutationsDictionary } from './mutations.types';
-import { RootXStoreState } from './store.types';
+import { ExtractPayload, RootXStoreState } from './store.types';
 
 /**
  * Type safe Vuex {@link ActionContext}, with the local types of the module
@@ -44,14 +44,6 @@ export type ExtractActionReturn<
   : Promise<ReturnType<Action>>;
 
 /**
- * Extracts the payload from an action
- * @param Action the action to extract it's payload type from
- */
-export type ExtractPayload<Action extends (payload?: any) => any> = Parameters<
-  Action
->[0];
-
-/**
  * Intermediate type that must be extended to implement a store module actions definitions. This type will then be used by
  * {@link ActionsTree} to offer a type-safe `dispatch` method.
  */
@@ -72,7 +64,7 @@ export type ActionsTree<
 > = {
   [Key in keyof Actions]: (
     context: XActionContext<State, Getters, Mutations, Actions>,
-    payload: Parameters<Actions[Key]>[0]
+    payload: ExtractPayload<Actions[Key]>
   ) => ReturnType<Actions[Key]> | Promise<ReturnType<Actions[Key]>>;
 };
 

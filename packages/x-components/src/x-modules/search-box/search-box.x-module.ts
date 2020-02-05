@@ -1,9 +1,9 @@
-import { XModule } from '../x-modules.types';
 import { ActionsDictionary, MutationsDictionary } from '../../store';
 import { XStoreModule } from '../../store/store.types';
 import { createStoreEmitters } from '../../store/store.utils';
-import { commit } from '../../wiring/wires.factory';
+import { withModule } from '../../wiring/wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
+import { XModule } from '../x-modules.types';
 
 /**
  *  This is an example file of all the code needed to create a module
@@ -21,6 +21,7 @@ interface SearchBoxGetters {
 }
 
 interface SearchBoxMutations extends MutationsDictionary {
+  clearQuery(newQuery: string): void;
   setQuery(newQuery: string): void;
 }
 
@@ -46,6 +47,9 @@ const searchBoxXStoreModule: SearchBoxXStoreModule = {
   mutations: {
     setQuery(state, newQuery) {
       state.query = newQuery;
+    },
+    clearQuery(state) {
+      state.query = '';
     }
   },
   actions: {
@@ -68,7 +72,7 @@ const searchBoxEmitters = createStoreEmitters(searchBoxXStoreModule, {
 
 const searchBoxWiring = createWiring({
   UserTyped: {
-    setSearchBoxQuery: commit('x/searchBox/setQuery')
+    setSearchBoxQuery: withModule(`searchBox`).wireCommit('setQuery')
   }
 });
 
