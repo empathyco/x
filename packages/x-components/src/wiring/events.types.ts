@@ -2,27 +2,38 @@
  * Dictionary of the events of EmpathyX, where each key is the event name, and the value is the event payload type or `void` if it
  * has no payload.
  */
+
 export interface XEventsTypes {
   /**
-   * The user has manually modified the search-box (typing, pasting some text...)
+   * The search-box query has changed
+   * Payload: The new search-box query
    */
-  UserTyped: string;
+  SearchBoxQueryChanged: string;
   /**
    * The user is in the process of changing a query
+   * Payload: the partial query that the user is writing
    */
   UserIsChangingQuery: string;
   /**
-   * The user has selected or confirmed a query
-   */
-  UserSelectedAQuery: string;
-  /**
    * The user triggered the button that clears the search-box
+   * Payload: none
    */
   UserPressedClearSearchBoxButton: void;
   /**
-   * The search-box query has changed
+   * User has focus on the search-box and pressed the enter key
+   * Payload: The new query of the search-box
    */
-  SearchBoxQueryChanged: string;
+  UserPressedEnter: string;
+  /**
+   * The user has selected or confirmed a query
+   * Payload: the query that the user selected
+   */
+  UserSelectedAQuery: string;
+  /**
+   * The user has manually modified the search-box (typing, pasting some text...)
+   * Payload: the query that the user is writing in the search-box
+   */
+  UserTyped: string;
 }
 
 /**

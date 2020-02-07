@@ -1,7 +1,7 @@
 import { StoreEmitters } from '../store/store-emitters.types';
 import { AnyXStoreModule } from '../store/store.types';
 import { Wiring } from '../wiring/wiring.types';
-import { SearchBoxXModule } from './search-box/search-box.x-module';
+import { SearchBoxXModule } from './search-box/x-module';
 
 /**
  * Gives each {@link XModule} a name, that can be used to retrieve then its value.
@@ -18,8 +18,6 @@ export type XModuleName = keyof XModulesTree;
 /**
  * A group of a wiring configuration, a store module, and side effects
  * @param StoreModule The store module state type
- * @param Emitters The emitters concrete type
- * @param Wiring The wiring concrete type
  */
 export interface XModule<StoreModule extends AnyXStoreModule> {
   /** A unique name that identifies this XModule */
