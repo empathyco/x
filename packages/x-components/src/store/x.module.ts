@@ -12,7 +12,8 @@ type XModuleState = { [Key in keyof RootXStoreState['x']]: null };
  */
 export const RootXStoreModule: Module<XModuleState, any> = {
   state: () => ({
-    searchBox: null
+    searchBox: null,
+    termSuggestions: null
   }),
   namespaced: true
 };

@@ -2,6 +2,8 @@
 
 ## 1.0.0-alpha
 
+> EX-1588 Add term-suggestions x-module skeleton
+>
 > EX-1588 Add search-box x-module skeleton
 >
 > EX-1612 Remove unnecessary `XStoreTree` type

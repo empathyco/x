@@ -1,16 +1,19 @@
 <template>
   <main>
     <SearchBox />
+    <TermSuggestions />
   </main>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import SearchBox from './x-modules/search-box/search-box.vue';
+import TermSuggestions from './x-modules/term-suggestions/term-suggestions.vue';
 
 @Component({
   components: {
-    SearchBox
+    SearchBox,
+    TermSuggestions
   }
 })
 export default class App extends Vue {}
