@@ -1,8 +1,4 @@
-import {
-  ActionsDictionary,
-  MutationsDictionary,
-  XStoreModule
-} from '../../../store';
+import { ActionsDictionary, MutationsDictionary, XStoreModule } from '../../../store';
 
 export interface SearchBoxState {
   query: string;

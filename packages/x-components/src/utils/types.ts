@@ -33,14 +33,7 @@ export type DeepPartial<T> = {
 /**
  * TypeScript type primitives. Basically every type possible except objects or arrays.
  */
-export type Primitive =
-  | string
-  | number
-  | boolean
-  | undefined
-  | null
-  | symbol
-  | AnyFunction;
+export type Primitive = string | number | boolean | undefined | null | symbol | AnyFunction;
 
 /**
  * A function with 0 or more parameters of any type, which can return something or not

@@ -17,9 +17,7 @@ export interface XActionContext<
   Actions extends ActionsDictionary
 > extends ActionContext<State, RootXStoreState> {
   getters: Getters;
-  commit<MutationName extends PropsWithType<Mutations, () => void>>(
-    mutation: MutationName
-  ): void;
+  commit<MutationName extends PropsWithType<Mutations, () => void>>(mutation: MutationName): void;
   commit<MutationName extends keyof Mutations>(
     mutation: MutationName,
     payload: ExtractPayload<Mutations[MutationName]>
@@ -37,9 +35,9 @@ export interface XActionContext<
  * Flattens the (probably) chained promises of an action type
  * @param Action the action function to extract its type
  */
-export type ExtractActionReturn<
-  Action extends (payload?: any) => any
-> = ReturnType<Action> extends Promise<any>
+export type ExtractActionReturn<Action extends (payload?: any) => any> = ReturnType<
+  Action
+> extends Promise<any>
   ? ReturnType<Action>
   : Promise<ReturnType<Action>>;
 

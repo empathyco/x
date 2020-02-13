@@ -8,11 +8,10 @@ import { AnyXStoreModule } from './store.types';
  * @param State the type of the state of the {@link XModule} where this selector is used
  * @param Getters the type of the getters of the {@link XModule} where this selector is used
  */
-export type StateSelector<
-  ReturnType,
-  State extends Dictionary,
-  Getters extends Dictionary
-> = (state: State, getters: Getters) => ReturnType;
+export type StateSelector<ReturnType, State extends Dictionary, Getters extends Dictionary> = (
+  state: State,
+  getters: Getters
+) => ReturnType;
 /**
  * Dictionary where the key is a {@link XEvent}, and the value is {@link StateSelector}. This {@link StateSelector} can only access
  * the state and getters from the {@link XStoreModule} passed as param type

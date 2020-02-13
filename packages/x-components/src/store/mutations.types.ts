@@ -12,14 +12,8 @@ export type MutationsDictionary = Dictionary<(payload?: any) => void>;
  * @param State the module state dictionary type definition
  * @param Mutations the module mutations dictionary type definition
  */
-export type MutationsTree<
-  State extends Dictionary,
-  Mutations extends MutationsDictionary
-> = {
-  [Key in keyof Mutations]: (
-    state: State,
-    payload: ExtractPayload<Mutations[Key]>
-  ) => void;
+export type MutationsTree<State extends Dictionary, Mutations extends MutationsDictionary> = {
+  [Key in keyof Mutations]: (state: State, payload: ExtractPayload<Mutations[Key]>) => void;
 };
 
 /**

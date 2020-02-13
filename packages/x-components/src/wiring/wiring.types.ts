@@ -1,12 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from 'vuex';
-import {
-  ExtractActions,
-  ExtractMutations,
-  ExtractPayload,
-  RootXStoreState
-} from '../store';
+import { ExtractActions, ExtractMutations, ExtractPayload, RootXStoreState } from '../store';
 import { DeepPartial, Dictionary, PropsWithType } from '../utils';
 import { AnyXModule } from '../x-modules/x-modules.types';
 import { XEvent, XEventPayload } from './events.types';
@@ -15,10 +10,7 @@ import { XEvent, XEventPayload } from './events.types';
  * A Wire is a function that receives an observable, the store, and returns a subscription
  * @param T The observable payload type, or any if it accepts anything.
  */
-export type Wire<T> = (
-  observable: Observable<T>,
-  store: Store<RootXStoreState>
-) => Subscription;
+export type Wire<T> = (observable: Observable<T>, store: Store<RootXStoreState>) => Subscription;
 
 /**
  * Alias for a wire with the type of the event payload
@@ -42,9 +34,7 @@ export type Wiring = {
  * Type that removing, modifying or adding wires based on a concrete wiring type.
  * @param T the base wiring type
  */
-export type WiringOptions<T extends Partial<Wiring>> =
-  | DeepPartial<T>
-  | Partial<Wiring>;
+export type WiringOptions<T extends Partial<Wiring>> = DeepPartial<T> | Partial<Wiring>;
 
 /**
  * Type safe wire factory, that provides methods for creating wires that can only

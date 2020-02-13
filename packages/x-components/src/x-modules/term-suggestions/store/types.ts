@@ -1,10 +1,6 @@
 import { SuggestionsRequest } from '@empathy/search-adapter';
 import { Suggestion } from '@empathy/search-types';
-import {
-  ActionsDictionary,
-  MutationsDictionary,
-  XStoreModule
-} from '../../../store';
+import { ActionsDictionary, MutationsDictionary, XStoreModule } from '../../../store';
 import { TermSuggestionsConfig } from '../config.types';
 
 export interface TermSuggestionsState {

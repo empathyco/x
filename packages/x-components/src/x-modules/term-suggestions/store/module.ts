@@ -36,15 +36,11 @@ export const termSuggestionsXStoreModule: TermSuggestionsXStoreModule = {
   },
   actions: {
     retrieveSuggestions({ dispatch, commit }) {
-      dispatch('getSuggestions').then(suggestions =>
-        commit('setSuggestions', suggestions)
-      );
+      dispatch('getSuggestions').then(suggestions => commit('setSuggestions', suggestions));
     },
     getSuggestions({ getters }) {
       return getters.request
-        ? adapter
-            .getSuggestions(getters.request)
-            .then(({ suggestions }) => suggestions)
+        ? adapter.getSuggestions(getters.request).then(({ suggestions }) => suggestions)
         : [];
     }
   }

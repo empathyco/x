@@ -31,10 +31,7 @@ export class BaseXBus implements XBus {
    * @param event The event to emit
    * @param payload The payload of the event if it has
    */
-  protected emitXEventAsVueEvent<E extends XEvent>(
-    event: E,
-    payload?: XEventPayload<E>
-  ) {
+  protected emitXEventAsVueEvent<E extends XEvent>(event: E, payload?: XEventPayload<E>) {
     let component = this.component;
     while (component !== undefined) {
       component.$emit(event, payload);
@@ -47,9 +44,7 @@ export class BaseXBus implements XBus {
    * @param event The event to retrieve the emitter for
    * @returns The emitter for the event passed
    */
-  protected getOrCreateEmitter<E extends XEvent>(
-    event: E
-  ): Subject<XEventPayload<E>> {
+  protected getOrCreateEmitter<E extends XEvent>(event: E): Subject<XEventPayload<E>> {
     // TODO I Don't get why the types are not working here
     return (
       BaseXBus.emitters[event] ??

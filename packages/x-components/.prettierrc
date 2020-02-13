@@ -1,3 +1,10 @@
 {
-  "singleQuote": true
+  "singleQuote": true,
+  "printWidth": 100,
+  "jsxSingleQuote": true,
+  "jsxBracketSameLine": true,
+  "proseWrap": "always",
+  "htmlWhitespaceSensitivity": "ignore",
+  "vueIndentScriptAndStyle": true,
+  "endOfLine": "lf"
 }

@@ -1,21 +1,20 @@
 import { Dictionary } from './types';
 
 /**
- * Iterates over every non-undefined property of the object calling the callback passed as parameter.
+ * Iterates over every non-undefined property of the object calling the callback passed as
+ * parameter.
  * @param obj The object to iterate through each property
  * @param callbackFn The callback function to call for each property
  */
 export function forEach<T extends Dictionary>(
   obj: T | undefined | null,
-  callbackFn: (
-    key: keyof T,
-    value: Exclude<T[keyof T], undefined>,
-    index: number
-  ) => void
+  callbackFn: (key: keyof T, value: Exclude<T[keyof T], undefined>, index: number) => void
 ): void {
+  // eslint-disable-next-line eqeqeq
   if (obj == null) {
     return;
   }
+
   let index = 0;
   for (const key in obj) {
     if (obj.hasOwnProperty(key) && obj[key] !== undefined) {
@@ -27,7 +26,8 @@ export function forEach<T extends Dictionary>(
 /**
  * Iterates through the obj properties calling the reducer function
  * @param obj The object to iterate through each property
- * @param reducer A function that will be called for each property, modifying the initialValue object
+ * @param reducer A function that will be called for each property, modifying the initialValue
+ *   object
  * @param initialValue The initial value of the accumulator property of the reducer function.
  */
 export function reduce<T extends Dictionary, V>(
@@ -54,11 +54,7 @@ export function reduce<T extends Dictionary, V>(
  */
 export function map<T extends Dictionary, W>(
   obj: T | undefined | null,
-  mapper: (
-    key: keyof T,
-    value: Exclude<T[keyof T], undefined>,
-    index: number
-  ) => W
+  mapper: (key: keyof T, value: Exclude<T[keyof T], undefined>, index: number) => W
 ): Record<keyof T, W> {
   return reduce(
     obj,

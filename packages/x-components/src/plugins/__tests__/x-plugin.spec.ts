@@ -69,364 +69,354 @@ const xModule: AnyXModule = {
 let plugin: typeof XPlugin;
 let localVue: VueConstructor<Vue>;
 let store: Store<any>; // Any to handle creation of new properties
-beforeEach(() => {
-  jest.resetModules().clearAllMocks();
-  plugin = require('../x-plugin').XPlugin;
-  localVue = createLocalVue();
-  localVue.use(Vuex);
-  store = new Store({});
-});
 
-describe('Install XPlugin without options', () => {
-  it('allows registering a x-module before installing', () => {
-    plugin.registerXModule(xModule);
-    expectDefaultModuleToBeNotRegistered();
-
-    localVue.use(plugin, { store });
-    expectDefaultModuleToBeRegisteredOnce();
-  });
-
-  it('allows registering a x-module after installing', () => {
-    localVue.use(plugin, { store });
-    plugin.registerXModule(xModule);
-
-    expectDefaultModuleToBeRegisteredOnce();
-  });
-
-  it('does not re-register a module', () => {
-    plugin.registerXModule(xModule);
-    localVue.use(plugin, { store });
-    plugin.registerXModule(xModule);
-
-    expectDefaultModuleToBeRegisteredOnce();
-  });
-
-  function expectDefaultModuleToBeNotRegistered() {
-    expect(wireToReplace).not.toHaveBeenCalled();
-    expect(wireToRemove).not.toHaveBeenCalled();
-    expect(wire).not.toHaveBeenCalled();
-    expect(store.state.x).not.toBeDefined(); // If the state is not registered I'm 100% sure that there won't be actions, mutations or
-    // getters.
-    expect(userTypedSelector).not.toHaveBeenCalled();
-    expect(userSelectedAQuerySelector).not.toHaveBeenCalled();
-    expect(userIsChangingQuerySelector).not.toHaveBeenCalled();
-  }
-
-  function expectDefaultModuleToBeRegisteredOnce() {
-    // Wires
-    expect(wireToReplace).toHaveBeenCalledTimes(1);
-    expect(wireToRemove).toHaveBeenCalledTimes(1);
-    expect(wire).toHaveBeenCalledTimes(1);
-    // Store Module
-    expect(store.state.x.searchBox).toBeDefined();
-    // Store Emitters
-    const searchBoxState = store.state.x.searchBox;
-    const searchBoxGetters = {
-      getter: 1,
-      getterToReplace: 2,
-      getterToRemove: 3
-    };
-    expect(userTypedSelector).toHaveBeenCalledTimes(1);
-    expect(userTypedSelector).toHaveBeenCalledWith(
-      searchBoxState,
-      searchBoxGetters
-    );
-    expect(userSelectedAQuerySelector).toHaveBeenCalledTimes(1);
-    expect(userSelectedAQuerySelector).toHaveBeenCalledWith(
-      searchBoxState,
-      searchBoxGetters
-    );
-    expect(userIsChangingQuerySelector).toHaveBeenCalledTimes(1);
-    expect(userIsChangingQuerySelector).toHaveBeenCalledWith(
-      searchBoxState,
-      searchBoxGetters
-    );
-  }
-});
-
-describe('Install XPlugin overriding store', () => {
-  const newAction = jest.fn();
-  const replacedAction = jest.fn();
-  const newMutation = jest.fn();
-  const replacedMutation = jest.fn();
-  const xModules: XModulesOptions = {
-    searchBox: {
-      storeModule: {
-        state: {
-          propToRemove: undefined,
-          complexProp: {
-            propToReplace: "I'm new"
-          },
-          newProp: 'New prop'
-        } as any, // There is some issue with ts-jest that throws different errors of the TS service
-        getters: {
-          getterToReplace() {
-            return 4;
-          },
-          getterToRemove: undefined as any, // You can't remove a property that does not exist
-          newGetter() {
-            return 5;
-          }
-        },
-        actions: {
-          newAction,
-          actionToReplace: replacedAction,
-          actionToRemove: undefined
-        } as any,
-        mutations: {
-          newMutation,
-          mutationToReplace: replacedMutation,
-          mutationToRemove: undefined
-        } as any
-      }
-    }
-  };
-
-  function expectStoreStateToBeModified() {
-    expect(store.state.x.searchBox.prop).toEqual(1);
-    expect(store.state.x.searchBox.propToRemove).not.toBeDefined();
-    expect(store.state.x.searchBox.complexProp).toEqual({
-      propToReplace: "I'm new",
-      propToKeep: 'But keep me'
-    });
-    expect(store.state.x.searchBox.newProp).toEqual('New prop');
-  }
-
-  function expectStoreGettersToBeModified() {
-    expect(store.getters['x/searchBox/getter']).toEqual(1);
-    expect(store.getters['x/searchBox/getterToReplace']).toEqual(4);
-    expect(store.getters['x/searchBox/getterToRemove']).not.toBeDefined();
-    expect(store.getters['x/searchBox/newGetter']).toEqual(5);
-  }
-
-  async function expectStoreActionsToBeModified() {
-    await Promise.all([
-      store.dispatch('x/searchBox/action'),
-      store.dispatch('x/searchBox/actionToReplace'),
-      store.dispatch('x/searchBox/actionToRemove'),
-      store.dispatch('x/searchBox/newAction')
-    ]);
-    expect(action).toHaveBeenCalled();
-    expect(newAction).toHaveBeenCalled();
-    expect(replacedAction).toHaveBeenCalled();
-    expect(actionToReplace).not.toHaveBeenCalled();
-    expect(actionToRemove).not.toHaveBeenCalled();
-  }
-
-  function expectStoreMutationsToBeModified() {
-    store.commit('x/searchBox/mutation');
-    store.commit('x/searchBox/mutationToReplace');
-    store.commit('x/searchBox/mutationToRemove');
-    store.commit('x/searchBox/newMutation');
-    expect(mutation).toHaveBeenCalled();
-    expect(newMutation).toHaveBeenCalled();
-    expect(replacedMutation).toHaveBeenCalled();
-    expect(mutationToReplace).not.toHaveBeenCalled();
-    expect(mutationToRemove).not.toHaveBeenCalled();
-  }
-
-  describe('Override before installing plugin', () => {
-    beforeEach(() => {
-      plugin.registerXModule(xModule);
-      localVue.use(plugin, {
-        xModules,
-        store
-      });
-    });
-
-    it('overrides state', expectStoreStateToBeModified);
-    it('overrides getters', expectStoreGettersToBeModified);
-    it('overrides actions', expectStoreActionsToBeModified);
-    it('overrides mutations', expectStoreMutationsToBeModified);
-  });
-
-  describe('Override after installing plugin', () => {
-    beforeEach(() => {
-      localVue.use(plugin, {
-        xModules,
-        store
-      });
-      plugin.registerXModule(xModule);
-    });
-    it('overrides state', expectStoreStateToBeModified);
-    it('overrides getters', expectStoreGettersToBeModified);
-    it('overrides actions', expectStoreActionsToBeModified);
-    it('overrides mutations', expectStoreMutationsToBeModified);
-  });
-});
-
-describe('Install XPlugin overriding wiring', () => {
-  const newWire = jest.fn();
-  const replacedWire = jest.fn();
-  const pluginOptions: XPluginOptions = {
-    xModules: {
-      searchBox: {
-        wiring: {
-          UserTyped: {
-            wireToReplace: replacedWire,
-            wireToRemove: undefined as any, // "any" because we are mocking searchBox module to ease testing, and types don't allow to add
-            // an undefined wire unless it is defined in the default configuration.
-            newWire
-          }
-        }
-      }
-    },
-    store
-  };
-
-  it('overrides before installing plugin', () => {
-    plugin.registerXModule(xModule);
-    localVue.use(plugin, pluginOptions);
-
-    expectModuleToHaveBeenReplaced();
-  });
-  it('overrides after installing plugin', () => {
-    localVue.use(plugin, pluginOptions);
-    plugin.registerXModule(xModule);
-
-    expectModuleToHaveBeenReplaced();
-  });
-
-  function expectModuleToHaveBeenReplaced() {
-    expect(wireToReplace).not.toHaveBeenCalled();
-    expect(wireToRemove).not.toHaveBeenCalled();
-    expect(wire).toHaveBeenCalled();
-    expect(replacedWire).toHaveBeenCalled();
-    expect(newWire).toHaveBeenCalled();
-  }
-});
-
-describe('Install XPlugin overriding store emitters', () => {
-  const newUserTypedSelector = jest.fn();
-  const newSelectorForNewEvent = jest.fn();
-  const pluginOptions: XPluginOptions = {
-    xModules: {
-      searchBox: {
-        storeEmitters: {
-          UserTyped: newUserTypedSelector,
-          UserIsChangingQuery: undefined,
-          SearchBoxQueryChanged: newSelectorForNewEvent
-        }
-      }
-    },
-    store
-  };
-
-  it('overrides before installing plugin', () => {
-    plugin.registerXModule(xModule);
-    localVue.use(plugin, pluginOptions);
-
-    expectModuleToHaveBeenReplaced();
-  });
-  it('overrides after installing plugin', () => {
-    localVue.use(plugin, pluginOptions);
-    plugin.registerXModule(xModule);
-
-    expectModuleToHaveBeenReplaced();
-  });
-
-  function expectModuleToHaveBeenReplaced() {
-    const state = {
-      prop: 1,
-      complexProp: { propToReplace: 'Replace me', propToKeep: 'But keep me' },
-      propToRemove: ['Hi']
-    };
-    const getters = {
-      getter: 1,
-      getterToReplace: 2,
-      getterToRemove: 3
-    };
-    expect(userTypedSelector).not.toHaveBeenCalled();
-    expect(userIsChangingQuerySelector).not.toHaveBeenCalled();
-    expect(userSelectedAQuerySelector).toHaveBeenCalledWith(state, getters);
-    expect(newUserTypedSelector).toHaveBeenCalledWith(state, getters);
-    expect(newSelectorForNewEvent).toHaveBeenCalledWith(state, getters);
-  }
-});
-
-describe('X-Modules system', () => {
-  let component: Wrapper<Vue>;
-  const searchBoxQueryChangedSubscriber = jest.fn();
-  const storeModule: XStoreModule<
-    { query: string },
-    { trimmedQuery: string },
-    { setQuery(query: string): void },
-    {}
-  > = {
-    actions: {},
-    getters: {
-      trimmedQuery(state) {
-        return state.query.trim();
-      }
-    },
-    mutations: {
-      setQuery(state, query) {
-        state.query = query;
-      }
-    },
-    state: () => ({ query: '' })
-  };
-  const storeEmitters = createStoreEmitters(storeModule, {
-    SearchBoxQueryChanged: (state, getters) => getters.trimmedQuery
-  });
-  const wiring = createWiring({
-    UserTyped: {
-      setSearchBoxQuery: wireCommit<string>('x/searchBox/setQuery')
-    },
-    SearchBoxQueryChanged: {
-      registerSearchBoxQueryChanged: (observable: Observable<string>) =>
-        observable.subscribe(query => searchBoxQueryChangedSubscriber(query))
-    }
-  });
-
+describe('testing X Plugin', () => {
   beforeEach(() => {
-    plugin.registerXModule({
-      name: 'searchBox',
-      storeModule,
-      wiring,
-      storeEmitters
+    jest.resetModules().clearAllMocks();
+    plugin = require('../x-plugin').XPlugin;
+    localVue = createLocalVue();
+    localVue.use(Vuex);
+    store = new Store({});
+  });
+
+  describe('install XPlugin without options', () => {
+    it('allows registering a x-module before installing', () => {
+      plugin.registerXModule(xModule);
+      expectDefaultModuleToBeNotRegistered();
+
+      localVue.use(plugin, { store });
+      expectDefaultModuleToBeRegisteredOnce();
     });
-    localVue.use(plugin, { store });
-    component = shallowMount(
-      {
-        render(h) {
-          return h();
+
+    it('allows registering a x-module after installing', () => {
+      localVue.use(plugin, { store });
+      plugin.registerXModule(xModule);
+
+      expectDefaultModuleToBeRegisteredOnce();
+    });
+
+    it('does not re-register a module', () => {
+      plugin.registerXModule(xModule);
+      localVue.use(plugin, { store });
+      plugin.registerXModule(xModule);
+
+      expectDefaultModuleToBeRegisteredOnce();
+    });
+
+    function expectDefaultModuleToBeNotRegistered() {
+      expect(wireToReplace).not.toHaveBeenCalled();
+      expect(wireToRemove).not.toHaveBeenCalled();
+      expect(wire).not.toHaveBeenCalled();
+      expect(store.state.x).not.toBeDefined(); // If the state is not registered I'm 100% sure that there won't be actions, mutations or
+      // getters.
+      expect(userTypedSelector).not.toHaveBeenCalled();
+      expect(userSelectedAQuerySelector).not.toHaveBeenCalled();
+      expect(userIsChangingQuerySelector).not.toHaveBeenCalled();
+    }
+
+    function expectDefaultModuleToBeRegisteredOnce() {
+      // Wires
+      expect(wireToReplace).toHaveBeenCalledTimes(1);
+      expect(wireToRemove).toHaveBeenCalledTimes(1);
+      expect(wire).toHaveBeenCalledTimes(1);
+      // Store Module
+      expect(store.state.x.searchBox).toBeDefined();
+      // Store Emitters
+      const searchBoxState = store.state.x.searchBox;
+      const searchBoxGetters = {
+        getter: 1,
+        getterToReplace: 2,
+        getterToRemove: 3
+      };
+      expect(userTypedSelector).toHaveBeenCalledTimes(1);
+      expect(userTypedSelector).toHaveBeenCalledWith(searchBoxState, searchBoxGetters);
+      expect(userSelectedAQuerySelector).toHaveBeenCalledTimes(1);
+      expect(userSelectedAQuerySelector).toHaveBeenCalledWith(searchBoxState, searchBoxGetters);
+      expect(userIsChangingQuerySelector).toHaveBeenCalledTimes(1);
+      expect(userIsChangingQuerySelector).toHaveBeenCalledWith(searchBoxState, searchBoxGetters);
+    }
+  });
+
+  describe('install XPlugin overriding store', () => {
+    const newAction = jest.fn();
+    const replacedAction = jest.fn();
+    const newMutation = jest.fn();
+    const replacedMutation = jest.fn();
+    const xModules: XModulesOptions = {
+      searchBox: {
+        storeModule: {
+          state: {
+            propToRemove: undefined,
+            complexProp: {
+              propToReplace: "I'm new"
+            },
+            newProp: 'New prop'
+          } as any, // There is some issue with ts-jest that throws different errors of the TS service
+          getters: {
+            getterToReplace() {
+              return 4;
+            },
+            getterToRemove: undefined as any, // You can't remove a property that does not exist
+            newGetter() {
+              return 5;
+            }
+          },
+          actions: {
+            newAction,
+            actionToReplace: replacedAction,
+            actionToRemove: undefined
+          } as any,
+          mutations: {
+            newMutation,
+            mutationToReplace: replacedMutation,
+            mutationToRemove: undefined
+          } as any
+        }
+      }
+    };
+
+    function expectStoreStateToBeModified() {
+      expect(store.state.x.searchBox.prop).toEqual(1);
+      expect(store.state.x.searchBox.propToRemove).not.toBeDefined();
+      expect(store.state.x.searchBox.complexProp).toEqual({
+        propToReplace: "I'm new",
+        propToKeep: 'But keep me'
+      });
+      expect(store.state.x.searchBox.newProp).toEqual('New prop');
+    }
+
+    function expectStoreGettersToBeModified() {
+      expect(store.getters['x/searchBox/getter']).toEqual(1);
+      expect(store.getters['x/searchBox/getterToReplace']).toEqual(4);
+      expect(store.getters['x/searchBox/getterToRemove']).not.toBeDefined();
+      expect(store.getters['x/searchBox/newGetter']).toEqual(5);
+    }
+
+    async function expectStoreActionsToBeModified() {
+      await Promise.all([
+        store.dispatch('x/searchBox/action'),
+        store.dispatch('x/searchBox/actionToReplace'),
+        store.dispatch('x/searchBox/actionToRemove'),
+        store.dispatch('x/searchBox/newAction')
+      ]);
+      expect(action).toHaveBeenCalled();
+      expect(newAction).toHaveBeenCalled();
+      expect(replacedAction).toHaveBeenCalled();
+      expect(actionToReplace).not.toHaveBeenCalled();
+      expect(actionToRemove).not.toHaveBeenCalled();
+    }
+
+    function expectStoreMutationsToBeModified() {
+      store.commit('x/searchBox/mutation');
+      store.commit('x/searchBox/mutationToReplace');
+      store.commit('x/searchBox/mutationToRemove');
+      store.commit('x/searchBox/newMutation');
+      expect(mutation).toHaveBeenCalled();
+      expect(newMutation).toHaveBeenCalled();
+      expect(replacedMutation).toHaveBeenCalled();
+      expect(mutationToReplace).not.toHaveBeenCalled();
+      expect(mutationToRemove).not.toHaveBeenCalled();
+    }
+
+    describe('override before installing plugin', () => {
+      beforeEach(() => {
+        plugin.registerXModule(xModule);
+        localVue.use(plugin, {
+          xModules,
+          store
+        });
+      });
+
+      it('overrides state', () => expectStoreStateToBeModified());
+      it('overrides getters', () => expectStoreGettersToBeModified());
+      it('overrides actions', () => expectStoreActionsToBeModified());
+      it('overrides mutations', () => expectStoreMutationsToBeModified());
+    });
+
+    describe('override after installing plugin', () => {
+      beforeEach(() => {
+        localVue.use(plugin, {
+          xModules,
+          store
+        });
+        plugin.registerXModule(xModule);
+      });
+      it('overrides state', () => expectStoreStateToBeModified());
+      it('overrides getters', () => expectStoreGettersToBeModified());
+      it('overrides actions', () => expectStoreActionsToBeModified());
+      it('overrides mutations', () => expectStoreMutationsToBeModified());
+    });
+  });
+
+  describe('install XPlugin overriding wiring', () => {
+    const newWire = jest.fn();
+    const replacedWire = jest.fn();
+    const pluginOptions: XPluginOptions = {
+      xModules: {
+        searchBox: {
+          wiring: {
+            UserTyped: {
+              wireToReplace: replacedWire,
+              wireToRemove: undefined as any, // "any" because we are mocking searchBox module to ease testing, and types don't allow to add
+              // an undefined wire unless it is defined in the default configuration.
+              newWire
+            }
+          }
         }
       },
-      { store, localVue, sync: false } // Sync options is needed to be set to false to replicate real Vue behavior
-    );
+      store
+    };
+
+    it('overrides before installing plugin', () => {
+      plugin.registerXModule(xModule);
+      localVue.use(plugin, pluginOptions);
+
+      expectModuleToHaveBeenReplaced();
+    });
+    it('overrides after installing plugin', () => {
+      localVue.use(plugin, pluginOptions);
+      plugin.registerXModule(xModule);
+
+      expectModuleToHaveBeenReplaced();
+    });
+
+    function expectModuleToHaveBeenReplaced() {
+      expect(wireToReplace).not.toHaveBeenCalled();
+      expect(wireToRemove).not.toHaveBeenCalled();
+      expect(wire).toHaveBeenCalled();
+      expect(replacedWire).toHaveBeenCalled();
+      expect(newWire).toHaveBeenCalled();
+    }
   });
 
-  it('store-emitters emit a changed event when the observed store state changes', async () => {
-    component.vm.$x.emit('UserTyped', 'New York strip steak');
+  describe('install XPlugin overriding store emitters', () => {
+    const newUserTypedSelector = jest.fn();
+    const newSelectorForNewEvent = jest.fn();
+    const pluginOptions: XPluginOptions = {
+      xModules: {
+        searchBox: {
+          storeEmitters: {
+            UserTyped: newUserTypedSelector,
+            UserIsChangingQuery: undefined,
+            SearchBoxQueryChanged: newSelectorForNewEvent
+          }
+        }
+      },
+      store
+    };
 
-    await localVue.nextTick();
+    it('overrides before installing plugin', () => {
+      plugin.registerXModule(xModule);
+      localVue.use(plugin, pluginOptions);
 
-    expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(1);
-    expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith(
-      'New York strip steak'
-    );
+      expectModuleToHaveBeenReplaced();
+    });
+    it('overrides after installing plugin', () => {
+      localVue.use(plugin, pluginOptions);
+      plugin.registerXModule(xModule);
+
+      expectModuleToHaveBeenReplaced();
+    });
+
+    function expectModuleToHaveBeenReplaced() {
+      const state = {
+        prop: 1,
+        complexProp: { propToReplace: 'Replace me', propToKeep: 'But keep me' },
+        propToRemove: ['Hi']
+      };
+      const getters = {
+        getter: 1,
+        getterToReplace: 2,
+        getterToRemove: 3
+      };
+      expect(userTypedSelector).not.toHaveBeenCalled();
+      expect(userIsChangingQuerySelector).not.toHaveBeenCalled();
+      expect(userSelectedAQuerySelector).toHaveBeenCalledWith(state, getters);
+      expect(newUserTypedSelector).toHaveBeenCalledWith(state, getters);
+      expect(newSelectorForNewEvent).toHaveBeenCalledWith(state, getters);
+    }
   });
 
-  it("store-emitters don't emit multiple events if the events that are modifying the observed value are emitted synchronously", async () => {
-    component.vm.$x.emit('UserTyped', 'New York strip steak');
-    component.vm.$x.emit('UserTyped', 'Prime rib');
-    component.vm.$x.emit('UserTyped', 'Tomahawk steak');
+  describe('x-Modules system', () => {
+    let component: Wrapper<Vue>;
+    const searchBoxQueryChangedSubscriber = jest.fn();
+    const storeModule: XStoreModule<
+      { query: string },
+      { trimmedQuery: string },
+      { setQuery(query: string): void },
+      {}
+    > = {
+      actions: {},
+      getters: {
+        trimmedQuery(state) {
+          return state.query.trim();
+        }
+      },
+      mutations: {
+        setQuery(state, query) {
+          state.query = query;
+        }
+      },
+      state: () => ({ query: '' })
+    };
+    const storeEmitters = createStoreEmitters(storeModule, {
+      SearchBoxQueryChanged: (state, getters) => getters.trimmedQuery
+    });
+    const wiring = createWiring({
+      UserTyped: {
+        setSearchBoxQuery: wireCommit<string>('x/searchBox/setQuery')
+      },
+      SearchBoxQueryChanged: {
+        registerSearchBoxQueryChanged: (observable: Observable<string>) =>
+          observable.subscribe(query => searchBoxQueryChangedSubscriber(query))
+      }
+    });
 
-    await localVue.nextTick();
+    beforeEach(() => {
+      plugin.registerXModule({
+        name: 'searchBox',
+        storeModule,
+        wiring,
+        storeEmitters
+      });
+      localVue.use(plugin, { store });
+      component = shallowMount(
+        {
+          render(h) {
+            return h();
+          }
+        },
+        { store, localVue, sync: false } // Sync options is needed to be set to false to replicate real Vue behavior
+      );
+    });
 
-    expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(1);
-    expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith(
-      'Tomahawk steak'
-    );
-  });
+    it('store-emitters emit a changed event when the observed store state changes', async () => {
+      component.vm.$x.emit('UserTyped', 'New York strip steak');
 
-  it("store-emitters don't emit an event if value is reset synchronously", async () => {
-    component.vm.$x.emit('UserTyped', 'chinchulines');
-    component.vm.$x.emit('UserTyped', '');
+      await localVue.nextTick();
 
-    await localVue.nextTick();
+      expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(1);
+      expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith('New York strip steak');
+    });
 
-    expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(0);
+    it("store-emitters don't emit multiple events if the events that are modifying the observed value are emitted synchronously", async () => {
+      component.vm.$x.emit('UserTyped', 'New York strip steak');
+      component.vm.$x.emit('UserTyped', 'Prime rib');
+      component.vm.$x.emit('UserTyped', 'Tomahawk steak');
+
+      await localVue.nextTick();
+
+      expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(1);
+      expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith('Tomahawk steak');
+    });
+
+    it("store-emitters don't emit an event if value is reset synchronously", async () => {
+      component.vm.$x.emit('UserTyped', 'chinchulines');
+      component.vm.$x.emit('UserTyped', '');
+
+      await localVue.nextTick();
+
+      expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(0);
+    });
   });
 });

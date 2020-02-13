@@ -6,11 +6,7 @@ import { StoreEmitters } from '../store/store-emitters.types';
 import { AnyXStoreModule, XStoreModule } from '../store/store.types';
 import { DeepPartial, Dictionary } from '../utils';
 import { Wiring } from '../wiring/wiring.types';
-import {
-  AnyXModule,
-  XModuleName,
-  XModulesTree
-} from '../x-modules/x-modules.types';
+import { AnyXModule, XModuleName, XModulesTree } from '../x-modules/x-modules.types';
 import { XBus } from './x-bus.types';
 
 /**
@@ -54,19 +50,12 @@ export interface XModuleOptions<Module extends AnyXModule> {
  */
 export type XStoreModuleOptions<
   StoreModule extends AnyXStoreModule
-> = StoreModule extends XStoreModule<
-  infer State,
-  infer Getters,
-  infer Mutations,
-  infer Actions
->
+> = StoreModule extends XStoreModule<infer State, infer Getters, infer Mutations, infer Actions>
   ? {
       state?: DeepPartial<State> & Dictionary;
-      actions?: DeepPartial<ActionsTree<State, Getters, Mutations, Actions>> &
-        AnyActionsTree;
+      actions?: DeepPartial<ActionsTree<State, Getters, Mutations, Actions>> & AnyActionsTree;
       getters?: DeepPartial<GettersTree<State, Getters>> & AnyGettersTree;
-      mutations?: DeepPartial<MutationsTree<State, Mutations>> &
-        AnyMutationsTree;
+      mutations?: DeepPartial<MutationsTree<State, Mutations>> & AnyMutationsTree;
     }
   : never;
 

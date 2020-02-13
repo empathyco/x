@@ -9,11 +9,7 @@ import { AnyWire, Wiring } from '../wiring/wiring.types';
 import { AnyXModule, XModuleName } from '../x-modules/x-modules.types';
 import { BaseXBus } from './x-bus';
 import { CreateXComponentAPIMixin } from './x-plugin.mixin';
-import {
-  AnyXStoreModuleOptions,
-  XModuleOptions,
-  XPluginOptions
-} from './x-plugin.types';
+import { AnyXStoreModuleOptions, XModuleOptions, XPluginOptions } from './x-plugin.types';
 
 /**
  * Vue plugin that modifies each component instance, extending them with the {@link XComponentAPI | X Component API }
@@ -51,10 +47,7 @@ export class XPlugin {
    * @param vue The GlobalVue object
    * @param options The options to install this plugin with
    */
-  public static install(
-    vue: VueConstructor<Vue>,
-    options: XPluginOptions = {}
-  ) {
+  public static install(vue: VueConstructor<Vue>, options: XPluginOptions = {}) {
     const instance = this.instance;
     instance.vue = vue;
     instance.options = options;
@@ -82,12 +75,7 @@ export class XPlugin {
    * Performs the registration of a {@link XModule}
    * @param xModule The module to register
    */
-  protected registerXModule({
-    name,
-    wiring,
-    storeModule,
-    storeEmitters
-  }: AnyXModule): void {
+  protected registerXModule({ name, wiring, storeModule, storeEmitters }: AnyXModule): void {
     if (!this.installedXModules.has(name)) {
       this.registerStoreModule(name, storeModule);
       this.registerStoreEmitters(name, storeModule, storeEmitters);
@@ -129,10 +117,7 @@ export class XPlugin {
    * @param name The module name
    * @param storeModule The module definition to register
    */
-  protected registerStoreModule(
-    name: XModuleName,
-    storeModule: AnyXStoreModule
-  ): void {
+  protected registerStoreModule(name: XModuleName, storeModule: AnyXStoreModule): void {
     const storeModuleOptions = this.getModuleOptions(name)?.storeModule;
     const customizedStoreModule: Module<any, any> = storeModuleOptions
       ? this.customizeStoreModule(storeModule, storeModuleOptions)
@@ -141,9 +126,7 @@ export class XPlugin {
     this.store.registerModule(['x', name], customizedStoreModule);
   }
 
-  protected getModuleOptions(
-    name: XModuleName
-  ): XModuleOptions<AnyXModule> | undefined {
+  protected getModuleOptions(name: XModuleName): XModuleOptions<AnyXModule> | undefined {
     return this.options.xModules?.[name];
   }
 
@@ -154,16 +137,9 @@ export class XPlugin {
    */
   protected customizeStoreModule(
     { state: getState, ...actionsGettersMutations }: AnyXStoreModule,
-    {
-      state: stateOptions,
-      ...newActionsGettersMutations
-    }: AnyXStoreModuleOptions
+    { state: stateOptions, ...newActionsGettersMutations }: AnyXStoreModuleOptions
   ): AnyXStoreModule {
-    const customizedModule = deepMerge(
-      {},
-      actionsGettersMutations,
-      newActionsGettersMutations
-    );
+    const customizedModule = deepMerge({}, actionsGettersMutations, newActionsGettersMutations);
     customizedModule.state = deepMerge(getState(), stateOptions);
     return customizedModule;
   }
@@ -201,10 +177,7 @@ export class XPlugin {
    * @param moduleName The name of the module
    * @param storeModule The store module
    */
-  protected getModuleGetters(
-    moduleName: XModuleName,
-    storeModule: AnyXStoreModule
-  ): Dictionary {
+  protected getModuleGetters(moduleName: XModuleName, storeModule: AnyXStoreModule): Dictionary {
     const getters = this.store.getters;
     return reduce(
       storeModule.getters as Dictionary,
@@ -237,6 +210,7 @@ export class XPlugin {
     if (!this.options.store) {
       this.vue.prototype.$store = this.store;
     }
+
     this.store.registerModule('x', RootXStoreModule);
   }
 
@@ -251,8 +225,8 @@ export class XPlugin {
    * Registers the pending {@link XModule | XModules}, that requested to be registered before the installation of the plugin
    */
   protected registerPendingXModules(): void {
-    forEach(this.pendingXModules, (_, xModule) =>
-      this.registerXModule(xModule)
-    );
+    forEach(this.pendingXModules, (_, xModule) => {
+      this.registerXModule(xModule);
+    });
   }
 }

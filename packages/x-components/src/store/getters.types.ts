@@ -6,10 +6,7 @@ import { RootXStoreState } from './store.types';
  * @param State the module state dictionary type definition
  * @param Getters the module getters dictionary type definition
  */
-export type GettersTree<
-  State extends Dictionary,
-  Getters extends Dictionary
-> = {
+export type GettersTree<State extends Dictionary, Getters extends Dictionary> = {
   [Key in keyof Getters]: (
     state: State,
     getters: Getters,

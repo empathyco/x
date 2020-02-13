@@ -1,8 +1,4 @@
-import {
-  AnyXModule,
-  XModule,
-  XModulesTree
-} from '../x-modules/x-modules.types';
+import { AnyXModule, XModule, XModulesTree } from '../x-modules/x-modules.types';
 import { Dictionary } from '../utils';
 import { ActionsDictionary, ActionsTree } from './actions.types';
 import { GettersTree } from './getters.types';
@@ -91,9 +87,9 @@ export type AnyXStoreModule = XStoreModule<any, any, any, any>;
  * Extracts the mutations type from a XStoreModule
  * @param Module - The {@link XStoreModule} to extract its {@link MutationsDictionary}
  */
-export type ExtractMutations<
-  Module extends AnyXModule
-> = Module extends XModule<XStoreModule<any, any, infer Mutations, any>>
+export type ExtractMutations<Module extends AnyXModule> = Module extends XModule<
+  XStoreModule<any, any, infer Mutations, any>
+>
   ? Mutations
   : never;
 
@@ -111,6 +107,4 @@ export type ExtractActions<Module extends AnyXModule> = Module extends XModule<
  * Extracts the payload from any function with a single parameter
  * @param Function - A function type with one parameter and any return type
  */
-export type ExtractPayload<
-  Function extends (payload?: any) => any
-> = Parameters<Function>[0];
+export type ExtractPayload<Function extends (payload?: any) => any> = Parameters<Function>[0];

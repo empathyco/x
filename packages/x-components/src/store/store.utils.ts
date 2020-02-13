@@ -6,9 +6,9 @@ import { AnyXStoreModule } from './store.types';
  * @param storeModule The store module that the emitters will be associated to
  * @param emitters The {@link StoreEmitters} to create
  */
-export function createStoreEmitters<
-  S extends AnyXStoreModule,
-  E extends StoreEmitters<S>
->(storeModule: S, emitters: E): E {
+export function createStoreEmitters<S extends AnyXStoreModule, E extends StoreEmitters<S>>(
+  storeModule: S,
+  emitters: E
+): E {
   return emitters;
 }

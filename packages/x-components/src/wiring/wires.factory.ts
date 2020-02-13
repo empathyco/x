@@ -16,10 +16,7 @@ export function wireCommit(mutation: string, staticPayload: any): AnyWire;
  * @returns [Wire<Payload>] A wire that commits the mutation with the payload that it receives in the observable
  */
 export function wireCommit<Payload>(mutation: string): Wire<Payload>;
-export function wireCommit<Payload>(
-  mutation: string,
-  staticPayload?: any
-): Wire<Payload> {
+export function wireCommit<Payload>(mutation: string, staticPayload?: any): Wire<Payload> {
   return (observable, store) =>
     observable.subscribe(
       staticPayload !== undefined
@@ -35,8 +32,7 @@ export function wireCommit<Payload>(
  * @returns [AnyWire] A wire that commits the mutation without any payload
  */
 export function wireCommitWithoutPayload(mutation: string): AnyWire {
-  return (observable, store) =>
-    observable.subscribe(() => store.commit(mutation));
+  return (observable, store) => observable.subscribe(() => store.commit(mutation));
 }
 
 /**
@@ -54,10 +50,7 @@ export function wireDispatch(action: string, staticPayload: any): AnyWire;
  * @returns [Wire<Payload>] A wire that dispatches the action with the payload that it receives in the observable
  */
 export function wireDispatch<Payload>(action: string): Wire<Payload>;
-export function wireDispatch<Payload>(
-  action: string,
-  staticPayload?: any
-): Wire<Payload> {
+export function wireDispatch<Payload>(action: string, staticPayload?: any): Wire<Payload> {
   return (observable, store) =>
     observable.subscribe(
       staticPayload !== undefined
@@ -73,8 +66,7 @@ export function wireDispatch<Payload>(
  * @returns [AnyWire] A wire that dispatches the action without any payload
  */
 export function wireDispatchWithoutPayload(action: string): AnyWire {
-  return (observable, store) =>
-    observable.subscribe(() => store.dispatch(action));
+  return (observable, store) => observable.subscribe(() => store.dispatch(action));
 }
 
 /**

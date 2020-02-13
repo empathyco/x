@@ -60,140 +60,131 @@ const localVue = createLocalVue();
 localVue.use(Vuex);
 let store: Store<StoreRootState>;
 const watchCallback = jest.fn();
-beforeEach(() => {
-  jest.clearAllMocks();
-});
 
-describe('Vuex watchers standard behavior', () => {
+describe('testing Vuex watcher hacks', () => {
   beforeEach(() => {
-    store = new Store({});
+    jest.clearAllMocks();
   });
 
-  it(
-    'Does not trigger simple state watchers when registering modules',
-    simpleValuesWatchers
-  );
+  describe('vuex watchers standard behavior', () => {
+    beforeEach(() => {
+      store = new Store({});
+    });
 
-  it(
-    'Does not trigger simple getter watchers when registering modules',
-    simpleGettersWatchers
-  );
+    it('does not trigger simple state watchers when registering modules', simpleValuesWatchers);
 
-  it(
-    'Does not trigger object state watchers when registering modules',
-    doesNotEagerExecuteStateWatchers
-  );
+    it('does not trigger simple getter watchers when registering modules', simpleGettersWatchers);
 
-  it(
-    'Does not trigger object getter watchers when registering modules',
-    doesNotEagerExecuteGettersWatchers
-  );
+    it(
+      'does not trigger object state watchers when registering modules',
+      doesNotEagerExecuteStateWatchers
+    );
 
-  it('Triggers object state watchers when registering modules', async () => {
-    expect.assertions(1);
-    store.registerModule('first', firstModule);
-    store.watch(state => state.first.object, watchCallback);
-    store.registerModule('second', secondModule);
+    it(
+      'does not trigger object getter watchers when registering modules',
+      doesNotEagerExecuteGettersWatchers
+    );
 
-    await localVue.nextTick();
-    expect(watchCallback).toHaveBeenCalledTimes(1); // But it should not be called
-  });
+    it('triggers object state watchers when registering modules', async () => {
+      expect.assertions(1);
+      store.registerModule('first', firstModule);
+      store.watch(state => state.first.object, watchCallback);
+      store.registerModule('second', secondModule);
 
-  it('Triggers object getter watchers when registering modules', async () => {
-    expect.assertions(1);
-    store.registerModule('first', firstModule);
-    store.watch((_, getters) => getters['first/objectCopy'], watchCallback);
-    store.registerModule('second', secondModule);
+      await localVue.nextTick();
+      expect(watchCallback).toHaveBeenCalledTimes(1); // But it should not be called
+    });
 
-    await localVue.nextTick();
-    expect(watchCallback).toHaveBeenCalledTimes(1); // But it should not be called
-  });
-});
+    it('triggers object getter watchers when registering modules', async () => {
+      expect.assertions(1);
+      store.registerModule('first', firstModule);
+      store.watch((_, getters) => getters['first/objectCopy'], watchCallback);
+      store.registerModule('second', secondModule);
 
-describe('Vuex watchers hack', () => {
-  beforeEach(() => {
-    store = new Store({
-      state: {
-        first: null as any, // `any` to prevent TS from complaining
-        second: null as any
-      }
+      await localVue.nextTick();
+      expect(watchCallback).toHaveBeenCalledTimes(1); // But it should not be called
     });
   });
 
-  it(
-    'Does not trigger simple state watchers when registering modules',
-    simpleValuesWatchers
-  );
+  describe('vuex watchers hack', () => {
+    beforeEach(() => {
+      store = new Store({
+        state: {
+          first: null as any, // `any` to prevent TS from complaining
+          second: null as any
+        }
+      });
+    });
 
-  it(
-    'Does not trigger simple getter watchers when registering modules',
-    simpleGettersWatchers
-  );
+    it('does not trigger simple state watchers when registering modules', simpleValuesWatchers);
 
-  it(
-    'Does not trigger object state watchers when registering modules',
-    doesNotEagerExecuteStateWatchers
-  );
+    it('does not trigger simple getter watchers when registering modules', simpleGettersWatchers);
 
-  it(
-    'Does not trigger object getter watchers when registering modules',
-    doesNotEagerExecuteGettersWatchers
-  );
+    it(
+      'does not trigger object state watchers when registering modules',
+      doesNotEagerExecuteStateWatchers
+    );
 
-  it('Triggers object state watchers when registering modules', async () => {
+    it(
+      'does not trigger object getter watchers when registering modules',
+      doesNotEagerExecuteGettersWatchers
+    );
+
+    it('triggers object state watchers when registering modules', async () => {
+      expect.assertions(1);
+      store.registerModule('first', firstModule);
+      store.watch(state => state.first.object, watchCallback);
+      store.registerModule('second', secondModule);
+
+      await localVue.nextTick();
+      expect(watchCallback).not.toHaveBeenCalled();
+    });
+
+    it('triggers object getter watchers when registering modules', async () => {
+      expect.assertions(1);
+      store.registerModule('first', firstModule);
+      store.watch((_, getters) => getters['first/objectCopy'], watchCallback);
+      store.registerModule('second', secondModule);
+
+      await localVue.nextTick();
+      expect(watchCallback).not.toHaveBeenCalled();
+    });
+  });
+
+  async function simpleValuesWatchers() {
+    expect.assertions(1);
+    store.registerModule('first', firstModule);
+    store.watch(state => state.first.flag, watchCallback);
+    store.registerModule('second', secondModule);
+
+    await localVue.nextTick();
+    expect(watchCallback).not.toHaveBeenCalled();
+  }
+
+  async function simpleGettersWatchers() {
+    expect.assertions(1);
+    store.registerModule('first', firstModule);
+    store.watch((_, getters) => getters['first/notFlag'], watchCallback);
+    store.registerModule('second', secondModule);
+
+    await localVue.nextTick();
+    expect(watchCallback).not.toHaveBeenCalled();
+  }
+
+  async function doesNotEagerExecuteStateWatchers() {
     expect.assertions(1);
     store.registerModule('first', firstModule);
     store.watch(state => state.first.object, watchCallback);
-    store.registerModule('second', secondModule);
 
     await localVue.nextTick();
     expect(watchCallback).not.toHaveBeenCalled();
-  });
-
-  it('Triggers object getter watchers when registering modules', async () => {
+  }
+  async function doesNotEagerExecuteGettersWatchers() {
     expect.assertions(1);
     store.registerModule('first', firstModule);
     store.watch((_, getters) => getters['first/objectCopy'], watchCallback);
-    store.registerModule('second', secondModule);
 
     await localVue.nextTick();
     expect(watchCallback).not.toHaveBeenCalled();
-  });
+  }
 });
-
-async function simpleValuesWatchers() {
-  expect.assertions(1);
-  store.registerModule('first', firstModule);
-  store.watch(state => state.first.flag, watchCallback);
-  store.registerModule('second', secondModule);
-
-  await localVue.nextTick();
-  expect(watchCallback).not.toHaveBeenCalled();
-}
-
-async function simpleGettersWatchers() {
-  expect.assertions(1);
-  store.registerModule('first', firstModule);
-  store.watch((_, getters) => getters['first/notFlag'], watchCallback);
-  store.registerModule('second', secondModule);
-
-  await localVue.nextTick();
-  expect(watchCallback).not.toHaveBeenCalled();
-}
-
-async function doesNotEagerExecuteStateWatchers() {
-  expect.assertions(1);
-  store.registerModule('first', firstModule);
-  store.watch(state => state.first.object, watchCallback);
-
-  await localVue.nextTick();
-  expect(watchCallback).not.toHaveBeenCalled();
-}
-async function doesNotEagerExecuteGettersWatchers() {
-  expect.assertions(1);
-  store.registerModule('first', firstModule);
-  store.watch((_, getters) => getters['first/objectCopy'], watchCallback);
-
-  await localVue.nextTick();
-  expect(watchCallback).not.toHaveBeenCalled();
-}
