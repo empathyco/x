@@ -1,21 +1,24 @@
 import { createLocalVue, mount, shallowMount, Wrapper } from '@vue/test-utils';
 import { ComponentOptions, default as Vue } from 'vue';
-import { CreateXComponentAPIMixin } from '../x-plugin.mixin';
+import { xComponentMixin } from '../../components/x-component.mixin';
+import { searchBoxXModule } from '../../x-modules/search-box/x-module';
+import { createXComponentAPIMixin } from '../x-plugin.mixin';
 
-const component: ComponentOptions<Vue> & ThisType<Vue> = {
-  render(createElement) {
-    return createElement();
-  }
-};
-let componentInstance: Wrapper<Vue>;
+describe('testing $x component API global mixin', () => {
+  const component: ComponentOptions<Vue> & ThisType<Vue> = {
+    render(createElement) {
+      return createElement();
+    }
+  };
+  let componentInstance: Wrapper<Vue>;
 
-const localVue = createLocalVue();
-localVue.mixin(CreateXComponentAPIMixin);
+  const localVue = createLocalVue();
+  localVue.mixin(createXComponentAPIMixin);
 
-describe('testing X-Plugin mixin', () => {
   beforeEach(() => {
     componentInstance = shallowMount(component, { localVue });
   });
+
   afterEach(() => {
     componentInstance.destroy();
     jest.clearAllMocks();
@@ -31,20 +34,29 @@ describe('testing X-Plugin mixin', () => {
     expect(listener).toHaveBeenCalledWith('So awesome, much quality, such skill');
   });
 
-  it('emits X events as Vue events', () => {
+  it('finds the root x-component and emits the bus events as Vue events', () => {
     const listener = jest.fn();
     const emitterComponent: ComponentOptions<any> & ThisType<Vue> = {
+      mixins: [xComponentMixin(searchBoxXModule)], // Flag it as x-component
       mounted() {
         this.$x.emit('UserTyped', 'Sexy Playmobil');
       },
       render(createElement) {
-        return createElement('h1');
+        return createElement('input');
       }
     };
+
+    const parentComponent: ComponentOptions<any> & ThisType<Vue> = {
+      mixins: [xComponentMixin(searchBoxXModule)], // Flag it as x-component
+      render(createElement) {
+        return createElement(emitterComponent);
+      }
+    };
+
     mount(
       {
         render(createElement) {
-          return createElement(emitterComponent, {
+          return createElement(parentComponent, {
             on: {
               UserTyped: listener
             }

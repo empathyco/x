@@ -2,6 +2,8 @@
 
 ## 1.0.0-alpha
 
+> EX-1621 Remove circular dependency from `BaseXBus` and Vue components. Make bus emit only from root component.
+>
 > EX-1562 Add rollup build
 >
 > EX-1620 Add type safe `State` and `Getter` decorators for accessing state and getters in class components

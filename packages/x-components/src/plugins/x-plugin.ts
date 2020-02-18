@@ -7,8 +7,8 @@ import { RootXStoreModule } from '../store/x.module';
 import { Dictionary, forEach, reduce } from '../utils';
 import { AnyWire, Wiring } from '../wiring/wiring.types';
 import { AnyXModule, XModuleName } from '../x-modules/x-modules.types';
-import { BaseXBus } from './x-bus';
-import { CreateXComponentAPIMixin } from './x-plugin.mixin';
+import { bus } from './x-bus';
+import { createXComponentAPIMixin } from './x-plugin.mixin';
 import { AnyXStoreModuleOptions, XModuleOptions, XPluginOptions } from './x-plugin.types';
 
 /**
@@ -20,7 +20,7 @@ export class XPlugin {
   /** Instance of the singleton */
   protected static instance = new XPlugin();
   /** Bus for retrieving the observables when registering the wiring */
-  protected bus = new BaseXBus(); // TODO Inject this constructor
+  protected bus = bus; // TODO Inject this constructor
   /** Set of the already installed {@link XModule | Xmodules} to avoid re-registering them */
   protected installedXModules = new Set<string>();
   /** True if the plugin has been installed in a Vue instance, in this case {@link XModule | Xmodules} will be installed immediately.
@@ -32,7 +32,7 @@ export class XPlugin {
   protected pendingXModules: Partial<Record<XModuleName, AnyXModule>> = {};
   /** The Vuex store, to pass to the wires for its registration, and to register the store modules on it */
   protected store!: Store<any>;
-  /** The global Vue, passed by the install method. Used to apply the global mixin {@link CreateXComponentAPIMixin },
+  /** The global Vue, passed by the install method. Used to apply the global mixin {@link createXComponentAPIMixin },
    * and install the {@link Vuex} plugin */
   protected vue!: VueConstructor<Vue>;
 
@@ -210,15 +210,14 @@ export class XPlugin {
     if (!this.options.store) {
       this.vue.prototype.$store = this.store;
     }
-
     this.store.registerModule('x', RootXStoreModule);
   }
 
   /**
-   * Applies the {@link CreateXComponentAPIMixin} mixin in the global Vue
+   * Applies the {@link createXComponentAPIMixin} mixin in the global Vue
    */
   protected applyMixins(): void {
-    this.vue.mixin(CreateXComponentAPIMixin);
+    this.vue.mixin(createXComponentAPIMixin);
   }
 
   /**

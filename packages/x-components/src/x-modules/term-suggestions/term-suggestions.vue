@@ -12,11 +12,11 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { mapState } from 'vuex';
-  import { XPlugin } from '../../plugins';
+  import { xComponentMixin } from '../../components/x-component.mixin';
   import { termSuggestionsXModule } from './x-module';
 
-  XPlugin.registerXModule(termSuggestionsXModule);
   @Component({
+    mixins: [xComponentMixin(termSuggestionsXModule)],
     computed: {
       ...mapState('x/termSuggestions', ['suggestions'])
     }

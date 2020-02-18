@@ -13,11 +13,11 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { mapState } from 'vuex';
-  import { XPlugin } from '../../plugins';
+  import { xComponentMixin } from '../../components/x-component.mixin';
   import { searchBoxXModule } from './x-module';
 
-  XPlugin.registerXModule(searchBoxXModule);
   @Component({
+    mixins: [xComponentMixin(searchBoxXModule)],
     computed: {
       ...mapState('x/searchBox', ['query'])
     }

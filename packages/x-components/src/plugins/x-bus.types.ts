@@ -17,16 +17,16 @@ export interface XBus {
    * @param event The event name
    * @param payload The payload of the event
    */
-  emit<E extends XEvent>(event: E, payload: XEventPayload<E>): void;
+  emit<Event extends XEvent>(event: Event, payload: XEventPayload<Event>): void;
   /**
    * Retrieves the observable for an event
    * @param event The event to retrieve an observable for
    */
-  on<E extends XEvent>(event: E): Observable<XEventPayload<E>>;
+  on<Event extends XEvent>(event: Event): Observable<XEventPayload<Event>>;
 }
 
 /**
- * Type safe emitters dictionary, where each key is the {@link XEvent} name, and the value is a {@link Subject} of the {@link
- * XEventPayload} type
+ * Type safe emitters dictionary, where each key is the {@link XEvent} name,
+ * and the value is a {@link Subject} of the {@link XEventPayload} type
  */
-export type Emitters = { [E in XEvent]?: Subject<XEventPayload<E>> };
+export type Emitters = { [Event in XEvent]?: Subject<XEventPayload<Event>> };
