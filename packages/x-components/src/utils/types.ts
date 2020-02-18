@@ -47,3 +47,12 @@ export type AnyFunction = (...args: any[]) => any;
 export type Returns<T extends Dictionary<AnyFunction>> = {
   [K in keyof T]: ReturnType<T[K]>;
 };
+
+/**
+ * Creates a decorator that will only work for properties of the type passed. The decorator will only work if the property is public
+ * @param Type - The type of the properties that are allowed to be decorated
+ */
+export type DecoratorFor<Type> = <Key extends string, Target extends Record<Key, Type>>(
+  target: Target,
+  key: Key
+) => void;

@@ -1,5 +1,5 @@
 import { StoreEmitters } from '../store/store-emitters.types';
-import { AnyXStoreModule } from '../store/store.types';
+import { AnyXStoreModule, XStoreModule } from '../store/store.types';
 import { Wiring } from '../wiring/wiring.types';
 import { SearchBoxXModule } from './search-box/x-module';
 import { TermSuggestionsXModule } from './term-suggestions/x-module';
@@ -36,3 +36,25 @@ export interface XModule<StoreModule extends AnyXStoreModule> {
  * Alias for any XModule. Use with caution
  */
 export type AnyXModule = XModule<AnyXStoreModule>;
+
+/**
+ * Util type for extracting the state type of a module
+ *
+ * @param Module - the module name to extract its state type
+ */
+export type ExtractState<Module extends keyof XModulesTree> = XModulesTree[Module] extends XModule<
+  XStoreModule<infer State, any, any, any>
+>
+  ? State
+  : never;
+
+/**
+ * Util type for extracting the getter type of a module
+ *
+ * @param Module - the module name to extract its getters type
+ */
+export type ExtractGetters<
+  Module extends keyof XModulesTree
+> = XModulesTree[Module] extends XModule<XStoreModule<any, infer Getters, any, any>>
+  ? Getters
+  : never;

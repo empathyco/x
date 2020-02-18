@@ -2,6 +2,8 @@
 
 ## 1.0.0-alpha
 
+> EX-1620 Add type safe `State` and `Getter` decorators for accessing state and getters in class components
+>
 > EX-1588 Add term-suggestions x-module skeleton
 >
 > EX-1588 Add search-box x-module skeleton
