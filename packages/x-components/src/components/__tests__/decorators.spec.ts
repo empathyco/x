@@ -38,7 +38,7 @@ describe('testing decorators to map store getters and state', () => {
     });
   });
 
-  it('maps store state', async () => {
+  it('maps store state', () => {
     expect(component.vm.query).toEqual('');
 
     component.vm.$store.commit('x/searchBox/setQuery', 'pork shoulder ');
@@ -46,7 +46,7 @@ describe('testing decorators to map store getters and state', () => {
     expect(component.vm.query).toEqual('pork shoulder ');
   });
 
-  it('maps store getters', async () => {
+  it('maps store getters', () => {
     expect(component.vm.trimmedQuery).toEqual('');
 
     component.vm.$store.commit('x/searchBox/setQuery', 'short ribs ');

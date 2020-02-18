@@ -1,6 +1,14 @@
 .DS_Store
 node_modules
 /dist
+/*.tgz
+
+# Ignore every folder except build, public, src and tests
+*/*
+!/build/*
+!/public/*
+!/src/*
+!/tests/*
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/
