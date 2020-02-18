@@ -5,27 +5,41 @@ import {
   wireCommitWithoutPayload,
   wireDispatch,
   wireDispatchWithoutPayload,
+  createWireFromFunction,
   withModule
 } from '../wires.factory';
 
-const store: Store<any> = {
-  dispatch: jest.fn(),
-  commit: jest.fn()
-} as any;
+describe('testing wire factory functions', () => {
+  const store: Store<any> = {
+    dispatch: jest.fn(),
+    commit: jest.fn()
+  } as any;
 
-let subject: Subject<string>;
+  let subject: Subject<string>;
 
-describe('testing Wires Factory', () => {
   beforeEach(() => {
     subject?.complete();
     subject = new Subject();
     jest.clearAllMocks();
   });
 
+  describe('testing generic wires factory', () => {
+    test(`${createWireFromFunction.name} receives the store and the observable payload, and invokes a function with them`, () => {
+      const executeFn = jest.fn();
+      const wire = createWireFromFunction(executeFn);
+
+      wire(subject, store);
+      subject.next('choripan');
+
+      expect(executeFn).toHaveBeenCalledTimes(1);
+      expect(executeFn).toHaveBeenCalledWith({ store, payload: 'choripan' });
+    });
+  });
+
   describe('testing mutations wires factory', () => {
     const mutationName = 'setQuery';
 
-    it('allows creating wires that commit a mutation with the observable payload', () => {
+    test(`${wireCommit.name} allows creating wires that commit a mutation with the observable payload`, () => {
       const wire = wireCommit(mutationName);
       const query = 'churrasco';
 
@@ -36,7 +50,7 @@ describe('testing Wires Factory', () => {
       expect(store.commit).toHaveBeenCalledWith(mutationName, query);
     });
 
-    it('allows creating wires that commit a mutation with a static payload', () => {
+    test(`${wireCommit.name} allows creating wires that commit a mutation with a static payload`, () => {
       const staticQuery = 'entraña';
       const wire = wireCommit(mutationName, staticQuery);
 
@@ -47,7 +61,7 @@ describe('testing Wires Factory', () => {
       expect(store.commit).toHaveBeenCalledWith(mutationName, staticQuery);
     });
 
-    it('allows creating wires that commit a mutation without payload', () => {
+    test(`${wireCommitWithoutPayload.name} allows creating wires that commit a mutation without payload`, () => {
       const wire = wireCommitWithoutPayload(mutationName);
 
       wire(subject, store);
@@ -61,7 +75,7 @@ describe('testing Wires Factory', () => {
   describe('testing actions wires factory', () => {
     const actionName = 'search';
 
-    it('allows creating wires that dispatch an action with the observable payload', () => {
+    test(`${wireDispatch.name} allows creating wires that dispatch an action with the observable payload`, () => {
       const wire = wireDispatch(actionName);
       const query = 'falda';
 
@@ -72,7 +86,7 @@ describe('testing Wires Factory', () => {
       expect(store.dispatch).toHaveBeenCalledWith(actionName, query);
     });
 
-    it('allows creating wires that dispatch an action with a static payload', () => {
+    test(`${wireDispatch.name} allows creating wires that dispatch an action with a static payload`, () => {
       const staticQuery = 'pluma';
       const wire = wireDispatch(actionName, staticQuery);
 
@@ -83,7 +97,7 @@ describe('testing Wires Factory', () => {
       expect(store.dispatch).toHaveBeenCalledWith(actionName, staticQuery);
     });
 
-    it('allows creating wires that dispatch an action without payload', () => {
+    test(`${wireDispatchWithoutPayload.name} allows creating wires that dispatch an action without payload`, () => {
       const wire = wireDispatchWithoutPayload(actionName);
 
       wire(subject, store);
@@ -101,7 +115,7 @@ describe('testing Wires Factory', () => {
     describe('testing namespaced mutation wires factory', () => {
       const mutationName = 'setQuery';
 
-      it('allows creating wires that commit a mutation with the observable payload', () => {
+      test(`${searchBoxModule.wireCommit.name} allows creating wires that commit a mutation with the observable payload`, () => {
         const wire = searchBoxModule.wireCommit(mutationName);
         const query = 'porterhouse steak';
 
@@ -112,7 +126,7 @@ describe('testing Wires Factory', () => {
         expect(store.commit).toHaveBeenCalledWith(`x/${moduleName}/${mutationName}`, query);
       });
 
-      it('allows creating wires that commit a mutation with a static payload', () => {
+      test(`${searchBoxModule.wireCommit.name} allows creating wires that commit a mutation with a static payload`, () => {
         const staticQuery = 'tenderloin';
         const wire = searchBoxModule.wireCommit(mutationName, staticQuery);
 
@@ -123,7 +137,7 @@ describe('testing Wires Factory', () => {
         expect(store.commit).toHaveBeenCalledWith(`x/${moduleName}/${mutationName}`, staticQuery);
       });
 
-      it('allows creating wires that commit a mutation without payload', () => {
+      test(`${searchBoxModule.wireCommitWithoutPayload.name} allows creating wires that commit a mutation without payload`, () => {
         const wire = searchBoxModule.wireCommitWithoutPayload(mutationName);
 
         wire(subject, store);
@@ -137,7 +151,7 @@ describe('testing Wires Factory', () => {
     describe('testing namespaced actions wires factory', () => {
       const actionName = 'search';
 
-      it('allows creating wires that dispatch an action with the observable payload', () => {
+      test(`${searchBoxModule.wireDispatch.name} allows creating wires that dispatch an action with the observable payload`, () => {
         const wire = searchBoxModule.wireDispatch(actionName);
         const query = 'osobuco';
 
@@ -148,7 +162,7 @@ describe('testing Wires Factory', () => {
         expect(store.dispatch).toHaveBeenCalledWith(`x/${moduleName}/${actionName}`, query);
       });
 
-      it('allows creating wires that dispatch an action with a static payload', () => {
+      test(`${searchBoxModule.wireDispatch.name} allows creating wires that dispatch an action with a static payload`, () => {
         const staticQuery = 'pork knuckle';
         const wire = searchBoxModule.wireDispatch(actionName, staticQuery);
 
@@ -159,7 +173,7 @@ describe('testing Wires Factory', () => {
         expect(store.dispatch).toHaveBeenCalledWith(`x/${moduleName}/${actionName}`, staticQuery);
       });
 
-      it('allows creating wires that dispatch an action without payload', () => {
+      test(`${searchBoxModule.wireCommitWithoutPayload} allows creating wires that dispatch an action without payload`, () => {
         const wire = searchBoxModule.wireDispatchWithoutPayload(actionName);
 
         wire(subject, store);

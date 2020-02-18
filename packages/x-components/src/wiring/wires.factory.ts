@@ -1,18 +1,31 @@
 import { XModuleName, XModulesTree } from '../x-modules/x-modules.types';
-import { AnyWire, NamespacedWireFactory, Wire } from './wiring.types';
+import { AnyWire, NamespacedWireFactory, Wire, WireParams } from './wiring.types';
+
+/**
+ * Creates a wire that executes the function passed. This function will receive a {@link WireParams} object
+ * @param fn - The function to execute whenever a new value is emitted to the observable.
+ */
+export function createWireFromFunction<Payload>(
+  fn: (parameters: WireParams<Payload>) => void
+): Wire<Payload> {
+  return (observable, store) =>
+    observable.subscribe(payload => {
+      fn({ payload, store });
+    });
+}
 
 /**
  * Creates a wire that commits a mutation to the store. This wire can be used in every event, as it does not have a payload type
  * associated.
- * @param mutation The full mutation path to commit. i.e. `x/search/setQuery`
- * @param staticPayload A static payload to pass to the mutation which will be committed
+ * @param mutation - The full mutation path to commit. i.e. `x/search/setQuery`
+ * @param staticPayload - A static payload to pass to the mutation which will be committed
  * @returns [AnyWire] A wire that commits the mutation with the staticPayload payload
  */
 export function wireCommit(mutation: string, staticPayload: any): AnyWire;
 /**
  * Creates a wire that commits a mutation to the store. This wire will commit to the store the payload that it receives in the observable
- * @param mutation The full mutation path to commit. i.e. `x/search/setQuery`
- * @typeParam Payload the type of the payload that this wire will receive
+ * @param mutation - The full mutation path to commit. i.e. `x/search/setQuery`
+ * @typeParam Payload - The type of the payload that this wire will receive
  * @returns [Wire<Payload>] A wire that commits the mutation with the payload that it receives in the observable
  */
 export function wireCommit<Payload>(mutation: string): Wire<Payload>;

@@ -2,6 +2,8 @@
 
 ## 1.0.0-alpha
 
+> EX-1623 Add `createWireFromFunction` wire factory function. Add `filter`, `filterTruthyValues`, `filterFalsyValues`, `debounce` & `throttle` wire pipe functions
+>
 > EX-1621 Remove circular dependency from `BaseXBus` and Vue components. Make bus emit only from root component.
 >
 > EX-1562 Add rollup build

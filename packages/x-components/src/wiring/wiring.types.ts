@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from 'vuex';
 import { ExtractActions, ExtractMutations, ExtractPayload, RootXStoreState } from '../store';
-import { DeepPartial, Dictionary, PropsWithType } from '../utils';
+import { Dictionary, PropsWithType } from '../utils';
 import { AnyXModule } from '../x-modules/x-modules.types';
 import { XEvent, XEventPayload } from './events.types';
 
@@ -31,14 +31,17 @@ export type Wiring = {
 };
 
 /**
- * Type that removing, modifying or adding wires based on a concrete wiring type.
- * @param T the base wiring type
+ * Groups the payload and the store into an object to avoid having multiple parameters
+ * @paramType Payload - The payload type of the wire
  */
-export type WiringOptions<T extends Partial<Wiring>> = DeepPartial<T> | Partial<Wiring>;
+export interface WireParams<Payload> {
+  payload: Payload;
+  store: Store<RootXStoreState>;
+}
 
 /**
  * Type safe wire factory, that provides methods for creating wires that can only
- * access the Module of the {@link Vuex} Store passed as parameter
+ * access the Module of the {@link https://vuex.vuejs.org/ Vuex} Store passed as parameter
  * @param Module - The {@link XStoreModule} to create the wires
  */
 export interface NamespacedWireFactory<Module extends AnyXModule> {
