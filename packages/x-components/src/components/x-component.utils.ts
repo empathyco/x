@@ -1,0 +1,27 @@
+import Vue from 'vue';
+import { XModuleName } from '../x-modules/x-modules.types';
+import { XComponent } from './x-component.types';
+
+/**
+ * Symbol for storing the {@link XModule} that an X-Component belongs to
+ *
+ * @internal
+ */
+export const XComponentModule = Symbol.for('XComponentModule');
+
+export function setXComponentXModuleName(component: Vue, name: XModuleName): void {
+  // TODO Enable this rule from the typescript eslint rules
+  // eslint-disable-next-line no-extra-parens
+  (component as XComponent)[XComponentModule] = name;
+}
+
+/**
+ * Returns if the component is an X-Component. An X-Component is a component that has an {@link XModule} associated to it
+ *
+ * @param component - The component to check if it is an X-Component
+ */
+export function isXComponent(component: Vue): boolean {
+  // TODO Enable this rule from the typescript eslint rules
+  // eslint-disable-next-line no-extra-parens
+  return !!(component as XComponent)[XComponentModule];
+}

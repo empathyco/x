@@ -1,5 +1,5 @@
 import Vue, { ComponentOptions } from 'vue';
-import { isXComponent } from '../components/x-component.mixin';
+import { isXComponent } from '../components/x-component.utils';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { bus } from './x-bus';
 import { XComponentAPI } from './x-plugin.types';

@@ -4,7 +4,8 @@ import Vuex, { Store } from 'vuex';
 import { XPlugin } from '../../plugins/x-plugin';
 import { RootXStoreState } from '../../store/store.types';
 import { searchBoxXModule } from '../../x-modules/search-box/x-module';
-import { isXComponent, xComponentMixin } from '../x-component.mixin';
+import { xComponentMixin } from '../x-component.mixin';
+import { isXComponent } from '../x-component.utils';
 
 describe('testing XComponent mixin', () => {
   const normalComponent: ComponentOptions<Vue> = {
