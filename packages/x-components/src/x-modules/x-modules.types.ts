@@ -1,6 +1,7 @@
 import { StoreEmitters } from '../store/store-emitters.types';
 import { AnyXStoreModule, XStoreModule } from '../store/store.types';
 import { Wiring } from '../wiring/wiring.types';
+import { NextQueriesXModule } from './next-queries/x-module';
 import { SearchBoxXModule } from './search-box/x-module';
 import { TermSuggestionsXModule } from './term-suggestions/x-module';
 
@@ -8,6 +9,7 @@ import { TermSuggestionsXModule } from './term-suggestions/x-module';
  * Gives each {@link XModule} a name, that can be used to retrieve then its value.
  */
 export interface XModulesTree {
+  nextQueries: NextQueriesXModule;
   searchBox: SearchBoxXModule;
   termSuggestions: TermSuggestionsXModule;
 }

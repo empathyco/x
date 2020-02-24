@@ -7,6 +7,7 @@
     </li>
   </ul>
 </template>
+
 <script lang="ts">
   import { Suggestion } from '@empathy/search-types';
   import Vue from 'vue';

@@ -20,6 +20,7 @@ export interface TermSuggestionsMutations extends MutationsDictionary {
 
 export interface TermSuggestionsActions extends ActionsDictionary {
   getSuggestions(): Suggestion[];
+  retrieveSuggestions(): void;
 }
 
 export type TermSuggestionsXStoreModule = XStoreModule<

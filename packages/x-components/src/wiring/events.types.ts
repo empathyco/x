@@ -2,8 +2,8 @@
  * Dictionary of the events of EmpathyX, where each key is the event name, and the value is the event payload type or `void` if it
  * has no payload.
  */
-import { SuggestionsRequest } from '@empathy/search-adapter';
-import { Suggestion } from '@empathy/search-types';
+import { NextQueriesRequest, SuggestionsRequest } from '@empathy/search-adapter';
+import { NextQuery, Suggestion } from '@empathy/search-types';
 
 export interface XEventsTypes {
   /**
@@ -12,11 +12,17 @@ export interface XEventsTypes {
    */
   SearchBoxQueryChanged: string;
   /**
-   * Any property of the term-suggestions requests has changed
+   * Any property of the term-suggestions request has changed
    * Payload: The new suggestions request of type {@link SuggestionsRequest} or `null`
    * if there is not enough data in the state to conform a valid request
    */
   TermSuggestionsRequestChanged: SuggestionsRequest | null;
+  /**
+   * Any property of the next-queries request has changed
+   * Payload: The new next-queries request of type {@link NextQueriesRequest} or `null`
+   * if there is not enough data in the state to conform a valid request
+   */
+  NextQueriesRequestChanged: NextQueriesRequest | null;
   /**
    * The user is in the process of changing a query
    * Payload: the partial query that the user is writing
@@ -52,6 +58,11 @@ export interface XEventsTypes {
    * Payload: the query that the user is writing in the search-box
    */
   UserTyped: string;
+  /**
+   * The user has selected a next-query
+   * Payload: The next query that has been selected by the user
+   */
+  UserSelectedANextQuery: NextQuery;
 }
 
 /**
