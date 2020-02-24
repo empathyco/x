@@ -1,8 +1,8 @@
 <template>
   <ul v-if="suggestions.length">
     <li v-for="suggestion in suggestions" :key="suggestion.term">
-      <slot name="term-suggestion" v-bind="{ suggestion, emitSuggestionSelected }">
-        <button @click="emitSuggestionSelected(suggestion)" class="x-term-suggestion">
+      <slot name="popular-search" v-bind="{ suggestion, emitPopularSearchSelected }">
+        <button @click="emitPopularSearchSelected(suggestion)" class="x-popular-search">
           {{ suggestion.term }}
         </button>
       </slot>
@@ -16,19 +16,23 @@
   import { Component } from 'vue-property-decorator';
   import { State } from '../../components/decorators';
   import { xComponentMixin } from '../../components/x-component.mixin';
-  import { termSuggestionsXModule } from './x-module';
+  import { popularSearchesXModule } from './x-module';
 
   @Component({
-    mixins: [xComponentMixin(termSuggestionsXModule)]
+    mixins: [xComponentMixin(popularSearchesXModule)]
   })
-  export default class TermSuggestions extends Vue {
-    @State('termSuggestions', 'suggestions')
+  export default class PopularSearches extends Vue {
+    @State('popularSearches', 'suggestions')
     suggestions!: Suggestion[];
 
-    protected emitSuggestionSelected(suggestion: Suggestion) {
+    mounted() {
+      this.$x.emit('PopularSearchesComponentMounted');
+    }
+
+    protected emitPopularSearchSelected(suggestion: Suggestion) {
       this.$x.emit('UserSelectedAQuery', suggestion.term);
       this.$x.emit('UserSelectedASuggestion', suggestion);
-      this.$x.emit('UserSelectedATermSuggestion', suggestion);
+      this.$x.emit('UserSelectedAPopularSearch', suggestion);
     }
   }
 </script>

@@ -2,6 +2,7 @@ import { StoreEmitters } from '../store/store-emitters.types';
 import { AnyXStoreModule, XStoreModule } from '../store/store.types';
 import { Wiring } from '../wiring/wiring.types';
 import { NextQueriesXModule } from './next-queries/x-module';
+import { PopularSearchesXModule } from './popular-searches/x-module';
 import { SearchBoxXModule } from './search-box/x-module';
 import { TermSuggestionsXModule } from './term-suggestions/x-module';
 
@@ -10,6 +11,7 @@ import { TermSuggestionsXModule } from './term-suggestions/x-module';
  */
 export interface XModulesTree {
   nextQueries: NextQueriesXModule;
+  popularSearches: PopularSearchesXModule;
   searchBox: SearchBoxXModule;
   termSuggestions: TermSuggestionsXModule;
 }
@@ -44,7 +46,7 @@ export type AnyXModule = XModule<AnyXStoreModule>;
  *
  * @param Module - the module name to extract its state type
  */
-export type ExtractState<Module extends keyof XModulesTree> = XModulesTree[Module] extends XModule<
+export type ExtractState<Module extends XModuleName> = XModulesTree[Module] extends XModule<
   XStoreModule<infer State, any, any, any>
 >
   ? State
@@ -55,8 +57,8 @@ export type ExtractState<Module extends keyof XModulesTree> = XModulesTree[Modul
  *
  * @param Module - the module name to extract its getters type
  */
-export type ExtractGetters<
-  Module extends keyof XModulesTree
-> = XModulesTree[Module] extends XModule<XStoreModule<any, infer Getters, any, any>>
+export type ExtractGetters<Module extends XModuleName> = XModulesTree[Module] extends XModule<
+  XStoreModule<any, infer Getters, any, any>
+>
   ? Getters
   : never;

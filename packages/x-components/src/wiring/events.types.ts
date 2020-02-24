@@ -24,6 +24,16 @@ export interface XEventsTypes {
    */
   NextQueriesRequestChanged: NextQueriesRequest | null;
   /**
+   * Any property of the popular-searches request has changed
+   * Payload: The new popular-search request type of {@link SuggestionsRequest}
+   */
+  PopularSearchesRequestChanged: SuggestionsRequest;
+  /**
+   * popular-searches component has been mounted
+   * Payload: none
+   */
+  PopularSearchesComponentMounted: void;
+  /**
    * The user is in the process of changing a query
    * Payload: the partial query that the user is writing
    */
@@ -53,6 +63,11 @@ export interface XEventsTypes {
    * Payload: The suggestion that the user selected
    */
   UserSelectedATermSuggestion: Suggestion;
+  /**
+   * User selected a popular suggestion
+   * Payload: The suggestion that the user selected
+   */
+  UserSelectedAPopularSearch: Suggestion;
   /**
    * The user has manually modified the search-box (typing, pasting some text...)
    * Payload: the query that the user is writing in the search-box

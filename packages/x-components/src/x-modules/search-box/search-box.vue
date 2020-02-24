@@ -13,20 +13,18 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { mapState } from 'vuex';
+  import { State } from '../../components/decorators';
   import { xComponentMixin } from '../../components/x-component.mixin';
   import { searchBoxXModule } from './x-module';
 
   @Component({
-    mixins: [xComponentMixin(searchBoxXModule)],
-    computed: {
-      ...mapState('x/searchBox', ['query'])
-    }
+    mixins: [xComponentMixin(searchBoxXModule)]
   })
   export default class SearchBox extends Vue {
     $refs!: {
       input: HTMLInputElement;
     };
+    @State('searchBox', 'query')
     query!: string;
 
     protected emitUserTyped(): void {

@@ -1,9 +1,11 @@
 <template>
   <ul v-if="nextQueries.length">
     <li v-for="nextQuery in nextQueries" :key="nextQuery.query">
-      <button @click="emitNextQuerySelected(nextQuery)">
-        {{ nextQuery.query }}
-      </button>
+      <slot name="next-query" v-bind="{ nextQuery, emitNextQuerySelected }">
+        <button @click="emitNextQuerySelected(nextQuery)" class="x-next-query">
+          {{ nextQuery.query }}
+        </button>
+      </slot>
     </li>
   </ul>
 </template>
