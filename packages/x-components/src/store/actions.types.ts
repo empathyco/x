@@ -13,8 +13,8 @@ import { ExtractPayload, RootXStoreState } from './store.types';
 export interface XActionContext<
   State extends Dictionary,
   Getters extends Dictionary,
-  Mutations extends MutationsDictionary,
-  Actions extends ActionsDictionary
+  Mutations extends MutationsDictionary<Mutations>,
+  Actions extends ActionsDictionary<Actions>
 > extends ActionContext<State, RootXStoreState> {
   getters: Getters;
   commit<MutationName extends PropsWithType<Mutations, () => void>>(mutation: MutationName): void;
@@ -42,10 +42,13 @@ export type ExtractActionReturn<Action extends (payload?: any) => any> = ReturnT
   : Promise<ReturnType<Action>>;
 
 /**
- * Intermediate type that must be extended to implement a store module actions definitions. This type will then be used by
- * {@link ActionsTree} to offer a type-safe `dispatch` method.
+ * Util type for being used on generic constraints which will only accept an object containing actions
+ * @example ```typescript
+ *  // This function allows receiving any object who only contains actions;
+ *  function sampleFunction<Actions extends ActionsDictionary<Actions>>(actions: Actions): void;
+ * ```
  */
-export type ActionsDictionary = Dictionary<(payload?: any) => any>;
+export type ActionsDictionary<Actions> = Record<keyof Actions, (payload?: any) => any>;
 
 /**
  * Type-safe actions definition type. An object with this type is what it is needed to define {@link Vuex} actions
@@ -57,8 +60,8 @@ export type ActionsDictionary = Dictionary<(payload?: any) => any>;
 export type ActionsTree<
   State extends Dictionary,
   Getters extends Dictionary,
-  Mutations extends MutationsDictionary,
-  Actions extends ActionsDictionary
+  Mutations extends MutationsDictionary<Mutations>,
+  Actions extends ActionsDictionary<Actions>
 > = {
   [Key in keyof Actions]: (
     context: XActionContext<State, Getters, Mutations, Actions>,
@@ -72,6 +75,6 @@ export type ActionsTree<
 export type AnyActionsTree = ActionsTree<
   Dictionary,
   Dictionary,
-  MutationsDictionary,
-  ActionsDictionary
+  MutationsDictionary<any>,
+  ActionsDictionary<any>
 >;

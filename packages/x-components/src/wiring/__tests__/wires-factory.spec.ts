@@ -138,6 +138,7 @@ describe('testing wire factory functions', () => {
       });
 
       test(`${searchBoxModule.wireCommitWithoutPayload.name} allows creating wires that commit a mutation without payload`, () => {
+        // @ts-ignore for testing. The tested module does not have any mutations without payload
         const wire = searchBoxModule.wireCommitWithoutPayload(mutationName);
 
         wire(subject, store);
@@ -152,6 +153,7 @@ describe('testing wire factory functions', () => {
       const actionName = 'search';
 
       test(`${searchBoxModule.wireDispatch.name} allows creating wires that dispatch an action with the observable payload`, () => {
+        // @ts-ignore for testing. The tested module does not have any actions
         const wire = searchBoxModule.wireDispatch(actionName);
         const query = 'osobuco';
 
@@ -164,6 +166,7 @@ describe('testing wire factory functions', () => {
 
       test(`${searchBoxModule.wireDispatch.name} allows creating wires that dispatch an action with a static payload`, () => {
         const staticQuery = 'pork knuckle';
+        // @ts-ignore for testing. The tested module does not have any actions
         const wire = searchBoxModule.wireDispatch(actionName, staticQuery);
 
         wire(subject, store);
@@ -174,6 +177,7 @@ describe('testing wire factory functions', () => {
       });
 
       test(`${searchBoxModule.wireCommitWithoutPayload} allows creating wires that dispatch an action without payload`, () => {
+        // @ts-ignore for testing. The tested module does not have any actions
         const wire = searchBoxModule.wireDispatchWithoutPayload(actionName);
 
         wire(subject, store);

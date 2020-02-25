@@ -1,6 +1,6 @@
 import { SuggestionsRequest } from '@empathy/search-adapter';
 import { Suggestion } from '@empathy/search-types';
-import { ActionsDictionary, MutationsDictionary, XStoreModule } from '../../../store';
+import { XStoreModule } from '../../../store';
 import { PopularSearchesConfig } from '../config.types';
 
 export interface PopularSearchesState {
@@ -12,11 +12,11 @@ export interface PopularSearchesGetters {
   request: SuggestionsRequest;
 }
 
-export interface PopularSearchesMutations extends MutationsDictionary {
+export interface PopularSearchesMutations {
   setSuggestions(suggestions: Suggestion[]): void;
 }
 
-export interface PopularSearchesActions extends ActionsDictionary {
+export interface PopularSearchesActions {
   getSuggestions(): Promise<Suggestion[]>;
   retrieveSuggestions(): void;
 }

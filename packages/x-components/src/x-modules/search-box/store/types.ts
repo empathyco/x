@@ -1,4 +1,4 @@
-import { ActionsDictionary, MutationsDictionary, XStoreModule } from '../../../store';
+import { XStoreModule } from '../../../store';
 
 export interface SearchBoxState {
   query: string;
@@ -8,11 +8,11 @@ export interface SearchBoxGetters {
   trimmedQuery: string;
 }
 
-export interface SearchBoxMutations extends MutationsDictionary {
+export interface SearchBoxMutations {
   setQuery(newQuery: string): void;
 }
 
-export interface SearchBoxActions extends ActionsDictionary {}
+export interface SearchBoxActions {}
 
 export type SearchBoxXStoreModule = XStoreModule<
   SearchBoxState,

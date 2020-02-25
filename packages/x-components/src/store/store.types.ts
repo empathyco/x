@@ -1,11 +1,11 @@
 import { AnyXModule, XModule, XModulesTree } from '../x-modules/x-modules.types';
-import { Dictionary } from '../utils';
 import { ActionsDictionary, ActionsTree } from './actions.types';
 import { GettersTree } from './getters.types';
 import { MutationsDictionary, MutationsTree } from './mutations.types';
 
 /**
- * Base X store state type. All {@link XStoreModule} are nested under the `x` module for safe scoping.
+ * Base X store state type. All {@link XStoreModule} are nested under the `x` module for safe
+ * scoping.
  */
 export interface RootXStoreState {
   x: {
@@ -41,7 +41,8 @@ export interface RootXStoreState {
  *  someExampleFunction(doThings: boolean): number;
  * }
  *
- * type SearchBoxXStoreModule = XStoreModule<SearchBoxState, SearchBoxGetters, SearchBoxMutations, SearchBoxActions>;
+ * type SearchBoxXStoreModule = XStoreModule<SearchBoxState, SearchBoxGetters, SearchBoxMutations,
+ *   SearchBoxActions>;
  *
  * const searchBoxXStoreModule: SearchBoxXStoreModule = {
  *  state: () => ({ query: '' }),
@@ -67,10 +68,10 @@ export interface RootXStoreState {
  * ```
  */
 export interface XStoreModule<
-  State extends Dictionary,
-  Getters extends Dictionary,
-  Mutations extends MutationsDictionary,
-  Actions extends ActionsDictionary
+  State extends Record<keyof State, any>,
+  Getters extends Record<keyof Getters, any>,
+  Mutations extends MutationsDictionary<Mutations>,
+  Actions extends ActionsDictionary<Actions>
 > {
   actions: ActionsTree<State, Getters, Mutations, Actions>;
   getters: GettersTree<State, Getters>;
@@ -79,7 +80,8 @@ export interface XStoreModule<
 }
 
 /**
- * Alias for an {@link XStoreModule} with any type. Use only when the state, getters, mutations and actions are not relevant.
+ * Alias for an {@link XStoreModule} with any type. Use only when the state, getters, mutations and
+ * actions are not relevant.
  */
 export type AnyXStoreModule = XStoreModule<any, any, any, any>;
 
