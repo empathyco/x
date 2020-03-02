@@ -1,7 +1,12 @@
 import { deepMerge } from '@empathybroker/deep-merge';
 import Vue, { VueConstructor } from 'vue';
 import Vuex, { Module, Store } from 'vuex';
-import { AnyStoreEmitters } from '../store/store-emitters.types';
+import {
+  AnySimpleStateSelector,
+  AnyStateSelector,
+  AnyStoreEmitters,
+  SimpleStateSelector
+} from '../store/store-emitters.types';
 import { AnyXStoreModule } from '../store/store.types';
 import { RootXStoreModule } from '../store/x.module';
 import { Dictionary, forEach, reduce } from '../utils';
@@ -12,7 +17,8 @@ import { createXComponentAPIMixin } from './x-plugin.mixin';
 import { AnyXStoreModuleOptions, XModuleOptions, XPluginOptions } from './x-plugin.types';
 
 /**
- * Vue plugin that modifies each component instance, extending them with the {@link XComponentAPI | X Component API }
+ * Vue plugin that modifies each component instance, extending them with the
+ * {@link XComponentAPI | X Component API }
  *
  * @example ```typescript Vue.use(XPlugin, { options })``
  */
@@ -24,7 +30,8 @@ export class XPlugin {
   /** Set of the already installed {@link XModule | Xmodules} to avoid re-registering them */
   protected installedXModules = new Set<string>();
   /** True if the plugin has been installed in a Vue instance, in this case {@link XModule | Xmodules} will be installed immediately.
-   * False otherwise, in this case {@link XModule | Xmodules} will be installed lazily when the {@link install} method is called. */
+   * False otherwise, in this case {@link XModule | Xmodules} will be installed lazily when the
+   * {@link install} method is called. */
   protected isInstalled = false;
   /** The install options of the plugin, where all the customization of {@link XModule | XModules} is done */
   protected options!: XPluginOptions;
@@ -38,7 +45,8 @@ export class XPlugin {
 
   /**
    * Protected constructor to ensure that this class is only instantiated once.
-   * It needs to be a singleton because Vue accepts either a function as plugin, or an object that exposes an install(...) method.
+   * It needs to be a singleton because Vue accepts either a function as plugin, or an object that
+   * exposes an install(...) method.
    */
   protected constructor() {}
 
@@ -58,8 +66,9 @@ export class XPlugin {
   }
 
   /**
-   * If the plugin has already been installed, it immediately registers a {@link XModule}. If it has not been installed yet, it stores
-   * the module in the {@link pendingXModules} property, so it can be registered in the install process
+   * If the plugin has already been installed, it immediately registers a {@link XModule}. If it
+   * has not been installed yet, it stores the module in the {@link pendingXModules} property, so
+   * it can be registered in the install process
    * @param xModule The module to register
    */
   public static registerXModule(xModule: AnyXModule): void {
@@ -78,14 +87,15 @@ export class XPlugin {
   protected registerXModule({ name, wiring, storeModule, storeEmitters }: AnyXModule): void {
     if (!this.installedXModules.has(name)) {
       this.registerStoreModule(name, storeModule);
-      this.registerStoreEmitters(name, storeModule, storeEmitters);
       this.registerWiring(name, wiring);
+      this.registerStoreEmitters(name, storeModule, storeEmitters);
       this.installedXModules.add(name);
     }
   }
 
   /**
-   * Stores the {@link XModule} in a dictionary, so it can be registered later in the install process
+   * Stores the {@link XModule} in a dictionary, so it can be registered later in the install
+   * process
    * @param xModule The module to register
    */
   protected lazyRegisterXModule(xModule: AnyXModule): void {
@@ -93,7 +103,8 @@ export class XPlugin {
   }
 
   /**
-   * Performs the registration of the wiring, retrieving the observable for each event, and executing each wire
+   * Performs the registration of the wiring, retrieving the observable for each event, and
+   * executing each wire
    * @param name The name of the {@link XModule} of the wiring
    * @param wiring The wiring to register
    */
@@ -145,7 +156,8 @@ export class XPlugin {
   }
 
   /**
-   * Registers the store emitters, making them emit the event when the part of the state selected changes
+   * Registers the store emitters, making them emit the event when the part of the state selected
+   * changes
    * @param name The module name
    * @param storeModule The store module to retrieve its state and getters
    * @param storeEmitters The store emitters to register
@@ -160,20 +172,28 @@ export class XPlugin {
       ? deepMerge({}, storeEmitters, storeEmittersOptions)
       : storeEmitters;
     const safeGettersProxy = this.getModuleGetters(name, storeModule);
-    forEach(customizedStoreEmitters, (event, stateSelector) => {
-      this.store.watch(
-        state => stateSelector(state.x[name], safeGettersProxy),
-        changedState => {
-          this.bus.emit(event, changedState);
-        }
-      );
-    });
+    forEach(
+      customizedStoreEmitters,
+      (event, stateSelector: AnySimpleStateSelector | AnyStateSelector) => {
+        const { selector, ...options } = this.isSimpleSelector(stateSelector)
+          ? { selector: stateSelector }
+          : stateSelector;
+        this.store.watch(
+          state => selector(state.x[name], safeGettersProxy),
+          changedState => {
+            this.bus.emit(event, changedState);
+          },
+          options
+        );
+      }
+    );
   }
 
   /**
-   * Creates a proxy object of the getters of the storeModule passed, which will be the object passed as getters to the stateSelector,
-   * of the module. This is done to ensure that an {@link StateSelector} can only access the getters of the {@link XModule} where
-   * it is registered
+   * Creates a proxy object of the getters of the storeModule passed, which will be the object
+   * passed as getters to the stateSelector, of the module. This is done to ensure that an
+   * {@link SimpleStateSelector} can only access the getters of the {@link XModule} where it is
+   * registered
    * @param moduleName The name of the module
    * @param storeModule The store module
    */
@@ -196,12 +216,14 @@ export class XPlugin {
   }
 
   /**
-   * Registers the {@link Vuex} store. If the store has not been passed through the {@link XPluginOptions} object, it creates one, and
-   * injects it in the Vue prototype. Then it register an x module in the store, to safe scope all the {@link XModule | XModules}
+   * Registers the {@link Vuex} store. If the store has not been passed through the
+   * {@link XPluginOptions} object, it creates one, and injects it in the Vue prototype. Then it
+   * register an x module in the store, to safe scope all the {@link XModule | XModules}
    * dynamically installed
    */
   protected registerStore(): void {
-    this.vue.use(Vuex); // We can safely install Vuex because if it is already installed Vue will simply ignore it
+    this.vue.use(Vuex); // We can safely install Vuex because if it is already installed Vue will
+    // simply ignore it
     this.store =
       this.options.store ??
       new Store({
@@ -221,11 +243,23 @@ export class XPlugin {
   }
 
   /**
-   * Registers the pending {@link XModule | XModules}, that requested to be registered before the installation of the plugin
+   * Registers the pending {@link XModule | XModules}, that requested to be registered before the
+   * installation of the plugin
    */
   protected registerPendingXModules(): void {
     forEach(this.pendingXModules, (_, xModule) => {
       this.registerXModule(xModule);
     });
+  }
+
+  /**
+   * Checks if a the type of the store emitter selector is simple or complex. This selector can be
+   * a function if it is simple or an object with the selector and other options if it is complex
+   * @param stateSelector - The store emitter selector
+   */
+  protected isSimpleSelector(
+    stateSelector: AnySimpleStateSelector | AnyStateSelector
+  ): stateSelector is AnySimpleStateSelector {
+    return typeof stateSelector === 'function';
   }
 }

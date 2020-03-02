@@ -289,54 +289,6 @@ describe('testing X Plugin', () => {
     }
   });
 
-  describe('install XPlugin overriding store emitters', () => {
-    const newUserTypedSelector = jest.fn();
-    const newSelectorForNewEvent = jest.fn();
-    const pluginOptions: XPluginOptions = {
-      xModules: {
-        searchBox: {
-          storeEmitters: {
-            UserTyped: newUserTypedSelector,
-            UserIsChangingQuery: undefined,
-            SearchBoxQueryChanged: newSelectorForNewEvent
-          }
-        }
-      },
-      store
-    };
-
-    it('overrides before installing plugin', () => {
-      plugin.registerXModule(xModule);
-      localVue.use(plugin, pluginOptions);
-
-      expectModuleToHaveBeenReplaced();
-    });
-    it('overrides after installing plugin', () => {
-      localVue.use(plugin, pluginOptions);
-      plugin.registerXModule(xModule);
-
-      expectModuleToHaveBeenReplaced();
-    });
-
-    function expectModuleToHaveBeenReplaced() {
-      const state = {
-        prop: 1,
-        complexProp: { propToReplace: 'Replace me', propToKeep: 'But keep me' },
-        propToRemove: ['Hi']
-      };
-      const getters = {
-        getter: 1,
-        getterToReplace: 2,
-        getterToRemove: 3
-      };
-      expect(userTypedSelector).not.toHaveBeenCalled();
-      expect(userIsChangingQuerySelector).not.toHaveBeenCalled();
-      expect(userSelectedAQuerySelector).toHaveBeenCalledWith(state, getters);
-      expect(newUserTypedSelector).toHaveBeenCalledWith(state, getters);
-      expect(newSelectorForNewEvent).toHaveBeenCalledWith(state, getters);
-    }
-  });
-
   describe('x-Modules system', () => {
     let component: Wrapper<Vue>;
     const searchBoxQueryChangedSubscriber = jest.fn();

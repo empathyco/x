@@ -10,8 +10,5 @@ const retrievePopularSuggestions = popularSearchesNamespacedModule.wireDispatchW
 export const popularSearchesWiring = createWiring({
   PopularSearchesRequestChanged: {
     retrievePopularSuggestions
-  },
-  PopularSearchesComponentMounted: {
-    retrievePopularSuggestions
   }
 });

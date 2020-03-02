@@ -29,11 +29,6 @@ export interface XEventsTypes {
    */
   PopularSearchesRequestChanged: SuggestionsRequest;
   /**
-   * popular-searches component has been mounted
-   * Payload: none
-   */
-  PopularSearchesComponentMounted: void;
-  /**
    * The user is in the process of changing a query
    * Payload: the partial query that the user is writing
    */

@@ -25,10 +25,6 @@
     @State('popularSearches', 'suggestions')
     suggestions!: Suggestion[];
 
-    mounted() {
-      this.$x.emit('PopularSearchesComponentMounted');
-    }
-
     protected emitPopularSearchSelected(suggestion: Suggestion) {
       this.$x.emit('UserSelectedAQuery', suggestion.term);
       this.$x.emit('UserSelectedASuggestion', suggestion);
