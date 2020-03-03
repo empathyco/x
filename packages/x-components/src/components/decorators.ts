@@ -10,6 +10,7 @@ import { ExtractGetters, ExtractState, XModuleName } from '../x-modules/x-module
  *
  * @param module - The {@link XModuleName} of the getter
  * @param path - The state path
+ * @public
  */
 export function State<Module extends XModuleName, Path extends keyof ExtractState<Module>>(
   module: Module,
@@ -34,6 +35,7 @@ export function State<Module extends XModuleName, Path extends keyof ExtractStat
  *
  * @param module - The {@link XModuleName} of the getter
  * @param getter - The getter name
+ * @public
  */
 export function Getter<Module extends XModuleName, GetterName extends keyof ExtractGetters<Module>>(
   module: Module,

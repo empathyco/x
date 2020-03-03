@@ -8,23 +8,34 @@ import { XEvent, XEventPayload } from './events.types';
 
 /**
  * A Wire is a function that receives an observable, the store, and returns a subscription
- * @param T The observable payload type, or any if it accepts anything.
+ *
+ * @param PayloadType - The observable payload type, or any if it accepts anything.
+ * @public
  */
-export type Wire<T> = (observable: Observable<T>, store: Store<RootXStoreState>) => Subscription;
+export type Wire<PayloadType> = (
+  observable: Observable<PayloadType>,
+  store: Store<RootXStoreState>
+) => Subscription;
 
 /**
  * Alias for a wire with the type of the event payload
- * @param E The event name
+ *
+ * @param Event - The event name
+ * @public
  */
-export type WireForEvent<E extends XEvent> = Wire<XEventPayload<E>>;
+export type WireForEvent<Event extends XEvent> = Wire<XEventPayload<Event>>;
 
 /**
  * Alias for a wire of any type
+ *
+ * @public
  */
 export type AnyWire = Wire<any>;
 
 /**
  * The Wiring is a record where each key is an EmpathyX event, and the value is a dictionary of wires
+ *
+ * @public
  */
 export type Wiring = {
   [E in XEvent]: Dictionary<WireForEvent<E>>;
@@ -32,7 +43,9 @@ export type Wiring = {
 
 /**
  * Groups the payload and the store into an object to avoid having multiple parameters
- * @paramType Payload - The payload type of the wire
+ *
+ * @typeParam Payload - The payload type of the wire
+ * @public
  */
 export interface WireParams<Payload> {
   payload: Payload;
@@ -41,10 +54,20 @@ export interface WireParams<Payload> {
 
 /**
  * Type safe wire factory, that provides methods for creating wires that can only
- * access the Module of the {@link https://vuex.vuejs.org/ Vuex} Store passed as parameter
+ * access the Module of the {@link https://vuex.vuejs.org/ | Vuex} Store passed as parameter
+ *
  * @param Module - The {@link XStoreModule} to create the wires
+ * @public
  */
 export interface NamespacedWireFactory<Module extends AnyXModule> {
+  /**
+   * Creates a wire that commits a mutation to the store with an static payload. This wire can be used in every event, as it does not have a payload type
+   * associated.
+   *
+   * @param mutation - The name of the mutation of the module to execute. i.e. `setQuery`
+   * @param staticPayload - A static payload to pass to the mutation which will be committed
+   * @returns [AnyWire] A wire that commits the mutation with the staticPayload payload
+   */
   wireCommit<
     Mutations extends ExtractMutations<Module>,
     MutationName extends PropsWithType<Mutations, (payload: any) => void>
@@ -52,18 +75,39 @@ export interface NamespacedWireFactory<Module extends AnyXModule> {
     mutation: MutationName,
     staticPayload: ExtractPayload<Mutations[MutationName]>
   ): AnyWire;
+  /**
+   * Creates a wire that commits a mutation to the store. This wire will commit to the store the payload that it receives in the observable.
+   *
+   * @param mutation - The name of the mutation of the module to execute. i.e. `setQuery`
+   * @returns [Wire<Payload>] A wire that commits the mutation with the payload that it receives in the observable
+   */
   wireCommit<
     Mutations extends ExtractMutations<Module>,
     MutationName extends PropsWithType<Mutations, (payload: any) => void>
   >(
     mutation: MutationName
   ): Wire<ExtractPayload<Mutations[MutationName]>>;
+  /**
+   * Creates a wire that commits a mutation to the store, but without any payload. This wire can be used in every event, as it does not have
+   * a payload type associated.
+   *
+   * @param mutation - The name of the mutation of the module to execute. i.e. `setQuery`
+   * @returns [AnyWire] A wire that commits the mutation without any payload
+   */
   wireCommitWithoutPayload<
     Mutations extends ExtractMutations<Module>,
     MutationName extends PropsWithType<Mutations, () => void>
   >(
     mutation: MutationName
   ): AnyWire;
+  /**
+   * Creates a wire that dispatches an action to the store with an static payload. This wire can be used in every event, as it does not have a payload type
+   * associated.
+   *
+   * @param action - The action name to commit. i.e. `getSuggestions`
+   * @param staticPayload - A static payload to pass to the action which will be dispatched
+   * @returns [AnyWire] A wire that dispatches the action with the staticPayload payload
+   */
   wireDispatch<
     Actions extends ExtractActions<Module>,
     ActionName extends PropsWithType<Actions, (payload: any) => void>
@@ -71,12 +115,26 @@ export interface NamespacedWireFactory<Module extends AnyXModule> {
     action: ActionName,
     staticPayload: ExtractPayload<Actions[ActionName]>
   ): AnyWire;
+  /**
+   * Creates a wire that dispatches an action to the store. This wire will pass the payload received in the observable to the action.
+   *
+   * @param action - The action name to commit. i.e. `getSuggestions`
+   * @typeParam Payload - the type of the payload that this wire will receive
+   * @returns [Wire<Payload>] A wire that dispatches the action with the payload that it receives in the observable
+   */
   wireDispatch<
     Actions extends ExtractActions<Module>,
     ActionName extends PropsWithType<Actions, (payload: any) => void>
   >(
     action: ActionName
   ): Wire<ExtractPayload<Actions[ActionName]>>;
+  /**
+   * Creates a wire that dispatches an action to the store, but without any payload. This wire can be used in every event, as it does not
+   * have a payload type associated.
+   *
+   * @param action - The action name to commit. i.e. `getSuggestions`
+   * @returns [AnyWire] A wire that dispatches the action without any payload
+   */
   wireDispatchWithoutPayload<
     Actions extends ExtractActions<Module>,
     ActionName extends PropsWithType<Actions, () => void>

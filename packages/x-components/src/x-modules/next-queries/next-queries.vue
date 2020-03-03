@@ -18,6 +18,12 @@
   import { xComponentMixin } from '../../components/x-component.mixin';
   import { nextQueriesXModule } from './x-module';
 
+  /**
+   * Simple next-queries component that allows the user to select a next query, emitting
+   * the needed events
+   *
+   * @public
+   */
   @Component({
     mixins: [xComponentMixin(nextQueriesXModule)]
   })

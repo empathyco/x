@@ -4,10 +4,12 @@ import { XEvent, XEventPayload } from '../wiring/events.types';
 import { AnyXStoreModule } from './store.types';
 
 /**
- * Selects a part of the store state or getters (AKA "getter" inside {@link Vuex} watchers).
- * @param ReturnType the type of the state or getters property selected
- * @param State the type of the state of the {@link XModule} where this selector is used
- * @param Getters the type of the getters of the {@link XModule} where this selector is used
+ * Selects a part of the store state or getters (AKA "getter" inside {@link https://vuex.vuejs.org/ | Vuex} watchers).
+ *
+ * @param ReturnType - the type of the state or getters property selected
+ * @param State - the type of the state of the {@link XModule} where this selector is used
+ * @param Getters - the type of the getters of the {@link XModule} where this selector is used
+ * @public
  */
 export type SimpleStateSelector<
   ReturnType,
@@ -20,9 +22,11 @@ export type SimpleStateSelector<
  * should be executed in first instance (first assignment of values). selector is the
  * {@link SimpleStateSelector} and immediate flags if the selector should be executed when it is
  * initialized for first time
+ *
  * @param ReturnType - The type of the state or getters property selected
  * @param State - The type of the state of the {@link XModule} where this selector is used
  * @param Getters - The type of the getters of the {@link XModule} where this selector is used
+ * @public
  */
 export interface StateSelector<ReturnType, State extends Dictionary, Getters extends Dictionary>
   extends WatchOptions {
@@ -35,7 +39,9 @@ export interface StateSelector<ReturnType, State extends Dictionary, Getters ext
  * StateSelector} can only access the state and getters from the {@link XStoreModule}
  * passed as param type. This dictionary is used to emits a {@link XEvent} when the part of the
  * store selected by {@link SimpleStateSelector} changes
+ *
  * @param StoreModule - The store module that these store emitters will be able to access.
+ * @public
  */
 export type StoreEmitters<StoreModule extends AnyXStoreModule> = {
   [Event in XEvent]?:
@@ -53,15 +59,21 @@ export type StoreEmitters<StoreModule extends AnyXStoreModule> = {
 
 /**
  * Alias for any simple state selector
+ *
+ * @public
  */
 export type AnySimpleStateSelector = SimpleStateSelector<any, any, any>;
 
 /**
  * Alias for any state selector
+ *
+ * @public
  */
 export type AnyStateSelector = StateSelector<any, any, any>;
 
 /**
  * Alias for any store emitters
+ *
+ * @public
  */
 export type AnyStoreEmitters = StoreEmitters<AnyXStoreModule>;

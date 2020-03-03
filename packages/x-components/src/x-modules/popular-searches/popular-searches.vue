@@ -18,6 +18,12 @@
   import { xComponentMixin } from '../../components/x-component.mixin';
   import { popularSearchesXModule } from './x-module';
 
+  /**
+   * Simple popular-searches component that allows the user to select a popular search, emitting
+   * the needed events
+   *
+   * @public
+   */
   @Component({
     mixins: [xComponentMixin(popularSearchesXModule)]
   })

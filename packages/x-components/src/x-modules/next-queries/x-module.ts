@@ -5,8 +5,19 @@ import { NextQueriesXStoreModule } from './store/types';
 import { nextQueriesXStoreModule } from './store/module';
 import { nextQueriesWiring } from './wiring';
 
+/**
+ * NextQueries {@link XModule} alias
+ *
+ * @public
+ */
 export type NextQueriesXModule = XModule<NextQueriesXStoreModule>;
 
+/**
+ * Next queries {@link XModule} implementation. This module is auto-registered as soon as you import any component
+ * from the `next-queries` entry point.
+ *
+ * @public
+ */
 export const nextQueriesXModule: NextQueriesXModule = {
   name: 'nextQueries',
   storeModule: nextQueriesXStoreModule,

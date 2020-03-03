@@ -11,6 +11,7 @@ import { setXComponentXModuleName } from './x-component.utils';
  * function
  *
  * @param module - The module associated to the X-Component using this mixin
+ * @public
  */
 export function xComponentMixin(
   module: AnyXModule

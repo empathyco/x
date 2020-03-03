@@ -10,7 +10,9 @@ import { AnyXModule, XModuleName, XModulesTree } from '../x-modules/x-modules.ty
 import { XBus } from './x-bus.types';
 
 /**
- * { @link XPlugin } installation options
+ * {@link XPlugin} installation options
+ *
+ * @public
  */
 export interface XPluginOptions {
   /** A Vuex store to install the X module. If not passed a new one will be created and injected into every component */
@@ -21,11 +23,15 @@ export interface XPluginOptions {
 
 /**
  * The XComponentAPI exposes access to the {@link XBus} to the components
+ *
+ * @public
  */
 export interface XComponentAPI extends XBus {}
 
 /**
  * Options for overriding the default XModules configuration
+ *
+ * @public
  */
 export type XModulesOptions = {
   [N in XModuleName]?: XModuleOptions<XModulesTree[N]>;
@@ -33,7 +39,9 @@ export type XModulesOptions = {
 
 /**
  * Options for overriding a default XModule configuration
- * @param M The module name to modify its default configuration
+ *
+ * @typeParam Module - The module name to modify its default configuration
+ * @public
  */
 export interface XModuleOptions<Module extends AnyXModule> {
   /** The options to override events that will be emitted when a the getters value or the state of the store changes */
@@ -47,6 +55,7 @@ export interface XModuleOptions<Module extends AnyXModule> {
 /**
  * Options for overriding a default {@link XStoreModule}
  *
+ * @public
  */
 export type XStoreModuleOptions<
   StoreModule extends AnyXStoreModule
@@ -61,5 +70,7 @@ export type XStoreModuleOptions<
 
 /**
  * Alias for any store modules options. Use only when you don't care about the module concrete type
+ *
+ * @public
  */
 export type AnyXStoreModuleOptions = XStoreModuleOptions<AnyXStoreModule>;

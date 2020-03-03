@@ -7,6 +7,11 @@ const adapter = new EmpathyAdapterBuilder()
   .setScope('x-components-development')
   .build(); // TODO It should be injected
 
+/**
+ * {@link XStoreModule} for the next-queries module
+ *
+ * @internal
+ */
 export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
   state: () => ({
     query: '',

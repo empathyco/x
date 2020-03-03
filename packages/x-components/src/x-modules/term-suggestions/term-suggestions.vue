@@ -18,6 +18,12 @@
   import { xComponentMixin } from '../../components/x-component.mixin';
   import { termSuggestionsXModule } from './x-module';
 
+  /**
+   * Simple term-suggestions component that allows the user to select a suggestion, emitting
+   * the needed events
+   *
+   * @public
+   */
   @Component({
     mixins: [xComponentMixin(termSuggestionsXModule)]
   })

@@ -2,6 +2,7 @@ import { Plugin } from 'rollup';
 import fs from 'fs';
 import path from 'path';
 import { forEach } from '../src/utils';
+import { ensureDirectoryExists } from './build.utils';
 
 export interface GenerateEntryFilesOptions {
   /** The path to the directory where generated js files are stored */
@@ -12,10 +13,12 @@ export interface GenerateEntryFilesOptions {
 
 /**
  * Rollup plugin to generate one common entry point with shared code, and one for each x-module
- * This is needed because x-modules have side effects on import (like registering the wiring, and store modules).
- * If these x-modules were imported from a single barrel file, then they will be executed always, except if the build had tree-shaking
- * step that removed them from the code. Tree shaking is a costly step that is only run for production builds normally.
- * So, for consistency between dev and prod builds, creating an entry point per each x-module is the safest way to achieve this
+ * This is needed because x-modules have side effects on import (like registering the wiring, and
+ * store modules). If these x-modules were imported from a single barrel file, then they will be
+ * executed always, except if the build had tree-shaking step that removed them from the code. Tree
+ * shaking is a costly step that is only run for production builds normally. So, for consistency
+ * between dev and prod builds, creating an entry point per each x-module is the safest way to
+ * achieve this
  * @param options - Options to configure the generation of the entry files
  */
 export function generateEntryFiles(options: GenerateEntryFilesOptions): Plugin {
@@ -71,8 +74,8 @@ function copyIndexSourcemap(outputDirectory: string) {
  * shared code and one per each x module
  * @param outputDirectory - The directory where the output files are stored
  * @param extension - The type of the files for generating the entry points
- * @returns A reducer function that will generate a `Record` where the key is the chunk name, and the value
- * is an array of strings containing the code
+ * @returns A reducer function that will generate a `Record` where the key is the chunk name, and
+ *   the value is an array of strings containing the code
  */
 function generateEntryPointsRecord(outputDirectory: string, extension: string) {
   const relativeOutputDirectory = `${path.relative(__dirname, outputDirectory)}/`;
@@ -105,9 +108,11 @@ function adjustExport(location: string, line: string) {
 
 /**
  * Generates a function that receives a line that is an export sentence from a DTS file, and
- * if the line is an export from an x-module, it extracts the x-module name. In other case it returns `null`
+ * if the line is an export from an x-module, it extracts the x-module name. In other case it
+ * returns `null`
  * @param outputDirectory - The export line to extract the x-module name
- * @param extension - The extension (i.e. `js`, `d.ts`) to check if the export is from a file or a barrel
+ * @param extension - The extension (i.e. `js`, `d.ts`) to check if the export is from a file or a
+ *   barrel
  * @returns A function to test if a line is an export from an x-module
  */
 function extractXModuleFromExport(outputDirectory: string, extension: string) {
@@ -150,16 +155,4 @@ function writeEntryFile(extension: string) {
     fs.writeFileSync(filePath, fileContents.join('\n'));
     return filePath;
   };
-}
-
-/**
- * Asserts a directory exists recursively, creating it if it does not
- * @param filePath - The full path to the file, that may or may not exist
- */
-function ensureDirectoryExists(filePath: string): void {
-  const dirName = path.dirname(filePath);
-  if (!fs.existsSync(path.dirname(filePath))) {
-    fs.mkdirSync(dirName);
-    ensureDirectoryExists(filePath);
-  }
 }

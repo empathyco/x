@@ -17,6 +17,12 @@
   import { xComponentMixin } from '../../components/x-component.mixin';
   import { searchBoxXModule } from './x-module';
 
+  /**
+   * Simple search-box component that allows the user to type in an input, and emits the
+   * needed events
+   *
+   * @public
+   */
   @Component({
     mixins: [xComponentMixin(searchBoxXModule)]
   })

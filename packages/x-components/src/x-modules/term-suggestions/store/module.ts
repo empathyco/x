@@ -7,6 +7,10 @@ const adapter = new EmpathyAdapterBuilder()
   .setScope('x-components-development')
   .build(); // TODO It should be injected
 
+/**
+ * {@link XStoreModule} for the term-suggestions module
+ * @internal
+ */
 export const termSuggestionsXStoreModule: TermSuggestionsXStoreModule = {
   state: () => ({
     query: '',

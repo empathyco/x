@@ -4,11 +4,13 @@ import { MutationsDictionary } from './mutations.types';
 import { ExtractPayload, RootXStoreState } from './store.types';
 
 /**
- * Type safe Vuex {@link ActionContext}, with the local types of the module
- * @param State the module state dictionary type definition
- * @param Getters the module getters dictionary type definition
- * @param Mutations the module mutation dictionary type definition
- * @param Actions the module actions dictionary type definition
+ * Type safe Vuex {@link https://vuex.vuejs.org/api/#actions | Action} context, with the local types of the module
+ *
+ * @param State - the module state dictionary type definition
+ * @param Getters - the module getters dictionary type definition
+ * @param Mutations - the module mutation dictionary type definition
+ * @param Actions - the module actions dictionary type definition
+ * @public
  */
 export interface XActionContext<
   State extends Dictionary,
@@ -33,7 +35,9 @@ export interface XActionContext<
 
 /**
  * Flattens the (probably) chained promises of an action type
- * @param Action the action function to extract its type
+ *
+ * @param Action - the action function to extract its type
+ * @public
  */
 export type ExtractActionReturn<Action extends (payload?: any) => any> = ReturnType<
   Action
@@ -43,19 +47,25 @@ export type ExtractActionReturn<Action extends (payload?: any) => any> = ReturnT
 
 /**
  * Util type for being used on generic constraints which will only accept an object containing actions
- * @example ```typescript
+ *
+ * @example Example constraint
+ * ```typescript
  *  // This function allows receiving any object who only contains actions;
- *  function sampleFunction<Actions extends ActionsDictionary<Actions>>(actions: Actions): void;
+ *  function sampleFunction\<Actions extends ActionsDictionary\<Actions\>\>(actions: Actions): void;
  * ```
+ * @public
  */
 export type ActionsDictionary<Actions> = Record<keyof Actions, (payload?: any) => any>;
 
 /**
- * Type-safe actions definition type. An object with this type is what it is needed to define {@link Vuex} actions
- * @param State the module state dictionary type definition
- * @param Getters the module getters dictionary type definition
- * @param Mutations the module mutation dictionary type definition
- * @param Actions the module actions dictionary type definition
+ * Type-safe actions definition type. An object with this type is what it is needed to define {@link https://vuex.vuejs.org/ | Vuex} actions
+ *
+ * @param State - the module state dictionary type definition
+ * @param Getters - the module getters dictionary type definition
+ * @param Mutations - the module mutation dictionary type definition
+ * @param Actions - the module actions dictionary type definition
+ *
+ * @public
  */
 export type ActionsTree<
   State extends Dictionary,
@@ -71,6 +81,8 @@ export type ActionsTree<
 
 /**
  * Alias for any actions tree. Use only when you really don't care about the actions type
+ *
+ * @public
  */
 export type AnyActionsTree = ActionsTree<
   Dictionary,

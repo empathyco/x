@@ -4,26 +4,33 @@ import { XEvent, XEventPayload } from '../wiring/events.types';
 import { Emitters, XBus } from './x-bus.types';
 
 /**
- * Basic {@link XBus} implementation, which is used as default
+ * Default {@link XBus} implementation
+ * @public
  */
 export class BaseXBus implements XBus {
-  /** Dictionary to store the created event emitters */
+  /**
+   * Dictionary to store the created event emitters
+   *
+   * @internal
+   */
   protected emitters: Emitters = {};
 
-  /** @inheritDoc */
+  /** Emits an event. See {@link XBus.(emit:2)} */
   public emit<Event extends XEvent>(event: Event, payload?: XEventPayload<Event>): void {
     this.getOrCreateEmitter(event).next(payload);
   }
 
-  /** @inheritDoc */
+  /** Retrieves an observable. See {@link XBus.on} */
   public on<Event extends XEvent>(event: Event): Observable<XEventPayload<Event>> {
     return this.getOrCreateEmitter(event);
   }
 
   /**
    * Retrieves an event emitter for a given event
-   * @param event The event to retrieve the emitter for
+   *
+   * @param event - The event to retrieve the emitter for
    * @returns The emitter for the event passed
+   * @internal
    */
   protected getOrCreateEmitter<Event extends XEvent>(event: Event): Subject<XEventPayload<Event>> {
     // TODO I Don't get why the types are not working here
@@ -33,4 +40,5 @@ export class BaseXBus implements XBus {
   }
 }
 
+/** @internal The bus instance. Will be replaced by injection */
 export const bus = new BaseXBus(); // TODO Remove this instantiation and replace with injection where used

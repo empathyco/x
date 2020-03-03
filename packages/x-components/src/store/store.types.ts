@@ -6,6 +6,8 @@ import { MutationsDictionary, MutationsTree } from './mutations.types';
 /**
  * Base X store state type. All {@link XStoreModule} are nested under the `x` module for safe
  * scoping.
+ *
+ * @public
  */
 export interface RootXStoreState {
   x: {
@@ -21,9 +23,11 @@ export interface RootXStoreState {
 }
 
 /**
- * Type safe {@link Vuex} store module
+ * Type safe {@link https://vuex.vuejs.org/ | Vuex} store module
  *
- * @example ```typescript
+ * @example
+ * How to create a type safe store module:
+ * ```typescript
  * interface SearchBoxState {
  *  query: string;
  *}
@@ -32,11 +36,11 @@ export interface RootXStoreState {
  *  safeQuery: string;
  *}
  *
- * interface SearchBoxMutations extends MutationsDictionary {
+ * interface SearchBoxMutations {
  *  setQuery(newQuery: string): void;
  *}
  *
- * interface SearchBoxActions extends ActionsDictionary {
+ * interface SearchBoxActions {
  *  someAsyncExampleFunction(): Promise<string>;
  *  someExampleFunction(doThings: boolean): number;
  * }
@@ -66,6 +70,8 @@ export interface RootXStoreState {
  * }
  *};
  * ```
+ *
+ * @public
  */
 export interface XStoreModule<
   State extends Record<keyof State, any>,
@@ -82,12 +88,16 @@ export interface XStoreModule<
 /**
  * Alias for an {@link XStoreModule} with any type. Use only when the state, getters, mutations and
  * actions are not relevant.
+ *
+ * @public
  */
 export type AnyXStoreModule = XStoreModule<any, any, any, any>;
 
 /**
  * Extracts the mutations type from a XStoreModule
+ *
  * @param Module - The {@link XStoreModule} to extract its {@link MutationsDictionary}
+ * @public
  */
 export type ExtractMutations<Module extends AnyXModule> = Module extends XModule<
   XStoreModule<any, any, infer Mutations, any>
@@ -97,7 +107,9 @@ export type ExtractMutations<Module extends AnyXModule> = Module extends XModule
 
 /**
  * Extracts the actions type from a XStoreModule
+ *
  * @param Module - The {@link XStoreModule} to extract its {@link ActionsDictionary}
+ * @public
  */
 export type ExtractActions<Module extends AnyXModule> = Module extends XModule<
   XStoreModule<any, any, any, infer Actions>
@@ -107,6 +119,8 @@ export type ExtractActions<Module extends AnyXModule> = Module extends XModule<
 
 /**
  * Extracts the payload from any function with a single parameter
+ *
  * @param Function - A function type with one parameter and any return type
+ * @public
  */
 export type ExtractPayload<Function extends (payload?: any) => any> = Parameters<Function>[0];

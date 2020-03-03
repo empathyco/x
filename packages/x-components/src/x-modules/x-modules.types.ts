@@ -8,6 +8,8 @@ import { TermSuggestionsXModule } from './term-suggestions/x-module';
 
 /**
  * Gives each {@link XModule} a name, that can be used to retrieve then its value.
+ *
+ * @public
  */
 export interface XModulesTree {
   nextQueries: NextQueriesXModule;
@@ -18,12 +20,16 @@ export interface XModulesTree {
 
 /**
  * Names of all of the {@link XModule | XModules} available
+ *
+ * @public
  */
 export type XModuleName = keyof XModulesTree;
 
 /**
  * A group of a wiring configuration, a store module, and side effects
- * @param StoreModule The store module state type
+ *
+ * @param StoreModule - The store module state type
+ * @public
  */
 export interface XModule<StoreModule extends AnyXStoreModule> {
   /** A unique name that identifies this XModule */
@@ -38,6 +44,8 @@ export interface XModule<StoreModule extends AnyXStoreModule> {
 
 /**
  * Alias for any XModule. Use with caution
+ *
+ * @public
  */
 export type AnyXModule = XModule<AnyXStoreModule>;
 
@@ -45,6 +53,7 @@ export type AnyXModule = XModule<AnyXStoreModule>;
  * Util type for extracting the state type of a module
  *
  * @param Module - the module name to extract its state type
+ * @public
  */
 export type ExtractState<Module extends XModuleName> = XModulesTree[Module] extends XModule<
   XStoreModule<infer State, any, any, any>
@@ -56,6 +65,7 @@ export type ExtractState<Module extends XModuleName> = XModulesTree[Module] exte
  * Util type for extracting the getter type of a module
  *
  * @param Module - the module name to extract its getters type
+ * @public
  */
 export type ExtractGetters<Module extends XModuleName> = XModulesTree[Module] extends XModule<
   XStoreModule<any, infer Getters, any, any>
