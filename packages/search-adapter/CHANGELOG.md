@@ -1,5 +1,9 @@
 # Search Adapter Changelog
 
+> ## 3.2.0 - 2020/03/09
+>
+> EX-1490 Remove warnings about tagging events on production
+
 > ## 3.1.0 - 2020/02/04
 >
 > EX-1506 Add `isWishlisted` field mapping to `mapResult`'s

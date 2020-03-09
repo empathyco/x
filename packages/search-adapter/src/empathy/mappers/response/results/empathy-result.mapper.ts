@@ -64,7 +64,9 @@ export class EmpathyResultMapper implements ResponseMapper<EmpathyResult, Result
       if (rawTagging) {
         resultTagging[key] = this.mapTagging(rawTagging, {} as Tagging, context);
       } else {
-        this.logger.warn(`Tagging for event "${ key }" at path "${ path }" not found when mapping for feature "${ context.feature }"`);
+        if (process.env.NODE_ENV !== 'production') {
+          this.logger.warn(`Tagging for event "${ key }" at path "${ path }" not found when mapping for feature "${ context.feature }"`);
+        }
       }
       return resultTagging;
     }, initialResultTagging);

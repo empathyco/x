@@ -986,3 +986,38 @@ export const SearchSimpleResponse = {
     }
   }
 };
+
+export const SearchSimpleResponseWithNoTagging = {
+  'direct': [],
+  'banner': [],
+  'promoted': [],
+  'content': {
+    'docs': [
+      {
+        'id': 'A0310763',
+        'name': 'LEGO Harry Potter Expreso de Hogwarts - 75955',
+        'description': '¡Todos a bordo del Expreso de Hogwarts™ LEGO® Harry Potter™ (75955)! Atraviesa la pared de ladrillo del andén 9¾ en la estación de King\'s Cross y acompaña a Harry, Ron y Hermione en su viaje hacia Hogwarts. Busca tu asiento en el vagón y cómprale una rana de chocolate a la bruja del carrito, ¡pero ten cuidado con el Dementor™! Por suerte, Remus Lupin anda cerca y logra lanzar un poderoso hechizo para proteger a Harry de la terrorífica criatura, y que así puedas encarrilar más aventuras de magia en el mundo de Harry Potter. • Incluye 5 minifiguras: Harry Potter™, Ron Weasley™, Hermione Granger™, Remus Lupin y la bruja del carrito; incluye también figuras de un Dementor™ y Scabbers™. • Contiene el emblemático andén 9¾ de la estación de King\'s Cross y el Expreso de Hogwarts™. • El andén cuenta con un puente ferroviario con reloj, escaleras que conducen a una entrada a través de una pared de ladrillo móvil, un kiosco de periódicos con 2 ejemplares de El Profeta y un póster con la inscripción “Wanted”. • El Expreso de Hogwarts™ incluye un vagón con 4 asientos, panel lateral y techo desmontables, y la bruja del carrito con su carrito de dulces',
+        'url': 'https://juguettos.com/juguetes/33090-.html',
+        'image': 'https://juguettos.com/imgs/A0310763_1.jpg',
+        'availability': '1',
+        'price': '89.99',
+        'minAge': '9',
+        'maxAge': '12',
+        'unitAge': 'y',
+        'categories': [
+          'Juegos de manualidades',
+          'Construye'
+        ],
+        'brands': [
+          'LEGO'
+        ],
+        'ebTagging': {
+          'click': '', 'add2cart': '', 'checkout': '', 'conversion': ''
+        }
+      }
+    ],
+    'numFound': 441,
+    'facets': [],
+    'ebTagging': {}
+  }
+};
