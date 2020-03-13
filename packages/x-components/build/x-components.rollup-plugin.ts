@@ -4,6 +4,15 @@ import path from 'path';
 import { forEach } from '../src/utils';
 import { ensureDirectoryExists } from './build.utils';
 
+/**
+ * Type alias of a reducer function that will generate a `Record` where the key is the chunk name,
+ * and the value is an array of strings containing the code
+ */
+type ReducerFunctionOfEntryPoints = (
+  files: Record<string, string[]>,
+  line: string
+) => Record<string, string[]>;
+
 export interface GenerateEntryFilesOptions {
   /** The path to the directory where generated js files are stored */
   jsOutputDirectory: string;
@@ -50,7 +59,7 @@ const X_MODULES_DIR_NAME = 'x-modules';
  * @param outputDirectory - The directory to load it's barrel and generate the entry points
  * @param extension - The type of files to generate the entry points (i.e. `d.ts`, `js`)
  */
-function generateEntryPoints(outputDirectory: string, extension: string) {
+function generateEntryPoints(outputDirectory: string, extension: string): void {
   const jsEntry = fs.readFileSync(path.join(outputDirectory, `index.${extension}`), 'utf8');
   const jsEntryPoints = jsEntry
     .split(BY_LINES)
@@ -64,7 +73,7 @@ function generateEntryPoints(outputDirectory: string, extension: string) {
  * any other code than exports it should be fine. If not done, the consumer project won't have
  * sourcemaps
  */
-function copyIndexSourcemap(outputDirectory: string) {
+function copyIndexSourcemap(outputDirectory: string): void {
   const fileName = 'index.js.map';
   fs.copyFileSync(path.join(outputDirectory, fileName), path.join(ROOT_DIR, 'core', fileName));
 }
@@ -77,7 +86,10 @@ function copyIndexSourcemap(outputDirectory: string) {
  * @returns A reducer function that will generate a `Record` where the key is the chunk name, and
  *   the value is an array of strings containing the code
  */
-function generateEntryPointsRecord(outputDirectory: string, extension: string) {
+function generateEntryPointsRecord(
+  outputDirectory: string,
+  extension: string
+): ReducerFunctionOfEntryPoints {
   const relativeOutputDirectory = `${path.relative(__dirname, outputDirectory)}/`;
   const getXModuleNameFromExport = extractXModuleFromExport(outputDirectory, extension);
 
@@ -101,8 +113,9 @@ function generateEntryPointsRecord(outputDirectory: string, extension: string) {
  * Adjusts an export to a new location
  * @param location - The new base location
  * @param line - The export line to adjust the export
+ * @returns String with the new location adjusted to the line export
  */
-function adjustExport(location: string, line: string) {
+function adjustExport(location: string, line: string): string {
   return line.replace('./', location);
 }
 
@@ -131,7 +144,12 @@ function extractXModuleFromExport(outputDirectory: string, extension: string) {
   };
 }
 
-function addExtension(fileName: string, extension: string) {
+/**
+ * Appends the extension to the file name
+ * @param fileName - File name with or without extension
+ * @param extension - Extension to append to file name
+ */
+function addExtension(fileName: string, extension: string): string {
   return fileName.endsWith(`.${extension}`) ? fileName : `${fileName}.${extension}`;
 }
 

@@ -18,7 +18,7 @@ describe('testing XComponent mixin', () => {
 
   const localVue = createLocalVue();
   localVue.use(Vuex);
-  const store: Store<RootXStoreState> = new Store({}) as Store<RootXStoreState>;
+  const store: Store<RootXStoreState> = new Store({});
   localVue.use(XPlugin, { store });
 
   let normalComponentWrapper: Wrapper<Vue>;

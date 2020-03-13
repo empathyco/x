@@ -27,11 +27,10 @@
     mixins: [xComponentMixin(searchBoxXModule)]
   })
   export default class SearchBox extends Vue {
-    $refs!: {
-      input: HTMLInputElement;
-    };
+    public $refs!: { input: HTMLInputElement };
+
     @State('searchBox', 'query')
-    query!: string;
+    public query!: string;
 
     protected emitUserTyped(): void {
       const query = this.$refs.input.value;

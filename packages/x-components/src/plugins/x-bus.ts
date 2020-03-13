@@ -16,12 +16,12 @@ export class BaseXBus implements XBus {
   protected emitters: Emitters = {};
 
   /** Emits an event. See {@link XBus.(emit:2)} */
-  public emit<Event extends XEvent>(event: Event, payload?: XEventPayload<Event>): void {
+  emit<Event extends XEvent>(event: Event, payload?: XEventPayload<Event>): void {
     this.getOrCreateEmitter(event).next(payload);
   }
 
   /** Retrieves an observable. See {@link XBus.on} */
-  public on<Event extends XEvent>(event: Event): Observable<XEventPayload<Event>> {
+  on<Event extends XEvent>(event: Event): Observable<XEventPayload<Event>> {
     return this.getOrCreateEmitter(event);
   }
 

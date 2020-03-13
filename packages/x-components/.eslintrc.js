@@ -1,8 +1,8 @@
 const esLintRules = {
+  // https://eslint.org/docs/rules/
   'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
   'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
   'no-alert': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-  'no-extra-parens': 'error',
   'no-template-curly-in-string': 'error',
   'require-atomic-updates': 'error',
   curly: ['error', 'all'],
@@ -16,10 +16,50 @@ const esLintRules = {
       paths: ['rxjs', 'rxjs/operators'],
       patterns: ['rxjs/internal/**/*', '**/types/**/*', '**/dist/**/*']
     }
+  ],
+  indent: 'off',
+  'no-empty-function': 'off',
+  'no-unused-vars': 'off',
+  'no-extra-parens': 'off',
+  'no-unused-expressions': 'off'
+};
+
+const tsLintRules = {
+  // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin
+  '@typescript-eslint/indent': 'off',
+  '@typescript-eslint/explicit-member-accessibility': [
+    'error',
+    { overrides: { methods: 'no-public', properties: 'explicit' } }
+  ],
+  '@typescript-eslint/explicit-function-return-type': ['error', { allowExpressions: true }],
+  '@typescript-eslint/no-explicit-any': 'off',
+  '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
+  '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
+  '@typescript-eslint/no-empty-function': ['error', { allow: ['protected-constructors'] }],
+  '@typescript-eslint/no-empty-interface': 'off',
+  '@typescript-eslint/no-extra-parens': ['error', 'all', { nestedBinaryExpressions: false }],
+  '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'error',
+  '@typescript-eslint/no-unused-expressions': ['error'],
+  // Type information rules
+  '@typescript-eslint/no-unused-vars-experimental': 'error',
+  '@typescript-eslint/no-misused-promises': ['error', { checksVoidReturn: false }],
+  '@typescript-eslint/prefer-optional-chain': 'error',
+  '@typescript-eslint/prefer-nullish-coalescing': 'error',
+  '@typescript-eslint/ban-types': [
+    'error',
+    {
+      types: {
+        '{}': {
+          message: 'Use object instead',
+          fixWith: 'object'
+        }
+      }
+    }
   ]
 };
 
 const vuePluginRules = {
+  // https://vuejs.github.io/eslint-plugin-vue/rules/
   'vue/attribute-hyphenation': 'off',
   'vue/attributes-order': [
     'error',
@@ -45,10 +85,12 @@ const vuePluginRules = {
 };
 
 const importPluginRules = {
+  // https://github.com/benmosher/eslint-plugin-import
   'import/no-self-import': 'error'
 };
 
 const jestPluginRules = {
+  // https://github.com/jest-community/eslint-plugin-jest
   'jest/expect-expect': ['error', { assertFunctionNames: ['expect*'] }],
   'jest/lowercase-name': ['error', { ignore: ['test'] }],
   'jest/no-duplicate-hooks': 'error',
@@ -61,11 +103,17 @@ const jestPluginRules = {
 
 module.exports = {
   root: true,
-  env: {
-    node: true
+  env: { node: true },
+  parserOptions: {
+    parser: '@typescript-eslint/parser',
+    project: './tsconfig.json', // required for rules that need type information
+    extraFileExtensions: ['.vue']
   },
   extends: [
     'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:prettier/recommended',
     'plugin:vue/recommended',
     'plugin:import/errors',
@@ -80,12 +128,10 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     ...esLintRules,
+    ...tsLintRules,
     ...vuePluginRules,
     ...importPluginRules,
     ...jestPluginRules
-  },
-  parserOptions: {
-    parser: '@typescript-eslint/parser'
   },
   overrides: [
     {

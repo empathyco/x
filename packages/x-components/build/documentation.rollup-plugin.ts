@@ -66,8 +66,6 @@ function isNotAPIChangeWarning(extractorResult: ExtractorResult): boolean {
   return (
     extractorResult.errorCount > 0 ||
     extractorResult.warningCount > 1 ||
-    // TODO Enable this rule from the typescript eslint rules
-    // eslint-disable-next-line no-extra-parens
     (extractorResult.warningCount === 1 && !extractorResult.apiReportChanged)
   );
 }
@@ -79,7 +77,7 @@ function isNotAPIChangeWarning(extractorResult: ExtractorResult): boolean {
  */
 function generateDocumentation(): Promise<void> {
   return new Promise((resolve, reject) => {
-    exec('npm run gen:docs', (error, stdout, stderr) => {
+    exec('npm run gen:docs', (error, _, stderr) => {
       if (error) {
         reject(error);
       }

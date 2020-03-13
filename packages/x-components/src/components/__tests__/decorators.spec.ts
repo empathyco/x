@@ -1,5 +1,5 @@
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue, { CreateElement } from 'vue';
+import Vue, { CreateElement, VNode } from 'vue';
 import { Component } from 'vue-property-decorator';
 import Vuex, { Store } from 'vuex';
 import { searchBoxXStoreModule } from '../../x-modules/search-box/store/module';
@@ -12,7 +12,7 @@ class TestingComponent extends Vue {
   @Getter('searchBox', 'trimmedQuery')
   public trimmedQuery!: string;
 
-  render(createElement: CreateElement) {
+  render(createElement: CreateElement): VNode {
     return createElement();
   }
 }

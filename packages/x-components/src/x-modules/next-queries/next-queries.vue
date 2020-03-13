@@ -29,9 +29,9 @@
   })
   export default class NextQueries extends Vue {
     @State('nextQueries', 'nextQueries')
-    nextQueries!: NextQuery[];
+    public nextQueries!: NextQuery[];
 
-    protected emitNextQuerySelected(nextQuery: NextQuery) {
+    protected emitNextQuerySelected(nextQuery: NextQuery): void {
       this.$x.emit('UserSelectedAQuery', nextQuery.query);
       this.$x.emit('UserSelectedANextQuery', nextQuery);
     }

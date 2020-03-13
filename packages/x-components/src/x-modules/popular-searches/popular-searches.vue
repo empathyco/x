@@ -29,9 +29,9 @@
   })
   export default class PopularSearches extends Vue {
     @State('popularSearches', 'suggestions')
-    suggestions!: Suggestion[];
+    public suggestions!: Suggestion[];
 
-    protected emitPopularSearchSelected(suggestion: Suggestion) {
+    protected emitPopularSearchSelected(suggestion: Suggestion): void {
       this.$x.emit('UserSelectedAQuery', suggestion.term);
       this.$x.emit('UserSelectedASuggestion', suggestion);
       this.$x.emit('UserSelectedAPopularSearch', suggestion);

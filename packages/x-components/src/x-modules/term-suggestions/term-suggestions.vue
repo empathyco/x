@@ -29,9 +29,9 @@
   })
   export default class TermSuggestions extends Vue {
     @State('termSuggestions', 'suggestions')
-    suggestions!: Suggestion[];
+    public suggestions!: Suggestion[];
 
-    protected emitSuggestionSelected(suggestion: Suggestion) {
+    protected emitSuggestionSelected(suggestion: Suggestion): void {
       this.$x.emit('UserSelectedAQuery', suggestion.term);
       this.$x.emit('UserSelectedASuggestion', suggestion);
       this.$x.emit('UserSelectedATermSuggestion', suggestion);

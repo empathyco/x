@@ -30,7 +30,7 @@ describe('testing wires operators', () => {
   describe('testing filtering operators', () => {
     test(`${filter.name} only executes a wire when the condition is true`, () => {
       const nonEdibleFoods = ['lettuce', 'broccoli', 'artichoke'];
-      const isEdible = ({ payload }: WireParams<any>) => !nonEdibleFoods.includes(payload);
+      const isEdible = ({ payload }: WireParams<any>): boolean => !nonEdibleFoods.includes(payload);
       const filteredWire = filter(wire, isEdible);
 
       filteredWire(subject, store);
@@ -48,7 +48,16 @@ describe('testing wires operators', () => {
 
     describe('truthy and falsy filter operators', () => {
       const falsyValues = [false, '', 0, undefined, null, NaN];
-      const truthyValues = [true, 'a5 kobe', -1, {}, [], () => {}];
+      const truthyValues = [
+        true,
+        'a5 kobe',
+        -1,
+        {},
+        [],
+        () => {
+          return;
+        }
+      ];
       test(`${filterFalsyPayload.name} avoids executing the wire when the payload is falsy`, () => {
         const filteredWire = filterFalsyPayload(wire);
         filteredWire(subject, store);

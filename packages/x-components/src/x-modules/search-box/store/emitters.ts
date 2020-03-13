@@ -6,5 +6,5 @@ import { searchBoxXStoreModule } from './module';
  * @internal
  */
 export const searchBoxEmitters = createStoreEmitters(searchBoxXStoreModule, {
-  SearchBoxQueryChanged: (state, getters) => getters.trimmedQuery
+  SearchBoxQueryChanged: (_, getters) => getters.trimmedQuery
 });

@@ -54,6 +54,7 @@ export const rollupConfig = createRollupOptions({
     }),
     vue({
       css: true,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore Undocumented option to disable vue sourcemap generation because it breaks if lang is set to ts: https://github.com/vuejs/rollup-plugin-vue/issues/272#issuecomment-491721842
       needMap: false,
       style: {

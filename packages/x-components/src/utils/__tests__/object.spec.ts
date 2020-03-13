@@ -1,10 +1,9 @@
 import { forEach, map, reduce } from '../object';
 
 class Person {
-  constructor(public name: string) {}
+  public constructor(public name: string) {}
 }
 
-/* eslint-disable no-extra-parens */
 (Person.prototype as any).inheritedProperty = 'Inherited property';
 
 describe('testing object utils', () => {
@@ -14,7 +13,16 @@ describe('testing object utils', () => {
     const forEachCallback = jest.fn();
 
     it('iterates through object properties', () => {
-      const obj = { a: 1, b: true, c: 'hello', d: [], e: {}, f: () => {} };
+      const obj = {
+        a: 1,
+        b: true,
+        c: 'hello',
+        d: [],
+        e: {},
+        f: () => {
+          return;
+        }
+      };
 
       forEach(obj, forEachCallback);
 
@@ -54,7 +62,10 @@ describe('testing object utils', () => {
       expect(forEachCallback).not.toHaveBeenCalled();
     });
 
-    function expectForEachToHaveBeenCalledWithValidParameters(obj: {}, callback = forEachCallback) {
+    function expectForEachToHaveBeenCalledWithValidParameters(
+      obj: object,
+      callback = forEachCallback
+    ): void {
       const objEntries = Object.entries(obj);
       expect(callback).toHaveBeenCalledTimes(objEntries.length);
       expect(objEntries).toHaveLength(objEntries.length);
@@ -63,7 +74,7 @@ describe('testing object utils', () => {
       });
     }
 
-    function expectForEachCallsToHaveValidIndexParameter(callback = forEachCallback) {
+    function expectForEachCallsToHaveValidIndexParameter(callback = forEachCallback): void {
       callback.mock.calls
         .map(function selectIndexParameter(call) {
           return call[2];
@@ -79,10 +90,19 @@ describe('testing object utils', () => {
 
   describe('reduce', () => {
     const reducer = jest.fn(
-      (count: number, propertyName: string, propertyValue) => count + (propertyValue ? 1 : 0)
+      (count: number, _: string, propertyValue) => count + (propertyValue ? 1 : 0)
     ); // Counts truthy properties
     it('iterates through object properties', () => {
-      const obj = { a: 1, b: true, c: 'hello', d: [], e: {}, f: () => {} };
+      const obj = {
+        a: 1,
+        b: true,
+        c: 'hello',
+        d: [],
+        e: {},
+        f: () => {
+          return;
+        }
+      };
 
       const result = reduce(obj, reducer, 0);
 
@@ -128,9 +148,9 @@ describe('testing object utils', () => {
     });
 
     function expectReduceToHaveBeenCalledWithValidParameters(
-      obj: {},
+      obj: object,
       callback: jest.Mock = reducer
-    ) {
+    ): void {
       const objEntries = Object.entries(obj);
       expect(callback).toHaveBeenCalledTimes(objEntries.length);
       expect(objEntries).toHaveLength(objEntries.length);
@@ -139,7 +159,7 @@ describe('testing object utils', () => {
       });
     }
 
-    function expectReduceCallsToHaveValidIndexParameter(callback: jest.Mock = reducer) {
+    function expectReduceCallsToHaveValidIndexParameter(callback: jest.Mock = reducer): void {
       callback.mock.calls
         .map(function selectIndexParameter(call) {
           return call[3];
@@ -154,10 +174,19 @@ describe('testing object utils', () => {
   });
 
   describe('map', () => {
-    const mapCallback = jest.fn((propertyName: string, propertyValue: any) => !!propertyValue); // Transform each property to a boolean
+    const mapCallback = jest.fn((_: string, propertyValue: any) => !!propertyValue); // Transform each property to a boolean
 
     it('iterates through object properties', () => {
-      const obj = { a: 1, b: true, c: 'hello', d: [], e: {}, f: () => {} };
+      const obj = {
+        a: 1,
+        b: true,
+        c: 'hello',
+        d: [],
+        e: {},
+        f: () => {
+          return;
+        }
+      };
 
       const result = map(obj, mapCallback);
 
@@ -210,9 +239,9 @@ describe('testing object utils', () => {
     });
 
     function expectMapToHaveBeenCalledWithValidParameters(
-      obj: {},
+      obj: object,
       callback: jest.Mock = mapCallback
-    ) {
+    ): void {
       const objEntries = Object.entries(obj);
       expect(callback).toHaveBeenCalledTimes(objEntries.length);
       expect(objEntries).toHaveLength(objEntries.length);
@@ -221,7 +250,7 @@ describe('testing object utils', () => {
       });
     }
 
-    function expectMapCallsToHaveValidIndexParameter(callback: jest.Mock = mapCallback) {
+    function expectMapCallsToHaveValidIndexParameter(callback: jest.Mock = mapCallback): void {
       callback.mock.calls
         .map(function selectIndexParameter(call) {
           return call[2];

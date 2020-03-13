@@ -1,11 +1,10 @@
 import { deepMerge } from '@empathybroker/deep-merge';
-import Vue, { VueConstructor } from 'vue';
+import { VueConstructor } from 'vue';
 import Vuex, { Module, Store } from 'vuex';
 import {
   AnySimpleStateSelector,
   AnyStateSelector,
-  AnyStoreEmitters,
-  SimpleStateSelector
+  AnyStoreEmitters
 } from '../store/store-emitters.types';
 import { AnyXStoreModule } from '../store/store.types';
 import { RootXStoreModule } from '../store/x.module';
@@ -70,7 +69,7 @@ export class XPlugin {
    * and install the {@link https://vuex.vuejs.org/ | Vuex} plugin
    * @internal
    */
-  protected vue!: VueConstructor<Vue>;
+  protected vue!: VueConstructor;
 
   /**
    * Protected constructor to ensure that this class is only instantiated once.
@@ -86,7 +85,7 @@ export class XPlugin {
    * @param options - The options to install this plugin with
    * @internal
    */
-  public static install(vue: VueConstructor<Vue>, options: XPluginOptions = {}) {
+  static install(vue: VueConstructor, options: XPluginOptions = {}): void {
     const instance = this.instance;
     instance.vue = vue;
     instance.options = options;
@@ -102,7 +101,7 @@ export class XPlugin {
    *
    * @param xModule - The module to register
    */
-  public static registerXModule(xModule: AnyXModule): void {
+  static registerXModule(xModule: AnyXModule): void {
     const instance = this.instance;
     if (instance.isInstalled) {
       instance.registerXModule(xModule);

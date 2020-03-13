@@ -67,7 +67,7 @@ const xModule: AnyXModule = {
 };
 
 let plugin: typeof XPlugin;
-let localVue: VueConstructor<Vue>;
+let localVue: VueConstructor;
 let store: Store<any>; // Any to handle creation of new properties
 
 describe('testing X Plugin', () => {
@@ -103,7 +103,7 @@ describe('testing X Plugin', () => {
       expectDefaultModuleToBeRegisteredOnce();
     });
 
-    function expectDefaultModuleToBeNotRegistered() {
+    function expectDefaultModuleToBeNotRegistered(): void {
       expect(wireToReplace).not.toHaveBeenCalled();
       expect(wireToRemove).not.toHaveBeenCalled();
       expect(wire).not.toHaveBeenCalled();
@@ -114,7 +114,7 @@ describe('testing X Plugin', () => {
       expect(userIsChangingQuerySelector).not.toHaveBeenCalled();
     }
 
-    function expectDefaultModuleToBeRegisteredOnce() {
+    function expectDefaultModuleToBeRegisteredOnce(): void {
       // Wires
       expect(wireToReplace).toHaveBeenCalledTimes(1);
       expect(wireToRemove).toHaveBeenCalledTimes(1);
@@ -175,7 +175,7 @@ describe('testing X Plugin', () => {
       }
     };
 
-    function expectStoreStateToBeModified() {
+    function expectStoreStateToBeModified(): void {
       expect(store.state.x.searchBox.prop).toEqual(1);
       expect(store.state.x.searchBox.propToRemove).not.toBeDefined();
       expect(store.state.x.searchBox.complexProp).toEqual({
@@ -185,14 +185,14 @@ describe('testing X Plugin', () => {
       expect(store.state.x.searchBox.newProp).toEqual('New prop');
     }
 
-    function expectStoreGettersToBeModified() {
+    function expectStoreGettersToBeModified(): void {
       expect(store.getters['x/searchBox/getter']).toEqual(1);
       expect(store.getters['x/searchBox/getterToReplace']).toEqual(4);
       expect(store.getters['x/searchBox/getterToRemove']).not.toBeDefined();
       expect(store.getters['x/searchBox/newGetter']).toEqual(5);
     }
 
-    async function expectStoreActionsToBeModified() {
+    async function expectStoreActionsToBeModified(): Promise<void> {
       await Promise.all([
         store.dispatch('x/searchBox/action'),
         store.dispatch('x/searchBox/actionToReplace'),
@@ -206,7 +206,7 @@ describe('testing X Plugin', () => {
       expect(actionToRemove).not.toHaveBeenCalled();
     }
 
-    function expectStoreMutationsToBeModified() {
+    function expectStoreMutationsToBeModified(): void {
       store.commit('x/searchBox/mutation');
       store.commit('x/searchBox/mutationToReplace');
       store.commit('x/searchBox/mutationToRemove');
@@ -280,7 +280,7 @@ describe('testing X Plugin', () => {
       expectModuleToHaveBeenReplaced();
     });
 
-    function expectModuleToHaveBeenReplaced() {
+    function expectModuleToHaveBeenReplaced(): void {
       expect(wireToReplace).not.toHaveBeenCalled();
       expect(wireToRemove).not.toHaveBeenCalled();
       expect(wire).toHaveBeenCalled();
@@ -296,7 +296,7 @@ describe('testing X Plugin', () => {
       { query: string },
       { trimmedQuery: string },
       { setQuery(query: string): void },
-      {}
+      object
     > = {
       actions: {},
       getters: {
@@ -312,7 +312,7 @@ describe('testing X Plugin', () => {
       state: () => ({ query: '' })
     };
     const storeEmitters = createStoreEmitters(storeModule, {
-      SearchBoxQueryChanged: (state, getters) => getters.trimmedQuery
+      SearchBoxQueryChanged: (_, getters) => getters.trimmedQuery
     });
     const wiring = createWiring({
       UserTyped: {

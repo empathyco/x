@@ -79,7 +79,7 @@ describe('testing X Plugin emitters', () => {
       expectModuleToHaveBeenReplaced();
     });
 
-    function expectModuleToHaveBeenReplaced() {
+    function expectModuleToHaveBeenReplaced(): void {
       const gettersInstance = {
         firstGetter: 1,
         secondGetter: 'It is awesome!'

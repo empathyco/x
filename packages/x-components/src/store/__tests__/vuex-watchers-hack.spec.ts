@@ -151,7 +151,7 @@ describe('testing Vuex watcher hacks', () => {
     });
   });
 
-  async function simpleValuesWatchers() {
+  async function simpleValuesWatchers(): Promise<void> {
     expect.assertions(1);
     store.registerModule('first', firstModule);
     store.watch(state => state.first.flag, watchCallback);
@@ -161,7 +161,7 @@ describe('testing Vuex watcher hacks', () => {
     expect(watchCallback).not.toHaveBeenCalled();
   }
 
-  async function simpleGettersWatchers() {
+  async function simpleGettersWatchers(): Promise<void> {
     expect.assertions(1);
     store.registerModule('first', firstModule);
     store.watch((_, getters) => getters['first/notFlag'], watchCallback);
@@ -171,7 +171,7 @@ describe('testing Vuex watcher hacks', () => {
     expect(watchCallback).not.toHaveBeenCalled();
   }
 
-  async function doesNotEagerExecuteStateWatchers() {
+  async function doesNotEagerExecuteStateWatchers(): Promise<void> {
     expect.assertions(1);
     store.registerModule('first', firstModule);
     store.watch(state => state.first.object, watchCallback);
@@ -179,7 +179,7 @@ describe('testing Vuex watcher hacks', () => {
     await localVue.nextTick();
     expect(watchCallback).not.toHaveBeenCalled();
   }
-  async function doesNotEagerExecuteGettersWatchers() {
+  async function doesNotEagerExecuteGettersWatchers(): Promise<void> {
     expect.assertions(1);
     store.registerModule('first', firstModule);
     store.watch((_, getters) => getters['first/objectCopy'], watchCallback);

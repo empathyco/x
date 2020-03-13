@@ -17,8 +17,6 @@ export const XComponentModule = Symbol.for('XComponentModule');
  * @internal
  */
 export function setXComponentXModuleName(component: Vue, name: XModuleName): void {
-  // TODO Enable this rule from the typescript eslint rules
-  // eslint-disable-next-line no-extra-parens
   (component as XComponent)[XComponentModule] = name;
 }
 
@@ -29,7 +27,5 @@ export function setXComponentXModuleName(component: Vue, name: XModuleName): voi
  * @public
  */
 export function isXComponent(component: Vue): boolean {
-  // TODO Enable this rule from the typescript eslint rules
-  // eslint-disable-next-line no-extra-parens
   return !!(component as XComponent)[XComponentModule];
 }

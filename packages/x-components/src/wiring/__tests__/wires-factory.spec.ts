@@ -1,11 +1,11 @@
 import { Subject } from 'rxjs/Subject';
 import { Store } from 'vuex';
 import {
+  createWireFromFunction,
   wireCommit,
   wireCommitWithoutPayload,
   wireDispatch,
   wireDispatchWithoutPayload,
-  createWireFromFunction,
   withModule
 } from '../wires.factory';
 
@@ -138,8 +138,8 @@ describe('testing wire factory functions', () => {
       });
 
       test(`${searchBoxModule.wireCommitWithoutPayload.name} allows creating wires that commit a mutation without payload`, () => {
-        // @ts-ignore for testing. The tested module does not have any mutations without payload
-        const wire = searchBoxModule.wireCommitWithoutPayload(mutationName);
+        // Tested module does not have any mutations without payload. It is a hack type to test it
+        const wire = searchBoxModule.wireCommitWithoutPayload(mutationName as never);
 
         wire(subject, store);
         subject.next('beetroot');
@@ -153,11 +153,11 @@ describe('testing wire factory functions', () => {
       const actionName = 'search';
 
       test(`${searchBoxModule.wireDispatch.name} allows creating wires that dispatch an action with the observable payload`, () => {
-        // @ts-ignore for testing. The tested module does not have any actions
-        const wire = searchBoxModule.wireDispatch(actionName);
+        // The tested module does not have any actions. It is a hack type to test it
+        const wire = searchBoxModule.wireDispatch(actionName as never);
         const query = 'osobuco';
 
-        wire(subject, store);
+        wire(subject as any, store);
         subject.next(query);
 
         expect(store.dispatch).toHaveBeenCalledTimes(1);
@@ -166,8 +166,8 @@ describe('testing wire factory functions', () => {
 
       test(`${searchBoxModule.wireDispatch.name} allows creating wires that dispatch an action with a static payload`, () => {
         const staticQuery = 'pork knuckle';
-        // @ts-ignore for testing. The tested module does not have any actions
-        const wire = searchBoxModule.wireDispatch(actionName, staticQuery);
+        // The tested module does not have any actions. It is a hack type to test it
+        const wire = searchBoxModule.wireDispatch(actionName as never, staticQuery as never);
 
         wire(subject, store);
         subject.next('cucumber');
@@ -176,9 +176,9 @@ describe('testing wire factory functions', () => {
         expect(store.dispatch).toHaveBeenCalledWith(`x/${moduleName}/${actionName}`, staticQuery);
       });
 
-      test(`${searchBoxModule.wireCommitWithoutPayload} allows creating wires that dispatch an action without payload`, () => {
-        // @ts-ignore for testing. The tested module does not have any actions
-        const wire = searchBoxModule.wireDispatchWithoutPayload(actionName);
+      test(`${searchBoxModule.wireCommitWithoutPayload.name} allows creating wires that dispatch an action without payload`, () => {
+        // The tested module does not have any actions without payloads. It is a hack type to test it
+        const wire = searchBoxModule.wireDispatchWithoutPayload(actionName as never);
 
         wire(subject, store);
         subject.next('celery');
