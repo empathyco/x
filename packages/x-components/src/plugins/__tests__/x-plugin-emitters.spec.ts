@@ -1,7 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
-import { Observable } from 'rxjs/Observable';
 import { default as Vue, VueConstructor } from 'vue';
 import Vuex, { Store } from 'vuex';
+import { createWireFromFunction } from '../../wiring/wires.factory';
 import { AnyXModule } from '../../x-modules/x-modules.types';
 import { XPlugin } from '../x-plugin';
 import { XPluginOptions } from '../x-plugin.types';
@@ -95,15 +95,14 @@ describe('testing X Plugin emitters', () => {
   });
 
   describe('immediate configuration option', () => {
-    const setQuerySubscriber = jest.fn();
+    const testWire = jest.fn();
     const wiring = {
       SearchBoxQueryChanged: {
-        setQueryWire: (observable: Observable<string>) =>
-          observable.subscribe(query => setQuerySubscriber(query))
+        setQueryWire: createWireFromFunction(testWire)
       }
     };
 
-    it('should not execute wires with immediate false when the module is registered', () => {
+    it('should not execute wires with immediate `false` when the module is registered', () => {
       const pluginOptions: XPluginOptions = {
         xModules: {
           searchBox: {
@@ -120,10 +119,10 @@ describe('testing X Plugin emitters', () => {
       plugin.registerXModule(xModule);
       localVue.use(plugin, pluginOptions);
 
-      expect(setQuerySubscriber).not.toHaveBeenCalled();
+      expect(testWire).not.toHaveBeenCalled();
     });
 
-    it('should execute wires with immediate false when the module is registered', () => {
+    it('should execute wires with immediate `true` when the module is registered', () => {
       const pluginOptions: XPluginOptions = {
         xModules: {
           searchBox: {
@@ -142,8 +141,7 @@ describe('testing X Plugin emitters', () => {
       localVue.use(plugin, pluginOptions);
       plugin.registerXModule(xModule);
 
-      expect(setQuerySubscriber).toHaveBeenCalled();
-      expect(setQuerySubscriber).toHaveBeenCalledWith(stateInstance.query);
+      expect(testWire).toHaveBeenCalled();
     });
   });
 });

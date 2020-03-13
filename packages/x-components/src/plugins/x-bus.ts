@@ -1,7 +1,9 @@
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators/map';
 import { Subject } from 'rxjs/Subject';
 import { XEvent, XEventPayload } from '../wiring/events.types';
-import { Emitters, XBus } from './x-bus.types';
+import { WireMetadata, WirePayload } from '../wiring/wiring.types';
+import { Emitter, Emitters, XBus } from './x-bus.types';
 
 /**
  * Default {@link XBus} implementation
@@ -15,14 +17,35 @@ export class BaseXBus implements XBus {
    */
   protected emitters: Emitters = {};
 
-  /** Emits an event. See {@link XBus.(emit:2)} */
-  emit<Event extends XEvent>(event: Event, payload?: XEventPayload<Event>): void {
-    this.getOrCreateEmitter(event).next(payload);
+  /** Emits an event. See {@link XBus.(emit:2)}
+   *
+   * @public
+   */
+  emit<Event extends XEvent>(
+    event: Event,
+    payload?: XEventPayload<Event>,
+    metadata: WireMetadata = { moduleName: null }
+  ): void {
+    // Payload is defined here as an optional argument (which is wrong), but as this implementation must be used with the type XBus there is no problem
+    const value: WirePayload<XEventPayload<Event>> = {
+      eventPayload: payload as any,
+      metadata
+    };
+    const emitter = this.getOrCreateEmitter(event);
+    emitter.next(value);
   }
 
-  /** Retrieves an observable. See {@link XBus.on} */
-  on<Event extends XEvent>(event: Event): Observable<XEventPayload<Event>> {
-    return this.getOrCreateEmitter(event);
+  /** Retrieves an observable. See {@link XBus.on}
+   *
+   * @public
+   */
+  on<Event extends XEvent>(
+    event: Event,
+    withMetadata = false
+  ): Observable<WirePayload<XEventPayload<Event>> | XEventPayload<Event>> {
+    return withMetadata
+      ? this.getOrCreateEmitter(event)
+      : this.getOrCreateEmitter(event).pipe(map(value => value.eventPayload));
   }
 
   /**
@@ -32,13 +55,14 @@ export class BaseXBus implements XBus {
    * @returns The emitter for the event passed
    * @internal
    */
-  protected getOrCreateEmitter<Event extends XEvent>(event: Event): Subject<XEventPayload<Event>> {
+  protected getOrCreateEmitter<Event extends XEvent>(event: Event): Emitter<Event> {
     // TODO I Don't get why the types are not working here
     return (
-      this.emitters[event] ?? (this.emitters[event] = new Subject<XEventPayload<Event>>() as any)
+      this.emitters[event] ??
+      (this.emitters[event] = new Subject<WirePayload<XEventPayload<Event>>>() as any)
     );
   }
 }
 
 /** @internal The bus instance. Will be replaced by injection */
-export const bus = new BaseXBus(); // TODO Remove this instantiation and replace with injection where used
+export const bus: XBus = new BaseXBus(); // TODO Remove this instantiation and replace with injection where used

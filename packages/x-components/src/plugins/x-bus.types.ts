@@ -2,6 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { PropsWithType } from '../utils';
 import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
+import { WireMetadata, WirePayload } from '../wiring/wiring.types';
 
 /**
  * The events bus that allows emitting and subscribing to {@link XEventsTypes}
@@ -19,14 +20,44 @@ export interface XBus {
    *
    * @param event - The event name
    * @param payload - The payload of the event
+   * @param metadata - The {@link WireMetadata | metadata} of the event
    */
-  emit<Event extends XEvent>(event: Event, payload: XEventPayload<Event>): void;
+  emit<Event extends XEvent>(
+    event: Event,
+    payload: XEventPayload<Event>,
+    metadata: WireMetadata
+  ): void;
+
+  /**
+   * Retrieves the observable for an event
+   * @param event - The event to retrieve an observable for
+   * @param withMetadata - When set to `true`, the returned observable payload will be a {@link WirePayload}.
+   * @return an Observable of {@link WirePayload} object containing the event payload and the Event metadata.
+   */
+  on<Event extends XEvent>(
+    event: Event,
+    withMetadata: true
+  ): Observable<WirePayload<XEventPayload<Event>>>;
   /**
    * Retrieves the observable for an event
    *
    * @param event - The event to retrieve an observable for
+   * @param withMetadata - When set to `false`, the observable payload will be the Event payload.
+   * @return an Observable of the event payload.
    */
-  on<Event extends XEvent>(event: Event): Observable<XEventPayload<Event>>;
+  on<Event extends XEvent>(event: Event, withMetadata?: false): Observable<XEventPayload<Event>>;
+  /**
+   * Retrieves the observable for an event
+   * @param event - The event to retrieve an observable for
+   * @param withMetadata - If `true` the returned Observable payload will contain the Event payload and the Event metadata
+   * If `false`, the observable payload will only be the event payload
+   * @return if `withMetadata` is `true`, an Observable of {@link WirePayload} object containing the event payload and more metadata.
+   * if `withMetadata` is `false`, an Observable of the Event payload.
+   */
+  on<Event extends XEvent>(
+    event: Event,
+    withMetadata: boolean
+  ): Observable<XEventPayload<Event> | WirePayload<XEventPayload<Event>>>;
 }
 
 /**
@@ -34,4 +65,8 @@ export interface XBus {
  * and the value is a {@link https://rxjs.dev/api/index/class/Subject} of the {@link XEventPayload} type
  * @public
  */
-export type Emitters = { [Event in XEvent]?: Subject<XEventPayload<Event>> };
+export type Emitters = {
+  [Event in XEvent]?: Emitter<Event>;
+};
+
+export type Emitter<Event extends XEvent> = Subject<WirePayload<XEventPayload<Event>>>;

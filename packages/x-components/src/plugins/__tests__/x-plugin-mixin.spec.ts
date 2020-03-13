@@ -34,6 +34,39 @@ describe('testing $x component API global mixin', () => {
     expect(listener).toHaveBeenCalledWith('So awesome, much quality, such skill');
   });
 
+  it('emits the event metadata', () => {
+    const listener = jest.fn();
+    const testTarget = document.createElement('div');
+
+    const emitterComponent: ComponentOptions<any> & ThisType<Vue> = {
+      mounted() {
+        this.$x.emit('UserTyped', 'Sexy Lego', { target: testTarget });
+      },
+      render(createElement) {
+        return createElement('input');
+      }
+    };
+
+    mount(
+      {
+        mixins: [xComponentMixin(searchBoxXModule)],
+        created() {
+          this.$x.on('UserTyped', true).subscribe(listener);
+        },
+        render(createElement) {
+          return createElement(emitterComponent);
+        }
+      } as ComponentOptions<any> & ThisType<Vue>,
+      { localVue }
+    );
+
+    expect(listener).toHaveBeenCalledTimes(1);
+    expect(listener).toHaveBeenCalledWith({
+      metadata: { moduleName: 'searchBox', target: testTarget },
+      eventPayload: 'Sexy Lego'
+    });
+  });
+
   it('finds the root x-component and emits the bus events as Vue events', () => {
     const listener = jest.fn();
     const emitterComponent: ComponentOptions<any> & ThisType<Vue> = {

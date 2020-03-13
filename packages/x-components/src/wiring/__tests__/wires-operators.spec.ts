@@ -8,7 +8,7 @@ import {
   filterTruthyPayload,
   throttle
 } from '../wires.operators';
-import { WireParams } from '../wiring.types';
+import { WireParams, WirePayload } from '../wiring.types';
 
 describe('testing wires operators', () => {
   const store: Store<any> = {
@@ -16,7 +16,11 @@ describe('testing wires operators', () => {
     commit: jest.fn()
   } as any;
 
-  let subject: Subject<any>;
+  let subject: Subject<WirePayload<any>>;
+
+  function next(value: any): void {
+    subject.next({ eventPayload: value, metadata: { moduleName: null } });
+  }
 
   beforeEach(() => {
     subject?.complete();
@@ -30,19 +34,21 @@ describe('testing wires operators', () => {
   describe('testing filtering operators', () => {
     test(`${filter.name} only executes a wire when the condition is true`, () => {
       const nonEdibleFoods = ['lettuce', 'broccoli', 'artichoke'];
-      const isEdible = ({ payload }: WireParams<any>): boolean => !nonEdibleFoods.includes(payload);
+      const isEdible = ({ eventPayload }: WireParams<any>): boolean =>
+        !nonEdibleFoods.includes(eventPayload);
       const filteredWire = filter(wire, isEdible);
 
       filteredWire(subject, store);
-      subject.next('broccoli');
-      subject.next('artichoke');
+      next('broccoli');
+      next('artichoke');
       expect(executeFunction).not.toHaveBeenCalled();
 
-      subject.next('pork belly');
+      next('pork belly');
       expect(executeFunction).toHaveBeenCalledTimes(1);
       expect(executeFunction).toHaveBeenCalledWith({
         store,
-        payload: 'pork belly'
+        eventPayload: 'pork belly',
+        metadata: expect.any(Object)
       });
     });
 
@@ -62,10 +68,10 @@ describe('testing wires operators', () => {
         const filteredWire = filterFalsyPayload(wire);
         filteredWire(subject, store);
 
-        falsyValues.forEach(value => subject.next(value));
+        falsyValues.forEach(value => next(value));
         expect(executeFunction).not.toHaveBeenCalled();
 
-        truthyValues.forEach(value => subject.next(value));
+        truthyValues.forEach(value => next(value));
         expect(executeFunction).toHaveBeenCalledTimes(truthyValues.length);
       });
 
@@ -73,10 +79,10 @@ describe('testing wires operators', () => {
         const filteredWire = filterTruthyPayload(wire);
         filteredWire(subject, store);
 
-        truthyValues.forEach(value => subject.next(value));
+        truthyValues.forEach(value => next(value));
         expect(executeFunction).not.toHaveBeenCalled();
 
-        falsyValues.forEach(value => subject.next(value));
+        falsyValues.forEach(value => next(value));
         expect(executeFunction).toHaveBeenCalledTimes(falsyValues.length);
       });
     });
@@ -90,35 +96,47 @@ describe('testing wires operators', () => {
       const debouncedWire = debounce(wire, 500);
       debouncedWire(subject, store);
 
-      subject.next(1);
-      subject.next(2);
-      subject.next(3);
-      subject.next(4);
-      subject.next(5);
+      next(1);
+      next(2);
+      next(3);
+      next(4);
+      next(5);
 
       expect(executeFunction).not.toHaveBeenCalled();
       jest.runAllTimers();
 
       expect(executeFunction).toHaveBeenCalledTimes(1);
-      expect(executeFunction).toHaveBeenCalledWith({ store, payload: 5 });
+      expect(executeFunction).toHaveBeenCalledWith({
+        store,
+        eventPayload: 5,
+        metadata: expect.any(Object)
+      });
     });
 
     test(`${throttle.name} emits first value, and then ignores for the specified duration`, () => {
       const throttledWire = throttle(wire, 500);
       throttledWire(subject, store);
 
-      subject.next(1);
-      subject.next(2);
-      subject.next(3);
-      subject.next(4);
-      subject.next(5);
+      next(1);
+      next(2);
+      next(3);
+      next(4);
+      next(5);
 
       expect(executeFunction).toHaveBeenCalledTimes(1);
-      expect(executeFunction).toHaveBeenCalledWith({ store, payload: 1 });
+      expect(executeFunction).toHaveBeenCalledWith({
+        store,
+        eventPayload: 1,
+        metadata: expect.any(Object)
+      });
       jest.runAllTimers();
 
       expect(executeFunction).toHaveBeenCalledTimes(2);
-      expect(executeFunction).toHaveBeenCalledWith({ store, payload: 5 });
+      expect(executeFunction).toHaveBeenCalledWith({
+        store,
+        eventPayload: 5,
+        metadata: expect.any(Object)
+      });
     });
   });
 });

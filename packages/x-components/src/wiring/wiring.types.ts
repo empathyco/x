@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Store } from 'vuex';
 import { ExtractActions, ExtractMutations, ExtractPayload, RootXStoreState } from '../store';
 import { Dictionary, PropsWithType } from '../utils';
-import { AnyXModule } from '../x-modules/x-modules.types';
+import { AnyXModule, XModuleName } from '../x-modules/x-modules.types';
 import { XEvent, XEventPayload } from './events.types';
 
 /**
@@ -13,9 +13,30 @@ import { XEvent, XEventPayload } from './events.types';
  * @public
  */
 export type Wire<PayloadType> = (
-  observable: Observable<PayloadType>,
+  observable: Observable<WirePayload<PayloadType>>,
   store: Store<RootXStoreState>
 ) => Subscription;
+
+/**
+ * The wires metadata includes more information about the emitted event, so then these events can
+ * be processed with more precision if needed
+ */
+export interface WireMetadata {
+  /** The {@link XModule} name that emitted the event or `null` if it has been emitted from an unknown module */
+  moduleName: XModuleName | null;
+  /** The DOM element that triggered the event emission */
+  target?: HTMLElement;
+}
+
+/**
+ * The wire value includes the payload of the event, and a {@link WireMetadata} object to add more information to the event
+ */
+export interface WirePayload<T> {
+  /** The payload of the event, which must be of type {@link XEventPayload} */
+  eventPayload: T;
+  /** An object containing information about the emission of the event */
+  metadata: WireMetadata;
+}
 
 /**
  * Alias for a wire with the type of the event payload
@@ -42,13 +63,12 @@ export type Wiring = {
 };
 
 /**
- * Groups the payload and the store into an object to avoid having multiple parameters
+ * Groups the payload, metadata, and the store into an object to avoid having multiple parameters
  *
  * @typeParam Payload - The payload type of the wire
  * @public
  */
-export interface WireParams<Payload> {
-  payload: Payload;
+export interface WireParams<Payload> extends WirePayload<Payload> {
   store: Store<RootXStoreState>;
 }
 

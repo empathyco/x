@@ -11,8 +11,8 @@ export function createWireFromFunction<Payload>(
   fn: (parameters: WireParams<Payload>) => void
 ): Wire<Payload> {
   return (observable, store) =>
-    observable.subscribe(payload => {
-      fn({ payload, store });
+    observable.subscribe(({ metadata, eventPayload }) => {
+      fn({ eventPayload: eventPayload, store, metadata });
     });
 }
 
@@ -40,7 +40,7 @@ export function wireCommit<Payload>(mutation: string, staticPayload?: any): Wire
     observable.subscribe(
       staticPayload !== undefined
         ? () => store.commit(mutation, staticPayload)
-        : payload => store.commit(mutation, payload)
+        : value => store.commit(mutation, value.eventPayload)
     );
 }
 
@@ -80,7 +80,7 @@ export function wireDispatch<Payload>(action: string, staticPayload?: any): Wire
     observable.subscribe(
       staticPayload !== undefined
         ? () => store.dispatch(action, staticPayload)
-        : payload => store.dispatch(action, payload)
+        : value => store.dispatch(action, value.eventPayload)
     );
 }
 

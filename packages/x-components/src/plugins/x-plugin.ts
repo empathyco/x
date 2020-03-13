@@ -149,7 +149,7 @@ export class XPlugin {
       : wiring;
     forEach(customizedWiring, (event, wires: Dictionary<AnyWire>) => {
       // Obtain the observable
-      const observable = this.bus.on(event);
+      const observable = this.bus.on(event, true);
       // Register event wires
       forEach(wires, (_, wire) => {
         wire(observable, this.store);
@@ -226,7 +226,7 @@ export class XPlugin {
         this.store.watch(
           state => selector(state.x[name], safeGettersProxy),
           changedState => {
-            this.bus.emit(event, changedState);
+            this.bus.emit(event, changedState, { moduleName: name });
           },
           options
         );

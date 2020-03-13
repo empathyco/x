@@ -8,6 +8,7 @@ import {
   wireDispatchWithoutPayload,
   withModule
 } from '../wires.factory';
+import { WirePayload } from '../wiring.types';
 
 describe('testing wire factory functions', () => {
   const store: Store<any> = {
@@ -15,7 +16,11 @@ describe('testing wire factory functions', () => {
     commit: jest.fn()
   } as any;
 
-  let subject: Subject<string>;
+  let subject: Subject<WirePayload<string>>;
+
+  function next(query: string): void {
+    subject.next({ eventPayload: query, metadata: { moduleName: null } });
+  }
 
   beforeEach(() => {
     subject?.complete();
@@ -24,15 +29,19 @@ describe('testing wire factory functions', () => {
   });
 
   describe('testing generic wires factory', () => {
-    test(`${createWireFromFunction.name} receives the store and the observable payload, and invokes a function with them`, () => {
+    test(`${createWireFromFunction.name} receives the store, the observable payload and the metadata object, and invokes a function with them`, () => {
       const executeFn = jest.fn();
       const wire = createWireFromFunction(executeFn);
 
       wire(subject, store);
-      subject.next('choripan');
+      next('choripan');
 
       expect(executeFn).toHaveBeenCalledTimes(1);
-      expect(executeFn).toHaveBeenCalledWith({ store, payload: 'choripan' });
+      expect(executeFn).toHaveBeenCalledWith({
+        store,
+        eventPayload: 'choripan',
+        metadata: expect.any(Object)
+      });
     });
   });
 
@@ -44,7 +53,7 @@ describe('testing wire factory functions', () => {
       const query = 'churrasco';
 
       wire(subject, store);
-      subject.next(query);
+      next(query);
 
       expect(store.commit).toHaveBeenCalledTimes(1);
       expect(store.commit).toHaveBeenCalledWith(mutationName, query);
@@ -55,7 +64,7 @@ describe('testing wire factory functions', () => {
       const wire = wireCommit(mutationName, staticQuery);
 
       wire(subject, store);
-      subject.next('cauliflower');
+      next('cauliflower');
 
       expect(store.commit).toHaveBeenCalledTimes(1);
       expect(store.commit).toHaveBeenCalledWith(mutationName, staticQuery);
@@ -65,7 +74,7 @@ describe('testing wire factory functions', () => {
       const wire = wireCommitWithoutPayload(mutationName);
 
       wire(subject, store);
-      subject.next('zamburiñas');
+      next('zamburiñas');
 
       expect(store.commit).toHaveBeenCalledTimes(1);
       expect(store.commit).toHaveBeenCalledWith(mutationName);
@@ -80,7 +89,7 @@ describe('testing wire factory functions', () => {
       const query = 'falda';
 
       wire(subject, store);
-      subject.next(query);
+      next(query);
 
       expect(store.dispatch).toHaveBeenCalledTimes(1);
       expect(store.dispatch).toHaveBeenCalledWith(actionName, query);
@@ -91,7 +100,7 @@ describe('testing wire factory functions', () => {
       const wire = wireDispatch(actionName, staticQuery);
 
       wire(subject, store);
-      subject.next('edamame');
+      next('edamame');
 
       expect(store.dispatch).toHaveBeenCalledTimes(1);
       expect(store.dispatch).toHaveBeenCalledWith(actionName, staticQuery);
@@ -101,7 +110,7 @@ describe('testing wire factory functions', () => {
       const wire = wireDispatchWithoutPayload(actionName);
 
       wire(subject, store);
-      subject.next('oysters');
+      next('oysters');
 
       expect(store.dispatch).toHaveBeenCalledTimes(1);
       expect(store.dispatch).toHaveBeenCalledWith(actionName);
@@ -120,7 +129,7 @@ describe('testing wire factory functions', () => {
         const query = 'porterhouse steak';
 
         wire(subject, store);
-        subject.next(query);
+        next(query);
 
         expect(store.commit).toHaveBeenCalledTimes(1);
         expect(store.commit).toHaveBeenCalledWith(`x/${moduleName}/${mutationName}`, query);
@@ -131,7 +140,7 @@ describe('testing wire factory functions', () => {
         const wire = searchBoxModule.wireCommit(mutationName, staticQuery);
 
         wire(subject, store);
-        subject.next('beans');
+        next('beans');
 
         expect(store.commit).toHaveBeenCalledTimes(1);
         expect(store.commit).toHaveBeenCalledWith(`x/${moduleName}/${mutationName}`, staticQuery);
@@ -142,7 +151,7 @@ describe('testing wire factory functions', () => {
         const wire = searchBoxModule.wireCommitWithoutPayload(mutationName as never);
 
         wire(subject, store);
-        subject.next('beetroot');
+        next('beetroot');
 
         expect(store.commit).toHaveBeenCalledTimes(1);
         expect(store.commit).toHaveBeenCalledWith(`x/${moduleName}/${mutationName}`);
@@ -158,7 +167,7 @@ describe('testing wire factory functions', () => {
         const query = 'osobuco';
 
         wire(subject as any, store);
-        subject.next(query);
+        next(query);
 
         expect(store.dispatch).toHaveBeenCalledTimes(1);
         expect(store.dispatch).toHaveBeenCalledWith(`x/${moduleName}/${actionName}`, query);
@@ -170,7 +179,7 @@ describe('testing wire factory functions', () => {
         const wire = searchBoxModule.wireDispatch(actionName as never, staticQuery as never);
 
         wire(subject, store);
-        subject.next('cucumber');
+        next('cucumber');
 
         expect(store.dispatch).toHaveBeenCalledTimes(1);
         expect(store.dispatch).toHaveBeenCalledWith(`x/${moduleName}/${actionName}`, staticQuery);
@@ -181,7 +190,7 @@ describe('testing wire factory functions', () => {
         const wire = searchBoxModule.wireDispatchWithoutPayload(actionName as never);
 
         wire(subject, store);
-        subject.next('celery');
+        next('celery');
 
         expect(store.dispatch).toHaveBeenCalledTimes(1);
         expect(store.dispatch).toHaveBeenCalledWith(`x/${moduleName}/${actionName}`);

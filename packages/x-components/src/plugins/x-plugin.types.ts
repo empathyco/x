@@ -4,8 +4,9 @@ import { AnyGettersTree, GettersTree } from '../store/getters.types';
 import { AnyMutationsTree, MutationsTree } from '../store/mutations.types';
 import { StoreEmitters } from '../store/store-emitters.types';
 import { AnyXStoreModule, XStoreModule } from '../store/store.types';
-import { DeepPartial, Dictionary } from '../utils';
-import { Wiring } from '../wiring/wiring.types';
+import { DeepPartial, Dictionary, PropsWithType } from '../utils';
+import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
+import { WireMetadata, Wiring } from '../wiring/wiring.types';
 import { AnyXModule, XModuleName, XModulesTree } from '../x-modules/x-modules.types';
 import { XBus } from './x-bus.types';
 
@@ -26,7 +27,16 @@ export interface XPluginOptions {
  *
  * @public
  */
-export interface XComponentAPI extends XBus {}
+export interface XComponentAPI extends Pick<XBus, 'on'> {
+  /** {@inheritDoc XBus.emit} */
+  emit(event: PropsWithType<XEventsTypes, void>): void;
+  /** {@inheritDoc XBus.emit} */
+  emit<Event extends XEvent>(
+    event: Event,
+    payload: XEventPayload<Event>,
+    metadata?: Omit<WireMetadata, 'moduleName'>
+  ): void;
+}
 
 /**
  * Options for overriding the default XModules configuration

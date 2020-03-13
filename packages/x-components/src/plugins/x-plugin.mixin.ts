@@ -1,6 +1,7 @@
 import Vue, { ComponentOptions } from 'vue';
-import { isXComponent } from '../components/x-component.utils';
+import { isXComponent, getXComponentXModuleName } from '../components/x-component.utils';
 import { XEvent, XEventPayload } from '../wiring/events.types';
+import { WireMetadata } from '../wiring/wiring.types';
 import { bus } from './x-bus';
 import { XComponentAPI } from './x-plugin.types';
 
@@ -18,8 +19,13 @@ export const createXComponentAPIMixin: ComponentOptions<Vue> & ThisType<Vue> = {
   beforeCreate(): void {
     const xComponent = getRootXComponent(this);
     this.$x = {
-      emit: <Event extends XEvent>(event: Event, payload?: XEventPayload<Event>) => {
-        bus.emit(event, payload);
+      emit: <Event extends XEvent>(
+        event: Event,
+        payload?: XEventPayload<Event>,
+        metadata: Omit<WireMetadata, 'moduleName'> = {}
+      ) => {
+        const moduleName = xComponent ? getXComponentXModuleName(xComponent) : null;
+        bus.emit(event, payload as any, { ...metadata, moduleName });
         xComponent?.$emit(event, payload);
       },
       on: bus.on.bind(bus)

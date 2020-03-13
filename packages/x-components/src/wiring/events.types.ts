@@ -90,4 +90,6 @@ export type XEvent = keyof XEventsTypes;
  * @typeParam Event - The {@link XEvent} to extract its payload type
  * @public
  */
-export type XEventPayload<Event extends XEvent> = XEventsTypes[Event];
+export type XEventPayload<Event extends XEvent> = XEventsTypes[Event] extends void
+  ? undefined
+  : XEventsTypes[Event];

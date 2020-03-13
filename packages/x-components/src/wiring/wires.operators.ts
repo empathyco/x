@@ -14,7 +14,7 @@ export function filter<Payload>(
   filterFn: (parameters: WireParams<Payload>) => boolean
 ): Wire<Payload> {
   return (observable, store) =>
-    wire(observable.pipe(filterRx(payload => filterFn({ payload, store }))), store);
+    wire(observable.pipe(filterRx(wirePayload => filterFn({ ...wirePayload, store }))), store);
 }
 
 /**
@@ -23,7 +23,7 @@ export function filter<Payload>(
  * @param wire - The wire to avoid executing when the payload is falsy
  */
 export function filterFalsyPayload<Payload>(wire: Wire<Payload>): Wire<Payload> {
-  return filter(wire, ({ payload }) => !!payload);
+  return filter(wire, ({ eventPayload }) => !!eventPayload);
 }
 
 /**
@@ -32,7 +32,7 @@ export function filterFalsyPayload<Payload>(wire: Wire<Payload>): Wire<Payload> 
  * @param wire - The wire to avoid executing when the payload is truthy
  */
 export function filterTruthyPayload<Payload>(wire: Wire<Payload>): Wire<Payload> {
-  return filter(wire, ({ payload }) => !payload);
+  return filter(wire, ({ eventPayload }) => !eventPayload);
 }
 
 /**

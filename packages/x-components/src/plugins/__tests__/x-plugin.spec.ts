@@ -1,9 +1,8 @@
 import { createLocalVue, shallowMount, Wrapper } from '@vue/test-utils';
-import { Observable } from 'rxjs/Observable';
 import { default as Vue, VueConstructor } from 'vue';
 import Vuex, { Store } from 'vuex';
 import { createStoreEmitters, XStoreModule } from '../../store';
-import { wireCommit } from '../../wiring/wires.factory';
+import { createWireFromFunction, wireCommit } from '../../wiring/wires.factory';
 import { AnyWire } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 import { AnyXModule } from '../../x-modules/x-modules.types';
@@ -107,8 +106,7 @@ describe('testing X Plugin', () => {
       expect(wireToReplace).not.toHaveBeenCalled();
       expect(wireToRemove).not.toHaveBeenCalled();
       expect(wire).not.toHaveBeenCalled();
-      expect(store.state.x).not.toBeDefined(); // If the state is not registered I'm 100% sure that there won't be actions, mutations or
-      // getters.
+      expect(store.state.x).not.toBeDefined(); // If the state is not registered I'm 100% sure that there won't be actions, mutations or getters.
       expect(userTypedSelector).not.toHaveBeenCalled();
       expect(userSelectedAQuerySelector).not.toHaveBeenCalled();
       expect(userIsChangingQuerySelector).not.toHaveBeenCalled();
@@ -257,7 +255,8 @@ describe('testing X Plugin', () => {
           wiring: {
             UserTyped: {
               wireToReplace: replacedWire,
-              wireToRemove: undefined as any, // "any" because we are mocking searchBox module to ease testing, and types don't allow to add
+              wireToRemove: undefined as any, // "any" because we are mocking searchBox module to
+              // ease testing, and types don't allow to add
               // an undefined wire unless it is defined in the default configuration.
               newWire
             }
@@ -319,8 +318,7 @@ describe('testing X Plugin', () => {
         setSearchBoxQuery: wireCommit<string>('x/searchBox/setQuery')
       },
       SearchBoxQueryChanged: {
-        registerSearchBoxQueryChanged: (observable: Observable<string>) =>
-          observable.subscribe(query => searchBoxQueryChangedSubscriber(query))
+        registerSearchBoxQueryChanged: createWireFromFunction(searchBoxQueryChangedSubscriber)
       }
     });
 
@@ -348,7 +346,13 @@ describe('testing X Plugin', () => {
       await localVue.nextTick();
 
       expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(1);
-      expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith('New York strip steak');
+      expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith({
+        eventPayload: 'New York strip steak',
+        metadata: {
+          moduleName: 'searchBox'
+        },
+        store
+      });
     });
 
     it("store-emitters don't emit multiple events if the events that are modifying the observed value are emitted synchronously", async () => {
@@ -359,7 +363,13 @@ describe('testing X Plugin', () => {
       await localVue.nextTick();
 
       expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(1);
-      expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith('Tomahawk steak');
+      expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith({
+        eventPayload: 'Tomahawk steak',
+        metadata: {
+          moduleName: 'searchBox'
+        },
+        store
+      });
     });
 
     it("store-emitters don't emit an event if value is reset synchronously", async () => {
