@@ -17,10 +17,7 @@ export class BaseXBus implements XBus {
    */
   protected emitters: Emitters = {};
 
-  /** Emits an event. See {@link XBus.(emit:2)}
-   *
-   * @public
-   */
+  /** Emits an event. See {@link XBus.(emit:2)}*/
   emit<Event extends XEvent>(
     event: Event,
     payload?: XEventPayload<Event>,
@@ -35,7 +32,7 @@ export class BaseXBus implements XBus {
     emitter.next(value);
   }
 
-  /** Retrieves an observable. See {@link XBus.on}
+  /** Retrieves an observable. See {@link XBus.(on:3)}
    *
    * @public
    */

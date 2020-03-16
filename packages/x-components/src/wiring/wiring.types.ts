@@ -20,6 +20,8 @@ export type Wire<PayloadType> = (
 /**
  * The wires metadata includes more information about the emitted event, so then these events can
  * be processed with more precision if needed
+ *
+ * @public
  */
 export interface WireMetadata {
   /** The {@link XModule} name that emitted the event or `null` if it has been emitted from an unknown module */
@@ -30,6 +32,8 @@ export interface WireMetadata {
 
 /**
  * The wire value includes the payload of the event, and a {@link WireMetadata} object to add more information to the event
+ *
+ * @public
  */
 export interface WirePayload<T> {
   /** The payload of the event, which must be of type {@link XEventPayload} */

@@ -32,7 +32,7 @@ export interface XBus {
    * Retrieves the observable for an event
    * @param event - The event to retrieve an observable for
    * @param withMetadata - When set to `true`, the returned observable payload will be a {@link WirePayload}.
-   * @return an Observable of {@link WirePayload} object containing the event payload and the Event metadata.
+   * @returns an Observable of {@link WirePayload} object containing the event payload and the Event metadata.
    */
   on<Event extends XEvent>(
     event: Event,
@@ -43,7 +43,7 @@ export interface XBus {
    *
    * @param event - The event to retrieve an observable for
    * @param withMetadata - When set to `false`, the observable payload will be the Event payload.
-   * @return an Observable of the event payload.
+   * @returns an Observable of the event payload.
    */
   on<Event extends XEvent>(event: Event, withMetadata?: false): Observable<XEventPayload<Event>>;
   /**
@@ -51,7 +51,7 @@ export interface XBus {
    * @param event - The event to retrieve an observable for
    * @param withMetadata - If `true` the returned Observable payload will contain the Event payload and the Event metadata
    * If `false`, the observable payload will only be the event payload
-   * @return if `withMetadata` is `true`, an Observable of {@link WirePayload} object containing the event payload and more metadata.
+   * @returns if `withMetadata` is `true`, an Observable of {@link WirePayload} object containing the event payload and more metadata.
    * if `withMetadata` is `false`, an Observable of the Event payload.
    */
   on<Event extends XEvent>(
@@ -69,4 +69,10 @@ export type Emitters = {
   [Event in XEvent]?: Emitter<Event>;
 };
 
+/**
+ * Type safe for emitter payload. It is the wire payload
+ *
+ * @typeParam Event - The {@link XEvent} to extract its payload type
+ * @public
+ */
 export type Emitter<Event extends XEvent> = Subject<WirePayload<XEventPayload<Event>>>;
