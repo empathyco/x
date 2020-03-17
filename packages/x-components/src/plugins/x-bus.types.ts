@@ -6,6 +6,7 @@ import { WireMetadata, WirePayload } from '../wiring/wiring.types';
 
 /**
  * The events bus that allows emitting and subscribing to {@link XEventsTypes}
+ *
  * @public
  */
 export interface XBus {
@@ -30,6 +31,7 @@ export interface XBus {
 
   /**
    * Retrieves the observable for an event
+   *
    * @param event - The event to retrieve an observable for
    * @param withMetadata - When set to `true`, the returned observable payload will be a {@link WirePayload}.
    * @returns an Observable of {@link WirePayload} object containing the event payload and the Event metadata.
@@ -48,6 +50,7 @@ export interface XBus {
   on<Event extends XEvent>(event: Event, withMetadata?: false): Observable<XEventPayload<Event>>;
   /**
    * Retrieves the observable for an event
+   *
    * @param event - The event to retrieve an observable for
    * @param withMetadata - If `true` the returned Observable payload will contain the Event payload and the Event metadata
    * If `false`, the observable payload will only be the event payload
@@ -63,6 +66,7 @@ export interface XBus {
 /**
  * Type safe emitters dictionary, where each key is the {@link XEvent} name,
  * and the value is a {@link https://rxjs.dev/api/index/class/Subject} of the {@link XEventPayload} type
+ *
  * @public
  */
 export type Emitters = {

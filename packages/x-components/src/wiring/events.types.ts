@@ -1,5 +1,7 @@
 import { NextQueriesRequest, SuggestionsRequest } from '@empathy/search-adapter';
 import { NextQuery, Suggestion } from '@empathy/search-types';
+import { CurrencyOptions } from '../i18n/currency.types';
+import { DocumentDirection } from '../plugins/x-plugin.types';
 
 /**
  * Dictionary of the events of EmpathyX, where each key is the event name, and the value is the event payload type or `void` if it
@@ -8,6 +10,21 @@ import { NextQuery, Suggestion } from '@empathy/search-types';
  * @public
  */
 export interface XEventsTypes {
+  /**
+   * The {@link XConfig.consent} has changed
+   * Payload: The new consent
+   */
+  ConfigConsentChanged: boolean;
+  /**
+   * The {@link XConfig.currencyOptions} has changed
+   * Payload: The new currency
+   */
+  ConfigCurrencyChanged: CurrencyOptions;
+  /**
+   * The {@link XConfig.documentDirection} has changed
+   * Payload: The new document direction
+   */
+  ConfigDocumentDirectionChanged: DocumentDirection;
   /**
    * The search-box query has changed
    * * Payload: The new search-box query
@@ -46,6 +63,11 @@ export interface XEventsTypes {
    */
   UserPressedEnter: string;
   /**
+   * The user has selected a next-query
+   * * Payload: The next query that has been selected by the user
+   */
+  UserSelectedANextQuery: NextQuery;
+  /**
    * The user has selected or confirmed a query
    * * Payload: the query that the user selected
    */
@@ -70,11 +92,6 @@ export interface XEventsTypes {
    * * Payload: the query that the user is writing in the search-box
    */
   UserTyped: string;
-  /**
-   * The user has selected a next-query
-   * * Payload: The next query that has been selected by the user
-   */
-  UserSelectedANextQuery: NextQuery;
 }
 
 /**

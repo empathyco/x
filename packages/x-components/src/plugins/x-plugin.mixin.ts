@@ -1,9 +1,9 @@
 import Vue, { ComponentOptions } from 'vue';
-import { isXComponent, getXComponentXModuleName } from '../components/x-component.utils';
+import { getXComponentXModuleName, isXComponent } from '../components/x-component.utils';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
 import { bus } from './x-bus';
-import { XComponentAPI } from './x-plugin.types';
+import { XComponentAPI, XConfig } from './x-plugin.types';
 
 declare module 'vue/types/vue' {
   export interface Vue {
@@ -13,9 +13,13 @@ declare module 'vue/types/vue' {
 
 /**
  * Vue global mixin that adds a `$x` object to every component with the {@link XComponentAPI}
+ *
+ * @param config - The global {@link XConfig}
  * @internal
  */
-export const createXComponentAPIMixin: ComponentOptions<Vue> & ThisType<Vue> = {
+export const createXComponentAPIMixin = (
+  config: XConfig
+): ComponentOptions<Vue> & ThisType<Vue> => ({
   beforeCreate(): void {
     const xComponent = getRootXComponent(this);
     this.$x = {
@@ -28,10 +32,11 @@ export const createXComponentAPIMixin: ComponentOptions<Vue> & ThisType<Vue> = {
         bus.emit(event, payload as any, { ...metadata, moduleName });
         xComponent?.$emit(event, payload);
       },
-      on: bus.on.bind(bus)
+      on: bus.on.bind(bus),
+      config
     };
   }
-};
+});
 
 /**
  * Given a component, finds the root XComponent in the ancestors hierarchy

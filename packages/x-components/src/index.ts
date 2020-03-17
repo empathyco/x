@@ -1,4 +1,5 @@
 export * from './components';
+export * from './i18n';
 export * from './plugins';
 export * from './store';
 export * from './utils';

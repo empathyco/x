@@ -33,11 +33,12 @@ export interface WireMetadata {
 /**
  * The wire value includes the payload of the event, and a {@link WireMetadata} object to add more information to the event
  *
+ * @typeParam PayloadType - The type of the event's payload
  * @public
  */
-export interface WirePayload<T> {
+export interface WirePayload<PayloadType> {
   /** The payload of the event, which must be of type {@link XEventPayload} */
-  eventPayload: T;
+  eventPayload: PayloadType;
   /** An object containing information about the emission of the event */
   metadata: WireMetadata;
 }

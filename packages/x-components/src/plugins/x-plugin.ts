@@ -1,6 +1,8 @@
+import { logger } from '@empathy/logger';
 import { deepMerge } from '@empathybroker/deep-merge';
-import { VueConstructor } from 'vue';
+import Vue, { VueConstructor } from 'vue';
 import Vuex, { Module, Store } from 'vuex';
+import { registerReactiveConfig } from '../services/config.service';
 import {
   AnySimpleStateSelector,
   AnyStateSelector,
@@ -8,12 +10,13 @@ import {
 } from '../store/store-emitters.types';
 import { AnyXStoreModule } from '../store/store.types';
 import { RootXStoreModule } from '../store/x.module';
-import { Dictionary, forEach, reduce } from '../utils';
+import { DeepPartial, Dictionary, forEach, reduce } from '../utils';
 import { AnyWire, Wiring } from '../wiring/wiring.types';
 import { AnyXModule, XModuleName } from '../x-modules/x-modules.types';
 import { bus } from './x-bus';
+import { DEFAULT_X_CONFIG } from './x-plugin.config';
 import { createXComponentAPIMixin } from './x-plugin.mixin';
-import { AnyXStoreModuleOptions, XModuleOptions, XPluginOptions } from './x-plugin.types';
+import { AnyXStoreModuleOptions, XConfig, XModuleOptions, XPluginOptions } from './x-plugin.types';
 
 /**
  * Vue plugin that modifies each component instance, extending them with the {@link XComponentAPI | X Component API }.
@@ -70,6 +73,10 @@ export class XPlugin {
    * @internal
    */
   protected vue!: VueConstructor;
+  /** The {@link XConfig} is a reactive configuration
+   * @internal
+   */
+  protected xConfig!: XConfig;
 
   /**
    * Protected constructor to ensure that this class is only instantiated once.
@@ -89,6 +96,7 @@ export class XPlugin {
     const instance = this.instance;
     instance.vue = vue;
     instance.options = options;
+    instance.registerConfig();
     instance.registerStore();
     instance.applyMixins();
     instance.registerPendingXModules();
@@ -286,7 +294,8 @@ export class XPlugin {
    * @internal
    */
   protected applyMixins(): void {
-    this.vue.mixin(createXComponentAPIMixin);
+    const config = ((this.xConfig as unknown) as Vue).$data as XConfig;
+    this.vue.mixin(createXComponentAPIMixin(config));
   }
 
   /**
@@ -298,6 +307,43 @@ export class XPlugin {
     forEach(this.pendingXModules, (_, xModule) => {
       this.registerXModule(xModule);
     });
+  }
+
+  /**
+   * Registers the global reactive {@link XConfig}
+   *
+   * @internal
+   */
+  protected registerConfig(): void {
+    const config = deepMerge({}, DEFAULT_X_CONFIG, this.options.config);
+    // eslint-disable-next-line eqeqeq
+    if (config.adapter == null) {
+      logger.warn(
+        '[XPlugin]',
+        "The configuration doesn't seem to have an adapter. Please, create one and use it in the configuration"
+      );
+    }
+    this.xConfig = registerReactiveConfig(this.bus, config);
+  }
+
+  /**
+   * Overrides the existing {@link XConfig}
+   *
+   * @param config - The new or partially new global {@link XConfig}
+   * @public
+   */
+  static setConfig(config: DeepPartial<XConfig>): void {
+    deepMerge(this.instance.xConfig, config);
+  }
+
+  /**
+   * Gets the global reactive {@link XConfig}
+   *
+   * @returns config - The xConfig
+   * @public
+   */
+  static getConfig(): XConfig {
+    return ((this.instance.xConfig as unknown) as Vue).$data as XConfig;
   }
 
   /**

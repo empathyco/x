@@ -1,4 +1,6 @@
+import { SearchAdapter } from '@empathy/search-adapter';
 import { Store } from 'vuex';
+import { CurrencyOptions, Messages } from '../i18n';
 import { ActionsTree, AnyActionsTree } from '../store/actions.types';
 import { AnyGettersTree, GettersTree } from '../store/getters.types';
 import { AnyMutationsTree, MutationsTree } from '../store/mutations.types';
@@ -18,16 +20,45 @@ import { XBus } from './x-bus.types';
 export interface XPluginOptions {
   /** A Vuex store to install the X module. If not passed a new one will be created and injected into every component */
   store?: Store<any>;
+  /** The global {@link XConfig} accessible in any {@link XComponentAPI | XComponent} */
+  config?: XConfig;
   /** Override the default configuration of the {@link XModule | XModules} */
   xModules?: XModulesOptions;
 }
 
 /**
- * The XComponentAPI exposes access to the {@link XBus} to the components
+ * The global configuration accessible from every component
+ *
+ * @public
+ */
+export interface XConfig {
+  /** {@link @empathy/search-adapter#SearchAdapter | SearchAdapter} is the middleware between the components and our API where data can be mapped to client needs */
+  adapter: SearchAdapter;
+  /** Consent to send the user data (userId and sessionId) to our API */
+  consent: boolean;
+  /** The {@link CurrencyOptions} to format currency values */
+  currencyOptions: CurrencyOptions;
+  /** HTML dir attribute. Possible values are: ltr(left to right) or rtl(right to left) */
+  documentDirection: DocumentDirection;
+  /** The {@link Messages} to display in the visual components (i.e. searchBox placeholder */
+  messages: Messages;
+}
+
+/**
+ * The HTML document direction orientation. Possible values: ltr (left to right) or rtl (right to left)
+ *
+ * @public
+ */
+export type DocumentDirection = 'ltr' | 'rtl';
+
+/**
+ * The XComponentAPI exposes access to the {@link XBus} and {@link XConfig} to the components
  *
  * @public
  */
 export interface XComponentAPI extends Pick<XBus, 'on'> {
+  /** {@inheritDoc XConfig} */
+  config: XConfig;
   /** {@inheritDoc XBus.emit} */
   emit(event: PropsWithType<XEventsTypes, void>): void;
   /** {@inheritDoc XBus.emit} */
