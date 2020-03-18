@@ -12,7 +12,7 @@ export function createWireFromFunction<Payload>(
 ): Wire<Payload> {
   return (observable, store) =>
     observable.subscribe(({ metadata, eventPayload }) => {
-      fn({ eventPayload: eventPayload, store, metadata });
+      fn({ eventPayload, store, metadata });
     });
 }
 

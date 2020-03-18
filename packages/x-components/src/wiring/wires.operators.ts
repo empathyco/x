@@ -1,7 +1,8 @@
-import { Wire, WireParams } from './wiring.types';
-import { filter as filterRx } from 'rxjs/operators/filter';
 import { debounceTime } from 'rxjs/operators/debounceTime';
+import { filter as filterRx } from 'rxjs/operators/filter';
 import { throttleTime } from 'rxjs/operators/throttleTime';
+import { XModuleName } from '../x-modules/x-modules.types';
+import { Wire, WireParams } from './wiring.types';
 
 /**
  * Creates a {@link Wire} that is only executed whenever the condition in the filterFn is true.
@@ -33,6 +34,38 @@ export function filterFalsyPayload<Payload>(wire: Wire<Payload>): Wire<Payload> 
  */
 export function filterTruthyPayload<Payload>(wire: Wire<Payload>): Wire<Payload> {
   return filter(wire, ({ eventPayload }) => !eventPayload);
+}
+
+/**
+ * Creates a {@link Wire} that is only executed if the event is emitted from a {@link XModule} that is included
+ * in the `whitelist` array passed as parameter
+ *
+ * @param wire - The wire to filter using the whitelist
+ * @param whitelist - An array of {@link XModuleName} or null`
+ * @public
+ */
+export function filterWhitelistedModules<Payload>(
+  wire: Wire<Payload>,
+  whitelist: Array<XModuleName | null>
+): Wire<Payload> {
+  const whitelistSet = new Set(whitelist);
+  return filter(wire, ({ metadata }) => whitelistSet.has(metadata.moduleName));
+}
+
+/**
+ * Creates a {@link Wire} that is only executed if the event is emitted from a {@link XModule} that is NOT included
+ * in the `blacklist` array passed as parameter
+ *
+ * @param wire - The wire to filter using the whitelist
+ * @param blacklist - An array of {@link XModuleName} or null`
+ * @public
+ */
+export function filterBlacklistedModules<Payload>(
+  wire: Wire<Payload>,
+  blacklist: Array<XModuleName | null>
+): Wire<Payload> {
+  const blacklistSet = new Set(blacklist);
+  return filter(wire, ({ metadata }) => !blacklistSet.has(metadata.moduleName));
 }
 
 /**

@@ -38,9 +38,9 @@ describe('testing wire factory functions', () => {
 
       expect(executeFn).toHaveBeenCalledTimes(1);
       expect(executeFn).toHaveBeenCalledWith({
-        store,
         eventPayload: 'choripan',
-        metadata: expect.any(Object)
+        metadata: expect.any(Object),
+        store
       });
     });
   });

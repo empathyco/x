@@ -19,7 +19,8 @@ import { createXComponentAPIMixin } from './x-plugin.mixin';
 import { AnyXStoreModuleOptions, XConfig, XModuleOptions, XPluginOptions } from './x-plugin.types';
 
 /**
- * Vue plugin that modifies each component instance, extending them with the {@link XComponentAPI | X Component API }.
+ * Vue plugin that modifies each component instance, extending them with the
+ * {@link XComponentAPI | X Component API }.
  *
  * @example
  * Simple installation example:
@@ -28,8 +29,8 @@ import { AnyXStoreModuleOptions, XConfig, XModuleOptions, XPluginOptions } from 
  * ```
  *
  * @example
- * If you are using {@link https://vuex.vuejs.org/ | Vuex} in your project you must install its plugin, and instantiate an store
- * before installing the XPlugin:
+ * If you are using {@link https://vuex.vuejs.org/ | Vuex} in your project you must install its
+ *   plugin, and instantiate an store before installing the XPlugin:
  * ```typescript
  * Vue.use(Vuex);
  * const store = new Store({ ... });
@@ -52,7 +53,8 @@ export class XPlugin {
    */
   protected installedXModules = new Set<string>();
   /** True if the plugin has been installed in a Vue instance, in this case {@link XModule | Xmodules} will be installed immediately.
-   * False otherwise, in this case {@link XModule | XModules} will be installed lazily when the {@link XPlugin#install} method is called.
+   * False otherwise, in this case {@link XModule | XModules} will be installed lazily when the
+   * {@link XPlugin#install} method is called.
    * @internal
    */
   protected isInstalled = false;
@@ -80,7 +82,8 @@ export class XPlugin {
 
   /**
    * Protected constructor to ensure that this class is only instantiated once.
-   * It needs to be a singleton because Vue accepts either a function as plugin, or an object that exposes an install(...) method.
+   * It needs to be a singleton because Vue accepts either a function as plugin, or an object that
+   * exposes an install(...) method.
    * @internal
    */
   protected constructor() {}
@@ -104,8 +107,8 @@ export class XPlugin {
   }
 
   /**
-   * If the plugin has already been installed, it immediately registers a {@link XModule}. If it has not been installed yet, it stores
-   * the module in a list until the plugin is installed
+   * If the plugin has already been installed, it immediately registers a {@link XModule}. If it
+   * has not been installed yet, it stores the module in a list until the plugin is installed
    *
    * @param xModule - The module to register
    */
@@ -134,7 +137,8 @@ export class XPlugin {
   }
 
   /**
-   * Stores the {@link XModule} in a dictionary, so it can be registered later in the install process
+   * Stores the {@link XModule} in a dictionary, so it can be registered later in the install
+   * process
    *
    * @param xModule - The module to register
    * @internal
@@ -144,7 +148,8 @@ export class XPlugin {
   }
 
   /**
-   * Performs the registration of the wiring, retrieving the observable for each event, and executing each wire
+   * Performs the registration of the wiring, retrieving the observable for each event, and
+   * executing each wire
    *
    * @param name - The name of the {@link XModule} of the wiring
    * @param wiring - The wiring to register
@@ -257,7 +262,8 @@ export class XPlugin {
   }
 
   /**
-   * Registers the store emitters, making them emit the event when the part of the state selected changes
+   * Registers the store emitters, making them emit the event when the part of the state selected
+   * changes
    *
    * @param name - The module name
    * @param storeModule - The store module to retrieve its state and getters
@@ -292,9 +298,9 @@ export class XPlugin {
   }
 
   /**
-   * Creates a proxy object of the getters of the storeModule passed, which will be the object passed as getters to the stateSelector,
-   * of the module. This is done to ensure that a Vuex StateSelector can only access the getters of the {@link XModule} where
-   * it is registered
+   * Creates a proxy object of the getters of the storeModule passed, which will be the object
+   * passed as getters to the stateSelector, of the module. This is done to ensure that a Vuex
+   * StateSelector can only access the getters of the {@link XModule} where it is registered
    *
    * @param moduleName - The name of the module
    * @param storeModule - The store module
@@ -318,9 +324,10 @@ export class XPlugin {
   }
 
   /**
-   * Registers the {@link https://vuex.vuejs.org/ | Vuex} store. If the store has not been passed through the {@link XPluginOptions} object, it creates one, and
-   * injects it in the Vue prototype. Then it register an x module in the store, to safe scope all the {@link XModule | XModules}
-   * dynamically installed
+   * Registers the {@link https://vuex.vuejs.org/ | Vuex} store. If the store has not been passed
+   * through the {@link XPluginOptions} object, it creates one, and injects it in the Vue
+   * prototype. Then it register an x module in the store, to safe scope all the
+   * {@link XModule | XModules} dynamically installed
    *
    * @internal
    */
@@ -348,7 +355,8 @@ export class XPlugin {
   }
 
   /**
-   * Registers the pending {@link XModule | XModules}, that requested to be registered before the installation of the plugin
+   * Registers the pending {@link XModule | XModules}, that requested to be registered before the
+   * installation of the plugin
    *
    * @internal
    */

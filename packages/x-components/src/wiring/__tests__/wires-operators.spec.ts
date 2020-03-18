@@ -1,11 +1,14 @@
 import { Subject } from 'rxjs/Subject';
 import { Store } from 'vuex';
+import { XModuleName } from '../../x-modules/x-modules.types';
 import { createWireFromFunction } from '../wires.factory';
 import {
   debounce,
   filter,
   filterFalsyPayload,
   filterTruthyPayload,
+  filterBlacklistedModules,
+  filterWhitelistedModules,
   throttle
 } from '../wires.operators';
 import { WireParams, WirePayload } from '../wiring.types';
@@ -18,8 +21,8 @@ describe('testing wires operators', () => {
 
   let subject: Subject<WirePayload<any>>;
 
-  function next(value: any): void {
-    subject.next({ eventPayload: value, metadata: { moduleName: null } });
+  function next(value: any, moduleName: XModuleName | null = null): void {
+    subject.next({ eventPayload: value, metadata: { moduleName } });
   }
 
   beforeEach(() => {
@@ -46,9 +49,9 @@ describe('testing wires operators', () => {
       next('pork belly');
       expect(executeFunction).toHaveBeenCalledTimes(1);
       expect(executeFunction).toHaveBeenCalledWith({
-        store,
         eventPayload: 'pork belly',
-        metadata: expect.any(Object)
+        metadata: expect.any(Object),
+        store
       });
     });
 
@@ -84,6 +87,59 @@ describe('testing wires operators', () => {
 
         falsyValues.forEach(value => next(value));
         expect(executeFunction).toHaveBeenCalledTimes(falsyValues.length);
+      });
+    });
+
+    describe('events origin filter operators', () => {
+      function getExpectedCallParameters(
+        eventPayload: string,
+        moduleName: XModuleName | null
+      ): WireParams<string> {
+        return {
+          eventPayload,
+          metadata: { moduleName },
+          store
+        };
+      }
+
+      test(`${filterWhitelistedModules.name} discards emitted values if their metadata moduleName is not in the whitelist`, () => {
+        const filteredWire = filterWhitelistedModules(wire, ['nextQueries', null]);
+        filteredWire(subject, store);
+
+        next('not-emitted', 'popularSearches');
+        expect(executeFunction).not.toHaveBeenCalled();
+
+        next('emitted-1');
+        next('emitted-2', 'nextQueries');
+        expect(executeFunction).toHaveBeenCalledTimes(2);
+        expect(executeFunction).toHaveBeenNthCalledWith(
+          1,
+          getExpectedCallParameters('emitted-1', null)
+        );
+        expect(executeFunction).toHaveBeenNthCalledWith(
+          2,
+          getExpectedCallParameters('emitted-2', 'nextQueries')
+        );
+      });
+
+      test(`${filterBlacklistedModules.name} discards emitted values if their metadata moduleName is in the blacklist`, () => {
+        const filteredWire = filterBlacklistedModules(wire, ['searchBox']);
+        filteredWire(subject, store);
+
+        next('not-emitted', 'searchBox');
+        expect(executeFunction).not.toHaveBeenCalled();
+
+        next('emitted-1');
+        next('emitted-2', 'nextQueries');
+        expect(executeFunction).toHaveBeenCalledTimes(2);
+        expect(executeFunction).toHaveBeenNthCalledWith(
+          1,
+          getExpectedCallParameters('emitted-1', null)
+        );
+        expect(executeFunction).toHaveBeenNthCalledWith(
+          2,
+          getExpectedCallParameters('emitted-2', 'nextQueries')
+        );
       });
     });
   });

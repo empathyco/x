@@ -31,7 +31,7 @@ export interface WireMetadata {
 }
 
 /**
- * The wire value includes the payload of the event, and a {@link WireMetadata} object to add more information to the event
+ * The wire payload includes the payload of the event, and a {@link WireMetadata} object to add more information to the event
  *
  * @typeParam PayloadType - The type of the event's payload
  * @public

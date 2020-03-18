@@ -61,8 +61,8 @@ describe('testing $x component API global mixin', () => {
 
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith({
-      metadata: { moduleName: 'searchBox', target: testTarget },
-      eventPayload: 'Sexy Lego'
+      eventPayload: 'Sexy Lego',
+      metadata: { moduleName: 'searchBox', target: testTarget }
     });
   });
 
