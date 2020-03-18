@@ -2,6 +2,7 @@ import { SuggestionsRequest } from '@empathy/search-adapter';
 import { Suggestion } from '@empathy/search-types';
 import { XStoreModule } from '../../../store';
 import { TermSuggestionsConfig } from '../config.types';
+
 /**
  * TermSuggestions store state
  *

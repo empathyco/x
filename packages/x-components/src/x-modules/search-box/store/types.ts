@@ -1,4 +1,5 @@
 import { XStoreModule } from '../../../store';
+import { SearchBoxConfig } from '../config.types';
 
 /**
  * SearchBox store state
@@ -7,6 +8,8 @@ import { XStoreModule } from '../../../store';
 export interface SearchBoxState {
   /** The query of the search box input */
   query: string;
+  /** The shared configuration of the search-box module */
+  config: SearchBoxConfig;
 }
 
 /**

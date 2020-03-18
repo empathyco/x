@@ -178,7 +178,56 @@ export class XPlugin {
       ? this.customizeStoreModule(storeModule, storeModuleOptions)
       : storeModule;
     customizedStoreModule.namespaced = true;
+    this.addConfigMutation(customizedStoreModule);
     this.store.registerModule(['x', name], customizedStoreModule);
+  }
+
+  /**
+   * Adds to a {@link https://vuex.vuejs.org/ | Vuex} store module the mutation `setConfig` if the module has a `config` in its state
+   *
+   * @param storeModule - The module definition to add the mutation
+   * @returns the same module with the new mutation
+   *
+   * @internal
+   */
+  protected addConfigMutation(storeModule: Module<any, any>): Module<any, any> {
+    if (this.hasModuleConfig(storeModule)) {
+      const moduleMutations = storeModule.mutations;
+      if (!moduleMutations) {
+        storeModule.mutations = {
+          setConfig: this.getDefaultSetConfigMutation()
+        };
+      } else if (!moduleMutations.setConfig) {
+        moduleMutations.setConfig = this.getDefaultSetConfigMutation();
+      }
+    }
+    return storeModule;
+  }
+
+  /**
+   * Creates a default set config mutation which simply assigns the new configuration entry to the state
+   *
+   * @returns A default implementation of the setConfig mutation
+   * @internal
+   */
+  protected getDefaultSetConfigMutation(): (state: any, config: any) => void {
+    return function setConfig(state: any, config: any): void {
+      Object.assign(state.config, config);
+    };
+  }
+
+  /**
+   * Checks if a {@link https://vuex.vuejs.org/ | Vuex} store module has `config` in the state
+   *
+   * @param storeModule - The module definition to add the mutation
+   * @returns boolean - true if the module has config in its state, false if not
+   *
+   * @internal
+   */
+  protected hasModuleConfig(storeModule: Module<any, any>): boolean {
+    return typeof storeModule.state === 'function'
+      ? !!storeModule.state().config
+      : !!storeModule.state.config;
   }
 
   /**

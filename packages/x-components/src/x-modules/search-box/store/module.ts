@@ -5,7 +5,13 @@ import { SearchBoxXStoreModule } from './types';
  * @internal
  */
 export const searchBoxXStoreModule: SearchBoxXStoreModule = {
-  state: () => ({ query: '' }),
+  state: () => ({
+    query: '',
+    config: {
+      autoComplete: false,
+      maxLength: 200
+    }
+  }),
   getters: {
     trimmedQuery(state) {
       return state.query.trim();

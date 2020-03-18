@@ -382,4 +382,80 @@ describe('testing X Plugin', () => {
       expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(0);
     });
   });
+
+  describe('default setConfig mutation', () => {
+    const defaultConfigState = (): { config: { testConfig: boolean } } => ({
+      config: { testConfig: false }
+    });
+    const defaultSetConfigMutation = jest.fn();
+    function createXModule({
+      withConfigState,
+      withSetConfigMutation
+    }: {
+      withSetConfigMutation: boolean;
+      withConfigState: boolean;
+    }): AnyXModule {
+      return {
+        name: 'searchBox',
+        storeModule: {
+          actions: {},
+          mutations: withSetConfigMutation ? { setConfig: defaultSetConfigMutation } : {},
+          state: withConfigState ? defaultConfigState : () => ({}),
+          getters: {}
+        },
+        storeEmitters: {},
+        wiring: {}
+      };
+    }
+    it('setConfig mutation is not created if there is no module configuration', () => {
+      const module = createXModule({ withConfigState: false, withSetConfigMutation: false });
+      localVue.use(plugin, { store });
+      plugin.registerXModule(module);
+
+      expect(module.storeModule.mutations).not.toHaveProperty('setConfig');
+    });
+
+    it('setConfig mutation is not created if already present in the module definition', () => {
+      const module = createXModule({ withConfigState: true, withSetConfigMutation: true });
+      localVue.use(plugin, { store });
+      plugin.registerXModule(module);
+      store.commit('x/searchBox/setConfig', { testConfig: true });
+
+      expect(defaultSetConfigMutation).toHaveBeenCalledWith(defaultConfigState(), {
+        testConfig: true
+      });
+    });
+
+    it('is not created if is present in the x-module store options', () => {
+      const module = createXModule({ withConfigState: true, withSetConfigMutation: true });
+      const customSetConfigMutation = jest.fn();
+      localVue.use(plugin, {
+        store,
+        xModules: {
+          searchBox: {
+            storeModule: {
+              mutations: {
+                setConfig: customSetConfigMutation
+              }
+            }
+          }
+        }
+      });
+      plugin.registerXModule(module);
+      store.commit('x/searchBox/setConfig', { testConfig: true });
+
+      expect(customSetConfigMutation).toHaveBeenCalledWith(defaultConfigState(), {
+        testConfig: true
+      });
+    });
+
+    it('is created if it is not present in the default module definition or in the x-module store options', () => {
+      const module = createXModule({ withConfigState: true, withSetConfigMutation: false });
+      localVue.use(plugin, { store });
+      plugin.registerXModule(module);
+      store.commit('x/searchBox/setConfig', { testConfig: true });
+
+      expect(store.state.x.searchBox.config.testConfig).toEqual(true);
+    });
+  });
 });
