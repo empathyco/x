@@ -18,7 +18,7 @@
   import { searchBoxXModule } from './x-module';
 
   /**
-   * Simple search-box component that allows the user to type in an input, and emits the
+   * Simple search-box component that renders an input. This input allows the user to type a query, and emits the
    * needed events
    *
    * @public
@@ -32,12 +32,23 @@
     @State('searchBox', 'query')
     public query!: string;
 
+    /**
+     * Emits a set of events related to the user typing in the search-box
+     *
+     * @internal
+     */
     protected emitUserTyped(): void {
       const query = this.$refs.input.value;
       this.$x.emit('UserIsChangingQuery', query);
       this.$x.emit('UserTyped', query);
     }
 
+    /**
+     * Emits a set of events related to the user pressing the `Enter` key while the focus is
+     * in the search-box
+     *
+     * @internal
+     */
     protected emitUserPressedEnter(): void {
       const query = this.$refs.input.value;
       this.$x.emit('UserSelectedAQuery', query);
@@ -45,3 +56,16 @@
     }
   }
 </script>
+
+<docs>
+  #Examples
+
+  ## Basic example
+
+  You don't need to pass any props, or slots. Simply add the component, and it will render a ready to use `input`.
+  This input will emit events to the rest of components when a user is using it.
+
+  ```vue
+  <SearchBox />
+  ```
+</docs>

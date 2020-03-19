@@ -1,3 +1,4 @@
 shims-tsx.d.ts
 shims-vue.d.ts
 jest.config.js
+docgen.config.js

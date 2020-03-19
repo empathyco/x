@@ -8,7 +8,9 @@
     "serve": "vue-cli-service serve",
     "build": "ts-node --project ./build/tsconfig.json ./build/build.ts && npm pack",
     "build:website": "vue-cli-service build",
-    "gen:docs": "api-documenter markdown --input-folder temp",
+    "gen:docs": "npm run gen:typescript-docs && npm run gen:component-docs",
+    "gen:typescript-docs": "api-documenter markdown --input-folder temp --output-folder docs",
+    "gen:component-docs": "vue-docgen",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
@@ -71,6 +73,7 @@
     "standard-version": "~7.1.0",
     "ts-node": "~8.6.2",
     "typescript": "~3.7.4",
+    "vue-docgen-cli": "^4.13.1",
     "vue-template-compiler": "~2.6.10"
   },
   "files": [
