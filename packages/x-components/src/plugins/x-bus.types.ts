@@ -26,7 +26,7 @@ export interface XBus {
   emit<Event extends XEvent>(
     event: Event,
     payload: XEventPayload<Event>,
-    metadata: WireMetadata
+    metadata?: WireMetadata
   ): void;
 
   /**
