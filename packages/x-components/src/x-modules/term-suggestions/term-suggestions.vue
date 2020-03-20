@@ -47,7 +47,7 @@
      * @public Can be used within the `term-suggestion` slot.
      */
     protected emitTermSuggestionSelected(suggestion: Suggestion): void {
-      this.$x.emit('UserSelectedAQuery', suggestion.term);
+      this.$x.emit('UserAcceptedAQuery', suggestion.term);
       this.$x.emit('UserSelectedASuggestion', suggestion);
       this.$x.emit('UserSelectedATermSuggestion', suggestion);
     }

@@ -30,7 +30,7 @@ export const retrieveNextQueries = nextQueriesModule.wireDispatchWithoutPayload(
  * @internal
  */
 export const nextQueriesWiring = createWiring({
-  UserSelectedAQuery: {
+  UserAcceptedAQuery: {
     setNextQueriesQuery
   },
   NextQueriesRequestChanged: {

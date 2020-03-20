@@ -12,9 +12,8 @@ import { XModulesOptions, XPluginOptions } from '../x-plugin.types';
 const wireToReplace: AnyWire = jest.fn();
 const wireToRemove: AnyWire = jest.fn();
 const wire: AnyWire = jest.fn();
-const userTypedSelector = jest.fn();
-const userIsChangingQuerySelector = jest.fn();
-const userSelectedAQuerySelector = jest.fn();
+const userIsTypingAQuerySelector = jest.fn();
+const userAcceptedAQuerySelector = jest.fn();
 const action = jest.fn();
 const actionToReplace = jest.fn();
 const actionToRemove = jest.fn();
@@ -24,16 +23,15 @@ const mutationToRemove = jest.fn();
 const xModule: AnyXModule = {
   name: 'searchBox',
   wiring: {
-    UserTyped: {
+    UserIsTypingAQuery: {
       wireToReplace,
       wireToRemove,
       wire
     }
   },
   storeEmitters: {
-    UserTyped: userTypedSelector,
-    UserIsChangingQuery: userIsChangingQuerySelector,
-    UserSelectedAQuery: userSelectedAQuerySelector
+    UserIsTypingAQuery: userIsTypingAQuerySelector,
+    UserAcceptedAQuery: userAcceptedAQuerySelector
   },
   storeModule: {
     state: () => ({
@@ -106,11 +104,10 @@ describe('testing X Plugin', () => {
       expect(wireToReplace).not.toHaveBeenCalled();
       expect(wireToRemove).not.toHaveBeenCalled();
       expect(wire).not.toHaveBeenCalled();
-      expect(store.state.x).not.toBeDefined(); // If the state is not registered I'm 100% sure
-      // that there won't be actions, mutations or getters.
-      expect(userTypedSelector).not.toHaveBeenCalled();
-      expect(userSelectedAQuerySelector).not.toHaveBeenCalled();
-      expect(userIsChangingQuerySelector).not.toHaveBeenCalled();
+      expect(store.state.x).not.toBeDefined(); // If the state is not registered I'm 100% sure that
+      // there won't be actions, mutations or getters.
+      expect(userAcceptedAQuerySelector).not.toHaveBeenCalled();
+      expect(userIsTypingAQuerySelector).not.toHaveBeenCalled();
     }
 
     function expectDefaultModuleToBeRegisteredOnce(): void {
@@ -127,12 +124,10 @@ describe('testing X Plugin', () => {
         getterToReplace: 2,
         getterToRemove: 3
       };
-      expect(userTypedSelector).toHaveBeenCalledTimes(1);
-      expect(userTypedSelector).toHaveBeenCalledWith(searchBoxState, searchBoxGetters);
-      expect(userSelectedAQuerySelector).toHaveBeenCalledTimes(1);
-      expect(userSelectedAQuerySelector).toHaveBeenCalledWith(searchBoxState, searchBoxGetters);
-      expect(userIsChangingQuerySelector).toHaveBeenCalledTimes(1);
-      expect(userIsChangingQuerySelector).toHaveBeenCalledWith(searchBoxState, searchBoxGetters);
+      expect(userAcceptedAQuerySelector).toHaveBeenCalledTimes(1);
+      expect(userAcceptedAQuerySelector).toHaveBeenCalledWith(searchBoxState, searchBoxGetters);
+      expect(userIsTypingAQuerySelector).toHaveBeenCalledTimes(1);
+      expect(userIsTypingAQuerySelector).toHaveBeenCalledWith(searchBoxState, searchBoxGetters);
     }
   });
 
@@ -255,7 +250,7 @@ describe('testing X Plugin', () => {
       xModules: {
         searchBox: {
           wiring: {
-            UserTyped: {
+            UserIsTypingAQuery: {
               wireToReplace: replacedWire,
               wireToRemove: undefined as any, // "any" because we are mocking searchBox module to
               // ease testing, and types don't allow to add
@@ -316,7 +311,7 @@ describe('testing X Plugin', () => {
       SearchBoxQueryChanged: (_, getters) => getters.trimmedQuery
     });
     const wiring = createWiring({
-      UserTyped: {
+      UserIsTypingAQuery: {
         setSearchBoxQuery: wireCommit<string>('x/searchBox/setQuery')
       },
       SearchBoxQueryChanged: {
@@ -344,7 +339,7 @@ describe('testing X Plugin', () => {
     });
 
     it('store-emitters emit a changed event when the observed store state changes', async () => {
-      component.vm.$x.emit('UserTyped', 'New York strip steak');
+      component.vm.$x.emit('UserIsTypingAQuery', 'New York strip steak');
 
       await localVue.nextTick();
 
@@ -362,9 +357,9 @@ describe('testing X Plugin', () => {
       "store-emitters don't emit multiple events if the events that are modifying the observed" +
         ' value are emitted synchronously',
       async () => {
-        component.vm.$x.emit('UserTyped', 'New York strip steak');
-        component.vm.$x.emit('UserTyped', 'Prime rib');
-        component.vm.$x.emit('UserTyped', 'Tomahawk steak');
+        component.vm.$x.emit('UserIsTypingAQuery', 'New York strip steak');
+        component.vm.$x.emit('UserIsTypingAQuery', 'Prime rib');
+        component.vm.$x.emit('UserIsTypingAQuery', 'Tomahawk steak');
 
         await localVue.nextTick();
 
@@ -380,8 +375,8 @@ describe('testing X Plugin', () => {
     );
 
     it("store-emitters don't emit an event if value is reset synchronously", async () => {
-      component.vm.$x.emit('UserTyped', 'chinchulines');
-      component.vm.$x.emit('UserTyped', '');
+      component.vm.$x.emit('UserIsTypingAQuery', 'chinchulines');
+      component.vm.$x.emit('UserIsTypingAQuery', '');
 
       await localVue.nextTick();
 

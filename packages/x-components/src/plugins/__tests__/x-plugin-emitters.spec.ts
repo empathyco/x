@@ -7,9 +7,8 @@ import { XPlugin } from '../x-plugin';
 import { XPluginOptions } from '../x-plugin.types';
 
 const wireInstance = jest.fn();
-const userTypedSelector = jest.fn();
-const userIsChangingQuerySelector = jest.fn();
-const userSelectedAQuerySelector = jest.fn();
+const userIsTypingAQuerySelector = jest.fn();
+const userAcceptedAQuerySelector = jest.fn();
 
 const stateInstance = {
   query: 'toy story',
@@ -21,9 +20,8 @@ const xModule: AnyXModule = {
     SearchBoxQueryChanged: { wireInstance }
   },
   storeEmitters: {
-    UserTyped: userTypedSelector,
-    UserIsChangingQuery: userIsChangingQuerySelector,
-    UserSelectedAQuery: userSelectedAQuerySelector
+    UserIsTypingAQuery: userIsTypingAQuerySelector,
+    UserAcceptedAQuery: userAcceptedAQuerySelector
   },
   storeModule: {
     state: () => stateInstance,
@@ -50,14 +48,12 @@ describe('testing X Plugin emitters', () => {
   });
 
   describe('install XPlugin overriding store emitters', () => {
-    const newUserTypedSelector = jest.fn();
     const newSearchBoxQueryChangedSelector = jest.fn();
     const pluginOptions: XPluginOptions = {
       xModules: {
         searchBox: {
           storeEmitters: {
-            UserTyped: newUserTypedSelector,
-            UserIsChangingQuery: undefined,
+            UserIsTypingAQuery: undefined,
             SearchBoxQueryChanged: newSearchBoxQueryChangedSelector
           }
         }
@@ -85,10 +81,8 @@ describe('testing X Plugin emitters', () => {
         secondGetter: 'It is awesome!'
       };
 
-      expect(userTypedSelector).not.toHaveBeenCalled();
-      expect(userIsChangingQuerySelector).not.toHaveBeenCalled();
-      expect(userSelectedAQuerySelector).toHaveBeenCalledWith(stateInstance, gettersInstance);
-      expect(newUserTypedSelector).toHaveBeenCalledWith(stateInstance, gettersInstance);
+      expect(userIsTypingAQuerySelector).not.toHaveBeenCalled();
+      expect(userAcceptedAQuerySelector).toHaveBeenCalledWith(stateInstance, gettersInstance);
       expect(newSearchBoxQueryChangedSelector).toHaveBeenCalledWith(stateInstance, gettersInstance);
       expect(wireInstance).toHaveBeenCalled();
     }

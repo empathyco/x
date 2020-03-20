@@ -1,7 +1,7 @@
 <template>
   <input
     ref="input"
-    @input="emitUserTyped"
+    @input="emitUserIsTypingAQuery"
     @keyup.enter="emitUserPressedEnter"
     :value="query"
     autocomplete="off"
@@ -37,10 +37,9 @@
      *
      * @internal
      */
-    protected emitUserTyped(): void {
+    protected emitUserIsTypingAQuery(): void {
       const query = this.$refs.input.value;
-      this.$x.emit('UserIsChangingQuery', query);
-      this.$x.emit('UserTyped', query);
+      this.$x.emit('UserIsTypingAQuery', query);
     }
 
     /**
@@ -51,8 +50,8 @@
      */
     protected emitUserPressedEnter(): void {
       const query = this.$refs.input.value;
-      this.$x.emit('UserSelectedAQuery', query);
-      this.$x.emit('UserPressedEnter', query);
+      this.$x.emit('UserAcceptedAQuery', query);
+      this.$x.emit('UserPressedEnterKey', query);
     }
   }
 </script>

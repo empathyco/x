@@ -47,7 +47,7 @@
      * @public Can be used within the `next-query` slot.
      */
     protected emitNextQuerySelected(nextQuery: NextQuery): void {
-      this.$x.emit('UserSelectedAQuery', nextQuery.query);
+      this.$x.emit('UserAcceptedAQuery', nextQuery.query);
       this.$x.emit('UserSelectedANextQuery', nextQuery);
     }
   }

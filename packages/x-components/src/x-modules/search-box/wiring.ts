@@ -21,13 +21,13 @@ const setSearchBoxQuery = searchBoxModule.wireCommit('setQuery');
  * @internal
  */
 export const searchBoxWiring = createWiring({
-  UserIsChangingQuery: {
+  UserIsTypingAQuery: {
     setSearchBoxQuery
   },
-  UserSelectedAQuery: {
+  UserAcceptedAQuery: {
     setSearchBoxQuery
   },
-  UserPressedEnter: {
+  UserPressedEnterKey: {
     setSearchBoxQuery
   }
 });

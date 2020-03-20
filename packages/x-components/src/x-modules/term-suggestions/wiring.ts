@@ -29,10 +29,10 @@ export const retrieveTermSuggestions = termSuggestionsModule.wireDispatchWithout
  * @internal
  */
 export const termSuggestionsWiring = createWiring({
-  UserIsChangingQuery: {
+  UserIsTypingAQuery: {
     setTermSuggestionsQuery // TODO It should be debounced
   },
-  UserSelectedAQuery: {
+  UserAcceptedAQuery: {
     setTermSuggestionsQuery
   },
   TermSuggestionsRequestChanged: {

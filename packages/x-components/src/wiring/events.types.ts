@@ -48,20 +48,40 @@ export interface XEventsTypes {
    */
   PopularSearchesRequestChanged: SuggestionsRequest;
   /**
-   * The user is in the process of changing a query
-   * * Payload: the partial query that the user is writing.
+   * The user removed the focus from the search-box.
+   * * Payload: none.
    */
-  UserIsChangingQuery: string;
+  UserBlurredSearchBox: void;
+  /**
+   * The user focused the search-box.
+   * * Payload: none.
+   */
+  UserFocusedSearchBox: void;
+  /**
+   * The user is typing/pasting a query
+   * * Payload: the partial query that the user is typing.
+   */
+  UserIsTypingAQuery: string;
+  /**
+   * The user pressed the search button
+   * * Payload: The query to search.
+   */
+  UserPressedSearchButton: string;
   /**
    * The user triggered the button that clears the search-box
    * * Payload: none.
    */
   UserPressedClearSearchBoxButton: void;
   /**
-   * User has focus on the search-box and pressed the enter key
-   * * Payload: The new query of the search-box.
+   * The user pressed the enter key when the focus was on the search-box
+   * * Payload: The new search-box query.
    */
-  UserPressedEnter: string;
+  UserPressedEnterKey: string;
+  /**
+   * The user pressed an arrow key when the focus was on the search-box
+   * * Payload: The pressed arrow key.
+   */
+  UserPressedArrowKey: string;
   /**
    * The user has selected a next-query
    * * Payload: The next query that has been selected by the user.
@@ -71,7 +91,7 @@ export interface XEventsTypes {
    * The user has selected or confirmed a query
    * * Payload: the query that the user selected.
    */
-  UserSelectedAQuery: string;
+  UserAcceptedAQuery: string;
   /**
    * User selected any kind of suggestion (term-suggestion, popular-search...)
    * * Payload: The suggestion that the user selected.
@@ -88,10 +108,10 @@ export interface XEventsTypes {
    */
   UserSelectedAPopularSearch: Suggestion;
   /**
-   * The user has manually modified the search-box (typing, pasting some text...)
-   * * Payload: the query that the user is writing in the search-box.
+   * The user voiced a query
+   * * Payload: The spoken query.
    */
-  UserTyped: string;
+  UserTalked: string;
 }
 
 /**

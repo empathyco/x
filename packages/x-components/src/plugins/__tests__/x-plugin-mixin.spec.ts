@@ -26,8 +26,8 @@ describe('testing $x component API global mixin', () => {
   it('allows emitting and subscribing to events via $x object', () => {
     const listener = jest.fn();
 
-    componentInstance.vm.$x.on('UserTyped').subscribe(listener);
-    componentInstance.vm.$x.emit('UserTyped', 'So awesome, much quality, such skill');
+    componentInstance.vm.$x.on('UserIsTypingAQuery').subscribe(listener);
+    componentInstance.vm.$x.emit('UserIsTypingAQuery', 'So awesome, much quality, such skill');
 
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith('So awesome, much quality, such skill');
@@ -39,7 +39,7 @@ describe('testing $x component API global mixin', () => {
 
     const emitterComponent: ComponentOptions<any> & ThisType<Vue> = {
       mounted() {
-        this.$x.emit('UserTyped', 'Sexy Lego', { target: testTarget });
+        this.$x.emit('UserIsTypingAQuery', 'Sexy Lego', { target: testTarget });
       },
       render(createElement) {
         return createElement('input');
@@ -50,7 +50,7 @@ describe('testing $x component API global mixin', () => {
       {
         mixins: [xComponentMixin(searchBoxXModule)],
         created() {
-          this.$x.on('UserTyped', true).subscribe(listener);
+          this.$x.on('UserIsTypingAQuery', true).subscribe(listener);
         },
         render(createElement) {
           return createElement(emitterComponent);
@@ -71,7 +71,7 @@ describe('testing $x component API global mixin', () => {
     const emitterComponent: ComponentOptions<any> & ThisType<Vue> = {
       mixins: [xComponentMixin(searchBoxXModule)], // Flag it as x-component
       mounted() {
-        this.$x.emit('UserTyped', 'Sexy Playmobil');
+        this.$x.emit('UserIsTypingAQuery', 'Sexy Playmobil');
       },
       render(createElement) {
         return createElement('input');
@@ -90,7 +90,7 @@ describe('testing $x component API global mixin', () => {
         render(createElement) {
           return createElement(parentComponent, {
             on: {
-              UserTyped: listener
+              UserIsTypingAQuery: listener
             }
           });
         }

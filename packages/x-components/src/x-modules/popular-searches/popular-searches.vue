@@ -46,7 +46,7 @@
      * @public Can be used within the `popular-search` slot.
      */
     protected emitPopularSearchSelected(suggestion: Suggestion): void {
-      this.$x.emit('UserSelectedAQuery', suggestion.term);
+      this.$x.emit('UserAcceptedAQuery', suggestion.term);
       this.$x.emit('UserSelectedASuggestion', suggestion);
       this.$x.emit('UserSelectedAPopularSearch', suggestion);
     }
