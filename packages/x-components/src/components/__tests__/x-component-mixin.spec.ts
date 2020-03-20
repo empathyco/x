@@ -98,24 +98,28 @@ describe('testing XComponent Mixin', () => {
       expect(customComponent.vm.$props.autoComplete).not.toBeDefined();
     });
 
-    it('allows the component to define a "setConfig" method which will be called instead of directly committing to the store', () => {
-      const setConfig = jest.fn();
-      const customComponent = mount(
-        {
-          mixins: [xComponentMixin(searchBoxXModule)],
-          render: h => h(),
-          methods: {
-            setConfig
-          }
-        },
-        { localVue, store }
-      );
+    it(
+      'allows the component to define a "setConfig" method which will be called instead of' +
+        ' directly committing to the store',
+      () => {
+        const setConfig = jest.fn();
+        const customComponent = mount(
+          {
+            mixins: [xComponentMixin(searchBoxXModule)],
+            render: h => h(),
+            methods: {
+              setConfig
+            }
+          },
+          { localVue, store }
+        );
 
-      expect(setConfig).not.toHaveBeenCalled();
+        expect(setConfig).not.toHaveBeenCalled();
 
-      customComponent.setProps({ maxLength: 33 });
+        customComponent.setProps({ maxLength: 33 });
 
-      expect(setConfig).toHaveBeenCalledWith('maxLength', 33);
-    });
+        expect(setConfig).toHaveBeenCalledWith('maxLength', 33);
+      }
+    );
   });
 });

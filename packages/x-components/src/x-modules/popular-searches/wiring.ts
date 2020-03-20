@@ -2,14 +2,14 @@ import { withModule } from '../../wiring/wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
- * Popular searches wires factory
+ * Popular searches wires factory.
  *
  * @public
  */
 const popularSearchesNamespacedModule = withModule('popularSearches');
 
 /**
- * Gets a new set of popular searches and stores them
+ * Gets a new set of popular searches and stores them.
  *
  * @public
  */
@@ -18,7 +18,7 @@ const retrievePopularSuggestions = popularSearchesNamespacedModule.wireDispatchW
 );
 
 /**
- * Wiring configuration for the popular searches modules
+ * Wiring configuration for the popular searches modules.
  *
  * @internal
  */

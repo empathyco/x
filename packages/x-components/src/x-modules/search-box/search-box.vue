@@ -18,8 +18,8 @@
   import { searchBoxXModule } from './x-module';
 
   /**
-   * Simple search-box component that renders an input. This input allows the user to type a query, and emits the
-   * needed events
+   * Simple search-box component that renders an input. This input allows the user to type a
+   * query, and emits the needed events.
    *
    * @public
    */
@@ -33,7 +33,7 @@
     public query!: string;
 
     /**
-     * Emits a set of events related to the user typing in the search-box
+     * Emits a set of events related to the user typing in the search-box.
      *
      * @internal
      */
@@ -45,7 +45,7 @@
 
     /**
      * Emits a set of events related to the user pressing the `Enter` key while the focus is
-     * in the search-box
+     * in the search-box.
      *
      * @internal
      */
@@ -62,8 +62,9 @@
 
   ## Basic example
 
-  You don't need to pass any props, or slots. Simply add the component, and it will render a ready to use `input`.
-  This input will emit events to the rest of components when a user is using it.
+  You don't need to pass any props, or slots. Simply add the component, and it will render a
+  ready to use `input`. This input will emit events to the rest of components when a user is
+  using it.
 
   ```vue
   <SearchBox />

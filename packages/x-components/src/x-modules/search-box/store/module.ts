@@ -1,7 +1,8 @@
 import { SearchBoxXStoreModule } from './types';
 
 /**
- * {@link XStoreModule} for the search-box module
+ * {@link XStoreModule} For the search-box module.
+ *
  * @internal
  */
 export const searchBoxXStoreModule: SearchBoxXStoreModule = {

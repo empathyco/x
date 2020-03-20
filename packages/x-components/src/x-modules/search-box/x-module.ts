@@ -6,15 +6,15 @@ import { searchBoxEmitters } from './store/emitters';
 import { searchBoxXStoreModule } from './store/module';
 
 /**
- * SearchBox {@link XModule} alias
+ * SearchBox {@link XModule} alias.
  *
  * @public
  */
 export type SearchBoxXModule = XModule<SearchBoxXStoreModule>;
 
 /**
- * SearchBox {@link XModule} implementation. This module is auto-registered as soon as you import any comopnent
- * from the `search-box` entry point.
+ * SearchBox {@link XModule} implementation. This module is auto-registered as soon as you
+ * import any component from the `search-box` entry point.
  *
  * @public
  */

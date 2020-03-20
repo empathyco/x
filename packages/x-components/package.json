@@ -57,7 +57,9 @@
     "eslint-plugin-cypress": "~2.9.0",
     "eslint-plugin-import": "~2.20.1",
     "eslint-plugin-jest": "~23.7.0",
+    "eslint-plugin-jsdoc": "~22.1.0",
     "eslint-plugin-prettier": "~3.1.2",
+    "eslint-plugin-tsdoc": "~0.2.3",
     "eslint-plugin-vue": "~5.2.3",
     "lint-staged": "~10.0.7",
     "prettier": "~1.19.1",
@@ -73,7 +75,7 @@
     "standard-version": "~7.1.0",
     "ts-node": "~8.6.2",
     "typescript": "~3.7.4",
-    "vue-docgen-cli": "^4.13.1",
+    "vue-docgen-cli": "~4.13.1",
     "vue-template-compiler": "~2.6.10"
   },
   "files": [

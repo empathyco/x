@@ -1,7 +1,7 @@
-import { XConfig } from '../plugins/x-plugin.types';
+import { XConfig } from './x-plugin.types';
 
 /**
- * Default global {@link XConfig}
+ * Default global {@link XConfig}.
  *
  * @public
  */

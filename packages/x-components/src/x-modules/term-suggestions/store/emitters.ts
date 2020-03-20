@@ -2,7 +2,8 @@ import { createStoreEmitters } from '../../../store';
 import { termSuggestionsXStoreModule } from './module';
 
 /**
- * {@link StoreEmitters} for the term-suggestions module
+ * {@link StoreEmitters} For the term-suggestions module.
+ *
  * @internal
  */
 export const termSuggestionsEmitters = createStoreEmitters(termSuggestionsXStoreModule, {

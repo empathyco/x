@@ -1,8 +1,10 @@
 <template>
   <ul v-if="nextQueries.length">
     <li v-for="nextQuery in nextQueries" :key="nextQuery.query">
-      <!-- @slot An individual next query, that should call the emitNextQuerySelected method when selected.
-          @binding {Function} emitNextQuerySelected - A method that emits multiple events related to the selection of a next query
+      <!-- @slot An individual next query, that should call the emitNextQuerySelected method when
+       selected.
+          @binding {Function} emitNextQuerySelected - A method that emits multiple events related
+          to the selection of a next query
           @binding {NextQuery} nextQuery - A single next query to be used by the component
       -->
       <slot name="next-query" v-bind="{ nextQuery, emitNextQuerySelected }">
@@ -23,10 +25,11 @@
   import { nextQueriesXModule } from './x-module';
 
   /**
-   * Simple next-queries component that renders a list of suggestions, allowing the user to select one of them,
-   * and emitting the needed events.
-   * A next query is a suggestion for a new search, related to your previous query. i.e. If people normally search for `shirts`, and then `trousers`,
-   * `trousers` would be a next query of `shirts`.
+   * Simple next-queries component that renders a list of suggestions, allowing the user to
+   * select one of them, and emitting the needed events.
+   * A next query is a suggestion for a new search, related to your previous query. I.e. If
+   * people normally search for `shirts`, and then `trousers`, `trousers` would be a next query
+   * of `shirts`.
    *
    * @public
    */
@@ -38,10 +41,10 @@
     public nextQueries!: NextQuery[];
 
     /**
-     * Emits a set of events related to the selection of a next-query
+     * Emits a set of events related to the selection of a next-query.
      *
-     * @param nextQuery - The next query that has been selected
-     * @public Can be used within the `next-query` slot
+     * @param nextQuery - The next query that has been selected.
+     * @public Can be used within the `next-query` slot.
      */
     protected emitNextQuerySelected(nextQuery: NextQuery): void {
       this.$x.emit('UserSelectedAQuery', nextQuery.query);
@@ -55,7 +58,8 @@
 
   ## Basic example
 
-  You don't need to pass any props, or slots. Simply add the component, and when it has any next queries it will show them
+  You don't need to pass any props, or slots. Simply add the component, and when it has any next
+  queries it will show them
 
   ```vue
   <NextQueries />
@@ -63,8 +67,10 @@
 
   ## Adding a custom next query component
 
-  You can use your custom implementation of a next query component. To work correctly, it should use the `emitNextQuerySelected` function when the next query is selected.
-  In the example below, instead of using the default `button` tag for a next query, an icon is added, and the text of the next query is wrapped in a `span`
+  You can use your custom implementation of a next query component. To work correctly, it should
+  use the `emitNextQuerySelected` function when the next query is selected.
+  In the example below, instead of using the default `button` tag for a next query, an icon is
+  added, and the text of the next query is wrapped in a `span`
   ```vue
   <NextQueries>
     <template #next-query="{nextQuery, emitNextQuerySelected }">

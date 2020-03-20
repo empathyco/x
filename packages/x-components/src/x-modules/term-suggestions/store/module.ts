@@ -8,7 +8,8 @@ const adapter = new EmpathyAdapterBuilder()
   .build(); // TODO It should be injected
 
 /**
- * {@link XStoreModule} for the term-suggestions module
+ * {@link XStoreModule} For the term-suggestions module.
+ *
  * @internal
  */
 export const termSuggestionsXStoreModule: TermSuggestionsXStoreModule = {

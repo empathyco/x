@@ -4,8 +4,9 @@ import { AnyXStoreModule } from './store.types';
 /**
  * Helper function for creating type-safe {@link StoreEmitters}.
  *
- * @param storeModule - The store module that the emitters will be associated to
- * @param emitters - The {@link StoreEmitters} to create
+ * @param storeModule - The store module that the emitters will be associated to.
+ * @param emitters - The {@link StoreEmitters} to create.
+ * @returns A type-safe function for storeEmitters.
  * @public
  */
 export function createStoreEmitters<

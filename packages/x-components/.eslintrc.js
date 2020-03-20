@@ -21,7 +21,8 @@ const esLintRules = {
   'no-empty-function': 'off',
   'no-unused-vars': 'off',
   'no-extra-parens': 'off',
-  'no-unused-expressions': 'off'
+  'no-unused-expressions': 'off',
+  'max-len': ['error', { code: 100, ignoreComments: false }]
 };
 
 const tsLintRules = {
@@ -89,6 +90,28 @@ const importPluginRules = {
   'import/no-self-import': 'error'
 };
 
+const jsDocRules = {
+  // https://github.com/gajus/eslint-plugin-jsdoc
+  'jsdoc/check-alignment': 'error',
+  'jsdoc/check-indentation': 'error',
+  'jsdoc/check-param-names': 'error',
+  'jsdoc/check-tag-names': ['error', { definedTags: ['internal', 'typeParam'] }],
+  'jsdoc/implements-on-classes': 'off',
+  'jsdoc/newline-after-description': 'error',
+  'jsdoc/require-description': 'error',
+  'jsdoc/require-description-complete-sentence': 'error',
+  'jsdoc/require-hyphen-before-param-description': 'error',
+  'jsdoc/require-param': 'error',
+  'jsdoc/require-param-description': 'error',
+  'jsdoc/require-param-name': 'error',
+  'jsdoc/require-param-type': 'off',
+  'jsdoc/require-returns': 'error',
+  'jsdoc/require-returns-check': 'error',
+  'jsdoc/require-returns-description': 'error',
+  'jsdoc/require-returns-type': 'off',
+  'jsdoc/valid-types': 'off'
+};
+
 const jestPluginRules = {
   // https://github.com/jest-community/eslint-plugin-jest
   'jest/expect-expect': ['error', { assertFunctionNames: ['expect*'] }],
@@ -109,6 +132,7 @@ module.exports = {
     project: './tsconfig.json', // required for rules that need type information
     extraFileExtensions: ['.vue']
   },
+  plugins: ['jsdoc', 'eslint-plugin-tsdoc'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
@@ -119,6 +143,7 @@ module.exports = {
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
+    'plugin:jsdoc/recommended',
     'plugin:jest/recommended',
     'plugin:jest/style',
     'plugin:cypress/recommended',
@@ -127,10 +152,12 @@ module.exports = {
   ],
   rules: {
     'prettier/prettier': 'error',
+    'tsdoc/syntax': 'error',
     ...esLintRules,
     ...tsLintRules,
     ...vuePluginRules,
     ...importPluginRules,
+    ...jsDocRules,
     ...jestPluginRules
   },
   overrides: [
@@ -138,6 +165,15 @@ module.exports = {
       files: ['**/__tests__/*.{j,t}s?(x)', '**/tests/unit/**/*.spec.{j,t}s?(x)'],
       env: {
         jest: true
+      },
+      rules: {
+        'jsdoc/require-jsdoc': 'off'
+      }
+    },
+    {
+      files: ['**/*.vue'],
+      rules: {
+        'jsdoc/empty-tags': 'off'
       }
     }
   ]

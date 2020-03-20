@@ -8,7 +8,7 @@ const adapter = new EmpathyAdapterBuilder()
   .build(); // TODO It should be injected
 
 /**
- * {@link XStoreModule} for the next-queries module
+ * {@link XStoreModule} For the next-queries module.
  *
  * @internal
  */

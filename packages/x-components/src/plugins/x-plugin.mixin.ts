@@ -12,9 +12,10 @@ declare module 'vue/types/vue' {
 }
 
 /**
- * Vue global mixin that adds a `$x` object to every component with the {@link XComponentAPI}
+ * Vue global mixin that adds a `$x` object to every component with the {@link XComponentAPI}.
  *
- * @param config - The global {@link XConfig}
+ * @param config - The global {@link XConfig}.
+ * @returns Mixin options which registers the component as X-Component and the $x.
  * @internal
  */
 export const createXComponentAPIMixin = (
@@ -39,10 +40,10 @@ export const createXComponentAPIMixin = (
 });
 
 /**
- * Given a component, finds the root XComponent in the ancestors hierarchy
+ * Given a component, finds the root XComponent in the ancestors hierarchy.
  *
- * @param component - The component to find its root XComponent
- * @returns The root XComponent or undefined if it has not
+ * @param component - The component to find its root XComponent.
+ * @returns The root XComponent or undefined if it has not.
  * @public
  */
 export function getRootXComponent(component: Vue): Vue | undefined {

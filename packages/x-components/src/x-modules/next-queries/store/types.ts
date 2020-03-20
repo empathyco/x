@@ -4,51 +4,52 @@ import { XStoreModule } from '../../../store';
 import { NextQueriesConfig } from '../config.types';
 
 /**
- * Next queries module state
+ * Next queries module state.
  *
  * @public
  */
 export interface NextQueriesState {
-  /** The internal query of the module. Used to request the next queries */
+  /** The internal query of the module. Used to request the next queries. */
   query: string;
-  /** The list of the next queries, related to the `query` property of the state */
+  /** The list of the next queries, related to the `query` property of the state. */
   nextQueries: NextQuery[];
-  /**  Configuration options of the next queries module */
+  /** Configuration options of the next queries module. */
   config: NextQueriesConfig;
 }
 
 /**
- * Next queries module getters
+ * Next queries module getters.
  *
  * @public
  */
 export interface NextQueriesGetters {
-  /** Request object to retrieve the next queries using the search adapter, or null if there is not valid data to conform a valid request */
+  /** Request object to retrieve the next queries using the search adapter, or null if there is
+   * not valid data to conform a valid request. */
   request: NextQueriesRequest | null;
 }
 
 /**
- * Next queries module mutations
+ * Next queries module mutations.
  *
  * @public
  */
 export interface NextQueriesMutations {
   /**
-   * Sets the query of the module, which is used to retrieve the next-queries
+   * Sets the query of the module, which is used to retrieve the next-queries.
    *
-   * @param newQuery - The new query to save to the state
+   * @param newQuery - The new query to save to the state.
    */
   setQuery(newQuery: string): void;
   /**
-   * Sets the next queries of the module
+   * Sets the next queries of the module.
    *
-   * @param nextQueries - The new next queries to save to the state
+   * @param nextQueries - The new next queries to save to the state.
    */
   setNextQueries(nextQueries: NextQuery[]): void;
 }
 
 /**
- * Next queries module actions
+ * Next queries module actions.
  *
  * @public
  */
@@ -56,17 +57,17 @@ export interface NextQueriesActions {
   /**
    * Requests a new set of next queries for the module query, and returns them .
    *
-   * @returns An array of next queries
+   * @returns An array of next queries.
    */
   getNextQueries(): NextQuery[];
   /**
-   * Requestes a new set of next queries and stores them in the module
+   * Requestes a new set of next queries and stores them in the module.
    */
   retrieveNextQueries(): void;
 }
 
 /**
- * Next queries store module
+ * Next queries store module.
  *
  * @public
  */

@@ -40,42 +40,55 @@ import { AnyXStoreModuleOptions, XConfig, XModuleOptions, XPluginOptions } from 
  * @public
  */
 export class XPlugin {
-  /** Instance of the singleton
+  /** Instance of the singleton.
+   *
    * @internal
    */
   protected static instance = new XPlugin();
-  /** Bus for retrieving the observables when registering the wiring
+  /** Bus for retrieving the observables when registering the wiring.
+   *
    * @internal
    */
   protected bus = bus; // TODO Inject this constructor
-  /** Set of the already installed {@link XModule | XModules} to avoid re-registering them
+  /** Set of the already installed {@link XModule | XModules} to avoid re-registering them.
+   *
    * @internal
    */
   protected installedXModules = new Set<string>();
-  /** True if the plugin has been installed in a Vue instance, in this case {@link XModule | Xmodules} will be installed immediately.
-   * False otherwise, in this case {@link XModule | XModules} will be installed lazily when the
-   * {@link XPlugin#install} method is called.
+  /** True if the plugin has been installed in a Vue instance, in this case
+   * {@link XModule |Xmodules} will be installed immediately. False otherwise, in this case
+   * {@link XModule | XModules} will be installed lazily when the {@link XPlugin#install} method
+   * is called.
+   *
    * @internal
    */
   protected isInstalled = false;
-  /** The install options of the plugin, where all the customization of {@link XModule | XModules} is done
+  /** The install options of the plugin, where all the customization of
+   * {@link XModule | XModules} is done.
+   *
    * @internal
    */
   protected options!: XPluginOptions;
-  /** Record of modules that have been tried to be installed before the installation of the plugin
+  /** Record of modules that have been tried to be installed before the installation of the plugin.
+   *
    * @internal
    */
   protected pendingXModules: Partial<Record<XModuleName, AnyXModule>> = {};
-  /** The Vuex store, to pass to the wires for its registration, and to register the store modules on it
+  /** The Vuex store, to pass to the wires for its registration, and to register the store
+   * modules on it.
+   *
    * @internal
    */
   protected store!: Store<any>;
-  /** The global Vue, passed by the install method. Used to apply the global mixin {@link createXComponentAPIMixin},
-   * and install the {@link https://vuex.vuejs.org/ | Vuex} plugin
+  /** The global Vue, passed by the install method. Used to apply the global mixin
+   * {@link createXComponentAPIMixin}, and install the {@link https://vuex.vuejs.org/ | Vuex}
+   * plugin.
+   *
    * @internal
    */
   protected vue!: VueConstructor;
-  /** The {@link XConfig} is a reactive configuration
+  /** The {@link XConfig} is a reactive configuration.
+   *
    * @internal
    */
   protected xConfig!: XConfig;
@@ -84,15 +97,16 @@ export class XPlugin {
    * Protected constructor to ensure that this class is only instantiated once.
    * It needs to be a singleton because Vue accepts either a function as plugin, or an object that
    * exposes an install(...) method.
+   *
    * @internal
    */
   protected constructor() {}
 
   /**
-   * Installs the plugin into the Vue instance
+   * Installs the plugin into the Vue instance.
    *
-   * @param vue - The GlobalVue object
-   * @param options - The options to install this plugin with
+   * @param vue - The GlobalVue object.
+   * @param options - The options to install this plugin with.
    * @internal
    */
   static install(vue: VueConstructor, options: XPluginOptions = {}): void {
@@ -108,9 +122,9 @@ export class XPlugin {
 
   /**
    * If the plugin has already been installed, it immediately registers a {@link XModule}. If it
-   * has not been installed yet, it stores the module in a list until the plugin is installed
+   * has not been installed yet, it stores the module in a list until the plugin is installed.
    *
-   * @param xModule - The module to register
+   * @param xModule - The module to register.
    */
   static registerXModule(xModule: AnyXModule): void {
     const instance = this.instance;
@@ -122,9 +136,9 @@ export class XPlugin {
   }
 
   /**
-   * Performs the registration of a {@link XModule}
+   * Performs the registration of a {@link XModule}.
    *
-   * @param xModule - The module to register
+   * @param xModule - The module to register.
    * @internal
    */
   protected registerXModule({ name, wiring, storeModule, storeEmitters }: AnyXModule): void {
@@ -138,9 +152,9 @@ export class XPlugin {
 
   /**
    * Stores the {@link XModule} in a dictionary, so it can be registered later in the install
-   * process
+   * process.
    *
-   * @param xModule - The module to register
+   * @param xModule - The module to register.
    * @internal
    */
   protected lazyRegisterXModule(xModule: AnyXModule): void {
@@ -149,10 +163,10 @@ export class XPlugin {
 
   /**
    * Performs the registration of the wiring, retrieving the observable for each event, and
-   * executing each wire
+   * executing each wire.
    *
-   * @param name - The name of the {@link XModule} of the wiring
-   * @param wiring - The wiring to register
+   * @param name - The name of the {@link XModule} of the wiring.
+   * @param wiring - The wiring to register.
    * @internal
    */
   protected registerWiring(name: XModuleName, wiring: Partial<Wiring>): void {
@@ -171,10 +185,10 @@ export class XPlugin {
   }
 
   /**
-   * Registers a {@link https://vuex.vuejs.org/ | Vuex} store module under the 'x' module
+   * Registers a {@link https://vuex.vuejs.org/ | Vuex} store module under the 'x' module.
    *
-   * @param name - The module name
-   * @param storeModule - The module definition to register
+   * @param name - The module name.
+   * @param storeModule - The module definition to register.
    * @internal
    */
   protected registerStoreModule(name: XModuleName, storeModule: AnyXStoreModule): void {
@@ -188,10 +202,11 @@ export class XPlugin {
   }
 
   /**
-   * Adds to a {@link https://vuex.vuejs.org/ | Vuex} store module the mutation `setConfig` if the module has a `config` in its state
+   * Adds to a {@link https://vuex.vuejs.org/ | Vuex} store module the mutation `setConfig` if
+   * the module has a `config` in its state.
    *
-   * @param storeModule - The module definition to add the mutation
-   * @returns the same module with the new mutation
+   * @param storeModule - The module definition to add the mutation.
+   * @returns The same module with the new mutation.
    *
    * @internal
    */
@@ -210,9 +225,10 @@ export class XPlugin {
   }
 
   /**
-   * Creates a default set config mutation which simply assigns the new configuration entry to the state
+   * Creates a default set config mutation which simply assigns the new configuration entry to
+   * the state.
    *
-   * @returns A default implementation of the setConfig mutation
+   * @returns A default implementation of the setConfig mutation.
    * @internal
    */
   protected getDefaultSetConfigMutation(): (state: any, config: any) => void {
@@ -222,10 +238,10 @@ export class XPlugin {
   }
 
   /**
-   * Checks if a {@link https://vuex.vuejs.org/ | Vuex} store module has `config` in the state
+   * Checks if a {@link https://vuex.vuejs.org/ | Vuex} store module has `config` in the state.
    *
-   * @param storeModule - The module definition to add the mutation
-   * @returns boolean - true if the module has config in its state, false if not
+   * @param storeModule - The module definition to add the mutation.
+   * @returns Boolean - true if the module has config in its state, false if not.
    *
    * @internal
    */
@@ -236,9 +252,10 @@ export class XPlugin {
   }
 
   /**
-   * Retrieves the override options of an {@link XModule}
+   * Retrieves the override options of an {@link XModule}.
    *
-   * @param name - The module name
+   * @param name - The module name.
+   * @returns Options of the {@link XModule}.
    * @internal
    */
   protected getModuleOptions(name: XModuleName): XModuleOptions<AnyXModule> | undefined {
@@ -246,10 +263,11 @@ export class XPlugin {
   }
 
   /**
-   * Overrides a {@link https://vuex.vuejs.org/ | Vuex} store module definition
+   * Overrides a {@link https://vuex.vuejs.org/ | Vuex} store module definition.
    *
-   * @param defaultModule - The module to override its configuration
-   * @param moduleOptions - The options to override the defaultModule
+   * @param defaultModule - The module to override its configuration.
+   * @param moduleOptions - The options to override the defaultModule.
+   * @returns The {@link XStoreModule} customized.
    * @internal
    */
   protected customizeStoreModule(
@@ -263,11 +281,11 @@ export class XPlugin {
 
   /**
    * Registers the store emitters, making them emit the event when the part of the state selected
-   * changes
+   * changes.
    *
-   * @param name - The module name
-   * @param storeModule - The store module to retrieve its state and getters
-   * @param storeEmitters - The store emitters to register
+   * @param name - The module name.
+   * @param storeModule - The store module to retrieve its state and getters.
+   * @param storeEmitters - The store emitters to register.
    * @internal
    */
   protected registerStoreEmitters(
@@ -300,10 +318,11 @@ export class XPlugin {
   /**
    * Creates a proxy object of the getters of the storeModule passed, which will be the object
    * passed as getters to the stateSelector, of the module. This is done to ensure that a Vuex
-   * StateSelector can only access the getters of the {@link XModule} where it is registered
+   * stateSelector can only access the getters of the {@link XModule} where it is registered.
    *
-   * @param moduleName - The name of the module
-   * @param storeModule - The store module
+   * @param moduleName - The name of the module.
+   * @param storeModule - The store module.
+   * @returns Dictionary with only the getters of the {@link XModule}.
    * @internal
    */
   protected getModuleGetters(moduleName: XModuleName, storeModule: AnyXStoreModule): Dictionary {
@@ -327,12 +346,13 @@ export class XPlugin {
    * Registers the {@link https://vuex.vuejs.org/ | Vuex} store. If the store has not been passed
    * through the {@link XPluginOptions} object, it creates one, and injects it in the Vue
    * prototype. Then it register an x module in the store, to safe scope all the
-   * {@link XModule | XModules} dynamically installed
+   * {@link XModule | XModules} dynamically installed.
    *
    * @internal
    */
   protected registerStore(): void {
-    this.vue.use(Vuex); // We can safely install Vuex because if it is already installed Vue will simply ignore it
+    this.vue.use(Vuex); // We can safely install Vuex because if it is already installed Vue
+    // will simply ignore it
     this.store =
       this.options.store ??
       new Store({
@@ -345,7 +365,7 @@ export class XPlugin {
   }
 
   /**
-   * Applies the {@link createXComponentAPIMixin} mixin in the global Vue
+   * Applies the {@link createXComponentAPIMixin} mixin in the global Vue.
    *
    * @internal
    */
@@ -356,7 +376,7 @@ export class XPlugin {
 
   /**
    * Registers the pending {@link XModule | XModules}, that requested to be registered before the
-   * installation of the plugin
+   * installation of the plugin.
    *
    * @internal
    */
@@ -367,7 +387,7 @@ export class XPlugin {
   }
 
   /**
-   * Registers the global reactive {@link XConfig}
+   * Registers the global reactive {@link XConfig}.
    *
    * @internal
    */
@@ -377,16 +397,17 @@ export class XPlugin {
     if (config.adapter == null) {
       logger.warn(
         '[XPlugin]',
-        "The configuration doesn't seem to have an adapter. Please, create one and use it in the configuration"
+        `The configuration doesn't seem to have an adapter. Please, create one and use it in the
+        configuration`
       );
     }
     this.xConfig = registerReactiveConfig(this.bus, config);
   }
 
   /**
-   * Overrides the existing {@link XConfig}
+   * Overrides the existing {@link XConfig}.
    *
-   * @param config - The new or partially new global {@link XConfig}
+   * @param config - The new or partially new global {@link XConfig}.
    * @public
    */
   static setConfig(config: DeepPartial<XConfig>): void {
@@ -394,9 +415,9 @@ export class XPlugin {
   }
 
   /**
-   * Gets the global reactive {@link XConfig}
+   * Gets the global reactive {@link XConfig}.
    *
-   * @returns config - The xConfig
+   * @returns Config - The xConfig.
    * @public
    */
   static getConfig(): XConfig {
@@ -405,9 +426,10 @@ export class XPlugin {
 
   /**
    * Checks if a the type of the store emitter selector is simple or complex. This selector can be
-   * a function if it is simple or an object with the selector and other options if it is complex
+   * a function if it is simple or an object with the selector and other options if it is complex.
    *
-   * @param stateSelector - The store emitter selector
+   * @param stateSelector - The store emitter selector.
+   * @returns A boolean which flags if the stateSelector is simple (function) or complex (object).
    * @internal
    */
   protected isSimpleSelector(

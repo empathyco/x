@@ -11,28 +11,29 @@ import Vue from 'vue';
 export interface XComponent extends Vue {
   /**
    * Property to store the x-component module name.
-   * If any component has this property, it means that it is an XComponent
+   * If any component has this property, it means that it is an XComponent.
    *
    * @internal
    */
   [XComponentModule]: XModuleName;
   /**
-   * If implemented, method that handles setting a single configuration value
+   * If implemented, method that handles setting a single configuration value.
    *
-   * @param configPropName -  The name of the configuration option to set
-   * @param configPropValue - The value of the configuration option to set
+   * @param configPropName -  The name of the configuration option to set.
+   * @param configPropValue - The value of the configuration option to set.
    */
   setConfig?(configPropName: string, configPropValue: any): void;
 }
 
 /**
- * Options to be passed to the mixin factory {@link xComponentMixin}, an which allows customizing its behavior
+ * Options to be passed to the mixin factory {@link xComponentMixin}, an which allows
+ * customizing its behavior.
  *
  * @public
  */
 export interface XComponentOptions {
   /**
-   * Configuration key names to be generated as prop for an XComponent
+   * Configuration key names to be generated as prop for an XComponent.
    */
   configPropsNames?: string[];
 }

@@ -78,16 +78,19 @@ describe('testing wires operators', () => {
         expect(executeFunction).toHaveBeenCalledTimes(truthyValues.length);
       });
 
-      test(`${filterTruthyPayload.name} avoids executing the wire when the payload is truthy`, () => {
-        const filteredWire = filterTruthyPayload(wire);
-        filteredWire(subject, store);
+      test(
+        filterTruthyPayload.name + ' avoids executing the wire when the payload is truthy',
+        () => {
+          const filteredWire = filterTruthyPayload(wire);
+          filteredWire(subject, store);
 
-        truthyValues.forEach(value => next(value));
-        expect(executeFunction).not.toHaveBeenCalled();
+          truthyValues.forEach(value => next(value));
+          expect(executeFunction).not.toHaveBeenCalled();
 
-        falsyValues.forEach(value => next(value));
-        expect(executeFunction).toHaveBeenCalledTimes(falsyValues.length);
-      });
+          falsyValues.forEach(value => next(value));
+          expect(executeFunction).toHaveBeenCalledTimes(falsyValues.length);
+        }
+      );
     });
 
     describe('events origin filter operators', () => {
@@ -102,45 +105,53 @@ describe('testing wires operators', () => {
         };
       }
 
-      test(`${filterWhitelistedModules.name} discards emitted values if their metadata moduleName is not in the whitelist`, () => {
-        const filteredWire = filterWhitelistedModules(wire, ['nextQueries', null]);
-        filteredWire(subject, store);
+      test(
+        filterWhitelistedModules.name +
+          ' discards emitted values if their metadata moduleName is not in the whitelist',
+        () => {
+          const filteredWire = filterWhitelistedModules(wire, ['nextQueries', null]);
+          filteredWire(subject, store);
 
-        next('not-emitted', 'popularSearches');
-        expect(executeFunction).not.toHaveBeenCalled();
+          next('not-emitted', 'popularSearches');
+          expect(executeFunction).not.toHaveBeenCalled();
 
-        next('emitted-1');
-        next('emitted-2', 'nextQueries');
-        expect(executeFunction).toHaveBeenCalledTimes(2);
-        expect(executeFunction).toHaveBeenNthCalledWith(
-          1,
-          getExpectedCallParameters('emitted-1', null)
-        );
-        expect(executeFunction).toHaveBeenNthCalledWith(
-          2,
-          getExpectedCallParameters('emitted-2', 'nextQueries')
-        );
-      });
+          next('emitted-1');
+          next('emitted-2', 'nextQueries');
+          expect(executeFunction).toHaveBeenCalledTimes(2);
+          expect(executeFunction).toHaveBeenNthCalledWith(
+            1,
+            getExpectedCallParameters('emitted-1', null)
+          );
+          expect(executeFunction).toHaveBeenNthCalledWith(
+            2,
+            getExpectedCallParameters('emitted-2', 'nextQueries')
+          );
+        }
+      );
 
-      test(`${filterBlacklistedModules.name} discards emitted values if their metadata moduleName is in the blacklist`, () => {
-        const filteredWire = filterBlacklistedModules(wire, ['searchBox']);
-        filteredWire(subject, store);
+      test(
+        filterBlacklistedModules.name +
+          ' discards emitted values if their metadata moduleName is in the blacklist',
+        () => {
+          const filteredWire = filterBlacklistedModules(wire, ['searchBox']);
+          filteredWire(subject, store);
 
-        next('not-emitted', 'searchBox');
-        expect(executeFunction).not.toHaveBeenCalled();
+          next('not-emitted', 'searchBox');
+          expect(executeFunction).not.toHaveBeenCalled();
 
-        next('emitted-1');
-        next('emitted-2', 'nextQueries');
-        expect(executeFunction).toHaveBeenCalledTimes(2);
-        expect(executeFunction).toHaveBeenNthCalledWith(
-          1,
-          getExpectedCallParameters('emitted-1', null)
-        );
-        expect(executeFunction).toHaveBeenNthCalledWith(
-          2,
-          getExpectedCallParameters('emitted-2', 'nextQueries')
-        );
-      });
+          next('emitted-1');
+          next('emitted-2', 'nextQueries');
+          expect(executeFunction).toHaveBeenCalledTimes(2);
+          expect(executeFunction).toHaveBeenNthCalledWith(
+            1,
+            getExpectedCallParameters('emitted-1', null)
+          );
+          expect(executeFunction).toHaveBeenNthCalledWith(
+            2,
+            getExpectedCallParameters('emitted-2', 'nextQueries')
+          );
+        }
+      );
     });
   });
 
@@ -148,26 +159,30 @@ describe('testing wires operators', () => {
     beforeAll(jest.useFakeTimers);
     afterAll(jest.useRealTimers);
 
-    test(`${debounce.name} discards emitted values that take less than the specified time between output`, () => {
-      const debouncedWire = debounce(wire, 500);
-      debouncedWire(subject, store);
+    test(
+      debounce.name +
+        ' discards emitted values that take less than the specified time between output',
+      () => {
+        const debouncedWire = debounce(wire, 500);
+        debouncedWire(subject, store);
 
-      next(1);
-      next(2);
-      next(3);
-      next(4);
-      next(5);
+        next(1);
+        next(2);
+        next(3);
+        next(4);
+        next(5);
 
-      expect(executeFunction).not.toHaveBeenCalled();
-      jest.runAllTimers();
+        expect(executeFunction).not.toHaveBeenCalled();
+        jest.runAllTimers();
 
-      expect(executeFunction).toHaveBeenCalledTimes(1);
-      expect(executeFunction).toHaveBeenCalledWith({
-        store,
-        eventPayload: 5,
-        metadata: expect.any(Object)
-      });
-    });
+        expect(executeFunction).toHaveBeenCalledTimes(1);
+        expect(executeFunction).toHaveBeenCalledWith({
+          store,
+          eventPayload: 5,
+          metadata: expect.any(Object)
+        });
+      }
+    );
 
     test(`${throttle.name} emits first value, and then ignores for the specified duration`, () => {
       const throttledWire = throttle(wire, 500);

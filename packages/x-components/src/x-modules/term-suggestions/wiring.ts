@@ -2,20 +2,20 @@ import { withModule } from '../../wiring/wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
- * TermSuggestions wires factory
+ * TermSuggestions wires factory.
  *
  * @public
  */
 export const termSuggestionsModule = withModule('termSuggestions');
 
 /**
- * Sets the term suggestions query
+ * Sets the term suggestions query.
  *
  * @public
  */
 export const setTermSuggestionsQuery = termSuggestionsModule.wireCommit('setQuery');
 /**
- * Requests and stores a new set of the term suggestions for the {@link TermSuggestionsState.query}
+ * Requests and stores a new set of the term suggestions for the {@link TermSuggestionsState.query}.
  *
  * @public
  */
@@ -24,7 +24,7 @@ export const retrieveTermSuggestions = termSuggestionsModule.wireDispatchWithout
 );
 
 /**
- * TermSuggestions wiring
+ * TermSuggestions wiring.
  *
  * @internal
  */

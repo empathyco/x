@@ -174,7 +174,8 @@ describe('testing object utils', () => {
   });
 
   describe('map', () => {
-    const mapCallback = jest.fn((_: string, propertyValue: any) => !!propertyValue); // Transform each property to a boolean
+    const mapCallback = jest.fn((_: string, propertyValue: any) => !!propertyValue);
+    // Transform each property to a boolean
 
     it('iterates through object properties', () => {
       const obj = {

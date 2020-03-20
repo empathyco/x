@@ -4,8 +4,8 @@ import { Dictionary } from './types';
  * Iterates over every non-undefined property of the object calling the callback passed as
  * parameter.
  *
- * @param obj - The object to iterate through each property
- * @param callbackFn - The callback function to call for each property
+ * @param obj - The object to iterate through each property.
+ * @param callbackFn - The callback function to call for each property.
  * @public
  */
 export function forEach<T extends Dictionary>(
@@ -26,12 +26,13 @@ export function forEach<T extends Dictionary>(
 }
 
 /**
- * Iterates through the obj properties calling the reducer function
+ * Iterates through the obj properties calling the reducer function.
  *
- * @param obj - The object to iterate through each property
+ * @param obj - The object to iterate through each property.
  * @param reducer - A function that will be called for each property, modifying the initialValue
- *   object
+ * object.
  * @param initialValue - The initial value of the accumulator property of the reducer function.
+ * @returns Result of the reducer function.
  * @public
  */
 export function reduce<T extends Dictionary, V>(
@@ -54,8 +55,9 @@ export function reduce<T extends Dictionary, V>(
 /**
  * Creates an object from another object transforming each property value.
  *
- * @param obj - The object to transform each property value
+ * @param obj - The object to transform each property value.
  * @param mapper - The mapper function which will transform each value.
+ * @returns A record with the result of the mapper.
  * @public
  */
 export function map<T extends Dictionary, W>(

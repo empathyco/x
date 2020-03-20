@@ -4,12 +4,13 @@ import { DecoratorFor } from '../utils';
 import { ExtractGetters, ExtractState, XModuleName } from '../x-modules/x-modules.types';
 
 /**
- * Generates a computed property which returns the selected state
+ * Generates a computed property which returns the selected state.
  *
- * The decorated property needs to be public for type inference to work
+ * The decorated property needs to be public for type inference to work.
  *
- * @param module - The {@link XModuleName} of the getter
- * @param path - The state path
+ * @param module - The {@link XModuleName} of the getter.
+ * @param path - The state path.
+ * @returns Decorator with the state properties of the module.
  * @public
  */
 export function State<Module extends XModuleName, Path extends keyof ExtractState<Module>>(
@@ -29,12 +30,13 @@ export function State<Module extends XModuleName, Path extends keyof ExtractStat
 }
 
 /**
- * Generates a computed property which returns the selected getter value
+ * Generates a computed property which returns the selected getter value.
  *
- * The decorated property needs to be public for type inference to work
+ * The decorated property needs to be public for type inference to work.
  *
- * @param module - The {@link XModuleName} of the getter
- * @param getter - The getter name
+ * @param module - The {@link XModuleName} of the getter.
+ * @param getter - The getter name.
+ * @returns Decorator with the getters of the module.
  * @public
  */
 export function Getter<Module extends XModuleName, GetterName extends keyof ExtractGetters<Module>>(

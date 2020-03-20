@@ -2,10 +2,11 @@ import { Dictionary } from '../utils';
 import { RootXStoreState } from './store.types';
 
 /**
- * Type safe getters definition type. An object with this type is what it is needed to define {@link https://vuex.vuejs.org/ | Vuex} getters
+ * Type safe getters definition type. An object with this type is what it is needed to define
+ * {@link https://vuex.vuejs.org/ | Vuex} getters.
  *
- * @param State - the module state dictionary type definition
- * @param Getters - the module getters dictionary type definition
+ * @param State - The module state dictionary type definition.
+ * @param Getters - The module getters dictionary type definition.
  * @public
  */
 export type GettersTree<State extends Dictionary, Getters extends Dictionary> = {
@@ -17,7 +18,8 @@ export type GettersTree<State extends Dictionary, Getters extends Dictionary> = 
   ) => Getters[Key];
 };
 /**
- * Alias for any getters tree. Use only when you don't care about the type
+ * Alias for any getters tree. Use only when you don't care about the type.
+ *
  * @public
  */
 export type AnyGettersTree = GettersTree<Dictionary, Dictionary>;

@@ -2,10 +2,11 @@ import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Module, Store } from 'vuex';
 
 /**
- * When dynamically registering modules, Vuex re-executes watchers, if the watcher is over a primitive value, it is stopped due to a simple
- * === comparison, but when it is over a complex object or array, the comparison fails, and it emits that the value has changed. Looks like
+ * When dynamically registering modules, Vuex re-executes watchers, if the watcher is over a
+ * primitive value, it is stopped due to a simple === comparison, but when it is over a complex
+ * object or array, the comparison fails, and it emits that the value has changed. Looks like
  * this behavior is intended. Vuex store is reset when registering a new module.
- * @link https://github.com/vuejs/vuex/issues/524#issuecomment-267715183
+ * {@link https://github.com/vuejs/vuex/issues/524#issuecomment-267715183}.
  */
 interface StoreRootState {
   first: FirstState;
@@ -179,6 +180,7 @@ describe('testing Vuex watcher hacks', () => {
     await localVue.nextTick();
     expect(watchCallback).not.toHaveBeenCalled();
   }
+
   async function doesNotEagerExecuteGettersWatchers(): Promise<void> {
     expect.assertions(1);
     store.registerModule('first', firstModule);

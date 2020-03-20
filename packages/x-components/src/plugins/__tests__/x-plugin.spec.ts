@@ -106,7 +106,8 @@ describe('testing X Plugin', () => {
       expect(wireToReplace).not.toHaveBeenCalled();
       expect(wireToRemove).not.toHaveBeenCalled();
       expect(wire).not.toHaveBeenCalled();
-      expect(store.state.x).not.toBeDefined(); // If the state is not registered I'm 100% sure that there won't be actions, mutations or getters.
+      expect(store.state.x).not.toBeDefined(); // If the state is not registered I'm 100% sure
+      // that there won't be actions, mutations or getters.
       expect(userTypedSelector).not.toHaveBeenCalled();
       expect(userSelectedAQuerySelector).not.toHaveBeenCalled();
       expect(userIsChangingQuerySelector).not.toHaveBeenCalled();
@@ -149,7 +150,8 @@ describe('testing X Plugin', () => {
               propToReplace: "I'm new"
             },
             newProp: 'New prop'
-          } as any, // There is some issue with ts-jest that throws different errors of the TS service
+          } as any, // There is some issue with ts-jest that throws different errors of the TS
+          // service
           getters: {
             getterToReplace() {
               return 4;
@@ -356,22 +358,26 @@ describe('testing X Plugin', () => {
       });
     });
 
-    it("store-emitters don't emit multiple events if the events that are modifying the observed value are emitted synchronously", async () => {
-      component.vm.$x.emit('UserTyped', 'New York strip steak');
-      component.vm.$x.emit('UserTyped', 'Prime rib');
-      component.vm.$x.emit('UserTyped', 'Tomahawk steak');
+    it(
+      "store-emitters don't emit multiple events if the events that are modifying the observed" +
+        ' value are emitted synchronously',
+      async () => {
+        component.vm.$x.emit('UserTyped', 'New York strip steak');
+        component.vm.$x.emit('UserTyped', 'Prime rib');
+        component.vm.$x.emit('UserTyped', 'Tomahawk steak');
 
-      await localVue.nextTick();
+        await localVue.nextTick();
 
-      expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(1);
-      expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith({
-        eventPayload: 'Tomahawk steak',
-        metadata: {
-          moduleName: 'searchBox'
-        },
-        store
-      });
-    });
+        expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(1);
+        expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith({
+          eventPayload: 'Tomahawk steak',
+          metadata: {
+            moduleName: 'searchBox'
+          },
+          store
+        });
+      }
+    );
 
     it("store-emitters don't emit an event if value is reset synchronously", async () => {
       component.vm.$x.emit('UserTyped', 'chinchulines');
@@ -388,6 +394,7 @@ describe('testing X Plugin', () => {
       config: { testConfig: false }
     });
     const defaultSetConfigMutation = jest.fn();
+
     function createXModule({
       withConfigState,
       withSetConfigMutation
@@ -449,13 +456,17 @@ describe('testing X Plugin', () => {
       });
     });
 
-    it('is created if it is not present in the default module definition or in the x-module store options', () => {
-      const module = createXModule({ withConfigState: true, withSetConfigMutation: false });
-      localVue.use(plugin, { store });
-      plugin.registerXModule(module);
-      store.commit('x/searchBox/setConfig', { testConfig: true });
+    it(
+      'is created if it is not present in the default module definition or in the x-module ' +
+        'store options',
+      () => {
+        const module = createXModule({ withConfigState: true, withSetConfigMutation: false });
+        localVue.use(plugin, { store });
+        plugin.registerXModule(module);
+        store.commit('x/searchBox/setConfig', { testConfig: true });
 
-      expect(store.state.x.searchBox.config.testConfig).toEqual(true);
-    });
+        expect(store.state.x.searchBox.config.testConfig).toEqual(true);
+      }
+    );
   });
 });

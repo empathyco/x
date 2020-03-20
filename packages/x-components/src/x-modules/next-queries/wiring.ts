@@ -2,21 +2,21 @@ import { withModule } from '../../wiring/wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
- *  The next queries wire factory
+ * The next queries wire factory.
  *
- *  @public
+ * @public
  */
 export const nextQueriesModule = withModule('nextQueries');
 
 /**
- * Sets the next queries state `query`
+ * Sets the next queries state `query`.
  *
  * @public
  */
 export const setNextQueriesQuery = nextQueriesModule.wireCommit('setQuery');
 
 /**
- * Requests and stores the next queries
+ * Requests and stores the next queries.
  *
  * @public
  */
@@ -25,7 +25,7 @@ export const retrieveNextQueries = nextQueriesModule.wireDispatchWithoutPayload(
 );
 
 /**
- * Next queries wiring configuration
+ * Next queries wiring configuration.
  *
  * @internal
  */

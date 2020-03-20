@@ -1,9 +1,9 @@
 /**
- * Available options to format currency values
+ * Available options to format currency values.
  *
  * @public
  */
 export interface CurrencyOptions {
-  /** Currency symbol (i.e. €, $, etc...) */
+  /** Currency symbol (i.e. €, $, etc...). */
   symbol: string;
 }

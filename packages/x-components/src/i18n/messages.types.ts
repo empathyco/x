@@ -1,5 +1,5 @@
 /**
- * Components messages
+ * Components messages.
  *
  * @public
  */
@@ -11,7 +11,7 @@ export interface Messages {
 }
 
 /**
- * A message or a container of messages
+ * A message or a container of messages.
  *
  * @public
  */
