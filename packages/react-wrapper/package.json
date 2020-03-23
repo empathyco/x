@@ -1,0 +1,16 @@
+{
+  "name": "react-wrapper",
+  "version": "0.0.0",
+  "description": "A proxy that transforms Vue components into React ones",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://cbn-javieri@bitbucket.org/colbenson/react-wrapper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/colbenson/react-wrapper#readme"
+}
