@@ -8,6 +8,7 @@ import { createWiring } from '../../wiring/wiring.utils';
 import { AnyXModule } from '../../x-modules/x-modules.types';
 import { XPlugin } from '../x-plugin';
 import { XModulesOptions, XPluginOptions } from '../x-plugin.types';
+import { SearchAdapterDummy } from './adapter.dummy';
 
 const wireToReplace: AnyWire = jest.fn();
 const wireToRemove: AnyWire = jest.fn();
@@ -76,17 +77,21 @@ describe('testing X Plugin', () => {
     store = new Store({});
   });
 
-  describe('install XPlugin without options', () => {
+  describe('install XPlugin without overriding options', () => {
+    it('throws an error if no options are passed', () => {
+      expect(() => localVue.use(plugin)).toThrow();
+    });
+
     it('allows registering a x-module before installing', () => {
       plugin.registerXModule(xModule);
       expectDefaultModuleToBeNotRegistered();
 
-      localVue.use(plugin, { store });
+      localVue.use(plugin, { store, adapter: SearchAdapterDummy });
       expectDefaultModuleToBeRegisteredOnce();
     });
 
     it('allows registering a x-module after installing', () => {
-      localVue.use(plugin, { store });
+      localVue.use(plugin, { store, adapter: SearchAdapterDummy });
       plugin.registerXModule(xModule);
 
       expectDefaultModuleToBeRegisteredOnce();
@@ -94,7 +99,7 @@ describe('testing X Plugin', () => {
 
     it('does not re-register a module', () => {
       plugin.registerXModule(xModule);
-      localVue.use(plugin, { store });
+      localVue.use(plugin, { store, adapter: SearchAdapterDummy });
       plugin.registerXModule(xModule);
 
       expectDefaultModuleToBeRegisteredOnce();
@@ -218,7 +223,8 @@ describe('testing X Plugin', () => {
         plugin.registerXModule(xModule);
         localVue.use(plugin, {
           xModules,
-          store
+          store,
+          adapter: SearchAdapterDummy
         });
       });
 
@@ -232,7 +238,8 @@ describe('testing X Plugin', () => {
       beforeEach(() => {
         localVue.use(plugin, {
           xModules,
-          store
+          store,
+          adapter: SearchAdapterDummy
         });
         plugin.registerXModule(xModule);
       });
@@ -247,6 +254,7 @@ describe('testing X Plugin', () => {
     const newWire = jest.fn();
     const replacedWire = jest.fn();
     const pluginOptions: XPluginOptions = {
+      adapter: SearchAdapterDummy,
       xModules: {
         searchBox: {
           wiring: {
@@ -326,7 +334,7 @@ describe('testing X Plugin', () => {
         wiring,
         storeEmitters
       });
-      localVue.use(plugin, { store });
+      localVue.use(plugin, { store, adapter: SearchAdapterDummy });
       component = shallowMount(
         {
           render(h) {
@@ -411,7 +419,7 @@ describe('testing X Plugin', () => {
     }
     it('setConfig mutation is not created if there is no module configuration', () => {
       const module = createXModule({ withConfigState: false, withSetConfigMutation: false });
-      localVue.use(plugin, { store });
+      localVue.use(plugin, { store, adapter: SearchAdapterDummy });
       plugin.registerXModule(module);
 
       expect(module.storeModule.mutations).not.toHaveProperty('setConfig');
@@ -419,7 +427,7 @@ describe('testing X Plugin', () => {
 
     it('setConfig mutation is not created if already present in the module definition', () => {
       const module = createXModule({ withConfigState: true, withSetConfigMutation: true });
-      localVue.use(plugin, { store });
+      localVue.use(plugin, { store, adapter: SearchAdapterDummy });
       plugin.registerXModule(module);
       store.commit('x/searchBox/setConfig', { testConfig: true });
 
@@ -441,7 +449,8 @@ describe('testing X Plugin', () => {
               }
             }
           }
-        }
+        },
+        adapter: SearchAdapterDummy
       });
       plugin.registerXModule(module);
       store.commit('x/searchBox/setConfig', { testConfig: true });
@@ -456,7 +465,7 @@ describe('testing X Plugin', () => {
         'store options',
       () => {
         const module = createXModule({ withConfigState: true, withSetConfigMutation: false });
-        localVue.use(plugin, { store });
+        localVue.use(plugin, { store, adapter: SearchAdapterDummy });
         plugin.registerXModule(module);
         store.commit('x/searchBox/setConfig', { testConfig: true });
 

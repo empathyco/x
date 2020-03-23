@@ -11,6 +11,11 @@ import { DocumentDirection } from '../plugins/x-plugin.types';
  */
 export interface XEventsTypes {
   /**
+   * The search adapter configuration has changed
+   * * Payload: The new search adapter configuration.
+   */
+  AdapterConfigChanged: unknown;
+  /**
    * The {@link XConfig.consent} has changed
    * * Payload: The new consent.
    */

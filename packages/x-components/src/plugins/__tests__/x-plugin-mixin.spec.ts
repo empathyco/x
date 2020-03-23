@@ -2,6 +2,7 @@ import { createLocalVue, mount, shallowMount, Wrapper } from '@vue/test-utils';
 import { ComponentOptions, default as Vue } from 'vue';
 import { xComponentMixin } from '../../components/x-component.mixin';
 import { searchBoxXModule } from '../../x-modules/search-box/x-module';
+import { SearchAdapterDummy } from './adapter.dummy';
 
 describe('testing $x component API global mixin', () => {
   const component: ComponentOptions<Vue> & ThisType<Vue> = {
@@ -12,7 +13,7 @@ describe('testing $x component API global mixin', () => {
   const xPlugin = require('../x-plugin').XPlugin;
   let componentInstance: Wrapper<Vue>;
   let localVue = createLocalVue();
-  localVue.use(xPlugin);
+  localVue.use(xPlugin, { adapter: SearchAdapterDummy });
 
   beforeEach(() => {
     componentInstance = shallowMount(component, { localVue });

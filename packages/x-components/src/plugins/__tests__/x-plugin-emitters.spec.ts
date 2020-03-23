@@ -5,6 +5,7 @@ import { createWireFromFunction } from '../../wiring/wires.factory';
 import { AnyXModule } from '../../x-modules/x-modules.types';
 import { XPlugin } from '../x-plugin';
 import { XPluginOptions } from '../x-plugin.types';
+import { SearchAdapterDummy } from './adapter.dummy';
 
 const wireInstance = jest.fn();
 const userIsTypingAQuerySelector = jest.fn();
@@ -50,6 +51,7 @@ describe('testing X Plugin emitters', () => {
   describe('install XPlugin overriding store emitters', () => {
     const newSearchBoxQueryChangedSelector = jest.fn();
     const pluginOptions: XPluginOptions = {
+      adapter: SearchAdapterDummy,
       xModules: {
         searchBox: {
           storeEmitters: {
@@ -98,6 +100,7 @@ describe('testing X Plugin emitters', () => {
 
     it('should not execute wires with immediate `false` when the module is registered', () => {
       const pluginOptions: XPluginOptions = {
+        adapter: SearchAdapterDummy,
         xModules: {
           searchBox: {
             wiring,
@@ -118,6 +121,7 @@ describe('testing X Plugin emitters', () => {
 
     it('should execute wires with immediate `true` when the module is registered', () => {
       const pluginOptions: XPluginOptions = {
+        adapter: SearchAdapterDummy,
         xModules: {
           searchBox: {
             wiring,

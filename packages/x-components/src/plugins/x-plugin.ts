@@ -1,4 +1,4 @@
-import { logger } from '@empathy/logger';
+import { SearchAdapter } from '@empathy/search-adapter';
 import { deepMerge } from '@empathybroker/deep-merge';
 import Vue, { VueConstructor } from 'vue';
 import Vuex, { Module, Store } from 'vuex';
@@ -17,15 +17,20 @@ import { bus } from './x-bus';
 import { DEFAULT_X_CONFIG } from './x-plugin.config';
 import { createXComponentAPIMixin } from './x-plugin.mixin';
 import { AnyXStoreModuleOptions, XConfig, XModuleOptions, XPluginOptions } from './x-plugin.types';
+import { assertXPluginOptionsAreValid } from './x-plugin.utils';
 
 /**
  * Vue plugin that modifies each component instance, extending them with the
  * {@link XComponentAPI | X Component API }.
  *
  * @example
- * Simple installation example:
+ * Minimal installation example. A search adapter is needed for the plugin to work, and connect to
+ * the API.
  * ```typescript
- * Vue.use(XPlugin);
+ * const adapter = new EmpathyAdapterBuilder()
+ *  .withConfiguration({instance: 'my-instance-id'})
+ *  .build();
+ * Vue.use(XPlugin, { adapter });
  * ```
  *
  * @example
@@ -34,12 +39,19 @@ import { AnyXStoreModuleOptions, XConfig, XModuleOptions, XPluginOptions } from 
  * ```typescript
  * Vue.use(Vuex);
  * const store = new Store({ ... });
- * Vue.use(XPlugin, { store });
+ * Vue.use(XPlugin, { adapter, store });
  * ```
  *
  * @public
  */
 export class XPlugin {
+  /** {@link @empathy/search-adapter#SearchAdapter | SearchAdapter} Is the middleware between
+   * the components and our API where data can be mapped to client needs.
+   *
+   * @public
+   */
+  public static adapter: SearchAdapter;
+
   /** Instance of the singleton.
    *
    * @internal
@@ -109,8 +121,10 @@ export class XPlugin {
    * @param options - The options to install this plugin with.
    * @internal
    */
-  static install(vue: VueConstructor, options: XPluginOptions = {}): void {
+  static install(vue: VueConstructor, options?: XPluginOptions): void {
     const instance = this.instance;
+    assertXPluginOptionsAreValid(options);
+    this.adapter = options.adapter;
     instance.vue = vue;
     instance.options = options;
     instance.registerConfig();
@@ -133,6 +147,26 @@ export class XPlugin {
     } else {
       instance.lazyRegisterXModule(xModule);
     }
+  }
+
+  /**
+   * Overrides the existing {@link XConfig}.
+   *
+   * @param config - The new or partially new global {@link XConfig}.
+   * @public
+   */
+  static setConfig(config: DeepPartial<XConfig>): void {
+    deepMerge(this.instance.xConfig, config);
+  }
+
+  /**
+   * Gets the global reactive {@link XConfig}.
+   *
+   * @returns Config - The xConfig.
+   * @public
+   */
+  static getConfig(): XConfig {
+    return ((this.instance.xConfig as unknown) as Vue).$data as XConfig;
   }
 
   /**
@@ -392,36 +426,22 @@ export class XPlugin {
    * @internal
    */
   protected registerConfig(): void {
-    const config = deepMerge({}, DEFAULT_X_CONFIG, this.options.config);
-    // eslint-disable-next-line eqeqeq
-    if (config.adapter == null) {
-      logger.warn(
-        '[XPlugin]',
-        `The configuration doesn't seem to have an adapter. Please, create one and use it in the
-        configuration`
-      );
-    }
+    const config: XConfig = deepMerge({}, DEFAULT_X_CONFIG, this.options.config);
+    this.createAdapterConfigChangedListener(this.options.adapter);
     this.xConfig = registerReactiveConfig(this.bus, config);
   }
 
   /**
-   * Overrides the existing {@link XConfig}.
+   * If the received adapter supports it, it registers a listener to emit the
+   * {@link XEventsTypes.AdapterConfigChanged} event whenever the config of it changes.
    *
-   * @param config - The new or partially new global {@link XConfig}.
-   * @public
+   * @param adapter - The adapter to register the listener when its config changes.
+   * @internal
    */
-  static setConfig(config: DeepPartial<XConfig>): void {
-    deepMerge(this.instance.xConfig, config);
-  }
-
-  /**
-   * Gets the global reactive {@link XConfig}.
-   *
-   * @returns Config - The xConfig.
-   * @public
-   */
-  static getConfig(): XConfig {
-    return ((this.instance.xConfig as unknown) as Vue).$data as XConfig;
+  protected createAdapterConfigChangedListener(adapter: SearchAdapter): void {
+    adapter.addConfigChangedListener?.(newAdapterConfig => {
+      this.bus.emit('AdapterConfigChanged', newAdapterConfig);
+    });
   }
 
   /**

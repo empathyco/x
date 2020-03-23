@@ -18,6 +18,8 @@ import { XBus } from './x-bus.types';
  * @public
  */
 export interface XPluginOptions {
+  /** The adapter transforms the request for the the search and tagging APIs and its responses. */
+  adapter: SearchAdapter;
   /** A Vuex store to install the X module. If not passed a new one will be created and injected
    * into every component. */
   store?: Store<any>;
@@ -33,9 +35,6 @@ export interface XPluginOptions {
  * @public
  */
 export interface XConfig {
-  /** {@link @empathy/search-adapter#SearchAdapter | SearchAdapter} Is the middleware between
-   * the components and our API where data can be mapped to client needs. */
-  adapter: SearchAdapter;
   /** Consent to send the user data (userId and sessionId) to our API. */
   consent: boolean;
   /** The {@link CurrencyOptions} to format currency values. */

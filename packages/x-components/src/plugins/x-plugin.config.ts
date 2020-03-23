@@ -6,7 +6,6 @@ import { XConfig } from './x-plugin.types';
  * @public
  */
 export const DEFAULT_X_CONFIG: XConfig = {
-  adapter: null as any,
   consent: false,
   documentDirection: 'ltr',
   currencyOptions: {
