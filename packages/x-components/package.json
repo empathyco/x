@@ -13,6 +13,7 @@
     "gen:component-docs": "vue-docgen",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
+    "test": "npm run test:unit",
     "lint": "vue-cli-service lint",
     "commit": "git-cz",
     "release": "standard-version --no-verify",
