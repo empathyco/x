@@ -67,6 +67,31 @@ describe('testing $x component API global mixin', () => {
     });
   });
 
+  it('smart components emits the event metadata', () => {
+    const listener = jest.fn();
+    const testTarget = document.createElement('div');
+    mount(
+      {
+        mixins: [xComponentMixin(searchBoxXModule)],
+        created() {
+          this.$x.on('UserIsTypingAQuery', true).subscribe(listener);
+        },
+        mounted() {
+          this.$x.emit('UserIsTypingAQuery', 'Sexy Lego', { target: testTarget });
+        },
+        render(createElement) {
+          return createElement('input');
+        }
+      } as ComponentOptions<any> & ThisType<Vue>,
+      { localVue }
+    );
+    expect(listener).toHaveBeenCalledTimes(1);
+    expect(listener).toHaveBeenCalledWith({
+      eventPayload: 'Sexy Lego',
+      metadata: { moduleName: 'searchBox', target: testTarget }
+    });
+  });
+
   it('finds the root x-component and emits the bus events as Vue events', () => {
     const listener = jest.fn();
     const emitterComponent: ComponentOptions<any> & ThisType<Vue> = {

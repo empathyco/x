@@ -40,6 +40,6 @@ export function getXComponentXModuleName(component: Vue): XModuleName | null {
  * @returns A boolean which flags if a component is a X-Component.
  * @public
  */
-export function isXComponent(component: Vue): boolean {
+export function isXComponent(component: Vue): component is XComponent {
   return !!(component as XComponent)[XComponentModule];
 }

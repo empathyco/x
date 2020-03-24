@@ -16,7 +16,7 @@ describe('testing global config', () => {
   });
 
   it('registers reactive global config via plugin options', () => {
-    expect(plugin.getConfig()).toEqual(DEFAULT_X_CONFIG);
+    expect(plugin.getConfig()).toMatchObject(DEFAULT_X_CONFIG);
   });
 
   it('overrides global config through XPlugin.setConfig', () => {

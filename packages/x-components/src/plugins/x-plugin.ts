@@ -1,6 +1,6 @@
 import { SearchAdapter } from '@empathy/search-adapter';
 import { deepMerge } from '@empathybroker/deep-merge';
-import Vue, { VueConstructor } from 'vue';
+import { VueConstructor } from 'vue';
 import Vuex, { Module, Store } from 'vuex';
 import { registerReactiveConfig } from '../services/config.service';
 import {
@@ -166,7 +166,7 @@ export class XPlugin {
    * @public
    */
   static getConfig(): XConfig {
-    return ((this.instance.xConfig as unknown) as Vue).$data as XConfig;
+    return this.instance.xConfig;
   }
 
   /**
@@ -404,8 +404,7 @@ export class XPlugin {
    * @internal
    */
   protected applyMixins(): void {
-    const config = ((this.xConfig as unknown) as Vue).$data as XConfig;
-    this.vue.mixin(createXComponentAPIMixin(config));
+    this.vue.mixin(createXComponentAPIMixin(this.xConfig));
   }
 
   /**

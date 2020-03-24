@@ -1,4 +1,5 @@
 import Vue, { ComponentOptions } from 'vue';
+import { XComponent } from '../components/x-component.types';
 import { getXComponentXModuleName, isXComponent } from '../components/x-component.utils';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
@@ -20,18 +21,19 @@ declare module 'vue/types/vue' {
  */
 export const createXComponentAPIMixin = (
   config: XConfig
-): ComponentOptions<Vue> & ThisType<Vue> => ({
-  beforeCreate(): void {
-    const xComponent = getRootXComponent(this);
+): ComponentOptions<Vue> & ThisType<Vue & { xComponent: XComponent | undefined }> => ({
+  data: () => ({ xComponent: null }),
+  created(): void {
+    this.xComponent = getRootXComponent(this);
     this.$x = {
       emit: <Event extends XEvent>(
         event: Event,
         payload?: XEventPayload<Event>,
         metadata: Omit<WireMetadata, 'moduleName'> = {}
       ) => {
-        const moduleName = xComponent ? getXComponentXModuleName(xComponent) : null;
+        const moduleName = this.xComponent ? getXComponentXModuleName(this.xComponent) : null;
         bus.emit(event, payload as any, { ...metadata, moduleName });
-        xComponent?.$emit(event, payload);
+        this.xComponent?.$emit(event, payload);
       },
       on: bus.on.bind(bus),
       config
@@ -46,8 +48,8 @@ export const createXComponentAPIMixin = (
  * @returns The root XComponent or undefined if it has not.
  * @public
  */
-export function getRootXComponent(component: Vue): Vue | undefined {
-  let xComponent: Vue | undefined;
+export function getRootXComponent(component: Vue): XComponent | undefined {
+  let xComponent: XComponent | undefined;
   while (component !== undefined) {
     if (isXComponent(component)) {
       xComponent = component;
