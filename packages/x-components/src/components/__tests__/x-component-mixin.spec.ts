@@ -65,11 +65,13 @@ describe('testing XComponent Mixin', () => {
       expect(xComponentWrapper.vm.$props.autoComplete).toEqual(true);
     });
 
-    it('keeps the value of the configuration synced between the props and the store', () => {
+    it('keeps the value of the configuration synced between the props and the store', async () => {
       xComponentWrapper.setProps({
         maxLength: 69,
         autoComplete: true
       } as Partial<SearchBoxConfig>);
+
+      await localVue.nextTick();
 
       expect(store.state.x.searchBox.config).toMatchObject({
         maxLength: 69,
@@ -102,7 +104,7 @@ describe('testing XComponent Mixin', () => {
     it(
       'allows the component to define a "setConfig" method which will be called instead of' +
         ' directly committing to the store',
-      () => {
+      async () => {
         const setConfig = jest.fn();
         const customComponent = mount(
           {
@@ -118,6 +120,8 @@ describe('testing XComponent Mixin', () => {
         expect(setConfig).not.toHaveBeenCalled();
 
         customComponent.setProps({ maxLength: 33 });
+
+        await localVue.nextTick();
 
         expect(setConfig).toHaveBeenCalledWith('maxLength', 33);
       }

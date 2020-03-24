@@ -341,8 +341,7 @@ describe('testing X Plugin', () => {
             return h();
           }
         },
-        { store, localVue, sync: false } // Sync options is needed to be set to false to replicate
-        // real Vue behavior
+        { store, localVue }
       );
     });
 

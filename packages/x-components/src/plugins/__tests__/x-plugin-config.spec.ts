@@ -40,29 +40,35 @@ describe('testing global config', () => {
       componentInstance.destroy();
     });
 
-    it('overrides consent and emits ConfigConsentChanged event', () => {
+    it('overrides consent and emits ConfigConsentChanged event', async () => {
       const listener = jest.fn();
       componentInstance.vm.$x.on('ConfigConsentChanged').subscribe(listener);
       const newConsent = true;
       componentInstance.vm.$x.config.consent = newConsent;
+
+      await localVue.nextTick();
       expect(listener).toHaveBeenCalledTimes(1);
       expect(plugin.getConfig()).toHaveProperty('consent', newConsent);
     });
 
-    it('overrides currencyOptions and emits ConfigCurrencyChanged event', () => {
+    it('overrides currencyOptions and emits ConfigCurrencyChanged event', async () => {
       const listener = jest.fn();
       componentInstance.vm.$x.on('ConfigCurrencyChanged').subscribe(listener);
       const newCurrencyOptions: CurrencyOptions = { symbol: '$' };
       componentInstance.vm.$x.config.currencyOptions = newCurrencyOptions;
+
+      await localVue.nextTick();
       expect(listener).toHaveBeenCalledTimes(1);
       expect(plugin.getConfig()).toHaveProperty('currencyOptions', newCurrencyOptions);
     });
 
-    it('overrides documentDirection and emits ConfigDocumentDirectionChanged event', () => {
+    it('overrides documentDirection and emits ConfigDocumentDirectionChanged event', async () => {
       const listener = jest.fn();
       componentInstance.vm.$x.on('ConfigDocumentDirectionChanged').subscribe(listener);
       const newDocumentDirection: DocumentDirection = 'rtl';
       componentInstance.vm.$x.config.documentDirection = newDocumentDirection;
+
+      await localVue.nextTick();
       expect(listener).toHaveBeenCalledTimes(1);
       expect(plugin.getConfig()).toHaveProperty('documentDirection', newDocumentDirection);
     });
