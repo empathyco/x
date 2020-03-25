@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { forEach } from '../../../utils/object';
+import { WireMetadata } from '../../../wiring/wiring.types';
 import EventButton from '../event-button.vue';
 
 describe('testing Event Button Component', () => {
@@ -21,6 +22,9 @@ describe('testing Event Button Component', () => {
       ]
     }
   });
+  const expectedMetadata: Omit<WireMetadata, 'moduleName'> = {
+    target: componentWrapper.element
+  };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -37,14 +41,14 @@ describe('testing Event Button Component', () => {
     });
     componentWrapper.trigger('click');
 
-    expect(emitSpy).toHaveBeenCalledWith('testEvent', 'testPayload');
+    expect(emitSpy).toHaveBeenCalledWith('testEvent', 'testPayload', expectedMetadata);
   });
 
   it('emits an event with no payload', () => {
     componentWrapper.setProps({ events: { testEvent: undefined } });
     componentWrapper.trigger('click');
 
-    expect(emitSpy).toHaveBeenCalledWith('testEvent', undefined);
+    expect(emitSpy).toHaveBeenCalledWith('testEvent', undefined, expectedMetadata);
   });
 
   it('emits multiple events with multiple payloads', () => {
@@ -57,6 +61,8 @@ describe('testing Event Button Component', () => {
     componentWrapper.trigger('click');
 
     expect(emitSpy).toHaveBeenCalledTimes(3);
-    forEach(events, (event, payload) => expect(emitSpy).toHaveBeenCalledWith(event, payload));
+    forEach(events, (event, payload) =>
+      expect(emitSpy).toHaveBeenCalledWith(event, payload, expectedMetadata)
+    );
   });
 });

@@ -31,7 +31,7 @@
 
     protected emitEvents(): void {
       Object.entries(this.events).forEach(([event, payload]) => {
-        this.$x.emit(event as XEvent, payload);
+        this.$x.emit(event as XEvent, payload, { target: this.$el as HTMLElement });
       });
     }
   }
