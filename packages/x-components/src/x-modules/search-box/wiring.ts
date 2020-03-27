@@ -16,6 +16,13 @@ const searchBoxModule = withModule('searchBox');
 const setSearchBoxQuery = searchBoxModule.wireCommit('setQuery');
 
 /**
+ * Clears the query of the search-box module.
+ *
+ * @public
+ */
+const clearSearchBoxQuery = searchBoxModule.wireCommit('setQuery', '');
+
+/**
  * SearchBox wiring.
  *
  * @internal
@@ -27,7 +34,7 @@ export const searchBoxWiring = createWiring({
   UserAcceptedAQuery: {
     setSearchBoxQuery
   },
-  UserPressedEnterKey: {
-    setSearchBoxQuery
+  UserPressedClearSearchBoxButton: {
+    clearSearchBoxQuery
   }
 });
