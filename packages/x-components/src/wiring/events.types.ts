@@ -36,11 +36,16 @@ export interface XEventsTypes {
    */
   SearchBoxQueryChanged: string;
   /**
-   * Any property of the term-suggestions request has changed
-   * * Payload: The new suggestions request or `null` if there is not enough data in the state
+   * Query suggestions have been changed.
+   * * Payload: New query suggestions.
+   */
+  QuerySuggestionsChanged: Suggestion[];
+  /**
+   * Any property of the query-suggestions request has changed
+   * * Payload: The new query suggestions request or `null` if there is not enough data in the state
    * to conform a valid request.
    */
-  TermSuggestionsRequestChanged: SuggestionsRequest | null;
+  QuerySuggestionsRequestChanged: SuggestionsRequest | null;
   /**
    * Any property of the next-queries request has changed
    * * Payload: The new next-queries request or `null` if there is not enough data in the state
@@ -98,7 +103,7 @@ export interface XEventsTypes {
    */
   UserAcceptedAQuery: string;
   /**
-   * User selected any kind of suggestion (term-suggestion, popular-search...)
+   * User selected any kind of suggestion (query-suggestion, popular-search...)
    * * Payload: The suggestion that the user selected.
    */
   UserSelectedASuggestion: Suggestion;

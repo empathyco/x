@@ -9,8 +9,12 @@ export const searchBoxXStoreModule: SearchBoxXStoreModule = {
   state: () => ({
     query: '',
     config: {
-      autoComplete: false,
-      maxLength: 200
+      maxLength: 64,
+      autofocus: true,
+      autocomplete: {
+        keyboardKeys: ['ArrowRight'],
+        suggestionsEvent: 'QuerySuggestionsChanged'
+      }
     }
   }),
   getters: {

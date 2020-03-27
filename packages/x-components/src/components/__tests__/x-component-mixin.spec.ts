@@ -10,11 +10,18 @@ import { xComponentMixin } from '../x-component.mixin';
 import { isXComponent } from '../x-component.utils';
 
 describe('testing XComponent Mixin', () => {
+  const configPropMock: Partial<SearchBoxConfig> = {
+    maxLength: 47,
+    autocomplete: {
+      keyboardKeys: ['ArrowUp'],
+      suggestionsEvent: 'QuerySuggestionsChanged'
+    }
+  };
+
   const xComponent: ComponentOptions<Vue> = {
     mixins: [xComponentMixin(searchBoxXModule)],
     render: h => h()
   };
-
   let xComponentWrapper: Wrapper<Vue>;
   const localVue = createLocalVue();
   localVue.use(Vuex);
@@ -45,38 +52,20 @@ describe('testing XComponent Mixin', () => {
       mount(xComponent, {
         localVue,
         store,
-        propsData: {
-          maxLength: 47
-        } as Partial<SearchBoxConfig>
+        propsData: configPropMock
       });
-
-      expect(store.state.x.searchBox.config).toMatchObject({
-        maxLength: 47
-      });
+      expect(store.state.x.searchBox.config).toMatchObject(configPropMock);
     });
 
     it('creates a prop for each config option in the store module', () => {
-      xComponentWrapper.setProps({
-        maxLength: 100,
-        autoComplete: true
-      } as Partial<SearchBoxConfig>);
-
-      expect(xComponentWrapper.vm.$props.maxLength).toEqual(100);
-      expect(xComponentWrapper.vm.$props.autoComplete).toEqual(true);
+      xComponentWrapper.setProps(configPropMock);
+      expect(xComponentWrapper.vm.$props).toMatchObject(configPropMock);
     });
 
     it('keeps the value of the configuration synced between the props and the store', async () => {
-      xComponentWrapper.setProps({
-        maxLength: 69,
-        autoComplete: true
-      } as Partial<SearchBoxConfig>);
-
+      xComponentWrapper.setProps(configPropMock);
       await localVue.nextTick();
-
-      expect(store.state.x.searchBox.config).toMatchObject({
-        maxLength: 69,
-        autoComplete: true
-      });
+      expect(store.state.x.searchBox.config).toMatchObject(configPropMock);
     });
 
     it('allows passing a list of config keys to override the generated props', () => {
@@ -93,12 +82,12 @@ describe('testing XComponent Mixin', () => {
       );
 
       customComponent.setProps({
-        autoComplete: true,
-        allowVeganQueries: false
-      } as Partial<SearchBoxConfig>);
+        allowVeganQueries: false,
+        ...configPropMock
+      });
 
       expect(customComponent.vm.$props.allowVeganQueries).toEqual(false);
-      expect(customComponent.vm.$props.autoComplete).not.toBeDefined();
+      expect(customComponent.vm.$props.autocomplete).not.toBeDefined();
     });
 
     it(
@@ -119,11 +108,10 @@ describe('testing XComponent Mixin', () => {
 
         expect(setConfig).not.toHaveBeenCalled();
 
-        customComponent.setProps({ maxLength: 33 });
-
+        customComponent.setProps(configPropMock);
         await localVue.nextTick();
-
-        expect(setConfig).toHaveBeenCalledWith('maxLength', 33);
+        expect(setConfig).toHaveBeenNthCalledWith(1, 'maxLength', configPropMock.maxLength);
+        expect(setConfig).toHaveBeenNthCalledWith(2, 'autocomplete', configPropMock.autocomplete);
       }
     );
   });

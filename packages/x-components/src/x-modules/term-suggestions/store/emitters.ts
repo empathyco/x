@@ -7,5 +7,5 @@ import { termSuggestionsXStoreModule } from './module';
  * @internal
  */
 export const termSuggestionsEmitters = createStoreEmitters(termSuggestionsXStoreModule, {
-  TermSuggestionsRequestChanged: (_, getters) => getters.request
+  QuerySuggestionsRequestChanged: (_, getters) => getters.request
 });

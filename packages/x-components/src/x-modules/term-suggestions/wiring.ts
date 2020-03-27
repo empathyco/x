@@ -35,7 +35,7 @@ export const termSuggestionsWiring = createWiring({
   UserAcceptedAQuery: {
     setTermSuggestionsQuery
   },
-  TermSuggestionsRequestChanged: {
+  QuerySuggestionsRequestChanged: {
     retrieveTermSuggestions
   }
 });
