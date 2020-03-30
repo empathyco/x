@@ -73,3 +73,10 @@ export type DecoratorFor<Type> = <Key extends string, Target extends Record<Key,
   target: Target,
   key: Key
 ) => void;
+
+/**
+ * Union type containing the existing arrow keys.
+ *
+ * @public
+ */
+export type ArrowKey = 'ArrowUp' | 'ArrowDown' | 'ArrowRight' | 'ArrowLeft';

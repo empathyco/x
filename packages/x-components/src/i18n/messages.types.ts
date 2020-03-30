@@ -5,6 +5,7 @@
  */
 export interface Messages {
   searchBox: {
+    ariaLabel: string;
     placeholder: string;
   };
   custom?: Message;

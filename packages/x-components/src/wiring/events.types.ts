@@ -2,6 +2,7 @@ import { NextQueriesRequest, SuggestionsRequest } from '@empathy/search-adapter'
 import { NextQuery, Suggestion } from '@empathy/search-types';
 import { CurrencyOptions } from '../i18n/currency.types';
 import { DocumentDirection } from '../plugins/x-plugin.types';
+import { ArrowKey } from '../utils';
 
 /**
  * Dictionary of the events of EmpathyX, where each key is the event name, and the value is the
@@ -63,7 +64,7 @@ export interface XEventsTypes {
    */
   UserBlurredSearchBox: void;
   /**
-   * The user focused the search-box.
+   * The user focused the search-box
    * * Payload: none.
    */
   UserFocusedSearchBox: void;
@@ -83,23 +84,23 @@ export interface XEventsTypes {
    */
   UserPressedClearSearchBoxButton: void;
   /**
-   * The user pressed the enter key when the focus was on the search-box
-   * * Payload: The new search-box query.
+   * The user pressed the enter key with the focus on the search-box
+   * * Payload: the new query of the search-box.
    */
   UserPressedEnterKey: string;
   /**
-   * The user pressed an arrow key when the focus was on the search-box
-   * * Payload: The pressed arrow key.
+   * The user pressed an {@link ArrowKey | arrow key} with the focus on the search-box.
+   * * Payload: the pressed {@link ArrowKey | arrow key}.
    */
-  UserPressedArrowKey: string;
+  UserPressedArrowKey: ArrowKey;
   /**
    * The user has selected a next-query
    * * Payload: The next query that has been selected by the user.
    */
   UserSelectedANextQuery: NextQuery;
   /**
-   * The user has selected or confirmed a query
-   * * Payload: the query that the user selected.
+   * The user has accepted a query
+   * * Payload: the accepted query.
    */
   UserAcceptedAQuery: string;
   /**

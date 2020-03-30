@@ -1,3 +1,4 @@
+import { removeHTMLTags } from '../../../utils/remove-html-tags';
 import { SearchBoxXStoreModule } from './types';
 
 /**
@@ -24,7 +25,7 @@ export const searchBoxXStoreModule: SearchBoxXStoreModule = {
   },
   mutations: {
     setQuery(state, newQuery) {
-      state.query = newQuery;
+      state.query = removeHTMLTags(newQuery);
     }
   },
   actions: {}

@@ -1,6 +1,6 @@
 <template>
   <main>
-    <SearchBox />
+    <SearchInput />
     <TermSuggestions />
     <PopularSearches />
     <NextQueries />
@@ -12,14 +12,14 @@
   import { Component } from 'vue-property-decorator';
   import NextQueries from './x-modules/next-queries/next-queries.vue';
   import PopularSearches from './x-modules/popular-searches/popular-searches.vue';
-  import SearchBox from './x-modules/search-box/search-box.vue';
+  import SearchInput from './x-modules/search-box/components/search-input.vue';
   import TermSuggestions from './x-modules/term-suggestions/term-suggestions.vue';
 
   @Component({
     components: {
       NextQueries,
       PopularSearches,
-      SearchBox,
+      SearchInput,
       TermSuggestions
     }
   })
