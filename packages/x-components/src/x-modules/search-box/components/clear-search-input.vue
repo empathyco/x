@@ -1,0 +1,71 @@
+<template>
+  <EventButton
+    class="x-clear-search-input"
+    :class="dynamicClasses"
+    :aria-label="$x.config.messages.searchBox.clearAriaLabel"
+    :events="clearSearchInputEvents"
+  >
+    <!-- @slot Slot to add the button content like a message or an icon -->
+    <slot />
+  </EventButton>
+</template>
+
+<script lang="ts">
+  import Vue from 'vue';
+  import { Component } from 'vue-property-decorator';
+  import { State } from '../../../components/decorators';
+  import EventButton from '../../../components/pure/event-button.vue';
+  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { VueCSSClasses } from '../../../utils/types';
+  import { XEventsTypes } from '../../../wiring/events.types';
+  import { searchBoxXModule } from '../x-module';
+
+  /**
+   * A button that when pressed emits the {@link XEventsTypes.UserPressedClearSearchBoxButton }
+   * event, expressing the user intention to clear the current query.
+   *
+   * @public
+   */
+  @Component({
+    components: { EventButton },
+    mixins: [xComponentMixin(searchBoxXModule)]
+  })
+  export default class ClearSearchInput extends Vue {
+    @State('searchBox', 'query')
+    public query!: string;
+
+    protected get isQueryEmpty(): boolean {
+      return this.query.length === 0;
+    }
+
+    protected get dynamicClasses(): VueCSSClasses {
+      return {
+        'x-clear-search-input--has-empty-query': this.isQueryEmpty
+      };
+    }
+
+    /**
+     * The events dictionary that are going to be emitted when the button is pressed.
+     *
+     * @internal
+     */
+    protected clearSearchInputEvents: Partial<XEventsTypes> = {
+      UserPressedClearSearchBoxButton: undefined
+    };
+  }
+</script>
+
+<docs>
+  #Examples
+
+  ## Example
+
+  You need to add the content that this button will render. To do so, you only need to pass a new
+  component in the default slot:
+
+  ```vue
+  <ClearSearchInput>
+    <img src="./my-awesome-clear-icon.svg" />
+  </ClearSearchInput>
+  ```
+</docs>

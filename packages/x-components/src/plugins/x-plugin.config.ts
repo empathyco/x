@@ -15,6 +15,9 @@ export const DEFAULT_X_CONFIG: XConfig = {
     searchBox: {
       ariaLabel: 'Search input',
       placeholder: 'Search',
+      clearButton: {
+        ariaLabel: 'Clear search input'
+      },
       searchButton: {
         ariaLabel: 'Search button'
       }

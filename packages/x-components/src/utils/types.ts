@@ -86,4 +86,4 @@ export type ArrowKey = 'ArrowUp' | 'ArrowDown' | 'ArrowRight' | 'ArrowLeft';
  *
  * @public
  */
-export type VueCssClasses = string | Dictionary<boolean> | (string | Dictionary<boolean>)[];
+export type VueCSSClasses = string | Dictionary<boolean> | (string | Dictionary<boolean>)[];

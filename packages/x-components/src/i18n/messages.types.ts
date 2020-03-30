@@ -7,6 +7,9 @@ export interface Messages {
   searchBox: {
     ariaLabel: string;
     placeholder: string;
+    clearButton: {
+      ariaLabel: string;
+    };
     searchButton: {
       ariaLabel: string;
     };

@@ -16,7 +16,7 @@
   import { State } from '../../../components/decorators';
   import EventButton from '../../../components/pure/event-button.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { VueCssClasses } from '../../../utils/types';
+  import { VueCSSClasses } from '../../../utils/types';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { searchBoxXModule } from '../x-module';
 
@@ -50,7 +50,7 @@
         : {};
     }
 
-    protected get dynamicClasses(): VueCssClasses {
+    protected get dynamicClasses(): VueCSSClasses {
       return {
         'x-search-button--has-empty-query': this.isQueryEmpty
       };
