@@ -14,7 +14,10 @@ export const DEFAULT_X_CONFIG: XConfig = {
   messages: {
     searchBox: {
       ariaLabel: 'Search input',
-      placeholder: 'Search'
+      placeholder: 'Search',
+      searchButton: {
+        ariaLabel: 'Search button'
+      }
     }
   }
 };

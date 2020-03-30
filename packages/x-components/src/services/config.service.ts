@@ -16,13 +16,13 @@ export function registerReactiveConfig(bus: XBus, config: XConfig): XConfig {
     data: () => config,
     watch: {
       consent: (newValue: boolean) => {
-        bus.emit('ConfigConsentChanged', newValue, { moduleName: null });
+        bus.emit('ConfigConsentChanged', newValue);
       },
       currencyOptions: (newValue: CurrencyOptions) => {
-        bus.emit('ConfigCurrencyChanged', newValue, { moduleName: null });
+        bus.emit('ConfigCurrencyChanged', newValue);
       },
       documentDirection: (newValue: DocumentDirection) => {
-        bus.emit('ConfigDocumentDirectionChanged', newValue, { moduleName: null });
+        bus.emit('ConfigDocumentDirectionChanged', newValue);
       }
     }
   });

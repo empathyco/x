@@ -80,3 +80,10 @@ export type DecoratorFor<Type> = <Key extends string, Target extends Record<Key,
  * @public
  */
 export type ArrowKey = 'ArrowUp' | 'ArrowDown' | 'ArrowRight' | 'ArrowLeft';
+
+/**
+ * Union type containing supported Vue dynamic classes.
+ *
+ * @public
+ */
+export type VueCssClasses = string | Dictionary<boolean> | (string | Dictionary<boolean>)[];
