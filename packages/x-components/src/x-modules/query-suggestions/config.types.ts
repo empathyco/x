@@ -1,23 +1,23 @@
 /**
- * Configuration options for the {@link TermSuggestionsXModule}.
+ * Configuration options for the {@link QuerySuggestionsXModule}.
  *
  * @public
  */
-export interface TermSuggestionsConfig {
+export interface QuerySuggestionsConfig {
   /**
-   * Debounce time measured in milliseconds used to store the term suggestions module query while
+   * Debounce time measured in milliseconds used to store the query suggestions module query while
    * the user is typing a query.
    */
   debounceInMs: number;
   /**
-   * Maximum number of term suggestions to request.
+   * Maximum number of query suggestions to request.
    */
   maxItems: number;
   /**
    * Show the extra suggestion that has filters without the filter.
    *
    * @remarks
-   * Remember this property might be affected by {@link TermSuggestionsConfig.hideIfEqualsQuery}
+   * Remember this property might be affected by {@link QuerySuggestionsConfig.hideIfEqualsQuery}
    *
    * @example
    * When set to true:

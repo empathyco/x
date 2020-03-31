@@ -1,39 +1,39 @@
 import { SuggestionsRequest } from '@empathy/search-adapter';
 import { Suggestion } from '@empathy/search-types';
 import { XStoreModule } from '../../../store';
-import { TermSuggestionsConfig } from '../config.types';
+import { QuerySuggestionsConfig } from '../config.types';
 
 /**
- * TermSuggestions store state.
+ * QuerySuggestions store state.
  *
  * @public
  */
-export interface TermSuggestionsState {
-  /** The query of the term suggestions module. Used to request the suggestions. */
+export interface QuerySuggestionsState {
+  /** The query of the query suggestions module. Used to request the suggestions. */
   query: string;
   /** The suggestions for the query of the state. */
   suggestions: Suggestion[];
-  /** The configuration of the term suggestions module. */
-  config: TermSuggestionsConfig;
+  /** The configuration of the query suggestions module. */
+  config: QuerySuggestionsConfig;
 }
 /**
- * TermSuggestions store getters.
+ * QuerySuggestions store getters.
  *
  * @public
  */
-export interface TermSuggestionsGetters {
-  /** The adapter request object for retrieving the term suggestions, or null if there is not
+export interface QuerySuggestionsGetters {
+  /** The adapter request object for retrieving the query suggestions, or null if there is not
    * valid data to create a request. */
   request: SuggestionsRequest | null;
 }
 /**
- * TermSuggestions store mutations.
+ * QuerySuggestions store mutations.
  *
  * @public
  */
-export interface TermSuggestionsMutations {
+export interface QuerySuggestionsMutations {
   /**
-   * Sets the query of the term suggestions module.
+   * Sets the query of the query suggestions module.
    *
    * @param newQuery - The new query.
    */
@@ -46,11 +46,11 @@ export interface TermSuggestionsMutations {
   setSuggestions(suggestions: Suggestion[]): void;
 }
 /**
- * TermSuggestions store actions.
+ * QuerySuggestions store actions.
  *
  * @public
  */
-export interface TermSuggestionsActions {
+export interface QuerySuggestionsActions {
   /**
    * Requests and returns a list of suggestions based on the module state.
    *
@@ -63,13 +63,13 @@ export interface TermSuggestionsActions {
   retrieveSuggestions(): void;
 }
 /**
- * TermSuggestions type safe store module.
+ * QuerySuggestions type safe store module.
  *
  * @public
  */
-export type TermSuggestionsXStoreModule = XStoreModule<
-  TermSuggestionsState,
-  TermSuggestionsGetters,
-  TermSuggestionsMutations,
-  TermSuggestionsActions
+export type QuerySuggestionsXStoreModule = XStoreModule<
+  QuerySuggestionsState,
+  QuerySuggestionsGetters,
+  QuerySuggestionsMutations,
+  QuerySuggestionsActions
 >;

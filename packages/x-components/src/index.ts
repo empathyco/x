@@ -8,5 +8,5 @@ export * from './x-modules/history-queries';
 export * from './x-modules/next-queries';
 export * from './x-modules/popular-searches';
 export * from './x-modules/search-box';
-export * from './x-modules/term-suggestions';
+export * from './x-modules/query-suggestions';
 export * from './x-modules/x-modules.types';

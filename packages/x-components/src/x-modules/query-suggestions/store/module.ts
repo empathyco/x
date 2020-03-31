@@ -1,5 +1,5 @@
 import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
-import { TermSuggestionsXStoreModule } from './types';
+import { QuerySuggestionsXStoreModule } from './types';
 
 const adapter = new EmpathyAdapterBuilder()
   .setInstance('juguettos')
@@ -8,11 +8,11 @@ const adapter = new EmpathyAdapterBuilder()
   .build(); // TODO It should be injected
 
 /**
- * {@link XStoreModule} For the term-suggestions module.
+ * {@link XStoreModule} For the query-suggestions module.
  *
  * @internal
  */
-export const termSuggestionsXStoreModule: TermSuggestionsXStoreModule = {
+export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
   state: () => ({
     query: '',
     suggestions: [],

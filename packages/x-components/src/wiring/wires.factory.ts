@@ -65,7 +65,7 @@ export function wireCommitWithoutPayload(mutation: string): AnyWire {
  * Creates a wire that dispatches an action to the store. This wire can be used in every event,
  * as it does not have a payload type associated.
  *
- * @param action - The full action path to commit. I.e. `x/term-suggestions/getSuggestions`.
+ * @param action - The full action path to commit. I.e. `x/query-suggestions/getSuggestions`.
  * @param staticPayload - A static payload to pass to the action which will be dispatched.
  * @returns [AnyWire] A wire that dispatches the action with the staticPayload payload.
  * @public
@@ -75,7 +75,7 @@ export function wireDispatch(action: string, staticPayload: any): AnyWire;
  * Creates a wire that dispatches an action to the store. This wire will pass the payload
  * received in the observable to the action.
  *
- * @param action - The full action path to commit. I.e. `x/term-suggestions/getSuggestions`.
+ * @param action - The full action path to commit. I.e. `x/query-suggestions/getSuggestions`.
  * @typeParam Payload - the type of the payload that this wire will receive
  * @returns [Wire<Payload>] A wire that dispatches the action with the payload that it receives
  * in the observable.
@@ -96,7 +96,7 @@ export function wireDispatch<Payload>(action: string, staticPayload?: any): Wire
  * Creates a wire that dispatches an action to the store, but without any payload. This wire can
  * be used in every event, as it does not have a payload type associated.
  *
- * @param action - The full action path to commit. I.e. `x/term-suggestions/getSuggestions`.
+ * @param action - The full action path to commit. I.e. `x/query-suggestions/getSuggestions`.
  * @returns [AnyWire] A wire that dispatches the action without any payload.
  * @public
  */

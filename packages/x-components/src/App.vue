@@ -1,7 +1,7 @@
 <template>
   <main>
     <SearchInput />
-    <TermSuggestions />
+    <QuerySuggestions />
     <PopularSearches />
     <NextQueries />
   </main>
@@ -12,15 +12,15 @@
   import { Component } from 'vue-property-decorator';
   import NextQueries from './x-modules/next-queries/next-queries.vue';
   import PopularSearches from './x-modules/popular-searches/popular-searches.vue';
+  import QuerySuggestions from './x-modules/query-suggestions/query-suggestions.vue';
   import SearchInput from './x-modules/search-box/components/search-input.vue';
-  import TermSuggestions from './x-modules/term-suggestions/term-suggestions.vue';
 
   @Component({
     components: {
       NextQueries,
       PopularSearches,
-      SearchInput,
-      TermSuggestions
+      QuerySuggestions,
+      SearchInput
     }
   })
   export default class App extends Vue {}

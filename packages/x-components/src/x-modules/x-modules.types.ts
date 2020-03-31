@@ -4,7 +4,7 @@ import { Wiring } from '../wiring/wiring.types';
 import { NextQueriesXModule } from './next-queries/x-module';
 import { PopularSearchesXModule } from './popular-searches/x-module';
 import { SearchBoxXModule } from './search-box/x-module';
-import { TermSuggestionsXModule } from './term-suggestions/x-module';
+import { QuerySuggestionsXModule } from './query-suggestions/x-module';
 import { HistoryQueriesXModule } from './history-queries/x-module';
 
 /**
@@ -16,7 +16,7 @@ export interface XModulesTree {
   nextQueries: NextQueriesXModule;
   popularSearches: PopularSearchesXModule;
   searchBox: SearchBoxXModule;
-  termSuggestions: TermSuggestionsXModule;
+  querySuggestions: QuerySuggestionsXModule;
   historyQueries: HistoryQueriesXModule;
 }
 
