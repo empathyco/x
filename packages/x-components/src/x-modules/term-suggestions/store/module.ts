@@ -17,7 +17,10 @@ export const termSuggestionsXStoreModule: TermSuggestionsXStoreModule = {
     query: '',
     suggestions: [],
     config: {
-      size: 5
+      debounceInMs: 200,
+      maxItems: 10,
+      showExtraSuggestionWithoutFilter: true,
+      hideIfEqualsQuery: true
     }
   }),
   getters: {
@@ -25,7 +28,7 @@ export const termSuggestionsXStoreModule: TermSuggestionsXStoreModule = {
       return state.query
         ? {
             query: state.query,
-            rows: state.config.size,
+            rows: state.config.maxItems,
             start: 0
           }
         : null;
