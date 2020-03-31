@@ -21,7 +21,8 @@ export const RootXStoreModule: Module<XModuleState, any> = {
     nextQueries: null,
     popularSearches: null,
     searchBox: null,
-    termSuggestions: null
+    termSuggestions: null,
+    historyQueries: null
   }),
   namespaced: true
 };

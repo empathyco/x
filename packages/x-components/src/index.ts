@@ -4,6 +4,7 @@ export * from './plugins';
 export * from './store';
 export * from './utils';
 export * from './wiring';
+export * from './x-modules/history-queries';
 export * from './x-modules/next-queries';
 export * from './x-modules/popular-searches';
 export * from './x-modules/search-box';

@@ -5,6 +5,7 @@ import { NextQueriesXModule } from './next-queries/x-module';
 import { PopularSearchesXModule } from './popular-searches/x-module';
 import { SearchBoxXModule } from './search-box/x-module';
 import { TermSuggestionsXModule } from './term-suggestions/x-module';
+import { HistoryQueriesXModule } from './history-queries/x-module';
 
 /**
  * Gives each {@link XModule} a name, that can be used to retrieve then its value.
@@ -16,6 +17,7 @@ export interface XModulesTree {
   popularSearches: PopularSearchesXModule;
   searchBox: SearchBoxXModule;
   termSuggestions: TermSuggestionsXModule;
+  historyQueries: HistoryQueriesXModule;
 }
 
 /**
