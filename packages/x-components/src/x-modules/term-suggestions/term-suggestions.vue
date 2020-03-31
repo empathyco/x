@@ -49,7 +49,7 @@
     protected emitTermSuggestionSelected(suggestion: Suggestion): void {
       this.$x.emit('UserAcceptedAQuery', suggestion.query);
       this.$x.emit('UserSelectedASuggestion', suggestion);
-      this.$x.emit('UserSelectedATermSuggestion', suggestion);
+      this.$x.emit('UserSelectedAQuerySuggestion', suggestion);
     }
   }
 </script>

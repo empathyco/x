@@ -32,21 +32,26 @@ export interface XEventsTypes {
    */
   ConfigDocumentDirectionChanged: DocumentDirection;
   /**
-   * The search-box query has changed
-   * * Payload: The new search-box query.
-   */
-  SearchBoxQueryChanged: string;
-  /**
    * Query suggestions have been changed.
-   * * Payload: New query suggestions.
+   * * Payload: The new {@link @empathy/search-types#Suggestion | query suggestions}.
    */
   QuerySuggestionsChanged: Suggestion[];
   /**
-   * Any property of the query-suggestions request has changed
+   * The query suggestions have been shown.
+   * * Payload: The shown {@link @empathy/search-types#Suggestion | query suggestions}.
+   */
+  QuerySuggestionsShown: Suggestion[];
+  /**
+   * Any property of the query-suggestions request has changed.
    * * Payload: The new query suggestions request or `null` if there is not enough data in the state
    * to conform a valid request.
    */
   QuerySuggestionsRequestChanged: SuggestionsRequest | null;
+  /**
+   * The search-box query has changed
+   * * Payload: The new search-box query.
+   */
+  SearchBoxQueryChanged: string;
   /**
    * Any property of the next-queries request has changed
    * * Payload: The new next-queries request or `null` if there is not enough data in the state
@@ -58,6 +63,16 @@ export interface XEventsTypes {
    * * Payload: The new popular-search request.
    */
   PopularSearchesRequestChanged: SuggestionsRequest;
+  /**
+   * Any kind of suggestions have been displayed (query-suggestions, popular searches...)
+   * * Payload: The shown {@link @empathy/search-types#Suggestion | suggestions}.
+   */
+  SuggestionsShown: Suggestion[];
+  /**
+   * The user has accepted a query
+   * * Payload: the accepted query.
+   */
+  UserAcceptedAQuery: string;
   /**
    * The user removed the focus from the search-box.
    * * Payload: none.
@@ -99,20 +114,16 @@ export interface XEventsTypes {
    */
   UserSelectedANextQuery: NextQuery;
   /**
-   * The user has accepted a query
-   * * Payload: the accepted query.
-   */
-  UserAcceptedAQuery: string;
-  /**
    * User selected any kind of suggestion (query-suggestion, popular-search...)
-   * * Payload: The suggestion that the user selected.
+   * * Payload: The {@link @empathy/search-types#Suggestion | suggestion} that the user selected.
    */
   UserSelectedASuggestion: Suggestion;
   /**
-   * User selected a term suggestion
-   * * Payload: The suggestion that the user selected.
+   * User selected a query suggestion
+   * * Payload: The {@link @empathy/search-types#Suggestion | query suggestion} that the user
+   * selected.
    */
-  UserSelectedATermSuggestion: Suggestion;
+  UserSelectedAQuerySuggestion: Suggestion;
   /**
    * User selected a popular suggestion
    * * Payload: The suggestion that the user selected.

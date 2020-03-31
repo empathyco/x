@@ -62,9 +62,9 @@ export interface XComponentAPI extends Pick<XBus, 'on'> {
   /* eslint-disable jsdoc/require-description-complete-sentence */
   /** {@inheritDoc XConfig} */
   config: XConfig;
-  /** {@inheritDoc XBus.emit} */
+  /** {@inheritDoc XBus.(emit:1)} */
   emit(event: PropsWithType<XEventsTypes, void>): void;
-  /** {@inheritDoc XBus.emit} */
+  /** {@inheritDoc XBus.(emit:2)} */
   emit<Event extends XEvent>(
     event: Event,
     payload: XEventPayload<Event>,

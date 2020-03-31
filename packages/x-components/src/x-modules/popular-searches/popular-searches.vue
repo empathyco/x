@@ -1,6 +1,6 @@
 <template>
   <ul v-if="suggestions.length">
-    <li v-for="suggestion in suggestions" :key="suggestion.term">
+    <li v-for="suggestion in suggestions" :key="suggestion.query">
       <!-- @slot An individual popular search, that should call the emitPopularSearchSelected method
       when selected.
           @binding {Function} emitPopularSearchSelected - A method that emits multiple events
@@ -9,7 +9,7 @@
       -->
       <slot name="popular-search" v-bind="{ suggestion, emitPopularSearchSelected }">
         <button @click="emitPopularSearchSelected(suggestion)" class="x-popular-search">
-          {{ suggestion.term }}
+          {{ suggestion.query }}
         </button>
       </slot>
     </li>
@@ -77,7 +77,7 @@
     <template #popular-search="{suggestion, emitPopularSearchSelected }">
       <button @click="emitPopularSearchSelected(suggestion)" class="x-popular-search">
         <img src="./popular-search-icon.svg" class="x-popular-search__icon"/>
-        <span class="x-popular-search__query">{{ suggestion.term }}</span>
+        <span class="x-popular-search__query">{{ suggestion.query }}</span>
       </button>
     </template>
   </PopularSearches>
