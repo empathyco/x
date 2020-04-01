@@ -9,14 +9,21 @@ import { createWiring } from '../../wiring/wiring.utils';
 export const querySuggestionsModule = withModule('querySuggestions');
 
 /**
- * Sets the query suggestions query.
+ * Sets the query-suggestions module query.
  *
  * @public
  */
 export const setQuerySuggestionsQuery = querySuggestionsModule.wireCommit('setQuery');
+
 /**
- * Requests and stores a new set of the query suggestions for the
- * {@link QuerySuggestionsState.query}.
+ * Clears the query-suggestions module query.
+ *
+ * @public
+ */
+export const clearQuerySuggestionsQuery = querySuggestionsModule.wireCommit('setQuery', '');
+
+/**
+ * Requests and stores a new set of query suggestions for the {@link QuerySuggestionsState.query}.
  *
  * @public
  */
@@ -35,6 +42,9 @@ export const querySuggestionsWiring = createWiring({
   },
   UserAcceptedAQuery: {
     setQuerySuggestionsQuery
+  },
+  UserPressedClearSearchBoxButton: {
+    clearQuerySuggestionsQuery
   },
   QuerySuggestionsRequestChanged: {
     retrieveQuerySuggestions
