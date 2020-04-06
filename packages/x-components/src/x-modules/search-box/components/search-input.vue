@@ -16,6 +16,7 @@
     class="x-input x-search-input"
     inputmode="search"
     type="search"
+    data-cy="search-input"
   />
 </template>
 

@@ -114,13 +114,35 @@ const jsDocRules = {
 
 const jestPluginRules = {
   // https://github.com/jest-community/eslint-plugin-jest
+  /* These rules include jest/recommended and jest/style ones because eslint configuration
+   doesn't support extends block inside overrides for specific files */
   'jest/expect-expect': ['error', { assertFunctionNames: ['expect*'] }],
   'jest/lowercase-name': ['error', { ignore: ['test'] }],
+  'jest/no-alias-methods': 'error',
+  'jest/no-commented-out-tests': 'error',
+  'jest/no-disabled-tests': 'error',
   'jest/no-duplicate-hooks': 'error',
   'jest/no-expect-resolves': 'error',
+  'jest/no-export': 'error',
+  'jest/no-focused-tests': 'error',
+  'jest/no-identical-title': 'error',
+  'jest/no-jasmine-globals': 'error',
+  'jest/no-jest-import': 'error',
+  'jest/no-mocks-import': 'error',
+  'jest/no-standalone-expect': 'error',
+  'jest/no-test-callback': 'error',
+  'jest/no-test-prefixes': 'error',
   'jest/no-test-return-statement': 'error',
+  'jest/no-try-expect': 'error',
   'jest/prefer-hooks-on-top': 'error',
+  'jest/prefer-to-be-null': 'error',
+  'jest/prefer-to-be-undefined': 'error',
+  'jest/prefer-to-contain': 'error',
+  'jest/prefer-to-have-length': 'error',
   'jest/require-top-level-describe': 'error',
+  'jest/valid-describe': 'error',
+  'jest/valid-expect-in-promise': 'error',
+  'jest/valid-expect': 'error',
   'jest/valid-title': 'error'
 };
 
@@ -129,7 +151,7 @@ module.exports = {
   env: { node: true },
   parserOptions: {
     parser: '@typescript-eslint/parser',
-    project: './tsconfig.json', // required for rules that need type information
+    project: './tsconfig.eslint.json', // required for rules that need type information
     extraFileExtensions: ['.vue']
   },
   plugins: ['jsdoc', 'eslint-plugin-tsdoc'],
@@ -144,8 +166,6 @@ module.exports = {
     'plugin:import/warnings',
     'plugin:import/typescript',
     'plugin:jsdoc/recommended',
-    'plugin:jest/recommended',
-    'plugin:jest/style',
     'plugin:cypress/recommended',
     '@vue/prettier',
     '@vue/typescript'
@@ -157,17 +177,18 @@ module.exports = {
     ...tsLintRules,
     ...vuePluginRules,
     ...importPluginRules,
-    ...jsDocRules,
-    ...jestPluginRules
+    ...jsDocRules
   },
   overrides: [
     {
-      files: ['**/__tests__/*.{j,t}s?(x)', '**/tests/unit/**/*.spec.{j,t}s?(x)'],
+      files: ['src/**/__tests__/*.spec.ts'],
       env: {
         jest: true
       },
+      plugins: ['jest'],
       rules: {
-        'jsdoc/require-jsdoc': 'off'
+        'jsdoc/require-jsdoc': 'off',
+        ...jestPluginRules
       }
     },
     {
