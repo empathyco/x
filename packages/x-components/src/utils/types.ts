@@ -87,3 +87,10 @@ export type ArrowKey = 'ArrowUp' | 'ArrowDown' | 'ArrowRight' | 'ArrowLeft';
  * @public
  */
 export type VueCSSClasses = string | Dictionary<boolean> | (string | Dictionary<boolean>)[];
+
+/**
+ * Represents a pair of values of the same type in an array.
+ *
+ * @public
+ */
+export type Pair<Type> = [Type, Type];
