@@ -26,8 +26,8 @@ export interface HistoryQueriesConfig {
    *
    * @example
    * When `hideIfEqualsQuery` is set to `true`, and given the following queries in the history:
-   * `ribs`, `ribeye`, `new york strip` and `pork belly`; and the query `new york strip`, the
-   * displayed history queries are `ribs`, `ribeye` and `pork belly`
+   * `ribs`, `ribeye`, `new york strip`, `angus new york strip` and `pork belly`; and the query
+   * `new york strip`, the only displayed history query will be `angus new york strip`.
    */
   hideIfEqualsQuery: boolean;
   /**

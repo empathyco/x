@@ -1,5 +1,5 @@
 import { Dictionary } from '../utils';
-import { RootXStoreState } from './store.types';
+import { AnyXStoreModule, RootXStoreState } from './store.types';
 
 /**
  * Type safe getters definition type. An object with this type is what it is needed to define
@@ -23,3 +23,11 @@ export type GettersTree<State extends Dictionary, Getters extends Dictionary> = 
  * @public
  */
 export type AnyGettersTree = GettersTree<Dictionary, Dictionary>;
+
+/**
+ * Type for implementing getters for a module with a class.
+ *
+ * @param Module - The module this getters belong to.
+ * @public
+ */
+export type GettersClass<Module extends AnyXStoreModule> = Partial<Module['getters']>;

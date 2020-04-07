@@ -1,3 +1,6 @@
+import { historyQueries } from './getters/history-queries.getter';
+import { sessionHistoryQueries } from './getters/session-history-queries.getter';
+import { storageKey } from './getters/storage-key.getter';
 import { HistoryQueriesXStoreModule } from './types';
 
 /**
@@ -19,14 +22,9 @@ export const historyQueriesXStoreModule: HistoryQueriesXStoreModule = {
     sessionTimeStampInMs: 0
   }),
   getters: {
-    historyQueries(state) {
-      // TODO Implement logic
-      return state.historyQueries;
-    },
-    sessionHistoryQueries(state) {
-      // TODO Implement logic
-      return state.historyQueries;
-    }
+    historyQueries,
+    sessionHistoryQueries,
+    storageKey
   },
   mutations: {
     setHistoryQueries(state, historyQueries) {

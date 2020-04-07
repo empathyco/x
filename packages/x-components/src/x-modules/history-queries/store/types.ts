@@ -44,6 +44,10 @@ export interface HistoryQueriesGetters {
    * {@link HistoryQueriesConfig.sessionTTLInMs}.
    */
   sessionHistoryQueries: HistoryQuery[];
+  /**
+   * The key for saving the {@link HistoryQueriesState.historyQueries} in the browser storage.
+   */
+  storageKey: string;
 }
 /**
  * HistoryQueries store mutations.
