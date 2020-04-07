@@ -23,7 +23,7 @@ export interface QuerySuggestionsConfig {
    * When set to true:
    * ```
    * query = 'trou';
-   * suggestions = ['trousers', 'trousers in man', 'trousers in woman'];
+   * suggestions = ['trousers in man', 'trousers in woman'];
    * // Suggests ['trousers', 'trousers in man', 'trousers in woman']
    * ```
    *
@@ -31,7 +31,7 @@ export interface QuerySuggestionsConfig {
    * When set to false:
    * ```
    * query = 'trou';
-   * suggestions = ['trousers', 'trousers in man', 'trousers in woman'];
+   * suggestions = ['trousers in man', 'trousers in woman'];
    * // Suggests ['trousers in man', 'trousers in woman']
    * ```
    */

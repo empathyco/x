@@ -17,12 +17,13 @@ export const popularSearchesXStoreModule: PopularSearchesXStoreModule = {
   state: () => ({
     suggestions: [],
     config: {
-      size: 5
+      maxItemsToRender: 5,
+      showExtraSuggestionWithoutFilter: false
     }
   }),
   getters: {
     request: state => ({
-      rows: state.config.size,
+      rows: state.config.maxItemsToRender,
       start: 0
     })
   },
