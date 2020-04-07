@@ -37,10 +37,10 @@ export interface XEventsTypes {
    */
   QuerySuggestionsChanged: Suggestion[];
   /**
-   * The query suggestions have been shown.
-   * * Payload: The shown {@link @empathy/search-types#Suggestion | query suggestions}.
+   * The query suggestions have been displayed.
+   * * Payload: The displayed {@link @empathy/search-types#Suggestion | query suggestions}.
    */
-  QuerySuggestionsShown: Suggestion[];
+  QuerySuggestionsDisplayed: Suggestion[];
   /**
    * Any property of the query-suggestions request has changed.
    * * Payload: The new query suggestions request or `null` if there is not enough data in the state
@@ -64,10 +64,15 @@ export interface XEventsTypes {
    */
   PopularSearchesRequestChanged: SuggestionsRequest;
   /**
-   * Any kind of suggestions have been displayed (query-suggestions, popular searches...)
-   * * Payload: The shown {@link @empathy/search-types#Suggestion | suggestions}.
+   * The popular searches have been displayed.
+   * * Payload: The displayed {@link @empathy/search-types#Suggestion | popular searches}.
    */
-  SuggestionsShown: Suggestion[];
+  PopularSearchDisplayed: Suggestion[];
+  /**
+   * Any kind of suggestions have been displayed (query-suggestions, popular searches...)
+   * * Payload: The displayed {@link @empathy/search-types#Suggestion | suggestions}.
+   */
+  SuggestionsDisplayed: Suggestion[];
   /**
    * The user has accepted a query
    * * Payload: the accepted query.
@@ -114,6 +119,11 @@ export interface XEventsTypes {
    */
   UserSelectedANextQuery: NextQuery;
   /**
+   * User selected a popular search
+   * * Payload: The popular search that the user selected.
+   */
+  UserSelectedAPopularSearch: Suggestion;
+  /**
    * User selected any kind of suggestion (query-suggestion, popular-search...)
    * * Payload: The {@link @empathy/search-types#Suggestion | suggestion} that the user selected.
    */
@@ -124,11 +134,6 @@ export interface XEventsTypes {
    * selected.
    */
   UserSelectedAQuerySuggestion: Suggestion;
-  /**
-   * User selected a popular suggestion
-   * * Payload: The suggestion that the user selected.
-   */
-  UserSelectedAPopularSearch: Suggestion;
   /**
    * The user voiced a query
    * * Payload: The spoken query.
