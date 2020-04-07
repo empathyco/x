@@ -1,6 +1,6 @@
 import { Facet, Suggestion } from '@empathy/search-types';
 import { mount } from '@vue/test-utils';
-import Suggestions from '../pure/suggestions.vue';
+import Suggestions from '../suggestions.vue';
 
 describe('testing Suggestions component', () => {
   const suggestions: Suggestion[] = [
