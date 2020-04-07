@@ -1,5 +1,5 @@
 import { NextQueriesRequest, SuggestionsRequest } from '@empathy/search-adapter';
-import { NextQuery, Suggestion } from '@empathy/search-types';
+import { NextQuery, Suggestion, HistoryQuery } from '@empathy/search-types';
 import { CurrencyOptions } from '../i18n/currency.types';
 import { DocumentDirection } from '../plugins/x-plugin.types';
 import { ArrowKey } from '../utils';
@@ -31,6 +31,16 @@ export interface XEventsTypes {
    * * Payload: The new document direction.
    */
   ConfigDocumentDirectionChanged: DocumentDirection;
+  /**
+   * The query for searching inside the history-queries has changed.
+   * * Payload: The history-queries query.
+   */
+  HistoryQueriesQueryChanged: string;
+  /**
+   * The current history queries have been displayed to the user.
+   * * Payload: The displayed history queries.
+   */
+  HistoryQueriesDisplayed: HistoryQuery[];
   /**
    * Query suggestions have been changed.
    * * Payload: The new {@link @empathy/search-types#Suggestion | query suggestions}.
@@ -69,6 +79,11 @@ export interface XEventsTypes {
    */
   PopularSearchDisplayed: Suggestion[];
   /**
+   * The queries made in the current session have changed
+   * * Payload: The session history queries.
+   */
+  SessionHistoryQueriesChanged: HistoryQuery[];
+  /**
    * Any kind of suggestions have been displayed (query-suggestions, popular searches...)
    * * Payload: The displayed {@link @empathy/search-types#Suggestion | suggestions}.
    */
@@ -104,6 +119,11 @@ export interface XEventsTypes {
    */
   UserPressedClearSearchBoxButton: void;
   /**
+   * The user pressed the button for clearing all the history queries.
+   * * Payload: none.
+   */
+  UserPressedClearHistoryQueries: void;
+  /**
    * The user pressed the enter key with the focus on the search-box
    * * Payload: the new query of the search-box.
    */
@@ -113,6 +133,17 @@ export interface XEventsTypes {
    * * Payload: the pressed {@link ArrowKey | arrow key}.
    */
   UserPressedArrowKey: ArrowKey;
+  /**
+   * The user pressed the button for deleting a single
+   * {@link @empathy/search-types#HistoryQuery | history query}.
+   * * Payload: The history query to delete.
+   */
+  UserPressedDeleteHistoryQuery: HistoryQuery;
+  /**
+   * The user has selected a history-query.
+   * * Payload: The {@link @empathy/search-types#HistoryQuery | history query} selected.
+   */
+  UserSelectedAHistoryQuery: HistoryQuery;
   /**
    * The user has selected a next-query
    * * Payload: The next query that has been selected by the user.
