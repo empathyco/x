@@ -70,7 +70,7 @@ describe('testing query-suggestion component', () => {
   });
 
   it('renders the suggestion received as prop', () => {
-    expect(component.element.textContent).toContain(suggestion.query);
+    expect(component.text()).toContain(suggestion.query);
   });
 
   it('emits UserSelectedAQuerySuggestion event on click', () => {
