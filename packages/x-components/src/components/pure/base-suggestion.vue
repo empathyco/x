@@ -1,7 +1,6 @@
 <template>
   <EventButton :events="events" :class="dynamicCSSClasses" class="x-suggestion">
-    <!-- @slot (Required) Default slot with the suggestion and the highlighted query to customise
-    the output
+    <!-- @slot Default slot with the suggestion and the highlighted query to customise the output
       @binding {Suggestion} suggestion - The data of the suggestion
       @binding {string} suggestionQueryHighlighted - The suggestion query highlighting the matching
       parts with the query prop

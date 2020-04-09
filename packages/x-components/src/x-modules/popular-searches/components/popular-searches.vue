@@ -20,9 +20,9 @@
   import { Suggestion } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { State } from '../../components/decorators';
-  import { xComponentMixin } from '../../components/x-component.mixin';
-  import { popularSearchesXModule } from './x-module';
+  import { State } from '../../../components/decorators';
+  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { popularSearchesXModule } from '../x-module';
 
   /**
    * Simple popular-searches component that renders a list of suggestions, allowing the user to
