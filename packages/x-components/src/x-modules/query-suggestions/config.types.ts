@@ -12,7 +12,7 @@ export interface QuerySuggestionsConfig {
   /**
    * Maximum number of query suggestions to request.
    */
-  maxItems: number;
+  maxItemsToRequest: number;
   /**
    * Show the extra suggestion that has filters without the filter.
    *

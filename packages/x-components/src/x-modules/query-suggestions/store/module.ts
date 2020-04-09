@@ -1,4 +1,6 @@
 import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
+import { normalizedQuery } from './getters/normalized-query';
+import { request } from './getters/request';
 import { QuerySuggestionsXStoreModule } from './types';
 
 const adapter = new EmpathyAdapterBuilder()
@@ -18,21 +20,14 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
     suggestions: [],
     config: {
       debounceInMs: 200,
-      maxItems: 10,
+      maxItemsToRequest: 10,
       showExtraSuggestionWithoutFilter: true,
       hideIfEqualsQuery: true
     }
   }),
   getters: {
-    request(state) {
-      return state.query
-        ? {
-            query: state.query,
-            rows: state.config.maxItems,
-            start: 0
-          }
-        : null;
-    }
+    request,
+    normalizedQuery
   },
   mutations: {
     setQuery(state, newQuery) {
