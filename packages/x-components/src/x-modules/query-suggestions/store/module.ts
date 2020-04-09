@@ -1,13 +1,8 @@
-import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
+import { getAndSaveSuggestions } from './actions/get-and-save-suggestions.action';
+import { getSuggestions } from './actions/get-suggestions.action';
 import { normalizedQuery } from './getters/normalized-query';
 import { request } from './getters/request';
 import { QuerySuggestionsXStoreModule } from './types';
-
-const adapter = new EmpathyAdapterBuilder()
-  .setInstance('juguettos')
-  .setLang('es')
-  .setScope('x-components-development')
-  .build(); // TODO It should be injected
 
 /**
  * {@link XStoreModule} For the query-suggestions module.
@@ -38,13 +33,7 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
     }
   },
   actions: {
-    retrieveSuggestions({ dispatch, commit }) {
-      dispatch('getSuggestions').then(suggestions => commit('setSuggestions', suggestions));
-    },
-    getSuggestions({ getters }) {
-      return getters.request
-        ? adapter.getSuggestions(getters.request).then(({ suggestions }) => suggestions)
-        : [];
-    }
+    getAndSaveSuggestions,
+    getSuggestions
   }
 };

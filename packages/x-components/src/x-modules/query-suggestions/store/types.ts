@@ -62,7 +62,7 @@ export interface QuerySuggestionsActions {
   /**
    * Requests and saves to the state a list of suggestions.
    */
-  retrieveSuggestions(): void;
+  getAndSaveSuggestions(): void;
 }
 /**
  * QuerySuggestions type safe store module.

@@ -27,8 +27,8 @@ export const clearQuerySuggestionsQuery = querySuggestionsModule.wireCommit('set
  *
  * @public
  */
-export const retrieveQuerySuggestions = querySuggestionsModule.wireDispatchWithoutPayload(
-  'retrieveSuggestions'
+export const getAndSaveSuggestions = querySuggestionsModule.wireDispatchWithoutPayload(
+  'getAndSaveSuggestions'
 );
 
 /**
@@ -47,6 +47,6 @@ export const querySuggestionsWiring = createWiring({
     clearQuerySuggestionsQuery
   },
   QuerySuggestionsRequestChanged: {
-    retrieveQuerySuggestions
+    getAndSaveSuggestions
   }
 });
