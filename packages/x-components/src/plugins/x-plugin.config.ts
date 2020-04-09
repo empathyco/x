@@ -13,6 +13,10 @@ export const DEFAULT_X_CONFIG: XConfig = {
   },
   messages: {
     historyQueries: {
+      clearButton: {
+        content: 'Clear history queries',
+        ariaLabel: 'Clear history queries'
+      },
       deleteHistoryQuery: {
         ariaLabel: 'Delete query from history',
         content: '×'

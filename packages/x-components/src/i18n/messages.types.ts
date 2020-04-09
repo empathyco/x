@@ -6,6 +6,10 @@
 export interface Messages {
   custom?: Message;
   historyQueries: {
+    clearButton: {
+      content: string;
+      ariaLabel: string;
+    };
     deleteHistoryQuery: {
       ariaLabel: string;
       content: string;
