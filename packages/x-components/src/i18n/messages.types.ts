@@ -4,6 +4,13 @@
  * @public
  */
 export interface Messages {
+  custom?: Message;
+  historyQueries: {
+    deleteHistoryQuery: {
+      ariaLabel: string;
+      content: string;
+    };
+  };
   searchBox: {
     ariaLabel: string;
     placeholder: string;
@@ -14,7 +21,6 @@ export interface Messages {
       ariaLabel: string;
     };
   };
-  custom?: Message;
 }
 
 /**

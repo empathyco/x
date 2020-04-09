@@ -12,6 +12,12 @@ export const DEFAULT_X_CONFIG: XConfig = {
     symbol: '€'
   },
   messages: {
+    historyQueries: {
+      deleteHistoryQuery: {
+        ariaLabel: 'Delete query from history',
+        content: '×'
+      }
+    },
     searchBox: {
       ariaLabel: 'Search input',
       placeholder: 'Search',
