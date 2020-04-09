@@ -21,10 +21,9 @@
 </template>
 
 <script lang="ts">
-  import { Subscription } from 'rxjs/Subscription';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { State } from '../../../components/decorators';
+  import { State, XOn } from '../../../components/decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { ArrowKey } from '../../../utils';
   import { WireMetadata } from '../../../wiring/wiring.types';
@@ -48,28 +47,14 @@
     @State('searchBox', 'config')
     public config!: SearchBoxConfig;
 
-    protected subscription!: Subscription;
-
     /**
-     * Vue lifecycle hook executed when mounting the component.
+     * When event {@link XEventsTypes.UserAcceptedAQuery} is emitted the input will be blurred.
      *
      * @internal
      */
-    mounted(): void {
-      /*
-       * TODO: Create a decorator to handle this use case as it will be used in many components and
-       * the unsubscription in the beforeDestroy hook.
-       */
-      this.subscription = this.$x.on('UserAcceptedAQuery').subscribe(() => this.$refs.input.blur());
-    }
-
-    /**
-     * Vue lifecycle hook executed before destroying the component.
-     *
-     * @internal
-     */
-    beforeDestroy(): void {
-      this.subscription.unsubscribe();
+    @XOn('UserAcceptedAQuery')
+    blurInput(): void {
+      this.$refs.input.blur();
     }
 
     /**

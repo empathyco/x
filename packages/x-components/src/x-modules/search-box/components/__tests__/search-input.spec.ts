@@ -1,13 +1,11 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import Vuex from 'vuex';
-import { isXComponent } from '../../../../components/x-component.utils';
+import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import SearchInput from '../search-input.vue';
 
 describe('testing search input component', () => {
   const localVue = createLocalVue();
-  localVue.use(Vuex);
   localVue.use(XPlugin, { adapter: SearchAdapterDummy });
   const mockedSearchInput = shallowMount(SearchInput, {
     localVue
@@ -21,6 +19,10 @@ describe('testing search input component', () => {
 
   it('is an XComponent', () => {
     expect(isXComponent(mockedSearchInput.vm)).toEqual(true);
+  });
+
+  it('has SearchBox as XModule', () => {
+    expect(getXComponentXModuleName(mockedSearchInput.vm)).toEqual('searchBox');
   });
 
   it('emits UserFocusedSearchBox when it gains the focus', () => {
@@ -66,4 +68,15 @@ describe('testing search input component', () => {
       expect(listener).toHaveBeenCalledWith(query);
     }
   );
+
+  it('has to blur the input when the event UserAcceptedAQuery is launched', () => {
+    const blurListener = jest.fn();
+
+    mockedSearchInput.vm.$x.on('UserBlurredSearchBox').subscribe(blurListener);
+    input.focus();
+
+    mockedSearchInput.vm.$x.emit('UserAcceptedAQuery', 'gusanito');
+
+    expect(blurListener).toHaveBeenCalled();
+  });
 });
