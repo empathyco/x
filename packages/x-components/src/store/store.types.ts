@@ -1,4 +1,4 @@
-import { AnyXModule, XModule, XModulesTree } from '../x-modules/x-modules.types';
+import { AnyXModule, ExtractState, XModule, XModulesTree } from '../x-modules/x-modules.types';
 import { ActionsDictionary, ActionsTree } from './actions.types';
 import { GettersTree } from './getters.types';
 import { MutationsDictionary, MutationsTree } from './mutations.types';
@@ -11,14 +11,7 @@ import { MutationsDictionary, MutationsTree } from './mutations.types';
  */
 export interface RootXStoreState {
   x: {
-    [Module in keyof XModulesTree]: XModulesTree[Module]['storeModule'] extends XStoreModule<
-      infer State,
-      any,
-      any,
-      any
-    >
-      ? State
-      : never;
+    [Module in keyof XModulesTree]: ExtractState<Module>;
   };
 }
 
