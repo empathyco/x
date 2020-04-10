@@ -1,5 +1,5 @@
 import { HistoryQuery } from '@empathy/search-types';
-import { XStoreModule } from '../../../store';
+import { XActionContext, XStoreModule } from '../../../store';
 import { HistoryQueriesConfig } from '../config.types';
 
 /**
@@ -126,13 +126,19 @@ export interface HistoryQueriesActions {
    */
   addQueryToHistory(query: string): void;
   /**
+   * Refreshes the current search session, updating its TTL.
+   */
+  refreshSession(): void;
+  /**
    * Removes a single query from the history, synchronizing it with the browser storage.
    *
    * @param query - The query to remove.
    */
   removeQueryFromHistory(query: string): void;
   /**
-   * Sets the history queries, synchronizing them with the browser storage.
+   * Sets the history queries, synchronizing them with the browser storage. It also removes the
+   * oldest query if the history queries length is bigger than the
+   * {@link HistoryQueriesConfig.maxItemsToRender}.
    *
    * @param historyQueries - The new history queries to save to the state and the browser storage.
    */
@@ -144,6 +150,18 @@ export interface HistoryQueriesActions {
  * @public
  */
 export type HistoryQueriesXStoreModule = XStoreModule<
+  HistoryQueriesState,
+  HistoryQueriesGetters,
+  HistoryQueriesMutations,
+  HistoryQueriesActions
+>;
+
+/**
+ * Alias type for actions context of the {@link HistoryQueriesXStoreModule}.
+ *
+ * @public
+ */
+export type HistoryQueriesActionContext = XActionContext<
   HistoryQueriesState,
   HistoryQueriesGetters,
   HistoryQueriesMutations,

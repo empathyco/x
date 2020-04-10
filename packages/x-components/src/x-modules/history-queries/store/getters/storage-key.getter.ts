@@ -1,3 +1,4 @@
+import { HISTORY_QUERIES_STORAGE_KEY } from '../constants';
 import { HistoryQueriesXStoreModule } from '../types';
 
 /**
@@ -7,5 +8,5 @@ import { HistoryQueriesXStoreModule } from '../types';
  * @public
  */
 export const storageKey: HistoryQueriesXStoreModule['getters']['storageKey'] = () => {
-  return 'HISTORY_QUERIES'; // TODO Use constant created in the actions PR
+  return HISTORY_QUERIES_STORAGE_KEY;
 };

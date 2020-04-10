@@ -1,7 +1,7 @@
 import { ActionContext } from 'vuex';
 import { Dictionary, PropsWithType } from '../utils';
 import { MutationsDictionary } from './mutations.types';
-import { ExtractPayload, RootXStoreState } from './store.types';
+import { ExtractPayload, RootXStoreState, AnyXStoreModule } from './store.types';
 
 /**
  * Type safe Vuex {@link https://vuex.vuejs.org/api/#actions | Action} context, with the local
@@ -93,3 +93,11 @@ export type AnyActionsTree = ActionsTree<
   MutationsDictionary<any>,
   ActionsDictionary<any>
 >;
+
+/**
+ * Type for implementing actions for a module with a class.
+ *
+ * @param Module - The module this actions belong to.
+ * @public
+ */
+export type ActionsClass<Module extends AnyXStoreModule> = Partial<Module['actions']>;
