@@ -1,19 +1,19 @@
 <template>
-  <ul v-if="suggestions.length">
-    <li v-for="suggestion in suggestions" :key="suggestion.query">
-      <!-- @slot An individual popular search, that should call the emitPopularSearchSelected method
-      when selected.
-          @binding {Function} emitPopularSearchSelected - A method that emits multiple events
-          related to the selection of a popular search
-          @binding {Suggestion} suggestion - A single popular search to be used by the component
-      -->
-      <slot name="popular-search" v-bind="{ suggestion, emitPopularSearchSelected }">
-        <button @click="emitPopularSearchSelected(suggestion)" class="x-popular-search">
-          {{ suggestion.query }}
-        </button>
+  <Suggestions class="x-popular-searches" :suggestions="suggestions">
+    <template #default="{suggestion}">
+      <!-- @slot Slot for an individual Popular Search item. -->
+      <!-- @binding {Suggestion} suggestion - The data of the Popular Search's suggestion. -->
+      <slot name="popular-search" :suggestion="suggestion">
+        <PopularSearch :suggestion="suggestion">
+          <template #default="{ suggestion }">
+            <!-- @slot Slot for the Popular Search's content. -->
+            <!-- @binding {Suggestion} suggestion - The data of the Popular Search's suggestion. -->
+            <slot name="popular-search-content" :suggestion="suggestion" />
+          </template>
+        </PopularSearch>
       </slot>
-    </li>
-  </ul>
+    </template>
+  </Suggestions>
 </template>
 
 <script lang="ts">
@@ -21,64 +21,74 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { State } from '../../../components/decorators';
+  import Suggestions from '../../../components/pure/suggestions.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { popularSearchesXModule } from '../x-module';
+  import PopularSearch from './popular-search.vue';
 
   /**
    * Simple popular-searches component that renders a list of suggestions, allowing the user to
    * select one of them, and emitting the needed events.
-   * A popular search is just a query that has been searched a lot in a certain period of time,
-   * and that can optionally have associated a set of filters.
+   * A popular search is just a query that has been searched a lot in a certain period and may
+   * optionally have associated a set of filters.
    *
    * @public
    */
   @Component({
+    components: { PopularSearch, Suggestions },
     mixins: [xComponentMixin(popularSearchesXModule)]
   })
   export default class PopularSearches extends Vue {
     @State('popularSearches', 'suggestions')
     public suggestions!: Suggestion[];
-
-    /**
-     * Emits a set of events related to the selection of a popular search.
-     *
-     * @param suggestion - The popular search that has been selected.
-     * @public Can be used within the `popular-search` slot.
-     */
-    protected emitPopularSearchSelected(suggestion: Suggestion): void {
-      this.$x.emit('UserAcceptedAQuery', suggestion.query);
-      this.$x.emit('UserSelectedASuggestion', suggestion);
-      this.$x.emit('UserSelectedAPopularSearch', suggestion);
-    }
   }
 </script>
 
 <docs>
   #Examples
 
-  ## Basic example
+  ## Default Usage
 
   You don't need to pass any props, or slots. Simply add the component, and when it has any
-  popular searches it will show them
+  popular searches it will show them.
 
   ```vue
-  <PopularSearches />
+  <PopularSearches/>
   ```
 
-  ## Adding a custom popular search component
+  ## Overriding Popular Search's Content
 
-  You can use your custom implementation of a popular search component. To work correctly, it
-  should use the `emitPopularSearchSelected` function when the popular search is selected.
-  In the example below, instead of using the default `button` tag for a popular search, an icon
-  is added, and the text of the popular search is wrapped in a `span`
+  You can use your custom implementation of the Popular Search's content.
+  In the example below, instead of using the default Popular Search's content, an icon
+  is added, as well as a span with the query of the Popular Search's suggestion.
 
   ```vue
   <PopularSearches>
-    <template #popular-search="{suggestion, emitPopularSearchSelected }">
-      <button @click="emitPopularSearchSelected(suggestion)" class="x-popular-search">
-        <img src="./popular-search-icon.svg" class="x-popular-search__icon"/>
-        <span class="x-popular-search__query">{{ suggestion.query }}</span>
-      </button>
+    <template #popular-search-content="{suggestion}">
+      <img src="./popular-search-icon.svg" class="x-popular-search__icon"/>
+      <span class="x-popular-search__query">{{ suggestion.query }}</span>
+    </template>
+  </PopularSearches>
+  ```
+
+  ## Adding a Custom Popular Search Item
+
+  You can use your custom implementation for the whole Popular Search item.
+  In the example below, we change the default implementation of the Popular Search in Popular
+  Searches. A custom Popular Search implementation is added, it has an image and a span as content
+  (as in the previous example). Also, a button with a user customized behaviour is added at the
+  same hierarchical level as the Popular Search component.
+
+  ```vue
+  <PopularSearches>
+    <template #popular-search="{suggestion}">
+      <PopularSearch :suggestion="suggestion">
+        <template #default="{suggestion}">
+          <img src="./popular-search-icon.svg" class="x-popular-search__icon"/>
+          <span class="x-popular-search__query">{{ suggestion.query }}</span>
+        </template>
+      </PopularSearch>
+      <button>Custom Behaviour</button>
     </template>
   </PopularSearches>
   ```
