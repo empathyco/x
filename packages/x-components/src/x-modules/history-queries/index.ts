@@ -1,4 +1,4 @@
-export { default as HistoryQueries } from './components/history-queries.vue';
+export * from './components';
 export * from './store';
 export * from './config.types';
 export * from './wiring';
