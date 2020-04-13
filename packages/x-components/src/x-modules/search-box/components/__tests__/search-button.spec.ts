@@ -1,11 +1,11 @@
+import { createLocalVue, mount } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { createLocalVue, mount } from '@vue/test-utils';
 import { isXComponent } from '../../../../components/x-component.utils';
-import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
-import { DEFAULT_X_CONFIG } from '../../../../plugins/x-plugin.config';
-import SearchButton from '../search-button.vue';
 import { XPlugin } from '../../../../plugins/x-plugin';
+import { DEFAULT_X_CONFIG } from '../../../../plugins/x-plugin.config';
+import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
+import SearchButton from '../search-button.vue';
 
 describe('testing search button component', () => {
   const localVue = createLocalVue();

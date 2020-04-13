@@ -1,8 +1,8 @@
 // XModule
 import { XModule } from '../x-modules.types';
 import { querySuggestionsEmitters } from './store/emitters';
-import { QuerySuggestionsXStoreModule } from './store/types';
 import { querySuggestionsXStoreModule } from './store/module';
+import { QuerySuggestionsXStoreModule } from './store/types';
 import { querySuggestionsWiring } from './wiring';
 
 /**

@@ -1,6 +1,6 @@
-import { Plugin } from 'rollup';
 import fs from 'fs';
 import path from 'path';
+import { Plugin } from 'rollup';
 import { forEach } from '../src/utils';
 import { ensureDirectoryExists } from './build.utils';
 

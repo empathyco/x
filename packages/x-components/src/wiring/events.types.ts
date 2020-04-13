@@ -1,5 +1,5 @@
 import { NextQueriesRequest, SuggestionsRequest } from '@empathy/search-adapter';
-import { NextQuery, Suggestion, HistoryQuery } from '@empathy/search-types';
+import { HistoryQuery, NextQuery, Suggestion } from '@empathy/search-types';
 import { CurrencyOptions } from '../i18n/currency.types';
 import { DocumentDirection } from '../plugins/x-plugin.types';
 import { ArrowKey } from '../utils';

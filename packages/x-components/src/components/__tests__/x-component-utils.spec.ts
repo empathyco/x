@@ -1,6 +1,5 @@
 import { mount } from '@vue/test-utils';
 import Vue, { CreateElement } from 'vue';
-
 import {
   getXComponentXModuleName,
   isXComponent,

@@ -1,9 +1,9 @@
 import { Extractor, ExtractorConfig, ExtractorResult } from '@microsoft/api-extractor';
+import { exec } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import { Plugin } from 'rollup';
 import { ensureDirectoryExists } from './build.utils';
-import { exec } from 'child_process';
 
 /**
  * Entry point for building the API Documentation.

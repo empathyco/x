@@ -1,16 +1,16 @@
 import { HistoryQuery } from '@empathy/search-types';
 import { deepMerge } from '@empathybroker/deep-merge';
+import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { DeepPartial, map } from '../../../../utils';
 import {
   HISTORY_QUERIES_STORAGE_KEY,
-  SESSION_TIME_STAMP_STORAGE_KEY,
-  localStorageService
+  localStorageService,
+  SESSION_TIME_STAMP_STORAGE_KEY
 } from '../constants';
 import { historyQueriesXStoreModule } from '../module';
 import { HistoryQueriesState } from '../types';
 import { createHistoryQueries, createHistoryQuery } from './utils';
-import Vue from 'vue';
 
 describe('testing history queries module actions', () => {
   Vue.use(Vuex);

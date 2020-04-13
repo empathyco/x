@@ -1,8 +1,8 @@
 import { Suggestion } from '@empathy/search-types';
 import { createLocalVue, mount } from '@vue/test-utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
 import { XPlugin } from '../../../../plugins/x-plugin';
+import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
 import PopularSearch from '../popular-search.vue';
 
 describe('testing popular search item component', () => {

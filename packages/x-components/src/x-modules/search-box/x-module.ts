@@ -1,9 +1,9 @@
 // XModule
 import { XModule } from '../x-modules.types';
-import { searchBoxWiring } from './wiring';
-import { SearchBoxXStoreModule } from './store/types';
 import { searchBoxEmitters } from './store/emitters';
 import { searchBoxXStoreModule } from './store/module';
+import { SearchBoxXStoreModule } from './store/types';
+import { searchBoxWiring } from './wiring';
 
 /**
  * SearchBox {@link XModule} alias.

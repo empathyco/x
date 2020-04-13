@@ -1,10 +1,10 @@
 import { Suggestion } from '@empathy/search-types';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
 import Vue from 'vue';
+import Vuex, { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
 import { XPlugin } from '../../../../plugins/x-plugin';
+import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
 import { RootXStoreState } from '../../../../store/store.types';
 import PopularSearch from '../popular-search.vue';
 import PopularSearches from '../popular-searches.vue';

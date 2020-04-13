@@ -1,8 +1,8 @@
 import { HistoryQuery } from '@empathy/search-types';
 import { createLocalVue, mount } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
-import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
 import { XPlugin } from '../../../../plugins/x-plugin';
+import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
 import ClearHistoryQueries from '../clear-history-queries.vue';
 
 describe('testing ClearHistoryQueries component', () => {

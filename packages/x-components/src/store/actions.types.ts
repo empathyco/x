@@ -1,7 +1,7 @@
 import { ActionContext } from 'vuex';
 import { Dictionary, PropsWithType } from '../utils';
 import { MutationsDictionary } from './mutations.types';
-import { ExtractPayload, RootXStoreState, AnyXStoreModule } from './store.types';
+import { AnyXStoreModule, ExtractPayload, RootXStoreState } from './store.types';
 
 /**
  * Type safe Vuex {@link https://vuex.vuejs.org/api/#actions | Action} context, with the local

@@ -1,8 +1,8 @@
 // XModule
 import { XModule } from '../x-modules.types';
 import { nextQueriesEmitters } from './store/emitters';
-import { NextQueriesXStoreModule } from './store/types';
 import { nextQueriesXStoreModule } from './store/module';
+import { NextQueriesXStoreModule } from './store/types';
 import { nextQueriesWiring } from './wiring';
 
 /**

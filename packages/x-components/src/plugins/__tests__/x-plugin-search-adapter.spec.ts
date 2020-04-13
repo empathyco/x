@@ -1,8 +1,8 @@
 import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
 import { createLocalVue } from '@vue/test-utils';
+import { VueConstructor } from 'vue';
 import { createWireFromFunction } from '../../wiring/wires.factory';
 import { XPlugin } from '../x-plugin';
-import { VueConstructor } from 'vue';
 
 describe('testing adapter configuration', () => {
   let plugin: typeof XPlugin;

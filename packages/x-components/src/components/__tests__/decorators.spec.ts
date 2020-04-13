@@ -2,8 +2,8 @@ import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue, { CreateElement, VNode } from 'vue';
 import { Component } from 'vue-property-decorator';
 import { Store } from 'vuex';
-import { SearchAdapterDummy } from '../../plugins/__tests__/adapter.dummy';
 import { XPlugin } from '../../plugins/x-plugin';
+import { SearchAdapterDummy } from '../../plugins/__tests__/adapter.dummy';
 import { searchBoxXStoreModule } from '../../x-modules/search-box/store/module';
 import { Getter, State, XOn } from '../decorators';
 

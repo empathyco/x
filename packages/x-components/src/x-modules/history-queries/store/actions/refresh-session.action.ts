@@ -1,4 +1,4 @@
-import { SESSION_TIME_STAMP_STORAGE_KEY, localStorageService } from '../constants';
+import { localStorageService, SESSION_TIME_STAMP_STORAGE_KEY } from '../constants';
 import { HistoryQueriesXStoreModule } from '../types';
 
 /**

@@ -5,9 +5,9 @@ import { createWireFromFunction } from '../wires.factory';
 import {
   debounce,
   filter,
+  filterBlacklistedModules,
   filterFalsyPayload,
   filterTruthyPayload,
-  filterBlacklistedModules,
   filterWhitelistedModules,
   throttle
 } from '../wires.operators';

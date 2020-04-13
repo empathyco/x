@@ -1,6 +1,6 @@
+import Vue from 'vue';
 import { XModuleName } from '../x-modules/x-modules.types';
 import { XComponentModule } from './x-component.utils';
-import Vue from 'vue';
 
 /**
  * An XComponent is just a normal Vue component that has an {@link XModule} linked to its usage.

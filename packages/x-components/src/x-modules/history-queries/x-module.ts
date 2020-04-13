@@ -1,8 +1,8 @@
 // XModule
 import { XModule } from '../x-modules.types';
 import { historyQueriesEmitters } from './store/emitters';
-import { HistoryQueriesXStoreModule } from './store/types';
 import { historyQueriesXStoreModule } from './store/module';
+import { HistoryQueriesXStoreModule } from './store/types';
 import { historyQueriesWiring } from './wiring';
 
 /**

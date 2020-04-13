@@ -2,11 +2,11 @@ import { StoreEmitters } from '../store/store-emitters.types';
 import { AnyXStoreModule } from '../store/store.types';
 import { Returns } from '../utils/types';
 import { Wiring } from '../wiring/wiring.types';
+import { HistoryQueriesXModule } from './history-queries/x-module';
 import { NextQueriesXModule } from './next-queries/x-module';
 import { PopularSearchesXModule } from './popular-searches/x-module';
-import { SearchBoxXModule } from './search-box/x-module';
 import { QuerySuggestionsXModule } from './query-suggestions/x-module';
-import { HistoryQueriesXModule } from './history-queries/x-module';
+import { SearchBoxXModule } from './search-box/x-module';
 
 /**
  * Gives each {@link XModule} a name, that can be used to retrieve then its value.

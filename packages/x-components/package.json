@@ -70,6 +70,7 @@
     "eslint-plugin-vue": "~5.2.3",
     "lint-staged": "~10.0.7",
     "prettier": "~1.19.1",
+    "prettier-plugin-organize-imports": "~1.0.3",
     "rollup": "~1.31.0",
     "rollup-plugin-delete": "~1.2.0",
     "rollup-plugin-postcss": "~2.0.3",
