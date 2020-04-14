@@ -6,7 +6,6 @@ module.exports = {
   rules: {
     // https://github.com/cypress-io/eslint-plugin-cypress
     '@typescript-eslint/no-unused-expressions': 'off',
-    'cypress/assertion-before-screenshot': 'error',
-    'cypress/require-data-selectors': 'warn',
+    'cypress/assertion-before-screenshot': 'error'
   }
 };

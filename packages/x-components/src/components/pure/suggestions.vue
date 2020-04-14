@@ -4,6 +4,7 @@
       v-for="(suggestion, index) in suggestions"
       :key="suggestionsKeys[index]"
       class="x-suggestions__item"
+      data-test="suggestion-item"
     >
       <!-- @slot (Required) Slot for an individual suggestion, responsible for handling its
       selection by emitting the appropriate event -->
