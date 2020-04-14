@@ -9,8 +9,9 @@ import {
   AnyStoreEmitters
 } from '../store/store-emitters.types';
 import { AnyXStoreModule } from '../store/store.types';
+import { getGettersProxyFromModule } from '../store/utils/get-getters-proxy';
 import { RootXStoreModule } from '../store/x.module';
-import { DeepPartial, Dictionary, forEach, reduce } from '../utils';
+import { DeepPartial, Dictionary, forEach } from '../utils';
 import { AnyWire, Wiring } from '../wiring/wiring.types';
 import { AnyXModule, XModuleName } from '../x-modules/x-modules.types';
 import { bus } from './x-bus';
@@ -331,7 +332,7 @@ export class XPlugin {
     const customizedStoreEmitters: AnyStoreEmitters = storeEmittersOptions
       ? deepMerge({}, storeEmitters, storeEmittersOptions)
       : storeEmitters;
-    const safeGettersProxy = this.getModuleGetters(name, storeModule);
+    const safeGettersProxy = getGettersProxyFromModule(this.store, name, storeModule);
     forEach(
       customizedStoreEmitters,
       (event, stateSelector: AnySimpleStateSelector | AnyStateSelector) => {
@@ -346,33 +347,6 @@ export class XPlugin {
           options
         );
       }
-    );
-  }
-
-  /**
-   * Creates a proxy object of the getters of the storeModule passed, which will be the object
-   * passed as getters to the stateSelector, of the module. This is done to ensure that a Vuex
-   * stateSelector can only access the getters of the {@link XModule} where it is registered.
-   *
-   * @param moduleName - The name of the module.
-   * @param storeModule - The store module.
-   * @returns Dictionary with only the getters of the {@link XModule}.
-   * @internal
-   */
-  protected getModuleGetters(moduleName: XModuleName, storeModule: AnyXStoreModule): Dictionary {
-    const getters = this.store.getters;
-    return reduce(
-      storeModule.getters as Dictionary,
-      (safeGettersProxy, getterName) => {
-        Object.defineProperty(safeGettersProxy, getterName, {
-          get() {
-            return getters[`x/${moduleName}/${getterName}`];
-          },
-          enumerable: true
-        });
-        return safeGettersProxy;
-      },
-      {} as Dictionary
     );
   }
 
