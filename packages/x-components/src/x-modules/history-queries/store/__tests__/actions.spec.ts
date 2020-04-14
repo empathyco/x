@@ -33,13 +33,13 @@ describe('testing history queries module actions', () => {
 
   describe(`${actionsKeys.addQueryToHistory}`, () => {
     it('does not add the query if it is empty', () => {
-      store.dispatch(actionsKeys.addQueryToHistory, '');
+      store.dispatch(actionsKeys.addQueryToHistory, ' ');
 
       expectHistoryQueriesToEqual([]);
     });
 
     it('adds the given query to the history if it is new', () => {
-      const shirt = createHistoryQuery({ query: 'shirt' });
+      const shirt = createHistoryQuery({ query: ' shirt ' });
       resetStateWith({ historyQueries: [shirt] });
 
       const [tShirt, jeans, longSleveShirt] = createHistoryQueries(

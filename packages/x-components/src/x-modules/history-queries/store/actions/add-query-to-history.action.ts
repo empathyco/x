@@ -51,7 +51,7 @@ export class AddQueryToHistoryAction implements ActionsClass<HistoryQueriesXStor
    */
   protected createHistoryQuery(query: string): HistoryQuery {
     return {
-      query,
+      query: query.trim(),
       timestamp: Date.now(),
       modelName: 'HistoryQuery'
     };
