@@ -1,5 +1,6 @@
 import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
 import { Suggestion } from '@empathy/search-types';
+import { request } from './getters/request';
 import { PopularSearchesXStoreModule } from './types';
 
 const adapter = new EmpathyAdapterBuilder()
@@ -22,10 +23,7 @@ export const popularSearchesXStoreModule: PopularSearchesXStoreModule = {
     }
   }),
   getters: {
-    request: state => ({
-      rows: state.config.maxItemsToRender,
-      start: 0
-    })
+    request
   },
   mutations: {
     setSuggestions(state, suggestions: Suggestion[]): void {
