@@ -52,12 +52,12 @@ describe('testing history-query component', () => {
     const deleteHistoryQueryWrapper = historyQueryWrapper.find(
       getDataTestSelector('delete-history-query')
     );
-    deleteHistoryQueryWrapper.vm.$x.on('UserPressedDeleteHistoryQuery', true).subscribe(listener);
+    deleteHistoryQueryWrapper.vm.$x.on('UserPressedRemoveHistoryQuery', true).subscribe(listener);
     deleteHistoryQueryWrapper.trigger('click');
 
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith({
-      eventPayload: historyQuery,
+      eventPayload: historyQuery.query,
       metadata: {
         moduleName: 'historyQueries',
         target: deleteHistoryQueryWrapper.element

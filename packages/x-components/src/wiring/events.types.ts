@@ -139,11 +139,11 @@ export interface XEventsTypes {
    */
   UserPressedArrowKey: ArrowKey;
   /**
-   * The user pressed the button for deleting a single
+   * The user pressed the button for removing a single
    * {@link @empathy/search-types#HistoryQuery | history query}.
-   * * Payload: The history query to delete.
+   * * Payload: The `HistoryQuery` query to remove.
    */
-  UserPressedDeleteHistoryQuery: HistoryQuery;
+  UserPressedRemoveHistoryQuery: string;
   /**
    * The user has selected a history-query.
    * * Payload: The {@link @empathy/search-types#HistoryQuery | history query} selected.

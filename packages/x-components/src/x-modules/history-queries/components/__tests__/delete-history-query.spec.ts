@@ -22,13 +22,13 @@ describe('testing DeleteHistoryQuery component', () => {
         historyQuery
       }
     });
-    deleteHistoryQuery.vm.$x.on('UserPressedDeleteHistoryQuery', true).subscribe(listener);
+    deleteHistoryQuery.vm.$x.on('UserPressedRemoveHistoryQuery', true).subscribe(listener);
 
     deleteHistoryQuery.trigger('click');
 
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith({
-      eventPayload: historyQuery,
+      eventPayload: historyQuery.query,
       metadata: {
         moduleName: 'historyQueries',
         target: deleteHistoryQuery.element
