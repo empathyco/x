@@ -63,7 +63,7 @@ describe('testing popular search item component', () => {
       propsData: { suggestion }
     });
 
-    expect(popularSearchWrapper.contains('[data-test=event-button]')).toBeTruthy();
+    expect(popularSearchWrapper.contains('[data-test=popular-search]')).toBeTruthy();
     expect(popularSearchWrapper.contains('[data-test=icon]')).toBeTruthy();
     expect(popularSearchWrapper.find('[data-test=query]').element.textContent).toEqual(
       suggestion.query

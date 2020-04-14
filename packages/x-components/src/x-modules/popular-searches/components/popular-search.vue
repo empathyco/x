@@ -3,6 +3,7 @@
     class="x-popular-search"
     :suggestion="suggestion"
     :suggestionSelectedEvents="events"
+    data-test="popular-search"
   >
     <template #default="{ suggestion }">
       <!-- @slot Default slot with the suggestion to customise the output

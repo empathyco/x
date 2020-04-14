@@ -50,7 +50,7 @@ describe('testing popular searches component', () => {
   });
 
   it('renders a button with the query of the popular search (suggestion)', () => {
-    const eventButtonsList = findTestDataById(popularSearchesWrapper, 'event-button');
+    const eventButtonsList = findTestDataById(popularSearchesWrapper, 'popular-search');
 
     suggestions.forEach((suggestion, index) => {
       expect(eventButtonsList.at(index).element.innerHTML).toEqual(suggestion.query);
