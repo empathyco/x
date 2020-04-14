@@ -32,15 +32,20 @@ export interface XEventsTypes {
    */
   ConfigDocumentDirectionChanged: DocumentDirection;
   /**
+   * The current history queries have been displayed to the user.
+   * * Payload: The displayed history queries.
+   */
+  HistoryQueriesDisplayed: HistoryQuery[];
+  /**
    * The query for searching inside the history-queries has changed.
    * * Payload: The history-queries query.
    */
   HistoryQueriesQueryChanged: string;
   /**
-   * The current history queries have been displayed to the user.
-   * * Payload: The displayed history queries.
+   * The key for saving the history queries in to the browser storage has changed.
+   * * Payload: The new history-queries storage key.
    */
-  HistoryQueriesDisplayed: HistoryQuery[];
+  HistoryQueriesStorageKeyChanged: string;
   /**
    * Query suggestions have been changed.
    * * Payload: The new {@link @empathy/search-types#Suggestion | query suggestions}.
