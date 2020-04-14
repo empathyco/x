@@ -49,7 +49,7 @@ export class EmpathyFacetMapper implements ResponseMapper<EmpathyFacet, Facet> {
     const initialFilterProperties: Partial<Filter> = { facet, modelName: filterModelName };
     return isDynamic
       // We only map the first filter because its values will be overridden dynamically by the user
-      ? [this.mapFilter(rawFilters[0], initialFilterProperties as Filter, context)]
+      ? [this.mapFilter(rawFilters[0], { ...initialFilterProperties, children: [] } as Filter, context)]
       : this.mapFilters(rawFilters, initialFilterProperties, context);
   }
 

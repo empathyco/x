@@ -1,5 +1,9 @@
 # Search Adapter Changelog
 
+> ## 3.2.1 - 2020/03/09
+>
+> EX-1813 Fix `empathy-facet-mapper` not mapping dynamic filters children property.
+
 > ## 3.2.0 - 2020/03/09
 >
 > EX-1490 Remove warnings about tagging events on production

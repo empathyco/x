@@ -3,7 +3,7 @@ import { FacetSchema, FilterSchema } from '@empathy/search-types/schemas';
 import { deepMerge } from '@empathybroker/deep-merge';
 import { Container } from 'inversify';
 import { FilterableRequest } from '../../../types';
-import { deepFacet, deepFacetWithNoSelectedProperty } from '../../__fixtures__/responses/single-facet.response';
+import { deepFacet, deepFacetWithNoSelectedProperty, priceFacet } from '../../__fixtures__/responses/single-facet.response';
 import { EmpathyAdapterBuilder } from '../../builder/empathy-adapter.builder';
 import { DEPENDENCIES } from '../../container/container.const';
 import { MapFn, ResponseMapper, ResponseMapperContext } from '../../empathy-adapter.types';
@@ -12,7 +12,9 @@ import { EmpathyFacet } from '../../models';
 
 const emptyContext: ResponseMapperContext = { feature: '', url: '', requestOptions: {}, rawRequest: {}, request: {}, rawResponse: {} };
 const container = new Container();
-new EmpathyAdapterBuilder(container).build();
+new EmpathyAdapterBuilder(container)
+  .setFacetConfig({isDynamic: true}, 'price_facet')
+  .build();
 let mapFacet: MapFn<EmpathyFacet, Facet>;
 
 beforeEach(() => {
@@ -64,6 +66,16 @@ it('maps filters selected property to false by default', () => {
   const mappedFacet = mapFacet(deepFacetWithNoSelectedProperty as any, {} as Facet, emptyContext);
 
   expectFacetToMatchMock(mappedFacet, deepFacetWithNoSelectedProperty);
+  expectAllFiltersToBeValid(mappedFacet.filters);
+  expectAllFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
+});
+
+it('maps dynamic filters successfully', () => {
+  const mappedFacet = mapFacet(priceFacet as any, {} as Facet, emptyContext);
+
+  expect(mappedFacet).toMatchObject(FacetSchema);
+  expect(mappedFacet.title).toEqual(priceFacet.facet);
+  expect(mappedFacet.filters).toHaveLength(1);
   expectAllFiltersToBeValid(mappedFacet.filters);
   expectAllFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
 });
