@@ -17,6 +17,7 @@
   import { Component, Prop } from 'vue-property-decorator';
   import { Suggestion, Facet } from '@empathy/search-types';
   import Vue from 'vue';
+  import { isArrayEmpty } from '../../utils/array';
 
   /**
    * Paints a list of suggestions passed in by prop. Requires a component for a single suggestion
@@ -42,9 +43,9 @@
      */
     protected get suggestionsKeys(): string[] {
       return this.suggestions.map(suggestion =>
-        suggestion.facets.length > 0
-          ? `${suggestion.query}-in-${this.getFacetsKey(suggestion.facets)}`
-          : suggestion.query
+        isArrayEmpty(suggestion.facets)
+          ? suggestion.query
+          : `${suggestion.query}-in-${this.getFacetsKey(suggestion.facets)}`
       );
     }
 
