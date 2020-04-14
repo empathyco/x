@@ -3,11 +3,7 @@ import { deepMerge } from '@empathybroker/deep-merge';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { DeepPartial, map } from '../../../../utils';
-import {
-  HISTORY_QUERIES_STORAGE_KEY,
-  localStorageService,
-  SESSION_TIME_STAMP_STORAGE_KEY
-} from '../constants';
+import { localStorageService, SESSION_TIME_STAMP_STORAGE_KEY } from '../constants';
 import { historyQueriesXStoreModule } from '../module';
 import { HistoryQueriesState } from '../types';
 import { createHistoryQueries, createHistoryQuery } from './utils';
@@ -21,13 +17,13 @@ describe('testing history queries module actions', () => {
 
   function resetStateWith(state: DeepPartial<HistoryQueriesState>): void {
     const newState: HistoryQueriesState = deepMerge(historyQueriesXStoreModule.state(), state);
-    localStorageService.setItem(HISTORY_QUERIES_STORAGE_KEY, newState.historyQueries);
     store.replaceState(newState);
+    localStorageService.setItem(store.getters.storageKey, newState.historyQueries);
   }
 
   function expectHistoryQueriesToEqual(historyQueries: HistoryQuery[]): void {
     expect(store.state.historyQueries).toEqual(historyQueries);
-    expect(localStorageService.getItem(HISTORY_QUERIES_STORAGE_KEY)).toEqual(historyQueries);
+    expect(localStorageService.getItem(store.getters.storageKey)).toEqual(historyQueries);
   }
 
   beforeEach(() => {
@@ -180,6 +176,23 @@ describe('testing history queries module actions', () => {
       store.dispatch(actionsKeys.refreshSession);
       expect(localStorageService.getItem(SESSION_TIME_STAMP_STORAGE_KEY)).toEqual(25);
       expect(store.state.sessionTimeStampInMs).toEqual(25);
+    });
+  });
+
+  describe(`${actionsKeys.loadHistoryQueriesFromBrowserStorage}`, () => {
+    it('loads an empty array if storage does not contain the key', () => {
+      localStorageService.removeItem(store.getters.storageKey);
+      store.dispatch(actionsKeys.loadHistoryQueriesFromBrowserStorage);
+
+      expect(store.state.historyQueries).toEqual([]);
+    });
+
+    it('loads history queries from browser storage', () => {
+      const historyQueries: HistoryQuery[] = createHistoryQueries('molleja', 'araña');
+      localStorageService.setItem(store.getters.storageKey, historyQueries);
+      store.dispatch(actionsKeys.loadHistoryQueriesFromBrowserStorage);
+
+      expect(store.state.historyQueries).toEqual(historyQueries);
     });
   });
 });

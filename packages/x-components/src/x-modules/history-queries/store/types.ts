@@ -126,6 +126,11 @@ export interface HistoryQueriesActions {
    */
   addQueryToHistory(query: string): void;
   /**
+   * Loads the {@link HistoryQueriesState.historyQueries | historyQueries} property from the browser
+   * storage.
+   */
+  loadHistoryQueriesFromBrowserStorage(): void;
+  /**
    * Refreshes the current search session, updating its TTL.
    */
   refreshSession(): void;
