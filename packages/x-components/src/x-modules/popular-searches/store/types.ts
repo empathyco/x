@@ -10,7 +10,7 @@ import { PopularSearchesConfig } from '../config.types';
  */
 export interface PopularSearchesState {
   /** The suggestions list. These suggestions represent the most searched queries. */
-  suggestions: Suggestion[];
+  popularSearches: Suggestion[];
   /** The popular searches module configuration. */
   config: PopularSearchesConfig;
 }

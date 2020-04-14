@@ -3,12 +3,12 @@
     <template #default="{suggestion}">
       <!-- @slot Slot for an individual Popular Search item. -->
       <!-- @binding {Suggestion} suggestion - The data of the Popular Search's suggestion. -->
-      <slot name="popular-search" :suggestion="suggestion">
+      <slot name="suggestion" :suggestion="suggestion">
         <PopularSearch :suggestion="suggestion">
           <template #default="{ suggestion }">
             <!-- @slot Slot for the Popular Search's content. -->
             <!-- @binding {Suggestion} suggestion - The data of the Popular Search's suggestion. -->
-            <slot name="popular-search-content" :suggestion="suggestion" />
+            <slot name="suggestion-content" :suggestion="suggestion" />
           </template>
         </PopularSearch>
       </slot>
@@ -39,7 +39,7 @@
     mixins: [xComponentMixin(popularSearchesXModule)]
   })
   export default class PopularSearches extends Vue {
-    @State('popularSearches', 'suggestions')
+    @State('popularSearches', 'popularSearches')
     public suggestions!: Suggestion[];
   }
 </script>
@@ -64,7 +64,7 @@
 
   ```vue
   <PopularSearches>
-    <template #popular-search-content="{suggestion}">
+    <template #suggestion-content="{suggestion}">
       <img src="./popular-search-icon.svg" class="x-popular-search__icon"/>
       <span class="x-popular-search__query">{{ suggestion.query }}</span>
     </template>
@@ -81,7 +81,7 @@
 
   ```vue
   <PopularSearches>
-    <template #popular-search="{suggestion}">
+    <template #suggestion="{suggestion}">
       <PopularSearch :suggestion="suggestion">
         <template #default="{suggestion}">
           <img src="./popular-search-icon.svg" class="x-popular-search__icon"/>

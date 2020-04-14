@@ -16,7 +16,7 @@ const adapter = new EmpathyAdapterBuilder()
  */
 export const popularSearchesXStoreModule: PopularSearchesXStoreModule = {
   state: () => ({
-    suggestions: [],
+    popularSearches: [],
     config: {
       maxItemsToRender: 5,
       showExtraSuggestionWithoutFilter: false
@@ -27,7 +27,7 @@ export const popularSearchesXStoreModule: PopularSearchesXStoreModule = {
   },
   mutations: {
     setSuggestions(state, suggestions: Suggestion[]): void {
-      state.suggestions = suggestions;
+      state.popularSearches = suggestions;
     }
   },
   actions: {

@@ -61,7 +61,7 @@ describe('testing popular searches component', () => {
     const wrapperComponent = {
       template: `
         <PopularSearches>
-          <template #popular-search-content="{suggestion}">
+          <template #suggestion-content="{suggestion}">
             <img src="./popular-search-icon.svg" class="x-popular-search__icon" data-test="icon"/>
             <span class="x-popular-search__query" data-test="query">{{ suggestion.query }}</span>
           </template>
@@ -77,11 +77,11 @@ describe('testing popular searches component', () => {
       store
     });
 
-    const eventButtonsList = findTestDataById(popularSearchesWrapper, 'query');
+    const eventSpansList = findTestDataById(popularSearchesWrapper, 'query');
     const iconsList = findTestDataById(popularSearchesWrapper, 'icon');
 
     suggestions.forEach((suggestion, index) => {
-      expect(eventButtonsList.at(index).element.innerHTML).toEqual(suggestion.query);
+      expect(eventSpansList.at(index).element.innerHTML).toEqual(suggestion.query);
       expect(iconsList.at(index)).toBeDefined();
     });
   });
@@ -90,7 +90,7 @@ describe('testing popular searches component', () => {
     const wrapperComponent = {
       template: `
         <PopularSearches>
-          <template #popular-search="{suggestion}">
+          <template #suggestion="{suggestion}">
             <PopularSearch :suggestion="suggestion">
               <template #default="{suggestion}">
                 <img src="./popular-search-icon.svg"
@@ -117,12 +117,12 @@ describe('testing popular searches component', () => {
 
     expect(popularSearchesWrapper.find(PopularSearch)).toBeDefined();
 
-    const eventButtonsList = findTestDataById(popularSearchesWrapper, 'query');
+    const eventSpansList = findTestDataById(popularSearchesWrapper, 'query');
     const iconsList = findTestDataById(popularSearchesWrapper, 'icon');
     const customButtonList = findTestDataById(popularSearchesWrapper, 'custom-button');
 
     suggestions.forEach((suggestion, index) => {
-      expect(eventButtonsList.at(index).element.innerHTML).toEqual(suggestion.query);
+      expect(eventSpansList.at(index).element.innerHTML).toEqual(suggestion.query);
       expect(iconsList.at(index)).toBeDefined();
       expect(customButtonList.at(index)).toBeDefined();
     });
