@@ -14,7 +14,7 @@ const popularSearchesNamespacedModule = withModule('popularSearches');
  * @public
  */
 const retrievePopularSuggestions = popularSearchesNamespacedModule.wireDispatchWithoutPayload(
-  'retrieveSuggestions'
+  'getAndSaveSuggestions'
 );
 
 /**

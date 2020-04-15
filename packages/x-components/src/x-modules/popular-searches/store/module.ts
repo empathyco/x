@@ -1,13 +1,8 @@
-import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
 import { Suggestion } from '@empathy/search-types';
+import { getAndSaveSuggestions } from './actions/get-and-save-suggestions.action';
+import { getSuggestions } from './actions/get-suggestions.action';
 import { request } from './getters/request';
 import { PopularSearchesXStoreModule } from './types';
-
-const adapter = new EmpathyAdapterBuilder()
-  .setInstance('juguettos')
-  .setLang('es')
-  .setScope('x-components-development')
-  .build(); // TODO It should be injected
 
 /**
  * {@link XStoreModule} For the next-queries module.
@@ -31,11 +26,7 @@ export const popularSearchesXStoreModule: PopularSearchesXStoreModule = {
     }
   },
   actions: {
-    getSuggestions({ getters: { request } }): Promise<Suggestion[]> {
-      return adapter.getSuggestions(request).then(({ suggestions }) => suggestions);
-    },
-    retrieveSuggestions({ dispatch, commit }): void {
-      dispatch('getSuggestions').then(suggestions => commit('setSuggestions', suggestions));
-    }
+    getSuggestions,
+    getAndSaveSuggestions
   }
 };

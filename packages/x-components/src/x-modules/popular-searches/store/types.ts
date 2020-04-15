@@ -50,11 +50,11 @@ export interface PopularSearchesActions {
    *
    * @returns The new set of suggestions.
    */
-  getSuggestions(): Promise<Suggestion[]>;
+  getSuggestions(): Suggestion[];
   /**
-   * Gets an new set of suggestions and stores them in the module state.
+   * Gets a new set of suggestions and stores them in the module state.
    */
-  retrieveSuggestions(): void;
+  getAndSaveSuggestions(): void;
 }
 
 /**
