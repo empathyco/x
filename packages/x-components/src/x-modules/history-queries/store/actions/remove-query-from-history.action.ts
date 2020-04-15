@@ -1,21 +1,20 @@
 import { HistoryQueriesXStoreModule } from '../types';
 
 /**
- * Default implementation for the {@link HistoryQueriesActions.removeQueryFromHistory}.
+ * Default implementation for the {@link HistoryQueriesActions.removeFromHistory}.
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- * @param query - The query to remove from the history.
+ * @param historyQueryToRemove - The `HistoryQuery` to remove from the history.
  * @returns A `void` promise that resolves when the history queries finishes updating.
  * @public
  */
-// eslint-disable-next-line max-len
-export const removeQueryFromHistory: HistoryQueriesXStoreModule['actions']['removeQueryFromHistory'] = (
+export const removeFromHistory: HistoryQueriesXStoreModule['actions']['removeFromHistory'] = (
   { state, dispatch },
-  query
+  historyQueryToRemove
 ) => {
   const newHistoryQueries = state.historyQueries.filter(
-    historyQuery => historyQuery.query !== query
+    historyQuery => historyQuery.query !== historyQueryToRemove.query
   );
   return dispatch('setHistoryQueries', newHistoryQueries);
 };

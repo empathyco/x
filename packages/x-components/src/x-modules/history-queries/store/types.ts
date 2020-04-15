@@ -137,9 +137,9 @@ export interface HistoryQueriesActions {
   /**
    * Removes a single query from the history, synchronizing it with the browser storage.
    *
-   * @param query - The query to remove.
+   * @param historyQuery - The `HistoryQuery` to remove.
    */
-  removeQueryFromHistory(query: string): void;
+  removeFromHistory(historyQuery: HistoryQuery): void;
   /**
    * Sets the history queries, synchronizing them with the browser storage. It also removes the
    * oldest query if the history queries length is bigger than the

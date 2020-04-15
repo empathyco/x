@@ -141,9 +141,9 @@ export interface XEventsTypes {
   /**
    * The user pressed the button for removing a single
    * {@link @empathy/search-types#HistoryQuery | history query}.
-   * * Payload: The `HistoryQuery` query to remove.
+   * * Payload: The `HistoryQuery` to remove.
    */
-  UserPressedRemoveHistoryQuery: string;
+  UserPressedRemoveHistoryQuery: HistoryQuery;
   /**
    * The user has selected a history-query.
    * * Payload: The {@link @empathy/search-types#HistoryQuery | history query} selected.

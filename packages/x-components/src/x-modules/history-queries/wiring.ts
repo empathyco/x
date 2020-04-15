@@ -56,7 +56,7 @@ export const clearHistoryQueries = historyQueriesModule.wireDispatch('setHistory
  *
  * @public
  */
-export const removeHistoryQuery = historyQueriesModule.wireDispatch('removeQueryFromHistory');
+export const removeHistoryQuery = historyQueriesModule.wireDispatch('removeFromHistory');
 
 /**
  * Default wiring for the {@link HistoryQueries} module.

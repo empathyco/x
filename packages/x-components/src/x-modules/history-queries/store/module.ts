@@ -2,7 +2,7 @@ import { addQueryToHistory } from './actions/add-query-to-history.action';
 // eslint-disable-next-line max-len
 import { loadHistoryQueriesFromBrowserStorage } from './actions/load-history-queries-from-browser-storage.action';
 import { refreshSession } from './actions/refresh-session.action';
-import { removeQueryFromHistory } from './actions/remove-query-from-history.action';
+import { removeFromHistory } from './actions/remove-query-from-history.action';
 import { setHistoryQueries } from './actions/set-history-queries.action';
 import { historyQueries } from './getters/history-queries.getter';
 import { sessionHistoryQueries } from './getters/session-history-queries.getter';
@@ -48,7 +48,7 @@ historyQueriesXStoreModule = {
     addQueryToHistory,
     loadHistoryQueriesFromBrowserStorage,
     refreshSession,
-    removeQueryFromHistory,
+    removeFromHistory: removeFromHistory,
     setHistoryQueries
   }
 };

@@ -111,7 +111,7 @@ describe('testing history queries module actions', () => {
     });
   });
 
-  describe(`${actionsKeys.removeQueryFromHistory}`, () => {
+  describe(`${actionsKeys.removeFromHistory}`, () => {
     it('removes the given query from the history', () => {
       const [caffeAmericano, capuccino, caramelMacchiato] = createHistoryQueries(
         'Caffé americano',
@@ -120,7 +120,7 @@ describe('testing history queries module actions', () => {
       );
       resetStateWith({ historyQueries: [caffeAmericano, capuccino, caramelMacchiato] });
 
-      store.dispatch(actionsKeys.removeQueryFromHistory, capuccino.query);
+      store.dispatch(actionsKeys.removeFromHistory, capuccino);
 
       expectHistoryQueriesToEqual([caffeAmericano, caramelMacchiato]);
     });

@@ -28,7 +28,7 @@ describe('testing DeleteHistoryQuery component', () => {
 
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith({
-      eventPayload: historyQuery.query,
+      eventPayload: historyQuery,
       metadata: {
         moduleName: 'historyQueries',
         target: deleteHistoryQuery.element

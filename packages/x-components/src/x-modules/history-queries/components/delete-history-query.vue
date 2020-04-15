@@ -47,7 +47,7 @@
      * @public
      */
     protected get deleteHistoryQueryEvent(): Partial<XEventsTypes> {
-      return { UserPressedRemoveHistoryQuery: this.historyQuery.query };
+      return { UserPressedRemoveHistoryQuery: this.historyQuery };
     }
   }
 </script>
