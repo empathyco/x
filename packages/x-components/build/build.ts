@@ -6,7 +6,12 @@ build().catch(console.error);
 /**
  * Entry point for building the project.
  */
-async function build(): Promise<void> {
+async function build(): Promise<any> {
   const bundle = await rollup(rollupConfig);
-  await bundle.write(rollupConfig.output);
+  try {
+    return await bundle.write(rollupConfig.output);
+  } catch (error) {
+    console.error('Build failed: ', error.message);
+    process.exit(1);
+  }
 }
