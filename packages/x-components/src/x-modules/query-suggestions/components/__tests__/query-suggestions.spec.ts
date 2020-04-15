@@ -6,6 +6,7 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components/x
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
 import { DeepPartial } from '../../../../utils/types';
+import { getDataTestSelector } from '../../../../__tests__/utils';
 import { querySuggestionsXStoreModule } from '../../store/module';
 import { QuerySuggestionsState } from '../../store/types';
 import { querySuggestionsXModule } from '../../x-module';
@@ -52,6 +53,11 @@ describe('testing Suggestions component', () => {
     }
   ];
 
+  const component = mount(QuerySuggestions, {
+    localVue,
+    store
+  });
+
   /**
    * Creates a facet with a filter.
    *
@@ -97,11 +103,6 @@ describe('testing Suggestions component', () => {
     });
   }
 
-  const component = mount(QuerySuggestions, {
-    localVue,
-    store
-  });
-
   beforeEach(() => {
     resetStateWith({});
   });
@@ -124,5 +125,84 @@ describe('testing Suggestions component', () => {
     await localVue.nextTick();
 
     expect(component.findAll('li')).toHaveLength(suggestions.length);
+  });
+
+  it('renders a custom query suggestion when overriding the suggestion slot', () => {
+    resetStateWith({ suggestions });
+
+    const suggestionSlotOverridden = {
+      template: `
+        <QuerySuggestions>
+          <template #suggestion="{ suggestion }">
+            <img
+              class="x-query-suggestion__icon"
+              data-test="icon"
+              src="./query-suggestion-icon.svg"
+            />
+            <span class="x-query-suggestion__query" data-test="query">
+              {{ suggestion.query }}
+            </span>
+          </template>
+        </QuerySuggestions>
+      `,
+      components: {
+        QuerySuggestions
+      }
+    };
+
+    const querySuggestions = mount(suggestionSlotOverridden, {
+      localVue,
+      store
+    });
+
+    const suggestionsItemWrappers = querySuggestions.findAll(getDataTestSelector('suggestion-item'))
+      .wrappers;
+    expect(suggestionsItemWrappers).toHaveLength(suggestions.length);
+
+    suggestionsItemWrappers.forEach((slot, index) => {
+      expect(slot.find(getDataTestSelector('icon')).element).toBeDefined();
+      expect(slot.find(getDataTestSelector('query')).text()).toEqual(suggestions[index].query);
+    });
+  });
+
+  it('renders custom content when overriding the suggestion-content slot', () => {
+    resetStateWith({ suggestions });
+
+    const suggestionContentSlotOverridden = {
+      template: `
+        <QuerySuggestions>
+          <template #suggestion-content="{ suggestion, suggestionQueryHighlighted }">
+            <img
+              class="x-query-suggestion__icon"
+              data-test="icon"
+              src="/query-suggestion-icon.svg"
+            />
+            <span
+              :aria-label="'Select ' + suggestion.query"
+              class="x-query-suggestion__query"
+              data-test="query"
+              v-html="suggestionQueryHighlighted"
+            />
+          </template>
+        </QuerySuggestions>
+      `,
+      components: {
+        QuerySuggestions
+      }
+    };
+
+    const querySuggestions = mount(suggestionContentSlotOverridden, {
+      localVue,
+      store
+    });
+
+    const suggestionsItemWrappers = querySuggestions.findAll(getDataTestSelector('suggestion-item'))
+      .wrappers;
+    expect(suggestionsItemWrappers).toHaveLength(suggestions.length);
+
+    suggestionsItemWrappers.forEach((slot, index) => {
+      expect(slot.find(getDataTestSelector('icon')).element).toBeDefined();
+      expect(slot.find(getDataTestSelector('query')).text()).toEqual(suggestions[index].query);
+    });
   });
 });

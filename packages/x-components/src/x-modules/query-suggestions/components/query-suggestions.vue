@@ -1,10 +1,16 @@
 <template>
-  <Suggestions :suggestions="suggestions" class="x-query-suggestions">
+  <Suggestions :suggestions="suggestions" class="x-query-suggestions" data-test="query-suggestions">
     <template #default="{ suggestion }">
+      <!-- @slot Slot for an individual Query Suggestion item. -->
+      <!-- @binding {Suggestion} suggestion - The data of the query suggestion. -->
       <slot name="suggestion" :suggestion="suggestion">
-        <QuerySuggestion :suggestion="suggestion">
-          <template #default="{ suggestion }">
-            <slot name="suggestionContent" :suggestion="suggestion" />
+        <QuerySuggestion :suggestion="suggestion" class="x-query-suggestions__query-suggestion">
+          <template #default="{ suggestion, suggestionQueryHighlighted }">
+            <!-- @slot Slot for the Query Suggestion's content. -->
+            <!-- @binding {Suggestion} suggestion - The data of the query suggestion. -->
+            <!-- @binding {string} suggestionQueryHighlighted - The suggestion query highlighting
+             the matching parts against the module's query. -->
+            <slot name="suggestion-content" v-bind="{ suggestion, suggestionQueryHighlighted }" />
           </template>
         </QuerySuggestion>
       </slot>
@@ -50,47 +56,48 @@
 <docs>
   #Example
 
-  This component renders a list of suggestions taken from the module's store state. It doesn't
-  receive any prop.
+  This component renders a list of suggestions taken from the module's store state.
+
+  ## Default Usage
+
+  No props are required for the usage of this component.
 
   ```vue
   <QuerySuggestions />
   ```
 
-  Overriding 'suggestion' slot
+  ## Overriding Query Suggestion slot
+
+  The default `QuerySuggestion` component that is used in every suggestion can be replaced.
+  To do so, the `suggestion` slot is available, containing the query suggestion data under the
+  `suggestion` property. Remember that if QuerySuggestion component isn't used, the
+  `handleQuerySuggestionSelection` method needs to be  implemented emitting the needed events.
+
   ```vue
   <QuerySuggestions>
     <template #suggestion="{ suggestion }">
-      <img class="x-query-suggestion__icon" src="https://bit.ly/2UVQiCJ" />
+      <img class="x-query-suggestion__icon" src="./query-suggestion-extra-icon.svg" />
       <QuerySuggestion :suggestion="suggestion" />
     </template>
   </QuerySuggestions>
   ```
 
-  Overriding 'suggestionContent' slot
-  ```vue
-  <QuerySuggestions>
-    <template #suggestionContent="{ suggestion }">
-      <img class="x-query-suggestion__icon" src="https://bit.ly/2UVQiCJ" />
-      <span class="x-query-suggestion__query">
-          {{ suggestion.query }}
-        </span>
-    </template>
-  </QuerySuggestions>
-  ```
+  ## Overriding Query Suggestion's content slot
 
-  Overriding 'suggestion' and 'suggestionContent' slots
+  The content of the `QuerySuggestion` component can be overridden. For replacing the default
+  suggestion content, the `suggestion-content` slot is available, containing the query suggestion
+  data (in the `suggestion` property), and the highlighted HTML with the query (in the
+  `suggestionQueryHighlighted` property).
+
   ```vue
   <QuerySuggestions>
-    <template #suggestion="{ suggestion }">
-      <img class="x-query-suggestion__icon" src="https://bit.ly/2UVQiCJ" />
-      <QuerySuggestion :suggestion="suggestion">
-        <template #suggestionContent="{ suggestion }">
-          <button class="x-query-suggestion__query">
-            {{ suggestion.query }}
-          </button>
-        </template>
-      </QuerySuggestion>
+    <template #suggestion-content="{ suggestion, suggestionQueryHighlighted }">
+      <img class="x-query-suggestion__icon" src="./query-suggestion-icon.svg" />
+      <span
+        :aria-label="`Select ${suggestion.query}`"
+        class="x-query-suggestion__query"
+        v-html="suggestionQueryHighlighted"
+      />
     </template>
   </QuerySuggestions>
   ```
