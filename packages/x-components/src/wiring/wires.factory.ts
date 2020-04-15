@@ -1,4 +1,4 @@
-import { XModuleName, XModulesTree } from '../x-modules/x-modules.types';
+import { XModuleName } from '../x-modules/x-modules.types';
 import { AnyWire, NamespacedWireFactory, Wire, WireParams } from './wiring.types';
 
 /**
@@ -111,9 +111,9 @@ export function wireDispatchWithoutPayload(action: string): AnyWire {
  * @returns The WireFactory namespaced with the XModule.
  * @public
  */
-export function withModule<Module extends XModuleName>(
-  moduleName: Module
-): NamespacedWireFactory<XModulesTree[Module]> {
+export function withModule<ModuleName extends XModuleName>(
+  moduleName: ModuleName
+): NamespacedWireFactory<ModuleName> {
   const modulePath = `x/${moduleName}`;
   return {
     wireCommit(mutation: string, payload?: any) {

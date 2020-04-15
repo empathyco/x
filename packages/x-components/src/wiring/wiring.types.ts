@@ -3,7 +3,12 @@ import { Subscription } from 'rxjs/Subscription';
 import { Store } from 'vuex';
 import { ExtractActions, ExtractMutations, ExtractPayload, RootXStoreState } from '../store';
 import { Dictionary, PropsWithType } from '../utils';
-import { AnyXModule, XModuleName } from '../x-modules/x-modules.types';
+import {
+  ExtractGetters,
+  ExtractState,
+  XModuleName,
+  XModulesTree
+} from '../x-modules/x-modules.types';
 import { XEvent, XEventPayload } from './events.types';
 
 /**
@@ -81,27 +86,46 @@ export interface WireParams<Payload> extends WirePayload<Payload> {
 }
 
 /**
+ * The type of the object passed as parameter to the payload of the
+ * {@link NamespacedWireFactory.(wireCommit:1)} method when this payload is a function.
+ * This object allow the access to the State and the Getters of a {@link XStoreModule}.
+ *
+ * @typeParam ModuleName - The {@link XModuleName} of the module of {@link NamespacedWireFactory}
+ *
+ * @public
+ */
+export interface WirePayloadParams<ModuleName extends XModuleName> {
+  state: ExtractState<ModuleName>;
+  getters: ExtractGetters<ModuleName>;
+}
+
+/**
  * Type safe wire factory, that provides methods for creating wires that can only
  * access the Module of the {@link https://vuex.vuejs.org/ | Vuex} Store passed as parameter.
  *
  * @param Module - The {@link XStoreModule} to create the wires.
  * @public
  */
-export interface NamespacedWireFactory<Module extends AnyXModule> {
+export interface NamespacedWireFactory<ModuleName extends XModuleName> {
   /**
    * Creates a wire that commits a mutation to the store with an static payload. This wire can
    * be used in every event, as it does not have a payload type associated.
    *
    * @param mutation - The name of the mutation of the module to execute. I.e. `setQuery`.
-   * @param staticPayload - A static payload to pass to the mutation which will be committed.
-   * @returns [AnyWire] A wire that commits the mutation with the staticPayload payload.
+   * @param payload - A static payload to pass to the mutation which will be committed
+   * OR a function that receives a {@link WirePayloadParams} to access the State and the Getters
+   * of the module and returns the payload.
+   * @returns [AnyWire] A wire that commits the mutation with the static payload or the returned
+   * value of the payload as a function.
    */
   wireCommit<
-    Mutations extends ExtractMutations<Module>,
+    Mutations extends ExtractMutations<XModulesTree[ModuleName]>,
     MutationName extends PropsWithType<Mutations, (payload: any) => void>
   >(
     mutation: MutationName,
-    staticPayload: ExtractPayload<Mutations[MutationName]>
+    payload:
+      | ExtractPayload<Mutations[MutationName]>
+      | ((storeModule: WirePayloadParams<ModuleName>) => ExtractPayload<Mutations[MutationName]>)
   ): AnyWire;
   /**
    * Creates a wire that commits a mutation to the store. This wire will commit to the store the
@@ -112,7 +136,7 @@ export interface NamespacedWireFactory<Module extends AnyXModule> {
    * in the observable.
    */
   wireCommit<
-    Mutations extends ExtractMutations<Module>,
+    Mutations extends ExtractMutations<XModulesTree[ModuleName]>,
     MutationName extends PropsWithType<Mutations, (payload: any) => void>
   >(
     mutation: MutationName
@@ -125,7 +149,7 @@ export interface NamespacedWireFactory<Module extends AnyXModule> {
    * @returns [AnyWire] A wire that commits the mutation without any payload.
    */
   wireCommitWithoutPayload<
-    Mutations extends ExtractMutations<Module>,
+    Mutations extends ExtractMutations<XModulesTree[ModuleName]>,
     MutationName extends PropsWithType<Mutations, () => void>
   >(
     mutation: MutationName
@@ -139,7 +163,7 @@ export interface NamespacedWireFactory<Module extends AnyXModule> {
    * @returns [AnyWire] A wire that dispatches the action with the staticPayload payload.
    */
   wireDispatch<
-    Actions extends ExtractActions<Module>,
+    Actions extends ExtractActions<XModulesTree[ModuleName]>,
     ActionName extends PropsWithType<Actions, (payload: any) => void>
   >(
     action: ActionName,
@@ -155,7 +179,7 @@ export interface NamespacedWireFactory<Module extends AnyXModule> {
    * receives in the observable.
    */
   wireDispatch<
-    Actions extends ExtractActions<Module>,
+    Actions extends ExtractActions<XModulesTree[ModuleName]>,
     ActionName extends PropsWithType<Actions, (payload: any) => void>
   >(
     action: ActionName
@@ -168,7 +192,7 @@ export interface NamespacedWireFactory<Module extends AnyXModule> {
    * @returns [AnyWire] A wire that dispatches the action without any payload.
    */
   wireDispatchWithoutPayload<
-    Actions extends ExtractActions<Module>,
+    Actions extends ExtractActions<XModulesTree[ModuleName]>,
     ActionName extends PropsWithType<Actions, () => void>
   >(
     action: ActionName
