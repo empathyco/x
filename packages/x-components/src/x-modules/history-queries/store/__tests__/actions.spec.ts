@@ -93,7 +93,6 @@ describe('testing history queries module actions', () => {
     });
 
     it('saves only complete queries', () => {
-      resetStateWith({ historyQueries: [] });
       const [one, two, three, four, five] = createHistoryQueries(
         'pant',
         'pantalon',
@@ -108,6 +107,21 @@ describe('testing history queries module actions', () => {
       store.dispatch(actionsKeys.addQueryToHistory, five.query);
 
       expectHistoryQueriesToEqual([five, four, two]);
+    });
+
+    it('only replaces last query', () => {
+      const [puzzle1000, puzzleBig, puzzle] = createHistoryQueries(
+        'puzzle 1000',
+        'puzzle big',
+        'puzzle',
+        'puzzle'
+      );
+      store.dispatch(actionsKeys.addQueryToHistory, puzzle1000.query);
+      store.dispatch(actionsKeys.addQueryToHistory, puzzleBig.query);
+      store.dispatch(actionsKeys.addQueryToHistory, puzzle.query);
+      store.dispatch(actionsKeys.addQueryToHistory, puzzle.query);
+
+      expectHistoryQueriesToEqual([puzzle, puzzleBig, puzzle1000]);
     });
   });
 

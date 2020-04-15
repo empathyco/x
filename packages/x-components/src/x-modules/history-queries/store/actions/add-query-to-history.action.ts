@@ -86,7 +86,8 @@ export class AddQueryToHistoryAction implements ActionsClass<HistoryQueriesXStor
     const wordsTuple: Pair<string[]> = [lastWords, newWords];
 
     return this.isReplaceAction(wordsTuple, queriesTuple)
-      ? this.removeNewQueryFromHistory(currentHistory, normalizedQuery).slice(1)
+      ? // TODO EX-1815 This replace does not take into account yet queries that end in numbers
+        this.removeNewQueryFromHistory(currentHistory.slice(1), normalizedQuery)
       : this.isAddAction(wordsTuple, queriesTuple)
       ? this.removeNewQueryFromHistory(currentHistory, normalizedQuery)
       : null;
