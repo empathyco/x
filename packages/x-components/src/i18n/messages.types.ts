@@ -10,7 +10,7 @@ export interface Messages {
       content: string;
       ariaLabel: string;
     };
-    deleteHistoryQuery: {
+    removeHistoryQuery: {
       ariaLabel: string;
       content: string;
     };

@@ -17,7 +17,7 @@ export const DEFAULT_X_CONFIG: XConfig = {
         content: 'Clear history queries',
         ariaLabel: 'Clear history queries'
       },
-      deleteHistoryQuery: {
+      removeHistoryQuery: {
         ariaLabel: 'Delete query from history',
         content: '×'
       }

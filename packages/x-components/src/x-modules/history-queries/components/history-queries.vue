@@ -11,13 +11,15 @@
         >
           <template #default="suggestionContentProps">
             <!-- @slot Slot for the History Query's content. -->
-            <!-- @binding suggestionContentProps - The data of the Popular Search's suggestion. -->
+            <!-- @binding {Suggestion} suggestion - The data of the HistoryQuery suggestion. -->
+            <!-- @binding {string} suggestionQueryHighlighted - The query with the highlighted
+            HTML. -->
             <slot name="suggestion-content" v-bind="suggestionContentProps" />
           </template>
-          <template #delete-button-content="suggestionDeleteContentProps">
-            <!-- @slot Slot for the History Query's delete button content. -->
-            <!-- @binding suggestionContentProps - The data of the Popular Search's suggestion. -->
-            <slot name="suggestion-delete-content" v-bind="suggestionDeleteContentProps" />
+          <template #remove-button-content="suggestionRemoveContentProps">
+            <!-- @slot Slot for the History Query's remove button content. -->
+            <!-- @binding {Suggestion} suggestion - The data of the HistoryQuery suggestion. -->
+            <slot name="suggestion-remove-content" v-bind="suggestionRemoveContentProps" />
           </template>
         </HistoryQuery>
       </slot>
@@ -90,7 +92,7 @@
   </HistoryQueries>
   ```
 
-  ## Overriding suggestion-content and suggestion-delete-content slot
+  ## Overriding suggestion-content and suggestion-remove-content slot
 
   The content of the `HistoryQuery` component can be overridden. For replacing the default
   suggestion content, the `suggestion-content` slot is available, containing the history query
@@ -103,8 +105,8 @@
       <img src="./history-icon.svg"/>
       <span v-html="suggestionQueryHighlighted"></span>
     </template>
-    <template #suggestion-delete-content>
-      <img src="./delete-icon.svg"/>
+    <template #suggestion-remove-content>
+      <img src="./remove-icon.svg"/>
     </template>
   </HistoryQueries>
   ```

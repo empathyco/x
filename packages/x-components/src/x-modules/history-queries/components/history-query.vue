@@ -9,11 +9,11 @@
         <slot v-bind="{ suggestion, suggestionQueryHighlighted }" />
       </template>
     </BaseSuggestion>
-    <DeleteHistoryQuery :historyQuery="suggestion" data-test="delete-history-query">
+    <RemoveHistoryQuery :historyQuery="suggestion" data-test="remove-history-query">
       <template #default>
-        <slot name="delete-button-content" v-bind="{ suggestion }" />
+        <slot name="remove-button-content" v-bind="{ suggestion }" />
       </template>
-    </DeleteHistoryQuery>
+    </RemoveHistoryQuery>
   </div>
 </template>
 
@@ -26,18 +26,18 @@
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { historyQueriesXModule } from '../x-module';
-  import DeleteHistoryQuery from './delete-history-query.vue';
+  import RemoveHistoryQuery from './remove-history-query.vue';
 
   /**
    * This component renders a history query suggestion combining two buttons: one for selecting this
-   * suggestion as the search query, and another one to delete this query suggestion from the
+   * suggestion as the search query, and another one to remove this query suggestion from the
    * history queries.
    *
    * @public
    */
   @Component({
     mixins: [xComponentMixin(historyQueriesXModule)],
-    components: { DeleteHistoryQuery, BaseSuggestion }
+    components: { RemoveHistoryQuery, BaseSuggestion }
   })
   export default class HistoryQuery extends Vue {
     /**
@@ -83,13 +83,13 @@
 
   ## Customizing slots content
 
-  Suggestion and delete buttons contents can be customized.
+  Suggestion and remove buttons contents can be customized.
 
   The default slot allows you to replace the content of the suggestion button. It has two
   properties, the suggestion itself, and a `string` of HTML with the highlighted query.
 
-  The other slot is called `delete-button-content`, and allows you to set the content of the
-  button that serves to delete this query from the history. This slot only has one property, the
+  The other slot is called `remove-button-content`, and allows you to set the content of the
+  button that serves to remove this query from the history. This slot only has one property, the
   suggestion.
 
   ```vue
@@ -99,8 +99,8 @@
       <span v-html="suggestionQueryHighlighted" />
     </template>
 
-    <template #delete-button-content="{ suggestion }">
-      <img src="./delete-icon.svg" />
+    <template #remove-button-content="{ suggestion }">
+      <img src="./remove-icon.svg" />
     </template>
   </HistoryQuery>
   ```

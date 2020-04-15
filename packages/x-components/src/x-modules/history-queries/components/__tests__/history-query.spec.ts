@@ -47,20 +47,20 @@ describe('testing history-query component', () => {
     });
   });
 
-  it('button ClearHistoryQuery emits UserPressedDeleteHistoryQuery when it is clicked', () => {
+  it('button ClearHistoryQuery emits UserPressedRemoveHistoryQuery when it is clicked', () => {
     const listener = jest.fn();
-    const deleteHistoryQueryWrapper = historyQueryWrapper.find(
-      getDataTestSelector('delete-history-query')
+    const removeHistoryQueryWrapper = historyQueryWrapper.find(
+      getDataTestSelector('remove-history-query')
     );
-    deleteHistoryQueryWrapper.vm.$x.on('UserPressedRemoveHistoryQuery', true).subscribe(listener);
-    deleteHistoryQueryWrapper.trigger('click');
+    removeHistoryQueryWrapper.vm.$x.on('UserPressedRemoveHistoryQuery', true).subscribe(listener);
+    removeHistoryQueryWrapper.trigger('click');
 
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith({
       eventPayload: historyQuery,
       metadata: {
         moduleName: 'historyQueries',
-        target: deleteHistoryQueryWrapper.element
+        target: removeHistoryQueryWrapper.element
       }
     });
   });
@@ -69,12 +69,12 @@ describe('testing history-query component', () => {
     const historyQuerySuggestion = historyQueryWrapper.find(
       getDataTestSelector('history-query-suggestion')
     );
-    const deleteHistoryQueryWrapper = historyQueryWrapper.find(
-      getDataTestSelector('delete-history-query')
+    const removeHistoryQueryWrapper = historyQueryWrapper.find(
+      getDataTestSelector('remove-history-query')
     );
 
     expect(historyQuerySuggestion.text()).not.toHaveLength(0);
-    expect(deleteHistoryQueryWrapper.text()).not.toHaveLength(0);
+    expect(removeHistoryQueryWrapper.text()).not.toHaveLength(0);
   });
 
   it('has a default slot to customize suggestion content', () => {
@@ -93,20 +93,20 @@ describe('testing history-query component', () => {
     expect(customContent.text()).toEqual(historyQuery.query);
   });
 
-  it('has a "delete-button-content" to customize the delete button content', () => {
+  it('has a "remove-button-content" to customize the remove button content', () => {
     const historyQueryWrapper = mount(HistoryQuery, {
       localVue,
       propsData: {
         suggestion: historyQuery
       },
       scopedSlots: {
-        'delete-button-content':
-          '<span class="custom-delete-button-content">Delete {{props.suggestion.query}}</span>'
+        'remove-button-content':
+          '<span class="custom-remove-button-content">Remove {{props.suggestion.query}}</span>'
       }
     });
 
-    const customContent = historyQueryWrapper.find('.custom-delete-button-content');
+    const customContent = historyQueryWrapper.find('.custom-remove-button-content');
     expect(customContent.element).toBeDefined();
-    expect(customContent.text()).toEqual(`Delete ${historyQuery.query}`);
+    expect(customContent.text()).toEqual(`Remove ${historyQuery.query}`);
   });
 });

@@ -2,9 +2,9 @@ import { HistoryQuery } from '@empathy/search-types';
 import { createLocalVue, mount } from '@vue/test-utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
-import DeleteHistoryQuery from '../delete-history-query.vue';
+import RemoveHistoryQuery from '../remove-history-query.vue';
 
-describe('testing DeleteHistoryQuery component', () => {
+describe('testing RemoveHistoryQuery component', () => {
   const localVue = createLocalVue();
   localVue.use(XPlugin, { adapter: SearchAdapterDummy });
   const historyQuery: HistoryQuery = {
@@ -13,45 +13,45 @@ describe('testing DeleteHistoryQuery component', () => {
     timestamp: 778394
   };
 
-  it('emits UserPressedDeleteHistoryQuery when it is clicked', () => {
+  it('emits UserPressedRemoveHistoryQuery when it is clicked', () => {
     const listener = jest.fn();
 
-    const deleteHistoryQuery = mount(DeleteHistoryQuery, {
+    const removeHistoryQuery = mount(RemoveHistoryQuery, {
       localVue,
       propsData: {
         historyQuery
       }
     });
-    deleteHistoryQuery.vm.$x.on('UserPressedRemoveHistoryQuery', true).subscribe(listener);
+    removeHistoryQuery.vm.$x.on('UserPressedRemoveHistoryQuery', true).subscribe(listener);
 
-    deleteHistoryQuery.trigger('click');
+    removeHistoryQuery.trigger('click');
 
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith({
       eventPayload: historyQuery,
       metadata: {
         moduleName: 'historyQueries',
-        target: deleteHistoryQuery.element
+        target: removeHistoryQuery.element
       }
     });
   });
 
   it('has a default slot with a default message', () => {
-    const deleteHistoryQuery = mount(DeleteHistoryQuery, {
+    const removeHistoryQuery = mount(RemoveHistoryQuery, {
       localVue,
       propsData: {
         historyQuery
       }
     });
 
-    expect(deleteHistoryQuery.element.textContent).toEqual(
-      deleteHistoryQuery.vm.$x.config.messages.historyQueries.deleteHistoryQuery.content
+    expect(removeHistoryQuery.element.textContent).toEqual(
+      removeHistoryQuery.vm.$x.config.messages.historyQueries.removeHistoryQuery.content
     );
   });
 
   it('has a default slot to customize its contents', () => {
-    const slotTemplate = '<span class="x-delete-history-query__text">Delete</span>';
-    const deleteHistoryQuery = mount(DeleteHistoryQuery, {
+    const slotTemplate = '<span class="x-remove-history-query__text">Remove</span>';
+    const removeHistoryQuery = mount(RemoveHistoryQuery, {
       localVue,
       slots: {
         default: {
@@ -62,12 +62,12 @@ describe('testing DeleteHistoryQuery component', () => {
         historyQuery
       }
     });
-    const renderedSlotHTML = deleteHistoryQuery.element.querySelector(
-      '.x-delete-history-query__text'
+    const renderedSlotHTML = removeHistoryQuery.element.querySelector(
+      '.x-remove-history-query__text'
     );
 
     expect(renderedSlotHTML).toBeDefined();
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(renderedSlotHTML!.textContent).toEqual('Delete');
+    expect(renderedSlotHTML!.textContent).toEqual('Remove');
   });
 });

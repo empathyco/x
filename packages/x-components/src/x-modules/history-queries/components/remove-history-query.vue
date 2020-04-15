@@ -1,11 +1,11 @@
 <template>
   <EventButton
-    class="x-delete-history-query"
-    :aria-label="$x.config.messages.historyQueries.deleteHistoryQuery.ariaLabel"
-    :events="deleteHistoryQueryEvent"
+    class="x-remove-history-query"
+    :aria-label="$x.config.messages.historyQueries.removeHistoryQuery.ariaLabel"
+    :events="removeHistoryQueryEvent"
   >
     <!-- @slot Slot to add the button content like a message or an icon. Has default message -->
-    <slot>{{ $x.config.messages.historyQueries.deleteHistoryQuery.content }}</slot>
+    <slot>{{ $x.config.messages.historyQueries.removeHistoryQuery.content }}</slot>
   </EventButton>
 </template>
 
@@ -20,7 +20,7 @@
 
   /**
    * Button that when it is pressed emits the {@link XEventsTypes.UserPressedRemoveHistoryQuery }
-   * event, expressing the user intention to delete a query in the history.
+   * event, expressing the user intention to remove a query in the history.
    *
    * @public
    */
@@ -28,9 +28,9 @@
     components: { EventButton },
     mixins: [xComponentMixin(historyQueriesXModule)]
   })
-  export default class DeleteHistoryQuery extends Vue {
+  export default class RemoveHistoryQuery extends Vue {
     /**
-     * The historyQuery that will be deleted when clicking the clear button.
+     * The historyQuery that will be removed when clicking the clear button.
      *
      * @public
      */
@@ -41,12 +41,12 @@
      * The event handler that will be triggered when clicking on the clear history query button.
      *
      * @remarks
-     * * UserPressedRemoveHistoryQuery: historyQuery
+     * * {@link XEvents.UserPressedRemoveHistoryQuery}: historyQuery
      *
      * @returns The {@link XEvent | XEvents} to emit.
      * @public
      */
-    protected get deleteHistoryQueryEvent(): Partial<XEventsTypes> {
+    protected get removeHistoryQueryEvent(): Partial<XEventsTypes> {
       return { UserPressedRemoveHistoryQuery: this.historyQuery };
     }
   }
@@ -60,7 +60,7 @@
   You need to pass a historyQuery as a prop for the button to render:
 
   ```vue
-  <DeleteHistoryQuery :historyQuery="historyQuery"/>
+  <RemoveHistoryQuery :historyQuery="historyQuery"/>
   ```
   This will render by default the message inside the default slot.
 
@@ -70,8 +70,8 @@
   component in the default slot:
 
   ```vue
-  <DeleteHistoryQuery :historyQuery="historyQuery">
+  <RemoveHistoryQuery :historyQuery="historyQuery">
     <img src="./my-awesome-clear-icon.svg"/>
-  </DeleteHistoryQuery>
+  </RemoveHistoryQuery>
   ```
 </docs>

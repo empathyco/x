@@ -95,19 +95,19 @@ describe('testing history queries component', () => {
         scopedSlots: {
           ['suggestion-content']:
             '<strong data-test="suggestion-content">{{ props.suggestion.query }}</strong>',
-          ['suggestion-delete-content']: '<img  data-test="suggestion-delete-content" />'
+          ['suggestion-remove-content']: '<img  data-test="suggestion-remove-content" />'
         }
       });
       const suggestionContentWrappers = historyQueriesCustomizedWrapper.findAll(
         getDataTestSelector('suggestion-content')
       );
 
-      const suggestionDeleteWrappers = historyQueriesCustomizedWrapper.findAll(
-        getDataTestSelector('suggestion-delete-content')
+      const suggestionRemoveWrappers = historyQueriesCustomizedWrapper.findAll(
+        getDataTestSelector('suggestion-remove-content')
       );
 
       expect(suggestionContentWrappers).toHaveLength(historyQueries.length);
-      expect(suggestionDeleteWrappers).toHaveLength(historyQueries.length);
+      expect(suggestionRemoveWrappers).toHaveLength(historyQueries.length);
     });
 
     it('allows changing history query content using docs example as template', () => {
@@ -120,8 +120,8 @@ describe('testing history queries component', () => {
               <img src="./history-icon.svg" data-test="suggestion-history-icon"/>
               <span v-html="suggestionQueryHighlighted"></span>
             </template>
-            <template #suggestion-delete-content>
-              <img src="./delete-icon.svg" data-test="suggestion-delete-icon"/>
+            <template #suggestion-remove-content>
+              <img src="./remove-icon.svg" data-test="suggestion-remove-icon"/>
             </template>
           </HistoryQueries>
         `,
@@ -137,12 +137,12 @@ describe('testing history queries component', () => {
         getDataTestSelector('suggestion-history-icon')
       );
 
-      const suggestionDeleteWrappers = historyQueriesCustomizedWrapper.findAll(
-        getDataTestSelector('suggestion-delete-icon')
+      const suggestionRemoveWrappers = historyQueriesCustomizedWrapper.findAll(
+        getDataTestSelector('suggestion-remove-icon')
       );
 
       expect(suggestionContentWrappers).toHaveLength(historyQueries.length);
-      expect(suggestionDeleteWrappers).toHaveLength(historyQueries.length);
+      expect(suggestionRemoveWrappers).toHaveLength(historyQueries.length);
     });
   });
 
