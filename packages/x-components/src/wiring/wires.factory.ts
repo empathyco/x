@@ -1,5 +1,14 @@
-import { XModuleName } from '../x-modules/x-modules.types';
-import { AnyWire, NamespacedWireFactory, Wire, WireParams } from './wiring.types';
+import { Store } from 'vuex';
+import { RootXStoreState } from '../store/store.types';
+import { getGettersProxyFromStore } from '../store/utils/get-getters-proxy';
+import { ExtractState, XModuleName } from '../x-modules/x-modules.types';
+import {
+  AnyWire,
+  NamespacedWireFactory,
+  Wire,
+  WireParams,
+  WirePayloadParams
+} from './wiring.types';
 
 /**
  * Creates a wire that executes the function passed. This function will receive a
@@ -108,25 +117,53 @@ export function wireDispatchWithoutPayload(action: string): AnyWire {
  * Creates namespaced wire factory functions for the module name passed.
  *
  * @param moduleName - The module name for scoping the wire factory functions.
- * @returns The WireFactory namespaced with the XModule.
+ * @returns The {@link NamespacedWireFactory | WireFactory } namespaced with the XModule.
  * @public
  */
 export function withModule<ModuleName extends XModuleName>(
   moduleName: ModuleName
 ): NamespacedWireFactory<ModuleName> {
-  const modulePath = `x/${moduleName}`;
+  const modulePath = `x/${moduleName}/`;
   return {
-    wireCommit(mutation: string, payload?: any) {
-      return wireCommit(`${modulePath}/${mutation}`, payload);
+    wireCommit(mutation: string, payload?: any): AnyWire {
+      return typeof payload === 'function'
+        ? (observable, store) =>
+            observable.subscribe(() => {
+              store.commit(
+                `${modulePath}${mutation}`,
+                payload(getStateAndGetters(store, moduleName))
+              );
+            })
+        : wireCommit(`${modulePath}${mutation}`, payload);
     },
     wireCommitWithoutPayload(mutation) {
-      return wireCommitWithoutPayload(`${modulePath}/${mutation}`);
+      return wireCommitWithoutPayload(`${modulePath}${mutation}`);
     },
     wireDispatch(action: string, payload?: any) {
-      return wireDispatch(`${modulePath}/${action}`, payload);
+      return wireDispatch(`${modulePath}${action}`, payload);
     },
     wireDispatchWithoutPayload(action) {
-      return wireDispatchWithoutPayload(`${modulePath}/${action}`);
+      return wireDispatchWithoutPayload(`${modulePath}${action}`);
     }
+  };
+}
+
+/**
+ * Returns an object with the getters and state of a module of store defined by the moduleName
+ * parameter.
+ *
+ * @param store - The Vuex store.
+ * @param moduleName - The {@link XModuleName} of the module.
+ * @returns The {@Link WirePayloadParams} with the Getters and the State of the
+ * {@link XStoreModule | Store Module} defined by moduleName.
+ * @internal
+ */
+function getStateAndGetters<ModuleName extends XModuleName>(
+  store: Store<RootXStoreState>,
+  moduleName: ModuleName
+): WirePayloadParams<ModuleName> {
+  return {
+    state: store.state.x[moduleName] as ExtractState<ModuleName>,
+    getters: getGettersProxyFromStore(store, moduleName)
   };
 }

@@ -11,9 +11,19 @@ import {
 import { WirePayload } from '../wiring.types';
 
 describe('testing wire factory functions', () => {
-  const store: Store<any> = {
+  const storeMock: Store<any> = {
     dispatch: jest.fn(),
-    commit: jest.fn()
+    commit: jest.fn(),
+    state: {
+      x: {
+        searchBox: {
+          query: 'this is a query with spaces at end  '
+        }
+      }
+    },
+    getters: {
+      'x/searchBox/trimmedQuery': 'this is a query with spaces at end'
+    }
   } as any;
 
   let subject: Subject<WirePayload<string>>;
@@ -30,21 +40,20 @@ describe('testing wire factory functions', () => {
 
   describe('testing generic wires factory', () => {
     test(
-      createWireFromFunction.name +
-        ' receives the store, the observable payload and the metadata object, and invokes a ' +
-        'function with them',
+      createWireFromFunction.name + // eslint-disable-next-line max-len
+        ' receives the store, the observable payload and the metadata object, and invokes a function with them',
       () => {
         const executeFn = jest.fn();
         const wire = createWireFromFunction(executeFn);
 
-        wire(subject, store);
+        wire(subject, storeMock);
         next('choripan');
 
         expect(executeFn).toHaveBeenCalledTimes(1);
         expect(executeFn).toHaveBeenCalledWith({
           eventPayload: 'choripan',
           metadata: expect.any(Object),
-          store
+          store: storeMock
         });
       }
     );
@@ -59,11 +68,11 @@ describe('testing wire factory functions', () => {
         const wire = wireCommit(mutationName);
         const query = 'churrasco';
 
-        wire(subject, store);
+        wire(subject, storeMock);
         next(query);
 
-        expect(store.commit).toHaveBeenCalledTimes(1);
-        expect(store.commit).toHaveBeenCalledWith(mutationName, query);
+        expect(storeMock.commit).toHaveBeenCalledTimes(1);
+        expect(storeMock.commit).toHaveBeenCalledWith(mutationName, query);
       }
     );
 
@@ -73,11 +82,11 @@ describe('testing wire factory functions', () => {
         const staticQuery = 'entraña';
         const wire = wireCommit(mutationName, staticQuery);
 
-        wire(subject, store);
+        wire(subject, storeMock);
         next('cauliflower');
 
-        expect(store.commit).toHaveBeenCalledTimes(1);
-        expect(store.commit).toHaveBeenCalledWith(mutationName, staticQuery);
+        expect(storeMock.commit).toHaveBeenCalledTimes(1);
+        expect(storeMock.commit).toHaveBeenCalledWith(mutationName, staticQuery);
       }
     );
 
@@ -87,11 +96,11 @@ describe('testing wire factory functions', () => {
       () => {
         const wire = wireCommitWithoutPayload(mutationName);
 
-        wire(subject, store);
+        wire(subject, storeMock);
         next('zamburiñas');
 
-        expect(store.commit).toHaveBeenCalledTimes(1);
-        expect(store.commit).toHaveBeenCalledWith(mutationName);
+        expect(storeMock.commit).toHaveBeenCalledTimes(1);
+        expect(storeMock.commit).toHaveBeenCalledWith(mutationName);
       }
     );
   });
@@ -106,11 +115,11 @@ describe('testing wire factory functions', () => {
         const wire = wireDispatch(actionName);
         const query = 'falda';
 
-        wire(subject, store);
+        wire(subject, storeMock);
         next(query);
 
-        expect(store.dispatch).toHaveBeenCalledTimes(1);
-        expect(store.dispatch).toHaveBeenCalledWith(actionName, query);
+        expect(storeMock.dispatch).toHaveBeenCalledTimes(1);
+        expect(storeMock.dispatch).toHaveBeenCalledWith(actionName, query);
       }
     );
 
@@ -120,11 +129,11 @@ describe('testing wire factory functions', () => {
         const staticQuery = 'pluma';
         const wire = wireDispatch(actionName, staticQuery);
 
-        wire(subject, store);
+        wire(subject, storeMock);
         next('edamame');
 
-        expect(store.dispatch).toHaveBeenCalledTimes(1);
-        expect(store.dispatch).toHaveBeenCalledWith(actionName, staticQuery);
+        expect(storeMock.dispatch).toHaveBeenCalledTimes(1);
+        expect(storeMock.dispatch).toHaveBeenCalledWith(actionName, staticQuery);
       }
     );
 
@@ -134,64 +143,105 @@ describe('testing wire factory functions', () => {
       () => {
         const wire = wireDispatchWithoutPayload(actionName);
 
-        wire(subject, store);
+        wire(subject, storeMock);
         next('oysters');
 
-        expect(store.dispatch).toHaveBeenCalledTimes(1);
-        expect(store.dispatch).toHaveBeenCalledWith(actionName);
+        expect(storeMock.dispatch).toHaveBeenCalledTimes(1);
+        expect(storeMock.dispatch).toHaveBeenCalledWith(actionName);
       }
     );
   });
 
   describe('testing namespaced wire factory', () => {
     const moduleName = 'searchBox';
-    const searchBoxModule = withModule(moduleName);
+    const searchBoxWireFactory = withModule(moduleName);
 
     describe('testing namespaced mutation wires factory', () => {
       const mutationName = 'setQuery';
 
       test(
-        searchBoxModule.wireCommit.name +
+        searchBoxWireFactory.wireCommit.name +
           ' allows creating wires that commit a mutation with the observable payload',
         () => {
-          const wire = searchBoxModule.wireCommit(mutationName);
+          const wire = searchBoxWireFactory.wireCommit(mutationName);
           const query = 'porterhouse steak';
 
-          wire(subject, store);
+          wire(subject, storeMock);
           next(query);
 
-          expect(store.commit).toHaveBeenCalledTimes(1);
-          expect(store.commit).toHaveBeenCalledWith(`x/${moduleName}/${mutationName}`, query);
+          expect(storeMock.commit).toHaveBeenCalledTimes(1);
+          expect(storeMock.commit).toHaveBeenCalledWith(`x/${moduleName}/${mutationName}`, query);
         }
       );
 
       test(
-        searchBoxModule.wireCommit.name +
+        searchBoxWireFactory.wireCommit.name +
           ' allows creating wires that commit a mutation with a static payload',
         () => {
           const staticQuery = 'tenderloin';
-          const wire = searchBoxModule.wireCommit(mutationName, staticQuery);
+          const wire = searchBoxWireFactory.wireCommit(mutationName, staticQuery);
 
-          wire(subject, store);
+          wire(subject, storeMock);
           next('beans');
 
-          expect(store.commit).toHaveBeenCalledTimes(1);
-          expect(store.commit).toHaveBeenCalledWith(`x/${moduleName}/${mutationName}`, staticQuery);
+          expect(storeMock.commit).toHaveBeenCalledTimes(1);
+          expect(storeMock.commit).toHaveBeenCalledWith(
+            `x/${moduleName}/${mutationName}`,
+            staticQuery
+          );
         }
       );
 
       test(
-        searchBoxModule.wireCommitWithoutPayload.name +
+        searchBoxWireFactory.wireCommit.name + // eslint-disable-next-line max-len
+          ' allows creating wires that commit a mutation with a function payload that receives the module state',
+        () => {
+          const wire = searchBoxWireFactory.wireCommit(
+            mutationName,
+            ({ state }) => state.query + '_modified'
+          );
+          wire(subject, storeMock);
+          next('beans');
+
+          expect(storeMock.commit).toHaveBeenCalledTimes(1);
+          expect(storeMock.commit).toHaveBeenCalledWith(
+            `x/${moduleName}/${mutationName}`,
+            storeMock.state.x.searchBox.query + '_modified'
+          );
+        }
+      );
+
+      test(
+        searchBoxWireFactory.wireCommit.name + // eslint-disable-next-line max-len
+          ' allows creating wires that commit a mutation with a function payload that receives the module getters',
+        () => {
+          const wire = searchBoxWireFactory.wireCommit(
+            mutationName,
+            ({ getters }) => getters.trimmedQuery + '_modified'
+          );
+          wire(subject, storeMock);
+          next('beans');
+
+          expect(storeMock.commit).toHaveBeenCalledTimes(1);
+          expect(storeMock.commit).toHaveBeenCalledWith(
+            `x/${moduleName}/${mutationName}`,
+            storeMock.getters[`x/${moduleName}/trimmedQuery`] + '_modified'
+          );
+        }
+      );
+
+      test(
+        searchBoxWireFactory.wireCommitWithoutPayload.name +
           ' allows creating wires that commit a mutation without payload',
         () => {
           // Tested module does not have any mutations without payload. It is a hack type to test it
-          const wire = searchBoxModule.wireCommitWithoutPayload(mutationName as never);
+          const wire = searchBoxWireFactory.wireCommitWithoutPayload(mutationName as never);
 
-          wire(subject, store);
+          wire(subject, storeMock);
           next('beetroot');
 
-          expect(store.commit).toHaveBeenCalledTimes(1);
-          expect(store.commit).toHaveBeenCalledWith(`x/${moduleName}/${mutationName}`);
+          expect(storeMock.commit).toHaveBeenCalledTimes(1);
+          expect(storeMock.commit).toHaveBeenCalledWith(`x/${moduleName}/${mutationName}`);
         }
       );
     });
@@ -200,50 +250,53 @@ describe('testing wire factory functions', () => {
       const actionName = 'search';
 
       test(
-        searchBoxModule.wireDispatch.name +
+        searchBoxWireFactory.wireDispatch.name +
           ' allows creating wires that dispatch an action with the observable payload',
         () => {
           // The tested module does not have any actions. It is a hack type to test it
-          const wire = searchBoxModule.wireDispatch(actionName as never);
+          const wire = searchBoxWireFactory.wireDispatch(actionName as never);
           const query = 'osobuco';
 
-          wire(subject as any, store);
+          wire(subject as any, storeMock);
           next(query);
 
-          expect(store.dispatch).toHaveBeenCalledTimes(1);
-          expect(store.dispatch).toHaveBeenCalledWith(`x/${moduleName}/${actionName}`, query);
+          expect(storeMock.dispatch).toHaveBeenCalledTimes(1);
+          expect(storeMock.dispatch).toHaveBeenCalledWith(`x/${moduleName}/${actionName}`, query);
         }
       );
 
       test(
-        searchBoxModule.wireDispatch.name +
+        searchBoxWireFactory.wireDispatch.name +
           ' allows creating wires that dispatch an action with a static payload',
         () => {
           const staticQuery = 'pork knuckle';
           // The tested module does not have any actions. It is a hack type to test it
-          const wire = searchBoxModule.wireDispatch(actionName as never, staticQuery as never);
+          const wire = searchBoxWireFactory.wireDispatch(actionName as never, staticQuery as never);
 
-          wire(subject, store);
+          wire(subject, storeMock);
           next('cucumber');
 
-          expect(store.dispatch).toHaveBeenCalledTimes(1);
-          expect(store.dispatch).toHaveBeenCalledWith(`x/${moduleName}/${actionName}`, staticQuery);
+          expect(storeMock.dispatch).toHaveBeenCalledTimes(1);
+          expect(storeMock.dispatch).toHaveBeenCalledWith(
+            `x/${moduleName}/${actionName}`,
+            staticQuery
+          );
         }
       );
 
       test(
-        searchBoxModule.wireCommitWithoutPayload.name +
+        searchBoxWireFactory.wireCommitWithoutPayload.name +
           ' allows creating wires that dispatch an action without payload',
         () => {
           // The tested module does not have any actions without payloads.
           // It is a hack type to test it
-          const wire = searchBoxModule.wireDispatchWithoutPayload(actionName as never);
+          const wire = searchBoxWireFactory.wireDispatchWithoutPayload(actionName as never);
 
-          wire(subject, store);
+          wire(subject, storeMock);
           next('celery');
 
-          expect(store.dispatch).toHaveBeenCalledTimes(1);
-          expect(store.dispatch).toHaveBeenCalledWith(`x/${moduleName}/${actionName}`);
+          expect(storeMock.dispatch).toHaveBeenCalledTimes(1);
+          expect(storeMock.dispatch).toHaveBeenCalledWith(`x/${moduleName}/${actionName}`);
         }
       );
     });
