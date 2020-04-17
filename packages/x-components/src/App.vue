@@ -10,7 +10,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import NextQueries from './x-modules/next-queries/next-queries.vue';
+  import NextQueries from './x-modules/next-queries/components/next-queries.vue';
   import PopularSearches from './x-modules/popular-searches/components/popular-searches.vue';
   import QuerySuggestions from './x-modules/query-suggestions/components/query-suggestions.vue';
   import SearchInput from './x-modules/search-box/components/search-input.vue';

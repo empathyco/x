@@ -25,7 +25,7 @@ export const retrieveNextQueries = nextQueriesModule.wireDispatchWithoutPayload(
 );
 
 /**
- * Next queries wiring configuration.
+ * Wiring configuration for the {@link NextQueriesXModule | next queries module}.
  *
  * @internal
  */

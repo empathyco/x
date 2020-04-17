@@ -1,5 +1,5 @@
 /**
- * Configuration options for the next queries module.
+ * Configuration options for the {@link NextQueriesXModule}.
  *
  * @public
  */

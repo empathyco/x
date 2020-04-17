@@ -1,4 +1,3 @@
-// XModule
 import { XModule } from '../x-modules.types';
 import { historyQueriesEmitters } from './store/emitters';
 import { historyQueriesXStoreModule } from './store/module';

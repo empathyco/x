@@ -20,9 +20,9 @@
   import { NextQuery } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { State } from '../../components/decorators';
-  import { xComponentMixin } from '../../components/x-component.mixin';
-  import { nextQueriesXModule } from './x-module';
+  import { State } from '../../../components/decorators';
+  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { nextQueriesXModule } from '../x-module';
 
   /**
    * Simple next-queries component that renders a list of suggestions, allowing the user to
