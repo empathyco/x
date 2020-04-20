@@ -74,6 +74,11 @@ export interface XEventsTypes {
    */
   NextQueriesRequestChanged: NextQueriesRequest | null;
   /**
+   * The current next queries have been displayed to the user.
+   * * Payload: The displayed next queries.
+   */
+  NextQueriesDisplayed: NextQuery[];
+  /**
    * Any property of the popular-searches request has changed
    * * Payload: The new popular-search request.
    */
