@@ -2,9 +2,9 @@ import { Suggestion } from '@empathy/search-types';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { XPlugin } from '../../../plugins/x-plugin';
-import { SearchAdapterDummy } from '../../../plugins/__tests__/adapter.dummy';
 import { normalizeString } from '../../../utils/normalize';
 import { XEventsTypes } from '../../../wiring/events.types';
+import { SearchAdapterDummy } from '../../../__tests__/adapter.dummy';
 import BaseSuggestion from '../base-suggestion.vue';
 
 describe('testing base suggestion component', () => {

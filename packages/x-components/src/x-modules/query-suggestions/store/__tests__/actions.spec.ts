@@ -1,43 +1,17 @@
-import { SuggestionsResponse } from '@empathy/search-adapter';
-import { Suggestion } from '@empathy/search-types';
-import { deepMerge } from '@empathybroker/deep-merge';
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
-import { DeepPartial, map } from '../../../../utils';
+import { map } from '../../../../utils';
+import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
+import { getMockedAdapter } from '../../../../__tests__/utils';
 import { querySuggestionsXStoreModule } from '../module';
 import { QuerySuggestionsState } from '../types';
-import Mock = jest.Mock;
+import { resetQuerySuggestionsStateWith } from './utils';
 
 describe('testing history queries module actions', () => {
-  const mockedSuggestions: Suggestion[] = [
-    {
-      facets: [],
-      query: 'salt',
-      key: 'salt',
-      modelName: 'QuerySuggestion'
-    },
-    {
-      facets: [],
-      query: 'limes',
-      key: 'limes',
-      modelName: 'QuerySuggestion'
-    },
+  const mockedSuggestions = getSuggestionsStub('QuerySuggestion');
 
-    {
-      facets: [],
-      query: 'beef short ribs',
-      key: 'beef short ribs',
-      modelName: 'QuerySuggestion'
-    }
-  ];
-
-  const adapter = Object.assign(SearchAdapterDummy, {
-    getSuggestions: getMockedAdapterFunction<SuggestionsResponse>({
-      suggestions: mockedSuggestions
-    })
-  });
+  const adapter = getMockedAdapter({ suggestions: { suggestions: mockedSuggestions } });
 
   const actionKeys = map(querySuggestionsXStoreModule.actions, action => action);
   const localVue = createLocalVue();
@@ -47,35 +21,13 @@ describe('testing history queries module actions', () => {
   let store: Store<QuerySuggestionsState> = new Store(querySuggestionsXStoreModule as any);
   localVue.use(XPlugin, { adapter, store });
 
-  /**
-   * Reset the state with custom values.
-   *
-   * @param state - The state.
-   */
-  function resetStateWith(state: DeepPartial<QuerySuggestionsState>): void {
-    const newState: QuerySuggestionsState = deepMerge(querySuggestionsXStoreModule.state(), state);
-    store.replaceState(newState);
-  }
-
-  /**
-   * Mocks an adapter function.
-   *
-   * @param whatReturns - The returned response object.
-   * @returns Mocked promise.
-   */
-  function getMockedAdapterFunction<T = any>(whatReturns: T): Mock<Promise<T>> {
-    return jest.fn(() => new Promise(resolve => setTimeout(() => resolve(whatReturns))));
-  }
-
   beforeEach(() => {
-    resetStateWith({ query: '' });
+    resetQuerySuggestionsStateWith(store, { query: '' });
   });
 
   describe(`${actionKeys.getSuggestions}`, () => {
     it('should return suggestions if there is request', async () => {
-      resetStateWith({
-        query: 'luichito'
-      });
+      resetQuerySuggestionsStateWith(store, { query: 'luichito' });
 
       const suggestions = await store.dispatch(actionKeys.getSuggestions);
       expect(suggestions).toEqual(mockedSuggestions);
@@ -89,9 +41,8 @@ describe('testing history queries module actions', () => {
 
   describe(`${actionKeys.getAndSaveSuggestions}`, () => {
     it('should request and store suggestions in the state', async () => {
-      resetStateWith({
-        query: 'luichito'
-      });
+      resetQuerySuggestionsStateWith(store, { query: 'luichito' });
+
       await store.dispatch(actionKeys.getAndSaveSuggestions);
       expect(store.state.suggestions).toEqual(mockedSuggestions);
     });

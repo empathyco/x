@@ -2,7 +2,7 @@ import { HistoryQuery as HistoryQueryModel } from '@empathy/search-types';
 import { createLocalVue, mount } from '@vue/test-utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
+import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
 import { getDataTestSelector } from '../../../../__tests__/utils';
 import HistoryQuery from '../history-query.vue';
 

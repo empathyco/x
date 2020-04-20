@@ -3,9 +3,9 @@ import { default as Vue, VueConstructor } from 'vue';
 import Vuex, { Store } from 'vuex';
 import { createWireFromFunction } from '../../wiring/wires.factory';
 import { AnyXModule } from '../../x-modules/x-modules.types';
+import { SearchAdapterDummy } from '../../__tests__/adapter.dummy';
 import { XPlugin } from '../x-plugin';
 import { XPluginOptions } from '../x-plugin.types';
-import { SearchAdapterDummy } from './adapter.dummy';
 
 const wireInstance = jest.fn();
 const userIsTypingAQuerySelector = jest.fn();

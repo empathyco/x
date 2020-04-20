@@ -2,10 +2,10 @@ import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue, { ComponentOptions } from 'vue';
 import Vuex, { Store } from 'vuex';
 import { XPlugin } from '../../plugins/x-plugin';
-import { SearchAdapterDummy } from '../../plugins/__tests__/adapter.dummy';
 import { RootXStoreState } from '../../store/store.types';
 import { SearchBoxConfig } from '../../x-modules/search-box/config.types';
 import { searchBoxXModule } from '../../x-modules/search-box/x-module';
+import { SearchAdapterDummy } from '../../__tests__/adapter.dummy';
 import { xComponentMixin } from '../x-component.mixin';
 import { isXComponent } from '../x-component.utils';
 

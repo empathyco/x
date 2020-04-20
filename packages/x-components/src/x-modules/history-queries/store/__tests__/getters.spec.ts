@@ -1,20 +1,14 @@
-import { deepMerge } from '@empathybroker/deep-merge';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { DeepPartial, map } from '../../../../utils';
+import { map } from '../../../../utils';
 import { historyQueriesXStoreModule } from '../module';
 import { HistoryQueriesState } from '../types';
-import { createHistoryQueries, createHistoryQuery } from './utils';
+import { createHistoryQueries, createHistoryQuery, resetHistoryQueriesStateWith } from './utils';
 
 describe('testing history queries module gettters', () => {
   Vue.use(Vuex);
   const gettersKeys = map(historyQueriesXStoreModule.getters, getter => getter);
   let store: Store<HistoryQueriesState> = new Store(historyQueriesXStoreModule as any);
-
-  function resetStateWith(state: DeepPartial<HistoryQueriesState>): void {
-    const newState = deepMerge(historyQueriesXStoreModule.state(), state);
-    store.replaceState(newState);
-  }
 
   describe(`${gettersKeys.historyQueries} getter`, () => {
     it('returns a maximum number of history queries', () => {
@@ -24,7 +18,7 @@ describe('testing history queries module gettters', () => {
         'Porterhouse',
         'Kafes'
       );
-      resetStateWith({
+      resetHistoryQueriesStateWith(store, {
         config: { maxItemsToRender: 2 },
         historyQueries: [ribEye, ottomanSteak, porterHouse, kafes]
       });
@@ -39,7 +33,7 @@ describe('testing history queries module gettters', () => {
         'Żywiec beer',
         'Red Vintage'
       );
-      resetStateWith({
+      resetHistoryQueriesStateWith(store, {
         config: { maxItemsToRender: 2, hideIfEqualsQuery: true },
         historyQueries: [pilsnerUrquell, zywiec, zwiecBeer, redVintage],
         query: 'zywiec'
@@ -54,7 +48,7 @@ describe('testing history queries module gettters', () => {
         'Pork shoulder',
         'Pečená kachna'
       );
-      resetStateWith({
+      resetHistoryQueriesStateWith(store, {
         config: { maxItemsToRender: 2 },
         historyQueries: [steakTartar, porkShoulder, pecenaKachna],
         query: 'cená'
@@ -71,7 +65,7 @@ describe('testing history queries module gettters', () => {
         createHistoryQuery({ query: 'Paulaner', timestamp: Date.now() - 30 }),
         createHistoryQuery({ query: 'Hoegaarden', timestamp: Date.now() - 100 })
       ];
-      resetStateWith({
+      resetHistoryQueriesStateWith(store, {
         historyQueries: [duvel, paulaner, hoegarden],
         sessionTimeStampInMs: Date.now() - 15
       });

@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
+import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
 import ClearSearchInput from '../clear-search-input.vue';
 
 describe('testing ClearSearchInput component', () => {

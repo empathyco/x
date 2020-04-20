@@ -1,20 +1,19 @@
 import { HistoryQuery as HistoryQueryModel } from '@empathy/search-types';
-import { deepMerge } from '@empathybroker/deep-merge';
 import { createLocalVue, mount } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
+import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
+import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
 import { getDataTestSelector } from '../../../../__tests__/utils';
-import { historyQueriesXStoreModule } from '../../store/module';
-import { HistoryQueriesState } from '../../store/types';
 import HistoryQueries from '../history-queries.vue';
+import { resetXHistoryQueriesStateWith } from './utils';
 
 describe('testing history queries component', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
-  const store = new Store({});
+  const store = new Store<DeepPartial<RootXStoreState>>({});
   localVue.use(XPlugin, { adapter: SearchAdapterDummy, store });
 
   const historyQueries: HistoryQueryModel[] = [
@@ -40,17 +39,8 @@ describe('testing history queries component', () => {
     store
   });
 
-  function resetStateWith(state: DeepPartial<HistoryQueriesState>): void {
-    const newHistoryQueriesState = deepMerge(historyQueriesXStoreModule.state(), state);
-    store.replaceState({
-      x: {
-        historyQueries: newHistoryQueriesState
-      }
-    });
-  }
-
   beforeEach(() => {
-    resetStateWith({});
+    resetXHistoryQueriesStateWith(store);
   });
 
   it('is an XComponent which has an XModule', () => {
@@ -64,7 +54,7 @@ describe('testing history queries component', () => {
 
   // eslint-disable-next-line max-len
   it('renders the same number of elements than queries has the store if less than maxItemsToRender configuration', async () => {
-    resetStateWith({ historyQueries });
+    resetXHistoryQueriesStateWith(store, { historyQueries });
     await localVue.nextTick();
     const historyQueryItemWrapper = historyQueriesWrapper.findAll(
       getDataTestSelector('history-query-item')
@@ -73,11 +63,9 @@ describe('testing history queries component', () => {
   });
 
   it('limits the number of rendered elements by the maxItemsToRender config property', async () => {
-    resetStateWith({
+    resetXHistoryQueriesStateWith(store, {
       historyQueries,
-      config: {
-        maxItemsToRender: 2
-      }
+      config: { maxItemsToRender: 2 }
     });
     await localVue.nextTick();
     const historyQueryItemWrapper = historyQueriesWrapper.findAll(
@@ -88,7 +76,7 @@ describe('testing history queries component', () => {
 
   describe('test changing history query content', () => {
     it('allows changing history query content using scopedSlots', () => {
-      resetStateWith({ historyQueries });
+      resetXHistoryQueriesStateWith(store, { historyQueries });
       const historyQueriesCustomizedWrapper = mount(HistoryQueries, {
         localVue,
         store,
@@ -111,7 +99,7 @@ describe('testing history queries component', () => {
     });
 
     it('allows changing history query content using docs example as template', () => {
-      resetStateWith({ historyQueries });
+      resetXHistoryQueriesStateWith(store, { historyQueries });
 
       const wrapperComponent = {
         template: `
@@ -147,7 +135,7 @@ describe('testing history queries component', () => {
   });
 
   it('allows to change HistoryQuery component', () => {
-    resetStateWith({ historyQueries });
+    resetXHistoryQueriesStateWith(store, { historyQueries });
     const historyQueriesCustomizedWrapper = mount(HistoryQueries, {
       localVue,
       store,

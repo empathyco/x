@@ -2,7 +2,7 @@ import { createLocalVue, mount, shallowMount, Wrapper } from '@vue/test-utils';
 import { ComponentOptions, default as Vue } from 'vue';
 import { xComponentMixin } from '../../components/x-component.mixin';
 import { searchBoxXModule } from '../../x-modules/search-box/x-module';
-import { SearchAdapterDummy } from './adapter.dummy';
+import { SearchAdapterDummy } from '../../__tests__/adapter.dummy';
 
 describe('testing $x component API global mixin', () => {
   const component: ComponentOptions<Vue> & ThisType<Vue> = {

@@ -1,47 +1,31 @@
-import { Suggestion } from '@empathy/search-types';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
 import { RootXStoreState } from '../../../../store/store.types';
+import { DeepPartial } from '../../../../utils/types';
+import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
+import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
+import { getDataTestSelector } from '../../../../__tests__/utils';
 import PopularSearch from '../popular-search.vue';
 import PopularSearches from '../popular-searches.vue';
+import { resetXPopularSearchesStateWith } from './utils';
 
 describe('testing popular searches component', () => {
-  const suggestions: Suggestion[] = [
-    {
-      facets: [],
-      query: 'salt',
-      key: 'salt',
-      modelName: 'PopularSearch'
-    },
-    {
-      facets: [],
-      query: 'limes',
-      key: 'limes',
-      modelName: 'PopularSearch'
-    },
-    {
-      facets: [],
-      query: 'beef short ribs',
-      key: 'beef short ribs',
-      modelName: 'PopularSearch'
-    }
-  ];
+  const popularSearches = getSuggestionsStub('PopularSearch');
 
   const localVue = createLocalVue();
   localVue.use(Vuex);
 
-  const store: Store<RootXStoreState> = new Store({});
+  const store: Store<DeepPartial<RootXStoreState>> = new Store({});
   localVue.use(XPlugin, { store, adapter: SearchAdapterDummy });
 
   let popularSearchesWrapper: Wrapper<Vue>;
 
   beforeEach(() => {
     popularSearchesWrapper = mount(PopularSearches, { localVue, store });
-    store.commit('x/popularSearches/setSuggestions', suggestions);
+    resetXPopularSearchesStateWith(store, { popularSearches });
   });
 
   it('is an XComponent', () => {
@@ -52,7 +36,7 @@ describe('testing popular searches component', () => {
   it('renders a button with the query of the popular search (suggestion)', () => {
     const eventButtonsList = findTestDataById(popularSearchesWrapper, 'popular-search');
 
-    suggestions.forEach((suggestion, index) => {
+    popularSearches.forEach((suggestion, index) => {
       expect(eventButtonsList.at(index).element.innerHTML).toEqual(suggestion.query);
     });
   });
@@ -80,7 +64,7 @@ describe('testing popular searches component', () => {
     const eventSpansList = findTestDataById(popularSearchesWrapper, 'query');
     const iconsList = findTestDataById(popularSearchesWrapper, 'icon');
 
-    suggestions.forEach((suggestion, index) => {
+    popularSearches.forEach((suggestion, index) => {
       expect(eventSpansList.at(index).element.innerHTML).toEqual(suggestion.query);
       expect(iconsList.at(index)).toBeDefined();
     });
@@ -121,7 +105,7 @@ describe('testing popular searches component', () => {
     const iconsList = findTestDataById(popularSearchesWrapper, 'icon');
     const customButtonList = findTestDataById(popularSearchesWrapper, 'custom-button');
 
-    suggestions.forEach((suggestion, index) => {
+    popularSearches.forEach((suggestion, index) => {
       expect(eventSpansList.at(index).element.innerHTML).toEqual(suggestion.query);
       expect(iconsList.at(index)).toBeDefined();
       expect(customButtonList.at(index)).toBeDefined();
@@ -129,7 +113,7 @@ describe('testing popular searches component', () => {
   });
 
   it('does not render any PopularSearch if the are none', async () => {
-    store.commit('x/popularSearches/setSuggestions', []);
+    resetXPopularSearchesStateWith(store);
 
     await localVue.nextTick();
 
@@ -137,6 +121,6 @@ describe('testing popular searches component', () => {
   });
 
   function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {
-    return wrapper.findAll(`[data-test=${testDataId}]`);
+    return wrapper.findAll(getDataTestSelector(testDataId));
   }
 });

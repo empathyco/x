@@ -1,22 +1,20 @@
-import { HistoryQuery } from '@empathy/search-types';
 import { createLocalVue, mount } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
+import { RootXStoreState } from '../../../../store/store.types';
+import { DeepPartial } from '../../../../utils/types';
+import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
 import ClearHistoryQueries from '../clear-history-queries.vue';
+import { resetXHistoryQueriesStateWith } from './utils';
 
 describe('testing ClearHistoryQueries component', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
-  const store = new Store({});
+  const store = new Store<DeepPartial<RootXStoreState>>({});
   localVue.use(XPlugin, { adapter: SearchAdapterDummy, store });
 
-  function setHistoryQueries(historyQueries: HistoryQuery[]): void {
-    store.commit('x/historyQueries/setHistoryQueries', historyQueries);
-  }
-
   beforeEach(() => {
-    setHistoryQueries([]);
+    resetXHistoryQueriesStateWith(store);
   });
 
   it('is disabled if there are not history queries', async () => {
@@ -24,13 +22,15 @@ describe('testing ClearHistoryQueries component', () => {
 
     expect(clearHistoryQueries.attributes().disabled).toEqual('disabled');
 
-    setHistoryQueries([
-      {
-        query: 'I want BBQ',
-        modelName: 'HistoryQuery',
-        timestamp: 0
-      }
-    ]);
+    resetXHistoryQueriesStateWith(store, {
+      historyQueries: [
+        {
+          query: 'I want BBQ',
+          modelName: 'HistoryQuery',
+          timestamp: 0
+        }
+      ]
+    });
     await localVue.nextTick();
     expect(clearHistoryQueries.attributes()).not.toHaveProperty('disabled');
   });
@@ -39,13 +39,15 @@ describe('testing ClearHistoryQueries component', () => {
     const listener = jest.fn();
     const clearHistoryQueries = mount(ClearHistoryQueries, { localVue, store });
     clearHistoryQueries.vm.$x.on('UserPressedClearHistoryQueries', true).subscribe(listener);
-    setHistoryQueries([
-      {
-        query: 'I want BBQ',
-        modelName: 'HistoryQuery',
-        timestamp: 0
-      }
-    ]);
+    resetXHistoryQueriesStateWith(store, {
+      historyQueries: [
+        {
+          query: 'I want BBQ',
+          modelName: 'HistoryQuery',
+          timestamp: 0
+        }
+      ]
+    });
 
     await localVue.nextTick();
     clearHistoryQueries.trigger('click');

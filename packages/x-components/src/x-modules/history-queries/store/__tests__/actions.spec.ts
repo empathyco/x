@@ -1,12 +1,11 @@
 import { HistoryQuery } from '@empathy/search-types';
-import { deepMerge } from '@empathybroker/deep-merge';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { DeepPartial, map } from '../../../../utils';
 import { localStorageService, SESSION_TIME_STAMP_STORAGE_KEY } from '../constants';
 import { historyQueriesXStoreModule } from '../module';
 import { HistoryQueriesState } from '../types';
-import { createHistoryQueries, createHistoryQuery } from './utils';
+import { createHistoryQueries, createHistoryQuery, resetHistoryQueriesStateWith } from './utils';
 
 describe('testing history queries module actions', () => {
   Vue.use(Vuex);
@@ -16,9 +15,8 @@ describe('testing history queries module actions', () => {
   Date.now = () => currentTimeStamp; // Mock Date.now to always return 0
 
   function resetStateWith(state: DeepPartial<HistoryQueriesState>): void {
-    const newState: HistoryQueriesState = deepMerge(historyQueriesXStoreModule.state(), state);
-    store.replaceState(newState);
-    localStorageService.setItem(store.getters.storageKey, newState.historyQueries);
+    resetHistoryQueriesStateWith(store, state);
+    localStorageService.setItem(store.getters.storageKey, store.state.historyQueries);
   }
 
   function expectHistoryQueriesToEqual(historyQueries: HistoryQuery[]): void {

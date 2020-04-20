@@ -1,55 +1,34 @@
-import { Suggestion } from '@empathy/search-types';
-import { deepMerge } from '@empathybroker/deep-merge';
 import { createLocalVue, mount } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
+import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
-import { querySuggestionsXStoreModule } from '../../store/module';
-import { QuerySuggestionsState } from '../../store/types';
+import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
+import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
+import { getDataTestSelector } from '../../../../__tests__/utils';
 import { querySuggestionsXModule } from '../../x-module';
 import QuerySuggestion from '../query-suggestion.vue';
+import { resetXQuerySuggestionsStateWith } from './utils';
 
 describe('testing query-suggestion component', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
-  const store = new Store({});
+  const store = new Store<DeepPartial<RootXStoreState>>({});
   localVue.use(XPlugin, { adapter: SearchAdapterDummy, store });
 
   XPlugin.registerXModule(querySuggestionsXModule);
 
-  const suggestion: Suggestion = {
-    query: 'espanita',
-    facets: [],
-    key: 'espanita',
-    modelName: 'QuerySuggestion'
-  };
+  const suggestion = getSuggestionsStub('QuerySuggestion')[0];
 
   const component = mount(QuerySuggestion, {
     localVue,
-    propsData: {
-      suggestion
-    },
+    propsData: { suggestion },
     store
   });
 
-  /**
-   * Replaces the old querySuggestions state with the new one.
-   *
-   * @param state - The querySuggestionsState.
-   */
-  function resetStateWith(state: DeepPartial<QuerySuggestionsState>): void {
-    const newQuerySuggestionsState = deepMerge(querySuggestionsXStoreModule.state(), state);
-    store.replaceState({
-      x: {
-        querySuggestions: newQuerySuggestionsState
-      }
-    });
-  }
-
   beforeEach(() => {
-    resetStateWith({});
+    resetXQuerySuggestionsStateWith(store);
   });
 
   it('is an XComponent', () => {
@@ -62,7 +41,7 @@ describe('testing query-suggestion component', () => {
 
   // TODO: Refactor state to normalized query getter
   it('highlights the suggestion matching parts with the state query', async () => {
-    resetStateWith({ query: 'esp' });
+    resetXQuerySuggestionsStateWith(store, { query: 'sal' });
 
     await localVue.nextTick();
 
@@ -75,7 +54,7 @@ describe('testing query-suggestion component', () => {
 
   it('emits UserSelectedAQuerySuggestion event on click', () => {
     const listener = jest.fn();
-    const button = component.find('[data-test="query-suggestion"]').element;
+    const button = component.find(getDataTestSelector('query-suggestion')).element;
     component.vm.$x.on('UserSelectedAQuerySuggestion', true).subscribe(listener);
     component.trigger('click');
 

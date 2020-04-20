@@ -1,65 +1,10 @@
-import { Facet, Suggestion } from '@empathy/search-types';
+import { Suggestion } from '@empathy/search-types';
 import { mount } from '@vue/test-utils';
+import { getSuggestionsStub } from '../../../__stubs__/suggestions-stubs.factory';
 import Suggestions from '../suggestions.vue';
 
 describe('testing Suggestions component', () => {
-  const suggestions: Suggestion[] = [
-    {
-      facets: [],
-      query: 'salt',
-      key: 'salt',
-      modelName: 'Suggestion'
-    },
-    {
-      facets: [],
-      query: 'limes',
-      key: 'limes',
-      modelName: 'Suggestion'
-    },
-    {
-      facets: [createFacetWithFilter('fruit')],
-      query: 'limes',
-      key: 'limes',
-      modelName: 'Suggestion'
-    },
-    {
-      facets: [createFacetWithFilter('fresh')],
-      query: 'limes',
-      key: 'limes',
-      modelName: 'Suggestion'
-    },
-    {
-      facets: [],
-      query: 'beef short ribs',
-      key: 'beef short ribs',
-      modelName: 'Suggestion'
-    }
-  ];
-
-  function createFacetWithFilter(category: string): Facet {
-    const facet: Facet = {
-      modelName: 'Facet',
-      filters: [],
-      title: 'category'
-    };
-
-    facet.filters.push({
-      modelName: 'Filter',
-      id: `category:${category}`,
-      callbackInfo: {},
-      children: [],
-      count: 10,
-      parent: null,
-      selected: false,
-      title: category,
-      value: {
-        filter: `category:${category}`
-      },
-      facet
-    });
-
-    return facet;
-  }
+  const suggestions = getSuggestionsStub('QuerySuggestion');
 
   it('renders a list of suggestions passed as props', () => {
     const wrapper = mount(Suggestions, {

@@ -1,19 +1,24 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import Vue from 'vue';
-import Vuex from 'vuex';
+import Vuex, { Store } from 'vuex';
 import { isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { DEFAULT_X_CONFIG } from '../../../../plugins/x-plugin.config';
-import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
+import { RootXStoreState } from '../../../../store/store.types';
+import { DeepPartial } from '../../../../utils/types';
+import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
 import SearchButton from '../search-button.vue';
+import { resetXSearchBoxStateWith } from './utils';
 
 describe('testing search button component', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
-  localVue.use(XPlugin, { adapter: SearchAdapterDummy });
+  const store = new Store<DeepPartial<RootXStoreState>>({});
+  localVue.use(XPlugin, { adapter: SearchAdapterDummy, store });
 
   const searchButtonWrapper = mount(SearchButton, {
     localVue,
+    store,
     slots: { default: 'Search!' }
   });
 
@@ -38,6 +43,7 @@ describe('testing search button component', () => {
 
     const searchIconButtonWrapper = mount(SearchButton, {
       localVue,
+      store,
       slots: { default: htmlIcon }
     });
 
@@ -50,7 +56,7 @@ describe('testing search button component', () => {
     searchButtonWrapper.vm.$x.on('UserAcceptedAQuery').subscribe(mockedObserver);
     searchButtonWrapper.vm.$x.on('UserPressedSearchButton').subscribe(mockedObserver);
 
-    searchButtonWrapper.vm.$store.commit('x/searchBox/setQuery', '');
+    resetXSearchBoxStateWith(store, { query: '' });
 
     await Vue.nextTick();
 
@@ -72,7 +78,7 @@ describe('testing search button component', () => {
     searchButtonWrapper.vm.$x.on('UserAcceptedAQuery', true).subscribe(mockedObserver);
     searchButtonWrapper.vm.$x.on('UserPressedSearchButton', true).subscribe(mockedObserver);
 
-    searchButtonWrapper.vm.$store.commit('x/searchBox/setQuery', query);
+    resetXSearchBoxStateWith(store, { query });
 
     await Vue.nextTick();
 

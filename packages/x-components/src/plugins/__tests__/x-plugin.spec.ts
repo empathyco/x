@@ -6,9 +6,9 @@ import { createWireFromFunction, wireCommit } from '../../wiring/wires.factory';
 import { AnyWire } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 import { AnyXModule } from '../../x-modules/x-modules.types';
+import { SearchAdapterDummy } from '../../__tests__/adapter.dummy';
 import { XPlugin } from '../x-plugin';
 import { XModulesOptions, XPluginOptions } from '../x-plugin.types';
-import { SearchAdapterDummy } from './adapter.dummy';
 
 const wireToReplace: AnyWire = jest.fn();
 const wireToRemove: AnyWire = jest.fn();

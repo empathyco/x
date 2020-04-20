@@ -3,8 +3,8 @@ import Vue, { CreateElement, VNode } from 'vue';
 import { Component } from 'vue-property-decorator';
 import { Store } from 'vuex';
 import { XPlugin } from '../../plugins/x-plugin';
-import { SearchAdapterDummy } from '../../plugins/__tests__/adapter.dummy';
 import { searchBoxXStoreModule } from '../../x-modules/search-box/store/module';
+import { SearchAdapterDummy } from '../../__tests__/adapter.dummy';
 import { Getter, State, XOn } from '../decorators';
 
 const listener = jest.fn();

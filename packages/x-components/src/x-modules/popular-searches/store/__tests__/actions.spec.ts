@@ -1,42 +1,16 @@
-import { SuggestionsResponse } from '@empathy/search-adapter';
-import { Suggestion } from '@empathy/search-types';
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
 import { map } from '../../../../utils';
+import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
+import { getMockedAdapter } from '../../../../__tests__/utils';
 import { popularSearchesXStoreModule } from '../module';
 import { PopularSearchesState } from '../types';
-import Mock = jest.Mock;
 
 describe('testing popular searches module actions', () => {
-  const mockedSuggestions: Suggestion[] = [
-    {
-      facets: [],
-      query: 'salt',
-      key: 'salt',
-      modelName: 'PopularSearches'
-    },
-    {
-      facets: [],
-      query: 'limes',
-      key: 'limes',
-      modelName: 'PopularSearches'
-    },
+  const mockedSuggestions = getSuggestionsStub('PopularSearch');
 
-    {
-      facets: [],
-      query: 'beef short ribs',
-      key: 'beef short ribs',
-      modelName: 'PopularSearches'
-    }
-  ];
-
-  const adapter = Object.assign(SearchAdapterDummy, {
-    getSuggestions: getMockedAdapterFunction<SuggestionsResponse>({
-      suggestions: mockedSuggestions
-    })
-  });
+  const adapter = getMockedAdapter({ suggestions: { suggestions: mockedSuggestions } });
 
   const actionKeys = map(popularSearchesXStoreModule.actions, action => action);
   const localVue = createLocalVue();
@@ -45,17 +19,6 @@ describe('testing popular searches module actions', () => {
 
   let store: Store<PopularSearchesState> = new Store(popularSearchesXStoreModule as any);
   localVue.use(XPlugin, { adapter, store });
-
-  /**
-   * Mocks an adapter function.
-   *
-   * @param whatReturns - The returned response object.
-   * @returns Mocked promise.
-   * @internal
-   */
-  function getMockedAdapterFunction<T = any>(whatReturns: T): Mock<Promise<T>> {
-    return jest.fn(() => new Promise(resolve => setTimeout(() => resolve(whatReturns))));
-  }
 
   describe(`${actionKeys.getSuggestions}`, () => {
     it('should return suggestions', async () => {

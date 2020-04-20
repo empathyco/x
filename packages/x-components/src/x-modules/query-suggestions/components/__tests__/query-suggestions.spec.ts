@@ -1,110 +1,30 @@
-import { Facet, Suggestion } from '@empathy/search-types';
-import { deepMerge } from '@empathybroker/deep-merge';
 import { createLocalVue, mount } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
+import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
+import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
+import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
 import { getDataTestSelector } from '../../../../__tests__/utils';
-import { querySuggestionsXStoreModule } from '../../store/module';
-import { QuerySuggestionsState } from '../../store/types';
-import { querySuggestionsXModule } from '../../x-module';
 import QuerySuggestions from '../query-suggestions.vue';
+import { resetXQuerySuggestionsStateWith } from './utils';
 
 describe('testing Suggestions component', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
-  const store = new Store({});
+  const store = new Store<DeepPartial<RootXStoreState>>({});
   localVue.use(XPlugin, { adapter: SearchAdapterDummy, store });
 
-  XPlugin.registerXModule(querySuggestionsXModule);
-
-  const suggestions: Suggestion[] = [
-    {
-      facets: [],
-      query: 'salt',
-      key: 'salt',
-      modelName: 'QuerySuggestion'
-    },
-    {
-      facets: [],
-      query: 'limes',
-      key: 'limes',
-      modelName: 'QuerySuggestion'
-    },
-    {
-      facets: [createFacetWithFilter('fruit')],
-      query: 'limes',
-      key: 'limes',
-      modelName: 'QuerySuggestion'
-    },
-    {
-      facets: [createFacetWithFilter('fresh')],
-      query: 'limes',
-      key: 'limes',
-      modelName: 'QuerySuggestion'
-    },
-    {
-      facets: [],
-      query: 'beef short ribs',
-      key: 'beef short ribs',
-      modelName: 'QuerySuggestion'
-    }
-  ];
+  const suggestions = getSuggestionsStub('QuerySuggestion');
 
   const component = mount(QuerySuggestions, {
     localVue,
     store
   });
 
-  /**
-   * Creates a facet with a filter.
-   *
-   * @param category - The facet category.
-   * @returns The facet.
-   */
-  function createFacetWithFilter(category: string): Facet {
-    const facet: Facet = {
-      modelName: 'Facet',
-      filters: [],
-      title: 'category'
-    };
-
-    facet.filters.push({
-      modelName: 'Filter',
-      id: `category:${category}`,
-      callbackInfo: {},
-      children: [],
-      count: 10,
-      parent: null,
-      selected: false,
-      title: category,
-      value: {
-        filter: `category:${category}`
-      },
-      facet
-    });
-
-    return facet;
-  }
-
-  /**
-   * Replaces the old querySuggestions state with the new one.
-   *
-   * @param state - The querySuggestionsState.
-   */
-  function resetStateWith(state: DeepPartial<QuerySuggestionsState>): void {
-    const newQuerySuggestionsState = deepMerge(querySuggestionsXStoreModule.state(), state);
-    store.replaceState({
-      x: {
-        querySuggestions: newQuerySuggestionsState
-      }
-    });
-  }
-
   beforeEach(() => {
-    resetStateWith({});
+    resetXQuerySuggestionsStateWith(store, {});
   });
 
   it('is an XComponent', () => {
@@ -120,7 +40,7 @@ describe('testing Suggestions component', () => {
   });
 
   it('renders a list of suggestions passed as props', async () => {
-    resetStateWith({ suggestions });
+    resetXQuerySuggestionsStateWith(store, { suggestions });
 
     await localVue.nextTick();
 
@@ -128,7 +48,7 @@ describe('testing Suggestions component', () => {
   });
 
   it('renders a custom query suggestion when overriding the suggestion slot', () => {
-    resetStateWith({ suggestions });
+    resetXQuerySuggestionsStateWith(store, { suggestions });
 
     const suggestionSlotOverridden = {
       template: `
@@ -166,7 +86,7 @@ describe('testing Suggestions component', () => {
   });
 
   it('renders custom content when overriding the suggestion-content slot', () => {
-    resetStateWith({ suggestions });
+    resetXQuerySuggestionsStateWith(store, { suggestions });
 
     const suggestionContentSlotOverridden = {
       template: `

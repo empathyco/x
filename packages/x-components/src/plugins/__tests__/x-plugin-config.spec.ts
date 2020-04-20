@@ -1,10 +1,10 @@
 import { createLocalVue, shallowMount, Wrapper } from '@vue/test-utils';
 import { ComponentOptions, default as Vue } from 'vue';
 import { CurrencyOptions } from '../../i18n/currency.types';
+import { SearchAdapterDummy } from '../../__tests__/adapter.dummy';
 import { XPlugin } from '../x-plugin';
 import { DEFAULT_X_CONFIG } from '../x-plugin.config';
 import { DocumentDirection } from '../x-plugin.types';
-import { SearchAdapterDummy } from './adapter.dummy';
 
 describe('testing global config', () => {
   const plugin: typeof XPlugin = require('../x-plugin').XPlugin;

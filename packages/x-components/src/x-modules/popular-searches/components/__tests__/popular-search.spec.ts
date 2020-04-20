@@ -2,16 +2,13 @@ import { Suggestion } from '@empathy/search-types';
 import { createLocalVue, mount } from '@vue/test-utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
+import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
+import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
+import { getDataTestSelector } from '../../../../__tests__/utils';
 import PopularSearch from '../popular-search.vue';
 
 describe('testing popular search item component', () => {
-  const suggestion: Suggestion = {
-    facets: [],
-    query: 'salt',
-    key: 'salt',
-    modelName: 'PopularSearch'
-  };
+  const suggestion: Suggestion = getSuggestionsStub('PopularSearch')[0];
 
   const localVue = createLocalVue();
   localVue.use(XPlugin, { adapter: SearchAdapterDummy });
@@ -63,9 +60,9 @@ describe('testing popular search item component', () => {
       propsData: { suggestion }
     });
 
-    expect(popularSearchWrapper.contains('[data-test=popular-search]')).toBeTruthy();
-    expect(popularSearchWrapper.contains('[data-test=icon]')).toBeTruthy();
-    expect(popularSearchWrapper.find('[data-test=query]').element.textContent).toEqual(
+    expect(popularSearchWrapper.contains(getDataTestSelector('popular-search'))).toBeTruthy();
+    expect(popularSearchWrapper.contains(getDataTestSelector('icon'))).toBeTruthy();
+    expect(popularSearchWrapper.find(getDataTestSelector('query')).element.textContent).toEqual(
       suggestion.query
     );
   });

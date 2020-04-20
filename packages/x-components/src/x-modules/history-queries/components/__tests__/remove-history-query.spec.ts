@@ -1,7 +1,7 @@
 import { HistoryQuery } from '@empathy/search-types';
 import { createLocalVue, mount } from '@vue/test-utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { SearchAdapterDummy } from '../../../../plugins/__tests__/adapter.dummy';
+import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
 import RemoveHistoryQuery from '../remove-history-query.vue';
 
 describe('testing RemoveHistoryQuery component', () => {
