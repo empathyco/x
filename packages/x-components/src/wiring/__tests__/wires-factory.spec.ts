@@ -91,6 +91,40 @@ describe('testing wire factory functions', () => {
     );
 
     test(
+      wireCommit.name +
+        ' allows creating wires that commit a mutation with a function payload' +
+        'accessing the store state',
+      () => {
+        const wire = wireCommit(mutationName, ({ state }) => state.x.searchBox.query);
+        wire(subject, storeMock);
+        next('');
+
+        expect(storeMock.commit).toHaveBeenCalledTimes(1);
+        expect(storeMock.commit).toHaveBeenCalledWith(
+          mutationName,
+          storeMock.state.x.searchBox.query
+        );
+      }
+    );
+
+    test(
+      wireCommit.name +
+        ' allows creating wires that commit a mutation with a function payload' +
+        'accessing the store getters',
+      () => {
+        const wire = wireCommit(mutationName, ({ getters }) => getters[`x/searchBox/trimmedQuery`]);
+        wire(subject, storeMock);
+        next('');
+
+        expect(storeMock.commit).toHaveBeenCalledTimes(1);
+        expect(storeMock.commit).toHaveBeenCalledWith(
+          mutationName,
+          storeMock.getters[`x/searchBox/trimmedQuery`]
+        );
+      }
+    );
+
+    test(
       wireCommitWithoutPayload.name +
         ' allows creating wires that commit a mutation without payload',
       () => {

@@ -332,7 +332,7 @@ export class XPlugin {
     const customizedStoreEmitters: AnyStoreEmitters = storeEmittersOptions
       ? deepMerge({}, storeEmitters, storeEmittersOptions)
       : storeEmitters;
-    const safeGettersProxy = getGettersProxyFromModule(this.store, name, storeModule);
+    const safeGettersProxy = getGettersProxyFromModule(this.store.getters, name, storeModule);
     forEach(
       customizedStoreEmitters,
       (event, stateSelector: AnySimpleStateSelector | AnyStateSelector) => {

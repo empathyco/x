@@ -1,7 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { AnyXStoreModule, RootXStoreState } from '../../store.types';
-import { getGettersProxyFromModule, getGettersProxyFromStore } from '../get-getters-proxy';
+import { getGettersProxy, getGettersProxyFromModule } from '../get-getters-proxy';
 
 const getter1Spy = jest.fn();
 const getter2Spy = jest.fn();
@@ -37,19 +37,19 @@ const storeMock = new Store<RootXStoreState>({
   }
 });
 
-describe('testing getGettersProxyFromStore util', () => {
+describe('testing getGettersProxy util', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('returns an object with getters proxies for all the real getters', () => {
-    const gettersProxy = getGettersProxyFromStore(storeMock, 'searchBox');
+    const gettersProxy = getGettersProxy(storeMock.getters, 'searchBox');
 
     expect(gettersProxy).toEqual({ getter1: 'state1_modified', getter2: 'state2_modified' });
   });
 
   it('not invokes the getter on proxy creation', () => {
-    getGettersProxyFromStore(storeMock, 'searchBox');
+    getGettersProxy(storeMock.getters, 'searchBox');
     expect(getter1Spy).not.toHaveBeenCalled();
   });
 });
@@ -60,13 +60,13 @@ describe('testing getGettersProxyFromModule util', () => {
   });
 
   it('returns an object with getters proxies for all the real getters', () => {
-    const gettersProxy = getGettersProxyFromModule(storeMock, 'searchBox', storeModuleTest);
+    const gettersProxy = getGettersProxyFromModule(storeMock.getters, 'searchBox', storeModuleTest);
 
     expect(gettersProxy).toEqual({ getter1: 'state1_modified', getter2: 'state2_modified' });
   });
 
   it('not invokes the getter on proxy creation', () => {
-    getGettersProxyFromModule(storeMock, 'searchBox', storeModuleTest);
+    getGettersProxyFromModule(storeMock.getters, 'searchBox', storeModuleTest);
 
     expect(getter2Spy).not.toHaveBeenCalled();
   });

@@ -1,6 +1,6 @@
 import { Store } from 'vuex';
 import { RootXStoreState } from '../store/store.types';
-import { getGettersProxyFromStore } from '../store/utils/get-getters-proxy';
+import { getGettersProxy } from '../store/utils/get-getters-proxy';
 import { ExtractState, XModuleName } from '../x-modules/x-modules.types';
 import {
   AnyWire,
@@ -28,12 +28,28 @@ export function createWireFromFunction<Payload>(
 }
 
 /**
- * Creates a wire that commits a mutation to the store. This wire can be used in every event, as
- * it does not have a payload type associated.
+ * Creates a wire that commits a mutation to the store. This wire receives a function. This function
+ * is used to get the actual payload value passed to mutation.
+ * This wire can be used in every event, as it does not have a payload type associated.
  *
  * @param mutation - The full mutation path to commit. I.e. `x/search/setQuery`.
- * @param staticPayload - A static payload to pass to the mutation which will be committed.
- * @returns [AnyWire] A wire that commits the mutation with the staticPayload payload.
+ * @param payloadFactory - A function that receives the an object with the Store state and getters
+ * as parameter.
+ * @returns A {@link AnyWire} wire that commits the mutation with the payload returned by the
+ * payloadFactory.
+ * @public
+ */
+export function wireCommit(
+  mutation: string,
+  payloadFactory: (params: Pick<Store<RootXStoreState>, 'state' | 'getters'>) => any
+): AnyWire;
+/**
+ * Creates a wire that commits a mutation to the store. This wire can receive any value as payload.
+ * This wire can be used in every event, as it does not have a payload type associated.
+ *
+ * @param mutation - The full mutation path to commit. I.e. `x/search/setQuery`.
+ * @param staticPayload - A static payload to pass to the mutation.
+ * @returns {@link AnyWire} A wire that commits the mutation with the staticPayload payload.
  * @public
  */
 export function wireCommit(mutation: string, staticPayload: any): AnyWire;
@@ -43,17 +59,19 @@ export function wireCommit(mutation: string, staticPayload: any): AnyWire;
  *
  * @param mutation - The full mutation path to commit. I.e. `x/search/setQuery`.
  * @typeParam Payload - The type of the payload that this wire will receive
- * @returns [Wire<Payload>] A wire that commits the mutation with the payload that it receives
+ * @returns {@link Wire} A wire that commits the mutation with the payload that it receives
  * in the observable.
  * @public
  */
 export function wireCommit<Payload>(mutation: string): Wire<Payload>;
 // eslint-disable-next-line jsdoc/require-jsdoc
-export function wireCommit<Payload>(mutation: string, staticPayload?: any): Wire<Payload> {
+export function wireCommit<Payload>(mutation: string, payload?: Payload): Wire<Payload> {
   return (observable, store) =>
     observable.subscribe(
-      staticPayload !== undefined
-        ? () => store.commit(mutation, staticPayload)
+      typeof payload === 'function'
+        ? () => store.commit(mutation, payload({ state: store.state, getters: store.getters }))
+        : payload !== undefined
+        ? () => store.commit(mutation, payload)
         : value => store.commit(mutation, value.eventPayload)
     );
 }
@@ -63,7 +81,7 @@ export function wireCommit<Payload>(mutation: string, staticPayload?: any): Wire
  * be used in every event, as it does not have a payload type associated.
  *
  * @param mutation - The full mutation path to commit. I.e. `x/search/setQuery`.
- * @returns [AnyWire] A wire that commits the mutation without any payload.
+ * @returns {@link AnyWire} A wire that commits the mutation without any payload.
  * @public
  */
 export function wireCommitWithoutPayload(mutation: string): AnyWire {
@@ -76,7 +94,7 @@ export function wireCommitWithoutPayload(mutation: string): AnyWire {
  *
  * @param action - The full action path to commit. I.e. `x/query-suggestions/getSuggestions`.
  * @param staticPayload - A static payload to pass to the action which will be dispatched.
- * @returns [AnyWire] A wire that dispatches the action with the staticPayload payload.
+ * @returns {@link AnyWire} A wire that dispatches the action with the staticPayload payload.
  * @public
  */
 export function wireDispatch(action: string, staticPayload: any): AnyWire;
@@ -86,7 +104,7 @@ export function wireDispatch(action: string, staticPayload: any): AnyWire;
  *
  * @param action - The full action path to commit. I.e. `x/query-suggestions/getSuggestions`.
  * @typeParam Payload - the type of the payload that this wire will receive
- * @returns [Wire<Payload>] A wire that dispatches the action with the payload that it receives
+ * @returns {@link Wire} A wire that dispatches the action with the payload that it receives
  * in the observable.
  * @public
  */
@@ -106,7 +124,7 @@ export function wireDispatch<Payload>(action: string, staticPayload?: any): Wire
  * be used in every event, as it does not have a payload type associated.
  *
  * @param action - The full action path to commit. I.e. `x/query-suggestions/getSuggestions`.
- * @returns [AnyWire] A wire that dispatches the action without any payload.
+ * @returns {@link AnyWire} A wire that dispatches the action without any payload.
  * @public
  */
 export function wireDispatchWithoutPayload(action: string): AnyWire {
@@ -126,15 +144,12 @@ export function withModule<ModuleName extends XModuleName>(
   const modulePath = `x/${moduleName}/`;
   return {
     wireCommit(mutation: string, payload?: any): AnyWire {
+      const mutationFullPath = `${modulePath}${mutation}`;
       return typeof payload === 'function'
-        ? (observable, store) =>
-            observable.subscribe(() => {
-              store.commit(
-                `${modulePath}${mutation}`,
-                payload(getStateAndGetters(store, moduleName))
-              );
-            })
-        : wireCommit(`${modulePath}${mutation}`, payload);
+        ? wireCommit(mutationFullPath, ({ state, getters }) =>
+            payload(getStateAndGettersFromModule(state, getters, moduleName))
+          )
+        : wireCommit(mutationFullPath, payload);
     },
     wireCommitWithoutPayload(mutation) {
       return wireCommitWithoutPayload(`${modulePath}${mutation}`);
@@ -152,18 +167,20 @@ export function withModule<ModuleName extends XModuleName>(
  * Returns an object with the getters and state of a module of store defined by the moduleName
  * parameter.
  *
- * @param store - The Vuex store.
+ * @param state - The Vuex store State.
+ * @param getters - The Vuex store Getters.
  * @param moduleName - The {@link XModuleName} of the module.
- * @returns The {@Link WirePayloadParams} with the Getters and the State of the
+ * @returns The {@link WirePayloadParams} with the Getters and the State of the
  * {@link XStoreModule | Store Module} defined by moduleName.
  * @internal
  */
-function getStateAndGetters<ModuleName extends XModuleName>(
-  store: Store<RootXStoreState>,
+function getStateAndGettersFromModule<ModuleName extends XModuleName>(
+  state: RootXStoreState,
+  getters: Pick<Store<any>, 'getters'>,
   moduleName: ModuleName
 ): WirePayloadParams<ModuleName> {
   return {
-    state: store.state.x[moduleName] as ExtractState<ModuleName>,
-    getters: getGettersProxyFromStore(store, moduleName)
+    state: state.x[moduleName] as ExtractState<ModuleName>,
+    getters: getGettersProxy(getters, moduleName)
   };
 }

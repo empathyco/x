@@ -115,8 +115,8 @@ export interface NamespacedWireFactory<ModuleName extends XModuleName> {
    * @param payload - A static payload to pass to the mutation which will be committed
    * OR a function that receives a {@link WirePayloadParams} to access the State and the Getters
    * of the module and returns the payload.
-   * @returns [AnyWire] A wire that commits the mutation with the static payload or the returned
-   * value of the payload as a function.
+   * @returns {@link AnyWire} A wire that commits the mutation with the static payload or the
+   * returned value of the payload as a function.
    */
   wireCommit<
     Mutations extends ExtractMutations<XModulesTree[ModuleName]>,
@@ -132,8 +132,8 @@ export interface NamespacedWireFactory<ModuleName extends XModuleName> {
    * payload that it receives in the observable.
    *
    * @param mutation - The name of the mutation of the module to execute. I.e. `setQuery`.
-   * @returns [Wire<Payload>] A wire that commits the mutation with the payload that it receives
-   * in the observable.
+   * @returns {@link Wire} A wire that commits the mutation with the payload that it
+   * receives in the observable.
    */
   wireCommit<
     Mutations extends ExtractMutations<XModulesTree[ModuleName]>,
@@ -146,7 +146,7 @@ export interface NamespacedWireFactory<ModuleName extends XModuleName> {
    * be used in every event, as it does not have a payload type associated.
    *
    * @param mutation - The name of the mutation of the module to execute. I.e. `setQuery`.
-   * @returns [AnyWire] A wire that commits the mutation without any payload.
+   * @returns {@link AnyWire} A wire that commits the mutation without any payload.
    */
   wireCommitWithoutPayload<
     Mutations extends ExtractMutations<XModulesTree[ModuleName]>,
@@ -160,7 +160,7 @@ export interface NamespacedWireFactory<ModuleName extends XModuleName> {
    *
    * @param action - The action name to commit. I.e. `getSuggestions`.
    * @param staticPayload - A static payload to pass to the action which will be dispatched.
-   * @returns [AnyWire] A wire that dispatches the action with the staticPayload payload.
+   * @returns {@link AnyWire} A wire that dispatches the action with the staticPayload payload.
    */
   wireDispatch<
     Actions extends ExtractActions<XModulesTree[ModuleName]>,
@@ -175,7 +175,7 @@ export interface NamespacedWireFactory<ModuleName extends XModuleName> {
    *
    * @param action - The action name to commit. I.e. `getSuggestions`.
    * @typeParam Payload - the type of the payload that this wire will receive
-   * @returns [Wire<Payload>] A wire that dispatches the action with the payload that it
+   * @returns {@link Wire} A wire that dispatches the action with the payload that it
    * receives in the observable.
    */
   wireDispatch<
@@ -189,7 +189,7 @@ export interface NamespacedWireFactory<ModuleName extends XModuleName> {
    * can be used in every event, as it does not have a payload type associated.
    *
    * @param action - The action name to commit. I.e. `getSuggestions`.
-   * @returns [AnyWire] A wire that dispatches the action without any payload.
+   * @returns {@link AnyWire} A wire that dispatches the action without any payload.
    */
   wireDispatchWithoutPayload<
     Actions extends ExtractActions<XModulesTree[ModuleName]>,
