@@ -17,7 +17,9 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     query: '',
     nextQueries: [],
     config: {
-      size: 5
+      maxItemsToRender: 5,
+      hideSessionQueries: true,
+      loadOnInit: false
     }
   }),
   getters: {
@@ -25,7 +27,7 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
       return state.query
         ? {
             query: state.query,
-            rows: state.config.size,
+            rows: state.config.maxItemsToRender,
             start: 0
           }
         : null;
