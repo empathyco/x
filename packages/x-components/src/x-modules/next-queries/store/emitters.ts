@@ -7,5 +7,6 @@ import { nextQueriesXStoreModule } from './module';
  * @internal
  */
 export const nextQueriesEmitters = createStoreEmitters(nextQueriesXStoreModule, {
+  NextQueriesChanged: state => state.nextQueries,
   NextQueriesRequestChanged: (_, getters) => getters.request
 });

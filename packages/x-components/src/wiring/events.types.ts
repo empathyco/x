@@ -68,16 +68,21 @@ export interface XEventsTypes {
    */
   SearchBoxQueryChanged: string;
   /**
-   * Any property of the next-queries request has changed
-   * * Payload: The new next-queries request or `null` if there is not enough data in the state
-   * to conform a valid request.
+   * Next Queries have been changed.
+   * * Payload: The new {@link @empathy/search-types#NextQuery | next queries}.
    */
-  NextQueriesRequestChanged: NextQueriesRequest | null;
+  NextQueriesChanged: NextQuery[];
   /**
    * The current next queries have been displayed to the user.
    * * Payload: The displayed next queries.
    */
   NextQueriesDisplayed: NextQuery[];
+  /**
+   * Any property of the next-queries request has changed
+   * * Payload: The new next-queries request or `null` if there is not enough data in the state
+   * to conform a valid request.
+   */
+  NextQueriesRequestChanged: NextQueriesRequest | null;
   /**
    * Any property of the popular-searches request has changed
    * * Payload: The new popular-search request.
