@@ -18,7 +18,7 @@
   import { Component, Prop } from 'vue-property-decorator';
   import { Suggestion, Facet } from '@empathy/search-types';
   import Vue from 'vue';
-  import { isArrayEmpty } from '../../utils/array';
+  import { isArrayEmpty } from '../utils/array';
 
   /**
    * Paints a list of suggestions passed in by prop. Requires a component for a single suggestion
@@ -27,7 +27,7 @@
    * @public
    */
   @Component
-  export default class Suggestions extends Vue {
+  export default class BaseSuggestions extends Vue {
     /**
      * The list of suggestions to render.
      *
@@ -86,13 +86,13 @@
   `emitSuggestionSelected` method when clicked.
 
   ```vue
-  <Suggestions :suggestions="suggestions">
+  <BaseSuggestions :suggestions="suggestions">
     <template #default="{ suggestion }">
       <button @click="emitSuggestionSelected($event, suggestion)">
         {{ suggestion.query }}
       </button>
     </template>
-  </Suggestions>
+  </BaseSuggestions>
   ```
 
   Following the previous example, the component options object could be something like this:

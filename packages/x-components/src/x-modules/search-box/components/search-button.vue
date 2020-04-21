@@ -1,5 +1,5 @@
 <template>
-  <EventButton
+  <BaseEventButton
     :events="events"
     :aria-label="$x.config.messages.searchBox.searchButton.ariaLabel"
     class="x-search-button"
@@ -7,14 +7,14 @@
   >
     <!-- @slot To add an icon or text for the search button-->
     <slot />
-  </EventButton>
+  </BaseEventButton>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { State } from '../../../components/decorators';
-  import EventButton from '../../../components/pure/event-button.vue';
+  import BaseEventButton from '../../../components/base-event-button.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { VueCSSClasses } from '../../../utils/types';
   import { XEventsTypes } from '../../../wiring/events.types';
@@ -31,7 +31,7 @@
    */
   @Component({
     mixins: [xComponentMixin(searchBoxXModule)],
-    components: { EventButton }
+    components: { BaseEventButton }
   })
   export default class SearchButton extends Vue {
     @State('searchBox', 'query')

@@ -8,7 +8,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { XEvent, XEventsTypes } from '../../wiring';
+  import { XEvent, XEventsTypes } from '../wiring';
 
   /**
    * Component to be reused that renders a `<button>` with the logic of emitting events to the bus
@@ -19,7 +19,7 @@
    * @public
    */
   @Component
-  export default class EventButton extends Vue {
+  export default class BaseEventButton extends Vue {
     /**
      * (Required) A object where the keys are the {@link XEvent} and the values
      * are the payload of each event.
@@ -46,19 +46,19 @@
   prop with the value as payload on click:
 
   ```vue
-  <EventButton :events="{myEvent: payload}"/>
+  <BaseEventButton :events="{myEvent: payload}"/>
   ```
 
   If the event doesn't need payload then `undefined` must be passed:
 
   ```vue
-  <EventButton :events="{myEvent: undefined}"/>
+  <BaseEventButton :events="{myEvent: undefined}"/>
   ```
 
   It can emit multiple events at the same time:
 
   ```vue
-  <EventButton :events="{myFirstEvent: payload1, mySecondEvent: payload2}"/>
+  <BaseEventButton :events="{myFirstEvent: payload1, mySecondEvent: payload2}"/>
   ```
 
 </docs>

@@ -17,7 +17,7 @@
   import { Vue, Component, Prop } from 'vue-property-decorator';
   import { Suggestion } from '@empathy/search-types';
   import { State } from '../../../components/decorators';
-  import BaseSuggestion from '../../../components/pure/base-suggestion.vue';
+  import BaseSuggestion from '../../../components/base-suggestion.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { querySuggestionsXModule } from '../x-module';

@@ -22,7 +22,7 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { State } from '../../../components/decorators';
-  import BaseSuggestion from '../../../components/pure/base-suggestion.vue';
+  import BaseSuggestion from '../../../components/base-suggestion.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { historyQueriesXModule } from '../x-module';

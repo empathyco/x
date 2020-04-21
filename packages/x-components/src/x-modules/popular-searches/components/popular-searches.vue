@@ -1,5 +1,5 @@
 <template>
-  <Suggestions class="x-popular-searches" :suggestions="suggestions">
+  <BaseSuggestions class="x-popular-searches" :suggestions="suggestions">
     <template #default="{suggestion}">
       <!-- @slot Slot for an individual Popular Search item. -->
       <!-- @binding {Suggestion} suggestion - The data of the Popular Search's suggestion. -->
@@ -13,7 +13,7 @@
         </PopularSearch>
       </slot>
     </template>
-  </Suggestions>
+  </BaseSuggestions>
 </template>
 
 <script lang="ts">
@@ -21,7 +21,7 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { State } from '../../../components/decorators';
-  import Suggestions from '../../../components/pure/suggestions.vue';
+  import BaseSuggestions from '../../../components/base-suggestions.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { popularSearchesXModule } from '../x-module';
   import PopularSearch from './popular-search.vue';
@@ -35,7 +35,7 @@
    * @public
    */
   @Component({
-    components: { PopularSearch, Suggestions },
+    components: { PopularSearch, BaseSuggestions },
     mixins: [xComponentMixin(popularSearchesXModule)]
   })
   export default class PopularSearches extends Vue {

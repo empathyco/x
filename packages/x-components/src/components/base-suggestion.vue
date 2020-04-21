@@ -1,5 +1,5 @@
 <template>
-  <EventButton :events="events" :class="dynamicCSSClasses" class="x-suggestion">
+  <BaseEventButton :events="events" :class="dynamicCSSClasses" class="x-suggestion">
     <!-- @slot Default slot with the suggestion and the highlighted query to customise the output
       @binding {Suggestion} suggestion - The data of the suggestion
       @binding {string} suggestionQueryHighlighted - The suggestion query highlighting the matching
@@ -12,17 +12,17 @@
         class="x-suggestion__query"
       />
     </slot>
-  </EventButton>
+  </BaseEventButton>
 </template>
 
 <script lang="ts">
   import { Suggestion } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { normalizeString } from '../../utils/normalize';
-  import { VueCSSClasses } from '../../utils/types';
-  import { XEventsTypes } from '../../wiring/events.types';
-  import EventButton from './event-button.vue';
+  import { normalizeString } from '../utils/normalize';
+  import { VueCSSClasses } from '../utils/types';
+  import { XEventsTypes } from '../wiring/events.types';
+  import BaseEventButton from './base-event-button.vue';
 
   /**
    * Renders a button with a default slot. It receives a query, which should be the query of the
@@ -34,7 +34,7 @@
    * @public
    */
   @Component({
-    components: { EventButton }
+    components: { BaseEventButton }
   })
   export default class BaseSuggestion extends Vue {
     /**

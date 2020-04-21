@@ -1,5 +1,9 @@
 <template>
-  <Suggestions :suggestions="suggestions" class="x-query-suggestions" data-test="query-suggestions">
+  <BaseSuggestions
+    :suggestions="suggestions"
+    class="x-query-suggestions"
+    data-test="query-suggestions"
+  >
     <template #default="{ suggestion }">
       <!-- @slot Slot for an individual Query Suggestion item. -->
       <!-- @binding {Suggestion} suggestion - The data of the query suggestion. -->
@@ -15,7 +19,7 @@
         </QuerySuggestion>
       </slot>
     </template>
-  </Suggestions>
+  </BaseSuggestions>
 </template>
 
 <script lang="ts">
@@ -23,7 +27,7 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { State } from '../../../components/decorators';
-  import Suggestions from '../../../components/pure/suggestions.vue';
+  import BaseSuggestions from '../../../components/base-suggestions.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import QuerySuggestion from './query-suggestion.vue';
   import { querySuggestionsXModule } from '../x-module';
@@ -39,7 +43,7 @@
    * @public
    */
   @Component({
-    components: { Suggestions, QuerySuggestion },
+    components: { BaseSuggestions, QuerySuggestion },
     mixins: [xComponentMixin(querySuggestionsXModule)]
   })
   export default class QuerySuggestions extends Vue {

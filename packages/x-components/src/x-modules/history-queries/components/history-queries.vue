@@ -1,5 +1,5 @@
 <template>
-  <Suggestions :suggestions="historyQueries" class="x-history-queries">
+  <BaseSuggestions :suggestions="historyQueries" class="x-history-queries">
     <template #default="{ suggestion }">
       <!-- @slot Slot for an individual History Query item. -->
       <!-- @binding {Suggestion} suggestion - The data of the History Query's suggestion. -->
@@ -24,7 +24,7 @@
         </HistoryQuery>
       </slot>
     </template>
-  </Suggestions>
+  </BaseSuggestions>
 </template>
 
 <script lang="ts">
@@ -32,7 +32,7 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { Getter } from '../../../components/decorators';
-  import Suggestions from '../../../components/pure/suggestions.vue';
+  import BaseSuggestions from '../../../components/base-suggestions.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { historyQueriesXModule } from '../x-module';
   import HistoryQuery from './history-query.vue';
@@ -49,7 +49,7 @@
    * @public
    */
   @Component({
-    components: { Suggestions, HistoryQuery },
+    components: { BaseSuggestions, HistoryQuery },
     mixins: [xComponentMixin(historyQueriesXModule)]
   })
   export default class HistoryQueries extends Vue {

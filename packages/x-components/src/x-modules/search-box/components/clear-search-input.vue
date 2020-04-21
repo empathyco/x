@@ -1,5 +1,5 @@
 <template>
-  <EventButton
+  <BaseEventButton
     class="x-clear-search-input"
     :class="dynamicClasses"
     :aria-label="$x.config.messages.searchBox.clearAriaLabel"
@@ -7,14 +7,14 @@
   >
     <!-- @slot Slot to add the button content like a message or an icon -->
     <slot />
-  </EventButton>
+  </BaseEventButton>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { State } from '../../../components/decorators';
-  import EventButton from '../../../components/pure/event-button.vue';
+  import BaseEventButton from '../../../components/base-event-button.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { VueCSSClasses } from '../../../utils/types';
   import { XEventsTypes } from '../../../wiring/events.types';
@@ -27,7 +27,7 @@
    * @public
    */
   @Component({
-    components: { EventButton },
+    components: { BaseEventButton },
     mixins: [xComponentMixin(searchBoxXModule)]
   })
   export default class ClearSearchInput extends Vue {

@@ -1,13 +1,13 @@
 import { Suggestion } from '@empathy/search-types';
 import { mount } from '@vue/test-utils';
-import { getSuggestionsStub } from '../../../__stubs__/suggestions-stubs.factory';
-import Suggestions from '../suggestions.vue';
+import { getSuggestionsStub } from '../../__stubs__/suggestions-stubs.factory';
+import BaseSuggestions from '../base-suggestions.vue';
 
-describe('testing Suggestions component', () => {
+describe('testing Base Suggestions component', () => {
   const suggestions = getSuggestionsStub('QuerySuggestion');
 
   it('renders a list of suggestions passed as props', () => {
-    const wrapper = mount(Suggestions, {
+    const wrapper = mount(BaseSuggestions, {
       propsData: { suggestions }
     });
 
@@ -18,7 +18,7 @@ describe('testing Suggestions component', () => {
   });
 
   it('has a default scoped slot to render each suggestion', () => {
-    const wrapper = mount(Suggestions, {
+    const wrapper = mount(BaseSuggestions, {
       propsData: { suggestions },
       scopedSlots: {
         default({ suggestion }: { suggestion: Suggestion }) {

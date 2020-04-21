@@ -18,7 +18,7 @@
   import { Suggestion } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import BaseSuggestion from '../../../components/pure/base-suggestion.vue';
+  import BaseSuggestion from '../../../components/base-suggestion.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { popularSearchesXModule } from '../x-module';

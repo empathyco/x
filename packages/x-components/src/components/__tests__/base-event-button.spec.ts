@@ -1,12 +1,12 @@
 import { mount } from '@vue/test-utils';
-import { forEach } from '../../../utils/object';
-import { WireMetadata } from '../../../wiring/wiring.types';
-import EventButton from '../event-button.vue';
+import { forEach } from '../../utils/object';
+import { WireMetadata } from '../../wiring/wiring.types';
+import BaseEventButton from '../base-event-button.vue';
 
-describe('testing Event Button Component', () => {
+describe('testing Base Event Button Component', () => {
   const emitSpy = jest.fn();
 
-  const componentWrapper = mount(EventButton, {
+  const componentWrapper = mount(BaseEventButton, {
     propsData: {
       events: {}
     },
