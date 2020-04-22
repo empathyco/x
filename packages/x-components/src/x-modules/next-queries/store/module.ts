@@ -1,4 +1,6 @@
 import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
+import { HistoryQuery } from '@empathy/search-types';
+import { isArrayEmpty } from '../../../utils/array';
 import { NextQueriesXStoreModule } from './types';
 
 const adapter = new EmpathyAdapterBuilder()
@@ -42,13 +44,18 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     }
   },
   actions: {
-    retrieveNextQueries({ dispatch, commit }) {
+    getAndSaveNextQueries({ dispatch, commit }) {
       dispatch('getNextQueries').then(nextQueries => commit('setNextQueries', nextQueries));
     },
     getNextQueries({ getters }) {
       return getters.request
         ? adapter.getNextQueries(getters.request).then(({ nextQueries }) => nextQueries)
         : [];
+    },
+    setQueryFromLastHistoryQuery({ commit, state }, historyQueries: HistoryQuery[]) {
+      if (!isArrayEmpty(historyQueries) && state.config.loadOnInit) {
+        commit('setQuery', historyQueries[0].query);
+      }
     }
   }
 };

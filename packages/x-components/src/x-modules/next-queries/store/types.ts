@@ -1,5 +1,5 @@
 import { NextQueriesRequest } from '@empathy/search-adapter';
-import { NextQuery } from '@empathy/search-types';
+import { HistoryQuery, NextQuery } from '@empathy/search-types';
 import { XStoreModule } from '../../../store';
 import { NextQueriesConfig } from '../config.types';
 
@@ -61,9 +61,13 @@ export interface NextQueriesActions {
    */
   getNextQueries(): NextQuery[];
   /**
-   * Requestes a new set of next queries and stores them in the module.
+   * Requests a new set of next queries and stores them in the module.
    */
-  retrieveNextQueries(): void;
+  getAndSaveNextQueries(): void;
+  /**
+   * Sets the query of the module based on the last history query.
+   */
+  setQueryFromLastHistoryQuery(historyQueries: HistoryQuery[]): void;
 }
 
 /**

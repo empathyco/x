@@ -20,8 +20,17 @@ export const setNextQueriesQuery = nextQueriesModule.wireCommit('setQuery');
  *
  * @public
  */
-export const retrieveNextQueries = nextQueriesModule.wireDispatchWithoutPayload(
-  'retrieveNextQueries'
+export const getAndSaveNextQueries = nextQueriesModule.wireDispatchWithoutPayload(
+  'getAndSaveNextQueries'
+);
+
+/**
+ * Sets the next queries state `query` with the last query in history queries.
+ *
+ * @public
+ */
+export const setQueryFromLastHistoryQuery = nextQueriesModule.wireDispatch(
+  'setQueryFromLastHistoryQuery'
 );
 
 /**
@@ -33,7 +42,11 @@ export const nextQueriesWiring = createWiring({
   UserAcceptedAQuery: {
     setNextQueriesQuery
   },
+  SessionHistoryQueriesChanged: {
+    // TODO Make it run only once
+    setQueryFromLastHistoryQuery
+  },
   NextQueriesRequestChanged: {
-    retrieveNextQueries
+    getAndSaveNextQueries
   }
 });
