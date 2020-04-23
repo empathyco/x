@@ -1,4 +1,5 @@
-import { HISTORY_QUERIES_STORAGE_KEY, localStorageService } from '../constants';
+import { localStorageService } from '../../../../utils/storage';
+import { HISTORY_QUERIES_STORAGE_KEY } from '../constants';
 import { HistoryQueriesXStoreModule } from '../types';
 
 /**

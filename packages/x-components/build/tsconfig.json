@@ -20,6 +20,7 @@
     "paths": {},
     "lib": [
       "esnext",
+      "dom",
       "scripthost"
     ]
   },

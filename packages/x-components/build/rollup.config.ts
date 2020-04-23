@@ -50,6 +50,7 @@ export const rollupConfig = createRollupOptions({
     typescript({
       objectHashIgnoreUnknownHack: true,
       useTsconfigDeclarationDir: true,
+      tsconfig: path.resolve(__dirname, '../tsconfig.json'),
       tsconfigOverride: {
         compilerOptions: {
           declarationDir: typesOutputDirectory

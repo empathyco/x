@@ -5,6 +5,7 @@
     :disabled="isHistoryQueriesEmpty"
     :aria-label="$x.config.messages.historyQueries.clearButton.ariaLabel"
     :events="clearHistoryQueriesEvents"
+    data-test="clear-history-queries"
   >
     <!-- @slot Slot to add the button content like a message or an icon -->
     <slot>{{ $x.config.messages.historyQueries.clearButton.content }}</slot>

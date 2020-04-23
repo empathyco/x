@@ -1,5 +1,5 @@
 import { HistoryQuery } from '@empathy/search-types';
-import { localStorageService } from '../constants';
+import { localStorageService } from '../../../../utils/storage';
 import { HistoryQueriesXStoreModule } from '../types';
 
 /**

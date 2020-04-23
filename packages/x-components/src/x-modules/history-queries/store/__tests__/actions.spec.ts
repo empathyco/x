@@ -2,11 +2,12 @@ import { HistoryQuery } from '@empathy/search-types';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { DeepPartial, map } from '../../../../utils';
+import { localStorageService } from '../../../../utils/storage';
 import {
   createHistoryQueries,
   createHistoryQuery
 } from '../../../../__stubs__/history-queries-stubs.factory';
-import { localStorageService, SESSION_TIME_STAMP_STORAGE_KEY } from '../constants';
+import { SESSION_TIME_STAMP_STORAGE_KEY } from '../constants';
 import { historyQueriesXStoreModule } from '../module';
 import { HistoryQueriesState } from '../types';
 import { resetHistoryQueriesStateWith } from './utils';

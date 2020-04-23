@@ -157,3 +157,15 @@ function mergeStates<State extends Dictionary, ModuleName extends XModuleName>(
 ): State {
   return deepMerge({}, moduleState, newPartialState);
 }
+
+/**
+ * Adds a mocked object to the localStorage.
+ *
+ * @param itemKey - String key of the item that will be added to the localStorage.
+ * @param mockedItem - Mocked object to add to the localStorage.
+ *
+ * @internal
+ */
+export function setLocalStorageItem(itemKey: string, mockedItem: any): void {
+  localStorage.setItem(itemKey, JSON.stringify(mockedItem));
+}
