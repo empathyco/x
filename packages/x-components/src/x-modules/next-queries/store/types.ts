@@ -29,6 +29,8 @@ export interface NextQueriesGetters {
   /** Request object to retrieve the next queries using the search adapter, or null if there is
    * not valid data to conform a valid request. */
   request: NextQueriesRequest | null;
+  /** List of next queries that have not been searched before. */
+  nextQueries: NextQuery[];
 }
 
 /**

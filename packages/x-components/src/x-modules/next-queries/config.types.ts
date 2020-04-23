@@ -5,9 +5,9 @@
  */
 export interface NextQueriesConfig {
   /**
-   * Maximum number of next queries to request.
+   * Number of next queries that will be requested.
    */
-  maxItemsToRender: number;
+  itemsToRequest: number;
   /**
    * Hides the next queries if it has been already searched during the session.
    *

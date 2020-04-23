@@ -2,6 +2,8 @@ import { getAndSaveNextQueries } from './actions/get-and-save-next-queries.actio
 import { getNextQueries } from './actions/get-next-queries.action';
 //eslint-disable-next-line max-len
 import { setQueryFromLastHistoryQuery } from './actions/set-query-from-last-history-query.action';
+import { nextQueries } from './getters/next-queries';
+import { request } from './getters/request';
 import { NextQueriesXStoreModule } from './types';
 
 /**
@@ -15,21 +17,14 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     nextQueries: [],
     searchedQueries: [],
     config: {
-      maxItemsToRender: 5,
+      itemsToRequest: 5,
       hideSessionQueries: true,
       loadOnInit: false
     }
   }),
   getters: {
-    request(state) {
-      return state.query
-        ? {
-            query: state.query,
-            rows: state.config.maxItemsToRender,
-            start: 0
-          }
-        : null;
-    }
+    request,
+    nextQueries
   },
   mutations: {
     setQuery(state, newQuery) {

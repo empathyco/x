@@ -20,7 +20,7 @@
   import { NextQuery } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { State } from '../../../components/decorators';
+  import { Getter } from '../../../components/decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { nextQueriesXModule } from '../x-module';
 
@@ -37,7 +37,7 @@
     mixins: [xComponentMixin(nextQueriesXModule)]
   })
   export default class NextQueries extends Vue {
-    @State('nextQueries', 'nextQueries')
+    @Getter('nextQueries','nextQueries')
     public nextQueries!: NextQuery[];
 
     /**

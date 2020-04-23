@@ -60,21 +60,6 @@ describe('testing next queries module actions', () => {
       await store.dispatch(actionKeys.getAndSaveNextQueries);
       expect(store.state.nextQueries).toEqual([]);
     });
-
-    //eslint-disable-next-line max-len
-    it('filters the next queries with the searched queries if hideSessionQueries is true', async () => {
-      resetNextQueriesStateWith(store, {
-        query: 'limes',
-        searchedQueries: createHistoryQueries('limes'),
-        config: {
-          hideSessionQueries: true
-        }
-      });
-      await store.dispatch(actionKeys.getAndSaveNextQueries);
-      expect(store.state.nextQueries).toEqual(
-        mockedNextQueries.filter(nextQuery => nextQuery.query !== 'limes')
-      );
-    });
   });
 
   describe(`${actionKeys.setQueryFromLastHistoryQuery}`, () => {
