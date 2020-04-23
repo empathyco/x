@@ -44,7 +44,7 @@ describe('testing next queries module actions', () => {
 
   describe(`${actionKeys.getAndSaveNextQueries}`, () => {
     //eslint-disable-next-line max-len
-    it('should request and store next queries in the state if hideSessionQueries is false', async () => {
+    it('should request and store next queries in the state', async () => {
       resetNextQueriesStateWith(store, {
         query: 'honeyboo',
         config: {

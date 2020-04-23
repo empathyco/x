@@ -1,56 +1,56 @@
 <template>
   <BaseSuggestion
-    class="x-popular-search"
+    class="x-next-query"
     :suggestion="suggestion"
     :suggestionSelectedEvents="events"
-    data-test="popular-search"
+    data-test="next-query"
   >
     <template #default="{ suggestion }">
-      <!-- @slot Default slot with the suggestion to customize the popular search content -->
-      <!--  @binding {Suggestion} suggestion - The data of the suggestion -->
+      <!-- @slot Default slot with the suggestion to customize the next query content -->
+      <!-- @binding {Suggestion} suggestion - The data of the suggestion -->
       <slot :suggestion="suggestion">{{ suggestion.query }}</slot>
     </template>
   </BaseSuggestion>
 </template>
 
 <script lang="ts">
-  import { Suggestion } from '@empathy/search-types';
+  import { NextQuery as NextQueryModel } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import BaseSuggestion from '../../../components/base-suggestion.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
-  import { popularSearchesXModule } from '../x-module';
+  import { nextQueriesXModule } from '../x-module';
 
   /**
-   * Renders a popular search item which receives the suggestion that will be rendered as a prop. It
-   * exposes a default slot to change the popular search content. If the slot is not overridden,
+   * Renders a next query item which receives the suggestion that will be rendered as a prop. It
+   * exposes a default slot to change the next query content. If the slot is not overridden,
    * it will render the suggestion query by default.
    *
    * @public
    */
   @Component({
     components: { BaseSuggestion },
-    mixins: [xComponentMixin(popularSearchesXModule)]
+    mixins: [xComponentMixin(nextQueriesXModule)]
   })
-  export default class PopularSearch extends Vue {
+  export default class NextQuery extends Vue {
     /**
      * The suggestion to render and use in the default slot.
      *
      * @public
      */
-    @Prop({ required: true })
-    protected suggestion!: Suggestion;
+    @Prop({ required:true })
+    protected suggestion!: NextQueryModel;
 
     /**
-     * Events list which are going to be emitted when a popular search is selected.
+     * Events list which are going to be emitted when a next query is selected.
      *
      * @returns The {@link XEvent | XEvents} to emit.
      * @public
      */
     protected get events(): Partial<XEventsTypes> {
       return {
-        UserSelectedAPopularSearch: this.suggestion
+        UserSelectedANextQuery: this.suggestion
       };
     }
   }
@@ -60,22 +60,25 @@
   #Example
 
   This components expects just a suggestion as a prop to be rendered. It has a slot to override
-  the content. By default, it renders the suggestion query of the popular search.
+  the content. By default, it renders the suggestion query of the next query.
+
+  ## Basic Usage
 
   Using default slot:
   ```vue
-  <PopularSearch :suggestion="suggestion"/>
+  <NextQuery :suggestion="suggestion"/>
   ```
 
-  Overriding default slot:
+  ## Overriding default slot .
+
+  The default slot allows you to replace the content of the suggestion button.
+
   ```vue
-  <PopularSearch :suggestion="suggestion">
+  <NextQuery :suggestion="suggestion">
     <template #default="{ suggestion }">
-      <svg height="10" width="10">
-        <circle cx="5" cy="5" r="4" stroke="black" />
-      </svg>
+      <img src="./next-query.svg" />
       <span :aria-label="suggestion.query">{{ suggestion.query }}</span>
     </template>
-  </PopularSearch>
+  </NextQuery>
   ```
 </docs>
