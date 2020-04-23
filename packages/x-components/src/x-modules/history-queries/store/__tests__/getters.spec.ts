@@ -1,9 +1,13 @@
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { map } from '../../../../utils';
+import {
+  createHistoryQueries,
+  createHistoryQuery
+} from '../../../../__stubs__/history-queries-stubs.factory';
 import { historyQueriesXStoreModule } from '../module';
 import { HistoryQueriesState } from '../types';
-import { createHistoryQueries, createHistoryQuery, resetHistoryQueriesStateWith } from './utils';
+import { resetHistoryQueriesStateWith } from './utils';
 
 describe('testing history queries module gettters', () => {
   Vue.use(Vuex);
