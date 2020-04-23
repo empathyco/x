@@ -13,6 +13,9 @@ export interface NextQueriesState {
   query: string;
   /** The list of the next queries, related to the `query` property of the state. */
   nextQueries: NextQuery[];
+  /** The list of the searched queries, related to the `query` property of the state. */
+  //TODO Changes to uses the base extended class Previewable or what we decide.
+  searchedQueries: HistoryQuery[];
   /** Configuration options of the next queries module. */
   config: NextQueriesConfig;
 }
@@ -46,6 +49,12 @@ export interface NextQueriesMutations {
    * @param nextQueries - The new next queries to save to the state.
    */
   setNextQueries(nextQueries: NextQuery[]): void;
+  /**
+   * Sets the searched queries of the module.
+   *
+   * @param searchedQueries - The searched queries to save to the state.
+   */
+  setSearchedQueries(searchedQueries: HistoryQuery[]): void;
 }
 
 /**

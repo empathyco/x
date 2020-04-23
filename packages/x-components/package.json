@@ -25,8 +25,8 @@
   },
   "dependencies": {
     "@empathy/logger": "^1.0.0",
-    "@empathy/search-adapter": "^4.0.0-alpha.2",
-    "@empathy/search-types": "^5.0.0-alpha.3",
+    "@empathy/search-adapter": "^4.0.0-alpha.3",
+    "@empathy/search-types": "^5.0.0-alpha.4",
     "@empathy/storage-service": "^1.2.1",
     "@empathybroker/deep-merge": "^1.1.2",
     "reflect-metadata": "~0.1.13",

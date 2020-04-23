@@ -34,6 +34,13 @@ export const setQueryFromLastHistoryQuery = nextQueriesModule.wireDispatch(
 );
 
 /**
+ * Sets the next queries state `searchedQueries` with the list of history queries.
+ *
+ * @public
+ */
+export const setSearchedQueries = nextQueriesModule.wireCommit('setSearchedQueries');
+
+/**
  * Wiring configuration for the {@link NextQueriesXModule | next queries module}.
  *
  * @internal
@@ -43,7 +50,8 @@ export const nextQueriesWiring = createWiring({
     setNextQueriesQuery
   },
   SessionHistoryQueriesChanged: {
-    // TODO Make it run only once
+    setSearchedQueries,
+    // TODO setQueryFromLastHistoryQuery it has to be called only one time
     setQueryFromLastHistoryQuery
   },
   NextQueriesRequestChanged: {

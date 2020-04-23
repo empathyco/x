@@ -4,12 +4,14 @@
     <QuerySuggestions />
     <PopularSearches />
     <NextQueries />
+    <HistoryQueries />
   </main>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import HistoryQueries from './x-modules/history-queries/components/history-queries.vue';
   import NextQueries from './x-modules/next-queries/components/next-queries.vue';
   import PopularSearches from './x-modules/popular-searches/components/popular-searches.vue';
   import QuerySuggestions from './x-modules/query-suggestions/components/query-suggestions.vue';
@@ -17,6 +19,7 @@
 
   @Component({
     components: {
+      HistoryQueries,
       NextQueries,
       PopularSearches,
       QuerySuggestions,
