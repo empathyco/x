@@ -7,6 +7,7 @@ import { NextQueriesXStoreModule } from '../types';
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
  * @returns A Promise of NextQuery[] that resolves when it fetches next queries.
+ *
  * @public
  */
 export const getNextQueries: NextQueriesXStoreModule['actions']['getNextQueries'] = ({

@@ -1,28 +1,30 @@
 <template>
-  <ul v-if="nextQueries.length">
-    <li v-for="nextQuery in nextQueries" :key="nextQuery.query">
-      <!-- @slot An individual next query, that should call the emitNextQuerySelected method when
-       selected.
-          @binding {Function} emitNextQuerySelected - A method that emits multiple events related
-          to the selection of a next query
-          @binding {NextQuery} nextQuery - A single next query to be used by the component
-      -->
-      <slot name="next-query" v-bind="{ nextQuery, emitNextQuerySelected }">
-        <button @click="emitNextQuerySelected(nextQuery)" class="x-next-query">
-          {{ nextQuery.query }}
-        </button>
+  <BaseSuggestions :suggestions="nextQueries" data-test="next-queries" class="x-next-queries">
+    <template #default="{suggestion}">
+      <!-- @slot Slot for an individual Next Query item. -->
+      <!-- @binding {Suggestion} suggestion - The data of the Next Query suggestion. -->
+      <slot name="suggestion" :suggestion="suggestion">
+        <NextQuery :suggestion="suggestion" class="x-next-queries__suggestion">
+          <template #default="{ suggestion }">
+            <!-- @slot Slot for the Next Query's content. -->
+            <!-- @binding {Suggestion} suggestion - The data of the Next Query suggestion. -->
+            <slot name="suggestion-content" :suggestion="suggestion" />
+          </template>
+        </NextQuery>
       </slot>
-    </li>
-  </ul>
+    </template>
+  </BaseSuggestions>
 </template>
 
 <script lang="ts">
-  import { NextQuery } from '@empathy/search-types';
+  import { NextQuery as NextQueryModel }from '@empathy/search-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import BaseSuggestions from '../../../components/base-suggestions.vue';
   import { Getter } from '../../../components/decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { nextQueriesXModule } from '../x-module';
+  import NextQuery from './next-query.vue';
 
   /**
    * Simple next-queries component that renders a list of suggestions, allowing the user to
@@ -34,22 +36,12 @@
    * @public
    */
   @Component({
+    components: { NextQuery, BaseSuggestions },
     mixins: [xComponentMixin(nextQueriesXModule)]
   })
   export default class NextQueries extends Vue {
     @Getter('nextQueries','nextQueries')
-    public nextQueries!: NextQuery[];
-
-    /**
-     * Emits a set of events related to the selection of a next-query.
-     *
-     * @param nextQuery - The next query that has been selected.
-     * @public Can be used within the `next-query` slot.
-     */
-    protected emitNextQuerySelected(nextQuery: NextQuery): void {
-      this.$x.emit('UserAcceptedAQuery', nextQuery.query);
-      this.$x.emit('UserSelectedANextQuery', nextQuery);
-    }
+    public nextQueries!: NextQueryModel[];
   }
 </script>
 
@@ -65,6 +57,21 @@
   <NextQueries />
   ```
 
+  ## Overriding Next Queries' Content
+
+  You can use your custom implementation of the Next Query's content.
+  In the example below, instead of using the default Next Query's content, an icon
+  is added, as well as a span with the query of the Next Query suggestion.
+
+  ```vue
+  <NextQueries>
+    <template #suggestion-content="{suggestion}">
+      <img src="./next-query-icon.svg" class="x-next-query__icon"/>
+      <span class="x-next-query__query">{{ suggestion.query }}</span>
+    </template>
+  </NextQueries>
+  ```
+
   ## Adding a custom next query component
 
   You can use your custom implementation of a next query component. To work correctly, it should
@@ -73,11 +80,14 @@
   added, and the text of the next query is wrapped in a `span`
   ```vue
   <NextQueries>
-    <template #next-query="{nextQuery, emitNextQuerySelected }">
-      <button @click="emitNextQuerySelected(nextQuery)" class="x-next-query">
-        <img src="./next-query-icon.svg" class="x-next-query__icon"/>
-        <span class="x-next-query__query">{{ nextQuery.query }}</span>
-      </button>
+    <template #suggestion="{suggestion}">
+      <NextQuery :suggestion="suggestion" class="x-next-queries__suggestion">
+        <template #default="{suggestion}">
+          <img src="./next-query-icon.svg" class="x-next-query__icon"/>
+          <span class="x-next-query__query">{{ suggestion.query }}</span>
+        </template>
+      </NextQuery>
+      <button>Custom Behaviour</button>
     </template>
   </NextQueries>
   ```
