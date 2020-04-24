@@ -2,6 +2,7 @@ import { SearchAdapter } from '@empathy/search-adapter';
 import { deepMerge } from '@empathybroker/deep-merge';
 import { VueConstructor } from 'vue';
 import Vuex, { Module, Store } from 'vuex';
+import { FILTERS_REGISTRY } from '../filters/filters.registry';
 import { registerReactiveConfig } from '../services/config.service';
 import {
   AnySimpleStateSelector,
@@ -131,6 +132,7 @@ export class XPlugin {
     instance.registerConfig();
     instance.registerStore();
     instance.applyMixins();
+    instance.registerFilters();
     instance.registerPendingXModules();
     instance.isInstalled = true;
   }
@@ -429,5 +431,16 @@ export class XPlugin {
     stateSelector: AnySimpleStateSelector | AnyStateSelector
   ): stateSelector is AnySimpleStateSelector {
     return typeof stateSelector === 'function';
+  }
+
+  /**
+   * Registers filters globally.
+   *
+   * @internal
+   */
+  protected registerFilters(): void {
+    forEach(FILTERS_REGISTRY, (filterName, filterFunction) =>
+      this.vue.filter(filterName, filterFunction)
+    );
   }
 }
