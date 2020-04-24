@@ -7,13 +7,17 @@ export interface Messages {
   custom?: Message;
   historyQueries: {
     clearButton: {
-      content: string;
       ariaLabel: string;
+      content: string;
     };
     removeHistoryQuery: {
       ariaLabel: string;
       content: string;
     };
+  };
+  openButton: {
+    ariaLabel: string;
+    content: string;
   };
   searchBox: {
     ariaLabel: string;

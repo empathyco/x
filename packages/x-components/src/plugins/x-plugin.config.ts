@@ -12,10 +12,14 @@ export const DEFAULT_X_CONFIG: XConfig = {
     symbol: '€'
   },
   messages: {
+    openButton: {
+      ariaLabel: 'Open search',
+      content: 'Search'
+    },
     historyQueries: {
       clearButton: {
-        content: 'Clear history queries',
-        ariaLabel: 'Clear history queries'
+        ariaLabel: 'Clear history queries',
+        content: 'Clear history queries'
       },
       removeHistoryQuery: {
         ariaLabel: 'Delete query from history',

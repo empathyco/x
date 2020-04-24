@@ -124,6 +124,11 @@ export interface XEventsTypes {
    */
   UserIsTypingAQuery: string;
   /**
+   * The user opened XComponents.
+   * * Payload: none.
+   */
+  UserOpenedX: void;
+  /**
    * The user pressed the search button
    * * Payload: The query to search.
    */
