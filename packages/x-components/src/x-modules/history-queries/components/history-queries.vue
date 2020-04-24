@@ -1,5 +1,9 @@
 <template>
-  <BaseSuggestions :suggestions="historyQueries" class="x-history-queries">
+  <BaseSuggestions
+    :suggestions="historyQueries"
+    class="x-history-queries"
+    data-test="history-queries"
+  >
     <template #default="{ suggestion }">
       <!-- @slot Slot for an individual History Query item. -->
       <!-- @binding {Suggestion} suggestion - The data of the History Query's suggestion. -->
@@ -7,19 +11,19 @@
         <HistoryQuery
           :suggestion="suggestion"
           data-test="history-query-item"
-          class="x-history-queries__history-query"
+          class="x-history-queries__item"
         >
-          <template #default="suggestionContentProps">
+          <template #default="{suggestion, queryHTML}">
             <!-- @slot Slot for the History Query's content. -->
             <!-- @binding {Suggestion} suggestion - The data of the HistoryQuery suggestion. -->
-            <!-- @binding {string} suggestionQueryHighlighted - The query with the highlighted
-            HTML. -->
-            <slot name="suggestion-content" v-bind="suggestionContentProps" />
+            <!-- @binding {string} queryHTML - The suggestion's query with the matching part inside
+            a <span> tag. -->
+            <slot name="suggestion-content" v-bind="{ suggestion, queryHTML }" />
           </template>
-          <template #remove-button-content="suggestionRemoveContentProps">
+          <template #remove-button-content="{ suggestion }">
             <!-- @slot Slot for the History Query's remove button content. -->
             <!-- @binding {Suggestion} suggestion - The data of the HistoryQuery suggestion. -->
-            <slot name="suggestion-remove-content" v-bind="suggestionRemoveContentProps" />
+            <slot name="suggestion-remove-content" v-bind="{ suggestion }" />
           </template>
         </HistoryQuery>
       </slot>
@@ -31,8 +35,8 @@
   import { HistoryQuery as HistoryQueryModel } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { Getter } from '../../../components/decorators';
   import BaseSuggestions from '../../../components/base-suggestions.vue';
+  import { Getter } from '../../../components/decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { historyQueriesXModule } from '../x-module';
   import HistoryQuery from './history-query.vue';
@@ -73,7 +77,7 @@
   No props are required for the usage of this component.
 
   ```vue
-  <HistoryQueries />
+  <HistoryQueries/>
   ```
 
   ## Overriding Suggestion component
@@ -81,13 +85,13 @@
   The default `HistoryQuery` component that is used in every suggestion can be replaced.
   To do so, the `suggestion` slot is available, containing the history query data under the
   `suggestion` property. Remember that if HistoryQuery component wasn't used the
-  `handleHistoryQuerySelection` method needs to be  implemented emitting the needed events.
+  `handleHistoryQuerySelection` method needs to be implemented emitting the needed events.
 
   ```vue
   <HistoryQueries>
     <template #suggestion="{ suggestion }">
-      <img class="x-history-query__icon" src="./history-query-extra-icon.svg" />
-      <HistoryQuery :suggestion="suggestion" />
+      <img class="x-history-query__icon" src="./history-query-extra-icon.svg"/>
+      <HistoryQuery :suggestion="suggestion"/>
     </template>
   </HistoryQueries>
   ```
@@ -96,20 +100,19 @@
 
   The content of the `HistoryQuery` component can be overridden. For replacing the default
   suggestion content, the `suggestion-content` slot is available, containing the history query
-  suggestion (in the `suggestion` property), and the highlighted HTML with the query (in the
-  `suggestionQueryHighlighted` property).
+  suggestion (in the `suggestion` property), and the matching query part HTML (in the
+  `queryHTML` property).
 
   ```vue
   <HistoryQueries>
-    <template #suggestion-content="{ suggestionQueryHighlighted }">
-      <img src="./history-icon.svg"/>
-      <span v-html="suggestionQueryHighlighted"></span>
+    <template #suggestion-content="{ queryHTML }">
+      <img class="x-history-query__history-icon" src="./history-icon.svg"/>
+      <span class="x-history-query__matching-part" v-html="queryHTML"></span>
     </template>
     <template #suggestion-remove-content>
-      <img src="./remove-icon.svg"/>
+      <img class="x-history-queries__remove" src="./remove-icon.svg"/>
     </template>
   </HistoryQueries>
   ```
-
 
 </docs>

@@ -91,7 +91,7 @@ describe('testing Suggestions component', () => {
     const suggestionContentSlotOverridden = {
       template: `
         <QuerySuggestions>
-          <template #suggestion-content="{ suggestion, suggestionQueryHighlighted }">
+          <template #suggestion-content="{ suggestion, queryHTML }">
             <img
               class="x-query-suggestion__icon"
               data-test="icon"
@@ -101,7 +101,7 @@ describe('testing Suggestions component', () => {
               :aria-label="'Select ' + suggestion.query"
               class="x-query-suggestion__query"
               data-test="query"
-              v-html="suggestionQueryHighlighted"
+              v-html="queryHTML"
             />
           </template>
         </QuerySuggestions>
@@ -116,8 +116,9 @@ describe('testing Suggestions component', () => {
       store
     });
 
-    const suggestionsItemWrappers = querySuggestions.findAll(getDataTestSelector('suggestion-item'))
-      .wrappers;
+    const suggestionsItemWrappers = querySuggestions.findAll(
+      getDataTestSelector('query-suggestion')
+    ).wrappers;
     expect(suggestionsItemWrappers).toHaveLength(suggestions.length);
 
     suggestionsItemWrappers.forEach((slot, index) => {

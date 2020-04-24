@@ -1,16 +1,11 @@
 <template>
   <BaseEventButton :events="events" :class="dynamicCSSClasses" class="x-suggestion">
-    <!-- @slot Default slot with the suggestion and the highlighted query to customise the output
-      @binding {Suggestion} suggestion - The data of the suggestion
-      @binding {string} suggestionQueryHighlighted - The suggestion query highlighting the matching
-      parts with the query prop
-    -->
-    <slot v-bind="{ suggestion, suggestionQueryHighlighted }">
-      <span
-        v-html="suggestionQueryHighlighted"
-        :aria-label="suggestion.query"
-        class="x-suggestion__query"
-      />
+    <!-- @slot Default slot with the suggestion and the matched query to customise the output -->
+    <!-- @binding {Suggestion} suggestion - The data of the suggestion -->
+    <!-- @binding {string} queryHTML - The suggestion's query with the matching part inside a
+    <span> tag -->
+    <slot v-bind="{ suggestion, queryHTML }">
+      <span v-html="queryHTML" :aria-label="suggestion.query" class="x-suggestion__query" />
     </slot>
   </BaseEventButton>
 </template>
@@ -29,7 +24,7 @@
    * module using this component, a suggestion and the {@link XEvent | XEvents} that will be emitted
    * on click.
    *
-   * The default slot receives the suggestion and the highlighted query has props.
+   * The default slot receives the suggestion and the matched query has props.
    *
    * @public
    */
@@ -81,13 +76,13 @@
     }
 
     /**
-     * Checks if the normalized suggestion query matches with the module's query so it is
-     * highlightable.
+     * Checks if the normalized suggestion query matches with the module's query so it has a
+     * matching part.
      *
-     * @returns If the query is highlightable or not.
+     * @returns If the query has a matching part or not.
      * @internal
      */
-    protected get isQueryHighlightable(): boolean {
+    protected get hasMatchingQuery(): boolean {
       return !!this.query && normalizeString(this.suggestion.query).includes(this.query);
     }
 
@@ -95,14 +90,14 @@
      * Generates css classes dynamically.
      *
      * @remarks
-     * 'x-suggestion--query-highlighted added when the query should be highlighted.
+     * 'x-suggestion--has-matching-query added when the query should be matched.
      *
      * @returns The {@link VueCSSClasses} classes.
      * @public
      */
     protected get dynamicCSSClasses(): VueCSSClasses {
       return {
-        'x-suggestion--query-highlighted': this.isQueryHighlightable
+        'x-suggestion--has-matching-query': this.hasMatchingQuery
       };
     }
 
@@ -116,12 +111,12 @@
      * @returns The suggestion's query with the matching part inside a <span> tag.
      * @public
      */
-    protected get suggestionQueryHighlighted(): string {
-      if (this.isQueryHighlightable) {
-        const queryRegExp = new RegExp(`(${this.query})`, 'i');
+    protected get queryHTML(): string {
+      if (this.hasMatchingQuery) {
+        const queryRegExp = new RegExp(`(${ this.query })`, 'i');
         return this.suggestion.query.replace(
           queryRegExp,
-          `<span class="x-suggestion__query--highlighted">$1</span>`
+          `<span data-test="matching-part" class="x-suggestion__matching-part">$1</span>`
         );
       }
 
@@ -139,17 +134,17 @@
 
   Using default slot:
   ```vue
-  <BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }" />
+  <BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }"/>
   ```
 
   Overriding default slot:
 
   ```vue
   <BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }">
-    <template #default="{ suggestion, suggestionQueryHighlighted }">
+    <template #default="{ suggestion, queryHTML }">
       <span
         class="my-suggestion"
-        v-html="suggestionQueryHighlighted"
+        v-html="queryHTML"
         :aria-label="suggestion.query"
       />
     </template>

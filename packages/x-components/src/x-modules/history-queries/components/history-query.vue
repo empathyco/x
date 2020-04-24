@@ -1,16 +1,26 @@
 <template>
-  <div class="x-history-query">
+  <div>
     <BaseSuggestion
-      class="x-history-query__suggestion"
+      class="x-history-query x-history-queries__suggestion"
       v-bind="{ suggestion, suggestionSelectedEvents, query }"
-      data-test="history-query-suggestion"
+      data-test="history-query"
     >
-      <template #default="{ suggestion, suggestionQueryHighlighted }">
-        <slot v-bind="{ suggestion, suggestionQueryHighlighted }" />
+      <template #default="{ suggestion, queryHTML }">
+        <!-- @slot Default slot with the suggestion and the queryHTML to customise the output -->
+        <!-- @binding {Suggestion} suggestion - The data of the suggestion -->
+        <!-- @binding {string} queryHTML - The suggestion's query with the matching part inside a
+        <span> tag -->
+        <slot v-bind="{ suggestion, queryHTML }" />
       </template>
     </BaseSuggestion>
-    <RemoveHistoryQuery :historyQuery="suggestion" data-test="remove-history-query">
+    <RemoveHistoryQuery
+      class="x-history-queries__remove"
+      :historyQuery="suggestion"
+      data-test="remove-history-query"
+    >
       <template #default>
+        <!-- @slot Default slot with the suggestion to customise the output -->
+        <!-- @binding {Suggestion} suggestion - The data of the suggestion -->
         <slot name="remove-button-content" v-bind="{ suggestion }" />
       </template>
     </RemoveHistoryQuery>
@@ -21,8 +31,8 @@
   import { HistoryQuery as HistoryQueryModel } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { State } from '../../../components/decorators';
   import BaseSuggestion from '../../../components/base-suggestion.vue';
+  import { State } from '../../../components/decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { historyQueriesXModule } from '../x-module';
@@ -86,7 +96,7 @@
   Suggestion and remove buttons contents can be customized.
 
   The default slot allows you to replace the content of the suggestion button. It has two
-  properties, the suggestion itself, and a `string` of HTML with the highlighted query.
+  properties, the suggestion itself, and a `string` of HTML with the matched query.
 
   The other slot is called `remove-button-content`, and allows you to set the content of the
   button that serves to remove this query from the history. This slot only has one property, the
@@ -94,13 +104,13 @@
 
   ```vue
   <HistoryQuery :suggestion="historyQuery">
-    <template #default="{ suggestion, suggestionQueryHighlighted }">
-      <img src="./history-icon.svg" />
-      <span v-html="suggestionQueryHighlighted" />
+    <template #default="{ suggestion, queryHTML }">
+      <img class="x-history-query__history-icon" src="./history-icon.svg"/>
+      <span class="x-history-query__matching-part" v-html="queryHTML"/>
     </template>
 
     <template #remove-button-content="{ suggestion }">
-      <img src="./remove-icon.svg" />
+      <img class="x-history-query__remove-icon" src="./remove-icon.svg"/>
     </template>
   </HistoryQuery>
   ```

@@ -45,7 +45,7 @@ describe('testing query-suggestion component', () => {
 
     await localVue.nextTick();
 
-    expect(component.classes()).toContain('x-suggestion--query-highlighted');
+    expect(component.classes()).toContain('x-suggestion--has-matching-query');
   });
 
   it('renders the suggestion received as prop', () => {

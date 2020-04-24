@@ -5,19 +5,21 @@
     class="x-query-suggestion"
     data-test="query-suggestion"
   >
-    <template #default="{ suggestion, suggestionQueryHighlighted }">
-      <slot v-bind="{ suggestion, suggestionQueryHighlighted }">
-        <span v-html="suggestionQueryHighlighted" class="x-query-suggestion__query" />
-      </slot>
+    <template #default="{ suggestion, queryHTML }">
+      <!-- @slot Default slot with the suggestion and the queryHTML to customise the output -->
+      <!-- @binding {Suggestion} suggestion - The data of the suggestion -->
+      <!-- @binding {string} queryHTML - The suggestion's query with the matching part inside a
+      <span> tag -->
+      <slot v-bind="{ suggestion, queryHTML }" />
     </template>
   </BaseSuggestion>
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
   import { Suggestion } from '@empathy/search-types';
-  import { State } from '../../../components/decorators';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
   import BaseSuggestion from '../../../components/base-suggestion.vue';
+  import { State } from '../../../components/decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { querySuggestionsXModule } from '../x-module';
@@ -73,17 +75,17 @@
   UserSelectedAQuerySuggestion event.
 
   ```vue
-  <QuerySuggestion :suggestion="suggestion" />
+  <QuerySuggestion :suggestion="suggestion"/>
   ```
 
   With an icon overriding the default slot, which has binded the suggestion and the
-  suggestionQueryHighlighted.
+  queryHTML.
 
   ```vue
   <QuerySuggestion :suggestion="suggestion">
-    <template #default="{ suggestion, suggestionQueryHighlighted }">
-      <img src="./query-suggestion-icon.svg" class="x-query-suggestion__icon" />
-      <span v-html="suggestionQueryHighlighted" class="x-query-suggestion__query" />
+    <template #default="{ suggestion, queryHTML }">
+      <img src="./query-suggestion-icon.svg" class="x-query-suggestion__icon"/>
+      <span v-html="queryHTML" class="x-query-suggestion__query"/>
     </template>
   </QuerySuggestion>
   ```

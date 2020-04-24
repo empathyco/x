@@ -71,7 +71,7 @@
 
   ```vue
   <RemoveHistoryQuery :historyQuery="historyQuery">
-    <img src="./my-awesome-clear-icon.svg"/>
+    <img class="x-history-query__icon" src="./my-awesome-clear-icon.svg"/>
   </RemoveHistoryQuery>
   ```
 </docs>

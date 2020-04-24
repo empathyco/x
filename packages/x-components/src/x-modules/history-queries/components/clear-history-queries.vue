@@ -97,7 +97,7 @@
 
   ```vue
   <ClearHistoryQueries>
-    <img src="./my-icon.svg"/>
+    <img class="x-history-query__icon" src="./my-icon.svg"/>
   </ClearHistoryQueries>
   ```
 </docs>

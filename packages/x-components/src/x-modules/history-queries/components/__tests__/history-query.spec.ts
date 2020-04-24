@@ -33,9 +33,7 @@ describe('testing history-query component', () => {
   it('emits the history query selected event when it is clicked', () => {
     const listener = jest.fn();
     historyQueryWrapper.vm.$x.on('UserSelectedAHistoryQuery', true).subscribe(listener);
-    const suggestionButton = historyQueryWrapper.find(
-      getDataTestSelector('history-query-suggestion')
-    );
+    const suggestionButton = historyQueryWrapper.find(getDataTestSelector('history-query'));
     suggestionButton.trigger('click');
 
     expect(listener).toHaveBeenCalledWith({
@@ -66,9 +64,7 @@ describe('testing history-query component', () => {
   });
 
   it('renders slots with default implementation', () => {
-    const historyQuerySuggestion = historyQueryWrapper.find(
-      getDataTestSelector('history-query-suggestion')
-    );
+    const historyQuerySuggestion = historyQueryWrapper.find(getDataTestSelector('history-query'));
     const removeHistoryQueryWrapper = historyQueryWrapper.find(
       getDataTestSelector('remove-history-query')
     );

@@ -1,10 +1,14 @@
 <template>
-  <BaseSuggestions class="x-popular-searches" :suggestions="suggestions">
-    <template #default="{suggestion}">
+  <BaseSuggestions
+    :suggestions="suggestions"
+    class="x-popular-searches"
+    data-test="popular-searches"
+  >
+    <template #default="{ suggestion }">
       <!-- @slot Slot for an individual Popular Search item. -->
       <!-- @binding {Suggestion} suggestion - The data of the Popular Search's suggestion. -->
       <slot name="suggestion" :suggestion="suggestion">
-        <PopularSearch :suggestion="suggestion">
+        <PopularSearch :suggestion="suggestion" class="x-popular-searches__suggestion">
           <template #default="{ suggestion }">
             <!-- @slot Slot for the Popular Search's content. -->
             <!-- @binding {Suggestion} suggestion - The data of the Popular Search's suggestion. -->
@@ -20,8 +24,8 @@
   import { Suggestion } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { State } from '../../../components/decorators';
   import BaseSuggestions from '../../../components/base-suggestions.vue';
+  import { State } from '../../../components/decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { popularSearchesXModule } from '../x-module';
   import PopularSearch from './popular-search.vue';
@@ -64,8 +68,8 @@
 
   ```vue
   <PopularSearches>
-    <template #suggestion-content="{suggestion}">
-      <img src="./popular-search-icon.svg" class="x-popular-search__icon"/>
+    <template #suggestion-content="{ suggestion }">
+      <img class="x-popular-search__icon" src="./popular-search-icon.svg" />
       <span class="x-popular-search__query">{{ suggestion.query }}</span>
     </template>
   </PopularSearches>
@@ -84,7 +88,7 @@
     <template #suggestion="{suggestion}">
       <PopularSearch :suggestion="suggestion">
         <template #default="{suggestion}">
-          <img src="./popular-search-icon.svg" class="x-popular-search__icon"/>
+          <img class="x-popular-search__icon" src="./popular-search-icon.svg" />
           <span class="x-popular-search__query">{{ suggestion.query }}</span>
         </template>
       </PopularSearch>
