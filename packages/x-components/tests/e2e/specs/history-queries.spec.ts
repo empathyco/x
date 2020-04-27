@@ -9,7 +9,7 @@ describe('e2e testing history-queries component', () => {
   });
 
   it('checks that the local stored history queries load from the start', () => {
-    cy.getByDataTest('history-query-suggestion')
+    cy.getByDataTest('history-query')
       .should('have.length', 1)
       .each(historyQuery => {
         expect(historyQuery.text()).to.eq(query);
@@ -17,7 +17,7 @@ describe('e2e testing history-queries component', () => {
   });
 
   it('searches for a query and checks that it is saved in the history queries', () => {
-    cy.getByDataTest('history-query-suggestion')
+    cy.getByDataTest('history-query')
       .should('have.length', 1)
       .each(historyQuery => {
         expect(historyQuery.text()).to.eq(query);
@@ -25,7 +25,7 @@ describe('e2e testing history-queries component', () => {
   });
 
   it('updates search input query with the clicked history query', () => {
-    cy.getByDataTest('history-query-suggestion')
+    cy.getByDataTest('history-query')
       .last()
       .as('lastHistoryQuery');
     cy.get('@lastHistoryQuery').click();
@@ -37,7 +37,7 @@ describe('e2e testing history-queries component', () => {
     cy.searchQuery(playmobilQuery);
     cy.visit('/');
 
-    cy.getByDataTest('history-query-suggestion')
+    cy.getByDataTest('history-query')
       .as('historyQuerySuggestions')
       .should('have.length', 2);
 
@@ -52,7 +52,7 @@ describe('e2e testing history-queries component', () => {
   });
 
   it('deletes the history query when clicking its remove history query button', () => {
-    cy.getByDataTest('history-query-suggestion')
+    cy.getByDataTest('history-query')
       .as('historyQueries')
       .first()
       .getByDataTest('remove-history-query')
@@ -67,6 +67,6 @@ describe('e2e testing history-queries component', () => {
 
     cy.getByDataTest('clear-history-queries').click();
 
-    cy.getByDataTest('history-query-suggestion').should('not.exist');
+    cy.getByDataTest('history-query').should('not.exist');
   });
 });
