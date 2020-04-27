@@ -12,6 +12,13 @@ Vue.config.productionTip = false;
 Vue.use(XPlugin, {
   adapter
 });
-new Vue({
+const app = new Vue({
   render: h => h(App)
 }).$mount('#app');
+
+// Injecting XComponents into the global window object when Cypress is injected for testing purposes
+if (window.hasOwnProperty('Cypress')) {
+  Object.defineProperty(window, 'xcomponents', {
+    value: app
+  });
+}

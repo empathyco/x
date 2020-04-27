@@ -1,5 +1,5 @@
 declare namespace Cypress {
-  interface Chainable<Subject> {
+  interface Chainable {
     /**
      * Gets a DOM element searching by its data-test attribute.
      *
@@ -21,7 +21,7 @@ declare namespace Cypress {
      * @returns A Chainable object.
      * @internal
      */
-    searchQuery(query: string): Chainable<Subject>;
+    searchQuery(query: string): Chainable<any>;
     /**
      * Types a query into the search input.
      *
@@ -32,6 +32,6 @@ declare namespace Cypress {
      * @returns A Chainable object.
      * @internal
      */
-    typeQuery(query: string): Chainable<Subject>;
+    typeQuery(query: string): Chainable<any>;
   }
 }
