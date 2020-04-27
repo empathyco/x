@@ -1,10 +1,9 @@
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue, { CreateElement, VNode } from 'vue';
 import { Component } from 'vue-property-decorator';
-import { Store } from 'vuex';
-import { XPlugin } from '../../plugins/x-plugin';
+import Vuex, { Store } from 'vuex';
 import { searchBoxXStoreModule } from '../../x-modules/search-box/store/module';
-import { SearchAdapterDummy } from '../../__tests__/adapter.dummy';
+import { installNewXPlugin } from '../../__tests__/utils';
 import { Getter, State, XOn } from '../decorators';
 
 const listener = jest.fn();
@@ -32,24 +31,28 @@ class TestingComponent extends Vue {
 }
 
 describe('testing decorators', () => {
-  const localVue = createLocalVue();
-  localVue.use(XPlugin, { adapter: SearchAdapterDummy });
+  let localVue: typeof Vue;
   let component: Wrapper<TestingComponent>;
 
   beforeEach(() => {
     jest.clearAllMocks();
-    component = mount(TestingComponent, {
-      localVue,
-      store: new Store({
-        modules: {
-          x: {
-            namespaced: true,
-            modules: {
-              searchBox: { namespaced: true, ...searchBoxXStoreModule }
-            }
+    localVue = createLocalVue();
+    localVue.use(Vuex);
+    const store = new Store({
+      modules: {
+        x: {
+          namespaced: true,
+          modules: {
+            searchBox: { namespaced: true, ...searchBoxXStoreModule } as any
           }
         }
-      })
+      }
+    });
+    installNewXPlugin({}, localVue);
+
+    component = mount(TestingComponent, {
+      localVue,
+      store
     });
   });
 

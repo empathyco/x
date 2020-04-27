@@ -1,13 +1,12 @@
-import { getDataTestSelector } from '../../../src/__tests__/utils';
-
 /**
  * Command implementation for {@link Cypress.Chainable.getByDataTest}.
  *
  * @param value - The data test attribute value to look for in the DOM.
  * @returns A Chainable object.
  * @internal
+ * TODO Investigate why importing the function from `src` makes build fail.
  */
-Cypress.Commands.add('getByDataTest', (value: string) => cy.get(getDataTestSelector(value)));
+Cypress.Commands.add('getByDataTest', (value: string) => cy.get(`[data-test=${value}]`));
 
 /**
  * Command implementation for {@link Cypress.Chainable.searchQuery}.

@@ -1,8 +1,8 @@
-import { createLocalVue, mount, shallowMount, Wrapper } from '@vue/test-utils';
+import { mount, shallowMount, Wrapper } from '@vue/test-utils';
 import { ComponentOptions, default as Vue } from 'vue';
 import { xComponentMixin } from '../../components/x-component.mixin';
 import { searchBoxXModule } from '../../x-modules/search-box/x-module';
-import { SearchAdapterDummy } from '../../__tests__/adapter.dummy';
+import { installNewXPlugin } from '../../__tests__/utils';
 
 describe('testing $x component API global mixin', () => {
   const component: ComponentOptions<Vue> & ThisType<Vue> = {
@@ -10,12 +10,11 @@ describe('testing $x component API global mixin', () => {
       return createElement();
     }
   };
-  const xPlugin = require('../x-plugin').XPlugin;
+  let localVue: typeof Vue;
   let componentInstance: Wrapper<Vue>;
-  let localVue = createLocalVue();
-  localVue.use(xPlugin, { adapter: SearchAdapterDummy });
 
   beforeEach(() => {
+    [, localVue] = installNewXPlugin();
     componentInstance = shallowMount(component, { localVue });
   });
 

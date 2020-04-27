@@ -14,10 +14,15 @@ import {
   UserRecommendationsResponse
 } from '@empathy/search-adapter';
 import { deepMerge } from '@empathybroker/deep-merge';
+import { createLocalVue } from '@vue/test-utils';
+import Vue from 'vue';
 import { Store } from 'vuex';
+import { XPlugin } from '../plugins/x-plugin';
+import { XPluginOptions } from '../plugins/x-plugin.types';
 import { RootXStoreState } from '../store/store.types';
 import { DeepPartial, Dictionary } from '../utils/types';
 import { ExtractState, XModuleName } from '../x-modules/x-modules.types';
+import { SearchAdapterDummy } from './adapter.dummy';
 
 /**
  * Creates a selector for a dataTest property.
@@ -156,4 +161,25 @@ function mergeStates<State extends Dictionary, ModuleName extends XModuleName>(
   newPartialState?: DeepPartial<ExtractState<ModuleName>>
 ): State {
   return deepMerge({}, moduleState, newPartialState);
+}
+
+/**
+ * Makes a clean install of the's the {@link XPlugin} into the passed Vue object.
+ * This also resets the bus, and all the hardcoded dependencies of the XPlugin.
+ *
+ * @param options - The options for installing the {@link XPlugin}. The {@link SearchAdapterDummy}
+ * is added by default.
+ * @param localVue - A clone of the Vue constructor to isolate tests.
+ * If not provided, one will be created.
+ * @returns An array containing the `xPlugin` singleton and the `localVue` and objects.
+ */
+export function installNewXPlugin(
+  options: Partial<XPluginOptions> = {},
+  localVue: typeof Vue = createLocalVue()
+): [typeof XPlugin, typeof Vue] {
+  jest.resetModules();
+  const xPlugin = require('../plugins/x-plugin').XPlugin;
+  const installOptions: XPluginOptions = { adapter: SearchAdapterDummy, ...options };
+  localVue.use(xPlugin, installOptions);
+  return [xPlugin, localVue];
 }

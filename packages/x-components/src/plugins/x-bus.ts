@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
-import { Subject } from 'rxjs/Subject';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { WireMetadata, WirePayload } from '../wiring/wiring.types';
 import { Emitter, Emitters, XBus } from './x-bus.types';
@@ -62,13 +62,16 @@ export class BaseXBus implements XBus {
    *
    * @param event - The event to retrieve the emitter for.
    * @returns The emitter for the event passed.
+   * @remarks The emitter is implemented with a
+   * {@Link https://www.learnrxjs.io/learn-rxjs/subjects/replaysubject | ReplaySubject} to allow any
+   * new subscriber receive the last emitted value.
    * @internal
    */
   protected getOrCreateEmitter<Event extends XEvent>(event: Event): Emitter<Event> {
     // TODO I Don't get why the types are not working here
     return (
       this.emitters[event] ??
-      (this.emitters[event] = new Subject<WirePayload<XEventPayload<Event>>>() as any)
+      (this.emitters[event] = new ReplaySubject<WirePayload<XEventPayload<Event>>>(1) as any)
     );
   }
 }

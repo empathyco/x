@@ -1,18 +1,18 @@
-import { createLocalVue, shallowMount, Wrapper } from '@vue/test-utils';
+import { shallowMount, Wrapper } from '@vue/test-utils';
 import { ComponentOptions, default as Vue } from 'vue';
 import { CurrencyOptions } from '../../i18n/currency.types';
-import { SearchAdapterDummy } from '../../__tests__/adapter.dummy';
+import { installNewXPlugin } from '../../__tests__/utils';
 import { XPlugin } from '../x-plugin';
 import { DEFAULT_X_CONFIG } from '../x-plugin.config';
 import { DocumentDirection } from '../x-plugin.types';
 
 describe('testing global config', () => {
-  const plugin: typeof XPlugin = require('../x-plugin').XPlugin;
-  const localVue = createLocalVue();
-  localVue.use(plugin, { adapter: SearchAdapterDummy });
+  let plugin: typeof XPlugin;
+  let localVue: typeof Vue;
 
   beforeEach(() => {
-    plugin.setConfig(DEFAULT_X_CONFIG);
+    jest.clearAllMocks();
+    [plugin, localVue] = installNewXPlugin();
   });
 
   it('registers reactive global config via plugin options', () => {
