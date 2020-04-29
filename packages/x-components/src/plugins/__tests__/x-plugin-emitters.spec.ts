@@ -98,7 +98,8 @@ describe('testing X Plugin emitters', () => {
       }
     };
 
-    it('should not execute wires with immediate `false` when the module is registered', () => {
+    // eslint-disable-next-line max-len
+    it('should not execute wires with immediate `false` when the module is registered', async () => {
       const pluginOptions: XPluginOptions = {
         adapter: SearchAdapterDummy,
         xModules: {
@@ -116,10 +117,14 @@ describe('testing X Plugin emitters', () => {
       plugin.registerXModule(xModule);
       localVue.use(plugin, pluginOptions);
 
+      /* Emitters relies on Vue watcher that are async. We need to wait a cycle before testing if
+       they have emitted or not. */
+      await Promise.resolve();
+
       expect(testWire).not.toHaveBeenCalled();
     });
 
-    it('should execute wires with immediate `true` when the module is registered', () => {
+    it('should execute wires with immediate `true` when the module is registered', async () => {
       const pluginOptions: XPluginOptions = {
         adapter: SearchAdapterDummy,
         xModules: {
@@ -138,6 +143,10 @@ describe('testing X Plugin emitters', () => {
 
       localVue.use(plugin, pluginOptions);
       plugin.registerXModule(xModule);
+
+      /* Emitters relies on Vue watcher that are async. We need to wait a cycle before testing if
+       they have emitted or not. */
+      await Promise.resolve();
 
       expect(testWire).toHaveBeenCalled();
     });

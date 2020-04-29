@@ -338,7 +338,7 @@ export class XPlugin {
     forEach(
       customizedStoreEmitters,
       (event, stateSelector: AnySimpleStateSelector | AnyStateSelector) => {
-        const { selector, ...options } = this.isSimpleSelector(stateSelector)
+        const { selector, immediate = false, ...options } = this.isSimpleSelector(stateSelector)
           ? { selector: stateSelector }
           : stateSelector;
         this.store.watch(
@@ -348,6 +348,12 @@ export class XPlugin {
           },
           options
         );
+
+        if (immediate) {
+          Promise.resolve().then(() => {
+            this.bus.emit(event, selector(this.store.state.x[name], safeGettersProxy));
+          });
+        }
       }
     );
   }
