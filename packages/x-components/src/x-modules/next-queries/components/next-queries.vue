@@ -40,7 +40,7 @@
     mixins: [xComponentMixin(nextQueriesXModule)]
   })
   export default class NextQueries extends Vue {
-    @Getter('nextQueries','nextQueries')
+    @Getter('nextQueries', 'nextQueries')
     public nextQueries!: NextQueryModel[];
   }
 </script>
