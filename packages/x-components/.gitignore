@@ -3,10 +3,11 @@ node_modules
 /dist
 /*.tgz
 
-# Ignore every folder except build, public, src and tests
+# Ignore every folder except build, public, report, src and tests
 */*
 !/build/*
 !/public/*
+!/report/*
 !/src/*
 !/tests/*
 

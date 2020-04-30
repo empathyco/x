@@ -2,14 +2,15 @@
   "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
   "projectFolder": "..",
   "mainEntryPointFilePath": "<projectFolder>/types/index.d.ts",
-  "bundledPackages": [],
+  "bundledPackages": ["@empathy/search-types"],
   "compiler": {},
   "apiReport": {
     "enabled": true,
     "reportFolder": "<projectFolder>/report"
   },
   "docModel": {
-    "enabled": true
+    "enabled": true,
+    "apiJsonFilePath": "<projectFolder>/report/<unscopedPackageName>.api.json"
   },
   "dtsRollup": {
     "enabled": false

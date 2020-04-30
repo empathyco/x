@@ -1,4 +1,12 @@
-import { Extractor, ExtractorConfig, ExtractorResult } from '@microsoft/api-extractor';
+import {
+  ConsoleMessageId,
+  Extractor,
+  ExtractorConfig,
+  ExtractorLogLevel,
+  ExtractorMessage,
+  ExtractorResult,
+  IExtractorInvokeOptions
+} from '@microsoft/api-extractor';
 import { exec } from 'child_process';
 import fs from 'fs';
 import path from 'path';
@@ -17,7 +25,7 @@ export function apiDocumentation(): Plugin {
       const apiExtractorJsonPath: string = path.join(__dirname, './api-extractor.json');
       const extractorConfig = ExtractorConfig.loadFileAndPrepare(apiExtractorJsonPath);
       generateEmptyReportFile(extractorConfig.reportFilePath);
-      const extractorResult = Extractor.invoke(extractorConfig);
+      const extractorResult = Extractor.invoke(extractorConfig, getExtractorInvokeOptions());
       assertExtractorSucceeded(extractorResult);
       copyReportFile(extractorConfig.reportFilePath);
       return generateDocumentation();
@@ -43,7 +51,7 @@ function generateEmptyReportFile(reportFilePath: string): void {
  * @param extractorResult - The API extractor execution result.
  */
 function assertExtractorSucceeded(extractorResult: ExtractorResult): void {
-  if (!extractorResult.succeeded && isNotAPIChangeWarning(extractorResult)) {
+  if (!extractorResult.succeeded) {
     throw new Error(
       // eslint-disable-next-line max-len
       `API Extractor found ${extractorResult.errorCount} errors and ${extractorResult.warningCount} warnings`
@@ -62,18 +70,19 @@ function copyReportFile(reportFilePath: string): void {
 }
 
 /**
- * Checks the API extractor execution result, and checks if it has any errors or warning different
- * than the `apiReportChanged` warning.
+ * Configures IExtractorInvokeOptions to set a message callback to avoid
+ * the warning message `You have changed the public API signature...` to be sent to the console.
  *
- * @param extractorResult - The API extractor execution result.
- * @returns `true` if there is any warning or error that is not an API warning, `false` otherwise.
+ * @returns Invoke options.
  */
-function isNotAPIChangeWarning(extractorResult: ExtractorResult): boolean {
-  return (
-    extractorResult.errorCount > 0 ||
-    extractorResult.warningCount > 1 ||
-    (extractorResult.warningCount === 1 && !extractorResult.apiReportChanged)
-  );
+function getExtractorInvokeOptions(): IExtractorInvokeOptions {
+  return {
+    messageCallback: (message: ExtractorMessage) => {
+      if (message.messageId === ConsoleMessageId.ApiReportNotCopied) {
+        message.logLevel = ExtractorLogLevel.None;
+      }
+    }
+  };
 }
 
 /**
