@@ -1,11 +1,12 @@
 {
   "name": "@empathy/get-safe-property-chain",
-  "version": "1.1.0",
+  "version": "1.2.0-alpha.1",
   "description": "A utility for safely retrieving nested values",
-  "main": "dist/get-safe-property-chain.js",
-  "types": "dist/get-safe-property-chain.d.ts",
+  "main": "dist/cjs/get-safe-property-chain.js",
+  "module": "dist/esm/get-safe-property-chain.js",
+  "types": "types/get-safe-property-chain.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && tsc --project tsconfig.esm.json",
     "build:watch": "tsc --watch",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -24,12 +25,14 @@
     "jest": "^24.7.1",
     "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
-    "typescript": "^3.5.3"
+    "typescript": "~3.8.3"
   },
   "dependencies": {
-    "@empathybroker/eb-tslint": "^0.0.10"
+    "@empathybroker/eb-tslint": "^0.0.10",
+    "tslib": "~1.11.1"
   },
   "files": [
-    "dist/**/*"
+    "dist",
+    "types"
   ]
 }
