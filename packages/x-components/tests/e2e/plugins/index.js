@@ -5,7 +5,7 @@ module.exports = on => {
   on(
     'file:preprocessor',
     webpack({
-      webpackOptions: require('@vue/cli-service/webpack.config'),
+      webpackOptions: require('../../webpack.config'),
       watchOptions: {}
     })
   );

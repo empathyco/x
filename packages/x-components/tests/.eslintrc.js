@@ -1,6 +1,6 @@
 module.exports = {
   parserOptions: {
-    project: './tests/tsconfig.eslint.json' // required for rules that need type information
+    project: './tests/tsconfig.json'
   },
   extends: ['plugin:cypress/recommended', 'plugin:chai-friendly/recommended'],
   rules: {
