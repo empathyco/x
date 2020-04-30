@@ -2,34 +2,27 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
+    "outDir": "./dist/cjs",
     "declaration": true,
-    "outDir": "./dist",
-    "declarationDir": "./dist",
-    "rootDir": "./src",
+    "declarationDir": "./types",
     "sourceMap": true,
     "inlineSources": true,
-    "strict": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
     "importHelpers": true,
+    "moduleResolution": "node",
+    "strict": true,
     "types": [
       "jest"
     ],
     "lib": [
       "dom",
       "esnext"
-    ],
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    ]
   },
   "include": [
     "./src/**/*.ts"
   ],
   "exclude": [
+    "**/*.spec.ts",
+    "**/__tests__/**/*"
   ]
 }
