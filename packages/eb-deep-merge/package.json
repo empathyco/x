@@ -9,8 +9,8 @@
     "clone",
     "copy"
   ],
-  "main": "./dist/es5/deep-merge.js",
-  "module": "./dist/es6/deep-merge.js",
+  "main": "./dist/cjs/deep-merge.js",
+  "module": "./dist/esm/deep-merge.js",
   "types": "./types/deep-merge.d.ts",
   "files": [
     "dist",
@@ -24,7 +24,7 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "build": "tsc && tsc --project tsconfig.es6.json",
+    "build": "tsc && tsc --project tsconfig.esm.json",
     "build:local": "webpack --mode production && npm pack",
     "clean": "rimraf dist && rimraf coverage",
     "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",

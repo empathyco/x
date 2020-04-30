@@ -1,12 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "module": "esnext",
     "declaration": false,
     "declarationDir": null,
     "sourceMap": true,
     "inlineSources": true,
-    "outDir": "./dist/es6"
+    "outDir": "./dist/esm"
   }
 }
