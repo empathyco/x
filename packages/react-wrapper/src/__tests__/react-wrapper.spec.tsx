@@ -38,7 +38,7 @@ describe('Testing react-wrapper component', () => {
     expect(vueHTML!.textContent).toEqual('Bye');
   });
 
-  it('destroys vue component when the react component is destroyed', async () => {
+  it('destroys the Vue component when the React one is destroyed', async () => {
     const reactComponent = ReactDOM.render(<ReactToggleComponent/>, root) as unknown as ReactToggleComponent;
 
     let vueHTML = root.querySelector('p');
