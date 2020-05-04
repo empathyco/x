@@ -4,7 +4,6 @@
     @blur="emitUserBlurredSearchBox"
     @focus="emitUserFocusedSearchBox"
     @input="emitUserIsTypingAQuery"
-    @keydown="preventForbiddenCharacters"
     @keydown.enter="emitUserPressedEnterKey"
     @keydown.right.left.stop="emitUserPressedArrowKey"
     @keydown.up.down.prevent="emitUserPressedArrowKey"
@@ -122,22 +121,6 @@
       if (query.length > 0) {
         this.$x.emit('UserPressedEnterKey', query, this.eventMetadata());
         this.$x.emit('UserAcceptedAQuery', query, this.eventMetadata());
-      }
-    }
-
-    /**
-     * Prevents the user from entering forbidden characters.
-     *
-     * @remarks
-     * Forbidden characters are:
-     * * '\<' and '\>'
-     *
-     * @param event - The keyboard event with the key pressed.
-     * @internal
-     */
-    protected preventForbiddenCharacters(event: KeyboardEvent): void {
-      if (event.key === '<' || event.key === '>') {
-        event.preventDefault();
       }
     }
   }

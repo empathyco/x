@@ -15,6 +15,7 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { normalizeString } from '../utils/normalize';
+  import { sanitize } from '../utils/sanitize';
   import { VueCSSClasses } from '../utils/types';
   import { XEventsTypes } from '../wiring/events.types';
   import BaseEventButton from './base-event-button.vue';
@@ -120,7 +121,7 @@
         );
       }
 
-      return this.suggestion.query;
+      return sanitize(this.suggestion.query);
     }
   }
 </script>

@@ -19,14 +19,9 @@ describe('e2e testing query-suggestion component', () => {
   it('updates search input query with the clicked query suggestion', function() {
     cy.get('@querySuggestions')
       .last()
-      .as('lastQuerySuggestion');
-
-    cy.get('@lastQuerySuggestion').click();
-
-    cy.get('@lastQuerySuggestion')
-      .invoke('text')
+      .click()
       .then(lastQuerySuggestionQuery => {
-        cy.get('@searchInput').should('have.value', lastQuerySuggestionQuery);
+        cy.get('@searchInput').should('have.value', lastQuerySuggestionQuery.text());
       });
   });
 });
