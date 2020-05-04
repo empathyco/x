@@ -11,6 +11,8 @@
     <PopularSearches />
     <h1>Next Queries</h1>
     <NextQueries :loadOnInit="loadOnInit" />
+    <h1>Related tags</h1>
+    <RelatedTags />
   </main>
 </template>
 
@@ -24,11 +26,13 @@
   import ClearHistoryQueries from "./x-modules/history-queries/components/clear-history-queries.vue";
   import PopularSearches from "./x-modules/popular-searches/components/popular-searches.vue";
   import QuerySuggestions from "./x-modules/query-suggestions/components/query-suggestions.vue";
+  import RelatedTags from './x-modules/related-tags/components/related-tags.vue';
   import ClearSearchInput from "./x-modules/search-box/components/clear-search-input.vue";
   import SearchInput from "./x-modules/search-box/components/search-input.vue";
 
   @Component({
     components: {
+      RelatedTags,
       ClearSearchInput,
       ClearHistoryQueries,
       HistoryQueries,

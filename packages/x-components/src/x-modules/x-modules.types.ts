@@ -6,6 +6,7 @@ import { HistoryQueriesXModule } from './history-queries/x-module';
 import { NextQueriesXModule } from './next-queries/x-module';
 import { PopularSearchesXModule } from './popular-searches/x-module';
 import { QuerySuggestionsXModule } from './query-suggestions/x-module';
+import { RelatedTagsXModule } from './related-tags/x-module';
 import { SearchBoxXModule } from './search-box/x-module';
 
 /**
@@ -19,6 +20,7 @@ export interface XModulesTree {
   searchBox: SearchBoxXModule;
   querySuggestions: QuerySuggestionsXModule;
   historyQueries: HistoryQueriesXModule;
+  relatedTags: RelatedTagsXModule;
 }
 
 /**
