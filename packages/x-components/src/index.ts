@@ -1,3 +1,4 @@
+export * from './api';
 export * from './components';
 export * from './filters';
 export * from './i18n';
@@ -5,6 +6,7 @@ export * from './plugins';
 export * from './store';
 export * from './utils';
 export * from './wiring';
+export * from './x';
 export * from './x-modules/history-queries';
 export * from './x-modules/next-queries';
 export * from './x-modules/popular-searches';

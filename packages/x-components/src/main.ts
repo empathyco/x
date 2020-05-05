@@ -2,16 +2,15 @@ import 'reflect-metadata';
 import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
 import Vue from 'vue';
 import App from './App.vue';
-import { XPlugin } from './plugins';
+import { installX } from './x';
 
-const adapter = new EmpathyAdapterBuilder().setInstance('juguettos')
+const adapter = new EmpathyAdapterBuilder()
+  .setInstance('juguettos')
   .setLang('es')
   .setScope('x-components-development')
   .build();
-Vue.config.productionTip = false;
-Vue.use(XPlugin, {
-  adapter
-});
+
+installX({ adapter });
 const app = new Vue({
   render: h => h(App)
 }).$mount('#app');
