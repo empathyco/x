@@ -2,6 +2,7 @@ import { StoreEmitters } from '../store/store-emitters.types';
 import { AnyXStoreModule } from '../store/store.types';
 import { Returns } from '../utils/types';
 import { Wiring } from '../wiring/wiring.types';
+import { EmpathizeXModule } from './empathize/x-module';
 import { HistoryQueriesXModule } from './history-queries/x-module';
 import { NextQueriesXModule } from './next-queries/x-module';
 import { PopularSearchesXModule } from './popular-searches/x-module';
@@ -20,6 +21,7 @@ export interface XModulesTree {
   searchBox: SearchBoxXModule;
   querySuggestions: QuerySuggestionsXModule;
   historyQueries: HistoryQueriesXModule;
+  empathize: EmpathizeXModule;
   relatedTags: RelatedTagsXModule;
 }
 

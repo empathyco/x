@@ -18,6 +18,7 @@ export type XModuleState = { [Key in keyof RootXStoreState['x']]: null };
  */
 export const RootXStoreModule: Module<XModuleState, any> = {
   state: () => ({
+    empathize: null,
     nextQueries: null,
     popularSearches: null,
     searchBox: null,
