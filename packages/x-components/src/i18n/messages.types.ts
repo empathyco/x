@@ -5,6 +5,10 @@
  */
 export interface Messages {
   custom?: Message;
+  closeButton: {
+    ariaLabel: string;
+    content: string;
+  };
   historyQueries: {
     clearButton: {
       ariaLabel: string;
@@ -21,10 +25,10 @@ export interface Messages {
   };
   searchBox: {
     ariaLabel: string;
-    placeholder: string;
     clearButton: {
       ariaLabel: string;
     };
+    placeholder: string;
     searchButton: {
       ariaLabel: string;
     };

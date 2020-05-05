@@ -12,6 +12,10 @@ export const DEFAULT_X_CONFIG: XConfig = {
     symbol: '€'
   },
   messages: {
+    closeButton: {
+      ariaLabel: 'Close search',
+      content: '×'
+    },
     openButton: {
       ariaLabel: 'Open search',
       content: 'Search'

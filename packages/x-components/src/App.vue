@@ -1,7 +1,11 @@
 <template>
   <main>
     <OpenButton />
-    <BaseModalContainer :eventsToCloseModal="['UserAcceptedAQuery']" />
+    <BaseModalContainer>
+      <div class="modal-content">
+        <CloseButton />
+      </div>
+    </BaseModalContainer>
     <SearchInput />
     <ClearSearchInput />
     <h1>Query Suggestions</h1>
@@ -22,6 +26,7 @@
   import Vue from "vue";
   import { Component } from "vue-property-decorator";
   import BaseModalContainer from './components/base-modal-container.vue';
+  import CloseButton from './components/close-button.vue';
   import OpenButton from './components/open-button.vue';
   import { getURLParameter } from './utils/get-url-parameters';
   // eslint-disable-next-line max-len
@@ -39,6 +44,7 @@
       BaseModalContainer,
       ClearHistoryQueries,
       ClearSearchInput,
+      CloseButton,
       HistoryQueries,
       NextQueries,
       OpenButton,
@@ -61,5 +67,11 @@
     color: #2c3e50;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  .modal-content {
+    background-color: white;
+    height: 200px;
+    width: 100%;
   }
 </style>

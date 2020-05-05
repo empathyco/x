@@ -2,6 +2,7 @@ export * from './base-event-button.vue';
 export * from './base-modal-container.vue';
 export * from './base-suggestion.vue';
 export * from './base-suggestions.vue';
+export * from './close-button.vue';
 export * from './decorators';
 export * from './open-button.vue';
 export * from './x-component.mixin';
