@@ -114,6 +114,11 @@ export interface XEventsTypes {
    */
   UserBlurredSearchBox: void;
   /**
+   * The user closed XComponents.
+   * * Payload: none.
+   */
+  UserClosedX: void;
+  /**
    * The user focused the search-box
    * * Payload: none.
    */

@@ -53,7 +53,7 @@
      */
     @XOn('UserAcceptedAQuery')
     blurInput(): void {
-      this.$refs.input.blur();
+      this.$refs.input?.blur();
     }
 
     /**

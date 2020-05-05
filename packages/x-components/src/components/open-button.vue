@@ -43,7 +43,7 @@
   ```vue
   <OpenButton>
     <img src="./open-button-icon.svg" />
-    Open
+    <span>Open</span>
   </OpenButton>
   ```
 </docs>
