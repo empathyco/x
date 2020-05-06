@@ -1,3 +1,5 @@
+import { relatedTags } from './getters/related-tags.getter';
+import { request } from './getters/request.getter';
 import { RelatedTagsXStoreModule } from './types';
 
 /**
@@ -15,7 +17,20 @@ export const relatedTagsXStoreModule: RelatedTagsXStoreModule = {
       maxItemsToRequest: 10
     }
   }),
-  getters: {},
-  mutations: {},
+  getters: {
+    request,
+    relatedTags
+  },
+  mutations: {
+    setQuery(state, newQuery) {
+      state.query = newQuery;
+    },
+    setRelatedTags(state, relatedTags) {
+      state.relatedTags = relatedTags;
+    },
+    setSelectedRelatedTags(state, selectedRelatedTags) {
+      state.selectedRelatedTags = selectedRelatedTags;
+    }
+  },
   actions: {}
 };

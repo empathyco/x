@@ -1,3 +1,4 @@
+import { RelatedTagsRequest } from '@empathy/search-adapter';
 import { RelatedTag } from '@empathy/search-types';
 import { XStoreModule } from '../../../store';
 import { RelatedTagsConfig } from '../config.types';
@@ -22,13 +23,40 @@ export interface RelatedTagsState {
  *
  * @public
  */
-export interface RelatedTagsGetters {}
+export interface RelatedTagsGetters {
+  /** The adapter request object for retrieving the related tags, or null if there is not
+   * valid data to create a request. */
+  request: RelatedTagsRequest | null;
+  /** List that contains al the related tags, having the selected ones at the first positions
+   * (if there are any), and then the unselected ones.
+   */
+  relatedTags: RelatedTag[];
+}
 /**
  * RelatedTags store mutations.
  *
  * @public
  */
-export interface RelatedTagsMutations {}
+export interface RelatedTagsMutations {
+  /**
+   * Sets the query of the module, which is used to retrieve the related tags.
+   *
+   * @param newQuery - The new query to save to the state.
+   */
+  setQuery(newQuery: string): void;
+  /**
+   * Sets the related tags of the module.
+   *
+   * @param relatedTags - The new related tags to save to the state.
+   */
+  setRelatedTags(relatedTags: RelatedTag[]): void;
+  /**
+   * Sets the selected related tags of the module.
+   *
+   * @param selectedRelatedTags - The selected related tags to save to the state.
+   */
+  setSelectedRelatedTags(selectedRelatedTags: RelatedTag[]): void;
+}
 /**
  * RelatedTags store actions.
  *
