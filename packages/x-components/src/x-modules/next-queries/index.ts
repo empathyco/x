@@ -1,4 +1,4 @@
-export { default as NextQueries } from './components/next-queries.vue';
+export * from './components';
 export * from './config.types';
 export * from './store/emitters';
 export * from './store/module';
