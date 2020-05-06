@@ -19,6 +19,9 @@ export interface Messages {
       content: string;
     };
   };
+  noSuggestions: {
+    content: string;
+  };
   openButton: {
     ariaLabel: string;
     content: string;

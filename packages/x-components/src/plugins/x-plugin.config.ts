@@ -30,6 +30,9 @@ export const DEFAULT_X_CONFIG: XConfig = {
         content: '×'
       }
     },
+    noSuggestions: {
+      content: 'Find items containing "{query}"'
+    },
     searchBox: {
       ariaLabel: 'Search input',
       placeholder: 'Search',

@@ -5,6 +5,7 @@ import { Wiring } from '../wiring/wiring.types';
 import { EmpathizeXModule } from './empathize/x-module';
 import { HistoryQueriesXModule } from './history-queries/x-module';
 import { NextQueriesXModule } from './next-queries/x-module';
+import { NoSuggestionsXModule } from './no-suggestions/x-module';
 import { PopularSearchesXModule } from './popular-searches/x-module';
 import { QuerySuggestionsXModule } from './query-suggestions/x-module';
 import { RelatedTagsXModule } from './related-tags/x-module';
@@ -23,6 +24,7 @@ export interface XModulesTree {
   historyQueries: HistoryQueriesXModule;
   empathize: EmpathizeXModule;
   relatedTags: RelatedTagsXModule;
+  noSuggestions: NoSuggestionsXModule;
 }
 
 /**
