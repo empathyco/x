@@ -15,6 +15,7 @@ module.exports = {
     return path.join(componentPath, `x-components.${componentName}`);
   },
   templates: {
-    slots: require('./docgen-slots.template')
+    slots: require('./build/docgen-templates/docgen-slots.template'),
+    props: require('./build/docgen-templates/docgen-props.template')
   }
 };

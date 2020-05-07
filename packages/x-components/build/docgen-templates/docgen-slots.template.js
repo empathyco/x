@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { cleanMarkdown } = require('./utils');
+
 /**
  * Function to overwrite slots template on vue-docgen.
  *
@@ -37,18 +40,6 @@ function toSlotsMarkdownTable({ description = '', bindings = {}, name }) {
   return `| ${cleanMarkdown(name)} | ${cleanMarkdown(description)} | ${cleanMarkdown(
     readableBindings
   )} |`;
-}
-
-/**
- * Replaces returns and tubes to make the input compatible with markdown.
- *
- * @param input - Input to be cleaned.
- * @returns Cleaned markdown compatible string.
- *
- * @internal
- */
-function cleanMarkdown(input) {
-  return input.replace(/\r?\n/g, '<br />').replace(/\|/g, '\\|');
 }
 
 module.exports = createDocsSlotsSection;

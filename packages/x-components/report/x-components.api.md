@@ -9,6 +9,7 @@ import { ComponentOptions } from 'vue';
 import { Module } from 'vuex';
 import { NextQueriesRequest } from '@empathy/search-adapter';
 import { Observable } from 'rxjs/Observable';
+import { RelatedTagsRequest } from '@empathy/search-adapter';
 import { SearchAdapter } from '@empathy/search-adapter';
 import { Store } from 'vuex';
 import { Subject } from 'rxjs/Subject';
@@ -92,6 +93,57 @@ export type AnyXStoreModuleOptions = XStoreModuleOptions<AnyXStoreModule>;
 export type ArrowKey = 'ArrowUp' | 'ArrowDown' | 'ArrowRight' | 'ArrowLeft';
 
 // @public
+export class BaseEventButton extends Vue {
+    // (undocumented)
+    protected emitEvents(): void;
+    protected events: Partial<XEventsTypes>;
+}
+
+// @public
+export class BaseModalContainer extends Vue {
+    closeModalContainer(): void;
+    protected emitClose(event: Event): void;
+    protected eventsToCloseModal: XEvent[];
+    protected isOpen: boolean;
+    // (undocumented)
+    mounted(): void;
+    openModalContainer(): void;
+}
+
+// @public
+export class BaseSuggestion extends Vue {
+    protected get dynamicCSSClasses(): VueCSSClasses;
+    protected get events(): Partial<XEventsTypes>;
+    // @internal
+    protected get hasMatchingQuery(): boolean;
+    protected query: string;
+    protected get queryHTML(): string;
+    // Warning: (ae-forgotten-export) The symbol "Suggestion" needs to be exported by the entry point index.d.ts
+    protected suggestion: Suggestion;
+    protected suggestionSelectedEvents: Partial<XEventsTypes>;
+}
+
+// @public
+export class BaseSuggestions extends Vue {
+    // @internal
+    protected getFacetKey(facet: Facet): string;
+    // Warning: (ae-forgotten-export) The symbol "Facet" needs to be exported by the entry point index.d.ts
+    //
+    // @internal
+    protected getFacetsKey(facets: Facet[]): string;
+    protected suggestions: Suggestion[];
+    // @internal
+    protected get suggestionsKeys(): string[];
+}
+
+// @public
+export class BaseXAPI implements XAPI {
+    // @internal
+    protected bus: import("..").XBus;
+    search(query: string): void;
+}
+
+// @public
 export class BaseXBus implements XBus {
     emit<Event extends XEvent>(event: Event, payload?: XEventPayload<Event>, metadata?: WireMetadata): void;
     // @internal
@@ -135,6 +187,10 @@ export class ClearSearchInput extends Vue {
     protected get isQueryEmpty(): boolean;
     // (undocumented)
     query: string;
+}
+
+// @public
+export class CloseButton extends Vue {
 }
 
 // @public
@@ -182,6 +238,51 @@ export type Emitter<Event extends XEvent> = Subject<WirePayload<XEventPayload<Ev
 // @public
 export type Emitters = {
     [Event in XEvent]?: Emitter<Event>;
+};
+
+// @public
+export interface EmpathizeActions {
+}
+
+// @public
+export interface EmpathizeConfig {
+}
+
+// @internal
+export const empathizeEmitters: {};
+
+// @public
+export interface EmpathizeGetters {
+}
+
+// @public
+export interface EmpathizeMutations {
+}
+
+// @public
+export interface EmpathizeState {
+}
+
+// @internal
+export const empathizeWiring: {};
+
+// @public
+export type EmpathizeXModule = XModule<EmpathizeXStoreModule>;
+
+// @public
+export const empathizeXModule: EmpathizeXModule;
+
+// @public
+export type EmpathizeXStoreModule = XStoreModule<EmpathizeState, EmpathizeGetters, EmpathizeMutations, EmpathizeActions>;
+
+// @internal
+export const empathizeXStoreModule: {
+    state: () => {
+        config: {};
+    };
+    getters: {};
+    mutations: {};
+    actions: {};
 };
 
 // @public
@@ -351,6 +452,9 @@ export class HistoryQuery extends Vue {
 }
 
 // @public
+export function installX(options: XPluginOptions, vue?: import("vue").VueConstructor<Vue>): void;
+
+// @public
 export function isArrayEmpty(array: unknown[] | undefined | null): array is undefined | null | [];
 
 // @public
@@ -371,6 +475,11 @@ export interface Message {
 // @public
 export interface Messages {
     // (undocumented)
+    closeButton: {
+        ariaLabel: string;
+        content: string;
+    };
+    // (undocumented)
     custom?: Message;
     // (undocumented)
     historyQueries: {
@@ -384,6 +493,10 @@ export interface Messages {
         };
     };
     // (undocumented)
+    noSuggestions: {
+        content: string;
+    };
+    // (undocumented)
     openButton: {
         ariaLabel: string;
         content: string;
@@ -391,10 +504,10 @@ export interface Messages {
     // (undocumented)
     searchBox: {
         ariaLabel: string;
-        placeholder: string;
         clearButton: {
             ariaLabel: string;
         };
+        placeholder: string;
         searchButton: {
             ariaLabel: string;
         };
@@ -424,13 +537,13 @@ export class NextQueries extends Vue {
     // Warning: (ae-forgotten-export) The symbol "NextQuery" needs to be exported by the entry point index.d.ts
     //
     // (undocumented)
-    nextQueries: NextQuery[];
+    nextQueries: NextQuery_2[];
 }
 
 // @public
 export interface NextQueriesActions {
     getAndSaveNextQueries(): void;
-    getNextQueries(): NextQuery[];
+    getNextQueries(): NextQuery_2[];
     setQueryFromLastHistoryQuery(historyQueries: HistoryQuery_2[]): void;
 }
 
@@ -449,7 +562,7 @@ export const nextQueriesEmitters: {
 
 // @public
 export interface NextQueriesGetters {
-    nextQueries: NextQuery[];
+    nextQueries: NextQuery_2[];
     request: NextQueriesRequest | null;
 }
 
@@ -458,7 +571,7 @@ export const nextQueriesModule: import("../..").NamespacedWireFactory<"nextQueri
 
 // @public
 export interface NextQueriesMutations {
-    setNextQueries(nextQueries: NextQuery[]): void;
+    setNextQueries(nextQueries: NextQuery_2[]): void;
     setQuery(newQuery: string): void;
     setSearchedQueries(searchedQueries: HistoryQuery_2[]): void;
 }
@@ -466,7 +579,7 @@ export interface NextQueriesMutations {
 // @public
 export interface NextQueriesState {
     config: NextQueriesConfig;
-    nextQueries: NextQuery[];
+    nextQueries: NextQuery_2[];
     query: string;
     searchedQueries: HistoryQuery_2[];
 }
@@ -498,7 +611,17 @@ export type NextQueriesXStoreModule = XStoreModule<NextQueriesState, NextQueries
 export const nextQueriesXStoreModule: NextQueriesXStoreModule;
 
 // @public
+export class NextQuery extends Vue {
+    protected get events(): Partial<XEventsTypes>;
+    protected suggestion: NextQuery_2;
+}
+
+// @public
 export function normalizeString(string: string | undefined): string;
+
+// @public
+export class OpenButton extends Vue {
+}
 
 // @public
 export type Pair<Type> = [Type, Type];
@@ -506,7 +629,6 @@ export type Pair<Type> = [Type, Type];
 // @public
 export class PopularSearch extends Vue {
     protected get events(): Partial<XEventsTypes>;
-    // Warning: (ae-forgotten-export) The symbol "Suggestion" needs to be exported by the entry point index.d.ts
     protected suggestion: Suggestion;
 }
 
@@ -681,6 +803,7 @@ export interface RelatedTagsActions {
 
 // @public
 export interface RelatedTagsConfig {
+    maxItemsToRequest: number;
 }
 
 // @internal
@@ -688,14 +811,24 @@ export const relatedTagsEmitters: {};
 
 // @public
 export interface RelatedTagsGetters {
+    // Warning: (ae-forgotten-export) The symbol "RelatedTag" needs to be exported by the entry point index.d.ts
+    relatedTags: RelatedTag[];
+    request: RelatedTagsRequest | null;
 }
 
 // @public
 export interface RelatedTagsMutations {
+    setQuery(newQuery: string): void;
+    setRelatedTags(relatedTags: RelatedTag[]): void;
+    setSelectedRelatedTags(selectedRelatedTags: RelatedTag[]): void;
 }
 
 // @public
 export interface RelatedTagsState {
+    config: RelatedTagsConfig;
+    query: string;
+    relatedTags: RelatedTag[];
+    selectedRelatedTags: RelatedTag[];
 }
 
 // @internal
@@ -965,6 +1098,11 @@ export interface XActionContext<State extends Dictionary, Getters extends Dictio
 }
 
 // @public
+export interface XAPI {
+    search(query: string): void;
+}
+
+// @public
 export interface XBus {
     emit(event: PropsWithType<XEventsTypes, void>): void;
     emit<Event extends XEvent>(event: Event, payload: XEventPayload<Event>, metadata?: WireMetadata): void;
@@ -1021,8 +1159,8 @@ export interface XEventsTypes {
     HistoryQueriesDisplayed: HistoryQuery_2[];
     HistoryQueriesQueryChanged: string;
     HistoryQueriesStorageKeyChanged: string;
-    NextQueriesChanged: NextQuery[];
-    NextQueriesDisplayed: NextQuery[];
+    NextQueriesChanged: NextQuery_2[];
+    NextQueriesDisplayed: NextQuery_2[];
     NextQueriesRequestChanged: NextQueriesRequest | null;
     PopularSearchDisplayed: Suggestion[];
     PopularSearchesRequestChanged: SuggestionsRequest;
@@ -1034,6 +1172,7 @@ export interface XEventsTypes {
     SuggestionsDisplayed: Suggestion[];
     UserAcceptedAQuery: string;
     UserBlurredSearchBox: void;
+    UserClosedX: void;
     UserFocusedSearchBox: void;
     UserIsTypingAQuery: string;
     UserOpenedX: void;
@@ -1044,7 +1183,7 @@ export interface XEventsTypes {
     UserPressedRemoveHistoryQuery: HistoryQuery_2;
     UserPressedSearchButton: string;
     UserSelectedAHistoryQuery: HistoryQuery_2;
-    UserSelectedANextQuery: NextQuery;
+    UserSelectedANextQuery: NextQuery_2;
     UserSelectedAPopularSearch: Suggestion;
     UserSelectedAQuerySuggestion: Suggestion;
     UserSelectedASuggestion: Suggestion;
@@ -1082,9 +1221,15 @@ export type XModuleState = {
 // @public
 export interface XModulesTree {
     // (undocumented)
+    empathize: EmpathizeXModule;
+    // (undocumented)
     historyQueries: HistoryQueriesXModule;
     // (undocumented)
     nextQueries: NextQueriesXModule;
+    // Warning: (ae-forgotten-export) The symbol "NoSuggestionsXModule" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    noSuggestions: NoSuggestionsXModule;
     // (undocumented)
     popularSearches: PopularSearchesXModule;
     // (undocumented)

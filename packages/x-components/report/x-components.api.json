@@ -898,6 +898,667 @@
         },
         {
           "kind": "Class",
+          "canonicalReference": "@empathy/x-components!BaseEventButton:class",
+          "docComment": "/**\n * Component to be reused that renders a `<button>` with the logic of emitting events to the bus on click. The events are passed as an object to prop {@link XEventsTypes | events}. The keys are the event name and the values are the payload of each event. All events are emitted with its respective payload. If any event doesn't need payload a `undefined` must be passed as value.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export default class BaseEventButton extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "Vue",
+              "canonicalReference": "vue!Vue:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "BaseEventButton",
+          "members": [
+            {
+              "kind": "Method",
+              "canonicalReference": "@empathy/x-components!BaseEventButton#emitEvents:member(1)",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "protected emitEvents(): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [],
+              "name": "emitEvents"
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@empathy/x-components!BaseEventButton#events:member",
+              "docComment": "/**\n * (Required) A object where the keys are the {@link XEvent} and the values are the payload of each event.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "protected events: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Partial",
+                  "canonicalReference": "!Partial:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "XEventsTypes",
+                  "canonicalReference": "@empathy/x-components!XEventsTypes:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "events",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 5
+              },
+              "isStatic": false
+            }
+          ],
+          "extendsTokenRange": {
+            "startIndex": 1,
+            "endIndex": 3
+          },
+          "implementsTokenRanges": []
+        },
+        {
+          "kind": "Class",
+          "canonicalReference": "@empathy/x-components!BaseModalContainer:class",
+          "docComment": "/**\n * Component containing a modal container that emits a {@link XEventsTypes.UserClosedX} when clicking outside the content rendered in the default slot and can receive, through the eventsToCloseModal prop, a list of {@link XEvent | xEvents} to listen to in order to close also the modal. The default slot offers the possibility to customize the modal content.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export default class BaseModalContainer extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "Vue",
+              "canonicalReference": "vue!Vue:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "BaseModalContainer",
+          "members": [
+            {
+              "kind": "Method",
+              "canonicalReference": "@empathy/x-components!BaseModalContainer#closeModalContainer:member(1)",
+              "docComment": "/**\n * Close modal container.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "closeModalContainer(): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [],
+              "name": "closeModalContainer"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@empathy/x-components!BaseModalContainer#emitClose:member(1)",
+              "docComment": "/**\n * Emits the {@link XEventsTypes.UserClosedX} when closing the container.\n *\n * @param event - The DOM event.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "protected emitClose(event: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Event",
+                  "canonicalReference": "!Event:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "event",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "emitClose"
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@empathy/x-components!BaseModalContainer#eventsToCloseModal:member",
+              "docComment": "/**\n * Array of {@link XEvent | xEvents} to listen to close the modal.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "protected eventsToCloseModal: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "XEvent",
+                  "canonicalReference": "@empathy/x-components!XEvent:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "eventsToCloseModal",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@empathy/x-components!BaseModalContainer#isOpen:member",
+              "docComment": "/**\n * The modal container is open.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "protected isOpen: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "isOpen",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@empathy/x-components!BaseModalContainer#mounted:member(1)",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "mounted(): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [],
+              "name": "mounted"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@empathy/x-components!BaseModalContainer#openModalContainer:member(1)",
+              "docComment": "/**\n * Open modal container.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "openModalContainer(): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [],
+              "name": "openModalContainer"
+            }
+          ],
+          "extendsTokenRange": {
+            "startIndex": 1,
+            "endIndex": 3
+          },
+          "implementsTokenRanges": []
+        },
+        {
+          "kind": "Class",
+          "canonicalReference": "@empathy/x-components!BaseSuggestion:class",
+          "docComment": "/**\n * Renders a button with a default slot. It receives a query, which should be the query of the module using this component, a suggestion and the {@link XEvent | XEvents} that will be emitted on click.\n *\n * The default slot receives the suggestion and the matched query has props.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export default class BaseSuggestion extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "Vue",
+              "canonicalReference": "vue!Vue:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "BaseSuggestion",
+          "members": [
+            {
+              "kind": "Property",
+              "canonicalReference": "@empathy/x-components!BaseSuggestion#dynamicCSSClasses:member",
+              "docComment": "/**\n * Generates css classes dynamically.\n *\n * @remarks\n *\n * 'x-suggestion--has-matching-query added when the query should be matched.\n *\n * @returns The {@link VueCSSClasses} classes.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "protected get dynamicCSSClasses(): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "VueCSSClasses",
+                  "canonicalReference": "@empathy/x-components!VueCSSClasses:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "dynamicCSSClasses",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@empathy/x-components!BaseSuggestion#events:member",
+              "docComment": "/**\n * The event handler that will be triggered when clicking on a suggestion.\n *\n * @remarks\n *\n * * UserAcceptedAQuery: suggestion.query * UserSelectedASuggestion: suggestion * Merges the events defined in the suggestionSelectedEvents prop and also emits them\n *\n * @returns The {@link XEvent | XEvents} to emit.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "protected get events(): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Partial",
+                  "canonicalReference": "!Partial:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "XEventsTypes",
+                  "canonicalReference": "@empathy/x-components!XEventsTypes:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "events",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 5
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@empathy/x-components!BaseSuggestion#query:member",
+              "docComment": "/**\n * The normalized query of the module using this component.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "protected query: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "query",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@empathy/x-components!BaseSuggestion#queryHTML:member",
+              "docComment": "/**\n * Highlights the matching part of the suggestion query with the query passed as prop of the component putting it inside a `<span>` tag.\n *\n * @remarks\n *\n * The query prop should be normalized.\n *\n * @returns The suggestion's query with the matching part inside a `<span>` tag.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "protected get queryHTML(): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "queryHTML",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@empathy/x-components!BaseSuggestion#suggestion:member",
+              "docComment": "/**\n * The suggestion to render and use in the default slot.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "protected suggestion: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Suggestion",
+                  "canonicalReference": "@empathy/search-types!Suggestion:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "suggestion",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@empathy/x-components!BaseSuggestion#suggestionSelectedEvents:member",
+              "docComment": "/**\n * The {@link XEvent | XEvents} that will be emitted when selecting a suggestion.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "protected suggestionSelectedEvents: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Partial",
+                  "canonicalReference": "!Partial:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "XEventsTypes",
+                  "canonicalReference": "@empathy/x-components!XEventsTypes:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "suggestionSelectedEvents",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 5
+              },
+              "isStatic": false
+            }
+          ],
+          "extendsTokenRange": {
+            "startIndex": 1,
+            "endIndex": 3
+          },
+          "implementsTokenRanges": []
+        },
+        {
+          "kind": "Class",
+          "canonicalReference": "@empathy/x-components!BaseSuggestions:class",
+          "docComment": "/**\n * Paints a list of suggestions passed in by prop. Requires a component for a single suggestion in the default slot for working.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export default class BaseSuggestions extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "Vue",
+              "canonicalReference": "vue!Vue:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "BaseSuggestions",
+          "members": [
+            {
+              "kind": "Property",
+              "canonicalReference": "@empathy/x-components!BaseSuggestions#suggestions:member",
+              "docComment": "/**\n * The list of suggestions to render.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "protected suggestions: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Suggestion",
+                  "canonicalReference": "@empathy/search-types!Suggestion:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "suggestions",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              },
+              "isStatic": false
+            }
+          ],
+          "extendsTokenRange": {
+            "startIndex": 1,
+            "endIndex": 3
+          },
+          "implementsTokenRanges": []
+        },
+        {
+          "kind": "Class",
+          "canonicalReference": "@empathy/x-components!BaseXAPI:class",
+          "docComment": "/**\n * Default implementation for {@link XAPI}.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare class BaseXAPI implements "
+            },
+            {
+              "kind": "Reference",
+              "text": "XAPI",
+              "canonicalReference": "@empathy/x-components!XAPI:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "BaseXAPI",
+          "members": [
+            {
+              "kind": "Method",
+              "canonicalReference": "@empathy/x-components!BaseXAPI#search:member(1)",
+              "docComment": "/**\n * Searches the query parameter as user query.\n *\n * @param query - Query to be searched.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "search(query: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "query",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "search"
+            }
+          ],
+          "implementsTokenRanges": [
+            {
+              "startIndex": 1,
+              "endIndex": 3
+            }
+          ]
+        },
+        {
+          "kind": "Class",
           "canonicalReference": "@empathy/x-components!BaseXBus:class",
           "docComment": "/**\n * Default {@link XBus} implementation.\n *\n * @public\n */\n",
           "excerptTokens": [
@@ -1361,6 +2022,34 @@
               "isStatic": false
             }
           ],
+          "extendsTokenRange": {
+            "startIndex": 1,
+            "endIndex": 3
+          },
+          "implementsTokenRanges": []
+        },
+        {
+          "kind": "Class",
+          "canonicalReference": "@empathy/x-components!CloseButton:class",
+          "docComment": "/**\n * Component containing an event button that emits {@link XEventsTypes.UserClosedX} when clicked. It has a default slot to customize its content.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export default class CloseButton extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "Vue",
+              "canonicalReference": "vue!Vue:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "CloseButton",
+          "members": [],
           "extendsTokenRange": {
             "startIndex": 1,
             "endIndex": 3
@@ -2035,6 +2724,208 @@
           "typeTokenRange": {
             "startIndex": 1,
             "endIndex": 6
+          }
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@empathy/x-components!EmpathizeActions:interface",
+          "docComment": "/**\n * Empathize store actions.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface EmpathizeActions "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "EmpathizeActions",
+          "members": [],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@empathy/x-components!EmpathizeConfig:interface",
+          "docComment": "/**\n * Configuration options for the {@link EmpathizeXModule}.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface EmpathizeConfig "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "EmpathizeConfig",
+          "members": [],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@empathy/x-components!EmpathizeGetters:interface",
+          "docComment": "/**\n * Empathize store getters.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface EmpathizeGetters "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "EmpathizeGetters",
+          "members": [],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@empathy/x-components!EmpathizeMutations:interface",
+          "docComment": "/**\n * Empathize store mutations.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface EmpathizeMutations "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "EmpathizeMutations",
+          "members": [],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@empathy/x-components!EmpathizeState:interface",
+          "docComment": "/**\n * Empathize store state.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface EmpathizeState "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "EmpathizeState",
+          "members": [],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@empathy/x-components!EmpathizeXModule:type",
+          "docComment": "/**\n * Empathize {@link XModule} alias.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare type EmpathizeXModule = "
+            },
+            {
+              "kind": "Reference",
+              "text": "XModule",
+              "canonicalReference": "@empathy/x-components!XModule:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "EmpathizeXStoreModule",
+              "canonicalReference": "@empathy/x-components!EmpathizeXStoreModule:type"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "EmpathizeXModule",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@empathy/x-components!empathizeXModule:var",
+          "docComment": "/**\n * Empathize {@link XModule} implementation. This module is auto-registered as soon as you import any component from the `empathize` entry point.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "empathizeXModule: "
+            },
+            {
+              "kind": "Reference",
+              "text": "EmpathizeXModule",
+              "canonicalReference": "@empathy/x-components!EmpathizeXModule:type"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "empathizeXModule",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@empathy/x-components!EmpathizeXStoreModule:type",
+          "docComment": "/**\n * Empathize type safe store module.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare type EmpathizeXStoreModule = "
+            },
+            {
+              "kind": "Reference",
+              "text": "XStoreModule",
+              "canonicalReference": "@empathy/x-components!XStoreModule:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "EmpathizeState",
+              "canonicalReference": "@empathy/x-components!EmpathizeState:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", "
+            },
+            {
+              "kind": "Reference",
+              "text": "EmpathizeGetters",
+              "canonicalReference": "@empathy/x-components!EmpathizeGetters:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", "
+            },
+            {
+              "kind": "Reference",
+              "text": "EmpathizeMutations",
+              "canonicalReference": "@empathy/x-components!EmpathizeMutations:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", "
+            },
+            {
+              "kind": "Reference",
+              "text": "EmpathizeActions",
+              "canonicalReference": "@empathy/x-components!EmpathizeActions:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "EmpathizeXStoreModule",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 11
           }
         },
         {
@@ -4022,6 +4913,83 @@
         },
         {
           "kind": "Function",
+          "canonicalReference": "@empathy/x-components!installX:function(1)",
+          "docComment": "/**\n * Function to install the {@link XPlugin} with the core functionality and the {@link XAPI} exposes through the {@link https://developer.mozilla.org/en-US/docs/Web/API/Window | window} property `X`.\n *\n * @param options - Options to customize the installation {@link XPluginOptions}.\n *\n * @param vue - Optional Vue constructor where the {@link XPlugin} will be installed.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function installX(options: "
+            },
+            {
+              "kind": "Reference",
+              "text": "XPluginOptions",
+              "canonicalReference": "@empathy/x-components!XPluginOptions:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", vue?: "
+            },
+            {
+              "kind": "Content",
+              "text": "import(\"vue\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "VueConstructor",
+              "canonicalReference": "vue!VueConstructor:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "Vue",
+              "canonicalReference": "vue!Vue:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "void"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 10
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "options",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "vue",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 8
+              }
+            }
+          ],
+          "name": "installX"
+        },
+        {
+          "kind": "Function",
           "canonicalReference": "@empathy/x-components!isArrayEmpty:function(1)",
           "docComment": "/**\n * Returns if the given array is `null`, `undefined`, or has no elements.\n *\n * @param array - The array to check if it is empty.\n *\n * @returns `true` if the array is `null`, `undefined`, or has no elements. `false` otherwise.\n *\n * @public\n */\n",
           "excerptTokens": [
@@ -4335,6 +5303,31 @@
           "members": [
             {
               "kind": "PropertySignature",
+              "canonicalReference": "@empathy/x-components!Messages#closeButton:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "closeButton: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "{\n        ariaLabel: string;\n        content: string;\n    }"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "closeButton",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
               "canonicalReference": "@empathy/x-components!Messages#custom:member",
               "docComment": "",
               "excerptTokens": [
@@ -4386,6 +5379,31 @@
             },
             {
               "kind": "PropertySignature",
+              "canonicalReference": "@empathy/x-components!Messages#noSuggestions:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "noSuggestions: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "{\n        content: string;\n    }"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "noSuggestions",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
               "canonicalReference": "@empathy/x-components!Messages#openButton:member",
               "docComment": "",
               "excerptTokens": [
@@ -4420,7 +5438,7 @@
                 },
                 {
                   "kind": "Content",
-                  "text": "{\n        ariaLabel: string;\n        placeholder: string;\n        clearButton: {\n            ariaLabel: string;\n        };\n        searchButton: {\n            ariaLabel: string;\n        };\n    }"
+                  "text": "{\n        ariaLabel: string;\n        clearButton: {\n            ariaLabel: string;\n        };\n        placeholder: string;\n        searchButton: {\n            ariaLabel: string;\n        };\n    }"
                 },
                 {
                   "kind": "Content",
@@ -6090,6 +7108,102 @@
           }
         },
         {
+          "kind": "Class",
+          "canonicalReference": "@empathy/x-components!NextQuery:class",
+          "docComment": "/**\n * Renders a next query item which receives the suggestion that will be rendered as a prop. It exposes a default slot to change the next query content. If the slot is not overridden, it will render the suggestion query by default.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export default class NextQuery extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "Vue",
+              "canonicalReference": "vue!Vue:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "NextQuery",
+          "members": [
+            {
+              "kind": "Property",
+              "canonicalReference": "@empathy/x-components!NextQuery#events:member",
+              "docComment": "/**\n * Events list which are going to be emitted when a next query is selected.\n *\n * @returns The {@link XEvent | XEvents} to emit.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "protected get events(): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Partial",
+                  "canonicalReference": "!Partial:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "XEventsTypes",
+                  "canonicalReference": "@empathy/x-components!XEventsTypes:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "events",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 5
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "@empathy/x-components!NextQuery#suggestion:member",
+              "docComment": "/**\n * The suggestion to render and use in the default slot.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "protected suggestion: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "NextQueryModel",
+                  "canonicalReference": "@empathy/search-types!NextQuery:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "suggestion",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            }
+          ],
+          "extendsTokenRange": {
+            "startIndex": 1,
+            "endIndex": 3
+          },
+          "implementsTokenRanges": []
+        },
+        {
           "kind": "Function",
           "canonicalReference": "@empathy/x-components!normalizeString:function(1)",
           "docComment": "/**\n * Trims the string, transforms it to lower case, and removes {@link https://en.wikipedia.org/wiki/Combining_Diacritical_Marks | combining diacritical marks} from it.\n *\n * @param string - The string to normalize.\n *\n * @returns The normalized version of the string.\n *\n * @public\n */\n",
@@ -6131,6 +7245,34 @@
             }
           ],
           "name": "normalizeString"
+        },
+        {
+          "kind": "Class",
+          "canonicalReference": "@empathy/x-components!OpenButton:class",
+          "docComment": "/**\n * Component containing an event button that emits {@link XEventsTypes.UserOpenedX} when clicked. It has a default slot to customize its content.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export default class OpenButton extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "Vue",
+              "canonicalReference": "vue!Vue:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "OpenButton",
+          "members": [],
+          "extendsTokenRange": {
+            "startIndex": 1,
+            "endIndex": 3
+          },
+          "implementsTokenRanges": []
         },
         {
           "kind": "TypeAlias",
@@ -7842,7 +8984,33 @@
           ],
           "releaseTag": "Public",
           "name": "RelatedTagsConfig",
-          "members": [],
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@empathy/x-components!RelatedTagsConfig#maxItemsToRequest:member",
+              "docComment": "/**\n * Maximum number of related tags to request.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "maxItemsToRequest: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "maxItemsToRequest",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
           "extendsTokenRanges": []
         },
         {
@@ -7857,7 +9025,68 @@
           ],
           "releaseTag": "Public",
           "name": "RelatedTagsGetters",
-          "members": [],
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@empathy/x-components!RelatedTagsGetters#relatedTags:member",
+              "docComment": "/**\n * List that contains al the related tags, having the selected ones at the first positions (if there are any), and then the unselected ones.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "relatedTags: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RelatedTag",
+                  "canonicalReference": "@empathy/search-types!RelatedTag:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "relatedTags",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@empathy/x-components!RelatedTagsGetters#request:member",
+              "docComment": "/**\n * The adapter request object for retrieving the related tags, or null if there is not valid data to create a request.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "request: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RelatedTagsRequest",
+                  "canonicalReference": "@empathy/search-adapter!RelatedTagsRequest:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": " | null"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "request",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            }
+          ],
           "extendsTokenRanges": []
         },
         {
@@ -7872,7 +9101,147 @@
           ],
           "releaseTag": "Public",
           "name": "RelatedTagsMutations",
-          "members": [],
+          "members": [
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "@empathy/x-components!RelatedTagsMutations#setQuery:member(1)",
+              "docComment": "/**\n * Sets the query of the module, which is used to retrieve the related tags.\n *\n * @param newQuery - The new query to save to the state.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "setQuery(newQuery: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "newQuery",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "setQuery"
+            },
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "@empathy/x-components!RelatedTagsMutations#setRelatedTags:member(1)",
+              "docComment": "/**\n * Sets the related tags of the module.\n *\n * @param relatedTags - The new related tags to save to the state.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "setRelatedTags(relatedTags: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RelatedTag",
+                  "canonicalReference": "@empathy/search-types!RelatedTag:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "returnTypeTokenRange": {
+                "startIndex": 4,
+                "endIndex": 5
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "relatedTags",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 3
+                  }
+                }
+              ],
+              "name": "setRelatedTags"
+            },
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "@empathy/x-components!RelatedTagsMutations#setSelectedRelatedTags:member(1)",
+              "docComment": "/**\n * Sets the selected related tags of the module.\n *\n * @param selectedRelatedTags - The selected related tags to save to the state.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "setSelectedRelatedTags(selectedRelatedTags: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RelatedTag",
+                  "canonicalReference": "@empathy/search-types!RelatedTag:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "returnTypeTokenRange": {
+                "startIndex": 4,
+                "endIndex": 5
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "selectedRelatedTags",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 3
+                  }
+                }
+              ],
+              "name": "setSelectedRelatedTags"
+            }
+          ],
           "extendsTokenRanges": []
         },
         {
@@ -7887,7 +9256,119 @@
           ],
           "releaseTag": "Public",
           "name": "RelatedTagsState",
-          "members": [],
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@empathy/x-components!RelatedTagsState#config:member",
+              "docComment": "/**\n * The configuration of the related tags module.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "config: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RelatedTagsConfig",
+                  "canonicalReference": "@empathy/x-components!RelatedTagsConfig:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "config",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@empathy/x-components!RelatedTagsState#query:member",
+              "docComment": "/**\n * The internal query of the module. Used to request the related tags.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "query: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "query",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@empathy/x-components!RelatedTagsState#relatedTags:member",
+              "docComment": "/**\n * The list of the related tags, related to the `query` property of the state.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "relatedTags: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RelatedTag",
+                  "canonicalReference": "@empathy/search-types!RelatedTag:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "relatedTags",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@empathy/x-components!RelatedTagsState#selectedRelatedTags:member",
+              "docComment": "/**\n * The list of the selected related tags.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "selectedRelatedTags: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RelatedTag",
+                  "canonicalReference": "@empathy/search-types!RelatedTag:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "selectedRelatedTags",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            }
+          ],
           "extendsTokenRanges": []
         },
         {
@@ -11229,6 +12710,65 @@
         },
         {
           "kind": "Interface",
+          "canonicalReference": "@empathy/x-components!XAPI:interface",
+          "docComment": "/**\n * Interface with the API functions exposes as X {@link https://developer.mozilla.org/en-US/docs/Web/API/Window | window} property.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface XAPI "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "XAPI",
+          "members": [
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "@empathy/x-components!XAPI#search:member(1)",
+              "docComment": "/**\n * Throw a search with the query parameter.\n *\n * @param query - Query to be searched.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "search(query: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "query",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "search"
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
           "canonicalReference": "@empathy/x-components!XBus:interface",
           "docComment": "/**\n * The events bus that allows emitting and subscribing to {@link XEventsTypes}.\n *\n * @public\n */\n",
           "excerptTokens": [
@@ -12945,6 +14485,31 @@
             },
             {
               "kind": "PropertySignature",
+              "canonicalReference": "@empathy/x-components!XEventsTypes#UserClosedX:member",
+              "docComment": "/**\n * The user closed XComponents. * Payload: none.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "UserClosedX: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "UserClosedX",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
               "canonicalReference": "@empathy/x-components!XEventsTypes#UserFocusedSearchBox:member",
               "docComment": "/**\n * The user focused the search-box * Payload: none.\n */\n",
               "excerptTokens": [
@@ -13729,6 +15294,32 @@
           "members": [
             {
               "kind": "PropertySignature",
+              "canonicalReference": "@empathy/x-components!XModulesTree#empathize:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "empathize: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "EmpathizeXModule",
+                  "canonicalReference": "@empathy/x-components!EmpathizeXModule:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "empathize",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
               "canonicalReference": "@empathy/x-components!XModulesTree#historyQueries:member",
               "docComment": "",
               "excerptTokens": [
@@ -13774,6 +15365,32 @@
               ],
               "releaseTag": "Public",
               "name": "nextQueries",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@empathy/x-components!XModulesTree#noSuggestions:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "noSuggestions: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "NoSuggestionsXModule",
+                  "canonicalReference": "@empathy/x-components!NoSuggestionsXModule:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "noSuggestions",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
