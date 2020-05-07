@@ -1432,7 +1432,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@empathy/search-types!RangeFilter:type",
-          "docComment": "/**\n * An alias of Filter<RangeValue>\n *\n * @public\n */\n",
+          "docComment": "/**\n * An alias of `Filter<RangeValue>`\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -2387,7 +2387,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@empathy/search-types!SimpleFilter:type",
-          "docComment": "/**\n * An alias of Filter<SimpleValue>\n *\n * @public\n */\n",
+          "docComment": "/**\n * An alias of `Filter<SimpleValue>`\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",

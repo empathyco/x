@@ -13,5 +13,8 @@ module.exports = {
       .replace(/\.vue$/, '.md');
     const componentPath = config.outDir;
     return path.join(componentPath, `x-components.${componentName}`);
+  },
+  templates: {
+    slots: require('./docgen-slots.template')
   }
 };

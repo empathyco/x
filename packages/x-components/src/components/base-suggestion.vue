@@ -1,9 +1,11 @@
 <template>
   <BaseEventButton :events="events" :class="dynamicCSSClasses" class="x-suggestion">
-    <!-- @slot Default slot with the suggestion and the matched query to customise the output -->
-    <!-- @binding {Suggestion} suggestion - The data of the suggestion -->
-    <!-- @binding {string} queryHTML - The suggestion's query with the matching part inside a
-    <span> tag -->
+    <!--
+      @slot Default slot with the suggestion and the matched query to customise the output
+      @binding {Suggestion} suggestion - The data of the suggestion
+      @binding {string} queryHTML - The suggestion's query with the matching part inside a
+      `<span>` tag
+    -->
     <slot v-bind="{ suggestion, queryHTML }">
       <span v-html="queryHTML" :aria-label="suggestion.query" class="x-suggestion__query" />
     </slot>
@@ -104,12 +106,12 @@
 
     /**
      * Highlights the matching part of the suggestion query with the query passed as prop of the
-     * component putting it inside a <span> tag.
+     * component putting it inside a `<span>` tag.
      *
      * @remarks
      * The query prop should be normalized.
      *
-     * @returns The suggestion's query with the matching part inside a <span> tag.
+     * @returns The suggestion's query with the matching part inside a `<span>` tag.
      * @public
      */
     protected get queryHTML(): string {

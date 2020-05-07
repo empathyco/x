@@ -138,6 +138,9 @@ export class ClearSearchInput extends Vue {
 }
 
 // @public
+export function compileMessage(message: string, params: Dictionary<string | number>): string;
+
+// @public
 export function createStoreEmitters<Module extends AnyXStoreModule, Emitters extends StoreEmitters<Module>>(storeModule: Module, emitters: Emitters): Emitters;
 
 // @public
@@ -221,6 +224,9 @@ export type GettersClass<Module extends AnyXStoreModule> = Partial<Module['gette
 export type GettersTree<State extends Dictionary, Getters extends Dictionary> = {
     [Key in keyof Getters]: (state: State, getters: Getters, rootState: RootXStoreState, rootGetters: any) => Getters[Key];
 };
+
+// @public
+export const getURLParameter: (param: string) => string | null;
 
 // @internal
 export function getXComponentXModuleName(component: Vue): XModuleName | null;
@@ -369,13 +375,18 @@ export interface Messages {
     // (undocumented)
     historyQueries: {
         clearButton: {
-            content: string;
             ariaLabel: string;
+            content: string;
         };
         removeHistoryQuery: {
             ariaLabel: string;
             content: string;
         };
+    };
+    // (undocumented)
+    openButton: {
+        ariaLabel: string;
+        content: string;
     };
     // (undocumented)
     searchBox: {
@@ -410,7 +421,6 @@ export interface NamespacedWireFactory<ModuleName extends XModuleName> {
 
 // @public
 export class NextQueries extends Vue {
-    protected emitNextQuerySelected(nextQuery: NextQuery): void;
     // Warning: (ae-forgotten-export) The symbol "NextQuery" needs to be exported by the entry point index.d.ts
     //
     // (undocumented)
@@ -662,6 +672,48 @@ export const refreshHistoryQueriesSession: import("../..").Wire<any>;
 export const refreshSession: HistoryQueriesXStoreModule['actions']['refreshSession'];
 
 // @public
+export class RelatedTags extends Vue {
+}
+
+// @public
+export interface RelatedTagsActions {
+}
+
+// @public
+export interface RelatedTagsConfig {
+}
+
+// @internal
+export const relatedTagsEmitters: {};
+
+// @public
+export interface RelatedTagsGetters {
+}
+
+// @public
+export interface RelatedTagsMutations {
+}
+
+// @public
+export interface RelatedTagsState {
+}
+
+// @internal
+export const relatedTagsWiring: {};
+
+// @public
+export type RelatedTagsXModule = XModule<RelatedTagsXStoreModule>;
+
+// @public
+export const relatedTagsXModule: RelatedTagsXModule;
+
+// @public
+export type RelatedTagsXStoreModule = XStoreModule<RelatedTagsState, RelatedTagsGetters, RelatedTagsMutations, RelatedTagsActions>;
+
+// @internal
+export const relatedTagsXStoreModule: RelatedTagsXStoreModule;
+
+// @public
 export const removeFromHistory: HistoryQueriesXStoreModule['actions']['removeFromHistory'];
 
 // @public
@@ -672,9 +724,6 @@ export class RemoveHistoryQuery extends Vue {
 
 // @public
 export const removeHistoryQuery: import("../..").Wire<import("@empathy/search-types").HistoryQuery>;
-
-// @public
-export const removeHTMLTags: (str: string) => string;
 
 // @public
 export type Returns<T extends Dictionary<AnyFunction>> = {
@@ -691,6 +740,9 @@ export interface RootXStoreState {
         [Module in XModuleName]: ExtractState<Module>;
     };
 }
+
+// @public
+export const sanitize: (str: string) => string;
 
 // @public
 export interface SearchBoxActions {
@@ -786,8 +838,6 @@ export class SearchInput extends Vue {
     protected emitUserPressedEnterKey(): void;
     // @internal
     protected eventMetadata(): Omit<WireMetadata, 'moduleName'>;
-    // @internal
-    protected preventForbiddenCharacters(event: KeyboardEvent): void;
     // (undocumented)
     query: string;
 }
@@ -986,6 +1036,7 @@ export interface XEventsTypes {
     UserBlurredSearchBox: void;
     UserFocusedSearchBox: void;
     UserIsTypingAQuery: string;
+    UserOpenedX: void;
     UserPressedArrowKey: ArrowKey;
     UserPressedClearHistoryQueries: void;
     UserPressedClearSearchBoxButton: void;
@@ -1039,6 +1090,8 @@ export interface XModulesTree {
     // (undocumented)
     querySuggestions: QuerySuggestionsXModule;
     // (undocumented)
+    relatedTags: RelatedTagsXModule;
+    // (undocumented)
     searchBox: SearchBoxXModule;
 }
 
@@ -1085,6 +1138,8 @@ export class XPlugin {
     protected pendingXModules: Partial<Record<XModuleName, AnyXModule>>;
     // @internal
     protected registerConfig(): void;
+    // @internal
+    protected registerFilters(): void;
     // @internal
     protected registerPendingXModules(): void;
     // @internal
