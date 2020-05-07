@@ -1,6 +1,5 @@
-import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators/map';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Observable, ReplaySubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { WireMetadata, WirePayload } from '../wiring/wiring.types';
 import { Emitter, Emitters, XBus } from './x-bus.types';

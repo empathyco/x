@@ -1,6 +1,4 @@
-import { debounceTime } from 'rxjs/operators/debounceTime';
-import { filter as filterRx } from 'rxjs/operators/filter';
-import { throttleTime } from 'rxjs/operators/throttleTime';
+import { debounceTime, filter as filterRx, throttleTime } from 'rxjs/operators';
 import { XModuleName } from '../x-modules/x-modules.types';
 import { Wire, WireParams } from './wiring.types';
 

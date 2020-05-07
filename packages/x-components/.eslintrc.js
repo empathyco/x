@@ -13,7 +13,6 @@ const esLintRules = {
   'no-restricted-imports': [
     'error',
     {
-      paths: ['rxjs', 'rxjs/operators'],
       patterns: ['rxjs/internal/**/*', '**/types/**/*', '**/dist/**/*']
     }
   ],

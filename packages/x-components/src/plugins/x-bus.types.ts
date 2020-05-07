@@ -1,5 +1,4 @@
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject } from 'rxjs';
 import { PropsWithType } from '../utils';
 import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
 import { WireMetadata, WirePayload } from '../wiring/wiring.types';
