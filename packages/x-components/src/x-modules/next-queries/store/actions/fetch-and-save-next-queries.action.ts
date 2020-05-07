@@ -1,7 +1,7 @@
 import { NextQueriesXStoreModule } from '../types';
 
 /**
- * Default implementation for the {@link NextQueriesActions.getAndSaveNextQueries}.
+ * Default implementation for the {@link NextQueriesActions.fetchAndSaveNextQueries}.
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
@@ -10,7 +10,12 @@ import { NextQueriesXStoreModule } from '../types';
  * @public
  */
 //eslint-disable-next-line max-len
-export const getAndSaveNextQueries: NextQueriesXStoreModule['actions']['getAndSaveNextQueries'] = ({
+export const fetchAndSaveNextQueries: NextQueriesXStoreModule['actions']['fetchAndSaveNextQueries'] = ({
   dispatch,
   commit
-}) => dispatch('getNextQueries').then(nextQueries => commit('setNextQueries', nextQueries));
+}) =>
+  dispatch('fetchNextQueries').then(nextQueries => {
+    if (nextQueries) {
+      commit('setNextQueries', nextQueries);
+    }
+  });

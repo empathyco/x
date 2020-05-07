@@ -1,6 +1,5 @@
-import { getAndSaveNextQueries } from './actions/get-and-save-next-queries.action';
-import { getNextQueries } from './actions/get-next-queries.action';
-//eslint-disable-next-line max-len
+import { fetchAndSaveNextQueries } from './actions/fetch-and-save-next-queries.action';
+import { fetchNextQueries } from './actions/fetch-next-queries.action';
 import { setQueryFromLastHistoryQuery } from './actions/set-query-from-last-history-query.action';
 import { nextQueries } from './getters/next-queries';
 import { request } from './getters/request';
@@ -38,8 +37,8 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     }
   },
   actions: {
-    getAndSaveNextQueries,
-    getNextQueries,
+    fetchAndSaveNextQueries,
+    fetchNextQueries,
     setQueryFromLastHistoryQuery
   }
 };

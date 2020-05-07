@@ -20,8 +20,8 @@ export const setNextQueriesQuery = nextQueriesModule.wireCommit('setQuery');
  *
  * @public
  */
-export const getAndSaveNextQueries = nextQueriesModule.wireDispatchWithoutPayload(
-  'getAndSaveNextQueries'
+export const fetchAndSaveNextQueries = nextQueriesModule.wireDispatchWithoutPayload(
+  'fetchAndSaveNextQueries'
 );
 
 /**
@@ -55,6 +55,6 @@ export const nextQueriesWiring = createWiring({
     setQueryFromLastHistoryQuery
   },
   NextQueriesRequestChanged: {
-    getAndSaveNextQueries
+    fetchAndSaveNextQueries
   }
 });

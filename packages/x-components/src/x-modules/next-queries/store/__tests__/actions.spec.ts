@@ -26,24 +26,23 @@ describe('testing next queries module actions', () => {
     resetNextQueriesStateWith(store);
   });
 
-  describe(`${actionKeys.getNextQueries}`, () => {
+  describe(`${actionKeys.fetchNextQueries}`, () => {
     it('should return next queries', async () => {
       resetNextQueriesStateWith(store, {
         query: 'honeyboo'
       });
 
-      const nextQueries = await store.dispatch(actionKeys.getNextQueries);
+      const nextQueries = await store.dispatch(actionKeys.fetchNextQueries);
       expect(nextQueries).toEqual(mockedNextQueries);
     });
 
-    it('should return empty array if there is not request', async () => {
-      const nextQueries = await store.dispatch(actionKeys.getNextQueries);
-      expect(nextQueries).toEqual([]);
+    it('should return `null` if there is not request', async () => {
+      const nextQueries = await store.dispatch(actionKeys.fetchNextQueries);
+      expect(nextQueries).toBeNull();
     });
   });
 
-  describe(`${actionKeys.getAndSaveNextQueries}`, () => {
-    //eslint-disable-next-line max-len
+  describe(`${actionKeys.fetchAndSaveNextQueries}`, () => {
     it('should request and store next queries in the state', async () => {
       resetNextQueriesStateWith(store, {
         query: 'honeyboo',
@@ -52,13 +51,15 @@ describe('testing next queries module actions', () => {
         }
       });
 
-      await store.dispatch(actionKeys.getAndSaveNextQueries);
+      await store.dispatch(actionKeys.fetchAndSaveNextQueries);
       expect(store.state.nextQueries).toEqual(mockedNextQueries);
     });
 
-    it('should clear next queries in the state if the query is empty', async () => {
-      await store.dispatch(actionKeys.getAndSaveNextQueries);
-      expect(store.state.nextQueries).toEqual([]);
+    it('should not clear next queries in the state if the query is empty', async () => {
+      resetNextQueriesStateWith(store, { nextQueries: mockedNextQueries });
+
+      await store.dispatch(actionKeys.fetchAndSaveNextQueries);
+      expect(store.state.nextQueries).toEqual(mockedNextQueries);
     });
   });
 

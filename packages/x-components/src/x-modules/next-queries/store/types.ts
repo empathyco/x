@@ -66,15 +66,15 @@ export interface NextQueriesMutations {
  */
 export interface NextQueriesActions {
   /**
-   * Requests a new set of next queries for the module query, and returns them .
+   * Requests a new set of next queries for the module query, and returns them.
    *
-   * @returns An array of next queries.
+   * @returns An array of next queries, or null if the request was not made.
    */
-  getNextQueries(): NextQuery[];
+  fetchNextQueries(): NextQuery[] | null;
   /**
    * Requests a new set of next queries and stores them in the module.
    */
-  getAndSaveNextQueries(): void;
+  fetchAndSaveNextQueries(): void;
   /**
    * Sets the query of the module based on the last history query.
    */
