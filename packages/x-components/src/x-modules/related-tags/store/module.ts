@@ -1,3 +1,6 @@
+import { fetchAndSaveRelatedTags } from './actions/fetch-and-save-related-tags.action';
+import { fetchRelatedTags } from './actions/fetch-related-tags.action';
+import { toggleRelatedTag } from './actions/toggle-related-tag.action';
 import { relatedTags } from './getters/related-tags.getter';
 import { request } from './getters/request.getter';
 import { RelatedTagsXStoreModule } from './types';
@@ -32,5 +35,9 @@ export const relatedTagsXStoreModule: RelatedTagsXStoreModule = {
       state.selectedRelatedTags = selectedRelatedTags;
     }
   },
-  actions: {}
+  actions: {
+    fetchRelatedTags,
+    fetchAndSaveRelatedTags,
+    toggleRelatedTag
+  }
 };

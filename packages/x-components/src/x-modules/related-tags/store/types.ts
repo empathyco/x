@@ -62,7 +62,22 @@ export interface RelatedTagsMutations {
  *
  * @public
  */
-export interface RelatedTagsActions {}
+export interface RelatedTagsActions {
+  /**
+   * Fetchs a new set of related tags and returns them.
+   *
+   * @returns The new set of related tags.
+   */
+  fetchRelatedTags(): RelatedTag[];
+  /**
+   * Fetchs a new set of related tags and stores them in the module state.
+   */
+  fetchAndSaveRelatedTags(): void;
+  /**
+   * Add or remove the clicked related tag from selected related tags.
+   */
+  toggleRelatedTag(relatedTag: RelatedTag): void;
+}
 /**
  * RelatedTags type safe store module.
  *
