@@ -9,7 +9,7 @@ module.exports = {
     const componentName = path
       .basename(file)
       .toLowerCase()
-      .replace('-', '')
+      .replace(/-/g, '')
       .replace(/\.vue$/, '.md');
     const componentPath = config.outDir;
     return path.join(componentPath, `x-components.${componentName}`);
