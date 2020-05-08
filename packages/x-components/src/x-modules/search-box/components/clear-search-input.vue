@@ -2,7 +2,7 @@
   <BaseEventButton
     class="x-clear-search-input"
     :class="dynamicClasses"
-    :aria-label="$x.config.messages.searchBox.clearAriaLabel"
+    :aria-label="$x.config.messages.searchBox.clearButton.ariaLabel"
     :events="clearSearchInputEvents"
   >
     <!-- @slot Slot to add the button content like a message or an icon -->

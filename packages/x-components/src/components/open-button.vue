@@ -1,6 +1,6 @@
 <template>
   <BaseEventButton
-    :arialabel="$x.config.messages.openButton.ariaLabel"
+    :aria-label="$x.config.messages.openButton.ariaLabel"
     :events="{ UserOpenedX: undefined }"
     class="x-open-button"
     data-test="open-button"
