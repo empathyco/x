@@ -19,8 +19,9 @@
   import { historyQueriesXModule } from '../x-module';
 
   /**
-   * Button that when it is pressed emits the {@link XEventsTypes.UserPressedRemoveHistoryQuery}
-   * event, expressing the user intention to remove a query in the history.
+   * Button that when it is pressed emits the
+   * {@link HistoryQueriesXEvents.UserPressedRemoveHistoryQuery} event, expressing the user
+   * intention to remove a query in the history.
    *
    * @public
    */
@@ -41,7 +42,7 @@
      * The event handler that will be triggered when clicking on the clear history query button.
      *
      * @remarks
-     * * {@link XEventsTypes.UserPressedRemoveHistoryQuery}: historyQuery
+     * * {@link HistoryQueriesXEvents.UserPressedRemoveHistoryQuery}: historyQuery
      *
      * @returns The {@link XEvent | XEvents} to emit.
      * @public

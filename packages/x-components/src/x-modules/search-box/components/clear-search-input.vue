@@ -21,7 +21,7 @@
   import { searchBoxXModule } from '../x-module';
 
   /**
-   * A button that when pressed emits the {@link XEventsTypes.UserPressedClearSearchBoxButton }
+   * A button that when pressed emits the {@link SearchBoxXEvents.UserPressedClearSearchBoxButton}
    * event, expressing the user intention to clear the current query.
    *
    * @public

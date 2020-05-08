@@ -22,8 +22,8 @@
 
   /**
    * Search button component which emits on its click {@link XEventsTypes.UserAcceptedAQuery} and
-   * {@link XEventsTypes.UserPressedSearchButton} events with the query as payload while there is
-   * query. If the query is empty, the component won't emit any event. The component has also a
+   * {@link SearchBoxXEvents.UserPressedSearchButton} events with the query as payload while there
+   * is query. If the query is empty, the component won't emit any event. The component has also a
    * dynamic class to flag the HTML button when the query is empty (to hide the button when the
    * query is empty for instance).
    *

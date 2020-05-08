@@ -24,8 +24,9 @@
   import { historyQueriesXModule } from '../x-module';
 
   /**
-   * A button that when is pressed, emits the {@link XEventsTypes.UserPressedClearHistoryQueries}
-   * event, expressing the user intention to clear the whole history of queries.
+   * A button that when is pressed, emits the
+   * {@link HistoryQueriesXEvents.UserPressedClearHistoryQueries} event, expressing the user
+   * intention to clear the whole history of queries.
    *
    * @public
    */

@@ -69,7 +69,7 @@
     }
 
     /**
-     * Emits event {@link XEventsTypes.UserBlurredSearchBox} when search box loses focus.
+     * Emits event {@link SearchBoxXEvents.UserBlurredSearchBox} when search box loses focus.
      *
      * @internal
      */
@@ -78,7 +78,7 @@
     }
 
     /**
-     * Emits event {@link XEventsTypes.UserFocusedSearchBox} when search box gains focus.
+     * Emits event {@link SearchBoxXEvents.UserFocusedSearchBox} when search box gains focus.
      *
      * @internal
      */
@@ -87,8 +87,8 @@
     }
 
     /**
-     * Emits event {@link XEventsTypes.UserIsTypingAQuery} when the user typed/pasted something into
-     * the search-box.
+     * Emits event {@link SearchBoxXEvents.UserIsTypingAQuery} when the user typed/pasted something
+     * into the search-box.
      *
      * @internal
      */
@@ -111,7 +111,7 @@
      *
      * @remarks
      * Emitted events are:
-     * * {@link XEventsTypes.UserPressedEnterKey}
+     * * {@link SearchBoxXEvents.UserPressedEnterKey}
      * * {@link XEventsTypes.UserAcceptedAQuery}
      *
      * @internal

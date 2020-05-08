@@ -57,8 +57,8 @@
     protected suggestion!: Suggestion;
 
     /**
-     * Emits {@link XEventsTypes.UserSelectedAQuerySuggestion} with the suggestion as payload when
-     * selecting the query suggestion.
+     * Emits {@link QuerySuggestionsXEvents.UserSelectedAQuerySuggestion} with the suggestion as
+     * payload when selecting the query suggestion.
      *
      * @internal
      */
