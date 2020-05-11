@@ -19,7 +19,7 @@
   import { Suggestion } from '@empathy/search-types';
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import BaseSuggestion from '../../../components/base-suggestion.vue';
-  import { State } from '../../../components/decorators';
+  import { Getter } from '../../../components/decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { querySuggestionsXModule } from '../x-module';
@@ -41,11 +41,10 @@
   export default class QuerySuggestion extends Vue {
     /**
      * The query-suggestions module query.
-     * TODO: This should be the normalized query obtained from a getter instead of the state.
      *
      * @public
      */
-    @State('querySuggestions', 'query')
+    @Getter('querySuggestions', 'normalizedQuery')
     public query!: string;
 
     /**
