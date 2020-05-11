@@ -8,18 +8,19 @@
     </BaseModalContainer>
     <SearchInput />
     <ClearSearchInput />
-    <h1>Query Suggestions</h1>
-    <QuerySuggestions />
-    <NoSuggestions />
-    <h1>History</h1>
-    <HistoryQueries />
-    <ClearHistoryQueries />
-    <h1>Popular Searches</h1>
-    <PopularSearches />
-    <h1>Next Queries</h1>
-    <NextQueries :loadOnInit="loadOnInit" />
-    <h1>Related tags</h1>
-    <RelatedTags />
+    <KeyboardNavigation>
+      <h1>Query Suggestions</h1>
+      <QuerySuggestions />
+      <h1>History</h1>
+      <HistoryQueries />
+      <ClearHistoryQueries />
+      <h1>Popular Searches</h1>
+      <PopularSearches />
+      <h1>Next Queries</h1>
+      <NextQueries :loadOnInit="loadOnInit" />
+      <h1>Related tags</h1>
+      <RelatedTags />
+    </KeyboardNavigation>
   </main>
 </template>
 
@@ -30,6 +31,7 @@
   import CloseButton from './components/close-button.vue';
   import OpenButton from './components/open-button.vue';
   import { getURLParameter } from './utils/get-url-parameters';
+  import KeyboardNavigation from './x-modules/empathize/components/keyboard-navigation.vue';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from "./x-modules/history-queries/components/clear-history-queries.vue";
   import HistoryQueries from "./x-modules/history-queries/components/history-queries.vue";
@@ -49,6 +51,7 @@
       ClearSearchInput,
       CloseButton,
       HistoryQueries,
+      KeyboardNavigation,
       NextQueries,
       OpenButton,
       PopularSearches,
