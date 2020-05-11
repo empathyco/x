@@ -4,12 +4,22 @@
     "module": "esnext",
     "strict": true,
     "esModuleInterop": true,
+    "declaration": true,
+    "declarationDir": "types",
     "jsx": "react",
     "importHelpers": true,
     "moduleResolution": "node",
+    "downlevelIteration": true,
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "outDir": "dist",
     "types": [
       "jest"
     ]
-  }
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/__tests__/*/**"
+  ]
 }

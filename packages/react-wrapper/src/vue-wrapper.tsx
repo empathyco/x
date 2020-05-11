@@ -9,6 +9,12 @@ interface VueWrapperProps<ReactComponentProps = object> {
 
 type VueWrapperThis = ThisType<Vue & VueWrapperProps>;
 
+/**
+ * This component is used to wrap React components into Vue ones. It is not
+ * exported, and shouldn't be used from this project.
+ *
+ * TODO: Complete functionality and extract from this project
+ */
 export const VueWrapper: ComponentOptions<Vue, never, never, never, object, VueWrapperProps> & VueWrapperThis = {
   props: {
     reactComponent: {

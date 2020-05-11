@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactWrapper } from '../../react-wrapper';
+import { ReactWrapper } from '../../../react-wrapper';
 import { VueMessage } from './vue-message.stub';
 
 interface ReactToggleMessageState {
