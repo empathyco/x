@@ -1,9 +1,8 @@
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { map } from '../../../../utils';
 import { getRelatedTagsStub } from '../../../../__stubs__/related-tags-stubs.factory';
-import { getMockedAdapter } from '../../../../__tests__/utils';
+import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { relatedTagsXStoreModule } from '../module';
 import { RelatedTagsState } from '../types';
 import { resetRelatedTagsStateWith } from './utils';
@@ -18,7 +17,7 @@ describe('testing related tags module actions', () => {
   localVue.use(Vuex);
 
   const store: Store<RelatedTagsState> = new Store(relatedTagsXStoreModule as any);
-  localVue.use(XPlugin, { adapter, store });
+  installNewXPlugin({ adapter, store }, localVue);
 
   beforeEach(() => {
     resetRelatedTagsStateWith(store);
