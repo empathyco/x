@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import { deepMerge, deepMergeBehaviour, replaceBehaviour } from '../src/deep-merge';
 
 describe('deep-merge.ts', () => {
