@@ -1,9 +1,8 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
-import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
+import { installNewXPlugin } from '../../../../__tests__/utils';
 import ClearHistoryQueries from '../clear-history-queries.vue';
 import { resetXHistoryQueriesStateWith } from './utils';
 
@@ -11,7 +10,7 @@ describe('testing ClearHistoryQueries component', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  localVue.use(XPlugin, { adapter: SearchAdapterDummy, store });
+  installNewXPlugin({ store }, localVue);
 
   beforeEach(() => {
     resetXHistoryQueriesStateWith(store);

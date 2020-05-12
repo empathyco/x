@@ -1,15 +1,12 @@
-import { createLocalVue, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
-import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
-import { getDataTestSelector } from '../../../../__tests__/utils';
+import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import NextQuery from '../next-query.vue';
 
 describe('testing next query item component', () => {
   const suggestion = getSuggestionsStub('NextQuery')[0];
-  const localVue = createLocalVue();
-  localVue.use(XPlugin, { adapter: SearchAdapterDummy });
+  const [, localVue] = installNewXPlugin();
 
   const nextQueryWrapper = mount(NextQuery, { localVue, propsData: { suggestion } });
 

@@ -2,12 +2,10 @@ import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
 import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
-import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
-import { getDataTestSelector } from '../../../../__tests__/utils';
+import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import PopularSearch from '../popular-search.vue';
 import PopularSearches from '../popular-searches.vue';
 import { resetXPopularSearchesStateWith } from './utils';
@@ -19,7 +17,7 @@ describe('testing popular searches component', () => {
   localVue.use(Vuex);
 
   const store: Store<DeepPartial<RootXStoreState>> = new Store({});
-  localVue.use(XPlugin, { store, adapter: SearchAdapterDummy });
+  installNewXPlugin({ store }, localVue);
 
   let popularSearchesWrapper: Wrapper<Vue>;
 

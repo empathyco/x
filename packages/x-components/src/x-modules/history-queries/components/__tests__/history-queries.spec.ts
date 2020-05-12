@@ -2,11 +2,9 @@ import { HistoryQuery as HistoryQueryModel } from '@empathy/search-types';
 import { createLocalVue, mount } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
-import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
-import { getDataTestSelector } from '../../../../__tests__/utils';
+import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import HistoryQueries from '../history-queries.vue';
 import { resetXHistoryQueriesStateWith } from './utils';
 
@@ -14,7 +12,7 @@ describe('testing history queries component', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  localVue.use(XPlugin, { adapter: SearchAdapterDummy, store });
+  installNewXPlugin({ store }, localVue);
 
   const historyQueries: HistoryQueryModel[] = [
     {

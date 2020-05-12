@@ -4,6 +4,7 @@ import Vuex, { Store } from 'vuex';
 import { createWireFromFunction } from '../../wiring/wires.factory';
 import { AnyXModule } from '../../x-modules/x-modules.types';
 import { SearchAdapterDummy } from '../../__tests__/adapter.dummy';
+import { BaseXBus } from '../x-bus';
 import { XPlugin } from '../x-plugin';
 import { XPluginOptions } from '../x-plugin.types';
 
@@ -35,14 +36,14 @@ const xModule: AnyXModule = {
   }
 };
 
-let plugin: typeof XPlugin;
+let plugin: XPlugin;
 let localVue: VueConstructor<Vue>;
 let store: Store<any>; // Any to handle creation of new properties
 
 describe('testing X Plugin emitters', () => {
   beforeEach(() => {
-    jest.resetModules().clearAllMocks();
-    plugin = require('../x-plugin').XPlugin;
+    jest.clearAllMocks();
+    plugin = new XPlugin(new BaseXBus());
     localVue = createLocalVue();
     localVue.use(Vuex);
     store = new Store({});
@@ -64,7 +65,7 @@ describe('testing X Plugin emitters', () => {
     };
 
     it('overrides before installing plugin', () => {
-      plugin.registerXModule(xModule);
+      XPlugin.registerXModule(xModule);
       localVue.use(plugin, pluginOptions);
 
       expectModuleToHaveBeenReplaced();
@@ -72,7 +73,7 @@ describe('testing X Plugin emitters', () => {
 
     it('overrides after installing plugin', () => {
       localVue.use(plugin, pluginOptions);
-      plugin.registerXModule(xModule);
+      XPlugin.registerXModule(xModule);
 
       expectModuleToHaveBeenReplaced();
     });
@@ -114,7 +115,7 @@ describe('testing X Plugin emitters', () => {
         store
       };
 
-      plugin.registerXModule(xModule);
+      XPlugin.registerXModule(xModule);
       localVue.use(plugin, pluginOptions);
 
       /* Emitters relies on Vue watcher that are async. We need to wait a cycle before testing if
@@ -142,7 +143,7 @@ describe('testing X Plugin emitters', () => {
       };
 
       localVue.use(plugin, pluginOptions);
-      plugin.registerXModule(xModule);
+      XPlugin.registerXModule(xModule);
 
       /* Emitters relies on Vue watcher that are async. We need to wait a cycle before testing if
        they have emitted or not. */

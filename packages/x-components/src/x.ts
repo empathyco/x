@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import { XAPI } from './api/api.types';
 import { BaseXAPI } from './api/base-api';
-import { XPlugin } from './plugins/x-plugin';
+import { xPlugin } from './plugins/x-plugin';
 import { XPluginOptions } from './plugins/x-plugin.types';
 
 declare global {
@@ -22,6 +22,5 @@ declare global {
  */
 export function installX(options: XPluginOptions, vue = Vue): void {
   window.X = new BaseXAPI(); // TODO Inject this constructor
-  vue.config.productionTip = false;
-  vue.use(XPlugin, options);
+  vue.use(xPlugin, options);
 }

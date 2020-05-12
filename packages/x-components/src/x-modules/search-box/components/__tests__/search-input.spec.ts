@@ -1,12 +1,10 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
-import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
+import { installNewXPlugin } from '../../../../__tests__/utils';
 import SearchInput from '../search-input.vue';
 
 describe('testing search input component', () => {
-  const localVue = createLocalVue();
-  localVue.use(XPlugin, { adapter: SearchAdapterDummy });
+  const [, localVue] = installNewXPlugin({});
   const mockedSearchInput = shallowMount(SearchInput, {
     localVue
   });

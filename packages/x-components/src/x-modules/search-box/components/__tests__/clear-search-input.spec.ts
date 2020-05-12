@@ -1,11 +1,9 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
-import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
+import { mount } from '@vue/test-utils';
+import { installNewXPlugin } from '../../../../__tests__/utils';
 import ClearSearchInput from '../clear-search-input.vue';
 
 describe('testing ClearSearchInput component', () => {
-  const localVue = createLocalVue();
-  localVue.use(XPlugin, { adapter: SearchAdapterDummy });
+  const [, localVue] = installNewXPlugin({});
 
   it('emits UserPressedClearSearchBoxButton when clicked', () => {
     const listener = jest.fn();

@@ -1,6 +1,6 @@
 import { SearchAdapter } from '@empathy/search-adapter';
 import { deepMerge } from '@empathybroker/deep-merge';
-import { VueConstructor } from 'vue';
+import { PluginObject, VueConstructor } from 'vue';
 import Vuex, { Module, Store } from 'vuex';
 import { FILTERS_REGISTRY } from '../filters/filters.registry';
 import { registerReactiveConfig } from '../services/config.service';
@@ -16,60 +16,96 @@ import { DeepPartial, Dictionary, forEach } from '../utils';
 import { AnyWire, Wiring } from '../wiring/wiring.types';
 import { AnyXModule, XModuleName } from '../x-modules/x-modules.types';
 import { bus } from './x-bus';
+import { XBus } from './x-bus.types';
 import { DEFAULT_X_CONFIG } from './x-plugin.config';
 import { createXComponentAPIMixin } from './x-plugin.mixin';
 import { AnyXStoreModuleOptions, XConfig, XModuleOptions, XPluginOptions } from './x-plugin.types';
 import { assertXPluginOptionsAreValid } from './x-plugin.utils';
 
 /**
- * Vue plugin that modifies each component instance, extending them with the
- * {@link XComponentAPI | X Component API }.
- *
- * @example
- * Minimal installation example. A search adapter is needed for the plugin to work, and connect to
- * the API.
- * ```typescript
- * const adapter = new EmpathyAdapterBuilder()
- *  .withConfiguration({instance: 'my-instance-id'})
- *  .build();
- * Vue.use(XPlugin, { adapter });
- * ```
- *
- * @example
- * If you are using {@link https://vuex.vuejs.org/ | Vuex} in your project you must install its
- *   plugin, and instantiate an store before installing the XPlugin:
- * ```typescript
- * Vue.use(Vuex);
- * const store = new Store({ ... });
- * Vue.use(XPlugin, { adapter, store });
- * ```
+ * Vue plugin that initializes the properties needed by the x-components, and exposes the events bus
+ * and the adapter after it has been installed.
  *
  * @public
  */
-export class XPlugin {
-  /** {@link @empathy/search-adapter#SearchAdapter | SearchAdapter} Is the middleware between
+export class XPlugin implements PluginObject<XPluginOptions> {
+  /**
+   * {@link @empathy/search-adapter#SearchAdapter | SearchAdapter} Is the middleware between
    * the components and our API where data can be mapped to client needs.
+   * This property is only available after installing the plugin.
    *
+   * @returns The installed adapter.
+   * @throws If this property is accessed before calling `Vue.use(xPlugin)`.
    * @public
    */
-  public static adapter: SearchAdapter;
+  public static get adapter(): SearchAdapter {
+    return this.getInstance().adapter;
+  }
 
-  /** Instance of the singleton.
+  /**
+   * Exposed {@link XBus}, so any kind of application can subscribe to {@link XEventsTypes}
+   * without having to pass through a component.
+   * This property is only available after installing the plugin.
+   *
+   * @returns The installed bus.
+   * @throws If this property is accessed before calling `Vue.use(xPlugin)`.
+   * @public
+   */
+  public static get bus(): XBus {
+    return this.getInstance().bus;
+  }
+
+  /**
+   * Safely retrieves the installed instance of the XPlugin.
+   *
+   * @returns The installed instance of the XPlugin.
+   * @throws If this method is called before calling `Vue.use(xPlugin)`.
+   * @internal
+   */
+  protected static getInstance(): XPlugin {
+    if (!this.instance) {
+      throw Error("XPlugin must be installed before accessing it's API.");
+    }
+    return this.instance;
+  }
+
+  /**
+   * Record of modules that have been tried to be installed before the installation of the plugin.
    *
    * @internal
    */
-  protected static instance = new XPlugin();
-  /** Bus for retrieving the observables when registering the wiring.
+  protected static pendingXModules: Partial<Record<XModuleName, AnyXModule>> = {};
+
+  /**
+   * Instance of the installed plugin. Used to expose the bus and the adapter.
    *
    * @internal
    */
-  protected bus = bus; // TODO Inject this constructor
-  /** Set of the already installed {@link XModule | XModules} to avoid re-registering them.
+  protected static instance?: XPlugin;
+
+  /**
+   * Bus for retrieving the observables when registering the wiring.
+   *
+   * @internal
+   */
+  protected bus: XBus;
+
+  /**
+   * Adapter for the API, responsible for transforming requests and responses.
+   *
+   * @internal
+   */
+  protected adapter!: SearchAdapter;
+
+  /**
+   * Set of the already installed {@link XModule | XModules} to avoid re-registering them.
    *
    * @internal
    */
   protected installedXModules = new Set<string>();
-  /** True if the plugin has been installed in a Vue instance, in this case
+
+  /**
+   * True if the plugin has been installed in a Vue instance, in this case
    * {@link XModule |Xmodules} will be installed immediately. False otherwise, in this case
    * {@link XModule | XModules} will be installed lazily when the {@link XPlugin#install} method
    * is called.
@@ -77,64 +113,45 @@ export class XPlugin {
    * @internal
    */
   protected isInstalled = false;
-  /** The install options of the plugin, where all the customization of
+
+  /**
+   * The install options of the plugin, where all the customization of
    * {@link XModule | XModules} is done.
    *
    * @internal
    */
   protected options!: XPluginOptions;
-  /** Record of modules that have been tried to be installed before the installation of the plugin.
-   *
-   * @internal
-   */
-  protected pendingXModules: Partial<Record<XModuleName, AnyXModule>> = {};
-  /** The Vuex store, to pass to the wires for its registration, and to register the store
+
+  /**
+   * The Vuex store, to pass to the wires for its registration, and to register the store
    * modules on it.
    *
    * @internal
    */
   protected store!: Store<any>;
-  /** The global Vue, passed by the install method. Used to apply the global mixin
+  /**
+   * The global Vue, passed by the install method. Used to apply the global mixin
    * {@link createXComponentAPIMixin}, and install the {@link https://vuex.vuejs.org/ | Vuex}
    * plugin.
    *
    * @internal
    */
   protected vue!: VueConstructor;
-  /** The {@link XConfig} is a reactive configuration.
+  /**
+   * The {@link XConfig} is a reactive configuration.
    *
    * @internal
    */
   protected xConfig!: XConfig;
 
   /**
-   * Protected constructor to ensure that this class is only instantiated once.
-   * It needs to be a singleton because Vue accepts either a function as plugin, or an object that
-   * exposes an install(...) method.
+   * Creates a new instance of the XPlugin with the given bus passed as parameter.
    *
-   * @internal
+   * @param bus - The {@link XBus} implementation to use for the plugin.
+   * @public
    */
-  protected constructor() {}
-
-  /**
-   * Installs the plugin into the Vue instance.
-   *
-   * @param vue - The GlobalVue object.
-   * @param options - The options to install this plugin with.
-   * @internal
-   */
-  static install(vue: VueConstructor, options?: XPluginOptions): void {
-    const instance = this.instance;
-    assertXPluginOptionsAreValid(options);
-    this.adapter = options.adapter;
-    instance.vue = vue;
-    instance.options = options;
-    instance.registerConfig();
-    instance.registerStore();
-    instance.applyMixins();
-    instance.registerFilters();
-    instance.registerPendingXModules();
-    instance.isInstalled = true;
+  public constructor(bus: XBus) {
+    this.bus = bus;
   }
 
   /**
@@ -144,12 +161,58 @@ export class XPlugin {
    * @param xModule - The module to register.
    */
   static registerXModule(xModule: AnyXModule): void {
-    const instance = this.instance;
-    if (instance.isInstalled) {
-      instance.registerXModule(xModule);
+    if (this.instance) {
+      this.instance.registerXModule(xModule);
     } else {
-      instance.lazyRegisterXModule(xModule);
+      this.lazyRegisterXModule(xModule);
     }
+  }
+
+  /**
+   * Utility method for resetting the installed instance of the plugin.
+   *
+   * @remarks Use only for testing.
+   *
+   * @internal
+   */
+  static resetInstance(): void {
+    this.instance = undefined;
+  }
+
+  /**
+   * Stores the {@link XModule} in a dictionary, so it can be registered later in the install
+   * process.
+   *
+   * @param xModule - The module to register.
+   * @internal
+   */
+  protected static lazyRegisterXModule(xModule: AnyXModule): void {
+    this.pendingXModules[xModule.name] = xModule;
+  }
+
+  /**
+   * Installs the plugin into the Vue instance.
+   *
+   * @param vue - The GlobalVue object.
+   * @param options - The options to install this plugin with.
+   * @throws If the XPlugin has already been installed, or the options are not valid.
+   * @internal
+   */
+  install(vue: VueConstructor, options?: XPluginOptions): void {
+    if (this.isInstalled) {
+      throw new Error('XPlugin has already been installed');
+    }
+    assertXPluginOptionsAreValid(options);
+    XPlugin.instance = this;
+    this.vue = vue;
+    this.options = options;
+    this.adapter = options.adapter;
+    this.registerConfig();
+    this.registerStore();
+    this.applyMixins();
+    this.registerFilters();
+    this.registerPendingXModules();
+    this.isInstalled = true;
   }
 
   /**
@@ -158,8 +221,8 @@ export class XPlugin {
    * @param config - The new or partially new global {@link XConfig}.
    * @public
    */
-  static setConfig(config: DeepPartial<XConfig>): void {
-    deepMerge(this.instance.xConfig, config);
+  setConfig(config: DeepPartial<XConfig>): void {
+    deepMerge(this.xConfig, config);
   }
 
   /**
@@ -168,8 +231,8 @@ export class XPlugin {
    * @returns Config - The xConfig.
    * @public
    */
-  static getConfig(): XConfig {
-    return this.instance.xConfig;
+  getConfig(): XConfig {
+    return this.xConfig;
   }
 
   /**
@@ -185,17 +248,6 @@ export class XPlugin {
       this.registerStoreEmitters(name, storeModule, storeEmitters);
       this.installedXModules.add(name);
     }
-  }
-
-  /**
-   * Stores the {@link XModule} in a dictionary, so it can be registered later in the install
-   * process.
-   *
-   * @param xModule - The module to register.
-   * @internal
-   */
-  protected lazyRegisterXModule(xModule: AnyXModule): void {
-    this.pendingXModules[xModule.name] = xModule;
   }
 
   /**
@@ -386,7 +438,7 @@ export class XPlugin {
    * @internal
    */
   protected applyMixins(): void {
-    this.vue.mixin(createXComponentAPIMixin(this.xConfig));
+    this.vue.mixin(createXComponentAPIMixin(this.bus, this.xConfig));
   }
 
   /**
@@ -396,9 +448,10 @@ export class XPlugin {
    * @internal
    */
   protected registerPendingXModules(): void {
-    forEach(this.pendingXModules, (_, xModule) => {
+    forEach(XPlugin.pendingXModules, (_, xModule) => {
       this.registerXModule(xModule);
     });
+    XPlugin.pendingXModules = {};
   }
 
   /**
@@ -450,3 +503,29 @@ export class XPlugin {
     );
   }
 }
+
+/**
+ * Vue plugin that modifies each component instance, extending them with the
+ * {@link XComponentAPI | X Component API }.
+ *
+ * @example
+ * Minimal installation example. A search adapter is needed for the plugin to work, and connect to
+ * the API.
+ * ```typescript
+ * const adapter = new EmpathyAdapterBuilder()
+ *  .withConfiguration({instance: 'my-instance-id'})
+ *  .build();
+ * Vue.use(xPlugin, { adapter });
+ * ```
+ *
+ * @example
+ * If you are using {@link https://vuex.vuejs.org/ | Vuex} in your project you must install its
+ *   plugin, and instantiate an store before installing the XPlugin:
+ * ```typescript
+ * Vue.use(Vuex);
+ * const store = new Store({ ... });
+ * Vue.use(xPlugin, { adapter, store });
+ * ```
+ * @public
+ */
+export const xPlugin = new XPlugin(bus);

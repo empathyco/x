@@ -1,11 +1,10 @@
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue, { ComponentOptions } from 'vue';
 import Vuex, { Store } from 'vuex';
-import { XPlugin } from '../../plugins/x-plugin';
 import { RootXStoreState } from '../../store/store.types';
 import { SearchBoxConfig } from '../../x-modules/search-box/config.types';
 import { searchBoxXModule } from '../../x-modules/search-box/x-module';
-import { SearchAdapterDummy } from '../../__tests__/adapter.dummy';
+import { installNewXPlugin } from '../../__tests__/utils';
 import { xComponentMixin } from '../x-component.mixin';
 import { isXComponent } from '../x-component.utils';
 
@@ -26,10 +25,10 @@ describe('testing XComponent Mixin', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store: Store<RootXStoreState> = new Store({});
-  localVue.use(XPlugin, { store, adapter: SearchAdapterDummy });
+  installNewXPlugin({ store }, localVue);
 
   beforeEach(() => {
-    jest.resetModules().clearAllMocks();
+    jest.clearAllMocks();
     xComponentWrapper = mount(xComponent, { localVue, store });
   });
 

@@ -1,12 +1,9 @@
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import { XPlugin } from '../../plugins/x-plugin';
-import { SearchAdapterDummy } from '../../__tests__/adapter.dummy';
-import { getDataTestSelector } from '../../__tests__/utils';
+import { mount, Wrapper } from '@vue/test-utils';
+import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils';
 import BaseModalContainer from '../base-modal-container.vue';
 
 describe('testing Base Modal Container component', () => {
-  const localVue = createLocalVue();
-  localVue.use(XPlugin, { adapter: SearchAdapterDummy });
+  const [, localVue] = installNewXPlugin();
 
   const component: Wrapper<BaseModalContainer> = mount(BaseModalContainer, {
     localVue,

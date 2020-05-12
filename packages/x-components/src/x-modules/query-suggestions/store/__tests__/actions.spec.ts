@@ -1,9 +1,8 @@
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { map } from '../../../../utils';
 import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
-import { getMockedAdapter } from '../../../../__tests__/utils';
+import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { querySuggestionsXStoreModule } from '../module';
 import { QuerySuggestionsState } from '../types';
 import { resetQuerySuggestionsStateWith } from './utils';
@@ -19,7 +18,7 @@ describe('testing history queries module actions', () => {
   localVue.use(Vuex);
 
   let store: Store<QuerySuggestionsState> = new Store(querySuggestionsXStoreModule as any);
-  localVue.use(XPlugin, { adapter, store });
+  installNewXPlugin({ store, adapter }, localVue);
 
   beforeEach(() => {
     resetQuerySuggestionsStateWith(store, { query: '' });

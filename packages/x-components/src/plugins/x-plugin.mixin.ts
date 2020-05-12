@@ -3,7 +3,7 @@ import { XComponent } from '../components/x-component.types';
 import { getXComponentXModuleName, isXComponent } from '../components/x-component.utils';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
-import { bus } from './x-bus';
+import { XBus } from './x-bus.types';
 import { XComponentAPI, XConfig } from './x-plugin.types';
 
 declare module 'vue/types/vue' {
@@ -15,14 +15,15 @@ declare module 'vue/types/vue' {
 /**
  * Vue global mixin that adds a `$x` object to every component with the {@link XComponentAPI}.
  *
+ * @param bus - The {@link XBus} to use inside the components for emitting events.
  * @param config - The global {@link XConfig}.
  * @returns Mixin options which registers the component as X-Component and the $x.
  * @internal
  */
 export const createXComponentAPIMixin = (
+  bus: XBus,
   config: XConfig
 ): ComponentOptions<Vue> & ThisType<Vue & { xComponent: XComponent | undefined }> => ({
-  data: () => ({ xComponent: null }),
   created(): void {
     this.xComponent = getRootXComponent(this);
     this.$x = {

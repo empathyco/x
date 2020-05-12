@@ -1,4 +1,4 @@
-import { XPlugin } from '../../../../plugins/x-plugin';
+import { XPlugin } from '../../../../plugins';
 import { QuerySuggestionsXStoreModule } from '../types';
 
 /**

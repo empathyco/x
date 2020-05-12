@@ -1,16 +1,13 @@
 import { Suggestion } from '@empathy/search-types';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
+import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { XPlugin } from '../../plugins/x-plugin';
 import { normalizeString } from '../../utils/normalize';
 import { XEventsTypes } from '../../wiring/events.types';
-import { SearchAdapterDummy } from '../../__tests__/adapter.dummy';
-import { getDataTestSelector } from '../../__tests__/utils';
+import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils';
 import BaseSuggestion from '../base-suggestion.vue';
 
 describe('testing Base Suggestion component', () => {
-  const localVue = createLocalVue();
-  localVue.use(XPlugin, { adapter: SearchAdapterDummy });
+  const [, localVue] = installNewXPlugin();
 
   const query = normalizeString('bebé');
   const suggestion: Suggestion = {

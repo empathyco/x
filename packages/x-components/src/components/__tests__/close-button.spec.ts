@@ -1,12 +1,9 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import { XPlugin } from '../../plugins/x-plugin';
-import { SearchAdapterDummy } from '../../__tests__/adapter.dummy';
-import { getDataTestSelector } from '../../__tests__/utils';
+import { mount } from '@vue/test-utils';
+import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils';
 import CloseButton from '../close-button.vue';
 
 describe('testing Close Button component', () => {
-  const localVue = createLocalVue();
-  localVue.use(XPlugin, { adapter: SearchAdapterDummy });
+  const [, localVue] = installNewXPlugin();
 
   const component = mount(CloseButton, {
     localVue

@@ -1,17 +1,14 @@
 import { Suggestion } from '@empathy/search-types';
-import { createLocalVue, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
-import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
-import { getDataTestSelector } from '../../../../__tests__/utils';
+import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import PopularSearch from '../popular-search.vue';
 
 describe('testing popular search item component', () => {
   const suggestion: Suggestion = getSuggestionsStub('PopularSearch')[0];
 
-  const localVue = createLocalVue();
-  localVue.use(XPlugin, { adapter: SearchAdapterDummy });
+  const [, localVue] = installNewXPlugin();
 
   const popularSearchWrapper = mount(PopularSearch, { localVue, propsData: { suggestion } });
 

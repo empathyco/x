@@ -17,8 +17,9 @@ import { deepMerge } from '@empathybroker/deep-merge';
 import { createLocalVue } from '@vue/test-utils';
 import Vue from 'vue';
 import { Store } from 'vuex';
+import { XPluginOptions } from '../plugins';
+import { BaseXBus } from '../plugins/x-bus';
 import { XPlugin } from '../plugins/x-plugin';
-import { XPluginOptions } from '../plugins/x-plugin.types';
 import { RootXStoreState } from '../store/store.types';
 import { DeepPartial, Dictionary } from '../utils/types';
 import { ExtractState, XModuleName } from '../x-modules/x-modules.types';
@@ -176,9 +177,8 @@ function mergeStates<State extends Dictionary, ModuleName extends XModuleName>(
 export function installNewXPlugin(
   options: Partial<XPluginOptions> = {},
   localVue: typeof Vue = createLocalVue()
-): [typeof XPlugin, typeof Vue] {
-  jest.resetModules();
-  const xPlugin = require('../plugins/x-plugin').XPlugin;
+): [XPlugin, typeof Vue] {
+  const xPlugin = new XPlugin(new BaseXBus());
   const installOptions: XPluginOptions = { adapter: SearchAdapterDummy, ...options };
   localVue.use(xPlugin, installOptions);
   return [xPlugin, localVue];

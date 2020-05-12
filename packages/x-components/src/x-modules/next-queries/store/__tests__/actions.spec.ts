@@ -1,11 +1,10 @@
 import { HistoryQuery } from '@empathy/search-types';
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { map } from '../../../../utils';
 import { createHistoryQueries } from '../../../../__stubs__/history-queries-stubs.factory';
 import { getNextQueriesStub } from '../../../../__stubs__/next-queries-stubs.factory';
-import { getMockedAdapter } from '../../../../__tests__/utils';
+import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { nextQueriesXStoreModule } from '../module';
 import { NextQueriesState } from '../types';
 import { resetNextQueriesStateWith } from './utils';
@@ -20,7 +19,7 @@ describe('testing next queries module actions', () => {
   localVue.use(Vuex);
 
   let store: Store<NextQueriesState> = new Store(nextQueriesXStoreModule as any);
-  localVue.use(XPlugin, { adapter, store });
+  installNewXPlugin({ adapter, store }, localVue);
 
   beforeEach(() => {
     resetNextQueriesStateWith(store);

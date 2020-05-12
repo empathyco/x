@@ -2,11 +2,10 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { DEFAULT_X_CONFIG } from '../../../../plugins/x-plugin.config';
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
-import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
+import { installNewXPlugin } from '../../../../__tests__/utils';
 import SearchButton from '../search-button.vue';
 import { resetXSearchBoxStateWith } from './utils';
 
@@ -14,7 +13,7 @@ describe('testing search button component', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  localVue.use(XPlugin, { adapter: SearchAdapterDummy, store });
+  installNewXPlugin({ store }, localVue);
 
   const searchButtonWrapper = mount(SearchButton, {
     localVue,

@@ -10,6 +10,7 @@ const adapter = new EmpathyAdapterBuilder()
   .setScope('x-components-development')
   .build();
 
+Vue.config.productionTip = false;
 installX({ adapter });
 const app = new Vue({
   render: h => h(App)

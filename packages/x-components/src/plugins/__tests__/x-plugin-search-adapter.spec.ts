@@ -2,29 +2,29 @@ import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
 import { createLocalVue } from '@vue/test-utils';
 import { VueConstructor } from 'vue';
 import { createWireFromFunction } from '../../wiring/wires.factory';
+import { installNewXPlugin } from '../../__tests__/utils';
+import { BaseXBus } from '../x-bus';
 import { XPlugin } from '../x-plugin';
 
 describe('testing adapter configuration', () => {
-  let plugin: typeof XPlugin;
+  let xPlugin: XPlugin;
   let localVue: VueConstructor;
 
   beforeEach(() => {
-    jest.resetModules().clearAllMocks();
-    plugin = require('../x-plugin').XPlugin;
+    jest.clearAllMocks();
+    xPlugin = new XPlugin(new BaseXBus());
     localVue = createLocalVue();
   });
 
   it('throws an error if no adapter is passed', () => {
-    expect(() => localVue.use(plugin, {})).toThrow();
+    expect(() => localVue.use(xPlugin, {})).toThrow();
   });
 
   it('subscribes to the adapter configuration changes if it has a public method to do so', () => {
     const adapterConfigChangedListener = jest.fn();
     const adapter = new EmpathyAdapterBuilder().build();
-    localVue.use(plugin, {
-      adapter
-    });
-    plugin.registerXModule({
+    installNewXPlugin({ adapter });
+    XPlugin.registerXModule({
       name: 'nextQueries',
       storeModule: {
         actions: {},

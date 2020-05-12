@@ -1,9 +1,8 @@
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { map } from '../../../../utils';
 import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
-import { getMockedAdapter } from '../../../../__tests__/utils';
+import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { popularSearchesXStoreModule } from '../module';
 import { PopularSearchesState } from '../types';
 
@@ -18,7 +17,7 @@ describe('testing popular searches module actions', () => {
   localVue.use(Vuex);
 
   let store: Store<PopularSearchesState> = new Store(popularSearchesXStoreModule as any);
-  localVue.use(XPlugin, { adapter, store });
+  installNewXPlugin({ store, adapter }, localVue);
 
   describe(`${actionKeys.getSuggestions}`, () => {
     it('should return suggestions', async () => {

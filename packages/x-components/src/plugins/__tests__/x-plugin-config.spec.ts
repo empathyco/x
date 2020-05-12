@@ -7,21 +7,21 @@ import { DEFAULT_X_CONFIG } from '../x-plugin.config';
 import { DocumentDirection } from '../x-plugin.types';
 
 describe('testing global config', () => {
-  let plugin: typeof XPlugin;
+  let xPlugin: XPlugin;
   let localVue: typeof Vue;
 
   beforeEach(() => {
     jest.clearAllMocks();
-    [plugin, localVue] = installNewXPlugin();
+    [xPlugin, localVue] = installNewXPlugin();
   });
 
   it('registers reactive global config via plugin options', () => {
-    expect(plugin.getConfig()).toMatchObject(DEFAULT_X_CONFIG);
+    expect(xPlugin.getConfig()).toMatchObject(DEFAULT_X_CONFIG);
   });
 
   it('overrides global config through XPlugin.setConfig', () => {
-    plugin.setConfig({ consent: true });
-    expect(plugin.getConfig()).toHaveProperty('consent', true);
+    xPlugin.setConfig({ consent: true });
+    expect(xPlugin.getConfig()).toHaveProperty('consent', true);
   });
 
   describe("testing integration with plugin's mixin", () => {
@@ -48,7 +48,7 @@ describe('testing global config', () => {
 
       await localVue.nextTick();
       expect(listener).toHaveBeenCalledTimes(1);
-      expect(plugin.getConfig()).toHaveProperty('consent', newConsent);
+      expect(xPlugin.getConfig()).toHaveProperty('consent', newConsent);
     });
 
     it('overrides currencyOptions and emits ConfigCurrencyChanged event', async () => {
@@ -59,7 +59,7 @@ describe('testing global config', () => {
 
       await localVue.nextTick();
       expect(listener).toHaveBeenCalledTimes(1);
-      expect(plugin.getConfig()).toHaveProperty('currencyOptions', newCurrencyOptions);
+      expect(xPlugin.getConfig()).toHaveProperty('currencyOptions', newCurrencyOptions);
     });
 
     it('overrides documentDirection and emits ConfigDocumentDirectionChanged event', async () => {
@@ -70,7 +70,7 @@ describe('testing global config', () => {
 
       await localVue.nextTick();
       expect(listener).toHaveBeenCalledTimes(1);
-      expect(plugin.getConfig()).toHaveProperty('documentDirection', newDocumentDirection);
+      expect(xPlugin.getConfig()).toHaveProperty('documentDirection', newDocumentDirection);
     });
   });
 });

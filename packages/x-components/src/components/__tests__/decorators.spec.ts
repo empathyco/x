@@ -1,4 +1,4 @@
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
+import { mount, Wrapper } from '@vue/test-utils';
 import Vue, { CreateElement, VNode } from 'vue';
 import { Component } from 'vue-property-decorator';
 import Vuex, { Store } from 'vuex';
@@ -36,7 +36,7 @@ describe('testing decorators', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    localVue = createLocalVue();
+    [, localVue] = installNewXPlugin();
     localVue.use(Vuex);
     const store = new Store({
       modules: {
