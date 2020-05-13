@@ -3,6 +3,7 @@
     :suggestions="suggestions"
     class="x-query-suggestions"
     data-test="query-suggestions"
+    :animation="animation"
   >
     <template #default="{ suggestion }">
       <!-- @slot Slot for an individual Query Suggestion item. -->
@@ -25,7 +26,7 @@
 <script lang="ts">
   import { Suggestion } from '@empathy/search-types';
   import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import BaseSuggestions from '../../../components/base-suggestions.vue';
   import { State } from '../../../components/decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
@@ -54,6 +55,14 @@
      */
     @State('querySuggestions', 'suggestions')
     public suggestions!: Suggestion[];
+
+    /**
+     * Animation component that will be used to animate the suggestions.
+     *
+     * @public
+     */
+    @Prop()
+    protected animation!: Vue;
   }
 </script>
 

@@ -1,3 +1,4 @@
+export * from './animations';
 export { default as BaseEventButton } from './base-event-button.vue';
 export { default as BaseModalContainer } from './base-modal-container.vue';
 export { default as BaseSuggestion } from './base-suggestion.vue';

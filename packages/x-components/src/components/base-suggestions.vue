@@ -1,5 +1,5 @@
 <template>
-  <ul v-if="suggestions.length" class="x-suggestions">
+  <component :is="animation || 'ul'" v-if="suggestions.length" tag="ul" class="x-suggestions">
     <li
       v-for="(suggestion, index) in suggestions"
       :key="suggestionsKeys[index]"
@@ -11,7 +11,7 @@
       <!-- @binding {Suggestion} suggestion - The data of the suggestion-->
       <slot :suggestion="suggestion" />
     </li>
-  </ul>
+  </component>
 </template>
 
 <script lang="ts">
@@ -35,6 +35,14 @@
      */
     @Prop({ required: true })
     protected suggestions!: Suggestion[];
+
+    /**
+     * Animation component that will be used to animate the suggestion.
+     *
+     * @public
+     */
+    @Prop()
+    protected animation!: Vue;
 
     /**
      * An array with the unique keys for each suggestion. Required by the `v-for` loop.

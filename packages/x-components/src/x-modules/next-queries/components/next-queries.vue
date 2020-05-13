@@ -1,5 +1,10 @@
 <template>
-  <BaseSuggestions :suggestions="nextQueries" data-test="next-queries" class="x-next-queries">
+  <BaseSuggestions
+    :suggestions="nextQueries"
+    data-test="next-queries"
+    class="x-next-queries"
+    :animation="animation"
+  >
     <template #default="{suggestion}">
       <!-- @slot Slot for an individual Next Query item. -->
       <!-- @binding {Suggestion} suggestion - The data of the Next Query suggestion. -->
@@ -19,7 +24,7 @@
 <script lang="ts">
   import { NextQuery as NextQueryModel }from '@empathy/search-types';
   import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import BaseSuggestions from '../../../components/base-suggestions.vue';
   import { Getter } from '../../../components/decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
@@ -40,6 +45,14 @@
     mixins: [xComponentMixin(nextQueriesXModule)]
   })
   export default class NextQueries extends Vue {
+    /**
+     * Animation component that will be used to animate the suggestions.
+     *
+     * @public
+     */
+    @Prop()
+    protected animation!: Vue;
+
     @Getter('nextQueries', 'nextQueries')
     public nextQueries!: NextQueryModel[];
   }

@@ -3,6 +3,7 @@
     :suggestions="suggestions"
     class="x-popular-searches"
     data-test="popular-searches"
+    :animation="animation"
   >
     <template #default="{ suggestion }">
       <!-- @slot Slot for an individual Popular Search item. -->
@@ -23,7 +24,7 @@
 <script lang="ts">
   import { Suggestion } from '@empathy/search-types';
   import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import BaseSuggestions from '../../../components/base-suggestions.vue';
   import { State } from '../../../components/decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
@@ -45,6 +46,14 @@
   export default class PopularSearches extends Vue {
     @State('popularSearches', 'popularSearches')
     public suggestions!: Suggestion[];
+
+    /**
+     * Animation component that will be used to animate the suggestions.
+     *
+     * @public
+     */
+    @Prop()
+    protected animation!: Vue;
   }
 </script>
 

@@ -3,6 +3,7 @@
     :suggestions="historyQueries"
     class="x-history-queries"
     data-test="history-queries"
+    :animation="animation"
   >
     <template #default="{ suggestion }">
       <!-- @slot Slot for an individual History Query item. -->
@@ -34,7 +35,7 @@
 <script lang="ts">
   import { HistoryQuery as HistoryQueryModel } from '@empathy/search-types';
   import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import BaseSuggestions from '../../../components/base-suggestions.vue';
   import { Getter } from '../../../components/decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
@@ -57,6 +58,14 @@
     mixins: [xComponentMixin(historyQueriesXModule)]
   })
   export default class HistoryQueries extends Vue {
+    /**
+     * Animation component that will be used to animate the suggestions.
+     *
+     * @public
+     */
+    @Prop()
+    protected animation!: Vue;
+
     /**
      * The filtered list of history queries.
      *

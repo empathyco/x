@@ -10,14 +10,14 @@
     <ClearSearchInput />
     <KeyboardNavigation>
       <h1>Query Suggestions</h1>
-      <QuerySuggestions />
+      <QuerySuggestions :animation="fadeAndSlide" />
       <h1>History</h1>
-      <HistoryQueries />
+      <HistoryQueries :animation="fadeAndSlide" />
       <ClearHistoryQueries />
       <h1>Popular Searches</h1>
-      <PopularSearches />
+      <PopularSearches :animation="fadeAndSlide" />
       <h1>Next Queries</h1>
-      <NextQueries :loadOnInit="loadOnInit" />
+      <NextQueries :animation="fadeAndSlide" :loadOnInit="loadOnInit" />
       <h1>Related tags</h1>
       <RelatedTags />
     </KeyboardNavigation>
@@ -30,6 +30,7 @@
   import BaseModalContainer from './components/base-modal-container.vue';
   import CloseButton from './components/close-button.vue';
   import OpenButton from './components/open-button.vue';
+  import FadeAndSlide from './components/animations/fade-and-slide.vue';
   import { getURLParameter } from './utils/get-url-parameters';
   import KeyboardNavigation from './x-modules/empathize/components/keyboard-navigation.vue';
   // eslint-disable-next-line max-len
@@ -62,6 +63,8 @@
   })
   export default class App extends Vue {
     protected loadOnInit = getURLParameter('loadOnInit') === 'true';
+    // eslint-disable-next-line
+    private fadeAndSlide = FadeAndSlide;
   }
 </script>
 
