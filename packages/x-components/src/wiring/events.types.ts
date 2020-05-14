@@ -6,6 +6,7 @@ import { HistoryQueriesXEvents } from '../x-modules/history-queries/events.types
 import { NextQueriesXEvents } from '../x-modules/next-queries/events.types';
 import { PopularSearchesXEvents } from '../x-modules/popular-searches/events.types';
 import { QuerySuggestionsXEvents } from '../x-modules/query-suggestions/events.types';
+import { RelatedTagsXEvents } from '../x-modules/related-tags/events.types';
 import { SearchBoxXEvents } from '../x-modules/search-box/events.types';
 
 /**
@@ -28,7 +29,8 @@ export interface XEventsTypes
     NextQueriesXEvents,
     PopularSearchesXEvents,
     QuerySuggestionsXEvents,
-    SearchBoxXEvents {
+    SearchBoxXEvents,
+    RelatedTagsXEvents {
   /**
    * The search adapter configuration has changed
    * * Payload: The new search adapter configuration.

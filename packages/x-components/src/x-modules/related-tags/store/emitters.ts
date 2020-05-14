@@ -6,5 +6,8 @@ import { relatedTagsXStoreModule } from './module';
  *
  * @internal
  */
-
-export const relatedTagsEmitters = createStoreEmitters(relatedTagsXStoreModule, {});
+export const relatedTagsEmitters = createStoreEmitters(relatedTagsXStoreModule, {
+  RelatedTagsChanged: state => state.relatedTags,
+  RelatedTagsRequestChanged: (_, getters) => getters.request,
+  SelectedRelatedTagsChanged: state => state.selectedRelatedTags
+});
