@@ -11,6 +11,7 @@
     <KeyboardNavigation>
       <h1>Query Suggestions</h1>
       <QuerySuggestions :animation="fadeAndSlide" />
+      <NoSuggestions />
       <h1>History</h1>
       <HistoryQueries :animation="fadeAndSlide" />
       <ClearHistoryQueries />
