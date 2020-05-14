@@ -10,6 +10,10 @@ describe('testing query suggestions module getters', () => {
   const getters = map(querySuggestionsXStoreModule.getters, getter => getter);
   const store: Store<QuerySuggestionsState> = new Store(querySuggestionsXStoreModule as any);
 
+  beforeEach(() => {
+    resetQuerySuggestionsStateWith(store);
+  });
+
   describe(`${getters.request} getter`, () => {
     it('should return a request object if there is a query', () => {
       resetQuerySuggestionsStateWith(store, { query: 'dorito' });
@@ -17,7 +21,11 @@ describe('testing query suggestions module getters', () => {
     });
 
     it('should return null when there is not query', () => {
-      resetQuerySuggestionsStateWith(store, { query: '' });
+      expect(store.getters[getters.request]).toBeNull();
+    });
+
+    it('should return null when there is an empty query', () => {
+      resetQuerySuggestionsStateWith(store, { query: ' ' });
       expect(store.getters[getters.request]).toBeNull();
     });
   });

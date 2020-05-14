@@ -35,6 +35,11 @@ describe('testing next queries module getters', () => {
     it('should return null when there is not query', () => {
       expect(store.getters[gettersKeys.request]).toBeNull();
     });
+
+    it('should return null when there is an empty query', () => {
+      resetNextQueriesStateWith(store, { query: ' ' });
+      expect(store.getters[gettersKeys.request]).toBeNull();
+    });
   });
 
   describe(`${gettersKeys.nextQueries} getter`, () => {

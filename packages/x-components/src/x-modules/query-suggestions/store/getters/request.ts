@@ -7,9 +7,9 @@ import { QuerySuggestionsXStoreModule } from '../types';
  * @returns The query suggestions request to fetch data from the API.
  */
 export const request: QuerySuggestionsXStoreModule['getters']['request'] = ({ query, config }) => {
-  return query
+  return query.trim()
     ? {
-        query: query,
+        query,
         rows: config.maxItemsToRequest,
         start: 0
       }

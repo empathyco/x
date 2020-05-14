@@ -1,4 +1,3 @@
-import { normalizeString } from '../../../../utils/normalize';
 import { RelatedTagsXStoreModule } from '../types';
 /**
  * Default implementation for the {@link RelatedTagsGetters.request} getter.
@@ -11,9 +10,9 @@ import { RelatedTagsXStoreModule } from '../types';
  * @public
  */
 export const request: RelatedTagsXStoreModule['getters']['request'] = ({ query, config }) => {
-  return query
+  return query.trim()
     ? {
-        query: normalizeString(query),
+        query,
         rows: config.maxItemsToRequest,
         start: 0
       }

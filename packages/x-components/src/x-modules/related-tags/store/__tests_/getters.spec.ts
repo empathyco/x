@@ -35,9 +35,9 @@ describe('testing related tags module getters', () => {
       expect(store.getters[gettersKeys.request]).toBeNull();
     });
 
-    it('should return null when there is empty query', () => {
+    it('should return null when there is an empty query', () => {
       resetRelatedTagsStateWith(store, {
-        query: ''
+        query: ' '
       });
       expect(store.getters[gettersKeys.request]).toBeNull();
     });
