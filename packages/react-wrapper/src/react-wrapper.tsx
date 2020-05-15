@@ -1,13 +1,37 @@
 import React from 'react';
 import Vue from 'vue';
-import { ReactNodeWithoutRenderProps, ReactRenderProps, ReactWrapperProps, ReactWrapperState, VueSlots } from './react-wrapper.types';
+import {
+  ReactNodeWithoutRenderProps,
+  ReactRenderProps,
+  ReactWrapperProps,
+  ReactWrapperState,
+  VueSlots
+} from './react-wrapper.types';
 import { isScopedSlot, wrapChildren } from './react-wrapper.utils';
 
 export class ReactWrapper extends React.Component<ReactWrapperProps, ReactWrapperState> {
 
-  static getDerivedStateFromProps({ component, slots, ...props }: Readonly<ReactWrapperProps>, prevState: Readonly<ReactWrapperState>) {
-    Object.assign(prevState.vueInstance, props);
-    return { vueInstance: prevState.vueInstance };
+  /**
+   * This method will be executed when props of the react-wrapper have changed. It synchronizes
+   * these new props with the Vue instance, resubscribe the new event listeners and the Vue instance
+   * modified to the React state.
+   *
+   * @param reactProps - The react props which have changed.
+   * @param prevState - The previous React state which contains the Vue instance rendered.
+   * @returns The new React state which contains the Vue instance with the new props synchronized.
+   */
+  static getDerivedStateFromProps(
+    reactProps: Readonly<ReactWrapperProps>,
+    prevState: Readonly<ReactWrapperState>
+  ): Readonly<ReactWrapperState> {
+    const vueInstance = prevState.vueInstance;
+    if (vueInstance) {
+      const vueProps = ReactWrapper.getVueComponentProps(reactProps);
+      Object.assign(vueInstance, vueProps);
+      // It forces to update the Vue listeners of the `on` React prop
+      vueInstance.$forceUpdate();
+    }
+    return { vueInstance };
   }
 
   protected reactRenderedHTMLElement!: HTMLElement;
@@ -31,11 +55,12 @@ export class ReactWrapper extends React.Component<ReactWrapperProps, ReactWrappe
   protected createVueInstance(): Vue {
     const reactWrapper = this;
     return new Vue({
-      data: this.getVueComponentProps(),
+      data: ReactWrapper.getVueComponentProps(this.props),
       render(h) {
         const slots = reactWrapper.props.slots ?? {};
         if (reactWrapper.props.children) {
-          slots.default = reactWrapper.props.children; // `children` is the default prop name for React slots
+          // `children` is the default prop name for React slots
+          slots.default = reactWrapper.props.children;
         }
 
         /*
@@ -46,21 +71,22 @@ export class ReactWrapper extends React.Component<ReactWrapperProps, ReactWrappe
         const { scopedSlots, children } = Object.entries(slots)
           .reduce<VueSlots>((slotsTypes, [slotName, slotContent]) => {
             if (isScopedSlot(slotContent)) {
-              slotsTypes.scopedSlots[slotName] = reactWrapper.createScopedSlot(this, slotName, slotContent);
+              slotsTypes.scopedSlots[slotName] =
+                reactWrapper.createScopedSlot(this, slotName, slotContent);
             } else {
-              slotsTypes.children.push(reactWrapper.createVueSlotContent(this, slotName, slotContent));
+              slotsTypes.children.push(
+                reactWrapper.createVueSlotContent(this, slotName, slotContent));
             }
             return slotsTypes;
           }, { children: [], scopedSlots: {} });
 
-        return h(reactWrapper.props.component, { props: this.$data, scopedSlots }, children);
+        return h(reactWrapper.props.component, {
+          props: this.$data,
+          scopedSlots,
+          on: reactWrapper.props.on
+        }, children);
       }
     });
-  }
-
-  protected getVueComponentProps() {
-    const { component, children, slots: reactSlots, ...vueProps } = this.props;
-    return vueProps;
   }
 
   /**
@@ -71,7 +97,8 @@ export class ReactWrapper extends React.Component<ReactWrapperProps, ReactWrappe
    * @param slotContentFactory - A function that returns the react nodes to render
    * @returns a Vue scoped slot that renders the react content factory
    */
-  protected createScopedSlot(vueInstance: Vue, slotName: string, slotContentFactory: ReactRenderProps) {
+  protected createScopedSlot(vueInstance: Vue, slotName: string,
+    slotContentFactory: ReactRenderProps) {
     return (data: any) => {
       const slotContent = slotContentFactory(data);
       return this.createVueSlotContent(vueInstance, slotName, slotContent);
@@ -85,16 +112,29 @@ export class ReactWrapper extends React.Component<ReactWrapperProps, ReactWrappe
    * @param slotContent - The react node to render inside the slot
    * @returns A Vue VNode that renders the react node.
    */
-  protected createVueSlotContent(vueInstance: Vue, slotName: string, slotContent: ReactNodeWithoutRenderProps) {
+  protected createVueSlotContent(vueInstance: Vue, slotName: string,
+    slotContent: ReactNodeWithoutRenderProps) {
     const component = wrapChildren(slotContent);
     return vueInstance.$createElement(component, {
       slot: slotName
     });
   }
 
+  /**
+   * Extracts the React props used in the wrapper and returns the rest which are props of the
+   * Vue component rendered into.
+   *
+   * @param reactProps - The react props passed through the wrapper.
+   */
+  static getVueComponentProps(reactProps: Readonly<ReactWrapperProps>) {
+    const { component, children, slots: reactSlots, on, ...vueProps } = reactProps;
+    return vueProps;
+  }
+
   componentWillUnmount(): void {
     if (this.state.vueInstance) {
-      // We restore the react rendered HTMLElement into the DOM to prevent a crash when React finishes executing the unmounting process
+      /* We restore the react rendered HTMLElement into the DOM to prevent a crash when React
+       finishes executing the unmounting process */
       const vueHTMLElement = this.state.vueInstance.$el as HTMLElement;
       const reactContainer = vueHTMLElement.parentElement;
       if (reactContainer) {

@@ -6,7 +6,7 @@
   "types": "types/index.js",
   "scripts": {
     "test": "jest",
-    "build": "tsc"
+    "build": "tsc && npm pack"
   },
   "repository": {
     "type": "git",

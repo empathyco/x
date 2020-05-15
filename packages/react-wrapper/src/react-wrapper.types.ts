@@ -16,11 +16,16 @@ export interface ReactWrapperProps {
    */
   slots?: {
     [slotName: string]: ReactNode
-  },
+  };
   /**
    * Default react slot. Overrides `slots.default`
    */
   children?: ReactNodeWithoutRenderProps;
+  /**
+   * Vue event listeners to subscribe. The key will be the Vue event name to subscribe and the
+   * value a callback function which will be executed when the Vue event is triggered.
+   */
+  on?: Record<string, Function>
   /**
    * Any other prop is passed down to the Vue component
    */
