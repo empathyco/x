@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Vue from 'vue';
 import { ReactWrapper } from '../react-wrapper';
-import { ReactScopedSlotStub } from './stubs/vue-in-react/react-scoped-slot.stub';
-import { ReactSimpleMessageStub } from './stubs/vue-in-react/react-simple-message.stub';
-import { ReactToggleComponent } from './stubs/vue-in-react/react-toggle-component';
-import { ReactToggleMessage } from './stubs/vue-in-react/react-toggle-message.stub';
-import { vueDestroyedCallback } from './stubs/vue-in-react/vue-destroy.stub';
-import { VueSlots } from './stubs/vue-in-react/vue-slots.stub';
+import { ReactScopedSlotStub } from './stubs/react-scoped-slot.stub';
+import { ReactSimpleMessageStub } from './stubs/react-simple-message.stub';
+import { ReactToggleComponent } from './stubs/react-toggle-component';
+import { ReactToggleMessage } from './stubs/react-toggle-message.stub';
+import { vueDestroyedCallback } from './stubs/vue-destroy.stub';
+import { VueSlots } from './stubs/vue-slots.stub';
 
 describe('Testing react-wrapper component', () => {
   let root: HTMLDivElement;

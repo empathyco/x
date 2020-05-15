@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Vue from 'vue';
 import { ReactWrapper } from '../react-wrapper';
-import { ReactEventsStub } from './stubs/vue-in-react/react-events.stub';
-import { VueButton } from './stubs/vue-in-react/vue-button.stub';
+import { ReactEventsStub } from './stubs/react-events.stub';
+import { VueButton } from './stubs/vue-button.stub';
 
 describe('Testing support of events in the react-wrapper', () => {
   let rootHTML: HTMLDivElement;

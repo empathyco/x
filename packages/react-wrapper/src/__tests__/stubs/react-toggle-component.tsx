@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactWrapper } from '../../../react-wrapper';
+import { ReactWrapper } from '../../react-wrapper';
 import { VueDestroyed } from './vue-destroy.stub';
 
 interface ReactToggleComponentState {

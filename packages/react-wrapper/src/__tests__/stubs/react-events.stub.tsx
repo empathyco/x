@@ -1,6 +1,6 @@
 import React from 'react';
-import { ReactWrapper } from '../../../react-wrapper';
-import { ReactWrapperProps } from '../../../react-wrapper.types';
+import { ReactWrapper } from '../../react-wrapper';
+import { ReactWrapperProps } from '../../react-wrapper.types';
 import { VueButton } from './vue-button.stub';
 
 interface ReactEventsStubState {

@@ -1,6 +1,6 @@
 import React from 'react';
-import { ReactWrapper } from '../../../react-wrapper';
-import { ReactRenderProps } from '../../../react-wrapper.types';
+import { ReactWrapper } from '../../react-wrapper';
+import { ReactRenderProps } from '../../react-wrapper.types';
 import { VueScopedSlot } from './vue-scoped-slot.stub';
 
 interface ReactScopedSlotStubState {
