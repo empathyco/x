@@ -39,6 +39,8 @@ export interface HistoryQueriesGetters {
    * property is not empty, this list will only contain suggestions whose query matches with it.
    */
   historyQueries: HistoryQuery[];
+  /** The normalized module's query. */
+  normalizedQuery: string;
   /**
    * A list of the queries that have been made in the last period of time specified by
    * {@link HistoryQueriesConfig.sessionTTLInMs}.

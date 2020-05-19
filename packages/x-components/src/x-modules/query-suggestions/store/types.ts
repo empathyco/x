@@ -25,7 +25,7 @@ export interface QuerySuggestionsGetters {
   /** The adapter request object for retrieving the query suggestions, or null if there is not
    * valid data to create a request. */
   request: SuggestionsRequest | null;
-  /** The normalized modules query. */
+  /** The normalized module's query. */
   normalizedQuery: string;
 }
 /**

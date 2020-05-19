@@ -116,14 +116,34 @@
      */
     protected get queryHTML(): string {
       if (this.hasMatchingQuery) {
-        const queryRegExp = new RegExp(`(${ this.query })`, 'i');
-        return this.suggestion.query.replace(
-          queryRegExp,
-          `<span data-test="matching-part" class="x-suggestion__matching-part">$1</span>`
-        );
+        const matcherIndex = normalizeString(this.suggestion.query).indexOf(this.query);
+
+        const [beginning, matching, end] = this.splitAt(this.suggestion.query, matcherIndex,
+          this.query.length);
+
+        const attrsMatching = 'data-test="matching-part" class="x-suggestion__matching-part"';
+        return`${ beginning }<span ${ attrsMatching }>${ matching }</span>${ end }`;
       }
 
       return sanitize(this.suggestion.query);
+    }
+
+    /**
+     * Splits the label in three parts based on two indexes.
+     *
+     * @param label - The string that will be divided in three parts.
+     * @param start - The first index that the label will be divided by.
+     * @param skip - The second index that the label will be divided by.
+     *
+     * @returns The three parts of the divided label.
+     * @internal
+     */
+    protected splitAt(label: string, start: number, skip: number): [string, string, string] {
+      const startPart = label.substr(0, start);
+      const matchingPart = label.substr(start, skip);
+      const endPart = label.substr(start + skip);
+
+      return [sanitize(startPart), sanitize(matchingPart), sanitize(endPart)];
     }
   }
 </script>

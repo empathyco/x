@@ -32,7 +32,7 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import BaseSuggestion from '../../../components/base-suggestion.vue';
-  import { State } from '../../../components/decorators';
+  import { Getter } from '../../../components/decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { historyQueriesXModule } from '../x-module';
@@ -59,11 +59,11 @@
     protected suggestion!: HistoryQueryModel;
 
     /**
-     * The query of the history queries module.
+     * The normalized query of the history-queries module.
      *
      * @internal
      */
-    @State('historyQueries', 'query')
+    @Getter('historyQueries', 'normalizedQuery')
     public query!: string;
 
     /**

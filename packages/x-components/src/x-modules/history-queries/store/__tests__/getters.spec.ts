@@ -77,4 +77,16 @@ describe('testing history queries module gettters', () => {
       expect(store.getters[gettersKeys.sessionHistoryQueries]).toEqual([duvel]);
     });
   });
+
+  describe(`${gettersKeys.normalizedQuery} getter`, () => {
+    it('should return a normalized query', () => {
+      const queries = ['espaÑita', 'aZúcaR', ' coraZón', 'baRça '];
+      const normalizedQueries = ['espanita', 'azucar', 'corazon', 'barca'];
+
+      queries.forEach((query, index) => {
+        resetHistoryQueriesStateWith(store, { query });
+        expect(store.getters[gettersKeys.normalizedQuery]).toEqual(normalizedQueries[index]);
+      });
+    });
+  });
 });

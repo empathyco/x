@@ -5,6 +5,7 @@ import { refreshSession } from './actions/refresh-session.action';
 import { removeFromHistory } from './actions/remove-query-from-history.action';
 import { setHistoryQueries } from './actions/set-history-queries.action';
 import { historyQueries } from './getters/history-queries.getter';
+import { normalizedQuery } from './getters/normalized-query';
 import { sessionHistoryQueries } from './getters/session-history-queries.getter';
 import { storageKey } from './getters/storage-key.getter';
 import { HistoryQueriesXStoreModule } from './types';
@@ -30,6 +31,7 @@ historyQueriesXStoreModule = {
   }),
   getters: {
     historyQueries,
+    normalizedQuery,
     sessionHistoryQueries,
     storageKey
   },

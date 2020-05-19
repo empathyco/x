@@ -40,7 +40,7 @@
   })
   export default class QuerySuggestion extends Vue {
     /**
-     * The query-suggestions module query.
+     * The normalized query of the query-suggestions module.
      *
      * @public
      */

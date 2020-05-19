@@ -10,6 +10,4 @@ import { QuerySuggestionsXStoreModule } from '../types';
  */
 export const normalizedQuery: QuerySuggestionsXStoreModule['getters']['normalizedQuery'] = ({
   query
-}) => {
-  return normalizeString(query);
-};
+}) => normalizeString(query);

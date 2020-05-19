@@ -32,7 +32,7 @@ describe('testing query suggestions module getters', () => {
 
   describe(`${getters.normalizedQuery} getter`, () => {
     it('should return a normalized query', () => {
-      const queries = ['españita', 'azúcar', 'corazón', 'barça'];
+      const queries = ['espaÑita', 'aZúcaR', ' coraZón', 'baRça '];
       const normalizedQueries = ['espanita', 'azucar', 'corazon', 'barca'];
 
       queries.forEach((query, index) => {

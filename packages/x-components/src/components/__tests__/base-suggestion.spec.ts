@@ -9,9 +9,9 @@ import BaseSuggestion from '../base-suggestion.vue';
 describe('testing Base Suggestion component', () => {
   const [, localVue] = installNewXPlugin();
 
-  const query = normalizeString('bebé');
+  const query = normalizeString('(b<ebé>)');
   const suggestion: Suggestion = {
-    query: 'bebe lloron',
+    query: '(b<ebé>) lloron',
     facets: [],
     key: 'bebe lloron',
     modelName: 'QuerySuggestion'
@@ -33,8 +33,17 @@ describe('testing Base Suggestion component', () => {
     expect(component.element.textContent).toContain(suggestion.query);
   });
 
-  it('has suggestion query parts matching the query passed as prop', () => {
-    expect(component.find(getDataTestSelector('matching-part')).element.textContent).toEqual(query);
+  it('has suggestion query parts matching query passed as prop retaining accent marks', () => {
+    const matchingPart = component.find(getDataTestSelector('matching-part')).text();
+
+    expect(normalizeString(matchingPart)).toEqual(query);
+    expect(suggestion.query).toContain(matchingPart);
+  });
+
+  it('sanitizes the matching part of the suggestion query', () => {
+    const matchingPartHTML = component.find(getDataTestSelector('matching-part')).element.innerHTML;
+
+    expect(matchingPartHTML).toBe('(b&lt;ebé&gt;)');
   });
 
   it('does not have matched query if the query prop is empty', () => {
