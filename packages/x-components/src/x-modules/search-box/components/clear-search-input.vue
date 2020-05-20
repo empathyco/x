@@ -23,7 +23,8 @@
 
   /**
    * A button that when pressed emits the {@link SearchBoxXEvents.UserPressedClearSearchBoxButton}
-   * event, expressing the user intention to clear the current query.
+   * and {@link SearchBoxXEvents.UserClearedQuery} events, expressing the user intention to clear
+   * the current query.
    *
    * @public
    */
@@ -51,6 +52,7 @@
      * @internal
      */
     protected clearSearchInputEvents: Partial<XEventsTypes> = {
+      UserClearedQuery: undefined,
       UserPressedClearSearchBoxButton: undefined
     };
   }

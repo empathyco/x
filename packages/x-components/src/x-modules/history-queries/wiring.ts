@@ -70,7 +70,7 @@ export const historyQueriesWiring = createWiring({
   HistoryQueriesStorageKeyChanged: {
     loadHistoryQueriesFromBrowserStorage
   },
-  UserPressedClearSearchBoxButton: {
+  UserClearedQuery: {
     clearHistoryQueriesQuery
   },
   UserAcceptedAQuery: {

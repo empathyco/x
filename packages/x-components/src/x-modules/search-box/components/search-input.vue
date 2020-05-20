@@ -3,7 +3,7 @@
     ref="input"
     @blur="emitUserBlurredSearchBox"
     @focus="emitUserFocusedSearchBox"
-    @input="emitUserIsTypingAQuery"
+    @input="emitUserIsTypingAQueryEvents"
     @keydown.enter="emitUserPressedEnterKey"
     @keydown.right.left.stop="emitUserPressedArrowKey"
     @keydown.up.down.prevent="emitUserPressedArrowKey"
@@ -88,12 +88,16 @@
 
     /**
      * Emits event {@link SearchBoxXEvents.UserIsTypingAQuery} when the user typed/pasted something
-     * into the search-box.
+     * into the search-box. Also emits event {@link SearchBoxXEvents.UserClearedQuery} when the user
+     * removes all characters in the search-box.
      *
      * @internal
      */
-    protected emitUserIsTypingAQuery(): void {
+    protected emitUserIsTypingAQueryEvents(): void {
       this.$x.emit('UserIsTypingAQuery', this.$refs.input.value, this.eventMetadata());
+      if(!this.$refs.input.value) {
+        this.$x.emit('UserClearedQuery', undefined, this.eventMetadata());
+      }
     }
 
     /**

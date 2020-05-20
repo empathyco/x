@@ -5,21 +5,16 @@ import ClearSearchInput from '../clear-search-input.vue';
 describe('testing ClearSearchInput component', () => {
   const [, localVue] = installNewXPlugin({});
 
-  it('emits UserPressedClearSearchBoxButton when clicked', () => {
-    const listener = jest.fn();
+  it('emits UserClearedQuery and UserPressedClearSearchBoxButton when clicked', () => {
     const clearSearchInput = mount(ClearSearchInput, { localVue });
-    clearSearchInput.vm.$x.on('UserPressedClearSearchBoxButton', true).subscribe(listener);
+    const target = { target: clearSearchInput.element };
+    const spyOn = jest.spyOn(clearSearchInput.vm.$children[0].$x, 'emit');
 
     clearSearchInput.trigger('click');
 
-    expect(listener).toHaveBeenCalledTimes(1);
-    expect(listener).toHaveBeenCalledWith({
-      eventPayload: undefined,
-      metadata: {
-        moduleName: 'searchBox',
-        target: clearSearchInput.element
-      }
-    });
+    expect(spyOn).toHaveBeenCalledTimes(2);
+    expect(spyOn).toHaveBeenNthCalledWith(1, 'UserClearedQuery', undefined, target);
+    expect(spyOn).toHaveBeenNthCalledWith(2, 'UserPressedClearSearchBoxButton', undefined, target);
   });
 
   it('has a default slot to customize its contents', () => {
@@ -32,10 +27,10 @@ describe('testing ClearSearchInput component', () => {
         }
       }
     });
-    const rederedSlotHTML = clearSearchInput.element.querySelector('.x-clear-search-input__text');
+    const renderedSlotHTML = clearSearchInput.element.querySelector('.x-clear-search-input__text');
 
-    expect(rederedSlotHTML).toBeDefined();
+    expect(renderedSlotHTML).toBeDefined();
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    expect(rederedSlotHTML!.textContent).toEqual('Clear');
+    expect(renderedSlotHTML!.textContent).toEqual('Clear');
   });
 });

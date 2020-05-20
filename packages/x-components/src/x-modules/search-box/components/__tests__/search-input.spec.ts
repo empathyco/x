@@ -50,6 +50,21 @@ describe('testing search input component', () => {
     });
   });
 
+  it('emits UserClearedQuery when typing/cutting the search-box is cleared', () => {
+    const queryClearedListener = jest.fn();
+    const queries = ['a', '', 'abc', ''];
+    mockedSearchInput.vm.$x.on('UserClearedQuery').subscribe(queryClearedListener);
+
+    queries.forEach(query => {
+      input.value = query;
+      mockedSearchInput.trigger('input');
+      if (!query) {
+        expect(queryClearedListener).toHaveBeenCalled();
+      }
+    });
+    expect(queryClearedListener).toHaveBeenCalledTimes(2);
+  });
+
   it(
     'emits UserPressedEnterKey when the query length is greater than zero and the user' +
       'pressed the enter key',

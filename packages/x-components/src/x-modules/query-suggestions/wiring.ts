@@ -43,7 +43,7 @@ export const querySuggestionsWiring = createWiring({
   UserAcceptedAQuery: {
     setQuerySuggestionsQuery
   },
-  UserPressedClearSearchBoxButton: {
+  UserClearedQuery: {
     clearQuerySuggestionsQuery
   },
   QuerySuggestionsRequestChanged: {

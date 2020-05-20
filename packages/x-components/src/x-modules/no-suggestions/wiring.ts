@@ -34,7 +34,7 @@ export const noSuggestionsWiring = createWiring({
   UserAcceptedAQuery: {
     setNoSuggestionsQuery
   },
-  UserPressedClearSearchBoxButton: {
+  UserClearedQuery: {
     clearNoSuggestionsQuery
   }
 });

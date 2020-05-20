@@ -16,6 +16,11 @@ export interface SearchBoxXEvents {
    */
   UserBlurredSearchBox: void;
   /**
+   * The user cleared the search-box query in any way, typing or pressing a button that clears it.
+   * * Payload: none.
+   */
+  UserClearedQuery: void;
+  /**
    * The user focused the search-box
    * * Payload: none.
    */
