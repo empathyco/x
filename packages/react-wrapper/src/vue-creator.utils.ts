@@ -1,13 +1,18 @@
 import ReactDOM from 'react-dom';
 import { ComponentOptions, CreateElement } from 'vue';
-import { ReactNodeWithoutRenderProps, ReactRenderProps } from './react-wrapper.types';
+import {
+  ReactNodeWithoutRenderProps,
+  ReactRenderProps,
+  ReactWrapperProps
+} from './react-wrapper.types';
 
 /**
- * Transforms a React node into a Vue component. The Vue component renders the React content passed, and a comment (created by Vue)
- * to keep track of changes in the DOM.
+ * Transforms a React node into a Vue component. The Vue component renders the React content
+ * passed, and a comment (created by Vue) to keep track of changes in the DOM.
  *
  * @param reactSlotContent - The React content to wrap with a Vue component
- * @returns A Vue component options object that renders the react content, plus a comment to track changes.
+ * @returns A Vue component options object that renders the react content, plus a comment to
+ * track changes.
  */
 export const wrapChildren = (reactSlotContent: ReactNodeWithoutRenderProps) => defineComponent({
   render(h: CreateElement) {
@@ -33,7 +38,6 @@ export const wrapChildren = (reactSlotContent: ReactNodeWithoutRenderProps) => d
       parentElement.insertBefore(fragment, vueReferenceElement);
 
       this.$on('hook:beforeDestroy', () => {
-        document.createDocumentFragment();
         fragment.append(...reactNodes);
         reactContainer.append(fragment);
         ReactDOM.unmountComponentAtNode(reactContainer);
@@ -64,4 +68,15 @@ export function defineComponent<Data,
   PropsDef,
   Props>(options: ComponentOptions<Vue, Data, Methods, Computed, PropsDef, Props> & ThisType<Vue & Data & Methods & Computed & PropsDef & Props>): ComponentOptions<Vue, Data, Methods, Computed, PropsDef, Props> {
   return options;
+}
+
+/**
+ * Extracts the React props used in the wrapper and returns the rest which are props of the
+ * Vue component rendered into.
+ *
+ * @param reactProps - The react props passed through the wrapper.
+ */
+export function getVueComponentProps(reactProps: Readonly<ReactWrapperProps>) {
+  const { component, slots, children, on, ...vueProps } = reactProps;
+  return vueProps;
 }
