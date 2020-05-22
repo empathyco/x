@@ -1,4 +1,4 @@
-import { Suggestion } from '@empathy/search-types';
+import { Result, Suggestion } from '@empathy/search-types';
 import { CurrencyOptions } from '../i18n/currency.types';
 import { DocumentDirection } from '../plugins/x-plugin.types';
 import { ArrowKey } from '../utils';
@@ -62,6 +62,11 @@ export interface XEventsTypes
    */
   UserAcceptedAQuery: string;
   /**
+   * The user has clicked on a result.
+   * * Payload: The {@link @empathy/search-types#Result | result} that the user clicked.
+   */
+  UserClickedAResult: Result;
+  /**
    * The user closed XComponents.
    * * Payload: none.
    */
@@ -76,6 +81,11 @@ export interface XEventsTypes
    * * Payload: the pressed {@link ArrowKey | arrow key}.
    */
   UserPressedArrowKey: ArrowKey;
+  /**
+   * The user has right clicked on a result.
+   * * Payload: The {@link @empathy/search-types#Result | result} that the user right clicked.
+   */
+  UserRightClickedAResult: Result;
   /**
    * User selected any kind of suggestion (query-suggestion, popular-search...)
    * * Payload: The {@link @empathy/search-types#Suggestion | suggestion} that the user selected.
