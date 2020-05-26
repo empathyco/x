@@ -1,0 +1,60 @@
+<template>
+  <BaseEventButton :events="events" class="x-result-add-to-cart" data-test="result-add-to-cart">
+    <!-- @slot Slot to add the button content like a text, an icon or both -->
+    <slot />
+  </BaseEventButton>
+</template>
+
+<script lang="ts">
+  import { Result } from '@empathy/search-types';
+  import Vue from 'vue';
+  import { Component, Prop } from 'vue-property-decorator';
+  import { XEventsTypes } from '../wiring/events.types';
+  import BaseEventButton from './base-event-button.vue';
+
+  /**
+   * Renders a button with a default slot. It receives the result with the data and emits
+   * {@link XEventsTypes.UserClickedResultAddToCart} to the bus on click mouse event.
+   *
+   * @public
+   */
+  @Component({
+    components: { BaseEventButton }
+  })
+  export default class BaseResultAddToCart extends Vue {
+    /**
+     * (Required) The {@link @empathy/search-types#Result | result} information.
+     *
+     * @public
+     */
+    @Prop({ required: true })
+    protected result!: Result;
+
+    /**
+     * The events to be emitted by the button.
+     *
+     * @returns Events {@link XEventsTypes} to emit.
+     *
+     * @public
+     */
+    protected get events(): Partial<XEventsTypes> {
+      return { UserClickedResultAddToCart: this.result }
+    }
+  };
+</script>
+
+<docs>
+  #Examples
+
+  ## Basic example
+
+  This component is a button to emit `UserClickedResultAddToCart` whe clicked by the user
+
+  ```vue
+  <BaseResultAddToCart :result="result">
+    <img src="./add-to-cart.svg" />
+    <span>Add to cart</span>
+  </BaseResultAddToCart>
+  ```
+
+</docs>

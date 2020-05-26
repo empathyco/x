@@ -67,6 +67,11 @@ export interface XEventsTypes
    */
   UserClickedAResult: Result;
   /**
+   * The user has clicked on the add to cart button of a result.
+   * * Payload: The {@link @empathy/search-types#Result | result} that the user clicked.
+   */
+  UserClickedResultAddToCart: Result;
+  /**
    * The user closed XComponents.
    * * Payload: none.
    */
