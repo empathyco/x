@@ -1,6 +1,7 @@
-import { debounceTime, filter as filterRx, throttleTime } from 'rxjs/operators';
+import { interval } from 'rxjs';
+import { debounce as debounceRx, filter as filterRx, throttle as throttleRx } from 'rxjs/operators';
 import { XModuleName } from '../x-modules/x-modules.types';
-import { Wire, WireParams } from './wiring.types';
+import { TimeRetrieving, Wire, WireParams } from './wiring.types';
 
 /**
  * Creates a {@link Wire} that is only executed whenever the condition in the filterFn is true.
@@ -81,25 +82,44 @@ export function filterBlacklistedModules<Payload>(
  * the time given by `timeInMs` has passed without invoking it.
  *
  * @param wire - The wire to debounce.
- * @param timeInMs - The time in milliseconds to debounce the wire execution.
+ * @param timeInMs - The time in milliseconds to debounce the wire execution or a function to
+ * retrieve it from the store.
  * @returns The Wire function with a debounced timing.
  */
-export function debounce<Payload>(wire: Wire<Payload>, timeInMs: number): Wire<Payload> {
-  return (observable, store) => wire(observable.pipe(debounceTime(timeInMs)), store);
+export function debounce<Payload>(
+  wire: Wire<Payload>,
+  timeInMs: TimeRetrieving | number
+): Wire<Payload> {
+  return (observable, store) =>
+    wire(
+      observable.pipe(
+        debounceRx(() => interval(typeof timeInMs === 'function' ? timeInMs(store) : timeInMs))
+      ),
+      store
+    );
 }
 
 /**
  * Creates a throttled {@link Wire}. Being throttled means that it will only be executed once
- * every couple of seconds given by the `timeInMs` parameter.
+ * every couple of milliseconds given by the `timeInMs` parameter.
  *
  * @param wire - The wire to throttle.
- * @param timeInMs - The time in milliseconds to throttle the wire execution.
+ * @param timeInMs - The time in milliseconds to throttle the wire execution or a function to
+ * retrieve it from the store.
  * @returns The Wire function with a throttle timing.
  */
-export function throttle<Payload>(wire: Wire<Payload>, timeInMs: number): Wire<Payload> {
+export function throttle<Payload>(
+  wire: Wire<Payload>,
+  timeInMs: TimeRetrieving | number
+): Wire<Payload> {
   return (observable, store) =>
     wire(
-      observable.pipe(throttleTime(timeInMs, undefined, { leading: true, trailing: true })),
+      observable.pipe(
+        throttleRx(() => interval(typeof timeInMs === 'function' ? timeInMs(store) : timeInMs), {
+          leading: true,
+          trailing: true
+        })
+      ),
       store
     );
 }

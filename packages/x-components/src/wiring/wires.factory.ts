@@ -2,6 +2,7 @@ import { Store } from 'vuex';
 import { RootXStoreState } from '../store/store.types';
 import { getGettersProxy } from '../store/utils/get-getters-proxy';
 import { ExtractState, XModuleName } from '../x-modules/x-modules.types';
+import { debounce, throttle } from './wires.operators';
 import {
   AnyWire,
   NamespacedWireFactory,
@@ -159,6 +160,16 @@ export function withModule<ModuleName extends XModuleName>(
     },
     wireDispatchWithoutPayload(action) {
       return wireDispatchWithoutPayload(`${modulePath}${action}`);
+    },
+    wireDebounce(wire, timeRetrieving): AnyWire {
+      return debounce(wire, ({ state, getters }) =>
+        timeRetrieving(getStateAndGettersFromModule(state, getters, moduleName))
+      );
+    },
+    wireThrottle(wire, timeRetrieving): AnyWire {
+      return throttle(wire, ({ state, getters }) =>
+        timeRetrieving(getStateAndGettersFromModule(state, getters, moduleName))
+      );
     }
   };
 }

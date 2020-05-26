@@ -32,13 +32,23 @@ export const getAndSaveSuggestions = querySuggestionsModule.wireDispatchWithoutP
 );
 
 /**
+ * Sets the query of the query-suggestions module with debounced time.
+ *
+ * @public
+ */
+export const debounceSetQuerySuggestionsQuery = querySuggestionsModule.wireDebounce(
+  setQuerySuggestionsQuery,
+  ({ state }) => state.config.debounceInMs
+);
+
+/**
  * QuerySuggestions wiring.
  *
  * @internal
  */
 export const querySuggestionsWiring = createWiring({
   UserIsTypingAQuery: {
-    setQuerySuggestionsQuery // TODO It should be debounced
+    debounceSetQuerySuggestionsQuery
   },
   UserAcceptedAQuery: {
     setQuerySuggestionsQuery

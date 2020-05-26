@@ -100,12 +100,14 @@ export interface WirePayloadParams<ModuleName extends XModuleName> {
 
 /**
  * Type safe wire factory, that provides methods for creating wires that can only
- * access the Module of the {@link https://vuex.vuejs.org/ | Vuex} Store passed as parameter.
+ * access the Module of the {@link https://vuex.vuejs.org/ | Vuex} Store passed as parameter. It
+ * is extended with the namespaced operator wires factory.
  *
- * @param Module - The {@link XStoreModule} to create the wires.
+ * @param ModuleName - The {@link XStoreModule} to create the wires.
  * @public
  */
-export interface NamespacedWireFactory<ModuleName extends XModuleName> {
+export interface NamespacedWireFactory<ModuleName extends XModuleName>
+  extends NamespacedOperatorWiresFactory<ModuleName> {
   /**
    * Creates a wire that commits a mutation to the store with an static payload. This wire can
    * be used in every event, as it does not have a payload type associated.
@@ -197,3 +199,58 @@ export interface NamespacedWireFactory<ModuleName extends XModuleName> {
     action: ActionName
   ): AnyWire;
 }
+
+/**
+ * Type safe operator wires factory, that provides methods for creating operator wires that can only
+ * access the Module of the {@link https://vuex.vuejs.org/ | Vuex} Store passed as parameter.
+ *
+ * @param ModuleName - The {@link XStoreModule} to create the operator wires.
+ * @internal
+ */
+interface NamespacedOperatorWiresFactory<ModuleName extends XModuleName> {
+  /**
+   * Creates a wire that uses the {@link debounce} wire operator to execute the `executorWire`
+   * after the time has passed without invoking it. This debounce time is given by the execution
+   * of the `timeRetrieving` function.
+   *
+   * @param executorWire - The wire to debounce.
+   * @param timeRetrieving - Function which accesses to the State and the Getters of the namespaced
+   * {@link XStoreModule} to retrieve the debounce time from there.
+   * @returns {@link AnyWire} A wire that bounces the execution of the `executorWire`.
+   */
+  wireDebounce(
+    executorWire: AnyWire,
+    timeRetrieving: NamespacedTimeRetrieving<ModuleName>
+  ): AnyWire;
+  /**
+   * Creates a wire that uses the {@link throttle} wire operator to execute the `executorWire`
+   * once every couple of milliseconds. This throttle time is given by the execution of the
+   * `timeRetrieving` function.
+   *
+   * @param executorWire - The wire to throttle.
+   * @param timeRetrieving - Function which accesses to the State and the Getters of the namespaced
+   * {@link XStoreModule} to retrieve the throttle time from there.
+   * @returns {@link AnyWire} A wire that throttles the execution of the `executorWire`.
+   */
+  wireThrottle(
+    executorWire: AnyWire,
+    timeRetrieving: NamespacedTimeRetrieving<ModuleName>
+  ): AnyWire;
+}
+
+/**
+ * It is a function that receives the whole store as parameter and retrieve the time from there.
+ *
+ * @public
+ */
+export type TimeRetrieving = (storeModule: Store<RootXStoreState>) => number;
+
+/**
+ * It is a function that receives the State and the Getters of the namespace {@link XStoreModule}
+ * to retrieve the time from there.
+ *
+ * @public
+ */
+export type NamespacedTimeRetrieving<ModuleName extends XModuleName> = (
+  storeModule: WirePayloadParams<ModuleName>
+) => number;

@@ -1,5 +1,4 @@
 import { withModule } from '../../wiring/wires.factory';
-import { debounce } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
@@ -15,18 +14,21 @@ const historyQueriesModule = withModule('historyQueries');
  * @public
  */
 export const addQueryToHistoryQueries = historyQueriesModule.wireDispatch('addQueryToHistory');
+
 /**
  * Sets the query of the history queries module. Used for searching into the history queries.
  *
  * @public
  */
 export const setHistoryQueriesQuery = historyQueriesModule.wireCommit('setQuery');
+
 /**
  * Sets the query of the history queries module to an empty string.
  *
  * @public
  */
 export const clearHistoryQueriesQuery = historyQueriesModule.wireCommit('setQuery', '');
+
 /**
  * Triggers a session refresh, extending its validity for the time configured in the
  * {@link HistoryQueriesConfig.sessionTTLInMs}.
@@ -36,6 +38,7 @@ export const clearHistoryQueriesQuery = historyQueriesModule.wireCommit('setQuer
 export const refreshHistoryQueriesSession = historyQueriesModule.wireDispatchWithoutPayload(
   'refreshSession'
 );
+
 /**
  * Loads the history queries from the browser storage, saving them to the
  * {@link HistoryQueriesState.historyQueries}.
@@ -45,18 +48,30 @@ export const refreshHistoryQueriesSession = historyQueriesModule.wireDispatchWit
 export const loadHistoryQueriesFromBrowserStorage = historyQueriesModule.wireDispatchWithoutPayload(
   'loadHistoryQueriesFromBrowserStorage'
 );
+
 /**
  * Clears the history queries.
  *
  * @public
  */
 export const clearHistoryQueries = historyQueriesModule.wireDispatch('setHistoryQueries', []);
+
 /**
  * Removes a single history query from the history queries.
  *
  * @public
  */
 export const removeHistoryQuery = historyQueriesModule.wireDispatch('removeFromHistory');
+
+/**
+ * Sets the query of the history queries module with debounced time.
+ *
+ * @public
+ */
+export const debounceSetHistoryQueriesQuery = historyQueriesModule.wireDebounce(
+  setHistoryQueriesQuery,
+  ({ state }) => state.config.debounceInMs
+);
 
 /**
  * Default wiring for the {@link HistoryQueries} module.
@@ -78,8 +93,7 @@ export const historyQueriesWiring = createWiring({
     addQueryToHistoryQueries
   },
   UserIsTypingAQuery: {
-    // TODO debounce should come from the config
-    setHistoryQueriesQuery: debounce(setHistoryQueriesQuery, 100)
+    debounceSetHistoryQueriesQuery
   },
   UserPressedClearHistoryQueries: {
     clearHistoryQueries

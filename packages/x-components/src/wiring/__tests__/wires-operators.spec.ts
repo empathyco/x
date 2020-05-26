@@ -1,5 +1,7 @@
+import { createLocalVue } from '@vue/test-utils';
 import { Subject } from 'rxjs/Subject';
-import { Store } from 'vuex';
+import Vuex, { Store } from 'vuex';
+import { RootXStoreState } from '../../store/store.types';
 import { XModuleName } from '../../x-modules/x-modules.types';
 import { createWireFromFunction } from '../wires.factory';
 import {
@@ -14,10 +16,21 @@ import {
 import { WireParams, WirePayload } from '../wiring.types';
 
 describe('testing wires operators', () => {
-  const store: Store<any> = {
-    dispatch: jest.fn(),
-    commit: jest.fn()
-  } as any;
+  const localVue = createLocalVue();
+  localVue.use(Vuex);
+  const store = new Store<any>({
+    state: () => ({
+      x: {
+        querySuggestions: {
+          config: { debounceInMs: 200 }
+        }
+      }
+    }),
+    getters: {
+      'x/querySuggestions/parsedThrottleInMS': (state: RootXStoreState) =>
+        state.x.querySuggestions.config.debounceInMs + 300
+    }
+  });
 
   let subject: Subject<WirePayload<any>>;
 
@@ -184,7 +197,44 @@ describe('testing wires operators', () => {
       }
     );
 
-    test(`${throttle.name} emits first value, and then ignores for the specified duration`, () => {
+    test(debounce.name + ' allows to access to the store to retrieve debounced time', () => {
+      const debouncedTime = store.state.x.querySuggestions.config.debounceInMs;
+      const debouncedWire = debounce(
+        wire,
+        storeModule => storeModule.state.x.querySuggestions.config.debounceInMs
+      );
+      debouncedWire(subject, store);
+
+      next(1);
+      next(2);
+      next(3);
+
+      jest.advanceTimersByTime(debouncedTime - 1);
+      expect(executeFunction).not.toHaveBeenCalled();
+      jest.advanceTimersByTime(1);
+      expect(executeFunction).toHaveBeenCalledTimes(1);
+    });
+
+    test(debounce.name + ' allows to change the debounced time dynamically', () => {
+      const debouncedTime = 1000;
+      const debouncedWire = debounce(
+        wire,
+        storeModule => storeModule.state.x.querySuggestions.config.debounceInMs
+      );
+      debouncedWire(subject, store);
+      replaceDebouncedTimeInStore(debouncedTime);
+
+      next(1);
+      next(2);
+      next(3);
+
+      jest.advanceTimersByTime(debouncedTime - 1);
+      expect(executeFunction).not.toHaveBeenCalled();
+      jest.advanceTimersByTime(1);
+      expect(executeFunction).toHaveBeenCalledTimes(1);
+    });
+
+    test(throttle.name + 'emits first value, and then ignores for the specified duration', () => {
       const throttledWire = throttle(wire, 500);
       throttledWire(subject, store);
 
@@ -209,5 +259,50 @@ describe('testing wires operators', () => {
         metadata: expect.any(Object)
       });
     });
+
+    test(throttle.name + ' allows access to the store to retrieve throttled time', () => {
+      const getterName = 'x/querySuggestions/parsedThrottleInMS';
+      const throttledTime = store.getters[getterName];
+      const throttledWire = throttle(wire, storeModule => storeModule.getters[getterName]);
+      throttledWire(subject, store);
+
+      next(1);
+      next(2);
+      next(3);
+
+      expect(executeFunction).toHaveBeenCalledTimes(1);
+      jest.advanceTimersByTime(throttledTime - 1);
+      expect(executeFunction).toHaveBeenCalledTimes(1);
+      jest.advanceTimersByTime(1);
+      expect(executeFunction).toHaveBeenCalledTimes(2);
+    });
+
+    test(throttle.name + ' allows to change the throttled time dynamically', () => {
+      const getterName = 'x/querySuggestions/parsedThrottleInMS';
+      const throttledWire = throttle(wire, storeModule => storeModule.getters[getterName]);
+      throttledWire(subject, store);
+      replaceDebouncedTimeInStore(1000);
+      const throttledTime = store.getters[getterName];
+
+      next(1);
+      next(2);
+      next(3);
+
+      expect(executeFunction).toHaveBeenCalledTimes(1);
+      jest.advanceTimersByTime(throttledTime - 1);
+      expect(executeFunction).toHaveBeenCalledTimes(1);
+      jest.advanceTimersByTime(1);
+      expect(executeFunction).toHaveBeenCalledTimes(2);
+    });
+
+    function replaceDebouncedTimeInStore(debounceInMs: number): void {
+      store.replaceState({
+        x: {
+          querySuggestions: {
+            config: { debounceInMs }
+          }
+        }
+      });
+    }
   });
 });
