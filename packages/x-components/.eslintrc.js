@@ -35,11 +35,11 @@ const tsLintRules = {
   '@typescript-eslint/no-explicit-any': 'off',
   '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
   '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
-  '@typescript-eslint/no-empty-function': ['error', { allow: ['protected-constructors'] }],
+  '@typescript-eslint/no-empty-function': ['error'],
   '@typescript-eslint/no-empty-interface': 'off',
   '@typescript-eslint/no-extra-parens': ['error', 'all', { nestedBinaryExpressions: false }],
   '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'error',
-  '@typescript-eslint/no-unused-expressions': ['error'],
+  '@typescript-eslint/no-unused-expressions': ['error', { allowTernary: true }],
   // Type information rules
   '@typescript-eslint/no-unused-vars-experimental': 'error',
   '@typescript-eslint/no-misused-promises': ['error', { checksVoidReturn: false }],

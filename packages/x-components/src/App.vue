@@ -8,19 +8,31 @@
     </BaseModalContainer>
     <SearchInput />
     <ClearSearchInput />
+    <NoSuggestions />
     <KeyboardNavigation>
-      <h1>Query Suggestions</h1>
-      <QuerySuggestions :animation="fadeAndSlide" />
-      <NoSuggestions />
-      <h1>History</h1>
-      <HistoryQueries :animation="fadeAndSlide" />
-      <ClearHistoryQueries />
-      <h1>Popular Searches</h1>
-      <PopularSearches :animation="fadeAndSlide" />
-      <h1>Next Queries</h1>
-      <NextQueries :animation="fadeAndSlide" :loadOnInit="loadOnInit" />
-      <h1>Related tags</h1>
-      <RelatedTags />
+      <div class="inline-flex">
+        <h1>Query suggestions</h1>
+        <QuerySuggestions :animation="fadeAndSlide" />
+      </div>
+      <div class="inline-flex">
+        <h1>History</h1>
+        <HistoryQueries :animation="fadeAndSlide" />
+        <div>
+          <ClearHistoryQueries />
+        </div>
+      </div>
+      <div class="inline-flex">
+        <h1>Popular searches</h1>
+        <PopularSearches :animation="fadeAndSlide" />
+      </div>
+      <div class="inline-flex">
+        <h1>Next queries</h1>
+        <NextQueries :animation="fadeAndSlide" :loadOnInit="loadOnInit" />
+      </div>
+      <div class="inline-flex">
+        <h1>Related tags</h1>
+        <RelatedTags />
+      </div>
     </KeyboardNavigation>
   </main>
 </template>
@@ -83,5 +95,11 @@
     background-color: white;
     height: 200px;
     width: 100%;
+  }
+
+  .inline-flex {
+    display: inline-flex;
+    flex-direction: column;
+    width: 30%;
   }
 </style>

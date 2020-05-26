@@ -13,9 +13,12 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { xComponentMixin } from '../../../components/x-component.mixin';
+  // eslint-disable-next-line max-len
+  import { DirectionalFocusNavigationService } from '../../../services/directional-focus-navigation.service';
+  import { SpatialNavigation } from '../../../services/services.types';
   import { ArrowKey } from '../../../utils';
-  import { WirePayload } from '../../../wiring';
   import { empathizeXModule } from '../x-module';
+  import { XOn } from '../../../components/decorators';
 
   /**
    * Container for empathize components which deals with the keyboard actions.
@@ -28,30 +31,23 @@
   @Component({
     mixins: [xComponentMixin(empathizeXModule)]
   })
-
   export default class KeyboardNavigation extends Vue {
+    protected navigationService!: SpatialNavigation;
 
     mounted(): void {
-      // TODO Change this implementation to XOn after the task EX-1874
-      const subscription = this.$x.on('UserPressedArrowKey', true)
-        .subscribe(this.setFocusOnFirstFocusableChild.bind(this));
-      this.$on('hook:beforeDestroy', () => subscription.unsubscribe());
+      // TODO Replace this with injection
+      this.navigationService = new DirectionalFocusNavigationService(this.$el as HTMLElement);
     }
 
     /**
-     * Set the focus on the first focusable child of the component.
+     * Focus the next navigable element returned by the navigation service.
      *
-     * @param event - Event received from external module.
-     *
+     * @param direction - The direction.
      * @public
      */
-    setFocusOnFirstFocusableChild(event: WirePayload<ArrowKey>): void {
-      if (event.metadata.moduleName !== empathizeXModule.name) {
-        const focusableElements = this.getKeyboardFocusableElements(this.$el);
-        if (focusableElements.length > 0) {
-          focusableElements[0].focus();
-        }
-      }
+    @XOn('UserPressedArrowKey')
+    focusNextNavigableElement(direction: ArrowKey): void {
+      this.navigationService?.navigateTo(direction)?.focus();
     }
 
     /**
@@ -64,20 +60,6 @@
      */
     emitUserPressedArrowKey({ key, target }: { key: ArrowKey; target: HTMLElement}): void {
       this.$x.emit('UserPressedArrowKey', key, { target });
-    }
-
-    /**
-     * Gets keyboard-focusable elements within a specified element.
-     *
-     * @param element - To get focusable elements inside it.
-     * @returns The NodeList of focusable elements.
-     *
-     * @internal
-     */
-    getKeyboardFocusableElements(element: Element): NodeListOf<HTMLElement> {
-      return element.querySelectorAll(
-        'a, button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])'
-      );
     }
   }
 </script>

@@ -1,5 +1,4 @@
 import { XStoreModule } from '../../../store';
-import { ArrowKey } from '../../../utils/types';
 
 /**
  * Empathize store state.
@@ -27,9 +26,7 @@ export interface EmpathizeMutations {}
  *
  * @public
  */
-export interface EmpathizeActions {
-  keyboardAction(arrowKey: ArrowKey): void;
-}
+export interface EmpathizeActions {}
 
 /**
  * Empathize type safe store module.

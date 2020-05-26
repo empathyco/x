@@ -3,6 +3,7 @@ export * from './components';
 export * from './filters';
 export * from './i18n';
 export * from './plugins';
+export * from './services';
 export * from './store';
 export * from './utils';
 export * from './wiring';
