@@ -8,6 +8,7 @@ import { NextQueriesXModule } from './next-queries/x-module';
 import { NoSuggestionsXModule } from './no-suggestions/x-module';
 import { PopularSearchesXModule } from './popular-searches/x-module';
 import { QuerySuggestionsXModule } from './query-suggestions/x-module';
+import { RecommendationsXModule } from './recommendations/x-module';
 import { RelatedTagsXModule } from './related-tags/x-module';
 import { SearchBoxXModule } from './search-box/x-module';
 
@@ -17,14 +18,15 @@ import { SearchBoxXModule } from './search-box/x-module';
  * @public
  */
 export interface XModulesTree {
-  nextQueries: NextQueriesXModule;
-  popularSearches: PopularSearchesXModule;
-  searchBox: SearchBoxXModule;
-  querySuggestions: QuerySuggestionsXModule;
-  historyQueries: HistoryQueriesXModule;
   empathize: EmpathizeXModule;
-  relatedTags: RelatedTagsXModule;
+  historyQueries: HistoryQueriesXModule;
+  nextQueries: NextQueriesXModule;
   noSuggestions: NoSuggestionsXModule;
+  popularSearches: PopularSearchesXModule;
+  querySuggestions: QuerySuggestionsXModule;
+  recommendations: RecommendationsXModule;
+  relatedTags: RelatedTagsXModule;
+  searchBox: SearchBoxXModule;
 }
 
 /**
