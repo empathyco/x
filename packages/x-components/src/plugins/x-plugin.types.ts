@@ -1,6 +1,6 @@
 import { SearchAdapter } from '@empathy/search-adapter';
 import { Store } from 'vuex';
-import { CurrencyOptions, Messages } from '../i18n';
+import { CurrencyOptions } from '../i18n';
 import { ActionsTree, AnyActionsTree } from '../store/actions.types';
 import { AnyGettersTree, GettersTree } from '../store/getters.types';
 import { AnyMutationsTree, MutationsTree } from '../store/mutations.types';
@@ -41,8 +41,6 @@ export interface XConfig {
   currencyOptions: CurrencyOptions;
   /** HTML dir attribute. Possible values are: ltr(left to right) or rtl(right to left). */
   documentDirection: DocumentDirection;
-  /** The {@link Messages} to display in the visual components (i.e. SearchBox placeholder. */
-  messages: Messages;
 }
 
 /**

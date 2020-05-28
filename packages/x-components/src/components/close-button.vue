@@ -1,14 +1,11 @@
 <template>
   <BaseEventButton
-    :aria-label="$x.config.messages.closeButton.ariaLabel"
     :events="{ UserClosedX: undefined }"
     class="x-close-button"
     data-test="close-button"
   >
-    <!-- @slot Slot to add the button content like a text, an icon or both -->
-    <slot>
-      {{ $x.config.messages.closeButton.content }}
-    </slot>
+    <!-- @slot (Required) Slot to add the button content like a text, an icon or both -->
+    <slot />
   </BaseEventButton>
 </template>
 
@@ -32,15 +29,9 @@
 <docs>
   #Examples
 
-  ## Basic examples
+  ## Basic example
 
-  The component rendering the default content.
-
-  ```vue
-  <CloseButton />
-  ```
-
-  The component rendering an icon as its content.
+  The component renders whatever is passed to it in the default slot.
 
   ```vue
   <CloseButton>

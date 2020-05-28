@@ -1,12 +1,11 @@
 <template>
   <BaseEventButton
-    :aria-label="$x.config.messages.openButton.ariaLabel"
     :events="{ UserOpenedX: undefined }"
     class="x-open-button"
     data-test="open-button"
   >
-    <!-- @slot Slot to add the button content like a text, an icon or both -->
-    <slot>{{ $x.config.messages.openButton.content }}</slot>
+    <!-- @slot (Required) Slot to add the button content like a text, an icon or both -->
+    <slot />
   </BaseEventButton>
 </template>
 
@@ -30,15 +29,9 @@
 <docs>
   #Examples
 
-  ## Basic examples
+  ## Basic example
 
-  The component rendering the default content.
-
-  ```vue
-  <OpenButton />
-  ```
-
-  The component rendering an icon and a text as its content.
+  The component renders whatever is passed to it in the default slot.
 
   ```vue
   <OpenButton>

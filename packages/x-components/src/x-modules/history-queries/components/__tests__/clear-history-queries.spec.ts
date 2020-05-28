@@ -67,9 +67,7 @@ describe('testing ClearHistoryQueries component', () => {
       store
     });
 
-    expect(clearHistoryQueries.vm.$el.textContent).toEqual(
-      clearHistoryQueries.vm.$x.config.messages.historyQueries.clearButton.content
-    );
+    expect(clearHistoryQueries.vm.$el.textContent).toEqual('');
   });
 
   it('has a default slot to customize its contents', () => {

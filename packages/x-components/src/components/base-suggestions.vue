@@ -6,9 +6,11 @@
       class="x-suggestions__item"
       data-test="suggestion-item"
     >
-      <!-- @slot (Required) Slot for an individual suggestion, responsible for handling its
-      selection by emitting the appropriate event -->
-      <!-- @binding {Suggestion} suggestion - The data of the suggestion-->
+      <!--
+         @slot (Required) Slot for an individual suggestion, responsible for handling its
+         selection by emitting the appropriate event
+         @binding {Suggestion} suggestion - The data of the suggestion
+       -->
       <slot :suggestion="suggestion" />
     </li>
   </component>

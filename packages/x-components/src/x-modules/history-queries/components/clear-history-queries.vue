@@ -3,12 +3,11 @@
     class="x-clear-history-queries"
     :class="dynamicClasses"
     :disabled="isHistoryQueriesEmpty"
-    :aria-label="$x.config.messages.historyQueries.clearButton.ariaLabel"
     :events="clearHistoryQueriesEvents"
     data-test="clear-history-queries"
   >
-    <!-- @slot Slot to add the button content like a message or an icon -->
-    <slot>{{ $x.config.messages.historyQueries.clearButton.content }}</slot>
+    <!-- @slot (Required) Slot to add the button content like a message or an icon -->
+    <slot />
   </BaseEventButton>
 </template>
 
@@ -82,19 +81,7 @@
 
   ## Basic example
 
-  This is a ready to use component. No props or slots are required for it to work. Simply use it
-  in the template like this:
-
-  ```vue
-  <ClearHistoryQueries/>
-  ```
-
-  This will render by default the message contained in `historyQueries.clearButton.content`.
-
-  ## Add custom button content
-
-  If you want to add custom button content, like an icon for example, you can do so with the
-  following code:
+  The component exposes a single default slot, where you can add icons or text.
 
   ```vue
   <ClearHistoryQueries>

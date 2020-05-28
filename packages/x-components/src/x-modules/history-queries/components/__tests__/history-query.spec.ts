@@ -60,14 +60,15 @@ describe('testing history-query component', () => {
     });
   });
 
-  it('renders slots with default implementation', () => {
+  // eslint-disable-next-line max-len
+  it('renders query-suggestions slot with default content, and remove history-queries without', () => {
     const historyQuerySuggestion = historyQueryWrapper.find(getDataTestSelector('history-query'));
     const removeHistoryQueryWrapper = historyQueryWrapper.find(
       getDataTestSelector('remove-history-query')
     );
 
     expect(historyQuerySuggestion.text()).not.toHaveLength(0);
-    expect(removeHistoryQueryWrapper.text()).not.toHaveLength(0);
+    expect(removeHistoryQueryWrapper.text()).toHaveLength(0);
   });
 
   it('has a default slot to customize suggestion content', () => {

@@ -42,9 +42,7 @@ describe('testing RemoveHistoryQuery component', () => {
       }
     });
 
-    expect(removeHistoryQuery.element.textContent).toEqual(
-      removeHistoryQuery.vm.$x.config.messages.historyQueries.removeHistoryQuery.content
-    );
+    expect(removeHistoryQuery.element.textContent).toEqual('');
   });
 
   it('has a default slot to customize its contents', () => {

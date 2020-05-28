@@ -1,11 +1,7 @@
 <template>
-  <BaseEventButton
-    class="x-remove-history-query"
-    :aria-label="$x.config.messages.historyQueries.removeHistoryQuery.ariaLabel"
-    :events="removeHistoryQueryEvent"
-  >
-    <!-- @slot Slot to add the button content like a message or an icon. Has default message -->
-    <slot>{{ $x.config.messages.historyQueries.removeHistoryQuery.content }}</slot>
+  <BaseEventButton class="x-remove-history-query" :events="removeHistoryQueryEvent">
+    <!--  @slot (Required) Slot to add the button content like a message or an icon. -->
+    <slot />
   </BaseEventButton>
 </template>
 
@@ -58,17 +54,8 @@
 
   ## Basic Example
 
-  You need to pass a historyQuery as a prop for the button to render:
-
-  ```vue
-  <RemoveHistoryQuery :historyQuery="historyQuery"/>
-  ```
-  This will render by default the message inside the default slot.
-
-  ## Add Custom Button Content Example
-
-  You can add content that this button will render. To do so, you only need to pass a new
-  component in the default slot:
+  You can customize the content that this component renders. To do so, simply use the default
+  slot.
 
   ```vue
   <RemoveHistoryQuery :historyQuery="historyQuery">

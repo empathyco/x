@@ -11,7 +11,7 @@
 <script lang="ts">
   import { Subscription } from 'rxjs/Subscription';
   import Vue from 'vue';
-  import { Component, Watch } from 'vue-property-decorator';
+  import { Component, Watch, Prop } from 'vue-property-decorator';
   import BaseEventButton from '../../../components/base-event-button.vue';
   import { State } from '../../../components/decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
@@ -32,6 +32,9 @@
     mixins: [xComponentMixin(noSuggestionsXModule)]
   })
   export default class NoSuggestions extends Vue {
+    @Prop({ required: true })
+    public message!: string;
+
     @State('noSuggestions', 'query')
     public query!: string;
 
@@ -77,7 +80,7 @@
      * @internal
      */
     protected get dividedMessage(): string[] {
-      return this.$x.config.messages.noSuggestions.content.split(/[{}]/g);
+      return this.message.split(/[{}]/g);
     }
 
     /**
@@ -154,12 +157,11 @@
 
   ## Default Usage
 
-  You just need to add the component without props or slots and when there are no suggestions
-  for the trigger events configured in the x-module, the component will be displayed. The
-  component uses the `noSuggestions.content` message and transform the `{query}` to a button to
-  accept the user query.
+  The component exposes the `message` prop, where you can add the message that it will render.
+  If the message contains `{query}`, this word will be replaced by the current input query, and
+  wrapped with a `button` that will accept that query when clicked.
 
   ```vue
-  <NoSuggestions />
+  <NoSuggestions message="No suggestions for {query}" />
   ```
 </docs>

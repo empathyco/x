@@ -1,11 +1,6 @@
 <template>
-  <BaseEventButton
-    :events="events"
-    :aria-label="$x.config.messages.searchBox.searchButton.ariaLabel"
-    class="x-search-button"
-    :class="dynamicClasses"
-  >
-    <!-- @slot To add an icon or text for the search button-->
+  <BaseEventButton :events="events" class="x-search-button" :class="dynamicClasses">
+    <!-- @slot (Required) To add an icon or text for the search button-->
     <slot />
   </BaseEventButton>
 </template>
@@ -62,9 +57,8 @@
   #Example
 
   ## Basic example
-  No props are required for its usage. The component has a slot to append content to the button,
-  in most cases you are going to need to pass content to the default slot. It also uses the
-  message `searchBox.searchButton.ariaLabel` for accessibility matters.
+  No props are required for its usage. The component exposes a single default slot where you can
+  add your message or icon.
 
   ```vue
   <SearchButton>

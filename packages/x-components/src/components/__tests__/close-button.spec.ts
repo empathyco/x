@@ -19,8 +19,7 @@ describe('testing Close Button component', () => {
   });
 
   it('checks the default slot content is the expected', () => {
-    const defaultContent = component.vm.$x.config.messages.closeButton.content;
-    expect(component.text()).toEqual(defaultContent);
+    expect(component.text()).toEqual('');
   });
 
   it('renders the content overriding default slot', () => {

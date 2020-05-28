@@ -1,32 +1,41 @@
 <template>
   <main>
-    <OpenButton />
+    <OpenButton>Open search</OpenButton>
     <BaseModalContainer>
       <div class="modal-content">
-        <CloseButton />
+        <CloseButton aria-label="Close search">x</CloseButton>
       </div>
     </BaseModalContainer>
-    <SearchInput />
-    <ClearSearchInput />
-    <NoSuggestions />
+    <SearchInput placeholder="Search" aria-label="Search for products" />
+    <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
+    <NoSuggestions message="We couldn't find any suggestion. Try searching for {query}." />
     <KeyboardNavigation>
       <div class="inline-flex">
-        <h1>Query suggestions</h1>
-        <QuerySuggestions :animation="fadeAndSlide" />
+        <h1>Query Suggestions</h1>
+        <QuerySuggestions :animation="fadeAndSlide">
+          <template #suggestion="{suggestion}">
+            <QuerySuggestion
+              :suggestion="suggestion"
+              :aria-label="`Query suggestion: ${suggestion.query}`"
+            />
+          </template>
+        </QuerySuggestions>
       </div>
       <div class="inline-flex">
         <h1>History</h1>
-        <HistoryQueries :animation="fadeAndSlide" />
-        <div>
-          <ClearHistoryQueries />
-        </div>
+        <HistoryQueries :animation="fadeAndSlide">
+          <template #suggestion-remove-content="{suggestion}">
+            <span :aria-label="`Remove ${suggestion.query} from history`">x</span>
+          </template>
+        </HistoryQueries>
+        <ClearHistoryQueries>Clear previous searches</ClearHistoryQueries>
       </div>
       <div class="inline-flex">
-        <h1>Popular searches</h1>
+        <h1>Popular Searches</h1>
         <PopularSearches :animation="fadeAndSlide" />
       </div>
       <div class="inline-flex">
-        <h1>Next queries</h1>
+        <h1>Next Queries</h1>
         <NextQueries :animation="fadeAndSlide" :loadOnInit="loadOnInit" />
       </div>
       <div class="inline-flex">
@@ -52,6 +61,7 @@
   import NextQueries from './x-modules/next-queries/components/next-queries.vue';
   import NoSuggestions from './x-modules/no-suggestions/components/no-suggestions.vue';
   import PopularSearches from './x-modules/popular-searches/components/popular-searches.vue';
+  import QuerySuggestion from "./x-modules/query-suggestions/components/query-suggestion.vue";
   import QuerySuggestions from './x-modules/query-suggestions/components/query-suggestions.vue';
   import RelatedTags from './x-modules/related-tags/components/related-tags.vue';
   import ClearSearchInput from './x-modules/search-box/components/clear-search-input.vue';
@@ -59,6 +69,7 @@
 
   @Component({
     components: {
+      QuerySuggestion,
       BaseModalContainer,
       ClearHistoryQueries,
       NoSuggestions,

@@ -19,9 +19,16 @@ describe('testing no suggestions component', () => {
   let noSuggestionsWrapper: Wrapper<Vue>;
   const query = 'Mitsubishi evo IX';
   const suggestions = getSuggestionsStub('QuerySuggestion');
+  const message = 'No suggestions for "{query}".';
 
   beforeEach(() => {
-    noSuggestionsWrapper = mount(NoSuggestions, { localVue, store });
+    noSuggestionsWrapper = mount(NoSuggestions, {
+      localVue,
+      store,
+      propsData: {
+        message
+      }
+    });
     resetStoreNoSuggestionsState(store);
   });
 
@@ -71,10 +78,7 @@ describe('testing no suggestions component', () => {
     });
 
     it('has the noSuggestions.content message', () => {
-      const textElement = wrapperElement.vm.$x.config.messages.noSuggestions.content.replace(
-        /{(.+)}/g,
-        query
-      );
+      const textElement = message.replace(/{(.+)}/g, query);
 
       expect(trimSpacesAndBreakLines(wrapperElement.text())).toEqual(textElement);
     });
@@ -90,13 +94,13 @@ describe('testing no suggestions component', () => {
     });
 
     it("doesn't render a button when the message has not slot for that", async () => {
-      const message = 'No suggestions available!';
-      wrapperElement.vm.$x.config.messages.noSuggestions.content = message;
+      const newMessage = 'No suggestions available!';
+      wrapperElement.setProps({ message: newMessage });
 
       await localVue.nextTick(); // Execute dividedMessage getter
 
       expect(wrapperElement.find('button').exists()).toBeFalsy();
-      expect(wrapperElement.text()).toEqual(message);
+      expect(wrapperElement.text()).toEqual(newMessage);
     });
   });
 

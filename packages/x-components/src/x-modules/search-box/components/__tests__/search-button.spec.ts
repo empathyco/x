@@ -2,7 +2,6 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { isXComponent } from '../../../../components/x-component.utils';
-import { DEFAULT_X_CONFIG } from '../../../../plugins/x-plugin.config';
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
 import { installNewXPlugin } from '../../../../__tests__/utils';
@@ -31,9 +30,6 @@ describe('testing search button component', () => {
 
   it('renders search button with inner text', () => {
     expect(searchButtonWrapper.text()).toEqual('Search!');
-    expect(searchButtonWrapper.element.getAttribute('aria-label')).toEqual(
-      DEFAULT_X_CONFIG.messages.searchBox.searchButton.ariaLabel
-    );
   });
 
   it('renders search button with inner svg icon', () => {
