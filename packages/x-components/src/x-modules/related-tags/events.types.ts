@@ -25,7 +25,19 @@ export interface RelatedTagsXEvents {
    */
   SelectedRelatedTagsChanged: RelatedTag[];
   /**
-   * User selected a related tags
+   * User deselected a related tag
+   * * Payload: The {@link @empathy/search-types#RelatedTag | related tag} that the user
+   * deselected.
+   */
+  UserDeselectedARelatedTag: RelatedTag;
+  /**
+   * User picked a related tag
+   * * Payload: The {@link @empathy/search-types#RelatedTag | related tag} that the user
+   * picked.
+   */
+  UserPickedARelatedTag: RelatedTag;
+  /**
+   * User selected a related tag
    * * Payload: The {@link @empathy/search-types#RelatedTag | related tag} that the user
    * selected.
    */

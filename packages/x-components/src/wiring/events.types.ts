@@ -20,6 +20,7 @@ import { SearchBoxXEvents } from '../x-modules/search-box/events.types';
  * * {@link NextQueriesXEvents}
  * * {@link PopularSearchesXEvents}
  * * {@link QuerySuggestionsXEvents}
+ * * {@link RelatedTagsXEvents}
  * * {@link SearchBoxXEvents}
  *
  * @public

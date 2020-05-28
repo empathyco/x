@@ -30,6 +30,12 @@ export const fetchAndSaveRelatedTags = relatedTagsModule.wireDispatchWithoutPayl
  * @public
  */
 export const toggleRelatedTag = relatedTagsModule.wireDispatch('toggleRelatedTag');
+/**
+ * Clear the selected related tags.
+ *
+ * @public
+ */
+export const clearSelectedRelatedTags = relatedTagsModule.wireCommit('setSelectedRelatedTags', []);
 
 /**
  * Wiring configuration for the {@link RelatedTagsXModule | related tags module}.
@@ -40,10 +46,13 @@ export const relatedTagsWiring = createWiring({
   UserAcceptedAQuery: {
     setRelatedTagsQuery
   },
-  UserSelectedARelatedTag: {
+  UserPickedARelatedTag: {
     toggleRelatedTag
   },
   RelatedTagsRequestChanged: {
     fetchAndSaveRelatedTags
+  },
+  UserIsTypingAQuery: {
+    clearSelectedRelatedTags
   }
 });
