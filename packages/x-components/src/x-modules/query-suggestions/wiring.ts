@@ -32,23 +32,15 @@ export const getAndSaveSuggestions = querySuggestionsModule.wireDispatchWithoutP
 );
 
 /**
- * Sets the query of the query-suggestions module with debounced time.
- *
- * @public
- */
-export const debounceSetQuerySuggestionsQuery = querySuggestionsModule.wireDebounce(
-  setQuerySuggestionsQuery,
-  ({ state }) => state.config.debounceInMs
-);
-
-/**
  * QuerySuggestions wiring.
  *
  * @internal
  */
 export const querySuggestionsWiring = createWiring({
   UserIsTypingAQuery: {
-    debounceSetQuerySuggestionsQuery
+    /* TODO - It has to be debounced but first we should solve an asynchronous issue with
+    wireDebounce in the next task https://searchbroker.atlassian.net/browse/EX-1944 */
+    setQuerySuggestionsQuery
   },
   UserAcceptedAQuery: {
     setQuerySuggestionsQuery

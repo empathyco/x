@@ -64,16 +64,6 @@ export const clearHistoryQueries = historyQueriesModule.wireDispatch('setHistory
 export const removeHistoryQuery = historyQueriesModule.wireDispatch('removeFromHistory');
 
 /**
- * Sets the query of the history queries module with debounced time.
- *
- * @public
- */
-export const debounceSetHistoryQueriesQuery = historyQueriesModule.wireDebounce(
-  setHistoryQueriesQuery,
-  ({ state }) => state.config.debounceInMs
-);
-
-/**
  * Default wiring for the {@link HistoryQueries} module.
  *
  * @internal
@@ -93,7 +83,9 @@ export const historyQueriesWiring = createWiring({
     addQueryToHistoryQueries
   },
   UserIsTypingAQuery: {
-    debounceSetHistoryQueriesQuery
+    /* TODO - It has to be debounced but first we should solve an asynchronous issue with
+     wireDebounce in the next task https://searchbroker.atlassian.net/browse/EX-1944 */
+    setHistoryQueriesQuery
   },
   UserPressedClearHistoryQueries: {
     clearHistoryQueries
