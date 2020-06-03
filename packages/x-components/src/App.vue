@@ -40,7 +40,7 @@
       </div>
       <div class="inline-flex">
         <h1>Related tags</h1>
-        <RelatedTags />
+        <RelatedTags :animation="fadeAndSlide" />
       </div>
     </KeyboardNavigation>
   </main>
