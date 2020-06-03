@@ -5,4 +5,9 @@ import { recommendationsXStoreModule } from './module';
  *
  * @internal
  */
-export const recommendationsEmitters = createStoreEmitters(recommendationsXStoreModule, {});
+export const recommendationsEmitters = createStoreEmitters(recommendationsXStoreModule, {
+  RecommendationsRequestChanged: {
+    selector: (_, getters) => getters.request,
+    immediate: true
+  }
+});

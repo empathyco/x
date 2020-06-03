@@ -18,5 +18,10 @@ export interface RecommendationsXEvents {
    * * Payload: The new recommendations request or `null` if there is not enough data in the state
    * to conform a valid request.
    */
-  RecommendationsRequestChanged: TopRecommendationsRequest | null;
+  RecommendationsRequestChanged: TopRecommendationsRequest;
+  /**
+   * A recommendation result has been clicked.
+   * * Payload: The {@link @empathy/search-types#Result | result}.
+   */
+  UserClickedARecommendation: Result;
 }

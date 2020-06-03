@@ -33,6 +33,8 @@ export interface WireMetadata {
   moduleName: XModuleName | null;
   /** The DOM element that triggered the event emission. */
   target?: HTMLElement;
+  /** The origin for tagging purposes. */
+  origin?: string;
 }
 
 /**

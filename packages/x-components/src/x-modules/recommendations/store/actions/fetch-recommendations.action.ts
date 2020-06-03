@@ -7,6 +7,8 @@ import { RecommendationsXStoreModule } from '../types';
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
  * @returns A `void` promise that resolves when it fetches recommendations.
+ *
+ * @public
  */
 // eslint-disable-next-line max-len
 export const fetchRecommendations: RecommendationsXStoreModule['actions']['fetchRecommendations'] = ({
