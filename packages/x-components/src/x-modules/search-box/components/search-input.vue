@@ -23,6 +23,7 @@
   import { State, XOn } from '../../../components/decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { ArrowKey } from '../../../utils';
+  import { debounce, DebouncedFunction } from '../../../utils/debounce';
   import { WireMetadata } from '../../../wiring/wiring.types';
   import { SearchBoxConfig } from '../config.types';
   import { searchBoxXModule } from '../x-module';
@@ -44,14 +45,35 @@
     @State('searchBox', 'config')
     public config!: SearchBoxConfig;
 
+    protected debouncedUserAcceptedAQuery!: DebouncedFunction<[string]>;
+
     /**
-     * When event {@link XEventsTypes.UserAcceptedAQuery} is emitted the input will be blurred.
+     * When event {@link XEventsTypes.UserAcceptedAQuery} is emitted the pending debounced emit
+     * {@link XEvent} `UserAcceptedAQuery` is canceled.
      *
      * @internal
      */
     @XOn('UserAcceptedAQuery')
-    blurInput(): void {
-      this.$refs.input?.blur();
+    cancelDebouncedUserAcceptedAQuery(): void {
+      this.debouncedUserAcceptedAQuery?.cancel();
+    }
+
+    /**
+     * Emits {@link XEventsTypes.UserAcceptedAQuery} event with a debounce configured in
+     * `config.instantDebounceInMs`.
+     *
+     * @internal
+     * @param query - The query that will be emitted.
+     */
+    emitDebouncedUserAcceptedAQuery(query: string): void {
+      if (this.config.instant) {
+        if (!this.debouncedUserAcceptedAQuery) {
+          this.debouncedUserAcceptedAQuery =
+            // eslint-disable-next-line @typescript-eslint/unbound-method
+            debounce(this.emitUserAcceptedAQuery, this.config.instantDebounceInMs);
+        }
+        this.debouncedUserAcceptedAQuery(query);
+      }
     }
 
     /**
@@ -92,8 +114,11 @@
      * @internal
      */
     protected emitUserIsTypingAQueryEvents(): void {
-      this.$x.emit('UserIsTypingAQuery', this.$refs.input.value, this.eventMetadata());
-      if(!this.$refs.input.value) {
+      const query = this.$refs.input.value;
+      if (query.trim()) {
+        this.$x.emit('UserIsTypingAQuery', query, this.eventMetadata());
+        this.emitDebouncedUserAcceptedAQuery(query);
+      } else if (!query) {
         this.$x.emit('UserClearedQuery', undefined, this.eventMetadata());
       }
     }
@@ -122,8 +147,21 @@
       const query = this.$refs.input.value.trim();
       if (query.length > 0) {
         this.$x.emit('UserPressedEnterKey', query, this.eventMetadata());
-        this.$x.emit('UserAcceptedAQuery', query, this.eventMetadata());
+        this.emitUserAcceptedAQuery(query);
       }
+      this.$refs.input?.blur();
+    }
+
+    /**
+     * Emits {@link XEventsTypes.UserAcceptedAQuery} event.
+     *
+     * @remarks It is necessary in a separated method to use it as the parameter of debounce in
+     * emitDebouncedUserAcceptedAQuery method.
+     * @internal
+     * @param query - The query that will be emitted.
+     */
+    protected emitUserAcceptedAQuery(query: string): void {
+      this.$x.emit('UserAcceptedAQuery', query, this.eventMetadata());
     }
   }
 </script>

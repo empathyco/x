@@ -12,6 +12,10 @@ export interface SearchBoxConfig {
   maxLength: number;
   /** Allow input autofocus when the search box has been rendered. */
   autofocus: boolean;
+  /** Enable the auto accept query after debounce. */
+  instant: boolean;
+  /** The debounce time for the instant. */
+  instantDebounceInMs: number;
   /** Autocomplete suggestion configuration. */
   autocomplete: {
     /** Keyboard keys to accept the autocomplete suggestion. */

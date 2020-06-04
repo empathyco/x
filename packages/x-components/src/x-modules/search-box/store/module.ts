@@ -11,6 +11,8 @@ export const searchBoxXStoreModule: SearchBoxXStoreModule = {
     config: {
       maxLength: 64,
       autofocus: true,
+      instant: true,
+      instantDebounceInMs: 500,
       autocomplete: {
         keyboardKeys: ['ArrowRight'],
         suggestionsEvent: 'QuerySuggestionsChanged'
