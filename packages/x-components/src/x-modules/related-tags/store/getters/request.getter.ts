@@ -9,10 +9,15 @@ import { RelatedTagsXStoreModule } from '../types';
  *
  * @public
  */
-export const request: RelatedTagsXStoreModule['getters']['request'] = ({ query, config }) => {
+export const request: RelatedTagsXStoreModule['getters']['request'] = ({
+  query,
+  selectedRelatedTags,
+  config
+}) => {
   return query.trim()
     ? {
         query,
+        relatedTags: selectedRelatedTags,
         rows: config.maxItemsToRequest,
         start: 0
       }

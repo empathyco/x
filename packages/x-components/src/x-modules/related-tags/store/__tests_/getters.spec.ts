@@ -26,6 +26,22 @@ describe('testing related tags module getters', () => {
 
       expect(store.getters[gettersKeys.request]).toEqual({
         query: 'doraemon',
+        relatedTags: [],
+        rows: 10,
+        start: 0
+      });
+    });
+
+    it('should return a request object with the selected related tags', () => {
+      const selectedRelatedTags = getSelectedRelatedTagsStub();
+      resetRelatedTagsStateWith(store, {
+        query: 'nobita',
+        selectedRelatedTags: selectedRelatedTags
+      });
+
+      expect(store.getters[gettersKeys.request]).toEqual({
+        query: 'nobita',
+        relatedTags: selectedRelatedTags,
         rows: 10,
         start: 0
       });
