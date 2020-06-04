@@ -12,14 +12,8 @@
     "downlevelIteration": true,
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "outDir": "dist",
-    "types": [
-      "jest"
-    ]
+    "types": ["jest"]
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "**/__tests__/*/**"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["**/__tests__/*/**"]
 }

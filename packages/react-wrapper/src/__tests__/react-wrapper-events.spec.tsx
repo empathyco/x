@@ -21,10 +21,7 @@ describe('Testing support of events in the react-wrapper', () => {
       VueButtonMounted: vueButtonMountedCallback
     };
 
-    ReactDOM.render(
-      <ReactWrapper component={ VueButton } on={ onPropContent }/>,
-      rootHTML
-    );
+    ReactDOM.render(<ReactWrapper component={VueButton} on={onPropContent} />, rootHTML);
 
     await Vue.nextTick();
     expect(vueButtonCreatedCallback).toHaveBeenCalledWith('Hello world!');
@@ -40,7 +37,7 @@ describe('Testing support of events in the react-wrapper', () => {
     };
 
     ReactDOM.render(
-      <ReactWrapper component={ VueButton } message={ message } on={ onPropContent }/>,
+      <ReactWrapper component={VueButton} message={message} on={onPropContent} />,
       rootHTML
     );
 
@@ -54,7 +51,10 @@ describe('Testing support of events in the react-wrapper', () => {
   it('unsubscribes listener events and subscribes the new ones', async () => {
     const firstCallback = jest.fn();
     const secondCallback = jest.fn();
-    const reactComponent = ReactDOM.render(<ReactEventsStub/>, rootHTML) as any as ReactEventsStub;
+    const reactComponent = (ReactDOM.render(
+      <ReactEventsStub />,
+      rootHTML
+    ) as any) as ReactEventsStub;
 
     reactComponent.setState({
       events: { VueButtonClickedFirstEvent: firstCallback }

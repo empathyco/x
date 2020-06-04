@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { ReactWrapper } from '../../react-wrapper';
 import { VueDestroyed } from './vue-destroy.stub';
 
@@ -7,21 +7,30 @@ interface ReactToggleComponentState {
   clicksCount: number;
 }
 
-export class ReactToggleComponent extends React.Component<{}, ReactToggleComponentState> {
-  constructor(props: {}) {
+export class ReactToggleComponent extends React.Component<object, ReactToggleComponentState> {
+  public constructor(props: object) {
     super(props);
     this.state = { renderVueComponent: true, clicksCount: 0 };
     this.toggleComponent = this.toggleComponent.bind(this);
   }
 
-  toggleComponent() {
-    this.setState({ renderVueComponent: !this.state.renderVueComponent, clicksCount: this.state.clicksCount + 1 });
+  toggleComponent(): void {
+    this.setState({
+      renderVueComponent: !this.state.renderVueComponent,
+      clicksCount: this.state.clicksCount + 1
+    });
   }
 
-  render() {
+  render(): ReactNode {
     return (
       <section>
-        { this.state.renderVueComponent && <ReactWrapper component={ VueDestroyed } count={ this.state.clicksCount }/> }
-      </section>);
+        {
+          // eslint-disable-next-line @typescript-eslint/no-extra-parens
+          this.state.renderVueComponent && (
+            <ReactWrapper component={VueDestroyed} count={this.state.clicksCount} />
+          )
+        }
+      </section>
+    );
   }
 }

@@ -1,7 +1,7 @@
 import Vue, { ComponentOptions } from 'vue';
 
 interface VueDestroyedProps {
-  count: number
+  count: number;
 }
 
 export const vueDestroyedCallback = jest.fn();

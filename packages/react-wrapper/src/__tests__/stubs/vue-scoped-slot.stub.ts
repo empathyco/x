@@ -1,7 +1,7 @@
 import Vue, { ComponentOptions } from 'vue';
 
 interface VueSlotsProps {
-  message: string
+  message: string;
 }
 
 export const VueScopedSlot: ComponentOptions<Vue> & ThisType<Vue & VueSlotsProps> = {
@@ -12,8 +12,6 @@ export const VueScopedSlot: ComponentOptions<Vue> & ThisType<Vue & VueSlotsProps
     }
   },
   render(h) {
-    return h('section', {}, [
-      this.$scopedSlots.scoped?.(`Vue says: ${this.message}`)
-    ]);
+    return h('section', {}, [this.$scopedSlots.scoped?.(`Vue says: ${this.message}`)]);
   }
 };

@@ -1,7 +1,7 @@
 import Vue, { ComponentOptions } from 'vue';
 
 interface VueMessageProps {
-  message: string
+  message: string;
 }
 
 export const VueMessage: ComponentOptions<Vue> & ThisType<Vue & VueMessageProps> = {

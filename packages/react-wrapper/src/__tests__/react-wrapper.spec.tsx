@@ -15,10 +15,7 @@ describe('Testing react-wrapper component', () => {
   });
 
   it('allows rendering a vue component', () => {
-    ReactDOM.render(
-      <ReactSimpleMessageStub/>,
-      root
-    );
+    ReactDOM.render(<ReactSimpleMessageStub />, root);
 
     const vueHTML = root.querySelector('p');
     expect(vueHTML).toBeDefined();
@@ -26,8 +23,10 @@ describe('Testing react-wrapper component', () => {
   });
 
   it('keeps props synced', async () => {
-    const reactComponent = ReactDOM.render(<ReactToggleMessage/>,
-      root) as unknown as ReactToggleMessage;
+    const reactComponent = (ReactDOM.render(
+      <ReactToggleMessage />,
+      root
+    ) as unknown) as ReactToggleMessage;
 
     const vueHTML = root.querySelector('p');
     expect(vueHTML).toBeDefined();
@@ -40,8 +39,10 @@ describe('Testing react-wrapper component', () => {
   });
 
   it('destroys the Vue component when the React one is destroyed', async () => {
-    const reactComponent = ReactDOM.render(<ReactToggleComponent/>,
-      root) as unknown as ReactToggleComponent;
+    const reactComponent = (ReactDOM.render(
+      <ReactToggleComponent />,
+      root
+    ) as unknown) as ReactToggleComponent;
 
     let vueHTML = root.querySelector('p');
     expect(vueHTML).toBeDefined();

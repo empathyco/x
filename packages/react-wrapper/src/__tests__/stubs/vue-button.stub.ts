@@ -1,7 +1,7 @@
 import Vue, { ComponentOptions } from 'vue';
 
 interface VueMessageProps {
-  message: string
+  message: string;
 }
 
 export const VueButton: ComponentOptions<Vue> & ThisType<Vue & VueMessageProps> = {
@@ -12,17 +12,23 @@ export const VueButton: ComponentOptions<Vue> & ThisType<Vue & VueMessageProps> 
     }
   },
   created(): void {
-    this.$emit('VueButtonCreated', this.message)
+    this.$emit('VueButtonCreated', this.message);
   },
   mounted(): void {
-    this.$emit('VueButtonMounted', this.message)
+    this.$emit('VueButtonMounted', this.message);
   },
   render(h) {
-    return h('button', {
-      on: { click: () => {
-        this.$emit('VueButtonClickedFirstEvent', this.message);
-        this.$emit('VueButtonClickedSecondEvent', this.message);
-      } }
-    }, [this.message]);
+    return h(
+      'button',
+      {
+        on: {
+          click: () => {
+            this.$emit('VueButtonClickedFirstEvent', this.message);
+            this.$emit('VueButtonClickedSecondEvent', this.message);
+          }
+        }
+      },
+      [this.message]
+    );
   }
 };

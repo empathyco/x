@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { ReactWrapperProps, ReactWrapperState } from './react-wrapper.types';
 import { createVueInstance, updateVueInstance } from './vue-creator';
 
 export class ReactWrapper extends React.Component<ReactWrapperProps, ReactWrapperState> {
-
   /**
    * This method will be executed when props of the react-wrapper have changed. It synchronizes
    * these new props with the Vue instance, resubscribe the new event listeners and the Vue instance
@@ -24,7 +23,7 @@ export class ReactWrapper extends React.Component<ReactWrapperProps, ReactWrappe
 
   protected reactRenderedHTMLElement!: HTMLElement;
 
-  constructor(props: ReactWrapperProps) {
+  public constructor(props: ReactWrapperProps) {
     super(props);
     this.mountVueInstance = this.mountVueInstance.bind(this);
 
@@ -39,7 +38,7 @@ export class ReactWrapper extends React.Component<ReactWrapperProps, ReactWrappe
    * @param htmlElement - The root React rendered HTML element where the vueInstance will be
    * mounted.
    */
-  protected mountVueInstance(htmlElement: HTMLElement | null) {
+  protected mountVueInstance(htmlElement: HTMLElement | null): void {
     if (htmlElement && this.state.vueInstance) {
       this.reactRenderedHTMLElement = htmlElement;
       this.state.vueInstance.$mount(htmlElement);
@@ -68,8 +67,11 @@ export class ReactWrapper extends React.Component<ReactWrapperProps, ReactWrappe
 
   /**
    * Render function of the React wrapper.
+   *
+   * @returns The ReadNode with the Vue instance rendered.
    */
-  render() {
-    return <div ref={ this.mountVueInstance }/>;
+  render(): ReactNode {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    return <div ref={this.mountVueInstance} />;
   }
 }
