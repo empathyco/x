@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.3.0 - 05/06/2020
+
+> EX-1843 Add ESM build keeping the CommonJS too
+
 ## 1.2.1
 
 > EX-1540 Update `@empathy/logger` to use minor version
