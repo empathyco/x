@@ -72,6 +72,8 @@ perfect components mixing. A project ready to connect to any Search API with cus
 * [@empathyco/eslint-plugin-x](https://github.com/empathyco/x/tree/main/packages/eslint-plugin-x) - The package name is just to follow the 
 guidelines of ESLint to develop a custom plugin, but it includes also style formatter and good practices outside ESLint, as 
 [prettier](https://prettier.io/) and [standard-version](https://github.com/conventional-changelog/standard-version) 
+* [@empathyco/x-logger](https://github.com/empathyco/x/tree/main/packages/x-logger) - This is package is a custom implementation of the
+default node logger.
 
 ## How Can I Contribute?
 
