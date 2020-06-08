@@ -42,6 +42,23 @@
         <h1>Related tags</h1>
         <RelatedTags :animation="fadeAndSlide" />
       </div>
+      <div class="inline-flex">
+        <h1>Recommendations</h1>
+        <Recommendations :animation="fadeAndSlide">
+          <template #default="{ recommendation }">
+            <BaseResultLink :result="recommendation" class="x-result-link">
+              <template #default="{ result }">
+                <img
+                  :src="result.images[0]"
+                  :alt="result.name"
+                  class="x-result_image inline-flex"
+                />
+                <span class="x-result__title">{{ result.name }}</span>
+              </template>
+            </BaseResultLink>
+          </template>
+        </Recommendations>
+      </div>
     </KeyboardNavigation>
   </main>
 </template>
@@ -50,6 +67,7 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import BaseModalContainer from './components/base-modal-container.vue';
+  import BaseResultLink from './components/base-result-link.vue';
   import CloseButton from './components/close-button.vue';
   import OpenButton from './components/open-button.vue';
   import FadeAndSlide from './components/animations/fade-and-slide.vue';
@@ -63,24 +81,27 @@
   import PopularSearches from './x-modules/popular-searches/components/popular-searches.vue';
   import QuerySuggestion from "./x-modules/query-suggestions/components/query-suggestion.vue";
   import QuerySuggestions from './x-modules/query-suggestions/components/query-suggestions.vue';
+  import Recommendations from './x-modules/recommendations/components/recommendations.vue';
   import RelatedTags from './x-modules/related-tags/components/related-tags.vue';
   import ClearSearchInput from './x-modules/search-box/components/clear-search-input.vue';
   import SearchInput from './x-modules/search-box/components/search-input.vue';
 
   @Component({
     components: {
-      QuerySuggestion,
+      BaseResultLink,
       BaseModalContainer,
       ClearHistoryQueries,
-      NoSuggestions,
       ClearSearchInput,
       CloseButton,
       HistoryQueries,
       KeyboardNavigation,
       NextQueries,
+      NoSuggestions,
       OpenButton,
       PopularSearches,
+      QuerySuggestion,
       QuerySuggestions,
+      Recommendations,
       RelatedTags,
       SearchInput
     }

@@ -1,6 +1,8 @@
 export * from './animations';
 export { default as BaseEventButton } from './base-event-button.vue';
 export { default as BaseModalContainer } from './base-modal-container.vue';
+export { default as BaseAddToCart } from './base-result-add-to-cart.vue';
+export { default as BaseResultLink } from './base-result-link.vue';
 export { default as BaseSuggestion } from './base-suggestion.vue';
 export { default as BaseSuggestions } from './base-suggestions.vue';
 export { default as CloseButton } from './close-button.vue';
