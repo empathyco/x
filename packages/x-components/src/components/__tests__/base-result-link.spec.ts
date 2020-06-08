@@ -43,6 +43,29 @@ describe('testing BaseResultLink component', () => {
     expect(listener).toHaveBeenCalledWith(result);
   });
 
+  it('emits events provided from parent element with provided origin in metadata', () => {
+    // Using `UserClickedResultAddToCart` for testing purposes, needs to be an XEvent
+    const listener = jest.fn();
+    const resultLinkWrapper = mount(BaseResultLink, {
+      provide: {
+        resultClickExtraEvents: ['UserClickedResultAddToCart'],
+        origin: 'empty-search'
+      },
+      localVue,
+      propsData: { result }
+    });
+    resultLinkWrapper.vm.$x.on('UserClickedResultAddToCart', true).subscribe(listener);
+    resultLinkWrapper.trigger('click');
+    expect(listener).toHaveBeenCalledWith({
+      eventPayload: result,
+      metadata: {
+        moduleName: null,
+        target: resultLinkWrapper.element,
+        origin: 'empty-search'
+      }
+    });
+  });
+
   it('renders the content overriding default slot', () => {
     const wrapperComponent = {
       template: `

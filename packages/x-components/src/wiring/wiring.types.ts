@@ -1,6 +1,7 @@
 import { Observable, Subscription } from 'rxjs';
 import { Store } from 'vuex';
 import { ExtractActions, ExtractMutations, ExtractPayload, RootXStoreState } from '../store';
+import { QueryOrigin } from '../types/query-origin';
 import { Dictionary, PropsWithType } from '../utils';
 import {
   ExtractGetters,
@@ -34,7 +35,7 @@ export interface WireMetadata {
   /** The DOM element that triggered the event emission. */
   target?: HTMLElement;
   /** The origin for tagging purposes. */
-  origin?: string;
+  origin?: QueryOrigin;
 }
 
 /**

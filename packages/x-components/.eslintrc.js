@@ -10,10 +10,16 @@ const esLintRules = {
   'no-eval': 'error',
   'require-await': 'error',
   strict: ['error', 'global'],
-  'no-restricted-imports': [
+  'no-restricted-imports': ['error', { patterns: ['rxjs/internal/**/*', '**/dist/**/*'] }],
+  'import/no-restricted-paths': [
     'error',
     {
-      patterns: ['rxjs/internal/**/*', '**/types/**/*', '**/dist/**/*']
+      zones: [
+        {
+          target: './',
+          from: './types'
+        }
+      ]
     }
   ],
   indent: 'off',
