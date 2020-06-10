@@ -16,6 +16,11 @@ export function getResultsStub(): Result[] {
       images: ['xc-001-01.jpg', 'xc-001-02.jpg'],
       url: 'http://x-components.com/xc-001.html',
       tagging: getResultTagging('xr-001'),
+      price: {
+        hasDiscount: false,
+        value: 30,
+        originalValue: 30
+      },
       ...getResultCommonValues()
     },
     {
@@ -24,6 +29,11 @@ export function getResultsStub(): Result[] {
       images: ['xc-002-01.jpg', 'xc-002-02.jpg'],
       url: 'http://x-components.com/xc-0002.html',
       tagging: getResultTagging('xr-002'),
+      price: {
+        hasDiscount: true,
+        value: 20,
+        originalValue: 30
+      },
       ...getResultCommonValues()
     }
   ] as Result[];
@@ -80,7 +90,6 @@ function getResultCommonValues(): DeepPartial<Result> {
     type: 'Product',
     isWishlisted: false,
     rating: {},
-    price: {},
     identifier: {}
   };
 }
