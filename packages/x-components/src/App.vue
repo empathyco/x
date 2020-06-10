@@ -9,7 +9,7 @@
     <SearchInput placeholder="Search" aria-label="Search for products" />
     <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
     <NoSuggestions message="We couldn't find any suggestion. Try searching for {query}." />
-    <KeyboardNavigation>
+    <BaseKeyboardNavigation>
       <div class="inline-flex">
         <h1>Query Suggestions</h1>
         <QuerySuggestions :animation="fadeAndSlide">
@@ -59,20 +59,20 @@
           </template>
         </Recommendations>
       </div>
-    </KeyboardNavigation>
+    </BaseKeyboardNavigation>
   </main>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import BaseKeyboardNavigation from './components/base-keyboard-navigation.vue';
   import BaseModalContainer from './components/base-modal-container.vue';
   import BaseResultLink from './components/base-result-link.vue';
   import CloseButton from './components/close-button.vue';
   import OpenButton from './components/open-button.vue';
   import FadeAndSlide from './components/animations/fade-and-slide.vue';
   import { getURLParameter } from './utils/get-url-parameters';
-  import KeyboardNavigation from './x-modules/empathize/components/keyboard-navigation.vue';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from './x-modules/history-queries/components/clear-history-queries.vue';
   import HistoryQueries from './x-modules/history-queries/components/history-queries.vue';
@@ -88,13 +88,13 @@
 
   @Component({
     components: {
-      BaseResultLink,
+      BaseKeyboardNavigation,
       BaseModalContainer,
+      BaseResultLink,
       ClearHistoryQueries,
       ClearSearchInput,
       CloseButton,
       HistoryQueries,
-      KeyboardNavigation,
       NextQueries,
       NoSuggestions,
       OpenButton,

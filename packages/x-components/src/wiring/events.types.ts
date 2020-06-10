@@ -91,6 +91,11 @@ export interface XEventsTypes
    */
   UserPressedArrowKey: ArrowKey;
   /**
+   * The user has reached the top of the empathize and keeps navigating in that direction.
+   * * Payload: none.
+   */
+  UserReachedEmpathizeTop: void;
+  /**
    * The user has right clicked on a result.
    * * Payload: The {@link @empathy/search-types#Result | result} that the user right clicked.
    */

@@ -5,7 +5,6 @@
     @focus="emitUserFocusedSearchBox"
     @input="emitUserIsTypingAQueryEvents"
     @keydown.enter="emitUserPressedEnterKey"
-    @keydown.right.left.stop="emitUserPressedArrowKey"
     @keydown.up.down.prevent="emitUserPressedArrowKey"
     :maxlength="config.maxLength"
     :value="query"
@@ -44,6 +43,16 @@
 
     @State('searchBox', 'config')
     public config!: SearchBoxConfig;
+
+    /**
+     * Focus search input when the user navigates to the search input.
+     *
+     * @internal
+     */
+    @XOn('UserReachedEmpathizeTop')
+    focusInput(): void {
+      this.$refs.input?.focus();
+    }
 
     protected debouncedUserAcceptedAQuery!: DebouncedFunction<[string]>;
 

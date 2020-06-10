@@ -1,3 +1,6 @@
+import { XEventsTypes } from '../wiring/events.types';
+import { XModuleName } from '../x-modules/x-modules.types';
+
 /**
  * Object where all its properties are strings, and the value of them is defined by the type of
  * the T property.
@@ -94,3 +97,26 @@ export type VueCSSClasses = string | Dictionary<boolean> | (string | Dictionary<
  * @public
  */
 export type Pair<Type> = [Type, Type];
+
+/**
+ * Represents when to take control of the navigation.
+ *
+ * @remarks
+ * The {@link XEvent} refers to the event the component has to listen to.
+ *
+ * @public
+ */
+export type TakeNavigationControl = {
+  xEvent: PropsWithType<XEventsTypes, ArrowKey>;
+  moduleName: XModuleName;
+  direction: ArrowKey;
+};
+
+/**
+ * Events to emit when reaching the {@link ArrowKey | direction} limit.
+ *
+ * @public
+ */
+export type EventsForDirectionLimit = {
+  [key in ArrowKey]: PropsWithType<XEventsTypes, void>;
+};
