@@ -1,4 +1,18 @@
 # X Components
+## [1.0.0-alpha.2](https://bitbucket.org/colbenson/x-components/branches/compare/v1.0.0-alpha.2%0Dv1.0.0-alpha.1) (2020-06-11)
+
+
+### Features
+
+* **base-result-previous-price:** added base result previous price component ([a51df82](https://bitbucket.org/colbenson/x-components/commits/a51df8225c268513fe95e7e8ef505934f72d6c3d)), closes [EX-1913](https://searchbroker.atlassian.net/browse/EX-1913)
+* **related-tags:** add e2e testing for the related tags ([98c80e3](https://bitbucket.org/colbenson/x-components/commits/98c80e305a5e39e6f47c7104a099a944cc70bc35)), closes [EX-1968](https://searchbroker.atlassian.net/browse/EX-1968)
+* **spatial-navigation:** ability to move between any component and the keyboard-navigation component ([0d80db8](https://bitbucket.org/colbenson/x-components/commits/0d80db89f65d3eb1ef34979fe8ff98f4d83f389a))
+
+
+### Testing
+
+* **keyboard-navigation:** e2e testing for keyboard-navigation ([18821c5](https://bitbucket.org/colbenson/x-components/commits/18821c5a03b482060995f5adf3bca21e6864ed11)), closes [EX-1924](https://searchbroker.atlassian.net/browse/EX-1924)
+
 ## 1.0.0-alpha.1 (2020-06-10)
 
 
