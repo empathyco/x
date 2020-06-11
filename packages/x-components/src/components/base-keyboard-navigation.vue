@@ -122,7 +122,7 @@
      * @internal
      */
     protected focusNextNavigableElement(direction: ArrowKey | KeyboardEvent): void {
-      const dir = direction instanceof KeyboardEvent ? (direction.key) as ArrowKey : direction;
+      const dir = typeof direction === 'object' ? (direction.key) as ArrowKey : direction;
       const nextElementToFocus = this.navigationService.navigateTo(dir);
 
       if (this.elementToFocus !== nextElementToFocus) {

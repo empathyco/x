@@ -189,8 +189,16 @@
 
   ## Basic example
 
-  Simple search input component without props or slots that emits events when a user interacts
+  Simple search input component without slots that emits events when a user interacts
   with it.
+
+  ```vue
+  <SearchInput/>
+  ```
+
+  ## Modifying its prop
+
+  By default, position prop value is 'above',
 
   ```vue
   <SearchInput/>
