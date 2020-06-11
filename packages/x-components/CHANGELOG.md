@@ -4,9 +4,9 @@
 
 ### Features
 
-* **base-result-previous-price:** added base result previous price component ([a51df82](https://bitbucket.org/colbenson/x-components/commits/a51df8225c268513fe95e7e8ef505934f72d6c3d)), closes [EX-1913](https://searchbroker.atlassian.net/browse/EX-1913)
+* **base-result-previous-price:** add base result previous price component ([a51df82](https://bitbucket.org/colbenson/x-components/commits/a51df8225c268513fe95e7e8ef505934f72d6c3d)), closes [EX-1913](https://searchbroker.atlassian.net/browse/EX-1913)
 * **related-tags:** add e2e testing for the related tags ([98c80e3](https://bitbucket.org/colbenson/x-components/commits/98c80e305a5e39e6f47c7104a099a944cc70bc35)), closes [EX-1968](https://searchbroker.atlassian.net/browse/EX-1968)
-* **spatial-navigation:** ability to move between any component and the keyboard-navigation component ([0d80db8](https://bitbucket.org/colbenson/x-components/commits/0d80db89f65d3eb1ef34979fe8ff98f4d83f389a))
+* **spatial-navigation:** ability to move between any component and the keyboard-navigation component ([0d80db8](https://bitbucket.org/colbenson/x-components/commits/0d80db89f65d3eb1ef34979fe8ff98f4d83f389a)), closes [EX-1924](https://searchbroker.atlassian.net/browse/EX-1924)
 
 
 ### Testing
@@ -20,23 +20,23 @@
 
 * **animations:** fade and slide animation component ([5ac5a0e](https://bitbucket.org/colbenson/x-components/commits/5ac5a0e94896550c6e9b8b6f0eacefd35e60b565)), closes [EX-1867](https://searchbroker.atlassian.net/browse/EX-1867)
 * **base-modal-container:** add base-modal-container component ([cd5d22b](https://bitbucket.org/colbenson/x-components/commits/cd5d22b36d5d2c76eb98adf83cb3ac69de9edc44)), closes [EX-1765](https://searchbroker.atlassian.net/browse/EX-1765)
-* **base-result-current-price:** created base result current price component ([6684fd3](https://bitbucket.org/colbenson/x-components/commits/6684fd3c53905345a842dd58546549cf55be9e0a)), closes [EX-1913](https://searchbroker.atlassian.net/browse/EX-1913)
-* **base-result-image:** Added the base result image with lazy loading also fallback and placeholder ([d19ead6](https://bitbucket.org/colbenson/x-components/commits/d19ead60777d8faebbc30c38ec0982e4134a8478))
+* **base-result-current-price:** create base result current price component ([6684fd3](https://bitbucket.org/colbenson/x-components/commits/6684fd3c53905345a842dd58546549cf55be9e0a)), closes [EX-1913](https://searchbroker.atlassian.net/browse/EX-1913)
+* **base-result-image:** add the base result image with lazy loading also fallback and placeholder ([d19ead6](https://bitbucket.org/colbenson/x-components/commits/d19ead60777d8faebbc30c38ec0982e4134a8478))
 * **base-result-link:** refactor BaseResultLink component to receive origin and events by injection ([8233b1b](https://bitbucket.org/colbenson/x-components/commits/8233b1b388a4e94d98f5d3c75253a31558a3ff5e)), closes [EX-1971](https://searchbroker.atlassian.net/browse/EX-1971)
 * **base-suggestion:** allow string in matching part to retain accent marks ([94c4ddf](https://bitbucket.org/colbenson/x-components/commits/94c4ddf3d186527462794a2af39a96c93200c885)), closes [EX-1886](https://searchbroker.atlassian.net/browse/EX-1886)
 * **bus:** make metadata parameter optional ([9d61ce4](https://bitbucket.org/colbenson/x-components/commits/9d61ce436d8e9abc52a780b84ff2d7e9985a753b)), closes [EX-1695](https://searchbroker.atlassian.net/browse/EX-1695)
 * **clear-search-input:** add clear-search-input button ([0b5ec3b](https://bitbucket.org/colbenson/x-components/commits/0b5ec3b52ff4ed6d1f46398639d08a5b7e32f6ae)), closes [EX-1663](https://searchbroker.atlassian.net/browse/EX-1663)
 * **close-button:** add close-button component ([b0a07dc](https://bitbucket.org/colbenson/x-components/commits/b0a07dc5c3f989b2ad5519efc32a8a13434a7076)), closes [EX-1765](https://searchbroker.atlassian.net/browse/EX-1765)
 * **compile-message:** add compileMessage filter and register it globally ([8fe4710](https://bitbucket.org/colbenson/x-components/commits/8fe471063f92eed9d90667c1970eed28bd62598b)), closes [EX-1779](https://searchbroker.atlassian.net/browse/EX-1779)
-* **conventional-commits:** Add conventional-commits and commitizen npm packages ([e3bdcd4](https://bitbucket.org/colbenson/x-components/commits/e3bdcd413f990b5934fafd0190bb8ef5820f18ff)), closes [EX-1614](https://searchbroker.atlassian.net/browse/EX-1614)
+* **conventional-commits:** add conventional-commits and commitizen npm packages ([e3bdcd4](https://bitbucket.org/colbenson/x-components/commits/e3bdcd413f990b5934fafd0190bb8ef5820f18ff)), closes [EX-1614](https://searchbroker.atlassian.net/browse/EX-1614)
 * **cypress:** add @cypress/webpack-preprocessor to support TypeScript ([52aa5ad](https://bitbucket.org/colbenson/x-components/commits/52aa5adc3c7166ea063a136193b43591dd0ce516)), closes [EX-1790](https://searchbroker.atlassian.net/browse/EX-1790)
 * **cypress:** add custom command for cypress ([c988994](https://bitbucket.org/colbenson/x-components/commits/c988994a7e773a1762c7e6134c7e9efcfd344e5a)), closes [EX-1792](https://searchbroker.atlassian.net/browse/EX-1792)
 * **cypress:** disable video recording in Cypress e2e tests ([cf9beeb](https://bitbucket.org/colbenson/x-components/commits/cf9beebea12f25ef8ea49380de6705984f1c9c4f)), closes [EX-1866](https://searchbroker.atlassian.net/browse/EX-1866)
 * **cypress:** inject XComponents to the global window object when Cypress is running ([4591cd2](https://bitbucket.org/colbenson/x-components/commits/4591cd20773838a777af1af0f83a64f49b2894d9)), closes [EX-1768](https://searchbroker.atlassian.net/browse/EX-1768)
-* **docs:** Docusaurus integration ([80af715](https://bitbucket.org/colbenson/x-components/commits/80af715744a01868f1b9df198b8545e3f9b397e3)), closes [EX-1869](https://searchbroker.atlassian.net/browse/EX-1869)
+* **docs:** docusaurus integration ([80af715](https://bitbucket.org/colbenson/x-components/commits/80af715744a01868f1b9df198b8545e3f9b397e3)), closes [EX-1869](https://searchbroker.atlassian.net/browse/EX-1869)
 * **empathize:** create empty Empathize module ([74441d1](https://bitbucket.org/colbenson/x-components/commits/74441d1dec34e2298df6e6a2ddfa3e2e3cc6be19)), closes [EX-1804](https://searchbroker.atlassian.net/browse/EX-1804)
 * **empathize:** keyboardNavigation component which deals with arrow keys pressed inside it ([3191215](https://bitbucket.org/colbenson/x-components/commits/31912159bbc860e3c622c4d9561e1afcff3bcff9)), closes [EX-1804](https://searchbroker.atlassian.net/browse/EX-1804)
-* **eslint:** configured ESLint by subfolder and cypress rules ([734717e](https://bitbucket.org/colbenson/x-components/commits/734717e1058b10481ec237413fc3c5a44361b870)), closes [EX-1675](https://searchbroker.atlassian.net/browse/EX-1675)
+* **eslint:** configure ESLint by subfolder and cypress rules ([734717e](https://bitbucket.org/colbenson/x-components/commits/734717e1058b10481ec237413fc3c5a44361b870)), closes [EX-1675](https://searchbroker.atlassian.net/browse/EX-1675)
 * **event-button:** add metadata target property to emitted events ([812a678](https://bitbucket.org/colbenson/x-components/commits/812a678ca479006dd1d534ad2c9b4a0b6ce425c1)), closes [EX-1663](https://searchbroker.atlassian.net/browse/EX-1663)
 * **event-metadata:** add metadata parameter ([d2128e8](https://bitbucket.org/colbenson/x-components/commits/d2128e8ab1aae7a3e75f387835f0dec7fb63a6b2)), closes [EX-1617](https://searchbroker.atlassian.net/browse/EX-1617)
 * **eventbutton:** add EventButton reusable component ([3c29f32](https://bitbucket.org/colbenson/x-components/commits/3c29f32ae4aea62bc3d6a37b9a224f57af10c2df)), closes [EX-1680](https://searchbroker.atlassian.net/browse/EX-1680)
@@ -88,8 +88,8 @@
 * **related-tags:** add related tags actions and testing ([6bedca9](https://bitbucket.org/colbenson/x-components/commits/6bedca920a8a69384014eef4b1d7c6961a7f0122)), closes [EX-1750](https://searchbroker.atlassian.net/browse/EX-1750)
 * **related-tags:** add related tags state ([ac4c9c9](https://bitbucket.org/colbenson/x-components/commits/ac4c9c91ecd49a61786b0482cffe4efef6e55ab5)), closes [EX-1749](https://searchbroker.atlassian.net/browse/EX-1749)
 * **related-tags:** add wiring and emitters for the related tags ([d7e4af2](https://bitbucket.org/colbenson/x-components/commits/d7e4af27fa540a3994050a80495d16dd63524efd)), closes [EX-1750](https://searchbroker.atlassian.net/browse/EX-1750)
-* **related-tags:** added related-tags component ([cb5cf8b](https://bitbucket.org/colbenson/x-components/commits/cb5cf8b390707f19683197f52b4a5c9d75c0d7dc)), closes [EX-1753](https://searchbroker.atlassian.net/browse/EX-1753)
-* **related-tags:** added the selected related tags to the request ([dab7b7f](https://bitbucket.org/colbenson/x-components/commits/dab7b7fc38f53e360fa085eb0ee0f9d58af6d365)), closes [EX-1967](https://searchbroker.atlassian.net/browse/EX-1967)
+* **related-tags:** add related-tags component ([cb5cf8b](https://bitbucket.org/colbenson/x-components/commits/cb5cf8b390707f19683197f52b4a5c9d75c0d7dc)), closes [EX-1753](https://searchbroker.atlassian.net/browse/EX-1753)
+* **related-tags:** add the selected related tags to the request ([dab7b7f](https://bitbucket.org/colbenson/x-components/commits/dab7b7fc38f53e360fa085eb0ee0f9d58af6d365)), closes [EX-1967](https://searchbroker.atlassian.net/browse/EX-1967)
 * **result-add-to-cart:** add BaseResultAddToCart component ([ff5a473](https://bitbucket.org/colbenson/x-components/commits/ff5a473e4aef9148505d67efe7be65cf90c7d169)), closes [EX-1914](https://searchbroker.atlassian.net/browse/EX-1914)
 * **result-link:** create BaseResultLink component and events associated with it ([54b708a](https://bitbucket.org/colbenson/x-components/commits/54b708a1f895623a4c0f4e8ac5e096162251fa52)), closes [EX-1911](https://searchbroker.atlassian.net/browse/EX-1911)
 * **sanitize:** add sanitize function to encode characters in a string ([657d26a](https://bitbucket.org/colbenson/x-components/commits/657d26a851cb93881fed81247edfea72266271a1)), closes [EX-1721](https://searchbroker.atlassian.net/browse/EX-1721)
@@ -199,7 +199,7 @@
 * **search-input:** refactor to use XOn decorator instead of creating manually subscription ([bd42501](https://bitbucket.org/colbenson/x-components/commits/bd42501f7a9cfb7cdc4a6d5e120c56b14ecf6687)), closes [EX-1781](https://searchbroker.atlassian.net/browse/EX-1781)
 * **x-plugin:** extract getters Proxy creation from XPlugin ([800b634](https://bitbucket.org/colbenson/x-components/commits/800b63490bdf85bcdc30820b8765a2d763323278)), closes [EX-1594](https://searchbroker.atlassian.net/browse/EX-1594)
 * **x-plugin:** remove global messages object in favour of individual messages ([4fafbad](https://bitbucket.org/colbenson/x-components/commits/4fafbad08bc0cbedf4cf5abb244a92173d8d72ab)), closes [EX-1842](https://searchbroker.atlassian.net/browse/EX-1842)
-* **x-plugin:** remove x-plugin singleton and improve testeability ([1ce38d5](https://bitbucket.org/colbenson/x-components/commits/1ce38d524c7329a6da95d11a37a84f1114774533)), closes [EX-1854](https://searchbroker.atlassian.net/browse/EX-1854)
+* **x-plugin:** remove x-plugin singleton and improve testability ([1ce38d5](https://bitbucket.org/colbenson/x-components/commits/1ce38d524c7329a6da95d11a37a84f1114774533)), closes [EX-1854](https://searchbroker.atlassian.net/browse/EX-1854)
 * **xevents:** refactor XEvents into their respective module ([dd6663b](https://bitbucket.org/colbenson/x-components/commits/dd6663b9562fc57cd977fed909f6ec6a97394581)), closes [EX-1847](https://searchbroker.atlassian.net/browse/EX-1847)
 
 
