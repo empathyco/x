@@ -153,7 +153,8 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
   }
 
   /**
-   * Filters out candidates that can't be candidates based on the direction of the navigation.
+   * Filters out candidates that can't be candidates based on the direction of the navigation and
+   * if they are visible and enabled.
    *
    * @param rawCandidates - List of all candidates.
    *
@@ -161,11 +162,64 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    * @internal
    */
   private filterCandidates(rawCandidates: HTMLElement[]): HTMLElement[] {
-    return rawCandidates.filter(
-      candidate =>
-        candidate !== this.origin &&
-        this.filterFunction[this.direction](candidate.getBoundingClientRect())
+    return rawCandidates.filter(candidate => this.isValidCandidate(candidate));
+  }
+
+  /**
+   * Checks if the provided candidate is not the origin, is visible, enabled  and in the correct
+   * direction to be a valid candidate.
+   *
+   * @param candidate - The candidate element.
+   * @returns If the candidate is valid for the navigation.
+   * @internal
+   */
+  private isValidCandidate(candidate: HTMLElement): boolean {
+    return (
+      candidate !== this.origin &&
+      this.isCandidateVisible(candidate) &&
+      this.hasFocusCompatibleAttributes(candidate) &&
+      this.isInNavigateDirection(candidate)
     );
+  }
+
+  /**
+   * Checks if the provided candidate is visible.
+   *
+   * @param candidate - The candidate element.
+   * @returns If the candidate is visible.
+   * @internal
+   */
+  private isCandidateVisible(candidate: HTMLElement): boolean {
+    const candidateStyle = window.getComputedStyle(candidate, null);
+
+    return !!(
+      candidate.offsetWidth &&
+      candidate.offsetHeight &&
+      candidateStyle.visibility === 'visible'
+    );
+  }
+
+  /**
+   * Checks if the provided candidate is disabled and if the tabindex allows the element to be
+   * focused.
+   *
+   * @param candidate - The candidate element.
+   * @returns If candidate's attributes allow it to be focused.
+   * @internal
+   */
+  private hasFocusCompatibleAttributes(candidate: HTMLElement): boolean {
+    return !candidate.getAttribute('disabled') && candidate.getAttribute('tabindex') !== '-1';
+  }
+
+  /**
+   * Checks if the provided candidate is in the direction the navigation is going.
+   *
+   * @param candidate - The candidate element.
+   * @returns If the candidate is in the correct direction.
+   * @internal
+   */
+  private isInNavigateDirection(candidate: HTMLElement): boolean {
+    return this.filterFunction[this.direction](candidate.getBoundingClientRect());
   }
 
   /**
