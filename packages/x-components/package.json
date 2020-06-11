@@ -4,6 +4,11 @@
   "module": "./core/index.js",
   "types": "./core/index.d.ts",
   "version": "1.0.0-alpha.1",
+  "sideEffects": [
+    "./tests/**/*",
+    "**/*.scss",
+    "**/*.vue"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "ts-node --project ./build/tsconfig.json ./build/build.ts && npm pack",
