@@ -1,5 +1,7 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
+import { currency } from '../../filters/currency/currency.filter';
+import { DEFAULT_X_CONFIG } from '../../plugins/x-plugin.config';
 import { getResultsStub } from '../../__stubs__/results-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils';
 import BaseResultCurrentPrice from '../base-result-current-price.vue';
@@ -16,12 +18,12 @@ describe('testing BaseCurrentPrice component', () => {
     });
   });
 
-  it('renders the current price without discount class', () => {
+  it('renders the current price applying the currency filter and without discount class', () => {
     expectPriceValue(results[0].price.value);
     expect(getElement().classList).not.toContain('x-result-current-price--on-sale');
   });
 
-  it('renders the price with discount class', async () => {
+  it('renders the price applying the currency filter and with on-sale class', async () => {
     priceWrapper.setProps({ result: results[1] });
     await Vue.nextTick();
 
@@ -31,7 +33,7 @@ describe('testing BaseCurrentPrice component', () => {
 
   function expectPriceValue(priceValue: number): void {
     expect(getElement()).toBeDefined();
-    expect(priceWrapper.text()).toEqual(priceValue.toString());
+    expect(priceWrapper.text()).toEqual(currency(priceValue, DEFAULT_X_CONFIG.currencyOptions));
   }
 
   function getElement(): HTMLElement {

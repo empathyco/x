@@ -56,6 +56,16 @@ export class XPlugin implements PluginObject<XPluginOptions> {
   }
 
   /**
+   * Gets the global reactive {@link XConfig}.
+   *
+   * @returns Config - The xConfig.
+   * @public
+   */
+  public static get config(): XConfig {
+    return this.getInstance().xConfig;
+  }
+
+  /**
    * Safely retrieves the installed instance of the XPlugin.
    *
    * @returns The installed instance of the XPlugin.
@@ -223,16 +233,6 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    */
   setConfig(config: DeepPartial<XConfig>): void {
     deepMerge(this.xConfig, config);
-  }
-
-  /**
-   * Gets the global reactive {@link XConfig}.
-   *
-   * @returns Config - The xConfig.
-   * @public
-   */
-  getConfig(): XConfig {
-    return this.xConfig;
   }
 
   /**

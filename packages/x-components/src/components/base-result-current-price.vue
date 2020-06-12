@@ -1,12 +1,14 @@
 <template>
   <span :class="dynamicClasses" class="x-result-current-price" data-test="result-current-price">
-    {{ result.price.value }}
+    {{ currencyFilter(result.price.value) }}
   </span>
 </template>
 <script lang="ts">
   import { Result } from '@empathy/search-types';
   import { Component, Prop } from 'vue-property-decorator';
   import Vue from 'vue';
+  import { currency } from '../filters/currency/currency.filter';
+  import { CurrencyOptions } from '../i18n/currency.types';
   import { VueCSSClasses } from '../utils/types';
 
   /**
@@ -37,6 +39,17 @@
         'x-result-current-price--on-sale': this.result.price.hasDiscount
       };
     }
+
+    /**
+     * Returns the currency filter.
+     *
+     * @returns The currency filter instance.
+     *
+     * @public
+     */
+    protected get currencyFilter(): (value: number, options?: Partial<CurrencyOptions>) => string {
+      return currency;
+    }
   };
 </script>
 
@@ -45,7 +58,7 @@
 
   ## Basic example
 
-  This component is a span that shows the current price.
+  This component is a span that shows the current price formatted using a currency filter.
 
   ```vue
   <BaseResultCurrentPrice :result="result"/>

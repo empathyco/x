@@ -16,12 +16,12 @@ describe('testing global config', () => {
   });
 
   it('registers reactive global config via plugin options', () => {
-    expect(xPlugin.getConfig()).toMatchObject(DEFAULT_X_CONFIG);
+    expect(XPlugin.config).toMatchObject(DEFAULT_X_CONFIG);
   });
 
   it('overrides global config through XPlugin.setConfig', () => {
     xPlugin.setConfig({ consent: true });
-    expect(xPlugin.getConfig()).toHaveProperty('consent', true);
+    expect(XPlugin.config).toHaveProperty('consent', true);
   });
 
   describe("testing integration with plugin's mixin", () => {
@@ -48,18 +48,18 @@ describe('testing global config', () => {
 
       await localVue.nextTick();
       expect(listener).toHaveBeenCalledTimes(1);
-      expect(xPlugin.getConfig()).toHaveProperty('consent', newConsent);
+      expect(XPlugin.config).toHaveProperty('consent', newConsent);
     });
 
     it('overrides currencyOptions and emits ConfigCurrencyChanged event', async () => {
       const listener = jest.fn();
       componentInstance.vm.$x.on('ConfigCurrencyChanged').subscribe(listener);
-      const newCurrencyOptions: CurrencyOptions = { symbol: '$' };
-      componentInstance.vm.$x.config.currencyOptions = newCurrencyOptions;
+      const newCurrencyOptions: Partial<CurrencyOptions> = { symbol: '$' };
+      componentInstance.vm.$x.config.currencyOptions = newCurrencyOptions as CurrencyOptions;
 
       await localVue.nextTick();
       expect(listener).toHaveBeenCalledTimes(1);
-      expect(xPlugin.getConfig()).toHaveProperty('currencyOptions', newCurrencyOptions);
+      expect(XPlugin.config).toHaveProperty('currencyOptions', newCurrencyOptions);
     });
 
     it('overrides documentDirection and emits ConfigDocumentDirectionChanged event', async () => {
@@ -70,7 +70,7 @@ describe('testing global config', () => {
 
       await localVue.nextTick();
       expect(listener).toHaveBeenCalledTimes(1);
-      expect(xPlugin.getConfig()).toHaveProperty('documentDirection', newDocumentDirection);
+      expect(XPlugin.config).toHaveProperty('documentDirection', newDocumentDirection);
     });
   });
 });
