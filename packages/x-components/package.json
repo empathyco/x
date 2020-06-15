@@ -3,7 +3,7 @@
   "main": "./core/index.js",
   "module": "./core/index.js",
   "types": "./core/index.d.ts",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "sideEffects": [
     "./tests/**/*",
     "**/*.scss",

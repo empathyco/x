@@ -1,4 +1,22 @@
 # X Components
+## [1.0.0-alpha.3](https://bitbucket.org/colbenson/x-components/branches/compare/v1.0.0-alpha.3%0Dv1.0.0-alpha.2) (2020-06-15)
+
+
+### Features
+
+* **currency-filter:** add currency filter and formatter ([9cf9f9e](https://bitbucket.org/colbenson/x-components/commits/9cf9f9e4a754e20698d616923e073afa7d41950d)), closes [EX-1913](https://searchbroker.atlassian.net/browse/EX-1913)
+* **docs:** add static md file to be copied to docs folder on build proccess ([2aa9937](https://bitbucket.org/colbenson/x-components/commits/2aa99377d0811861f12f6a7a9c50985efbad4746)), closes [EX-1943](https://searchbroker.atlassian.net/browse/EX-1943)
+
+
+### Bug Fixes
+
+* **spatial-navigation:** filter out focusable elements if they can't be focused ([9b4829b](https://bitbucket.org/colbenson/x-components/commits/9b4829b43b0e7d8665400595e3714d9ab1bc4d93)), closes [EX-1924](https://searchbroker.atlassian.net/browse/EX-1924)
+
+
+### Documentation
+
+* **changelog:** fix changelog ([67a1b27](https://bitbucket.org/colbenson/x-components/commits/67a1b27eb9e3f724e8c12e60d8678976c49cc948)), closes [EX-1903](https://searchbroker.atlassian.net/browse/EX-1903)
+
 ## [1.0.0-alpha.2](https://bitbucket.org/colbenson/x-components/branches/compare/v1.0.0-alpha.2%0Dv1.0.0-alpha.1) (2020-06-11)
 
 
