@@ -10,6 +10,7 @@ node_modules
 !/report/*
 !/src/*
 !/tests/*
+!/guide-docs/*
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/

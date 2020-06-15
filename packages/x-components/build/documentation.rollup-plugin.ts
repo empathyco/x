@@ -11,7 +11,7 @@ import { exec } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import { Plugin } from 'rollup';
-import { ensureDirectoryExists } from './build.utils';
+import { copyFolderSync, ensureDirectoryExists } from './build.utils';
 
 /**
  * Entry point for building the API Documentation.
@@ -21,14 +21,15 @@ import { ensureDirectoryExists } from './build.utils';
 export function apiDocumentation(): Plugin {
   return {
     name: 'API-Documentation',
-    writeBundle() {
+    async writeBundle() {
       const apiExtractorJsonPath: string = path.join(__dirname, './api-extractor.json');
       const extractorConfig = ExtractorConfig.loadFileAndPrepare(apiExtractorJsonPath);
       generateEmptyReportFile(extractorConfig.reportFilePath);
       const extractorResult = Extractor.invoke(extractorConfig, getExtractorInvokeOptions());
       assertExtractorSucceeded(extractorResult);
       copyReportFile(extractorConfig.reportFilePath);
-      return generateDocumentation();
+      await generateDocumentation();
+      copyConfigurationDocumentation();
     }
   };
 }
@@ -67,6 +68,16 @@ function assertExtractorSucceeded(extractorResult: ExtractorResult): void {
 function copyReportFile(reportFilePath: string): void {
   const tempReportFile = path.join(__dirname, '../temp/x-components.api.md');
   fs.copyFileSync(tempReportFile, reportFilePath);
+}
+
+/**
+ * Copies the configuration and setup documentation folder to the docs folder.
+ *
+ */
+function copyConfigurationDocumentation(): void {
+  const sourceFolderPath = path.join(__dirname, '../guide-docs');
+  const targetFolderPath = path.join(__dirname, '../docs/guide');
+  copyFolderSync(sourceFolderPath, targetFolderPath);
 }
 
 /**

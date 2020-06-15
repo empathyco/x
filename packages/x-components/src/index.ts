@@ -1,3 +1,10 @@
+/**
+ * X-Components is a library usable everywhere not only for search experiences.
+ *
+ * @packageDocumentation
+ */
+// TODO Write a complete description.
+
 export * from './api';
 export * from './components';
 export * from './filters';
