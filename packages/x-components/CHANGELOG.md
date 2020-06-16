@@ -13,6 +13,9 @@
 * **spatial-navigation:** filter out focusable elements if they can't be focused ([9b4829b](https://bitbucket.org/colbenson/x-components/commits/9b4829b43b0e7d8665400595e3714d9ab1bc4d93)), closes [EX-1924](https://searchbroker.atlassian.net/browse/EX-1924)
 
 
+## [1.0.0-alpha.2](https://bitbucket.org/colbenson/x-components/branches/compare/v1.0.0-alpha.2%0Dv1.0.0-alpha.1) (2020-06-11)
+
+
 ### Features
 
 * **base-result-previous-price:** add base result previous price component ([a51df82](https://bitbucket.org/colbenson/x-components/commits/a51df8225c268513fe95e7e8ef505934f72d6c3d)), closes [EX-1913](https://searchbroker.atlassian.net/browse/EX-1913)
