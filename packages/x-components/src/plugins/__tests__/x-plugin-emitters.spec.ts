@@ -2,8 +2,9 @@ import { createLocalVue } from '@vue/test-utils';
 import { default as Vue, VueConstructor } from 'vue';
 import Vuex, { Store } from 'vuex';
 import { createWireFromFunction } from '../../wiring/wires.factory';
-import { AnyXModule } from '../../x-modules/x-modules.types';
+import { WireMetadata } from '../../wiring/wiring.types';
 import { SearchAdapterDummy } from '../../__tests__/adapter.dummy';
+import { createXModule } from '../../__tests__/utils';
 import { BaseXBus } from '../x-bus';
 import { XPlugin } from '../x-plugin';
 import { XPluginOptions } from '../x-plugin.types';
@@ -12,11 +13,7 @@ const wireInstance = jest.fn();
 const userIsTypingAQuerySelector = jest.fn();
 const userAcceptedAQuerySelector = jest.fn();
 
-const stateInstance = {
-  query: 'toy story',
-  complexProp: { firstComplexProp: 'First prop', secondComplexProp: 2 }
-};
-const xModule: AnyXModule = {
+const xModule = createXModule({
   name: 'searchBox',
   wiring: {
     SearchBoxQueryChanged: { wireInstance }
@@ -26,15 +23,22 @@ const xModule: AnyXModule = {
     UserAcceptedAQuery: userAcceptedAQuerySelector
   },
   storeModule: {
-    state: () => stateInstance,
+    state: () => ({
+      query: '',
+      complexProp: { firstComplexProp: 'First prop', secondComplexProp: 2 }
+    }),
     getters: {
       firstGetter: () => 1,
       secondGetter: () => 'It is awesome!'
     },
     actions: {},
-    mutations: {}
+    mutations: {
+      setQuery(state, query: string): void {
+        state.query = query;
+      }
+    }
   }
-};
+});
 
 let plugin: XPlugin;
 let localVue: VueConstructor<Vue>;
@@ -44,6 +48,7 @@ describe('testing X Plugin emitters', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     plugin = new XPlugin(new BaseXBus());
+    XPlugin.resetInstance();
     localVue = createLocalVue();
     localVue.use(Vuex);
     store = new Store({});
@@ -85,8 +90,14 @@ describe('testing X Plugin emitters', () => {
       };
 
       expect(userIsTypingAQuerySelector).not.toHaveBeenCalled();
-      expect(userAcceptedAQuerySelector).toHaveBeenCalledWith(stateInstance, gettersInstance);
-      expect(newSearchBoxQueryChangedSelector).toHaveBeenCalledWith(stateInstance, gettersInstance);
+      expect(userAcceptedAQuerySelector).toHaveBeenCalledWith(
+        xModule.storeModule.state(),
+        gettersInstance
+      );
+      expect(newSearchBoxQueryChangedSelector).toHaveBeenCalledWith(
+        xModule.storeModule.state(),
+        gettersInstance
+      );
       expect(wireInstance).toHaveBeenCalled();
     }
   });
@@ -150,6 +161,52 @@ describe('testing X Plugin emitters', () => {
       await Promise.resolve();
 
       expect(testWire).toHaveBeenCalled();
+    });
+  });
+
+  describe('isDifferent configuration option', () => {
+    // eslint-disable-next-line max-len
+    it('should not trigger the event if the provided isDifferent function returns false', async () => {
+      const testWire = jest.fn();
+      const wiring = {
+        SearchBoxQueryChanged: {
+          testWire: createWireFromFunction(testWire)
+        }
+      };
+      const pluginOptions: XPluginOptions = {
+        adapter: SearchAdapterDummy,
+        xModules: {
+          searchBox: {
+            wiring,
+            storeEmitters: {
+              SearchBoxQueryChanged: {
+                selector: state => state.query,
+                /* Only emit the event if the new query is longer than the old one */
+                isDifferent: (newQuery, oldQuery) => newQuery.length > oldQuery.length
+              }
+            }
+          }
+        },
+        store
+      };
+
+      XPlugin.registerXModule(xModule);
+      localVue.use(plugin, pluginOptions);
+      const metadata: WireMetadata = { moduleName: 'searchBox' };
+
+      store.commit('x/searchBox/setQuery', 'wheat');
+      await localVue.nextTick();
+      expect(testWire).toHaveBeenCalledTimes(1);
+      expect(testWire).toHaveBeenCalledWith({ eventPayload: 'wheat', metadata, store });
+
+      store.commit('x/searchBox/setQuery', 'whe');
+      await localVue.nextTick();
+      expect(testWire).toHaveBeenCalledTimes(1);
+
+      store.commit('x/searchBox/setQuery', 'wheat beer');
+      await localVue.nextTick();
+      expect(testWire).toHaveBeenCalledTimes(2);
+      expect(testWire).toHaveBeenCalledWith({ eventPayload: 'wheat beer', metadata, store });
     });
   });
 });

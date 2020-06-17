@@ -390,13 +390,19 @@ export class XPlugin implements PluginObject<XPluginOptions> {
     forEach(
       customizedStoreEmitters,
       (event, stateSelector: AnySimpleStateSelector | AnyStateSelector) => {
-        const { selector, immediate = false, ...options } = this.isSimpleSelector(stateSelector)
-          ? { selector: stateSelector }
-          : stateSelector;
+        const {
+          selector,
+          immediate = false,
+          isDifferent = () => true,
+          ...options
+        } = this.isSimpleSelector(stateSelector) ? { selector: stateSelector } : stateSelector;
+
         this.store.watch(
           state => selector(state.x[name], safeGettersProxy),
-          changedState => {
-            this.bus.emit(event, changedState, { moduleName: name });
+          (newValue, oldValue) => {
+            if (isDifferent(newValue, oldValue)) {
+              this.bus.emit(event, newValue, { moduleName: name });
+            }
           },
           options
         );

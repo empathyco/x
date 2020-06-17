@@ -32,6 +32,18 @@ export type SimpleStateSelector<
 export interface StateSelector<ReturnType, State extends Dictionary, Getters extends Dictionary>
   extends WatchOptions {
   selector: SimpleStateSelector<ReturnType, State, Getters>;
+  /**
+   * Checks if the value of the selector has changed.
+   *
+   * @remarks
+   * This function exist because Vue will not stop reactivity propagation if the observed variable
+   * is an `object`, an `Array`, or the `deep` mode has been enabled.
+   *
+   * @param newValue - The new value.
+   * @param oldValue - The old value.
+   * @returns True if the value has really changed.
+   */
+  isDifferent?(newValue: ReturnType, oldValue: ReturnType): boolean;
 }
 
 /**

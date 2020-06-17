@@ -20,9 +20,11 @@ import { Store } from 'vuex';
 import { XPluginOptions } from '../plugins';
 import { BaseXBus } from '../plugins/x-bus';
 import { XPlugin } from '../plugins/x-plugin';
-import { RootXStoreState } from '../store/store.types';
+import { ActionsDictionary } from '../store/actions.types';
+import { MutationsDictionary } from '../store/mutations.types';
+import { RootXStoreState, XStoreModule } from '../store/store.types';
 import { DeepPartial, Dictionary } from '../utils/types';
-import { ExtractState, XModuleName } from '../x-modules/x-modules.types';
+import { ExtractState, XModule, XModuleName } from '../x-modules/x-modules.types';
 import { SearchAdapterDummy } from './adapter.dummy';
 
 /**
@@ -182,4 +184,21 @@ export function installNewXPlugin(
   const installOptions: XPluginOptions = { adapter: SearchAdapterDummy, ...options };
   localVue.use(xPlugin, installOptions);
   return [xPlugin, localVue];
+}
+
+/**
+ * Helper function to create a type safe module without having to specify the types.
+ *
+ * @param xModule - The xModule definition to create.
+ * @returns A type safe xModule.
+ */
+export function createXModule<
+  State extends Record<keyof State, any>,
+  Getters extends Record<keyof Getters, any>,
+  Mutations extends MutationsDictionary<Mutations>,
+  Actions extends ActionsDictionary<Actions>
+>(
+  xModule: XModule<XStoreModule<State, Getters, Mutations, Actions>>
+): XModule<XStoreModule<State, Getters, Mutations, Actions>> {
+  return xModule;
 }

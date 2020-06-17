@@ -1,4 +1,5 @@
 import { createStoreEmitters } from '../../../store';
+import { areNextQueriesDifferent } from '../utils';
 import { nextQueriesXStoreModule } from './module';
 
 /**
@@ -7,6 +8,9 @@ import { nextQueriesXStoreModule } from './module';
  * @internal
  */
 export const nextQueriesEmitters = createStoreEmitters(nextQueriesXStoreModule, {
-  NextQueriesChanged: state => state.nextQueries,
+  NextQueriesChanged: {
+    selector: (_, getters) => getters.nextQueries,
+    isDifferent: areNextQueriesDifferent
+  },
   NextQueriesRequestChanged: (_, getters) => getters.request
 });
