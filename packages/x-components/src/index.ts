@@ -17,6 +17,7 @@ export * from './wiring';
 export * from './x';
 export * from './x-modules/empathize';
 export * from './x-modules/history-queries';
+export * from './x-modules/identifier-results';
 export * from './x-modules/next-queries';
 export * from './x-modules/popular-searches';
 export * from './x-modules/query-suggestions';

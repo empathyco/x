@@ -4,6 +4,7 @@ import { Returns } from '../utils/types';
 import { Wiring } from '../wiring/wiring.types';
 import { EmpathizeXModule } from './empathize/x-module';
 import { HistoryQueriesXModule } from './history-queries/x-module';
+import { IdentifierResultsXModule } from './identifier-results/x-module';
 import { NextQueriesXModule } from './next-queries/x-module';
 import { NoSuggestionsXModule } from './no-suggestions/x-module';
 import { PopularSearchesXModule } from './popular-searches/x-module';
@@ -20,6 +21,7 @@ import { SearchBoxXModule } from './search-box/x-module';
 export interface XModulesTree {
   empathize: EmpathizeXModule;
   historyQueries: HistoryQueriesXModule;
+  identifierResults: IdentifierResultsXModule;
   nextQueries: NextQueriesXModule;
   noSuggestions: NoSuggestionsXModule;
   popularSearches: PopularSearchesXModule;

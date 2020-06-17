@@ -26,7 +26,8 @@ export const RootXStoreModule: Module<XModuleState, any> = {
     historyQueries: null,
     recommendations: null,
     relatedTags: null,
-    noSuggestions: null
+    noSuggestions: null,
+    identifierResults: null
   }),
   namespaced: true
 };

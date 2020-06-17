@@ -3,6 +3,7 @@ import { CurrencyOptions } from '../i18n/currency.types';
 import { DocumentDirection } from '../plugins/x-plugin.types';
 import { ArrowKey } from '../utils';
 import { HistoryQueriesXEvents } from '../x-modules/history-queries/events.types';
+import { IdentifierResultsXEvents } from '../x-modules/identifier-results/events.types';
 import { NextQueriesXEvents } from '../x-modules/next-queries/events.types';
 import { PopularSearchesXEvents } from '../x-modules/popular-searches/events.types';
 import { QuerySuggestionsXEvents } from '../x-modules/query-suggestions/events.types';
@@ -18,6 +19,7 @@ import { SearchBoxXEvents } from '../x-modules/search-box/events.types';
  * Aside from common {@link XEvent | XEvents}, this interface also extends the different XModule's
  * XEventsTypes:
  * * {@link HistoryQueriesXEvents}
+ * * {@link IdentifierResultsXEvents}
  * * {@link NextQueriesXEvents}
  * * {@link PopularSearchesXEvents}
  * * {@link QuerySuggestionsXEvents}
@@ -29,6 +31,7 @@ import { SearchBoxXEvents } from '../x-modules/search-box/events.types';
  */
 export interface XEventsTypes
   extends HistoryQueriesXEvents,
+    IdentifierResultsXEvents,
     NextQueriesXEvents,
     PopularSearchesXEvents,
     QuerySuggestionsXEvents,
