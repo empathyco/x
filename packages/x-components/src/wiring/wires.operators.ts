@@ -10,6 +10,8 @@ import { TimeRetrieving, Wire, WireParams } from './wiring.types';
  * @param filterFn - A function which must return a boolean and that will be executed every time
  * the wire is called.
  * @returns The Wire function filter.
+ *
+ * @public
  */
 export function filter<Payload>(
   wire: Wire<Payload>,
@@ -25,6 +27,8 @@ export function filter<Payload>(
  *
  * @param wire - The wire to avoid executing when the payload is falsy.
  * @returns The Wire function falsy filter.
+ *
+ * @public
  */
 export function filterFalsyPayload<Payload>(wire: Wire<Payload>): Wire<Payload> {
   return filter(wire, ({ eventPayload }) => !!eventPayload);
@@ -36,6 +40,8 @@ export function filterFalsyPayload<Payload>(wire: Wire<Payload>): Wire<Payload> 
  *
  * @param wire - The wire to avoid executing when the payload is truthy.
  * @returns The Wire function truthy filter.
+ *
+ * @public
  */
 export function filterTruthyPayload<Payload>(wire: Wire<Payload>): Wire<Payload> {
   return filter(wire, ({ eventPayload }) => !eventPayload);
@@ -49,6 +55,7 @@ export function filterTruthyPayload<Payload>(wire: Wire<Payload>): Wire<Payload>
  * @param wire - The wire to filter using the whitelist.
  * @param whitelist - An array of {@link XModuleName} or null.
  * @returns The Wire function with whitelisted modules filter.
+ *
  * @public
  */
 export function filterWhitelistedModules<Payload>(
@@ -67,6 +74,7 @@ export function filterWhitelistedModules<Payload>(
  * @param wire - The wire to filter using the whitelist.
  * @param blacklist - An array of {@link XModuleName} or null.
  * @returns The Wire function with blacklisted modules filter.
+ *
  * @public
  */
 export function filterBlacklistedModules<Payload>(
@@ -85,6 +93,8 @@ export function filterBlacklistedModules<Payload>(
  * @param timeInMs - The time in milliseconds to debounce the wire execution or a function to
  * retrieve it from the store.
  * @returns The Wire function with a debounced timing.
+ *
+ * @public
  */
 export function debounce<Payload>(
   wire: Wire<Payload>,
@@ -107,6 +117,8 @@ export function debounce<Payload>(
  * @param timeInMs - The time in milliseconds to throttle the wire execution or a function to
  * retrieve it from the store.
  * @returns The Wire function with a throttle timing.
+ *
+ * @public
  */
 export function throttle<Payload>(
   wire: Wire<Payload>,

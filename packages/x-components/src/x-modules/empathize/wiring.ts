@@ -1,4 +1,4 @@
-import { withModule } from '../../wiring/wires.factory';
+import { withModule } from '../../wiring/wires.namespace';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**

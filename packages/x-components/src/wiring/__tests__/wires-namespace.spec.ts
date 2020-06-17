@@ -1,10 +1,11 @@
 import { Subject } from 'rxjs/Subject';
 import { Store } from 'vuex';
 import { XModuleName } from '../../x-modules/x-modules.types';
-import { createWireFromFunction, withModule } from '../wires.factory';
+import { createWireFromFunction } from '../wires.factory';
+import { withModule } from '../wires.namespace';
 import { WirePayload } from '../wiring.types';
 
-describe('testing namespaced wire factory', () => {
+describe('testing wires namespace', () => {
   const moduleName = 'querySuggestions';
   const querySuggestionsWireFactory = withModule(moduleName);
 

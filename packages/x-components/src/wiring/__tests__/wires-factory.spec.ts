@@ -9,7 +9,7 @@ import {
 } from '../wires.factory';
 import { WirePayload } from '../wiring.types';
 
-describe('testing wire factory functions', () => {
+describe('testing wires factory', () => {
   const storeMock: Store<any> = {
     dispatch: jest.fn(),
     commit: jest.fn(),
