@@ -6,7 +6,7 @@ import { ReactToggleComponent } from './stubs/react-toggle-component';
 import { ReactToggleMessage } from './stubs/react-toggle-message.stub';
 import { vueDestroyedCallback } from './stubs/vue-destroy.stub';
 
-describe('Testing react-wrapper component', () => {
+describe('testing react-wrapper component', () => {
   let root: HTMLDivElement;
 
   beforeEach(() => {
@@ -52,7 +52,7 @@ describe('Testing react-wrapper component', () => {
     await Vue.nextTick();
     vueHTML = root.querySelector('p');
     expect(vueDestroyedCallback).toHaveBeenCalled();
-    expect(vueHTML).toEqual(null);
+    expect(vueHTML).toBeNull();
 
     reactComponent.toggleComponent();
     await Vue.nextTick();

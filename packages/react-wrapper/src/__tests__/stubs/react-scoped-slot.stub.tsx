@@ -8,8 +8,11 @@ interface ReactScopedSlotStubState {
   slotContent: ReactRenderProps;
 }
 
-export class ReactScopedSlotStub extends React.Component<object, ReactScopedSlotStubState> {
-  public constructor(props: object) {
+export class ReactScopedSlotStub extends React.Component<
+  Record<string, unknown>,
+  ReactScopedSlotStubState
+> {
+  public constructor(props: Record<string, unknown>) {
     super(props);
 
     this.state = {

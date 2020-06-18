@@ -5,7 +5,7 @@ import { ReactWrapper } from '../react-wrapper';
 import { ReactEventsStub } from './stubs/react-events.stub';
 import { VueButton } from './stubs/vue-button.stub';
 
-describe('Testing support of events in the react-wrapper', () => {
+describe('testing support of events in the react-wrapper', () => {
   let rootHTML: HTMLDivElement;
 
   beforeEach(() => {

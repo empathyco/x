@@ -7,8 +7,11 @@ interface ReactToggleComponentState {
   clicksCount: number;
 }
 
-export class ReactToggleComponent extends React.Component<object, ReactToggleComponentState> {
-  public constructor(props: object) {
+export class ReactToggleComponent extends React.Component<
+  Record<string, unknown>,
+  ReactToggleComponentState
+> {
+  public constructor(props: Record<string, unknown>) {
     super(props);
     this.state = { renderVueComponent: true, clicksCount: 0 };
     this.toggleComponent = this.toggleComponent.bind(this);

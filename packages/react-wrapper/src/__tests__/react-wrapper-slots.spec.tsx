@@ -6,7 +6,7 @@ import { ReactScopedSlotStub } from './stubs/react-scoped-slot.stub';
 import { VueSlots } from './stubs/vue-slots.stub';
 import { transformStringIntoASingleLine } from './utils';
 
-describe('Testing support of slots in the react-wrapper', () => {
+describe('testing support of slots in the react-wrapper', () => {
   /* This is used inside tests because we have to keep the Vue reference, and it renders a
    comment to do so. */
   const vueComment = '<!---->';

@@ -6,8 +6,11 @@ interface ReactToggleMessageState {
   message: string;
 }
 
-export class ReactToggleMessage extends React.Component<object, ReactToggleMessageState> {
-  public constructor(props: object) {
+export class ReactToggleMessage extends React.Component<
+  Record<string, unknown>,
+  ReactToggleMessageState
+> {
+  public constructor(props: Record<string, unknown>) {
     super(props);
     this.state = { message: 'Hi' };
     this.toggleMessage = this.toggleMessage.bind(this);

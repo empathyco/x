@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { JSXElementConstructor, ReactNode } from 'react';
 import Vue, { ComponentOptions, VNode } from 'vue';
 import { ScopedSlot } from 'vue/types/vnode';
 
@@ -25,7 +25,7 @@ export interface ReactWrapperProps {
    * Vue event listeners to subscribe. The key will be the Vue event name to subscribe and the
    * value a callback function which will be executed when the Vue event is triggered.
    */
-  on?: Record<string, Function>;
+  on?: Record<string, (eventPayload?: any) => void>;
   /**
    * Any other prop is passed down to the Vue component.
    */
@@ -57,5 +57,5 @@ export interface VueSlots {
 /**
  * Every type of react nodes except render props.
  */
-export type ReactNodeWithoutRenderProps = Exclude<ReactNode, Function>;
+export type ReactNodeWithoutRenderProps = Exclude<ReactNode, JSXElementConstructor<any>>;
 export type ReactRenderProps = (data: any) => ReactNodeWithoutRenderProps;

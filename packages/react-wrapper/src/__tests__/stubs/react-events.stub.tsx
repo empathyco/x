@@ -7,8 +7,11 @@ interface ReactEventsStubState {
   events: ReactWrapperProps['on'];
 }
 
-export class ReactEventsStub extends React.Component<object, ReactEventsStubState> {
-  public constructor(props: object) {
+export class ReactEventsStub extends React.Component<
+  Record<string, unknown>,
+  ReactEventsStubState
+> {
+  public constructor(props: Record<string, unknown>) {
     super(props);
 
     this.state = {
