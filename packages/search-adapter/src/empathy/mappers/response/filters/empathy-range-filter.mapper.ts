@@ -6,7 +6,7 @@ import { EmpathyFilter } from '../../../models';
 @injectable()
 export class EmpathyRangeFilterMapper implements ResponseMapper<EmpathyFilter, RangeFilter> {
   map(rawFilter: EmpathyFilter, filter: RangeFilter): RangeFilter {
-    if (this.isRangeFilter(filter)) {
+    if (this.isRangeFilter(filter) && rawFilter.value) {
       const [min, max] = rawFilter.value.split(':');
       const id = `${ filter.facet.modelName }:${ min || '*' } TO ${ max || '*' }`;
 
