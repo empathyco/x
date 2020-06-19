@@ -98,7 +98,7 @@
     emitUserRightClickedAResult(): void {
       this.$x.emit('UserRightClickedAResult', this.result, this.metadata);
     }
-  };
+  }
 </script>
 
 <docs>

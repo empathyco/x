@@ -12,7 +12,7 @@ import { resetHistoryQueriesStateWith } from './utils';
 describe('testing history queries module gettters', () => {
   Vue.use(Vuex);
   const gettersKeys = map(historyQueriesXStoreModule.getters, getter => getter);
-  let store: Store<HistoryQueriesState> = new Store(historyQueriesXStoreModule as any);
+  const store: Store<HistoryQueriesState> = new Store(historyQueriesXStoreModule as any);
 
   describe(`${gettersKeys.historyQueries} getter`, () => {
     it('returns a maximum number of history queries', () => {

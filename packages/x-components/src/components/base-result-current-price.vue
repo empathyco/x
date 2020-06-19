@@ -50,7 +50,7 @@
     protected get currencyFilter(): (value: number, options?: Partial<CurrencyOptions>) => string {
       return currency;
     }
-  };
+  }
 </script>
 
 <docs>

@@ -84,7 +84,7 @@ describe('testing wires namespace', () => {
         expect(storeMock.commit).toHaveBeenCalledTimes(1);
         expect(storeMock.commit).toHaveBeenCalledWith(
           `x/${moduleName}/${mutationName}`,
-          storeMock.state.x.querySuggestions.query + '_modified'
+          `${storeMock.state.x.querySuggestions.query as string}_modified`
         );
       }
     );
@@ -103,7 +103,7 @@ describe('testing wires namespace', () => {
         expect(storeMock.commit).toHaveBeenCalledTimes(1);
         expect(storeMock.commit).toHaveBeenCalledWith(
           `x/${moduleName}/${mutationName}`,
-          storeMock.getters[`x/${moduleName}/normalizedQuery`] + '_modified'
+          `${storeMock.getters[`x/${moduleName}/normalizedQuery`] as string}_modified`
         );
       }
     );

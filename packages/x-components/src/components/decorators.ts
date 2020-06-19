@@ -48,7 +48,7 @@ export function Getter<Module extends XModuleName, GetterName extends keyof Extr
     if (!options.computed) {
       options.computed = {};
     }
-    const getterPath = `x/${module}/${getter}`;
+    const getterPath = `x/${module}/${getter as string}`;
     Object.assign(options.computed, {
       [key]() {
         return this.$store.getters[getterPath];

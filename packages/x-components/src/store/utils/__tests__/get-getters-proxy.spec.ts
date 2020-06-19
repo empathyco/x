@@ -12,13 +12,13 @@ const storeModuleTest: AnyXStoreModule = {
     state2: 'state2'
   }),
   getters: {
-    getter1(state: any) {
+    getter1(state: { state1: string }) {
       getter1Spy();
-      return state.state1 + '_modified';
+      return `${state.state1}_modified`;
     },
-    getter2(state: any) {
+    getter2(state: { state2: string }) {
       getter2Spy();
-      return state.state2 + '_modified';
+      return `${state.state2}_modified`;
     }
   },
   namespaced: true

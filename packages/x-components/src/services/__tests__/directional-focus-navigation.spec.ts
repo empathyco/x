@@ -38,7 +38,7 @@ describe(`testing directional-focus-navigation service functionalities`, () => {
       buttonCandidate.style.visibility = 'visible';
       buttonCandidate.setAttribute('disabled', 'disabled');
 
-      let filteredCandidates = mockedFilterCandidates([buttonCandidate]);
+      const filteredCandidates = mockedFilterCandidates([buttonCandidate]);
       expect(filteredCandidates).toEqual([]);
     });
   });

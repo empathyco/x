@@ -10,7 +10,7 @@
     "**/*.vue"
   ],
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --skip-plugins eslint",
     "build": "ts-node --project ./build/tsconfig.json ./build/build.ts && npm pack",
     "build:website": "vue-cli-service build",
     "gen:docs": "npm run gen:typescript-docs && npm run gen:component-docs",
@@ -46,37 +46,23 @@
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "~5.1.1",
+    "@empathy/eslint-plugin-x": "^1.0.0",
     "@microsoft/api-documenter": "~7.7.12",
     "@microsoft/api-extractor": "~7.7.8",
     "@rollup/plugin-commonjs": "~11.0.1",
     "@types/autoprefixer": "~9.6.1",
-    "@types/jest": "~24.0.19",
-    "@typescript-eslint/eslint-plugin": "~2.22.0",
-    "@typescript-eslint/parser": "~2.22.0",
-    "@vue/cli-plugin-e2e-cypress": "~4.3.1",
-    "@vue/cli-plugin-eslint": "~4.1.0",
-    "@vue/cli-plugin-typescript": "~4.1.0",
+    "@types/jest": "~25.2.3",
+    "@vue/cli-plugin-e2e-cypress": "~4.4.1",
+    "@vue/cli-plugin-eslint": "~4.4.4",
+    "@vue/cli-plugin-typescript": "~4.4.1",
     "@vue/cli-plugin-unit-jest": "~4.1.0",
     "@vue/cli-plugin-vuex": "~4.1.0",
-    "@vue/cli-service": "~4.1.0",
-    "@vue/eslint-config-prettier": "~5.1.0",
-    "@vue/eslint-config-typescript": "~4.0.0",
+    "@vue/cli-service": "~4.4.4",
     "@vue/test-utils": "1.0.0-beta.32",
     "autoprefixer": "~9.7.4",
     "commitizen": "~4.0.3",
     "cz-conventional-changelog": "~3.1.0",
-    "eslint": "~5.16.0",
-    "eslint-plugin-chai-friendly": "~0.5.0",
-    "eslint-plugin-cypress": "~2.9.0",
-    "eslint-plugin-import": "~2.20.1",
-    "eslint-plugin-jest": "~23.7.0",
-    "eslint-plugin-jsdoc": "~22.1.0",
-    "eslint-plugin-prettier": "~3.1.2",
-    "eslint-plugin-tsdoc": "~0.2.3",
-    "eslint-plugin-vue": "~5.2.3",
     "lint-staged": "~10.0.7",
-    "prettier": "~1.19.1",
-    "prettier-plugin-organize-imports": "~1.0.3",
     "rollup": "~1.31.0",
     "rollup-plugin-delete": "~1.2.0",
     "rollup-plugin-postcss": "~2.0.3",
@@ -86,7 +72,6 @@
     "rollup-plugin-vue": "~5.1.5",
     "sass": "~1.24.0",
     "sass-loader": "~8.0.0",
-    "standard-version": "~7.1.0",
     "ts-node": "~8.6.2",
     "typescript": "~3.8.3",
     "vue-docgen-cli": "~4.13.1",
@@ -103,11 +88,12 @@
     "!/src/**",
     "!/tests/**"
   ],
+  "prettier": "@empathy/eslint-plugin-x/prettier-config",
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
-    "./**/*.{vue,js,jsx,ts,tsx}": [
+    "./**/*.{vue,ts,tsx}": [
       "npm run lint"
     ]
   },

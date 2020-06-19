@@ -2,6 +2,7 @@ describe('testing string normalization', () => {
   describe('when browser supports `String#normalize`', () => {
     let normalizeString: (string: string | undefined) => string;
     jest.isolateModules(() => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       normalizeString = require('../normalize').normalizeString;
     });
 
@@ -28,10 +29,11 @@ describe('testing string normalization', () => {
       let normalize: (string: string | undefined) => string;
 
       jest.isolateModules(() => {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
         normalize = require('../normalize').normalizeString;
       });
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       expect(normalize('  aàáâäæãåā    ')).toEqual('aàáâäæãåā');
       String.prototype.normalize = originalStringNormalize;

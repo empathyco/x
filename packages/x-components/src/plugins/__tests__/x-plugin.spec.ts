@@ -2,6 +2,7 @@ import { createLocalVue, shallowMount, Wrapper } from '@vue/test-utils';
 import { default as Vue, VueConstructor } from 'vue';
 import Vuex, { Store } from 'vuex';
 import { createStoreEmitters, XStoreModule } from '../../store';
+import { Dictionary } from '../../utils/types';
 import { createWireFromFunction, wireCommit } from '../../wiring/wires.factory';
 import { AnyWire } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
@@ -302,7 +303,7 @@ describe('testing X Plugin', () => {
       { query: string },
       { trimmedQuery: string },
       { setQuery(query: string): void },
-      object
+      Dictionary<(payload?: any) => any>
     > = {
       actions: {},
       getters: {

@@ -14,7 +14,7 @@ import { resetHistoryQueriesStateWith } from './utils';
 
 describe('testing history queries module actions', () => {
   Vue.use(Vuex);
-  let store: Store<HistoryQueriesState> = new Store(historyQueriesXStoreModule as any);
+  const store: Store<HistoryQueriesState> = new Store(historyQueriesXStoreModule as any);
   let currentTimeStamp = 0;
   const actionsKeys = map(historyQueriesXStoreModule.actions, action => action);
   Date.now = () => currentTimeStamp; // Mock Date.now to always return 0

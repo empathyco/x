@@ -76,7 +76,7 @@
         this.$x.emit('UserClosedX', undefined, { target: this.$el as HTMLElement });
       }
     }
-  };
+  }
 </script>
 
 <style lang="scss">

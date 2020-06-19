@@ -15,7 +15,7 @@ describe('testing recommendations module actions', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
 
-  let store: Store<RecommendationsState> = new Store(recommendationsXStoreModule as any);
+  const store: Store<RecommendationsState> = new Store(recommendationsXStoreModule as any);
   installNewXPlugin({ store, adapter }, localVue);
 
   describe(`${actionKeys.fetchRecommendations}`, () => {

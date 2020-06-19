@@ -113,7 +113,9 @@ export type ExtractActions<Module extends AnyXModule> = Module extends XModule<
 /**
  * Extracts the payload from any function with a single parameter.
  *
- * @param Function - A function type with one parameter and any return type.
+ * @param SomeFunction - A function type with one parameter and any return type.
  * @public
  */
-export type ExtractPayload<Function extends (payload?: any) => any> = Parameters<Function>[0];
+export type ExtractPayload<SomeFunction extends (payload?: any) => any> = Parameters<
+  SomeFunction
+>[0];

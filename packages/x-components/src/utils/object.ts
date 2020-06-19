@@ -19,7 +19,7 @@ export function forEach<T extends Dictionary>(
 
   let index = 0;
   for (const key in obj) {
-    if (obj.hasOwnProperty(key) && obj[key] !== undefined) {
+    if (Object.prototype.hasOwnProperty.call(obj, key) && obj[key] !== undefined) {
       callbackFn(key, obj[key], index++);
     }
   }

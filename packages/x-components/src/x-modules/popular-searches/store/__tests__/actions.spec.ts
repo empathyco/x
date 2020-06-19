@@ -16,7 +16,7 @@ describe('testing popular searches module actions', () => {
   localVue.config.productionTip = false; // Silent production console messages.
   localVue.use(Vuex);
 
-  let store: Store<PopularSearchesState> = new Store(popularSearchesXStoreModule as any);
+  const store: Store<PopularSearchesState> = new Store(popularSearchesXStoreModule as any);
   installNewXPlugin({ store, adapter }, localVue);
 
   describe(`${actionKeys.getSuggestions}`, () => {

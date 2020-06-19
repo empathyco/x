@@ -158,7 +158,7 @@
     protected flagImageLoaded(): void{
      this.hasImageLoaded = true;
     }
-  };
+  }
 </script>
 
 <docs>

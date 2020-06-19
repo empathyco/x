@@ -17,7 +17,7 @@ describe('testing history queries module actions', () => {
   localVue.config.productionTip = false; // Silent production console messages.
   localVue.use(Vuex);
 
-  let store: Store<QuerySuggestionsState> = new Store(querySuggestionsXStoreModule as any);
+  const store: Store<QuerySuggestionsState> = new Store(querySuggestionsXStoreModule as any);
   installNewXPlugin({ store, adapter }, localVue);
 
   beforeEach(() => {

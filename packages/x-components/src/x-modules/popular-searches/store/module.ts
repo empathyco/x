@@ -1,4 +1,3 @@
-import { Suggestion } from '@empathy/search-types';
 import { getAndSaveSuggestions } from './actions/get-and-save-suggestions.action';
 import { getSuggestions } from './actions/get-suggestions.action';
 import { request } from './getters/request';
@@ -21,7 +20,7 @@ export const popularSearchesXStoreModule: PopularSearchesXStoreModule = {
     request
   },
   mutations: {
-    setSuggestions(state, suggestions: Suggestion[]): void {
+    setSuggestions(state, suggestions) {
       state.popularSearches = suggestions;
     }
   },

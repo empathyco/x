@@ -24,7 +24,7 @@ export const rollupConfig = createRollupOptions({
      * Because of that, when rollup detects a circular dependency (it emits a warning), we stop
      * the build with an error */
     if (warning.code === 'CIRCULAR_DEPENDENCY') {
-      throw Error(`Circular dependency found: ${warning.cycle?.join(' ')}`);
+      throw Error(`Circular dependency found: ${warning.cycle?.join(' ') as string}`);
     }
   },
   external(id) {
@@ -60,7 +60,7 @@ export const rollupConfig = createRollupOptions({
     }),
     vue({
       css: true,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore Undocumented option to disable vue sourcemap generation because it breaks if
       // lang is set to ts:
       // https://github.com/vuejs/rollup-plugin-vue/issues/272#issuecomment-491721842

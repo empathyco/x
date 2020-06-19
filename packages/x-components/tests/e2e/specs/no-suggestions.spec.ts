@@ -25,9 +25,7 @@ describe('e2e testing no-suggestions component', () => {
     cy.getByDataTest('no-suggestions').should('exist');
     cy.getByDataTest('clear-search-input').click();
     cy.getByDataTest('no-suggestions').should('not.exist');
-    cy.getByDataTest('history-query')
-      .last()
-      .click();
+    cy.getByDataTest('history-query').last().click();
     cy.getByDataTest('no-suggestions').should('exist');
   });
 });

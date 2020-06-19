@@ -15,8 +15,7 @@ import { HistoryQueriesXStoreModule } from './types';
  *
  * @internal
  */
-export let historyQueriesXStoreModule: HistoryQueriesXStoreModule;
-historyQueriesXStoreModule = {
+export const historyQueriesXStoreModule: HistoryQueriesXStoreModule = {
   state: () => ({
     config: {
       debounceInMs: 150,

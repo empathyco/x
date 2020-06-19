@@ -25,9 +25,7 @@ describe('e2e testing history-queries component', () => {
   });
 
   it('updates search input query with the clicked history query', () => {
-    cy.getByDataTest('history-query')
-      .last()
-      .as('lastHistoryQuery');
+    cy.getByDataTest('history-query').last().as('lastHistoryQuery');
     cy.get('@lastHistoryQuery').click();
 
     cy.getByDataTest('search-input').should('have.value', query);
@@ -37,9 +35,7 @@ describe('e2e testing history-queries component', () => {
     cy.searchQuery(playmobilQuery);
     cy.visit('/');
 
-    cy.getByDataTest('history-query')
-      .as('historyQuerySuggestions')
-      .should('have.length', 2);
+    cy.getByDataTest('history-query').as('historyQuerySuggestions').should('have.length', 2);
 
     const playQuery = 'play';
     cy.typeQuery(playQuery);

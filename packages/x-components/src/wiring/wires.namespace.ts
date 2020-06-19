@@ -24,7 +24,7 @@ export function withModule<ModuleName extends XModuleName>(
 ): NamespacedWireFactory<ModuleName> {
   const modulePath = `x/${moduleName}/`;
   return {
-    wireCommit(mutation: string, payload?: any): AnyWire {
+    wireCommit(mutation: string, payload?: unknown): AnyWire {
       const mutationFullPath = `${modulePath}${mutation}`;
       return typeof payload === 'function'
         ? wireCommit(mutationFullPath, ({ state, getters }) =>
@@ -33,13 +33,13 @@ export function withModule<ModuleName extends XModuleName>(
         : wireCommit(mutationFullPath, payload);
     },
     wireCommitWithoutPayload(mutation) {
-      return wireCommitWithoutPayload(`${modulePath}${mutation}`);
+      return wireCommitWithoutPayload(`${modulePath}${mutation as string}`);
     },
     wireDispatch(action: string, payload?: any) {
       return wireDispatch(`${modulePath}${action}`, payload);
     },
     wireDispatchWithoutPayload(action) {
-      return wireDispatchWithoutPayload(`${modulePath}${action}`);
+      return wireDispatchWithoutPayload(`${modulePath}${action as string}`);
     },
     wireDebounce(wire, timeRetrieving): AnyWire {
       return debounce(wire, ({ state, getters }) =>

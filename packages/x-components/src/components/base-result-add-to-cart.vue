@@ -40,7 +40,7 @@
     protected get events(): Partial<XEventsTypes> {
       return { UserClickedResultAddToCart: this.result }
     }
-  };
+  }
 </script>
 
 <docs>

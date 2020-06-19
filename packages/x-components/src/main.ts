@@ -17,7 +17,7 @@ const app = new Vue({
 }).$mount('#app');
 
 // Injecting XComponents into the global window object when Cypress is injected for testing purposes
-if (window.hasOwnProperty('Cypress')) {
+if (Object.prototype.hasOwnProperty.call(window, 'Cypress')) {
   Object.defineProperty(window, 'xcomponents', {
     value: app
   });

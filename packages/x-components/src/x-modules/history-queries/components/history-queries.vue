@@ -14,7 +14,7 @@
           data-test="history-query-item"
           class="x-history-queries__item"
         >
-          <template #default="{suggestion, queryHTML}">
+          <template #default="{ suggestion, queryHTML }">
             <!-- @slot Slot for the History Query's content. -->
             <!-- @binding {Suggestion} suggestion - The data of the HistoryQuery suggestion. -->
             <!-- @binding {string} queryHTML - The suggestion's query with the matching part inside

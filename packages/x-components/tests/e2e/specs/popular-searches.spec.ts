@@ -9,9 +9,7 @@ describe('e2e testing query-suggestion component', () => {
   });
 
   it('updates search input query with the clicked popular search', () => {
-    cy.get('@popularSearches')
-      .last()
-      .as('lastPopularSearch');
+    cy.get('@popularSearches').last().as('lastPopularSearch');
     cy.get('@lastPopularSearch').click();
 
     cy.get('@lastPopularSearch')

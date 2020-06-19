@@ -22,9 +22,7 @@ describe('e2e testing related tags component', () => {
   });
 
   it('should search more related tags after deselect one and have none selected', () => {
-    cy.get('@relatedTags')
-      .first()
-      .click();
+    cy.get('@relatedTags').first().click();
     cy.get('@relatedTags')
       .first()
       .click()

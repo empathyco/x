@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/check-tag-names */
 /**
  * X-Components is a library usable everywhere not only for search experiences.
  *

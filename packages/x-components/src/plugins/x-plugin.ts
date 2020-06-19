@@ -336,7 +336,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    */
   protected hasModuleConfig(storeModule: Module<any, any>): boolean {
     return typeof storeModule.state === 'function'
-      ? !!storeModule.state().config
+      ? !!(storeModule.state as () => any)().config
       : !!storeModule.state.config;
   }
 

@@ -1,4 +1,5 @@
 import { forEach, map, reduce } from '../object';
+import { Dictionary } from '../types';
 
 class Person {
   public constructor(public name: string) {}
@@ -63,7 +64,7 @@ describe('testing object utils', () => {
     });
 
     function expectForEachToHaveBeenCalledWithValidParameters(
-      obj: object,
+      obj: Dictionary,
       callback = forEachCallback
     ): void {
       const objEntries = Object.entries(obj);
@@ -148,7 +149,7 @@ describe('testing object utils', () => {
     });
 
     function expectReduceToHaveBeenCalledWithValidParameters(
-      obj: object,
+      obj: Dictionary,
       callback: jest.Mock = reducer
     ): void {
       const objEntries = Object.entries(obj);
@@ -240,7 +241,7 @@ describe('testing object utils', () => {
     });
 
     function expectMapToHaveBeenCalledWithValidParameters(
-      obj: object,
+      obj: Dictionary,
       callback: jest.Mock = mapCallback
     ): void {
       const objEntries = Object.entries(obj);

@@ -36,9 +36,9 @@ export interface RecommendationsMutations {
   /**
    * Sets the recommendations of the module.
    *
-   * @param results - The recommendations list.
+   * @param recommendations - The recommendations list.
    */
-  setRecommendations(results: Result[]): void;
+  setRecommendations(recommendations: Result[]): void;
 }
 
 /**

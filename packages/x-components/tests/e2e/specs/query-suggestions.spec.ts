@@ -8,7 +8,7 @@ describe('e2e testing query-suggestion component', () => {
     cy.getByDataTest('query-suggestion').as('querySuggestions');
   });
 
-  it('shows query suggestions when a query is written', function() {
+  it('shows query suggestions when a query is written', function () {
     cy.get('@querySuggestions')
       .should('have.length.gt', 0)
       .each(querySuggestion => {
@@ -16,7 +16,7 @@ describe('e2e testing query-suggestion component', () => {
       });
   });
 
-  it('updates search input query with the clicked query suggestion', function() {
+  it('updates search input query with the clicked query suggestion', function () {
     cy.get('@querySuggestions')
       .last()
       .click()

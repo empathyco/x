@@ -18,7 +18,7 @@ describe('testing next queries module actions', () => {
   localVue.config.productionTip = false; // Silent production console messages.
   localVue.use(Vuex);
 
-  let store: Store<NextQueriesState> = new Store(nextQueriesXStoreModule as any);
+  const store: Store<NextQueriesState> = new Store(nextQueriesXStoreModule as any);
   installNewXPlugin({ adapter, store }, localVue);
 
   beforeEach(() => {
