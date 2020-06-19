@@ -16,5 +16,5 @@ export interface IdentifierResultsConfig {
   /**
    * The regex to match the query.
    */
-  regex: RegExp;
+  regex: string;
 }

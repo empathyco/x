@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { map } from '../../../../../utils/object';
-import { identifierResultsXStoreModule } from '../../module';
-import { IdentifierResultsState } from '../../types';
+import { map } from '../../../../utils/object';
+import { identifierResultsXStoreModule } from '../module';
+import { IdentifierResultsState } from '../types';
 import { resetIdentifierResultsStateWith } from './utils';
 
 describe('testing identifier results module getters', () => {
@@ -33,6 +33,16 @@ describe('testing identifier results module getters', () => {
     it('should return null when there is an empty query', () => {
       resetIdentifierResultsStateWith(store, { query: ' ' });
       expect(store.getters[gettersKeys.request]).toBeNull();
+    });
+  });
+
+  describe(`${gettersKeys.regex} getter`, () => {
+    it('should return a RegExp object using the configured regex', () => {
+      const regex = '^[0-3]{2,}$';
+      const regexp = new RegExp(regex);
+      resetIdentifierResultsStateWith(store, { config: { regex } });
+
+      expect(store.getters[gettersKeys.regex]).toEqual(regexp);
     });
   });
 });

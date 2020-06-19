@@ -2,6 +2,7 @@ import { SearchByIdRequest } from '@empathy/search-adapter';
 import { Result } from '@empathy/search-types';
 import { XStoreModule } from '../../../store';
 import { IdentifierResultsConfig } from '../config.types';
+
 /**
  * IdentifierResults store state.
  *
@@ -15,6 +16,7 @@ export interface IdentifierResultsState {
   /** The configuration of the identifier results module. */
   config: IdentifierResultsConfig;
 }
+
 /**
  * IdentifierResults store getters.
  *
@@ -24,19 +26,52 @@ export interface IdentifierResultsGetters {
   /** The adapter request object for retrieving the identifier suggestions, or null if there is not
    * valid data to create a request. */
   request: SearchByIdRequest | null;
+  /** The RegExp to test against the query. */
+  regex: RegExp;
 }
+
 /**
  * IdentifierResults store mutations.
  *
  * @public
  */
-export interface IdentifierResultsMutations {}
+export interface IdentifierResultsMutations {
+  /**
+   * Sets the query of the module, which is used to retrieve the identifier-results.
+   *
+   * @param newQuery - The new query to save to the state.
+   */
+  setQuery(newQuery: string): void;
+  /**
+   * Sets the identifier results of the module.
+   *
+   * @param identifierResults - The new identifier results to save to the state.
+   */
+  setIdentifierResults(identifierResults: Result[]): void;
+}
+
 /**
  * IdentifierResults store actions.
  *
  * @public
  */
-export interface IdentifierResultsActions {}
+export interface IdentifierResultsActions {
+  /**
+   * Requests a new set of identifier results for the module query, and returns them.
+   *
+   * @returns An array of identifier results, or null if the request was not made.
+   */
+  fetchIdentifierResults(): Result[] | null;
+  /**
+   * Requests a new set of identifier results and stores them in the module.
+   */
+  fetchAndSaveIdentifierResults(): void;
+  /**
+   * Stores the query in the module if it matches the {@link IdentifierResultsConfig.regex | regex}.
+   */
+  saveQuery(query: string): void;
+}
+
 /**
  * IdentifierResults type safe store module.
  *

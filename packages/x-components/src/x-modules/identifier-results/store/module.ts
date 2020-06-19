@@ -1,3 +1,7 @@
+import { fetchAndSaveIdentifierResults } from './actions/fetch-and-save-identifier-results.action';
+import { fetchIdentifierResults } from './actions/fetch-identifier-results.action';
+import { saveQuery } from './actions/save-query.action';
+import { regex } from './getters/regex';
 import { request } from './getters/request';
 import { IdentifierResultsXStoreModule } from './types';
 /**
@@ -12,12 +16,24 @@ export const identifierResultsXStoreModule: IdentifierResultsXStoreModule = {
     config: {
       debounceInMs: 600,
       maxItemsToRequest: 10,
-      regex: /.*/
+      regex: '^[0-9]{2,}$'
     }
   }),
   getters: {
-    request
+    request,
+    regex
   },
-  mutations: {},
-  actions: {}
+  mutations: {
+    setIdentifierResults(state, identifierResults) {
+      state.identifierResults = identifierResults;
+    },
+    setQuery(state, query) {
+      state.query = query;
+    }
+  },
+  actions: {
+    fetchIdentifierResults,
+    fetchAndSaveIdentifierResults,
+    saveQuery
+  }
 };
