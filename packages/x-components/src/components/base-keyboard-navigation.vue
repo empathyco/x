@@ -18,11 +18,11 @@
   import {
     ArrowKey,
     EventsForDirectionLimit,
-    PropsWithType,
     TakeNavigationControl
   } from '../utils/types';
-  import { XEventsTypes } from '../wiring/events.types';
-  import { WirePayload } from '../wiring/wiring.types';
+  import { XEventsOf } from '../wiring/events.types';
+  import { WireMetadata } from '../wiring/wiring.types';
+  import { XOn } from './decorators';
 
   /**
    * Base component to handle keyboard navigation for elements inside it. It has a required slot to
@@ -69,47 +69,45 @@
     mounted(): void {
       // TODO Replace this with injection
       this.navigationService = new DirectionalFocusNavigationService(this.$el as HTMLElement);
-      this.createSubscriptions();
     }
 
     /**
-     * Creates the necessary subscriptions to {@link XEvent | xEvents}.
+     * Get the navigation hijacker events.
      *
-     * @internal
+     * @remarks
+     * If the same {@link XEvent} is defined multiple times it is only inserted once.
+     *
+     * @returns The events to hijack the navigation.
      */
-    private createSubscriptions(): void {
-      // TODO Refactor this when https://searchbroker.atlassian.net/browse/EX-1977 is done
-      const eventsSet = new Set<PropsWithType<XEventsTypes, ArrowKey>>();
-      this.navigationHijacker.forEach(({ xEvent }) => eventsSet.add(xEvent));
-      eventsSet.forEach(xEvent => {
-        const subscription = this.$x.on(xEvent, true).subscribe(this.triggerNavigation.bind(this));
-        this.$on('hook:beforeDestroy', () => subscription.unsubscribe());
-      });
+    protected get navigationHijackerEvents(): XEventsOf<ArrowKey>[] {
+      const eventsSet = this.navigationHijacker.map(({ xEvent }) => xEvent);
+      return Array.from(new Set(eventsSet));
     }
 
     /**
      * Trigger navigation if this component is in control of it.
      *
-     * @param payload - {@link WirePayload}.
+     * @param eventPayload - The {@link WirePayload.eventPayload}.
+     * @param metadata - The {@link WirePayload.metadata}.
      * @public
      */
-    triggerNavigation(payload: WirePayload<ArrowKey>): void {
-      if (this.hasToTakeNavigationControl(payload)) {
-        this.focusNextNavigableElement(payload.eventPayload);
+    @XOn(component => (component as BaseKeyboardNavigation).navigationHijackerEvents)
+    triggerNavigation(eventPayload: ArrowKey, metadata: WireMetadata): void {
+      if (this.hasToTakeNavigationControl(eventPayload, metadata)) {
+        this.focusNextNavigableElement(eventPayload);
       }
     }
 
     /**
      * Checks if the component has to take control of the keyboard navigation.
      *
-     * @param payload - {@link WirePayload}.
+     * @param eventPayload - The {@link ArrowKey}.
+     * @param metadata - The {@link WireMetadata}.
      *
      * @returns Whether the component needs to take control of the keyboard navigation or not.
      * @internal
      */
-    private hasToTakeNavigationControl(payload: WirePayload<ArrowKey>): boolean {
-      const { eventPayload, metadata } = payload;
-
+    private hasToTakeNavigationControl(eventPayload: ArrowKey, metadata: WireMetadata): boolean {
       return this.navigationHijacker.some(({ moduleName, direction }) =>
         moduleName === metadata.moduleName && direction === eventPayload
       );
@@ -123,7 +121,7 @@
      */
     protected focusNextNavigableElement(direction: ArrowKey | KeyboardEvent): void {
       const dir = typeof direction === 'object' ? (direction.key) as ArrowKey : direction;
-      const nextElementToFocus = this.navigationService.navigateTo(dir);
+      const nextElementToFocus = this.navigationService?.navigateTo(dir);
 
       if (this.elementToFocus !== nextElementToFocus) {
         this.elementToFocus = nextElementToFocus;

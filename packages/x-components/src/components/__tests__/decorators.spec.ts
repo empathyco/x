@@ -2,11 +2,14 @@ import { mount, Wrapper } from '@vue/test-utils';
 import Vue, { CreateElement, VNode } from 'vue';
 import { Component } from 'vue-property-decorator';
 import Vuex, { Store } from 'vuex';
+import { XEvent } from '../../wiring/events.types';
 import { searchBoxXStoreModule } from '../../x-modules/search-box/store/module';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { Getter, State, XOn } from '../decorators';
 
-const listener = jest.fn();
+const singleListener = jest.fn();
+const multipleListener = jest.fn();
+const dataListener = jest.fn();
 const createdListener = jest.fn();
 
 @Component
@@ -16,9 +19,21 @@ class TestingComponent extends Vue {
   @Getter('searchBox', 'trimmedQuery')
   public trimmedQuery!: string;
 
+  protected events: XEvent[] = ['UserIsTypingAQuery', 'UserTalked'];
+
   @XOn('UserAcceptedAQuery')
-  testingXOn(payload: string): void {
-    listener(this, payload);
+  testingXOnSingle(payload: string): void {
+    singleListener(this, payload);
+  }
+
+  @XOn(['UserOpenedX', 'UserClosedX'])
+  testingXOnMultiple(): void {
+    multipleListener(this);
+  }
+
+  @XOn(component => (component as TestingComponent).events)
+  testingXOnData(payload: unknown): void {
+    dataListener(this, payload);
   }
 
   created(): void {
@@ -83,18 +98,50 @@ describe('testing decorators', () => {
       expect(createdListener).toHaveBeenCalledWith(component.vm);
     });
 
-    it('subscribes to the event', () => {
+    it('subscribes to a defined event', () => {
       component.vm.$x.emit('UserAcceptedAQuery', 'algo grasioso');
 
-      expect(listener).toHaveBeenCalled();
-      expect(listener).toHaveBeenCalledWith(component.vm, 'algo grasioso');
+      expect(singleListener).toHaveBeenCalled();
+      expect(singleListener).toHaveBeenCalledWith(component.vm, 'algo grasioso');
     });
 
-    it('un-subscribes to the event when destroying the component', () => {
+    it('subscribes to a defined array of events', () => {
+      component.vm.$x.emit('UserOpenedX');
+      component.vm.$x.emit('UserClosedX');
+
+      expect(multipleListener).toHaveBeenCalledTimes(2);
+    });
+
+    it('subscribes dynamically to the events defined in a data property', async () => {
+      component.vm.$x.emit('UserIsTypingAQuery', 'algo grasioso');
+      component.vm.$x.emit('UserTalked', 'algo chistoso');
+
+      expect(dataListener).toHaveBeenNthCalledWith(1, component.vm, 'algo grasioso');
+      expect(dataListener).toHaveBeenNthCalledWith(2, component.vm, 'algo chistoso');
+
+      (component.vm as any).events = ['UserClearedQuery'];
+      await localVue.nextTick();
+      dataListener.mockClear();
+
+      component.vm.$x.emit('UserIsTypingAQuery', 'algo grasioso');
+      component.vm.$x.emit('UserTalked', 'algo chistoso');
+      expect(dataListener).not.toHaveBeenCalled();
+
+      component.vm.$x.emit('UserClearedQuery');
+      expect(dataListener).toHaveBeenCalled();
+    });
+
+    it('un-subscribes to any subscribed event when destroying the component', () => {
       component.vm.$destroy();
       component.vm.$x.emit('UserAcceptedAQuery', 'que pasara que misterios habra');
+      component.vm.$x.emit('UserIsTypingAQuery', 'estare escribiendo?');
+      component.vm.$x.emit('UserTalked', 'no he dicho nada');
+      component.vm.$x.emit('UserOpenedX');
+      component.vm.$x.emit('UserClosedX');
 
-      expect(listener).not.toHaveBeenCalled();
+      expect(singleListener).not.toHaveBeenCalled();
+      expect(multipleListener).not.toHaveBeenCalled();
+      expect(dataListener).not.toHaveBeenCalled();
     });
   });
 });

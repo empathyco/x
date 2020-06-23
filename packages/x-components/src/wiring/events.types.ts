@@ -1,7 +1,7 @@
 import { Result, Suggestion } from '@empathy/search-types';
 import { CurrencyOptions } from '../i18n/currency.types';
 import { DocumentDirection } from '../plugins/x-plugin.types';
-import { ArrowKey } from '../utils';
+import { ArrowKey, PropsWithType } from '../utils';
 import { HistoryQueriesXEvents } from '../x-modules/history-queries/events.types';
 import { IdentifierResultsXEvents } from '../x-modules/identifier-results/events.types';
 import { NextQueriesXEvents } from '../x-modules/next-queries/events.types';
@@ -116,6 +116,14 @@ export interface XEventsTypes
  * @public
  */
 export type XEvent = keyof XEventsTypes;
+
+/**
+ * Selects events of the with a payload matching the provided type.
+ *
+ * @typeParam Type - The type that events payload should match.
+ * @public
+ */
+export type XEventsOf<Type> = PropsWithType<XEventsTypes, Type>;
 
 /**
  * Extracts the payload type of an event.

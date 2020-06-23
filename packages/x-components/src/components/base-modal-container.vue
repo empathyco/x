@@ -29,7 +29,7 @@
     /**
      * Array of {@link XEvent | xEvents} to listen to close the modal.
      */
-    @Prop({ default: () => [] })
+    @Prop({ default: () => ['UserClosedX'] })
     protected eventsToCloseModal!: XEvent[];
 
     /**
@@ -52,17 +52,9 @@
      *
      * @public
      */
-    @XOn('UserClosedX')
+    @XOn(component => (component as BaseModalContainer).eventsToCloseModal)
     closeModalContainer(): void {
       this.isOpen = false;
-    }
-
-    mounted(): void {
-      this.eventsToCloseModal.forEach(event => {
-        // TODO Refactor this code to its own mixin/function
-        const subscription = this.$x.on(event).subscribe(this.closeModalContainer.bind(this));
-        this.$on('hook:beforeDestroy', () => subscription.unsubscribe());
-      });
     }
 
     /**
