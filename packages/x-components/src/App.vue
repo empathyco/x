@@ -36,7 +36,7 @@
       </div>
       <div class="inline-flex">
         <h1>Next Queries</h1>
-        <NextQueries :animation="fadeAndSlide" :loadOnInit="loadOnInit" />
+        <NextQueries :animation="fadeAndSlide" :loadOnInit="loadOnInit" :maxItemsToRender="10" />
       </div>
       <div class="inline-flex">
         <h1>Related tags</h1>

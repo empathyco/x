@@ -16,7 +16,7 @@ describe('testing identifier results module actions', () => {
   localVue.config.productionTip = false; // Silent production console messages.
   localVue.use(Vuex);
 
-  let store: Store<IdentifierResultsState> = new Store(identifierResultsXStoreModule as any);
+  const store: Store<IdentifierResultsState> = new Store(identifierResultsXStoreModule as any);
   installNewXPlugin({ adapter, store }, localVue);
 
   beforeEach(() => {

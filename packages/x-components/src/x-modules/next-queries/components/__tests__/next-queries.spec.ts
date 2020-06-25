@@ -118,6 +118,26 @@ describe('testing next queries component', () => {
     expect(nextQueriesWrapper.html()).toEqual('');
   });
 
+  it('renders at most the number of NextQuery defined by `maxItemsToRender` prop', async () => {
+    nextQueriesWrapper.setProps({ maxItemsToRender: 2 });
+    await localVue.nextTick();
+    let renderedNextQueries = findTestDataById(nextQueriesWrapper, 'next-query');
+
+    expect(renderedNextQueries).toHaveLength(2);
+
+    nextQueriesWrapper.setProps({ maxItemsToRender: 3 });
+    await localVue.nextTick();
+    renderedNextQueries = findTestDataById(nextQueriesWrapper, 'next-query');
+
+    expect(renderedNextQueries).toHaveLength(3);
+
+    nextQueriesWrapper.setProps({ maxItemsToRender: 5 });
+    await localVue.nextTick();
+    renderedNextQueries = findTestDataById(nextQueriesWrapper, 'next-query');
+
+    expect(renderedNextQueries).toHaveLength(nextQueries.length);
+  });
+
   function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {
     return wrapper.findAll(getDataTestSelector(testDataId));
   }

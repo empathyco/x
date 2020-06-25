@@ -21,7 +21,7 @@ describe('testing next queries module getters', () => {
       resetNextQueriesStateWith(store, {
         query: 'dorito',
         config: {
-          itemsToRequest: 5
+          maxItemsToRequest: 5
         }
       });
 
@@ -52,7 +52,7 @@ describe('testing next queries module getters', () => {
         searchedQueries,
         nextQueries,
         config: {
-          itemsToRequest: 5,
+          maxItemsToRequest: 5,
           hideSessionQueries: true
         }
       });

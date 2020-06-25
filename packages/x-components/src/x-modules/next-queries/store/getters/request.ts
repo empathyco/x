@@ -13,7 +13,7 @@ export const request: NextQueriesXStoreModule['getters']['request'] = ({ query, 
   return query.trim()
     ? {
         query,
-        rows: config.itemsToRequest,
+        rows: config.maxItemsToRequest,
         start: 0
       }
     : null;

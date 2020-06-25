@@ -53,8 +53,20 @@
     @Prop()
     protected animation!: Vue;
 
+    /**
+     * Number of next queries that will be rendered.
+     *
+     * @public
+     */
+    @Prop({default: 5})
+    protected maxItemsToRender!: number;
+
     @Getter('nextQueries', 'nextQueries')
-    public nextQueries!: NextQueryModel[];
+    public storedNextQueries!: NextQueryModel[];
+
+    protected get nextQueries(): NextQueryModel[]{
+      return this.storedNextQueries.slice(0, this.maxItemsToRender);
+    }
   }
 </script>
 

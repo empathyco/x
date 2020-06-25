@@ -7,7 +7,7 @@ export interface NextQueriesConfig {
   /**
    * Number of next queries that will be requested.
    */
-  itemsToRequest: number;
+  maxItemsToRequest: number;
   /**
    * Hides the next queries if it has been already searched during the session.
    *
