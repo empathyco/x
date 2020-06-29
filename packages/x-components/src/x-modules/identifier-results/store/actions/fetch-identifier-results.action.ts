@@ -15,7 +15,7 @@ import { IdentifierResultsXStoreModule } from '../types';
 export const fetchIdentifierResults: IdentifierResultsXStoreModule['actions']['fetchIdentifierResults'] = ({
   getters
 }) => {
-  return getters.request
-    ? XPlugin.adapter.searchById(getters.request).then(({ results }) => results)
+  return getters.identifierResultsRequest
+    ? XPlugin.adapter.searchById(getters.identifierResultsRequest).then(({ results }) => results)
     : null;
 };

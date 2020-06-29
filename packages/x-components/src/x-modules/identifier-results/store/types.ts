@@ -25,9 +25,12 @@ export interface IdentifierResultsState {
 export interface IdentifierResultsGetters {
   /** The adapter request object for retrieving the identifier suggestions, or null if there is not
    * valid data to create a request. */
-  request: SearchByIdRequest | null;
+  identifierResultsRequest: SearchByIdRequest | null;
   /** The RegExp to test against the query. */
-  regex: RegExp;
+  identifierDetectionRegexp: RegExp;
+  /** The RegExp with the current query from the state adding the separatorChars after each
+   * matching character. */
+  identifierHighlightRegexp: RegExp;
 }
 
 /**
@@ -67,7 +70,7 @@ export interface IdentifierResultsActions {
    */
   fetchAndSaveIdentifierResults(): void;
   /**
-   * Stores the query in the module if it matches the {@link IdentifierResultsConfig.regex | regex}.
+   * Stores the query in the module if it matches the regex.
    */
   saveQuery(query: string): void;
 }

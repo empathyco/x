@@ -14,11 +14,11 @@ describe('testing identifier results module getters', () => {
     resetIdentifierResultsStateWith(store);
   });
 
-  describe(`${gettersKeys.request} getter`, () => {
+  describe(`${gettersKeys.identifierResultsRequest} getter`, () => {
     it('should return a request object if there is a query', () => {
       resetIdentifierResultsStateWith(store, { query: 'shin chan' });
 
-      expect(store.getters[gettersKeys.request]).toEqual({
+      expect(store.getters[gettersKeys.identifierResultsRequest]).toEqual({
         query: 'shin chan',
         rows: 10,
         start: 0,
@@ -27,22 +27,39 @@ describe('testing identifier results module getters', () => {
     });
 
     it('should return null when there is not query', () => {
-      expect(store.getters[gettersKeys.request]).toBeNull();
+      expect(store.getters[gettersKeys.identifierResultsRequest]).toBeNull();
     });
 
     it('should return null when there is an empty query', () => {
       resetIdentifierResultsStateWith(store, { query: ' ' });
-      expect(store.getters[gettersKeys.request]).toBeNull();
+      expect(store.getters[gettersKeys.identifierResultsRequest]).toBeNull();
     });
   });
 
-  describe(`${gettersKeys.regex} getter`, () => {
+  describe(`${gettersKeys.identifierDetectionRegexp} getter`, () => {
     it('should return a RegExp object using the configured regex', () => {
-      const regex = '^[0-3]{2,}$';
-      const regexp = new RegExp(regex);
-      resetIdentifierResultsStateWith(store, { config: { regex } });
+      const identifierDetectionRegexp = '^[0-3]{2,}$';
+      resetIdentifierResultsStateWith(store, { config: { identifierDetectionRegexp } });
 
-      expect(store.getters[gettersKeys.regex]).toEqual(regexp);
+      expect(store.getters[gettersKeys.identifierDetectionRegexp]).toEqual(
+        new RegExp(identifierDetectionRegexp)
+      );
     });
+  });
+
+  describe(`${gettersKeys.identifierHighlightRegexp} getter`, () => {
+    it(
+      'should return a RegExp object to match the query without spaces and an optional ' +
+        'separator char after each character of the query',
+      () => {
+        const query = ' 12 / 34';
+        const separatorChars = '-/ ';
+        resetIdentifierResultsStateWith(store, { query, config: { separatorChars } });
+        expect(store.getters[gettersKeys.identifierHighlightRegexp]).toEqual(
+          // eslint-disable-next-line no-useless-escape
+          /(1[\-\/\ ]*2[\-\/\ ]*3[\-\/\ ]*4)/i
+        );
+      }
+    );
   });
 });

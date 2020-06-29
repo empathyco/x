@@ -8,5 +8,5 @@ import { identifierResultsXStoreModule } from './module';
  */
 export const identifierResultsEmitters = createStoreEmitters(identifierResultsXStoreModule, {
   IdentifierResultsChanged: state => state.identifierResults,
-  IdentifierResultsRequestChanged: (_, getters) => getters.request
+  IdentifierResultsRequestChanged: (_, getters) => getters.identifierResultsRequest
 });

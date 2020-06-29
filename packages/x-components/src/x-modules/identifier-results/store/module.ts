@@ -1,8 +1,9 @@
 import { fetchAndSaveIdentifierResults } from './actions/fetch-and-save-identifier-results.action';
 import { fetchIdentifierResults } from './actions/fetch-identifier-results.action';
 import { saveQuery } from './actions/save-query.action';
-import { regex } from './getters/regex';
-import { request } from './getters/request';
+import { identifierDetectionRegexp } from './getters/identifier-detection-regexp';
+import { identifierHighlightRegexp } from './getters/identifier-highlight-regexp';
+import { identifierResultsRequest } from './getters/identifier-results-request';
 import { IdentifierResultsXStoreModule } from './types';
 /**
  * {@link XStoreModule} For the identifier results module.
@@ -16,12 +17,14 @@ export const identifierResultsXStoreModule: IdentifierResultsXStoreModule = {
     config: {
       debounceInMs: 600,
       maxItemsToRequest: 10,
-      regex: '^[0-9]{2,}$'
+      identifierDetectionRegexp: '^[0-9]{2,}$',
+      separatorChars: '-/ '
     }
   }),
   getters: {
-    request,
-    regex
+    identifierResultsRequest,
+    identifierHighlightRegexp,
+    identifierDetectionRegexp
   },
   mutations: {
     setIdentifierResults(state, identifierResults) {

@@ -47,15 +47,15 @@ describe('testing identifier results module actions', () => {
   });
 
   describe(`${actionKeys.saveQuery}`, () => {
-    const regex = '^[0-9]{2,}$';
+    const identifierDetectionRegexp = '^[0-9]{2,}$';
     it('should store the query in the state if it matches the regex', async () => {
-      resetIdentifierResultsStateWith(store, { config: { regex } });
+      resetIdentifierResultsStateWith(store, { config: { identifierDetectionRegexp } });
 
       await store.dispatch(actionKeys.saveQuery, '1906');
       expect(store.state.query).toEqual('1906');
     });
     it('should not store query in the state if it matches the regex', async () => {
-      resetIdentifierResultsStateWith(store, { config: { regex } });
+      resetIdentifierResultsStateWith(store, { config: { identifierDetectionRegexp } });
 
       await store.dispatch(actionKeys.saveQuery, '1 thousand nine hundred and 6');
       expect(store.state.query).toEqual('');

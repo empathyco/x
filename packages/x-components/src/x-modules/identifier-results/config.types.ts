@@ -16,5 +16,10 @@ export interface IdentifierResultsConfig {
   /**
    * The regex to match the query.
    */
-  regex: string;
+  identifierDetectionRegexp: string;
+  /**
+   * The string with all the optional separator characters that may be placed between chars in an
+   * identifier result.
+   */
+  separatorChars: string;
 }

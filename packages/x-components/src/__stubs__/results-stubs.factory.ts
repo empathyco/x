@@ -12,6 +12,9 @@ export function getResultsStub(): Result[] {
   return [
     {
       id: 'xc-001',
+      identifier: {
+        value: 'A022/3234'
+      },
       name: 'Product 001',
       images: ['xc-001-01.jpg', 'xc-001-02.jpg'],
       url: 'http://x-components.com/xc-001.html',
@@ -25,6 +28,9 @@ export function getResultsStub(): Result[] {
     },
     {
       id: 'xc-002',
+      identifier: {
+        value: '1234567890'
+      },
       name: 'Product 002',
       images: ['xc-002-01.jpg', 'xc-002-02.jpg'],
       url: 'http://x-components.com/xc-0002.html',
@@ -89,7 +95,6 @@ function getResultCommonValues(): DeepPartial<Result> {
     modelName: 'Result',
     type: 'Product',
     isWishlisted: false,
-    rating: {},
-    identifier: {}
+    rating: {}
   };
 }

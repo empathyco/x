@@ -13,7 +13,7 @@ export const saveQuery: IdentifierResultsXStoreModule['actions']['saveQuery'] = 
   { commit, getters },
   query: string
 ) => {
-  if (getters.regex.test(query)) {
+  if (getters.identifierDetectionRegexp.test(query)) {
     commit('setQuery', query);
   }
 };
