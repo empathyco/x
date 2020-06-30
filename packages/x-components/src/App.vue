@@ -59,6 +59,18 @@
           </template>
         </Recommendations>
       </div>
+      <div class="inline-flex">
+        <h1>Identifier Results</h1>
+        <IdentifierResults :animation="fadeAndSlide">
+          <template #default="{ identifierResult }">
+            <BaseResultLink :result="identifierResult">
+              <template #default="{ result }">
+                <IdentifierResult :result="result" />
+              </template>
+            </BaseResultLink>
+          </template>
+        </IdentifierResults>
+      </div>
     </BaseKeyboardNavigation>
   </main>
 </template>
@@ -76,6 +88,8 @@
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from './x-modules/history-queries/components/clear-history-queries.vue';
   import HistoryQueries from './x-modules/history-queries/components/history-queries.vue';
+  import IdentifierResult from './x-modules/identifier-results/components/identifier-result.vue';
+  import IdentifierResults from './x-modules/identifier-results/components/identifier-results.vue';
   import NextQueries from './x-modules/next-queries/components/next-queries.vue';
   import NoSuggestions from './x-modules/no-suggestions/components/no-suggestions.vue';
   import PopularSearches from './x-modules/popular-searches/components/popular-searches.vue';
@@ -88,6 +102,8 @@
 
   @Component({
     components: {
+      IdentifierResult,
+      IdentifierResults,
       BaseKeyboardNavigation,
       BaseModalContainer,
       BaseResultLink,
