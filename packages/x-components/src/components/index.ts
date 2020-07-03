@@ -1,15 +1,15 @@
 export * from './animations';
+export { default as BaseCloseButton } from './base-close-button.vue';
 export { default as BaseEventButton } from './base-event-button.vue';
 export { default as BaseModalContainer } from './base-modal-container.vue';
+export { default as BaseOpenButton } from './base-open-button.vue';
 export { default as BaseAddToCart } from './base-result-add-to-cart.vue';
 export { default as BaseResultCurrentPrice } from './base-result-current-price.vue';
 export { default as BaseResultLink } from './base-result-link.vue';
 export { default as BaseResultPreviousPrice } from './base-result-previous-price.vue';
 export { default as BaseSuggestion } from './base-suggestion.vue';
 export { default as BaseSuggestions } from './base-suggestions.vue';
-export { default as CloseButton } from './close-button.vue';
 export * from './decorators';
-export { default as OpenButton } from './open-button.vue';
 export * from './x-component.mixin';
 export * from './x-component.types';
 export * from './x-component.utils';

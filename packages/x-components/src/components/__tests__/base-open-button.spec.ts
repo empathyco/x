@@ -1,11 +1,11 @@
 import { mount } from '@vue/test-utils';
 import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils';
-import OpenButton from '../open-button.vue';
+import BaseOpenButton from '../base-open-button.vue';
 
 describe('testing open button component', () => {
   const [, localVue] = installNewXPlugin();
 
-  const component = mount(OpenButton, {
+  const component = mount(BaseOpenButton, {
     localVue
   });
 
@@ -23,7 +23,7 @@ describe('testing open button component', () => {
   });
 
   it('renders the content overriding default slot', () => {
-    const overriddenSlotComponent = mount(OpenButton, {
+    const overriddenSlotComponent = mount(BaseOpenButton, {
       localVue,
       slots: {
         default: [

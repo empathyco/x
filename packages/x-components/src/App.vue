@@ -1,9 +1,10 @@
 <template>
   <main>
-    <OpenButton>Open search</OpenButton>
+    <BaseOpenButton>Open search</BaseOpenButton>
     <BaseModalContainer>
       <div class="modal-content">
-        <CloseButton aria-label="Close search">x</CloseButton>
+        <SearchInput placeholder="Search" aria-label="Search for products" />
+        <BaseCloseButton aria-label="Close search">x</BaseCloseButton>
       </div>
     </BaseModalContainer>
     <SearchInput placeholder="Search" aria-label="Search for products" />
@@ -80,9 +81,9 @@
   import { Component } from 'vue-property-decorator';
   import BaseKeyboardNavigation from './components/base-keyboard-navigation.vue';
   import BaseModalContainer from './components/base-modal-container.vue';
+  import BaseCloseButton from './components/base-close-button.vue';
+  import BaseOpenButton from './components/base-open-button.vue';
   import BaseResultLink from './components/base-result-link.vue';
-  import CloseButton from './components/close-button.vue';
-  import OpenButton from './components/open-button.vue';
   import FadeAndSlide from './components/animations/fade-and-slide.vue';
   import { getURLParameter } from './utils/get-url-parameters';
   // eslint-disable-next-line max-len
@@ -102,18 +103,18 @@
 
   @Component({
     components: {
-      IdentifierResult,
-      IdentifierResults,
+      BaseCloseButton,
       BaseKeyboardNavigation,
       BaseModalContainer,
+      BaseOpenButton,
       BaseResultLink,
       ClearHistoryQueries,
       ClearSearchInput,
-      CloseButton,
       HistoryQueries,
+      IdentifierResult,
+      IdentifierResults,
       NextQueries,
       NoSuggestions,
-      OpenButton,
       PopularSearches,
       QuerySuggestion,
       QuerySuggestions,
