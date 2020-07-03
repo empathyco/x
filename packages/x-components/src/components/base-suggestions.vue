@@ -9,9 +9,10 @@
       <!--
          @slot (Required) Slot for an individual suggestion, responsible for handling its
          selection by emitting the appropriate event
-         @binding {Suggestion} suggestion - The data of the suggestion
+         @binding {Suggestion} suggestion The data of the suggestion
+         @binding {number} index The index of the suggestion
        -->
-      <slot :suggestion="suggestion" />
+      <slot v-bind="{ suggestion, index }" />
     </li>
   </component>
 </template>

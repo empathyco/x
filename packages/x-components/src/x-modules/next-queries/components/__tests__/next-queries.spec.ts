@@ -43,9 +43,13 @@ describe('testing next queries component', () => {
     const wrapperComponent = {
       template: `
         <NextQueries>
-          <template #suggestion-content="{suggestion}">
+          <template #suggestion-content="suggestionContentScope">
             <img src="./next-query-icon.svg" class="x-next-query__icon" data-test="icon"/>
-            <span class="x-next-query__query" data-test="query">{{ suggestion.query }}</span>
+            <span 
+              class="x-next-query__query" 
+              data-test="query" 
+              :data-index="suggestionContentScope.index"
+              >{{ suggestionContentScope.suggestion.query }}</span>
           </template>
         </NextQueries>
       `,
@@ -64,6 +68,7 @@ describe('testing next queries component', () => {
 
     nextQueries.forEach((nextQuery, index) => {
       expect(eventSpansList.at(index).element.innerHTML).toEqual(nextQuery.query);
+      expect(eventSpansList.at(index).element.getAttribute('data-index')).toEqual(`${index}`);
       expect(iconsList.at(index)).toBeDefined();
     });
   });
@@ -72,14 +77,17 @@ describe('testing next queries component', () => {
     const wrapperComponent = {
       template: `
         <NextQueries>
-          <template #suggestion="{suggestion}">
-            <NextQuery :suggestion="suggestion">
-              <template #default="{suggestion}">
+          <template #suggestion="suggestionScope">
+            <NextQuery :suggestion="suggestionScope.suggestion">
+              <template #default="sugestionContentScope">
                 <img src="./next-query-icon.svg"
                      class="x-next-query__icon"
                      data-test="icon"/>
-                <span class="x-next-query__query"
-                      data-test="query">{{ suggestion.query }}</span>
+                <span 
+                  class="x-next-query__query"
+                  data-test="query"
+                  :data-index="suggestionScope.index"
+                  >{{ suggestionScope.suggestion.query }}</span>
               </template>
             </NextQuery>
             <button data-test="custom-button">Custom Behaviour</button>
@@ -105,6 +113,7 @@ describe('testing next queries component', () => {
 
     nextQueries.forEach((nextQuery, index) => {
       expect(eventSpansList.at(index).element.innerHTML).toEqual(nextQuery.query);
+      expect(eventSpansList.at(index).element.getAttribute('data-index')).toEqual(`${index}`);
       expect(iconsList.at(index)).toBeDefined();
       expect(customButtonList.at(index)).toBeDefined();
     });

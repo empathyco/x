@@ -21,15 +21,15 @@ describe('testing Base Suggestions component', () => {
     const wrapper = mount(BaseSuggestions, {
       propsData: { suggestions },
       scopedSlots: {
-        default({ suggestion }: { suggestion: Suggestion }) {
-          return suggestion.query;
+        default({ suggestion, index }: { suggestion: Suggestion; index: number }) {
+          return `${index} - ${suggestion.query}`;
         }
       }
     });
 
     const liWrappers = wrapper.findAll('li');
     suggestions.forEach((suggestion, index) =>
-      expect(liWrappers.at(index).element.textContent).toEqual(suggestion.query)
+      expect(liWrappers.at(index).element.textContent).toEqual(`${index} - ${suggestion.query}`)
     );
   });
 });
