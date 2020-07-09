@@ -15,12 +15,14 @@ describe('e2e testing base-modal-container component', () => {
     });
 
     it('does not close the modal when clicking inside its rendered content**', () => {
-      cy.getByDataTest('modal-container').children().click().should('exist');
+      cy.getByDataTest('modal-container').children().first().click().should('exist');
     });
 
     it('closes when clicking outside its slot content or the close button component', () => {
       cy.log('**closes the modal when clicking outside its slot rendered content**');
-      cy.getByDataTest('modal-container').should('exist').click().should('not.exist');
+      cy.getByDataTest('modal-container').should('exist');
+      cy.get('body').click();
+      cy.getByDataTest('modal-container').should('not.exist');
 
       cy.log('**closes the modal when clicking close-button component**');
       cy.getByDataTest('open-button').click();

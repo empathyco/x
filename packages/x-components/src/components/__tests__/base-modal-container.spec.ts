@@ -1,24 +1,46 @@
 import { mount, Wrapper } from '@vue/test-utils';
+import Vue from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils';
 import BaseModalContainer from '../base-modal-container.vue';
 
 describe('testing Base Modal Container component', () => {
-  const [, localVue] = installNewXPlugin();
-
-  const component: Wrapper<BaseModalContainer> = mount(BaseModalContainer, {
-    localVue,
-    propsData: {
-      eventsToCloseModal: ['UserAcceptedAQuery']
-    },
-    slots: {
-      default: {
-        template: `<button data-test="modal-button">I DO NOT emit close event!</button>`
-      }
-    }
-  });
+  let localVue: typeof Vue;
+  let component: Wrapper<BaseModalContainer>;
 
   beforeEach(() => {
-    (component.vm as any).isOpen = false;
+    [, localVue] = installNewXPlugin();
+    component = mount(BaseModalContainer, {
+      localVue,
+      propsData: {
+        eventsToCloseModal: ['UserAcceptedAQuery']
+      },
+      slots: {
+        default: {
+          template: `<button data-test="modal-button">I DO NOT emit close event!</button>`
+        }
+      }
+    });
+  });
+
+  it('renders an overlay by default', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    (component.vm as any).openModalContainer({
+      eventPayload: undefined,
+      metadata: {
+        target: undefined,
+        moduleName: null
+      }
+    });
+
+    await localVue.nextTick();
+
+    expect(component.find(getDataTestSelector('modal-container-overlay')).element).toBeDefined();
+  });
+
+  it('does not render an overlay when displayOverlay is false', () => {
+    expect(
+      component.find(getDataTestSelector('modal-container-overlay')).element
+    ).not.toBeDefined();
   });
 
   it('opens when UserOpenX is emitted', async () => {
@@ -47,7 +69,14 @@ describe('testing Base Modal Container component', () => {
     async () => {
       const listener = jest.fn();
       component.vm.$x.on('UserClosedX', true).subscribe(listener);
-      (component.vm as any).isOpen = true;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      (component.vm as any).openModalContainer({
+        eventPayload: undefined,
+        metadata: {
+          target: undefined,
+          moduleName: null
+        }
+      });
 
       await localVue.nextTick();
 
@@ -55,7 +84,7 @@ describe('testing Base Modal Container component', () => {
       button.trigger('click');
       expect(listener).not.toHaveBeenCalled();
 
-      component.trigger('click');
+      document.body.click();
       expect(listener).toHaveBeenCalledWith({
         eventPayload: undefined,
         metadata: {

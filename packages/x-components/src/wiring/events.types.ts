@@ -2,6 +2,7 @@ import { Result, Suggestion } from '@empathy/search-types';
 import { CurrencyOptions } from '../i18n/currency.types';
 import { DocumentDirection } from '../plugins/x-plugin.types';
 import { ArrowKey, PropsWithType } from '../utils';
+import { EmpathizeXEvents } from '../x-modules/empathize/events.types';
 import { HistoryQueriesXEvents } from '../x-modules/history-queries/events.types';
 import { IdentifierResultsXEvents } from '../x-modules/identifier-results/events.types';
 import { NextQueriesXEvents } from '../x-modules/next-queries/events.types';
@@ -18,6 +19,7 @@ import { SearchBoxXEvents } from '../x-modules/search-box/events.types';
  * @remarks
  * Aside from common {@link XEvent | XEvents}, this interface also extends the different XModule's
  * XEventsTypes:
+ * * {@link EmpathizeXEvents}
  * * {@link HistoryQueriesXEvents}
  * * {@link IdentifierResultsXEvents}
  * * {@link NextQueriesXEvents}
@@ -30,7 +32,8 @@ import { SearchBoxXEvents } from '../x-modules/search-box/events.types';
  * @public
  */
 export interface XEventsTypes
-  extends HistoryQueriesXEvents,
+  extends EmpathizeXEvents,
+    HistoryQueriesXEvents,
     IdentifierResultsXEvents,
     NextQueriesXEvents,
     PopularSearchesXEvents,

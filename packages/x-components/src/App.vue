@@ -9,9 +9,52 @@
     </BaseModalContainer>
     <SearchInput placeholder="Search" aria-label="Search for products" />
     <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-    <NoSuggestions message="We couldn't find any suggestion. Try searching for {query}." />
+    <Empathize
+      v-if="showEmpathize"
+      :eventsToOpenEmpathize="['UserFocusedSearchBox']"
+      :eventsToCloseEmpathize="[
+        'UserClosedEmpathize',
+        'UserSelectedASuggestion',
+        'UserPressedEnter'
+      ]"
+    >
+      <template #default>
+        <BaseCloseButton
+          key="closeButton"
+          class="x-empathize__close"
+          closingEvent="UserClosedEmpathize"
+        >
+          ×
+        </BaseCloseButton>
+        <div class="x-column">
+          <h1>Suggestions</h1>
+          <QuerySuggestions :animation="fadeAndSlide">
+            <template #suggestion="{suggestion}">
+              <QuerySuggestion
+                :suggestion="suggestion"
+                :aria-label="`Query suggestion: ${suggestion.query}`"
+              />
+            </template>
+          </QuerySuggestions>
+          <NoSuggestions message="We couldn't find any suggestion. Try searching for {query}." />
+        </div>
+        <div class="x-column">
+          <h1>Previous Searches</h1>
+          <HistoryQueries :animation="fadeAndSlide">
+            <template #suggestion-remove-content="{suggestion}">
+              <span :aria-label="`Remove ${suggestion.query} from history`">x</span>
+            </template>
+          </HistoryQueries>
+          <ClearHistoryQueries>Clear previous searches</ClearHistoryQueries>
+        </div>
+        <div class="x-column">
+          <h1>Trending</h1>
+          <PopularSearches :animation="fadeAndSlide" />
+        </div>
+      </template>
+    </Empathize>
     <BaseKeyboardNavigation>
-      <div class="inline-flex">
+      <div class="x-column">
         <h1>Query Suggestions</h1>
         <QuerySuggestions :animation="fadeAndSlide">
           <template #suggestion="{suggestion}">
@@ -21,9 +64,10 @@
             />
           </template>
         </QuerySuggestions>
+        <NoSuggestions message="We couldn't find any suggestion. Try searching for {query}." />
       </div>
-      <div class="inline-flex">
-        <h1>History</h1>
+      <div class="x-column">
+        <h1>History queries</h1>
         <HistoryQueries :animation="fadeAndSlide">
           <template #suggestion-remove-content="{suggestion}">
             <span :aria-label="`Remove ${suggestion.query} from history`">x</span>
@@ -31,29 +75,25 @@
         </HistoryQueries>
         <ClearHistoryQueries>Clear previous searches</ClearHistoryQueries>
       </div>
-      <div class="inline-flex">
+      <div class="x-column">
         <h1>Popular Searches</h1>
         <PopularSearches :animation="fadeAndSlide" />
       </div>
-      <div class="inline-flex">
+      <div class="x-column">
         <h1>Next Queries</h1>
         <NextQueries :animation="fadeAndSlide" :loadOnInit="loadOnInit" :maxItemsToRender="10" />
       </div>
-      <div class="inline-flex">
+      <div class="x-column">
         <h1>Related tags</h1>
         <RelatedTags :animation="fadeAndSlide" />
       </div>
-      <div class="inline-flex">
+      <div class="x-column">
         <h1>Recommendations</h1>
         <Recommendations :animation="fadeAndSlide">
           <template #default="{ recommendation }">
             <BaseResultLink :result="recommendation" class="x-result-link">
               <template #default="{ result }">
-                <img
-                  :src="result.images[0]"
-                  :alt="result.name"
-                  class="x-result_image inline-flex"
-                />
+                <img :src="result.images[0]" :alt="result.name" class="x-result_image x-column" />
                 <span class="x-result__title">{{ result.name }}</span>
               </template>
             </BaseResultLink>
@@ -79,13 +119,14 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import FadeAndSlide from './components/animations/fade-and-slide.vue';
+  import BaseCloseButton from './components/base-close-button.vue';
   import BaseKeyboardNavigation from './components/base-keyboard-navigation.vue';
   import BaseModalContainer from './components/base-modal-container.vue';
-  import BaseCloseButton from './components/base-close-button.vue';
   import BaseOpenButton from './components/base-open-button.vue';
   import BaseResultLink from './components/base-result-link.vue';
-  import FadeAndSlide from './components/animations/fade-and-slide.vue';
   import { getURLParameter } from './utils/get-url-parameters';
+  import Empathize from './x-modules/empathize/components/empathize.vue';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from './x-modules/history-queries/components/clear-history-queries.vue';
   import HistoryQueries from './x-modules/history-queries/components/history-queries.vue';
@@ -94,7 +135,7 @@
   import NextQueries from './x-modules/next-queries/components/next-queries.vue';
   import NoSuggestions from './x-modules/no-suggestions/components/no-suggestions.vue';
   import PopularSearches from './x-modules/popular-searches/components/popular-searches.vue';
-  import QuerySuggestion from "./x-modules/query-suggestions/components/query-suggestion.vue";
+  import QuerySuggestion from './x-modules/query-suggestions/components/query-suggestion.vue';
   import QuerySuggestions from './x-modules/query-suggestions/components/query-suggestions.vue';
   import Recommendations from './x-modules/recommendations/components/recommendations.vue';
   import RelatedTags from './x-modules/related-tags/components/related-tags.vue';
@@ -110,6 +151,7 @@
       BaseResultLink,
       ClearHistoryQueries,
       ClearSearchInput,
+      Empathize,
       HistoryQueries,
       IdentifierResult,
       IdentifierResults,
@@ -125,6 +167,7 @@
   })
   export default class App extends Vue {
     protected loadOnInit = getURLParameter('loadOnInit') === 'true';
+    protected showEmpathize = getURLParameter('showEmpathize') === 'true';
     // eslint-disable-next-line
     private fadeAndSlide = FadeAndSlide;
   }
@@ -140,15 +183,31 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  .modal-content {
+  .x-modal-content {
     background-color: white;
     height: 200px;
     width: 100%;
   }
 
-  .inline-flex {
+  .x-column {
     display: inline-flex;
     flex-direction: column;
     width: 30%;
+  }
+
+  .x-empathize {
+    &__close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .x-modal-container__content {
+      background-color: white;
+      border: 1px dashed black;
+      border-radius: 20px;
+      position: absolute;
+      z-index: 2;
+    }
   }
 </style>

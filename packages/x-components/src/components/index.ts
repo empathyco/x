@@ -1,6 +1,7 @@
 export * from './animations';
 export { default as BaseCloseButton } from './base-close-button.vue';
 export { default as BaseEventButton } from './base-event-button.vue';
+export { default as BaseKeyboardNavigation } from './base-keyboard-navigation.vue';
 export { default as BaseModalContainer } from './base-modal-container.vue';
 export { default as BaseOpenButton } from './base-open-button.vue';
 export { default as BaseAddToCart } from './base-result-add-to-cart.vue';
