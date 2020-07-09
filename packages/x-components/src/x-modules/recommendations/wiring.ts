@@ -1,21 +1,25 @@
-import { withModule } from '../../wiring/wires.namespace';
+import { namespacedWireDispatchWithoutPayload } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
- * Recommendations wires factory.
+ * `recommendations` {@link XModuleName | XModule name}.
  *
- * @public
+ * @internal
  */
-const recommendationsNamespacedModule = withModule('recommendations');
+const moduleName = 'recommendations';
+/**
+ * WireDispatchWithoutPayload for {@link RecommendationsXModule}.
+ *
+ * @internal
+ */
+const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
 
 /**
- * Gets a new set of recommendations and stores them.
+ * Requests and stores the recommendations.
  *
  * @public
  */
-const fetchAndSaveRecommendations = recommendationsNamespacedModule.wireDispatchWithoutPayload(
-  'fetchAndSaveRecommendations'
-);
+const fetchAndSaveRecommendations = wireDispatchWithoutPayload('fetchAndSaveRecommendations');
 
 /**
  * Wiring configuration for the {@link RecommendationsXModule | recommendations module}.

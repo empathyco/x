@@ -1,44 +1,63 @@
-import { withModule } from '../../wiring/wires.namespace';
+import {
+  namespacedWireCommit,
+  namespacedWireDispatch,
+  namespacedWireDispatchWithoutPayload
+} from '../../wiring/namespaced-wires.factory';
+import { NamespacedWireCommit, NamespacedWireDispatch } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
- * The next queries wire factory.
+ * `nextQueries` {@link XModuleName | XModule name}.
  *
- * @public
+ * @internal
  */
-export const nextQueriesModule = withModule('nextQueries');
+const moduleName = 'nextQueries';
+/**
+ * WireCommit for {@link NextQueriesXModule}.
+ *
+ * @internal
+ */
+const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName);
+/**
+ * WireDispatch for {@link NextQueriesXModule}.
+ *
+ * @internal
+ */
+const wireDispatch: NamespacedWireDispatch<typeof moduleName> = namespacedWireDispatch(moduleName);
+/**
+ * WireDispatchWithoutPayload for {@link NextQueriesXModule}.
+ *
+ * @internal
+ */
+const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
 
 /**
  * Sets the next queries state `query`.
  *
  * @public
  */
-export const setNextQueriesQuery = nextQueriesModule.wireCommit('setQuery');
+export const setNextQueriesQuery = wireCommit('setQuery');
 
 /**
  * Requests and stores the next queries.
  *
  * @public
  */
-export const fetchAndSaveNextQueries = nextQueriesModule.wireDispatchWithoutPayload(
-  'fetchAndSaveNextQueries'
-);
+export const fetchAndSaveNextQueries = wireDispatchWithoutPayload('fetchAndSaveNextQueries');
 
 /**
  * Sets the next queries state `query` with the last query in history queries.
  *
  * @public
  */
-export const setQueryFromLastHistoryQuery = nextQueriesModule.wireDispatch(
-  'setQueryFromLastHistoryQuery'
-);
+export const setQueryFromLastHistoryQuery = wireDispatch('setQueryFromLastHistoryQuery');
 
 /**
  * Sets the next queries state `searchedQueries` with the list of history queries.
  *
  * @public
  */
-export const setSearchedQueries = nextQueriesModule.wireCommit('setSearchedQueries');
+export const setSearchedQueries = wireCommit('setSearchedQueries');
 
 /**
  * Wiring configuration for the {@link NextQueriesXModule | next queries module}.

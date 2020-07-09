@@ -1,26 +1,33 @@
-import { withModule } from '../../wiring/wires.namespace';
+import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
+import { NamespacedWireCommit } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
- * NoSuggestions wires factory.
+ * `noSuggestions` {@link XModuleName | XModule name}.
  *
- * @public
+ * @internal
  */
-export const noSuggestionsModule = withModule('noSuggestions');
+const moduleName = 'noSuggestions';
+/**
+ * WireCommit for {@link NoSuggestionsXModule}.
+ *
+ * @internal
+ */
+const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName);
 
 /**
  * Sets the no-suggestions module query.
  *
  * @public
  */
-export const setNoSuggestionsQuery = noSuggestionsModule.wireCommit('setQuery');
+export const setNoSuggestionsQuery = wireCommit('setQuery');
 
 /**
  * Sets the query of the no suggestions module to an empty string.
  *
  * @public
  */
-export const clearNoSuggestionsQuery = noSuggestionsModule.wireCommit('setQuery', '');
+export const clearNoSuggestionsQuery = wireCommit('setQuery', '');
 
 /**
  * NoSuggestions wiring.

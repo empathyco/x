@@ -1,33 +1,56 @@
-import { withModule } from '../../wiring/wires.namespace';
+import {
+  namespacedWireCommit,
+  namespacedWireDispatch,
+  namespacedWireDispatchWithoutPayload
+} from '../../wiring/namespaced-wires.factory';
+import { NamespacedWireCommit, NamespacedWireDispatch } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
- * History queries wires factory.
+ * `historyQueries` {@link XModuleName | XModule name}.
  *
- * @public
+ * @internal
  */
-const historyQueriesModule = withModule('historyQueries');
+const moduleName = 'historyQueries';
+/**
+ * WireCommit for {@link HistoryQueriesXModule}.
+ *
+ * @internal
+ */
+const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName);
+/**
+ * WireDispatch for {@link HistoryQueriesXModule}.
+ *
+ * @internal
+ */
+const wireDispatch: NamespacedWireDispatch<typeof moduleName> = namespacedWireDispatch(moduleName);
+/**
+ * WireDispatchWithoutPayload for {@link HistoryQueriesXModule}.
+ *
+ * @internal
+ */
+const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
 
 /**
  * Saves a new query into the history queries.
  *
  * @public
  */
-export const addQueryToHistoryQueries = historyQueriesModule.wireDispatch('addQueryToHistory');
+export const addQueryToHistoryQueries = wireDispatch('addQueryToHistory');
 
 /**
  * Sets the query of the history queries module. Used for searching into the history queries.
  *
  * @public
  */
-export const setHistoryQueriesQuery = historyQueriesModule.wireCommit('setQuery');
+export const setHistoryQueriesQuery = wireCommit('setQuery');
 
 /**
  * Sets the query of the history queries module to an empty string.
  *
  * @public
  */
-export const clearHistoryQueriesQuery = historyQueriesModule.wireCommit('setQuery', '');
+export const clearHistoryQueriesQuery = wireCommit('setQuery', '');
 
 /**
  * Triggers a session refresh, extending its validity for the time configured in the
@@ -35,9 +58,7 @@ export const clearHistoryQueriesQuery = historyQueriesModule.wireCommit('setQuer
  *
  * @public
  */
-export const refreshHistoryQueriesSession = historyQueriesModule.wireDispatchWithoutPayload(
-  'refreshSession'
-);
+export const refreshHistoryQueriesSession = wireDispatchWithoutPayload('refreshSession');
 
 /**
  * Loads the history queries from the browser storage, saving them to the
@@ -45,7 +66,7 @@ export const refreshHistoryQueriesSession = historyQueriesModule.wireDispatchWit
  *
  * @public
  */
-export const loadHistoryQueriesFromBrowserStorage = historyQueriesModule.wireDispatchWithoutPayload(
+export const loadHistoryQueriesFromBrowserStorage = wireDispatchWithoutPayload(
   'loadHistoryQueriesFromBrowserStorage'
 );
 
@@ -54,14 +75,14 @@ export const loadHistoryQueriesFromBrowserStorage = historyQueriesModule.wireDis
  *
  * @public
  */
-export const clearHistoryQueries = historyQueriesModule.wireDispatch('setHistoryQueries', []);
+export const clearHistoryQueries = wireDispatch('setHistoryQueries', []);
 
 /**
  * Removes a single history query from the history queries.
  *
  * @public
  */
-export const removeHistoryQuery = historyQueriesModule.wireDispatch('removeFromHistory');
+export const removeHistoryQuery = wireDispatch('removeFromHistory');
 
 /**
  * Default wiring for the {@link HistoryQueries} module.

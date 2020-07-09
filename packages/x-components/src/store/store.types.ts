@@ -1,4 +1,12 @@
-import { AnyXModule, ExtractState, XModule, XModuleName } from '../x-modules/x-modules.types';
+import { Store } from 'vuex';
+import {
+  AnyXModule,
+  ExtractGetters,
+  ExtractState,
+  XModule,
+  XModuleName,
+  XModulesTree
+} from '../x-modules/x-modules.types';
 import { ActionsDictionary, ActionsTree } from './actions.types';
 import { GettersTree } from './getters.types';
 import { MutationsDictionary, MutationsTree } from './mutations.types';
@@ -14,6 +22,25 @@ export interface RootXStoreState {
     [Module in XModuleName]: ExtractState<Module>;
   };
 }
+
+/**
+ * State and Getters Store type for {@link RootXStoreState}.
+ *
+ * @public
+ */
+export type RootStoreStateAndGetters = Pick<Store<RootXStoreState>, 'state' | 'getters'>;
+
+/**
+ * Type safe which allows the access to the State and the Getters of a {@link XStoreModule}.
+ *
+ * @param ModuleName - The {@link XModuleName} of the module to get its state and getters.
+ *
+ * @public
+ */
+export type StoreModuleStateAndGetters<ModuleName extends XModuleName> = {
+  state: ExtractState<ModuleName>;
+  getters: ExtractGetters<ModuleName>;
+};
 
 /**
  * Type safe {@link https://vuex.vuejs.org/ | Vuex} store module.
@@ -116,6 +143,50 @@ export type ExtractActions<Module extends AnyXModule> = Module extends XModule<
  * @param SomeFunction - A function type with one parameter and any return type.
  * @public
  */
-export type ExtractPayload<SomeFunction extends (payload?: any) => any> = Parameters<
-  SomeFunction
->[0];
+export type ExtractPayload<SomeFunction> = SomeFunction extends (payload?: any) => any
+  ? Parameters<SomeFunction>[0]
+  : never;
+
+/**
+ * Returns the mutation names for a given module. They are the namespaced mutations.
+ *
+ * @param ModuleName - The {@link XModuleName | module name}.
+ * @public
+ */
+export type MutationNamesFor<ModuleName extends XModuleName> = keyof ExtractMutations<
+  XModulesTree[ModuleName]
+>;
+
+/**
+ * Returns the payload for a mutation given the module name and the mutation name.
+ *
+ * @param ModuleName - The {@link XModuleName | module name}.
+ * @param MutationName - The namespaced mutation name to extract the payload.
+ * @public
+ */
+export type ExtractMutationPayload<
+  ModuleName extends XModuleName,
+  MutationName extends MutationNamesFor<ModuleName>
+> = ExtractPayload<ExtractMutations<XModulesTree[ModuleName]>[MutationName]>;
+
+/**
+ * Returns the action names for a given module. They are the namespaced actions.
+ *
+ * @param ModuleName - The {@link XModuleName | module name}.
+ * @public
+ */
+export type ActionNamesFor<ModuleName extends XModuleName> = keyof ExtractActions<
+  XModulesTree[ModuleName]
+>;
+
+/**
+ * Returns the payload for an action given the module name and the action name.
+ *
+ * @param ModuleName - The {@link XModuleName | module name}.
+ * @param ActionName - The namespaced action name to extract the payload.
+ * @public
+ */
+export type ExtractActionPayload<
+  ModuleName extends XModuleName,
+  ActionName extends ActionNamesFor<ModuleName>
+> = ExtractPayload<ExtractActions<XModulesTree[ModuleName]>[ActionName]>;

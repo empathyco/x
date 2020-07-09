@@ -1,21 +1,25 @@
-import { withModule } from '../../wiring/wires.namespace';
+import { namespacedWireDispatchWithoutPayload } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
- * Popular searches wires factory.
+ * `popularSearches` {@link XModuleName | XModule name}.
  *
- * @public
+ * @internal
  */
-const popularSearchesNamespacedModule = withModule('popularSearches');
+const moduleName = 'popularSearches';
+/**
+ * WireDispatchWithoutPayload for {@link PopularSearchesXModule}.
+ *
+ * @internal
+ */
+const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
 
 /**
- * Gets a new set of popular searches and stores them.
+ * Requests and stores the popular searches.
  *
  * @public
  */
-const retrievePopularSuggestions = popularSearchesNamespacedModule.wireDispatchWithoutPayload(
-  'getAndSaveSuggestions'
-);
+const retrievePopularSuggestions = wireDispatchWithoutPayload('getAndSaveSuggestions');
 
 /**
  * Wiring configuration for the popular searches modules.

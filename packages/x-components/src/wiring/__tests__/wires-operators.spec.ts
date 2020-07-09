@@ -1,8 +1,3 @@
-import { createLocalVue } from '@vue/test-utils';
-import { Subject } from 'rxjs/Subject';
-import Vuex, { Store } from 'vuex';
-import { RootXStoreState } from '../../store/store.types';
-import { XModuleName } from '../../x-modules/x-modules.types';
 import { createWireFromFunction } from '../wires.factory';
 import {
   debounce,
@@ -13,34 +8,15 @@ import {
   filterWhitelistedModules,
   throttle
 } from '../wires.operators';
-import { WireParams, WirePayload } from '../wiring.types';
+import { WireParams } from '../wiring.types';
+import { createQuerySuggestionsStoreMock, getExpectedWirePayload, SubjectHandler } from './utils';
 
 describe('testing wires operators', () => {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
-  const store = new Store<any>({
-    state: () => ({
-      x: {
-        querySuggestions: {
-          config: { debounceInMs: 200 }
-        }
-      }
-    }),
-    getters: {
-      'x/querySuggestions/parsedThrottleInMS': (state: RootXStoreState) =>
-        state.x.querySuggestions.config.debounceInMs + 300
-    }
-  });
-
-  let subject: Subject<WirePayload<any>>;
-
-  function next(value: any, moduleName: XModuleName | null = null): void {
-    subject.next({ eventPayload: value, metadata: { moduleName } });
-  }
+  const storeMock = createQuerySuggestionsStoreMock();
+  const subjectHandler = new SubjectHandler();
 
   beforeEach(() => {
-    subject?.complete();
-    subject = new Subject();
+    subjectHandler.reset();
     jest.clearAllMocks();
   });
 
@@ -54,18 +30,12 @@ describe('testing wires operators', () => {
         !nonEdibleFoods.includes(eventPayload);
       const filteredWire = filter(wire, isEdible);
 
-      filteredWire(subject, store);
-      next('broccoli');
-      next('artichoke');
+      filteredWire(subjectHandler.subject, storeMock);
+      subjectHandler.emit(['broccoli', 'artichoke']);
       expect(executeFunction).not.toHaveBeenCalled();
 
-      next('pork belly');
-      expect(executeFunction).toHaveBeenCalledTimes(1);
-      expect(executeFunction).toHaveBeenCalledWith({
-        eventPayload: 'pork belly',
-        metadata: expect.any(Object),
-        store
-      });
+      subjectHandler.emit('pork belly');
+      expect(executeFunction).toHaveBeenCalledWith(getExpectedWirePayload('pork belly', storeMock));
     });
 
     describe('truthy and falsy filter operators', () => {
@@ -82,12 +52,12 @@ describe('testing wires operators', () => {
       ];
       test(`${filterFalsyPayload.name} avoids executing the wire when the payload is falsy`, () => {
         const filteredWire = filterFalsyPayload(wire);
-        filteredWire(subject, store);
+        filteredWire(subjectHandler.subject, storeMock);
 
-        falsyValues.forEach(value => next(value));
+        subjectHandler.emit(falsyValues);
         expect(executeFunction).not.toHaveBeenCalled();
 
-        truthyValues.forEach(value => next(value));
+        subjectHandler.emit(truthyValues);
         expect(executeFunction).toHaveBeenCalledTimes(truthyValues.length);
       });
 
@@ -95,49 +65,37 @@ describe('testing wires operators', () => {
         filterTruthyPayload.name + ' avoids executing the wire when the payload is truthy',
         () => {
           const filteredWire = filterTruthyPayload(wire);
-          filteredWire(subject, store);
+          filteredWire(subjectHandler.subject, storeMock);
 
-          truthyValues.forEach(value => next(value));
+          subjectHandler.emit(truthyValues);
           expect(executeFunction).not.toHaveBeenCalled();
 
-          falsyValues.forEach(value => next(value));
+          subjectHandler.emit(falsyValues);
           expect(executeFunction).toHaveBeenCalledTimes(falsyValues.length);
         }
       );
     });
 
     describe('events origin filter operators', () => {
-      function getExpectedCallParameters(
-        eventPayload: string,
-        moduleName: XModuleName | null
-      ): WireParams<string> {
-        return {
-          eventPayload,
-          metadata: { moduleName },
-          store
-        };
-      }
-
       test(
         filterWhitelistedModules.name +
           ' discards emitted values if their metadata moduleName is not in the whitelist',
         () => {
           const filteredWire = filterWhitelistedModules(wire, ['nextQueries', null]);
-          filteredWire(subject, store);
+          filteredWire(subjectHandler.subject, storeMock);
 
-          next('not-emitted', 'popularSearches');
+          subjectHandler.emit('not-emitted', 'popularSearches');
           expect(executeFunction).not.toHaveBeenCalled();
 
-          next('emitted-1');
-          next('emitted-2', 'nextQueries');
-          expect(executeFunction).toHaveBeenCalledTimes(2);
+          subjectHandler.emit('emitted-1');
+          subjectHandler.emit('emitted-2', 'nextQueries');
           expect(executeFunction).toHaveBeenNthCalledWith(
             1,
-            getExpectedCallParameters('emitted-1', null)
+            getExpectedWirePayload('emitted-1', storeMock, null)
           );
           expect(executeFunction).toHaveBeenNthCalledWith(
             2,
-            getExpectedCallParameters('emitted-2', 'nextQueries')
+            getExpectedWirePayload('emitted-2', storeMock, 'nextQueries')
           );
         }
       );
@@ -147,21 +105,20 @@ describe('testing wires operators', () => {
           ' discards emitted values if their metadata moduleName is in the blacklist',
         () => {
           const filteredWire = filterBlacklistedModules(wire, ['searchBox']);
-          filteredWire(subject, store);
+          filteredWire(subjectHandler.subject, storeMock);
 
-          next('not-emitted', 'searchBox');
+          subjectHandler.emit('not-emitted', 'searchBox');
           expect(executeFunction).not.toHaveBeenCalled();
 
-          next('emitted-1');
-          next('emitted-2', 'nextQueries');
-          expect(executeFunction).toHaveBeenCalledTimes(2);
+          subjectHandler.emit('emitted-1');
+          subjectHandler.emit('emitted-2', 'nextQueries');
           expect(executeFunction).toHaveBeenNthCalledWith(
             1,
-            getExpectedCallParameters('emitted-1', null)
+            getExpectedWirePayload('emitted-1', storeMock, null)
           );
           expect(executeFunction).toHaveBeenNthCalledWith(
             2,
-            getExpectedCallParameters('emitted-2', 'nextQueries')
+            getExpectedWirePayload('emitted-2', storeMock, 'nextQueries')
           );
         }
       );
@@ -177,37 +134,25 @@ describe('testing wires operators', () => {
         ' discards emitted values that take less than the specified time between output',
       () => {
         const debouncedWire = debounce(wire, 500);
-        debouncedWire(subject, store);
 
-        next(1);
-        next(2);
-        next(3);
-        next(4);
-        next(5);
+        debouncedWire(subjectHandler.subject, storeMock);
+        subjectHandler.emit([1, 2, 3, 4, 5]);
 
         expect(executeFunction).not.toHaveBeenCalled();
         jest.runAllTimers();
-
-        expect(executeFunction).toHaveBeenCalledTimes(1);
-        expect(executeFunction).toHaveBeenCalledWith({
-          store,
-          eventPayload: 5,
-          metadata: expect.any(Object)
-        });
+        expect(executeFunction).toHaveBeenCalledWith(getExpectedWirePayload(5, storeMock));
       }
     );
 
     test(debounce.name + ' allows to access to the store to retrieve debounced time', () => {
-      const debouncedTime = store.state.x.querySuggestions.config.debounceInMs;
+      const debouncedTime = storeMock.state.x.querySuggestions.config.debounceInMs;
       const debouncedWire = debounce(
         wire,
         storeModule => storeModule.state.x.querySuggestions.config.debounceInMs
       );
-      debouncedWire(subject, store);
 
-      next(1);
-      next(2);
-      next(3);
+      debouncedWire(subjectHandler.subject, storeMock);
+      subjectHandler.emit([1, 2, 3]);
 
       jest.advanceTimersByTime(debouncedTime - 1);
       expect(executeFunction).not.toHaveBeenCalled();
@@ -221,12 +166,10 @@ describe('testing wires operators', () => {
         wire,
         storeModule => storeModule.state.x.querySuggestions.config.debounceInMs
       );
-      debouncedWire(subject, store);
-      replaceDebouncedTimeInStore(debouncedTime);
 
-      next(1);
-      next(2);
-      next(3);
+      debouncedWire(subjectHandler.subject, storeMock);
+      replaceDebouncedTimeInStore(debouncedTime);
+      subjectHandler.emit([1, 2, 3]);
 
       jest.advanceTimersByTime(debouncedTime - 1);
       expect(executeFunction).not.toHaveBeenCalled();
@@ -234,41 +177,25 @@ describe('testing wires operators', () => {
       expect(executeFunction).toHaveBeenCalledTimes(1);
     });
 
-    test(throttle.name + 'emits first value, and then ignores for the specified duration', () => {
+    test(throttle.name + ' emits first value, and then ignores for the specified duration', () => {
       const throttledWire = throttle(wire, 500);
-      throttledWire(subject, store);
 
-      next(1);
-      next(2);
-      next(3);
-      next(4);
-      next(5);
+      throttledWire(subjectHandler.subject, storeMock);
+      subjectHandler.emit([1, 2, 3, 4, 5]);
 
-      expect(executeFunction).toHaveBeenCalledTimes(1);
-      expect(executeFunction).toHaveBeenCalledWith({
-        store,
-        eventPayload: 1,
-        metadata: expect.any(Object)
-      });
+      expect(executeFunction).toHaveBeenCalledWith(getExpectedWirePayload(1, storeMock));
       jest.runAllTimers();
-
       expect(executeFunction).toHaveBeenCalledTimes(2);
-      expect(executeFunction).toHaveBeenCalledWith({
-        store,
-        eventPayload: 5,
-        metadata: expect.any(Object)
-      });
+      expect(executeFunction).toHaveBeenCalledWith(getExpectedWirePayload(5, storeMock));
     });
 
     test(throttle.name + ' allows access to the store to retrieve throttled time', () => {
-      const getterName = 'x/querySuggestions/parsedThrottleInMS';
-      const throttledTime = store.getters[getterName];
+      const getterName = 'x/querySuggestions/fakeThrottleInMS';
+      const throttledTime = storeMock.getters[getterName];
       const throttledWire = throttle(wire, storeModule => storeModule.getters[getterName]);
-      throttledWire(subject, store);
 
-      next(1);
-      next(2);
-      next(3);
+      throttledWire(subjectHandler.subject, storeMock);
+      subjectHandler.emit([1, 2, 3]);
 
       expect(executeFunction).toHaveBeenCalledTimes(1);
       jest.advanceTimersByTime(throttledTime - 1);
@@ -278,15 +205,13 @@ describe('testing wires operators', () => {
     });
 
     test(throttle.name + ' allows to change the throttled time dynamically', () => {
-      const getterName = 'x/querySuggestions/parsedThrottleInMS';
+      const getterName = 'x/querySuggestions/fakeThrottleInMS';
       const throttledWire = throttle(wire, storeModule => storeModule.getters[getterName]);
-      throttledWire(subject, store);
-      replaceDebouncedTimeInStore(1000);
-      const throttledTime = store.getters[getterName];
 
-      next(1);
-      next(2);
-      next(3);
+      throttledWire(subjectHandler.subject, storeMock);
+      replaceDebouncedTimeInStore(1000);
+      const throttledTime = storeMock.getters[getterName];
+      subjectHandler.emit([1, 2, 3]);
 
       expect(executeFunction).toHaveBeenCalledTimes(1);
       jest.advanceTimersByTime(throttledTime - 1);
@@ -296,7 +221,7 @@ describe('testing wires operators', () => {
     });
 
     function replaceDebouncedTimeInStore(debounceInMs: number): void {
-      store.replaceState({
+      storeMock.replaceState({
         x: {
           querySuggestions: {
             config: { debounceInMs }

@@ -1,5 +1,4 @@
-import { Store } from 'vuex';
-import { RootXStoreState } from '../store/store.types';
+import { RootStoreStateAndGetters } from '../store/store.types';
 import { AnyWire, Wire, WireParams } from './wiring.types';
 
 /**
@@ -25,7 +24,8 @@ export function createWireFromFunction<Payload>(
  * This wire can be used in every event, as it does not have a payload type associated.
  *
  * @param mutation - The full mutation path to commit. I.e. `x/search/setQuery`.
- * @param payloadFactory - A function that receives the an object with the Store state and getters
+ * @param payloadFactory - A function that receives the an {@link RootStoreStateAndGetters | object}
+ * with the Store state and getters
  * as parameter.
  * @returns A {@link AnyWire} wire that commits the mutation with the payload returned by the
  * payloadFactory.
@@ -33,7 +33,7 @@ export function createWireFromFunction<Payload>(
  */
 export function wireCommit(
   mutation: string,
-  payloadFactory: (params: Pick<Store<RootXStoreState>, 'state' | 'getters'>) => any
+  payloadFactory: (params: RootStoreStateAndGetters) => any
 ): AnyWire;
 /**
  * Creates a wire that commits a mutation to the store. This wire can receive any value as payload.

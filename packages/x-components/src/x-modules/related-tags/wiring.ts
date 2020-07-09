@@ -1,47 +1,70 @@
-import { withModule } from '../../wiring/wires.namespace';
+import {
+  namespacedWireCommit,
+  namespacedWireDispatch,
+  namespacedWireDispatchWithoutPayload
+} from '../../wiring/namespaced-wires.factory';
+import { NamespacedWireCommit, NamespacedWireDispatch } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
- * The related tags wire factory.
+ * `relatedTags` {@link XModuleName | XModule name}.
  *
- * @public
+ * @internal
  */
-export const relatedTagsModule = withModule('relatedTags');
+const moduleName = 'relatedTags';
+/**
+ * WireCommit for {@link RelatedTagsXModule}.
+ *
+ * @internal
+ */
+const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName);
+/**
+ * WireDispatch for {@link RelatedTagsXModule}.
+ *
+ * @internal
+ */
+const wireDispatch: NamespacedWireDispatch<typeof moduleName> = namespacedWireDispatch(moduleName);
+/**
+ * WireDispatchWithoutPayload for {@link RelatedTagsXModule}.
+ *
+ * @internal
+ */
+const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
 
 /**
  * Sets the related tags state `query`.
  *
  * @public
  */
-export const setRelatedTagsQuery = relatedTagsModule.wireCommit('setQuery');
+export const setRelatedTagsQuery = wireCommit('setQuery');
 
 /**
  * Requests and stores the related tags.
  *
  * @public
  */
-export const fetchAndSaveRelatedTags = relatedTagsModule.wireDispatchWithoutPayload(
-  'fetchAndSaveRelatedTags'
-);
+export const fetchAndSaveRelatedTags = wireDispatchWithoutPayload('fetchAndSaveRelatedTags');
 
 /**
  * Sets the selected related tags.
  *
  * @public
  */
-export const toggleRelatedTag = relatedTagsModule.wireDispatch('toggleRelatedTag');
+export const toggleRelatedTag = wireDispatch('toggleRelatedTag');
+
 /**
  * Clear the selected related tags.
  *
  * @public
  */
-export const clearSelectedRelatedTags = relatedTagsModule.wireCommit('setSelectedRelatedTags', []);
+export const clearSelectedRelatedTags = wireCommit('setSelectedRelatedTags', []);
+
 /**
  * Clear the related tags query.
  *
  * @public
  */
-export const clearRelatedTagsQuery = relatedTagsModule.wireCommit('setQuery', '');
+export const clearRelatedTagsQuery = wireCommit('setQuery', '');
 
 /**
  * Wiring configuration for the {@link RelatedTagsXModule | related tags module}.

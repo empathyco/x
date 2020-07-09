@@ -1,35 +1,49 @@
-import { withModule } from '../../wiring/wires.namespace';
+import {
+  namespacedWireCommit,
+  namespacedWireDispatchWithoutPayload
+} from '../../wiring/namespaced-wires.factory';
+import { NamespacedWireCommit } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
- * QuerySuggestions wires factory.
+ * `querySuggestions` {@link XModuleName | XModule name}.
  *
- * @public
+ * @internal
  */
-export const querySuggestionsModule = withModule('querySuggestions');
+const moduleName = 'querySuggestions';
+/**
+ * WireCommit for {@link QuerySuggestionsXModule}.
+ *
+ * @internal
+ */
+const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName);
+/**
+ * WireDispatchWithoutPayload for {@link QuerySuggestionsXModule}.
+ *
+ * @internal
+ */
+const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
 
 /**
  * Sets the query-suggestions module query.
  *
  * @public
  */
-export const setQuerySuggestionsQuery = querySuggestionsModule.wireCommit('setQuery');
+export const setQuerySuggestionsQuery = wireCommit('setQuery');
 
 /**
  * Clears the query-suggestions module query.
  *
  * @public
  */
-export const clearQuerySuggestionsQuery = querySuggestionsModule.wireCommit('setQuery', '');
+export const clearQuerySuggestionsQuery = wireCommit('setQuery', '');
 
 /**
  * Requests and stores a new set of query suggestions for the {@link QuerySuggestionsState.query}.
  *
  * @public
  */
-export const getAndSaveSuggestions = querySuggestionsModule.wireDispatchWithoutPayload(
-  'getAndSaveSuggestions'
-);
+export const getAndSaveSuggestions = wireDispatchWithoutPayload('getAndSaveSuggestions');
 
 /**
  * QuerySuggestions wiring.

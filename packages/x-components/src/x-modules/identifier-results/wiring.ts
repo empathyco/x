@@ -1,33 +1,56 @@
-import { withModule } from '../../wiring/wires.namespace';
+import {
+  namespacedWireCommit,
+  namespacedWireDispatch,
+  namespacedWireDispatchWithoutPayload
+} from '../../wiring/namespaced-wires.factory';
+import { NamespacedWireCommit, NamespacedWireDispatch } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
- * IdentifierResults wires factory.
+ * `identifierResults` {@link XModuleName | XModule name}.
  *
- * @public
+ * @internal
  */
-export const identifierResultsModule = withModule('identifierResults');
+const moduleName = 'identifierResults';
+/**
+ * WireCommit for {@link IdentifierResultsXModule}.
+ *
+ * @internal
+ */
+const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName);
+/**
+ * WireDispatch for {@link IdentifierResultsXModule}.
+ *
+ * @internal
+ */
+const wireDispatch: NamespacedWireDispatch<typeof moduleName> = namespacedWireDispatch(moduleName);
+/**
+ * WireDispatchWithoutPayload for {@link IdentifierResultsXModule}.
+ *
+ * @internal
+ */
+const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
 
 /**
  * Sets the identifier-results module query.
  *
  * @public
  */
-export const setIdentifierResultsQuery = identifierResultsModule.wireDispatch('saveQuery');
+export const setIdentifierResultsQuery = wireDispatch('saveQuery');
 
 /**
  * Clears the identifier-results module query.
  *
  * @public
  */
-export const clearIdentifierResultsQuery = identifierResultsModule.wireCommit('setQuery', '');
+export const clearIdentifierResultsQuery = wireCommit('setQuery', '');
 
 /**
  * Requests and stores a new set of identifier results for the {@link IdentifierResultsState.query}.
  *
  * @public
  */
-export const fetchAndSaveIdentifierResultsWire = identifierResultsModule.wireDispatchWithoutPayload(
+export const fetchAndSaveIdentifierResultsWire = wireDispatchWithoutPayload(
   'fetchAndSaveIdentifierResults'
 );
 

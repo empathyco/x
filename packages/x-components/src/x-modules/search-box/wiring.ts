@@ -1,26 +1,33 @@
-import { withModule } from '../../wiring/wires.namespace';
+import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
+import { NamespacedWireCommit } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
- * SearchBox wires factory.
+ * `searchBox` {@link XModuleName | XModule name}.
  *
- * @public
+ * @internal
  */
-const searchBoxModule = withModule('searchBox');
+const moduleName = 'searchBox';
+/**
+ * WireCommit for {@link SearchBoxXModule}.
+ *
+ * @internal
+ */
+const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName);
 
 /**
  * Sets the query of the search-box module.
  *
  * @public
  */
-const setSearchBoxQuery = searchBoxModule.wireCommit('setQuery');
+const setSearchBoxQuery = wireCommit('setQuery');
 
 /**
  * Clears the query of the search-box module.
  *
  * @public
  */
-const clearSearchBoxQuery = searchBoxModule.wireCommit('setQuery', '');
+const clearSearchBoxQuery = wireCommit('setQuery', '');
 
 /**
  * SearchBox wiring.

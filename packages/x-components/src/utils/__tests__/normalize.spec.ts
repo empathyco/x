@@ -37,7 +37,7 @@ describe('testing string normalization', () => {
       // @ts-ignore
       expect(normalize('  aàáâäæãåā    ')).toEqual('aàáâäæãåā');
       String.prototype.normalize = originalStringNormalize;
-      /* eslint-disable @typescript-eslint/unbound-method */
+      /* eslint-enable @typescript-eslint/unbound-method */
     });
   });
 });
