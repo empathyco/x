@@ -43,9 +43,10 @@ describe('testing popular searches component', () => {
     const wrapperComponent = {
       template: `
         <PopularSearches>
-          <template #suggestion-content="{suggestion}">
+          <template #suggestion-content="suggestionContentScope">
             <img src="./popular-search-icon.svg" class="x-popular-search__icon" data-test="icon"/>
-            <span class="x-popular-search__query" data-test="query">{{ suggestion.query }}</span>
+            <span class="x-popular-search__query" :data-index="suggestionContentScope.index"
+                  data-test="query">{{ suggestionContentScope.suggestion.query }}</span>
           </template>
         </PopularSearches>
       `,

@@ -51,14 +51,15 @@ describe('testing Suggestions component', () => {
     const suggestionSlotOverridden = {
       template: `
         <QuerySuggestions>
-          <template #suggestion="{ suggestion }">
+          <template #suggestion="suggestionContentScope">
             <img
               class="x-query-suggestion__icon"
               data-test="icon"
               src="./query-suggestion-icon.svg"
             />
-            <span class="x-query-suggestion__query" data-test="query">
-              {{ suggestion.query }}
+            <span class="x-query-suggestion__query" :data-index="suggestionContentScope.index"
+                  data-test="query">
+              {{ suggestionContentScope.suggestion.query }}
             </span>
           </template>
         </QuerySuggestions>

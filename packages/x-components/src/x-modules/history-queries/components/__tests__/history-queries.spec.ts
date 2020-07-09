@@ -102,9 +102,10 @@ describe('testing history queries component', () => {
       const wrapperComponent = {
         template: `
            <HistoryQueries>
-            <template #suggestion-content="{ queryHTML }">
+            <template #suggestion-content="suggestionContentScope">
               <img src="./history-icon.svg" data-test="suggestion-history-icon"/>
-              <span v-html="queryHTML"></span>
+              <span :data-index="suggestionContentScope.index"
+                    v-html="suggestionContentScope.queryHTML"></span>
             </template>
             <template #suggestion-remove-content>
               <img src="./remove-icon.svg" data-test="suggestion-remove-icon"/>

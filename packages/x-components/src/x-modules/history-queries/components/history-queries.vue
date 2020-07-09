@@ -5,26 +5,41 @@
     data-test="history-queries"
     :animation="animation"
   >
-    <template #default="{ suggestion }">
-      <!-- @slot Slot for an individual History Query item. -->
-      <!-- @binding {Suggestion} suggestion - The data of the History Query's suggestion. -->
-      <slot name="suggestion" :suggestion="suggestion">
+    <template #default="suggestionScope">
+      <!--
+        @slot Slot for an individual History Query item.
+          @binding {Suggestion} suggestion The data of the History Query's suggestion
+          @binding {number} index The index of the suggestion
+      -->
+      <slot name="suggestion" v-bind="suggestionScope">
         <HistoryQuery
-          :suggestion="suggestion"
+          :suggestion="suggestionScope.suggestion"
           data-test="history-query-item"
           class="x-history-queries__item"
         >
-          <template #default="{ suggestion, queryHTML }">
-            <!-- @slot Slot for the History Query's content. -->
-            <!-- @binding {Suggestion} suggestion - The data of the HistoryQuery suggestion. -->
-            <!-- @binding {string} queryHTML - The suggestion's query with the matching part inside
-            a <span> tag. -->
-            <slot name="suggestion-content" v-bind="{ suggestion, queryHTML }" />
+          <template #default="suggestionContentScope">
+            <!--
+              @slot Slot for the History Query's content.
+                @binding {Suggestion} suggestion The data of the HistoryQuery suggestion.
+                @binding {string} queryHTML The suggestion's query with the matching part inside
+                a <span> tag.
+                @binding {number} index The index of the suggestion
+            -->
+            <slot
+              name="suggestion-content"
+              v-bind="{ ...suggestionScope, ...suggestionContentScope }"
+            />
           </template>
-          <template #remove-button-content="{ suggestion }">
-            <!-- @slot Slot for the History Query's remove button content. -->
-            <!-- @binding {Suggestion} suggestion - The data of the HistoryQuery suggestion. -->
-            <slot name="suggestion-remove-content" v-bind="{ suggestion }" />
+          <template #remove-button-content="suggestionButtonScope">
+            <!--
+              @slot Slot for the History Query's remove button content.
+              @binding {Suggestion} suggestion - The data of the HistoryQuery suggestion.
+              @binding {number} index The index of the suggestion
+            -->
+            <slot
+              name="suggestion-remove-content"
+              v-bind="{ ...suggestionScope, ...suggestionButtonScope }"
+            />
           </template>
         </HistoryQuery>
       </slot>

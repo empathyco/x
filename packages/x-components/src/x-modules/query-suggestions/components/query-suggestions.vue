@@ -5,17 +5,29 @@
     data-test="query-suggestions"
     :animation="animation"
   >
-    <template #default="{ suggestion }">
-      <!-- @slot Slot for an individual Query Suggestion item. -->
-      <!-- @binding {Suggestion} suggestion - The data of the query suggestion. -->
-      <slot name="suggestion" :suggestion="suggestion">
-        <QuerySuggestion :suggestion="suggestion" class="x-query-suggestions__suggestion">
-          <template #default="{ suggestion, queryHTML }">
-            <!-- @slot Slot for the Query Suggestion's content. -->
-            <!-- @binding {Suggestion} suggestion - The data of the query suggestion. -->
-            <!-- @binding {string} queryHTML - The suggestion's query with the matching part inside
-            a <span> tag -->
-            <slot name="suggestion-content" v-bind="{ suggestion, queryHTML }" />
+    <template #default="suggestionScope">
+      <!--
+        @slot Slot for an individual Query Suggestion item.
+          @binding {Suggestion} suggestion The data of the query suggestion.
+          @binding {number} index The index of the suggestion
+      -->
+      <slot name="suggestion" v-bind="suggestionScope">
+        <QuerySuggestion
+          :suggestion="suggestionScope.suggestion"
+          class="x-query-suggestions__suggestion"
+        >
+          <template #default="suggestionContentScope">
+            <!--
+              @slot Slot for the Query Suggestion's content.
+                @binding {Suggestion} suggestion The data of the query suggestion.
+                @binding {string} queryHTML The suggestion's query with the matching part inside
+                a <span> tag
+                @binding {number} index The index of the suggestion
+            -->
+            <slot
+              name="suggestion-content"
+              v-bind="{ ...suggestionScope, ...suggestionContentScope }"
+            />
           </template>
         </QuerySuggestion>
       </slot>
