@@ -4,15 +4,22 @@ import { Component } from 'vue-property-decorator';
 import Vuex, { Store } from 'vuex';
 import { XEvent } from '../../wiring/events.types';
 import { searchBoxXStoreModule } from '../../x-modules/search-box/store/module';
+import { searchBoxXModule } from '../../x-modules/search-box/x-module';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { Getter, State, XOn } from '../decorators';
+import { xComponentMixin } from '../x-component.mixin';
 
-const singleListener = jest.fn();
-const multipleListener = jest.fn();
-const dataListener = jest.fn();
 const createdListener = jest.fn();
+const dataListener = jest.fn();
+const multipleListener = jest.fn();
+const singleListener = jest.fn();
+const optionsListener = jest.fn();
+const filteredOptionsListener = jest.fn();
+const filteredWithMultipleOptionsListener = jest.fn();
 
-@Component
+@Component({
+  mixins: [xComponentMixin(searchBoxXModule)]
+})
 class TestingComponent extends Vue {
   @State('searchBox', 'query')
   public query!: string;
@@ -36,6 +43,21 @@ class TestingComponent extends Vue {
     dataListener(this, payload);
   }
 
+  @XOn('UserOpenedX', { moduleName: 'searchBox' })
+  testingXOnOptions(): void {
+    optionsListener(this);
+  }
+
+  @XOn('UserClosedX', { moduleName: 'empathize' })
+  testingXOnOptionsFiltered(): void {
+    filteredOptionsListener(this);
+  }
+
+  @XOn('UserClosedX', { moduleName: 'searchBox', origin: 'default' })
+  testingXOnMultipleOptionsFiltered(): void {
+    filteredWithMultipleOptionsListener(this);
+  }
+
   created(): void {
     createdListener(this);
   }
@@ -50,6 +72,7 @@ describe('testing decorators', () => {
   let component: Wrapper<TestingComponent>;
 
   beforeEach(() => {
+    component?.vm.$destroy();
     jest.clearAllMocks();
     [, localVue] = installNewXPlugin();
     localVue.use(Vuex);
@@ -69,10 +92,6 @@ describe('testing decorators', () => {
       localVue,
       store
     });
-  });
-
-  afterEach(() => {
-    component.vm.$destroy();
   });
 
   describe('testing map state and getter', () => {
@@ -142,6 +161,20 @@ describe('testing decorators', () => {
       expect(singleListener).not.toHaveBeenCalled();
       expect(multipleListener).not.toHaveBeenCalled();
       expect(dataListener).not.toHaveBeenCalled();
+    });
+
+    it('filters out callback based on options passed to the decorator', () => {
+      component.vm.$x.emit('UserOpenedX');
+      expect(optionsListener).toHaveBeenCalled();
+      component.vm.$x.emit('UserClosedX');
+      expect(filteredOptionsListener).not.toHaveBeenCalled();
+    });
+
+    it('filters out callback based on multiple options passed to the decorator', () => {
+      component.vm.$x.emit('UserClosedX', undefined, { origin: 'empathize_term' });
+      expect(filteredWithMultipleOptionsListener).not.toHaveBeenCalled();
+      component.vm.$x.emit('UserClosedX', undefined, { origin: 'default' });
+      expect(filteredWithMultipleOptionsListener).toHaveBeenCalled();
     });
   });
 });
