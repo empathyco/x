@@ -56,18 +56,123 @@
     };
   }
 </script>
-
+<!--eslint-disable-->
 <docs>
-  #Examples
+  import { NextItem } from './react-components/Utils';
+  import Tabs from '@theme/Tabs';
+  import TabItem from '@theme/TabItem';
+  import { ReactClearSearchInput, ReactSearchInput, doMagic } from './react-components/ReactComponents';
 
-  ## Example
+  The ClearSearchInput is a button that when pressed emits [UserPressedClearsearchBoxButton](x-components.searchboxxevents.userpressedclearsearchboxbutton)
+  event, expressing the user intention to clear the current query.
 
-  You need to add the content that this button will render. To do so, you only need to pass a new
+  ## Basic Usage
+
+  <Tabs
+    defaultValue="vue"
+    values={[
+    {label: 'Vue', value: 'vue'},
+  {label: 'Live', value: 'live'},
+  ]}>
+  <TabItem value="vue">
+
+    ```jsx
+    <ClearSearchInput />
+    ```
+
+  </TabItem>
+  <TabItem value="live">
+    <ReactSearchInput />
+    <ReactClearSearchInput> Clear </ReactClearSearchInput>
+  </TabItem>
+  </Tabs>
+
+  ## Overriding slot
+
+  If You need to add custom content inside this component. You only need to pass a new
   component in the default slot:
 
-  ```vue
-  <ClearSearchInput>
-    <img src="./my-awesome-clear-icon.svg" />
-  </ClearSearchInput>
-  ```
+  <Tabs
+    defaultValue="vue"
+    values={[
+    {label: 'Vue', value: 'vue'},
+  {label: 'Live', value: 'live'},
+  ]}>
+  <TabItem value="vue">
+
+    ```jsx
+    <ClearSearchInput>
+      <img src="./my-awesome-clear-icon.svg" />
+    </ClearSearchInput>
+    ```
+
+  </TabItem>
+  <TabItem value="live">
+    <ReactSearchInput />
+    <ReactClearSearchInput><img style={{height:'16px',margin:'0',border:'0'}}
+                                src="https://image.flaticon.com/icons/svg/864/864393.svg" /></ReactClearSearchInput>
+  </TabItem>
+  </Tabs>
+
+  ## Using the events
+
+  :::info
+  There is a list of events that can be emitted. [XEvents](x-components.xeventstypes)
+  :::
+
+  Exist the possibility of call methods to do something when an event is emitted:
+
+  <Tabs
+    defaultValue="vue"
+    values={[
+    {label: 'Vue', value: 'vue'},
+  {label: 'Live', value: 'live'},
+  ]}>
+  <TabItem value="vue">
+
+    ```jsx
+    <ClearSearchInput  @UserPressedClearSearchBoxButton="doMagic()" />
+    ```
+
+  </TabItem>
+  <TabItem value="live">
+    <ReactClearSearchInput on={ {UserPressedClearSearchBoxButton: doMagic} }> Clear </ReactClearSearchInput>
+  </TabItem>
+  </Tabs>
+
+
+  ## Used with other components
+
+  If you want to use this component with another one, you can add other components and they will communicate with each other.
+
+  This example shows how the clear search button communicates with the <Highlight color="#25c2a0">Search Input</Highlight>:
+
+  <Tabs
+    defaultValue="vue"
+    values={[
+    {label: 'Vue', value: 'vue'},
+  {label: 'Live', value: 'live'},
+  ]}>
+  <TabItem value="vue">
+
+    ```jsx
+    <SearchInput />
+    <ClearSearchInput>
+      <img src="./my-awesome-clear-icon.svg" />
+    </ClearSearchInput>
+    ```
+
+  </TabItem>
+  <TabItem value="live">
+    <div style={{display:'flex',alignItems:'center'}} ><ReactSearchInput></ReactSearchInput><ReactClearSearchInput><img style={{height:'16px',margin:'0',border:'0'}} src="https://image.flaticon.com/icons/svg/864/864393.svg" /></ReactClearSearchInput></div>
+  </TabItem>
+  </Tabs>
+
+
+
+  ## Up next
+
+  Ready for more? Continue reading with:
+
+  <NextItem color="#e77962" font="white" next="x-components.searchbutton">Search button</NextItem>
 </docs>

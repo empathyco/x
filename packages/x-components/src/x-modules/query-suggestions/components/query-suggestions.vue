@@ -77,28 +77,45 @@
     protected animation!: Vue;
   }
 </script>
-
+<!--eslint-disable-->
 <docs>
-  #Example
+  import { ReactQuerySuggestions, ReactSearchInput } from './react-components/ReactComponents';
+  import { NextItem } from './react-components/Utils';
+  import Tabs from '@theme/Tabs';
+  import TabItem from '@theme/TabItem';
 
-  This component renders a list of suggestions taken from the module's store state.
+  This component renders a list of query suggestions.
+  A query suggestion is just a query that contains the user query and can have associated
+  a set of filters. I.e. If you are searching for `shirt`, a query suggestion could be
+  `long sleeve shirt`.
 
-  ## Default Usage
+  ## Usage
 
-  No props are required for the usage of this component.
+  <Tabs
+    defaultValue="vue"
+    values={[
+    {label: 'Vue', value: 'vue'}
+  ]}>
+  <TabItem value="vue">
 
-  ```vue
-  <QuerySuggestions/>
-  ```
+    ```jsx
+    <QuerySuggestions />
+    ```
 
-  ## Overriding Query Suggestion slot
+  </TabItem>
+  </Tabs>
+
+
+  ## Overriding slots
+
+  ### Overriding Query Suggestion slot
 
   The default `QuerySuggestion` component that is used in every suggestion can be replaced.
   To do so, the `suggestion` slot is available, containing the query suggestion data under the
   `suggestion` property. Remember that if QuerySuggestion component isn't used, the
   `handleQuerySuggestionSelection` method needs to be implemented emitting the needed events.
 
-  ```vue
+  ```jsx
   <QuerySuggestions>
     <template #suggestion="{ suggestion }">
       <img class="x-query-suggestion__icon" src="./query-suggestion-extra-icon.svg"/>
@@ -107,14 +124,14 @@
   </QuerySuggestions>
   ```
 
-  ## Overriding Query Suggestion's content slot
+  ### Overriding Query Suggestion's content slot
 
   The content of the `QuerySuggestion` component can be overridden. For replacing the default
   suggestion content, the `suggestion-content` slot is available, containing the query suggestion
   data (in the `suggestion` property), and the matching query part HTML (in the
   `queryHTML` property).
 
-  ```vue
+  ```jsx
   <QuerySuggestions>
     <template #suggestion-content="{ suggestion, queryHTML }">
       <img class="x-query-suggestion__icon" src="./query-suggestion-icon.svg"/>
@@ -126,4 +143,37 @@
     </template>
   </QuerySuggestions>
   ```
+
+  ## Used with other components
+
+  If you want to use this component with another one, you can add other components and they will communicate with each other.
+
+  This example shows how the query suggestions communicates with the `Search Input`:
+
+  <Tabs
+    defaultValue="live"
+    values={[
+    {label: 'Vue', value: 'vue'},
+    {label: 'Live', value: 'live'}
+  ]}>
+  <TabItem value="vue">
+
+    ```jsx
+    <SearchInput />
+    <QuerySuggestions />
+    ```
+
+  </TabItem>
+    <TabItem value="live">
+    <ReactSearchInput></ReactSearchInput><ReactQuerySuggestions />
+  </TabItem>
+  </Tabs>
+
+
+  ## Up next
+
+  Ready for more? Continue reading with:
+
+  <NextItem color="#e77962" font='white' next="x-components.nextqueries">Next queries</NextItem>
+
 </docs>

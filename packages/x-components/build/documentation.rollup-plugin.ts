@@ -29,7 +29,7 @@ export function apiDocumentation(): Plugin {
       assertExtractorSucceeded(extractorResult);
       copyReportFile(extractorConfig.reportFilePath);
       await generateDocumentation();
-      copyConfigurationDocumentation();
+      copyConfigurationDocumentation('../static-docs', '../docs');
     }
   };
 }
@@ -73,10 +73,12 @@ function copyReportFile(reportFilePath: string): void {
 /**
  * Copies the configuration and setup documentation folder to the docs folder.
  *
+ * @param source - The source folder path.
+ * @param target - The target folder path.
  */
-function copyConfigurationDocumentation(): void {
-  const sourceFolderPath = path.join(__dirname, '../guide-docs');
-  const targetFolderPath = path.join(__dirname, '../docs/guide');
+function copyConfigurationDocumentation(source: string, target: string): void {
+  const sourceFolderPath = path.join(__dirname, source);
+  const targetFolderPath = path.join(__dirname, target);
   copyFolderSync(sourceFolderPath, targetFolderPath);
 }
 

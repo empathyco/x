@@ -17,6 +17,12 @@
   </component>
 </template>
 
+<style lang="scss" scoped>
+  .x-suggestions {
+    list-style-type: none;
+  }
+</style>
+
 <script lang="ts">
   import { Component, Prop } from 'vue-property-decorator';
   import { Suggestion, Facet } from '@empathy/search-types';

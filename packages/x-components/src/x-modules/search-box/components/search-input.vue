@@ -30,7 +30,7 @@
   /**
    * Search input that reacts to user interaction emitting events.
    *
-   * @public
+   * @internal
    */
   @Component({
     mixins: [xComponentMixin(searchBoxXModule)]
@@ -183,24 +183,73 @@
     -webkit-appearance: none;
   }
 </style>
-
+<!--eslint-disable-->
 <docs>
-  #Examples
+  import { NextItem } from './react-components/Utils';
+  import Tabs from '@theme/Tabs';
+  import TabItem from '@theme/TabItem';
+  import { ReactSearchInput, doMagic } from './react-components/ReactComponents';
 
-  ## Basic example
+  The Search input is a component that reacts to user interaction emitting events:
+  [SearchBoxQueryChanged](x-components.searchboxxevents.searchboxquerychanged),
+  [UserBlurredSearchBox](x-components.searchboxxevents.userblurredsearchbox),
+  [UserFocusedSearchBox](x-components.searchboxxevents.userfocusedsearchbox),
+  [UserIsTypingAQuery](x-components.searchboxxevents.useristypingaquery) and
+  [UserPressedEnterKey](x-components.searchboxxevents.userpressedenterkey)
 
-  Simple search input component without slots that emits events when a user interacts
-  with it.
+  ## Basic usage
 
-  ```vue
-  <SearchInput/>
-  ```
+  Search input lets you to type a query and emits events to other components. This will allow to other components to use this query.
 
-  ## Modifying its prop
+  <Tabs
+    defaultValue="vue"
+    values={[
+    {label:'Vue', value: 'vue'},
+  {label: 'Live', value: 'live'}
+  ]}>
+  <TabItem value="vue">
 
-  By default, position prop value is 'above',
+    ```jsx
+    <SearchInput />
+    ```
 
-  ```vue
-  <SearchInput/>
-  ```
+  </TabItem>
+  <TabItem value="live">
+
+    <ReactSearchInput />
+
+  </TabItem>
+  </Tabs>
+
+  ## Using the events
+
+  :::info
+  There is a list of events that can be emitted. [XEvents](../../x-components.xeventstypes)
+  :::
+
+  Exist the possibility of call methods to do something when an event is emitted:
+
+  <Tabs
+    defaultValue="vue"
+    values={[
+    {label: 'Vue', value: 'vue'},
+  {label: 'Live', value: 'live'},
+  ]}>
+  <TabItem value="vue">
+
+    ```jsx
+    <SearchInput @UserPressedEnterKey="doMagic()" />
+    ```
+
+  </TabItem>
+  <TabItem value="live">
+    <ReactSearchInput on={{ UserPressedEnterKey: doMagic }} />
+  </TabItem>
+  </Tabs>
+
+  ## Up next
+
+  Ready for more? Continue reading with:
+
+  <NextItem color="#e77962" font='white' next="x-components.clearsearchinput">Clear Search Input</NextItem>
 </docs>
