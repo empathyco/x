@@ -1,6 +1,6 @@
 <template>
   <transition-group v-on="$listeners" appear name="fade-slide" :tag="tag">
-    <!-- @slot (Required) to add content to the transition-group -->
+    <!-- @slot (Required) Transition-group content -->
     <slot />
   </transition-group>
 </template>

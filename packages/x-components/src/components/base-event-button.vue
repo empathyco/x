@@ -1,6 +1,6 @@
 <template>
   <button @click="emitEvents" data-test="event-button">
-    <!-- @slot (Required) to add content to the button like for example: a text, an icon or both -->
+    <!-- @slot (Required) Button content with a text, an icon or both -->
     <slot />
   </button>
 </template>

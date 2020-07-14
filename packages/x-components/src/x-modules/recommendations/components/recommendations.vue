@@ -7,8 +7,8 @@
       data-test="recommendation-item"
     >
       <!--
-        @slot Slot for an individual mandatory BaseResultLink component.
-          @binding {Result} recommendation - The result data.
+        @slot Recommendation content
+            @binding {Result} recommendation - Result data
       -->
       <slot :recommendation="recommendation" />
     </li>

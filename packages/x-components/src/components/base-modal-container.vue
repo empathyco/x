@@ -1,7 +1,7 @@
 <template>
   <div v-if="isOpen" class="x-modal-container" data-test="modal-container">
-    <!-- @slot (Required) to add content to the modal container -->
     <div @click.stop class="x-modal-container__content" data-test="modal-container-content">
+      <!-- @slot (Required) Modal container content -->
       <slot />
     </div>
     <div

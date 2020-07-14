@@ -1,6 +1,6 @@
 <template>
   <BaseEventButton :events="events" class="x-search-button" :class="dynamicClasses">
-    <!-- @slot (Required) To add an icon or text for the search button-->
+    <!-- @slot (Required) Button content with a text, an icon or both -->
     <slot />
   </BaseEventButton>
 </template>

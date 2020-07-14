@@ -6,8 +6,10 @@
     data-test="next-query"
   >
     <template #default="{ suggestion }">
-      <!-- @slot Default slot with the suggestion to customize the next query content -->
-      <!-- @binding {Suggestion} suggestion - The data of the suggestion -->
+      <!--
+        @slot Next Query content
+            @binding {Suggestion} suggestion - Next Query suggestion data
+      -->
       <slot :suggestion="suggestion">{{ suggestion.query }}</slot>
     </template>
   </BaseSuggestion>

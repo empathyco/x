@@ -7,16 +7,16 @@
       data-test="related-tag-item"
     >
       <!--
-        @slot Slot for an individual Related tag item.
-          @binding {RelatedTag} relatedTag - The data of the Related tag.
+        @slot Related Tag item
+            @binding {RelatedTag} relatedTag - Related Tag data
        -->
       <slot name="related-tag" :relatedTag="relatedTag">
         <RelatedTag :relatedTag="relatedTag">
           <template #default="{ relatedTag }">
             <!--
-              @slot Slot for the Related tag's content.
-                @binding {RelatedTag} relatedTag - The data of the Related tag.
-              -->
+              @slot Related Tag content
+                  @binding {RelatedTag} relatedTag - Related Tag data
+            -->
             <slot name="related-tag-content" :relatedTag="relatedTag" />
           </template>
         </RelatedTag>

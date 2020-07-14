@@ -5,29 +5,24 @@
     data-test="query-suggestions"
     :animation="animation"
   >
-    <template #default="suggestionScope">
+    <template #default="{ suggestion, index }">
       <!--
-        @slot Slot for an individual Query Suggestion item.
-          @binding {Suggestion} suggestion The data of the query suggestion.
-          @binding {number} index The index of the suggestion
+        @slot Query Suggestion item
+            @binding {Suggestion} suggestion - Query Suggestion data
+            @binding {number} index - Query Suggestion index
       -->
-      <slot name="suggestion" v-bind="suggestionScope">
-        <QuerySuggestion
-          :suggestion="suggestionScope.suggestion"
-          class="x-query-suggestions__suggestion"
-        >
-          <template #default="suggestionContentScope">
+      <slot name="suggestion" v-bind="{ suggestion, index }">
+        <QuerySuggestion :suggestion="suggestion" class="x-query-suggestions__suggestion">
+          <template #default="{ queryHTML }">
+            <!-- eslint-disable max-len -->
             <!--
-              @slot Slot for the Query Suggestion's content.
-                @binding {Suggestion} suggestion The data of the query suggestion.
-                @binding {string} queryHTML The suggestion's query with the matching part inside
-                a <span> tag
-                @binding {number} index The index of the suggestion
+              @slot Query Suggestion content
+                  @binding {Suggestion} suggestion - Query Suggestion data
+                  @binding {string} queryHTML - Suggestion's query with the matching part inside a span tag
+                  @binding {number} index - Query Suggestion index
             -->
-            <slot
-              name="suggestion-content"
-              v-bind="{ ...suggestionScope, ...suggestionContentScope }"
-            />
+            <!-- eslint-enable max-len -->
+            <slot name="suggestion-content" v-bind="{ suggestion, index, queryHTML }" />
           </template>
         </QuerySuggestion>
       </slot>

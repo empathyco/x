@@ -5,27 +5,21 @@
     data-test="popular-searches"
     :animation="animation"
   >
-    <template #default="suggestionScope">
+    <template #default="{ suggestion, index }">
       <!--
-        @slot Slot for an individual Popular Search item.
-          @binding {Suggestion} suggestion The data of the Popular Search's suggestion.
-          @binding {number} index The index of the suggestion
+        @slot Popular Search item
+            @binding {Suggestion} suggestion - Popular Search suggestion data
+            @binding {number} index - Popular Search suggestion index
       -->
-      <slot name="suggestion" v-bind="suggestionScope">
-        <PopularSearch
-          :suggestion="suggestionScope.suggestion"
-          class="x-popular-searches__suggestion"
-        >
-          <template #default="suggestionContentScope">
+      <slot name="suggestion" v-bind="{ suggestion, index }">
+        <PopularSearch :suggestion="suggestion" class="x-popular-searches__suggestion">
+          <template #default>
             <!--
-              @slot Slot for the Popular Search's content.
-                @binding {Suggestion} suggestion The data of the Popular Search's suggestion.
-                @binding {number} index The index of the suggestion
+              @slot Popular Search content
+                  @binding {Suggestion} suggestion - Popular Search suggestion data
+                  @binding {number} index - Popular Search suggestion index
             -->
-            <slot
-              name="suggestion-content"
-              v-bind="{ ...suggestionScope, ...suggestionContentScope }"
-            />
+            <slot name="suggestion-content" v-bind="{ suggestion, index }" />
           </template>
         </PopularSearch>
       </slot>

@@ -5,24 +5,21 @@
     class="x-next-queries"
     :animation="animation"
   >
-    <template #default="suggestionScope">
+    <template #default="{ suggestion, index }">
       <!--
-       @slot Slot for an individual Next Query item.
-       @binding {Suggestion} suggestion The data of the suggestion
-       @binding {number} index The index of the suggestion
+        @slot Next Query item
+            @binding {Suggestion} suggestion - Next Query suggestion data
+            @binding {number} index - Next Query suggestion index
       -->
-      <slot name="suggestion" v-bind="suggestionScope">
-        <NextQuery :suggestion="suggestionScope.suggestion" class="x-next-queries__suggestion">
-          <template #default="suggestionContentScope">
+      <slot name="suggestion" v-bind="{ suggestion, index }">
+        <NextQuery :suggestion="suggestion" class="x-next-queries__suggestion">
+          <template #default>
             <!--
-             @slot Slot for the Next Query's content.
-             @binding {Suggestion} suggestion The data of the suggestion
-             @binding {number} index The index of the suggestion
+              @slot Next Query content
+                  @binding {Suggestion} suggestion - Next Query suggestion data
+                  @binding {number} index - Next Query suggestion index
             -->
-            <slot
-              name="suggestion-content"
-              v-bind="{ ...suggestionScope, ...suggestionContentScope }"
-            />
+            <slot name="suggestion-content" v-bind="{ suggestion, index }" />
           </template>
         </NextQuery>
       </slot>

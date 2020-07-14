@@ -1,11 +1,12 @@
 <template>
   <BaseEventButton :events="events" :class="dynamicCSSClasses" class="x-suggestion">
+    <!-- eslint-disable max-len -->
     <!--
-      @slot Default slot with the suggestion and the matched query to customise the output
-      @binding {Suggestion} suggestion - The data of the suggestion
-      @binding {string} queryHTML - The suggestion's query with the matching part inside a
-      `<span>` tag
+      @slot Button content
+          @binding {Suggestion} suggestion - Suggestion data
+          @binding {string} queryHTML - Suggestion's query with the matching part inside a `<span>` tag
     -->
+    <!-- eslint-enable max-len -->
     <slot v-bind="{ suggestion, queryHTML }">
       <span v-html="queryHTML" :aria-label="suggestion.query" class="x-suggestion__query" />
     </slot>

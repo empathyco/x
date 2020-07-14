@@ -7,8 +7,8 @@
     class="x-empathize"
     data-test="empathize"
   >
-    <!-- @slot (Required) to add content to the empathize -->
     <template #default>
+      <!-- @slot (Required) Empathize content -->
       <slot />
     </template>
   </BaseModalContainer>

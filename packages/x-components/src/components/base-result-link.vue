@@ -8,9 +8,8 @@
     data-test="result-link"
   >
     <!--
-     @slot (Required) to add content to the link like for example: a text, an icon, both, or other
-     components as {@link ResultImage}
-       @binding {Result} result - The result data
+      @slot (Required) Link content with a text, an image, another component or both
+          @binding {Result} result - Result data
      -->
     <slot :result="result" />
   </a>

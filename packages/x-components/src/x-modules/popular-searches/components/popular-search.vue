@@ -6,8 +6,10 @@
     data-test="popular-search"
   >
     <template #default="{ suggestion }">
-      <!-- @slot Default slot with the suggestion to customize the popular search content -->
-      <!--  @binding {Suggestion} suggestion - The data of the suggestion -->
+      <!--
+        @slot Popular Search's content
+            @binding {Suggestion} suggestion - Popular Search suggestion data
+      -->
       <slot :suggestion="suggestion">{{ suggestion.query }}</slot>
     </template>
   </BaseSuggestion>

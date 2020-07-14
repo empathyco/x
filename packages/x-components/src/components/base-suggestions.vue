@@ -7,10 +7,9 @@
       data-test="suggestion-item"
     >
       <!--
-         @slot (Required) Slot for an individual suggestion, responsible for handling its
-         selection by emitting the appropriate event
-         @binding {Suggestion} suggestion The data of the suggestion
-         @binding {number} index The index of the suggestion
+        @slot (Required) List item content
+            @binding {Suggestion} suggestion - Suggestion data
+            @binding {number} index - Suggestion index
        -->
       <slot v-bind="{ suggestion, index }" />
     </li>

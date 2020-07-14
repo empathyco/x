@@ -4,7 +4,7 @@
     class="x-keyboard-navigation"
     data-test="keyboard-navigation"
   >
-    <!-- @slot (Required) to add content to the container -->
+    <!-- @slot (Required) Container content -->
     <slot />
   </div>
 </template>

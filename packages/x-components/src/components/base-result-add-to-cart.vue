@@ -1,6 +1,6 @@
 <template>
   <BaseEventButton :events="events" class="x-result-add-to-cart" data-test="result-add-to-cart">
-    <!-- @slot (Required) Slot to add the button content like a text, an icon or both -->
+    <!-- @slot (Required) Button content with a text, an icon or both -->
     <slot />
   </BaseEventButton>
 </template>

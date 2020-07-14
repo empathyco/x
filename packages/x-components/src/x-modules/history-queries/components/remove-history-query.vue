@@ -1,6 +1,6 @@
 <template>
   <BaseEventButton class="x-remove-history-query" :events="removeHistoryQueryEvent">
-    <!--  @slot (Required) Slot to add the button content like a message or an icon. -->
+    <!--  @slot (Required) Button content with a text, an icon or both -->
     <slot />
   </BaseEventButton>
 </template>

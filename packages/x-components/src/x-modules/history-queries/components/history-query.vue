@@ -6,10 +6,13 @@
       data-test="history-query"
     >
       <template #default="{ suggestion, queryHTML }">
-        <!-- @slot Default slot with the suggestion and the queryHTML to customise the output -->
-        <!-- @binding {Suggestion} suggestion - The data of the suggestion -->
-        <!-- @binding {string} queryHTML - The suggestion's query with the matching part inside a
-        <span> tag -->
+        <!-- eslint-disable max-len -->
+        <!--
+          @slot History Query content
+              @binding {Suggestion} suggestion - History Query suggestion data
+              @binding {string} queryHTML - Suggestion's query with the matching part inside a span tag
+        -->
+        <!-- eslint-enable max-len -->
         <slot v-bind="{ suggestion, queryHTML }" />
       </template>
     </BaseSuggestion>
@@ -19,8 +22,10 @@
       data-test="remove-history-query"
     >
       <template #default>
-        <!-- @slot Default slot with the suggestion to customise the output -->
-        <!-- @binding {Suggestion} suggestion - The data of the suggestion -->
+        <!--
+          @slot History Query remove button content
+              @binding {Suggestion} suggestion - History Query suggestion data
+        -->
         <slot name="remove-button-content" v-bind="{ suggestion }" />
       </template>
     </RemoveHistoryQuery>

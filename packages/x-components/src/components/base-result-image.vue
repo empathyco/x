@@ -1,9 +1,7 @@
 <template>
   <picture ref="image" class="x-result-picture" data-test="result-figure">
-    <!--
-      @slot (Required) to add content to the image like for example: a text, an icon or both and
-       it will renders while the real image is not loaded.
-    -->
+    <!-- eslint-disable-next-line max-len -->
+    <!-- @slot (Required) Loading image content. It will be rendered while the real image is not loaded -->
     <slot v-if="!hasImageLoaded && !hasAllImagesFailed" name="placeholder" />
     <img
       v-if="imageSrc"
@@ -16,9 +14,11 @@
       data-test="result-picture__image"
     />
     <!--
-      @slot (Required) to add content to the image like for example: a text, an icon or both and
-       it will renders when all the images failed.
-      -->
+    Vue styleguidist doesn't generate slot docs for v-else and v-else-if conditions
+    due to a bug https://github.com/vuejs/vue/pull/10286.
+    TODO - Bump styleguidist version when the fix branch is merged and a new version released.
+    -->
+    <!-- @slot (Required) Fallback image content. It will be rendered when all the images failed -->
     <slot v-else-if="hasAllImagesFailed" name="fallback" />
   </picture>
 </template>

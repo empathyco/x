@@ -7,8 +7,8 @@
       data-test="identifier-results-item"
     >
       <!--
-        @slot Slot for an individual mandatory IdentifierResult component.
-          @binding {Result} identifierResult - The result data.
+        @slot (Required) Identifier results item content
+            @binding {Result} identifierResult - Identifier Result data
       -->
       <slot :identifierResult="identifierResult" />
     </li>

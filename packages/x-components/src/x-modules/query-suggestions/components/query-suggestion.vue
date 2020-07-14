@@ -6,10 +6,13 @@
     data-test="query-suggestion"
   >
     <template #default="{ suggestion, queryHTML }">
-      <!-- @slot Default slot with the suggestion and the queryHTML to customise the output -->
-      <!-- @binding {Suggestion} suggestion - The data of the suggestion -->
-      <!-- @binding {string} queryHTML - The suggestion's query with the matching part inside a
-      <span> tag -->
+      <!-- eslint-disable max-len -->
+      <!--
+        @slot Query Suggestion content
+            @binding {Suggestion} suggestion - Query Suggestion data
+            @binding {string} queryHTML - Suggestion's query with the matching part inside a span tag
+      -->
+      <!-- eslint-enable max-len -->
       <slot v-bind="{ suggestion, queryHTML }" />
     </template>
   </BaseSuggestion>

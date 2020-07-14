@@ -6,8 +6,8 @@
     :class="dynamicClasses"
   >
     <!--
-      @slot Default slot with the related tag to customize the related tag content
-        @binding {RelatedTag} relatedTag - The data of the related tag
+      @slot Related Tag content
+          @binding {RelatedTag} relatedTag - Related Tag data
       -->
     <slot :relatedTag="relatedTag">{{ relatedTag.tag }}</slot>
   </BaseEventButton>
