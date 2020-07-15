@@ -2,6 +2,7 @@ import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
 import Vue, { ComponentOptions } from 'vue';
 import { createDecorator } from 'vue-class-component';
+import { getGetterPath } from '../plugins/x-plugin.mixin';
 import { AnyFunction, DecoratorFor } from '../utils';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
@@ -51,7 +52,7 @@ export function Getter<Module extends XModuleName, GetterName extends keyof Extr
     if (!options.computed) {
       options.computed = {};
     }
-    const getterPath = `x/${module}/${getter as string}`;
+    const getterPath = getGetterPath(module, getter);
     Object.assign(options.computed, {
       [key]() {
         return this.$store.getters[getterPath];

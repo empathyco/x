@@ -1,8 +1,16 @@
 import { mount, shallowMount, Wrapper } from '@vue/test-utils';
 import { ComponentOptions, default as Vue } from 'vue';
+import { Store } from 'vuex';
 import { xComponentMixin } from '../../components/x-component.mixin';
+import { nextQueriesXModule } from '../../x-modules/next-queries/x-module';
+import { querySuggestionsXModule } from '../../x-modules/query-suggestions/x-module';
+import { relatedTagsXModule } from '../../x-modules/related-tags/x-module';
 import { searchBoxXModule } from '../../x-modules/search-box/x-module';
 import { installNewXPlugin } from '../../__tests__/utils';
+import { XPlugin } from '../x-plugin';
+import { getAliasAPI } from '../x-plugin.mixin';
+import { XComponentAliasAPI } from '../x-plugin.types';
+import getOwnPropertyDescriptor = Reflect.getOwnPropertyDescriptor;
 
 describe('testing $x component API global mixin', () => {
   const component: ComponentOptions<Vue> & ThisType<Vue> = {
@@ -124,5 +132,77 @@ describe('testing $x component API global mixin', () => {
     );
 
     expect(listener).toHaveBeenCalledTimes(1);
+  });
+
+  describe('testing alias', () => {
+    it('returns default values when no module is registered', () => {
+      const defaultValues: XComponentAliasAPI = {
+        query: {
+          searchBox: '',
+          nextQueries: '',
+          querySuggestions: '',
+          relatedTags: ''
+        },
+        nextQueries: [],
+        popularSearches: [],
+        historyQueries: [],
+        querySuggestions: [],
+        relatedTags: [],
+        selectedRelatedTags: [],
+        identifierResults: [],
+        recommendations: []
+      };
+      expect(componentInstance.vm.$x).toMatchObject(defaultValues);
+    });
+
+    it('updates the query values when the module is registered', () => {
+      XPlugin.registerXModule(searchBoxXModule);
+      XPlugin.registerXModule(nextQueriesXModule);
+      XPlugin.registerXModule(querySuggestionsXModule);
+      XPlugin.registerXModule(relatedTagsXModule);
+
+      componentInstance.vm.$store.commit('x/searchBox/setQuery', 'this');
+      componentInstance.vm.$store.commit('x/nextQueries/setQuery', 'is');
+      componentInstance.vm.$store.commit('x/querySuggestions/setQuery', 'working');
+      componentInstance.vm.$store.commit('x/relatedTags/setQuery', 'properly');
+
+      expect(componentInstance.vm.$x.query).toMatchObject({
+        searchBox: 'this',
+        nextQueries: 'is',
+        querySuggestions: 'working',
+        relatedTags: 'properly'
+      });
+    });
+
+    it('has every property defined as a getter', () => {
+      /**
+       * Checks that every property defined by the object and keys is a getter or an object that
+       * only contains getters.
+       *
+       * @param obj - The object to check.
+       * @param keys - The subset of keys from the object to check.
+       * @returns True when the object properties defined by the keys are getters or object with
+       * getters.
+       */
+      function isJSGetterOrDictionaryOfJSGetters(
+        // object and string[] are the parameters used by getOwnPropertyDescriptor.
+        // eslint-disable-next-line @typescript-eslint/ban-types
+        obj: object,
+        keys: string[]
+      ): boolean {
+        return keys.every(key => {
+          const descriptor = getOwnPropertyDescriptor(obj, key);
+          const value = obj[key as keyof typeof obj];
+          return (
+            (descriptor?.set === undefined && descriptor?.value === undefined) ||
+            (typeof value === 'object' &&
+              isJSGetterOrDictionaryOfJSGetters(value, Object.keys(value)))
+          );
+        });
+      }
+      const aliasKeys = Object.keys(getAliasAPI(new Store({ state: { x: {} } })));
+
+      expect(isJSGetterOrDictionaryOfJSGetters(componentInstance.vm.$x, aliasKeys)).toEqual(true);
+    });
   });
 });

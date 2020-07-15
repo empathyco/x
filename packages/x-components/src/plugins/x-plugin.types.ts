@@ -1,4 +1,5 @@
 import { SearchAdapter } from '@empathy/search-adapter';
+import { HistoryQuery, NextQuery, RelatedTag, Result, Suggestion } from '@empathy/search-types';
 import { Store } from 'vuex';
 import { CurrencyOptions } from '../i18n';
 import { ActionsTree, AnyActionsTree } from '../store/actions.types';
@@ -52,14 +53,22 @@ export interface XConfig {
 export type DocumentDirection = 'ltr' | 'rtl';
 
 /**
- * The XComponentAPI exposes access to the {@link XBus} and {@link XConfig} to the components.
+ * The XComponentAPI exposes access to the {@link XBus}, {@link XConfig}, and store aliases to the
+ * components.
  *
  * @public
  */
-export interface XComponentAPI extends Pick<XBus, 'on'> {
+export interface XComponentAPI extends XComponentBusAPI, XComponentXConfigAPI, XComponentAliasAPI {}
+
+/**
+ * API for emitting and subscribing to events of the {@link XBus}.
+ *
+ * @public
+ */
+export interface XComponentBusAPI {
   /* eslint-disable jsdoc/require-description-complete-sentence */
-  /** {@inheritDoc XConfig} */
-  config: XConfig;
+  /** {@inheritDoc XBus.(on:1)} */
+  on: XBus['on'];
   /** {@inheritDoc XBus.(emit:1)} */
   emit(event: PropsWithType<XEventsTypes, void>): void;
   /** {@inheritDoc XBus.(emit:2)} */
@@ -69,6 +78,55 @@ export interface XComponentAPI extends Pick<XBus, 'on'> {
     metadata?: Omit<WireMetadata, 'moduleName'>
   ): void;
   /* eslint-enable jsdoc/require-description-complete-sentence */
+}
+
+/**
+ * API for reading and modifying the config.
+ *
+ * @public
+ */
+export interface XComponentXConfigAPI {
+  /* eslint-disable jsdoc/require-description-complete-sentence */
+  /** {@inheritDoc XConfig} */
+  config: XConfig;
+  /* eslint-enable jsdoc/require-description-complete-sentence */
+}
+
+/**
+ * Alias to facilitate retrieving values from the store.
+ *
+ * @public
+ */
+export interface XComponentAliasAPI {
+  /**
+   * The query value of the different modules.
+   */
+  readonly query: {
+    /** The {@link SearchBoxXModule} query. */
+    readonly searchBox: string;
+    /** The {@link NextQueriesXModule} query. */
+    readonly nextQueries: string;
+    /** The {@link QuerySuggestionsXModule} query. */
+    readonly querySuggestions: string;
+    /** The {@link RelatedTagsXModule} query. */
+    readonly relatedTags: string;
+  };
+  /** The {@link NextQueriesXModule} next queries. */
+  readonly nextQueries: ReadonlyArray<NextQuery>;
+  /** The {@link PopularSearchesXModule} popular searches. */
+  readonly popularSearches: ReadonlyArray<Suggestion>;
+  /** The {@link HistoryQueriesXModule} history queries. */
+  readonly historyQueries: ReadonlyArray<HistoryQuery>;
+  /** The {@link QuerySuggestionsXModule} query suggestions. */
+  readonly querySuggestions: ReadonlyArray<Suggestion>;
+  /** The {@link RelatedTagsXModule} related tags (Both selected and deselected). */
+  readonly relatedTags: ReadonlyArray<RelatedTag>;
+  /** The {@link RelatedTagsXModule} selected related tags. */
+  readonly selectedRelatedTags: ReadonlyArray<RelatedTag>;
+  /** The {@link IdentifierResultsXModule} results. */
+  readonly identifierResults: ReadonlyArray<Result>;
+  /** The {@link RecommendationsXModule} recommendations. */
+  readonly recommendations: ReadonlyArray<Result>;
 }
 
 /**
