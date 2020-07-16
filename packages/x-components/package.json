@@ -38,11 +38,11 @@
     "rxjs": "~6.5.4",
     "rxjs-compat": "~6.5.4",
     "tslib": "~1.11.1",
-    "vue": "~2.6.10",
+    "vue": "^2.6.0",
     "vue-class-component": "~7.1.0",
     "vue-property-decorator": "~8.3.0",
     "vue-runtime-helpers": "~1.1.2",
-    "vuex": "~3.1.2"
+    "vuex": "^3.0.0"
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "~5.1.1",
