@@ -20,6 +20,7 @@ describe('testing namespaced wires factory', () => {
   describe('testing namespaced mutation wires factory', () => {
     const mutationName = 'setQuery';
     const querySuggestionsWireCommit = namespacedWireCommit(moduleName);
+    const mutationFullPath = `x/${moduleName}/${mutationName}`;
 
     test(
       namespacedWireCommit.name +
@@ -31,7 +32,7 @@ describe('testing namespaced wires factory', () => {
         wire(subjectHandler.subject, storeMock);
         subjectHandler.emit(query);
 
-        expect(storeMock.commit).toHaveBeenCalledWith(`x/${moduleName}/${mutationName}`, query);
+        expect(storeMock.commit).toHaveBeenCalledWith(mutationFullPath, query);
       }
     );
 
@@ -45,10 +46,7 @@ describe('testing namespaced wires factory', () => {
         wire(subjectHandler.subject, storeMock);
         subjectHandler.emit('beans');
 
-        expect(storeMock.commit).toHaveBeenCalledWith(
-          `x/${moduleName}/${mutationName}`,
-          staticQuery
-        );
+        expect(storeMock.commit).toHaveBeenCalledWith(mutationFullPath, staticQuery);
       }
     );
 
@@ -59,14 +57,14 @@ describe('testing namespaced wires factory', () => {
       () => {
         const wire = querySuggestionsWireCommit(
           mutationName,
-          ({ state }) => state.query + '_modified'
+          ({ state }) => `${state.query}_modified`
         );
 
         wire(subjectHandler.subject, storeMock);
         subjectHandler.emit('beans');
 
         expect(storeMock.commit).toHaveBeenCalledWith(
-          `x/${moduleName}/${mutationName}`,
+          mutationFullPath,
           // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
           `${storeMock.state.x.querySuggestions.query}_modified`
         );
@@ -80,14 +78,14 @@ describe('testing namespaced wires factory', () => {
       () => {
         const wire = querySuggestionsWireCommit(
           mutationName,
-          ({ getters }) => getters.normalizedQuery + '_modified'
+          ({ getters }) => `${getters.normalizedQuery}_modified`
         );
 
         wire(subjectHandler.subject, storeMock);
         subjectHandler.emit('beans');
 
         expect(storeMock.commit).toHaveBeenCalledWith(
-          `x/${moduleName}/${mutationName}`,
+          mutationFullPath,
           // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
           `${storeMock.getters[`x/${moduleName}/normalizedQuery`]}_modified`
         );
@@ -104,7 +102,7 @@ describe('testing namespaced wires factory', () => {
         wire(subjectHandler.subject, storeMock);
         subjectHandler.emit('beetroot');
 
-        expect(storeMock.commit).toHaveBeenCalledWith(`x/${moduleName}/${mutationName}`);
+        expect(storeMock.commit).toHaveBeenCalledWith(mutationFullPath);
       }
     );
   });
@@ -112,19 +110,19 @@ describe('testing namespaced wires factory', () => {
   describe('testing namespaced actions wires factory', () => {
     const actionName = 'getAndSaveSuggestions';
     const querySuggestionsWireDispatch = namespacedWireDispatch(moduleName);
+    const actionFullPath = `x/${moduleName}/${actionName}`;
 
     test(
       namespacedWireDispatch.name +
         ' allows creating wires that dispatch an action with the observable payload',
       () => {
-        // The tested module does not have any actions. It is a hack type to test it
         const wire = querySuggestionsWireDispatch(actionName);
         const query = 'osobuco';
 
         wire(subjectHandler.subject, storeMock);
         subjectHandler.emit(query);
 
-        expect(storeMock.dispatch).toHaveBeenCalledWith(`x/${moduleName}/${actionName}`, query);
+        expect(storeMock.dispatch).toHaveBeenCalledWith(actionFullPath, query);
       }
     );
 
@@ -133,15 +131,56 @@ describe('testing namespaced wires factory', () => {
         ' allows creating wires that dispatch an action with a static payload',
       () => {
         const staticQuery = 'pork knuckle';
-        // The tested module does not have any actions. It is a hack type to test it
+        // The tested module does not have any actions with payload. It is a hack type to test it
         const wire = querySuggestionsWireDispatch(actionName as never, staticQuery as never);
 
         wire(subjectHandler.subject, storeMock);
         subjectHandler.emit('cucumber');
 
+        expect(storeMock.dispatch).toHaveBeenCalledWith(actionFullPath, staticQuery);
+      }
+    );
+
+    test(
+      namespacedWireDispatch.name +
+        ' allows creating wires that dispatch an action with a function payload that receives the' +
+        ' module state',
+      () => {
+        // The tested module does not have any actions with payload. It is a hack type to test it
+        const wire = querySuggestionsWireDispatch(
+          actionName as never,
+          ({ state }) => `${state.query}_modified` as never
+        );
+
+        wire(subjectHandler.subject, storeMock);
+        subjectHandler.emit('beans');
+
         expect(storeMock.dispatch).toHaveBeenCalledWith(
-          `x/${moduleName}/${actionName}`,
-          staticQuery
+          actionFullPath,
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+          `${storeMock.state.x.querySuggestions.query}_modified`
+        );
+      }
+    );
+
+    test(
+      namespacedWireDispatch.name +
+        ' allows creating wires that dispatch a action with a function payload that receives' +
+        ' the module getters',
+      () => {
+        // The tested module does not have any actions with payload. It is a hack type to test it
+        const wire = querySuggestionsWireDispatch(
+          actionName as never,
+          ({ getters }) => `${getters.normalizedQuery}_modified` as never
+        );
+
+        wire(subjectHandler.subject, storeMock);
+        subjectHandler.emit('beans');
+
+        expect(storeMock.dispatch).toHaveBeenCalledWith(
+          actionFullPath,
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+          `${storeMock.getters[`x/${moduleName}/normalizedQuery`]}_modified`
         );
       }
     );
@@ -150,14 +189,12 @@ describe('testing namespaced wires factory', () => {
       namespacedWireDispatchWithoutPayload.name +
         ' allows creating wires that dispatch an action without payload',
       () => {
-        // The tested module does not have any actions without payloads.
-        // It is a hack type to test it
-        const wire = namespacedWireDispatchWithoutPayload(moduleName)(actionName as never);
+        const wire = namespacedWireDispatchWithoutPayload(moduleName)(actionName);
 
         wire(subjectHandler.subject, storeMock);
         subjectHandler.emit('celery');
 
-        expect(storeMock.dispatch).toHaveBeenCalledWith(`x/${moduleName}/${actionName}`);
+        expect(storeMock.dispatch).toHaveBeenCalledWith(actionFullPath);
       }
     );
   });

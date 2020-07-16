@@ -84,18 +84,13 @@ describe('testing wires factory', () => {
         ' allows creating wires that commit a mutation with a function payload accessing the' +
         ' store getters',
       () => {
-        const wire = wireCommit(
-          mutationName,
-          ({ getters }) => getters[`x/querySuggestions/trimmedQuery`]
-        );
+        const getterPath = `x/querySuggestions/trimmedQuery`;
+        const wire = wireCommit(mutationName, ({ getters }) => getters[getterPath]);
 
         wire(subjectHandler.subject, storeMock);
         subjectHandler.emit('');
 
-        expect(storeMock.commit).toHaveBeenCalledWith(
-          mutationName,
-          storeMock.getters[`x/querySuggestions/trimmedQuery`]
-        );
+        expect(storeMock.commit).toHaveBeenCalledWith(mutationName, storeMock.getters[getterPath]);
       }
     );
 
@@ -140,6 +135,38 @@ describe('testing wires factory', () => {
         subjectHandler.emit('edamame');
 
         expect(storeMock.dispatch).toHaveBeenCalledWith(actionName, staticQuery);
+      }
+    );
+
+    test(
+      wireDispatch.name +
+        ' allows creating wires that dispatch an action with a function payload accessing the' +
+        ' store state',
+      () => {
+        const wire = wireDispatch(actionName, ({ state }) => state.x.querySuggestions.query);
+
+        wire(subjectHandler.subject, storeMock);
+        subjectHandler.emit('');
+
+        expect(storeMock.dispatch).toHaveBeenCalledWith(
+          actionName,
+          storeMock.state.x.querySuggestions.query
+        );
+      }
+    );
+
+    test(
+      wireDispatch.name +
+        ' allows creating wires that dispatch an action with a function payload accessing the' +
+        ' store getters',
+      () => {
+        const getterPath = `x/querySuggestions/trimmedQuery`;
+        const wire = wireDispatch(actionName, ({ getters }) => getters[getterPath]);
+
+        wire(subjectHandler.subject, storeMock);
+        subjectHandler.emit('');
+
+        expect(storeMock.dispatch).toHaveBeenCalledWith(actionName, storeMock.getters[getterPath]);
       }
     );
 

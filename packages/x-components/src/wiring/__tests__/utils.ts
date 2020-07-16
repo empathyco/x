@@ -19,7 +19,7 @@ export function createQuerySuggestionsStoreMock(): Store<any> {
     state: () => ({
       x: {
         querySuggestions: {
-          query: '',
+          query: 'something cool',
           config: { debounceInMs: 200 }
         }
       }
