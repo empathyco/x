@@ -21,16 +21,14 @@ describe('testing popular search item component', () => {
     const listener = jest.fn();
     popularSearchWrapper.vm.$x.on('UserSelectedAPopularSearch').subscribe(listener);
 
-    popularSearchWrapper.trigger('click');
-
-    await localVue.nextTick();
+    await popularSearchWrapper.trigger('click');
 
     expect(listener).toHaveBeenCalled();
     expect(listener).toHaveBeenCalledWith(suggestion);
   });
 
   it('renders a button with the query of the popular search (suggestion)', () => {
-    expect(popularSearchWrapper.contains('span')).toBeFalsy();
+    expect(popularSearchWrapper.find('span').element).toBeFalsy();
     expect(popularSearchWrapper.element.innerHTML).toEqual(suggestion.query);
   });
 
@@ -57,8 +55,8 @@ describe('testing popular search item component', () => {
       propsData: { suggestion }
     });
 
-    expect(popularSearchWrapper.contains(getDataTestSelector('popular-search'))).toBeTruthy();
-    expect(popularSearchWrapper.contains(getDataTestSelector('icon'))).toBeTruthy();
+    expect(popularSearchWrapper.find(getDataTestSelector('popular-search')).element).toBeTruthy();
+    expect(popularSearchWrapper.find(getDataTestSelector('icon')).element).toBeTruthy();
     expect(popularSearchWrapper.find(getDataTestSelector('query')).element.textContent).toEqual(
       suggestion.query
     );

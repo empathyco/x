@@ -16,15 +16,12 @@ describe('testing sanitize function', () => {
 
   it('should sanitize an HTML element used in a v-html', () => {
     const Component = {
-      template: ' <div v-html="sanitize(XSSPayload)"></div>',
+      template: ' <div v-html="XSSPayload"></div>',
       props: ['XSSPayload']
     };
     const component = mount(Component, {
       propsData: {
-        XSSPayload: '<span onmouseover="window.alert(\'virus\')"></span>'
-      },
-      methods: {
-        sanitize
+        XSSPayload: sanitize('<span onmouseover="window.alert(\'virus\')"></span>')
       }
     });
     expect(component.html()).toEqual(

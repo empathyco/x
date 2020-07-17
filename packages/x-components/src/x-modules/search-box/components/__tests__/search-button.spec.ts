@@ -1,5 +1,4 @@
 import { createLocalVue, mount } from '@vue/test-utils';
-import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
@@ -53,7 +52,7 @@ describe('testing search button component', () => {
 
     resetXSearchBoxStateWith(store, { query: '' });
 
-    await Vue.nextTick();
+    await localVue.nextTick();
 
     searchButtonWrapper.trigger('click');
 
@@ -74,10 +73,9 @@ describe('testing search button component', () => {
     searchButtonWrapper.vm.$x.on('UserPressedSearchButton', true).subscribe(mockedObserver);
 
     resetXSearchBoxStateWith(store, { query });
+    await localVue.nextTick();
 
-    await Vue.nextTick();
-
-    searchButtonWrapper.trigger('click');
+    await searchButtonWrapper.trigger('click');
 
     expect(mockedObserver).toHaveBeenCalledTimes(2);
     expect(mockedObserver).toHaveBeenNthCalledWith(1, mockedObserverCalledWith);

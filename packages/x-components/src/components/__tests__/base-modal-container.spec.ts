@@ -50,7 +50,7 @@ describe('testing Base Modal Container component', () => {
     await localVue.nextTick();
 
     expect((component.vm as any).isOpen).toEqual(true);
-    expect(component.isEmpty()).toBe(false);
+    expect(component.element).not.toBeEmptyDOMElement();
   });
 
   it('closes when any event from the eventsToCloseModal prop is emitted', async () => {
@@ -60,7 +60,7 @@ describe('testing Base Modal Container component', () => {
     await localVue.nextTick();
 
     expect((component.vm as any).isOpen).toEqual(false);
-    expect(component.isEmpty()).toBe(true);
+    expect(component.html()).toHaveLength(0);
   });
 
   it(

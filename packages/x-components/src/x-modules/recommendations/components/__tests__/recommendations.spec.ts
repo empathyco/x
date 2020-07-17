@@ -57,7 +57,7 @@ describe('testing recommendations component', () => {
       store
     });
 
-    expect(recommendationsWrapper.find(BaseResultLink)).toBeDefined();
+    expect(recommendationsWrapper.findComponent(BaseResultLink)).toBeDefined();
 
     const spanList = findAllByTestDataId(recommendationsWrapper, 'title');
     const imageList = findAllByTestDataId(recommendationsWrapper, 'image');
@@ -89,12 +89,10 @@ describe('testing recommendations component', () => {
       }
     });
 
-    recommendationsWrapper.setProps({ animation });
+    await recommendationsWrapper.setProps({ animation });
 
-    await Vue.nextTick();
-
-    expect(recommendationsWrapper.find(animation).exists()).toBeTruthy();
-    expect(recommendationsWrapper.is('ul.test-animation')).toBeTruthy();
+    expect(recommendationsWrapper.findComponent(animation).exists()).toBeTruthy();
+    expect(recommendationsWrapper.find('ul.test-animation')).toBeTruthy();
   });
 
   it('injects custom events for the recommendations', () => {
@@ -120,7 +118,7 @@ describe('testing recommendations component', () => {
       { localVue, store }
     );
 
-    const recommendationResult = recommendationsWrapper.find(RecommendationResult);
+    const recommendationResult = recommendationsWrapper.findComponent(RecommendationResult);
     expect(recommendationResult.exists()).toBeTruthy();
     expect((recommendationResult.vm as any).resultClickExtraEvents).not.toHaveLength(0);
   });

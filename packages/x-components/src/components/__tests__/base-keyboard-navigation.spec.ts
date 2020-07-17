@@ -14,7 +14,7 @@ describe('testing keyboard navigation component', () => {
   it('takes control of the navigation when a defined condition is triggered', () => {
     const mockedFocusNextNavigableElement = jest.fn();
     const searchInput = mount(SearchInput, { localVue });
-    mount(BaseKeyboardNavigation, {
+    const keyboardNavigation = mount(BaseKeyboardNavigation, {
       localVue,
       propsData: {
         navigationHijacker: [
@@ -24,10 +24,10 @@ describe('testing keyboard navigation component', () => {
             direction: 'ArrowDown'
           }
         ]
-      },
-      methods: {
-        focusNextNavigableElement: mockedFocusNextNavigableElement
       }
+    });
+    Object.defineProperty(keyboardNavigation.vm, 'focusNextNavigableElement', {
+      value: mockedFocusNextNavigableElement
     });
     searchInput.trigger('keydown', { key: 'ArrowUp' });
     expect(mockedFocusNextNavigableElement).not.toHaveBeenCalled();

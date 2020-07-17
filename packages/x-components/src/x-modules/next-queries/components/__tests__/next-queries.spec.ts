@@ -45,9 +45,9 @@ describe('testing next queries component', () => {
         <NextQueries>
           <template #suggestion-content="suggestionContentScope">
             <img src="./next-query-icon.svg" class="x-next-query__icon" data-test="icon"/>
-            <span 
-              class="x-next-query__query" 
-              data-test="query" 
+            <span
+              class="x-next-query__query"
+              data-test="query"
               :data-index="suggestionContentScope.index"
               >{{ suggestionContentScope.suggestion.query }}</span>
           </template>
@@ -83,7 +83,7 @@ describe('testing next queries component', () => {
                 <img src="./next-query-icon.svg"
                      class="x-next-query__icon"
                      data-test="icon"/>
-                <span 
+                <span
                   class="x-next-query__query"
                   data-test="query"
                   :data-index="suggestionScope.index"
@@ -105,7 +105,7 @@ describe('testing next queries component', () => {
       store
     });
 
-    expect(nextQueriesWrapper.find(NextQuery)).toBeDefined();
+    expect(nextQueriesWrapper.findComponent(NextQuery)).toBeDefined();
 
     const eventSpansList = findTestDataById(nextQueriesWrapper, 'query');
     const iconsList = findTestDataById(nextQueriesWrapper, 'icon');
@@ -128,20 +128,17 @@ describe('testing next queries component', () => {
   });
 
   it('renders at most the number of NextQuery defined by `maxItemsToRender` prop', async () => {
-    nextQueriesWrapper.setProps({ maxItemsToRender: 2 });
-    await localVue.nextTick();
+    await nextQueriesWrapper.setProps({ maxItemsToRender: 2 });
     let renderedNextQueries = findTestDataById(nextQueriesWrapper, 'next-query');
 
     expect(renderedNextQueries).toHaveLength(2);
 
-    nextQueriesWrapper.setProps({ maxItemsToRender: 3 });
-    await localVue.nextTick();
+    await nextQueriesWrapper.setProps({ maxItemsToRender: 3 });
     renderedNextQueries = findTestDataById(nextQueriesWrapper, 'next-query');
 
     expect(renderedNextQueries).toHaveLength(3);
 
-    nextQueriesWrapper.setProps({ maxItemsToRender: 5 });
-    await localVue.nextTick();
+    await nextQueriesWrapper.setProps({ maxItemsToRender: 5 });
     renderedNextQueries = findTestDataById(nextQueriesWrapper, 'next-query');
 
     expect(renderedNextQueries).toHaveLength(nextQueries.length);

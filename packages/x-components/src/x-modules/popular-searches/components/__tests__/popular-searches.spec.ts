@@ -98,7 +98,7 @@ describe('testing popular searches component', () => {
       store
     });
 
-    expect(popularSearchesWrapper.find(PopularSearch)).toBeDefined();
+    expect(popularSearchesWrapper.findComponent(PopularSearch)).toBeDefined();
 
     const eventSpansList = findTestDataById(popularSearchesWrapper, 'query');
     const iconsList = findTestDataById(popularSearchesWrapper, 'icon');

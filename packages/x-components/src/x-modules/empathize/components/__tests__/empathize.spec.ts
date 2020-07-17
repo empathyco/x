@@ -47,12 +47,10 @@ describe('testing empathize component', () => {
       localVue
     });
 
-    componentWrapper.find(getDataTestSelector('empathize-opener')).trigger('click');
-    await localVue.nextTick();
+    await componentWrapper.find(getDataTestSelector('empathize-opener')).trigger('click');
     expect(componentWrapper.find(getDataTestSelector('empathize')).element).toBeDefined();
 
-    componentWrapper.find(getDataTestSelector('empathize-closer')).trigger('click');
-    await localVue.nextTick();
+    await componentWrapper.find(getDataTestSelector('empathize-closer')).trigger('click');
     expect(componentWrapper.find(getDataTestSelector('empathize')).element).not.toBeDefined();
   });
 });

@@ -96,7 +96,7 @@ describe('testing related tags component', () => {
       store
     });
 
-    expect(relatedTagsWrapper.find(RelatedTag)).toBeDefined();
+    expect(relatedTagsWrapper.findComponent(RelatedTag)).toBeDefined();
 
     const eventSpansList = findTestDataById(relatedTagsWrapper, 'tag');
     const iconsList = findTestDataById(relatedTagsWrapper, 'icon');

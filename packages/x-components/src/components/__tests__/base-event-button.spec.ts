@@ -31,8 +31,8 @@ describe('testing Base Event Button Component', () => {
   });
 
   it('renders everything passed to its default slot', () => {
-    expect(componentWrapper.contains('.test-msg')).toBeTruthy();
-    expect(componentWrapper.contains('.test-icon')).toBeTruthy();
+    expect(componentWrapper.find('.test-msg').exists()).toBe(true);
+    expect(componentWrapper.find('.test-icon').exists()).toBe(true);
   });
 
   it('emits an event with a payload', () => {

@@ -56,7 +56,7 @@ describe('testing IdentifierResult component', () => {
       store
     });
 
-    expect(identifierResultsWrapper.find(BaseResultLink)).toBeDefined();
+    expect(identifierResultsWrapper.findComponent(BaseResultLink)).toBeDefined();
 
     const spanList = findAllByTestDataId(identifierResultsWrapper, 'identifier-result');
 
@@ -89,12 +89,10 @@ describe('testing IdentifierResult component', () => {
       }
     });
 
-    identifierResultsWrapper.setProps({ animation });
+    await identifierResultsWrapper.setProps({ animation });
 
-    await Vue.nextTick();
-
-    expect(identifierResultsWrapper.find(animation).exists()).toBeTruthy();
-    expect(identifierResultsWrapper.is(getDataTestSelector('test-animation'))).toBeTruthy();
+    expect(identifierResultsWrapper.findComponent(animation).exists()).toBeTruthy();
+    expect(identifierResultsWrapper.find('test-animation')).toBeTruthy();
   });
 
   function findAllByTestDataId(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {

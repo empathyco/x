@@ -47,11 +47,11 @@ describe('testing query-suggestion component', () => {
     expect(component.text()).toContain(suggestion.query);
   });
 
-  it('emits UserSelectedAQuerySuggestion event on click', () => {
+  it('emits UserSelectedAQuerySuggestion event on click', async () => {
     const listener = jest.fn();
     const button = component.find(getDataTestSelector('query-suggestion')).element;
     component.vm.$x.on('UserSelectedAQuerySuggestion', true).subscribe(listener);
-    component.trigger('click');
+    await component.trigger('click');
 
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith({
