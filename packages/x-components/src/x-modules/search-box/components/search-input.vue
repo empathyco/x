@@ -6,7 +6,7 @@
     @input="emitUserIsTypingAQueryEvents"
     @keydown.enter="emitUserPressedEnterKey"
     @keydown.up.down.prevent="emitUserPressedArrowKey"
-    :maxlength="config.maxLength"
+    :maxlength="maxLength"
     :value="query"
     autocomplete="off"
     class="x-input x-search-input"
@@ -17,20 +17,21 @@
 </template>
 
 <script lang="ts">
+  import { Suggestion } from '@empathy/search-types';
   import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import { State, XOn } from '../../../components/decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { ArrowKey } from '../../../utils';
+  import { ArrowKey, PropsWithType } from '../../../utils';
   import { debounce, DebouncedFunction } from '../../../utils/debounce';
+  import { XEventsTypes } from '../../../wiring/events.types';
   import { WireMetadata } from '../../../wiring/wiring.types';
-  import { SearchBoxConfig } from '../config.types';
   import { searchBoxXModule } from '../x-module';
 
   /**
    * Search input that reacts to user interaction emitting events.
    *
-   * @internal
+   * @public
    */
   @Component({
     mixins: [xComponentMixin(searchBoxXModule)]
@@ -38,11 +39,44 @@
   export default class SearchInput extends Vue {
     public $refs!: { input: HTMLInputElement };
 
+    /**
+     * Max characters number allowed in the input search.
+     */
+    @Prop({ default: 64 })
+    protected maxLength!: number;
+
+    /**
+     * Allow input autofocus when the search box has been rendered.
+     */
+    @Prop({ default: true })
+    protected autofocus!: boolean;
+
+    /**
+     * Enable the auto accept query after debounce.
+     */
+    @Prop({ default: true })
+    protected instant!: boolean;
+
+    /**
+     * The debounce time for the instant.
+     */
+    @Prop({ default: 500 })
+    protected instantDebounceInMs!: number;
+
+    /**
+     * Keyboard keys to accept the autocomplete suggestion.
+     */
+    @Prop({ default: () => ['ArrowRight'] })
+    protected autocompleteKeyboardKeys!: string[]; // https://keycode.info/
+
+    /**
+     * Event to retrieve the suggestion will be used to autocomplete.
+     */
+    @Prop({ default: 'QuerySuggestionsChanged' })
+    protected autocompleteSuggestionsEvent!: PropsWithType<XEventsTypes, Suggestion[]>;
+
     @State('searchBox', 'query')
     public query!: string;
-
-    @State('searchBox', 'config')
-    public config!: SearchBoxConfig;
 
     /**
      * Focus search input when the user navigates to the search input.
@@ -69,17 +103,16 @@
 
     /**
      * Emits {@link XEventsTypes.UserAcceptedAQuery} event with a debounce configured in
-     * `config.instantDebounceInMs`.
+     * `instantDebounceInMs` prop.
      *
      * @internal
      * @param query - The query that will be emitted.
      */
     emitDebouncedUserAcceptedAQuery(query: string): void {
-      if (this.config.instant) {
+      if (this.instant) {
         if (!this.debouncedUserAcceptedAQuery) {
           this.debouncedUserAcceptedAQuery =
-            // eslint-disable-next-line @typescript-eslint/unbound-method
-            debounce(this.emitUserAcceptedAQuery, this.config.instantDebounceInMs);
+            debounce(this.emitUserAcceptedAQuery.bind(this), this.instantDebounceInMs);
         }
         this.debouncedUserAcceptedAQuery(query);
       }
@@ -204,21 +237,54 @@
   <Tabs
     defaultValue="vue"
     values={[
-    {label:'Vue', value: 'vue'},
-  {label: 'Live', value: 'live'}
-  ]}>
-  <TabItem value="vue">
+      {label:'Vue', value: 'vue'},
+      {label: 'Live', value: 'live'}
+    ]
+  }>
+    <TabItem value="vue">
 
     ```jsx
     <SearchInput />
     ```
 
-  </TabItem>
-  <TabItem value="live">
-
+    </TabItem>
+    <TabItem value="live">
     <ReactSearchInput />
+    </TabItem>
+  </Tabs>
 
-  </TabItem>
+  ## Configuring component by props
+
+  By prop, you can configure `maxLength`, `autofocus`, `instant`, `instantDebounceInMs`,
+  `autocompleteKeyboardKeys` and `autocompleteSuggestionsEvent` of the component.
+
+  <Tabs
+    defaultValue="vue"
+    values={[
+      {label: 'Vue', value: 'vue'},
+      {label: 'Live', value: 'live'},
+    ]
+  }>
+    <TabItem value="vue">
+
+    ```jsx
+    <SearchInput :maxLength="5"
+                 :autofocus="false"
+                 :instant="true"
+                 :instantDebounceInMs="1000"
+                 :autocompleteKeyboardKeys="['ArrowDown']"
+                 :autocompleteSuggestionsEvent="'NextQueriesChanged'"/>
+    ```
+
+    </TabItem>
+    <TabItem value="live">
+    <ReactSearchInput maxLength="5"
+                      autofocus="false"
+                      instant="true"
+                      instantDebounceInMs="1000"
+                      autocompleteKeyboardKeys="['ArrowDown']"
+                      autocompleteSuggestionsEvent="'NextQueriesChanged'"/>
+    </TabItem>
   </Tabs>
 
   ## Using the events
@@ -232,19 +298,20 @@
   <Tabs
     defaultValue="vue"
     values={[
-    {label: 'Vue', value: 'vue'},
-  {label: 'Live', value: 'live'},
-  ]}>
-  <TabItem value="vue">
+      {label: 'Vue', value: 'vue'},
+      {label: 'Live', value: 'live'},
+    ]
+  }>
+    <TabItem value="vue">
 
     ```jsx
     <SearchInput @UserPressedEnterKey="doMagic()" />
     ```
 
-  </TabItem>
-  <TabItem value="live">
+    </TabItem>
+    <TabItem value="live">
     <ReactSearchInput on={{ UserPressedEnterKey: doMagic }} />
-  </TabItem>
+    </TabItem>
   </Tabs>
 
   ## Up next

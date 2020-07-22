@@ -77,12 +77,23 @@
     protected animation!: Vue;
 
     /**
+     * Maximum number of history queries to show. It should be a lower number than the
+     * {@link HistoryQueriesConfig.maxItemsToStore}.
+     */
+    @Prop({ default: 5 })
+    protected maxItemsToRender!: number;
+
+    /**
      * The filtered list of history queries.
      *
      * @internal
      */
     @Getter('historyQueries', 'historyQueries')
-    public historyQueries!: HistoryQueryModel[];
+    public storedHistoryQueries!: HistoryQueryModel[];
+
+    protected get historyQueries(): HistoryQueryModel[] {
+      return this.storedHistoryQueries.slice(0, this.maxItemsToRender);
+    }
   }
 </script>
 
@@ -97,6 +108,13 @@
 
   ```vue
   <HistoryQueries/>
+  ```
+
+  The component has two optional props. `animation` to render the component with an animation and
+  `maxItemToRender` to limit the number of history queries will be rendered (by default it is 5).
+
+  ```vue
+  <HistoryQueries :animation="FadeAndSlide" :maxItemsToRender="10"/>
   ```
 
   ## Overriding Suggestion component

@@ -24,9 +24,4 @@ describe('e2e testing next-queries component', () => {
     cy.get('@searchInput').clear();
     cy.get('@nextQueries').should('have.length.gt', 0);
   });
-
-  it('shows next queries when there is history queries and loadOnInit is true', () => {
-    cy.visit('/?loadOnInit=true');
-    cy.get('@nextQueries').should('have.length.gt', 0);
-  });
 });

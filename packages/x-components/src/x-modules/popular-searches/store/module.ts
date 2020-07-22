@@ -12,7 +12,7 @@ export const popularSearchesXStoreModule: PopularSearchesXStoreModule = {
   state: () => ({
     popularSearches: [],
     config: {
-      maxItemsToRender: 5,
+      maxItemsToRequest: 5,
       showExtraSuggestionWithoutFilter: false
     }
   }),

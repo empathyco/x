@@ -8,7 +8,7 @@ import { PopularSearchesXStoreModule } from '../types';
  */
 export const request: PopularSearchesXStoreModule['getters']['request'] = ({ config }) => {
   return {
-    rows: config.maxItemsToRender,
+    rows: config.maxItemsToRequest,
     start: 0
   };
 };

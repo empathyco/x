@@ -58,7 +58,7 @@ describe('testing X Plugin emitters', () => {
     const newSearchBoxQueryChangedSelector = jest.fn();
     const pluginOptions: XPluginOptions = {
       adapter: SearchAdapterDummy,
-      xModules: {
+      __PRIVATE__xModules: {
         searchBox: {
           storeEmitters: {
             UserIsTypingAQuery: undefined,
@@ -116,7 +116,11 @@ describe('testing X Plugin emitters', () => {
         adapter: SearchAdapterDummy,
         xModules: {
           searchBox: {
-            wiring,
+            wiring
+          }
+        },
+        __PRIVATE__xModules: {
+          searchBox: {
             storeEmitters: {
               SearchBoxQueryChanged: state => state.query
               // immediate false by default
@@ -141,7 +145,11 @@ describe('testing X Plugin emitters', () => {
         adapter: SearchAdapterDummy,
         xModules: {
           searchBox: {
-            wiring,
+            wiring
+          }
+        },
+        __PRIVATE__xModules: {
+          searchBox: {
             storeEmitters: {
               SearchBoxQueryChanged: {
                 selector: state => state.query,
@@ -177,7 +185,11 @@ describe('testing X Plugin emitters', () => {
         adapter: SearchAdapterDummy,
         xModules: {
           searchBox: {
-            wiring,
+            wiring
+          }
+        },
+        __PRIVATE__xModules: {
+          searchBox: {
             storeEmitters: {
               SearchBoxQueryChanged: {
                 selector: state => state.query,

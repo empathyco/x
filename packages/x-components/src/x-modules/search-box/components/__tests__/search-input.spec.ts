@@ -11,9 +11,10 @@ describe('testing search input component', () => {
   let store: Store<DeepPartial<RootXStoreState>>;
   let mockedSearchInput: Wrapper<SearchInput>;
   let input: HTMLInputElement;
+  const listener = jest.fn();
 
   beforeAll(jest.useFakeTimers);
-
+  afterEach(jest.clearAllTimers);
   beforeEach(() => {
     const localVue = createLocalVue();
     localVue.use(Vuex);
@@ -28,10 +29,7 @@ describe('testing search input component', () => {
     input = mockedSearchInput.vm.$refs.input as HTMLInputElement;
 
     jest.clearAllMocks();
-    input.value = '';
   });
-
-  afterEach(jest.clearAllTimers);
 
   it('is an XComponent', () => {
     expect(isXComponent(mockedSearchInput.vm)).toEqual(true);
@@ -42,14 +40,12 @@ describe('testing search input component', () => {
   });
 
   it('emits UserFocusedSearchBox when it gains the focus', () => {
-    const listener = jest.fn();
     mockedSearchInput.vm.$x.on('UserFocusedSearchBox').subscribe(listener);
     mockedSearchInput.trigger('focus');
     expect(listener).toHaveBeenCalled();
   });
 
   it('emits UserBlurredSearchBox when it loses the focus', () => {
-    const listener = jest.fn();
     mockedSearchInput.vm.$x.on('UserBlurredSearchBox').subscribe(listener);
     mockedSearchInput.trigger('focus');
     mockedSearchInput.trigger('blur');
@@ -57,7 +53,6 @@ describe('testing search input component', () => {
   });
 
   it('emits UserIsTypingQuery when typing/pasting', () => {
-    const listener = jest.fn();
     const queries = ['a', 'ab', 'abc'];
     mockedSearchInput.vm.$x.on('UserIsTypingAQuery').subscribe(listener);
 
@@ -72,9 +67,8 @@ describe('testing search input component', () => {
     'emits UserAcceptedAQuery event when typing/pasting if config.instant is true and ' +
       'after the config.instantDebounceInMs timeout',
     () => {
-      resetXSearchBoxStateWith(store, { config: { instant: true, instantDebounceInMs: 100 } });
+      mockedSearchInput.setProps({ instant: true, instantDebounceInMs: 100 });
 
-      const listener = jest.fn();
       const query = 'pulpo';
       mockedSearchInput.vm.$x.on('UserAcceptedAQuery').subscribe(listener);
 
@@ -102,7 +96,7 @@ describe('testing search input component', () => {
 
   it(
     'emits UserPressedEnterKey and UserAcceptedAQuery events when the query length is ' +
-      'greater than  zero and the user pressed the enter key',
+      'greater than zero and the user pressed the enter key',
     () => {
       const enterListener = jest.fn();
       const acceptedQueryListener = jest.fn();

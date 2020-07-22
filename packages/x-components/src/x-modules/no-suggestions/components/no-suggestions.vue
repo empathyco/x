@@ -16,7 +16,7 @@
   import { State } from '../../../components/decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
-  import { NoSuggestionsConfig, XEventArrayPayload } from '../config.types';
+  import { XEventArrayPayload } from '../config.types';
   import { noSuggestionsXModule } from '../x-module';
 
   /**
@@ -32,20 +32,29 @@
     mixins: [xComponentMixin(noSuggestionsXModule)]
   })
   export default class NoSuggestions extends Vue {
+    /**
+     * Message to render. It will replace `{query}` by the current input query, wrapping it inside a
+     * `<button>` and emitting {@link XEventsTypes.UserAcceptedAQuery}, with the current input query
+     * as payload, when clicked.
+     */
     @Prop({ required: true })
     public message!: string;
 
+    /**
+     * Array of events to be listened with any array as payload {@link XEventArrayPayload}. When
+     * the array payload of each event is empty, the no-suggestions will be rendered.
+     */
+    @Prop({ default: () => ['QuerySuggestionsChanged'] })
+    protected eventsToRender!: XEventArrayPayload[];
+
     @State('noSuggestions', 'query')
     public query!: string;
-
-    @State('noSuggestions', 'config')
-    public config!: NoSuggestionsConfig;
 
     protected suggestionsEvents: Partial<Record<XEventArrayPayload, any[] | null>> = {};
     protected eventSubscriptions: Subscription[] = [];
 
     created(): void {
-      this.makeReactiveAndSubscribeEvents(this.config.eventsToRender);
+      this.makeReactiveAndSubscribeEvents(this.eventsToRender);
     }
 
     beforeDestroy(): void {
@@ -92,7 +101,7 @@
      */
     @Watch('query')
     protected onQueryChanged(): void {
-      this.config.eventsToRender.forEach(event => this.suggestionsEvents[event] = null);
+      this.eventsToRender.forEach(event => this.suggestionsEvents[event] = null);
     }
 
     /**
@@ -111,8 +120,8 @@
     }
 
     /**
-     * Makes reactive each {@link NoSuggestionsConfig.eventsToRender | eventsToRender} as property
-     * in the`suggestionsEvents` object and create a subscription for each one.
+     * Makes reactive each `eventsToRender` as property in the`suggestionsEvents` object and
+     * create a subscription for each one.
      *
      * @param eventsToRender - Events {@link XEventArrayPayload} to make reactive them and create a
      * subscription.
@@ -162,6 +171,14 @@
   wrapped with a `button` that will accept that query when clicked.
 
   ```vue
-  <NoSuggestions message="No suggestions for {query}" />
+  <NoSuggestions :message="No suggestions for {query}" />
+  ```
+
+  This component also exposes the `eventsToRender` prop. It is an array of events to be listened
+  with any array as payload. When the array payload of each event is empty, the no-suggestions
+  component will be rendered.
+
+  ```vue
+  <NoSuggestions :eventsToRender="['NextQueriesChanged', 'QuerySuggestionsChanged']" />
   ```
 </docs>

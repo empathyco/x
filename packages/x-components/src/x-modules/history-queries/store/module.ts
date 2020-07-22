@@ -19,7 +19,6 @@ export const historyQueriesXStoreModule: HistoryQueriesXStoreModule = {
   state: () => ({
     config: {
       debounceInMs: 150,
-      maxItemsToRender: 5,
       maxItemsToStore: 50,
       hideIfEqualsQuery: true,
       sessionTTLInMs: 30 * 60 * 1000

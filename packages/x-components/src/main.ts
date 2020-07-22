@@ -18,15 +18,10 @@ const adapter = new EmpathyAdapterBuilder()
 
 Vue.config.productionTip = false;
 installX({ adapter,
-  // TODO remove this way of setting the config after EX-1994 is done.
   xModules: {
     identifierResults: {
-      storeModule: {
-        state: {
-          config: {
-            identifierDetectionRegexp: '^[a-zA-Z][0-9]+'
-          }
-        }
+      config: {
+        identifierDetectionRegexp: '^[a-zA-Z][0-9]+'
       }
     }
   }

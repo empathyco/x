@@ -25,20 +25,20 @@ declare module 'vue/types/vue' {
  * Vue global mixin that adds a `$x` object to every component with the {@link XComponentAPI}.
  *
  * @param bus - The {@link XBus} to use inside the components for emitting events.
- * @param config - The global {@link XConfig}.
+ * @param xConfig - The global {@link XConfig}.
  * @returns Mixin options which registers the component as X-Component and the $x.
  * @internal
  */
 export const createXComponentAPIMixin = (
   bus: XBus,
-  config: XConfig
+  xConfig: XConfig
 ): ComponentOptions<Vue> & ThisType<Vue & { xComponent: XComponent | undefined }> => ({
   created(): void {
     this.xComponent = getRootXComponent(this);
 
     const aliasAPI = getAliasAPI(this.$store);
     const busAPI = getBusAPI(bus, this.xComponent);
-    const xConfigAPI = getXConfigAPI(config);
+    const xConfigAPI = getXConfigAPI(xConfig);
 
     this.$x = Object.assign(aliasAPI, busAPI, xConfigAPI);
   }
@@ -70,12 +70,12 @@ export function getBusAPI(bus: XBus, xComponent: XComponent | undefined): XCompo
 /**
  * Creates an object containing the API related to the {@link XConfig}.
  *
- * @param config - The initial config.
+ * @param xConfig - The initial global {@link XConfig}.
  * @returns A object containing the API related to {@link XConfig}.
  * @internal
  */
-export function getXConfigAPI(config: XConfig): XComponentXConfigAPI {
-  return { config };
+export function getXConfigAPI(xConfig: XConfig): XComponentXConfigAPI {
+  return { xConfig };
 }
 
 /**
@@ -133,16 +133,16 @@ export function getAliasAPI(
 /**
  * Generates a getter path string with the module and getter name.
  *
- * @param module - The module name the getter belongs to.
+ * @param moduleName - The module name the getter belongs to.
  * @param getterName - The getter name.
  * @returns A string representing the getter path.
  * @public
  */
 export function getGetterPath<ModuleName extends XModuleName>(
-  module: ModuleName,
+  moduleName: ModuleName,
   getterName: keyof ExtractGetters<ModuleName>
 ): string {
-  return `x/${module}/${getterName as string}`;
+  return `x/${moduleName}/${getterName as string}`;
 }
 
 /**

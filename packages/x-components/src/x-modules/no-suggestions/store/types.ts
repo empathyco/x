@@ -1,5 +1,4 @@
 import { XStoreModule } from '../../../store/store.types';
-import { NoSuggestionsConfig } from '../config.types';
 
 /**
  * NoSuggestions store state.
@@ -9,8 +8,6 @@ import { NoSuggestionsConfig } from '../config.types';
 export interface NoSuggestionsState {
   /** The query of the no suggestions module. Used to render the component conditionally. */
   query: string;
-  /** The configuration of the no suggestions module. */
-  config: NoSuggestionsConfig;
 }
 
 /**

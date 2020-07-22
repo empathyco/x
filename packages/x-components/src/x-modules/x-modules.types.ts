@@ -1,6 +1,5 @@
 import { StoreEmitters } from '../store/store-emitters.types';
-import { AnyXStoreModule } from '../store/store.types';
-import { Returns } from '../utils/types';
+import { AnyXStoreModule, XStoreModule } from '../store/store.types';
 import { Wiring } from '../wiring/wiring.types';
 import { EmpathizeXModule } from './empathize/x-module';
 import { HistoryQueriesXModule } from './history-queries/x-module';
@@ -69,9 +68,11 @@ export type AnyXModule = XModule<AnyXStoreModule>;
  * @param Module - The module name to extract its state type.
  * @public
  */
-export type ExtractState<Module extends XModuleName> = ReturnType<
-  XModulesTree[Module]['storeModule']['state']
->;
+export type ExtractState<Module extends XModuleName> = XModulesTree[Module] extends XModule<
+  XStoreModule<infer State, any, any, any>
+>
+  ? State
+  : never;
 
 /**
  * Util type for extracting the getter type of a module.
@@ -79,6 +80,8 @@ export type ExtractState<Module extends XModuleName> = ReturnType<
  * @param Module - The module name to extract its getters type.
  * @public
  */
-export type ExtractGetters<Module extends XModuleName> = Returns<
-  XModulesTree[Module]['storeModule']['getters']
->;
+export type ExtractGetters<Module extends XModuleName> = XModulesTree[Module] extends XModule<
+  XStoreModule<any, infer Getter, any, any>
+>
+  ? Getter
+  : never;

@@ -5,9 +5,9 @@
  */
 export interface PopularSearchesConfig {
   /**
-   * Maximum number of popular searches to show.
+   * Number of popular searches to request.
    */
-  maxItemsToRender: number;
+  maxItemsToRequest: number;
   /**
    * Show the extra suggestion that has filters without the filter.
    *

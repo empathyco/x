@@ -7,10 +7,7 @@ import { NoSuggestionsXStoreModule } from './types';
  */
 export const noSuggestionsXStoreModule: NoSuggestionsXStoreModule = {
   state: () => ({
-    query: '',
-    config: {
-      eventsToRender: ['QuerySuggestionsChanged']
-    }
+    query: ''
   }),
   getters: {},
   mutations: {

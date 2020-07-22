@@ -128,20 +128,17 @@ describe('testing next queries component', () => {
   });
 
   it('renders at most the number of NextQuery defined by `maxItemsToRender` prop', async () => {
-    await nextQueriesWrapper.setProps({ maxItemsToRender: 2 });
-    let renderedNextQueries = findTestDataById(nextQueriesWrapper, 'next-query');
+    const renderedNextQueries = (): WrapperArray<Vue> =>
+      findTestDataById(nextQueriesWrapper, 'next-query');
 
-    expect(renderedNextQueries).toHaveLength(2);
+    await nextQueriesWrapper.setProps({ maxItemsToRender: 2 });
+    expect(renderedNextQueries()).toHaveLength(2);
 
     await nextQueriesWrapper.setProps({ maxItemsToRender: 3 });
-    renderedNextQueries = findTestDataById(nextQueriesWrapper, 'next-query');
-
-    expect(renderedNextQueries).toHaveLength(3);
+    expect(renderedNextQueries()).toHaveLength(3);
 
     await nextQueriesWrapper.setProps({ maxItemsToRender: 5 });
-    renderedNextQueries = findTestDataById(nextQueriesWrapper, 'next-query');
-
-    expect(renderedNextQueries).toHaveLength(nextQueries.length);
+    expect(renderedNextQueries()).toHaveLength(nextQueries.length);
   });
 
   function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {

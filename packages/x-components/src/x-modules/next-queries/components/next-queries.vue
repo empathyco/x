@@ -60,17 +60,17 @@
     protected animation!: Vue;
 
     /**
-     * Number of next queries that will be rendered.
+     * Number of next queries to be rendered.
      *
      * @public
      */
-    @Prop({default: 5})
+    @Prop({ default: 5 })
     protected maxItemsToRender!: number;
 
     @Getter('nextQueries', 'nextQueries')
     public storedNextQueries!: NextQueryModel[];
 
-    protected get nextQueries(): NextQueryModel[]{
+    protected get nextQueries(): NextQueryModel[] {
       return this.storedNextQueries.slice(0, this.maxItemsToRender);
     }
   }
@@ -86,6 +86,13 @@
 
   ```vue
   <NextQueries />
+  ```
+
+  The component has two optional props. `animation` to render the component with an animation and
+  `maxItemToRender` to limit the number of next queries will be rendered (by default it is 5).
+
+  ```vue
+  <NextQueries :animation="FadeAndSlide" :maxItemsToRender="10"/>
   ```
 
   ## Overriding Next Queries' Content

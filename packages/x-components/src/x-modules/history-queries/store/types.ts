@@ -34,9 +34,9 @@ export interface HistoryQueriesState {
  */
 export interface HistoryQueriesGetters {
   /**
-   * A sub-set of the {@link HistoryQueriesState.historyQueries} with a maximum length set in
-   * {@link HistoryQueriesConfig.maxItemsToRender}. If the {@link HistoryQueriesState.query}
-   * property is not empty, this list will only contain suggestions whose query matches with it.
+   * A sub-set of the {@link HistoryQueriesState.historyQueries}. If the
+   * {@link HistoryQueriesState.query} property is not empty, this list will only contain
+   * suggestions whose query matches with it.
    */
   historyQueries: HistoryQuery[];
   /** The normalized module's query. */
@@ -145,7 +145,7 @@ export interface HistoryQueriesActions {
   /**
    * Sets the history queries, synchronizing them with the browser storage. It also removes the
    * oldest query if the history queries length is bigger than the
-   * {@link HistoryQueriesConfig.maxItemsToRender}.
+   * {@link HistoryQueriesConfig.maxItemsToStore}.
    *
    * @param historyQueries - The new history queries to save to the state and the browser storage.
    */

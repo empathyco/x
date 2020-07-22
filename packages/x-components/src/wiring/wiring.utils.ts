@@ -35,7 +35,7 @@ export function getStateAndGettersFromModule<ModuleName extends XModuleName>(
   moduleName: ModuleName
 ): StoreModuleStateAndGetters<ModuleName> {
   return {
-    state: state.x[moduleName] as ExtractState<ModuleName>,
+    state: (state.x[moduleName] as unknown) as ExtractState<ModuleName>,
     getters: getGettersProxy(getters, moduleName)
   };
 }

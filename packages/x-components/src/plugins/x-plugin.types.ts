@@ -10,7 +10,7 @@ import { AnyXStoreModule, XStoreModule } from '../store/store.types';
 import { DeepPartial, Dictionary, PropsWithType } from '../utils';
 import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
 import { WireMetadata, Wiring } from '../wiring/wiring.types';
-import { AnyXModule, XModuleName, XModulesTree } from '../x-modules/x-modules.types';
+import { AnyXModule, ExtractState, XModuleName, XModulesTree } from '../x-modules/x-modules.types';
 import { XBus } from './x-bus.types';
 
 /**
@@ -25,9 +25,12 @@ export interface XPluginOptions {
    * into every component. */
   store?: Store<any>;
   /** The global {@link XConfig} accessible in any {@link XComponentAPI | XComponent}. */
-  config?: XConfig;
-  /** Override the default configuration of the {@link XModule | XModules}. */
+  xConfig?: XConfig;
+  /** Override the {@link XModule | XModules} config state and its wiring. */
   xModules?: XModulesOptions;
+  /** Override the {@link XModule | XModules} store module and store emitters. It must be used
+   * only in exceptional cases. */
+  __PRIVATE__xModules?: PrivateXModulesOptions;
 }
 
 /**
@@ -86,10 +89,9 @@ export interface XComponentBusAPI {
  * @public
  */
 export interface XComponentXConfigAPI {
-  /* eslint-disable jsdoc/require-description-complete-sentence */
+  /* eslint-disable-next-line jsdoc/require-description-complete-sentence */
   /** {@inheritDoc XConfig} */
-  config: XConfig;
-  /* eslint-enable jsdoc/require-description-complete-sentence */
+  xConfig: XConfig;
 }
 
 /**
@@ -98,9 +100,7 @@ export interface XComponentXConfigAPI {
  * @public
  */
 export interface XComponentAliasAPI {
-  /**
-   * The query value of the different modules.
-   */
+  /** The query value of the different modules. */
   readonly query: {
     /** The {@link SearchBoxXModule} query. */
     readonly searchBox: string;
@@ -130,28 +130,50 @@ export interface XComponentAliasAPI {
 }
 
 /**
- * Options for overriding the default XModules configuration.
+ * Options for overriding the default config state and wiring for each {@link XModule | XModule}.
  *
  * @public
  */
 export type XModulesOptions = {
-  [N in XModuleName]?: XModuleOptions<XModulesTree[N]>;
+  [ModuleName in XModuleName]?: XModuleOptions<ModuleName>;
 };
 
 /**
- * Options for overriding a default XModule configuration.
+ * Options for overriding the default config state and wiring for a {@link XModule | XModule}.
  *
- * @typeParam Module - The module name to modify its default configuration
+ * @param ModuleName - The {@link XModuleName} to extract the config.
  * @public
  */
-export interface XModuleOptions<Module extends AnyXModule> {
+export interface XModuleOptions<ModuleName extends XModuleName> {
+  /** The options to override the default config state for the module. */
+  config?: DeepPartial<ExtractState<ModuleName> extends { config: infer Config } ? Config : never>;
+  /** The options to override the default wiring configuration for the module. */
+  wiring?: Partial<Wiring>;
+}
+
+/**
+ * Options for overriding the default store module and store emitters for each
+ * {@link XModule | XModule}.
+ *
+ * @public
+ */
+export type PrivateXModulesOptions = {
+  [ModuleName in XModuleName]?: PrivateXModuleOptions<XModulesTree[ModuleName]>;
+};
+
+/**
+ * Options for overriding the default store module and store emitters for a
+ * {@link XModule | XModule}.
+ *
+ * @param Module - The {@link XModule | XModule} to modify its default configuration.
+ * @public
+ */
+export interface PrivateXModuleOptions<Module extends AnyXModule> {
   /** The options to override events that will be emitted when a the getters value or the state
    * of the store changes. */
   storeEmitters?: Partial<StoreEmitters<Module['storeModule']>>;
   /** The options to override the default store module configuration. */
   storeModule?: XStoreModuleOptions<Module['storeModule']>;
-  /** The options to override the default wiring configuration for the module. */
-  wiring?: Partial<Wiring>;
 }
 
 /**
@@ -171,8 +193,8 @@ export type XStoreModuleOptions<
   : never;
 
 /**
- * Alias for any store modules options. Use only when you don't care about the module concrete type.
+ * Alias for any store module option. Use only when you don't care about the module concrete type.
  *
  * @public
  */
-export type AnyXStoreModuleOptions = XStoreModuleOptions<AnyXStoreModule>;
+export type AnyXStoreModuleOption = XStoreModuleOptions<AnyXStoreModule>;

@@ -81,7 +81,7 @@
       </div>
       <div class="x-column">
         <h1>Next Queries</h1>
-        <NextQueries :animation="fadeAndSlide" :loadOnInit="loadOnInit" :maxItemsToRender="10" />
+        <NextQueries :animation="fadeAndSlide" :maxItemsToRender="10" />
       </div>
       <div class="x-column">
         <h1>Related tags</h1>
@@ -166,7 +166,6 @@
     }
   })
   export default class App extends Vue {
-    protected loadOnInit = getURLParameter('loadOnInit') === 'true';
     protected showEmpathize = getURLParameter('showEmpathize') === 'true';
     // eslint-disable-next-line
     private fadeAndSlide = FadeAndSlide;

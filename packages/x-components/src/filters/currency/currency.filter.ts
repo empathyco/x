@@ -11,7 +11,7 @@ import currencyFormatter from './currency-formatter';
  * @public
  */
 export function currency(value: number, currencyParams: Partial<CurrencyOptions> = {}): string {
-  const defaultOptions = XPlugin.config.currencyOptions;
+  const defaultOptions = XPlugin.xConfig.currencyOptions;
   const customOptions = deepMerge({}, defaultOptions, currencyParams);
   return currencyFormatter.format(value, customOptions);
 }

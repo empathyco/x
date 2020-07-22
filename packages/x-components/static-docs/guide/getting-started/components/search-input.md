@@ -16,7 +16,7 @@ The Search input is a component that reacts to user interaction emitting events:
 [UserIsTypingAQuery](../../x-components.searchboxxevents.useristypingaquery) and
 [UserPressedEnterKey](../../x-components.searchboxxevents.userpressedenterkey)
 
-  ## Basic usage
+## Basic usage
 
 Search input lets you to type a query and emits events to other components. This will allow to other components to use this query.
 
@@ -25,7 +25,8 @@ Search input lets you to type a query and emits events to other components. This
   values={[
     {label: 'Vue', value: 'vue'},
     {label: 'Live', value: 'live'}
-  ]}>
+  ]
+}>
   <TabItem value="vue">
 
   ```jsx
@@ -34,13 +35,42 @@ Search input lets you to type a query and emits events to other components. This
 
   </TabItem>
   <TabItem value="live">
-
   <ReactSearchInput />
-
   </TabItem>
 </Tabs>
 
+## Configuring component by props
 
+By prop, you can configure `maxLength`, `autofocus`, `instant`, `instantDebounceInMs`, `autocompleteKeyboardKeys` and `autocompleteSuggestionsEvent` of the component.
+
+<Tabs
+  defaultValue="vue"
+  values={[
+    {label: 'Vue', value: 'vue'},
+    {label: 'Live', value: 'live'},
+  ]
+}>
+  <TabItem value="vue">
+
+  ```jsx
+  <SearchInput :maxLength="5"
+               :autofocus="false"
+               :instant="true"
+               :instantDebounceInMs="1000"
+               :autocompleteKeyboardKeys="['ArrowDown']"
+               :autocompleteSuggestionsEvent="'NextQueriesChanged'"/>
+  ```
+
+  </TabItem>
+  <TabItem value="live">
+  <ReactSearchInput maxLength="5"
+                  autofocus="false"
+                  instant="true"
+                  instantDebounceInMs="1000"
+                  autocompleteKeyboardKeys="['ArrowDown']"
+                  autocompleteSuggestionsEvent="'NextQueriesChanged'"/>
+  </TabItem>
+</Tabs>
 
 ## Using the events
 
@@ -55,7 +85,8 @@ Exist the possibility of call methods to do something when an event is emitted:
   values={[
     {label: 'Vue', value: 'vue'},
     {label: 'Live', value: 'live'},
-  ]}>
+  ]
+}>
   <TabItem value="vue">
 
   ```jsx
@@ -63,12 +94,12 @@ Exist the possibility of call methods to do something when an event is emitted:
   ```
 
   </TabItem>
-   <TabItem value="live">
-     <ReactSearchInput on={{ UserPressedEnterKey: doMagic }} />
-    </TabItem>
+  <TabItem value="live">
+  <ReactSearchInput on={{ UserPressedEnterKey: doMagic }} />
+  </TabItem>
 </Tabs>
 
- ## Up next
+## Up next
 
 Ready for more? Continue reading with:
 

@@ -159,9 +159,9 @@ export function getMockedAdapter(
  *
  * @returns The new module state merged.
  */
-function mergeStates<State extends Dictionary, ModuleName extends XModuleName>(
+function mergeStates<State extends Dictionary>(
   moduleState: State,
-  newPartialState?: DeepPartial<ExtractState<ModuleName>>
+  newPartialState?: DeepPartial<State>
 ): State {
   return deepMerge({}, moduleState, newPartialState);
 }

@@ -9,16 +9,11 @@ export interface HistoryQueriesConfig {
    */
   debounceInMs: number;
   /**
-   * Maximum number of history queries to show. It should be a lower number than the
-   * {@link HistoryQueriesConfig.maxItemsToStore}.
-   */
-  maxItemsToRender: number;
-  /**
    * Maximum number of history queries to save in the browser.
    *
    * @example
-   * With `maxItemsToStore: 100` and `maxItemsToRender: 5` you are saving last 100 queries, but only
-   * showing last 5.
+   * With `maxItemsToStore: 100` and `maxItemsToRender: 5` (HistoryQueries component prop) you are
+   * saving last 100 queries, but only showing last 5.
    */
   maxItemsToStore: number;
   /**

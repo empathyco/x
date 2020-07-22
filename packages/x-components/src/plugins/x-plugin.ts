@@ -19,7 +19,13 @@ import { bus } from './x-bus';
 import { XBus } from './x-bus.types';
 import { DEFAULT_X_CONFIG } from './x-plugin.config';
 import { createXComponentAPIMixin } from './x-plugin.mixin';
-import { AnyXStoreModuleOptions, XConfig, XModuleOptions, XPluginOptions } from './x-plugin.types';
+import {
+  AnyXStoreModuleOption,
+  PrivateXModuleOptions,
+  XConfig,
+  XModuleOptions,
+  XPluginOptions
+} from './x-plugin.types';
 import { assertXPluginOptionsAreValid } from './x-plugin.utils';
 
 /**
@@ -58,10 +64,10 @@ export class XPlugin implements PluginObject<XPluginOptions> {
   /**
    * Gets the global reactive {@link XConfig}.
    *
-   * @returns Config - The xConfig.
+   * @returns Global XConfig - The xConfig.
    * @public
    */
-  public static get config(): XConfig {
+  public static get xConfig(): XConfig {
     return this.getInstance().xConfig;
   }
 
@@ -217,7 +223,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
     this.vue = vue;
     this.options = options;
     this.adapter = options.adapter;
-    this.registerConfig();
+    this.registerXConfig();
     this.registerStore();
     this.applyMixins();
     this.registerFilters();
@@ -228,11 +234,11 @@ export class XPlugin implements PluginObject<XPluginOptions> {
   /**
    * Overrides the existing {@link XConfig}.
    *
-   * @param config - The new or partially new global {@link XConfig}.
+   * @param xConfig - The new or partially new global {@link XConfig}.
    * @public
    */
-  setConfig(config: DeepPartial<XConfig>): void {
-    deepMerge(this.xConfig, config);
+  setXConfig(xConfig: DeepPartial<XConfig>): void {
+    deepMerge(this.xConfig, xConfig);
   }
 
   /**
@@ -259,7 +265,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * @internal
    */
   protected registerWiring(name: XModuleName, wiring: Partial<Wiring>): void {
-    const wiringOptions = this.getModuleOptions(name)?.wiring;
+    const wiringOptions = this.getXModuleOptions(name)?.wiring;
     const customizedWiring: Partial<Wiring> = wiringOptions
       ? deepMerge({}, wiring, wiringOptions)
       : wiring;
@@ -281,90 +287,63 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * @internal
    */
   protected registerStoreModule(name: XModuleName, storeModule: AnyXStoreModule): void {
-    const storeModuleOptions = this.getModuleOptions(name)?.storeModule;
-    const customizedStoreModule: Module<any, any> = storeModuleOptions
-      ? this.customizeStoreModule(storeModule, storeModuleOptions)
-      : storeModule;
+    const storeModuleOptions = this.getPrivateXModuleOptions(name)?.storeModule ?? {};
+    const configOptions = this.getXModuleOptions(name)?.config;
+    const customizedStoreModule: Module<any, any> = this.customizeStoreModule(
+      storeModule,
+      storeModuleOptions,
+      configOptions
+    );
     customizedStoreModule.namespaced = true;
-    this.addConfigMutation(customizedStoreModule);
     this.store.registerModule(['x', name], customizedStoreModule);
   }
 
   /**
-   * Adds to a {@link https://vuex.vuejs.org/ | Vuex} store module the mutation `setConfig` if
-   * the module has a `config` in its state.
-   *
-   * @param storeModule - The module definition to add the mutation.
-   * @returns The same module with the new mutation.
-   *
-   * @internal
-   */
-  protected addConfigMutation(storeModule: Module<any, any>): Module<any, any> {
-    if (this.hasModuleConfig(storeModule)) {
-      const moduleMutations = storeModule.mutations;
-      if (!moduleMutations) {
-        storeModule.mutations = {
-          setConfig: this.getDefaultSetConfigMutation()
-        };
-      } else if (!moduleMutations.setConfig) {
-        moduleMutations.setConfig = this.getDefaultSetConfigMutation();
-      }
-    }
-    return storeModule;
-  }
-
-  /**
-   * Creates a default set config mutation which simply assigns the new configuration entry to
-   * the state.
-   *
-   * @returns A default implementation of the setConfig mutation.
-   * @internal
-   */
-  protected getDefaultSetConfigMutation(): (state: any, config: any) => void {
-    return function setConfig(state: any, config: any): void {
-      Object.assign(state.config, config);
-    };
-  }
-
-  /**
-   * Checks if a {@link https://vuex.vuejs.org/ | Vuex} store module has `config` in the state.
-   *
-   * @param storeModule - The module definition to add the mutation.
-   * @returns Boolean - true if the module has config in its state, false if not.
-   *
-   * @internal
-   */
-  protected hasModuleConfig(storeModule: Module<any, any>): boolean {
-    return typeof storeModule.state === 'function'
-      ? !!(storeModule.state as () => any)().config
-      : !!storeModule.state.config;
-  }
-
-  /**
-   * Retrieves the override options of an {@link XModule}.
+   * Retrieves the overridden private options of an {@link XModule}.
    *
    * @param name - The module name.
-   * @returns Options of the {@link XModule}.
+   * @returns Private options of the {@link XModule}.
    * @internal
    */
-  protected getModuleOptions(name: XModuleName): XModuleOptions<AnyXModule> | undefined {
+  protected getPrivateXModuleOptions(
+    name: XModuleName
+  ): PrivateXModuleOptions<AnyXModule> | undefined {
+    return this.options.__PRIVATE__xModules?.[name];
+  }
+
+  /**
+   * Retrieves the overridden public options of an {@link XModule}.
+   *
+   * @param name - The module name.
+   * @returns Public options of the {@link XModule}.
+   * @internal
+   */
+  protected getXModuleOptions(name: XModuleName): XModuleOptions<any> | undefined {
     return this.options.xModules?.[name];
   }
 
   /**
    * Overrides a {@link https://vuex.vuejs.org/ | Vuex} store module definition.
    *
-   * @param defaultModule - The module to override its configuration.
-   * @param moduleOptions - The options to override the defaultModule.
+   * Priority of configuration merging.
+   * 1st {@link XPluginOptions.xModules | xModules XPlugin option}.
+   * 2nd {@link XPluginOptions.__PRIVATE__xModules | Private xModules XPlugin option}.
+   * 3rd {@link XStoreModule.state | Default state of the xModule}.
+   *
+   * @param defaultModule - The default store module to override.
+   * @param moduleOptions - The state, actions, mutations and getters to override the defaultModule.
+   * @param configOptions - The state config to override the moduleOptions.
    * @returns The {@link XStoreModule} customized.
    * @internal
    */
   protected customizeStoreModule(
-    { state: getState, ...actionsGettersMutations }: AnyXStoreModule,
-    { state: stateOptions, ...newActionsGettersMutations }: AnyXStoreModuleOptions
+    { state: defaultState, ...actionsGettersMutations }: AnyXStoreModule,
+    { state: xModuleState, ...newActionsGettersMutations }: AnyXStoreModuleOption,
+    configOptions: unknown
   ): AnyXStoreModule {
+    const configOptionsObject = configOptions ? { config: configOptions } : {};
     const customizedModule = deepMerge({}, actionsGettersMutations, newActionsGettersMutations);
-    customizedModule.state = deepMerge(getState(), stateOptions);
+    customizedModule.state = deepMerge(defaultState(), xModuleState, configOptionsObject);
     return customizedModule;
   }
 
@@ -382,7 +361,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
     storeModule: AnyXStoreModule,
     storeEmitters: AnyStoreEmitters
   ): void {
-    const storeEmittersOptions = this.getModuleOptions(name)?.storeEmitters;
+    const storeEmittersOptions = this.getPrivateXModuleOptions(name)?.storeEmitters;
     const customizedStoreEmitters: AnyStoreEmitters = storeEmittersOptions
       ? deepMerge({}, storeEmitters, storeEmittersOptions)
       : storeEmitters;
@@ -465,8 +444,8 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    *
    * @internal
    */
-  protected registerConfig(): void {
-    const config: XConfig = deepMerge({}, DEFAULT_X_CONFIG, this.options.config);
+  protected registerXConfig(): void {
+    const config: XConfig = deepMerge({}, DEFAULT_X_CONFIG, this.options.xConfig);
     this.createAdapterConfigChangedListener(this.options.adapter);
     this.xConfig = registerReactiveConfig(this.bus, config);
   }

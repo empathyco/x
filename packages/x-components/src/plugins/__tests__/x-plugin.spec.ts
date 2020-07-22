@@ -11,7 +11,7 @@ import { SearchAdapterDummy } from '../../__tests__/adapter.dummy';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { BaseXBus } from '../x-bus';
 import { XPlugin } from '../x-plugin';
-import { XModulesOptions, XPluginOptions } from '../x-plugin.types';
+import { PrivateXModulesOptions, XModulesOptions, XPluginOptions } from '../x-plugin.types';
 
 const wireToReplace: AnyWire = jest.fn();
 const wireToRemove: AnyWire = jest.fn();
@@ -41,7 +41,12 @@ const xModule: AnyXModule = {
     state: () => ({
       prop: 1,
       complexProp: { propToReplace: 'Replace me', propToKeep: 'But keep me' },
-      propToRemove: ['Hi']
+      propToRemove: ['Hi'],
+      config: {
+        propFromDefault: 'Default state writes it',
+        propReplacedByPrivateXModules: 'Default state writes it',
+        propReplacedByXModules: 'Default state writes it'
+      }
     }),
     getters: {
       getter() {
@@ -144,7 +149,7 @@ describe('testing X Plugin', () => {
     const replacedAction = jest.fn();
     const newMutation = jest.fn();
     const replacedMutation = jest.fn();
-    const xModules: XModulesOptions = {
+    const privateXModulesOptions: PrivateXModulesOptions = {
       searchBox: {
         storeModule: {
           state: {
@@ -152,7 +157,11 @@ describe('testing X Plugin', () => {
             complexProp: {
               propToReplace: "I'm new"
             },
-            newProp: 'New prop'
+            newProp: 'New prop',
+            config: {
+              propReplacedByPrivateXModules: 'Private XModules options writes it',
+              propReplacedByXModules: 'Private XModules options writes it'
+            }
           } as any, // There is some issue with ts-jest that throws different errors of the TS
           // service
           getters: {
@@ -177,6 +186,13 @@ describe('testing X Plugin', () => {
         }
       }
     };
+    const xModulesOptions: XModulesOptions = {
+      searchBox: {
+        config: {
+          propReplacedByXModules: 'XModules options writes it'
+        } as any
+      }
+    };
 
     function expectStoreStateToBeModified(): void {
       expect(store.state.x.searchBox.prop).toEqual(1);
@@ -186,6 +202,11 @@ describe('testing X Plugin', () => {
         propToKeep: 'But keep me'
       });
       expect(store.state.x.searchBox.newProp).toEqual('New prop');
+      expect(store.state.x.searchBox.config).toEqual({
+        propFromDefault: 'Default state writes it',
+        propReplacedByPrivateXModules: 'Private XModules options writes it',
+        propReplacedByXModules: 'XModules options writes it'
+      });
     }
 
     function expectStoreGettersToBeModified(): void {
@@ -225,7 +246,8 @@ describe('testing X Plugin', () => {
       beforeEach(() => {
         XPlugin.registerXModule(xModule);
         installNewXPlugin({
-          xModules,
+          __PRIVATE__xModules: privateXModulesOptions,
+          xModules: xModulesOptions,
           store,
           adapter: SearchAdapterDummy
         });
@@ -240,16 +262,36 @@ describe('testing X Plugin', () => {
     describe('override after installing plugin', () => {
       beforeEach(() => {
         installNewXPlugin({
-          xModules,
+          __PRIVATE__xModules: privateXModulesOptions,
+          xModules: xModulesOptions,
           store,
           adapter: SearchAdapterDummy
         });
         XPlugin.registerXModule(xModule);
       });
+
       it('overrides state', () => expectStoreStateToBeModified());
       it('overrides getters', () => expectStoreGettersToBeModified());
       it('overrides actions', () => expectStoreActionsToBeModified());
       it('overrides mutations', () => expectStoreMutationsToBeModified());
+    });
+
+    it("doesn't create a section of config state if the xModule doesn't contain it", () => {
+      const xModuleWithoutConfig: AnyXModule = {
+        name: 'searchBox',
+        wiring: {},
+        storeEmitters: {},
+        storeModule: {
+          state: () => ({}),
+          getters: {},
+          actions: {},
+          mutations: {}
+        }
+      };
+      installNewXPlugin({ store, adapter: SearchAdapterDummy });
+      XPlugin.registerXModule(xModuleWithoutConfig);
+
+      expect(store.state.x.searchBox.config).not.toBeDefined();
     });
   });
 
@@ -392,87 +434,5 @@ describe('testing X Plugin', () => {
 
       expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(0);
     });
-  });
-
-  describe('default setConfig mutation', () => {
-    const defaultConfigState = (): { config: { testConfig: boolean } } => ({
-      config: { testConfig: false }
-    });
-    const defaultSetConfigMutation = jest.fn();
-
-    function createXModule({
-      withConfigState,
-      withSetConfigMutation
-    }: {
-      withSetConfigMutation: boolean;
-      withConfigState: boolean;
-    }): AnyXModule {
-      return {
-        name: 'searchBox',
-        storeModule: {
-          actions: {},
-          mutations: withSetConfigMutation ? { setConfig: defaultSetConfigMutation } : {},
-          state: withConfigState ? defaultConfigState : () => ({}),
-          getters: {}
-        },
-        storeEmitters: {},
-        wiring: {}
-      };
-    }
-    it('setConfig mutation is not created if there is no module configuration', () => {
-      const module = createXModule({ withConfigState: false, withSetConfigMutation: false });
-      installNewXPlugin({ store, adapter: SearchAdapterDummy });
-      XPlugin.registerXModule(module);
-
-      expect(module.storeModule.mutations).not.toHaveProperty('setConfig');
-    });
-
-    it('setConfig mutation is not created if already present in the module definition', () => {
-      const module = createXModule({ withConfigState: true, withSetConfigMutation: true });
-      installNewXPlugin({ store, adapter: SearchAdapterDummy });
-      XPlugin.registerXModule(module);
-      store.commit('x/searchBox/setConfig', { testConfig: true });
-
-      expect(defaultSetConfigMutation).toHaveBeenCalledWith(defaultConfigState(), {
-        testConfig: true
-      });
-    });
-
-    it('is not created if is present in the x-module store options', () => {
-      const module = createXModule({ withConfigState: true, withSetConfigMutation: true });
-      const customSetConfigMutation = jest.fn();
-      installNewXPlugin({
-        store,
-        xModules: {
-          searchBox: {
-            storeModule: {
-              mutations: {
-                setConfig: customSetConfigMutation
-              }
-            }
-          }
-        },
-        adapter: SearchAdapterDummy
-      });
-      XPlugin.registerXModule(module);
-      store.commit('x/searchBox/setConfig', { testConfig: true });
-
-      expect(customSetConfigMutation).toHaveBeenCalledWith(defaultConfigState(), {
-        testConfig: true
-      });
-    });
-
-    it(
-      'is created if it is not present in the default module definition or in the x-module ' +
-        'store options',
-      () => {
-        const module = createXModule({ withConfigState: true, withSetConfigMutation: false });
-        installNewXPlugin({ store, adapter: SearchAdapterDummy });
-        XPlugin.registerXModule(module);
-        store.commit('x/searchBox/setConfig', { testConfig: true });
-
-        expect(store.state.x.searchBox.config.testConfig).toEqual(true);
-      }
-    );
   });
 });

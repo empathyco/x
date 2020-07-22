@@ -15,21 +15,6 @@ describe('testing history queries module gettters', () => {
   const store: Store<HistoryQueriesState> = new Store(historyQueriesXStoreModule as any);
 
   describe(`${gettersKeys.historyQueries} getter`, () => {
-    it('returns a maximum number of history queries', () => {
-      const [ribEye, ottomanSteak, porterHouse, kafes] = createHistoryQueries(
-        'Rib eye',
-        'Ottoman steak',
-        'Porterhouse',
-        'Kafes'
-      );
-      resetHistoryQueriesStateWith(store, {
-        config: { maxItemsToRender: 2 },
-        historyQueries: [ribEye, ottomanSteak, porterHouse, kafes]
-      });
-
-      expect(store.getters[gettersKeys.historyQueries]).toEqual([ribEye, ottomanSteak]);
-    });
-
     it('removes queries that are equal to the state one', () => {
       const [pilsnerUrquell, zywiec, zwiecBeer, redVintage] = createHistoryQueries(
         'Pilsner Urquell',
@@ -38,7 +23,7 @@ describe('testing history queries module gettters', () => {
         'Red Vintage'
       );
       resetHistoryQueriesStateWith(store, {
-        config: { maxItemsToRender: 2, hideIfEqualsQuery: true },
+        config: { hideIfEqualsQuery: true },
         historyQueries: [pilsnerUrquell, zywiec, zwiecBeer, redVintage],
         query: 'zywiec'
       });
@@ -53,7 +38,6 @@ describe('testing history queries module gettters', () => {
         'Pečená kachna'
       );
       resetHistoryQueriesStateWith(store, {
-        config: { maxItemsToRender: 2 },
         historyQueries: [steakTartar, porkShoulder, pecenaKachna],
         query: 'cená'
       });

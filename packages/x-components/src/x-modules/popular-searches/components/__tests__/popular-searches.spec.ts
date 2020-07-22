@@ -119,6 +119,20 @@ describe('testing popular searches component', () => {
     expect(popularSearchesWrapper.html()).toEqual('');
   });
 
+  it('renders at most the number of PopularSearch defined by `maxItemsToRender` prop', async () => {
+    const renderedPopularSearches = (): WrapperArray<Vue> =>
+      findTestDataById(popularSearchesWrapper, 'popular-search');
+
+    await popularSearchesWrapper.setProps({ maxItemsToRender: 2 });
+    expect(renderedPopularSearches()).toHaveLength(2);
+
+    await popularSearchesWrapper.setProps({ maxItemsToRender: 3 });
+    expect(renderedPopularSearches()).toHaveLength(3);
+
+    await popularSearchesWrapper.setProps({ maxItemsToRender: 5 });
+    expect(renderedPopularSearches()).toHaveLength(popularSearches.length);
+  });
+
   function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {
     return wrapper.findAll(getDataTestSelector(testDataId));
   }

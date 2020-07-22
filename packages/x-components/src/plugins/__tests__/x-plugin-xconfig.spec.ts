@@ -6,7 +6,7 @@ import { XPlugin } from '../x-plugin';
 import { DEFAULT_X_CONFIG } from '../x-plugin.config';
 import { DocumentDirection } from '../x-plugin.types';
 
-describe('testing global config', () => {
+describe('testing global xConfig', () => {
   let xPlugin: XPlugin;
   let localVue: typeof Vue;
 
@@ -15,13 +15,13 @@ describe('testing global config', () => {
     [xPlugin, localVue] = installNewXPlugin();
   });
 
-  it('registers reactive global config via plugin options', () => {
-    expect(XPlugin.config).toMatchObject(DEFAULT_X_CONFIG);
+  it('registers reactive global xConfig via plugin options', () => {
+    expect(XPlugin.xConfig).toMatchObject(DEFAULT_X_CONFIG);
   });
 
-  it('overrides global config through XPlugin.setConfig', () => {
-    xPlugin.setConfig({ consent: true });
-    expect(XPlugin.config).toHaveProperty('consent', true);
+  it('overrides global xConfig through XPlugin.setConfig', () => {
+    xPlugin.setXConfig({ consent: true });
+    expect(XPlugin.xConfig).toHaveProperty('consent', true);
   });
 
   describe("testing integration with plugin's mixin", () => {
@@ -44,33 +44,33 @@ describe('testing global config', () => {
       const listener = jest.fn();
       componentInstance.vm.$x.on('ConfigConsentChanged').subscribe(listener);
       const newConsent = true;
-      componentInstance.vm.$x.config.consent = newConsent;
+      componentInstance.vm.$x.xConfig.consent = newConsent;
 
       await localVue.nextTick();
       expect(listener).toHaveBeenCalledTimes(1);
-      expect(XPlugin.config).toHaveProperty('consent', newConsent);
+      expect(XPlugin.xConfig).toHaveProperty('consent', newConsent);
     });
 
     it('overrides currencyOptions and emits ConfigCurrencyChanged event', async () => {
       const listener = jest.fn();
       componentInstance.vm.$x.on('ConfigCurrencyChanged').subscribe(listener);
       const newCurrencyOptions: Partial<CurrencyOptions> = { symbol: '$' };
-      componentInstance.vm.$x.config.currencyOptions = newCurrencyOptions as CurrencyOptions;
+      componentInstance.vm.$x.xConfig.currencyOptions = newCurrencyOptions as CurrencyOptions;
 
       await localVue.nextTick();
       expect(listener).toHaveBeenCalledTimes(1);
-      expect(XPlugin.config).toHaveProperty('currencyOptions', newCurrencyOptions);
+      expect(XPlugin.xConfig).toHaveProperty('currencyOptions', newCurrencyOptions);
     });
 
     it('overrides documentDirection and emits ConfigDocumentDirectionChanged event', async () => {
       const listener = jest.fn();
       componentInstance.vm.$x.on('ConfigDocumentDirectionChanged').subscribe(listener);
       const newDocumentDirection: DocumentDirection = 'rtl';
-      componentInstance.vm.$x.config.documentDirection = newDocumentDirection;
+      componentInstance.vm.$x.xConfig.documentDirection = newDocumentDirection;
 
       await localVue.nextTick();
       expect(listener).toHaveBeenCalledTimes(1);
-      expect(XPlugin.config).toHaveProperty('documentDirection', newDocumentDirection);
+      expect(XPlugin.xConfig).toHaveProperty('documentDirection', newDocumentDirection);
     });
   });
 });

@@ -1,9 +1,11 @@
 import { HistoryQuery as HistoryQueryModel } from '@empathy/search-types';
-import { createLocalVue, mount } from '@vue/test-utils';
+import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
+import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
+import { createHistoryQueries } from '../../../../__stubs__/history-queries-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import HistoryQueries from '../history-queries.vue';
 import { resetXHistoryQueriesStateWith } from './utils';
@@ -14,23 +16,11 @@ describe('testing history queries component', () => {
   const store = new Store<DeepPartial<RootXStoreState>>({});
   installNewXPlugin({ store }, localVue);
 
-  const historyQueries: HistoryQueryModel[] = [
-    {
-      query: 'moura',
-      modelName: 'HistoryQuery',
-      timestamp: 0
-    },
-    {
-      query: 'calamares',
-      modelName: 'HistoryQuery',
-      timestamp: 0
-    },
-    {
-      query: 'rubia galega',
-      modelName: 'HistoryQuery',
-      timestamp: 0
-    }
-  ];
+  const historyQueries: HistoryQueryModel[] = createHistoryQueries(
+    'moura',
+    'calamares',
+    'rubia galega'
+  );
 
   const historyQueriesWrapper = mount(HistoryQueries, {
     localVue,
@@ -38,7 +28,7 @@ describe('testing history queries component', () => {
   });
 
   beforeEach(() => {
-    resetXHistoryQueriesStateWith(store);
+    resetXHistoryQueriesStateWith(store, { historyQueries });
   });
 
   it('is an XComponent which has an XModule', () => {
@@ -46,59 +36,46 @@ describe('testing history queries component', () => {
     expect(getXComponentXModuleName(historyQueriesWrapper.vm)).toEqual('historyQueries');
   });
 
-  it('does not render the component if history is empty', () => {
+  it('does not render the component if history is empty', async () => {
+    resetXHistoryQueriesStateWith(store, { historyQueries: [] });
+    await localVue.nextTick();
     expect(historyQueriesWrapper.html()).toEqual('');
   });
 
-  // eslint-disable-next-line max-len
-  it('renders the same number of elements than queries has the store if less than maxItemsToRender configuration', async () => {
-    resetXHistoryQueriesStateWith(store, { historyQueries });
-    await localVue.nextTick();
-    const historyQueryItemWrapper = historyQueriesWrapper.findAll(
-      getDataTestSelector('history-query-item')
-    );
-    expect(historyQueryItemWrapper).toHaveLength(historyQueries.length);
-  });
+  it(
+    'renders the same number of elements than queries has the store if less than' +
+      ' maxItemsToRender configuration',
+    () => {
+      const historyQueryItemWrapper = findAllInWrapper('history-query-item');
+      expect(historyQueryItemWrapper).toHaveLength(historyQueries.length);
+    }
+  );
 
   it('limits the number of rendered elements by the maxItemsToRender config property', async () => {
-    resetXHistoryQueriesStateWith(store, {
-      historyQueries,
-      config: { maxItemsToRender: 2 }
-    });
-    await localVue.nextTick();
-    const historyQueryItemWrapper = historyQueriesWrapper.findAll(
-      getDataTestSelector('history-query-item')
-    );
+    await historyQueriesWrapper.setProps({ maxItemsToRender: 2 });
+    const historyQueryItemWrapper = findAllInWrapper('history-query-item');
     expect(historyQueryItemWrapper).toHaveLength(2);
   });
 
   describe('test changing history query content', () => {
     it('allows changing history query content using scopedSlots', () => {
-      resetXHistoryQueriesStateWith(store, { historyQueries });
-      const historyQueriesCustomizedWrapper = mount(HistoryQueries, {
+      const customWrapper = mount(HistoryQueries, {
         localVue,
         store,
         scopedSlots: {
           ['suggestion-content']:
             '<strong data-test="suggestion-content">{{ props.suggestion.query }}</strong>',
-          ['suggestion-remove-content']: '<img  data-test="suggestion-remove-content" />'
+          ['suggestion-remove-content']: '<img data-test="suggestion-remove-content" />'
         }
       });
-      const suggestionContentWrappers = historyQueriesCustomizedWrapper.findAll(
-        getDataTestSelector('suggestion-content')
-      );
-
-      const suggestionRemoveWrappers = historyQueriesCustomizedWrapper.findAll(
-        getDataTestSelector('suggestion-remove-content')
-      );
+      const suggestionContentWrappers = findAllInWrapper('suggestion-content', customWrapper);
+      const suggestionRemoveWrappers = findAllInWrapper('suggestion-remove-content', customWrapper);
 
       expect(suggestionContentWrappers).toHaveLength(historyQueries.length);
       expect(suggestionRemoveWrappers).toHaveLength(historyQueries.length);
     });
 
     it('allows changing history query content using docs example as template', () => {
-      resetXHistoryQueriesStateWith(store, { historyQueries });
-
       const wrapperComponent = {
         template: `
            <HistoryQueries>
@@ -116,17 +93,12 @@ describe('testing history queries component', () => {
           HistoryQueries
         }
       };
-      const historyQueriesCustomizedWrapper = mount(wrapperComponent, {
+      const customWrapper = mount(wrapperComponent, {
         localVue,
         store
       });
-      const suggestionContentWrappers = historyQueriesCustomizedWrapper.findAll(
-        getDataTestSelector('suggestion-history-icon')
-      );
-
-      const suggestionRemoveWrappers = historyQueriesCustomizedWrapper.findAll(
-        getDataTestSelector('suggestion-remove-icon')
-      );
+      const suggestionContentWrappers = findAllInWrapper('suggestion-history-icon', customWrapper);
+      const suggestionRemoveWrappers = findAllInWrapper('suggestion-remove-icon', customWrapper);
 
       expect(suggestionContentWrappers).toHaveLength(historyQueries.length);
       expect(suggestionRemoveWrappers).toHaveLength(historyQueries.length);
@@ -134,8 +106,7 @@ describe('testing history queries component', () => {
   });
 
   it('allows to change HistoryQuery component', () => {
-    resetXHistoryQueriesStateWith(store, { historyQueries });
-    const historyQueriesCustomizedWrapper = mount(HistoryQueries, {
+    const customWrapper = mount(HistoryQueries, {
       localVue,
       store,
       scopedSlots: {
@@ -143,10 +114,15 @@ describe('testing history queries component', () => {
           '<span data-test="suggestion-mock-component">{{ props.suggestion.query }}</span>'
       }
     });
-    const historyQueriesWrapper = historyQueriesCustomizedWrapper.findAll(
-      getDataTestSelector('suggestion-mock-component')
-    );
+    const historyQueriesWrapper = findAllInWrapper('suggestion-mock-component', customWrapper);
 
     expect(historyQueriesWrapper).toHaveLength(historyQueries.length);
   });
+
+  function findAllInWrapper(
+    selector: string,
+    wrapper: Wrapper<Vue> = historyQueriesWrapper
+  ): WrapperArray<Vue> {
+    return wrapper.findAll(getDataTestSelector(selector));
+  }
 });

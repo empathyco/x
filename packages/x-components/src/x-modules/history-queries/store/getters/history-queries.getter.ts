@@ -17,14 +17,11 @@ export class HistoryQueriesGetter implements GettersClass<HistoryQueriesXStoreMo
    * @returns The filtered subset of queries, matching with the current query.
    */
   historyQueries({ query, historyQueries, config }: HistoryQueriesState): HistoryQuery[] {
-    if (query) {
-      const normalizedQuery = normalizeString(query);
-      return historyQueries
-        .filter(this.searchInHistoryQueries(normalizedQuery, config.hideIfEqualsQuery))
-        .slice(0, config.maxItemsToRender);
-    } else {
-      return historyQueries.slice(0, config.maxItemsToRender);
-    }
+    return query
+      ? historyQueries.filter(
+          this.searchInHistoryQueries(normalizeString(query), config.hideIfEqualsQuery)
+        )
+      : historyQueries;
   }
 
   /**

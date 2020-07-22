@@ -1,6 +1,6 @@
 <template>
   <BaseSuggestions
-    :suggestions="suggestions"
+    :suggestions="popularSearches"
     class="x-popular-searches"
     data-test="popular-searches"
     :animation="animation"
@@ -50,9 +50,6 @@
     mixins: [xComponentMixin(popularSearchesXModule)]
   })
   export default class PopularSearches extends Vue {
-    @State('popularSearches', 'popularSearches')
-    public suggestions!: Suggestion[];
-
     /**
      * Animation component that will be used to animate the suggestions.
      *
@@ -60,6 +57,21 @@
      */
     @Prop()
     protected animation!: Vue;
+
+    /**
+     * Number of popular searches to be rendered.
+     *
+     * @public
+     */
+    @Prop({ default: 5 })
+    protected maxItemsToRender!: number;
+
+    @State('popularSearches', 'popularSearches')
+    public storedPopularSearches!: Suggestion[];
+
+    protected get popularSearches(): Suggestion[] {
+      return this.storedPopularSearches.slice(0, this.maxItemsToRender);
+    }
   }
 </script>
 
@@ -73,6 +85,13 @@
 
   ```vue
   <PopularSearches/>
+  ```
+
+  The component has two optional props. `animation` to render the component with an animation and
+  `maxItemToRender` to limit the number of popular searches will be rendered (by default it is 5).
+
+  ```vue
+  <PopularSearches :animation="FadeAndSlide" :maxItemsToRender="10"/>
   ```
 
   ## Overriding Popular Search's Content

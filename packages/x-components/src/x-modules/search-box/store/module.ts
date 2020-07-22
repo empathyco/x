@@ -7,17 +7,7 @@ import { SearchBoxXStoreModule } from './types';
  */
 export const searchBoxXStoreModule: SearchBoxXStoreModule = {
   state: () => ({
-    query: '',
-    config: {
-      maxLength: 64,
-      autofocus: true,
-      instant: true,
-      instantDebounceInMs: 500,
-      autocomplete: {
-        keyboardKeys: ['ArrowRight'],
-        suggestionsEvent: 'QuerySuggestionsChanged'
-      }
-    }
+    query: ''
   }),
   getters: {
     trimmedQuery(state) {
