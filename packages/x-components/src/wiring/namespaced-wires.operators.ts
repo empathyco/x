@@ -1,4 +1,5 @@
 import { XModuleName } from '../x-modules/x-modules.types';
+import { XEvent } from './events.types';
 import { NamespacedTimeRetrieving, NamespacedTimeWireOperator } from './namespaced-wiring.types';
 import { debounce, throttle } from './wires.operators';
 import { AnyWire } from './wiring.types';
@@ -52,8 +53,15 @@ function createNamespacedTimeWireOperator<ModuleName extends XModuleName>(
   moduleName: ModuleName,
   timingOperator: typeof throttle | typeof debounce
 ): NamespacedTimeWireOperator<ModuleName, AnyWire> {
-  return (wire: AnyWire, timeRetrieving: NamespacedTimeRetrieving<ModuleName>) =>
-    timingOperator(wire, ({ state, getters }) =>
-      timeRetrieving(getStateAndGettersFromModule(state, getters, moduleName))
+  return (
+    wire: AnyWire,
+    timeRetrieving: NamespacedTimeRetrieving<ModuleName>,
+    raceEvent: XEvent | XEvent[] = []
+  ) =>
+    timingOperator(
+      wire,
+      ({ state, getters }) =>
+        timeRetrieving(getStateAndGettersFromModule(state, getters, moduleName)),
+      raceEvent
     );
 }

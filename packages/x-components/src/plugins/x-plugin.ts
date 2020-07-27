@@ -278,7 +278,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
       const observable = this.bus.on(event, true);
       // Register event wires
       forEach(wires, (_, wire) => {
-        wire(observable, this.store);
+        wire(observable, this.store, this.bus.on.bind(this.bus));
       });
     });
   }

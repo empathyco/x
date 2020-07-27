@@ -2,6 +2,7 @@ import {
   namespacedWireCommit,
   namespacedWireDispatchWithoutPayload
 } from '../../wiring/namespaced-wires.factory';
+import { namespacedDebounce } from '../../wiring/namespaced-wires.operators';
 import { NamespacedWireCommit } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 
@@ -46,15 +47,22 @@ export const clearQuerySuggestionsQuery = wireCommit('setQuery', '');
 export const getAndSaveSuggestions = wireDispatchWithoutPayload('getAndSaveSuggestions');
 
 /**
+ * Debounce function for the module.
+ */
+const moduleDebounce = namespacedDebounce(moduleName);
+
+/**
  * QuerySuggestions wiring.
  *
  * @internal
  */
 export const querySuggestionsWiring = createWiring({
   UserIsTypingAQuery: {
-    /* TODO - It has to be debounced but first we should solve an asynchronous issue with
-    wireDebounce in the next task https://searchbroker.atlassian.net/browse/EX-1944 */
-    setQuerySuggestionsQuery
+    setQuerySuggestionsQueryDebounce: moduleDebounce(
+      setQuerySuggestionsQuery,
+      ({ state }) => state.config.debounceInMs,
+      'UserAcceptedAQuery'
+    )
   },
   UserAcceptedAQuery: {
     setQuerySuggestionsQuery

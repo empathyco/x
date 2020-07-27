@@ -1,5 +1,6 @@
 import { Observable, Subscription } from 'rxjs';
 import { Store } from 'vuex';
+import { XBus } from '../plugins/x-bus.types';
 import { RootXStoreState } from '../store';
 import { QueryOrigin } from '../types/query-origin';
 import { Dictionary } from '../utils';
@@ -7,7 +8,8 @@ import { XModuleName } from '../x-modules/x-modules.types';
 import { XEvent, XEventPayload } from './events.types';
 
 /**
- * A Wire is a function that receives an observable, the store, and returns a subscription.
+ * A Wire is a function that receives an observable, the store and the on function of the bus it
+ * will run in and returns a subscription.
  *
  * @param PayloadType - The observable payload type, or any if it accepts anything.
  *
@@ -15,7 +17,8 @@ import { XEvent, XEventPayload } from './events.types';
  */
 export type Wire<PayloadType> = (
   observable: Observable<WirePayload<PayloadType>>,
-  store: Store<RootXStoreState>
+  store: Store<RootXStoreState>,
+  on: XBus['on']
 ) => Subscription;
 
 /**

@@ -3,6 +3,7 @@ import {
   namespacedWireDispatch,
   namespacedWireDispatchWithoutPayload
 } from '../../wiring/namespaced-wires.factory';
+import { namespacedDebounce } from '../../wiring/namespaced-wires.operators';
 import { NamespacedWireCommit, NamespacedWireDispatch } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 
@@ -55,15 +56,22 @@ export const fetchAndSaveIdentifierResultsWire = wireDispatchWithoutPayload(
 );
 
 /**
+ * Debounce function for the module.
+ */
+const moduleDebounce = namespacedDebounce(moduleName);
+
+/**
  * Default wiring for the {@link IdentifierResultsXModule} module.
  *
  * @internal
  */
 export const identifierResultsWiring = createWiring({
   UserIsTypingAQuery: {
-    /* TODO - It has to be debounced but first we should solve an asynchronous issue with
-     wireDebounce in the next task https://searchbroker.atlassian.net/browse/EX-1944 */
-    setIdentifierResultsQuery
+    setIdentifierResultsQueryDebounce: moduleDebounce(
+      setIdentifierResultsQuery,
+      ({ state }) => state.config.debounceInMs,
+      'UserAcceptedAQuery'
+    )
   },
   UserAcceptedAQuery: {
     setIdentifierResultsQuery

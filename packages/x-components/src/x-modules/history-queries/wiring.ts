@@ -3,6 +3,7 @@ import {
   namespacedWireDispatch,
   namespacedWireDispatchWithoutPayload
 } from '../../wiring/namespaced-wires.factory';
+import { namespacedDebounce } from '../../wiring/namespaced-wires.operators';
 import { NamespacedWireCommit, NamespacedWireDispatch } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 
@@ -85,6 +86,11 @@ export const clearHistoryQueries = wireDispatch('setHistoryQueries', []);
 export const removeHistoryQuery = wireDispatch('removeFromHistory');
 
 /**
+ * Debounce function for the module.
+ */
+const moduleDebounce = namespacedDebounce(moduleName);
+
+/**
  * Default wiring for the {@link HistoryQueries} module.
  *
  * @internal
@@ -104,9 +110,11 @@ export const historyQueriesWiring = createWiring({
     addQueryToHistoryQueries
   },
   UserIsTypingAQuery: {
-    /* TODO - It has to be debounced but first we should solve an asynchronous issue with
-     wireDebounce in the next task https://searchbroker.atlassian.net/browse/EX-1944 */
-    setHistoryQueriesQuery
+    setHistoryQueriesQueryDebounce: moduleDebounce(
+      setHistoryQueriesQuery,
+      ({ state }) => state.config.debounceInMs,
+      'UserAcceptedAQuery'
+    )
   },
   UserPressedClearHistoryQueries: {
     clearHistoryQueries

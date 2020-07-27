@@ -1,3 +1,4 @@
+import { BaseXBus } from '../../plugins/x-bus';
 import {
   createWireFromFunction,
   wireCommit,
@@ -10,6 +11,8 @@ import { createQuerySuggestionsStoreMock, getExpectedWirePayload, SubjectHandler
 describe('testing wires factory', () => {
   const storeMock = createQuerySuggestionsStoreMock();
   const subjectHandler = new SubjectHandler();
+  const busMock = new BaseXBus();
+  const busOnMock = busMock.on.bind(busMock);
 
   beforeEach(() => {
     subjectHandler.reset();
@@ -25,7 +28,7 @@ describe('testing wires factory', () => {
         const executeFn = jest.fn();
         const wire = createWireFromFunction(executeFn);
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit('choripan');
 
         expect(executeFn).toHaveBeenCalledWith(getExpectedWirePayload('choripan', storeMock));
@@ -42,7 +45,7 @@ describe('testing wires factory', () => {
         const wire = wireCommit(mutationName);
         const query = 'churrasco';
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit(query);
 
         expect(storeMock.commit).toHaveBeenCalledWith(mutationName, query);
@@ -55,7 +58,7 @@ describe('testing wires factory', () => {
         const staticQuery = 'entraña';
         const wire = wireCommit(mutationName, staticQuery);
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit('cauliflower');
 
         expect(storeMock.commit).toHaveBeenCalledWith(mutationName, staticQuery);
@@ -69,7 +72,7 @@ describe('testing wires factory', () => {
       () => {
         const wire = wireCommit(mutationName, ({ state }) => state.x.querySuggestions.query);
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit('');
 
         expect(storeMock.commit).toHaveBeenCalledWith(
@@ -87,7 +90,7 @@ describe('testing wires factory', () => {
         const getterPath = `x/querySuggestions/trimmedQuery`;
         const wire = wireCommit(mutationName, ({ getters }) => getters[getterPath]);
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit('');
 
         expect(storeMock.commit).toHaveBeenCalledWith(mutationName, storeMock.getters[getterPath]);
@@ -100,7 +103,7 @@ describe('testing wires factory', () => {
       () => {
         const wire = wireCommitWithoutPayload(mutationName);
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit('zamburiñas');
 
         expect(storeMock.commit).toHaveBeenCalledWith(mutationName);
@@ -118,7 +121,7 @@ describe('testing wires factory', () => {
         const wire = wireDispatch(actionName);
         const query = 'falda';
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit(query);
 
         expect(storeMock.dispatch).toHaveBeenCalledWith(actionName, query);
@@ -131,7 +134,7 @@ describe('testing wires factory', () => {
         const staticQuery = 'pluma';
         const wire = wireDispatch(actionName, staticQuery);
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit('edamame');
 
         expect(storeMock.dispatch).toHaveBeenCalledWith(actionName, staticQuery);
@@ -145,7 +148,7 @@ describe('testing wires factory', () => {
       () => {
         const wire = wireDispatch(actionName, ({ state }) => state.x.querySuggestions.query);
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit('');
 
         expect(storeMock.dispatch).toHaveBeenCalledWith(
@@ -163,7 +166,7 @@ describe('testing wires factory', () => {
         const getterPath = `x/querySuggestions/trimmedQuery`;
         const wire = wireDispatch(actionName, ({ getters }) => getters[getterPath]);
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit('');
 
         expect(storeMock.dispatch).toHaveBeenCalledWith(actionName, storeMock.getters[getterPath]);
@@ -176,7 +179,7 @@ describe('testing wires factory', () => {
       () => {
         const wire = wireDispatchWithoutPayload(actionName);
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit('oysters');
 
         expect(storeMock.dispatch).toHaveBeenCalledWith(actionName);

@@ -1,6 +1,7 @@
-import { interval } from 'rxjs';
 import { debounce as debounceRx, filter as filterRx, throttle as throttleRx } from 'rxjs/operators';
 import { XModuleName } from '../x-modules/x-modules.types';
+import { XEvent } from './events.types';
+import { handleTimedWire } from './utils/wire-racing-handling';
 import { TimeRetrieving, Wire, WireParams } from './wiring.types';
 
 /**
@@ -17,8 +18,8 @@ export function filter<Payload>(
   wire: Wire<Payload>,
   filterFn: (parameters: WireParams<Payload>) => boolean
 ): Wire<Payload> {
-  return (observable, store) =>
-    wire(observable.pipe(filterRx(wirePayload => filterFn({ ...wirePayload, store }))), store);
+  return (observable, store, on) =>
+    wire(observable.pipe(filterRx(wirePayload => filterFn({ ...wirePayload, store }))), store, on);
 }
 
 /**
@@ -92,21 +93,18 @@ export function filterBlacklistedModules<Payload>(
  * @param wire - The wire to debounce.
  * @param timeInMs - The time in milliseconds to debounce the wire execution or a function to
  * retrieve it from the store.
+ * @param raceEvent - The event or events that would prevent the wire execution if at least one
+ * of them executes first.
  * @returns The Wire function with a debounced timing.
  *
  * @public
  */
 export function debounce<Payload>(
   wire: Wire<Payload>,
-  timeInMs: TimeRetrieving | number
+  timeInMs: TimeRetrieving | number,
+  raceEvent: XEvent | XEvent[] = []
 ): Wire<Payload> {
-  return (observable, store) =>
-    wire(
-      observable.pipe(
-        debounceRx(() => interval(typeof timeInMs === 'function' ? timeInMs(store) : timeInMs))
-      ),
-      store
-    );
+  return handleTimedWire(wire, timeInMs, debounceRx, raceEvent);
 }
 
 /**
@@ -116,22 +114,16 @@ export function debounce<Payload>(
  * @param wire - The wire to throttle.
  * @param timeInMs - The time in milliseconds to throttle the wire execution or a function to
  * retrieve it from the store.
+ * @param raceEvent - The event or events that would prevent the wire execution if at least one
+ * of them executes first.
  * @returns The Wire function with a throttle timing.
  *
  * @public
  */
 export function throttle<Payload>(
   wire: Wire<Payload>,
-  timeInMs: TimeRetrieving | number
+  timeInMs: TimeRetrieving | number,
+  raceEvent: XEvent | XEvent[] = []
 ): Wire<Payload> {
-  return (observable, store) =>
-    wire(
-      observable.pipe(
-        throttleRx(() => interval(typeof timeInMs === 'function' ? timeInMs(store) : timeInMs), {
-          leading: true,
-          trailing: true
-        })
-      ),
-      store
-    );
+  return handleTimedWire(wire, timeInMs, throttleRx, raceEvent);
 }

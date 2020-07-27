@@ -1,3 +1,4 @@
+import { BaseXBus } from '../../plugins/x-bus';
 import {
   namespacedWireCommit,
   namespacedWireCommitWithoutPayload,
@@ -9,6 +10,8 @@ import { createQuerySuggestionsStoreMock, SubjectHandler } from './utils';
 describe('testing namespaced wires factory', () => {
   const moduleName = 'querySuggestions';
   const storeMock = createQuerySuggestionsStoreMock();
+  const busMock = new BaseXBus();
+  const busOnMock = busMock.on.bind(busMock);
 
   const subjectHandler = new SubjectHandler();
 
@@ -29,7 +32,7 @@ describe('testing namespaced wires factory', () => {
         const wire = querySuggestionsWireCommit(mutationName);
         const query = 'porterhouse steak';
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit(query);
 
         expect(storeMock.commit).toHaveBeenCalledWith(mutationFullPath, query);
@@ -43,7 +46,7 @@ describe('testing namespaced wires factory', () => {
         const staticQuery = 'tenderloin';
         const wire = querySuggestionsWireCommit(mutationName, staticQuery);
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit('beans');
 
         expect(storeMock.commit).toHaveBeenCalledWith(mutationFullPath, staticQuery);
@@ -60,7 +63,7 @@ describe('testing namespaced wires factory', () => {
           ({ state }) => `${state.query}_modified`
         );
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit('beans');
 
         expect(storeMock.commit).toHaveBeenCalledWith(
@@ -81,7 +84,7 @@ describe('testing namespaced wires factory', () => {
           ({ getters }) => `${getters.normalizedQuery}_modified`
         );
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit('beans');
 
         expect(storeMock.commit).toHaveBeenCalledWith(
@@ -99,7 +102,7 @@ describe('testing namespaced wires factory', () => {
         // Tested module does not have any mutations without payload. It is a hack type to test it
         const wire = namespacedWireCommitWithoutPayload(moduleName)(mutationName as never);
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit('beetroot');
 
         expect(storeMock.commit).toHaveBeenCalledWith(mutationFullPath);
@@ -119,7 +122,7 @@ describe('testing namespaced wires factory', () => {
         const wire = querySuggestionsWireDispatch(actionName);
         const query = 'osobuco';
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit(query);
 
         expect(storeMock.dispatch).toHaveBeenCalledWith(actionFullPath, query);
@@ -134,7 +137,7 @@ describe('testing namespaced wires factory', () => {
         // The tested module does not have any actions with payload. It is a hack type to test it
         const wire = querySuggestionsWireDispatch(actionName as never, staticQuery as never);
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit('cucumber');
 
         expect(storeMock.dispatch).toHaveBeenCalledWith(actionFullPath, staticQuery);
@@ -152,7 +155,7 @@ describe('testing namespaced wires factory', () => {
           ({ state }) => `${state.query}_modified` as never
         );
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit('beans');
 
         expect(storeMock.dispatch).toHaveBeenCalledWith(
@@ -174,7 +177,7 @@ describe('testing namespaced wires factory', () => {
           ({ getters }) => `${getters.normalizedQuery}_modified` as never
         );
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit('beans');
 
         expect(storeMock.dispatch).toHaveBeenCalledWith(
@@ -191,7 +194,7 @@ describe('testing namespaced wires factory', () => {
       () => {
         const wire = namespacedWireDispatchWithoutPayload(moduleName)(actionName);
 
-        wire(subjectHandler.subject, storeMock);
+        wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit('celery');
 
         expect(storeMock.dispatch).toHaveBeenCalledWith(actionFullPath);

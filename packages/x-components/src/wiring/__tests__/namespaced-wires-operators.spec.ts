@@ -1,11 +1,15 @@
+import { BaseXBus } from '../../plugins/x-bus';
 import { namespacedDebounce, namespacedThrottle } from '../namespaced-wires.operators';
 import { createWireFromFunction } from '../wires.factory';
+import * as operators from '../wires.operators';
 import { createQuerySuggestionsStoreMock, getExpectedWirePayload, SubjectHandler } from './utils';
 
 describe('testing namespaced wires operators', () => {
   const moduleName = 'querySuggestions';
   const storeMock = createQuerySuggestionsStoreMock();
   const timeInMs = storeMock.state.x.querySuggestions.config.debounceInMs;
+  const busMock = new BaseXBus();
+  const busOnMock = busMock.on.bind(busMock);
 
   const executeFunction = jest.fn();
   const wire = createWireFromFunction<any>(executeFunction);
@@ -32,6 +36,15 @@ describe('testing namespaced wires operators', () => {
   );
 
   test(
+    namespacedDebounce.name + ' allows creating wires with debounced time that race events',
+    () => {
+      const debounceSpyOn = jest.spyOn(operators, 'debounce');
+      namespacedDebounce(moduleName)(wire, jest.fn(), 'UserIsTypingAQuery');
+      expect(debounceSpyOn).toHaveBeenCalledWith(wire, expect.any(Function), 'UserIsTypingAQuery');
+    }
+  );
+
+  test(
     namespacedThrottle.name + ' allows creating wires with throttled time retrieved from the store',
     () => {
       createAndEmitTimeWireOperator(namespacedThrottle);
@@ -52,7 +65,7 @@ describe('testing namespaced wires operators', () => {
       wire,
       ({ state }) => state.config.debounceInMs
     );
-    namespacedTimeWire(subjectHandler.subject, storeMock);
+    namespacedTimeWire(subjectHandler.subject, storeMock, busOnMock);
     subjectHandler.emit([1, 2, 3, 4, 5]);
   }
 });
