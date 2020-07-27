@@ -23,6 +23,7 @@ import { XPlugin } from '../plugins/x-plugin';
 import { ActionsDictionary } from '../store/actions.types';
 import { MutationsDictionary } from '../store/mutations.types';
 import { RootXStoreState, XStoreModule } from '../store/store.types';
+import { cleanGettersProxyCache } from '../store/utils/get-getters-proxy';
 import { DeepPartial, Dictionary } from '../utils/types';
 import { ExtractState, XModule, XModuleName } from '../x-modules/x-modules.types';
 import { SearchAdapterDummy } from './adapter.dummy';
@@ -54,6 +55,7 @@ export function resetStoreModuleState<ModuleState extends Dictionary>(
   moduleState: ModuleState,
   newPartialState?: DeepPartial<ModuleState>
 ): void {
+  cleanGettersProxyCache();
   store.replaceState(mergeStates(moduleState, newPartialState));
 }
 
@@ -74,6 +76,7 @@ export function resetStoreXModuleState<ModuleName extends XModuleName>(
   moduleState: ExtractState<ModuleName>,
   newPartialState?: DeepPartial<ExtractState<ModuleName>>
 ): void {
+  cleanGettersProxyCache();
   store.replaceState({
     x: {
       [moduleName]: mergeStates(moduleState, newPartialState)

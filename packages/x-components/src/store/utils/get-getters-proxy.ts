@@ -4,8 +4,10 @@ import { Dictionary } from '../../utils/types';
 import { ExtractGetters, XModuleName } from '../../x-modules/x-modules.types';
 import { AnyXStoreModule } from '../store.types';
 
+type Getters = { [ModuleName in XModuleName]?: ExtractGetters<ModuleName> };
+let cache: Getters = {};
 /**
- * Creates a proxy object of the getters of the storeModule passed.
+ * Creates or return a proxy object of the getters of the storeModule passed.
  *
  * @param getters - The Vuex Store Getters.
  * @param moduleName - The name of the module.
@@ -27,17 +29,24 @@ export function getGettersProxyFromModule<ModuleName extends XModuleName>(
   moduleName: ModuleName,
   storeModule: AnyXStoreModule
 ): ExtractGetters<ModuleName> {
+  /* TODO: Review why TS is not able to exclude undefined types from the Getters cache */
+  const cachedGetter = cache[moduleName];
+  if (isCacheGetterDefined<ModuleName>(cachedGetter)) {
+    return cachedGetter;
+  }
   const modulePath = `x/${moduleName}/`;
-  return reduce(
+  const safeGetters = reduce(
     storeModule.getters as Dictionary,
     (safeGettersProxy, getterName) =>
       defineGetterProxy(safeGettersProxy, getterName, `${modulePath}${getterName}`, getters),
     {} as ExtractGetters<ModuleName>
   );
+  cache[moduleName] = (safeGetters as unknown) as Getters[ModuleName];
+  return safeGetters;
 }
 
 /**
- * Creates a proxy object of the getters of the module with the moduleName passed.
+ * Creates or return a proxy object of the getters of the module with the moduleName passed.
  *
  * @param getters - The Vuex Store Getters.
  * @param moduleName - The name of the module.
@@ -52,14 +61,21 @@ export function getGettersProxy<ModuleName extends XModuleName>(
   getters: Pick<Store<any>, 'getters'>,
   moduleName: ModuleName
 ): ExtractGetters<ModuleName> {
+  /* TODO: Review why TS is not able to exclude undefined types from the Getters cache */
+  const cachedGetter = cache[moduleName];
+  if (isCacheGetterDefined<ModuleName>(cachedGetter)) {
+    return cachedGetter;
+  }
   const modulePath = `x/${moduleName}/`;
   const getterKeys: string[] = Object.keys(getters).filter(getterKey =>
     getterKey.startsWith(modulePath)
   );
-  return getterKeys.reduce((safeGettersProxy, fullPathGetterName) => {
+  const safeGetters = getterKeys.reduce((safeGettersProxy, fullPathGetterName) => {
     const getterName = fullPathGetterName.replace(modulePath, '');
     return defineGetterProxy(safeGettersProxy, getterName, fullPathGetterName, getters);
   }, {} as ExtractGetters<ModuleName>);
+  cache[moduleName] = (safeGetters as unknown) as Getters[ModuleName];
+  return safeGetters;
 }
 
 /**
@@ -86,4 +102,26 @@ function defineGetterProxy<ModuleName extends XModuleName>(
     },
     enumerable: true
   });
+}
+
+/** Clean the cache (This is for testing purpose).
+ *
+ * @internal
+ * */
+export function cleanGettersProxyCache(): void {
+  cache = {};
+}
+
+/**
+ * Checks if the getter cached is defined.
+ *
+ * @param cachedGetter - The getter cached.
+ * @returns If the getters is defined or not.
+ *
+ * @internal
+ */
+function isCacheGetterDefined<ModuleName extends XModuleName>(
+  cachedGetter: ExtractGetters<ModuleName> | undefined | unknown
+): cachedGetter is ExtractGetters<ModuleName> {
+  return cachedGetter !== undefined;
 }

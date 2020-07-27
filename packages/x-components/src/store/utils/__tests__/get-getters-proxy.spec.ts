@@ -52,6 +52,17 @@ describe('testing getGettersProxy util', () => {
     getGettersProxy(storeMock.getters, 'searchBox');
     expect(getter1Spy).not.toHaveBeenCalled();
   });
+
+  // eslint-disable-next-line max-len
+  it('returns a cached version of the getter when called several times with the same module', () => {
+    const gettersProxy = getGettersProxy(storeMock.getters, 'searchBox');
+    const gettersProxyCached = getGettersProxyFromModule(
+      storeMock.getters,
+      'searchBox',
+      storeModuleTest
+    );
+    expect(gettersProxy).toBe(gettersProxyCached);
+  });
 });
 
 describe('testing getGettersProxyFromModule util', () => {

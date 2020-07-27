@@ -10,7 +10,10 @@ import {
   AnyStoreEmitters
 } from '../store/store-emitters.types';
 import { AnyXStoreModule } from '../store/store.types';
-import { getGettersProxyFromModule } from '../store/utils/get-getters-proxy';
+import {
+  cleanGettersProxyCache,
+  getGettersProxyFromModule
+} from '../store/utils/get-getters-proxy';
 import { RootXStoreModule } from '../store/x.module';
 import { DeepPartial, Dictionary, forEach } from '../utils';
 import { AnyWire, Wiring } from '../wiring/wiring.types';
@@ -192,6 +195,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * @internal
    */
   static resetInstance(): void {
+    cleanGettersProxyCache();
     this.instance = undefined;
   }
 
