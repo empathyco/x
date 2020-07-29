@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { BaseXBus } from '../../plugins/x-bus';
 import { createWireFromFunction } from '../wires.factory';
 import {

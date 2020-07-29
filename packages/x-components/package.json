@@ -36,7 +36,6 @@
     "@empathybroker/deep-merge": "^1.2.0",
     "reflect-metadata": "~0.1.13",
     "rxjs": "~6.5.4",
-    "rxjs-compat": "~6.5.4",
     "tslib": "~1.11.1",
     "vue": "^2.6.0",
     "vue-class-component": "~7.1.0",

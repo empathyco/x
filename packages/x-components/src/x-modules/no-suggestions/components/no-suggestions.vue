@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-  import { Subscription } from 'rxjs/Subscription';
+  import { Subscription } from 'rxjs';
   import Vue from 'vue';
   import { Component, Watch, Prop } from 'vue-property-decorator';
   import BaseEventButton from '../../../components/base-event-button.vue';

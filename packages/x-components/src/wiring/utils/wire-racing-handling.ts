@@ -1,7 +1,5 @@
-import { interval } from 'rxjs';
+import { interval, Subject, Subscription } from 'rxjs';
 import { debounce as debounceRx, take as takeRx, throttle as throttleRx } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
 import { Store } from 'vuex';
 import { XBus } from '../../plugins/x-bus.types';
 import { RootXStoreState } from '../../store/store.types';

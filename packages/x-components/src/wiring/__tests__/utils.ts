@@ -1,5 +1,5 @@
 import { createLocalVue } from '@vue/test-utils';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import Vuex, { Store } from 'vuex';
 import { RootXStoreState } from '../../store/store.types';
 import { XModuleName } from '../../x-modules/x-modules.types';

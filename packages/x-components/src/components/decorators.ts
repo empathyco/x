@@ -1,5 +1,5 @@
+import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs/Subscription';
 import Vue, { ComponentOptions } from 'vue';
 import { createDecorator } from 'vue-class-component';
 import { getGetterPath } from '../plugins/x-plugin.mixin';
