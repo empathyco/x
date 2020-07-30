@@ -6,10 +6,12 @@ export default [
   {
     input: 'src/index.ts',
     preserveModules: true,
-    output: {
-      format: 'cjs',
-      dir: 'dist'
-    },
+    output: [
+      {
+        format: 'cjs',
+        dir: 'dist/cjs'
+      }
+    ],
     plugins: [
       del({ targets: 'dist' }),
       typescript({
@@ -27,6 +29,19 @@ export default [
         'api-extractor run --local',
         'api-documenter markdown -i temp -o docs'
       ])
+    ]
+  },
+  {
+    input: 'src/index.ts',
+    preserveModules: true,
+    output: [
+      {
+        format: 'esm',
+        dir: 'dist/esm'
+      }
+    ],
+    plugins: [
+      typescript()
     ]
   },
   {

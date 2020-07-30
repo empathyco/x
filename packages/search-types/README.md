@@ -1,5 +1,17 @@
 # Changelog
 
+## 5.0.0 - 2020/07/30
+
+> EX-1875 Close tags within the documentation between backslashes
+>
+> EX-1843 Add ESM build keeping also the old CommonJS
+>
+> EX-1837 Changed next query schema facets to be an array instead of an object.
+>
+> EX-1693 Unified Suggestion like models properties (RelatedTag, NextQuery, Suggestion, HistoryTerm, PartialResult)
+>
+> EX-1161 Add type to the attribute `modelName` in the interface `NamedModel`
+
 ## 4.0.0 - 2020/02/04
 
 > EX-1506 Add `isWishlisted` field to result model

@@ -9,7 +9,6 @@ export const ResultSchema: Result = {
   callbackInfo: expect.any(Object),
   id: expect.any(String),
   identifier: {
-    html: expect.any(String),
     value: expect.any(String)
   },
   images: expect.arrayOf(String),
@@ -42,7 +41,6 @@ export const RecommendationSchema: Result = {
   callbackInfo: expect.any(Object),
   id: expect.any(String),
   identifier: {
-    html: expect.any(String),
     value: expect.any(String)
   },
   images: expect.arrayOf(String),

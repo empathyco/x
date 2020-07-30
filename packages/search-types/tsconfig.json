@@ -11,7 +11,8 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "types": [
-      "jest"
+      "jest",
+      "@empathy/jest-utils"
     ],
     "lib": [
       "dom",

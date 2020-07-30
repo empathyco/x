@@ -1,14 +1,19 @@
 import { Facet } from './facet/facet.model';
 import { NamedModel } from './named-model.model';
+import { Previewable } from './previewable.model';
 
 /**
  * @public
  * A suggestion represents a query that has been proposed to the user, due of being popular, matching with the current search query...
  */
-export interface Suggestion extends NamedModel {
+export interface Suggestion extends NamedModel, Previewable {
+  /** {@inheritDoc Previewable.facets} */
   facets: Facet[];
-  /** @deprecated The HTML should be calculated in the components that use this model */
-  html: string;
-  term: string;
+
+  /**
+   * Unique identifier of the suggestion
+   *
+   * @deprecated - The key field should be calculated if needed using the `query` and the `facets` properties
+   */
   key: string;
 }

@@ -1,12 +1,11 @@
+import { NamedModel } from '../named-model.model';
+import { Previewable } from '../previewable.model';
+
 /**
  * @public
  * A related tag is just a term that refines the current query
  */
-export interface RelatedTag {
-  /**
-   * The full new query, concatenating the `tag` and the `previous` properties
-   */
-  query: string;
+export interface RelatedTag extends NamedModel, Previewable {
   /**
    * The term to add to the current query
    */

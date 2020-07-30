@@ -20,12 +20,12 @@ export interface Filter<ValueType = any> extends NamedModel {
 
 /**
  * @public
- * An alias of Filter<SimpleValue>
+ * An alias of `Filter<SimpleValue>`
  */
 export type SimpleFilter = Filter<SimpleValue>;
 /**
  * @public
- * An alias of Filter<RangeValue>
+ * An alias of `Filter<RangeValue>`
  */
 export type RangeFilter = Filter<RangeValue>;
 

@@ -5,10 +5,9 @@ import { NextQuery } from '../query-signals/next-query.model';
  * Jest schema for validating Next query entities
  */
 export const NextQuerySchema: NextQuery = {
-  id: expect.any(String),
   modelName: expect.any(String),
-  numFound: expect.any(Number),
   query: expect.any(String),
-  results: expect.any(Array),
-  resultsFacets: expect.any(Object)
+  facets: expect.any(Array),
+  totalResults: expect.any(Number),
+  results: expect.any(Array)
 };

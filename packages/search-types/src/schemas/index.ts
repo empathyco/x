@@ -3,6 +3,7 @@ import '@empathy/jest-utils';
 export * from './banner.schema';
 export * from './facet.schema';
 export * from './filter.schema';
+export * from './history-query.schema';
 export * from './promoted.schema';
 export * from './next-query.schema';
 export * from './related-tag.schema';
