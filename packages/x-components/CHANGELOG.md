@@ -1,4 +1,48 @@
 # X Components
+## [1.0.0](https://bitbucket.org/colbenson/x-components/branches/compare/v1.0.0%0Dv1.0.0-alpha.3) (2020-07-30)
+
+
+### Features
+
+* **base-suggestions:** add index to slot bindings for suggestions ([9e0c327](https://bitbucket.org/colbenson/x-components/commits/9e0c3271a7152b3ce4d8198db83f165628119d09)), closes [EX-1966](https://searchbroker.atlassian.net/browse/EX-1966)
+* **config:** refactor XPluginOptions and XModule configurations ([ed4e140](https://bitbucket.org/colbenson/x-components/commits/ed4e140696f217bc636d587c36206ca2b1fef598)), closes [EX-1994](https://searchbroker.atlassian.net/browse/EX-1994)
+* **decorator:** add support for multiple and dynamic events to XOn decorator ([924b9f7](https://bitbucket.org/colbenson/x-components/commits/924b9f7c2a57585a2a8063e40edb65a709f39afe)), closes [EX-1977](https://searchbroker.atlassian.net/browse/EX-1977)
+* **decorators:** add filtering support to XOn decorator ([5f63f1b](https://bitbucket.org/colbenson/x-components/commits/5f63f1b71cc981ce4d9786fc4b4424aa282b3f76)), closes [EX-1874](https://searchbroker.atlassian.net/browse/EX-1874)
+* **emitters:** add `isDifferent` optional option to emitters for checking if the observed value has really changed ([94e5b27](https://bitbucket.org/colbenson/x-components/commits/94e5b27341e8a99059ccf2dd8d2a4aabadb8164a)), closes [EX-1990](https://searchbroker.atlassian.net/browse/EX-1990)
+* **empathize:** add empathize component ([0449433](https://bitbucket.org/colbenson/x-components/commits/044943390998517419cfaa5e49eae61c24000262)), closes [EX-1894](https://searchbroker.atlassian.net/browse/EX-1894)
+* **getters-proxy:** add cache to the getters proxy ([ea9d091](https://bitbucket.org/colbenson/x-components/commits/ea9d091acc717c9c4562e3be88e719c0eef75930))
+* **identifier-results:** add IdentifierResult component ([d9273dd](https://bitbucket.org/colbenson/x-components/commits/d9273ddab781bc48be49fee108ccbb2bf1740328)), closes [EX-1958](https://searchbroker.atlassian.net/browse/EX-1958)
+* **identifier-results:** add mutations and actions to the module ([f6fd746](https://bitbucket.org/colbenson/x-components/commits/f6fd7467ffc25cd71de1ea88d211a7b14297659e)), closes [EX-1942](https://searchbroker.atlassian.net/browse/EX-1942)
+* **identifier-results:** create identifier results module with getters ([d5159f4](https://bitbucket.org/colbenson/x-components/commits/d5159f49790ac4af28dc58fb079732434e615a25)), closes [EX-1942](https://searchbroker.atlassian.net/browse/EX-1942)
+* **identifier-results:** identifierResults component and module wiring ([d56ca97](https://bitbucket.org/colbenson/x-components/commits/d56ca97fea0996b496526e067339c5c5b3540ef1)), closes [EX-1957](https://searchbroker.atlassian.net/browse/EX-1957)
+* **linter:** add x eslint plugin ([f6ef7f3](https://bitbucket.org/colbenson/x-components/commits/f6ef7f370aaf8f5be1136780c1b0d33163ba6407)), closes [EX-1946](https://searchbroker.atlassian.net/browse/EX-1946)
+* **next queries:** add maxItemsToRender prop ([b420edf](https://bitbucket.org/colbenson/x-components/commits/b420edf0a0e6df05e3a2f110221a8245fcdaac52)), closes [EX-2030](https://searchbroker.atlassian.net/browse/EX-2030)
+* **wiring:** add option to pass a function with the store as payload for the wireDispatch factory methods. ([c7611a9](https://bitbucket.org/colbenson/x-components/commits/c7611a927917dd0e9b3b1ae3c3549e2c5aa6d478)), closes [EX-2002](https://searchbroker.atlassian.net/browse/EX-2002)
+* **wiring:** refactor namespaced wiring ([ec51b88](https://bitbucket.org/colbenson/x-components/commits/ec51b8885b200fdae26040bd228c5fb80d8db5b6)), closes [EX-1888](https://searchbroker.atlassian.net/browse/EX-1888)
+* **wiring:** refactor namespaced wiring ([1cf09f9](https://bitbucket.org/colbenson/x-components/commits/1cf09f947f0760fabf950db784fde21962229e5a)), closes [EX-1888](https://searchbroker.atlassian.net/browse/EX-1888)
+* **x-plugin:** add alias API ([c1f5b5a](https://bitbucket.org/colbenson/x-components/commits/c1f5b5a9d3579eb26bfb6293bce538eff9dd4dd2)), closes [EX-1920](https://searchbroker.atlassian.net/browse/EX-1920)
+
+
+### Bug Fixes
+
+* **wire-operators:** handle race events for the debounce wire operator ([0019ad3](https://bitbucket.org/colbenson/x-components/commits/0019ad37aa88edf2ee9911e76cfc4d29db908c86)), closes [EX-1944](https://searchbroker.atlassian.net/browse/EX-1944)
+
+
+### Documentation
+
+* **slots:** fix slot and binding documentations for vue styleguidist ([9edd795](https://bitbucket.org/colbenson/x-components/commits/9edd795f1da6893f582ac5ee938e55111d053fef)), closes [EX-1963](https://searchbroker.atlassian.net/browse/EX-1963)
+
+
+### Code Refactoring
+
+* **base-components:** refactor open and close button components so they're reusable ([398ba29](https://bitbucket.org/colbenson/x-components/commits/398ba294da7c14698ac0fc9de0e7c883fa9a34a5)), closes [EX-1894](https://searchbroker.atlassian.net/browse/EX-1894)
+* **tests:** update vue-utils-test version and fix test ([0b0f3b2](https://bitbucket.org/colbenson/x-components/commits/0b0f3b277a56f359d413d2300e75d5b6636931e5))
+
+
+### Styling
+
+* **rxjs:** remove rxjs-compat and amend the imports ([213c9e2](https://bitbucket.org/colbenson/x-components/commits/213c9e2d5f7a586a3f1abca8686e3e0926e81980)), closes [EX-2150](https://searchbroker.atlassian.net/browse/EX-2150)
+
 ## [1.0.0-alpha.3](https://bitbucket.org/colbenson/x-components/branches/compare/v1.0.0-alpha.3%0Dv1.0.0-alpha.2) (2020-06-15)
 
 
