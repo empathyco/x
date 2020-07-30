@@ -7,9 +7,9 @@ const relatedTagsMapper = new EmpathyRequestRelatedTagsQueryMapper();
 it('Appends related tags to query', () => {
   const query = 'lego';
   const relatedTags: RelatedTag[] = [
-    { tag: 'city', previous: 'lego', query: 'lego city', selected: true },
-    { tag: 'friends', previous: 'lego', query: 'lego friends', selected: true },
-    { tag: 'playmobil farm', previous: 'lego', query: 'lego playmobil farm', selected: true }
+    { modelName: 'RelatedTag', tag: 'city', previous: 'lego', query: 'lego city', selected: true },
+    { modelName: 'RelatedTag', tag: 'friends', previous: 'lego', query: 'lego friends', selected: true },
+    { modelName: 'RelatedTag', tag: 'playmobil farm', previous: 'lego', query: 'lego playmobil farm', selected: true }
   ];
   const rawRequest: QueryableRequest = {
     query: query,

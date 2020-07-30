@@ -29,11 +29,13 @@ import {
 } from '../types';
 import { EmpathyAdapterConfig } from './config/empathy-adapter-config.types';
 import { DEPENDENCIES } from './container/container.const';
-import { Requestor } from './empathy-adapter.types';
+import { EmpathyAdapterConfigChangedListener, Requestor } from './empathy-adapter.types';
 import { CacheService } from './services/cache-service.types';
 
 @injectable()
-export class EmpathyAdapter implements SearchAdapter {
+export class EmpathyAdapter implements SearchAdapter<EmpathyAdapterConfig> {
+  protected configChangedListeners: Set<EmpathyAdapterConfigChangedListener> = new Set();
+
   constructor(
     @inject(DEPENDENCIES.config)
     protected readonly config: EmpathyAdapterConfig,
@@ -97,5 +99,20 @@ export class EmpathyAdapter implements SearchAdapter {
 
   setConfig(newConfig: DeepPartial<EmpathyAdapterConfig>): void {
     deepMerge(this.config, newConfig);
+    this.notifyConfigChangedListeners();
+  }
+
+  addConfigChangedListener(listener: EmpathyAdapterConfigChangedListener): void {
+    this.configChangedListeners.add(listener);
+  }
+
+  removeConfigChangedListener(listener: EmpathyAdapterConfigChangedListener): void {
+    this.configChangedListeners.delete(listener);
+  }
+
+  protected notifyConfigChangedListeners() {
+    this.configChangedListeners.forEach(listener => {
+      listener(this.config);
+    });
   }
 }

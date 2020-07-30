@@ -108,10 +108,9 @@ it('Maps response object values', async () => {
 
   expect(suggestions).toEqual({
     key: mockedResponse.data.suggestions,
-    html: `<span>${ mockedResponse.data.suggestions }</span>`,
     facets: [],
-    modelName: 'TermSuggestion',
-    term: mockedResponse.data.suggestions
+    modelName: 'QuerySuggestion',
+    query: mockedResponse.data.suggestions
   });
 });
 
@@ -122,12 +121,11 @@ it('Maps response array values', async () => {
 
   const { suggestions } = await requestor.request({ a: 'Hello', b: 'World' });
 
-  expect(suggestions).toEqual(mockedResponse.data.suggestions.map<Suggestion>(term => ({
-    key: term,
-    html: `<span>${ term }</span>`,
+  expect(suggestions).toEqual(mockedResponse.data.suggestions.map<Suggestion>(query => ({
+    key: query,
     facets: [],
-    modelName: 'TermSuggestion',
-    term
+    modelName: 'QuerySuggestion',
+    query
   })));
 });
 

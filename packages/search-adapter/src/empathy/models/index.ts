@@ -15,4 +15,3 @@ export * from './requests/empathy-related-tags.request';
 export * from './requests/empathy-search.request';
 export * from './requests/empathy-search-by-id.request';
 export * from './requests/empathy-suggestions.request';
-

@@ -1,4 +1,5 @@
-import { Dictionary, RequestOptions } from '../types';
+import { ConfigChangedListener, Dictionary, RequestOptions } from '../types';
+import { EmpathyAdapterConfig } from './config/empathy-adapter-config.types';
 
 export interface Requestor<RequestType = any, ResponseType = any> {
   request(params: RequestType, requestOptions?: RequestOptions): Promise<ResponseType>;
@@ -64,3 +65,5 @@ export interface ResponseTransformedContext<RawResponseType = any, ResponseType 
   /* The transformed response */
   response: ResponseType;
 }
+
+export type EmpathyAdapterConfigChangedListener = ConfigChangedListener<EmpathyAdapterConfig>;

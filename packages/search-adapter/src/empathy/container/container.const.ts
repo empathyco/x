@@ -35,7 +35,6 @@ export const DEPENDENCIES = {
   },
   ResponseMappers: {
     Helpers: {
-      queryHighlighting: 'QueryHighlightingMapper',
       tagging: 'TaggingMapper'
     },
     banners: 'BannersMapper',

@@ -33,8 +33,8 @@ afterEach(() => {
 
 it('Maps related tags to query', () => {
   const relatedTags: RelatedTag[] = [
-    { tag: 'skinny', previous: 'jeans', query: 'skinny jeans', selected: true },
-    { tag: 'short', previous: 'jeans', query: 'short jeans', selected: true }
+    { modelName: 'RelatedTag', tag: 'skinny', previous: 'jeans', query: 'skinny jeans', selected: true },
+    { modelName: 'RelatedTag', tag: 'short', previous: 'jeans', query: 'short jeans', selected: true }
   ];
   const rawRequest: SearchRequest = { query: 'jeans', origin: 'default', start: 0, rows: 24, relatedTags };
   const request = {} as EmpathySearchRequest;

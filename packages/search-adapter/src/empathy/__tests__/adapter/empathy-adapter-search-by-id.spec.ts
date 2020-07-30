@@ -1,4 +1,3 @@
-import { Result } from '@empathy/search-types';
 import { ResultSchema } from '@empathy/search-types/schemas';
 import { SearchByIdSimpleResponse } from '../../__fixtures__/responses/search-by-id.response';
 import { adapter } from '../../__mocks__/adapter.mocks';
@@ -12,10 +11,4 @@ it('searches results by id successfully', async () => {
 
   expect(response.results).everyItemToMatch(ResultSchema);
   expect(response.results).toHaveLength(SearchByIdSimpleResponse.content.docs.length);
-  expectEveryResultToHaveSkuHtmlPropertyWithQueryHighlighted(response.results, query);
 });
-
-function expectEveryResultToHaveSkuHtmlPropertyWithQueryHighlighted(results: Result[], query: string) {
-  const regexp = new RegExp(`<strong class="ebx-result-identifier__query">${ query }<\/strong>`, 'i');
-  results.forEach(result => expect(result.identifier.html).toMatch(regexp));
-}

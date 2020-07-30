@@ -7,12 +7,11 @@ import { EmpathyNextQuery } from '../../models/entities/empathy-next-query.model
 export class EmpathyNextQueryMapper implements ResponseMapper<EmpathyNextQuery, NextQuery> {
   map(rawNextQuery: EmpathyNextQuery, nextQuery: NextQuery): NextQuery {
     return Object.assign(nextQuery, {
-      id: rawNextQuery.query.replace(/\s+/g, '-').toLowerCase(),
-      query: rawNextQuery.query,
       modelName: 'NextQuery',
+      query: rawNextQuery.query,
       results: [],
-      resultsFacets: {},
-      numFound: 0
+      facets: [],
+      totalResults: 0
     });
   }
 }

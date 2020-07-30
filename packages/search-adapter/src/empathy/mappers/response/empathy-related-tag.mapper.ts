@@ -7,6 +7,7 @@ import { EmpathyRelatedTag } from '../../models';
 export class EmpathyRelatedTagMapper implements ResponseMapper<EmpathyRelatedTag, RelatedTag> {
   map(rawRelatedTag: EmpathyRelatedTag, relatedTag: RelatedTag): RelatedTag {
     return Object.assign(relatedTag, {
+      modelName: 'RelatedTag',
       tag: rawRelatedTag.tag,
       query: rawRelatedTag.query,
       previous: rawRelatedTag.query.replace(rawRelatedTag.tag, '').trim(),

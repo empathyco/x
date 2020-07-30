@@ -10,7 +10,6 @@ import { pipeMappers } from '../../pipe-mappers';
 
 @injectable()
 export class EmpathyResultMapper implements ResponseMapper<EmpathyResult, Result> {
-  private readonly highlightWithQuery: MapFn<string, string>;
   private readonly logger = Logger.child('EmpathyResultMapper');
   private readonly mapTagging: MapFn<string, Tagging>;
   private readonly trackingResultConfig: TrackingResultConfig;
@@ -18,17 +17,12 @@ export class EmpathyResultMapper implements ResponseMapper<EmpathyResult, Result
   constructor(
     @inject(DEPENDENCIES.config) config: EmpathyAdapterConfig,
     @multiInject(DEPENDENCIES.ResponseMappers.Helpers.tagging) taggingMappers: ResponseMapper<string, Tagging>[],
-    @multiInject(DEPENDENCIES.ResponseMappers.Helpers.queryHighlighting) queryHighlightingMappers: ResponseMapper<string, string>[]
   ) {
     this.mapTagging = pipeMappers(...taggingMappers);
-    this.highlightWithQuery = pipeMappers(...queryHighlightingMappers);
     this.trackingResultConfig = config.mappings.tracking.result;
   }
 
   map(rawResult: EmpathyResult, result: Result, context: ResponseMapperContext): Result {
-    if (!context.queryHighlightingClass) {
-      context.queryHighlightingClass = 'ebx-result-identifier__query';
-    }
     const value = Number.parseFloat((rawResult.price) as string);
     const originalValue = Number.parseFloat((rawResult.originalPrice || rawResult.price) as string);
     const sku = rawResult.eb_sku || '';
@@ -49,8 +43,7 @@ export class EmpathyResultMapper implements ResponseMapper<EmpathyResult, Result
         value: rawResult.rating !== undefined ? Number.parseFloat((rawResult.rating) as string) : null
       },
       identifier: {
-        value: sku,
-        html: sku ? this.highlightWithQuery(sku, sku, context) : sku
+        value: sku
       },
       tagging: this.createResultTagging(rawResult, result.tagging || {}, context),
       isWishlisted: rawResult.isWishlisted || false

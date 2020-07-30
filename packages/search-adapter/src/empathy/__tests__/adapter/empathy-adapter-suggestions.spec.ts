@@ -23,7 +23,6 @@ it('gets suggestions with query successfully', async () => {
 
   expect(response.suggestions.length).toBeGreaterThanOrEqual(SuggestionsWithLegoQuery.topTrends.length);
   expectSuggestionsToMatchSchema(response.suggestions);
-  expectEverySuggestionToHaveHtmlPropertyWithQueryHighlighted(response.suggestions, 'lego');
 });
 
 function expectSuggestionsToMatchSchema(suggestions: Suggestion[]) {
@@ -32,9 +31,4 @@ function expectSuggestionsToMatchSchema(suggestions: Suggestion[]) {
     expect(facet).toMatchObject(FacetSchema);
     expect(facet.filters).everyItemToMatch(FilterSchema);
   }));
-}
-
-function expectEverySuggestionToHaveHtmlPropertyWithQueryHighlighted(suggestions: Suggestion[], query: string) {
-  const regexp = new RegExp(`<strong class="ebx-suggestion__query">${ query }<\/strong>`, 'i');
-  suggestions.forEach(suggestion => expect(suggestion.html).toMatch(regexp));
 }

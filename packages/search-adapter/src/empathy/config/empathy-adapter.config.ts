@@ -67,7 +67,7 @@ export const DEFAULT_EMPATHY_ADAPTER_CONFIG: EmpathyAdapterConfig = {
       cacheTTLInMinutes: DEFAULT_CACHE_CONFIG.TTLInMinutes.Side
     },
     search: {
-      endpoint: 'api{env}.empathybroker.com/search/v1/query/{instance}/search',
+      endpoint: 'api{env}.empathybroker.com/search/v1/query/{instance}/searchX',
       responsePaths: {
         banners: 'banner',
         facets: 'content.facets',

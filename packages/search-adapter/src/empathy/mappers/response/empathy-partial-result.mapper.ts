@@ -17,9 +17,9 @@ export class EmpathyPartialResultMapper implements ResponseMapper<EmpathyPartial
 
   map(rawPartialResult: EmpathyPartialResult, partialResult: PartialResult, context: ResponseMapperContext): PartialResult {
     return Object.assign(partialResult, {
-      term: rawPartialResult.suggestion,
-      numFound: rawPartialResult.numFound,
-      results: rawPartialResult.docs.map((rawResult: any) => this.mapResult(rawResult, {} as Result, context))
+      query: rawPartialResult.suggestion,
+      totalResults: rawPartialResult.numFound,
+      results: rawPartialResult.docs.map(rawResult => this.mapResult(rawResult, {} as Result, context))
     });
   }
 }

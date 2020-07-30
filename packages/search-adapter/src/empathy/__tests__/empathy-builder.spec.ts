@@ -282,6 +282,14 @@ it('Allows to modify query tracking config', () => {
   expect(config.mappings.query.maxLength).toEqual(64);
 });
 
+it('Allows enabling the cache', () => {
+  builder
+    .enableCache()
+    .build();
+
+  expect(container.get(DEPENDENCIES.cacheService)).toBeDefined();
+});
+
 function getRequestor<RequestorType extends Requestor>(feature: FeatureNames): RequestorType {
   return container.get<RequestorType>(DEPENDENCIES.Requestors[feature]);
 }

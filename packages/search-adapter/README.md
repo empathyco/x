@@ -410,7 +410,28 @@ export class CustomAdapter implements SearchAdapter {
 }
 ```
 
-These are the basic methods for a custom adapter to work, but there are also some optional methods that you can implement, and which may help you build a more advanced adapter with standardized function names:
+These are the basic methods for a custom adapter to work, but there are also some optional methods that you can implement, and which may help you build a more advanced adapter with standardized function names.
 
-* `setConfig<T>(config: T): void` If your adapter has any kind of configurations, that can be changed dynamically, you can implement this method. As this method is generic, you can pass to it whatever you want.
+* `setConfig(config: ConfigType): void` If your adapter has any kind of configurations, that can be changed dynamically, you can implement this method. As this method is generic, you can pass to it whatever you want.
+* `addConfigChangedListener(listener: ConfigChangedListener<ConfigType>): void` Allows a user to subscribe to config changes. The listener will be called whenever the config changes.
+* `removeConfigChangedListener(listener: ConfigChangedListener<ConfigType>): void` Allows a user to unsubscribe to config changes.
 * `invalidateCache(): void` If your adapter has any cache, you may have the need of invalidate it. Then, you can implement the `invalidateCache` method
+
+Note that for some of these methods to work, you will have to pass a configuration type to the `SearchAdapter` interface.
+
+```typescript
+import { SearchAdapter } from '@empathy/search-adapter'; import { DeepPartial } from './utils.types';
+
+export interface AdvancedAdapterConfig {
+  env: 'live' | 'staging';
+  lang: string;
+}
+
+export class Advanced implements SearchAdapter<AdvancedAdapterConfig> {
+  protected config: AdvancedAdapterConfig;
+ // ... All mandatory methods have been omitted
+  setConfig(newConfig: DeepPartial<AdvancedAdapterConfig>) {
+    Object.assign(this.config, newConfig);
+  }
+}
+```

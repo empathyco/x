@@ -19,7 +19,6 @@ export * from './response/empathy-facet.mapper';
 export * from './response/empathy-next-query.mapper';
 export * from './response/empathy-partial-result.mapper';
 export * from './response/empathy-promoted.mapper';
-export * from './response/empathy-query-highlighting.mapper';
 export * from './response/empathy-redirection.mapper';
 export * from './response/empathy-related-tag.mapper';
 export * from './response/empathy-simple-value.mapper';

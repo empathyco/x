@@ -51,8 +51,8 @@ it('Query mapper is not called when query is empty', () => {
 
 it('Maps related tags to query', () => {
   const relatedTags: RelatedTag[] = [
-    { tag: 'city', previous: 'lego', query: 'lego city', selected: true },
-    { tag: 'friends', previous: 'lego', query: 'lego friends', selected: true }
+    { modelName: 'RelatedTag', tag: 'city', previous: 'lego', query: 'lego city', selected: true },
+    { modelName: 'RelatedTag', tag: 'friends', previous: 'lego', query: 'lego friends', selected: true }
   ];
   // This const has an any type because TS don't understand the type QueryableRequest & Dictionary<string> :(
   const rawRequest: any = {

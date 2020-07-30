@@ -24,8 +24,9 @@ import {
   TopRecommendationsResponse,
   UserRecommendationsResponse
 } from './response.types';
+import { DeepPartial } from './utils.types';
 
-export interface SearchAdapter {
+export interface SearchAdapter<Config = any> {
   // Required functions
   getNextQueries(request: NextQueriesRequest, requestOptions?: RequestOptions): Promise<NextQueriesResponse>;
   getTopRecommendations(request: TopRecommendationsRequest, requestOptions?: RequestOptions): Promise<TopRecommendationsResponse>;
@@ -43,5 +44,9 @@ export interface SearchAdapter {
 
   // Optional functions
   invalidateCache?(): void;
-  setConfig?<T>(config: T): void;
+  setConfig?(config: DeepPartial<Config>): void;
+  addConfigChangedListener?(listener: ConfigChangedListener<Config>): void;
+  removeConfigChangedListener?(listener: ConfigChangedListener<Config>): void;
 }
+
+export type ConfigChangedListener<T> = (newConfig: T) => void;

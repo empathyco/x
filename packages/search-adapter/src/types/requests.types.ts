@@ -1,6 +1,37 @@
 import { Filter, RelatedTag } from '@empathy/search-types';
 import { Dictionary } from './utils.types';
 
+// Request utils:
+export interface QueryableRequest {
+  query: string;
+  relatedTags?: RelatedTag[];
+}
+
+export interface FilterableRequest {
+  filters?: Dictionary<Filter[]>;
+}
+
+export interface PageableRequest {
+  rows?: number;
+  start?: number;
+}
+
+export interface TrackableRequest {
+  origin: string;
+}
+
+export interface UserContextRequest {
+  user: string;
+  session: string;
+  userType: string;
+}
+
+export interface RequestOptions {
+  requestId?: string;
+  ttlInMinutes?: number;
+  [key: string]: any;
+}
+
 export interface SearchRequest extends QueryableRequest, FilterableRequest, PageableRequest, TrackableRequest {
   sort?: string;
 }
@@ -36,35 +67,4 @@ export interface NextQueriesRequest extends QueryableRequest {}
 export interface TrackingRequest {
   params: Dictionary<any>;
   url: string;
-}
-
-// Request utils:
-export interface QueryableRequest {
-  query: string;
-  relatedTags?: RelatedTag[];
-}
-
-export interface FilterableRequest {
-  filters?: Dictionary<Filter[]>;
-}
-
-export interface PageableRequest {
-  rows?: number;
-  start?: number;
-}
-
-export interface TrackableRequest {
-  origin: string;
-}
-
-export interface UserContextRequest {
-  user: string;
-  session: string;
-  userType: string;
-}
-
-export interface RequestOptions {
-  requestId?: string;
-  ttlInMinutes?: number;
-  [key: string]: any;
 }

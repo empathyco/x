@@ -1,4 +1,5 @@
 import { UserInfo } from '@empathy/search-types';
+import { StorageService } from '@empathy/storage-service';
 import { deepMerge } from '@empathybroker/deep-merge';
 import { Container, injectable } from 'inversify';
 import { DeepPartial, FeatureNames, Newable } from '../../types';
@@ -17,10 +18,16 @@ import {
 } from '../empathy-adapter.types';
 import { EmpathyAdapter } from '../empathy.adapter';
 import { EntityNames } from '../entities.types';
+import { Logger } from '../logger';
 import { CacheService } from '../services/cache-service.types';
 import { EmpathyCacheService } from '../services/empathy-cache.service';
 
 type ConfiguratorCallback = (container: Container) => void;
+
+interface EnableCacheOptions {
+  storageService?: StorageService;
+  cacheService?: Newable<CacheService>;
+}
 
 export class EmpathyAdapterBuilder {
   protected configurator?: ConfiguratorCallback;
@@ -36,8 +43,16 @@ export class EmpathyAdapterBuilder {
     this.config = container.get(DEPENDENCIES.config);
   }
 
-  enableCache(cacheService: Newable<CacheService> = EmpathyCacheService): this {
-    this.container.bind(DEPENDENCIES.cacheService).to(cacheService);
+  enableCache({
+    storageService = typeof localStorage !== 'undefined' ? new StorageService(localStorage) : undefined,
+    cacheService = EmpathyCacheService
+  }: EnableCacheOptions = {}): this {
+    if (storageService && cacheService) {
+      this.container.bind(DEPENDENCIES.storageService).toConstantValue(storageService);
+      this.container.bind(DEPENDENCIES.cacheService).to(cacheService);
+    } else {
+      Logger.warn('Tried to enable cache with invalid options');
+    }
     return this;
   }
 

@@ -36,14 +36,13 @@ describe('Empathy Result Mapper', () => {
     expect(mappedResult).toMatchObject(ResultSchema);
   });
 
-  it('highlights the sku with the query', () => {
+  it('maps valid sku results successfully', () => {
     const contextWithQuery = deepMerge(emptyContext, { rawRequest: { query: '456' } });
     const rawResultWithSku = deepMerge({}, SearchSimpleResponse.content.docs[0], { eb_sku: '123456789' });
 
     const mappedResult = mapResult(rawResultWithSku, {} as Result, contextWithQuery);
 
     expect(mappedResult).toMatchObject(ResultSchema);
-    expect(mappedResult.identifier.html).toEqual(`123<strong class="ebx-result-identifier__query">456</strong>789`);
   });
 
   it('maps price and discount properties', () => {

@@ -59,8 +59,7 @@ export class SuggestionMapper1 implements ResponseMapper<SimpleSuggestion, Sugge
   map(suggestion: SimpleSuggestion, to: Suggestion): Suggestion {
     return Object.assign(to, {
       facets: [],
-      html: `<span>${ suggestion }</span>`,
-      term: suggestion,
+      query: suggestion,
       key: suggestion
     });
   }
@@ -70,7 +69,7 @@ export class SuggestionMapper1 implements ResponseMapper<SimpleSuggestion, Sugge
 export class SuggestionMapper2 implements ResponseMapper<SimpleSuggestion, Suggestion> {
   map(_from: SimpleSuggestion, to: Suggestion): Suggestion {
     return Object.assign(to, {
-      modelName: 'TermSuggestion'
+      modelName: 'QuerySuggestion'
     });
   }
 }

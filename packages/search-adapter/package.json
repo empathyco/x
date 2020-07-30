@@ -1,11 +1,12 @@
 {
   "name": "@empathy/search-adapter",
-  "version": "3.2.2",
+  "version": "4.0.0",
   "description": "A search client for the Empathy search API ",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "types/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && tsc --project tsconfig.esm.json",
     "build:watch": "tsc --watch",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -25,14 +26,14 @@
   ],
   "homepage": "https://bitbucket.org/colbenson/search-adapter#readme",
   "dependencies": {
-    "@empathy/get-safe-property-chain": "^1.0.0",
-    "@empathy/logger": "^1.0.0",
-    "@empathy/search-types": "^4.0.0",
-    "@empathy/storage-service": "^1.2.0",
-    "@empathybroker/deep-merge": "^1.1.2",
+    "@empathy/get-safe-property-chain": "^1.2.0",
+    "@empathy/logger": "^1.1.0",
+    "@empathy/search-types": "^5.0.0",
+    "@empathy/storage-service": "^1.3.0",
+    "@empathybroker/deep-merge": "^1.2.0",
     "inversify": "~5.0.1",
     "reflect-metadata": "~0.1.13",
-    "tslib": "~1.10.0"
+    "tslib": "~1.11.1"
   },
   "devDependencies": {
     "@empathy/jest-utils": "^1.1.0",
@@ -42,9 +43,10 @@
     "jest": "~24.7.1",
     "ts-jest": "~24.0.2",
     "tslint": "~5.16.0",
-    "typescript": "~3.7.2"
+    "typescript": "~3.8.3"
   },
   "files": [
-    "dist/**/*"
+    "dist",
+    "types"
   ]
 }

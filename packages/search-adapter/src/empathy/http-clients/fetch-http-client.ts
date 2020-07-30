@@ -55,7 +55,7 @@ export class FetchHttpClient implements HttpClient {
   }
 
   protected getRequestOptions(requestId: string): RequestInit {
-    if ('AbortController' in window) {
+    if (typeof AbortController !== 'undefined') {
       const signal = this.createAbortController(requestId);
       return { signal };
     }

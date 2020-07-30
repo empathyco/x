@@ -11,6 +11,22 @@ import {
   Tagging
 } from '@empathy/search-types';
 
+export interface RelatedTagsResponse {
+  relatedTags: RelatedTag[];
+}
+
+export interface SuggestionsResponse {
+  suggestions: Suggestion[];
+}
+
+export interface SearchByIdResponse {
+  results: Result[];
+}
+
+export interface TrackableShowResponse {
+  showTagging: Tagging;
+}
+
 export interface SearchResponse {
   banners: Banner[];
   facets: Facet[];
@@ -48,20 +64,4 @@ export interface QueriesRecommendationsResponse extends TrackableShowResponse {
 export interface UserRecommendationsResponse extends TrackableShowResponse {
   results: Result[];
   totalResults: number;
-}
-
-export interface RelatedTagsResponse {
-  relatedTags: RelatedTag[];
-}
-
-export interface SuggestionsResponse {
-  suggestions: Suggestion[];
-}
-
-export interface SearchByIdResponse {
-  results: Result[];
-}
-
-export interface TrackableShowResponse {
-  showTagging: Tagging;
 }

@@ -1,4 +1,3 @@
-import { StorageService } from '@empathy/storage-service';
 import { DEFAULT_EMPATHY_ADAPTER_CONFIG } from '../config/empathy-adapter.config';
 import { FetchHttpClient } from '../http-clients/fetch-http-client';
 import { EmpathyClicksRecommendationsRequestMapper } from '../mappers/request/empathy-clicks-recommendations-request.mapper';
@@ -18,7 +17,6 @@ import { EmpathyFacetMapper } from '../mappers/response/empathy-facet.mapper';
 import { EmpathyNextQueryMapper } from '../mappers/response/empathy-next-query.mapper';
 import { EmpathyPartialResultMapper } from '../mappers/response/empathy-partial-result.mapper';
 import { EmpathyPromotedMapper } from '../mappers/response/empathy-promoted.mapper';
-import { EmpathyQueryHighlightingMapper } from '../mappers/response/empathy-query-highlighting.mapper';
 import { EmpathyRedirectionMapper } from '../mappers/response/empathy-redirection.mapper';
 import { EmpathyRelatedTagMapper } from '../mappers/response/empathy-related-tag.mapper';
 import { EmpathySimpleValueMapper } from '../mappers/response/empathy-simple-value.mapper';
@@ -41,7 +39,6 @@ export const BINDINGS: BindingDictionary = {
   [DEPENDENCIES.config]: { toConstant: DEFAULT_EMPATHY_ADAPTER_CONFIG },
   [DEPENDENCIES.httpClient]: FetchHttpClient,
   [DEPENDENCIES.endpointsService]: EmpathyEndpointsService,
-  [DEPENDENCIES.storageService]: { toConstant: new StorageService(localStorage, 'empathy-adapter') },
   [DEPENDENCIES.entityMappers]: ResponseMappers,
   [DEPENDENCIES.requestors]: Requestors,
   [DEPENDENCIES.featureName]: {
@@ -118,6 +115,5 @@ export const BINDINGS: BindingDictionary = {
   [DEPENDENCIES.ResponseMappers.suggestions]: [EmpathySuggestionMapper, EmpathySuggestionFacetsMapper],
   [DEPENDENCIES.ResponseMappers.totalResults]: EmpathySimpleValueMapper,
   // Response helpers
-  [DEPENDENCIES.ResponseMappers.Helpers.tagging]: EmpathyTaggingMapper,
-  [DEPENDENCIES.ResponseMappers.Helpers.queryHighlighting]: EmpathyQueryHighlightingMapper
+  [DEPENDENCIES.ResponseMappers.Helpers.tagging]: EmpathyTaggingMapper
 };
