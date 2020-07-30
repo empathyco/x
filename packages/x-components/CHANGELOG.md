@@ -1,5 +1,5 @@
 # X Components
-## [1.0.0](https://bitbucket.org/colbenson/x-components/branches/compare/v1.0.0%0Dv1.0.0-alpha.3) (2020-07-30)
+## [1.0.0](https://bitbucket.org/colbenson/x-components/commits/tag/v1.0.0) (2020-07-30)
 
 
 ### Features
@@ -21,61 +21,11 @@
 * **wiring:** refactor namespaced wiring ([ec51b88](https://bitbucket.org/colbenson/x-components/commits/ec51b8885b200fdae26040bd228c5fb80d8db5b6)), closes [EX-1888](https://searchbroker.atlassian.net/browse/EX-1888)
 * **wiring:** refactor namespaced wiring ([1cf09f9](https://bitbucket.org/colbenson/x-components/commits/1cf09f947f0760fabf950db784fde21962229e5a)), closes [EX-1888](https://searchbroker.atlassian.net/browse/EX-1888)
 * **x-plugin:** add alias API ([c1f5b5a](https://bitbucket.org/colbenson/x-components/commits/c1f5b5a9d3579eb26bfb6293bce538eff9dd4dd2)), closes [EX-1920](https://searchbroker.atlassian.net/browse/EX-1920)
-
-
-### Bug Fixes
-
-* **wire-operators:** handle race events for the debounce wire operator ([0019ad3](https://bitbucket.org/colbenson/x-components/commits/0019ad37aa88edf2ee9911e76cfc4d29db908c86)), closes [EX-1944](https://searchbroker.atlassian.net/browse/EX-1944)
-
-
-### Documentation
-
-* **slots:** fix slot and binding documentations for vue styleguidist ([9edd795](https://bitbucket.org/colbenson/x-components/commits/9edd795f1da6893f582ac5ee938e55111d053fef)), closes [EX-1963](https://searchbroker.atlassian.net/browse/EX-1963)
-
-
-### Code Refactoring
-
-* **base-components:** refactor open and close button components so they're reusable ([398ba29](https://bitbucket.org/colbenson/x-components/commits/398ba294da7c14698ac0fc9de0e7c883fa9a34a5)), closes [EX-1894](https://searchbroker.atlassian.net/browse/EX-1894)
-* **tests:** update vue-utils-test version and fix test ([0b0f3b2](https://bitbucket.org/colbenson/x-components/commits/0b0f3b277a56f359d413d2300e75d5b6636931e5))
-
-
-### Styling
-
-* **rxjs:** remove rxjs-compat and amend the imports ([213c9e2](https://bitbucket.org/colbenson/x-components/commits/213c9e2d5f7a586a3f1abca8686e3e0926e81980)), closes [EX-2150](https://searchbroker.atlassian.net/browse/EX-2150)
-
-## [1.0.0-alpha.3](https://bitbucket.org/colbenson/x-components/branches/compare/v1.0.0-alpha.3%0Dv1.0.0-alpha.2) (2020-06-15)
-
-
-### Features
-
 * **currency-filter:** add currency filter and formatter ([9cf9f9e](https://bitbucket.org/colbenson/x-components/commits/9cf9f9e4a754e20698d616923e073afa7d41950d)), closes [EX-1913](https://searchbroker.atlassian.net/browse/EX-1913)
 * **docs:** add static md file to be copied to docs folder on build proccess ([2aa9937](https://bitbucket.org/colbenson/x-components/commits/2aa99377d0811861f12f6a7a9c50985efbad4746)), closes [EX-1943](https://searchbroker.atlassian.net/browse/EX-1943)
-
-
-### Bug Fixes
-
-* **spatial-navigation:** filter out focusable elements if they can't be focused ([9b4829b](https://bitbucket.org/colbenson/x-components/commits/9b4829b43b0e7d8665400595e3714d9ab1bc4d93)), closes [EX-1924](https://searchbroker.atlassian.net/browse/EX-1924)
-
-
-## [1.0.0-alpha.2](https://bitbucket.org/colbenson/x-components/branches/compare/v1.0.0-alpha.2%0Dv1.0.0-alpha.1) (2020-06-11)
-
-
-### Features
-
 * **base-result-previous-price:** add base result previous price component ([a51df82](https://bitbucket.org/colbenson/x-components/commits/a51df8225c268513fe95e7e8ef505934f72d6c3d)), closes [EX-1913](https://searchbroker.atlassian.net/browse/EX-1913)
 * **related-tags:** add e2e testing for the related tags ([98c80e3](https://bitbucket.org/colbenson/x-components/commits/98c80e305a5e39e6f47c7104a099a944cc70bc35)), closes [EX-1968](https://searchbroker.atlassian.net/browse/EX-1968)
 * **spatial-navigation:** ability to move between any component and the keyboard-navigation component ([0d80db8](https://bitbucket.org/colbenson/x-components/commits/0d80db89f65d3eb1ef34979fe8ff98f4d83f389a)), closes [EX-1924](https://searchbroker.atlassian.net/browse/EX-1924)
-
-
-### Testing
-
-* **keyboard-navigation:** e2e testing for keyboard-navigation ([18821c5](https://bitbucket.org/colbenson/x-components/commits/18821c5a03b482060995f5adf3bca21e6864ed11)), closes [EX-1924](https://searchbroker.atlassian.net/browse/EX-1924)
-
-## 1.0.0-alpha.1 (2020-06-10)
-
-
-### Features
-
 * **animations:** fade and slide animation component ([5ac5a0e](https://bitbucket.org/colbenson/x-components/commits/5ac5a0e94896550c6e9b8b6f0eacefd35e60b565)), closes [EX-1867](https://searchbroker.atlassian.net/browse/EX-1867)
 * **base-modal-container:** add base-modal-container component ([cd5d22b](https://bitbucket.org/colbenson/x-components/commits/cd5d22b36d5d2c76eb98adf83cb3ac69de9edc44)), closes [EX-1765](https://searchbroker.atlassian.net/browse/EX-1765)
 * **base-result-current-price:** create base result current price component ([6684fd3](https://bitbucket.org/colbenson/x-components/commits/6684fd3c53905345a842dd58546549cf55be9e0a)), closes [EX-1913](https://searchbroker.atlassian.net/browse/EX-1913)
@@ -194,6 +144,8 @@
 
 ### Bug Fixes
 
+* **wire-operators:** handle race events for the debounce wire operator ([0019ad3](https://bitbucket.org/colbenson/x-components/commits/0019ad37aa88edf2ee9911e76cfc4d29db908c86)), closes [EX-1944](https://searchbroker.atlassian.net/browse/EX-1944)
+* **spatial-navigation:** filter out focusable elements if they can't be focused ([9b4829b](https://bitbucket.org/colbenson/x-components/commits/9b4829b43b0e7d8665400595e3714d9ab1bc4d93)), closes [EX-1924](https://searchbroker.atlassian.net/browse/EX-1924)
 * **build:** make build fail if api-extractor has errors ([bdf7b3a](https://bitbucket.org/colbenson/x-components/commits/bdf7b3a051e80f6f0c43a0038745bf45a460112d)), closes [EX-1803](https://searchbroker.atlassian.net/browse/EX-1803)
 * **components:** fix vue components exports ([fafc908](https://bitbucket.org/colbenson/x-components/commits/fafc9086b43a6f4b304c028420fcf421f582c56e)), closes [EX-1884](https://searchbroker.atlassian.net/browse/EX-1884)
 * **cypress:** fix Cypress webpack/preprocessor config to avoid .ts transpilation file issues ([39645f0](https://bitbucket.org/colbenson/x-components/commits/39645f063e2bde07278e05d1ff6bac4d61134e58)), closes [EX-1870](https://searchbroker.atlassian.net/browse/EX-1870)
@@ -220,9 +172,10 @@
 
 * **package.json:** configure E2E tests command for CI Jenkins integration ([3a6e0a5](https://bitbucket.org/colbenson/x-components/commits/3a6e0a5224597d9160bf1519b880ec62c38132bd)), closes [EX-1723](https://searchbroker.atlassian.net/browse/EX-1723)
 
-
 ### Documentation
 
+* **slots:** fix slot and binding documentations for vue styleguidist ([9edd795](https://bitbucket.org/colbenson/x-components/commits/9edd795f1da6893f582ac5ee938e55111d053fef)), closes [EX-1963](https://searchbroker.atlassian.net/browse/EX-1963)
+* **docs:** update the folders structure to create the static-docs and live examples ([5862b0c](https://bitbucket.org/colbenson/x-components/commits/5862b0c57ebd3f116aa4cb044cbe63a7e06722b4)), closes [EX-2017](https://searchbroker.atlassian.net/browse/EX-2017)
 * **api-extractor:** add API Extractor to generate the documentation ([6240c7b](https://bitbucket.org/colbenson/x-components/commits/6240c7be3ed9a7a70e6fa9821f6d0524742003f9)), closes [EX-1558](https://searchbroker.atlassian.net/browse/EX-1558)
 * **api-extractor:** add missing api extractor marks ([9abb585](https://bitbucket.org/colbenson/x-components/commits/9abb5851b26adfa8540c91745fb7b9c639c8d639)), closes [EX-1617](https://searchbroker.atlassian.net/browse/EX-1617)
 * **docgen.config:** fix the naming of the md files generated from components ([53ccfd9](https://bitbucket.org/colbenson/x-components/commits/53ccfd988dee0ea822209329c08a90ad73b7a68f)), closes [EX-1875](https://searchbroker.atlassian.net/browse/EX-1875)
@@ -231,6 +184,7 @@
 
 ### Testing
 
+* **keyboard-navigation:** e2e testing for keyboard-navigation ([18821c5](https://bitbucket.org/colbenson/x-components/commits/18821c5a03b482060995f5adf3bca21e6864ed11)), closes [EX-1924](https://searchbroker.atlassian.net/browse/EX-1924)
 * **base-modal-container:** add e2e test to base-modal-container component ([33f6814](https://bitbucket.org/colbenson/x-components/commits/33f68148d22b689da63ba56ff34a8e15dee55a16)), closes [EX-1765](https://searchbroker.atlassian.net/browse/EX-1765)
 * **e2e-popular-searches-tests:** add e2e test for popular-searches ([13f1908](https://bitbucket.org/colbenson/x-components/commits/13f190813cc6715e367f1996249d91ddb02a6723)), closes [EX-1761](https://searchbroker.atlassian.net/browse/EX-1761)
 * **next-queries:** add e2e test for next queries ([fb83c77](https://bitbucket.org/colbenson/x-components/commits/fb83c7798cd2b3572ed1461631568d543d713840)), closes [EX-1840](https://searchbroker.atlassian.net/browse/EX-1840)
@@ -238,8 +192,11 @@
 * **x-plugin:** fix tests to use the installNewXPlugin helper ([fc54c61](https://bitbucket.org/colbenson/x-components/commits/fc54c61a612e61f4a530857f6e29d23ab3381768)), closes [EX-1854](https://searchbroker.atlassian.net/browse/EX-1854)
 
 
+
 ### Code Refactoring
 
+* **base-components:** refactor open and close button components so they're reusable ([398ba29](https://bitbucket.org/colbenson/x-components/commits/398ba294da7c14698ac0fc9de0e7c883fa9a34a5)), closes [EX-1894](https://searchbroker.atlassian.net/browse/EX-1894)
+* **tests:** update vue-utils-test version and fix test ([0b0f3b2](https://bitbucket.org/colbenson/x-components/commits/0b0f3b277a56f359d413d2300e75d5b6636931e5))
 * **base-components:** remove pure folder and refactor base components names ([f0e50dc](https://bitbucket.org/colbenson/x-components/commits/f0e50dc506ffd7c6b7d352ef2464dbed8ae2aa8f)), closes [EX-1793](https://searchbroker.atlassian.net/browse/EX-1793)
 * **bem-css-classes:** refactor css classes following BEM ([ca72ffc](https://bitbucket.org/colbenson/x-components/commits/ca72ffc115efb0e3494948c77e785145a77bcd31)), closes [EX-1785](https://searchbroker.atlassian.net/browse/EX-1785)
 * **bus:** replaced `Subject` with `ReplaySubject` ([8fcdebd](https://bitbucket.org/colbenson/x-components/commits/8fcdebd6bf783b515d46a5362b05fd99e0395d7e)), closes [EX-1849](https://searchbroker.atlassian.net/browse/EX-1849)
@@ -262,7 +219,12 @@
 
 
 ### Build System
-
+* **dependencies:** set minimum supported versions of Vue and Vuex dependencies ([c18434b](https://bitbucket.org/colbenson/x-components/commits/c18434be285b8a666c7600daff2486dfe1ad440a)), closes [EX-2109](https://searchbroker.atlassian.net/browse/EX-2109)
 * **browserslist:** add browserslist configuration ([53192b8](https://bitbucket.org/colbenson/x-components/commits/53192b84059ec3589a1a37187e0b244f1a175b2c)), closes [EX-1561](https://searchbroker.atlassian.net/browse/EX-1561)
 * **dependencies:** update `[@empathy](https://bitbucket.org/empathy)` dependencies ([3a657b1](https://bitbucket.org/colbenson/x-components/commits/3a657b1d5d5203671cd1e1624e5630a153a68fde)), closes [EX-1903](https://searchbroker.atlassian.net/browse/EX-1903)
 * **dependencies:** update dependencies to match with the rest of the projects ([ab64828](https://bitbucket.org/colbenson/x-components/commits/ab648286f9ca7397d9f14f3d6eb5095ef8139c14)), closes [EX-1884](https://searchbroker.atlassian.net/browse/EX-1884)
+
+
+### Styling
+
+* **rxjs:** remove rxjs-compat and amend the imports ([213c9e2](https://bitbucket.org/colbenson/x-components/commits/213c9e2d5f7a586a3f1abca8686e3e0926e81980)), closes [EX-2150](https://searchbroker.atlassian.net/browse/EX-2150)
