@@ -1,6 +1,6 @@
 {
   "name": "@empathy/react-wrapper",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0",
   "description": "A proxy that transforms Vue components into React ones",
   "main": "dist/index.js",
   "types": "types/index.js",
