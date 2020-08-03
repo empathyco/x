@@ -1,18 +1,20 @@
 <template>
   <div id="app">
-    <SearchInput placeholder="Start to search"/>
+    <SearchInput placeholder="Start to search" />
     <ClearSearchInput>&#215;</ClearSearchInput>
     <SearchButton>&#128269;</SearchButton>
     <Transition appear duration="400" name="collapse">
-      <Empathize :eventsToCloseEmpathize="['UserClosedEmpathize','UserSelectedASuggestion','UserPressedEnterKey']"
-                 :eventsToOpenEmpathize="['UserFocusedSearchBox']">
+      <Empathize
+        :eventsToCloseEmpathize="empathizeEventsToCloseEmpathize"
+        :eventsToOpenEmpathize="empathizeEventsToOpenEmpathize"
+      >
         <BaseKeyboardNavigation>
           <H1>Popular Searches</H1>
-          <PopularSearches :animation="suggestionsAnimation"/>
+          <PopularSearches :animation="suggestionsAnimation" />
           <H1>Next Queries</H1>
-          <NextQueries :animation="suggestionsAnimation"/>
+          <NextQueries :animation="suggestionsAnimation" />
           <H1>Query Suggestions</H1>
-          <QuerySuggestions :animation="suggestionsAnimation"/>
+          <QuerySuggestions :animation="suggestionsAnimation" />
           <H1>History Queries</H1>
           <HistoryQueries :animation="suggestionsAnimation">
             <template #suggestion="{ suggestion }">
@@ -33,7 +35,11 @@
 <script lang="ts">
   import { BaseKeyboardNavigation, FadeAndSlide } from '@empathy/x-components';
   import { Empathize } from '@empathy/x-components/empathize';
-  import { ClearHistoryQueries, HistoryQueries, HistoryQuery } from '@empathy/x-components/history-queries';
+  import {
+    ClearHistoryQueries,
+    HistoryQueries,
+    HistoryQuery
+  } from '@empathy/x-components/history-queries';
   import { NextQueries } from '@empathy/x-components/next-queries';
   import { PopularSearches } from '@empathy/x-components/popular-searches';
   import { QuerySuggestions } from '@empathy/x-components/query-suggestions';
@@ -57,7 +63,13 @@
     }
   })
   export default class App extends Vue {
-    suggestionsAnimation = FadeAndSlide;
+    public suggestionsAnimation = FadeAndSlide;
+    protected empathizeEventsToCloseEmpathize = [
+      'UserClosedEmpathize',
+      'UserSelectedASuggestion',
+      'UserPressedEnterKey'
+    ];
+    protected empathizeEventsToOpenEmpathize = ['UserFocusedSearchBox'];
   }
 </script>
 

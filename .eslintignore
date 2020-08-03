@@ -1,0 +1,4 @@
+shims-tsx.d.ts
+shims-vue.d.ts
+jest.setup.ts
+**/*.js

@@ -6,4 +6,3 @@ export const adapter = new EmpathyAdapterBuilder()
   .setLang('es')
   .setScope('desktop')
   .build();
-

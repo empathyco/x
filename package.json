@@ -7,7 +7,10 @@
     "build": "rollup -c",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "commit": "git-cz",
+    "release": "standard-version --no-verify",
+    "release:alpha": "standard-version --no-verify --prerelease alpha"
   },
   "dependencies": {
     "@empathy/search-adapter": "^4.0.0",
@@ -21,6 +24,7 @@
     "vuex": "^3.0.0"
   },
   "devDependencies": {
+    "@empathy/eslint-plugin-x": "^1.0.0",
     "@rollup/plugin-buble": "~0.21.3",
     "@rollup/plugin-commonjs": "~14.0.0",
     "@rollup/plugin-node-resolve": "~8.4.0",
@@ -38,9 +42,12 @@
     "@vue/eslint-config-typescript": "~5.0.2",
     "@vue/test-utils": "~1.0.3",
     "autoprefixer": "~9.8.5",
+    "commitizen": "~4.0.3",
     "cssnano": "~4.1.10",
+    "cz-conventional-changelog": "~3.1.0",
     "eslint": "~6.8.0",
     "eslint-plugin-vue": "~6.2.2",
+    "lint-staged": "~10.0.7",
     "node-sass": "~4.14.0",
     "rollup": "~2.23.0",
     "rollup-plugin-delete": "~2.0.0",
@@ -55,5 +62,19 @@
     "sass-loader": "~8.0.2",
     "typescript": "~3.9.6",
     "vue-template-compiler": "~2.6.11"
+  },
+  "prettier": "@empathy/eslint-plugin-x/prettier-config",
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "./src/**/*.{vue,js,jsx,ts,tsx}": [
+      "vue-cli-service lint"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
