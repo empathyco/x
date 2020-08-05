@@ -5,10 +5,11 @@
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "rollup -c",
-    "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint",
+    "test:e2e:ci": "vue-cli-service test:e2e --headless --browser chrome",
+    "test:unit": "vue-cli-service test:unit",
     "commit": "git-cz",
+    "lint": "vue-cli-service lint",
     "release": "standard-version --no-verify",
     "release:alpha": "standard-version --no-verify --prerelease alpha"
   },
@@ -24,6 +25,7 @@
     "vuex": "^3.0.0"
   },
   "devDependencies": {
+    "@cypress/webpack-preprocessor": "~5.1.1",
     "@empathy/eslint-plugin-x": "^1.0.0",
     "@rollup/plugin-buble": "~0.21.3",
     "@rollup/plugin-commonjs": "~14.0.0",

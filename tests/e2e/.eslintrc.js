@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   plugins: ['cypress'],
   env: {
@@ -6,5 +8,8 @@ module.exports = {
   },
   rules: {
     strict: 'off'
+  },
+  parserOptions: {
+    project: path.resolve(__dirname, 'tsconfig.json')
   }
 };
