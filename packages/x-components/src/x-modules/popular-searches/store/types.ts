@@ -1,5 +1,5 @@
 import { SuggestionsRequest } from '@empathy/search-adapter';
-import { Suggestion } from '@empathy/search-types';
+import { HistoryQuery, Suggestion } from '@empathy/search-types';
 import { XStoreModule } from '../../../store';
 import { PopularSearchesConfig } from '../config.types';
 
@@ -13,6 +13,9 @@ export interface PopularSearchesState {
   popularSearches: Suggestion[];
   /** The popular searches module configuration. */
   config: PopularSearchesConfig;
+  /** The list of the searched queries, related to the `query` property of the state. */
+  //TODO Changes to uses the base extended class Previewable or what we decide.
+  searchedQueries: HistoryQuery[];
 }
 
 /**
@@ -23,6 +26,8 @@ export interface PopularSearchesState {
 export interface PopularSearchesGetters {
   /** The request object to retrieve popular searches. */
   request: SuggestionsRequest;
+  /** List of the Popular Searches. */
+  popularSearches: Suggestion[];
 }
 
 /**
@@ -37,6 +42,12 @@ export interface PopularSearchesMutations {
    * @param suggestions - The new suggestions list.
    * */
   setSuggestions(suggestions: Suggestion[]): void;
+  /**
+   * Sets the searched queries of the module.
+   *
+   * @param searchedQueries - The searched queries to save to the state.
+   */
+  setSearchedQueries(searchedQueries: HistoryQuery[]): void;
 }
 
 /**

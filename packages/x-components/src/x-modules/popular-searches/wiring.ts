@@ -1,4 +1,8 @@
-import { namespacedWireDispatchWithoutPayload } from '../../wiring/namespaced-wires.factory';
+import {
+  namespacedWireCommit,
+  namespacedWireDispatchWithoutPayload
+} from '../../wiring/namespaced-wires.factory';
+import { NamespacedWireCommit } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
@@ -15,11 +19,25 @@ const moduleName = 'popularSearches';
 const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
 
 /**
+ * WireCommit for {@link PopularSearchesXModule}.
+ *
+ * @internal
+ */
+const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName);
+
+/**
  * Requests and stores the popular searches.
  *
  * @public
  */
 const retrievePopularSuggestions = wireDispatchWithoutPayload('getAndSaveSuggestions');
+
+/**
+ * Sets the popular searches state `searchedQueries` with the list of history queries.
+ *
+ * @public
+ */
+export const setSearchedQueriesInPopularSearches = wireCommit('setSearchedQueries');
 
 /**
  * Wiring configuration for the popular searches modules.
@@ -29,5 +47,8 @@ const retrievePopularSuggestions = wireDispatchWithoutPayload('getAndSaveSuggest
 export const popularSearchesWiring = createWiring({
   PopularSearchesRequestChanged: {
     retrievePopularSuggestions
+  },
+  SessionHistoryQueriesChanged: {
+    setSearchedQueriesInPopularSearches
   }
 });

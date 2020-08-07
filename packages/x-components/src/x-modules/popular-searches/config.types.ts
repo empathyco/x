@@ -9,6 +9,28 @@ export interface PopularSearchesConfig {
    */
   maxItemsToRequest: number;
   /**
+   * Hides the popular searches that have been already searched during the session.
+   *
+   * @example
+   * When set to true:
+   * ```
+   * query = 'shorts';
+   * query = 'trousers';
+   * suggestions = ['t-shirt', 'shorts', 'dress']
+   * // Suggests ['t-shirt', 'dress']
+   * ```
+   *
+   * @example
+   * When set to false:
+   * ```
+   * query = 'shorts';
+   * query = 'trousers';
+   * suggestions = ['t-shirt', 'shorts', 'dress']
+   * // Suggests ['t-shirt', 'shorts', 'dress']
+   * ```
+   */
+  hideSessionQueries: boolean;
+  /**
    * Show the extra suggestion that has filters without the filter.
    *
    * @example

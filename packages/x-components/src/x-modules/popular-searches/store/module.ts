@@ -1,5 +1,6 @@
 import { getAndSaveSuggestions } from './actions/get-and-save-suggestions.action';
 import { getSuggestions } from './actions/get-suggestions.action';
+import { popularSearches } from './getters/popular-searches';
 import { request } from './getters/request';
 import { PopularSearchesXStoreModule } from './types';
 
@@ -11,17 +12,23 @@ import { PopularSearchesXStoreModule } from './types';
 export const popularSearchesXStoreModule: PopularSearchesXStoreModule = {
   state: () => ({
     popularSearches: [],
+    searchedQueries: [],
     config: {
-      maxItemsToRequest: 5,
+      hideSessionQueries: true,
+      maxItemsToRequest: 20,
       showExtraSuggestionWithoutFilter: false
     }
   }),
   getters: {
-    request
+    request,
+    popularSearches
   },
   mutations: {
     setSuggestions(state, suggestions) {
       state.popularSearches = suggestions;
+    },
+    setSearchedQueries(state, searchedQueries) {
+      state.searchedQueries = searchedQueries;
     }
   },
   actions: {

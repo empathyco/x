@@ -32,7 +32,7 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import BaseSuggestions from '../../../components/base-suggestions.vue';
-  import { State } from '../../../components/decorators';
+  import {Getter} from '../../../components/decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { popularSearchesXModule } from '../x-module';
   import PopularSearch from './popular-search.vue';
@@ -66,7 +66,7 @@
     @Prop({ default: 5 })
     protected maxItemsToRender!: number;
 
-    @State('popularSearches', 'popularSearches')
+    @Getter('popularSearches', 'popularSearches')
     public storedPopularSearches!: Suggestion[];
 
     protected get popularSearches(): Suggestion[] {
