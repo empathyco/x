@@ -1,6 +1,6 @@
 <template>
   <div
-    @keydown.up.down.right.left="focusNextNavigableElement"
+    @keydown.up.down.right.left.prevent="focusNextNavigableElement"
     class="x-keyboard-navigation"
     data-test="keyboard-navigation"
   >

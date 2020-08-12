@@ -9,16 +9,8 @@
     </BaseModalContainer>
     <SearchInput placeholder="Search" aria-label="Search for products" />
     <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-    <Empathize
-      v-if="showEmpathize"
-      :eventsToOpenEmpathize="['UserFocusedSearchBox']"
-      :eventsToCloseEmpathize="[
-        'UserClosedEmpathize',
-        'UserSelectedASuggestion',
-        'UserPressedEnter'
-      ]"
-    >
-      <template #default>
+    <Empathize v-if="showEmpathize" :animation="collapseFromTop">
+      <BaseKeyboardNavigation>
         <BaseCloseButton
           key="closeButton"
           class="x-empathize__close"
@@ -51,9 +43,9 @@
           <h1>Trending</h1>
           <PopularSearches :animation="fadeAndSlide" />
         </div>
-      </template>
+      </BaseKeyboardNavigation>
     </Empathize>
-    <BaseKeyboardNavigation>
+    <BaseKeyboardNavigation v-else>
       <div class="x-column">
         <h1>Query Suggestions</h1>
         <QuerySuggestions :animation="fadeAndSlide">
@@ -119,6 +111,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import CollapseFromTop from './components/animations/collapse-from-top.vue';
   import FadeAndSlide from './components/animations/fade-and-slide.vue';
   import BaseCloseButton from './components/base-close-button.vue';
   import BaseKeyboardNavigation from './components/base-keyboard-navigation.vue';
@@ -167,8 +160,9 @@
   })
   export default class App extends Vue {
     protected showEmpathize = getURLParameter('showEmpathize') === 'true';
-    // eslint-disable-next-line
-    private fadeAndSlide = FadeAndSlide;
+    protected loadOnInit = getURLParameter('loadOnInit') === 'true';
+    protected fadeAndSlide = FadeAndSlide;
+    protected collapseFromTop = CollapseFromTop;
   }
 </script>
 
@@ -195,18 +189,17 @@
   }
 
   .x-empathize {
+    background-color: white;
+    border: 1px dashed black;
+    border-radius: 20px;
+    z-index: 2;
+    width: 600px;
+    position: relative;
+
     &__close {
       position: absolute;
       top: 20px;
       right: 20px;
-    }
-
-    .x-modal-container__content {
-      background-color: white;
-      border: 1px dashed black;
-      border-radius: 20px;
-      position: absolute;
-      z-index: 2;
     }
   }
 </style>

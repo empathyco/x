@@ -2,6 +2,7 @@
   <input
     ref="input"
     @blur="emitUserBlurredSearchBox"
+    @click="emitUserClickedSearchBox"
     @focus="emitUserFocusedSearchBox"
     @input="emitUserIsTypingAQueryEvents"
     @keydown.enter="emitUserPressedEnterKey"
@@ -137,6 +138,14 @@
      */
     protected emitUserBlurredSearchBox(): void {
       this.$x.emit('UserBlurredSearchBox', undefined, this.eventMetadata());
+    }
+    /**
+     * Emits event {@link SearchBoxXEvents.UserClickedSearchBox} when user clicks  the search input.
+     *
+     * @internal
+     */
+    protected emitUserClickedSearchBox(): void {
+      this.$x.emit('UserClickedSearchBox', undefined, this.eventMetadata());
     }
 
     /**

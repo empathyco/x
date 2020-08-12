@@ -21,21 +21,12 @@ describe('testing empathize component', () => {
   it('listens to UserOpenedEmpathize and UserClosedEmpathize by default', async () => {
     const component = {
       template: `
-        <div>
-          <BaseEventButton
-            :events="{ UserOpenedEmpathize: undefined }"
-            data-test="empathize-opener"
-          />
-          <Empathize>
-            <template #default>
-              <span data-test="empathize-content">Empathize</span>
-            </template>
-          </Empathize>
-          <BaseEventButton
-            :events="{ UserClosedEmpathize: undefined }"
-            data-test="empathize-closer"
-          />
-        </div>
+        <Empathize :events-to-open-empathize="['TestOpenEvent']"
+                   :events-to-close-empathize="['TestCloseEvent']">
+          <template #default>
+            <span data-test="empathize-content">Empathize</span>
+          </template>
+        </Empathize>
       `,
       components: {
         BaseEventButton,
@@ -47,10 +38,16 @@ describe('testing empathize component', () => {
       localVue
     });
 
-    await componentWrapper.find(getDataTestSelector('empathize-opener')).trigger('click');
-    expect(componentWrapper.find(getDataTestSelector('empathize')).element).toBeDefined();
+    componentWrapper.vm.$x.emit('TestOpenEvent' as any);
+    await new Promise(resolve => setTimeout(resolve));
+    // await localVue.nextTick();
+    expect(componentWrapper.find('.x-empathize').exists()).toBe(true);
+    expect(componentWrapper.find(getDataTestSelector('empathize-content')).exists()).toBe(true);
 
-    await componentWrapper.find(getDataTestSelector('empathize-closer')).trigger('click');
-    expect(componentWrapper.find(getDataTestSelector('empathize')).element).not.toBeDefined();
+    componentWrapper.vm.$x.emit('TestCloseEvent' as any);
+    await new Promise(resolve => setTimeout(resolve));
+    // await localVue.nextTick();
+    expect(componentWrapper.find('.x-empathize').exists()).toBe(false);
+    expect(componentWrapper.find(getDataTestSelector('empathize-content')).exists()).toBe(false);
   });
 });
