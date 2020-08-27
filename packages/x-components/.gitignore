@@ -11,6 +11,7 @@ node_modules
 !/src/*
 !/tests/*
 !/static-docs/*
+!/build-helpers/*
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/
