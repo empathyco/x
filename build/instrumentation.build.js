@@ -1,3 +1,4 @@
+import polyFillsWrapper from '../node_modules/@empathy/x-components/build-helpers/plugins/polyfills-wrapper.plugin';
 import buble from '@rollup/plugin-buble';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
@@ -109,6 +110,7 @@ export function createConfig({
         })
       ),
       sourcemaps(mergeConfig('sourcemaps')),
+      polyFillsWrapper(mergeConfig('polyfillsWrapper')),
       terser(
         mergeConfig('terser', {
           output: { comments: false }
