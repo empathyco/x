@@ -4,6 +4,7 @@ import { Result } from '@empathy/search-types';
 import Vue from 'vue';
 import App from './App.vue';
 import { installX } from './x';
+import router from './router';
 
 const adapter = new EmpathyAdapterBuilder()
   .setInstance('juguettos')
@@ -26,7 +27,9 @@ installX({ adapter,
     }
   }
 });
+
 const app = new Vue({
+  router,
   render: h => h(App)
 }).$mount('#app');
 
