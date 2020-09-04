@@ -4,7 +4,7 @@
  *
  * @param Params - The arguments type of the function.
  *
- * @internal
+ * @public
  */
 export interface DebouncedFunction<Params extends any[]> {
   (...args: Params): void;
@@ -25,7 +25,7 @@ export const debounce = <Params extends any[]>(
   fn: (...args: Params) => void,
   debounceTimeInMs: number
 ): DebouncedFunction<Params> => {
-  let timer: number | undefined;
+  let timer: ReturnType<typeof setTimeout>;
   const debouncedFn: DebouncedFunction<Params> = (...args) => {
     if (timer) {
       clearTimeout(timer);

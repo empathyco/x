@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { Plugin } from 'rollup';
 import { forEach } from '../src/utils';
-import { ensureDirectoryExists } from './build.utils';
+import { ensureFilePathExists } from './build.utils';
 
 /**
  * Type alias of a reducer function that will generate a `Record` where the key is the chunk name,
@@ -185,7 +185,7 @@ function emptyLines(line: string): boolean {
 function writeEntryFile(extension: string) {
   return (fileName: string, fileContents: string[]): string => {
     const filePath = path.join(ROOT_DIR, `/${fileName}/index.${extension}`);
-    ensureDirectoryExists(filePath);
+    ensureFilePathExists(filePath);
     fs.writeFileSync(filePath, fileContents.join('\n'));
     return filePath;
   };

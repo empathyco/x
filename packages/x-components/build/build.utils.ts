@@ -2,14 +2,23 @@ import fs from 'fs';
 import path from 'path';
 
 /**
- * Asserts a directory exists recursively, creating it if it does not.
+ * Asserts a file path directory exists recursively, creating it if it does not.
  *
  * @param filePath - The full path to the file, that may or may not exist.
  */
-export function ensureDirectoryExists(filePath: string): void {
+export function ensureFilePathExists(filePath: string): void {
   const dirName = path.dirname(filePath);
-  if (!fs.existsSync(dirName)) {
-    fs.mkdirSync(dirName, { recursive: true });
+  ensureDirectoryPathExists(dirName);
+}
+
+/**
+ * Asserts a directory exist recursively, creating it if it does not.
+ *
+ * @param directoryPath - The full directory path, that may or may not exists.
+ */
+export function ensureDirectoryPathExists(directoryPath: string): void {
+  if (!fs.existsSync(directoryPath)) {
+    fs.mkdirSync(directoryPath, { recursive: true });
   }
 }
 
@@ -18,7 +27,6 @@ export function ensureDirectoryExists(filePath: string): void {
  *
  * @param sourceFolder - Source folder to be copied.
  * @param targetFolder - Target folder.
- *
  */
 export function copyFolderSync(sourceFolder: string, targetFolder: string): void {
   if (!fs.existsSync(targetFolder)) {

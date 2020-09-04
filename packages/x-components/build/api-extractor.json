@@ -2,8 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
   "projectFolder": "..",
   "mainEntryPointFilePath": "<projectFolder>/types/index.d.ts",
-  "bundledPackages": ["@empathy/search-types"],
-  "compiler": {},
+  "bundledPackages": ["@empathy/search-types", "@empathy/search-adapter"],
   "apiReport": {
     "enabled": true,
     "reportFolder": "<projectFolder>/report"
@@ -16,27 +15,17 @@
     "enabled": false
   },
   "tsdocMetadata": {
-    "enabled": true
+    "enabled": true,
+    "tsdocMetadataFilePath": "<projectFolder>/report/tsdoc-metadata.json"
   },
   "messages": {
-    "compilerMessageReporting": {
-      "default": {
-        "logLevel": "warning"
-      }
-    },
     "extractorMessageReporting": {
-      "default": {
-        "logLevel": "warning"
-      },
       "ae-internal-missing-underscore": {
         "logLevel": "none",
         "addToApiReportFile": false
       }
     },
     "tsdocMessageReporting": {
-      "default": {
-        "logLevel": "warning"
-      },
       "tsdoc-unsupported-tag": {
         "logLevel": "none",
         "addToApiReportFile": false
