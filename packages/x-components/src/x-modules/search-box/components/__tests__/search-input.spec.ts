@@ -7,8 +7,41 @@ import { installNewXPlugin } from '../../../../__tests__/utils';
 import SearchInput from '../search-input.vue';
 import { resetXSearchBoxStateWith } from './utils';
 
+function mountNewSearchInput(overrideProps: Partial<SearchInputProps> = {}): TestSearchInputAPI {
+  const localVue = createLocalVue();
+  localVue.use(Vuex);
+  const store = new Store<DeepPartial<RootXStoreState>>({});
+  installNewXPlugin({ store }, localVue);
+  resetXSearchBoxStateWith(store);
+
+  const wrapper = mount(SearchInput, {
+    store,
+    localVue,
+    propsData: overrideProps
+  });
+  const input = wrapper.vm.$refs.input as HTMLInputElement;
+
+  return {
+    wrapper,
+    input
+  };
+}
+
+interface SearchInputProps {
+  maxLength: number;
+  autofocus: boolean;
+  instant: boolean;
+  instantDebounceInMs: number;
+  autocompleteKeyboardKeys: string[];
+  autocompleteSuggestionsEvent: string[];
+}
+
+interface TestSearchInputAPI {
+  wrapper: Wrapper<SearchInput>;
+  input: HTMLInputElement;
+}
+
 describe('testing search input component', () => {
-  let store: Store<DeepPartial<RootXStoreState>>;
   let mockedSearchInput: Wrapper<SearchInput>;
   let input: HTMLInputElement;
   const listener = jest.fn();
@@ -16,17 +49,9 @@ describe('testing search input component', () => {
   beforeAll(jest.useFakeTimers);
   afterEach(jest.clearAllTimers);
   beforeEach(() => {
-    const localVue = createLocalVue();
-    localVue.use(Vuex);
-    store = new Store<DeepPartial<RootXStoreState>>({});
-    installNewXPlugin({ store }, localVue);
-    resetXSearchBoxStateWith(store);
-
-    mockedSearchInput = mount(SearchInput, {
-      store,
-      localVue
-    });
-    input = mockedSearchInput.vm.$refs.input as HTMLInputElement;
+    const searchInput = mountNewSearchInput();
+    mockedSearchInput = searchInput.wrapper;
+    input = searchInput.input;
 
     jest.clearAllMocks();
   });
@@ -37,6 +62,19 @@ describe('testing search input component', () => {
 
   it('has SearchBox as XModule', () => {
     expect(getXComponentXModuleName(mockedSearchInput.vm)).toEqual('searchBox');
+  });
+
+  it('emits UserFocusedSearchBox if input autofocus true', () => {
+    const { wrapper } = mountNewSearchInput({ autofocus: true });
+    wrapper.vm.$x.on('UserFocusedSearchBox').subscribe(listener);
+    expect(listener).toHaveBeenCalledTimes(1);
+    expect(listener).toHaveBeenCalledWith(undefined);
+  });
+
+  it('does not emit UserFocusedSearchBox when mounting if autofocus is false', () => {
+    const { wrapper } = mountNewSearchInput({ autofocus: false });
+    wrapper.vm.$x.on('UserFocusedSearchBox').subscribe(listener);
+    expect(listener).not.toHaveBeenCalled();
   });
 
   it('emits UserFocusedSearchBox when it gains the focus', () => {

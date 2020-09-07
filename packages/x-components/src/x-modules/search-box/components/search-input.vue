@@ -102,6 +102,12 @@
       this.debouncedUserAcceptedAQuery?.cancel();
     }
 
+    mounted(): void {
+      if(this.autofocus) {
+        this.focusInput();
+      }
+    }
+
     /**
      * Emits {@link XEventsTypes.UserAcceptedAQuery} event with a debounce configured in
      * `instantDebounceInMs` prop.
