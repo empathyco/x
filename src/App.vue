@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <SearchInput placeholder="Start to search" />
-    <ClearSearchInput>&#215;</ClearSearchInput>
+    <SearchInput :placeholder="$t('searchBox.placeholder')" />
+    <ClearSearchInput>{{ $t('searchBox.clear') }}</ClearSearchInput>
     <SearchButton>&#128269;</SearchButton>
     <Transition appear duration="400" name="collapse">
       <Empathize
@@ -9,23 +9,27 @@
         :eventsToOpenEmpathize="empathizeEventsToOpenEmpathize"
       >
         <BaseKeyboardNavigation>
-          <H1>Popular Searches</H1>
+          <h1>{{ $t('popularSearches.title') }}</h1>
           <PopularSearches :animation="suggestionsAnimation" />
-          <H1>Next Queries</H1>
+          <h1>{{ $t('nextQueries.title') }}</h1>
           <NextQueries :animation="suggestionsAnimation" />
-          <H1>Query Suggestions</H1>
+          <h1>{{ $t('querySuggestions.title') }}</h1>
           <QuerySuggestions :animation="suggestionsAnimation" />
-          <H1>History Queries</H1>
+          <h1>{{ $t('historyQueries.title') }}</h1>
           <HistoryQueries :animation="suggestionsAnimation">
             <template #suggestion="{ suggestion }">
               <HistoryQuery :suggestion="suggestion">
                 <template #remove-button-content>
-                  <span>&#215;</span>
+                  <span
+                    :aria-label="$t('historyQueries.removeLabel', { suggestion: suggestion.query })"
+                  >
+                    &#215;
+                  </span>
                 </template>
               </HistoryQuery>
             </template>
           </HistoryQueries>
-          <ClearHistoryQueries>Clear History</ClearHistoryQueries>
+          <ClearHistoryQueries>{{ $t('historyQueries.clear') }}</ClearHistoryQueries>
         </BaseKeyboardNavigation>
       </Empathize>
     </Transition>
