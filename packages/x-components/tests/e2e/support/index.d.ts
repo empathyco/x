@@ -23,6 +23,17 @@ declare namespace Cypress {
      */
     searchQuery(query: string): Chainable<any>;
     /**
+     * Searches muliple queries by typing it in the search input and pressing enter.
+     *
+     * @example
+     * cy.searchQueries('lego', 'palymobil')
+     *
+     * @param queries - The query to search.
+     * @returns A Chainable object.
+     * @internal
+     */
+    searchQueries(...queries: string[]): Chainable<any>;
+    /**
      * Types a query into the search input.
      *
      * @example
@@ -33,5 +44,25 @@ declare namespace Cypress {
      * @internal
      */
     typeQuery(query: string): Chainable<any>;
+    /**
+     * Focus into the search input.
+     *
+     * @example
+     * cy.focusSearchInput()
+     *
+     * @returns A Chainable object.
+     * @internal
+     */
+    focusSearchInput(): Chainable<any>;
+    /**
+     * Clear search input.
+     *
+     * @example
+     * cy.clearSearchInput()
+     *
+     * @returns A Chainable object.
+     * @internal
+     */
+    clearSearchInput(): Chainable<any>;
   }
 }

@@ -1,51 +1,8 @@
 <template>
   <main>
-    <BaseOpenButton>Open search</BaseOpenButton>
-    <BaseModalContainer>
-      <div class="modal-content">
-        <SearchInput placeholder="Search" aria-label="Search for products" />
-        <BaseCloseButton aria-label="Close search">x</BaseCloseButton>
-      </div>
-    </BaseModalContainer>
     <SearchInput placeholder="Search" aria-label="Search for products" />
     <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-    <Empathize v-if="showEmpathize" :animation="collapseFromTop">
-      <BaseKeyboardNavigation>
-        <BaseCloseButton
-          key="closeButton"
-          class="x-empathize__close"
-          closingEvent="UserClosedEmpathize"
-        >
-          ×
-        </BaseCloseButton>
-        <div class="x-column">
-          <h1>Suggestions</h1>
-          <QuerySuggestions :animation="fadeAndSlide">
-            <template #suggestion="{suggestion}">
-              <QuerySuggestion
-                :suggestion="suggestion"
-                :aria-label="`Query suggestion: ${suggestion.query}`"
-              />
-            </template>
-          </QuerySuggestions>
-          <NoSuggestions message="We couldn't find any suggestion. Try searching for {query}." />
-        </div>
-        <div class="x-column">
-          <h1>Previous Searches</h1>
-          <HistoryQueries :animation="fadeAndSlide">
-            <template #suggestion-remove-content="{suggestion}">
-              <span :aria-label="`Remove ${suggestion.query} from history`">x</span>
-            </template>
-          </HistoryQueries>
-          <ClearHistoryQueries>Clear previous searches</ClearHistoryQueries>
-        </div>
-        <div class="x-column">
-          <h1>Trending</h1>
-          <PopularSearches :animation="fadeAndSlide" />
-        </div>
-      </BaseKeyboardNavigation>
-    </Empathize>
-    <BaseKeyboardNavigation v-else>
+    <BaseKeyboardNavigation>
       <div class="x-column">
         <h1>Query Suggestions</h1>
         <QuerySuggestions :animation="fadeAndSlide">
@@ -109,17 +66,13 @@
 </template>
 
 <script lang="ts">
+  import { deepMerge } from '@empathybroker/deep-merge';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import FadeAndSlide from '../components/animations/fade-and-slide.vue';
-  import BaseCloseButton from '../components/base-close-button.vue';
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
-  import BaseModalContainer from '../components/base-modal-container.vue';
-  import BaseOpenButton from '../components/base-open-button.vue';
   import BaseResultLink from '../components/base-result-link.vue';
-  import { getURLParameter } from '../utils/get-url-parameters';
-  import Empathize from '../x-modules/empathize/components/empathize.vue';
+  import { installX } from '../x';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
@@ -134,17 +87,28 @@
   import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
+  import basicConfig from './base-config';
 
   @Component({
+    beforeRouteEnter(_to, _from, next: () => void): void {
+      const configFullNoEmpathize = deepMerge(basicConfig, {
+        xModules: {
+          nextQueries: {
+            config: {
+              loadOnInit: true
+            }
+          }
+        }
+      });
+      installX(configFullNoEmpathize);
+      next();
+    },
     components: {
-      BaseCloseButton,
+      SearchInput,
+      ClearSearchInput,
       BaseKeyboardNavigation,
-      BaseModalContainer,
-      BaseOpenButton,
       BaseResultLink,
       ClearHistoryQueries,
-      ClearSearchInput,
-      Empathize,
       HistoryQueries,
       IdentifierResult,
       IdentifierResults,
@@ -154,52 +118,18 @@
       QuerySuggestion,
       QuerySuggestions,
       Recommendations,
-      RelatedTags,
-      SearchInput
+      RelatedTags
     }
   })
-  export default class App extends Vue {
-    protected showEmpathize = getURLParameter('showEmpathize') === 'true';
-    protected loadOnInit = getURLParameter('loadOnInit') === 'true';
+  export default class FullNoEmpathize extends Vue {
     protected fadeAndSlide = FadeAndSlide;
-    protected collapseFromTop = CollapseFromTop;
   }
 </script>
 
 <style lang="scss">
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    margin-top: 60px;
-    text-align: center;
-    color: #2c3e50;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .x-modal-content {
-    background-color: white;
-    height: 200px;
-    width: 100%;
-  }
-
   .x-column {
     display: inline-flex;
     flex-direction: column;
     width: 30%;
-  }
-
-  .x-empathize {
-    background-color: white;
-    border: 1px dashed black;
-    border-radius: 20px;
-    z-index: 2;
-    width: 600px;
-    position: relative;
-
-    &__close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-    }
   }
 </style>

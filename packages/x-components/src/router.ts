@@ -1,12 +1,22 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
-
+import VueRouter, { RouteConfig } from 'vue-router';
 Vue.use(VueRouter);
 
-const routes = [
+const routes: RouteConfig[] = [
   {
     path: '/',
-    component: () => import('./templates-test/FullApp.vue')
+    name: 'app',
+    component: () => import('./views/FullApp.vue')
+  },
+  {
+    path: '/full-empathize',
+    name: 'full-empathize',
+    component: () => import('./views/FullEmpathize.vue')
+  },
+  {
+    path: '/full-no-empathize',
+    name: 'full-no-empathize',
+    component: () => import('./views/FullNoEmpathize.vue')
   }
 ];
 

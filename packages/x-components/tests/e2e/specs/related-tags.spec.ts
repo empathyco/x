@@ -1,5 +1,5 @@
 describe('e2e testing related tags component', () => {
-  const query = 'piscina';
+  const query = 'lego';
   beforeEach(() => {
     cy.visit('/');
     cy.getByDataTest('search-input').as('searchInput');
