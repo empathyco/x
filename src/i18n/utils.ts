@@ -9,10 +9,8 @@ import { Messages } from './messages.types';
  * @param messages - The messages object to create.
  * @returns The same messages object passed.
  */
-export function createMessages<T extends Messages & LocaleMessageObject>(
-  messages: T
-): LocaleMessageObject {
-  return messages;
+export function createMessages(messages: Messages): LocaleMessageObject {
+  return (messages as unknown) as LocaleMessageObject;
 }
 
 /**

@@ -87,5 +87,8 @@ Modify the plugin options [x-components/plugin.options.ts](../src/x-components/p
 file. The adapter is mandatory and is imported from the previous file. To know more about the
 plugin options visit: <!-- TODO: Add here the link to the Plugin doc page-->
 
+### Internationalization
+
+To learn about how to add messages for different locales, refer to the [internationalization section](i18n.md).
 
 
