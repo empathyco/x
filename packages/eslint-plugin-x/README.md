@@ -3,9 +3,9 @@
 The project name is just to follow the 
 [guidelines](https://eslint.org/docs/developer-guide/working-with-plugins) of ESLint to develop a
 custom plugin, but it includes also style formatter and good practices outside ESLint:
-* ESLint and third-party plugins
-* Prettier
-* standard-version
+*  [ESLint](https://eslint.org/) and third-party plugins
+*  [Prettier](https://prettier.io/)
+*  [standard-version](https://github.com/conventional-changelog/standard-version)
 
 ## ESLint
 
@@ -17,7 +17,7 @@ You can install the linter plugin using NPM:
 npm install @empathy/eslint-plugin-x --save-dev
 ```
 
-The plugin offers different levels of configuration depending on the plugins and rules we want to 
+The plugin offers different levels of configuration depending on the plugins and rules we want to
 activate:
 
 | Severity    	    | Plugins             	|
@@ -25,19 +25,19 @@ activate:
 | **standard**    	| ESLint              	|
 |             	    | TypeScript          	|
 |             	    | Prettier            	|
-| **recommended** 	| standard plugins +    |
+| **recommended** 	| _standard plugins_    |
 |             	    | JSDoc               	|
 |             	    | TSDoc               	|
 |             	    | Import              	|
 |             	    | Jest                	|
 |             	    | Cypress             	|
-| **all**         	| recommended plugins + |
+| **all**         	| _recommended plugins_ |
 |             	    | Vue                 	|
 
 ### Usage
 
 Add `plugin:@empathy/x` to the extends section of your `.eslintrc` configuration file followed by
-the severity config that you want to activate `standard`, `recommended` or `all`. You can omit the 
+the severity config that you want to activate `standard`, `recommended` or `all`. You can omit the
 `eslint-plugin-` prefix. 
 
 ```
@@ -54,8 +54,9 @@ or
 
 ## Prettier
 
-The Prettier configuration is available in the `prettier-config.js` file. To use it is enough
-with reference it in you `package.json`:
+The Prettier configuration is available in the `prettier-config.js` file. First, delete
+your custom prettier config file if you have. To use it is enough with reference it in you
+`package.json`:
  
 ```
 "prettier": "@empathy/eslint-plugin-x/prettier-config"

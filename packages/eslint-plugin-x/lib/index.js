@@ -54,7 +54,10 @@ const recommended = {
   overrides: [
     jest.overrides,
     cypress.overrides
-  ]
+  ],
+  settings: {
+    ...imports.settings
+  }
 };
 
 const all = {
@@ -68,7 +71,8 @@ const all = {
     ...recommended.rules,
     ...vue.rules
   },
-  overrides: recommended.overrides
+  overrides: recommended.overrides,
+  settings: recommended.settings
 };
 
 module.exports = {

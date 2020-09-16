@@ -9,7 +9,9 @@ module.exports = {
       'jsdoc/check-alignment': 'error',
       'jsdoc/check-indentation': 'error',
       'jsdoc/check-param-names': 'error',
-      'jsdoc/check-tag-names': ['error', { definedTags: ['internal', 'remarks', 'typeParam'] }],
+      'jsdoc/check-tag-names': ['error', {
+        definedTags: ['internal', 'remarks', 'typeParam', 'packageDocumentation']
+      }],
       'jsdoc/implements-on-classes': 'off',
       'jsdoc/newline-after-description': 'error',
       'jsdoc/require-description': 'error',
