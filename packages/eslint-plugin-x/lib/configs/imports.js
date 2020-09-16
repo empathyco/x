@@ -15,6 +15,11 @@ module.exports = {
           'from': './types'
         }]
       }]
+    },
+    settings: {
+      'import/resolver': {
+        'typescript': {} // this loads <rootdir>/tsconfig.json to eslint
+      }
     }
   }
 };
