@@ -129,4 +129,10 @@
     </template>
   </NextQueries>
   ```
+
+  ---
+  id: x-components.nextqueries
+  title: Next Queries
+  sidebar_label: Next Queries
+  ---
 </docs>

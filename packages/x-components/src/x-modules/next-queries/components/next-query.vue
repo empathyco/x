@@ -83,4 +83,10 @@
     </template>
   </NextQuery>
   ```
+
+  ---
+  id: x-components.nextquery
+  title: Next Query
+  sidebar_label: Next Query
+  ---
 </docs>

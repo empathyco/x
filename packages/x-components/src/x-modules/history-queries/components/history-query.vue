@@ -119,4 +119,10 @@
     </template>
   </HistoryQuery>
   ```
+
+  ---
+  id: x-components.historyquery
+  title: History Query
+  sidebar_label: History Query
+  ---
 </docs>

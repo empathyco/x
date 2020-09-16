@@ -130,4 +130,10 @@
     </template>
   </PopularSearches>
   ```
+
+  ---
+  id: x-components.popularsearches
+  title: Popular Searches
+  sidebar_label: Popular Searches
+  ---
 </docs>

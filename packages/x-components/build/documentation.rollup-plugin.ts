@@ -38,6 +38,7 @@ export function apiDocumentation(): Plugin {
 
       await generateDocumentation();
       copyConfigurationDocumentation('../static-docs', '../docs');
+      moveHeaderComponent();
     }
   };
 }
@@ -107,6 +108,35 @@ function copyConfigurationDocumentation(source: string, target: string): void {
 }
 
 /**
+ * Moves the markdown header to the beginning for each file component. This header will provide
+ * the title, sidebar label and the file name itself.
+ */
+function moveHeaderComponent(): void {
+  const targetFolderPath = path.join(__dirname, '../docs/components');
+  fs.readdir(targetFolderPath, function (error, files) {
+    if (error) {
+      return console.log(error);
+    }
+    files.forEach(function (file) {
+      const data = fs.readFileSync(path.join(targetFolderPath, file), 'UTF-8');
+      const lines = data.split(/\r?\n/);
+      // Markdown header limit at the end of the file skipping the empty line at the bottom
+      const markdownHeaderEnd = lines.length - 2;
+      let markdownHeaderStart = 0;
+      const markupLimit = '---';
+      if (lines[markdownHeaderEnd] === markupLimit) {
+        lines[0] = '';
+        for (let i = markdownHeaderEnd - 1; markdownHeaderStart === 0; i--) {
+          markdownHeaderStart = lines[i] === markupLimit ? i : 0;
+        }
+        lines.unshift(...lines.splice(markdownHeaderStart, markdownHeaderEnd));
+        fs.writeFileSync(path.join(targetFolderPath, file), lines.join('\n'));
+      }
+    });
+  });
+}
+
+/**
  * Configures IExtractorInvokeOptions to set a message callback to avoid
  * the warning message `You have changed the public API signature...` to be sent to the console.
  *
@@ -134,7 +164,7 @@ function generateDocumentation(): Promise<void> {
         reject(error);
       }
       if (stderr) {
-        reject(stderr);
+        //reject(stderr);
       }
       resolve();
     });

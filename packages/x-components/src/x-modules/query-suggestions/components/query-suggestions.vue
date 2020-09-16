@@ -74,8 +74,8 @@
 </script>
 <!--eslint-disable-->
 <docs>
-  import { ReactQuerySuggestions, ReactSearchInput } from './react-components/ReactComponents';
-  import { NextItem } from './react-components/Utils';
+  import { ReactQuerySuggestions, ReactSearchInput } from '../react-components/ReactComponents';
+  import { NextItem } from '../react-components/Utils';
   import Tabs from '@theme/Tabs';
   import TabItem from '@theme/TabItem';
 
@@ -171,4 +171,9 @@
 
   <NextItem color="#e77962" font='white' next="x-components.nextqueries">Next queries</NextItem>
 
+  ---
+  id: x-components.querysuggestions
+  title: Query Suggestions
+  sidebar_label: Query Suggestions
+  ---
 </docs>

@@ -68,4 +68,10 @@
     <li>Element to animate</li>
   </FadeAndSlide>
   ```
+
+  ---
+  id: x-components.fadeandslide
+  title: Fade and Slide
+  sidebar_label: Fade and Slide
+  ---
 </docs>

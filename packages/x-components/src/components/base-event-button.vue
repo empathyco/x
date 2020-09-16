@@ -61,5 +61,9 @@
   ```vue
   <BaseEventButton :events="{myFirstEvent: payload1, mySecondEvent: payload2}"/>
   ```
-
+  ---
+  id: x-components.baseeventbutton
+  title: Base Event Button
+  sidebar_label: Base Event Button
+  ---
 </docs>

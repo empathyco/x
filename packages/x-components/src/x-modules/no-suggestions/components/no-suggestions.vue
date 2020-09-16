@@ -181,4 +181,10 @@
   ```vue
   <NoSuggestions :eventsToRender="['NextQueriesChanged', 'QuerySuggestionsChanged']" />
   ```
+
+  ---
+  id: x-components.nosuggestions
+  title: No Suggestions
+  sidebar_label: No Suggestions
+  ---
 </docs>

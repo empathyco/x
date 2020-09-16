@@ -174,4 +174,9 @@
     </template>
   </BaseSuggestion>
   ```
+  ---
+  id: x-components.basesuggestion
+  title: Base Suggestion
+  sidebar_label: Base Suggestion
+  ---
 </docs>

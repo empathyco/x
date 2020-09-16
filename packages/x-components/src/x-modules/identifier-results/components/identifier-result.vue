@@ -77,5 +77,9 @@
   ```vue
   <IdentifierResult v-bind="{ result }"/>
   ```
-
+  ---
+  id: x-components.identifierresult
+  title: Identifier Result
+  sidebar_label: Identifier Result
+  ---
 </docs>

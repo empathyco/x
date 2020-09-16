@@ -106,4 +106,10 @@
     </template>
   </RelatedTags>
   ```
+
+  ---
+  id: x-components.relatedtags
+  title: Related Tags
+  sidebar_label: Related Tags
+  ---
 </docs>

@@ -63,4 +63,9 @@
   ```vue
   <BaseResultCurrentPrice :result="result"/>
   ```
+  ---
+  id: x-components.baseresultcurrentprice
+  title: Base Result Current Price
+  sidebar_label: Base Result Current Price
+  ---
 </docs>

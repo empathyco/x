@@ -152,4 +152,9 @@
   </HistoryQueries>
   ```
 
+  ---
+  id: x-components.historyqueries
+  title: History Queries
+  sidebar_label: History Queries
+  ---
 </docs>

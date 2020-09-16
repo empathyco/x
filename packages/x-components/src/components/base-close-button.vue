@@ -32,6 +32,8 @@
 </script>
 
 <docs>
+
+
   #Examples
 
   ## Basic example
@@ -52,4 +54,10 @@
     ×
   </BaseCloseButton>
   ```
+
+  ---
+  id: x-components.baseclosebutton
+  title: Base Close Button
+  sidebar_label: Base Close Button
+  ---
 </docs>

@@ -124,5 +124,9 @@
     </template>
   </BaseResultLink>
   ```
-
+  ---
+  id: x-components.baseresultlink
+  title: Base Result Link
+  sidebar_label: Base Result Link
+  ---
 </docs>

@@ -54,4 +54,9 @@
   ```vue
   <BaseResultPreviousPrice :result="result"/>
   ```
+  ---
+  id: x-components.baseresultpreviousprice
+  title: Base Result Previous Price
+  sidebar_label: Base Result Previous Price
+  ---
 </docs>

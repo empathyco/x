@@ -56,5 +56,9 @@
     <span>Add to cart</span>
   </BaseResultAddToCart>
   ```
-
+  ---
+  id: x-components.baseresultaddtocart
+  title: Base Result Add To Cart
+  sidebar_label: Base Result Add To Cart
+  ---
 </docs>

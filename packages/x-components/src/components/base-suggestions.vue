@@ -129,4 +129,9 @@
 
   It retrieves the suggestions from a `suggestions` property in the Vuex store `x/querySuggestions`
   module, and implements a `emitSuggestionSelected` method that emits two events to the `$x` bus.
+  ---
+  id: x-components.basesuggestions
+  title: Base Suggestions
+  sidebar_label: Base Suggestions
+  ---
 </docs>

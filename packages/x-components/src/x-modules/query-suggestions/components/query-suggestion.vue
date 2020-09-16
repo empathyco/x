@@ -91,4 +91,10 @@
     </template>
   </QuerySuggestion>
   ```
+
+  ---
+  id: x-components.querysuggestion
+  title: Query Suggestion
+  sidebar_label: Query Suggestion
+  ---
 </docs>

@@ -80,4 +80,10 @@
     </template>
   </PopularSearch>
   ```
+
+  ---
+  id: x-components.popularsearch
+  title: Popular Search
+  sidebar_label: Popular Search
+  ---
 </docs>

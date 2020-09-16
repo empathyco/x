@@ -58,10 +58,10 @@
 </script>
 <!--eslint-disable-->
 <docs>
-  import { NextItem } from './react-components/Utils';
+  import { NextItem } from '../react-components/Utils';
   import Tabs from '@theme/Tabs';
   import TabItem from '@theme/TabItem';
-  import { ReactClearSearchInput, ReactSearchInput, doMagic } from './react-components/ReactComponents';
+  import { ReactClearSearchInput, ReactSearchInput, doMagic } from '../react-components/ReactComponents';
 
   The ClearSearchInput is a button that when pressed emits [UserPressedClearsearchBoxButton](x-components.searchboxxevents.userpressedclearsearchboxbutton)
   event, expressing the user intention to clear the current query.
@@ -175,4 +175,10 @@
   Ready for more? Continue reading with:
 
   <NextItem color="#e77962" font="white" next="x-components.searchbutton">Search button</NextItem>
+
+  ---
+  id: x-components.clearsearchinput
+  title: Clear Search Input
+  sidebar_label: Clear Search Input
+  ---
 </docs>

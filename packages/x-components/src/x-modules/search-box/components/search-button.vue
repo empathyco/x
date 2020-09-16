@@ -54,10 +54,10 @@
 </script>
 <!--eslint-disable-->
 <docs>
-  import { NextItem } from './react-components/Utils';
+  import { NextItem } from '../react-components/Utils';
   import Tabs from '@theme/Tabs';
   import TabItem from '@theme/TabItem';
-  import { ReactSearchButton, ReactSearchInput, doMagic } from './react-components/ReactComponents';
+  import { ReactSearchButton, ReactSearchInput, doMagic } from '../react-components/ReactComponents';
 
   Search button component which emits on its click
   [UserAcceptedAQuery](x-components.xeventstypes.useracceptedaquery) and
@@ -175,4 +175,9 @@
 
   <NextItem color="#e77962" font="white" next="x-components.querysuggestions">Query Suggestions</NextItem>
 
+  ---
+  id: x-components.searchbutton
+  title: Search Button
+  sidebar_label: Search Button
+  ---
 </docs>
