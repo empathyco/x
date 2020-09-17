@@ -154,7 +154,7 @@ export function getGetterPath<ModuleName extends XModuleName>(
  */
 export function getRootXComponent(component: Vue): XComponent | undefined {
   let xComponent: XComponent | undefined;
-  while (component !== undefined) {
+  while (component !== undefined && component !== null) {
     if (isXComponent(component)) {
       xComponent = component;
     }

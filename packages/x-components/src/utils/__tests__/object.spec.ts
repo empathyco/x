@@ -1,4 +1,4 @@
-import { forEach, map, reduce } from '../object';
+import { cleanUndefined, forEach, map, reduce } from '../object';
 import { Dictionary } from '../types';
 
 class Person {
@@ -263,6 +263,70 @@ describe('testing object utils', () => {
         .forEach((forEachIndex, index) => {
           expect(forEachIndex).toBeGreaterThanOrEqual(index);
         });
+    }
+  });
+
+  describe('cleanUndefined', () => {
+    it('cleans undefined values from an object', () => {
+      const testObj = {
+        a: 1,
+        b: 2,
+        c: undefined
+      };
+
+      const cleanObject = cleanUndefined(testObj);
+      expect(hasProperty(cleanObject, 'a')).toBe(true);
+      expect(hasProperty(cleanObject, 'b')).toBe(true);
+      expect(hasProperty(cleanObject, 'c')).not.toBe(true);
+    });
+
+    it('cleans undefined values from an object recursively', () => {
+      const testObj = {
+        a: 1,
+        b: {
+          c: 2,
+          d: undefined,
+          e: {
+            f: undefined,
+            g: 3
+          },
+          h: {}
+        }
+      };
+
+      const cleanObject = cleanUndefined(testObj);
+      expect(hasProperty(cleanObject, 'a')).toBe(true);
+      expect(hasProperty(cleanObject, 'b')).toBe(true);
+      expect(hasProperty(cleanObject.b, 'c')).toBe(true);
+      expect(hasProperty(cleanObject.b, 'd')).not.toBe(true);
+      expect(hasProperty(cleanObject.b, 'e')).toBe(true);
+      expect(hasProperty(cleanObject.b.e, 'f')).not.toBe(true);
+      expect(hasProperty(cleanObject.b.e, 'g')).toBe(true);
+      expect(hasProperty(cleanObject.b, 'h')).toBe(true);
+    });
+
+    it('returns the same value as passed if it is not an object', () => {
+      const testValue1 = 'a';
+      const returnedValue1 = cleanUndefined(testValue1);
+      expect(returnedValue1).toBe(testValue1);
+
+      const testValue2 = 1;
+      const returnedValue2 = cleanUndefined(testValue2);
+      expect(returnedValue2).toBe(testValue2);
+    });
+
+    it('returns undefined if the value passed is undefined', () => {
+      const returnedValue = cleanUndefined(undefined);
+      expect(returnedValue).toBeUndefined();
+    });
+
+    it('returns null if the value passed is null', () => {
+      const returnedValue = cleanUndefined(null);
+      expect(returnedValue).toBeNull();
+    });
+
+    function hasProperty(obj: any, key: string): boolean {
+      return key in obj;
     }
   });
 });

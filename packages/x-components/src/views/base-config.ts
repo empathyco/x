@@ -1,10 +1,9 @@
 import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
 import { Result } from '@empathy/search-types';
+import { SnippetConfig } from '../x-installer/api/api.types';
+import { InstallXOptions } from '../x-installer/x-installer/types';
 
 const adapter = new EmpathyAdapterBuilder()
-  .setInstance('juguettos')
-  .setLang('es')
-  .setScope('x-components-development')
   .addMapper((_, result: Result) => {
     result.url = `./product_page.html?productId=${result.id}`;
     result.identifier.value = result.id;
@@ -12,7 +11,13 @@ const adapter = new EmpathyAdapterBuilder()
   }, 'results')
   .build();
 
-const basicConfig = {
+export const baseSnippetConfig: SnippetConfig = {
+  instance: 'juguettos',
+  lang: 'es',
+  scope: 'x-components-development'
+};
+
+export const baseInstallXOptions: InstallXOptions = {
   adapter,
   xModules: {
     identifierResults: {
@@ -22,5 +27,3 @@ const basicConfig = {
     }
   }
 };
-
-export default basicConfig;

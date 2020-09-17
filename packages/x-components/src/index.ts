@@ -6,7 +6,6 @@
  */
 // TODO Write a complete description.
 
-export * from './api';
 export * from './components';
 export * from './filters';
 export * from './i18n';
@@ -16,7 +15,7 @@ export * from './store';
 export * from './types';
 export * from './utils';
 export * from './wiring';
-export * from './x';
+export * from './x-installer';
 export * from './x-modules/empathize';
 export * from './x-modules/history-queries';
 export * from './x-modules/identifier-results';

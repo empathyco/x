@@ -119,7 +119,7 @@
   import BaseOpenButton from '../components/base-open-button.vue';
   import BaseResultLink from '../components/base-result-link.vue';
   import { getURLParameter } from '../utils/get-url-parameters';
-  import { installX } from '../x';
+  import { XInstaller } from '../x-installer/x-installer';
   import Empathize from '../x-modules/empathize/components/empathize.vue';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
@@ -135,11 +135,11 @@
   import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
-  import basicConfig from './base-config';
+  import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
     beforeRouteEnter(_to, _from, next: () => void): void {
-      installX(basicConfig);
+      new XInstaller(baseInstallXOptions).init(baseSnippetConfig)
       next();
     },
     components: {

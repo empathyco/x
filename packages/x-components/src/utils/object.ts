@@ -73,3 +73,23 @@ export function map<T extends Dictionary, W>(
     {} as Record<keyof T, W>
   );
 }
+
+/**
+ * Creates an object picking only the not undefined properties.
+ *
+ * @param obj - The object from whom pick the values.
+ * @returns A new object with the not undefined properties of the source object.
+ * @public
+ */
+export function cleanUndefined<T>(obj: T): T {
+  return typeof obj !== 'object' || obj === null
+    ? obj
+    : reduce(
+        obj,
+        (pickedObject, key, value) => {
+          pickedObject[key] = cleanUndefined(value);
+          return pickedObject;
+        },
+        {} as T
+      );
+}
