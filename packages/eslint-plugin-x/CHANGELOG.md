@@ -1,4 +1,11 @@
 # ESLint Plugin X
+## [1.1.0](https://bitbucket.org/colbenson/eslint-plugin-x/branches/compare/v1.1.0%0Dv1.0.0) (2020-09-17)
+
+
+### Features
+
+* **import-resolver:** support typescript import resolver ([f58616d](https://bitbucket.org/colbenson/eslint-plugin-x/commits/f58616df2568cfb5abef03cd7dc459629883e39f)), closes [EX-2187](https://searchbroker.atlassian.net/browse/EX-2187)
+
 ## 1.0.0 (2020-06-18)
 
 
