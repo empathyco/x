@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --open",
+    "serve": "vue-cli-service serve --open --skip-plugins eslint",
     "build": "rollup -c",
     "test:e2e": "vue-cli-service test:e2e",
     "test:e2e:ci": "vue-cli-service test:e2e --headless --browser chrome",
@@ -11,7 +11,8 @@
     "commit": "git-cz",
     "lint": "vue-cli-service lint",
     "release": "standard-version --no-verify",
-    "release:alpha": "standard-version --no-verify --prerelease alpha"
+    "release:alpha": "standard-version --no-verify --prerelease alpha",
+    "install:local": "npm install ../x-components/empathy-x-components-1.0.0.tgz --no-save"
   },
   "dependencies": {
     "@empathy/search-adapter": "^4.0.0",
@@ -53,6 +54,7 @@
     "lint-staged": "~10.0.7",
     "node-sass": "~4.14.0",
     "rollup": "~2.23.0",
+    "rollup-plugin-copy": "~3.3.0",
     "rollup-plugin-delete": "~2.0.0",
     "rollup-plugin-generate-html-template": "~1.7.0",
     "rollup-plugin-postcss": "~3.1.3",
@@ -64,7 +66,8 @@
     "rollup-plugin-vue": "~5.1.9",
     "sass-loader": "~8.0.2",
     "typescript": "~3.9.6",
-    "vue-template-compiler": "~2.6.11"
+    "vue-template-compiler": "~2.6.11",
+    "wrapper-webpack-plugin": "~2.1.0"
   },
   "prettier": "@empathy/eslint-plugin-x/prettier-config",
   "gitHooks": {

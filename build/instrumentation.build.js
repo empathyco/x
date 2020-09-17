@@ -6,6 +6,7 @@ import replace from '@rollup/plugin-replace';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
 import path from 'path';
+import copy from 'rollup-plugin-copy';
 import del from 'rollup-plugin-delete';
 import htmlTemplate from 'rollup-plugin-generate-html-template';
 import postcss from 'rollup-plugin-postcss';
@@ -31,9 +32,9 @@ const postCSSPlugins = [autoprefixer({ grid: true }), cssnano({ preset: 'default
  */
 export function createConfig({
   extractCSS = false,
-  input= path.join(process.cwd(), 'src/main.ts'),
+  input = path.join(process.cwd(), 'src/main.ts'),
   output,
-  plugins= {}
+  plugins = {}
 } = {}) {
   /**
    * Merges a default config with the user one coming from this rollup plugin options.
@@ -69,6 +70,11 @@ export function createConfig({
           target: 'index.html'
         })
       ),
+      copy({
+        targets: [
+          { src: ['public/**', '!public/index.html'], dest: 'dist/' }
+        ]
+      }),
       // Resolving plugins
       replace(
         mergeConfig('replace', {
