@@ -1,8 +1,9 @@
 import { Filter } from '../facet/filter.model';
 
 /**
+ * Jest schema for validating Filter entities.
+ *
  * @public
- * Jest schema for validating Filter entities
  */
 export const FilterSchema: Filter = {
   callbackInfo: expect.any(Object),

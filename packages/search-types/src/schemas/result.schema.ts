@@ -2,8 +2,9 @@ import { Result } from '../result/result.model';
 import { TaggingSchema } from './tagging.schema';
 
 /**
+ * Jest schema for validating Result entities.
+ *
  * @public
- * Jest schema for validating Result entities
  */
 export const ResultSchema: Result = {
   callbackInfo: expect.any(Object),
@@ -34,8 +35,9 @@ export const ResultSchema: Result = {
 };
 
 /**
+ * Jest schema for validating Recommendation (AKA Result) entities.
+ *
  * @public
- * Jest schema for validating Recommendation (AKA Result) entities
  */
 export const RecommendationSchema: Result = {
   callbackInfo: expect.any(Object),

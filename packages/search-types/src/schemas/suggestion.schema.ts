@@ -1,8 +1,9 @@
 import { Suggestion } from '../suggestion.model';
 
 /**
+ * Jest schema for validating Suggestion entities.
+ *
  * @public
- * Jest schema for validating Suggestion entities
  */
 export const SuggestionSchema: Suggestion = {
   modelName: expect.any(String),

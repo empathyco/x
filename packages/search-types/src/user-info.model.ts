@@ -1,18 +1,13 @@
 /**
+ * The representation of the user.
+ *
  * @public
- * The representation of the user
  */
 export interface UserInfo {
-  /**
-   * A unique token that represents the user over a long period of time
-   */
+  /** A unique token that represents the user over a long period of time. */
   user: string;
-  /**
-   * A unique token that represents a search session
-   */
+  /** A unique token that represents a search session. */
   session: string;
-  /**
-   * Whether the user is new or recurrent
-   */
+  /** Whether the user is new or recurrent. */
   userType: string;
 }

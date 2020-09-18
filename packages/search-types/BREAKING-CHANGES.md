@@ -1,6 +1,7 @@
 # Changelog
 
-## 5.0.0-alpha
+## 5.0.0
+
 > EX-1837 Changed next query schema facets to be an array instead of an object.
 >
 > EX-1693 Renamed `term` property to`query` in `HistoryTerm`, `PartialResult` and `Suggestion` models. 

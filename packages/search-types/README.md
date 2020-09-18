@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.1 - 2020/09/18
+
+> EX-2152 Fix api-extractor doc model and improve build
+
 ## 5.0.0 - 2020/07/30
 
 > EX-1875 Close tags within the documentation between backslashes

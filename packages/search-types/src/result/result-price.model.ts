@@ -1,18 +1,13 @@
 /**
+ * The result price.
+ *
  * @public
- * The result price
  */
 export interface ResultPrice {
-  /**
-   * The old value
-   */
+  /** The old value. */
   originalValue: number;
-  /**
-   * The current value
-   */
+  /** The current value. */
   value: number;
-  /**
-   * Whether or not this result has discount
-   */
+  /** Whether or not this result has discount. */
   hasDiscount: boolean;
 }

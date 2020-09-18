@@ -1,8 +1,9 @@
 import { Tagging } from '../tagging.model';
 
 /**
+ * Jest schema for validating Tagging entities.
+ *
  * @public
- * Jest schema for validating Tagging entities
  */
 export const TaggingSchema: Tagging = {
   params: expect.any(Object),

@@ -1,8 +1,9 @@
 import { HistoryQuery } from '../history-query.model';
 
 /**
+ * Jest schema for validating Next query entities.
+ *
  * @public
- * Jest schema for validating Next query entities
  */
 export const HistoryQuerySchema: HistoryQuery = {
   modelName: expect.any(String),

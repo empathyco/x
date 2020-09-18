@@ -1,8 +1,9 @@
 import { RelatedTag } from '../query-signals/related-tag.model';
 
 /**
+ * Jest schema for validating Related Tag entities.
+ *
  * @public
- * Jest schema for validating Related Tag entities
  */
 export const RelatedTagSchema: RelatedTag = {
   modelName: expect.any(String),

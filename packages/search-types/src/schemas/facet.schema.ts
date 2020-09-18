@@ -1,8 +1,9 @@
 import { Facet } from '../facet/facet.model';
 
 /**
+ * Jest schema for validating Facet entities.
+ *
  * @public
- * Jest schema for validating Facet entities
  */
 export const FacetSchema: Facet = {
   title: expect.any(String),

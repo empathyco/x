@@ -2,8 +2,9 @@ import { Redirection } from '../redirection.model';
 import { TaggingSchema } from './tagging.schema';
 
 /**
+ * Jest schema for validating Redirection entities.
+ *
  * @public
- * Jest schema for validating Redirection entities
  */
 export const RedirectionSchema: Redirection = {
   id: expect.any(String),

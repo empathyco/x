@@ -1,16 +1,19 @@
 import { FilterModel } from './facet/filter.model';
 
 /**
+ * Common interface to ease the differentiate between different model types.
+ *
  * @public
- * Common interface to ease the differentiate between different model types
  */
 export interface NamedModel {
+  /** The {@link ModelNameType | model name} value. */
   readonly modelName: ModelNameType;
 }
 
 /**
+ * Type to ease the usage of the ModelNames interface with autocomplete suggestions.
+ *
  * @public
- * Type to ease the usage of the ModelNames interface with autocomplete suggestions
  */
 export type ModelNameType =
   'Result'

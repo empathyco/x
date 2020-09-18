@@ -1,8 +1,9 @@
 import { NextQuery } from '../query-signals/next-query.model';
 
 /**
+ * Jest schema for validating Next query entities.
+ *
  * @public
- * Jest schema for validating Next query entities
  */
 export const NextQuerySchema: NextQuery = {
   modelName: expect.any(String),

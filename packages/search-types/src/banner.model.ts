@@ -3,19 +3,24 @@ import { NamedModel } from './named-model.model';
 import { Tagging } from './tagging.model';
 
 /**
+ * A banner is an image with a title, that when clicked redirect the user to an URL.
+ * Often it is represented as a 100% wide element that appears on top of the results inside the
+ * grid or between rows
+ *
  * @public
- * A banner is an image with a title, that when clicked redirect the user to an URL
- * Often it is represented as a 100% wide element on the grid that appears on top of the results or between rows.
  */
 export interface Banner extends NamedModel, CallbackInfo {
-  /**
-   * A unique ID that identifies each banner
-   */
+  /** A unique ID that identifies the banner. */
   id: string;
+  /** Banner title. */
   title: string;
+  /** URL to redirect. */
   url: string;
+  /** Banner image. */
   image: string;
+  /** Banner tagging. */
   tagging: {
+    /** {@link Tagging | Click tagging}. */
     click: Tagging;
   };
 }

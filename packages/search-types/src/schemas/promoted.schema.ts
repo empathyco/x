@@ -2,8 +2,9 @@ import { Promoted } from '../promoted.model';
 import { TaggingSchema } from './tagging.schema';
 
 /**
+ * Jest schema for validating Promoted entities.
+ *
  * @public
- * Jest schema for validating Promoted entities
  */
 export const PromotedSchema: Promoted = {
   id: expect.any(String),

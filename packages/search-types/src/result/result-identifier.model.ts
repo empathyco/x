@@ -1,7 +1,9 @@
 /**
+ * The client result identifier (SKU, MOCACO, a simple ID...).
+ *
  * @public
- * The client result identifier (SKU, MOCACO, a simple ID...)
  */
 export interface ResultIdentifier {
+  /** Result identifier value. */
   value: string;
 }

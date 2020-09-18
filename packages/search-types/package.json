@@ -1,14 +1,17 @@
 {
   "name": "@empathy/search-types",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Empathy search types",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/search-types.d.ts",
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c && npm run gen:docs && npm pack",
     "build:watch": "rollup -c -w",
-    "release": "npm install && npm run build"
+    "gen:model-docs": "api-extractor run -c search-types-extractor.json -l && api-extractor run -c schema-extractor.json -l && api-extractor run -l",
+    "gen:typescript-docs": "api-documenter markdown -i report -o docs",
+    "gen:docs": "npm run gen:model-docs && npm run gen:typescript-docs",
+    "lint": "tslint --project tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -29,19 +32,19 @@
   "devDependencies": {
     "@empathy/jest-utils": "^1.1.0",
     "@empathybroker/eb-tslint": "0.0.15",
-    "@microsoft/api-documenter": "^7.5.8",
-    "@microsoft/api-extractor": "^7.5.6",
-    "@types/jest": "^24.0.13",
-    "jest": "^24.8.0",
+    "@microsoft/api-documenter": "~7.5.8",
+    "@microsoft/api-extractor": "~7.5.6",
+    "@types/jest": "~24.0.13",
+    "jest": "~24.8.0",
     "rollup": "~2.7.3",
-    "rollup-plugin-delete": "^1.2.0",
-    "rollup-plugin-execute": "^1.1.1",
-    "rollup-plugin-typescript2": "^0.27.0",
-    "tslint": "^5.16.0",
-    "typescript": "^3.8.3"
+    "rollup-plugin-delete": "~1.2.0",
+    "rollup-plugin-typescript2": "~0.27.0",
+    "tslint": "~5.16.0",
+    "typescript": "~3.8.3"
   },
   "files": [
-    "dist/**/*",
-    "schemas/**/*"
+    "dist",
+    "schemas",
+    "report"
   ]
 }

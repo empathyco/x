@@ -2,8 +2,9 @@ import { Banner } from '../banner.model';
 import { TaggingSchema } from './tagging.schema';
 
 /**
+ * Jest schema for validating Banner entities.
+ *
  * @public
- * Jest schema for validating Banner entities
  */
 export const BannerSchema: Banner = {
   id: expect.any(String),
