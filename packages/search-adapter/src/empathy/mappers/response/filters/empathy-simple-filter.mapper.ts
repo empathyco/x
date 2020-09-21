@@ -4,6 +4,11 @@ import { ResponseMapper } from '../../../empathy-adapter.types';
 import { EmpathyFilter } from '../../../models';
 import { NO_TAG_AND_FACET_REGEX } from '../../mappers.const';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class EmpathySimpleFilterMapper implements ResponseMapper<EmpathyFilter, SimpleFilter> {
   map(rawFilter: EmpathyFilter, filter: SimpleFilter): SimpleFilter {

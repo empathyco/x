@@ -4,6 +4,11 @@ import { DEPENDENCIES } from '../../container/container.const';
 import { MapRequest, RequestMapper, RequestMapperContext } from '../../empathy-adapter.types';
 import { pipeMappers } from '../pipe-mappers';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class EmpathyQueryableRequestMapper implements RequestMapper<QueryableRequest & Dictionary<string>, Dictionary<string>> {
   private readonly mapQuery: MapRequest<QueryableRequest, string>;

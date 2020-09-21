@@ -4,6 +4,11 @@ import { Dictionary } from '../../../../types';
 import { ResponseMapper, ResponseMapperContext } from '../../../empathy-adapter.types';
 import { EmpathyFilter } from '../../../models';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class EmpathyFilterMapper implements ResponseMapper<EmpathyFilter, Filter> {
 

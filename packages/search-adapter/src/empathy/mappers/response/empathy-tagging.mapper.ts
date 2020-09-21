@@ -4,6 +4,11 @@ import { Dictionary } from '../../../types';
 import { ResponseMapper } from '../../empathy-adapter.types';
 import { Logger } from '../../logger';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class EmpathyTaggingMapper implements ResponseMapper<string, Tagging> {
   private readonly logger = Logger.child('EmpathyTaggingMapper');

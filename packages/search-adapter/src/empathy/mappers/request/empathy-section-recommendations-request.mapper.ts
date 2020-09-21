@@ -3,6 +3,11 @@ import { SectionRecommendationsRequest } from '../../../types';
 import { RequestMapper } from '../../empathy-adapter.types';
 import { EmpathySectionRecommendationsRequest } from '../../models/requests/empathy-discovery-wall.request';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class EmpathySectionRecommendationsRequestMapper
   implements RequestMapper<SectionRecommendationsRequest, EmpathySectionRecommendationsRequest> {

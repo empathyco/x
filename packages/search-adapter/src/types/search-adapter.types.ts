@@ -26,6 +26,13 @@ import {
 } from './response.types';
 import { DeepPartial } from './utils.types';
 
+/**
+ * SearchAdapter API with the required and optional functions to be implemented. It is the
+ * convention should be followed to create a new adapter.
+ *
+ * @param Config - The type of the adapter configuration.
+ * @public
+ */
 export interface SearchAdapter<Config = any> {
   // Required functions
   getNextQueries(request: NextQueriesRequest, requestOptions?: RequestOptions): Promise<NextQueriesResponse>;
@@ -49,4 +56,9 @@ export interface SearchAdapter<Config = any> {
   removeConfigChangedListener?(listener: ConfigChangedListener<Config>): void;
 }
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 export type ConfigChangedListener<T> = (newConfig: T) => void;

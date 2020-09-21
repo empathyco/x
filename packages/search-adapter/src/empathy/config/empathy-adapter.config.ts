@@ -2,6 +2,11 @@ import { FilterModel, MultiSelect } from '@empathy/search-types';
 import { DEFAULT_CACHE_CONFIG } from './cache.config';
 import { EmpathyAdapterConfig } from './empathy-adapter-config.types';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 export const DEFAULT_EMPATHY_ADAPTER_CONFIG: EmpathyAdapterConfig = {
   env: 'live',
   instance: 'demo',

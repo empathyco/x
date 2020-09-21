@@ -6,6 +6,11 @@ import { MapRequest, RequestMapper, RequestMapperContext } from '../../empathy-a
 import { EmpathySearchRequest } from '../../models';
 import { pipeMappers } from '../pipe-mappers';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class EmpathySearchRequestMapper implements RequestMapper<SearchRequest, EmpathySearchRequest> {
   private readonly mapQuery: MapRequest<QueryableRequest, string>;

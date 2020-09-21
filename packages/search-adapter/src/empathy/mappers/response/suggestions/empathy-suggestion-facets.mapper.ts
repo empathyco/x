@@ -5,6 +5,11 @@ import { MapResponse, ResponseMapper, ResponseMapperContext } from '../../../emp
 import { EmpathyFacet, EmpathySuggestion } from '../../../models';
 import { pipeMappers } from '../../pipe-mappers';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class EmpathySuggestionFacetsMapper implements ResponseMapper<EmpathySuggestion, Suggestion> {
   private readonly mapFacet: MapResponse<EmpathyFacet, Facet>;

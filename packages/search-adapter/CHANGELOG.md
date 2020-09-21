@@ -1,11 +1,19 @@
 # Search Adapter Changelog
 
+## 4.1.0 2020/09/21
+
+> EX-2185 Allow passing headers through the request
+>
+> EX-2185 Add `sortDirection` optional parameter to `EmpathySearchRequest` and `SearchRequest`
+>
+> EX-2152 Add api-extractor and improve build
+
 ## 4.0.0 2020/07/30
 
 > EX-1903 Update `@empathy/get-safe-property-chain`, `@empathy/logger`, `@empathy/storage-service`, `@empathybroker/deep-merge` dependencies.
 >
 > EX-1873 Change StorageService's localStorage access lazy.
-
+>
 > EX-1843 Add ESM build
 >
 > EX-1837 Change next query mapper facets to be an array instead of an object.

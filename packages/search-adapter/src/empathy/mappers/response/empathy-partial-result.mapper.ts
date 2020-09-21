@@ -5,6 +5,11 @@ import { MapFn, ResponseMapper, ResponseMapperContext } from '../../empathy-adap
 import { EmpathyPartialResult, EmpathyResult } from '../../models';
 import { pipeMappers } from '../pipe-mappers';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class EmpathyPartialResultMapper implements ResponseMapper<EmpathyPartialResult, PartialResult> {
   private readonly mapResult: MapFn<EmpathyResult, Result>;

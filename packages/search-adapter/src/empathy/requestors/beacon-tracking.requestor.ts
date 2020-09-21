@@ -2,6 +2,11 @@ import { injectable } from 'inversify';
 import { TrackingRequest } from '../../types';
 import { Requestor } from '../empathy-adapter.types';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class BeaconTrackingRequestor implements Requestor<TrackingRequest, void> {
 

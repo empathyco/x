@@ -2,7 +2,11 @@
 node_modules
 /dist
 /coverage
+/report
 /types
+/temp
+/docs
+/*.tgz
 
 /tests/e2e/reports/
 selenium-debug.log

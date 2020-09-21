@@ -8,6 +8,11 @@ import { Logger } from '../../../logger';
 import { EmpathyResult } from '../../../models';
 import { pipeMappers } from '../../pipe-mappers';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class EmpathyResultMapper implements ResponseMapper<EmpathyResult, Result> {
   private readonly logger = Logger.child('EmpathyResultMapper');

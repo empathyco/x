@@ -23,11 +23,11 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": [
-    "./src/**/*.ts"
-  ],
+  "include": ["./src/**/*.ts"],
   "exclude": [
-    "**/*.spec.ts",
-    "**/__tests__/**/*"
+    "**/__mocks__/**/*",
+    "**/__fixtures__/**/*",
+    "**/__tests__/**/*",
+    "node_modules"
   ]
 }

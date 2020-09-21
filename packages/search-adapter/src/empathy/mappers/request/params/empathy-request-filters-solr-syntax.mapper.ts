@@ -5,6 +5,11 @@ import { DEPENDENCIES } from '../../../container/container.const';
 import { Mapper } from '../../../empathy-adapter.types';
 
 // TODO When the backend updates their services to be agnostic of the solr db syntax, we can remove this class
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class EmpathyRequestFiltersSolrSyntaxMapper implements Mapper<Filter[], string[]> {
   constructor(@inject(DEPENDENCIES.config) private readonly config: EmpathyAdapterConfig) {}

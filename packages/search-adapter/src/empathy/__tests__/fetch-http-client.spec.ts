@@ -19,7 +19,8 @@ it('creates well formed and valid URLs', async () => {
     filter: ['long sleeve', 'dotted', 'white'],
     rows: 12
   });
-  expectFetchToBeCalledWithUrl(`${ endpoint }?q=shirt&filter=long+sleeve&filter=dotted&filter=white&rows=12`);
+  expectFetchToBeCalledWithUrl(
+    `${ endpoint }?q=shirt&filter=long+sleeve&filter=dotted&filter=white&rows=12`);
 });
 
 it('allows URLs which already have parameters', async () => {
@@ -77,7 +78,8 @@ it('does not cache requests if ttlInMinutes parameter is 0', async () => {
 
 it('returns cached requests before their expiration', async () => {
   window.fetch = jest.fn(getFetchMock({ response: 'test' }));
-  const firstResponse = await httpClient.get(endpoint, { q: 'shirt' }, { requestId: 'A', ttlInMinutes: 1 });
+  const firstResponse = await httpClient.get(endpoint, { q: 'shirt' },
+    { requestId: 'A', ttlInMinutes: 1 });
   const secondResponse = await httpClient.get(endpoint, { q: 'shirt' }, { requestId: 'B' });
   expect(secondResponse).toEqual(firstResponse);
   expect(window.fetch).toHaveBeenCalledTimes(1);
@@ -90,6 +92,13 @@ it('does not return cached requests after their expiration', async () => {
   Date.now = jest.fn(() => startingTimestamp + 2 * 60 * 1000);
   await httpClient.get(endpoint, { q: 'shirt' }, { requestId: 'B' });
   expect(window.fetch).toHaveBeenCalledTimes(2);
+});
+
+it('allows to pass headers to the request', () => {
+  const headers = { instance: 'A1B1' };
+  httpClient.get(endpoint, {}, { headers });
+
+  expect(window.fetch).toBeCalledWith(endpoint, { headers, signal: expect.anything() });
 });
 
 function expectFetchToBeCalledWithUrl(url: string): void {

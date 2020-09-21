@@ -26,6 +26,11 @@ import {
 import { DEPENDENCIES } from '../container/container.const';
 import { Requestor } from '../empathy-adapter.types';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class Requestors implements Record<FeatureNames, Requestor> {
   constructor(

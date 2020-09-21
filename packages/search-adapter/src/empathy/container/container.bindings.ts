@@ -35,6 +35,11 @@ import { EmpathyEndpointsService } from '../services/empathy-endpoints.service';
 import { DEPENDENCIES } from './container.const';
 import { BindingDictionary } from './container.types';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 export const BINDINGS: BindingDictionary = {
   [DEPENDENCIES.config]: { toConstant: DEFAULT_EMPATHY_ADAPTER_CONFIG },
   [DEPENDENCIES.httpClient]: FetchHttpClient,

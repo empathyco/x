@@ -5,6 +5,11 @@ import { MapRequest, RequestMapper, RequestMapperContext } from '../../empathy-a
 import { EmpathyQueriesRecommendationsRequest } from '../../models/requests/empathy-discovery-wall.request';
 import { pipeMappers } from '../pipe-mappers';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class EmpathyQueriesRecommendationsRequestMapper
   implements RequestMapper<QueriesRecommendationsRequest, EmpathyQueriesRecommendationsRequest> {

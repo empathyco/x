@@ -3,6 +3,11 @@ import { injectable } from 'inversify';
 import { ResponseMapper } from '../../../empathy-adapter.types';
 import { EmpathyFilter } from '../../../models';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class EmpathyRangeFilterMapper implements ResponseMapper<EmpathyFilter, RangeFilter> {
   map(rawFilter: EmpathyFilter, filter: RangeFilter): RangeFilter {

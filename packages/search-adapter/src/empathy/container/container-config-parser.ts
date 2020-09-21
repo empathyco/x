@@ -13,6 +13,11 @@ import {
   SimpleConstantBinding
 } from './container.types';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 export class ContainerConfigParser {
   private readonly logger = Logger.child('ContainerConfigParser');
 

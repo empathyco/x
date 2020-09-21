@@ -1,3 +1,8 @@
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 export interface EmpathyResult {
   ebTagging: {
     add2cart: string;

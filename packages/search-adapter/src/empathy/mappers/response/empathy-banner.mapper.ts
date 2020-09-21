@@ -5,6 +5,11 @@ import { MapFn, ResponseMapper, ResponseMapperContext } from '../../empathy-adap
 import { EmpathyBanner } from '../../models/entities/empathy-banner.model';
 import { pipeMappers } from '../pipe-mappers';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class EmpathyBannerMapper implements ResponseMapper<EmpathyBanner, Banner> {
   private readonly mapTagging: MapFn<string, Tagging>;

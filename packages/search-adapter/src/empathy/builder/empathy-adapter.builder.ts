@@ -22,13 +22,28 @@ import { Logger } from '../logger';
 import { CacheService } from '../services/cache-service.types';
 import { EmpathyCacheService } from '../services/empathy-cache.service';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @internal
+ */
 type ConfiguratorCallback = (container: Container) => void;
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @internal
+ */
 interface EnableCacheOptions {
   storageService?: StorageService;
   cacheService?: Newable<CacheService>;
 }
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 export class EmpathyAdapterBuilder {
   protected configurator?: ConfiguratorCallback;
   protected config: EmpathyAdapterConfig;

@@ -5,6 +5,11 @@ import { CacheService } from '../services/cache-service.types';
 import { RequestError } from './errors/request.error';
 import { HttpClient } from './http-client.types';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class FetchHttpClient implements HttpClient {
   protected requestsAbortControllers: Dictionary<AbortController> = {};
@@ -13,10 +18,14 @@ export class FetchHttpClient implements HttpClient {
     @optional() @inject(DEPENDENCIES.cacheService) protected readonly cache?: CacheService
   ) {}
 
-  get<T>(endpoint: string, params: Dictionary<any> = {}, { requestId = endpoint, ttlInMinutes = 0 }: RequestOptions = {}): Promise<T> {
+  get<T>(
+    endpoint: string,
+    params: Dictionary = {},
+    { requestId = endpoint, headers = {}, ttlInMinutes = 0 }: RequestOptions = {}
+  ): Promise<T> {
     this.cancelPreviousRequest(requestId);
     const url = this.buildUrl(endpoint, params);
-    const requestOptions = this.getRequestOptions(requestId);
+    const requestOptions = this.getRequestOptions(requestId, headers);
     const cachedResponse = this.cache && this.cache.getItem(url);
     return cachedResponse
       ? Promise.resolve(cachedResponse)
@@ -33,7 +42,7 @@ export class FetchHttpClient implements HttpClient {
     }
   }
 
-  protected buildUrl(endpoint: string, params: Dictionary<any>): string {
+  protected buildUrl(endpoint: string, params: Dictionary): string {
     const url = new URL(endpoint);
     Object.entries(params).forEach(([key, param]) => {
       if (param !== undefined) {
@@ -54,12 +63,12 @@ export class FetchHttpClient implements HttpClient {
     }
   }
 
-  protected getRequestOptions(requestId: string): RequestInit {
+  protected getRequestOptions(requestId: string, headers: Dictionary<string>): RequestInit {
     if (typeof AbortController !== 'undefined') {
       const signal = this.createAbortController(requestId);
-      return { signal };
+      return { signal, headers };
     }
-    return {};
+    return { headers };
   }
 
   protected createAbortController(requestId: string): AbortSignal {

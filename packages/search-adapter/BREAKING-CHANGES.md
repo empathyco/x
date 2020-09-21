@@ -1,6 +1,6 @@
 # Search Adapter Changelog
 
-## 4.0.0-alpha
+## 4.0.0
 
 > EX-1837 Change next query mapper facets to be an array instead of an object.
 >

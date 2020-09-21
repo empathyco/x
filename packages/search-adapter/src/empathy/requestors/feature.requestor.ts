@@ -21,6 +21,11 @@ import { HttpClient } from '../http-clients/http-client.types';
 import { pipeMappers } from '../mappers/pipe-mappers';
 import { EndpointsService } from '../services/endpoints-service.types';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class FeatureRequestor<RequestType, ResponseType extends Dictionary<any>> implements Requestor<RequestType, ResponseType> {
   protected mapRequest: MapRequest;

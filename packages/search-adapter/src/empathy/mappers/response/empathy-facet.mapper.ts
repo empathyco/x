@@ -7,6 +7,11 @@ import { MapFn, ResponseMapper, ResponseMapperContext } from '../../empathy-adap
 import { EmpathyFacet, EmpathyFilter } from '../../models';
 import { pipeMappers } from '../pipe-mappers';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class EmpathyFacetMapper implements ResponseMapper<EmpathyFacet, Facet> {
   protected readonly facetsConfig: FacetsConfig;

@@ -3,6 +3,11 @@ import { EmpathyAdapterConfig } from '../config/empathy-adapter-config.types';
 import { DEPENDENCIES } from '../container/container.const';
 import { EndpointsService } from './endpoints-service.types';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class EmpathyEndpointsService implements EndpointsService {
 

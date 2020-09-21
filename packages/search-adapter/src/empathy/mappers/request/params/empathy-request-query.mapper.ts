@@ -4,6 +4,11 @@ import { EmpathyAdapterConfig, QueryConfig } from '../../../config/empathy-adapt
 import { DEPENDENCIES } from '../../../container/container.const';
 import { RequestMapper } from '../../../empathy-adapter.types';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class EmpathyRequestQueryMapper implements RequestMapper<QueryableRequest, string> {
   private readonly queryConfig: QueryConfig;

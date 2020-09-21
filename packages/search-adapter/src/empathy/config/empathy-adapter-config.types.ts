@@ -14,6 +14,11 @@ import {
   UserRecommendationsResponse
 } from '../../types';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 export interface EmpathyAdapterConfig {
   env: 'live' | 'staging' | 'test';
   instance: string;
@@ -32,12 +37,22 @@ export interface EmpathyAdapterConfig {
   };
 }
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 export interface FeatureConfig<Feature extends FeatureNames> {
   endpoint: string;
   responsePaths: Record<(keyof (FeaturesResponseTypes[Feature]) | string), string>;
   cacheTTLInMinutes?: number;
 }
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 export interface FeaturesResponseTypes {
   nextQueries: NextQueriesResponse;
   topRecommendations: TopRecommendationsResponse;
@@ -52,16 +67,31 @@ export interface FeaturesResponseTypes {
   track: void;
 }
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 export interface QueryConfig {
   maxLength: number;
   maxWords: number;
 }
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 export interface FacetsConfig {
   default: FacetConfig;
   named: Dictionary<FacetConfig>;
 }
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 export interface FacetConfig {
   filterModelName: string;
   isDynamic: boolean;
@@ -73,6 +103,11 @@ export interface FacetConfig {
   };
 }
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 export interface FilterValueMapperParams {
   config: EmpathyAdapterConfig;
   facetName: string;
@@ -80,6 +115,11 @@ export interface FilterValueMapperParams {
   filterDeepness: number;
 }
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 export interface TrackingResultConfig {
   add2cart: string;
   click: string;

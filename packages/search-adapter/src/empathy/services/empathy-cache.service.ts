@@ -3,6 +3,11 @@ import { inject, injectable } from 'inversify';
 import { DEPENDENCIES } from '../container/container.const';
 import { CacheService } from './cache-service.types';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class EmpathyCacheService implements CacheService {
 

@@ -5,6 +5,11 @@ import { MapFn, ResponseMapper, ResponseMapperContext } from '../../empathy-adap
 import { EmpathyDirect } from '../../models/entities/empathy-direct.model';
 import { pipeMappers } from '../pipe-mappers';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class EmpathyRedirectionMapper implements ResponseMapper<EmpathyDirect, Redirection> {
   private readonly mapTagging: MapFn<string, Tagging>;

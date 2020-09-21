@@ -32,6 +32,11 @@ import { DEPENDENCIES } from './container/container.const';
 import { EmpathyAdapterConfigChangedListener, Requestor } from './empathy-adapter.types';
 import { CacheService } from './services/cache-service.types';
 
+/**
+ * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ *
+ * @public
+ */
 @injectable()
 export class EmpathyAdapter implements SearchAdapter<EmpathyAdapterConfig> {
   protected configChangedListeners: Set<EmpathyAdapterConfigChangedListener> = new Set();
