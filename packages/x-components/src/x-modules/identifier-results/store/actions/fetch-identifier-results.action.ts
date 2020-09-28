@@ -6,7 +6,7 @@ import { IdentifierResultsXStoreModule } from '../types';
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- * @returns A Promise of Result[] that resolves when it fetches identifier results or `null`
+ * @returns A Promise of Result[] that resolves when it fetches identifier results or empty array
  * if the request was not made.
  *
  * @public
@@ -17,5 +17,5 @@ export const fetchIdentifierResults: IdentifierResultsXStoreModule['actions']['f
 }) => {
   return getters.identifierResultsRequest
     ? XPlugin.adapter.searchById(getters.identifierResultsRequest).then(({ results }) => results)
-    : null;
+    : [];
 };

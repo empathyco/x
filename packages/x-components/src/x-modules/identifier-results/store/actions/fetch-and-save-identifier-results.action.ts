@@ -14,8 +14,6 @@ export const fetchAndSaveIdentifierResults: IdentifierResultsXStoreModule['actio
   dispatch,
   commit
 }) =>
-  dispatch('fetchIdentifierResults').then(identifierResults => {
-    if (identifierResults) {
-      commit('setIdentifierResults', identifierResults);
-    }
-  });
+  dispatch('fetchIdentifierResults').then(identifierResults =>
+    commit('setIdentifierResults', identifierResults)
+  );

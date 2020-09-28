@@ -62,9 +62,9 @@ export interface IdentifierResultsActions {
   /**
    * Requests a new set of identifier results for the module query, and returns them.
    *
-   * @returns An array of identifier results, or null if the request was not made.
+   * @returns An array of identifier results.
    */
-  fetchIdentifierResults(): Result[] | null;
+  fetchIdentifierResults(): Result[];
   /**
    * Requests a new set of identifier results and stores them in the module.
    */

@@ -31,9 +31,9 @@ describe('testing identifier results module actions', () => {
       expect(identifierResults).toEqual(mockedResults);
     });
 
-    it('should return `null` if there is not request', async () => {
+    it('should return empty array if there is not request', async () => {
       const identifierResults = await store.dispatch(actionKeys.fetchIdentifierResults);
-      expect(identifierResults).toBeNull();
+      expect(identifierResults).toEqual([]);
     });
   });
 
