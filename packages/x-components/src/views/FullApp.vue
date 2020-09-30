@@ -77,7 +77,7 @@
       </div>
       <div class="x-column">
         <h1>Related tags</h1>
-        <RelatedTags :animation="fadeAndSlide" />
+        <RelatedTags :animation="staggeredFadeAndSlide" />
       </div>
       <div class="x-column">
         <h1>Recommendations</h1>
@@ -118,6 +118,7 @@
   import BaseModalContainer from '../components/base-modal-container.vue';
   import BaseOpenButton from '../components/base-open-button.vue';
   import BaseResultLink from '../components/base-result-link.vue';
+  import StaggeredFadeAndSlide from "../components/animations/staggered-fade-and-slide.vue";
   import { getURLParameter } from '../utils/get-url-parameters';
   import { XInstaller } from '../x-installer/x-installer';
   import Empathize from '../x-modules/empathize/components/empathize.vue';
@@ -168,6 +169,7 @@
     protected showEmpathize = getURLParameter('showEmpathize') === 'true';
     protected loadOnInit = getURLParameter('loadOnInit') === 'true';
     protected fadeAndSlide = FadeAndSlide;
+    protected staggeredFadeAndSlide = StaggeredFadeAndSlide;
     protected collapseFromTop = CollapseFromTop;
   }
 </script>

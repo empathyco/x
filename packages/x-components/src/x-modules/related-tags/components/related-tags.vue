@@ -1,5 +1,5 @@
 <template>
-  <component :is="animation || 'ul'" v-if="relatedTags.length" tag="ul" class="x-related-tags">
+  <component :is="animation" v-if="relatedTags.length" tag="ul" class="x-related-tags">
     <li
       v-for="relatedTag in relatedTags"
       :key="relatedTag.tag"
@@ -56,10 +56,12 @@
      *
      * @public
      */
-    @Prop()
+    @Prop({default: 'ul'})
     protected animation!: Vue;
   }
 </script>
+
+<style lang="scss" scoped></style>
 
 <docs>
   #Examples

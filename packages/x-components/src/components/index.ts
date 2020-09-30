@@ -13,6 +13,7 @@ export { default as BaseSuggestion } from './base-suggestion.vue';
 export { default as BaseSuggestions } from './base-suggestions.vue';
 export * from './decorators';
 export { noElementComponent } from './no-element';
+export { default as StaggeringTransitionGroup } from './staggering-transition-group.vue';
 export * from './x-component.mixin';
 export * from './x-component.types';
 export * from './x-component.utils';
