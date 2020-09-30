@@ -21,7 +21,7 @@
         <div class="x-column">
           <h1>Suggestions</h1>
           <QuerySuggestions :animation="fadeAndSlide">
-            <template #suggestion="{suggestion}">
+            <template #suggestion="{ suggestion }">
               <QuerySuggestion
                 :suggestion="suggestion"
                 :aria-label="`Query suggestion: ${suggestion.query}`"
@@ -33,7 +33,7 @@
         <div class="x-column">
           <h1>Previous Searches</h1>
           <HistoryQueries :animation="fadeAndSlide">
-            <template #suggestion-remove-content="{suggestion}">
+            <template #suggestion-remove-content="{ suggestion }">
               <span :aria-label="`Remove ${suggestion.query} from history`">x</span>
             </template>
           </HistoryQueries>
@@ -49,7 +49,7 @@
       <div class="x-column">
         <h1>Query Suggestions</h1>
         <QuerySuggestions :animation="fadeAndSlide">
-          <template #suggestion="{suggestion}">
+          <template #suggestion="{ suggestion }">
             <QuerySuggestion
               :suggestion="suggestion"
               :aria-label="`Query suggestion: ${suggestion.query}`"
@@ -61,7 +61,7 @@
       <div class="x-column">
         <h1>History queries</h1>
         <HistoryQueries :animation="fadeAndSlide">
-          <template #suggestion-remove-content="{suggestion}">
+          <template #suggestion-remove-content="{ suggestion }">
             <span :aria-label="`Remove ${suggestion.query} from history`">x</span>
           </template>
         </HistoryQueries>
@@ -105,10 +105,18 @@
         </IdentifierResults>
       </div>
     </BaseKeyboardNavigation>
+    <!-- Testing purpose -->
+    <ul>
+      <h1>Results</h1>
+      <li v-for="result in results" :key="result.id">
+        {{ result.name }}
+      </li>
+    </ul>
   </main>
 </template>
 
 <script lang="ts">
+  import { Result } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
@@ -119,6 +127,8 @@
   import BaseOpenButton from '../components/base-open-button.vue';
   import BaseResultLink from '../components/base-result-link.vue';
   import StaggeredFadeAndSlide from "../components/animations/staggered-fade-and-slide.vue";
+  import { Getter } from '../components/decorators';
+  import { XPlugin } from '../plugins/x-plugin';
   import { getURLParameter } from '../utils/get-url-parameters';
   import { XInstaller } from '../x-installer/x-installer';
   import Empathize from '../x-modules/empathize/components/empathize.vue';
@@ -136,10 +146,12 @@
   import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
+  import { searchXModule } from '../x-modules/search/x-module';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
     beforeRouteEnter(_to, _from, next: () => void): void {
+      XPlugin.registerXModule(searchXModule);
       new XInstaller(baseInstallXOptions).init(baseSnippetConfig)
       next();
     },
@@ -171,6 +183,10 @@
     protected fadeAndSlide = FadeAndSlide;
     protected staggeredFadeAndSlide = StaggeredFadeAndSlide;
     protected collapseFromTop = CollapseFromTop;
+
+    /* Testing purpose */
+    @Getter('search','results')
+    public results!: Result[];
   }
 </script>
 

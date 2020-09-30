@@ -62,16 +62,26 @@
         </IdentifierResults>
       </div>
     </BaseKeyboardNavigation>
+    <!-- Testing purpose -->
+    <ul>
+      <h1>Results</h1>
+      <li v-for="result in results" :key="result.id">
+        {{ result.name }}
+      </li>
+    </ul>
   </main>
 </template>
 
 <script lang="ts">
+  import { Result } from '@empathy/search-types';
   import { deepMerge } from '@empathybroker/deep-merge';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import FadeAndSlide from '../components/animations/fade-and-slide.vue';
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
   import BaseResultLink from '../components/base-result-link.vue';
+  import { Getter } from '../components/decorators';
+  import { XPlugin } from '../plugins/x-plugin';
   import { XInstaller } from '../x-installer/x-installer';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
@@ -87,10 +97,12 @@
   import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
+  import { searchXModule } from '../x-modules/search/x-module';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
     beforeRouteEnter(_to, _from, next: () => void): void {
+      XPlugin.registerXModule(searchXModule);
       const configFullNoEmpathize = deepMerge(baseInstallXOptions, {
         xModules: {
           nextQueries: {
@@ -123,6 +135,10 @@
   })
   export default class FullNoEmpathize extends Vue {
     protected fadeAndSlide = FadeAndSlide;
+
+    /* Testing purpose */
+    @Getter('search','results')
+    public results!: Result[];
   }
 </script>
 

@@ -11,6 +11,7 @@ import { QuerySuggestionsXEvents } from '../x-modules/query-suggestions/events.t
 import { RecommendationsXEvents } from '../x-modules/recommendations/events.types';
 import { RelatedTagsXEvents } from '../x-modules/related-tags/events.types';
 import { SearchBoxXEvents } from '../x-modules/search-box/events.types';
+import { SearchXEvents } from '../x-modules/search/events.types';
 
 /**
  * Dictionary of all the {@link XEvent | XEvents}, where each key is the event name, and the value
@@ -38,6 +39,7 @@ export interface XEventsTypes
     NextQueriesXEvents,
     PopularSearchesXEvents,
     QuerySuggestionsXEvents,
+    SearchXEvents,
     SearchBoxXEvents,
     RecommendationsXEvents,
     RelatedTagsXEvents {

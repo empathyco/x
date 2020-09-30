@@ -9,6 +9,9 @@ const adapter = new EmpathyAdapterBuilder()
     result.identifier.value = result.id;
     return result;
   }, 'results')
+  .setFeatureConfig('search', {
+    endpoint: 'https://api.empathybroker.com/search/v1/query/juguettos/searchv2'
+  })
   .build();
 
 export const baseSnippetConfig: SnippetConfig = {

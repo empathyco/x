@@ -71,10 +71,18 @@
         </div>
       </BaseKeyboardNavigation>
     </Empathize>
+    <!-- Testing purpose -->
+    <ul>
+      <h1>Results</h1>
+      <li v-for="result in results" :key="result.id">
+        {{ result.name }}
+      </li>
+    </ul>
   </main>
 </template>
 
 <script lang="ts">
+  import { Result } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
@@ -82,6 +90,8 @@
   import BaseCloseButton from '../components/base-close-button.vue';
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
   import BaseResultLink from '../components/base-result-link.vue';
+  import { Getter } from '../components/decorators';
+  import { XPlugin } from '../plugins/x-plugin';
   import { XInstaller } from '../x-installer/x-installer';
   import Empathize from '../x-modules/empathize/components/empathize.vue';
   // eslint-disable-next-line max-len
@@ -98,10 +108,12 @@
   import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
+  import { searchXModule } from '../x-modules/search/x-module';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
     beforeRouteEnter(_to, _from, next: () => void): void {
+      XPlugin.registerXModule(searchXModule);
       new XInstaller(baseInstallXOptions).init(baseSnippetConfig)
       next();
     },
@@ -128,6 +140,9 @@
   export default class FullEmpathize extends Vue {
     protected fadeAndSlide = FadeAndSlide;
     protected collapseFromTop = CollapseFromTop;
+    /* Testing purpose */
+    @Getter('search','results')
+    public results!: Result[];
   }
 </script>
 
