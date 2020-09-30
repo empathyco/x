@@ -1,4 +1,11 @@
 # ESLint Plugin X
+## [1.2.0](https://bitbucket.org/colbenson/eslint-plugin-x/branches/compare/v1.2.0%0Dv1.1.0) (2020-09-30)
+
+
+### Features
+
+* **prettier:** update prettier to version 2.1.2 ([0395e88](https://bitbucket.org/colbenson/eslint-plugin-x/commits/0395e880c656db816578a9fc2bc8091adbc18f43)), closes [EX-2239](https://searchbroker.atlassian.net/browse/EX-2239)
+
 ## [1.1.0](https://bitbucket.org/colbenson/eslint-plugin-x/branches/compare/v1.1.0%0Dv1.0.0) (2020-09-17)
 
 
