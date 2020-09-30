@@ -73,7 +73,8 @@ export const clearRelatedTagsQuery = wireCommit('setQuery', '');
  */
 export const relatedTagsWiring = createWiring({
   UserAcceptedAQuery: {
-    setRelatedTagsQuery
+    setRelatedTagsQuery,
+    clearSelectedRelatedTags
   },
   UserPickedARelatedTag: {
     toggleRelatedTag

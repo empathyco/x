@@ -60,16 +60,14 @@ describe('testing related tags module actions', () => {
 
     it(
       'should add the toggled related tag to the selected related tag and remove ' +
-        'it from the related tags',
+        'the related tags',
       () => {
         resetRelatedTagsStateWith(store, {
           relatedTags: mockedRelatedTags
         });
         store.dispatch(actionKeys.toggleRelatedTag, relatedTagToSelect);
         expect(store.state.selectedRelatedTags).toEqual([relatedTagToSelect]);
-        expect(store.state.relatedTags).toEqual(
-          mockedRelatedTags.filter(rt => rt !== relatedTagToSelect)
-        );
+        expect(store.state.relatedTags).toEqual([]);
       }
     );
 
@@ -84,7 +82,7 @@ describe('testing related tags module actions', () => {
         });
         store.dispatch(actionKeys.toggleRelatedTag, relatedTagToSelect);
         expect(store.state.selectedRelatedTags).toEqual([]);
-        expect(store.state.relatedTags).toEqual(expect.arrayContaining(mockedRelatedTags));
+        expect(store.state.relatedTags).toContain(relatedTagToSelect);
       }
     );
   });

@@ -11,20 +11,18 @@ import { RelatedTagsXStoreModule } from '../types';
  * @public
  */
 export const toggleRelatedTag: RelatedTagsXStoreModule['actions']['toggleRelatedTag'] = (
-  { commit, state: { relatedTags, selectedRelatedTags } },
+  { commit, state: { selectedRelatedTags } },
   relatedTag: RelatedTag
 ) => {
   const isRelatedTagSelected = selectedRelatedTags.includes(relatedTag);
-  let newSelectedRelatedTags;
-  let newRelatedTags;
-
   if (isRelatedTagSelected) {
-    newSelectedRelatedTags = selectedRelatedTags.filter(rt => rt !== relatedTag);
-    newRelatedTags = [...relatedTags, relatedTag];
+    commit(
+      'setSelectedRelatedTags',
+      selectedRelatedTags.filter(rt => rt !== relatedTag)
+    );
+    commit('setRelatedTags', [relatedTag]);
   } else {
-    newRelatedTags = relatedTags.filter(rt => rt !== relatedTag);
-    newSelectedRelatedTags = [...selectedRelatedTags, relatedTag];
+    commit('setSelectedRelatedTags', [...selectedRelatedTags, relatedTag]);
+    commit('setRelatedTags', []);
   }
-  commit('setRelatedTags', newRelatedTags);
-  commit('setSelectedRelatedTags', newSelectedRelatedTags);
 };
