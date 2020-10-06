@@ -16,7 +16,7 @@ export function getResultsStub(): Result[] {
         value: 'A022/3234'
       },
       name: 'Product 001',
-      images: ['xc-001-01.jpg', 'xc-001-02.jpg'],
+      images: ['https://picsum.photos/seed/1/200/300', 'https://picsum.photos/seed/2/200/300'],
       url: 'http://x-components.com/xc-001.html',
       tagging: getResultTagging('xr-001'),
       price: {
@@ -38,6 +38,27 @@ export function getResultsStub(): Result[] {
       price: {
         hasDiscount: true,
         value: 20,
+        originalValue: 30
+      },
+      ...getResultCommonValues()
+    },
+    {
+      id: 'xc-003',
+      identifier: {
+        value: 'A022/6534'
+      },
+      name: 'Product 003',
+      images: [
+        'https://notexistsimage1.com',
+        'https://notexistsimage2.com',
+        'https://notexistsimage3.com',
+        'https://picsum.photos/seed/3/200/300'
+      ],
+      url: 'http://x-components.com/xc-003.html',
+      tagging: getResultTagging('xr-003'),
+      price: {
+        hasDiscount: false,
+        value: 30,
         originalValue: 30
       },
       ...getResultCommonValues()

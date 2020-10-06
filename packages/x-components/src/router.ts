@@ -17,6 +17,11 @@ const routes: RouteConfig[] = [
     path: '/full-no-empathize',
     name: 'full-no-empathize',
     component: () => import('./views/FullNoEmpathize.vue')
+  },
+  {
+    path: '/result-app',
+    name: 'result-app',
+    component: () => import('./views/ResultApp.vue')
   }
 ];
 

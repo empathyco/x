@@ -3,6 +3,7 @@
     <a class="link" href="/">FullApp.vue</a>
     <a class="link" href="/full-empathize">FullEmpathize.vue</a>
     <a class="link" href="/full-no-empathize">FullNoEmpathize.vue</a>
+    <a class="link" href="/result-app">ResultApp.vue</a>
     <router-view />
   </main>
 </template>
