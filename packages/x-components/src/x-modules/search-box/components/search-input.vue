@@ -172,11 +172,9 @@
      */
     protected emitUserIsTypingAQueryEvents(): void {
       const query = this.$refs.input.value;
+      this.$x.emit('UserIsTypingAQuery', query, this.eventMetadata());
       if (query.trim()) {
-        this.$x.emit('UserIsTypingAQuery', query, this.eventMetadata());
         this.emitDebouncedUserAcceptedAQuery(query);
-      } else if (!query) {
-        this.$x.emit('UserClearedQuery', undefined, this.eventMetadata());
       }
     }
 

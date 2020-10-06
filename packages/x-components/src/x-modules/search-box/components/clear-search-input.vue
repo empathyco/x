@@ -51,7 +51,6 @@
      * @internal
      */
     protected clearSearchInputEvents: Partial<XEventsTypes> = {
-      UserClearedQuery: undefined,
       UserPressedClearSearchBoxButton: undefined
     };
   }

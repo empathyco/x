@@ -3,26 +3,18 @@
     <div class="x-components-images">
       <BaseResultImage data-test="result-with-images" :result="resultWithImages">
         <template #placeholder>
-          <div data-test="result-picture__placeholder">
-            placeholder0
-          </div>
+          <div data-test="result-picture__placeholder">placeholder0</div>
         </template>
         <template #fallback>
-          <div data-test="result-picture__fallback">
-            fallback0
-          </div>
+          <div data-test="result-picture__fallback">fallback0</div>
         </template>
       </BaseResultImage>
       <BaseResultImage data-test="result-with-fail-images" :result="resultWithFailImages">
         <template #placeholder>
-          <div data-test="result-picture__placeholder">
-            placeholder1
-          </div>
+          <div data-test="result-picture__placeholder">placeholder1</div>
         </template>
         <template #fallback>
-          <div data-test="result-picture__fallback">
-            fallback1
-          </div>
+          <div data-test="result-picture__fallback">fallback1</div>
         </template>
       </BaseResultImage>
       <BaseResultImage
@@ -30,14 +22,10 @@
         :result="resultWithFailImagesAndOkImages"
       >
         <template #placeholder>
-          <div data-test="result-picture__placeholder">
-            placeholder2
-          </div>
+          <div data-test="result-picture__placeholder">placeholder2</div>
         </template>
         <template #fallback>
-          <div data-test="result-picture__fallback">
-            fallback2
-          </div>
+          <div data-test="result-picture__fallback">fallback2</div>
         </template>
       </BaseResultImage>
     </div>

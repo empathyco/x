@@ -376,14 +376,14 @@ export class XPlugin implements PluginObject<XPluginOptions> {
         const {
           selector,
           immediate = false,
-          isDifferent = () => true,
+          filter = () => true,
           ...options
         } = this.isSimpleSelector(stateSelector) ? { selector: stateSelector } : stateSelector;
 
         this.store.watch(
           state => selector(state.x[name], safeGettersProxy),
           (newValue, oldValue) => {
-            if (isDifferent(newValue, oldValue)) {
+            if (filter(newValue, oldValue)) {
               this.bus.emit(event, newValue, { moduleName: name });
             }
           },

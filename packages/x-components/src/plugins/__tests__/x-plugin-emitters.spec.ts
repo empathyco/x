@@ -174,7 +174,7 @@ describe('testing X Plugin emitters', () => {
 
   describe('isDifferent configuration option', () => {
     // eslint-disable-next-line max-len
-    it('should not trigger the event if the provided isDifferent function returns false', async () => {
+    it('should not trigger the event if the provided filter function returns false', async () => {
       const testWire = jest.fn();
       const wiring = {
         SearchBoxQueryChanged: {
@@ -194,7 +194,7 @@ describe('testing X Plugin emitters', () => {
               SearchBoxQueryChanged: {
                 selector: state => state.query,
                 /* Only emit the event if the new query is longer than the old one */
-                isDifferent: (newQuery, oldQuery) => newQuery.length > oldQuery.length
+                filter: (newQuery, oldQuery) => newQuery.length > oldQuery.length
               }
             }
           }

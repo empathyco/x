@@ -43,7 +43,7 @@ export interface StateSelector<ReturnType, State extends Dictionary, Getters ext
    * @param oldValue - The old value.
    * @returns True if the value has really changed.
    */
-  isDifferent?(newValue: ReturnType, oldValue: ReturnType): boolean;
+  filter?(newValue: ReturnType, oldValue: ReturnType): boolean;
 }
 
 /**

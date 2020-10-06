@@ -41,7 +41,7 @@ export const searchBoxWiring = createWiring({
   UserAcceptedAQuery: {
     setSearchBoxQuery
   },
-  UserClearedQuery: {
+  UserPressedClearSearchBoxButton: {
     clearSearchBoxQuery
   }
 });

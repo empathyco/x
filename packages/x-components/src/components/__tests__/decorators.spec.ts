@@ -146,7 +146,7 @@ describe('testing decorators', () => {
       component.vm.$x.emit('UserTalked', 'algo chistoso');
       expect(dataListener).not.toHaveBeenCalled();
 
-      component.vm.$x.emit('UserClearedQuery');
+      component.vm.$x.emit('UserClearedQuery', '');
       expect(dataListener).toHaveBeenCalled();
     });
 

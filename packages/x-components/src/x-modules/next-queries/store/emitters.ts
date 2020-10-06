@@ -10,7 +10,7 @@ import { nextQueriesXStoreModule } from './module';
 export const nextQueriesEmitters = createStoreEmitters(nextQueriesXStoreModule, {
   NextQueriesChanged: {
     selector: (_, getters) => getters.nextQueries,
-    isDifferent: areNextQueriesDifferent
+    filter: areNextQueriesDifferent
   },
   NextQueriesRequestChanged: (_, getters) => getters.request
 });

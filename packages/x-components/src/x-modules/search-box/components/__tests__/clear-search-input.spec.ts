@@ -5,16 +5,15 @@ import ClearSearchInput from '../clear-search-input.vue';
 describe('testing ClearSearchInput component', () => {
   const [, localVue] = installNewXPlugin({});
 
-  it('emits UserClearedQuery and UserPressedClearSearchBoxButton when clicked', () => {
+  it('emits UserPressedClearSearchBoxButton event when clicked', () => {
     const clearSearchInput = mount(ClearSearchInput, { localVue });
     const target = { target: clearSearchInput.element };
-    const spyOn = jest.spyOn(clearSearchInput.vm.$children[0].$x, 'emit');
+    const emitSpy = jest.spyOn(clearSearchInput.vm.$children[0].$x, 'emit');
 
     clearSearchInput.trigger('click');
 
-    expect(spyOn).toHaveBeenCalledTimes(2);
-    expect(spyOn).toHaveBeenNthCalledWith(1, 'UserClearedQuery', undefined, target);
-    expect(spyOn).toHaveBeenNthCalledWith(2, 'UserPressedClearSearchBoxButton', undefined, target);
+    expect(emitSpy).toHaveBeenCalledTimes(1);
+    expect(emitSpy).toHaveBeenCalledWith('UserPressedClearSearchBoxButton', undefined, target);
   });
 
   it('has a default slot to customize its contents', () => {
