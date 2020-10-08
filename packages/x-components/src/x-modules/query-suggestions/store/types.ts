@@ -27,6 +27,11 @@ export interface QuerySuggestionsGetters {
   request: SuggestionsRequest | null;
   /** The normalized module's query. */
   normalizedQuery: string;
+  /**
+   * The full list of queries suggestions related to the query search.
+   *
+   */
+  querySuggestions: Suggestion[];
 }
 /**
  * QuerySuggestions store mutations.

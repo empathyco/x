@@ -1,6 +1,8 @@
+import { Suggestion } from '@empathy/search-types';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { map } from '../../../../utils';
+import { isArrayEmpty, map, normalizeString } from '../../../../utils';
+import { getQuerySuggestionsStub } from '../../../../__stubs__/query-suggestions-stubs.factory';
 import { querySuggestionsXStoreModule } from '../module';
 import { QuerySuggestionsState } from '../types';
 import { resetQuerySuggestionsStateWith } from './utils';
@@ -9,7 +11,7 @@ describe('testing query suggestions module getters', () => {
   Vue.use(Vuex);
   const getters = map(querySuggestionsXStoreModule.getters, getter => getter);
   const store: Store<QuerySuggestionsState> = new Store(querySuggestionsXStoreModule as any);
-
+  const modelName = 'QuerySuggestion';
   beforeEach(() => {
     resetQuerySuggestionsStateWith(store);
   });
@@ -40,5 +42,66 @@ describe('testing query suggestions module getters', () => {
         expect(store.getters[getters.normalizedQuery]).toEqual(normalizedQueries[index]);
       });
     });
+  });
+
+  describe(`${getters.querySuggestions} getter`, () => {
+    it(
+      'should show the queries have to be equal to or contain the current query when ' +
+        'hideIfEqualsQuery is false',
+      () => {
+        const querySearch = 'limes';
+        const suggestionsStub = getQuerySuggestionsStub(modelName, querySearch);
+        resetQuerySuggestionsStateWith(store, {
+          config: { hideIfEqualsQuery: false },
+          suggestions: suggestionsStub,
+          query: querySearch
+        });
+
+        const gettersQuerySuggestions: Suggestion[] = store.getters[getters.querySuggestions];
+
+        expect(gettersQuerySuggestions).toHaveLength(suggestionsStub.length);
+      }
+    );
+
+    it(
+      'should hide queries that are equal to the current query after normalizing special ' +
+        'characters or have not facets and hideIfEqualsQuery is true',
+      () => {
+        const querySearch = 'limés';
+        const suggestionsStub = getQuerySuggestionsStub(modelName, querySearch);
+        resetQuerySuggestionsStateWith(store, {
+          config: { hideIfEqualsQuery: true },
+          suggestions: suggestionsStub,
+          query: querySearch
+        });
+
+        const suggestionsStubFilterFacets = suggestionsStub.filter(
+          (suggestion: Suggestion) =>
+            normalizeString(suggestion.query) !== normalizeString(querySearch) ||
+            !isArrayEmpty(suggestion.facets)
+        );
+
+        const gettersQuerySuggestions: Suggestion[] = store.getters[getters.querySuggestions];
+        expect(gettersQuerySuggestions).toHaveLength(suggestionsStubFilterFacets.length);
+      }
+    );
+
+    it(
+      'should show all queries when the query is similar with the query suggestions ' +
+        'and hideIfEqualsQuery is true',
+      () => {
+        const querySearch = 'limes';
+        const suggestionsStub = getQuerySuggestionsStub(modelName, querySearch);
+        resetQuerySuggestionsStateWith(store, {
+          config: { hideIfEqualsQuery: true },
+          suggestions: suggestionsStub,
+          query: 'lims'
+        });
+
+        const gettersQuerySuggestions: Suggestion[] = store.getters[getters.querySuggestions];
+
+        expect(gettersQuerySuggestions).toHaveLength(suggestionsStub.length);
+      }
+    );
   });
 });

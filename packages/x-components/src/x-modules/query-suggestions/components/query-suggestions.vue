@@ -35,7 +35,7 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import BaseSuggestions from '../../../components/base-suggestions.vue';
-  import { State } from '../../../components/decorators';
+  import { Getter } from '../../../components/decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { querySuggestionsXModule } from '../x-module';
   import QuerySuggestion from './query-suggestion.vue';
@@ -60,7 +60,7 @@
      *
      * @public
      */
-    @State('querySuggestions', 'suggestions')
+    @Getter('querySuggestions', 'querySuggestions')
     public suggestions!: Suggestion[];
 
     /**

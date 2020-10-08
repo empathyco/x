@@ -1,6 +1,7 @@
 import { getAndSaveSuggestions } from './actions/get-and-save-suggestions.action';
 import { getSuggestions } from './actions/get-suggestions.action';
 import { normalizedQuery } from './getters/normalized-query';
+import { querySuggestions } from './getters/query-suggestions.getter';
 import { request } from './getters/request';
 import { QuerySuggestionsXStoreModule } from './types';
 
@@ -22,7 +23,8 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
   }),
   getters: {
     request,
-    normalizedQuery
+    normalizedQuery,
+    querySuggestions
   },
   mutations: {
     setQuery(state, newQuery) {
