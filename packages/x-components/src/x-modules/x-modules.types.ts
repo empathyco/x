@@ -2,6 +2,7 @@ import { StoreEmitters } from '../store/store-emitters.types';
 import { AnyXStoreModule, XStoreModule } from '../store/store.types';
 import { Wiring } from '../wiring/wiring.types';
 import { EmpathizeXModule } from './empathize/x-module';
+import { FacetsXModule } from './facets/x-module';
 import { HistoryQueriesXModule } from './history-queries/x-module';
 import { IdentifierResultsXModule } from './identifier-results/x-module';
 import { NextQueriesXModule } from './next-queries/x-module';
@@ -20,6 +21,7 @@ import { SearchXModule } from './search/x-module';
  */
 export interface XModulesTree {
   empathize: EmpathizeXModule;
+  facets: FacetsXModule;
   historyQueries: HistoryQueriesXModule;
   identifierResults: IdentifierResultsXModule;
   nextQueries: NextQueriesXModule;

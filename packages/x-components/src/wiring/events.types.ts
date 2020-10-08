@@ -3,6 +3,7 @@ import { CurrencyOptions } from '../i18n/currency.types';
 import { DocumentDirection } from '../plugins/x-plugin.types';
 import { ArrowKey, PropsWithType } from '../utils';
 import { EmpathizeXEvents } from '../x-modules/empathize/events.types';
+import { FacetsXEvents } from '../x-modules/facets/events.types';
 import { HistoryQueriesXEvents } from '../x-modules/history-queries/events.types';
 import { IdentifierResultsXEvents } from '../x-modules/identifier-results/events.types';
 import { NextQueriesXEvents } from '../x-modules/next-queries/events.types';
@@ -21,6 +22,7 @@ import { SearchXEvents } from '../x-modules/search/events.types';
  * Aside from common {@link XEvent | XEvents}, this interface also extends the different XModule's
  * XEventsTypes:
  * * {@link EmpathizeXEvents}
+ * * {@link FacetsXEvents}
  * * {@link HistoryQueriesXEvents}
  * * {@link IdentifierResultsXEvents}
  * * {@link NextQueriesXEvents}
@@ -34,6 +36,7 @@ import { SearchXEvents } from '../x-modules/search/events.types';
  */
 export interface XEventsTypes
   extends EmpathizeXEvents,
+    FacetsXEvents,
     HistoryQueriesXEvents,
     IdentifierResultsXEvents,
     NextQueriesXEvents,

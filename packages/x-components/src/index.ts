@@ -17,6 +17,7 @@ export * from './utils';
 export * from './wiring';
 export * from './x-installer';
 export * from './x-modules/empathize';
+export * from './x-modules/facets';
 export * from './x-modules/history-queries';
 export * from './x-modules/identifier-results';
 export * from './x-modules/next-queries';

@@ -28,7 +28,8 @@ export const RootXStoreModule: Module<XModuleState, any> = {
     relatedTags: null,
     noSuggestions: null,
     identifierResults: null,
-    search: null
+    search: null,
+    facets: null
   }),
   namespaced: true
 };
