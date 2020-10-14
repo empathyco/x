@@ -6,7 +6,8 @@ import {
   ReactWrapperProps,
   VueSlots
 } from './react-wrapper.types';
-import { getVueComponentProps, isScopedSlot, wrapChildren } from './vue-creator.utils';
+import { VueChildrenWrapper } from './vue-children-wrapper';
+import { getVueComponentProps, isScopedSlot } from './vue-creator.utils';
 
 /**
  * Stores the Vue constructor extending its interface with the methods required to map React
@@ -53,7 +54,7 @@ export const VueExtended = Vue.extend({
      * @returns A Vue scoped slot that renders the react content factory.
      */
     createScopedSlot(slotName: string, slotContentFactory: ReactRenderProps) {
-      return (data: any) => {
+      return (data: unknown) => {
         const slotContent = slotContentFactory(data);
         return this.createVueSlotContent(slotName, slotContent);
       };
@@ -67,9 +68,12 @@ export const VueExtended = Vue.extend({
      * @returns A Vue VNode that renders the react node.
      */
     createVueSlotContent(slotName: string, slotContent: ReactNodeWithoutRenderProps) {
-      const component = wrapChildren(slotContent);
-      return this.$createElement(component, {
-        slot: slotName
+      return this.$createElement(VueChildrenWrapper, {
+        props: {
+          slotContent
+        },
+        slot: slotName,
+        ref: slotName
       });
     }
   }

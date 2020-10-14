@@ -71,10 +71,14 @@ describe('testing support of slots in the react-wrapper', () => {
     ) as any) as ReactScopedSlotStub;
 
     await Vue.nextTick();
+    const oldSpan = root.querySelector('span');
     expect(root.innerHTML).toEqual(`<section><span>Vue says: Hello</span>${vueComment}</section>`);
 
     reactComponent.setState({ message: 'Bye' });
     await Vue.nextTick();
+    const newSpan = root.querySelector('span');
+
+    expect(oldSpan).toBe(newSpan);
     expect(root.innerHTML).toEqual(
       transformStringIntoASingleLine(`
       <section>
