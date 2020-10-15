@@ -1,3 +1,4 @@
+import { setFacets } from './mutations/set-facets.mutation';
 import { FacetsXStoreModule } from './types';
 
 /**
@@ -8,9 +9,11 @@ import { FacetsXStoreModule } from './types';
 export const facetsXStoreModule: FacetsXStoreModule = {
   state: () => ({
     config: {},
-    facets: []
+    facets: {}
   }),
   getters: {},
-  mutations: {},
+  mutations: {
+    setFacets
+  },
   actions: {}
 };
