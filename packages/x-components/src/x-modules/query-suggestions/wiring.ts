@@ -47,6 +47,15 @@ export const clearQuerySuggestionsQuery = wireCommit('setQuery', '');
 export const getAndSaveSuggestions = wireDispatchWithoutPayload('getAndSaveSuggestions');
 
 /**
+ * Cancels the {@link QuerySuggestionsActions.getAndSaveSuggestions} request promise.
+ *
+ * @public
+ */
+export const cancelGetAndSaveSuggestions = wireDispatchWithoutPayload(
+  'cancelGetAndSaveSuggestions'
+);
+
+/**
  * Debounce function for the module.
  */
 const moduleDebounce = namespacedDebounce(moduleName);
@@ -68,7 +77,8 @@ export const querySuggestionsWiring = createWiring({
     setQuerySuggestionsQuery
   },
   UserClearedQuery: {
-    clearQuerySuggestionsQuery
+    clearQuerySuggestionsQuery,
+    cancelGetAndSaveSuggestions
   },
   QuerySuggestionsRequestChanged: {
     getAndSaveSuggestions

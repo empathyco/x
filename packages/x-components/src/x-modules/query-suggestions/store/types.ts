@@ -1,6 +1,6 @@
 import { SuggestionsRequest } from '@empathy/search-adapter';
 import { Suggestion } from '@empathy/search-types';
-import { XStoreModule } from '../../../store';
+import { XActionContext, XStoreModule } from '../../../store';
 import { QuerySuggestionsConfig } from '../config.types';
 
 /**
@@ -59,6 +59,10 @@ export interface QuerySuggestionsMutations {
  */
 export interface QuerySuggestionsActions {
   /**
+   * Cancels / interrupt {@link QuerySuggestionsActions.getAndSaveSuggestions} synchronous promise.
+   */
+  cancelGetAndSaveSuggestions(): void;
+  /**
    * Requests and returns a list of suggestions based on the module state.
    *
    * @returns A new list of suggestions.
@@ -75,6 +79,18 @@ export interface QuerySuggestionsActions {
  * @public
  */
 export type QuerySuggestionsXStoreModule = XStoreModule<
+  QuerySuggestionsState,
+  QuerySuggestionsGetters,
+  QuerySuggestionsMutations,
+  QuerySuggestionsActions
+>;
+
+/**
+ * Alias type for actions context of the {@link QuerySuggestionsXStoreModule}.
+ *
+ * @public
+ */
+export type QuerySuggestionsActionContext = XActionContext<
   QuerySuggestionsState,
   QuerySuggestionsGetters,
   QuerySuggestionsMutations,

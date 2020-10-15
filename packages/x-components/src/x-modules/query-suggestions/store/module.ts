@@ -1,4 +1,7 @@
-import { getAndSaveSuggestions } from './actions/get-and-save-suggestions.action';
+import {
+  cancelGetAndSaveSuggestions,
+  getAndSaveSuggestions
+} from './actions/get-and-save-suggestions.action';
 import { getSuggestions } from './actions/get-suggestions.action';
 import { normalizedQuery } from './getters/normalized-query';
 import { querySuggestions } from './getters/query-suggestions.getter';
@@ -35,6 +38,7 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
     }
   },
   actions: {
+    cancelGetAndSaveSuggestions,
     getAndSaveSuggestions,
     getSuggestions
   }

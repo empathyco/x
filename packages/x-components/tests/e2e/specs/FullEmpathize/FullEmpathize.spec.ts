@@ -89,13 +89,6 @@ describe('Testing FullEmpathize', () => {
           cy.get('@searchInput').should('have.value', lastNextQuery.text());
         });
     });
-
-    it('shows next queries after searching a query and clearing it', () => {
-      cy.typeQuery('lego');
-      cy.get('@searchInput').clear();
-      cy.getByDataTest('next-query').as('nextQueries');
-      cy.get('@nextQueries').should('have.length.gt', 0);
-    });
   });
 
   describe('RelatedTags', () => {
