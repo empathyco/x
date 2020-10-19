@@ -1,4 +1,16 @@
 # React Wrapper
+### [1.0.1](https://bitbucket.org/colbenson/react-wrapper/branches/compare/v1.0.1%0Dv1.0.0) (2020-10-19)
+
+
+### Bug Fixes
+
+* **slots:** avoid creating new HTML elements for slots when the react-wrapper is re-rendered. ([24e6142](https://bitbucket.org/colbenson/react-wrapper/commits/24e61426442671a3a8293a140fd93ae81dacd77f)), closes [EX-2330](https://searchbroker.atlassian.net/browse/EX-2330)
+
+
+### Documentation
+
+* add documentation with the usage and architecture ([3a0982b](https://bitbucket.org/colbenson/react-wrapper/commits/3a0982b2074eaf1a10a52bf29361d85330c75d79)), closes [EX-2390](https://searchbroker.atlassian.net/browse/EX-2390)
+
 ## 1.0.0 (2020-07-31)
 
 
