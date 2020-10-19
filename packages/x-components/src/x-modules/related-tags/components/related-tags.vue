@@ -12,12 +12,14 @@
        -->
       <slot name="related-tag" :relatedTag="relatedTag">
         <RelatedTag :relatedTag="relatedTag">
-          <template #default="{ relatedTag }">
+          <template #default="{ relatedTag, isSelected }">
             <!--
               @slot Related Tag content
                   @binding {RelatedTag} relatedTag - Related Tag data
+                  @binding {boolean} isSelected - True if the related tag is selected.
+                  False otherwise.
             -->
-            <slot name="related-tag-content" :relatedTag="relatedTag" />
+            <slot name="related-tag-content" v-bind="{ relatedTag, isSelected }" />
           </template>
         </RelatedTag>
       </slot>
@@ -56,7 +58,7 @@
      *
      * @public
      */
-    @Prop({default: 'ul'})
+    @Prop({ default: 'ul' })
     protected animation!: Vue;
   }
 </script>

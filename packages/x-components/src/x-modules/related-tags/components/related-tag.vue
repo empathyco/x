@@ -8,8 +8,9 @@
     <!--
       @slot Related Tag content
           @binding {RelatedTag} relatedTag - Related Tag data
+          @binding {boolean} isSelected - True if the related tag is selected. False otherwise.
       -->
-    <slot :relatedTag="relatedTag">{{ relatedTag.tag }}</slot>
+    <slot v-bind="{ relatedTag, isSelected }">{{ relatedTag.tag }}</slot>
   </BaseEventButton>
 </template>
 
@@ -46,7 +47,7 @@
      *
      * @public
      */
-    @State('relatedTags','selectedRelatedTags')
+    @State('relatedTags', 'selectedRelatedTags')
     public selectedRelatedTags!: RelatedTagModel[];
     /**
      * Events list which are going to be emitted when a related tag is selected.
