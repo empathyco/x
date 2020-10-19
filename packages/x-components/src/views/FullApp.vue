@@ -8,6 +8,9 @@
       </div>
     </BaseModalContainer>
     <SearchInput placeholder="Search" aria-label="Search for products" />
+    <SlidingPanel>
+      <RelatedTags :animation="staggeredFadeAndSlide" />
+    </SlidingPanel>
     <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
     <Empathize v-if="showEmpathize" :animation="collapseFromTop">
       <BaseKeyboardNavigation>
@@ -127,7 +130,7 @@
   import BaseOpenButton from '../components/base-open-button.vue';
   import BaseResultLink from '../components/base-result-link.vue';
   import StaggeredFadeAndSlide from "../components/animations/staggered-fade-and-slide.vue";
-  import { Getter } from '../components/decorators';
+  import { Getter } from '../components/decorators/store.decorators';
   import { XPlugin } from '../plugins/x-plugin';
   import { getURLParameter } from '../utils/get-url-parameters';
   import { XInstaller } from '../x-installer/x-installer';
@@ -148,6 +151,7 @@
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import { searchXModule } from '../x-modules/search/x-module';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
+  import SlidingPanel from "../components/sliding-panel.vue";
 
   @Component({
     beforeRouteEnter(_to, _from, next: () => void): void {
@@ -174,7 +178,8 @@
       QuerySuggestions,
       Recommendations,
       RelatedTags,
-      SearchInput
+      SearchInput,
+      SlidingPanel
     }
   })
   export default class App extends Vue {
@@ -224,6 +229,23 @@
       position: absolute;
       top: 20px;
       right: 20px;
+    }
+  }
+
+  .x-sliding-panel {
+    max-width: 500px;
+
+    &__scroll {
+      white-space: nowrap;
+
+      > ul {
+        padding: 0;
+
+        & > li {
+          display: inline-block;
+          text-decoration: none;
+        }
+      }
     }
   }
 </style>

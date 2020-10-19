@@ -22,7 +22,7 @@
   } from '../utils/types';
   import { XEventsOf } from '../wiring/events.types';
   import { WireMetadata } from '../wiring/wiring.types';
-  import { XOn } from './decorators';
+  import { XOn } from './decorators/store.decorators';
 
   /**
    * Base component to handle keyboard navigation for elements inside it. It has a required slot to

@@ -19,7 +19,7 @@
   import { Component, Prop, Provide } from 'vue-property-decorator';
   import { Result } from '@empathy/search-types';
   import Vue from 'vue';
-  import { State } from '../../../components/decorators';
+  import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { PropsWithType } from '../../../utils/types';
   import { XEventsTypes } from '../../../wiring/events.types';

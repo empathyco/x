@@ -13,7 +13,7 @@
   import Vue from 'vue';
   import { Component, Watch, Prop } from 'vue-property-decorator';
   import BaseEventButton from '../../../components/base-event-button.vue';
-  import { State } from '../../../components/decorators';
+  import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { XEventArrayPayload } from '../config.types';

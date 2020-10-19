@@ -32,7 +32,7 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import BaseSuggestions from '../../../components/base-suggestions.vue';
-  import { Getter } from '../../../components/decorators';
+  import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { nextQueriesXModule } from '../x-module';
   import NextQuery from './next-query.vue';

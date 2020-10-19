@@ -8,7 +8,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { State } from '../../../components/decorators';
+  import { State } from '../../../components/decorators/store.decorators';
   import BaseEventButton from '../../../components/base-event-button.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { VueCSSClasses } from '../../../utils/types';

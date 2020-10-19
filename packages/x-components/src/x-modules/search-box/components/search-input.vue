@@ -21,7 +21,7 @@
   import { Suggestion } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { State, XOn } from '../../../components/decorators';
+  import { State, XOn } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { ArrowKey, PropsWithType } from '../../../utils';
   import { debounce, DebouncedFunction } from '../../../utils/debounce';

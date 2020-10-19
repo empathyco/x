@@ -29,7 +29,7 @@
   import { RelatedTag as RelatedTagModel } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { Getter } from '../../../components/decorators';
+  import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { relatedTagsXModule } from '../x-module';
   import RelatedTag from './related-tag.vue';

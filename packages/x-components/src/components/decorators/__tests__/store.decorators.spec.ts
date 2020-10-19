@@ -2,12 +2,12 @@ import { mount, Wrapper } from '@vue/test-utils';
 import Vue, { CreateElement, VNode } from 'vue';
 import { Component } from 'vue-property-decorator';
 import Vuex, { Store } from 'vuex';
-import { XEvent } from '../../wiring/events.types';
-import { searchBoxXStoreModule } from '../../x-modules/search-box/store/module';
-import { searchBoxXModule } from '../../x-modules/search-box/x-module';
-import { installNewXPlugin } from '../../__tests__/utils';
-import { Getter, State, XOn } from '../decorators';
-import { xComponentMixin } from '../x-component.mixin';
+import { XEvent } from '../../../wiring/events.types';
+import { searchBoxXStoreModule } from '../../../x-modules/search-box/store/module';
+import { searchBoxXModule } from '../../../x-modules/search-box/x-module';
+import { installNewXPlugin } from '../../../__tests__/utils';
+import { xComponentMixin } from '../../x-component.mixin';
+import { Getter, State, XOn } from '../store.decorators';
 
 const createdListener = jest.fn();
 const dataListener = jest.fn();

@@ -11,7 +11,7 @@
   import { Result } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { Getter, State } from '../../../components/decorators';
+  import { Getter, State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { identifierResultsXModule } from '../x-module';
 

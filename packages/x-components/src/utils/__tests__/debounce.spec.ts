@@ -1,4 +1,5 @@
 import { debounce } from '../debounce';
+import clearAllMocks = jest.clearAllMocks;
 
 describe('testing debounce util', () => {
   beforeAll(jest.useFakeTimers);
@@ -16,7 +17,7 @@ describe('testing debounce util', () => {
     jest.advanceTimersByTime(50);
     expect(originalFn).not.toHaveBeenCalled();
     jest.advanceTimersByTime(50);
-    expect(originalFn).toHaveBeenCalled();
+    expect(originalFn).toHaveBeenCalledTimes(1);
   });
 
   // eslint-disable-next-line max-len
@@ -62,5 +63,51 @@ describe('testing debounce util', () => {
     returnedFn.cancel();
     jest.advanceTimersByTime(100);
     expect(originalFn).not.toHaveBeenCalled();
+  });
+
+  it('calls the received function right away if the leading option is enabled', () => {
+    const originalFn = jest.fn();
+    const returnedFn = debounce(originalFn, 100, { leading: true });
+    returnedFn();
+    expect(originalFn).toHaveBeenCalledTimes(1);
+  });
+
+  // eslint-disable-next-line max-len
+  it('when leading and trailing enabled the debounce executes once immediately and only has a trailing execution when a call happens during the debounce time', () => {
+    const originalFn = jest.fn();
+    const returnedFn = debounce(originalFn, 100, { leading: true });
+    returnedFn();
+    expect(originalFn).toHaveBeenCalledTimes(1);
+    jest.advanceTimersByTime(99);
+    expect(originalFn).toHaveBeenCalledTimes(1);
+    jest.advanceTimersByTime(1);
+    expect(originalFn).toHaveBeenCalledTimes(1);
+
+    clearAllMocks();
+
+    returnedFn();
+    expect(originalFn).toHaveBeenCalledTimes(1);
+    returnedFn();
+    jest.advanceTimersByTime(99);
+    expect(originalFn).toHaveBeenCalledTimes(1);
+    jest.advanceTimersByTime(1);
+    expect(originalFn).toHaveBeenCalledTimes(2);
+  });
+
+  // eslint-disable-next-line max-len
+  it("doesn't call the received function until after the debounceTime has been completed if the trailing option is disabled", () => {
+    const originalFn = jest.fn();
+    const returnedFn = debounce(originalFn, 100, { leading: true, trailing: false });
+    returnedFn();
+    expect(originalFn).toHaveBeenCalledTimes(1);
+    returnedFn();
+    returnedFn();
+    jest.advanceTimersByTime(99);
+    expect(originalFn).toHaveBeenCalledTimes(1);
+    jest.advanceTimersByTime(1);
+    expect(originalFn).toHaveBeenCalledTimes(1);
+    jest.advanceTimersByTime(1);
+    returnedFn();
+    expect(originalFn).toHaveBeenCalledTimes(2);
   });
 });

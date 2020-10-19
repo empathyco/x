@@ -90,7 +90,7 @@
   import BaseCloseButton from '../components/base-close-button.vue';
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
   import BaseResultLink from '../components/base-result-link.vue';
-  import { Getter } from '../components/decorators';
+  import { Getter } from '../components/decorators/store.decorators';
   import { XPlugin } from '../plugins/x-plugin';
   import { XInstaller } from '../x-installer/x-installer';
   import Empathize from '../x-modules/empathize/components/empathize.vue';

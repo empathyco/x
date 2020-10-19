@@ -19,7 +19,7 @@
   import { Result } from '@empathy/search-types';
   import { Component, Prop } from 'vue-property-decorator';
   import Vue from 'vue';
-  import { State } from '../../../components/decorators';
+  import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { identifierResultsXModule } from '../x-module';
 

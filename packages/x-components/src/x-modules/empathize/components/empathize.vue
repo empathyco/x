@@ -18,8 +18,7 @@
   import Vue from 'vue';
   import Component from 'vue-class-component';
   import { Prop } from 'vue-property-decorator';
-  import { noElementComponent, xComponentMixin, XOn } from '../../../components';
-  import { debounce } from '../../../utils/debounce';
+  import {Debounce, noElementComponent, xComponentMixin, XOn} from '../../../components';
   import { WireMetadata, XEvent } from '../../../wiring';
   import { empathizeXModule } from '../x-module';
 
@@ -72,23 +71,6 @@
     protected isOpen = false;
 
     /**
-     * Debounced version of {@link Empathize.changeOpenState | changeOpenState} function.
-     * The purpose of this is to avoid emitting multiple events on quick changes in
-     * {@link Empathize.isOpen} state.
-     *
-     * @remarks
-     * The DOM events `focusout` and `focusin` are emitted when the focus changes from one element
-     * to another and always in that order. These events do bubble to parent, not like `blur` and
-     * `focus`, so we can intercept it at the empathize. So as both events are emitted one after the
-     * other immediately, this will change the value of `isOpen` two times in each focus change,
-     * closing and opening the Empathize. The debounce prevent this problem, applying only the last
-     * change.
-     *
-     * @internal
-     */
-    protected debouncedChangeOpenState = debounce(this.changeOpenState.bind(this), 0);
-
-    /**
      * Open empathize. This method will be executed on any event in
      * {@link Empathize.eventsToOpenEmpathize} and on DOM event `focusin` on Empathize root element.
      *
@@ -100,7 +82,7 @@
     @XOn(component => (component as Empathize).eventsToOpenEmpathize)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars-experimental
     open(payload: unknown, metadata: WireMetadata): void {
-      this.debouncedChangeOpenState(true, metadata);
+      this.changeOpenState(true, metadata);
     }
 
     /**
@@ -116,7 +98,7 @@
     @XOn(component => (component as Empathize).eventsToCloseEmpathize)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars-experimental
     close(payload: unknown, metadata: WireMetadata): void {
-      this.debouncedChangeOpenState(false, metadata);
+      this.changeOpenState(false, metadata);
     }
 
     /**
@@ -130,7 +112,8 @@
      *
      * @internal
      */
-    protected changeOpenState(newOpenState: boolean, metadata: WireMetadata): void {
+    @Debounce(0)
+    changeOpenState(newOpenState: boolean, metadata: WireMetadata): void {
       if (this.isOpen !== newOpenState) {
         this.isOpen = newOpenState;
         this.$x.emit(this.isOpen ? 'EmpathizeOpened' : 'EmpathizeClosed', undefined,
