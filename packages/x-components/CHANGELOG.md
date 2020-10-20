@@ -1,4 +1,44 @@
 # X Components
+## [1.1.0](https://bitbucket.org/colbenson/x-components/branches/compare/v1.1.0%0Dv1.0.0) (2020-10-20)
+
+
+### Features
+
+* **animations:** add staggering-transition-group component ([b8218b3](https://bitbucket.org/colbenson/x-components/commits/b8218b39392487af2194f7b38f20f027e9b8876a)), closes [EX-2208](https://searchbroker.atlassian.net/browse/EX-2208)
+* **api-extractor:** refactor api-extractor doc generation ([0feabc8](https://bitbucket.org/colbenson/x-components/commits/0feabc8252cf9aafb410b6fb218d19647a0c471e)), closes [EX-2152](https://searchbroker.atlassian.net/browse/EX-2152)
+* **build:** add rollup polyfills wrapper plugin ([e02747d](https://bitbucket.org/colbenson/x-components/commits/e02747d4a8c53965402c8a7b71c0e1545afa98d1)), closes [EX-2051](https://searchbroker.atlassian.net/browse/EX-2051)
+* **cancellable-promise:** add cancellable-promise utility ([b6f0615](https://bitbucket.org/colbenson/x-components/commits/b6f06156448aa67a60885d3527ced076062e15f8)), closes [EX-2244](https://searchbroker.atlassian.net/browse/EX-2244)
+* **empathize:** keep Empathize open when focus inside ([fb8e04f](https://bitbucket.org/colbenson/x-components/commits/fb8e04f2acb1eec7694905ccafbf0d7ed38be350)), closes [EX-2123](https://searchbroker.atlassian.net/browse/EX-2123)
+* **eslint:** update eslint-plugin-x to 1.2.0 version which includes 2.1.2 prettier version ([f976e09](https://bitbucket.org/colbenson/x-components/commits/f976e0926d82b6185d6f02a793e961fb738182aa)), closes [EX-2238](https://searchbroker.atlassian.net/browse/EX-2238)
+* **facets-empty-module:** create empty module for facets ([8c9a7d7](https://bitbucket.org/colbenson/x-components/commits/8c9a7d7a61af4da9f1da46ff17a38a52dac8e126)), closes [EX-2221](https://searchbroker.atlassian.net/browse/EX-2221)
+* **facets-module:** create wire which emits a commit to set the facets in the state ([35be528](https://bitbucket.org/colbenson/x-components/commits/35be5280fb43b57ef438e4aff215dd93ec2f964e)), closes [EX-2222](https://searchbroker.atlassian.net/browse/EX-2222)
+* **getters-query-suggestions:** create getters for query suggestions to use property hideIfEqualsQuery ([63a1ac3](https://bitbucket.org/colbenson/x-components/commits/63a1ac3326df108ca21f38827bd09796ed96bc22)), closes [EX-2296](https://searchbroker.atlassian.net/browse/EX-2296)
+* **popular-searches:** add hide popular searches that have already been searched in session ([ea97456](https://bitbucket.org/colbenson/x-components/commits/ea974562002c665be2e3345ee35dd77c2398e8d5)), closes [EX-2128](https://searchbroker.atlassian.net/browse/EX-2128)
+* **search:** add basic search x-module ([2ce6544](https://bitbucket.org/colbenson/x-components/commits/2ce65445fb4dd0c746c96b446058a8694b97242b)), closes [EX-2167](https://searchbroker.atlassian.net/browse/EX-2167)
+* **search-input:** add property autofocus ([844da3b](https://bitbucket.org/colbenson/x-components/commits/844da3be4167de23f2cffe60e59ee9bb557d28e5)), closes [EX-2129](https://searchbroker.atlassian.net/browse/EX-2129)
+* **sliding-panel:** add SlidingPanel component ([fc1bb76](https://bitbucket.org/colbenson/x-components/commits/fc1bb76e5984407aa49005d86ee5b1283e64540d)), closes [EX-2201](https://searchbroker.atlassian.net/browse/EX-2201)
+* **x-installer:** add XInstaller utility ([dce8bf1](https://bitbucket.org/colbenson/x-components/commits/dce8bf19ada65633ad7d5a34c2431ee8ce81ad67)), closes [EX-2136](https://searchbroker.atlassian.net/browse/EX-2136)
+
+
+### Bug Fixes
+
+* **clean-search-input:** add emitter for the `UserClearedQuery` event. Allow `UserIsTypingAQuery` to be always emitted. ([f02913c](https://bitbucket.org/colbenson/x-components/commits/f02913cd0c6d98194da041f762dcd9a55fb3bd4d)), closes [EX-2031](https://searchbroker.atlassian.net/browse/EX-2031)
+* **history-queries:** fixed toggle related tag action to clean the previous related tags ([8c1a9e9](https://bitbucket.org/colbenson/x-components/commits/8c1a9e97dbd20042f67a7a909b8fe61ea36d4a5f)), closes [EX-2213](https://searchbroker.atlassian.net/browse/EX-2213)
+* **identifier-results:** fix the request action to save the results if the query is empty ([fad5019](https://bitbucket.org/colbenson/x-components/commits/fad50198066071c9915393d313c6c7f8f08700c9)), closes [EX-2200](https://searchbroker.atlassian.net/browse/EX-2200)
+
+
+### Documentation
+
+* **build:** document how to debug the build process ([1a713bc](https://bitbucket.org/colbenson/x-components/commits/1a713bc869e0542c9ab90c4b29ba2f02de487d06)), closes [EX-2189](https://searchbroker.atlassian.net/browse/EX-2189)
+* **xcomponents:** move xcomponents documentation to independent file. Added a header to each file ([218efd0](https://bitbucket.org/colbenson/x-components/commits/218efd06f281dd7341dd69d330cc8059e5f16038)), closes [EX-2081](https://searchbroker.atlassian.net/browse/EX-2081)
+
+
+### Testing
+
+* **e2e:** create multiple test environment templates ([833c177](https://bitbucket.org/colbenson/x-components/commits/833c1772ff0186ce1cab2d5303c01d5768745fcb)), closes [EX-1863](https://searchbroker.atlassian.net/browse/EX-1863)
+* **e2e:** define basic use cases ([c9c837c](https://bitbucket.org/colbenson/x-components/commits/c9c837ce35f2e3d3792a3e9dfebcca63c2e50092)), closes [EX-2110](https://searchbroker.atlassian.net/browse/EX-2110)
+* **result-image:** e2e tests for the component ([faf475a](https://bitbucket.org/colbenson/x-components/commits/faf475a40c6f4210f3483972072d648204272f17)), closes [EX-1978](https://searchbroker.atlassian.net/browse/EX-1978)
+
 ## [1.0.0](https://bitbucket.org/colbenson/x-components/commits/tag/v1.0.0) (2020-07-30)
 
 
