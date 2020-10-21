@@ -1,4 +1,4 @@
-import { Facet } from '@empathy/search-types';
+import { Facet, Filter } from '@empathy/search-types';
 import { XStoreModule } from '../../../store';
 import { Dictionary } from '../../../utils';
 import { FacetsConfig } from '../config.types';
@@ -19,7 +19,13 @@ export interface FacetsState {
  *
  * @public
  */
-export interface FacetsGetters {}
+export interface FacetsGetters {
+  /**
+   * Returns a single array which groups every selected filter, including the nested ones,
+   * at the same depth level.
+   */
+  selectedFilters: Filter[];
+}
 
 /**
  * Facets store mutations.

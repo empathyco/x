@@ -1,4 +1,4 @@
-import { arrayToObject, isArrayEmpty } from '../array';
+import { arrayToObject, deepFilter, isArrayEmpty } from '../array';
 
 describe(`testing ${isArrayEmpty.name} utility method`, () => {
   it('returns `true` when the array is `null`, `undefined` or has no elements', () => {
@@ -47,5 +47,151 @@ describe(`testing ${arrayToObject.name} utility method`, () => {
     };
 
     expect(arrayToObject(arrayMock, 'targetKey')).toEqual(dictMock);
+  });
+});
+
+describe(`testing ${deepFilter.name} utility method`, () => {
+  interface ArrayTypeMock {
+    id: string;
+    condition: boolean;
+    next: this[];
+  }
+
+  it('should return an array with the filtered elements', () => {
+    const arrayMock: ArrayTypeMock[] = [
+      {
+        id: '1',
+        condition: true,
+        next: []
+      },
+      {
+        id: '2',
+        condition: false,
+        next: []
+      },
+      {
+        id: '3',
+        condition: true,
+        next: []
+      }
+    ];
+
+    expect(deepFilter(arrayMock, item => item.condition, 'next')).toEqual([
+      {
+        id: '1',
+        condition: true,
+        next: []
+      },
+      {
+        id: '3',
+        condition: true,
+        next: []
+      }
+    ]);
+  });
+
+  it('should return an array with the filtered elements (recursively)', () => {
+    const arrayMock: ArrayTypeMock[] = [
+      {
+        id: '1',
+        condition: true,
+        next: [
+          {
+            id: '1-1',
+            condition: true,
+            next: []
+          },
+          {
+            id: '1-2',
+            condition: false,
+            next: []
+          },
+          {
+            id: '1-3',
+            condition: true,
+            next: [
+              {
+                id: '1-3-1',
+                condition: true,
+                next: []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: '2',
+        condition: false,
+        next: [
+          {
+            id: '2-1',
+            condition: false,
+            next: [
+              {
+                id: '2-1-1',
+                condition: true, // not should happen
+                next: []
+              }
+            ]
+          },
+          {
+            id: '2-2',
+            condition: true,
+            next: []
+          }
+        ]
+      }
+    ];
+
+    expect(deepFilter(arrayMock, item => item.condition, 'next')).toStrictEqual([
+      {
+        id: '1',
+        condition: true,
+        next: [
+          {
+            id: '1-1',
+            condition: true,
+            next: []
+          },
+          {
+            id: '1-2',
+            condition: false,
+            next: []
+          },
+          {
+            id: '1-3',
+            condition: true,
+            next: [
+              {
+                id: '1-3-1',
+                condition: true,
+                next: []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: '1-1',
+        condition: true,
+        next: []
+      },
+      {
+        id: '1-3',
+        condition: true,
+        next: [
+          {
+            id: '1-3-1',
+            condition: true,
+            next: []
+          }
+        ]
+      },
+      {
+        id: '1-3-1',
+        condition: true,
+        next: []
+      }
+    ]);
   });
 });

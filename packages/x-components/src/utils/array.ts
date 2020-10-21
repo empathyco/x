@@ -35,3 +35,105 @@ export function arrayToObject<ArrayType extends Record<keyof ArrayType, unknown>
     return acc;
   }, {});
 }
+
+/**
+ * Filters an array with all elements that pass the test implemented by the provided filter
+ * function. It also does it recursively if the property accessed, whose name is the parameter
+ * childrenKey, to the current iteration in an array.
+ *
+ * @param array - Array to be filtered.
+ * @param filter - Predicate function to test each element of the array. It should return true
+ * to keep the element; or false otherwise.
+ * @param childrenKey - Property name within the array used to perform a recursive call.
+ *
+ * @example
+ * Input - Output example
+ *
+ * ```
+ * const hierarchicalFilters: Filter[] = [
+ *   {
+ *     id: 'filter1'
+ *     selected: true,
+ *     children: [
+ *       {
+ *         id: 'filter1-1'
+ *         selected: true,
+ *         children: []
+ *       },
+ *       {
+ *         id: 'filter1-2'
+ *         selected: false,
+ *         children: []
+ *       }
+ *     ]
+ *   },
+ *   {
+ *     id: 'filter2',
+ *     selected: false,
+ *     children: [
+ *      {
+ *        id: 'filter2-1',
+ *        selected: true // not should happen
+ *      }
+ *     ]
+ *   }
+ * ]
+ *
+ *  const filteredArray: Filter[] = deepFilterArray(
+ *    hierarchicalFilters,
+ *    filter => filter.selected,
+ *    'children'
+ *  )
+ *
+ *  /*
+ *    filteredArray = [
+ *      {
+ *        id: 'filter1'
+ *        selected: true,
+ *        children: [
+ *          {
+ *            id: 'filter1-1'
+ *            selected: true,
+ *            children: []
+ *          },
+ *          {
+ *            id: 'filter1-2'
+ *            selected: false,
+ *            children: []
+ *          }
+ *        ]
+ *      },
+ *      {
+ *        id: 'filter1-1'
+ *        selected: true,
+ *        children: []
+ *      }
+ *    ]
+ * ```
+ *
+ * @returns A new array with the elements that pass the test, or an empty array if no one
+ * pass the test.
+ *
+ * @public
+ */
+export function deepFilter<ArrayType, Key extends PropsWithType<ArrayType, ArrayType[]>>(
+  array: ArrayType[],
+  filter: (item: ArrayType) => boolean,
+  childrenKey: Key
+): ArrayType[] {
+  const filterArray = function (
+    currentArray: ArrayType[],
+    initialArray: ArrayType[] = []
+  ): ArrayType[] {
+    return currentArray.reduce((result, currentItem) => {
+      if (filter(currentItem)) {
+        result.push(currentItem);
+        filterArray(currentItem[childrenKey], result);
+      }
+
+      return result;
+    }, initialArray);
+  };
+
+  return filterArray(array);
+}
