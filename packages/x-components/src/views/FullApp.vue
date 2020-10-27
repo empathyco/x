@@ -7,11 +7,25 @@
         <BaseCloseButton aria-label="Close search">x</BaseCloseButton>
       </div>
     </BaseModalContainer>
+    <!-- Search Section -->
     <SearchInput placeholder="Search" aria-label="Search for products" />
     <SlidingPanel>
       <RelatedTags :animation="staggeredFadeAndSlide" />
     </SlidingPanel>
     <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
+    <!-- Facets -->
+    <h1>Facets</h1>
+    <Facets>
+      <template #default="{ facet }">
+        <h3>{{ facet.title }}</h3>
+        <ul v-for="filter in facet.filters" :key="filter.title">
+          <li>
+            {{ filter.title }}
+          </li>
+        </ul>
+      </template>
+    </Facets>
+    <!-- Empathize -->
     <Empathize v-if="showEmpathize" :animation="collapseFromTop">
       <BaseKeyboardNavigation>
         <BaseCloseButton
@@ -49,6 +63,7 @@
       </BaseKeyboardNavigation>
     </Empathize>
     <BaseKeyboardNavigation v-else>
+      <!-- Query Suggestions -->
       <div class="x-column">
         <h1>Query Suggestions</h1>
         <QuerySuggestions :animation="fadeAndSlide">
@@ -61,6 +76,7 @@
         </QuerySuggestions>
         <NoSuggestions message="We couldn't find any suggestion. Try searching for {query}." />
       </div>
+      <!-- History Queries -->
       <div class="x-column">
         <h1>History queries</h1>
         <HistoryQueries :animation="fadeAndSlide">
@@ -70,18 +86,22 @@
         </HistoryQueries>
         <ClearHistoryQueries>Clear previous searches</ClearHistoryQueries>
       </div>
+      <!-- Popular Searches -->
       <div class="x-column">
         <h1>Popular Searches</h1>
         <PopularSearches :animation="fadeAndSlide" />
       </div>
+      <!-- Next Queries -->
       <div class="x-column">
         <h1>Next Queries</h1>
         <NextQueries :animation="fadeAndSlide" :maxItemsToRender="10" />
       </div>
+      <!-- Related Tags -->
       <div class="x-column">
         <h1>Related tags</h1>
         <RelatedTags :animation="staggeredFadeAndSlide" />
       </div>
+      <!-- Recommendations -->
       <div class="x-column">
         <h1>Recommendations</h1>
         <Recommendations :animation="fadeAndSlide">
@@ -95,6 +115,7 @@
           </template>
         </Recommendations>
       </div>
+      <!-- Identifier Results -->
       <div class="inline-flex">
         <h1>Identifier Results</h1>
         <IdentifierResults :animation="fadeAndSlide">
@@ -152,6 +173,7 @@
   import { searchXModule } from '../x-modules/search/x-module';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
   import SlidingPanel from "../components/sliding-panel.vue";
+  import Facets from "../x-modules/facets/components/facets.vue";
 
   @Component({
     beforeRouteEnter(_to, _from, next: () => void): void {
@@ -168,6 +190,7 @@
       ClearHistoryQueries,
       ClearSearchInput,
       Empathize,
+      Facets,
       HistoryQueries,
       IdentifierResult,
       IdentifierResults,
@@ -247,5 +270,10 @@
         }
       }
     }
+  }
+
+  .x-facets-list {
+    display: flex;
+    flex-flow: row;
   }
 </style>
