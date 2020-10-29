@@ -21,6 +21,7 @@ describe('e2e testing next-queries component', () => {
   });
 
   it('shows next queries after searching a query and clearing it', () => {
+    cy.get('@nextQueries').should('have.length.gt', 0);
     cy.get('@searchInput').clear();
     cy.get('@nextQueries').should('have.length.gt', 0);
   });

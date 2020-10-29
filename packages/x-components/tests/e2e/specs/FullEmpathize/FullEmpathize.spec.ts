@@ -7,7 +7,7 @@ describe('Testing FullEmpathize', () => {
   describe('Query Suggestions', () => {
     it('shows query suggestions when a query is searched', () => {
       cy.typeQuery('lego');
-      cy.getByDataTest('query-suggestions').should('have.length.gt', 0);
+      cy.getByDataTest('query-suggestion').should('have.length.gt', 0);
     });
 
     it('updates the search input when selecting a query suggestion', () => {
@@ -22,6 +22,8 @@ describe('Testing FullEmpathize', () => {
 
     it('do not show query suggestions when a query is searched and cleaned', () => {
       cy.searchQuery('lego');
+      cy.focusSearchInput();
+      cy.getByDataTest('query-suggestions').should('exist');
       cy.clearSearchInput();
       cy.focusSearchInput();
       cy.getByDataTest('query-suggestions').should('not.exist');
@@ -129,6 +131,7 @@ describe('Testing FullEmpathize', () => {
       cy.typeQuery('a03');
       cy.getByDataTest('identifier-result').should('have.length.gt', 0);
       cy.clearSearchInput();
+      cy.focusSearchInput();
       cy.getByDataTest('identifier-result').should('not.exist');
     });
 

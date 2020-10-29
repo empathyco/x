@@ -16,14 +16,6 @@ describe('e2e testing history-queries component', () => {
       });
   });
 
-  it('searches for a query and checks that it is saved in the history queries', () => {
-    cy.getByDataTest('history-query')
-      .should('have.length', 1)
-      .each(historyQuery => {
-        expect(historyQuery.text()).to.eq(query);
-      });
-  });
-
   it('updates search input query with the clicked history query', () => {
     cy.getByDataTest('history-query').last().as('lastHistoryQuery');
     cy.get('@lastHistoryQuery').click();

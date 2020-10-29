@@ -33,6 +33,7 @@ describe('e2e testing related tags component', () => {
   });
 
   it("doesn't show related tags after searching a query and clearing it", () => {
+    cy.get('@relatedTags').should('have.length.gt', 0);
     cy.get('@searchInput').clear();
     cy.get('@relatedTags').should('have.length', 0);
   });
