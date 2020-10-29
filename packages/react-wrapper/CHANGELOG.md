@@ -1,4 +1,11 @@
 # React Wrapper
+### [1.0.2](https://bitbucket.org/colbenson/react-wrapper/branches/compare/v1.0.2%0Dv1.0.1) (2020-10-29)
+
+
+### Bug Fixes
+
+* **slots:** check if VueChildrenWrapper is unmounted before unmounting React Component ([0841e0d](https://bitbucket.org/colbenson/react-wrapper/commits/0841e0db8843722d784dc9371bf52e2fc63a2e51)), closes [EX-2425](https://searchbroker.atlassian.net/browse/EX-2425)
+
 ### [1.0.1](https://bitbucket.org/colbenson/react-wrapper/branches/compare/v1.0.1%0Dv1.0.0) (2020-10-19)
 
 
