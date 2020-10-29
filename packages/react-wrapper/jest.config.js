@@ -1,4 +1,4 @@
 module.exports = {
   preset: 'ts-jest',
-  testMatch: ['<rootDir>/**/*.spec.ts?(x)']
+  testMatch: ['<rootDir>/src/**/*.spec.ts?(x)']
 };

@@ -39,7 +39,7 @@ export const VueChildrenWrapper = defineComponent({
        * before the Comment rendered by this Vue component.
        */
       const moveReactRenderedNodesToDOM = (): void => {
-        reactDOMNodes = [...reactContainer.childNodes];
+        reactDOMNodes = Array.from(reactContainer.childNodes);
         fragment.append(...reactDOMNodes);
         parentElement.insertBefore(fragment, vueReferenceElement);
       };
@@ -61,8 +61,27 @@ export const VueChildrenWrapper = defineComponent({
       });
 
       this.$on('hook:beforeDestroy', () => {
-        restoreReactRenderedNodesToContainer();
-        ReactDOM.unmountComponentAtNode(reactContainer);
+        /*
+         * We cannot guarantee that neither the `beforeDestroy` or `destroyed` hooks will
+         * be executed after the Vue component has been removed from the DOM. This happens because
+         * Vue transitions depend on these hooks. The component is actually destroyed immediately,
+         * but its DOM content is removed after the leave transitions has ended.
+         * For this reason, the only possible solution is to detect when the DOM has been modified.
+         * A mutation observer that checks if the Vue rendered node has been removed from the DOM
+         * using the `isConnected` property.
+         */
+        const observer = new MutationObserver(() => {
+          if (!vueReferenceElement.isConnected) {
+            observer.disconnect();
+            restoreReactRenderedNodesToContainer();
+            ReactDOM.unmountComponentAtNode(reactContainer);
+          }
+        });
+        observer.observe(this.$root.$el.parentElement as Element, {
+          subtree: true,
+          childList: true,
+          attributes: false
+        });
       });
     });
   }
