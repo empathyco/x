@@ -54,9 +54,4 @@
     <span>Open</span>
   </BaseOpenButton>
   ```
-  ---
-  id: x-components.baseopenbutton
-  title: Base Open Button
-  sidebar_label: Base Open Button
-  ---
 </docs>

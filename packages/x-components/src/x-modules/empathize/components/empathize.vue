@@ -172,9 +172,4 @@ must be a Component with a `Transition` with a slot inside:
   </template>
 </Empathize>
 ```
-  ---
-  id: x-components.empathize
-  title: Empathize
-  sidebar_label: Empathize
-  ---
 </docs>

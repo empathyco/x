@@ -1,12 +1,7 @@
----
-id: clear-search-input
-title: Clear Search Input
-sidebar_label: Clear Search Input
----
-import { NextItem } from '../../../react-components/Utils';
+import { NextItem } from '@docusaurus/react-components/Utils';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import { ReactClearSearchInput, ReactSearchInput, doMagic } from '../../../react-components/ReactComponents';
+import { ReactClearSearchInput, ReactSearchInput, doMagic } from '@docusaurus/react-components/ReactComponents';
 
 The ClearSearchInput is a button that when pressed emits [UserPressedClearsearchBoxButton](../../x-components.searchboxxevents.userpressedclearsearchboxbutton)
 event, expressing the user intention to clear the current query.

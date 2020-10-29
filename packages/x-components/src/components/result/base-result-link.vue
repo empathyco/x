@@ -19,10 +19,10 @@
   import { Result } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component, Inject, Prop } from 'vue-property-decorator';
-  import { QueryOrigin } from '../types/query-origin';
-  import { PropsWithType } from '../utils/types';
-  import { XEventsTypes } from '../wiring/events.types';
-  import { WireMetadata } from '../wiring/wiring.types';
+  import { QueryOrigin } from '../../types/query-origin';
+  import { PropsWithType } from '../../utils/types';
+  import { XEventsTypes } from '../../wiring/events.types';
+  import { WireMetadata } from '../../wiring/wiring.types';
 
   /**
    * Component to be reused that renders an `<a>` wrapping the result contents.
@@ -124,9 +124,4 @@
     </template>
   </BaseResultLink>
   ```
-  ---
-  id: x-components.baseresultlink
-  title: Base Result Link
-  sidebar_label: Base Result Link
-  ---
 </docs>

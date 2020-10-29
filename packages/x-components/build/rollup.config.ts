@@ -6,7 +6,7 @@ import del from 'rollup-plugin-delete';
 import typescript from 'rollup-plugin-typescript2';
 import vue from 'rollup-plugin-vue';
 import packageJSON from '../package.json';
-import { apiDocumentation } from './documentation.rollup-plugin';
+import { apiDocumentation } from './docgen/documentation.rollup-plugin';
 import { generateEntryFiles } from './x-components.rollup-plugin';
 
 const dependencies = new Set(Object.keys(packageJSON.dependencies));

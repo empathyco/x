@@ -34,7 +34,7 @@
   import { Suggestion } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import BaseSuggestions from '../../../components/base-suggestions.vue';
+  import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { querySuggestionsXModule } from '../x-module';
@@ -74,8 +74,8 @@
 </script>
 <!--eslint-disable-->
 <docs>
-  import { ReactQuerySuggestions, ReactSearchInput } from '../react-components/ReactComponents';
-  import { NextItem } from '../react-components/Utils';
+  import { ReactQuerySuggestions, ReactSearchInput } from '@docusaurus/react-components/ReactComponents';
+  import { NextItem } from '@docusaurus/react-components/Utils';
   import Tabs from '@theme/Tabs';
   import TabItem from '@theme/TabItem';
 
@@ -171,9 +171,4 @@
 
   <NextItem color="#e77962" font='white' next="x-components.nextqueries">Next queries</NextItem>
 
-  ---
-  id: x-components.querysuggestions
-  title: Query Suggestions
-  sidebar_label: Query Suggestions
-  ---
 </docs>

@@ -1,12 +1,7 @@
----
-id: query-suggestions
-title: Query Suggestions
-sidebar_label: Query Suggestions
----
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import { ReactQuerySuggestions, ReactSearchInput, ReactSearchButton, ReactClearSearchInput } from '../../../react-components/ReactComponents';
-import { NextItem } from '../../../react-components/Utils';
+import { ReactQuerySuggestions, ReactSearchInput, ReactSearchButton, ReactClearSearchInput } from '@docusaurus/react-components/ReactComponents';
+import { NextItem } from '@docusaurus/react-components/Utils';
 
 This component renders a list of query suggestions.
 A query suggestion is just a query that contains the user query and can have associated

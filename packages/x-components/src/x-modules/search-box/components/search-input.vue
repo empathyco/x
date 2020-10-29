@@ -231,10 +231,10 @@
 </style>
 <!--eslint-disable-->
 <docs>
-  import { NextItem } from '../react-components/Utils';
+  import { NextItem } from '@docusaurus/react-components/Utils';
   import Tabs from '@theme/Tabs';
   import TabItem from '@theme/TabItem';
-  import { ReactSearchInput, doMagic } from '../react-components/ReactComponents';
+  import { ReactSearchInput, doMagic } from '@docusaurus/react-components/ReactComponents';
 
   The Search input is a component that reacts to user interaction emitting events:
   [SearchBoxQueryChanged](x-components.searchboxxevents.searchboxquerychanged),
@@ -333,9 +333,4 @@
 
   <NextItem color="#e77962" font='white' next="x-components.clearsearchinput">Clear Search Input</NextItem>
 
-  ---
-  id: x-components.searchinput
-  title: Search Input
-  sidebar_label: Search Input
-  ---
 </docs>

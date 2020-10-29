@@ -73,9 +73,4 @@
     </template>
   </IdentifierResults>
   ```
-  ---
-  id: x-components.identifierresults
-  title: Identifier Results
-  sidebar_label: Identifier Results
-  ---
 </docs>

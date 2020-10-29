@@ -1,7 +1,7 @@
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import BaseResultLink from '../../../../components/base-result-link.vue';
+import BaseResultLink from '../../../../components/result/base-result-link.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';

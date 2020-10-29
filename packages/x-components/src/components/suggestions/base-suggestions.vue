@@ -26,7 +26,7 @@
   import { Component, Prop } from 'vue-property-decorator';
   import { Suggestion, Facet } from '@empathy/search-types';
   import Vue from 'vue';
-  import { isArrayEmpty } from '../utils/array';
+  import { isArrayEmpty } from '../../utils/array';
 
   /**
    * Paints a list of suggestions passed in by prop. Requires a component for a single suggestion
@@ -126,12 +126,4 @@
       }
     }
   ```
-
-  It retrieves the suggestions from a `suggestions` property in the Vuex store `x/querySuggestions`
-  module, and implements a `emitSuggestionSelected` method that emits two events to the `$x` bus.
-  ---
-  id: x-components.basesuggestions
-  title: Base Suggestions
-  sidebar_label: Base Suggestions
-  ---
 </docs>

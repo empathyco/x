@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { cleanMarkdown } = require('./utils');
+const { cleanMarkdown } = require('../utils');
 
 /**
  * Function to overwrite slots template on vue-docgen.

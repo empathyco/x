@@ -9,8 +9,8 @@
   import { Result } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { XEventsTypes } from '../wiring/events.types';
-  import BaseEventButton from './base-event-button.vue';
+  import { XEventsTypes } from '../../wiring/events.types';
+  import BaseEventButton from '../base-event-button.vue';
 
   /**
    * Renders a button with a default slot. It receives the result with the data and emits
@@ -56,9 +56,4 @@
     <span>Add to cart</span>
   </BaseResultAddToCart>
   ```
-  ---
-  id: x-components.baseresultaddtocart
-  title: Base Result Add To Cart
-  sidebar_label: Base Result Add To Cart
-  ---
 </docs>

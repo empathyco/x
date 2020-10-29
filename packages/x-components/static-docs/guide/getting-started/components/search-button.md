@@ -1,12 +1,7 @@
----
-id: search-button
-title: Search Button
-sidebar_label: Search Button
----
-import { NextItem } from '../../../react-components/Utils';
+import { NextItem } from '@docusaurus/react-components/Utils';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import { ReactSearchButton, ReactSearchInput, doMagic } from '../../../react-components/ReactComponents';
+import { ReactSearchButton, ReactSearchInput, doMagic } from '@docusaurus/react-components/ReactComponents';
 
 Search button component which emits on its click
 [UserAcceptedAQuery](../../x-components.xeventstypes.useracceptedaquery) and

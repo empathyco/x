@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
-import { getResultsStub } from '../../__stubs__/results-stubs.factory';
-import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils';
+import { getResultsStub } from '../../../__stubs__/results-stubs.factory';
+import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseResultAddToCart from '../base-result-add-to-cart.vue';
 
 describe('testing BaseResultAddToCart component', () => {

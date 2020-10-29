@@ -12,8 +12,8 @@
   import { Result } from '@empathy/search-types';
   import { Component, Prop } from 'vue-property-decorator';
   import Vue from 'vue';
-  import { currency } from '../filters/currency/currency.filter';
-  import { CurrencyOptions } from '../i18n/currency.types';
+  import { currency } from '../../filters/currency/currency.filter';
+  import { CurrencyOptions } from '../../i18n/currency.types';
 
   /**
    * Component to be reused that represents a `<span>` with the previous price.
@@ -54,9 +54,4 @@
   ```vue
   <BaseResultPreviousPrice :result="result"/>
   ```
-  ---
-  id: x-components.baseresultpreviousprice
-  title: Base Result Previous Price
-  sidebar_label: Base Result Previous Price
-  ---
 </docs>

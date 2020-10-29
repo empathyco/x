@@ -149,7 +149,7 @@
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
   import BaseModalContainer from '../components/base-modal-container.vue';
   import BaseOpenButton from '../components/base-open-button.vue';
-  import BaseResultLink from '../components/base-result-link.vue';
+  import BaseResultLink from '../components/result/base-result-link.vue';
   import StaggeredFadeAndSlide from "../components/animations/staggered-fade-and-slide.vue";
   import { Getter } from '../components/decorators/store.decorators';
   import { XPlugin } from '../plugins/x-plugin';

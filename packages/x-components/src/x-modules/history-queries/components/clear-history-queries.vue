@@ -88,10 +88,4 @@
     <img class="x-history-query__icon" src="./my-icon.svg"/>
   </ClearHistoryQueries>
   ```
-
-  ---
-  id: x-components.clearhistoryqueries
-  title: Clear History Queries
-  sidebar_label: Clear History Queries
-  ---
 </docs>

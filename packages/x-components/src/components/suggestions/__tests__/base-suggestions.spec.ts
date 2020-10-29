@@ -1,6 +1,6 @@
 import { Suggestion } from '@empathy/search-types';
 import { mount } from '@vue/test-utils';
-import { getSuggestionsStub } from '../../__stubs__/suggestions-stubs.factory';
+import { getSuggestionsStub } from '../../../__stubs__/suggestions-stubs.factory';
 import BaseSuggestions from '../base-suggestions.vue';
 
 describe('testing Base Suggestions component', () => {

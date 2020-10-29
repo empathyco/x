@@ -31,7 +31,7 @@
   import { Suggestion } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import BaseSuggestions from '../../../components/base-suggestions.vue';
+  import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import {Getter} from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { popularSearchesXModule } from '../x-module';
@@ -130,10 +130,4 @@
     </template>
   </PopularSearches>
   ```
-
-  ---
-  id: x-components.popularsearches
-  title: Popular Searches
-  sidebar_label: Popular Searches
-  ---
 </docs>

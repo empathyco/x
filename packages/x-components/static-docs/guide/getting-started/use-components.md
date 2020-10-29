@@ -1,13 +1,7 @@
----
-id: use-components
-title: How to use components
-sidebar_label: How to use components
-image: https://i.imgur.com/mErPwqL.png
----
-import { NextItem } from '../../react-components/Utils';
+import { NextItem } from '@docusaurus/react-components/Utils';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import { ReactQuerySuggestions, ReactSearchInput, ReactClearSearchInput, ReactFadeAndSlide } from '../../react-components/ReactComponents';
+import { ReactQuerySuggestions, ReactSearchInput, ReactClearSearchInput, ReactFadeAndSlide } from '@docusaurus/react-components/ReactComponents';
 import { FadeAndSlide } from '@empathy/x-components/core';
 
 :::caution

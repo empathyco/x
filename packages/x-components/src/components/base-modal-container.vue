@@ -199,9 +199,4 @@
     <QuerySuggestions />
   </BaseModalContainer>
   ```
-  ---
-  id: x-components.basemodalcontainer
-  title: Base Modal Container
-  sidebar_label: Base Modal Container
-  ---
 </docs>

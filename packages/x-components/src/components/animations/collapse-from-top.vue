@@ -69,10 +69,4 @@ Used changing the origin of the animation:
   <ComponentOrElement v-if="open"/>
 </CollapseFromTop>
 ```
-
-  ---
-  id: x-components.collapsefromtop
-  title: Collapse From Top
-  sidebar_label: Collapse From Top
-  ---
 </docs>

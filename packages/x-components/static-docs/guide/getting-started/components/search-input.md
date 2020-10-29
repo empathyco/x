@@ -1,13 +1,7 @@
----
-id: search-input
-title: Search Input
-sidebar_label: Search Input
-image: https://v2.docusaurus.io/img/docusaurus_keytar.svg
----
-import { NextItem } from '../../../react-components/Utils';
+import { NextItem } from '@docusaurus/react-components/Utils';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import { ReactSearchInput, doMagic } from '../../../react-components/ReactComponents';
+import { ReactSearchInput, doMagic } from '@docusaurus/react-components/ReactComponents';
 
 The Search input is a component that reacts to user interaction emitting events:
 [SearchBoxQueryChanged](../../x-components.searchboxxevents.searchboxquerychanged),

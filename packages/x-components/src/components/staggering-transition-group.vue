@@ -442,9 +442,4 @@ each one of the nodes when animating.
 </staggering-transition-group>
 ```
 
----
-id: x-components.staggering-transition-group
-title: Staggering Transition Group
-sidebar_label: Staggering Transition Group
----
 </docs>

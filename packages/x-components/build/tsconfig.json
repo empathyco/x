@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "allowJs": true,
     "target": "es6",
     "module": "commonjs",
     "strict": true,
@@ -26,7 +27,7 @@
   },
   "include": [
     "**/*.ts",
-    "docgen-templates/*.js"
+    "docgen/templates/*.js"
   ],
   "exclude": [
     "node_modules"

@@ -7,9 +7,9 @@
   import { Result } from '@empathy/search-types';
   import { Component, Prop } from 'vue-property-decorator';
   import Vue from 'vue';
-  import { currency } from '../filters/currency/currency.filter';
-  import { CurrencyOptions } from '../i18n/currency.types';
-  import { VueCSSClasses } from '../utils/types';
+  import { currency } from '../../filters/currency/currency.filter';
+  import { CurrencyOptions } from '../../i18n/currency.types';
+  import { VueCSSClasses } from '../../utils/types';
 
   /**
    * Component to be reused that represents a `<span>` with the current price that may or
@@ -63,9 +63,4 @@
   ```vue
   <BaseResultCurrentPrice :result="result"/>
   ```
-  ---
-  id: x-components.baseresultcurrentprice
-  title: Base Result Current Price
-  sidebar_label: Base Result Current Price
-  ---
 </docs>

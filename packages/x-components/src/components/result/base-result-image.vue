@@ -194,9 +194,4 @@
     </template>
   </BaseResultImage>
   ```
-  ---
-  id: x-components.baseresultimage
-  title: Base Result Image
-  sidebar_label: Base Result Image
-  ---
 </docs>

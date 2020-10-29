@@ -1,9 +1,4 @@
----
-id: install
-title: Install
-sidebar_label: Install
----
-import { NextItem } from '../react-components/Utils';
+import { NextItem } from '@docusaurus/react-components/Utils';
 
 ## How to install XComponents
 :::caution

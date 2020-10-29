@@ -36,7 +36,7 @@
   import { HistoryQuery as HistoryQueryModel } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import BaseSuggestion from '../../../components/base-suggestion.vue';
+  import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
@@ -119,10 +119,4 @@
     </template>
   </HistoryQuery>
   ```
-
-  ---
-  id: x-components.historyquery
-  title: History Query
-  sidebar_label: History Query
-  ---
 </docs>

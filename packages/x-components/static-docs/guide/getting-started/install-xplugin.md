@@ -1,9 +1,4 @@
----
-id: install-xplugin
-title: XPlugin
-sidebar_label: Install XPlugin
----
-import { NextItem } from '../../react-components/Utils';
+import { NextItem } from '@docusaurus/react-components/Utils';
 
 ## How to install XPlugin
 

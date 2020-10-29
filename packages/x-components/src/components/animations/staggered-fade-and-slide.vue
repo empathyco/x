@@ -73,9 +73,4 @@ This components exposes all the props and events of the Staggering transition gr
 </StaggeredFadeAndSlide>
 ```
 
----
-id: x-components.staggered-fade-and-slide
-title: Staggered Fade and Slide
-sidebar_label: Staggered Fade and Slide
----
 </docs>

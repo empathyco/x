@@ -1,9 +1,9 @@
 import { Suggestion } from '@empathy/search-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { normalizeString } from '../../utils/normalize';
-import { XEventsTypes } from '../../wiring/events.types';
-import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils';
+import { normalizeString } from '../../../utils/normalize';
+import { XEventsTypes } from '../../../wiring/events.types';
+import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseSuggestion from '../base-suggestion.vue';
 
 describe('testing Base Suggestion component', () => {

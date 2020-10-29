@@ -11,10 +11,13 @@ import { exec } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import { Plugin } from 'rollup';
-import { copyFolderSync, ensureDirectoryPathExists, ensureFilePathExists } from './build.utils';
+import { copyFolderSync, ensureDirectoryPathExists, ensureFilePathExists } from '../build.utils';
+import { modifyDocForRunbooks } from './runbooks-integraton';
+
+const rootDir = path.resolve(__dirname, '../../');
 
 /** Location of the documentation report directory of the project. */
-const REPORT_DIR = path.join(__dirname, '../report/');
+const REPORT_DIR = path.join(rootDir, 'report/');
 
 /**
  * Entry point for building the API Documentation.
@@ -29,16 +32,19 @@ export function apiDocumentation(): Plugin {
       copyThirdPartyDocModel('search-types');
       copyThirdPartyDocModel('search-adapter');
 
-      const apiExtractorJsonPath: string = path.join(__dirname, './api-extractor.json');
+      const apiExtractorJsonPath: string = path.join(rootDir, 'build/api-extractor.json');
       const extractorConfig = ExtractorConfig.loadFileAndPrepare(apiExtractorJsonPath);
       generateEmptyReportFile(extractorConfig.reportFilePath);
       const extractorResult = Extractor.invoke(extractorConfig, getExtractorInvokeOptions());
       assertExtractorSucceeded(extractorResult);
       copyReportFile(extractorConfig.reportFilePath);
-
-      await generateDocumentation();
-      copyConfigurationDocumentation('../static-docs', '../docs');
-      moveHeaderComponent();
+      try {
+        await generateDocumentation();
+        copyStaticDocumentation('static-docs', 'docs');
+        modifyDocForRunbooks('docs');
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 }
@@ -52,8 +58,8 @@ export function apiDocumentation(): Plugin {
 function copyThirdPartyDocModel(packageName: string): void {
   const docModelName = `${packageName}.api.json`;
   const originalLocationPath = path.join(
-    __dirname,
-    `../node_modules/@empathy/${packageName}/report/${docModelName}`
+    rootDir,
+    `node_modules/@empathy/${packageName}/report/${docModelName}`
   );
   const destinationLocationPath = path.join(REPORT_DIR, docModelName);
   fs.copyFileSync(originalLocationPath, destinationLocationPath);
@@ -91,7 +97,7 @@ function assertExtractorSucceeded(extractorResult: ExtractorResult): void {
  * @param reportFilePath - The full path where the report file should be created.
  */
 function copyReportFile(reportFilePath: string): void {
-  const tempReportFile = path.join(__dirname, '../temp/x-components.api.md');
+  const tempReportFile = path.join(rootDir, 'temp/x-components.api.md');
   fs.copyFileSync(tempReportFile, reportFilePath);
 }
 
@@ -101,39 +107,10 @@ function copyReportFile(reportFilePath: string): void {
  * @param source - The source folder path.
  * @param target - The target folder path.
  */
-function copyConfigurationDocumentation(source: string, target: string): void {
-  const sourceFolderPath = path.join(__dirname, source);
-  const targetFolderPath = path.join(__dirname, target);
+function copyStaticDocumentation(source: string, target: string): void {
+  const sourceFolderPath = path.join(rootDir, source);
+  const targetFolderPath = path.join(rootDir, target);
   copyFolderSync(sourceFolderPath, targetFolderPath);
-}
-
-/**
- * Moves the markdown header to the beginning for each file component. This header will provide
- * the title, sidebar label and the file name itself.
- */
-function moveHeaderComponent(): void {
-  const targetFolderPath = path.join(__dirname, '../docs/components');
-  fs.readdir(targetFolderPath, function (error, files) {
-    if (error) {
-      return console.log(error);
-    }
-    files.forEach(function (file) {
-      const data = fs.readFileSync(path.join(targetFolderPath, file), 'UTF-8');
-      const lines = data.split(/\r?\n/);
-      // Markdown header limit at the end of the file skipping the empty line at the bottom
-      const markdownHeaderEnd = lines.length - 2;
-      let markdownHeaderStart = 0;
-      const markupLimit = '---';
-      if (lines[markdownHeaderEnd] === markupLimit) {
-        lines[0] = '';
-        for (let i = markdownHeaderEnd - 1; markdownHeaderStart === 0; i--) {
-          markdownHeaderStart = lines[i] === markupLimit ? i : 0;
-        }
-        lines.unshift(...lines.splice(markdownHeaderStart, markdownHeaderEnd));
-        fs.writeFileSync(path.join(targetFolderPath, file), lines.join('\n'));
-      }
-    });
-  });
 }
 
 /**
@@ -159,12 +136,9 @@ function getExtractorInvokeOptions(): IExtractorInvokeOptions {
  */
 function generateDocumentation(): Promise<void> {
   return new Promise((resolve, reject) => {
-    exec('npm run gen:docs', (error, _, stderr) => {
+    exec('npm run gen:docs', error => {
       if (error) {
         reject(error);
-      }
-      if (stderr) {
-        //reject(stderr);
       }
       resolve();
     });

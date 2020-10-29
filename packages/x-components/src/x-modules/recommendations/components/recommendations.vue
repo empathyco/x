@@ -87,9 +87,4 @@
     </template>
   </Recommendations>
   ```
-  ---
-  id: x-components.recommendations
-  title: Recommendations
-  sidebar_label: Recommendations
-  ---
 </docs>

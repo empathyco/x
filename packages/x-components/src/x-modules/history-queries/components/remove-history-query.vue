@@ -62,10 +62,4 @@
     <img class="x-history-query__icon" src="./my-awesome-clear-icon.svg"/>
   </RemoveHistoryQuery>
   ```
-
-  ---
-  id: x-components.removehistoryquery
-  title: Remove History Query
-  sidebar_label: Remove History Query
-  ---
 </docs>

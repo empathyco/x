@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
-import { getResultsStub } from '../../__stubs__/results-stubs.factory';
-import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils';
+import { getResultsStub } from '../../../__stubs__/results-stubs.factory';
+import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseResultImage from '../base-result-image.vue';
 
 describe('testing BaseResultImage component', () => {

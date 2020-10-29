@@ -198,9 +198,4 @@
     <QuerySuggestions/>
   </KeyboardNavigation>
   ```
-  ---
-  id: x-components.basekeyboardnavigation
-  title: Base Keyboard Navigation
-  sidebar_label: Base Keyboard Navigation
-  ---
 </docs>

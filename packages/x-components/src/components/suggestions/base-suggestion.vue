@@ -17,11 +17,11 @@
   import { Suggestion } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { normalizeString } from '../utils/normalize';
-  import { sanitize } from '../utils/sanitize';
-  import { VueCSSClasses } from '../utils/types';
-  import { XEventsTypes } from '../wiring/events.types';
-  import BaseEventButton from './base-event-button.vue';
+  import { normalizeString } from '../../utils/normalize';
+  import { sanitize } from '../../utils/sanitize';
+  import { VueCSSClasses } from '../../utils/types';
+  import { XEventsTypes } from '../../wiring/events.types';
+  import BaseEventButton from '../base-event-button.vue';
 
   /**
    * Renders a button with a default slot. It receives a query, which should be the query of the
@@ -174,9 +174,4 @@
     </template>
   </BaseSuggestion>
   ```
-  ---
-  id: x-components.basesuggestion
-  title: Base Suggestion
-  sidebar_label: Base Suggestion
-  ---
 </docs>

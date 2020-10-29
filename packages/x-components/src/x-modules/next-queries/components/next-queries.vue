@@ -31,7 +31,7 @@
   import { NextQuery as NextQueryModel }from '@empathy/search-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import BaseSuggestions from '../../../components/base-suggestions.vue';
+  import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { nextQueriesXModule } from '../x-module';
@@ -129,10 +129,4 @@
     </template>
   </NextQueries>
   ```
-
-  ---
-  id: x-components.nextqueries
-  title: Next Queries
-  sidebar_label: Next Queries
-  ---
 </docs>

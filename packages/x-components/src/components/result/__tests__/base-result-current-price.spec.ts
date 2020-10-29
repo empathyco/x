@@ -1,9 +1,9 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { currency } from '../../filters/currency/currency.filter';
-import { DEFAULT_X_CONFIG } from '../../plugins/x-plugin.config';
-import { getResultsStub } from '../../__stubs__/results-stubs.factory';
-import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils';
+import { currency } from '../../../filters/currency/currency.filter';
+import { DEFAULT_X_CONFIG } from '../../../plugins/x-plugin.config';
+import { getResultsStub } from '../../../__stubs__/results-stubs.factory';
+import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseResultCurrentPrice from '../base-result-current-price.vue';
 
 describe('testing BaseCurrentPrice component', () => {
