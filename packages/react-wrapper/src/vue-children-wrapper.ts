@@ -12,7 +12,7 @@ export const VueChildrenWrapper = defineComponent({
   props: {
     slotContent: {
       required: true,
-      type: [Object, Array] as ReactNode
+      type: [Object, Array, String] as ReactNode
     }
   },
   render(h: CreateElement) {

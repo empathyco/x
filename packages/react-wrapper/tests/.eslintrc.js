@@ -10,5 +10,8 @@ module.exports = {
       pragma: 'React',
       version: 'detect'
     }
+  },
+  rules: {
+    'react/prop-types': 'off'
   }
 };
