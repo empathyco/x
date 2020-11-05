@@ -1,4 +1,11 @@
 # React Wrapper
+### [1.0.3](https://bitbucket.org/colbenson/react-wrapper/branches/compare/v1.0.3%0Dv1.0.2) (2020-11-05)
+
+
+### Bug Fixes
+
+* **slots:** add support to text content in slots ([039ee3f](https://bitbucket.org/colbenson/react-wrapper/commits/039ee3f53f00241d2ea1bb879ba4c047d359c636)), closes [EX-2525](https://searchbroker.atlassian.net/browse/EX-2525)
+
 ### [1.0.2](https://bitbucket.org/colbenson/react-wrapper/branches/compare/v1.0.2%0Dv1.0.1) (2020-10-29)
 
 
