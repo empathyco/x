@@ -5,6 +5,15 @@ const glob = require('glob');
 const DOCUSAURUS_FOLDER = getDocusaurusFolder();
 
 /**
+ * This function is used to not include some docs into runbooks, because they are not ready.
+ * @param file - The full path of each documentation file.
+ * @returns {boolean} - Returns true if the file is included in runbooks or false otherwise.
+ */
+function filterDocFiles(file) {
+  return !file.includes('API-reference/api/');
+}
+
+/**
  * This function modifies the documentation files to integrate them in the Runbooks project.
  * So it does 3 different things:
  * 1. Generate a 'sidebar.json' file.
@@ -38,7 +47,7 @@ function generateData(docsFolderPath) {
   const headers = {};
   const docusaurusFolderPaths = {};
 
-  files.forEach(file => {
+  files.filter(filterDocFiles).forEach(file => {
     const path = file.split('/').slice(1, -1);
     const filePath = join(...path, basename(file));
     addSidebarTreeRecursively(sidebarTree, path, filePath);
@@ -82,11 +91,9 @@ function createHeader(headers, filePath) {
   const fileId = getFileId(filePath);
   const title = getFileTitle(basename(filePath, '.md'));
   headers[filePath] = `---
-
 id: ${fileId}
 title: ${title}
 sidebar_label: ${title}
-
 ---
 `;
 }
@@ -166,6 +173,7 @@ function updateFile(filePath, updaterFunction) {
  */
 function getFileTitle(str) {
   return str
+    .replace('x-components.', '')
     .split('-')
     .map(string => `${string.charAt(0).toUpperCase()}${string.slice(1)}`)
     .join(' ');

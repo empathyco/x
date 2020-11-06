@@ -53,7 +53,7 @@ function generateDestination(folder, regex, file) {
   const match = regex.exec(file);
   if (match) {
     const [, path, componentName] = match;
-    return `${folder}/${path}/${componentName}.md`;
+    return `${folder}/${path}/x-components.${componentName}.md`;
   } else {
     return '';
   }
