@@ -9,7 +9,15 @@ import { Filter } from '@empathy/search-types';
 export interface FacetsXEvents {
   /**
    * The selected filters have changed.
-   * Payload: filters array.
+   * * Payload: filters array.
    */
   SelectedFiltersChanged: Filter[];
+  /**
+   * The user has clicked a filter.
+   * * Payload: The clicked filter.
+   *
+   * @remarks This event does not imply changing the selection state of the filter. Business logic
+   * can prevent the filter from changing its state.
+   */
+  UserClickedAFilter: Filter;
 }
