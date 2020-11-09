@@ -8,6 +8,7 @@ import { arrayToObject } from '../../../../utils/array';
 import { DeepPartial } from '../../../../utils/types';
 import { getFacetsStub } from '../../../../__stubs__/facets-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
+import { FacetsState } from '../../store/types';
 import Facets from '../facets.vue';
 import { resetXFacetsStateWith } from './utils';
 
@@ -18,9 +19,8 @@ describe('testing Facets component', () => {
   installNewXPlugin({ store }, localVue);
 
   const facetsStub = getFacetsStub();
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  const facetTitles = facetsStub.map((facet: Facet) => facet.title);
-  const facetsState = { facets: arrayToObject(facetsStub, 'title') };
+  const facetLabels = facetsStub.map((facet: Facet) => facet.label);
+  const facetsState: Partial<FacetsState> = { facets: arrayToObject(facetsStub, 'id') };
   resetXFacetsStateWith(store, facetsState);
 
   const mountOptions = {
@@ -47,39 +47,34 @@ describe('testing Facets component', () => {
 
     expect(facetWrappers).toHaveLength(facetsStub.length);
     facetWrappers.wrappers.forEach((facetWrapper: Wrapper<Vue>) =>
-      expect(facetTitles).toContain(facetWrapper.element.innerHTML)
+      expect(facetLabels).toContain(facetWrapper.element.innerHTML)
     );
   });
 
-  // eslint-disable-next-line max-len
-  it('renders a custom composition for a specific Facet by overriding a slot and the rest use the default slot composition', () => {
-    const facetToCustomize: string = facetTitles[0];
+  it('allows customizing a specific facet using the slot given by the facet.id', () => {
+    const facetToCustomize = facetsStub[0];
     const customSlotTemplate = `
-       <template #${facetToCustomize}="{ facet }">
-          <p class="facet" data-test="hierarchical_category-slot-facet">{{ facet.title }}</p>
+       <template #${facetToCustomize.id}="{ facet }">
+          <p class="facet" data-test="customized-facet">{{ facet.label }}</p>
        </template>`;
 
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    const { getDefaultedFacets, getCustomizedFacet } = renderFacetsComponent(
+    const { component, getDefaultedFacets } = renderFacetsComponent(
       mountOptions,
       customSlotTemplate
     );
-    const customizedFacetWrapper = getCustomizedFacet(facetToCustomize);
+    const customizedFacetWrapper = component.find(getDataTestSelector('customized-facet'));
 
     expect(customizedFacetWrapper.exists()).toBe(true);
-    expect(customizedFacetWrapper.element.innerHTML).toBe(facetToCustomize);
+    expect(customizedFacetWrapper.text()).toBe(facetToCustomize.label);
 
-    getDefaultedFacets().wrappers.forEach(facet =>
-      expect(facet.element.innerHTML).not.toBe(facetToCustomize)
-    );
+    getDefaultedFacets().wrappers.forEach(facet => {
+      expect(facet.text()).not.toBe(facetToCustomize.label);
+    });
   });
 });
 
 function renderFacetsComponent(
-  mountOptions: {
-    localVue: VueConstructor;
-    store: Store<DeepPartial<RootXStoreState>>;
-  },
+  mountOptions: FacetsMountOptions,
   customizedSlotTemplate?: string
 ): FacetsComponentAPI {
   const facetsWrapper: ComponentOptions<Vue> = {
@@ -90,7 +85,7 @@ function renderFacetsComponent(
        <Facets>
           ${customizedSlotTemplate ?? ''}
           <template #default="{ facet }">
-            <p class="facet" data-test="default-slot-facet">{{ facet.title }}</p>
+            <p class="facet" data-test="default-slot-facet">{{ facet.label }}</p>
           </template>
        </Facets>`
   };
@@ -104,16 +99,17 @@ function renderFacetsComponent(
     },
     getDefaultedFacets() {
       return component.findAll(getDataTestSelector('default-slot-facet'));
-    },
-    getCustomizedFacet(customizedFacetTitle: string) {
-      return component.find(getDataTestSelector(`${customizedFacetTitle}-slot-facet`));
     }
   };
 }
 
+interface FacetsMountOptions {
+  localVue: VueConstructor;
+  store: Store<DeepPartial<RootXStoreState>>;
+}
+
 interface FacetsComponentAPI {
   component: Wrapper<Vue>;
-  getAllFacets(): WrapperArray<Vue>;
-  getDefaultedFacets(): WrapperArray<Vue>;
-  getCustomizedFacet(customizedFacetTitle: string): Wrapper<Vue>;
+  getAllFacets: () => WrapperArray<Vue>;
+  getDefaultedFacets: () => WrapperArray<Vue>;
 }

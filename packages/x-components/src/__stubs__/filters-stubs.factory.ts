@@ -10,18 +10,15 @@ import { SimpleFilter } from '@empathy/search-types';
  */
 export function getSimpleFilterStub(filter: Partial<SimpleFilter> = {}): SimpleFilter {
   return Object.assign<SimpleFilter, Partial<SimpleFilter>>(
-    // TODO Update with @empathy/search-types@6.0.0 changes.
     {
+      facetId: 'category',
       id: 'category:test',
       modelName: 'SimpleFilter',
       selected: false,
       callbackInfo: {},
-      title: 'Test',
-      parent: null,
-      value: { filter: 'category:tes' },
-      count: 0,
-      children: [],
-      facet: null as any
+      label: 'Test',
+      value: 'category:tes',
+      totalResults: 0
     },
     filter
   );

@@ -1,4 +1,5 @@
-import { Facet, ModelNameType, Suggestion } from '@empathy/search-types';
+import { ModelNameType, Suggestion } from '@empathy/search-types';
+import { createFacetWithFilter } from './facets-stubs.factory';
 
 /**
  * Function to create query suggestions stub with facets with the modelName and query search
@@ -42,35 +43,4 @@ export function getQuerySuggestionsStub(modelName: ModelNameType, query: string)
       modelName: modelName
     }
   ];
-}
-
-/**
- * Function to create a single facet with one filter.
- *
- * @param category - Category to be used in the filter creation.
- * @returns Facet with the filter added.
- */
-export function createFacetWithFilter(category: string): Facet {
-  const facet: Facet = {
-    modelName: 'Facet',
-    filters: [],
-    title: 'category'
-  };
-
-  facet.filters.push({
-    modelName: 'Filter',
-    id: `category:${category}`,
-    callbackInfo: {},
-    children: [],
-    count: 10,
-    parent: null,
-    selected: false,
-    title: category,
-    value: {
-      filter: `category:${category}`
-    },
-    facet
-  });
-
-  return facet;
 }

@@ -1,61 +1,51 @@
+import { Filter } from '@empathy/search-types';
 import { areFiltersDifferent } from '../utils';
 
 describe('testing areFiltersDifferent util', () => {
   it('returns true with different filters', () => {
-    /**
-     * Unable to use Filter[] type due to circular reference between facets and their filters.
-     */
-    const newFiltersArray: any[] = [
+    const newFiltersArray: Filter[] = [
       {
-        // facet: {},
+        facetId: 'hierarchical_category',
         modelName: 'SimpleFilter',
         id: 'hierarchical_category:"rompecabezas"',
         value: '{ "filter: "rompecabezas" }',
-        count: 1,
-        title: 'Rompecabezas',
-        parent: null,
+        totalResults: 1,
+        label: 'Rompecabezas',
         callbackInfo: {},
-        selected: false,
-        children: []
+        selected: false
       },
       {
-        // facet: {},
+        facetId: 'hierarchical_category',
         modelName: 'SimpleFilter',
         id: 'hierarchical_category:"puzzle"',
         value: '{ "filter: "puzzle" }',
-        count: 1,
-        title: 'Puzzle',
-        parent: null,
+        totalResults: 1,
+        label: 'Puzzle',
         callbackInfo: {},
-        selected: false,
-        children: []
+        selected: false
       }
     ];
 
-    const oldFiltersArray: any[] = [
+    const oldFiltersArray: Filter[] = [
       {
-        // facet: {},
+        facetId: 'hierarchical_category',
         modelName: 'SimpleFilter',
         id: 'hierarchical_category:"lego"',
         value: '{ "filter: "lego" }',
-        count: 1,
-        title: 'Lego',
-        parent: null,
+        totalResults: 1,
+        label: 'Lego',
         callbackInfo: {},
-        selected: false,
-        children: []
+        selected: false
       },
       {
-        // facet: {},
+        facetId: 'hierarchical_category',
         modelName: 'SimpleFilter',
         id: 'hierarchical_category:"puzzle"',
         value: '{ "filter: "puzzle" }',
-        count: 1,
-        title: 'Puzzle',
-        parent: null,
+        totalResults: 1,
+        label: 'Puzzle',
         callbackInfo: {},
-        selected: false,
-        children: []
+        selected: false
       }
     ];
 
@@ -63,60 +53,49 @@ describe('testing areFiltersDifferent util', () => {
   });
 
   it('returns false with the same filters', () => {
-    /**
-     * Unable to use Filter[] type due to circular reference between facets and their filters.
-     */
-    const newFiltersArray: any[] = [
+    const newFiltersArray: Filter[] = [
       {
-        // facet: {},
+        facetId: 'hierarchical_category',
         modelName: 'SimpleFilter',
         id: 'hierarchical_category:"rompecabezas"',
         value: '{ "filter: "rompecabezas" }',
-        count: 1,
-        title: 'Rompecabezas',
-        parent: null,
+        totalResults: 1,
+        label: 'Rompecabezas',
         callbackInfo: {},
-        selected: false,
-        children: []
+        selected: false
       },
       {
-        // facet: {},
+        facetId: 'hierarchical_category',
         modelName: 'SimpleFilter',
         id: 'hierarchical_category:"puzzle"',
         value: '{ "filter: "puzzle" }',
-        count: 1,
-        title: 'Puzzle',
-        parent: null,
+        totalResults: 1,
+        label: 'Puzzle',
         callbackInfo: {},
-        selected: false,
-        children: []
+        selected: false
       }
     ];
 
-    const oldFiltersArray: any[] = [
+    const oldFiltersArray: Filter[] = [
       {
-        // facet: {},
+        facetId: 'hierarchical_category',
         modelName: 'SimpleFilter',
         id: 'hierarchical_category:"rompecabezas"',
         value: '{ "filter: "rompecabezas" }',
-        count: 1,
-        title: 'Rompecabezas',
-        parent: null,
+        totalResults: 1,
+        label: 'Rompecabezas',
         callbackInfo: {},
-        selected: false,
-        children: []
+        selected: false
       },
       {
-        // facet: {},
+        facetId: 'hierarchical_category',
         modelName: 'SimpleFilter',
         id: 'hierarchical_category:"puzzle"',
         value: '{ "filter: "puzzle" }',
-        count: 1,
-        title: 'Puzzle',
-        parent: null,
+        totalResults: 1,
+        label: 'Puzzle',
         callbackInfo: {},
-        selected: false,
-        children: []
+        selected: false
       }
     ];
 

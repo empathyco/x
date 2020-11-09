@@ -1,5 +1,6 @@
 import { Filter } from '@empathy/search-types';
 import { deepFilter, reduce } from '../../../../utils';
+import { isFilterSelected, isHierarchicalFilter } from '../../../../utils/filters';
 import { FacetsXStoreModule } from '../types';
 
 /**
@@ -18,7 +19,11 @@ export const selectedFilters: FacetsXStoreModule['getters']['selectedFilters'] =
   return reduce(
     state.facets,
     (selectedFilters, _facetName, facet) => {
-      selectedFilters.push(...deepFilter(facet.filters, filter => filter.selected, 'children'));
+      if (isHierarchicalFilter(facet)) {
+        selectedFilters.push(...deepFilter(facet.filters, isFilterSelected, 'children'));
+      } else {
+        selectedFilters.push(...facet.filters.filter(isFilterSelected));
+      }
       return selectedFilters;
     },
     <Filter[]>[]

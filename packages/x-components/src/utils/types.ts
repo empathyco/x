@@ -38,8 +38,15 @@ export type PropsWithType<Type, PropType> = {
  * @public
  */
 export type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends Primitive ? T[P] : DeepPartial<T[P]>;
+  [P in keyof T]?: T[P] extends NonPrimitive ? DeepPartial<T[P]> : T[P];
 };
+
+/**
+ * TypeScript type non-primitives. Array or Record with all possible types.
+ *
+ * @public
+ */
+export type NonPrimitive = Array<any> | Record<any, any>;
 
 /**
  * TypeScript type primitives. Basically every type possible except objects or arrays.

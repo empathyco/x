@@ -12,7 +12,7 @@
         @slot The content to render inside the button
             @binding {Filter} filter - The filter data
       -->
-    <slot :filter="filter">{{ filter.title }}</slot>
+    <slot :filter="filter">{{ filter.label }}</slot>
   </BaseEventButton>
 </template>
 

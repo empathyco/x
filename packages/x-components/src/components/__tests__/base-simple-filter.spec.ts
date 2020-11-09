@@ -47,7 +47,7 @@ describe('testing BaseSimpleFilter component', () => {
   it('renders the provided filter by default', () => {
     const { wrapper, filter } = renderBaseSimpleFilter();
 
-    expect(wrapper.text()).toEqual(filter.title);
+    expect(wrapper.text()).toEqual(filter.label);
   });
 
   it('emits UserClickedAFilter event when clicked', () => {
@@ -65,13 +65,13 @@ describe('testing BaseSimpleFilter component', () => {
     const { wrapper, filter } = renderBaseSimpleFilter({
       template: `
       <BaseSimpleFilter :filter="filter" v-slot="{ filter }">
-        <span data-test="custom-label">{{ filter.title }}</span>
+        <span data-test="custom-label">{{ filter.label }}</span>
       </BaseSimpleFilter>
       `
     });
 
     const customLabel = wrapper.find(getDataTestSelector('custom-label'));
-    expect(customLabel.text()).toEqual(filter.title);
+    expect(customLabel.text()).toEqual(filter.label);
   });
 
   it('adds selected classes to the rendered element when the filter is selected', async () => {

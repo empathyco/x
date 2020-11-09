@@ -9,5 +9,5 @@ import { FacetsXStoreModule } from '../types';
  * @param newFacets - Facets array.
  */
 export const setFacets: FacetsXStoreModule['mutations']['setFacets'] = (state, newFacets) => {
-  state.facets = arrayToObject(newFacets, 'title');
+  state.facets = arrayToObject(newFacets, 'id');
 };

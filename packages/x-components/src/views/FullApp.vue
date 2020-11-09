@@ -17,10 +17,10 @@
     <h1>Facets</h1>
     <Facets>
       <template #default="{ facet }">
-        <h3>{{ facet.title }}</h3>
-        <ul v-for="filter in facet.filters" :key="filter.title">
+        <h3>{{ facet.label }}</h3>
+        <ul v-for="filter in facet.filters" :key="filter.id">
           <li>
-            {{ filter.title }}
+            {{ filter.label }}
           </li>
         </ul>
       </template>

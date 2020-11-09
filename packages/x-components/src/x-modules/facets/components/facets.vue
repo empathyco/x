@@ -7,8 +7,8 @@
     data-test="facets"
   >
     <li
-      v-for="(facet, facetTitle) in facets"
-      :key="facetTitle"
+      v-for="(facet, facetId) in facets"
+      :key="facetId"
       class="x-facets-list__item"
       data-test="facets-facet"
     >
@@ -17,14 +17,14 @@
         facet using that slot composition to render.
             @binding {Facet} facet - Facet to render
       -->
-      <slot v-if="$scopedSlots[facetTitle]" :name="facetTitle" :facet="facet"></slot>
+      <slot v-if="$scopedSlots[facetId]" :name="facetId" :facet="facet"></slot>
       <!--
         @slot (required) Default Facet rendering. This slot will be used by default for rendering
         the facets without an specific slot implementation.
             @binding {Facet} facet - Facet to render
       -->
       <slot v-else :facet="facet">
-        This is the {{ facet.title }} facet. Pass something into its slot to display content.
+        This is the {{ facet.label }} facet. Pass something into its slot to display content.
       </slot>
     </li>
   </component>
@@ -96,11 +96,11 @@
   ```vue
   <Facets>
     <template #default="{ facet }">
-      <h1>{{ facet.title }}</h1>
+      <h1>{{ facet.label }}</h1>
 
-      <ul v-for="filter in facet.filters" :key="filter.title">
+      <ul v-for="filter in facet.filters" :key="filter.id">
         <li>
-          {{ filter.title }}
+          {{ filter.label }}
         </li>
       </ul>
     </template>
@@ -109,7 +109,7 @@
 
   ## Customized usage
   Customized compositions for a specific Facet can be achieved by using a slot with the same name
-  as the Facet to customize. For example, the Facet with the title "color" requires a composition
+  as the Facet to customize. For example, the Facet with the label "color" requires a composition
   that differs from the rest of the Facets. Doing it in a slot with the name "color" will apply this
   customization just to the "color" Facet. The other facets will fallback to the composition of the
   default slot.
@@ -117,19 +117,19 @@
   ```vue
   <Facets>
     <template #color="{ facet }">
-      <ul v-for="filter in facet.filters" :key="filter.title">
+      <ul v-for="filter in facet.filters" :key="filter.id">
         <li v-if="!filter.selected">
-          {{ filter.title }}
+          {{ filter.label }}
         </li>
       </ul>
     </template>
 
     <template #default="{ facet }">
-      <h1>{{ facet.title }}</h1>
+      <h1>{{ facet.label }}</h1>
 
-      <ul v-for="filter in facet.filters" :key="filter.title">
+      <ul v-for="filter in facet.filters" :key="filter.id">
         <li>
-          {{ filter.title }}
+          {{ filter.label }}
         </li>
       </ul>
     </template>

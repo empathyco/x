@@ -1,3 +1,522 @@
+import { Facet, HierarchicalFacet, NumberRangeFacet, SimpleFacet } from '@empathy/search-types';
+import { Dictionary } from '../utils/types';
+
+/**
+ * Creates {@link @empathy/search-types#SimpleFacet | SimpleFacet} stub.
+ *
+ * @returns A SimpleFacet.
+ *
+ * @internal
+ */
+export function getSimpleFacetStub(): SimpleFacet {
+  return {
+    id: 'brand_facet',
+    modelName: 'SimpleFacet',
+    label: 'brand_facet',
+    filters: [
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ CITY"',
+        label: 'LEGO CITY',
+        selected: false,
+        value: '"LEGO\\ CITY"',
+        totalResults: 64,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ STAR\\ WARS"',
+        label: 'LEGO STAR WARS',
+        selected: false,
+        value: '"LEGO\\ STAR\\ WARS"',
+        totalResults: 58,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ FRIENDS"',
+        label: 'LEGO FRIENDS',
+        selected: false,
+        value: '"LEGO\\ FRIENDS"',
+        totalResults: 57,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ DUPLO"',
+        label: 'LEGO DUPLO',
+        selected: false,
+        value: '"LEGO\\ DUPLO"',
+        totalResults: 50,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ NINJAGO"',
+        label: 'LEGO NINJAGO',
+        selected: false,
+        value: '"LEGO\\ NINJAGO"',
+        totalResults: 47,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ CREATOR"',
+        label: 'LEGO CREATOR',
+        selected: false,
+        value: '"LEGO\\ CREATOR"',
+        totalResults: 33,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ MARVEL"',
+        label: 'LEGO MARVEL',
+        selected: false,
+        value: '"LEGO\\ MARVEL"',
+        totalResults: 18,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ TECHNIC"',
+        label: 'LEGO TECHNIC',
+        selected: false,
+        value: '"LEGO\\ TECHNIC"',
+        totalResults: 16,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ HARRY\\ POTTER"',
+        label: 'LEGO HARRY POTTER',
+        selected: false,
+        value: '"LEGO\\ HARRY\\ POTTER"',
+        totalResults: 13,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ CLASSIC"',
+        label: 'LEGO CLASSIC',
+        selected: false,
+        value: '"LEGO\\ CLASSIC"',
+        totalResults: 12,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ DISNEY\\ PRINCESS"',
+        label: 'LEGO DISNEY PRINCESS',
+        selected: false,
+        value: '"LEGO\\ DISNEY\\ PRINCESS"',
+        totalResults: 9,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ JUNIORS"',
+        label: 'LEGO JUNIORS',
+        selected: false,
+        value: '"LEGO\\ JUNIORS"',
+        totalResults: 8,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ MINECRAFT"',
+        label: 'LEGO MINECRAFT',
+        selected: false,
+        value: '"LEGO\\ MINECRAFT"',
+        totalResults: 8,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ SPEED\\ CHAMPION"',
+        label: 'LEGO SPEED CHAMPION',
+        selected: false,
+        value: '"LEGO\\ SPEED\\ CHAMPION"',
+        totalResults: 8,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ ARCHITECTURE"',
+        label: 'LEGO ARCHITECTURE',
+        selected: false,
+        value: '"LEGO\\ ARCHITECTURE"',
+        totalResults: 7,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ SUPERHEROES"',
+        label: 'LEGO SUPERHEROES',
+        selected: false,
+        value: '"LEGO\\ SUPERHEROES"',
+        totalResults: 6,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO"',
+        label: 'LEGO',
+        selected: false,
+        value: '"LEGO"',
+        totalResults: 5,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ JURASSIC\\ W"',
+        label: 'LEGO JURASSIC W',
+        selected: false,
+        value: '"LEGO\\ JURASSIC\\ W"',
+        totalResults: 5,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ TOY\\ STORY"',
+        label: 'LEGO TOY STORY',
+        selected: false,
+        value: '"LEGO\\ TOY\\ STORY"',
+        totalResults: 5,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ THE\\ MOVIE"',
+        label: 'LEGO THE MOVIE',
+        selected: false,
+        value: '"LEGO\\ THE\\ MOVIE"',
+        totalResults: 4,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ DC\\ COMICS"',
+        label: 'LEGO DC COMICS',
+        selected: false,
+        value: '"LEGO\\ DC\\ COMICS"',
+        totalResults: 3,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ BATMAN"',
+        label: 'LEGO BATMAN',
+        selected: false,
+        value: '"LEGO\\ BATMAN"',
+        totalResults: 2,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"CONSTRUCCIÓN"',
+        label: 'CONSTRUCCIÓN',
+        selected: false,
+        value: '"CONSTRUCCIÓN"',
+        totalResults: 1,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      },
+      {
+        facetId: 'brand_facet',
+        id: 'brand_facet:"LEGO\\ COLECCIONISTA"',
+        label: 'LEGO COLECCIONISTA',
+        selected: false,
+        value: '"LEGO\\ COLECCIONISTA"',
+        totalResults: 1,
+        callbackInfo: {},
+        modelName: 'SimpleFilter'
+      }
+    ]
+  };
+}
+
+/**
+ * Creates {@link @empathy/search-types#HierarchicalFacet | HierarchicalFacet} stub.
+ *
+ * @returns A HierarchicalFacet.
+ *
+ * @internal
+ */
+export function getHierarchicalFacetStub(): HierarchicalFacet {
+  return {
+    id: 'hierarchical_category',
+    modelName: 'HierarchicalFacet',
+    label: 'hierarchical_category',
+    filters: [
+      {
+        facetId: 'hierarchical_category',
+        parentId: null,
+        id: 'hierarchical_category:"rompecabezas"',
+        label: 'Rompecabezas',
+        selected: false,
+        value: '"rompecabezas"',
+        totalResults: 1,
+        callbackInfo: {},
+        modelName: 'HierarchicalFilter',
+        children: [
+          {
+            facetId: 'hierarchical_category',
+            parentId: 'hierarchical_category:"rompecabezas"',
+            id: 'hierarchical_category:"rompecabezas-faciles"',
+            label: 'Rompecabezas difíciles',
+            selected: false,
+            value: '"rompecabezas-faciles"',
+            totalResults: 1,
+            callbackInfo: {},
+            modelName: 'HierarchicalFilter',
+            children: []
+          },
+          {
+            facetId: 'hierarchical_category',
+            parentId: 'hierarchical_category:"rompecabezas"',
+            id: 'hierarchical_category:"rompecabezas-dificiles"',
+            label: 'Rompecabezas fáciles',
+            selected: false,
+            value: '"rompecabezas-dificiles"',
+            totalResults: 1,
+            callbackInfo: {},
+            modelName: 'HierarchicalFilter',
+            children: []
+          }
+        ]
+      },
+      {
+        facetId: 'hierarchical_category',
+        parentId: null,
+        id: 'hierarchical_category:"infantiles_\\(hasta_48_piezas\\)"',
+        label: 'Infantiles (hasta 48 piezas)',
+        selected: false,
+        value: '"infantiles_\\(hasta_48_piezas\\)"',
+        totalResults: 1,
+        callbackInfo: {},
+        modelName: 'HierarchicalFilter',
+        children: []
+      },
+      {
+        facetId: 'hierarchical_category',
+        parentId: null,
+        id: 'hierarchical_category:"construcción_por_bloques"',
+        label: 'Construcción por bloques',
+        selected: false,
+        value: '"construcción_por_bloques"',
+        totalResults: 314,
+        callbackInfo: {},
+        modelName: 'HierarchicalFilter',
+        children: []
+      },
+      {
+        facetId: 'hierarchical_category',
+        parentId: null,
+        id: 'hierarchical_category:"series_y_péliculas"',
+        label: 'Series y péliculas',
+        selected: false,
+        value: '"series_y_péliculas"',
+        totalResults: 17,
+        callbackInfo: {},
+        modelName: 'HierarchicalFilter',
+        children: []
+      },
+      {
+        facetId: 'hierarchical_category',
+        parentId: null,
+        id: 'hierarchical_category:"packs_con_personajes"',
+        label: 'Packs con personajes',
+        selected: false,
+        value: '"packs_con_personajes"',
+        totalResults: 2,
+        callbackInfo: {},
+        modelName: 'HierarchicalFilter',
+        children: []
+      },
+      {
+        facetId: 'hierarchical_category',
+        parentId: null,
+        id: 'hierarchical_category:"grandes_\\(hasta_250_piezas\\)"',
+        label: 'Grandes (hasta 250 piezas)',
+        selected: false,
+        value: '"grandes_\\(hasta_250_piezas\\)"',
+        totalResults: 2,
+        callbackInfo: {},
+        modelName: 'HierarchicalFilter',
+        children: []
+      },
+      {
+        facetId: 'hierarchical_category',
+        parentId: null,
+        id: 'hierarchical_category:"amigos_y_familia"',
+        label: 'Amigos y familia',
+        selected: false,
+        value: '"amigos_y_familia"',
+        totalResults: 2,
+        callbackInfo: {},
+        modelName: 'HierarchicalFilter',
+        children: []
+      },
+      {
+        facetId: 'hierarchical_category',
+        parentId: null,
+        id: 'hierarchical_category:"niños"',
+        label: 'Niños',
+        selected: false,
+        value: '"niños"',
+        totalResults: 3,
+        callbackInfo: {},
+        modelName: 'HierarchicalFilter',
+        children: []
+      },
+      {
+        facetId: 'hierarchical_category',
+        parentId: null,
+        id: 'hierarchical_category:"construye"',
+        label: 'Construye',
+        selected: false,
+        value: '"construye"',
+        totalResults: 167,
+        callbackInfo: {},
+        modelName: 'HierarchicalFilter',
+        children: []
+      },
+      {
+        facetId: 'hierarchical_category',
+        parentId: null,
+        id: 'hierarchical_category:"mi_primera_construcción"',
+        label: 'Mi primera construcción',
+        selected: false,
+        value: '"mi_primera_construcción"',
+        totalResults: 4,
+        callbackInfo: {},
+        modelName: 'HierarchicalFilter',
+        children: []
+      }
+    ]
+  };
+}
+
+/**
+ * Creates {@link @empathy/search-types#NumberRangeFacet | NumberRangeFacet} stub.
+ *
+ * @returns A NumberRangeFacet.
+ *
+ * @internal
+ */
+export function getNumberRangeFacetStub(): NumberRangeFacet {
+  return {
+    id: 'price_facet',
+    modelName: 'NumberRangeFacet',
+    label: 'price_facet',
+    filters: [
+      {
+        facetId: 'price_facet',
+        id: 'price_facet:0 TO 10',
+        label: '0:10',
+        selected: false,
+        value: { min: null, max: 10 },
+        totalResults: 23,
+        callbackInfo: {},
+        modelName: 'NumberRangeFilter'
+      },
+      {
+        facetId: 'price_facet',
+        id: 'price_facet:10 TO 20',
+        label: '10:20',
+        selected: false,
+        value: { min: 10, max: 20 },
+        totalResults: 150,
+        callbackInfo: {},
+        modelName: 'NumberRangeFilter'
+      },
+      {
+        facetId: 'price_facet',
+        id: 'price_facet:20 TO 30',
+        label: '20:30',
+        selected: false,
+        value: { min: 20, max: 30 },
+        totalResults: 164,
+        callbackInfo: {},
+        modelName: 'NumberRangeFilter'
+      },
+      {
+        facetId: 'price_facet',
+        id: 'price_facet:30 TO 40',
+        label: '30:40',
+        selected: false,
+        value: { min: 30, max: 40 },
+        totalResults: 58,
+        callbackInfo: {},
+        modelName: 'NumberRangeFilter'
+      },
+      {
+        facetId: 'price_facet',
+        id: 'price_facet:40 TO 50',
+        label: '40:50',
+        selected: false,
+        value: { min: 40, max: 50 },
+        totalResults: 38,
+        callbackInfo: {},
+        modelName: 'NumberRangeFilter'
+      },
+      {
+        facetId: 'price_facet',
+        id: 'price_facet:50 TO 70',
+        label: '50:70',
+        selected: false,
+        value: { min: 50, max: 70 },
+        totalResults: 44,
+        callbackInfo: {},
+        modelName: 'NumberRangeFilter'
+      },
+      {
+        facetId: 'price_facet',
+        id: 'price_facet:70 TO 100',
+        label: '70:100',
+        selected: false,
+        value: { min: 70, max: 100 },
+        totalResults: 24,
+        callbackInfo: {},
+        modelName: 'NumberRangeFilter'
+      },
+      {
+        facetId: 'price_facet',
+        id: 'price_facet:100 TO *',
+        label: '100:*',
+        selected: false,
+        value: { min: 100, max: null },
+        totalResults: 22,
+        callbackInfo: {},
+        modelName: 'NumberRangeFilter'
+      }
+    ]
+  };
+}
+
 /**
  * Creates {@link @empathy/search-types#Facet | facets} stub.
  *
@@ -5,821 +524,47 @@
  *
  * @internal
  */
-export function getFacetsStub(): any {
-  return [
-    {
-      modelName: 'hierarchical_category',
-      title: 'hierarchical_category',
-      filters: [
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'hierarchical_category:"rompecabezas"',
-          value: {
-            filter: '"rompecabezas"'
-          },
-          count: 1,
-          title: 'Rompecabezas',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'hierarchical_category:"infantiles_\\(hasta_48_piezas\\)"',
-          value: {
-            filter: '"infantiles_\\(hasta_48_piezas\\)"'
-          },
-          count: 1,
-          title: 'Infantiles (hasta 48 piezas)',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'hierarchical_category:"construcción_por_bloques"',
-          value: {
-            filter: '"construcción_por_bloques"'
-          },
-          count: 277,
-          title: 'Construcción por bloques',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'hierarchical_category:"series_y_péliculas"',
-          value: {
-            filter: '"series_y_péliculas"'
-          },
-          count: 27,
-          title: 'Series y péliculas',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'hierarchical_category:"packs_con_personajes"',
-          value: {
-            filter: '"packs_con_personajes"'
-          },
-          count: 4,
-          title: 'Packs con personajes',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'hierarchical_category:"grandes_\\(hasta_250_piezas\\)"',
-          value: {
-            filter: '"grandes_\\(hasta_250_piezas\\)"'
-          },
-          count: 2,
-          title: 'Grandes (hasta 250 piezas)',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'hierarchical_category:"amigos_y_familia"',
-          value: {
-            filter: '"amigos_y_familia"'
-          },
-          count: 2,
-          title: 'Amigos y familia',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'hierarchical_category:"niños"',
-          value: {
-            filter: '"niños"'
-          },
-          count: 3,
-          title: 'Niños',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'hierarchical_category:"construye"',
-          value: {
-            filter: '"construye"'
-          },
-          count: 167,
-          title: 'Construye',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'hierarchical_category:"mi_primera_construcción"',
-          value: {
-            filter: '"mi_primera_construcción"'
-          },
-          count: 4,
-          title: 'Mi primera construcción',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        }
-      ]
-    },
-    {
-      modelName: 'rootCategories_facet',
-      title: 'rootCategories_facet',
-      filters: [
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'rootCategories_facet:"Construcción\\ por\\ bloques"',
-          value: {
-            filter: '"Construcción\\ por\\ bloques"'
-          },
-          count: 277,
-          title: 'Construcción por bloques',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'rootCategories_facet:"Construye"',
-          value: {
-            filter: '"Construye"'
-          },
-          count: 167,
-          title: 'Construye',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'rootCategories_facet:"Series\\ y\\ péliculas"',
-          value: {
-            filter: '"Series\\ y\\ péliculas"'
-          },
-          count: 27,
-          title: 'Series y péliculas',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'rootCategories_facet:""',
-          value: {
-            filter: '""'
-          },
-          count: 7,
-          title: '',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'rootCategories_facet:"Mi\\ primera\\ construcción"',
-          value: {
-            filter: '"Mi\\ primera\\ construcción"'
-          },
-          count: 4,
-          title: 'Mi primera construcción',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'rootCategories_facet:"Packs\\ con\\ personajes"',
-          value: {
-            filter: '"Packs\\ con\\ personajes"'
-          },
-          count: 4,
-          title: 'Packs con personajes',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'rootCategories_facet:"Niños"',
-          value: {
-            filter: '"Niños"'
-          },
-          count: 3,
-          title: 'Niños',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'rootCategories_facet:"Amigos\\ y\\ familia"',
-          value: {
-            filter: '"Amigos\\ y\\ familia"'
-          },
-          count: 2,
-          title: 'Amigos y familia',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'rootCategories_facet:"Grandes\\ \\(hasta\\ 250\\ piezas\\)"',
-          value: {
-            filter: '"Grandes\\ \\(hasta\\ 250\\ piezas\\)"'
-          },
-          count: 2,
-          title: 'Grandes (hasta 250 piezas)',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'rootCategories_facet:"Infantiles\\ \\(hasta\\ 48\\ piezas\\)"',
-          value: {
-            filter: '"Infantiles\\ \\(hasta\\ 48\\ piezas\\)"'
-          },
-          count: 1,
-          title: 'Infantiles (hasta 48 piezas)',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'rootCategories_facet:"Rompecabezas"',
-          value: {
-            filter: '"Rompecabezas"'
-          },
-          count: 1,
-          title: 'Rompecabezas',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        }
-      ]
-    },
-    {
-      modelName: 'brand_facet',
-      title: 'brand_facet',
-      filters: [
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ CITY"',
-          value: {
-            filter: '"LEGO\\ CITY"'
-          },
-          count: 64,
-          title: 'LEGO CITY',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ STAR\\ WARS"',
-          value: {
-            filter: '"LEGO\\ STAR\\ WARS"'
-          },
-          count: 57,
-          title: 'LEGO STAR WARS',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ FRIENDS"',
-          value: {
-            filter: '"LEGO\\ FRIENDS"'
-          },
-          count: 53,
-          title: 'LEGO FRIENDS',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ NINJAGO"',
-          value: {
-            filter: '"LEGO\\ NINJAGO"'
-          },
-          count: 47,
-          title: 'LEGO NINJAGO',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ DUPLO"',
-          value: {
-            filter: '"LEGO\\ DUPLO"'
-          },
-          count: 35,
-          title: 'LEGO DUPLO',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ CREATOR"',
-          value: {
-            filter: '"LEGO\\ CREATOR"'
-          },
-          count: 33,
-          title: 'LEGO CREATOR',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ MARVEL"',
-          value: {
-            filter: '"LEGO\\ MARVEL"'
-          },
-          count: 17,
-          title: 'LEGO MARVEL',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ TECHNIC"',
-          value: {
-            filter: '"LEGO\\ TECHNIC"'
-          },
-          count: 16,
-          title: 'LEGO TECHNIC',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ HARRY\\ POTTER"',
-          value: {
-            filter: '"LEGO\\ HARRY\\ POTTER"'
-          },
-          count: 13,
-          title: 'LEGO HARRY POTTER',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ CLASSIC"',
-          value: {
-            filter: '"LEGO\\ CLASSIC"'
-          },
-          count: 9,
-          title: 'LEGO CLASSIC',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ JUNIORS"',
-          value: {
-            filter: '"LEGO\\ JUNIORS"'
-          },
-          count: 8,
-          title: 'LEGO JUNIORS',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ MINECRAFT"',
-          value: {
-            filter: '"LEGO\\ MINECRAFT"'
-          },
-          count: 8,
-          title: 'LEGO MINECRAFT',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ SPEED\\ CHAMPION"',
-          value: {
-            filter: '"LEGO\\ SPEED\\ CHAMPION"'
-          },
-          count: 7,
-          title: 'LEGO SPEED CHAMPION',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ DISNEY\\ PRINCESS"',
-          value: {
-            filter: '"LEGO\\ DISNEY\\ PRINCESS"'
-          },
-          count: 6,
-          title: 'LEGO DISNEY PRINCESS',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO"',
-          value: {
-            filter: '"LEGO"'
-          },
-          count: 5,
-          title: 'LEGO',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ JURASSIC\\ W"',
-          value: {
-            filter: '"LEGO\\ JURASSIC\\ W"'
-          },
-          count: 5,
-          title: 'LEGO JURASSIC W',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ SUPERHEROES"',
-          value: {
-            filter: '"LEGO\\ SUPERHEROES"'
-          },
-          count: 5,
-          title: 'LEGO SUPERHEROES',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ THE\\ MOVIE"',
-          value: {
-            filter: '"LEGO\\ THE\\ MOVIE"'
-          },
-          count: 4,
-          title: 'LEGO THE MOVIE',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ DC\\ COMICS"',
-          value: {
-            filter: '"LEGO\\ DC\\ COMICS"'
-          },
-          count: 3,
-          title: 'LEGO DC COMICS',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ ARCHITECTURE"',
-          value: {
-            filter: '"LEGO\\ ARCHITECTURE"'
-          },
-          count: 2,
-          title: 'LEGO ARCHITECTURE',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ BATMAN"',
-          value: {
-            filter: '"LEGO\\ BATMAN"'
-          },
-          count: 2,
-          title: 'LEGO BATMAN',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'brand_facet:"LEGO\\ COLECCIONISTA"',
-          value: {
-            filter: '"LEGO\\ COLECCIONISTA"'
-          },
-          count: 1,
-          title: 'LEGO COLECCIONISTA',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        }
-      ]
-    },
-    {
-      modelName: 'age_facet',
-      title: 'age_facet',
-      filters: [
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'age_facet:"y\\:1\\:3"',
-          value: {
-            filter: '"y\\:1\\:3"'
-          },
-          count: 32,
-          title: 'y:1:3',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'age_facet:"y\\:3\\:6"',
-          value: {
-            filter: '"y\\:3\\:6"'
-          },
-          count: 55,
-          title: 'y:3:6',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'age_facet:"y\\:6\\:9"',
-          value: {
-            filter: '"y\\:6\\:9"'
-          },
-          count: 295,
-          title: 'y:6:9',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'age_facet:"y\\:9\\:12"',
-          value: {
-            filter: '"y\\:9\\:12"'
-          },
-          count: 69,
-          title: 'y:9:12',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'age_facet:"y\\:12\\:99"',
-          value: {
-            filter: '"y\\:12\\:99"'
-          },
-          count: 39,
-          title: 'y:12:99',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        }
-      ]
-    },
-    {
-      modelName: 'price_facet',
-      title: 'price_facet',
-      filters: [
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'price_facet:[0 TO 10]',
-          value: {
-            filter: '[0 TO 10]'
-          },
-          count: 25,
-          title: '0:10',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'price_facet:[10 TO 20]',
-          value: {
-            filter: '[10 TO 20]'
-          },
-          count: 150,
-          title: '10:20',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'price_facet:[20 TO 30]',
-          value: {
-            filter: '[20 TO 30]'
-          },
-          count: 159,
-          title: '20:30',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'price_facet:[30 TO 40]',
-          value: {
-            filter: '[30 TO 40]'
-          },
-          count: 59,
-          title: '30:40',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'price_facet:[40 TO 50]',
-          value: {
-            filter: '[40 TO 50]'
-          },
-          count: 30,
-          title: '40:50',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'price_facet:[50 TO 70]',
-          value: {
-            filter: '[50 TO 70]'
-          },
-          count: 35,
-          title: '50:70',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'price_facet:[70 TO 100]',
-          value: {
-            filter: '[70 TO 100]'
-          },
-          count: 17,
-          title: '70:100',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        },
-        {
-          facet: {},
-          modelName: 'SimpleFilter',
-          id: 'price_facet:[100 TO *]',
-          value: {
-            filter: '[100 TO *]'
-          },
-          count: 20,
-          title: '100:*',
-          parent: null,
-          callbackInfo: {},
-          selected: false,
-          children: []
-        }
-      ]
-    }
-  ];
+export function getFacetsStub(): Facet[] {
+  return [getSimpleFacetStub(), getHierarchicalFacetStub(), getNumberRangeFacetStub()];
+}
+
+/**
+ * Creates {@link @empathy/search-types#Facet | facets} stub.
+ *
+ * @returns Dictionary of facets stub.
+ *
+ * @internal
+ */
+export function getFacetsDictionaryStub(): Dictionary<Facet> {
+  return {
+    brand_facet: getSimpleFacetStub(),
+    hierarchical_category: getHierarchicalFacetStub(),
+    price_facet: getNumberRangeFacetStub()
+  };
+}
+
+/**
+ * Function to create a single facet with one filter.
+ *
+ * @param category - Category to be used in the filter creation.
+ * @returns Facet with the filter added.
+ */
+export function createFacetWithFilter(category: string): SimpleFacet {
+  return {
+    id: 'category',
+    modelName: 'SimpleFacet',
+    filters: [
+      {
+        facetId: `category`,
+        modelName: 'SimpleFilter',
+        id: `category:${category}`,
+        callbackInfo: {},
+        totalResults: 10,
+        selected: false,
+        label: category,
+        value: `category:${category}`
+      }
+    ],
+    label: 'category'
+  };
 }
