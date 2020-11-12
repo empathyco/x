@@ -32,11 +32,18 @@ const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleNa
 export const setSearchQuery = wireCommit('setQuery');
 
 /**
- * Sets the search state `related tags`.
+ * Sets the search state `relatedTags`.
  *
  * @public
  */
 export const setRelatedTags = wireCommit('setRelatedTags');
+
+/**
+ * Sets the search state `selectedFilters`.
+ *
+ * @public
+ */
+export const setSelectedFilters = wireCommit('setSelectedFilters');
 
 /**
  * Requests and stores the search response.
@@ -54,10 +61,16 @@ export const searchWiring = createWiring({
   UserAcceptedAQuery: {
     setSearchQuery
   },
+  UserClearedQuery: {
+    setSearchQuery
+  },
   SearchRequestChanged: {
     fetchAndSaveSearchResponse
   },
   SelectedRelatedTagsChanged: {
     setRelatedTags
+  },
+  SelectedFiltersChanged: {
+    setSelectedFilters
   }
 });

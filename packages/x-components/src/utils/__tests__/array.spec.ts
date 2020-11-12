@@ -1,4 +1,4 @@
-import { arrayToObject, deepFilter, isArrayEmpty } from '../array';
+import { arrayToObject, deepFilter, groupItemsBy, isArrayEmpty } from '../array';
 
 describe(`testing ${isArrayEmpty.name} utility method`, () => {
   it('returns `true` when the array is `null`, `undefined` or has no elements', () => {
@@ -193,5 +193,25 @@ describe(`testing ${deepFilter.name} utility method`, () => {
         next: []
       }
     ]);
+  });
+});
+
+describe(`testing ${groupItemsBy.name} utility method`, () => {
+  it('splits the items into multiple groups', () => {
+    const items = [-2, -1, 0, 0, 1, 2];
+
+    const { positive, negative, zero } = groupItemsBy(items, num => {
+      if (num < 0) {
+        return 'negative';
+      } else if (num > 0) {
+        return 'positive';
+      } else {
+        return 'zero';
+      }
+    });
+
+    expect(negative).toEqual([-2, -1]);
+    expect(zero).toEqual([0, 0]);
+    expect(positive).toEqual([1, 2]);
   });
 });

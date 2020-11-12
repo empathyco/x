@@ -1,6 +1,7 @@
 import { SearchRequest, SearchResponse } from '@empathy/search-adapter';
-import { Facet, RelatedTag, Result } from '@empathy/search-types';
+import { Facet, Filter, RelatedTag, Result } from '@empathy/search-types';
 import { XStoreModule } from '../../../store';
+import { Dictionary } from '../../../utils/types';
 import { SearchConfig } from '../config.types';
 
 /**
@@ -15,6 +16,9 @@ export interface SearchState {
   results: Result[];
   /** The list of the facets, related to the `query` property of the state. */
   facets: Facet[];
+  /** The dictionary of selected filters, used to perform the search request.
+   * The key is the facet id, and the value the list of filters for that facet. */
+  selectedFilters: Dictionary<Filter[]>;
   /** The list of the related tags, related to the `query` property of the state. */
   relatedTags: RelatedTag[];
   /** The configuration of the search module. */
@@ -61,9 +65,15 @@ export interface SearchMutations {
   /**
    * Sets the related tags of the module.
    *
-   * @param related - Tags - The new related tags to save to the state.
+   * @param relatedTags - The new related tags to save to the state.
    */
   setRelatedTags(relatedTags: RelatedTag[]): void;
+  /**
+   * Sets the selected filters of the module.
+   *
+   * @param selectedFilters - The new selected filters to save to the state.
+   */
+  setSelectedFilters(selectedFilters: Filter[]): void;
 }
 
 /**

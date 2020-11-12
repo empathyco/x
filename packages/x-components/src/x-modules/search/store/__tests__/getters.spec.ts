@@ -25,6 +25,7 @@ describe('testing search module getters', () => {
         query: 'doraemon',
         origin: 'default',
         relatedTags: [],
+        filters: {},
         rows: 24,
         start: 0
       });

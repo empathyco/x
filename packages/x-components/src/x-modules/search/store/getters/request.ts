@@ -12,15 +12,17 @@ import { SearchXStoreModule } from '../types';
 export const request: SearchXStoreModule['getters']['request'] = ({
   query,
   config,
-  relatedTags
+  relatedTags,
+  selectedFilters
 }) => {
   return query.trim()
     ? {
         query,
+        relatedTags,
         rows: config.maxItemsToRequest,
         start: 0,
         origin: 'default',
-        relatedTags
+        filters: selectedFilters
       }
     : null;
 };

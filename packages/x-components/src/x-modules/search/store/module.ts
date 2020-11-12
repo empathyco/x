@@ -1,3 +1,4 @@
+import { groupItemsBy } from '../../../utils/array';
 import { fetchAndSaveSearchResponse } from './actions/fetch-and-save-search-response.action';
 import { fetchSearchResponse } from './actions/fetch-search-response.action';
 import { request } from './getters/request';
@@ -15,6 +16,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     results: [],
     facets: [],
     relatedTags: [],
+    selectedFilters: {},
     config: {
       maxItemsToRequest: 24
     }
@@ -35,6 +37,9 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     setRelatedTags(state, relatedTags) {
       state.relatedTags = relatedTags;
+    },
+    setSelectedFilters(state, selectedFilters) {
+      state.selectedFilters = groupItemsBy(selectedFilters, filter => filter.facetId);
     }
   },
   actions: {

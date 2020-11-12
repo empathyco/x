@@ -30,9 +30,33 @@ export function arrayToObject<ArrayType extends Record<keyof ArrayType, unknown>
   array: ArrayType[],
   key: PropsWithType<ArrayType, string>
 ): Record<string, ArrayType> {
-  return array.reduce<Record<string, ArrayType>>((acc, current) => {
-    acc[current[key] as string] = current;
-    return acc;
+  return array.reduce<Record<string, ArrayType>>((accumulator, current) => {
+    accumulator[current[key] as string] = current;
+    return accumulator;
+  }, {});
+}
+
+/**
+ * Groups the array items based on the provided `groupBy` function.
+ *
+ * @param array - The array to iterate, grouping its items in different arrays based on the
+ * `groupBy` function.
+ * @param groupBy - A function to determine the group name of a single item.
+ * @returns The items grouped in a dictionary.
+ *
+ * @public
+ */
+export function groupItemsBy<ArrayType, ReturnType extends string>(
+  array: ArrayType[],
+  groupBy: (item: ArrayType) => ReturnType
+): Record<ReturnType, ArrayType[]> {
+  return array.reduce<Record<string, ArrayType[]>>((accumulator, current) => {
+    const keyValue = groupBy(current);
+    if (!accumulator[keyValue]) {
+      accumulator[keyValue] = [];
+    }
+    accumulator[keyValue].push(current);
+    return accumulator;
   }, {});
 }
 
