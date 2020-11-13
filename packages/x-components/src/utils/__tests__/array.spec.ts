@@ -1,4 +1,4 @@
-import { arrayToObject, deepFilter, groupItemsBy, isArrayEmpty } from '../array';
+import { arrayToObject, deepFilter, deepFlat, groupItemsBy, isArrayEmpty } from '../array';
 
 describe(`testing ${isArrayEmpty.name} utility method`, () => {
   it('returns `true` when the array is `null`, `undefined` or has no elements', () => {
@@ -190,6 +190,143 @@ describe(`testing ${deepFilter.name} utility method`, () => {
       {
         id: '1-3-1',
         condition: true,
+        next: []
+      }
+    ]);
+  });
+});
+
+describe(`testing ${deepFlat.name} utility method`, () => {
+  interface ArrayTypeMock {
+    id: string;
+    next: this[];
+  }
+
+  it('should return an empty array', () => {
+    expect(deepFlat([] as ArrayTypeMock[], 'next')).toStrictEqual([]);
+  });
+
+  it('should return an array with the elements at the same depth level', () => {
+    const arrayMock: ArrayTypeMock[] = [
+      {
+        id: '1',
+        next: [
+          {
+            id: '1-1',
+            next: []
+          },
+          {
+            id: '1-2',
+            next: []
+          },
+          {
+            id: '1-3',
+            next: [
+              {
+                id: '1-3-1',
+                next: []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: '2',
+        next: [
+          {
+            id: '2-1',
+            next: [
+              {
+                id: '2-1-1',
+                next: []
+              }
+            ]
+          },
+          {
+            id: '2-2',
+            next: []
+          }
+        ]
+      }
+    ];
+
+    expect(deepFlat(arrayMock, 'next')).toStrictEqual([
+      {
+        id: '1',
+        next: [
+          {
+            id: '1-1',
+            next: []
+          },
+          {
+            id: '1-2',
+            next: []
+          },
+          {
+            id: '1-3',
+            next: [
+              {
+                id: '1-3-1',
+                next: []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: '1-1',
+        next: []
+      },
+      {
+        id: '1-2',
+        next: []
+      },
+      {
+        id: '1-3',
+        next: [
+          {
+            id: '1-3-1',
+            next: []
+          }
+        ]
+      },
+      {
+        id: '1-3-1',
+        next: []
+      },
+      {
+        id: '2',
+        next: [
+          {
+            id: '2-1',
+            next: [
+              {
+                id: '2-1-1',
+                next: []
+              }
+            ]
+          },
+          {
+            id: '2-2',
+            next: []
+          }
+        ]
+      },
+      {
+        id: '2-1',
+        next: [
+          {
+            id: '2-1-1',
+            next: []
+          }
+        ]
+      },
+      {
+        id: '2-1-1',
+        next: []
+      },
+      {
+        id: '2-2',
         next: []
       }
     ]);

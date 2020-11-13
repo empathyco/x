@@ -21,6 +21,11 @@ export interface FacetsState {
  */
 export interface FacetsGetters {
   /**
+   * Returns a single array which groups every filter, including the nested ones at the
+   * same depth level.
+   */
+  flattenedFilters: Filter[];
+  /**
    * Returns a single array which groups every selected filter, including the nested ones,
    * at the same depth level.
    */

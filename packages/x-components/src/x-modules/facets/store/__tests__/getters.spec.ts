@@ -1,7 +1,12 @@
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { arrayToObject, map } from '../../../../utils';
-import { getFacetsStub } from '../../../../__stubs__/facets-stubs.factory';
+import { arrayToObject, deepFlat, map } from '../../../../utils';
+import {
+  getFacetsStub,
+  getHierarchicalFacetStub,
+  getNumberRangeFacetStub,
+  getSimpleFacetStub
+} from '../../../../__stubs__/facets-stubs.factory';
 import { facetsXStoreModule } from '../module';
 import { FacetsState } from '../types';
 import { resetFacetsStateWith } from './utils';
@@ -11,8 +16,47 @@ describe('testing facets module getters', () => {
   const gettersKeys = map(facetsXStoreModule.getters, getter => getter);
   const store: Store<FacetsState> = new Store(facetsXStoreModule as any);
 
-  beforeEach(() => {
-    resetFacetsStateWith(store);
+  describe(`${gettersKeys.flattenedFilters} getter`, () => {
+    it('should be empty', () => {
+      resetFacetsStateWith(store, {
+        facets: {}
+      });
+
+      expect(store.getters.flattenedFilters).toHaveLength(0);
+    });
+
+    it('should not be empty', () => {
+      const facetsStub = getFacetsStub();
+      resetFacetsStateWith(store, {
+        facets: arrayToObject(facetsStub, 'id')
+      });
+
+      expect(store.getters.flattenedFilters.length).toBeGreaterThan(0);
+    });
+
+    it('should be the same filters array when no hierarchical facets are included', () => {
+      const facetsStub = [getSimpleFacetStub(), getNumberRangeFacetStub()];
+      const filtersStub = facetsStub.flatMap(facet => [...facet.filters]);
+
+      resetFacetsStateWith(store, {
+        facets: arrayToObject(facetsStub, 'id')
+      });
+
+      expect(store.getters.flattenedFilters).toStrictEqual(filtersStub);
+    });
+
+    it('should be flattened filters', () => {
+      const facetsStub = getFacetsStub();
+      resetFacetsStateWith(store, {
+        facets: arrayToObject(facetsStub, 'id')
+      });
+
+      expect(store.getters.flattenedFilters).toStrictEqual([
+        ...getSimpleFacetStub().filters,
+        ...deepFlat(getHierarchicalFacetStub().filters, 'children'),
+        ...getNumberRangeFacetStub().filters
+      ]);
+    });
   });
 
   describe(`${gettersKeys.selectedFilters} getter`, () => {

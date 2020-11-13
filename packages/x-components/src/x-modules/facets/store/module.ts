@@ -1,3 +1,4 @@
+import { flattenedFilters } from './getters/flattened-filters';
 import { selectedFilters } from './getters/selected-filters';
 import { setFacets } from './mutations/set-facets.mutation';
 import { FacetsXStoreModule } from './types';
@@ -13,7 +14,8 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     facets: {}
   }),
   getters: {
-    selectedFilters
+    selectedFilters,
+    flattenedFilters
   },
   mutations: {
     setFacets

@@ -161,3 +161,54 @@ export function deepFilter<ArrayType, Key extends PropsWithType<ArrayType, Array
 
   return filterArray(array);
 }
+
+/**
+ * Flat an ArrayType[] recursively using the childrenKey passed as parameter to access to his nested
+ * child which is also ArrayType[].
+ *
+ * @param array - ArrayType[] which each ArrayType has a property childrenKey which value is also
+ * an ArrayType[].
+ * @param childrenKey - Key used to access to each ArrayType[childrenKey] value which is also
+ * an ArrayType[].
+ *
+ * @returns ArrayType[] with all the nested ArrayType, including the nested ones, at the same depth
+ * level.
+ *
+ * @public
+ */
+export function deepFlat<ArrayType, Key extends PropsWithType<ArrayType, ArrayType[]>>(
+  array: ArrayType[],
+  childrenKey: Key
+): ArrayType[] {
+  /**
+   * Flats an array recursively. In each iteration:
+   * - If the currentItem is an array, flatArray is used to reduce it. So, the order of the
+   * flatArray arguments defined is important. This happens when the function is called passing an
+   * array as the second parameter.
+   * - If not, the item is pushed to the resultantArray.
+   * - Finally, flatArray function is called again with the currentItem children and the process
+   * starts again.
+   *
+   * It's the main function of the parent. See the description above
+   * for further information.
+   *
+   * @param resultantArray - Flattened array.
+   * @param currentItem - ArrayType object.
+   *
+   * @returns Flattened ArrayType[].
+   *
+   * @internal
+   */
+  function flatArray(
+    resultantArray: ArrayType[],
+    currentItem: ArrayType | ArrayType[]
+  ): ArrayType[] {
+    if (Array.isArray(currentItem)) {
+      return currentItem.reduce(flatArray, resultantArray);
+    }
+    resultantArray.push(currentItem);
+    return flatArray(resultantArray, currentItem[childrenKey]);
+  }
+
+  return flatArray([], array);
+}
