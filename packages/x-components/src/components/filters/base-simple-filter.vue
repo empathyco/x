@@ -8,7 +8,6 @@
     :class="cssClasses"
   >
     <!--
-        TODO Update with @empathy/search-types@6.0.0
         @slot The content to render inside the button
             @binding {Filter} filter - The filter data
       -->
@@ -46,7 +45,7 @@
     protected get events(): Partial<XEventsTypes> {
       return {
         UserClickedAFilter: this.filter
-      }
+      };
     }
 
     /**
@@ -59,7 +58,7 @@
       return {
         'x-filter--is-selected': this.filter.selected,
         'x-simple-filter--is-selected': this.filter.selected
-      }
+      };
     }
   }
 </script>

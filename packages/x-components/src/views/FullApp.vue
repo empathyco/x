@@ -24,6 +24,13 @@
           </li>
         </ul>
       </template>
+      <template #hierarchical_category="{ facet }">
+        <ul v-for="filter in facet.filters" :key="filter.id">
+          <li>
+            <BaseHierarchicalFilter :filter="filter" />
+          </li>
+        </ul>
+      </template>
     </Facets>
     <!-- Empathize -->
     <Empathize v-if="showEmpathize" :animation="collapseFromTop">
@@ -149,6 +156,7 @@
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
   import BaseModalContainer from '../components/base-modal-container.vue';
   import BaseOpenButton from '../components/base-open-button.vue';
+  import BaseHierarchicalFilter from "../components/filters/base-hierarchical-filter.vue";
   import BaseResultLink from '../components/result/base-result-link.vue';
   import StaggeredFadeAndSlide from "../components/animations/staggered-fade-and-slide.vue";
   import { Getter } from '../components/decorators/store.decorators';
@@ -182,6 +190,7 @@
       next();
     },
     components: {
+      BaseHierarchicalFilter,
       BaseCloseButton,
       BaseKeyboardNavigation,
       BaseModalContainer,

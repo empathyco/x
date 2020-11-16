@@ -12,6 +12,12 @@ const adapter = new EmpathyAdapterBuilder()
   .setFeatureConfig('search', {
     endpoint: 'https://api.empathybroker.com/search/v1/query/juguettos/searchv2'
   })
+  .setFacetConfig(
+    {
+      modelName: 'HierarchicalFacet'
+    },
+    'hierarchical_category'
+  )
   .build();
 
 export const baseSnippetConfig: SnippetConfig = {

@@ -6,6 +6,7 @@ export { default as BaseModalContainer } from './base-modal-container.vue';
 export { default as BaseOpenButton } from './base-open-button.vue';
 export * from './decorators/debounce.decorators';
 export * from './decorators/store.decorators';
+export { default as BaseHierarchicalFilter } from './filters/base-hierarchical-filter.vue';
 export { default as BaseSimpleFilter } from './filters/base-simple-filter.vue';
 export { noElementComponent } from './no-element';
 export * from './result';
