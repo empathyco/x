@@ -1,7 +1,7 @@
 import { Facet, Filter } from '@empathy/search-types';
 import { XStoreModule } from '../../../store';
-import { Dictionary } from '../../../utils';
 import { FacetsConfig } from '../config.types';
+import { MultiSelectChange } from '../events.types';
 
 /**
  * Facets store state.
@@ -11,7 +11,8 @@ import { FacetsConfig } from '../config.types';
 export interface FacetsState {
   /** Configuration for the `Facets` module. */
   config: FacetsConfig;
-  facets: Dictionary<Facet>;
+  /** The facets in a dictionary shape, where the key is the `facet.id` property. */
+  facets: Record<Facet['id'], Facet>;
 }
 
 /**
@@ -44,6 +45,13 @@ export interface FacetsMutations {
    * @param newFacets - Facets array to be saved in the state.
    */
   setFacets(newFacets: Facet[]): void;
+  /**
+   * Changes the multi-select option for a facet.
+   *
+   * @param multiSelectChange - The facet id to change its multi select configuration, and the new
+   * multiSelect value.
+   */
+  setFacetMultiSelect(multiSelectChange: MultiSelectChange): void;
 }
 
 /**

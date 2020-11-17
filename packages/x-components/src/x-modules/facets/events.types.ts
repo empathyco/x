@@ -20,4 +20,21 @@ export interface FacetsXEvents {
    * can prevent the filter from changing its state.
    */
   UserClickedAFilter: Filter;
+  /**
+   * The multi select configuration has changed for a facet.
+   * * Payload: the facet id and the new value of the multiSelect.
+   */
+  FacetMultiSelectChanged: MultiSelectChange;
+}
+
+/**
+ * Payload for the {@link FacetsXEvents.FacetMultiSelectChanged} event.
+ *
+ * @public
+ */
+export interface MultiSelectChange {
+  /** The facet unique identifier. */
+  facetId: string;
+  /** The facet multiSelect new value. */
+  multiSelect: boolean;
 }

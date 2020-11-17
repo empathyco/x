@@ -17,19 +17,24 @@
     <h1>Facets</h1>
     <Facets>
       <template #default="{ facet }">
-        <h3>{{ facet.label }}</h3>
-        <ul v-for="filter in facet.filters" :key="filter.id">
-          <li>
-            {{ filter.label }}
-          </li>
-        </ul>
+        <h2>{{ facet.label }}</h2>
+        <MultiSelectFilters
+          v-slot="{ filter }"
+          :filters="facet.filters"
+          :animation="staggeredFadeAndSlide"
+        >
+          <BaseSimpleFilter :filter="filter" />
+        </MultiSelectFilters>
       </template>
       <template #hierarchical_category="{ facet }">
-        <ul v-for="filter in facet.filters" :key="filter.id">
-          <li>
-            <BaseHierarchicalFilter :filter="filter" />
-          </li>
-        </ul>
+        <h2>{{ facet.label }}</h2>
+        <BaseFilters
+          v-slot="{ filter }"
+          :filters="facet.filters"
+          :animation="staggeredFadeAndSlide"
+        >
+          <BaseHierarchicalFilter :filter="filter" />
+        </BaseFilters>
       </template>
     </Facets>
     <!-- Empathize -->
@@ -153,17 +158,20 @@
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import FadeAndSlide from '../components/animations/fade-and-slide.vue';
   import BaseCloseButton from '../components/base-close-button.vue';
+  import BaseFilters from '../components/base-filters.vue';
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
   import BaseModalContainer from '../components/base-modal-container.vue';
   import BaseOpenButton from '../components/base-open-button.vue';
-  import BaseHierarchicalFilter from "../components/filters/base-hierarchical-filter.vue";
+  import BaseSimpleFilter from '../components/filters/base-simple-filter.vue';
+  import BaseHierarchicalFilter from '../components/filters/base-hierarchical-filter.vue';
   import BaseResultLink from '../components/result/base-result-link.vue';
-  import StaggeredFadeAndSlide from "../components/animations/staggered-fade-and-slide.vue";
+  import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
   import { Getter } from '../components/decorators/store.decorators';
   import { XPlugin } from '../plugins/x-plugin';
   import { getURLParameter } from '../utils/get-url-parameters';
   import { XInstaller } from '../x-installer/x-installer';
   import Empathize from '../x-modules/empathize/components/empathize.vue';
+  import MultiSelectFilters from '../x-modules/facets/components/multi-select-filters.vue';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
@@ -180,16 +188,18 @@
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import { searchXModule } from '../x-modules/search/x-module';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
-  import SlidingPanel from "../components/sliding-panel.vue";
-  import Facets from "../x-modules/facets/components/facets.vue";
+  import SlidingPanel from '../components/sliding-panel.vue';
+  import Facets from '../x-modules/facets/components/facets.vue';
 
   @Component({
     beforeRouteEnter(_to, _from, next: () => void): void {
       XPlugin.registerXModule(searchXModule);
-      new XInstaller(baseInstallXOptions).init(baseSnippetConfig)
+      new XInstaller(baseInstallXOptions).init(baseSnippetConfig);
       next();
     },
     components: {
+      BaseFilters,
+      BaseSimpleFilter,
       BaseHierarchicalFilter,
       BaseCloseButton,
       BaseKeyboardNavigation,
@@ -203,6 +213,7 @@
       HistoryQueries,
       IdentifierResult,
       IdentifierResults,
+      MultiSelectFilters,
       NextQueries,
       NoSuggestions,
       PopularSearches,
@@ -222,7 +233,7 @@
     protected collapseFromTop = CollapseFromTop;
 
     /* Testing purpose */
-    @Getter('search','results')
+    @Getter('search', 'results')
     public results!: Result[];
   }
 </script>

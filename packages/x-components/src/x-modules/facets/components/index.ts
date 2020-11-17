@@ -1,2 +1,2 @@
-export { default as BaseFilters } from '../../../components/base-filters.vue';
 export { default as Facets } from './facets.vue';
+export { default as MultiSelectFilters } from './multi-select-filters.vue';

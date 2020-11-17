@@ -1,5 +1,6 @@
 import { Facet, HierarchicalFacet, NumberRangeFacet, SimpleFacet } from '@empathy/search-types';
 import { Dictionary } from '../utils/types';
+import { createCategorySimpleFilter } from './filters-stubs.factory';
 
 /**
  * Creates {@link @empathy/search-types#SimpleFacet | SimpleFacet} stub.
@@ -553,18 +554,7 @@ export function createFacetWithFilter(category: string): SimpleFacet {
   return {
     id: 'category',
     modelName: 'SimpleFacet',
-    filters: [
-      {
-        facetId: `category`,
-        modelName: 'SimpleFilter',
-        id: `category:${category}`,
-        callbackInfo: {},
-        totalResults: 10,
-        selected: false,
-        label: category,
-        value: `category:${category}`
-      }
-    ],
+    filters: [createCategorySimpleFilter(category)],
     label: 'category'
   };
 }

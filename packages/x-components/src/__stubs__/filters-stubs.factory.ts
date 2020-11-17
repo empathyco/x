@@ -25,6 +25,26 @@ export function getSimpleFilterStub(filter: Partial<SimpleFilter> = {}): SimpleF
 }
 
 /**
+ * Creates a `SimpleFilter` with the provided category and selected values.
+ *
+ * @param category - The filter category. Used to set the `id`, `value` and `label` fields.
+ * @param selected - The selected value. Defaults to `false`.
+ * @returns A SimpleFilter initialized with the provided category and selected values.
+ */
+export function createCategorySimpleFilter(category: string, selected = false): SimpleFilter {
+  return {
+    facetId: 'category',
+    id: `category:${category}`,
+    value: `category:${category}`,
+    label: category,
+    modelName: 'SimpleFilter',
+    selected,
+    totalResults: 100,
+    callbackInfo: {}
+  };
+}
+
+/**
  * Creates {@link @empathy/search-types#HierarchicalFilter | HierarchicalFilter} stub.
  *
  * @param filter - A partial filter to override certain properties. Useful for testing.

@@ -1,11 +1,5 @@
 <template>
-  <component
-    :is="animation || 'ul'"
-    v-if="hasFacets"
-    tag="ul"
-    class="x-facets-list"
-    data-test="facets"
-  >
+  <component :is="animation" v-if="hasFacets" tag="ul" class="x-facets-list" data-test="facets">
     <li
       v-for="(facet, facetId) in facets"
       :key="facetId"
@@ -60,8 +54,8 @@
      *
      * @public
      */
-    @Prop()
-    protected animation!: Vue;
+    @Prop({ default: 'ul' })
+    protected animation!: Vue | string;
 
     /**
      * Indicates if there are facets available to show.

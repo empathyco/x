@@ -1,9 +1,10 @@
 <template>
   <component
-    :is="animation || 'ul'"
+    :is="animation"
     v-if="renderFilters"
     tag="ul"
     class="x-filters"
+    :class="cssClasses"
     data-test="base-filters"
   >
     <li
@@ -25,6 +26,8 @@
   import Vue from 'vue';
   import { Filter } from '@empathy/search-types';
   import { Component, Prop } from 'vue-property-decorator';
+  import { isFilterSelected } from "../utils/filters";
+  import { VueCSSClasses } from "../utils/types";
 
   /**
    * Renders a list with a list item per each filter in the filters prop array.
@@ -39,7 +42,7 @@
      *
      * @public
      */
-    @Prop({ required: true})
+    @Prop({ required: true })
     protected filters!: Filter[];
 
     /**
@@ -47,8 +50,8 @@
      *
      * @public
      */
-    @Prop()
-    protected animation!: Vue;
+    @Prop({ default: 'ul' })
+    protected animation!: Vue | string;
 
     /**
      * It handles if the filters should be rendered.
@@ -60,8 +63,37 @@
     protected get renderFilters(): boolean {
       return this.filters.length > 0;
     }
+
+    /**
+     * Checks if at least one filter is selected.
+     *
+     * @returns True if at least one filter is selected. False otherwise.
+     * @internal
+     */
+    protected get hasSelectedFilters(): boolean {
+      return this.filters.some(isFilterSelected);
+    }
+
+    /**
+     * Dynamic CSS classes for the root element of this component.
+     *
+     * @returns An object containing the dynamic CSS classes and a boolean indicating if they should
+     * be added or not.
+     */
+    protected get cssClasses(): VueCSSClasses {
+      return {
+        'x-filters--has-selected-filters': this.hasSelectedFilters
+      };
+    }
   }
 </script>
+
+<style lang="scss" scoped>
+  .x-filters {
+    list-style-type: none;
+    padding-inline-start: 0;
+  }
+</style>
 
 <docs>
   #Example
