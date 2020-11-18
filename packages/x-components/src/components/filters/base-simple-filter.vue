@@ -1,24 +1,23 @@
 <template>
-  <BaseEventButton
-    class="x-simple-filter x-filter"
-    data-test="filter"
-    role="checkbox"
-    :aria-checked="filter.selected.toString()"
-    :events="events"
+  <BaseFilter
+    v-slot="{ filter: slotFilter }"
+    class="x-simple-filter"
+    :filter="filter"
+    :filterClickedEvents="events"
     :class="cssClasses"
   >
     <!--
         @slot The content to render inside the button
             @binding {Filter} filter - The filter data
       -->
-    <slot :filter="filter">{{ filter.label }}</slot>
-  </BaseEventButton>
+    <slot :filter="slotFilter" />
+  </BaseFilter>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import BaseEventButton from '../../components/base-event-button.vue';
+  import BaseFilter from './base-filter.vue';
   import { SimpleFilter } from '@empathy/search-types';
   import { VueCSSClasses } from '../../utils/types';
   import { XEventsTypes } from '../../wiring/events.types';
@@ -29,7 +28,7 @@
    * @public
    */
   @Component({
-    components: { BaseEventButton }
+    components: { BaseFilter }
   })
   export default class BaseSimpleFilter extends Vue {
     /** The filter data to render. */
@@ -37,14 +36,15 @@
     public filter!: SimpleFilter;
 
     /**
-     * The events that will be emitted when the filter is clicked.
+     * Additional events to emit when the filter is clicked.
      *
-     * @returns The events to be emitted when the filter is clicked.
+     * @returns A dictionary with the events to be emitted when the filter is clicked, and its
+     * payload.
      * @internal
      */
-    protected get events(): Partial<XEventsTypes> {
+    protected get filterClickedEvents(): Partial<XEventsTypes> {
       return {
-        UserClickedAFilter: this.filter
+        UserClickedASimpleFilter: this.filter
       };
     }
 
@@ -56,7 +56,6 @@
      */
     protected get cssClasses(): VueCSSClasses {
       return {
-        'x-filter--is-selected': this.filter.selected,
         'x-simple-filter--is-selected': this.filter.selected
       };
     }
@@ -66,8 +65,8 @@
 <docs>
 #Example
 
-This component renders a button, which on clicked emits the `UserClickedAFilter` event. By default
-it renders the filter label as the button text.
+This component renders a button, which on clicked emits the `UserClickedAFilter` and the
+`UserClickedASimpleFilter` events. By default, it renders the filter label as the button text.
 
 ## Basic usage
 

@@ -1,19 +1,18 @@
 <template>
   <div class="x-hierarchical-filter-container" data-test="hierarchical-filter-container">
-    <BaseEventButton
-      class="x-hierarchical-filter x-filter"
-      data-test="filter"
-      role="checkbox"
-      :aria-checked="filter.selected.toString()"
-      :events="events"
+    <BaseFilter
+      v-slot="{ filter: slotFilter }"
+      class="x-hierarchical-filter"
+      :filter="filter"
+      :filterClickedEvents="filterClickedEvents"
       :class="cssClasses"
     >
       <!--
         @slot The content to render inside the button
             @binding {Filter} filter - The filter data
       -->
-      <slot :filter="filter">{{ filter.label }}</slot>
-    </BaseEventButton>
+      <slot :filter="slotFilter" />
+    </BaseFilter>
     <BaseFilters
       v-slot="{ filter: childFilter }"
       :filters="filter.children"
@@ -25,7 +24,7 @@
         :filter="childFilter"
         :childrenAnimation="childrenAnimation"
       >
-        <slot :filter="hierarchicalChildFilter">{{ hierarchicalChildFilter.label }}</slot>
+        <slot :filter="hierarchicalChildFilter" />
       </BaseHierarchicalFilter>
     </BaseFilters>
   </div>
@@ -34,7 +33,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import BaseEventButton from '../../components/base-event-button.vue';
+  import BaseFilter from './base-filter.vue';
   import { HierarchicalFilter } from '@empathy/search-types';
   import { isFilterPartiallySelected } from '../../utils/filters';
   import { VueCSSClasses } from '../../utils/types';
@@ -48,7 +47,7 @@
    */
   @Component({
     name: 'BaseHierarchicalFilter',
-    components: { BaseFilters, BaseEventButton }
+    components: { BaseFilters, BaseFilter }
   })
   export default class BaseHierarchicalFilter extends Vue {
     /** The filter data to render. */
@@ -60,14 +59,15 @@
     public childrenAnimation?: Vue | string;
 
     /**
-     * The events that will be emitted when the filter is clicked.
+     * Additional events to emit when the filter is clicked.
      *
-     * @returns The events to be emitted when the filter is clicked.
+     * @returns A dictionary with the events to be emitted when the filter is clicked, and its
+     * payload.
      * @internal
      */
-    protected get events(): Partial<XEventsTypes> {
+    protected get filterClickedEvents(): Partial<XEventsTypes> {
       return {
-        UserClickedAFilter: this.filter
+        UserClickedAHierarchicalFilter: this.filter
       };
     }
 
@@ -79,10 +79,9 @@
      */
     protected get cssClasses(): VueCSSClasses {
       return {
-        'x-filter--is-selected': this.filter.selected,
+        'x-hierarchical-filter--is-partially-selected': this.isPartiallySelected,
         'x-hierarchical-filter--is-selected': this.filter.selected,
-        'x-filter--is-partially-selected': this.isPartiallySelected,
-        'x-hierarchical-filter--is-partially-selected': this.isPartiallySelected
+        'x-filter--is-partially-selected': this.isPartiallySelected
       };
     }
 
@@ -102,10 +101,10 @@
 <docs>
 #Example
 
-This component renders a button, which on clicked emits the `UserClickedAFilter` event. By default
-it renders the filter label as the button text. If the provided filter has children filters, this
-component will render them recursively. Changing the slot content will change it for all of the
-children.
+This component renders a button, which on clicked emits the `UserClickedAFilter` and
+`UserClickedAHierarchicalFilter` events. By default it renders the filter label as the button text.
+If the provided filter has children filters, this component will render them recursively. Changing
+the slot content will change it for all of the children.
 
 ## Basic usage
 

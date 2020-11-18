@@ -118,13 +118,16 @@ describe('testing `BaseHierarchicalFilter` component', () => {
     expect(wrapper.text()).toEqual(filter.label);
   });
 
-  it('emits UserClickedAFilter event when clicked', () => {
+  it('emits `UserClickedAFilter` and `UserClickedAHierarchicalFilter` event when clicked', () => {
     const { filterWrapper, clickFilter, emit, filter } = renderBaseHierarchicalFilter();
 
     clickFilter();
 
-    expect(emit).toHaveBeenCalledTimes(1);
+    expect(emit).toHaveBeenCalledTimes(2);
     expect(emit).toHaveBeenCalledWith('UserClickedAFilter', filter, {
+      target: filterWrapper.element
+    });
+    expect(emit).toHaveBeenCalledWith('UserClickedAHierarchicalFilter', filter, {
       target: filterWrapper.element
     });
   });
@@ -216,7 +219,8 @@ describe('testing `BaseHierarchicalFilter` component', () => {
       });
     });
 
-    it('emits `UserClickedAFilter` event when a child is clicked', () => {
+    // eslint-disable-next-line max-len
+    it('emits `UserClickedAFilter` and `UserClickedAHierarchicalFilter` events when a child is clicked', () => {
       const {
         getFilterWrappersByDepth,
         getFilterModelsByDepth,
@@ -229,8 +233,11 @@ describe('testing `BaseHierarchicalFilter` component', () => {
       const [, , [nestedFilterWrapper]] = getFilterWrappersByDepth();
       nestedFilterWrapper.trigger('click');
 
-      expect(emit).toHaveBeenCalledTimes(1);
+      expect(emit).toHaveBeenCalledTimes(2);
       expect(emit).toHaveBeenCalledWith('UserClickedAFilter', nestedFilterData, {
+        target: nestedFilterWrapper.element
+      });
+      expect(emit).toHaveBeenCalledWith('UserClickedAHierarchicalFilter', nestedFilterData, {
         target: nestedFilterWrapper.element
       });
     });
