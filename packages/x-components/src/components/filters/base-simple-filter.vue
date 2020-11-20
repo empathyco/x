@@ -3,7 +3,7 @@
     v-slot="{ filter: slotFilter }"
     class="x-simple-filter"
     :filter="filter"
-    :filterClickedEvents="events"
+    :clickEvents="clickEvents"
     :class="cssClasses"
   >
     <!--
@@ -42,7 +42,7 @@
      * payload.
      * @internal
      */
-    protected get filterClickedEvents(): Partial<XEventsTypes> {
+    protected get clickEvents(): Partial<XEventsTypes> {
       return {
         UserClickedASimpleFilter: this.filter
       };

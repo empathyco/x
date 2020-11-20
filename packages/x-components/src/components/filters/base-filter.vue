@@ -39,7 +39,7 @@
 
     /** Additional events with its payload to emit when the filter is clicked. */
     @Prop()
-    public filterClickedEvents?: Partial<XEventsTypes>
+    public clickEvents?: Partial<XEventsTypes>
 
     /**
      * The events that will be emitted when the filter is clicked.
@@ -50,7 +50,7 @@
     protected get events(): Partial<XEventsTypes> {
       return {
         UserClickedAFilter: this.filter,
-        ...this.filterClickedEvents
+        ...this.clickEvents
       }
     }
 
@@ -73,7 +73,7 @@
 
 This component receives a `filter` as prop and renders a button, which on clicked emits the
 `UserClickedAFilter` event. If more events are needed to be emitted they can be passed using the
-`filterClickedEvents` prop. By default it renders the filter label as the button text.
+`clickEvents` prop. By default it renders the filter label as the button text.
 
 ## Basic usage
 
@@ -94,7 +94,7 @@ This component receives a `filter` as prop and renders a button, which on clicke
 
 ```vue
 <template>
-  <BaseFilter :filter="filter" :filterClickedEvents="filterClickedEvents" />
+  <BaseFilter :filter="filter" :clickEvents="clickEvents" />
 </template>
 
 <script>
@@ -106,7 +106,7 @@ This component receives a `filter` as prop and renders a button, which on clicke
     },
     props: ['filter'], // Imagine this filter is of type HierarchicalFilter
     computed: {
-      filterClickedEvents() {
+      clickEvents() {
         return { UserClickedAHierarchicalFilter: this.filter }
       }
     }

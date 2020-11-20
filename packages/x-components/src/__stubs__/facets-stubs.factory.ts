@@ -1,4 +1,10 @@
-import { Facet, HierarchicalFacet, NumberRangeFacet, SimpleFacet } from '@empathy/search-types';
+import {
+  Facet,
+  HierarchicalFacet,
+  NumberRangeFacet,
+  SimpleFacet,
+  SimpleFilter
+} from '@empathy/search-types';
 import { Dictionary } from '../utils/types';
 import { createCategorySimpleFilter } from './filters-stubs.factory';
 
@@ -541,6 +547,42 @@ export function getFacetsDictionaryStub(): Dictionary<Facet> {
     brand_facet: getSimpleFacetStub(),
     hierarchical_category: getHierarchicalFacetStub(),
     price_facet: getNumberRangeFacetStub()
+  };
+}
+
+/**
+ * Creates a simple facet given a label and its children. It uses the `label` properties for
+ * generating the ids and the value of the filters.
+ *
+ * @param label - The facet label, also used for generating the facet id.
+ * @param createChildren - A function to create the child filters. This function is invoked with
+ * a factory to create each child filter, only providing the filter `label` and `selected`
+ * properties.
+ * @returns A simple facet for use in tests.
+ */
+export function createSimpleFacetStub(
+  label: string,
+  createChildren: (
+    createSimpleFilter: (label: string, selected: boolean) => SimpleFilter
+  ) => SimpleFilter[]
+): SimpleFacet {
+  const facetId = label.toLowerCase();
+  return {
+    modelName: 'SimpleFacet',
+    id: facetId,
+    label,
+    filters: createChildren((label, selected) => {
+      return {
+        id: `${facetId}:${label.toLowerCase()}`,
+        facetId: facetId,
+        selected,
+        label,
+        totalResults: 0,
+        callbackInfo: {},
+        value: label.toLowerCase().replace(/\s+/g, '-'),
+        modelName: 'SimpleFilter'
+      };
+    })
   };
 }
 

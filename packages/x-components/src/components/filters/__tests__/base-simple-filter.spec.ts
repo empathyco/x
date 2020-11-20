@@ -50,13 +50,16 @@ describe('testing BaseSimpleFilter component', () => {
     expect(wrapper.text()).toEqual(filter.label);
   });
 
-  it('emits UserClickedAFilter event when clicked', () => {
+  it('emits `UserClickedAFilter` & `UserClickedASimpleFilter` events when clicked', () => {
     const { wrapper, clickFilter, emit, filter } = renderBaseSimpleFilter();
 
     clickFilter();
 
-    expect(emit).toHaveBeenCalledTimes(1);
+    expect(emit).toHaveBeenCalledTimes(2);
     expect(emit).toHaveBeenCalledWith('UserClickedAFilter', filter, {
+      target: wrapper.element
+    });
+    expect(emit).toHaveBeenCalledWith('UserClickedASimpleFilter', filter, {
       target: wrapper.element
     });
   });

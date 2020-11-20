@@ -1,7 +1,19 @@
-import { Facet, Filter } from '@empathy/search-types';
-import { XStoreModule } from '../../../store';
+import { Facet, Filter, SimpleFilter } from '@empathy/search-types';
+import { XActionContext, XStoreModule } from '../../../store';
 import { FacetsConfig } from '../config.types';
 import { MultiSelectChange } from '../events.types';
+
+/**
+ * Object to wrap the payload needed for changing the selection state of a filter.
+ *
+ * @public
+ */
+export interface FilterSelectedChange {
+  /** The filter to change its selection state. */
+  filter: Filter;
+  /** The new selected state. */
+  selected: boolean;
+}
 
 /**
  * Facets store state.
@@ -52,6 +64,14 @@ export interface FacetsMutations {
    * multiSelect value.
    */
   setFacetMultiSelect(multiSelectChange: MultiSelectChange): void;
+  /**
+   * Changes the `selected` state of the filter.
+   *
+   * @param filterSelectChange - The filter and its new selected state.
+   * @remarks The filter must exist in the facet's module state.
+   * Otherwise the {@link FacetsGetters.selectedFilters} getter won't update with the new value.
+   */
+  setFilterSelected(filterSelectChange: FilterSelectedChange): void;
 }
 
 /**
@@ -59,7 +79,36 @@ export interface FacetsMutations {
  *
  * @public
  */
-export interface FacetsActions {}
+export interface FacetsActions {
+  /**
+   * Deselects the filters of the provided facets ids.
+   *
+   * @param facetsIds - A list of facet ids from whom deselect all the filters.
+   */
+  clearFacetsSelectedFilters(facetsIds: Array<Facet['id']>): void;
+  /**
+   * Deselects all the filters.
+   */
+  clearSelectedFilters(): void;
+  /**
+   * Toggles the `selected` property of a simple filter.
+   *
+   * @param filter - The filter to toggle its `selected` property.
+   */
+  toggleSimpleFilter(filter: SimpleFilter): void;
+}
+
+/**
+ * The type of the context object for the facets module actions.
+ *
+ * @public
+ */
+export type FacetsActionsContext = XActionContext<
+  FacetsState,
+  FacetsGetters,
+  FacetsMutations,
+  FacetsActions
+>;
 
 /**
  * Facets type safe store module.

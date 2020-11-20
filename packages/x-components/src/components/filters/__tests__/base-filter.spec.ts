@@ -7,22 +7,22 @@ import { getDataTestSelector } from '../../../__tests__/utils';
 import BaseFilter from '../base-filter.vue';
 
 function renderBaseFilter({
-  template = '<BaseFilter :filter="filter" :filterClickedEvents="filterClickedEvents"/>',
+  template = '<BaseFilter :filter="filter" :clickEvents="clickEvents"/>',
   filter = getSimpleFilterStub(),
-  filterClickedEvents
+  clickEvents
 }: RenderBaseFilterOptions = {}): BaseFilterAPI {
   Vue.observable(filter);
   const emit = jest.fn();
   const wrapper = mount(
     {
       components: { BaseFilter },
-      props: ['filter', 'filterClickedEvents'],
+      props: ['filter', 'clickEvents'],
       template
     },
     {
       propsData: {
         filter,
-        filterClickedEvents
+        clickEvents
       },
       mocks: {
         $x: {
@@ -68,7 +68,7 @@ describe('testing BaseFilter component', () => {
     const filter = getSimpleFilterStub();
     const { wrapper, clickFilter, emit } = renderBaseFilter({
       filter,
-      filterClickedEvents: {
+      clickEvents: {
         UserClickedASimpleFilter: filter
       }
     });
@@ -111,7 +111,7 @@ describe('testing BaseFilter component', () => {
 interface RenderBaseFilterOptions {
   template?: string;
   filter?: Filter;
-  filterClickedEvents?: Partial<XEventsTypes>;
+  clickEvents?: Partial<XEventsTypes>;
 }
 
 interface BaseFilterAPI {

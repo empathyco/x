@@ -4,7 +4,7 @@
       v-slot="{ filter: slotFilter }"
       class="x-hierarchical-filter"
       :filter="filter"
-      :filterClickedEvents="filterClickedEvents"
+      :clickEvents="clickEvents"
       :class="cssClasses"
     >
       <!--
@@ -65,7 +65,7 @@
      * payload.
      * @internal
      */
-    protected get filterClickedEvents(): Partial<XEventsTypes> {
+    protected get clickEvents(): Partial<XEventsTypes> {
       return {
         UserClickedAHierarchicalFilter: this.filter
       };
