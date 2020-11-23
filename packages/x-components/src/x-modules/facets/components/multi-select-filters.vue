@@ -20,7 +20,7 @@
   import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { facetsXModule } from '../x-module';
-  import BaseFilters from '../../../components/base-filters.vue';
+  import BaseFilters from '../../../components/filters/base-filters.vue';
   import { FacetsConfig } from "../config.types";
 
   /**

@@ -26,8 +26,8 @@
   import Vue from 'vue';
   import { Filter } from '@empathy/search-types';
   import { Component, Prop } from 'vue-property-decorator';
-  import { isFilterSelected } from "../utils/filters";
-  import { VueCSSClasses } from "../utils/types";
+  import { isFilterSelected } from "../../utils/filters";
+  import { VueCSSClasses } from "../../utils/types";
 
   /**
    * Renders a list with a list item per each filter in the filters prop array.

@@ -1,15 +1,16 @@
 export * from './animations';
 export { default as BaseCloseButton } from './base-close-button.vue';
 export { default as BaseEventButton } from './base-event-button.vue';
-export { default as BaseFilters } from './base-filters.vue';
 export { default as BaseKeyboardNavigation } from './base-keyboard-navigation.vue';
 export { default as BaseModalContainer } from './base-modal-container.vue';
 export { default as BaseOpenButton } from './base-open-button.vue';
 export * from './decorators/debounce.decorators';
 export * from './decorators/store.decorators';
+export { default as BaseFilters } from './filters/base-filters.vue';
 export { default as BaseHierarchicalFilter } from './filters/base-hierarchical-filter.vue';
 export { default as BaseSimpleFilter } from './filters/base-simple-filter.vue';
 export { noElementComponent } from './no-element';
+export * from './panels';
 export * from './result';
 export { default as SlidingPanel } from './sliding-panel.vue';
 export { default as StaggeringTransitionGroup } from './staggering-transition-group.vue';

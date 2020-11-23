@@ -38,7 +38,7 @@
   import { isFilterPartiallySelected } from '../../utils/filters';
   import { VueCSSClasses } from '../../utils/types';
   import { XEventsTypes } from '../../wiring/events.types';
-  import BaseFilters from '../base-filters.vue';
+  import BaseFilters from './base-filters.vue';
 
   /**
    * Renders a hierarchical filter recursively, emitting the needed events when clicked.

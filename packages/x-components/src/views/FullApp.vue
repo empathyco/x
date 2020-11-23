@@ -158,7 +158,7 @@
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import FadeAndSlide from '../components/animations/fade-and-slide.vue';
   import BaseCloseButton from '../components/base-close-button.vue';
-  import BaseFilters from '../components/base-filters.vue';
+  import BaseFilters from '../components/filters/base-filters.vue';
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
   import BaseModalContainer from '../components/base-modal-container.vue';
   import BaseOpenButton from '../components/base-open-button.vue';

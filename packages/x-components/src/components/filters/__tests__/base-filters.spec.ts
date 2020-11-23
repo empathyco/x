@@ -1,8 +1,8 @@
 import { Filter } from '@empathy/search-types';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { getFacetsStub } from '../../__stubs__/facets-stubs.factory';
-import { getDataTestSelector } from '../../__tests__/utils';
+import { getFacetsStub } from '../../../__stubs__/facets-stubs.factory';
+import { getDataTestSelector } from '../../../__tests__/utils';
 import BaseFiltersComponent from '../base-filters.vue';
 
 /**
