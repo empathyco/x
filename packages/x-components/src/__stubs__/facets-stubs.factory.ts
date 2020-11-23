@@ -587,6 +587,24 @@ export function createSimpleFacetStub(
 }
 
 /**
+ * Creates a hierarchical facet without filters, allowing to override some fields.
+ *
+ * @param facet - A partial facet to override the default fields.
+ * @returns A SimpleFacet.
+ */
+export function createHierarchicalFacetStub(
+  facet: Partial<Exclude<HierarchicalFacet, 'modelName'>> = {}
+): HierarchicalFacet {
+  return {
+    modelName: 'HierarchicalFacet',
+    id: 'category',
+    label: 'Category',
+    filters: [],
+    ...facet
+  };
+}
+
+/**
  * Function to create a single facet with one filter.
  *
  * @param category - Category to be used in the filter creation.

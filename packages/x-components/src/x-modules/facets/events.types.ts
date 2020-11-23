@@ -1,4 +1,4 @@
-import { Filter, HierarchicalFilter, SimpleFilter } from '@empathy/search-types';
+import { Facet, Filter, HierarchicalFilter, SimpleFilter } from '@empathy/search-types';
 
 /**
  * Dictionary of the events of Facets XModule, where each key is the event name, and the
@@ -41,6 +41,16 @@ export interface FacetsXEvents {
    * * Payload: the facet id and the new value of the multiSelect.
    */
   FacetMultiSelectChanged: MultiSelectChange;
+  /**
+   * The user has clicked button clear filters when there are facets ids.
+   * * Payload: array the facets ids.
+   */
+  UserClickedClearFiltersFacetsButton: Array<Facet['id']>;
+  /**
+   * The user has clicked button clear filters.
+   * * Payload: array the facets ids.
+   */
+  UserClickedClearFiltersButton: void;
 }
 
 /**

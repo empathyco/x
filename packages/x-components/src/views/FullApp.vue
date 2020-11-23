@@ -15,6 +15,9 @@
     <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
     <!-- Facets -->
     <h1>Facets</h1>
+    <ClearFilters v-slot="{ selectedFilters }" :alwaysVisible="true">
+      Clear {{ selectedFilters.length }} filters
+    </ClearFilters>
     <Facets>
       <template #default="{ facet }">
         <h2>{{ facet.label }}</h2>
@@ -171,6 +174,7 @@
   import { getURLParameter } from '../utils/get-url-parameters';
   import { XInstaller } from '../x-installer/x-installer';
   import Empathize from '../x-modules/empathize/components/empathize.vue';
+  import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
   import MultiSelectFilters from '../x-modules/facets/components/multi-select-filters.vue';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
@@ -199,6 +203,7 @@
     },
     components: {
       BaseFilters,
+      ClearFilters,
       BaseSimpleFilter,
       BaseHierarchicalFilter,
       BaseCloseButton,
