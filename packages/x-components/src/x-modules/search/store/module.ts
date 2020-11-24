@@ -1,3 +1,4 @@
+import { setStatus } from '../../../store/utils/helpers/status.helpers';
 import { groupItemsBy } from '../../../utils/array';
 import { fetchAndSaveSearchResponse } from './actions/fetch-and-save-search-response.action';
 import { fetchSearchResponse } from './actions/fetch-search-response.action';
@@ -19,7 +20,8 @@ export const searchXStoreModule: SearchXStoreModule = {
     selectedFilters: {},
     config: {
       maxItemsToRequest: 24
-    }
+    },
+    status: 'success'
   }),
   getters: {
     request,
@@ -40,7 +42,8 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     setSelectedFilters(state, selectedFilters) {
       state.selectedFilters = groupItemsBy(selectedFilters, filter => filter.facetId);
-    }
+    },
+    setStatus
   },
   actions: {
     fetchSearchResponse,

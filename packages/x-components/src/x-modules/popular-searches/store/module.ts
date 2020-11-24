@@ -1,3 +1,4 @@
+import { setStatus } from '../../../store/utils/helpers/status.helpers';
 import { getAndSaveSuggestions } from './actions/get-and-save-suggestions.action';
 import { getSuggestions } from './actions/get-suggestions.action';
 import { popularSearches } from './getters/popular-searches';
@@ -13,6 +14,7 @@ export const popularSearchesXStoreModule: PopularSearchesXStoreModule = {
   state: () => ({
     popularSearches: [],
     searchedQueries: [],
+    status: 'success',
     config: {
       hideSessionQueries: true,
       maxItemsToRequest: 20,
@@ -29,7 +31,8 @@ export const popularSearchesXStoreModule: PopularSearchesXStoreModule = {
     },
     setSearchedQueries(state, searchedQueries) {
       state.searchedQueries = searchedQueries;
-    }
+    },
+    setStatus
   },
   actions: {
     getSuggestions,

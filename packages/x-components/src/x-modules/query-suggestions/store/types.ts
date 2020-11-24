@@ -1,6 +1,7 @@
 import { SuggestionsRequest } from '@empathy/search-adapter';
 import { Suggestion } from '@empathy/search-types';
 import { XActionContext, XStoreModule } from '../../../store';
+import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { QuerySuggestionsConfig } from '../config.types';
 
 /**
@@ -8,7 +9,7 @@ import { QuerySuggestionsConfig } from '../config.types';
  *
  * @public
  */
-export interface QuerySuggestionsState {
+export interface QuerySuggestionsState extends StatusState {
   /** The query of the query suggestions module. Used to request the suggestions. */
   query: string;
   /** The suggestions for the query of the state. */
@@ -38,7 +39,7 @@ export interface QuerySuggestionsGetters {
  *
  * @public
  */
-export interface QuerySuggestionsMutations {
+export interface QuerySuggestionsMutations extends StatusMutations {
   /**
    * Sets the query of the query suggestions module.
    *

@@ -1,6 +1,7 @@
 import { TopRecommendationsRequest } from '@empathy/search-adapter';
 import { Result } from '@empathy/search-types';
 import { XStoreModule } from '../../../store';
+import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { RecommendationsConfig } from '../config.types';
 
 /**
@@ -8,7 +9,7 @@ import { RecommendationsConfig } from '../config.types';
  *
  * @public
  */
-export interface RecommendationsState {
+export interface RecommendationsState extends StatusState {
   /** Configuration for the `Recommendations` module. */
   config: RecommendationsConfig;
   /** Param to be sent on the recommendations request. */
@@ -32,7 +33,7 @@ export interface RecommendationsGetters {
  *
  * @public
  */
-export interface RecommendationsMutations {
+export interface RecommendationsMutations extends StatusMutations {
   /**
    * Sets the recommendations of the module.
    *

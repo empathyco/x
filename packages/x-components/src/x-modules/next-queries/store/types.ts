@@ -1,6 +1,7 @@
 import { NextQueriesRequest } from '@empathy/search-adapter';
 import { HistoryQuery, NextQuery } from '@empathy/search-types';
 import { XStoreModule } from '../../../store';
+import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { NextQueriesConfig } from '../config.types';
 
 /**
@@ -8,7 +9,7 @@ import { NextQueriesConfig } from '../config.types';
  *
  * @public
  */
-export interface NextQueriesState {
+export interface NextQueriesState extends StatusState {
   /** The internal query of the module. Used to request the next queries. */
   query: string;
   /** The list of the next queries, related to the `query` property of the state. */
@@ -38,7 +39,7 @@ export interface NextQueriesGetters {
  *
  * @public
  */
-export interface NextQueriesMutations {
+export interface NextQueriesMutations extends StatusMutations {
   /**
    * Sets the query of the module, which is used to retrieve the next-queries.
    *

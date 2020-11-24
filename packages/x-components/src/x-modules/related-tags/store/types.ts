@@ -1,6 +1,7 @@
 import { RelatedTagsRequest } from '@empathy/search-adapter';
 import { RelatedTag } from '@empathy/search-types';
 import { XStoreModule } from '../../../store';
+import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { RelatedTagsConfig } from '../config.types';
 
 /**
@@ -8,7 +9,7 @@ import { RelatedTagsConfig } from '../config.types';
  *
  * @public
  */
-export interface RelatedTagsState {
+export interface RelatedTagsState extends StatusState {
   /** The internal query of the module. Used to request the related tags. */
   query: string;
   /** The list of the related tags, related to the `query` property of the state. */
@@ -37,7 +38,7 @@ export interface RelatedTagsGetters {
  *
  * @public
  */
-export interface RelatedTagsMutations {
+export interface RelatedTagsMutations extends StatusMutations {
   /**
    * Sets the query of the module, which is used to retrieve the related tags.
    *

@@ -1,6 +1,7 @@
 import { SuggestionsRequest } from '@empathy/search-adapter';
 import { HistoryQuery, Suggestion } from '@empathy/search-types';
 import { XStoreModule } from '../../../store';
+import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { PopularSearchesConfig } from '../config.types';
 
 /**
@@ -8,7 +9,7 @@ import { PopularSearchesConfig } from '../config.types';
  *
  * @public
  */
-export interface PopularSearchesState {
+export interface PopularSearchesState extends StatusState {
   /** The suggestions list. These suggestions represent the most searched queries. */
   popularSearches: Suggestion[];
   /** The popular searches module configuration. */
@@ -35,7 +36,7 @@ export interface PopularSearchesGetters {
  *
  * @public
  */
-export interface PopularSearchesMutations {
+export interface PopularSearchesMutations extends StatusMutations {
   /**
    * Sets the suggestions of the module.
    *

@@ -1,3 +1,4 @@
+import { setStatus } from '../../../store/utils/helpers/status.helpers';
 import { fetchAndSaveRecommendations } from './actions/fetch-and-save-recommedations.action';
 import { fetchRecommendations } from './actions/fetch-recommendations.action';
 import { RECOMMENDATIONS_ORIGIN } from './constants';
@@ -15,6 +16,7 @@ export const recommendationsXStoreModule: RecommendationsXStoreModule = {
       maxItemsToRequest: 5
     },
     origin: RECOMMENDATIONS_ORIGIN,
+    status: 'success',
     recommendations: []
   }),
   getters: {
@@ -23,7 +25,8 @@ export const recommendationsXStoreModule: RecommendationsXStoreModule = {
   mutations: {
     setRecommendations(state, recommendations) {
       state.recommendations = recommendations;
-    }
+    },
+    setStatus
   },
   actions: {
     fetchRecommendations,

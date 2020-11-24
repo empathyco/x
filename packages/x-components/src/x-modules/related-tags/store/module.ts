@@ -1,3 +1,4 @@
+import { setStatus } from '../../../store/utils/helpers/status.helpers';
 import { fetchAndSaveRelatedTags } from './actions/fetch-and-save-related-tags.action';
 import { fetchRelatedTags } from './actions/fetch-related-tags.action';
 import { toggleRelatedTag } from './actions/toggle-related-tag.action';
@@ -16,6 +17,7 @@ export const relatedTagsXStoreModule: RelatedTagsXStoreModule = {
     query: '',
     relatedTags: [],
     selectedRelatedTags: [],
+    status: 'success',
     config: {
       maxItemsToRequest: 10
     }
@@ -33,7 +35,8 @@ export const relatedTagsXStoreModule: RelatedTagsXStoreModule = {
     },
     setSelectedRelatedTags(state, selectedRelatedTags) {
       state.selectedRelatedTags = selectedRelatedTags;
-    }
+    },
+    setStatus
   },
   actions: {
     fetchRelatedTags,

@@ -1,6 +1,7 @@
 import { SearchRequest, SearchResponse } from '@empathy/search-adapter';
 import { Facet, Filter, RelatedTag, Result } from '@empathy/search-types';
 import { XStoreModule } from '../../../store';
+import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { Dictionary } from '../../../utils/types';
 import { SearchConfig } from '../config.types';
 
@@ -9,7 +10,7 @@ import { SearchConfig } from '../config.types';
  *
  * @public
  */
-export interface SearchState {
+export interface SearchState extends StatusState {
   /** The internal query of the module. Used to request the search results. */
   query: string;
   /** The list of the results, related to the `query` property of the state. */
@@ -43,7 +44,7 @@ export interface SearchGetters {
  *
  * @public
  */
-export interface SearchMutations {
+export interface SearchMutations extends StatusMutations {
   /**
    * Sets the query of the module, which is used to retrieve the results.
    *

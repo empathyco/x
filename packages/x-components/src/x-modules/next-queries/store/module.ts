@@ -1,3 +1,4 @@
+import { setStatus } from '../../../store/utils/helpers/status.helpers';
 import { fetchAndSaveNextQueries } from './actions/fetch-and-save-next-queries.action';
 import { fetchNextQueries } from './actions/fetch-next-queries.action';
 import { setQueryFromLastHistoryQuery } from './actions/set-query-from-last-history-query.action';
@@ -15,6 +16,7 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     query: '',
     nextQueries: [],
     searchedQueries: [],
+    status: 'success',
     config: {
       maxItemsToRequest: 20,
       hideSessionQueries: true,
@@ -34,7 +36,8 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     },
     setSearchedQueries(state, searchedQueries) {
       state.searchedQueries = searchedQueries;
-    }
+    },
+    setStatus
   },
   actions: {
     fetchAndSaveNextQueries,

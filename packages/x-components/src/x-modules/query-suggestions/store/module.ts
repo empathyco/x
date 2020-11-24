@@ -1,3 +1,4 @@
+import { setStatus } from '../../../store/utils/helpers/status.helpers';
 import {
   cancelGetAndSaveSuggestions,
   getAndSaveSuggestions
@@ -17,6 +18,7 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
   state: () => ({
     query: '',
     suggestions: [],
+    status: 'success',
     config: {
       debounceInMs: 200,
       maxItemsToRequest: 10,
@@ -35,7 +37,8 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
     },
     setSuggestions(state, suggestions) {
       state.suggestions = suggestions;
-    }
+    },
+    setStatus
   },
   actions: {
     cancelGetAndSaveSuggestions,

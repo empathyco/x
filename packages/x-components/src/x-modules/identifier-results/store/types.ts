@@ -1,6 +1,7 @@
 import { SearchByIdRequest } from '@empathy/search-adapter';
 import { Result } from '@empathy/search-types';
 import { XStoreModule } from '../../../store';
+import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { IdentifierResultsConfig } from '../config.types';
 
 /**
@@ -8,7 +9,7 @@ import { IdentifierResultsConfig } from '../config.types';
  *
  * @public
  */
-export interface IdentifierResultsState {
+export interface IdentifierResultsState extends StatusState {
   /** The internal query of the module. Used to request the identifier results. */
   query: string;
   /** The list of the identifier results, related to the `query` property of the state. */
@@ -38,7 +39,7 @@ export interface IdentifierResultsGetters {
  *
  * @public
  */
-export interface IdentifierResultsMutations {
+export interface IdentifierResultsMutations extends StatusMutations {
   /**
    * Sets the query of the module, which is used to retrieve the identifier-results.
    *
