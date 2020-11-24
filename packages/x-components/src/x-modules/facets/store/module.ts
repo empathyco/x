@@ -1,13 +1,13 @@
+import Vue from 'vue';
 import {
   clearFacetsSelectedFilters,
   clearSelectedFilters
 } from './actions/clear-selected-filters.action';
 import { setFacets } from './actions/set-facets.action';
+import { toggleHierarchicalFilter } from './actions/toggle-hierarchical-filter.action';
 import { toggleSimpleFilter } from './actions/toggle-simple-filter.action';
 import { flattenedFilters } from './getters/flattened-filters';
 import { selectedFilters } from './getters/selected-filters';
-import { setFacetMultiSelect } from './mutations/set-facet-multi-select.mutation';
-import { setFilterSelected } from './mutations/set-filter-selected.mutation';
 import { FacetsXStoreModule } from './types';
 
 /**
@@ -30,13 +30,18 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     setFacets(state, newFacets) {
       state.facets = newFacets;
     },
-    setFacetMultiSelect,
-    setFilterSelected
+    setFacetMultiSelect(state, { facetId, multiSelect }) {
+      Vue.set(state.config.multiSelect, facetId, multiSelect);
+    },
+    setFilterSelected(_state, { filter, selected }) {
+      filter.selected = selected;
+    }
   },
   actions: {
     setFacets,
     clearSelectedFilters,
     clearFacetsSelectedFilters,
-    toggleSimpleFilter
+    toggleSimpleFilter,
+    toggleHierarchicalFilter
   }
 };

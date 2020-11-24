@@ -648,20 +648,22 @@ export function createSimpleFacetStub(
 }
 
 /**
- * Creates a hierarchical facet without filters, allowing to override some fields.
+ * Creates a hierarchical facet with the given parameters.
  *
- * @param facet - A partial facet to override the default fields.
- * @returns A SimpleFacet.
+ * @param label - Used for the facet `id` and `label` properties.
+ * @param createChildren - A function that returns the facet filters.
+ * @returns A hierarchical facet.
  */
 export function createHierarchicalFacetStub(
-  facet: Partial<Exclude<HierarchicalFacet, 'modelName'>> = {}
+  label: string,
+  createChildren: (createHierarchicalFilter: CreateHierarchicalFilter) => HierarchicalFilter[]
 ): HierarchicalFacet {
+  const facetId = label.toLowerCase();
   return {
     modelName: 'HierarchicalFacet',
-    id: 'category',
-    label: 'Category',
-    filters: [],
-    ...facet
+    id: facetId,
+    label,
+    filters: createChildren(createHierarchicalFilterFactory(facetId))
   };
 }
 

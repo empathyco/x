@@ -6,8 +6,10 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components/x
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
-import { createHierarchicalFacetStub } from '../../../../__stubs__/facets-stubs.factory';
-import { getHierarchicalFilterStub } from '../../../../__stubs__/filters-stubs.factory';
+import {
+  createHierarchicalFacetStub,
+  createSimpleFacetStub
+} from '../../../../__stubs__/facets-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { FacetsState } from '../../store/types';
 import { facetsXModule } from '../../x-module';
@@ -29,20 +31,14 @@ function renderClearFilters({
 }: RenderFiltersOptions = {}): RenderFiltersAPI {
   const facetsState: Partial<FacetsState> = {
     facets: {
-      category: createHierarchicalFacetStub({
-        id: 'category',
-        filters: [
-          getHierarchicalFilterStub({ facetId: 'category', id: 'category:man' }),
-          getHierarchicalFilterStub({ facetId: 'category', id: 'category:woman' })
-        ]
-      }),
-      brand: createHierarchicalFacetStub({
-        id: 'brand',
-        filters: [
-          getHierarchicalFilterStub({ facetId: 'brand', id: 'brand:audi' }),
-          getHierarchicalFilterStub({ facetId: 'brand', id: 'brand:bmw' })
-        ]
-      })
+      category: createHierarchicalFacetStub('Category', createFilter => [
+        createFilter('Men', false),
+        createFilter('Women', false)
+      ]),
+      brand: createSimpleFacetStub('Brand', createFilter => [
+        createFilter('Audi', false),
+        createFilter('BMW', false)
+      ])
     }
   };
 

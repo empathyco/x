@@ -1,4 +1,4 @@
-import { Facet, Filter, SimpleFilter } from '@empathy/search-types';
+import { Facet, Filter, HierarchicalFilter, SimpleFilter } from '@empathy/search-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { Dictionary } from '../../../utils';
 import { FacetsConfig } from '../config.types';
@@ -104,6 +104,12 @@ export interface FacetsActions {
    * @param filter - The filter to toggle its `selected` property.
    */
   toggleSimpleFilter(filter: SimpleFilter): void;
+  /**
+   * Toggles the `selected` property of a hierarchical filter.
+   *
+   * @param filter - The filter to toggle its `selected` property.
+   */
+  toggleHierarchicalFilter(filter: HierarchicalFilter): void;
 }
 
 /**

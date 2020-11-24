@@ -44,6 +44,13 @@ export const setFacetMultiSelect = wireCommit('setFacetMultiSelect');
 export const toggleSimpleFilter = wireDispatch('toggleSimpleFilter');
 
 /**
+ * Toggles a {@link @empathy/search-types#HierarchicalFilter | HierarchicalFilter}.
+ *
+ * @public
+ */
+export const toggleHierarchicalFilter = wireDispatch('toggleHierarchicalFilter');
+
+/**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
  *
  * @internal
@@ -57,5 +64,8 @@ export const facetsWiring = createWiring({
   },
   UserClickedASimpleFilter: {
     toggleSimpleFilter
+  },
+  UserClickedAHierarchicalFilter: {
+    toggleHierarchicalFilter
   }
 });
