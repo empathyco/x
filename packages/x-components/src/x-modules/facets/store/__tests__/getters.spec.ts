@@ -17,50 +17,58 @@ describe('testing facets module getters', () => {
   const store: Store<FacetsState> = new Store(facetsXStoreModule as any);
 
   describe(`${gettersKeys.flattenedFilters} getter`, () => {
-    it('should be empty', () => {
+    it('should be empty when there are no facets', () => {
       resetFacetsStateWith(store, {
         facets: {}
       });
 
-      expect(store.getters.flattenedFilters).toHaveLength(0);
+      expect(store.getters.flattenedFilters).toEqual({});
     });
 
-    it('should not be empty', () => {
+    it('should not be empty when there are facets', () => {
       const facetsStub = getFacetsStub();
       resetFacetsStateWith(store, {
         facets: arrayToObject(facetsStub, 'id')
       });
 
-      expect(store.getters.flattenedFilters.length).toBeGreaterThan(0);
+      expect(Object.keys(store.getters.flattenedFilters).length).toBeGreaterThan(0);
     });
 
-    it('should be the same filters array when no hierarchical facets are included', () => {
+    it('should be the same dictionary when no hierarchical facets are included', () => {
       const facetsStub = [getSimpleFacetStub(), getNumberRangeFacetStub()];
-      const filtersStub = facetsStub.flatMap(facet => [...facet.filters]);
+      const filtersDictStub = arrayToObject(
+        facetsStub.flatMap(facet => [...facet.filters]),
+        'id'
+      );
 
       resetFacetsStateWith(store, {
         facets: arrayToObject(facetsStub, 'id')
       });
 
-      expect(store.getters.flattenedFilters).toStrictEqual(filtersStub);
+      expect(store.getters.flattenedFilters).toStrictEqual(filtersDictStub);
     });
 
-    it('should be flattened filters', () => {
+    it('should be filters at the same depth level', () => {
       const facetsStub = getFacetsStub();
       resetFacetsStateWith(store, {
         facets: arrayToObject(facetsStub, 'id')
       });
 
-      expect(store.getters.flattenedFilters).toStrictEqual([
-        ...getSimpleFacetStub().filters,
-        ...deepFlat(getHierarchicalFacetStub().filters, 'children'),
-        ...getNumberRangeFacetStub().filters
-      ]);
+      expect(store.getters.flattenedFilters).toStrictEqual(
+        arrayToObject(
+          [
+            ...getSimpleFacetStub().filters,
+            ...deepFlat(getHierarchicalFacetStub().filters, 'children'),
+            ...getNumberRangeFacetStub().filters
+          ],
+          'id'
+        )
+      );
     });
   });
 
   describe(`${gettersKeys.selectedFilters} getter`, () => {
-    it('should be empty', () => {
+    it('should be empty when no filters are selected', () => {
       const facetsStub = getFacetsStub();
       resetFacetsStateWith(store, {
         facets: arrayToObject(facetsStub, 'id')
@@ -69,7 +77,7 @@ describe('testing facets module getters', () => {
       expect(store.getters.selectedFilters).toHaveLength(0);
     });
 
-    it('should be 5 selected', () => {
+    it('should be five the selectedFilters length after selecting five filters', () => {
       const facetsStub = getFacetsStub();
       const dictionaryFacetsStub = arrayToObject(facetsStub, 'label');
 

@@ -1,19 +1,23 @@
 import { Filter } from '@empathy/search-types';
-import { isFilterSelected } from '../../../../utils/filters';
+import { objectFilter } from '../../../../utils';
 import { FacetsXStoreModule } from '../types';
 
 /**
  * Default implementation for the {@link FacetsGetters.selectedFilters} getter.
  *
- * @param _state - Unused state of the facets module. Added in the JSDoc to avoid ESLint error.
+ * @param _state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the facets
+ * module.
  * @param getters - Current {@link https://vuex.vuejs.org/guide/getters.html | getters} of the
- * facets module.
+ * facets
+ * module.
+ *
  * @returns Array of selected filters.
  * @public
  */
 export const selectedFilters: FacetsXStoreModule['getters']['selectedFilters'] = (
   _state,
-  { flattenedFilters }
+  getters
 ): Filter[] => {
-  return flattenedFilters.filter(isFilterSelected);
+  const selectedFilters = objectFilter(getters.flattenedFilters, (_, filter) => filter.selected);
+  return Object.values(selectedFilters);
 };

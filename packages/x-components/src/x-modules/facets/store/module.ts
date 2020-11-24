@@ -2,11 +2,11 @@ import {
   clearFacetsSelectedFilters,
   clearSelectedFilters
 } from './actions/clear-selected-filters.action';
+import { setFacets } from './actions/set-facets.action';
 import { toggleSimpleFilter } from './actions/toggle-simple-filter.action';
 import { flattenedFilters } from './getters/flattened-filters';
 import { selectedFilters } from './getters/selected-filters';
 import { setFacetMultiSelect } from './mutations/set-facet-multi-select.mutation';
-import { setFacets } from './mutations/set-facets.mutation';
 import { setFilterSelected } from './mutations/set-filter-selected.mutation';
 import { FacetsXStoreModule } from './types';
 
@@ -27,11 +27,14 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     flattenedFilters
   },
   mutations: {
-    setFacets,
+    setFacets(state, newFacets) {
+      state.facets = newFacets;
+    },
     setFacetMultiSelect,
     setFilterSelected
   },
   actions: {
+    setFacets,
     clearSelectedFilters,
     clearFacetsSelectedFilters,
     toggleSimpleFilter

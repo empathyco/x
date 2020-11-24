@@ -10,13 +10,14 @@ import { Facet, Filter, HierarchicalFacet, HierarchicalFilter } from '@empathy/s
 export const isFilterSelected = (filter: Filter): boolean => filter.selected;
 
 /**
- * Checks if a Facet is a {@link @empathy/search-types#HierarchicalFacet | HierarchicalFacet}.
+ * Checks if a facet {@link @empathy/search-types#Facet | Facet} is a
+ * {@link @empathy/search-types#HierarchicalFacet | HierarchicalFacet}.
  *
  * @param facet - The facet to check if it is hierarchical.
  * @returns True if it is a `HierarchicalFacet`. False otherwise.
  * @public
  */
-export const isHierarchicalFilter = (facet: Facet): facet is HierarchicalFacet =>
+export const isHierarchicalFacet = (facet: Facet): facet is HierarchicalFacet =>
   facet.modelName === 'HierarchicalFacet';
 
 /**

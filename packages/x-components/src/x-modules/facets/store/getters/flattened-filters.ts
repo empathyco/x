@@ -1,6 +1,6 @@
-import { Filter } from '@empathy/search-types';
-import { deepFlat, reduce } from '../../../../utils';
-import { isHierarchicalFilter } from '../../../../utils/filters';
+import { Facet, Filter } from '@empathy/search-types';
+import { arrayToObject, deepFlat, reduce } from '../../../../utils';
+import { isHierarchicalFacet } from '../../../../utils/filters';
 import { FacetsXStoreModule } from '../types';
 
 /**
@@ -13,19 +13,23 @@ import { FacetsXStoreModule } from '../types';
  *
  * @public
  */
-export const flattenedFilters: FacetsXStoreModule['getters']['flattenedFilters'] = (
-  state
-): Filter[] => {
-  return reduce(
-    state.facets,
-    (filtersMap, _facetName, facet) => {
-      if (isHierarchicalFilter(facet)) {
-        filtersMap.push(...deepFlat(facet.filters, 'children'));
-      } else {
-        filtersMap.push(...facet.filters);
-      }
-      return filtersMap;
-    },
-    [] as Filter[]
-  );
+export const flattenedFilters: FacetsXStoreModule['getters']['flattenedFilters'] = state => {
+  return reduce(state.facets, extractFilters, {} as Record<Filter['id'], Filter>);
 };
+
+/**
+ * It returns a filters object which contains facet's filters at the same depth level.
+ *
+ * @param filtersMap - Accumulator object.
+ * @param _facetName - Not used facet object key.
+ * @param facet - Current facet object.
+ * @returns Facet's filters object at the same depth level.
+ */
+function extractFilters(
+  filtersMap: Record<Filter['id'], Filter>,
+  _facetName: string | number,
+  facet: Facet
+): Record<Filter['id'], Filter> {
+  const filters = isHierarchicalFacet(facet) ? deepFlat(facet.filters, 'children') : facet.filters;
+  return Object.assign(filtersMap, arrayToObject(filters, 'id'));
+}

@@ -93,3 +93,28 @@ export function cleanUndefined<T>(obj: T): T {
         {} as T
       );
 }
+
+/**
+ * Creates an object picking only the ones that pass the test implemented by the
+ * provided function isIncluded.
+ *
+ * @param obj - T object to be filtered.
+ * @param isIncluded - Test function that every obj item must pass.
+ * @returns A filtered object.
+ * @public
+ */
+export function objectFilter<T extends Dictionary>(
+  obj: T | undefined | null,
+  isIncluded: (key: keyof T, value: Exclude<T[keyof T], undefined>, index: number) => boolean
+): T {
+  return reduce(
+    obj,
+    (accumulator, key, value, index) => {
+      if (isIncluded(key, value, index)) {
+        accumulator[key] = value;
+      }
+      return accumulator;
+    },
+    {} as T
+  );
+}

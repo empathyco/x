@@ -18,6 +18,12 @@ const adapter = new EmpathyAdapterBuilder()
     },
     'hierarchical_category'
   )
+  .setFacetConfig(
+    {
+      modelName: 'NumberRangeFacet'
+    },
+    'price_facet'
+  )
   .build();
 
 export const baseSnippetConfig: SnippetConfig = {

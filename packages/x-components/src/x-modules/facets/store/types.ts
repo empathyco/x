@@ -1,19 +1,8 @@
 import { Facet, Filter, SimpleFilter } from '@empathy/search-types';
 import { XActionContext, XStoreModule } from '../../../store';
+import { Dictionary } from '../../../utils';
 import { FacetsConfig } from '../config.types';
 import { MultiSelectChange } from '../events.types';
-
-/**
- * Object to wrap the payload needed for changing the selection state of a filter.
- *
- * @public
- */
-export interface FilterSelectedChange {
-  /** The filter to change its selection state. */
-  filter: Filter;
-  /** The new selected state. */
-  selected: boolean;
-}
 
 /**
  * Facets store state.
@@ -28,16 +17,28 @@ export interface FacetsState {
 }
 
 /**
+ * Object to wrap the payload needed for changing the selection state of a filter.
+ *
+ * @public
+ */
+export interface FilterSelectedChange {
+  /** The filter to change its selection state. */
+  filter: Filter;
+  /** The new selected state. */
+  selected: boolean;
+}
+
+/**
  * Facets store getters.
  *
  * @public
  */
 export interface FacetsGetters {
   /**
-   * Returns a single array which groups every filter, including the nested ones at the
+   * Returns a dictionary which groups every filter, including the nested ones at the
    * same depth level.
    */
-  flattenedFilters: Filter[];
+  flattenedFilters: Record<Filter['id'], Filter>;
   /**
    * Returns a single array which groups every selected filter, including the nested ones,
    * at the same depth level.
@@ -54,9 +55,9 @@ export interface FacetsMutations {
   /**
    * Sets the facets of the module.
    *
-   * @param newFacets - Facets array to be saved in the state.
+   * @param newFacets - Facets dictionary to be saved in the state.
    */
-  setFacets(newFacets: Facet[]): void;
+  setFacets(newFacets: Dictionary<Facet>): void;
   /**
    * Changes the multi-select option for a facet.
    *
@@ -80,6 +81,13 @@ export interface FacetsMutations {
  * @public
  */
 export interface FacetsActions {
+  /**
+   * Sets the facets of the module.
+   *
+   * @param newFacets - Facets array to be saved in the state.
+   */
+  setFacets(newFacets: Facet[]): void;
+
   /**
    * Deselects the filters of the provided facets ids.
    *

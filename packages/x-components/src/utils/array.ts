@@ -26,12 +26,12 @@ export function isArrayEmpty(array: unknown[] | undefined | null): array is unde
  *
  * @public
  */
-export function arrayToObject<ArrayType extends Record<keyof ArrayType, unknown>>(
+export function arrayToObject<ArrayType>(
   array: ArrayType[],
   key: PropsWithType<ArrayType, string>
 ): Record<string, ArrayType> {
   return array.reduce<Record<string, ArrayType>>((accumulator, current) => {
-    accumulator[current[key] as string] = current;
+    accumulator[(current[key] as unknown) as string] = current;
     return accumulator;
   }, {});
 }

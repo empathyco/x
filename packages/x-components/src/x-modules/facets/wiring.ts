@@ -27,7 +27,7 @@ const wireDispatch = namespacedWireDispatch(moduleName);
  *
  * @public
  */
-export const setFacets = wireCommit('setFacets');
+export const setFacets = wireDispatch('setFacets');
 
 /**
  * Changes the multi-select configuration for a facet.
