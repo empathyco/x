@@ -153,46 +153,45 @@ describe('testing ClearFilters component', () => {
     }
   );
 
-  it(
-    'emits UserClickedClearFiltersFacetsButton or UserClickedClearFiltersButton ' +
-      'event with the provided facetIds',
-    async () => {
-      const listenerClearFilterFacets = jest.fn();
-      const listenerClearFilter = jest.fn();
-      const facetsIds = ['category'];
-      const { wrapper, setCategoryFacetFiltersAsSelected, setFacetsIds } = renderClearFilters();
-      wrapper.vm.$x
-        .on('UserClickedClearFiltersFacetsButton', true)
-        .subscribe(listenerClearFilterFacets);
-      wrapper.vm.$x.on('UserClickedClearFiltersButton', true).subscribe(listenerClearFilter);
+  it('emits UserClickedClearFacetFilters event with the provided facetIds', async () => {
+    const listenerClearFilterFacets = jest.fn();
+    const facetsIds = ['category'];
+    const { wrapper, setCategoryFacetFiltersAsSelected, setFacetsIds } = renderClearFilters();
+    wrapper.vm.$x.on('UserClickedClearFacetFilters', true).subscribe(listenerClearFilterFacets);
 
-      await setCategoryFacetFiltersAsSelected();
-      wrapper.trigger('click');
+    await setCategoryFacetFiltersAsSelected();
+    await setFacetsIds(facetsIds);
+    wrapper.trigger('click');
 
-      expect(wrapper.find(getDataTestSelector('clear-filters')).exists()).toBe(true);
-      expect(listenerClearFilter).toHaveBeenCalledTimes(1);
-      expect(listenerClearFilter).toHaveBeenCalledWith({
-        eventPayload: undefined,
-        metadata: {
-          moduleName: 'facets',
-          target: wrapper.element
-        }
-      });
+    expect(wrapper.find(getDataTestSelector('clear-filters')).exists()).toBe(true);
+    expect(listenerClearFilterFacets).toHaveBeenCalledTimes(1);
+    expect(listenerClearFilterFacets).toHaveBeenNthCalledWith(1, {
+      eventPayload: facetsIds,
+      metadata: {
+        moduleName: 'facets',
+        target: wrapper.element
+      }
+    });
+  });
 
-      await setFacetsIds(facetsIds);
-      wrapper.trigger('click');
+  it('emits UserClickedClearAllFilters event', async () => {
+    const listenerClearFilter = jest.fn();
+    const { wrapper, setCategoryFacetFiltersAsSelected } = renderClearFilters();
+    wrapper.vm.$x.on('UserClickedClearAllFilters', true).subscribe(listenerClearFilter);
 
-      expect(wrapper.find(getDataTestSelector('clear-filters')).exists()).toBe(true);
-      expect(listenerClearFilterFacets).toHaveBeenCalledTimes(1);
-      expect(listenerClearFilterFacets).toHaveBeenNthCalledWith(1, {
-        eventPayload: facetsIds,
-        metadata: {
-          moduleName: 'facets',
-          target: wrapper.element
-        }
-      });
-    }
-  );
+    await setCategoryFacetFiltersAsSelected();
+    wrapper.trigger('click');
+
+    expect(wrapper.find(getDataTestSelector('clear-filters')).exists()).toBe(true);
+    expect(listenerClearFilter).toHaveBeenCalledTimes(1);
+    expect(listenerClearFilter).toHaveBeenCalledWith({
+      eventPayload: undefined,
+      metadata: {
+        moduleName: 'facets',
+        target: wrapper.element
+      }
+    });
+  });
 });
 
 interface RenderFiltersOptions {

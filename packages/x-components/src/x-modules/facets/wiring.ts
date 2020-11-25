@@ -51,6 +51,20 @@ export const toggleSimpleFilter = wireDispatch('toggleSimpleFilter');
 export const toggleHierarchicalFilter = wireDispatch('toggleHierarchicalFilter');
 
 /**
+ * Deselects the filters of the provided facets ids.
+ *
+ * @public
+ */
+export const clearFacetsSelectedFilters = wireDispatch('clearFacetsSelectedFilters');
+
+/**
+ * Deselects all the filters.
+ *
+ * @public
+ */
+export const clearSelectedFilters = wireDispatch('clearSelectedFilters');
+
+/**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
  *
  * @internal
@@ -67,5 +81,11 @@ export const facetsWiring = createWiring({
   },
   UserClickedAHierarchicalFilter: {
     toggleHierarchicalFilter
+  },
+  UserClickedClearFacetFilters: {
+    clearFacetsSelectedFilters
+  },
+  UserClickedClearAllFilters: {
+    clearSelectedFilters
   }
 });

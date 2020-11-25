@@ -106,9 +106,9 @@
      */
     protected get events(): Partial<XEventsTypes> {
       return this.facetsIds ? {
-          UserClickedClearFiltersFacetsButton: this.facetsIds
+        UserClickedClearFacetFilters: this.facetsIds
       } : {
-        UserClickedClearFiltersButton: undefined
+        UserClickedClearAllFilters: undefined
       };
     }
 
@@ -130,8 +130,8 @@
 <docs>
 #Example
 
-This component renders a button, which on clicked emits the `UserClickedClearFiltersButton`
-event.
+This component renders a button, which on clicked emits the `UserClickedClearFacetFilters` or
+`UserClickedClearAllFilters` event.
 
 ## Basic usage
 

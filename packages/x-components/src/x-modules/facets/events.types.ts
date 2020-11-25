@@ -45,12 +45,12 @@ export interface FacetsXEvents {
    * The user has clicked button clear filters when there are facets ids.
    * * Payload: array the facets ids.
    */
-  UserClickedClearFiltersFacetsButton: Array<Facet['id']>;
+  UserClickedClearFacetFilters: Array<Facet['id']>;
   /**
    * The user has clicked button clear filters.
    * * Payload: array the facets ids.
    */
-  UserClickedClearFiltersButton: void;
+  UserClickedClearAllFilters: void;
 }
 
 /**
