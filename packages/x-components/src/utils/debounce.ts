@@ -54,7 +54,7 @@ export interface DebounceOptions {
  * | **`false`**                                                                                               |             | c, e, f       |
  * | **`true`**                                                                                                | a, d, f     | a, c, d, e, f |
  *
- * @internal
+ * @public
  */
 export const debounce = <Params extends any[]>(
   fn: (...args: Params) => void,

@@ -39,6 +39,14 @@
           <BaseHierarchicalFilter :filter="filter" />
         </BaseFilters>
       </template>
+      <template #brand_facet="{ facet }">
+        <h2>{{ facet.label }}</h2>
+        <BaseFiltersSearch v-slot="{ siftedFilters }" :filters="facet.filters">
+          <BaseFilters v-slot="{ filter }" :filters="siftedFilters">
+            <BaseSimpleFilter :filter="filter" data-test="brand-filter" />
+          </BaseFilters>
+        </BaseFiltersSearch>
+      </template>
     </Facets>
     <!-- Empathize -->
     <Empathize v-if="showEmpathize" :animation="collapseFromTop">
@@ -155,32 +163,27 @@
 </template>
 
 <script lang="ts">
-  import { Result } from '@empathy/search-types';
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
-  import CollapseFromTop from '../components/animations/collapse-from-top.vue';
-  import FadeAndSlide from '../components/animations/fade-and-slide.vue';
   import BaseCloseButton from '../components/base-close-button.vue';
   import BaseFilters from '../components/filters/base-filters.vue';
+  import BaseFiltersSearch from '../components/filters/base-filters-search.vue';
+  import BaseHierarchicalFilter from '../components/filters/base-hierarchical-filter.vue';
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
   import BaseModalContainer from '../components/base-modal-container.vue';
   import BaseOpenButton from '../components/base-open-button.vue';
-  import BaseSimpleFilter from '../components/filters/base-simple-filter.vue';
-  import BaseHierarchicalFilter from '../components/filters/base-hierarchical-filter.vue';
   import BaseResultLink from '../components/result/base-result-link.vue';
-  import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
-  import { Getter } from '../components/decorators/store.decorators';
-  import { XPlugin } from '../plugins/x-plugin';
-  import { getURLParameter } from '../utils/get-url-parameters';
-  import { XInstaller } from '../x-installer/x-installer';
-  import Empathize from '../x-modules/empathize/components/empathize.vue';
+  import BaseSimpleFilter from '../components/filters/base-simple-filter.vue';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
-  import MultiSelectFilters from '../x-modules/facets/components/multi-select-filters.vue';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
+  import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
+  import CollapseFromTop from '../components/animations/collapse-from-top.vue';
+  import Empathize from '../x-modules/empathize/components/empathize.vue';
+  import Facets from '../x-modules/facets/components/facets.vue';
+  import FadeAndSlide from '../components/animations/fade-and-slide.vue';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
   import IdentifierResult from '../x-modules/identifier-results/components/identifier-result.vue';
   import IdentifierResults from '../x-modules/identifier-results/components/identifier-results.vue';
+  import MultiSelectFilters from '../x-modules/facets/components/multi-select-filters.vue';
   import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
   import NoSuggestions from '../x-modules/no-suggestions/components/no-suggestions.vue';
   import PopularSearches from '../x-modules/popular-searches/components/popular-searches.vue';
@@ -188,12 +191,18 @@
   import QuerySuggestions from '../x-modules/query-suggestions/components/query-suggestions.vue';
   import Recommendations from '../x-modules/recommendations/components/recommendations.vue';
   import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
-  import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
-  import { searchXModule } from '../x-modules/search/x-module';
-  import { baseInstallXOptions, baseSnippetConfig } from './base-config';
   import SlidingPanel from '../components/sliding-panel.vue';
-  import Facets from '../x-modules/facets/components/facets.vue';
+  import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
+  import Vue from 'vue';
+  import { baseInstallXOptions, baseSnippetConfig } from './base-config';
+  import { Component } from 'vue-property-decorator';
+  import { Getter } from '../components/decorators/store.decorators';
+  import { getURLParameter } from '../utils/get-url-parameters';
+  import { Result } from '@empathy/search-types';
+  import { searchXModule } from '../x-modules/search/x-module';
+  import { XInstaller } from '../x-installer/x-installer';
+  import { XPlugin } from '../plugins/x-plugin';
 
   @Component({
     beforeRouteEnter(_to, _from, next: () => void): void {
@@ -202,15 +211,16 @@
       next();
     },
     components: {
-      BaseFilters,
-      ClearFilters,
-      BaseSimpleFilter,
-      BaseHierarchicalFilter,
       BaseCloseButton,
+      BaseFilters,
+      BaseFiltersSearch,
+      BaseHierarchicalFilter,
       BaseKeyboardNavigation,
       BaseModalContainer,
       BaseOpenButton,
       BaseResultLink,
+      BaseSimpleFilter,
+      ClearFilters,
       ClearHistoryQueries,
       ClearSearchInput,
       Empathize,
