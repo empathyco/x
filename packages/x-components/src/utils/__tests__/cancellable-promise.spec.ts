@@ -1,4 +1,4 @@
-import { cancellablePromise } from '../cancellable-promise';
+import { cancellablePromise, CancelSymbol } from '../cancellable-promise';
 
 describe(`testing ${cancellablePromise.name} utility method`, () => {
   beforeAll(jest.useFakeTimers);
@@ -16,13 +16,15 @@ describe(`testing ${cancellablePromise.name} utility method`, () => {
   });
 
   it('cancels the original promise with a rejection payload', async () => {
-    const originalPromiseTimeout = 1000;
-    const rejectPromisePayload = Math.random();
+    const originalPromiseTimeout = 100;
+    const payload = 'payload';
+    const mockedCancelCallback = jest.fn();
     const originalPromise = new Promise(res => {
       setTimeout(res, originalPromiseTimeout);
     });
-    const { promise, cancel } = cancellablePromise(originalPromise);
-    cancel(rejectPromisePayload);
-    await expect(promise).rejects.toBe(rejectPromisePayload);
+    const { promise, cancel } = cancellablePromise(originalPromise, mockedCancelCallback);
+    cancel(payload);
+    expect(mockedCancelCallback).toHaveBeenCalledWith(payload);
+    await expect(promise).rejects.toBe(CancelSymbol);
   });
 });

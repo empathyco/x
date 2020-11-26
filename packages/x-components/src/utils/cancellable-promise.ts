@@ -1,11 +1,16 @@
 import { noOp } from './function';
-
+/**
+ * Symbol used to know if a promise is cancelled.
+ *
+ * @internal
+ */
+export const CancelSymbol = Symbol('cancelled-promise');
 /**
  * The type returned by the {@link cancellablePromise} function.
  *
- * @public
+ * @internal
  */
-interface CancellablePromiseFunction<T> {
+export interface CancellablePromiseFunction<T, K = unknown> {
   /**
    * The resultant promise that groups the original promise, passed as the first parameter, and the
    * promise created in cancellablePromise, which rejects the resultant promise if called.
@@ -15,7 +20,7 @@ interface CancellablePromiseFunction<T> {
    * Function to cancel the resultant promise. This function triggers the reject of the second
    * promise of the promise race. The first parameter is the resultant promise rejection value.
    */
-  cancel: (arg0?: any) => void;
+  cancel: (payload?: K) => void;
 }
 
 /**
@@ -29,16 +34,26 @@ interface CancellablePromiseFunction<T> {
  * ends first. So, the promise is not cancelled exactly. The parameter first passed to cancel is the
  * resultant promise rejection value.
  *
+ * If you need to check if the promise is not being rejected with CancelSymbol (on purpose).
+ * You should check the error type in the cancellable catch using the payload.
+ *
  * @param promise - Original promise.
+ * @param cancelCallback - Optional callback to be called on cancel.
  * @returns CancellablePromiseFunction {@link CancellablePromiseFunction}.
  *
  * @internal
  */
-export function cancellablePromise<T>(promise: Promise<T>): CancellablePromiseFunction<T> {
-  let cancel = noOp;
+export function cancellablePromise<T, K = unknown>(
+  promise: Promise<T>,
+  cancelCallback?: (payload?: K) => void
+): CancellablePromiseFunction<T, K> {
+  let cancel: (payload?: K) => void = noOp;
 
-  const cancelPromise = new Promise<T>((_, reject) => {
-    cancel = reject;
+  const cancelPromise = new Promise<never>((_, reject) => {
+    cancel = payload => {
+      reject(CancelSymbol);
+      cancelCallback?.(payload);
+    };
   });
 
   return {

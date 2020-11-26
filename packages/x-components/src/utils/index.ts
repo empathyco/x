@@ -1,5 +1,6 @@
 export * from './array';
-export { debounce as debounceFunction } from './debounce';
+export * from './cancellable-promise';
+export { debounce as debounceFunction, DebouncedFunction } from './debounce';
 export * from './function';
 export * from './get-url-parameters';
 export * from './normalize';

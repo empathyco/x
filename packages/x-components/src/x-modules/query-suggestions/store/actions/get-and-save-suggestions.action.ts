@@ -1,6 +1,7 @@
 import { Suggestion } from '@empathy/search-types';
 import { ActionsClass } from '../../../../store';
 import { cancellablePromise } from '../../../../utils/cancellable-promise';
+import { noOp } from '../../../../utils/function';
 import { QuerySuggestionsActionContext, QuerySuggestionsXStoreModule } from '../types';
 
 /**
@@ -11,7 +12,7 @@ import { QuerySuggestionsActionContext, QuerySuggestionsXStoreModule } from '../
  * @public
  */
 class GetAndSaveSuggestionsAction implements ActionsClass<QuerySuggestionsXStoreModule> {
-  protected cancelGetAndSaveSuggestionFn!: () => void;
+  protected cancelGetAndSaveSuggestionFn: () => void = noOp;
 
   /**
    * Default implementation for the {@link QuerySuggestionsActions.getAndSaveSuggestions}.
@@ -36,7 +37,7 @@ class GetAndSaveSuggestionsAction implements ActionsClass<QuerySuggestionsXStore
    * Function that rejects the resultant promise, interrupting the synchronous promise flow.
    */
   cancelGetAndSaveSuggestions(): void {
-    this?.cancelGetAndSaveSuggestionFn();
+    this.cancelGetAndSaveSuggestionFn();
   }
 }
 
