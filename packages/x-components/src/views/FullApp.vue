@@ -20,32 +20,38 @@
     </ClearFilters>
     <Facets>
       <template #default="{ facet }">
-        <h2>{{ facet.label }}</h2>
-        <MultiSelectFilters
-          v-slot="{ filter }"
-          :filters="facet.filters"
-          :animation="staggeredFadeAndSlide"
-        >
-          <BaseSimpleFilter :filter="filter" />
-        </MultiSelectFilters>
+        <BaseHeaderTogglePanel>
+          <template #header-content>{{ facet.label }}</template>
+          <MultiSelectFilters
+            v-slot="{ filter }"
+            :filters="facet.filters"
+            :animation="staggeredFadeAndSlide"
+          >
+            <BaseSimpleFilter :filter="filter" />
+          </MultiSelectFilters>
+        </BaseHeaderTogglePanel>
       </template>
       <template #hierarchical_category="{ facet }">
-        <h2>{{ facet.label }}</h2>
-        <BaseFilters
-          v-slot="{ filter }"
-          :filters="facet.filters"
-          :animation="staggeredFadeAndSlide"
-        >
-          <BaseHierarchicalFilter :filter="filter" />
-        </BaseFilters>
+        <BaseHeaderTogglePanel>
+          <template #header-content>{{ facet.label }}</template>
+          <BaseFilters
+            v-slot="{ filter }"
+            :filters="facet.filters"
+            :animation="staggeredFadeAndSlide"
+          >
+            <BaseHierarchicalFilter :filter="filter" />
+          </BaseFilters>
+        </BaseHeaderTogglePanel>
       </template>
       <template #brand_facet="{ facet }">
-        <h2>{{ facet.label }}</h2>
-        <BaseFiltersSearch v-slot="{ siftedFilters }" :filters="facet.filters">
-          <BaseFilters v-slot="{ filter }" :filters="siftedFilters">
-            <BaseSimpleFilter :filter="filter" data-test="brand-filter" />
-          </BaseFilters>
-        </BaseFiltersSearch>
+        <BaseHeaderTogglePanel>
+          <template #header-content>{{ facet.label }}</template>
+          <BaseFiltersSearch v-slot="{ siftedFilters }" :filters="facet.filters">
+            <BaseFilters v-slot="{ filter }" :filters="siftedFilters">
+              <BaseSimpleFilter :filter="filter" data-test="brand-filter" />
+            </BaseFilters>
+          </BaseFiltersSearch>
+        </BaseHeaderTogglePanel>
       </template>
     </Facets>
     <!-- Empathize -->
@@ -163,9 +169,10 @@
 </template>
 
 <script lang="ts">
+  import BaseFiltersSearch from '../components/filters/base-filters-search.vue';
+  import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
   import BaseCloseButton from '../components/base-close-button.vue';
   import BaseFilters from '../components/filters/base-filters.vue';
-  import BaseFiltersSearch from '../components/filters/base-filters-search.vue';
   import BaseHierarchicalFilter from '../components/filters/base-hierarchical-filter.vue';
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
   import BaseModalContainer from '../components/base-modal-container.vue';
@@ -211,16 +218,17 @@
       next();
     },
     components: {
-      BaseCloseButton,
-      BaseFilters,
       BaseFiltersSearch,
+      BaseHeaderTogglePanel,
+      BaseFilters,
+      ClearFilters,
+      BaseSimpleFilter,
       BaseHierarchicalFilter,
+      BaseCloseButton,
       BaseKeyboardNavigation,
       BaseModalContainer,
       BaseOpenButton,
       BaseResultLink,
-      BaseSimpleFilter,
-      ClearFilters,
       ClearHistoryQueries,
       ClearSearchInput,
       Empathize,
@@ -310,5 +318,12 @@
   .x-facets-list {
     display: flex;
     flex-flow: row;
+  }
+
+  .x-header-toggle-panel {
+    &__header {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
   }
 </style>
