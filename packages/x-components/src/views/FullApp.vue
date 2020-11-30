@@ -320,6 +320,10 @@
     flex-flow: row;
   }
 
+  .x-filter--is-selected {
+    font-weight: bold;
+  }
+
   .x-header-toggle-panel {
     &__header {
       margin-bottom: 10px;

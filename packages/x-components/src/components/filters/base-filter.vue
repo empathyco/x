@@ -39,7 +39,7 @@
 
     /** Additional events with its payload to emit when the filter is clicked. */
     @Prop()
-    public clickEvents?: Partial<XEventsTypes>
+    public clickEvents?: Partial<XEventsTypes>;
 
     /**
      * The events that will be emitted when the filter is clicked.
@@ -51,7 +51,7 @@
       return {
         UserClickedAFilter: this.filter,
         ...this.clickEvents
-      }
+      };
     }
 
     /**
@@ -62,8 +62,8 @@
      */
     protected get cssClasses(): VueCSSClasses {
       return {
-        'x-filter--is-selected': this.filter.selected,
-      }
+        'x-filter--is-selected': this.filter.selected
+      };
     }
   }
 </script>
@@ -78,7 +78,7 @@ This component receives a `filter` as prop and renders a button, which on clicke
 ## Basic usage
 
 ```vue
-<BaseFilter :filter="filter" />
+<BaseFilter :filter="filter"/>
 ```
 
 ## Customizing its contents
@@ -94,7 +94,7 @@ This component receives a `filter` as prop and renders a button, which on clicke
 
 ```vue
 <template>
-  <BaseFilter :filter="filter" :clickEvents="clickEvents" />
+  <BaseFilter :filter="filter" :clickEvents="clickEvents"/>
 </template>
 
 <script>
@@ -107,10 +107,10 @@ This component receives a `filter` as prop and renders a button, which on clicke
     props: ['filter'], // Imagine this filter is of type HierarchicalFilter
     computed: {
       clickEvents() {
-        return { UserClickedAHierarchicalFilter: this.filter }
+        return { UserClickedAHierarchicalFilter: this.filter };
       }
     }
-  }
+  };
 </script>
 ```
 
