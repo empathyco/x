@@ -1,5 +1,5 @@
 <template>
-  <picture ref="image" class="x-result-picture" data-test="result-figure">
+  <picture ref="image" class="x-result-picture" data-test="result-picture">
     <!-- eslint-disable-next-line max-len -->
     <!-- @slot (Required) Loading image content. It will be rendered while the real image is not loaded -->
     <slot v-if="!hasImageLoaded && !hasAllImagesFailed" name="placeholder" />
@@ -79,7 +79,7 @@
       return 'IntersectionObserver' in window;
     }
 
-    mounted(): void  {
+    mounted(): void {
       this.hasEnteredView = !this.isIntersectionObserverAvailable;
       if (this.isIntersectionObserverAvailable) {
         this.createObserver();
@@ -146,8 +146,8 @@
      *
      * @internal
      */
-   protected get hasAllImagesFailed(): boolean {
-     return this.failedImages.length === this.result.images.length;
+    protected get hasAllImagesFailed(): boolean {
+      return this.failedImages.length === this.result.images.length;
     }
 
     /**
@@ -155,11 +155,19 @@
      *
      * @internal
      */
-    protected flagImageLoaded(): void{
-     this.hasImageLoaded = true;
+    protected flagImageLoaded(): void {
+      this.hasImageLoaded = true;
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .x-result-picture__image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: fill;
+  }
+</style>
 
 <docs>
   #Examples
@@ -169,10 +177,10 @@
   This component is for the result image. It may be part of
   the search result page, recommendations or other section which needs to include results.
 
-  The result prop is required. It will render a `<img />` with the result image:
+  The result prop is required. It will render a `<img/>` with the result image:
 
   ```vue
-  <BaseResultImage :result="result" />
+  <BaseResultImage :result="result"/>
   ```
 
   ## Customizing slots content
@@ -187,10 +195,10 @@
   ```vue
   <BaseResultImage :result="result">
     <template #placeholder>
-      <img class="x-result-figure__placeholder" src="./placeholder-image.svg"/>
+      <img class="x-result-picture__placeholder" src="./placeholder-image.svg"/>
     </template>
     <template #fallback>
-      <img class="x-result-figure__fallback" src="./fallback-image.svg"/>
+      <img class="x-result-picture__fallback" src="./fallback-image.svg"/>
     </template>
   </BaseResultImage>
   ```

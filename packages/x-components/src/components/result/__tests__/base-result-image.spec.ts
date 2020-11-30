@@ -11,13 +11,13 @@ describe('testing BaseResultImage component', () => {
     const customResultImageWrapper = mount(BaseResultImage, {
       localVue,
       propsData: { result },
-      scopedSlots: { ['placeholder']: '<span  data-test="result-figure-placeholder"/>' }
+      scopedSlots: { ['placeholder']: '<span  data-test="result-picture-placeholder"/>' }
     });
     expect(
-      customResultImageWrapper.find(getDataTestSelector('result-figure')).element
+      customResultImageWrapper.find(getDataTestSelector('result-picture')).element
     ).toBeDefined();
     expect(
-      customResultImageWrapper.find(getDataTestSelector('result-figure-placeholder')).element
+      customResultImageWrapper.find(getDataTestSelector('result-picture-placeholder')).element
     ).toBeDefined();
   });
 
@@ -25,7 +25,7 @@ describe('testing BaseResultImage component', () => {
     const customResultImageWrapper = mount(BaseResultImage, {
       localVue,
       propsData: { result },
-      scopedSlots: { ['fallback']: '<span  data-test="result-figure-fallback"/>' },
+      scopedSlots: { ['fallback']: '<span  data-test="result-picture-fallback"/>' },
       data() {
         return {
           hasEnteredView: true
@@ -39,10 +39,10 @@ describe('testing BaseResultImage component', () => {
     await localVue.nextTick();
 
     expect(
-      customResultImageWrapper.find(getDataTestSelector('result-figure')).element
+      customResultImageWrapper.find(getDataTestSelector('result-picture')).element
     ).toBeDefined();
     expect(
-      customResultImageWrapper.find(getDataTestSelector('result-figure-fallback')).element
+      customResultImageWrapper.find(getDataTestSelector('result-picture-fallback')).element
     ).toBeDefined();
   });
 
@@ -51,8 +51,8 @@ describe('testing BaseResultImage component', () => {
       localVue,
       propsData: { result },
       scopedSlots: {
-        ['placeholder']: '<span  data-test="result-figure-placeholder"/>',
-        ['fallback']: '<span  data-test="result-figure-fallback"/>'
+        ['placeholder']: '<span  data-test="result-picture-placeholder"/>',
+        ['fallback']: '<span  data-test="result-picture-fallback"/>'
       },
       data() {
         return {
@@ -62,7 +62,7 @@ describe('testing BaseResultImage component', () => {
     });
 
     expect(
-      customResultImageWrapper.find(getDataTestSelector('result-figure-placeholder')).element
+      customResultImageWrapper.find(getDataTestSelector('result-picture-placeholder')).element
     ).toBeDefined();
 
     const image = customResultImageWrapper.get(getDataTestSelector('result-picture__image'));
@@ -71,7 +71,7 @@ describe('testing BaseResultImage component', () => {
 
     expect((customResultImageWrapper.vm as any).hasImageLoaded).toBeTruthy();
     expect(
-      customResultImageWrapper.find(getDataTestSelector('result-figure-placeholder')).element
+      customResultImageWrapper.find(getDataTestSelector('result-picture-placeholder')).element
     ).not.toBeDefined();
   });
 });

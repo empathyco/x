@@ -4,15 +4,15 @@ describe('e2e testing base-result-image component', () => {
   });
 
   it('checks that placeholder will be replace for an image after scroll to bottom', () => {
-    checksChildResultFigure('result-with-images', 'result-picture__image');
+    checksChildResultPicture('result-with-images', 'result-picture__image');
   });
 
   it('checks that placeholder will be replace for a fallback after scroll to bottom', () => {
-    checksChildResultFigure('result-with-fail-images', 'result-picture__fallback');
+    checksChildResultPicture('result-with-fail-images', 'result-picture__fallback');
   });
 
   it('checks that a right image loads when the rest fails after scroll to bottom', () => {
-    checksChildResultFigure('result-with-fail-images-and-ok-images', 'result-picture__image');
+    checksChildResultPicture('result-with-fail-images-and-ok-images', 'result-picture__image');
   });
 });
 
@@ -23,13 +23,13 @@ describe('e2e testing base-result-image component', () => {
  * @param componentDataTest - String of component data-test.
  * @param expectedDataTest - The data test expected.
  */
-function checksChildResultFigure(componentDataTest: string, expectedDataTest: string): void {
-  cy.getByDataTest(componentDataTest).children().as('resultFigureChild');
-  cy.get('@resultFigureChild')
+function checksChildResultPicture(componentDataTest: string, expectedDataTest: string): void {
+  cy.getByDataTest(componentDataTest).children().as('resultPictureChild');
+  cy.get('@resultPictureChild')
     .should('have.attr', 'data-test', 'result-picture__placeholder')
     .should('have.length', 1);
   cy.scrollTo('bottom', { easing: 'linear', duration: 500 });
-  cy.get('@resultFigureChild')
+  cy.get('@resultPictureChild')
     .should('have.attr', 'data-test', expectedDataTest)
     .should('have.length', 1);
 }
