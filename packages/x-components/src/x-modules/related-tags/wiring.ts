@@ -46,6 +46,15 @@ export const setRelatedTagsQuery = wireCommit('setQuery');
 export const fetchAndSaveRelatedTags = wireDispatchWithoutPayload('fetchAndSaveRelatedTags');
 
 /**
+ * Cancels the {@link RelatedTagsActions.fetchAndSaveRelatedTags} request promise.
+ *
+ * @public
+ */
+export const cancelFetchAndSaveRelatedTags = wireDispatchWithoutPayload(
+  'cancelFetchAndSaveRelatedTags'
+);
+
+/**
  * Sets the selected related tags.
  *
  * @public
@@ -83,6 +92,7 @@ export const relatedTagsWiring = createWiring({
     fetchAndSaveRelatedTags
   },
   UserClearedQuery: {
+    cancelFetchAndSaveRelatedTags,
     clearRelatedTagsQuery,
     clearSelectedRelatedTags
   }

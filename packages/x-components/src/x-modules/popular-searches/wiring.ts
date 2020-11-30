@@ -30,7 +30,7 @@ const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit
  *
  * @public
  */
-const retrievePopularSuggestions = wireDispatchWithoutPayload('getAndSaveSuggestions');
+const retrievePopularSuggestions = wireDispatchWithoutPayload('fetchAndSaveSuggestions');
 
 /**
  * Sets the popular searches state `searchedQueries` with the list of history queries.

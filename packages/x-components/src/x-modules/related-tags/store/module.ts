@@ -1,5 +1,8 @@
 import { setStatus } from '../../../store/utils/helpers/status.helpers';
-import { fetchAndSaveRelatedTags } from './actions/fetch-and-save-related-tags.action';
+import {
+  cancelFetchAndSaveRelatedTags,
+  fetchAndSaveRelatedTags
+} from './actions/fetch-and-save-related-tags.action';
 import { fetchRelatedTags } from './actions/fetch-related-tags.action';
 import { toggleRelatedTag } from './actions/toggle-related-tag.action';
 import { relatedTags } from './getters/related-tags.getter';
@@ -39,6 +42,7 @@ export const relatedTagsXStoreModule: RelatedTagsXStoreModule = {
     setStatus
   },
   actions: {
+    cancelFetchAndSaveRelatedTags,
     fetchRelatedTags,
     fetchAndSaveRelatedTags,
     toggleRelatedTag

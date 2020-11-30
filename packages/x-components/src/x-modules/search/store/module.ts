@@ -1,6 +1,9 @@
 import { setStatus } from '../../../store/utils/helpers/status.helpers';
 import { groupItemsBy } from '../../../utils/array';
-import { fetchAndSaveSearchResponse } from './actions/fetch-and-save-search-response.action';
+import {
+  cancelFetchAndSaveSearchResponse,
+  fetchAndSaveSearchResponse
+} from './actions/fetch-and-save-search-response.action';
 import { fetchSearchResponse } from './actions/fetch-search-response.action';
 import { request } from './getters/request';
 import { results } from './getters/results';
@@ -46,6 +49,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     setStatus
   },
   actions: {
+    cancelFetchAndSaveSearchResponse,
     fetchSearchResponse,
     fetchAndSaveSearchResponse
   }

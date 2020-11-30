@@ -17,6 +17,7 @@ export interface QuerySuggestionsState extends StatusState {
   /** The configuration of the query suggestions module. */
   config: QuerySuggestionsConfig;
 }
+
 /**
  * QuerySuggestions store getters.
  *
@@ -34,6 +35,7 @@ export interface QuerySuggestionsGetters {
    */
   querySuggestions: Suggestion[];
 }
+
 /**
  * QuerySuggestions store mutations.
  *
@@ -53,6 +55,7 @@ export interface QuerySuggestionsMutations extends StatusMutations {
    */
   setSuggestions(suggestions: Suggestion[]): void;
 }
+
 /**
  * QuerySuggestions store actions.
  *
@@ -60,20 +63,22 @@ export interface QuerySuggestionsMutations extends StatusMutations {
  */
 export interface QuerySuggestionsActions {
   /**
-   * Cancels / interrupt {@link QuerySuggestionsActions.getAndSaveSuggestions} synchronous promise.
+   * Cancels / interrupt {@link QuerySuggestionsActions.fetchAndSaveSuggestions} synchronous
+   * promise.
    */
-  cancelGetAndSaveSuggestions(): void;
+  cancelFetchAndSaveSuggestions(): void;
   /**
    * Requests and returns a list of suggestions based on the module state.
    *
    * @returns A new list of suggestions.
    */
-  getSuggestions(): Suggestion[];
+  fetchSuggestions(): Suggestion[];
   /**
    * Requests and saves to the state a list of suggestions.
    */
-  getAndSaveSuggestions(): void;
+  fetchAndSaveSuggestions(): void;
 }
+
 /**
  * QuerySuggestions type safe store module.
  *

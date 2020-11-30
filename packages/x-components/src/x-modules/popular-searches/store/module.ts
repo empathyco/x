@@ -1,6 +1,9 @@
 import { setStatus } from '../../../store/utils/helpers/status.helpers';
-import { getAndSaveSuggestions } from './actions/get-and-save-suggestions.action';
-import { getSuggestions } from './actions/get-suggestions.action';
+import {
+  cancelFetchAndSaveSuggestions,
+  fetchAndSaveSuggestions
+} from './actions/fetch-and-save-suggestions.action';
+import { fetchSuggestions } from './actions/fetch-suggestions.action';
 import { popularSearches } from './getters/popular-searches';
 import { request } from './getters/request';
 import { PopularSearchesXStoreModule } from './types';
@@ -35,7 +38,8 @@ export const popularSearchesXStoreModule: PopularSearchesXStoreModule = {
     setStatus
   },
   actions: {
-    getSuggestions,
-    getAndSaveSuggestions
+    cancelFetchAndSaveSuggestions,
+    fetchSuggestions,
+    fetchAndSaveSuggestions
   }
 };

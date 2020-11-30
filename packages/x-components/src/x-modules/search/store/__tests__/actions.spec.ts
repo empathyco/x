@@ -80,4 +80,17 @@ describe('testing search module actions', () => {
       expect(store.state.facets).toEqual([]);
     });
   });
+
+  describe(`${actionKeys.cancelFetchAndSaveSearchResponse}`, () => {
+    it('should cancel the request and do not modify the stored results', async () => {
+      resetSearchStateWith(store, { query: 'lego' });
+      const { results: previousResults, facets: previousFacets } = store.state;
+      await Promise.all([
+        store.dispatch(actionKeys.fetchAndSaveSearchResponse),
+        store.dispatch(actionKeys.cancelFetchAndSaveSearchResponse)
+      ]);
+      expect(store.state.results).toEqual(previousResults);
+      expect(store.state.facets).toEqual(previousFacets);
+    });
+  });
 });

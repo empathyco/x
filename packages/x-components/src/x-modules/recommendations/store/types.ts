@@ -1,6 +1,6 @@
 import { TopRecommendationsRequest } from '@empathy/search-adapter';
 import { Result } from '@empathy/search-types';
-import { XStoreModule } from '../../../store';
+import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { RecommendationsConfig } from '../config.types';
 
@@ -49,6 +49,11 @@ export interface RecommendationsMutations extends StatusMutations {
  */
 export interface RecommendationsActions {
   /**
+   * Cancels / interrupt {@link RecommendationsActions.fetchAndSaveRecommendations} synchronous
+   * promise.
+   */
+  cancelFetchAndSaveRecommendations(): void;
+  /**
    * Requests and saves to the state a list of recommendations.
    */
   fetchAndSaveRecommendations(): void;
@@ -66,6 +71,18 @@ export interface RecommendationsActions {
  * @public
  */
 export type RecommendationsXStoreModule = XStoreModule<
+  RecommendationsState,
+  RecommendationsGetters,
+  RecommendationsMutations,
+  RecommendationsActions
+>;
+
+/**
+ * Alias type for actions context of the {@link RecommendationsXStoreModule}.
+ *
+ * @public
+ */
+export type RecommendationsActionContext = XActionContext<
   RecommendationsState,
   RecommendationsGetters,
   RecommendationsMutations,

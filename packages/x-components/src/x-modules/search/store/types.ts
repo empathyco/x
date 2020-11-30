@@ -1,6 +1,6 @@
 import { SearchRequest, SearchResponse } from '@empathy/search-adapter';
 import { Facet, Filter, RelatedTag, Result } from '@empathy/search-types';
-import { XStoreModule } from '../../../store';
+import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { Dictionary } from '../../../utils/types';
 import { SearchConfig } from '../config.types';
@@ -84,6 +84,10 @@ export interface SearchMutations extends StatusMutations {
  */
 export interface SearchActions {
   /**
+   * Cancels / interrupt {@link SearchActions.fetchAndSaveSearchResponse} synchronous promise.
+   */
+  cancelFetchAndSaveSearchResponse(): void;
+  /**
    * Fetchs the search response and returns them.
    *
    * @returns The new search response.
@@ -101,6 +105,18 @@ export interface SearchActions {
  * @public
  */
 export type SearchXStoreModule = XStoreModule<
+  SearchState,
+  SearchGetters,
+  SearchMutations,
+  SearchActions
+>;
+
+/**
+ * Alias type for actions context of the {@link SearchXStoreModule}.
+ *
+ * @public
+ */
+export type SearchActionContext = XActionContext<
   SearchState,
   SearchGetters,
   SearchMutations,

@@ -1,6 +1,6 @@
 import { NextQueriesRequest } from '@empathy/search-adapter';
 import { HistoryQuery, NextQuery } from '@empathy/search-types';
-import { XStoreModule } from '../../../store';
+import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { NextQueriesConfig } from '../config.types';
 
@@ -67,6 +67,10 @@ export interface NextQueriesMutations extends StatusMutations {
  */
 export interface NextQueriesActions {
   /**
+   * Cancels / interrupt {@link NextQueriesActions.fetchAndSaveNextQueries} synchronous promise.
+   */
+  cancelFetchAndSaveNextQueries(): void;
+  /**
    * Requests a new set of next queries for the module query, and returns them.
    *
    * @returns An array of next queries, or null if the request was not made.
@@ -88,6 +92,18 @@ export interface NextQueriesActions {
  * @public
  */
 export type NextQueriesXStoreModule = XStoreModule<
+  NextQueriesState,
+  NextQueriesGetters,
+  NextQueriesMutations,
+  NextQueriesActions
+>;
+
+/**
+ * Alias type for actions context of the {@link NextQueriesXStoreModule}.
+ *
+ * @public
+ */
+export type NextQueriesActionContext = XActionContext<
   NextQueriesState,
   NextQueriesGetters,
   NextQueriesMutations,

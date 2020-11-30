@@ -1,1 +1,6 @@
-{ "extends": ["plugin:@empathy/x/all"] }
+{
+  "extends": ["plugin:@empathy/x/all"],
+  "rules": {
+    "eqeqeq": [2, "allow-null"]
+  }
+}

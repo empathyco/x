@@ -62,6 +62,18 @@ describe('testing next queries module actions', () => {
     });
   });
 
+  describe(`${actionKeys.cancelFetchAndSaveNextQueries}`, () => {
+    it('should cancel the request and do not modify the stored next queries', async () => {
+      resetNextQueriesStateWith(store, { query: 'honeyboo' });
+      const previousNextQueries = store.state.nextQueries;
+      await Promise.all([
+        store.dispatch(actionKeys.fetchAndSaveNextQueries),
+        store.dispatch(actionKeys.cancelFetchAndSaveNextQueries)
+      ]);
+      expect(store.state.nextQueries).toEqual(previousNextQueries);
+    });
+  });
+
   describe(`${actionKeys.setQueryFromLastHistoryQuery}`, () => {
     it('should set the query with the first query of history query list', async () => {
       const historyQueries = createHistoryQueries('shoes', 'shirt');

@@ -8,7 +8,6 @@ import { PopularSearchesState } from '../types';
 
 describe('testing popular searches module actions', () => {
   const mockedSuggestions = getSuggestionsStub('PopularSearch');
-
   const adapter = getMockedAdapter({ suggestions: { suggestions: mockedSuggestions } });
 
   const actionKeys = map(popularSearchesXStoreModule.actions, action => action);
@@ -19,17 +18,28 @@ describe('testing popular searches module actions', () => {
   const store: Store<PopularSearchesState> = new Store(popularSearchesXStoreModule as any);
   installNewXPlugin({ store, adapter }, localVue);
 
-  describe(`${actionKeys.getSuggestions}`, () => {
+  describe(`${actionKeys.fetchSuggestions}`, () => {
     it('should return suggestions', async () => {
-      const suggestions = await store.dispatch(actionKeys.getSuggestions);
+      const suggestions = await store.dispatch(actionKeys.fetchSuggestions);
       expect(suggestions).toEqual(mockedSuggestions);
     });
   });
 
-  describe(`${actionKeys.getAndSaveSuggestions}`, () => {
+  describe(`${actionKeys.fetchAndSaveSuggestions}`, () => {
     it('should request and store suggestions in the state', async () => {
-      await store.dispatch(actionKeys.getAndSaveSuggestions);
+      await store.dispatch(actionKeys.fetchAndSaveSuggestions);
       expect(store.state.popularSearches).toEqual(mockedSuggestions);
+    });
+  });
+
+  describe(`${actionKeys.cancelFetchAndSaveSuggestions}`, () => {
+    it('should cancel the request and do not modify stored popular searches', async () => {
+      const previousPopularSearches = store.state.popularSearches;
+      await Promise.all([
+        store.dispatch(actionKeys.fetchAndSaveSuggestions),
+        store.dispatch(actionKeys.cancelFetchAndSaveSuggestions)
+      ]);
+      expect(store.state.popularSearches).toEqual(previousPopularSearches);
     });
   });
 });

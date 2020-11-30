@@ -1,5 +1,8 @@
 import { setStatus } from '../../../store/utils/helpers/status.helpers';
-import { fetchAndSaveNextQueries } from './actions/fetch-and-save-next-queries.action';
+import {
+  cancelFetchAndSaveNextQueries,
+  fetchAndSaveNextQueries
+} from './actions/fetch-and-save-next-queries.action';
 import { fetchNextQueries } from './actions/fetch-next-queries.action';
 import { setQueryFromLastHistoryQuery } from './actions/set-query-from-last-history-query.action';
 import { nextQueries } from './getters/next-queries';
@@ -40,6 +43,7 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     setStatus
   },
   actions: {
+    cancelFetchAndSaveNextQueries,
     fetchAndSaveNextQueries,
     fetchNextQueries,
     setQueryFromLastHistoryQuery

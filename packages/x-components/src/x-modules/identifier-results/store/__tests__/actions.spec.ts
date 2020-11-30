@@ -46,6 +46,18 @@ describe('testing identifier results module actions', () => {
     });
   });
 
+  describe(`${actionKeys.cancelFetchAndSaveIdentifierResults}`, () => {
+    it('should cancel the request and do not modify the stored identifier results', async () => {
+      resetIdentifierResultsStateWith(store, { query: 'xc' });
+      const previousIdentifierResults = store.state.identifierResults;
+      await Promise.all([
+        store.dispatch(actionKeys.fetchAndSaveIdentifierResults),
+        store.dispatch(actionKeys.cancelFetchAndSaveIdentifierResults)
+      ]);
+      expect(store.state.identifierResults).toEqual(previousIdentifierResults);
+    });
+  });
+
   describe(`${actionKeys.saveQuery}`, () => {
     const identifierDetectionRegexp = '^[0-9]{2,}$';
     it('should store the query in the state if it matches the regex', async () => {

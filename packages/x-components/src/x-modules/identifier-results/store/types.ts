@@ -1,6 +1,6 @@
 import { SearchByIdRequest } from '@empathy/search-adapter';
 import { Result } from '@empathy/search-types';
-import { XStoreModule } from '../../../store';
+import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { IdentifierResultsConfig } from '../config.types';
 
@@ -61,6 +61,11 @@ export interface IdentifierResultsMutations extends StatusMutations {
  */
 export interface IdentifierResultsActions {
   /**
+   * Cancels / interrupt {@link IdentifierResultsActions.fetchAndSaveIdentifierResults} synchronous
+   * promise.
+   */
+  cancelFetchAndSaveIdentifierResults(): void;
+  /**
    * Requests a new set of identifier results for the module query, and returns them.
    *
    * @returns An array of identifier results.
@@ -82,6 +87,18 @@ export interface IdentifierResultsActions {
  * @public
  */
 export type IdentifierResultsXStoreModule = XStoreModule<
+  IdentifierResultsState,
+  IdentifierResultsGetters,
+  IdentifierResultsMutations,
+  IdentifierResultsActions
+>;
+
+/**
+ * Alias type for actions context of the {@link IdentifierResultsXStoreModule}.
+ *
+ * @public
+ */
+export type IdentifierResultsActionsContext = XActionContext<
   IdentifierResultsState,
   IdentifierResultsGetters,
   IdentifierResultsMutations,

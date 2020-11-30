@@ -55,6 +55,18 @@ describe('testing related tags module actions', () => {
     });
   });
 
+  describe(`${actionKeys.cancelFetchAndSaveRelatedTags}`, () => {
+    it('should cancel the request and do not modify the stored related tags', async () => {
+      resetRelatedTagsStateWith(store, { query: 'lego' });
+      const previousRelatedTags = store.state.relatedTags;
+      await Promise.all([
+        store.dispatch(actionKeys.fetchAndSaveRelatedTags),
+        store.dispatch(actionKeys.cancelFetchAndSaveRelatedTags)
+      ]);
+      expect(store.state.relatedTags).toEqual(previousRelatedTags);
+    });
+  });
+
   describe(`${actionKeys.toggleRelatedTag}`, () => {
     const relatedTagToSelect = mockedRelatedTags[0];
 

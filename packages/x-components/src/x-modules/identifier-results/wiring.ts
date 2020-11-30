@@ -56,6 +56,15 @@ export const fetchAndSaveIdentifierResultsWire = wireDispatchWithoutPayload(
 );
 
 /**
+ * Cancels the {@link IdentifierResultsActions.fetchAndSaveIdentifierResults} request promise.
+ *
+ * @public
+ */
+export const cancelFetchAndSaveIdentifierResultsWire = wireDispatchWithoutPayload(
+  'cancelFetchAndSaveIdentifierResults'
+);
+
+/**
  * Debounce function for the module.
  */
 const moduleDebounce = namespacedDebounce(moduleName);
@@ -77,7 +86,8 @@ export const identifierResultsWiring = createWiring({
     setIdentifierResultsQuery
   },
   UserClearedQuery: {
-    clearIdentifierResultsQuery
+    clearIdentifierResultsQuery,
+    cancelFetchAndSaveIdentifierResultsWire
   },
   IdentifierResultsRequestChanged: {
     fetchAndSaveIdentifierResultsWire

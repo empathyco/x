@@ -1,9 +1,9 @@
 import { setStatus } from '../../../store/utils/helpers/status.helpers';
 import {
-  cancelGetAndSaveSuggestions,
-  getAndSaveSuggestions
-} from './actions/get-and-save-suggestions.action';
-import { getSuggestions } from './actions/get-suggestions.action';
+  cancelFetchAndSaveSuggestions,
+  fetchAndSaveSuggestions
+} from './actions/fetch-and-save-suggestions.action';
+import { fetchSuggestions } from './actions/fetch-suggestions.action';
 import { normalizedQuery } from './getters/normalized-query';
 import { querySuggestions } from './getters/query-suggestions.getter';
 import { request } from './getters/request';
@@ -41,8 +41,8 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
     setStatus
   },
   actions: {
-    cancelGetAndSaveSuggestions,
-    getAndSaveSuggestions,
-    getSuggestions
+    cancelFetchAndSaveSuggestions,
+    fetchSuggestions,
+    fetchAndSaveSuggestions
   }
 };

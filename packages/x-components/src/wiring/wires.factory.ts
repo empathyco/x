@@ -79,7 +79,7 @@ export function wireCommitWithoutPayload(mutation: string): AnyWire {
  * is used to get the actual payload value passed to action.
  * This wire can be used in every event, as it does not have a payload type associated.
  *
- * @param action - The full action path to dispatch. I.e. `x/querySuggestions/getSuggestions`.
+ * @param action - The full action path to dispatch. I.e. `x/querySuggestions/fetchSuggestions`.
  * @param payloadFactory - A function that receives the an {@link RootStoreStateAndGetters | object}
  * with the Store state and getters as parameter.
  * @returns A {@link AnyWire} wire that dispatches the action with the payload returned by the
@@ -94,7 +94,7 @@ export function wireDispatch(
  * Creates a wire that dispatches an action to the store. This wire can be used in every event,
  * as it does not have a payload type associated.
  *
- * @param action - The full action path to dispatch. I.e. `x/querySuggestions/getSuggestions`.
+ * @param action - The full action path to dispatch. I.e. `x/querySuggestions/fetchSuggestions`.
  * @param staticPayload - A static payload to pass to the action which will be dispatched.
  * @returns {@link AnyWire} A wire that dispatches the action with the staticPayload payload.
  * @public
@@ -104,7 +104,7 @@ export function wireDispatch(action: string, staticPayload: any): AnyWire;
  * Creates a wire that dispatches an action to the store. This wire will pass the payload
  * received in the observable to the action.
  *
- * @param action - The full action path to dispatch. I.e. `x/querySuggestions/getSuggestions`.
+ * @param action - The full action path to dispatch. I.e. `x/querySuggestions/fetchSuggestions`.
  * @typeParam Payload - The type of the payload that this wire will receive
  * @returns {@link Wire} A wire that dispatches the action with the payload that it receives
  * in the observable.
@@ -121,7 +121,7 @@ export function wireDispatch<Payload>(action: string, payload?: Payload): Wire<P
  * Creates a wire that dispatches an action to the store, but without any payload. This wire can
  * be used in every event, as it does not have a payload type associated.
  *
- * @param action - The full action path to dispatch. I.e. `x/querySuggestions/getSuggestions`.
+ * @param action - The full action path to dispatch. I.e. `x/querySuggestions/fetchSuggestions`.
  * @returns {@link AnyWire} A wire that dispatches the action without any payload.
  * @public
  */

@@ -1,5 +1,8 @@
 import { setStatus } from '../../../store/utils/helpers/status.helpers';
-import { fetchAndSaveRecommendations } from './actions/fetch-and-save-recommedations.action';
+import {
+  cancelFetchAndSaveRecommendations,
+  fetchAndSaveRecommendations
+} from './actions/fetch-and-save-recommedations.action';
 import { fetchRecommendations } from './actions/fetch-recommendations.action';
 import { RECOMMENDATIONS_ORIGIN } from './constants';
 import { request } from './getters/request';
@@ -29,6 +32,7 @@ export const recommendationsXStoreModule: RecommendationsXStoreModule = {
     setStatus
   },
   actions: {
+    cancelFetchAndSaveRecommendations,
     fetchRecommendations,
     fetchAndSaveRecommendations
   }

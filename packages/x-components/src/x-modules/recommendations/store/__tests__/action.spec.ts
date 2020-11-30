@@ -31,4 +31,15 @@ describe('testing recommendations module actions', () => {
       expect(store.state.recommendations).toEqual(mockedResults);
     });
   });
+
+  describe(`${actionKeys.cancelFetchAndSaveRecommendations}`, () => {
+    it('should cancel the request and do not modify the stored recommendations', async () => {
+      const previousRecommendations = store.state.recommendations;
+      await Promise.all([
+        store.dispatch(actionKeys.fetchAndSaveRecommendations),
+        store.dispatch(actionKeys.cancelFetchAndSaveRecommendations)
+      ]);
+      expect(store.state.recommendations).toEqual(previousRecommendations);
+    });
+  });
 });

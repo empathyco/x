@@ -1,5 +1,8 @@
 import { setStatus } from '../../../store/utils/helpers/status.helpers';
-import { fetchAndSaveIdentifierResults } from './actions/fetch-and-save-identifier-results.action';
+import {
+  cancelFetchAndSaveIdentifierResults,
+  fetchAndSaveIdentifierResults
+} from './actions/fetch-and-save-identifier-results.action';
 import { fetchIdentifierResults } from './actions/fetch-identifier-results.action';
 import { saveQuery } from './actions/save-query.action';
 import { identifierDetectionRegexp } from './getters/identifier-detection-regexp';
@@ -39,6 +42,7 @@ export const identifierResultsXStoreModule: IdentifierResultsXStoreModule = {
     setStatus
   },
   actions: {
+    cancelFetchAndSaveIdentifierResults,
     fetchIdentifierResults,
     fetchAndSaveIdentifierResults,
     saveQuery

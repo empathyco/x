@@ -1,6 +1,6 @@
 import { SuggestionsRequest } from '@empathy/search-adapter';
 import { HistoryQuery, Suggestion } from '@empathy/search-types';
-import { XStoreModule } from '../../../store';
+import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { PopularSearchesConfig } from '../config.types';
 
@@ -58,15 +58,19 @@ export interface PopularSearchesMutations extends StatusMutations {
  */
 export interface PopularSearchesActions {
   /**
-   * Gets a new set of suggestions and returns them.
+   * Cancels / interrupt {@link PopularSearchesActions.fetchAndSaveSuggestions} synchronous promise.
+   */
+  cancelFetchAndSaveSuggestions(): void;
+  /**
+   * Fetches a new set of suggestions and returns them.
    *
    * @returns The new set of suggestions.
    */
-  getSuggestions(): Suggestion[];
+  fetchSuggestions(): Suggestion[];
   /**
-   * Gets a new set of suggestions and stores them in the module state.
+   * Fetches a new set of suggestions and stores them in the module state.
    */
-  getAndSaveSuggestions(): void;
+  fetchAndSaveSuggestions(): void;
 }
 
 /**
@@ -75,6 +79,18 @@ export interface PopularSearchesActions {
  * @public
  */
 export type PopularSearchesXStoreModule = XStoreModule<
+  PopularSearchesState,
+  PopularSearchesGetters,
+  PopularSearchesMutations,
+  PopularSearchesActions
+>;
+
+/**
+ * Alias type for actions context of the {@link PopularSearchesXStoreModule}.
+ *
+ * @public
+ */
+export type PopularSearchesActionContext = XActionContext<
   PopularSearchesState,
   PopularSearchesGetters,
   PopularSearchesMutations,

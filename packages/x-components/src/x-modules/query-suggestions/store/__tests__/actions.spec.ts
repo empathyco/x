@@ -24,31 +24,43 @@ describe('testing history queries module actions', () => {
     resetQuerySuggestionsStateWith(store, { query: '' });
   });
 
-  describe(`${actionKeys.getSuggestions}`, () => {
+  describe(`${actionKeys.fetchSuggestions}`, () => {
     it('should return suggestions if there is request', async () => {
       resetQuerySuggestionsStateWith(store, { query: 'luichito' });
 
-      const suggestions = await store.dispatch(actionKeys.getSuggestions);
+      const suggestions = await store.dispatch(actionKeys.fetchSuggestions);
       expect(suggestions).toEqual(mockedSuggestions);
     });
 
     it('should return empty array if there is not request', async () => {
-      const suggestions = await store.dispatch(actionKeys.getSuggestions);
+      const suggestions = await store.dispatch(actionKeys.fetchSuggestions);
       expect(suggestions).toEqual([]);
     });
   });
 
-  describe(`${actionKeys.getAndSaveSuggestions}`, () => {
+  describe(`${actionKeys.fetchAndSaveSuggestions}`, () => {
     it('should request and store suggestions in the state', async () => {
       resetQuerySuggestionsStateWith(store, { query: 'luichito' });
 
-      await store.dispatch(actionKeys.getAndSaveSuggestions);
+      await store.dispatch(actionKeys.fetchAndSaveSuggestions);
       expect(store.state.suggestions).toEqual(mockedSuggestions);
     });
 
     it('should clear suggestions in the state if the query is empty', async () => {
-      await store.dispatch(actionKeys.getAndSaveSuggestions);
+      await store.dispatch(actionKeys.fetchAndSaveSuggestions);
       expect(store.state.suggestions).toEqual([]);
+    });
+  });
+
+  describe(`${actionKeys.cancelFetchAndSaveSuggestions}`, () => {
+    it('should cancel the request and do not modify the stored suggestions', async () => {
+      resetQuerySuggestionsStateWith(store, { query: 'luichito' });
+      const previousSuggestions = store.state.suggestions;
+      await Promise.all([
+        store.dispatch(actionKeys.fetchAndSaveSuggestions),
+        store.dispatch(actionKeys.cancelFetchAndSaveSuggestions)
+      ]);
+      expect(store.state.suggestions).toEqual(previousSuggestions);
     });
   });
 });

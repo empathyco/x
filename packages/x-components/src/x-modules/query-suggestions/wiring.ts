@@ -44,15 +44,15 @@ export const clearQuerySuggestionsQuery = wireCommit('setQuery', '');
  *
  * @public
  */
-export const getAndSaveSuggestions = wireDispatchWithoutPayload('getAndSaveSuggestions');
+export const fetchAndSaveSuggestions = wireDispatchWithoutPayload('fetchAndSaveSuggestions');
 
 /**
- * Cancels the {@link QuerySuggestionsActions.getAndSaveSuggestions} request promise.
+ * Cancels the {@link QuerySuggestionsActions.fetchAndSaveSuggestions} request promise.
  *
  * @public
  */
-export const cancelGetAndSaveSuggestions = wireDispatchWithoutPayload(
-  'cancelGetAndSaveSuggestions'
+export const cancelFetchAndSaveSuggestions = wireDispatchWithoutPayload(
+  'cancelFetchAndSaveSuggestions'
 );
 
 /**
@@ -78,9 +78,9 @@ export const querySuggestionsWiring = createWiring({
   },
   UserClearedQuery: {
     clearQuerySuggestionsQuery,
-    cancelGetAndSaveSuggestions
+    cancelFetchAndSaveSuggestions
   },
   QuerySuggestionsRequestChanged: {
-    getAndSaveSuggestions
+    fetchAndSaveSuggestions
   }
 });

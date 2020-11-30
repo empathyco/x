@@ -53,6 +53,15 @@ export const setSelectedFilters = wireCommit('setSelectedFilters');
 export const fetchAndSaveSearchResponse = wireDispatchWithoutPayload('fetchAndSaveSearchResponse');
 
 /**
+ * Cancels the {@link SearchActions.fetchAndSaveSearchResponse} request promise.
+ *
+ * @public
+ */
+export const cancelFetchAndSaveSearchResponse = wireDispatchWithoutPayload(
+  'cancelFetchAndSaveSearchResponse'
+);
+
+/**
  * Search wiring.
  *
  * @internal
@@ -62,7 +71,8 @@ export const searchWiring = createWiring({
     setSearchQuery
   },
   UserClearedQuery: {
-    setSearchQuery
+    setSearchQuery,
+    cancelFetchAndSaveSearchResponse
   },
   SearchRequestChanged: {
     fetchAndSaveSearchResponse

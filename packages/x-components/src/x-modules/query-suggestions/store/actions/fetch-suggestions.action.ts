@@ -2,13 +2,13 @@ import { XPlugin } from '../../../../plugins';
 import { QuerySuggestionsXStoreModule } from '../types';
 
 /**
- * Default implementation for the {@link QuerySuggestionsActions.getSuggestions}.
+ * Default implementation for the {@link QuerySuggestionsActions.fetchSuggestions}.
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
  * @returns A `void` promise that resolves when it fetches suggestions.
  */
-export const getSuggestions: QuerySuggestionsXStoreModule['actions']['getSuggestions'] = ({
+export const fetchSuggestions: QuerySuggestionsXStoreModule['actions']['fetchSuggestions'] = ({
   getters
 }) => {
   return getters.request

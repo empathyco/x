@@ -1,6 +1,6 @@
 import { RelatedTagsRequest } from '@empathy/search-adapter';
 import { RelatedTag } from '@empathy/search-types';
-import { XStoreModule } from '../../../store';
+import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { RelatedTagsConfig } from '../config.types';
 
@@ -65,13 +65,17 @@ export interface RelatedTagsMutations extends StatusMutations {
  */
 export interface RelatedTagsActions {
   /**
-   * Fetchs a new set of related tags and returns them.
+   * Cancels / interrupt {@link RelatedTagsActions.fetchAndSaveRelatedTags} synchronous promise.
+   */
+  cancelFetchAndSaveRelatedTags(): void;
+  /**
+   * Fetches a new set of related tags and returns them.
    *
    * @returns The new set of related tags.
    */
   fetchRelatedTags(): RelatedTag[];
   /**
-   * Fetchs a new set of related tags and stores them in the module state.
+   * Fetches a new set of related tags and stores them in the module state.
    */
   fetchAndSaveRelatedTags(): void;
   /**
@@ -85,6 +89,18 @@ export interface RelatedTagsActions {
  * @public
  */
 export type RelatedTagsXStoreModule = XStoreModule<
+  RelatedTagsState,
+  RelatedTagsGetters,
+  RelatedTagsMutations,
+  RelatedTagsActions
+>;
+
+/**
+ * Alias type for actions context of the {@link RelatedTagsXStoreModule}.
+ *
+ * @public
+ */
+export type RelatedTagsActionContext = XActionContext<
   RelatedTagsState,
   RelatedTagsGetters,
   RelatedTagsMutations,
