@@ -21,8 +21,8 @@ describe('e2e testing keyboard-navigation spacial navigation functionality', () 
         });
 
       cy.log('**navigates to other elements when clicking arrow keys**');
-      cy.get('body').trigger('keydown', { key: 'ArrowRight' });
-      cy.get('body').trigger('keydown', { key: 'ArrowRight' });
+      cy.focused().trigger('keydown', { key: 'ArrowRight' });
+      cy.focused().trigger('keydown', { key: 'ArrowRight' });
       cy.focused()
         .as('elementRightwards')
         .then($elementRightwards => {
@@ -34,8 +34,8 @@ describe('e2e testing keyboard-navigation spacial navigation functionality', () 
           });
         });
 
-      cy.get('body').trigger('keydown', { key: 'ArrowDown' });
-      cy.get('body').trigger('keydown', { key: 'ArrowDown' });
+      cy.focused().trigger('keydown', { key: 'ArrowDown' });
+      cy.focused().trigger('keydown', { key: 'ArrowDown' });
       cy.focused()
         .as('elementDownwards')
         .then($elementDownwards => {
@@ -47,7 +47,7 @@ describe('e2e testing keyboard-navigation spacial navigation functionality', () 
           });
         });
 
-      cy.get('body').trigger('keydown', { key: 'ArrowLeft' });
+      cy.focused().trigger('keydown', { key: 'ArrowLeft' });
       cy.focused()
         .as('elementLeftwards')
         .then($elementLeftwards => {
@@ -60,8 +60,10 @@ describe('e2e testing keyboard-navigation spacial navigation functionality', () 
         });
 
       cy.log('**goes back to the search-input when navigating up out of bounds**');
-      cy.get('body').trigger('keydown', { key: 'ArrowUp' });
-      cy.get('body').trigger('keydown', { key: 'ArrowUp' });
+      cy.focused().trigger('keydown', { key: 'ArrowUp' });
+      cy.focused().trigger('keydown', { key: 'ArrowUp' });
+      cy.focused().trigger('keydown', { key: 'ArrowUp' });
+      cy.focused().trigger('keydown', { key: 'ArrowUp' });
 
       cy.focused().then($outOfBoundsElement => {
         cy.get('@searchInput').should($searchInput =>
