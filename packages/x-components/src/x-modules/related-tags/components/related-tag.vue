@@ -91,8 +91,9 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .x-related-tag {
+    white-space: nowrap;
     &--is-selected {
       background: lightgrey;
     }

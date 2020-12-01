@@ -7,7 +7,7 @@
     data-test="clear-history-queries"
   >
     <!-- @slot (Required) Button content with a message, an icon or both -->
-    <slot />
+    <slot>✕</slot>
   </BaseEventButton>
 </template>
 

@@ -9,10 +9,11 @@
     </BaseModalContainer>
     <!-- Search Section -->
     <SearchInput placeholder="Search" aria-label="Search for products" />
+    <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
+    <SearchButton aria-label="Search"></SearchButton>
     <SlidingPanel>
       <RelatedTags :animation="staggeredFadeAndSlide" />
     </SlidingPanel>
-    <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
     <!-- Facets -->
     <h1>Facets</h1>
     <ClearFilters v-slot="{ selectedFilters }" :alwaysVisible="true">
@@ -78,11 +79,7 @@
         </div>
         <div class="x-column">
           <h1>Previous Searches</h1>
-          <HistoryQueries :animation="fadeAndSlide">
-            <template #suggestion-remove-content="{ suggestion }">
-              <span :aria-label="`Remove ${suggestion.query} from history`">x</span>
-            </template>
-          </HistoryQueries>
+          <HistoryQueries :animation="fadeAndSlide"></HistoryQueries>
           <ClearHistoryQueries>Clear previous searches</ClearHistoryQueries>
         </div>
         <div class="x-column">
@@ -136,10 +133,8 @@
         <Recommendations :animation="fadeAndSlide">
           <template #default="{ recommendation }">
             <BaseResultLink :result="recommendation" class="x-result-link">
-              <template #default="{ result }">
-                <img :src="result.images[0]" :alt="result.name" class="x-result_image x-column" />
-                <span class="x-result__title">{{ result.name }}</span>
-              </template>
+              <BaseResultImage :result="recommendation" />
+              <span class="x-result__title">{{ recommendation.name }}</span>
             </BaseResultLink>
           </template>
         </Recommendations>
@@ -178,6 +173,7 @@
   import BaseModalContainer from '../components/base-modal-container.vue';
   import BaseOpenButton from '../components/base-open-button.vue';
   import BaseResultLink from '../components/result/base-result-link.vue';
+  import BaseResultImage from '../components/result/base-result-image.vue';
   import BaseSimpleFilter from '../components/filters/base-simple-filter.vue';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
   // eslint-disable-next-line max-len
@@ -198,6 +194,7 @@
   import QuerySuggestions from '../x-modules/query-suggestions/components/query-suggestions.vue';
   import Recommendations from '../x-modules/recommendations/components/recommendations.vue';
   import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
+  import SearchButton from '../x-modules/search-box/components/search-button.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import SlidingPanel from '../components/sliding-panel.vue';
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
@@ -218,17 +215,19 @@
       next();
     },
     components: {
+      SearchButton,
+      BaseFilters,
       BaseFiltersSearch,
       BaseHeaderTogglePanel,
-      BaseFilters,
-      ClearFilters,
-      BaseSimpleFilter,
       BaseHierarchicalFilter,
       BaseCloseButton,
       BaseKeyboardNavigation,
       BaseModalContainer,
       BaseOpenButton,
       BaseResultLink,
+      BaseResultImage,
+      BaseSimpleFilter,
+      ClearFilters,
       ClearHistoryQueries,
       ClearSearchInput,
       Empathize,

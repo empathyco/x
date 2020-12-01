@@ -63,7 +63,13 @@
   }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .x-related-tags {
+    display: flex;
+    list-style: none;
+    padding-inline-start: 0;
+  }
+</style>
 
 <docs>
   #Examples

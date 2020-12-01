@@ -63,6 +63,13 @@
   }
 </script>
 
+<style lang="scss" scoped>
+  .x-recommendations {
+    list-style-type: none;
+    padding-inline-start: 0;
+  }
+</style>
+
 <docs>
   #Examples
 

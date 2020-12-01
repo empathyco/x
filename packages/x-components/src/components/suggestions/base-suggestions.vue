@@ -19,6 +19,7 @@
 <style lang="scss" scoped>
   .x-suggestions {
     list-style-type: none;
+    padding-inline-start: 0;
   }
 </style>
 

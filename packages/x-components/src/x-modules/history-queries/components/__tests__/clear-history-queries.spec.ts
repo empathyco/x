@@ -67,7 +67,7 @@ describe('testing ClearHistoryQueries component', () => {
       store
     });
 
-    expect(clearHistoryQueries.vm.$el.textContent).toEqual('');
+    expect(clearHistoryQueries.vm.$el.textContent).toEqual('✕');
   });
 
   it('has a default slot to customize its contents', () => {

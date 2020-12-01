@@ -21,13 +21,11 @@
       :historyQuery="suggestion"
       data-test="remove-history-query"
     >
-      <template #default>
-        <!--
+      <!--
           @slot History Query remove button content
               @binding {Suggestion} suggestion - History Query suggestion data
         -->
-        <slot name="remove-button-content" v-bind="{ suggestion }" />
-      </template>
+      <slot name="remove-button-content" v-bind="{ suggestion }">✕</slot>
     </RemoveHistoryQuery>
   </div>
 </template>
@@ -36,8 +34,8 @@
   import { HistoryQuery as HistoryQueryModel } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
   import { Getter } from '../../../components/decorators/store.decorators';
+  import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { historyQueriesXModule } from '../x-module';
@@ -118,5 +116,5 @@
       <img class="x-history-query__remove-icon" src="./remove-icon.svg"/>
     </template>
   </HistoryQuery>
-  ```
+    ```
 </docs>

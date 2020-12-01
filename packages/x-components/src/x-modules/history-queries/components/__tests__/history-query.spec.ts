@@ -68,7 +68,7 @@ describe('testing history-query component', () => {
     );
 
     expect(historyQuerySuggestion.text()).not.toHaveLength(0);
-    expect(removeHistoryQueryWrapper.text()).toHaveLength(0);
+    expect(removeHistoryQueryWrapper.text()).toBe('✕');
   });
 
   it('has a default slot to customize suggestion content', () => {

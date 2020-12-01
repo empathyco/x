@@ -121,7 +121,9 @@
     protected updateScrollPosition(): void {
       const { scrollLeft, clientWidth, scrollWidth } = this.$refs.scrollContainer;
       this.isScrollAtStart = !scrollLeft;
-      this.isScrollAtEnd = scrollLeft + clientWidth >= scrollWidth;
+      /* The 2 px extra is to fix some cases in some resolutions where the scroll + client size is
+      *  less than the scroll width even when the scroll is at the end */
+      this.isScrollAtEnd = scrollLeft + clientWidth + 2 >= scrollWidth;
     }
 
     /**

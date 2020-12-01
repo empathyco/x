@@ -6,15 +6,15 @@
     data-test="clear-search-input"
   >
     <!-- @slot (Required) Button content with a text, an icon or both -->
-    <slot />
+    <slot>✕</slot>
   </BaseEventButton>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { State } from '../../../components/decorators/store.decorators';
   import BaseEventButton from '../../../components/base-event-button.vue';
+  import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { VueCSSClasses } from '../../../utils/types';
   import { XEventsTypes } from '../../../wiring/events.types';
