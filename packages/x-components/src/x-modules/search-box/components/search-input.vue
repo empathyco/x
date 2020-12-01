@@ -98,12 +98,13 @@
      * @internal
      */
     @XOn('UserAcceptedAQuery')
+    @XOn('UserClearedQuery')
     cancelDebouncedUserAcceptedAQuery(): void {
       this.debouncedUserAcceptedAQuery?.cancel();
     }
 
     mounted(): void {
-      if(this.autofocus) {
+      if (this.autofocus) {
         this.focusInput();
       }
     }
@@ -145,6 +146,7 @@
     protected emitUserBlurredSearchBox(): void {
       this.$x.emit('UserBlurredSearchBox', undefined, this.eventMetadata());
     }
+
     /**
      * Emits event {@link SearchBoxXEvents.UserClickedSearchBox} when user clicks  the search input.
      *
@@ -175,6 +177,8 @@
       this.$x.emit('UserIsTypingAQuery', query, this.eventMetadata());
       if (query.trim()) {
         this.emitDebouncedUserAcceptedAQuery(query);
+      } else {
+        this.cancelDebouncedUserAcceptedAQuery();
       }
     }
 
@@ -250,19 +254,18 @@
   <Tabs
     defaultValue="vue"
     values={[
-      {label:'Vue', value: 'vue'},
+      {label: 'Vue', value: 'vue'},
       {label: 'Live', value: 'live'}
-    ]
-  }>
+    ]}>
     <TabItem value="vue">
 
-    ```jsx
-    <SearchInput />
-    ```
+      ```jsx
+      <SearchInput/>
+      ```
 
     </TabItem>
     <TabItem value="live">
-    <ReactSearchInput />
+      <ReactSearchInput/>
     </TabItem>
   </Tabs>
 
@@ -276,27 +279,26 @@
     values={[
       {label: 'Vue', value: 'vue'},
       {label: 'Live', value: 'live'},
-    ]
-  }>
+    ]}>
     <TabItem value="vue">
 
-    ```jsx
-    <SearchInput :maxLength="5"
-                 :autofocus="false"
-                 :instant="true"
-                 :instantDebounceInMs="1000"
-                 :autocompleteKeyboardKeys="['ArrowDown']"
-                 :autocompleteSuggestionsEvent="'NextQueriesChanged'"/>
-    ```
+      ```jsx
+      <SearchInput :maxLength="5"
+                   :autofocus="false"
+                   :instant="true"
+                   :instantDebounceInMs="1000"
+                   :autocompleteKeyboardKeys="['ArrowDown']"
+                   :autocompleteSuggestionsEvent="'NextQueriesChanged'"/>
+      ```
 
     </TabItem>
     <TabItem value="live">
-    <ReactSearchInput maxLength="5"
-                      autofocus="false"
-                      instant="true"
-                      instantDebounceInMs="1000"
-                      autocompleteKeyboardKeys="['ArrowDown']"
-                      autocompleteSuggestionsEvent="'NextQueriesChanged'"/>
+      <ReactSearchInput maxLength="5"
+                        autofocus="false"
+                        instant="true"
+                        instantDebounceInMs="1000"
+                        autocompleteKeyboardKeys="['ArrowDown']"
+                        autocompleteSuggestionsEvent="'NextQueriesChanged'"/>
     </TabItem>
   </Tabs>
 
@@ -313,17 +315,16 @@
     values={[
       {label: 'Vue', value: 'vue'},
       {label: 'Live', value: 'live'},
-    ]
-  }>
+    ]}>
     <TabItem value="vue">
 
-    ```jsx
-    <SearchInput @UserPressedEnterKey="doMagic()" />
-    ```
+      ```jsx
+      <SearchInput @UserPressedEnterKey="doMagic()"/>
+      ```
 
     </TabItem>
     <TabItem value="live">
-    <ReactSearchInput on={{ UserPressedEnterKey: doMagic }} />
+      <ReactSearchInput on={{ UserPressedEnterKey: doMagic }}/>
     </TabItem>
   </Tabs>
 
@@ -331,6 +332,6 @@
 
   Ready for more? Continue reading with:
 
-  <NextItem color="#e77962" font='white' next="x-components.clearsearchinput">Clear Search Input</NextItem>
+  <NextItem color="#e77962" font="white" next="x-components.clearsearchinput">Clear Search Input</NextItem>
 
 </docs>

@@ -112,8 +112,27 @@ describe('testing search input component', () => {
 
       input.value = query;
       mockedSearchInput.trigger('input');
+      expect(listener).not.toHaveBeenCalledWith(query);
       jest.advanceTimersByTime(100);
       expect(listener).toHaveBeenCalledWith(query);
+    }
+  );
+
+  it(
+    'keeps the query empty after clearing it when config.instant is enabled and after the' +
+      'config.instantDebounceInMs timeout',
+    async () => {
+      mockedSearchInput.setProps({ instant: true, instantDebounceInMs: 100 });
+
+      input.value = 'Antananarivo';
+      mockedSearchInput.trigger('input');
+      jest.advanceTimersByTime(50);
+      input.value = '';
+      await mockedSearchInput.trigger('input');
+      expect(input.value).toEqual('');
+      jest.advanceTimersByTime(50);
+      await mockedSearchInput.vm.$nextTick();
+      expect(input.value).toEqual('');
     }
   );
 
