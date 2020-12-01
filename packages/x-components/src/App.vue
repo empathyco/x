@@ -1,11 +1,13 @@
 <template>
-  <main>
-    <a class="link" href="/">FullApp.vue</a>
-    <a class="link" href="/full-empathize">FullEmpathize.vue</a>
-    <a class="link" href="/full-no-empathize">FullNoEmpathize.vue</a>
-    <a class="link" href="/result-app">ResultApp.vue</a>
+  <div>
+    <nav>
+      <!-- Intentionally using an `a` element instead of `router-link` to perform a full refresh -->
+      <a v-for="route in $router.options.routes" :key="route.name" class="link" :href="route.path">
+        {{ route.name }}
+      </a>
+    </nav>
     <router-view />
-  </main>
+  </div>
 </template>
 
 <style scoped>

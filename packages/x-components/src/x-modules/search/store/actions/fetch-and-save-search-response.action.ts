@@ -28,10 +28,12 @@ export class FetchAndSaveSearchResponseAction implements ActionsClass<SearchXSto
   fetchAndSaveSearchResponse({ dispatch, commit }: SearchActionContext): void | Promise<void> {
     const { promise, cancel } = cancellablePromise<SearchResponse>(dispatch('fetchSearchResponse'));
     this.cancelFetchAndSaveSearchResponseFn = cancel;
+    commit('setStatus', 'loading');
     return promise
       .then(({ results, facets }) => {
         commit('setResults', results);
         commit('setFacets', facets);
+        commit('setStatus', 'success');
       })
       .catch(err => {
         if (err !== CancelSymbol) {

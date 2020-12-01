@@ -119,3 +119,38 @@ function getResultCommonValues(): DeepPartial<Result> {
     rating: {}
   };
 }
+
+/**
+ * Creates a result stub with the provided options. If the name is the only property provided,
+ * it will be used to generate the id, name, url and tagging.
+ *
+ * @param name - The name of the result.
+ * @param result - An optional object with fields to override the result.
+ * @returns A result.
+ */
+export function createResultStub(name: string, result?: Partial<Result>): Result {
+  const kebabCaseName = name.toLowerCase().replace(/\s/g, '-');
+  return {
+    id: kebabCaseName,
+    modelName: 'Result',
+    type: 'Product',
+    isWishlisted: false,
+    callbackInfo: {},
+    identifier: {
+      value: kebabCaseName
+    },
+    images: [],
+    name,
+    price: {
+      hasDiscount: false,
+      originalValue: 10,
+      value: 10
+    },
+    rating: {
+      value: 5
+    },
+    tagging: getResultTagging(kebabCaseName),
+    url: `/products/${name}`,
+    ...result
+  };
+}

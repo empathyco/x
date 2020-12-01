@@ -101,6 +101,9 @@ export function getAliasAPI(
       },
       get relatedTags() {
         return store.state.x.relatedTags?.query ?? '';
+      },
+      get search() {
+        return store.state.x.search?.query ?? '';
       }
     },
     get nextQueries() {
@@ -126,6 +129,12 @@ export function getAliasAPI(
     },
     get recommendations() {
       return store.state.x.recommendations?.recommendations ?? [];
+    },
+    get facets() {
+      return store.state.x.facets?.facets ?? {};
+    },
+    get selectedFilters() {
+      return store.getters[getGetterPath('facets', 'selectedFilters')] ?? [];
     }
   };
 }

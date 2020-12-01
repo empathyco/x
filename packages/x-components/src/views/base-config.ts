@@ -1,30 +1,7 @@
-import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
-import { Result } from '@empathy/search-types';
 import { SnippetConfig } from '../x-installer/api/api.types';
 import { InstallXOptions } from '../x-installer/x-installer/types';
-
-const adapter = new EmpathyAdapterBuilder()
-  .addMapper((_, result: Result) => {
-    result.url = `./product_page.html?productId=${result.id}`;
-    result.identifier.value = result.id;
-    return result;
-  }, 'results')
-  .setFeatureConfig('search', {
-    endpoint: 'https://api.empathybroker.com/search/v1/query/juguettos/searchv2'
-  })
-  .setFacetConfig(
-    {
-      modelName: 'HierarchicalFacet'
-    },
-    'hierarchical_category'
-  )
-  .setFacetConfig(
-    {
-      modelName: 'NumberRangeFacet'
-    },
-    'price_facet'
-  )
-  .build();
+import { mockedAdapter } from './mocked-adapter';
+import { realAdapter } from './real-adapter';
 
 export const baseSnippetConfig: SnippetConfig = {
   instance: 'juguettos',
@@ -32,8 +9,10 @@ export const baseSnippetConfig: SnippetConfig = {
   scope: 'x-components-development'
 };
 
+const url = new URL(location.href);
+
 export const baseInstallXOptions: InstallXOptions = {
-  adapter,
+  adapter: url.searchParams.has('useMockedAdapter') ? (mockedAdapter as any) : realAdapter,
   xModules: {
     identifierResults: {
       config: {

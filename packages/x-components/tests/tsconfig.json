@@ -3,7 +3,9 @@
   "compilerOptions": {
     "declaration": false,
     "declarationMap": false,
-    "types": ["node", "cypress", "./e2e/support"]
+    "types": ["node", "cypress"],
+    "downlevelIteration": true
   },
-  "include": ["./**/*.ts"]
+  "include": ["./**/*.ts"],
+  "exclude": ["**/__tests__/**/*"]
 }

@@ -22,6 +22,11 @@ const routes: RouteConfig[] = [
     path: '/result-app',
     name: 'result-app',
     component: () => import('./views/ResultApp.vue')
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: () => import('./views/Search.vue')
   }
 ];
 

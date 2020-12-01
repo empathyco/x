@@ -1,5 +1,13 @@
 import { SearchAdapter } from '@empathy/search-adapter';
-import { HistoryQuery, NextQuery, RelatedTag, Result, Suggestion } from '@empathy/search-types';
+import {
+  Facet,
+  Filter,
+  HistoryQuery,
+  NextQuery,
+  RelatedTag,
+  Result,
+  Suggestion
+} from '@empathy/search-types';
 import { Store } from 'vuex';
 import { CurrencyOptions } from '../i18n';
 import { ActionsTree, AnyActionsTree } from '../store/actions.types';
@@ -110,6 +118,8 @@ export interface XComponentAliasAPI {
     readonly querySuggestions: string;
     /** The {@link RelatedTagsXModule} query. */
     readonly relatedTags: string;
+    /** The {@link SearchXModule} query. */
+    readonly search: string;
   };
   /** The {@link NextQueriesXModule} next queries. */
   readonly nextQueries: ReadonlyArray<NextQuery>;
@@ -127,6 +137,10 @@ export interface XComponentAliasAPI {
   readonly identifierResults: ReadonlyArray<Result>;
   /** The {@link RecommendationsXModule} recommendations. */
   readonly recommendations: ReadonlyArray<Result>;
+  /** The {@link FacetsXModule} facets. */
+  readonly facets: Record<Facet['id'], Facet>;
+  /** The {@link FacetsXModule} selected filters. */
+  readonly selectedFilters: Filter[];
 }
 
 /**

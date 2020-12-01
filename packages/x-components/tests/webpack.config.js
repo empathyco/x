@@ -6,7 +6,6 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        include: [/tests/],
         use: [
           {
             loader: 'ts-loader',

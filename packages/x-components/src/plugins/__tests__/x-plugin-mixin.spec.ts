@@ -6,6 +6,7 @@ import { nextQueriesXModule } from '../../x-modules/next-queries/x-module';
 import { querySuggestionsXModule } from '../../x-modules/query-suggestions/x-module';
 import { relatedTagsXModule } from '../../x-modules/related-tags/x-module';
 import { searchBoxXModule } from '../../x-modules/search-box/x-module';
+import { searchXModule } from '../../x-modules/search/x-module';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { XPlugin } from '../x-plugin';
 import { getAliasAPI } from '../x-plugin.mixin';
@@ -141,7 +142,8 @@ describe('testing $x component API global mixin', () => {
           searchBox: '',
           nextQueries: '',
           querySuggestions: '',
-          relatedTags: ''
+          relatedTags: '',
+          search: ''
         },
         nextQueries: [],
         popularSearches: [],
@@ -150,7 +152,9 @@ describe('testing $x component API global mixin', () => {
         relatedTags: [],
         selectedRelatedTags: [],
         identifierResults: [],
-        recommendations: []
+        recommendations: [],
+        facets: {},
+        selectedFilters: []
       };
       expect(componentInstance.vm.$x).toMatchObject(defaultValues);
     });
@@ -160,17 +164,20 @@ describe('testing $x component API global mixin', () => {
       XPlugin.registerXModule(nextQueriesXModule);
       XPlugin.registerXModule(querySuggestionsXModule);
       XPlugin.registerXModule(relatedTagsXModule);
+      XPlugin.registerXModule(searchXModule);
 
       componentInstance.vm.$store.commit('x/searchBox/setQuery', 'this');
       componentInstance.vm.$store.commit('x/nextQueries/setQuery', 'is');
       componentInstance.vm.$store.commit('x/querySuggestions/setQuery', 'working');
       componentInstance.vm.$store.commit('x/relatedTags/setQuery', 'properly');
+      componentInstance.vm.$store.commit('x/search/setQuery', 'nice!');
 
-      expect(componentInstance.vm.$x.query).toMatchObject({
+      expect(componentInstance.vm.$x.query).toEqual({
         searchBox: 'this',
         nextQueries: 'is',
         querySuggestions: 'working',
-        relatedTags: 'properly'
+        relatedTags: 'properly',
+        search: 'nice!'
       });
     });
 
