@@ -1,3 +1,4 @@
+import buble from '@rollup/plugin-buble';
 import commonjs from '@rollup/plugin-commonjs';
 import autoprefixer from 'autoprefixer';
 import path from 'path';
@@ -65,6 +66,7 @@ export const rollupConfig = createRollupOptions({
       // lang is set to ts:
       // https://github.com/vuejs/rollup-plugin-vue/issues/272#issuecomment-491721842
       needMap: false,
+      normalizer: '~vue-runtime-helpers/dist/normalize-component.js',
       style: {
         postcssPlugins: [
           autoprefixer({
@@ -72,6 +74,9 @@ export const rollupConfig = createRollupOptions({
           })
         ]
       }
+    }),
+    buble({
+      include: '**/*.vue'
     }),
     generateEntryFiles({
       jsOutputDirectory,

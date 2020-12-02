@@ -49,6 +49,7 @@
     "@empathy/eslint-plugin-x": "^1.2.0",
     "@microsoft/api-documenter": "~7.7.12",
     "@microsoft/api-extractor": "~7.7.8",
+    "@rollup/plugin-buble": "~0.21.3",
     "@rollup/plugin-commonjs": "~11.0.1",
     "@testing-library/jest-dom": "^5.11.1",
     "@types/autoprefixer": "~9.6.1",
