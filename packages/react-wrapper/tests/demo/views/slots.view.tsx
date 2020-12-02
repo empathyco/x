@@ -10,18 +10,31 @@ import { ReactTransitionSlot } from '../stubs/react-transition-slot.stub';
  */
 export function SlotsView(): ReactElement {
   const [show, setShow] = useState(false);
+  const [renderContainer, setRenderContainer] = useState(true);
   const toggleShow = (): void => {
     setShow(!show);
   };
 
+  const toggleRenderContainer = (): void => {
+    setRenderContainer(!renderContainer);
+  };
+
   return (
     <div>
-      <button onClick={toggleShow} data-test='toggle-show'>
-        Toggle show
+      <button onClick={toggleRenderContainer} data-test='toggle-container'>
+        Toggle container
       </button>
-      <ReactTransitionSlot message='Test' show={show} transitionDuration={100} />
+      <button onClick={toggleShow} data-test='toggle-show'>
+        Toggle child
+      </button>
+      {renderContainer && (
+        <div className='container'>
+          <h1>Container</h1>
+          <ReactTransitionSlot message='Test' show={show} transitionDuration={100} />
+        </div>
+      )}
       <ReactTextSlot data-test='text-slot-content'>text content</ReactTextSlot>
-      <ReactTextSlot data-test='no-slot-content'></ReactTextSlot>
+      <ReactTextSlot data-test='no-slot-content' />
     </div>
   );
 }

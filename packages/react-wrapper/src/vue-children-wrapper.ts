@@ -61,27 +61,37 @@ export const VueChildrenWrapper = defineComponent({
       });
 
       this.$on('hook:beforeDestroy', () => {
-        /*
-         * We cannot guarantee that neither the `beforeDestroy` or `destroyed` hooks will
-         * be executed after the Vue component has been removed from the DOM. This happens because
-         * Vue transitions depend on these hooks. The component is actually destroyed immediately,
-         * but its DOM content is removed after the leave transitions has ended.
-         * For this reason, the only possible solution is to detect when the DOM has been modified.
-         * A mutation observer that checks if the Vue rendered node has been removed from the DOM
-         * using the `isConnected` property.
-         */
-        const observer = new MutationObserver(() => {
-          if (!vueReferenceElement.isConnected) {
-            observer.disconnect();
-            restoreReactRenderedNodesToContainer();
-            ReactDOM.unmountComponentAtNode(reactContainer);
-          }
-        });
-        observer.observe(this.$root.$el.parentElement as Element, {
-          subtree: true,
-          childList: true,
-          attributes: false
-        });
+        const cleanup = (): void => {
+          restoreReactRenderedNodesToContainer();
+          ReactDOM.unmountComponentAtNode(reactContainer);
+        };
+        const container = this.$root.$el.parentElement;
+        /* If the parent exists, we delegate into a mutation observer, to check when the Vue
+        component has been removed from the DOM. Else, we execute the cleanup immediately. */
+        if (container) {
+          /*
+           * We cannot guarantee that neither the `beforeDestroy` or `destroyed` hooks will
+           * be executed after the Vue component has been removed from the DOM. This happens because
+           * Vue transitions depend on these hooks. The component is actually destroyed immediately,
+           * but its DOM content is removed after the leave transitions has ended.
+           * For this reason, the only possible solution is to detect when the DOM has been
+           * modified. A mutation observer that checks if the Vue rendered node has been removed
+           * from the DOM using the `isConnected` property.
+           */
+          const observer = new MutationObserver(() => {
+            if (!vueReferenceElement.isConnected) {
+              observer.disconnect();
+              cleanup();
+            }
+          });
+          observer.observe(container, {
+            subtree: true,
+            childList: true,
+            attributes: false
+          });
+        } else {
+          cleanup();
+        }
       });
     });
   }

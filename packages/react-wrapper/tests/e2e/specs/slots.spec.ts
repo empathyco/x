@@ -1,7 +1,18 @@
 describe('slots test', () => {
+  let consoleSpy: Cypress.Agent<sinon.SinonSpy>;
+  Cypress.on('window:before:load', pageWindow => {
+    consoleSpy = cy.spy(pageWindow.console, 'error');
+  });
+
   beforeEach(() => {
     cy.goToView('slots');
     cy.getByDataTest('toggle-show').as('toggleShow');
+    cy.getByDataTest('toggle-container').as('toggleContainer');
+  });
+
+  afterEach(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(consoleSpy).not.to.be.called;
   });
 
   it('waits for the animation to finish before removing the slot content', () => {
@@ -10,6 +21,14 @@ describe('slots test', () => {
 
     cy.get('@toggleShow').click();
     cy.getByDataTest('react-content').should('be.visible');
+    cy.getByDataTest('react-content').should('not.be.visible');
+  });
+
+  it('does not crash if the parent element is removed', () => {
+    cy.get('@toggleShow').click();
+    cy.getByDataTest('react-content').should('be.visible');
+
+    cy.get('@toggleContainer').click();
     cy.getByDataTest('react-content').should('not.be.visible');
   });
 

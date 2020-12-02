@@ -12,6 +12,7 @@ module.exports = {
     }
   },
   rules: {
-    'react/prop-types': 'off'
+    'react/prop-types': 'off',
+    '@typescript-eslint/no-extra-parens': 'off'
   }
 };
