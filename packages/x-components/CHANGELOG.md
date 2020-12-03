@@ -1,4 +1,11 @@
 # X Components
+### [1.1.1](https://bitbucket.org/colbenson/x-components/branches/compare/v1.1.1%0Dv1.1.0) (2020-12-03)
+
+
+### Bug Fixes
+
+* **build:** output es5 code for Vue components ([40eab09](https://bitbucket.org/colbenson/x-components/commits/40eab0978f297760c729eeb1ecab475aeeef0d7b)), closes [EX-2734](https://searchbroker.atlassian.net/browse/EX-2734)
+
 ## [1.1.0](https://bitbucket.org/colbenson/x-components/branches/compare/v1.1.0%0Dv1.0.0) (2020-10-20)
 
 
