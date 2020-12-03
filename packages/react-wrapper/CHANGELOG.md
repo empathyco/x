@@ -1,4 +1,11 @@
 # React Wrapper
+### [1.0.4](https://bitbucket.org/colbenson/react-wrapper/branches/compare/v1.0.4%0Dv1.0.3) (2020-12-03)
+
+
+### Bug Fixes
+
+* **children:** fix children unmount fails if parentElement is removed too ([3903554](https://bitbucket.org/colbenson/react-wrapper/commits/3903554dc4a770f0f5a47f47d9600a853943e9fc)), closes [EX-2732](https://searchbroker.atlassian.net/browse/EX-2732)
+
 ### [1.0.3](https://bitbucket.org/colbenson/react-wrapper/branches/compare/v1.0.3%0Dv1.0.2) (2020-11-05)
 
 
