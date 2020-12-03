@@ -66,6 +66,8 @@ export const rollupConfig = createRollupOptions({
       // lang is set to ts:
       // https://github.com/vuejs/rollup-plugin-vue/issues/272#issuecomment-491721842
       needMap: false,
+      /* Replace the component normalizer because the default one outputs ES6 code:
+       * https://github.com/vuejs/rollup-plugin-vue/issues/262#issuecomment-655966620 */
       normalizer: '~vue-runtime-helpers/dist/normalize-component.js',
       style: {
         postcssPlugins: [
