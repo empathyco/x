@@ -69,6 +69,8 @@ export const rollupConfig = createRollupOptions({
       /* Replace the component normalizer because the default one outputs ES6 code:
        * https://github.com/vuejs/rollup-plugin-vue/issues/262#issuecomment-655966620 */
       normalizer: '~vue-runtime-helpers/dist/normalize-component.js',
+      /* Replace the component style injector because the default one outputs ES6 code */
+      styleInjector: '~vue-runtime-helpers/dist/inject-style/browser.js',
       style: {
         postcssPlugins: [
           autoprefixer({
