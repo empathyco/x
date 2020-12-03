@@ -48,9 +48,15 @@
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
           <BaseFiltersSearch v-slot="{ siftedFilters }" :filters="facet.filters">
-            <BaseFilters v-slot="{ filter }" :filters="siftedFilters">
-              <BaseSimpleFilter :filter="filter" data-test="brand-filter" />
-            </BaseFilters>
+            <BaseSlicedFilters :filters="siftedFilters" :max="8">
+              <template #default="{ slicedFilters }">
+                <BaseFilters v-slot="{ filter }" :filters="slicedFilters">
+                  <BaseSimpleFilter :filter="filter" data-test="brand-filter" />
+                </BaseFilters>
+              </template>
+              <template #show-more="{ difference }">Show {{ difference }} more filters</template>
+              <template #show-less="{ difference }">Show {{ difference }} less filters</template>
+            </BaseSlicedFilters>
           </BaseFiltersSearch>
         </BaseHeaderTogglePanel>
       </template>
@@ -165,6 +171,7 @@
 
 <script lang="ts">
   import BaseFiltersSearch from '../components/filters/base-filters-search.vue';
+  import BaseSlicedFilters from '../components/filters/base-sliced-filters.vue';
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
   import BaseCloseButton from '../components/base-close-button.vue';
   import BaseFilters from '../components/filters/base-filters.vue';
@@ -218,6 +225,7 @@
       SearchButton,
       BaseFilters,
       BaseFiltersSearch,
+      BaseSlicedFilters,
       BaseHeaderTogglePanel,
       BaseHierarchicalFilter,
       BaseCloseButton,

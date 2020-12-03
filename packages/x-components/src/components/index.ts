@@ -10,6 +10,7 @@ export { default as BaseFiltersSearch } from './filters/base-filters-search.vue'
 export { default as BaseFilters } from './filters/base-filters.vue';
 export { default as BaseHierarchicalFilter } from './filters/base-hierarchical-filter.vue';
 export { default as BaseSimpleFilter } from './filters/base-simple-filter.vue';
+export { default as BaseSlicedFilters } from './filters/base-sliced-filters.vue';
 export { noElementComponent } from './no-element';
 export * from './panels';
 export * from './result';
