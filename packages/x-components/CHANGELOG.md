@@ -1,4 +1,11 @@
 # X Components
+### [1.1.2](https://bitbucket.org/colbenson/x-components/branches/compare/v1.1.2%0Dv1.1.1) (2020-12-03)
+
+
+### Bug Fixes
+
+* **build:** replace style injector with ES5 version ([ec89099](https://bitbucket.org/colbenson/x-components/commits/ec890990cdd3c3edfaf6631cfa0fe8b84163e580)), closes [EX-2752](https://searchbroker.atlassian.net/browse/EX-2752)
+
 ### [1.1.1](https://bitbucket.org/colbenson/x-components/branches/compare/v1.1.1%0Dv1.1.0) (2020-12-03)
 
 
