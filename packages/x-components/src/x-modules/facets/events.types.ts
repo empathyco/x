@@ -51,6 +51,11 @@ export interface FacetsXEvents {
    * * Payload: array the facets ids.
    */
   UserClickedClearAllFilters: void;
+  /**
+   * The user has clicked facet select all filters button.
+   * * Payload: Facet id.
+   */
+  UserClickedFacetAllFilter: Facet['id'];
 }
 
 /**

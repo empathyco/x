@@ -87,7 +87,12 @@ export interface FacetsActions {
    * @param newFacets - Facets array to be saved in the state.
    */
   setFacets(newFacets: Facet[]): void;
-
+  /**
+   * Deselects the filters of the provided facet id.
+   *
+   * @param facetId - Facet id from whom deselect all its filters.
+   */
+  clearFacetSelectedFilters(facetId: Facet['id']): void;
   /**
    * Deselects the filters of the provided facets ids.
    *

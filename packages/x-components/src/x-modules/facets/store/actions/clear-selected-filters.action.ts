@@ -1,4 +1,4 @@
-import { Filter } from '@empathy/search-types';
+import { Facet, Filter } from '@empathy/search-types';
 import { ActionsClass } from '../../../../store/actions.types';
 import { FacetsActionsContext, FacetsXStoreModule } from '../types';
 
@@ -28,6 +28,18 @@ export class ClearFilters implements ActionsClass<FacetsXStoreModule> {
    */
   clearFacetsSelectedFilters({ getters, commit }: FacetsActionsContext, facetIds: string[]): void {
     getters.selectedFilters.filter(this.belongsToFacets(facetIds)).forEach(this.deselect(commit));
+  }
+
+  /**
+   * Default implementation for {@link FacetsActions.clearFacetSelectedFilters}.
+   *
+   * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the
+   * actions, provided by Vuex.
+   * @param facetId - Facet id from whom deselect all its filters.
+   * @public
+   */
+  clearFacetSelectedFilters(context: FacetsActionsContext, facetId: Facet['id']): void {
+    this.clearFacetsSelectedFilters(context, [facetId]);
   }
 
   /**
@@ -72,3 +84,10 @@ export const clearSelectedFilters = clearFilters.clearSelectedFilters.bind(clear
 export const clearFacetsSelectedFilters = clearFilters.clearFacetsSelectedFilters.bind(
   clearFilters
 );
+// eslint-disable-next-line jsdoc/require-description-complete-sentence
+/**
+ * {@inheritDoc ClearFilters.clearFacetSelectedFilters}
+ *
+ * @public
+ */
+export const clearFacetSelectedFilters = clearFilters.clearFacetSelectedFilters.bind(clearFilters);

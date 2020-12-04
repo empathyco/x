@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import {
+  clearFacetSelectedFilters,
   clearFacetsSelectedFilters,
   clearSelectedFilters
 } from './actions/clear-selected-filters.action';
@@ -40,6 +41,7 @@ export const facetsXStoreModule: FacetsXStoreModule = {
   actions: {
     setFacets,
     clearSelectedFilters,
+    clearFacetSelectedFilters,
     clearFacetsSelectedFilters,
     toggleSimpleFilter,
     toggleHierarchicalFilter

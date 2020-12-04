@@ -23,6 +23,7 @@
       <template #default="{ facet }">
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
+          <BaseAllFilter :facet="facet" />
           <MultiSelectFilters
             v-slot="{ filter }"
             :filters="facet.filters"
@@ -34,6 +35,7 @@
       </template>
       <template #hierarchical_category="{ facet }">
         <BaseHeaderTogglePanel>
+          <BaseAllFilter :facet="facet" />
           <template #header-content>{{ facet.label }}</template>
           <BaseFilters
             v-slot="{ filter }"
@@ -170,6 +172,7 @@
 </template>
 
 <script lang="ts">
+  import BaseAllFilter from '../components/filters/base-all-filter.vue';
   import BaseFiltersSearch from '../components/filters/base-filters-search.vue';
   import BaseSlicedFilters from '../components/filters/base-sliced-filters.vue';
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
@@ -222,7 +225,7 @@
       next();
     },
     components: {
-      SearchButton,
+      BaseAllFilter,
       BaseFilters,
       BaseFiltersSearch,
       BaseSlicedFilters,
@@ -251,6 +254,7 @@
       QuerySuggestions,
       Recommendations,
       RelatedTags,
+      SearchButton,
       SearchInput,
       SlidingPanel
     }
@@ -327,7 +331,8 @@
     flex-flow: row;
   }
 
-  .x-filter--is-selected {
+  .x-filter--is-selected,
+  .x-all-filter--selected {
     font-weight: bold;
   }
 

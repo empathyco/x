@@ -58,6 +58,13 @@ export const toggleHierarchicalFilter = wireDispatch('toggleHierarchicalFilter')
 export const clearFacetsSelectedFilters = wireDispatch('clearFacetsSelectedFilters');
 
 /**
+ * Deselects the filters of the provided facet id.
+ *
+ * @public
+ */
+export const clearFacetSelectedFilters = wireDispatch('clearFacetSelectedFilters');
+
+/**
  * Deselects all the filters.
  *
  * @public
@@ -87,5 +94,8 @@ export const facetsWiring = createWiring({
   },
   UserClickedClearAllFilters: {
     clearSelectedFilters
+  },
+  UserClickedFacetAllFilter: {
+    clearFacetSelectedFilters
   }
 });

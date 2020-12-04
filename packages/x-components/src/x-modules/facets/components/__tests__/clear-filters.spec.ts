@@ -165,7 +165,7 @@ describe('testing ClearFilters component', () => {
 
     expect(wrapper.find(getDataTestSelector('clear-filters')).exists()).toBe(true);
     expect(listenerClearFilterFacets).toHaveBeenCalledTimes(1);
-    expect(listenerClearFilterFacets).toHaveBeenNthCalledWith(1, {
+    expect(listenerClearFilterFacets).toHaveBeenCalledWith({
       eventPayload: facetsIds,
       metadata: {
         moduleName: 'facets',
