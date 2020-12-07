@@ -41,8 +41,38 @@ describe('testing identifier results module actions', () => {
     it('should request and store identifier results in the state', async () => {
       resetIdentifierResultsStateWith(store, { query: 'xc' });
 
-      await store.dispatch(actionKeys.fetchAndSaveIdentifierResults);
+      const actionPromise = store.dispatch(actionKeys.fetchAndSaveIdentifierResults);
+      expect(store.state.status).toEqual('loading');
+      await actionPromise;
+
       expect(store.state.identifierResults).toEqual(mockedResults);
+      expect(store.state.status).toEqual('success');
+    });
+
+    it('should cancel the previous request if it is not yet resolved', async () => {
+      resetIdentifierResultsStateWith(store, { query: 'xc' });
+      const initialIdentifierResults = store.state.identifierResults;
+      adapter.searchById.mockResolvedValueOnce({ results: mockedResults.slice(0, 1) });
+
+      const firstRequest = store.dispatch(actionKeys.fetchAndSaveIdentifierResults);
+      const secondRequest = store.dispatch(actionKeys.fetchAndSaveIdentifierResults);
+
+      await firstRequest;
+      expect(store.state.status).toEqual('loading');
+      expect(store.state.identifierResults).toBe(initialIdentifierResults);
+      await secondRequest;
+      expect(store.state.status).toEqual('success');
+      expect(store.state.identifierResults).toEqual(mockedResults);
+    });
+
+    it('should set the status to error when it fails', async () => {
+      resetIdentifierResultsStateWith(store, { query: 'xc' });
+      adapter.searchById.mockRejectedValueOnce('Generic error');
+      const identifierResults = store.state.identifierResults;
+      await store.dispatch(actionKeys.fetchAndSaveIdentifierResults);
+
+      expect(store.state.identifierResults).toBe(identifierResults);
+      expect(store.state.status).toEqual('error');
     });
   });
 
@@ -55,6 +85,7 @@ describe('testing identifier results module actions', () => {
         store.dispatch(actionKeys.cancelFetchAndSaveIdentifierResults)
       ]);
       expect(store.state.identifierResults).toEqual(previousIdentifierResults);
+      expect(store.state.status).toEqual('success');
     });
   });
 

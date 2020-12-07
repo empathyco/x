@@ -28,6 +28,13 @@ import { DeepPartial, Dictionary } from '../utils/types';
 import { ExtractState, XModule, XModuleName } from '../x-modules/x-modules.types';
 import { SearchAdapterDummy } from './adapter.dummy';
 
+export type MockedSearchAdapter = {
+  [Method in keyof Required<SearchAdapter>]: jest.Mock<
+    ReturnType<Required<SearchAdapter>[Method]>,
+    Parameters<Required<SearchAdapter>[Method]>
+  >;
+};
+
 /**
  * Creates a selector for a dataTest property.
  *
@@ -116,7 +123,7 @@ export function getMockedAdapterFunction<T = any>(whatReturns: T | null): Mock<P
  */
 export function getMockedAdapter(
   responseFeatures?: Partial<Omit<FeaturesResponseTypes, 'track'>>
-): SearchAdapter {
+): MockedSearchAdapter {
   return {
     // Required functions
     getNextQueries: getMockedAdapterFunction<NextQueriesResponse>(

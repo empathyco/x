@@ -45,13 +45,42 @@ describe('testing related tags module actions', () => {
         query: 'lego'
       });
 
-      await store.dispatch(actionKeys.fetchAndSaveRelatedTags);
+      const actionPromise = store.dispatch(actionKeys.fetchAndSaveRelatedTags);
+      expect(store.state.status).toEqual('loading');
+      await actionPromise;
       expect(store.state.relatedTags).toEqual(mockedRelatedTags);
+      expect(store.state.status).toEqual('success');
     });
 
     it('should clear related tags in the state if the query is empty', async () => {
       await store.dispatch(actionKeys.fetchAndSaveRelatedTags);
       expect(store.state.relatedTags).toEqual([]);
+    });
+
+    it('should cancel the previous request if it is not yet resolved', async () => {
+      resetRelatedTagsStateWith(store, { query: 'coffee' });
+      const initialRelatedTags = store.state.relatedTags;
+      adapter.getRelatedTags.mockResolvedValueOnce({ relatedTags: mockedRelatedTags.slice(0, 1) });
+
+      const firstRequest = store.dispatch(actionKeys.fetchAndSaveRelatedTags);
+      const secondRequest = store.dispatch(actionKeys.fetchAndSaveRelatedTags);
+
+      await firstRequest;
+      expect(store.state.status).toEqual('loading');
+      expect(store.state.relatedTags).toBe(initialRelatedTags);
+      await secondRequest;
+      expect(store.state.status).toEqual('success');
+      expect(store.state.relatedTags).toEqual(mockedRelatedTags);
+    });
+
+    it('should set the status to error when it fails', async () => {
+      resetRelatedTagsStateWith(store, { query: 'lego' });
+      adapter.getRelatedTags.mockRejectedValueOnce('Generic error');
+      const relatedTags = store.state.relatedTags;
+      await store.dispatch(actionKeys.fetchAndSaveRelatedTags);
+
+      expect(store.state.relatedTags).toBe(relatedTags);
+      expect(store.state.status).toEqual('error');
     });
   });
 
@@ -64,6 +93,7 @@ describe('testing related tags module actions', () => {
         store.dispatch(actionKeys.cancelFetchAndSaveRelatedTags)
       ]);
       expect(store.state.relatedTags).toEqual(previousRelatedTags);
+      expect(store.state.status).toEqual('success');
     });
   });
 

@@ -50,8 +50,11 @@ describe('testing next queries module actions', () => {
         }
       });
 
-      await store.dispatch(actionKeys.fetchAndSaveNextQueries);
+      const actionPromise = store.dispatch(actionKeys.fetchAndSaveNextQueries);
+      expect(store.state.status).toEqual('loading');
+      await actionPromise;
       expect(store.state.nextQueries).toEqual(mockedNextQueries);
+      expect(store.state.status).toEqual('success');
     });
 
     it('should not clear next queries in the state if the query is empty', async () => {
@@ -59,6 +62,32 @@ describe('testing next queries module actions', () => {
 
       await store.dispatch(actionKeys.fetchAndSaveNextQueries);
       expect(store.state.nextQueries).toEqual(mockedNextQueries);
+    });
+
+    it('should cancel the previous request if it is not yet resolved', async () => {
+      resetNextQueriesStateWith(store, { query: 'steak' });
+      const initialNextQueries = store.state.nextQueries;
+      adapter.getNextQueries.mockResolvedValueOnce({ nextQueries: mockedNextQueries.slice(0, 1) });
+
+      const firstRequest = store.dispatch(actionKeys.fetchAndSaveNextQueries);
+      const secondRequest = store.dispatch(actionKeys.fetchAndSaveNextQueries);
+
+      await firstRequest;
+      expect(store.state.status).toEqual('loading');
+      expect(store.state.nextQueries).toBe(initialNextQueries);
+      await secondRequest;
+      expect(store.state.status).toEqual('success');
+      expect(store.state.nextQueries).toEqual(mockedNextQueries);
+    });
+
+    it('should set the status to error when it fails', async () => {
+      resetNextQueriesStateWith(store, { query: 'milk' });
+      adapter.getNextQueries.mockRejectedValueOnce('Generic error');
+      const nextQueries = store.state.nextQueries;
+      await store.dispatch(actionKeys.fetchAndSaveNextQueries);
+
+      expect(store.state.nextQueries).toBe(nextQueries);
+      expect(store.state.status).toEqual('error');
     });
   });
 
@@ -71,6 +100,7 @@ describe('testing next queries module actions', () => {
         store.dispatch(actionKeys.cancelFetchAndSaveNextQueries)
       ]);
       expect(store.state.nextQueries).toEqual(previousNextQueries);
+      expect(store.state.status).toEqual('success');
     });
   });
 

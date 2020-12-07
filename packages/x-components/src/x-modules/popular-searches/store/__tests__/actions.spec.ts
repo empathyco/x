@@ -27,8 +27,35 @@ describe('testing popular searches module actions', () => {
 
   describe(`${actionKeys.fetchAndSaveSuggestions}`, () => {
     it('should request and store suggestions in the state', async () => {
-      await store.dispatch(actionKeys.fetchAndSaveSuggestions);
+      const actionPromise = store.dispatch(actionKeys.fetchAndSaveSuggestions);
+      expect(store.state.status).toEqual('loading');
+      await actionPromise;
       expect(store.state.popularSearches).toEqual(mockedSuggestions);
+      expect(store.state.status).toEqual('success');
+    });
+
+    it('should cancel the previous request if it is not yet resolved', async () => {
+      const initialPopularSearches = store.state.popularSearches;
+      adapter.getSuggestions.mockResolvedValueOnce({ suggestions: mockedSuggestions.slice(0, 1) });
+
+      const firstRequest = store.dispatch(actionKeys.fetchAndSaveSuggestions);
+      const secondRequest = store.dispatch(actionKeys.fetchAndSaveSuggestions);
+
+      await firstRequest;
+      expect(store.state.status).toEqual('loading');
+      expect(store.state.popularSearches).toBe(initialPopularSearches);
+      await secondRequest;
+      expect(store.state.status).toEqual('success');
+      expect(store.state.popularSearches).toEqual(mockedSuggestions);
+    });
+
+    it('should set the status to error when it fails', async () => {
+      adapter.getSuggestions.mockRejectedValueOnce('Generic error');
+      const popularSearches = store.state.popularSearches;
+      await store.dispatch(actionKeys.fetchAndSaveSuggestions);
+
+      expect(store.state.popularSearches).toBe(popularSearches);
+      expect(store.state.status).toEqual('error');
     });
   });
 
@@ -40,6 +67,7 @@ describe('testing popular searches module actions', () => {
         store.dispatch(actionKeys.cancelFetchAndSaveSuggestions)
       ]);
       expect(store.state.popularSearches).toEqual(previousPopularSearches);
+      expect(store.state.status).toEqual('success');
     });
   });
 });

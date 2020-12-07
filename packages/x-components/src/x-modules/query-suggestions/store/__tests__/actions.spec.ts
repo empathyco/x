@@ -7,7 +7,7 @@ import { querySuggestionsXStoreModule } from '../module';
 import { QuerySuggestionsState } from '../types';
 import { resetQuerySuggestionsStateWith } from './utils';
 
-describe('testing history queries module actions', () => {
+describe('testing query suggestions module actions', () => {
   const mockedSuggestions = getSuggestionsStub('QuerySuggestion');
 
   const adapter = getMockedAdapter({ suggestions: { suggestions: mockedSuggestions } });
@@ -42,13 +42,42 @@ describe('testing history queries module actions', () => {
     it('should request and store suggestions in the state', async () => {
       resetQuerySuggestionsStateWith(store, { query: 'luichito' });
 
-      await store.dispatch(actionKeys.fetchAndSaveSuggestions);
+      const actionPromise = store.dispatch(actionKeys.fetchAndSaveSuggestions);
+      expect(store.state.status).toEqual('loading');
+      await actionPromise;
       expect(store.state.suggestions).toEqual(mockedSuggestions);
+      expect(store.state.status).toEqual('success');
     });
 
     it('should clear suggestions in the state if the query is empty', async () => {
       await store.dispatch(actionKeys.fetchAndSaveSuggestions);
       expect(store.state.suggestions).toEqual([]);
+    });
+
+    it('should cancel the previous request if it is not yet resolved', async () => {
+      resetQuerySuggestionsStateWith(store, { query: 'chorizo' });
+      const initialQuerySuggestions = store.state.suggestions;
+      adapter.getSuggestions.mockResolvedValueOnce({ suggestions: mockedSuggestions.slice(0, 1) });
+
+      const firstRequest = store.dispatch(actionKeys.fetchAndSaveSuggestions);
+      const secondRequest = store.dispatch(actionKeys.fetchAndSaveSuggestions);
+
+      await firstRequest;
+      expect(store.state.status).toEqual('loading');
+      expect(store.state.suggestions).toBe(initialQuerySuggestions);
+      await secondRequest;
+      expect(store.state.status).toEqual('success');
+      expect(store.state.suggestions).toEqual(mockedSuggestions);
+    });
+
+    it('should set the status to error when it fails', async () => {
+      resetQuerySuggestionsStateWith(store, { query: 'lego' });
+      adapter.getSuggestions.mockRejectedValueOnce('Generic error');
+      const suggestions = store.state.suggestions;
+      await store.dispatch(actionKeys.fetchAndSaveSuggestions);
+
+      expect(store.state.suggestions).toBe(suggestions);
+      expect(store.state.status).toEqual('error');
     });
   });
 
@@ -61,6 +90,7 @@ describe('testing history queries module actions', () => {
         store.dispatch(actionKeys.cancelFetchAndSaveSuggestions)
       ]);
       expect(store.state.suggestions).toEqual(previousSuggestions);
+      expect(store.state.status).toEqual('success');
     });
   });
 });
