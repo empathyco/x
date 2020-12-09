@@ -1,13 +1,9 @@
 <template>
-  <component
-    :is="animation"
-    v-if="open"
-    tag="div"
-    class="x-toggle-panel"
-    data-test="base-toggle-panel"
-  >
-    <!-- @slot (Required) Default content -->
-    <slot />
+  <component :is="animation">
+    <div v-if="open" class="x-toggle-panel" data-test="base-toggle-panel">
+      <!-- @slot (Required) Default content -->
+      <slot />
+    </div>
   </component>
 </template>
 
