@@ -1,6 +1,6 @@
 {
   "name": "@empathy/eslint-plugin-x",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "ESLint, Prettier and standard-version rules and configurations",
   "keywords": [
     "eslint",

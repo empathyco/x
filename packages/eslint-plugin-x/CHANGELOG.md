@@ -1,4 +1,6 @@
 # ESLint Plugin X
+### [1.2.1](https://bitbucket.org/colbenson/eslint-plugin-x/branches/compare/v1.2.1%0Dv1.2.0) (2020-12-11)
+
 ## [1.2.0](https://bitbucket.org/colbenson/eslint-plugin-x/branches/compare/v1.2.0%0Dv1.1.0) (2020-09-30)
 
 
