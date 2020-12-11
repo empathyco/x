@@ -7,7 +7,7 @@ module.exports = {
     ],
     rules: {
       'curly': ['error', 'all'],
-      'eqeqeq': 'error',
+      'eqeqeq': ['error', 'allow-null'],
       'indent': 'off',
       'max-len': ['error', { code: 100, ignoreComments: false }],
       'no-alert': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -25,7 +25,8 @@ module.exports = {
       'no-unused-vars': 'off',
       'require-atomic-updates': 'error',
       'require-await': 'error',
-      'strict': ['error', 'global']
+      'strict': ['error', 'global'],
+      'no-duplicate-imports': 'error'
     }
   }
 };

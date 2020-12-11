@@ -14,7 +14,8 @@ module.exports = {
           'target': './',
           'from': './types'
         }]
-      }]
+      }],
+      'import/order': 'error'
     },
     settings: {
       'import/resolver': {
