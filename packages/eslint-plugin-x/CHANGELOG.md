@@ -1,5 +1,9 @@
 # ESLint Plugin X
-### [1.2.1](https://bitbucket.org/colbenson/eslint-plugin-x/branches/compare/v1.2.1%0Dv1.2.0) (2020-12-11)
+## [1.2.1](https://bitbucket.org/colbenson/eslint-plugin-x/branches/compare/v1.2.1%0Dv1.2.0) (2020-12-11)
+
+### Fix
+
+* **prettier:** replaced prettier organize import plugin with import plugin ([f84345b](https://bitbucket.org/colbenson/eslint-plugin-x/commits/f84345b767788d00f06bc4f5051b9f414e0b57f0?at=develop)), closes [EX-2760](https://searchbroker.atlassian.net/browse/EX-2760)
 
 ## [1.2.0](https://bitbucket.org/colbenson/eslint-plugin-x/branches/compare/v1.2.0%0Dv1.1.0) (2020-09-30)
 
