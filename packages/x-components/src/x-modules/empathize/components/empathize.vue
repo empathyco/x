@@ -18,7 +18,7 @@
   import Vue from 'vue';
   import Component from 'vue-class-component';
   import { Prop } from 'vue-property-decorator';
-  import {Debounce, noElementComponent, xComponentMixin, XOn} from '../../../components';
+  import { Debounce, noElementComponent, xComponentMixin, XOn } from '../../../components';
   import { WireMetadata, XEvent } from '../../../wiring';
   import { empathizeXModule } from '../x-module';
 
@@ -116,8 +116,11 @@
     changeOpenState(newOpenState: boolean, metadata: WireMetadata): void {
       if (this.isOpen !== newOpenState) {
         this.isOpen = newOpenState;
-        this.$x.emit(this.isOpen ? 'EmpathizeOpened' : 'EmpathizeClosed', undefined,
-          metadata ?? { moduleName: 'empathize', target: this.$el });
+        this.$x.emit(
+          this.isOpen ? 'EmpathizeOpened' : 'EmpathizeClosed',
+          undefined,
+          metadata ?? { moduleName: 'empathize', target: this.$el }
+        );
       }
     }
   }

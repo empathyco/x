@@ -60,6 +60,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import { Result } from '@empathy/search-types';
   import { Getter, State } from '../components/decorators/store.decorators';
   import BaseFilters from '../components/filters/base-filters.vue';
   import BaseHierarchicalFilter from '../components/filters/base-hierarchical-filter.vue';
@@ -73,7 +74,6 @@
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import { searchXModule } from '../x-modules/search/x-module';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
-  import { Result } from '@empathy/search-types';
 
   XPlugin.registerXModule(searchXModule);
   @Component({

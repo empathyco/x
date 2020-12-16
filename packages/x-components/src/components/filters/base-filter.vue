@@ -18,8 +18,8 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import BaseEventButton from '../../components/base-event-button.vue';
   import { Filter } from '@empathy/search-types';
+  import BaseEventButton from '../../components/base-event-button.vue';
   import { VueCSSClasses } from '../../utils/types';
   import { XEventsTypes } from '../../wiring/events.types';
 

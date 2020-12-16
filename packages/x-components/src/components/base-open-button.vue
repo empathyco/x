@@ -22,7 +22,7 @@
     components: { BaseEventButton }
   })
   export default class BaseOpenButton extends Vue {
-    @Prop({ default: 'UserOpenedX'})
+    @Prop({ default: 'UserOpenedX' })
     protected openingEvent!: PropsWithType<XEventsTypes, void>;
 
     protected get events(): Partial<XEventsTypes> {

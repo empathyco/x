@@ -22,7 +22,7 @@
     components: { BaseEventButton }
   })
   export default class BaseCloseButton extends Vue {
-    @Prop({ default: 'UserClosedX'})
+    @Prop({ default: 'UserClosedX' })
     protected closingEvent!: PropsWithType<XEventsTypes, void>;
 
     protected get events(): Partial<XEventsTypes> {

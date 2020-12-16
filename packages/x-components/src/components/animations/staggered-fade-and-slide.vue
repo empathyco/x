@@ -11,9 +11,9 @@
 </template>
 
 <script lang="ts">
-  import Vue from "vue";
-  import { Component } from "vue-property-decorator";
-  import StaggeringTransitionGroup from "../staggering-transition-group.vue";
+  import Vue from 'vue';
+  import { Component } from 'vue-property-decorator';
+  import StaggeringTransitionGroup from '../staggering-transition-group.vue';
 
   /**
    * Renders a transition group wrapping the elements passed in the default slot and animating

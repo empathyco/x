@@ -17,10 +17,10 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import BaseFilter from './base-filter.vue';
   import { SimpleFilter } from '@empathy/search-types';
   import { VueCSSClasses } from '../../utils/types';
   import { XEventsTypes } from '../../wiring/events.types';
+  import BaseFilter from './base-filter.vue';
 
   /**
    * Renders a simple filter, emitting the needed events when clicked.

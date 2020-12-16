@@ -18,8 +18,8 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import BaseEventButton from '../base-event-button.vue';
   import { Facet } from '@empathy/search-types';
+  import BaseEventButton from '../base-event-button.vue';
   import { VueCSSClasses } from '../../utils/types';
   import { XEventsTypes } from '../../wiring/events.types';
 
@@ -46,7 +46,7 @@
      */
     protected clickEvent: Partial<XEventsTypes> = {
       UserClickedFacetAllFilter: this.facet.id
-    }
+    };
 
     /**
      * Dynamic CSS classes to apply to the component.
@@ -60,7 +60,7 @@
     protected get cssClasses(): VueCSSClasses {
       return {
         'x-all-filter--selected': !this.facet.filters.some(filter => filter.selected)
-      }
+      };
     }
   }
 </script>

@@ -15,11 +15,7 @@
   // eslint-disable-next-line max-len
   import { DirectionalFocusNavigationService } from '../services/directional-focus-navigation.service';
   import { SpatialNavigation } from '../services/services.types';
-  import {
-    ArrowKey,
-    EventsForDirectionLimit,
-    TakeNavigationControl
-  } from '../utils/types';
+  import { ArrowKey, EventsForDirectionLimit, TakeNavigationControl } from '../utils/types';
   import { XEventsOf } from '../wiring/events.types';
   import { WireMetadata } from '../wiring/wiring.types';
   import { XOn } from './decorators/store.decorators';
@@ -53,7 +49,7 @@
      * An {@link EventsForDirectionLimit} to emit when the user is already at the furthest element
      * in a direction and tries to keep going on the same direction.
      */
-    @Prop({ default: () => ({ ArrowUp: 'UserReachedEmpathizeTop' })})
+    @Prop({ default: () => ({ ArrowUp: 'UserReachedEmpathizeTop' }) })
     protected eventsForDirectionLimit!: Partial<EventsForDirectionLimit>;
 
     /**
@@ -108,8 +104,9 @@
      * @internal
      */
     private hasToTakeNavigationControl(eventPayload: ArrowKey, metadata: WireMetadata): boolean {
-      return this.navigationHijacker.some(({ moduleName, direction }) =>
-        moduleName === metadata.moduleName && direction === eventPayload
+      return this.navigationHijacker.some(
+        ({ moduleName, direction }) =>
+          moduleName === metadata.moduleName && direction === eventPayload
       );
     }
 
@@ -120,7 +117,7 @@
      * @internal
      */
     protected focusNextNavigableElement(direction: ArrowKey | KeyboardEvent): void {
-      const dir = typeof direction === 'object' ? (direction.key) as ArrowKey : direction;
+      const dir = typeof direction === 'object' ? (direction.key as ArrowKey) : direction;
       const nextElementToFocus = this.navigationService?.navigateTo(dir);
 
       if (this.elementToFocus !== nextElementToFocus) {

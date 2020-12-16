@@ -41,7 +41,7 @@
      *
      * @public
      */
-    @Prop({ required:true })
+    @Prop({ required: true })
     protected suggestion!: NextQueryModel;
 
     /**

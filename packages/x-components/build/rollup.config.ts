@@ -1,7 +1,7 @@
+import path from 'path';
 import buble from '@rollup/plugin-buble';
 import commonjs from '@rollup/plugin-commonjs';
 import autoprefixer from 'autoprefixer';
-import path from 'path';
 import { RollupOptions } from 'rollup';
 import del from 'rollup-plugin-delete';
 import typescript from 'rollup-plugin-typescript2';

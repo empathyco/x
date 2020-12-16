@@ -119,8 +119,10 @@
     emitDebouncedUserAcceptedAQuery(query: string): void {
       if (this.instant) {
         if (!this.debouncedUserAcceptedAQuery) {
-          this.debouncedUserAcceptedAQuery =
-            debounce(this.emitUserAcceptedAQuery.bind(this), this.instantDebounceInMs);
+          this.debouncedUserAcceptedAQuery = debounce(
+            this.emitUserAcceptedAQuery.bind(this),
+            this.instantDebounceInMs
+          );
         }
         this.debouncedUserAcceptedAQuery(query);
       }

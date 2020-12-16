@@ -33,11 +33,11 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import BaseFilter from './base-filter.vue';
   import { HierarchicalFilter } from '@empathy/search-types';
   import { isFilterPartiallySelected } from '../../utils/filters';
   import { VueCSSClasses } from '../../utils/types';
   import { XEventsTypes } from '../../wiring/events.types';
+  import BaseFilter from './base-filter.vue';
   import BaseFilters from './base-filters.vue';
 
   /**

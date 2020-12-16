@@ -38,7 +38,7 @@
      *
      * @public
      */
-    @State('identifierResults','query')
+    @State('identifierResults', 'query')
     public query!: string;
 
     /**
@@ -59,8 +59,10 @@
     protected get highlightedQueryHTML(): string {
       const identifierValue = this.result.identifier.value;
       if (identifierValue && this.identifierHighlightRegexp) {
-        return identifierValue.replace(this.identifierHighlightRegexp,
-          '<span class="x-identifier-result__matching-part">$1</span>');
+        return identifierValue.replace(
+          this.identifierHighlightRegexp,
+          '<span class="x-identifier-result__matching-part">$1</span>'
+        );
       }
       return identifierValue;
     }

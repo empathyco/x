@@ -17,13 +17,13 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
+  import { RelatedTag as RelatedTagModel } from '@empathy/search-types';
   import BaseEventButton from '../../../components/base-event-button.vue';
   import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { VueCSSClasses } from '../../../utils/types';
   import { RelatedTagsXEvents } from '../events.types';
   import { relatedTagsXModule } from '../x-module';
-  import { RelatedTag as RelatedTagModel } from '@empathy/search-types';
 
   /**
    * Renders a related tag item which receives the related tag that will be rendered as a prop.
@@ -57,13 +57,15 @@
      * @public
      */
     protected get events(): Partial<RelatedTagsXEvents> {
-      return this.isSelected ? {
-        UserPickedARelatedTag: this.relatedTag,
-        UserDeselectedARelatedTag: this.relatedTag
-      } : {
-        UserPickedARelatedTag: this.relatedTag,
-        UserSelectedARelatedTag: this.relatedTag
-      };
+      return this.isSelected
+        ? {
+            UserPickedARelatedTag: this.relatedTag,
+            UserDeselectedARelatedTag: this.relatedTag
+          }
+        : {
+            UserPickedARelatedTag: this.relatedTag,
+            UserSelectedARelatedTag: this.relatedTag
+          };
     }
     /**
      * Check if the related tag is selected or not.

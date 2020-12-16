@@ -24,7 +24,6 @@
    */
   @Component
   export default class CollapseHeight extends Vue {
-
     /**
      * The height changes from 0 to the element's scroll height.
      *
@@ -34,7 +33,7 @@
      */
     protected expand(element: HTMLElement): void {
       element.style.height = '0';
-      element.style.height = `${ element.scrollHeight }px`;
+      element.style.height = `${element.scrollHeight}px`;
     }
 
     /**
@@ -56,7 +55,7 @@
      * @internal
      */
     protected collapse(element: HTMLElement): void {
-      element.style.height = `${ element.scrollHeight }px`;
+      element.style.height = `${element.scrollHeight}px`;
       // This is intended. We want to provoke a layer repaint to apply this style.
       element.getBoundingClientRect();
       element.style.height = '0';

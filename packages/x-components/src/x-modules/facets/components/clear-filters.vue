@@ -16,10 +16,10 @@
   import { Component, Prop } from 'vue-property-decorator';
   import Vue from 'vue';
   import { Getter, xComponentMixin } from '../../../components';
-  import { XEventsTypes } from 'src/wiring';
   import BaseEventButton from '../../../components/base-event-button.vue';
-  import { VueCSSClasses } from 'src/utils';
   import { facetsXModule } from '../x-module';
+  import { XEventsTypes } from 'src/wiring';
+  import { VueCSSClasses } from 'src/utils';
 
   /**
    * Renders a simple button, emitting the needed events when clicked.
@@ -47,7 +47,7 @@
      * @public
      */
     @Prop()
-    public facetsIds?: Array<Facet['id']>
+    public facetsIds?: Array<Facet['id']>;
 
     /**
      * Get the selected filters from store.
@@ -81,8 +81,8 @@
      * @internal
      */
     protected get facetsSelectedFilters(): Filter[] {
-      if(this.facetsIds) {
-        return this.allSelectedFilters.filter(filter => this.facetsIds!.includes(filter.facetId))
+      if (this.facetsIds) {
+        return this.allSelectedFilters.filter(filter => this.facetsIds!.includes(filter.facetId));
       } else {
         return this.allSelectedFilters;
       }
@@ -105,11 +105,13 @@
      * @internal
      */
     protected get events(): Partial<XEventsTypes> {
-      return this.facetsIds ? {
-        UserClickedClearFacetFilters: this.facetsIds
-      } : {
-        UserClickedClearAllFilters: undefined
-      };
+      return this.facetsIds
+        ? {
+            UserClickedClearFacetFilters: this.facetsIds
+          }
+        : {
+            UserClickedClearAllFilters: undefined
+          };
     }
 
     /**

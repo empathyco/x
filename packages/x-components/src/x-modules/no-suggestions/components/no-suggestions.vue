@@ -78,8 +78,9 @@
      * @internal
      */
     protected get hasSuggestionsOrLoading(): boolean {
-      return Object.values(this.suggestionsEvents).some(suggestions =>
-        !suggestions || suggestions.length > 0);
+      return Object.values(this.suggestionsEvents).some(
+        suggestions => !suggestions || suggestions.length > 0
+      );
     }
 
     /**
@@ -101,7 +102,9 @@
      */
     @Watch('query')
     protected onQueryChanged(): void {
-      this.eventsToRender.forEach(event => this.suggestionsEvents[event] = null);
+      this.eventsToRender.forEach(event => {
+        this.suggestionsEvents[event] = null;
+      });
     }
 
     /**
@@ -132,9 +135,9 @@
       eventsToRender.forEach(event => {
         // Make each dynamic object property reactive
         this.$set(this.suggestionsEvents, event, null);
-        const subscription = this.$x.on(event).subscribe((payload: any[]) =>
-          this.suggestionsEvents[event] = payload
-        );
+        const subscription = this.$x.on(event).subscribe((payload: any[]) => {
+          this.suggestionsEvents[event] = payload;
+        });
         this.eventSubscriptions.push(subscription);
       });
     }
@@ -156,7 +159,8 @@
      */
     protected deleteSuggestionsEvents(): void {
       Object.keys(this.suggestionsEvents).forEach(event =>
-        this.$delete(this.suggestionsEvents, event));
+        this.$delete(this.suggestionsEvents, event)
+      );
     }
   }
 </script>

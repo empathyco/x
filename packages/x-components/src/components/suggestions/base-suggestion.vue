@@ -119,11 +119,14 @@
       if (this.hasMatchingQuery) {
         const matcherIndex = normalizeString(this.suggestion.query).indexOf(this.query);
 
-        const [beginning, matching, end] = this.splitAt(this.suggestion.query, matcherIndex,
-          this.query.length);
+        const [beginning, matching, end] = this.splitAt(
+          this.suggestion.query,
+          matcherIndex,
+          this.query.length
+        );
 
         const attrsMatching = 'data-test="matching-part" class="x-suggestion__matching-part"';
-        return`${ beginning }<span ${ attrsMatching }>${ matching }</span>${ end }`;
+        return `${beginning}<span ${attrsMatching}>${matching}</span>${end}`;
       }
 
       return sanitize(this.suggestion.query);

@@ -77,7 +77,7 @@
      * @internal
      */
     protected get slicedFilters(): Filter[] {
-      return this.showMoreFilters ?  this.filters.slice(0, this.max) : this.filters;
+      return this.showMoreFilters ? this.filters.slice(0, this.max) : this.filters;
     }
 
     /**
@@ -108,7 +108,7 @@
     protected get cssClasses(): VueCSSClasses {
       return {
         'x-sliced-filters--is-sliced': this.showButton
-      }
+      };
     }
   }
 </script>

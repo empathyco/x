@@ -38,7 +38,7 @@
      * @public
      */
     protected get events(): Partial<XEventsTypes> {
-      return { UserClickedResultAddToCart: this.result }
+      return { UserClickedResultAddToCart: this.result };
     }
   }
 </script>

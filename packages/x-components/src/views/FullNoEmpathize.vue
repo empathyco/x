@@ -137,7 +137,7 @@
     protected fadeAndSlide = FadeAndSlide;
 
     /* Testing purpose */
-    @Getter('search','results')
+    @Getter('search', 'results')
     public results!: Result[];
   }
 </script>

@@ -49,7 +49,6 @@
      */
     @State('identifierResults', 'identifierResults')
     public identifierResults!: Result[];
-
   }
 </script>
 

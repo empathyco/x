@@ -1,4 +1,3 @@
-import Mock = jest.Mock;
 import {
   ClicksRecommendationsResponse,
   FeaturesResponseTypes,
@@ -27,6 +26,7 @@ import { cleanGettersProxyCache } from '../store/utils/get-getters-proxy';
 import { DeepPartial, Dictionary } from '../utils/types';
 import { ExtractState, XModule, XModuleName } from '../x-modules/x-modules.types';
 import { SearchAdapterDummy } from './adapter.dummy';
+import Mock = jest.Mock;
 
 export type MockedSearchAdapter = {
   [Method in keyof Required<SearchAdapter>]: jest.Mock<

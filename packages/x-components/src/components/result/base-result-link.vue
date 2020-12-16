@@ -73,7 +73,7 @@
       this.metadata = {
         target: this.$el as HTMLElement,
         origin: this.origin
-      }
+      };
     }
 
     /**

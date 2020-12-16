@@ -42,7 +42,7 @@
 
   @Component({
     beforeRouteEnter(_to, _from, next: () => void): void {
-      new XInstaller(baseInstallXOptions).init(baseSnippetConfig)
+      new XInstaller(baseInstallXOptions).init(baseSnippetConfig);
       next();
     },
     components: {

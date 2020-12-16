@@ -21,7 +21,7 @@
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { facetsXModule } from '../x-module';
   import BaseFilters from '../../../components/filters/base-filters.vue';
-  import { FacetsConfig } from "../config.types";
+  import { FacetsConfig } from '../config.types';
 
   /**
    * The component renders a list of filters, exposing a default slot to set how the filter should
@@ -98,10 +98,7 @@
        - The component has been destroyed, and then mounted again. For example if it is inside
        any kind of panel or modal.
        */
-      if (
-        this.facetId !== null &&
-        !this.facetsConfig.multiSelect[this.facetId]
-      ) {
+      if (this.facetId !== null && !this.facetsConfig.multiSelect[this.facetId]) {
         this.$x.emit('FacetMultiSelectChanged', {
           facetId: this.facetId,
           multiSelect: true

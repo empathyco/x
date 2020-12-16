@@ -120,8 +120,10 @@
      *
      * @internal
      */
-    protected observerHandler(entries: IntersectionObserverEntry[],
-      observer: IntersectionObserver): void {
+    protected observerHandler(
+      entries: IntersectionObserverEntry[],
+      observer: IntersectionObserver
+    ): void {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           this.hasEnteredView = true;

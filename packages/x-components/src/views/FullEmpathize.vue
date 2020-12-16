@@ -114,7 +114,7 @@
   @Component({
     beforeRouteEnter(_to, _from, next: () => void): void {
       XPlugin.registerXModule(searchXModule);
-      new XInstaller(baseInstallXOptions).init(baseSnippetConfig)
+      new XInstaller(baseInstallXOptions).init(baseSnippetConfig);
       next();
     },
     components: {
@@ -141,7 +141,7 @@
     protected fadeAndSlide = FadeAndSlide;
     protected collapseFromTop = CollapseFromTop;
     /* Testing purpose */
-    @Getter('search','results')
+    @Getter('search', 'results')
     public results!: Result[];
   }
 </script>

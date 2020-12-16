@@ -57,7 +57,9 @@
      */
     @Watch('debounceInMs', { immediate: true })
     updateSetQueryDebounced(): void {
-      this.setQueryDebounced = debounce(query => this.query = query, this.debounceInMs);
+      this.setQueryDebounced = debounce(query => {
+        this.query = query;
+      }, this.debounceInMs);
     }
 
     /**
@@ -80,7 +82,7 @@
     protected get cssClasses(): VueCSSClasses {
       return {
         'x-filters-search--is-sifted': !!this.query
-      }
+      };
     }
 
     /**

@@ -172,6 +172,9 @@
 </template>
 
 <script lang="ts">
+  import Vue from 'vue';
+  import { Component } from 'vue-property-decorator';
+  import { Result } from '@empathy/search-types';
   import BaseAllFilter from '../components/filters/base-all-filter.vue';
   import BaseFiltersSearch from '../components/filters/base-filters-search.vue';
   import BaseSlicedFilters from '../components/filters/base-sliced-filters.vue';
@@ -208,15 +211,12 @@
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import SlidingPanel from '../components/sliding-panel.vue';
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
-  import Vue from 'vue';
-  import { baseInstallXOptions, baseSnippetConfig } from './base-config';
-  import { Component } from 'vue-property-decorator';
   import { Getter } from '../components/decorators/store.decorators';
   import { getURLParameter } from '../utils/get-url-parameters';
-  import { Result } from '@empathy/search-types';
   import { searchXModule } from '../x-modules/search/x-module';
   import { XInstaller } from '../x-installer/x-installer';
   import { XPlugin } from '../plugins/x-plugin';
+  import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
     beforeRouteEnter(_to, _from, next: () => void): void {

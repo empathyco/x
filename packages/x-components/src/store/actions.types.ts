@@ -40,11 +40,9 @@ export interface XActionContext<
  * @param Action - The action function to extract its type.
  * @public
  */
-export type ExtractActionReturn<Action extends (payload?: any) => any> = ReturnType<
-  Action
-> extends Promise<any>
-  ? ReturnType<Action>
-  : Promise<ReturnType<Action>>;
+export type ExtractActionReturn<
+  Action extends (payload?: any) => any
+> = ReturnType<Action> extends Promise<any> ? ReturnType<Action> : Promise<ReturnType<Action>>;
 
 /**
  * Util type for being used on generic constraints which will only accept an object containing

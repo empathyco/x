@@ -25,12 +25,12 @@
 </template>
 
 <script lang="ts">
-  import {Facet} from '@empathy/search-types';
-  import {Component, Prop, Vue} from 'vue-property-decorator';
-  import { Dictionary } from "../../../utils/types";
-  import { State } from "../../../components/decorators/store.decorators";
-  import { xComponentMixin } from "../../../components/x-component.mixin";
-  import { facetsXModule } from "../x-module";
+  import { Facet } from '@empathy/search-types';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Dictionary } from '../../../utils/types';
+  import { State } from '../../../components/decorators/store.decorators';
+  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { facetsXModule } from '../x-module';
 
   /**
    * Facets component that renders the available facets.

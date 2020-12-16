@@ -39,7 +39,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { Debounce } from "./decorators/debounce.decorators";
+  import { Debounce } from './decorators/debounce.decorators';
 
   /**
    * Horizontal slide panel component. The content that is provided to this component would be
@@ -53,13 +53,13 @@
      * Scroll factor that will dictate how much the scroll moves when pressing a navigation button.
      */
     @Prop({ default: 0.7 })
-    protected scrollFactor!: number
+    protected scrollFactor!: number;
 
     /**
      * Would make the navigation buttons visible when they're needed or always hide them.
      */
     @Prop({ default: true })
-    protected showButtons!: boolean
+    protected showButtons!: boolean;
 
     /**
      * MutationObserver that watches for changes inside the wrapping div to update
@@ -84,12 +84,16 @@
      * HTMLElement referencing the scroll of the component.
      */
     public $refs!: {
-      scrollContainer: HTMLElement
-    }
+      scrollContainer: HTMLElement;
+    };
 
     mounted(): void {
-      this.scrollObserver.observe(this.$refs.scrollContainer,
-        { attributes: false, childList: true, subtree: true, characterData: false });
+      this.scrollObserver.observe(this.$refs.scrollContainer, {
+        attributes: false,
+        childList: true,
+        subtree: true,
+        characterData: false
+      });
       // eslint-disable-next-line @typescript-eslint/unbound-method
       window?.addEventListener('resize', this.debouncedUpdateScrollPosition);
 
@@ -122,7 +126,7 @@
       const { scrollLeft, clientWidth, scrollWidth } = this.$refs.scrollContainer;
       this.isScrollAtStart = !scrollLeft;
       /* The 2 px extra is to fix some cases in some resolutions where the scroll + client size is
-      *  less than the scroll width even when the scroll is at the end */
+       *  less than the scroll width even when the scroll is at the end */
       this.isScrollAtEnd = scrollLeft + clientWidth + 2 >= scrollWidth;
     }
 

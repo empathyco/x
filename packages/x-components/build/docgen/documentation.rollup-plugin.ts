@@ -1,3 +1,6 @@
+import { exec } from 'child_process';
+import fs from 'fs';
+import path from 'path';
 import {
   ConsoleMessageId,
   Extractor,
@@ -7,9 +10,6 @@ import {
   ExtractorResult,
   IExtractorInvokeOptions
 } from '@microsoft/api-extractor';
-import { exec } from 'child_process';
-import fs from 'fs';
-import path from 'path';
 import { Plugin } from 'rollup';
 import { copyFolderSync, ensureDirectoryPathExists, ensureFilePathExists } from '../build.utils';
 import { modifyDocForRunbooks } from './runbooks-integraton';
