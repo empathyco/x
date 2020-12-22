@@ -14,6 +14,9 @@
     <SlidingPanel>
       <RelatedTags :animation="staggeredFadeAndSlide" />
     </SlidingPanel>
+    <div>
+      <BaseCurrency :value="12345678.87654321" format="i.iii,ddd €" :hide-integer-decimals="true" />
+    </div>
     <!-- Facets -->
     <h1>Facets</h1>
     <ClearFilters v-slot="{ selectedFilters }" :alwaysVisible="true">
@@ -175,6 +178,7 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { Result } from '@empathy/search-types';
+  import BaseCurrency from '../components/currency/base-currency.vue';
   import BaseAllFilter from '../components/filters/base-all-filter.vue';
   import BaseFiltersSearch from '../components/filters/base-filters-search.vue';
   import BaseSlicedFilters from '../components/filters/base-sliced-filters.vue';
@@ -256,7 +260,8 @@
       RelatedTags,
       SearchButton,
       SearchInput,
-      SlidingPanel
+      SlidingPanel,
+      BaseCurrency
     }
   })
   export default class App extends Vue {
