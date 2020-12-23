@@ -3,6 +3,8 @@ import {
   HierarchicalFacet,
   HierarchicalFilter,
   NumberRangeFacet,
+  NumberRangeFilter,
+  RangeValue,
   SimpleFacet,
   SimpleFilter
 } from '@empathy/search-types';
@@ -664,6 +666,42 @@ export function createHierarchicalFacetStub(
     id: facetId,
     label,
     filters: createChildren(createHierarchicalFilterFactory(facetId))
+  };
+}
+
+/**
+ * Creates a number facet given a label and its children. It uses the `label` properties for
+ * generating the ids of the filters.
+ *
+ * @param label - The facet label, also used for generating the facet id.
+ * @param createChildren - A function to create the child filters. This function is invoked with
+ * a factory to create each child filter, only providing the filter `value` and `selected`
+ * properties.
+ * @returns A number range facet for use in tests.
+ */
+export function createNumberRangeFacet(
+  label: string,
+  createChildren: (
+    createNumberRangeFilter: (value: RangeValue, selected: boolean) => NumberRangeFilter
+  ) => NumberRangeFilter[]
+): NumberRangeFacet {
+  const facetId = label.toLowerCase();
+  return {
+    modelName: 'NumberRangeFacet',
+    id: facetId,
+    label,
+    filters: createChildren((value, selected) => {
+      return {
+        id: `${facetId}:${value.min ?? '*'}-${value.max ?? '*'}`,
+        facetId: facetId,
+        selected,
+        label: `${value.min ?? '0'} - ${value.max ?? 'None'}`,
+        totalResults: 0,
+        callbackInfo: {},
+        value,
+        modelName: 'NumberRangeFilter'
+      };
+    })
   };
 }
 

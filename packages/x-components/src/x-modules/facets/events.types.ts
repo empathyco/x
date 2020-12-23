@@ -1,4 +1,10 @@
-import { Facet, Filter, HierarchicalFilter, SimpleFilter } from '@empathy/search-types';
+import {
+  Facet,
+  Filter,
+  HierarchicalFilter,
+  SimpleFilter,
+  NumberRangeFilter
+} from '@empathy/search-types';
 
 /**
  * Dictionary of the events of Facets XModule, where each key is the event name, and the
@@ -36,6 +42,14 @@ export interface FacetsXEvents {
    * can prevent the filter from changing its state.
    */
   UserClickedAHierarchicalFilter: HierarchicalFilter;
+  /**
+   * The user has clicked a filter which is of number range type.
+   * * Payload: The clicked filter.
+   *
+   * @remarks This event does not imply changing the selection state of the filter. Business logic
+   * can prevent the filter from changing its state.
+   */
+  UserClickedANumberRangeFilter: NumberRangeFilter;
   /**
    * The multi select configuration has changed for a facet.
    * * Payload: the facet id and the new value of the multiSelect.

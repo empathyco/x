@@ -51,6 +51,13 @@ export const toggleSimpleFilter = wireDispatch('toggleSimpleFilter');
 export const toggleHierarchicalFilter = wireDispatch('toggleHierarchicalFilter');
 
 /**
+ * Toggles a {@link @empathy/search-types#NumberRangeFilter | NumberRangeFilter}.
+ *
+ * @public
+ */
+export const toggleNumberRangeFilter = wireDispatch('toggleNumberRangeFilter');
+
+/**
  * Deselects the filters of the provided facets ids.
  *
  * @public
@@ -88,6 +95,9 @@ export const facetsWiring = createWiring({
   },
   UserClickedAHierarchicalFilter: {
     toggleHierarchicalFilter
+  },
+  UserClickedANumberRangeFilter: {
+    toggleNumberRangeFilter
   },
   UserClickedClearFacetFilters: {
     clearFacetsSelectedFilters

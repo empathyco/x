@@ -1,4 +1,4 @@
-import { HierarchicalFilter, SimpleFilter } from '@empathy/search-types';
+import { HierarchicalFilter, SimpleFilter, NumberRangeFilter } from '@empathy/search-types';
 
 /**
  * Creates {@link @empathy/search-types#SimpleFilter | SimpleFilter} stub.
@@ -18,6 +18,35 @@ export function getSimpleFilterStub(filter: Partial<SimpleFilter> = {}): SimpleF
       callbackInfo: {},
       label: 'Test',
       value: 'category:test',
+      totalResults: 0
+    },
+    filter
+  );
+}
+
+/**
+ * Creates {@link @empathy/search-types#NumberRangeFilter | NumberRangeFilter} stub.
+ *
+ * @param filter - A partial filter to override certain properties. Useful for testing.
+ * @returns A Number range filter.
+ *
+ * @internal
+ */
+export function getNumberRangeFilterStub(
+  filter: Partial<NumberRangeFilter> = {}
+): NumberRangeFilter {
+  return Object.assign<NumberRangeFilter, Partial<NumberRangeFilter>>(
+    {
+      facetId: 'price_facet',
+      id: 'price_facet:0 TO 10',
+      modelName: 'NumberRangeFilter',
+      selected: false,
+      callbackInfo: {},
+      label: 'Test',
+      value: {
+        min: 1,
+        max: 10
+      },
       totalResults: 0
     },
     filter

@@ -6,7 +6,7 @@ import {
 } from './actions/clear-selected-filters.action';
 import { setFacets } from './actions/set-facets.action';
 import { toggleHierarchicalFilter } from './actions/toggle-hierarchical-filter.action';
-import { toggleSimpleFilter } from './actions/toggle-simple-filter.action';
+import { toggleNumberRangeFilter, toggleSimpleFilter } from './actions/toggle-filter.action';
 import { flattenedFilters } from './getters/flattened-filters';
 import { selectedFilters } from './getters/selected-filters';
 import { FacetsXStoreModule } from './types';
@@ -44,6 +44,7 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     clearFacetSelectedFilters,
     clearFacetsSelectedFilters,
     toggleSimpleFilter,
-    toggleHierarchicalFilter
+    toggleHierarchicalFilter,
+    toggleNumberRangeFilter
   }
 };

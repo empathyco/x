@@ -4,6 +4,7 @@ import Vuex, { Store } from 'vuex';
 import { arrayToObject, map } from '../../../../utils';
 import {
   createHierarchicalFacet,
+  createNumberRangeFacet,
   createSimpleFacet,
   createSimpleFacetStub,
   getFacetsStub
@@ -34,6 +35,10 @@ describe('testing facets module actions', () => {
         color: createSimpleFacetStub('color', createSimpleFilter => [
           createSimpleFilter('Red', false),
           createSimpleFilter('Blue', true)
+        ]),
+        price: createNumberRangeFacet('price', createNumberRangeFilter => [
+          createNumberRangeFilter({ min: 1, max: 10 }, false),
+          createNumberRangeFilter({ min: 2, max: 20 }, true)
         ])
       }
     });
@@ -125,8 +130,9 @@ describe('testing facets module actions', () => {
     it('clears only the selected filters for the provided facet ids', async () => {
       expect(getSelectedFilters().length).toBeGreaterThan(1);
       const [, colorSelectedFilter] = store.state.facets.color.filters;
+      const [, priceSelectedFilter] = store.state.facets.price.filters;
       await store.dispatch(actionsKeys.clearFacetsSelectedFilters, ['category']);
-      expect(getSelectedFilters()).toEqual([colorSelectedFilter]);
+      expect(getSelectedFilters()).toEqual([colorSelectedFilter, priceSelectedFilter]);
     });
   });
 
@@ -134,21 +140,25 @@ describe('testing facets module actions', () => {
     it('toggles a filter deselecting their siblings if multiselect is disabled', async () => {
       const [colorUnselectedFilter] = store.state.facets.color.filters;
       const [, categorySelectedFilter] = store.state.facets.category.filters;
+      const [, priceSelectedFilter] = store.state.facets.price.filters;
 
       await store.dispatch(actionsKeys.toggleSimpleFilter, colorUnselectedFilter);
 
-      expect(getSelectedFilters()).toHaveLength(2);
-      expect(getSelectedFilters()).toEqual(
-        expect.arrayContaining([colorUnselectedFilter, categorySelectedFilter])
-      );
+      expect(getSelectedFilters()).toHaveLength(3);
+      expect(getSelectedFilters()).toEqual([
+        categorySelectedFilter,
+        colorUnselectedFilter,
+        priceSelectedFilter
+      ]);
 
       await store.dispatch(actionsKeys.toggleSimpleFilter, colorUnselectedFilter);
-      expect(getSelectedFilters()).toEqual([categorySelectedFilter]);
+      expect(getSelectedFilters()).toEqual([categorySelectedFilter, priceSelectedFilter]);
     });
 
     it('toggles a filter keeping its siblings selected if multiselect is enabled', async () => {
       const [colorUnselectedFilter, colorSelectedFilter] = store.state.facets.color.filters;
       const [, categorySelectedFilter] = store.state.facets.category.filters;
+      const [, priceSelectedFilter] = store.state.facets.price.filters;
       store.commit(mutationKeys.setFacetMultiSelect, <MultiSelectChange>{
         facetId: 'color',
         multiSelect: true
@@ -156,16 +166,69 @@ describe('testing facets module actions', () => {
 
       await store.dispatch(actionsKeys.toggleSimpleFilter, colorUnselectedFilter);
 
-      expect(getSelectedFilters()).toHaveLength(3);
-      expect(getSelectedFilters()).toEqual(
-        expect.arrayContaining([colorUnselectedFilter, colorSelectedFilter, categorySelectedFilter])
-      );
+      expect(getSelectedFilters()).toHaveLength(4);
+      expect(getSelectedFilters()).toEqual([
+        categorySelectedFilter,
+        colorUnselectedFilter,
+        colorSelectedFilter,
+        priceSelectedFilter
+      ]);
 
       await store.dispatch(actionsKeys.toggleSimpleFilter, colorUnselectedFilter);
-      expect(getSelectedFilters()).toHaveLength(2);
-      expect(getSelectedFilters()).toEqual(
-        expect.arrayContaining([categorySelectedFilter, categorySelectedFilter])
-      );
+      expect(getSelectedFilters()).toHaveLength(3);
+      expect(getSelectedFilters()).toEqual([
+        categorySelectedFilter,
+        colorSelectedFilter,
+        priceSelectedFilter
+      ]);
+    });
+  });
+
+  describe(`testing ${actionsKeys.toggleNumberRangeFilter} action`, () => {
+    it('toggles a filter deselecting their siblings if multiselect is disabled', async () => {
+      const [, colorSelectedFilter] = store.state.facets.color.filters;
+      const [, categorySelectedFilter] = store.state.facets.category.filters;
+      const [priceUnselectedFilter] = store.state.facets.price.filters;
+
+      await store.dispatch(actionsKeys.toggleNumberRangeFilter, priceUnselectedFilter);
+
+      expect(getSelectedFilters()).toHaveLength(3);
+      expect(getSelectedFilters()).toEqual([
+        categorySelectedFilter,
+        colorSelectedFilter,
+        priceUnselectedFilter
+      ]);
+
+      await store.dispatch(actionsKeys.toggleNumberRangeFilter, priceUnselectedFilter);
+      expect(getSelectedFilters()).toEqual([categorySelectedFilter, colorSelectedFilter]);
+    });
+
+    it('toggles a filter keeping its siblings selected if multiselect is enabled', async () => {
+      const [, colorSelectedFilter] = store.state.facets.color.filters;
+      const [, categorySelectedFilter] = store.state.facets.category.filters;
+      const [priceUnselectedFilter, priceSelectedFilter] = store.state.facets.price.filters;
+      store.commit(mutationKeys.setFacetMultiSelect, <MultiSelectChange>{
+        facetId: 'price',
+        multiSelect: true
+      });
+
+      await store.dispatch(actionsKeys.toggleNumberRangeFilter, priceUnselectedFilter);
+
+      expect(getSelectedFilters()).toHaveLength(4);
+      expect(getSelectedFilters()).toEqual([
+        categorySelectedFilter,
+        colorSelectedFilter,
+        priceUnselectedFilter,
+        priceSelectedFilter
+      ]);
+
+      await store.dispatch(actionsKeys.toggleNumberRangeFilter, priceUnselectedFilter);
+      expect(getSelectedFilters()).toHaveLength(3);
+      expect(getSelectedFilters()).toEqual([
+        categorySelectedFilter,
+        colorSelectedFilter,
+        priceSelectedFilter
+      ]);
     });
   });
 });

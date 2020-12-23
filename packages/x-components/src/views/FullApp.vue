@@ -65,6 +65,19 @@
           </BaseFiltersSearch>
         </BaseHeaderTogglePanel>
       </template>
+      <template #price_facet="{ facet }">
+        <BaseHeaderTogglePanel>
+          <template #header-content>{{ facet.label }}</template>
+          <BaseAllFilter :facet="facet" />
+          <MultiSelectFilters
+            v-slot="{ filter }"
+            :filters="facet.filters"
+            :animation="staggeredFadeAndSlide"
+          >
+            <BaseNumberRangeFilter :filter="filter" />
+          </MultiSelectFilters>
+        </BaseHeaderTogglePanel>
+      </template>
     </Facets>
     <!-- Empathize -->
     <Empathize v-if="showEmpathize" :animation="collapseFromTop">
@@ -186,6 +199,7 @@
   import BaseCloseButton from '../components/base-close-button.vue';
   import BaseFilters from '../components/filters/base-filters.vue';
   import BaseHierarchicalFilter from '../components/filters/base-hierarchical-filter.vue';
+  import BaseNumberRangeFilter from '../components/filters/base-number-range-filter.vue';
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
   import BaseModalContainer from '../components/base-modal-container.vue';
   import BaseOpenButton from '../components/base-open-button.vue';
@@ -235,6 +249,7 @@
       BaseSlicedFilters,
       BaseHeaderTogglePanel,
       BaseHierarchicalFilter,
+      BaseNumberRangeFilter,
       BaseCloseButton,
       BaseKeyboardNavigation,
       BaseModalContainer,
