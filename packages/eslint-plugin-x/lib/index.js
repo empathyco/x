@@ -25,11 +25,7 @@ const { vue } = require('./configs/vue');
 
 const standard = {
   parserOptions: ts.parserOptions,
-  extends: [
-    ...prettier.extends,
-    ...eslint.extends,
-    ...ts.extends
-  ],
+  extends: [...prettier.extends, ...eslint.extends, ...ts.extends],
   rules: {
     ...prettier.rules,
     ...eslint.rules,
@@ -40,21 +36,14 @@ const standard = {
 const recommended = {
   plugins: tsdoc.plugins,
   parserOptions: standard.parserOptions,
-  extends: [
-    ...standard.extends,
-    ...jsdoc.extends,
-    ...imports.extends
-  ],
+  extends: [...standard.extends, ...jsdoc.extends, ...imports.extends],
   rules: {
     ...standard.rules,
     ...jsdoc.rules,
     ...tsdoc.rules,
     ...imports.rules
   },
-  overrides: [
-    jest.overrides,
-    cypress.overrides
-  ],
+  overrides: [jest.overrides, cypress.overrides],
   settings: {
     ...imports.settings
   }
@@ -63,10 +52,7 @@ const recommended = {
 const all = {
   plugins: recommended.plugins,
   parserOptions: recommended.parserOptions,
-  extends: [
-    ...recommended.extends,
-    ...vue.extends
-  ],
+  extends: [...recommended.extends, ...vue.extends],
   rules: {
     ...recommended.rules,
     ...vue.rules

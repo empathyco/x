@@ -2,16 +2,17 @@
 
 module.exports = {
   jsdoc: {
-    extends: [
-      'plugin:jsdoc/recommended',
-    ],
+    extends: ['plugin:jsdoc/recommended'],
     rules: {
       'jsdoc/check-alignment': 'error',
       'jsdoc/check-indentation': 'error',
       'jsdoc/check-param-names': 'error',
-      'jsdoc/check-tag-names': ['error', {
-        definedTags: ['internal', 'remarks', 'typeParam', 'packageDocumentation']
-      }],
+      'jsdoc/check-tag-names': [
+        'error',
+        {
+          definedTags: ['internal', 'remarks', 'typeParam', 'packageDocumentation']
+        }
+      ],
       'jsdoc/implements-on-classes': 'off',
       'jsdoc/newline-after-description': 'error',
       'jsdoc/require-description': 'error',

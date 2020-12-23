@@ -2,11 +2,7 @@
 
 module.exports = {
   vue: {
-    extends: [
-      'plugin:vue/recommended',
-      '@vue/prettier',
-      '@vue/typescript',
-    ],
+    extends: ['plugin:vue/recommended', '@vue/prettier', '@vue/typescript'],
     rules: {
       'vue/attribute-hyphenation': 'off',
       'vue/attributes-order': [
@@ -33,4 +29,4 @@ module.exports = {
       'vue/v-on-function-call': 'error'
     }
   }
-}
+};
