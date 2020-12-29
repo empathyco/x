@@ -14,9 +14,6 @@
     <SlidingPanel>
       <RelatedTags :animation="staggeredFadeAndSlide" />
     </SlidingPanel>
-    <div>
-      <BaseCurrency :value="12345678.87654321" format="i.iii,ddd €" :hide-integer-decimals="true" />
-    </div>
     <!-- Facets -->
     <h1>Facets</h1>
     <ClearFilters v-slot="{ selectedFilters }" :alwaysVisible="true">
@@ -38,8 +35,8 @@
       </template>
       <template #hierarchical_category="{ facet }">
         <BaseHeaderTogglePanel>
-          <BaseAllFilter :facet="facet" />
           <template #header-content>{{ facet.label }}</template>
+          <BaseAllFilter :facet="facet" />
           <BaseFilters
             v-slot="{ filter }"
             :filters="facet.filters"
@@ -69,13 +66,23 @@
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
           <BaseAllFilter :facet="facet" />
-          <MultiSelectFilters
+          <BaseFilters
             v-slot="{ filter }"
             :filters="facet.filters"
             :animation="staggeredFadeAndSlide"
           >
-            <BaseNumberRangeFilter :filter="filter" />
-          </MultiSelectFilters>
+            <BaseNumberRangeFilter :filter="filter">
+              <template #default="{ filter }">
+                <BasePriceTitle
+                  :filter="filter"
+                  :configCurrency="{ format: 'i €' }"
+                  lessThan="Less than {max}"
+                  fromTo="From {min} to {max}"
+                  from="More than {min}"
+                />
+              </template>
+            </BaseNumberRangeFilter>
+          </BaseFilters>
         </BaseHeaderTogglePanel>
       </template>
     </Facets>
@@ -191,6 +198,7 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { Result } from '@empathy/search-types';
+  import BasePriceFilterTitle from '../components/filters/base-price-filter-title.vue';
   import BaseCurrency from '../components/currency/base-currency.vue';
   import BaseAllFilter from '../components/filters/base-all-filter.vue';
   import BaseFiltersSearch from '../components/filters/base-filters-search.vue';
@@ -250,6 +258,8 @@
       BaseHeaderTogglePanel,
       BaseHierarchicalFilter,
       BaseNumberRangeFilter,
+      BaseCurrency,
+      BasePriceTitle: BasePriceFilterTitle,
       BaseCloseButton,
       BaseKeyboardNavigation,
       BaseModalContainer,
@@ -275,8 +285,7 @@
       RelatedTags,
       SearchButton,
       SearchInput,
-      SlidingPanel,
-      BaseCurrency
+      SlidingPanel
     }
   })
   export default class App extends Vue {

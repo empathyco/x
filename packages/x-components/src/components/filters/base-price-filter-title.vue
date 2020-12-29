@@ -1,0 +1,147 @@
+<script lang="ts">
+  import Vue, { CreateElement, VNode, VNodeChildren } from 'vue';
+  import { Component, Prop } from 'vue-property-decorator';
+  import { NumberRangeFilter } from '@empathy/search-types';
+  import BaseCurrency from '../currency/base-currency.vue';
+
+  /**
+   * Renders a title for a price filter, allowing to select different messages depending on the
+   * value of the filter.
+   *
+   * @public
+   */
+  @Component({
+    components: { BaseCurrency }
+  })
+  export default class BasePriceFilterTitle extends Vue {
+    /** The filter data for get min and max value. */
+    @Prop({ required: true })
+    public filter!: NumberRangeFilter;
+
+    /** Configuration for show the title. */
+    @Prop()
+    public format?: string;
+
+    @Prop()
+    public hideIntegerDecimals?: boolean;
+
+    /**
+     * Message shown when the filter hasn't got the min value defined.
+     *
+     * @public
+     */
+    @Prop({ required: true })
+    public lessThan!: string;
+
+    /**
+     * Message shown when the filter has both the min and max values defined.
+     *
+     * @public
+     */
+    @Prop({ required: true })
+    public fromTo!: string;
+
+    /**
+     * Message shown when the filter hasn't got max value defined.
+     *
+     * @public
+     */
+    @Prop({ required: true })
+    public from!: string;
+
+    /**
+     * The active title, retrieved from the provided props.
+     * It depends on the min and max values of the filter.
+     *
+     * @returns The active title to be formatted with the min and max values of the filter.
+     */
+    protected get title(): string {
+      return this.filter.value.min === null
+        ? this.lessThan
+        : this.filter.value.max === null
+        ? this.from
+        : this.fromTo;
+    }
+
+    render(createElement: CreateElement): VNode {
+      const titleParts = this.title.split(/({min}|{max})/);
+
+      const children: VNodeChildren = titleParts.map(partMessage => {
+        if (partMessage === '{min}') {
+          return createElement('BaseCurrency', {
+            props: {
+              value: this.filter.value.min,
+              format: this.format,
+              hideIntegerDecimals: this.hideIntegerDecimals
+            }
+          });
+        } else if (partMessage === '{max}') {
+          return createElement('BaseCurrency', {
+            props: {
+              value: this.filter.value.max,
+              format: this.format,
+              hideIntegerDecimals: this.hideIntegerDecimals
+            }
+          });
+        }
+        return partMessage;
+      });
+
+      return createElement('div', { class: 'x-price-filter-title' }, children);
+    }
+  }
+</script>
+
+<docs lang="mdx">
+# Example
+
+Renders a title for a price filter, allowing to select different messages depending on the value of
+the filter.
+
+- When the `min` value property isn't defined in the filter, you can show a message like
+  `Less than $10` by using the `lessThan` prop, combined with the `{max}` placeholder.
+- When the `max` value property isn't defined in the filter, you can show a message like
+  `More than $300` by using the `from` prop, combined with the `{min}` placeholder.
+- If both the `min` and `max` values of the filter are defined, you can show a message like
+  `$10 - $300` by using the `fromTo` prop.
+
+This component uses internally the `BaseCurrency` one, so you can pass the same props to configure
+how the price should look like.
+
+## Basic usage
+
+```vue
+<template>
+  <Facets>
+    <template #price="{ facet }">
+      <BaseFilters v-slot="{ filter }" :filters="facet.filters">
+        <BaseNumberRangeFilter :filter="filter" v-slot="{ filter }">
+          <BasePriceFilterTitle
+            :filter="filter"
+            format="$i"
+            lessThan="Less than {max}"
+            fromTo="From {min} to {max}"
+            from="More than {min}"
+          />
+        </BaseNumberRangeFilter>
+      </BaseFilters>
+    </template>
+  </Facets>
+</template>
+
+<script>
+  import { Facets } from '@empathy/x-components/facets';
+  import { BaseFilters, BaseNumberRangeFilter, BasePriceFilterTitle } from '@empathy/x-components';
+
+  export default {
+    name: 'MyFacets',
+    components: {
+      Facets,
+      BaseFilters,
+      BaseNumberRangeFilter,
+      BasePriceFilterTitle
+    }
+  };
+</script>
+```
+</docs>

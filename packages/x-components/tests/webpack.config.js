@@ -1,3 +1,6 @@
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const {resolve} = require('path');
+
 module.exports = {
   resolve: {
     extensions: ['.ts', '.js']
@@ -10,7 +13,7 @@ module.exports = {
           {
             loader: 'ts-loader',
             options: {
-              transpileOnly: false
+              transpileOnly: true
             }
           }
         ]
