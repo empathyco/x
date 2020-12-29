@@ -172,7 +172,7 @@ describe('testing X Plugin', () => {
             newGetter() {
               return 5;
             }
-          },
+          } as any,
           actions: {
             newAction,
             actionToReplace: replacedAction,

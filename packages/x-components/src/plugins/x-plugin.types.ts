@@ -10,12 +10,12 @@ import {
 } from '@empathy/search-types';
 import { Store } from 'vuex';
 import { CurrencyOptions } from '../i18n';
-import { ActionsTree, AnyActionsTree } from '../store/actions.types';
-import { AnyGettersTree, GettersTree } from '../store/getters.types';
-import { AnyMutationsTree, MutationsTree } from '../store/mutations.types';
+import { ActionsTree } from '../store/actions.types';
+import { GettersTree } from '../store/getters.types';
+import { MutationsTree } from '../store/mutations.types';
 import { StoreEmitters } from '../store/store-emitters.types';
 import { AnyXStoreModule, XStoreModule } from '../store/store.types';
-import { DeepPartial, Dictionary, PropsWithType } from '../utils';
+import { DeepPartial, PropsWithType } from '../utils';
 import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
 import { WireMetadata, Wiring } from '../wiring/wiring.types';
 import { AnyXModule, ExtractState, XModuleName, XModulesTree } from '../x-modules/x-modules.types';
@@ -199,10 +199,10 @@ export type XStoreModuleOptions<
   StoreModule extends AnyXStoreModule
 > = StoreModule extends XStoreModule<infer State, infer Getters, infer Mutations, infer Actions>
   ? {
-      state?: DeepPartial<State> & Dictionary;
-      actions?: DeepPartial<ActionsTree<State, Getters, Mutations, Actions>> & AnyActionsTree;
-      getters?: DeepPartial<GettersTree<State, Getters>> & AnyGettersTree;
-      mutations?: DeepPartial<MutationsTree<State, Mutations>> & AnyMutationsTree;
+      state?: DeepPartial<State>;
+      actions?: DeepPartial<ActionsTree<State, Getters, Mutations, Actions>>;
+      getters?: DeepPartial<GettersTree<State, Getters>>;
+      mutations?: DeepPartial<MutationsTree<State, Mutations>>;
     }
   : never;
 

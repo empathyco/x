@@ -38,7 +38,11 @@ export type PropsWithType<Type, PropType> = {
  * @public
  */
 export type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends NonPrimitive ? DeepPartial<T[P]> : T[P];
+  [P in keyof T]?: T[P] extends NonPrimitive
+    ? T[P] extends AnyFunction
+      ? T[P]
+      : DeepPartial<T[P]>
+    : T[P];
 };
 
 /**
