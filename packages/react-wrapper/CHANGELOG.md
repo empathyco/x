@@ -1,4 +1,17 @@
 # React Wrapper
+## [2.0.0](https://bitbucket.org/colbenson/react-wrapper/branches/compare/v2.0.0%0Dv1.0.4) (2021-01-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* **slots:** ReactWrapper slots renders a wrapper `div` with the class `react-wrapper-slot`.
+* **react-wrapper:** ReactWrapper component now renders a `div` with the class `react-wrapper`. Inside this `div` the vue content is rendered. You can pass custom CSS classes to this div using the `className` prop.
+
+### Bug Fixes
+
+* **react-wrapper:** make react-wrapper render a wrapper div so sibling elements can be properly updated. ([e1dab57](https://bitbucket.org/colbenson/react-wrapper/commits/e1dab576e2d66f73e075e85abcf0396a69201dc3)), closes [EX-2809](https://searchbroker.atlassian.net/browse/EX-2809)
+* **slots:** make react-wrapper slots render a wrapper div so children can be properly updated. ([ddf0f55](https://bitbucket.org/colbenson/react-wrapper/commits/ddf0f551bd4f19c1beaf737c5e5a50d3f5e24302)), closes [EX-2854](https://searchbroker.atlassian.net/browse/EX-2854)
+
 ### [1.0.4](https://bitbucket.org/colbenson/react-wrapper/branches/compare/v1.0.4%0Dv1.0.3) (2020-12-03)
 
 
