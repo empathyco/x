@@ -27,6 +27,10 @@ export interface ReactWrapperProps {
    */
   on?: Record<string, (eventPayload?: any) => void>;
   /**
+   * CSS Classes to apply to the react-wrapper container.
+   */
+  className?: string;
+  /**
    * Any other prop is passed down to the Vue component.
    */
   [key: string]: any;

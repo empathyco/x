@@ -16,12 +16,9 @@ export class ReactWrapper extends React.Component<ReactWrapperProps, ReactWrappe
     reactProps: Readonly<ReactWrapperProps>,
     prevState: Readonly<ReactWrapperState>
   ): Readonly<ReactWrapperState> {
-    const vueInstance = prevState.vueInstance;
-    updateVueInstance(vueInstance, reactProps);
-    return { vueInstance };
+    updateVueInstance(prevState.vueInstance, reactProps);
+    return { ...prevState };
   }
-
-  protected reactRenderedHTMLElement!: HTMLElement;
 
   public constructor(props: ReactWrapperProps) {
     super(props);
@@ -32,6 +29,13 @@ export class ReactWrapper extends React.Component<ReactWrapperProps, ReactWrappe
     };
   }
 
+  protected get className(): string {
+    const reactWrapperClass = 'react-wrapper';
+    return this.props.className
+      ? `${reactWrapperClass} ${this.props.className}`
+      : reactWrapperClass;
+  }
+
   /**
    * Mounts the vueInstance over the React rendered HTML Element.
    *
@@ -40,8 +44,9 @@ export class ReactWrapper extends React.Component<ReactWrapperProps, ReactWrappe
    */
   protected mountVueInstance(htmlElement: HTMLElement | null): void {
     if (htmlElement && this.state.vueInstance) {
-      this.reactRenderedHTMLElement = htmlElement;
-      this.state.vueInstance.$mount(htmlElement);
+      const vueTarget = document.createElement('div');
+      htmlElement.appendChild(vueTarget);
+      this.state.vueInstance.$mount(vueTarget);
     }
   }
 
@@ -51,12 +56,9 @@ export class ReactWrapper extends React.Component<ReactWrapperProps, ReactWrappe
    */
   componentWillUnmount(): void {
     if (this.state.vueInstance) {
-      /* We restore the react rendered HTMLElement into the DOM to prevent a crash when React
-       finishes executing the unmounting process */
       const vueHTMLElement = this.state.vueInstance.$el as HTMLElement;
       const reactContainer = vueHTMLElement.parentElement;
       if (reactContainer) {
-        reactContainer.insertBefore(this.reactRenderedHTMLElement, vueHTMLElement);
         reactContainer.removeChild(vueHTMLElement);
       }
       // Finally, we destroy vueInstance
@@ -72,6 +74,6 @@ export class ReactWrapper extends React.Component<ReactWrapperProps, ReactWrappe
    */
   render(): ReactNode {
     // eslint-disable-next-line @typescript-eslint/unbound-method
-    return <div ref={this.mountVueInstance} />;
+    return <div className={this.className} ref={this.mountVueInstance} />;
   }
 }

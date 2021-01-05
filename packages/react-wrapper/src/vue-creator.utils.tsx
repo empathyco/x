@@ -38,6 +38,6 @@ export function defineComponent<
  * @returns The Vue props passes through the React wrapper.
  */
 export function getVueComponentProps(reactProps: Readonly<ReactWrapperProps>): Record<string, any> {
-  const { component, slots, children, on, ...vueProps } = reactProps;
+  const { component, slots, children, on, className, ...vueProps } = reactProps;
   return vueProps;
 }

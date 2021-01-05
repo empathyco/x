@@ -1,17 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Vue from 'vue';
 import { ReactWrapper } from '../react-wrapper';
 import { ReactEventsStub } from './stubs/react-events.stub';
 import { VueButton } from './stubs/vue-button.stub';
+import { renderClassComponent, renderReactNode } from './utils';
 
 describe('testing support of events in the react-wrapper', () => {
-  let rootHTML: HTMLDivElement;
-
-  beforeEach(() => {
-    rootHTML = document.createElement('div');
-  });
-
   it('subscribes events before creating and mounting the Vue component', async () => {
     const vueButtonCreatedCallback = jest.fn();
     const vueButtonMountedCallback = jest.fn();
@@ -21,7 +15,7 @@ describe('testing support of events in the react-wrapper', () => {
       VueButtonMounted: vueButtonMountedCallback
     };
 
-    ReactDOM.render(<ReactWrapper component={VueButton} on={onPropContent} />, rootHTML);
+    renderReactNode(<ReactWrapper component={VueButton} on={onPropContent} />);
 
     await Vue.nextTick();
     expect(vueButtonCreatedCallback).toHaveBeenCalledWith('Hello world!');
@@ -36,13 +30,12 @@ describe('testing support of events in the react-wrapper', () => {
       VueButtonClickedFirstEvent: buttonClickedFirstCallback
     };
 
-    ReactDOM.render(
-      <ReactWrapper component={VueButton} message={message} on={onPropContent} />,
-      rootHTML
+    const root = renderReactNode(
+      <ReactWrapper component={VueButton} message={message} on={onPropContent} />
     );
 
     await Vue.nextTick();
-    const button = rootHTML.querySelector('button');
+    const button = root.querySelector('button');
     button?.click();
 
     expect(buttonClickedFirstCallback).toHaveBeenCalledWith(message);
@@ -51,22 +44,19 @@ describe('testing support of events in the react-wrapper', () => {
   it('unsubscribes listener events and subscribes the new ones', async () => {
     const firstCallback = jest.fn();
     const secondCallback = jest.fn();
-    const reactComponent = (ReactDOM.render(
-      <ReactEventsStub />,
-      rootHTML
-    ) as any) as ReactEventsStub;
+    const { instance, root } = renderClassComponent(ReactEventsStub);
 
-    reactComponent.setState({
+    instance.setState({
       events: { VueButtonClickedFirstEvent: firstCallback }
     });
     await Vue.nextTick();
-    const button = rootHTML.querySelector('button');
+    const button = root.querySelector('button');
     button?.click();
 
     expect(firstCallback).toHaveBeenCalledWith('Hello world!');
     firstCallback.mockClear();
 
-    reactComponent.setState({
+    instance.setState({
       events: { VueButtonClickedSecondEvent: secondCallback }
     });
     await Vue.nextTick();
