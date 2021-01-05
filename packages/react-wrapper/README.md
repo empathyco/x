@@ -231,9 +231,9 @@ function App() {
 
 ## Architecture
 
-`ReactWrapper` works by creating an internal Vue instance that is mounted where the `ReactWrapper`
-component should. It replaces a `div` placeholder rendered by the ReactWrapper, taking control of
-the DOM tree from that part.
+`ReactWrapper` works by creating an internal Vue instance that is mounted inside the `ReactWrapper`
+component. Vue rendered content is inserted inside the `div` element rendered by the ReactWrapper,
+taking control of the DOM tree from that part.
 
 Proxying APIs is the "easy" part of this library. React flexibility helps when exposing Vue APIs
 like events or slots. `ReactWrapper` only has to sync the props received with its internal Vue
@@ -241,20 +241,20 @@ instance ones. Whenever the props change, it extracts them again, and notifies t
 about them.
 
 The biggest challenge of this library is the DOM reconciliation. As the DOM is handled by both Vue
-and React, they expect to have full control of it, and if one library makes a change to the DOM, the
-other one shouldn't notice. If we omit slots, this can be done easily. As the `ReactWrapper` only
-renders a `div` which is then replace by the Vue component output, it only has to restore this `div`
-before it is destroyed, and manually destroy de Vue instance. To do so, we use the
-`componentWillUnmount` lifecycle hook.
+and React, they expect to have full control of it, and if one library makes a change to the DOM.
+But, because `ReactWrapper` renders a `div`, and Vue content is inserted inside it, there are no
+problems. React has control of the app until this `div`, and Vue from that point.
 
 On the other hand, slots are a bit more complex. Slots work by using a special Vue component,
-`VueChildrenWrapper`, which receives React virtual nodes as props, and internally create a new React
-instance which renders its content in a non attached `div`, moving then this children next to the
-element rendered by `VueChildrenWrapper` (which is a comment). Like before, we have to reconcile
-these parts before making updates or unmounting the component. Using a Vue watcher, we can observe
-if the React nodes have changed, and if they have, we restore the React DOM nodes to the original
-div. We then instruct React to update these nodes, and when they have been modified, we move them
-back near the comment rendered by `VueChildrenWrapper`.
+`VueChildrenWrapper`. This component renders a `div`, and receives React virtual nodes as props.
+When the `VueChildrenWrapper` component is mounted, it renders the React nodes inside it. Just like
+the `ReactWrapper` does with the children nodes.
+
+The problematic part here is unmounting a component which has animations. When the Vue component is
+destroyed, the React one should be destroyed too. The challenge is that Vue fires `beforeDestroy`
+and `destroyed` hooks before the component is removed from the DOM, and then it runs the leaving
+animations if it has. So the solution is to observe the nodes with a `MutationObserver`. If the
+nodes are detached, then it is safe to unmount the React component too.
 
 ![Flow diagram 1](./docs/assets/flow-diagram-1.png)
 ![Flow diagram 2](./docs/assets/flow-diagram-2.png)

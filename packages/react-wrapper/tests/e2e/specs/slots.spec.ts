@@ -32,6 +32,10 @@ describe('slots test', () => {
     cy.getByDataTest('react-content').should('not.be.visible');
   });
 
+  it('allows to update a vue component from a react children using scoped slots', () => {
+    cy.getByDataTest('react-input').type('Hello world').should('have.value', 'Hello world');
+  });
+
   it('renders text in the slot', () => {
     cy.getByDataTest('text-slot-content').should('have.text', 'text content');
   });

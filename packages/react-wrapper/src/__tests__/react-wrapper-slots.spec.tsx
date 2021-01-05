@@ -6,10 +6,6 @@ import { VueSlots } from './stubs/vue-slots.stub';
 import { renderClassComponent, renderReactNode, transformStringIntoASingleLine } from './utils';
 
 describe('testing support of slots in the react-wrapper', () => {
-  /* This is used inside tests because we have to keep the Vue reference, and it renders a
-   comment to do so. */
-  const vueComment = '<!---->';
-
   it('renders default slot', () => {
     const root = renderReactNode(
       <ReactWrapper component={VueSlots}>
@@ -21,13 +17,15 @@ describe('testing support of slots in the react-wrapper', () => {
 
     expect(root.innerHTML).toEqual(
       transformStringIntoASingleLine(`
-      <div class="react-wrapper">
-        <div>
-          <h1>Hello world!</h1>
-          This is working
-          <strong>Vue rules!</strong>${vueComment}
-        </div>
-      </div>`)
+        <div class="react-wrapper">
+          <div>
+            <div class="react-wrapper-slot">
+              <h1>Hello world!</h1>
+              This is working
+              <strong>Vue rules!</strong>
+            </div>
+          </div>
+        </div>`)
     );
   });
 
@@ -51,9 +49,11 @@ describe('testing support of slots in the react-wrapper', () => {
       <div class="react-wrapper">
         <div>
           <section>
+            <div class="react-wrapper-slot">
             <p>Vue says: Hell yeah!</p>
             Second line
-            <span>Bye</span>${vueComment}
+            <span>Bye</span>
+          </div>
           </section>
         </div>
       </div>`)
@@ -68,7 +68,11 @@ describe('testing support of slots in the react-wrapper', () => {
     expect(root.innerHTML).toEqual(
       transformStringIntoASingleLine(`
         <div class="react-wrapper">
-          <section><span>Vue says: Hello</span>${vueComment}</section>
+          <section>
+            <div class="react-wrapper-slot">
+              <span>Vue says: Hello</span>
+            </div>
+          </section>
         </div>`)
     );
 
@@ -81,7 +85,9 @@ describe('testing support of slots in the react-wrapper', () => {
       transformStringIntoASingleLine(`
         <div class="react-wrapper">
           <section>
-            <span>Vue says: Bye</span>${vueComment}
+            <div class="react-wrapper-slot">
+              <span>Vue says: Bye</span>
+            </div>
           </section>
         </div>`)
     );
@@ -95,7 +101,9 @@ describe('testing support of slots in the react-wrapper', () => {
       transformStringIntoASingleLine(`
         <div class="react-wrapper">
           <section>
-            <span>Vue says: Hello</span>${vueComment}
+            <div class="react-wrapper-slot">
+              <span>Vue says: Hello</span>
+            </div>
           </section>
         </div>`)
     );
@@ -109,8 +117,10 @@ describe('testing support of slots in the react-wrapper', () => {
       transformStringIntoASingleLine(`
         <div class="react-wrapper">
           <section>
-            <strong>Vue says: Bye</strong>
-            We are not done yet${vueComment}
+            <div class="react-wrapper-slot">
+              <strong>Vue says: Bye</strong>
+              We are not done yet
+            </div>
           </section>
         </div>`)
     );
@@ -124,8 +134,9 @@ describe('testing support of slots in the react-wrapper', () => {
       transformStringIntoASingleLine(`
         <div class="react-wrapper">
           <section>
-            <p>Vue says: Shutting down</p>
-            ${vueComment}
+            <div class="react-wrapper-slot">
+               <p>Vue says: Shutting down</p>
+            </div>
           </section>
         </div>`)
     );
@@ -148,12 +159,14 @@ describe('testing support of slots in the react-wrapper', () => {
         <div class="react-wrapper">
           <div>
             <section>
-              I'd to have a <strong>${messageProp}</strong>!
-              ${vueComment}
+              <div class="react-wrapper-slot">
+                I'd to have a <strong>${messageProp}</strong>!
+              </div>
             </section>
-            <h1>It is a default slot content</h1>
-            Or children in React.
-            ${vueComment}
+            <div class="react-wrapper-slot">
+              <h1>It is a default slot content</h1>
+              Or children in React.
+            </div>
           </div>
         </div>`)
     );

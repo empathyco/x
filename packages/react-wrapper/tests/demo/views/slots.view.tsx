@@ -1,4 +1,5 @@
 import React, { ReactElement, useState } from 'react';
+import { ReactInput } from '../stubs/react-input.stub';
 import { ReactTextSlot } from '../stubs/react-text-slot.stub';
 import { ReactTransitionSlot } from '../stubs/react-transition-slot.stub';
 
@@ -21,6 +22,7 @@ export function SlotsView(): ReactElement {
 
   return (
     <div>
+      {/* Toggle elements */}
       <button onClick={toggleRenderContainer} data-test='toggle-container'>
         Toggle container
       </button>
@@ -33,6 +35,10 @@ export function SlotsView(): ReactElement {
           <ReactTransitionSlot message='Test' show={show} transitionDuration={100} />
         </div>
       )}
+      {/* Input */}
+      <ReactInput />
+
+      {/* Text Slot */}
       <ReactTextSlot data-test='text-slot-content'>text content</ReactTextSlot>
       <ReactTextSlot data-test='no-slot-content' />
     </div>
