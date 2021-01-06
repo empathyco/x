@@ -29,6 +29,10 @@
         </template>
       </BaseResultImage>
     </div>
+    <BaseRating :value="2.5">
+      <template #filledIcon>◼</template>
+      <template #emptyIcon>◻</template>
+    </BaseRating>
   </main>
 </template>
 
@@ -37,6 +41,7 @@
   import { Component } from 'vue-property-decorator';
   import { getResultsStub } from '../__stubs__/results-stubs.factory';
   import { BaseResultImage } from '../components';
+  import BaseRating from '../components/base-rating.vue';
   import { XInstaller } from '../x-installer/x-installer';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
@@ -46,6 +51,7 @@
       next();
     },
     components: {
+      BaseRating,
       BaseResultImage
     }
   })
