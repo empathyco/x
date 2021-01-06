@@ -15,6 +15,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import { createCollapseAnimationMixin } from './animations.mixin';
 
   /**
    * Renders a transition wrapping the element passed in the default slot and animating
@@ -22,45 +23,10 @@
    *
    * @public
    */
-  @Component
-  export default class CollapseWidth extends Vue {
-    /**
-     * The width changes from 0 to the element's scroll width.
-     *
-     * @param element - The DOM element that is going to be animated.
-     *
-     * @internal
-     */
-    protected expand(element: HTMLElement): void {
-      element.style.width = '0';
-      element.style.width = `${element.scrollWidth}px`;
-    }
-
-    /**
-     * Removes the width property.
-     *
-     * @param element - The DOM element that is going to be animated.
-     *
-     * @internal
-     */
-    protected cleanUpAnimationStyles(element: HTMLElement): void {
-      element.style.removeProperty('width');
-    }
-
-    /**
-     * The width changes from the element's scroll width to 0.
-     *
-     * @param element - The DOM element that is going to be animated.
-     *
-     * @internal
-     */
-    protected collapse(element: HTMLElement): void {
-      element.style.width = `${element.scrollWidth}px`;
-      // This is intended. We want to provoke a layer repaint to apply this style.
-      element.getBoundingClientRect();
-      element.style.width = '0';
-    }
-  }
+  @Component({
+    mixins: [createCollapseAnimationMixin('width')]
+  })
+  export default class CollapseWidth extends Vue {}
 </script>
 
 <style scoped lang="scss">

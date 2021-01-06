@@ -15,6 +15,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import { createCollapseAnimationMixin } from './animations.mixin';
 
   /**
    * Renders a transition wrapping the element passed in the default slot and animating
@@ -22,45 +23,10 @@
    *
    * @public
    */
-  @Component
-  export default class CollapseHeight extends Vue {
-    /**
-     * The height changes from 0 to the element's scroll height.
-     *
-     * @param element - The DOM element that is going to be animated.
-     *
-     * @internal
-     */
-    protected expand(element: HTMLElement): void {
-      element.style.height = '0';
-      element.style.height = `${element.scrollHeight}px`;
-    }
-
-    /**
-     * Removes the height property.
-     *
-     * @param element - The DOM element that is going to be animated.
-     *
-     * @internal
-     */
-    protected cleanUpAnimationStyles(element: HTMLElement): void {
-      element.style.removeProperty('height');
-    }
-
-    /**
-     * The height changes from the element's scroll height to 0.
-     *
-     * @param element - The DOM element that is going to be animated.
-     *
-     * @internal
-     */
-    protected collapse(element: HTMLElement): void {
-      element.style.height = `${element.scrollHeight}px`;
-      // This is intended. We want to provoke a layer repaint to apply this style.
-      element.getBoundingClientRect();
-      element.style.height = '0';
-    }
-  }
+  @Component({
+    mixins: [createCollapseAnimationMixin('height')]
+  })
+  export default class CollapseHeight extends Vue {}
 </script>
 
 <style scoped lang="scss">
