@@ -1,11 +1,11 @@
 import { Filter } from '@empathy/search-types';
 import { injectable } from 'inversify';
-import { Dictionary } from '../../../../types';
 import { ResponseMapper, ResponseMapperContext } from '../../../empathy-adapter.types';
 import { EmpathyFilter } from '../../../models';
+import { NO_TAG_AND_FACET_REGEX } from '../../mappers.const';
 
 /**
- * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ * Generic Empathy filter mapper.
  *
  * @public
  */
@@ -13,23 +13,16 @@ import { EmpathyFilter } from '../../../models';
 export class EmpathyFilterMapper implements ResponseMapper<EmpathyFilter, Filter> {
 
   map(rawFilter: EmpathyFilter, filter: Filter, context: ResponseMapperContext): Filter {
-    const selectedFilters: Dictionary<Filter> = context.selectedFilters || {};
-    const selected = !!selectedFilters[filter.id];
+    const value = rawFilter.filter.replace(NO_TAG_AND_FACET_REGEX, '');
+    const id = `${ filter.facetId }:${ value }`;
 
-    Object.assign(filter, {
-      count: rawFilter.count,
-      title: rawFilter.value,
-      parent: filter.parent || null,
+    return Object.assign<Filter, Partial<Filter>>(filter, {
+      id,
+      label: rawFilter.value,
+      selected: rawFilter.selected ?? false,
+      value,
+      totalResults: rawFilter.count,
       callbackInfo: {}
     });
-    this.mapSelectedPropertyInHierarchy(filter, selected);
-    return filter;
-  }
-
-  protected mapSelectedPropertyInHierarchy(filter: Filter, selected: boolean) {
-    filter.selected = selected;
-    if (filter.parent && selected) {
-      this.mapSelectedPropertyInHierarchy(filter.parent, selected);
-    }
   }
 }

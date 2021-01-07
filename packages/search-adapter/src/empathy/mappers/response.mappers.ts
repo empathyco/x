@@ -9,10 +9,11 @@ import { EntityNames } from '../entities.types';
  * @public
  */
 @injectable()
-export class ResponseMappers implements Record<EntityNames, ResponseMapper[]> {
+export class ResponseMappers
+  implements Record<Exclude<EntityNames, 'simpleFilter' | 'hierarchicalFilter' | 'numberRangeFilter'>, ResponseMapper[]> {
   constructor(
     @multiInject(DEPENDENCIES.ResponseMappers.banners) public readonly banners: ResponseMapper[],
-    @multiInject(DEPENDENCIES.ResponseMappers.facets) public readonly  facets: ResponseMapper[],
+    @multiInject(DEPENDENCIES.ResponseMappers.facets) public readonly facets: ResponseMapper[],
     @multiInject(DEPENDENCIES.ResponseMappers.nextQueries) public readonly nextQueries: ResponseMapper[],
     @multiInject(DEPENDENCIES.ResponseMappers.partialResults) public readonly partialResults: ResponseMapper[],
     @multiInject(DEPENDENCIES.ResponseMappers.promoteds) public readonly promoteds: ResponseMapper[],
@@ -23,7 +24,6 @@ export class ResponseMappers implements Record<EntityNames, ResponseMapper[]> {
     @multiInject(DEPENDENCIES.ResponseMappers.showTagging) public readonly showTagging: ResponseMapper[],
     @multiInject(DEPENDENCIES.ResponseMappers.spellcheck) public readonly spellcheck: ResponseMapper[],
     @multiInject(DEPENDENCIES.ResponseMappers.suggestions) public readonly suggestions: ResponseMapper[],
-    @multiInject(DEPENDENCIES.ResponseMappers.totalResults) public readonly totalResults: ResponseMapper[],
-    @multiInject(DEPENDENCIES.ResponseMappers.filters) public readonly filters: ResponseMapper[]
+    @multiInject(DEPENDENCIES.ResponseMappers.totalResults) public readonly totalResults: ResponseMapper[]
   ) {}
 }

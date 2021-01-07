@@ -2,12 +2,6 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
-    "outDir": "./dist/cjs",
-    "declaration": true,
-    "declarationDir": "./types",
-    "sourceMap": true,
-    "inlineSources": true,
-    "importHelpers": true,
     "moduleResolution": "node",
     "strict": true,
     "types": [
@@ -25,9 +19,6 @@
   },
   "include": ["./src/**/*.ts"],
   "exclude": [
-    "**/__mocks__/**/*",
-    "**/__fixtures__/**/*",
-    "**/__tests__/**/*",
     "node_modules"
   ]
 }

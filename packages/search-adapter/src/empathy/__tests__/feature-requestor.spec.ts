@@ -15,7 +15,7 @@ import { DEPENDENCIES } from '../container/container.const';
 import { BindingDictionary } from '../container/container.types';
 import { BeforeResponseTransform } from '../empathy-adapter.types';
 import { HttpClient } from '../http-clients/http-client.types';
-import { EmpathySimpleValueMapper } from '../mappers';
+import { EmpathySimpleValueMapper } from '../mappers/response/empathy-simple-value.mapper';
 import { FeatureRequestor } from '../requestors/feature.requestor';
 import { EmpathyEndpointsService } from '../services/empathy-endpoints.service';
 import clearAllMocks = jest.clearAllMocks;

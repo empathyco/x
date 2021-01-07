@@ -1,12 +1,12 @@
 {
   "name": "@empathy/search-adapter",
-  "version": "4.1.0",
+  "version": "5.0.0",
   "description": "A search client for the Empathy search API ",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "build": "tsc && tsc --project tsconfig.esm.json && npm run gen:docs && npm pack",
+    "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json && npm run gen:docs && npm pack",
     "build:watch": "tsc --watch",
     "gen:model-docs": "api-extractor run -l",
     "gen:typescript-docs": "api-documenter markdown -i report -o docs",
@@ -31,7 +31,7 @@
   "dependencies": {
     "@empathy/get-safe-property-chain": "^1.2.0",
     "@empathy/logger": "^1.1.0",
-    "@empathy/search-types": "^5.0.1",
+    "@empathy/search-types": "6.0.0",
     "@empathy/storage-service": "^1.3.0",
     "@empathybroker/deep-merge": "^1.2.0",
     "inversify": "~5.0.1",

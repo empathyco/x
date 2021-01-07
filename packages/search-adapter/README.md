@@ -68,7 +68,7 @@ Along to the `setLang`, `setInstance`, `setScope` and `setEnvironment` to simply
 - `setUserInfo`: The user info (if present) is sent on each request. This userInfo is composed by 3 parameters: `user` which is a UUID of the user, kept between different sessions, `session` which is the session UUID, and `userType` which defines if the user is `new` or `recurrent`.
 - `setFeatureConfig`: If you need to modify an endpoint, or add more fields to a response, you can do it with this helper. The first parameter is the feature name, and the second one is the configuration you want to modify.
 - `setResultTrackingConfig`: Sets the result tracking config.
-- `setFacetConfig`: It helps you configure how facets are mapped. The first parameter is the facet configuration. You only need to provide the values you want to modify, as this will be merged with the default facet configuration. There is also as second optional argument, which is the facet name. If provided that configuration will only be applied to that facet, overriding the defaults.
+- `setFacetConfig`: It helps you configure how facets are mapped. The first parameter is the facet configuration. You only need to provide the values you want to modify, as this will be merged with the default facet configuration. There is also as second optional argument, which is the facet id. If provided that configuration will only be applied to that facet, overriding the defaults.
 - `setRequestParams`: Any static request param that the request needs can be set here.
 - `withConfiguration`: If you don't like the other methods, you can always build your own configuration with the properties you want to override, and pass it to this method.
 
@@ -89,9 +89,9 @@ This is the full set of properties supported by the EmpathyAdapter. As you saw a
 | `mappings.facets.default.isDynamic` | `false` | `boolean` | If the facet is dynamic (the users can input whatever they want) or not |
 | `mappings.facets.default.multiSelectable` | `'disabled'` | `MultiSelect` | Whether the facet is multi-selectable or not, and if it is when should this multiselection be mapped (front-end or back-end) |
 | `mappings.facets.default.showUnselectedValues` | `true` | `boolean` | If you want the response to send us the rest of unselected filters of a facet or not|
-| `mappings.facets.default.prefix.facetName` | The facetName | `string`, `(context: FilterValueMapperParams) => string` | The facet name prefix used by Solr |
-| `mappings.facets.default.prefix.noTagFacetName` | The facetName | `string`, `(context: FilterValueMapperParams) => string` | The name of the facet in the no-tag part of the Solr query |
-| `mappings.facets.named` | N/A | `Record<string, DeepPartial<FacetConfig>>` | A record of partials configurations for a concrete facet. The key is the facet name, and the partial configuration will be merged with the default one |
+| `mappings.facets.default.prefix.facetId` | The facetId | `string`, `(context: FilterValueMapperParams) => string` | The facet id prefix used by Solr |
+| `mappings.facets.default.prefix.noTagFacetId` | The facetId | `string`, `(context: FilterValueMapperParams) => string` | The id of the facet in the no-tag part of the Solr query |
+| `mappings.facets.named` | N/A | `Record<string, DeepPartial<FacetConfig>>` | A record of partials configurations for a concrete facet. The key is the facet id, and the partial configuration will be merged with the default one |
 | `mappings.tracking.result.add2cart` | `'ebTagging.add2cart'` | `string` | The path of the add to cart tagging for each result |
 | `mappings.tracking.result.click` | `'ebTagging.click'`| `string` | The path of the click tagging for each result |
 | `mappings.tracking.result.[taggingName]` | N/A | `string` | Any other tagging like wishlist for each result. The key is the taggingName and the value is the path of the response. Relative to each raw result.  |

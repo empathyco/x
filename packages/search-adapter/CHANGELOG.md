@@ -1,5 +1,23 @@
 # Search Adapter Changelog
 
+## 5.0.0 - 2020/01/07
+
+> EX-2413 Add new facet mappers `EmpathyFacetMapper`, `EmpathySimpleFacetMapper`, `EmpathyHierarchicalFacetMapper`, and `EmpathyNumberRangeFacetMapper`. 
+>
+> EX-2413 Add new filter mappers `EmpathyFilterMapper`, `EmpathySimpleFilterMapper`, `EmpathyHierarchicalFilterMapper`, and `EmpathyNumberRangeFilterMapper`. 
+>
+> EX-2413 Replace facet mappers in `DEPENDENCIES.ResponseMappers.facets` with the new ones.
+>
+> EX-2413 Remove `DEPENDENCIES.ResponseMappers.filter` dependency.
+>
+> EX-2413 Add `DEPENDENCIES.ResponseMappers.simpleFilter`, `DEPENDENCIES.ResponseMappers.hierarchicalFilter`, `DEPENDENCIES.ResponseMappers.numberRangeFilter` with the new filter mappers.
+>
+> EX-2413 Remove `filterDeepness` and `facetName` from `FilterValueMapperParams` interface. Now the facet name can be got from the `filter` as `facetId` property.
+>
+> EX-2413 Add `FacetModelName` and `FilterModelName` types.
+>
+> EX-2413 Replace `filterModelName` prop by `modelName` in the `FacetConfig` interface. Now it has the `FacetModelName` type.
+
 ## 4.1.0 2020/09/21
 
 > EX-2185 Allow passing headers through the request

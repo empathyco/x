@@ -1,5 +1,15 @@
 # Search Adapter Changelog
 
+## 5.0.0
+
+> EX-2413 Rename `facetName` and `noTagFacetName` by `facetId` and `noTagFacetId` respectively in the `FacetConfig.prefix`.
+>
+> EX-2413 Replace `DEPENDENCIES.ResponseMappers.filters` by specific ones `DEPENDENCIES.ResponseMappers.simpleFilter`, `DEPENDENCIES.ResponseMappers.hierarchicalFilter` and `DEPENDENCIES.ResponseMappers.numberRangeFilter`.
+>
+> EX-2413 Remove `filterDeepness` and `facetName` from `FilterValueMapperParams` interface. Now the facet name can be got from the `filter` as `facetId` property.
+>
+> EX-2413 Replace `filterModelName` prop by `modelName` in the `FacetConfig` interface. Now it has the `FacetModelName` type.
+
 ## 4.0.0
 
 > EX-1837 Change next query mapper facets to be an array instead of an object.

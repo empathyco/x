@@ -1,4 +1,4 @@
-import { Facet, Filter, FilterModel, MultiSelect, SimpleFilter } from '@empathy/search-types';
+import { Facet, FacetModelName, Filter, MultiSelect, SimpleFacet, SimpleFilter } from '@empathy/search-types';
 import { deepMerge } from '@empathybroker/deep-merge';
 import { Container } from 'inversify';
 import { DeepPartial, Dictionary } from '../../../../types';
@@ -72,8 +72,8 @@ it('Reads custom configurations of facets', () => {
   config.mappings.facets.named = {
     size: deepMerge({}, config.mappings.facets.default, {
       prefix: {
-        facetName: 'size-facet-name',
-        noTagFacetName: 'size-no-tag-facet-name'
+        facetId: 'size-facet-id',
+        noTagFacetId: 'size-no-tag-facet-id'
       }
     })
   };
@@ -86,31 +86,28 @@ it('Reads custom configurations of facets', () => {
 
   const mappedFilters = filtersMapper.map(filters, [], emptyContext);
 
-  expect(mappedFilters).toEqual(['{!tag=color}color:blue', '{!tag=size-no-tag-facet-name}size-facet-name:small']);
+  expect(mappedFilters).toEqual(['{!tag=color}color:blue', '{!tag=size-no-tag-facet-id}size-facet-id:small']);
 });
 
 function getMockedFacet(name: string): Facet {
   return {
-    modelName: name,
-    title: name,
+    id: name,
+    modelName: 'SimpleFacet',
+    label: name,
     filters: []
   };
 }
 
-function getMockedSimpleFilter(name: string, facet: Facet, partial?: DeepPartial<Filter>): SimpleFilter {
-  const filter: Filter = deepMerge({
+function getMockedSimpleFilter(name: string, facet: Facet, partial?: DeepPartial<SimpleFilter>): SimpleFilter {
+  const filter: SimpleFilter = deepMerge({
     selected: true,
-    facet,
-    children: [],
-    parent: null,
+    facetId: facet.id,
     callbackInfo: {},
-    modelName: FilterModel.simple,
+    modelName: 'SimpleFilter',
     count: 10,
     id: name,
-    title: name,
-    value: {
-      filter: name
-    }
+    label: name,
+    value: name
   }, partial);
   facet.filters.push(filter);
   return filter;

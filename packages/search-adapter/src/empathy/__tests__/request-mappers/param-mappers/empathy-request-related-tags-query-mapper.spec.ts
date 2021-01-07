@@ -1,6 +1,6 @@
 import { RelatedTag } from '@empathy/search-types';
 import { QueryableRequest } from '../../../../types';
-import { EmpathyRequestRelatedTagsQueryMapper } from '../../../mappers';
+import { EmpathyRequestRelatedTagsQueryMapper } from '../../../mappers/request/params/empathy-request-related-tags-query.mapper';
 
 const relatedTagsMapper = new EmpathyRequestRelatedTagsQueryMapper();
 

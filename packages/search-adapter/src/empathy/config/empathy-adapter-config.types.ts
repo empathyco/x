@@ -1,4 +1,14 @@
-import { Filter, MultiSelect } from '@empathy/search-types';
+import {
+  FacetModelName,
+  Filter,
+  HierarchicalFacet,
+  HierarchicalFilter,
+  MultiSelect,
+  NumberRangeFacet,
+  NumberRangeFilter,
+  SimpleFacet,
+  SimpleFilter
+} from '@empathy/search-types';
 import {
   ClicksRecommendationsResponse,
   Dictionary,
@@ -93,26 +103,25 @@ export interface FacetsConfig {
  * @public
  */
 export interface FacetConfig {
-  filterModelName: string;
+  modelName: FacetModelName;
   isDynamic: boolean;
   multiSelectable: MultiSelect;
   showUnselectedValues: boolean;
   prefix: {
-    facetName: string | ((context: FilterValueMapperParams) => string);
-    noTagFacetName: string | ((context: FilterValueMapperParams) => string);
+    facetId: string | ((context: FilterValueMapperParams) => string);
+    noTagFacetId: string | ((context: FilterValueMapperParams) => string);
   };
 }
 
 /**
- * TODO https://searchbroker.atlassian.net/browse/EX-2163
+ * Params context of the filter value mapper.
  *
+ * @remarks Facet id can be got from the filter as filter.facetId param.
  * @public
  */
 export interface FilterValueMapperParams {
   config: EmpathyAdapterConfig;
-  facetName: string;
   filter: Filter;
-  filterDeepness: number;
 }
 
 /**

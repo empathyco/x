@@ -4,8 +4,9 @@ import { Dictionary, QueryableRequest } from '../../../types';
 import { DEFAULT_EMPATHY_ADAPTER_CONFIG } from '../../config/empathy-adapter.config';
 import { DEPENDENCIES } from '../../container/container.const';
 import { RequestMapperContext } from '../../empathy-adapter.types';
-import { EmpathyRequestQueryMapper, EmpathyRequestRelatedTagsQueryMapper } from '../../mappers';
 import { EmpathyQueryableRequestMapper } from '../../mappers/request/empathy-queryable-request.mapper';
+import { EmpathyRequestQueryMapper } from '../../mappers/request/params/empathy-request-query.mapper';
+import { EmpathyRequestRelatedTagsQueryMapper } from '../../mappers/request/params/empathy-request-related-tags-query.mapper';
 
 const container = new Container();
 

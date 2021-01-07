@@ -13,7 +13,6 @@ import { EmpathyRequestQueryMapper } from '../mappers/request/params/empathy-req
 import { EmpathyRequestRelatedTagsQueryMapper } from '../mappers/request/params/empathy-request-related-tags-query.mapper';
 import { ResponseMappers } from '../mappers/response.mappers';
 import { EmpathyBannerMapper } from '../mappers/response/empathy-banner.mapper';
-import { EmpathyFacetMapper } from '../mappers/response/empathy-facet.mapper';
 import { EmpathyNextQueryMapper } from '../mappers/response/empathy-next-query.mapper';
 import { EmpathyPartialResultMapper } from '../mappers/response/empathy-partial-result.mapper';
 import { EmpathyPromotedMapper } from '../mappers/response/empathy-promoted.mapper';
@@ -21,8 +20,13 @@ import { EmpathyRedirectionMapper } from '../mappers/response/empathy-redirectio
 import { EmpathyRelatedTagMapper } from '../mappers/response/empathy-related-tag.mapper';
 import { EmpathySimpleValueMapper } from '../mappers/response/empathy-simple-value.mapper';
 import { EmpathyTaggingMapper } from '../mappers/response/empathy-tagging.mapper';
+import { EmpathyFacetMapper } from '../mappers/response/facets/empathy-facet.mapper';
+import { EmpathyHierarchicalFacetMapper } from '../mappers/response/facets/empathy-hierarchical-facet.mapper';
+import { EmpathyNumberRangeFacetMapper } from '../mappers/response/facets/empathy-number-range-facet.mapper';
+import { EmpathySimpleFacetMapper } from '../mappers/response/facets/empathy-simple-facet.mapper';
 import { EmpathyFilterMapper } from '../mappers/response/filters/empathy-filter.mapper';
-import { EmpathyRangeFilterMapper } from '../mappers/response/filters/empathy-range-filter.mapper';
+import { EmpathyHierarchicalFilterMapper } from '../mappers/response/filters/empathy-hierarchical-filter.mapper';
+import { EmpathyNumberRangeFilterMapper } from '../mappers/response/filters/empathy-number-range-filter.mapper';
 import { EmpathySimpleFilterMapper } from '../mappers/response/filters/empathy-simple-filter.mapper';
 import { EmpathyResultQueryTaggingMapper } from '../mappers/response/results/empathy-result-query-tagging.mapper';
 import { EmpathyResultMapper } from '../mappers/response/results/empathy-result.mapper';
@@ -100,8 +104,15 @@ export const BINDINGS: BindingDictionary = {
   [DEPENDENCIES.RequestMappers.Parameters.filtersValue]: EmpathyRequestFiltersSolrSyntaxMapper,
   // Response mappers
   [DEPENDENCIES.ResponseMappers.banners]: EmpathyBannerMapper,
-  [DEPENDENCIES.ResponseMappers.facets]: EmpathyFacetMapper,
-  [DEPENDENCIES.ResponseMappers.filters]: [EmpathySimpleFilterMapper, EmpathyRangeFilterMapper, EmpathyFilterMapper],
+  [DEPENDENCIES.ResponseMappers.facets]: [
+    EmpathyFacetMapper,
+    EmpathySimpleFacetMapper,
+    EmpathyHierarchicalFacetMapper,
+    EmpathyNumberRangeFacetMapper
+  ],
+  [DEPENDENCIES.ResponseMappers.simpleFilter]: [EmpathyFilterMapper, EmpathySimpleFilterMapper],
+  [DEPENDENCIES.ResponseMappers.hierarchicalFilter]: [EmpathyFilterMapper, EmpathyHierarchicalFilterMapper],
+  [DEPENDENCIES.ResponseMappers.numberRangeFilter]: [EmpathyFilterMapper, EmpathyNumberRangeFilterMapper],
   [DEPENDENCIES.ResponseMappers.nextQueries]: EmpathyNextQueryMapper,
   [DEPENDENCIES.ResponseMappers.partialResults]: EmpathyPartialResultMapper,
   [DEPENDENCIES.ResponseMappers.promoteds]: EmpathyPromotedMapper,

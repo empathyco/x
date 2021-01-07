@@ -185,14 +185,14 @@ export class EmpathyAdapterBuilder {
     return this;
   }
 
-  setFacetConfig(config: DeepPartial<FacetConfig>, facetName?: string): this {
-    if (facetName) {
+  setFacetConfig(config: DeepPartial<FacetConfig>, facetId?: string): this {
+    if (facetId) {
       const namedFacetsConfig = this.config.mappings.facets.named;
-      if (!namedFacetsConfig[facetName]) {
+      if (!namedFacetsConfig[facetId]) {
         // We will complete the partial facet config in the build method, so we can cast this safely here.
-        namedFacetsConfig[facetName] = config as FacetConfig;
+        namedFacetsConfig[facetId] = config as FacetConfig;
       } else {
-        deepMerge(namedFacetsConfig[facetName], config);
+        deepMerge(namedFacetsConfig[facetId], config);
       }
     } else {
       deepMerge(this.config.mappings.facets.default, config);
@@ -249,8 +249,8 @@ export class EmpathyAdapterBuilder {
   protected completePartialFacetsConfig(): void {
     const config = this.container.get<EmpathyAdapterConfig>(DEPENDENCIES.config);
     const facetsConfig = config.mappings.facets;
-    Object.entries(facetsConfig.named).forEach(([facetName, namedFacetConfig]) => {
-      facetsConfig.named[facetName] = deepMerge({}, facetsConfig.default, namedFacetConfig);
+    Object.entries(facetsConfig.named).forEach(([facetId, namedFacetConfig]) => {
+      facetsConfig.named[facetId] = deepMerge({}, facetsConfig.default, namedFacetConfig);
     });
   }
 }

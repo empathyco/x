@@ -2,12 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "target": "es5",
-    "module": "esnext",
-    "declaration": false,
-    "declarationDir": null,
+    "module": "commonjs",
+    "declaration": true,
+    "declarationDir": "./types",
     "sourceMap": true,
     "inlineSources": true,
-    "outDir": "./dist/esm"
+    "outDir": "./dist/cjs"
   },
   "exclude": [
     "**/__mocks__/**/*",

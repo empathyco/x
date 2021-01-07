@@ -1,9 +1,23 @@
-import { Facet, Filter } from '@empathy/search-types';
-import { FacetSchema, FilterSchema } from '@empathy/search-types/schemas';
-import { deepMerge } from '@empathybroker/deep-merge';
+import {
+  Facet,
+  Filter,
+  HierarchicalFacet,
+  HierarchicalFilter,
+  NumberRangeFacet,
+  NumberRangeFilter,
+  SimpleFacet,
+  SimpleFilter
+} from '@empathy/search-types';
+import {
+  HierarchicalFilterSchema,
+  NumberRangeFacetSchema, NumberRangeFilterSchema,
+  SimpleFacetSchema, SimpleFilterSchema
+} from '@empathy/search-types/schemas';
 import { Container } from 'inversify';
-import { FilterableRequest } from '../../../types';
-import { deepFacet, deepFacetWithNoSelectedProperty, priceFacet } from '../../__fixtures__/responses/single-facet.response';
+import {
+  dynamicNumberRangeRawFacet,
+  hierarchicalRawFacet, hierarchicalRawFacetWithoutSelected, noDynamicNumberRangeRawFacet, simpleRawFacet
+} from '../../__fixtures__/responses/single-facet.response';
 import { EmpathyAdapterBuilder } from '../../builder/empathy-adapter.builder';
 import { DEPENDENCIES } from '../../container/container.const';
 import { MapFn, ResponseMapper, ResponseMapperContext } from '../../empathy-adapter.types';
@@ -13,7 +27,9 @@ import { EmpathyFacet } from '../../models';
 const emptyContext: ResponseMapperContext = { feature: '', url: '', requestOptions: {}, rawRequest: {}, request: {}, rawResponse: {} };
 const container = new Container();
 new EmpathyAdapterBuilder(container)
-  .setFacetConfig({isDynamic: true}, 'price_facet')
+  .setFacetConfig({ modelName: 'HierarchicalFacet' }, 'hierarchical_category')
+  .setFacetConfig({ isDynamic: true, modelName: 'NumberRangeFacet' }, 'price_facet')
+  .setFacetConfig({ isDynamic: false, modelName: 'NumberRangeFacet' }, 'rating_facet')
   .build();
 let mapFacet: MapFn<EmpathyFacet, Facet>;
 
@@ -27,103 +43,82 @@ afterEach(() => {
   container.restore();
 });
 
-it('Empathy facets mapping', () => {
-  const mappedFacet = mapFacet(deepFacet as any, {} as Facet, emptyContext);
+describe('Empathy Hierarchical Facet', () => {
+  it('maps a hierarchical facet', () => {
+    const mappedFacet = mapFacet(hierarchicalRawFacet, {} as HierarchicalFacet, emptyContext) as HierarchicalFacet;
 
-  expect(mappedFacet).toMatchObject(FacetSchema);
-  expect(mappedFacet.title).toEqual(deepFacet.facet);
-  expect(mappedFacet.filters.length).toEqual(deepFacet.values.length);
-  expect(mappedFacet.filters[1].children[0].children[0]).toBeDefined();
-  expectAllFiltersToBeValid(mappedFacet.filters);
-});
-
-it('maps a filters previous selection state', () => {
-  const filterId = 'hierarchical_category:"juegos_de_manualidades\\/construye"';
-  const context = createContextWithFilterSelected(filterId);
-
-  const mappedFacet = mapFacet(deepFacet as any, {} as Facet, context);
-  const targetFilter = findFilterById(mappedFacet.filters, filterId);
-
-  expectFacetToMatchMock(mappedFacet, deepFacet);
-  expectAllFiltersToBeValid(mappedFacet.filters);
-  expectFilterAncestorsToBeSelected(targetFilter);
-});
-
-it('maps filters correctly if the response does not have the selected property', () => {
-  const filterId = 'hierarchical_category:"juegos_de_manualidades\\/construye\\/construye-hija"';
-  const context = createContextWithFilterSelected(filterId);
-
-  const mappedFacet = mapFacet(deepFacetWithNoSelectedProperty as any, {} as Facet, context);
-  const targetFilter = findFilterById(mappedFacet.filters, filterId);
-
-  expectFacetToMatchMock(mappedFacet, deepFacetWithNoSelectedProperty);
-  expectAllFiltersToBeValid(mappedFacet.filters);
-  expectFilterAncestorsToBeSelected(targetFilter);
-  expect(mappedFacet.filters[1].children[0].children[0]).toBeDefined();
-});
-
-it('maps filters selected property to false by default', () => {
-  const mappedFacet = mapFacet(deepFacetWithNoSelectedProperty as any, {} as Facet, emptyContext);
-
-  expectFacetToMatchMock(mappedFacet, deepFacetWithNoSelectedProperty);
-  expectAllFiltersToBeValid(mappedFacet.filters);
-  expectAllFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
-});
-
-it('maps dynamic filters successfully', () => {
-  const mappedFacet = mapFacet(priceFacet as any, {} as Facet, emptyContext);
-
-  expect(mappedFacet).toMatchObject(FacetSchema);
-  expect(mappedFacet.title).toEqual(priceFacet.facet);
-  expect(mappedFacet.filters).toHaveLength(1);
-  expectAllFiltersToBeValid(mappedFacet.filters);
-  expectAllFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
-});
-
-function createContextWithFilterSelected(filterId: string): FilterableRequest {
-  return deepMerge({}, emptyContext, {
-    rawRequest: {
-      filters: {
-        hierarchical_category: [{ id: filterId, selected: true } as Filter]
-      }
-    } as FilterableRequest
+    expectAllFiltersToBeValid(mappedFacet.filters, HierarchicalFilterSchema);
+    expectFacetToMatchMock(mappedFacet, hierarchicalRawFacet.facet, hierarchicalRawFacet.values.length);
+    expect(mappedFacet.filters[1].children[0].children[0]).toBeDefined();
+    expectFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
   });
-}
 
-function expectAllFiltersToBeValid(filters: Filter[]): void {
-  return filters.forEach(filter => {
-    expect(filter).toMatchObject(FilterSchema);
-    expectAllFiltersToBeValid(filter.children);
+  it('maps filters correctly if the selected property is not defined', () => {
+    const mappedFacet = mapFacet(hierarchicalRawFacetWithoutSelected, {} as HierarchicalFacet, emptyContext) as HierarchicalFacet;
+
+    expectFacetToMatchMock(mappedFacet, hierarchicalRawFacetWithoutSelected.facet, hierarchicalRawFacetWithoutSelected.values.length);
+    expectAllFiltersToBeValid(mappedFacet.filters, HierarchicalFilterSchema);
+    expect(mappedFacet.filters[1].children[1].children[0]).toBeDefined();
+    expectFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
   });
+});
+
+describe('Empathy Simple Facet', () => {
+  it('maps a simple facet', () => {
+    const mappedFacet = mapFacet(simpleRawFacet, {} as SimpleFacet, emptyContext) as SimpleFacet;
+
+    expect(mappedFacet).toMatchObject(SimpleFacetSchema);
+    expectFacetToMatchMock(mappedFacet, simpleRawFacet.facet, simpleRawFacet.values.length);
+    expectAllFiltersToBeValid(mappedFacet.filters, SimpleFilterSchema);
+    expectFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
+  });
+});
+
+describe('Empathy Number Range Facet', () => {
+  it('maps a number range facet with dynamic values', () => {
+    const mappedFacet = mapFacet(dynamicNumberRangeRawFacet, {} as NumberRangeFacet, emptyContext) as NumberRangeFacet;
+
+    expect(mappedFacet).toMatchObject(NumberRangeFacetSchema);
+    expectFacetToMatchMock(mappedFacet, dynamicNumberRangeRawFacet.facet, 1);
+    expectAllFiltersToBeValid(mappedFacet.filters, NumberRangeFilterSchema);
+    expectFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
+  });
+
+  it('maps a number range facet without dynamic values', () => {
+    const mappedFacet = mapFacet(noDynamicNumberRangeRawFacet, {} as NumberRangeFacet, emptyContext) as NumberRangeFacet;
+
+    expect(mappedFacet).toMatchObject(NumberRangeFacetSchema);
+    expectFacetToMatchMock(mappedFacet, noDynamicNumberRangeRawFacet.facet, mappedFacet.filters.length);
+    expectAllFiltersToBeValid(mappedFacet.filters, NumberRangeFilterSchema);
+    expectFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
+  });
+});
+
+function expectFacetToMatchMock(mappedFacet: HierarchicalFacet | SimpleFacet | NumberRangeFacet, mockFacetId: string,
+  mockFiltersLength: number): void {
+  expect(mappedFacet.id).toEqual(mockFacetId);
+  expect(mappedFacet.label).toEqual(mockFacetId);
+  expect(mappedFacet.filters.length).toEqual(mockFiltersLength);
 }
 
-function findFilterById(filters: Filter[], id: string): Filter {
-  const searchFn = (target: Filter | null, filter: Filter): Filter | null => target || filter.id === id
-    ? filter
-    : filter.children.reduce(searchFn, null);
-  const foundFilter = filters.reduce(searchFn, null);
-  if (!foundFilter) {
-    throw new Error(`Filter with id ${ id } couldn't be found`);
-  }
-  return foundFilter;
-}
-
-function expectAllFiltersToHaveSelectedPropertyTo(filters: Filter[], selected: boolean): void {
+function expectFiltersToHaveSelectedPropertyTo(filters: Filter[], selected: boolean | null): void {
   filters.forEach(filter => {
     expect(filter.selected).toEqual(selected);
-    expectAllFiltersToHaveSelectedPropertyTo(filter.children, selected);
+    if (isHierarchicalFilter(filter)) {
+      expectFiltersToHaveSelectedPropertyTo(filter.children, selected);
+    }
   });
 }
 
-function expectFilterAncestorsToBeSelected(filter: Filter) {
-  expect(filter.selected).toEqual(true);
-  if (filter.parent) {
-    expectFilterAncestorsToBeSelected(filter.parent);
-  }
+function expectAllFiltersToBeValid(filters: Filter[], schema: HierarchicalFilter | SimpleFilter | NumberRangeFilter): void {
+  return filters.forEach(filter => {
+    expect(filter).toMatchObject(schema);
+    if (isHierarchicalFilter(filter)) {
+      expectAllFiltersToBeValid(filter.children, HierarchicalFilterSchema);
+    }
+  });
 }
 
-function expectFacetToMatchMock(facet: Facet, rawFacet: EmpathyFacet) {
-  expect(facet).toMatchObject(FacetSchema);
-  expect(facet.title).toEqual(rawFacet.facet);
-  expect(facet.filters.length).toEqual(rawFacet.values.length);
+function isHierarchicalFilter(filter: Filter): filter is HierarchicalFilter {
+  return filter.modelName === 'HierarchicalFilter';
 }
