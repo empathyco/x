@@ -1,5 +1,15 @@
 # Changelog
 
+## 6.0.0 - 2020/01/07
+
+> EX-2521 Remove `BaseFilter` and `Facet` from the possible model names.
+>
+> EX-2479 Added FacetModelName and FilterModelName types.
+>
+> EX-2447 Support null value in `parentId` for the `HierarchicalFilter` model.
+>
+> EX-2320 Refactor Facet & Filter models, renaming fields and splitting in different subtypes.
+
 ## 5.0.1 - 2020/09/18
 
 > EX-2152 Fix api-extractor doc model and improve build

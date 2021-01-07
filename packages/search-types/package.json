@@ -1,6 +1,6 @@
 {
   "name": "@empathy/search-types",
-  "version": "5.0.1",
+  "version": "6.0.0",
   "description": "Empathy search types",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

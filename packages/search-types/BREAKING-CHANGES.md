@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.0.0
+
+> EX-2521 Remove `BaseFilter` and `Facet` from the possible model names.
+>
+> EX-2320 Split the facet model into `Facet`, `SimpleFacet`, `HierarchicalFacet` and `RangeFacet`.
+>
+> EX-2320 Split the filter model into `Filter`, `SimpleFilter`, `HierarchicalFilter` and `RangeFilter`. The `Filter` changed the `value` to be always unknown and the `HierarchicalFilter` changed the `parent` and the `facet` properties to be identifier strings.
+
 ## 5.0.0
 
 > EX-1837 Changed next query schema facets to be an array instead of an object.
