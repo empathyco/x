@@ -16,6 +16,11 @@
     </SlidingPanel>
     <!-- Facets -->
     <h1>Facets</h1>
+    <SelectedFilters>
+      <template #default="{ selectedFilters }">
+        Filters selected: {{ selectedFilters.length }}
+      </template>
+    </SelectedFilters>
     <ClearFilters v-slot="{ selectedFilters }" :alwaysVisible="true">
       Clear {{ selectedFilters.length }} filters
     </ClearFilters>
@@ -23,6 +28,7 @@
       <template #default="{ facet }">
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
+          <SelectedFilters :facetId="facet.id" />
           <BaseAllFilter :facet="facet" />
           <MultiSelectFilters
             v-slot="{ filter }"
@@ -36,6 +42,7 @@
       <template #hierarchical_category="{ facet }">
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
+          <SelectedFilters :facetId="facet.id" />
           <BaseAllFilter :facet="facet" />
           <BaseFilters
             v-slot="{ filter }"
@@ -49,6 +56,7 @@
       <template #brand_facet="{ facet }">
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
+          <SelectedFilters :facetId="facet.id" />
           <BaseFiltersSearch v-slot="{ siftedFilters }" :filters="facet.filters">
             <BaseSlicedFilters :filters="siftedFilters" :max="8">
               <template #default="{ slicedFilters }">
@@ -65,6 +73,7 @@
       <template #price_facet="{ facet }">
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
+          <SelectedFilters :facetId="facet.id" />
           <BaseAllFilter :facet="facet" />
           <BaseFilters
             v-slot="{ filter }"
@@ -215,6 +224,7 @@
   import BaseResultImage from '../components/result/base-result-image.vue';
   import BaseSimpleFilter from '../components/filters/base-simple-filter.vue';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
+  import SelectedFilters from '../x-modules/facets/components/selected-filters.vue';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
@@ -259,6 +269,7 @@
       BaseHierarchicalFilter,
       BaseNumberRangeFilter,
       BaseCurrency,
+      SelectedFilters,
       BasePriceTitle: BasePriceFilterTitle,
       BaseCloseButton,
       BaseKeyboardNavigation,
