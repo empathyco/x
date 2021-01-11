@@ -1,6 +1,6 @@
 <template>
-  <div class="x-rating" role="img" :aria-label="ariaLabel">
-    <div class="x-rating--empty">
+  <div class="x-rating" role="img" :aria-label="ariaLabel" data-test="rating">
+    <div class="x-rating--empty" data-test="rating-empty">
       <!--
         @slot The content to render as empty icon
       -->
@@ -8,7 +8,11 @@
         <DefaultIcon :key="i" class="x-rating__default-icon x-rating__default-icon--empty" />
       </slot>
     </div>
-    <div class="x-rating--filled" :style="{ width: calculateFilledWrapperWidth }">
+    <div
+      class="x-rating--filled"
+      :style="{ width: calculateFilledWrapperWidth }"
+      data-test="rating-filled"
+    >
       <!--
         @slot The content to render as filled icon
       -->
@@ -59,7 +63,7 @@
      * @internal
      */
     protected get calculateFilledWrapperWidth(): string {
-      return `${(this.value * 100) / this.max}%`;
+      return this.value < 0 ? '0%' : `${(this.value * 100) / this.max}%`;
     }
 
     /**
