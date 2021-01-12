@@ -1,4 +1,6 @@
-describe('Testing FullEmpathize', () => {
+/* TODO Disabled until memory leaks in Cypress are solved. This test randomly fails and the only
+    clue is a memory leak from Cypress. */
+describe.skip('Testing FullEmpathize', () => {
   beforeEach(() => {
     cy.visit('/full-empathize');
     cy.getByDataTest('search-input').as('searchInput');

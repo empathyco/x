@@ -25,7 +25,7 @@
 
   /**
    * This component receives a required `facet` as prop and renders a button, which on clicked emits
-   * the {@link XEventsTypes.UserClickedFacetAllFilter} event. By default the rendered button
+   * the {@link FacetsXEvents.UserClickedFacetAllFilter} event. By default the rendered button
    * displays a message with the facet label but this content is customizable through the default
    * slot.
    *

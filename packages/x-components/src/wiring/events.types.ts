@@ -87,15 +87,20 @@ export interface XEventsTypes
    */
   UserClickedResultAddToCart: Result;
   /**
-   * The user closed XComponents.
+   * The user clicked the button to close the XComponents modal.
    * * Payload: none.
    */
-  UserClosedX: void;
+  UserClickedCloseX: void;
   /**
-   * The user opened XComponents.
+   * The user clicked the button to open the XComponents modal.
    * * Payload: none.
    */
-  UserOpenedX: void;
+  UserClickedOpenX: void;
+  /**
+   * The user clicked out of the X Modal while it is opened.
+   * * Payload: none.
+   */
+  UserClickedOutOfXModal: void;
   /**
    * The user pressed an {@link ArrowKey | arrow key} with the focus on the search-box.
    * * Payload: the pressed {@link ArrowKey | arrow key}.

@@ -1,12 +1,10 @@
 export * from './animations';
-export { default as BaseCloseButton } from './base-close-button.vue';
 export { default as BaseEventButton } from './base-event-button.vue';
 export { default as BaseKeyboardNavigation } from './base-keyboard-navigation.vue';
-export { default as BaseModalContainer } from './base-modal-container.vue';
-export { default as BaseOpenButton } from './base-open-button.vue';
 export { default as BaseCurrency } from './currency/base-currency.vue';
 export * from './decorators/debounce.decorators';
 export * from './decorators/store.decorators';
+export { default as BaseAllFilter } from './filters/base-all-filter.vue';
 export { default as BaseFiltersSearch } from './filters/base-filters-search.vue';
 export { default as BaseFilters } from './filters/base-filters.vue';
 export { default as BaseHierarchicalFilter } from './filters/base-hierarchical-filter.vue';
@@ -15,6 +13,7 @@ export { default as BasePriceTitle } from './filters/base-price-filter-title.vue
 export { default as BaseRating } from './base-rating.vue';
 export { default as BaseSimpleFilter } from './filters/base-simple-filter.vue';
 export { default as BaseSlicedFilters } from './filters/base-sliced-filters.vue';
+export * from './modals';
 export * from './icons';
 export { noElementComponent } from './no-element';
 export * from './panels';

@@ -1,12 +1,10 @@
 <template>
   <main>
-    <BaseOpenButton>Open search</BaseOpenButton>
-    <BaseModalContainer>
-      <div class="modal-content">
-        <SearchInput placeholder="Search" aria-label="Search for products" />
-        <BaseCloseButton aria-label="Close search">x</BaseCloseButton>
-      </div>
-    </BaseModalContainer>
+    <BaseEventsOpenButton>Open search</BaseEventsOpenButton>
+    <BaseEventsModal :animation="collapseFromTop">
+      <SearchInput placeholder="Search" aria-label="Search for products" />
+      <BaseEventsCloseButton aria-label="Close search">x</BaseEventsCloseButton>
+    </BaseEventsModal>
     <!-- Search Section -->
     <SearchInput placeholder="Search" aria-label="Search for products" />
     <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
@@ -82,7 +80,7 @@
           >
             <BaseNumberRangeFilter :filter="filter">
               <template #default="{ filter }">
-                <BasePriceTitle
+                <BasePriceFilterTitle
                   :filter="filter"
                   :configCurrency="{ format: 'i €' }"
                   lessThan="Less than {max}"
@@ -212,14 +210,14 @@
   import BaseAllFilter from '../components/filters/base-all-filter.vue';
   import BaseFiltersSearch from '../components/filters/base-filters-search.vue';
   import BaseSlicedFilters from '../components/filters/base-sliced-filters.vue';
+  import BaseEventsModal from '../components/modals/base-events-modal.vue';
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
-  import BaseCloseButton from '../components/base-close-button.vue';
+  import BaseEventsModalClose from '../components/modals/base-events-modal-close.vue';
   import BaseFilters from '../components/filters/base-filters.vue';
   import BaseHierarchicalFilter from '../components/filters/base-hierarchical-filter.vue';
   import BaseNumberRangeFilter from '../components/filters/base-number-range-filter.vue';
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
-  import BaseModalContainer from '../components/base-modal-container.vue';
-  import BaseOpenButton from '../components/base-open-button.vue';
+  import BaseEventsOpenButton from '../components/modals/base-events-modal-open.vue';
   import BaseResultLink from '../components/result/base-result-link.vue';
   import BaseResultImage from '../components/result/base-result-image.vue';
   import BaseSimpleFilter from '../components/filters/base-simple-filter.vue';
@@ -261,6 +259,7 @@
       next();
     },
     components: {
+      BaseEventsModal,
       BaseAllFilter,
       BaseFilters,
       BaseFiltersSearch,
@@ -269,12 +268,10 @@
       BaseHierarchicalFilter,
       BaseNumberRangeFilter,
       BaseCurrency,
-      SelectedFilters,
-      BasePriceTitle: BasePriceFilterTitle,
-      BaseCloseButton,
+      BasePriceFilterTitle,
+      BaseEventsCloseButton: BaseEventsModalClose,
       BaseKeyboardNavigation,
-      BaseModalContainer,
-      BaseOpenButton,
+      BaseEventsOpenButton,
       BaseResultLink,
       BaseResultImage,
       BaseSimpleFilter,
@@ -294,6 +291,7 @@
       QuerySuggestions,
       Recommendations,
       RelatedTags,
+      SelectedFilters,
       SearchButton,
       SearchInput,
       SlidingPanel

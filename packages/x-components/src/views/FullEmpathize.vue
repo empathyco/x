@@ -4,13 +4,13 @@
     <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
     <Empathize :animation="collapseFromTop">
       <BaseKeyboardNavigation>
-        <BaseCloseButton
+        <BaseEventsModalClose
           key="closeButton"
           class="x-empathize__close"
           closingEvent="UserClosedEmpathize"
         >
           ×
-        </BaseCloseButton>
+        </BaseEventsModalClose>
         <div class="x-column">
           <h1>Query Suggestions</h1>
           <QuerySuggestions :animation="fadeAndSlide">
@@ -72,8 +72,8 @@
       </BaseKeyboardNavigation>
     </Empathize>
     <!-- Testing purpose -->
+    <h1>Results</h1>
     <ul>
-      <h1>Results</h1>
       <li v-for="result in results" :key="result.id">
         {{ result.name }}
       </li>
@@ -87,10 +87,10 @@
   import { Component } from 'vue-property-decorator';
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import FadeAndSlide from '../components/animations/fade-and-slide.vue';
-  import BaseCloseButton from '../components/base-close-button.vue';
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
-  import BaseResultLink from '../components/result/base-result-link.vue';
   import { Getter } from '../components/decorators/store.decorators';
+  import BaseEventsModalClose from '../components/modals/base-events-modal-close.vue';
+  import BaseResultLink from '../components/result/base-result-link.vue';
   import { XPlugin } from '../plugins/x-plugin';
   import { XInstaller } from '../x-installer/x-installer';
   import Empathize from '../x-modules/empathize/components/empathize.vue';
@@ -118,13 +118,12 @@
       next();
     },
     components: {
-      SearchInput,
       ClearSearchInput,
-      Empathize,
+      BaseEventsModalClose,
       BaseKeyboardNavigation,
-      BaseCloseButton,
       BaseResultLink,
       ClearHistoryQueries,
+      Empathize,
       HistoryQueries,
       IdentifierResult,
       IdentifierResults,
@@ -134,7 +133,8 @@
       QuerySuggestion,
       QuerySuggestions,
       Recommendations,
-      RelatedTags
+      RelatedTags,
+      SearchInput
     }
   })
   export default class FullEmpathize extends Vue {

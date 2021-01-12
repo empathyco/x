@@ -33,7 +33,7 @@ class TestingComponent extends Vue {
     singleListener(this, payload);
   }
 
-  @XOn(['UserOpenedX', 'UserClosedX'])
+  @XOn(['UserClickedOpenX', 'UserClickedCloseX'])
   testingXOnMultiple(): void {
     multipleListener(this);
   }
@@ -43,17 +43,17 @@ class TestingComponent extends Vue {
     dataListener(this, payload);
   }
 
-  @XOn('UserOpenedX', { moduleName: 'searchBox' })
+  @XOn('UserClickedOpenX', { moduleName: 'searchBox' })
   testingXOnOptions(): void {
     optionsListener(this);
   }
 
-  @XOn('UserClosedX', { moduleName: 'empathize' })
+  @XOn('UserClickedCloseX', { moduleName: 'empathize' })
   testingXOnOptionsFiltered(): void {
     filteredOptionsListener(this);
   }
 
-  @XOn('UserClosedX', { moduleName: 'searchBox', origin: 'default' })
+  @XOn('UserClickedCloseX', { moduleName: 'searchBox', origin: 'default' })
   testingXOnMultipleOptionsFiltered(): void {
     filteredWithMultipleOptionsListener(this);
   }
@@ -125,8 +125,8 @@ describe('testing decorators', () => {
     });
 
     it('subscribes to a defined array of events', () => {
-      component.vm.$x.emit('UserOpenedX');
-      component.vm.$x.emit('UserClosedX');
+      component.vm.$x.emit('UserClickedOpenX');
+      component.vm.$x.emit('UserClickedCloseX');
 
       expect(multipleListener).toHaveBeenCalledTimes(2);
     });
@@ -155,8 +155,8 @@ describe('testing decorators', () => {
       component.vm.$x.emit('UserAcceptedAQuery', 'que pasara que misterios habra');
       component.vm.$x.emit('UserIsTypingAQuery', 'estare escribiendo?');
       component.vm.$x.emit('UserTalked', 'no he dicho nada');
-      component.vm.$x.emit('UserOpenedX');
-      component.vm.$x.emit('UserClosedX');
+      component.vm.$x.emit('UserClickedOpenX');
+      component.vm.$x.emit('UserClickedCloseX');
 
       expect(singleListener).not.toHaveBeenCalled();
       expect(multipleListener).not.toHaveBeenCalled();
@@ -164,16 +164,16 @@ describe('testing decorators', () => {
     });
 
     it('filters out callback based on options passed to the decorator', () => {
-      component.vm.$x.emit('UserOpenedX');
+      component.vm.$x.emit('UserClickedOpenX');
       expect(optionsListener).toHaveBeenCalled();
-      component.vm.$x.emit('UserClosedX');
+      component.vm.$x.emit('UserClickedCloseX');
       expect(filteredOptionsListener).not.toHaveBeenCalled();
     });
 
     it('filters out callback based on multiple options passed to the decorator', () => {
-      component.vm.$x.emit('UserClosedX', undefined, { origin: 'empathize_term' });
+      component.vm.$x.emit('UserClickedCloseX', undefined, { origin: 'empathize_term' });
       expect(filteredWithMultipleOptionsListener).not.toHaveBeenCalled();
-      component.vm.$x.emit('UserClosedX', undefined, { origin: 'default' });
+      component.vm.$x.emit('UserClickedCloseX', undefined, { origin: 'default' });
       expect(filteredWithMultipleOptionsListener).toHaveBeenCalled();
     });
   });
