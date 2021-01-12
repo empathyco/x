@@ -1,8 +1,8 @@
 import { Filter } from '@empathy/search-types';
 import { mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
-import { createCategorySimpleFilter } from '../../../__stubs__/filters-stubs.factory';
-import { getDataTestSelector } from '../../../__tests__/utils';
+import { createCategorySimpleFilter } from '../../../../__stubs__/filters-stubs.factory';
+import { getDataTestSelector } from '../../../../__tests__/utils';
 import BaseSlicedFilters from '../base-sliced-filters.vue';
 
 /**

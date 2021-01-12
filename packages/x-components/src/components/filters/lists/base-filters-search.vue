@@ -28,9 +28,9 @@
   import Vue from 'vue';
   import { Filter } from '@empathy/search-types';
   import { Component, Prop, Watch } from 'vue-property-decorator';
-  import { debounce, DebouncedFunction } from '../../utils/debounce';
-  import { normalizeString } from '../../utils/normalize';
-  import { VueCSSClasses } from '../../utils/types';
+  import { debounce, DebouncedFunction } from '../../../utils/debounce';
+  import { normalizeString } from '../../../utils/normalize';
+  import { VueCSSClasses } from '../../../utils/types';
 
   /**
    * Renders the filters sifted with the input query.

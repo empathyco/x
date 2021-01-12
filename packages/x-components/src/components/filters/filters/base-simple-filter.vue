@@ -18,8 +18,8 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { SimpleFilter } from '@empathy/search-types';
-  import { VueCSSClasses } from '../../utils/types';
-  import { XEventsTypes } from '../../wiring/events.types';
+  import { VueCSSClasses } from '../../../utils/types';
+  import { XEventsTypes } from '../../../wiring/events.types';
   import BaseFilter from './base-filter.vue';
 
   /**

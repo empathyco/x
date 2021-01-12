@@ -62,9 +62,9 @@
   import { Component } from 'vue-property-decorator';
   import { Result } from '@empathy/search-types';
   import { Getter, State } from '../components/decorators/store.decorators';
-  import BaseFilters from '../components/filters/base-filters.vue';
-  import BaseHierarchicalFilter from '../components/filters/base-hierarchical-filter.vue';
-  import BaseSimpleFilter from '../components/filters/base-simple-filter.vue';
+  import BaseFilters from '../components/filters/lists/base-filters.vue';
+  import BaseHierarchicalFilter from '../components/filters/filters/base-hierarchical-filter.vue';
+  import BaseSimpleFilter from '../components/filters/filters/base-simple-filter.vue';
   import { XPlugin } from '../plugins/x-plugin';
   import { XInstaller } from '../x-installer/x-installer/x-installer';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';

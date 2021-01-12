@@ -1,9 +1,9 @@
 import { SimpleFilter } from '@empathy/search-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { getSimpleFilterStub } from '../../../__stubs__/filters-stubs.factory';
-import { getDataTestSelector } from '../../../__tests__/utils';
-import BaseSimpleFilter from '../../filters/base-simple-filter.vue';
+import { getSimpleFilterStub } from '../../../../__stubs__/filters-stubs.factory';
+import { getDataTestSelector } from '../../../../__tests__/utils';
+import BaseSimpleFilter from '../base-simple-filter.vue';
 
 function renderBaseSimpleFilter({
   template = '<BaseSimpleFilter :filter="filter"/>',

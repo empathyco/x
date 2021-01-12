@@ -2,10 +2,10 @@
   import Vue, { CreateElement, VNode, VNodeChildren } from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { NumberRangeFilter } from '@empathy/search-types';
-  import BaseCurrency from '../currency/base-currency.vue';
+  import BaseCurrency from '../../currency/base-currency.vue';
 
   /**
-   * Renders a title for a price filter, allowing to select different messages depending on the
+   * Renders a label for a price filter, allowing to select different messages depending on the
    * value of the filter.
    *
    * @public
@@ -13,12 +13,12 @@
   @Component({
     components: { BaseCurrency }
   })
-  export default class BasePriceFilterTitle extends Vue {
+  export default class BasePriceFilterLabel extends Vue {
     /** The filter data for get min and max value. */
     @Prop({ required: true })
     public filter!: NumberRangeFilter;
 
-    /** Configuration for show the title. */
+    /** Configuration for show the label. */
     @Prop()
     public format?: string;
 
@@ -50,12 +50,12 @@
     public from!: string;
 
     /**
-     * The active title, retrieved from the provided props.
+     * The active label, retrieved from the provided props.
      * It depends on the min and max values of the filter.
      *
-     * @returns The active title to be formatted with the min and max values of the filter.
+     * @returns The active label to be formatted with the min and max values of the filter.
      */
-    protected get title(): string {
+    protected get label(): string {
       return this.filter.value.min === null
         ? this.lessThan
         : this.filter.value.max === null
@@ -64,9 +64,9 @@
     }
 
     render(createElement: CreateElement): VNode {
-      const titleParts = this.title.split(/({min}|{max})/);
+      const labelParts = this.label.split(/({min}|{max})/);
 
-      const children: VNodeChildren = titleParts.map(partMessage => {
+      const children: VNodeChildren = labelParts.map(partMessage => {
         if (partMessage === '{min}') {
           return createElement('BaseCurrency', {
             props: {
@@ -87,7 +87,7 @@
         return partMessage;
       });
 
-      return createElement('div', { class: 'x-price-filter-title' }, children);
+      return createElement('span', { class: 'x-price-filter-label' }, children);
     }
   }
 </script>
@@ -95,7 +95,7 @@
 <docs lang="mdx">
 # Example
 
-Renders a title for a price filter, allowing to select different messages depending on the value of
+Renders a label for a price filter, allowing to select different messages depending on the value of
 the filter.
 
 - When the `min` value property isn't defined in the filter, you can show a message like
@@ -116,7 +116,7 @@ how the price should look like.
     <template #price="{ facet }">
       <BaseFilters v-slot="{ filter }" :filters="facet.filters">
         <BaseNumberRangeFilter :filter="filter" v-slot="{ filter }">
-          <BasePriceFilterTitle
+          <BasePriceFilterLabel
             :filter="filter"
             format="$i"
             lessThan="Less than {max}"
@@ -131,7 +131,7 @@ how the price should look like.
 
 <script>
   import { Facets } from '@empathy/x-components/facets';
-  import { BaseFilters, BaseNumberRangeFilter, BasePriceFilterTitle } from '@empathy/x-components';
+  import { BaseFilters, BaseNumberRangeFilter, BasePriceFilterLabel } from '@empathy/x-components';
 
   export default {
     name: 'MyFacets',
@@ -139,7 +139,7 @@ how the price should look like.
       Facets,
       BaseFilters,
       BaseNumberRangeFilter,
-      BasePriceFilterTitle
+      BasePriceFilterLabel
     }
   };
 </script>

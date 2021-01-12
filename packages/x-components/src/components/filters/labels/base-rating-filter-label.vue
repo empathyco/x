@@ -1,5 +1,5 @@
 <template>
-  <BaseRating class="x-rating-filter-title" data-test="rating-title" :value="value" :max="max">
+  <BaseRating class="x-rating-filter-label" data-test="rating-label" :value="value" :max="max">
     <template #filledIcon>
       <!--
        @slot Filled icon content
@@ -19,10 +19,10 @@
   import { Filter } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import BaseRating from '../base-rating.vue';
+  import BaseRating from '../../base-rating.vue';
 
   /**
-   * Renders a title for a rating filter, allowing to override the elements used to paint
+   * Renders a label for a rating filter, allowing to override the elements used to paint
    * the rating.
    *
    * @public
@@ -32,7 +32,7 @@
       BaseRating
     }
   })
-  export default class BaseRatingFilterTitle extends Vue {
+  export default class BaseRatingFilterLabel extends Vue {
     /**
      * The filter data to render.
      *
@@ -66,13 +66,13 @@
 <docs lang="mdx">
 # Example
 
-Renders a title for a rating filter, allowing to override the elements used to paint the rating. The
+Renders a label for a rating filter, allowing to override the elements used to paint the rating. The
 filter label must be a valid number string. For example: '3', '2.5', '0.25'
 
 ## Basic usage
 
 ```vue
-<BaseRatingFilterTitle :filter="filter" />
+<BaseRatingFilterLabel :filter="filter" />
 ```
 
 ## Customizing color
@@ -81,7 +81,7 @@ Its possible to change the default color directly with color CSS attribute. For 
 styles it's possible to style the inner svg icons.
 
 ```vue
-<BaseRatingFilterTitle :filter="filter" style="color: gold" />
+<BaseRatingFilterLabel :filter="filter" style="color: gold" />
 ```
 
 ## Customizing its contents
@@ -90,16 +90,16 @@ The `max` prop can be used to set the max rating number. It will render as many 
 `max` value.
 
 ```vue
-<BaseRatingFilterTitle :filter="filter" :max="max" />
+<BaseRatingFilterLabel :filter="filter" :max="max" />
 ```
 
 The default icons can be changed using the `rating-icon-filled` and `rating-icon-empty` icons, to
 represent the filled empty and empty icon in the rating component.
 
 ```vue
-<BaseRatingFilterTitle :filter="filter" :max="max">
+<BaseRatingFilterLabel :filter="filter" :max="max">
   <template #rating-icon-filled>♥</template>
   <template #rating-icon-empty>♡</template>
-</BaseRatingFilterTitle>
+</BaseRatingFilterLabel>
 ```
 </docs>

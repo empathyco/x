@@ -19,9 +19,9 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { Facet } from '@empathy/search-types';
-  import BaseEventButton from '../base-event-button.vue';
-  import { VueCSSClasses } from '../../utils/types';
-  import { XEventsTypes } from '../../wiring/events.types';
+  import BaseEventButton from '../../base-event-button.vue';
+  import { VueCSSClasses } from '../../../utils/types';
+  import { XEventsTypes } from '../../../wiring/events.types';
 
   /**
    * This component receives a required `facet` as prop and renders a button, which on clicked emits

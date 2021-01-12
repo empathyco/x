@@ -19,9 +19,9 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { Filter } from '@empathy/search-types';
-  import BaseEventButton from '../../components/base-event-button.vue';
-  import { VueCSSClasses } from '../../utils/types';
-  import { XEventsTypes } from '../../wiring/events.types';
+  import BaseEventButton from '../../base-event-button.vue';
+  import { VueCSSClasses } from '../../../utils/types';
+  import { XEventsTypes } from '../../../wiring/events.types';
 
   /**
    * Renders a button with a default slot. It receives a filter that will be used in the default

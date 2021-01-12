@@ -1,9 +1,9 @@
 import { NumberRangeFilter } from '@empathy/search-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { getNumberRangeFilterStub } from '../../../__stubs__/filters-stubs.factory';
-import { getDataTestSelector } from '../../../__tests__/utils';
-import BaseNumberRangeFilter from '../../filters/base-number-range-filter.vue';
+import { getNumberRangeFilterStub } from '../../../../__stubs__/filters-stubs.factory';
+import { getDataTestSelector } from '../../../../__tests__/utils';
+import BaseNumberRangeFilter from '../base-number-range-filter.vue';
 
 function renderBaseNumberRangeFilter({
   template = '<BaseNumberRangeFilter :filter="filter"/>',

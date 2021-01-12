@@ -1,9 +1,9 @@
 import { Facet } from '@empathy/search-types';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { XPlugin } from '../../../plugins';
-import { getSimpleFacetStub } from '../../../__stubs__/facets-stubs.factory';
-import { installNewXPlugin } from '../../../__tests__/utils';
+import { XPlugin } from '../../../../plugins/index';
+import { getSimpleFacetStub } from '../../../../__stubs__/facets-stubs.factory';
+import { installNewXPlugin } from '../../../../__tests__/utils';
 import BaseAllFilter from '../base-all-filter.vue';
 /**
  * Renders the `AllFilter` component, exposing a basic API for testing.

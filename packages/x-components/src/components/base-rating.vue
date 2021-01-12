@@ -1,5 +1,5 @@
 <template>
-  <div class="x-rating" role="img" :aria-label="ariaLabel" data-test="rating">
+  <span class="x-rating" role="img" :aria-label="ariaLabel" data-test="rating">
     <div class="x-rating--empty" data-test="rating-empty">
       <!--
         @slot The content to render as empty icon
@@ -20,7 +20,7 @@
         <DefaultIcon :key="i" class="x-rating__default-icon x-rating__default-icon--filled" />
       </slot>
     </div>
-  </div>
+  </span>
 </template>
 
 <script lang="ts">

@@ -1,10 +1,10 @@
 import { Filter } from '@empathy/search-types';
 import { mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
-import { Dictionary } from '../../../utils/types';
-import { getSimpleFilterStub } from '../../../__stubs__/filters-stubs.factory';
-import { getDataTestSelector } from '../../../__tests__/utils';
-import BaseFiltersSearch from '../../filters/base-filters-search.vue';
+import { Dictionary } from '../../../../utils/types';
+import { getSimpleFilterStub } from '../../../../__stubs__/filters-stubs.factory';
+import { getDataTestSelector } from '../../../../__tests__/utils';
+import BaseFiltersSearch from '../base-filters-search.vue';
 
 const filtersMock: Filter[] = [
   'Lego city',

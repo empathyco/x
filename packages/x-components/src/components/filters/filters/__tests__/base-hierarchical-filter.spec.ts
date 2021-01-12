@@ -1,9 +1,9 @@
 import { HierarchicalFilter } from '@empathy/search-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { getHierarchicalFilterStub } from '../../../__stubs__/filters-stubs.factory';
-import { getDataTestSelector } from '../../../__tests__/utils';
-import BaseHierarchical from '../../filters/base-hierarchical-filter.vue';
+import { getHierarchicalFilterStub } from '../../../../__stubs__/filters-stubs.factory';
+import { getDataTestSelector } from '../../../../__tests__/utils';
+import BaseHierarchical from '../base-hierarchical-filter.vue';
 
 function renderBaseHierarchicalFilter({
   template = '<BaseHierarchical :filter="filter"/>',

@@ -51,7 +51,7 @@ Using default slot:
 <BaseTogglePanel :open="true" :animation="collapseFromTop">
   <BaseFilters :filters="filters">
     <template #default="{ filter }">
-      <p>{{ filter.title }}</p>
+      <p>{{ filter.label }}</p>
     </template>
   </BaseFilters>
 </BaseTogglePanel>

@@ -34,11 +34,11 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { HierarchicalFilter } from '@empathy/search-types';
-  import { isFilterPartiallySelected } from '../../utils/filters';
-  import { VueCSSClasses } from '../../utils/types';
-  import { XEventsTypes } from '../../wiring/events.types';
+  import { isFilterPartiallySelected } from '../../../utils/filters';
+  import { VueCSSClasses } from '../../../utils/types';
+  import { XEventsTypes } from '../../../wiring/events.types';
+  import BaseFilters from '../lists/base-filters.vue';
   import BaseFilter from './base-filter.vue';
-  import BaseFilters from './base-filters.vue';
 
   /**
    * Renders a hierarchical filter recursively, emitting the needed events when clicked.
@@ -109,7 +109,7 @@ the slot content will change it for all of the children.
 ## Basic usage
 
 ```vue
-<BaseHierarchicalFilter :filter="filter" />
+<BaseHierarchicalFilter :filter="filter"/>
 ```
 
 ## Customizing its contents

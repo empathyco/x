@@ -1,16 +1,16 @@
 import { SimpleFilter } from '@empathy/search-types';
 import { mount, Wrapper } from '@vue/test-utils';
-import { getSimpleFilterStub } from '../../../__stubs__/filters-stubs.factory';
-import { getDataTestSelector } from '../../../__tests__/utils';
-import BaseRatingFilterTitle from '../base-rating-filter-title.vue';
+import { getSimpleFilterStub } from '../../../../__stubs__/filters-stubs.factory';
+import { getDataTestSelector } from '../../../../__tests__/utils';
+import BaseRatingFilterLabel from '../base-rating-filter-label.vue';
 
-function renderBaseRatingTitle({
-  template = '<BaseRatingFilterTitle :filter="filter"/>',
+function renderBaseRatingLabel({
+  template = '<BaseRatingFilterLabel :filter="filter"/>',
   filter = getSimpleFilterStub({ label: '3' })
-}: RenderBaseRatingTitleOptions = {}): Wrapper<BaseRatingFilterTitle> {
+}: RenderBaseRatingLabelOptions = {}): Wrapper<BaseRatingFilterLabel> {
   return mount(
     {
-      components: { BaseRatingFilterTitle },
+      components: { BaseRatingFilterLabel },
       props: ['filter'],
       template
     },
@@ -22,11 +22,11 @@ function renderBaseRatingTitle({
   );
 }
 
-describe('testing Base Rating Filter Title component', () => {
+describe('testing Base Rating Filter Label component', () => {
   it('renders a rating component', () => {
-    const wrapper = renderBaseRatingTitle();
+    const wrapper = renderBaseRatingLabel();
 
-    expect(wrapper.find(getDataTestSelector('rating-title')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('rating-label')).exists()).toBe(true);
   });
 
   it('renders the filled icon element according the value passed and the max', () => {
@@ -34,7 +34,7 @@ describe('testing Base Rating Filter Title component', () => {
     const max = 5;
     const filter = getSimpleFilterStub({ label: value });
     const widthFilledWrapper = `${(parseFloat(value) * 100) / max}%`;
-    const wrapper = renderBaseRatingTitle({ filter });
+    const wrapper = renderBaseRatingLabel({ filter });
 
     expect(wrapper.find(getDataTestSelector('rating-filled')).element.style.width).toEqual(
       widthFilledWrapper
@@ -43,33 +43,33 @@ describe('testing Base Rating Filter Title component', () => {
 
   it('renders the default value 0 if the filter label is a negative number', () => {
     const filter = getSimpleFilterStub({ label: '-2' });
-    const wrapper = renderBaseRatingTitle({ filter });
+    const wrapper = renderBaseRatingLabel({ filter });
 
     expect(wrapper.find(getDataTestSelector('rating-filled')).element.style.width).toEqual('0%');
   });
 
   it('renders the default value 0 if the filter label is a not valid number string', () => {
     const filter = getSimpleFilterStub({ label: 'abc' });
-    const wrapper = renderBaseRatingTitle({ filter });
+    const wrapper = renderBaseRatingLabel({ filter });
 
     expect(wrapper.find(getDataTestSelector('rating-filled')).element.style.width).toEqual('0%');
   });
 
   it('renders the content overriding rating-icon-filled slot', () => {
-    const wrapper = renderBaseRatingTitle({
-      template: `<BaseRatingFilterTitle :filter="filter">
+    const wrapper = renderBaseRatingLabel({
+      template: `<BaseRatingFilterLabel :filter="filter">
                   <template #rating-icon-filled>'<span data-test="filled-icon" /></template>
-                 </BaseRatingFilterTitle>`
+                 </BaseRatingFilterLabel>`
     });
 
     expect(wrapper.find(getDataTestSelector('filled-icon')).exists()).toBe(true);
   });
 
   it('renders the content overriding rating-icon-empty slot', () => {
-    const wrapper = renderBaseRatingTitle({
-      template: `<BaseRatingFilterTitle :filter="filter">
+    const wrapper = renderBaseRatingLabel({
+      template: `<BaseRatingFilterLabel :filter="filter">
                   <template #rating-icon-empty>'<span data-test="empty-icon" /></template>
-                 </BaseRatingFilterTitle>`
+                 </BaseRatingFilterLabel>`
     });
 
     expect(wrapper.find(getDataTestSelector('empty-icon')).exists()).toBe(true);
@@ -79,7 +79,7 @@ describe('testing Base Rating Filter Title component', () => {
 /**
  * Options to configure how the base rating component should be rendered.
  */
-interface RenderBaseRatingTitleOptions {
+interface RenderBaseRatingLabelOptions {
   template?: string;
   filter?: SimpleFilter;
 }

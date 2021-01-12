@@ -1,17 +1,17 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import { NumberRangeFilter } from '@empathy/search-types';
-import { getNumberRangeFilterStub } from '../../../__stubs__/filters-stubs.factory';
-import BasePriceFilterTitle from '../base-price-filter-title.vue';
+import { getNumberRangeFilterStub } from '../../../../__stubs__/filters-stubs.factory';
+import BasePriceFilterLabel from '../base-price-filter-label.vue';
 
-function renderBasePriceTitle({
+function renderBasePriceLabel({
   filter,
   hideIntegerDecimals,
   format,
   lessThan = 'Less than {max}',
   from = 'More than {min}',
   fromTo = 'From {min} to {max}'
-}: RenderBasePriceTitleOptions): Wrapper<BasePriceFilterTitle> {
-  return mount(BasePriceFilterTitle, {
+}: RenderBasePriceLabelOptions): Wrapper<BasePriceFilterLabel> {
+  return mount(BasePriceFilterLabel, {
     propsData: {
       filter,
       hideIntegerDecimals,
@@ -23,10 +23,10 @@ function renderBasePriceTitle({
   });
 }
 
-describe('testing BasePriceTitle component', () => {
+describe('testing BasePriceLabel component', () => {
   it('renders component with filter without min value', () => {
     const filter = getNumberRangeFilterStub({ value: { min: null, max: 10 } });
-    const wrapper = renderBasePriceTitle({
+    const wrapper = renderBasePriceLabel({
       filter,
       format: '$i.dd',
       hideIntegerDecimals: true
@@ -36,7 +36,7 @@ describe('testing BasePriceTitle component', () => {
 
   it('renders component with filter with min and max value', () => {
     const filter = getNumberRangeFilterStub({ value: { min: 0, max: 10 } });
-    const wrapper = renderBasePriceTitle({
+    const wrapper = renderBasePriceLabel({
       filter,
       format: 'i,dd €',
       hideIntegerDecimals: false
@@ -46,7 +46,7 @@ describe('testing BasePriceTitle component', () => {
 
   it('renders component with filter without max value', () => {
     const filter = getNumberRangeFilterStub({ value: { min: 1000, max: null } });
-    const wrapper = renderBasePriceTitle({
+    const wrapper = renderBasePriceLabel({
       filter,
       format: 'i.iii €'
     });
@@ -57,7 +57,7 @@ describe('testing BasePriceTitle component', () => {
 /**
  * Options to configure how the base price component should be rendered.
  */
-interface RenderBasePriceTitleOptions {
+interface RenderBasePriceLabelOptions {
   filter: NumberRangeFilter;
   format?: string;
   hideIntegerDecimals?: boolean;

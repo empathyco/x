@@ -38,7 +38,7 @@
   import Vue from 'vue';
   import { Filter } from '@empathy/search-types';
   import { Component, Prop } from 'vue-property-decorator';
-  import { VueCSSClasses } from '../../utils';
+  import { VueCSSClasses } from '../../../utils/index';
 
   /**
    * Component that slices a list of filters and returns them using the default scoped slot,

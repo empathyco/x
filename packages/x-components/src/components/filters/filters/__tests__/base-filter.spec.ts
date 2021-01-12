@@ -1,9 +1,9 @@
 import { Filter } from '@empathy/search-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { XEventsTypes } from '../../../wiring/events.types';
-import { getSimpleFilterStub } from '../../../__stubs__/filters-stubs.factory';
-import { getDataTestSelector } from '../../../__tests__/utils';
+import { XEventsTypes } from '../../../../wiring/events.types';
+import { getSimpleFilterStub } from '../../../../__stubs__/filters-stubs.factory';
+import { getDataTestSelector } from '../../../../__tests__/utils';
 import BaseFilter from '../base-filter.vue';
 
 function renderBaseFilter({
