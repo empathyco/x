@@ -1,5 +1,11 @@
 <template>
-  <component :is="animation" v-if="relatedTags.length" tag="ul" class="x-related-tags">
+  <component
+    :is="animation"
+    v-if="relatedTags.length"
+    tag="ul"
+    class="x-related-tags"
+    data-test="related-tags"
+  >
     <li
       v-for="relatedTag in relatedTags"
       :key="relatedTag.tag"

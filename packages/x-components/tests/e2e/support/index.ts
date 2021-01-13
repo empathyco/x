@@ -118,7 +118,7 @@ interface ClickFilterOptions {
 }
 
 const customCommands: CustomCommands = {
-  getByDataTest: value => cy.get(`[data-test=${value}`),
+  getByDataTest: value => cy.get(`[data-test=${value}]`),
   searchQuery: query => cy.typeQuery(query).type('{enter}'),
   searchQueries: (...queries) => {
     queries.forEach(query => {

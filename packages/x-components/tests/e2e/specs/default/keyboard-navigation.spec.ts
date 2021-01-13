@@ -4,6 +4,8 @@ describe('e2e testing keyboard-navigation spacial navigation functionality', () 
     cy.searchQuery('lego');
     cy.visit('/');
     cy.getByDataTest('search-input').as('searchInput');
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000);
   });
 
   it(

@@ -27,9 +27,12 @@ const routes: RouteConfig[] = [
     path: '/search',
     name: 'search',
     component: () => import('./views/Search.vue')
+  },
+  {
+    path: '/test/search-box',
+    component: () => import('./views/search-box.vue')
   }
 ];
-
 const router = new VueRouter({
   mode: 'history',
   routes

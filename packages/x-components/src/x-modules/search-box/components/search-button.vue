@@ -1,5 +1,10 @@
 <template>
-  <BaseEventButton :events="events" class="x-search-button" :class="dynamicClasses">
+  <BaseEventButton
+    :events="events"
+    class="x-search-button"
+    :class="dynamicClasses"
+    data-test="search-button"
+  >
     <!-- @slot (Required) Button content with a text, an icon or both -->
     <slot>⌕</slot>
   </BaseEventButton>

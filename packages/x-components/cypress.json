@@ -5,5 +5,9 @@
   "pluginsFile": "tests/e2e/plugins/index.js",
   "screenshotsFolder": "tests/e2e/screenshots",
   "supportFile": "tests/e2e/support/index.ts",
-  "video": false
+  "video": false,
+  "testFiles": [
+    "cucumber/**/*.{feature,features}",
+    "default/**/*.spec.ts"
+  ]
 }

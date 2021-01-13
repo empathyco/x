@@ -2,8 +2,8 @@ import { SearchResponse } from '@empathy/search-adapter';
 import {
   createHierarchicalFacet,
   createSimpleFacet
-} from '../../../../src/__stubs__/facets-stubs.factory';
-import { createResultStub } from '../../../../src/__stubs__/results-stubs.factory';
+} from '../../../../../src/__stubs__/facets-stubs.factory';
+import { createResultStub } from '../../../../../src/__stubs__/results-stubs.factory';
 
 describe('testing Search', () => {
   const results = {
