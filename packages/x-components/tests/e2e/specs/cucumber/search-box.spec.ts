@@ -1,11 +1,4 @@
-import {
-  And,
-  Before,
-  defineParameterType,
-  Given,
-  Then,
-  When
-} from 'cypress-cucumber-preprocessor/steps';
+import { And, Before, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 const preSearch = 'nenuco';
 let resultsCount = 0;
@@ -14,14 +7,6 @@ const compoundResultsList: string[] = [];
 let startQuery = 0;
 let startSecondQuery = 0;
 let interval = 0;
-
-defineParameterType({
-  name: 'boolean',
-  regexp: /true|false/,
-  transformer(s) {
-    return s === 'true';
-  }
-});
 
 Before({ tags: '@noURLparameter' }, () => {
   cy.visit('/test/search-box', {

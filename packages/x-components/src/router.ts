@@ -30,9 +30,16 @@ const routes: RouteConfig[] = [
   },
   {
     path: '/test/search-box',
+    name: 'Search Box',
     component: () => import('./views/search-box.vue')
+  },
+  {
+    path: '/test/popular-searches',
+    name: 'Popular Searches',
+    component: () => import('./views/popular-searches.vue')
   }
 ];
+
 const router = new VueRouter({
   mode: 'history',
   routes
