@@ -1,4 +1,8 @@
-import { namespacedWireCommit, namespacedWireDispatch } from '../../wiring';
+import {
+  namespacedWireCommit,
+  namespacedWireDispatch,
+  namespacedWireDispatchWithoutPayload
+} from '../../wiring';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
@@ -21,6 +25,13 @@ const wireCommit = namespacedWireCommit(moduleName);
  * @internal
  */
 const wireDispatch = namespacedWireDispatch(moduleName);
+
+/**
+ * WireDispatchWithOutPayload for {@link FacetsXModule}.
+ *
+ * @internal
+ */
+const wireDispatchWithOutPayload = namespacedWireDispatchWithoutPayload(moduleName);
 
 /**
  * Sets the facets state `facets`.
@@ -76,7 +87,7 @@ export const clearFacetSelectedFilters = wireDispatch('clearFacetSelectedFilters
  *
  * @public
  */
-export const clearSelectedFilters = wireDispatch('clearSelectedFilters');
+export const clearSelectedFilters = wireDispatchWithOutPayload('clearSelectedFilters');
 
 /**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
@@ -89,6 +100,9 @@ export const facetsWiring = createWiring({
   },
   FacetMultiSelectChanged: {
     setFacetMultiSelect
+  },
+  UserAcceptedAQuery: {
+    clearSelectedFilters
   },
   UserClickedASimpleFilter: {
     toggleSimpleFilter

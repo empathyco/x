@@ -14,7 +14,7 @@ Feature: Search-box component
     Examples:
       | hideIfEqualsQuery | instantDebounceInMs | instant | query         | buttonOrKey     |
       | true              | 5000                | false   | barbie        | searchButton    |
-      | false             | 5000                | false   | star wars     | enterKey        |
+      | false             | 5000                | false   | lego          | enterKey        |
 
   Scenario Outline: 2. Query with results exists and it's cleared by <cleared> (search-box is not empty)
     Given History queries displays the query right after a search is not <hideIfEqualsQuery>
