@@ -8,6 +8,7 @@
   import { Filter } from '@empathy/search-types';
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { Getter, xComponentMixin } from '../../../components';
+  import { FiltersByFacet } from '../store/types';
   import { facetsXModule } from '../x-module';
 
   /**
@@ -51,6 +52,14 @@
     public selectedFiltersGetter!: Filter[];
 
     /**
+     * Dictionary of selected filters grouped by facet.
+     *
+     * @public
+     */
+    @Getter('facets', 'selectedFiltersByFacet')
+    public selectedFiltersByFacet!: FiltersByFacet;
+
+    /**
      * It returns an array of selected filters. If a facet id is passed as prop to the component,
      * only the selected filters of that facet are returned. If not, it returns selected filters of
      * every facet.
@@ -62,7 +71,7 @@
     protected get selectedFilters(): Filter[] {
       return this.facetId === undefined
         ? this.selectedFiltersGetter
-        : this.selectedFiltersGetter.filter(filter => filter.facetId === this.facetId);
+        : this.selectedFiltersByFacet[this.facetId];
     }
 
     /**

@@ -11,13 +11,17 @@
         facet using that slot composition to render.
             @binding {Facet} facet - Facet to render
       -->
-      <slot v-if="$scopedSlots[facetId]" :name="facetId" :facet="facet"></slot>
+      <slot
+        v-if="$scopedSlots[facetId]"
+        :name="facetId"
+        v-bind="{ facet, selectedFilters: selectedFiltersByFacet[facetId] }"
+      />
       <!--
         @slot (required) Default Facet rendering. This slot will be used by default for rendering
         the facets without an specific slot implementation.
             @binding {Facet} facet - Facet to render
       -->
-      <slot v-else :facet="facet">
+      <slot v-else v-bind="{ facet, selectedFilters: selectedFiltersByFacet[facetId] }">
         This is the {{ facet.label }} facet. Pass something into its slot to display content.
       </slot>
     </li>
@@ -28,8 +32,9 @@
   import { Facet } from '@empathy/search-types';
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { Dictionary } from '../../../utils/types';
-  import { State } from '../../../components/decorators/store.decorators';
+  import { Getter, State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { FiltersByFacet } from '../store/types';
   import { facetsXModule } from '../x-module';
 
   /**
@@ -42,6 +47,14 @@
   })
   export default class Facets extends Vue {
     /**
+     * Animation component that will be used to animate the facets.
+     *
+     * @public
+     */
+    @Prop({ default: 'ul' })
+    protected animation!: Vue | string;
+
+    /**
      * The module's facets.
      *
      * @public
@@ -50,12 +63,12 @@
     public facets!: Dictionary<Facet>;
 
     /**
-     * Animation component that will be used to animate the facets.
+     * Array of selected filters from every facet.
      *
      * @public
      */
-    @Prop({ default: 'ul' })
-    protected animation!: Vue | string;
+    @Getter('facets', 'selectedFiltersByFacet')
+    public selectedFiltersByFacet!: FiltersByFacet;
 
     /**
      * Indicates if there are facets available to show.
@@ -89,8 +102,9 @@
 
   ```vue
   <Facets>
-    <template #default="{ facet }">
-      <h1>{{ facet.label }}</h1>
+    <template #default="{ facet, selectedFilters }">
+      <h1>{{ ${facet.label} }}</h1>
+      <span v-if="selectedFilters.length > 0">{{ `${selectedFilters.length} selected` }}</span>
 
       <ul v-for="filter in facet.filters" :key="filter.id">
         <li>
@@ -110,7 +124,9 @@
 
   ```vue
   <Facets>
-    <template #color="{ facet }">
+    <template #color="{ facet, selectedFilters }">
+      <span v-if="selectedFilters.length > 0">{{ `${selectedFilters.length} colors chosen` }}</span>
+
       <ul v-for="filter in facet.filters" :key="filter.id">
         <li v-if="!filter.selected">
           {{ filter.label }}

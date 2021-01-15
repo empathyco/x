@@ -9,6 +9,7 @@ import { toggleHierarchicalFilter } from './actions/toggle-hierarchical-filter.a
 import { toggleNumberRangeFilter, toggleSimpleFilter } from './actions/toggle-filter.action';
 import { flattenedFilters } from './getters/flattened-filters';
 import { selectedFilters } from './getters/selected-filters';
+import { selectedFiltersByFacet } from './getters/selected-filters-by-facet';
 import { FacetsXStoreModule } from './types';
 
 /**
@@ -24,8 +25,9 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     facets: {}
   }),
   getters: {
+    flattenedFilters,
     selectedFilters,
-    flattenedFilters
+    selectedFiltersByFacet
   },
   mutations: {
     setFacets(state, newFacets) {

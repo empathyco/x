@@ -93,4 +93,29 @@ describe('testing facets module getters', () => {
       expect(store.getters.selectedFilters).toHaveLength(5);
     });
   });
+
+  describe(`${gettersKeys.selectedFiltersByFacet} getter`, () => {
+    // eslint-disable-next-line max-len
+    it('should group selected filters by its facet and facets without filters selected should be empty', () => {
+      const facetsStub = getFacetsStub();
+      const dictionaryFacetsStub = arrayToObject(facetsStub, 'label');
+
+      dictionaryFacetsStub['hierarchical_category'].filters[0].selected = true;
+      dictionaryFacetsStub['hierarchical_category'].filters[3].selected = true;
+      dictionaryFacetsStub['price_facet'].filters[0].selected = true;
+      resetFacetsStateWith(store, {
+        facets: dictionaryFacetsStub
+      });
+
+      const expectedOutput: Record<string, number> = {
+        hierarchical_category: 2,
+        brand_facet: 0,
+        price_facet: 1
+      };
+
+      Object.entries(expectedOutput).forEach(([key, value]) => {
+        expect(store.getters.selectedFiltersByFacet[key]).toHaveLength(value);
+      });
+    });
+  });
 });

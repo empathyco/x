@@ -50,6 +50,10 @@ export interface FacetsGetters {
    * at the same depth level.
    */
   selectedFilters: Filter[];
+  /**
+   * Returns a dictionary which groups the selected filters by its facet id.
+   */
+  selectedFiltersByFacet: FiltersByFacet;
 }
 
 /**
@@ -152,3 +156,10 @@ export type FacetsXStoreModule = XStoreModule<
   FacetsMutations,
   FacetsActions
 >;
+
+/**
+ * Dictionary grouping filters by facet id.
+ *
+ * @public
+ */
+export type FiltersByFacet = Record<Facet['id'], Filter[]>;
