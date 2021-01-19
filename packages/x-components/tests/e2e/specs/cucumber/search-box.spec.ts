@@ -1,6 +1,6 @@
 import { And, Before, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
-const preSearch = 'nenuco';
+let nextQueriesResults = 0;
 let resultsCount = 0;
 let resultsList: string[] = [];
 const compoundResultsList: string[] = [];
@@ -58,10 +58,16 @@ And('no queries have been searched', () => {
   cy.getByDataTest('related-tags').should('not.exist');
   cy.getByDataTest('history-query').should('not.exist');
 });
-When('a {string} with results is typed', (query: string) => {
+When('a {string} with results is typed - timestamp needed', (query: string) => {
   cy.typeQuery(query).then(() => {
     startQuery = Date.now();
   });
+  cy.intercept({
+    pathname: Cypress.env('searchRequestURL'),
+    query: {
+      q: query
+    }
+  }).as('waitForQueryResponseSB');
 });
 And('{string} is clicked immediately after', (buttonOrKey: string) => {
   if (buttonOrKey === 'enterKey') {
@@ -69,18 +75,6 @@ And('{string} is clicked immediately after', (buttonOrKey: string) => {
   } else if (buttonOrKey === 'searchButton') {
     cy.getByDataTest('search-button').click();
   }
-});
-Then('related results are displayed', () => {
-  cy.getByDataTest('result-item').should('have.length.gt', 0);
-});
-And('query suggestions are displayed', () => {
-  cy.getByDataTest('query-suggestion').should('have.length.gt', 0);
-});
-And('next queries are displayed', () => {
-  cy.getByDataTest('next-query').should('have.length.gt', 0);
-});
-And('related tags are displayed', () => {
-  cy.getByDataTest('related-tag').should('have.length.gt', 0);
 });
 And(
   '{string} is displayed in history queries is not {boolean}',
@@ -98,19 +92,42 @@ And(
 );
 
 // Scenario 2
-And('a query has been searched', () => {
-  cy.searchQuery(preSearch);
+And('a {string} has been searched', (query: string) => {
+  cy.intercept({
+    pathname: Cypress.env('nextQueriesRequestURL'),
+    query: {
+      q: query
+    }
+  }).as('waitForNextQueriesResponseSB');
+  cy.intercept({
+    pathname: Cypress.env('relatedTagsRequestURL'),
+    query: {
+      q: query
+    }
+  }).as('waitForRelatedTagsResponseSB');
+  cy.searchQuery(query).then(() => {
+    cy.wait('@waitForNextQueriesResponseSB');
+  });
+});
+And('the number of next query results are stored', () => {
+  if (cy.$$('[data-test = "next-queries"]').length > 0) {
+    cy.getByDataTest('next-query').then($elements => {
+      nextQueriesResults = $elements.length;
+    });
+  } else {
+    nextQueriesResults = 0;
+  }
 });
 And('History queries are being displayed is not {boolean}', (hideIfEqualsQuery: boolean) => {
   if (hideIfEqualsQuery) {
     cy.getByDataTest('history-queries').should('not.exist');
   }
 });
-When('the query is cleared by {string}', (cleared: string) => {
+When('the {string} is cleared by {string}', (query: string, cleared: string) => {
   if (cleared === 'clickButton') {
     cy.clearSearchInput();
   } else if (cleared === 'manually') {
-    cy.getByDataTest('search-input').type('{backspace}'.repeat(preSearch.length));
+    cy.getByDataTest('search-input').type('{backspace}'.repeat(query.length));
   }
 });
 Then('the search box is empty', () => {
@@ -123,13 +140,17 @@ And('query suggestions are cleared', () => {
   cy.getByDataTest('query-suggestions').should('not.exist');
 });
 And('next queries are not cleared', () => {
-  cy.getByDataTest('next-query').should('have.length.gt', 0);
+  if (nextQueriesResults === 0) {
+    cy.getByDataTest('next-query').should('not.exist');
+  } else {
+    cy.getByDataTest('next-query').should('have.length.gt', 0);
+  }
 });
 And('related tags are cleared', () => {
   cy.getByDataTest('related-tag').should('not.exist');
 });
-And('query is displayed in history queries', () => {
-  cy.getByDataTest('history-query').should('have.length', 1).and('contain.text', preSearch);
+And('{string} is displayed in history queries', (query: string) => {
+  cy.getByDataTest('history-query').should('have.length', 1).and('contain.text', query);
 });
 
 // Scenario 3
@@ -144,21 +165,23 @@ Then('no related results are displayed before {int}', (instantDebounceInMs: numb
 And(
   'related results are displayed after {int} is {boolean}',
   (instantDebounceInMs: number, instant: boolean) => {
-    if (instant) {
-      cy.getByDataTest('result-item')
-        .should('have.length.gt', resultsCount)
-        .each($result => {
-          resultsList.push($result.text());
-        })
-        .then(() => {
-          interval = Date.now() - startQuery;
-          expect(interval).to.be.greaterThan(instantDebounceInMs);
-        });
-      resultsCount = resultsList.length;
-      resultsList = [];
-    } else {
-      cy.getByDataTest('result-item').should('not.exist');
-    }
+    cy.intercept('@waitForQueryResponseSB').then(() => {
+      if (instant) {
+        cy.getByDataTest('result-item')
+          .should('have.length.gt', resultsCount)
+          .each($result => {
+            resultsList.push($result.text());
+          })
+          .then(() => {
+            interval = Date.now() - startQuery;
+            expect(interval).to.be.greaterThan(instantDebounceInMs);
+          });
+        resultsCount = resultsList.length;
+        resultsList = [];
+      } else {
+        cy.getByDataTest('result-item').should('not.exist');
+      }
+    });
   }
 );
 And('next queries are displayed after instantDebounceInMs is {boolean}', (instant: boolean) => {

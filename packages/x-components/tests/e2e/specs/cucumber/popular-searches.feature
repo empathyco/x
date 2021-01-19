@@ -18,8 +18,8 @@ Feature: Popular searches component
     And   no new term is displayed in Popular Searches if hideSessionQueries = <hideSessionQueries> is true and maxItemsToRender = <maxItemsToRender> > maxItemsToRequest = <maxItemsToRequest>
     And   related results are displayed
     And   query suggestions are displayed
-    And   next queries are displayed
-    And   related tags are displayed
+    And   next queries for the popular search are displayed
+    And   related tags for the popular search are displayed
     And   popular search is displayed in history queries
     Examples:
       | hideSessionQueries | maxItemsToRequest | maxItemsToRender | popularSearchItem |

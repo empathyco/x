@@ -38,9 +38,32 @@ When('popular search number {int} is clicked', (popularSearchItem: number) => {
   cy.getByDataTest('popular-search')
     .eq(popularSearchItem)
     .then($button => {
-      selectedPopularSearch = $button.text();
+      selectedPopularSearch = $button.contents().text();
+      cy.intercept({
+        pathname: Cypress.env('searchRequestURL'),
+        query: {
+          q: selectedPopularSearch
+        }
+      }).as('waitForQueryResponsePS');
+      cy.intercept({
+        pathname: Cypress.env('nextQueriesRequestURL'),
+        query: {
+          q: selectedPopularSearch
+        }
+      }).as('waitForNextQueriesResponsePS');
+      cy.intercept({
+        pathname: Cypress.env('relatedTagsRequestURL'),
+        query: {
+          q: selectedPopularSearch
+        }
+      }).as('waitForRelatedTagsResponsePS');
     })
-    .click();
+    .then(() => {
+      cy.getByDataTest('popular-search').eq(popularSearchItem).click();
+    })
+    .then(() => {
+      cy.wait('@waitForQueryResponsePS');
+    });
 });
 Then('the clicked popular search term is displayed in the search-box', () => {
   cy.getByDataTest('search-input').should('have.value', selectedPopularSearch);
@@ -70,6 +93,24 @@ And(
     }
   }
 );
+And('next queries for the popular search are displayed', () => {
+  cy.wait('@waitForNextQueriesResponsePS').then(() => {
+    if (cy.$$('[data-test = "next-queries"]').length === 1) {
+      cy.getByDataTest('next-query').should('have.length.gt', 0);
+    } else {
+      cy.getByDataTest('next-query').should('not.exist');
+    }
+  });
+});
+And('related tags for the popular search are displayed', () => {
+  cy.wait('@waitForRelatedTagsResponsePS').then(() => {
+    if (cy.$$('[data-test = "related-tags"]').length === 1) {
+      cy.getByDataTest('related-tag').should('have.length.gt', 0);
+    } else {
+      cy.getByDataTest('related-tag').should('not.exist');
+    }
+  });
+});
 And('popular search is displayed in history queries', () => {
   cy.getByDataTest('history-query')
     .should('have.length', 1)

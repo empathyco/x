@@ -14,29 +14,30 @@ Feature: Search-box component
     Examples:
       | hideIfEqualsQuery | instantDebounceInMs | instant | query         | buttonOrKey     |
       | true              | 5000                | false   | barbie        | searchButton    |
-      | false             | 5000                | false   | lego          | enterKey        |
+      | false             | 5000                | false   | star wars     | enterKey        |
 
   Scenario Outline: 2. Query with results exists and it's cleared by <cleared> (search-box is not empty)
     Given History queries displays the query right after a search is not <hideIfEqualsQuery>
-    And   a query has been searched
+    And   a "<query>" has been searched
+    And   the number of next query results are stored
     And   History queries are being displayed is not <hideIfEqualsQuery>
-    When  the query is cleared by "<cleared>"
+    When  the "<query>" is cleared by "<cleared>"
     Then  the search box is empty
     And   related results are cleared
     And   query suggestions are cleared
     And   next queries are not cleared
     And   related tags are cleared
-    And   query is displayed in history queries
+    And   "<query>" is displayed in history queries
     Examples:
-      | hideIfEqualsQuery | cleared         |
-      | true              | clickButton     |
-      | false             | manually        |
+      | query  | hideIfEqualsQuery | cleared         |
+      | barbie | true              | clickButton     |
+      | nenuco | false             | manually        |
 
   @noURLparameter
   Scenario Outline: 3. Query with results is typed and no button or key is pressed or clicked (search-box is empty)
     Given the time after a search is triggered is <instantDebounceInMs> ms if <instant> is true
     And   no queries have been searched
-    When  a "<query>" with results is typed
+    When  a "<query>" with results is typed - timestamp needed
     Then  no related results are displayed before <instantDebounceInMs>
     And   related results are displayed after <instantDebounceInMs> is <instant>
     And   next queries are displayed after instantDebounceInMs is <instant>
@@ -50,7 +51,7 @@ Feature: Search-box component
   Scenario Outline: 4. Adding or deleting words from a query (search-box is empty)
     Given the time after a search is triggered is <instantDebounceInMs> ms if <instant> is true
     And   no queries have been searched
-    When  a "<firstQuery>" with results is typed
+    When  a "<firstQuery>" with results is typed - timestamp needed
     Then  no related results are displayed before <instantDebounceInMs>
     And  related results are displayed after <instantDebounceInMs> is <instant>
     When  "<secondQuery>" is added to the search
