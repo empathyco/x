@@ -1,4 +1,43 @@
 # X Components
+## [2.0.0-alpha.1](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.1%0Dv2.0.0-alpha.0) (2021-01-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* **components:** `BaseModalContainer` has been split into 2 new components: `BaseEventsModal`, which acts like the old component, but with the `eventToEmitOnClose` prop renamed to `bodyClickEvent`. `BaseModal` now acts as a dumb modal that receives its open state via props.
+`BaseCloseButton` has been renamed to `BaseEventsCloseButton`
+`BaseOpenButton` has been renamed to `BaseEventsOpenButton`
+Events have been renamed: `UserOpenedX` -> `UserClickedOpenX`, `UserClosedX` -> `UserClickedCloseX`
+
+### Features
+
+* **animation:** extract mixin from `CollapseHeight` and `CollapseWidth` animations. ([31e217b](https://bitbucket.org/colbenson/x-components/commits/31e217bcbb7e3f7a8a254e9888161d13c919ead4)), closes [EX-2827](https://searchbroker.atlassian.net/browse/EX-2827)
+* **animations:** add `CollapseWidth` animation ([c4b0e0c](https://bitbucket.org/colbenson/x-components/commits/c4b0e0c572717caf599d4605d25460c0131a6856)), closes [EX-2826](https://searchbroker.atlassian.net/browse/EX-2826)
+* **base-rating:** added base rating component ([ceb0c54](https://bitbucket.org/colbenson/x-components/commits/ceb0c54860f405025b965cea759929bae94ee308)), closes [EX-2871](https://searchbroker.atlassian.net/browse/EX-2871)
+* **base-rating-filter-title:** add base rating filter title component ([1b2fd35](https://bitbucket.org/colbenson/x-components/commits/1b2fd354ba82bf5597727c5ee85af1068396b0f8)), closes [EX-2832](https://searchbroker.atlassian.net/browse/EX-2832)
+* **components:** add new modals components ([5539447](https://bitbucket.org/colbenson/x-components/commits/55394478446bb8bd5de3dc7ac27c5f584b0518a2)), closes [EX-2830](https://searchbroker.atlassian.net/browse/EX-2830)
+* **currency:** crate a title component for currency ([0feba8f](https://bitbucket.org/colbenson/x-components/commits/0feba8f6b26581eef934367e35bbeb8ede530a8e)), closes [EX-2759](https://searchbroker.atlassian.net/browse/EX-2759)
+* **facets:** add selectedFilters to custom facet and default slots for each facet in facets.vue ([1e4c473](https://bitbucket.org/colbenson/x-components/commits/1e4c47326fadc09681b07fbb4b8262fe76c78c64)), closes [EX-2887](https://searchbroker.atlassian.net/browse/EX-2887)
+* **facets:** added clearSelectedFilters wire on UserAcceptedAQuery ([5167766](https://bitbucket.org/colbenson/x-components/commits/516776610df3ae001e60402dedf7619331a1116d)), closes [EX-2927](https://searchbroker.atlassian.net/browse/EX-2927)
+* **facets:** selected filters component which renders selected filters ([a48e436](https://bitbucket.org/colbenson/x-components/commits/a48e436559318bfecbc1ab3f50f90c8079ace2de)), closes [EX-2855](https://searchbroker.atlassian.net/browse/EX-2855)
+* **refining search-box tests:** refining search-box tests ([7e26220](https://bitbucket.org/colbenson/x-components/commits/7e26220b829acc8a5ac9dfe5a3d40d6e64b7f467)), closes [EX-2962](https://searchbroker.atlassian.net/browse/EX-2962)
+
+
+### Bug Fixes
+
+* **plugin:** fix the types to allow overriding parts of the store ([677cb1b](https://bitbucket.org/colbenson/x-components/commits/677cb1ba50ff61816175adbf6fe26ecd9a7a4b21)), closes [EX-2803](https://searchbroker.atlassian.net/browse/EX-2803)
+
+
+### Code Refactoring
+
+* **components/filters:** reorganize components/filters directory ([44d99fb](https://bitbucket.org/colbenson/x-components/commits/44d99fb90aa04e6c7b23d4d6fb10553d510a5a5b)), closes [EX-2911](https://searchbroker.atlassian.net/browse/EX-2911)
+
+
+### Testing
+
+* **e2e:** implement search-box test scenarios ([726cec3](https://bitbucket.org/colbenson/x-components/commits/726cec3e527ee14ee2c93320ed44dc763475e827)), closes [EX-2725](https://searchbroker.atlassian.net/browse/EX-2725)
+* **e2e:** updated cypress version ([1f627f2](https://bitbucket.org/colbenson/x-components/commits/1f627f21ba776550de7a5ad627830ce1a7f6737a)), closes [EX-2917](https://searchbroker.atlassian.net/browse/EX-2917)
+
 ## [2.0.0-alpha.0](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.0%0Dv1.1.2) (2020-12-29)
 
 
