@@ -4,39 +4,39 @@
 
 ### ⚠ BREAKING CHANGES
 
-* **components:** `BaseModalContainer` has been split into 2 new components: `BaseEventsModal`, which acts like the old component, but with the `eventToEmitOnClose` prop renamed to `bodyClickEvent`. `BaseModal` now acts as a dumb modal that receives its open state via props.
+* **base-components:** `BaseModalContainer` has been split into 2 new components: `BaseEventsModal`, which acts like the old component, but with the `eventToEmitOnClose` prop renamed to `bodyClickEvent`. `BaseModal` now acts as a dumb modal that receives its open state via props.
 `BaseCloseButton` has been renamed to `BaseEventsCloseButton`
 `BaseOpenButton` has been renamed to `BaseEventsOpenButton`
 Events have been renamed: `UserOpenedX` -> `UserClickedOpenX`, `UserClosedX` -> `UserClickedCloseX`
 
 ### Features
 
-* **animation:** extract mixin from `CollapseHeight` and `CollapseWidth` animations. ([31e217b](https://bitbucket.org/colbenson/x-components/commits/31e217bcbb7e3f7a8a254e9888161d13c919ead4)), closes [EX-2827](https://searchbroker.atlassian.net/browse/EX-2827)
 * **animations:** add `CollapseWidth` animation ([c4b0e0c](https://bitbucket.org/colbenson/x-components/commits/c4b0e0c572717caf599d4605d25460c0131a6856)), closes [EX-2826](https://searchbroker.atlassian.net/browse/EX-2826)
-* **base-rating:** added base rating component ([ceb0c54](https://bitbucket.org/colbenson/x-components/commits/ceb0c54860f405025b965cea759929bae94ee308)), closes [EX-2871](https://searchbroker.atlassian.net/browse/EX-2871)
-* **base-rating-filter-title:** add base rating filter title component ([1b2fd35](https://bitbucket.org/colbenson/x-components/commits/1b2fd354ba82bf5597727c5ee85af1068396b0f8)), closes [EX-2832](https://searchbroker.atlassian.net/browse/EX-2832)
-* **components:** add new modals components ([5539447](https://bitbucket.org/colbenson/x-components/commits/55394478446bb8bd5de3dc7ac27c5f584b0518a2)), closes [EX-2830](https://searchbroker.atlassian.net/browse/EX-2830)
-* **currency:** crate a title component for currency ([0feba8f](https://bitbucket.org/colbenson/x-components/commits/0feba8f6b26581eef934367e35bbeb8ede530a8e)), closes [EX-2759](https://searchbroker.atlassian.net/browse/EX-2759)
-* **facets:** add selectedFilters to custom facet and default slots for each facet in facets.vue ([1e4c473](https://bitbucket.org/colbenson/x-components/commits/1e4c47326fadc09681b07fbb4b8262fe76c78c64)), closes [EX-2887](https://searchbroker.atlassian.net/browse/EX-2887)
-* **facets:** added clearSelectedFilters wire on UserAcceptedAQuery ([5167766](https://bitbucket.org/colbenson/x-components/commits/516776610df3ae001e60402dedf7619331a1116d)), closes [EX-2927](https://searchbroker.atlassian.net/browse/EX-2927)
-* **facets:** selected filters component which renders selected filters ([a48e436](https://bitbucket.org/colbenson/x-components/commits/a48e436559318bfecbc1ab3f50f90c8079ace2de)), closes [EX-2855](https://searchbroker.atlassian.net/browse/EX-2855)
-* **refining search-box tests:** refining search-box tests ([7e26220](https://bitbucket.org/colbenson/x-components/commits/7e26220b829acc8a5ac9dfe5a3d40d6e64b7f467)), closes [EX-2962](https://searchbroker.atlassian.net/browse/EX-2962)
+* **base-components:** add `BaseRating` component ([ceb0c54](https://bitbucket.org/colbenson/x-components/commits/ceb0c54860f405025b965cea759929bae94ee308)), closes [EX-2871](https://searchbroker.atlassian.net/browse/EX-2871)
+* **base-components:** add `BaseRatingFilterLabel` component ([1b2fd35](https://bitbucket.org/colbenson/x-components/commits/1b2fd354ba82bf5597727c5ee85af1068396b0f8)), closes [EX-2832](https://searchbroker.atlassian.net/browse/EX-2832)
+* **base-components:** add `BaseModal` and `BaseEventsModal` components ([5539447](https://bitbucket.org/colbenson/x-components/commits/55394478446bb8bd5de3dc7ac27c5f584b0518a2)), closes [EX-2830](https://searchbroker.atlassian.net/browse/EX-2830)
+* **base-components:** add `BasePriceFilterLabel` component ([0feba8f](https://bitbucket.org/colbenson/x-components/commits/0feba8f6b26581eef934367e35bbeb8ede530a8e)), closes [EX-2759](https://searchbroker.atlassian.net/browse/EX-2759)
+* **facets:** add `selectedFilters` binding for each slot and facet in `Facets` component ([1e4c473](https://bitbucket.org/colbenson/x-components/commits/1e4c47326fadc09681b07fbb4b8262fe76c78c64)), closes [EX-2887](https://searchbroker.atlassian.net/browse/EX-2887)
+* **facets:** add `clearSelectedFilters` wire in `UserAcceptedAQuery` event ([5167766](https://bitbucket.org/colbenson/x-components/commits/516776610df3ae001e60402dedf7619331a1116d)), closes [EX-2927](https://searchbroker.atlassian.net/browse/EX-2927)
+* **facets:** add `SelectedFilters` component which renders the selected filters ([a48e436](https://bitbucket.org/colbenson/x-components/commits/a48e436559318bfecbc1ab3f50f90c8079ace2de)), closes [EX-2855](https://searchbroker.atlassian.net/browse/EX-2855)
 
 
 ### Bug Fixes
 
-* **plugin:** fix the types to allow overriding parts of the store ([677cb1b](https://bitbucket.org/colbenson/x-components/commits/677cb1ba50ff61816175adbf6fe26ecd9a7a4b21)), closes [EX-2803](https://searchbroker.atlassian.net/browse/EX-2803)
+* **plugin:** fix types to allow overriding parts of the store ([677cb1b](https://bitbucket.org/colbenson/x-components/commits/677cb1ba50ff61816175adbf6fe26ecd9a7a4b21)), closes [EX-2803](https://searchbroker.atlassian.net/browse/EX-2803)
 
 
 ### Code Refactoring
 
+* **animations:** extract mixin from `CollapseHeight` and `CollapseWidth` animations ([31e217b](https://bitbucket.org/colbenson/x-components/commits/31e217bcbb7e3f7a8a254e9888161d13c919ead4)), closes [EX-2827](https://searchbroker.atlassian.net/browse/EX-2827)
 * **components/filters:** reorganize components/filters directory ([44d99fb](https://bitbucket.org/colbenson/x-components/commits/44d99fb90aa04e6c7b23d4d6fb10553d510a5a5b)), closes [EX-2911](https://searchbroker.atlassian.net/browse/EX-2911)
 
 
 ### Testing
 
 * **e2e:** implement search-box test scenarios ([726cec3](https://bitbucket.org/colbenson/x-components/commits/726cec3e527ee14ee2c93320ed44dc763475e827)), closes [EX-2725](https://searchbroker.atlassian.net/browse/EX-2725)
-* **e2e:** updated cypress version ([1f627f2](https://bitbucket.org/colbenson/x-components/commits/1f627f21ba776550de7a5ad627830ce1a7f6737a)), closes [EX-2917](https://searchbroker.atlassian.net/browse/EX-2917)
+* **e2e:** update cypress version ([1f627f2](https://bitbucket.org/colbenson/x-components/commits/1f627f21ba776550de7a5ad627830ce1a7f6737a)), closes [EX-2917](https://searchbroker.atlassian.net/browse/EX-2917)
+* **e2e:** refine search-box tests ([7e26220](https://bitbucket.org/colbenson/x-components/commits/7e26220b829acc8a5ac9dfe5a3d40d6e64b7f467)), closes [EX-2962](https://searchbroker.atlassian.net/browse/EX-2962)
 
 ## [2.0.0-alpha.0](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.0%0Dv1.1.2) (2020-12-29)
 
@@ -49,32 +49,32 @@ Query suggestions: `getAndSaveSuggestions` → `fetchAndSaveSuggestions`,  `getS
 ### Features
 
 * **actions:** generalize request actions ([b4be6a2](https://bitbucket.org/colbenson/x-components/commits/b4be6a282f8b89982e7dd3e39d7fc3d1f09839b1)), closes [EX-2663](https://searchbroker.atlassian.net/browse/EX-2663)
+* **actions:** use `cancellable-promise` in every request action ([d369491](https://bitbucket.org/colbenson/x-components/commits/d36949151ad8e7b7bdcde63afd57e49b34b1bc60)), closes [EX-2664](https://searchbroker.atlassian.net/browse/EX-2664)
 * **animations:** add `CollapseHeight` component ([cd5f9d1](https://bitbucket.org/colbenson/x-components/commits/cd5f9d1ae1cc1a9a503f4c2070e5f9b1dc73b3c0)), closes [EX-2661](https://searchbroker.atlassian.net/browse/EX-2661)
-* **base-components:**  add `BaseFilters` component ([4889c6b](https://bitbucket.org/colbenson/x-components/commits/4889c6b4ed455a53d52b70a9bfca755cc5654c30)), closes [EX-2513](https://searchbroker.atlassian.net/browse/EX-2513)
+* **base-components:** add `BaseFilters` component ([4889c6b](https://bitbucket.org/colbenson/x-components/commits/4889c6b4ed455a53d52b70a9bfca755cc5654c30)), closes [EX-2513](https://searchbroker.atlassian.net/browse/EX-2513)
 * **base-components:** add `BaseNumberRangeFilter` component ([dd0fbff](https://bitbucket.org/colbenson/x-components/commits/dd0fbff07af6fea81a5e1f57ecf0bf398948c3db)), closes [EX-2797](https://searchbroker.atlassian.net/browse/EX-2797)
 * **base-components:** add `BaseCurrency` component ([1fd6a3f](https://bitbucket.org/colbenson/x-components/commits/1fd6a3faaeb88906f11893b20c3d7e19bd65f8d5)), closes [EX-2758](https://searchbroker.atlassian.net/browse/EX-2758)
 * **base-components:** add `BaseFiltersSearch` component ([cf5dbbf](https://bitbucket.org/colbenson/x-components/commits/cf5dbbf2308f89c1efc5bdbe7bb4c80f957876b9)), closes [EX-2234](https://searchbroker.atlassian.net/browse/EX-2234)
 * **base-components:** add `BaseHeaderTogglePanel` component ([73b7c69](https://bitbucket.org/colbenson/x-components/commits/73b7c690cc9cdb64b8ea8dde03ccba6c5c51e6e9)), closes [EX-2232](https://searchbroker.atlassian.net/browse/EX-2232)
 * **base-components:** add `BaseSlicedFilters` component ([0e8f1cc](https://bitbucket.org/colbenson/x-components/commits/0e8f1cc813c8b49769afe1cbb7eebb9cecc0a338)), closes [EX-2721](https://searchbroker.atlassian.net/browse/EX-2721)
-* **components:** add base-hierarchical-filter component. ([946f3e6](https://bitbucket.org/colbenson/x-components/commits/946f3e6e186bf61a1c03b5aa3f455bf5f5975125))
-* **facets:** create component clear all filters ([63356f7](https://bitbucket.org/colbenson/x-components/commits/63356f76d6ba499f9855564f14e792dcb2aa0873)), closes [EX-2560](https://searchbroker.atlassian.net/browse/EX-2560)
-* **eslint:** update version @empathy/eslint-plugin-x to 1.2.1 and fix some files ([6bfbede](https://bitbucket.org/colbenson/x-components/commits/6bfbedec033516e0e3c7b14fb863f4f8af990412)), closes [EX-2779](https://searchbroker.atlassian.net/browse/EX-2779)
+* **base-components:** add `BaseHierarchicalFilter` component ([946f3e6](https://bitbucket.org/colbenson/x-components/commits/946f3e6e186bf61a1c03b5aa3f455bf5f5975125))
+* **base-components:** add `BaseTogglePanel` component ([922040c](https://bitbucket.org/colbenson/x-components/commits/922040c05b44dc23bc8854bc8b853153ba70e462)), closes [EX-2658](https://searchbroker.atlassian.net/browse/EX-2658)
+* **facets:** add `ClearAll` selected filters component ([63356f7](https://bitbucket.org/colbenson/x-components/commits/63356f76d6ba499f9855564f14e792dcb2aa0873)), closes [EX-2560](https://searchbroker.atlassian.net/browse/EX-2560)
+* **eslint:** update `@empathy/eslint-plugin-x` to `1.2.1` and fix some files ([6bfbede](https://bitbucket.org/colbenson/x-components/commits/6bfbedec033516e0e3c7b14fb863f4f8af990412)), closes [EX-2779](https://searchbroker.atlassian.net/browse/EX-2779)
 * **facets:** add `MultiSelectFilters` component. ([b660f58](https://bitbucket.org/colbenson/x-components/commits/b660f5820f1f7e80514c9d3ca3ae94a64bfb1788)), closes [EX-2580](https://searchbroker.atlassian.net/browse/EX-2580)
-* **facets:** add `SelectedFiltersChanged` emitter. ([b4df7ab](https://bitbucket.org/colbenson/x-components/commits/b4df7ab622d62f6e83d3d0f2fc6cc0d7f9d7f541))
+* **facets:** add `SelectedFiltersChanged` emitter ([b4df7ab](https://bitbucket.org/colbenson/x-components/commits/b4df7ab622d62f6e83d3d0f2fc6cc0d7f9d7f541))
 * **facets:** add `toggleSimpleFilter` action ([e47ce20](https://bitbucket.org/colbenson/x-components/commits/e47ce2032d31646c4c83f54f94bf3b017aaf05df)), closes [EX-2458](https://searchbroker.atlassian.net/browse/EX-2458)
 * **facets:** all filter button which deselects its filters ([67ebc9c](https://bitbucket.org/colbenson/x-components/commits/67ebc9c81ec457fbf1625f7c1d1125ea97eb8a22)), closes [EX-2701](https://searchbroker.atlassian.net/browse/EX-2701)
-* use cancellable-promise in every request action ([d369491](https://bitbucket.org/colbenson/x-components/commits/d36949151ad8e7b7bdcde63afd57e49b34b1bc60)), closes [EX-2664](https://searchbroker.atlassian.net/browse/EX-2664)
 * **facets:** add `toggleHierarchicalFilter` action ([7e59555](https://bitbucket.org/colbenson/x-components/commits/7e59555680a4d8de6173f1a95401173d8ebeb0da)), closes [EX-2459](https://searchbroker.atlassian.net/browse/EX-2459)
 * **facets:** add new events for clear filters ([9c5fdc3](https://bitbucket.org/colbenson/x-components/commits/9c5fdc3f8f6fb4d5f873a3e6b67ef4670bfa77e2)), closes [EX-2561](https://searchbroker.atlassian.net/browse/EX-2561)
-* **facets:** extract `BaseFilter` component from `BaseHierarchicalFilter` and `BaseSimpleFilter` components. ([021922b](https://bitbucket.org/colbenson/x-components/commits/021922b528178af8a88431087324a5642b83ed77)), closes [EX-2603](https://searchbroker.atlassian.net/browse/EX-2603)
+* **facets:** extract `BaseFilter` component from `BaseHierarchicalFilter` and `BaseSimpleFilter` components ([021922b](https://bitbucket.org/colbenson/x-components/commits/021922b528178af8a88431087324a5642b83ed77)), closes [EX-2603](https://searchbroker.atlassian.net/browse/EX-2603)
 * **facets:** add `Facets` component ([64cd22c](https://bitbucket.org/colbenson/x-components/commits/64cd22c75ff9b0c41f3dbf55433645352cbb6b73)), closes [EX-2417](https://searchbroker.atlassian.net/browse/EX-2417)
 * **facets:** keep selection state of the current filters ([8a0ee37](https://bitbucket.org/colbenson/x-components/commits/8a0ee37906852241beda2084c0f877ea09415d41)), closes [EX-2654](https://searchbroker.atlassian.net/browse/EX-2654)
 * **facets:** update facets module with new search-types ([1d1abaf](https://bitbucket.org/colbenson/x-components/commits/1d1abaf8e832bf5b9bcf408cf68e4d254a6eee13)), closes [EX-2509](https://searchbroker.atlassian.net/browse/EX-2509)
-* **filters:** new filtersMap getter and selectedFilters getter refactor ([fc03a1c](https://bitbucket.org/colbenson/x-components/commits/fc03a1c87c53d06726bf644b6cc10354e4e24ba4))
+* **facets:** add `filtersMap` getter and `selectedFilters` getter refactor ([fc03a1c](https://bitbucket.org/colbenson/x-components/commits/fc03a1c87c53d06726bf644b6cc10354e4e24ba4))
 * **search:** add `SelectedFiltersChanged` wiring ([fdc6379](https://bitbucket.org/colbenson/x-components/commits/fdc63795a2d1e3ed470b017ff14631f0c81169e2))
-* **toggle-panel:** base toggle panel component ([922040c](https://bitbucket.org/colbenson/x-components/commits/922040c05b44dc23bc8854bc8b853153ba70e462)), closes [EX-2658](https://searchbroker.atlassian.net/browse/EX-2658)
-* **utils:** add callback for cancellable promises. ([102634f](https://bitbucket.org/colbenson/x-components/commits/102634f3f6c6061f0c51d3508d043932fea382d6)), closes [EX-2380](https://searchbroker.atlassian.net/browse/EX-2380)
-* add status to every store module ([4ac4a34](https://bitbucket.org/colbenson/x-components/commits/4ac4a34993a97b351f560159c2e1a0c19b47bc39)), closes [EX-2435](https://searchbroker.atlassian.net/browse/EX-2435)
+* **store:** add `status` to every store module ([4ac4a34](https://bitbucket.org/colbenson/x-components/commits/4ac4a34993a97b351f560159c2e1a0c19b47bc39)), closes [EX-2435](https://searchbroker.atlassian.net/browse/EX-2435)
+* **utils:** add callback for cancellable promises ([102634f](https://bitbucket.org/colbenson/x-components/commits/102634f3f6c6061f0c51d3508d043932fea382d6)), closes [EX-2380](https://searchbroker.atlassian.net/browse/EX-2380)
 
 
 ### Bug Fixes
@@ -105,7 +105,7 @@ Query suggestions: `getAndSaveSuggestions` → `fetchAndSaveSuggestions`,  `getS
 ### Code Refactoring
 
 * **base-components:** rename from figure to picture ([1ec8621](https://bitbucket.org/colbenson/x-components/commits/1ec8621d8c85c3830bedd67c49ac4bf4e64ae34b)), closes [EX-2713](https://searchbroker.atlassian.net/browse/EX-2713)
-* **components:** added default content to some simple components and default style ([0459913](https://bitbucket.org/colbenson/x-components/commits/04599139a80af43ae668bb96313683da4aff29fb)), closes [EX-2714](https://searchbroker.atlassian.net/browse/EX-2714)
+* **base-components:** added default content to some simple components and default style ([0459913](https://bitbucket.org/colbenson/x-components/commits/04599139a80af43ae668bb96313683da4aff29fb)), closes [EX-2714](https://searchbroker.atlassian.net/browse/EX-2714)
 
 ### [1.1.2](https://bitbucket.org/colbenson/x-components/branches/compare/v1.1.2%0Dv1.1.1) (2020-12-03)
 
