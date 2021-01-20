@@ -4,7 +4,7 @@
 
 ### Bug Fixes
 
-* **facets:** add missing SelectedFilters component export ([4c9a32c](https://bitbucket.org/colbenson/x-components/commits/4c9a32c52de66bb388a0259f7fb6436db65f1d26)), closes [EX-2984](https://searchbroker.atlassian.net/browse/EX-2984)
+* **facets:** add missing `SelectedFilters` component export ([4c9a32c](https://bitbucket.org/colbenson/x-components/commits/4c9a32c52de66bb388a0259f7fb6436db65f1d26)), closes [EX-2984](https://searchbroker.atlassian.net/browse/EX-2984)
 
 ## [2.0.0-alpha.1](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.1%0Dv2.0.0-alpha.0) (2021-01-19)
 
