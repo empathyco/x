@@ -50,14 +50,16 @@ export const setSelectedFilters = wireCommit('setSelectedFilters');
  *
  * @public
  */
-export const fetchAndSaveSearchResponse = wireDispatchWithoutPayload('fetchAndSaveSearchResponse');
+export const fetchAndSaveSearchResponseWire = wireDispatchWithoutPayload(
+  'fetchAndSaveSearchResponse'
+);
 
 /**
  * Cancels the {@link SearchActions.fetchAndSaveSearchResponse} request promise.
  *
  * @public
  */
-export const cancelFetchAndSaveSearchResponse = wireDispatchWithoutPayload(
+export const cancelFetchAndSaveSearchResponseWire = wireDispatchWithoutPayload(
   'cancelFetchAndSaveSearchResponse'
 );
 
@@ -72,10 +74,10 @@ export const searchWiring = createWiring({
   },
   UserClearedQuery: {
     setSearchQuery,
-    cancelFetchAndSaveSearchResponse
+    cancelFetchAndSaveSearchResponseWire
   },
   SearchRequestChanged: {
-    fetchAndSaveSearchResponse
+    fetchAndSaveSearchResponseWire
   },
   SelectedRelatedTagsChanged: {
     setRelatedTags

@@ -6,7 +6,10 @@ import { PopularSearchesXStoreModule } from '../types';
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
+ *
  * @returns A Promise of Suggestion[] that resolves when it fetches suggestions.
+ *
+ * @public
  */
 export const fetchSuggestions: PopularSearchesXStoreModule['actions']['fetchSuggestions'] = ({
   getters

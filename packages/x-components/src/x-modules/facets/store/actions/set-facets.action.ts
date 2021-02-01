@@ -13,6 +13,7 @@ import { FacetsXStoreModule } from '../types';
  * actions, provided by Vuex.
  * @param newFacets - Facets array.
  *
+ * @public
  */
 export const setFacets: FacetsXStoreModule['actions']['setFacets'] = (
   { getters: { flattenedFilters }, commit },

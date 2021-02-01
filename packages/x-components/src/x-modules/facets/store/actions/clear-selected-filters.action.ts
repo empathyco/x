@@ -7,7 +7,7 @@ import { FacetsActionsContext, FacetsXStoreModule } from '../types';
  *
  * @public
  */
-export class ClearFilters implements ActionsClass<FacetsXStoreModule> {
+export class ClearSelectedFilters implements ActionsClass<FacetsXStoreModule> {
   /**
    * Default implementation for {@link FacetsActions.clearSelectedFilters}.
    *
@@ -67,7 +67,7 @@ export class ClearFilters implements ActionsClass<FacetsXStoreModule> {
   }
 }
 
-const clearFilters = new ClearFilters();
+const clearFilters = new ClearSelectedFilters();
 // eslint-disable-next-line jsdoc/require-description-complete-sentence
 /**
  * {@inheritDoc ClearFilters.clearSelectedFilters}

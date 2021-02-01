@@ -43,14 +43,14 @@ export const setNextQueriesQuery = wireCommit('setQuery');
  *
  * @public
  */
-export const fetchAndSaveNextQueries = wireDispatchWithoutPayload('fetchAndSaveNextQueries');
+export const fetchAndSaveNextQueriesWire = wireDispatchWithoutPayload('fetchAndSaveNextQueries');
 
 /**
  * Sets the next queries state `query` with the last query in history queries.
  *
  * @public
  */
-export const setQueryFromLastHistoryQuery = wireDispatch('setQueryFromLastHistoryQuery');
+export const setQueryFromLastHistoryQueryWire = wireDispatch('setQueryFromLastHistoryQuery');
 
 /**
  * Sets the next queries state `searchedQueries` with the list of history queries.
@@ -71,9 +71,9 @@ export const nextQueriesWiring = createWiring({
   SessionHistoryQueriesChanged: {
     setSearchedQueries,
     // TODO setQueryFromLastHistoryQuery it has to be called only one time
-    setQueryFromLastHistoryQuery
+    setQueryFromLastHistoryQueryWire
   },
   NextQueriesRequestChanged: {
-    fetchAndSaveNextQueries
+    fetchAndSaveNextQueriesWire
   }
 });

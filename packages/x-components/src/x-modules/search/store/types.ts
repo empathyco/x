@@ -88,13 +88,13 @@ export interface SearchActions {
    */
   cancelFetchAndSaveSearchResponse(): void;
   /**
-   * Fetchs the search response and returns them.
+   * Fetches the search response and returns them.
    *
    * @returns The new search response.
    */
   fetchSearchResponse(): SearchResponse;
   /**
-   * Fetchs a new search response and stores them in the module state.
+   * Fetches a new search response and stores them in the module state.
    */
   fetchAndSaveSearchResponse(): void;
 }

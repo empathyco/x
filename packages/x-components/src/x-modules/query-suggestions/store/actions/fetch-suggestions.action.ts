@@ -6,7 +6,10 @@ import { QuerySuggestionsXStoreModule } from '../types';
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
+ *
  * @returns A `void` promise that resolves when it fetches suggestions.
+ *
+ * @public
  */
 export const fetchSuggestions: QuerySuggestionsXStoreModule['actions']['fetchSuggestions'] = ({
   getters

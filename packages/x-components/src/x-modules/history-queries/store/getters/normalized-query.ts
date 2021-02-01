@@ -6,7 +6,10 @@ import { HistoryQueriesXStoreModule } from '../types';
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the history
  * queries module.
+ *
  * @returns The normalized query.
+ *
+ * @public
  */
 export const normalizedQuery: HistoryQueriesXStoreModule['getters']['normalizedQuery'] = ({
   query

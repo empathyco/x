@@ -38,7 +38,7 @@ const wireDispatchWithOutPayload = namespacedWireDispatchWithoutPayload(moduleNa
  *
  * @public
  */
-export const setFacets = wireDispatch('setFacets');
+export const setFacetsWire = wireDispatch('setFacets');
 
 /**
  * Changes the multi-select configuration for a facet.
@@ -52,42 +52,42 @@ export const setFacetMultiSelect = wireCommit('setFacetMultiSelect');
  *
  * @public
  */
-export const toggleSimpleFilter = wireDispatch('toggleSimpleFilter');
+export const toggleSimpleFilterWire = wireDispatch('toggleSimpleFilter');
 
 /**
  * Toggles a {@link @empathy/search-types#HierarchicalFilter | HierarchicalFilter}.
  *
  * @public
  */
-export const toggleHierarchicalFilter = wireDispatch('toggleHierarchicalFilter');
+export const toggleHierarchicalFilterWire = wireDispatch('toggleHierarchicalFilter');
 
 /**
  * Toggles a {@link @empathy/search-types#NumberRangeFilter | NumberRangeFilter}.
  *
  * @public
  */
-export const toggleNumberRangeFilter = wireDispatch('toggleNumberRangeFilter');
+export const toggleNumberRangeFilterWire = wireDispatch('toggleNumberRangeFilter');
 
 /**
  * Deselects the filters of the provided facets ids.
  *
  * @public
  */
-export const clearFacetsSelectedFilters = wireDispatch('clearFacetsSelectedFilters');
+export const clearFacetsSelectedFiltersWire = wireDispatch('clearFacetsSelectedFilters');
 
 /**
  * Deselects the filters of the provided facet id.
  *
  * @public
  */
-export const clearFacetSelectedFilters = wireDispatch('clearFacetSelectedFilters');
+export const clearFacetSelectedFiltersWire = wireDispatch('clearFacetSelectedFilters');
 
 /**
  * Deselects all the filters.
  *
  * @public
  */
-export const clearSelectedFilters = wireDispatchWithOutPayload('clearSelectedFilters');
+export const clearSelectedFiltersWire = wireDispatchWithOutPayload('clearSelectedFilters');
 
 /**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
@@ -96,30 +96,30 @@ export const clearSelectedFilters = wireDispatchWithOutPayload('clearSelectedFil
  */
 export const facetsWiring = createWiring({
   FacetsChanged: {
-    setFacets
+    setFacetsWire
   },
   FacetMultiSelectChanged: {
     setFacetMultiSelect
   },
   UserAcceptedAQuery: {
-    clearSelectedFilters
+    clearSelectedFiltersWire
   },
   UserClickedASimpleFilter: {
-    toggleSimpleFilter
+    toggleSimpleFilterWire
   },
   UserClickedAHierarchicalFilter: {
-    toggleHierarchicalFilter
+    toggleHierarchicalFilterWire
   },
   UserClickedANumberRangeFilter: {
-    toggleNumberRangeFilter
+    toggleNumberRangeFilterWire
   },
   UserClickedClearFacetFilters: {
-    clearFacetsSelectedFilters
+    clearFacetsSelectedFiltersWire
   },
   UserClickedClearAllFilters: {
-    clearSelectedFilters
+    clearSelectedFiltersWire
   },
   UserClickedFacetAllFilter: {
-    clearFacetSelectedFilters
+    clearFacetSelectedFiltersWire
   }
 });

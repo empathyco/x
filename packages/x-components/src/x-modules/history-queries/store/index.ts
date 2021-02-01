@@ -1,4 +1,5 @@
 export * from './actions/add-query-to-history.action';
+export * from './actions/load-history-queries-from-browser-storage.action';
 export * from './actions/refresh-session.action';
 export * from './actions/remove-query-from-history.action';
 export * from './actions/set-history-queries.action';

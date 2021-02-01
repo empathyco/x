@@ -43,14 +43,14 @@ export const setRelatedTagsQuery = wireCommit('setQuery');
  *
  * @public
  */
-export const fetchAndSaveRelatedTags = wireDispatchWithoutPayload('fetchAndSaveRelatedTags');
+export const fetchAndSaveRelatedTagsWire = wireDispatchWithoutPayload('fetchAndSaveRelatedTags');
 
 /**
  * Cancels the {@link RelatedTagsActions.fetchAndSaveRelatedTags} request promise.
  *
  * @public
  */
-export const cancelFetchAndSaveRelatedTags = wireDispatchWithoutPayload(
+export const cancelFetchAndSaveRelatedTagsWire = wireDispatchWithoutPayload(
   'cancelFetchAndSaveRelatedTags'
 );
 
@@ -59,7 +59,7 @@ export const cancelFetchAndSaveRelatedTags = wireDispatchWithoutPayload(
  *
  * @public
  */
-export const toggleRelatedTag = wireDispatch('toggleRelatedTag');
+export const toggleRelatedTagWire = wireDispatch('toggleRelatedTag');
 
 /**
  * Clear the selected related tags.
@@ -86,13 +86,13 @@ export const relatedTagsWiring = createWiring({
     clearSelectedRelatedTags
   },
   UserPickedARelatedTag: {
-    toggleRelatedTag
+    toggleRelatedTagWire
   },
   RelatedTagsRequestChanged: {
-    fetchAndSaveRelatedTags
+    fetchAndSaveRelatedTagsWire
   },
   UserClearedQuery: {
-    cancelFetchAndSaveRelatedTags,
+    cancelFetchAndSaveRelatedTagsWire,
     clearRelatedTagsQuery,
     clearSelectedRelatedTags
   }

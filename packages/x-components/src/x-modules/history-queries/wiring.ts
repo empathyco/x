@@ -67,7 +67,7 @@ export const refreshHistoryQueriesSession = wireDispatchWithoutPayload('refreshS
  *
  * @public
  */
-export const loadHistoryQueriesFromBrowserStorage = wireDispatchWithoutPayload(
+export const loadHistoryQueriesFromBrowserStorageWire = wireDispatchWithoutPayload(
   'loadHistoryQueriesFromBrowserStorage'
 );
 
@@ -100,7 +100,7 @@ export const historyQueriesWiring = createWiring({
     refreshHistoryQueriesSession
   },
   HistoryQueriesStorageKeyChanged: {
-    loadHistoryQueriesFromBrowserStorage
+    loadHistoryQueriesFromBrowserStorageWire
   },
   UserClearedQuery: {
     clearHistoryQueriesQuery
