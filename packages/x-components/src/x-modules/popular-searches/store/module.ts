@@ -4,8 +4,8 @@ import {
   fetchAndSaveSuggestions
 } from './actions/fetch-and-save-suggestions.action';
 import { fetchSuggestions } from './actions/fetch-suggestions.action';
-import { popularSearches } from './getters/popular-searches';
-import { request } from './getters/request';
+import { popularSearches } from './getters/popular-searches.getter';
+import { request } from './getters/request.getter';
 import { PopularSearchesXStoreModule } from './types';
 
 /**

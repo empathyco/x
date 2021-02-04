@@ -72,7 +72,7 @@ And(
   'the clicked popular search is removed from Popular Searches if {boolean} is true',
   (hideSessionQueries: boolean) => {
     if (hideSessionQueries) {
-      cy.getByDataTest('popular-searches').should('not.contain', selectedPopularSearch);
+      cy.getByDataTest('popular-searches').should('not.have.text', selectedPopularSearch);
     } else {
       cy.getByDataTest('popular-searches').should('contain', selectedPopularSearch);
     }

@@ -5,9 +5,9 @@ import {
 } from './actions/fetch-and-save-identifier-results.action';
 import { fetchIdentifierResults } from './actions/fetch-identifier-results.action';
 import { saveQuery } from './actions/save-query.action';
-import { identifierDetectionRegexp } from './getters/identifier-detection-regexp';
-import { identifierHighlightRegexp } from './getters/identifier-highlight-regexp';
-import { identifierResultsRequest } from './getters/identifier-results-request';
+import { identifierDetectionRegexp } from './getters/identifier-detection-regexp.getter';
+import { identifierHighlightRegexp } from './getters/identifier-highlight-regexp.getter';
+import { identifierResultsRequest } from './getters/identifier-results-request.getter';
 import { IdentifierResultsXStoreModule } from './types';
 
 /**

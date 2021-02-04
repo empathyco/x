@@ -5,8 +5,8 @@ import {
   fetchAndSaveSearchResponse
 } from './actions/fetch-and-save-search-response.action';
 import { fetchSearchResponse } from './actions/fetch-search-response.action';
-import { request } from './getters/request';
-import { results } from './getters/results';
+import { request } from './getters/request.getter';
+import { results } from './getters/results.getter';
 import { SearchXStoreModule } from './types';
 
 /**

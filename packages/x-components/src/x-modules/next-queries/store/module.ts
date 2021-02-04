@@ -5,8 +5,8 @@ import {
 } from './actions/fetch-and-save-next-queries.action';
 import { fetchNextQueries } from './actions/fetch-next-queries.action';
 import { setQueryFromLastHistoryQuery } from './actions/set-query-from-last-history-query.action';
-import { nextQueries } from './getters/next-queries';
-import { request } from './getters/request';
+import { nextQueries } from './getters/next-queries.getter';
+import { request } from './getters/request.getter';
 import { NextQueriesXStoreModule } from './types';
 
 /**

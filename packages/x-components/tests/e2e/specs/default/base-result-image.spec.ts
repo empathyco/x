@@ -29,9 +29,7 @@ function checksChildResultPicture(componentDataTest: string, expectedDataTest: s
     .should('have.attr', 'data-test', 'result-picture__placeholder')
     .should('have.length', 1);
   cy.scrollTo('bottom', { easing: 'linear', duration: 500 });
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(1000);
-  cy.get('@resultPictureChild')
+  cy.get('@resultPictureChild', { timeout: 10000 })
     .should('have.attr', 'data-test', expectedDataTest)
     .should('have.length', 1);
 }

@@ -4,9 +4,9 @@ import {
   fetchAndSaveSuggestions
 } from './actions/fetch-and-save-suggestions.action';
 import { fetchSuggestions } from './actions/fetch-suggestions.action';
-import { normalizedQuery } from './getters/normalized-query';
+import { normalizedQuery } from './getters/normalized-query.getter';
 import { querySuggestions } from './getters/query-suggestions.getter';
-import { request } from './getters/request';
+import { request } from './getters/request.getter';
 import { QuerySuggestionsXStoreModule } from './types';
 
 /**

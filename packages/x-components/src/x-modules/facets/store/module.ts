@@ -7,9 +7,9 @@ import {
 import { setFacets } from './actions/set-facets.action';
 import { toggleHierarchicalFilter } from './actions/toggle-hierarchical-filter.action';
 import { toggleNumberRangeFilter, toggleSimpleFilter } from './actions/toggle-filter.action';
-import { flattenedFilters } from './getters/flattened-filters';
-import { selectedFilters } from './getters/selected-filters';
-import { selectedFiltersByFacet } from './getters/selected-filters-by-facet';
+import { flattenedFilters } from './getters/flattened-filters.getter';
+import { selectedFilters } from './getters/selected-filters.getter';
+import { selectedFiltersByFacet } from './getters/selected-filters-by-facet.getter';
 import { FacetsXStoreModule } from './types';
 
 /**

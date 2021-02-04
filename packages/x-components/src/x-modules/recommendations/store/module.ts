@@ -5,7 +5,7 @@ import {
 } from './actions/fetch-and-save-recommendations.action';
 import { fetchRecommendations } from './actions/fetch-recommendations.action';
 import { RECOMMENDATIONS_ORIGIN } from './constants';
-import { request } from './getters/request';
+import { request } from './getters/request.getter';
 import { RecommendationsXStoreModule } from './types';
 
 /**
