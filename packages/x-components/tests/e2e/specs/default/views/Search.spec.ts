@@ -1,7 +1,7 @@
 import { SearchResponse } from '@empathy/search-adapter';
 import {
-  createHierarchicalFacet,
-  createSimpleFacet
+  createHierarchicalFacetStub,
+  createSimpleFacetStub
 } from '../../../../../src/__stubs__/facets-stubs.factory';
 import { createResultStub } from '../../../../../src/__stubs__/results-stubs.factory';
 
@@ -48,16 +48,16 @@ describe('testing Search', () => {
       createResultStub(results.floralShortSleeveShirt)
     ],
     facets: [
-      createSimpleFacet('Gender', createFilter => [
+      createSimpleFacetStub('Gender', createFilter => [
         createFilter(filters.gender.women, false),
         createFilter(filters.gender.men, false)
       ]),
-      createSimpleFacet('Size', createFilter => [
+      createSimpleFacetStub('Size', createFilter => [
         createFilter(filters.size.small, false),
         createFilter(filters.size.medium, false),
         createFilter(filters.size.large, false)
       ]),
-      createHierarchicalFacet('Category', createFilter => [
+      createHierarchicalFacetStub('Category', createFilter => [
         createFilter(filters.category.shirts, false),
         createFilter(filters.category.jackets, false)
       ])
@@ -115,7 +115,7 @@ describe('testing Search', () => {
           createResultStub(results.floralShortSleeveShirt)
         ],
         facets: [
-          createHierarchicalFacet('Category', createFilter => [
+          createHierarchicalFacetStub('Category', createFilter => [
             createFilter(filters.category.shirts, false, createFilter => [
               createFilter(filters.category.longSleeve, false),
               createFilter(filters.category.shortSleeve, false)
@@ -144,7 +144,7 @@ describe('testing Search', () => {
           createResultStub(results.classicLongSleeveShirt)
         ],
         facets: [
-          createHierarchicalFacet('Category', createFilter => [
+          createHierarchicalFacetStub('Category', createFilter => [
             createFilter(filters.category.shirts, false, createFilter => [
               createFilter(filters.category.longSleeve, false, createChildren => [
                 createChildren(filters.category.floral, false),

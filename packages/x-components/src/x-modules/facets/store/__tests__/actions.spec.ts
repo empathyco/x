@@ -3,9 +3,8 @@ import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { arrayToObject, map } from '../../../../utils';
 import {
-  createHierarchicalFacet,
+  createHierarchicalFacetStub,
   createNumberRangeFacet,
-  createSimpleFacet,
   createSimpleFacetStub,
   getFacetsStub
 } from '../../../../__stubs__/facets-stubs.factory';
@@ -52,13 +51,13 @@ describe('testing facets module actions', () => {
     });
 
     it('should overwrite new default filters selected values with state values', () => {
-      const currentCategoryFacet = createSimpleFacet('Category', createCategorySimpleFilter => [
+      const currentCategoryFacet = createSimpleFacetStub('Category', createCategorySimpleFilter => [
         createCategorySimpleFilter('men', true),
         createCategorySimpleFilter('women', false),
         createCategorySimpleFilter('home', false)
       ]);
 
-      const newCategoryFacet = createSimpleFacet('Category', createCategorySimpleFilter => [
+      const newCategoryFacet = createSimpleFacetStub('Category', createCategorySimpleFilter => [
         createCategorySimpleFilter('men', false),
         createCategorySimpleFilter('women', true),
         createCategorySimpleFilter('kid', true)
@@ -77,17 +76,20 @@ describe('testing facets module actions', () => {
     });
 
     it('should overwrite new hierarchical filters selected values with state values', () => {
-      const currentCategoryFacet = createHierarchicalFacet('Category', createHierarchicalFilter => [
-        createHierarchicalFilter('men', true, createHierarchicalFilter => [
-          createHierarchicalFilter('shirts', true, createHierarchicalFilter => [
-            createHierarchicalFilter('striped', true)
-          ])
-        ]),
-        createHierarchicalFilter('women', false),
-        createHierarchicalFilter('home', false)
-      ]);
+      const currentCategoryFacet = createHierarchicalFacetStub(
+        'Category',
+        createHierarchicalFilter => [
+          createHierarchicalFilter('men', true, createHierarchicalFilter => [
+            createHierarchicalFilter('shirts', true, createHierarchicalFilter => [
+              createHierarchicalFilter('striped', true)
+            ])
+          ]),
+          createHierarchicalFilter('women', false),
+          createHierarchicalFilter('home', false)
+        ]
+      );
 
-      const newCategoryFacet = createHierarchicalFacet('Category', createHierarchicalFilter => [
+      const newCategoryFacet = createHierarchicalFacetStub('Category', createHierarchicalFilter => [
         createHierarchicalFilter('men', false, createHierarchicalFilter => [
           createHierarchicalFilter('shirts', false, createHierarchicalFilter => [
             createHierarchicalFilter('striped', false)

@@ -12,7 +12,9 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
   },
   onSuccess({ commit }, { results, facets }) {
     commit('setResults', results);
-    commit('setFacets', facets);
+    if (facets) {
+      commit('setFacets', facets);
+    }
   }
 });
 
