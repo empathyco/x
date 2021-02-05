@@ -1,13 +1,19 @@
 import { noOp } from '../../../src/utils/function';
 import { forEach } from '../../../src/utils/object';
+import { AnyFunction } from '../../../src/utils/types';
 import { AdapterMockedResponses } from '../../../src/views/mocked-adapter';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
-    interface Chainable extends CustomCommands {}
+    interface Chainable extends CustomCommands, CustomDualCommands {}
   }
 }
+
+import Loggable = Cypress.Loggable;
+import Shadow = Cypress.Shadow;
+import Timeoutable = Cypress.Timeoutable;
+import Withinable = Cypress.Withinable;
 
 interface CustomCommands {
   /**
@@ -17,9 +23,10 @@ interface CustomCommands {
    * cy.getByDataTest('query-suggestion')
    *
    * @param value - The data test attribute value to look for in the DOM.
+   * @param options - The options passed to the Cypress command.
    * @returns A Chainable object.
    */
-  getByDataTest(value: string): Cypress.Chainable<JQuery>;
+  getByDataTest(value: string, options?: CypressCommandOptions): Cypress.Chainable<JQuery>;
   /**
    * Searches a query by typing it in the search input and pressing enter.
    *
@@ -112,13 +119,38 @@ interface CustomCommands {
   fakeSearchResponse(searchResponse: Partial<AdapterMockedResponses['search']>): void;
 }
 
+interface CustomDualCommands {
+  /**
+   * Gets a DOM element searching by its data-test attribute.
+   *
+   * @example
+   * cy.getByDataTest('query-suggestion')
+   *
+   * @param value - The data test attribute value to look for in the DOM.
+   * @param options - The options passed to the Cypress command.
+   * @returns A Chainable object.
+   */
+  getByDataTest(value: string, options?: CypressCommandOptions): Cypress.Chainable<JQuery>;
+}
+
+type AddPreviousParam<Functions extends Record<keyof Functions, AnyFunction>> = {
+  [Key in keyof Functions]: (
+    previous: unknown,
+    ...args: Parameters<Functions[Key]>
+  ) => ReturnType<Functions[Key]>;
+};
+
 type SelectedStatus = 'selected' | 'unselected';
+
 interface ClickFilterOptions {
   filterShouldBe?: SelectedStatus;
 }
 
+export type CypressCommandOptions = Partial<Loggable & Timeoutable & Withinable & Shadow>;
+
 const customCommands: CustomCommands = {
-  getByDataTest: value => cy.get(`[data-test=${value}]`),
+  getByDataTest: (value: string, options?: CypressCommandOptions) =>
+    cy.get(`[data-test=${value}]`, options),
   searchQuery: query => cy.typeQuery(query).type('{enter}'),
   searchQueries: (...queries) => {
     queries.forEach(query => {
@@ -182,7 +214,18 @@ const customCommands: CustomCommands = {
   }
 };
 
+const customDualCommands: AddPreviousParam<CustomDualCommands> = {
+  getByDataTest: (previous, value, options?: CypressCommandOptions) => {
+    const selector = `[data-test=${value}]`;
+    return previous ? cy.wrap(previous).find(selector, options) : cy.get(selector, options);
+  }
+};
+
 // Register the commands
 forEach(customCommands, (name, implementation) => {
   Cypress.Commands.add(name, implementation);
+});
+
+forEach(customDualCommands, (name, implementation) => {
+  Cypress.Commands.add(name, { prevSubject: 'optional' }, implementation);
 });

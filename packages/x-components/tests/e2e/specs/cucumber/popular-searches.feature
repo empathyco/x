@@ -23,7 +23,7 @@ Feature: Popular searches component
     And   popular search is displayed in history queries
     Examples:
       | hideSessionQueries | maxItemsToRequest | maxItemsToRender | popularSearchItem |
-      | true               | 10                | 5                | 0                 |
+      | false              | 10                | 5                | 0                 |
       | true               | 5                 | 10               | 1                 |
-      | false              | 10                | 5                | 3                 |
+      | true               | 10                | 5                | 4                 |
 

@@ -40,9 +40,10 @@ describe('e2e testing history-queries component', () => {
   });
 
   it('deletes the history query when clicking its remove history query button', () => {
-    cy.getByDataTest('history-query')
+    cy.getByDataTest('history-query-item')
       .as('historyQueries')
       .first()
+      .should('be.visible')
       .getByDataTest('remove-history-query')
       .click();
 

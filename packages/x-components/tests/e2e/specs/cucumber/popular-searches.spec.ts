@@ -72,7 +72,9 @@ And(
   'the clicked popular search is removed from Popular Searches if {boolean} is true',
   (hideSessionQueries: boolean) => {
     if (hideSessionQueries) {
-      cy.getByDataTest('popular-searches').should('not.have.text', selectedPopularSearch);
+      cy.getByDataTest('popular-search').each(popularSearch => {
+        expect(popularSearch.text()).not.to.eq(selectedPopularSearch);
+      });
     } else {
       cy.getByDataTest('popular-searches').should('contain', selectedPopularSearch);
     }
@@ -82,11 +84,11 @@ And(
   // eslint-disable-next-line max-len
   'no new term is displayed in Popular Searches if hideSessionQueries = {boolean} is true and maxItemsToRender = {int} > maxItemsToRequest = {int}',
   (hideSessionQueries: boolean, maxItemsToRender: number, maxItemsToRequest: number) => {
-    if (hideSessionQueries) {
-      if (maxItemsToRender >= maxItemsToRequest) {
+    if (maxItemsToRender >= maxItemsToRequest) {
+      if (hideSessionQueries) {
         cy.getByDataTest('popular-search').should('have.length', maxItemsToRequest - 1);
       } else {
-        cy.getByDataTest('popular-search').should('have.length', maxItemsToRender);
+        cy.getByDataTest('popular-search').should('have.length', maxItemsToRequest);
       }
     } else {
       cy.getByDataTest('popular-search').should('have.length', maxItemsToRender);

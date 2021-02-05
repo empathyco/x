@@ -37,6 +37,16 @@ const routes: RouteConfig[] = [
     path: '/test/popular-searches',
     name: 'Popular Searches',
     component: () => import('./views/popular-searches.vue')
+  },
+  {
+    path: '/test/query-suggestions',
+    name: 'Query Suggestions',
+    component: () => import('./views/query-suggestions.vue')
+  },
+  {
+    path: '/test/recommendations',
+    name: 'Recommendations',
+    component: () => import('./views/recommendations.vue')
   }
 ];
 

@@ -1,42 +1,21 @@
 <template>
   <main>
-    <h1>Test controls</h1>
-    <ul class="x-test-controls">
-      <li class="x-test-controls__control">
-        <label>
-          <input
-            v-model="controls.searchInput.instant"
-            type="checkbox"
-            data-test="search-input-instant"
-          />
-          search-input - instant
-        </label>
-      </li>
-      <li class="x-test-controls__control">
-        <label for="searchInput.instantDebounceInMs">search-input - debounce</label>
-        <input
-          v-model="controls.searchInput.instantDebounceInMs"
-          id="searchInput.instantDebounceInMs"
-          type="number"
-          data-test="search-input-debounce"
-        />
-      </li>
-    </ul>
     <!-- Search Section -->
     <div>
-      <SearchInput
-        placeholder="Search"
-        aria-label="Search for products"
-        :instant="controls.searchInput.instant"
-        :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
-      />
+      <SearchInput placeholder="Search" aria-label="Search for products" />
       <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-      <SearchButton aria-label="Search"></SearchButton>
     </div>
-    <!-- Query Suggestions -->
+    <!-- Query Suggestions Section -->
     <div class="x-column">
       <h1>Query Suggestions</h1>
-      <QuerySuggestions />
+      <QuerySuggestions>
+        <template #suggestion="{ suggestion }">
+          <QuerySuggestion
+            :suggestion="suggestion"
+            :aria-label="`Query suggestion: ${suggestion.query}`"
+          />
+        </template>
+      </QuerySuggestions>
       <NoSuggestions message="We couldn't find any suggestion. Try searching for {query}." />
     </div>
     <!-- History Queries -->
@@ -72,73 +51,57 @@
   import { Component } from 'vue-property-decorator';
   import { deepMerge } from '@empathybroker/deep-merge';
   import { Result } from '@empathy/search-types';
-  import { RequestStatus } from '../store/utils/helpers/status.helpers';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
-  import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
-  import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
-  import NoSuggestions from '../x-modules/no-suggestions/components/no-suggestions.vue';
+  import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
+  import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import QuerySuggestion from '../x-modules/query-suggestions/components/query-suggestion.vue';
   import QuerySuggestions from '../x-modules/query-suggestions/components/query-suggestions.vue';
+  import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
   import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
-  import SearchButton from '../x-modules/search-box/components/search-button.vue';
-  import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import { Getter, State } from '../components/decorators/store.decorators';
-  import { getURLParameter } from '../utils/get-url-parameters';
   import { searchXModule } from '../x-modules/search/x-module';
+  import { historyQueriesXModule } from '../x-modules/history-queries/x-module';
   import { XInstaller } from '../x-installer/x-installer';
   import { XPlugin } from '../plugins/x-plugin';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
+  import { RequestStatus } from 'src/store/utils/helpers/status.helpers';
 
   @Component({
     beforeRouteEnter(to, _from, next: () => void): void {
       XPlugin.registerXModule(searchXModule);
+      XPlugin.registerXModule(historyQueriesXModule);
       let customQueryConfig = JSON.parse(to.query.xModules?.toString() ?? '{}');
-      const configSearchBoxView = deepMerge(baseInstallXOptions, {
-        xModules: deepMerge(
-          {
-            nextQueries: {
-              config: {
-                loadOnInit: true
-              }
-            }
-          },
-          customQueryConfig
-        )
+      const configQuerySuggestionsView = deepMerge(baseInstallXOptions, {
+        xModules: deepMerge(customQueryConfig)
       });
-      new XInstaller(configSearchBoxView).init(baseSnippetConfig);
+      new XInstaller(configQuerySuggestionsView).init(baseSnippetConfig);
       next();
     },
     components: {
-      SearchButton,
-      ClearHistoryQueries,
-      ClearSearchInput,
-      HistoryQueries,
-      NextQueries,
-      NoSuggestions,
+      SearchInput,
       QuerySuggestion,
       QuerySuggestions,
-      RelatedTags,
-      SearchInput
+      HistoryQueries,
+      ClearHistoryQueries,
+      ClearSearchInput,
+      NextQueries,
+      RelatedTags
     }
   })
-  export default class SearchBoxView extends Vue {
-    protected loadOnInit = getURLParameter('loadOnInit') === 'true';
-
+  export default class QuerySuggestionsView extends Vue {
     /* Controls */
     protected controls = {
-      searchInput: {
-        instant: true,
-        instantDebounceInMs: 500 // default
+      querySuggestions: {
+        maxItemsToRequest: 10
       }
     };
-
     /* Testing purpose */
     @Getter('search', 'results')
     public results!: Result[];
 
-    @State('search', 'status')
+    @State('querySuggestions', 'status')
     public status!: RequestStatus;
   }
 </script>

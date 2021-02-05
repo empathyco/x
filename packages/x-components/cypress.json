@@ -3,8 +3,8 @@
   "env": {
     "searchRequestURL": "/search/v1/query/juguettos/searchv2",
     "nextQueriesRequestURL": "/search/v1/query/juguettos/nextqueries",
-    "relatedTagsRequestURL": "/search/v1/query/juguettos/relatedtags"
-
+    "relatedTagsRequestURL": "/search/v1/query/juguettos/relatedtags",
+    "recommendationsRequestURL": "/search/v1/query/juguettos/topclicked"
   },
   "fixturesFolder": "tests/e2e/fixtures",
   "integrationFolder": "tests/e2e/specs",
@@ -15,5 +15,6 @@
   "testFiles": [
     "cucumber/**/*.{feature,features}",
     "default/**/*.spec.ts"
-  ]
+  ],
+  "defaultCommandTimeout": 8000
 }
