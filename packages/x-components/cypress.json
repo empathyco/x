@@ -5,6 +5,7 @@
     "nextQueriesRequestURL": "/search/v1/query/juguettos/nextqueries",
     "relatedTagsRequestURL": "/search/v1/query/juguettos/relatedtags",
     "recommendationsRequestURL": "/search/v1/query/juguettos/topclicked"
+
   },
   "fixturesFolder": "tests/e2e/fixtures",
   "integrationFolder": "tests/e2e/specs",
