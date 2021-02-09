@@ -138,6 +138,17 @@ describe('testing related tags component', () => {
       expect(customRelatedTagWrapper.text()).toEqual(relatedTags[index].tag);
     });
   });
+
+  it('renders a list of related tags which length is, at most, maxItemsToRender', () => {
+    const maxItemsToRender = 2;
+    const { wrapper, relatedTags } = renderRelatedTags({
+      template: `<RelatedTags maxItemsToRender=${maxItemsToRender} />`
+    });
+
+    const relatedTagsWrappers = wrapper.findAll(getDataTestSelector('related-tag-item'));
+    expect(relatedTags.length).toBeGreaterThan(maxItemsToRender);
+    expect(relatedTagsWrappers).toHaveLength(maxItemsToRender);
+  });
 });
 
 interface RenderRelatedTagsOptions {

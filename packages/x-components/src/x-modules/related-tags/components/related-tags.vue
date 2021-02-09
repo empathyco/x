@@ -57,8 +57,6 @@
     mixins: [xComponentMixin(relatedTagsXModule)]
   })
   export default class RelatedTags extends Vue {
-    @Getter('relatedTags', 'relatedTags')
-    public relatedTags!: RelatedTagModel[];
     /**
      * Animation component that will be used to animate the suggestion.
      *
@@ -66,6 +64,21 @@
      */
     @Prop({ default: 'ul' })
     protected animation!: Vue;
+
+    /**
+     * Number of related tags to be rendered.
+     *
+     * @public
+     */
+    @Prop()
+    protected maxItemsToRender?: number;
+
+    @Getter('relatedTags', 'relatedTags')
+    public storedRelatedTags!: RelatedTagModel[];
+
+    protected get relatedTags(): RelatedTagModel[] {
+      return this.storedRelatedTags.slice(0, this.maxItemsToRender);
+    }
   }
 </script>
 
@@ -109,6 +122,7 @@
   You can use your custom implementation of a Related Tag component.
   In the example below, instead of using the default `button` tag for a Related Tag, an icon is
   added, and the text of the related tag is wrapped in a `span`
+
   ```vue
   <RelatedTags>
     <template #related-tag="{relatedTag}">
@@ -121,5 +135,13 @@
       <button>Custom Behaviour</button>
     </template>
   </RelatedTags>
+  ```
+
+  ## Limiting the number of rendered related tags
+
+  You can render a maximum number of related tags rendered.
+
+  ```vue
+  <RelatedTags maxItemsToRender="3" />
   ```
 </docs>
