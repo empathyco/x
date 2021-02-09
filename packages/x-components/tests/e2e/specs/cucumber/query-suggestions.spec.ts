@@ -34,9 +34,12 @@ Then('at most {int} query suggestions are displayed', (maxItemsToRequest: number
 });
 
 And('all query suggestions contain the searched query', function (this: { searchedQuery: string }) {
+  const wordsInQuery = this.searchedQuery.split(' ');
   cy.getByDataTest('query-suggestion').should(suggestions => {
     suggestions.each((_, e) => {
-      expect(e).to.contain(this.searchedQuery);
+      for (const word of wordsInQuery) {
+        expect(e).to.contain(word);
+      }
     });
   });
 });

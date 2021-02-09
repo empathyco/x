@@ -44,7 +44,7 @@ Feature: Search-box component
     And   related tags are displayed after instantDebounceInMs is <instant>
     Examples:
       | instantDebounceInMs     | instant  | query         |
-      | 1000                    | true     | lego          |
+      | 1000                    | true     | disfraz       |
       | 1000                    | false    | barbie        |
 
   @noURLparameter

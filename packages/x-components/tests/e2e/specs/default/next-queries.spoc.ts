@@ -1,5 +1,5 @@
 describe('e2e testing next-queries component', () => {
-  const query = 'lego';
+  const query = 'disfraz';
   beforeEach(() => {
     cy.visit('/');
     cy.getByDataTest('search-input').as('searchInput');

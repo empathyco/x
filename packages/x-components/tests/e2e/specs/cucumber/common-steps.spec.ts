@@ -12,6 +12,7 @@ Then(
     cy.getByDataTest('search-input').should('have.value', this.searchedQuery);
   }
 );
+
 // History Queries
 Then(
   'the searched query is displayed in history queries',
@@ -21,10 +22,15 @@ Then(
       .each(historyQuery => expect(historyQuery).to.contain(this.searchedQuery));
   }
 );
+When('clear history queries button is clicked', () => {
+  cy.getByDataTest('clear-history-queries').click();
+});
+
 // Results
 Then('related results are displayed', () => {
   cy.getByDataTest('result-item').should('have.length.gt', 0);
 });
+
 // Query suggestions
 And('query suggestions are displayed', () => {
   cy.getByDataTest('query-suggestion').should('have.length.gt', 0);

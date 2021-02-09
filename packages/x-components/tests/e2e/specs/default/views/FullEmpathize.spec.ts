@@ -1,4 +1,6 @@
 describe('Testing FullEmpathize', () => {
+  const query = 'disfraz';
+
   beforeEach(() => {
     cy.visit('/full-empathize');
     cy.getByDataTest('search-input').as('searchInput');
@@ -6,12 +8,12 @@ describe('Testing FullEmpathize', () => {
 
   describe('Query Suggestions', () => {
     it('shows query suggestions when a query is searched', () => {
-      cy.typeQuery('lego');
+      cy.typeQuery(query);
       cy.getByDataTest('query-suggestion').should('have.length.gt', 0);
     });
 
     it('updates the search input when selecting a query suggestion', () => {
-      cy.typeQuery('lego');
+      cy.typeQuery(query);
       cy.getByDataTest('query-suggestion')
         .last()
         .click()
@@ -21,7 +23,7 @@ describe('Testing FullEmpathize', () => {
     });
 
     it('do not show query suggestions when a query is searched and cleaned', () => {
-      cy.searchQuery('lego');
+      cy.searchQuery(query);
       cy.focusSearchInput();
       cy.getByDataTest('query-suggestions').should('exist');
       cy.clearSearchInput();
@@ -33,14 +35,14 @@ describe('Testing FullEmpathize', () => {
   describe('History Queries', () => {
     it('shows history queries when some queries are searched and cleaned', () => {
       cy.getByDataTest('search-input').as('searchInput');
-      cy.searchQueries('lego', 'playmobil');
+      cy.searchQueries(query, 'playmobil');
       cy.clearSearchInput();
       cy.focusSearchInput();
       cy.getByDataTest('history-query-item').should('have.length', 2);
     });
 
     it('updates search input when selecting a history query', () => {
-      cy.searchQueries('lego', 'piscina', 'playmovil');
+      cy.searchQueries(query, 'piscina', 'playmovil');
       cy.clearSearchInput();
       cy.focusSearchInput();
       cy.getByDataTest('history-query')
@@ -52,7 +54,7 @@ describe('Testing FullEmpathize', () => {
     });
 
     it('deletes a history query', () => {
-      cy.searchQueries('lego', 'piscina', 'playmovil');
+      cy.searchQueries(query, 'piscina', 'playmovil');
       cy.clearSearchInput();
       cy.focusSearchInput();
       cy.getByDataTest('history-query')
@@ -78,12 +80,12 @@ describe('Testing FullEmpathize', () => {
 
   describe('Next Queries', () => {
     it('shows next queries when a query is searched', () => {
-      cy.typeQuery('lego');
+      cy.typeQuery(query);
       cy.getByDataTest('next-query').should('have.length.gt', 0);
     });
 
     it('updates the search input value when clicking a next query', () => {
-      cy.typeQuery('lego');
+      cy.typeQuery(query);
       cy.getByDataTest('next-query')
         .last()
         .click()
@@ -95,13 +97,13 @@ describe('Testing FullEmpathize', () => {
 
   describe('RelatedTags', () => {
     it('shows related tags when a query is searched', () => {
-      cy.typeQuery('lego');
+      cy.typeQuery(query);
       cy.focusSearchInput();
       cy.getByDataTest('related-tag').should('have.length.gt', 0);
     });
 
     it('allows selecting a related tag', () => {
-      cy.typeQuery('lego');
+      cy.typeQuery(query);
       cy.focusSearchInput();
       cy.getByDataTest('related-tag')
         .last()
