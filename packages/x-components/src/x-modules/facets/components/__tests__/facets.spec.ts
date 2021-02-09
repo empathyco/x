@@ -113,14 +113,116 @@ describe('testing Facets component', () => {
       expect(['color', 'size']).toContain(facetWrapper.text());
     });
   });
+
+  describe('filters facets based on renderableFacets prop', () => {
+    it('renders all facets when its value is omitted', () => {
+      const { getDefaultFacets } = renderFacetsComponent({
+        facetsProp: [
+          createSimpleFacetStub('color', createSimpleFilter => [
+            createSimpleFilter('Red', false),
+            createSimpleFilter('Blue', false)
+          ]),
+          createSimpleFacetStub('size', createSimpleFilter => [
+            createSimpleFilter('Big', false),
+            createSimpleFilter('Small', false)
+          ])
+        ]
+      });
+
+      const facetWrappers = getDefaultFacets();
+      expect(facetWrappers).toHaveLength(2);
+      getDefaultFacets().wrappers.forEach(facetWrapper => {
+        expect(['color', 'size']).toContain(facetWrapper.text());
+      });
+    });
+
+    it('renders only included facets', () => {
+      const { getDefaultFacets } = renderFacetsComponent({
+        stateFacets: {
+          color_facet: createSimpleFacetStub('color_facet', createSimpleFilter => [
+            createSimpleFilter('Red', false),
+            createSimpleFilter('Blue', true)
+          ]),
+          brand_facet: createSimpleFacetStub('brand_facet', createSimpleFilter => [
+            createSimpleFilter('Adidas', false),
+            createSimpleFilter('Nike', false)
+          ]),
+          price_facet: createSimpleFacetStub('price_facet', createSimpleFilter => [
+            createSimpleFilter('< 10 €', false),
+            createSimpleFilter('10 - 50 €', false)
+          ])
+        },
+        renderableFacets: 'color_facet'
+      });
+
+      const facetWrappers = getDefaultFacets();
+      expect(facetWrappers).toHaveLength(1);
+      getDefaultFacets().wrappers.forEach(facetWrapper => {
+        expect(['color_facet']).toContain(facetWrapper.text());
+      });
+    });
+
+    it('does not render excluded facets', () => {
+      const { getDefaultFacets } = renderFacetsComponent({
+        facetsProp: [
+          createSimpleFacetStub('color', createSimpleFilter => [
+            createSimpleFilter('Red', false),
+            createSimpleFilter('Blue', false)
+          ]),
+          createSimpleFacetStub('size', createSimpleFilter => [
+            createSimpleFilter('Big', false),
+            createSimpleFilter('Small', false)
+          ]),
+          createSimpleFacetStub('price', createSimpleFilter => [
+            createSimpleFilter('< 10 €', false),
+            createSimpleFilter('10 - 50 €', false)
+          ])
+        ],
+        renderableFacets: '!color'
+      });
+
+      const facetWrappers = getDefaultFacets();
+      expect(facetWrappers).toHaveLength(2);
+      getDefaultFacets().wrappers.forEach(facetWrapper => {
+        expect(['size', 'price']).toContain(facetWrapper.text());
+      });
+    });
+
+    it('renders only included facets when combining with excluded ones', () => {
+      const { getDefaultFacets } = renderFacetsComponent({
+        facetsProp: [
+          createSimpleFacetStub('color', createSimpleFilter => [
+            createSimpleFilter('Red', false),
+            createSimpleFilter('Blue', false)
+          ]),
+          createSimpleFacetStub('size', createSimpleFilter => [
+            createSimpleFilter('Big', false),
+            createSimpleFilter('Small', false)
+          ]),
+          createSimpleFacetStub('price', createSimpleFilter => [
+            createSimpleFilter('< 10 €', false),
+            createSimpleFilter('10 - 50 €', false)
+          ])
+        ],
+        renderableFacets: 'color,!price'
+      });
+
+      const facetWrappers = getDefaultFacets();
+      expect(facetWrappers).toHaveLength(1);
+      getDefaultFacets().wrappers.forEach(facetWrapper => {
+        expect(['color']).toContain(facetWrapper.text());
+      });
+    });
+  });
 });
 
 function renderFacetsComponent({
   customFacetSlot = '',
   stateFacets = getFacetsDictionaryStub(),
   facetsProp,
+  renderableFacets,
   template = `
-       <Facets :facets="facetsProp">
+       <Facets :facets="facetsProp" :renderableFacets="renderableFacets">
           ${customFacetSlot ?? ''}
           <template #default="{ facet, selectedFilters }">
             <p data-test="default-slot-facet">{{ facet.label }}</p>
@@ -145,14 +247,15 @@ function renderFacetsComponent({
       components: {
         Facets
       },
-      props: ['facetsProp'],
+      props: ['facetsProp', 'renderableFacets'],
       template
     },
     {
       localVue,
       store,
       propsData: {
-        facetsProp
+        facetsProp,
+        renderableFacets
       }
     }
   );
@@ -175,6 +278,7 @@ function renderFacetsComponent({
 interface FacetsRenderOptions {
   stateFacets?: Dictionary<Facet>;
   facetsProp?: Facet[];
+  renderableFacets?: string;
   template?: string;
   customFacetSlot?: string;
 }

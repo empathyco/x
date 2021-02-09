@@ -1,7 +1,7 @@
 <template>
   <component :is="animation" v-if="hasFacets" class="x-facets-list" data-test="facets" tag="ul">
     <li
-      v-for="(facet, facetId) in stateFacets"
+      v-for="(facet, facetId) in facetsToRender"
       :key="facetId"
       class="x-facets-list__item"
       data-test="facets-facet"
@@ -47,12 +47,53 @@
   })
   export default class Facets extends Vue {
     /**
+     * Animation component that will be used to animate the facets.
+     *
+     * @public
+     */
+    @Prop({ default: 'ul' })
+    protected animation!: Vue | string;
+
+    /**
+     * If this prop is provided, these facets are used, and stored in the {@link FacetsState}.
+     *
+     * @public
+     */
+    @Prop()
+    public facets?: Facet[];
+
+    /**
+     * Discriminates the facets rendered by this component. It expects a string containing facets
+     * ids, comma separated. This property will include or exclude facets based on its value.
+     * The default value is an empty string and the component will render all existing facets.
+     *
+     * @remarks
+     * To behave as a `include`, simply set the facets ids, comma separated:
+     * `existingFacets=[{ brand: ... }, category: { ... }, color: { ... }, price: { ... }]`
+     * `renderableFacets="brand, category"`
+     *
+     * The component will render brand and category facets.
+     *
+     * On the other hand, to simulate an `exclude` behaviour and exclude a facet from being
+     * rendered, append a '!' before its id:
+     * `existingFacets=[{ brand: ... }, category: { ... }, color: { ... }, price: { ... }]`
+     * `renderableFacets="!brand,!price"`
+     *
+     * The component will render category and color facets.
+     *
+     * @public
+     */
+    @Prop({ default: '' })
+    protected renderableFacets!: string;
+
+    /**
      * The module's facets.
      *
      * @public
      */
     @State('facets', 'facets')
     public stateFacets!: Dictionary<Facet>;
+
     /**
      * Array of selected filters from every facet.
      *
@@ -60,18 +101,6 @@
      */
     @Getter('facets', 'selectedFiltersByFacet')
     public selectedFiltersByFacet!: FiltersByFacet;
-    /**
-     * Animation component that will be used to animate the facets.
-     *
-     * @public
-     */
-    @Prop({ default: 'ul' })
-    protected animation!: Vue | string;
-    /**
-     * If this prop is provided, these facets are used, and stored in the {@link FacetsState}.
-     */
-    @Prop()
-    public facets?: Facet[];
 
     /**
      * Indicates if there are facets available to show.
@@ -81,7 +110,7 @@
      * @internal
      */
     protected get hasFacets(): boolean {
-      return !!Object.keys(this.stateFacets).length;
+      return !!Object.keys(this.facetsToRender).length;
     }
 
     /**
@@ -108,6 +137,59 @@
      */
     protected emitFacetsChanged(facets: Facet[]): void {
       this.$x.emit('FacetsChanged', facets);
+    }
+
+    /**
+     * The facets to be rendered after filtering {@link Facets.stateFacets} by
+     * {@link Facets.renderableFacets} content.
+     *
+     * @returns The list of facets to be rendered.
+     *
+     * @internal
+     */
+    protected get facetsToRender(): Dictionary<Facet> {
+      if (this.renderableFacets === '') {
+        return this.stateFacets;
+      }
+
+      const excludedRegExp = /^!/;
+      const emptySpaceRegex = /\s/g;
+      const facetIds: string[] = this.renderableFacets.replace(emptySpaceRegex, '').split(',');
+      const included: string[] = [];
+      const excluded: string[] = [];
+      facetIds.forEach(facetId => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+        excludedRegExp.test(facetId)
+          ? excluded.push(facetId.replace(excludedRegExp, ''))
+          : included.push(facetId);
+      });
+
+      return this.filterFacetsToRender(included, excluded);
+    }
+
+    /**
+     * Filter facets dictionary retrieving those included and/or removing excluded.
+     *
+     * @param included - List of facets to render.
+     * @param excluded - List of not renderable facets.
+     *
+     * @returns The filtered list of facets to render.
+     *
+     * @internal
+     */
+    private filterFacetsToRender(included: string[], excluded: string[]): Dictionary<Facet> {
+      const hasAnyFacetIncluded = included.length > 0;
+      return Object.keys(this.stateFacets)
+        .filter(facetKey => {
+          const isIncluded = included.includes(facetKey);
+          const isExcluded = excluded.includes(facetKey);
+
+          return hasAnyFacetIncluded ? isIncluded && !isExcluded : !isExcluded;
+        })
+        .reduce((facetsToRender: Dictionary<Facet>, facetKey) => {
+          facetsToRender[facetKey] = this.stateFacets[facetKey];
+          return facetsToRender;
+        }, {});
     }
   }
 </script>
@@ -262,6 +344,71 @@ To do so, pass an array of facets using the `facets` prop.
           }
         ]
       };
+    }
+  };
+</script>
+```
+
+## Render specific facets I
+
+By default, this component will render all existing facets. However, it has the renderableFacets
+prop to filter which facets will be rendered. Its value is a string containing the different facets
+ids. This value is treated as an include or exclude list (to exclude a facet from being rendered,
+just prefix its id with a `!`). The component will only render included facets and discard excluded
+ones. In the following example, the component will only render color and category facets.
+
+```vue
+<template>
+  <Facets renderableFacets="color, category">
+    <template #default="{ facet }">
+      <h1>{{ facet.label }}</h1>
+
+      <ul>
+        <li v-for="filter in facet.filters" :key="filter.id">
+          {{ filter.label }}
+        </li>
+      </ul>
+    </template>
+  </Facets>
+</template>
+
+<script>
+  import { Facets } from '@empathy/x-components/facets';
+
+  export default {
+    components: {
+      Facets
+    }
+  };
+</script>
+```
+
+## Render specific facets II
+
+Exclude facets so the component does not render them. In the following example, the component will
+render every facet except color and price.
+
+```vue
+<template>
+  <Facets renderableFacets="!color, !price">
+    <template #default="{ facet }">
+      <h1>{{ facet.label }}</h1>
+
+      <ul>
+        <li v-for="filter in facet.filters" :key="filter.id">
+          {{ filter.label }}
+        </li>
+      </ul>
+    </template>
+  </Facets>
+</template>
+
+<script>
+  import { Facets } from '@empathy/x-components/facets';
+
+  export default {
+    components: {
+      Facets
     }
   };
 </script>
