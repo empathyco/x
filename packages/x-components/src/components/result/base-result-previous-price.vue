@@ -1,26 +1,37 @@
 <template>
-  <span
+  <div
     v-if="result.price.hasDiscount"
     class="x-result-previous-price"
     data-test="result-previous-price"
   >
-    {{ currencyFilter(result.price.originalValue) }}
-  </span>
+    <!--
+      @slot Base currency item
+         @binding {result} result - Result data
+    -->
+    <slot :result="result">
+      <BaseCurrency
+        :value="result.price.originalValue"
+        :format="format"
+        :hideIntegerDecimals="hideIntegerDecimals"
+      />
+    </slot>
+  </div>
 </template>
 
 <script lang="ts">
   import { Result } from '@empathy/search-types';
   import { Component, Prop } from 'vue-property-decorator';
   import Vue from 'vue';
-  import { currency } from '../../filters/currency/currency.filter';
-  import { CurrencyOptions } from '../../i18n/currency.types';
+  import BaseCurrency from '../currency/base-currency.vue';
 
   /**
-   * Component to be reused that represents a `<span>` with the previous price.
+   * Component that renders the {@link @empathy/search-types#Result | result} previous price.
    *
    * @public
    */
-  @Component
+  @Component({
+    components: { BaseCurrency }
+  })
   export default class BaseResultPreviousPrice extends Vue {
     /**
      * (Required) The {@link @empathy/search-types#Result | result} information.
@@ -31,15 +42,35 @@
     protected result!: Result;
 
     /**
-     * Returns the currency filter.
+     * Format or mask to be defined as string.
+     * - Use 'i' to define integer numbers.
+     * - Use 'd' to define decimal numbers. You can define the length of the decimal part. If the
+     * doesn't include decimals, it is filled with zeros until reach the length defined with 'd's.
+     * - Integer separator must be defined between the 3rd and the 4th integer 'i' of a group.
+     * - Decimal separator must be defined between the last 'i' and the first 'd'. It can be more
+     * than one character.
+     * - Set whatever you need around the integers and decimals marks.
+     * - Default mask: 'i.iii,dd' which returns '1.345,67'.
      *
-     * @returns The currency filter instance.
+     * @remarks The number of 'd', which is the maximum decimal length, MUST match with the length
+     * of decimals provided from the adapter. Otherwise, when the component truncate the decimal
+     * part, delete significant digits.
      *
      * @public
      */
-    protected get currencyFilter(): (value: number, options?: Partial<CurrencyOptions>) => string {
-      return currency;
-    }
+    @Prop({ default: 'i.iii,dd' })
+    protected format!: string;
+
+    /**
+     * If true and the value is an integer without decimals, the decimal part is hidden including
+     * the decimal separator.
+     * If false, the default behaviour will fill with zeros the remaining length until getting
+     * the one defined with the 'd's.
+     *
+     * @public
+     */
+    @Prop({ default: false })
+    protected hideIntegerDecimals!: boolean;
   }
 </script>
 
@@ -48,10 +79,20 @@
 
   ## Basic example
 
-  This component is a span that will shows the previous price if it has discount and it will be
-  formatted using a currency filter.
+  This component shows the previous price formatted if it has discount. The component has two
+  optional props. `format` to select the currency format to be applied and
+  `hideIntegerDecimals` to hide or not the decimal part.
 
   ```vue
-  <BaseResultPreviousPrice :result="result"/>
+  <BaseResultPreviousPrice
+    :value="result"
+    :format="'i.iii,ddd €'"
+    :hideIntegerDecimals="true" />
+  ```
+  ## Overriding default slot
+  ```vue
+  <BaseResultPreviousPrice :result="result">
+    <span class="custom-base-result-previous-price">{{ result.price.originalValue }}</span>
+  </BaseResultPreviousPrice>
   ```
 </docs>

@@ -1,12 +1,12 @@
 <template>
-  <span class="x-currency">{{ formatted }}</span>
+  <span class="x-currency">{{ currency }}</span>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
+  import { currencyFormatter } from '../../utils/currency-formatter';
 
-  const FORMAT_REGEX = /(i([^id]+))?i+(([^id]+)(d+))?/;
   /**
    * Renders the value received as a property, which always must be a JavaScript number, with the
    * proper format provided as string property. The rendered tag is a span in order to render a
@@ -58,7 +58,7 @@
      *
      * @public
      */
-    @Prop({ required: false, default: 'i.iii,dd' })
+    @Prop({ default: 'i.iii,dd' })
     protected format!: string;
 
     /**
@@ -69,139 +69,19 @@
      *
      * @public
      */
-    @Prop({ required: false, default: false })
+    @Prop({ default: false })
     protected hideIntegerDecimals!: boolean;
 
     /**
-     * Function that divide fhe format passed as value for get integerSeparator, decimalSeparator
-     * and decimalsNumber.
-     *
-     * @returns Object with properties of the currency config.
-     */
-    protected get currencyConfig(): CurrencyConfig {
-      const [, , integerSeparator = '', , decimalSeparator = '', decimals = ''] =
-        FORMAT_REGEX.exec(this.format) ?? [];
-
-      return {
-        integerSeparator,
-        decimalSeparator,
-        decimalsNumber: decimals.length
-      };
-    }
-
-    /**
-     * Divide the number in two parts by separatos '.', one of them is the integer number and other
-     * the decimals numbers.
-     *
-     * @returns Parts of number.
-     */
-    protected get numberParts(): NumberParts {
-      const [integer, decimal = ''] = `${this.value}`.split('.');
-
-      return {
-        integer,
-        decimal
-      };
-    }
-
-    /**
-     * Returns the formatted result as string. It replaces the integer part, the decimal separator
-     * and the decimal part from the format string with the formatted ones.
+     * Returns the formatted result as string.
      *
      * @returns Formatted number.
      *
      * @internal
      */
-    protected get formatted(): string {
-      return this.format.replace(
-        FORMAT_REGEX,
-        `${this.formattedInteger}${this.formattedDecimalSeparator}${this.formattedDecimal}`
-      );
+    protected get currency(): string {
+      return currencyFormatter(this.value, this.format, this.hideIntegerDecimals);
     }
-
-    /**
-     * Returns the formatted integer part. This computed returns:
-     * - integer part with the integer separator added.
-     *
-     * The regexp adds the integer separator for each thousand group (each 3 numbers).
-     *
-     * @returns Formatted integer.
-     * @internal
-     */
-    protected get formattedInteger(): string {
-      return this.numberParts.integer.replace(
-        /\B(?=(\d{3})+(?!\d))/g,
-        this.currencyConfig.integerSeparator
-      );
-    }
-
-    /**
-     * Returns the formatted decimal. This computed returns:
-     * - decimal part filled with zeros until complete remaining slots defined with the decimal
-     * length in the format.
-     * - decimal part truncated. The decimal numbers length, defined with the number of 'd's in the
-     * format prop. This must MATCH with the number of decimals provided from the adapter.
-     *
-     * @returns Formatted integer.
-     * @internal
-     */
-    protected get formattedDecimal(): string {
-      return this.showDecimals
-        ? this.numberParts.decimal
-            .padEnd(this.currencyConfig.decimalsNumber, '0')
-            .substring(0, this.currencyConfig.decimalsNumber)
-        : '';
-    }
-
-    /**
-     * Formatted decimal separator.
-     * Returns the decimal separator set or empty string if the option 'hideIntegerDecimals' is true
-     * and the value is an integer, or if there are no decimals number defined.
-     *
-     * @returns Decimal separator or empty string.
-     *
-     * @internal
-     */
-    protected get formattedDecimalSeparator(): string {
-      return this.showDecimals && this.currencyConfig.decimalsNumber
-        ? this.currencyConfig.decimalSeparator
-        : '';
-    }
-
-    /**
-     * Show decimals, including the decimal separator if:
-     * - 'hideIntegerDecimals' option is false.
-     * - 'hideIntegerDecimals' option is true and number is not an integer.
-     *
-     * @returns True if decimal part has to be displayed.
-     * @internal
-     */
-    protected get showDecimals(): boolean {
-      return !this.hideIntegerDecimals || !Number.isInteger(+this.value);
-    }
-  }
-
-  /**
-   * Configuration for format currency.
-   */
-  interface CurrencyConfig {
-    /** The character between a group of three integer 'i's and the following one. */
-    integerSeparator: string;
-    /** The character between a group of three integer 'i's and the following one. It also
-     * supports more than one single character. */
-    decimalSeparator: string;
-    /** Length of decimals numbers. It counts the number of 'd's after the integer part. */
-    decimalsNumber: number;
-  }
-
-  /**
-   * Parts of number: integer and decimal.
-   */
-  interface NumberParts {
-    /** Integer part of the number as string. */
-    integer: string;
-    /** Decimal part of the number as string. */
-    decimal: string;
   }
 </script>
 

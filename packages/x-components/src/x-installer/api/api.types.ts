@@ -63,8 +63,6 @@ export interface SnippetConfig {
   searchLang?: string;
   /** User GDPR consent. */
   consent?: boolean;
-  /** Currency id. */
-  currency?: string;
   /** Document direction. */
   documentDirection?: DocumentDirection;
   /** Any extra param to send in all backend calls. */

@@ -1,42 +1,115 @@
+import { Result } from '@empathy/search-types';
 import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
-import { currency } from '../../../filters/currency/currency.filter';
-import { DEFAULT_X_CONFIG } from '../../../plugins/x-plugin.config';
-import { getResultsStub } from '../../../__stubs__/results-stubs.factory';
-import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
+import Vue, { ComponentOptions } from 'vue';
+import { getDataTestSelector } from '../../../__tests__/utils';
+import BaseCurrency from '../../currency/base-currency.vue';
 import BaseResultCurrentPrice from '../base-result-current-price.vue';
 
+const mockedResult: Pick<Result, 'price'> = {
+  price: {
+    hasDiscount: true,
+    originalValue: 29.99,
+    value: 19.99
+  }
+};
+
+function renderBaseCurrentPrice({
+  format = 'i,iii.dd',
+  hideIntegerDecimals = false,
+  // eslint-disable-next-line max-len
+  template = `<BaseResultCurrentPrice :result="result" :format="format" :hideIntegerDecimals="hideIntegerDecimals" />`,
+  result = mockedResult
+}: RenderBaseCurrentPriceOptions = {}): RenderBaseCurrentPriceAPI {
+  const wrapperComponent: ComponentOptions<Vue> = {
+    template,
+    components: {
+      BaseResultCurrentPrice
+    },
+    props: ['format', 'hideIntegerDecimals', 'result']
+  };
+
+  const wrapper = mount(wrapperComponent, {
+    propsData: {
+      format,
+      hideIntegerDecimals,
+      result
+    }
+  });
+
+  return {
+    wrapper
+  };
+}
+
 describe('testing BaseCurrentPrice component', () => {
-  const results = getResultsStub();
-  let priceWrapper: Wrapper<BaseResultCurrentPrice>;
+  it('renders a BaseCurrency component', () => {
+    const { wrapper } = renderBaseCurrentPrice();
+    expect(wrapper.findComponent(BaseCurrency)).toBeDefined();
+  });
 
-  beforeEach(() => {
-    const [, localVue] = installNewXPlugin();
-    priceWrapper = mount(BaseResultCurrentPrice, {
-      localVue,
-      propsData: { result: results[0] }
+  it('renders the current price with a custom format', () => {
+    const { wrapper } = renderBaseCurrentPrice({
+      format: 'i.iii,ddd €'
     });
+
+    expect(wrapper.text()).toBe('19,990 €');
   });
 
-  it('renders the current price applying the currency filter and without discount class', () => {
-    expectPriceValue(results[0].price.value);
-    expect(getElement().classList).not.toContain('x-result-current-price--on-sale');
+  it('renders the current price hiding integer decimals', () => {
+    const { wrapper } = renderBaseCurrentPrice({
+      hideIntegerDecimals: true
+    });
+
+    expect(wrapper.text()).toBe('19');
   });
 
-  it('renders the price applying the currency filter and with on-sale class', async () => {
-    priceWrapper.setProps({ result: results[1] });
-    await Vue.nextTick();
+  it('adds "x-result-current-price--on-sale" css class because the price is discounted', () => {
+    const { wrapper } = renderBaseCurrentPrice();
 
-    expectPriceValue(results[1].price.value);
-    expect(getElement().classList).toContain('x-result-current-price--on-sale');
+    expect(wrapper.classes()).toContain('x-result-current-price--on-sale');
   });
 
-  function expectPriceValue(priceValue: number): void {
-    expect(getElement()).toBeDefined();
-    expect(priceWrapper.text()).toEqual(currency(priceValue, DEFAULT_X_CONFIG.currencyOptions));
-  }
+  // eslint-disable-next-line max-len
+  it('does not add "x-result-current-price--on-sale" css class because the price is not discounted', () => {
+    const { wrapper } = renderBaseCurrentPrice({
+      result: {
+        price: {
+          hasDiscount: false,
+          originalValue: 29.99,
+          value: 29.99
+        }
+      }
+    });
 
-  function getElement(): HTMLElement {
-    return priceWrapper.find(getDataTestSelector('result-current-price')).element;
-  }
+    expect(wrapper.classes()).not.toContain('x-result-current-price--on-sale');
+  });
+
+  it('renders custom content when overriding the default slot', () => {
+    const { wrapper } = renderBaseCurrentPrice({
+      template: `
+        <BaseResultCurrentPrice :result="result">
+          <span data-test="override-default-slot">{{ result.price.value }}</span>
+        </BaseResultCurrentPrice>`
+    });
+
+    expect(wrapper.find(getDataTestSelector('override-default-slot')).exists()).toBe(true);
+    expect(wrapper.text()).toBe(mockedResult.price.value.toString());
+  });
 });
+
+interface RenderBaseCurrentPriceOptions {
+  /** The format to apply to the value. */
+  format?: string;
+  /** Hide or show decimals. */
+  hideIntegerDecimals?: boolean;
+  /** The result with the price to display. */
+  result?: Pick<Result, 'price'>;
+  /** The template to render. Receives the 'result', 'format' and 'hideIntegerDecimals' props and
+   * has registered a {@link BaseCurrency | BaseCurrency component}. */
+  template?: string;
+}
+
+interface RenderBaseCurrentPriceAPI {
+  /** The Vue testing utils wrapper for the {@link BaseResultCurrentPrice}. */
+  wrapper: Wrapper<Vue>;
+}

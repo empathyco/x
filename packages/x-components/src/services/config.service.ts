@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import { CurrencyOptions } from '../i18n/currency.types';
 import { XBus } from '../plugins/x-bus.types';
 import { DocumentDirection, XConfig } from '../plugins/x-plugin.types';
 
@@ -17,9 +16,6 @@ export function registerReactiveConfig(bus: XBus, config: XConfig): XConfig {
     watch: {
       consent: (newValue: boolean) => {
         bus.emit('ConfigConsentChanged', newValue);
-      },
-      currencyOptions: (newValue: CurrencyOptions) => {
-        bus.emit('ConfigCurrencyChanged', newValue);
       },
       documentDirection: (newValue: DocumentDirection) => {
         bus.emit('ConfigDocumentDirectionChanged', newValue);

@@ -9,7 +9,6 @@ import { cleanUndefined } from '../../utils/object';
 import { DeepPartial } from '../../utils/types';
 import { SnippetConfig, XAPI } from '../api/api.types';
 import { BaseXAPI } from '../api/base-api';
-import { defaultCurrencyOptions } from './default-currency-config';
 import { InstallXOptions } from './types';
 
 declare global {
@@ -23,7 +22,6 @@ declare global {
  * @internal
  * */
 const defaultXConfig: DeepPartial<XConfig> = {
-  currencyOptions: defaultCurrencyOptions,
   consent: false,
   documentDirection: 'ltr'
 };
@@ -221,18 +219,12 @@ export class XInstaller {
    *
    * @internal
    */
-  protected getPluginOptions({
-    consent,
-    currency,
-    documentDirection
-  }: SnippetConfig): XPluginOptions {
-    const currencyOptions = currency ? this.options.currencyOptions?.[currency] : undefined;
+  protected getPluginOptions({ consent, documentDirection }: SnippetConfig): XPluginOptions {
     const xConfig: XConfig = deepMerge(
       {},
       defaultXConfig,
       this.options.xConfig,
       cleanUndefined({
-        currencyOptions,
         consent,
         documentDirection
       })

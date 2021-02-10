@@ -62,6 +62,27 @@ export function getResultsStub(): Result[] {
         originalValue: 30
       },
       ...getResultCommonValues()
+    },
+    {
+      id: 'xc-004',
+      identifier: {
+        value: 'A033/6534'
+      },
+      name: 'Product 004',
+      images: [
+        'https://notexistsimage1.com',
+        'https://notexistsimage2.com',
+        'https://notexistsimage3.com',
+        'https://picsum.photos/seed/3/200/300'
+      ],
+      url: 'http://x-components.com/xc-004.html',
+      tagging: getResultTagging('xr-004'),
+      price: {
+        hasDiscount: true,
+        value: 30.99,
+        originalValue: 75.95
+      },
+      ...getResultCommonValues()
     }
   ] as Result[];
 }

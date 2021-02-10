@@ -53,15 +53,13 @@ describe('testing `XInstaller` utility', () => {
   it('installs the XPlugin with the passed XConfig', () => {
     const xConfig = {
       consent: true,
-      documentDirection: 'rtl',
-      currencyOptions: { symbol: '&' }
+      documentDirection: 'rtl'
     } as XConfig;
     new XInstaller({ adapter, plugin, xConfig, vue: createLocalVue() }).init(snippetConfig);
     const params = xPluginMock.install.mock.calls[0][1];
 
     expect(params.xConfig.consent).toBe(xConfig.consent);
     expect(params.xConfig.documentDirection).toBe(xConfig.documentDirection);
-    expect(params.xConfig.currencyOptions.symbol).toBe(xConfig.currencyOptions.symbol);
   });
 
   it('installs the XPlugin using the snippet config over the default', () => {

@@ -1,23 +1,35 @@
 <template>
-  <span :class="dynamicClasses" class="x-result-current-price" data-test="result-current-price">
-    {{ currencyFilter(result.price.value) }}
-  </span>
+  <div :class="dynamicClasses" class="x-result-current-price" data-test="result-current-price">
+    <!--
+      @slot Base currency item
+          @binding {result} result - Result data
+    -->
+    <slot :result="result">
+      <BaseCurrency
+        :value="result.price.value"
+        :format="format"
+        :hideIntegerDecimals="hideIntegerDecimals"
+      />
+    </slot>
+  </div>
 </template>
+
 <script lang="ts">
   import { Result } from '@empathy/search-types';
   import { Component, Prop } from 'vue-property-decorator';
   import Vue from 'vue';
-  import { currency } from '../../filters/currency/currency.filter';
-  import { CurrencyOptions } from '../../i18n/currency.types';
   import { VueCSSClasses } from '../../utils/types';
+  import BaseCurrency from '../currency/base-currency.vue';
 
   /**
-   * Component to be reused that represents a `<span>` with the current price that may or
-   * may not be on sale.
+   * Component that renders the {@link @empathy/search-types#Result | result} current price
+   * that may or may not be on sale.
    *
    * @public
    */
-  @Component
+  @Component({
+    components: { BaseCurrency }
+  })
   export default class BaseResultCurrentPrice extends Vue {
     /**
      * (Required) The {@link @empathy/search-types#Result | result} information.
@@ -26,6 +38,37 @@
      */
     @Prop({ required: true })
     protected result!: Result;
+
+    /**
+     * Format or mask to be defined as string.
+     * - Use 'i' to define integer numbers.
+     * - Use 'd' to define decimal numbers. You can define the length of the decimal part. If the
+     * doesn't include decimals, it is filled with zeros until reach the length defined with 'd's.
+     * - Integer separator must be defined between the 3rd and the 4th integer 'i' of a group.
+     * - Decimal separator must be defined between the last 'i' and the first 'd'. It can be more
+     * than one character.
+     * - Set whatever you need around the integers and decimals marks.
+     * - Default mask: 'i.iii,dd' which returns '1.345,67'.
+     *
+     * @remarks The number of 'd', which is the maximum decimal length, MUST match with the length
+     * of decimals provided from the adapter. Otherwise, when the component truncate the decimal
+     * part, delete significant digits.
+     *
+     * @public
+     */
+    @Prop({ default: 'i.iii,dd' })
+    protected format!: string;
+
+    /**
+     * If true and the value is an integer without decimals, the decimal part is hidden including
+     * the decimal separator.
+     * If false, the default behaviour will fill with zeros the remaining length until getting
+     * the one defined with the 'd's.
+     *
+     * @public
+     */
+    @Prop({ default: false })
+    protected hideIntegerDecimals!: boolean;
 
     /**
      * Dynamic CSS classes to add to the root element of this component.
@@ -39,17 +82,6 @@
         'x-result-current-price--on-sale': this.result.price.hasDiscount
       };
     }
-
-    /**
-     * Returns the currency filter.
-     *
-     * @returns The currency filter instance.
-     *
-     * @public
-     */
-    protected get currencyFilter(): (value: number, options?: Partial<CurrencyOptions>) => string {
-      return currency;
-    }
   }
 </script>
 
@@ -58,9 +90,22 @@
 
   ## Basic example
 
-  This component is a span that shows the current price formatted using a currency filter.
+  This component shows the current price formatted. The component has two
+  optional props. `format` to select the currency format to be applied and
+  `hideIntegerDecimals` to hide or not the decimal part.
 
   ```vue
-  <BaseResultCurrentPrice :result="result"/>
+  <BaseResultCurrentPrice
+    :value="result"
+    :format="'i.iii,ddd €'"
+    :hideIntegerDecimals="true" />
+  ```
+
+  ## Overriding default slot
+
+  ```vue
+  <BaseResultCurrentPrice :result="result">
+    <span class="custom-base-result-current-price">{{ result.price.value }}</span>
+  </BaseResultCurrentPrice>
   ```
 </docs>

@@ -1,6 +1,5 @@
 import { shallowMount, Wrapper } from '@vue/test-utils';
 import { ComponentOptions, default as Vue } from 'vue';
-import { CurrencyOptions } from '../../i18n/currency.types';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { XPlugin } from '../x-plugin';
 import { DEFAULT_X_CONFIG } from '../x-plugin.config';
@@ -49,17 +48,6 @@ describe('testing global xConfig', () => {
       await localVue.nextTick();
       expect(listener).toHaveBeenCalledTimes(1);
       expect(XPlugin.xConfig).toHaveProperty('consent', newConsent);
-    });
-
-    it('overrides currencyOptions and emits ConfigCurrencyChanged event', async () => {
-      const listener = jest.fn();
-      componentInstance.vm.$x.on('ConfigCurrencyChanged').subscribe(listener);
-      const newCurrencyOptions: Partial<CurrencyOptions> = { symbol: '$' };
-      componentInstance.vm.$x.xConfig.currencyOptions = newCurrencyOptions as CurrencyOptions;
-
-      await localVue.nextTick();
-      expect(listener).toHaveBeenCalledTimes(1);
-      expect(XPlugin.xConfig).toHaveProperty('currencyOptions', newCurrencyOptions);
     });
 
     it('overrides documentDirection and emits ConfigDocumentDirectionChanged event', async () => {

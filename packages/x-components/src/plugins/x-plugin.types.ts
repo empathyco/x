@@ -9,7 +9,6 @@ import {
   Suggestion
 } from '@empathy/search-types';
 import { Store } from 'vuex';
-import { CurrencyOptions } from '../i18n';
 import { ActionsTree } from '../store/actions.types';
 import { GettersTree } from '../store/getters.types';
 import { MutationsTree } from '../store/mutations.types';
@@ -49,8 +48,6 @@ export interface XPluginOptions {
 export interface XConfig {
   /** Consent to send the user data (userId and sessionId) to our API. */
   consent: boolean;
-  /** The {@link CurrencyOptions} to format currency values. */
-  currencyOptions: CurrencyOptions;
   /** HTML dir attribute. Possible values are: ltr(left to right) or rtl(right to left). */
   documentDirection: DocumentDirection;
 }

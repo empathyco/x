@@ -16,15 +16,6 @@ function renderBaseCurrency({
 }
 
 describe('testing BaseCurrency component', () => {
-  it('renders the provided format with decimals although hideIntegerDecimals is true', () => {
-    const wrapper = renderBaseCurrency({
-      value: 12345678.87654321,
-      format: 'i.iii,ddd €',
-      hideIntegerDecimals: true
-    });
-    expect(wrapper.text()).toEqual('12.345.678,876 €');
-  });
-
   it('renders the provided format correctly with hideIntegerDecimals set as true', () => {
     const wrapper = renderBaseCurrency({
       value: 12345678,
@@ -131,15 +122,6 @@ describe('testing BaseCurrency component', () => {
       expect(wrapper.text()).toEqual('12.345.678,000000 €');
     }
   );
-
-  it('renders the provided format correctly truncating with the maximum decimals', () => {
-    const wrapper = renderBaseCurrency({
-      value: 12345678.87654321,
-      format: 'i.iii,dd €',
-      hideIntegerDecimals: false
-    });
-    expect(wrapper.text()).toEqual('12.345.678,87 €');
-  });
 
   it('renders the provided format correctly which only contains integer part', () => {
     const wrapper = renderBaseCurrency({

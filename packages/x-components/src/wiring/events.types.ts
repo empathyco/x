@@ -1,5 +1,4 @@
 import { Result, Suggestion } from '@empathy/search-types';
-import { CurrencyOptions } from '../i18n/currency.types';
 import { DocumentDirection } from '../plugins/x-plugin.types';
 import { ArrowKey, PropsWithType } from '../utils';
 import { EmpathizeXEvents } from '../x-modules/empathize/events.types';
@@ -56,11 +55,6 @@ export interface XEventsTypes
    * * Payload: The new consent.
    */
   ConfigConsentChanged: boolean;
-  /**
-   * The {@link XConfig.currencyOptions} has changed
-   * * Payload: The new currency.
-   */
-  ConfigCurrencyChanged: CurrencyOptions;
   /**
    * The {@link XConfig.documentDirection} has changed
    * * Payload: The new document direction.
