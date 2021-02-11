@@ -6,12 +6,19 @@ When('a {string} with results is typed', (query: string) => {
     cy.getByDataTest('search-input').invoke('val').as('searchedQuery');
   });
 });
+
 Then(
   'the searched query is displayed in the search-box',
   function (this: { searchedQuery: string }) {
     cy.getByDataTest('search-input').should('have.value', this.searchedQuery);
   }
 );
+
+When('{string} is searched', (query: string) => {
+  cy.searchQuery(query).then(() => {
+    cy.getByDataTest('search-input').invoke('val').as('searchedQuery');
+  });
+});
 
 // History Queries
 Then(
@@ -35,6 +42,7 @@ Then('related results are displayed', () => {
 And('query suggestions are displayed', () => {
   cy.getByDataTest('query-suggestion').should('have.length.gt', 0);
 });
+
 And('next queries are displayed', () => {
   if (cy.$$('[data-test = "next-queries"]').length === 1) {
     cy.getByDataTest('next-query').should('have.length.gt', 0);
@@ -42,6 +50,7 @@ And('next queries are displayed', () => {
     cy.getByDataTest('next-query').should('not.exist');
   }
 });
+
 And('related tags are displayed', () => {
   if (cy.$$('[data-test = "related-tags"]').length === 1) {
     cy.getByDataTest('related-tag').should('have.length.gt', 0);
@@ -49,8 +58,17 @@ And('related tags are displayed', () => {
     cy.getByDataTest('related-tag').should('not.exist');
   }
 });
+
 And('data is loaded', () => {
   cy.getByDataTest('loading')
     .should('exist')
     .then(() => cy.getByDataTest('loading').should('not.exist'));
+});
+
+And('the query is displayed in history queries', function (this: { searchedQuery: string }) {
+  cy.getByDataTest('history-query').should(historicalQueries => {
+    historicalQueries.each((_, e) => {
+      expect(e).to.contain(this.searchedQuery);
+    });
+  });
 });

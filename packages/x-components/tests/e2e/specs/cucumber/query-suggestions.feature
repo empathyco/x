@@ -35,7 +35,7 @@ Feature: Query-suggestions component
       | hideIfEqualsQuery | maxItemsToRequest | query   | querySuggestionItem |
       | true              | 2                 | ani     | 0                   |
       | false             | 3                 | funko   | 2                   |
-      | false             | 5                 | peluche | 3                   |
+      | false             | 5                 | peluche | 4                   |
 
   Scenario Outline: 3. hideIfEqualsQuery behavior
     Given following config: hide if equals query <hideIfEqualsQuery>, requested items <maxItemsToRequest>

@@ -1,5 +1,5 @@
 describe('e2e testing no-suggestions component', () => {
-  const queryWithSuggestions = 'lego';
+  const queryWithSuggestions = 'disfraz';
   const queryWithoutSuggestions = 'gfbhjds';
 
   beforeEach(() => {

@@ -1,6 +1,7 @@
 {
   "baseUrl": "http://localhost:8080",
   "env": {
+    "empathizeRequestURL": "/search/v1/query/juguettos/empathize",
     "searchRequestURL": "/search/v1/query/juguettos/searchv2",
     "nextQueriesRequestURL": "/search/v1/query/juguettos/nextqueries",
     "relatedTagsRequestURL": "/search/v1/query/juguettos/relatedtags",
@@ -11,6 +12,7 @@
   "integrationFolder": "tests/e2e/specs",
   "pluginsFile": "tests/e2e/plugins/index.js",
   "screenshotsFolder": "tests/e2e/screenshots",
+  "screenshotOnRunFailure": false,
   "supportFile": "tests/e2e/support/index.ts",
   "video": false,
   "testFiles": [

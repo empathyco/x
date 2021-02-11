@@ -69,13 +69,15 @@ When('a {string} with results is typed - timestamp needed', (query: string) => {
     }
   }).as('waitForQueryResponseSB');
 });
-And('{string} is clicked immediately after', (buttonOrKey: string) => {
+
+When('{string} is clicked immediately after', (buttonOrKey: string) => {
   if (buttonOrKey === 'enterKey') {
     cy.getByDataTest('search-input').type('{enter}');
   } else if (buttonOrKey === 'searchButton') {
     cy.getByDataTest('search-button').click();
   }
 });
+
 And(
   '{string} is displayed in history queries is not {boolean}',
   (query: string, hideIfEqualsQuery: boolean) => {
@@ -94,6 +96,12 @@ And(
 // Scenario 2
 And('a {string} has been searched', (query: string) => {
   cy.intercept({
+    pathname: Cypress.env('searchRequestURL'),
+    query: {
+      q: query
+    }
+  }).as('waitForQueryResponseSB');
+  cy.intercept({
     pathname: Cypress.env('nextQueriesRequestURL'),
     query: {
       q: query
@@ -110,13 +118,15 @@ And('a {string} has been searched', (query: string) => {
   });
 });
 And('the number of next query results are stored', () => {
-  if (cy.$$('[data-test = "next-queries"]').length > 0) {
-    cy.getByDataTest('next-query').then($elements => {
-      nextQueriesResults = $elements.length;
-    });
-  } else {
-    nextQueriesResults = 0;
-  }
+  cy.wait('@waitForQueryResponseSB').then(() => {
+    if (cy.$$('[data-test = "next-queries"]').length > 0) {
+      cy.getByDataTest('next-query').then($elements => {
+        nextQueriesResults = $elements.length;
+      });
+    } else {
+      nextQueriesResults = 0;
+    }
+  });
 });
 And('History queries are being displayed is not {boolean}', (hideIfEqualsQuery: boolean) => {
   if (hideIfEqualsQuery) {
