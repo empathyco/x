@@ -1,4 +1,48 @@
 # X Components
+## [2.0.0-alpha.3](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.3%0Dv2.0.0-alpha.2) (2021-02-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **currency-formatter:** remove `CurrencyOptions` from `XConfig` and its default value from `DEFAULT_X_CONFIG`,
+remove `ConfigCurrencyChanged` event from `XEventsTypes` and remove `currency` property from `SnippetConfig`.
+* **exports:** Rename some wires due to collisions between other exported members (i.e. actions/getters):
+`facets` ->  `setFacets` to `setFacetsWire`, `toggleSimpleFilter` to `toggleSimpleFilterWire`, `toggleHierarchicalFilter` to `toggleHierarchicalFilterWire`, `toggleNumberRangerFilter` to `toggleNumberRangerFilterWire`, `clearFacetsSelectedFilters` to `clearFacetsSelectedFiltersWire`, `clearFacetSelectedFilters` to `clearFacetSelectedFiltersWire` and `clearSelectedFilters` to `clearSelectedFiltersWire`.
+`history-queries` -> `loadHistoryQueriesFromBrowserStorage` to `loadHistoryQueriesFromBrowserStorageWire`.
+`next-queries` -> `fetchAndSaveNextQueries` to `fetchAndSaveNextQueriesWire` and `setQueryFromLastHistoryQuery` to `setQueryFromLastHistoryQueryWire`.
+`query-suggestions` -> `fetchAndSaveSuggestions` to `fetchAndSaveSuggestionsWire` and `cancelFetchAndSaveSuggestions` to `cancelFetchAndSaveSuggestionsWire`.
+`related-tags` -> `fetchAndSaveRelatedTags` to `fetchAndSaveRelatedTagsWire`, `cancelFetchAndSaveRelatedTags` to `cancelFetchAndSaveRelatedTagsWire` and `toggleRelatedTag` to `toggleRelatedTagWire`.
+`search` ->  `fetchAndSaveSearchResponse` to `fetchAndSaveSearchResponseWire` and `cancelFetchAndSaveSearchResponse` to `cancelFetchAndSaveSearchResponseWire`.
+
+Rename exports of `getters` named `request` to `moduleName` + `Request` due to collisions between modules.
+Rename `ClearFilters` class to `ClearSelectedFilters`.
+
+### Features
+
+* **e2e test for recommendations components:** e2e test for recommendations component ([e6729b9](https://bitbucket.org/colbenson/x-components/commits/e6729b9744a8c681b560a48acdb166211f632ed4)), closes [EX-3003](https://searchbroker.atlassian.net/browse/EX-3003)
+* **e2e testing for query-suggestions component:** e2e testing for query-suggestions component ([01cbeb2](https://bitbucket.org/colbenson/x-components/commits/01cbeb2cb0329954225cc7eaa3fd3581a3258b7b)), closes [EX-2912](https://searchbroker.atlassian.net/browse/EX-2912)
+* **facets:** add an option to set the state facets via prop ([8f08f97](https://bitbucket.org/colbenson/x-components/commits/8f08f97ae1ccf7d2f65c34b51bcaa95b3a162d59)), closes [EX-2870](https://searchbroker.atlassian.net/browse/EX-2870)
+* **facets:** add renderableFacets prop to Facets component to filter rendered facets ([66cfdf3](https://bitbucket.org/colbenson/x-components/commits/66cfdf328d17c8fe0711241c9ee74a2d04e7cf83)), closes [EX-3037](https://searchbroker.atlassian.net/browse/EX-3037)
+* **facets:** support receiving facets containing selected filters in `Facets.vue` ([25a7579](https://bitbucket.org/colbenson/x-components/commits/25a7579ba5a71035c654caafab366a1910f2beac)), closes [EX-3092](https://searchbroker.atlassian.net/browse/EX-3092)
+* **related tags:** added related tags config to set a maximum number of items to render ([c173b91](https://bitbucket.org/colbenson/x-components/commits/c173b91d282b0a108ee62310ba806a2560f09838)), closes [EX-3031](https://searchbroker.atlassian.net/browse/EX-3031)
+
+
+### Styling
+
+* **getters:** rename getters name adding .getter at the end ([c5a5fbe](https://bitbucket.org/colbenson/x-components/commits/c5a5fbec1f0deb4b593e193667ca06ca93730691)), closes [EX-3036](https://searchbroker.atlassian.net/browse/EX-3036)
+
+
+### Code Refactoring
+
+* **currency-formatter:** extract currency format logic from `base-currency.vue` to a `currency-formatter` utility ([6c35819](https://bitbucket.org/colbenson/x-components/commits/6c35819978ec27771ee7ea2591862b6b6fe8f15b)), closes [EX-2919](https://searchbroker.atlassian.net/browse/EX-2919)
+* **exports:** add missing actions and getters exports ([bb8e715](https://bitbucket.org/colbenson/x-components/commits/bb8e715aaf2e0f99dfebe0354d5bee689a208607)), closes [EX-2687](https://searchbroker.atlassian.net/browse/EX-2687)
+
+
+### Testing
+
+* **default-tests:** Disabled some of old E2E tests ([acc8774](https://bitbucket.org/colbenson/x-components/commits/acc8774011407808ca83017ee08fc9fa8d0be629)), closes [EX-3088](https://searchbroker.atlassian.net/browse/EX-3088)
+* **history queries:** e2e test history queries ([392ecfe](https://bitbucket.org/colbenson/x-components/commits/392ecfe721e70e5ceabdf72a53c9c76ec3695f78)), closes [EX-2958](https://searchbroker.atlassian.net/browse/EX-2958)
+
 ## [2.0.0-alpha.2](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.2%0Dv2.0.0-alpha.1) (2021-01-20)
 
 
