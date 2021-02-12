@@ -16,7 +16,7 @@ import { FacetsXStoreModule } from '../types';
  * @public
  */
 export const setFacets: FacetsXStoreModule['actions']['setFacets'] = (
-  { getters: { flattenedFilters }, commit },
+  { state: { config }, getters: { flattenedFilters }, commit },
   newFacets
 ) => {
   /**
@@ -54,13 +54,14 @@ export const setFacets: FacetsXStoreModule['actions']['setFacets'] = (
     });
   }
 
-  newFacets.forEach(facet => {
-    if (isHierarchicalFacet(facet)) {
-      setStateSelectedHierarchicalFilters(facet.filters);
-    } else {
-      setStateSelectedFilters(facet.filters);
-    }
-  });
-
+  if (config.ignoreNewFiltersSelected) {
+    newFacets.forEach(facet => {
+      if (isHierarchicalFacet(facet)) {
+        setStateSelectedHierarchicalFilters(facet.filters);
+      } else {
+        setStateSelectedFilters(facet.filters);
+      }
+    });
+  }
   commit('setFacets', arrayToObject(newFacets, 'id'));
 };

@@ -36,6 +36,7 @@
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { FiltersByFacet } from '../store/types';
   import { facetsXModule } from '../x-module';
+  import { objectFilter } from '../../../utils/object';
 
   /**
    * Facets component that renders the available facets.
@@ -122,6 +123,10 @@
      */
     protected created(): void {
       if (this.facets) {
+        /* If facets are provided to this component, we assume that the developer wants to
+         take care of the selected values of the filter. So we disable this functionality of
+         the x-components */
+        this.$x.emit('IgnoreNewFiltersSelectedConfigChanged', false);
         // eslint-disable-next-line @typescript-eslint/unbound-method
         this.$watch('facets', this.emitFacetsChanged, { immediate: true });
       }
@@ -179,17 +184,12 @@
      */
     private filterFacetsToRender(included: string[], excluded: string[]): Dictionary<Facet> {
       const hasAnyFacetIncluded = included.length > 0;
-      return Object.keys(this.stateFacets)
-        .filter(facetKey => {
-          const isIncluded = included.includes(facetKey);
-          const isExcluded = excluded.includes(facetKey);
+      return objectFilter(this.stateFacets, facetKey => {
+        const isIncluded = included.includes(facetKey);
+        const isExcluded = excluded.includes(facetKey);
 
-          return hasAnyFacetIncluded ? isIncluded && !isExcluded : !isExcluded;
-        })
-        .reduce((facetsToRender: Dictionary<Facet>, facetKey) => {
-          facetsToRender[facetKey] = this.stateFacets[facetKey];
-          return facetsToRender;
-        }, {});
+        return hasAnyFacetIncluded ? isIncluded && !isExcluded : !isExcluded;
+      });
     }
   }
 </script>

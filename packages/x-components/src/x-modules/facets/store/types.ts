@@ -75,6 +75,13 @@ export interface FacetsMutations {
    * multiSelect value.
    */
   setFacetMultiSelect(multiSelectChange: MultiSelectChange): void;
+
+  /**
+   * Changes the {@link FacetsConfig.ignoreNewFiltersSelected} configuration.
+   *
+   * @param ignoreNewFiltersSelected - The new value for this config option.
+   */
+  setIgnoreNewFiltersSelected(ignoreNewFiltersSelected: boolean): void;
   /**
    * Changes the `selected` state of the filter.
    *

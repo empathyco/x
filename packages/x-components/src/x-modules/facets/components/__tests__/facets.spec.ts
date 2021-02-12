@@ -93,8 +93,8 @@ describe('testing Facets component', () => {
     expect(customSelectedFiltersWrapper.text()).toEqual('RedBlue');
   });
 
-  it('renders the props facets', () => {
-    const { getDefaultFacets } = renderFacetsComponent({
+  it('renders the props facets, keeping the filters selected state', () => {
+    const { getDefaultFacets, getDefaultSelectedFilters } = renderFacetsComponent({
       facetsProp: [
         createSimpleFacetStub('color', createSimpleFilter => [
           createSimpleFilter('Red', false),
@@ -102,7 +102,7 @@ describe('testing Facets component', () => {
         ]),
         createSimpleFacetStub('size', createSimpleFilter => [
           createSimpleFilter('Big', false),
-          createSimpleFilter('Small', false)
+          createSimpleFilter('Small', true)
         ])
       ]
     });
@@ -112,6 +112,10 @@ describe('testing Facets component', () => {
     getDefaultFacets().wrappers.forEach(facetWrapper => {
       expect(['color', 'size']).toContain(facetWrapper.text());
     });
+
+    const selectedFiltersWrappers = getDefaultSelectedFilters();
+    expect(selectedFiltersWrappers).toHaveLength(1);
+    expect(selectedFiltersWrappers.wrappers[0].text()).toEqual('Small');
   });
 
   describe('filters facets based on renderableFacets prop', () => {

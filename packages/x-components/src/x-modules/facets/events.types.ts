@@ -70,6 +70,11 @@ export interface FacetsXEvents {
    * * Payload: Facet id.
    */
   UserClickedFacetAllFilter: Facet['id'];
+  /**
+   * The {@link FacetsConfig.ignoreNewFiltersSelected} configuration has changed.
+   * * Payload: The new value of the {@link FacetsConfig.ignoreNewFiltersSelected} config.
+   */
+  IgnoreNewFiltersSelectedConfigChanged: boolean;
 }
 
 /**

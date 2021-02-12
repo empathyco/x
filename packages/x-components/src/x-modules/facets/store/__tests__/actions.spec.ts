@@ -1,12 +1,10 @@
 import { Filter } from '@empathy/search-types';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { arrayToObject, map } from '../../../../utils';
+import { map } from '../../../../utils';
 import {
-  createHierarchicalFacetStub,
   createNumberRangeFacet,
-  createSimpleFacetStub,
-  getFacetsStub
+  createSimpleFacetStub
 } from '../../../../__stubs__/facets-stubs.factory';
 import { MultiSelectChange } from '../../events.types';
 import { facetsXStoreModule } from '../module';
@@ -40,83 +38,6 @@ describe('testing facets module actions', () => {
           createNumberRangeFilter({ min: 2, max: 20 }, true)
         ])
       }
-    });
-  });
-
-  describe(`${actionsKeys.setFacets} action`, () => {
-    it('should overwrite newFacets filters selected values with the state ones', () => {
-      const initialFacets = getFacetsStub();
-      store.dispatch('setFacets', initialFacets);
-      expect(store.state.facets).toEqual(arrayToObject(initialFacets, 'id'));
-    });
-
-    it('should overwrite new default filters selected values with state values', () => {
-      const currentCategoryFacet = createSimpleFacetStub('Category', createCategorySimpleFilter => [
-        createCategorySimpleFilter('men', true),
-        createCategorySimpleFilter('women', false),
-        createCategorySimpleFilter('home', false)
-      ]);
-
-      const newCategoryFacet = createSimpleFacetStub('Category', createCategorySimpleFilter => [
-        createCategorySimpleFilter('men', false),
-        createCategorySimpleFilter('women', true),
-        createCategorySimpleFilter('kid', true)
-      ]);
-
-      resetFacetsStateWith(store, {
-        facets: { category: currentCategoryFacet }
-      });
-      store.dispatch(actionsKeys.setFacets, [newCategoryFacet]);
-
-      const flattenedFilters = store.getters[gettersKeys.flattenedFilters];
-      expect(flattenedFilters['category:men'].selected).toEqual(true);
-      expect(flattenedFilters['category:women'].selected).toEqual(false);
-      expect(flattenedFilters['category:home']).toBeUndefined();
-      expect(flattenedFilters['category:kid'].selected).toEqual(false);
-    });
-
-    it('should overwrite new hierarchical filters selected values with state values', () => {
-      const currentCategoryFacet = createHierarchicalFacetStub(
-        'Category',
-        createHierarchicalFilter => [
-          createHierarchicalFilter('men', true, createHierarchicalFilter => [
-            createHierarchicalFilter('shirts', true, createHierarchicalFilter => [
-              createHierarchicalFilter('striped', true)
-            ])
-          ]),
-          createHierarchicalFilter('women', false),
-          createHierarchicalFilter('home', false)
-        ]
-      );
-
-      const newCategoryFacet = createHierarchicalFacetStub('Category', createHierarchicalFilter => [
-        createHierarchicalFilter('men', false, createHierarchicalFilter => [
-          createHierarchicalFilter('shirts', false, createHierarchicalFilter => [
-            createHierarchicalFilter('striped', false)
-          ])
-        ]),
-        createHierarchicalFilter('women', true, createHierarchicalFilter => [
-          createHierarchicalFilter('shoes', true, createHierarchicalFilter => [
-            createHierarchicalFilter('sport', true)
-          ])
-        ]),
-        createHierarchicalFilter('kid', true)
-      ]);
-
-      resetFacetsStateWith(store, {
-        facets: { category: currentCategoryFacet }
-      });
-      store.dispatch(actionsKeys.setFacets, [newCategoryFacet]);
-
-      const flattenedFilters = store.getters[gettersKeys.flattenedFilters];
-      expect(flattenedFilters['category:men'].selected).toEqual(true);
-      expect(flattenedFilters['category:shirts'].selected).toEqual(true);
-      expect(flattenedFilters['category:striped'].selected).toEqual(true);
-      expect(flattenedFilters['category:women'].selected).toEqual(false);
-      expect(flattenedFilters['category:shoes'].selected).toEqual(false);
-      expect(flattenedFilters['category:sport'].selected).toEqual(false);
-      expect(flattenedFilters['category:home']).toBeUndefined();
-      expect(flattenedFilters['category:kid'].selected).toEqual(false);
     });
   });
 

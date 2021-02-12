@@ -90,6 +90,14 @@ export const clearFacetSelectedFiltersWire = wireDispatch('clearFacetSelectedFil
 export const clearSelectedFiltersWire = wireDispatchWithOutPayload('clearSelectedFilters');
 
 /**
+ * Changes the configuration to handle the selected state of the filters only locally in the store
+ * state, or to allow a external source to modify the selected filters.
+ *
+ * @public
+ */
+export const setIgnoreNewFiltersSelected = wireCommit('setIgnoreNewFiltersSelected');
+
+/**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
  *
  * @internal
@@ -121,5 +129,8 @@ export const facetsWiring = createWiring({
   },
   UserClickedFacetAllFilter: {
     clearFacetSelectedFiltersWire
+  },
+  IgnoreNewFiltersSelectedConfigChanged: {
+    setIgnoreNewFiltersSelected
   }
 });

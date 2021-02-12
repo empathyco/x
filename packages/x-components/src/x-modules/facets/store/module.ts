@@ -20,7 +20,8 @@ import { FacetsXStoreModule } from './types';
 export const facetsXStoreModule: FacetsXStoreModule = {
   state: () => ({
     config: {
-      multiSelect: {}
+      multiSelect: {},
+      ignoreNewFiltersSelected: true
     },
     facets: {}
   }),
@@ -38,6 +39,9 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     },
     setFilterSelected(_state, { filter, selected }) {
       filter.selected = selected;
+    },
+    setIgnoreNewFiltersSelected(state, ignoreNewFiltersSelected) {
+      state.config.ignoreNewFiltersSelected = ignoreNewFiltersSelected;
     }
   },
   actions: {
