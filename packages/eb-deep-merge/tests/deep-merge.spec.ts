@@ -147,4 +147,28 @@ describe('deep-merge.ts', () => {
     deepMerge(target, firstSource, secondSource);
     expect(target).toEqual({ children: { a: 1, b: 2, c: 4, d: 5, e: 5, f: 6 } });
   });
+
+  it('replaces the target which contains a function', () => {
+    const target = { a: function() {} };
+    deepMerge(target, { a: { a1: 'h1' }});
+    expect(target).toEqual({ a: { a1: 'h1' }});
+  });
+
+  it('replaces the target which contains a string', () => {
+    const target = { a: 'test' };
+    deepMerge(target, { a: { a1: 'h1' }});
+    expect(target).toEqual({ a: { a1: 'h1' }});
+  });
+
+  it('replaces the target which contains a boolean', () => {
+    const target = { a: true };
+    deepMerge(target, { a: { a1: 'h1' }});
+    expect(target).toEqual({ a: { a1: 'h1' }});
+  });
+
+  it('replaces the target which contains a number', () => {
+    const target = { a: 123 };
+    deepMerge(target, { a: { a1: 'h1' }});
+    expect(target).toEqual({ a: { a1: 'h1' }});
+  });
 });

@@ -77,7 +77,7 @@ function mergeObject(target: any, [key, value]: any): any {
     target[key] = deepMerge(target[key] || {}, value);
     deepMergeBehaviour(target[key]);
   } else {
-    target[key] = deepMerge(target[key], value);
+    target[key] = deepMerge(isObject(target[key]) ? target[key] : {}, value);
   }
 }
 
