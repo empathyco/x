@@ -1,5 +1,5 @@
 describe('Testing FullEmpathize', () => {
-  const query = 'disfraz';
+  const query = 'playmobil';
 
   beforeEach(() => {
     cy.visit('/full-empathize');
@@ -35,7 +35,7 @@ describe('Testing FullEmpathize', () => {
   describe('History Queries', () => {
     it('shows history queries when some queries are searched and cleaned', () => {
       cy.getByDataTest('search-input').as('searchInput');
-      cy.searchQueries(query, 'playmobil');
+      cy.searchQueries(query, 'disfraz');
       cy.clearSearchInput();
       cy.focusSearchInput();
       cy.getByDataTest('history-query-item').should('have.length', 2);

@@ -38,6 +38,7 @@
 
   .staggered-fade-slide--move {
     transition: transform $transition-duration ease-out;
+    z-index: 1;
   }
 
   .staggered-fade-slide--enter,

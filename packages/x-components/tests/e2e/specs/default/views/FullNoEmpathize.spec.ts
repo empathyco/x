@@ -1,5 +1,5 @@
 describe('Testing FullNoEmpathize', () => {
-  const query = 'disfraz';
+  const query = 'playmobil';
 
   beforeEach(() => {
     cy.visit('/full-no-empathize');
