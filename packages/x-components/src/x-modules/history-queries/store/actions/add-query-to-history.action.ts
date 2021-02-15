@@ -138,24 +138,28 @@ export class AddQueryToHistoryAction implements ActionsClass<HistoryQueriesXStor
     [lastWords, newWords]: Pair<string[]>,
     [lastQuery, newQuery]: Pair<string>
   ): boolean {
-    return lastQuery === newQuery || this.isLastWordRefined(lastWords, newWords);
+    return lastQuery === newQuery || this.isQueryBeingRefined(lastWords, newWords);
   }
 
   /**
    * Returns if the new query is a refined version of the last one. A refined version means to be
-   * more specific. I.e. `shoes` is a refined query of `shoe`.
+   * more specific. I.e. `shoes` is a refined query of `shoe`, `lego star wars` is a refined query
+   * of `lego st`.
    *
    * @param lastWords - An array containing the words of the last query.
    * @param newWords - An array containing the words of the new query.
-   * @returns `true` if the new query is refining the old one. `false` otherwhise.
+   * @returns `true` if the new query is refining the old one. `false` otherwise.
    * @internal
    */
-  protected isLastWordRefined(lastWords: string[], newWords: string[]): boolean {
-    const differentWordIndex = newWords.findIndex((newWord, index) => newWord !== lastWords[index]);
+  protected isQueryBeingRefined(lastWords: string[], newWords: string[]): boolean {
+    const refinedWordIndex = lastWords.length - 1;
+    const lastRefinedWord = lastWords[refinedWordIndex];
+    const newRefinedWord = newWords[refinedWordIndex];
     return (
-      newWords.length === lastWords.length &&
-      differentWordIndex === lastWords.length - 1 &&
-      newWords[differentWordIndex].includes(lastWords[differentWordIndex])
+      !!lastRefinedWord &&
+      !!newRefinedWord &&
+      newRefinedWord !== lastRefinedWord &&
+      newRefinedWord.includes(lastRefinedWord)
     );
   }
 }

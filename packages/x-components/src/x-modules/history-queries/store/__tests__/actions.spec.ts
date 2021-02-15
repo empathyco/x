@@ -126,6 +126,22 @@ describe('testing history queries module actions', () => {
 
       expectHistoryQueriesToEqual([puzzle, puzzleBig, puzzle1000]);
     });
+
+    it('replaces last stored query when the last word has been refined', () => {
+      const [le, lego, legoSt, legoStarWars] = createHistoryQueries(
+        'le',
+        'lego',
+        'lego st',
+        'lego star wars'
+      );
+      store.dispatch(actionsKeys.addQueryToHistory, le.query);
+      store.dispatch(actionsKeys.addQueryToHistory, lego.query);
+      store.dispatch(actionsKeys.addQueryToHistory, legoSt.query);
+      store.dispatch(actionsKeys.addQueryToHistory, legoStarWars.query);
+      store.dispatch(actionsKeys.addQueryToHistory, lego.query);
+
+      expectHistoryQueriesToEqual([lego, legoStarWars]);
+    });
   });
 
   describe(`${actionsKeys.removeFromHistory}`, () => {
