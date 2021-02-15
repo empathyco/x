@@ -1,18 +1,21 @@
+// Components
 export * from './animations';
 export { default as BaseEventButton } from './base-event-button.vue';
 export { default as BaseKeyboardNavigation } from './base-keyboard-navigation.vue';
-export { default as BaseCurrency } from './currency/base-currency.vue';
-export * from './decorators/debounce.decorators';
-export * from './decorators/store.decorators';
+export * from './currency';
 export * from './filters';
-export * from './modals';
 export * from './icons';
+export * from './modals';
 export { noElementComponent } from './no-element';
 export * from './panels';
 export * from './result';
 export { default as SlidingPanel } from './sliding-panel.vue';
 export { default as StaggeringTransitionGroup } from './staggering-transition-group.vue';
 export * from './suggestions';
+
+// Utils
+export * from './decorators/debounce.decorators';
+export * from './decorators/store.decorators';
 export * from './x-component.mixin';
 export * from './x-component.types';
 export * from './x-component.utils';
