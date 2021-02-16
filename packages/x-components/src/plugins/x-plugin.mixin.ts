@@ -106,6 +106,29 @@ export function getAliasAPI(
         return store.state.x.search?.query ?? '';
       }
     },
+    status: {
+      get identifierResults() {
+        return store.state.x.identifierResults?.status;
+      },
+      get nextQueries() {
+        return store.state.x.nextQueries?.status;
+      },
+      get popularSearches() {
+        return store.state.x.popularSearches?.status;
+      },
+      get querySuggestions() {
+        return store.state.x.querySuggestions?.status;
+      },
+      get recommendations() {
+        return store.state.x.recommendations?.status;
+      },
+      get relatedTags() {
+        return store.state.x.relatedTags?.status;
+      },
+      get search() {
+        return store.state.x.search?.status;
+      }
+    },
     get nextQueries() {
       return store.getters[getGetterPath('nextQueries', 'nextQueries')] ?? [];
     },

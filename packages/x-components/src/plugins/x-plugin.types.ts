@@ -14,6 +14,7 @@ import { GettersTree } from '../store/getters.types';
 import { MutationsTree } from '../store/mutations.types';
 import { StoreEmitters } from '../store/store-emitters.types';
 import { AnyXStoreModule, XStoreModule } from '../store/store.types';
+import { RequestStatus } from '../store/utils/helpers/status.helpers';
 import { DeepPartial, PropsWithType } from '../utils';
 import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
 import { WireMetadata, Wiring } from '../wiring/wiring.types';
@@ -117,6 +118,23 @@ export interface XComponentAliasAPI {
     readonly relatedTags: string;
     /** The {@link SearchXModule} query. */
     readonly search: string;
+  };
+  /** The status value of the different modules. */
+  readonly status: {
+    /** The {@link IdentifierResultsXModule} status. */
+    readonly identifierResults: RequestStatus | undefined;
+    /** The {@link NextQueriesXModule} status. */
+    readonly nextQueries: RequestStatus | undefined;
+    /** The {@link PopularSearchesXModule} status. */
+    readonly popularSearches: RequestStatus | undefined;
+    /** The {@link QuerySuggestionsXModule} status. */
+    readonly querySuggestions: RequestStatus | undefined;
+    /** The {@link RecommendationsXModule} status. */
+    readonly recommendations: RequestStatus | undefined;
+    /** The {@link RelatedTagsXModule} status. */
+    readonly relatedTags: RequestStatus | undefined;
+    /** The {@link SearchXModule} status. */
+    readonly search: RequestStatus | undefined;
   };
   /** The {@link NextQueriesXModule} next queries. */
   readonly nextQueries: ReadonlyArray<NextQuery>;

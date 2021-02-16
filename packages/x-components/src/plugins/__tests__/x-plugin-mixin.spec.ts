@@ -1,13 +1,16 @@
 import { mount, shallowMount, Wrapper } from '@vue/test-utils';
 import { ComponentOptions, default as Vue } from 'vue';
 import { Store } from 'vuex';
+import { installNewXPlugin } from '../../__tests__/utils';
 import { xComponentMixin } from '../../components/x-component.mixin';
+import { identifierResultsXModule } from '../../x-modules/identifier-results/x-module';
 import { nextQueriesXModule } from '../../x-modules/next-queries/x-module';
+import { popularSearchesXModule } from '../../x-modules/popular-searches/x-module';
 import { querySuggestionsXModule } from '../../x-modules/query-suggestions/x-module';
+import { recommendationsXModule } from '../../x-modules/recommendations/x-module';
 import { relatedTagsXModule } from '../../x-modules/related-tags/x-module';
 import { searchBoxXModule } from '../../x-modules/search-box/x-module';
 import { searchXModule } from '../../x-modules/search/x-module';
-import { installNewXPlugin } from '../../__tests__/utils';
 import { XPlugin } from '../x-plugin';
 import { getAliasAPI } from '../x-plugin.mixin';
 import { XComponentAliasAPI } from '../x-plugin.types';
@@ -19,6 +22,7 @@ describe('testing $x component API global mixin', () => {
       return createElement();
     }
   };
+
   let localVue: typeof Vue;
   let componentInstance: Wrapper<Vue>;
 
@@ -145,6 +149,15 @@ describe('testing $x component API global mixin', () => {
           relatedTags: '',
           search: ''
         },
+        status: {
+          identifierResults: undefined,
+          nextQueries: undefined,
+          popularSearches: undefined,
+          querySuggestions: undefined,
+          recommendations: undefined,
+          relatedTags: undefined,
+          search: undefined
+        },
         nextQueries: [],
         popularSearches: [],
         historyQueries: [],
@@ -160,10 +173,10 @@ describe('testing $x component API global mixin', () => {
     });
 
     it('updates the query values when the module is registered', () => {
-      XPlugin.registerXModule(searchBoxXModule);
       XPlugin.registerXModule(nextQueriesXModule);
       XPlugin.registerXModule(querySuggestionsXModule);
       XPlugin.registerXModule(relatedTagsXModule);
+      XPlugin.registerXModule(searchBoxXModule);
       XPlugin.registerXModule(searchXModule);
 
       componentInstance.vm.$store.commit('x/searchBox/setQuery', 'this');
@@ -178,6 +191,36 @@ describe('testing $x component API global mixin', () => {
         querySuggestions: 'working',
         relatedTags: 'properly',
         search: 'nice!'
+      });
+    });
+
+    it('updates the status values when the module is registered', () => {
+      const REQUEST_STATUS_REGEX = /success|loading|error/;
+
+      XPlugin.registerXModule(identifierResultsXModule);
+      XPlugin.registerXModule(popularSearchesXModule);
+      XPlugin.registerXModule(recommendationsXModule);
+
+      expect(componentInstance.vm.$x.status).toEqual({
+        identifierResults: expect.stringMatching(REQUEST_STATUS_REGEX),
+        popularSearches: expect.stringMatching(REQUEST_STATUS_REGEX),
+        recommendations: expect.stringMatching(REQUEST_STATUS_REGEX)
+      });
+
+      XPlugin.registerXModule(nextQueriesXModule);
+      XPlugin.registerXModule(querySuggestionsXModule);
+      XPlugin.registerXModule(relatedTagsXModule);
+      XPlugin.registerXModule(searchBoxXModule);
+      XPlugin.registerXModule(searchXModule);
+
+      expect(componentInstance.vm.$x.status).toEqual({
+        identifierResults: expect.stringMatching(REQUEST_STATUS_REGEX),
+        popularSearches: expect.stringMatching(REQUEST_STATUS_REGEX),
+        recommendations: expect.stringMatching(REQUEST_STATUS_REGEX),
+        nextQueries: expect.stringMatching(REQUEST_STATUS_REGEX),
+        querySuggestions: expect.stringMatching(REQUEST_STATUS_REGEX),
+        relatedTags: expect.stringMatching(REQUEST_STATUS_REGEX),
+        search: expect.stringMatching(REQUEST_STATUS_REGEX)
       });
     });
 
@@ -207,6 +250,7 @@ describe('testing $x component API global mixin', () => {
           );
         });
       }
+
       const aliasKeys = Object.keys(getAliasAPI(new Store({ state: { x: {} } })));
 
       expect(isJSGetterOrDictionaryOfJSGetters(componentInstance.vm.$x, aliasKeys)).toEqual(true);
