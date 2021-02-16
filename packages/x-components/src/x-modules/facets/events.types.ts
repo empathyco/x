@@ -14,6 +14,11 @@ import {
  */
 export interface FacetsXEvents {
   /**
+   * The query used in the module has changed.
+   * * Payload: The facets query.
+   */
+  FacetsQueryChanged: string;
+  /**
    * The selected filters have changed.
    * * Payload: filters array.
    */

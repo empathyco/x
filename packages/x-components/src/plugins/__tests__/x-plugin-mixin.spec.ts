@@ -4,6 +4,7 @@ import { Store } from 'vuex';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { xComponentMixin } from '../../components/x-component.mixin';
 import { identifierResultsXModule } from '../../x-modules/identifier-results/x-module';
+import { facetsXModule } from '../../x-modules/facets/x-module';
 import { nextQueriesXModule } from '../../x-modules/next-queries/x-module';
 import { popularSearchesXModule } from '../../x-modules/popular-searches/x-module';
 import { querySuggestionsXModule } from '../../x-modules/query-suggestions/x-module';
@@ -143,6 +144,7 @@ describe('testing $x component API global mixin', () => {
     it('returns default values when no module is registered', () => {
       const defaultValues: XComponentAliasAPI = {
         query: {
+          facets: '',
           searchBox: '',
           nextQueries: '',
           querySuggestions: '',
@@ -178,19 +180,22 @@ describe('testing $x component API global mixin', () => {
       XPlugin.registerXModule(relatedTagsXModule);
       XPlugin.registerXModule(searchBoxXModule);
       XPlugin.registerXModule(searchXModule);
+      XPlugin.registerXModule(facetsXModule);
 
       componentInstance.vm.$store.commit('x/searchBox/setQuery', 'this');
       componentInstance.vm.$store.commit('x/nextQueries/setQuery', 'is');
       componentInstance.vm.$store.commit('x/querySuggestions/setQuery', 'working');
       componentInstance.vm.$store.commit('x/relatedTags/setQuery', 'properly');
-      componentInstance.vm.$store.commit('x/search/setQuery', 'nice!');
+      componentInstance.vm.$store.commit('x/search/setQuery', 'nice');
+      componentInstance.vm.$store.commit('x/facets/setQuery', '!');
 
       expect(componentInstance.vm.$x.query).toEqual({
         searchBox: 'this',
         nextQueries: 'is',
         querySuggestions: 'working',
         relatedTags: 'properly',
-        search: 'nice!'
+        search: 'nice',
+        facets: '!'
       });
     });
 

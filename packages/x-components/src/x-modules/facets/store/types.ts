@@ -20,6 +20,8 @@ export interface FacetsState {
   config: FacetsConfig;
   /** The facets in a dictionary shape, where the key is the `facet.id` property. */
   facets: Record<Facet['id'], Facet>;
+  /** The current query {@link FacetsState.query}. */
+  query: string;
 }
 
 /**
@@ -90,6 +92,12 @@ export interface FacetsMutations {
    * Otherwise the {@link FacetsGetters.selectedFilters} getter won't update with the new value.
    */
   setFilterSelected(filterSelectChange: FilterSelectedChange): void;
+  /**
+   * Sets the {@link FacetsState.query} property.
+   *
+   * @param query - The new {@link FacetsState.query}.
+   */
+  setQuery(query: string): void;
 }
 
 /**

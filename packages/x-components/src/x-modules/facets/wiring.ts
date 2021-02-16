@@ -34,6 +34,13 @@ const wireDispatch = namespacedWireDispatch(moduleName);
 const wireDispatchWithOutPayload = namespacedWireDispatchWithoutPayload(moduleName);
 
 /**
+ * Sets the facets state `query`.
+ *
+ * @public
+ */
+export const setFacetsQuery = wireCommit('setQuery');
+
+/**
  * Sets the facets state `facets`.
  *
  * @public
@@ -110,6 +117,9 @@ export const facetsWiring = createWiring({
     setFacetMultiSelect
   },
   UserAcceptedAQuery: {
+    setFacetsQuery
+  },
+  FacetsQueryChanged: {
     clearSelectedFiltersWire
   },
   UserClickedASimpleFilter: {

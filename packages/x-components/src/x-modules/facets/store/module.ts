@@ -23,7 +23,8 @@ export const facetsXStoreModule: FacetsXStoreModule = {
       multiSelect: {},
       ignoreNewFiltersSelected: true
     },
-    facets: {}
+    facets: {},
+    query: ''
   }),
   getters: {
     flattenedFilters,
@@ -42,6 +43,9 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     },
     setIgnoreNewFiltersSelected(state, ignoreNewFiltersSelected) {
       state.config.ignoreNewFiltersSelected = ignoreNewFiltersSelected;
+    },
+    setQuery(state, newQuery) {
+      state.query = newQuery;
     }
   },
   actions: {

@@ -90,6 +90,9 @@ export function getAliasAPI(
 ): XComponentAliasAPI {
   return {
     query: {
+      get facets() {
+        return store.state.x.facets?.query ?? '';
+      },
       get searchBox() {
         return store.state.x.searchBox?.query ?? '';
       },

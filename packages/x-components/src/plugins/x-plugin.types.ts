@@ -108,6 +108,8 @@ export interface XComponentXConfigAPI {
 export interface XComponentAliasAPI {
   /** The query value of the different modules. */
   readonly query: {
+    /** The {@link FacetsXModule} query. */
+    readonly facets: string;
     /** The {@link SearchBoxXModule} query. */
     readonly searchBox: string;
     /** The {@link NextQueriesXModule} query. */
