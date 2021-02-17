@@ -19,6 +19,14 @@
         Filters selected: {{ selectedFilters.length }}
       </template>
     </SelectedFilters>
+
+    <SelectedFiltersList :animation="staggeredFadeAndSlide">
+      <template #default="{ filter }">Default: {{ filter.label }}</template>
+      <template #brand_facet="{ filter }">Brand: {{ filter.label }}</template>
+      <template #age_facet="{ filter }">Age: {{ filter.label }}</template>
+      <template #price_facet="{ filter }">Price: {{ filter.label }}</template>
+    </SelectedFiltersList>
+
     <ClearFilters v-slot="{ selectedFilters }" :alwaysVisible="true">
       Clear {{ selectedFilters.length }} filters
     </ClearFilters>
@@ -222,6 +230,7 @@
   import BaseResultImage from '../components/result/base-result-image.vue';
   import BaseSimpleFilter from '../components/filters/filters/base-simple-filter.vue';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
+  import SelectedFiltersList from '../x-modules/facets/components/selected-filters-list.vue';
   import SelectedFilters from '../x-modules/facets/components/selected-filters.vue';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
@@ -259,6 +268,7 @@
       next();
     },
     components: {
+      SelectedFiltersList,
       BaseEventsModal,
       BaseAllFilter,
       BaseFilters,
