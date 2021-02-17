@@ -20,15 +20,22 @@ When('{string} is searched', (query: string) => {
   });
 });
 
+When('clear search button is pressed', () => {
+  cy.clearSearchInput();
+});
+
 // History Queries
 Then(
   'the searched query is displayed in history queries',
   function (this: { searchedQuery: string }) {
     cy.getByDataTest('history-query')
       .should('have.length.at.least', 1)
-      .each(historyQuery => expect(historyQuery).to.contain(this.searchedQuery));
+      .each(historyQuery => expect(historyQuery).to.contain(this.searchedQuery))
+      .invoke('text')
+      .as('historicalQuery');
   }
 );
+
 When('clear history queries button is clicked', () => {
   cy.getByDataTest('clear-history-queries').click();
 });
@@ -45,6 +52,7 @@ And('query suggestions are displayed', () => {
 
 And('next queries are displayed', () => {
   if (cy.$$('[data-test = "next-queries"]').length === 1) {
+    cy.getByDataTest('next-query').invoke('text').as('nextQueries');
     cy.getByDataTest('next-query').should('have.length.gt', 0);
   } else {
     cy.getByDataTest('next-query').should('not.exist');

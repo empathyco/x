@@ -117,6 +117,13 @@ interface CustomCommands {
    * @param searchResponse - The next response for the `search` adapter method.
    */
   fakeSearchResponse(searchResponse: Partial<AdapterMockedResponses['search']>): void;
+  /**
+   * Checks if next-queries should contain or not a certain term.
+   *
+   * @param query - The query which should be checked.
+   * @param toContain - Determines if the query should be contained within the next queries or not.
+   */
+  checkNextQueries(query: string, toContain: boolean): void;
 }
 
 interface CustomDualCommands {
@@ -210,6 +217,17 @@ const customCommands: CustomCommands = {
         totalResults: 0,
         ...searchResponse
       };
+    });
+  },
+  checkNextQueries(query: string, toContain: boolean) {
+    cy.getByDataTest('next-query').should(queries => {
+      queries.each((_, e) => {
+        if (toContain) {
+          expect(e).to.contain(query);
+        } else {
+          expect(e).to.not.contain(query);
+        }
+      });
     });
   }
 };

@@ -52,6 +52,11 @@ const routes: RouteConfig[] = [
     path: '/test/recommendations',
     name: 'Recommendations',
     component: () => import('./views/recommendations.vue')
+  },
+  {
+    path: '/test/next-queries',
+    name: 'Next Queries',
+    component: () => import('./views/next-queries.vue')
   }
 ];
 

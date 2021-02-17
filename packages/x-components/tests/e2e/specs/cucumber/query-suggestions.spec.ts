@@ -44,10 +44,6 @@ And('all query suggestions contain the searched query', function (this: { search
   });
 });
 
-When('clear search button is pressed', () => {
-  cy.clearSearchInput();
-});
-
 When('query suggestion number {int} is clicked', (querySuggestionItem: number) => {
   cy.getByDataTest('query-suggestion')
     .eq(querySuggestionItem)

@@ -1,0 +1,78 @@
+import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
+
+Given(
+  'following config: hide session queries {boolean}, requested items {int}, loadOnInit {boolean}',
+  (hideSessionQueries: boolean, maxItemsToRequest: number, loadOnInit: boolean) => {
+    const config: InstallXOptions['xModules'] = {
+      nextQueries: {
+        config: {
+          hideSessionQueries,
+          maxItemsToRequest,
+          loadOnInit
+        }
+      },
+      historyQueries: {
+        config: {
+          hideIfEqualsQuery: false
+        }
+      }
+    };
+    cy.visit('/test/next-queries', {
+      qs: {
+        xModules: JSON.stringify(config)
+      }
+    });
+  }
+);
+
+// Scenario 1
+Then('at most {int} next queries are displayed', (maxItemsToRequest: number) => {
+  cy.getByDataTest('next-query')
+    .should('have.length.at.least', 1)
+    .and('have.length.at.most', maxItemsToRequest);
+});
+
+// Scenario 2
+When('next query number {int} is clicked', (nextQueryItem: number) => {
+  cy.getByDataTest('next-query').eq(nextQueryItem).click().invoke('text').as('searchedQuery');
+});
+
+And('next queries do not contain the searched query', function (this: { searchedQuery: string }) {
+  cy.checkNextQueries(this.searchedQuery, false);
+});
+
+And(
+  'next queries do not contain the history query is {boolean}',
+  function (this: { historicalQuery: string }, hideSessionQueries: boolean) {
+    if (hideSessionQueries) {
+      cy.checkNextQueries(this.historicalQuery, false);
+    } else {
+      cy.checkNextQueries(this.historicalQuery, true);
+    }
+  }
+);
+
+And('next queries contain the history query', function (this: { historicalQuery: string }) {
+  cy.checkNextQueries(this.historicalQuery, true);
+});
+
+// Scenario 3
+When('the page is reloaded', () => {
+  cy.reload();
+});
+
+Then(
+  'next queries are still displayed is {boolean}',
+  function (this: { nextQueries: string }, loadOnInit: boolean) {
+    if (loadOnInit) {
+      cy.getByDataTest('next-query').should('have.text', this.nextQueries);
+    } else {
+      cy.getByDataTest('next-query').should('not.exist');
+    }
+  }
+);
+
+Then('next queries are still displayed', function (this: { nextQueries: string }) {
+  cy.getByDataTest('next-query').should('have.text', this.nextQueries);
+});

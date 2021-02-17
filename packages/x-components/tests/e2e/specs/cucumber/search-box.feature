@@ -13,7 +13,7 @@ Feature: Search-box component
     And   "<query>" is displayed in history queries is not <hideIfEqualsQuery>
     Examples:
       | hideIfEqualsQuery | instantDebounceInMs | instant | query         | buttonOrKey     |
-      | true              | 5000                | false   | barbie        | searchButton    |
+      | true              | 5000                | false   | disfraz       | searchButton    |
       | false             | 5000                | false   | star wars     | enterKey        |
 
   Scenario Outline: 2. Query with results exists and it's cleared by <cleared> (search-box is not empty)

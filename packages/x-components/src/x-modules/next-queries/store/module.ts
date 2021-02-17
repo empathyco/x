@@ -23,7 +23,7 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     config: {
       maxItemsToRequest: 20,
       hideSessionQueries: true,
-      loadOnInit: false
+      loadOnInit: true
     }
   }),
   getters: {
