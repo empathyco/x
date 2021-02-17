@@ -10,17 +10,20 @@ import { XPlugin } from '../x-plugin';
 import { XPluginOptions } from '../x-plugin.types';
 
 const wireInstance = jest.fn();
+const usedClearedWireInstance = jest.fn();
 const userIsTypingAQuerySelector = jest.fn();
 const userAcceptedAQuerySelector = jest.fn();
 
 const xModule = createXModule({
   name: 'searchBox',
   wiring: {
-    SearchBoxQueryChanged: { wireInstance }
+    SearchBoxQueryChanged: { wireInstance },
+    UserClearedQuery: { testWire: createWireFromFunction(usedClearedWireInstance) }
   },
   storeEmitters: {
     UserIsTypingAQuery: userIsTypingAQuerySelector,
-    UserAcceptedAQuery: userAcceptedAQuerySelector
+    UserAcceptedAQuery: userAcceptedAQuerySelector,
+    UserClearedQuery: state => state.query
   },
   storeModule: {
     state: () => ({
@@ -102,6 +105,42 @@ describe('testing X Plugin emitters', () => {
     }
   });
 
+  // eslint-disable-next-line max-len
+  describe('install XPlugin overriding SimpleStateSelector emitter with a StateSelector emitter', () => {
+    const SET_QUERY_MUTATION = 'x/searchBox/setQuery';
+    const expectedQuery = 'lego';
+    beforeEach(() => {
+      XPlugin.registerXModule(xModule);
+      localVue.use(plugin, {
+        adapter: SearchAdapterDummy,
+        __PRIVATE__xModules: {
+          searchBox: {
+            storeEmitters: {
+              UserClearedQuery: {
+                selector: state => state.query,
+                filter: newValue => newValue === expectedQuery
+              }
+            }
+          }
+        },
+        store
+      });
+    });
+
+    // eslint-disable-next-line max-len
+    it('should not emit event after not meeting the condition defined in overwritten filter', async () => {
+      store.commit(SET_QUERY_MUTATION, 'doraemon');
+      await localVue.nextTick();
+      expect(usedClearedWireInstance).toHaveBeenCalledTimes(0);
+    });
+
+    it('should emit event after meeting the condition defined in overwritten filter', async () => {
+      store.commit(SET_QUERY_MUTATION, expectedQuery);
+      await localVue.nextTick();
+      expect(usedClearedWireInstance).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe('immediate configuration option', () => {
     const testWire = jest.fn();
     const wiring = {
@@ -134,7 +173,7 @@ describe('testing X Plugin emitters', () => {
       localVue.use(plugin, pluginOptions);
 
       /* Emitters relies on Vue watcher that are async. We need to wait a cycle before testing if
-       they have emitted or not. */
+         they have emitted or not. */
       await Promise.resolve();
 
       expect(testWire).not.toHaveBeenCalled();
