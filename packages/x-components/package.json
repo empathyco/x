@@ -103,10 +103,7 @@
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
-    "./**/*.{vue,ts,tsx}": [
-      "npm run lint",
-      "prettier --write"
-    ]
+    "./**/*.{vue,ts,tsx}": "vue-cli-service lint"
   },
   "config": {
     "commitizen": {

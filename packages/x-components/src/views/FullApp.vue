@@ -1,6 +1,11 @@
 <template>
   <main>
-    <BaseEventsOpenButton>Open search</BaseEventsOpenButton>
+    <BaseIdModalOpen modalId="id-modal">Open search (id modal)</BaseIdModalOpen>
+    <BaseIdModal :animation="collapseFromTop" modalId="id-modal">
+      <SearchInput placeholder="Search" aria-label="Search for products" />
+      <BaseIdModalClose aria-label="Close search" modalId="id-modal">x</BaseIdModalClose>
+    </BaseIdModal>
+    <BaseEventsOpenButton>Open search (events modal)</BaseEventsOpenButton>
     <BaseEventsModal :animation="collapseFromTop">
       <SearchInput placeholder="Search" aria-label="Search for products" />
       <BaseEventsCloseButton aria-label="Close search">x</BaseEventsCloseButton>
@@ -219,6 +224,9 @@
   import BaseFiltersSearch from '../components/filters/lists/base-filters-search.vue';
   import BaseSlicedFilters from '../components/filters/lists/base-sliced-filters.vue';
   import BaseEventsModal from '../components/modals/base-events-modal.vue';
+  import BaseIdModalClose from '../components/modals/base-id-modal-close.vue';
+  import BaseIdModalOpen from '../components/modals/base-id-modal-open.vue';
+  import BaseIdModal from '../components/modals/base-id-modal.vue';
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
   import BaseEventsModalClose from '../components/modals/base-events-modal-close.vue';
   import BaseFilters from '../components/filters/lists/base-filters.vue';
@@ -268,7 +276,9 @@
       next();
     },
     components: {
-      SelectedFiltersList,
+      BaseIdModalClose,
+      BaseIdModalOpen,
+      BaseIdModal,
       BaseEventsModal,
       BaseAllFilter,
       BaseFilters,
@@ -302,6 +312,7 @@
       Recommendations,
       RelatedTags,
       SelectedFilters,
+      SelectedFiltersList,
       SearchButton,
       SearchInput,
       SlidingPanel

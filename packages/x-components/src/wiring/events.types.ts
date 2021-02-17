@@ -96,6 +96,21 @@ export interface XEventsTypes
    */
   UserClickedOutOfXModal: void;
   /**
+   * The user clicked the button to open a modal.
+   * * Payload: the id of the modal to open.
+   */
+  UserClickedOpenModal: string;
+  /**
+   * The user clicked the button to close a modal.
+   * * Payload: the id of the modal to close.
+   */
+  UserClickedCloseModal: string;
+  /**
+   * The user clicked out of a modal while it was opened.
+   * * Payload: the id of the modal.
+   */
+  UserClickedOutOfModal: string;
+  /**
    * The user pressed an {@link ArrowKey | arrow key} with the focus on the search-box.
    * * Payload: the pressed {@link ArrowKey | arrow key}.
    */
