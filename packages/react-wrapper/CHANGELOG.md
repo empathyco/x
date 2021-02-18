@@ -1,4 +1,15 @@
 # React Wrapper
+## [3.0.0](https://bitbucket.org/colbenson/react-wrapper/branches/compare/v3.0.0%0Dv2.0.0) (2021-02-18)
+
+
+### Features
+
+* **slots:** support using standard React components inside slots ([489cc0c](https://bitbucket.org/colbenson/react-wrapper/commits/489cc0cfa8eab5e71233bba541bf2257d3bbbaa0)), closes [EX-2901](https://searchbroker.atlassian.net/browse/EX-2901)
+
+### ⚠ BREAKING CHANGES
+
+* **slots:** Scoped slots do not longer support primitive properties. They can only pass objects with named props.
+
 ## [2.0.0](https://bitbucket.org/colbenson/react-wrapper/branches/compare/v2.0.0%0Dv1.0.4) (2021-01-05)
 
 
