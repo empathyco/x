@@ -1,10 +1,7 @@
 import Vue, { ComponentOptions } from 'vue';
+import { MessageProps } from './stub.types';
 
-interface VueSlotsProps {
-  message: string;
-}
-
-export const VueScopedSlot: ComponentOptions<Vue> & ThisType<Vue & VueSlotsProps> = {
+export const VueScopedSlot: ComponentOptions<Vue> & ThisType<Vue & MessageProps> = {
   props: {
     message: {
       required: true,
@@ -12,6 +9,7 @@ export const VueScopedSlot: ComponentOptions<Vue> & ThisType<Vue & VueSlotsProps
     }
   },
   render(h) {
-    return h('section', {}, [this.$scopedSlots.scoped?.(`Vue says: ${this.message}`)]);
+    const scope: MessageProps = { message: `Vue says: ${this.message}` };
+    return h('section', {}, [this.$scopedSlots.scoped?.(scope)]);
   }
 };

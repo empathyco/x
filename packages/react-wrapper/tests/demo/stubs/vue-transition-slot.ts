@@ -1,6 +1,7 @@
-import { defineComponent } from '../../../src/vue-creator.utils';
+import Vue from 'vue';
+import { MessageProps } from '../../../src/__tests__/stubs/stub.types';
 
-export const VueTransitionSlot = defineComponent({
+export const VueTransitionSlot = Vue.extend({
   props: {
     message: {
       default: 'Hello world!',
@@ -16,7 +17,8 @@ export const VueTransitionSlot = defineComponent({
     }
   },
   render(h) {
-    const slot = this.$scopedSlots.default?.(this.message) ?? h();
+    const scope: MessageProps = { message: this.message };
+    const slot = this.$scopedSlots.default?.(scope) ?? h();
     const div = this.show ? h('div', [slot]) : h();
     return h(
       'transition',

@@ -4,7 +4,7 @@ declare namespace Cypress {
 }
 
 /** Possible values for the view to render */
-type ViewName = 'slots';
+type ViewName = 'slots' | 'slotsComponents';
 
 interface CustomCommands {
   /**

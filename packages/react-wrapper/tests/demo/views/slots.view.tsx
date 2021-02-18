@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useCallback, useState } from 'react';
 import { ReactInput } from '../stubs/react-input.stub';
 import { ReactTextSlot } from '../stubs/react-text-slot.stub';
 import { ReactTransitionSlot } from '../stubs/react-transition-slot.stub';
@@ -12,13 +12,13 @@ import { ReactTransitionSlot } from '../stubs/react-transition-slot.stub';
 export function SlotsView(): ReactElement {
   const [show, setShow] = useState(false);
   const [renderContainer, setRenderContainer] = useState(true);
-  const toggleShow = (): void => {
+  const toggleShow = useCallback((): void => {
     setShow(!show);
-  };
+  }, [show, setShow]);
 
-  const toggleRenderContainer = (): void => {
+  const toggleRenderContainer = useCallback((): void => {
     setRenderContainer(!renderContainer);
-  };
+  }, [renderContainer, setRenderContainer]);
 
   return (
     <div>

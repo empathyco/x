@@ -1,10 +1,7 @@
 import Vue, { ComponentOptions } from 'vue';
+import { MessageProps } from './stub.types';
 
-interface VueMessageProps {
-  message: string;
-}
-
-export const VueMessage: ComponentOptions<Vue> & ThisType<Vue & VueMessageProps> = {
+export const VueMessage: ComponentOptions<Vue> & ThisType<Vue & MessageProps> = {
   props: {
     message: {
       default: 'Hello world!',

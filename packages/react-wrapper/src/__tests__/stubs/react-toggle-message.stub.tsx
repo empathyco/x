@@ -1,15 +1,9 @@
 import React, { ReactNode } from 'react';
 import { ReactWrapper } from '../../react-wrapper';
+import { MessageProps } from './stub.types';
 import { VueMessage } from './vue-message.stub';
 
-interface ReactToggleMessageState {
-  message: string;
-}
-
-export class ReactToggleMessage extends React.Component<
-  Record<string, unknown>,
-  ReactToggleMessageState
-> {
+export class ReactToggleMessage extends React.Component<Record<string, unknown>, MessageProps> {
   public constructor(props: Record<string, unknown>) {
     super(props);
     this.state = { message: 'Hi' };

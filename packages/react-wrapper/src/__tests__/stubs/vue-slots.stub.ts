@@ -1,10 +1,7 @@
 import Vue, { ComponentOptions, VNodeChildren } from 'vue';
+import { MessageProps } from './stub.types';
 
-interface VueSlotsProps {
-  message: string;
-}
-
-export const VueSlots: ComponentOptions<Vue> & ThisType<Vue & VueSlotsProps> = {
+export const VueSlots: ComponentOptions<Vue> & ThisType<Vue & MessageProps> = {
   props: {
     message: {
       default: 'Hello world!',
@@ -14,7 +11,8 @@ export const VueSlots: ComponentOptions<Vue> & ThisType<Vue & VueSlotsProps> = {
   render(h) {
     const children: VNodeChildren = [this.$slots.default];
     if (this.$scopedSlots.scoped) {
-      children.unshift(h('section', {}, this.$scopedSlots.scoped(this.message)));
+      const scope: MessageProps = { message: this.message };
+      children.unshift(h('section', {}, this.$scopedSlots.scoped(scope)));
     }
     return h('div', {}, children);
   }

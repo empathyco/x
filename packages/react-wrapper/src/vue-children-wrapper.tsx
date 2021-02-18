@@ -1,39 +1,53 @@
+import React from 'react';
 import ReactDOM, { Renderer } from 'react-dom';
-import { CreateElement } from 'vue';
-import { defineComponent } from './vue-creator.utils';
+import Vue, { CreateElement, PropType } from 'vue';
 
-type ReactRenderableElement = Parameters<Renderer>[0];
+type ReactRenderableElement = Parameters<Renderer>[0] | Parameters<typeof React.createElement>[0];
+
+/**
+ * Returns true when the component is a component definition, to be used
+ * within a JSX element or a `React.createElement` call.
+ *
+ * @param component - The component to test if it is a rendered node or a component definition.
+ * @returns True when the component is either a component class or a component function.
+ */
+function isReactComponentDefinition(
+  component: ReactRenderableElement
+): component is Parameters<typeof React.createElement>[0] {
+  return typeof component === 'function';
+}
+
 /**
  * Vue component that renders a React Node, which is provided via props.
  * This component is part of the mechanism that allows using Slots/Children of the
  * {@link ReactWrapper} inside a Vue component.
  */
-export const VueChildrenWrapper = defineComponent({
+export const VueChildrenWrapper = Vue.extend({
   props: {
     slotContent: {
       required: true,
-      type: [Object, Array, String]
-    }
+      type: [Object, Array, String, Function] as PropType<ReactRenderableElement>
+    },
+    reactProps: {}
   },
   render(h: CreateElement) {
     return h('div', { staticClass: 'react-wrapper-slot' });
   },
   mounted() {
-    /*
-     * Create a container element, and then render the ReactSlotContent into it.
-     * After React has rendered the element or elements inside this container, we create a
-     * fragment with the slot contents, that can be a single node or multiple ones, and insert
-     * it before the element that Vue created (which is a comment), using a fragment to
-     * increase performance. Then, we create hook in the Vue component, to remove the react
-     * rendered nodes before destroying component.
-     */
-    this.$watch(
-      'slotContent',
-      (slotContent: ReactRenderableElement) => {
-        ReactDOM.render(slotContent, this.$el);
-      },
-      { immediate: true }
-    );
+    /* eslint-disable @typescript-eslint/unbound-method */
+    this.$watch('slotContent', this.renderReactComponent, { immediate: true });
+    this.$watch('reactProps', this.renderReactComponent);
+    /* eslint-enable @typescript-eslint/unbound-method */
+  },
+  methods: {
+    renderReactComponent() {
+      if (isReactComponentDefinition(this.slotContent)) {
+        const ReactComponent = this.slotContent as any; // TODO Fix type.
+        ReactDOM.render(<ReactComponent {...this.reactProps} />, this.$el);
+      } else {
+        ReactDOM.render(this.slotContent, this.$el);
+      }
+    }
   },
   beforeDestroy() {
     const container = this.$root.$el.parentElement;

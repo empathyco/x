@@ -2,6 +2,7 @@ import React from 'react';
 import Vue from 'vue';
 import { ReactWrapper } from '../react-wrapper';
 import { ReactScopedSlotStub } from './stubs/react-scoped-slot.stub';
+import { MessageProps } from './stubs/stub.types';
 import { VueSlots } from './stubs/vue-slots.stub';
 import { renderClassComponent, renderReactNode, transformStringIntoASingleLine } from './utils';
 
@@ -35,7 +36,7 @@ describe('testing support of slots in the react-wrapper', () => {
         component={VueSlots}
         message='Hell yeah!'
         slots={{
-          scoped: (message: string) => [
+          scoped: ({ message }: MessageProps) => [
             <p key={1}>Vue says: {message}</p>,
             'Second line',
             <span key={2}>Bye</span>
@@ -110,7 +111,10 @@ describe('testing support of slots in the react-wrapper', () => {
 
     instance.setState({
       message: 'Bye',
-      slotContent: (message: string) => [<strong key={1}>{message}</strong>, 'We are not done yet']
+      slotContent: ({ message }: MessageProps) => [
+        <strong key={1}>{message}</strong>,
+        'We are not done yet'
+      ]
     });
     await Vue.nextTick();
     expect(root.innerHTML).toEqual(
@@ -127,7 +131,7 @@ describe('testing support of slots in the react-wrapper', () => {
 
     instance.setState({
       message: 'Shutting down',
-      slotContent: (message: string) => [<p key={1}>{message}</p>]
+      slotContent: ({ message }: MessageProps) => [<p key={1}>{message}</p>]
     });
     await Vue.nextTick();
     expect(root.innerHTML).toEqual(
@@ -145,7 +149,11 @@ describe('testing support of slots in the react-wrapper', () => {
   it('renders a default and scoped slot in the same component', async () => {
     const messageProp = 'EVO IX';
     const slots = {
-      scoped: (message: string) => ["I'd to have a ", <strong key={1}>{message}</strong>, '!'],
+      scoped: ({ message }: MessageProps) => [
+        "I'd to have a ",
+        <strong key={1}>{message}</strong>,
+        '!'
+      ],
       default: [<h1 key={1}>It is a default slot content</h1>, 'Or children in React.']
     };
 

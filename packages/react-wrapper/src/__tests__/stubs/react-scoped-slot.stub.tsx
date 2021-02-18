@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { ReactWrapper } from '../../react-wrapper';
 import { ReactRenderProps } from '../../react-wrapper.types';
+import { MessageProps } from './stub.types';
 import { VueScopedSlot } from './vue-scoped-slot.stub';
 
 interface ReactScopedSlotStubState {
@@ -17,7 +18,7 @@ export class ReactScopedSlotStub extends React.Component<
 
     this.state = {
       message: 'Hello',
-      slotContent: (message: string) => <span>{message}</span>
+      slotContent: ({ message }: MessageProps) => <span>{message}</span>
     };
   }
 

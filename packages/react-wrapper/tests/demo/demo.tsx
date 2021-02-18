@@ -1,9 +1,11 @@
 import React, { ReactElement } from 'react';
 import ReactDOM from 'react-dom';
+import { SlotsComponentsView } from './views/slots-components.view';
 import { SlotsView } from './views/slots.view';
 
 const views = {
-  slots: SlotsView
+  slots: SlotsView,
+  slotsComponents: SlotsComponentsView
 };
 
 const url = new URL(location.href);

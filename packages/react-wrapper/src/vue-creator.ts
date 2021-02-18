@@ -55,8 +55,7 @@ export const VueExtended = Vue.extend({
      */
     createScopedSlot(slotName: string, slotContentFactory: ReactRenderProps) {
       return (data: unknown) => {
-        const slotContent = slotContentFactory(data);
-        return this.createVueSlotContent(slotName, slotContent);
+        return this.createVueSlotContent(slotName, slotContentFactory, data);
       };
     },
 
@@ -65,12 +64,18 @@ export const VueExtended = Vue.extend({
      *
      * @param slotName - The name of the slot to pass the created vue node.
      * @param slotContent - The react node to render inside the slot.
+     * @param reactProps - The props to render the React component with.
      * @returns A Vue VNode that renders the react node.
      */
-    createVueSlotContent(slotName: string, slotContent: ReactNodeWithoutRenderProps) {
+    createVueSlotContent(
+      slotName: string,
+      slotContent: ReactNodeWithoutRenderProps,
+      reactProps: unknown = null
+    ) {
       return this.$createElement(VueChildrenWrapper, {
         props: {
-          slotContent
+          slotContent,
+          reactProps
         },
         slot: slotName,
         ref: slotName
