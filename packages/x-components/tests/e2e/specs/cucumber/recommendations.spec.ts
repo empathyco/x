@@ -1,7 +1,6 @@
 import { And, Given, Then } from 'cypress-cucumber-preprocessor/steps';
 import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
 
-// Scenario 1
 Given('following config: max items to store is {int}', (maxItemsToRequest: number) => {
   const config: InstallXOptions['xModules'] = {
     recommendations: {
@@ -17,11 +16,12 @@ Given('following config: max items to store is {int}', (maxItemsToRequest: numbe
   });
 });
 
+// Scenario 1
 Then(
   'number of displayed recommendations are equal or less than {int}',
   (maxItemsToRequest: number) => {
     cy.getByDataTest('recommendation-item')
-      .should('exist')
+      .should('have.length.at.least', 1)
       .and('have.length.at.most', maxItemsToRequest);
   }
 );

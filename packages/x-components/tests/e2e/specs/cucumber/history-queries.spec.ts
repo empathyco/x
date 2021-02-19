@@ -1,8 +1,8 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
 
 let historyQueriesList: string[];
 
-// Scenario 1
 Given(
   // eslint-disable-next-line max-len
   'following config: hide if equals query {boolean}, debounce {int}, requested items {int}, rendered {int}, instant search {boolean}',
@@ -13,17 +13,18 @@ Given(
     maxItemsToRender: number,
     instant: boolean
   ) => {
+    const config: InstallXOptions['xModules'] = {
+      historyQueries: {
+        config: {
+          hideIfEqualsQuery,
+          debounceInMs,
+          maxItemsToStore
+        }
+      }
+    };
     cy.visit('/test/history-queries', {
       qs: {
-        xModules: JSON.stringify({
-          historyQueries: {
-            config: {
-              hideIfEqualsQuery: hideIfEqualsQuery,
-              debounceInMs: debounceInMs,
-              maxItemsToStore: maxItemsToStore
-            }
-          }
-        })
+        xModules: JSON.stringify(config)
       }
     }).then(() => {
       cy.getByDataTest('history-queries-max-to-render').clear().type(maxItemsToRender.toString());
@@ -36,6 +37,7 @@ Given(
   }
 );
 
+// Scenario 1
 And('a {string} of queries already searched', (list: string) => {
   historyQueriesList = list.split(', ');
   cy.searchQueries(...historyQueriesList);
@@ -47,7 +49,7 @@ When('history query number {int} is clicked', (historyQueryItem: number) => {
 });
 
 And(
-  'the clicked history query is not displayed in history queries if {boolean} is true',
+  'the searched query is not displayed in history queries if {boolean} is true',
   function (this: { searchedQuery: string }, hideIfEqualsQuery: boolean) {
     if (!hideIfEqualsQuery) {
       cy.getByDataTest('history-query').eq(0).should('have.text', this.searchedQuery);
@@ -91,10 +93,6 @@ And(
 );
 
 // Scenario 3
-When('clear history queries button is clicked', () => {
-  cy.getByDataTest('clear-history-queries').click();
-});
-
 Then('no history queries are displayed', () => {
   cy.getByDataTest('history-queries').should('not.exist');
 });

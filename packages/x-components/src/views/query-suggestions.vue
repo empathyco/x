@@ -41,8 +41,6 @@
         {{ result.name }}
       </li>
     </ul>
-    <!--  Loading  -->
-    <div v-if="status === 'loading'" data-test="loading" class="loading">Loading...</div>
   </main>
 </template>
 
@@ -60,13 +58,12 @@
   import QuerySuggestions from '../x-modules/query-suggestions/components/query-suggestions.vue';
   import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
   import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
-  import { Getter, State } from '../components/decorators/store.decorators';
+  import { Getter } from '../components/decorators/store.decorators';
   import { searchXModule } from '../x-modules/search/x-module';
   import { historyQueriesXModule } from '../x-modules/history-queries/x-module';
   import { XInstaller } from '../x-installer/x-installer';
   import { XPlugin } from '../plugins/x-plugin';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
-  import { RequestStatus } from 'src/store/utils/helpers/status.helpers';
 
   @Component({
     beforeRouteEnter(to, _from, next: () => void): void {
@@ -91,18 +88,9 @@
     }
   })
   export default class QuerySuggestionsView extends Vue {
-    /* Controls */
-    protected controls = {
-      querySuggestions: {
-        maxItemsToRequest: 10
-      }
-    };
     /* Testing purpose */
     @Getter('search', 'results')
     public results!: Result[];
-
-    @State('querySuggestions', 'status')
-    public status!: RequestStatus;
   }
 </script>
 

@@ -92,8 +92,6 @@
     }
   })
   export default class NextQueriesView extends Vue {
-    /* Controls */
-
     /* Testing purpose */
     @Getter('search', 'results')
     public results!: Result[];

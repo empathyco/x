@@ -13,14 +13,14 @@ Feature: Popular searches component
   Scenario Outline: 2. Popular search is clicked
     Given following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, rendered <maxItemsToRender>
     When  popular search number <popularSearchItem> is clicked
-    Then  the clicked popular search term is displayed in the search-box
+    Then  the searched query is displayed in the search-box
     And   the clicked popular search is removed from Popular Searches if <hideSessionQueries> is true
     And   no new term is displayed in Popular Searches if hideSessionQueries = <hideSessionQueries> is true and maxItemsToRender = <maxItemsToRender> > maxItemsToRequest = <maxItemsToRequest>
     And   related results are displayed
     And   query suggestions are displayed
-    And   next queries for the popular search are displayed
-    And   related tags for the popular search are displayed
-    And   popular search is displayed in history queries
+    And   next queries are displayed
+    And   related tags are displayed
+    And   the searched query is displayed in history queries
     Examples:
       | hideSessionQueries | maxItemsToRequest | maxItemsToRender | popularSearchItem |
       | false              | 10                | 5                | 0                 |

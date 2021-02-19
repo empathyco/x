@@ -1,28 +1,31 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
 
 Given(
   'following config: hide if equals query {boolean}, requested items {int}',
   (hideIfEqualsQuery: boolean, maxItemsToRequest: number) => {
+    const config: InstallXOptions['xModules'] = {
+      querySuggestions: {
+        config: {
+          hideIfEqualsQuery,
+          maxItemsToRequest
+        }
+      },
+      historyQueries: {
+        config: {
+          hideIfEqualsQuery: false
+        }
+      }
+    };
     cy.visit('/test/query-suggestions', {
       qs: {
-        xModules: JSON.stringify({
-          querySuggestions: {
-            config: {
-              hideIfEqualsQuery,
-              maxItemsToRequest
-            }
-          },
-          historyQueries: {
-            config: {
-              hideIfEqualsQuery: false
-            }
-          }
-        })
+        xModules: JSON.stringify(config)
       }
     });
   }
 );
 
+// Scenario 1
 And('no query suggestion are displayed', () => {
   cy.getByDataTest('query-suggestion').should('not.exist');
 });
@@ -44,6 +47,7 @@ And('all query suggestions contain the searched query', function (this: { search
   });
 });
 
+// Scenario 2
 When('query suggestion number {int} is clicked', (querySuggestionItem: number) => {
   cy.getByDataTest('query-suggestion')
     .eq(querySuggestionItem)

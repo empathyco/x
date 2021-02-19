@@ -62,8 +62,6 @@
         {{ result.name }}
       </li>
     </ul>
-    <!--  Loading  -->
-    <div v-if="status === 'loading'" data-test="loading" class="loading">Loading...</div>
   </main>
 </template>
 
@@ -72,7 +70,6 @@
   import { Component } from 'vue-property-decorator';
   import { deepMerge } from '@empathybroker/deep-merge';
   import { Result } from '@empathy/search-types';
-  import { RequestStatus } from '../store/utils/helpers/status.helpers';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
@@ -84,8 +81,7 @@
   import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
   import SearchButton from '../x-modules/search-box/components/search-button.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
-  import { Getter, State } from '../components/decorators/store.decorators';
-  import { getURLParameter } from '../utils/get-url-parameters';
+  import { Getter } from '../components/decorators/store.decorators';
   import { searchXModule } from '../x-modules/search/x-module';
   import { XInstaller } from '../x-installer/x-installer';
   import { XPlugin } from '../plugins/x-plugin';
@@ -124,8 +120,6 @@
     }
   })
   export default class SearchBoxView extends Vue {
-    protected loadOnInit = getURLParameter('loadOnInit') === 'true';
-
     /* Controls */
     protected controls = {
       searchInput: {
@@ -137,9 +131,6 @@
     /* Testing purpose */
     @Getter('search', 'results')
     public results!: Result[];
-
-    @State('search', 'status')
-    public status!: RequestStatus;
   }
 </script>
 

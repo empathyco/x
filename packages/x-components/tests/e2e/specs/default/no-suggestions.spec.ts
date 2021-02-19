@@ -1,5 +1,5 @@
-describe('e2e testing no-suggestions component', () => {
-  const queryWithSuggestions = 'disfraz';
+describe.skip('e2e testing no-suggestions component', () => {
+  const queryWithSuggestions = 'playmobil';
   const queryWithoutSuggestions = 'gfbhjds';
 
   beforeEach(() => {

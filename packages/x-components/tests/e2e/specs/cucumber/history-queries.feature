@@ -5,8 +5,7 @@ Feature: History queries component
     And   a "<list>" of queries already searched
     When  history query number <historyQueryItem> is clicked
     Then  the searched query is displayed in the search-box
-    And   the clicked history query is not displayed in history queries if <hideIfEqualsQuery> is true
-    And   the query is displayed in history queries
+    And   the searched query is not displayed in history queries if <hideIfEqualsQuery> is true
     And   related results are displayed
     And   query suggestions are displayed
     And   next queries are displayed

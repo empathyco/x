@@ -44,12 +44,7 @@
       Recommendations
     }
   })
-  export default class RecommendationsView extends Vue {
-    /* Controls */
-    protected controls = {
-      recommendations: {}
-    };
-  }
+  export default class RecommendationsView extends Vue {}
 </script>
 
 <style lang="scss">
