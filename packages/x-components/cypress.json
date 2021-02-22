@@ -8,7 +8,7 @@
   "supportFile": "tests/e2e/support/index.ts",
   "video": false,
   "testFiles": [
-    "cucumber/**/*.{feature,features}",
+    "cucumber/**/*.features",
     "default/**/*.spec.ts"
   ],
   "defaultCommandTimeout": 8000
