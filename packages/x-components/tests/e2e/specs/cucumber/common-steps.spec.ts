@@ -1,5 +1,8 @@
 import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 
+let resultsList: string[] = [];
+const compoundResultsList: string[] = [];
+
 // History Queries
 When('clear history queries button is clicked', () => {
   cy.getByDataTest('clear-history-queries').click();
@@ -44,7 +47,23 @@ Then('related tags are displayed', () => {
 
 // Results
 Then('related results are displayed', () => {
-  cy.getByDataTest('result-item').should('have.length.at.least', 1);
+  resultsList = [];
+  cy.getByDataTest('result-item')
+    .should('have.length.at.least', 1)
+    .each($result => {
+      resultsList.push($result.text());
+    });
+});
+
+Then('related results have changed', () => {
+  cy.getByDataTest('result-item')
+    .should('not.have.length', resultsList.length)
+    .each($result => {
+      compoundResultsList.push($result.text());
+    })
+    .then(() => {
+      expect(compoundResultsList.every(item => resultsList.includes(item))).to.eq(false);
+    });
 });
 
 // Search Box

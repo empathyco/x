@@ -57,6 +57,11 @@ const routes: RouteConfig[] = [
     path: '/test/next-queries',
     name: 'Next Queries',
     component: () => import('./views/next-queries.vue')
+  },
+  {
+    path: '/test/related-tags',
+    name: 'Related Tags',
+    component: () => import('./views/related-tags.vue')
   }
 ];
 

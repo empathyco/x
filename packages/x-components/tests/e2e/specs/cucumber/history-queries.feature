@@ -50,7 +50,7 @@ Feature: History queries component
     Examples:
       | hideIfEqualsQuery | debounceInMs | maxItemsToStore | maxItemsToRender | instant  | query | followingQuery |
       | true              | 150          | 15              | 5                | true     | le    | go             |
-  #   | true              | 150          | 15              | 5                | true     | le    | go star wars   |
+      | true              | 150          | 15              | 5                | true     | le    | go star wars   |
 
   Scenario Outline: 5. History query is not stored if instant search is false
     Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>
