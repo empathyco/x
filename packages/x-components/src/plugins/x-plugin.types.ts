@@ -107,37 +107,9 @@ export interface XComponentXConfigAPI {
  */
 export interface XComponentAliasAPI {
   /** The query value of the different modules. */
-  readonly query: {
-    /** The {@link FacetsXModule} query. */
-    readonly facets: string;
-    /** The {@link SearchBoxXModule} query. */
-    readonly searchBox: string;
-    /** The {@link NextQueriesXModule} query. */
-    readonly nextQueries: string;
-    /** The {@link QuerySuggestionsXModule} query. */
-    readonly querySuggestions: string;
-    /** The {@link RelatedTagsXModule} query. */
-    readonly relatedTags: string;
-    /** The {@link SearchXModule} query. */
-    readonly search: string;
-  };
+  readonly query: XComponentAliasQueryAPI;
   /** The status value of the different modules. */
-  readonly status: {
-    /** The {@link IdentifierResultsXModule} status. */
-    readonly identifierResults: RequestStatus | undefined;
-    /** The {@link NextQueriesXModule} status. */
-    readonly nextQueries: RequestStatus | undefined;
-    /** The {@link PopularSearchesXModule} status. */
-    readonly popularSearches: RequestStatus | undefined;
-    /** The {@link QuerySuggestionsXModule} status. */
-    readonly querySuggestions: RequestStatus | undefined;
-    /** The {@link RecommendationsXModule} status. */
-    readonly recommendations: RequestStatus | undefined;
-    /** The {@link RelatedTagsXModule} status. */
-    readonly relatedTags: RequestStatus | undefined;
-    /** The {@link SearchXModule} status. */
-    readonly search: RequestStatus | undefined;
-  };
+  readonly status: XComponentAliasStatusAPI;
   /** The {@link NextQueriesXModule} next queries. */
   readonly nextQueries: ReadonlyArray<NextQuery>;
   /** The {@link PopularSearchesXModule} popular searches. */
@@ -158,6 +130,48 @@ export interface XComponentAliasAPI {
   readonly facets: Record<Facet['id'], Facet>;
   /** The {@link FacetsXModule} selected filters. */
   readonly selectedFilters: Filter[];
+}
+
+/**
+ * Alias to facilitate retrieving the modules with query.
+ *
+ * @public
+ */
+export interface XComponentAliasQueryAPI {
+  /** The {@link FacetsXModule} query. */
+  readonly facets: string;
+  /** The {@link SearchBoxXModule} query. */
+  readonly searchBox: string;
+  /** The {@link NextQueriesXModule} query. */
+  readonly nextQueries: string;
+  /** The {@link QuerySuggestionsXModule} query. */
+  readonly querySuggestions: string;
+  /** The {@link RelatedTagsXModule} query. */
+  readonly relatedTags: string;
+  /** The {@link SearchXModule} query. */
+  readonly search: string;
+}
+
+/**
+ * Alias to facilitate retrieving the modules with status.
+ *
+ * @public
+ */
+export interface XComponentAliasStatusAPI {
+  /** The {@link IdentifierResultsXModule} status. */
+  readonly identifierResults: RequestStatus | undefined;
+  /** The {@link NextQueriesXModule} status. */
+  readonly nextQueries: RequestStatus | undefined;
+  /** The {@link PopularSearchesXModule} status. */
+  readonly popularSearches: RequestStatus | undefined;
+  /** The {@link QuerySuggestionsXModule} status. */
+  readonly querySuggestions: RequestStatus | undefined;
+  /** The {@link RecommendationsXModule} status. */
+  readonly recommendations: RequestStatus | undefined;
+  /** The {@link RelatedTagsXModule} status. */
+  readonly relatedTags: RequestStatus | undefined;
+  /** The {@link SearchXModule} status. */
+  readonly search: RequestStatus | undefined;
 }
 
 /**

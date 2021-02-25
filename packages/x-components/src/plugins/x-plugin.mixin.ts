@@ -1,19 +1,12 @@
 import Vue, { ComponentOptions } from 'vue';
-import { Store } from 'vuex';
 import { XComponent } from '../components/x-component.types';
 import { getXComponentXModuleName, isXComponent } from '../components/x-component.utils';
-import { RootXStoreState } from '../store/store.types';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
 import { ExtractGetters, XModuleName } from '../x-modules/x-modules.types';
 import { XBus } from './x-bus.types';
-import {
-  XComponentAliasAPI,
-  XComponentAPI,
-  XComponentBusAPI,
-  XComponentXConfigAPI,
-  XConfig
-} from './x-plugin.types';
+import { getAliasAPI } from './x-plugin.alias';
+import { XComponentAPI, XComponentBusAPI, XComponentXConfigAPI, XConfig } from './x-plugin.types';
 
 declare module 'vue/types/vue' {
   export interface Vue {
@@ -76,93 +69,6 @@ export function getBusAPI(bus: XBus, xComponent: XComponent | undefined): XCompo
  */
 export function getXConfigAPI(xConfig: XConfig): XComponentXConfigAPI {
   return { xConfig };
-}
-
-/**
- * Creates an object containing the alias part of {@link XComponentAPI}.
- *
- * @param store - The store from which retrieve the data.
- * @returns An object containing the alias part of the {@link XComponentAPI}.
- * @internal
- */
-export function getAliasAPI(
-  store: Store<{ x: Partial<RootXStoreState['x']> }>
-): XComponentAliasAPI {
-  return {
-    query: {
-      get facets() {
-        return store.state.x.facets?.query ?? '';
-      },
-      get searchBox() {
-        return store.state.x.searchBox?.query ?? '';
-      },
-      get nextQueries() {
-        return store.state.x.nextQueries?.query ?? '';
-      },
-      get querySuggestions() {
-        return store.state.x.querySuggestions?.query ?? '';
-      },
-      get relatedTags() {
-        return store.state.x.relatedTags?.query ?? '';
-      },
-      get search() {
-        return store.state.x.search?.query ?? '';
-      }
-    },
-    status: {
-      get identifierResults() {
-        return store.state.x.identifierResults?.status;
-      },
-      get nextQueries() {
-        return store.state.x.nextQueries?.status;
-      },
-      get popularSearches() {
-        return store.state.x.popularSearches?.status;
-      },
-      get querySuggestions() {
-        return store.state.x.querySuggestions?.status;
-      },
-      get recommendations() {
-        return store.state.x.recommendations?.status;
-      },
-      get relatedTags() {
-        return store.state.x.relatedTags?.status;
-      },
-      get search() {
-        return store.state.x.search?.status;
-      }
-    },
-    get nextQueries() {
-      return store.getters[getGetterPath('nextQueries', 'nextQueries')] ?? [];
-    },
-    get popularSearches() {
-      return store.state.x.popularSearches?.popularSearches ?? [];
-    },
-    get historyQueries() {
-      return store.getters[getGetterPath('historyQueries', 'historyQueries')] ?? [];
-    },
-    get querySuggestions() {
-      return store.state.x.querySuggestions?.suggestions ?? [];
-    },
-    get relatedTags() {
-      return store.getters[getGetterPath('relatedTags', 'relatedTags')] ?? [];
-    },
-    get selectedRelatedTags() {
-      return store.state.x.relatedTags?.selectedRelatedTags ?? [];
-    },
-    get identifierResults() {
-      return store.state.x.identifierResults?.identifierResults ?? [];
-    },
-    get recommendations() {
-      return store.state.x.recommendations?.recommendations ?? [];
-    },
-    get facets() {
-      return store.state.x.facets?.facets ?? {};
-    },
-    get selectedFilters() {
-      return store.getters[getGetterPath('facets', 'selectedFilters')] ?? [];
-    }
-  };
 }
 
 /**

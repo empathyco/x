@@ -46,15 +46,19 @@ And(
   'next queries do not contain the history query is {boolean}',
   function (this: { historicalQuery: string }, hideSessionQueries: boolean) {
     if (hideSessionQueries) {
-      cy.checkNextQueries(this.historicalQuery, false);
+      cy.getByDataTest('next-query').should(nextQueries => {
+        nextQueries.each((_, e) => {
+          expect(e).to.not.have.text(this.historicalQuery);
+        });
+      });
     } else {
-      cy.checkNextQueries(this.historicalQuery, true);
+      cy.getByDataTest('next-query').first().should('have.text', this.historicalQuery);
     }
   }
 );
 
 And('next queries contain the history query', function (this: { historicalQuery: string }) {
-  cy.checkNextQueries(this.historicalQuery, true);
+  cy.getByDataTest('next-query').first().should('have.text', this.historicalQuery);
 });
 
 // Scenario 3

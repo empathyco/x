@@ -18,7 +18,8 @@ Feature: Next queries component
     Then  the searched query is displayed in history queries
     When  clear search button is pressed
     When  "<query>" is searched
-    Then  next queries do not contain the history query is <hideSessionQueries>
+    Then  related results are displayed
+    And   next queries do not contain the history query is <hideSessionQueries>
     When  clear history queries button is clicked
     Then  next queries contain the history query
 
