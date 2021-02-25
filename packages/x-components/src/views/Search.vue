@@ -61,7 +61,7 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { Result } from '@empathy/search-types';
-  import { Getter, State } from '../components/decorators/store.decorators';
+  import { State } from '../components/decorators/store.decorators';
   import BaseFilters from '../components/filters/lists/base-filters.vue';
   import BaseHierarchicalFilter from '../components/filters/filters/base-hierarchical-filter.vue';
   import BaseSimpleFilter from '../components/filters/filters/base-simple-filter.vue';
@@ -95,7 +95,7 @@
   export default class Search extends Vue {
     @State('search', 'query')
     public searchQuery!: string;
-    @Getter('search', 'results')
+    @State('search', 'results')
     public results!: Result[];
 
     protected get hasFacets(): boolean {

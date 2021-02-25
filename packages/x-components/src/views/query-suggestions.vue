@@ -58,7 +58,7 @@
   import QuerySuggestions from '../x-modules/query-suggestions/components/query-suggestions.vue';
   import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
   import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
-  import { Getter } from '../components/decorators/store.decorators';
+  import { State } from '../components/decorators/store.decorators';
   import { searchXModule } from '../x-modules/search/x-module';
   import { historyQueriesXModule } from '../x-modules/history-queries/x-module';
   import { XInstaller } from '../x-installer/x-installer';
@@ -89,7 +89,7 @@
   })
   export default class QuerySuggestionsView extends Vue {
     /* Testing purpose */
-    @Getter('search', 'results')
+    @State('search', 'results')
     public results!: Result[];
   }
 </script>

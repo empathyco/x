@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { map } from '../../../../utils';
-import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
 import { searchXStoreModule } from '../module';
 import { SearchState } from '../types';
 import { resetSearchStateWith } from './utils';
@@ -40,14 +39,6 @@ describe('testing search module getters', () => {
         query: ' '
       });
       expect(store.getters[gettersKeys.request]).toBeNull();
-    });
-  });
-
-  describe(`${gettersKeys.results} getter`, () => {
-    const mockedResults = getResultsStub();
-    it('should return the results', () => {
-      resetSearchStateWith(store, { results: mockedResults });
-      expect(store.getters[gettersKeys.results]).toEqual(mockedResults);
     });
   });
 });

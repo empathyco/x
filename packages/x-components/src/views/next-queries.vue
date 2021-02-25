@@ -59,7 +59,7 @@
   import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
   import SearchButton from '../x-modules/search-box/components/search-button.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
-  import { Getter } from '../components/decorators/store.decorators';
+  import { State } from '../components/decorators/store.decorators';
   import { searchXModule } from '../x-modules/search/x-module';
   import { historyQueriesXModule } from '../x-modules/history-queries/x-module';
   import { XInstaller } from '../x-installer/x-installer';
@@ -93,7 +93,7 @@
   })
   export default class NextQueriesView extends Vue {
     /* Testing purpose */
-    @Getter('search', 'results')
+    @State('search', 'results')
     public results!: Result[];
   }
 </script>

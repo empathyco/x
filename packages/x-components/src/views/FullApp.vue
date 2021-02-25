@@ -262,7 +262,7 @@
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import SlidingPanel from '../components/sliding-panel.vue';
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
-  import { Getter } from '../components/decorators/store.decorators';
+  import { State } from '../components/decorators/store.decorators';
   import { getURLParameter } from '../utils/get-url-parameters';
   import { searchXModule } from '../x-modules/search/x-module';
   import { XInstaller } from '../x-installer/x-installer';
@@ -326,7 +326,7 @@
     protected collapseFromTop = CollapseFromTop;
 
     /* Testing purpose */
-    @Getter('search', 'results')
+    @State('search', 'results')
     public results!: Result[];
   }
 </script>

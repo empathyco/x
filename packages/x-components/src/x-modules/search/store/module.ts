@@ -6,7 +6,6 @@ import {
 } from './actions/fetch-and-save-search-response.action';
 import { fetchSearchResponse } from './actions/fetch-search-response.action';
 import { request } from './getters/request.getter';
-import { results } from './getters/results.getter';
 import { SearchXStoreModule } from './types';
 
 /**
@@ -27,8 +26,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     status: 'success'
   }),
   getters: {
-    request,
-    results
+    request
   },
   mutations: {
     setQuery(state, newQuery) {

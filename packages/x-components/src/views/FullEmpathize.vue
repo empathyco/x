@@ -88,7 +88,7 @@
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import FadeAndSlide from '../components/animations/fade-and-slide.vue';
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
-  import { Getter } from '../components/decorators/store.decorators';
+  import { State } from '../components/decorators/store.decorators';
   import BaseEventsModalClose from '../components/modals/base-events-modal-close.vue';
   import BaseResultLink from '../components/result/base-result-link.vue';
   import { XPlugin } from '../plugins/x-plugin';
@@ -141,7 +141,7 @@
     protected fadeAndSlide = FadeAndSlide;
     protected collapseFromTop = CollapseFromTop;
     /* Testing purpose */
-    @Getter('search', 'results')
+    @State('search', 'results')
     public results!: Result[];
   }
 </script>

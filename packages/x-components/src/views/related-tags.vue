@@ -25,7 +25,7 @@
   import { deepMerge } from '@empathybroker/deep-merge';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { Getter } from '../components/decorators/store.decorators';
+  import { State } from '../components/decorators/store.decorators';
   import { XPlugin } from '../plugins/x-plugin';
   import { XInstaller } from '../x-installer/x-installer';
   import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
@@ -52,7 +52,7 @@
   })
   export default class RelatedTagsView extends Vue {
     /* Testing purpose */
-    @Getter('search', 'results')
+    @State('search', 'results')
     public results!: Result[];
   }
 </script>

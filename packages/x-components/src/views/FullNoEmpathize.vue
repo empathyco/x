@@ -80,7 +80,7 @@
   import FadeAndSlide from '../components/animations/fade-and-slide.vue';
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
   import BaseResultLink from '../components/result/base-result-link.vue';
-  import { Getter } from '../components/decorators/store.decorators';
+  import { State } from '../components/decorators/store.decorators';
   import { XPlugin } from '../plugins/x-plugin';
   import { XInstaller } from '../x-installer/x-installer';
   // eslint-disable-next-line max-len
@@ -137,7 +137,7 @@
     protected fadeAndSlide = FadeAndSlide;
 
     /* Testing purpose */
-    @Getter('search', 'results')
+    @State('search', 'results')
     public results!: Result[];
   }
 </script>

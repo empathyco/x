@@ -35,8 +35,6 @@ export interface SearchGetters {
   /** The adapter request object for retrieving the results, or null if there is not
    * valid data to create a request. */
   request: SearchRequest | null;
-  /** List that contains the results.*/
-  results: Result[];
 }
 
 /**
