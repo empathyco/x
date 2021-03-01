@@ -1,13 +1,14 @@
-export interface ExtendedExpect {
+export interface EmpathyExtendedExpect {
   arrayOf(classType: Newable): any;
   arrayOfItemsMatching(schema: {}): any;
   nullOr(classType: Newable): any;
   nullOrMatch(schema: {}): any;
   nullOrUndefinedOr(classType: Newable): any;
   undefinedOr(classType: Newable): any;
+  anyOf(classTypeUnion: Newable[]): any;
 }
 
-export interface ExtendedMatchers {
+export interface EmpathyExtendedMatchers {
   everyItemToBe(classType: Newable): any;
   everyItemToMatch(schema: {}): any;
   toBeNullOr(classType: Newable): any;

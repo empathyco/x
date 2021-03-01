@@ -1,20 +1,21 @@
-import { ExtendedExpect, ExtendedMatchers, Newable } from './jest-utils.types';
+import { EmpathyExtendedExpect, EmpathyExtendedMatchers, Newable } from './jest-utils.types';
 
 declare global {
   namespace jest {
-    export interface Expect extends ExtendedExpect {}
+    export interface Expect extends EmpathyExtendedExpect {}
 
-    export interface Matchers<R> extends ExtendedMatchers {}
+    export interface Matchers<R> extends EmpathyExtendedMatchers {}
   }
 }
 
-const extendOptions: Record<keyof (ExtendedExpect & ExtendedMatchers), Function> = {
+const extendOptions: Record<keyof (EmpathyExtendedExpect & EmpathyExtendedMatchers), Function> = {
   // extensions for expect.xxx
   nullOr,
   nullOrMatch,
   undefinedOr,
   nullOrUndefinedOr,
   arrayOf,
+  anyOf,
   arrayOfItemsMatching: everyItemToMatch,
   // Extensions for expect(...).xxx
   toBeNullOr: nullOr,
@@ -29,6 +30,22 @@ const extendOptions: Record<keyof (ExtendedExpect & ExtendedMatchers), Function>
 expect.extend(extendOptions as any);
 
 const ok = { pass: true, message: () => 'OK' };
+
+function anyOf(received: any, classTypeUnion: Newable[]): any {
+  const isValid = classTypeUnion.some(classType => {
+    try {
+      expect(received).toEqual(expect.any(classType));
+      return true;
+    } catch {
+      return false;
+    }
+  });
+  if (isValid) {
+    return ok;
+  } else {
+    throw new TypeError(`Expected "${ received }" to be "${ classTypeUnion.map(classType => classType.name).join(' | ') }"`);
+  }
+}
 
 function nullOr(received: any, classType: Newable): any {
   if (received === null || !expect(received).toEqual(expect.any(classType))) {
