@@ -62,6 +62,11 @@ const routes: RouteConfig[] = [
     path: '/test/related-tags',
     name: 'Related Tags',
     component: () => import('./views/related-tags.vue')
+  },
+  {
+    path: '/test/no-suggestions',
+    name: 'No Suggestions',
+    component: () => import('./views/no-suggestions.vue')
   }
 ];
 
