@@ -25,7 +25,7 @@ export const toggleNumberRangeFilter: FacetsXStoreModule['actions']['toggleNumbe
  * @internal
  */
 function toggleFilter(
-  { state, commit }: FacetsActionsContext,
+  { state, getters, commit }: FacetsActionsContext,
   filter: SimpleFilter | NumberRangeFilter
 ): void {
   const facetId = filter.facetId;
@@ -35,7 +35,7 @@ function toggleFilter(
      If the filter is not multi selectable, we search the facet to see if it has a
      selected sibling. If it does, then we deselect it.
      */
-    const facet = state.facets[facetId];
+    const facet = getters.facets[facetId];
     const selectedSibling = facet.filters.find(selectedSiblingOf(filter));
     if (selectedSibling) {
       commit('setFilterSelected', { filter: selectedSibling, selected: false });

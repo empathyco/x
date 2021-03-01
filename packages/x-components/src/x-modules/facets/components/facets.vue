@@ -32,7 +32,7 @@
   import { Facet } from '@empathy/search-types';
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { Dictionary } from '../../../utils/types';
-  import { Getter, State } from '../../../components/decorators/store.decorators';
+  import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { FiltersByFacet } from '../store/types';
   import { facetsXModule } from '../x-module';
@@ -88,11 +88,11 @@
     protected renderableFacets!: string;
 
     /**
-     * The module's facets.
+     * Dictionary of facets grouping backend and frontend facets.
      *
      * @public
      */
-    @State('facets', 'facets')
+    @Getter('facets', 'facets')
     public stateFacets!: Dictionary<Facet>;
 
     /**

@@ -244,7 +244,7 @@ function renderFacetsComponent({
   const store = new Store<DeepPartial<RootXStoreState>>({});
   installNewXPlugin({ store }, localVue);
   XPlugin.registerXModule(facetsXModule);
-  resetXFacetsStateWith(store, { facets: stateFacets });
+  resetXFacetsStateWith(store, { backendFacets: stateFacets });
 
   const facetWrapper = mount(
     {

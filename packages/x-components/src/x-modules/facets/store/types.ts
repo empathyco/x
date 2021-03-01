@@ -18,8 +18,13 @@ import { MultiSelectChange } from '../events.types';
 export interface FacetsState {
   /** Configuration for the `Facets` module. */
   config: FacetsConfig;
-  /** The facets in a dictionary shape, where the key is the `facet.id` property. */
-  facets: Record<Facet['id'], Facet>;
+  /** The backend facets in a dictionary shape, where the key is the `facet.id` property. */
+  backendFacets: Record<Facet['id'], Facet>;
+  /**
+   * The frontend facets in a dictionary shape, where the key is the `facet.id` property. This
+   * facets are set manually in the state and they're not expected to be in the API response.
+   */
+  frontendFacets: Record<Facet['id'], Facet>;
   /** The current query {@link FacetsState.query}. */
   query: string;
 }
@@ -43,6 +48,11 @@ export interface FilterSelectedChange {
  */
 export interface FacetsGetters {
   /**
+   * Returns a dictionary of facets grouping {@link FacetsState.backendFacets} and
+   * {@link FacetsState.frontendFacets}, where they key is the `facet.id property`.
+   */
+  facets: Record<Facet['id'], Facet>;
+  /**
    * Returns a dictionary which groups every filter, including the nested ones at the
    * same depth level.
    */
@@ -65,11 +75,17 @@ export interface FacetsGetters {
  */
 export interface FacetsMutations {
   /**
-   * Sets the facets of the module.
+   * Sets the backend facets of the module.
    *
    * @param newFacets - Facets dictionary to be saved in the state.
    */
-  setFacets(newFacets: Dictionary<Facet>): void;
+  setBackendFacets(newFacets: Dictionary<Facet>): void;
+  /**
+   * Sets the frontend facets of the module.
+   *
+   * @param newFacets - Facets dictionary to be saved in the state.
+   */
+  setFrontendFacets(newFacets: Dictionary<Facet>): void;
   /**
    * Changes the multi-select option for a facet.
    *
@@ -107,11 +123,11 @@ export interface FacetsMutations {
  */
 export interface FacetsActions {
   /**
-   * Sets the facets of the module.
+   * Sets the backend facets of the module.
    *
    * @param newFacets - Facets array to be saved in the state.
    */
-  setFacets(newFacets: Facet[]): void;
+  setBackendFacets(newFacets: Facet[]): void;
   /**
    * Deselects the filters of the provided facet id.
    *

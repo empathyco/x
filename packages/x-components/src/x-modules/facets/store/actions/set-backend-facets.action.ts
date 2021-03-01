@@ -4,8 +4,8 @@ import { isHierarchicalFacet } from '../../../../utils/filters';
 import { FacetsXStoreModule } from '../types';
 
 /**
- * Default implementation for the {@link FacetsActions.setFacets}. The action overwrites every
- * filter.selected from newFacets with the current state (we can't trust in the value got from
+ * Default implementation for the {@link FacetsActions.setBackendFacets}. The action overwrites
+ * every filter.selected from newFacets with the current state (we can't trust in the value got from
  * the adapter). It also transforms the array to a dictionary in order to access easily by its
  * id.
  *
@@ -15,7 +15,7 @@ import { FacetsXStoreModule } from '../types';
  *
  * @public
  */
-export const setFacets: FacetsXStoreModule['actions']['setFacets'] = (
+export const setBackendFacets: FacetsXStoreModule['actions']['setBackendFacets'] = (
   { state: { config }, getters: { flattenedFilters }, commit },
   newFacets
 ) => {
@@ -63,5 +63,5 @@ export const setFacets: FacetsXStoreModule['actions']['setFacets'] = (
       }
     });
   }
-  commit('setFacets', arrayToObject(newFacets, 'id'));
+  commit('setBackendFacets', arrayToObject(newFacets, 'id'));
 };

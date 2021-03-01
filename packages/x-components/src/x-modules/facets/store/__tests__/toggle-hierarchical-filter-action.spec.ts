@@ -36,7 +36,7 @@ describe(`testing toggleHierarchicalFilter`, () => {
   describe('when the facet is NOT multi-selectable', () => {
     it('selects all filter ancestors when a child is selected', () => {
       resetFacetsStateWith(store, {
-        facets: {
+        backendFacets: {
           category: createHierarchicalFacetStub('Category', createFilter => [
             createFilter('Men', false, createFilter => [
               createFilter('Men shirts', false, createFilter => [
@@ -51,11 +51,11 @@ describe(`testing toggleHierarchicalFilter`, () => {
         }
       });
 
-      const category = store.state.facets.category as HierarchicalFacet;
+      const category = store.getters.facets.category as HierarchicalFacet;
       const [men] = category.filters;
       const [menShirts] = men.children;
       const [menLongSleeveShirts] = menShirts.children;
-      const [, blue] = store.state.facets.color.filters;
+      const [, blue] = store.getters.facets.color.filters;
 
       store.dispatch(actionsKeys.toggleHierarchicalFilter, menLongSleeveShirts);
 
@@ -67,7 +67,7 @@ describe(`testing toggleHierarchicalFilter`, () => {
 
     it('deselects all filter children when a child is deselected', () => {
       resetFacetsStateWith(store, {
-        facets: {
+        backendFacets: {
           category: createHierarchicalFacetStub('Category', createFilter => [
             createFilter('Men', true, createFilter => [
               createFilter('Men shirts', true, createFilter => [
@@ -84,10 +84,10 @@ describe(`testing toggleHierarchicalFilter`, () => {
         }
       });
 
-      const category = store.state.facets.category as HierarchicalFacet;
+      const category = store.getters.facets.category as HierarchicalFacet;
       const [men] = category.filters;
       const [menShirts] = men.children;
-      const [, blue] = store.state.facets.color.filters;
+      const [, blue] = store.getters.facets.color.filters;
 
       store.dispatch(actionsKeys.toggleHierarchicalFilter, menShirts);
 
@@ -104,7 +104,7 @@ describe(`testing toggleHierarchicalFilter`, () => {
             category: true
           }
         },
-        facets: {
+        backendFacets: {
           category: createHierarchicalFacetStub('Category', createFilter => [
             createFilter('Men', true, createFilter => [
               createFilter('Men shirts', true, createFilter => [
@@ -121,11 +121,11 @@ describe(`testing toggleHierarchicalFilter`, () => {
     });
 
     it('selects the toggled filter and keeps its siblings when it is multi-selectable', () => {
-      const category = store.state.facets.category as HierarchicalFacet;
+      const category = store.getters.facets.category as HierarchicalFacet;
       const [men, women] = category.filters;
       const [menShirts, menJeans] = men.children;
       const [menLongSleeveShirts, menShortSleeveShirts] = menShirts.children;
-      const [, blue] = store.state.facets.color.filters;
+      const [, blue] = store.getters.facets.color.filters;
 
       store.dispatch(actionsKeys.toggleHierarchicalFilter, menShortSleeveShirts);
 
@@ -144,10 +144,10 @@ describe(`testing toggleHierarchicalFilter`, () => {
     });
 
     it('deselects the toggled filter and keeps its siblings when it is multi-selectable', () => {
-      const category = store.state.facets.category as HierarchicalFacet;
+      const category = store.getters.facets.category as HierarchicalFacet;
       const [men, women] = category.filters;
       const [menShirts, menJeans] = men.children;
-      const [, blue] = store.state.facets.color.filters;
+      const [, blue] = store.getters.facets.color.filters;
 
       store.dispatch(actionsKeys.toggleHierarchicalFilter, menShirts);
 

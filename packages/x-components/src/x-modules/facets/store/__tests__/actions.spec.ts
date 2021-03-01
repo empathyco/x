@@ -24,7 +24,7 @@ describe('testing facets module actions', () => {
 
   beforeEach(() => {
     resetFacetsStateWith(store, {
-      facets: {
+      backendFacets: {
         category: createSimpleFacetStub('category', createSimpleFilter => [
           createSimpleFilter('Man', false),
           createSimpleFilter('Woman', true)
@@ -52,8 +52,8 @@ describe('testing facets module actions', () => {
   describe(`testing ${actionsKeys.clearFacetsSelectedFilters} action`, () => {
     it('clears only the selected filters for the provided facet ids', async () => {
       expect(getSelectedFilters().length).toBeGreaterThan(1);
-      const [, colorSelectedFilter] = store.state.facets.color.filters;
-      const [, priceSelectedFilter] = store.state.facets.price.filters;
+      const [, colorSelectedFilter] = store.getters.facets.color.filters;
+      const [, priceSelectedFilter] = store.getters.facets.price.filters;
       await store.dispatch(actionsKeys.clearFacetsSelectedFilters, ['category']);
       expect(getSelectedFilters()).toEqual([colorSelectedFilter, priceSelectedFilter]);
     });
@@ -61,9 +61,9 @@ describe('testing facets module actions', () => {
 
   describe(`testing ${actionsKeys.toggleSimpleFilter} action`, () => {
     it('toggles a filter deselecting their siblings if multiselect is disabled', async () => {
-      const [colorUnselectedFilter] = store.state.facets.color.filters;
-      const [, categorySelectedFilter] = store.state.facets.category.filters;
-      const [, priceSelectedFilter] = store.state.facets.price.filters;
+      const [colorUnselectedFilter] = store.getters.facets.color.filters;
+      const [, categorySelectedFilter] = store.getters.facets.category.filters;
+      const [, priceSelectedFilter] = store.getters.facets.price.filters;
 
       await store.dispatch(actionsKeys.toggleSimpleFilter, colorUnselectedFilter);
 
@@ -79,9 +79,9 @@ describe('testing facets module actions', () => {
     });
 
     it('toggles a filter keeping its siblings selected if multiselect is enabled', async () => {
-      const [colorUnselectedFilter, colorSelectedFilter] = store.state.facets.color.filters;
-      const [, categorySelectedFilter] = store.state.facets.category.filters;
-      const [, priceSelectedFilter] = store.state.facets.price.filters;
+      const [colorUnselectedFilter, colorSelectedFilter] = store.getters.facets.color.filters;
+      const [, categorySelectedFilter] = store.getters.facets.category.filters;
+      const [, priceSelectedFilter] = store.getters.facets.price.filters;
       store.commit(mutationKeys.setFacetMultiSelect, <MultiSelectChange>{
         facetId: 'color',
         multiSelect: true
@@ -109,9 +109,9 @@ describe('testing facets module actions', () => {
 
   describe(`testing ${actionsKeys.toggleNumberRangeFilter} action`, () => {
     it('toggles a filter deselecting their siblings if multiselect is disabled', async () => {
-      const [, colorSelectedFilter] = store.state.facets.color.filters;
-      const [, categorySelectedFilter] = store.state.facets.category.filters;
-      const [priceUnselectedFilter] = store.state.facets.price.filters;
+      const [, colorSelectedFilter] = store.getters.facets.color.filters;
+      const [, categorySelectedFilter] = store.getters.facets.category.filters;
+      const [priceUnselectedFilter] = store.getters.facets.price.filters;
 
       await store.dispatch(actionsKeys.toggleNumberRangeFilter, priceUnselectedFilter);
 
@@ -127,9 +127,9 @@ describe('testing facets module actions', () => {
     });
 
     it('toggles a filter keeping its siblings selected if multiselect is enabled', async () => {
-      const [, colorSelectedFilter] = store.state.facets.color.filters;
-      const [, categorySelectedFilter] = store.state.facets.category.filters;
-      const [priceUnselectedFilter, priceSelectedFilter] = store.state.facets.price.filters;
+      const [, colorSelectedFilter] = store.getters.facets.color.filters;
+      const [, categorySelectedFilter] = store.getters.facets.category.filters;
+      const [priceUnselectedFilter, priceSelectedFilter] = store.getters.facets.price.filters;
       store.commit(mutationKeys.setFacetMultiSelect, <MultiSelectChange>{
         facetId: 'price',
         multiSelect: true

@@ -22,7 +22,7 @@ function renderSelectedFiltersList({
   template = '<SelectedFiltersList />'
 }: RenderSelectedFiltersListOptions = {}): RenderSelectedFiltersAPI {
   const facetsState: Partial<FacetsState> = {
-    facets: {
+    backendFacets: {
       gender: createSimpleFacetStub('gender', createFilter => [
         createFilter('Men', false),
         createFilter('Women', false)
@@ -62,7 +62,7 @@ function renderSelectedFiltersList({
     wrapper,
     selectedFiltersListWrapper,
     toggleFacetNthFilter(facetId, nth) {
-      const filter = facetsState.facets![facetId].filters[nth];
+      const filter = facetsState.backendFacets![facetId].filters[nth];
       filter.selected = !filter.selected;
       return localVue.nextTick();
     }

@@ -1,5 +1,5 @@
 export * from './actions/toggle-filter.action';
-export * from './actions/set-facets.action';
+export * from './actions/set-backend-facets.action';
 export * from './actions/toggle-hierarchical-filter.action';
 export * from './actions/clear-selected-filters.action';
 export * from './emitters';

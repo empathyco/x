@@ -6,15 +6,20 @@ import { FacetsXStoreModule } from '../types';
 /**
  * Default implementation for the {@link FacetsGetters.flattenedFilters} getter.
  *
- * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the facets
+ * @param _state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the facets
  * module.
+ * @param getters - Current {@link https://vuex.vuejs.org/guide/getters.html | getters} of the
+ * facets.
  *
  * @returns Array of filters.
  *
  * @public
  */
-export const flattenedFilters: FacetsXStoreModule['getters']['flattenedFilters'] = state => {
-  return reduce(state.facets, extractFilters, {} as Record<Filter['id'], Filter>);
+export const flattenedFilters: FacetsXStoreModule['getters']['flattenedFilters'] = (
+  _state,
+  getters
+) => {
+  return reduce(getters.facets, extractFilters, {} as Record<Filter['id'], Filter>);
 };
 
 /**

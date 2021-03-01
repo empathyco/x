@@ -5,7 +5,7 @@ import { FacetsXStoreModule, FiltersByFacet } from '../types';
 /**
  * Default implementation for the {@link FacetsGetters.selectedFiltersByFacet} getter.
  *
- * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the facets
+ * @param _state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the facets
  * module.
  * @param getters - Current {@link https://vuex.vuejs.org/guide/getters.html | getters} of the
  * facets
@@ -15,8 +15,8 @@ import { FacetsXStoreModule, FiltersByFacet } from '../types';
  * @public
  */
 export const selectedFiltersByFacet: FacetsXStoreModule['getters']['selectedFiltersByFacet'] = (
-  { facets },
-  { selectedFilters }
+  _state,
+  { facets, selectedFilters }
 ): FiltersByFacet => {
   const selectedFiltersByFacet = createEmptyFacetsDictionary(facets);
   selectedFilters.forEach(selectedFilter => {

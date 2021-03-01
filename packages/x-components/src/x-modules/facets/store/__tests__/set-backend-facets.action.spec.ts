@@ -17,30 +17,30 @@ const actionsKeys = map(facetsXStoreModule.actions, action => action);
 const gettersKeys = map(facetsXStoreModule.getters, getter => getter);
 const mutationKeys = map(facetsXStoreModule.mutations, mutation => mutation);
 
-async function dispatchSetFacets({
+async function dispatchSetBackendFacets({
   oldFacets,
   newFacets,
   ignoreNewFiltersSelected
-}: DispatchSetFacetsOptions): Promise<DispatchSetFacetsAPI> {
+}: DispatchSetBackendFacetsOptions): Promise<DispatchSetBackendFacetsAPI> {
   const store: Store<FacetsState> = new Store(facetsXStoreModule as any);
 
   if (oldFacets) {
-    const initialFacets: ExtractPayload<FacetsMutations['setFacets']> = arrayToObject(
+    const initialFacets: ExtractPayload<FacetsMutations['setBackendFacets']> = arrayToObject(
       oldFacets,
       'id'
     );
-    store.commit(mutationKeys.setFacets, initialFacets);
+    store.commit(mutationKeys.setBackendFacets, initialFacets);
   }
 
   if (ignoreNewFiltersSelected !== undefined) {
     store.commit(mutationKeys.setIgnoreNewFiltersSelected, ignoreNewFiltersSelected);
   }
 
-  await store.dispatch(actionsKeys.setFacets, newFacets);
+  await store.dispatch(actionsKeys.setBackendFacets, newFacets);
 
   return {
     getStoredFacets() {
-      return store.state.facets;
+      return store.getters.facets;
     },
     getFiltersSelectedValue() {
       const filters: Record<Filter['id'], Filter> = store.getters[gettersKeys.flattenedFilters];
@@ -49,10 +49,10 @@ async function dispatchSetFacets({
   };
 }
 
-describe(`${actionsKeys.setFacets} action`, () => {
+describe(`${actionsKeys.setBackendFacets} action`, () => {
   it('should store the provided facets list in the state as a dictionary', async () => {
     const facets = getFacetsStub();
-    const { getStoredFacets } = await dispatchSetFacets({ newFacets: facets });
+    const { getStoredFacets } = await dispatchSetBackendFacets({ newFacets: facets });
     expect(getStoredFacets()).toEqual(arrayToObject(facets, 'id'));
   });
 
@@ -70,7 +70,7 @@ describe(`${actionsKeys.setFacets} action`, () => {
         createCategorySimpleFilter('kid', true)
       ]);
 
-      const { getFiltersSelectedValue } = await dispatchSetFacets({
+      const { getFiltersSelectedValue } = await dispatchSetBackendFacets({
         oldFacets: [currentCategoryFacet],
         newFacets: [newCategoryFacet]
       });
@@ -111,7 +111,7 @@ describe(`${actionsKeys.setFacets} action`, () => {
         createHierarchicalFilter('kid', true)
       ]);
 
-      const { getFiltersSelectedValue } = await dispatchSetFacets({
+      const { getFiltersSelectedValue } = await dispatchSetBackendFacets({
         oldFacets: [currentCategoryFacet],
         newFacets: [newCategoryFacet]
       });
@@ -142,7 +142,7 @@ describe(`${actionsKeys.setFacets} action`, () => {
         createCategorySimpleFilter('kid', true)
       ]);
 
-      const { getFiltersSelectedValue } = await dispatchSetFacets({
+      const { getFiltersSelectedValue } = await dispatchSetBackendFacets({
         ignoreNewFiltersSelected: false,
         oldFacets: [currentCategoryFacet],
         newFacets: [newCategoryFacet]
@@ -183,7 +183,7 @@ describe(`${actionsKeys.setFacets} action`, () => {
         createHierarchicalFilter('kid', true)
       ]);
 
-      const { getFiltersSelectedValue } = await dispatchSetFacets({
+      const { getFiltersSelectedValue } = await dispatchSetBackendFacets({
         ignoreNewFiltersSelected: false,
         oldFacets: [currentCategoryFacet],
         newFacets: [newCategoryFacet]
@@ -202,19 +202,19 @@ describe(`${actionsKeys.setFacets} action`, () => {
   });
 });
 
-/** API returned by the {@link dispatchSetFacets} helper. */
-interface DispatchSetFacetsAPI {
+/** API returned by the {@link dispatchSetBackendFacets} helper. */
+interface DispatchSetBackendFacetsAPI {
   /** Returns a dictionary containing all the filters where the key is the filter id, and the value
    * is the selected property of that filter. */
   getFiltersSelectedValue: () => Record<Filter['id'], Filter['selected']>;
-  /** Returns the facets contained in the state. */
-  getStoredFacets: () => FacetsState['facets'];
+  /** Returns the backend facets contained in the state. */
+  getStoredFacets: () => FacetsState['backendFacets'];
 }
 
 /**
- * Options to call the {@link dispatchSetFacets} helper with.
+ * Options to call the {@link dispatchSetBackendFacets} helper with.
  */
-interface DispatchSetFacetsOptions {
+interface DispatchSetBackendFacetsOptions {
   /** If provided, changes the {@link FacetsConfig.ignoreNewFiltersSelected} value. */
   ignoreNewFiltersSelected?: boolean;
   /** If provided, it saves this facets to the state before dispatching

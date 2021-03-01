@@ -45,7 +45,7 @@ export const setFacetsQuery = wireCommit('setQuery');
  *
  * @public
  */
-export const setFacetsWire = wireDispatch('setFacets');
+export const setBackendFacetsWire = wireDispatch('setBackendFacets');
 
 /**
  * Changes the multi-select configuration for a facet.
@@ -111,7 +111,7 @@ export const setIgnoreNewFiltersSelected = wireCommit('setIgnoreNewFiltersSelect
  */
 export const facetsWiring = createWiring({
   FacetsChanged: {
-    setFacetsWire
+    setBackendFacetsWire
   },
   FacetMultiSelectChanged: {
     setFacetMultiSelect

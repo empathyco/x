@@ -30,7 +30,7 @@ function renderClearFilters({
   `
 }: RenderFiltersOptions = {}): RenderFiltersAPI {
   const facetsState: Partial<FacetsState> = {
-    facets: {
+    backendFacets: {
       category: createHierarchicalFacetStub('Category', createFilter => [
         createFilter('Men', false),
         createFilter('Women', false)
@@ -71,7 +71,7 @@ function renderClearFilters({
     wrapper,
     clearFiltersWrapper,
     setCategoryFacetFiltersAsSelected() {
-      facetsState.facets?.category.filters.forEach(filter => {
+      facetsState.backendFacets?.category.filters.forEach(filter => {
         filter.selected = true;
       });
       return localVue.nextTick();
