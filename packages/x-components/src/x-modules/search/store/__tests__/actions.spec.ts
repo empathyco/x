@@ -1,6 +1,8 @@
 import { SearchResponse } from '@empathy/search-adapter';
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
+import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
+import { getPromotedsStub } from '../../../../__stubs__/promoteds-stubs.factory';
 import { map } from '../../../../utils';
 import { getFacetsStub } from '../../../../__stubs__/facets-stubs.factory';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
@@ -13,6 +15,8 @@ import { resetSearchStateWith } from './utils';
 describe('testing search module actions', () => {
   const resultsStub = getResultsStub();
   const facetsStub = getFacetsStub();
+  const bannersStub = getBannersStub();
+  const promotedsStub = getPromotedsStub();
   const searchResponseStub = getSearchResponseStub();
 
   const mockedEmptySearchResponse: SearchResponse = {
@@ -61,7 +65,7 @@ describe('testing search module actions', () => {
   });
 
   describe(`${actionKeys.fetchAndSaveSearchResponse}`, () => {
-    it('should request and store results and facets in the state', async () => {
+    it('should request and store results, facets, banners and promoteds in the state', async () => {
       resetSearchStateWith(store, {
         query: 'lego'
       });
@@ -71,21 +75,38 @@ describe('testing search module actions', () => {
       await actionPromise;
       expect(store.state.results).toEqual(resultsStub);
       expect(store.state.facets).toEqual(facetsStub);
+      expect(store.state.banners).toEqual(bannersStub);
+      expect(store.state.promoteds).toEqual(promotedsStub);
       expect(store.state.status).toEqual('success');
     });
 
-    it('should clear results and facets in the state if the query is empty', async () => {
-      resetSearchStateWith(store, { results: resultsStub, facets: facetsStub });
+    // eslint-disable-next-line max-len
+    it('should clear results, facets, banners and promoteds in the state if the query is empty', async () => {
+      resetSearchStateWith(store, {
+        results: resultsStub,
+        facets: facetsStub,
+        banners: bannersStub,
+        promoteds: promotedsStub
+      });
       expect(store.state.results).toEqual(resultsStub);
       expect(store.state.facets).toEqual(facetsStub);
+      expect(store.state.banners).toEqual(bannersStub);
+      expect(store.state.promoteds).toEqual(promotedsStub);
       await store.dispatch(actionKeys.fetchAndSaveSearchResponse);
       expect(store.state.results).toEqual([]);
       expect(store.state.facets).toEqual([]);
+      expect(store.state.banners).toEqual([]);
+      expect(store.state.promoteds).toEqual([]);
     });
 
     it('should cancel the previous request if it is not yet resolved', async () => {
       resetSearchStateWith(store, { query: 'beer' });
-      const { results: initialResults, facets: initialFacets } = store.state;
+      const {
+        results: initialResults,
+        facets: initialFacets,
+        banners: initialBanners,
+        promoteds: initialPromoteds
+      } = store.state;
       adapter.search.mockResolvedValueOnce({
         ...mockedEmptySearchResponse,
         results: resultsStub.slice(0, 1),
@@ -99,20 +120,26 @@ describe('testing search module actions', () => {
       expect(store.state.status).toEqual('loading');
       expect(store.state.results).toBe(initialResults);
       expect(store.state.facets).toBe(initialFacets);
+      expect(store.state.banners).toEqual(initialBanners);
+      expect(store.state.promoteds).toEqual(initialPromoteds);
       await secondRequest;
       expect(store.state.status).toEqual('success');
       expect(store.state.results).toEqual(resultsStub);
       expect(store.state.facets).toEqual(facetsStub);
+      expect(store.state.banners).toEqual(bannersStub);
+      expect(store.state.promoteds).toEqual(promotedsStub);
     });
 
     it('should set the status to error when it fails', async () => {
       resetSearchStateWith(store, { query: 'lego' });
       adapter.search.mockRejectedValueOnce('Generic error');
-      const { results, facets } = store.state;
+      const { results, facets, banners, promoteds } = store.state;
       await store.dispatch(actionKeys.fetchAndSaveSearchResponse);
 
       expect(store.state.results).toBe(results);
       expect(store.state.facets).toBe(facets);
+      expect(store.state.banners).toBe(banners);
+      expect(store.state.promoteds).toBe(promoteds);
       expect(store.state.status).toEqual('error');
     });
   });
@@ -120,13 +147,20 @@ describe('testing search module actions', () => {
   describe(`${actionKeys.cancelFetchAndSaveSearchResponse}`, () => {
     it('should cancel the request and do not modify the stored results', async () => {
       resetSearchStateWith(store, { query: 'lego' });
-      const { results: previousResults, facets: previousFacets } = store.state;
+      const {
+        results: previousResults,
+        facets: previousFacets,
+        banners: previousBanners,
+        promoteds: previousPromoteds
+      } = store.state;
       await Promise.all([
         store.dispatch(actionKeys.fetchAndSaveSearchResponse),
         store.dispatch(actionKeys.cancelFetchAndSaveSearchResponse)
       ]);
       expect(store.state.results).toEqual(previousResults);
       expect(store.state.facets).toEqual(previousFacets);
+      expect(store.state.banners).toEqual(previousBanners);
+      expect(store.state.promoteds).toEqual(previousPromoteds);
       expect(store.state.status).toEqual('success');
     });
   });

@@ -1,5 +1,5 @@
 import { SearchRequest, SearchResponse } from '@empathy/search-adapter';
-import { Facet, Filter, RelatedTag, Result } from '@empathy/search-types';
+import { Facet, Filter, RelatedTag, Result, Banner, Promoted } from '@empathy/search-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { Dictionary } from '../../../utils/types';
@@ -17,11 +17,15 @@ export interface SearchState extends StatusState {
   results: Result[];
   /** The list of the facets, related to the `query` property of the state. */
   facets: Facet[];
+  /** The list of the related tags, related to the `query` property of the state. */
+  relatedTags: RelatedTag[];
+  /** The list of the banners, related to the `query` property of the state. */
+  banners: Banner[];
+  /** The list of the promoted, related to the `query` property of the state. */
+  promoteds: Promoted[];
   /** The dictionary of selected filters, used to perform the search request.
    * The key is the facet id, and the value the list of filters for that facet. */
   selectedFilters: Dictionary<Filter[]>;
-  /** The list of the related tags, related to the `query` property of the state. */
-  relatedTags: RelatedTag[];
   /** The configuration of the search module. */
   config: SearchConfig;
 }
@@ -67,6 +71,18 @@ export interface SearchMutations extends StatusMutations {
    * @param relatedTags - The new related tags to save to the state.
    */
   setRelatedTags(relatedTags: RelatedTag[]): void;
+  /**
+   * Sets the banners of the module.
+   *
+   * @param banners - The new banners to save to the state.
+   */
+  setBanners(banners: Banner[]): void;
+  /**
+   * Sets the related tags of the module.
+   *
+   * @param promoted - The new promoted to save to the state.
+   */
+  setPromoteds(promoteds: Promoted[]): void;
   /**
    * Sets the selected filters of the module.
    *

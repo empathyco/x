@@ -1,6 +1,8 @@
 import { SearchResponse } from '@empathy/search-adapter';
 import { getFacetsStub } from './facets-stubs.factory';
 import { getResultsStub } from './results-stubs.factory';
+import { getBannersStub } from './banners-stubs.factory';
+import { getPromotedsStub } from './promoteds-stubs.factory';
 
 /**
  * Creates {@link @empathy/search-adapter#SearchResponse | search response} stub.
@@ -11,10 +13,10 @@ import { getResultsStub } from './results-stubs.factory';
  */
 export function getSearchResponseStub(): SearchResponse {
   return {
-    banners: [],
+    banners: getBannersStub(),
     facets: getFacetsStub(),
     partialResults: [],
-    promoteds: [],
+    promoteds: getPromotedsStub(),
     queryTagging: {
       params: {},
       url: ''

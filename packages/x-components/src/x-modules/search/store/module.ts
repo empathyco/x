@@ -19,6 +19,8 @@ export const searchXStoreModule: SearchXStoreModule = {
     results: [],
     facets: [],
     relatedTags: [],
+    banners: [],
+    promoteds: [],
     selectedFilters: {},
     config: {
       maxItemsToRequest: 24
@@ -43,6 +45,12 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     setSelectedFilters(state, selectedFilters) {
       state.selectedFilters = groupItemsBy(selectedFilters, filter => filter.facetId);
+    },
+    setBanners(state, banners) {
+      state.banners = banners;
+    },
+    setPromoteds(state, promoteds) {
+      state.promoteds = promoteds;
     },
     setStatus
   },
