@@ -1,4 +1,4 @@
-describe.skip('e2e testing keyboard-navigation spacial navigation functionality', () => {
+describe('e2e testing keyboard-navigation spacial navigation functionality', () => {
   beforeEach(() => {
     cy.visit('/');
     cy.searchQuery('lego');

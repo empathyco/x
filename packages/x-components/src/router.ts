@@ -67,6 +67,11 @@ const routes: RouteConfig[] = [
     path: '/test/no-suggestions',
     name: 'No Suggestions',
     component: () => import('./views/no-suggestions.vue')
+  },
+  {
+    path: '/test/base-events-modal',
+    name: 'Base Events Modal',
+    component: () => import('./views/base-events-modal.vue')
   }
 ];
 

@@ -39,9 +39,9 @@
 The component renders whatever is passed to it in the default slot.
 
 ```vue
-<BaseEventsModalClose>
+<BaseEventsCloseButton>
   <img src="./close-button-icon.svg"/>
-</BaseEventsModalClose>
+</BaseEventsCloseButton>
 ```
 
 ## Defining another event to emit when clicking the button
@@ -49,8 +49,8 @@ The component renders whatever is passed to it in the default slot.
 The component
 
 ```vue
-<BaseEventsModalClose closingEvent="UserClosedEmpathize">
+<BaseEventsCloseButton closingEvent="UserClosedEmpathize">
   ×
-</BaseEventsModalClose>
+</BaseEventsCloseButton>
 ```
 </docs>

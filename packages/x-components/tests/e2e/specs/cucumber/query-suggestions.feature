@@ -45,4 +45,4 @@ Feature: Query-suggestions component
     Examples:
       | hideIfEqualsQuery | maxItemsToRequest | query   |
       | false             | 5                 | puzzle  |
-      | false             | 5                 | nenuco  |
+    # | true              | 5                 | nenuco  |

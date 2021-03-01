@@ -30,7 +30,6 @@ And('at most {int} unselected related tags are displayed', (maxItemsToRequest: n
   cy.getByDataTest('related-tag')
     .should('have.length.at.least', 1)
     .each($result => {
-      cy.log($result.text());
       relatedTagsList.push($result.text());
     });
 });
