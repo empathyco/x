@@ -1,4 +1,5 @@
 import { Result, ResultTagging, Tagging } from '@empathy/search-types';
+import { toKebabCase } from '../utils/string';
 import { DeepPartial } from '../utils/types';
 
 /**
@@ -150,7 +151,7 @@ function getResultCommonValues(): DeepPartial<Result> {
  * @returns A result.
  */
 export function createResultStub(name: string, result?: Partial<Result>): Result {
-  const kebabCaseName = name.toLowerCase().replace(/\s/g, '-');
+  const kebabCaseName = toKebabCase(name);
   return {
     id: kebabCaseName,
     modelName: 'Result',

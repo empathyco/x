@@ -1,8 +1,8 @@
 import { SearchResponse } from '@empathy/search-adapter';
-import { getFacetsStub } from './facets-stubs.factory';
-import { getResultsStub } from './results-stubs.factory';
 import { getBannersStub } from './banners-stubs.factory';
+import { getFacetsStub } from './facets-stubs.factory';
 import { getPromotedsStub } from './promoteds-stubs.factory';
+import { getResultsStub } from './results-stubs.factory';
 
 /**
  * Creates {@link @empathy/search-adapter#SearchResponse | search response} stub.

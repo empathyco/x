@@ -131,3 +131,13 @@ export type TakeNavigationControl = {
 export type EventsForDirectionLimit = {
   [key in ArrowKey]: PropsWithType<XEventsTypes, void>;
 };
+
+/**
+ * TODO: [EX-3291] Remove this interface and use search-types one when this task is done.
+ * Represents an Object with id property.
+ *
+ * @public
+ */
+export interface Identifiable {
+  id: string | number;
+}

@@ -178,39 +178,46 @@
         <h1>Related tags</h1>
         <RelatedTags :animation="staggeredFadeAndSlide" />
       </div>
-      <!-- Recommendations -->
-      <div class="x-column">
-        <h1>Recommendations</h1>
-        <Recommendations :animation="fadeAndSlide">
-          <template #default="{ recommendation }">
-            <BaseResultLink :result="recommendation" class="x-result-link">
-              <BaseResultImage :result="recommendation" />
-              <span class="x-result__title">{{ recommendation.name }}</span>
-            </BaseResultLink>
-          </template>
-        </Recommendations>
-      </div>
-      <!-- Identifier Results -->
-      <div class="inline-flex">
-        <h1>Identifier Results</h1>
-        <IdentifierResults :animation="fadeAndSlide">
-          <template #default="{ identifierResult }">
-            <BaseResultLink :result="identifierResult">
-              <template #default="{ result }">
-                <IdentifierResult :result="result" />
-              </template>
-            </BaseResultLink>
-          </template>
-        </IdentifierResults>
-      </div>
     </BaseKeyboardNavigation>
-    <!-- Testing purpose -->
-    <ul>
-      <h1>Results</h1>
-      <li v-for="result in results" :key="result.id">
-        {{ result.name }}
-      </li>
-    </ul>
+    <!-- Recommendations -->
+    <h1>Recommendations</h1>
+    <BaseGrid :animation="staggeredFadeAndSlide" :columns="4" :items="recommendations">
+      <template #Result="{ item }">
+        <BaseResultLink :result="item" class="x-result-link">
+          <BaseResultImage :result="item" />
+          <span class="x-result__title">{{ item.name }}</span>
+        </BaseResultLink>
+      </template>
+    </BaseGrid>
+    <!-- Identifier Results -->
+    <h1>Identifier Results</h1>
+    <BaseGrid :animation="staggeredFadeAndSlide" :items="identifierResults">
+      <template #Result="{ item }">
+        <BaseResultLink :result="item" class="x-result-link">
+          <template #default="{ result }">
+            <IdentifierResult :result="result" />
+          </template>
+        </BaseResultLink>
+      </template>
+    </BaseGrid>
+    <!-- Results -->
+    <h1>Results</h1>
+    <BaseGrid :animation="staggeredFadeAndSlide" :items="gridItems">
+      <template #Result="{ item }">
+        <BaseResultLink :result="item">
+          <template #default="{ result }">
+            <BaseResultImage :result="result" />
+            <span>{{ result.name }}</span>
+          </template>
+        </BaseResultLink>
+      </template>
+      <template #Banner="{ item }">
+        <span>{{ item.title }}</span>
+      </template>
+      <template #Promoted="{ item }">
+        <span>{{ item.title }}</span>
+      </template>
+    </BaseGrid>
   </main>
 </template>
 
@@ -218,6 +225,9 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { Result } from '@empathy/search-types';
+  import { getBannersStub } from '../__stubs__/banners-stubs.factory';
+  import { getPromotedsStub } from '../__stubs__/promoteds-stubs.factory';
+  import BaseGrid from '../components/base-grid.vue';
   import BasePriceFilterTitle from '../components/filters/labels/base-price-filter-label.vue';
   import BaseCurrency from '../components/currency/base-currency.vue';
   import BaseAllFilter from '../components/filters/filters/base-all-filter.vue';
@@ -237,6 +247,7 @@
   import BaseResultLink from '../components/result/base-result-link.vue';
   import BaseResultImage from '../components/result/base-result-image.vue';
   import BaseSimpleFilter from '../components/filters/filters/base-simple-filter.vue';
+  import { Identifiable } from '../utils/types';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
   import SelectedFiltersList from '../x-modules/facets/components/selected-filters-list.vue';
   import SelectedFilters from '../x-modules/facets/components/selected-filters.vue';
@@ -276,6 +287,7 @@
       next();
     },
     components: {
+      BaseGrid,
       BaseIdModalClose,
       BaseIdModalOpen,
       BaseIdModal,
@@ -325,9 +337,18 @@
     protected staggeredFadeAndSlide = StaggeredFadeAndSlide;
     protected collapseFromTop = CollapseFromTop;
 
-    /* Testing purpose */
     @State('search', 'results')
     public results!: Result[];
+
+    @State('identifierResults', 'identifierResults')
+    public identifierResults!: Result[];
+
+    @State('recommendations', 'recommendations')
+    public recommendations!: Result[];
+
+    protected get gridItems(): Identifiable[] {
+      return [...getBannersStub(), ...getPromotedsStub(), ...this.results];
+    }
   }
 </script>
 
@@ -399,6 +420,28 @@
     &__header {
       margin-bottom: 10px;
       font-weight: bold;
+    }
+  }
+
+  .x-base-grid {
+    column-gap: 10px;
+    row-gap: 10px;
+
+    &__item {
+      padding: 20px 0;
+      text-align: center;
+      border: 1px solid black;
+      border-radius: 5px;
+    }
+
+    &__banner {
+      grid-column: -1/1;
+      border-color: crimson;
+    }
+
+    &__promoted {
+      grid-column: 1 / span 2;
+      border-color: darkgreen;
     }
   }
 </style>

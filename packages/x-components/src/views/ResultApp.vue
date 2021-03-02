@@ -33,6 +33,23 @@
       <template #filledIcon>◼</template>
       <template #emptyIcon>◻</template>
     </BaseRating>
+    <BaseGrid :items="searchResponseStub" :columns="4">
+      <template #Banner="{ item }">
+        <span :class="`x-banner__${item.id}`">Banner: {{ item.modelName }}</span>
+      </template>
+      <template #Promoted="{ item }">
+        <span>Promoted: {{ item.modelName }}</span>
+      </template>
+      <template #Result="{ item }">
+        <span>Result: {{ item.modelName }}</span>
+      </template>
+      <template #NextQueries="{ item }">
+        <span>Nextqueries: {{ item.modelName }}</span>
+      </template>
+      <template #default="{ item }">
+        <span>Default: {{ item }}</span>
+      </template>
+    </BaseGrid>
   </main>
 </template>
 
@@ -40,7 +57,10 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { getResultsStub } from '../__stubs__/results-stubs.factory';
+  import { getSearchResponseStub } from '../__stubs__/search-response-stubs.factory';
   import { BaseResultImage } from '../components';
+  import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
+  import BaseGrid from '../components/base-grid.vue';
   import BaseRating from '../components/base-rating.vue';
   import { XInstaller } from '../x-installer/x-installer';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
@@ -52,14 +72,22 @@
     },
     components: {
       BaseRating,
-      BaseResultImage
+      BaseResultImage,
+      BaseGrid
     }
   })
   export default class App extends Vue {
     private resultsStub = getResultsStub();
+    private searchResponse = getSearchResponseStub();
+    protected searchResponseStub = [
+      ...this.searchResponse.banners,
+      ...this.searchResponse.promoteds,
+      ...this.searchResponse.results
+    ];
     protected resultWithImages = this.resultsStub[0];
     protected resultWithFailImages = this.resultsStub[1];
     protected resultWithFailImagesAndOkImages = this.resultsStub[2];
+    protected fade = StaggeredFadeAndSlide;
   }
 </script>
 
@@ -69,5 +97,34 @@
     top: 1500px;
     display: flex;
     flex-direction: column;
+  }
+
+  .x-base-grid {
+    column-gap: 10px;
+    row-gap: 10px;
+
+    &__item {
+      border: 1px solid black;
+      padding: 20px;
+      text-align: center;
+    }
+
+    &__next-queries {
+      border-color: red;
+      border-radius: 50px;
+    }
+
+    &__x-result {
+      border-color: deepskyblue;
+    }
+
+    &__banner {
+      border-color: blueviolet;
+      grid-column: -1/1;
+    }
+
+    &__promoted {
+      border-color: orange;
+    }
   }
 </style>

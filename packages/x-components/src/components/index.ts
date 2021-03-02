@@ -1,6 +1,7 @@
 // Components
 export * from './animations';
 export { default as BaseEventButton } from './base-event-button.vue';
+export { default as BaseGrid } from './base-grid.vue';
 export { default as BaseKeyboardNavigation } from './base-keyboard-navigation.vue';
 export * from './currency';
 export * from './filters';
