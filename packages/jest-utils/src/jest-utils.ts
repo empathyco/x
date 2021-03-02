@@ -12,6 +12,7 @@ const extendOptions: Record<keyof (EmpathyExtendedExpect & EmpathyExtendedMatche
   // extensions for expect.xxx
   nullOr,
   nullOrMatch,
+  nullOrAnyOf,
   undefinedOr,
   nullOrUndefinedOr,
   arrayOf,
@@ -30,6 +31,16 @@ const extendOptions: Record<keyof (EmpathyExtendedExpect & EmpathyExtendedMatche
 expect.extend(extendOptions as any);
 
 const ok = { pass: true, message: () => 'OK' };
+
+function nullOrAnyOf(received: any, classTypeUnion: Newable[]): any {
+  try {
+    if (received === null || anyOf(received, classTypeUnion)) {
+      return ok;
+    }
+  } catch {
+    throw new TypeError(`Expected "${ received }" to be "${ classTypeUnion.map(classType => classType.name).join(' | ') }" or null`);
+  }
+}
 
 function anyOf(received: any, classTypeUnion: Newable[]): any {
   const isValid = classTypeUnion.some(classType => {

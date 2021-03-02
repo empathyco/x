@@ -2,6 +2,7 @@ export interface EmpathyExtendedExpect {
   arrayOf(classType: Newable): any;
   arrayOfItemsMatching(schema: {}): any;
   nullOr(classType: Newable): any;
+  nullOrAnyOf(classType: Newable[]): any;
   nullOrMatch(schema: {}): any;
   nullOrUndefinedOr(classType: Newable): any;
   undefinedOr(classType: Newable): any;

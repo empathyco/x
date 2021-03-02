@@ -1,6 +1,6 @@
 {
-  "name": "@empathy/jest-utils",
-  "version": "1.2.0",
+  "name": "@empathyco/x-jest-utils",
+  "version": "1.3.0",
   "description": "Jest extensions for easier testing",
   "main": "dist/jest-utils.js",
   "types": "dist/jest-utils.d.ts",
@@ -18,15 +18,16 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/colbenson/jest-utils#readme",
   "devDependencies": {
-    "@empathybroker/eb-tslint": "0.0.8",
-    "@types/jest": "^24.0.12",
-    "jest": "^24.7.1",
+    "@types/jest": "^24.0.12 <= 24.0.13",
+    "jest": "^24.7.1 <= 24.8.0",
     "ts-jest": "^24.0.2",
-    "tslint": "^5.16.0",
     "typescript": "^3.4.5"
   },
   "dependencies": {},
   "files": [
     "dist/**/*"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
