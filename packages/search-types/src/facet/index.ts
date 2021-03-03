@@ -4,3 +4,4 @@ export * from './number-range-facet.model';
 export * from './simple-facet.model';
 export * from './filter';
 export * from './multi-select.model';
+export * from './editable-number-range-facet.model';

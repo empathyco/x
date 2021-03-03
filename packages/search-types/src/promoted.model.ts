@@ -1,4 +1,5 @@
 import { CallbackInfo } from './callback-info.model';
+import { Identifiable } from './identifiable.model';
 import { NamedModel } from './named-model.model';
 import { Tagging } from './tagging.model';
 
@@ -8,9 +9,7 @@ import { Tagging } from './tagging.model';
  *
  * @public
  */
-export interface Promoted extends NamedModel, CallbackInfo {
-  /** A unique ID that identifies the promoted. */
-  id: string;
+export interface Promoted extends NamedModel, CallbackInfo, Identifiable {
   /** Promoted title. */
   title: string;
   /** URL to redirect. */

@@ -1,3 +1,4 @@
+import { Identifiable } from '../identifiable.model';
 import { FacetModelName, NamedModel } from '../named-model.model';
 import { Filter } from './filter/filter.model';
 
@@ -6,9 +7,7 @@ import { Filter } from './filter/filter.model';
  *
  * @public
  */
-export interface Facet extends NamedModel<FacetModelName> {
-  /** An unique ID that identifies the facet. */
-  id: string;
+export interface Facet extends NamedModel<FacetModelName>, Identifiable {
   /** Filters available for the facet. */
   filters: Filter[];
   /** Label that represents the facet text. */

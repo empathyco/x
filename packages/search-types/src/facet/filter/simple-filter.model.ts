@@ -1,14 +1,12 @@
-import { Filter } from './filter.model';
+import { BooleanFilter } from './boolean-filter.model';
 
 /**
- * A type of filter used in {@link SimpleFacet} and extends from {@link Filter} , which is used to
- * sift the results.
+ * A type of filter used in {@link SimpleFacet} and extends from {@link Filter}.
+ * It can be selected or not.
  *
  * @public
  */
-export interface SimpleFilter extends Filter {
+export interface SimpleFilter extends BooleanFilter {
     /** Model name to indicate the filter type. */
     modelName: 'SimpleFilter';
-    /** Filter value to use with the API. */
-    value: string;
 }

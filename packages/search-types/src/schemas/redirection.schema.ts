@@ -1,4 +1,5 @@
 import { Redirection } from '../redirection.model';
+import { IdentifiableSchema } from './identifiable.schema';
 import { TaggingSchema } from './tagging.schema';
 
 /**
@@ -7,7 +8,7 @@ import { TaggingSchema } from './tagging.schema';
  * @public
  */
 export const RedirectionSchema: Redirection = {
-  id: expect.any(String),
+  ...IdentifiableSchema,
   title: expect.any(String),
   url: expect.any(String),
   tagging: {

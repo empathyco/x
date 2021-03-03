@@ -1,4 +1,5 @@
 import { Result } from '../result/result.model';
+import { IdentifiableSchema } from './identifiable.schema';
 import { TaggingSchema } from './tagging.schema';
 
 /**
@@ -7,8 +8,8 @@ import { TaggingSchema } from './tagging.schema';
  * @public
  */
 export const ResultSchema: Result = {
+  ...IdentifiableSchema,
   callbackInfo: expect.any(Object),
-  id: expect.any(String),
   identifier: {
     value: expect.any(String)
   },
@@ -41,7 +42,7 @@ export const ResultSchema: Result = {
  */
 export const RecommendationSchema: Result = {
   callbackInfo: expect.any(Object),
-  id: expect.any(String),
+  ...IdentifiableSchema,
   identifier: {
     value: expect.any(String)
   },

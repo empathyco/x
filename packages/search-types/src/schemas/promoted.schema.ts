@@ -1,4 +1,5 @@
 import { Promoted } from '../promoted.model';
+import { IdentifiableSchema } from './identifiable.schema';
 import { TaggingSchema } from './tagging.schema';
 
 /**
@@ -7,7 +8,7 @@ import { TaggingSchema } from './tagging.schema';
  * @public
  */
 export const PromotedSchema: Promoted = {
-  id: expect.any(String),
+  ...IdentifiableSchema,
   image: expect.any(String),
   modelName: expect.any(String),
   tagging: {

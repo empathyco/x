@@ -1,9 +1,9 @@
 export * from './facet';
 export * from './query-signals';
 export * from './result';
-
 export * from './banner.model';
 export * from './callback-info.model';
+export * from './identifiable.model';
 export * from './history-query.model';
 export * from './named-model.model';
 export * from './partial-result.model';

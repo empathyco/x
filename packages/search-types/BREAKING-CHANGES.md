@@ -1,5 +1,13 @@
 # Changelog
 
+## 7.0.0
+
+> EX-3222 Add `EditableNumberRangeFilter` model to represent range filters that the user can mutate its value.
+>
+> EX-3222 Add `BooleanFilter` model to share the properties of filters that the user can select or deselect. `SimpleFilter`, `HierarchicalFilter` and `NumberRangeFilter` now extend from `BooleanFilter`.
+>
+> EX-3222 `selected`, `totalResults` and `value` properties have been moved to `BooleanFilter` from `Filter`. It's necessary to replace `Filter` type references with `BooleanFilter`. Filters and facets schemas have been replaced accordingly.
+
 ## 6.0.0
 
 > EX-2521 Remove `BaseFilter` and `Facet` from the possible model names.

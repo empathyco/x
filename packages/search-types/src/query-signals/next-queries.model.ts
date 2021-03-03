@@ -1,3 +1,4 @@
+import { Identifiable } from '../identifiable.model';
 import { NamedModel } from '../named-model.model';
 import { NextQuery } from './next-query.model';
 
@@ -6,9 +7,7 @@ import { NextQuery } from './next-query.model';
  *
  * @public
  */
-export interface NextQueries extends NamedModel {
-  /** An unique ID that identifies the next queries group. */
-  id: string;
+export interface NextQueries extends NamedModel, Identifiable {
   /** Array of next queries available inside the group. */
   nextQueries: NextQuery[];
 }

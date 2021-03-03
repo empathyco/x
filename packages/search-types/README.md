@@ -1,5 +1,13 @@
 # Changelog
 
+## 7.0.0 - 2021/03/03
+
+> EX-3291 Add `Identifiable` interface to  `Banner`, `Facet`, `Filter`, `Next-queries`, `Promoted`, `Redirection` and `Result`.
+> 
+> EX-3222 Add `BooleanFilter` and `EditableNumberRange`.
+>
+> EX-3222 Add `Banner` and `Promoted` to `ModelNameType`.
+
 ## 6.0.0 - 2020/01/07
 
 > EX-2521 Remove `BaseFilter` and `Facet` from the possible model names.

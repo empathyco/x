@@ -1,4 +1,5 @@
 import { Banner } from '../banner.model';
+import { IdentifiableSchema } from './identifiable.schema';
 import { TaggingSchema } from './tagging.schema';
 
 /**
@@ -7,7 +8,7 @@ import { TaggingSchema } from './tagging.schema';
  * @public
  */
 export const BannerSchema: Banner = {
-  id: expect.any(String),
+  ...IdentifiableSchema,
   image: expect.any(String),
   modelName: expect.any(String),
   tagging: {

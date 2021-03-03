@@ -1,26 +1,17 @@
-import { Filter } from './filter.model';
+import { BooleanFilter } from './boolean-filter.model';
+import { RangeValue } from './range-value.model';
 
 /**
- * A type of filter used in {@link NumberRangeFacet} and extends from {@link Filter} , which is used to
- * sift the results. This filter has the particularity that it is value can be a range of numbers.
+ * A type of filter used in {@link NumberRangeFacet} and extends from {@link BooleanFilter}.
+ * This filter has the particularity that its range property is an object with a range of numbers.
+ * The difference with {@link EditableNumberRangeFilter} is that range's values are not editable. There
+ * are different NumberRangeFilters within the facet to cover different predefined range options.
  *
  * @public
  */
-export interface NumberRangeFilter extends Filter {
+export interface NumberRangeFilter extends BooleanFilter {
     /** Model name to indicate the filter type. */
     modelName: 'NumberRangeFilter';
-    /** Filter value to use with the API. */
-    value: RangeValue;
-}
-
-/**
- * A numeric range filter value.
- *
- * @public
- */
-export interface RangeValue {
-    /** The minimum value allowed. `null` means unset. */
-    min: number | null;
-    /** The maximum value allowed. `null` means unset. */
-    max: number | null;
+    /** Filter range to use in the frontend. */
+    range: RangeValue;
 }

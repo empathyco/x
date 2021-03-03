@@ -11,6 +11,8 @@ export type ModelNameType =
     | 'PopularSearch'
     | 'QuerySuggestion'
     | 'HistoryQuery'
+    | 'Banner'
+    | 'Promoted'
     | FilterModelName
     | FacetModelName
     | string;
@@ -26,15 +28,22 @@ export interface NamedModel<T extends ModelNameType = ModelNameType> {
 }
 
 /**
- * Facets model names type. It can be: SimpleFacet, HierarchicalFacet or NumberRangeFacet.
+ * Facets model names type. It can be: SimpleFacet, HierarchicalFacet, NumberRangeFacet or EditableNumberRangeFacet.
  *
  * @public
  */
-export type FacetModelName = 'SimpleFacet' | 'HierarchicalFacet' | 'NumberRangeFacet';
+export type FacetModelName = 'SimpleFacet' | 'HierarchicalFacet' | 'NumberRangeFacet' | 'EditableNumberRangeFacet';
 
 /**
- * Filters model names type. It can be: SimpleFilter, HierarchicalFilter or NumberRangeFilter.
+ * Filters model names type. It can be: {@link BooleanFilterModelName} or EditableNumberRangeFilter.
  *
  * @public
  */
-export type FilterModelName = 'SimpleFilter' | 'HierarchicalFilter' | 'NumberRangeFilter';
+export type FilterModelName = BooleanFilterModelName | 'EditableNumberRangeFilter';
+
+/**
+ * Boolean filters model names type. It can be: SimpleFilter, HierarchicalFilter, NumberRangeFilter.
+ *
+ * @public
+ */
+export type BooleanFilterModelName = 'SimpleFilter' | 'HierarchicalFilter' | 'NumberRangeFilter';

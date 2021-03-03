@@ -1,7 +1,10 @@
+import { EditableNumberRangeFilter } from '../facet/filter';
+import { BooleanFilter } from '../facet/filter/boolean-filter.model';
 import { Filter } from '../facet/filter/filter.model';
 import { HierarchicalFilter } from '../facet/filter/hierarchical-filter.model';
 import { NumberRangeFilter } from '../facet/filter/number-range-filter.model';
 import { SimpleFilter } from '../facet/filter/simple-filter.model';
+import { IdentifiableSchema } from './identifiable.schema';
 
 /**
  * Jest schema for validating Filter entities.
@@ -9,14 +12,24 @@ import { SimpleFilter } from '../facet/filter/simple-filter.model';
  * @public
  */
 export const FilterSchema: Filter = {
-  id: expect.any(String),
-  facetId: expect.any(String),
+  ...IdentifiableSchema,
+  facetId: expect.anyOf([Number, String]),
   label: expect.any(String),
-  selected: expect.any(Boolean),
-  value: expect.anything(),
-  totalResults: expect.any(Number),
   callbackInfo: expect.any(Object),
   modelName: expect.any(String)
+};
+
+/**
+ * Jest schema for validating BooleanFilter entities.
+ *
+ * @public
+ */
+export const BooleanFilterSchema: BooleanFilter = {
+  ...FilterSchema,
+  modelName: expect.stringMatching(/SimpleFilter|HierarchicalFilter|NumberRangeFilter/),
+  selected: expect.any(Boolean),
+  value: expect.any(String),
+  totalResults: expect.any(Number)
 };
 
 /**
@@ -25,9 +38,8 @@ export const FilterSchema: Filter = {
  * @public
  */
 export const SimpleFilterSchema: SimpleFilter = {
-  ...FilterSchema,
-  value: expect.any(String),
-  modelName: 'SimpleFilter'
+  ...BooleanFilterSchema,
+  modelName: 'SimpleFilter',
 };
 
 /**
@@ -36,9 +48,8 @@ export const SimpleFilterSchema: SimpleFilter = {
  * @public
  */
 export const HierarchicalFilterSchema: HierarchicalFilter = {
-  ...FilterSchema,
-  value: expect.any(String),
-  parentId: expect.nullOr(String),
+  ...BooleanFilterSchema,
+  parentId: expect.nullOrAnyOf([Number, String]),
   children: expect.any(Array),
   modelName: 'HierarchicalFilter'
 };
@@ -49,7 +60,18 @@ export const HierarchicalFilterSchema: HierarchicalFilter = {
  * @public
  */
 export const NumberRangeFilterSchema: NumberRangeFilter = {
-  ...FilterSchema,
-  value: { min: expect.nullOr(Number), max: expect.nullOr(Number) },
+  ...BooleanFilterSchema,
+  range: { min: expect.nullOr(Number), max: expect.nullOr(Number) },
   modelName: 'NumberRangeFilter'
+};
+
+/**
+ * Jest schema for validating EditableNumberRangeFilterSchema entity.
+ *
+ * @public
+ */
+export const EditableNumberRangeFilterSchema: EditableNumberRangeFilter = {
+  ...FilterSchema,
+  range: { min: expect.nullOr(Number), max: expect.nullOr(Number) },
+  modelName: 'EditableNumberRangeFilter'
 };
