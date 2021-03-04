@@ -3,6 +3,7 @@ const { join, basename, dirname } = require('path');
 const glob = require('glob');
 
 const DOCUSAURUS_FOLDER = getDocusaurusFolder();
+const rootDir = join(__dirname, '../../');
 
 /**
  * This function is used to not include some docs into runbooks, because they are not ready.
@@ -41,7 +42,7 @@ function modifyDocForRunbooks(destinationPath) {
  */
 function generateData(docsFolderPath) {
   const files = glob.sync(`${docsFolderPath}/**/*.md`, {
-    cwd: join(__dirname, '../../')
+    cwd: rootDir
   });
   const sidebarTree = [];
   const headers = {};

@@ -11,10 +11,10 @@
   ],
   "scripts": {
     "serve": "vue-cli-service serve --skip-plugins eslint",
-    "build": "ts-node --project ./build/tsconfig.json ./build/build.ts && npm pack",
+    "build": "ts-node --project ./build/tsconfig.json ./build/build.ts && npm pack ./dist",
     "build:website": "vue-cli-service build",
     "gen:docs": "rimraf ./docs && npm run gen:typescript-docs && npm run gen:component-docs",
-    "gen:typescript-docs": "api-documenter markdown --input-folder report --output-folder docs/API-reference/api",
+    "gen:typescript-docs": "api-documenter markdown --input-folder dist/report --output-folder docs/API-reference/api",
     "gen:component-docs": "vue-docgen",
     "test:unit": "vue-cli-service test:unit",
     "test:unit-coverage": "vue-cli-service test:unit --coverage",
@@ -56,6 +56,7 @@
     "@testing-library/jest-dom": "^5.11.1",
     "@types/autoprefixer": "~9.6.1",
     "@types/jest": "~25.2.3",
+    "@types/node": "~12.12.0",
     "@types/testing-library__jest-dom": "^5.9.1",
     "@vue/cli-plugin-e2e-cypress": "~4.5.10",
     "@vue/cli-plugin-eslint": "~4.4.4",
@@ -72,6 +73,7 @@
     "glob": "~7.1.6",
     "lint-staged": "~10.0.7",
     "rollup": "~1.31.0",
+    "rollup-plugin-copy": "~3.4.0",
     "rollup-plugin-delete": "~1.2.0",
     "rollup-plugin-postcss": "~2.0.3",
     "rollup-plugin-scss": "~2.1.0",
@@ -86,18 +88,6 @@
     "vue-router": "~3.4.3",
     "vue-template-compiler": "~2.6.10"
   },
-  "files": [
-    "dist",
-    "types",
-    "report",
-    "**/*.js",
-    "**/*.js.map",
-    "**/*.d.ts",
-    "!/build",
-    "!/public",
-    "!/src",
-    "!/tests"
-  ],
   "prettier": "@empathy/eslint-plugin-x/prettier-config",
   "gitHooks": {
     "pre-commit": "lint-staged"

@@ -1,5 +1,3 @@
-const { addComponentDocFileToSidebar } = require('./runbooks-integraton');
-
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /**
  * Replaces returns and tubes to make the input compatible with markdown.

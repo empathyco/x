@@ -15,7 +15,7 @@ Feature: Related tags component
     And   related results have changed
     Examples:
       | maxItemsToRequest | addToSearchBox | query     | relatedTagItem |
-      | 3                 | false          | puzzle    | 1              |
+      | 3                 | false          | coche     | 1              |
 
   Scenario Outline: 2. Multiple related tags are selected
     Given following config: requested items <maxItemsToRequest>, add to search-box <addToSearchBox>
@@ -35,7 +35,7 @@ Feature: Related tags component
 
     Examples:
       | maxItemsToRequest | addToSearchBox | query  | relatedTagItem | relatedTagItem2 |
-      | 5                 | false          | funko  | 0              | 2               |
+      | 5                 | false          | funko  | 0              | 1               |
 
   Scenario Outline: 3. Related tag persistence
     Given following config: requested items <maxItemsToRequest>, add to search-box <addToSearchBox>
@@ -47,5 +47,5 @@ Feature: Related tags component
 
     Examples:
       | maxItemsToRequest | addToSearchBox | query     | relatedTagItem |
-      | 5                 | false          | puzzle    | 2              |
+      | 5                 | false          | lego      | 2              |
 

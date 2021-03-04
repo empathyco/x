@@ -6,15 +6,20 @@ import { RollupOptions } from 'rollup';
 import del from 'rollup-plugin-delete';
 import typescript from 'rollup-plugin-typescript2';
 import vue from 'rollup-plugin-vue';
+import copy from 'rollup-plugin-copy';
 import packageJSON from '../package.json';
 import { apiDocumentation } from './docgen/documentation.rollup-plugin';
 import { generateEntryFiles } from './x-components.rollup-plugin';
 
+const rootDir = path.resolve(__dirname, '../');
+const buildPath = path.join(rootDir, 'dist');
+
 const dependencies = new Set(Object.keys(packageJSON.dependencies));
-const jsOutputDirectory = path.join(__dirname, '../dist');
-const typesOutputDirectory = path.join(__dirname, '../types');
+const jsOutputDirectory = path.join(buildPath, 'js');
+const typesOutputDirectory = path.join(buildPath, 'types');
+
 export const rollupConfig = createRollupOptions({
-  input: path.join(__dirname, '../src/index.ts'),
+  input: path.join(rootDir, 'src/index.ts'),
   output: {
     dir: jsOutputDirectory,
     format: 'esm',
@@ -46,12 +51,12 @@ export const rollupConfig = createRollupOptions({
   },
   preserveModules: true,
   plugins: [
-    del({ targets: [`${jsOutputDirectory}/*`, `${typesOutputDirectory}/*`] }),
+    del({ targets: [`${buildPath}/*`, `${path.join(rootDir, 'docs')}/*`] }),
     commonjs(),
     typescript({
       objectHashIgnoreUnknownHack: true,
       useTsconfigDeclarationDir: true,
-      tsconfig: path.resolve(__dirname, '../tsconfig.json'),
+      tsconfig: path.resolve(rootDir, 'tsconfig.json'),
       tsconfigOverride: {
         compilerOptions: {
           declarationDir: typesOutputDirectory
@@ -83,10 +88,22 @@ export const rollupConfig = createRollupOptions({
       include: '**/*.vue'
     }),
     generateEntryFiles({
+      buildPath,
       jsOutputDirectory,
       typesOutputDirectory
     }),
-    apiDocumentation()
+    apiDocumentation({
+      buildPath
+    }),
+    copy({
+      targets: [
+        {
+          src: ['build-helpers', 'CHANGELOG.md', 'package.json', 'README.md', 'docs'],
+          dest: buildPath
+        }
+      ],
+      hook: 'writeBundle'
+    })
   ]
 });
 

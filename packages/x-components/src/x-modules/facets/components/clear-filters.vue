@@ -17,9 +17,9 @@
   import Vue from 'vue';
   import { Getter, xComponentMixin } from '../../../components';
   import BaseEventButton from '../../../components/base-event-button.vue';
+  import { VueCSSClasses } from '../../../utils';
+  import { XEventsTypes } from '../../../wiring';
   import { facetsXModule } from '../x-module';
-  import { XEventsTypes } from 'src/wiring';
-  import { VueCSSClasses } from 'src/utils';
 
   /**
    * Renders a simple button, emitting the needed events when clicked.

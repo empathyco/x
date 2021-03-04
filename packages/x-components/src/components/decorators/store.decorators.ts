@@ -2,7 +2,7 @@ import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import Vue, { ComponentOptions } from 'vue';
 import { createDecorator } from 'vue-class-component';
-import { getGetterPath } from '../../plugins/x-plugin.mixin';
+import { getGetterPath } from '../../plugins/x-plugin.utils';
 import { AnyFunction, DecoratorFor } from '../../utils/index';
 import { XEvent, XEventPayload } from '../../wiring/events.types';
 import { WireMetadata } from '../../wiring/wiring.types';

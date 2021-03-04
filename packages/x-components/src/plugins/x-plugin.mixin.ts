@@ -3,7 +3,6 @@ import { XComponent } from '../components/x-component.types';
 import { getXComponentXModuleName, isXComponent } from '../components/x-component.utils';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
-import { ExtractGetters, XModuleName } from '../x-modules/x-modules.types';
 import { XBus } from './x-bus.types';
 import { getAliasAPI } from './x-plugin.alias';
 import { XComponentAPI, XComponentBusAPI, XComponentXConfigAPI, XConfig } from './x-plugin.types';
@@ -69,21 +68,6 @@ export function getBusAPI(bus: XBus, xComponent: XComponent | undefined): XCompo
  */
 export function getXConfigAPI(xConfig: XConfig): XComponentXConfigAPI {
   return { xConfig };
-}
-
-/**
- * Generates a getter path string with the module and getter name.
- *
- * @param moduleName - The module name the getter belongs to.
- * @param getterName - The getter name.
- * @returns A string representing the getter path.
- * @public
- */
-export function getGetterPath<ModuleName extends XModuleName>(
-  moduleName: ModuleName,
-  getterName: keyof ExtractGetters<ModuleName>
-): string {
-  return `x/${moduleName}/${getterName as string}`;
 }
 
 /**

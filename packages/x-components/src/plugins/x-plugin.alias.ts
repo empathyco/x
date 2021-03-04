@@ -1,12 +1,12 @@
 import { Store } from 'vuex';
 import { RootXStoreState } from '../store';
 import { RequestStatus } from '../store/utils/helpers/status.helpers';
-import { getGetterPath } from './x-plugin.mixin';
 import {
   XComponentAliasAPI,
   XComponentAliasQueryAPI,
   XComponentAliasStatusAPI
 } from './x-plugin.types';
+import { getGetterPath } from './x-plugin.utils';
 
 /**
  * Creates an object containing the alias part of {@link XComponentAPI}.

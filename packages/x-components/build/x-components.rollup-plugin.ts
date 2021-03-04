@@ -14,6 +14,8 @@ type ReducerFunctionOfEntryPoints = (
 ) => Record<string, string[]>;
 
 export interface GenerateEntryFilesOptions {
+  /** The path where the build will go. */
+  buildPath: string;
   /** The path to the directory where generated js files are stored. */
   jsOutputDirectory: string;
   /** The path to the directory where generated .d.ts files are stored. */
@@ -42,15 +44,13 @@ export function generateEntryFiles(options: GenerateEntryFilesOptions): Plugin {
      * - 1 Typings file per entry point.
      */
     writeBundle() {
-      generateEntryPoints(options.jsOutputDirectory, 'js');
-      generateEntryPoints(options.typesOutputDirectory, 'd.ts');
-      copyIndexSourcemap(options.jsOutputDirectory);
+      generateEntryPoints(options.buildPath, options.jsOutputDirectory, 'js');
+      generateEntryPoints(options.buildPath, options.typesOutputDirectory, 'd.ts');
+      copyIndexSourcemap(options.buildPath, options.jsOutputDirectory);
     }
   };
 }
 
-/** Location of the root directory of the project. */
-const ROOT_DIR = path.join(__dirname, '..');
 /** Regex to split a read file per lines, supporting both Unix and Windows systems. */
 const BY_LINES = /\r?\n/;
 /** Name of the x-modules folder. */
@@ -59,16 +59,17 @@ const X_MODULES_DIR_NAME = 'x-modules';
 /**
  * Generates an entry point for each x-component, and another one for the shared code.
  *
+ * @param buildPath - The path where the build will go.
  * @param outputDirectory - The directory to load it's barrel and generate the entry points.
  * @param extension - The type of files to generate the entry points (i.e. `d.ts`, `js`).
  */
-function generateEntryPoints(outputDirectory: string, extension: string): void {
+function generateEntryPoints(buildPath: string, outputDirectory: string, extension: string): void {
   const jsEntry = fs.readFileSync(path.join(outputDirectory, `index.${extension}`), 'utf8');
   const jsEntryPoints = jsEntry
     .split(BY_LINES)
     .filter(emptyLines)
-    .reduce(generateEntryPointsRecord(outputDirectory, extension), {});
-  forEach(jsEntryPoints, writeEntryFile(extension));
+    .reduce(generateEntryPointsRecord(buildPath, outputDirectory, extension), {});
+  forEach(jsEntryPoints, writeEntryFile(buildPath, extension));
 }
 
 /**
@@ -76,27 +77,30 @@ function generateEntryPoints(outputDirectory: string, extension: string): void {
  * any other code than exports it should be fine. If not done, the consumer project won't have
  * sourcemaps.
  *
+ * @param buildPath - The path where the build will go.
  * @param outputDirectory - Directory where storing the index source map.
  */
-function copyIndexSourcemap(outputDirectory: string): void {
+function copyIndexSourcemap(buildPath: string, outputDirectory: string): void {
   const fileName = 'index.js.map';
-  fs.copyFileSync(path.join(outputDirectory, fileName), path.join(ROOT_DIR, 'core', fileName));
+  fs.copyFileSync(path.join(outputDirectory, fileName), path.join(buildPath, 'core', fileName));
 }
 
 /**
  * Generates a reducer function to split the entry points into multiple chunks, the `core` for the
  * shared code and one per each x module.
  *
+ * @param buildPath - The path where the build will go.
  * @param outputDirectory - The directory where the output files are stored.
  * @param extension - The type of the files for generating the entry points.
  * @returns A reducer function that will generate a `Record` where the key is the chunk name, and
  * the value is an array of strings containing the code.
  */
 function generateEntryPointsRecord(
+  buildPath: string,
   outputDirectory: string,
   extension: string
 ): ReducerFunctionOfEntryPoints {
-  const relativeOutputDirectory = `${path.relative(__dirname, outputDirectory)}/`;
+  const relativeOutputDirectory = `../${path.relative(buildPath, outputDirectory)}/`;
   const getXModuleNameFromExport = extractXModuleFromExport(outputDirectory, extension);
 
   return (files: Record<string, string[]>, line: string): Record<string, string[]> => {
@@ -179,12 +183,13 @@ function emptyLines(line: string): boolean {
  * Generates a reusable function that will write a file with the extension passed.
  * The function will receive the file name, and the file contents.
  *
+ * @param buildPath - The path where the build will go.
  * @param extension - The extension of the file to write.
  * @returns Function which writes a file with the extension passed as parameter.
  */
-function writeEntryFile(extension: string) {
+function writeEntryFile(buildPath: string, extension: string) {
   return (fileName: string, fileContents: string[]): string => {
-    const filePath = path.join(ROOT_DIR, `/${fileName}/index.${extension}`);
+    const filePath = path.join(buildPath, `/${fileName}/index.${extension}`);
     ensureFilePathExists(filePath);
     fs.writeFileSync(filePath, fileContents.join('\n'));
     return filePath;
