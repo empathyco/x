@@ -6,6 +6,15 @@
     </header>
     <aside class="aside">
       <template v-if="hasFacets">
+        <h1>Sort</h1>
+        <!-- TODO Use a real `Sort` component -->
+        <BaseDropdown v-model="sortValue" :items="sortItems">
+          <template #item="{ item, isHighlighted, isSelected }">
+            <span v-if="isSelected" aria-hidden="true">✅</span>
+            <span v-if="isHighlighted" aria-hidden="true">🟢</span>
+            {{ item }}
+          </template>
+        </BaseDropdown>
         <h1>Filters</h1>
         <ClearFilters>Clear all filters</ClearFilters>
         <div v-if="$x.selectedFilters.length > 0">
@@ -25,7 +34,9 @@
             </BaseFilters>
           </template>
 
-          <template #rootCategories_facet><div /></template>
+          <template #rootCategories_facet>
+            <div />
+          </template>
 
           <template #size="{ facet }">
             <h2>{{ facet.label }}</h2>
@@ -73,6 +84,7 @@
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import { searchXModule } from '../x-modules/search/x-module';
+  import BaseDropdown from '../components/base-dropdown.vue';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   XPlugin.registerXModule(searchXModule);
@@ -82,6 +94,7 @@
       next();
     },
     components: {
+      BaseDropdown,
       ClearFilters,
       BaseHierarchicalFilter,
       BaseSimpleFilter,
@@ -97,6 +110,8 @@
     public searchQuery!: string;
     @State('search', 'results')
     public results!: Result[];
+    protected sortItems: string[] = ['Relevance', 'Alphabetical', 'Price'];
+    protected sortValue = this.sortItems[0];
 
     protected get hasFacets(): boolean {
       return Object.keys(this.$x.facets).length > 0;
@@ -108,7 +123,7 @@
   .search {
     display: grid;
     grid-template-areas: 'header header' 'aside main';
-    grid-template-columns: minmax(200px 400px) 1fr;
+    grid-template-columns: minmax(200px, 400px) 1fr;
   }
 
   .header {

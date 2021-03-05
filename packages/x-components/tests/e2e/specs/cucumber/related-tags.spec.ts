@@ -35,7 +35,12 @@ And('at most {int} unselected related tags are displayed', (maxItemsToRequest: n
 });
 
 When('related tag number {int} is clicked', (relatedTagItem: number) => {
-  cy.getByDataTest('related-tag').eq(relatedTagItem).click().invoke('text').as('clickedRelatedTag');
+  cy.getByDataTest('related-tag')
+    .should('have.length.gt', relatedTagItem)
+    .eq(relatedTagItem)
+    .click()
+    .invoke('text')
+    .as('clickedRelatedTag');
 });
 
 Then(

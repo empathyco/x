@@ -4,6 +4,7 @@ export { default as BaseEventButton } from './base-event-button.vue';
 export { default as BaseGrid } from './base-grid.vue';
 export { default as BaseKeyboardNavigation } from './base-keyboard-navigation.vue';
 export * from './currency';
+export { default as BaseDropdown } from './base-dropdown.vue';
 export * from './filters';
 export * from './icons';
 export * from './modals';

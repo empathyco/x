@@ -30,8 +30,8 @@
   },
   "dependencies": {
     "@empathy/logger": "^1.1.0",
-    "@empathy/search-adapter": "5.0.0",
-    "@empathy/search-types": "6.0.0",
+    "@empathy/search-adapter": "^5.0.0",
+    "@empathy/search-types": "^6.0.0",
     "@empathy/storage-service": "^1.3.0",
     "@empathybroker/deep-merge": "^1.2.1",
     "magic-string": "~0.25.7",
