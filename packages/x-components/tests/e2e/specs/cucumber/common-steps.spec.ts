@@ -56,8 +56,9 @@ Then('related results are displayed', () => {
 });
 
 Then('related results have changed', () => {
+  cy.getByDataTest('loading').should('exist');
+  cy.getByDataTest('loading').should('not.exist');
   cy.getByDataTest('result-item')
-    .should('not.have.length', resultsList.length)
     .each($result => {
       compoundResultsList.push($result.text());
     })

@@ -12,6 +12,7 @@
     </div>
     <!-- Testing purpose -->
     <h1>Results</h1>
+    <div v-if="$x.status.search === 'loading'" data-test="loading">Loading...</div>
     <ul>
       <li v-for="result in results" :key="result.id" data-test="result-item">
         {{ result.name }}
