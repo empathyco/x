@@ -1,4 +1,11 @@
 # X Components
+## [2.0.0-alpha.5](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.5%0Dv2.0.0-alpha.4) (2021-03-08)
+
+
+### Build System
+
+* fix publish directory ([4f08381](https://bitbucket.org/colbenson/x-components/commits/4f08381a16d0fd8052f7ea062e300047377c4a6e))
+
 ## [2.0.0-alpha.4](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.4%0Dv2.0.0-alpha.3) (2021-03-08)
 
 
