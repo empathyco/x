@@ -1,4 +1,48 @@
 # X Components
+## [2.0.0-alpha.4](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.4%0Dv2.0.0-alpha.3) (2021-03-08)
+
+
+### Features
+
+* **animations:** added z-index within staggered animations styles ([3be7086](https://bitbucket.org/colbenson/x-components/commits/3be708666287c46d69b892b040e4024d8a28e16b)), closes [EX-3082](https://searchbroker.atlassian.net/browse/EX-3082)
+* **base-components:** add `base-id-modal`, `base-id-modal-open` and `base-id-moda-close` components ([abde27f](https://bitbucket.org/colbenson/x-components/commits/abde27fc109f11a0147913fb3893c5c536c34829)), closes [EX-3100](https://searchbroker.atlassian.net/browse/EX-3100)
+* **base-grid:** add base-grid component ([acae2b0](https://bitbucket.org/colbenson/x-components/commits/acae2b0f157f69c22b62758e50f9f032c59fb901)), closes [EX-3245](https://searchbroker.atlassian.net/browse/EX-3245)
+* **components:** add `BaseDropdown` component. ([6009ad4](https://bitbucket.org/colbenson/x-components/commits/6009ad41e3233c7053fccdba625484405291d676))
+* **components:** add mixing `CollapseWidth` component export ([d393120](https://bitbucket.org/colbenson/x-components/commits/d39312016f8894d90b871763ed1eb6d7c3a3d86a)), closes [EX-2994](https://searchbroker.atlassian.net/browse/EX-2994)
+* **facets:** add new filter to deselect the filters if the query has changed ([89ca130](https://bitbucket.org/colbenson/x-components/commits/89ca13066e0fe48f413a529e42d7431f50751534)), closes [EX-3101](https://searchbroker.atlassian.net/browse/EX-3101)
+* **facets:** facets split in backend and frontend facets ([5d8a60f](https://bitbucket.org/colbenson/x-components/commits/5d8a60f26faaab9af72147c411cb040d8503b0ce)), closes [EX-3255](https://searchbroker.atlassian.net/browse/EX-3255)
+* **filters:** renders a selected filters from state and exposes slots to customize it ([3a6ed89](https://bitbucket.org/colbenson/x-components/commits/3a6ed892072dbe98ce3ebb37b45707a477f33690)), closes [EX-2863](https://searchbroker.atlassian.net/browse/EX-2863)
+* **search:** remove search results getter and replace the access to them with the State decorator ([6c31810](https://bitbucket.org/colbenson/x-components/commits/6c31810a110ca7cd17c82ae0fac1d85826a36ae6)), closes [EX-3053](https://searchbroker.atlassian.net/browse/EX-3053)
+* **search-module:** Add banners an promoteds in store. ([07dc7d6](https://bitbucket.org/colbenson/x-components/commits/07dc7d62aff50cd897bf4ae6a19155164e67e919)), closes [EX-3175](https://searchbroker.atlassian.net/browse/EX-3175)
+
+
+### Bug Fixes
+
+* **history-queries:** replace last query, if the last word of it is refined in the new query ([8f0f6e4](https://bitbucket.org/colbenson/x-components/commits/8f0f6e4be7a58269a690845049e10a2e7a949c9f)), closes [EX-3084](https://searchbroker.atlassian.net/browse/EX-3084)
+
+
+### Performance Improvements
+
+* **e2e:** avoid opening new browser instances to speed up e2e tests ([958139d](https://bitbucket.org/colbenson/x-components/commits/958139d0d466133f61e4d6738ab2cbcc2638422f)), closes [EX-3160](https://searchbroker.atlassian.net/browse/EX-3160)
+
+
+### Code Refactoring
+
+* **e2e:** homogenise and standardise common-steps and test cases ([28b08ce](https://bitbucket.org/colbenson/x-components/commits/28b08ceedba1ba9aeac8440cd67a7da36e16ffe7)), closes [EX-3060](https://searchbroker.atlassian.net/browse/EX-3060)
+* **x-plugin:** extract `XComponentAliasAPI` logic to a separate file and improve aliases generation ([e846edd](https://bitbucket.org/colbenson/x-components/commits/e846edda6222b91efbcb4c74ce926f62b8d24f85)), closes [EX-3189](https://searchbroker.atlassian.net/browse/EX-3189) [EX-3189](https://searchbroker.atlassian.net/browse/EX-3189) [EX-3288](https://searchbroker.atlassian.net/browse/EX-3288) [feature/EX-3189](https://searchbroker.atlassian.net/browse/EX-3189)
+
+
+### Testing
+
+* **e2e:** add next-queries e2e tests ([ae56046](https://bitbucket.org/colbenson/x-components/commits/ae56046674a71abda14bb7138566bc2b1a2a8bf3)), closes [EX-3047](https://searchbroker.atlassian.net/browse/EX-3047)
+* **e2e:** add test for base event modal ([0121ddb](https://bitbucket.org/colbenson/x-components/commits/0121ddb9e3d390541afc1398c81fae9fa04afde7)), closes [EX-3228](https://searchbroker.atlassian.net/browse/EX-3228)
+* **e2e:** related tags e2e tests ([688f0aa](https://bitbucket.org/colbenson/x-components/commits/688f0aa3f398d901432db69144784db69cf96d3d)), closes [EX-3155](https://searchbroker.atlassian.net/browse/EX-3155)
+
+
+### Build System
+
+* improve process deleting the temporally directories ([712af79](https://bitbucket.org/colbenson/x-components/commits/712af794649d75722a5533b107fc9c97ebb6f5ae)), closes [EX-2124](https://searchbroker.atlassian.net/browse/EX-2124)
+
 ## [2.0.0-alpha.3](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.3%0Dv2.0.0-alpha.2) (2021-02-12)
 
 
