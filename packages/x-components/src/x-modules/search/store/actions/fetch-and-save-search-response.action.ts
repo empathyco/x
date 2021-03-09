@@ -10,13 +10,16 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
   fetch({ dispatch }) {
     return dispatch('fetchSearchResponse');
   },
-  onSuccess({ commit }, { results, facets, banners, promoteds }) {
+  onSuccess({ commit }, { results, facets, banners, promoteds, spellcheck }) {
     commit('setResults', results);
+
     if (facets) {
       commit('setFacets', facets);
     }
+
     commit('setBanners', banners);
     commit('setPromoteds', promoteds);
+    commit('setSpellcheck', spellcheck ?? '');
   }
 });
 

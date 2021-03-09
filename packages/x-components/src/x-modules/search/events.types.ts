@@ -24,4 +24,9 @@ export interface SearchXEvents {
    * * Payload: The new {@link @empathy/search-types#Facet | facets}.
    */
   FacetsChanged: Facet[];
+  /**
+   * Spellcheck has been changed.
+   * * Payload: The new spellcheckedQuery string.
+   */
+  SpellcheckChanged: string;
 }

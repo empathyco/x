@@ -99,6 +99,30 @@ describe('testing search module actions', () => {
       expect(store.state.promoteds).toEqual([]);
     });
 
+    it('should request and store spellcheck in the state', async () => {
+      resetSearchStateWith(store, {
+        query: 'coce'
+      });
+
+      adapter.search.mockResolvedValueOnce({
+        ...mockedEmptySearchResponse,
+        spellcheck: 'coche'
+      });
+
+      const actionPromise = store.dispatch(actionKeys.fetchAndSaveSearchResponse);
+      await actionPromise;
+      expect(store.state.spellcheckedQuery).toBe('coche');
+    });
+
+    it('should clear the spellcheck in the state', async () => {
+      resetSearchStateWith(store, {
+        spellcheckedQuery: 'coche'
+      });
+      const actionPromise = store.dispatch(actionKeys.fetchAndSaveSearchResponse);
+      await actionPromise;
+      expect(store.state.spellcheckedQuery).toBe('');
+    });
+
     it('should cancel the previous request if it is not yet resolved', async () => {
       resetSearchStateWith(store, { query: 'beer' });
       const {

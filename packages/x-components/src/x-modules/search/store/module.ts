@@ -25,7 +25,8 @@ export const searchXStoreModule: SearchXStoreModule = {
     config: {
       maxItemsToRequest: 24
     },
-    status: 'success'
+    status: 'success',
+    spellcheckedQuery: ''
   }),
   getters: {
     request
@@ -52,7 +53,10 @@ export const searchXStoreModule: SearchXStoreModule = {
     setPromoteds(state, promoteds) {
       state.promoteds = promoteds;
     },
-    setStatus
+    setStatus,
+    setSpellcheck(state, spellcheck) {
+      state.spellcheckedQuery = spellcheck;
+    }
   },
   actions: {
     cancelFetchAndSaveSearchResponse,

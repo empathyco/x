@@ -17,6 +17,11 @@
     <SlidingPanel>
       <RelatedTags :animation="staggeredFadeAndSlide" />
     </SlidingPanel>
+    <Spellcheck>
+      <template #default="{ query, spellcheckedQuery }">
+        No results found for '{{ query }}'. We show you results for '{{ spellcheckedQuery }}'
+      </template>
+    </Spellcheck>
     <!-- Facets -->
     <h1>Facets</h1>
     <SelectedFilters>
@@ -253,6 +258,7 @@
   import SelectedFilters from '../x-modules/facets/components/selected-filters.vue';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
+  import Spellcheck from '../x-modules/search/components/spellcheck.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import Empathize from '../x-modules/empathize/components/empathize.vue';
@@ -307,6 +313,7 @@
       BaseResultLink,
       BaseResultImage,
       BaseSimpleFilter,
+      Spellcheck,
       ClearFilters,
       ClearHistoryQueries,
       ClearSearchInput,

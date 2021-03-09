@@ -28,6 +28,8 @@ export interface SearchState extends StatusState {
   selectedFilters: Dictionary<Filter[]>;
   /** The configuration of the search module. */
   config: SearchConfig;
+  /** The spellcheckedQuery property of the state. */
+  spellcheckedQuery: string;
 }
 
 /**
@@ -89,6 +91,12 @@ export interface SearchMutations extends StatusMutations {
    * @param selectedFilters - The new selected filters to save to the state.
    */
   setSelectedFilters(selectedFilters: Filter[]): void;
+  /**
+   * Sets the spellcheckedQuery of the module.
+   *
+   * @param spellcheckedQuery - The new spellcheck string to save to the state.
+   */
+  setSpellcheck(spellcheckedQuery: string): void;
 }
 
 /**
