@@ -12,7 +12,7 @@ export function getBannersStub(): Banner[] {
   return [
     {
       ...getBannerCommonValues(),
-      id: 'xc-001',
+      id: 'xb-001',
       title: 'Banner 01',
       url: 'http://x-components.com',
       image: 'xc-01.jpg',
@@ -22,7 +22,7 @@ export function getBannersStub(): Banner[] {
     },
     {
       ...getBannerCommonValues(),
-      id: 'xc-002',
+      id: 'xb-002',
       title: 'Banner 02',
       url: 'http://x-components.com',
       image: 'xc-02.jpg',

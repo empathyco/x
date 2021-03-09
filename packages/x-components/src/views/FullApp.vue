@@ -207,22 +207,26 @@
     </BaseGrid>
     <!-- Results -->
     <h1>Results</h1>
-    <BaseGrid :animation="staggeredFadeAndSlide" :items="gridItems">
-      <template #Result="{ item }">
-        <BaseResultLink :result="item">
-          <template #default="{ result }">
-            <BaseResultImage :result="result" />
-            <span>{{ result.name }}</span>
+    <ResultsList :animation="staggeredFadeAndSlide">
+      <template #layout="{ results, animation }">
+        <BaseGrid :animation="animation" :items="results">
+          <template #Result="{ item }">
+            <BaseResultLink :result="item">
+              <template #default="{ result }">
+                <BaseResultImage :result="result" />
+                <span>{{ result.name }}</span>
+              </template>
+            </BaseResultLink>
           </template>
-        </BaseResultLink>
+          <template #Banner="{ item }">
+            <span>{{ item.title }}</span>
+          </template>
+          <template #Promoted="{ item }">
+            <span>{{ item.title }}</span>
+          </template>
+        </BaseGrid>
       </template>
-      <template #Banner="{ item }">
-        <span>{{ item.title }}</span>
-      </template>
-      <template #Promoted="{ item }">
-        <span>{{ item.title }}</span>
-      </template>
-    </BaseGrid>
+    </ResultsList>
   </main>
 </template>
 
@@ -281,6 +285,7 @@
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
   import { State } from '../components/decorators/store.decorators';
   import { getURLParameter } from '../utils/get-url-parameters';
+  import ResultsList from '../x-modules/search/components/results-list.vue';
   import { searchXModule } from '../x-modules/search/x-module';
   import { XInstaller } from '../x-installer/x-installer';
   import { XPlugin } from '../plugins/x-plugin';
@@ -293,6 +298,7 @@
       next();
     },
     components: {
+      ResultsList,
       BaseGrid,
       BaseIdModalClose,
       BaseIdModalOpen,

@@ -12,7 +12,7 @@ export function getPromotedsStub(): Promoted[] {
   return [
     {
       ...getPromotedCommonValues(),
-      id: 'xc-001',
+      id: 'xp-001',
       title: 'Promoted 01',
       url: 'http://x-components.com',
       image: 'xc-01.jpg',
@@ -22,7 +22,7 @@ export function getPromotedsStub(): Promoted[] {
     },
     {
       ...getPromotedCommonValues(),
-      id: 'xc-002',
+      id: 'xp-002',
       title: 'Promoted 02',
       url: 'http://x-components.com',
       image: 'xc-02.jpg',
