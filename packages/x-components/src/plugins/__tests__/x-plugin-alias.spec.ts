@@ -64,7 +64,8 @@ describe('testing plugin alias', () => {
       identifierResults: [],
       recommendations: [],
       facets: {},
-      selectedFilters: []
+      selectedFilters: [],
+      totalResults: 0
     };
     expect(componentInstance.vm.$x).toMatchObject(defaultValues);
   });

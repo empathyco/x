@@ -206,7 +206,7 @@
       </template>
     </BaseGrid>
     <!-- Results -->
-    <h1>Results</h1>
+    <h1>Results {{ results.length }} / {{ $x.totalResults }}</h1>
     <ResultsList :animation="staggeredFadeAndSlide">
       <template #layout="{ results, animation }">
         <BaseGrid :animation="animation" :items="results">

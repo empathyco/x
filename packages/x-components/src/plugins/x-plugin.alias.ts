@@ -85,6 +85,9 @@ export function getAliasAPI(
     },
     get selectedFilters() {
       return store.getters[getGetterPath('facets', 'selectedFilters')] ?? [];
+    },
+    get totalResults() {
+      return store.state.x.search?.totalResults ?? 0;
     }
   };
 }

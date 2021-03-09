@@ -23,6 +23,8 @@ export interface SearchState extends StatusState {
   banners: Banner[];
   /** The list of the promoted, related to the `query` property of the state. */
   promoteds: Promoted[];
+  /** The total number of results, related to the `query` property of the state. */
+  totalResults: number;
   /** The dictionary of selected filters, used to perform the search request.
    * The key is the facet id, and the value the list of filters for that facet. */
   selectedFilters: Dictionary<Filter[]>;
@@ -80,11 +82,17 @@ export interface SearchMutations extends StatusMutations {
    */
   setBanners(banners: Banner[]): void;
   /**
-   * Sets the related tags of the module.
+   * Sets the promoteds of the module.
    *
-   * @param promoted - The new promoted to save to the state.
+   * @param promoteds - The new promoted to save to the state.
    */
   setPromoteds(promoteds: Promoted[]): void;
+  /**
+   * Sets the total results of the module.
+   *
+   * @param totalResults - The new total results to save to the state.
+   */
+  setTotalResults(totalResults: number): void;
   /**
    * Sets the selected filters of the module.
    *

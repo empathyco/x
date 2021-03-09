@@ -99,6 +99,30 @@ describe('testing search module actions', () => {
       expect(store.state.promoteds).toEqual([]);
     });
 
+    it('should request and store total results in the state', async () => {
+      resetSearchStateWith(store, {
+        query: 'lego'
+      });
+
+      adapter.search.mockResolvedValueOnce({
+        ...mockedEmptySearchResponse,
+        totalResults: 116
+      });
+
+      const actionPromise = store.dispatch(actionKeys.fetchAndSaveSearchResponse);
+      await actionPromise;
+      expect(store.state.totalResults).toBe(116);
+    });
+
+    it('should clear the total results in the state', async () => {
+      resetSearchStateWith(store, {
+        query: ''
+      });
+      const actionPromise = store.dispatch(actionKeys.fetchAndSaveSearchResponse);
+      await actionPromise;
+      expect(store.state.totalResults).toBe(0);
+    });
+
     it('should request and store spellcheck in the state', async () => {
       resetSearchStateWith(store, {
         query: 'coce'

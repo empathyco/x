@@ -130,6 +130,8 @@ export interface XComponentAliasAPI {
   readonly facets: Record<Facet['id'], Facet>;
   /** The {@link FacetsXModule} selected filters. */
   readonly selectedFilters: Filter[];
+  /** The {@link SearchXModule} total results. */
+  readonly totalResults: number;
 }
 
 /**
