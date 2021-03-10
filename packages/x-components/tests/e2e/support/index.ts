@@ -1,3 +1,5 @@
+import 'cypress-plugin-tab';
+
 import { noOp } from '../../../src/utils/function';
 import { forEach } from '../../../src/utils/object';
 import { AnyFunction } from '../../../src/utils/types';

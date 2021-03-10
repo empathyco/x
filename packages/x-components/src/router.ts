@@ -72,6 +72,11 @@ const routes: RouteConfig[] = [
     path: '/test/base-events-modal',
     name: 'Base Events Modal',
     component: () => import('./views/base-events-modal.vue')
+  },
+  {
+    path: '/test/keyboard-navigation',
+    name: 'Keyboard Navigation',
+    component: () => import('./views/keyboard-navigation.vue')
   }
 ];
 
