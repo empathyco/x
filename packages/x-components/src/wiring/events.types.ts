@@ -71,6 +71,11 @@ export interface XEventsTypes
    */
   UserAcceptedAQuery: string;
   /**
+   * The user has accepted the spellcheck
+   * * Payload: the spellcheck query.
+   */
+  UserAcceptedSpellcheckQuery: string;
+  /**
    * The user has clicked on a result.
    * * Payload: The {@link @empathy/search-types#Result | result} that the user clicked.
    */

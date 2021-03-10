@@ -32,6 +32,13 @@ const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleNa
 export const setSearchQuery = wireCommit('setQuery');
 
 /**
+ * Resets the search state `spellcheckedQuery` to its initial value, an empty string.
+ *
+ * @public
+ */
+export const resetSpellcheckQuery = wireCommit('setSpellcheck', '');
+
+/**
  * Sets the search state `relatedTags`.
  *
  * @public
@@ -71,6 +78,9 @@ export const cancelFetchAndSaveSearchResponseWire = wireDispatchWithoutPayload(
 export const searchWiring = createWiring({
   UserAcceptedAQuery: {
     setSearchQuery
+  },
+  UserAcceptedSpellcheckQuery: {
+    resetSpellcheckQuery
   },
   UserClearedQuery: {
     setSearchQuery,

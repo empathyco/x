@@ -54,11 +54,11 @@ export const searchXStoreModule: SearchXStoreModule = {
     setPromoteds(state, promoteds) {
       state.promoteds = promoteds;
     },
+    setSpellcheck(state, spellcheckedQuery) {
+      state.spellcheckedQuery = spellcheckedQuery;
+    },
     setTotalResults(state, totalResults) {
       state.totalResults = totalResults;
-    },
-    setSpellcheck(state, spellcheck) {
-      state.spellcheckedQuery = spellcheck;
     },
     setStatus
   },
