@@ -1,6 +1,6 @@
 <template>
   <BaseEventButton
-    @click.stop
+    v-on="$listeners"
     :events="events"
     class="x-events-modal-id-open-button"
     data-test="open-modal-id"
@@ -44,9 +44,22 @@ The component rendering content passed to the default slot and opening the modal
 `my-modal`.
 
 ```vue
-<BaseIdModalOpen modalId="my-modal">
-  <img src="./open-button-icon.svg"/>
-  <span>Open</span>
-</BaseIdModalOpen>
+<template>
+  <BaseIdModalOpen modalId="my-modal">
+    <img src="./open-button-icon.svg" />
+    <span>Open</span>
+  </BaseIdModalOpen>
+</template>
+
+<script>
+  import { BaseIdModalOpen } from '@empathy/x-components';
+
+  export default {
+    name: 'BaseIdModalOpenTest',
+    components: {
+      BaseIdModalOpen
+    }
+  };
+</script>
 ```
 </docs>

@@ -34,9 +34,13 @@ function renderBaseModal({
     async setOpen(open) {
       await containerWrapper.setProps({ open });
     },
-    async clickBody() {
+    clickBody() {
       document.body.click();
-      await localVue.nextTick();
+      return localVue.nextTick();
+    },
+    focusBody() {
+      document.body.dispatchEvent(new FocusEvent('focusin'));
+      return localVue.nextTick();
     }
   };
 }
@@ -78,6 +82,18 @@ describe('testing Base Modal  component', () => {
 
     expect(wrapper.emitted('click:body')).toEqual([[expect.any(MouseEvent)]]);
   });
+
+  it('emits the focusin:body event any element out of the modal is focused', async () => {
+    const { wrapper, focusBody, setOpen } = renderBaseModal({ open: false });
+
+    await focusBody();
+    expect(wrapper.emitted('focusin:body')).toBeUndefined();
+
+    await setOpen(true);
+    await focusBody();
+
+    expect(wrapper.emitted('focusin:body')).toEqual([[expect.any(FocusEvent)]]);
+  });
 });
 
 interface RenderBaseModalOptions {
@@ -96,4 +112,6 @@ interface RenderBaseModalAPI {
   getModal: () => Wrapper<Vue>;
   /** Fakes a click on the body. */
   clickBody: () => Promise<void>;
+  /** Fakes a focusin event in the body. */
+  focusBody: () => Promise<void>;
 }

@@ -1,5 +1,6 @@
 <template>
   <BaseEventButton
+    v-on="$listeners"
     :events="events"
     class="x-events-modal-id-close-button"
     data-test="close-modal-id"
@@ -43,8 +44,21 @@ The component renders whatever is passed to it in the default slot and closing t
 modalId `my-modal`.
 
 ```vue
-<BaseIdModalClose modalId="my-modal">
-  <img src="./close-button-icon.svg"/>
-</BaseIdModalClose>
+<template>
+  <BaseIdModalClose modalId="my-modal">
+    <img src="./close-button-icon.svg" />
+  </BaseIdModalClose>
+</template>
+
+<script>
+  import { BaseIdModalClose } from '@empathy/x-components';
+
+  export default {
+    name: 'BaseIdModalCloseTest',
+    components: {
+      BaseIdModalClose
+    }
+  };
+</script>
 ```
 </docs>

@@ -1,5 +1,5 @@
 <template>
-  <button @click="emitEvents" data-test="event-button">
+  <button v-on="$listeners" @click="emitEvents" data-test="event-button">
     <!-- @slot (Required) Button content with a text, an icon or both -->
     <slot />
   </button>

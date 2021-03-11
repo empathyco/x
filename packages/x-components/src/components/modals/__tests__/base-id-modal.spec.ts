@@ -14,6 +14,8 @@ function renderBaseIdModal({
   template = `<BaseIdModal modalId="${id}" v-bind="$attrs" />`
 }: RenderBaseIdModalOptions = {}): RenderBaseIdModalAPI {
   const [, localVue] = installNewXPlugin();
+  const div = document.createElement('div');
+  document.body.appendChild(div);
   const wrapper = mount(
     {
       components: {
@@ -21,7 +23,7 @@ function renderBaseIdModal({
       },
       template
     },
-    { propsData: { modalId: id }, localVue }
+    { propsData: { modalId: id }, localVue, attachTo: div }
   );
 
   const modalWrapper = wrapper.findComponent(BaseIdModal);
@@ -42,8 +44,15 @@ function renderBaseIdModal({
       document.body.click();
       return localVue.nextTick();
     },
-    async click() {
+    focusBody() {
+      document.body.dispatchEvent(new FocusEvent('focusin'));
+      return localVue.nextTick();
+    },
+    async clickOverlay() {
       await modalWrapper.trigger('click');
+    },
+    async clickModalContent() {
+      await modalWrapper.get(getDataTestSelector('modal-content')).trigger('click');
     },
     getModalElement() {
       return modalWrapper.find(getDataTestSelector('modal'));
@@ -71,8 +80,26 @@ describe('testing BaseIdModal  component', () => {
     expect(getModalElement().exists()).toBe(false);
   });
 
-  it('doest not close when clicking on either the modal or its content', async () => {
-    const { wrapper, click, emitOpen, getModalElement } = renderBaseIdModal({
+  it('closes when focusing any other element out of the modal', async () => {
+    const { emitOpen, focusBody, getModalElement } = renderBaseIdModal();
+
+    await emitOpen();
+    expect(getModalElement().exists()).toBe(true);
+    await focusBody();
+    expect(getModalElement().exists()).toBe(false);
+  });
+
+  it('closes when clicking the modal overlay', async () => {
+    const { emitOpen, clickOverlay, getModalElement } = renderBaseIdModal();
+
+    await emitOpen();
+    expect(getModalElement().exists()).toBe(true);
+    await clickOverlay();
+    expect(getModalElement().exists()).toBe(false);
+  });
+
+  it("doesn't not close when clicking on either the modal or its content", async () => {
+    const { wrapper, clickModalContent, emitOpen, getModalElement } = renderBaseIdModal({
       template: `
         <BaseIdModal modalId="myModal" v-bind="$attrs">
           <button data-test="test-button">Modal should still be open when I'm clicked</button>
@@ -82,7 +109,7 @@ describe('testing BaseIdModal  component', () => {
     await emitOpen();
     expect(getModalElement().exists()).toBe(true);
 
-    await click();
+    await clickModalContent();
     expect(getModalElement().exists()).toBe(true);
 
     const button = wrapper.find(getDataTestSelector('test-button'));
@@ -109,8 +136,12 @@ interface RenderBaseIdModalAPI {
   emitOpen: () => Promise<void>;
   /** Fakes a click on the body. */
   clickBody: () => Promise<void>;
-  /** Fakes a click on the . */
-  click: () => Promise<void>;
+  /** Fakes a focusin event in the body. */
+  focusBody: () => Promise<void>;
+  /** Fakes a click on the overlay. */
+  clickOverlay: () => Promise<void>;
+  /** Fakes a click ont the modal content. */
+  clickModalContent: () => Promise<void>;
   /** Retrieves the modal  wrapper. */
   getModalElement: () => Wrapper<Vue>;
 }

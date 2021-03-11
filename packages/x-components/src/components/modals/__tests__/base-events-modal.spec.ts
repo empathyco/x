@@ -18,6 +18,8 @@ function renderBaseEventsModal({
   eventsToOpenModal
 }: RenderBaseEventsModalOptions = {}): RenderBaseEventsModalAPI {
   const [, localVue] = installNewXPlugin();
+  const div = document.createElement('div');
+  document.body.appendChild(div);
   const wrapper = mount(
     {
       components: {
@@ -25,7 +27,11 @@ function renderBaseEventsModal({
       },
       template
     },
-    { propsData: { bodyClickEvent, eventsToCloseModal, eventsToOpenModal }, localVue }
+    {
+      propsData: { bodyClickEvent, eventsToCloseModal, eventsToOpenModal },
+      localVue,
+      attachTo: div
+    }
   );
 
   const modalWrapper = wrapper.findComponent(BaseEventsModal);
@@ -44,8 +50,13 @@ function renderBaseEventsModal({
       document.body.click();
       return localVue.nextTick();
     },
-    async click() {
-      await modalWrapper.trigger('click');
+    focusBody() {
+      document.body.dispatchEvent(new FocusEvent('focusin'));
+      return localVue.nextTick();
+    },
+    clickOverlay() {
+      modalWrapper.trigger('click');
+      return localVue.nextTick();
     },
     getModalElement() {
       return modalWrapper.find(getDataTestSelector('modal'));
@@ -77,13 +88,22 @@ describe('testing Base Events Modal  component', () => {
     expect(getModalElement().exists()).toBe(false);
   });
 
-  it('closes when clicking on the  element', async () => {
-    const { emitOpen, click, getModalElement } = renderBaseEventsModal();
+  it('closes when focusing any other element out of the modal', async () => {
+    const { emitOpen, focusBody, getModalElement } = renderBaseEventsModal();
 
     await emitOpen();
     expect(getModalElement().exists()).toBe(true);
-    await click();
+    await focusBody();
+    expect(getModalElement().exists()).toBe(false);
+  });
+
+  it('closes when clicking on the overlay element', async () => {
+    const { emitOpen, clickOverlay, getModalElement } = renderBaseEventsModal();
+
+    await emitOpen();
     expect(getModalElement().exists()).toBe(true);
+    await clickOverlay();
+    expect(getModalElement().exists()).toBe(false);
   });
 
   it('does not close when clicking inside the content', async () => {
@@ -150,8 +170,10 @@ interface RenderBaseEventsModalAPI {
   emitOpen: () => Promise<void>;
   /** Fakes a click on the body. */
   clickBody: () => Promise<void>;
+  /** Fakes a focusin event in the body. */
+  focusBody: () => Promise<void>;
   /** Fakes a click on the . */
-  click: () => Promise<void>;
+  clickOverlay: () => Promise<void>;
   /** Retrieves the modal  wrapper. */
   getModalElement: () => Wrapper<Vue>;
   /** Emits the provided event. */

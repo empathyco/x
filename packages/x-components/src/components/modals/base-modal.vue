@@ -1,7 +1,7 @@
 <template>
   <component :is="animation">
     <div v-if="open" class="x-modal" data-test="modal">
-      <div @click.stop class="x-modal__content" data-test="modal-content">
+      <div ref="modal" class="x-modal__content" data-test="modal-content" role="dialog">
         <!-- @slot (Required) Modal container content -->
         <slot />
       </div>
@@ -34,29 +34,113 @@
     @Prop({ required: true })
     public open!: boolean;
 
-    protected beforeDestroy(): void {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      document.body.removeEventListener('click', this.emitClickInBody);
-    }
+    /** The previous value of the body overflow style. */
+    protected previousBodyOverflow = '';
+    /** The previous value of the HTML element overflow style. */
+    protected previousHTMLOverflow = '';
+
+    public $refs!: {
+      modal: HTMLElement;
+    };
 
     protected mounted(): void {
       /* Watcher added after mount to prevent SSR from breaking */
       // eslint-disable-next-line @typescript-eslint/unbound-method
-      this.$watch('open', this.syncBodyListeners, { immediate: true });
+      this.$watch('open', this.syncBody, { immediate: true });
     }
 
-    protected syncBodyListeners(isOpen: boolean): void {
+    /**
+     * Syncs the body to the open state of the modal, adding or removing styles and listeners.
+     *
+     * @param isOpen - True when the modal is opened.
+     * @internal
+     */
+    protected syncBody(isOpen: boolean): void {
       if (isOpen) {
-        // eslint-disable-next-line @typescript-eslint/unbound-method
-        document.body.addEventListener('click', this.emitClickInBody);
+        this.disableScroll();
+        this.addBodyListeners();
+        /* eslint-disable @typescript-eslint/unbound-method */
+        this.$on('hook:beforeDestroy', this.removeBodyListeners);
+        this.$on('hook:beforeDestroy', this.enableScroll);
+        /* eslint-enable @typescript-eslint/unbound-method */
       } else {
-        // eslint-disable-next-line @typescript-eslint/unbound-method
-        document.body.removeEventListener('click', this.emitClickInBody);
+        this.enableScroll();
+        this.removeBodyListeners();
+        /* eslint-disable @typescript-eslint/unbound-method */
+        this.$off('hook:beforeDestroy', this.removeBodyListeners);
+        this.$off('hook:beforeDestroy', this.enableScroll);
+        /* eslint-enable @typescript-eslint/unbound-method */
       }
     }
 
+    /**
+     * Disables the scroll of both the body and the window.
+     *
+     * @internal
+     */
+    protected disableScroll(): void {
+      this.previousBodyOverflow = document.body.style.overflow;
+      this.previousHTMLOverflow = document.documentElement.style.overflow;
+      document.body.style.overflow = document.documentElement.style.overflow = 'hidden';
+    }
+
+    /**
+     * Restores the scroll of both the body and the window.
+     *
+     * @internal
+     */
+    protected enableScroll(): void {
+      document.body.style.overflow = this.previousBodyOverflow;
+      document.documentElement.style.overflow = this.previousHTMLOverflow;
+      document.body.style.overflow = document.documentElement.style.overflow = '';
+    }
+
+    /**
+     * Adds listeners to the body element ot detect if the modal should be closed.
+     *
+     * @internal
+     */
+    protected addBodyListeners(): void {
+      /* eslint-disable @typescript-eslint/unbound-method */
+      document.body.addEventListener('click', this.emitClickInBody);
+      document.body.addEventListener('focusin', this.emitFocusInBody);
+      /* eslint-enable @typescript-eslint/unbound-method */
+    }
+
+    /**
+     * Removes the body listeners.
+     *
+     * @internal
+     */
+    protected removeBodyListeners(): void {
+      /* eslint-disable @typescript-eslint/unbound-method */
+      document.body.removeEventListener('click', this.emitClickInBody);
+      document.body.removeEventListener('focusin', this.emitFocusInBody);
+      /* eslint-enable @typescript-eslint/unbound-method */
+    }
+
+    /**
+     * Emits the `click:body` event if the click has been triggered out of the modal.
+     *
+     * @param event - The click event.
+     * @internal
+     */
     protected emitClickInBody(event: MouseEvent): void {
-      this.$emit('click:body', event);
+      if (!this.$refs.modal.contains(event.target as HTMLElement)) {
+        this.$emit('click:body', event);
+      }
+    }
+
+    /**
+     * Emits the `focusin:body` event if the focus event has been triggered out of the modal.
+     *
+     * @param event - The focusin event.
+     * @internal
+     */
+    protected emitFocusInBody(event: FocusEvent): void {
+      if (!this.$refs.modal.contains(event.target as HTMLElement)) {
+        this.$emit('focusin:body', event);
+      }
     }
   }
 </script>

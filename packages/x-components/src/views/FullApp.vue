@@ -5,10 +5,10 @@
       <SearchInput placeholder="Search" aria-label="Search for products" />
       <BaseIdModalClose aria-label="Close search" modalId="id-modal">x</BaseIdModalClose>
     </BaseIdModal>
-    <BaseEventsOpenButton>Open search (events modal)</BaseEventsOpenButton>
+    <BaseEventsModalOpen>Open search (events modal)</BaseEventsModalOpen>
     <BaseEventsModal :animation="collapseFromTop">
       <SearchInput placeholder="Search" aria-label="Search for products" />
-      <BaseEventsCloseButton aria-label="Close search">x</BaseEventsCloseButton>
+      <BaseEventsModalClose aria-label="Close search">x</BaseEventsModalClose>
     </BaseEventsModal>
     <!-- Search Section -->
     <SearchInput placeholder="Search" aria-label="Search for products" />
@@ -253,7 +253,7 @@
   import BaseHierarchicalFilter from '../components/filters/filters/base-hierarchical-filter.vue';
   import BaseNumberRangeFilter from '../components/filters/filters/base-number-range-filter.vue';
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
-  import BaseEventsOpenButton from '../components/modals/base-events-modal-open.vue';
+  import BaseEventsModalOpen from '../components/modals/base-events-modal-open.vue';
   import BaseResultLink from '../components/result/base-result-link.vue';
   import BaseResultImage from '../components/result/base-result-image.vue';
   import BaseSimpleFilter from '../components/filters/filters/base-simple-filter.vue';
@@ -315,9 +315,9 @@
       BaseNumberRangeFilter,
       BaseCurrency,
       BasePriceFilterTitle,
-      BaseEventsCloseButton: BaseEventsModalClose,
+      BaseEventsModalClose,
       BaseKeyboardNavigation,
-      BaseEventsOpenButton,
+      BaseEventsModalOpen,
       BaseResultLink,
       BaseResultImage,
       BaseSimpleFilter,

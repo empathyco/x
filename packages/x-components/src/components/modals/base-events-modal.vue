@@ -1,5 +1,10 @@
 <template>
-  <BaseModal @click:body="emitClose" :open="isOpen" :animation="animation">
+  <BaseModal
+    @click:body="emitBodyClickEvent"
+    @focusin:body="emitBodyClickEvent"
+    :animation="animation"
+    :open="isOpen"
+  >
     <slot />
   </BaseModal>
 </template>
@@ -8,8 +13,9 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { XEvent } from '../../wiring/events.types';
-  import { WireMetadata } from '../../wiring/wiring.types';
   import { XOn } from '../decorators/store.decorators';
+  import { WireMetadata } from '../../wiring/wiring.types';
+  import { isElementEqualOrContained } from '../../utils/html';
   import BaseModal from './base-modal.vue';
 
   /**
@@ -55,22 +61,21 @@
      */
     protected isOpen = false;
 
-    /**
-     * The element that opened the modal.
-     */
-    protected openerElement: EventTarget | null = null;
+    /** The element that opened the modal. */
+    protected openerElement?: HTMLElement;
 
     /**
      * Opens the modal.
      *
-     * @param _payload - The payload of the opening events.
-     * @param metadata - The metadata of the emitted event.
-     * @public
+     * @param _payload - The payload of the event that opened the modal.
+     * @param metadata - The metadata of the event that opened the modal.
+     *
+     * @internal
      */
     @XOn(component => (component as BaseEventsModal).eventsToOpenModal)
     openModal(_payload: unknown, metadata: WireMetadata): void {
       if (!this.isOpen) {
-        this.openerElement = metadata.target ?? null;
+        this.openerElement = metadata.target;
         this.isOpen = true;
       }
     }
@@ -78,26 +83,28 @@
     /**
      * Closes the modal.
      *
-     * @public
+     * @internal
      */
     @XOn(component => (component as BaseEventsModal).eventsToCloseModal)
     closeModal(): void {
       if (this.isOpen) {
-        this.openerElement = null;
         this.isOpen = false;
       }
     }
 
     /**
-     * Emits the event defined in the `bodyClickEvent` prop.
+     * Emits the event defined in the {@link BaseEventsModal.bodyClickEvent} event unless the passed
+     * event target is the button that opened the modal.
      *
-     * @param event - The DOM event.
-     *
+     * @param event - The event that triggered the close attempt.
      * @public
      */
-    protected emitClose(event: MouseEvent): void {
+    protected emitBodyClickEvent(event: MouseEvent | FocusEvent): void {
       // Prevents clicking the open button when the panel is already open to close the panel.
-      if (this.openerElement === null || this.openerElement !== event.target) {
+      if (
+        !this.openerElement ||
+        !isElementEqualOrContained(this.openerElement, event.target as HTMLElement)
+      ) {
         this.$x.emit(this.bodyClickEvent, undefined, { target: this.$el as HTMLElement });
       }
     }
@@ -117,11 +124,27 @@ The component interacts with the open and close components, which are preconfigu
 emit the same events that the `BaseEventsModal` component is listening to:
 
 ```vue
-<BaseEventsModalOpen>Open</BaseEventsModalOpen>
-<BaseEventsModal>
+<template>
+  <div>
+    <BaseEventsModalOpen>Open</BaseEventsModalOpen>
+    <BaseEventsModal>
       <BaseEventsModalClose>Close</BaseEventsModalClose>
       <img src="success.png" />
-</BaseEventsModal>
+    </BaseEventsModal>
+  </div>
+</template>
+
+<script>
+  import { BaseEventsModalOpen, BaseEventsModal } from '@empathy/x-components';
+
+  export default {
+    name: 'ModalTest',
+    components: {
+      BaseEventsModalOpen,
+      BaseEventsModal
+    }
+  };
+</script>
 ```
 
 ## Customizing the events
@@ -131,8 +154,13 @@ events. To do so, the `eventsToCloseModal` and `eventsToOpenModal` props can be 
 see a full example on how this would work with custom events.
 
 ```vue
-<BaseEventsModalOpen openingEvent="UserClickedOpenMyCustomModal">Open</BaseEventsModalOpen>
-<BaseEventsModal :eventsToOpenModal="eventsToOpenModal" :eventsToCloseModal="eventsToCloseModal">
+<template>
+  <div>
+    <BaseEventsModalOpen openingEvent="UserClickedOpenMyCustomModal">Open</BaseEventsModalOpen>
+    <BaseEventsModal
+      :eventsToCloseModal="eventsToCloseModal"
+      :eventsToOpenModal="eventsToOpenModal"
+    >
       <BaseEventsModalClose closingEvent="UserClickedCloseMyCustomModalFromHeader">
         Close from header
       </BaseEventsModalClose>
@@ -140,6 +168,25 @@ see a full example on how this would work with custom events.
       <BaseEventsModalClose closingEvent="UserClickedCloseMyCustomModalFromFooter">
         Close from footer
       </BaseEventsModalClose>
-</BaseEventsModal>
+    </BaseEventsModal>
+  </div>
+</template>
+
+<script>
+  import {
+    BaseEventsModalOpen,
+    BaseEventsModal,
+    BaseEventsModalClose
+  } from '@empathy/x-components';
+
+  export default {
+    name: 'ModalTest',
+    components: {
+      BaseEventsModalOpen,
+      BaseEventsModal,
+      BaseEventsModalClose
+    }
+  };
+</script>
 ```
 </docs>

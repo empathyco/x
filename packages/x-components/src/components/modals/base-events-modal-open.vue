@@ -1,6 +1,6 @@
 <template>
   <BaseEventButton
-    @click.stop
+    v-on="$listeners"
     :events="events"
     class="x-events-modal-open-button"
     data-test="open-modal"
@@ -39,24 +39,56 @@
 <docs lang="mdx">
 #Examples
 
+This component serves to open the `BaseEventsModal`.
+
 ## Basic example
 
-The component rendering content passed to the default slot.
+On clicked, the component closes the `BaseEventsModal`. The only needed thing is the content that
+the button should render, that can be any thing: a text, an image, an icon, a combination of the two
+of them...
 
 ```vue
-<BaseEventsModalOpen>
-  <img src="./open-button-icon.svg"/>
-  <span>Open</span>
-</BaseEventsModalOpen>
+<template>
+  <BaseEventsModalOpen>
+    <img src="./open-button-icon.svg" />
+    <span>Open</span>
+  </BaseEventsModalOpen>
+</template>
+
+<script>
+  import { BaseEventsModalOpen } from '@empathy/x-components';
+
+  export default {
+    name: 'BaseEventsModalOpenTest',
+    components: {
+      BaseEventsModalOpen
+    }
+  };
+</script>
 ```
 
 ## Defining another event to emit when clicking the button
 
-The component
+By default it uses the same `openingEvent` that the `BaseEventsModal` is listening by default too.
+This event can be changed using the `openingEvent` prop, but remember to change it in the target
+`BaseEventsModal` too.
 
 ```vue
-<BaseEventsModalOpen openingEvent="UserOpenedEmpathize">
-  <span>Open</span>
-</BaseEventsModalOpen>
+<template>
+  <BaseEventsModalOpen openingEvent="UserOpenedEmpathize">
+    <span>Open</span>
+  </BaseEventsModalOpen>
+</template>
+
+<script>
+  import { BaseEventsModalOpen } from '@empathy/x-components';
+
+  export default {
+    name: 'BaseEventsModalOpenTest',
+    components: {
+      BaseEventsModalOpen
+    }
+  };
+</script>
 ```
 </docs>
