@@ -1,5 +1,5 @@
 describe.skip('e2e testing sliding panel component', () => {
-  const query = 'marvel';
+  const query = 'barbie';
   beforeEach(() => {
     cy.visit('/');
     cy.searchQuery(query);

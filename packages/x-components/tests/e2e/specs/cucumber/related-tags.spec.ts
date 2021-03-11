@@ -79,7 +79,7 @@ Then('related tag number {int} is shown as not selected', (relatedTagItem: numbe
 // Scenario 2
 And('related tags have changed', () => {
   cy.getByDataTest('related-tag')
-    .should('not.have.length', relatedTagsList.length)
+    .should('have.length.at.least', 2)
     .each($result => {
       secondRelatedTagsList.push($result.text());
     })

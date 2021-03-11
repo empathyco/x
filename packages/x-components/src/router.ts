@@ -74,6 +74,11 @@ const routes: RouteConfig[] = [
     component: () => import('./views/base-events-modal.vue')
   },
   {
+    path: '/test/base-result-image',
+    name: 'Base Result Image',
+    component: () => import('./views/base-result-image.vue')
+  },
+  {
     path: '/test/keyboard-navigation',
     name: 'Keyboard Navigation',
     component: () => import('./views/keyboard-navigation.vue')

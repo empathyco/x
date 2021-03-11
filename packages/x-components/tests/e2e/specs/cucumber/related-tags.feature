@@ -24,6 +24,7 @@ Feature: Related tags component
     When  related tag number <relatedTagItem> is clicked
     Then  clicked related tag is shown in position 0 as selected
     And   clicked related tag is added to the search-box is <addToSearchBox>
+    And   related results are displayed
     And   related tags have changed
     And   at most <maxItemsToRequest> unselected related tags are displayed
     When  related tag number <relatedTagItem2> is clicked
