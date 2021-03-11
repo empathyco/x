@@ -24,13 +24,14 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Filter } from '@empathy/search-types';
+  import { BooleanFilter } from '@empathy/search-types';
   import { Component, Prop } from 'vue-property-decorator';
   import { isFilterSelected } from '../../../utils/filters';
   import { VueCSSClasses } from '../../../utils/types';
 
   /**
-   * Renders a list with a list item per each filter in the filters prop array.
+   * Renders a list with a list item per each
+   * {@link @empathy/search-types#BooleanFilter | BooleanFilter} in the filters prop array.
    * Each list item has a scoped slot, passing the filter as slot prop.
    *
    * @public
@@ -43,7 +44,7 @@
      * @public
      */
     @Prop({ required: true })
-    protected filters!: Filter[];
+    protected filters!: BooleanFilter[];
 
     /**
      * Animation component that will be used to animate the base filters.

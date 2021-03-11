@@ -16,7 +16,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { Filter } from '@empathy/search-types';
+  import { Facet, Filter } from '@empathy/search-types';
   import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { facetsXModule } from '../x-module';
@@ -70,7 +70,7 @@
      * @returns The facet id for the filters list, or `null` if the list is empty.
      * @internal
      */
-    protected get facetId(): null | string {
+    protected get facetId(): null | Facet['id'] {
       const facetId = this.filters[0]?.facetId;
       return facetId ?? null;
     }

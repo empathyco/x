@@ -34,6 +34,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Facet } from '@empathy/search-types';
   import { xComponentMixin } from '../../../components';
   import { facetsXModule } from '../x-module';
   import SelectedFilters from './selected-filters.vue';
@@ -61,7 +62,7 @@
      * @public
      */
     @Prop()
-    protected facetId: string | undefined;
+    protected facetId: Facet['id'] | undefined;
 
     /**
      * It is directly passed to the selected filters component. It handles if the SelectedFilters

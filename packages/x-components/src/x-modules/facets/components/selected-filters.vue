@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-  import { Filter } from '@empathy/search-types';
+  import { Facet, Filter } from '@empathy/search-types';
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { Getter, xComponentMixin } from '../../../components';
   import { FiltersByFacet } from '../store/types';
@@ -30,7 +30,7 @@
      * @public
      */
     @Prop()
-    protected facetId: string | undefined;
+    protected facetId: Facet['id'] | undefined;
 
     /**
      * It handles if the SelectedFilters component is always rendered no matter if no filters are

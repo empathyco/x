@@ -89,7 +89,7 @@ export interface FacetsXEvents {
  */
 export interface MultiSelectChange {
   /** The facet unique identifier. */
-  facetId: string;
+  facetId: Facet['id'];
   /** The facet multiSelect new value. */
   multiSelect: boolean;
 }

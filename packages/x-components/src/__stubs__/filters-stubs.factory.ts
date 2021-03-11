@@ -43,10 +43,11 @@ export function getNumberRangeFilterStub(
       selected: false,
       callbackInfo: {},
       label: 'Test',
-      value: {
+      range: {
         min: 1,
         max: 10
       },
+      value: '1:10',
       totalResults: 0
     },
     filter

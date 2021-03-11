@@ -1,6 +1,5 @@
-import { Filter, HierarchicalFilter } from '@empathy/search-types';
+import { BooleanFilter, HierarchicalFilter, isHierarchicalFacet } from '@empathy/search-types';
 import { arrayToObject } from '../../../../utils';
-import { isHierarchicalFacet } from '../../../../utils/filters';
 import { FacetsXStoreModule } from '../types';
 
 /**
@@ -25,8 +24,11 @@ export const setBackendFacets: FacetsXStoreModule['actions']['setBackendFacets']
    *
    * @param filter - Target filter to set its selected property.
    */
-  function setStateSelectedFilter(filter: Filter): void {
-    commit('setFilterSelected', { filter, selected: !!flattenedFilters[filter.id]?.selected });
+  function setStateSelectedBooleanFilter(filter: BooleanFilter): void {
+    commit('setFilterSelected', {
+      filter,
+      selected: !!(flattenedFilters[filter.id] as BooleanFilter)?.selected
+    });
   }
 
   /**
@@ -35,8 +37,8 @@ export const setBackendFacets: FacetsXStoreModule['actions']['setBackendFacets']
    *
    * @param filters - Target filter to set its selected property.
    */
-  function setStateSelectedFilters(filters: Filter[]): void {
-    filters.forEach(setStateSelectedFilter);
+  function setStateSelectedBooleanFilters(filters: BooleanFilter[]): void {
+    filters.forEach(setStateSelectedBooleanFilter);
   }
 
   /**
@@ -47,7 +49,7 @@ export const setBackendFacets: FacetsXStoreModule['actions']['setBackendFacets']
    */
   function setStateSelectedHierarchicalFilters(filters: HierarchicalFilter[]): void {
     filters.forEach(filter => {
-      setStateSelectedFilter(filter);
+      setStateSelectedBooleanFilter(filter);
       if (filter.children.length) {
         setStateSelectedHierarchicalFilters(filter.children);
       }
@@ -59,7 +61,7 @@ export const setBackendFacets: FacetsXStoreModule['actions']['setBackendFacets']
       if (isHierarchicalFacet(facet)) {
         setStateSelectedHierarchicalFilters(facet.filters);
       } else {
-        setStateSelectedFilters(facet.filters);
+        setStateSelectedBooleanFilters(facet.filters as BooleanFilter[]);
       }
     });
   }

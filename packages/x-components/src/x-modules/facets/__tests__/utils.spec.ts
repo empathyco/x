@@ -1,9 +1,9 @@
-import { Filter } from '@empathy/search-types';
+import { BooleanFilter } from '@empathy/search-types';
 import { areFiltersDifferent, isNewQuery } from '../utils';
 
 describe('testing areFiltersDifferent util', () => {
   it('returns true with different filters', () => {
-    const newFiltersArray: Filter[] = [
+    const newFiltersArray: BooleanFilter[] = [
       {
         facetId: 'hierarchical_category',
         modelName: 'SimpleFilter',
@@ -26,7 +26,7 @@ describe('testing areFiltersDifferent util', () => {
       }
     ];
 
-    const oldFiltersArray: Filter[] = [
+    const oldFiltersArray: BooleanFilter[] = [
       {
         facetId: 'hierarchical_category',
         modelName: 'SimpleFilter',
@@ -53,7 +53,7 @@ describe('testing areFiltersDifferent util', () => {
   });
 
   it('returns false with the same filters', () => {
-    const newFiltersArray: Filter[] = [
+    const newFiltersArray: BooleanFilter[] = [
       {
         facetId: 'hierarchical_category',
         modelName: 'SimpleFilter',
@@ -76,7 +76,7 @@ describe('testing areFiltersDifferent util', () => {
       }
     ];
 
-    const oldFiltersArray: Filter[] = [
+    const oldFiltersArray: BooleanFilter[] = [
       {
         facetId: 'hierarchical_category',
         modelName: 'SimpleFilter',

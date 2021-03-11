@@ -1,4 +1,4 @@
-import { Facet, Filter } from '@empathy/search-types';
+import { Facet, Filter, isBooleanFilter } from '@empathy/search-types';
 import { ActionsClass } from '../../../../store/actions.types';
 import { FacetsActionsContext, FacetsXStoreModule } from '../types';
 
@@ -26,7 +26,10 @@ export class ClearSelectedFilters implements ActionsClass<FacetsXStoreModule> {
    * @param facetIds - The facet ids to clear its selected filters.
    * @public
    */
-  clearFacetsSelectedFilters({ getters, commit }: FacetsActionsContext, facetIds: string[]): void {
+  clearFacetsSelectedFilters(
+    { getters, commit }: FacetsActionsContext,
+    facetIds: Facet['id'][]
+  ): void {
     getters.selectedFilters.filter(this.belongsToFacets(facetIds)).forEach(this.deselect(commit));
   }
 
@@ -49,7 +52,7 @@ export class ClearSelectedFilters implements ActionsClass<FacetsXStoreModule> {
    * @returns A function to check if a filter's facet belongs to a list of facet ids.
    * @internal
    */
-  protected belongsToFacets(facetIds: string[]): (filter: Filter) => boolean {
+  protected belongsToFacets(facetIds: Facet['id'][]): (filter: Filter) => boolean {
     return filter => facetIds.includes(filter.facetId);
   }
 
@@ -61,8 +64,10 @@ export class ClearSelectedFilters implements ActionsClass<FacetsXStoreModule> {
    * @internal
    */
   protected deselect(commit: FacetsActionsContext['commit']): (filter: Filter) => void {
-    return filter => {
-      commit('setFilterSelected', { filter, selected: false });
+    return (filter: Filter) => {
+      if (isBooleanFilter(filter)) {
+        commit('setFilterSelected', { filter, selected: false });
+      }
     };
   }
 }

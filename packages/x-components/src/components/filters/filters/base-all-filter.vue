@@ -18,16 +18,17 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { Facet } from '@empathy/search-types';
+  import { BooleanFilter, Facet } from '@empathy/search-types';
   import BaseEventButton from '../../base-event-button.vue';
   import { VueCSSClasses } from '../../../utils/types';
   import { XEventsTypes } from '../../../wiring/events.types';
 
   /**
-   * This component receives a required `facet` as prop and renders a button, which on clicked emits
-   * the {@link FacetsXEvents.UserClickedFacetAllFilter} event. By default the rendered button
-   * displays a message with the facet label but this content is customizable through the default
-   * slot.
+   * This component receives a required `facet` with
+   * {@link @empathy/search-types#BooleanFilter | BooleanFilter} as prop and renders a button, which
+   * on clicked emits the {@link FacetsXEvents.UserClickedFacetAllFilter} event. By default
+   * the rendered button displays a message with the facet label but this content is customizable
+   * through the default slot.
    *
    * @public
    */
@@ -59,7 +60,9 @@
      */
     protected get cssClasses(): VueCSSClasses {
       return {
-        'x-all-filter--selected': !this.facet.filters.some(filter => filter.selected)
+        'x-all-filter--selected': !(this.facet.filters as BooleanFilter[]).some(
+          filter => filter.selected
+        )
       };
     }
   }
@@ -69,8 +72,8 @@
 #Example
 
 This component receives a required `facet` as prop and renders a button, which on clicked emits the
-UserClickedFacetAllFilter event. By default the rendered button displays a message with the facet
-label but this content is customizable through the default slot.
+UserClickedFacetAllFilter event. By default the rendered button displays a message with the
+facet label but this content is customizable through the default slot.
 
 ## Basic usage
 

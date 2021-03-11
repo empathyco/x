@@ -81,7 +81,7 @@ export function getAliasAPI(
       return store.state.x.recommendations?.recommendations ?? [];
     },
     get facets() {
-      return store.getters[getGetterPath('facets', 'facets')] ?? [];
+      return store.getters[getGetterPath('facets', 'facets')] ?? {};
     },
     get selectedFilters() {
       return store.getters[getGetterPath('facets', 'selectedFilters')] ?? [];

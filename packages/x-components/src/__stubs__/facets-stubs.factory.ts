@@ -453,7 +453,8 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
         id: 'price_facet:0 TO 10',
         label: '0:10',
         selected: false,
-        value: { min: null, max: 10 },
+        value: '*:10',
+        range: { min: null, max: 10 },
         totalResults: 23,
         callbackInfo: {},
         modelName: 'NumberRangeFilter'
@@ -463,7 +464,8 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
         id: 'price_facet:10 TO 20',
         label: '10:20',
         selected: false,
-        value: { min: 10, max: 20 },
+        value: '10:20',
+        range: { min: 10, max: 20 },
         totalResults: 150,
         callbackInfo: {},
         modelName: 'NumberRangeFilter'
@@ -473,7 +475,8 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
         id: 'price_facet:20 TO 30',
         label: '20:30',
         selected: false,
-        value: { min: 20, max: 30 },
+        value: '20:30',
+        range: { min: 20, max: 30 },
         totalResults: 164,
         callbackInfo: {},
         modelName: 'NumberRangeFilter'
@@ -483,7 +486,8 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
         id: 'price_facet:30 TO 40',
         label: '30:40',
         selected: false,
-        value: { min: 30, max: 40 },
+        value: '30:40',
+        range: { min: 30, max: 40 },
         totalResults: 58,
         callbackInfo: {},
         modelName: 'NumberRangeFilter'
@@ -493,7 +497,8 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
         id: 'price_facet:40 TO 50',
         label: '40:50',
         selected: false,
-        value: { min: 40, max: 50 },
+        value: '40:50',
+        range: { min: 40, max: 50 },
         totalResults: 38,
         callbackInfo: {},
         modelName: 'NumberRangeFilter'
@@ -503,7 +508,8 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
         id: 'price_facet:50 TO 70',
         label: '50:70',
         selected: false,
-        value: { min: 50, max: 70 },
+        value: '50:70',
+        range: { min: 50, max: 70 },
         totalResults: 44,
         callbackInfo: {},
         modelName: 'NumberRangeFilter'
@@ -513,7 +519,8 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
         id: 'price_facet:70 TO 100',
         label: '70:100',
         selected: false,
-        value: { min: 70, max: 100 },
+        value: '70:100',
+        range: { min: 70, max: 100 },
         totalResults: 24,
         callbackInfo: {},
         modelName: 'NumberRangeFilter'
@@ -523,7 +530,8 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
         id: 'price_facet:100 TO *',
         label: '100:*',
         selected: false,
-        value: { min: 100, max: null },
+        value: '100:*',
+        range: { min: 100, max: null },
         totalResults: 22,
         callbackInfo: {},
         modelName: 'NumberRangeFilter'
@@ -623,7 +631,7 @@ export function createHierarchicalFacetStub(
 export function createNumberRangeFacet(
   label: string,
   createChildren: (
-    createNumberRangeFilter: (value: RangeValue, selected: boolean) => NumberRangeFilter
+    createNumberRangeFilter: (range: RangeValue, selected: boolean) => NumberRangeFilter
   ) => NumberRangeFilter[]
 ): NumberRangeFacet {
   const facetId = label.toLowerCase();
@@ -631,15 +639,18 @@ export function createNumberRangeFacet(
     modelName: 'NumberRangeFacet',
     id: facetId,
     label,
-    filters: createChildren((value, selected) => {
+    filters: createChildren((range, selected) => {
+      const { min, max } = range;
+
       return {
-        id: `${facetId}:${value.min ?? '*'}-${value.max ?? '*'}`,
+        id: `${facetId}:${min ?? '*'}-${max ?? '*'}`,
         facetId: facetId,
         selected,
-        label: `${value.min ?? '0'} - ${value.max ?? 'None'}`,
+        value: `${min ?? '*'}:${max ?? '*'}`,
+        label: `${min ?? '0'} - ${max ?? 'None'}`,
         totalResults: 0,
         callbackInfo: {},
-        value,
+        range,
         modelName: 'NumberRangeFilter'
       };
     })

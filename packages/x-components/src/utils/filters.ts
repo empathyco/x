@@ -1,4 +1,4 @@
-import { Facet, Filter, HierarchicalFacet, HierarchicalFilter } from '@empathy/search-types';
+import { BooleanFilter, HierarchicalFilter } from '@empathy/search-types';
 
 /**
  * Checks if a filter is selected.
@@ -7,18 +7,7 @@ import { Facet, Filter, HierarchicalFacet, HierarchicalFilter } from '@empathy/s
  * @returns True when the filter is selected. False otherwise.
  * @public
  */
-export const isFilterSelected = (filter: Filter): boolean => filter.selected;
-
-/**
- * Checks if a facet {@link @empathy/search-types#Facet | Facet} is a
- * {@link @empathy/search-types#HierarchicalFacet | HierarchicalFacet}.
- *
- * @param facet - The facet to check if it is hierarchical.
- * @returns True if it is a `HierarchicalFacet`. False otherwise.
- * @public
- */
-export const isHierarchicalFacet = (facet: Facet): facet is HierarchicalFacet =>
-  facet.modelName === 'HierarchicalFacet';
+export const isFilterSelected = (filter: BooleanFilter): boolean => filter.selected;
 
 /**
  * Checks if a filter is partially selected. Being partially selected means having either only some

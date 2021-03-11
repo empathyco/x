@@ -1,4 +1,4 @@
-import { Filter } from '@empathy/search-types';
+import { Filter, isBooleanFilter } from '@empathy/search-types';
 import { objectFilter } from '../../../../utils';
 import { FacetsXStoreModule } from '../types';
 
@@ -18,6 +18,8 @@ export const selectedFilters: FacetsXStoreModule['getters']['selectedFilters'] =
   _state,
   getters
 ): Filter[] => {
-  const selectedFilters = objectFilter(getters.flattenedFilters, (_, filter) => filter.selected);
+  const selectedFilters = objectFilter(getters.flattenedFilters, (_, filter) => {
+    return isBooleanFilter(filter) ? filter.selected : false;
+  });
   return Object.values(selectedFilters);
 };

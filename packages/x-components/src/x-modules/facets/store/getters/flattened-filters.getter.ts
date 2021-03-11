@@ -1,6 +1,5 @@
-import { Facet, Filter } from '@empathy/search-types';
+import { Facet, Filter, isHierarchicalFacet } from '@empathy/search-types';
 import { arrayToObject, deepFlat, reduce } from '../../../../utils';
-import { isHierarchicalFacet } from '../../../../utils/filters';
 import { FacetsXStoreModule } from '../types';
 
 /**

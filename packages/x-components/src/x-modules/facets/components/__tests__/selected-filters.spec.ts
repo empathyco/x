@@ -1,6 +1,7 @@
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
+import { BooleanFilter } from '@empathy/search-types';
 import { createSimpleFacetStub } from '../../../../__stubs__/facets-stubs.factory';
 import { getXComponentXModuleName, isXComponent } from '../../../../components';
 import { XPlugin } from '../../../../plugins';
@@ -62,7 +63,7 @@ function renderSelectedFilters({
     wrapper,
     selectedFiltersWrapper,
     toggleFacetNthFilter(facetId, nth) {
-      const filter = facetsState.backendFacets![facetId].filters[nth];
+      const filter = (facetsState.backendFacets![facetId].filters as BooleanFilter[])[nth];
       filter.selected = !filter.selected;
       return localVue.nextTick();
     }

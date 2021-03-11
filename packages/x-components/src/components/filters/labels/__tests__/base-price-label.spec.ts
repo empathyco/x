@@ -25,7 +25,7 @@ function renderBasePriceLabel({
 
 describe('testing BasePriceLabel component', () => {
   it('renders component with filter without min value', () => {
-    const filter = getNumberRangeFilterStub({ value: { min: null, max: 10 } });
+    const filter = getNumberRangeFilterStub({ range: { min: null, max: 10 } });
     const wrapper = renderBasePriceLabel({
       filter,
       format: '$i.dd',
@@ -35,7 +35,7 @@ describe('testing BasePriceLabel component', () => {
   });
 
   it('renders component with filter with min and max value', () => {
-    const filter = getNumberRangeFilterStub({ value: { min: 0, max: 10 } });
+    const filter = getNumberRangeFilterStub({ range: { min: 0, max: 10 } });
     const wrapper = renderBasePriceLabel({
       filter,
       format: 'i,dd €',
@@ -45,7 +45,7 @@ describe('testing BasePriceLabel component', () => {
   });
 
   it('renders component with filter without max value', () => {
-    const filter = getNumberRangeFilterStub({ value: { min: 1000, max: null } });
+    const filter = getNumberRangeFilterStub({ range: { min: 1000, max: null } });
     const wrapper = renderBasePriceLabel({
       filter,
       format: 'i.iii €'

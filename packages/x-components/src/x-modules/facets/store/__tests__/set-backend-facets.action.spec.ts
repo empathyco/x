@@ -1,4 +1,4 @@
-import { Facet, Filter } from '@empathy/search-types';
+import { BooleanFilter, Facet, Filter } from '@empathy/search-types';
 import Vuex, { Store } from 'vuex';
 import Vue from 'vue';
 import { arrayToObject } from '../../../../utils/array';
@@ -43,7 +43,8 @@ async function dispatchSetBackendFacets({
       return store.getters.facets;
     },
     getFiltersSelectedValue() {
-      const filters: Record<Filter['id'], Filter> = store.getters[gettersKeys.flattenedFilters];
+      const filters: Record<Filter['id'], BooleanFilter> =
+        store.getters[gettersKeys.flattenedFilters];
       return map(filters, (_, filter) => filter.selected);
     }
   };
@@ -206,7 +207,7 @@ describe(`${actionsKeys.setBackendFacets} action`, () => {
 interface DispatchSetBackendFacetsAPI {
   /** Returns a dictionary containing all the filters where the key is the filter id, and the value
    * is the selected property of that filter. */
-  getFiltersSelectedValue: () => Record<Filter['id'], Filter['selected']>;
+  getFiltersSelectedValue: () => Record<Filter['id'], BooleanFilter['selected']>;
   /** Returns the backend facets contained in the state. */
   getStoredFacets: () => FacetsState['backendFacets'];
 }

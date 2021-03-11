@@ -1,7 +1,7 @@
 <script lang="ts">
   import Vue, { CreateElement, VNode, VNodeChildren } from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { NumberRangeFilter } from '@empathy/search-types';
+  import { RangeValue } from '@empathy/search-types';
   import BaseCurrency from '../../currency/base-currency.vue';
 
   /**
@@ -16,7 +16,7 @@
   export default class BasePriceFilterLabel extends Vue {
     /** The filter data for get min and max value. */
     @Prop({ required: true })
-    public filter!: NumberRangeFilter;
+    public filter!: { range: RangeValue };
 
     /** Configuration for show the label. */
     @Prop()
@@ -56,9 +56,9 @@
      * @returns The active label to be formatted with the min and max values of the filter.
      */
     protected get label(): string {
-      return this.filter.value.min === null
+      return this.filter.range.min === null
         ? this.lessThan
-        : this.filter.value.max === null
+        : this.filter.range.max === null
         ? this.from
         : this.fromTo;
     }
@@ -70,7 +70,7 @@
         if (partMessage === '{min}') {
           return createElement('BaseCurrency', {
             props: {
-              value: this.filter.value.min,
+              value: this.filter.range.min,
               format: this.format,
               hideIntegerDecimals: this.hideIntegerDecimals
             }
@@ -78,7 +78,7 @@
         } else if (partMessage === '{max}') {
           return createElement('BaseCurrency', {
             props: {
-              value: this.filter.value.max,
+              value: this.filter.range.max,
               format: this.format,
               hideIntegerDecimals: this.hideIntegerDecimals
             }

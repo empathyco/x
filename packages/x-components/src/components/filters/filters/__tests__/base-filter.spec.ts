@@ -1,4 +1,4 @@
-import { Filter } from '@empathy/search-types';
+import { BooleanFilter } from '@empathy/search-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { XEventsTypes } from '../../../../wiring/events.types';
@@ -110,14 +110,14 @@ describe('testing BaseFilter component', () => {
 
 interface RenderBaseFilterOptions {
   template?: string;
-  filter?: Filter;
+  filter?: BooleanFilter;
   clickEvents?: Partial<XEventsTypes>;
 }
 
 interface BaseFilterAPI {
   wrapper: Wrapper<Vue>;
   emit: jest.Mock<any, any>;
-  filter: Filter;
+  filter: BooleanFilter;
   clickFilter: () => void;
   selectFilter: () => Promise<void>;
 }

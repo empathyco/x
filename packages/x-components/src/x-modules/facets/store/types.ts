@@ -3,7 +3,8 @@ import {
   Filter,
   HierarchicalFilter,
   SimpleFilter,
-  NumberRangeFilter
+  NumberRangeFilter,
+  BooleanFilter
 } from '@empathy/search-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { Dictionary } from '../../../utils';
@@ -36,7 +37,7 @@ export interface FacetsState {
  */
 export interface FilterSelectedChange {
   /** The filter to change its selection state. */
-  filter: Filter;
+  filter: BooleanFilter;
   /** The new selected state. */
   selected: boolean;
 }

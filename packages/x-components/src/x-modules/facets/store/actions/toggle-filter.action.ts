@@ -1,4 +1,4 @@
-import { Filter, SimpleFilter, NumberRangeFilter } from '@empathy/search-types';
+import { SimpleFilter, NumberRangeFilter, BooleanFilter } from '@empathy/search-types';
 import { FacetsActionsContext, FacetsXStoreModule } from '../types';
 
 /**
@@ -20,7 +20,7 @@ export const toggleNumberRangeFilter: FacetsXStoreModule['actions']['toggleNumbe
  * Select or deselect filter.
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
- * provided by Vuex. * @param filter - The filter to select or deselect.
+ * provided by Vuex.
  * @param filter - The filter to select or deselect.
  * @internal
  */
@@ -36,7 +36,9 @@ function toggleFilter(
      selected sibling. If it does, then we deselect it.
      */
     const facet = getters.facets[facetId];
-    const selectedSibling = facet.filters.find(selectedSiblingOf(filter));
+    const selectedSibling = (<(SimpleFilter | NumberRangeFilter)[]>facet.filters).find(
+      selectedSiblingOf(filter)
+    );
     if (selectedSibling) {
       commit('setFilterSelected', { filter: selectedSibling, selected: false });
     }
@@ -53,6 +55,6 @@ function toggleFilter(
  * @returns A function to check if a filter is selected, and it is a sibling of the provided filter.
  * @internal
  */
-function selectedSiblingOf(filter: Filter): (filter: Filter) => boolean {
+function selectedSiblingOf(filter: BooleanFilter): (filter: BooleanFilter) => boolean {
   return sibling => sibling.selected && sibling !== filter;
 }

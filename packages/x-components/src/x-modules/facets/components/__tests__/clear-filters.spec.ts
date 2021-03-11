@@ -1,4 +1,4 @@
-import { Facet } from '@empathy/search-types';
+import { BooleanFilter, Facet } from '@empathy/search-types';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -71,7 +71,7 @@ function renderClearFilters({
     wrapper,
     clearFiltersWrapper,
     setCategoryFacetFiltersAsSelected() {
-      facetsState.backendFacets?.category.filters.forEach(filter => {
+      (facetsState.backendFacets?.category.filters as BooleanFilter[]).forEach(filter => {
         filter.selected = true;
       });
       return localVue.nextTick();

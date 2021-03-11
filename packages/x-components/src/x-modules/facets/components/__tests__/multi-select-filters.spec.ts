@@ -1,4 +1,4 @@
-import { Filter } from '@empathy/search-types';
+import { BooleanFilter, Filter } from '@empathy/search-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
@@ -134,7 +134,7 @@ describe('testing MultiSelectFilters component', () => {
 
 interface RenderFiltersOptions {
   /** The filters list to be rendered. */
-  filters?: Filter[];
+  filters?: BooleanFilter[];
   /** The template to be rendered. It contains the `Filters` component registered, plus the`filters`
    * and `multiSelect` props. */
   template?: string;
@@ -144,7 +144,7 @@ interface RenderFiltersAPI {
   /** The `Filters` wrapper component, with testing utilities. */
   wrapper: Wrapper<Vue>;
   /** The filters list to be rendered. */
-  filters: Filter[];
+  filters: BooleanFilter[];
   /**
    * Changes the `filters` prop to the provided value.
    *

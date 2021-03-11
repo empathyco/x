@@ -26,9 +26,9 @@ export function isArrayEmpty(array: unknown[] | undefined | null): array is unde
  *
  * @public
  */
-export function arrayToObject<ArrayType>(
+export function arrayToObject<ArrayType, KeyType extends string | number>(
   array: ArrayType[],
-  key: PropsWithType<ArrayType, string>
+  key: PropsWithType<ArrayType, KeyType>
 ): Record<string, ArrayType> {
   return array.reduce<Record<string, ArrayType>>((accumulator, current) => {
     accumulator[(current[key] as unknown) as string] = current;
@@ -46,18 +46,18 @@ export function arrayToObject<ArrayType>(
  *
  * @public
  */
-export function groupItemsBy<ArrayType, ReturnType extends string>(
+export function groupItemsBy<ArrayType, ReturnType extends string | number>(
   array: ArrayType[],
   groupBy: (item: ArrayType) => ReturnType
 ): Record<ReturnType, ArrayType[]> {
-  return array.reduce<Record<string, ArrayType[]>>((accumulator, current) => {
+  return array.reduce<Record<ReturnType, ArrayType[]>>((accumulator, current) => {
     const keyValue = groupBy(current);
     if (!accumulator[keyValue]) {
       accumulator[keyValue] = [];
     }
     accumulator[keyValue].push(current);
     return accumulator;
-  }, {});
+  }, {} as Record<ReturnType, ArrayType[]>);
 }
 
 /**
