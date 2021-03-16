@@ -1,4 +1,40 @@
 # X Components
+## [2.0.0-alpha.6](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.6%0Dv2.0.0-alpha.5) (2021-03-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **facets:** Filters which have selected property now extends from BooleanFilter
+
+### Features
+
+* e2e test for base result image ([639ed31](https://bitbucket.org/colbenson/x-components/commits/639ed314715c9e31e0461d8d297ade30ad769603)), closes [EX-3234](https://searchbroker.atlassian.net/browse/EX-3234)
+* **facets:** update search-types and search-adapter to allow EditableNumberRangeFilters ([691ab64](https://bitbucket.org/colbenson/x-components/commits/691ab64054740eb1a50a9cfba72be8e4a306e24b)), closes [EX-3367](https://searchbroker.atlassian.net/browse/EX-3367)
+* **results-list:** added results-list component ([6ee52aa](https://bitbucket.org/colbenson/x-components/commits/6ee52aae52defcba3598bf76174ccb6469038439)), closes [EX-3172](https://searchbroker.atlassian.net/browse/EX-3172)
+* **search:** add `Spellcheck` component ([62432cc](https://bitbucket.org/colbenson/x-components/commits/62432cc82a547326159bcb216fb1f734914ae86e)), closes [EX-3179](https://searchbroker.atlassian.net/browse/EX-3179)
+* **search:** add `SpellcheckButton` component ([13446ed](https://bitbucket.org/colbenson/x-components/commits/13446eddbf1e3dea8bb3220283f17134e23cc608)), closes [EX-3329](https://searchbroker.atlassian.net/browse/EX-3329)
+* **search:** add total results in store and in the alias ([0e51507](https://bitbucket.org/colbenson/x-components/commits/0e5150710f0be3882a72a991375b0a419956ee20)), closes [EX-3187](https://searchbroker.atlassian.net/browse/EX-3187)
+
+
+### Bug Fixes
+
+* **components:** modal open buttons can now contain HTML elements inside. Disable page scroll when modals are open. Close modals when either clicked out of them or focus is lost ([3284e49](https://bitbucket.org/colbenson/x-components/commits/3284e49c521d3fab1fa971f3d378a32f6dbe6a30)), closes [EX-3361](https://searchbroker.atlassian.net/browse/EX-3361)
+
+
+### Testing
+
+* **e2e:** add tests for `BaseKeyboardNavigation` component ([ea3d71d](https://bitbucket.org/colbenson/x-components/commits/ea3d71d0b40b7346a8d5a45bb12294f26dadc62f)), closes [EX-3240](https://searchbroker.atlassian.net/browse/EX-3240)
+
+
+### Build System
+
+* **dependencies:** update [@vue-cli](https://bitbucket.org/vue-cli) dependencies to 4.5.x ([b05dd01](https://bitbucket.org/colbenson/x-components/commits/b05dd01519111a35ae04431c3c5de2d226b04b80)), closes [EX-3335](https://searchbroker.atlassian.net/browse/EX-3335)
+
+
+### Code Refactoring
+
+* add `scoped` attribute to `<style>` to components that were missing it ([4f2c8d6](https://bitbucket.org/colbenson/x-components/commits/4f2c8d60be7e9631867afd45e73420a4a3238e32)), closes [EX-3266](https://searchbroker.atlassian.net/browse/EX-3266)
+
 ## [2.0.0-alpha.5](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.5%0Dv2.0.0-alpha.4) (2021-03-08)
 
 
