@@ -15,7 +15,7 @@ Feature: Related tags component
     And   related results have changed
     Examples:
       | maxItemsToRequest | addToSearchBox | query     | relatedTagItem |
-      | 3                 | false          | barbie     | 1              |
+      | 3                 | false          | lego      | 1              |
 
   Scenario Outline: 2. Multiple related tags are selected
     Given following config: requested items <maxItemsToRequest>, add to search-box <addToSearchBox>

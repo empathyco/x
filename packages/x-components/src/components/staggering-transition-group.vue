@@ -416,7 +416,7 @@
   type TransitionHook = (element: HTMLElement) => void;
 </script>
 
-<style lang="scss" scopped>
+<style lang="scss" scoped>
   .x-staggering-transition-group {
     position: relative;
   }

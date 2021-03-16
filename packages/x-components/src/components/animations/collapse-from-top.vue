@@ -19,7 +19,7 @@
   export default class CollapseFromTop extends Vue {}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .collapse-top {
     &-enter,
     &-leave-to {

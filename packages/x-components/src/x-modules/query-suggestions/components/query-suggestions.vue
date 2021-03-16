@@ -72,6 +72,7 @@
     protected animation!: Vue;
   }
 </script>
+
 <!--eslint-disable-->
 <docs>
   import { ReactQuerySuggestions, ReactSearchInput } from '@docusaurus/react-components/ReactComponents';

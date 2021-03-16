@@ -29,7 +29,7 @@
   export default class CollapseWidth extends Vue {}
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .collapse-width {
     &-enter-active,
     &-leave-active {

@@ -27,7 +27,7 @@
   export default class StaggeredFadeAndSlide extends Vue {}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   $transition-duration: 0.25s;
 
   .staggered-fade-slide--enter-active,

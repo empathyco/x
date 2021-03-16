@@ -27,7 +27,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   $transition-opacity-duration: 0.2s;
   $transition-transform-duration: 0.3s;
 

@@ -177,7 +177,7 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .x-sliding-panel {
     position: relative;
     display: flex;
