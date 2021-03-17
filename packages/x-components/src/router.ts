@@ -82,6 +82,11 @@ const routes: RouteConfig[] = [
     path: '/test/keyboard-navigation',
     name: 'Keyboard Navigation',
     component: () => import('./views/keyboard-navigation.vue')
+  },
+  {
+    path: '/test/sliding-panel',
+    name: 'Sliding Panel',
+    component: () => import('./views/sliding-panel.vue')
   }
 ];
 
