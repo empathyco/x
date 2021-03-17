@@ -18,7 +18,8 @@ export const realAdapter = new EmpathyAdapterBuilder()
   )
   .setFacetConfig(
     {
-      modelName: 'NumberRangeFacet'
+      modelName: 'NumberRangeFacet',
+      template: '<!tag=price_facet>priceSort:[<min> TO <max>]'
     },
     'price_facet'
   )

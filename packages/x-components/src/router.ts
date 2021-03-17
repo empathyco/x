@@ -84,6 +84,11 @@ const routes: RouteConfig[] = [
     component: () => import('./views/keyboard-navigation.vue')
   },
   {
+    path: '/test/base-filters-search',
+    name: 'Base Filters Search',
+    component: () => import('./views/base-filters-search.vue')
+  },
+  {
     path: '/test/sliding-panel',
     name: 'Sliding Panel',
     component: () => import('./views/sliding-panel.vue')

@@ -1,0 +1,158 @@
+<template>
+  <main>
+    <!-- Search Section -->
+    <SearchInput placeholder="Search" aria-label="Search for products" />
+    <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
+    <SearchButton aria-label="Search"></SearchButton>
+    <!-- Facets -->
+    <h1>Facets</h1>
+    <SelectedFilters>
+      <template #default="{ selectedFilters }">
+        Filters selected: {{ selectedFilters.length }}
+      </template>
+    </SelectedFilters>
+
+    <SelectedFiltersList>
+      <template #default="{ filter }">Default: {{ filter.label }}</template>
+      <template #brand_facet="{ filter }">Brand: {{ filter.label }}</template>
+      <template #age_facet="{ filter }">Age: {{ filter.label }}</template>
+      <template #price_facet="{ filter }">Price: {{ filter.label }}</template>
+    </SelectedFiltersList>
+
+    <ClearFilters v-slot="{ selectedFilters }" :alwaysVisible="true">
+      Clear {{ selectedFilters.length }} filters
+    </ClearFilters>
+    <Facets>
+      <template #default="{ facet }">
+        <BaseHeaderTogglePanel>
+          <template #header-content>{{ facet.label }}</template>
+          <SelectedFilters :facetId="facet.id" />
+          <BaseAllFilter :facet="facet" />
+          <MultiSelectFilters v-slot="{ filter }" :filters="facet.filters">
+            <BaseSimpleFilter :filter="filter" data-test="simple-filter" />
+          </MultiSelectFilters>
+        </BaseHeaderTogglePanel>
+      </template>
+      <template #hierarchical_category="{ facet }">
+        <BaseHeaderTogglePanel>
+          <template #header-content>{{ facet.label }}</template>
+          <SelectedFilters :facetId="facet.id" />
+          <BaseAllFilter :facet="facet" />
+          <BaseFilters v-slot="{ filter }" :filters="facet.filters">
+            <BaseHierarchicalFilter :filter="filter" data-test="hierarchical-filter" />
+          </BaseFilters>
+        </BaseHeaderTogglePanel>
+      </template>
+      <template #brand_facet="{ facet }">
+        <BaseHeaderTogglePanel>
+          <template #header-content>{{ facet.label }}</template>
+          <SelectedFilters :facetId="facet.id" />
+          <BaseFiltersSearch v-slot="{ siftedFilters }" :filters="facet.filters">
+            <BaseSlicedFilters :filters="siftedFilters" :max="8">
+              <template #default="{ slicedFilters }">
+                <BaseFilters v-slot="{ filter }" :filters="slicedFilters">
+                  <BaseSimpleFilter :filter="filter" data-test="brand-filter" />
+                </BaseFilters>
+              </template>
+              <template #show-more="{ difference }">Show {{ difference }} more filters</template>
+              <template #show-less="{ difference }">Show {{ difference }} less filters</template>
+            </BaseSlicedFilters>
+          </BaseFiltersSearch>
+        </BaseHeaderTogglePanel>
+      </template>
+      <template #price_facet="{ facet }">
+        <BaseHeaderTogglePanel>
+          <template #header-content>{{ facet.label }}</template>
+          <SelectedFilters :facetId="facet.id" />
+          <BaseAllFilter :facet="facet" />
+          <BaseFilters v-slot="{ filter }" :filters="facet.filters">
+            <BaseNumberRangeFilter :filter="filter" data-test="price-filter">
+              <template #default="{ filter }">
+                <BasePriceFilterTitle
+                  :filter="filter"
+                  :configCurrency="{ format: 'i €' }"
+                  lessThan="Less than {max}"
+                  fromTo="From {min} to {max}"
+                  from="More than {min}"
+                />
+              </template>
+            </BaseNumberRangeFilter>
+          </BaseFilters>
+        </BaseHeaderTogglePanel>
+      </template>
+    </Facets>
+  </main>
+</template>
+
+<script lang="ts">
+  import Vue from 'vue';
+  import { Component } from 'vue-property-decorator';
+  import BasePriceFilterTitle from '../components/filters/labels/base-price-filter-label.vue';
+  import BaseAllFilter from '../components/filters/filters/base-all-filter.vue';
+  import BaseFiltersSearch from '../components/filters/lists/base-filters-search.vue';
+  import BaseSlicedFilters from '../components/filters/lists/base-sliced-filters.vue';
+  import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
+  import BaseFilters from '../components/filters/lists/base-filters.vue';
+  import BaseHierarchicalFilter from '../components/filters/filters/base-hierarchical-filter.vue';
+  import BaseNumberRangeFilter from '../components/filters/filters/base-number-range-filter.vue';
+  import BaseSimpleFilter from '../components/filters/filters/base-simple-filter.vue';
+  import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
+  import SelectedFiltersList from '../x-modules/facets/components/selected-filters-list.vue';
+  import SelectedFilters from '../x-modules/facets/components/selected-filters.vue';
+  import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
+  import Facets from '../x-modules/facets/components/facets.vue';
+  import MultiSelectFilters from '../x-modules/facets/components/multi-select-filters.vue';
+  import SearchButton from '../x-modules/search-box/components/search-button.vue';
+  import SearchInput from '../x-modules/search-box/components/search-input.vue';
+  import { searchXModule } from '../x-modules/search/x-module';
+  import { XInstaller } from '../x-installer/x-installer';
+  import { XPlugin } from '../plugins/x-plugin';
+  import { baseInstallXOptions, baseSnippetConfig } from './base-config';
+
+  @Component({
+    beforeRouteEnter(_to, _from, next: () => void): void {
+      XPlugin.registerXModule(searchXModule);
+      new XInstaller(baseInstallXOptions).init(baseSnippetConfig);
+      next();
+    },
+    components: {
+      BaseAllFilter,
+      BaseFilters,
+      BaseFiltersSearch,
+      BaseSlicedFilters,
+      BaseHeaderTogglePanel,
+      BaseHierarchicalFilter,
+      BaseNumberRangeFilter,
+      BasePriceFilterTitle,
+      BaseSimpleFilter,
+      ClearFilters,
+      ClearSearchInput,
+      Facets,
+      MultiSelectFilters,
+      SelectedFilters,
+      SelectedFiltersList,
+      SearchButton,
+      SearchInput
+    }
+  })
+  export default class App extends Vue {}
+</script>
+
+<style lang="scss">
+  .x-facets-list {
+    display: flex;
+    flex-flow: row;
+  }
+
+  .x-filter--is-selected,
+  .x-all-filter--selected {
+    font-weight: bold;
+  }
+
+  .x-header-toggle-panel {
+    &__header {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+  }
+</style>
