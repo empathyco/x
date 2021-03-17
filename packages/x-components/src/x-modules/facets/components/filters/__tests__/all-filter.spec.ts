@@ -1,18 +1,19 @@
 import { Facet } from '@empathy/search-types';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { XPlugin } from '../../../../plugins/index';
-import { getSimpleFacetStub } from '../../../../__stubs__/facets-stubs.factory';
-import { installNewXPlugin } from '../../../../__tests__/utils';
-import BaseAllFilter from '../base-all-filter.vue';
+import { getXComponentXModuleName, isXComponent } from '../../../../../components';
+import { XPlugin } from '../../../../../plugins/x-plugin';
+import { getSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
+import { installNewXPlugin } from '../../../../../__tests__/utils';
+import AllFilter from '../all-filter.vue';
 /**
  * Renders the `AllFilter` component, exposing a basic API for testing.
  *
  * @param options - The options to render the component with.
  * @returns The API for testing the `AllFilter` component.
  */
-function renderBaseAllFilter({
-  template = `<BaseAllFilter :facet="facet"></BaseAllFilter>`
+function renderAllFilter({
+  template = `<AllFilter :facet="facet"></AllFilter>`
 }: RenderAllFilterOptions = {}): RenderAllFilterAPI {
   const facet = getSimpleFacetStub();
   Vue.observable(facet);
@@ -24,7 +25,7 @@ function renderBaseAllFilter({
   const wrapper = mount(
     {
       components: {
-        BaseAllFilter
+        AllFilter
       },
       template,
       props: ['facet']
@@ -37,35 +38,47 @@ function renderBaseAllFilter({
     }
   );
 
-  const baseAllFilterWrapper = wrapper.findComponent(BaseAllFilter);
+  const allFilterWrapper = wrapper.findComponent(AllFilter);
 
   return {
     wrapper,
-    baseAllFilterWrapper,
+    allFilterWrapper,
     facet,
     toggleFirstFilter() {
       facet.filters[0].selected = !facet.filters[0].selected;
       return wrapper.vm.$nextTick();
     },
     clickAllFilter() {
-      baseAllFilterWrapper.trigger('click');
+      allFilterWrapper.trigger('click');
       return wrapper.vm.$nextTick();
     }
   };
 }
 
-describe('testing BaseAllFilter component', () => {
+describe('testing AllFilter component', () => {
+  it('is an x-component', () => {
+    const { allFilterWrapper } = renderAllFilter();
+
+    expect(isXComponent(allFilterWrapper.vm)).toEqual(true);
+  });
+
+  it('belongs to the `facets` x-module', () => {
+    const { allFilterWrapper } = renderAllFilter();
+
+    expect(getXComponentXModuleName(allFilterWrapper.vm)).toEqual('facets');
+  });
+
   it('has x-all-filter--selected class while no filters are selected', async () => {
-    const { baseAllFilterWrapper, toggleFirstFilter } = renderBaseAllFilter();
-    expect(baseAllFilterWrapper.classes('x-all-filter--selected')).toBe(true);
+    const { allFilterWrapper, toggleFirstFilter } = renderAllFilter();
+    expect(allFilterWrapper.classes('x-all-filter--selected')).toBe(true);
     await toggleFirstFilter();
-    expect(baseAllFilterWrapper.classes('x-all-filter--selected')).toBe(false);
+    expect(allFilterWrapper.classes('x-all-filter--selected')).toBe(false);
     await toggleFirstFilter();
-    expect(baseAllFilterWrapper.classes('x-all-filter--selected')).toBe(true);
+    expect(allFilterWrapper.classes('x-all-filter--selected')).toBe(true);
   });
 
   it('emits UserClickedFacetAllFilter event with the facet id as payload', async () => {
-    const { wrapper, toggleFirstFilter, clickAllFilter, facet } = renderBaseAllFilter();
+    const { wrapper, toggleFirstFilter, clickAllFilter, facet } = renderAllFilter();
     const listenerAllFilter = jest.fn();
     wrapper.vm.$x.on('UserClickedFacetAllFilter', true).subscribe(listenerAllFilter);
     await toggleFirstFilter();
@@ -75,26 +88,26 @@ describe('testing BaseAllFilter component', () => {
     expect(listenerAllFilter).toHaveBeenNthCalledWith(1, {
       eventPayload: facet.id,
       metadata: {
-        moduleName: null, // no module registered for this base component
+        moduleName: 'facets',
         target: wrapper.element
       }
     });
   });
 
   it('renders default content', () => {
-    const { baseAllFilterWrapper, facet } = renderBaseAllFilter();
-    expect(baseAllFilterWrapper.text()).toBe(`≡ ${facet.label}`);
+    const { allFilterWrapper, facet } = renderAllFilter();
+    expect(allFilterWrapper.text()).toBe(`≡ ${facet.label}`);
   });
 
   it('renders default slot custom content', () => {
-    const { baseAllFilterWrapper, facet } = renderBaseAllFilter({
+    const { allFilterWrapper, facet } = renderAllFilter({
       template: `
-        <BaseAllFilter v-slot="{ facet }" :facet="facet" >
+        <AllFilter v-slot="{ facet }" :facet="facet" >
           Select all {{ facet.label }}
-        </BaseAllFilter>
+        </AllFilter>
       `
     });
-    expect(baseAllFilterWrapper.text()).toBe(`Select all ${facet.label}`);
+    expect(allFilterWrapper.text()).toBe(`Select all ${facet.label}`);
   });
 });
 
@@ -106,9 +119,9 @@ interface RenderAllFilterOptions {
 interface RenderAllFilterAPI {
   /** The wrapper of the container element.*/
   wrapper: Wrapper<Vue>;
-  /** The `BaseAllFilter` wrapper component. */
-  baseAllFilterWrapper: Wrapper<Vue>;
-  /** Current facet passed as prop to the BaseAllFilter component. */
+  /** The `AllFilter` wrapper component. */
+  allFilterWrapper: Wrapper<Vue>;
+  /** Current facet passed as prop to the AllFilter component. */
   facet: Facet;
   /** Function that toggles first filter selected property. */
   toggleFirstFilter: () => Promise<void>;

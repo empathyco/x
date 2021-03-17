@@ -17,9 +17,11 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { NumberRangeFilter } from '@empathy/search-types';
-  import { VueCSSClasses } from '../../../utils/types';
-  import { XEventsTypes } from '../../../wiring/events.types';
+  import { NumberRangeFilter as NumberRangeFilterModel } from '@empathy/search-types';
+  import { xComponentMixin } from '../../../../components';
+  import { VueCSSClasses } from '../../../../utils/types';
+  import { XEventsTypes } from '../../../../wiring/events.types';
+  import { facetsXModule } from '../../x-module';
   import BaseFilter from './base-filter.vue';
 
   /**
@@ -28,12 +30,13 @@
    * @public
    */
   @Component({
-    components: { BaseFilter }
+    components: { BaseFilter },
+    mixins: [xComponentMixin(facetsXModule)]
   })
-  export default class BaseNumberRangeFilter extends Vue {
+  export default class NumberRangeFilter extends Vue {
     /** The filter data to render. */
     @Prop({ required: true })
-    public filter!: NumberRangeFilter;
+    public filter!: NumberRangeFilterModel;
 
     /**
      * Additional events to emit when the filter is clicked.
@@ -71,15 +74,15 @@ This component renders a button, which on clicked emits the `UserClickedAFilter`
 ## Basic usage
 
 ```vue
-<BaseNumberRangeFilter :filter="filter" />
+<NumberRangeFilter :filter="filter" />
 ```
 
 ## Customizing its contents
 
 ```vue
-<BaseNumberRangeFilter :filter="filter" v-slot="{ filter }">
+<NumberRangeFilter :filter="filter" v-slot="{ filter }">
   <img src="checkbox.png"/>
   <span>{{ filter.label }}</span>
-</BaseNumberRangeFilter>
+</NumberRangeFilter>
 ```
 </docs>

@@ -1,5 +1,5 @@
 <template>
-  <BaseFilters
+  <Filters
     v-slot="{ filter }"
     :filters="filters"
     :animation="animation"
@@ -10,7 +10,7 @@
         @binding {Filter} filter - The filter data.
      -->
     <slot :filter="filter" />
-  </BaseFilters>
+  </Filters>
 </template>
 
 <script lang="ts">
@@ -20,20 +20,20 @@
   import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { facetsXModule } from '../x-module';
-  import BaseFilters from '../../../components/filters/lists/base-filters.vue';
   import { FacetsConfig } from '../config.types';
+  import Filters from './lists/filters.vue';
 
   /**
    * The component renders a list of filters, exposing a default slot to set how the filter should
    * be rendered. This component will change the facet configuration of the rendered filters to
    * allow multi selection. If you just need to render a list of filters that don't support
-   * multi-selection, or are from a different facet, use the {@link BaseFilters} component.
+   * multi-selection, or are from a different facet, use the {@link Filters} component.
    *
    * @public
    */
   @Component({
     components: {
-      BaseFilters
+      Filters: Filters
     },
     mixins: [xComponentMixin(facetsXModule)]
   })
@@ -114,7 +114,7 @@
 The component renders a list of filters, exposing a default slot to set how the filter should
 be rendered. This component will change the facet configuration of the rendered filters to allow
 multi selection. If you just need to render a list of filters that don't support multi-selection,
-or are from a different facet, use the `BaseFilters` component instead.
+or are from a different facet, use the `Filters` component instead.
 
 ## Basic usage
 
@@ -130,7 +130,7 @@ be from the same facet.
 ## Full example
 
 The `MultiSelectFilters` component is prepared to be used with the `Facets` one and with the base
-filter components (like the `BaseSimpleFilter`). Apart from the filters array that is the only
+filter components (like the `SimpleFilter`). Apart from the filters array that is the only
 mandatory prop, it allows you to configure the transitions (using the `animation` prop).
 
 ```vue
@@ -140,20 +140,20 @@ mandatory prop, it allows you to configure the transitions (using the `animation
       :animation="animation"
       :filters="facet.filters"
       v-slot="{ filter }">
-      <BaseSimpleFilter :filter="filter"/>
+      <SimpleFilter :filter="filter"/>
     </MultiSelectFilters>
   </Facets>
 </template>
 
 <script>
-  import { BaseSimpleFilter, StaggeredFadeAndSlide } from '@empathy/x-components';
-  import { Facets, MultiSelectFilters } from '@empathy/x-components/facets';
+  import { StaggeredFadeAndSlide } from '@empathy/x-components';
+  import { Facets, MultiSelectFilters, SimpleFilter } from '@empathy/x-components/facets';
 
   export default {
     components: {
       Facets,
       MultiSelectFilters,
-      BaseSimpleFilter
+      SimpleFilter
     },
     data() {
       return {

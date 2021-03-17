@@ -19,9 +19,11 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { BooleanFilter } from '@empathy/search-types';
-  import BaseEventButton from '../../base-event-button.vue';
-  import { VueCSSClasses } from '../../../utils/types';
-  import { XEventsTypes } from '../../../wiring/events.types';
+  import { xComponentMixin } from '../../../../components';
+  import BaseEventButton from '../../../../components/base-event-button.vue';
+  import { VueCSSClasses } from '../../../../utils/types';
+  import { XEventsTypes } from '../../../../wiring/events.types';
+  import { facetsXModule } from '../../x-module';
 
   /**
    * Renders a button with a default slot. It receives a
@@ -31,7 +33,8 @@
    * @public
    */
   @Component({
-    components: { BaseEventButton }
+    components: { BaseEventButton },
+    mixins: [xComponentMixin(facetsXModule)]
   })
   export default class BaseFilter extends Vue {
     /** The filter data to render. */

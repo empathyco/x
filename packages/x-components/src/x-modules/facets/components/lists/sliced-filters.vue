@@ -35,10 +35,12 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
   import { Filter } from '@empathy/search-types';
+  import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { VueCSSClasses } from '../../../utils/index';
+  import { xComponentMixin } from '../../../../components';
+  import { VueCSSClasses } from '../../../../utils';
+  import { facetsXModule } from '../../x-module';
 
   /**
    * Component that slices a list of filters and returns them using the default scoped slot,
@@ -47,8 +49,10 @@
    *
    * @public
    */
-  @Component
-  export default class BaseSlicedFilters extends Vue {
+  @Component({
+    mixins: [xComponentMixin(facetsXModule)]
+  })
+  export default class SlicedFilters extends Vue {
     /** The filters array. */
     @Prop({ required: true })
     protected filters!: Filter[];
@@ -125,7 +129,7 @@
   via slot too. They receive a `difference` prop which can be useful for writing friendlier
   messages.
 
-  This component is usually integrated with the `Facets` and `BaseFilters` component. It is useful
+  This component is usually integrated with the `Facets` and `Filters` component. It is useful
   when there are lots of available filters for a single facet, helping to improve the
   app performance, as less nodes are rendered.
 
@@ -136,9 +140,9 @@
     <Facets v-slot="{ facet }">
       <BaseShowMoreFilters :filters="facet.filters" :max="4">
         <template #default="{ slicedFilters }">
-          <BaseFilters :filters="slicedFilters" v-slot="{ filter }">
-            <BaseSimpleFilter :filter="filter"/>
-          </BaseFilters>
+          <Filters :filters="slicedFilters" v-slot="{ filter }">
+            <SimpleFilter :filter="filter"/>
+          </Filters>
         </template>
         <template #show-more="{ difference }">Show {{ difference }} more filters</template>
         <template #show-less="{ difference }">Show {{ difference }} less filters</template>
@@ -146,15 +150,15 @@
     </Facets>
   </template>
   <script>
-    import { BaseShowMoreFilters, BaseSimpleFilter, BaseFilters } from "@empathy/x-components";
-    import { Facets } from "@empathy/x-components";
+    import { BaseShowMoreFilters} from "@empathy/x-components";
+    import { Facets, SimpleFilter, Filters } from "@empathy/x-components";
 
     export default {
       components: {
         Facets,
         BaseShowMoreFilters,
-        BaseFilters,
-        BaseSimpleFilter
+        Filters,
+        SimpleFilter
       }
     }
   </script>

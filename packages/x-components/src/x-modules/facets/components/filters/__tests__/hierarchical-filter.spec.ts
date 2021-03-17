@@ -1,19 +1,20 @@
-import { HierarchicalFilter } from '@empathy/search-types';
+import { HierarchicalFilter as HierarchicalFilterModel } from '@empathy/search-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { getHierarchicalFilterStub } from '../../../../__stubs__/filters-stubs.factory';
-import { getDataTestSelector } from '../../../../__tests__/utils';
-import BaseHierarchical from '../base-hierarchical-filter.vue';
+import { getHierarchicalFilterStub } from '../../../../../__stubs__/filters-stubs.factory';
+import { getDataTestSelector } from '../../../../../__tests__/utils';
+import { getXComponentXModuleName, isXComponent } from '../../../../../components';
+import HierarchicalFilter from '../hierarchical-filter.vue';
 
-function renderBaseHierarchicalFilter({
-  template = '<BaseHierarchical :filter="filter"/>',
+function renderHierarchicalFilter({
+  template = '<HierarchicalFilter :filter="filter"/>',
   filter = getHierarchicalFilterStub()
-}: BaseHierarchicalFilterOptions = {}): BaseHierarchicalFilterAPI {
+}: HierarchicalFilterOptions = {}): HierarchicalFilterAPI {
   Vue.observable(filter);
   const emit = jest.fn();
   const wrapper = mount(
     {
-      components: { BaseHierarchical },
+      components: { HierarchicalFilter },
       props: ['filter'],
       template
     },
@@ -30,8 +31,9 @@ function renderBaseHierarchicalFilter({
   );
 
   const filterWrapper = wrapper.find(getDataTestSelector('filter'));
+  const hierarchicalFilterWrapper = wrapper.findComponent(HierarchicalFilter);
 
-  function setFilter(newFilter: HierarchicalFilter): Promise<void> {
+  function setFilter(newFilter: HierarchicalFilterModel): Promise<void> {
     filter = newFilter;
     wrapper.setProps({ filter });
     return wrapper.vm.$nextTick();
@@ -46,12 +48,12 @@ function renderBaseHierarchicalFilter({
     return wrapper.vm.$nextTick();
   }
 
-  function getFilterModelsByDepth(): HierarchicalFilter[][] {
+  function getFilterModelsByDepth(): HierarchicalFilterModel[][] {
     const getFilterModels = (
-      filters: HierarchicalFilter[],
+      filters: HierarchicalFilterModel[],
       depth = 0,
-      accumulator: HierarchicalFilter[][] = []
-    ): HierarchicalFilter[][] => {
+      accumulator: HierarchicalFilterModel[][] = []
+    ): HierarchicalFilterModel[][] => {
       if (!accumulator[depth]) {
         accumulator[depth] = [];
       }
@@ -85,7 +87,7 @@ function renderBaseHierarchicalFilter({
   }
 
   function transverseFilters(
-    callback: (wrapper: Wrapper<Vue>, filter: HierarchicalFilter) => void
+    callback: (wrapper: Wrapper<Vue>, filter: HierarchicalFilterModel) => void
   ): void {
     const filterModelsByDepth = getFilterModelsByDepth();
     const filterWrappersByDepth = getFilterWrappersByDepth();
@@ -99,9 +101,10 @@ function renderBaseHierarchicalFilter({
 
   return {
     wrapper,
+    filterWrapper,
+    hierarchicalFilterWrapper,
     emit,
     filter,
-    filterWrapper,
     setFilter,
     clickFilter,
     selectFilter,
@@ -111,15 +114,27 @@ function renderBaseHierarchicalFilter({
   };
 }
 
-describe('testing `BaseHierarchicalFilter` component', () => {
+describe('testing `HierarchicalFilter` component', () => {
+  it('is an x-component', () => {
+    const { hierarchicalFilterWrapper } = renderHierarchicalFilter();
+
+    expect(isXComponent(hierarchicalFilterWrapper.vm)).toEqual(true);
+  });
+
+  it('belongs to the `facets` x-module', () => {
+    const { hierarchicalFilterWrapper } = renderHierarchicalFilter();
+
+    expect(getXComponentXModuleName(hierarchicalFilterWrapper.vm)).toEqual('facets');
+  });
+
   it('renders the provided filter by default', () => {
-    const { wrapper, filter } = renderBaseHierarchicalFilter();
+    const { wrapper, filter } = renderHierarchicalFilter();
 
     expect(wrapper.text()).toEqual(filter.label);
   });
 
   it('emits `UserClickedAFilter` and `UserClickedAHierarchicalFilter` event when clicked', () => {
-    const { filterWrapper, clickFilter, emit, filter } = renderBaseHierarchicalFilter();
+    const { filterWrapper, clickFilter, emit, filter } = renderHierarchicalFilter();
 
     clickFilter();
 
@@ -133,11 +148,11 @@ describe('testing `BaseHierarchicalFilter` component', () => {
   });
 
   it('allows customizing the rendered content with an slot', () => {
-    const { wrapper, filter } = renderBaseHierarchicalFilter({
+    const { wrapper, filter } = renderHierarchicalFilter({
       template: `
-      <BaseHierarchical :filter="filter" v-slot="{ filter }">
+      <HierarchicalFilter :filter="filter" v-slot="{ filter }">
         <span data-test="custom-label">{{ filter.label }}</span>
-      </BaseHierarchical>
+      </HierarchicalFilter>
       `
     });
 
@@ -146,7 +161,7 @@ describe('testing `BaseHierarchicalFilter` component', () => {
   });
 
   it('adds selected classes to the rendered element when the filter is selected', async () => {
-    const { filterWrapper, selectFilter } = renderBaseHierarchicalFilter();
+    const { filterWrapper, selectFilter } = renderHierarchicalFilter();
 
     expect(filterWrapper.classes()).not.toContain('x-filter--is-selected');
     expect(filterWrapper.classes()).not.toContain('x-hierarchical-filter--is-selected');
@@ -189,12 +204,12 @@ describe('testing `BaseHierarchicalFilter` component', () => {
     });
 
     it('allows customizing the slot for all the children', () => {
-      const { transverseFilters } = renderBaseHierarchicalFilter({
+      const { transverseFilters } = renderHierarchicalFilter({
         filter: hierarchicalFilter,
         template: `
-        <BaseHierarchical :filter="filter" v-slot="{ filter }">
+        <HierarchicalFilter :filter="filter" v-slot="{ filter }">
           Custom - {{ filter.label }}
-        </BaseHierarchical>`
+        </HierarchicalFilter>`
       });
 
       transverseFilters((wrapper, filter) => {
@@ -203,7 +218,7 @@ describe('testing `BaseHierarchicalFilter` component', () => {
     });
 
     it('renders children filter only when available', async () => {
-      const { wrapper, setFilter, transverseFilters } = renderBaseHierarchicalFilter({
+      const { wrapper, setFilter, transverseFilters } = renderHierarchicalFilter({
         filter: getHierarchicalFilterStub({
           children: []
         })
@@ -221,11 +236,7 @@ describe('testing `BaseHierarchicalFilter` component', () => {
 
     // eslint-disable-next-line max-len
     it('emits `UserClickedAFilter` and `UserClickedAHierarchicalFilter` events when a child is clicked', () => {
-      const {
-        getFilterWrappersByDepth,
-        getFilterModelsByDepth,
-        emit
-      } = renderBaseHierarchicalFilter({
+      const { getFilterWrappersByDepth, getFilterModelsByDepth, emit } = renderHierarchicalFilter({
         filter: hierarchicalFilter
       });
 
@@ -248,7 +259,7 @@ describe('testing `BaseHierarchicalFilter` component', () => {
         getFilterModelsByDepth,
         getFilterWrappersByDepth,
         transverseFilters
-      } = renderBaseHierarchicalFilter({
+      } = renderHierarchicalFilter({
         filter: hierarchicalFilter
       });
 
@@ -278,27 +289,29 @@ describe('testing `BaseHierarchicalFilter` component', () => {
   });
 });
 
-interface BaseHierarchicalFilterOptions {
+interface HierarchicalFilterOptions {
   template?: string;
-  filter?: HierarchicalFilter;
+  filter?: HierarchicalFilterModel;
 }
 
-interface BaseHierarchicalFilterAPI {
+interface HierarchicalFilterAPI {
   /** The wrapper of the container element.*/
   wrapper: Wrapper<Vue>;
+  /** The hierarchical filter wrapper.*/
+  hierarchicalFilterWrapper: Wrapper<Vue>;
   /** The filter wrapper. This is the clickable element that represents the filter. */
   filterWrapper: Wrapper<Vue>;
   /** Mock for the `$x.emit` function. Can be used to check the emitted events. */
-  emit: jest.Mock<any, any>;
+  emit: jest.Mock;
   /** The data of the rendered hierarchical filter. */
-  filter: HierarchicalFilter;
+  filter: HierarchicalFilterModel;
   /**
    * Changes the rendered filter.
    *
    * @param filter - The new filter to render.
    * @returns A promise that resolves after re-rendering the component.
    */
-  setFilter: (filter: HierarchicalFilter) => Promise<void>;
+  setFilter: (filter: HierarchicalFilterModel) => Promise<void>;
   /**
    * Clicks the root filter.
    */
@@ -315,7 +328,7 @@ interface BaseHierarchicalFilterAPI {
    *
    * @returns An array that contains the groups of filter data of the distinct depths.
    */
-  getFilterModelsByDepth: () => HierarchicalFilter[][];
+  getFilterModelsByDepth: () => HierarchicalFilterModel[][];
   /**
    * Returns a list of the filters wrappers grouped by depth. This list is sorted using a preorder
    * algorithm.
@@ -330,6 +343,6 @@ interface BaseHierarchicalFilterAPI {
    * For example, it can run some assertions.
    */
   transverseFilters: (
-    callback: (wrapper: Wrapper<Vue>, filter: HierarchicalFilter) => void
+    callback: (wrapper: Wrapper<Vue>, filter: HierarchicalFilterModel) => void
   ) => void;
 }

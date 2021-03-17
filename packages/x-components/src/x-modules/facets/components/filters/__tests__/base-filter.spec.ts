@@ -1,9 +1,10 @@
 import { BooleanFilter } from '@empathy/search-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { XEventsTypes } from '../../../../wiring/events.types';
-import { getSimpleFilterStub } from '../../../../__stubs__/filters-stubs.factory';
-import { getDataTestSelector } from '../../../../__tests__/utils';
+import { getXComponentXModuleName, isXComponent } from '../../../../../components';
+import { XEventsTypes } from '../../../../../wiring/events.types';
+import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory';
+import { getDataTestSelector } from '../../../../../__tests__/utils';
 import BaseFilter from '../base-filter.vue';
 
 function renderBaseFilter({
@@ -32,8 +33,11 @@ function renderBaseFilter({
     }
   );
 
+  const baseFilterWrapper = wrapper.findComponent(BaseFilter);
+
   return {
     wrapper,
+    baseFilterWrapper,
     emit,
     filter,
     clickFilter() {
@@ -46,7 +50,19 @@ function renderBaseFilter({
   };
 }
 
-describe('testing BaseFilter component', () => {
+describe('testing Filter component', () => {
+  it('is an x-component', () => {
+    const { baseFilterWrapper } = renderBaseFilter();
+
+    expect(isXComponent(baseFilterWrapper.vm)).toEqual(true);
+  });
+
+  it('belongs to the `facets` x-module', () => {
+    const { baseFilterWrapper } = renderBaseFilter();
+
+    expect(getXComponentXModuleName(baseFilterWrapper.vm)).toEqual('facets');
+  });
+
   it('renders the provided filter by default', () => {
     const { wrapper, filter } = renderBaseFilter();
 
@@ -116,7 +132,8 @@ interface RenderBaseFilterOptions {
 
 interface BaseFilterAPI {
   wrapper: Wrapper<Vue>;
-  emit: jest.Mock<any, any>;
+  baseFilterWrapper: Wrapper<Vue>;
+  emit: jest.Mock;
   filter: BooleanFilter;
   clickFilter: () => void;
   selectFilter: () => Promise<void>;

@@ -28,17 +28,21 @@
   import Vue from 'vue';
   import { Filter } from '@empathy/search-types';
   import { Component, Prop, Watch } from 'vue-property-decorator';
-  import { debounce, DebouncedFunction } from '../../../utils/debounce';
-  import { normalizeString } from '../../../utils/normalize';
-  import { VueCSSClasses } from '../../../utils/types';
+  import { xComponentMixin } from '../../../../components';
+  import { debounce, DebouncedFunction } from '../../../../utils/debounce';
+  import { normalizeString } from '../../../../utils/normalize';
+  import { VueCSSClasses } from '../../../../utils/types';
+  import { facetsXModule } from '../../x-module';
 
   /**
    * Renders the filters sifted with the input query.
    *
    * @public
    */
-  @Component
-  export default class BaseFiltersSearch extends Vue {
+  @Component({
+    mixins: [xComponentMixin(facetsXModule)]
+  })
+  export default class FiltersSearch extends Vue {
     /** The filters array. */
     @Prop({ required: true })
     protected filters!: Filter[];
@@ -143,25 +147,25 @@
 
   Using default and required slot:
   ```vue
-  <BaseFiltersSearch :filters="filters" v-slot="{ siftedFilters }">
+  <FiltersSearch :filters="filters" v-slot="{ siftedFilters }">
     <ul v-for="filter in siftedFilters">
       <li :key="filter.id">{{ filter.label }}</li>
     </ul>
-  </BaseFiltersSearch>
+  </FiltersSearch>
   ```
 
   Setting debounce time:
   ```vue
-  <BaseFiltersSearch :filters="filters" :debounceInMs="500" v-slot="{ siftedFilters }">
+  <FiltersSearch :filters="filters" :debounceInMs="500" v-slot="{ siftedFilters }">
     <ul v-for="filter in siftedFilters">
       <li :key="filter.id">{{ filter.label }}</li>
     </ul>
-  </BaseFiltersSearch>
+  </FiltersSearch>
   ```
 
   Replacing search triggering:
   ```vue
-  <BaseFiltersSearch :filters="filters">
+  <FiltersSearch :filters="filters">
     <template #search="{ query, setQuery, clearQuery }">
       <input
         @input="setQuery($event.target.value)"
@@ -174,6 +178,6 @@
         <li :key="filter.id">{{ filter.label }}</li>
       </ul>
     </template>
-  </BaseFiltersSearch>
+  </FiltersSearch>
   ```
 </docs>

@@ -114,8 +114,8 @@ how the price should look like.
 <template>
   <Facets>
     <template #price="{ facet }">
-      <BaseFilters v-slot="{ filter }" :filters="facet.filters">
-        <BaseNumberRangeFilter :filter="filter" v-slot="{ filter }">
+      <Filters v-slot="{ filter }" :filters="facet.filters">
+        <NumberRangeFilter :filter="filter" v-slot="{ filter }">
           <BasePriceFilterLabel
             :filter="filter"
             format="$i"
@@ -123,22 +123,22 @@ how the price should look like.
             fromTo="From {min} to {max}"
             from="More than {min}"
           />
-        </BaseNumberRangeFilter>
-      </BaseFilters>
+        </NumberRangeFilter>
+      </Filters>
     </template>
   </Facets>
 </template>
 
 <script>
-  import { Facets } from '@empathy/x-components/facets';
-  import { BaseFilters, BaseNumberRangeFilter, BasePriceFilterLabel } from '@empathy/x-components';
+  import { BasePriceFilterLabel } from '@empathy/x-components';
+  import { Filters, Facets, NumberRangeFilter } from '@empathy/x-components/facets';
 
   export default {
     name: 'MyFacets',
     components: {
       Facets,
-      BaseFilters,
-      BaseNumberRangeFilter,
+      Filters,
+      NumberRangeFilter,
       BasePriceFilterLabel
     }
   };

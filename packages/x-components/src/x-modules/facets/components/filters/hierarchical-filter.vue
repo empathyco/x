@@ -13,31 +13,33 @@
       -->
       <slot :filter="slotFilter" />
     </BaseFilter>
-    <BaseFilters
+    <Filters
       v-slot="{ filter: childFilter }"
       :filters="filter.children"
       :animation="childrenAnimation"
       data-test="children-filters"
     >
-      <BaseHierarchicalFilter
+      <HierarchicalFilter
         v-slot="{ filter: hierarchicalChildFilter }"
         :filter="childFilter"
         :childrenAnimation="childrenAnimation"
       >
         <slot :filter="hierarchicalChildFilter" />
-      </BaseHierarchicalFilter>
-    </BaseFilters>
+      </HierarchicalFilter>
+    </Filters>
   </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { HierarchicalFilter } from '@empathy/search-types';
-  import { isFilterPartiallySelected } from '../../../utils/filters';
-  import { VueCSSClasses } from '../../../utils/types';
-  import { XEventsTypes } from '../../../wiring/events.types';
-  import BaseFilters from '../lists/base-filters.vue';
+  import { HierarchicalFilter as HierarchicalFilterModel } from '@empathy/search-types';
+  import { xComponentMixin } from '../../../../components';
+  import { isFilterPartiallySelected } from '../../../../utils/filters';
+  import { VueCSSClasses } from '../../../../utils/types';
+  import { XEventsTypes } from '../../../../wiring/events.types';
+  import { facetsXModule } from '../../x-module';
+  import Filters from '../lists/filters.vue';
   import BaseFilter from './base-filter.vue';
 
   /**
@@ -46,13 +48,14 @@
    * @public
    */
   @Component({
-    name: 'BaseHierarchicalFilter',
-    components: { BaseFilters, BaseFilter }
+    name: 'HierarchicalFilter',
+    components: { Filters, BaseFilter },
+    mixins: [xComponentMixin(facetsXModule)]
   })
-  export default class BaseHierarchicalFilter extends Vue {
+  export default class HierarchicalFilter extends Vue {
     /** The filter data to render. */
     @Prop({ required: true })
-    public filter!: HierarchicalFilter;
+    public filter!: HierarchicalFilterModel;
 
     /** The animation component to use for the children filters. */
     @Prop()
@@ -109,7 +112,7 @@ the slot content will change it for all of the children.
 ## Basic usage
 
 ```vue
-<BaseHierarchicalFilter :filter="filter"/>
+<HierarchicalFilter :filter="filter"/>
 ```
 
 ## Customizing its contents
@@ -117,9 +120,9 @@ the slot content will change it for all of the children.
 In this example, the child filters will also include the new checkbox image.
 
 ```vue
-<BaseHierarchicalFilter :filter="filter" v-slot="{ filter }">
+<HierarchicalFilter :filter="filter" v-slot="{ filter }">
   <img src="checkbox.png"/>
   <span>{{ filter.label }}</span>
-</BaseHierarchicalFilter>
+</HierarchicalFilter>
 ```
 </docs>

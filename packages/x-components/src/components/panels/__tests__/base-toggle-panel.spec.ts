@@ -14,7 +14,7 @@ import BaseTogglePanelComponent from '../base-toggle-panel.vue';
 function renderBaseTogglePanel({
   open = true,
   template = '<BaseTogglePanel :open="openTogglePanel"></BaseTogglePanel>'
-}: RenderBaseTogglePanelOptions = {}): RenderBaseFiltersAPI {
+}: RenderBaseTogglePanelOptions = {}): RenderBaseTogglePanelAPI {
   const localVue = createLocalVue();
 
   const wrapperContainer = mount(
@@ -82,7 +82,7 @@ interface RenderBaseTogglePanelOptions {
   template?: string;
 }
 
-interface RenderBaseFiltersAPI {
+interface RenderBaseTogglePanelAPI {
   /** The Vue testing utils wrapper for the {@link BaseTogglePanelComponent}. */
   wrapper: Wrapper<Vue>;
   /** Function that toggles panel visibility. */

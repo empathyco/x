@@ -13,7 +13,7 @@ import BaseHeaderTogglePanelComponent from '../base-header-toggle-panel.vue';
  */
 function renderBaseHeaderTogglePanel({
   template = '<BaseHeaderTogglePanel></BaseHeaderTogglePanel>'
-}: RenderBaseTogglePanelOptions = {}): RenderBaseFiltersAPI {
+}: RenderBaseTogglePanelOptions = {}): RenderBaseHeaderTogglePanelAPI {
   const wrapperContainer = mount({
     components: {
       BaseHeaderTogglePanel: BaseHeaderTogglePanelComponent
@@ -117,7 +117,7 @@ interface RenderBaseTogglePanelOptions {
   template?: string;
 }
 
-interface RenderBaseFiltersAPI {
+interface RenderBaseHeaderTogglePanelAPI {
   /** The Vue testing utils wrapper for the {@link BaseHeaderTogglePanelComponent}. */
   wrapper: Wrapper<Vue>;
   /** Function that toggles panel visibility. */

@@ -26,8 +26,10 @@
   import Vue from 'vue';
   import { BooleanFilter } from '@empathy/search-types';
   import { Component, Prop } from 'vue-property-decorator';
-  import { isFilterSelected } from '../../../utils/filters';
-  import { VueCSSClasses } from '../../../utils/types';
+  import { xComponentMixin } from '../../../../components';
+  import { isFilterSelected } from '../../../../utils/filters';
+  import { VueCSSClasses } from '../../../../utils/types';
+  import { facetsXModule } from '../../x-module';
 
   /**
    * Renders a list with a list item per each
@@ -36,8 +38,10 @@
    *
    * @public
    */
-  @Component
-  export default class BaseFilters extends Vue {
+  @Component({
+    mixins: [xComponentMixin(facetsXModule)]
+  })
+  export default class Filters extends Vue {
     /**
      * The list of filters to be rendered as slots.
      *
@@ -106,17 +110,17 @@
 
   Using default slot:
   ```vue
-  <BaseFilters :filters="filters">
+  <Filters :filters="filters">
     <template #default="{ filter }">
       <p>{{ filter.label }}</p>
     </template>
-  </BaseFilters>
+  </Filters>
   ```
 
   Using default slot abbreviated syntax:
   ```vue
-  <BaseFilters :filters="filters" v-slot="{ filter }">
+  <Filters :filters="filters" v-slot="{ filter }">
     <p>{{ filter.label }}</p>
-  </BaseFilters>
+  </Filters>
   ```
 </docs>

@@ -17,9 +17,11 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { SimpleFilter } from '@empathy/search-types';
-  import { VueCSSClasses } from '../../../utils/types';
-  import { XEventsTypes } from '../../../wiring/events.types';
+  import { SimpleFilter as SimpleFilterModel } from '@empathy/search-types';
+  import { xComponentMixin } from '../../../../components';
+  import { VueCSSClasses } from '../../../../utils/types';
+  import { XEventsTypes } from '../../../../wiring/events.types';
+  import { facetsXModule } from '../../x-module';
   import BaseFilter from './base-filter.vue';
 
   /**
@@ -28,12 +30,13 @@
    * @public
    */
   @Component({
-    components: { BaseFilter }
+    components: { BaseFilter },
+    mixins: [xComponentMixin(facetsXModule)]
   })
-  export default class BaseSimpleFilter extends Vue {
+  export default class SimpleFilter extends Vue {
     /** The filter data to render. */
     @Prop({ required: true })
-    public filter!: SimpleFilter;
+    public filter!: SimpleFilterModel;
 
     /**
      * Additional events to emit when the filter is clicked.
@@ -71,15 +74,15 @@ This component renders a button, which on clicked emits the `UserClickedAFilter`
 ## Basic usage
 
 ```vue
-<BaseSimpleFilter :filter="filter" />
+<SimpleFilter :filter="filter" />
 ```
 
 ## Customizing its contents
 
 ```vue
-<BaseSimpleFilter :filter="filter" v-slot="{ filter }">
+<SimpleFilter :filter="filter" v-slot="{ filter }">
   <img src="checkbox.png"/>
   <span>{{ filter.label }}</span>
-</BaseSimpleFilter>
+</SimpleFilter>
 ```
 </docs>

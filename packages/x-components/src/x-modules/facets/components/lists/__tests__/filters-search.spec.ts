@@ -1,10 +1,11 @@
 import { Filter } from '@empathy/search-types';
 import { mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
-import { Dictionary } from '../../../../utils/types';
-import { getSimpleFilterStub } from '../../../../__stubs__/filters-stubs.factory';
-import { getDataTestSelector } from '../../../../__tests__/utils';
-import BaseFiltersSearch from '../base-filters-search.vue';
+import { getXComponentXModuleName, isXComponent } from '../../../../../components';
+import { Dictionary } from '../../../../../utils/types';
+import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory';
+import { getDataTestSelector } from '../../../../../__tests__/utils';
+import FiltersSearch from '../filters-search.vue';
 
 const filtersMock: Filter[] = [
   'Lego city',
@@ -27,24 +28,24 @@ const queries: Dictionary<number> = {
   ñ: 5
 };
 
-function renderBaseFiltersSearch(
+function renderFiltersSearch(
   dataTestInputSelector = 'filters-search-input',
   template?: string
-): BaseFiltersSearchAPI {
+): FiltersSearchAPI {
   const wrapper = mount(
     {
-      components: { BaseFiltersSearch },
+      components: { FiltersSearch },
       props: ['filters', 'debounceInMs'],
       template:
         template ??
         `
-          <BaseFiltersSearch :filters="filters" :debounceInMs="debounceInMs">
+          <FiltersSearch :filters="filters" :debounceInMs="debounceInMs">
             <template #default="{ siftedFilters }">
               <ul v-for="filter in siftedFilters" data-test="filters-search-list">
                 <li data-test="filters-search-list-item">{{ filter.label }}</li>
               </ul>
             </template>
-          </BaseFiltersSearch>
+          </FiltersSearch>
         `
     },
     {
@@ -54,25 +55,35 @@ function renderBaseFiltersSearch(
     }
   );
 
+  const filterWrapper = wrapper.findComponent(FiltersSearch);
+
   return {
     wrapper,
+    filterWrapper,
     componentWrapper: wrapper.find(getDataTestSelector('filters-search')),
     inputWrapper: wrapper.find(getDataTestSelector(dataTestInputSelector)),
     getFiltersWrapper: () => wrapper.findAll(getDataTestSelector('filters-search-list-item'))
   };
 }
 
-describe('testing BaseFiltersSearch', () => {
+describe('testing FiltersSearch', () => {
   beforeAll(jest.useFakeTimers);
   afterEach(jest.clearAllTimers);
 
+  it('is an x-component', () => {
+    const { filterWrapper } = renderFiltersSearch();
+
+    expect(isXComponent(filterWrapper.vm)).toEqual(true);
+  });
+
+  it('belongs to the `facets` x-module', () => {
+    const { filterWrapper } = renderFiltersSearch();
+
+    expect(getXComponentXModuleName(filterWrapper.vm)).toEqual('facets');
+  });
+
   it('renders the search input and provided filters', () => {
-    const {
-      wrapper,
-      componentWrapper,
-      inputWrapper,
-      getFiltersWrapper
-    } = renderBaseFiltersSearch();
+    const { wrapper, componentWrapper, inputWrapper, getFiltersWrapper } = renderFiltersSearch();
 
     expect(componentWrapper.element).toBeDefined();
     expect(inputWrapper.element).toBeDefined();
@@ -81,39 +92,39 @@ describe('testing BaseFiltersSearch', () => {
   });
 
   it('sifts provided filters with the input query', async () => {
-    const baseFiltersSearch = renderBaseFiltersSearch();
+    const filtersSearch = renderFiltersSearch();
 
     for (const [query, occurrences] of Object.entries(queries)) {
-      await expectBaseFiltersSearch(baseFiltersSearch, query, occurrences);
-      expect(baseFiltersSearch.wrapper.classes()).toContain('x-filters-search--is-sifted');
+      await expectFiltersSearch(filtersSearch, query, occurrences);
+      expect(filtersSearch.wrapper.classes()).toContain('x-filters-search--is-sifted');
     }
   });
 
   it('allows changing the debounce time', async () => {
-    const baseFiltersSearch = renderBaseFiltersSearch();
+    const filtersSearch = renderFiltersSearch();
 
-    await baseFiltersSearch.wrapper.setProps({ debounceInMs: 2000 });
+    await filtersSearch.wrapper.setProps({ debounceInMs: 2000 });
     for (const [query, occurrences] of Object.entries(queries)) {
-      await expectBaseFiltersSearch(baseFiltersSearch, query, filtersMock.length);
-      expect(baseFiltersSearch.wrapper.classes()).not.toContain('x-filters-search--is-sifted');
+      await expectFiltersSearch(filtersSearch, query, filtersMock.length);
+      expect(filtersSearch.wrapper.classes()).not.toContain('x-filters-search--is-sifted');
 
       jest.advanceTimersByTime(1800);
       await Vue.nextTick();
-      expect(baseFiltersSearch.getFiltersWrapper()).toHaveLength(occurrences);
-      expect(baseFiltersSearch.wrapper.classes()).toContain('x-filters-search--is-sifted');
+      expect(filtersSearch.getFiltersWrapper()).toHaveLength(occurrences);
+      expect(filtersSearch.wrapper.classes()).toContain('x-filters-search--is-sifted');
 
-      await baseFiltersSearch.inputWrapper.setValue('');
+      await filtersSearch.inputWrapper.setValue('');
       jest.advanceTimersByTime(2000);
       await Vue.nextTick();
-      expect(baseFiltersSearch.getFiltersWrapper()).toHaveLength(filtersMock.length);
+      expect(filtersSearch.getFiltersWrapper()).toHaveLength(filtersMock.length);
     }
   });
 
   it('replaces the search slot content by a custom one', async () => {
-    const baseFiltersSearch = renderBaseFiltersSearch(
+    const filtersSearch = renderFiltersSearch(
       'custom-input',
       `
-      <BaseFiltersSearch :filters="filters" :debounceInMs="debounceInMs">
+      <FiltersSearch :filters="filters" :debounceInMs="debounceInMs">
         <template #search="{ query, setQuery, clearQuery }">
           <input
             @input="setQuery($event.target.value)"
@@ -126,24 +137,24 @@ describe('testing BaseFiltersSearch', () => {
             <li data-test="filters-search-list-item">{{ filter.label }}</li>
           </ul>
         </template>
-      </BaseFiltersSearch>
+      </FiltersSearch>
       `
     );
 
     for (const [query, occurrences] of Object.entries(queries)) {
-      await expectBaseFiltersSearch(baseFiltersSearch, query, occurrences);
-      expect(baseFiltersSearch.wrapper.classes()).toContain('x-filters-search--is-sifted');
+      await expectFiltersSearch(filtersSearch, query, occurrences);
+      expect(filtersSearch.wrapper.classes()).toContain('x-filters-search--is-sifted');
     }
 
-    const clearButton = baseFiltersSearch.wrapper.find(getDataTestSelector('custom-clear-button'));
+    const clearButton = filtersSearch.wrapper.find(getDataTestSelector('custom-clear-button'));
     await clearButton.trigger('click');
-    expect(baseFiltersSearch.getFiltersWrapper()).toHaveLength(filtersMock.length);
-    expect((baseFiltersSearch.inputWrapper.element as HTMLInputElement).value).toEqual('');
+    expect(filtersSearch.getFiltersWrapper()).toHaveLength(filtersMock.length);
+    expect((filtersSearch.inputWrapper.element as HTMLInputElement).value).toEqual('');
   });
 });
 
-async function expectBaseFiltersSearch(
-  { inputWrapper, getFiltersWrapper }: BaseFiltersSearchAPI,
+async function expectFiltersSearch(
+  { inputWrapper, getFiltersWrapper }: FiltersSearchAPI,
   query: string,
   occurrences: number
 ): Promise<void> {
@@ -155,8 +166,9 @@ async function expectBaseFiltersSearch(
   expect(getFiltersWrapper()).toHaveLength(occurrences);
 }
 
-interface BaseFiltersSearchAPI {
+interface FiltersSearchAPI {
   wrapper: Wrapper<Vue>;
+  filterWrapper: Wrapper<Vue>;
   componentWrapper: Wrapper<Vue>;
   inputWrapper: Wrapper<Vue>;
   getFiltersWrapper: () => WrapperArray<Vue>;

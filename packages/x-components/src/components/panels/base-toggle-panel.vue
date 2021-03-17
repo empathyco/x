@@ -49,11 +49,11 @@ inside a configurable transition.
 Using default slot:
 ```vue
 <BaseTogglePanel :open="true" :animation="collapseFromTop">
-  <BaseFilters :filters="filters">
+  <Filters :filters="filters">
     <template #default="{ filter }">
       <p>{{ filter.label }}</p>
     </template>
-  </BaseFilters>
+  </Filters>
 </BaseTogglePanel>
 ```
 </docs>

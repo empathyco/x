@@ -418,59 +418,61 @@ render every facet except color and price.
 
 There are many components that will help you build your own awesome filters list. `Facets` just
 renders the list, but what to render for each facet is up to you. Below you can see an example. of
-the `Facets` component using the `BaseFiltersSearch` `MultiSelectFilters`, `BaseSimpleFilter`,
-`BaseFilters`, `BaseHierarchicalFilter`, `BaseNumberRangeFilter` and `BasePriceFilterLabel`.
+the `Facets` component using the `FiltersSearch` `MultiSelectFilters`, `SimpleFilter`, `Filters`,
+`HierarchicalFilter`, `NumberRangeFilter` and `BasePriceFilterLabel`.
 
 ```vue
 <template>
   <Facets>
     <template #default="{ facet, selectedFilters }">
       <h1>{{ facet.label }}</h1>
-      <BaseFiltersSearch v-slot="{ siftedFilters }" :filters="facet.filters">
+      <FiltersSearch v-slot="{ siftedFilters }" :filters="facet.filters">
         <MultiSelectFilters :filters="siftedFilters" v-slot="{ filter }">
-          <BaseSimpleFilter :filter="filter" />
+          <SimpleFilter :filter="filter" />
         </MultiSelectFilters>
-      </BaseFiltersSearch>
+      </FiltersSearch>
     </template>
 
     <template #category="{ facet }">
       <h1>{{ facet.label }}</h1>
-      <BaseFilters :filters="facet.filters" v-slot="{ filter }">
-        <BaseHierarchicalFilter :filter="filter" />
-      </BaseFilters>
+      <Filters :filters="facet.filters" v-slot="{ filter }">
+        <HierarchicalFilter :filter="filter" />
+      </Filters>
     </template>
 
     <template #price="{ facet }">
       <h1>{{ facet.label }}</h1>
-      <BaseFilters :filters="facet.filters" v-slot="{ filter }">
-        <BaseNumberRangeFilter :filter="filter" v-slot="{ filter }">
+      <Filters :filters="facet.filters" v-slot="{ filter }">
+        <NumberRangeFilter :filter="filter" v-slot="{ filter }">
           <BasePriceFilterLabel :filter="filter" />
-        </BaseNumberRangeFilter>
-      </BaseFilters>
+        </NumberRangeFilter>
+      </Filters>
     </template>
   </Facets>
 </template>
 
 <script>
-  import { Facets, MultiSelectFilters } from '@empathy/x-components/facets';
   import {
-    BaseFiltersSearch,
-    BaseSimpleFilter,
-    BaseFilters,
-    BaseHierarchicalFilter,
-    BaseNumberRangeFilter,
-    BasePriceFilterLabel
-  } from '@empathy/x-components';
+    Facets,
+    Filters,
+    FiltersSearch,
+    HierarchicalFilter,
+    MultiSelectFilters,
+    NumberRangeFilter,
+    SimpleFilter
+  } from '@empathy/x-components/facets';
+
+  import { BasePriceFilterLabel } from '@empathy/x-components';
 
   export default {
     components: {
       Facets,
       MultiSelectFilters,
-      BaseFiltersSearch,
-      BaseSimpleFilter,
-      BaseFilters,
-      BaseHierarchicalFilter,
-      BaseNumberRangeFilter,
+      FiltersSearch,
+      SimpleFilter,
+      Filters,
+      HierarchicalFilter,
+      NumberRangeFilter,
       BasePriceFilterLabel
     }
   };

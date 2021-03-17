@@ -1,9 +1,10 @@
 import { Filter } from '@empathy/search-types';
 import { mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
-import { createCategorySimpleFilter } from '../../../../__stubs__/filters-stubs.factory';
-import { getDataTestSelector } from '../../../../__tests__/utils';
-import BaseSlicedFilters from '../base-sliced-filters.vue';
+import { createCategorySimpleFilter } from '../../../../../__stubs__/filters-stubs.factory';
+import { getDataTestSelector } from '../../../../../__tests__/utils';
+import { getXComponentXModuleName, isXComponent } from '../../../../../components';
+import SlicedFilters from '../sliced-filters.vue';
 
 /**
  * Renders the `BaseShowMoreFilters` component, exposing a basic API for testing.
@@ -25,10 +26,10 @@ function renderBaseShowMoreFilters(max = 10): BaseShowMoreFiltersAPI {
 
   const wrapper = mount(
     {
-      components: { BaseSlicedFilters },
+      components: { SlicedFilters },
       props: ['filters', 'max'],
       template: `
-          <BaseSlicedFilters :filters="filters" :max="max">
+          <SlicedFilters :filters="filters" :max="max">
             <template #default="{ slicedFilters }">
               <ul v-for="filter in slicedFilters" data-test="sliced-filters-list">
                 <li data-test="sliced-filters-list-item">{{ filter.label }}</li>
@@ -36,7 +37,7 @@ function renderBaseShowMoreFilters(max = 10): BaseShowMoreFiltersAPI {
             </template>
             <template #show-more="{ difference }">Expand {{ difference }} more filters</template>
             <template #show-less="{ difference }">Expand {{ difference }} less filters</template>
-          </BaseSlicedFilters>
+          </SlicedFilters>
         `
     },
     {
@@ -47,8 +48,11 @@ function renderBaseShowMoreFilters(max = 10): BaseShowMoreFiltersAPI {
     }
   );
 
+  const filterWrapper = wrapper.findComponent(SlicedFilters);
+
   return {
     wrapper,
+    filterWrapper,
     getFiltersWrapper: () => wrapper.findAll(getDataTestSelector('sliced-filters-list-item')),
     getShowMoreButton: () => wrapper.find(getDataTestSelector('sliced-filters-show-more-button')),
     getShowLessButton: () => wrapper.find(getDataTestSelector('sliced-filters-show-less-button'))
@@ -56,6 +60,18 @@ function renderBaseShowMoreFilters(max = 10): BaseShowMoreFiltersAPI {
 }
 
 describe('testing BaseShowMoreFilters', () => {
+  it('is an x-component', () => {
+    const { filterWrapper } = renderBaseShowMoreFilters();
+
+    expect(isXComponent(filterWrapper.vm)).toEqual(true);
+  });
+
+  it('belongs to the `facets` x-module', () => {
+    const { filterWrapper } = renderBaseShowMoreFilters();
+
+    expect(getXComponentXModuleName(filterWrapper.vm)).toEqual('facets');
+  });
+
   it('renders all filters if they are less than the max prop', () => {
     const { wrapper, getFiltersWrapper } = renderBaseShowMoreFilters();
 
@@ -90,6 +106,8 @@ describe('testing BaseShowMoreFilters', () => {
 interface BaseShowMoreFiltersAPI {
   /** The wrapper of the container element.*/
   wrapper: Wrapper<Vue>;
+  /** The wrapper of the container element.*/
+  filterWrapper: Wrapper<Vue>;
   /** The filters of the wrapper element.*/
   getFiltersWrapper: () => WrapperArray<Vue>;
   /** The show more button of the wrapper element.*/

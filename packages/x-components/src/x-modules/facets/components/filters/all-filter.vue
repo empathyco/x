@@ -19,9 +19,11 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { BooleanFilter, Facet } from '@empathy/search-types';
-  import BaseEventButton from '../../base-event-button.vue';
-  import { VueCSSClasses } from '../../../utils/types';
-  import { XEventsTypes } from '../../../wiring/events.types';
+  import { xComponentMixin } from '../../../../components';
+  import BaseEventButton from '../../../../components/base-event-button.vue';
+  import { VueCSSClasses } from '../../../../utils/types';
+  import { XEventsTypes } from '../../../../wiring/events.types';
+  import { facetsXModule } from '../../x-module';
 
   /**
    * This component receives a required `facet` with
@@ -33,9 +35,10 @@
    * @public
    */
   @Component({
-    components: { BaseEventButton }
+    components: { BaseEventButton },
+    mixins: [xComponentMixin(facetsXModule)]
   })
-  export default class BaseAllFilter extends Vue {
+  export default class AllFilter extends Vue {
     /** The facet data. */
     @Prop({ required: true })
     public facet!: Facet;
@@ -78,15 +81,15 @@ facet label but this content is customizable through the default slot.
 ## Basic usage
 
 ```vue
-<BaseAllFilter :facet="facet" />
+<AllFilter :facet="facet" />
 ```
 
 ## Customizing its content
 
 ```vue
-<BaseAllFilter v-slot="{ facet }" :facet="facet">
+<AllFilter v-slot="{ facet }" :facet="facet">
   Select all {{ facet.label }}
-</BaseAllFilter>
+</AllFilter>
 ```
 
 ## Basic example within facets
@@ -94,10 +97,10 @@ facet label but this content is customizable through the default slot.
 ```vue
 <Facets>
   <template #default="{ facet }">
-    <BaseAllFilter :facet="facet" />
-    <BaseFilters v-slot="{ filter }" :filters="facet.filters">
-      <BaseSimpleFilter :filter="filter" />
-    </BaseFilters>
+    <AllFilter :facet="facet" />
+    <Filters v-slot="{ filter }" :filters="facet.filters">
+      <SimpleFilter :filter="filter" />
+    </Filters>
   </template>
 </Facets>
 ```
@@ -107,12 +110,12 @@ facet label but this content is customizable through the default slot.
 ```vue
 <Facets>
   <template #default="{ facet }">
-    <BaseAllFilter v-slot="{ facet }" :facet="facet">
+    <AllFilter v-slot="{ facet }" :facet="facet">
       Select all {{ facet.label }}
-    </BaseAllFilter>
-    <BaseFilters v-slot="{ filter }" :filters="facet.filters">
-      <BaseSimpleFilter :filter="filter" />
-    </BaseFilters>
+    </AllFilter>
+    <Filters v-slot="{ filter }" :filters="facet.filters">
+      <SimpleFilter :filter="filter" />
+    </Filters>
   </template>
 </Facets>
 ```

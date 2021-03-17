@@ -1,19 +1,20 @@
-import { SimpleFilter } from '@empathy/search-types';
+import { SimpleFilter as SimpleFilterModel } from '@empathy/search-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { getSimpleFilterStub } from '../../../../__stubs__/filters-stubs.factory';
-import { getDataTestSelector } from '../../../../__tests__/utils';
-import BaseSimpleFilter from '../base-simple-filter.vue';
+import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory';
+import { getDataTestSelector } from '../../../../../__tests__/utils';
+import { getXComponentXModuleName, isXComponent } from '../../../../../components';
+import SimpleFilter from '../simple-filter.vue';
 
-function renderBaseSimpleFilter({
-  template = '<BaseSimpleFilter :filter="filter"/>',
+function renderSimpleFilter({
+  template = '<SimpleFilter :filter="filter"/>',
   filter = getSimpleFilterStub()
-}: BaseSimpleFilterWrapperData = {}): BaseSimpleFilterAPI {
+}: SimpleFilterWrapperData = {}): SimpleFilterAPI {
   Vue.observable(filter);
   const emit = jest.fn();
   const wrapper = mount(
     {
-      components: { BaseSimpleFilter },
+      components: { SimpleFilter },
       props: ['filter'],
       template
     },
@@ -29,8 +30,11 @@ function renderBaseSimpleFilter({
     }
   );
 
+  const filterWrapper = wrapper.findComponent(SimpleFilter);
+
   return {
     wrapper,
+    filterWrapper,
     emit,
     filter,
     clickFilter() {
@@ -43,15 +47,27 @@ function renderBaseSimpleFilter({
   };
 }
 
-describe('testing BaseSimpleFilter component', () => {
+describe('testing SimpleFilter component', () => {
+  it('is an x-component', () => {
+    const { filterWrapper } = renderSimpleFilter();
+
+    expect(isXComponent(filterWrapper.vm)).toEqual(true);
+  });
+
+  it('belongs to the `facets` x-module', () => {
+    const { filterWrapper } = renderSimpleFilter();
+
+    expect(getXComponentXModuleName(filterWrapper.vm)).toEqual('facets');
+  });
+
   it('renders the provided filter by default', () => {
-    const { wrapper, filter } = renderBaseSimpleFilter();
+    const { wrapper, filter } = renderSimpleFilter();
 
     expect(wrapper.text()).toEqual(filter.label);
   });
 
   it('emits `UserClickedAFilter` & `UserClickedASimpleFilter` events when clicked', () => {
-    const { wrapper, clickFilter, emit, filter } = renderBaseSimpleFilter();
+    const { wrapper, clickFilter, emit, filter } = renderSimpleFilter();
 
     clickFilter();
 
@@ -62,11 +78,11 @@ describe('testing BaseSimpleFilter component', () => {
   });
 
   it('allows customizing the rendered content with an slot', () => {
-    const { wrapper, filter } = renderBaseSimpleFilter({
+    const { wrapper, filter } = renderSimpleFilter({
       template: `
-      <BaseSimpleFilter :filter="filter" v-slot="{ filter }">
+      <SimpleFilter :filter="filter" v-slot="{ filter }">
         <span data-test="custom-label">{{ filter.label }}</span>
-      </BaseSimpleFilter>
+      </SimpleFilter>
       `
     });
 
@@ -75,7 +91,7 @@ describe('testing BaseSimpleFilter component', () => {
   });
 
   it('adds selected classes to the rendered element when the filter is selected', async () => {
-    const { wrapper, selectFilter } = renderBaseSimpleFilter();
+    const { wrapper, selectFilter } = renderSimpleFilter();
 
     expect(wrapper.classes()).not.toContain('x-filter--is-selected');
     expect(wrapper.classes()).not.toContain('x-simple-filter--is-selected');
@@ -87,15 +103,16 @@ describe('testing BaseSimpleFilter component', () => {
   });
 });
 
-interface BaseSimpleFilterWrapperData {
+interface SimpleFilterWrapperData {
   template?: string;
-  filter?: SimpleFilter;
+  filter?: SimpleFilterModel;
 }
 
-interface BaseSimpleFilterAPI {
+interface SimpleFilterAPI {
   wrapper: Wrapper<Vue>;
-  emit: jest.Mock<any, any>;
-  filter: SimpleFilter;
+  filterWrapper: Wrapper<Vue>;
+  emit: jest.Mock;
+  filter: SimpleFilterModel;
   clickFilter: () => void;
   selectFilter: () => Promise<void>;
 }
