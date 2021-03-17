@@ -1,4 +1,12 @@
-import { HierarchicalFilter, SimpleFilter, NumberRangeFilter } from '@empathy/search-types';
+import {
+  HierarchicalFilter,
+  SimpleFilter,
+  NumberRangeFilter,
+  EditableNumberRangeFilter,
+  RangeValue,
+  FilterModelName,
+  Filter
+} from '@empathy/search-types';
 
 /**
  * Creates {@link @empathy/search-types#SimpleFilter | SimpleFilter} stub.
@@ -62,16 +70,7 @@ export function getNumberRangeFilterStub(
  * @returns A SimpleFilter initialized with the provided category and selected values.
  */
 export function createCategorySimpleFilter(category: string, selected = false): SimpleFilter {
-  return {
-    facetId: 'category',
-    id: `category:${category}`,
-    value: `category:${category}`,
-    label: category,
-    modelName: 'SimpleFilter',
-    selected,
-    totalResults: 100,
-    callbackInfo: {}
-  };
+  return createSimpleFilter('category', category, selected);
 }
 
 /**
@@ -143,4 +142,67 @@ export function getHierarchicalFilterStub(
     },
     filter
   );
+}
+
+/**
+ * Creates a {@link @empathy/search-types#Filter | Filter} with the provided `modelName`, `facetId`
+ * and `label`.
+ *
+ * @param modelName - Filter model name.
+ * @param facetId - The Facet id.
+ * @param label - The filter label. Used to set the `id` (combined with the facetId)
+ * and `label` fields.
+ *
+ * @returns A {@link @empathy/search-types#Filter | Filter}.
+ */
+function createFilter(modelName: FilterModelName, facetId: string, label: string): Filter {
+  return {
+    facetId,
+    id: `${facetId}:${label}`,
+    label: label,
+    modelName: modelName,
+    callbackInfo: {}
+  };
+}
+
+/**
+ * Creates a {@link @empathy/search-types#EditableNumberRangeFilter | EditableNumberRangeFilter}
+ * with the provided `label` and `range`.
+ *
+ * @param facetId - The facet id.
+ * @param label - The filter label. Used to set the `id` (combined with the facetId)
+ * and `label` fields.
+ * @param range - The range value with min and max set to null by default.
+ *
+ * @returns An {@link @empathy/search-types#EditableNumberRangeFilter | EditableNumberRangeFilter}.
+ */
+export function createEditableNumberRangeFilter(
+  facetId: string,
+  label: string,
+  range: RangeValue = { min: null, max: null }
+): EditableNumberRangeFilter {
+  return {
+    ...(createFilter('EditableNumberRangeFilter', facetId, label) as EditableNumberRangeFilter),
+    range
+  };
+}
+
+/**
+ * Creates a {@link @empathy/search-types#SimpleFilter | SimpleFilter} with the `facetId`, `label`
+ * and `selected` value.
+ *
+ * @param facetId - The facet id.
+ * @param label - The filter label. Used to set the `id` (combined with the facetId)
+ * and `label` fields.
+ * @param selected - The selected value, false by default.
+ *
+ * @returns An {@link @empathy/search-types#SimpleFilter | SimpleFilter}.
+ */
+export function createSimpleFilter(facetId: string, label: string, selected = false): SimpleFilter {
+  return {
+    ...(createFilter('SimpleFilter', facetId, label) as SimpleFilter),
+    selected,
+    value: `{ "filter: "${label}" }`,
+    totalResults: 0
+  };
 }

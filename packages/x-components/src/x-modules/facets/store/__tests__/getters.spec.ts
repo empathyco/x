@@ -7,10 +7,11 @@ import {
   getFacetsStub,
   getHierarchicalFacetStub,
   getNumberRangeFacetStub,
-  getSimpleFacetStub
+  getSimpleFacetStub,
+  createEditableNumberRangeFacetStub
 } from '../../../../__stubs__/facets-stubs.factory';
 import { facetsXStoreModule } from '../module';
-import { FacetsState } from '../types';
+import { FacetsGetters, FacetsState } from '../types';
 import { resetFacetsStateWith } from './utils';
 
 describe('testing facets module getters', () => {
@@ -173,6 +174,42 @@ describe('testing facets module getters', () => {
       });
 
       expect(store.getters.selectedFilters).toHaveLength(5);
+    });
+
+    // eslint-disable-next-line max-len
+    it('should return selected EditableNumberRangeFilters as selected when range min and max are not null', () => {
+      const editablePriceFacet = createEditableNumberRangeFacetStub(
+        'price',
+        createEditableNumberRangeFilter => [
+          createEditableNumberRangeFilter('null-null', { min: null, max: null }),
+          createEditableNumberRangeFilter('null-5', { min: null, max: 5 }),
+          createEditableNumberRangeFilter('15-null', { min: 15, max: null }),
+          createEditableNumberRangeFilter('15-30', { min: 15, max: 30 }),
+          createEditableNumberRangeFilter('0-null', { min: 0, max: null }),
+          createEditableNumberRangeFilter('null-0', { min: null, max: 0 })
+        ]
+      );
+
+      resetFacetsStateWith(store, {
+        backendFacets: arrayToObject(backendFacetsStub, 'id'),
+        frontendFacets: arrayToObject([editablePriceFacet], 'id')
+      });
+
+      expect(store.getters.selectedFilters).toHaveLength(7);
+
+      const selectedFiltersIds = (store.getters as FacetsGetters).selectedFilters.map(
+        filter => filter.id
+      );
+
+      expect(selectedFiltersIds).toEqual([
+        'hierarchical_category:cars',
+        'hierarchical_category:urban',
+        'price:null-5',
+        'price:15-null',
+        'price:15-30',
+        'price:0-null',
+        'price:null-0'
+      ]);
     });
   });
 

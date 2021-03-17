@@ -76,6 +76,15 @@ export const toggleHierarchicalFilterWire = wireDispatch('toggleHierarchicalFilt
 export const toggleNumberRangeFilterWire = wireDispatch('toggleNumberRangeFilter');
 
 /**
+ * Sets {@link @empathy/search-types#EditableNumberRangeFilter | EditableNumberRangeFilter} range.
+ *
+ * @public
+ */
+export const setEditableNumberRangeFilterRangeWire = wireCommit(
+  'setEditableNumberRangeFilterRange'
+);
+
+/**
  * Deselects the filters of the provided facets ids.
  *
  * @public
@@ -130,6 +139,9 @@ export const facetsWiring = createWiring({
   },
   UserClickedANumberRangeFilter: {
     toggleNumberRangeFilterWire
+  },
+  UserModifiedEditableNumberRangeFilter: {
+    setEditableNumberRangeFilterRangeWire
   },
   UserClickedClearFacetFilters: {
     clearFacetsSelectedFiltersWire

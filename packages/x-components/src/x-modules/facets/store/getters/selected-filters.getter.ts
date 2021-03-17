@@ -1,4 +1,4 @@
-import { Filter, isBooleanFilter } from '@empathy/search-types';
+import { Filter, isBooleanFilter, isEditableNumberRangeFilter } from '@empathy/search-types';
 import { objectFilter } from '../../../../utils';
 import { FacetsXStoreModule } from '../types';
 
@@ -19,7 +19,12 @@ export const selectedFilters: FacetsXStoreModule['getters']['selectedFilters'] =
   getters
 ): Filter[] => {
   const selectedFilters = objectFilter(getters.flattenedFilters, (_, filter) => {
-    return isBooleanFilter(filter) ? filter.selected : false;
+    if (isBooleanFilter(filter)) {
+      return filter.selected;
+    } else if (isEditableNumberRangeFilter(filter)) {
+      return filter.range.min !== null || filter.range.max !== null;
+    }
+    return false;
   });
   return Object.values(selectedFilters);
 };

@@ -4,12 +4,13 @@ import {
   HierarchicalFilter,
   SimpleFilter,
   NumberRangeFilter,
-  BooleanFilter
+  BooleanFilter,
+  EditableNumberRangeFilter,
+  RangeValue
 } from '@empathy/search-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { Dictionary } from '../../../utils';
 import { FacetsConfig } from '../config.types';
-import { MultiSelectChange } from '../events.types';
 
 /**
  * Facets store state.
@@ -28,18 +29,6 @@ export interface FacetsState {
   frontendFacets: Record<Facet['id'], Facet>;
   /** The current query {@link FacetsState.query}. */
   query: string;
-}
-
-/**
- * Object to wrap the payload needed for changing the selection state of a filter.
- *
- * @public
- */
-export interface FilterSelectedChange {
-  /** The filter to change its selection state. */
-  filter: BooleanFilter;
-  /** The new selected state. */
-  selected: boolean;
 }
 
 /**
@@ -115,6 +104,12 @@ export interface FacetsMutations {
    * @param query - The new {@link FacetsState.query}.
    */
   setQuery(query: string): void;
+  /**
+   * Sets the `range` property of an editable number range filter.
+   *
+   * @param payload - An {@link EditableNumberRangeFilterChange | object}.
+   */
+  setEditableNumberRangeFilterRange(payload: EditableNumberRangeFilterChange): void;
 }
 
 /**
@@ -195,3 +190,39 @@ export type FacetsXStoreModule = XStoreModule<
  * @public
  */
 export type FiltersByFacet = Record<Facet['id'], Filter[]>;
+
+/**
+ * Object to wrap the payload needed for changing the selection state of a filter.
+ *
+ * @public
+ */
+export interface FilterSelectedChange {
+  /** The filter to change its selection state. */
+  filter: BooleanFilter;
+  /** The new selected state. */
+  selected: boolean;
+}
+
+/**
+ * Payload for the {@link FacetsXEvents.FacetMultiSelectChanged} event.
+ *
+ * @public
+ */
+export interface MultiSelectChange {
+  /** The facet unique identifier. */
+  facetId: Facet['id'];
+  /** The facet multiSelect new value. */
+  multiSelect: boolean;
+}
+
+/**
+ * Payload for the {@link FacetsXEvents.UserModifiedEditableNumberRangeFilter} event.
+ *
+ * @public
+ */
+export interface EditableNumberRangeFilterChange {
+  /** The editable number range filter to be modified. */
+  filter: EditableNumberRangeFilter;
+  /** The new range. */
+  range: RangeValue;
+}

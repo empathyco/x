@@ -1,7 +1,15 @@
-import { Filter } from '@empathy/search-types';
+import {
+  EditableNumberRangeFilter,
+  Filter,
+  isEditableNumberRangeFilter
+} from '@empathy/search-types';
 
 /**
- * Compares two filters array using the id of each filter, no matter the order.
+ * Compares two filters array using
+ * - the id of each filter for {@link @empathy/search-types#BooleanFilter | BooleanFilter}
+ * - {@link areEditableNumberRangeFiltersDifferent} for
+ * {@link @empathy/search-types#EditableNumberRangeFilter | EditableNumberRangeFilter}
+ * no matter the order.
  *
  * @param newFilters - New filters array.
  * @param oldFilters - Old filters array.
@@ -11,7 +19,35 @@ import { Filter } from '@empathy/search-types';
 export function areFiltersDifferent(newFilters: Filter[], oldFilters: Filter[]): boolean {
   return (
     newFilters.length !== oldFilters.length ||
-    newFilters.some(newFilter => !oldFilters.find(oldFilter => oldFilter.id === newFilter.id))
+    newFilters.some(
+      newFilter =>
+        !oldFilters.find(oldFilter => {
+          if (isEditableNumberRangeFilter(oldFilter) && isEditableNumberRangeFilter(newFilter)) {
+            return !areEditableNumberRangeFiltersDifferent(oldFilter, newFilter);
+          }
+          return oldFilter.id === newFilter.id;
+        })
+    )
+  );
+}
+
+/**
+ * Compares two {@link @empathy/search-types#EditableNumberRangeFilter | EditableNumberRangeFilter}
+ * using its id and its `range.min` and `range.max` values.
+ *
+ * @param filterA - Filter A.
+ * @param filterB - Filter B.
+ *
+ * @returns True if the filters are different.
+ */
+export function areEditableNumberRangeFiltersDifferent(
+  filterA: EditableNumberRangeFilter,
+  filterB: EditableNumberRangeFilter
+): boolean {
+  return (
+    filterA.id !== filterB.id ||
+    filterA.range.max !== filterB.range.max ||
+    filterA.range.min !== filterB.range.min
   );
 }
 

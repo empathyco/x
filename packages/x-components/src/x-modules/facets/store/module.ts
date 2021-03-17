@@ -52,6 +52,10 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     },
     setQuery(state, newQuery) {
       state.query = newQuery;
+    },
+    setEditableNumberRangeFilterRange(_state, { filter, range }) {
+      filter.range.min = range.min;
+      filter.range.max = range.max;
     }
   },
   actions: {

@@ -1,4 +1,4 @@
-import { Facet, Filter, isBooleanFilter } from '@empathy/search-types';
+import { Facet, Filter, isBooleanFilter, isEditableNumberRangeFilter } from '@empathy/search-types';
 import { ActionsClass } from '../../../../store/actions.types';
 import { FacetsActionsContext, FacetsXStoreModule } from '../types';
 
@@ -67,6 +67,8 @@ export class ClearSelectedFilters implements ActionsClass<FacetsXStoreModule> {
     return (filter: Filter) => {
       if (isBooleanFilter(filter)) {
         commit('setFilterSelected', { filter, selected: false });
+      } else if (isEditableNumberRangeFilter(filter)) {
+        commit('setEditableNumberRangeFilterRange', { filter, range: { min: null, max: null } });
       }
     };
   }

@@ -1,4 +1,6 @@
 import {
+  EditableNumberRangeFacet,
+  EditableNumberRangeFilter,
   Facet,
   HierarchicalFacet,
   HierarchicalFilter,
@@ -652,6 +654,39 @@ export function createNumberRangeFacet(
         callbackInfo: {},
         range,
         modelName: 'NumberRangeFilter'
+      };
+    })
+  };
+}
+
+/**
+ * Creates a {@link @empathy/search-types#EditableNumberRangeFacet | EditableNumberRangeFacet} given
+ * a label. It uses the `label` properties for generating the ids of the filters.
+ *
+ * @param label - The facet label is also used for generating the facet id.
+ * @param createChildren - A function to create the child filters. This function is invoked with
+ * a factory to create each child filter, only providing the filter `label` and its `range`.
+ * @returns An {@link @empathy/search-types#EditableNumberRangeFacet | EditableNumberRangeFacet}.
+ */
+export function createEditableNumberRangeFacetStub(
+  label: string,
+  createChildren: (
+    createEditableNumberRangeFilter: (label: string, range: RangeValue) => EditableNumberRangeFilter
+  ) => EditableNumberRangeFilter[]
+): EditableNumberRangeFacet {
+  const facetId = label.toLowerCase();
+  return {
+    modelName: 'EditableNumberRangeFacet',
+    id: facetId,
+    label,
+    filters: createChildren((label, range) => {
+      return {
+        id: `${facetId}:${label.toLowerCase()}`,
+        facetId: facetId,
+        label,
+        callbackInfo: {},
+        range,
+        modelName: 'EditableNumberRangeFilter'
       };
     })
   };

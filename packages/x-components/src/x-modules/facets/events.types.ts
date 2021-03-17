@@ -5,6 +5,7 @@ import {
   SimpleFilter,
   NumberRangeFilter
 } from '@empathy/search-types';
+import { MultiSelectChange, EditableNumberRangeFilterChange } from './store/types';
 
 /**
  * Dictionary of the events of Facets XModule, where each key is the event name, and the
@@ -48,6 +49,11 @@ export interface FacetsXEvents {
    */
   UserClickedAHierarchicalFilter: HierarchicalFilter;
   /**
+   * The user has modified a filter which is of editable number range filter type.
+   * * Payload: An {@link EditableNumberRangeFilterChange | object}.
+   */
+  UserModifiedEditableNumberRangeFilter: EditableNumberRangeFilterChange;
+  /**
    * The user has clicked a filter which is of number range type.
    * * Payload: The clicked filter.
    *
@@ -80,16 +86,4 @@ export interface FacetsXEvents {
    * * Payload: The new value of the {@link FacetsConfig.ignoreNewFiltersSelected} config.
    */
   IgnoreNewFiltersSelectedConfigChanged: boolean;
-}
-
-/**
- * Payload for the {@link FacetsXEvents.FacetMultiSelectChanged} event.
- *
- * @public
- */
-export interface MultiSelectChange {
-  /** The facet unique identifier. */
-  facetId: Facet['id'];
-  /** The facet multiSelect new value. */
-  multiSelect: boolean;
 }

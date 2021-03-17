@@ -1,102 +1,63 @@
-import { BooleanFilter } from '@empathy/search-types';
+import { EditableNumberRangeFilter, SimpleFilter } from '@empathy/search-types';
 import { areFiltersDifferent, isNewQuery } from '../utils';
+import {
+  createEditableNumberRangeFilter,
+  createSimpleFilter
+} from '../../../__stubs__/filters-stubs.factory';
 
 describe('testing areFiltersDifferent util', () => {
+  function createPriceEditableNumberRangeFilter(
+    min: number | null,
+    max: number | null
+  ): EditableNumberRangeFilter {
+    return createEditableNumberRangeFilter('price', 'editable', { min, max });
+  }
+
+  function createHierarchicalCategorySimpleFilter(label: string): SimpleFilter {
+    return createSimpleFilter('hierarchical_category', label);
+  }
+
   it('returns true with different filters', () => {
-    const newFiltersArray: BooleanFilter[] = [
-      {
-        facetId: 'hierarchical_category',
-        modelName: 'SimpleFilter',
-        id: 'hierarchical_category:"rompecabezas"',
-        value: '{ "filter: "rompecabezas" }',
-        totalResults: 1,
-        label: 'Rompecabezas',
-        callbackInfo: {},
-        selected: false
-      },
-      {
-        facetId: 'hierarchical_category',
-        modelName: 'SimpleFilter',
-        id: 'hierarchical_category:"puzzle"',
-        value: '{ "filter: "puzzle" }',
-        totalResults: 1,
-        label: 'Puzzle',
-        callbackInfo: {},
-        selected: false
-      }
+    const newFiltersArray: SimpleFilter[] = [
+      createHierarchicalCategorySimpleFilter('rompecabezas'),
+      createHierarchicalCategorySimpleFilter('puzzle')
     ];
 
-    const oldFiltersArray: BooleanFilter[] = [
-      {
-        facetId: 'hierarchical_category',
-        modelName: 'SimpleFilter',
-        id: 'hierarchical_category:"lego"',
-        value: '{ "filter: "lego" }',
-        totalResults: 1,
-        label: 'Lego',
-        callbackInfo: {},
-        selected: false
-      },
-      {
-        facetId: 'hierarchical_category',
-        modelName: 'SimpleFilter',
-        id: 'hierarchical_category:"puzzle"',
-        value: '{ "filter: "puzzle" }',
-        totalResults: 1,
-        label: 'Puzzle',
-        callbackInfo: {},
-        selected: false
-      }
+    const oldFiltersArray: SimpleFilter[] = [
+      createHierarchicalCategorySimpleFilter('lego'),
+      createHierarchicalCategorySimpleFilter('puzzle')
+    ];
+
+    expect(areFiltersDifferent(newFiltersArray, oldFiltersArray)).toBe(true);
+  });
+
+  it('returns true when EditableNumberRangeFilter changes', () => {
+    const newFiltersArray: (SimpleFilter | EditableNumberRangeFilter)[] = [
+      createHierarchicalCategorySimpleFilter('rompecabezas'),
+      createHierarchicalCategorySimpleFilter('puzzle'),
+      createPriceEditableNumberRangeFilter(null, 3)
+    ];
+
+    const oldFiltersArray: (SimpleFilter | EditableNumberRangeFilter)[] = [
+      createHierarchicalCategorySimpleFilter('lego'),
+      createHierarchicalCategorySimpleFilter('puzzle'),
+      createPriceEditableNumberRangeFilter(null, 9)
     ];
 
     expect(areFiltersDifferent(newFiltersArray, oldFiltersArray)).toBe(true);
   });
 
   it('returns false with the same filters', () => {
-    const newFiltersArray: BooleanFilter[] = [
-      {
-        facetId: 'hierarchical_category',
-        modelName: 'SimpleFilter',
-        id: 'hierarchical_category:"rompecabezas"',
-        value: '{ "filter: "rompecabezas" }',
-        totalResults: 1,
-        label: 'Rompecabezas',
-        callbackInfo: {},
-        selected: false
-      },
-      {
-        facetId: 'hierarchical_category',
-        modelName: 'SimpleFilter',
-        id: 'hierarchical_category:"puzzle"',
-        value: '{ "filter: "puzzle" }',
-        totalResults: 1,
-        label: 'Puzzle',
-        callbackInfo: {},
-        selected: false
-      }
+    const newFiltersArray: (SimpleFilter | EditableNumberRangeFilter)[] = [
+      createHierarchicalCategorySimpleFilter('rompecabezas'),
+      createHierarchicalCategorySimpleFilter('puzzle'),
+      createPriceEditableNumberRangeFilter(5, 15)
     ];
 
-    const oldFiltersArray: BooleanFilter[] = [
-      {
-        facetId: 'hierarchical_category',
-        modelName: 'SimpleFilter',
-        id: 'hierarchical_category:"rompecabezas"',
-        value: '{ "filter: "rompecabezas" }',
-        totalResults: 1,
-        label: 'Rompecabezas',
-        callbackInfo: {},
-        selected: false
-      },
-      {
-        facetId: 'hierarchical_category',
-        modelName: 'SimpleFilter',
-        id: 'hierarchical_category:"puzzle"',
-        value: '{ "filter: "puzzle" }',
-        totalResults: 1,
-        label: 'Puzzle',
-        callbackInfo: {},
-        selected: false
-      }
+    const oldFiltersArray: (SimpleFilter | EditableNumberRangeFilter)[] = [
+      createHierarchicalCategorySimpleFilter('rompecabezas'),
+      createHierarchicalCategorySimpleFilter('puzzle'),
+      createPriceEditableNumberRangeFilter(5, 15)
     ];
 
     expect(areFiltersDifferent(newFiltersArray, oldFiltersArray)).toBe(false);
