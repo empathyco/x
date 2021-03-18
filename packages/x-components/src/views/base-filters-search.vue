@@ -27,9 +27,9 @@
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
           <SelectedFilters :facetId="facet.id" />
-          <BaseAllFilter :facet="facet" />
+          <AllFilter :facet="facet" />
           <MultiSelectFilters v-slot="{ filter }" :filters="facet.filters">
-            <BaseSimpleFilter :filter="filter" data-test="simple-filter" />
+            <SimpleFilter :filter="filter" data-test="simple-filter" />
           </MultiSelectFilters>
         </BaseHeaderTogglePanel>
       </template>
@@ -37,36 +37,36 @@
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
           <SelectedFilters :facetId="facet.id" />
-          <BaseAllFilter :facet="facet" />
-          <BaseFilters v-slot="{ filter }" :filters="facet.filters">
-            <BaseHierarchicalFilter :filter="filter" data-test="hierarchical-filter" />
-          </BaseFilters>
+          <AllFilter :facet="facet" />
+          <Filters v-slot="{ filter }" :filters="facet.filters">
+            <HierarchicalFilter :filter="filter" data-test="hierarchical-filter" />
+          </Filters>
         </BaseHeaderTogglePanel>
       </template>
       <template #brand_facet="{ facet }">
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
           <SelectedFilters :facetId="facet.id" />
-          <BaseFiltersSearch v-slot="{ siftedFilters }" :filters="facet.filters">
-            <BaseSlicedFilters :filters="siftedFilters" :max="8">
+          <FiltersSearch v-slot="{ siftedFilters }" :filters="facet.filters">
+            <SlicedFilters :filters="siftedFilters" :max="8">
               <template #default="{ slicedFilters }">
-                <BaseFilters v-slot="{ filter }" :filters="slicedFilters">
-                  <BaseSimpleFilter :filter="filter" data-test="brand-filter" />
-                </BaseFilters>
+                <Filters v-slot="{ filter }" :filters="slicedFilters">
+                  <SimpleFilter :filter="filter" data-test="brand-filter" />
+                </Filters>
               </template>
               <template #show-more="{ difference }">Show {{ difference }} more filters</template>
               <template #show-less="{ difference }">Show {{ difference }} less filters</template>
-            </BaseSlicedFilters>
-          </BaseFiltersSearch>
+            </SlicedFilters>
+          </FiltersSearch>
         </BaseHeaderTogglePanel>
       </template>
       <template #price_facet="{ facet }">
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
           <SelectedFilters :facetId="facet.id" />
-          <BaseAllFilter :facet="facet" />
-          <BaseFilters v-slot="{ filter }" :filters="facet.filters">
-            <BaseNumberRangeFilter :filter="filter" data-test="price-filter">
+          <AllFilter :facet="facet" />
+          <Filters v-slot="{ filter }" :filters="facet.filters">
+            <NumberRangeFilter :filter="filter" data-test="price-filter">
               <template #default="{ filter }">
                 <BasePriceFilterTitle
                   :filter="filter"
@@ -76,8 +76,8 @@
                   from="More than {min}"
                 />
               </template>
-            </BaseNumberRangeFilter>
-          </BaseFilters>
+            </NumberRangeFilter>
+          </Filters>
         </BaseHeaderTogglePanel>
       </template>
     </Facets>
@@ -88,25 +88,25 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import BasePriceFilterTitle from '../components/filters/labels/base-price-filter-label.vue';
-  import BaseAllFilter from '../components/filters/filters/base-all-filter.vue';
-  import BaseFiltersSearch from '../components/filters/lists/base-filters-search.vue';
-  import BaseSlicedFilters from '../components/filters/lists/base-sliced-filters.vue';
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
-  import BaseFilters from '../components/filters/lists/base-filters.vue';
-  import BaseHierarchicalFilter from '../components/filters/filters/base-hierarchical-filter.vue';
-  import BaseNumberRangeFilter from '../components/filters/filters/base-number-range-filter.vue';
-  import BaseSimpleFilter from '../components/filters/filters/base-simple-filter.vue';
+  import { XPlugin } from '../plugins/x-plugin';
+  import { XInstaller } from '../x-installer/x-installer';
+  import HierarchicalFilter from '../x-modules/facets/components//filters/hierarchical-filter.vue';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
+  import Facets from '../x-modules/facets/components/facets.vue';
+  import AllFilter from '../x-modules/facets/components/filters/all-filter.vue';
+  import NumberRangeFilter from '../x-modules/facets/components/filters/number-range-filter.vue';
+  import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
+  import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
+  import Filters from '../x-modules/facets/components/lists/filters.vue';
+  import SlicedFilters from '../x-modules/facets/components/lists/sliced-filters.vue';
+  import MultiSelectFilters from '../x-modules/facets/components/multi-select-filters.vue';
   import SelectedFiltersList from '../x-modules/facets/components/selected-filters-list.vue';
   import SelectedFilters from '../x-modules/facets/components/selected-filters.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
-  import Facets from '../x-modules/facets/components/facets.vue';
-  import MultiSelectFilters from '../x-modules/facets/components/multi-select-filters.vue';
   import SearchButton from '../x-modules/search-box/components/search-button.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import { searchXModule } from '../x-modules/search/x-module';
-  import { XInstaller } from '../x-installer/x-installer';
-  import { XPlugin } from '../plugins/x-plugin';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
@@ -116,23 +116,23 @@
       next();
     },
     components: {
-      BaseAllFilter,
-      BaseFilters,
-      BaseFiltersSearch,
-      BaseSlicedFilters,
+      AllFilter,
       BaseHeaderTogglePanel,
-      BaseHierarchicalFilter,
-      BaseNumberRangeFilter,
       BasePriceFilterTitle,
-      BaseSimpleFilter,
       ClearFilters,
       ClearSearchInput,
       Facets,
+      Filters,
+      FiltersSearch,
+      HierarchicalFilter,
+      NumberRangeFilter,
       MultiSelectFilters,
+      SearchButton,
+      SearchInput,
       SelectedFilters,
       SelectedFiltersList,
-      SearchButton,
-      SearchInput
+      SimpleFilter,
+      SlicedFilters
     }
   })
   export default class App extends Vue {}
