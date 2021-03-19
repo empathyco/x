@@ -5,7 +5,7 @@
     @after-enter="cleanUpAnimationStyles"
     @leave="collapse"
     appear
-    name="collapse-width"
+    name="collapse-width-"
   >
     <!-- @slot (Required) to add content to the transition -->
     <slot />
@@ -31,8 +31,8 @@
 
 <style lang="scss" scoped>
   .collapse-width {
-    &-enter-active,
-    &-leave-active {
+    &--enter-active,
+    &--leave-active {
       transition: width 0.3s ease-out;
       overflow: hidden;
     }

@@ -30,21 +30,23 @@
 <style lang="scss" scoped>
   $transition-duration: 0.25s;
 
-  .staggered-fade-slide--enter-active,
-  .staggered-fade-slide--leave-active {
-    transition: $transition-duration ease-out;
-    transition-property: opacity, transform;
-  }
+  .staggered-fade-slide {
+    &--enter-active,
+    &--leave-active {
+      transition: $transition-duration ease-out;
+      transition-property: opacity, transform;
+    }
 
-  .staggered-fade-slide--move {
-    transition: transform $transition-duration ease-out;
-    z-index: 1;
-  }
+    &--move {
+      transition: transform $transition-duration ease-out;
+      z-index: 1;
+    }
 
-  .staggered-fade-slide--enter,
-  .staggered-fade-slide--leave-to {
-    transform: translate3d(0, 50%, 0);
-    opacity: 0;
+    &--enter,
+    &--leave-to {
+      transform: translate3d(0, 50%, 0);
+      opacity: 0;
+    }
   }
 </style>
 

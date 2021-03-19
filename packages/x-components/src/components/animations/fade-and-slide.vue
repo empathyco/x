@@ -1,5 +1,5 @@
 <template>
-  <transition-group v-on="$listeners" appear name="fade-slide" :tag="tag">
+  <transition-group v-on="$listeners" appear name="fade-slide-" :tag="tag">
     <!-- @slot (Required) Transition-group content -->
     <slot />
   </transition-group>
@@ -31,21 +31,23 @@
   $transition-opacity-duration: 0.2s;
   $transition-transform-duration: 0.3s;
 
-  .fade-slide-move,
-  .fade-slide-enter-active,
-  .fade-slide-leave-active {
-    transition: opacity $transition-opacity-duration ease-out,
-      transform $transition-transform-duration ease-out;
-  }
+  .fade-slide {
+    &--move,
+    &--enter-active,
+    &--leave-active {
+      transition: opacity $transition-opacity-duration ease-out;
+      transform: $transition-transform-duration ease-out;
+    }
 
-  .fade-slide-enter,
-  .fade-slide-leave-to {
-    transform: translate(-20%, 0);
-    opacity: 0;
-  }
+    &--enter,
+    &--leave-to {
+      transform: translate(-20%, 0);
+      opacity: 0;
+    }
 
-  .fade-slide-leave-active {
-    position: absolute;
+    &--leave-active {
+      position: absolute;
+    }
   }
 </style>
 

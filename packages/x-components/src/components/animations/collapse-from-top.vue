@@ -1,5 +1,5 @@
 <template>
-  <transition v-on="$listeners" appear name="collapse-top" duration="300">
+  <transition v-on="$listeners" appear name="collapse-top-" duration="300">
     <!-- @slot (Required) to add content to the transition -->
     <slot />
   </transition>
@@ -21,8 +21,8 @@
 
 <style lang="scss" scoped>
   .collapse-top {
-    &-enter,
-    &-leave-to {
+    &--enter,
+    &--leave-to {
       transform: scaleY(0);
 
       > * {
@@ -30,7 +30,7 @@
       }
     }
 
-    &-enter-active {
+    &--enter-active {
       transition: transform 150ms ease-out;
       transform-origin: top center;
 
@@ -39,7 +39,7 @@
       }
     }
 
-    &-leave-active {
+    &--leave-active {
       transition: transform 150ms ease-out 150ms;
       transform-origin: top center;
 
