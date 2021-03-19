@@ -21,10 +21,12 @@
   import { Suggestion } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { State, XOn } from '../../../components/decorators/store.decorators';
+  import { XOn } from '../../../components/decorators/bus.decorators';
+  import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { ArrowKey, PropsWithType } from '../../../utils';
-  import { debounce, DebouncedFunction } from '../../../utils/debounce';
+  import { debounce } from '../../../utils/debounce';
+  import { DebouncedFunction } from '../../../utils/types';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { WireMetadata } from '../../../wiring/wiring.types';
   import { searchBoxXModule } from '../x-module';

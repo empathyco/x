@@ -17,6 +17,7 @@ export * from './suggestions';
 
 // Utils
 export * from './decorators/debounce.decorators';
+export * from './decorators/bus.decorators';
 export * from './decorators/store.decorators';
 export * from './x-component.mixin';
 export * from './x-component.types';

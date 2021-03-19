@@ -1,7 +1,7 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue, { CreateElement, VNode } from 'vue';
 import { Component } from 'vue-property-decorator';
-import { DebounceOptions } from '../../../utils/debounce';
+import { DebounceOptions } from '../../../utils/types';
 import { Debounce } from '../debounce.decorators';
 
 function renderDebounceDecoratorComponent(
@@ -32,6 +32,7 @@ function renderDebounceDecoratorComponent(
     mockedDebouncedFunction
   };
 }
+
 const defaultDebounceTime = 100;
 
 describe('testing debounce decorator', () => {

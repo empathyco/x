@@ -18,7 +18,7 @@
   import { ArrowKey, EventsForDirectionLimit, TakeNavigationControl } from '../utils/types';
   import { XEventsOf } from '../wiring/events.types';
   import { WireMetadata } from '../wiring/wiring.types';
-  import { XOn } from './decorators/store.decorators';
+  import { XOn } from './decorators/bus.decorators';
 
   /**
    * Base component to handle keyboard navigation for elements inside it. It has a required slot to

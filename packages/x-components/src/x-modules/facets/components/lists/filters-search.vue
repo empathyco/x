@@ -25,13 +25,13 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
   import { Filter } from '@empathy/search-types';
+  import Vue from 'vue';
   import { Component, Prop, Watch } from 'vue-property-decorator';
   import { xComponentMixin } from '../../../../components';
-  import { debounce, DebouncedFunction } from '../../../../utils/debounce';
+  import { debounce } from '../../../../utils/debounce';
   import { normalizeString } from '../../../../utils/normalize';
-  import { VueCSSClasses } from '../../../../utils/types';
+  import { DebouncedFunction, VueCSSClasses } from '../../../../utils/types';
   import { facetsXModule } from '../../x-module';
 
   /**
@@ -133,51 +133,54 @@
   }
 </style>
 
-<docs>
-  #Example
+<docs lang="mdx">
+#Example
 
-  It renders an input and a list of filters passed as prop. The list of filters can be sifted
-  with the query typed in the input. This component has also a debounce prop to set the time in
-  milliseconds to apply the filters search. Moreover, it has two scoped slots. The first one for
-  customize the search triggering with three slot props; the query, a function to set the query
-  by sifting and a third one for cleaning the query. The second scoped slot is required and it
-  is for displaying the list of filters sifted. It has a slot prop with these filters sifted.
+It renders an input and a list of filters passed as prop. The list of filters can be sifted with the
+query typed in the input. This component has also a debounce prop to set the time in milliseconds to
+apply the filters search. Moreover, it has two scoped slots. The first one for customize the search
+triggering with three slot props; the query, a function to set the query by sifting and a third one
+for cleaning the query. The second scoped slot is required and it is for displaying the list of
+filters sifted. It has a slot prop with these filters sifted.
 
-  ## Basic usage
+## Basic usage
 
-  Using default and required slot:
-  ```vue
-  <FiltersSearch :filters="filters" v-slot="{ siftedFilters }">
+Using default and required slot:
+
+```vue
+<FiltersSearch :filters="filters" v-slot="{ siftedFilters }">
+  <ul v-for="filter in siftedFilters">
+    <li :key="filter.id">{{ filter.label }}</li>
+  </ul>
+</FiltersSearch>
+```
+
+Setting debounce time:
+
+```vue
+<FiltersSearch :filters="filters" :debounceInMs="500" v-slot="{ siftedFilters }">
+  <ul v-for="filter in siftedFilters">
+    <li :key="filter.id">{{ filter.label }}</li>
+  </ul>
+</FiltersSearch>
+```
+
+Replacing search triggering:
+
+```vue
+<FiltersSearch :filters="filters">
+  <template #search="{ query, setQuery, clearQuery }">
+    <input
+      @input="setQuery($event.target.value)"
+      :value="query"
+      class="x-filters-search__input"/>
+    <button @click="clearQuery">X</button>
+  </template>
+  <template #default="{ siftedFilters }">
     <ul v-for="filter in siftedFilters">
       <li :key="filter.id">{{ filter.label }}</li>
     </ul>
-  </FiltersSearch>
-  ```
-
-  Setting debounce time:
-  ```vue
-  <FiltersSearch :filters="filters" :debounceInMs="500" v-slot="{ siftedFilters }">
-    <ul v-for="filter in siftedFilters">
-      <li :key="filter.id">{{ filter.label }}</li>
-    </ul>
-  </FiltersSearch>
-  ```
-
-  Replacing search triggering:
-  ```vue
-  <FiltersSearch :filters="filters">
-    <template #search="{ query, setQuery, clearQuery }">
-      <input
-        @input="setQuery($event.target.value)"
-        :value="query"
-        class="x-filters-search__input" />
-      <button @click="clearQuery">X</button>
-    </template>
-    <template #default="{ siftedFilters }">
-      <ul v-for="filter in siftedFilters">
-        <li :key="filter.id">{{ filter.label }}</li>
-      </ul>
-    </template>
-  </FiltersSearch>
-  ```
+  </template>
+</FiltersSearch>
+```
 </docs>

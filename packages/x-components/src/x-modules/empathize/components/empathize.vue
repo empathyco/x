@@ -18,7 +18,10 @@
   import Vue from 'vue';
   import Component from 'vue-class-component';
   import { Prop } from 'vue-property-decorator';
-  import { Debounce, noElementComponent, xComponentMixin, XOn } from '../../../components';
+  import { XOn } from '../../../components/decorators/bus.decorators';
+  import { Debounce } from '../../../components/decorators/debounce.decorators';
+  import { noElementComponent } from '../../../components/no-element';
+  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { WireMetadata, XEvent } from '../../../wiring';
   import { empathizeXModule } from '../x-module';
 
@@ -171,7 +174,7 @@ must be a Component with a `Transition` with a slot inside:
 ```vue
 <Empathize :animation="collapseFromTop">
   <template #default>
-      <PopularSearches/>
+    <PopularSearches/>
   </template>
 </Empathize>
 ```

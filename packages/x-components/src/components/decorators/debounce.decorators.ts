@@ -1,6 +1,6 @@
 import { createDecorator } from 'vue-class-component';
-import { debounce, DebounceOptions } from '../../utils/debounce';
-import { AnyFunction, DecoratorFor } from '../../utils/types';
+import { debounce } from '../../utils/debounce';
+import { AnyFunction, DebounceOptions, DecoratorFor } from '../../utils/types';
 
 /**
  * Adds debounce to the method that the decorator is applied to.

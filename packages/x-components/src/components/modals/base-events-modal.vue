@@ -13,7 +13,7 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { XEvent } from '../../wiring/events.types';
-  import { XOn } from '../decorators/store.decorators';
+  import { XOn } from '../decorators/bus.decorators';
   import { WireMetadata } from '../../wiring/wiring.types';
   import { isElementEqualOrContained } from '../../utils/html';
   import BaseModal from './base-modal.vue';

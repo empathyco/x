@@ -1,30 +1,11 @@
-/**
- * The type returned by the {@link debounce} function. Basically is the function the
- * {@link debounce} receives but debounced and with a method `cancel()` to cancel pending timeouts.
- *
- * @param Params - The arguments type of the function.
- *
- * @public
- */
-export interface DebouncedFunction<Params extends any[]> {
-  (...args: Params): void;
-  cancel(): void;
-}
-
-/**
- * Debounce options for the strategies that the debounce would use.
- */
-export interface DebounceOptions {
-  leading?: boolean;
-  trailing?: boolean;
-}
-
 /* eslint-disable max-len */
+import { DebouncedFunction, DebounceOptions } from './types';
+
 /**
  * Util function that returns a debounced version of the function passed as parameter. It can use
- * the leading strategy, trailing strategy or both. Using both would result in one leading execution
- * guaranteed and trailing executions only if there are further calls during the length of the
- * debounce time.
+ * the leading strategy, trailing strategy or both. Using both would result in one leading
+ * execution guaranteed and trailing executions only if there are further calls during the length
+ * of the debounce time.
  *
  * @param fn - Function to be debounced.
  * @param debounceTimeInMs - The time of debounce in ms.
