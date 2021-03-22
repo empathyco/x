@@ -1,5 +1,11 @@
 <template>
-  <component :is="animation" v-if="recommendations.length" tag="ul" class="x-recommendations">
+  <component
+    :is="animation"
+    v-if="recommendations.length"
+    tag="ul"
+    data-test="recommendations"
+    class="x-recommendations"
+  >
     <li
       v-for="recommendation in recommendations"
       :key="recommendation.id"

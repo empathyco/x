@@ -29,5 +29,6 @@ const fetchAndSaveRecommendations = wireDispatchWithoutPayload('fetchAndSaveReco
 export const recommendationsWiring = createWiring({
   RecommendationsRequestChanged: {
     fetchAndSaveRecommendations
-  }
+  },
+  UserClickedColumnPicker: {}
 });

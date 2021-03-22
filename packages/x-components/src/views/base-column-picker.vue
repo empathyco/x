@@ -1,0 +1,115 @@
+<template>
+  <main>
+    <!-- Search Section -->
+    <SearchInput placeholder="Search" aria-label="Search for products" />
+    <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
+    <SearchButton aria-label="Search"></SearchButton>
+    <!-- Recommendations -->
+    <h1>Recommendations</h1>
+    <!--  <BaseColumnPickerList />
+      <BaseColumnPickerDropdown /> -->
+    <BaseGrid :animation="staggeredFadeAndSlide" :items="recommendations">
+      <template #Result="{ item }">
+        <BaseResultLink :result="item" class="x-result-link">
+          <BaseResultImage :result="item" />
+          <span class="x-result__title">{{ item.name }}</span>
+        </BaseResultLink>
+      </template>
+    </BaseGrid>
+    <!-- Results -->
+    <h1>Results</h1>
+    <!--  <BaseColumnPickerList />
+      <BaseColumnPickerDropdown /> -->
+    <ResultsList :animation="staggeredFadeAndSlide">
+      <template #layout="{ results, animation }">
+        <BaseGrid :animation="animation" :items="results">
+          <template #Result="{ item }">
+            <BaseResultLink :result="item">
+              <template #default="{ result }">
+                <BaseResultImage :result="result" />
+                <span>{{ result.name }}</span>
+              </template>
+            </BaseResultLink>
+          </template>
+        </BaseGrid>
+      </template>
+    </ResultsList>
+  </main>
+</template>
+
+<script lang="ts">
+  import Vue from 'vue';
+  import { Component } from 'vue-property-decorator';
+  import { Result } from '@empathy/search-types';
+  import BaseGrid from '../components/base-grid.vue';
+  import BaseResultLink from '../components/result/base-result-link.vue';
+  import BaseResultImage from '../components/result/base-result-image.vue';
+  import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
+  import Recommendations from '../x-modules/recommendations/components/recommendations.vue';
+  import SearchButton from '../x-modules/search-box/components/search-button.vue';
+  import SearchInput from '../x-modules/search-box/components/search-input.vue';
+  import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
+  import { State } from '../components/decorators/store.decorators';
+  import ResultsList from '../x-modules/search/components/results-list.vue';
+  import { searchXModule } from '../x-modules/search/x-module';
+  import { XInstaller } from '../x-installer/x-installer';
+  import { XPlugin } from '../plugins/x-plugin';
+  import { baseInstallXOptions, baseSnippetConfig } from './base-config';
+
+  @Component({
+    beforeRouteEnter(_to, _from, next: () => void): void {
+      XPlugin.registerXModule(searchXModule);
+      new XInstaller(baseInstallXOptions).init(baseSnippetConfig);
+      next();
+    },
+    components: {
+      ResultsList,
+      BaseGrid,
+      BaseResultLink,
+      BaseResultImage,
+      ClearSearchInput,
+      Recommendations,
+      SearchButton,
+      SearchInput
+    }
+  })
+  export default class App extends Vue {
+    protected staggeredFadeAndSlide = StaggeredFadeAndSlide;
+
+    @State('recommendations', 'recommendations')
+    public recommendations!: Result[];
+  }
+</script>
+
+<style lang="scss">
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    margin-top: 60px;
+    text-align: center;
+    color: #2c3e50;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .x-base-grid {
+    column-gap: 10px;
+    row-gap: 10px;
+
+    &__item {
+      padding: 20px 0;
+      text-align: center;
+      border: 1px solid black;
+      border-radius: 5px;
+    }
+
+    &__banner {
+      grid-column: -1/1;
+      border-color: crimson;
+    }
+
+    &__promoted {
+      grid-column: 1 / span 2;
+      border-color: darkgreen;
+    }
+  }
+</style>

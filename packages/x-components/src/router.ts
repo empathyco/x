@@ -92,6 +92,11 @@ const routes: RouteConfig[] = [
     path: '/test/sliding-panel',
     name: 'Sliding Panel',
     component: () => import('./views/sliding-panel.vue')
+  },
+  {
+    path: '/test/base-column-picker',
+    name: 'Base Column Picker',
+    component: () => import('./views/base-column-picker.vue')
   }
 ];
 
