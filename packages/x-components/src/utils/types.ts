@@ -164,3 +164,15 @@ export interface DebounceOptions {
   leading?: boolean;
   trailing?: boolean;
 }
+
+/**
+ * The type returned by the {@link throttle} function. Basically is the function the
+ * {@link throttle} receives but throttled.
+ *
+ * @param Params - The arguments type of the function.
+ *
+ * @public
+ */
+export interface ThrottleFunction<Params extends any[]> {
+  (...args: Params): void;
+}

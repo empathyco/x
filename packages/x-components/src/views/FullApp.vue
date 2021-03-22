@@ -209,26 +209,34 @@
     </div>
     <!-- Results -->
     <h1>Results {{ results.length }} / {{ $x.totalResults }}</h1>
-    <ResultsList :animation="staggeredFadeAndSlide">
-      <template #layout="{ results, animation }">
-        <BaseGrid :animation="animation" :items="results">
-          <template #Result="{ item }">
-            <BaseResultLink :result="item">
-              <template #default="{ result }">
-                <BaseResultImage :result="result" />
-                <span>{{ result.name }}</span>
-              </template>
-            </BaseResultLink>
-          </template>
-          <template #Banner="{ item }">
-            <span>{{ item.title }}</span>
-          </template>
-          <template #Promoted="{ item }">
-            <span>{{ item.title }}</span>
-          </template>
-        </BaseGrid>
-      </template>
-    </ResultsList>
+    <BaseScroll
+      @scroll="scroll"
+      @scroll:direction-change="scrollDirectionChange"
+      @scroll:at-start="scrollAtStart"
+      @scroll:almost-at-end="scrollAlmostAtEnd"
+      @scroll:at-end="scrollAtEnd"
+    >
+      <ResultsList :animation="staggeredFadeAndSlide">
+        <template #layout="{ results, animation }">
+          <BaseGrid :animation="animation" :items="results">
+            <template #Result="{ item }">
+              <BaseResultLink :result="item">
+                <template #default="{ result }">
+                  <BaseResultImage :result="result" />
+                  <span>{{ result.name }}</span>
+                </template>
+              </BaseResultLink>
+            </template>
+            <template #Banner="{ item }">
+              <span>{{ item.title }}</span>
+            </template>
+            <template #Promoted="{ item }">
+              <span>{{ item.title }}</span>
+            </template>
+          </BaseGrid>
+        </template>
+      </ResultsList>
+    </BaseScroll>
   </main>
 </template>
 
@@ -239,6 +247,7 @@
   import { getBannersStub } from '../__stubs__/banners-stubs.factory';
   import { getPromotedsStub } from '../__stubs__/promoteds-stubs.factory';
   import BaseGrid from '../components/base-grid.vue';
+  import BaseScroll from '../components/base-scroll.vue';
   import BasePriceFilterTitle from '../components/filters/labels/base-price-filter-label.vue';
   import BaseCurrency from '../components/currency/base-currency.vue';
   import AllFilter from '../x-modules/facets/components/filters/all-filter.vue';
@@ -310,6 +319,7 @@
       BaseIdModalOpen,
       BaseIdModal,
       BaseEventsModal,
+      BaseScroll,
       AllFilter,
       Filters,
       FiltersSearch,
@@ -370,6 +380,31 @@
 
     protected get gridItems(): Identifiable[] {
       return [...getBannersStub(), ...getPromotedsStub(), ...this.results];
+    }
+
+    protected scroll(position: number): void {
+      /* eslint-disable no-console */
+      console.log('scroll', position);
+    }
+
+    protected scrollDirectionChange(direction: string): void {
+      /* eslint-disable no-console */
+      console.log('scroll:direction-change', direction);
+    }
+
+    protected scrollAtStart(): void {
+      /* eslint-disable no-console */
+      console.log('scroll:at-start');
+    }
+
+    protected scrollAlmostAtEnd(distance: number): void {
+      /* eslint-disable no-console */
+      console.log('scroll:almost-at-end', distance);
+    }
+
+    protected scrollAtEnd(): void {
+      /* eslint-disable no-console */
+      console.log('scroll:at-end');
     }
   }
 </script>
@@ -473,5 +508,9 @@
     .x-column-picker-list {
       margin: 0 10px;
     }
+  }
+
+  .x-base-scroll {
+    height: 500px;
   }
 </style>

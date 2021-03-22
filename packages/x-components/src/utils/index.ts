@@ -2,6 +2,7 @@ export * from './array';
 export * from './cancellable-promise';
 export * from './currency-formatter';
 export { debounce as debounceFunction } from './debounce';
+export { throttle as throttleFunction } from './throttle';
 export * from './function';
 export * from './get-url-parameters';
 export * from './normalize';
