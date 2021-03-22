@@ -2,9 +2,9 @@ import {
   HierarchicalFilter,
   SimpleFilter,
   NumberRangeFilter,
-  EditableNumberRangeFilter,
-  RangeValue,
   FilterModelName,
+  RangeValue,
+  EditableNumberRangeFilter,
   Filter
 } from '@empathy/search-types';
 

@@ -10,6 +10,7 @@ export { default as BaseFilter } from './filters/base-filter.vue';
 export { default as HierarchicalFilter } from './filters/hierarchical-filter.vue';
 export { default as NumberRangeFilter } from './filters/number-range-filter.vue';
 export { default as SimpleFilter } from './filters/simple-filter.vue';
+export { default as EditableNumberRangeFilter } from './filters/editable-number-range-filter.vue';
 
 // Lists
 export { default as Filters } from './lists/filters.vue';

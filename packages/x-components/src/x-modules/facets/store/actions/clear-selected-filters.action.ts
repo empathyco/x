@@ -64,7 +64,7 @@ export class ClearSelectedFilters implements ActionsClass<FacetsXStoreModule> {
    * @internal
    */
   protected deselect(commit: FacetsActionsContext['commit']): (filter: Filter) => void {
-    return (filter: Filter) => {
+    return filter => {
       if (isBooleanFilter(filter)) {
         commit('setFilterSelected', { filter, selected: false });
       } else if (isEditableNumberRangeFilter(filter)) {
