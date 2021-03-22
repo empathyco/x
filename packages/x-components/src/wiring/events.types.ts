@@ -111,6 +111,11 @@ export interface XEventsTypes
    */
   UserClickedCloseModal: string;
   /**
+   * The user clicked the button to select the number of columns.
+   * * Payload: the column number.
+   */
+  UserClickedColumnPicker: number;
+  /**
    * The user clicked out of a modal while it was opened.
    * * Payload: the id of the modal.
    */

@@ -198,6 +198,15 @@
         </BaseResultLink>
       </template>
     </BaseGrid>
+    <!-- BaseColumnPickerList -->
+    <h1>Column Picker</h1>
+    <div class="column-picker-container">
+      Selected Columns Number: {{ currentColumn }}
+      <BaseColumnPickerList #default="{ column }" v-model="currentColumn" :columns="[2, 4, 6]">
+        <span>{{ column }}⇋</span>
+      </BaseColumnPickerList>
+      <button @click="currentColumn = 3">Set 3 columns</button>
+    </div>
     <!-- Results -->
     <h1>Results {{ results.length }} / {{ $x.totalResults }}</h1>
     <ResultsList :animation="staggeredFadeAndSlide">
@@ -285,6 +294,7 @@
   import { searchXModule } from '../x-modules/search/x-module';
   import { XInstaller } from '../x-installer/x-installer';
   import { XPlugin } from '../plugins/x-plugin';
+  import BaseColumnPickerList from '../components/column-picker/base-column-picker-list.vue';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
@@ -337,7 +347,8 @@
       SearchInput,
       SlidingPanel,
       Spellcheck,
-      SpellcheckButton
+      SpellcheckButton,
+      BaseColumnPickerList
     }
   })
   export default class App extends Vue {
@@ -346,6 +357,7 @@
     protected fadeAndSlide = FadeAndSlide;
     protected staggeredFadeAndSlide = StaggeredFadeAndSlide;
     protected collapseFromTop = CollapseFromTop;
+    protected currentColumn = 2;
 
     @State('search', 'results')
     public results!: Result[];
@@ -452,6 +464,14 @@
     &__promoted {
       grid-column: 1 / span 2;
       border-color: darkgreen;
+    }
+  }
+  .column-picker-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .x-column-picker-list {
+      margin: 0 10px;
     }
   }
 </style>
