@@ -1,12 +1,16 @@
 Feature: Sliding panel component
 
-  Scenario Outline: 1. Shows only needed arrow buttons
+  Scenario Outline: 1. Shows only needed arrow buttons and related tags change when those are clicked
     Given no special config for sliding-panel view
     When  "<query>" is searched
     Then  "right" sliding panel arrow is displayed
+    Then  only some related tags are visible
     When  right sliding panel arrow is clicked
+    Then  visible related tags have changed
     Then  "both" sliding panel arrow is displayed
+    Then  only some related tags are visible
     When  right sliding panel arrow is clicked
+    Then  visible related tags have changed
     Then  "left" sliding panel arrow is displayed
     Examples:
       | query |
@@ -27,17 +31,5 @@ Feature: Sliding panel component
     Examples:
       | query | secondQuery | number |
       | lego  | funko       | 1      |
-
-  Scenario Outline: 3. Visible related tags change when arrow buttons are pressed
-    Given no special config for sliding-panel view
-    When  "<query>" is searched
-    Then  only some related tags are visible
-    When  right sliding panel arrow is clicked
-    Then  visible related tags have changed
-    Examples:
-      | query |
-      | lego  |
-
-
 
 
