@@ -13,12 +13,14 @@ export const request: SearchXStoreModule['getters']['request'] = ({
   query,
   config,
   relatedTags,
-  selectedFilters
+  selectedFilters,
+  sort
 }) => {
   return query.trim()
     ? {
         query,
         relatedTags,
+        sort,
         rows: config.maxItemsToRequest,
         start: 0,
         origin: 'default',

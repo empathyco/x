@@ -1,5 +1,5 @@
 import { SearchRequest, SearchResponse } from '@empathy/search-adapter';
-import { Facet, Filter, RelatedTag, Result, Banner, Promoted } from '@empathy/search-types';
+import { Facet, Filter, RelatedTag, Result, Banner, Promoted, Sort } from '@empathy/search-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { Dictionary } from '../../../utils/types';
@@ -32,6 +32,8 @@ export interface SearchState extends StatusState {
   config: SearchConfig;
   /** The spellcheckedQuery property of the state. */
   spellcheckedQuery: string;
+  /** The way of ordering the results. */
+  sort: Sort;
 }
 
 /**
@@ -105,6 +107,13 @@ export interface SearchMutations extends StatusMutations {
    * @param spellcheckedQuery - The new spellcheck string to save to the state.
    */
   setSpellcheck(spellcheckedQuery: string): void;
+
+  /**
+   * Sets the selected sort option of the module.
+   *
+   * @param sort - The new sort.
+   */
+  setSort(sort: Sort): void;
 }
 
 /**

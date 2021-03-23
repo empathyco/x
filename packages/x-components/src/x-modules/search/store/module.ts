@@ -27,7 +27,8 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     totalResults: 0,
     spellcheckedQuery: '',
-    status: 'success'
+    status: 'success',
+    sort: ''
   }),
   getters: {
     request
@@ -59,6 +60,9 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     setTotalResults(state, totalResults) {
       state.totalResults = totalResults;
+    },
+    setSort(state, sort) {
+      state.sort = sort;
     },
     setStatus
   },

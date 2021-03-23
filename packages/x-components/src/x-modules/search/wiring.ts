@@ -25,11 +25,22 @@ const wireCommit = namespacedWireCommit(moduleName);
 const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
 
 /**
- * Sets the search state `query`.
+ * Cancels the {@link SearchActions.fetchAndSaveSearchResponse} request promise.
  *
  * @public
  */
-export const setSearchQuery = wireCommit('setQuery');
+export const cancelFetchAndSaveSearchResponseWire = wireDispatchWithoutPayload(
+  'cancelFetchAndSaveSearchResponse'
+);
+
+/**
+ * Requests and stores the search response.
+ *
+ * @public
+ */
+export const fetchAndSaveSearchResponseWire = wireDispatchWithoutPayload(
+  'fetchAndSaveSearchResponse'
+);
 
 /**
  * Resets the search state `spellcheckedQuery` to its initial value, an empty string.
@@ -46,6 +57,13 @@ export const resetSpellcheckQuery = wireCommit('setSpellcheck', '');
 export const setRelatedTags = wireCommit('setRelatedTags');
 
 /**
+ * Sets the search state `query`.
+ *
+ * @public
+ */
+export const setSearchQuery = wireCommit('setQuery');
+
+/**
  * Sets the search state `selectedFilters`.
  *
  * @public
@@ -53,22 +71,11 @@ export const setRelatedTags = wireCommit('setRelatedTags');
 export const setSelectedFilters = wireCommit('setSelectedFilters');
 
 /**
- * Requests and stores the search response.
+ * Sets the search state `sort`.
  *
  * @public
  */
-export const fetchAndSaveSearchResponseWire = wireDispatchWithoutPayload(
-  'fetchAndSaveSearchResponse'
-);
-
-/**
- * Cancels the {@link SearchActions.fetchAndSaveSearchResponse} request promise.
- *
- * @public
- */
-export const cancelFetchAndSaveSearchResponseWire = wireDispatchWithoutPayload(
-  'cancelFetchAndSaveSearchResponse'
-);
+export const setSort = wireCommit('setSort');
 
 /**
  * Search wiring.
@@ -94,5 +101,11 @@ export const searchWiring = createWiring({
   },
   SelectedFiltersChanged: {
     setSelectedFilters
+  },
+  UserClickedASort: {
+    setSort
+  },
+  SelectedSortProvided: {
+    setSort
   }
 });

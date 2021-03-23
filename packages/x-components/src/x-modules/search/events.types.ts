@@ -1,5 +1,5 @@
 import { SearchRequest } from '@empathy/search-adapter';
-import { Facet, Result } from '@empathy/search-types';
+import { Facet, Result, Sort } from '@empathy/search-types';
 
 /**
  * Dictionary of the events of Search XModule, where each key is the event name, and the value is
@@ -29,4 +29,17 @@ export interface SearchXEvents {
    * * Payload: The new spellcheckedQuery string.
    */
   SpellcheckChanged: string;
+  /**
+   * The user has clicked one of the sorts.
+   * * Payload: The sort option that the user has selected.
+   */
+  UserClickedASort: Sort;
+  /**
+   * A new selected sort has been provided.
+   * * Payload: The sort option that has been provided.
+   *
+   * @remarks This event is used when the user of the library wants to provide their own selected
+   * sort value.
+   */
+  SelectedSortProvided: Sort;
 }
