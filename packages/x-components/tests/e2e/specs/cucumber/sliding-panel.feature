@@ -4,14 +4,14 @@ Feature: Sliding panel component
     Given no special config for sliding-panel view
     When  "<query>" is searched
     Then  "right" sliding panel arrow is displayed
-    Then  only some related tags are visible
+    And  only some related tags are visible
     When  right sliding panel arrow is clicked
     Then  visible related tags have changed
-    Then  "both" sliding panel arrow is displayed
-    Then  only some related tags are visible
+    And  "both" sliding panel arrow is displayed
+    And  only some related tags are visible
     When  right sliding panel arrow is clicked
     Then  visible related tags have changed
-    Then  "left" sliding panel arrow is displayed
+    And  "left" sliding panel arrow is displayed
     Examples:
       | query |
       | lego  |

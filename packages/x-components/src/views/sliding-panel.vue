@@ -5,7 +5,7 @@
     <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
     <SearchButton aria-label="Search"></SearchButton>
     <SlidingPanel>
-      <RelatedTags :animation="staggeredFadeAndSlide" />
+      <RelatedTags :animation="staggeredFadeAndSlide" :max-items-to-render="6" />
     </SlidingPanel>
   </main>
 </template>
