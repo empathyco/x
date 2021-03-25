@@ -15,6 +15,16 @@ import { MultiSelectChange, EditableNumberRangeFilterChange } from './store/type
  */
 export interface FacetsXEvents {
   /**
+   * The backend facets have changed.
+   * * Payload: The {@link @empathy/search-types#Facet | facets} array.
+   */
+  BackendFacetsChanged: Facet[];
+  /**
+   * The frontend facets have changed.
+   * * Payload: The facets array.
+   */
+  FrontendFacetsChanged: Facet[];
+  /**
    * The query used in the module has changed.
    * * Payload: The facets query.
    */

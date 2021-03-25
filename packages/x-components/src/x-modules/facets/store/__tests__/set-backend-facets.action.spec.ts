@@ -20,7 +20,7 @@ const mutationKeys = map(facetsXStoreModule.mutations, mutation => mutation);
 async function dispatchSetBackendFacets({
   oldFacets,
   newFacets,
-  ignoreNewFiltersSelected
+  ignoreNewFiltersSelected = true
 }: DispatchSetBackendFacetsOptions): Promise<DispatchSetBackendFacetsAPI> {
   const store: Store<FacetsState> = new Store(facetsXStoreModule as any);
 
@@ -32,15 +32,13 @@ async function dispatchSetBackendFacets({
     store.commit(mutationKeys.setBackendFacets, initialFacets);
   }
 
-  if (ignoreNewFiltersSelected !== undefined) {
-    store.commit(mutationKeys.setIgnoreNewFiltersSelected, ignoreNewFiltersSelected);
-  }
+  store.commit(mutationKeys.setIgnoreNewFiltersSelected, ignoreNewFiltersSelected);
 
   await store.dispatch(actionsKeys.setBackendFacets, newFacets);
 
   return {
-    getStoredFacets() {
-      return store.getters.facets;
+    getStoredBackendFacets() {
+      return store.state.backendFacets;
     },
     getFiltersSelectedValue() {
       const filters: Record<Filter['id'], BooleanFilter> =
@@ -53,8 +51,8 @@ async function dispatchSetBackendFacets({
 describe(`${actionsKeys.setBackendFacets} action`, () => {
   it('should store the provided facets list in the state as a dictionary', async () => {
     const facets = getFacetsStub();
-    const { getStoredFacets } = await dispatchSetBackendFacets({ newFacets: facets });
-    expect(getStoredFacets()).toEqual(arrayToObject(facets, 'id'));
+    const { getStoredBackendFacets } = await dispatchSetBackendFacets({ newFacets: facets });
+    expect(getStoredBackendFacets()).toEqual(arrayToObject(facets, 'id'));
   });
 
   describe('when config.ignoreNewFiltersSelected = true', () => {
@@ -209,7 +207,7 @@ interface DispatchSetBackendFacetsAPI {
    * is the selected property of that filter. */
   getFiltersSelectedValue: () => Record<Filter['id'], BooleanFilter['selected']>;
   /** Returns the backend facets contained in the state. */
-  getStoredFacets: () => FacetsState['backendFacets'];
+  getStoredBackendFacets: () => FacetsState['backendFacets'];
 }
 
 /**
@@ -219,8 +217,8 @@ interface DispatchSetBackendFacetsOptions {
   /** If provided, changes the {@link FacetsConfig.ignoreNewFiltersSelected} value. */
   ignoreNewFiltersSelected?: boolean;
   /** If provided, it saves this facets to the state before dispatching
-   * {@link FacetsActions.setFacets}. */
+   * {@link FacetsActions.setBackendFacets}. */
   oldFacets?: Facet[];
-  /** Facets to use as payload for the {@link FacetsActions.setFacets} action. */
+  /** Facets to use as payload for the {@link FacetsActions.setBackendFacets} action. */
   newFacets: Facet[];
 }

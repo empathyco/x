@@ -39,7 +39,13 @@
   import { objectFilter } from '../../../utils/object';
 
   /**
-   * Facets component that renders the available facets.
+   * This component renders the list of facets stored in the Facets module. This facets can be set
+   * either emitting the `BackendFacetsChanged` and/or `FrontendFacetsChanged` events, or by using
+   * the `backendFacets` and/or `frontendFacets` props. Facets can be rendered differently based on
+   * their purpose and this can be achieved using the exposed slots:
+   * - A default and required slot.
+   * - A custom slot for each facet with the facetId as its name. This allows each facet to be
+   * rendered differently based on its needs.
    *
    * @public
    */
@@ -56,12 +62,23 @@
     protected animation!: Vue | string;
 
     /**
-     * If this prop is provided, these facets are used, and stored in the {@link FacetsState}.
+     * If this prop is provided, these facets are used, and stored in the
+     * {@link FacetsState.backendFacets}.
      *
      * @public
      */
     @Prop()
-    public facets?: Facet[];
+    public backendFacets?: Facet[];
+
+    /**
+     * If this prop is provided, these facets are used, and stored in the
+     * {@link FacetsState.frontendFacets}. These facets state will be managed solely in the
+     * frontend.
+     *
+     * @public
+     */
+    @Prop()
+    public frontendFacets?: Facet[];
 
     /**
      * Discriminates the facets rendered by this component. It expects a string containing facets
@@ -115,33 +132,50 @@
     }
 
     /**
-     * If the `facets` prop is available, it creates a watcher for it, which emits an event
-     * whenever they change. This is done this way because the {@link XBus} is not injected until
-     * the component is created.
+     * Creates a watcher for the `backendFacets` and `frontendFacets`, if they're set, emitting an
+     * event whenever they change. This is done this way because the {@link XBus} is not injected
+     * until the component is created.
      *
      * @internal
      */
     protected created(): void {
-      if (this.facets) {
-        /* If facets are provided to this component, we assume that the developer wants to
+      if (this.backendFacets) {
+        /* If backendFacets are provided to this component, we assume that the developer wants to
          take care of the selected values of the filter. So we disable this functionality of
          the x-components */
         this.$x.emit('IgnoreNewFiltersSelectedConfigChanged', false);
         // eslint-disable-next-line @typescript-eslint/unbound-method
-        this.$watch('facets', this.emitFacetsChanged, { immediate: true });
+        this.$watch('backendFacets', this.emitBackendFacetsChanged, { immediate: true });
+      }
+
+      if (this.frontendFacets) {
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        this.$watch('frontendFacets', this.emitFrontendFacetsChanged, { immediate: true });
       }
     }
 
     /**
-     * Handler for facets prop watcher. Emits {@link FacetsXEvents.FacetMultiSelectChanged} event
-     * when facets change.
+     * Handler for the `backendFacets` prop watcher. Emits
+     * {@link FacetsXEvents.BackendFacetsChanged} event when facets change.
      *
-     * @param facets - The list of new facets.
+     * @param newFacets - The list of new facets.
      *
      * @internal
      */
-    protected emitFacetsChanged(facets: Facet[]): void {
-      this.$x.emit('FacetsChanged', facets);
+    protected emitBackendFacetsChanged(newFacets: Facet[]): void {
+      this.$x.emit('BackendFacetsChanged', newFacets);
+    }
+
+    /**
+     * Handler for the `frontendFacets` prop watcher. Emits
+     * {@link FacetsXEvents.FrontendFacetsChanged} event when facets change.
+     *
+     * @param newFacets - The list of new facets.
+     *
+     * @internal
+     */
+    protected emitFrontendFacetsChanged(newFacets: Facet[]): void {
+      this.$x.emit('FrontendFacetsChanged', newFacets);
     }
 
     /**
@@ -203,9 +237,10 @@
 <docs lang="mdx">
 # Example
 
-This component renders the list of facets from the Facets store module. This facets can be set
-either emitting the `FacetsChanged` event, or using the `facets` prop. Facets can be rendered
-differently based on their purpose and this can be achieved using the exposed slots:
+This component renders the list of facets stored in the Facets module. This facets can be set either
+emitting the `BackendFacetsChanged` and/or `FrontendFacetsChanged` events, or by using the
+`backendFacets` and/or `frontendFacets` props. Facets can be rendered differently based on their
+purpose and this can be achieved using the exposed slots:
 
 - A default and required slot.
 - A custom slot for each facet with the facetId as its name. This allows each facet to be rendered
@@ -297,7 +332,7 @@ To do so, pass an array of facets using the `facets` prop.
 
 ```vue
 <template>
-  <Facets :facets="facets" v-slot="{ facet }">
+  <Facets :backendFacets="backendFacets" v-slot="{ facet }">
     <h1>{{ facet.label }}</h1>
     <ul>
       <li v-for="filter in facet.filters" :key="filter.id">
@@ -316,7 +351,7 @@ To do so, pass an array of facets using the `facets` prop.
     },
     data() {
       return {
-        facets: [
+        backendFacets: [
           {
             modelName: 'SimpleFacet',
             id: 'color-facet',
@@ -339,6 +374,110 @@ To do so, pass an array of facets using the `facets` prop.
                 selected: false,
                 value: 'color:blue',
                 totalResults: 10
+              }
+            ]
+          }
+        ]
+      };
+    }
+  };
+</script>
+```
+
+## Rendering custom facets data II
+
+In case you want to have some facets synced with the search module but some others to be totally
+independent, you can use the `frontendFacets` prop.
+
+```vue
+<template>
+  <Facets :backendFacets="backendFacets" :frontendFacets="frontendFacets" v-slot="{ facet }">
+    <h1>{{ facet.label }}</h1>
+    <ul>
+      <li v-for="filter in facet.filters" :key="filter.id">
+        {{ filter.label }}
+      </li>
+    </ul>
+  </Facets>
+</template>
+
+<script>
+  import { Facets } from '@empathy/x-components/facets';
+
+  export default {
+    components: {
+      Facets
+    },
+    data() {
+      return {
+        backendFacets: [
+          {
+            modelName: 'SimpleFacet',
+            id: 'color-facet',
+            label: 'Color',
+            filters: [
+              {
+                modelName: 'SimpleFilter',
+                id: 'color:red',
+                facetId: 'color-facet',
+                label: 'Red',
+                selected: false,
+                value: 'color:red',
+                totalResults: 10
+              },
+              {
+                modelName: 'SimpleFilter',
+                id: 'color:blue',
+                facetId: 'color-facet',
+                label: 'Blue',
+                selected: false,
+                value: 'color:blue',
+                totalResults: 10
+              }
+            ]
+          }
+        ],
+        frontendFacets: [
+          {
+            modelName: 'SimpleFacet',
+            id: 'size-facet',
+            label: 'Size',
+            filters: [
+              {
+                modelName: 'SimpleFilter',
+                id: 'size:s',
+                facetId: 'size-facet',
+                label: 'S',
+                selected: false,
+                value: 'size:s',
+                totalResults: 10
+              },
+              {
+                modelName: 'SimpleFilter',
+                id: 'size:m',
+                facetId: 'size-facet',
+                label: 'M',
+                selected: false,
+                value: 'size:m',
+                totalResults: 17
+              },
+              {
+                modelName: 'SimpleFilter',
+                id: 'size:l',
+                facetId: 'size-facet',
+                label: 'L',
+                selected: false,
+                value: 'size:l',
+                totalResults: 13
+              },
+              {
+                modelName: 'SimpleFilter',
+                id: 'size:xl',
+                facetId: 'size-facet',
+                label: 'XL',
+                selected: false,
+                value: 'size:xl',
+                totalResults: 5
               }
             ]
           }

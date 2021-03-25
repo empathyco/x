@@ -125,6 +125,12 @@ export interface FacetsActions {
    */
   setBackendFacets(newFacets: Facet[]): void;
   /**
+   * Sets the frontend facets of the module.
+   *
+   * @param newFacets - Facets array to be saved in the state.
+   */
+  setFrontendFacets(newFacets: Facet[]): void;
+  /**
    * Deselects the filters of the provided facet id.
    *
    * @param facetId - Facet id from whom deselect all its filters.

@@ -5,6 +5,7 @@ import {
   clearSelectedFilters
 } from './actions/clear-selected-filters.action';
 import { setBackendFacets } from './actions/set-backend-facets.action';
+import { setFrontendFacets } from './actions/set-frontend-facets.action';
 import { toggleHierarchicalFilter } from './actions/toggle-hierarchical-filter.action';
 import { toggleNumberRangeFilter, toggleSimpleFilter } from './actions/toggle-filter.action';
 import { facets } from './getters/facets.getter';
@@ -59,10 +60,11 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     }
   },
   actions: {
-    setBackendFacets,
     clearSelectedFilters,
     clearFacetSelectedFilters,
     clearFacetsSelectedFilters,
+    setBackendFacets,
+    setFrontendFacets,
     toggleSimpleFilter,
     toggleHierarchicalFilter,
     toggleNumberRangeFilter

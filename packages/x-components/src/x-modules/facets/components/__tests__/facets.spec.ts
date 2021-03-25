@@ -93,9 +93,9 @@ describe('testing Facets component', () => {
     expect(customSelectedFiltersWrapper.text()).toEqual('RedBlue');
   });
 
-  it('renders the props facets, keeping the filters selected state', () => {
+  it('renders the passed backendFacets keeping the filters selected state', () => {
     const { getDefaultFacets, getDefaultSelectedFilters } = renderFacetsComponent({
-      facetsProp: [
+      backendFacets: [
         createSimpleFacetStub('color', createSimpleFilter => [
           createSimpleFilter('Red', false),
           createSimpleFilter('Blue', false)
@@ -109,8 +109,38 @@ describe('testing Facets component', () => {
 
     const facetWrappers = getDefaultFacets();
     expect(facetWrappers).toHaveLength(2);
-    getDefaultFacets().wrappers.forEach(facetWrapper => {
+    facetWrappers.wrappers.forEach(facetWrapper => {
       expect(['color', 'size']).toContain(facetWrapper.text());
+    });
+
+    const selectedFiltersWrappers = getDefaultSelectedFilters();
+    expect(selectedFiltersWrappers).toHaveLength(1);
+    expect(selectedFiltersWrappers.wrappers[0].text()).toEqual('Small');
+  });
+
+  it('renders the passed frontendFacets keeping the filters selected state', () => {
+    const { getDefaultFacets, getDefaultSelectedFilters } = renderFacetsComponent({
+      stateFacets: {},
+      frontendFacets: [
+        createSimpleFacetStub('color', createSimpleFilter => [
+          createSimpleFilter('Red', false),
+          createSimpleFilter('Blue', false)
+        ]),
+        createSimpleFacetStub('size', createSimpleFilter => [
+          createSimpleFilter('Big', false),
+          createSimpleFilter('Small', true)
+        ]),
+        createSimpleFacetStub('age', createSimpleFilter => [
+          createSimpleFilter('Junior', false),
+          createSimpleFilter('Adult', false)
+        ])
+      ]
+    });
+
+    const facetWrappers = getDefaultFacets();
+    expect(facetWrappers).toHaveLength(3);
+    facetWrappers.wrappers.forEach(facetWrapper => {
+      expect(['color', 'size', 'age']).toContain(facetWrapper.text());
     });
 
     const selectedFiltersWrappers = getDefaultSelectedFilters();
@@ -121,7 +151,7 @@ describe('testing Facets component', () => {
   describe('filters facets based on renderableFacets prop', () => {
     it('renders all facets when its value is omitted', () => {
       const { getDefaultFacets } = renderFacetsComponent({
-        facetsProp: [
+        backendFacets: [
           createSimpleFacetStub('color', createSimpleFilter => [
             createSimpleFilter('Red', false),
             createSimpleFilter('Blue', false)
@@ -168,7 +198,7 @@ describe('testing Facets component', () => {
 
     it('does not render excluded facets', () => {
       const { getDefaultFacets } = renderFacetsComponent({
-        facetsProp: [
+        backendFacets: [
           createSimpleFacetStub('color', createSimpleFilter => [
             createSimpleFilter('Red', false),
             createSimpleFilter('Blue', false)
@@ -194,7 +224,7 @@ describe('testing Facets component', () => {
 
     it('renders only included facets when combining with excluded ones', () => {
       const { getDefaultFacets } = renderFacetsComponent({
-        facetsProp: [
+        backendFacets: [
           createSimpleFacetStub('color', createSimpleFilter => [
             createSimpleFilter('Red', false),
             createSimpleFilter('Blue', false)
@@ -223,10 +253,15 @@ describe('testing Facets component', () => {
 function renderFacetsComponent({
   customFacetSlot = '',
   stateFacets = getFacetsDictionaryStub(),
-  facetsProp,
+  backendFacets,
+  frontendFacets,
   renderableFacets,
   template = `
-       <Facets :facets="facetsProp" :renderableFacets="renderableFacets">
+       <Facets
+        :backendFacets="backendFacets"
+        :frontendFacets="frontendFacets"
+        :renderableFacets="renderableFacets"
+       >
           ${customFacetSlot ?? ''}
           <template #default="{ facet, selectedFilters }">
             <p data-test="default-slot-facet">{{ facet.label }}</p>
@@ -238,7 +273,6 @@ function renderFacetsComponent({
           </template>
        </Facets>`
 }: FacetsRenderOptions = {}): FacetsComponentAPI {
-  XPlugin.resetInstance();
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
@@ -251,14 +285,15 @@ function renderFacetsComponent({
       components: {
         Facets
       },
-      props: ['facetsProp', 'renderableFacets'],
+      props: ['backendFacets', 'frontendFacets', 'renderableFacets'],
       template
     },
     {
       localVue,
       store,
       propsData: {
-        facetsProp,
+        backendFacets,
+        frontendFacets,
         renderableFacets
       }
     }
@@ -281,7 +316,8 @@ function renderFacetsComponent({
 
 interface FacetsRenderOptions {
   stateFacets?: Dictionary<Facet>;
-  facetsProp?: Facet[];
+  backendFacets?: Facet[];
+  frontendFacets?: Facet[];
   renderableFacets?: string;
   template?: string;
   customFacetSlot?: string;

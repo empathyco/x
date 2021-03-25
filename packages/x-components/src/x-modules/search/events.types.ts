@@ -9,6 +9,11 @@ import { Facet, Result, Sort } from '@empathy/search-types';
  */
 export interface SearchXEvents {
   /**
+   * The backend facets have changed.
+   * * Payload: The {@link @empathy/search-types#Facet | facets} array.
+   */
+  BackendFacetsChanged: Facet[];
+  /**
    * Results have been changed.
    * * Payload: The new {@link @empathy/search-types#Result | results}.
    */
@@ -19,11 +24,6 @@ export interface SearchXEvents {
    * to conform a valid request.
    */
   SearchRequestChanged: SearchRequest | null;
-  /**
-   * Facets have been changed.
-   * * Payload: The new {@link @empathy/search-types#Facet | facets}.
-   */
-  FacetsChanged: Facet[];
   /**
    * Spellcheck has been changed.
    * * Payload: The new spellcheckedQuery string.

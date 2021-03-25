@@ -9,6 +9,6 @@ import { searchXStoreModule } from './module';
 export const searchEmitters = createStoreEmitters(searchXStoreModule, {
   ResultsChanged: state => state.results,
   SearchRequestChanged: (_, getters) => getters.request,
-  FacetsChanged: state => state.facets,
+  BackendFacetsChanged: state => state.facets,
   SpellcheckChanged: state => state.spellcheckedQuery
 });

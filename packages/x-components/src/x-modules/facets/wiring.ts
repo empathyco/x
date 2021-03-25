@@ -41,11 +41,18 @@ const wireDispatchWithOutPayload = namespacedWireDispatchWithoutPayload(moduleNa
 export const setFacetsQuery = wireCommit('setQuery');
 
 /**
- * Sets the facets state `facets`.
+ * Sets the {@link FacetsState.backendFacets | backendFacets}.
  *
  * @public
  */
 export const setBackendFacetsWire = wireDispatch('setBackendFacets');
+
+/**
+ * Sets the {@link FacetsState.frontendFacets | frontendFacets}.
+ *
+ * @public
+ */
+export const setFrontendFacetsWire = wireDispatch('setFrontendFacets');
 
 /**
  * Changes the multi-select configuration for a facet.
@@ -119,8 +126,11 @@ export const setIgnoreNewFiltersSelected = wireCommit('setIgnoreNewFiltersSelect
  * @internal
  */
 export const facetsWiring = createWiring({
-  FacetsChanged: {
+  BackendFacetsChanged: {
     setBackendFacetsWire
+  },
+  FrontendFacetsChanged: {
+    setFrontendFacetsWire
   },
   FacetMultiSelectChanged: {
     setFacetMultiSelect
