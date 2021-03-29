@@ -38,9 +38,9 @@ export default class ColumnPickerMixin extends Vue {
    *
    * @internal
    */
-  @Watch('value')
+  @Watch('value', { immediate: true })
   protected onValueChange(column: number): void {
-    if (this.selectedColumn !== column) {
+    if (column && !isNaN(column) && this.selectedColumn !== column) {
       this.selectedColumn = column;
       this.$x.emit('UserClickedColumnPicker', column);
     }

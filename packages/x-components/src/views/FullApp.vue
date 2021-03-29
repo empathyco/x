@@ -200,6 +200,7 @@
     </BaseGrid>
     <!-- BaseColumnPickerList -->
     <h1>Column Picker</h1>
+    <h2>Column Picker List</h2>
     <div class="column-picker-container">
       Selected Columns Number: {{ currentColumn }}
       <BaseColumnPickerList #default="{ column }" v-model="currentColumn" :columns="[2, 4, 6]">
@@ -207,6 +208,24 @@
       </BaseColumnPickerList>
       <button @click="currentColumn = 3">Set 3 columns</button>
     </div>
+
+    <!-- BaseColumnPickerDropdown -->
+    <h2>Column Picker Dropdown</h2>
+    <div class="column-picker-container">
+      Selected Columns Number: {{ currentColumn }}
+      <BaseColumnPickerDropdown
+        v-model="currentColumn"
+        :columns="[2, 4, 6]"
+        :animation="collapseFromTop"
+      >
+        <template #item="{ item, isSelected, isHighlighted }">
+          <span v-if="isHighlighted">🟢</span>
+          <span v-if="isSelected">✅</span>
+          <span>{{ item }}</span>
+        </template>
+      </BaseColumnPickerDropdown>
+    </div>
+
     <!-- Results -->
     <h1>Results {{ results.length }} / {{ $x.totalResults }}</h1>
     <BaseScroll
@@ -218,7 +237,7 @@
     >
       <ResultsList :animation="staggeredFadeAndSlide">
         <template #layout="{ results, animation }">
-          <BaseGrid :animation="animation" :items="results">
+          <BaseGrid :animation="animation" :items="results" :columns="currentColumn">
             <template #Result="{ item }">
               <BaseResultLink :result="item">
                 <template #default="{ result }">
@@ -304,6 +323,8 @@
   import { XInstaller } from '../x-installer/x-installer';
   import { XPlugin } from '../plugins/x-plugin';
   import BaseColumnPickerList from '../components/column-picker/base-column-picker-list.vue';
+  // eslint-disable-next-line max-len
+  import BaseColumnPickerDropdown from '../components/column-picker/base-column-picker-dropdown.vue';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
@@ -358,7 +379,8 @@
       SlidingPanel,
       Spellcheck,
       SpellcheckButton,
-      BaseColumnPickerList
+      BaseColumnPickerList,
+      BaseColumnPickerDropdown
     }
   })
   export default class App extends Vue {
