@@ -1,8 +1,8 @@
+import { Identifiable } from '@empathy/search-types';
 import { mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import BaseDropdown from '../base-dropdown.vue';
 import { getDataTestSelector } from '../../__tests__/utils';
-import { Identifiable } from '../../utils/types';
 
 function renderDropdown({
   template = `

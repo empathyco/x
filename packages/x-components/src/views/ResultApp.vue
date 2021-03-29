@@ -33,7 +33,10 @@
       <template #filledIcon>◼</template>
       <template #emptyIcon>◻</template>
     </BaseRating>
-    <BaseGrid :items="searchResponseStub" :columns="4">
+    <BaseColumnPickerList #default="{ column }" :columns="[2, 4, 6]">
+      <span>{{ column }}⇋</span>
+    </BaseColumnPickerList>
+    <BaseVariableColumnGrid :items="searchResponseStub">
       <template #Banner="{ item }">
         <span :class="`x-banner__${item.id}`">Banner: {{ item.modelName }}</span>
       </template>
@@ -49,7 +52,7 @@
       <template #default="{ item }">
         <span>Default: {{ item }}</span>
       </template>
-    </BaseGrid>
+    </BaseVariableColumnGrid>
   </main>
 </template>
 
@@ -60,8 +63,9 @@
   import { getSearchResponseStub } from '../__stubs__/search-response-stubs.factory';
   import { BaseResultImage } from '../components';
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
-  import BaseGrid from '../components/base-grid.vue';
   import BaseRating from '../components/base-rating.vue';
+  import BaseVariableColumnGrid from '../components/base-variable-column-grid.vue';
+  import BaseColumnPickerList from '../components/column-picker/base-column-picker-list.vue';
   import { XInstaller } from '../x-installer/x-installer';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
@@ -71,9 +75,10 @@
       next();
     },
     components: {
+      BaseColumnPickerList,
       BaseRating,
       BaseResultImage,
-      BaseGrid
+      BaseVariableColumnGrid
     }
   })
   export default class App extends Vue {

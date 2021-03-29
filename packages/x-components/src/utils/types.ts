@@ -1,3 +1,4 @@
+import { Identifiable, NamedModel } from '@empathy/search-types';
 import { XEventsTypes } from '../wiring/events.types';
 import { XModuleName } from '../x-modules/x-modules.types';
 
@@ -133,14 +134,13 @@ export type EventsForDirectionLimit = {
 };
 
 /**
- * TODO: [EX-3291] Remove this interface and use search-types one when this task is done.
- * Represents an Object with id property.
+ * Type representing a grid item. It has to be an
+ * {@link @empathy/search-types#Identifiable | Identifiable} object that can optionally contain a
+ * {@link @empathy/search-types#NamedModel.modelName | modelName}.
  *
  * @public
  */
-export interface Identifiable {
-  id: string | number;
-}
+export type GridItem = Identifiable & Partial<NamedModel>;
 
 /**
  * The type returned by the {@link debounce} function. Basically is the function the

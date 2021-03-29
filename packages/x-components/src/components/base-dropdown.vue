@@ -66,12 +66,13 @@
 </template>
 
 <script lang="ts">
+  import { Identifiable } from '@empathy/search-types';
   import { Component, Prop, Watch } from 'vue-property-decorator';
   import Vue from 'vue';
   import { normalizeString } from '../utils/normalize';
   import { isInRange } from '../utils/number';
   import { debounce } from '../utils/debounce';
-  import { Identifiable, VueCSSClasses } from '../utils/types';
+  import { VueCSSClasses } from '../utils/types';
   import { noElementComponent } from './no-element';
 
   type DropdownItem = string | number | Identifiable;

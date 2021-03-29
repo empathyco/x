@@ -26,9 +26,7 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { toKebabCase } from '../utils/string';
-  import { Identifiable, VueCSSClasses } from '../utils/types';
-
-  type GridItem = Identifiable & { modelName: string | undefined };
+  import { GridItem, VueCSSClasses } from '../utils/types';
 
   /**
    * Grid component that is able to render different items based on their modelName value. In order
@@ -50,12 +48,13 @@
     @Prop({ default: 'ul' })
     protected animation!: Vue | string;
     /**
-     * Number of columns the grid is divided into.
+     * Number of columns the grid is divided into. By default, its value is 0, setting the grid
+     * columns mode to auto-fill.
      *
      * @public
      */
-    @Prop()
-    protected columns?: number;
+    @Prop({ default: 0 })
+    protected columns!: number;
     /**
      * The list of items to be rendered.
      *
@@ -102,7 +101,7 @@
      * @internal
      */
     protected get itemsWithCSSClass(): {
-      item: Identifiable;
+      item: GridItem;
       cssClass: VueCSSClasses;
     }[] {
       return this.items.map(item => ({
