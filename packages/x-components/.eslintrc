@@ -1,3 +1,6 @@
 {
-  "extends": ["plugin:@empathy/x/all"]
+  "extends": ["plugin:@empathy/x/all"],
+  "rules": {
+    "no-dupe-class-members": "off"
+  }
 }

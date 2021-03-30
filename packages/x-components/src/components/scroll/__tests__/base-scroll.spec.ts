@@ -1,5 +1,5 @@
 import { mount, Wrapper } from '@vue/test-utils';
-import { getDataTestSelector } from '../../__tests__/utils';
+import { getDataTestSelector } from '../../../__tests__/utils';
 import BaseScroll from '../base-scroll.vue';
 
 function renderBaseScroll({
@@ -7,11 +7,11 @@ function renderBaseScroll({
   throttleMs = 200,
   scrollHeight = 800,
   clientHeight = 200,
-  bottomAlertDistance = 100
+  distanceToBottom = 100
 }: RenderBaseScrollOptions = {}): RenderBaseScrollAPI {
   const wrapperContainer = mount(
     {
-      props: ['throttleMs', 'bottomAlertDistance'],
+      props: ['throttleMs', 'distanceToBottom'],
       components: {
         BaseScroll
       },
@@ -20,7 +20,7 @@ function renderBaseScroll({
     {
       propsData: {
         throttleMs,
-        bottomAlertDistance
+        distanceToBottom
       }
     }
   );
@@ -140,7 +140,7 @@ describe('testing Base Scroll Component', () => {
       throttleMs: 200,
       scrollHeight: 800,
       clientHeight: 200,
-      bottomAlertDistance: 200
+      distanceToBottom: 200
     });
 
     await scroll({
@@ -178,7 +178,7 @@ interface RenderBaseScrollOptions {
   /** Number of client height of scroll. */
   clientHeight?: number;
   /** Distance to the end of the scroll. */
-  bottomAlertDistance?: number;
+  distanceToBottom?: number;
 }
 
 interface RenderBaseScrollAPI {

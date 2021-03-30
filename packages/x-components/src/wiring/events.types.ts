@@ -1,4 +1,5 @@
 import { Result, Suggestion } from '@empathy/search-types';
+import { ScrollDirection } from '../components/scroll/scroll.types';
 import { DocumentDirection } from '../plugins/x-plugin.types';
 import { ArrowKey, PropsWithType } from '../utils';
 import { EmpathizeXEvents } from '../x-modules/empathize/events.types';
@@ -140,6 +141,31 @@ export interface XEventsTypes
    * * Payload: The {@link @empathy/search-types#Suggestion | suggestion} that the user selected.
    */
   UserSelectedASuggestion: Suggestion;
+  /**
+   * The user has scrolled.
+   * * Payload: The new position of scroll.
+   */
+  UserScrolled: number;
+  /**
+   * The user has changed the direction of scroll.
+   * * Payload: The new {@link ScrollDirection} when user changes scroll direction.
+   */
+  UserChangedScrollDirection: ScrollDirection;
+  /**
+   * The user has reached the scroll start.
+   * * Payload: none.
+   */
+  UserReachedScrollStart: void;
+  /**
+   * The user has almost reached the scroll end.
+   * * Payload: The distance missing to end position position.
+   */
+  UserAlmostReachedScrollEnd: number;
+  /**
+   * The user has reached the scroll end.
+   * * Payload: none.
+   */
+  UserReachedScrollEnd: void;
 }
 
 /**

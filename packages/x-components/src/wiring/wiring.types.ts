@@ -35,6 +35,8 @@ export interface WireMetadata {
   target?: HTMLElement;
   /** The origin for tagging purposes. */
   origin?: QueryOrigin;
+  /** The id of the component origin. */
+  id?: string;
 }
 
 /**

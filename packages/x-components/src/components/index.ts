@@ -7,6 +7,7 @@ export * from './icons';
 export * from './modals';
 export * from './panels';
 export * from './result';
+export * from './scroll';
 export * from './suggestions';
 
 export { default as BaseEventButton } from './base-event-button.vue';
@@ -14,7 +15,6 @@ export { default as BaseDropdown } from './base-dropdown.vue';
 export { default as BaseGrid } from './base-grid.vue';
 export { default as BaseKeyboardNavigation } from './base-keyboard-navigation.vue';
 export { default as BaseRating } from './base-rating.vue';
-export { default as BaseScroll } from './base-scroll.vue';
 export { default as BaseVariableColumnGrid } from './base-variable-column-grid.vue';
 export { noElementComponent } from './no-element';
 export { default as SlidingPanel } from './sliding-panel.vue';

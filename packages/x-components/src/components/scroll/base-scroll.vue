@@ -7,8 +7,8 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop, Watch } from 'vue-property-decorator';
-  import { throttle } from '../utils/throttle';
-  import { ScrollDirection } from './x-component.types';
+  import { throttle } from '../../utils/throttle';
+  import { ScrollDirection } from './scroll.types';
 
   /**
    * Base scroll component that depending on the user interactivity emits different events for
@@ -20,7 +20,7 @@
   export default class BaseScroll extends Vue {
     /**
      * Time duration to ignore the subsequent scroll events after an emission.
-     * Higher values will decrease events precision but can lead to performance issues.
+     * Higher values will decrease events precision but can prevent performance issues.
      *
      * @public
      */
@@ -34,7 +34,7 @@
      * @public
      */
     @Prop({ default: 100 })
-    public bottomAlertDistance!: number;
+    public distanceToBottom!: number;
 
     /**
      * Property for getting the current position of scroll.
@@ -122,13 +122,13 @@
 
     /**
      * Returns `true` when the amount of pixels scrolled is greater than
-     * the {@link BaseScroll.bottomAlertDistance}.
+     * the {@link BaseScroll.distanceToBottom}.
      *
      * @returns A boolean for knowing if the user is about to reaching to the end.
      * @internal
      */
     protected get hasScrollAlmostReachedEnd(): boolean {
-      return !this.hasScrollReachedStart && this.bottomAlertDistance > this.distanceToEnd;
+      return !this.hasScrollReachedStart && this.distanceToBottom > this.distanceToEnd;
     }
 
     /**
@@ -254,7 +254,7 @@ movement that realize the user:
     @scroll:almost-at-end="scrollAlmostAtEnd"
     @scroll:at-end="scrollAtEnd"
     throttleMs="1000"
-    bottomAlertDistance="200"
+    distanceToBottom="200"
   >
     <template>
       <div class="content-scroll">

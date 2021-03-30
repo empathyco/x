@@ -239,7 +239,7 @@
 
     <!-- Results -->
     <h1>Results {{ results.length }} / {{ $x.totalResults }}</h1>
-    <BaseScroll>
+    <BaseIdScroll>
       <ResultsList :animation="staggeredFadeAndSlide">
         <template #layout="{ results, animation }">
           <BaseGrid :animation="animation" :items="results" :columns="currentColumn">
@@ -260,7 +260,7 @@
           </BaseGrid>
         </template>
       </ResultsList>
-    </BaseScroll>
+    </BaseIdScroll>
   </main>
 </template>
 
@@ -271,7 +271,7 @@
   import { getBannersStub } from '../__stubs__/banners-stubs.factory';
   import { getPromotedsStub } from '../__stubs__/promoteds-stubs.factory';
   import BaseGrid from '../components/base-grid.vue';
-  import BaseScroll from '../components/base-scroll.vue';
+  import BaseIdScroll from '../components/scroll/base-id-scroll.vue';
   import BasePriceFilterTitle from '../components/filters/labels/base-price-filter-label.vue';
   import BaseCurrency from '../components/currency/base-currency.vue';
   import AllFilter from '../x-modules/facets/components/filters/all-filter.vue';
@@ -347,7 +347,7 @@
       BaseIdModalOpen,
       BaseIdModal,
       BaseEventsModal,
-      BaseScroll,
+      BaseIdScroll,
       AllFilter,
       Filters,
       FiltersSearch,
