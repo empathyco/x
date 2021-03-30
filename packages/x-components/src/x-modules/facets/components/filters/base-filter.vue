@@ -5,6 +5,7 @@
     role="checkbox"
     :aria-checked="filter.selected.toString()"
     :events="events"
+    :disabled="isDisabled"
     :class="cssClasses"
   >
     <!--
@@ -59,6 +60,16 @@
     }
 
     /**
+     * Returns `true` when the filter should be disabled.
+     *
+     * @returns `true` if the filter should be disabled.
+     * @internal
+     */
+    protected get isDisabled(): boolean {
+      return this.filter.totalResults === 0;
+    }
+
+    /**
      * Dynamic CSS classes to apply to the component.
      *
      * @returns The dynamic CSS classes to apply to the component.
@@ -66,7 +77,8 @@
      */
     protected get cssClasses(): VueCSSClasses {
       return {
-        'x-filter--is-selected': this.filter.selected
+        'x-filter--is-selected': this.filter.selected,
+        'x-filter--is-disabled': this.isDisabled
       };
     }
   }

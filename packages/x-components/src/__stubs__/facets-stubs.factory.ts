@@ -591,7 +591,7 @@ export function createSimpleFacetStub(
         facetId: facetId,
         selected,
         label,
-        totalResults: 0,
+        totalResults: 10,
         callbackInfo: {},
         value: label.toLowerCase().replace(/\s+/g, '-'),
         modelName: 'SimpleFilter'
@@ -650,7 +650,7 @@ export function createNumberRangeFacet(
         selected,
         value: `${min ?? '*'}:${max ?? '*'}`,
         label: `${min ?? '0'} - ${max ?? 'None'}`,
-        totalResults: 0,
+        totalResults: 10,
         callbackInfo: {},
         range,
         modelName: 'NumberRangeFilter'

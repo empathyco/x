@@ -3,7 +3,10 @@ import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import { XEventsTypes } from '../../../../../wiring/events.types';
-import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory';
+import {
+  createSimpleFilter,
+  getSimpleFilterStub
+} from '../../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector } from '../../../../../__tests__/utils';
 import BaseFilter from '../base-filter.vue';
 
@@ -11,7 +14,7 @@ function renderBaseFilter({
   template = '<BaseFilter :filter="filter" :clickEvents="clickEvents"/>',
   filter = getSimpleFilterStub(),
   clickEvents
-}: RenderBaseFilterOptions = {}): BaseFilterAPI {
+}: RenderBaseFilterOptions = {}): RenderBaseFilterAPI {
   Vue.observable(filter);
   const emit = jest.fn();
   const wrapper = mount(
@@ -36,12 +39,11 @@ function renderBaseFilter({
   const baseFilterWrapper = wrapper.findComponent(BaseFilter);
 
   return {
-    wrapper,
-    baseFilterWrapper,
+    wrapper: baseFilterWrapper,
     emit,
     filter,
     clickFilter() {
-      wrapper.trigger('click');
+      baseFilterWrapper.trigger('click');
     },
     selectFilter() {
       filter.selected = true;
@@ -52,15 +54,15 @@ function renderBaseFilter({
 
 describe('testing Filter component', () => {
   it('is an x-component', () => {
-    const { baseFilterWrapper } = renderBaseFilter();
+    const { wrapper } = renderBaseFilter();
 
-    expect(isXComponent(baseFilterWrapper.vm)).toEqual(true);
+    expect(isXComponent(wrapper.vm)).toEqual(true);
   });
 
   it('belongs to the `facets` x-module', () => {
-    const { baseFilterWrapper } = renderBaseFilter();
+    const { wrapper } = renderBaseFilter();
 
-    expect(getXComponentXModuleName(baseFilterWrapper.vm)).toEqual('facets');
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('facets');
   });
 
   it('renders the provided filter by default', () => {
@@ -122,19 +124,41 @@ describe('testing Filter component', () => {
 
     expect(wrapper.classes()).toContain('x-filter--is-selected');
   });
+
+  it('disables the filter when it has no results', async () => {
+    const filter = createSimpleFilter('category', 'men', false);
+    const { wrapper } = renderBaseFilter({ filter });
+
+    expect(wrapper.classes()).not.toContain('x-filter--is-disabled');
+    expect(wrapper.attributes('disabled')).toBeUndefined();
+
+    filter.totalResults = 0;
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.classes()).toContain('x-filter--is-disabled');
+    expect(wrapper.attributes('disabled')).toBe('disabled');
+  });
 });
 
 interface RenderBaseFilterOptions {
+  /** The template containing the {@link BaseFilter} component to render. */
   template?: string;
+  /** The filter data. Passed as prop to the {@link BaseFilter} component. */
   filter?: BooleanFilter;
+  /** Additional events to emit when the filter is clicked.
+   * Passed as prop to the {@link BaseFilter} component. */
   clickEvents?: Partial<XEventsTypes>;
 }
 
-interface BaseFilterAPI {
+interface RenderBaseFilterAPI {
+  /** Wrapper of the {@link BaseFilter} component. */
   wrapper: Wrapper<Vue>;
-  baseFilterWrapper: Wrapper<Vue>;
+  /** Mock of the {@link XBus.emit} function. */
   emit: jest.Mock;
+  /** The rendered filter data. */
   filter: BooleanFilter;
+  /** Fakes a click on the filter component. */
   clickFilter: () => void;
+  /** Sets the {@link RenderBaseFilterAPI.filter} `selected` property to `true`. */
   selectFilter: () => Promise<void>;
 }

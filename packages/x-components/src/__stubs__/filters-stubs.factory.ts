@@ -26,7 +26,7 @@ export function getSimpleFilterStub(filter: Partial<SimpleFilter> = {}): SimpleF
       callbackInfo: {},
       label: 'Test',
       value: 'category:test',
-      totalResults: 0
+      totalResults: 10
     },
     filter
   );
@@ -56,7 +56,7 @@ export function getNumberRangeFilterStub(
         max: 10
       },
       value: '1:10',
-      totalResults: 0
+      totalResults: 10
     },
     filter
   );
@@ -105,7 +105,7 @@ export function createHierarchicalFilterFactory(
       parentId,
       selected,
       label,
-      totalResults: 0,
+      totalResults: 10,
       callbackInfo: {},
       children: createChildren
         ? createChildren(createHierarchicalFilterFactory(facetId, filterId))
@@ -137,7 +137,7 @@ export function getHierarchicalFilterStub(
       callbackInfo: {},
       label: 'Test',
       value: 'category:test',
-      totalResults: 0,
+      totalResults: 10,
       children: []
     },
     filter
@@ -203,6 +203,6 @@ export function createSimpleFilter(facetId: string, label: string, selected = fa
     ...(createFilter('SimpleFilter', facetId, label) as SimpleFilter),
     selected,
     value: `{ "filter: "${label}" }`,
-    totalResults: 0
+    totalResults: 10
   };
 }

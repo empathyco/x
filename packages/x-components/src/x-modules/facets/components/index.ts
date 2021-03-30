@@ -13,6 +13,8 @@ export { default as SimpleFilter } from './filters/simple-filter.vue';
 export { default as EditableNumberRangeFilter } from './filters/editable-number-range-filter.vue';
 
 // Lists
+// eslint-disable-next-line max-len
+export { default as ExcludeFiltersWithNoResults } from './lists/exclude-filters-with-no-results.vue';
 export { default as Filters } from './lists/filters.vue';
 export { default as FiltersSearch } from './lists/filters-search.vue';
 export { default as SlicedFilters } from './lists/sliced-filters.vue';
