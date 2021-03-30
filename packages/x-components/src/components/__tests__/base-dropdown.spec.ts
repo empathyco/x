@@ -6,7 +6,7 @@ import { getDataTestSelector } from '../../__tests__/utils';
 
 function renderDropdown({
   template = `
-    <BaseDropdown v-model="value" :items="items" class="dropdown">
+    <BaseDropdown v-model="value" :items="items">
         <template #item="{ item, isSelected, isHighlighted }">
             <span>
               {{ item && item.id ? item.id : item }}

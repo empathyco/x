@@ -198,6 +198,17 @@
         </BaseResultLink>
       </template>
     </BaseGrid>
+    <!-- Sort -->
+    <SortDropdown :items="sortValues">
+      <template #toggle="{ item, isOpen }">
+        {{ item || 'Default' }} {{ isOpen ? '🔼' : '🔽' }}
+      </template>
+      <template #item="{ item, isHighlighted, isSelected }">
+        <span v-if="isSelected">✅</span>
+        <span v-if="isHighlighted">🟢</span>
+        {{ item || 'Default' }}
+      </template>
+    </SortDropdown>
     <!-- BaseColumnPickerList -->
     <h1>Column Picker</h1>
     <h2>Column Picker List</h2>
@@ -228,13 +239,7 @@
 
     <!-- Results -->
     <h1>Results {{ results.length }} / {{ $x.totalResults }}</h1>
-    <BaseScroll
-      @scroll="scroll"
-      @scroll:direction-change="scrollDirectionChange"
-      @scroll:at-start="scrollAtStart"
-      @scroll:almost-at-end="scrollAlmostAtEnd"
-      @scroll:at-end="scrollAtEnd"
-    >
+    <BaseScroll>
       <ResultsList :animation="staggeredFadeAndSlide">
         <template #layout="{ results, animation }">
           <BaseGrid :animation="animation" :items="results" :columns="currentColumn">
@@ -262,7 +267,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { Result } from '@empathy/search-types';
+  import { Result, Sort } from '@empathy/search-types';
   import { getBannersStub } from '../__stubs__/banners-stubs.factory';
   import { getPromotedsStub } from '../__stubs__/promoteds-stubs.factory';
   import BaseGrid from '../components/base-grid.vue';
@@ -325,6 +330,7 @@
   import BaseColumnPickerList from '../components/column-picker/base-column-picker-list.vue';
   // eslint-disable-next-line max-len
   import BaseColumnPickerDropdown from '../components/column-picker/base-column-picker-dropdown.vue';
+  import SortDropdown from '../x-modules/search/components/sort-dropdown.vue';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
@@ -334,6 +340,7 @@
       next();
     },
     components: {
+      SortDropdown,
       ResultsList,
       BaseGrid,
       BaseIdModalClose,
@@ -404,30 +411,7 @@
       return [...getBannersStub(), ...getPromotedsStub(), ...this.results];
     }
 
-    protected scroll(position: number): void {
-      /* eslint-disable no-console */
-      console.log('scroll', position);
-    }
-
-    protected scrollDirectionChange(direction: string): void {
-      /* eslint-disable no-console */
-      console.log('scroll:direction-change', direction);
-    }
-
-    protected scrollAtStart(): void {
-      /* eslint-disable no-console */
-      console.log('scroll:at-start');
-    }
-
-    protected scrollAlmostAtEnd(distance: number): void {
-      /* eslint-disable no-console */
-      console.log('scroll:almost-at-end', distance);
-    }
-
-    protected scrollAtEnd(): void {
-      /* eslint-disable no-console */
-      console.log('scroll:at-end');
-    }
+    public sortValues: Sort[] = ['', 'priceSort asc', 'priceSort desc'];
   }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="x-column-picker-dropdown">
     <BaseDropdown
-      @input="emitEvent"
+      @change="emitEvent"
       :value="selectedColumn"
       :items="columns"
       :animation="animation"

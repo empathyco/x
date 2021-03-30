@@ -16,8 +16,8 @@
       <!--
        @slot Used to render the contents of the dropdown toggle button. If not provided, it uses
        the item slot as fallback.
-           @binding {string | number | Identifiable} item - The item data to render.
-           @binding {boolean} isOpen - True if the dropdown is opened, and false if it is closed.
+       @binding {string | number | Identifiable} item - The item data to render.
+       @binding {boolean} isOpen - True if the dropdown is opened, and false if it is closed.
      -->
       <slot v-if="$scopedSlots.toggle" :isOpen="isOpen" :item="value" name="toggle" />
       <slot v-else :item="value" name="item" />
@@ -48,9 +48,9 @@
             <!--
                @slot (required) Used to render each one of the items content, and as fallback
                for the toggle button content slot if it is not provided.
-                   @binding {string | number | Identifiable} item - Item to render
-                   @binding {boolean} isHighlighted - True when the item has the focus.
-                   @binding {boolean} isSelected - True when the item is selected.
+               @binding {string | number | Identifiable} item - Item to render
+               @binding {boolean} isHighlighted - True when the item has the focus.
+               @binding {boolean} isSelected - True when the item is selected.
              -->
             <slot
               :isHighlighted="index === highlightedItemIndex"
@@ -86,6 +86,9 @@
   @Component({
     components: {
       NoElementComponent: noElementComponent
+    },
+    model: {
+      event: 'change'
     }
   })
   export default class BaseDropdown extends Vue {
@@ -227,7 +230,7 @@
      * @internal
      */
     protected emitSelectedItemChanged(item: DropdownItem): void {
-      this.$emit('input', item);
+      this.$emit('change', item);
       this.close();
     }
 
@@ -438,11 +441,13 @@
     position: relative;
 
     &__items-list {
+      z-index: 1;
       list-style: none;
       position: absolute;
       padding: 0;
+      margin: 0;
       left: 0;
-      top: 0;
+      top: 100%;
     }
   }
 </style>
