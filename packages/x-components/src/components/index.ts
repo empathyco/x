@@ -21,8 +21,9 @@ export { default as SlidingPanel } from './sliding-panel.vue';
 export { default as StaggeringTransitionGroup } from './staggering-transition-group.vue';
 
 // Utils
-export * from './decorators/debounce.decorators';
 export * from './decorators/bus.decorators';
+export * from './decorators/debounce.decorators';
+export * from './decorators/injection.decorators';
 export * from './decorators/store.decorators';
 export * from './x-component.mixin';
 export * from './x-component.types';

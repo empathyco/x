@@ -13,14 +13,29 @@ export function isArrayEmpty(array: unknown[] | undefined | null): array is unde
 }
 
 /**
+ * Reduce an array of strings to an object which properties names are the value of each string,
+ * and the value under that property are also the string.
+ *
+ * @param array - Array of strings that will be used to create the object.
+ *
+ * @returns New object which properties object[key] contains object of each iteration in the
+ * array.
+ *
+ * @example Converting an array to an object:
+ *         arrayToObject(['a', 'b', 'c']) === \{a: 'a', b: 'b', c: 'c'\}
+ *
+ * @public
+ */
+export function arrayToObject(array: string[]): Record<string, string>;
+/**
  * Reduce an array of objects to an object which properties names are the value of each object[key],
  * and the value under that property are each object. 'key' is the the parameter passed to this
  * function.
  *
- * @param array - Array of objects that contains objects which have object[key] string as a
- * property value.
- * @param key - Key used to access to each object[key] value, used for each property name in the
- * new object.
+ * @param array - Array of objects that contains objects which have object[key] string as a property
+ * value.
+ * @param key - Key used to access to each object[key] value, used for each property name in the new
+ * object.
  *
  * @returns New object which properties object[key] contains object of each iteration in the array.
  *
@@ -29,9 +44,33 @@ export function isArrayEmpty(array: unknown[] | undefined | null): array is unde
 export function arrayToObject<ArrayType, KeyType extends string | number>(
   array: ArrayType[],
   key: PropsWithType<ArrayType, KeyType>
+): Record<string, ArrayType>;
+/**
+ * Reduce an array to an object. The type of the object returned depends on the type of the params.
+ * If the 'key' is passed then the function returns an object which properties names are the value
+ * of each object[key] and the value under that property are each object.
+ * If the 'key' is not passed then the function returns an object which properties names are each
+ * array item, and the value is also the array item.
+ *
+ * @param array - Array from which to create an object.
+ * @param key - Key used to access to each object[key] value, used for each property name in the
+ * new object.
+ *
+ * @returns New object which properties object[key] contains each item in the array and the key is
+ * either the item of the array or a property of each item designated by 'key' param.
+ *
+ * @public
+ */
+export function arrayToObject<ArrayType, KeyType extends string | number>(
+  array: ArrayType[],
+  key?: PropsWithType<ArrayType, KeyType>
 ): Record<string, ArrayType> {
   return array.reduce<Record<string, ArrayType>>((accumulator, current) => {
-    accumulator[(current[key] as unknown) as string] = current;
+    if (key) {
+      accumulator[(current[key] as unknown) as string] = current;
+    } else if (typeof current === 'string') {
+      accumulator[current] = current;
+    }
     return accumulator;
   }, {});
 }
