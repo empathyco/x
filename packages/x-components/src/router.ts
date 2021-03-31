@@ -97,6 +97,11 @@ const routes: RouteConfig[] = [
     path: '/test/base-column-picker',
     name: 'Base Column Picker',
     component: () => import('./views/base-column-picker.vue')
+  },
+  {
+    path: '/test/sort',
+    name: 'Search Sort',
+    component: () => import('./views/sort.vue')
   }
 ];
 
