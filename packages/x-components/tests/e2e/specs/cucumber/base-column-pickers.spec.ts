@@ -5,29 +5,23 @@ Given('no special config for base-column-picker view', () => {
 });
 
 When('{int} columns are selected from the column picker list', (numberOfColumnsList: number) => {
-  cy.getByDataTest('column-picker-list')
-    .children()
-    .should('contain', numberOfColumnsList.toString())
-    .click();
+  cy.getByDataTest('column-picker-list').children().contains(numberOfColumnsList).click();
 });
 
 When(
   '{int} columns are selected from the column picker dropdown',
   (numberOfColumnsDropDown: number) => {
-    cy.getByDataTest('column-picker-dropdown')
-      .children()
-      .should('contain', numberOfColumnsDropDown.toString())
+    cy.getByDataTest('dropdown-toggle')
+      .click()
+      .siblings('ul')
+      .children('li')
+      .contains(numberOfColumnsDropDown)
       .click();
   }
 );
 
 Then('recommendations and results are displayed in {int} columns', (numberOfColumns: number) => {
-  cy.getByDataTest('recommendations').should(
-    'have.class',
-    'x-base-grid--cols-' + numberOfColumns.toString()
-  );
-  cy.getByDataTest('results-list').should(
-    'have.class',
-    'x-base-grid--cols-' + numberOfColumns.toString()
-  );
+  cy.getByDataTest('grid')
+    .should('have.length', 2)
+    .each(grid => expect(grid).to.have.class(`x-base-grid--cols-${numberOfColumns.toString()}`));
 });

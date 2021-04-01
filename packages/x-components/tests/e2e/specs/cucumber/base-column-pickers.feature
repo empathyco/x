@@ -11,8 +11,8 @@ Feature: Base column pickers components
     Then  recommendations and results are displayed in <numberOfColumnsList> columns
    Examples:
      | query | numberOfColumnsList | numberOfColumnsDropdown |
-   #  | lego  | 2                   | 4                       |
-   #  | lego  | 6                   | 2                       |
+     | lego  | 2                   | 4                       |
+     | lego  | 6                   | 2                       |
 
 
 

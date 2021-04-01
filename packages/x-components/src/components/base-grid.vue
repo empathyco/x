@@ -1,5 +1,12 @@
 <template>
-  <component :is="animation" :style="style" class="x-base-grid" :class="cssClasses" tag="ul">
+  <component
+    :is="animation"
+    :style="style"
+    class="x-base-grid"
+    :class="cssClasses"
+    tag="ul"
+    data-test="grid"
+  >
     <li
       v-for="{ item, cssClass } in itemsWithCSSClass"
       :key="item.id"
