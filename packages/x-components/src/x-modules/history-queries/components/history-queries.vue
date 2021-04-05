@@ -78,10 +78,11 @@
 
     /**
      * Maximum number of history queries to show. It should be a lower number than the
-     * {@link HistoryQueriesConfig.maxItemsToStore}.
+     * {@link HistoryQueriesConfig.maxItemsToStore}. If it is not provided, it will show
+     * all the stored `HistoryQueries`.
      */
-    @Prop({ default: 5 })
-    protected maxItemsToRender!: number;
+    @Prop()
+    protected maxItemsToRender?: number;
 
     /**
      * The filtered list of history queries.

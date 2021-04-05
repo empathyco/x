@@ -10,6 +10,22 @@
       <SearchInput placeholder="Search" aria-label="Search for products" />
       <BaseEventsModalClose aria-label="Close search">x</BaseEventsModalClose>
     </BaseEventsModal>
+    <BaseIdModalOpen modalId="history-modal">Open history query</BaseIdModalOpen>
+    <BaseIdModal :animation="collapseFromTop" modalId="history-modal">
+      <HistoryQueries :animation="fadeAndSlide">
+        <template #suggestion="{ suggestion }">
+          <HistoryQuery :suggestion="suggestion">
+            <span>
+              {{ suggestion.query }} - {{ new Date(suggestion.timestamp).toDateString() }}
+            </span>
+          </HistoryQuery>
+        </template>
+        <template #suggestion-remove-content="{ suggestion }">
+          <span :aria-label="`Remove ${suggestion.query} from history`">x</span>
+        </template>
+      </HistoryQueries>
+      <BaseIdModalClose aria-label="Close search" modalId="history-modal">x</BaseIdModalClose>
+    </BaseIdModal>
     <!-- Search Section -->
     <SearchInput placeholder="Search" aria-label="Search for products" />
     <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
@@ -128,7 +144,7 @@
         </div>
         <div class="x-column">
           <h1>Previous Searches</h1>
-          <HistoryQueries :animation="fadeAndSlide"></HistoryQueries>
+          <HistoryQueries :animation="fadeAndSlide" max-items-to-render="5"></HistoryQueries>
           <ClearHistoryQueries>Clear previous searches</ClearHistoryQueries>
         </div>
         <div class="x-column">
@@ -154,7 +170,7 @@
       <!-- History Queries -->
       <div class="x-column">
         <h1>History queries</h1>
-        <HistoryQueries :animation="fadeAndSlide">
+        <HistoryQueries :animation="fadeAndSlide" max-items-to-render="5">
           <template #suggestion-remove-content="{ suggestion }">
             <span :aria-label="`Remove ${suggestion.query} from history`">x</span>
           </template>
@@ -299,6 +315,7 @@
   import SelectedFilters from '../x-modules/facets/components/selected-filters.vue';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
+  import HistoryQuery from '../x-modules/history-queries/components/history-query.vue';
   import SpellcheckButton from '../x-modules/search/components/spellcheck-button.vue';
   import Spellcheck from '../x-modules/search/components/spellcheck.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
@@ -368,6 +385,7 @@
       ClearSearchInput,
       Empathize,
       Facets,
+      HistoryQuery,
       HistoryQueries,
       IdentifierResult,
       IdentifierResults,
@@ -507,10 +525,12 @@
       border-color: darkgreen;
     }
   }
+
   .column-picker-container {
     display: flex;
     flex-direction: row;
     align-items: center;
+
     .x-column-picker-list {
       margin: 0 10px;
     }
@@ -518,5 +538,10 @@
 
   .x-base-scroll {
     height: 500px;
+  }
+
+  .x-modal__content {
+    background-color: white;
+    width: 500px;
   }
 </style>

@@ -1,5 +1,4 @@
 import { localStorageService } from '../../../../utils/storage';
-import { HISTORY_QUERIES_STORAGE_KEY } from '../constants';
 import { HistoryQueriesXStoreModule } from '../types';
 
 /**
@@ -11,12 +10,12 @@ import { HistoryQueriesXStoreModule } from '../types';
  * @public
  */
 export const setHistoryQueries: HistoryQueriesXStoreModule['actions']['setHistoryQueries'] = (
-  { commit, state },
+  { commit, state, getters },
   historyQueries
 ) => {
   if (historyQueries.length > state.config.maxItemsToStore) {
     historyQueries = historyQueries.slice(0, state.config.maxItemsToStore);
   }
   commit('setHistoryQueries', historyQueries);
-  localStorageService.setItem(HISTORY_QUERIES_STORAGE_KEY, historyQueries);
+  localStorageService.setItem(getters.storageKey, historyQueries);
 };

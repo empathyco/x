@@ -19,7 +19,12 @@ describe('testing history queries component', () => {
   const historyQueries: HistoryQueryModel[] = createHistoryQueries(
     'moura',
     'calamares',
-    'rubia galega'
+    'rubia galega',
+    'pulpo',
+    'cachelos',
+    'navajas',
+    'croquetas',
+    'zamburiñas'
   );
 
   const historyQueriesWrapper = mount(HistoryQueries, {
@@ -42,14 +47,10 @@ describe('testing history queries component', () => {
     expect(historyQueriesWrapper.html()).toEqual('');
   });
 
-  it(
-    'renders the same number of elements than queries has the store if less than' +
-      ' maxItemsToRender configuration',
-    () => {
-      const historyQueryItemWrapper = findAllInWrapper('history-query-item');
-      expect(historyQueryItemWrapper).toHaveLength(historyQueries.length);
-    }
-  );
+  it('renders all the elements in store if the maxItemsToRender property is not provided', () => {
+    const historyQueryItemWrapper = findAllInWrapper('history-query-item');
+    expect(historyQueryItemWrapper).toHaveLength(historyQueries.length);
+  });
 
   it('limits the number of rendered elements by the maxItemsToRender config property', async () => {
     await historyQueriesWrapper.setProps({ maxItemsToRender: 2 });
@@ -78,7 +79,7 @@ describe('testing history queries component', () => {
     it('allows changing history query content using docs example as template', () => {
       const wrapperComponent = {
         template: `
-           <HistoryQueries>
+          <HistoryQueries>
             <template #suggestion-content="suggestionContentScope">
               <img src="./history-icon.svg" data-test="suggestion-history-icon"/>
               <span :data-index="suggestionContentScope.index"
