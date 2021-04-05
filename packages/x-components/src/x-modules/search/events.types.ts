@@ -42,4 +42,9 @@ export interface SearchXEvents {
    * sort value.
    */
   SelectedSortProvided: Sort;
+  /**
+   * Partial query has been set.
+   * * Payload: The new query string.
+   */
+  UserClickedPartialQuery: string;
 }
