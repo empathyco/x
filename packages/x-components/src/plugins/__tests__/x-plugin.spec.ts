@@ -98,6 +98,16 @@ describe('testing X Plugin', () => {
       expectDefaultModuleToBeRegisteredOnce();
     });
 
+    it('allows registering a initial x-module when installing', () => {
+      installNewXPlugin({
+        store,
+        adapter: SearchAdapterDummy,
+        initialXModules: [xModule]
+      });
+
+      expectDefaultModuleToBeRegisteredOnce();
+    });
+
     it('allows registering a x-module after installing', () => {
       installNewXPlugin({ store, adapter: SearchAdapterDummy });
       XPlugin.registerXModule(xModule);

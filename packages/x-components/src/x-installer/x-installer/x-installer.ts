@@ -229,11 +229,12 @@ export class XInstaller {
         documentDirection
       })
     );
-    const { adapter, store, xModules, __PRIVATE__xModules } = this.options;
+    const { adapter, store, initialXModules, xModules, __PRIVATE__xModules } = this.options;
     return {
       adapter,
       store,
       xModules,
+      initialXModules,
       __PRIVATE__xModules,
       xConfig
     };

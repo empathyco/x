@@ -231,6 +231,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
     this.registerStore();
     this.applyMixins();
     this.registerFilters();
+    this.registerInitialModules();
     this.registerPendingXModules();
     this.isInstalled = true;
   }
@@ -428,6 +429,17 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    */
   protected applyMixins(): void {
     this.vue.mixin(createXComponentAPIMixin(this.bus, this.xConfig));
+  }
+
+  /**
+   * Registers the initial {@link XModule | XModules} during the {@link XPlugin} installation.
+   *
+   * @internal
+   */
+  protected registerInitialModules(): void {
+    this.options.initialXModules?.forEach(xModule => {
+      this.registerXModule(xModule);
+    });
   }
 
   /**

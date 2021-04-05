@@ -5,6 +5,7 @@ import { Store } from 'vuex';
 import { XPlugin } from '../../../plugins/x-plugin';
 import { PrivateXModulesOptions, XConfig, XModulesOptions } from '../../../plugins/x-plugin.types';
 import { SearchAdapterDummy } from '../../../__tests__/adapter.dummy';
+import { AnyXModule } from '../../../x-modules/x-modules.types';
 import { InstallXOptions } from '../types';
 import { XInstaller } from '../x-installer';
 
@@ -15,6 +16,8 @@ describe('testing `XInstaller` utility', () => {
   const store = ({} as unknown) as Store<any>;
   const xModules = ({} as unknown) as XModulesOptions;
   const __PRIVATE__xModules = ({} as unknown) as PrivateXModulesOptions;
+  const initialXModule = ({} as unknown) as AnyXModule;
+
   const component: ComponentOptions<Vue> = {
     render(h) {
       return h('div');
@@ -39,6 +42,7 @@ describe('testing `XInstaller` utility', () => {
       store,
       xModules,
       __PRIVATE__xModules,
+      initialXModules: [initialXModule],
       vue: createLocalVue()
     }).init(snippetConfig);
     const params = xPluginMock.install.mock.calls[0][1];
@@ -47,6 +51,8 @@ describe('testing `XInstaller` utility', () => {
     expect(params.adapter).toEqual(adapter);
     expect(params.store).toEqual(store);
     expect(params.xModules).toEqual(xModules);
+    expect(params.initialXModules).toHaveLength(1);
+    expect(params.initialXModules[0]).toEqual(initialXModule);
     expect(params.__PRIVATE__xModules).toEqual(__PRIVATE__xModules);
   });
 

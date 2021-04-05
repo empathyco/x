@@ -34,6 +34,8 @@ export interface XPluginOptions {
   store?: Store<any>;
   /** The global {@link XConfig} accessible in any {@link XComponentAPI | XComponent}. */
   xConfig?: DeepPartial<XConfig>;
+  /** A {@link XModule | XModules} to be registered during the {@link XPlugin} installation. */
+  initialXModules?: AnyXModule[];
   /** Override the {@link XModule | XModules} config state and its wiring. */
   xModules?: XModulesOptions;
   /** Override the {@link XModule | XModules} store module and store emitters. It must be used
