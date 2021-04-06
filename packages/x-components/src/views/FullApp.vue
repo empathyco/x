@@ -215,6 +215,7 @@
       </template>
     </BaseGrid>
     <!-- Sort -->
+    <h1>SortDropdown</h1>
     <SortDropdown :items="sortValues">
       <template #toggle="{ item, isOpen }">
         {{ item || 'Default' }} {{ isOpen ? '🔼' : '🔽' }}
@@ -225,6 +226,13 @@
         {{ item || 'Default' }}
       </template>
     </SortDropdown>
+    <h1>SortList</h1>
+    <SortList :items="sortValues">
+      <template #default="{ item, isSelected }">
+        <span v-if="isSelected">✅</span>
+        {{ item || 'Default' }}
+      </template>
+    </SortList>
     <!-- BaseColumnPickerList -->
     <h1>Column Picker</h1>
     <h2>Column Picker List</h2>
@@ -315,6 +323,7 @@
   import SelectedFilters from '../x-modules/facets/components/selected-filters.vue';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
+  import SortList from '../x-modules/search/components/sort-list.vue';
   import HistoryQuery from '../x-modules/history-queries/components/history-query.vue';
   import SpellcheckButton from '../x-modules/search/components/spellcheck-button.vue';
   import Spellcheck from '../x-modules/search/components/spellcheck.vue';
@@ -405,7 +414,8 @@
       Spellcheck,
       SpellcheckButton,
       BaseColumnPickerList,
-      BaseColumnPickerDropdown
+      BaseColumnPickerDropdown,
+      SortList
     }
   })
   export default class App extends Vue {
