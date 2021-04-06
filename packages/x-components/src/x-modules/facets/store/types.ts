@@ -83,13 +83,6 @@ export interface FacetsMutations {
    * multiSelect value.
    */
   setFacetMultiSelect(multiSelectChange: MultiSelectChange): void;
-
-  /**
-   * Changes the {@link FacetsConfig.ignoreNewFiltersSelected} configuration.
-   *
-   * @param ignoreNewFiltersSelected - The new value for this config option.
-   */
-  setIgnoreNewFiltersSelected(ignoreNewFiltersSelected: boolean): void;
   /**
    * Changes the `selected` state of the filter.
    *
@@ -119,11 +112,19 @@ export interface FacetsMutations {
  */
 export interface FacetsActions {
   /**
-   * Sets the backend facets of the module.
+   * Sets the backend facets of the module. This action keeps the `newFacets` filters selected
+   * state.
    *
    * @param newFacets - Facets array to be saved in the state.
    */
   setBackendFacets(newFacets: Facet[]): void;
+  /**
+   * Updates the backend facets of the module. This action ignores the `newFacets` filters selected
+   * state, and uses the old selected filters instead.
+   *
+   * @param newFacets - Facets array to be saved in the state.
+   */
+  updateBackendFacets(newFacets: Facet[]): void;
   /**
    * Sets the frontend facets of the module.
    *

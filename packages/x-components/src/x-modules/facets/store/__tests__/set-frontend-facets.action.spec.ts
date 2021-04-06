@@ -48,7 +48,6 @@ describe(`${actionsKeys.setFrontendFacets} action`, () => {
     expect(getStoredFrontendFacets()).toEqual(arrayToObject(newFacets, 'id'));
   });
 
-  // eslint-disable-next-line max-len
   it('overrides the stored frontendFacets with the new ones', async () => {
     const oldFacets = [
       createSimpleFacetStub('Category', createCategorySimpleFilter => [

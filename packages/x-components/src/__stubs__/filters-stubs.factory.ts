@@ -155,7 +155,11 @@ export function getHierarchicalFilterStub(
  *
  * @returns A {@link @empathy/search-types#Filter | Filter}.
  */
-function createFilter(modelName: FilterModelName, facetId: string, label: string): Filter {
+function createFilter<SomeModelName extends FilterModelName>(
+  modelName: SomeModelName,
+  facetId: string,
+  label: string
+): Filter & { modelName: SomeModelName } {
   return {
     facetId,
     id: `${facetId}:${label}`,
@@ -200,9 +204,56 @@ export function createEditableNumberRangeFilter(
  */
 export function createSimpleFilter(facetId: string, label: string, selected = false): SimpleFilter {
   return {
-    ...(createFilter('SimpleFilter', facetId, label) as SimpleFilter),
+    ...createFilter('SimpleFilter', facetId, label),
     selected,
     value: `{ "filter: "${label}" }`,
+    totalResults: 10
+  };
+}
+
+/**
+ * Creates a {@link @empathy/search-types#HierarchicalFilter | HierarchicalFilter}.
+ *
+ * @param facetId - The facet id.
+ * @param label - The filter label. Used to set the `id` (combined with the facetId)
+ * and `label` fields.
+ * @param selected - The selected value, false by default.
+ * @returns An {@link @empathy/search-types#HierarchicalFilter | HierarchicalFilter}.
+ */
+export function createHierarchicalFilter(
+  facetId: string,
+  label: string,
+  selected = false
+): HierarchicalFilter {
+  return {
+    ...createSimpleFilter(facetId, label, selected),
+    modelName: 'HierarchicalFilter',
+    parentId: null,
+    children: []
+  };
+}
+
+/**
+ *
+ * Creates a {@link @empathy/search-types#NumberRangeFilter | NumberRangeFilter}.
+ *
+ * @param facetId - The facet id.
+ * @param range - The `min` and `max` values of the filter.
+ * @param selected - The selected value, false by default.
+ * @returns An {@link @empathy/search-types#NumberRangeFilter | NumberRangeFilter}.
+ */
+export function createNumberRangeFilter(
+  facetId: string,
+  range: RangeValue,
+  selected = false
+): NumberRangeFilter {
+  const min = range.min ?? '*';
+  const max = range.max ?? '*';
+  return {
+    ...createFilter('NumberRangeFilter', facetId, `${min} to ${max}`),
+    selected,
+    range,
+    value: `{ "filter: "${min} to ${max}" }`,
     totalResults: 10
   };
 }

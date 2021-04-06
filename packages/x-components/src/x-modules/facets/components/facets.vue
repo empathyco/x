@@ -140,10 +140,6 @@
      */
     protected created(): void {
       if (this.backendFacets) {
-        /* If backendFacets are provided to this component, we assume that the developer wants to
-         take care of the selected values of the filter. So we disable this functionality of
-         the x-components */
-        this.$x.emit('IgnoreNewFiltersSelectedConfigChanged', false);
         // eslint-disable-next-line @typescript-eslint/unbound-method
         this.$watch('backendFacets', this.emitBackendFacetsChanged, { immediate: true });
       }
@@ -163,7 +159,7 @@
      * @internal
      */
     protected emitBackendFacetsChanged(newFacets: Facet[]): void {
-      this.$x.emit('BackendFacetsChanged', newFacets);
+      this.$x.emit('BackendFacetsProvided', newFacets);
     }
 
     /**

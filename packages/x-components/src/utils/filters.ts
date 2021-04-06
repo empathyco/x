@@ -1,4 +1,12 @@
-import { BooleanFilter, HierarchicalFilter } from '@empathy/search-types';
+import {
+  Facet,
+  Filter,
+  HierarchicalFilter,
+  isBooleanFilter,
+  isEditableNumberRangeFilter,
+  isHierarchicalFacet
+} from '@empathy/search-types';
+import { deepFlat } from './array';
 
 /**
  * Checks if a filter is selected.
@@ -7,7 +15,14 @@ import { BooleanFilter, HierarchicalFilter } from '@empathy/search-types';
  * @returns True when the filter is selected. False otherwise.
  * @public
  */
-export const isFilterSelected = (filter: BooleanFilter): boolean => filter.selected;
+export function isFilterSelected(filter: Filter): boolean {
+  if (isBooleanFilter(filter)) {
+    return filter.selected;
+  } else if (isEditableNumberRangeFilter(filter)) {
+    return filter.range.min !== null || filter.range.max !== null;
+  }
+  return false;
+}
 
 /**
  * Checks if a filter is partially selected. Being partially selected means having either only some
@@ -23,4 +38,28 @@ export function isFilterPartiallySelected(filter: HierarchicalFilter): boolean {
     (selectedChildren.length > 0 && selectedChildren.length < filter.children.length) ||
     selectedChildren.some(isFilterPartiallySelected)
   );
+}
+
+/**
+ * Extracts the filters contained in the provided facets.
+ *
+ * @param facets - The facets from whom extract the array of filters.
+ * @returns The array of the facets filters.
+ * @public
+ */
+export function extractFilters(facets: Facet[] | Record<Facet['id'], Facet>): Filter[] {
+  return Object.values(facets).reduce(flatFilters, []);
+}
+
+/**
+ * Returns a filters object which contains facet's filters at the same depth level.
+ *
+ * @param filtersAccumulator - Accumulator object.
+ * @param facet - Current facet object.
+ * @returns Facet's filters object at the same depth level.
+ */
+function flatFilters(filtersAccumulator: Filter[], facet: Facet): Filter[] {
+  const filters = isHierarchicalFacet(facet) ? deepFlat(facet.filters, 'children') : facet.filters;
+  filtersAccumulator.push(...filters);
+  return filtersAccumulator;
 }
