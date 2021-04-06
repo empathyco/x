@@ -1,5 +1,14 @@
 import { SearchRequest, SearchResponse } from '@empathy/search-adapter';
-import { Facet, Filter, RelatedTag, Result, Banner, Promoted, Sort } from '@empathy/search-types';
+import {
+  Facet,
+  Filter,
+  RelatedTag,
+  Result,
+  Banner,
+  Promoted,
+  Sort,
+  PartialResult
+} from '@empathy/search-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { Dictionary } from '../../../utils/types';
@@ -15,6 +24,8 @@ export interface SearchState extends StatusState {
   query: string;
   /** The list of the results, related to the `query` property of the state. */
   results: Result[];
+  /** The list of the partial results, related to the `query` property of the state. */
+  partialResults: PartialResult[];
   /** The list of the facets, related to the `query` property of the state. */
   facets: Facet[];
   /** The list of the related tags, related to the `query` property of the state. */
@@ -65,6 +76,12 @@ export interface SearchMutations extends StatusMutations {
    * @param results - The new results to save to the state.
    */
   setResults(results: Result[]): void;
+  /**
+   * Sets the partial results of the module.
+   *
+   * @param partialResults - The new partial results to save to the state.
+   */
+  setPartialResults(partialResults: PartialResult[]): void;
   /**
    * Sets the facets of the module.
    *

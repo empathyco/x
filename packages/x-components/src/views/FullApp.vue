@@ -46,7 +46,6 @@
         Filters selected: {{ selectedFilters.length }}
       </template>
     </SelectedFilters>
-
     <SelectedFiltersList :animation="staggeredFadeAndSlide">
       <template #default="{ filter }">Default: {{ filter.label }}</template>
       <template #brand_facet="{ filter }">Brand: {{ filter.label }}</template>
@@ -285,6 +284,24 @@
         </template>
       </ResultsList>
     </BaseIdScroll>
+    <!-- Partial Results -->
+    <h1>Partial Results</h1>
+    <PartialResultsList :animation="staggeredFadeAndSlide">
+      <template #default="{ partialResult }">
+        <span>{{ partialResult.query }}</span>
+        <BaseGrid :animation="staggeredFadeAndSlide" :columns="4" :items="partialResult.results">
+          <template #Result="{ item }">
+            <BaseResultLink :result="item" class="x-result-link">
+              <BaseResultImage :result="item" />
+              <span class="x-result__title">{{ item.name }}</span>
+            </BaseResultLink>
+          </template>
+        </BaseGrid>
+        <PartialQueryButton :query="partialResult.query">
+          <template #default="{ query }">Ver todos {{ query }}</template>
+        </PartialQueryButton>
+      </template>
+    </PartialResultsList>
   </main>
 </template>
 
@@ -323,6 +340,8 @@
   import SelectedFilters from '../x-modules/facets/components/selected-filters.vue';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
+  import PartialQueryButton from '../x-modules/search/components/partial-query-button.vue';
+  import PartialResultsList from '../x-modules/search/components/partial-results-list.vue';
   import SortList from '../x-modules/search/components/sort-list.vue';
   import HistoryQuery from '../x-modules/history-queries/components/history-query.vue';
   import SpellcheckButton from '../x-modules/search/components/spellcheck-button.vue';
@@ -366,6 +385,8 @@
       next();
     },
     components: {
+      PartialQueryButton,
+      PartialResultsList,
       SortDropdown,
       ResultsList,
       BaseGrid,

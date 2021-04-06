@@ -17,6 +17,7 @@ export const searchXStoreModule: SearchXStoreModule = {
   state: () => ({
     query: '',
     results: [],
+    partialResults: [],
     facets: [],
     relatedTags: [],
     banners: [],
@@ -39,6 +40,9 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     setResults(state, results) {
       state.results = results;
+    },
+    setPartialResults(state, partialResults) {
+      state.partialResults = partialResults;
     },
     setFacets(state, facets) {
       state.facets = facets;
