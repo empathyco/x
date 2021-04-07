@@ -166,6 +166,11 @@ export interface XEventsTypes
    * * Payload: none.
    */
   UserReachedScrollEnd: void;
+  /**
+   * The user has clicked the scroll to top button.
+   * * Payload: The scroll id which has scrolled to top.
+   */
+  UserClickedScrollToTop: string;
 }
 
 /**

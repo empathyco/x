@@ -262,7 +262,10 @@
 
     <!-- Results -->
     <h1>Results {{ results.length }} / {{ $x.totalResults }}</h1>
-    <BaseIdScroll>
+    <BaseScrollToTop scroll-id="scrollId" :threshold-px="1000">
+      <span>⬆</span>
+    </BaseScrollToTop>
+    <BaseIdScroll id="scrollId">
       <ResultsList :animation="staggeredFadeAndSlide">
         <template #layout="{ results, animation }">
           <BaseGrid :animation="animation" :items="results" :columns="currentColumn">
@@ -322,6 +325,7 @@
   import BaseIdModalClose from '../components/modals/base-id-modal-close.vue';
   import BaseIdModalOpen from '../components/modals/base-id-modal-open.vue';
   import BaseIdModal from '../components/modals/base-id-modal.vue';
+  import BaseScrollToTop from '../components/scroll/base-scroll-to-top.vue';
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
   import BaseEventsModalClose from '../components/modals/base-events-modal-close.vue';
   import Filters from '../x-modules/facets/components/lists/filters.vue';
@@ -395,6 +399,7 @@
       BaseIdModal,
       BaseEventsModal,
       BaseIdScroll,
+      BaseScrollToTop,
       AllFilter,
       Filters,
       FiltersSearch,
@@ -569,6 +574,14 @@
 
   .x-base-scroll {
     height: 500px;
+    scroll-behavior: smooth;
+  }
+
+  .x-scroll-to-top {
+    position: absolute;
+    right: 50px;
+    z-index: 2;
+    margin: 10px;
   }
 
   .x-modal__content {

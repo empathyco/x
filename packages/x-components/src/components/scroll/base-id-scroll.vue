@@ -16,6 +16,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
+  import { XOn } from '../decorators/bus.decorators';
   import { XEvent, XEventPayload } from '../../wiring';
   import BaseScroll from './base-scroll.vue';
   import { ScrollDirection } from './scroll.types';
@@ -131,6 +132,19 @@
      */
     protected emitEvent<Event extends XEvent>(event: Event, payload?: XEventPayload<Event>): void {
       this.$x.emit(event, payload as any, { target: this.$el as HTMLElement, id: this.id });
+    }
+
+    /**
+     * Scrolls to initial position when the user has clicked the scroll to top button.
+     *
+     * @param payload - {@link XEventsTypes.UserClickedScrollToTop}.
+     * @internal
+     */
+    @XOn('UserClickedScrollToTop')
+    scrollToTop(payload: string): void {
+      if (payload === this.id && this.$el) {
+        this.$el.scrollTo({ top: 0 });
+      }
     }
   }
 </script>
