@@ -1,4 +1,50 @@
 # X Components
+## [2.0.0-alpha.7](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.7%0Dv2.0.0-alpha.6) (2021-04-07)
+
+
+### Features
+
+* **components:** add `BaseColumnPickerList` component ([8eb2322](https://bitbucket.org/colbenson/x-components/commits/8eb232250642a10fe5ef2860a515133ceb3b7003)), closes [EX-3295](https://searchbroker.atlassian.net/browse/EX-3295)
+* **components:** add `BaseVariableColumnGrid` component ([9f4ce5a](https://bitbucket.org/colbenson/x-components/commits/9f4ce5a54ce9a383232dd4e537682e7c5b753879)), closes [EX-3297](https://searchbroker.atlassian.net/browse/EX-3297)
+* **components:** add `BaseIdScroll` component ([f3366ba](https://bitbucket.org/colbenson/x-components/commits/f3366ba58bd834a4eb65fafdb53821f6391188a2)), closes [EX-3387](https://searchbroker.atlassian.net/browse/EX-3387)
+* **components:** add `BaseMainScroll` component ([f4716d1](https://bitbucket.org/colbenson/x-components/commits/f4716d1b613f50f2767ad16fcaa36c70b9b58d29)), closes [EX-3193](https://searchbroker.atlassian.net/browse/EX-3193)
+* **decorators:** add `@XProvide` and `@XInject` decorators ([3facc03](https://bitbucket.org/colbenson/x-components/commits/3facc034617dd2270dec2b83b12f15165d324c10)), closes [EX-2893](https://searchbroker.atlassian.net/browse/EX-2893)
+* **facets:** add `ExcludeFiltersWithNoResults` component ([eba2bfe](https://bitbucket.org/colbenson/x-components/commits/eba2bfe845a37bcebcb7321de3291ce3fc7eb39c)), closes [EX-3412](https://searchbroker.atlassian.net/browse/EX-3412)
+* **facets:** add `EditableNumberRangeFilter` component ([5577f0b](https://bitbucket.org/colbenson/x-components/commits/5577f0b64921ee37605105a89d9edae9660db97c)), closes [EX-3257](https://searchbroker.atlassian.net/browse/EX-3257)
+* **facets:** add new events, wiring, and action to keep backend filters selected state ([d84080b](https://bitbucket.org/colbenson/x-components/commits/d84080bdf9452124f405f297a90b59a79a0facc8)), closes [EX-3585](https://searchbroker.atlassian.net/browse/EX-3585)
+* **facets:** add the option to init the `frontendFacets` via prop in the `Facets` component ([0e41dc6](https://bitbucket.org/colbenson/x-components/commits/0e41dc633bfa5a388a90ca75f137475f4e042735))
+* **facets:** add wiring and store logic in facets module to support `EditableNumberRangeFilter` ([1ad777b](https://bitbucket.org/colbenson/x-components/commits/1ad777b7b87e82845677c232b03dcffad7b3586d)), closes [EX-3258](https://searchbroker.atlassian.net/browse/EX-3258)
+* **grid:** add `BaseColumnPickerDropdown` component ([626dfb6](https://bitbucket.org/colbenson/x-components/commits/626dfb645eb614d009c1c5ed185bce0b1d73a758)), closes [EX-3296](https://searchbroker.atlassian.net/browse/EX-3296)
+* **history-queries:** modify history-queries to accept a new config and show all the elements in store. ([fb0bdac](https://bitbucket.org/colbenson/x-components/commits/fb0bdacf2bdbf7e0847682dedf7e1a348d8a4b93)), closes [EX-3389](https://searchbroker.atlassian.net/browse/EX-3389)
+* **scroll:** add new `BaseScrollToTop` component ([f79207a](https://bitbucket.org/colbenson/x-components/commits/f79207adce6ac348a630ea63ce8279057a24d9a5)), closes [EX-3197](https://searchbroker.atlassian.net/browse/EX-3197)
+* **scroll:** add new `BaseScroll` component ([912e198](https://bitbucket.org/colbenson/x-components/commits/912e198bfba15a16400f4bc979f85341649b8814)), closes [EX-3191](https://searchbroker.atlassian.net/browse/EX-3191)
+* **search:** add `PartialResultsList` component ([df9eaa1](https://bitbucket.org/colbenson/x-components/commits/df9eaa195f83c32c4208d6b16f2a5768d521a6cc)), closes [EX-3354](https://searchbroker.atlassian.net/browse/EX-3354)
+* **search:** add `SortDropdown` component ([c483944](https://bitbucket.org/colbenson/x-components/commits/c483944dca71943f590ec4d2354f6954f2899098)), closes [EX-3299](https://searchbroker.atlassian.net/browse/EX-3299)
+* **search:** add new `PartialQueryButton` component ([e99db04](https://bitbucket.org/colbenson/x-components/commits/e99db04190d7f339c26e81613b7942c627789ad1)), closes [EX-3568](https://searchbroker.atlassian.net/browse/EX-3568)
+* **search:** add new `SortList` component ([42715f2](https://bitbucket.org/colbenson/x-components/commits/42715f21f9f5ede32696c0b0b7f7da0d380f932a)), closes [EX-3298](https://searchbroker.atlassian.net/browse/EX-3298)
+* **search:** add store logic & wiring to support sorting results ([2e7e4a7](https://bitbucket.org/colbenson/x-components/commits/2e7e4a76bc7a450139d99402dba9e2ae799cc63b)), closes [EX-3301](https://searchbroker.atlassian.net/browse/EX-3301)
+* **tagging:** add basic tagging x-module ([b60f809](https://bitbucket.org/colbenson/x-components/commits/b60f8092f499c623d0479cf0be4729aaf1d29d77)), closes [EX-3195](https://searchbroker.atlassian.net/browse/EX-3195)
+* **x-plugin:** add `initialXModules` to `XPluginOptions` to register `XModules` manually when installing the plugin ([05e17c8](https://bitbucket.org/colbenson/x-components/commits/05e17c8c0f7c49a83f0c0b6cd091391048f48fe7)), closes [EX-3199](https://searchbroker.atlassian.net/browse/EX-3199)
+
+
+### Code Refactoring
+
+* **animations:** rename animations to fit BEM ([0993d31](https://bitbucket.org/colbenson/x-components/commits/0993d31ac83b4c78273f60a8af903a53251506ac)), closes [EX-3264](https://searchbroker.atlassian.net/browse/EX-3264)
+* **decorators:** tidy decorators splitting the bus decorators from the state decorators ([9debc11](https://bitbucket.org/colbenson/x-components/commits/9debc11d3a5143e566932e6072ff7efcb0bf45c7)), closes [EX-3442](https://searchbroker.atlassian.net/browse/EX-3442)
+* **facets:** move filter components inside the facets module ([9c266c6](https://bitbucket.org/colbenson/x-components/commits/9c266c60f0efeaef89262eb2d39094ca899100c2)), closes [EX-3270](https://searchbroker.atlassian.net/browse/EX-3270)
+
+
+### Testing
+
+* **e2e:** fix e2e `SlidingPanel` tests ([0901ddc](https://bitbucket.org/colbenson/x-components/commits/0901ddcf698a74a66231651bb46aebed027f012d)), closes [EX-3438](https://searchbroker.atlassian.net/browse/EX-3438)
+* **e2e:** add tests scenarios for sort dropdown and list ([d918d8a](https://bitbucket.org/colbenson/x-components/commits/d918d8a447a57dbbf39974d597ba07f1306c481d)), closes [EX-3201](https://searchbroker.atlassian.net/browse/EX-3201)
+* **e2e:** column pickers tests refinement ([74d75d4](https://bitbucket.org/colbenson/x-components/commits/74d75d41ac1224b86de81cce1ae037f77be52453)), closes [EX-3500](https://searchbroker.atlassian.net/browse/EX-3500)
+* **e2e:** fix relative imports paths ([1abed82](https://bitbucket.org/colbenson/x-components/commits/1abed829d9de5cecb432b30b319b4250ce472d37)), closes [EX-3434](https://searchbroker.atlassian.net/browse/EX-3434)
+* **e2e:** fix setting related tags max items to render in sliding panel view ([ef9f4be](https://bitbucket.org/colbenson/x-components/commits/ef9f4bef7b779114e84759ab626a841d06ddf0d0)), closes [EX-3463](https://searchbroker.atlassian.net/browse/EX-3463)
+* **e2e:** add test for `BaseFiltersSearch` ([293ce31](https://bitbucket.org/colbenson/x-components/commits/293ce3146ef8ba043fecdfe7ab67e3083ef1d4f3)), closes [EX-3232](https://searchbroker.atlassian.net/browse/EX-3232)
+* **e2e:** add test for `BaseColumnPickerList` and dropdown ([cd128d1](https://bitbucket.org/colbenson/x-components/commits/cd128d174926cca2fb86fc58dc92b99a00746be1)), closes [EX-3219](https://searchbroker.atlassian.net/browse/EX-3219)
+* **e2e:** add tests for `SlidingPanel` component ([414c679](https://bitbucket.org/colbenson/x-components/commits/414c679c5d48f6a2e3bbd01aac90ce81209c16cb)), closes [EX-3238](https://searchbroker.atlassian.net/browse/EX-3238)
+
 ## [2.0.0-alpha.6](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.6%0Dv2.0.0-alpha.5) (2021-03-16)
 
 
