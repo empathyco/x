@@ -29,14 +29,18 @@
 </template>
 
 <script lang="ts">
-  import { Facet } from '@empathy/search-types';
+  import { Facet, Filter } from '@empathy/search-types';
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { Dictionary } from '../../../utils/types';
+  import { XOn } from '../../../components';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { FiltersByFacet } from '../store/types';
-  import { facetsXModule } from '../x-module';
+  import { clone } from '../../../utils/clone';
+  import { extractFilters, isFilterSelected } from '../../../utils/filters';
   import { objectFilter } from '../../../utils/object';
+  import { Dictionary } from '../../../utils/types';
+  import { FiltersByFacet } from '../store/types';
+  import { areFiltersDifferent } from '../utils';
+  import { facetsXModule } from '../x-module';
 
   /**
    * This component renders the list of facets stored in the Facets module. This facets can be set
@@ -59,8 +63,7 @@
      * @public
      */
     @Prop({ default: 'ul' })
-    protected animation!: Vue | string;
-
+    public animation!: Vue | string;
     /**
      * If this prop is provided, these facets are used, and stored in the
      * {@link FacetsState.backendFacets}.
@@ -69,7 +72,6 @@
      */
     @Prop()
     public backendFacets?: Facet[];
-
     /**
      * If this prop is provided, these facets are used, and stored in the
      * {@link FacetsState.frontendFacets}. These facets state will be managed solely in the
@@ -79,7 +81,6 @@
      */
     @Prop()
     public frontendFacets?: Facet[];
-
     /**
      * Discriminates the facets rendered by this component. It expects a string containing facets
      * ids, comma separated. This property will include or exclude facets based on its value.
@@ -102,77 +103,27 @@
      * @public
      */
     @Prop({ default: '' })
-    protected renderableFacets!: string;
-
-    /**
-     * Dictionary of facets grouping backend and frontend facets.
-     *
-     * @public
-     */
-    @Getter('facets', 'facets')
-    public stateFacets!: Dictionary<Facet>;
-
+    public renderableFacets!: string;
     /**
      * Array of selected filters from every facet.
      *
-     * @public
+     * @internal
      */
     @Getter('facets', 'selectedFiltersByFacet')
     public selectedFiltersByFacet!: FiltersByFacet;
-
     /**
-     * Indicates if there are facets available to show.
-     *
-     * @returns True if there are facets available and false otherwise.
+     * Dictionary of facets grouping backend and frontend facets.
      *
      * @internal
      */
-    protected get hasFacets(): boolean {
-      return !!Object.keys(this.facetsToRender).length;
-    }
-
+    @Getter('facets', 'facets')
+    public stateFacets!: Dictionary<Facet>;
     /**
-     * Creates a watcher for the `backendFacets` and `frontendFacets`, if they're set, emitting an
-     * event whenever they change. This is done this way because the {@link XBus} is not injected
-     * until the component is created.
+     * Temporarily stores the selected filters from the {@link Facets.backendFacets} prop.
      *
      * @internal
      */
-    protected created(): void {
-      if (this.backendFacets) {
-        // eslint-disable-next-line @typescript-eslint/unbound-method
-        this.$watch('backendFacets', this.emitBackendFacetsChanged, { immediate: true });
-      }
-
-      if (this.frontendFacets) {
-        // eslint-disable-next-line @typescript-eslint/unbound-method
-        this.$watch('frontendFacets', this.emitFrontendFacetsChanged, { immediate: true });
-      }
-    }
-
-    /**
-     * Handler for the `backendFacets` prop watcher. Emits
-     * {@link FacetsXEvents.BackendFacetsChanged} event when facets change.
-     *
-     * @param newFacets - The list of new facets.
-     *
-     * @internal
-     */
-    protected emitBackendFacetsChanged(newFacets: Facet[]): void {
-      this.$x.emit('BackendFacetsProvided', newFacets);
-    }
-
-    /**
-     * Handler for the `frontendFacets` prop watcher. Emits
-     * {@link FacetsXEvents.FrontendFacetsChanged} event when facets change.
-     *
-     * @param newFacets - The list of new facets.
-     *
-     * @internal
-     */
-    protected emitFrontendFacetsChanged(newFacets: Facet[]): void {
-      this.$x.emit('FrontendFacetsChanged', newFacets);
-    }
+    protected selectedFilters: Filter[] = [];
 
     /**
      * The facets to be rendered after filtering {@link Facets.stateFacets} by
@@ -193,13 +144,97 @@
       const included: string[] = [];
       const excluded: string[] = [];
       facetIds.forEach(facetId => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        excludedRegExp.test(facetId)
-          ? excluded.push(facetId.replace(excludedRegExp, ''))
-          : included.push(facetId);
+        if (excludedRegExp.test(facetId)) {
+          excluded.push(facetId.replace(excludedRegExp, ''));
+        } else {
+          included.push(facetId);
+        }
       });
 
       return this.filterFacetsToRender(included, excluded);
+    }
+
+    /**
+     * Indicates if there are facets available to show.
+     *
+     * @returns True if there are facets available and false otherwise.
+     * @internal
+     */
+    protected get hasFacets(): boolean {
+      return !!Object.keys(this.facetsToRender).length;
+    }
+
+    /**
+     * Creates a watcher for the `backendFacets` and `frontendFacets`, if they're set, emitting an
+     * event whenever they change. This is done this way because the {@link XBus} is not injected
+     * until the component is created.
+     *
+     * @internal
+     */
+    protected created(): void {
+      if (this.backendFacets) {
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        this.$watch('backendFacets', this.emitBackendFacetsProvided, { immediate: true });
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        this.$watch('backendFacets', this.extractSelectedFilters, {
+          immediate: true
+        });
+      }
+
+      if (this.frontendFacets) {
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        this.$watch('frontendFacets', this.emitFrontendFacetsChanged, { immediate: true });
+      }
+    }
+
+    /**
+     * Emits the {@link FacetsXEvents.UserChangedSelectedFilters} event when the user changes
+     * the selected filters.
+     *
+     * @param selectedFilters - The new list of selected filters.
+     * @internal
+     */
+    @XOn('SelectedFiltersChanged')
+    emitSelectedFiltersChanged(selectedFilters: Filter[]): void {
+      if (areFiltersDifferent(this.selectedFilters, selectedFilters)) {
+        this.$x.emit('UserChangedSelectedFilters', selectedFilters);
+      }
+      this.selectedFilters = [];
+    }
+
+    /**
+     * Handler for the `backendFacets` prop watcher. Emits
+     * {@link FacetsXEvents.BackendFacetsChanged} event when facets change.
+     *
+     * @param newFacets - The list of new facets.
+     *
+     * @internal
+     */
+    protected emitBackendFacetsProvided(newFacets: Facet[]): void {
+      this.$x.emit('BackendFacetsProvided', clone(newFacets));
+    }
+
+    /**
+     * Handler for the `frontendFacets` prop watcher. Emits
+     * {@link FacetsXEvents.FrontendFacetsChanged} event when facets change.
+     *
+     * @param newFacets - The list of new facets.
+     *
+     * @internal
+     */
+    protected emitFrontendFacetsChanged(newFacets: Facet[]): void {
+      this.$x.emit('FrontendFacetsChanged', clone(newFacets));
+    }
+
+    /**
+     * Extracts the selected filters from the facets and stores them in the
+     * {@link Facets.selectedFilters} property.
+     *
+     * @param facets - The facets from whom extract the selected filters.
+     * @internal
+     */
+    protected extractSelectedFilters(facets: Facet[]): void {
+      this.selectedFilters = extractFilters(facets).filter(isFilterSelected);
     }
 
     /**
@@ -328,7 +363,7 @@ To do so, pass an array of facets using the `facets` prop.
 
 ```vue
 <template>
-  <Facets :backendFacets="backendFacets" v-slot="{ facet }">
+  <Facets v-slot="{ facet }" :backendFacets="backendFacets">
     <h1>{{ facet.label }}</h1>
     <ul>
       <li v-for="filter in facet.filters" :key="filter.id">
@@ -387,7 +422,7 @@ independent, you can use the `frontendFacets` prop.
 
 ```vue
 <template>
-  <Facets :backendFacets="backendFacets" :frontendFacets="frontendFacets" v-slot="{ facet }">
+  <Facets v-slot="{ facet }" :backendFacets="backendFacets" :frontendFacets="frontendFacets">
     <h1>{{ facet.label }}</h1>
     <ul>
       <li v-for="filter in facet.filters" :key="filter.id">
@@ -562,7 +597,7 @@ the `Facets` component using the `FiltersSearch` `MultiSelectFilters`, `SimpleFi
     <template #default="{ facet, selectedFilters }">
       <h1>{{ facet.label }}</h1>
       <FiltersSearch v-slot="{ siftedFilters }" :filters="facet.filters">
-        <MultiSelectFilters :filters="siftedFilters" v-slot="{ filter }">
+        <MultiSelectFilters v-slot="{ filter }" :filters="siftedFilters">
           <SimpleFilter :filter="filter" />
         </MultiSelectFilters>
       </FiltersSearch>
@@ -570,15 +605,15 @@ the `Facets` component using the `FiltersSearch` `MultiSelectFilters`, `SimpleFi
 
     <template #category="{ facet }">
       <h1>{{ facet.label }}</h1>
-      <Filters :filters="facet.filters" v-slot="{ filter }">
+      <Filters v-slot="{ filter }" :filters="facet.filters">
         <HierarchicalFilter :filter="filter" />
       </Filters>
     </template>
 
     <template #price="{ facet }">
       <h1>{{ facet.label }}</h1>
-      <Filters :filters="facet.filters" v-slot="{ filter }">
-        <NumberRangeFilter :filter="filter" v-slot="{ filter }">
+      <Filters v-slot="{ filter }" :filters="facet.filters">
+        <NumberRangeFilter v-slot="{ filter }" :filter="filter">
           <BasePriceFilterLabel :filter="filter" />
         </NumberRangeFilter>
       </Filters>

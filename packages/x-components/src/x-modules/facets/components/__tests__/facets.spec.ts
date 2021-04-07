@@ -13,6 +13,7 @@ import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/ut
 import Facets from '../facets.vue';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { facetsXModule } from '../../x-module';
+import SimpleFilter from '../filters/simple-filter.vue';
 import { resetXFacetsStateWith } from './utils';
 
 describe('testing Facets component', () => {
@@ -248,10 +249,49 @@ describe('testing Facets component', () => {
       });
     });
   });
+
+  it('emits the `UserChangedSelectedFilters` event when a filter is changed', async () => {
+    const colorFacet = createSimpleFacetStub('color', createSimpleFilter => [
+      createSimpleFilter('Red', false),
+      createSimpleFilter('Blue', false)
+    ]);
+    const sizeFacet = createSimpleFacetStub('size', createSimpleFilter => [
+      createSimpleFilter('Big', true),
+      createSimpleFilter('Small', false)
+    ]);
+    const [redFilter] = colorFacet.filters;
+    const [bigFilter] = sizeFacet.filters;
+    const { wrapper } = renderFacetsComponent({
+      components: {
+        SimpleFilter
+      },
+      customFacetSlot: `
+      <template #color="{ facet }">
+        <SimpleFilter v-for="filter in facet.filters"
+          class="filter"
+          :key="filter.id"
+          :filter="filter"/>
+      </template>`,
+      backendFacets: [colorFacet, sizeFacet]
+    });
+    const redFilterWrapper = wrapper.find('.filter');
+    expect(wrapper.emitted('UserChangedSelectedFilters')).toBeUndefined();
+
+    await redFilterWrapper.trigger('click');
+    expect(wrapper.emitted('UserChangedSelectedFilters')).toHaveLength(1);
+    expect(wrapper.emitted('UserChangedSelectedFilters')![0]).toEqual([
+      [{ ...redFilter, selected: true }, bigFilter]
+    ]);
+
+    await redFilterWrapper.trigger('click');
+    expect(wrapper.emitted('UserChangedSelectedFilters')).toHaveLength(2);
+    expect(wrapper.emitted('UserChangedSelectedFilters')![1]).toEqual([[bigFilter]]);
+  });
 });
 
 function renderFacetsComponent({
   customFacetSlot = '',
+  components,
   stateFacets = getFacetsDictionaryStub(),
   backendFacets,
   frontendFacets,
@@ -283,7 +323,8 @@ function renderFacetsComponent({
   const facetWrapper = mount(
     {
       components: {
-        Facets
+        Facets,
+        ...components
       },
       props: ['backendFacets', 'frontendFacets', 'renderableFacets'],
       template
@@ -315,6 +356,7 @@ function renderFacetsComponent({
 }
 
 interface FacetsRenderOptions {
+  components?: Dictionary<typeof Vue>;
   stateFacets?: Dictionary<Facet>;
   backendFacets?: Facet[];
   frontendFacets?: Facet[];
