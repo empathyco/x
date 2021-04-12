@@ -262,6 +262,7 @@ describe('testing Facets component', () => {
     const [redFilter] = colorFacet.filters;
     const [bigFilter] = sizeFacet.filters;
     const { wrapper } = renderFacetsComponent({
+      backendFacets: [],
       components: {
         SimpleFilter
       },
@@ -271,9 +272,10 @@ describe('testing Facets component', () => {
           class="filter"
           :key="filter.id"
           :filter="filter"/>
-      </template>`,
-      backendFacets: [colorFacet, sizeFacet]
+      </template>`
     });
+    await wrapper.setProps({ backendFacets: [colorFacet, sizeFacet] });
+
     const redFilterWrapper = wrapper.find('.filter');
     expect(wrapper.emitted('UserChangedSelectedFilters')).toBeUndefined();
 
@@ -286,6 +288,9 @@ describe('testing Facets component', () => {
     await redFilterWrapper.trigger('click');
     expect(wrapper.emitted('UserChangedSelectedFilters')).toHaveLength(2);
     expect(wrapper.emitted('UserChangedSelectedFilters')![1]).toEqual([[bigFilter]]);
+
+    await wrapper.setProps({ backendFacets: [colorFacet, sizeFacet] });
+    expect(wrapper.emitted('UserChangedSelectedFilters')).toHaveLength(2);
   });
 });
 

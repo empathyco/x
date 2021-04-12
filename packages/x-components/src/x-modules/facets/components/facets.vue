@@ -174,11 +174,9 @@
     protected created(): void {
       if (this.backendFacets) {
         // eslint-disable-next-line @typescript-eslint/unbound-method
-        this.$watch('backendFacets', this.emitBackendFacetsProvided, { immediate: true });
+        this.$watch('backendFacets', this.extractSelectedFilters, { immediate: true });
         // eslint-disable-next-line @typescript-eslint/unbound-method
-        this.$watch('backendFacets', this.extractSelectedFilters, {
-          immediate: true
-        });
+        this.$watch('backendFacets', this.emitBackendFacetsProvided, { immediate: true });
       }
 
       if (this.frontendFacets) {
