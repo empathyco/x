@@ -1,6 +1,6 @@
 {
   "name": "x-components-archetype",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open --skip-plugins eslint",
@@ -15,9 +15,9 @@
     "install:local": "npm install ../x-components/empathy-x-components-1.0.0.tgz --no-save"
   },
   "dependencies": {
-    "@empathy/search-adapter": "^4.0.0",
-    "@empathy/search-types": "^5.0.0",
-    "@empathy/x-components": "1.0.0",
+    "@empathy/search-adapter": "^6.0.0-alpha.5",
+    "@empathy/search-types": "^8.0.0-alpha.3",
+    "@empathy/x-components": "2.0.0-alpha.7",
     "reflect-metadata": "^0.1.13",
     "vue": "^2.6.11",
     "vue-class-component": "~7.1.0",
