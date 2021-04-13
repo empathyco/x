@@ -1,4 +1,11 @@
 # X Components
+## [2.0.0-alpha.8](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.8%0Dv2.0.0-alpha.7) (2021-04-13)
+
+
+### Bug Fixes
+
+* **facets:** Avoid emitting the `SelectedFiltersChanged` event when facets change for the second time. ([41efe6f](https://bitbucket.org/colbenson/x-components/commits/41efe6f41a6f94427fff455b9a595fe614a4e1a8)), closes [EX-3570](https://searchbroker.atlassian.net/browse/EX-3570)
+
 ## [2.0.0-alpha.7](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.7%0Dv2.0.0-alpha.6) (2021-04-07)
 
 
