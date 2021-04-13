@@ -269,28 +269,46 @@ describe('testing Facets component', () => {
       customFacetSlot: `
       <template #color="{ facet }">
         <SimpleFilter v-for="filter in facet.filters"
-          class="filter"
+          class="color-filter"
           :key="filter.id"
           :filter="filter"/>
-      </template>`
+      </template>
+      <template #size="{ facet }">
+        <SimpleFilter v-for="filter in facet.filters"
+          class="size-filter"
+          :key="filter.id"
+          :filter="filter"/>
+      </template>
+`
     });
-    await wrapper.setProps({ backendFacets: [colorFacet, sizeFacet] });
 
-    const redFilterWrapper = wrapper.find('.filter');
+    // Setting facets with selected filters does not trigger UserChangedSelectedFilters
+    await wrapper.setProps({ backendFacets: [colorFacet, sizeFacet] });
     expect(wrapper.emitted('UserChangedSelectedFilters')).toBeUndefined();
 
+    const [redFilterWrapper] = wrapper.findAll('.color-filter').wrappers;
+    const [bigFilterWrapper] = wrapper.findAll('.size-filter').wrappers;
+
+    // Selecting a filter triggers UserChangedSelectedFilters
     await redFilterWrapper.trigger('click');
     expect(wrapper.emitted('UserChangedSelectedFilters')).toHaveLength(1);
     expect(wrapper.emitted('UserChangedSelectedFilters')![0]).toEqual([
       [{ ...redFilter, selected: true }, bigFilter]
     ]);
 
+    // Deselecting a selected filter triggers UserChangedSelectedFilters
     await redFilterWrapper.trigger('click');
     expect(wrapper.emitted('UserChangedSelectedFilters')).toHaveLength(2);
     expect(wrapper.emitted('UserChangedSelectedFilters')![1]).toEqual([[bigFilter]]);
 
+    // Deselecting the only selected filter triggers UserChangedSelectedFilters
+    await bigFilterWrapper.trigger('click');
+    expect(wrapper.emitted('UserChangedSelectedFilters')).toHaveLength(3);
+    expect(wrapper.emitted('UserChangedSelectedFilters')![2]).toEqual([[]]);
+
+    // Modifying the prop again with selected filters does not trigger UserChangedSelectedFilters
     await wrapper.setProps({ backendFacets: [colorFacet, sizeFacet] });
-    expect(wrapper.emitted('UserChangedSelectedFilters')).toHaveLength(2);
+    expect(wrapper.emitted('UserChangedSelectedFilters')).toHaveLength(3);
   });
 });
 

@@ -123,7 +123,7 @@
      *
      * @internal
      */
-    protected selectedFilters: Filter[] = [];
+    protected selectedFilters: Filter[] | null = null;
 
     /**
      * The facets to be rendered after filtering {@link Facets.stateFacets} by
@@ -194,10 +194,13 @@
      */
     @XOn('SelectedFiltersChanged')
     emitSelectedFiltersChanged(selectedFilters: Filter[]): void {
-      if (areFiltersDifferent(this.selectedFilters, selectedFilters)) {
+      if (
+        this.selectedFilters === null ||
+        areFiltersDifferent(this.selectedFilters, selectedFilters)
+      ) {
         this.$x.emit('UserChangedSelectedFilters', selectedFilters);
       }
-      this.selectedFilters = [];
+      this.selectedFilters = null;
     }
 
     /**
