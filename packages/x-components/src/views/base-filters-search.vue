@@ -47,13 +47,11 @@
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
           <SelectedFilters :facetId="facet.id" />
-          <FiltersSearch v-slot="{ siftedFilters }" :filters="facet.filters">
-            <SlicedFilters :filters="siftedFilters" :max="8">
-              <template #default="{ slicedFilters }">
-                <Filters v-slot="{ filter }" :filters="slicedFilters">
-                  <SimpleFilter :filter="filter" data-test="brand-filter" />
-                </Filters>
-              </template>
+          <FiltersSearch :filters="facet.filters">
+            <SlicedFilters :max="8">
+              <Filters v-slot="{ filter }">
+                <SimpleFilter :filter="filter" data-test="brand-filter" />
+              </Filters>
               <template #show-more="{ difference }">Show {{ difference }} more filters</template>
               <template #show-less="{ difference }">Show {{ difference }} less filters</template>
             </SlicedFilters>
@@ -100,8 +98,8 @@
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
   import Filters from '../x-modules/facets/components/lists/filters.vue';
   import SlicedFilters from '../x-modules/facets/components/lists/sliced-filters.vue';
-  import MultiSelectFilters from '../x-modules/facets/components/multi-select-filters.vue';
-  import SelectedFiltersList from '../x-modules/facets/components/selected-filters-list.vue';
+  import MultiSelectFilters from '../x-modules/facets/components/lists/multi-select-filters.vue';
+  import SelectedFiltersList from '../x-modules/facets/components/lists/selected-filters-list.vue';
   import SelectedFilters from '../x-modules/facets/components/selected-filters.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import SearchButton from '../x-modules/search-box/components/search-button.vue';

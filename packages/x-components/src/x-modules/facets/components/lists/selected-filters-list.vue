@@ -35,9 +35,9 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { Facet } from '@empathy/search-types';
-  import { xComponentMixin } from '../../../components';
-  import { facetsXModule } from '../x-module';
-  import SelectedFilters from './selected-filters.vue';
+  import { xComponentMixin } from '../../../../components/index';
+  import { facetsXModule } from '../../x-module';
+  import SelectedFilters from '../selected-filters.vue';
 
   /**
    * This component renders a list of selected filters from every facet, or from the facet

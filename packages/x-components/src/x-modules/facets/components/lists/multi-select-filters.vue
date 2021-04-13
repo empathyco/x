@@ -1,7 +1,7 @@
 <template>
   <Filters
     v-slot="{ filter }"
-    :filters="filters"
+    :filters="renderedFilters"
     :animation="animation"
     class="x-multi-select-filters"
   >
@@ -15,13 +15,16 @@
 
 <script lang="ts">
   import Vue from 'vue';
+  import { mixins } from 'vue-class-component';
   import { Component, Prop } from 'vue-property-decorator';
-  import { Facet, Filter } from '@empathy/search-types';
-  import { State } from '../../../components/decorators/store.decorators';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { facetsXModule } from '../x-module';
-  import { FacetsConfig } from '../config.types';
-  import Filters from './lists/filters.vue';
+  import { Facet } from '@empathy/search-types';
+  import { State } from '../../../../components/decorators/store.decorators';
+  import { xComponentMixin } from '../../../../components/x-component.mixin';
+  import { facetsXModule } from '../../x-module';
+  import { FacetsConfig } from '../../config.types';
+  import FiltersInjectionMixin from './filters-injection.mixin';
+  import FiltersSearch from './filters-search.vue';
+  import Filters from './filters.vue';
 
   /**
    * The component renders a list of filters, exposing a default slot to set how the filter should
@@ -33,20 +36,12 @@
    */
   @Component({
     components: {
+      FiltersSearch,
       Filters: Filters
     },
     mixins: [xComponentMixin(facetsXModule)]
   })
-  export default class MultiSelectFilters extends Vue {
-    /**
-     * The list of filters to be rendered. This ones should be filters
-     * from the same facet.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    public filters!: Filter[];
-
+  export default class MultiSelectFilters extends mixins(FiltersInjectionMixin) {
     /**
      * Animation component that will be used to animate the filters.
      *
@@ -71,7 +66,7 @@
      * @internal
      */
     protected get facetId(): null | Facet['id'] {
-      const facetId = this.filters[0]?.facetId;
+      const facetId = this.renderedFilters[0]?.facetId;
       return facetId ?? null;
     }
 
@@ -115,6 +110,12 @@ The component renders a list of filters, exposing a default slot to set how the 
 be rendered. This component will change the facet configuration of the rendered filters to allow
 multi selection. If you just need to render a list of filters that don't support multi-selection,
 or are from a different facet, use the `Filters` component instead.
+
+## Important
+
+The component has two ways of receive the filters list, it can be injected by another component or
+be send it as a prop. If the component doesnt have a parent component that receive and exposed a
+filters list to their children, it is mandatory to send it as prop.
 
 ## Basic usage
 
@@ -162,5 +163,24 @@ mandatory prop, it allows you to configure the transitions (using the `animation
     }
   }
 </script>
+```
+
+> **Using injection**: It can receive the filters list by injection. It only works if it has a
+> parent component that receives and exposes the filters list. Using the injection, It is not
+> necessary to send the prop to the child components, it has to be send it in the parent component,
+> the rest of components will inject this list.
+
+```vue
+<template>
+  <Facets v-slot="{ facet }">
+    <FiltersSearch :filters="facet.filters">
+      <MultiSelectFilters
+        :animation="animation"
+        v-slot="{ filter }">
+        <SimpleFilter :filter="filter"/>
+      </MultiSelectFilters>
+    </FiltersSearch>
+  </Facets>
+</template>
 ```
 </docs>

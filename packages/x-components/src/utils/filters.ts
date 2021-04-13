@@ -16,12 +16,11 @@ import { deepFlat } from './array';
  * @public
  */
 export function isFilterSelected(filter: Filter): boolean {
-  if (isBooleanFilter(filter)) {
-    return filter.selected;
-  } else if (isEditableNumberRangeFilter(filter)) {
-    return filter.range.min !== null || filter.range.max !== null;
-  }
-  return false;
+  return isBooleanFilter(filter)
+    ? filter.selected
+    : isEditableNumberRangeFilter(filter)
+    ? filter.range.min !== null || filter.range.max !== null
+    : false;
 }
 
 /**

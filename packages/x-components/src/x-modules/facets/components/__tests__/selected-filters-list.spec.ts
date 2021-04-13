@@ -10,7 +10,7 @@ import { DeepPartial } from '../../../../utils';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { FacetsState } from '../../store';
 import { facetsXModule } from '../../x-module';
-import SelectedFiltersList from '../selected-filters-list.vue';
+import SelectedFiltersList from '../lists/selected-filters-list.vue';
 import { resetXFacetsStateWith } from './utils';
 
 /**

@@ -138,14 +138,14 @@
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
   import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
-  import SelectedFiltersList from '../x-modules/facets/components/selected-filters-list.vue';
+  import SelectedFiltersList from '../x-modules/facets/components/lists/selected-filters-list.vue';
   import SelectedFilters from '../x-modules/facets/components/selected-filters.vue';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import Facets from '../x-modules/facets/components/facets.vue';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
-  import MultiSelectFilters from '../x-modules/facets/components/multi-select-filters.vue';
+  import MultiSelectFilters from '../x-modules/facets/components/lists/multi-select-filters.vue';
   import PopularSearches from '../x-modules/popular-searches/components/popular-searches.vue';
   import QuerySuggestion from '../x-modules/query-suggestions/components/query-suggestion.vue';
   import QuerySuggestions from '../x-modules/query-suggestions/components/query-suggestions.vue';

@@ -9,7 +9,7 @@ import { getSimpleFacetStub } from '../../../../__stubs__/facets-stubs.factory';
 import { createCategorySimpleFilter } from '../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { facetsXModule } from '../../x-module';
-import MultiSelectFilters from '../multi-select-filters.vue';
+import MultiSelectFilters from '../lists/multi-select-filters.vue';
 
 /**
  * Renders the `MultiSelectFilters` component, exposing a basic API for testing.

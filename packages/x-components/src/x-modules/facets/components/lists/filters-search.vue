@@ -26,13 +26,14 @@
 
 <script lang="ts">
   import { Filter } from '@empathy/search-types';
-  import Vue from 'vue';
+  import { mixins } from 'vue-class-component';
   import { Component, Prop, Watch } from 'vue-property-decorator';
-  import { xComponentMixin } from '../../../../components';
+  import { xComponentMixin, XProvide } from '../../../../components';
   import { debounce } from '../../../../utils/debounce';
   import { normalizeString } from '../../../../utils/normalize';
   import { DebouncedFunction, VueCSSClasses } from '../../../../utils/types';
   import { facetsXModule } from '../../x-module';
+  import FiltersInjectionMixin from './filters-injection.mixin';
 
   /**
    * Renders the filters sifted with the input query.
@@ -42,11 +43,7 @@
   @Component({
     mixins: [xComponentMixin(facetsXModule)]
   })
-  export default class FiltersSearch extends Vue {
-    /** The filters array. */
-    @Prop({ required: true })
-    protected filters!: Filter[];
-
+  export default class FiltersSearch extends mixins(FiltersInjectionMixin) {
     /** The debounce time for applying the filter sifting. */
     @Prop({ default: 200 })
     protected debounceInMs!: number;
@@ -72,9 +69,12 @@
      * @returns Array of sifted filters.
      * @internal
      */
-    protected get siftedFilters(): Filter[] {
+    @XProvide('filters')
+    public get siftedFilters(): Filter[] {
       const normalizedQuery = normalizeString(this.query);
-      return this.filters.filter(filter => normalizeString(filter.label).includes(normalizedQuery));
+      return this.renderedFilters.filter(filter =>
+        normalizeString(filter.label).includes(normalizedQuery)
+      );
     }
 
     /**
@@ -136,12 +136,18 @@
 <docs lang="mdx">
 #Example
 
-It renders an input and a list of filters passed as prop. The list of filters can be sifted with the
-query typed in the input. This component has also a debounce prop to set the time in milliseconds to
-apply the filters search. Moreover, it has two scoped slots. The first one for customize the search
-triggering with three slot props; the query, a function to set the query by sifting and a third one
-for cleaning the query. The second scoped slot is required and it is for displaying the list of
-filters sifted. It has a slot prop with these filters sifted.
+It renders an input and a list of filters passed as prop or being injected. The list of filters can
+be sifted with the query typed in the input. This component has also a debounce prop to set the time
+in milliseconds to apply the filters search. Moreover, it has two scoped slots. The first one for
+customize the search triggering with three slot props; the query, a function to set the query by
+sifting and a third one for cleaning the query. The second scoped slot is required and it is for
+displaying the list of filters sifted. It has a slot prop with these filters sifted.
+
+## Important
+
+The component has two ways of receive the filters list, it can be injected by another component or
+be send it as a prop. If the component doesnt have a parent component that receive and exposed a
+filters list to their children, it is mandatory to send it as prop.
 
 ## Basic usage
 
@@ -182,5 +188,22 @@ Replacing search triggering:
     </ul>
   </template>
 </FiltersSearch>
+```
+
+> **Using injection**: It can receive the filters list by injection. It only works if it has a
+> parent component that receives and exposes the filters list. Using the injection, It is not
+> necessary to send the prop to the child components, it has to be send it in the parent component,
+> the rest of components will inject this list.
+
+```vue
+<Facets v-slot="{ facet }">
+  <SlicedFilters :filters="facet.filters" :max="8">
+    <FiltersSearch >
+        <Filters v-slot="{ filter }">
+          <SimpleFilter :filter="filter" data-test="brand-filter" />
+        </Filters>
+    </FiltersSearch>
+  </SlicedFilters>
+</Facets>
 ```
 </docs>

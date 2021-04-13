@@ -1,8 +1,8 @@
 export { default as ClearFilters } from './clear-filters.vue';
 export { default as Facets } from './facets.vue';
-export { default as MultiSelectFilters } from './multi-select-filters.vue';
+export { default as MultiSelectFilters } from './lists/multi-select-filters.vue';
 export { default as SelectedFilters } from './selected-filters.vue';
-export { default as SelectedFiltersList } from './selected-filters-list.vue';
+export { default as SelectedFiltersList } from './lists/selected-filters-list.vue';
 
 // Filters
 export { default as AllFilter } from './filters/all-filter.vue';

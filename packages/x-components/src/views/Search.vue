@@ -80,7 +80,7 @@
   import { XInstaller } from '../x-installer/x-installer/x-installer';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
   import Facets from '../x-modules/facets/components/facets.vue';
-  import MultiSelectFilters from '../x-modules/facets/components/multi-select-filters.vue';
+  import MultiSelectFilters from '../x-modules/facets/components/lists/multi-select-filters.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import { searchXModule } from '../x-modules/search/x-module';

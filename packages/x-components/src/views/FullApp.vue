@@ -85,13 +85,11 @@
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
           <SelectedFilters :facetId="facet.id" />
-          <FiltersSearch v-slot="{ siftedFilters }" :filters="facet.filters">
-            <SlicedFilters :filters="siftedFilters" :max="8">
-              <template #default="{ slicedFilters }">
-                <Filters v-slot="{ filter }" :filters="slicedFilters">
-                  <SimpleFilter :filter="filter" data-test="brand-filter" />
-                </Filters>
-              </template>
+          <FiltersSearch :filters="facet.filters">
+            <SlicedFilters :max="8">
+              <Filters v-slot="{ filter }">
+                <SimpleFilter :filter="filter" data-test="brand-filter" />
+              </Filters>
               <template #show-more="{ difference }">Show {{ difference }} more filters</template>
               <template #show-less="{ difference }">Show {{ difference }} less filters</template>
             </SlicedFilters>
@@ -340,7 +338,7 @@
   import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
   import { GridItem } from '../utils/types';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
-  import SelectedFiltersList from '../x-modules/facets/components/selected-filters-list.vue';
+  import SelectedFiltersList from '../x-modules/facets/components/lists/selected-filters-list.vue';
   import SelectedFilters from '../x-modules/facets/components/selected-filters.vue';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
@@ -358,7 +356,7 @@
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
   import IdentifierResult from '../x-modules/identifier-results/components/identifier-result.vue';
   import IdentifierResults from '../x-modules/identifier-results/components/identifier-results.vue';
-  import MultiSelectFilters from '../x-modules/facets/components/multi-select-filters.vue';
+  import MultiSelectFilters from '../x-modules/facets/components/lists/multi-select-filters.vue';
   import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
   import NoSuggestions from '../x-modules/no-suggestions/components/no-suggestions.vue';
   import PopularSearches from '../x-modules/popular-searches/components/popular-searches.vue';

@@ -36,11 +36,12 @@
 
 <script lang="ts">
   import { Filter } from '@empathy/search-types';
-  import Vue from 'vue';
+  import { mixins } from 'vue-class-component';
   import { Component, Prop } from 'vue-property-decorator';
-  import { xComponentMixin } from '../../../../components';
+  import { xComponentMixin, XProvide } from '../../../../components';
   import { VueCSSClasses } from '../../../../utils';
   import { facetsXModule } from '../../x-module';
+  import FiltersInjectionMixin from './filters-injection.mixin';
 
   /**
    * Component that slices a list of filters and returns them using the default scoped slot,
@@ -52,12 +53,11 @@
   @Component({
     mixins: [xComponentMixin(facetsXModule)]
   })
-  export default class SlicedFilters extends Vue {
-    /** The filters array. */
-    @Prop({ required: true })
-    protected filters!: Filter[];
-
-    /** The maximum number of filters to show. */
+  export default class SlicedFilters extends mixins(FiltersInjectionMixin) {
+    /** The maximum number of filters to show.
+     *
+     * @public
+     * */
     @Prop({ required: true })
     protected max!: number;
 
@@ -71,7 +71,7 @@
      * @internal
      */
     protected get showButton(): boolean {
-      return this.filters.length > this.max;
+      return this.renderedFilters.length > this.max;
     }
 
     /**
@@ -80,8 +80,9 @@
      * @returns Array of sliced filters or all filters.
      * @internal
      */
-    protected get slicedFilters(): Filter[] {
-      return this.showMoreFilters ? this.filters.slice(0, this.max) : this.filters;
+    @XProvide('filters')
+    public get slicedFilters(): Filter[] {
+      return this.showMoreFilters ? this.renderedFilters.slice(0, this.max) : this.renderedFilters;
     }
 
     /**
@@ -91,7 +92,7 @@
      * @internal
      */
     protected get difference(): number {
-      return this.filters.length - this.max;
+      return this.renderedFilters.length - this.max;
     }
 
     /**
@@ -133,20 +134,27 @@
   when there are lots of available filters for a single facet, helping to improve the
   app performance, as less nodes are rendered.
 
+  ## Important
+
+  The component has two ways of receive the filters list, it can be injected by another component or
+  be send it as a prop. If the component doesnt have a parent component that receive and exposed a
+  filters list to their children, it is mandatory to send it as prop.
+
+
   ## Basic usage
 
   ```vue
   <template>
     <Facets v-slot="{ facet }">
-      <BaseShowMoreFilters :filters="facet.filters" :max="4">
+      <SlicedFilters :filters="facet.filters" :max="4">
         <template #default="{ slicedFilters }">
-          <Filters :filters="slicedFilters" v-slot="{ filter }">
+          <Filters :items="slicedFilters" v-slot="{ filter }">
             <SimpleFilter :filter="filter"/>
           </Filters>
         </template>
         <template #show-more="{ difference }">Show {{ difference }} more filters</template>
         <template #show-less="{ difference }">Show {{ difference }} less filters</template>
-      </BaseShowMoreFilters>
+      </SlicedFilters>
     </Facets>
   </template>
   <script>
@@ -162,5 +170,22 @@
       }
     }
   </script>
+  ```
+
+  > **Using injection**: It can receive the filters list by injection. It only works if it has a
+  > parent component that receives and exposes the filters list. Using the injection, It is not
+  > necessary to send the prop to the child components, it has to be send it in the parent component
+  > , the rest of components will inject this list.
+
+  ```vue
+  <Facets v-slot="{ facet }">
+    <SlicedFilters :filters="facet.filters" :max="4">
+        <Filters v-slot="{ filter }">
+          <SimpleFilter :filter="filter"/>
+        </Filters>
+      <template #show-more="{ difference }">Show {{ difference }} more filters</template>
+      <template #show-less="{ difference }">Show {{ difference }} less filters</template>
+    </SlicedFilters>
+  </Facets>
   ```
 </docs>
