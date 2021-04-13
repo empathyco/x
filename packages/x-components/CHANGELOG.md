@@ -1,4 +1,11 @@
 # X Components
+## [2.0.0-alpha.9](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.9%0Dv2.0.0-alpha.8) (2021-04-13)
+
+
+### Bug Fixes
+
+* **facets:** Emit the `SelectedFiltersChanged` event when the user deselects the last filter ([cc38322](https://bitbucket.org/colbenson/x-components/commits/cc3832252ae2994a040c268e4c5941c69535382b)), closes [EX-3570](https://searchbroker.atlassian.net/browse/EX-3570)
+
 ## [2.0.0-alpha.8](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.8%0Dv2.0.0-alpha.7) (2021-04-13)
 
 
