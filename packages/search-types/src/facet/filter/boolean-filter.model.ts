@@ -14,5 +14,16 @@ export interface BooleanFilter extends Filter {
   /** Filter value to use with the API. */
   value: string;
   /** Number of items for the filter. **/
-  totalResults: number;
+  totalResults?: number;
+}
+
+/**
+ * Type guard to check if a filter is a {@link BooleanFilter}.
+ *
+ * @param filter - The filter to check.
+ *
+ * @public
+ */
+export function isBooleanFilter(filter: Filter): filter is BooleanFilter {
+  return typeof (filter as BooleanFilter).selected === 'boolean';
 }

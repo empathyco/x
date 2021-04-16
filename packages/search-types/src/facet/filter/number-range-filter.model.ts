@@ -1,4 +1,5 @@
 import { BooleanFilter } from './boolean-filter.model';
+import { Filter } from './filter.model';
 import { RangeValue } from './range-value.model';
 
 /**
@@ -14,4 +15,15 @@ export interface NumberRangeFilter extends BooleanFilter {
     modelName: 'NumberRangeFilter';
     /** Filter range to use in the frontend. */
     range: RangeValue;
+}
+
+/**
+ * Type guard to check if a filter is a {@link NumberRangeFilter}.
+ *
+ * @param filter - The filter to check.
+ *
+ * @public
+ */
+export function isNumberRangeFilter(filter: Filter): filter is NumberRangeFilter {
+    return filter.modelName === 'NumberRangeFilter';
 }

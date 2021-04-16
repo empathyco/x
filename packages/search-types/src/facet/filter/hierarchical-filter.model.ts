@@ -15,3 +15,14 @@ export interface HierarchicalFilter extends BooleanFilter {
     /** Descendants filters. */
     children: this[];
 }
+
+/**
+ * Type guard to check if a filter is a {@link HierarchicalFilter}.
+ *
+ * @param filter - The filter to check.
+ *
+ * @public
+ */
+export function isHierarchicalFilter(filter: Filter): filter is HierarchicalFilter {
+    return filter.modelName === 'HierarchicalFilter';
+}

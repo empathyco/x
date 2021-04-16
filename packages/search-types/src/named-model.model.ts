@@ -42,8 +42,8 @@ export type FacetModelName = 'SimpleFacet' | 'HierarchicalFacet' | 'NumberRangeF
 export type FilterModelName = BooleanFilterModelName | 'EditableNumberRangeFilter';
 
 /**
- * Boolean filters model names type. It can be: SimpleFilter, HierarchicalFilter, NumberRangeFilter.
+ * Type to ease the usage of a model name in a {@link BooleanFilter} with autocomplete suggestions.
  *
  * @public
  */
-export type BooleanFilterModelName = 'SimpleFilter' | 'HierarchicalFilter' | 'NumberRangeFilter';
+export type BooleanFilterModelName = 'SimpleFilter' | 'HierarchicalFilter' | 'NumberRangeFilter' | string;

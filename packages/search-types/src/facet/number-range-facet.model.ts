@@ -13,3 +13,14 @@ export interface NumberRangeFacet extends Facet {
     /** Filters available for the facet. */
     filters: NumberRangeFilter[];
 }
+
+/**
+ * Type guard to check if a facet is an {@link NumberRangeFacet}.
+ *
+ * @param facet - The facet to check.
+ *
+ * @public
+ */
+export function isNumberRangeFacet(facet: Facet): facet is NumberRangeFacet {
+    return facet.modelName === 'NumberRangeFacet';
+}

@@ -26,10 +26,9 @@ export const FilterSchema: Filter = {
  */
 export const BooleanFilterSchema: BooleanFilter = {
   ...FilterSchema,
-  modelName: expect.stringMatching(/SimpleFilter|HierarchicalFilter|NumberRangeFilter/),
+  modelName: expect.any(String),
   selected: expect.any(Boolean),
-  value: expect.any(String),
-  totalResults: expect.any(Number)
+  value: expect.any(String)
 };
 
 /**

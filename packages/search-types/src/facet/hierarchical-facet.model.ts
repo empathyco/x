@@ -13,3 +13,14 @@ export interface HierarchicalFacet extends Facet {
     /** Filters available for the facet. */
     filters: HierarchicalFilter[];
 }
+
+/**
+ * Type guard to check if a facet is an {@link HierarchicalFacet}.
+ *
+ * @param facet - The facet to check.
+ *
+ * @public
+ */
+export function isHierarchicalFacet(facet: Facet): facet is HierarchicalFacet {
+    return facet.modelName === 'HierarchicalFacet';
+}

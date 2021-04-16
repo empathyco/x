@@ -14,3 +14,14 @@ export interface EditableNumberRangeFacet extends Facet {
     /** Filters available for the facet. */
     filters: EditableNumberRangeFilter[];
 }
+
+/**
+ * Type guard to check if a facet is an {@link EditableNumberRangeFacet}.
+ *
+ * @param facet - The facet to check.
+ *
+ * @public
+ */
+export function isEditableNumberRangeFacet(facet: Facet): facet is EditableNumberRangeFacet {
+    return facet.modelName === 'EditableNumberRangeFacet';
+}

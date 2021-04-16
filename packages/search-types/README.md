@@ -1,5 +1,17 @@
 # Changelog
 
+## 8.0.0 - 2021/04/16
+
+> EX-3347 Remove `MultiSelect` model.
+> 
+> EX-3347 Add type guards for filters and facets models.
+> 
+> EX-3347 Change `BooleanFilterModelName` to support any string.
+> 
+> EX-3300 Transform `Sort` model into a string.
+> 
+> EX-3473 Make `BooleanFilter`'s `totalResults` property optional.
+
 ## 7.0.0 - 2021/03/03
 
 > EX-3291 Add `Identifiable` interface to  `Banner`, `Facet`, `Filter`, `Next-queries`, `Promoted`, `Redirection` and `Result`.

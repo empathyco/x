@@ -1,5 +1,13 @@
 # Changelog
 
+## 8.0.0
+
+> EX-3347 Remove `MultiSelect` model.
+> 
+> EX-3300 Transform `Sort` model into a string.
+> 
+> EX-3300 Remove `SortDirection` enum.
+
 ## 7.0.0
 
 > EX-3222 Add `EditableNumberRangeFilter` model to represent range filters that the user can mutate its value.

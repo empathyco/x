@@ -15,3 +15,14 @@ export interface EditableNumberRangeFilter extends Filter {
     /** Filter range to use in the frontend. */
     range: RangeValue;
 }
+
+/**
+ * Type guard to check if a filter is an {@link EditableNumberRangeFilter}.
+ *
+ * @param filter - The filter to check.
+ *
+ * @public
+ */
+export function isEditableNumberRangeFilter(filter: Filter): filter is EditableNumberRangeFilter {
+    return filter.modelName === 'EditableNumberRangeFilter';
+}

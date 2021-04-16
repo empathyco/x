@@ -13,3 +13,14 @@ export interface SimpleFacet extends Facet {
     /** Filters available for the facet. */
     filters: SimpleFilter[];
 }
+
+/**
+ * Type guard to check if a facet is an {@link SimpleFacet}.
+ *
+ * @param facet - The facet to check.
+ *
+ * @public
+ */
+export function isSimpleFacet(facet: Facet): facet is SimpleFacet {
+    return facet.modelName === 'SimpleFacet';
+}
