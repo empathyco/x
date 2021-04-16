@@ -1,6 +1,6 @@
 import { SimpleFacet, SimpleFilter } from '@empathy/search-types';
 import { injectable, multiInject } from 'inversify';
-import { DEPENDENCIES } from '../../../container';
+import { DEPENDENCIES } from '../../../container/container.const';
 import { MapFn, ResponseMapper, ResponseMapperContext } from '../../../empathy-adapter.types';
 import { EmpathyFacet, EmpathyFilter } from '../../../models';
 import { pipeMappers } from '../../pipe-mappers';

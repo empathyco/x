@@ -1,4 +1,5 @@
 import {
+  BooleanFilter,
   Facet,
   Filter,
   HierarchicalFacet,
@@ -50,7 +51,7 @@ describe('Empathy Hierarchical Facet', () => {
     expectAllFiltersToBeValid(mappedFacet.filters, HierarchicalFilterSchema);
     expectFacetToMatchMock(mappedFacet, hierarchicalRawFacet.facet, hierarchicalRawFacet.values.length);
     expect(mappedFacet.filters[1].children[0].children[0]).toBeDefined();
-    expectFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
+    expectBooleanFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
   });
 
   it('maps filters correctly if the selected property is not defined', () => {
@@ -59,7 +60,7 @@ describe('Empathy Hierarchical Facet', () => {
     expectFacetToMatchMock(mappedFacet, hierarchicalRawFacetWithoutSelected.facet, hierarchicalRawFacetWithoutSelected.values.length);
     expectAllFiltersToBeValid(mappedFacet.filters, HierarchicalFilterSchema);
     expect(mappedFacet.filters[1].children[1].children[0]).toBeDefined();
-    expectFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
+    expectBooleanFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
   });
 });
 
@@ -70,7 +71,7 @@ describe('Empathy Simple Facet', () => {
     expect(mappedFacet).toMatchObject(SimpleFacetSchema);
     expectFacetToMatchMock(mappedFacet, simpleRawFacet.facet, simpleRawFacet.values.length);
     expectAllFiltersToBeValid(mappedFacet.filters, SimpleFilterSchema);
-    expectFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
+    expectBooleanFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
   });
 });
 
@@ -81,7 +82,7 @@ describe('Empathy Number Range Facet', () => {
     expect(mappedFacet).toMatchObject(NumberRangeFacetSchema);
     expectFacetToMatchMock(mappedFacet, dynamicNumberRangeRawFacet.facet, 1);
     expectAllFiltersToBeValid(mappedFacet.filters, NumberRangeFilterSchema);
-    expectFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
+    expectBooleanFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
   });
 
   it('maps a number range facet without dynamic values', () => {
@@ -90,7 +91,7 @@ describe('Empathy Number Range Facet', () => {
     expect(mappedFacet).toMatchObject(NumberRangeFacetSchema);
     expectFacetToMatchMock(mappedFacet, noDynamicNumberRangeRawFacet.facet, mappedFacet.filters.length);
     expectAllFiltersToBeValid(mappedFacet.filters, NumberRangeFilterSchema);
-    expectFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
+    expectBooleanFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
   });
 });
 
@@ -101,11 +102,11 @@ function expectFacetToMatchMock(mappedFacet: HierarchicalFacet | SimpleFacet | N
   expect(mappedFacet.filters.length).toEqual(mockFiltersLength);
 }
 
-function expectFiltersToHaveSelectedPropertyTo(filters: Filter[], selected: boolean | null): void {
+function expectBooleanFiltersToHaveSelectedPropertyTo(filters: BooleanFilter[], selected: boolean | null): void {
   filters.forEach(filter => {
     expect(filter.selected).toEqual(selected);
     if (isHierarchicalFilter(filter)) {
-      expectFiltersToHaveSelectedPropertyTo(filter.children, selected);
+      expectBooleanFiltersToHaveSelectedPropertyTo(filter.children, selected);
     }
   });
 }

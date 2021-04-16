@@ -34,6 +34,7 @@ export const DEPENDENCIES = {
   RequestMappers: {
     Parameters: {
       query: 'RequestQueryMapper',
+      sort: 'RequestSortMapper',
       filters: 'RequestFiltersMapper',
       filtersValue: 'FiltersValueMapper'
     }

@@ -1,5 +1,3 @@
-import { SortDirection } from '@empathy/search-types';
-
 /**
  * TODO https://searchbroker.atlassian.net/browse/EX-2163
  *
@@ -14,7 +12,7 @@ export interface EmpathySearchRequest {
   rows?: number;
   scope?: string;
   sort?: string;
-  sortDirection?: SortDirection;
+  sortDirection?: string;
   start?: number;
   store?: string;
   warehouse?: string;

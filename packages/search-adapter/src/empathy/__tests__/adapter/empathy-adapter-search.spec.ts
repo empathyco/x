@@ -23,7 +23,7 @@ it('searches successfully', async () => {
   expect(response.results.length).toBeGreaterThan(0);
   expect(response.results).toHaveLength(SearchSimpleResponse.content.docs.length);
   expect(response.facets).everyItemToMatch(FacetSchema);
-  expect(response.facets.length).toBeGreaterThan(0);
+  expect(response.facets?.length).toBeGreaterThan(0);
   expect(response.facets).toHaveLength(SearchSimpleResponse.content.facets.length);
   expect(fetchMock.mock.calls[0][0]).toContain('q=lego');
   expect(fetchMock.mock.calls[0][0]).toContain('origin=test');

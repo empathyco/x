@@ -54,7 +54,7 @@ export interface TrackableShowResponse {
  */
 export interface SearchResponse {
   banners: Banner[];
-  facets: Facet[];
+  facets?: Facet[];
   partialResults: PartialResult[];
   promoteds: Promoted[];
   queryTagging: Tagging;

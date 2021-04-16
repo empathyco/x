@@ -1,7 +1,7 @@
 import { NumberRangeFacet, NumberRangeFilter, SimpleFilter } from '@empathy/search-types';
 import { inject, injectable, multiInject } from 'inversify';
 import { EmpathyAdapterConfig, FacetsConfig } from '../../../config';
-import { DEPENDENCIES } from '../../../container';
+import { DEPENDENCIES } from '../../../container/container.const';
 import { MapFn, ResponseMapper, ResponseMapperContext } from '../../../empathy-adapter.types';
 import { EmpathyFacet, EmpathyFilter } from '../../../models';
 import { pipeMappers } from '../../pipe-mappers';

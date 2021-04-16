@@ -1,4 +1,4 @@
-import { Filter, RelatedTag, SortDirection } from '@empathy/search-types';
+import { Filter, RelatedTag, Sort } from '@empathy/search-types';
 import { Dictionary } from './utils.types';
 
 /**
@@ -68,8 +68,7 @@ export interface RequestOptions {
  * @public
  */
 export interface SearchRequest extends QueryableRequest, FilterableRequest, PageableRequest, TrackableRequest {
-  sort?: string;
-  sortDirection?: SortDirection;
+  sort?: Sort;
 }
 
 /**

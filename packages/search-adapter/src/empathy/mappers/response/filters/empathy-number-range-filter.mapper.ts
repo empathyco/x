@@ -17,7 +17,7 @@ export class EmpathyNumberRangeFilterMapper implements ResponseMapper<EmpathyFil
     return Object.assign<NumberRangeFilter, Partial<NumberRangeFilter>>(filter, {
       id,
       modelName: 'NumberRangeFilter',
-      value: {
+      range: {
         min: Number.parseFloat(min) || null,
         max: Number.parseFloat(max) || null
       }

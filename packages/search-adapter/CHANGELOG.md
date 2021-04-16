@@ -1,10 +1,30 @@
 # Search Adapter Changelog
 
+## 6.0.0 - 2020/04/16
+
+> EX-3070 Add new template config inside the `FacetConfig` model.
+>
+> EX-3253 Update `@empathy/search-types` to version `8.0.0-alpha.1` and `@empathy/jest-utils` to version `1.3.0`.
+>
+> EX-3253 Add new facet mapper `EmpathyBooleanFilterMapper` which maps `selected`, `value`, `totalResults` properties removed from `EmpathyFilterMapper`.
+>
+> EX-3253 Add `EmpathyBooleanFilterMapper` mapper to `DEPENDENCIES.ResponseMappers.simpleFilter`, `DEPENDENCIES.ResponseMappers.hierarchicalFilter`, `DEPENDENCIES.ResponseMappers.numberRangeFilter` dependencies.
+>
+> EX-3253 Modified `EmpathyRequestFiltersSolrSyntaxMapper` to accept `BooleanFilter` and `EditableNumberRangeFilter`.
+>
+> EX-3253 Renamed `EmpathyNumberRangeFilter` `value` map to `range`. 
+>
+> EX-3253 Modified `facets` from `SearchResponse` to make it optional.
+> 
+> EX-3302 Update `SearchRequest` interface removing the unused `SortDirection` parameter.
+>
+> EX-3439 Add `EmpathyRequestSortMapper` mapper.
+
 ## 5.0.0 - 2020/01/07
 
-> EX-2413 Add new facet mappers `EmpathyFacetMapper`, `EmpathySimpleFacetMapper`, `EmpathyHierarchicalFacetMapper`, and `EmpathyNumberRangeFacetMapper`. 
+> EX-2413 Add new facet mappers `EmpathyFacetMapper`, `EmpathySimpleFacetMapper`, `EmpathyHierarchicalFacetMapper`, and `EmpathyNumberRangeFacetMapper`.
 >
-> EX-2413 Add new filter mappers `EmpathyFilterMapper`, `EmpathySimpleFilterMapper`, `EmpathyHierarchicalFilterMapper`, and `EmpathyNumberRangeFilterMapper`. 
+> EX-2413 Add new filter mappers `EmpathyFilterMapper`, `EmpathySimpleFilterMapper`, `EmpathyHierarchicalFilterMapper`, and `EmpathyNumberRangeFilterMapper`.
 >
 > EX-2413 Replace facet mappers in `DEPENDENCIES.ResponseMappers.facets` with the new ones.
 >
@@ -40,10 +60,10 @@
 >
 > EX-1641 Change default search endpoint from `api{env}.empathybroker.com/search/v1/query/{instance}/search` to `api{env}.empathybroker.com/search/v1/query/{instance}/searchX`
 >
-> EX-1693 Update `@empathy/search-types` to version `5.0.0` and mappers accordingly 
+> EX-1693 Update `@empathy/search-types` to version `5.0.0` and mappers accordingly
 
-> ## 3.2.2 - 2020/06/18
->
+## 3.2.2 - 2020/06/18
+
 > EX-1962 Check `rawFilter.value` in `EmpathyRangeFilterMapper` to avoid error
 
 ## 3.2.1 - 2020/04/14
@@ -58,14 +78,14 @@
 
 > EX-1506 Add `isWishlisted` field mapping to `mapResult`'s
 >
-> EX-1376 Externalized in `empathy-search-request.mapper` the logic of appending related tags to the query to a new mapper 
+> EX-1376 Externalized in `empathy-search-request.mapper` the logic of appending related tags to the query to a new mapper
 >
 > EX-1376 Now `empathy-queryable-request.mapper` uses `empathy-request-related-tags-query.mapper` to generate the new query with related tags
 >
 > EX-1376 Added new request param mapper `empathy-request-related-tags-query.mapper` which concatenates related tags with the query
 >
 > EX-1376 Now `QueryableRequest` request type allows optionally related tags
-> 
+>
 > EX-1489 Add the `rawResponse` to `beforeResponseTransformed`'s hook context
 
 ## 3.0.1
@@ -74,15 +94,15 @@
 >
 > EX-1540 Set a fixed `@empathybroker/eb-tslint` version
 
- ## 3.0.0
+## 3.0.0
 
 > EX-1443 Add new entity `showTagging` used for tracking when te response of a feature has been displayed to the user.
 >
 > EX-1380 Remove first filter auto-selection from `empathy-suggestion-facets.mapper`
 >
 > EX-1276 Add `checkout` to `TrackingResultConfig` interface
-> 
-> EX-1355 Removed `preselected` property 
+>
+> EX-1355 Removed `preselected` property
 >
 > EX-1292 Added discovery wall features: `getClicksRecommendations`, `getQueriesRecommendations`, `getSectionRecommendations`, `getUserRecommendations`
 

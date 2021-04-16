@@ -1,4 +1,3 @@
-import { MultiSelect } from '@empathy/search-types';
 import { DEFAULT_CACHE_CONFIG } from './cache.config';
 import { EmpathyAdapterConfig } from './empathy-adapter-config.types';
 
@@ -113,13 +112,7 @@ export const DEFAULT_EMPATHY_ADAPTER_CONFIG: EmpathyAdapterConfig = {
     facets: {
       default: {
         modelName: 'SimpleFacet',
-        isDynamic: false,
-        multiSelectable: MultiSelect.Disabled,
-        showUnselectedValues: true,
-        prefix: {
-          facetId: ({ filter: { facetId } }) => facetId,
-          noTagFacetId: ({ filter: { facetId } }) => facetId
-        }
+        isDynamic: false
       }, named: {}
     },
     tracking: {

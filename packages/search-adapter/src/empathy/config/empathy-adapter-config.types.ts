@@ -1,14 +1,4 @@
-import {
-  FacetModelName,
-  Filter,
-  HierarchicalFacet,
-  HierarchicalFilter,
-  MultiSelect,
-  NumberRangeFacet,
-  NumberRangeFilter,
-  SimpleFacet,
-  SimpleFilter
-} from '@empathy/search-types';
+import { FacetModelName, Filter } from '@empathy/search-types';
 import {
   ClicksRecommendationsResponse,
   Dictionary,
@@ -105,12 +95,7 @@ export interface FacetsConfig {
 export interface FacetConfig {
   modelName: FacetModelName;
   isDynamic: boolean;
-  multiSelectable: MultiSelect;
-  showUnselectedValues: boolean;
-  prefix: {
-    facetId: string | ((context: FilterValueMapperParams) => string);
-    noTagFacetId: string | ((context: FilterValueMapperParams) => string);
-  };
+  template?: string;
 }
 
 /**

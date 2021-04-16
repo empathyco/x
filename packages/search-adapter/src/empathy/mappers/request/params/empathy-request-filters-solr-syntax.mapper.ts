@@ -1,8 +1,15 @@
-import { Filter, MultiSelect, NumberRangeFilter, RangeValue } from '@empathy/search-types';
+import {
+  BooleanFilter,
+  EditableNumberRangeFilter,
+  Filter,
+  isBooleanFilter,
+  isEditableNumberRangeFilter
+} from '@empathy/search-types';
 import { inject, injectable } from 'inversify';
-import { EmpathyAdapterConfig, FacetConfig, FilterValueMapperParams } from '../../../config/empathy-adapter-config.types';
+import { EmpathyAdapterConfig } from '../../../config/empathy-adapter-config.types';
 import { DEPENDENCIES } from '../../../container/container.const';
 import { Mapper } from '../../../empathy-adapter.types';
+import { Logger } from '../../../logger';
 
 // TODO When the backend updates their services to be agnostic of the solr db syntax, we can remove this class
 /**
@@ -14,67 +21,64 @@ import { Mapper } from '../../../empathy-adapter.types';
 export class EmpathyRequestFiltersSolrSyntaxMapper implements Mapper<Filter[], string[]> {
   constructor(@inject(DEPENDENCIES.config) private readonly config: EmpathyAdapterConfig) {}
 
+  private readonly logger = Logger.child('EmpathyRequestFiltersSolrSyntaxMapper');
+
   map(filters: Filter[], filterValues: string[]): string[] {
-    const facetId = filters[0].facetId;
-    const mappedFilterValues = this.needsCompositionWithOrOnFrontend(facetId, filters)
-      ? this.composeFiltersWithOr(facetId, filters)
-      : this.composeFilters(facetId, filters);
-    filterValues.push(...mappedFilterValues);
+    filterValues.push(...this.composeFilters(filters));
     return filterValues;
   }
 
-  private composeFilters(facetId: string, filters: Filter[]): string[] {
-    return this.isNumberRangeFilters(filters)
-      ? filters.map(filter => `${ this.getFilterPrefix(facetId, filter) }:${ this.mapRangeValue(filter.value) }`)
-      : filters.map(filter => `${ this.getFilterPrefix(facetId, filter) }:${ filter.value }`);
+  private composeFilters(filters: Filter[]): string[] {
+    if (this.isArrayOfBooleanFilters(filters)) {
+      return filters.map(filter => filter.value);
+    } else if (this.isArrayOfEditableNumberRangeFilters(filters)) {
+      return this.mapEditableNumberRangeFiltersList(filters);
+    }
+
+    this.logger.warn(`Unknown filter type ${ filters[0].modelName }`);
+    return [];
   }
 
-  private composeFiltersWithOr(facetId: string, filters: Filter[]): string[] {
-    const prefix = this.getFilterPrefix(facetId, filters[0]);
-    const filterValues = this.isNumberRangeFilters(filters)
-      ? filters.map(filter => this.mapRangeValue(filter.value))
-      : filters.map(filter => filter.value);
-    return [`${ prefix }:(${ filterValues.join(' OR ') })`];
-  }
-
-  private getFacetConfig(facetId: string): FacetConfig {
+  private mapEditableNumberRangeFiltersList(filters: EditableNumberRangeFilter[]): string[] {
+    const facetId = filters[0].facetId;
     const facetsConfig = this.config.mappings.facets;
-    return facetsConfig.named[facetId] || facetsConfig.default;
+    const { template } = facetsConfig.named[facetId] || facetsConfig.default;
+    if (template) {
+      return filters.map(filter => this.mapEditableNumberRangeFilter(template, filter));
+    }
+    this.logger.warn(`The facet with facetId ${ facetId } doesn't have a template configured.`);
+    return [];
   }
 
-  private getFacetIdPrefix(facetId: string, context: FilterValueMapperParams): string {
-    const { prefix } = this.getFacetConfig(facetId);
-    return prefix.facetId instanceof Function
-      ? prefix.facetId(context)
-      : prefix.facetId;
+  private mapEditableNumberRangeFilter(template: string, { range: { min, max } }: EditableNumberRangeFilter): string {
+    function parseNullValues(value: number | null) {
+      return value === null ? '*' : String(value);
+    }
+
+    return template
+      .replace(/<min>/g, parseNullValues(min))
+      .replace(/<max>/g, parseNullValues(max));
   }
 
-  private getFilterPrefix(facetId: string, filter: Filter): string {
-    const { showUnselectedValues } = this.getFacetConfig(facetId);
-    const context: FilterValueMapperParams = { config: this.config, filter };
-    const noTagPrefix = showUnselectedValues ? this.getNoTagPrefix(facetId, context) : '';
-    const facetIdPrefix = this.getFacetIdPrefix(facetId, context);
-    return `${ noTagPrefix }${ facetIdPrefix }`;
+  /**
+   * Check if the filters passed are of type {@link @empathy/search-types#BooleanFilter | BooleanFilter}.
+   *
+   * @param filters - The array of filters to check.
+   *
+   * @internal
+   */
+  private isArrayOfBooleanFilters(filters: Filter[]): filters is BooleanFilter[] {
+    return isBooleanFilter(filters[0]);
   }
 
-  private isNumberRangeFilters(filters: Filter[]): filters is NumberRangeFilter[] {
-    return filters[0].modelName === 'NumberRangeFilter';
-  }
-
-  private mapRangeValue({ min, max }: RangeValue): string {
-    return `[${ min || '*' } TO ${ max || '*' }]`;
-  }
-
-  private getNoTagPrefix(facetId: string, context: FilterValueMapperParams): string {
-    const { prefix } = this.getFacetConfig(facetId);
-    const noTag = prefix.noTagFacetId instanceof Function
-      ? prefix.noTagFacetId(context)
-      : prefix.noTagFacetId;
-    return `{!tag=${ noTag }}`;
-  }
-
-  private needsCompositionWithOrOnFrontend(facetId: string, filters: Filter[]): boolean {
-    const { multiSelectable } = this.getFacetConfig(facetId);
-    return multiSelectable === MultiSelect.OnFrontend && filters.length > 1;
+  /**
+   * Check if the filters passed are of type {@link @empathy/search-types#EditableNumberRangeFilter | EditableNumberRangeFilter}.
+   *
+   * @param filters - The array of filters to check.
+   *
+   * @internal
+   */
+  private isArrayOfEditableNumberRangeFilters(filters: Filter[]): filters is EditableNumberRangeFilter[] {
+    return isEditableNumberRangeFilter(filters[0]);
   }
 }

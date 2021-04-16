@@ -1,4 +1,3 @@
-import { MultiSelect } from '@empathy/search-types';
 import { Container } from 'inversify';
 import { FeatureNames } from '../../types';
 import { CustomRequestMapper, CustomRequestor, CustomResultMapper } from '../__mocks__/empathy-builder.mocks';
@@ -235,27 +234,6 @@ it('Allows to modify and extend default features configuration', () => {
   expect(config.features.search.responsePaths.results).toEqual(defaultResultsPath);
   expect(config.features.search.responsePaths.banners).toEqual('customBanners');
   expect(config.features.search.responsePaths.newProperty).toEqual('newProperty');
-});
-
-it('Allows to modify facets mapping config', () => {
-  const config = container.get<EmpathyAdapterConfig>(DEPENDENCIES.config);
-
-  builder
-    .setFacetConfig({
-      multiSelectable: MultiSelect.OnBackend
-    })
-    .setFacetConfig({
-      multiSelectable: MultiSelect.OnFrontend
-    }, 'price')
-    .setFacetConfig({}, 'rootCategories')
-    .build();
-  const defaultFacetConfig = config.mappings.facets.default;
-  const priceFacetConfig = config.mappings.facets.named.price;
-  const rootCategoriesFacetConfig = config.mappings.facets.named.rootCategories;
-
-  expect(defaultFacetConfig.multiSelectable).toEqual(MultiSelect.OnBackend);
-  expect(priceFacetConfig.multiSelectable).toEqual(MultiSelect.OnFrontend);
-  expect(rootCategoriesFacetConfig.multiSelectable).toEqual(MultiSelect.OnBackend);
 });
 
 it('Allows to modify result tracking config', () => {

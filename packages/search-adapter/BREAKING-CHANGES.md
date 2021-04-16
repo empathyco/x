@@ -1,5 +1,19 @@
 # Search Adapter Changelog
 
+## 6.0.0
+
+> EX-3070 Remove `prefix`, `multiSelectable`, `showUnselectedValues` and add new `template` config inside the `FacetConfig`, now it's not possible to concatenate filters using OR.
+>
+> EX-3253 Update `@empathy/search-types` to version `8.0.0-alpha.1` and `@empathy/jest-utils` to version `1.3.0`.
+>
+> EX-3253 Add new facet mapper `EmpathyBooleanFilterMapper` which maps `selected`, `value`, `totalResults` properties removed from `EmpathyFilterMapper`.
+>
+> EX-3253 Renamed `EmpathyNumberRangeFilter` `value` map to `range`.
+>
+> EX-3253 Modified `facets` from `SearchResponse` to make it optional.
+> 
+> EX-3302 Remove `sortDirection` parameter from `SearchRequest`.
+
 ## 5.0.0
 
 > EX-2413 Rename `facetName` and `noTagFacetName` by `facetId` and `noTagFacetId` respectively in the `FacetConfig.prefix`.

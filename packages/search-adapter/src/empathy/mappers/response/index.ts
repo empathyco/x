@@ -7,6 +7,7 @@ export * from './filters/empathy-filter.mapper';
 export * from './filters/empathy-hierarchical-filter.mapper';
 export * from './filters/empathy-number-range-filter.mapper';
 export * from './filters/empathy-simple-filter.mapper';
+export * from './filters/empathy-boolean-filter.mapper';
 
 export * from './results/empathy-result.mapper';
 export * from './results/empathy-result-query-tagging.mapper';

@@ -11,6 +11,7 @@ import { EmpathyRequestFiltersSolrSyntaxMapper } from '../mappers/request/params
 import { EmpathyRequestFiltersMapper } from '../mappers/request/params/empathy-request-filters.mapper';
 import { EmpathyRequestQueryMapper } from '../mappers/request/params/empathy-request-query.mapper';
 import { EmpathyRequestRelatedTagsQueryMapper } from '../mappers/request/params/empathy-request-related-tags-query.mapper';
+import { EmpathyRequestSortMapper } from '../mappers/request/params/empathy-request-sort.mapper';
 import { ResponseMappers } from '../mappers/response.mappers';
 import { EmpathyBannerMapper } from '../mappers/response/empathy-banner.mapper';
 import { EmpathyNextQueryMapper } from '../mappers/response/empathy-next-query.mapper';
@@ -24,6 +25,7 @@ import { EmpathyFacetMapper } from '../mappers/response/facets/empathy-facet.map
 import { EmpathyHierarchicalFacetMapper } from '../mappers/response/facets/empathy-hierarchical-facet.mapper';
 import { EmpathyNumberRangeFacetMapper } from '../mappers/response/facets/empathy-number-range-facet.mapper';
 import { EmpathySimpleFacetMapper } from '../mappers/response/facets/empathy-simple-facet.mapper';
+import { EmpathyBooleanFilterMapper } from '../mappers/response/filters/empathy-boolean-filter.mapper';
 import { EmpathyFilterMapper } from '../mappers/response/filters/empathy-filter.mapper';
 import { EmpathyHierarchicalFilterMapper } from '../mappers/response/filters/empathy-hierarchical-filter.mapper';
 import { EmpathyNumberRangeFilterMapper } from '../mappers/response/filters/empathy-number-range-filter.mapper';
@@ -102,6 +104,7 @@ export const BINDINGS: BindingDictionary = {
   [DEPENDENCIES.RequestMappers.Parameters.query]: [EmpathyRequestRelatedTagsQueryMapper, EmpathyRequestQueryMapper],
   [DEPENDENCIES.RequestMappers.Parameters.filters]: EmpathyRequestFiltersMapper,
   [DEPENDENCIES.RequestMappers.Parameters.filtersValue]: EmpathyRequestFiltersSolrSyntaxMapper,
+  [DEPENDENCIES.RequestMappers.Parameters.sort]: EmpathyRequestSortMapper,
   // Response mappers
   [DEPENDENCIES.ResponseMappers.banners]: EmpathyBannerMapper,
   [DEPENDENCIES.ResponseMappers.facets]: [
@@ -110,9 +113,9 @@ export const BINDINGS: BindingDictionary = {
     EmpathyHierarchicalFacetMapper,
     EmpathyNumberRangeFacetMapper
   ],
-  [DEPENDENCIES.ResponseMappers.simpleFilter]: [EmpathyFilterMapper, EmpathySimpleFilterMapper],
-  [DEPENDENCIES.ResponseMappers.hierarchicalFilter]: [EmpathyFilterMapper, EmpathyHierarchicalFilterMapper],
-  [DEPENDENCIES.ResponseMappers.numberRangeFilter]: [EmpathyFilterMapper, EmpathyNumberRangeFilterMapper],
+  [DEPENDENCIES.ResponseMappers.simpleFilter]: [EmpathyFilterMapper, EmpathyBooleanFilterMapper, EmpathySimpleFilterMapper],
+  [DEPENDENCIES.ResponseMappers.hierarchicalFilter]: [EmpathyFilterMapper, EmpathyBooleanFilterMapper, EmpathyHierarchicalFilterMapper],
+  [DEPENDENCIES.ResponseMappers.numberRangeFilter]: [EmpathyFilterMapper, EmpathyBooleanFilterMapper, EmpathyNumberRangeFilterMapper],
   [DEPENDENCIES.ResponseMappers.nextQueries]: EmpathyNextQueryMapper,
   [DEPENDENCIES.ResponseMappers.partialResults]: EmpathyPartialResultMapper,
   [DEPENDENCIES.ResponseMappers.promoteds]: EmpathyPromotedMapper,
