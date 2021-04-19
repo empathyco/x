@@ -102,6 +102,11 @@ const routes: RouteConfig[] = [
     path: '/test/sort',
     name: 'Search Sort',
     component: () => import('./views/sort.vue')
+  },
+  {
+    path: '/test/infinite-scroll',
+    name: 'Infinite scroll',
+    component: () => import('./views/InfiniteScroll.vue')
   }
 ];
 

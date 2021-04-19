@@ -13,7 +13,7 @@
     "declarationMap": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": ["webpack-env", "jest", "testing-library__jest-dom"],
+    "types": ["webpack-env", "jest", "testing-library__jest-dom", "resize-observer-browser"],
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   "include": [
