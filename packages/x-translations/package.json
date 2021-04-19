@@ -1,0 +1,48 @@
+{
+  "name": "@empathy/x-translations",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc && npm pack",
+    "release": "standard-version --no-verify",
+    "release:alpha": "standard-version --no-verify --prerelease alpha",
+    "commit": "git-cz"
+  },
+  "dependencies": {
+    "@empathybroker/deep-merge": "^1.2.1"
+  },
+  "devDependencies": {
+    "@empathy/eslint-plugin-x": "^1.2.0",
+    "@types/node": "~14.14.39",
+    "commitizen": "~4.0.3",
+    "cz-conventional-changelog": "~3.1.0",
+    "husky": "~4.3.5",
+    "lint-staged": "~10.5.4",
+    "ts-node": "~8.6.2",
+    "typescript": "~3.8.3"
+  },
+  "files": [
+    "package.json",
+    "dist/convert-json-to-csv.js"
+  ],
+  "bin": {
+    "convert-json-to-csv": "dist/convert-json-to-csv.js"
+  },
+  "prettier": "@empathy/eslint-plugin-x/prettier-config",
+  "lint-staged": {
+    "./**/*.ts": [
+      "prettier --write",
+      "eslint"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
