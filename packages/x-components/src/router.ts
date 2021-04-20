@@ -70,12 +70,12 @@ const routes: RouteConfig[] = [
   },
   {
     path: '/test/base-events-modal',
-    name: 'Base Events Modal',
+    name: 'Events Modal',
     component: () => import('./views/base-events-modal.vue')
   },
   {
     path: '/test/base-result-image',
-    name: 'Base Result Image',
+    name: 'Result Image',
     component: () => import('./views/base-result-image.vue')
   },
   {
@@ -85,8 +85,8 @@ const routes: RouteConfig[] = [
   },
   {
     path: '/test/base-filters-search',
-    name: 'Base Filters Search',
-    component: () => import('./views/base-filters-search.vue')
+    name: 'Filters Search',
+    component: () => import('./views/filters-search.vue')
   },
   {
     path: '/test/sliding-panel',
