@@ -7,6 +7,7 @@ export { default as SelectedFiltersList } from './lists/selected-filters-list.vu
 // Filters
 export { default as AllFilter } from './filters/all-filter.vue';
 export { default as BaseFilter } from './filters/base-filter.vue';
+export { default as RenderlessFilter } from './filters/renderless-filter.vue';
 export { default as HierarchicalFilter } from './filters/hierarchical-filter.vue';
 export { default as NumberRangeFilter } from './filters/number-range-filter.vue';
 export { default as SimpleFilter } from './filters/simple-filter.vue';
