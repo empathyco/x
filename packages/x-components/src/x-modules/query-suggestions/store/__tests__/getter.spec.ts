@@ -1,7 +1,7 @@
 import { Suggestion } from '@empathy/search-types';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { isArrayEmpty, map, normalizeString } from '../../../../utils';
+import { map, normalizeString } from '../../../../utils';
 import { getQuerySuggestionsStub } from '../../../../__stubs__/query-suggestions-stubs.factory';
 import { querySuggestionsXStoreModule } from '../module';
 import { QuerySuggestionsState } from '../types';
@@ -77,8 +77,11 @@ describe('testing query suggestions module getters', () => {
 
         const suggestionsStubFilterFacets = suggestionsStub.filter(
           (suggestion: Suggestion) =>
-            normalizeString(suggestion.query) !== normalizeString(querySearch) ||
-            !isArrayEmpty(suggestion.facets)
+            // eslint-disable-next-line max-len
+            // TODO Hide the suggestion if it's equals to the query and it does NOT have facets. (EX-3184)
+            // The logic it's here https://bitbucket.org/colbenson/x-components/pull-requests/432
+            // normalizedSuggestionQuery !== normalizedQuery || !isArrayEmpty(suggestion.facets)
+            normalizeString(suggestion.query) !== normalizeString(querySearch)
         );
 
         const gettersQuerySuggestions: Suggestion[] = store.getters[getters.querySuggestions];

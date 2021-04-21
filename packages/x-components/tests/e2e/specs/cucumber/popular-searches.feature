@@ -24,6 +24,6 @@ Feature: Popular searches component
     Examples:
       | hideSessionQueries | maxItemsToRequest | maxItemsToRender | popularSearchItem |
       | false              | 10                | 5                | 0                 |
-      | true               | 5                 | 10               | 1                 |
+      | true               | 5                 | 10               | 2                 |
       | true               | 10                | 5                | 4                 |
 

@@ -1,6 +1,5 @@
 import { Suggestion } from '@empathy/search-types';
 import { GettersClass } from '../../../../store/getters.types';
-import { isArrayEmpty } from '../../../../utils/array';
 import { normalizeString } from '../../../../utils/normalize';
 import { QuerySuggestionsState, QuerySuggestionsXStoreModule } from '../types';
 
@@ -18,11 +17,10 @@ export class QuerySuggestionsGetter implements GettersClass<QuerySuggestionsXSto
    * @returns The filtered subset of queries, matching with the current query.
    */
   querySuggestions({ query, suggestions, config }: QuerySuggestionsState): Suggestion[] {
-    return query
-      ? suggestions.filter(
-          this.isInQuerySuggestions(normalizeString(query), config.hideIfEqualsQuery)
-        )
-      : suggestions;
+    if (!query || !config.hideIfEqualsQuery) {
+      return suggestions;
+    }
+    return suggestions.filter(this.isInQuerySuggestions(normalizeString(query)));
   }
 
   /**
@@ -30,22 +28,18 @@ export class QuerySuggestionsGetter implements GettersClass<QuerySuggestionsXSto
    * the current query.
    *
    * @param normalizedQuery - The normalized query for search into the array.
-   * @param hideIfEqualsQuery - If `true`, removes items that are exactly like the current query.
    * @returns A filter function for searching into the array of suggestion queries with the provided
    * params.
    * @internal
    */
-  protected isInQuerySuggestions(
-    normalizedQuery: string,
-    hideIfEqualsQuery: boolean
-  ): (suggestion: Suggestion) => boolean {
+  protected isInQuerySuggestions(normalizedQuery: string): (suggestion: Suggestion) => boolean {
     return (suggestion: Suggestion) => {
-      if (!hideIfEqualsQuery) {
-        return true;
-      }
-
       const normalizedSuggestionQuery = normalizeString(suggestion.query);
-      return normalizedSuggestionQuery !== normalizedQuery || !isArrayEmpty(suggestion.facets);
+      // eslint-disable-next-line max-len
+      // TODO Hide the suggestion if it's equals to the query and it does NOT have facets. (EX-3184)
+      // The logic is here https://bitbucket.org/colbenson/x-components/pull-requests/432
+      // normalizedSuggestionQuery !== normalizedQuery || !isArrayEmpty(suggestion.facets)
+      return normalizedSuggestionQuery !== normalizedQuery;
     };
   }
 }
