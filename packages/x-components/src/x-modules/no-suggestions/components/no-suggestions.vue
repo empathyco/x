@@ -185,4 +185,11 @@
   ```vue
   <NoSuggestions :eventsToRender="['NextQueriesChanged', 'QuerySuggestionsChanged']" />
   ```
+
+  ## Events
+
+  A list of events that the component will emit:
+
+  - `UserAcceptedAQuery`: the event is emitted after the user clicks the button. The event payload
+  is the query that has no suggestions.
 </docs>

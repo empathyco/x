@@ -107,4 +107,11 @@ It is possible to override the column picker button content.
   <span>{{ column }}</span>
 </BaseColumnPickerList>
 ```
+
+## Events
+
+A list of events that the component will emit:
+
+- `UserClickedColumnPicker`: the event is emitted after the user clicks an item. The event payload
+is the number of columns that the clicked item represents.
 </docs>

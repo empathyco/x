@@ -74,4 +74,13 @@ and `UserAcceptedSpellcheckQuery` events.
   </template>
 </SpellcheckButton>
 ```
+
+## Events
+
+This component emits 2 different events:
+
+- UserAcceptedAQuery: the event is emitted after the user clicks the button. The event payload is
+  the spellchecked query data.
+- UserAcceptedSpellcheckQuery: the event is emitted after the user clicks the button. The event
+  payload is the spellchecked query data.
 </docs>

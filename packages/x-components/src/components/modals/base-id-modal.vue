@@ -134,4 +134,11 @@ share the same value in their `modalId` prop to work:
   };
 </script>
 ```
+
+## Events
+
+A list of events that the component will emit:
+
+- `UserClickedOutOfModal`: the event is emitted after the user clicks outside the modal. The event
+  payload is the id of the modal and a metadata with the target element that emitted it.
 </docs>

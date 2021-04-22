@@ -332,6 +332,26 @@
     </TabItem>
   </Tabs>
 
+  ## Events
+
+  A list of events that the component will emit:
+
+  - `UserAcceptedAQuery`: the event is emitted after the user press the enter key or after
+  a certain time after type a query. The event payload is the query data and a metadata with the
+  target that emitted it.
+  - `UserPressedEnterKey`: the event is emitted after the user press the enter key. The event
+  payload is the query data and a metadata with the target that emitted it.
+  - `UserPressedArrowKey`: the event is emitted after the user press an arrow key. The event payload
+  is the event key and a metadata with the target that emitted it.
+  - `UserIsTypingAQuery`: the event is emitted when the user is typing. The event payload is the
+  query data and a metadata with the target that emitted it.
+  - `UserFocusedSearchBox`: the event is emitted after the user focus the search box. The event
+  payload is the metadata with the target that emitted it.
+  - `UserClickedSearchBox`: the event is emitted after the user clicks the button. The event
+  payload is the metadata with the target that emitted it.
+  - `UserBlurredSearchBox`: the event is emitted after the user blurs the search box. The event
+  payload the metadata with the target that emitted it.
+
   ## Up next
 
   Ready for more? Continue reading with:

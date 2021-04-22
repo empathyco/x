@@ -175,6 +175,15 @@
   </TabItem>
   </Tabs>
 
+  ## Events
+
+  A list of events that the component will emit:
+
+  - `UserAcceptedAQuery`: the event is emitted after the user clicks the button. The event
+  payload is the query data.
+  - `UserPressedSearchButton`: the event is emitted after the user clicks the button. The event
+  payload is the query data.
+
   ## Up next
 
   Ready for more? Continue reading with:

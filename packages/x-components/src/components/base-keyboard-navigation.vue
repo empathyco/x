@@ -195,4 +195,13 @@
     <QuerySuggestions/>
   </KeyboardNavigation>
   ```
+
+
+  ## Events
+
+  An event that the component will emit:
+
+  - `UserReachedEmpathizeTop`: the event emitted by default when the container reaches its top
+  navigation, but more events can be emitted for each direction using the `eventsForDirectionLimit`
+  prop.
 </docs>

@@ -119,5 +119,10 @@ facet label but this content is customizable through the default slot.
   </template>
 </Facets>
 ```
+## Events
 
+A list of events that the component will emit:
+
+- `UserClickedFacetAllFilter`: the event is emitted after the user clicks the button. The event
+payload is the id of the facet that this `AllFilter` component corresponds to.
 </docs>

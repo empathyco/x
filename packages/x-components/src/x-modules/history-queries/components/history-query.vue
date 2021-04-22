@@ -117,4 +117,11 @@
     </template>
   </HistoryQuery>
     ```
+
+  ## Events
+
+  A list of events that the component will emit:
+
+  - `UserSelectedAHistoryQuery`: the event is emitted after the user clicks the button. The event
+  payload is the history query data.
 </docs>

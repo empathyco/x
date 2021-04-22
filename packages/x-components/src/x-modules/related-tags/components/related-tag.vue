@@ -127,4 +127,15 @@
     </template>
   </RelatedTag>
   ```
+
+  ## Events
+
+  A list of events that the component will emit:
+
+  - `UserPickedARelatedTag`: the event is emitted after the user clicks the button. The event
+  payload is the related tag data.
+  - `UserSelectedARelatedTag`: the event is emitted after the user clicks the button and if the
+  state is not selected. The event payload is the related tag data.
+  - `UserDeselectedARelatedTag`: the event is emitted after the user clicks the button and if the
+  state is selected. The event payload is the related tag data.
 </docs>

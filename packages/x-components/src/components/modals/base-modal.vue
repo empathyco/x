@@ -202,4 +202,13 @@ open.
   };
 </script>
 ```
+
+## Vue Events
+
+A list of events that the component will emit:
+
+- `click:body`: the event is emitted after the user clicks any part out of the content but only if
+  the modal is open. The event payload is the mouse event that triggers it.
+- `focusin:body`: the event is emitted after the user focus in any part out of the content but only
+  if the modal is open. The event payload is the focus event that triggers it.
 </docs>

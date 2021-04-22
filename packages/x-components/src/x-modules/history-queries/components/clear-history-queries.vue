@@ -88,4 +88,10 @@
     <img class="x-history-query__icon" src="./my-icon.svg"/>
   </ClearHistoryQueries>
   ```
+
+  ## Events
+
+  A list of events that the component will emit:
+
+  - `UserPressedClearHistoryQueries`: the event is emitted after the user clicks the button.
 </docs>

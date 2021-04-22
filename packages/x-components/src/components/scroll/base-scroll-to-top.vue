@@ -224,9 +224,8 @@ the scroll.
 
 ## Events
 
-This component emits 1 event:
+A list of events that the component will emit:
 
-- UserClickedScrollToTop: As the name describes, this event will be emitted after the user clicks
-  the scroll to top button. Provides feedback on when the button is clicked and returns the id which
-  is shared between the scroll to top and the target scroll.
+- `UserClickedScrollToTop`: the event is emitted after the user clicks the button. The event payload
+  is the id of the scroll that it going to be scrolled.
 </docs>

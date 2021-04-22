@@ -88,4 +88,13 @@ The component sets the current query as the new query and emits the `UserAccepte
   };
 </script>
 ```
+
+## Events
+
+This component emits 2 different events:
+
+- UserAcceptedAQuery: the event is emitted after the user clicks the partial query. The event
+  payload is the partial query data.
+- UserClickedPartialQuery: the event is emitted after the user clicks the partial query. The event
+  payload is the partial query data.
 </docs>

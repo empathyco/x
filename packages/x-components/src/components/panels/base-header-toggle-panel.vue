@@ -112,4 +112,11 @@ of the panel.
   </template>
 </BaseHeaderTogglePanel>
 ```
+
+## Vue Events
+
+A list of events that the component will emit:
+
+- `open`: the event is emitted after the user clicks the element and opens it.
+- `close`: the event is emitted after the user clicks the element and closes it.
 </docs>

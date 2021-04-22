@@ -183,4 +183,12 @@ mandatory prop, it allows you to configure the transitions (using the `animation
   </Facets>
 </template>
 ```
+
+## Events
+
+A list of events that the component will emit:
+
+- `FacetMultiSelectChanged`: emitted to sync the multiselect configuration of the facet
+that the filters belong to. The payload is the `facetId` that should change its configuration
+to support multi selection.
 </docs>

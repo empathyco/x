@@ -64,12 +64,12 @@
   This components expects just a suggestion as a prop to be rendered. It has a slot to override
   the content. By default, it renders the suggestion query of the popular search.
 
-  Using default slot:
+  ## Basic Usage
   ```vue
   <PopularSearch :suggestion="suggestion"/>
   ```
 
-  Overriding default slot:
+  ## Custom Usage
   ```vue
   <PopularSearch :suggestion="suggestion">
     <template #default="{ suggestion }">
@@ -80,4 +80,11 @@
     </template>
   </PopularSearch>
   ```
+
+  ## Events
+
+  A list of events that the component will emit:
+
+  - `UserSelectedAPopularSearch`: the event is emitted after the user clicks the button. The event
+  payload is the popular search data.
 </docs>

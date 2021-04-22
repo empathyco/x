@@ -76,9 +76,13 @@
   The query suggestion component expects to receive a suggestion as a prop. When clicked, emits a
   UserSelectedAQuerySuggestion event.
 
+  ## Basic Usage
+
   ```vue
   <QuerySuggestion :suggestion="suggestion"/>
   ```
+
+  ## Custom Usage
 
   With an icon overriding the default slot, which has binded the suggestion and the
   queryHTML.
@@ -91,4 +95,11 @@
     </template>
   </QuerySuggestion>
   ```
+
+  ## Events
+
+  A list of events that the component will emit:
+
+  - `UserSelectedAQuerySuggestion`: the event is emitted after the user clicks the button. The event
+  payload is the query suggestion data.
 </docs>

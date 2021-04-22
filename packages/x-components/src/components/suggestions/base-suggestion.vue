@@ -159,12 +159,13 @@
   normalized query to compare with the suggestion's query and highlight its matching parts and
   events to emit when the suggestion is selected.
 
-  Using default slot:
+  ## Default usage
+
   ```vue
   <BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }"/>
   ```
 
-  Overriding default slot:
+  ## Customized usage
 
   ```vue
   <BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }">
@@ -177,4 +178,13 @@
     </template>
   </BaseSuggestion>
   ```
+  ## Events
+
+  A list of events that the component will emit:
+
+  - `UserAcceptedAQuery`: the event is emitted after the user clicks the button. The event payload
+  is the suggestion query data.
+  - `UserSelectedASuggestion`: the event is emitted after the user clicks the button. The event
+  payload is the suggestion data.
+  - The component can emit more events on click using the `suggestionSelectedEvents` prop.
 </docs>

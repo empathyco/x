@@ -154,17 +154,18 @@
 
 The BaseIdScroll is a component that wraps the BaseScroll and provides it for a unique id.
 
-Apart from emits events of BaseScroll also it emits the following events:
+## Events
 
--UserScrolled: when the user does some movement about scroll.
+A list of events that the component will emit:
 
--UserChangedScrollDirection: when the user scrolls to down or to up.
-
--UserReachedScrollStart: when the user scrolls to start.
-
--UserAlmostReachedScrollEnd: when the user scrolls and is about to end.
-
--UserReachedScrollEnd: when the user scrolls to end.
+- `UserScrolled`: emitted after the user scrolls in this container. The payload is the scroll top
+  distance in pixels.
+- `UserChangedScrollDirection`: emitted when the user changes the scroll direction. The payload is
+  the new scrolling direction.
+- `UserReachedScrollStart`: emitted when the user scrolls up to the initial position of the scroll.
+- `UserAlmostReachedScrollEnd`: emitted when the user is about to reach the bottom part of the
+  scroll.
+- `UserReachedScrollEnd`: emitted when the user has reached the bottom part of the scroll.
 
 ## Customized usage
 

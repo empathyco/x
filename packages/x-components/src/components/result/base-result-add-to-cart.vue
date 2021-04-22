@@ -46,6 +46,9 @@
 <docs>
   #Examples
 
+  Renders a button with a default slot. It receives the result with the data and emits an event
+  `UserClickedResultAddToCart` to the bus on click mouse event.
+
   ## Basic example
 
   This component is a button to emit `UserClickedResultAddToCart` whe clicked by the user
@@ -56,4 +59,11 @@
     <span>Add to cart</span>
   </BaseResultAddToCart>
   ```
+
+  ## Events
+
+  A list of events that the component will emit:
+
+  - `UserClickedResultAddToCart`: the event is emitted after the user clicks the button. The event
+  payload is the result data.
 </docs>

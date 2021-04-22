@@ -85,4 +85,11 @@ This component renders a button, which on clicked emits the `UserClickedAFilter`
   <span>{{ filter.label }}</span>
 </SimpleFilter>
 ```
+
+## Events
+
+A list of events that the component will emit:
+
+- `UserClickedASimpleFilter`: the event is emitted after the user clicks the button.  The event
+payload is the simple filter.
 </docs>

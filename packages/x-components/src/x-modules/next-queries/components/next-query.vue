@@ -71,7 +71,7 @@
   <NextQuery :suggestion="suggestion"/>
   ```
 
-  ## Overriding default slot .
+  ## Overriding default slot.
 
   The default slot allows you to replace the content of the suggestion button.
 
@@ -83,4 +83,11 @@
     </template>
   </NextQuery>
   ```
+
+  ## Events
+
+  A list of events that the component will emit:
+
+  - `UserSelectedANextQuery`: the event is emitted after the user clicks the button. The event
+  payload is the next query data.
 </docs>

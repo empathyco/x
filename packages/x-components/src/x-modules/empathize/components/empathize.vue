@@ -178,4 +178,15 @@ must be a Component with a `Transition` with a slot inside:
   </template>
 </Empathize>
 ```
+
+## Events
+
+A list of events that the component will emit:
+
+- `EmpathizeOpened`: the event is emitted after receiving an event to change the state `isOpen` to
+`true`. The event payload is undefined and can have a metadata with the module and the element that
+emitted it.
+- `EmpathizeClosed`: the event is emitted after receiving an event to change the state `isOpen` to
+`false`. The event payload is undefined and can have a metadata with the module and the element that
+emitted it.
 </docs>

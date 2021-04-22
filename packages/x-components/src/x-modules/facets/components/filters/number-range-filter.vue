@@ -85,4 +85,11 @@ This component renders a button, which on clicked emits the `UserClickedAFilter`
   <span>{{ filter.label }}</span>
 </NumberRangeFilter>
 ```
+
+## Events
+
+A list of events that the component will emit:
+
+- `UserClickedANumberRangeFilter`: the event is emitted after the user clicks the button. The event
+payload is the number range filter.
 </docs>

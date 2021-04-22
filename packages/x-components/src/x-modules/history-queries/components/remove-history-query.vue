@@ -62,4 +62,11 @@
     <img class="x-history-query__icon" src="./my-awesome-clear-icon.svg"/>
   </RemoveHistoryQuery>
   ```
+
+  ## Events
+
+  A list of events that the component will emit:
+
+  - `UserPressedRemoveHistoryQuery`: the event is emitted after the user clicks the button. The
+  event payload is the history query data.
 </docs>

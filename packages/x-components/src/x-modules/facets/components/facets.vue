@@ -649,4 +649,15 @@ the `Facets` component using the `FiltersSearch` `MultiSelectFilters`, `SimpleFi
   };
 </script>
 ```
+
+## Events
+
+A list of events that the component will emit:
+
+- `UserChangedSelectedFilters`: the event is emitted after the user performed an action that changed
+  the selected filters. The payload is the new list of selected filters.
+- `BackendFacetsProvided`: the event is emitted after updating the backendFacets prop with a new
+  list of facets. The payload contains a copy of the backendFacets prop.
+- `FrontendFacetsProvided`: the event is emitted after updating the frontendFacets prop with a new
+  list of facets. The payload contains a copy of the frontendFacets prop.
 </docs>

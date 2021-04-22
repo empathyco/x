@@ -189,4 +189,12 @@ see a full example on how this would work with custom events.
   };
 </script>
 ```
+
+## Events
+
+A list of events that the component will emit:
+
+- `UserClickedCloseX`: the event is emitted after clicking outside the content rendered in the
+  default slot.
+- Custom events to open or close the modal.
 </docs>

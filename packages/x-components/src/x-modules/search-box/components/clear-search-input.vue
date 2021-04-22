@@ -168,7 +168,11 @@
   </TabItem>
   </Tabs>
 
+  ## Events
 
+  A list of events that the component will emit:
+
+  - `UserPressedClearSearchBoxButton`: the event is emitted after the user clicks the button.
 
   ## Up next
 

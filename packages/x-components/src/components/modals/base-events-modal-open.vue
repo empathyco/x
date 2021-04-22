@@ -91,4 +91,10 @@ This event can be changed using the `openingEvent` prop, but remember to change 
   };
 </script>
 ```
+
+## Events
+
+A list of events that the component will emit:
+
+- `UserClickedOpenX`: the event is emitted after the user clicks the button.
 </docs>

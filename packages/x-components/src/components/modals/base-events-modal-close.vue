@@ -87,4 +87,10 @@ This event can be changed using the `closingEvent` prop.
   };
 </script>
 ```
+
+## Events
+
+A list of events that the component will emit:
+
+- `UserClickedCloseX`: the event is emitted after the user clicks the button.
 </docs>

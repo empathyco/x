@@ -38,6 +38,9 @@
 <docs lang="mdx">
 #Examples
 
+Component containing an event button that emits `UserClickedOpenModal` when it is clicked with the
+modalId as payload. It has a default slot to customize its contents.
+
 ## Basic example
 
 The component rendering content passed to the default slot and opening the modal with modalId
@@ -62,4 +65,11 @@ The component rendering content passed to the default slot and opening the modal
   };
 </script>
 ```
+
+## Events
+
+A list of events that the component will emit:
+
+- `UserClickedOpenModal`: the event is emitted after the user clicks the button. The event payload
+  is the id of the modal that is going to be opened.
 </docs>

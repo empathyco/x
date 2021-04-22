@@ -159,4 +159,14 @@ list of facets ids.
   Delete {{ selectedFilters.length }} selected
 </ClearFilters>
 ```
+
+## Events
+
+A list of events that the component will emit:
+
+- `UserClickedClearFacetFilters`: the event is emitted after the user clicks the button to clear a
+certain facets filter. The event payload is the id of the facets that are going to be cleared.
+- `UserClickedClearAllFilters`: the event is emitted after the user clicks the button. The event
+payload is undefined.
+
 </docs>

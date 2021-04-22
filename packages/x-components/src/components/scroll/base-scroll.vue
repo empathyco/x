@@ -59,16 +59,6 @@ does the necessary calculations for knowing the direction of scroll, if the scro
 start or to end, and is about to reaching to end. The components emits the next events depending of
 movement that realize the user:
 
--scroll: when the user does some movement about scroll.
-
--scroll:direction-change: when the user scrolls to down or to up.
-
--scroll:at-start: when the user scrolls to start.
-
--scroll:almost-at-end: when the user scrolls and is about to end.
-
--scroll:at-end: when the user scrolls to end.
-
 ```vue
 <template>
   <BaseScroll
@@ -117,4 +107,16 @@ movement that realize the user:
   };
 </script>
 ```
+
+## Vue Events:
+
+- `scroll`: the event is emitted after the user scrolls in this container. The payload is the scroll
+  top distance in pixels.
+- `scroll:direction-change`: the event is emitted when the user changes the scroll direction. The
+  payload is the new scrolling direction.
+- `scroll:at-start`: the event is emitted when the user scrolls up to the initial position of the
+  scroll.
+- `scroll:almost-at-end`: the event is emitted when the user is about to reach the bottom part of
+  the scroll.
+- `scroll:at-end`: the event is emitted when the user has reached the bottom part of the scroll.
 </docs>

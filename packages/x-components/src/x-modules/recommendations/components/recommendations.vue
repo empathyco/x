@@ -100,4 +100,11 @@
     </template>
   </Recommendations>
   ```
+
+  ## Events
+
+  A list of events that the component will emit:
+
+  - `UserClickedARecommendation`: the event is emitted after the user clicks the button.
+  - A list of events emitted by the `BaseResultLink`.
 </docs>
