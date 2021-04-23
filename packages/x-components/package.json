@@ -54,7 +54,7 @@
     "@microsoft/api-extractor": "~7.7.8",
     "@rollup/plugin-buble": "~0.21.3",
     "@rollup/plugin-commonjs": "~11.0.1",
-    "@testing-library/jest-dom": "^5.11.1",
+    "@testing-library/jest-dom": "~5.11.1",
     "@types/autoprefixer": "~9.6.1",
     "@types/jest": "~25.2.3",
     "@types/node": "~12.12.0",
@@ -65,7 +65,7 @@
     "@vue/cli-plugin-unit-jest": "~4.5.11",
     "@vue/cli-plugin-vuex": "~4.5.11",
     "@vue/cli-service": "~4.5.11",
-    "@vue/test-utils": "^1.0.3",
+    "@vue/test-utils": "~1.0.3",
     "autoprefixer": "~9.7.4",
     "commitizen": "~4.0.3",
     "cypress": "~6.5.0",
@@ -88,7 +88,8 @@
     "typescript": "~3.8.3",
     "vue-docgen-cli": "~4.13.1",
     "vue-router": "~3.4.3",
-    "vue-template-compiler": "~2.6.10"
+    "vue-template-compiler": "~2.6.10",
+    "eslint": "7.18.0"
   },
   "prettier": "@empathy/eslint-plugin-x/prettier-config",
   "gitHooks": {
