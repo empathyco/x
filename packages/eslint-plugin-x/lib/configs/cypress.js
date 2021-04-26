@@ -3,12 +3,10 @@
 module.exports = {
   cypress: {
     overrides: {
-      files: ['**/e2e/**/*.spec.{ts,tsx,js,jsx}'],
+      files: ['tests/**/*.spec.{ts,tsx,js,jsx}'],
       plugins: ['cypress'],
+      extends: ['plugin:cypress/recommended'],
       rules: {
-        /* ESLint configuration doesn't support extends block inside overrides for specific
-        files. It is a hack to allow it. */
-        ...require('eslint-plugin-cypress').configs.recommended.rules,
         '@typescript-eslint/no-unused-expressions': 'off',
         'cypress/assertion-before-screenshot': 'error'
       }
