@@ -1,5 +1,6 @@
 {
   "name": "x",
+  "license": "Apache-2.0",
   "private": true,
   "devDependencies": {
     "lerna": "~4.0.0"

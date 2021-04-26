@@ -1,6 +1,8 @@
 {
   "name": "@empathy/eslint-plugin-x",
   "version": "1.2.1",
+  "license": "Apache-2.0",
+  "author": "Empathy Systems Corporation S.L.",
   "description": "ESLint, Prettier and standard-version rules and configurations",
   "keywords": [
     "eslint",
@@ -45,7 +47,6 @@
   "engines": {
     "node": ">=12.0.0"
   },
-  "license": "ISC",
   "files": [
     "lib/**/*",
     "*.js"
@@ -54,5 +55,6 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  }
+  },
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/eslint-plugin-x#readme",
 }
