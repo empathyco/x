@@ -1,19 +1,14 @@
 // https://github.com/jest-community/eslint-plugin-jest
 
-const jestConfigs = require('eslint-plugin-jest').configs;
-
 module.exports = {
   jest: {
     overrides: {
-      files: ['**/*.spec.{ts,tsx,js,jsx}'],
-      excludedFiles: ['**/e2e/**/*'],
+      files: ['src/**/*.spec.{ts,tsx,js,jsx}'],
+      excludedFiles: ['tests/**/*'],
       env: { jest: true },
       plugins: ['jest'],
+      extends: ['plugin:jest/recommended', 'plugin:jest/style'],
       rules: {
-        /* ESLint configuration doesn't support extends block inside overrides for specific
-        files. It is a hack to allow it. */
-        ...jestConfigs.recommended.rules,
-        ...jestConfigs.style.rules,
         'jest/expect-expect': ['error', { assertFunctionNames: ['expect*'] }],
         'jest/lowercase-name': ['error', { ignore: ['test'] }],
         'jest/no-alias-methods': 'error',
