@@ -25,5 +25,5 @@ Feature: Popular searches component
       | hideSessionQueries | maxItemsToRequest | maxItemsToRender | popularSearchItem |
       | false              | 10                | 5                | 0                 |
       | true               | 5                 | 10               | 2                 |
-      | true               | 10                | 5                | 4                 |
+      | true               | 10                | 5                | 3                 |
 
