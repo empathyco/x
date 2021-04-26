@@ -71,10 +71,13 @@
      * @internal
      */
     protected get cssClasses(): VueCSSClasses {
-      return {
-        'x-filter--is-selected': this.filter.selected,
-        'x-filter--is-disabled': this.isDisabled
-      };
+      return [
+        'x-filter',
+        {
+          'x-filter--is-selected': this.filter.selected,
+          'x-filter--is-disabled': this.isDisabled
+        }
+      ];
     }
 
     render(h: CreateElement): VNode {

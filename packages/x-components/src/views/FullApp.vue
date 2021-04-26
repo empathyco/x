@@ -88,7 +88,16 @@
           <FiltersSearch :filters="facet.filters">
             <SlicedFilters :max="8">
               <Filters v-slot="{ filter }">
-                <SimpleFilter :filter="filter" data-test="brand-filter" />
+                <SimpleFilter
+                  v-slot="{ filter: slotFilter, clickFilter }"
+                  :filter="filter"
+                  data-test="brand-filter"
+                >
+                  <label>
+                    <input @change="clickFilter" type="checkbox" />
+                    {{ slotFilter.label }}
+                  </label>
+                </SimpleFilter>
               </Filters>
               <template #show-more="{ difference }">Show {{ difference }} more filters</template>
               <template #show-less="{ difference }">Show {{ difference }} less filters</template>
