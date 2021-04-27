@@ -7,7 +7,7 @@
     "build": "lerna run build",
     "lint": "lerna run lint",
     "test": "lerna run test",
-    "publish": "lerna run test"
+    "publish": "lerna publish"
   },
   "devDependencies": {
     "lerna": "~4.0.0"
