@@ -111,7 +111,12 @@ const routes: RouteConfig[] = [
   {
     path: '/test/infinite-scroll',
     name: 'Infinite scroll',
-    component: () => import('./views/InfiniteScroll.vue')
+    component: () => import('./views/infinite-scroll.vue')
+  },
+  {
+    path: '/test/sliced-filters',
+    name: 'Sliced Filters',
+    component: () => import('./views/sliced-filters.vue')
   }
 ];
 

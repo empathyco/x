@@ -94,7 +94,7 @@
                   data-test="brand-filter"
                 >
                   <label>
-                    <input @change="clickFilter" type="checkbox" />
+                    <input @change="clickFilter" type="checkbox" :checked="filter.selected" />
                     {{ slotFilter.label }}
                   </label>
                 </SimpleFilter>
