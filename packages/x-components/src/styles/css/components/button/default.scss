@@ -1,0 +1,25 @@
+.x-button {
+  // layout
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  gap: var(--x-space-gap-button);
+  padding: var(--x-space-padding-button);
+
+  // color
+  background-color: var(--x-color-background-button);
+  border-color: var(--x-color-border-button);
+  color: var(--x-color-text-button);
+
+  // border
+  border-style: solid;
+  border-width: var(--x-border-width-button);
+  border-radius: var(--x-radius-border-button);
+
+  // typography
+  font-family: var(--x-font-family-button);
+  font-size: var(--x-font-size-button);
+  font-weight: var(--x-font-weight-button);
+  line-height: var(--x-font-line-height-button);
+}

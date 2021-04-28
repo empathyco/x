@@ -1,0 +1,17 @@
+:root {
+  // COLOR
+  --x-color-background-button: var(--x-lead-color);
+  --x-color-border-button: var(--x-lead-color);
+  --x-color-text-button: var(--x-neutral-100);
+  // BORDER
+  --x-border-radius-button: var(--x-border-radius-none);
+  --x-border-width-button: var(--x-border-width);
+  // SPACING
+  --x-space-padding-button: var(--x-space-04) var(--x-space-05);
+  --x-space-gap-button: var(--x-space-03);
+  // TYPOGRAPHY
+  --x-font-family-button: var(--x-font-family-text);
+  --x-font-size-button: var(--x-font-size-text);
+  --x-font-weight-button: var(--x-font-weight-bold);
+  --x-font-line-height-button: var(--x-font-line-height-text);
+}

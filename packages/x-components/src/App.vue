@@ -10,7 +10,12 @@
   </div>
 </template>
 
-<style scoped>
+<script>
+  import './styles/theme-default.scss';
+  export default {};
+</script>
+
+<style lang="scss" scoped>
   .link {
     display: inline-block;
     margin: 0.5em 1em 1em 0;
