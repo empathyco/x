@@ -4,6 +4,13 @@ import { debounce } from '../utils/debounce';
 
 const VIEWPORT_ID = 'viewport';
 
+/**
+ * Interface to be implemented by the component which uses the infinite scroll directive.
+ * If the component wants to trigger an action when the scroll is about to end it needs to implement
+ * the `onInfiniteScrollEnd` method.
+ *
+ * @public
+ */
 export interface InfiniteScroll {
   onInfiniteScrollEnd: () => void;
 }
@@ -155,9 +162,9 @@ function getStateMapKey(id?: string): string {
  *
  * Intersection observer and intersection area.
  *
- * This directive uses the {@link IntersectionObserver} API to handle the intersection between the
+ * This directive uses the IntersectionObserver API to handle the intersection between the
  * children and the scroll of the parent (root) component. The intersection area is "moved" above
- * the root element itself with the {@link IntersectionObserver} margin property. The content of
+ * the root element itself with the IntersectionObserver margin property. The content of
  * the children moves up on scroll and when the scroll reaches the end (considering margin 0),
  * the intersection observer triggers that root and children elements are not intersecting.
  *
@@ -172,8 +179,8 @@ function getStateMapKey(id?: string): string {
  *
  * The directive has to be set in the target element.
  *
- * You can pass an argument to the directive which is the {@link HTMLElement#id} of the scrollable
- * parent. Or you can leave the argument empty and it takes the viewport, {@link HTMLDocument}, as
+ * You can pass an argument to the directive which is the HTMLElement id of the scrollable
+ * parent. Or you can leave the argument empty and it takes the viewport, HTMLDocument, as
  * the scrollable parent.
  *
  * You can also pass as directive value an object with the margin to specify how many pixels before
@@ -243,6 +250,8 @@ function getStateMapKey(id?: string): string {
  *      value:
  *        ...
  * ```
+ *
+ * @public
  */
 export const infiniteScroll = ((): DirectiveOptions => {
   return {

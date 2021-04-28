@@ -7,6 +7,7 @@
 // TODO Write a complete description.
 
 export * from './components';
+export * from './directives';
 export * from './filters';
 export * from './plugins';
 export * from './services';
