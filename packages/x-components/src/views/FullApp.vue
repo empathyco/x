@@ -76,8 +76,20 @@
           <template #header-content>{{ facet.label }}</template>
           <SelectedFilters :facetId="facet.id" />
           <AllFilter :facet="facet" />
-          <Filters v-slot="{ filter }" :filters="facet.filters" :animation="staggeredFadeAndSlide">
-            <HierarchicalFilter :filter="filter" />
+          <Filters
+            v-slot="{ filter: hierarchicalFilter }"
+            :filters="facet.filters"
+            :animation="staggeredFadeAndSlide"
+          >
+            <HierarchicalFilter
+              v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
+              :filter="hierarchicalFilter"
+            >
+              <label :class="cssClasses">
+                <input @change="clickFilter" :disabled="isDisabled" type="checkbox" />
+                {{ filter.label }}
+              </label>
+            </HierarchicalFilter>
           </Filters>
         </BaseHeaderTogglePanel>
       </template>

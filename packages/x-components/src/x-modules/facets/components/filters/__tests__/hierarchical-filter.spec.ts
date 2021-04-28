@@ -1,13 +1,15 @@
 import { HierarchicalFilter as HierarchicalFilterModel } from '@empathy/search-types';
+import { deepMerge } from '@empathybroker/deep-merge';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getHierarchicalFilterStub } from '../../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
+import { XEvent } from '../../../../../wiring/events.types';
 import HierarchicalFilter from '../hierarchical-filter.vue';
 
 function renderHierarchicalFilter({
-  template = '<HierarchicalFilter :filter="filter"/>',
+  template = `<HierarchicalFilter :filter="filter" />`,
   filter = getHierarchicalFilterStub()
 }: HierarchicalFilterOptions = {}): HierarchicalFilterAPI {
   Vue.observable(filter);
@@ -33,18 +35,17 @@ function renderHierarchicalFilter({
   const filterWrapper = wrapper.find(getDataTestSelector('filter'));
   const hierarchicalFilterWrapper = wrapper.findComponent(HierarchicalFilter);
 
-  function setFilter(newFilter: HierarchicalFilterModel): Promise<void> {
+  async function setFilter(newFilter: HierarchicalFilterModel): Promise<void> {
     filter = newFilter;
-    wrapper.setProps({ filter });
-    return wrapper.vm.$nextTick();
+    await wrapper.setProps({ filter });
   }
 
-  function clickFilter(): void {
-    filterWrapper.trigger('click');
+  async function clickFilter(): Promise<void> {
+    await filterWrapper.trigger('click');
   }
 
-  function selectFilter(): Promise<void> {
-    filter.selected = true;
+  function updateFilter(newFields: Partial<HierarchicalFilterModel>): Promise<void> {
+    deepMerge(filter, newFields);
     return wrapper.vm.$nextTick();
   }
 
@@ -107,7 +108,7 @@ function renderHierarchicalFilter({
     filter,
     setFilter,
     clickFilter,
-    selectFilter,
+    updateFilter,
     getFilterModelsByDepth,
     getFilterWrappersByDepth,
     transverseFilters
@@ -147,29 +148,96 @@ describe('testing `HierarchicalFilter` component', () => {
     });
   });
 
-  it('allows customizing the rendered content with an slot', () => {
-    const { wrapper, filter } = renderHierarchicalFilter({
+  it('allows replacing the root element of the component', () => {
+    const { wrapper, filter, emit } = renderHierarchicalFilter({
       template: `
-      <HierarchicalFilter :filter="filter" v-slot="{ filter }">
-        <span data-test="custom-label">{{ filter.label }}</span>
+      <HierarchicalFilter :filter="filter" v-slot="{ filter, clickFilter }">
+        <label data-test="custom-label">
+          <input data-test="custom-input"
+            type="checkbox"
+            @change="clickFilter"
+          >
+          {{ filter.label }}
+        </label>
       </HierarchicalFilter>
       `
     });
 
+    const customLabelWrapper = wrapper.find(getDataTestSelector('custom-label'));
+    const customInputWrapper = wrapper.find(getDataTestSelector('custom-input'));
+    expect(customLabelWrapper.text()).toEqual(filter.label);
+    expect(customInputWrapper.exists()).toBe(true);
+
+    customInputWrapper.trigger('change');
+
+    expect(emit).toHaveBeenCalledTimes(2);
+    const expectedEvents: XEvent[] = ['UserClickedAFilter', 'UserClickedAHierarchicalFilter'];
+    expectedEvents.forEach(event => {
+      expect(emit).toHaveBeenCalledWith(event, filter, {
+        target: customLabelWrapper.element
+      });
+    });
+  });
+
+  it('allows customizing the rendered label content with an slot', () => {
+    const { wrapper, filter } = renderHierarchicalFilter({
+      template: `
+      <HierarchicalFilter :filter="filter">
+        <template #label :filter="filter">
+          <span data-test="custom-label">{{ filter.label }}</span>
+        </template>
+      </HierarchicalFilter>
+      `
+    });
+
+    const defaultButton = wrapper.find(getDataTestSelector('filter'));
     const customLabel = wrapper.find(getDataTestSelector('custom-label'));
+    expect(defaultButton.exists()).toBe(true);
     expect(customLabel.text()).toEqual(filter.label);
   });
 
+  it('exposes proper css classes and attributes in the default slot', async () => {
+    const { filterWrapper, updateFilter } = renderHierarchicalFilter({});
+
+    expect(filterWrapper.attributes()).not.toHaveProperty('disabled');
+    expect(filterWrapper.classes()).toHaveLength(2);
+    expect(filterWrapper.classes()).toEqual(
+      expect.arrayContaining(['x-filter', 'x-hierarchical-filter'])
+    );
+
+    await updateFilter({ selected: true });
+
+    expect(filterWrapper.classes()).toHaveLength(4);
+    expect(filterWrapper.classes()).toEqual(
+      expect.arrayContaining([
+        'x-filter',
+        'x-filter--is-selected',
+        'x-hierarchical-filter',
+        'x-hierarchical-filter--is-selected'
+      ])
+    );
+
+    await updateFilter({ totalResults: 0, selected: false });
+
+    expect(filterWrapper.attributes()).toHaveProperty('disabled');
+    expect(filterWrapper.classes()).toHaveLength(3);
+    expect(filterWrapper.classes()).toEqual(
+      expect.arrayContaining(['x-filter', 'x-hierarchical-filter', 'x-filter--is-disabled'])
+    );
+  });
+
   it('adds selected classes to the rendered element when the filter is selected', async () => {
-    const { filterWrapper, selectFilter } = renderHierarchicalFilter();
+    const { filterWrapper, updateFilter } = renderHierarchicalFilter();
 
-    expect(filterWrapper.classes()).not.toContain('x-filter--is-selected');
-    expect(filterWrapper.classes()).not.toContain('x-hierarchical-filter--is-selected');
+    expect(filterWrapper.classes()).not.toEqual(
+      expect.arrayContaining(['x-filter--is-selected', 'x-hierarchical-filter--is-selected'])
+    );
 
-    await selectFilter();
+    await updateFilter({ selected: true });
 
-    expect(filterWrapper.classes()).toContain('x-filter--is-selected');
-    expect(filterWrapper.classes()).toContain('x-hierarchical-filter--is-selected');
+    expect(filterWrapper.classes()).toEqual(
+      expect.arrayContaining(['x-filter--is-selected', 'x-hierarchical-filter--is-selected'])
+    );
   });
 
   describe('children testing', () => {
@@ -286,6 +354,79 @@ describe('testing `HierarchicalFilter` component', () => {
         expect(filterWrapper.classes()).not.toContain(filterWrapper);
       });
     });
+
+    it('exposes proper css classes and attributes in the default slot to children', async () => {
+      const { wrapper, filter, updateFilter } = renderHierarchicalFilter({
+        filter: getHierarchicalFilterStub({
+          id: 'root',
+          selected: false,
+          label: 'Root: Partially Selected',
+          children: [
+            getHierarchicalFilterStub({
+              id: 'child-0',
+              selected: true,
+              label: 'Child 0: Partially-Selected',
+              children: [
+                getHierarchicalFilterStub({
+                  selected: false,
+                  id: 'grand-child-0',
+                  label: 'GrandChild 0: Unselected'
+                }),
+                getHierarchicalFilterStub({
+                  id: 'grand-child-1',
+                  selected: true,
+                  label: 'GrandChild 1: Selected'
+                })
+              ]
+            })
+          ]
+        }),
+        template: `
+          <HierarchicalFilter
+            :filter="filter"
+            v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
+          >
+            <button
+              :data-test="filter.id"
+              :class="cssClasses"
+              @click="clickFilter"
+              type="checkbox"
+              :disabled="isDisabled"
+            >
+                {{ filter.label }}
+            </button>
+          </HierarchicalFilter>
+        `
+      });
+      const childrenFilterWrapper = wrapper.find(
+        getDataTestSelector(filter.children[0].id.toString())
+      );
+
+      expect(childrenFilterWrapper.attributes()).not.toHaveProperty('disabled');
+      expect(childrenFilterWrapper.classes()).toHaveLength(6);
+      expect(childrenFilterWrapper.classes()).toEqual(
+        expect.arrayContaining([
+          'x-filter',
+          'x-filter--is-selected',
+          'x-filter--is-partially-selected',
+          'x-hierarchical-filter',
+          'x-hierarchical-filter--is-selected',
+          'x-hierarchical-filter--is-partially-selected'
+        ])
+      );
+
+      await updateFilter({
+        children: [
+          Object.assign(filter.children[0], { selected: false, totalResults: 0, children: [] })
+        ]
+      });
+
+      expect(childrenFilterWrapper.attributes()).toHaveProperty('disabled');
+      expect(childrenFilterWrapper.classes()).toHaveLength(3);
+      expect(childrenFilterWrapper.classes()).toEqual(
+        expect.arrayContaining(['x-filter', 'x-hierarchical-filter', 'x-filter--is-disabled'])
+      );
+    });
   });
 });
 
@@ -314,14 +455,17 @@ interface HierarchicalFilterAPI {
   setFilter: (filter: HierarchicalFilterModel) => Promise<void>;
   /**
    * Clicks the root filter.
-   */
-  clickFilter: () => void;
-  /**
-   * Changes the `selected` property of the rendered filter to `true`.
    *
-   * @returns A promise that resolves after re-rendering the component.
+   * @returns A promise that resolves after Vue updates the view.
    */
-  selectFilter: () => Promise<void>;
+  clickFilter: () => Promise<void>;
+  /**
+   * Updates the rendered filter data.
+   *
+   * @param newFilter - The new fields to set to the rendered filter.
+   * @returns A promise that resolves after Vue updates the view.
+   */
+  updateFilter: (newFilter: Partial<HierarchicalFilterModel>) => Promise<void>;
   /**
    * Returns a list of the filters data grouped by depth. This list is sorted using a preorder
    * algorithm.

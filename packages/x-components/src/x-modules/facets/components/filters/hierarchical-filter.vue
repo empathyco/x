@@ -1,30 +1,50 @@
 <template>
   <div class="x-hierarchical-filter-container" data-test="hierarchical-filter-container">
-    <BaseFilter
-      v-slot="{ filter: slotFilter }"
-      class="x-hierarchical-filter"
-      :filter="filter"
-      :clickEvents="clickEvents"
+    <RenderlessFilter
+      v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
       :class="cssClasses"
+      :clickEvents="clickEvents"
+      :filter="filter"
+      class="x-hierarchical-filter"
     >
       <!--
-        @slot The content to render inside the button
-            @binding {Filter} filter - The filter data
+        @slot The content to render inside the button.
+            @binding {Filter} filter - The filter data.
+            @binding {Function} clickFilter - The handler to invoke when clicking the filter.
+            @binding {VueCssClasses} cssClasses - The CSS classes.
+            @binding {boolean} isDisabled - Flag determining the disabled state.
       -->
-      <slot :filter="slotFilter" />
-    </BaseFilter>
+      <slot v-bind="{ filter, clickFilter, cssClasses, isDisabled }">
+        <button
+          @click="clickFilter"
+          :aria-checked="filter.selected.toString()"
+          :class="cssClasses"
+          :disabled="isDisabled"
+          :events="clickEvents"
+          data-test="filter"
+          role="checkbox"
+        >
+          <!--
+            @slot The content to render inside the button.
+               @binding {Filter} filter - The filter data.
+          -->
+          <slot name="label" :filter="filter">{{ filter.label }}</slot>
+        </button>
+      </slot>
+    </RenderlessFilter>
     <Filters
-      v-slot="{ filter: childFilter }"
-      :filters="filter.children"
+      v-slot="{ filter }"
       :animation="childrenAnimation"
+      :filters="filter.children"
+      class="x-hierarchical-filter__children"
       data-test="children-filters"
     >
       <HierarchicalFilter
-        v-slot="{ filter: hierarchicalChildFilter }"
-        :filter="childFilter"
+        v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
         :childrenAnimation="childrenAnimation"
+        :filter="filter"
       >
-        <slot :filter="hierarchicalChildFilter" />
+        <slot v-bind="{ filter, clickFilter, cssClasses, isDisabled }" />
       </HierarchicalFilter>
     </Filters>
   </div>
@@ -40,7 +60,7 @@
   import { XEventsTypes } from '../../../../wiring/events.types';
   import { facetsXModule } from '../../x-module';
   import Filters from '../lists/filters.vue';
-  import BaseFilter from './base-filter.vue';
+  import RenderlessFilter from './renderless-filter.vue';
 
   /**
    * Renders a hierarchical filter recursively, emitting the needed events when clicked.
@@ -49,7 +69,7 @@
    */
   @Component({
     name: 'HierarchicalFilter',
-    components: { Filters, BaseFilter },
+    components: { Filters, RenderlessFilter },
     mixins: [xComponentMixin(facetsXModule)]
   })
   export default class HierarchicalFilter extends Vue {
@@ -112,17 +132,34 @@ the slot content will change it for all of the children.
 ## Basic usage
 
 ```vue
-<HierarchicalFilter :filter="filter"/>
+<template>
+  <HierarchicalFilter
+    :filter="filter"
+    v-slot="{ filter: slotFilter, clickFilter, cssClasses, isDisabled }"
+  />
+</template>
 ```
 
-## Customizing its contents
+## Customizing the default slot content
 
-In this example, the child filters will also include the new checkbox image.
+In this example, the child filters will also include the label and checkbox.
 
 ```vue
-<HierarchicalFilter :filter="filter" v-slot="{ filter }">
-  <img src="checkbox.png"/>
-  <span>{{ filter.label }}</span>
+<HierarchicalFilter :filter="filter" v-slot="{ filter, clickFilter, slotCSSClasses, isDisabled }">
+  <label :class="slotCSSClasses">
+    <input @change="clickFilter" :disabled="isDisabled">
+    {{ filter.label }}
+  </label>
+</HierarchicalFilter>
+```
+
+## Customizing the label slot content
+
+```vue
+<HierarchicalFilter :filter="filter">
+  <template #label :filter="filter">
+    <span class="custom-class">{{ filter.label }}</span>
+  </template>
 </HierarchicalFilter>
 ```
 
