@@ -68,6 +68,7 @@ As a starting point we define the following scopes:
   this scope.
 - **wiring**: Changes that only affect the wires operators or wires factory.
 - **e2e**: For end-to-end tests.
+- **design-system**: For Design Tokens, CSS styling, etc.
 
 ### Description
 

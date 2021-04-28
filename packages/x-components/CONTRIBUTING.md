@@ -9,3 +9,4 @@ you will find here.
 3. [Components](contributing/components.md)
 4. [Tests](contributing/tests.md)
 5. [Commits](contributing/commits.md)
+6. [Design Tokens](contributing/design-tokens.md)

@@ -1,0 +1,54 @@
+:root {
+  // FONT FAMILY
+  --x-font-family: 'Montserrat', sans-serif;
+
+  // FONT SIZES
+  --x-font-size-xs: 12px;
+  --x-font-size-s: 14px;
+  --x-font-size-m: 16px;
+  --x-font-size-l: 18px;
+  --x-font-size-xl: 24px;
+
+  // WEIGHTS
+  --x-font-weight-light: 300;
+  --x-font-weight-regular: 400;
+  --x-font-weight-bold: 600;
+
+  // LINE HEIGHT
+  --x-font-line-height-xs: 8px;
+  --x-font-line-height-s: 16px;
+  --x-font-line-height-m: 24px;
+  --x-font-line-height-l: 32px;
+
+  // TEXT
+  --x-font-family-text: var(--x-font-family);
+  --x-font-size-text: var(--x-font-size-s);
+  --x-font-weight-text: var(--x-font-weight-regular);
+  --x-font-line-height-text: var(--x-font-line-height-m);
+
+  // VARIANTS
+
+  // TITLE1
+  --x-font-family-title1: var(--x-font-family);
+  --x-font-size-title1: var(--x-font-size-xl);
+  --x-font-weight-title1: var(--x-font-weight-regular);
+  --x-font-line-height-title1: var(--x-font-line-height-l);
+
+  // TITLE2
+  --x-font-family-title2: var(--x-font-family);
+  --x-font-size-title2: var(--x-font-size-l);
+  --x-font-weight-title2: var(--x-font-weight-regular);
+  --x-font-line-height-title2: var(--x-font-line-height-m);
+
+  // TITLE3
+  --x-font-family-title3: var(--x-font-family);
+  --x-font-size-title3: var(--x-font-size-m);
+  --x-font-weight-title3: var(--x-font-weight-regular);
+  --x-font-line-height-title3: var(--x-font-line-height-m);
+
+  // SMALL
+  --x-font-family-small: var(--x-font-family);
+  --x-font-size-small: var(--x-font-size-s);
+  --x-font-weight-small: var(--x-font-weight-regular);
+  --x-font-line-height-small: var(--x-font-line-height-xs);
+}
