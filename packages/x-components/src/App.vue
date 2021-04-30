@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import './styles/theme-default.scss';
+  import './styles/themes/default.scss';
   export default {};
 </script>
 

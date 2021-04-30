@@ -1,0 +1,7 @@
+.x-button--ghost.x-button,
+.x-button--ghost .x-button {
+  // color
+  background-color: var(--x-color-background-button-ghost);
+  border-color: var(--x-color-border-button-ghost);
+  color: var(--x-color-text-button-ghost);
+}

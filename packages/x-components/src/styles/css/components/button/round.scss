@@ -1,0 +1,7 @@
+.x-button--round.x-button,
+.x-button--round .x-button {
+  // border
+  border-radius: var(--x-border-radius-button-round);
+  // spacing
+  padding: var(--x-space-padding-button-round);
+}

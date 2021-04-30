@@ -146,7 +146,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .x-column {
     display: inline-flex;
     flex-direction: column;
@@ -158,7 +158,6 @@
     border: 1px dashed black;
     border-radius: 20px;
     z-index: 2;
-    width: 600px;
     position: relative;
 
     &__close {
@@ -166,5 +165,9 @@
       top: 20px;
       right: 20px;
     }
+  }
+
+  .x-related-tags {
+    flex-flow: row wrap;
   }
 </style>

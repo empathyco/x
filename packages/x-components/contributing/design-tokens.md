@@ -112,3 +112,47 @@ Example: `--x-color-background-button-hover` `--x-color-background-input-focus`
 This level is to define a scale of values. Used specially in the base tokens.
 
 Example: `--x-space-01` `--x-space-02` `--x-font-size-xs` `--x-font-size-s` `--x-font-weight-bold`
+
+## Tokens Architecture
+
+The idea of the Design Tokens is not just add a variable for each property, but also add relations
+between those tokens, so that changes made in one token also affects to the dependant tokens.
+
+Let's show this with an example. There are Design Tokens to define the background color and the
+border color of the different buttons.
+
+- Base Color Token:
+
+  `--x-color-lead: #36515b;`
+
+- Button Component Token:
+
+  `--x-color-background-button: var(--x-color-lead);`
+
+  `--x-color-border-button: var(--x-color-background-button);`
+
+- Button Component Variation Token:
+
+  `--x-color-background-button-secondary: transparent;`
+
+  `--x-color-border-button-secondary: var(--x-color-border-button);`
+
+As you can see, there are tokens using other tokens as value. This is a relation between Design
+Tokens. Making those tokens depending on the others we can make changes with the granularity we
+need:
+
+- If we change the value of `--x-color-lead` token, then all the components besides the buttons,
+  will be affected.
+
+- If we change the value of `--x-color-background-button` the color of all the buttons and its
+  variations will change, but the rest of the components will keep using the `--x-color-lead`.
+
+- If we change the value of `--x-color-background-button-secondary` then only that variation of the
+  button will be affected.
+
+Also, as you can see some tokens may depend on other property, like the button border color, and the
+button background color. This is to cascade changes only change one property.
+
+If the button border color is always the same as the background, then it refers to id by default.
+This still allow to configure a different border color if is necessary, just overriding the value of
+that token.

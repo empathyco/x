@@ -1,0 +1,7 @@
+.x-button--secondary.x-button,
+.x-button--secondary .x-button {
+  // color
+  background-color: var(--x-color-background-button-secondary);
+  border-color: var(--x-color-border-button-secondary);
+  color: var(--x-color-text-button-secondary);
+}
