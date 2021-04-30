@@ -1,4 +1,4 @@
-# Design Tokens
+# Design System
 
 ## What are Design Tokens?
 

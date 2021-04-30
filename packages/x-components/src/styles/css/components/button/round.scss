@@ -2,6 +2,12 @@
 .x-button--round .x-button {
   // border
   border-radius: var(--x-border-radius-button-round);
+
   // spacing
   padding: var(--x-space-padding-button-round);
+
+  // sizing
+  width: var(--x-size-width-icon);
+  height: var(--x-size-height-icon);
+  box-sizing: content-box;
 }

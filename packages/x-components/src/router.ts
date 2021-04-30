@@ -9,6 +9,11 @@ const routes: RouteConfig[] = [
     component: () => import('./views/FullApp.vue')
   },
   {
+    path: '/design-system',
+    name: 'Design System',
+    component: () => import('./views/design-system.vue')
+  },
+  {
     path: '/full-empathize',
     name: 'full-empathize',
     component: () => import('./views/FullEmpathize.vue')

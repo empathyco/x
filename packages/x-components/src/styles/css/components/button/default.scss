@@ -4,6 +4,8 @@
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+
+  // spacing
   gap: var(--x-space-gap-button);
   padding: var(--x-space-padding-button);
 
@@ -22,4 +24,7 @@
   font-size: var(--x-font-size-button);
   font-weight: var(--x-font-weight-button);
   line-height: var(--x-font-line-height-button);
+
+  // other
+  cursor: pointer;
 }
