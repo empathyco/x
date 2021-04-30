@@ -9,7 +9,7 @@ import { cleanUndefined } from '../../utils/object';
 import { DeepPartial } from '../../utils/types';
 import { SnippetConfig, XAPI } from '../api/api.types';
 import { BaseXAPI } from '../api/base-api';
-import { InstallXOptions } from './types';
+import { InstallXOptions, VueConstructorPartialArgument } from './types';
 
 declare global {
   interface Window {
@@ -148,20 +148,21 @@ export class XInstaller {
    *
    * @public
    */
-  init(
+  async init(
     snippetConfig: SnippetConfig
-  ): {
+  ): Promise<{
     app: Vue | undefined;
     api: XAPI | undefined;
     bus: XBus;
     plugin: PluginObject<XPluginOptions>;
-  } {
+  }> {
     const adapterConfig = this.getAdapterConfig(snippetConfig);
     this.applyConfigToAdapter(adapterConfig);
     const bus = this.createBus();
     const pluginOptions = this.getPluginOptions(snippetConfig);
     const plugin = this.installPlugin(pluginOptions, bus);
-    const app = this.createApp();
+    const extraPlugins = await this.installExtraPlugins(snippetConfig, bus);
+    const app = this.createApp(extraPlugins);
     this.api?.setBus(bus);
 
     return {
@@ -288,7 +289,6 @@ export class XInstaller {
    *
    * @param pluginOptions - The {@link XPluginOptions} to passed as parameter to the install method
    * of the plugin.
-   *
    * @param bus - The {@link XBus} to be used to create the XPlugin.
    *
    * @returns PluginObject<XPluginOption> - The plugin instance.
@@ -302,17 +302,35 @@ export class XInstaller {
   }
 
   /**
+   * Install more plugins to Vue defined by the user.
+   *
+   * @param snippet - The snippet configuration.
+   * @param bus - The events bus used in the application.
+   * @returns The arguments from the plugins installation to be used in Vue's constructor.
+   * @internal
+   */
+  protected installExtraPlugins(
+    snippet: SnippetConfig,
+    bus: XBus
+  ): Promise<VueConstructorPartialArgument> {
+    const vue = this.getVue();
+    return Promise.resolve(this.options.installExtraPlugins?.({ vue, snippet, bus }));
+  }
+
+  /**
    * In the case that the `app` parameter is present in the {@link InstallXOptions}, then a new Vue
    * application is created using that app.
    *
+   * @param extraPlugins - The client configuration options.
    * @returns The Created Vue application or undefined if not created.
    *
    * @internal
    */
-  protected createApp(): Vue | undefined {
+  protected createApp(extraPlugins: VueConstructorPartialArgument): Vue | undefined {
     if (this.options.app !== undefined) {
       const vue = this.getVue();
       return new vue({
+        ...extraPlugins,
         ...this.options.vueOptions,
         store: this.options.store,
         el: this.getMountingTarget(this.options.domElement),

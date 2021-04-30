@@ -108,14 +108,16 @@ describe('testing `XInstaller` utility', () => {
     expect(vueParam).toBe(localVue);
   });
 
-  it('creates a Vue application using the component passed in the app option', () => {
-    new XInstaller({ adapter, plugin, app: component, vue: createLocalVue() }).init(snippetConfig);
+  it('creates a Vue application using the component passed in the app option', async () => {
+    await new XInstaller({ adapter, plugin, app: component, vue: createLocalVue() }).init(
+      snippetConfig
+    );
 
     // eslint-disable-next-line  @typescript-eslint/unbound-method
     expect(component?.mounted).toHaveBeenCalledTimes(1);
   });
 
-  it('creates a Vue application using the `vueOptions` passed', () => {
+  it('creates a Vue application using the `vueOptions` passed', async () => {
     const testMethod = jest.fn();
     const vue = createLocalVue();
     vue.use(VueRouter);
@@ -123,7 +125,7 @@ describe('testing `XInstaller` utility', () => {
       router: new VueRouter({}),
       methods: { testMethod }
     };
-    const { app } = new XInstaller({
+    const { app } = await new XInstaller({
       adapter,
       vue,
       vueOptions,
@@ -132,5 +134,32 @@ describe('testing `XInstaller` utility', () => {
 
     expect(app).toHaveProperty('testMethod');
     expect(app).toHaveProperty('$router');
+  });
+
+  it('allows to install more plugins', async () => {
+    const vue = createLocalVue();
+    const { app } = await new XInstaller({
+      adapter,
+      vue,
+      installExtraPlugins({ bus, vue, snippet }) {
+        vue.use(VueRouter);
+        return {
+          // Installing the Vue Router plugin
+          router: new VueRouter({}),
+          data() {
+            // Adding some data variables to check that we correctly receive them
+            return {
+              bus,
+              snippet
+            };
+          }
+        };
+      },
+      app: component
+    }).init(snippetConfig);
+
+    expect(app).toHaveProperty('$router');
+    expect(app).toHaveProperty('bus');
+    expect(app).toHaveProperty('snippet', snippetConfig);
   });
 });

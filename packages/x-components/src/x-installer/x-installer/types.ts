@@ -1,7 +1,7 @@
 import { ComponentOptions, PluginObject, VueConstructor } from 'vue';
 import { XBus } from '../../plugins/x-bus.types';
 import { XPluginOptions } from '../../plugins/x-plugin.types';
-import { XAPI } from '../api/api.types';
+import { SnippetConfig, XAPI } from '../api/api.types';
 
 /**
  * Interface for the parameter of the constructor of {@link XInstaller} function. It is an extended
@@ -44,5 +44,38 @@ export interface InstallXOptions<API extends XAPI = XAPI> extends XPluginOptions
    * }
    * ```
    */
-  vueOptions?: Partial<ConstructorParameters<VueConstructor>[0]>;
+  vueOptions?: VueConstructorPartialArgument;
+  /**
+   * Adds the option to install more Vue plugins, giving access to the {@link SnippetConfig} and
+   * the {@link XBus}.
+   *
+   * @param options - An object that contains utilities that might be helpful for installing Vue
+   * plugins.
+   * @returns An object containing objects that will be passed to the Vue instance when constructed.
+   */
+  installExtraPlugins?(
+    options: ExtraPluginsOptions
+  ): VueConstructorPartialArgument | Promise<VueConstructorPartialArgument>;
 }
+
+/**
+ * Options to install more Vue plugins with.
+ *
+ * @public
+ */
+export interface ExtraPluginsOptions {
+  /** The Vue instance that is being used. */
+  vue: VueConstructor;
+  /** The events bus instance used to communicate different part of the x-components. */
+  bus: XBus;
+  /** Configuration coming from the client website with options like the lang, or the active
+   * currency. */
+  snippet: SnippetConfig;
+}
+
+/**
+ * First parameter of the Vue constructor.
+ *
+ * @public
+ */
+export type VueConstructorPartialArgument = Partial<ConstructorParameters<VueConstructor>[0]>;
