@@ -1,8 +1,8 @@
-name: Install, build, lint, test, and publish
+name: Install, build, lint, test
 on:
   push:
-    tags:
-      - "@empathyco/*"
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,12 +23,9 @@ jobs:
         run: npm run lint
       - name: Run tests in all packages
         run: npm run test
+      - name: Retrieve current commit tags
+        run: echo "COMMIT_TAGS=$(git tag --points-at HEAD)" >> $GITHUB_ENV
       - name: Publish the changed packages only if there are tags
-        if: ${{ github.event_name == 'push' && github.event.base_ref == 'develop' && startsWith(github.ref, 'refs/tags/') }}
+        if: ${{ github.event_name == 'push' && COMMIT_TAGS != '' }}
         run: echo Publishing packages...
-      - name: Test github data
-        env:
-          BASE_REF: ${{ github.event.base_ref }}
-          REF: ${{ github.ref }}
-        run: echo ${BASE_REF} ${REF}
       #  run: npm run publish
