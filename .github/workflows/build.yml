@@ -1,4 +1,4 @@
-name: Install, build, lint, test, and publish
+name: Install, build, lint, test
 on: [push, pull_request]
 jobs:
   build:
