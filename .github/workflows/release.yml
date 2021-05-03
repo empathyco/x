@@ -25,8 +25,6 @@ jobs:
         run: npm run test
       - name: Retrieve current commit tags
         run: echo "COMMIT_TAGS=$(git tag --points-at HEAD)" >> $GITHUB_ENV
-      - name: Display tags
-        run: echo $COMMIT_TAGS
       - name: Publish the changed packages only if there are tags
         if: ${{ github.event_name == 'push' && env.COMMIT_TAGS != '' }}
         run: echo Publishing packages...
