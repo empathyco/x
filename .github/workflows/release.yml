@@ -14,9 +14,9 @@ jobs:
         with:
           node-version: '14'
       - name: Prepare .npmrc file to release
-        run: "echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc"
-          env:
-            NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Install lerna and all packages
         run: npm install
       - name: Build all packages
