@@ -26,4 +26,9 @@ jobs:
       - name: Publish the changed packages only if there are tags
         if: ${{ github.event_name == 'push' && github.event.base_ref == 'develop' && startsWith(github.ref, 'refs/tags/') }}
         run: echo Publishing packages...
+      - name: Test github data
+        env:
+          BASE_REF: ${{ github.event.base_ref }}
+          REF: ${{ github.ref }}
+        run: echo ${BASE_REF} ${REF}
       #  run: npm run publish
