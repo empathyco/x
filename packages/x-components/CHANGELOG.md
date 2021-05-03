@@ -1,4 +1,6 @@
 # X Components
+## [2.0.0-alpha.11](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.11%0Dv2.0.0-alpha.10) (2021-05-03)
+
 ## [2.0.0-alpha.10](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.10%0Dv2.0.0-alpha.9) (2021-05-03)
 
 
@@ -11,17 +13,16 @@
 * **design-system:** add Design System view as showcase ([8493ca4](https://bitbucket.org/colbenson/x-components/commits/8493ca4fb095839603e8efff9318c5adf824ef7f)), closes [EX-3690](https://searchbroker.atlassian.net/browse/EX-3690)
 * **directives:** add `InfiniteScroll` directive ([172809d](https://bitbucket.org/colbenson/x-components/commits/172809db62b92783cc0fa28402b21edc2c113b7d)), closes [EX-3352](https://searchbroker.atlassian.net/browse/EX-3352)
 * **directives:** add barrel file in `directives` folder and export them in `src` ([8e12202](https://bitbucket.org/colbenson/x-components/commits/8e12202d3173e2cd751321ab8bdac527290012ea)), closes [EX-3779](https://searchbroker.atlassian.net/browse/EX-3779)
-* **facets:** add Renderless Filter component ([d30aa57](https://bitbucket.org/colbenson/x-components/commits/d30aa578efddcc1cf7e00d4cca14b9ccf62f007a)), closes [EX-3608](https://searchbroker.atlassian.net/browse/EX-3608)
+* **facets:** add `RenderlessFilter` component ([d30aa57](https://bitbucket.org/colbenson/x-components/commits/d30aa578efddcc1cf7e00d4cca14b9ccf62f007a)), closes [EX-3608](https://searchbroker.atlassian.net/browse/EX-3608)
 * **facets:** change `BaseFilter` to `RenderlessFilter` in `HierarchicalFilter` component ([36f2771](https://bitbucket.org/colbenson/x-components/commits/36f2771f78cea144242a5ec66041227efd97993c)), closes [EX-3590](https://searchbroker.atlassian.net/browse/EX-3590)
 * **facets:** make `SimpleFilter` component use `RenderlessFilter`, exposing the option of changing the default button. ([ea93d31](https://bitbucket.org/colbenson/x-components/commits/ea93d310e74ec8cdc40361f68428626080810999)), closes [EX-3589](https://searchbroker.atlassian.net/browse/EX-3589)
 * **facets:** use the new decorators `inject` and `provide` in the filters components ([876826a](https://bitbucket.org/colbenson/x-components/commits/876826a7ad3b8693569fb5e08a02bef814d17a74)), closes [EX-3465](https://searchbroker.atlassian.net/browse/EX-3465)
-* **test:** e2e test for exclude-filters-with-no-results component ([d36c0b6](https://bitbucket.org/colbenson/x-components/commits/d36c0b6e55b3ce084b2c80d70691fae44446a187)), closes [EX-3599](https://searchbroker.atlassian.net/browse/EX-3599)
 * **x-installer:** add option to install asynchronous Vue plugins ([b132dd4](https://bitbucket.org/colbenson/x-components/commits/b132dd43d40954764729f67e87fcbf4b9374f1a4)), closes [EX-3790](https://searchbroker.atlassian.net/browse/EX-3790)
 
 
 ### Bug Fixes
 
-* **tests:** enable new scenario in querySuggestions and fix `isInQuerySuggestions` method ([5209bd8](https://bitbucket.org/colbenson/x-components/commits/5209bd82dd0d72351fcacc43c7546e6434aec715)), closes [EX-3307](https://searchbroker.atlassian.net/browse/EX-3307)
+* **tests:** enable new scenario in `querySuggestions` and fix `isInQuerySuggestions` method ([5209bd8](https://bitbucket.org/colbenson/x-components/commits/5209bd82dd0d72351fcacc43c7546e6434aec715)), closes [EX-3307](https://searchbroker.atlassian.net/browse/EX-3307)
 
 
 ### Build System
@@ -34,6 +35,7 @@
 
 * **e2e:** add different possible combinations for filters-search components ([75b61bb](https://bitbucket.org/colbenson/x-components/commits/75b61bbb8056c3cb08af88244da6518348a8d2e8)), closes [EX-3601](https://searchbroker.atlassian.net/browse/EX-3601)
 * **e2e:** add new sort tests ([62c7eee](https://bitbucket.org/colbenson/x-components/commits/62c7eee8652a72e2f3000476188c20d9b3aa9671)), closes [EX-3666](https://searchbroker.atlassian.net/browse/EX-3666)
+* **e2e:** e2e test for exclude-filters-with-no-results component ([d36c0b6](https://bitbucket.org/colbenson/x-components/commits/d36c0b6e55b3ce084b2c80d70691fae44446a187)), closes [EX-3599](https://searchbroker.atlassian.net/browse/EX-3599)
 
 
 ### Documentation
