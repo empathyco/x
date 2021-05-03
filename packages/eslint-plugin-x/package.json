@@ -1,5 +1,5 @@
 {
-  "name": "@empathy/eslint-plugin-x",
+  "name": "@empathyco/eslint-plugin-x",
   "version": "1.2.1",
   "license": "Apache-2.0",
   "author": "Empathy Systems Corporation S.L.",
@@ -10,6 +10,9 @@
     "eslint-plugin"
   ],
   "main": "lib/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "npm pack",
     "commit": "git-cz",

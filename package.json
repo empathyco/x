@@ -1,13 +1,14 @@
 {
   "name": "x",
   "license": "Apache-2.0",
-  "private": true,
   "scripts": {
     "postinstall": "lerna bootstrap --hoist",
+    "version": "lerna version --conventional-commits",
+    "version:alpha": "lerna version --conventional-commits --conventional-prerelease",
     "build": "lerna run build",
     "lint": "lerna run lint",
     "test": "lerna run test",
-    "publish": "lerna publish"
+    "publish": "lerna publish from-package --yes"
   },
   "devDependencies": {
     "lerna": "~4.0.0"

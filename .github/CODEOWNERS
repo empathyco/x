@@ -2,4 +2,4 @@
 # Unless a later match takes precedence,
 # These owners will be requested for review when someone opens a pull request.
 
-* @empathyco/ui
+* @empathyco/x
