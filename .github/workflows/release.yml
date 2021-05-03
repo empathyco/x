@@ -28,6 +28,6 @@ jobs:
           TAG_NAME: ${{ github.ref }}
         run: echo "BRANCHES_WITH_TAG=$(git branch --contains $TAG_NAME)" >> $GITHUB_ENV
       - name: Publish the changed packages only if there are tags
-        if: ${{ contains(env.BRANCHES_WITH_TAG, '* main') }}
+        if: ${{ contains(env.BRANCHES_WITH_TAG, '* develop') }}
         run: echo Publishing packages...
       #  run: npm run publish
