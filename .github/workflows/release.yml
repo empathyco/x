@@ -1,8 +1,9 @@
-name: Install, build, lint, test, publish
+name: Release
 on:
   push:
     branches:
       - develop
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
