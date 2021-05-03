@@ -1,19 +1,18 @@
-name: Release
+name: Install, build, lint, test, and publish
 on:
   push:
-    branches:
-      - main
     tags:
       - "@empathyco/*"
+  pull_request:
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '14'
-      - name: Prepare .npmrc file to release
+          node-version: "14"
+      - name: Create .npmrc file with authorization token
         run: echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -25,6 +24,7 @@ jobs:
         run: npm run lint
       - name: Run tests in all packages
         run: npm run test
-      #- name: Publish the changed packages
+      - name: Publish the changed packages
+        if: ${{ github.event_name == 'push' && github.base_ref == 'main' }}
+        run: echo Publishing packages...
       #  run: npm run publish
-
