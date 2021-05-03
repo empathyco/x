@@ -26,8 +26,10 @@ jobs:
       - name: Retrieve current commit tags
         env:
           TAG_NAME: ${{ github.ref }}
-        run: echo "BRANCHES_WITH_TAG=$(git branch --contains $TAG_NAME)" >> $GITHUB_ENV
+        run: |
+          echo "BRANCHES_WITH_TAG=$(git branch --contains $TAG_NAME)" >> $GITHUB_ENV
+          echo Stored BRANCHES_WITH_TAG $BRANCHES_WITH_TAG
       - name: Publish the changed packages only if there are tags
-        if: ${{ contains(env.BRANCHES_WITH_TAG, '* develop') }}
+        if: contains(env.BRANCHES_WITH_TAG, 'develop')
         run: echo Publishing packages...
       #  run: npm run publish
