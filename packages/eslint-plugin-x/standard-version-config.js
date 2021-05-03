@@ -12,9 +12,6 @@ module.exports = {
     { type: 'chore', section: 'Others', hidden: true },
     { type: 'revert', section: 'Reverts', hidden: true }
   ],
-  commitUrlFormat: 'https://bitbucket.org/colbenson/{{repository}}/commits/{{hash}}',
-  compareUrlFormat: 'https://bitbucket.org/colbenson/{{repository}}/branches/compare/{{currentTag}}%0D{{previousTag}}',
   issueUrlFormat: 'https://searchbroker.atlassian.net/browse/EX-{{id}}',
-  userUrlFormat: 'https://bitbucket.org/{{user}}',
   issuePrefixes: ['EX-']
 };
