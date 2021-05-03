@@ -25,6 +25,6 @@ jobs:
       - name: Display tags
         run: echo $COMMIT_TAGS
       - name: Publish the changed packages only if there are tags
-        if: ${{ github.event_name == 'push' && github.ref === 'develop' && $COMMIT_TAGS != '' }}
+        if: ${{ github.event_name == 'push' && github.ref == 'develop' && $COMMIT_TAGS != '' }}
         run: echo Publishing packages...
       #  run: npm run publish
