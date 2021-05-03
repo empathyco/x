@@ -1,4 +1,47 @@
 # X Components
+## [2.0.0-alpha.10](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.10%0Dv2.0.0-alpha.9) (2021-05-03)
+
+
+### Features
+
+* **contributing-guide:** Add contributing guide ([9f27fc8](https://bitbucket.org/colbenson/x-components/commits/9f27fc8438f4b24c19d6e30de5216e72a38d8ee1)), closes [EX-2891](https://searchbroker.atlassian.net/browse/EX-2891)
+* **design-system:** add base tokens ([c124600](https://bitbucket.org/colbenson/x-components/commits/c124600cf491f45d713c37f737ea22d85f004ae4)), closes [EX-3672](https://searchbroker.atlassian.net/browse/EX-3672)
+* **design-system:** add Button variations tokens and CSS ([cc20dba](https://bitbucket.org/colbenson/x-components/commits/cc20dba02f29a320e5d1c52b627722fc980d3b29)), closes [EX-3689](https://searchbroker.atlassian.net/browse/EX-3689)
+* **design-system:** add default button design tokens and styles ([5d85fcc](https://bitbucket.org/colbenson/x-components/commits/5d85fcc3c83fea25eb41bcde805bb7b3161c031b)), closes [EX-3688](https://searchbroker.atlassian.net/browse/EX-3688)
+* **design-system:** add Design System view as showcase ([8493ca4](https://bitbucket.org/colbenson/x-components/commits/8493ca4fb095839603e8efff9318c5adf824ef7f)), closes [EX-3690](https://searchbroker.atlassian.net/browse/EX-3690)
+* **directives:** add `InfiniteScroll` directive ([172809d](https://bitbucket.org/colbenson/x-components/commits/172809db62b92783cc0fa28402b21edc2c113b7d)), closes [EX-3352](https://searchbroker.atlassian.net/browse/EX-3352)
+* **directives:** add barrel file in `directives` folder and export them in `src` ([8e12202](https://bitbucket.org/colbenson/x-components/commits/8e12202d3173e2cd751321ab8bdac527290012ea)), closes [EX-3779](https://searchbroker.atlassian.net/browse/EX-3779)
+* **facets:** add Renderless Filter component ([d30aa57](https://bitbucket.org/colbenson/x-components/commits/d30aa578efddcc1cf7e00d4cca14b9ccf62f007a)), closes [EX-3608](https://searchbroker.atlassian.net/browse/EX-3608)
+* **facets:** change `BaseFilter` to `RenderlessFilter` in `HierarchicalFilter` component ([36f2771](https://bitbucket.org/colbenson/x-components/commits/36f2771f78cea144242a5ec66041227efd97993c)), closes [EX-3590](https://searchbroker.atlassian.net/browse/EX-3590)
+* **facets:** make `SimpleFilter` component use `RenderlessFilter`, exposing the option of changing the default button. ([ea93d31](https://bitbucket.org/colbenson/x-components/commits/ea93d310e74ec8cdc40361f68428626080810999)), closes [EX-3589](https://searchbroker.atlassian.net/browse/EX-3589)
+* **facets:** use the new decorators `inject` and `provide` in the filters components ([876826a](https://bitbucket.org/colbenson/x-components/commits/876826a7ad3b8693569fb5e08a02bef814d17a74)), closes [EX-3465](https://searchbroker.atlassian.net/browse/EX-3465)
+* **test:** e2e test for exclude-filters-with-no-results component ([d36c0b6](https://bitbucket.org/colbenson/x-components/commits/d36c0b6e55b3ce084b2c80d70691fae44446a187)), closes [EX-3599](https://searchbroker.atlassian.net/browse/EX-3599)
+* **x-installer:** add option to install asynchronous Vue plugins ([b132dd4](https://bitbucket.org/colbenson/x-components/commits/b132dd43d40954764729f67e87fcbf4b9374f1a4)), closes [EX-3790](https://searchbroker.atlassian.net/browse/EX-3790)
+
+
+### Bug Fixes
+
+* **tests:** enable new scenario in querySuggestions and fix `isInQuerySuggestions` method ([5209bd8](https://bitbucket.org/colbenson/x-components/commits/5209bd82dd0d72351fcacc43c7546e6434aec715)), closes [EX-3307](https://searchbroker.atlassian.net/browse/EX-3307)
+
+
+### Build System
+
+* **dependencies:** update `search-adapter` and `search-types` versions ([0663e17](https://bitbucket.org/colbenson/x-components/commits/0663e1735393022af9eb57e54de274a224f4416a)), closes [EX-3664](https://searchbroker.atlassian.net/browse/EX-3664)
+* **package.json:** update fixed dependencies (package-lock.json) and fix eslint version to minor ([d33ed95](https://bitbucket.org/colbenson/x-components/commits/d33ed958c111e7f3da4f44c6a3073afd915bc02b)), closes [EX-3744](https://searchbroker.atlassian.net/browse/EX-3744)
+
+
+### Testing
+
+* **e2e:** add different possible combinations for filters-search components ([75b61bb](https://bitbucket.org/colbenson/x-components/commits/75b61bbb8056c3cb08af88244da6518348a8d2e8)), closes [EX-3601](https://searchbroker.atlassian.net/browse/EX-3601)
+* **e2e:** add new sort tests ([62c7eee](https://bitbucket.org/colbenson/x-components/commits/62c7eee8652a72e2f3000476188c20d9b3aa9671)), closes [EX-3666](https://searchbroker.atlassian.net/browse/EX-3666)
+
+
+### Documentation
+
+* **tests** add tests docs in contributing documentation about factory functions and components wrappers ([fdbe0ac](https://bitbucket.org/colbenson/x-components/commits/fdbe0ac09e30fde2739501211988c351ec975a32)), closes [EX-3760](https://searchbroker.atlassian.net/browse/EX-3760)
+* **xcomponents:** add documentation about events emitted by components ([edf3bf6](https://bitbucket.org/colbenson/x-components/commits/edf3bf6d46114e4fc702cb6650f10e6c7f046f99)), closes [EX-3465](https://searchbroker.atlassian.net/browse/EX-3465)
+
+
 ## [2.0.0-alpha.9](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.9%0Dv2.0.0-alpha.8) (2021-04-13)
 
 
