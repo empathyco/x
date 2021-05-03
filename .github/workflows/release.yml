@@ -1,4 +1,4 @@
-name: Install, build, lint, test
+name: Install, build, lint, test, publish
 on:
   push:
     branches:
