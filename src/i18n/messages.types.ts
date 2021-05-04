@@ -19,4 +19,13 @@ export interface Messages {
   nextQueries: {
     title: string;
   };
+  identifierResults: {
+    title: string;
+  };
+  recommendations: {
+    title: string;
+  };
+  facets: {
+    [key: string]: string;
+  };
 }

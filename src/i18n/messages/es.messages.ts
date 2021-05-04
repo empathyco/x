@@ -18,5 +18,18 @@ export default createMessages({
   },
   nextQueries: {
     title: 'Para ti'
+  },
+  identifierResults: {
+    title: 'Búsqueda SKU'
+  },
+  recommendations: {
+    title: 'Recomendaciones'
+  },
+  facets: {
+    hierarchical_category: 'Categorías',
+    rootCategories_facet: 'Categorías',
+    brand_facet: 'Marcas',
+    age_facet: 'Edad',
+    price_facet: 'Precio'
   }
 });

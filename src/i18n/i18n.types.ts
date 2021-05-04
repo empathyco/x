@@ -47,5 +47,5 @@ export interface I18nAPI {
    *
    * @param locale - The new locale to set.
    */
-  setLocale(locale: string): void;
+  setLocale: (locale: string) => void;
 }

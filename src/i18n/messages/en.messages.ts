@@ -14,9 +14,22 @@ export default createMessages({
     title: 'History Queries'
   },
   querySuggestions: {
-    title: 'Query Suggestions'
+    title: 'Suggestions'
   },
   nextQueries: {
     title: 'Next Queries'
+  },
+  identifierResults: {
+    title: 'SKU Search'
+  },
+  recommendations: {
+    title: 'Recommendations'
+  },
+  facets: {
+    hierarchical_category: 'Categories',
+    rootCategories_facet: 'Root Categories',
+    brand_facet: 'Brands',
+    age_facet: 'Age',
+    price_facet: 'Price'
   }
 });
