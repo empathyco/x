@@ -67,9 +67,9 @@
             <Filters v-slot="{ filter }" :filters="facet.filters">
               <NumberRangeFilter :filter="filter">
                 <template #default="{ filter }">
-                  <BasePriceFilterTitle
+                  <BasePriceFilterLabel
                     :filter="filter"
-                    :configCurrency="{ format: 'i €' }"
+                    format="i €"
                     lessThan="Less than {max}"
                     fromTo="From {min} to {max}"
                     from="More than {min}"
@@ -128,7 +128,7 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { State } from '../components/decorators/store.decorators';
-  import BasePriceFilterTitle from '../components/filters/labels/base-price-filter-label.vue';
+  import BasePriceFilterLabel from '../components/filters/labels/base-price-filter-label.vue';
   import AllFilter from '../x-modules/facets/components/filters/all-filter.vue';
   import SlicedFilters from '../x-modules/facets/components/lists/sliced-filters.vue';
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
@@ -170,7 +170,7 @@
       BaseHeaderTogglePanel,
       HierarchicalFilter,
       NumberRangeFilter,
-      BasePriceFilterTitle,
+      BasePriceFilterLabel,
       BaseKeyboardNavigation,
       SimpleFilter,
       ClearFilters,

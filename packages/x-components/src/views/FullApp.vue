@@ -125,9 +125,9 @@
           <Filters v-slot="{ filter }" :filters="facet.filters" :animation="staggeredFadeAndSlide">
             <NumberRangeFilter :filter="filter">
               <template #default="{ filter }">
-                <BasePriceFilterTitle
+                <BasePriceFilterLabel
                   :filter="filter"
-                  :configCurrency="{ format: 'i €' }"
+                  format="i €"
                   lessThan="Less than {max}"
                   fromTo="From {min} to {max}"
                   from="More than {min}"
@@ -335,7 +335,7 @@
   import { getPromotedsStub } from '../__stubs__/promoteds-stubs.factory';
   import BaseGrid from '../components/base-grid.vue';
   import BaseIdScroll from '../components/scroll/base-id-scroll.vue';
-  import BasePriceFilterTitle from '../components/filters/labels/base-price-filter-label.vue';
+  import BasePriceFilterLabel from '../components/filters/labels/base-price-filter-label.vue';
   import BaseCurrency from '../components/currency/base-currency.vue';
   import AllFilter from '../x-modules/facets/components/filters/all-filter.vue';
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
@@ -427,7 +427,7 @@
       HierarchicalFilter,
       NumberRangeFilter,
       BaseCurrency,
-      BasePriceFilterTitle,
+      BasePriceFilterLabel,
       BaseEventsModalClose,
       BaseKeyboardNavigation,
       BaseEventsModalOpen,

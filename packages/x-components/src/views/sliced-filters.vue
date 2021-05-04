@@ -89,9 +89,9 @@
               <Filters v-slot="{ filter }">
                 <NumberRangeFilter :filter="filter">
                   <template #default="{ filter }">
-                    <BasePriceFilterTitle
+                    <BasePriceFilterLabel
                       :filter="filter"
-                      :configCurrency="{ format: 'i €' }"
+                      format="i €"
                       lessThan="Less than {max}"
                       fromTo="From {min} to {max}"
                       from="More than {min}"
@@ -111,7 +111,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import BasePriceFilterTitle from '../components/filters/labels/base-price-filter-label.vue';
+  import BasePriceFilterLabel from '../components/filters/labels/base-price-filter-label.vue';
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
   import { XPlugin } from '../plugins/x-plugin';
   import { XInstaller } from '../x-installer/x-installer';
@@ -145,7 +145,7 @@
     components: {
       AllFilter,
       BaseHeaderTogglePanel,
-      BasePriceFilterTitle,
+      BasePriceFilterLabel,
       ClearFilters,
       ClearSearchInput,
       ExcludeFiltersWithNoResults,

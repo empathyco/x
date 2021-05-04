@@ -122,6 +122,11 @@ const routes: RouteConfig[] = [
     path: '/test/sliced-filters',
     name: 'Sliced Filters',
     component: () => import('./views/sliced-filters.vue')
+  },
+  {
+    path: '/test/multiselect-filters',
+    name: 'MultiSelect Filters',
+    component: () => import('./views/multiselect-filters.vue')
   }
 ];
 
