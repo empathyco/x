@@ -1,4 +1,4 @@
-name: Install, build, lint, test
+name: Check branch is releasable
 on: [push, pull_request]
 jobs:
   build:
