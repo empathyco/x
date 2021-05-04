@@ -5,6 +5,12 @@
         <!-- @slot (Required) Modal container content -->
         <slot />
       </div>
+      <div
+        ref="overlay"
+        @click="emitOverlayClicked"
+        class="x-modal__overlay"
+        data-test="modal-overlay"
+      />
     </div>
   </component>
 </template>
@@ -40,7 +46,8 @@
     protected previousHTMLOverflow = '';
 
     public $refs!: {
-      modal: HTMLElement;
+      modal: HTMLDivElement;
+      overlay: HTMLDivElement;
     };
 
     protected mounted(): void {
@@ -102,7 +109,6 @@
      */
     protected addBodyListeners(): void {
       /* eslint-disable @typescript-eslint/unbound-method */
-      document.body.addEventListener('click', this.emitClickInBody);
       document.body.addEventListener('focusin', this.emitFocusInBody);
       /* eslint-enable @typescript-eslint/unbound-method */
     }
@@ -114,25 +120,24 @@
      */
     protected removeBodyListeners(): void {
       /* eslint-disable @typescript-eslint/unbound-method */
-      document.body.removeEventListener('click', this.emitClickInBody);
       document.body.removeEventListener('focusin', this.emitFocusInBody);
       /* eslint-enable @typescript-eslint/unbound-method */
     }
 
     /**
-     * Emits the `click:body` event if the click has been triggered out of the modal.
+     * Emits the `click:overlay` event if the click has been triggered in the overlay layer.
      *
      * @param event - The click event.
      * @internal
      */
-    protected emitClickInBody(event: MouseEvent): void {
-      if (!this.$refs.modal.contains(event.target as HTMLElement)) {
-        this.$emit('click:body', event);
+    protected emitOverlayClicked(event: MouseEvent): void {
+      if (this.$refs.overlay === event.target) {
+        this.$emit('click:overlay', event);
       }
     }
 
     /**
-     * Emits the `focusin:body` event if the focus event has been triggered out of the modal.
+     * Emits the `focusin:body` event if a focus event has been triggered outside the modal.
      *
      * @param event - The focusin event.
      * @internal
@@ -160,6 +165,16 @@
     height: 100%;
 
     z-index: 1;
+
+    &__content {
+      z-index: 1;
+    }
+
+    &__overlay {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
   }
 </style>
 

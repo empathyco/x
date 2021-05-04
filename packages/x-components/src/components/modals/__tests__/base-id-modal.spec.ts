@@ -1,147 +1,141 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
+import { XEvent } from '../../../wiring/events.types';
 import BaseIdModal from '../base-id-modal.vue';
 
 /**
- * Renders the {@link BaseIdModal} with the provided options.
+ * Mounts a {@link BaseIdModal} component with the provided options and offers an API to easily
+ * test it.
  *
  * @param options - The options to render the component with.
- * @returns An small API to test the component.
+ * @returns An API to test the component.
  */
-function renderBaseIdModal({
-  id = 'myModal',
-  template = `<BaseIdModal modalId="${id}" v-bind="$attrs" />`
-}: RenderBaseIdModalOptions = {}): RenderBaseIdModalAPI {
+function mountBaseIdModal({
+  modalId = 'myModal',
+  defaultSlot = `<span data-test="default-slot">Modal: ${modalId}</span>`
+}: MountBaseIdModalOptions = {}): MountBaseIdModalAPI {
   const [, localVue] = installNewXPlugin();
-  const div = document.createElement('div');
-  document.body.appendChild(div);
-  const wrapper = mount(
-    {
-      components: {
-        BaseIdModal
-      },
-      template
-    },
-    { propsData: { modalId: id }, localVue, attachTo: div }
-  );
+  const parent = document.createElement('div');
+  document.body.appendChild(parent);
 
-  const modalWrapper = wrapper.findComponent(BaseIdModal);
-  const modalId = modalWrapper.props('modalId');
+  const wrapper = mount(BaseIdModal, {
+    attachTo: parent,
+    localVue,
+    propsData: { modalId },
+    slots: {
+      default: defaultSlot
+    }
+  });
 
   return {
-    wrapper: modalWrapper,
+    wrapper,
     modalId,
-    emitClose() {
-      wrapper.vm.$x.emit('UserClickedCloseModal', modalId);
-      return localVue.nextTick();
+    async emit(event: XEvent) {
+      wrapper.vm.$x.emit(event, modalId);
+      await localVue.nextTick();
     },
-    emitOpen() {
-      wrapper.vm.$x.emit('UserClickedOpenModal', modalId);
-      return localVue.nextTick();
+    async click(string) {
+      await wrapper.get(getDataTestSelector(string))?.trigger('click');
     },
-    clickBody() {
-      document.body.click();
-      return localVue.nextTick();
+    getModalContent() {
+      return wrapper.find(getDataTestSelector('modal-content'));
     },
-    focusBody() {
-      document.body.dispatchEvent(new FocusEvent('focusin'));
-      return localVue.nextTick();
-    },
-    async clickOverlay() {
-      await modalWrapper.trigger('click');
-    },
-    async clickModalContent() {
-      await modalWrapper.get(getDataTestSelector('modal-content')).trigger('click');
-    },
-    getModalElement() {
-      return modalWrapper.find(getDataTestSelector('modal'));
+    async fakeFocusIn() {
+      const buttonWrapper = mount({
+        template: `<button>Button</button>`
+      });
+      document.body.appendChild(wrapper.element);
+      document.body.appendChild(buttonWrapper.element);
+
+      await buttonWrapper.trigger('focusin');
+
+      document.body.removeChild(wrapper.element);
+      document.body.removeChild(buttonWrapper.element);
     }
   };
 }
 
 describe('testing BaseIdModal  component', () => {
-  it('opens and closes when clicking on the open & close buttons', async () => {
-    const { emitOpen, emitClose, getModalElement } = renderBaseIdModal();
-    expect(getModalElement().exists()).toBe(false);
+  it('opens when UserClickedOpenModal event is emitted', async () => {
+    const { emit, getModalContent } = mountBaseIdModal();
+    expect(getModalContent().exists()).toBe(false);
 
-    await emitOpen();
-    expect(getModalElement().exists()).toBe(true);
-    await emitClose();
-    expect(getModalElement().exists()).toBe(false);
+    await emit('UserClickedOpenModal');
+    expect(getModalContent().exists()).toBe(true);
   });
 
-  it('closes when clicking on any element of the body', async () => {
-    const { emitOpen, clickBody, getModalElement } = renderBaseIdModal();
+  it('closes when UserClickedCloseModal or UserClickedOutOfModal events are emitted', async () => {
+    const { emit, getModalContent } = mountBaseIdModal();
+    await emit('UserClickedOpenModal');
+    expect(getModalContent().exists()).toBe(true);
 
-    await emitOpen();
-    expect(getModalElement().exists()).toBe(true);
-    await clickBody();
-    expect(getModalElement().exists()).toBe(false);
+    await emit('UserClickedCloseModal');
+    expect(getModalContent().exists()).toBe(false);
+
+    await emit('UserClickedOpenModal');
+    expect(getModalContent().exists()).toBe(true);
+
+    await emit('UserClickedOutOfModal');
+    expect(getModalContent().exists()).toBe(false);
+  });
+
+  it('closes when clicking on the modal overlay', async () => {
+    const { click, emit, getModalContent } = mountBaseIdModal();
+
+    await emit('UserClickedOpenModal');
+    expect(getModalContent().exists()).toBe(true);
+
+    await click('modal-overlay');
+    expect(getModalContent().exists()).toBe(false);
   });
 
   it('closes when focusing any other element out of the modal', async () => {
-    const { emitOpen, focusBody, getModalElement } = renderBaseIdModal();
+    const { emit, fakeFocusIn, getModalContent } = mountBaseIdModal();
 
-    await emitOpen();
-    expect(getModalElement().exists()).toBe(true);
-    await focusBody();
-    expect(getModalElement().exists()).toBe(false);
-  });
+    await emit('UserClickedOpenModal');
+    expect(getModalContent().exists()).toBe(true);
 
-  it('closes when clicking the modal overlay', async () => {
-    const { emitOpen, clickOverlay, getModalElement } = renderBaseIdModal();
-
-    await emitOpen();
-    expect(getModalElement().exists()).toBe(true);
-    await clickOverlay();
-    expect(getModalElement().exists()).toBe(false);
+    await fakeFocusIn();
+    expect(getModalContent().exists()).toBe(false);
   });
 
   it("doesn't not close when clicking on either the modal or its content", async () => {
-    const { wrapper, clickModalContent, emitOpen, getModalElement } = renderBaseIdModal({
-      template: `
-        <BaseIdModal modalId="myModal" v-bind="$attrs">
-          <button data-test="test-button">Modal should still be open when I'm clicked</button>
-        </BaseIdModal>`
+    const { wrapper, click, emit, getModalContent } = mountBaseIdModal({
+      defaultSlot: `
+        <button data-test="test-button">Modal should still be opened when I'm clicked</button>
+      `
     });
 
-    await emitOpen();
-    expect(getModalElement().exists()).toBe(true);
+    await emit('UserClickedOpenModal');
+    expect(getModalContent().exists()).toBe(true);
 
-    await clickModalContent();
-    expect(getModalElement().exists()).toBe(true);
+    await click('modal-content');
+    expect(getModalContent().exists()).toBe(true);
 
-    const button = wrapper.find(getDataTestSelector('test-button'));
-    await button.trigger('click');
-    expect(getModalElement().exists()).toBe(true);
+    await wrapper.find(getDataTestSelector('test-button'))?.trigger('click');
+    expect(getModalContent().exists()).toBe(true);
   });
 });
 
-interface RenderBaseIdModalOptions {
-  /** The template to render. */
-  template?: string;
+interface MountBaseIdModalOptions {
+  /** The default slot to render. */
+  defaultSlot?: string;
   /** The modal id. */
-  id?: string;
+  modalId?: string;
 }
 
-interface RenderBaseIdModalAPI {
+interface MountBaseIdModalAPI {
   /** The wrapper for the modal component. */
   wrapper: Wrapper<Vue>;
   /** The modal id. */
   modalId: string;
-  /** Fakes a click on the close button. */
-  emitClose: () => Promise<void>;
-  /** Fakes a click on the open button. */
-  emitOpen: () => Promise<void>;
-  /** Fakes a click on the body. */
-  clickBody: () => Promise<void>;
-  /** Fakes a focusin event in the body. */
-  focusBody: () => Promise<void>;
-  /** Fakes a click on the overlay. */
-  clickOverlay: () => Promise<void>;
-  /** Fakes a click ont the modal content. */
-  clickModalContent: () => Promise<void>;
-  /** Retrieves the modal  wrapper. */
-  getModalElement: () => Wrapper<Vue>;
+  /** Emits the provided event. */
+  emit: (event: XEvent) => Promise<void>;
+  /** Fakes a click on an element. */
+  click: (element: string) => Promise<void>;
+  /** Fakes a focusin event in another HTMLElement of the body. */
+  fakeFocusIn: () => Promise<void>;
+  /** Retrieves the modal content. */
+  getModalContent: () => Wrapper<Vue>;
 }

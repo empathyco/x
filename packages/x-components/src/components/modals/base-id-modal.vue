@@ -1,6 +1,6 @@
 <template>
   <BaseModal
-    @click:body="emitClickOutOfModal"
+    @click:overlay="emitClickOutOfModal"
     @focusin:body="emitClickOutOfModal"
     :animation="animation"
     :open="isOpen"
@@ -29,21 +29,15 @@
     components: { BaseModal }
   })
   export default class BaseIdModal extends Vue {
-    /**
-     * Animation to use for opening/closing the modal.
-     */
+    /** Animation to use for opening/closing the modal. */
     @Prop()
     public animation?: Vue | string;
 
-    /**
-     * The modalId to use for the open and close event listeners.
-     */
+    /** The modalId to use for the open and close event listeners. */
     @Prop({ required: true })
     public modalId!: string;
 
-    /**
-     * Whether the modal is open or not.
-     */
+    /** Whether the modal is open or not. */
     protected isOpen = false;
 
     /** The element that opened the modal. */

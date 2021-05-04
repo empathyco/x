@@ -1,6 +1,6 @@
 <template>
   <BaseModal
-    @click:body="emitBodyClickEvent"
+    @click:overlay="emitBodyClickEvent"
     @focusin:body="emitBodyClickEvent"
     :animation="animation"
     :open="isOpen"

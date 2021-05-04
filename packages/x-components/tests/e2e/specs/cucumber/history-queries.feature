@@ -61,17 +61,17 @@ Feature: History queries component
       | true              | 1000          | 15              | 5                | true    | barbie |
       | true              | 1000          | 15              | 5                | false   | barbie |
 
-    Scenario Outline: 6. Number and order of rendered history queries
-      Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>
-      And   a "<list>" of queries already searched
-      When  history query number <historyQueryItem> is clicked
-      And   clear search button is clicked
-      Then  the searched query is removed from <historyQueryItem> position in history queries
-      And   the searched query is the first item in history queries
-      And   displayed history queries are min of number of queries already searched, max requested items <maxItemsToStore>, max rendered items <maxItemsToRender>
+  Scenario Outline: 6. Number and order of rendered history queries
+    Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>
+    And   a "<list>" of queries already searched
+    When  history query number <historyQueryItem> is clicked
+    And   clear search button is clicked
+    Then  the searched query is removed from <historyQueryItem> position in history queries
+    And   the searched query is the first item in history queries
+    And   displayed history queries are min of number of queries already searched, max requested items <maxItemsToStore>, max rendered items <maxItemsToRender>
 
-      Examples:
-        | hideIfEqualsQuery | debounceInMs | maxItemsToStore | maxItemsToRender | instant  | historyQueryItem  | list                                                      |
-        | false             | 150          | 4               | 6                | true     | 1                 | puzzle, funko, lego, coche, barbie, casa, muñeca, peluche |
-        | false             | 150          | 6               | 8                | true     | 2                 | puzzle, funko, lego, coche                                |
-        | false             | 150          | 8               | 4                | true     | 3                 | puzzle, funko, lego, coche, barbie, casa                  |
+    Examples:
+      | hideIfEqualsQuery | debounceInMs | maxItemsToStore | maxItemsToRender | instant  | historyQueryItem  | list                                                      |
+      | false             | 150          | 4               | 6                | true     | 1                 | puzzle, funko, lego, coche, barbie, casa, muñeca, peluche |
+      | false             | 150          | 6               | 8                | true     | 2                 | puzzle, funko, lego, coche                                |
+      | false             | 150          | 8               | 4                | true     | 3                 | puzzle, funko, lego, coche, barbie, casa                  |

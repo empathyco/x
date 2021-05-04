@@ -6,176 +6,164 @@ import { PropsWithType } from '../../../utils/types';
 import { XEventsTypes, XEvent } from '../../../wiring/events.types';
 
 /**
- * Renders the {@link BaseEventsModal} with the provided options.
+ * Mounts a {@link BaseEventsModal} component with the provided options and offers an API to easily
+ * test it.
  *
  * @param options - The options to render the component with.
- * @returns An small API to test the component.
+ * @returns An API to test the component.
  */
-function renderBaseEventsModal({
-  template = '<BaseEventsModal v-bind="$attrs" />',
+function mountBaseEventsModal({
+  defaultSlot = '<span data-test="default-slot">Modal</span>',
   bodyClickEvent,
   eventsToCloseModal,
   eventsToOpenModal
-}: RenderBaseEventsModalOptions = {}): RenderBaseEventsModalAPI {
+}: MountBaseEventsModalOptions = {}): MountBaseEventsModalAPI {
   const [, localVue] = installNewXPlugin();
-  const div = document.createElement('div');
-  document.body.appendChild(div);
-  const wrapper = mount(
-    {
-      components: {
-        BaseEventsModal
-      },
-      template
-    },
-    {
-      propsData: { bodyClickEvent, eventsToCloseModal, eventsToOpenModal },
-      localVue,
-      attachTo: div
-    }
-  );
+  const parent = document.createElement('div');
+  document.body.appendChild(parent);
 
-  const modalWrapper = wrapper.findComponent(BaseEventsModal);
+  const wrapper = mount(BaseEventsModal, {
+    attachTo: parent,
+    localVue,
+    propsData: { bodyClickEvent, eventsToCloseModal, eventsToOpenModal },
+    slots: {
+      default: defaultSlot
+    }
+  });
 
   return {
-    wrapper: modalWrapper,
-    emitClose() {
-      wrapper.vm.$x.emit('UserClickedCloseX');
-      return localVue.nextTick();
+    wrapper,
+    async clickModalOverlay() {
+      await wrapper.find(getDataTestSelector('modal-overlay'))?.trigger('click');
     },
-    emitOpen() {
-      wrapper.vm.$x.emit('UserClickedOpenX');
-      return localVue.nextTick();
-    },
-    clickBody() {
-      document.body.click();
-      return localVue.nextTick();
-    },
-    focusBody() {
-      document.body.dispatchEvent(new FocusEvent('focusin'));
-      return localVue.nextTick();
-    },
-    clickOverlay() {
-      modalWrapper.trigger('click');
-      return localVue.nextTick();
-    },
-    getModalElement() {
-      return modalWrapper.find(getDataTestSelector('modal'));
-    },
-    emit(event) {
+    async emit(event) {
       wrapper.vm.$x.emit(event);
-      return localVue.nextTick();
+      await localVue.nextTick();
+    },
+    getModalContent() {
+      return wrapper.find(getDataTestSelector('modal-content'));
+    },
+    async fakeFocusIn() {
+      const buttonWrapper = mount({
+        template: `<button>Button</button>`
+      });
+      document.body.appendChild(wrapper.element);
+      document.body.appendChild(buttonWrapper.element);
+
+      await buttonWrapper.trigger('focusin');
+
+      document.body.removeChild(wrapper.element);
+      document.body.removeChild(buttonWrapper.element);
     }
   };
 }
 
 describe('testing Base Events Modal  component', () => {
-  it('opens and closes when clicking on the open & close buttons', async () => {
-    const { emitOpen, emitClose, getModalElement } = renderBaseEventsModal();
-    expect(getModalElement().exists()).toBe(false);
+  it('opens and closes when UserClickedOpenX and UserClickedClosedX are emitted', async () => {
+    const { emit, getModalContent } = mountBaseEventsModal();
+    expect(getModalContent().exists()).toBe(false);
 
-    await emitOpen();
-    expect(getModalElement().exists()).toBe(true);
-    await emitClose();
-    expect(getModalElement().exists()).toBe(false);
+    await emit('UserClickedOpenX');
+    expect(getModalContent().exists()).toBe(true);
+
+    await emit('UserClickedCloseX');
+    expect(getModalContent().exists()).toBe(false);
   });
 
-  it('closes when clicking on any element of the body', async () => {
-    const { emitOpen, clickBody, getModalElement } = renderBaseEventsModal();
+  it('closes when clicking on the modal overlay', async () => {
+    const { clickModalOverlay, emit, getModalContent } = mountBaseEventsModal();
 
-    await emitOpen();
-    expect(getModalElement().exists()).toBe(true);
-    await clickBody();
-    expect(getModalElement().exists()).toBe(false);
+    await emit('UserClickedOpenX');
+    expect(getModalContent().exists()).toBe(true);
+
+    await clickModalOverlay();
+    expect(getModalContent().exists()).toBe(false);
   });
 
   it('closes when focusing any other element out of the modal', async () => {
-    const { emitOpen, focusBody, getModalElement } = renderBaseEventsModal();
+    const { emit, fakeFocusIn, getModalContent } = mountBaseEventsModal();
 
-    await emitOpen();
-    expect(getModalElement().exists()).toBe(true);
-    await focusBody();
-    expect(getModalElement().exists()).toBe(false);
-  });
+    await emit('UserClickedOpenX');
+    expect(getModalContent().exists()).toBe(true);
 
-  it('closes when clicking on the overlay element', async () => {
-    const { emitOpen, clickOverlay, getModalElement } = renderBaseEventsModal();
-
-    await emitOpen();
-    expect(getModalElement().exists()).toBe(true);
-    await clickOverlay();
-    expect(getModalElement().exists()).toBe(false);
+    await fakeFocusIn();
+    expect(getModalContent().exists()).toBe(false);
   });
 
   it('does not close when clicking inside the content', async () => {
-    const { wrapper, emitOpen, getModalElement } = renderBaseEventsModal({
-      template: `
-        <BaseEventsModal v-bind="$attrs">
-          <button data-test="test-button">Modal should still be open when I'm clicked</button>
-        </BaseEventsModal>`
+    const { wrapper, emit, getModalContent } = mountBaseEventsModal({
+      defaultSlot: `
+        <button data-test="test-button">Modal should still be opened when I'm clicked</button>
+      `
     });
 
-    await emitOpen();
-    expect(getModalElement().exists()).toBe(true);
-    const button = wrapper.find(getDataTestSelector('test-button'));
-    await button.trigger('click');
-    expect(getModalElement().exists()).toBe(true);
+    await emit('UserClickedOpenX');
+    expect(getModalContent().exists()).toBe(true);
+
+    await wrapper.find(getDataTestSelector('test-button')).trigger('click');
+    expect(getModalContent().exists()).toBe(true);
   });
 
   it('allows to customize the events listened for opening & closing', async () => {
-    const { getModalElement, emit } = renderBaseEventsModal({
-      eventsToOpenModal: ['UserFocusedSearchBox'],
-      eventsToCloseModal: ['UserPressedClearSearchBoxButton']
+    const eventToOpen = 'UserFocusedSearchBox';
+    const eventToClose = 'UserPressedClearSearchBoxButton';
+    const { emit, getModalContent, wrapper } = mountBaseEventsModal({
+      eventsToOpenModal: [eventToOpen],
+      eventsToCloseModal: [eventToClose]
     });
 
-    await emit('UserFocusedSearchBox');
-    expect(getModalElement().exists()).toBe(true);
+    const openListener = jest.fn();
+    wrapper.vm.$x.on(eventToOpen).subscribe(openListener);
+    const closeListener = jest.fn();
+    wrapper.vm.$x.on(eventToClose).subscribe(closeListener);
 
-    await emit('UserPressedClearSearchBoxButton');
-    expect(getModalElement().exists()).toBe(false);
+    await emit(eventToOpen);
+    expect(getModalContent().exists()).toBe(true);
+    expect(openListener).toHaveBeenCalled();
+
+    await emit(eventToClose);
+    expect(getModalContent().exists()).toBe(false);
+    expect(closeListener).toHaveBeenCalled();
   });
 
   it('allows to customize the event emitted when clicking out of the modal', async () => {
-    const { getModalElement, emitOpen, clickBody, wrapper } = renderBaseEventsModal({
-      bodyClickEvent: 'UserClickedASimpleFilter'
+    const bodyClickEvent = 'UserClickedASimpleFilter';
+    const { wrapper, clickModalOverlay, emit, getModalContent } = mountBaseEventsModal({
+      bodyClickEvent,
+      eventsToCloseModal: [bodyClickEvent]
     });
     const listener = jest.fn();
-    wrapper.vm.$x.on('UserClickedASimpleFilter').subscribe(listener);
+    wrapper.vm.$x.on(bodyClickEvent).subscribe(listener);
 
-    await emitOpen();
-    expect(getModalElement().exists()).toBe(true);
+    await emit('UserClickedOpenX');
+    expect(getModalContent().exists()).toBe(true);
 
-    await clickBody();
+    await clickModalOverlay();
     expect(listener).toHaveBeenCalledTimes(1);
-    expect(getModalElement().exists()).toBe(true);
+    expect(getModalContent().exists()).toBe(false);
   });
 });
 
-interface RenderBaseEventsModalOptions {
-  /** The template to render. */
-  template?: string;
-  /** Events that when emitted should open the modal. */
-  eventsToOpenModal?: XEvent[];
-  /** Events that when emitted should close the modal. */
-  eventsToCloseModal?: XEvent[];
+interface MountBaseEventsModalOptions {
+  /** The default slot to render. */
+  defaultSlot?: string;
   /** The event that should be emitted when the body is clicked. */
   bodyClickEvent?: XEvent;
+  /** Events that when emitted should close the modal. */
+  eventsToCloseModal?: XEvent[];
+  /** Events that when emitted should open the modal. */
+  eventsToOpenModal?: XEvent[];
 }
 
-interface RenderBaseEventsModalAPI {
+interface MountBaseEventsModalAPI {
   /** The wrapper for the modal component. */
   wrapper: Wrapper<Vue>;
-  /** Fakes a click on the close button. */
-  emitClose: () => Promise<void>;
-  /** Fakes a click on the open button. */
-  emitOpen: () => Promise<void>;
-  /** Fakes a click on the body. */
-  clickBody: () => Promise<void>;
-  /** Fakes a focusin event in the body. */
-  focusBody: () => Promise<void>;
-  /** Fakes a click on the . */
-  clickOverlay: () => Promise<void>;
-  /** Retrieves the modal  wrapper. */
-  getModalElement: () => Wrapper<Vue>;
+  /** Fakes a click on the modal overlay. */
+  clickModalOverlay: () => Promise<void>;
   /** Emits the provided event. */
   emit: (event: PropsWithType<XEventsTypes, void>) => Promise<void>;
+  /** Fakes a focusin event in another HTMLElement of the body. */
+  fakeFocusIn: () => Promise<void>;
+  /** Retrieves the modal content. */
+  getModalContent: () => Wrapper<Vue>;
 }

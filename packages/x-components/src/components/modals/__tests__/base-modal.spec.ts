@@ -4,27 +4,26 @@ import { getDataTestSelector } from '../../../__tests__/utils';
 import BaseModal from '../base-modal.vue';
 
 /**
- * Renders the {@link BaseModal} with the provided options.
+ * Mounts a {@link BaseModal} component with the provided options and offers an API to easily
+ * test it.
  *
  * @param options - The options to render the component with.
- * @returns An small API to test the component.
+ * @returns An API to test the component.
  */
-function renderBaseModal({
-  template = '<BaseModal v-bind="$attrs"/>',
-  open = true
-}: RenderBaseModalOptions = {}): RenderBaseModalAPI {
+function mountBaseModal({
+  defaultSlot = '<span data-test="default-slot">Modal</span>',
+  open = false
+}: MountBaseModalOptions = {}): MountBaseModalAPI {
   const localVue = createLocalVue();
-  const containerWrapper = mount(
-    {
-      components: {
-        BaseModal
-      },
-      template
+  const wrapper = mount(BaseModal, {
+    localVue,
+    propsData: {
+      open
     },
-    { propsData: { open }, localVue }
-  );
-
-  const wrapper = containerWrapper.findComponent(BaseModal);
+    slots: {
+      default: defaultSlot
+    }
+  });
 
   return {
     wrapper,
@@ -32,22 +31,25 @@ function renderBaseModal({
       return wrapper.find(getDataTestSelector('modal'));
     },
     async setOpen(open) {
-      await containerWrapper.setProps({ open });
+      await wrapper.setProps({ open });
     },
-    clickBody() {
-      document.body.click();
-      return localVue.nextTick();
+    async closeModal() {
+      await wrapper.find(getDataTestSelector('modal-overlay'))?.trigger('click');
     },
-    focusBody() {
-      document.body.dispatchEvent(new FocusEvent('focusin'));
-      return localVue.nextTick();
+    async fakeFocusIn() {
+      const buttonWrapper = mount({
+        template: `<button>Button</button>`
+      });
+      document.body.appendChild(wrapper.element);
+      document.body.appendChild(buttonWrapper.element);
+      await buttonWrapper.trigger('focusin');
     }
   };
 }
 
 describe('testing Base Modal  component', () => {
   it('renders only when the open prop is set to true', async () => {
-    const { getModal, setOpen } = renderBaseModal({ open: false });
+    const { getModal, setOpen } = mountBaseModal();
 
     expect(getModal().exists()).toBe(false);
 
@@ -55,63 +57,54 @@ describe('testing Base Modal  component', () => {
     expect(getModal().exists()).toBe(true);
   });
 
-  it('renders the content when is open', () => {
-    const { wrapper } = renderBaseModal({
-      template: `
-        <BaseModal v-bind="$attrs">
-          <div data-test="test-contents">
-            <p>Yeah, estoy subiendo como espuma</p>
-            <p>Prendiendole en la cara al que no fuma</p>
-          </div>
-        </BaseModal>`,
-      open: true
-    });
+  it("emits click:body event when clicking outside modal's content if it is opened", async () => {
+    const { wrapper, closeModal, setOpen } = mountBaseModal();
 
-    const contents = wrapper.find(getDataTestSelector('test-contents'));
-    expect(contents.exists()).toBe(true);
-  });
-
-  it('emits the click:body event when the body is clicked only if the modal is open', async () => {
-    const { wrapper, clickBody, setOpen } = renderBaseModal({ open: false });
-
-    await clickBody();
-    expect(wrapper.emitted('click:body')).toBeUndefined();
+    expect(wrapper.emitted('click:overlay')).toBeUndefined();
 
     await setOpen(true);
-    await clickBody();
+    await closeModal();
 
-    expect(wrapper.emitted('click:body')).toEqual([[expect.any(MouseEvent)]]);
+    expect(wrapper.emitted('click:overlay')).toEqual([[expect.any(MouseEvent)]]);
   });
 
   it('emits the focusin:body event any element out of the modal is focused', async () => {
-    const { wrapper, focusBody, setOpen } = renderBaseModal({ open: false });
+    const { wrapper, fakeFocusIn, setOpen } = mountBaseModal();
 
-    await focusBody();
     expect(wrapper.emitted('focusin:body')).toBeUndefined();
 
     await setOpen(true);
-    await focusBody();
+    await fakeFocusIn();
 
     expect(wrapper.emitted('focusin:body')).toEqual([[expect.any(FocusEvent)]]);
   });
+
+  it('allows customizing the default slot content', () => {
+    const { wrapper } = mountBaseModal({
+      defaultSlot: `<span data-test="default-slot-overridden">Custom content</span>`,
+      open: true
+    });
+
+    expect(wrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toBe(true);
+  });
 });
 
-interface RenderBaseModalOptions {
-  /** The template to render. */
-  template?: string;
+interface MountBaseModalOptions {
+  /** The default slot to render. */
+  defaultSlot?: string;
   /** Events that when emitted should open the modal. */
   open?: boolean;
 }
 
-interface RenderBaseModalAPI {
+interface MountBaseModalAPI {
   /** The wrapper for the modal component. */
   wrapper: Wrapper<Vue>;
   /** Fakes a click on the close button. */
   setOpen: (open: boolean) => Promise<void>;
   /** Retrieves the modal container wrapper. */
   getModal: () => Wrapper<Vue>;
-  /** Fakes a click on the body. */
-  clickBody: () => Promise<void>;
-  /** Fakes a focusin event in the body. */
-  focusBody: () => Promise<void>;
+  /** Fakes a click on the modal close. */
+  closeModal: () => Promise<void>;
+  /** Fakes a focusin event in another HTMLElement of the body. */
+  fakeFocusIn: () => Promise<void>;
 }

@@ -30,7 +30,7 @@ Feature: Search-box component
     Examples:
       | hideIfEqualsQuery | instantDebounceInMs | instant | query  | hideIfEqualsQuery | cleared         |
       | true              | 500                 | true    | lego   | false             | clickButton     |
-      | false             | 500                 | true    | nenuco | false             | manually        |
+      | false             | 500                 | true    | funko  | false             | manually        |
 
   Scenario Outline: 3. Query with results is typed and no button or key is pressed or clicked (search-box is empty)
     Given following config: hide if equals query <hideIfEqualsQuery>, instant search <instant>, debounce <instantDebounceInMs>
