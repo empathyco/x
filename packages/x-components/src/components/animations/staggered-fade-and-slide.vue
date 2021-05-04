@@ -30,7 +30,7 @@
 <style lang="scss" scoped>
   $transition-duration: 0.25s;
 
-  .staggered-fade-slide {
+  .x-staggering-transition-group::v-deep .staggered-fade-slide {
     &--enter-active,
     &--leave-active {
       transition: $transition-duration ease-out;
