@@ -1,9 +1,9 @@
 const { exec } = require('./utils');
 
-const [kind = 'stable'] = process.argv.slice(2);
-const preReleaseArgument = kind === 'alpha' ? '--conventional-prerelease ' : '';
+const [releaseKind = 'stable'] = process.argv.slice(2);
+const releaseKindArgument = releaseKind === 'alpha' ? '--conventional-prerelease' : '--conventional-graduate';
 
 [
-  `lerna version --conventional-commits --no-git-tag-version --yes ${ preReleaseArgument }`,
-  'git commit -m "chore(release): prepare release" -a'
+  `lerna version --conventional-commits --no-git-tag-version --yes ${ releaseKindArgument }`,
+  `git commit -m "chore(release): prepare ${releaseKind} release" -a`
 ].forEach(exec);
