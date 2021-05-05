@@ -15,6 +15,7 @@ import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
 import visualizer from 'rollup-plugin-visualizer';
 import vue from 'rollup-plugin-vue';
+import json from '@rollup/plugin-json';
 
 const jsOutputDirectory = path.join(process.cwd(), 'dist');
 
@@ -99,11 +100,13 @@ export function createConfig({
       ),
       typescript(
         mergeConfig('typescript', {
+          objectHashIgnoreUnknownHack: true,
           tsconfigOverride: {
             exclude: ['node_modules', '**/*.spec.ts', '*test*']
           }
         })
       ),
+      json(),
       buble(
         mergeConfig('buble', {
           include: ['**/*.js', '**/*.mjs']

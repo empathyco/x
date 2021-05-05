@@ -16,7 +16,7 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { BaseIdModalOpen, BaseIdModal, CollapseFromTop } from '@empathy/x-components';
-  import Layout from '@/components/layout.vue';
+  import Layout from './components/layout.vue';
 
   @Component({
     components: {

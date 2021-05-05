@@ -1,17 +1,29 @@
 import { InstallXOptions } from '@empathy/x-components';
 import App from '../App.vue';
+import { I18n } from '../i18n/i18n.plugin';
+import * as messages from '../i18n/messages';
 import store from '../store';
 import { adapter } from './adapter';
-import { createI18NInstance } from '@/i18n';
-
-const { i18n, setLocale } = createI18NInstance({ locale: 'en' });
-
-(window as any)['setLocale'] = setLocale; // Only for testing
 
 export const installXOptions: InstallXOptions = {
   adapter,
   store,
   app: App,
+  async installExtraPlugins({ vue, snippet }) {
+    const i18n = await I18n.create({
+      locale: snippet.lang,
+      device: snippet.device ?? 'mobile',
+      fallbackLocale: 'en',
+      messages
+    });
+    vue.use(i18n);
+    (window as any).setLocale = i18n.setLocale.bind(i18n); // Only for testing
+    (window as any).setDevice = i18n.setDevice.bind(i18n); // Only for testing
+
+    return {
+      i18n: i18n.vueI18n
+    };
+  },
   xModules: {
     identifierResults: {
       config: {
@@ -22,8 +34,5 @@ export const installXOptions: InstallXOptions = {
         identifierDetectionRegexp: '^[a-zA-Z][0-9]+'
       }
     }
-  },
-  vueOptions: {
-    i18n
   }
 };

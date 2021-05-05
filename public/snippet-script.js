@@ -7,6 +7,7 @@ var instance = getURLParameter('instance') || 'juguettos';
 var env = getURLParameter('env') || undefined;
 var scope = getURLParameter('scope') || 'default';
 var lang = getURLParameter('lang') || 'es';
+var device = getURLParameter('device') || 'mobile';
 var searchLang = getURLParameter('searchLang') || lang;
 var currency = getURLParameter('currency') || 'EUR';
 var consent = getURLParameter('consent') === 'true' || false;
@@ -30,6 +31,7 @@ window.initX = {
     env,
     scope,
     lang,
+    device,
     searchLang,
     currency,
     consent,

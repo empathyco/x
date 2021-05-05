@@ -1,51 +1,58 @@
-import VueI18n, { LocaleMessageObject } from 'vue-i18n';
+import { DeepPartial } from '@empathy/x-components';
+import VueI18n from 'vue-i18n';
+import { Messages } from './messages.types';
+
+/** Supported locales. */
+export type Locale = string;
+
+/** Supported devices. */
+export type Device = string;
+
+/** Union type containing both eager and lazy messages. */
+export type AnyMessages = MessagesByDevice | LoadLazyMessagesByDevice;
+
+/** A function that loads on demand the messages for an specific locale. */
+export type LoadLazyMessagesByDevice = () => Promise<{ default: MessagesByDevice }>;
 
 /**
- * Interface to split messages depending on whether they are loaded synchronously or asynchronously.
+ * An object containing a base property with all the existing messages and the overridden ones for
+ * each device.
  */
-export interface SplitMessages {
-  /**
-   * Messages that will be included in the main chunk of the app, and will be loaded as soon as
-   * possible.
-   */
-  immediateMessages: ImmediateMessages;
-  /**
-   * Messages that will only be loaded on demand.
-   */
-  lazyMessages: LazyMessages;
-}
-
-/** Messages included in the main chunk of the app. */
-export type ImmediateMessages = Record<string, LocaleMessageObject>;
-
-/** Messages loaded on demand, asynchronously. */
-export type LazyMessages = Record<string, LazyMessage>;
-
-/** A function to load the messages for an specific locale on demand. */
-export type LazyMessage = () => Promise<{ default: LocaleMessageObject }>;
+export type MessagesByDevice = { base: Messages } & {
+  [device in Device]?: DeepPartial<Messages>;
+};
 
 /**
- * Options for configuring the i18n.
+ * I18n settings.
  */
 export interface I18nOptions {
-  /** The initial locale. */
-  locale: string;
+  /** The initial messages. */
+  messages: Record<Locale, AnyMessages>;
+  /** The initial device. */
+  device: Device;
   /** The locale to fall back if no matching locale is available. */
-  fallbackLocale?: string;
+  fallbackLocale: Locale;
+  /** The initial locale. */
+  locale: Locale;
 }
 
 /**
- * The i18n API contains the VueI18n instance that should be passed to the root Vue instance and
- * some runtime utility functions.
+ * The VueI18n instance that should be passed to the root Vue instance and some runtime utility
+ * functions.
  */
 export interface I18nAPI {
   /** The Vue I18n instance that should be passed to the root Vue component. */
-  readonly i18n: Readonly<VueI18n>;
+  readonly vueI18n: Readonly<VueI18n>;
   /**
-   * Sets the locale to the one provided. If the locale is not available, it tries to request it
-   * using a dynamic import.
+   * Sets the new locale.
    *
-   * @param locale - The new locale to set.
+   * @param newLocale - The new locale.
    */
-  setLocale: (locale: string) => void;
+  setLocale: (newLocale: Locale) => Promise<void>;
+  /**
+   * Sets the new device.
+   *
+   * @param newDevice - The new device.
+   */
+  setDevice: (newDevice: Device) => Promise<void>;
 }

@@ -10,10 +10,10 @@
  */
 
 // Example of how to make the english language be loaded immediately
-export { default as en } from './en.messages';
-export { default as es } from './es.messages';
+export { default as en } from './en.messages.json';
+export { default as es } from './es.messages.json';
 
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 // Example of how to make the spanish messages be lazy loaded, only when the locale is set to `es`
-// export const es = () => import('./es.messages');
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+// export const es = () => import('./es.messages.json');
 /* eslint-enable @typescript-eslint/explicit-function-return-type */

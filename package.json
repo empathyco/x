@@ -17,7 +17,7 @@
   "dependencies": {
     "@empathy/search-adapter": "^6.0.0",
     "@empathy/search-types": "^8.0.0",
-    "@empathy/x-components": "2.0.0-alpha.9",
+    "@empathy/x-components": "2.0.0-alpha.11",
     "reflect-metadata": "^0.1.13",
     "vue": "^2.6.11",
     "vue-class-component": "~7.1.0",
@@ -28,9 +28,11 @@
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "~5.1.1",
+    "@empathybroker/deep-merge": "^1.2.1",
     "@empathy/eslint-plugin-x": "^1.2.0",
     "@rollup/plugin-buble": "~0.21.3",
-    "@rollup/plugin-commonjs": "~11.0.1",
+    "@rollup/plugin-commonjs": "~14.0.0",
+    "@rollup/plugin-json": "~4.1.0",
     "@rollup/plugin-node-resolve": "~8.4.0",
     "@rollup/plugin-replace": "~2.3.2",
     "@types/autoprefixer": "~9.6.1",
