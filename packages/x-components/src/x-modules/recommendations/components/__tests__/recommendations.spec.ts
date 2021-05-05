@@ -1,81 +1,65 @@
-import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
+import { Result } from '@empathy/search-types';
+import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import BaseResultLink from '../../../../components/result/base-result-link.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial } from '../../../../utils/types';
+import { AnyFunction, DeepPartial } from '../../../../utils/types';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import Recommendations from '../recommendations.vue';
 import { resetXRecommendationsStateWith } from './utils';
 
-describe('testing recommendations component', () => {
-  const recommendations = getResultsStub();
-
+/**
+ * Mounts the `Recommendations` component and exposes a basic API for testing.
+ *
+ * @param options - The options to mount the component with.
+ * @returns The API for testing the `Recommendations` component.
+ */
+function mountRecommendations({
+  recommendations = getResultsStub(),
+  scopedSlots = {
+    default: `
+      <span data-test="default-slot" slot-scope="{ recommendation }">
+        {{ recommendation.name }}
+      </span>
+    `
+  }
+}: MountRecommendationsOptions = {}): MountRecommendationsAPI {
   const localVue = createLocalVue();
   localVue.use(Vuex);
 
   const store = new Store<DeepPartial<RootXStoreState>>({});
   installNewXPlugin({ store }, localVue);
 
-  let recommendationsWrapper: Wrapper<Vue>;
+  resetXRecommendationsStateWith(store, { recommendations });
 
-  beforeEach(() => {
-    recommendationsWrapper = mount(Recommendations, { localVue, store });
-    resetXRecommendationsStateWith(store, { recommendations });
+  const wrapper = mount(Recommendations, {
+    localVue,
+    store,
+    scopedSlots
   });
 
-  it('is an XComponent which has an XModule', () => {
-    expect(isXComponent(recommendationsWrapper.vm)).toEqual(true);
-    expect(getXComponentXModuleName(recommendationsWrapper.vm)).toBe('recommendations');
+  return {
+    wrapper,
+    recommendations,
+    isScopedSlotOverridden(selector) {
+      return wrapper.find(getDataTestSelector(selector)).exists();
+    }
+  };
+}
+
+describe('testing recommendations component', () => {
+  it('is an XComponent and belongs to the recommendations module', () => {
+    const { wrapper } = mountRecommendations();
+
+    expect(isXComponent(wrapper.vm)).toEqual(true);
+    expect(getXComponentXModuleName(wrapper.vm)).toBe('recommendations');
   });
 
-  it('renders a button & a custom BaseResultLink', () => {
-    const wrapperComponent = {
-      template: `
-        <Recommendations>
-          <template #default="{ recommendation }">
-            <BaseResultLink :result="recommendation" class="x-result-link">
-              <template #default="{ result }">
-                <img :src="result.images[0]" class="x-result_image" data-test="image"/>
-                <span class="x-result__title" data-test="title">{{ result.name }}</span>
-              </template>
-            </BaseResultLink>
-            <button data-test="custom-button">Custom Behaviour</button>
-          </template>
-        </Recommendations>
-      `,
-      components: {
-        Recommendations,
-        BaseResultLink
-      }
-    };
-
-    recommendationsWrapper = mount(wrapperComponent, {
-      localVue,
-      store
-    });
-
-    expect(recommendationsWrapper.findComponent(BaseResultLink)).toBeDefined();
-
-    const spanList = findAllByTestDataId(recommendationsWrapper, 'title');
-    const imageList = findAllByTestDataId(recommendationsWrapper, 'image');
-    const customButtonList = findAllByTestDataId(recommendationsWrapper, 'custom-button');
-
-    recommendations.forEach((result, index) => {
-      expect(spanList.at(index).element.innerHTML).toEqual(result.name);
-      expect(imageList.at(index).attributes('src')).toEqual(result.images[0]);
-      expect(customButtonList.at(index).text()).toEqual('Custom Behaviour');
-    });
-  });
-
-  it('does not render any Recommendation if the are none', async () => {
-    resetXRecommendationsStateWith(store);
-
-    await localVue.nextTick();
-
-    expect(recommendationsWrapper.html()).toEqual('');
+  it('does not render recommendations when the list is empty', () => {
+    const { wrapper } = mountRecommendations({ recommendations: [] });
+    expect(wrapper.html()).toEqual('');
   });
 
   it('allows changing the animation with a transition group', async () => {
@@ -88,42 +72,62 @@ describe('testing recommendations component', () => {
         );
       }
     });
+    const { wrapper } = mountRecommendations();
 
-    await recommendationsWrapper.setProps({ animation });
+    await wrapper.setProps({ animation });
 
-    expect(recommendationsWrapper.findComponent(animation).exists()).toBeTruthy();
-    expect(recommendationsWrapper.find('ul.test-animation')).toBeTruthy();
+    expect(wrapper.findComponent(animation).exists()).toBe(true);
+    expect(wrapper.find('.test-animation').exists()).toBe(true);
   });
 
-  it('injects custom events for the recommendations', () => {
-    const RecommendationResult = Vue.extend({
-      inject: ['resultClickExtraEvents'],
-      render(h) {
-        return h();
+  it('allows customizing the default slot', () => {
+    const { wrapper, recommendations } = mountRecommendations({
+      scopedSlots: {
+        default: `
+          <span data-test="custom-default-slot" slot-scope="{ recommendation }">
+            {{ recommendation.name }}
+          </span>
+        `
       }
     });
 
-    recommendationsWrapper = mount(
-      {
-        template: `
-        <Recommendations>
-            <RecommendationResult />
-        </Recommendations>
-      `,
-        components: {
-          Recommendations,
-          RecommendationResult
-        }
-      },
-      { localVue, store }
-    );
+    const renderedRecommendations = wrapper.findAll(getDataTestSelector('custom-default-slot'));
 
-    const recommendationResult = recommendationsWrapper.findComponent(RecommendationResult);
-    expect(recommendationResult.exists()).toBeTruthy();
-    expect((recommendationResult.vm as any).resultClickExtraEvents).not.toHaveLength(0);
+    expect(renderedRecommendations).toHaveLength(recommendations.length);
+    recommendations.forEach((recommendation, index) => {
+      expect(renderedRecommendations.at(index).text()).toEqual(recommendation.name);
+    });
   });
 
-  function findAllByTestDataId(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {
-    return wrapper.findAll(getDataTestSelector(testDataId));
-  }
+  it('allows customizing the layout slot', () => {
+    const { isScopedSlotOverridden } = mountRecommendations({
+      scopedSlots: {
+        layout: `
+          <ul data-test="custom-layout" slot-scope="{ recommendations }">
+            <li v-for="recommendation in recommendations" data-test="custom-recommendation">
+              {{ recommendation.name }}
+            </li>
+          </ul>
+        `
+      }
+    });
+
+    expect(isScopedSlotOverridden('custom-layout')).toBe(true);
+  });
 });
+
+interface MountRecommendationsOptions {
+  /** The `recommendations` to render. */
+  recommendations?: Result[];
+  /** The scoped slots to render. */
+  scopedSlots?: Record<string, string | AnyFunction>;
+}
+
+interface MountRecommendationsAPI {
+  /** The wrapper for the `Recommendations` component. */
+  wrapper: Wrapper<Vue>;
+  /** The rendered `recommendations`. */
+  recommendations: Result[];
+  /** Check if a scoped slot is overridden. */
+  isScopedSlotOverridden: (selector: string) => boolean;
+}

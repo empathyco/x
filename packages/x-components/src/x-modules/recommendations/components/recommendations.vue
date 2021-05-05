@@ -1,24 +1,27 @@
 <template>
-  <component
-    :is="animation"
-    v-if="recommendations.length"
-    tag="ul"
-    data-test="recommendations"
-    class="x-recommendations"
-  >
-    <li
-      v-for="recommendation in recommendations"
-      :key="recommendation.id"
-      class="x-recommendations__item"
-      data-test="recommendation-item"
-    >
-      <!--
-        @slot Recommendation content
-            @binding {Result} recommendation - Result data
-      -->
-      <slot :recommendation="recommendation" />
-    </li>
-  </component>
+  <NoElement v-if="recommendations.length">
+    <!--
+      @slot Customized Recommendations layout.
+          @binding {Result[]} recommendations - Recommendations to render.
+          @binding {Vue} animation - Animation to animate the elements.
+    -->
+    <slot name="layout" v-bind="{ animation, recommendations }">
+      <component :is="animation" tag="ul" data-test="recommendations" class="x-recommendations">
+        <li
+          v-for="recommendation in recommendations"
+          :key="recommendation.id"
+          class="x-recommendations__item"
+          data-test="recommendation-item"
+        >
+          <!--
+            @slot (Required) Recommendation content.
+            @binding {recommendation} recommendation - Recommendation data.
+          -->
+          <slot :recommendation="recommendation" />
+        </li>
+      </component>
+    </slot>
+  </NoElement>
 </template>
 
 <script lang="ts">
@@ -26,19 +29,27 @@
   import { Result } from '@empathy/search-types';
   import Vue from 'vue';
   import { State } from '../../../components/decorators/store.decorators';
+  import { noElementComponent } from '../../../components/no-element';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { PropsWithType } from '../../../utils/types';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { recommendationsXModule } from '../x-module';
 
   /**
-   * Paints the list of recommendations stored in the state. Each recommendation should be
+   * It renders a list of recommendations from the
+   * {@link RecommendationsState.recommendations | Recommendations} state by default.
+   * The component provides the slot layout which wraps the whole component with the
+   * recommendations bounded. It also provides the default slot to customize the item, which is
+   * within the layout slot, with the recommendation bounded. Each recommendation should be
    * represented by a {@link BaseResultLink | result link component} besides any other component.
    *
    * @public
    */
   @Component({
-    mixins: [xComponentMixin(recommendationsXModule)]
+    mixins: [xComponentMixin(recommendationsXModule)],
+    components: {
+      NoElement: noElementComponent
+    }
   })
   export default class Recommendations extends Vue {
     /**
@@ -79,6 +90,12 @@
 <docs>
   #Examples
 
+  It renders a list of recommendations from recommendations state by default. The component
+  provides the slot layout which wraps the whole component with the recommendations binded. It also
+  provides the default slot to customize the item, which is within the layout slot, with the
+  recommendation binded. Each recommendation should be represented by a BaseResultLink component
+  besides any other component.
+
   ## Basic example
 
   ## Adding a custom BaseResultLink component
@@ -97,6 +114,27 @@
         </template>
       </BaseResultLink>
       <button>Custom Behaviour</button>
+    </template>
+  </Recommendations>
+  ```
+
+  ## Overriding layout content
+
+  It renders a list of recommendations customizing the layout slot. In the example below,
+  instead of using the default Recommendations content, a BaseGrid component is used to render
+  the recommendations.
+
+  ```vue
+  <Recommendations :animation="staggeredFadeAndSlide">
+    <template #layout="{ recommendations, animation }">
+      <BaseGrid :items="recommendations" :animation="animation">
+        <template #Result="{ item }">
+          <BaseResultLink :result="item">
+            <BaseResultImage :result="item" />
+            <span class="x-result__title">{{ item.name }}</span>
+          </BaseResultLink>
+        </template>
+      </BaseGrid>
     </template>
   </Recommendations>
   ```

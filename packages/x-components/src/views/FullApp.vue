@@ -213,14 +213,18 @@
     </BaseKeyboardNavigation>
     <!-- Recommendations -->
     <h1>Recommendations</h1>
-    <BaseGrid :animation="staggeredFadeAndSlide" :columns="4" :items="recommendations">
-      <template #Result="{ item }">
-        <BaseResultLink :result="item" class="x-result-link">
-          <BaseResultImage :result="item" />
-          <span class="x-result__title">{{ item.name }}</span>
-        </BaseResultLink>
+    <Recommendations :animation="staggeredFadeAndSlide">
+      <template #layout="{ recommendations, animation }">
+        <BaseGrid :animation="animation" :items="recommendations">
+          <template #Result="{ item }">
+            <BaseResultLink :result="item">
+              <BaseResultImage :result="item" />
+              <span class="x-result__title">{{ item.name }}</span>
+            </BaseResultLink>
+          </template>
+        </BaseGrid>
       </template>
-    </BaseGrid>
+    </Recommendations>
     <!-- Identifier Results -->
     <h1>Identifier Results</h1>
     <BaseGrid :animation="staggeredFadeAndSlide" :items="identifierResults">
