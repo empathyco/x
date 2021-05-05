@@ -1,6 +1,9 @@
-const { execSync } = require('child_process');
+const { exec } = require('./utils');
 
 const [kind = 'stable'] = process.argv.slice(2);
 const preReleaseArgument = kind === 'alpha' ? '--conventional-prerelease ' : '';
-execSync(`lerna version --conventional-commits --no-git-tag-version --yes ${preReleaseArgument}`)
-execSync('git commit -m "chore(release): prepare release" -a');
+
+[
+  `lerna version --conventional-commits --no-git-tag-version --yes ${ preReleaseArgument }`,
+  'git commit -m "chore(release): prepare release" -a'
+].forEach(exec);

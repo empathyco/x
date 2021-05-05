@@ -13,14 +13,18 @@ jobs:
         run: npm install
       - name: Build all packages
         run: npm run build
-      #- name: Run linter in all packages
-      #  run: npm run lint
-      #- name: Run tests in all packages
-      #  run: npm run test
+      - name: Run linter in all packages
+        run: npm run lint
+      - name: Run tests in all packages
+        run: npm run test
       - name: Configure git user
         run: |
           git config --local user.email "x@empathy.co"
           git config --local user.name "empathy/x"
+      - name: Create .npmrc file with authorization token
+        run: echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish the release
         run: 'npm run publish-release'
       - name: Push changes
@@ -28,4 +32,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
-
+          tags: true
