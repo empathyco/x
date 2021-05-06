@@ -1,5 +1,25 @@
 # X Components
+## [2.0.0-alpha.12](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.12%0Dv2.0.0-alpha.11) (2021-05-06)
+
+
+### Features
+
+* **components:** add an overlay layer to `BaseModal` component  listening to click events outside the modal to close it ([013b284](https://bitbucket.org/colbenson/x-components/commits/013b2849df1afc89d5646704be562b548a286ac0)), closes [EX-3786](https://searchbroker.atlassian.net/browse/EX-3786)
+* **recommendations:** add a scopedSlot `layout` to `Recommendations` component ([d26e0b5](https://bitbucket.org/colbenson/x-components/commits/d26e0b5ccf73691d17377ae1393902ba89dd9803)), closes [EX-3807](https://searchbroker.atlassian.net/browse/EX-3807)
+
+
+### Bug Fixes
+
+* **components:** fix `FadeAndSlide` and `StaggeredFadeAndSlide` animations ([f0b7014](https://bitbucket.org/colbenson/x-components/commits/f0b701459dbcbdf706d127005df20cbd7c76fb55)), closes [EX-3813](https://searchbroker.atlassian.net/browse/EX-3813)
+
+
+### Testing
+
+* **e2e:** Add multiselect-filters test ([a7dc169](https://bitbucket.org/colbenson/x-components/commits/a7dc16958e8789d3299bc531362894d58fd7ca0a)), closes [EX-3603](https://searchbroker.atlassian.net/browse/EX-3603)
+
+
 ## [2.0.0-alpha.11](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.11%0Dv2.0.0-alpha.10) (2021-05-03)
+
 
 ## [2.0.0-alpha.10](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.10%0Dv2.0.0-alpha.9) (2021-05-03)
 
