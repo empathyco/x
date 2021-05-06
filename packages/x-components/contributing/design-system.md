@@ -156,3 +156,25 @@ button background color. This is to cascade changes only change one property.
 If the button border color is always the same as the background, then it refers to id by default.
 This still allow to configure a different border color if is necessary, just overriding the value of
 that token.
+
+## Design System Files Structure
+
+### `src/styles`
+
+All the tokens and styles of the Design System are located in the `src/styles` directory.
+
+### `src/styles/base`
+
+Inside this directory are the base tokens shared by the all the components. The name of a file
+tokens have this shape: `name.tokens.scss`. The `.tokens.` suffix is mandatory.
+
+### `src/styles/components`
+
+Inside this directory are a folder for each component of the Design System (do not confuse with Vue
+components). Inside each component folder there are all the CSS files and tokens files for that
+component.
+
+The name of the tokens files have this shape: `name.tokens.scss` where `name` is the name of the
+component variant. The `.tokens.` suffix is mandatory.
+
+The default css and tokens of a component must be named as `default.scss` and `default.tokens.scss`.
