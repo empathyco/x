@@ -3,12 +3,12 @@
   "license": "Apache-2.0",
   "scripts": {
     "postinstall": "lerna bootstrap --hoist",
-    "version": "lerna version --conventional-commits --no-push",
-    "version:alpha": "lerna version --conventional-commits --conventional-prerelease --no-push",
     "build": "lerna run build",
     "lint": "lerna run lint",
     "test": "lerna run test",
-    "publish": "lerna publish from-package --yes"
+    "prepare-release:stable": "node scripts/prepare-release",
+    "prepare-release:alpha": "node scripts/prepare-release alpha",
+    "publish-release": "node scripts/publish-release"
   },
   "devDependencies": {
     "lerna": "~4.0.0"
