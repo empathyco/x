@@ -37,7 +37,7 @@
       <button
         v-if="!isInstant"
         @click="emitUserModifiedFilter"
-        class="x-editable-number-range-filter__apply"
+        class="x-button x-editable-number-range-filter__apply"
         :disabled="hasError"
         data-test="range-apply"
       >
@@ -50,7 +50,7 @@
       <button
         v-if="renderClearButton"
         @click="clearValues"
-        class="x-editable-number-range-filter__clear"
+        class="x-button x-editable-number-range-filter__clear"
         data-test="range-clear"
       >
         <!--

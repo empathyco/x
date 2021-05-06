@@ -2,7 +2,7 @@
   <BaseEventButton
     v-on="$listeners"
     :events="events"
-    class="x-events-modal-id-close-button"
+    class="x-button x-events-modal-id-close-button"
     data-test="close-modal-id"
   >
     <!-- @slot (Required) Button content with a text, an icon or both -->

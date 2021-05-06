@@ -1,5 +1,5 @@
 <template>
-  <BaseEventButton class="x-remove-history-query" :events="removeHistoryQueryEvent">
+  <BaseEventButton class="x-button x-remove-history-query" :events="removeHistoryQueryEvent">
     <!--  @slot (Required) Button content with a text, an icon or both -->
     <slot />
   </BaseEventButton>

@@ -1,7 +1,7 @@
 <template>
   <BaseEventButton
     v-if="show"
-    class="x-clear-filters"
+    class="x-button x-clear-filters"
     data-test="clear-filters"
     :disabled="!areThereSelectedFilters"
     :events="events"

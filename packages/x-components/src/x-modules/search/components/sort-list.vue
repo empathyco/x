@@ -1,7 +1,11 @@
 <template>
   <component :is="animation" tag="ul" class="x-sort-list" data-test="sort-list">
     <li v-for="{ item, cssClasses, event } in listItems" :key="item" :class="cssClasses">
-      <BaseEventButton class="x-sort-list__button" data-test="x-sort-button" :events="event">
+      <BaseEventButton
+        class="x-button x-sort-list__button"
+        data-test="x-sort-button"
+        :events="event"
+      >
         <slot v-bind="{ item, isSelected: item === selectedSort }">
           {{ item }}
         </slot>

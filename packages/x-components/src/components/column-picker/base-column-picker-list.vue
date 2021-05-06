@@ -7,7 +7,7 @@
       data-test="column-picker-item"
     >
       <BaseEventButton
-        class="column-picker-item__button"
+        class="x-button column-picker-item__button"
         data-test="column-picker-button"
         :events="{ UserClickedColumnPicker: column }"
       >

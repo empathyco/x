@@ -3,7 +3,7 @@
     <BaseEventButton
       v-if="isVisible"
       v-on="$listeners"
-      class="x-scroll-to-top"
+      class="x-button x-scroll-to-top"
       data-test="scroll-to-top"
       :events="events"
     >

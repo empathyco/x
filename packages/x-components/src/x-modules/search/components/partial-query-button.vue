@@ -1,5 +1,9 @@
 <template>
-  <BaseEventButton :events="events" class="x-partial-query-button" data-test="partial-query-button">
+  <BaseEventButton
+    :events="events"
+    class="x-button x-partial-query-button"
+    data-test="partial-query-button"
+  >
     <slot v-bind="{ query }">{{ query }}</slot>
   </BaseEventButton>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <BaseEventButton
-    class="x-clear-history-queries"
+    class="x-button x-clear-history-queries"
     :class="dynamicClasses"
     :disabled="isHistoryQueriesEmpty"
     :events="clearHistoryQueriesEvents"

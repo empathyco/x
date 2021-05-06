@@ -1,7 +1,7 @@
 <template>
   <BaseEventButton
     :events="events"
-    class="x-search-button"
+    class="x-button x-search-button"
     :class="dynamicClasses"
     data-test="search-button"
   >
