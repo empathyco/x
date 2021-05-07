@@ -1,0 +1,24 @@
+:root {
+  // COLOR
+  --x-color-background-input: var(--x-color-neutral-100);
+  --x-color-border-input: var(--x-color-neutral-10);
+  --x-color-text-input: var(--x-color-neutral-10);
+  --x-color-text-input-placeholder: var(--x-color-neutral-35);
+
+  // BORDER
+  --x-border-width-input: var(--x-border-width);
+  --x-border-radius-input: var(--x-border-radius-none);
+
+  // SPACING
+  --x-space-padding-input: var(--x-space-03) var(--x-space-04);
+
+  // TYPOGRAPHY
+  --x-font-family-input: var(--x-font-family-text);
+  --x-font-size-input: var(--x-font-size-text);
+  --x-font-line-height-input: var(--x-font-line-height-text);
+  --x-font-weight-input: var(--x-font-weight-text);
+  --x-font-family-input-placeholder: var(--x-font-family-input);
+  --x-font-size-input-placeholder: var(--x-font-size-input);
+  --x-font-line-height-input-placeholder: var(--x-font-line-height-input);
+  --x-font-weight-input-placeholder: var(--x-font-weight-input);
+}

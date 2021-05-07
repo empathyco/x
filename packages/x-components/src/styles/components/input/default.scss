@@ -1,0 +1,30 @@
+.x-input {
+  // layout
+  box-sizing: border-box;
+
+  // spacing
+  padding: var(--x-space-padding-input);
+
+  // color
+  background-color: var(--x-color-background-input);
+  border-color: var(--x-color-border-input);
+  color: var(--x-color-text-input);
+
+  // border
+  border-width: var(--x-border-width-input);
+  border-radius: var(--x-border-radius-input);
+
+  // typography
+  font-family: var(--x-font-family-input);
+  font-size: var(--x-font-size-input);
+  font-weight: var(--x-font-weight-input);
+  line-height: var(--x-font-line-height-input);
+
+  &::placeholder {
+    color: var(--x-color-text-input-placeholder);
+    font-family: var(--x-font-family-input-placeholder);
+    font-size: var(--x-font-size-input-placeholder);
+    font-weight: var(--x-font-weight-input-placeholder);
+    line-height: var(--x-font-line-height-input-placeholder);
+  }
+}
