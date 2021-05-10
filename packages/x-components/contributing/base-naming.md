@@ -83,17 +83,16 @@ const url = 'https://empathy.co';
 const sizePx = 100;
 ```
 
-- Use lowercase for the abbreviation if it is the start of the variable name, and uppercase if it is
-  in the middle of the word.
+- The abbreviations must follow PascalCase except if it is the start of the variable name.
 
 ```ts
 // ❌ Wrong
 const CSSClasses = 'x-suggestion x-popular-search';
-const websiteUrl = 'https://empathy.co';
+const websiteURL = 'https://empathy.co';
 
 // ✅ Good
 const cssClasses = 'x-suggestion x-popular-search';
-const websiteURL = 'https://empathy.co';
+const websiteUrl = 'https://empathy.co';
 ```
 
 - Avoid repeating the context:
@@ -156,14 +155,14 @@ type Dictionary<T> = Record<string, T>;
 type Dictionary<Value> = Record<string, Value>;
 ```
 
-- Abbreviations must be in upper case regardless of their position:
+- Abbreviations must follow Pascal Case:
 
 ```ts
 // ❌ Wrong
-interface UrlQuery {}
+interface URLQuery {}
 
 // ✅ Good
-interface URLQuery {}
+interface UrlQuery {}
 ```
 
 ## Classes

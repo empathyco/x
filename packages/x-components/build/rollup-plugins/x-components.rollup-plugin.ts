@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import { Plugin } from 'rollup';
-import { forEach } from '../src/utils';
-import { ensureFilePathExists } from './build.utils';
+import { forEach } from '../../src/utils';
+import { ensureFilePathExists } from '../build.utils';
 
 /**
  * Type alias of a reducer function that will generate a `Record` where the key is the chunk name,

@@ -178,3 +178,50 @@ The name of the tokens files have this shape: `name.tokens.scss` where `name` is
 component variant. The `.tokens.` suffix is mandatory.
 
 The default css and tokens of a component must be named as `default.scss` and `default.tokens.scss`.
+
+## Design System Build
+
+During the build process, all the files of the Design System (`src/styles`) are processed, and the
+output files are generated in the `dist/css` folder.
+
+This process is divided in 4 steps:
+
+#### 1. Design System Components.
+
+All the files in `src/styles/components` are processed, merging together the `xxxx.scss` and
+`xxxx.tokens.scss` files of each component variant. These generated files will have a name with the
+shape `component-variant.css`, where `component` is the name of the component (the folder), and the
+`variant` is the name of the variant (the file). Example: `button/default.scss` +
+`button/deafult.tokens.scss` ==> `button-default.css`
+
+#### 2. Base Tokens.
+
+All the files in `src/styles/base` are processed and merged together into one file `base.css`. This
+contains the base tokens on which depend the rest of the components.
+
+#### 3. Default Theme
+
+All the files in `src/styles/base` and all the `default` variants of each component, are merged
+together in a `default-theme.css` file. This will contains the tokens and CSS necessary for all the
+default variant of the components.
+
+#### 4. Full Theme
+
+All the files in `src/styles` are merged together in a `full-theme.css` file. This will contains all
+the Design System Tokens and Components.
+
+### Why all this CSS files?
+
+The idea behind of this division and repetition, is to offer granularity and flexibility enough to
+the user of the Design System:
+
+- If the user wants all the Design System without worrying about the size, then he can import
+  `full-theme.css`.
+
+- If the user wants only the default styles of the components and maybe some variants, then he
+  can import `default-theme.scss` + the desire variants like `button-pill.css`.
+
+- If the user wants to control exactly what components and what variants to import, then he can
+  import the `base.css` + the desire components + the desire variants.
+
+  Example: `base.css` + `button-default.css` + `button-card.css`.

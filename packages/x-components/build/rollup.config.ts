@@ -1,15 +1,23 @@
 import path from 'path';
+import { sync as glob } from 'glob';
 import buble from '@rollup/plugin-buble';
 import commonjs from '@rollup/plugin-commonjs';
 import autoprefixer from 'autoprefixer';
 import { RollupOptions } from 'rollup';
+import copy from 'rollup-plugin-copy';
 import del from 'rollup-plugin-delete';
+import rename from 'rollup-plugin-rename';
+import styles from 'rollup-plugin-styles';
 import typescript from 'rollup-plugin-typescript2';
 import vue from 'rollup-plugin-vue';
-import copy from 'rollup-plugin-copy';
 import packageJSON from '../package.json';
 import { apiDocumentation } from './docgen/documentation.rollup-plugin';
-import { generateEntryFiles } from './x-components.rollup-plugin';
+import {
+  omitJsFiles,
+  importTokens,
+  renameComponentCssFile
+} from './rollup-plugins/design-system.rollup-plugin';
+import { generateEntryFiles } from './rollup-plugins/x-components.rollup-plugin';
 
 const rootDir = path.resolve(__dirname, '../');
 const buildPath = path.join(rootDir, 'dist');
@@ -17,6 +25,7 @@ const buildPath = path.join(rootDir, 'dist');
 const dependencies = new Set(Object.keys(packageJSON.dependencies));
 const jsOutputDirectory = path.join(buildPath, 'js');
 const typesOutputDirectory = path.join(buildPath, 'types');
+const cssOutputDirectory = path.join(buildPath, 'css');
 
 export const rollupConfig = createRollupOptions({
   input: path.join(rootDir, 'src/index.ts'),
@@ -35,11 +44,11 @@ export const rollupConfig = createRollupOptions({
   },
   external(id) {
     /*
-       Rollup treats by default all node_modules dependencies as external, but will launch a
-       warning if you don't manually specify them. In our case apart from the package.json ones,
-       we also need to add any dependency that starts with rxjs (due to rxjs having multiple
-       entry points), and the vue-runtime-helpers, which is a dependency added by the SFC compiler
-    */
+     Rollup treats by default all node_modules dependencies as external, but will launch a
+     warning if you don't manually specify them. In our case apart from the package.json ones,
+     we also need to add any dependency that starts with rxjs (due to rxjs having multiple
+     entry points), and the vue-runtime-helpers, which is a dependency added by the SFC compiler
+     */
     return (
       dependencies.has(id) || // Package.json dependencies
       /* As rxjs has multiple entry points, it needs to be declared this way */
@@ -61,7 +70,7 @@ export const rollupConfig = createRollupOptions({
         compilerOptions: {
           declarationDir: typesOutputDirectory
         },
-        exclude: ['node_modules', './src/main.ts', '**/*.spec.ts', '*test*']
+        exclude: ['node_modules', './src/main.ts', '**/*.spec.ts', '*test*', './src/styles']
       }
     }),
     vue({
@@ -77,11 +86,7 @@ export const rollupConfig = createRollupOptions({
       /* Replace the component style injector because the default one outputs ES6 code */
       styleInjector: '~vue-runtime-helpers/dist/inject-style/browser.js',
       style: {
-        postcssPlugins: [
-          autoprefixer({
-            grid: 'autoplace'
-          })
-        ]
+        postcssPlugins: [autoprefixer()]
       }
     }),
     buble({
@@ -105,6 +110,62 @@ export const rollupConfig = createRollupOptions({
       hook: 'writeBundle'
     })
   ]
+});
+
+// Design System CSS generation
+
+/**
+ * Common options for all CSS Rollup configs.
+ */
+const commonCssOptions = createRollupOptions({
+  output: {
+    dir: cssOutputDirectory,
+    assetFileNames: '[name][extname]'
+  },
+  preserveModules: true
+});
+
+/**
+ * The config to generate one `.css` file for each Design System Component, including the CSS
+ * and the tokens.
+ */
+export const cssComponentsRollupConfig = createRollupOptions({
+  ...commonCssOptions,
+  input: glob('src/styles/**/*.scss', { ignore: 'src/styles/**/*.tokens.scss' }),
+  plugins: [
+    importTokens(),
+    rename({ map: renameComponentCssFile }),
+    styles({ mode: 'extract' }),
+    omitJsFiles()
+  ]
+});
+
+/**
+ * The config to generate the components `base.css` file with the base tokens.
+ */
+export const cssBaseRollupConfig = createRollupOptions({
+  ...commonCssOptions,
+  input: glob('src/styles/base/**/*.scss'),
+  plugins: [styles({ mode: ['extract', 'base.css'] }), omitJsFiles()]
+});
+
+/**
+ * The config to generate the components `default-theme.css` file with the base tokens and the
+ * default version of the components.
+ */
+export const cssDefaultThemeRollupConfig = createRollupOptions({
+  ...commonCssOptions,
+  input: [...glob('src/styles/**/*default*.scss'), ...glob('src/styles/base/**/*.scss')],
+  plugins: [importTokens(), styles({ mode: ['extract', 'default-theme.css'] }), omitJsFiles()]
+});
+
+/**
+ * The config to generate the components `full-theme.css` file with all the Design System included.
+ */
+export const cssFullThemeRollupConfig = createRollupOptions({
+  ...commonCssOptions,
+  input: glob('src/styles/**/*.scss'),
+  plugins: [styles({ mode: ['extract', 'full-theme.css'] }), omitJsFiles()]
 });
 
 /**
