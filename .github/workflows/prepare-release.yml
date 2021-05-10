@@ -3,15 +3,9 @@ on:
   workflow_dispatch:
     inputs:
       kind:
-<<<<<<< HEAD
-        default: stable
-        required: false
-        description: "The type of the release: `stable` if you want a stable version, or `alpha` if you want a pre-release. Defaults to `stable`."
-=======
         default: alpha
         required: false
         description: "The type of the release: `stable` if you want a stable version, or `alpha` if you want a pre-release. Defaults to `alpha`."
->>>>>>> origin/main
 jobs:
   prepare-release:
     runs-on: ubuntu-latest
@@ -23,11 +17,7 @@ jobs:
         with:
           node-version: 12
       - name: Install lerna and all packages
-<<<<<<< HEAD
-        run: npm install
-=======
         run: npm ci
->>>>>>> origin/main
       - name: Build all packages
         run: npm run build
       - name: Run linter in all packages
