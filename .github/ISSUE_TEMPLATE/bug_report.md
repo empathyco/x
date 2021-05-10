@@ -31,7 +31,7 @@ Try to define what package is causing the bug. [List of packages](../CONTRIBUTIN
 ----
 
 ## Support attachments
-* screen shots
+* screenshots
 * videos
 * real examples links
 * etc.

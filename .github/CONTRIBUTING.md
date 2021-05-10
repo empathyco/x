@@ -2,7 +2,7 @@
 
 Let us begin saying that we are really excited that you are open to contribute!
 
-The following is a set of guidelines for contributing to Interface and its packages, which are hosted in the 
+The following is a set of guidelines for contributing to Interface X and its packages, which are hosted in the 
 [Empathy Organization](https://github.com/empathyco) on GitHub. These are mostly guidelines, not rules. 
 Use your best judgment, and feel free to propose changes to this document in a pull request.
 
@@ -35,13 +35,13 @@ Use your best judgment, and feel free to propose changes to this document in a p
 
 We want to create attractive products for the users (both users: the website user and the developer user). 
 
-We want to create products that are usable, fast,  easy to use...
+We want to create products that are usable, fast, easy to use...
 
 > X = usable + fun + easy + adaptable + beautiful + fast + efficient + effective + ...
 
 But all that are emotions, Positive Emotions: X = Pe 
 
-But the emotions are subjective, cultural, not perceived in the same way by all the people.We have to understand the nature of those 
+But the emotions are subjective, cultural, not perceived in the same way by all the people. We have to understand the nature of those 
 emotions, and what observer's perceptions cause those feelings. 
 
 Once we have understood that, we have to figure out what we can do to match those emotions, which of those perceptions we can provoke.
@@ -65,7 +65,7 @@ If you have a question you can file it through the email account [x@empathy.co](
 Interface X is composed of some different packages. New packages will be added here because we are moving to this mono-repo.
 
 * [@empathyco/x-components](https://github.com/empathyco/x/tree/main/packages/components) - This is the core package of this project. 
-These are standalone, configurable building blocks that allow you to quickly construct the search UI for your shop. 
+These are standalone and configurable building blocks that allow you to quickly construct the search UI for your shop. 
 You can create a smooth, personalised search and discovery experience, while significantly minimising development time. 
 * [@empathyco/x-archetype](https://github.com/empathyco/x/tree/main/packages/archetype) - This is package is the Empathy vision of the 
 perfect components mixing. A project ready to connect to any Search API with customizable layout through Design Tokens. 
