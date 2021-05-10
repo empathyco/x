@@ -1,3 +1,27 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# 1.3.0-alpha.1 (2021-05-10)
+
+
+### Bug Fixes
+
+* **remove-deprecation:** remove deprecation on eqeqeq rule and setup Prettier in the project ([e6618a3](https://github.com/empathyco/x/commit/e6618a38505a0a3460a730a0c6ce240add96f360))
+
+
+### Features
+
+* adapt types to support cypress component testing ([7b8e045](https://github.com/empathyco/x/commit/7b8e045f891796b54e03391a562c5f75d4687a65))
+* **config:** add initial eslint and third-party plugins, prettier and standard-version configurations ([c60d0b6](https://github.com/empathyco/x/commit/c60d0b67e9bc2294ce11a3f96307e7e44fde7f7b))
+* **import-resolver:** support typescript import resolver ([00a4085](https://github.com/empathyco/x/commit/00a4085be186e1cf28b24091fa214e1929ded07a))
+* **prettier:** update prettier to version 2.1.2 ([d413f8d](https://github.com/empathyco/x/commit/d413f8deb5f0675b17140fce9d86d0e3b24dd280))
+
+
+
+
+
 # ESLint Plugin X
 ## [1.2.1](https://bitbucket.org/colbenson/eslint-plugin-x/branches/compare/v1.2.1%0Dv1.2.0) (2020-12-11)
 
