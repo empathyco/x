@@ -1,5 +1,6 @@
 import {
   namespacedWireCommit,
+  namespacedWireDispatch,
   namespacedWireDispatchWithoutPayload
 } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
@@ -16,6 +17,13 @@ const moduleName = 'search';
  * @internal
  */
 const wireCommit = namespacedWireCommit(moduleName);
+
+/**
+ * WireDispatch for {@link SearchXModule}.
+ *
+ * @internal
+ */
+const wireDispatch = namespacedWireDispatch(moduleName);
 
 /**
  * WireDispatchWithoutPayload for {@link SearchXModule}.
@@ -76,6 +84,27 @@ export const setSelectedFilters = wireCommit('setSelectedFilters');
  * @public
  */
 export const setSort = wireCommit('setSort');
+
+/**
+ * Sets the search state `page`.
+ *
+ * @public
+ */
+export const setPage = wireDispatch('setPage');
+
+/**
+ * Increases the current search state `page` by one.
+ *
+ * @public
+ */
+export const increasePage = wireDispatch('setPage', ({ state }) => state.page + 1);
+
+/**
+ * Sets the search state `pageSize`.
+ *
+ * @public
+ */
+export const setPageSize = wireCommit('setPageSize');
 
 /**
  * Search wiring.

@@ -43,7 +43,7 @@ describe('testing search module getters', () => {
         relatedTags,
         selectedFilters,
         config: {
-          maxItemsToRequest: 48
+          pageSize: 48
         }
       });
 

@@ -21,7 +21,7 @@ export const request: SearchXStoreModule['getters']['request'] = ({
         query,
         relatedTags,
         sort,
-        rows: config.maxItemsToRequest,
+        rows: config.pageSize,
         start: 0,
         origin: 'default',
         filters: selectedFilters

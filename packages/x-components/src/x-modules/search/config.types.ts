@@ -7,5 +7,5 @@ export interface SearchConfig {
   /**
    * Maximum number of results to request.
    */
-  maxItemsToRequest: number;
+  pageSize: number;
 }

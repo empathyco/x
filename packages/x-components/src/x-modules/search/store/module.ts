@@ -5,6 +5,7 @@ import {
   fetchAndSaveSearchResponse
 } from './actions/fetch-and-save-search-response.action';
 import { fetchSearchResponse } from './actions/fetch-search-response.action';
+import { setPage } from './actions/set-page';
 import { request } from './getters/request.getter';
 import { SearchXStoreModule } from './types';
 
@@ -24,12 +25,13 @@ export const searchXStoreModule: SearchXStoreModule = {
     promoteds: [],
     selectedFilters: {},
     config: {
-      maxItemsToRequest: 24
+      pageSize: 24
     },
     totalResults: 0,
     spellcheckedQuery: '',
     status: 'success',
-    sort: ''
+    sort: '',
+    page: 1
   }),
   getters: {
     request
@@ -68,11 +70,18 @@ export const searchXStoreModule: SearchXStoreModule = {
     setSort(state, sort) {
       state.sort = sort;
     },
+    setPage(state, page) {
+      state.page = page;
+    },
+    setPageSize(state, pageSize) {
+      state.config.pageSize = pageSize;
+    },
     setStatus
   },
   actions: {
     cancelFetchAndSaveSearchResponse,
     fetchSearchResponse,
-    fetchAndSaveSearchResponse
+    fetchAndSaveSearchResponse,
+    setPage
   }
 };

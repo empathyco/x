@@ -45,6 +45,8 @@ export interface SearchState extends StatusState {
   spellcheckedQuery: string;
   /** The way of ordering the results. */
   sort: Sort;
+  /** The current page of the request. */
+  page: number;
 }
 
 /**
@@ -124,13 +126,24 @@ export interface SearchMutations extends StatusMutations {
    * @param spellcheckedQuery - The new spellcheck string to save to the state.
    */
   setSpellcheck(spellcheckedQuery: string): void;
-
   /**
    * Sets the selected sort option of the module.
    *
    * @param sort - The new sort.
    */
   setSort(sort: Sort): void;
+  /**
+   * Sets the page of the module.
+   *
+   * @param page - The new page.
+   */
+  setPage(page: number): void;
+  /**
+   * Sets the page size of the module.
+   *
+   * @param pageSize - The new page size.
+   */
+  setPageSize(pageSize: number): void;
 }
 
 /**
@@ -153,6 +166,15 @@ export interface SearchActions {
    * Fetches a new search response and stores them in the module state.
    */
   fetchAndSaveSearchResponse(): void;
+  /**
+   * Set the page property with the new value recieved by parameter,
+   * and stores it in the module state.
+   *
+   * If the parameter is not present the page will increase by one.
+   *
+   * @param newPage - The new page.
+   */
+  setPage(newPage: number): void;
 }
 
 /**

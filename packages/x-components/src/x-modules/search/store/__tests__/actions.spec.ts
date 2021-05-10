@@ -77,6 +77,8 @@ describe('testing search module actions', () => {
       expect(store.state.facets).toEqual(facetsStub);
       expect(store.state.banners).toEqual(bannersStub);
       expect(store.state.promoteds).toEqual(promotedsStub);
+      expect(store.state.page).toEqual(1);
+      expect(store.state.config.pageSize).toEqual(24);
       expect(store.state.status).toEqual('success');
     });
 
@@ -210,6 +212,41 @@ describe('testing search module actions', () => {
       expect(store.state.banners).toEqual(previousBanners);
       expect(store.state.promoteds).toEqual(previousPromoteds);
       expect(store.state.status).toEqual('success');
+    });
+  });
+
+  describe(`${actionKeys.setPage}`, () => {
+    it('should increases by one the current page of the search module', async () => {
+      resetSearchStateWith(store, { totalResults: 100 });
+
+      await store.dispatch(actionKeys.setPage, 2);
+
+      expect(store.state.page).toEqual(2);
+    });
+
+    // eslint-disable-next-line max-len
+    it('should not increases the current page of the search module if there not more results', async () => {
+      resetSearchStateWith(store, { totalResults: 48, page: 1, config: { pageSize: 24 } });
+
+      await store.dispatch(actionKeys.setPage, 2);
+      expect(store.state.page).toEqual(2);
+
+      await store.dispatch(actionKeys.setPage, 3);
+      expect(store.state.page).toEqual(2);
+    });
+
+    it('should not decrease the page to less than one', async () => {
+      resetSearchStateWith(store, { totalResults: 48, page: 1, config: { pageSize: 24 } });
+
+      await store.dispatch(actionKeys.setPage, 0);
+      expect(store.state.page).toEqual(1);
+    });
+
+    it('should not decrease the page with a negative number', async () => {
+      resetSearchStateWith(store, { totalResults: 48, page: 1, config: { pageSize: 24 } });
+
+      await store.dispatch(actionKeys.setPage, -10);
+      expect(store.state.page).toEqual(1);
     });
   });
 });
