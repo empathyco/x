@@ -3,9 +3,9 @@ on:
   workflow_dispatch:
     inputs:
       kind:
-        default: stable
+        default: alpha
         required: false
-        description: "The type of the release: `stable` if you want a stable version, or `alpha` if you want a pre-release. Defaults to `stable`."
+        description: "The type of the release: `stable` if you want a stable version, or `alpha` if you want a pre-release. Defaults to `alpha`."
 jobs:
   prepare-release:
     runs-on: ubuntu-latest
