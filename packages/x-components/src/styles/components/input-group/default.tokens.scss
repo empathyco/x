@@ -1,0 +1,32 @@
+:root {
+  // color
+  --x-color-background-input-group: var(--x-color-background-input);
+  --x-color-border-input-group: var(--x-color-border-input);
+  --x-color-border-input-group-focus: var(--x-color-border-input-focus);
+  --x-color-text-input-group: var(--x-color-text-input);
+  --x-color-text-input-group-placeholder: var(--x-color-text-input-placeholder);
+
+  // spacing
+  --x-size-gap-input-group: var(--x-space-05);
+  --x-space-padding-top-input-group: var(--x-space-03);
+  --x-space-padding-bottom-input-group: var(--x-space-padding-top-input-group);
+  --x-space-padding-left-input-group: var(--x-space-06);
+  --x-space-padding-right-input-group: var(--x-space-padding-left-input-group);
+  --x-space-padding-input-group-action: var(--x-space-padding-top-input-group);
+
+
+  // border
+  --x-border-width-input-group: var(--x-border-width-input);
+  --x-border-radius-input-group: var(--x-border-radius-input);
+
+  // typography
+  --x-font-family-input-group: var(--x-font-family-input);
+  --x-font-size-input-group: var(--x-font-size-input);
+  --x-font-line-height-input-group: var(--x-font-line-height-input);
+  --x-font-weight-input-group: var(--x-font-weight-input);
+  --x-font-family-input-group-placeholder: var(--x-font-family-input-group);
+  --x-font-size-input-group-placeholder: var(--x-font-size-input-group);
+  --x-font-line-height-input-group-placeholder: var(--x-font-line-height-input-group);
+  --x-font-weight-input-group-placeholder: var(--x-font-weight-input-group);
+  --x-font-weight-input-group-button: var(--x-font-weight-light);
+}

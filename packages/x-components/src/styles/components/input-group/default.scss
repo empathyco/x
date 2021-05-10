@@ -1,0 +1,85 @@
+.x-input-group {
+  // layout
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+  align-items: center;
+
+  // spacing
+  gap: var(--x-size-gap-input-group);
+
+  // color
+  background-color: var(--x-color-background-input-group);
+  border-color: var(--x-color-border-input-group);
+  color: var(--x-color-text-input-group);
+
+  // border
+  border-width: var(--x-border-width-input-group);
+  border-radius: var(--x-border-radius-input-group);
+  border-style: solid;
+
+  &:focus-within {
+    // color
+    border-color: var(--x-color-border-input-group-focus);
+  }
+
+  > * {
+    //layout
+    flex: 0 0 auto;
+
+    // typography
+    line-height: var(--x-font-line-height-input-group);
+
+    &::placeholder {
+      // typography
+      color: var(--x-color-text-input-group-placeholder);
+      font-family: var(--x-font-family-input-group-placeholder);
+      font-size: var(--x-font-size-input-group-placeholder);
+      font-weight: var(--x-font-weight-input-group-placeholder);
+      line-height: var(--x-font-line-height-input-group-placeholder);
+    }
+  }
+
+  > *:not(.x-input-group__action) {
+    // color
+    background-color: transparent;
+    color: var(--x-color-text-input-group);
+
+    // border
+    border: none;
+
+    // typography
+    font-family: var(--x-font-family-input-group);
+    font-size: var(--x-font-size-input-group);
+    font-weight: var(--x-font-weight-input-group);
+
+    // spacing
+    padding: var(--x-space-padding-top-input-group) 0 var(--x-space-padding-bottom-input-group) 0;
+
+    &:first-child {
+      padding-left: var(--x-space-padding-left-input-group);
+    }
+
+    &:last-child {
+      padding-right: var(--x-space-padding-right-input-group);
+    }
+  }
+
+  > .x-input {
+    //layout
+    flex: 1 1 100%;
+  }
+
+  > .x-button {
+    // typography
+    font-weight: var(--x-font-weight-input-group-button);
+  }
+
+  > .x-input-group__action {
+    // spacing
+    padding: var(--x-space-padding-input-group-action);
+
+    // border
+    margin: calc(#{var(--x-border-width-input-group)} * -1);
+  }
+}

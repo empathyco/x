@@ -13,12 +13,17 @@
   // border
   border-width: var(--x-border-width-input);
   border-radius: var(--x-border-radius-input);
+  border-style: solid;
 
   // typography
   font-family: var(--x-font-family-input);
   font-size: var(--x-font-size-input);
   font-weight: var(--x-font-weight-input);
   line-height: var(--x-font-line-height-input);
+
+  &:focus {
+    border-color: var(--x-color-border-input-focus);
+  }
 
   &::placeholder {
     color: var(--x-color-text-input-placeholder);
