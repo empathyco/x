@@ -1,7 +1,7 @@
 .x-button--tertiary.x-button,
 .x-button--tertiary .x-button {
   // color
-  background-color: var(--x-color-background-button-tertiary);
-  border-color: var(--x-color-border-button-tertiary);
-  color: var(--x-color-text-button-tertiary);
+  --x-color-background-button: var(--x-color-background-button-tertiary);
+  --x-color-border-button: var(--x-color-border-button-tertiary);
+  --x-color-text-button: var(--x-color-text-button-tertiary);
 }

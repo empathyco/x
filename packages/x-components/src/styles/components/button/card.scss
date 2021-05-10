@@ -1,5 +1,5 @@
 .x-button--card.x-button,
 .x-button--card .x-button {
   // border
-  border-radius: var(--x-border-radius-button-card);
+  --x-border-radius-button: var(--x-border-radius-button-card);
 }

@@ -1,7 +1,7 @@
 .x-button--primary.x-button,
 .x-button--primary .x-button {
   // color
-  background-color: var(--x-color-background-button-primary);
-  border-color: var(--x-color-border-button-primary);
-  color: var(--x-color-text-button-primary);
+  --x-color-background-button: var(--x-color-background-button-primary);
+  --x-color-border-button: var(--x-color-border-button-primary);
+  --x-color-text-button: var(--x-color-text-button-primary);
 }
