@@ -1,0 +1,18 @@
+name: Check branch is releasable
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+      - name: Install lerna and all packages
+        run: npm ci
+      - name: Build all packages
+        run: npm run build
+      - name: Run linter in all packages
+        run: npm run lint
+      - name: Run tests in all packages
+        run: npm run test

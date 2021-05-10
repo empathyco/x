@@ -1,0 +1,37 @@
+name: Prepare release
+on:
+  workflow_dispatch:
+    inputs:
+      kind:
+        default: alpha
+        required: false
+        description: "The type of the release: `stable` if you want a stable version, or `alpha` if you want a pre-release. Defaults to `alpha`."
+jobs:
+  prepare-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+      - name: Install lerna and all packages
+        run: npm ci
+      - name: Build all packages
+        run: npm run build
+      - name: Run linter in all packages
+        run: npm run lint
+      - name: Run tests in all packages
+        run: npm run test
+      - name: Configure git user
+        run: |
+          git config --local user.email "x@empathy.co"
+          git config --local user.name "empathy/x"
+      - name: Prepare the release
+        run: "npm run prepare-release:${{ github.event.inputs.kind }}"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
