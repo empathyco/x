@@ -179,7 +179,7 @@ Replacing search triggering:
     <input
       @input="setQuery($event.target.value)"
       :value="query"
-      class="x-filters-search__input"/>
+      class="x-input x-filters-search__input"/>
     <button @click="clearQuery">X</button>
   </template>
   <template #default="{ siftedFilters }">

@@ -16,11 +16,12 @@
           @binding {hasError} boolean - Returns true when there is an error with component values.
     -->
     <slot v-bind="{ min, max, setMin, setMax, emitUserModifiedFilter, clearValues, hasError }">
+      <!-- eslint-disable max-len -->
       <input
         @change="setMin($event.target.valueAsNumber)"
         name="min"
         type="number"
-        class="x-editable-number-range-filter__input x-editable-number-range-filter__input--min"
+        class="x-input x-editable-number-range-filter__input x-editable-number-range-filter__input--min"
         :value="min"
         data-test="range-min"
       />
@@ -29,10 +30,11 @@
         @change="setMax($event.target.valueAsNumber)"
         name="max"
         type="number"
-        class="x-editable-number-range-filter__input x-editable-number-range-filter__input--max"
+        class="x-input x-editable-number-range-filter__input x-editable-number-range-filter__input--max"
         :value="max"
         data-test="range-max"
       />
+      <!-- eslint-enable max-len -->
 
       <button
         v-if="!isInstant"
