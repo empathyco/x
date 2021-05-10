@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# 1.3.0-alpha.0 (2021-05-10)
+# 1.3.0-alpha.1 (2021-05-10)
 
 
 ### Bug Fixes
