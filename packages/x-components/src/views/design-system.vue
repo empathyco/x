@@ -92,6 +92,50 @@
           <span class="x-icon">⌕</span>
         </button>
       </article>
+
+      <article class="x-button--ghost">
+        <h2 class="x-title2">Ghost</h2>
+        <button class="x-button">Ghost</button>
+        <button class="x-button">
+          <span class="x-icon">⌕</span>
+          Ghost
+        </button>
+        <button class="x-button x-button--card">
+          <span class="x-icon">⌕</span>
+          Ghost Card
+        </button>
+        <button class="x-button x-button--pill">
+          <span class="x-icon">⌕</span>
+          Ghost Pill
+        </button>
+        <button class="x-button x-button--round">
+          <span class="x-icon">⌕</span>
+        </button>
+      </article>
+    </section>
+
+    <section>
+      <h1 class="x-title1">Input</h1>
+
+      <article>
+        <h2 class="x-title2">Default</h2>
+        <input type="text" class="x-input" placeholder="type here" />
+      </article>
+
+      <article class="x-input--card">
+        <h2 class="x-title2">Card</h2>
+        <input type="text" class="x-input" placeholder="type here" />
+      </article>
+
+      <article class="x-input--line">
+        <h2 class="x-title2">Line</h2>
+        <input type="text" class="x-input" placeholder="type here" />
+      </article>
+
+      <article class="x-input--pill">
+        <h2 class="x-title2">Pill</h2>
+        <input type="text" class="x-input" placeholder="type here" />
+      </article>
     </section>
 
     <button @click="showTokens" class="info x-button x-button--tertiary x-button--round">i</button>
