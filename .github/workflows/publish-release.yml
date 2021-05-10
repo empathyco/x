@@ -12,7 +12,7 @@ jobs:
         with:
           node-version: 12
       - name: Install lerna and all packages
-        run: npm install
+        run: npm ci
       - name: Build all packages
         run: npm run build
       - name: Run linter in all packages
