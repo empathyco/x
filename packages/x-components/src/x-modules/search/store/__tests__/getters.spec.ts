@@ -68,5 +68,49 @@ describe('testing search module getters', () => {
       });
       expect(store.getters[gettersKeys.request]).toBeNull();
     });
+
+    it('calculates the start parameter correctly when the page changes', () => {
+      resetSearchStateWith(store, {
+        query: 'salchipapa',
+        page: 2,
+        config: {
+          pageSize: 24
+        }
+      });
+
+      expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
+        query: 'salchipapa',
+        filters: {},
+        relatedTags: [],
+        sort: '',
+        rows: 24,
+        start: 24,
+        origin: 'default'
+      });
+
+      resetSearchStateWith(store, { query: 'salchipapa', page: 5 });
+
+      expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
+        query: 'salchipapa',
+        filters: {},
+        relatedTags: [],
+        sort: '',
+        rows: 24,
+        start: 96,
+        origin: 'default'
+      });
+
+      resetSearchStateWith(store, { query: 'salchipapa', page: 1 });
+
+      expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
+        query: 'salchipapa',
+        filters: {},
+        relatedTags: [],
+        sort: '',
+        rows: 24,
+        start: 0,
+        origin: 'default'
+      });
+    });
   });
 });
