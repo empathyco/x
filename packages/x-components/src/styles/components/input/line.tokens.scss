@@ -1,4 +1,7 @@
 :root {
-  --x-border-width-input-line: 0 0 var(--x-border-width-input) 0;
+  // spacing
   --x-space-padding-input-line: var(--x-space-03) 0;
+
+  // border
+  --x-border-width-input-line: 0 0 var(--x-border-width) 0;
 }
