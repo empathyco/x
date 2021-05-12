@@ -10,8 +10,6 @@ const { cleanMarkdown } = require('../utils');
  * The default docgen is generating `<br>` tags which makes Docusaurus build to break.
  * This template replaces the tag for `<br />`
  *
- * TODO Use this template to make this formatting prettier in task: EX-1688.
- *
  * @param slots - Array with slots data.
  * @returns String with slots doc formatted.
  *
@@ -28,6 +26,33 @@ ${slots.map(toSlotsMarkdownTable).join('\n')}
 }
 
 /**
+ * Function to format the bindings section.
+ *
+ * @remarks
+ * This function creates a new line for every binding with this format:
+ * **bindingName** `bindingType` - binding description
+ *
+ * @param bindings - The bindings to format.
+ * @returns String with each binding in a newline.
+ *
+ */
+const formatBindings = bindings => {
+  return bindings
+    .map(binding => {
+      const { name, description, type } = binding;
+      if (!type) {
+        return '';
+      }
+      return `**${name}** <code>${
+        type.name === 'union' && type.elements
+          ? type.elements.map(({ name: insideName }) => insideName).join(' &#124; ')
+          : type.name
+      }</code> - ${description}`;
+    })
+    .join('\n');
+};
+
+/**
  * Transforms the slots array into a markdown table.
  *
  * @param slot - Each of the slots of the template.
@@ -36,7 +61,7 @@ ${slots.map(toSlotsMarkdownTable).join('\n')}
  * @internal
  */
 function toSlotsMarkdownTable({ description = '', bindings = {}, name }) {
-  const readableBindings = Object.keys(bindings).length ? JSON.stringify(bindings, null, 2) : '';
+  const readableBindings = Object.keys(bindings).length ? `${formatBindings(bindings)}` : '';
   return `| ${cleanMarkdown(name)} | ${cleanMarkdown(description)} | ${cleanMarkdown(
     readableBindings
   )} |`;
