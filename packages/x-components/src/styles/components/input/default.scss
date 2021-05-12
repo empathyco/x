@@ -22,10 +22,12 @@
   line-height: var(--x-font-line-height-input);
 
   &:focus {
+    // color
     border-color: var(--x-color-border-input-focus);
   }
 
   &::placeholder {
+    // typography
     color: var(--x-color-text-input-placeholder);
     font-family: var(--x-font-family-input-placeholder);
     font-size: var(--x-font-size-input-placeholder);

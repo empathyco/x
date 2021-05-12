@@ -138,6 +138,118 @@
       </article>
     </section>
 
+    <section>
+      <h1 class="x-title1">Input Group</h1>
+
+      <article>
+        <h2 class="x-title2">Default</h2>
+
+        <div class="x-input-group">
+          <input type="text" class="x-input" placeholder="type here" />
+          <button class="x-button">Clear</button>
+          <button class="x-button x-input-group__action">
+            <span class="x-icon">⌕</span>
+          </button>
+        </div>
+
+        <div class="x-input-group">
+          <span class="x-icon x-input-group__action">⌕</span>
+          <input type="text" class="x-input" placeholder="type here" />
+          <button class="x-button">Clear</button>
+          <button class="x-button x-button--secondary x-input-group__action">Search</button>
+        </div>
+
+        <div class="x-input-group">
+          <button class="x-button x-button--tertiary x-input-group__action">
+            <span class="x-icon">⌕</span>
+          </button>
+          <input type="text" class="x-input" placeholder="type here" />
+          <button class="x-button">Clear</button>
+        </div>
+      </article>
+
+      <article class="x-input-group--pill">
+        <h2 class="x-title2">Pill</h2>
+
+        <div class="x-input-group">
+          <input type="text" class="x-input" placeholder="type here" />
+          <button class="x-button">Clear</button>
+          <button class="x-button x-input-group__action">
+            <span class="x-icon">⌕</span>
+          </button>
+        </div>
+
+        <div class="x-input-group">
+          <span class="x-icon x-input-group__action">⌕</span>
+          <input type="text" class="x-input" placeholder="type here" />
+          <button class="x-button">Clear</button>
+          <button class="x-button x-button--secondary x-input-group__action">Search</button>
+        </div>
+
+        <div class="x-input-group">
+          <button class="x-button x-button--tertiary x-input-group__action">
+            <span class="x-icon">⌕</span>
+          </button>
+          <input type="text" class="x-input" placeholder="type here" />
+          <button class="x-button">Clear</button>
+        </div>
+      </article>
+
+      <article class="x-input-group--card">
+        <h2 class="x-title2">Card</h2>
+
+        <div class="x-input-group">
+          <input type="text" class="x-input" placeholder="type here" />
+          <button class="x-button">Clear</button>
+          <button class="x-button x-input-group__action">
+            <span class="x-icon">⌕</span>
+          </button>
+        </div>
+
+        <div class="x-input-group">
+          <span class="x-icon x-input-group__action">⌕</span>
+          <input type="text" class="x-input" placeholder="type here" />
+          <button class="x-button">Clear</button>
+          <button class="x-button x-button--secondary x-input-group__action">Search</button>
+        </div>
+
+        <div class="x-input-group">
+          <button class="x-button x-button--tertiary x-input-group__action">
+            <span class="x-icon">⌕</span>
+          </button>
+          <input type="text" class="x-input" placeholder="type here" />
+          <button class="x-button">Clear</button>
+        </div>
+      </article>
+
+      <article class="x-input-group--line">
+        <h2 class="x-title2">Line</h2>
+
+        <div class="x-input-group">
+          <input type="text" class="x-input" placeholder="type here" />
+          <button class="x-button">Clear</button>
+          <button class="x-button x-input-group__action">
+            <span class="x-icon">⌕</span>
+          </button>
+        </div>
+
+        <div class="x-input-group">
+          <span class="x-icon x-input-group__action">⌕</span>
+          <input type="text" class="x-input" placeholder="type here" />
+          <button class="x-button">Clear</button>
+          <button class="x-button x-button--secondary x-input-group__action">Search</button>
+        </div>
+
+        <div class="x-input-group">
+          <button class="x-button x-button--tertiary x-input-group__action">
+            <span class="x-icon">⌕</span>
+          </button>
+          <input type="text" class="x-input" placeholder="type here" />
+          <button class="x-button">Clear</button>
+        </div>
+      </article>
+    </section>
+
     <button @click="showTokens" class="info x-button x-button--tertiary x-button--round">i</button>
   </main>
 </template>
@@ -162,6 +274,9 @@
 </script>
 
 <style lang="scss" scoped>
+  * {
+    outline: none;
+  }
   section {
     display: flex;
     flex-flow: column nowrap;
@@ -215,5 +330,9 @@
         padding-bottom: 10px;
       }
     }
+  }
+
+  .x-input-group {
+    width: 250px;
   }
 </style>

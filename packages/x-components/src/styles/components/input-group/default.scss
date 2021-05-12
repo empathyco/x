@@ -4,6 +4,7 @@
   flex-flow: row nowrap;
   align-content: center;
   align-items: center;
+  box-sizing: border-box;
 
   // spacing
   gap: var(--x-size-gap-input-group);
@@ -29,15 +30,6 @@
 
     // typography
     line-height: var(--x-font-line-height-input-group);
-
-    &::placeholder {
-      // typography
-      color: var(--x-color-text-input-group-placeholder);
-      font-family: var(--x-font-family-input-group-placeholder);
-      font-size: var(--x-font-size-input-group-placeholder);
-      font-weight: var(--x-font-weight-input-group-placeholder);
-      line-height: var(--x-font-line-height-input-group-placeholder);
-    }
   }
 
   > *:not(.x-input-group__action) {
@@ -68,9 +60,19 @@
   > .x-input {
     //layout
     flex: 1 1 100%;
+    min-width: 0;
+
+    &::placeholder {
+      // typography
+      color: var(--x-color-text-input-group-placeholder);
+      font-family: var(--x-font-family-input-group-placeholder);
+      font-size: var(--x-font-size-input-group-placeholder);
+      font-weight: var(--x-font-weight-input-group-placeholder);
+      line-height: var(--x-font-line-height-input-group-placeholder);
+    }
   }
 
-  > .x-button {
+  > .x-button:not(.x-input-group__action) {
     // typography
     font-weight: var(--x-font-weight-input-group-button);
   }
@@ -80,6 +82,9 @@
     padding: var(--x-space-padding-input-group-action);
 
     // border
-    margin: calc(#{var(--x-border-width-input-group)} * -1);
+    border-radius: var(--x-border-radius-input-group-action);
+    // need negative margin equals to the border width to make
+    // the child border to overlap the parent border.
+    margin: calc(#{var(--x-space-margin-input-group-action)} * -1);
   }
 }

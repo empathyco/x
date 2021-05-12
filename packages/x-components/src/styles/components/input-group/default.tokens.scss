@@ -13,11 +13,12 @@
   --x-space-padding-left-input-group: var(--x-space-06);
   --x-space-padding-right-input-group: var(--x-space-padding-left-input-group);
   --x-space-padding-input-group-action: var(--x-space-padding-top-input-group);
-
+  --x-space-margin-input-group-action: var(--x-border-width-input-group);
 
   // border
   --x-border-width-input-group: var(--x-border-width-input);
   --x-border-radius-input-group: var(--x-border-radius-input);
+  --x-border-radius-input-group-action: var(--x-border-radius-input);
 
   // typography
   --x-font-family-input-group: var(--x-font-family-input);

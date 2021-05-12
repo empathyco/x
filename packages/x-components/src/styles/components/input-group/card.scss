@@ -1,0 +1,15 @@
+.x-input-group--card.x-input-group,
+.x-input-group--card .x-input-group {
+  --x-border-radius-input-group: var(--x-border-radius-input-group-card);
+
+  &__action {
+    &:first-child {
+      --x-border-radius-input-group-action: var(--x-border-radius-input-group) 0 0
+        var(--x-border-radius-input-group);
+    }
+    &:last-child {
+      --x-border-radius-input-group-action: 0 var(--x-border-radius-input-group)
+        var(--x-border-radius-input-group) 0;
+    }
+  }
+}
