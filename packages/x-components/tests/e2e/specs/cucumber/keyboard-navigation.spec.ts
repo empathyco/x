@@ -79,16 +79,16 @@ Then('top out of bounds is reached', () => {
 });
 
 When('clear history button position is stored', () => {
-  cy.getByDataTest('clear-history-queries').focus().as('originalElement');
+  cy.getByDataTest('clear-history-queries').focus().scrollIntoView().as('originalElement');
 });
 
 Then('bottom out of bounds is reached', () => {
   cy.focused()
-    .trigger('keydown', { key: 'ArrowDown' })
-    .trigger('keydown', { key: 'ArrowRight' })
+    .trigger('keydown', { key: 'ArrowDown', force: true })
+    .trigger('keydown', { key: 'ArrowRight', force: true })
     .then($targetElement => {
       cy.get('@originalElement').should($originalElement => {
-        expect($originalElement.position().left).to.be.eq($targetElement.position().left);
+        expect($originalElement[0]).to.be.eq($targetElement[0]);
       });
     });
 });

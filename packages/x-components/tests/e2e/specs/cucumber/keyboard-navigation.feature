@@ -20,7 +20,7 @@ Feature: Keyboard navigation component
       | query |
       | lego  |
 
-    Scenario Outline: 2. Navigating out of bounds
+    Scenario Outline: 2. Not navigating out of bounds
       Given no special config for keyboard-navigation view
       When  "<query>" is searched
       And   related results are displayed

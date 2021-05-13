@@ -92,6 +92,11 @@
           </template>
         </QuerySuggestions>
       </div>
+      <!-- Next Queries -->
+      <div class="x-column">
+        <h1>Next Queries</h1>
+        <NextQueries />
+      </div>
       <!-- History Queries -->
       <div class="x-column">
         <h1>History queries</h1>
@@ -101,16 +106,6 @@
           </template>
         </HistoryQueries>
         <ClearHistoryQueries>Clear previous searches</ClearHistoryQueries>
-      </div>
-      <!-- Next Queries -->
-      <div class="x-column">
-        <h1>Next Queries</h1>
-        <NextQueries />
-      </div>
-      <!-- Related Tags -->
-      <div class="x-column">
-        <h1>Related tags</h1>
-        <RelatedTags />
       </div>
     </BaseKeyboardNavigation>
     <!-- Testing purpose -->
@@ -133,6 +128,7 @@
   import SlicedFilters from '../x-modules/facets/components/lists/sliced-filters.vue';
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
   import Filters from '../x-modules/facets/components/lists/filters.vue';
+  import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
   import HierarchicalFilter from '../x-modules/facets/components/filters/hierarchical-filter.vue';
   import NumberRangeFilter from '../x-modules/facets/components/filters/number-range-filter.vue';
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
@@ -146,6 +142,7 @@
   import Facets from '../x-modules/facets/components/facets.vue';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
   import MultiSelectFilters from '../x-modules/facets/components/lists/multi-select-filters.vue';
+  import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
   import PopularSearches from '../x-modules/popular-searches/components/popular-searches.vue';
   import QuerySuggestion from '../x-modules/query-suggestions/components/query-suggestion.vue';
   import QuerySuggestions from '../x-modules/query-suggestions/components/query-suggestions.vue';
@@ -177,8 +174,10 @@
       ClearHistoryQueries,
       ClearSearchInput,
       Facets,
+      FiltersSearch,
       HistoryQueries,
       MultiSelectFilters,
+      NextQueries,
       PopularSearches,
       QuerySuggestion,
       QuerySuggestions,

@@ -9,7 +9,7 @@
       <button
         v-if="showMoreFilters"
         @click="toggleShowMoreFilters"
-        class="x-sliced-filters__button x-sliced-filters__button--show-more"
+        class="x-filter x-sliced-filters__button x-sliced-filters__button--show-more"
         data-test="sliced-filters-show-more-button"
       >
         <!--
@@ -21,7 +21,7 @@
       <button
         v-else
         @click="toggleShowMoreFilters"
-        class="x-sliced-filters__button x-sliced-filters__button--show-less"
+        class="x-filter x-sliced-filters__button x-sliced-filters__button--show-less"
         data-test="sliced-filters-show-less-button"
       >
         <!--

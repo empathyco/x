@@ -101,11 +101,11 @@
             <SlicedFilters :max="8">
               <Filters v-slot="{ filter }">
                 <SimpleFilter
-                  v-slot="{ filter: slotFilter, clickFilter }"
+                  v-slot="{ filter: slotFilter, clickFilter, cssClasses }"
                   :filter="filter"
                   data-test="brand-filter"
                 >
-                  <label>
+                  <label :class="cssClasses">
                     <input @change="clickFilter" type="checkbox" :checked="filter.selected" />
                     {{ slotFilter.label }}
                   </label>
@@ -141,13 +141,13 @@
     <!-- Empathize -->
     <Empathize v-if="showEmpathize" :animation="collapseFromTop">
       <BaseKeyboardNavigation>
-        <BaseCloseButton
+        <BaseEventsModalClose
           key="closeButton"
           class="x-empathize__close"
           closingEvent="UserClosedEmpathize"
         >
           ×
-        </BaseCloseButton>
+        </BaseEventsModalClose>
         <div class="x-column">
           <h1>Suggestions</h1>
           <QuerySuggestions :animation="fadeAndSlide">

@@ -1,6 +1,6 @@
 <template>
   <BaseEventButton
-    class="x-all-filter"
+    class="x-filter x-all-filter"
     data-test="all-filter"
     role="checkbox"
     :aria-checked="facet.label.toString()"

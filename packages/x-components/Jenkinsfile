@@ -1,7 +1,7 @@
 npmPackagePipeline {
   build=true
   folder='dist'
-  runner='cypress/browsers:node12.14.1-chrome85-ff81'
+  runner='cypress/browsers:node12.19.0-chrome86-ff82'
   docusaurusFolder='front/xcomponents'
   sidebarPath='frontSidebar[1]'
 }

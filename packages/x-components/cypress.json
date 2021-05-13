@@ -11,5 +11,7 @@
     "cucumber/**/*.features",
     "default/**/*.spec.ts"
   ],
-  "defaultCommandTimeout": 8000
+  "defaultCommandTimeout": 8000,
+  "viewportHeight": 1080,
+  "viewportWidth": 1920
 }
