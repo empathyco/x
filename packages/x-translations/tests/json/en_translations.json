@@ -1,0 +1,40 @@
+{
+  "base": {
+    "searchBox": {
+      "clear": "Clear mobile",
+      "placeholder": "Start to search mobile"
+    },
+    "popularSearches": {
+      "title": "Popular searches mobile",
+      "header": {
+        "text1": "this is text1 mobile"
+      }
+    },
+    "historyQueries": {
+      "clear": "Clear history queries mobile"
+    }
+  },
+  "tablet": {
+    "searchBox": {
+      "clear": "Clear tablet"
+    },
+    "facets": {
+      "default": {
+        "title": "title facets tablet",
+        "header": "header facets tablet"
+      }
+    }
+  },
+  "desktop": {
+    "searchBox": {
+      "clear": "Clear desktop",
+      "placeholder": "Start to search desktop"
+    },
+    "facets": {
+      "default": {
+        "title": "title facets desktop",
+        "footer": "footer facets desktop"
+      }
+    }
+  }
+}

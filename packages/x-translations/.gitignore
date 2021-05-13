@@ -3,6 +3,7 @@
 /dist
 /docs
 /*.tgz
+/output
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/
@@ -24,3 +25,5 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+*.csv
+
