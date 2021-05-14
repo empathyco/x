@@ -330,6 +330,84 @@
           <span class="x-icon">✓</span>
         </div>
       </article>
+
+      <article class="x-filter--justified">
+        <h2 class="x-title2">Justified</h2>
+
+        <div class="x-filter">
+          <span class="x-filter__label">Filter value</span>
+        </div>
+
+        <div class="x-filter">
+          <span class="x-icon">☑</span>
+          <span class="x-filter__label">Filter value</span>
+        </div>
+
+        <div class="x-filter">
+          <span class="x-icon">☑</span>
+          <span class="x-filter__label">Filter value</span>
+          <span class="x-filter__count">(10)</span>
+        </div>
+
+        <div class="x-filter">
+          <span class="x-icon">☑</span>
+          <span class="x-filter__label">Filter value</span>
+          <span class="x-filter__count">(10)</span>
+          <span class="x-icon">✓</span>
+        </div>
+
+        <div class="x-filter">
+          <span class="x-icon">☑</span>
+          <span class="x-filter__label">Filter extra large name</span>
+          <span class="x-filter__count">(10)</span>
+        </div>
+
+        <div class="x-filter">
+          <span class="x-icon">☑</span>
+          <span class="x-filter__label">Filter extra large name</span>
+          <span class="x-filter__count">(10)</span>
+          <span class="x-icon">✓</span>
+        </div>
+      </article>
+
+      <article class="x-filter--justified">
+        <h2 class="x-title2">Justified Selected</h2>
+
+        <div class="x-filter x-filter--is-selected">
+          <span class="x-filter__label">Filter value</span>
+        </div>
+
+        <div class="x-filter x-filter--is-selected">
+          <span class="x-icon">☑</span>
+          <span class="x-filter__label">Filter value</span>
+        </div>
+
+        <div class="x-filter x-filter--is-selected">
+          <span class="x-icon">☑</span>
+          <span class="x-filter__label">Filter value</span>
+          <span class="x-filter__count">(10)</span>
+        </div>
+
+        <div class="x-filter x-filter--is-selected">
+          <span class="x-icon">☑</span>
+          <span class="x-filter__label">Filter value</span>
+          <span class="x-filter__count">(10)</span>
+          <span class="x-icon">✓</span>
+        </div>
+
+        <div class="x-filter x-filter--is-selected">
+          <span class="x-icon">☑</span>
+          <span class="x-filter__label">Filter extra large name</span>
+          <span class="x-filter__count">(10)</span>
+        </div>
+
+        <div class="x-filter x-filter--is-selected">
+          <span class="x-icon">☑</span>
+          <span class="x-filter__label">Filter extra large name</span>
+          <span class="x-filter__count">(10)</span>
+          <span class="x-icon">✓</span>
+        </div>
+      </article>
     </section>
 
     <button @click="showTokens" class="info x-button x-button--tertiary x-button--round">i</button>
