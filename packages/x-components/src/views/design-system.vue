@@ -408,6 +408,648 @@
           <span class="x-icon">✓</span>
         </div>
       </article>
+
+      <article>
+        <h2 class="x-title2">Hierarchical Filter</h2>
+
+        <div class="x-hierarchical-filter-container">
+          <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+            <span class="x-filter__label">Parent Filter</span>
+          </div>
+          <ul class="x-hierarchical-filter__children">
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-filter__label">Child Filter 1</span>
+              </div>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                <span class="x-filter__label">Child Filter 2</span>
+              </div>
+              <ul class="x-hierarchical-filter__children">
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-filter__label">Child Filter 1</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                    <span class="x-filter__label">Child Filter 2</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-filter__label">Child Filter 3</span>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-filter__label">Child Filter 3</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="x-hierarchical-filter-container">
+          <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+            <span class="x-icon">☑</span>
+            <span class="x-filter__label">Parent Filter</span>
+          </div>
+          <ul class="x-hierarchical-filter__children">
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 1</span>
+              </div>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 2</span>
+              </div>
+              <ul class="x-hierarchical-filter__children">
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 1</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 2</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 3</span>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 3</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="x-hierarchical-filter-container">
+          <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+            <span class="x-icon">☑</span>
+            <span class="x-filter__label">Parent Filter</span>
+            <span class="x-filter__count">(10)</span>
+          </div>
+          <ul class="x-hierarchical-filter__children">
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 1</span>
+                <span class="x-filter__count">(10)</span>
+              </div>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 2</span>
+                <span class="x-filter__count">(10)</span>
+              </div>
+              <ul class="x-hierarchical-filter__children">
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 1</span>
+                    <span class="x-filter__count">(10)</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 2</span>
+                    <span class="x-filter__count">(10)</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 3</span>
+                    <span class="x-filter__count">(10)</span>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 3</span>
+                <span class="x-filter__count">(10)</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="x-hierarchical-filter-container">
+          <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+            <span class="x-icon">☑</span>
+            <span class="x-filter__label">Parent Filter</span>
+            <span class="x-filter__count">(10)</span>
+            <span class="x-icon">✓</span>
+          </div>
+          <ul class="x-hierarchical-filter__children">
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 1</span>
+                <span class="x-filter__count">(10)</span>
+                <span class="x-icon">✓</span>
+              </div>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 2</span>
+                <span class="x-filter__count">(10)</span>
+                <span class="x-icon">✓</span>
+              </div>
+              <ul class="x-hierarchical-filter__children">
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 1</span>
+                    <span class="x-filter__count">(10)</span>
+                    <span class="x-icon">✓</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 2</span>
+                    <span class="x-filter__count">(10)</span>
+                    <span class="x-icon">✓</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 3</span>
+                    <span class="x-filter__count">(10)</span>
+                    <span class="x-icon">✓</span>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 3</span>
+                <span class="x-filter__count">(10)</span>
+                <span class="x-icon">✓</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="x-hierarchical-filter-container">
+          <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+            <span class="x-icon">☑</span>
+            <span class="x-filter__label">Parent Filter extra large name</span>
+            <span class="x-filter__count">(10)</span>
+          </div>
+          <ul class="x-hierarchical-filter__children">
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 1 extra large name</span>
+                <span class="x-filter__count">(10)</span>
+              </div>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 2 extra large name</span>
+                <span class="x-filter__count">(10)</span>
+              </div>
+              <ul class="x-hierarchical-filter__children">
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 1 extra large name</span>
+                    <span class="x-filter__count">(10)</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 2 extra large name</span>
+                    <span class="x-filter__count">(10)</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 3 extra large name</span>
+                    <span class="x-filter__count">(10)</span>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 3 extra large name</span>
+                <span class="x-filter__count">(10)</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="x-hierarchical-filter-container">
+          <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+            <span class="x-icon">☑</span>
+            <span class="x-filter__label">Parent Filter extra large name</span>
+            <span class="x-filter__count">(10)</span>
+            <span class="x-icon">✓</span>
+          </div>
+          <ul class="x-hierarchical-filter__children">
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 1 extra large name</span>
+                <span class="x-filter__count">(10)</span>
+                <span class="x-icon">✓</span>
+              </div>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 2 extra large name</span>
+                <span class="x-filter__count">(10)</span>
+                <span class="x-icon">✓</span>
+              </div>
+              <ul class="x-hierarchical-filter__children">
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 1 extra large name</span>
+                    <span class="x-filter__count">(10)</span>
+                    <span class="x-icon">✓</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 2 extra large name</span>
+                    <span class="x-filter__count">(10)</span>
+                    <span class="x-icon">✓</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 3 extra large name</span>
+                    <span class="x-filter__count">(10)</span>
+                    <span class="x-icon">✓</span>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 3 extra large name</span>
+                <span class="x-filter__count">(10)</span>
+                <span class="x-icon">✓</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="x-filter--justified">
+        <h2 class="x-title2">Justified Hierarchical Filter</h2>
+
+        <div class="x-hierarchical-filter-container">
+          <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+            <span class="x-filter__label">Parent Filter</span>
+          </div>
+          <ul class="x-hierarchical-filter__children">
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-filter__label">Child Filter 1</span>
+              </div>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                <span class="x-filter__label">Child Filter 2</span>
+              </div>
+              <ul class="x-hierarchical-filter__children">
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-filter__label">Child Filter 1</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                    <span class="x-filter__label">Child Filter 2</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-filter__label">Child Filter 3</span>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-filter__label">Child Filter 3</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="x-hierarchical-filter-container">
+          <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+            <span class="x-icon">☑</span>
+            <span class="x-filter__label">Parent Filter</span>
+          </div>
+          <ul class="x-hierarchical-filter__children">
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 1</span>
+              </div>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 2</span>
+              </div>
+              <ul class="x-hierarchical-filter__children">
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 1</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 2</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 3</span>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 3</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="x-hierarchical-filter-container">
+          <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+            <span class="x-icon">☑</span>
+            <span class="x-filter__label">Parent Filter</span>
+            <span class="x-filter__count">(10)</span>
+          </div>
+          <ul class="x-hierarchical-filter__children">
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 1</span>
+                <span class="x-filter__count">(10)</span>
+              </div>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 2</span>
+                <span class="x-filter__count">(10)</span>
+              </div>
+              <ul class="x-hierarchical-filter__children">
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 1</span>
+                    <span class="x-filter__count">(10)</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 2</span>
+                    <span class="x-filter__count">(10)</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 3</span>
+                    <span class="x-filter__count">(10)</span>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 3</span>
+                <span class="x-filter__count">(10)</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="x-hierarchical-filter-container">
+          <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+            <span class="x-icon">☑</span>
+            <span class="x-filter__label">Parent Filter</span>
+            <span class="x-filter__count">(10)</span>
+            <span class="x-icon">✓</span>
+          </div>
+          <ul class="x-hierarchical-filter__children">
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 1</span>
+                <span class="x-filter__count">(10)</span>
+                <span class="x-icon">✓</span>
+              </div>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 2</span>
+                <span class="x-filter__count">(10)</span>
+                <span class="x-icon">✓</span>
+              </div>
+              <ul class="x-hierarchical-filter__children">
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 1</span>
+                    <span class="x-filter__count">(10)</span>
+                    <span class="x-icon">✓</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 2</span>
+                    <span class="x-filter__count">(10)</span>
+                    <span class="x-icon">✓</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 3</span>
+                    <span class="x-filter__count">(10)</span>
+                    <span class="x-icon">✓</span>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 3</span>
+                <span class="x-filter__count">(10)</span>
+                <span class="x-icon">✓</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="x-hierarchical-filter-container">
+          <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+            <span class="x-icon">☑</span>
+            <span class="x-filter__label">Parent Filter extra large name</span>
+            <span class="x-filter__count">(10)</span>
+          </div>
+          <ul class="x-hierarchical-filter__children">
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 1 extra large name</span>
+                <span class="x-filter__count">(10)</span>
+              </div>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 2 extra large name</span>
+                <span class="x-filter__count">(10)</span>
+              </div>
+              <ul class="x-hierarchical-filter__children">
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 1 extra large name</span>
+                    <span class="x-filter__count">(10)</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 2 extra large name</span>
+                    <span class="x-filter__count">(10)</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 3 extra large name</span>
+                    <span class="x-filter__count">(10)</span>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 3 extra large name</span>
+                <span class="x-filter__count">(10)</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="x-hierarchical-filter-container">
+          <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+            <span class="x-icon">☑</span>
+            <span class="x-filter__label">Parent Filter extra large name</span>
+            <span class="x-filter__count">(10)</span>
+            <span class="x-icon">✓</span>
+          </div>
+          <ul class="x-hierarchical-filter__children">
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 1 extra large name</span>
+                <span class="x-filter__count">(10)</span>
+                <span class="x-icon">✓</span>
+              </div>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 2 extra large name</span>
+                <span class="x-filter__count">(10)</span>
+                <span class="x-icon">✓</span>
+              </div>
+              <ul class="x-hierarchical-filter__children">
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 1 extra large name</span>
+                    <span class="x-filter__count">(10)</span>
+                    <span class="x-icon">✓</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 2 extra large name</span>
+                    <span class="x-filter__count">(10)</span>
+                    <span class="x-icon">✓</span>
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <span class="x-icon">☑</span>
+                    <span class="x-filter__label">Child Filter 3 extra large name</span>
+                    <span class="x-filter__count">(10)</span>
+                    <span class="x-icon">✓</span>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <span class="x-icon">☑</span>
+                <span class="x-filter__label">Child Filter 3 extra large name</span>
+                <span class="x-filter__count">(10)</span>
+                <span class="x-icon">✓</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </article>
     </section>
 
     <button @click="showTokens" class="info x-button x-button--tertiary x-button--round">i</button>
