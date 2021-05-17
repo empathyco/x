@@ -1,8 +1,11 @@
 name: Release a new version
 on:
-  workflow_dispatch:
+  pull_request:
+    types: [ closed ]
+    branches: [ main ]
 jobs:
   release:
+    if: github.event.pull_request.merged == true && github.head_ref == 'release'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -29,8 +32,8 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish the release
-        run: 'npm run publish-release'
-      - name: Push changes
+        run: npm run publish-release
+      - name: Push tags
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.SUPPORT_TOKEN }}

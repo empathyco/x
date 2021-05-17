@@ -30,9 +30,14 @@ jobs:
           git config --local user.email "x@empathy.co"
           git config --local user.name "empathy/x"
       - name: Prepare the release
-        run: "npm run prepare-release:${{ github.event.inputs.kind }}"
-      - name: Push changes
-        uses: ad-m/github-push-action@master
+        run: npm run prepare-release:${{ github.event.inputs.kind }}
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
         with:
-          github_token: ${{ secrets.SUPPORT_TOKEN }}
-          branch: ${{ github.ref }}
+          token: ${{ secrets.SUPPORT_TOKEN }}
+          commit-message: "chore(release): prepare ${{ github.event.inputs.kind }} release"
+          committer: Interface X <x@empathy.co>
+          title: ${{ github.event.inputs.kind }} release
+          body: Release preparation
+          branch: release
+          delete-branch: true
