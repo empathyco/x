@@ -1,12 +1,13 @@
-name: Prepare stable release
+name: Release alpha version
 on: [workflow_dispatch]
 jobs:
-  prepare-release:
+  release-alpha:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+          token: ${{ secrets.SUPPORT_TOKEN }}
       - uses: actions/setup-node@v2
         with:
           node-version: 12
@@ -22,15 +23,11 @@ jobs:
         run: |
           git config --local user.email "x@empathy.co"
           git config --local user.name "empathy/x"
-      - name: Prepare the release
-        run: npm run prepare-release:stable
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
-        with:
-          token: ${{ secrets.SUPPORT_TOKEN }}
-          commit-message: "chore(release): prepare stable release"
-          committer: Interface X <x@empathy.co>
-          title: Stable release
-          body: Release preparation
-          branch: release
-          delete-branch: true
+      - name: Create .npmrc file with authorization token
+        run: echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish release
+        run: npm run release:alpha
+      - name: Push changes to GitHub
+        run: git push --follow-tags
