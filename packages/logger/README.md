@@ -19,11 +19,17 @@ import { logger, LogLevel } from '@empathyco/x-logger';
 There are different log levels to be set in the console level and server level.
 
 ```
-logger.consoleLevel = LogLevel.warn;
-logger.serverLevel = LogLevel.error;
+enum LogLevel {
+  silent = 0,
+  error = 1,
+  warn = 2,
+  info = 3,
+  debug = 4,
+  trace = 5
+}
 ```
 
-And finally, different methods to be used
+And different methods to be called to use the logger:
 
 ```
 logger.error()
@@ -32,3 +38,15 @@ logger.info()
 logger.debug()
 logger.trace()
 ```
+
+Setting the LogLevel to `warn`, for example, will only send to the console if methods of lower levels are called, `logger.error()` and `logger.warn()` in this case.                                                                                                  logger.warn()
+```
+logger.consoleLevel = LogLevel.warn;
+
+logger.error() // console.error called
+logger.warn() // console.warn called
+logger.info() // console.info not called
+logger.debug() // console.debug  not called
+logger.trace() // console.trace not called
+```
+
