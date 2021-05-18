@@ -18,15 +18,15 @@
         <button class="x-button">Default</button>
         <button class="x-button">
           <span class="x-icon">⌕</span>
-          Default
+          <span>Default</span>
         </button>
         <button class="x-button x-button--card">
           <span class="x-icon">⌕</span>
-          Default Card
+          <span>Default Card</span>
         </button>
         <button class="x-button x-button--pill">
           <span class="x-icon">⌕</span>
-          Default Pill
+          <span>Default Pill</span>
         </button>
         <button class="x-button x-button--round">
           <span class="x-icon">⌕</span>
@@ -38,15 +38,15 @@
         <button class="x-button">Primary</button>
         <button class="x-button">
           <span class="x-icon">⌕</span>
-          Primary
+          <span>Primary</span>
         </button>
         <button class="x-button x-button--card">
           <span class="x-icon">⌕</span>
-          Primary Card
+          <span>Primary Card</span>
         </button>
         <button class="x-button x-button--pill">
           <span class="x-icon">⌕</span>
-          Primary Pill
+          <span>Primary Pill</span>
         </button>
         <button class="x-button x-button--round">
           <span class="x-icon">⌕</span>
@@ -58,15 +58,15 @@
         <button class="x-button">Secondary</button>
         <button class="x-button">
           <span class="x-icon">⌕</span>
-          Secondary
+          <span>Secondary</span>
         </button>
         <button class="x-button x-button--card">
           <span class="x-icon">⌕</span>
-          Secondary Card
+          <span>Secondary Card</span>
         </button>
         <button class="x-button x-button--pill">
           <span class="x-icon">⌕</span>
-          Secondary Pill
+          <span>Secondary Pill</span>
         </button>
         <button class="x-button x-button--round">
           <span class="x-icon">⌕</span>
@@ -78,15 +78,15 @@
         <button class="x-button">Tertiary</button>
         <button class="x-button">
           <span class="x-icon">⌕</span>
-          Tertiary
+          <span>Tertiary</span>
         </button>
         <button class="x-button x-button--card">
           <span class="x-icon">⌕</span>
-          Tertiary Card
+          <span>Tertiary Card</span>
         </button>
         <button class="x-button x-button--pill">
           <span class="x-icon">⌕</span>
-          Tertiary Pill
+          <span>Tertiary Pill</span>
         </button>
         <button class="x-button x-button--round">
           <span class="x-icon">⌕</span>
@@ -98,15 +98,15 @@
         <button class="x-button">Ghost</button>
         <button class="x-button">
           <span class="x-icon">⌕</span>
-          Ghost
+          <span>Ghost</span>
         </button>
         <button class="x-button x-button--card">
           <span class="x-icon">⌕</span>
-          Ghost Card
+          <span>Ghost Card</span>
         </button>
         <button class="x-button x-button--pill">
           <span class="x-icon">⌕</span>
-          Ghost Pill
+          <span>Ghost Pill</span>
         </button>
         <button class="x-button x-button--round">
           <span class="x-icon">⌕</span>
@@ -1052,6 +1052,54 @@
       </article>
     </section>
 
+    <section>
+      <h1 class="x-title1">Facet</h1>
+
+      <article>
+        <h2 class="x-title2">Default</h2>
+
+        <div class="x-facet">
+          <button>
+            <span>Facet title</span>
+            <span class="x-icon">▾</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+
+        <div class="x-facet">
+          <button>
+            <span>Facet title Extra Large Name</span>
+            <span class="x-icon">▾</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+
+        <div class="x-facet">
+          <button>
+            <span class="x-icon">▾</span>
+            <span>Facet title</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+
+        <div class="x-facet">
+          <button>
+            <span class="x-icon">▾</span>
+            <span>Facet title Extra Large Name</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+      </article>
+    </section>
+
     <button @click="showTokens" class="info x-button x-button--tertiary x-button--round">i</button>
   </main>
 </template>
@@ -1111,6 +1159,10 @@
   .x-filter,
   .x-hierarchical-filter-container {
     width: 220px;
+  }
+
+  .x-facet {
+    width: 200px;
   }
 </style>
 

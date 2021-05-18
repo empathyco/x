@@ -1,8 +1,13 @@
 .x-icon {
+  //layout
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+
   // sizing
-  line-height: var(--x-font-line-height-icon);
+  line-height: var(--x-size-height-icon);
   width: var(--x-size-width-icon);
   height: var(--x-size-height-icon);
-  text-align: center;
   font-size: var(--x-size-height-icon);
 }
