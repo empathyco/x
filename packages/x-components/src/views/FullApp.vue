@@ -58,7 +58,7 @@
     </ClearFilters>
     <Facets>
       <template #default="{ facet }">
-        <BaseHeaderTogglePanel>
+        <BaseHeaderTogglePanel class="x-facet">
           <template #header-content>{{ facet.label }}</template>
           <SelectedFilters :facetId="facet.id" />
           <AllFilter :facet="facet" />
@@ -72,7 +72,7 @@
         </BaseHeaderTogglePanel>
       </template>
       <template #hierarchical_category="{ facet }">
-        <BaseHeaderTogglePanel>
+        <BaseHeaderTogglePanel class="x-facet">
           <template #header-content>{{ facet.label }}</template>
           <SelectedFilters :facetId="facet.id" />
           <AllFilter :facet="facet" />
@@ -94,7 +94,7 @@
         </BaseHeaderTogglePanel>
       </template>
       <template #brand_facet="{ facet }">
-        <BaseHeaderTogglePanel>
+        <BaseHeaderTogglePanel class="x-facet">
           <template #header-content>{{ facet.label }}</template>
           <SelectedFilters :facetId="facet.id" />
           <FiltersSearch :filters="facet.filters">
@@ -118,7 +118,7 @@
         </BaseHeaderTogglePanel>
       </template>
       <template #price_facet="{ facet }">
-        <BaseHeaderTogglePanel>
+        <BaseHeaderTogglePanel class="x-facet">
           <template #header-content>{{ facet.label }}</template>
           <SelectedFilters :facetId="facet.id" />
           <AllFilter :facet="facet" />
