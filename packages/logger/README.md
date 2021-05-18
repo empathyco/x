@@ -42,6 +42,7 @@ logger.trace()
 Depending on the LogLevel, only some levels will be displayed in the console. Setting the LogLevel to `warn`, the console will display the levels below it and itself, in this case, `error` and `warn`.
 ```
 logger.consoleLevel = LogLevel.warn;
+logger.serverLevel = LogLevel.silent;
 
 logger.error() // console.error called
 logger.warn() // console.warn called
