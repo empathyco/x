@@ -6,8 +6,8 @@
     "build": "lerna run build",
     "lint": "lerna run lint",
     "test": "lerna run test",
-    "prepare-release:stable": "node scripts/prepare-release",
-    "prepare-release:alpha": "node scripts/prepare-release alpha",
+    "prepare-release:stable": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes",
+    "release:alpha": "lerna publish --conventional-commits --conventional-prerelease --yes",
     "publish-release": "node scripts/publish-release"
   },
   "devDependencies": {
