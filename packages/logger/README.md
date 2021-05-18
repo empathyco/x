@@ -39,7 +39,7 @@ logger.debug()
 logger.trace()
 ```
 
-Setting the LogLevel to `warn`, for example, will only send to the console if methods of lower levels are called, `logger.error()` and `logger.warn()` in this case.                                                                                                  logger.warn()
+Depending on the LogLevel, only some levels will be displayed in the console. Setting the LogLevel to `warn`, the console will display the levels below it and itself, in this case, `error` and `warn`.
 ```
 logger.consoleLevel = LogLevel.warn;
 
