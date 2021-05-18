@@ -10,6 +10,7 @@ import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import ResultsList from '../results-list.vue';
+import { InfiniteScroll } from '../../../../directives/infinite-scroll';
 import { resetXSearchStateWith } from './utils';
 
 /**
@@ -54,6 +55,7 @@ function renderResultsList({
     }
   };
 }
+
 describe('testing Results list component', () => {
   it('is an XComponent', () => {
     const { resultsListWrapper } = renderResultsList();
@@ -110,6 +112,17 @@ describe('testing Results list component', () => {
     expect(resultsListWrapper.find(getDataTestSelector('layout-slot-overridden')).exists()).toBe(
       true
     );
+  });
+
+  it('emits an `UserReachedResultListEnd` X event when onInfiniteScrollEnd is called', () => {
+    const { resultsListWrapper } = renderResultsList();
+
+    const listener = jest.fn();
+    resultsListWrapper.vm.$x.on('UserReachedResultsListEnd').subscribe(listener);
+
+    (resultsListWrapper.vm as Vue & InfiniteScroll).onInfiniteScrollEnd();
+
+    expect(listener).toHaveBeenCalledTimes(1);
   });
 });
 

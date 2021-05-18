@@ -84,7 +84,7 @@
 
   ## Custom Usage
 
-  With an icon overriding the default slot, which has binded the suggestion and the
+  With an icon overriding the default slot, which has bound the suggestion and the
   queryHTML.
 
   ```vue

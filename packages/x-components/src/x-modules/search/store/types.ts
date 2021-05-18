@@ -144,6 +144,12 @@ export interface SearchMutations extends StatusMutations {
    * @param pageSize - The new page size.
    */
   setPageSize(pageSize: number): void;
+  /**
+   * Append the results to the results state.
+   *
+   * @param results - Results array.
+   */
+  setMoreResults(results: Result[]): void;
 }
 
 /**

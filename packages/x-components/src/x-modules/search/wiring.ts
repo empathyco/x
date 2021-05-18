@@ -107,12 +107,20 @@ export const increasePage = wireDispatch('setPage', ({ state }) => state.page + 
 export const setPageSize = wireCommit('setPageSize');
 
 /**
+ * Sets 1 to the search state `page`.
+ *
+ * @public
+ */
+export const resetPage = wireCommit('setPage', 1);
+
+/**
  * Search wiring.
  *
  * @internal
  */
 export const searchWiring = createWiring({
   UserAcceptedAQuery: {
+    resetPage,
     setSearchQuery
   },
   UserAcceptedSpellcheckQuery: {
@@ -136,5 +144,8 @@ export const searchWiring = createWiring({
   },
   SelectedSortProvided: {
     setSort
+  },
+  UserReachedResultsListEnd: {
+    increasePage
   }
 });

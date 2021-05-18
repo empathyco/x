@@ -32,12 +32,13 @@
   import { noElementComponent } from '../../../components/no-element';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { searchXModule } from '../x-module';
+  import { InfiniteScroll } from '../../../directives/infinite-scroll';
 
   /**
    * It renders a list of results from {@link SearchState.results} by default.
-   * The component provides the slot layout which wraps the whole component with the results binded.
+   * The component provides the slot layout which wraps the whole component with the results bound.
    * It also provides the slot result to customize the item, which is within the layout slot, with
-   * the result binded.
+   * the result bound.
    *
    * @public
    */
@@ -47,7 +48,7 @@
     },
     mixins: [xComponentMixin(searchXModule)]
   })
-  export default class ResultsList extends Vue {
+  export default class ResultsList extends Vue implements InfiniteScroll {
     /**
      * The results to render.
      *
@@ -63,6 +64,15 @@
      */
     @Prop({ default: 'ul' })
     protected animation!: Vue | string;
+
+    /**
+     * It emits an {@link SearchXEvents.UserReachedResultsListEnd} event.
+     *
+     * @internal
+     */
+    onInfiniteScrollEnd(): void {
+      this.$x.emit('UserReachedResultsListEnd');
+    }
   }
 </script>
 
@@ -70,8 +80,8 @@
 #Examples
 
 It renders a list of results from {@link SearchState.results} by default. The component provides the
-slot layout which wraps the whole component with the results binded. It also provides the slot
-result to customize the item, which is within the layout slot, with the result binded.
+slot layout which wraps the whole component with the results bound. It also provides the slot result
+to customize the item, which is within the layout slot, with the result bound.
 
 ## Basic example
 

@@ -61,6 +61,10 @@ interface IntersectionObserverFactoryOptions {
  * It also iterates over the observed elements list and it makes each of them observe the created
  * instance.
  *
+ * @remarks It's necessary to debounce the intersection observer callback. If not, in an scenario in
+ * which the scroll moves to top with an smooth behaviour, the function is triggered before the
+ * scroll reaches the top.
+ *
  * @returns {@link IntersectionObserver}.
  */
 function intersectionObserverFactory({
@@ -73,7 +77,7 @@ function intersectionObserverFactory({
     const intersectionObserver = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting && entry.boundingClientRect.top < entry.rootBounds!.top) {
-          (vNode.context as Vue & InfiniteScroll)?.onInfiniteScrollEnd();
+          (vNode.componentInstance as Vue & InfiniteScroll)?.onInfiniteScrollEnd();
         }
       },
       {

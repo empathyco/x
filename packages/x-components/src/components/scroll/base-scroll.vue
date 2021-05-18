@@ -5,9 +5,10 @@
 </template>
 
 <script lang="ts">
-  import { Component } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
   import { throttle } from '../../utils/throttle';
+  import { XOn } from '../decorators/bus.decorators';
   import ScrollMixin from './scroll.mixin';
 
   /**
@@ -18,6 +19,15 @@
    */
   @Component
   export default class BaseScroll extends mixins(ScrollMixin) {
+    /**
+     * If true (default), sets the scroll position to top when an
+     * {@link XEventsTypes.UserAcceptedAQuery} event is emitted.
+     *
+     * @public
+     */
+    @Prop({ default: true })
+    protected resetOnQueryChange!: boolean;
+
     /**
      * Throttled version of the function that stores the DOM scroll related properties.
      * The duration of the throttle is configured through the
@@ -41,6 +51,18 @@
       this.currentPosition = this.$el.scrollTop;
       this.scrollHeight = this.$el.scrollHeight;
       this.clientHeight = this.$el.clientHeight;
+    }
+
+    /**
+     * It sets the scroll to top if the property `resetOnQueryChange` is true.
+     *
+     * @internal
+     */
+    @XOn('UserAcceptedAQuery')
+    scrollToTop(): void {
+      if (this.resetOnQueryChange) {
+        this.$el.scrollTo({ top: 0 });
+      }
     }
   }
 </script>
@@ -67,6 +89,60 @@ movement that realize the user:
     @scroll:at-start="scrollAtStart"
     @scroll:almost-at-end="scrollAlmostAtEnd"
     @scroll:at-end="scrollAtEnd"
+    throttleMs="1000"
+    distanceToBottom="200"
+  >
+    <template>
+      <div class="content-scroll">
+        <span>content1</span>
+        <span>content1</span>
+      </div>
+    </template>
+  </BaseScroll>
+</template>
+
+<script>
+  import { BaseScroll } from '@empathy/x-components';
+
+  export default {
+    name: 'ScrollTest',
+    components: {
+      BaseScroll
+    },
+    methods: {
+      scroll(position) {
+        console.log('scroll', position);
+      },
+      scrollDirectionChange(direction) {
+        console.log('scroll:direction-change', direction);
+      },
+      scrollAtStart() {
+        console.log('scroll:at-start');
+      },
+      scrollAlmostAtEnd(distance) {
+        console.log('scroll:almost-at-end', distance);
+      },
+      scrollAtEnd() {
+        console.log('scroll:at-end');
+      }
+    }
+  };
+</script>
+```
+
+## Avoid reset scroll on query change
+
+Set to false the reset scroll on query change feature which is true by default.
+
+```vue
+<template>
+  <BaseScroll
+    @scroll="scroll"
+    @scroll:direction-change="scrollDirectionChange"
+    @scroll:at-start="scrollAtStart"
+    @scroll:almost-at-end="scrollAlmostAtEnd"
+    @scroll:at-end="scrollAtEnd"
+    :resetOnQueryChange="false"
     throttleMs="1000"
     distanceToBottom="200"
   >

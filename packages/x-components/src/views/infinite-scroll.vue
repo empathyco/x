@@ -4,14 +4,8 @@
     <header class="header">
       <SearchInput />
     </header>
-
-    <ResultsList v-infinite-scroll="{ margin: 200 }" />
-
     <BaseScroll id="test1" class="main">
       <ResultsList v-infinite-scroll:test1 />
-    </BaseScroll>
-    <BaseScroll id="test2" class="main">
-      <ResultsList v-infinite-scroll:test2="{ margin: 100 }" />
     </BaseScroll>
   </div>
 </template>
@@ -34,7 +28,7 @@
   import { searchXModule } from '../x-modules/search/x-module';
   import BaseDropdown from '../components/base-dropdown.vue';
   import ResultsList from '../x-modules/search/components/results-list.vue';
-  import { InfiniteScroll, infiniteScroll } from '../directives/infinite-scroll';
+  import { infiniteScroll } from '../directives/infinite-scroll';
   import BaseScroll from '../components/scroll/base-scroll.vue';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
@@ -61,14 +55,9 @@
       'infinite-scroll': infiniteScroll
     }
   })
-  export default class Search extends Vue implements InfiniteScroll {
+  export default class Search extends Vue {
     @State('search', 'results')
     public results!: Result[];
-
-    onInfiniteScrollEnd(): void {
-      // eslint-disable-next-line no-console
-      console.log('no intersection');
-    }
   }
 </script>
 

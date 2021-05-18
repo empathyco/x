@@ -8,6 +8,7 @@
     v-on="$listeners"
     :throttleMs="throttleMs"
     :distanceToBottom="distanceToBottom"
+    :resetOnQueryChange="resetOnQueryChange"
   >
     <slot />
   </BaseScroll>
@@ -57,6 +58,15 @@
      */
     @Prop({ default: 'scrollId' })
     public id!: string;
+
+    /**
+     * If true (default), sets the scroll position of the {@link BaseScroll} component to top when
+     * an {@link XEventsTypes.UserAcceptedAQuery} event is emitted.
+     *
+     * @public
+     */
+    @Prop({ default: true })
+    protected resetOnQueryChange!: boolean;
 
     /**
      * Emits the `UserScrolled` event.
@@ -256,6 +266,49 @@ You can use the XEvents subscribing to them.
 ```vue
 <template>
   <BaseIdScroll throttleMs="50" distanceToBottom="300">
+    <div class="content-scroll">
+      <span>content1</span>
+      <span>content1</span>
+    </div>
+  </BaseIdScroll>
+</template>
+
+<script>
+  import { BaseIdScroll } from '@empathy/x-components';
+
+  export default {
+    name: 'ScrollIdTest',
+    components: {
+      BaseIdScroll
+    },
+    mounted() {
+      this.$x.on('UserScrolled').subscribe(event => {
+        console.log(event);
+      });
+      this.$x.on('UserChangedScrollDirection').subscribe(event => {
+        console.log(event);
+      });
+      this.$x.on('UserReachedScrollStart').subscribe(event => {
+        console.log(event);
+      });
+      this.$x.on('UserAlmostReachedScrollEnd').subscribe(event => {
+        console.log(event);
+      });
+      this.$x.on('UserReachedScrollEnd').subscribe(event => {
+        console.log(event);
+      });
+    }
+  };
+</script>
+```
+
+## Avoid reset scroll on query change
+
+Set to false the reset scroll on query change feature which is true by default.
+
+```vue
+<template>
+  <BaseIdScroll throttleMs="50" distanceToBottom="300" :resetOnQueryChange="false">
     <div class="content-scroll">
       <span>content1</span>
       <span>content1</span>

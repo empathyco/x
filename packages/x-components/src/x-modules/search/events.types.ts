@@ -47,4 +47,8 @@ export interface SearchXEvents {
    * * Payload: The new query string.
    */
   UserClickedPartialQuery: string;
+  /**
+   * The user reached the limit of the scrollable content in a results list.
+   */
+  UserReachedResultsListEnd: void;
 }

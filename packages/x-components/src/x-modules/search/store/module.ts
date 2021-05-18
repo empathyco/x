@@ -43,6 +43,9 @@ export const searchXStoreModule: SearchXStoreModule = {
     setResults(state, results) {
       state.results = results;
     },
+    setMoreResults(state, results) {
+      state.results.push(...results);
+    },
     setPartialResults(state, partialResults) {
       state.partialResults = partialResults;
     },

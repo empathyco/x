@@ -91,9 +91,9 @@
   #Examples
 
   It renders a list of recommendations from recommendations state by default. The component
-  provides the slot layout which wraps the whole component with the recommendations binded. It also
+  provides the slot layout which wraps the whole component with the recommendations bound. It also
   provides the default slot to customize the item, which is within the layout slot, with the
-  recommendation binded. Each recommendation should be represented by a BaseResultLink component
+  recommendation bound. Each recommendation should be represented by a BaseResultLink component
   besides any other component.
 
   ## Basic example

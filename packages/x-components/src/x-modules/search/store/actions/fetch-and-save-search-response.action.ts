@@ -11,10 +11,15 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
     return dispatch('fetchSearchResponse');
   },
   onSuccess(
-    { commit },
+    { commit, state },
     { results, partialResults, facets, banners, promoteds, totalResults, spellcheck }
   ) {
-    commit('setResults', results);
+    if (state.page > 1) {
+      commit('setMoreResults', results);
+    } else {
+      commit('setResults', results);
+    }
+
     commit('setPartialResults', partialResults ?? []);
 
     if (facets) {

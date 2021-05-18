@@ -1,6 +1,16 @@
 import { mount, Wrapper } from '@vue/test-utils';
-import { getDataTestSelector } from '../../../__tests__/utils';
+import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseScroll from '../base-scroll.vue';
+
+/**
+ * {@link HTMLElement} `scrollTo` is not implemented in JSDOM. This function sets the `scrollTop`
+ * of the element to 0.
+ *
+ * @param options - {@link ScrollToOptions} (not undefined nor number).
+ */
+HTMLElement.prototype.scrollTo = function (options?: ScrollToOptions | number) {
+  this.scrollTop = (options as ScrollToOptions)?.top ?? 0;
+};
 
 function renderBaseScroll({
   template = '<BaseScroll :throttleMs="throttleMs"/>',
@@ -9,6 +19,8 @@ function renderBaseScroll({
   clientHeight = 200,
   distanceToBottom = 100
 }: RenderBaseScrollOptions = {}): RenderBaseScrollAPI {
+  const [, localVue] = installNewXPlugin();
+
   const wrapperContainer = mount(
     {
       props: ['throttleMs', 'distanceToBottom'],
@@ -21,7 +33,8 @@ function renderBaseScroll({
       propsData: {
         throttleMs,
         distanceToBottom
-      }
+      },
+      localVue
     }
   );
 
@@ -165,6 +178,15 @@ describe('testing Base Scroll Component', () => {
 
     expect(wrapper.emitted('scroll:almost-at-end')).toEqual([[80], [0]]);
     expect(wrapper.emitted('scroll:at-end')).toHaveLength(2);
+  });
+
+  it('scrolls to top on `UserAcceptedAQuery` X event', async () => {
+    const { wrapper, scroll } = renderBaseScroll();
+
+    expect(wrapper.element.scrollTop).toBe(0);
+    await scroll({ to: 200, durationMs: 0 });
+    wrapper.vm.$x.emit('UserAcceptedAQuery', '');
+    expect(wrapper.element.scrollTop).toBe(0);
   });
 });
 

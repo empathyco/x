@@ -31,7 +31,7 @@
 
   /**
    * It renders a list of partial results from {@link SearchState.partialResults} by default.
-   * It also provides the partial result slot to customize the item with the partial result binded.
+   * It also provides the partial result slot to customize the item with the partial result bound.
    *
    * @public
    */
