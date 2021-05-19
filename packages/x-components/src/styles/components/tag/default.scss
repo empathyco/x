@@ -1,0 +1,32 @@
+.x-tag {
+  // layout
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+
+  // border
+  border-style: solid;
+  border-radius: var(--x-border-radius-tag);
+  border-width: var(--x-border-width-tag);
+
+  // color
+  background-color: var(--x-color-background-tag);
+  border-color: var(--x-color-border-tag);
+  color: var(--x-color-text-tag);
+
+  // typography
+  line-height: var(--x-font-line-height-tag);
+  font-family: var(--x-font-family-tag);
+  font-size: var(--x-font-size-tag);
+  font-weight: var(--x-font-weight-tag);
+
+  // spacing
+  gap: var(--x-space-gap-tag);
+  padding: var(--x-space-padding-tag);
+
+  // selected
+  &--selected {
+    // color
+    background-color: var(--x-color-background-tag-selected);
+  }
+}

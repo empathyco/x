@@ -1,0 +1,21 @@
+:root {
+  // border
+  --x-border-width-tag: var(--x-border-width);
+  --x-border-radius-tag: var(--x-border-radius-none);
+
+  // color
+  --x-color-background-tag: var(--x-color-neutral-100);
+  --x-color-background-tag-selected: var(--x-color-neutral-95);
+  --x-color-border-tag: var(--x-color-text-tag);
+  --x-color-text-tag: var(--x-color-text);
+
+  // spacing
+  --x-space-padding-tag: var(--x-space-03) var(--x-space-04);
+  --x-space-gap-tag: var(--x-space-02);
+
+  // typography
+  --x-font-family-tag: var(--x-font-family-text);
+  --x-font-size-tag: var(--x-font-size-text);
+  --x-font-line-height-tag: var(--x-font-line-height-text);
+  --x-font-weight-tag: var(--x-font-weight-text);
+}

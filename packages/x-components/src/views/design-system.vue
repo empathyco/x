@@ -1100,6 +1100,42 @@
       </article>
     </section>
 
+    <section>
+      <h1 class="x-title1">Tags</h1>
+      <article>
+        <h2 class="x-title2">Default</h2>
+        <div class="x-tag">
+          <span class="x-icon">＋</span>
+          <span class="x-tag__label">text tag</span>
+        </div>
+        <div class="x-tag">
+          <span class="x-icon">＋</span>
+          <span class="x-tag__label">text tag extra large name</span>
+        </div>
+        <div class="x-tag">
+          <span>text tag</span>
+        </div>
+        <div class="x-tag">
+          <span class="x-tag__label">text tag extra large name</span>
+        </div>
+        <h2 class="x-title2">Default Selected</h2>
+        <div class="x-tag x-tag--selected">
+          <span class="x-icon">＋</span>
+          <span class="x-tag__label">text tag</span>
+        </div>
+        <div class="x-tag x-tag--selected">
+          <span class="x-icon">＋</span>
+          <span class="x-tag__label">text tag extra large name</span>
+        </div>
+        <div class="x-tag x-tag--selected">
+          <span>text tag</span>
+        </div>
+        <div class="x-tag x-tag--selected">
+          <span>text tag extra large name</span>
+        </div>
+      </article>
+    </section>
+
     <button @click="showTokens" class="info x-button x-button--tertiary x-button--round">i</button>
   </main>
 </template>
@@ -1159,10 +1195,6 @@
   .x-filter,
   .x-hierarchical-filter-container {
     width: 220px;
-  }
-
-  .x-facet {
-    width: 200px;
   }
 </style>
 
