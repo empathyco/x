@@ -1,0 +1,11 @@
+.x-facet--outlined.x-facet,
+.x-facet--outlined .x-facet {
+  // color
+  --x-color-border-facet: var(--x-color-border-facet-outlined);
+
+  // border
+  --x-border-width-facet: var(--x-border-width-facet-outlined);
+
+  // spacing
+  --x-space-padding-facet-header: var(--x-space-padding-facet-header-outlined);
+}

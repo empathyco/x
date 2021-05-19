@@ -56,10 +56,13 @@
     <ClearFilters v-slot="{ selectedFilters }" :alwaysVisible="true">
       Clear {{ selectedFilters.length }} filters
     </ClearFilters>
-    <Facets>
+    <Facets class="x-facet--line">
       <template #default="{ facet }">
         <BaseHeaderTogglePanel class="x-facet">
-          <template #header-content>{{ facet.label }}</template>
+          <template #header-content>
+            <span>{{ facet.label }}</span>
+            <span class="x-icon">▾</span>
+          </template>
           <SelectedFilters :facetId="facet.id" />
           <AllFilter :facet="facet" />
           <MultiSelectFilters
@@ -73,7 +76,10 @@
       </template>
       <template #hierarchical_category="{ facet }">
         <BaseHeaderTogglePanel class="x-facet">
-          <template #header-content>{{ facet.label }}</template>
+          <template #header-content>
+            <span>{{ facet.label }}</span>
+            <span class="x-icon">▾</span>
+          </template>
           <SelectedFilters :facetId="facet.id" />
           <AllFilter :facet="facet" />
           <Filters
@@ -95,7 +101,10 @@
       </template>
       <template #brand_facet="{ facet }">
         <BaseHeaderTogglePanel class="x-facet">
-          <template #header-content>{{ facet.label }}</template>
+          <template #header-content>
+            <span>{{ facet.label }}</span>
+            <span class="x-icon">▾</span>
+          </template>
           <SelectedFilters :facetId="facet.id" />
           <FiltersSearch :filters="facet.filters">
             <SlicedFilters :max="8">
@@ -119,7 +128,10 @@
       </template>
       <template #price_facet="{ facet }">
         <BaseHeaderTogglePanel class="x-facet">
-          <template #header-content>{{ facet.label }}</template>
+          <template #header-content>
+            <span>{{ facet.label }}</span>
+            <span class="x-icon">▾</span>
+          </template>
           <SelectedFilters :facetId="facet.id" />
           <AllFilter :facet="facet" />
           <Filters v-slot="{ filter }" :filters="facet.filters" :animation="staggeredFadeAndSlide">
@@ -554,13 +566,6 @@
   .x-filter--is-selected,
   .x-all-filter--selected {
     font-weight: bold;
-  }
-
-  .x-header-toggle-panel {
-    &__header {
-      margin-bottom: 10px;
-      font-weight: bold;
-    }
   }
 
   .x-base-grid {

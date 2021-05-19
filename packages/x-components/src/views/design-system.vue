@@ -1053,6 +1053,230 @@
     </section>
 
     <section>
+      <h1 class="x-title1">Facet</h1>
+
+      <article>
+        <h2 class="x-title2">Default</h2>
+
+        <div class="x-facet">
+          <button>
+            <span>Facet title</span>
+            <span class="x-icon">▾</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+
+        <div class="x-facet">
+          <button>
+            <span>Facet title Extra Large Name</span>
+            <span class="x-icon">▾</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+
+        <div class="x-facet">
+          <button>
+            <span class="x-icon">▾</span>
+            <span>Facet title</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+
+        <div class="x-facet">
+          <button>
+            <span class="x-icon">▾</span>
+            <span>Facet title Extra Large Name</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="x-facet--outlined">
+        <h2 class="x-title2">Outlined</h2>
+
+        <div class="x-facet">
+          <button>
+            <span>Facet title</span>
+            <span class="x-icon">▾</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+
+        <div class="x-facet">
+          <button>
+            <span>Facet title Extra Large Name</span>
+            <span class="x-icon">▾</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+
+        <div class="x-facet">
+          <button>
+            <span class="x-icon">▾</span>
+            <span>Facet title</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+
+        <div class="x-facet">
+          <button>
+            <span class="x-icon">▾</span>
+            <span>Facet title Extra Large Name</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="x-facet--line">
+        <h2 class="x-title2">Line</h2>
+
+        <div class="x-facet">
+          <button>
+            <span>Facet title</span>
+            <span class="x-icon">▾</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+
+        <div class="x-facet">
+          <button>
+            <span>Facet title Extra Large Name</span>
+            <span class="x-icon">▾</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+
+        <div class="x-facet">
+          <button>
+            <span class="x-icon">▾</span>
+            <span>Facet title</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+
+        <div class="x-facet">
+          <button>
+            <span class="x-icon">▾</span>
+            <span>Facet title Extra Large Name</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="x-facet--card">
+        <h2 class="x-title2">Card</h2>
+
+        <div class="x-facet">
+          <button>
+            <span>Facet title</span>
+            <span class="x-icon">▾</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+
+        <div class="x-facet">
+          <button>
+            <span>Facet title Extra Large Name</span>
+            <span class="x-icon">▾</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+
+        <div class="x-facet">
+          <button>
+            <span class="x-icon">▾</span>
+            <span>Facet title</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+
+        <div class="x-facet">
+          <button>
+            <span class="x-icon">▾</span>
+            <span>Facet title Extra Large Name</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+      </article>
+
+      <article>
+        <h2 class="x-title2">Combinations</h2>
+
+        <div class="x-facet x-facet--outlined x-facet--line">
+          <button>
+            <span>Facet Outlined + Line</span>
+            <span class="x-icon">▾</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+
+        <div class="x-facet x-facet--outlined x-facet--card">
+          <button>
+            <span>Facet Outlined + Card</span>
+            <span class="x-icon">▾</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+
+        <div class="x-facet x-facet--line x-facet--card">
+          <button>
+            <span>Facet Line + Card</span>
+            <span class="x-icon">▾</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+
+        <div class="x-facet x-facet--outlined x-facet--line x-facet--card">
+          <button>
+            <span>Facet Outlined + Line + Card</span>
+            <span class="x-icon">▾</span>
+          </button>
+          <div>
+            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section>
       <h1 class="x-title1">Suggestions</h1>
 
       <article>
@@ -1172,54 +1396,6 @@
       </article>
     </section>
 
-    <section>
-      <h1 class="x-title1">Facet</h1>
-
-      <article>
-        <h2 class="x-title2">Default</h2>
-
-        <div class="x-facet">
-          <button>
-            <span>Facet title</span>
-            <span class="x-icon">▾</span>
-          </button>
-          <div>
-            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
-          </div>
-        </div>
-
-        <div class="x-facet">
-          <button>
-            <span>Facet title Extra Large Name</span>
-            <span class="x-icon">▾</span>
-          </button>
-          <div>
-            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
-          </div>
-        </div>
-
-        <div class="x-facet">
-          <button>
-            <span class="x-icon">▾</span>
-            <span>Facet title</span>
-          </button>
-          <div>
-            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
-          </div>
-        </div>
-
-        <div class="x-facet">
-          <button>
-            <span class="x-icon">▾</span>
-            <span>Facet title Extra Large Name</span>
-          </button>
-          <div>
-            <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
-          </div>
-        </div>
-      </article>
-    </section>
-
     <button @click="showTokens" class="info x-button x-button--tertiary x-button--round">i</button>
   </main>
 </template>
@@ -1279,6 +1455,14 @@
   .x-filter,
   .x-hierarchical-filter-container {
     width: 220px;
+  }
+
+  .x-facet {
+    width: 200px;
+
+    &--card {
+      --x-color-background-facet: var(--x-color-neutral-95);
+    }
   }
 
   .x-suggestion {
