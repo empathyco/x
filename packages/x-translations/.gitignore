@@ -4,6 +4,7 @@
 /docs
 /*.tgz
 /output
+/src/__tests__/translations
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/
@@ -25,5 +26,4 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
-*.csv
 

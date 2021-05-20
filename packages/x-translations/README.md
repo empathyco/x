@@ -17,8 +17,15 @@ the translations are going to be exported (it is not mandatory, a default folder
 Run the following command to translate from a JSON to a CSV:
 
 ```
-ts-node ./src/json-to-csv.ts ./tests/json/en_translations.json
-ts-node ./src/json-to-csv.ts ./tests/json/en_translations.json ./TargetPath
+ts-node ./src/json-to-csv.ts ./src/__tests__/json/en_translations.json
+ts-node ./src/json-to-csv.ts ./src/__tests__/en_translations.json ./TargetPath
+```
+
+Run the following command to translate from a CSV to a JSON:
+
+```
+ts-node ./src/csv-to-json.ts ./src/__tests__/csv/en_translations.csv
+ts-node ./src/csv-to-json.ts ./src/__tests__/csv/en_translations.csv ./TargetPath
 ```
 
 ### Run it as a dependency
@@ -27,7 +34,13 @@ ts-node ./src/json-to-csv.ts ./tests/json/en_translations.json ./TargetPath
 2. `npm run build`
 3. `npm install -g nameOfTgzGenerated.tgz` 
    - `npm install -g empathy-x-translations-0.1.0.tgz`
-4. run the command 
-   - `json-csv ./tests/json/en_translations.json`
-   - `json-csv ./tests/json/en_translations.json ./TargetPath`
+4. run the command to transform a JSON to a CSV:
+   - `json-csv ./src/__tests__/json/en_translations.json`
+   - `json-csv ./src/__tests__/json/en_translations.json ./TargetPath`
+
+5. run the command to transform a CSV to a JSON:
+   - `csv-json ./src/__tests__/csv/en_translations.csv`
+   - `csv-json ./src/__tests__/csv/en_translations.csv ./TargetPath`
+   
+
 

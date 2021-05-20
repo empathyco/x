@@ -3,11 +3,12 @@
  *
  * @public
  */
-export interface JSON {
-  [key: string]: JSON | string;
-}
+export type JSON = Record<string, unknown>;
 
 /**
- * Type to define the params received.
+ * Type to define the parameters received when the script is call.
  **/
-export type Params = { sourcePath: string; targetPath: string };
+export interface CommandParameters {
+  sourcePath: string;
+  targetPath?: string;
+}
