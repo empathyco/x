@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.0.0
+
+> EX-3917 Change `HierarchicalFilter` `children` prop to be optional.
+
 ## 8.0.0
 
 > EX-3347 Remove `MultiSelect` model.

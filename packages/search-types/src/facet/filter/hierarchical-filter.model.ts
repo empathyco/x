@@ -13,7 +13,7 @@ export interface HierarchicalFilter extends BooleanFilter {
     /** An unique id used to reference the parent filter or null if it hasn't. */
     parentId: Filter['id'] | null;
     /** Descendants filters. */
-    children: this[];
+    children?: this[];
 }
 
 /**

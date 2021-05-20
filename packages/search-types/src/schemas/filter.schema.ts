@@ -49,7 +49,7 @@ export const SimpleFilterSchema: SimpleFilter = {
 export const HierarchicalFilterSchema: HierarchicalFilter = {
   ...BooleanFilterSchema,
   parentId: expect.nullOrAnyOf([Number, String]),
-  children: expect.any(Array),
+  children: expect.undefinedOr(Array),
   modelName: 'HierarchicalFilter'
 };
 
