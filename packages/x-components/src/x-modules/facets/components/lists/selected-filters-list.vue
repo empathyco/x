@@ -4,7 +4,7 @@
       <li
         v-for="selectedFilter in selectedFilters"
         :key="selectedFilter.id"
-        class="x-selected-filters-list__item"
+        class="x-tag x-selected-filters-list__item"
         data-test="selected-filters-list-item"
       >
         <!--

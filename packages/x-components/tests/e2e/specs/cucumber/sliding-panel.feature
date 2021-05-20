@@ -13,8 +13,8 @@ Feature: Sliding panel component
     Then  visible related tags have changed
     And  "left" sliding panel arrow is displayed
     Examples:
-      | query |
-      | lego  |
+      | query  |
+      | barbie |
 
   Scenario Outline: 2. Hides unneeded arrow buttons when sliding panel content changes
     Given no special config for sliding-panel view

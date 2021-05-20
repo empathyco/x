@@ -616,4 +616,17 @@
     background-color: white;
     width: 500px;
   }
+
+  .x-selected-filters-list {
+    display: flex;
+
+    &__item {
+      flex: 0 1 auto;
+    }
+  }
+
+  .x-related-tags {
+    display: flex;
+    gap: 10px;
+  }
 </style>

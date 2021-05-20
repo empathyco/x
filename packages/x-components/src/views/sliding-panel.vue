@@ -42,7 +42,7 @@
 
 <style lang="scss">
   .x-sliding-panel {
-    max-width: 200px;
+    max-width: 300px;
 
     &__scroll {
       white-space: nowrap;

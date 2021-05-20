@@ -1,7 +1,7 @@
 <template>
   <BaseEventButton
     :events="events"
-    class="x-related-tag"
+    class="x-tag x-related-tag"
     data-test="related-tag"
     :class="dynamicClasses"
   >
@@ -87,6 +87,7 @@
      */
     protected get dynamicClasses(): VueCSSClasses {
       return {
+        'x-tag--selected': this.isSelected,
         'x-related-tag--is-selected': this.isSelected
       };
     }
