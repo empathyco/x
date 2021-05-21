@@ -25,7 +25,7 @@
     &--leave-to {
       transform: scaleY(0);
 
-      > * {
+      & > ::v-deep * {
         opacity: 0;
       }
     }
@@ -34,7 +34,7 @@
       transition: transform 150ms ease-out;
       transform-origin: top center;
 
-      > * {
+      & > ::v-deep * {
         transition: opacity 150ms ease-out 150ms;
       }
     }
@@ -43,7 +43,7 @@
       transition: transform 150ms ease-out 150ms;
       transform-origin: top center;
 
-      > * {
+      & > ::v-deep * {
         transition: opacity 150ms ease-out;
       }
     }

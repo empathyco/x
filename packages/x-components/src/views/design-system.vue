@@ -1277,7 +1277,7 @@
     </section>
 
     <section>
-      <h1 class="x-title1">Suggestions</h1>
+      <h1 class="x-title1">Suggestion</h1>
 
       <article>
         <h2 class="x-title2">Default</h2>
@@ -1306,56 +1306,90 @@
         </div>
 
         <div class="x-suggestion">
-          <span class="x-suggestion__query">
-            Suggestion
-            <span class="x-suggestion__matching-part">Query</span>
-          </span>
-          <button class="x-button">
-            <span class="x-icon">✗</span>
-          </button>
-        </div>
-
-        <div class="x-suggestion">
-          <button class="x-button">
-            <span class="x-icon">✗</span>
-          </button>
-          <span class="x-suggestion__query">
-            Suggestion
-            <span class="x-suggestion__matching-part">Query</span>
-          </span>
-        </div>
-
-        <div class="x-suggestion">
           <span class="x-icon">⌕</span>
           <span class="x-suggestion__query">
-            Suggestion
+            Suggestion extra large name
             <span class="x-suggestion__matching-part">Query</span>
           </span>
-          <button class="x-button">
-            <span class="x-icon">✗</span>
-          </button>
         </div>
 
         <div class="x-suggestion">
-          <button class="x-button">
-            <span class="x-icon">✗</span>
-          </button>
-          <span class="x-suggestion__query">
-            Suggestion
-            <span class="x-suggestion__matching-part">Query</span>
-          </span>
-          <span class="x-icon">⌕</span>
-        </div>
-
-        <div class="x-suggestion">
-          <button class="x-button">
-            <span class="x-icon">✗</span>
-          </button>
           <span class="x-suggestion__query">
             Suggestion extra large name
             <span class="x-suggestion__matching-part">Query</span>
           </span>
           <span class="x-icon">⌕</span>
+        </div>
+      </article>
+    </section>
+
+    <section>
+      <h1 class="x-title1">Suggestion Group</h1>
+
+      <article>
+        <h2 class="x-title2">Default</h2>
+
+        <div class="x-suggestion-group">
+          <div class="x-suggestion">
+            <span class="x-suggestion__query">
+              Suggestion
+              <span class="x-suggestion__matching-part">Query</span>
+            </span>
+          </div>
+          <button class="x-button">
+            <span class="x-icon">✗</span>
+          </button>
+        </div>
+
+        <div class="x-suggestion-group">
+          <button class="x-button">
+            <span class="x-icon">✗</span>
+          </button>
+          <div class="x-suggestion">
+            <span class="x-suggestion__query">
+              Suggestion
+              <span class="x-suggestion__matching-part">Query</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="x-suggestion-group">
+          <div class="x-suggestion">
+            <span class="x-icon">⌕</span>
+            <span class="x-suggestion__query">
+              Suggestion
+              <span class="x-suggestion__matching-part">Query</span>
+            </span>
+          </div>
+          <button class="x-button">
+            <span class="x-icon">✗</span>
+          </button>
+        </div>
+
+        <div class="x-suggestion-group">
+          <button class="x-button">
+            <span class="x-icon">✗</span>
+          </button>
+          <div class="x-suggestion">
+            <span class="x-suggestion__query">
+              Suggestion
+              <span class="x-suggestion__matching-part">Query</span>
+            </span>
+            <span class="x-icon">⌕</span>
+          </div>
+        </div>
+
+        <div class="x-suggestion-group">
+          <button class="x-button">
+            <span class="x-icon">✗</span>
+          </button>
+          <div class="x-suggestion">
+            <span class="x-suggestion__query">
+              Suggestion extra large name
+              <span class="x-suggestion__matching-part">Query</span>
+            </span>
+            <span class="x-icon">⌕</span>
+          </div>
         </div>
       </article>
     </section>

@@ -95,8 +95,8 @@ describe('testing AllFilter component', () => {
   });
 
   it('renders default content', () => {
-    const { allFilterWrapper, facet } = renderAllFilter();
-    expect(allFilterWrapper.text()).toBe(`≡ ${facet.label}`);
+    const { allFilterWrapper } = renderAllFilter();
+    expect(allFilterWrapper.text()).toBe('all');
   });
 
   it('renders default slot custom content', () => {

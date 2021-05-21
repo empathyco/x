@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="x-suggestion-group x-history-query">
     <BaseSuggestion
-      class="x-history-query x-history-queries__suggestion"
+      class="x-history-query__suggestion"
       v-bind="{ suggestion, suggestionSelectedEvents, query }"
       data-test="history-query"
     >
@@ -17,7 +17,7 @@
       </template>
     </BaseSuggestion>
     <RemoveHistoryQuery
-      class="x-history-queries__remove"
+      class="x-history-query__remove"
       :historyQuery="suggestion"
       data-test="remove-history-query"
     >

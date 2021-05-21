@@ -1,49 +1,93 @@
 <template>
   <main>
-    <BaseIdModalOpen modalId="id-modal">Open search (id modal)</BaseIdModalOpen>
-    <BaseIdModal :animation="collapseFromTop" modalId="id-modal">
+    <!-- Search Box -->
+    <div class="x-search-box x-input-group x-input-group--card">
       <SearchInput placeholder="Search" aria-label="Search for products" />
-      <BaseIdModalClose aria-label="Close search" modalId="id-modal">x</BaseIdModalClose>
-    </BaseIdModal>
-    <BaseEventsModalOpen>Open search (events modal)</BaseEventsModalOpen>
-    <BaseEventsModal :animation="collapseFromTop">
-      <SearchInput placeholder="Search" aria-label="Search for products" />
-      <BaseEventsModalClose aria-label="Close search">x</BaseEventsModalClose>
-    </BaseEventsModal>
-    <BaseIdModalOpen modalId="history-modal">Open history query</BaseIdModalOpen>
-    <BaseIdModal :animation="collapseFromTop" modalId="history-modal">
-      <HistoryQueries :animation="fadeAndSlide">
-        <template #suggestion="{ suggestion }">
-          <HistoryQuery :suggestion="suggestion">
-            <span>
-              {{ suggestion.query }} - {{ new Date(suggestion.timestamp).toDateString() }}
-            </span>
-          </HistoryQuery>
-        </template>
-        <template #suggestion-remove-content="{ suggestion }">
-          <span :aria-label="`Remove ${suggestion.query} from history`">x</span>
-        </template>
-      </HistoryQueries>
-      <BaseIdModalClose aria-label="Close search" modalId="history-modal">x</BaseIdModalClose>
-    </BaseIdModal>
-    <!-- Search Section -->
-    <SearchInput placeholder="Search" aria-label="Search for products" />
-    <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-    <SearchButton aria-label="Search"></SearchButton>
-    <SlidingPanel>
-      <RelatedTags :animation="staggeredFadeAndSlide" />
-    </SlidingPanel>
+      <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
+      <SearchButton class="x-input-group__action" aria-label="Search"></SearchButton>
+    </div>
+
+    <!-- Spellcheck -->
     <Spellcheck>
       <template #default="{ query }">
         No results found for '{{ query }}'. We show you results for
         <SpellcheckButton />
       </template>
     </Spellcheck>
+
+    <!-- Empathize -->
+    <Empathize :animation="collapseFromTop">
+      <BaseKeyboardNavigation>
+        <!-- Close Empathize -->
+        <BaseEventsModalClose
+          key="closeButton"
+          class="x-empathize__close x-button--ghost"
+          closingEvent="UserClosedEmpathize"
+        >
+          <span class="x-icon">╳</span>
+        </BaseEventsModalClose>
+
+        <!-- Query Suggestions -->
+        <div class="x-column">
+          <h1 v-if="$x.querySuggestions.length" class="x-title1">Query Suggestions</h1>
+
+          <QuerySuggestions :animation="fadeAndSlide">
+            <template #suggestion="{ suggestion }">
+              <QuerySuggestion
+                :suggestion="suggestion"
+                :aria-label="`Query suggestion: ${suggestion.query}`"
+              />
+            </template>
+          </QuerySuggestions>
+        </div>
+
+        <!-- History Queries -->
+        <div class="x-column">
+          <h1 v-if="$x.historyQueries.length" class="x-title1">History queries</h1>
+
+          <HistoryQueries :animation="fadeAndSlide" max-items-to-render="5">
+            <template #suggestion-remove-content="{ suggestion }">
+              <span class="x-icon" :aria-label="`Remove ${suggestion.query} from history`">x</span>
+            </template>
+          </HistoryQueries>
+
+          <!--    Clear History Queries      -->
+          <ClearHistoryQueries v-if="$x.historyQueries.length" class="x-button--ghost">
+            Clear History
+          </ClearHistoryQueries>
+        </div>
+
+        <!-- Popular Searches -->
+        <div class="x-column">
+          <h1 v-if="$x.popularSearches.length" class="x-title1">Popular Searches</h1>
+
+          <PopularSearches :animation="fadeAndSlide" />
+        </div>
+
+        <!-- Next Queries -->
+        <div class="x-column">
+          <h1 v-if="$x.nextQueries.length" class="x-title1">Next Queries</h1>
+
+          <NextQueries :animation="fadeAndSlide" :maxItemsToRender="10" />
+        </div>
+      </BaseKeyboardNavigation>
+    </Empathize>
+
+    <!-- Related Tags -->
+    <div class="x-column">
+      <h1 v-if="$x.relatedTags.length" class="x-title1">Related tags</h1>
+      <SlidingPanel>
+        <RelatedTags :animation="staggeredFadeAndSlide" />
+      </SlidingPanel>
+    </div>
+
     <!-- Facets -->
-    <h1>Facets</h1>
+    <h1 v-if="Object.keys($x.facets).length" class="x-title1">Facets</h1>
+
+    <!--  Selected Filters  -->
     <SelectedFilters>
       <template #default="{ selectedFilters }">
-        Filters selected: {{ selectedFilters.length }}
+        <span class="x-title3">Filters selected: {{ selectedFilters.length }}</span>
       </template>
     </SelectedFilters>
     <SelectedFiltersList :animation="staggeredFadeAndSlide">
@@ -53,10 +97,12 @@
       <template #price_facet="{ filter }">Price: {{ filter.label }}</template>
     </SelectedFiltersList>
 
-    <ClearFilters v-slot="{ selectedFilters }" :alwaysVisible="true">
+    <ClearFilters v-slot="{ selectedFilters }">
       Clear {{ selectedFilters.length }} filters
     </ClearFilters>
+
     <Facets class="x-facet--line">
+      <!--  Default Facet    -->
       <template #default="{ facet }">
         <BaseHeaderTogglePanel class="x-facet">
           <template #header-content>
@@ -74,6 +120,8 @@
           </MultiSelectFilters>
         </BaseHeaderTogglePanel>
       </template>
+
+      <!--   Hierarchical Facet   -->
       <template #hierarchical_category="{ facet }">
         <BaseHeaderTogglePanel class="x-facet">
           <template #header-content>
@@ -99,6 +147,8 @@
           </Filters>
         </BaseHeaderTogglePanel>
       </template>
+
+      <!--  Facet with FiltersSearch    -->
       <template #brand_facet="{ facet }">
         <BaseHeaderTogglePanel class="x-facet">
           <template #header-content>
@@ -150,81 +200,8 @@
         </BaseHeaderTogglePanel>
       </template>
     </Facets>
-    <!-- Empathize -->
-    <Empathize v-if="showEmpathize" :animation="collapseFromTop">
-      <BaseKeyboardNavigation>
-        <BaseEventsModalClose
-          key="closeButton"
-          class="x-empathize__close"
-          closingEvent="UserClosedEmpathize"
-        >
-          ×
-        </BaseEventsModalClose>
-        <div class="x-column">
-          <h1>Suggestions</h1>
-          <QuerySuggestions :animation="fadeAndSlide">
-            <template #suggestion="{ suggestion }">
-              <QuerySuggestion
-                :suggestion="suggestion"
-                :aria-label="`Query suggestion: ${suggestion.query}`"
-              />
-            </template>
-          </QuerySuggestions>
-          <NoSuggestions message="We couldn't find any suggestion. Try searching for {query}." />
-        </div>
-        <div class="x-column">
-          <h1>Previous Searches</h1>
-          <HistoryQueries :animation="fadeAndSlide" max-items-to-render="5"></HistoryQueries>
-          <ClearHistoryQueries>Clear previous searches</ClearHistoryQueries>
-        </div>
-        <div class="x-column">
-          <h1>Trending</h1>
-          <PopularSearches :animation="fadeAndSlide" />
-        </div>
-      </BaseKeyboardNavigation>
-    </Empathize>
-    <BaseKeyboardNavigation v-else>
-      <!-- Query Suggestions -->
-      <div class="x-column">
-        <h1>Query Suggestions</h1>
-        <QuerySuggestions :animation="fadeAndSlide">
-          <template #suggestion="{ suggestion }">
-            <QuerySuggestion
-              :suggestion="suggestion"
-              :aria-label="`Query suggestion: ${suggestion.query}`"
-            />
-          </template>
-        </QuerySuggestions>
-        <NoSuggestions message="We couldn't find any suggestion. Try searching for {query}." />
-      </div>
-      <!-- History Queries -->
-      <div class="x-column">
-        <h1>History queries</h1>
-        <HistoryQueries :animation="fadeAndSlide" max-items-to-render="5">
-          <template #suggestion-remove-content="{ suggestion }">
-            <span :aria-label="`Remove ${suggestion.query} from history`">x</span>
-          </template>
-        </HistoryQueries>
-        <ClearHistoryQueries>Clear previous searches</ClearHistoryQueries>
-      </div>
-      <!-- Popular Searches -->
-      <div class="x-column">
-        <h1>Popular Searches</h1>
-        <PopularSearches :animation="fadeAndSlide" />
-      </div>
-      <!-- Next Queries -->
-      <div class="x-column">
-        <h1>Next Queries</h1>
-        <NextQueries :animation="fadeAndSlide" :maxItemsToRender="10" />
-      </div>
-      <!-- Related Tags -->
-      <div class="x-column">
-        <h1>Related tags</h1>
-        <RelatedTags :animation="staggeredFadeAndSlide" />
-      </div>
-    </BaseKeyboardNavigation>
     <!-- Recommendations -->
-    <h1>Recommendations</h1>
+    <h1 class="x-title1">Recommendations</h1>
     <Recommendations :animation="staggeredFadeAndSlide">
       <template #layout="{ recommendations, animation }">
         <BaseGrid :animation="animation" :items="recommendations">
@@ -237,8 +214,10 @@
         </BaseGrid>
       </template>
     </Recommendations>
+
     <!-- Identifier Results -->
-    <h1>Identifier Results</h1>
+    <h1 v-if="$x.identifierResults.length" class="x-title1">Identifier Results</h1>
+
     <BaseGrid :animation="staggeredFadeAndSlide" :items="identifierResults">
       <template #Result="{ item }">
         <BaseResultLink :result="item" class="x-result-link">
@@ -248,55 +227,59 @@
         </BaseResultLink>
       </template>
     </BaseGrid>
-    <!-- Sort -->
-    <h1>SortDropdown</h1>
-    <SortDropdown :items="sortValues">
-      <template #toggle="{ item, isOpen }">
-        {{ item || 'Default' }} {{ isOpen ? '🔼' : '🔽' }}
-      </template>
-      <template #item="{ item, isHighlighted, isSelected }">
-        <span v-if="isSelected">✅</span>
-        <span v-if="isHighlighted">🟢</span>
-        {{ item || 'Default' }}
-      </template>
-    </SortDropdown>
-    <h1>SortList</h1>
-    <SortList :items="sortValues">
-      <template #default="{ item, isSelected }">
-        <span v-if="isSelected">✅</span>
-        {{ item || 'Default' }}
-      </template>
-    </SortList>
-    <!-- BaseColumnPickerList -->
-    <h1>Column Picker</h1>
-    <h2>Column Picker List</h2>
-    <div class="column-picker-container">
-      Selected Columns Number: {{ currentColumn }}
-      <BaseColumnPickerList #default="{ column }" v-model="currentColumn" :columns="[2, 4, 6]">
-        <span>{{ column }}⇋</span>
-      </BaseColumnPickerList>
-      <button @click="currentColumn = 3">Set 3 columns</button>
-    </div>
 
-    <!-- BaseColumnPickerDropdown -->
-    <h2>Column Picker Dropdown</h2>
-    <div class="column-picker-container">
-      Selected Columns Number: {{ currentColumn }}
+    <!-- Sort -->
+    <section>
+      <h1 class="x-title1">Sort</h1>
+
+      <SortDropdown :items="sortValues">
+        <template #toggle="{ item, isOpen }">
+          <span>{{ item || 'Default' }}</span>
+          <span v-if="isOpen" class="x-icon">▲</span>
+          <span v-else class="x-icon">▼</span>
+        </template>
+        <template #item="{ item, isHighlighted, isSelected }">
+          <span v-if="isSelected">✓</span>
+          {{ item || 'Default' }}
+          <span v-if="isHighlighted">◂</span>
+        </template>
+      </SortDropdown>
+
+      <SortList :items="sortValues">
+        <template #default="{ item, isSelected }">
+          <span v-if="isSelected">✓</span>
+          {{ item || 'Default' }}
+        </template>
+      </SortList>
+    </section>
+
+    <!-- Column Picker -->
+    <section>
+      <h1 class="x-title1">Column Picker</h1>
+
+      <span class="x-text">Selected Columns Number:</span>
+      <span class="x-title3">{{ currentColumn }}</span>
+      <button @click="currentColumn = 3" class="x-button x-button--ghost">Set 3 columns</button>
+
       <BaseColumnPickerDropdown
         v-model="currentColumn"
         :columns="[2, 4, 6]"
         :animation="collapseFromTop"
       >
         <template #item="{ item, isSelected, isHighlighted }">
-          <span v-if="isHighlighted">🟢</span>
-          <span v-if="isSelected">✅</span>
+          <span v-if="isSelected">✓</span>
           <span>{{ item }}</span>
+          <span v-if="isHighlighted">◂</span>
         </template>
       </BaseColumnPickerDropdown>
-    </div>
+
+      <BaseColumnPickerList #default="{ column }" v-model="currentColumn" :columns="[2, 4, 6]">
+        <span>{{ column }}</span>
+      </BaseColumnPickerList>
+    </section>
 
     <!-- Results -->
-    <h1>Results {{ results.length }} / {{ $x.totalResults }}</h1>
+    <h1 class="x-title1">Results {{ results.length }} / {{ $x.totalResults }}</h1>
     <BaseScrollToTop scroll-id="scrollId" :threshold-px="1000">
       <span>⬆</span>
     </BaseScrollToTop>
@@ -323,7 +306,7 @@
       </ResultsList>
     </BaseIdScroll>
     <!-- Partial Results -->
-    <h1>Partial Results</h1>
+    <h1 class="x-title1">Partial Results</h1>
     <PartialResultsList :animation="staggeredFadeAndSlide">
       <template #default="{ partialResult }">
         <span>{{ partialResult.query }}</span>
@@ -480,7 +463,6 @@
     }
   })
   export default class App extends Vue {
-    protected showEmpathize = getURLParameter('showEmpathize') === 'true';
     protected loadOnInit = getURLParameter('loadOnInit') === 'true';
     protected fadeAndSlide = FadeAndSlide;
     protected staggeredFadeAndSlide = StaggeredFadeAndSlide;
@@ -523,15 +505,21 @@
   .x-column {
     display: inline-flex;
     flex-direction: column;
-    width: 30%;
+
+    + .x-column {
+      margin-left: var(--x-space-07, 20px);
+    }
+  }
+
+  .x-search-box {
+    max-width: 400px;
   }
 
   .x-empathize {
-    background-color: white;
-    border: 1px dashed black;
-    border-radius: 20px;
+    background-color: var(--x-color-neutral-95);
+    border-radius: var(--x-border-radius-s);
     z-index: 2;
-    width: 600px;
+    width: 100%;
     position: relative;
 
     &__close {

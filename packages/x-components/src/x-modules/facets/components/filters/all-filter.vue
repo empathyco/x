@@ -11,7 +11,7 @@
         @slot The content to render inside the button
             @binding {Facet} Facet - The facet data
       -->
-    <slot :facet="facet">≡ {{ facet.label }}</slot>
+    <slot :facet="facet">all</slot>
   </BaseEventButton>
 </template>
 

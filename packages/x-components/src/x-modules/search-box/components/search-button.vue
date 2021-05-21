@@ -6,7 +6,7 @@
     data-test="search-button"
   >
     <!-- @slot (Required) Button content with a text, an icon or both -->
-    <slot>⌕</slot>
+    <slot><span class="x-icon">⌕</span></slot>
   </BaseEventButton>
 </template>
 

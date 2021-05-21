@@ -1,8 +1,10 @@
 .x-suggestion {
   // layout
   display: flex;
+  flex-flow: row nowrap;
   align-items: flex-start;
-  box-sizing: content-box;
+  box-sizing: border-box;
+  text-align: start;
 
   // color
   border: none;
@@ -21,16 +23,6 @@
   // spacing
   padding: var(--x-space-padding-suggestion);
   gap: var(--x-space-gap-suggestion);
-
-  .x-button {
-    // color
-    --x-color-background-button: transparent;
-    --x-color-border-button: transparent;
-    --x-color-text-button: var(--x-color-text-suggestion);
-
-    // spacing
-    --x-space-padding-button: 0;
-  }
 
   &__query {
     // layout
