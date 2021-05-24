@@ -66,9 +66,10 @@ Interface X is composed of some different packages. New packages will be added h
 
 * [@empathyco/x-components](https://github.com/empathyco/x/tree/main/packages/components) - This is the core package of this project. 
 These are standalone and configurable building blocks that allow you to quickly construct the search UI for your shop. 
-You can create a smooth, personalised search and discovery experience, while significantly minimising development time. 
-* [@empathyco/x-archetype](https://github.com/empathyco/x/tree/main/packages/archetype) - This is package is the Empathy vision of the 
-perfect components mixing. A project ready to connect to any Search API with customizable layout through Design Tokens. 
+You can create a smooth, personalised search and discovery experience, while significantly minimising development time. (To be moved here soon) 
+* [@empathyco/x-archetype](https://github.com/empathyco/x/tree/main/packages/archetype) - This package is the Empathy vision of the 
+perfect X-Components mixing. A project showing the power of the components ready to connect to any Search API with customizable layout through Design Tokens. 
+This is a perfect example to know how to use the X-Components. (To be moved here soon)
 * [@empathyco/eslint-plugin-x](https://github.com/empathyco/x/tree/main/packages/eslint-plugin-x) - The package name is just to follow the 
 guidelines of ESLint to develop a custom plugin, but it includes also style formatter and good practices outside ESLint, as 
 [prettier](https://prettier.io/) and [standard-version](https://github.com/conventional-changelog/standard-version) 
@@ -123,7 +124,7 @@ Please follow these steps to have your contribution considered by the maintainer
    - You can also use this “self-review” to point things out to your reviewers — “I’m not sure about this name? Can you think of a better one?”, 
    “Should this really be nullable?? What do you think?” — often while writing such questions, you find that actually, you can answer them yourself 
    and the self-reflection becomes built into your everyday coding thought process. In other words, this process of self-review makes you a better developer.
-3. Follow all instructions in [the template](./PULL_REQUEST_TEMPLATE/PULL_REQUEST_TEMPLATE.md)
+3. Follow all instructions in [the template](./PULL_REQUEST_TEMPLATE.md)
 4. Follow the [styleguides](#styleguides)
 5. After you submit your pull request, verify that all [status checks](https://help.github.com/articles/about-status-checks/) are passing
 6. Acknowledge each and every comment
