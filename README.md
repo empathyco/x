@@ -27,7 +27,7 @@ This is a perfect example to know how to use the X-Components. (To be moved here
 
 ## Roadmap
 
-2021 will be the year to consolidate Interface X, the roadmap includes this highlighted milestone:
+2021 will be the year to consolidate Interface X, the roadmap includes these highlighted milestones:
 
 * Build the Archetype configurations and No-Code design system.
 * URL Management to set X-Components state based on URL parameters
@@ -39,7 +39,7 @@ This is a perfect example to know how to use the X-Components. (To be moved here
 ## Fast, flexible, and straightforward 
 
 * **Easy-to-add interface layer**. Installation and setup of the interface is simple: just add a few lines of code.
-* **Use it anywhere.** Search interface layer that is easy to integrate into any website, with X Components ready to use in your Vue.js and React projects.  
+* **Use it anywhere.** A search interface layer that is easy to integrate into any website, with X Components ready to use in your Vue.js and React projects.  
 * **Interoperable**. Interface X can adapt and work independently with any search service!
 * **Fully personalisable experience**. Choose the configuration components, layouts, styles, and behaviours to craft exclusive search and discovery experiences.
 * **Expressive design**. Wrap the experience up in a neat, intuitive, and interactive UI design that fully matches your brand identity and your website’s look and feel.
