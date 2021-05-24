@@ -1,11 +1,11 @@
 <template>
   <main>
-    <!-- Search Section -->
-    <SearchInput placeholder="Search" aria-label="Search for products" />
-    <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-    <SearchButton aria-label="Search"></SearchButton>
     <SlidingPanel>
-      <RelatedTags :animation="staggeredFadeAndSlide" :max-items-to-render="6" />
+      <ul class="items" data-test="items">
+        <li v-for="item in items" :key="item" class="item x-tag" data-test="item">
+          {{ item }}
+        </li>
+      </ul>
     </SlidingPanel>
   </main>
 </template>
@@ -13,30 +13,14 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
-  import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
-  import SearchButton from '../x-modules/search-box/components/search-button.vue';
-  import SearchInput from '../x-modules/search-box/components/search-input.vue';
-  import SlidingPanel from '../components/sliding-panel.vue';
-  import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
-  import { XInstaller } from '../x-installer/x-installer';
-  import { baseInstallXOptions, baseSnippetConfig } from './base-config';
-
+  import { SlidingPanel } from '../components';
   @Component({
-    beforeRouteEnter(_to, _from, next: () => void): void {
-      new XInstaller(baseInstallXOptions).init(baseSnippetConfig);
-      next();
-    },
     components: {
-      ClearSearchInput,
-      RelatedTags,
-      SearchButton,
-      SearchInput,
       SlidingPanel
     }
   })
   export default class App extends Vue {
-    protected staggeredFadeAndSlide = StaggeredFadeAndSlide;
+    protected items = ['Item One', 'Item Two', 'Item Three', 'Item Four', 'Item Five'];
   }
 </script>
 
@@ -48,10 +32,10 @@
       white-space: nowrap;
 
       > ul {
+        display: flex;
         padding: 0;
 
         & > li {
-          display: inline-block;
           text-decoration: none;
         }
       }

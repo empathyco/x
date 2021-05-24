@@ -1,13 +1,32 @@
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
-let visibleRelatedTags: string[] = [];
-let newVisibleRelatedTags: string[] = [];
+const initialRelatedTags: string[] = [];
+const finalRelatedTags: string[] = [];
+
+/**
+ * Function to calculate if an element is visible inside a scroll.
+ *
+ * @param element - Is the child element.
+ * @param scrollContainer - Is the parent container with the scroll.
+ *
+ * @returns True if the element inside the scroll is visible.
+ */
+function isElementVisible(element: HTMLElement, scrollContainer: HTMLElement): boolean {
+  const { left, right } = element.getBoundingClientRect();
+  const scrollContainerRect = scrollContainer.getBoundingClientRect();
+
+  const isVisible =
+    right <= scrollContainerRect.right
+      ? scrollContainerRect.right - right <= scrollContainerRect.width
+      : left - scrollContainerRect.left <= scrollContainerRect.width;
+
+  return isVisible;
+}
 
 Given('no special config for sliding-panel view', () => {
   cy.visit('/test/sliding-panel');
 });
 
-// Scenarios 1 and 2
 Then('{string} sliding panel arrow is displayed', (displayedArrows: string) => {
   switch (displayedArrows) {
     case 'left':
@@ -33,26 +52,27 @@ When('right sliding panel arrow is clicked', () => {
   cy.getByDataTest('sliding-panel-right-button').click();
 });
 
+Then('wait for the movement of the elements inside the sliding panel', () => {
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(100);
+});
+
 Then('only some related tags are visible', () => {
-  visibleRelatedTags = [];
-  cy.getByDataTest('related-tag').should('be.visible');
-  cy.getByDataTest('related-tag').each($relatedTag => {
-    if ($relatedTag.is(':visible')) {
-      visibleRelatedTags.push($relatedTag.text());
-    }
+  cy.getByDataTest('sliding-panel-scroll').then($scroll => {
+    cy.getByDataTest('item')
+      .filter((_index, $element) => isElementVisible($element, $scroll.get(0)))
+      .each($element => initialRelatedTags.push($element.get(0).textContent ?? ''));
   });
 });
 
 Then('visible related tags have changed', () => {
-  newVisibleRelatedTags = [];
-  cy.getByDataTest('related-tag').first().should('not.be.visible');
-  cy.getByDataTest('related-tag')
-    .each($newRelatedTag => {
-      if ($newRelatedTag.is(':visible')) {
-        newVisibleRelatedTags.push($newRelatedTag.text());
-      }
-    })
-    .then(() => {
-      expect(newVisibleRelatedTags === visibleRelatedTags).to.be.false;
-    });
+  cy.getByDataTest('sliding-panel-scroll').then($scroll => {
+    cy.getByDataTest('item')
+      .filter((_index, $element) => isElementVisible($element, $scroll.get(0)))
+      .each($element => finalRelatedTags.push($element.get(0).textContent ?? ''))
+      .then(() => {
+        const expected = initialRelatedTags.some(rt => !finalRelatedTags.includes(rt));
+        expect(expected).to.be.true;
+      });
+  });
 });
