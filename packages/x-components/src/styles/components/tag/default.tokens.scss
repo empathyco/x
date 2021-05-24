@@ -5,9 +5,12 @@
 
   // color
   --x-color-background-tag: var(--x-color-neutral-100);
-  --x-color-background-tag-selected: var(--x-color-neutral-95);
   --x-color-border-tag: var(--x-color-text-tag);
   --x-color-text-tag: var(--x-color-text);
+  --x-color-background-tag-selected: var(--x-color-neutral-95);
+  --x-color-border-tag-selected: var(--x-color-border-tag);
+  --x-color-text-tag-selected: var(--x-color-text-tag);
+
 
   // spacing
   --x-space-padding-tag: var(--x-space-03) var(--x-space-04);
@@ -18,4 +21,8 @@
   --x-font-size-tag: var(--x-font-size-text);
   --x-font-line-height-tag: var(--x-font-line-height-text);
   --x-font-weight-tag: var(--x-font-weight-text);
+  --x-font-family-tag-selected: var(--x-font-family-tag);
+  --x-font-size-tag-selected: var(--x-font-size-tag);
+  --x-font-line-height-tag-selected: var(--x-font-line-height-tag);
+  --x-font-weight-tag-selected: var(--x-font-weight-tag);
 }

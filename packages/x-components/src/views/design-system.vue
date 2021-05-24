@@ -1400,31 +1400,141 @@
         <h2 class="x-title2">Default</h2>
         <div class="x-tag">
           <span class="x-icon">＋</span>
-          <span class="x-tag__label">text tag</span>
+          <span>text tag</span>
         </div>
         <div class="x-tag">
           <span class="x-icon">＋</span>
-          <span class="x-tag__label">text tag extra large name</span>
+          <span>text tag extra large name</span>
         </div>
         <div class="x-tag">
           <span>text tag</span>
         </div>
         <div class="x-tag">
-          <span class="x-tag__label">text tag extra large name</span>
+          <span>text tag extra large name</span>
         </div>
+      </article>
+      <article>
         <h2 class="x-title2">Default Selected</h2>
         <div class="x-tag x-tag--selected">
           <span class="x-icon">＋</span>
-          <span class="x-tag__label">text tag</span>
+          <span>text tag</span>
         </div>
         <div class="x-tag x-tag--selected">
           <span class="x-icon">＋</span>
-          <span class="x-tag__label">text tag extra large name</span>
+          <span>text tag extra large name</span>
         </div>
         <div class="x-tag x-tag--selected">
           <span>text tag</span>
         </div>
         <div class="x-tag x-tag--selected">
+          <span>text tag extra large name</span>
+        </div>
+      </article>
+      <article>
+        <h2 class="x-title2">Card</h2>
+        <div class="x-tag x-tag--card">
+          <span class="x-icon">＋</span>
+          <span>text tag</span>
+        </div>
+        <div class="x-tag x-tag--card">
+          <span class="x-icon">＋</span>
+          <span>text tag extra large name</span>
+        </div>
+        <div class="x-tag x-tag--card">
+          <span>text tag</span>
+        </div>
+        <div class="x-tag x-tag--card">
+          <span>text tag extra large name</span>
+        </div>
+      </article>
+      <article>
+        <h2 class="x-title2">Card Selected</h2>
+        <div class="x-tag x-tag--card x-tag--selected">
+          <span class="x-icon">＋</span>
+          <span>text tag</span>
+        </div>
+        <div class="x-tag x-tag--card x-tag--selected">
+          <span class="x-icon">＋</span>
+          <span>text tag extra large name</span>
+        </div>
+        <div class="x-tag x-tag--card x-tag--selected">
+          <span>text tag</span>
+        </div>
+        <div class="x-tag x-tag--card x-tag--selected">
+          <span>text tag extra large name</span>
+        </div>
+      </article>
+      <article>
+        <h2 class="x-title2">Pill</h2>
+        <div class="x-tag x-tag--pill">
+          <span class="x-icon">＋</span>
+          <span>text tag</span>
+        </div>
+        <div class="x-tag x-tag--pill">
+          <span class="x-icon">＋</span>
+          <span>text tag extra large name</span>
+        </div>
+        <div class="x-tag x-tag--pill">
+          <span>text tag</span>
+        </div>
+        <div class="x-tag x-tag--pill">
+          <span>text tag extra large name</span>
+        </div>
+        <div class="x-tag x-tag--pill">
+          <span>1</span>
+        </div>
+      </article>
+      <article>
+        <h2 class="x-title2">Pill Selected</h2>
+        <div class="x-tag x-tag--pill x-tag--selected">
+          <span class="x-icon">＋</span>
+          <span>text tag</span>
+        </div>
+        <div class="x-tag x-tag--pill x-tag--selected">
+          <span class="x-icon">＋</span>
+          <span>text tag extra large name</span>
+        </div>
+        <div class="x-tag x-tag--pill x-tag--selected">
+          <span>text tag</span>
+        </div>
+        <div class="x-tag x-tag--pill x-tag--selected">
+          <span>text tag extra large name</span>
+        </div>
+        <div class="x-tag x-tag--pill x-tag--selected">
+          <span>1</span>
+        </div>
+      </article>
+      <article>
+        <h2 class="x-title2">Ghost</h2>
+        <div class="x-tag x-tag--ghost">
+          <span class="x-icon">＋</span>
+          <span>text tag</span>
+        </div>
+        <div class="x-tag x-tag--ghost">
+          <span class="x-icon">＋</span>
+          <span>text tag extra large name</span>
+        </div>
+        <div class="x-tag x-tag--ghost">
+          <span>text tag</span>
+        </div>
+        <div class="x-tag x-tag--ghost">
+          <span>text tag extra large name</span>
+        </div>
+      </article>
+      <article>
+        <h2 class="x-title2">Ghost Selected</h2>
+        <div class="x-tag x-tag--ghost x-tag--selected">
+          <span class="x-icon">＋</span>
+          <span>text tag</span>
+        </div>
+        <div class="x-tag x-tag--ghost x-tag--selected">
+          <span class="x-icon">＋</span>
+          <span>text tag extra large name</span>
+        </div>
+        <div class="x-tag x-tag--ghost x-tag--selected">
+          <span>text tag</span>
+        </div>
+        <div class="x-tag x-tag--ghost x-tag--selected">
           <span>text tag extra large name</span>
         </div>
       </article>
@@ -1468,6 +1578,7 @@
 
   article {
     display: flex;
+    align-items: flex-start;
     column-gap: var(--x-space-09);
     row-gap: var(--x-space-03);
     flex-flow: row wrap;
@@ -1501,6 +1612,10 @@
 
   .x-suggestion {
     width: 220px;
+  }
+
+  .x-tag {
+    max-width: 200px;
   }
 </style>
 
