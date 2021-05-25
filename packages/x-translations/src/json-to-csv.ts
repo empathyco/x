@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
+import path from 'path';
 import { deepMerge } from '@empathybroker/deep-merge';
-import { exportToFile, getParams, loadFile } from './utils';
+import { exportToFile, getParams, getSourcePaths, loadFile } from './utils';
 import { JSON } from './types';
 
 if (require.main === module) {
@@ -19,6 +20,20 @@ function getColumnNames(json: JSON): string[] {
   return Object.keys(json);
 }
 
+/**
+ * Generates the CSV.
+ *
+ * @param sourcePath - The path of the file.
+ *
+ * @returns A string that represents the CSV.
+ */
+function generateCSVFile(sourcePath: string): string {
+  const json = loadFile(sourcePath) as JSON;
+  const csv = transformToCSV(json);
+  const outputFile = path.basename(sourcePath).replace(/\.[^.]+$/, '.csv');
+  exportToFile(outputFile, csv);
+  return csv;
+}
 /**
  * Reduces the initial source into a flatten object indexed by column name.
  *
@@ -86,11 +101,11 @@ function getTranslation(source: JSON, column: string): JSON {
 /**
  * Transforms the JSON to a CSV.
  *
+ * @param sourceJson - The JSON to be transformed.
+ *
  * @returns A string that represents a CSV.
  */
-function transformToCSV(): string {
-  const { sourcePath } = getParams();
-  const sourceJson = loadFile(sourcePath) as JSON;
+function transformToCSV(sourceJson: JSON): string {
   const columnNames = getColumnNames(sourceJson);
   const translations = getTranslations(columnNames, sourceJson);
 
@@ -110,12 +125,11 @@ function transformToCSV(): string {
 }
 
 /**
- * Gets the CSV translations from a JSON and export them.
+ * Gets the CSV translations from multiple JSON or just one.
  *
  * @returns The CSV.
  */
-export function getCSVTranslations(): string {
-  const csv = transformToCSV();
-  exportToFile(csv, 'csv');
-  return csv;
+export function getCSVTranslations(): string[] {
+  const { sourcePath } = getParams();
+  return getSourcePaths(sourcePath, 'json').map(generateCSVFile);
 }

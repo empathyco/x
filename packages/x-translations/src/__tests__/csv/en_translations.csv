@@ -1,9 +1,0 @@
-key;base;tablet;desktop
-searchBox.clear;Clear mobile;Clear tablet;Clear desktop
-searchBox.placeholder;Start to search mobile;;Start to search desktop
-popularSearches.title;Popular searches mobile;;
-popularSearches.header.text1;this is text1 mobile;;
-historyQueries.clear;Clear history queries mobile;;
-facets.default.title;;title facets tablet;title facets desktop
-facets.default.header;;header facets tablet;
-facets.default.footer;;;footer facets desktop

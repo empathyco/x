@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-import { exportToFile, getParams, loadFile } from './utils';
+import path from 'path';
+import { exportToFile, getParams, getSourcePaths, loadFile } from './utils';
 import { JSON } from './types';
 
 if (require.main === module) {
@@ -7,14 +8,18 @@ if (require.main === module) {
 }
 
 /**
- * Gets the JSON.
+ * Generates the JSON.
+ *
+ * @param sourcePath - The path of the file.
  *
  * @returns A string that represents the JSON.
  */
-function getJson(): JSON {
-  const { sourcePath } = getParams();
+function generateJSONFile(sourcePath: string): JSON {
   const csv = loadFile(sourcePath) as string;
-  return transformToJson(csv);
+  const json = transformToJson(csv);
+  const outputFile = path.basename(sourcePath).replace(/\.[^.]+$/, '.json');
+  exportToFile(outputFile, JSON.stringify(json, null, 2));
+  return json;
 }
 
 /**
@@ -36,6 +41,7 @@ function transformToJson(csv: string): JSON {
  * device names.
  *
  * @param devices - The devices names to use in the message object.
+ *
  * @returns A reducer function to generate a JSON object.
  */
 function toMessagesObject(devices: string[]): (json: JSON, row: string) => JSON {
@@ -89,12 +95,11 @@ function setProperty(
 }
 
 /**
- * Gets the JSON translations from a CSV.
+ * Gets the JSON translations from multiple CSV or just one.
  *
  * @returns The JSON.
  */
-export function getJSONTranslations(): JSON {
-  const json = getJson();
-  exportToFile(JSON.stringify(json), 'json');
-  return json;
+export function getJSONTranslations(): JSON[] {
+  const { sourcePath } = getParams();
+  return getSourcePaths(sourcePath, 'csv').map(generateJSONFile);
 }

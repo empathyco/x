@@ -26,26 +26,41 @@ export function loadFile(sourcePath: string): JSON | string {
   if (!fs.existsSync(sourcePath)) {
     throw Error(`loadFile, file not found ${sourcePath}`);
   }
-  return path.extname(sourcePath) === '.json'
-    ? require(path.resolve(sourcePath))
-    : fs.readFileSync(sourcePath, { encoding: 'utf8' });
+  if (path.extname(sourcePath) === '.json') {
+    return require(sourcePath);
+  } else {
+    return fs.readFileSync(sourcePath, { encoding: 'utf8' });
+  }
 }
 
 /**
+ * Transform and export the JSON or the CSV.
+ *
+ * @param source - The source path.
+ * @param extension - The file extension.
+ *
+ * @returns The list of absolute paths to process.
+ */
+export function getSourcePaths(source: string, extension: string): string[] {
+  const filePaths = fs.lstatSync(source).isDirectory()
+    ? fs.readdirSync(source).map(fileName => path.join(source, fileName))
+    : [source];
+  return filePaths
+    .filter(filePath => filePath.endsWith(extension))
+    .map(filePath => path.resolve(process.cwd(), filePath));
+}
+/**
  * Exports the CSV or the JSON to a file.
  *
+ * @param fileName - The file name given by the transformed one.
  * @param data - The JSON or the CSV to be exported.
- * @param extension - The file extension.
  */
-export function exportToFile(data: string, extension: string): void {
-  const { sourcePath, targetPath } = getParams();
-  let outputPath = '';
-  const fileName = `${path.basename(sourcePath).split(/\.[^.]+$/)[0]}.${extension}`;
-  if (targetPath) {
-    outputPath = path.join(targetPath, fileName);
-  } else {
-    fs.mkdirSync('./output', { recursive: true });
-    outputPath = path.join('./output', fileName);
+export function exportToFile(fileName: string, data: string): void {
+  const { targetPath = 'output' } = getParams();
+  const outputPath = path.join(targetPath, fileName);
+  if (!fs.existsSync(targetPath)) {
+    fs.mkdirSync(targetPath, { recursive: true });
   }
+
   fs.writeFileSync(outputPath, data);
 }

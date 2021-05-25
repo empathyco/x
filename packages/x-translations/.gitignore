@@ -4,7 +4,7 @@
 /docs
 /*.tgz
 /output
-/src/__tests__/translations
+/translations
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/

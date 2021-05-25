@@ -6,7 +6,7 @@
     "build": "tsc && npm pack",
     "release": "standard-version --no-verify",
     "release:alpha": "standard-version --no-verify --prerelease alpha",
-    "test": "jest"
+    "test": "jest -i"
   },
   "dependencies": {
     "@empathybroker/deep-merge": "^1.2.1"
@@ -23,6 +23,9 @@
     "ts-node": "~8.6.2",
     "ts-jest": "~25.4.0",
     "typescript": "~3.8.3"
+  },
+  "engines": {
+    "node": ">=14.14.0"
   },
   "files": [
     "package.json",
