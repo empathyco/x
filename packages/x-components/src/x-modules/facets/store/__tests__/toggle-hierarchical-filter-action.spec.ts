@@ -53,8 +53,8 @@ describe(`testing toggleHierarchicalFilter`, () => {
 
       const category = store.getters.facets.category as HierarchicalFacet;
       const [men] = category.filters;
-      const [menShirts] = men.children;
-      const [menLongSleeveShirts] = menShirts.children;
+      const [menShirts] = men.children!;
+      const [menLongSleeveShirts] = menShirts.children!;
       const [, blue] = store.getters.facets.color.filters;
 
       store.dispatch(actionsKeys.toggleHierarchicalFilter, menLongSleeveShirts);
@@ -86,7 +86,7 @@ describe(`testing toggleHierarchicalFilter`, () => {
 
       const category = store.getters.facets.category as HierarchicalFacet;
       const [men] = category.filters;
-      const [menShirts] = men.children;
+      const [menShirts] = men.children!;
       const [, blue] = store.getters.facets.color.filters;
 
       store.dispatch(actionsKeys.toggleHierarchicalFilter, menShirts);
@@ -123,8 +123,8 @@ describe(`testing toggleHierarchicalFilter`, () => {
     it('selects the toggled filter and keeps its siblings when it is multi-selectable', () => {
       const category = store.getters.facets.category as HierarchicalFacet;
       const [men, women] = category.filters;
-      const [menShirts, menJeans] = men.children;
-      const [menLongSleeveShirts, menShortSleeveShirts] = menShirts.children;
+      const [menShirts, menJeans] = men.children!;
+      const [menLongSleeveShirts, menShortSleeveShirts] = menShirts.children!;
       const [, blue] = store.getters.facets.color.filters;
 
       store.dispatch(actionsKeys.toggleHierarchicalFilter, menShortSleeveShirts);
@@ -146,7 +146,7 @@ describe(`testing toggleHierarchicalFilter`, () => {
     it('deselects the toggled filter and keeps its siblings when it is multi-selectable', () => {
       const category = store.getters.facets.category as HierarchicalFacet;
       const [men, women] = category.filters;
-      const [menShirts, menJeans] = men.children;
+      const [menShirts, menJeans] = men.children!;
       const [, blue] = store.getters.facets.color.filters;
 
       store.dispatch(actionsKeys.toggleHierarchicalFilter, menShirts);

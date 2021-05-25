@@ -215,7 +215,7 @@ export function deepFilter<ArrayType, Key extends PropsWithType<ArrayType, Array
  *
  * @public
  */
-export function deepFlat<ArrayType, Key extends PropsWithType<ArrayType, ArrayType[]>>(
+export function deepFlat<ArrayType, Key extends PropsWithType<ArrayType, ArrayType[] | undefined>>(
   array: ArrayType[],
   childrenKey: Key
 ): ArrayType[] {
@@ -242,6 +242,10 @@ export function deepFlat<ArrayType, Key extends PropsWithType<ArrayType, ArrayTy
     resultantArray: ArrayType[],
     currentItem: ArrayType | ArrayType[]
   ): ArrayType[] {
+    if (!currentItem) {
+      return resultantArray;
+    }
+
     if (Array.isArray(currentItem)) {
       return currentItem.reduce(flatArray, resultantArray);
     }

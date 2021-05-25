@@ -62,7 +62,7 @@ function deselectFilterDescendants(
   commit: FacetsActionsContext['commit'],
   filter: HierarchicalFilter
 ): void {
-  filter.children.forEach(filter => {
+  filter.children?.forEach(filter => {
     commit('setFilterSelected', { filter, selected: false });
     deselectFilterDescendants(commit, filter);
   });

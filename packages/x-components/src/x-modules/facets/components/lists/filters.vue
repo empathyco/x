@@ -61,7 +61,7 @@
      * @public
      */
     protected get hasFiltersToRender(): boolean {
-      return this.renderedFilters.length > 0;
+      return this.renderedFilters?.length > 0;
     }
 
     /**
@@ -71,7 +71,7 @@
      * @internal
      */
     protected get hasSelectedFilters(): boolean {
-      return this.renderedFilters.some(isFilterSelected);
+      return !!this.renderedFilters?.some(isFilterSelected);
     }
 
     /**

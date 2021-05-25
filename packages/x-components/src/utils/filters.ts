@@ -32,10 +32,12 @@ export function isFilterSelected(filter: Filter): boolean {
  * @public
  */
 export function isFilterPartiallySelected(filter: HierarchicalFilter): boolean {
-  const selectedChildren = filter.children.filter(isFilterSelected);
+  const selectedChildren = filter.children?.filter(isFilterSelected);
+  const filterChildrenLength = filter.children?.length ?? 0;
   return (
-    (selectedChildren.length > 0 && selectedChildren.length < filter.children.length) ||
-    selectedChildren.some(isFilterPartiallySelected)
+    !!selectedChildren &&
+    ((selectedChildren.length > 0 && selectedChildren.length < filterChildrenLength) ||
+      selectedChildren.some(isFilterPartiallySelected))
   );
 }
 

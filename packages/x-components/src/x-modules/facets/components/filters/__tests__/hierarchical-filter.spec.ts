@@ -60,7 +60,7 @@ function renderHierarchicalFilter({
       }
       accumulator[depth].push(...filters);
       filters.forEach(childFilter => {
-        getFilterModels(childFilter.children, depth + 1, accumulator);
+        getFilterModels(childFilter.children!, depth + 1, accumulator);
       });
       return accumulator;
     };
@@ -390,7 +390,6 @@ describe('testing `HierarchicalFilter` component', () => {
               :data-test="filter.id"
               :class="cssClasses"
               @click="clickFilter"
-              type="checkbox"
               :disabled="isDisabled"
             >
                 {{ filter.label }}
@@ -399,7 +398,7 @@ describe('testing `HierarchicalFilter` component', () => {
         `
       });
       const childrenFilterWrapper = wrapper.find(
-        getDataTestSelector(filter.children[0].id.toString())
+        getDataTestSelector(filter.children![0].id.toString())
       );
 
       expect(childrenFilterWrapper.attributes()).not.toHaveProperty('disabled');
@@ -417,7 +416,7 @@ describe('testing `HierarchicalFilter` component', () => {
 
       await updateFilter({
         children: [
-          Object.assign(filter.children[0], { selected: false, totalResults: 0, children: [] })
+          Object.assign(filter.children![0], { selected: false, totalResults: 0, children: [] })
         ]
       });
 

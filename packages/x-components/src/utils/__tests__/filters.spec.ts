@@ -156,8 +156,8 @@ describe(`testing ${extractFilters.name}`, () => {
       expect.arrayContaining([
         ...brand.filters,
         ...category.filters,
-        ...category.filters[0].children,
-        ...category.filters[1].children,
+        ...category.filters[0].children!,
+        ...category.filters[1].children!,
         ...price.filters
       ])
     );
@@ -170,8 +170,8 @@ describe(`testing ${extractFilters.name}`, () => {
       expect.arrayContaining([
         ...brand.filters,
         ...category.filters,
-        ...category.filters[0].children,
-        ...category.filters[1].children,
+        ...category.filters[0].children!,
+        ...category.filters[1].children!,
         ...price.filters
       ])
     );
