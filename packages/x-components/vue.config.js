@@ -1,11 +1,7 @@
 const glob = require('glob');
 
 module.exports = {
-  css: {
-    loaderOptions: {
-      sass: {
-        prependData: `@import '${glob.sync('src/styles/**/*.scss').join(`'; @import '`)}';`
-      }
-    }
+  configureWebpack: {
+    entry: ['./src/main.ts', ...glob.sync('src/styles/**/*.scss').map(style => `./${style}`)]
   }
 };
