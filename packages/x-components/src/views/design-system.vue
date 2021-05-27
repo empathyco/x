@@ -1652,7 +1652,9 @@
       </article>
     </section>
 
-    <button @click="showTokens" class="info x-button x-button--tertiary x-button--round">i</button>
+    <button @click="toggleTokens" class="info x-button x-button--tertiary x-button--round">
+      i
+    </button>
   </main>
 </template>
 
@@ -1662,15 +1664,14 @@
 
   @Component
   export default class DesignSystem extends Vue {
-    protected showTokens(): void {
-      const styleElement = document.querySelector(`head style[type='text/css']`);
-      const isShown = styleElement?.classList.contains('show-tokens');
-      if (isShown) {
-        styleElement?.classList.remove('show-tokens');
-      } else {
-        styleElement?.setAttribute('contenteditable', 'true');
-        styleElement?.classList.add('show-tokens');
-      }
+    protected toggleTokens(): void {
+      document.head.classList.toggle('show-tokens');
+    }
+
+    protected mounted(): void {
+      Array.from(document.querySelectorAll<HTMLStyleElement>(`head style[type='text/css']`))
+        .filter(element => element.innerText.startsWith(':root'))
+        .forEach(element => element.setAttribute('contenteditable', 'true'));
     }
   }
 </script>
@@ -1744,29 +1745,34 @@
   }
 
   head {
-    display: block;
-    visibility: hidden;
+    background: lightgoldenrodyellow;
+    position: fixed;
+    padding: var(--x-space-04) var(--x-space-09);
+    bottom: 0;
+    right: 0;
+    height: 80%;
+    overflow: auto;
+    z-index: 10;
 
-    .show-tokens {
-      visibility: visible;
+    &:before {
+      font-family: var(--x-font-family);
+      content: 'You can edit here the Design Tokens';
       display: block;
-      position: fixed;
-      background: lightgoldenrodyellow;
-      padding: var(--x-space-04) var(--x-space-09);
-      bottom: 0;
-      right: 0;
-      white-space: pre;
-      height: 80%;
-      overflow: auto;
-      font-family: monospace;
+      font-size: var(--x-font-size-xl);
+      padding-bottom: 10px;
+    }
 
-      &:before {
-        font-family: var(--x-font-family);
-        content: 'You can edit here the Design Tokens';
-        display: block;
-        font-size: var(--x-font-size-xl);
-        padding-bottom: 10px;
-      }
+    style {
+      white-space: pre;
+      font-family: monospace;
+      margin-block: var(--x-space-04);
+    }
+  }
+
+  .show-tokens {
+    display: block;
+    [contenteditable='true'] {
+      display: block;
     }
   }
 </style>
