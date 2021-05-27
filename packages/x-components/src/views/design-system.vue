@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="x-design-system">
     <section>
       <h1 class="x-title1">Typography</h1>
 
@@ -1540,6 +1540,118 @@
       </article>
     </section>
 
+    <section class="row">
+      <h1 class="x-title1">Dropdown</h1>
+
+      <article class="x-dropdown-show-case">
+        <h2 class="x-title2">Default</h2>
+
+        <div class="x-dropdown">
+          <button class="x-dropdown__toggle">
+            Sort by
+            <span class="x-dropdown__toggle-selected-value">Relevance</span>
+            <span class="x-icon">▾</span>
+          </button>
+        </div>
+        <div class="x-dropdown x-dropdown--is-open">
+          <button class="x-dropdown__toggle">
+            Sort by
+            <span class="x-dropdown__toggle-selected-value">Relevance</span>
+            <span class="x-icon">▾</span>
+          </button>
+          <div class="x-dropdown__items-list">
+            <button class="x-dropdown__item x-dropdown__item--is-selected">
+              Relevance
+              <span class="x-icon">✓</span>
+            </button>
+            <button class="x-dropdown__item">Alphabetical</button>
+            <button class="x-dropdown__item">Price</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="x-dropdown-show-case">
+        <h2 class="x-title2">Card</h2>
+
+        <div class="x-dropdown x-dropdown--card">
+          <button class="x-dropdown__toggle">
+            Sort by
+            <span class="x-dropdown__toggle-selected-value">Relevance</span>
+            <span class="x-icon">▾</span>
+          </button>
+        </div>
+        <div class="x-dropdown x-dropdown--is-open x-dropdown--card">
+          <button class="x-dropdown__toggle">
+            Sort by
+            <span class="x-dropdown__toggle-selected-value">Relevance</span>
+            <span class="x-icon">▾</span>
+          </button>
+          <div class="x-dropdown__items-list">
+            <button class="x-dropdown__item x-dropdown__item--is-selected">
+              Relevance
+              <span class="x-icon">✓</span>
+            </button>
+            <button class="x-dropdown__item">Alphabetical</button>
+            <button class="x-dropdown__item">Price</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="x-dropdown-show-case">
+        <h2 class="x-title2">Pill</h2>
+
+        <div class="x-dropdown x-dropdown--pill">
+          <button class="x-dropdown__toggle">
+            Sort by
+            <span class="x-dropdown__toggle-selected-value">Relevance</span>
+            <span class="x-icon">▾</span>
+          </button>
+        </div>
+        <div class="x-dropdown x-dropdown--is-open x-dropdown--pill">
+          <button class="x-dropdown__toggle">
+            Sort by
+            <span class="x-dropdown__toggle-selected-value">Relevance</span>
+            <span class="x-icon">▾</span>
+          </button>
+          <div class="x-dropdown__items-list">
+            <button class="x-dropdown__item x-dropdown__item--is-selected">
+              Relevance
+              <span class="x-icon">✓</span>
+            </button>
+            <button class="x-dropdown__item">Alphabetical</button>
+            <button class="x-dropdown__item">Price</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="x-dropdown-show-case">
+        <h2 class="x-title2">Line</h2>
+
+        <div class="x-dropdown x-dropdown--line">
+          <button class="x-dropdown__toggle">
+            Sort by
+            <span class="x-dropdown__toggle-selected-value">Relevance</span>
+            <span class="x-icon">▾</span>
+          </button>
+        </div>
+        <div class="x-dropdown x-dropdown--is-open x-dropdown--line">
+          <button class="x-dropdown__toggle">
+            Sort by
+            <span class="x-dropdown__toggle-selected-value">Relevance</span>
+            <span class="x-icon">▾</span>
+          </button>
+          <div class="x-dropdown__items-list">
+            <button class="x-dropdown__item x-dropdown__item--is-selected">
+              Relevance
+              <span class="x-icon">✓</span>
+            </button>
+            <button class="x-dropdown__item">Alphabetical</button>
+            <button class="x-dropdown__item">Price</button>
+          </div>
+        </div>
+      </article>
+    </section>
+
     <button @click="showTokens" class="info x-button x-button--tertiary x-button--round">i</button>
   </main>
 </template>
@@ -1563,68 +1675,74 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  * {
-    outline: none;
-  }
-  section {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: var(--x-space-05);
-    padding: var(--x-space-07);
-  }
-
-  article {
-    display: flex;
-    align-items: flex-start;
-    column-gap: var(--x-space-09);
-    row-gap: var(--x-space-03);
-    flex-flow: row wrap;
-
-    h2 {
-      width: 100%;
-    }
-  }
-
-  h1,
-  h2 {
-    margin: var(--x-space-04) 0 var(--x-space-02);
-  }
-
-  .x-input-group {
-    width: 250px;
-  }
-
-  .x-filter,
-  .x-hierarchical-filter-container {
-    width: 220px;
-  }
-
-  .x-facet {
-    width: 200px;
-
-    &--card {
-      --x-color-background-facet: var(--x-color-neutral-95);
-    }
-  }
-
-  .x-suggestion {
-    width: 220px;
-  }
-
-  .x-tag {
-    max-width: 200px;
-  }
-</style>
-
 <style lang="scss">
-  .info {
-    position: fixed;
-    right: var(--x-space-08);
-    bottom: var(--x-space-08);
+  .x-design-system {
+    * {
+      outline: none;
+    }
+
+    section {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: var(--x-space-05);
+      padding: var(--x-space-07);
+    }
+
+    article {
+      display: flex;
+      align-items: flex-start;
+      column-gap: var(--x-space-09);
+      row-gap: var(--x-space-03);
+      flex-flow: row wrap;
+
+      h2 {
+        width: 100%;
+      }
+    }
+
+    h1,
+    h2 {
+      margin: var(--x-space-04) 0 var(--x-space-02);
+    }
+
+    .x-input-group {
+      width: 250px;
+    }
+
+    .x-filter,
+    .x-hierarchical-filter-container {
+      width: 220px;
+    }
+
+    .x-facet {
+      width: 200px;
+
+      &--card {
+        --x-color-background-facet: var(--x-color-neutral-95);
+      }
+    }
+
+    .x-suggestion {
+      width: 220px;
+    }
+
+    .x-tag {
+      max-width: 200px;
+    }
+
+    .info {
+      position: fixed;
+      right: var(--x-space-08);
+      bottom: var(--x-space-08);
+    }
+
+    .x-dropdown-show-case {
+      margin-bottom: 8em;
+    }
   }
+
   head {
     display: block;
     visibility: hidden;
