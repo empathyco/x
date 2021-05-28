@@ -24,6 +24,7 @@ export default class FiltersInjectionMixin extends Vue {
    */
   @XInject('filters')
   public injectedFilters!: Filter[];
+
   /**
    * An array of filters formed by those that are passed through prop or injected.
    *
@@ -31,7 +32,7 @@ export default class FiltersInjectionMixin extends Vue {
    *
    * @internal
    */
-  public get renderedFilters(): Filter[] {
+  protected get renderedFilters(): Filter[] {
     return (
       this.filters ??
       this.injectedFilters ??

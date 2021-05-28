@@ -158,20 +158,22 @@
           <SelectedFilters :facetId="facet.id" />
           <FiltersSearch :filters="facet.filters">
             <SlicedFilters :max="8">
-              <Filters v-slot="{ filter }">
-                <SimpleFilter
-                  v-slot="{ filter: slotFilter, clickFilter, cssClasses }"
-                  :filter="filter"
-                  data-test="brand-filter"
-                >
-                  <label :class="cssClasses">
-                    <input @change="clickFilter" type="checkbox" :checked="filter.selected" />
-                    {{ slotFilter.label }}
-                  </label>
-                </SimpleFilter>
-              </Filters>
-              <template #show-more="{ difference }">Show {{ difference }} more filters</template>
-              <template #show-less="{ difference }">Show {{ difference }} less filters</template>
+              <SortedFilters>
+                <Filters v-slot="{ filter }">
+                  <SimpleFilter
+                    v-slot="{ filter: slotFilter, clickFilter, cssClasses }"
+                    :filter="filter"
+                    data-test="brand-filter"
+                  >
+                    <label :class="cssClasses">
+                      <input @change="clickFilter" type="checkbox" :checked="filter.selected" />
+                      {{ slotFilter.label }}
+                    </label>
+                  </SimpleFilter>
+                </Filters>
+                <template #show-more="{ difference }">Show {{ difference }} more filters</template>
+                <template #show-less="{ difference }">Show {{ difference }} less filters</template>
+              </SortedFilters>
             </SlicedFilters>
           </FiltersSearch>
         </BaseHeaderTogglePanel>
@@ -184,19 +186,21 @@
           </template>
           <SelectedFilters :facetId="facet.id" />
           <AllFilter :facet="facet" />
-          <Filters v-slot="{ filter }" :filters="facet.filters" :animation="staggeredFadeAndSlide">
-            <NumberRangeFilter :filter="filter">
-              <template #default="{ filter }">
-                <BasePriceFilterLabel
-                  :filter="filter"
-                  format="i €"
-                  lessThan="Less than {max}"
-                  fromTo="From {min} to {max}"
-                  from="More than {min}"
-                />
-              </template>
-            </NumberRangeFilter>
-          </Filters>
+          <SortedFilters :filters="facet.filters">
+            <Filters v-slot="{ filter }" :animation="staggeredFadeAndSlide">
+              <NumberRangeFilter :filter="filter">
+                <template #default="{ filter }">
+                  <BasePriceFilterLabel
+                    :filter="filter"
+                    format="i €"
+                    lessThan="Less than {max}"
+                    fromTo="From {min} to {max}"
+                    from="More than {min}"
+                  />
+                </template>
+              </NumberRangeFilter>
+            </Filters>
+          </SortedFilters>
         </BaseHeaderTogglePanel>
       </template>
     </Facets>
@@ -359,6 +363,7 @@
   import { GridItem } from '../utils/types';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
   import SelectedFiltersList from '../x-modules/facets/components/lists/selected-filters-list.vue';
+  import SortedFilters from '../x-modules/facets/components/lists/sorted-filters.vue';
   import SelectedFilters from '../x-modules/facets/components/selected-filters.vue';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
@@ -459,7 +464,8 @@
       SpellcheckButton,
       BaseColumnPickerList,
       BaseColumnPickerDropdown,
-      SortList
+      SortList,
+      SortedFilters
     }
   })
   export default class App extends Vue {

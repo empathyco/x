@@ -9,7 +9,7 @@ import SlicedFilters from '../sliced-filters.vue';
 /**
  * Renders the `BaseShowMoreFilters` component, exposing a basic API for testing.
  *
- * @param max - The number filters to show..
+ * @param max - The number filters to show.
  * @returns The API for testing the `BaseShowMoreFilters` component.
  */
 function renderBaseShowMoreFilters(max = 10): BaseShowMoreFiltersAPI {
@@ -104,14 +104,14 @@ describe('testing BaseShowMoreFilters', () => {
 });
 
 interface BaseShowMoreFiltersAPI {
-  /** The wrapper of the container element.*/
+  /** The wrapper of the container element. */
   wrapper: Wrapper<Vue>;
-  /** The wrapper of the container element.*/
+  /** The wrapper of the container element. */
   filterWrapper: Wrapper<Vue>;
-  /** The filters of the wrapper element.*/
+  /** The filters of the wrapper element. */
   getFiltersWrapper: () => WrapperArray<Vue>;
-  /** The show more button of the wrapper element.*/
+  /** The show more button of the wrapper element. */
   getShowMoreButton: () => Wrapper<Vue>;
-  /** The show less button of the wrapper element.*/
+  /** The show less button of the wrapper element. */
   getShowLessButton: () => Wrapper<Vue>;
 }

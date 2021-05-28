@@ -62,19 +62,19 @@
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
           <SelectedFilters :facetId="facet.id" />
-          <FiltersSearch :filters="facet.filters">
-            <MultiSelectFilters v-slot="{ filter }">
-              <SimpleFilter v-slot="{ filter: slotFilter, clickFilter }" :filter="filter">
-                <label :data-test="facet.id">
-                  <input @change="clickFilter" type="checkbox" :checked="filter.selected" />
-                  {{ slotFilter.label }}
-                  <span data-test="filter-total-results">{{ filter.totalResults }}</span>
-                </label>
-              </SimpleFilter>
-            </MultiSelectFilters>
-            <template #show-more="{ difference }">Show {{ difference }} more filters</template>
-            <template #show-less="{ difference }">Show {{ difference }} less filters</template>
-          </FiltersSearch>
+          <SortedFilters :filters="facet.filters">
+            <FiltersSearch>
+              <MultiSelectFilters v-slot="{ filter }">
+                <SimpleFilter v-slot="{ filter: slotFilter, clickFilter }" :filter="filter">
+                  <label :data-test="facet.id">
+                    <input @change="clickFilter" type="checkbox" :checked="filter.selected" />
+                    {{ slotFilter.label }}
+                    <span data-test="filter-total-results">{{ filter.totalResults }}</span>
+                  </label>
+                </SimpleFilter>
+              </MultiSelectFilters>
+            </FiltersSearch>
+          </SortedFilters>
         </BaseHeaderTogglePanel>
       </template>
       <template #price_facet="{ facet }">
@@ -122,6 +122,7 @@
   import NumberRangeFilter from '../x-modules/facets/components/filters/number-range-filter.vue';
   import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
+  import SortedFilters from '../x-modules/facets/components/lists/sorted-filters.vue';
   import SelectedFilters from '../x-modules/facets/components/selected-filters.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import Facets from '../x-modules/facets/components/facets.vue';
@@ -141,6 +142,7 @@
       next();
     },
     components: {
+      SortedFilters,
       AllFilter,
       ClearSearchInput,
       Filters,

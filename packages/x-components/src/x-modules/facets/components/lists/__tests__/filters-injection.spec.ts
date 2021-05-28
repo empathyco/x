@@ -9,7 +9,7 @@ import FiltersSearch from '../filters-search.vue';
 import Filters from '../filters.vue';
 import SlicedFilters from '../sliced-filters.vue';
 
-const filtersMock: Filter[] = [
+const filterLabels: string[] = [
   'Lego city',
   'Lego CITY 2',
   'Lego city marvel',
@@ -17,11 +17,15 @@ const filtersMock: Filter[] = [
   'Lego city 3',
   'LEGO BATMAN',
   'Lego batman 2'
-].map((label, index) => getSimpleFilterStub({ label, id: index }));
+];
+
+function getFiltersMock(): Filter[] {
+  return filterLabels.map((label, index) => getSimpleFilterStub({ label, id: index }));
+}
 
 function renderFilters({
   max = 2,
-  filters = filtersMock
+  filters = getFiltersMock()
 }: FiltersInjectionRenderOptions = {}): FiltersInjectionAPI {
   const wrapper = mount(
     {
@@ -33,7 +37,8 @@ function renderFilters({
         SimpleFilter
       },
       props: ['filters', 'max'],
-      template: `<ExcludeFiltersWithNoResults :filters="filters">
+      template: `<ExcludeFiltersWithNoResults
+        :filters="filters">
            <FiltersSearch>
              <SlicedFilters :max="max">
                <Filters v-slot="{ filter }" data-test="filters" >
@@ -75,7 +80,7 @@ describe('testing Filters injection', () => {
 
     const { getFiltersWrapper, searchFilters, getShowMoreButton } = renderFilters({
       max: maxItemsToRender,
-      filters: [...filtersMock, noResultsFilter]
+      filters: [...getFiltersMock(), noResultsFilter]
     });
 
     await searchFilters(query);
@@ -99,12 +104,12 @@ interface FiltersInjectionRenderOptions {
 }
 
 interface FiltersInjectionAPI {
-  /** The wrapper of the container element.*/
+  /** The wrapper of the container element. */
   wrapper: Wrapper<Vue>;
-  /** The filters of the wrapper element.*/
+  /** The filters of the wrapper element. */
   getFiltersWrapper: () => WrapperArray<Vue>;
-  /** The show more button of the wrapper element.*/
+  /** The show more button of the wrapper element. */
   getShowMoreButton: () => Wrapper<Vue>;
-  /** The filters filtered by the query.*/
+  /** The filters filtered by the query. */
   searchFilters: (query: string) => Promise<void>;
 }

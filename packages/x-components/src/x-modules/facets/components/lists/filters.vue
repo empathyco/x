@@ -96,47 +96,46 @@
 </style>
 
 <docs>
-  #Example
+#Example
 
-  Renders a list with a list item per each filter in the filters prop array.
-  Each list item has a scoped slot, passing the filter as slot prop.
+Renders a list with a list item per each filter in the filters prop array.
+Each list item has a scoped slot, passing the filter as slot prop.
 
-  ## Important
+## Important
 
-  The component has two ways of receive the filters list, it can be injected by another component or
-  be send it as a prop. If the component doesnt have a parent component that receive and exposed a
-  filters list to their children, it is mandatory to send it as prop.
+The component has two ways of receive the filters list, it can be injected by another component or
+be send it as a prop. If the component doesnt have a parent component that receive and exposed a
+filters list to their children, it is mandatory to send it as prop.
 
 
-  ## Basic usage
+## Basic usage
 
-  Using default slot:
-  ```vue
-  <Filters :filters="filters">
-    <template #default="{ filter }">
-      <p>{{ filter.label }}</p>
-    </template>
-  </Filters>
-  ```
+Using default slot:
+```vue
+<Filters :filters="filters">
+  <template #default="{ filter }">
+    <p>{{ filter.label }}</p>
+  </template>
+</Filters>
+```
 
-  Using default slot abbreviated syntax:
-  ```vue
-  <Filters :filters="filters" v-slot="{ filter }">
+Using default slot abbreviated syntax:
+```vue
+<Filters :filters="filters" v-slot="{ filter }">
+  <p>{{ filter.label }}</p>
+</Filters>
+```
+
+> **Using injection**: It can receive the filters list by injection. It only works if it has a
+> parent component that receives and exposes the filters list. Using the injection, It is not
+> necessary to send the prop to the child components, it has to be send it in the parent component
+> , the rest of components will inject this list.
+
+```vue
+<SlicedFilters :filters="filters" >
+  <Filters v-slot="{ filter }">
     <p>{{ filter.label }}</p>
   </Filters>
-  ```
-
-  > **Using injection**: It can receive the filters list by injection. It only works if it has a
-  > parent component that receives and exposes the filters list. Using the injection, It is not
-  > necessary to send the prop to the child components, it has to be send it in the parent component
-  > , the rest of components will inject this list.
-
-  ```vue
-  <SlicedFilters :filters="filters" >
-    <Filters v-slot="{ filter }">
-      <p>{{ filter.label }}</p>
-    </Filters>
-  </SlicedFilters>
-  ```
-
+</SlicedFilters>
+```
 </docs>
