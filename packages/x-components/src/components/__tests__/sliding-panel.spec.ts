@@ -7,17 +7,18 @@ jest.useFakeTimers();
 
 function renderSlidingPanel(
   template = `
-          <SlidingPanel>
-            <ul>
-              <li>Element 1</li>
-              <li>Element 2</li>
-              <li>Element 3</li>
-            </ul>
-          </SlidingPanel>`
+    <SlidingPanel>
+      <ul>
+        <li>Element 1</li>
+        <li>Element 2</li>
+        <li>Element 3</li>
+      </ul>
+    </SlidingPanel>`
 ): RenderSlidingPanelAPI {
   const div = document.createElement('div');
   document.body.appendChild(div);
-  const slidingPanelWrapper = mount(
+
+  const wrapper = mount(
     {
       template,
       components: {
@@ -27,8 +28,7 @@ function renderSlidingPanel(
     { attachTo: div }
   );
 
-  const scrollElement = slidingPanelWrapper.find(getDataTestSelector('sliding-panel-scroll'))
-    .element;
+  const scrollElement = wrapper.find(getDataTestSelector('sliding-panel-scroll')).element;
 
   async function resizeElementScroll(scrollWidth: number, clientWidth: number): Promise<void> {
     Object.defineProperty(scrollElement, 'scrollWidth', {
@@ -44,7 +44,7 @@ function renderSlidingPanel(
 
     window.dispatchEvent(new Event('resize'));
     jest.runAllTimers();
-    await Vue.nextTick();
+    await wrapper.vm.$nextTick();
   }
 
   const scrollBySpy = jest.fn();
@@ -55,15 +55,15 @@ function renderSlidingPanel(
   }
 
   function getLeftButton(): Wrapper<Vue> {
-    return slidingPanelWrapper.find(getDataTestSelector('sliding-panel-left-button'));
+    return wrapper.find(getDataTestSelector('sliding-panel-left-button'));
   }
 
   function getRightButton(): Wrapper<Vue> {
-    return slidingPanelWrapper.find(getDataTestSelector('sliding-panel-right-button'));
+    return wrapper.find(getDataTestSelector('sliding-panel-right-button'));
   }
 
   return {
-    wrapper: slidingPanelWrapper,
+    wrapper,
     resizeElementScroll,
     doScroll,
     scrollBySpy,
@@ -73,66 +73,47 @@ function renderSlidingPanel(
 }
 
 describe('testing sliding panel component', () => {
-  it('renders a list of elements inside the sliding panel', () => {
+  it('renders the content passed to the default slot', () => {
     const { wrapper } = renderSlidingPanel();
     wrapper.findAll('li').wrappers.forEach((item, index) => {
       expect(item.element.innerHTML).toEqual(`Element ${index + 1}`);
     });
   });
 
-  it(`doesn't show the buttons if the scroll is not needed`, async () => {
-    const { resizeElementScroll, getLeftButton, getRightButton } = renderSlidingPanel();
-    await resizeElementScroll(300, 300);
-
-    expect(getLeftButton().element).not.toBeVisible();
-    expect(getRightButton().element).not.toBeVisible();
-  });
-
-  it(`shows the buttons when the window resizes and they're needed`, async () => {
-    const { resizeElementScroll, getLeftButton, getRightButton } = renderSlidingPanel();
-    await resizeElementScroll(300, 300);
-
-    expect(getLeftButton().element).not.toBeVisible();
-    expect(getRightButton().element).not.toBeVisible();
+  it('applies CSS class x-sliding-panel--at-start properly', async () => {
+    const { wrapper, doScroll, resizeElementScroll } = renderSlidingPanel();
 
     await resizeElementScroll(300, 200);
+    expect(wrapper.classes()).toEqual(['x-sliding-panel', 'x-sliding-panel--at-start']);
 
-    expect(getLeftButton().element).not.toBeVisible();
-    expect(getRightButton().element).toBeVisible();
-  });
-
-  it(`shows the 'go right' button when the scroll is needed and it is at the start`, async () => {
-    const { resizeElementScroll, getLeftButton, getRightButton } = renderSlidingPanel();
-    await resizeElementScroll(300, 200);
-
-    expect(getLeftButton().element).not.toBeVisible();
-    expect(getRightButton().element).toBeVisible();
-  });
-
-  it(`shows the 'go left' and 'go right' buttons when the scroll is needed and it is not at start
-    nor end`, async () => {
-    const { resizeElementScroll, doScroll, getLeftButton, getRightButton } = renderSlidingPanel();
     doScroll(50);
     await resizeElementScroll(300, 200);
-
-    expect(getLeftButton().element).toBeVisible();
-    expect(getRightButton().element).toBeVisible();
+    expect(wrapper.classes()).toEqual(['x-sliding-panel']);
   });
 
-  it(`shows the 'go left' button when the scroll is needed and it's at the end`, async () => {
-    const mockedScrollWidth = 350;
-    const mockedClientWidth = 300;
-    const { resizeElementScroll, doScroll, getLeftButton, getRightButton } = renderSlidingPanel();
-    doScroll(mockedScrollWidth - mockedClientWidth);
-    await resizeElementScroll(mockedScrollWidth, mockedClientWidth);
+  it('applies CSS class x-sliding-panel--at-end properly', async () => {
+    const { wrapper, doScroll, resizeElementScroll } = renderSlidingPanel();
 
-    expect(getLeftButton().element).toBeVisible();
-    expect(getRightButton().element).not.toBeVisible();
+    await resizeElementScroll(300, 300);
+    expect(wrapper.classes()).toEqual([
+      'x-sliding-panel',
+      'x-sliding-panel--at-start',
+      'x-sliding-panel--at-end'
+    ]);
+
+    await resizeElementScroll(300, 200);
+    expect(wrapper.classes()).toEqual(['x-sliding-panel', 'x-sliding-panel--at-start']);
+
+    doScroll(50);
+    await resizeElementScroll(300, 200);
+    expect(wrapper.classes()).toEqual(['x-sliding-panel']);
+
+    doScroll(100);
+    await resizeElementScroll(300, 200);
+    expect(wrapper.classes()).toEqual(['x-sliding-panel', 'x-sliding-panel--at-end']);
   });
 
-  it('scrolls the sliding panel when clicking buttons', async () => {
-    const clientWidth = 200;
-
+  it('scrolls when clicking the scrolling buttons', async () => {
     const {
       resizeElementScroll,
       doScroll,
@@ -140,7 +121,7 @@ describe('testing sliding panel component', () => {
       getLeftButton,
       getRightButton
     } = renderSlidingPanel();
-    await resizeElementScroll(1024, clientWidth);
+    await resizeElementScroll(1024, 200);
     getRightButton().trigger('click');
 
     expect(scrollBySpy).toHaveBeenCalled();
@@ -152,54 +133,53 @@ describe('testing sliding panel component', () => {
     expect(scrollBySpy).toHaveBeenCalledTimes(2);
   });
 
-  it(`allows customization of the buttons' content`, () => {
+  it(`allows to customize buttons' content`, () => {
     const { getLeftButton, getRightButton } = renderSlidingPanel(
       `<SlidingPanel>
-                 <template #sliding-panel-left-button>Patras</template>
-                   <ul>
-                     <li>Element 1</li>
-                     <li>Element 2</li>
-                     <li>Element 3</li>
-                   </ul>
-                 <template #sliding-panel-right-button>Palante</template>
-               </SlidingPanel>`
+           <template #sliding-panel-left-button>Left</template>
+             <ul>
+               <li>Element 1</li>
+               <li>Element 2</li>
+               <li>Element 3</li>
+             </ul>
+           <template #sliding-panel-right-button>Right</template>
+         </SlidingPanel>`
     );
 
-    expect(getLeftButton().text()).toEqual('Patras');
-    expect(getRightButton().text()).toEqual('Palante');
+    expect(getLeftButton().text()).toEqual('Left');
+    expect(getRightButton().text()).toEqual('Right');
   });
 
-  it('allows to configure if to show or not the buttons', async () => {
+  it('allows to permanently hide scrolling buttons', async () => {
     const { resizeElementScroll, doScroll, getLeftButton, getRightButton } = renderSlidingPanel(
-      ` <SlidingPanel :showButtons="false">
-                   <ul>
-                     <li>Element 1</li>
-                     <li>Element 2</li>
-                     <li>Element 3</li>
-                   </ul>
-                 </SlidingPanel>`
+      `<SlidingPanel :showButtons="false">
+             <ul>
+               <li>Element 1</li>
+               <li>Element 2</li>
+               <li>Element 3</li>
+             </ul>
+           </SlidingPanel>`
     );
 
-    // Resize to make both buttons visible
     doScroll(50);
     await resizeElementScroll(300, 200);
 
-    expect(getLeftButton().element).not.toBeVisible();
-    expect(getRightButton().element).not.toBeVisible();
+    expect(getLeftButton().exists()).toBe(false);
+    expect(getRightButton().exists()).toBe(false);
   });
 
-  it('scroll amount when clicking a button is configurable', async () => {
+  it('allows to configure the scrolling amount when clicking a button', async () => {
     const clientWidth = 200;
     const scrollFactor = 1.2;
 
     const { resizeElementScroll, scrollBySpy, getRightButton } = renderSlidingPanel(
       `<SlidingPanel :scrollFactor="${scrollFactor}">
-                 <ul>
-                   <li>Element 1</li>
-                   <li>Element 2</li>
-                   <li>Element 3</li>
-                 </ul>
-               </SlidingPanel>`
+           <ul>
+             <li>Element 1</li>
+             <li>Element 2</li>
+             <li>Element 3</li>
+           </ul>
+         </SlidingPanel>`
     );
     await resizeElementScroll(1024, clientWidth);
     getRightButton().trigger('click');

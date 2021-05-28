@@ -1690,6 +1690,267 @@
       </article>
     </section>
 
+    <!-- eslint-disable max-len -->
+    <section>
+      <h1 class="x-title1">Sliding panel</h1>
+      <article>
+        <h2 class="x-title2">Default</h2>
+        <SlidingPanel>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Bogotá</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Baghdad</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Nairobi</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Ankara</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Thais</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Edron</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Venore</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Carlin</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Ab'Dendriel</span>
+          </button>
+        </SlidingPanel>
+      </article>
+
+      <article>
+        <h2 class="x-title2">Buttons overflow</h2>
+        <SlidingPanel class="x-sliding-panel--buttons-overflow">
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Bogotá</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Baghdad</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Nairobi</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Ankara</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Thais</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Edron</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Venore</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Carlin</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Ab'Dendriel</span>
+          </button>
+        </SlidingPanel>
+      </article>
+
+      <article>
+        <h2 class="x-title2">No gradient</h2>
+        <SlidingPanel class="x-sliding-panel--no-gradient">
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Bogotá</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Baghdad</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Nairobi</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Ankara</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Thais</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Edron</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Venore</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Carlin</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Ab'Dendriel</span>
+          </button>
+        </SlidingPanel>
+      </article>
+
+      <article>
+        <h2 class="x-title2">Buttons visible on hover</h2>
+        <SlidingPanel class="x-sliding-panel--show-buttons-on-hover">
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Bogotá</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Baghdad</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Nairobi</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Ankara</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Thais</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Edron</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Venore</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Carlin</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Ab'Dendriel</span>
+          </button>
+        </SlidingPanel>
+      </article>
+
+      <article>
+        <h2 class="x-title2">Buttons visible on hover with overflow</h2>
+        <SlidingPanel
+          class="x-sliding-panel--show-buttons-on-hover x-sliding-panel--buttons-overflow"
+        >
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Bogotá</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Baghdad</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Nairobi</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Ankara</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Thais</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Edron</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Venore</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Carlin</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Ab'Dendriel</span>
+          </button>
+        </SlidingPanel>
+      </article>
+
+      <article>
+        <h2 class="x-title2">Buttons visible on hover, with overflow and no gradient</h2>
+        <SlidingPanel
+          class="x-sliding-panel--no-gradient x-sliding-panel--show-buttons-on-hover x-sliding-panel--buttons-overflow"
+        >
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Bogotá</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Baghdad</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Nairobi</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Ankara</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Thais</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Edron</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Venore</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Carlin</span>
+          </button>
+          <button class="x-button x-button--tertiary x-button--card">
+            <span class="x-icon">＋</span>
+            <span>Ab'Dendriel</span>
+          </button>
+        </SlidingPanel>
+      </article>
+    </section>
+    <!-- eslint-enable max-len -->
+
     <button @click="toggleTokens" class="info x-button x-button--tertiary x-button--round">
       i
     </button>
@@ -1699,8 +1960,11 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import SlidingPanel from '../components/sliding-panel.vue';
 
-  @Component
+  @Component({
+    components: { SlidingPanel }
+  })
   export default class DesignSystem extends Vue {
     protected toggleTokens(): void {
       document.head.classList.toggle('show-tokens');
@@ -1779,6 +2043,14 @@
 
     .x-dropdown-show-case {
       margin-bottom: 8em;
+    }
+
+    .x-sliding-panel {
+      max-width: 500px;
+
+      &__scroll {
+        gap: var(--x-space-03);
+      }
     }
   }
 

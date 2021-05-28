@@ -1,16 +1,14 @@
 <template>
-  <div v-if="$slots.default" class="x-sliding-panel" data-test="sliding-panel">
-    <transition name="fade-">
-      <button
-        v-show="showButtons && !isScrollAtStart"
-        @click="scrollLeft"
-        class="x-sliding-panel__button x-sliding-panel__button--left"
-        data-test="sliding-panel-left-button"
-      >
-        <!-- @slot Left button content -->
-        <slot name="sliding-panel-left-button">←</slot>
-      </button>
-    </transition>
+  <div v-if="$slots.default" class="x-sliding-panel" :class="cssClasses" data-test="sliding-panel">
+    <button
+      v-if="showButtons"
+      @click="scrollLeft"
+      class="x-sliding-panel__button x-sliding-panel__button-left x-button x-button--round"
+      data-test="sliding-panel-left-button"
+    >
+      <!-- @slot Left button content -->
+      <slot name="sliding-panel-left-button">←</slot>
+    </button>
     <div
       ref="scrollContainer"
       @scroll="debouncedUpdateScrollPosition"
@@ -22,23 +20,22 @@
       <!-- @slot (Required) Sliding panel content -->
       <slot />
     </div>
-    <transition name="fade-">
-      <button
-        v-show="showButtons && !isScrollAtEnd"
-        @click="scrollRight"
-        class="x-sliding-panel__button x-sliding-panel__button--right"
-        data-test="sliding-panel-right-button"
-      >
-        <!-- @slot Right button content -->
-        <slot name="sliding-panel-right-button">→</slot>
-      </button>
-    </transition>
+    <button
+      v-if="showButtons"
+      @click="scrollRight"
+      class="x-sliding-panel__button x-sliding-panel__button-right x-button x-button--round"
+      data-test="sliding-panel-right-button"
+    >
+      <!-- @slot Right button content -->
+      <slot name="sliding-panel-right-button">→</slot>
+    </button>
   </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
+  import { VueCSSClasses } from '../utils/types';
   import { Debounce } from './decorators/debounce.decorators';
 
   /**
@@ -174,22 +171,42 @@
         behavior: 'smooth'
       });
     }
+
+    /**
+     * CSS classes to apply based on the scroll position.
+     *
+     * @returns The CSS classes to apply.
+     *
+     * @internal
+     */
+    protected get cssClasses(): VueCSSClasses {
+      return {
+        'x-sliding-panel--at-start': this.isScrollAtStart,
+        'x-sliding-panel--at-end': this.isScrollAtEnd
+      };
+    }
   }
 </script>
 
 <style lang="scss" scoped>
   .x-sliding-panel {
-    position: relative;
+    align-items: center;
     display: flex;
     flex-flow: row nowrap;
-    align-items: center;
+    height: 100%;
+    position: relative;
 
     &__button {
+      opacity: 0;
       position: absolute;
-      flex: 0 0 auto;
+      transition: all ease-out 0.2s;
       z-index: 1;
 
-      &--right {
+      &-left {
+        left: 0;
+      }
+
+      &-right {
         right: 0;
       }
     }
@@ -199,23 +216,24 @@
       flex: 100%;
       flex-flow: row nowrap;
       overflow: auto;
-      scrollbar-width: none;
+      scrollbar-width: none; // Firefox
+      -ms-overflow-style: none; // IE
 
-      /* Chrome/Edge/Safari */
+      // Chrome, Edge & Safari
       &::-webkit-scrollbar {
         display: none;
       }
     }
-  }
 
-  .fade {
-    &--enter,
-    &--leave-to {
-      opacity: 0;
+    &:not(.x-sliding-panel--show-buttons-on-hover):not(.x-sliding-panel--at-start) {
+      .x-sliding-panel__button-left {
+        opacity: 1;
+      }
     }
-    &--enter-active,
-    &--leave-active {
-      transition: opacity ease-out 100ms;
+    &:not(.x-sliding-panel--show-buttons-on-hover):not(.x-sliding-panel--at-end) {
+      .x-sliding-panel__button-right {
+        opacity: 1;
+      }
     }
   }
 </style>

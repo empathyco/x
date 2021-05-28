@@ -1,0 +1,95 @@
+.x-sliding-panel {
+  // color
+  background-color: var(--x-color-background-sliding-panel);
+
+  &__button.x-button {
+    // spacing
+    --x-space-padding-button: var(--x-space-padding-sliding-panel-button);
+  }
+
+  &.x-sliding-panel--buttons-overflow {
+    .x-sliding-panel {
+      &__button-left {
+        // layout
+        transform: translateX(
+          calc(-100% - var(--x-space-horizontal-margin-sliding-panel-button-overflow))
+        );
+      }
+      &__button-right {
+        // layout
+        transform: translateX(
+          calc(100% + var(--x-space-horizontal-margin-sliding-panel-button-overflow))
+        );
+      }
+    }
+  }
+
+  &.x-sliding-panel--show-buttons-on-hover {
+    .x-sliding-panel__button {
+      opacity: 0;
+    }
+
+    &:not(.x-sliding-panel--at-start):hover {
+      .x-sliding-panel__button-left {
+        // visibility
+        opacity: 1;
+      }
+    }
+    &:not(.x-sliding-panel--at-end):hover {
+      .x-sliding-panel__button-right {
+        // visibility
+        opacity: 1;
+      }
+    }
+  }
+
+  &:not(.x-sliding-panel--no-gradient) {
+    &::before,
+    &::after {
+      // layout
+      position: absolute;
+
+      // other
+      content: '';
+
+      // sizing
+      height: 100%;
+      width: var(--x-size-width-sliding-panel-gradient);
+
+      // visibility
+      opacity: 0;
+    }
+
+    &::before {
+      // color
+      background: linear-gradient(
+        to right,
+        var(--x-color-background-sliding-panel) 43%,
+        var(--x-color-background-sliding-panel-middle) 67%,
+        var(--x-color-background-sliding-panel-end)
+      );
+
+      // layout
+      left: 0;
+    }
+
+    &::after {
+      // color
+      background: linear-gradient(
+        to left,
+        var(--x-color-background-sliding-panel) 43%,
+        var(--x-color-background-sliding-panel-middle) 67%,
+        var(--x-color-background-sliding-panel-end)
+      );
+
+      // layout
+      right: 0;
+    }
+
+    &:not(.x-sliding-panel--at-start)::before,
+    &:not(.x-sliding-panel--at-end)::after {
+      // visibility
+      opacity: 1;
+    }
+  }
+}
