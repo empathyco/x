@@ -1,4 +1,51 @@
 # X Components
+## [2.0.0-alpha.13](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.13%0Dv2.0.0-alpha.12) (2021-05-28)
+
+
+### Features
+
+* **design-system:** add `input-group` variants ([f93e6e8](https://bitbucket.org/colbenson/x-components/commits/f93e6e8424a6673010e5b7eed4d9afb6328803a8)), closes [EX-3707](https://searchbroker.atlassian.net/browse/EX-3707)
+* **design-system:** add `justified` variant to `x-filter` component ([41b2d98](https://bitbucket.org/colbenson/x-components/commits/41b2d98e3756955512e4409bc4444963f638c8f0)), closes [EX-3874](https://searchbroker.atlassian.net/browse/EX-3874)
+* **design-system:** add `x-button` css class in the necessary elements ([c20e3d9](https://bitbucket.org/colbenson/x-components/commits/c20e3d9eeb0957e90a8ed8dd598d24d1dc63786b)), closes [EX-3703](https://searchbroker.atlassian.net/browse/EX-3703)
+* **design-system:** add `x-filter` tokens and CSS ([80f4fef](https://bitbucket.org/colbenson/x-components/commits/80f4fef69aea6f19c9d25ae6c00bbd06ed9d9e6d)), closes [EX-3767](https://searchbroker.atlassian.net/browse/EX-3767)
+* **design-system:** add `x-suggestion` design tokens ([9987b2f](https://bitbucket.org/colbenson/x-components/commits/9987b2f3f40423cb9580a3977048092f1d20e6e2)), closes [EX-3715](https://searchbroker.atlassian.net/browse/EX-3715)
+* **design-system:** add `x-tag` variants tokens and CSS styles ([c4569e0](https://bitbucket.org/colbenson/x-components/commits/c4569e0e788275d223f45503166081269028f60c)), closes [EX-3916](https://searchbroker.atlassian.net/browse/EX-3916)
+* **design-system:** add default `x-facet` tokens and CSS and `x-icon` variants ([ba6b9d3](https://bitbucket.org/colbenson/x-components/commits/ba6b9d3e0a07df70972b69b9224c44aa63111071)), closes [EX-3881](https://searchbroker.atlassian.net/browse/EX-3881)
+* **design-system:** add dropdown design tokens ([4e0ffbf](https://bitbucket.org/colbenson/x-components/commits/4e0ffbf8bd9bf95209a26b27bd749243f158a04b)), closes [EX-3769](https://searchbroker.atlassian.net/browse/EX-3769)
+* **design-system:** add input default tokens and CSS ([e7a0af1](https://bitbucket.org/colbenson/x-components/commits/e7a0af143b34406e6724a142642773a691d689e6)), closes [EX-3694](https://searchbroker.atlassian.net/browse/EX-3694)
+* **design-system:** add input variants tokens and CSS ([88a9844](https://bitbucket.org/colbenson/x-components/commits/88a98444be75dd85f434fe1d99d319b81a06fcbc)), closes [EX-3696](https://searchbroker.atlassian.net/browse/EX-3696)
+* **design-system:** add tags default tokens and CSS ([c19055f](https://bitbucket.org/colbenson/x-components/commits/c19055f445d251048abb3edf7e637a4dd5944e0f)), closes [EX-3771](https://searchbroker.atlassian.net/browse/EX-3771)
+* **design-system:** add the `.x-input` class to the XComponents where necessary ([e721e78](https://bitbucket.org/colbenson/x-components/commits/e721e7868e3dfae06bc08b70eb2afc407b9dc1e6)), closes [EX-3712](https://searchbroker.atlassian.net/browse/EX-3712)
+* **design-system:** add x-facet variants tokens and CSS styles ([36d9843](https://bitbucket.org/colbenson/x-components/commits/36d98439038c794fe13bafdd4d478b4f6edae394)), closes [EX-3914](https://searchbroker.atlassian.net/browse/EX-3914)
+* **design-system:** add x-tag css class in the necessary elements ([475a067](https://bitbucket.org/colbenson/x-components/commits/475a0674d8d24c8c64ef1dc072918f5450e1a189)), closes [EX-3912](https://searchbroker.atlassian.net/browse/EX-3912)
+* **design-system:** refactor styles folder structure ([4651002](https://bitbucket.org/colbenson/x-components/commits/4651002b14a5ab61b7ab7d096beffa5bf923b65c)), closes [EX-3822](https://searchbroker.atlassian.net/browse/EX-3822)
+* **design-system:** add `hierarchical` variant to `x-filter` ([882091c](https://bitbucket.org/colbenson/x-components/commits/882091c2111282eecff98b2d69acafd9c317341f)), closes [EX-3878](https://searchbroker.atlassian.net/browse/EX-3878)
+* **facets:** add support for optional hierarchical filter children prop ([df988f3](https://bitbucket.org/colbenson/x-components/commits/df988f33e6206475a4674ceb17f0ffc495139a86))
+* **search:** add infinite scroll to `ResultsList` component ([e0a179c](https://bitbucket.org/colbenson/x-components/commits/e0a179c9420573781bfe70a395832e25b706618a)), closes [EX-3788](https://searchbroker.atlassian.net/browse/EX-3788)
+* **search:** Add `page` and `pageSize` properties with its mutations. ([a20323f](https://bitbucket.org/colbenson/x-components/commits/a20323f382dac1e70e3d18fd90e231b7d49df005)), closes [EX-3775](https://searchbroker.atlassian.net/browse/EX-3775)
+* **search:** update search getter in order to use the new page and pageSize properties of the module ([4b00d36](https://bitbucket.org/colbenson/x-components/commits/4b00d36f463206ef6d956c819704f98a9ac3dd8a)), closes [EX-3787](https://searchbroker.atlassian.net/browse/EX-3787)
+
+
+### Bug Fixes
+
+* **components:** fix `transform` transition  in `FadeAndSlide` animation component ([bfef3dd](https://bitbucket.org/colbenson/x-components/commits/bfef3ddb946646a1de507e90732d5b07e695e598)), closes [EX-3989](https://searchbroker.atlassian.net/browse/EX-3989)
+* **design-tokens:** fix editable tokens not being displayed in view correctly ([f057ab6](https://bitbucket.org/colbenson/x-components/commits/f057ab69cc13d191a93a99692d8cdfe84b87c58a)), closes [EX-3998](https://searchbroker.atlassian.net/browse/EX-3998)
+
+
+### Build System
+
+* **design-system:** add the Rollup configuration to build the CSS files of the Design System ([cb2642a](https://bitbucket.org/colbenson/x-components/commits/cb2642a398e9f42346a278253fdc46bcddae4c99)), closes [EX-3691](https://searchbroker.atlassian.net/browse/EX-3691)
+
+
+### Documentation
+
+* **components:** improve the way to show slot bindings data in the components documentation ([eda29ce](https://bitbucket.org/colbenson/x-components/commits/eda29ce581f013bd86ed7b9453d3775a5f42fa18)), closes [EX-3832](https://searchbroker.atlassian.net/browse/EX-3832)
+
+
+### Testing
+
+* remove old tests ([51ea6a6](https://bitbucket.org/colbenson/x-components/commits/51ea6a64c07726c3c59b9d6f6c1b011853901c43)), closes [EX-3799](https://searchbroker.atlassian.net/browse/EX-3799)
+
 ## [2.0.0-alpha.12](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.12%0Dv2.0.0-alpha.11) (2021-05-06)
 
 
