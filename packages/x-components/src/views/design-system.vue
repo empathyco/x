@@ -1652,6 +1652,44 @@
       </article>
     </section>
 
+    <section>
+      <h1 class="x-title1">Option List</h1>
+      <article>
+        <h2 class="x-title2">Divider</h2>
+        <div>
+          <span class="x-text">Sort by</span>
+          <ul class="x-option-list">
+            <li class="x-option-list__item">
+              <button class="x-button">Option 1</button>
+            </li>
+            <li class="x-option-list__item x-option-list__item--selected">
+              <button class="x-button">Option 2</button>
+            </li>
+            <li class="x-option-list__item">
+              <button class="x-button">Option 3</button>
+            </li>
+          </ul>
+        </div>
+      </article>
+      <article>
+        <h2 class="x-title2">Bottom</h2>
+        <div>
+          <span class="x-text">Sort by</span>
+          <ul class="x-option-list x-option-list--bottom">
+            <li class="x-option-list__item">
+              <button class="x-button">Option 1</button>
+            </li>
+            <li class="x-option-list__item x-option-list__item--selected">
+              <button class="x-button">Option 2</button>
+            </li>
+            <li class="x-option-list__item">
+              <button class="x-button">Option 3</button>
+            </li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
     <button @click="toggleTokens" class="info x-button x-button--tertiary x-button--round">
       i
     </button>

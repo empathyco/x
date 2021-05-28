@@ -1,0 +1,40 @@
+:root {
+  // color - button
+  --x-color-background-option-list-button: transparent;
+  --x-color-border-option-list-button: transparent;
+  --x-color-text-option-list-button: var(--x-color-neutral-35);
+
+  // color - button hover
+  --x-color-background-option-list-button-hover: var(--x-color-background-option-list-button);
+  --x-color-border-option-list-button-hover: var(--x-color-border-option-list-button);
+  --x-color-text-option-list-button-hover: var(--x-color-text-option-list-button);
+
+  // color - button selected
+  --x-color-background-option-list-button-selected: var(--x-color-background-option-list-button);
+  --x-color-border-option-list-button-selected: var(--x-color-border-option-list-button);
+  --x-color-text-option-list-button-selected: var(--x-color-text);
+
+  // color - button selected hover
+  --x-color-background-option-list-button-selected-hover: var(
+    --x-color-background-option-list-button-selected
+  );
+  --x-color-border-option-list-button-selected-hover: var(
+    --x-color-border-option-list-button-selected
+  );
+  --x-color-text-option-list-button-selected-hover: var(--x-color-text-option-list-button-selected);
+
+  // color - list item
+  --x-color-border-option-list-item: var(--x-color-neutral-70);
+
+  // border
+  --x-border-bottom-width-option-list-item: 0 var(--x-border-width) 0 0;
+  --x-border-bottom-width-option-list-item-selected: var(--x-border-bottom-width-option-list-item);
+
+  // spacing
+  --x-space-padding-option-list-button: var(--x-space-02);
+
+  // typography
+  --x-font-decoration-option-list-button-hover: underline;
+  --x-font-weight-option-list-button: var(--x-font-weight-regular);
+  --x-font-weight-option-list-button-selected: var(--x-font-weight-bold);
+}
