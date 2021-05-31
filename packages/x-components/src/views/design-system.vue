@@ -1951,6 +1951,215 @@
     </section>
     <!-- eslint-enable max-len -->
 
+    <section>
+      <h1 class="x-title1">Lists</h1>
+      <article>
+        <h2 class="x-title2">Vertical</h2>
+        <ul class="x-list x-list--vertical">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </article>
+      <article>
+        <h2 class="x-title2">Vertical Gap</h2>
+        <ul class="x-list x-list--vertical x-list--gap-02">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--vertical x-list--gap-03">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--vertical x-list--gap-04">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--vertical x-list--gap-05">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--vertical x-list--gap-06">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </article>
+      <article>
+        <h2 class="x-title2">Vertical Padding</h2>
+        <ul class="x-list x-list--vertical x-list--padding-02">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--vertical x-list--padding-03">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--vertical x-list--padding-04">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--vertical x-list--padding-05">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--vertical x-list--padding-06">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </article>
+      <article>
+        <h2 class="x-title2">Horizontal</h2>
+        <ul class="x-list x-list--horizontal">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </article>
+      <article>
+        <h2 class="x-title2">Horizontal Gap</h2>
+        <ul class="x-list x-list--horizontal x-list--gap-02">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--horizontal x-list--gap-03">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--horizontal x-list--gap-04">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--horizontal x-list--gap-05">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--horizontal x-list--gap-06">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </article>
+      <article>
+        <h2 class="x-title2">Horizontal Padding</h2>
+        <ul class="x-list x-list--horizontal x-list--padding-02">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--horizontal x-list--padding-03">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--horizontal x-list--padding-04">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--horizontal x-list--padding-05">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--horizontal x-list--padding-06">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </article>
+      <article>
+        <h2 class="x-title2">Wrap</h2>
+        <ul class="x-list x-list--wrap">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </article>
+      <article class="x-list-alignment">
+        <h2 class="x-title2">Alignment</h2>
+        <div class="x-list-alignment-horizontal">
+          <h2 class="x-title3">Horizontal Justify & Align Start</h2>
+          <ul class="x-list x-list--horizontal x-list--justify-start x-list--align-start">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <h2 class="x-title3">Horizontal Justify & Align Center</h2>
+          <ul class="x-list x-list--horizontal x-list--justify-center x-list--align-center">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <h2 class="x-title3">Horizontal Justify & Align End</h2>
+          <ul class="x-list x-list--horizontal x-list--justify-end x-list--align-end">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <h2 class="x-title3">Horizontal Align Baseline</h2>
+          <ul class="x-list x-list--horizontal x-list--align-baseline">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+        <div class="x-list-alignment-vertical">
+          <h2 class="x-title3">Vertical Justify & Align Start</h2>
+          <ul class="x-list x-list--vertical x-list--justify-start x-list--align-start">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <h2 class="x-title3">Vertical Justify & Align Center</h2>
+          <ul class="x-list x-list--vertical x-list--justify-center x-list--align-center">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <h2 class="x-title3">Vertical Justify & Align End</h2>
+          <ul class="x-list x-list--vertical x-list--justify-end x-list--align-end">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <h2 class="x-title3">Vertical Align Baseline</h2>
+          <ul class="x-list x-list--vertical x-list--align-baseline">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+      </article>
+      <article class="x-list-sizing">
+        <h2 class="x-title2">Items sizing</h2>
+        <ul class="x-list x-list--vertical">
+          <li class="x-list-item-2">02</li>
+          <li class="x-list-item-6">06</li>
+          <li class="x-list-item-2">02</li>
+        </ul>
+        <ul class="x-list x-list--horizontal">
+          <li class="x-list-item-1">01</li>
+          <li class="x-list-item-5">05</li>
+          <li class="x-list-item-1">01</li>
+          <li class="x-list-item-2">02</li>
+        </ul>
+      </article>
+    </section>
     <button @click="toggleTokens" class="info x-button x-button--tertiary x-button--round">
       i
     </button>
@@ -2033,6 +2242,51 @@
 
     .x-tag {
       max-width: 200px;
+    }
+
+    .x-list {
+      list-style-type: none;
+      background: var(--x-color-neutral-95);
+      & > * {
+        width: 100px;
+        height: 30px;
+        background: var(--x-color-auxiliary);
+        border: solid 1px var(--x-color-neutral-95);
+      }
+      &--wrap {
+        max-width: 306px;
+      }
+
+      &-alignment {
+        .x-list {
+          &--horizontal {
+            width: 500px;
+            height: 80px;
+          }
+
+          &--vertical {
+            width: 150px;
+            height: 120px;
+          }
+        }
+      }
+      &-sizing {
+        .x-list {
+          &--horizontal {
+            width: 600px;
+          }
+
+          &--vertical {
+            height: 120px;
+          }
+        }
+      }
+    }
+    [class^='x-list-item'] {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--x-color-neutral-95);
     }
 
     .info {

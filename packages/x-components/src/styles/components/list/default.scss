@@ -1,0 +1,64 @@
+.x-list {
+  // layout
+  display: flex;
+  flex-flow: var(--x-space-flow-list);
+
+  // spacing
+  gap: var(--x-space-gap-list);
+  margin: 0;
+  padding: var(--x-space-padding-list);
+  justify-content: var(--x-space-justify-list);
+  align-items: var(--x-space-align-list);
+  > * {
+    min-width: 0;
+    min-height: 0;
+  }
+}
+
+.x-list--vertical.x-list {
+  --x-space-flow-list: column nowrap;
+}
+
+.x-list--horizontal.x-list {
+  --x-space-flow-list: row nowrap;
+}
+
+.x-list--wrap.x-list {
+  --x-space-flow-list: row wrap;
+}
+
+.x-list--justify-center.x-list {
+  --x-space-justify-list: center;
+}
+
+.x-list--justify-end.x-list {
+  --x-space-justify-list: flex-end;
+}
+
+.x-list--justify-start.x-list {
+  --x-space-justify-list: flex-start;
+}
+
+.x-list--align-center.x-list {
+  --x-space-align-list: center;
+}
+
+.x-list--align-baseline.x-list {
+  --x-space-align-list: baseline;
+}
+
+.x-list--align-end.x-list {
+  --x-space-align-list: flex-end;
+}
+
+.x-list--align-start.x-list {
+  --x-space-align-list: flex-start;
+}
+
+.x-list {
+  @for $i from 1 through 12 {
+    .x-list-item-#{$i} {
+      flex: $i #{13 - $i} auto;
+    }
+  }
+}
