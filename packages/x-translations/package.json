@@ -1,7 +1,6 @@
 {
   "name": "@empathy/x-translations",
   "version": "1.0.0",
-  "private": true,
   "scripts": {
     "build": "tsc && npm pack",
     "release": "standard-version --no-verify",
