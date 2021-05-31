@@ -36,11 +36,7 @@ Then('query suggestions are displayed', () => {
 });
 
 Then('related tags are displayed', () => {
-  if (cy.$$('[data-test = "related-tags"]').length === 1) {
-    cy.getByDataTest('related-tag').should('have.length.at.least', 1);
-  } else {
-    cy.getByDataTest('related-tag').should('not.exist');
-  }
+  cy.getByDataTest('related-tag').should('have.length.at.least', 1);
 });
 
 // Results

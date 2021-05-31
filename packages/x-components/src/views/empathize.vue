@@ -4,37 +4,18 @@
     <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
     <Empathize :animation="collapseFromTop">
       <BaseKeyboardNavigation>
-        <BaseEventsModalClose
-          key="closeButton"
-          class="x-empathize__close"
-          closingEvent="UserClosedEmpathize"
-        >
-          ×
-        </BaseEventsModalClose>
         <div class="x-column">
           <h1>Query Suggestions</h1>
-          <QuerySuggestions :animation="fadeAndSlide">
-            <template #suggestion="{ suggestion }">
-              <QuerySuggestion
-                :suggestion="suggestion"
-                :aria-label="`Query suggestion: ${suggestion.query}`"
-              />
-            </template>
-          </QuerySuggestions>
-          <NoSuggestions message="We couldn't find any suggestion. Try searching for {query}." />
+          <QuerySuggestions :animation="fadeAndSlide" />
         </div>
         <div class="x-column">
           <h1>History queries</h1>
-          <HistoryQueries :animation="fadeAndSlide">
-            <template #suggestion-remove-content="{ suggestion }">
-              <span :aria-label="`Remove ${suggestion.query} from history`">x</span>
-            </template>
-          </HistoryQueries>
+          <HistoryQueries :animation="fadeAndSlide" />
           <ClearHistoryQueries>Clear previous searches</ClearHistoryQueries>
         </div>
         <div class="x-column">
           <h1>Popular Searches</h1>
-          <PopularSearches :animation="fadeAndSlide" />
+          <PopularSearches />
         </div>
         <div class="x-column">
           <h1>Next Queries</h1>
@@ -42,24 +23,15 @@
         </div>
         <div class="x-column">
           <h1>Related tags</h1>
-          <RelatedTags :animation="fadeAndSlide" />
+          <RelatedTags />
         </div>
         <div class="x-column">
           <h1>Recommendations</h1>
-          <Recommendations :animation="fadeAndSlide">
-            <template #default="{ recommendation }">
-              <BaseResultLink :result="recommendation" class="x-result-link">
-                <template #default="{ result }">
-                  <img :src="result.images[0]" :alt="result.name" class="x-result_image x-column" />
-                  <span class="x-result__title">{{ result.name }}</span>
-                </template>
-              </BaseResultLink>
-            </template>
-          </Recommendations>
+          <Recommendations :animation="fadeAndSlide" :maxItemsToRender="5" />
         </div>
         <div class="inline-flex">
           <h1>Identifier Results</h1>
-          <IdentifierResults :animation="fadeAndSlide">
+          <IdentifierResults>
             <template #default="{ identifierResult }">
               <BaseResultLink :result="identifierResult">
                 <template #default="{ result }">
@@ -71,27 +43,17 @@
         </div>
       </BaseKeyboardNavigation>
     </Empathize>
-    <!-- Testing purpose -->
-    <h1>Results</h1>
-    <ul>
-      <li v-for="result in results" :key="result.id">
-        {{ result.name }}
-      </li>
-    </ul>
   </main>
 </template>
 
 <script lang="ts">
-  import { Result } from '@empathy/search-types';
+  import { deepMerge } from '@empathybroker/deep-merge';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import FadeAndSlide from '../components/animations/fade-and-slide.vue';
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
-  import { State } from '../components/decorators/store.decorators';
-  import BaseEventsModalClose from '../components/modals/base-events-modal-close.vue';
   import BaseResultLink from '../components/result/base-result-link.vue';
-  import { XPlugin } from '../plugins/x-plugin';
   import { XInstaller } from '../x-installer/x-installer';
   import Empathize from '../x-modules/empathize/components/empathize.vue';
   // eslint-disable-next-line max-len
@@ -100,7 +62,6 @@
   import IdentifierResult from '../x-modules/identifier-results/components/identifier-result.vue';
   import IdentifierResults from '../x-modules/identifier-results/components/identifier-results.vue';
   import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
-  import NoSuggestions from '../x-modules/no-suggestions/components/no-suggestions.vue';
   import PopularSearches from '../x-modules/popular-searches/components/popular-searches.vue';
   import QuerySuggestion from '../x-modules/query-suggestions/components/query-suggestion.vue';
   import QuerySuggestions from '../x-modules/query-suggestions/components/query-suggestions.vue';
@@ -108,18 +69,19 @@
   import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
-  import { searchXModule } from '../x-modules/search/x-module';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
-    beforeRouteEnter(_to, _from, next: () => void): void {
-      XPlugin.registerXModule(searchXModule);
-      new XInstaller(baseInstallXOptions).init(baseSnippetConfig);
+    beforeRouteEnter(to, _from, next: () => void): void {
+      const customQueryConfig = JSON.parse(to.query.xModules?.toString() ?? '{}');
+      const configEmpathizeView = deepMerge(baseInstallXOptions, {
+        xModules: customQueryConfig
+      });
+      new XInstaller(configEmpathizeView).init(baseSnippetConfig);
       next();
     },
     components: {
       ClearSearchInput,
-      BaseEventsModalClose,
       BaseKeyboardNavigation,
       BaseResultLink,
       ClearHistoryQueries,
@@ -128,7 +90,6 @@
       IdentifierResult,
       IdentifierResults,
       NextQueries,
-      NoSuggestions,
       PopularSearches,
       QuerySuggestion,
       QuerySuggestions,
@@ -140,9 +101,6 @@
   export default class FullEmpathize extends Vue {
     protected fadeAndSlide = FadeAndSlide;
     protected collapseFromTop = CollapseFromTop;
-    /* Testing purpose */
-    @State('search', 'results')
-    public results!: Result[];
   }
 </script>
 

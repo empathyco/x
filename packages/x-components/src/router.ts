@@ -14,9 +14,9 @@ const routes: RouteConfig[] = [
     component: () => import('./views/design-system.vue')
   },
   {
-    path: '/full-empathize',
-    name: 'full-empathize',
-    component: () => import('./views/FullEmpathize.vue')
+    path: '/empathize',
+    name: 'empathize',
+    component: () => import('./views/empathize.vue')
   },
   {
     path: '/full-no-empathize',
