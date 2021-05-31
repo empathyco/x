@@ -1,0 +1,5 @@
+@for $i from 2 through 6 {
+  .x-row--padding-0#{$i}{
+    --x-space-padding-row: var(--x-space-padding-row-0#{$i});
+  }
+}

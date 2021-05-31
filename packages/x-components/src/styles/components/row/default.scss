@@ -1,0 +1,43 @@
+.x-row {
+  // layout
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 1fr;
+  justify-items: var(--x-space-justify-row);
+  align-items: var(--x-space-align-row);
+
+  // spacing
+  padding: var(--x-space-padding-row);
+  gap: var(--x-space-gap-row);
+
+  &__item {
+    // layout
+    grid-column-start: var(--x-space-start-row-item);
+    grid-column-end: span var(--x-space-span-row-item);
+
+    //others
+    list-style: none;
+  }
+
+  @for $i from 1 through 12 {
+    &__item--span-#{$i} {
+      --x-space-span-row-item: #{$i};
+    }
+  }
+
+  @for $i from 1 through 12 {
+    &__item--start-#{$i} {
+      --x-space-start-row-item: #{$i};
+    }
+  }
+}
+
+@each $alignment in start, center, end, stretch {
+  .x-row--justify-#{$alignment} {
+    --x-space-justify-row: #{$alignment};
+  }
+
+  .x-row--align-#{$alignment} {
+    --x-space-align-row: #{$alignment};
+  }
+}

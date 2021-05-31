@@ -1,0 +1,5 @@
+@for $i from 2 through 6 {
+  .x-row--gap-0#{$i} {
+    --x-space-gap-row: var(--x-space-gap-row-0#{$i});
+  }
+}
