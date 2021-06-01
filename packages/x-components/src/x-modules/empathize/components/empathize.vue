@@ -20,7 +20,7 @@
   import { Prop } from 'vue-property-decorator';
   import { XOn } from '../../../components/decorators/bus.decorators';
   import { Debounce } from '../../../components/decorators/debounce.decorators';
-  import { noElementComponent } from '../../../components/no-element';
+  import { NoElement } from '../../../components/no-element';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { WireMetadata, XEvent } from '../../../wiring';
   import { empathizeXModule } from '../x-module';
@@ -40,7 +40,7 @@
      *
      * @public
      */
-    @Prop({ default: () => noElementComponent })
+    @Prop({ default: () => NoElement })
     protected animation!: Vue;
 
     /**

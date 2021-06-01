@@ -29,7 +29,7 @@
   import { Result } from '@empathy/search-types';
   import Vue from 'vue';
   import { State } from '../../../components/decorators/store.decorators';
-  import { noElementComponent } from '../../../components/no-element';
+  import { NoElement } from '../../../components/no-element';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { PropsWithType } from '../../../utils/types';
   import { XEventsTypes } from '../../../wiring/events.types';
@@ -48,7 +48,7 @@
   @Component({
     mixins: [xComponentMixin(recommendationsXModule)],
     components: {
-      NoElement: noElementComponent
+      NoElement
     }
   })
   export default class Recommendations extends Vue {

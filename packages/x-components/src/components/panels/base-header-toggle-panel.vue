@@ -23,7 +23,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { noElementComponent } from '../no-element';
+  import { NoElement } from '../no-element';
   import BaseTogglePanel from './base-toggle-panel.vue';
 
   /**
@@ -41,7 +41,7 @@
      *
      * @public
      */
-    @Prop({ default: () => noElementComponent })
+    @Prop({ default: () => NoElement })
     protected animation!: Vue | string;
 
     /**

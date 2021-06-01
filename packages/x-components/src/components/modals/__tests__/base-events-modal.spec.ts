@@ -44,16 +44,8 @@ function mountBaseEventsModal({
       return wrapper.find(getDataTestSelector('modal-content'));
     },
     async fakeFocusIn() {
-      const buttonWrapper = mount({
-        template: `<button>Button</button>`
-      });
-      document.body.appendChild(wrapper.element);
-      document.body.appendChild(buttonWrapper.element);
-
-      await buttonWrapper.trigger('focusin');
-
-      document.body.removeChild(wrapper.element);
-      document.body.removeChild(buttonWrapper.element);
+      document.body.dispatchEvent(new FocusEvent('focusin'));
+      await localVue.nextTick();
     }
   };
 }

@@ -1,13 +1,13 @@
 <template>
-  <div v-if="show" class="x-selected-filters">
+  <NoElement v-if="show" class="x-selected-filters">
     <slot v-bind="{ selectedFilters }">{{ selectedFilters.length }}</slot>
-  </div>
+  </NoElement>
 </template>
 
 <script lang="ts">
   import { Facet, Filter } from '@empathy/search-types';
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { Getter, xComponentMixin } from '../../../components';
+  import { Getter, NoElement, xComponentMixin } from '../../../components';
   import { FiltersByFacet } from '../store/types';
   import { facetsXModule } from '../x-module';
 
@@ -21,7 +21,10 @@
    * @public
    */
   @Component({
-    mixins: [xComponentMixin(facetsXModule)]
+    mixins: [xComponentMixin(facetsXModule)],
+    components: {
+      NoElement
+    }
   })
   export default class SelectedFilters extends Vue {
     /**

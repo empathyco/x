@@ -29,7 +29,7 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { State } from '../../../components/decorators/store.decorators';
-  import { noElementComponent } from '../../../components/no-element';
+  import { NoElement } from '../../../components/no-element';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { searchXModule } from '../x-module';
   import { InfiniteScroll } from '../../../directives/infinite-scroll';
@@ -44,7 +44,7 @@
    */
   @Component({
     components: {
-      NoElement: noElementComponent
+      NoElement
     },
     mixins: [xComponentMixin(searchXModule)]
   })

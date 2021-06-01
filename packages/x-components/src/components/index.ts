@@ -16,7 +16,7 @@ export { default as BaseGrid } from './base-grid.vue';
 export { default as BaseKeyboardNavigation } from './base-keyboard-navigation.vue';
 export { default as BaseRating } from './base-rating.vue';
 export { default as BaseVariableColumnGrid } from './base-variable-column-grid.vue';
-export { noElementComponent } from './no-element';
+export { NoElement } from './no-element';
 export { default as SlidingPanel } from './sliding-panel.vue';
 export { default as StaggeringTransitionGroup } from './staggering-transition-group.vue';
 

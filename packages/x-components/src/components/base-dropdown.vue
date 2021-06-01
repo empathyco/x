@@ -73,7 +73,7 @@
   import { isInRange } from '../utils/number';
   import { debounce } from '../utils/debounce';
   import { VueCSSClasses } from '../utils/types';
-  import { noElementComponent } from './no-element';
+  import { NoElement } from './no-element';
 
   type DropdownItem = string | number | Identifiable;
 
@@ -85,7 +85,7 @@
    */
   @Component({
     components: {
-      NoElementComponent: noElementComponent
+      NoElement
     },
     model: {
       event: 'change'
@@ -114,7 +114,7 @@
      *
      * @public
      */
-    @Prop({ default: 'NoElementComponent' })
+    @Prop({ default: 'NoElement' })
     public animation!: typeof Vue | string;
 
     /**

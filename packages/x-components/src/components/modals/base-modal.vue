@@ -18,7 +18,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { noElementComponent } from '../no-element';
+  import { NoElement } from '../no-element';
 
   /**
    * Base component with no XPlugin dependencies that serves as a utility for constructing more
@@ -31,7 +31,7 @@
     /**
      * Animation to use for opening/closing the modal.
      */
-    @Prop({ default: () => noElementComponent })
+    @Prop({ default: () => NoElement })
     public animation!: Vue | string;
 
     /**

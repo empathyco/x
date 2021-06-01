@@ -19,7 +19,7 @@
   import { XOn } from '../../components/decorators/bus.decorators';
   import { WireMetadata, XEventsTypes } from '../../wiring';
   import BaseEventButton from '../base-event-button.vue';
-  import { noElementComponent } from '../no-element';
+  import { NoElement } from '../no-element';
   import { ScrollDirection } from './scroll.types';
 
   /**
@@ -40,7 +40,7 @@
      *
      * @public
      */
-    @Prop({ default: () => noElementComponent })
+    @Prop({ default: () => NoElement })
     public animation!: Vue | string;
 
     /**
