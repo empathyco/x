@@ -1,6 +1,5 @@
 import {
   namespacedWireCommit,
-  namespacedWireDispatch,
   namespacedWireDispatchWithoutPayload
 } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
@@ -17,13 +16,6 @@ const moduleName = 'search';
  * @internal
  */
 const wireCommit = namespacedWireCommit(moduleName);
-
-/**
- * WireDispatch for {@link SearchXModule}.
- *
- * @internal
- */
-const wireDispatch = namespacedWireDispatch(moduleName);
 
 /**
  * WireDispatchWithoutPayload for {@link SearchXModule}.
@@ -90,14 +82,16 @@ export const setSort = wireCommit('setSort');
  *
  * @public
  */
-export const setPage = wireDispatch('setPage');
+export const setPage = wireCommit('setPage');
 
 /**
  * Increases the current search state `page` by one.
  *
  * @public
  */
-export const increasePage = wireDispatch('setPage', ({ state }) => state.page + 1);
+export const increasePageAppendingResults = wireDispatchWithoutPayload(
+  'increasePageAppendingResults'
+);
 
 /**
  * Sets the search state `pageSize`.
@@ -124,9 +118,11 @@ export const searchWiring = createWiring({
     setSearchQuery
   },
   UserAcceptedSpellcheckQuery: {
+    resetPage,
     resetSpellcheckQuery
   },
   UserClearedQuery: {
+    resetPage,
     setSearchQuery,
     cancelFetchAndSaveSearchResponseWire
   },
@@ -134,18 +130,22 @@ export const searchWiring = createWiring({
     fetchAndSaveSearchResponseWire
   },
   SelectedRelatedTagsChanged: {
+    resetPage,
     setRelatedTags
   },
   SelectedFiltersChanged: {
+    resetPage,
     setSelectedFilters
   },
   UserClickedASort: {
+    resetPage,
     setSort
   },
   SelectedSortProvided: {
+    resetPage,
     setSort
   },
   UserReachedResultsListEnd: {
-    increasePage
+    increasePageAppendingResults
   }
 });

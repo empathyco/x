@@ -14,8 +14,9 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
     { commit, state },
     { results, partialResults, facets, banners, promoteds, totalResults, spellcheck }
   ) {
-    if (state.page > 1) {
-      commit('setMoreResults', results);
+    if (state.isAppendResults) {
+      commit('appendResults', results);
+      commit('setIsAppendResults', false);
     } else {
       commit('setResults', results);
     }

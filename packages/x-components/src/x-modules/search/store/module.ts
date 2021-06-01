@@ -5,7 +5,7 @@ import {
   fetchAndSaveSearchResponse
 } from './actions/fetch-and-save-search-response.action';
 import { fetchSearchResponse } from './actions/fetch-search-response.action';
-import { setPage } from './actions/set-page';
+import { increasePageAppendingResults } from './actions/increase-page-apending-results.action';
 import { request } from './getters/request.getter';
 import { SearchXStoreModule } from './types';
 
@@ -31,7 +31,8 @@ export const searchXStoreModule: SearchXStoreModule = {
     spellcheckedQuery: '',
     status: 'success',
     sort: '',
-    page: 1
+    page: 1,
+    isAppendResults: false
   }),
   getters: {
     request
@@ -43,7 +44,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     setResults(state, results) {
       state.results = results;
     },
-    setMoreResults(state, results) {
+    appendResults(state, results) {
       state.results.push(...results);
     },
     setPartialResults(state, partialResults) {
@@ -79,12 +80,15 @@ export const searchXStoreModule: SearchXStoreModule = {
     setPageSize(state, pageSize) {
       state.config.pageSize = pageSize;
     },
+    setIsAppendResults(state, isAppendResults) {
+      state.isAppendResults = isAppendResults;
+    },
     setStatus
   },
   actions: {
     cancelFetchAndSaveSearchResponse,
     fetchSearchResponse,
     fetchAndSaveSearchResponse,
-    setPage
+    increasePageAppendingResults
   }
 };
