@@ -16,3 +16,21 @@ If you want to contribute to this project please keep in mind that it uses
 [commitizen](https://github.com/commitizen/cz-cli) as helping tool to generate the commits. Whenever
 you want to create a commit, run `npm run commit` and the commitizen wizard will guide you in
 writing the commit message.
+
+
+## Translations
+
+This project has a couple a of npm commands which allow you to export/import the translations:
+
+- If you want to export to a `csv` file the messages of the project:
+
+```shell
+npm run json:csv
+```
+- If you want to import the translations in a `csv` file to this project:
+
+```shell
+npm run csv:json
+```
+
+In that case you need to put the `csv` files inside a folder called `output`in the root directory.

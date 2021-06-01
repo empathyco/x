@@ -12,7 +12,9 @@
     "lint": "vue-cli-service lint",
     "release": "standard-version --no-verify",
     "release:alpha": "standard-version --no-verify --prerelease alpha",
-    "install:local": "npm install ../x-components/empathy-x-components-1.0.0.tgz --no-save"
+    "install:local": "npm install ../x-components/empathy-x-components-1.0.0.tgz --no-save",
+    "json:csv": "json-csv ./src/i18n/messages",
+    "csv:json": "csv-json ./output ./src/i18n/messages"
   },
   "dependencies": {
     "@empathy/search-adapter": "^6.0.0",
@@ -30,6 +32,7 @@
     "@cypress/webpack-preprocessor": "~5.1.1",
     "@empathybroker/deep-merge": "^1.2.1",
     "@empathy/eslint-plugin-x": "^1.2.0",
+    "@empathy/x-translations": "^1.0.0",
     "@rollup/plugin-buble": "~0.21.3",
     "@rollup/plugin-commonjs": "~14.0.0",
     "@rollup/plugin-json": "~4.1.0",
