@@ -87,7 +87,7 @@
      */
     protected get dynamicClasses(): VueCSSClasses {
       return {
-        'x-tag--selected': this.isSelected,
+        'x-tag--is-selected': this.isSelected,
         'x-related-tag--is-selected': this.isSelected
       };
     }

@@ -68,13 +68,13 @@ describe('testing AllFilter component', () => {
     expect(getXComponentXModuleName(allFilterWrapper.vm)).toEqual('facets');
   });
 
-  it('has x-all-filter--selected class while no filters are selected', async () => {
+  it('has x-all-filter--is-selected class while no filters are selected', async () => {
     const { allFilterWrapper, toggleFirstFilter } = renderAllFilter();
-    expect(allFilterWrapper.classes('x-all-filter--selected')).toBe(true);
+    expect(allFilterWrapper.classes('x-all-filter--is-selected')).toBe(true);
     await toggleFirstFilter();
-    expect(allFilterWrapper.classes('x-all-filter--selected')).toBe(false);
+    expect(allFilterWrapper.classes('x-all-filter--is-selected')).toBe(false);
     await toggleFirstFilter();
-    expect(allFilterWrapper.classes('x-all-filter--selected')).toBe(true);
+    expect(allFilterWrapper.classes('x-all-filter--is-selected')).toBe(true);
   });
 
   it('emits UserClickedFacetAllFilter event with the facet id as payload', async () => {

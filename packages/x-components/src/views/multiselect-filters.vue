@@ -173,7 +173,7 @@
   }
 
   .x-filter--is-selected,
-  .x-all-filter--selected {
+  .x-all-filter--is-selected {
     font-weight: bold;
   }
 

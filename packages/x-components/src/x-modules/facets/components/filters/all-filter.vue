@@ -63,7 +63,7 @@
      */
     protected get cssClasses(): VueCSSClasses {
       return {
-        'x-all-filter--selected': !(this.facet.filters as BooleanFilter[]).some(
+        'x-all-filter--is-selected': !(this.facet.filters as BooleanFilter[]).some(
           filter => filter.selected
         )
       };

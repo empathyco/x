@@ -16,15 +16,11 @@
 
     // border
     border-style: solid;
-    border-width: var(--x-border-bottom-width-option-list-item);
+    border-width: var(--x-border-width-option-list-item);
 
-    &:last-child {
-      --x-border-bottom-width-option-list-item: 0;
-    }
-
-    &.x-option-list__item--selected {
+    &.x-option-list__item--is-selected {
       // border
-      border-width: var(--x-border-bottom-width-option-list-item-selected);
+      --x-border-width-option-list-item: var(--x-border-width-option-list-item-selected);
 
       .x-button {
         // color
@@ -42,6 +38,10 @@
           --x-color-text-button: var(--x-color-text-option-list-button-selected-hover);
         }
       }
+    }
+
+    &:last-child {
+      --x-border-width-option-list-item: 0;
     }
 
     .x-button {

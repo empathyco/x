@@ -1415,18 +1415,18 @@
       </article>
       <article>
         <h2 class="x-title2">Default Selected</h2>
-        <div class="x-tag x-tag--selected">
+        <div class="x-tag x-tag--is-selected">
           <span class="x-icon">＋</span>
           <span>text tag</span>
         </div>
-        <div class="x-tag x-tag--selected">
+        <div class="x-tag x-tag--is-selected">
           <span class="x-icon">＋</span>
           <span>text tag extra large name</span>
         </div>
-        <div class="x-tag x-tag--selected">
+        <div class="x-tag x-tag--is-selected">
           <span>text tag</span>
         </div>
-        <div class="x-tag x-tag--selected">
+        <div class="x-tag x-tag--is-selected">
           <span>text tag extra large name</span>
         </div>
       </article>
@@ -1449,18 +1449,18 @@
       </article>
       <article>
         <h2 class="x-title2">Card Selected</h2>
-        <div class="x-tag x-tag--card x-tag--selected">
+        <div class="x-tag x-tag--card x-tag--is-selected">
           <span class="x-icon">＋</span>
           <span>text tag</span>
         </div>
-        <div class="x-tag x-tag--card x-tag--selected">
+        <div class="x-tag x-tag--card x-tag--is-selected">
           <span class="x-icon">＋</span>
           <span>text tag extra large name</span>
         </div>
-        <div class="x-tag x-tag--card x-tag--selected">
+        <div class="x-tag x-tag--card x-tag--is-selected">
           <span>text tag</span>
         </div>
-        <div class="x-tag x-tag--card x-tag--selected">
+        <div class="x-tag x-tag--card x-tag--is-selected">
           <span>text tag extra large name</span>
         </div>
       </article>
@@ -1486,21 +1486,21 @@
       </article>
       <article>
         <h2 class="x-title2">Pill Selected</h2>
-        <div class="x-tag x-tag--pill x-tag--selected">
+        <div class="x-tag x-tag--pill x-tag--is-selected">
           <span class="x-icon">＋</span>
           <span>text tag</span>
         </div>
-        <div class="x-tag x-tag--pill x-tag--selected">
+        <div class="x-tag x-tag--pill x-tag--is-selected">
           <span class="x-icon">＋</span>
           <span>text tag extra large name</span>
         </div>
-        <div class="x-tag x-tag--pill x-tag--selected">
+        <div class="x-tag x-tag--pill x-tag--is-selected">
           <span>text tag</span>
         </div>
-        <div class="x-tag x-tag--pill x-tag--selected">
+        <div class="x-tag x-tag--pill x-tag--is-selected">
           <span>text tag extra large name</span>
         </div>
-        <div class="x-tag x-tag--pill x-tag--selected">
+        <div class="x-tag x-tag--pill x-tag--is-selected">
           <span>1</span>
         </div>
       </article>
@@ -1523,18 +1523,18 @@
       </article>
       <article>
         <h2 class="x-title2">Ghost Selected</h2>
-        <div class="x-tag x-tag--ghost x-tag--selected">
+        <div class="x-tag x-tag--ghost x-tag--is-selected">
           <span class="x-icon">＋</span>
           <span>text tag</span>
         </div>
-        <div class="x-tag x-tag--ghost x-tag--selected">
+        <div class="x-tag x-tag--ghost x-tag--is-selected">
           <span class="x-icon">＋</span>
           <span>text tag extra large name</span>
         </div>
-        <div class="x-tag x-tag--ghost x-tag--selected">
+        <div class="x-tag x-tag--ghost x-tag--is-selected">
           <span>text tag</span>
         </div>
-        <div class="x-tag x-tag--ghost x-tag--selected">
+        <div class="x-tag x-tag--ghost x-tag--is-selected">
           <span>text tag extra large name</span>
         </div>
       </article>
@@ -1662,7 +1662,7 @@
             <li class="x-option-list__item">
               <button class="x-button">Option 1</button>
             </li>
-            <li class="x-option-list__item x-option-list__item--selected">
+            <li class="x-option-list__item x-option-list__item--is-selected">
               <button class="x-button">Option 2</button>
             </li>
             <li class="x-option-list__item">
@@ -1679,7 +1679,7 @@
             <li class="x-option-list__item">
               <button class="x-button">Option 1</button>
             </li>
-            <li class="x-option-list__item x-option-list__item--selected">
+            <li class="x-option-list__item x-option-list__item--is-selected">
               <button class="x-button">Option 2</button>
             </li>
             <li class="x-option-list__item">

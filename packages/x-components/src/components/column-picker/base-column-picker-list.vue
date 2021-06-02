@@ -1,9 +1,10 @@
 <template>
-  <ul class="x-column-picker-list" data-test="column-picker-list">
+  <ul class="x-option-list x-column-picker-list" data-test="column-picker-list">
     <li
       v-for="{ column, cssClasses } in columnsWithCssClasses"
       :key="column"
       :class="cssClasses"
+      class="x-option-list__item x-column-picker-list__item"
       data-test="column-picker-item"
     >
       <BaseEventButton
@@ -64,9 +65,11 @@
       return this.columns.map(column => ({
         column,
         cssClasses: [
-          `x-column-picker-list__item`,
           `x-column-picker-list__item--${column}-cols`,
-          { 'x-column-picker-list__item--selected': this.selectedColumn === column }
+          {
+            'x-column-picker-list__item--is-selected': this.selectedColumn === column,
+            'x-option-list__item--is-selected': this.selectedColumn === column
+          }
         ]
       }));
     }
