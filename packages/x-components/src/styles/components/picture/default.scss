@@ -1,0 +1,41 @@
+.x-picture {
+  // border
+  border-radius: var(--x-border-radius-result-image);
+
+  // color
+  background: var(--x-color-background-result-image);
+
+  // sizes
+  padding: calc(var(--x-size-aspect-ratio-result-image) * 100%) 0 0 0;
+  height: 0;
+  width: 100%;
+  overflow: hidden;
+
+  // layout
+  position: relative;
+
+  &__image {
+    // sizes
+    width: 100%;
+    height: 100%;
+
+    // layout
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    // others
+    object-fit: var(--x-object-fit-result-image);
+    mix-blend-mode: var(--x-mix-blend-mode-result-image);
+
+    &--fallback {
+      --x-object-fit-result-image: var(--x-object-fit-result-image-fallback);
+      --x-mix-blend-mode-result-image: var(--x-mix-blend-mode-result-image-fallback);
+    }
+
+    &--placeholder {
+      --x-object-fit-result-image: var(--x-object-fit-result-image-placeholder);
+      --x-mix-blend-mode-result-image: var(--x-mix-blend-mode-result-image-placeholder);
+    }
+  }
+}

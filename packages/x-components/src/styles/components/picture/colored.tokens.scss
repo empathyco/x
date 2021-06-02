@@ -1,0 +1,6 @@
+:root {
+  --x-color-background-result-image-colored: var(--x-color-neutral-95);
+  --x-mix-blend-mode-result-image-colored: multiply;
+  --x-mix-blend-mode-result-image-fallback-colored: var(--x-mix-blend-mode-result-image-colored);
+  --x-mix-blend-mode-result-image-placeholder-colored: var(--x-mix-blend-mode-result-image-colored);
+}

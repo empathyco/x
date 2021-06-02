@@ -1,5 +1,5 @@
 <template>
-  <picture ref="image" class="x-result-picture" data-test="result-picture">
+  <picture ref="image" class="x-picture x-result-picture" data-test="result-picture">
     <!-- eslint-disable-next-line max-len -->
     <!-- @slot (Required) Loading image content. It will be rendered while the real image is not loaded -->
     <slot v-if="!hasImageLoaded && !hasAllImagesFailed" name="placeholder" />
@@ -10,7 +10,7 @@
       @load="flagImageLoaded"
       :alt="result.name"
       :src="imageSrc"
-      class="x-result-picture__image"
+      class="x-picture__image x-result-picture__image"
       data-test="result-picture__image"
     />
     <!--

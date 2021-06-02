@@ -258,6 +258,16 @@ The CSS classes are named following the
 <button class="x-filter--is-selected"></button>
 ```
 
+- Classes should be ordered from more generic to more concrete
+
+```html
+// ❌ Wrong
+<picture class="x-result-picture x-picture"></picture>
+
+// ✅ Good
+<picture class="x-picture x-result-picture"></picture>
+```
+
 ## X Events
 
 So far there are 2 types of X Events: User triggered events, and state change triggered events. Each

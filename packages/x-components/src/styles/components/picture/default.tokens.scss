@@ -1,0 +1,18 @@
+:root {
+  // border
+  --x-border-radius-result-image: 0;
+
+  // color
+  --x-color-background-result-image: transparent;
+
+  // size
+  --x-size-aspect-ratio-result-image: 1;
+
+  // others
+  --x-object-fit-result-image: contain;
+  --x-object-fit-result-image-fallback: var(--x-object-fit-result-image);
+  --x-object-fit-result-image-placeholder: var(--x-object-fit-result-image);
+  --x-mix-blend-mode-result-image: none;
+  --x-mix-blend-mode-result-image-fallback: var(--x-mix-blend-mode-result-image);
+  --x-mix-blend-mode-result-image-placeholder: var(--x-mix-blend-mode-result-image);
+}

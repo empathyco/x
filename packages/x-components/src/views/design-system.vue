@@ -1908,7 +1908,11 @@
       <article>
         <h2 class="x-title2">Buttons visible on hover, with overflow and no gradient</h2>
         <SlidingPanel
-          class="x-sliding-panel--no-gradient x-sliding-panel--show-buttons-on-hover x-sliding-panel--buttons-overflow"
+          class="
+            x-sliding-panel--no-gradient
+            x-sliding-panel--show-buttons-on-hover
+            x-sliding-panel--buttons-overflow
+          "
         >
           <button class="x-button x-button--tertiary x-button--card">
             <span class="x-icon">＋</span>
@@ -2378,6 +2382,38 @@
       </article>
     </section>
 
+    <section>
+      <h1 class="x-title1">Product image</h1>
+
+      <article class="x-picture-show-case">
+        <h2 class="x-title2">Default</h2>
+        <picture class="x-picture">
+          <img class="x-picture__image" :src="standardImageUrl" />
+        </picture>
+      </article>
+
+      <article class="x-picture-show-case">
+        <h2 class="x-title2">Card</h2>
+        <picture class="x-picture x-picture--card">
+          <img class="x-picture__image" :src="standardImageUrl" />
+        </picture>
+      </article>
+
+      <article class="x-picture-show-case">
+        <h2 class="x-title2">Cover</h2>
+        <picture class="x-picture x-picture--cover">
+          <img class="x-picture__image" :src="whiteBackgroundImageUrl" />
+        </picture>
+
+        <article class="x-picture-show-case">
+          <h2 class="x-title2">Colored</h2>
+          <picture class="x-picture x-picture--colored">
+            <img class="x-picture__image" :src="whiteBackgroundImageUrl" />
+          </picture>
+        </article>
+      </article>
+    </section>
+
     <button @click="toggleTokens" class="info x-button x-button--tertiary x-button--round">
       i
     </button>
@@ -2393,6 +2429,13 @@
     components: { SlidingPanel }
   })
   export default class DesignSystem extends Vue {
+    protected whiteBackgroundImageUrl =
+      /* eslint-disable max-len */
+      'https://images.unsplash.com/photo-1583345784606-9f59c99488de?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=clamp&w=200&q=80';
+    protected standardImageUrl =
+      'https://images.unsplash.com/photo-1605494708535-d7a7b2d2740e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=200q=80';
+    /* eslint-enable max-len */
+
     protected toggleTokens(): void {
       document.head.classList.toggle('show-tokens');
     }
@@ -2539,6 +2582,10 @@
       &__scroll {
         gap: var(--x-space-03);
       }
+    }
+
+    .x-picture-show-case {
+      width: 100px;
     }
   }
 
