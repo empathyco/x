@@ -32,7 +32,8 @@
   import { searchBoxXModule } from '../x-module';
 
   /**
-   * Search input that reacts to user interaction emitting events.
+   * This component renders an input field that allows the user to type a query. It also reacts to
+   * query changes through event listening.
    *
    * @public
    */
@@ -237,125 +238,152 @@
     -webkit-appearance: none;
   }
 </style>
-<!--eslint-disable-->
-<docs>
-  import { NextItem } from '@docusaurus/react-components/Utils';
-  import Tabs from '@theme/Tabs';
-  import TabItem from '@theme/TabItem';
-  import { ReactSearchInput, doMagic } from '@docusaurus/react-components/ReactComponents';
 
-  The Search input is a component that reacts to user interaction emitting events:
-  [SearchBoxQueryChanged](x-components.searchboxxevents.searchboxquerychanged),
-  [UserBlurredSearchBox](x-components.searchboxxevents.userblurredsearchbox),
-  [UserFocusedSearchBox](x-components.searchboxxevents.userfocusedsearchbox),
-  [UserIsTypingAQuery](x-components.searchboxxevents.useristypingaquery) and
-  [UserPressedEnterKey](x-components.searchboxxevents.userpressedenterkey)
+<docs lang="mdx">
+import { NextItem } from '@docusaurus/react-components/Utils';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { ReactSearchInput, doMagic } from '@docusaurus/react-components/ReactComponents';
 
-  ## Basic usage
+## Events
 
-  Search input lets you to type a query and emits events to other components. This will allow to other components to use this query.
+This component emits the following events:
 
-  <Tabs
-    defaultValue="vue"
-    values={[
-      {label: 'Vue', value: 'vue'},
-      {label: 'Live', value: 'live'}
-    ]}>
-    <TabItem value="vue">
+- [`UserClickedSearchBox`](./../../api/x-components.searchboxxevents.userclickedsearchbox.md)
+- [`UserBlurredSearchBox`](./../../api/x-components.searchboxxevents.userblurredsearchbox.md)
+- [`UserFocusedSearchBox`](./../../api/x-components.searchboxxevents.userfocusedsearchbox.md)
+- [`UserIsTypingAQuery`](./../../api/x-components.searchboxxevents.useristypingaquery.md)
+- [`UserPressedEnterKey`](./../../api/x-components.searchboxxevents.userpressedenterkey.md)
+- [`UserPressedArrowKey`](./../../api/x-components.xeventstypes.userpressedarrowkey.md)
+- [`UserAcceptedAQuery`](./../../api/x-components.xeventstypes.useracceptedaquery.md)
 
-      ```jsx
-      <SearchInput/>
-      ```
+## See it in action
 
-    </TabItem>
-    <TabItem value="live">
-      <ReactSearchInput/>
-    </TabItem>
-  </Tabs>
+Here you have a basic example of how the search input is rendered.
 
-  ## Configuring component by props
+_Type any term in the input field to try it out!_
 
-  By prop, you can configure `maxLength`, `autofocus`, `instant`, `instantDebounceInMs`,
-  `autocompleteKeyboardKeys` and `autocompleteSuggestionsEvent` of the component.
+```vue
+<template>
+  <SearchInput />
+</template>
+<script>
+  import { SearchInput } from '@empathy/x-components/search-box';
 
-  <Tabs
-    defaultValue="vue"
-    values={[
-      {label: 'Vue', value: 'vue'},
-      {label: 'Live', value: 'live'},
-    ]}>
-    <TabItem value="vue">
+  export default {
+    name: 'SearchInputDemo',
+    components: {
+      SearchInput
+    }
+  };
+</script>
+```
 
-      ```jsx
-      <SearchInput :maxLength="5"
-                   :autofocus="false"
-                   :instant="true"
-                   :instantDebounceInMs="1000"
-                   :autocompleteKeyboardKeys="['ArrowDown']"
-                   :autocompleteSuggestionsEvent="'NextQueriesChanged'"/>
-      ```
+### Play with props
 
-    </TabItem>
-    <TabItem value="live">
-      <ReactSearchInput maxLength="5"
-                        autofocus="false"
-                        instant="true"
-                        instantDebounceInMs="1000"
-                        autocompleteKeyboardKeys="['ArrowDown']"
-                        autocompleteSuggestionsEvent="'NextQueriesChanged'"/>
-    </TabItem>
-  </Tabs>
+In this example, the search input has been limited to accept a maximum of 5 characters, including
+spaces, it won't take the focus when it is rendered, and it will emit the `UserAcceptedAQuery` event
+after 1000 milliseconds without typing.
 
-  ## Using the events
+_Type a term with more than 5 characters to try it out!_
 
-  :::info
-  There is a list of events that can be emitted. [XEvents](../../x-components.xeventstypes)
-  :::
+```vue
+<template>
+  <SearchInput :maxLength="5" :autofocus="false" :instant="true" :instantDebounceInMs="1000" />
+</template>
+<script>
+  import { SearchInput } from '@empathy/x-components/search-box';
 
-  Exist the possibility of call methods to do something when an event is emitted:
+  export default {
+    name: 'SearchInputDemo',
+    components: {
+      SearchInput
+    }
+  };
+</script>
+```
 
-  <Tabs
-    defaultValue="vue"
-    values={[
-      {label: 'Vue', value: 'vue'},
-      {label: 'Live', value: 'live'},
-    ]}>
-    <TabItem value="vue">
+### Play with events
 
-      ```jsx
-      <SearchInput @UserPressedEnterKey="doMagic()"/>
-      ```
+In this example, a message has been added below the search input to illustrate the action performed.
+For example, if you select the search input box, the message “focus” appears. When you start to
+enter a search term, the message “typing” appears. If you press Enter after typing a search term,
+the message “enter” appears.
 
-    </TabItem>
-    <TabItem value="live">
-      <ReactSearchInput on={{ UserPressedEnterKey: doMagic }}/>
-    </TabItem>
-  </Tabs>
+_Type any term in the input field to try it out!_
 
-  ## Events
+```vue
+<template>
+  <SearchInput
+    @UserPressedEnterKey="logUserPressedEnter"
+    @UserFocusedSearchBox="hasFocus = true"
+    @UserBlurredSearchBox="hasFocus = false"
+    @UserIsTypingAQuery="value = 'focus'"
+  />
+</template>
+<script>
+  import { SearchInput } from '@empathy/x-components/search-box';
 
-  A list of events that the component will emit:
+  export default {
+    name: 'SearchInputDemo',
+    components: {
+      SearchInput
+    },
+    data() {
+      return {
+        value: '',
+        hasFocus: false
+      };
+    },
+    methods: {
+      logUserPressedEnter() {
+        console.log('User pressed enter');
+      }
+    }
+  };
+</script>
+```
 
-  - `UserAcceptedAQuery`: the event is emitted after the user press the enter key or after
-  a certain time after type a query. The event payload is the query data and a metadata with the
-  target that emitted it.
-  - `UserPressedEnterKey`: the event is emitted after the user press the enter key. The event
-  payload is the query data and a metadata with the target that emitted it.
-  - `UserPressedArrowKey`: the event is emitted after the user press an arrow key. The event payload
-  is the event key and a metadata with the target that emitted it.
-  - `UserIsTypingAQuery`: the event is emitted when the user is typing. The event payload is the
-  query data and a metadata with the target that emitted it.
-  - `UserFocusedSearchBox`: the event is emitted after the user focus the search box. The event
-  payload is the metadata with the target that emitted it.
-  - `UserClickedSearchBox`: the event is emitted after the user clicks the button. The event
-  payload is the metadata with the target that emitted it.
-  - `UserBlurredSearchBox`: the event is emitted after the user blurs the search box. The event
-  payload the metadata with the target that emitted it.
+## Extending the component
 
-  ## Up next
+Components can be combined and communicate with each other. Commonly, the `SearchInput` component
+communicates with the [`SearchButton`](x-components.search-button.md) and the
+[`ClearSearchInput`](x-components.clear-search-input.md) to offer a full query entry experience.
+Furthermore, you can use it together with the [`QuerySuggestions`](query-suggestions.md) component
+to autocomplete the typed search term.
 
-  Ready for more? Continue reading with:
+_Type “puzzle” or another toy in the input field and then click the clear icon to try it out!_
 
-  <NextItem color="#e77962" font="white" next="x-components.clearsearchinput">Clear Search Input</NextItem>
+```vue
+<template>
+  <div>
+    <div style="display: flex; flex-flow: row nowrap;">
+      <SearchInput />
+      <ClearSearchInput>
+        <img src="/assets/icons/cross.svg" />
+      </ClearSearchInput>
+      <SearchButton>Search</SearchButton>
+    </div>
+    <QuerySuggestions />
+  </div>
+</template>
+<script>
+  import {
+    SearchInput,
+    ClearSearchInput,
+    ClearSearchButton
+  } from '@empathy/x-components/search-box';
+  import { QuerySuggestions } from '@empathy/x-components/query-suggestions';
 
+  export default {
+    name: 'SearchInputDemo',
+    components: {
+      SearchInput,
+      ClearSearchInput,
+      ClearSearchButton,
+      QuerySuggestions
+    }
+  };
+</script>
+```
 </docs>
