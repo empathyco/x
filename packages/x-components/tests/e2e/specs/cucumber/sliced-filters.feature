@@ -11,7 +11,7 @@ Feature: Sliced Filters components
     Examples:
       | slicedFiltersMax | query  |
       | 2                | muñeca |
-      | 10               | lego   |
+      | 10               | juego  |
 
 
   Scenario Outline: 2. Show more / less button displays or hide part of the results
@@ -28,4 +28,4 @@ Feature: Sliced Filters components
     Examples:
       | slicedFiltersMax | query  |
       | 2                | muñeca |
-      | 10               | lego   |
+      | 10               | juego  |

@@ -10,6 +10,6 @@ Feature: Filters search component
     And   searchable brand filters contain refined brand filters
     Examples:
       | query | siftedQuery |
-      | lego  | ci          |
+      | juego | as          |
 
 
