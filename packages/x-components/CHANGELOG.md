@@ -1,4 +1,45 @@
 # X Components
+## [2.0.0](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0%0Dv2.0.0-alpha.13) (2021-06-03)
+
+
+### Features
+
+* **design-system:** add `SlidingPanel` default CSS and tokens ([08c7539](https://bitbucket.org/colbenson/x-components/commits/08c7539b18eeacf798a49f146f8e3f67447dedd7)), closes [EX-3864](https://searchbroker.atlassian.net/browse/EX-3864)
+* **design-system:** add design system icons ([dfe4e51](https://bitbucket.org/colbenson/x-components/commits/dfe4e5188ae5c37463e03a707092fa146ecac127)), closes [EX-3973](https://searchbroker.atlassian.net/browse/EX-3973)
+* **design-system:** add list design tokens ([83a024c](https://bitbucket.org/colbenson/x-components/commits/83a024ca2872001382cf5352184150d73d75057c)), closes [EX-3925](https://searchbroker.atlassian.net/browse/EX-3925)
+* **design-system:** add option list tokens ([088ad59](https://bitbucket.org/colbenson/x-components/commits/088ad5952a04e22f23639ebe194236db199d0b39)), closes [EX-3860](https://searchbroker.atlassian.net/browse/EX-3860)
+* **design-tokens:** add `x-row` and `x-row-item` tokens ([fb58ef1](https://bitbucket.org/colbenson/x-components/commits/fb58ef1d6835cf55bc38226efe30d9cc613680ba)), closes [EX-4000](https://searchbroker.atlassian.net/browse/EX-4000)
+* **design-tokens:** add result image design tokens ([7117399](https://bitbucket.org/colbenson/x-components/commits/71173997a39b2de1b018f4b96485dbfab940c382)), closes [EX-3977](https://searchbroker.atlassian.net/browse/EX-3977)
+* **facets:** add SortedFilters component ([319106b](https://bitbucket.org/colbenson/x-components/commits/319106b785ea13457c3cdb824ac371160077704d))
+* **no-element:** change NoElement component to be not functional ([c4d4590](https://bitbucket.org/colbenson/x-components/commits/c4d45908d27801b0a8c847dbff54a9acd74dfd43)), closes [EX-3997](https://searchbroker.atlassian.net/browse/EX-3997)
+
+
+### Bug Fixes
+
+* **search:** fix infinite scroll issues when filtering ([4f08e32](https://bitbucket.org/colbenson/x-components/commits/4f08e32bf9de0f783cae9681733699b6a3c72d3a)), closes [EX-4033](https://searchbroker.atlassian.net/browse/EX-4033)
+
+
+### Testing
+
+* **e2e:** adapt `empathize` tests to cucumber ([0c86765](https://bitbucket.org/colbenson/x-components/commits/0c8676593ab133f442a0cde8769f73a032096395)), closes [EX-3797](https://searchbroker.atlassian.net/browse/EX-3797)
+* **e2e:** update Cypress to 7.4.0 ([9c6db64](https://bitbucket.org/colbenson/x-components/commits/9c6db6455b6f6b61e3b0697e8de32a2d41d2a137)), closes [EX-3991](https://searchbroker.atlassian.net/browse/EX-3991)
+
+
+### Continuous Integration
+
+* update package-lock ([9d0c764](https://bitbucket.org/colbenson/x-components/commits/9d0c764181280135ccae3db16b1171a9cc066818)), closes [EX-4046](https://searchbroker.atlassian.net/browse/EX-4046)
+
+
+### Build System
+
+* **dependencies:** update `search-adapter` version ([05e5cd7](https://bitbucket.org/colbenson/x-components/commits/05e5cd749c6a9524753e2316928069b7e7605306)), closes [EX-4067](https://searchbroker.atlassian.net/browse/EX-4067)
+
+
+### Documentation
+
+* **search:** update search input component documentation ([22f87db](https://bitbucket.org/colbenson/x-components/commits/22f87db5b2143cfde49b17d380c3156cb6610590)), closes [EX-4029](https://searchbroker.atlassian.net/browse/EX-4029)
+* avoid creating Methods section in components documentation ([2383080](https://bitbucket.org/colbenson/x-components/commits/2383080e4b73236f937fde6cdd4eb83b8ae9c5eb)), closes [EX-4028](https://searchbroker.atlassian.net/browse/EX-4028)
+
 ## [2.0.0-alpha.13](https://bitbucket.org/colbenson/x-components/branches/compare/v2.0.0-alpha.13%0Dv2.0.0-alpha.12) (2021-05-28)
 
 
