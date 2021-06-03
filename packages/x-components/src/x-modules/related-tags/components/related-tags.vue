@@ -3,7 +3,7 @@
     :is="animation"
     v-if="relatedTags.length"
     tag="ul"
-    class="x-related-tags"
+    class="x-list x-related-tags"
     data-test="related-tags"
   >
     <li
@@ -86,7 +86,6 @@
   .x-related-tags {
     display: flex;
     list-style: none;
-    padding-inline-start: 0;
   }
 </style>
 

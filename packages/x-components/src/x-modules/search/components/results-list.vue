@@ -6,7 +6,7 @@
           @binding {animation} animation - Animation to animate the elements
     -->
     <slot name="layout" v-bind="{ results, animation }">
-      <component :is="animation" tag="ul" class="x-results-list" data-test="results-list">
+      <component :is="animation" tag="ul" class="x-list x-results-list" data-test="results-list">
         <li
           v-for="result in results"
           :key="result.id"

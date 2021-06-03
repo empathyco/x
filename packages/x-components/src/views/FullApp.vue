@@ -77,7 +77,7 @@
     <div class="x-column">
       <h1 v-if="$x.relatedTags.length" class="x-title1">Related tags</h1>
       <SlidingPanel>
-        <RelatedTags :animation="staggeredFadeAndSlide" />
+        <RelatedTags :animation="staggeredFadeAndSlide" class="x-list--gap-03" />
       </SlidingPanel>
     </div>
 
@@ -90,7 +90,10 @@
         <span class="x-title3">Filters selected: {{ selectedFilters.length }}</span>
       </template>
     </SelectedFilters>
-    <SelectedFiltersList :animation="staggeredFadeAndSlide">
+    <SelectedFiltersList
+      class="x-list--horizontal x-list--gap-02"
+      :animation="staggeredFadeAndSlide"
+    >
       <template #default="{ filter }">Default: {{ filter.label }}</template>
       <template #brand_facet="{ filter }">Brand: {{ filter.label }}</template>
       <template #age_facet="{ filter }">Age: {{ filter.label }}</template>
@@ -101,7 +104,7 @@
       Clear {{ selectedFilters.length }} filters
     </ClearFilters>
 
-    <Facets class="x-facet--line">
+    <Facets class="x-list--horizontal x-facet--line x-list--gap-04">
       <!--  Default Facet    -->
       <template #default="{ facet }">
         <BaseHeaderTogglePanel class="x-facet">
@@ -277,7 +280,12 @@
         </template>
       </BaseColumnPickerDropdown>
 
-      <BaseColumnPickerList #default="{ column }" v-model="currentColumn" :columns="[2, 4, 6]">
+      <BaseColumnPickerList
+        #default="{ column }"
+        v-model="currentColumn"
+        :columns="[2, 4, 6]"
+        class="x-list--gap-03"
+      >
         <span>{{ column }}</span>
       </BaseColumnPickerList>
     </section>
@@ -552,11 +560,6 @@
     }
   }
 
-  .x-facets-list {
-    display: flex;
-    flex-flow: row;
-  }
-
   .x-filter--is-selected,
   .x-all-filter--is-selected {
     font-weight: bold;
@@ -617,10 +620,5 @@
     &__item {
       flex: 0 1 auto;
     }
-  }
-
-  .x-related-tags {
-    display: flex;
-    gap: 10px;
   }
 </style>

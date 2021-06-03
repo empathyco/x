@@ -2,7 +2,7 @@
   <component
     :is="animation"
     v-if="partialResults.length"
-    class="x-partial-results-list"
+    class="x-list x-partial-results-list"
     data-test="partial-results"
     tag="ul"
   >

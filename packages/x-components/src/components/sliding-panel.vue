@@ -14,7 +14,7 @@
       @scroll="debouncedUpdateScrollPosition"
       @transitionend="debouncedUpdateScrollPosition"
       @animationend="debouncedUpdateScrollPosition"
-      class="x-sliding-panel__scroll"
+      class="x-list x-list--horizontal x-sliding-panel__scroll"
       data-test="sliding-panel-scroll"
     >
       <!-- @slot (Required) Sliding panel content -->

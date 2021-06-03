@@ -1,5 +1,5 @@
 <template>
-  <component :is="animation" v-if="suggestions.length" tag="ul" class="x-suggestions">
+  <component :is="animation" v-if="suggestions.length" tag="ul" class="x-list x-suggestions">
     <li
       v-for="(suggestion, index) in suggestions"
       :key="suggestionsKeys[index]"
@@ -19,7 +19,6 @@
 <style lang="scss" scoped>
   .x-suggestions {
     list-style-type: none;
-    padding-inline-start: 0;
   }
 </style>
 

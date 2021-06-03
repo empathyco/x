@@ -92,4 +92,14 @@
       opacity: 1;
     }
   }
+
+  &__scroll {
+    > * {
+      min-width: auto;
+    }
+
+    > .x-list {
+      --x-space-flow-list: row nowrap;
+    }
+  }
 }

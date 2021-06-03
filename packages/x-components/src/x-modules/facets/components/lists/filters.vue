@@ -3,7 +3,7 @@
     :is="animation"
     v-if="hasFiltersToRender"
     tag="ul"
-    class="x-filters"
+    class="x-list x-filters"
     :class="cssClasses"
     data-test="base-filters"
   >
@@ -91,7 +91,6 @@
 <style lang="scss" scoped>
   .x-filters {
     list-style-type: none;
-    padding-inline-start: 0;
   }
 </style>
 

@@ -9,6 +9,7 @@
   padding: var(--x-space-padding-list);
   justify-content: var(--x-space-justify-list);
   align-items: var(--x-space-align-list);
+
   > * {
     min-width: 0;
     min-height: 0;
@@ -16,43 +17,43 @@
 }
 
 .x-list--vertical.x-list {
-  --x-space-flow-list: column nowrap;
+  flex-flow: column nowrap;
 }
 
 .x-list--horizontal.x-list {
-  --x-space-flow-list: row nowrap;
+  flex-flow: row nowrap;
 }
 
 .x-list--wrap.x-list {
-  --x-space-flow-list: row wrap;
+  flex-flow: row wrap;
 }
 
 .x-list--justify-center.x-list {
-  --x-space-justify-list: center;
+  justify-content: center;
 }
 
 .x-list--justify-end.x-list {
-  --x-space-justify-list: flex-end;
+  justify-content: flex-end;
 }
 
 .x-list--justify-start.x-list {
-  --x-space-justify-list: flex-start;
+  justify-content: flex-start;
 }
 
 .x-list--align-center.x-list {
-  --x-space-align-list: center;
+  align-items: center;
 }
 
 .x-list--align-baseline.x-list {
-  --x-space-align-list: baseline;
+  align-items: baseline;
 }
 
 .x-list--align-end.x-list {
-  --x-space-align-list: flex-end;
+  align-items: flex-end;
 }
 
 .x-list--align-start.x-list {
-  --x-space-align-list: flex-start;
+  align-items: flex-start;
 }
 
 .x-list {

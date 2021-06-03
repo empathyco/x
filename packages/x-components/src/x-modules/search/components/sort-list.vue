@@ -19,6 +19,12 @@
   </component>
 </template>
 
+<style lang="scss" scoped>
+  .x-sort-list {
+    list-style-type: none;
+  }
+</style>
+
 <script lang="ts">
   import { Sort } from '@empathy/search-types';
   import Vue from 'vue';

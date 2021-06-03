@@ -29,7 +29,6 @@
   .x-column-picker-list {
     display: flex;
     list-style-type: none;
-    padding-inline-start: 0;
   }
 </style>
 

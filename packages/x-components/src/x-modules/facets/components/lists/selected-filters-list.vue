@@ -1,6 +1,11 @@
 <template>
   <SelectedFilters v-slot="{ selectedFilters }" :facetId="facetId" :alwaysVisible="alwaysVisible">
-    <component :is="animation" class="x-selected-filters-list" data-test="selected-filters-list">
+    <component
+      :is="animation"
+      class="x-list x-selected-filters-list"
+      data-test="selected-filters-list"
+      tag="ul"
+    >
       <li
         v-for="selectedFilter in selectedFilters"
         :key="selectedFilter.id"
