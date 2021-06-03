@@ -1,5 +1,11 @@
 # Search Adapter Changelog
 
+## 6.1.0 - 2020/06/03
+
+> EX-3938 Add support for optional `children` property in `HierarchicalFilters`.
+>
+> EX-3938 Update `@empathy/search-types` to version `9.0.0`.
+
 ## 6.0.0 - 2020/04/16
 
 > EX-3070 Add new template config inside the `FacetConfig` model.

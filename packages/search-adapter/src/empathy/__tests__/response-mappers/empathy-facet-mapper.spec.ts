@@ -50,7 +50,8 @@ describe('Empathy Hierarchical Facet', () => {
 
     expectAllFiltersToBeValid(mappedFacet.filters, HierarchicalFilterSchema);
     expectFacetToMatchMock(mappedFacet, hierarchicalRawFacet.facet, hierarchicalRawFacet.values.length);
-    expect(mappedFacet.filters[1].children[0].children[0]).toBeDefined();
+    // tslint:disable-next-line:no-non-null-assertion
+    expect(mappedFacet.filters[1].children![0].children![0]).toBeDefined();
     expectBooleanFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
   });
 
@@ -59,7 +60,8 @@ describe('Empathy Hierarchical Facet', () => {
 
     expectFacetToMatchMock(mappedFacet, hierarchicalRawFacetWithoutSelected.facet, hierarchicalRawFacetWithoutSelected.values.length);
     expectAllFiltersToBeValid(mappedFacet.filters, HierarchicalFilterSchema);
-    expect(mappedFacet.filters[1].children[1].children[0]).toBeDefined();
+    // tslint:disable-next-line:no-non-null-assertion
+    expect(mappedFacet.filters[1].children![1].children![0]).toBeDefined();
     expectBooleanFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
   });
 });
@@ -105,7 +107,7 @@ function expectFacetToMatchMock(mappedFacet: HierarchicalFacet | SimpleFacet | N
 function expectBooleanFiltersToHaveSelectedPropertyTo(filters: BooleanFilter[], selected: boolean | null): void {
   filters.forEach(filter => {
     expect(filter.selected).toEqual(selected);
-    if (isHierarchicalFilter(filter)) {
+    if (isHierarchicalFilter(filter) && !!filter.children) {
       expectBooleanFiltersToHaveSelectedPropertyTo(filter.children, selected);
     }
   });
@@ -114,7 +116,7 @@ function expectBooleanFiltersToHaveSelectedPropertyTo(filters: BooleanFilter[], 
 function expectAllFiltersToBeValid(filters: Filter[], schema: HierarchicalFilter | SimpleFilter | NumberRangeFilter): void {
   return filters.forEach(filter => {
     expect(filter).toMatchObject(schema);
-    if (isHierarchicalFilter(filter)) {
+    if (isHierarchicalFilter(filter) && filter.children) {
       expectAllFiltersToBeValid(filter.children, HierarchicalFilterSchema);
     }
   });
