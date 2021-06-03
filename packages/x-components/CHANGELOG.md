@@ -25,11 +25,6 @@
 * **e2e:** update Cypress to 7.4.0 ([9c6db64](https://bitbucket.org/colbenson/x-components/commits/9c6db6455b6f6b61e3b0697e8de32a2d41d2a137)), closes [EX-3991](https://searchbroker.atlassian.net/browse/EX-3991)
 
 
-### Continuous Integration
-
-* **dependencies:** update package-lock ([9d0c764](https://bitbucket.org/colbenson/x-components/commits/9d0c764181280135ccae3db16b1171a9cc066818)), closes [EX-4046](https://searchbroker.atlassian.net/browse/EX-4046)
-
-
 ### Build System
 
 * **dependencies:** update `search-adapter` version ([05e5cd7](https://bitbucket.org/colbenson/x-components/commits/05e5cd749c6a9524753e2316928069b7e7605306)), closes [EX-4067](https://searchbroker.atlassian.net/browse/EX-4067)
