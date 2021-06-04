@@ -10,6 +10,12 @@
   justify-content: var(--x-space-justify-list);
   align-items: var(--x-space-align-list);
 
+  // typography
+  font-family: var(--x-font-family-text);
+  font-size: var(--x-font-size-text);
+  font-weight: var(--x-font-weight-text);
+  line-height: var(--x-font-line-height-text);
+
   > * {
     min-width: 0;
     min-height: 0;
@@ -22,10 +28,15 @@
 
 .x-list--horizontal.x-list {
   flex-flow: row nowrap;
+  align-items: center;
 }
 
 .x-list--wrap.x-list {
   flex-flow: row wrap;
+}
+
+.x-list--justify-stretch.x-list {
+  justify-content: stretch;
 }
 
 .x-list--justify-center.x-list {
@@ -38,6 +49,10 @@
 
 .x-list--justify-start.x-list {
   justify-content: flex-start;
+}
+
+.x-list--align-stretch.x-list {
+  align-items: stretch;
 }
 
 .x-list--align-center.x-list {
@@ -57,6 +72,10 @@
 }
 
 .x-list {
+  .x-list__item--expanded {
+    flex: 1 1 auto;
+  }
+
   @for $i from 1 through 12 {
     .x-list-item-#{$i} {
       flex: $i #{13 - $i} auto;

@@ -2022,6 +2022,60 @@
         </ul>
       </article>
       <article>
+        <h2 class="x-title2">Vertical Padding Direction</h2>
+        <ul class="x-list x-list--vertical x-list--padding-06 x-list--padding-top">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--vertical x-list--padding-06 x-list--padding-right">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--vertical x-list--padding-06 x-list--padding-bottom">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--vertical x-list--padding-06 x-list--padding-left">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </article>
+      <article>
+        <h2 class="x-title2">Vertical Border</h2>
+        <ul class="x-list x-list--vertical x-list--padding-06 x-list--border">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </article>
+      <article>
+        <h2 class="x-title2">Vertical Border Direction</h2>
+        <ul class="x-list x-list--vertical x-list--padding-06 x-list--border x-list--border-top">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--vertical x-list--padding-06 x-list--border x-list--border-right">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--vertical x-list--padding-06 x-list--border x-list--border-bottom">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--vertical x-list--padding-06 x-list--border x-list--border-left">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </article>
+      <article>
         <h2 class="x-title2">Horizontal</h2>
         <ul class="x-list x-list--horizontal">
           <li></li>
@@ -2080,6 +2134,64 @@
           <li></li>
         </ul>
         <ul class="x-list x-list--horizontal x-list--padding-06">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </article>
+      <article>
+        <h2 class="x-title2">Horizontal Padding Direction</h2>
+        <ul class="x-list x-list--horizontal x-list--padding-06 x-list--padding-top">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--horizontal x-list--padding-06 x-list--padding-right">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--horizontal x-list--padding-06 x-list--padding-bottom">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--horizontal x-list--padding-06 x-list--padding-left">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </article>
+      <article>
+        <h2 class="x-title2">Horizontal Border</h2>
+        <ul class="x-list x-list--horizontal x-list--padding-06 x-list--border">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </article>
+      <article>
+        <h2 class="x-title2">Horizontal Border Direction</h2>
+        <ul class="x-list x-list--horizontal x-list--padding-06 x-list--border x-list--border-top">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul
+          class="x-list x-list--horizontal x-list--padding-06 x-list--border x-list--border-right"
+        >
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul
+          class="x-list x-list--horizontal x-list--padding-06 x-list--border x-list--border-bottom"
+        >
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul class="x-list x-list--horizontal x-list--padding-06 x-list--border x-list--border-left">
           <li></li>
           <li></li>
           <li></li>
@@ -2152,15 +2264,15 @@
       <article class="x-list-sizing">
         <h2 class="x-title2">Items sizing</h2>
         <ul class="x-list x-list--vertical">
-          <li class="x-list-item-2">02</li>
-          <li class="x-list-item-6">06</li>
-          <li class="x-list-item-2">02</li>
+          <li class="x-list__item--2">02</li>
+          <li class="x-list__item--6">06</li>
+          <li class="x-list__item--2">02</li>
         </ul>
         <ul class="x-list x-list--horizontal">
-          <li class="x-list-item-1">01</li>
-          <li class="x-list-item-5">05</li>
-          <li class="x-list-item-1">01</li>
-          <li class="x-list-item-2">02</li>
+          <li class="x-list__item--1">01</li>
+          <li class="x-list__item--5">05</li>
+          <li class="x-list__item--1">01</li>
+          <li class="x-list__item--2">02</li>
         </ul>
       </article>
     </section>
@@ -2484,9 +2596,11 @@
       width: 250px;
     }
 
-    .x-filter,
-    .x-hierarchical-filter-container {
-      width: 220px;
+    article > {
+      .x-filter,
+      .x-hierarchical-filter-container {
+        width: 220px;
+      }
     }
 
     .x-facet {
@@ -2543,7 +2657,7 @@
         }
       }
     }
-    [class^='x-list-item'] {
+    [class^='x-list__item'] {
       display: flex;
       justify-content: center;
       align-items: center;
