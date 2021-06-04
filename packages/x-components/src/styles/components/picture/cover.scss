@@ -1,25 +1,25 @@
-.x-picture--cover {
+.x-picture--cover.x-picture {
+  position: relative;
+
   &:hover {
     &:after {
-      // color
-      background: linear-gradient(
-        to bottom,
-        var(--x-color-background-result-image-cover-hover-from) 50%,
-        var(--x-color-background-result-image-cover-hover-to) 100%
-      );
-
-      // size
-      width: 100%;
-      height: 100%;
-
       // layout
+      content: '';
       display: block;
       position: absolute;
       top: 0;
       left: 0;
 
-      // other
-      content: '';
+      // color
+      background: linear-gradient(
+        to bottom,
+        var(--x-color-background-picture-cover-hover-from) 50%,
+        var(--x-color-background-picture-cover-hover-to) 100%
+      );
+
+      // size
+      width: 100%;
+      height: 100%;
     }
   }
 }

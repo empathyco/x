@@ -1,8 +1,13 @@
 <template>
   <picture ref="image" class="x-picture x-result-picture" data-test="result-picture">
-    <!-- eslint-disable-next-line max-len -->
-    <!-- @slot (Required) Loading image content. It will be rendered while the real image is not loaded -->
-    <slot v-if="!hasImageLoaded && !hasAllImagesFailed" name="placeholder" />
+    <NoElement
+      v-if="!hasImageLoaded && !hasAllImagesFailed"
+      class="x-picture__image x-picture__image--placeholder"
+    >
+      <!-- eslint-disable-next-line max-len -->
+      <!-- @slot (Required) Loading image content. It will be rendered while the real image is not loaded -->
+      <slot name="placeholder" />
+    </NoElement>
     <img
       v-if="imageSrc"
       v-show="hasImageLoaded"
@@ -13,13 +18,16 @@
       class="x-picture__image x-result-picture__image"
       data-test="result-picture__image"
     />
-    <!--
-    Vue styleguidist doesn't generate slot docs for v-else and v-else-if conditions
-    due to a bug https://github.com/vuejs/vue/pull/10286.
-    TODO - Bump styleguidist version when the fix branch is merged and a new version released.
-    -->
-    <!-- @slot (Required) Fallback image content. It will be rendered when all the images failed -->
-    <slot v-else-if="hasAllImagesFailed" name="fallback" />
+    <NoElement v-else-if="hasAllImagesFailed" class="x-picture__image x-picture__image--fallback">
+      <!--
+      Vue styleguidist doesn't generate slot docs for v-else and v-else-if conditions
+      due to a bug https://github.com/vuejs/vue/pull/10286.
+      TODO - Bump styleguidist version when the fix branch is merged and a new version released.
+      -->
+      <!-- eslint-disable-next-line max-len -->
+      <!-- @slot (Required) Fallback image content. It will be rendered when all the images failed -->
+      <slot name="fallback" />
+    </NoElement>
   </picture>
 </template>
 
@@ -27,13 +35,18 @@
   import { Result } from '@empathy/search-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
+  import { NoElement } from '../no-element';
 
   /**
    * Component to be reused that renders an `<img>`.
    *
    * @public
    */
-  @Component
+  @Component({
+    components: {
+      NoElement
+    }
+  })
   export default class BaseResultImage extends Vue {
     /**
      * The image has entered in the port view.
@@ -164,10 +177,14 @@
 </script>
 
 <style lang="scss" scoped>
-  .x-result-picture__image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: fill;
+  .x-result-picture {
+    min-width: 1px;
+    min-height: 1px;
+    &__image {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: fill;
+    }
   }
 </style>
 

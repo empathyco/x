@@ -1,7 +1,7 @@
 <template>
   <main>
     <h1>Please scroll down ↓↓↓↓↓↓↓↓</h1>
-    <div class="x-components-images">
+    <div class="x-components-images" style="width: 100px">
       <BaseResultImage data-test="result-with-images" :result="resultWithImages">
         <template #placeholder>
           <div data-test="result-picture__placeholder">placeholder0</div>

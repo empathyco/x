@@ -1,18 +1,15 @@
 :root {
   // border
-  --x-border-radius-result-image: 0;
+  --x-border-radius-picture: 0;
 
   // color
-  --x-color-background-result-image: transparent;
-
-  // size
-  --x-size-aspect-ratio-result-image: 1;
+  --x-color-background-picture: transparent;
 
   // others
-  --x-object-fit-result-image: contain;
-  --x-object-fit-result-image-fallback: var(--x-object-fit-result-image);
-  --x-object-fit-result-image-placeholder: var(--x-object-fit-result-image);
-  --x-mix-blend-mode-result-image: none;
-  --x-mix-blend-mode-result-image-fallback: var(--x-mix-blend-mode-result-image);
-  --x-mix-blend-mode-result-image-placeholder: var(--x-mix-blend-mode-result-image);
+  --x-object-fit-picture-image: contain;
+  --x-object-fit-picture-image-fallback: var(--x-object-fit-picture-image);
+  --x-object-fit-picture-image-placeholder: var(--x-object-fit-picture-image);
+  --x-mix-blend-mode-picture-image: none;
+  --x-mix-blend-mode-picture-image-fallback: var(--x-mix-blend-mode-picture-image);
+  --x-mix-blend-mode-picture-image-placeholder: var(--x-mix-blend-mode-picture-image);
 }
