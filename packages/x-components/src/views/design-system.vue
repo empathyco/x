@@ -10,6 +10,554 @@
       <span class="x-small">small typography</span>
     </section>
 
+    <section class="x-icons">
+      <h1 class="x-title1">Icons</h1>
+
+      <h2 class="x-title2">Small</h2>
+      <ul class="x-list x-list--wrap">
+        <li title="ArrowIcon">
+          <ArrowIcon class="x-icon--s" />
+        </li>
+        <li title="BagIcon">
+          <BagIcon class="x-icon--s" />
+        </li>
+        <li title="BarCodeIcon">
+          <BarCodeIcon class="x-icon--s" />
+        </li>
+        <li title="BarcodeTinyIcon">
+          <BarcodeTinyIcon class="x-icon--s" />
+        </li>
+        <li title="CartIcon">
+          <CartIcon class="x-icon--s" />
+        </li>
+        <li title="CheckTinyIcon">
+          <CheckTinyIcon class="x-icon--s" />
+        </li>
+        <li title="CheckIcon">
+          <CheckIcon class="x-icon--s" />
+        </li>
+        <li title="CheckboxCardSelectedIcon">
+          <CheckboxCardSelectedIcon class="x-icon--s" />
+        </li>
+        <li title="CheckboxCardUnselectedIcon">
+          <CheckboxCardUnselectedIcon class="x-icon--s" />
+        </li>
+        <li title="CheckboxSelectedIcon">
+          <CheckboxSelectedIcon class="x-icon--s" />
+        </li>
+        <li title="CheckboxUnselectedIcon">
+          <CheckboxUnselectedIcon class="x-icon--s" />
+        </li>
+        <li title="ChevronDownIcon">
+          <ChevronDownIcon class="x-icon--s" />
+        </li>
+        <li title="ChevronLeftIcon">
+          <ChevronLeftIcon class="x-icon--s" />
+        </li>
+        <li title="ChevronRightIcon">
+          <ChevronRightIcon class="x-icon--s" />
+        </li>
+        <li title="ChevronTinyDownIcon">
+          <ChevronTinyDownIcon class="x-icon--s" />
+        </li>
+        <li title="ChevronTinyLeftIcon">
+          <ChevronTinyLeftIcon class="x-icon--s" />
+        </li>
+        <li title="ChevronTinyRightIcon">
+          <ChevronTinyRightIcon class="x-icon--s" />
+        </li>
+        <li title="ChevronTinyUpIcon">
+          <ChevronTinyUpIcon class="x-icon--s" />
+        </li>
+        <li title="ChevronUpIcon">
+          <ChevronUpIcon class="x-icon--s" />
+        </li>
+        <li title="CloseTinyIcon">
+          <CloseTinyIcon class="x-icon--s" />
+        </li>
+        <li title="CloseIcon">
+          <CloseIcon class="x-icon--s" />
+        </li>
+        <li title="FiltersIcon">
+          <FiltersIcon class="x-icon--s" />
+        </li>
+        <li title="Grid1ColIcon">
+          <Grid1ColIcon class="x-icon--s" />
+        </li>
+        <li title="Grid2ColIcon">
+          <Grid2ColIcon class="x-icon--s" />
+        </li>
+        <li title="HideIcon">
+          <HideIcon class="x-icon--s" />
+        </li>
+        <li title="HistoryTinyIcon">
+          <HistoryTinyIcon class="x-icon--s" />
+        </li>
+        <li title="HistoryIcon">
+          <HistoryIcon class="x-icon--s" />
+        </li>
+        <li title="MenuIcon">
+          <MenuIcon class="x-icon--s" />
+        </li>
+        <li title="MinusTinyIcon">
+          <MinusTinyIcon class="x-icon--s" />
+        </li>
+        <li title="MinusIcon">
+          <MinusIcon class="x-icon--s" />
+        </li>
+        <li title="Nq1Icon">
+          <Nq1Icon class="x-icon--s" />
+        </li>
+        <li title="Nq2Icon">
+          <Nq2Icon class="x-icon--s" />
+        </li>
+        <li title="Nq3Icon">
+          <Nq3Icon class="x-icon--s" />
+        </li>
+        <li title="Nq4Icon">
+          <Nq4Icon class="x-icon--s" />
+        </li>
+        <li title="PlusIcon">
+          <PlusIcon class="x-icon--s" />
+        </li>
+        <li title="SearchIcon">
+          <SearchIcon class="x-icon--s" />
+        </li>
+        <li title="ShowIcon">
+          <ShowIcon class="x-icon--s" />
+        </li>
+        <li title="StarIcon">
+          <StarIcon class="x-icon--s" />
+        </li>
+        <li title="SearchTinyIcon">
+          <SearchTinyIcon class="x-icon--s" />
+        </li>
+        <li title="TrashOpenIcon">
+          <TrashOpenIcon class="x-icon--s" />
+        </li>
+        <li title="TrashIcon">
+          <TrashIcon class="x-icon--s" />
+        </li>
+        <li title="TrendingTinyIcon">
+          <TrendingTinyIcon class="x-icon--s" />
+        </li>
+        <li title="TrendingIcon">
+          <TrendingIcon class="x-icon--s" />
+        </li>
+        <li title="UserIcon">
+          <UserIcon class="x-icon--s" />
+        </li>
+      </ul>
+
+      <h2 class="x-title2">Default</h2>
+      <ul class="x-list x-list--wrap">
+        <li title="ArrowIcon">
+          <ArrowIcon class="x-icon--m" />
+        </li>
+        <li title="BagIcon">
+          <BagIcon class="x-icon--m" />
+        </li>
+        <li title="BarCodeIcon">
+          <BarCodeIcon class="x-icon--m" />
+        </li>
+        <li title="BarcodeTinyIcon">
+          <BarcodeTinyIcon class="x-icon--m" />
+        </li>
+        <li title="CartIcon">
+          <CartIcon class="x-icon--m" />
+        </li>
+        <li title="CheckTinyIcon">
+          <CheckTinyIcon class="x-icon--m" />
+        </li>
+        <li title="CheckIcon">
+          <CheckIcon class="x-icon--m" />
+        </li>
+        <li title="CheckboxCardSelectedIcon">
+          <CheckboxCardSelectedIcon class="x-icon--m" />
+        </li>
+        <li title="CheckboxCardUnselectedIcon">
+          <CheckboxCardUnselectedIcon class="x-icon--m" />
+        </li>
+        <li title="CheckboxSelectedIcon">
+          <CheckboxSelectedIcon class="x-icon--m" />
+        </li>
+        <li title="CheckboxUnselectedIcon">
+          <CheckboxUnselectedIcon class="x-icon--m" />
+        </li>
+        <li title="ChevronDownIcon">
+          <ChevronDownIcon class="x-icon--m" />
+        </li>
+        <li title="ChevronLeftIcon">
+          <ChevronLeftIcon class="x-icon--m" />
+        </li>
+        <li title="ChevronRightIcon">
+          <ChevronRightIcon class="x-icon--m" />
+        </li>
+        <li title="ChevronTinyDownIcon">
+          <ChevronTinyDownIcon class="x-icon--m" />
+        </li>
+        <li title="ChevronTinyLeftIcon">
+          <ChevronTinyLeftIcon class="x-icon--m" />
+        </li>
+        <li title="ChevronTinyRightIcon">
+          <ChevronTinyRightIcon class="x-icon--m" />
+        </li>
+        <li title="ChevronTinyUpIcon">
+          <ChevronTinyUpIcon class="x-icon--m" />
+        </li>
+        <li title="ChevronUpIcon">
+          <ChevronUpIcon class="x-icon--m" />
+        </li>
+        <li title="CloseTinyIcon">
+          <CloseTinyIcon class="x-icon--m" />
+        </li>
+        <li title="CloseIcon">
+          <CloseIcon class="x-icon--m" />
+        </li>
+        <li title="FiltersIcon">
+          <FiltersIcon class="x-icon--m" />
+        </li>
+        <li title="Grid1ColIcon">
+          <Grid1ColIcon class="x-icon--m" />
+        </li>
+        <li title="Grid2ColIcon">
+          <Grid2ColIcon class="x-icon--m" />
+        </li>
+        <li title="HideIcon">
+          <HideIcon class="x-icon--m" />
+        </li>
+        <li title="HistoryTinyIcon">
+          <HistoryTinyIcon class="x-icon--m" />
+        </li>
+        <li title="HistoryIcon">
+          <HistoryIcon class="x-icon--m" />
+        </li>
+        <li title="MenuIcon">
+          <MenuIcon class="x-icon--m" />
+        </li>
+        <li title="MinusTinyIcon">
+          <MinusTinyIcon class="x-icon--m" />
+        </li>
+        <li title="MinusIcon">
+          <MinusIcon class="x-icon--m" />
+        </li>
+        <li title="Nq1Icon">
+          <Nq1Icon class="x-icon--m" />
+        </li>
+        <li title="Nq2Icon">
+          <Nq2Icon class="x-icon--m" />
+        </li>
+        <li title="Nq3Icon">
+          <Nq3Icon class="x-icon--m" />
+        </li>
+        <li title="Nq4Icon">
+          <Nq4Icon class="x-icon--m" />
+        </li>
+        <li title="PlusIcon">
+          <PlusIcon class="x-icon--m" />
+        </li>
+        <li title="SearchIcon">
+          <SearchIcon class="x-icon--m" />
+        </li>
+        <li title="ShowIcon">
+          <ShowIcon class="x-icon--m" />
+        </li>
+        <li title="StarIcon">
+          <StarIcon class="x-icon--m" />
+        </li>
+        <li title="SearchTinyIcon">
+          <SearchTinyIcon class="x-icon--m" />
+        </li>
+        <li title="TrashOpenIcon">
+          <TrashOpenIcon class="x-icon--m" />
+        </li>
+        <li title="TrashIcon">
+          <TrashIcon class="x-icon--m" />
+        </li>
+        <li title="TrendingTinyIcon">
+          <TrendingTinyIcon class="x-icon--m" />
+        </li>
+        <li title="TrendingIcon">
+          <TrendingIcon class="x-icon--m" />
+        </li>
+        <li title="UserIcon">
+          <UserIcon class="x-icon--m" />
+        </li>
+      </ul>
+
+      <h2 class="x-title2">Large</h2>
+      <ul class="x-list x-list--wrap x-list--gap-02">
+        <li title="ArrowIcon">
+          <ArrowIcon class="x-icon--l" />
+        </li>
+        <li title="BagIcon">
+          <BagIcon class="x-icon--l" />
+        </li>
+        <li title="BarCodeIcon">
+          <BarCodeIcon class="x-icon--l" />
+        </li>
+        <li title="BarcodeTinyIcon">
+          <BarcodeTinyIcon class="x-icon--l" />
+        </li>
+        <li title="CartIcon">
+          <CartIcon class="x-icon--l" />
+        </li>
+        <li title="CheckTinyIcon">
+          <CheckTinyIcon class="x-icon--l" />
+        </li>
+        <li title="CheckIcon">
+          <CheckIcon class="x-icon--l" />
+        </li>
+        <li title="CheckboxCardSelectedIcon">
+          <CheckboxCardSelectedIcon class="x-icon--l" />
+        </li>
+        <li title="CheckboxCardUnselectedIcon">
+          <CheckboxCardUnselectedIcon class="x-icon--l" />
+        </li>
+        <li title="CheckboxSelectedIcon">
+          <CheckboxSelectedIcon class="x-icon--l" />
+        </li>
+        <li title="CheckboxUnselectedIcon">
+          <CheckboxUnselectedIcon class="x-icon--l" />
+        </li>
+        <li title="ChevronDownIcon">
+          <ChevronDownIcon class="x-icon--l" />
+        </li>
+        <li title="ChevronLeftIcon">
+          <ChevronLeftIcon class="x-icon--l" />
+        </li>
+        <li title="ChevronRightIcon">
+          <ChevronRightIcon class="x-icon--l" />
+        </li>
+        <li title="ChevronTinyDownIcon">
+          <ChevronTinyDownIcon class="x-icon--l" />
+        </li>
+        <li title="ChevronTinyLeftIcon">
+          <ChevronTinyLeftIcon class="x-icon--l" />
+        </li>
+        <li title="ChevronTinyRightIcon">
+          <ChevronTinyRightIcon class="x-icon--l" />
+        </li>
+        <li title="ChevronTinyUpIcon">
+          <ChevronTinyUpIcon class="x-icon--l" />
+        </li>
+        <li title="ChevronUpIcon">
+          <ChevronUpIcon class="x-icon--l" />
+        </li>
+        <li title="CloseTinyIcon">
+          <CloseTinyIcon class="x-icon--l" />
+        </li>
+        <li title="CloseIcon">
+          <CloseIcon class="x-icon--l" />
+        </li>
+        <li title="FiltersIcon">
+          <FiltersIcon class="x-icon--l" />
+        </li>
+        <li title="Grid1ColIcon">
+          <Grid1ColIcon class="x-icon--l" />
+        </li>
+        <li title="Grid2ColIcon">
+          <Grid2ColIcon class="x-icon--l" />
+        </li>
+        <li title="HideIcon">
+          <HideIcon class="x-icon--l" />
+        </li>
+        <li title="HistoryTinyIcon">
+          <HistoryTinyIcon class="x-icon--l" />
+        </li>
+        <li title="HistoryIcon">
+          <HistoryIcon class="x-icon--l" />
+        </li>
+        <li title="MenuIcon">
+          <MenuIcon class="x-icon--l" />
+        </li>
+        <li title="MinusTinyIcon">
+          <MinusTinyIcon class="x-icon--l" />
+        </li>
+        <li title="MinusIcon">
+          <MinusIcon class="x-icon--l" />
+        </li>
+        <li title="Nq1Icon">
+          <Nq1Icon class="x-icon--l" />
+        </li>
+        <li title="Nq2Icon">
+          <Nq2Icon class="x-icon--l" />
+        </li>
+        <li title="Nq3Icon">
+          <Nq3Icon class="x-icon--l" />
+        </li>
+        <li title="Nq4Icon">
+          <Nq4Icon class="x-icon--l" />
+        </li>
+        <li title="PlusIcon">
+          <PlusIcon class="x-icon--l" />
+        </li>
+        <li title="SearchIcon">
+          <SearchIcon class="x-icon--l" />
+        </li>
+        <li title="ShowIcon">
+          <ShowIcon class="x-icon--l" />
+        </li>
+        <li title="StarIcon">
+          <StarIcon class="x-icon--l" />
+        </li>
+        <li title="SearchTinyIcon">
+          <SearchTinyIcon class="x-icon--l" />
+        </li>
+        <li title="TrashOpenIcon">
+          <TrashOpenIcon class="x-icon--l" />
+        </li>
+        <li title="TrashIcon">
+          <TrashIcon class="x-icon--l" />
+        </li>
+        <li title="TrendingTinyIcon">
+          <TrendingTinyIcon class="x-icon--l" />
+        </li>
+        <li title="TrendingIcon">
+          <TrendingIcon class="x-icon--l" />
+        </li>
+        <li title="UserIcon">
+          <UserIcon class="x-icon--l" />
+        </li>
+      </ul>
+
+      <h2 class="x-title2">Extra large</h2>
+      <ul class="x-list x-list--wrap x-list--gap-04">
+        <li title="ArrowIcon">
+          <ArrowIcon class="x-icon--xl" />
+        </li>
+        <li title="BagIcon">
+          <BagIcon class="x-icon--xl" />
+        </li>
+        <li title="BarCodeIcon">
+          <BarCodeIcon class="x-icon--xl" />
+        </li>
+        <li title="BarcodeTinyIcon">
+          <BarcodeTinyIcon class="x-icon--xl" />
+        </li>
+        <li title="CartIcon">
+          <CartIcon class="x-icon--xl" />
+        </li>
+        <li title="CheckTinyIcon">
+          <CheckTinyIcon class="x-icon--xl" />
+        </li>
+        <li title="CheckIcon">
+          <CheckIcon class="x-icon--xl" />
+        </li>
+        <li title="CheckboxCardSelectedIcon">
+          <CheckboxCardSelectedIcon class="x-icon--xl" />
+        </li>
+        <li title="CheckboxCardUnselectedIcon">
+          <CheckboxCardUnselectedIcon class="x-icon--xl" />
+        </li>
+        <li title="CheckboxSelectedIcon">
+          <CheckboxSelectedIcon class="x-icon--xl" />
+        </li>
+        <li title="CheckboxUnselectedIcon">
+          <CheckboxUnselectedIcon class="x-icon--xl" />
+        </li>
+        <li title="ChevronDownIcon">
+          <ChevronDownIcon class="x-icon--xl" />
+        </li>
+        <li title="ChevronLeftIcon">
+          <ChevronLeftIcon class="x-icon--xl" />
+        </li>
+        <li title="ChevronRightIcon">
+          <ChevronRightIcon class="x-icon--xl" />
+        </li>
+        <li title="ChevronTinyDownIcon">
+          <ChevronTinyDownIcon class="x-icon--xl" />
+        </li>
+        <li title="ChevronTinyLeftIcon">
+          <ChevronTinyLeftIcon class="x-icon--xl" />
+        </li>
+        <li title="ChevronTinyRightIcon">
+          <ChevronTinyRightIcon class="x-icon--xl" />
+        </li>
+        <li title="ChevronTinyUpIcon">
+          <ChevronTinyUpIcon class="x-icon--xl" />
+        </li>
+        <li title="ChevronUpIcon">
+          <ChevronUpIcon class="x-icon--xl" />
+        </li>
+        <li title="CloseTinyIcon">
+          <CloseTinyIcon class="x-icon--xl" />
+        </li>
+        <li title="CloseIcon">
+          <CloseIcon class="x-icon--xl" />
+        </li>
+        <li title="FiltersIcon">
+          <FiltersIcon class="x-icon--xl" />
+        </li>
+        <li title="Grid1ColIcon">
+          <Grid1ColIcon class="x-icon--xl" />
+        </li>
+        <li title="Grid2ColIcon">
+          <Grid2ColIcon class="x-icon--xl" />
+        </li>
+        <li title="HideIcon">
+          <HideIcon class="x-icon--xl" />
+        </li>
+        <li title="HistoryTinyIcon">
+          <HistoryTinyIcon class="x-icon--xl" />
+        </li>
+        <li title="HistoryIcon">
+          <HistoryIcon class="x-icon--xl" />
+        </li>
+        <li title="MenuIcon">
+          <MenuIcon class="x-icon--xl" />
+        </li>
+        <li title="MinusTinyIcon">
+          <MinusTinyIcon class="x-icon--xl" />
+        </li>
+        <li title="MinusIcon">
+          <MinusIcon class="x-icon--xl" />
+        </li>
+        <li title="Nq1Icon">
+          <Nq1Icon class="x-icon--xl" />
+        </li>
+        <li title="Nq2Icon">
+          <Nq2Icon class="x-icon--xl" />
+        </li>
+        <li title="Nq3Icon">
+          <Nq3Icon class="x-icon--xl" />
+        </li>
+        <li title="Nq4Icon">
+          <Nq4Icon class="x-icon--xl" />
+        </li>
+        <li title="PlusIcon">
+          <PlusIcon class="x-icon--xl" />
+        </li>
+        <li title="SearchIcon">
+          <SearchIcon class="x-icon--xl" />
+        </li>
+        <li title="ShowIcon">
+          <ShowIcon class="x-icon--xl" />
+        </li>
+        <li title="StarIcon">
+          <StarIcon class="x-icon--xl" />
+        </li>
+        <li title="SearchTinyIcon">
+          <SearchTinyIcon class="x-icon--xl" />
+        </li>
+        <li title="TrashOpenIcon">
+          <TrashOpenIcon class="x-icon--xl" />
+        </li>
+        <li title="TrashIcon">
+          <TrashIcon class="x-icon--xl" />
+        </li>
+        <li title="TrendingTinyIcon">
+          <TrendingTinyIcon class="x-icon--xl" />
+        </li>
+        <li title="TrendingIcon">
+          <TrendingIcon class="x-icon--xl" />
+        </li>
+        <li title="UserIcon">
+          <UserIcon class="x-icon--xl" />
+        </li>
+      </ul>
+    </section>
+
     <section>
       <h1 class="x-title1">Button</h1>
 
@@ -1908,11 +2456,7 @@
       <article>
         <h2 class="x-title2">Buttons visible on hover, with overflow and no gradient</h2>
         <SlidingPanel
-          class="
-            x-sliding-panel--no-gradient
-            x-sliding-panel--show-buttons-on-hover
-            x-sliding-panel--buttons-overflow
-          "
+          class="x-sliding-panel--no-gradient x-sliding-panel--show-buttons-on-hover x-sliding-panel--buttons-overflow"
         >
           <button class="x-button x-button--tertiary x-button--card">
             <span class="x-icon">＋</span>
@@ -2543,9 +3087,101 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import SlidingPanel from '../components/sliding-panel.vue';
+  import {
+    ArrowIcon,
+    BagIcon,
+    BarCodeIcon,
+    BarcodeTinyIcon,
+    CartIcon,
+    CheckTinyIcon,
+    CheckIcon,
+    CheckboxCardSelectedIcon,
+    CheckboxCardUnselectedIcon,
+    CheckboxSelectedIcon,
+    CheckboxUnselectedIcon,
+    ChevronDownIcon,
+    ChevronLeftIcon,
+    ChevronRightIcon,
+    ChevronTinyDownIcon,
+    ChevronTinyLeftIcon,
+    ChevronTinyRightIcon,
+    ChevronTinyUpIcon,
+    ChevronUpIcon,
+    CloseTinyIcon,
+    CloseIcon,
+    FiltersIcon,
+    Grid1ColIcon,
+    Grid2ColIcon,
+    HideIcon,
+    HistoryTinyIcon,
+    HistoryIcon,
+    MenuIcon,
+    MinusTinyIcon,
+    MinusIcon,
+    Nq1Icon,
+    Nq2Icon,
+    Nq3Icon,
+    Nq4Icon,
+    PlusIcon,
+    SearchIcon,
+    ShowIcon,
+    StarIcon,
+    SearchTinyIcon,
+    TrashOpenIcon,
+    TrashIcon,
+    TrendingTinyIcon,
+    TrendingIcon,
+    UserIcon
+  } from '../components/icons';
 
   @Component({
-    components: { SlidingPanel }
+    components: {
+      SlidingPanel,
+      ArrowIcon,
+      BagIcon,
+      BarCodeIcon,
+      BarcodeTinyIcon,
+      CartIcon,
+      CheckTinyIcon,
+      CheckIcon,
+      CheckboxCardSelectedIcon,
+      CheckboxCardUnselectedIcon,
+      CheckboxSelectedIcon,
+      CheckboxUnselectedIcon,
+      ChevronDownIcon,
+      ChevronLeftIcon,
+      ChevronRightIcon,
+      ChevronTinyDownIcon,
+      ChevronTinyLeftIcon,
+      ChevronTinyRightIcon,
+      ChevronTinyUpIcon,
+      ChevronUpIcon,
+      CloseTinyIcon,
+      CloseIcon,
+      FiltersIcon,
+      Grid1ColIcon,
+      Grid2ColIcon,
+      HideIcon,
+      HistoryTinyIcon,
+      HistoryIcon,
+      MenuIcon,
+      MinusTinyIcon,
+      MinusIcon,
+      Nq1Icon,
+      Nq2Icon,
+      Nq3Icon,
+      Nq4Icon,
+      PlusIcon,
+      SearchIcon,
+      ShowIcon,
+      StarIcon,
+      SearchTinyIcon,
+      TrashOpenIcon,
+      TrashIcon,
+      TrendingTinyIcon,
+      TrendingIcon,
+      UserIcon
+    }
   })
   export default class DesignSystem extends Vue {
     protected whiteBackgroundImageUrl =
@@ -2707,6 +3343,25 @@
 
     .x-picture-show-case {
       width: 100px;
+    }
+
+    .x-icons {
+      .x-list {
+        background: white;
+
+        > * {
+          background: white;
+          border-color: white;
+        }
+
+        &.x-list--wrap {
+          max-width: unset;
+        }
+
+        li {
+          text-align: center;
+        }
+      }
     }
   }
 
