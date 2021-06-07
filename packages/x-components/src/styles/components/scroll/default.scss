@@ -1,0 +1,35 @@
+.x-scroll {
+  &::-webkit-scrollbar {
+    // layout
+    width: 17px;
+
+    &-track {
+      // color
+      background: var(--x-color-background-scroll-bar);
+    }
+
+    &-thumb {
+      // layout
+      width: 5px;
+
+      // border
+      border-radius: 15px;
+
+      // color
+      background: var(--x-color-thumb-scroll-bar);
+      background-clip: content-box;
+      border: solid 4px rgba(0, 0, 0, 0.00001);
+    }
+  }
+
+  // Firefox
+  // layout
+  scrollbar-width: auto;
+  // color
+  scrollbar-color: var(--x-color-thumb-scroll-bar) var(--x-color-background-scroll-bar);
+
+  &:hover {
+    --x-color-background-scroll-bar: var(--x-color-background-scroll-bar-hover);
+    --x-color-thumb-scroll-bar: var(--x-color-thumb-scroll-bar-hover);
+  }
+}

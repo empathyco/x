@@ -1,5 +1,5 @@
 <template>
-  <div @scroll="throttledStoreScrollData" class="x-base-scroll" data-test="base-scroll">
+  <div @scroll="throttledStoreScrollData" class="x-scroll x-base-scroll" data-test="base-scroll">
     <slot></slot>
   </div>
 </template>
