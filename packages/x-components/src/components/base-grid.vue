@@ -2,7 +2,7 @@
   <component
     :is="animation"
     :style="style"
-    class="x-base-grid"
+    class="x-grid x-base-grid"
     :class="cssClasses"
     tag="ul"
     data-test="grid"
@@ -24,7 +24,7 @@
         the item without an specific slot implementation.
             @binding {item} item - Item to render
       -->
-      <slot v-else :item="item" />
+      <slot v-else :item="item">{{ item.name || item.modelName || item.id || item }}</slot>
     </li>
   </component>
 </template>
@@ -95,8 +95,8 @@
     protected get style(): Partial<CSSStyleDeclaration> {
       return {
         gridTemplateColumns: this.columns
-          ? `repeat(${this.columns}, 1fr)`
-          : 'repeat(auto-fill, minmax(250px, 1fr))'
+          ? `repeat(${this.columns}, minmax(0, 1fr))`
+          : 'repeat(auto-fill, minmax(var(--x-size-min-width-grid-item, 150px), auto))'
       };
     }
 
@@ -123,7 +123,7 @@
 
 <style lang="scss" scoped>
   .x-base-grid {
-    padding: 0;
+    padding: var(--x-space-padding-grid, 0);
     margin: 0;
     display: grid;
     grid-auto-flow: dense;
