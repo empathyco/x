@@ -32,7 +32,7 @@
     <!-- Related Tags -->
     <div class="x-column">
       <h1>Related tags</h1>
-      <RelatedTags />
+      <RelatedTags class="x-list--horizontal x-list--wrap" />
     </div>
     <!-- Testing purpose -->
     <ul>
@@ -52,6 +52,7 @@
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
+  import NoSuggestions from '../x-modules/no-suggestions/components/no-suggestions.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import QuerySuggestion from '../x-modules/query-suggestions/components/query-suggestion.vue';
@@ -84,6 +85,7 @@
       ClearHistoryQueries,
       ClearSearchInput,
       NextQueries,
+      NoSuggestions,
       RelatedTags
     }
   })

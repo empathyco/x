@@ -23,7 +23,7 @@
         </div>
         <div class="x-column">
           <h1>Related tags</h1>
-          <RelatedTags />
+          <RelatedTags class="x-list--horizontal x-list--wrap" />
         </div>
         <div class="x-column">
           <h1>Recommendations</h1>
@@ -123,9 +123,5 @@
       top: 20px;
       right: 20px;
     }
-  }
-
-  .x-related-tags {
-    flex-flow: row wrap;
   }
 </style>

@@ -57,7 +57,7 @@
     <!-- Related Tags -->
     <div class="x-column">
       <h1>Related tags</h1>
-      <RelatedTags />
+      <RelatedTags class="x-list--horizontal x-list--wrap" />
     </div>
     <!-- Testing purpose -->
     <ul>

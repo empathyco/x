@@ -34,7 +34,7 @@
       </div>
       <div class="x-column">
         <h1>Related tags</h1>
-        <RelatedTags :animation="fadeAndSlide" />
+        <RelatedTags class="x-list--horizontal x-list--wrap" :animation="fadeAndSlide" />
       </div>
       <div class="x-column">
         <h1>Recommendations</h1>
