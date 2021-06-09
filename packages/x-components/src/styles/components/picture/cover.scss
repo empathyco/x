@@ -1,25 +1,26 @@
 .x-picture--cover.x-picture {
   position: relative;
+}
 
-  &:hover {
-    &:after {
-      // layout
-      content: '';
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
+.x-result:hover .x-picture--cover,
+.x-picture--cover:hover {
+  &:after {
+    // layout
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
 
-      // color
-      background: linear-gradient(
-        to bottom,
-        var(--x-color-background-picture-cover-hover-from) 50%,
-        var(--x-color-background-picture-cover-hover-to) 100%
-      );
+    // color
+    background: linear-gradient(
+      to bottom,
+      var(--x-color-background-picture-cover-hover-from) 50%,
+      var(--x-color-background-picture-cover-hover-to) 100%
+    );
 
-      // size
-      width: 100%;
-      height: 100%;
-    }
+    // size
+    width: 100%;
+    height: 100%;
   }
 }

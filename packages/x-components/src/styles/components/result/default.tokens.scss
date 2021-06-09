@@ -1,0 +1,22 @@
+:root {
+  // color
+  --x-color-border-result: var(--x-color-lead);
+  --x-color-border-result-picture: var(--x-color-border-result);
+  --x-color-border-result-overlay: var(--x-color-border-result);
+  --x-color-border-result-description: var(--x-color-border-result);
+  --x-color-background-result: transparent;
+
+  // spacing
+  --x-space-padding-result: 0;
+  --x-space-padding-result-picture: 0;
+  --x-space-padding-result-overlay: 0;
+  --x-space-padding-result-description: 0;
+  --x-space-gap-result: var(--x-space-05);
+
+  // border
+  --x-border-radius-result: var(--x-border-radius-none);
+  --x-border-width-result: 0;
+  --x-border-width-result-picture: 0;
+  --x-border-width-result-overlay: 0;
+  --x-border-width-result-description: 0;
+}

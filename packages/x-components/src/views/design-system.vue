@@ -2456,7 +2456,11 @@
       <article>
         <h2 class="x-title2">Buttons visible on hover, with overflow and no gradient</h2>
         <SlidingPanel
-          class="x-sliding-panel--no-gradient x-sliding-panel--show-buttons-on-hover x-sliding-panel--buttons-overflow"
+          class="
+            x-sliding-panel--no-gradient
+            x-sliding-panel--show-buttons-on-hover
+            x-sliding-panel--buttons-overflow
+          "
         >
           <button class="x-button x-button--tertiary x-button--card">
             <span class="x-icon">＋</span>
@@ -2499,7 +2503,7 @@
     </section>
     <!-- eslint-enable max-len -->
 
-    <section>
+    <section class="x-list-show-case">
       <h1 class="x-title1">Lists</h1>
       <article>
         <h2 class="x-title2">Vertical</h2>
@@ -3077,6 +3081,72 @@
       </article>
     </section>
 
+    <section>
+      <h1 class="x-title1">Result</h1>
+
+      <article>
+        <h2 class="x-title2">Default</h2>
+        <div class="x-result">
+          <div class="x-result__picture">
+            <div class="x-result__picture-placeholder"></div>
+          </div>
+          <div class="x-result__overlay">
+            <div class="x-result__overlay-placeholder"></div>
+          </div>
+          <div class="x-result__description">
+            <div class="x-result__description-placeholder"></div>
+          </div>
+        </div>
+
+        <div class="x-result">
+          <div class="x-result__picture">
+            <picture class="x-picture x-picture--cover x-picture--colored">
+              <img class="x-picture__image" :src="whiteBackgroundImageUrl" />
+            </picture>
+          </div>
+          <div class="x-result__overlay x-list x-list--horizontal x-list--padding-02">
+            <button class="x-button primary x-list__item--expanded">Add to Cart</button>
+          </div>
+          <div class="x-result__description x-list x-list--align-center">
+            <h1 class="x-title2">Empathy Dress</h1>
+            <span class="x-text">For special moments</span>
+            <span class="x-title1">120 €</span>
+          </div>
+        </div>
+      </article>
+
+      <article>
+        <h2 class="x-title2">Card</h2>
+        <div class="x-result x-result--card">
+          <div class="x-result__picture">
+            <div class="x-result__picture-placeholder"></div>
+          </div>
+          <div class="x-result__overlay">
+            <div class="x-result__overlay-placeholder"></div>
+          </div>
+          <div class="x-result__description">
+            <div class="x-result__description-placeholder"></div>
+          </div>
+        </div>
+
+        <div class="x-result x-result--card">
+          <div class="x-result__picture">
+            <picture class="x-picture x-picture--cover x-picture--colored">
+              <img class="x-picture__image" :src="whiteBackgroundImageUrl" />
+            </picture>
+          </div>
+          <div class="x-result__overlay x-list x-list--horizontal x-list--padding-02">
+            <button class="x-button primary x-list__item--expanded">Add to Cart</button>
+          </div>
+          <div class="x-result__description x-list x-list--align-center">
+            <h1 class="x-title2">Empathy Dress</h1>
+            <span class="x-text">For special moments</span>
+            <span class="x-title1">120 €</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
     <button @click="toggleTokens" class="info x-button x-button--tertiary x-button--round">
       i
     </button>
@@ -3262,7 +3332,7 @@
       max-width: 200px;
     }
 
-    .x-list {
+    .x-list-show-case .x-list {
       list-style-type: none;
       background: var(--x-color-neutral-95);
       & > * {
@@ -3307,6 +3377,37 @@
       color: var(--x-color-neutral-95);
     }
 
+    .x-result {
+      width: 332px;
+      background-color: #e2e6e6;
+
+      &__picture-placeholder {
+        height: 332px;
+        width: 100%;
+        background-color: #c4d2d8;
+      }
+
+      &__overlay-placeholder {
+        height: 64px;
+        width: 100%;
+        background-color: #bbc3c6;
+      }
+
+      &__description-placeholder {
+        height: 96px;
+        width: 100%;
+        background-color: #929fa5;
+      }
+
+      .x-title2 {
+        margin: 0;
+      }
+
+      .x-picture {
+        height: 356px;
+      }
+    }
+
     .info {
       position: fixed;
       right: var(--x-space-08);
@@ -3348,6 +3449,7 @@
     .x-icons {
       .x-list {
         background: white;
+        list-style-type: none;
 
         > * {
           background: white;

@@ -1,0 +1,7 @@
+.x-result.x-result--card {
+  // layout
+  overflow: hidden;
+
+  // border
+  --x-border-radius-result: var(--x-border-radius-result-card);
+}
