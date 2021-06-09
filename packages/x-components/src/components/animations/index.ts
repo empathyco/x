@@ -1,3 +1,4 @@
+export { default as AnimateWidth } from './animate-width.vue';
 export { default as CollapseFromTop } from './collapse-from-top.vue';
 export { default as CollapseHeight } from './collapse-height.vue';
 export { default as CollapseWidth } from './collapse-width.vue';

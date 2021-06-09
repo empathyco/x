@@ -3,7 +3,8 @@
     v-on="$listeners"
     v-bind="$attrs"
     appear
-    name="staggered-fade-slide-"
+    class="x-staggered-fade-and-slide"
+    name="x-staggered-fade-and-slide-"
   >
     <!-- @slot (Required) Transition-group content -->
     <slot />
@@ -30,7 +31,7 @@
 <style lang="scss" scoped>
   $transition-duration: 0.25s;
 
-  .x-staggering-transition-group::v-deep .staggered-fade-slide {
+  .x-staggered-fade-and-slide::v-deep .x-staggered-fade-and-slide {
     &--enter-active,
     &--leave-active {
       transition: $transition-duration ease-out;

@@ -5,7 +5,7 @@
     @after-enter="cleanUpAnimationStyles"
     @leave="collapse"
     appear
-    name="collapse-height-"
+    name="x-collapse-height-"
   >
     <!-- @slot (Required) to add content to the transition -->
     <slot />
@@ -30,7 +30,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .collapse-height {
+  .x-collapse-height {
     &--enter-active,
     &--leave-active {
       transition: height 0.3s ease-out;

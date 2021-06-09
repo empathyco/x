@@ -1,5 +1,11 @@
 <template>
-  <transition-group v-on="$listeners" class="x-fade-and-slide" appear name="fade-slide-" :tag="tag">
+  <transition-group
+    v-on="$listeners"
+    class="x-fade-and-slide"
+    appear
+    name="x-fade-and-slide-"
+    :tag="tag"
+  >
     <!-- @slot (Required) Transition-group content -->
     <slot />
   </transition-group>
@@ -31,7 +37,7 @@
   $transition-opacity-duration: 0.2s;
   $transition-transform-duration: 0.3s;
 
-  .x-fade-and-slide::v-deep .fade-slide {
+  .x-fade-and-slide::v-deep .x-fade-and-slide {
     &--move,
     &--enter-active,
     &--leave-active {

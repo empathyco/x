@@ -1,5 +1,5 @@
 <template>
-  <transition v-on="$listeners" appear name="collapse-top-" duration="300">
+  <transition v-on="$listeners" appear name="x-collapse-from-top-" duration="300">
     <!-- @slot (Required) to add content to the transition -->
     <slot />
   </transition>
@@ -20,7 +20,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .collapse-top {
+  .x-collapse-from-top {
     &--enter,
     &--leave-to {
       transform: scaleY(0);
