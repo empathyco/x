@@ -11,7 +11,7 @@
       v-for="{ item, cssClass } in itemsWithCSSClass"
       :key="item.id"
       :class="cssClass"
-      class="x-base-grid__item"
+      class="x-grid__item x-base-grid__item"
     >
       <!--
         @slot Customized item rendering. Specifying a slot with the item's modelName will result in

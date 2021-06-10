@@ -6,6 +6,7 @@
     @scroll:almost-at-end="scrollAlmostAtEnd"
     @scroll:at-end="scrollAtEnd"
     v-on="$listeners"
+    :id="id"
     :throttleMs="throttleMs"
     :distanceToBottom="distanceToBottom"
     :resetOnQueryChange="resetOnQueryChange"
@@ -153,7 +154,7 @@
     @XOn('UserClickedScrollToTop')
     scrollToTop(payload: string): void {
       if (payload === this.id && this.$el) {
-        this.$el.scrollTo({ top: 0 });
+        this.$el?.scrollTo({ top: 0 });
       }
     }
   }

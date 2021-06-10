@@ -28,7 +28,6 @@
 
 .x-list--horizontal.x-list {
   flex-flow: row nowrap;
-  align-items: center;
 }
 
 .x-list--wrap.x-list {
@@ -72,12 +71,12 @@
 }
 
 .x-list {
-  .x-list__item--expanded {
+  .x-list__item--expand {
     flex: 1 1 auto;
   }
 
   @for $i from 1 through 12 {
-    .x-list-item-#{$i} {
+    .x-list__item--#{$i} {
       flex: $i #{13 - $i} auto;
     }
   }

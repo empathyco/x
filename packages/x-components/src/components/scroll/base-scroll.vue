@@ -61,7 +61,7 @@
     @XOn('UserAcceptedAQuery')
     scrollToTop(): void {
       if (this.resetOnQueryChange) {
-        this.$el.scrollTo({ top: 0 });
+        this.$el?.scrollTo({ top: 0 });
       }
     }
   }
@@ -69,7 +69,7 @@
 
 <style lang="scss" scoped>
   .x-base-scroll {
-    overflow-y: auto;
+    overflow-y: var(--x-space-overflow-scroll, auto);
   }
 </style>
 

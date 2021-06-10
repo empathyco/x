@@ -41,3 +41,9 @@
   line-height: var(--x-font-line-height-small);
   margin: 0;
 }
+
+.x-ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

@@ -1,4 +1,6 @@
 .x-scroll {
+  overflow-y: var(--x-space-overflow-scroll);
+
   &::-webkit-scrollbar {
     // layout
     width: 17px;

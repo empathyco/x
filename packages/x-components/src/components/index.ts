@@ -19,6 +19,7 @@ export { default as BaseVariableColumnGrid } from './base-variable-column-grid.v
 export { NoElement } from './no-element';
 export { default as SlidingPanel } from './sliding-panel.vue';
 export { default as StaggeringTransitionGroup } from './staggering-transition-group.vue';
+export { default as Layout } from './layouts/layout.vue';
 
 // Utils
 export * from './decorators/bus.decorators';

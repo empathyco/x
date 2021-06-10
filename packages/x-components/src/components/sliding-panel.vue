@@ -7,7 +7,7 @@
       data-test="sliding-panel-left-button"
     >
       <!-- @slot Left button content -->
-      <slot name="sliding-panel-left-button">←</slot>
+      <slot name="sliding-panel-left-button">ᐸ</slot>
     </button>
     <div
       ref="scrollContainer"
@@ -27,7 +27,7 @@
       data-test="sliding-panel-right-button"
     >
       <!-- @slot Right button content -->
-      <slot name="sliding-panel-right-button">→</slot>
+      <slot name="sliding-panel-right-button">ᐳ</slot>
     </button>
   </div>
 </template>

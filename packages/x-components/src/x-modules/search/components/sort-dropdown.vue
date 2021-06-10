@@ -14,7 +14,7 @@
        @binding {Sort} item - The sort data to render.
        @binding {boolean} isOpen - True if the dropdown is opened, and false if it is closed.
       -->
-      <slot v-bind="{ isOpen, item }" name="toggle" />
+      <slot v-bind="{ isOpen, item }" name="toggle">{{ item }}</slot>
     </template>
     <template #item="{ item, isHighlighted, isSelected }">
       <!--
@@ -24,7 +24,7 @@
         @binding {boolean} isHighlighted - True when the item has the focus.
         @binding {boolean} isSelected - True when the item is selected.
       -->
-      <slot v-bind="{ item, isHighlighted, isSelected }" name="item" />
+      <slot v-bind="{ item, isHighlighted, isSelected }" name="item">{{ item }}</slot>
     </template>
   </BaseDropdown>
 </template>
