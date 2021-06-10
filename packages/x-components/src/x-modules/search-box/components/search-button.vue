@@ -21,11 +21,12 @@
   import { searchBoxXModule } from '../x-module';
 
   /**
-   * Search button component which emits on its click {@link XEventsTypes.UserAcceptedAQuery} and
-   * {@link SearchBoxXEvents.UserPressedSearchButton} events with the query as payload while there
-   * is query. If the query is empty, the component won't emit any event. The component has also a
-   * dynamic class to flag the HTML button when the query is empty (to hide the button when the
-   * query is empty for instance).
+   * This component renders a button to submit the query.
+   *
+   * @remarks
+   * If query is not empty, it emits {@link XEventsTypes.UserAcceptedAQuery} and
+   * {@link SearchBoxXEvents.UserPressedSearchButton} events with the query as payload.
+   * It also adds `x-search-button--has-empty-query` as class when there is no query.
    *
    * @public
    */
@@ -58,136 +59,124 @@
   }
 </script>
 
-<!--eslint-disable-->
-<docs>
-  import { NextItem } from '@docusaurus/react-components/Utils';
-  import Tabs from '@theme/Tabs';
-  import TabItem from '@theme/TabItem';
-  import { ReactSearchButton, ReactSearchInput, doMagic } from '@docusaurus/react-components/ReactComponents';
+<docs lang="mdx">
+## Events
 
-  Search button component which emits on its click
-  [UserAcceptedAQuery](x-components.xeventstypes.useracceptedaquery) and
-  [UserAcceptedAQuery](x-components.searchboxxevents.userpressedsearchbutton)
-  events with the query as payload while there is query.
-  If the query is empty, the component won't emit any event. The component has also a
-  dynamic class to flag the HTML button when the query is empty (to hide the button when the
-  query is empty for instance).
+This component emits the following events:
 
-  ## Usage
+- [`UserAcceptedAQuery`](./../../api/x-components.xeventstypes.md)
+- [`UserPressedSearchButton`](./../../api/x-components.searchboxxevents.md)
 
-  <Tabs
-    defaultValue="vue"
-    values={[
-    {label: 'Vue', value: 'vue'},
-  {label: 'Live', value: 'live'},
-  ]}>
-  <TabItem value="vue">
+<!-- prettier-ignore -->
+:::warning
+  Note that no events are emitted if the query is empty.
+:::
 
-    ```jsx
-    <SearchButton />
-    ```
+## Dynamic classes
 
-  </TabItem>
-  <TabItem value="live">
+`SearchButton` uses the `x-search-button--has-empty-query` dynamic CSS class to modify the HTML
+button style when the query is empty.
 
-    <ReactSearchButton> Search </ReactSearchButton>
+## See it in action
 
-  </TabItem>
-  </Tabs>
+In this example, a clickable button is rendered.
 
-  ## Overriding slot
+_Click the Search button to try it out!_
 
-  If you need to add custom content inside this component. You only need to pass a new
-  component in the default slot:
+```vue
+<template>
+  <SearchButton />
+</template>
 
-  <Tabs
-    defaultValue="vue"
-    values={[
-    {label: 'Vue', value: 'vue'},
-  {label: 'Live', value: 'live'},
-  ]}>
-  <TabItem value="vue">
+<script>
+  import { SearchButton } from '@empathy/x-components/search-box';
 
-    ```jsx
-    <SearchButton>
-      <img src="./my-awesome-clear-icon.svg" />
-    </SearchButton>
-    ```
+  export default {
+    name: 'SearchButtonDemo',
+    components: {
+      SearchButton
+    }
+  };
+</script>
+```
 
-  </TabItem>
-  <TabItem value="live">
-    <ReactSearchButton><img style={{height:'16px',margin:'0',border:'0'}}
-                            src="https://image.flaticon.com/icons/svg/483/483356.svg" /></ReactSearchButton>
-  </TabItem>
-  </Tabs>
+### Play with default slot
 
-  ## Using the events
+Here an icon is passed in the default slot instead of text to customize the button content.
 
-  :::info
-  There is a list of events that can be emitted. [XEvents](x-components.xeventstypes)
-  :::
+_Click the icon button to try it out!_
 
-  Exist the possibility of call methods to do something when an event is emitted:
+```vue
+<template>
+  <SearchButton>Search</SearchButton>
+</template>
 
-  <Tabs
-    defaultValue="vue"
-    values={[
-    {label: 'Vue', value: 'vue'},
-  {label: 'Live', value: 'live'},
-  ]}>
-  <TabItem value="vue">
+<script>
+  import { SearchButton } from '@empathy/x-components/search-box';
 
-    ```jsx
-    <SearchButton @UserPressedSearchButton="doMagic()" />
-    ```
+  export default {
+    name: 'SearchButtonDemo',
+    components: {
+      SearchButton
+    }
+  };
+</script>
+```
 
-  </TabItem>
-  <TabItem value="live">
-    <ReactSearchButton on={ {UserPressedSearchButton: doMagic} }> Search </ReactSearchButton>
-  </TabItem>
-  </Tabs>
+### Play with events
 
-  ## Used with other components
+In this example, the `UserPressedSearchButton` event has been implemented so that when you enter a
+search term and click the Search button, the search term is displayed as a message.
 
-  If you want to use this component with another one, you can add other components and they will communicate with each other.
+_Type any term in the input field and then click the Search button to try it out!_
 
-  This example shows how the search button communicates with the `Search Input`.
+```vue
+<template>
+  <SearchButton
+    @UserPressedSearchButton="
+      query => {
+        message = query;
+      }
+    "
+  />
+</template>
 
+<script>
+  import { SearchButton } from '@empathy/x-components/search-box';
 
-  <Tabs
-    defaultValue="live"
-    values={[
-    {label: 'Vue', value: 'vue'},
-  {label: 'Live', value: 'live'},
-  ]}>
-  <TabItem value="vue">
+  export default {
+    name: 'SearchButtonDemo',
+    components: {
+      SearchButton
+    }
+  };
+</script>
+```
 
-    ```jsx
-    <SearchInput />
-    <SearchButton />
-    ```
+## Extending the component
 
-  </TabItem>
-  <TabItem value="live">
+Components can be combined and communicate with each other. Commonly, the `SearchButton` component
+communicates with the [`SearchInput`](./search-input.md) to submit the query. In this example, when
+you enter a search term and click the Search button, the “Looking for results” message is displayed.
 
-    <ReactSearchInput /><ReactSearchButton> Search </ReactSearchButton>
+_Type any term in the input field and then click the Search button to try it out!_
 
-  </TabItem>
-  </Tabs>
+```vue
+<template>
+  <SearchInput />
+  <SearchButton @UserAcceptedAQuery="message = 'looking for results'">Search</SearchButton>
+</template>
 
-  ## Events
+<script>
+  import { SearchButton, SearchInput } from '@empathy/x-components/search-box';
 
-  A list of events that the component will emit:
-
-  - `UserAcceptedAQuery`: the event is emitted after the user clicks the button. The event
-  payload is the query data.
-  - `UserPressedSearchButton`: the event is emitted after the user clicks the button. The event
-  payload is the query data.
-
-  ## Up next
-
-  Ready for more? Continue reading with:
-
-  <NextItem color="#e77962" font="white" next="x-components.querysuggestions">Query Suggestions</NextItem>
-
+  export default {
+    name: 'SearchButtonDemo',
+    components: {
+      SearchButton,
+      SearchInput
+    }
+  };
+</script>
+```
 </docs>

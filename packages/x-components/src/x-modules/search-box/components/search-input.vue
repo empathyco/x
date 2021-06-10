@@ -249,13 +249,13 @@ import { ReactSearchInput, doMagic } from '@docusaurus/react-components/ReactCom
 
 This component emits the following events:
 
-- [`UserClickedSearchBox`](./../../api/x-components.searchboxxevents.userclickedsearchbox.md)
-- [`UserBlurredSearchBox`](./../../api/x-components.searchboxxevents.userblurredsearchbox.md)
-- [`UserFocusedSearchBox`](./../../api/x-components.searchboxxevents.userfocusedsearchbox.md)
-- [`UserIsTypingAQuery`](./../../api/x-components.searchboxxevents.useristypingaquery.md)
-- [`UserPressedEnterKey`](./../../api/x-components.searchboxxevents.userpressedenterkey.md)
-- [`UserPressedArrowKey`](./../../api/x-components.xeventstypes.userpressedarrowkey.md)
-- [`UserAcceptedAQuery`](./../../api/x-components.xeventstypes.useracceptedaquery.md)
+- [`UserClickedSearchBox`](./../../api/x-components.searchboxxevents.md)
+- [`UserBlurredSearchBox`](./../../api/x-components.searchboxxevents.md)
+- [`UserFocusedSearchBox`](./../../api/x-components.searchboxxevents.md)
+- [`UserIsTypingAQuery`](./../../api/x-components.searchboxxevents.md)
+- [`UserPressedEnterKey`](./../../api/x-components.searchboxxevents.md)
+- [`UserPressedArrowKey`](./../../api/x-components.xeventstypes.md)
+- [`UserAcceptedAQuery`](./../../api/x-components.xeventstypes.md)
 
 ## See it in action
 
