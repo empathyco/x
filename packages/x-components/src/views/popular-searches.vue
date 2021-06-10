@@ -34,7 +34,11 @@
     <!-- History Queries -->
     <div class="x-column">
       <h1>History queries</h1>
-      <HistoryQueries />
+      <HistoryQueries>
+        <template #suggestion-remove-content="{ suggestion }">
+          <span :aria-label="`Remove ${suggestion.query} from history`"><CrossIcon /></span>
+        </template>
+      </HistoryQueries>
       <ClearHistoryQueries>Clear previous searches</ClearHistoryQueries>
     </div>
     <!-- Next Queries -->
@@ -63,6 +67,7 @@
   import { Component } from 'vue-property-decorator';
   import { deepMerge } from '@empathybroker/deep-merge';
   import { Result } from '@empathy/search-types';
+  import { CrossIcon } from '../components/icons/index';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
@@ -93,6 +98,7 @@
       next();
     },
     components: {
+      CrossIcon,
       SearchButton,
       SearchInput,
       PopularSearches,

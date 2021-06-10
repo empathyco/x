@@ -4,7 +4,9 @@
     <div class="x-search-box x-input-group x-input-group--card">
       <SearchInput placeholder="Search" aria-label="Search for products" />
       <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-      <SearchButton class="x-input-group__action" aria-label="Search"></SearchButton>
+      <SearchButton class="x-input-group__action" aria-label="Search">
+        <SearchIcon />
+      </SearchButton>
     </div>
 
     <!-- Spellcheck -->
@@ -24,7 +26,7 @@
           class="x-empathize__close x-button--ghost"
           closingEvent="UserClosedEmpathize"
         >
-          <span class="x-icon">╳</span>
+          <CrossIcon />
         </BaseEventsModalClose>
 
         <!-- Query Suggestions -->
@@ -47,7 +49,7 @@
 
           <HistoryQueries :animation="fadeAndSlide" max-items-to-render="5">
             <template #suggestion-remove-content="{ suggestion }">
-              <span class="x-icon" :aria-label="`Remove ${suggestion.query} from history`">x</span>
+              <CrossIcon :aria-label="`Remove ${suggestion.query} from history`" />
             </template>
           </HistoryQueries>
 
@@ -110,7 +112,7 @@
         <BaseHeaderTogglePanel class="x-facet">
           <template #header-content>
             <span>{{ facet.label }}</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </template>
           <SelectedFilters :facetId="facet.id" />
           <AllFilter :facet="facet" />
@@ -129,7 +131,7 @@
         <BaseHeaderTogglePanel class="x-facet">
           <template #header-content>
             <span>{{ facet.label }}</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </template>
           <SelectedFilters :facetId="facet.id" />
           <AllFilter :facet="facet" />
@@ -156,7 +158,7 @@
         <BaseHeaderTogglePanel class="x-facet">
           <template #header-content>
             <span>{{ facet.label }}</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </template>
           <SelectedFilters :facetId="facet.id" />
           <FiltersSearch :filters="facet.filters">
@@ -185,7 +187,7 @@
         <BaseHeaderTogglePanel class="x-facet">
           <template #header-content>
             <span>{{ facet.label }}</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </template>
           <SelectedFilters :facetId="facet.id" />
           <AllFilter :facet="facet" />
@@ -242,19 +244,19 @@
       <SortDropdown :items="sortValues">
         <template #toggle="{ item, isOpen }">
           <span>{{ item || 'Default' }}</span>
-          <span v-if="isOpen" class="x-icon">▲</span>
-          <span v-else class="x-icon">▼</span>
+          <span v-if="isOpen" class="x-icon"><ChevronUpIcon /></span>
+          <span v-else class="x-icon"><ChevronDownIcon /></span>
         </template>
         <template #item="{ item, isHighlighted, isSelected }">
-          <span v-if="isSelected">✓</span>
+          <span v-if="isSelected"><CheckIcon /></span>
           {{ item || 'Default' }}
-          <span v-if="isHighlighted">◂</span>
+          <span v-if="isHighlighted"><ChevronLeftIcon /></span>
         </template>
       </SortDropdown>
 
       <SortList :items="sortValues">
         <template #default="{ item, isSelected }">
-          <span v-if="isSelected">✓</span>
+          <span v-if="isSelected"><CheckIcon /></span>
           {{ item || 'Default' }}
         </template>
       </SortList>
@@ -274,9 +276,9 @@
         :animation="collapseFromTop"
       >
         <template #item="{ item, isSelected, isHighlighted }">
-          <span v-if="isSelected">✓</span>
+          <span v-if="isSelected"><CheckIcon /></span>
           <span>{{ item }}</span>
-          <span v-if="isHighlighted">◂</span>
+          <span v-if="isHighlighted"><ChevronLeftIcon /></span>
         </template>
       </BaseColumnPickerDropdown>
 
@@ -345,6 +347,14 @@
   import { getBannersStub } from '../__stubs__/banners-stubs.factory';
   import { getPromotedsStub } from '../__stubs__/promoteds-stubs.factory';
   import BaseGrid from '../components/base-grid.vue';
+  import {
+    SearchIcon,
+    CrossIcon,
+    ChevronLeftIcon,
+    ChevronUpIcon,
+    ChevronDownIcon,
+    CheckIcon
+  } from '../components/icons/index';
   import BaseIdScroll from '../components/scroll/base-id-scroll.vue';
   import BasePriceFilterLabel from '../components/filters/labels/base-price-filter-label.vue';
   import BaseCurrency from '../components/currency/base-currency.vue';
@@ -420,6 +430,11 @@
       next();
     },
     components: {
+      CrossIcon,
+      ChevronLeftIcon,
+      ChevronUpIcon,
+      ChevronDownIcon,
+      CheckIcon,
       PartialQueryButton,
       PartialResultsList,
       SortDropdown,
@@ -467,6 +482,7 @@
       SelectedFiltersList,
       SearchButton,
       SearchInput,
+      SearchIcon,
       SlidingPanel,
       Spellcheck,
       SpellcheckButton,

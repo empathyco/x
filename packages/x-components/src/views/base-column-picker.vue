@@ -3,7 +3,7 @@
     <!-- Search Section -->
     <SearchInput placeholder="Search" aria-label="Search for products" />
     <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-    <SearchButton aria-label="Search"></SearchButton>
+    <SearchButton aria-label="Search"><SearchIcon /></SearchButton>
     <!-- BaseColumnPickerList -->
     <h1>Column Picker</h1>
     <h2>Column Picker List</h2>
@@ -58,6 +58,7 @@
   import BaseColumnPickerDropdown from '../components/column-picker/base-column-picker-dropdown.vue';
   import BaseColumnPickerList from '../components/column-picker/base-column-picker-list.vue';
   import BaseGrid from '../components/base-grid.vue';
+  import { SearchIcon } from '../components/icons/index';
   import BaseResultLink from '../components/result/base-result-link.vue';
   import BaseResultImage from '../components/result/base-result-image.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
@@ -88,6 +89,7 @@
       ClearSearchInput,
       Recommendations,
       SearchButton,
+      SearchIcon,
       SearchInput
     }
   })

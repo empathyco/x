@@ -2,7 +2,7 @@
   <div class="search">
     <header class="header">
       <SearchInput />
-      <ClearSearchInput>x</ClearSearchInput>
+      <ClearSearchInput><CrossIcon /></ClearSearchInput>
     </header>
     <aside class="aside">
       <template v-if="hasFacets">
@@ -10,8 +10,8 @@
         <!-- TODO Use a real `Sort` component -->
         <BaseDropdown v-model="sortValue" :items="sortItems">
           <template #item="{ item, isHighlighted, isSelected }">
-            <span v-if="isSelected" aria-hidden="true">✅</span>
-            <span v-if="isHighlighted" aria-hidden="true">🟢</span>
+            <CheckIcon v-if="isSelected" />
+            <ChevronLeftIcon v-if="isHighlighted" />
             {{ item }}
           </template>
         </BaseDropdown>
@@ -73,6 +73,7 @@
   import { Component } from 'vue-property-decorator';
   import { Result } from '@empathy/search-types';
   import { State } from '../components/decorators/store.decorators';
+  import { CheckIcon, ChevronLeftIcon, CrossIcon } from '../components/icons/index';
   import Filters from '../x-modules/facets/components/lists/filters.vue';
   import HierarchicalFilter from '../x-modules/facets/components/filters/hierarchical-filter.vue';
   import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
@@ -94,6 +95,9 @@
       next();
     },
     components: {
+      CheckIcon,
+      CrossIcon,
+      ChevronLeftIcon,
       BaseDropdown,
       ClearFilters,
       HierarchicalFilter,

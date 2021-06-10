@@ -31,7 +31,9 @@
         :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
       />
       <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-      <SearchButton aria-label="Search"></SearchButton>
+      <SearchButton aria-label="Search">
+        <SearchIcon />
+      </SearchButton>
     </div>
     <!-- Query Suggestions -->
     <div class="x-column">
@@ -42,7 +44,11 @@
     <!-- History Queries -->
     <div class="x-column">
       <h1>History queries</h1>
-      <HistoryQueries />
+      <HistoryQueries>
+        <template #suggestion-remove-content="{ suggestion }">
+          <span :aria-label="`Remove ${suggestion.query} from history`"><CrossIcon /></span>
+        </template>
+      </HistoryQueries>
       <ClearHistoryQueries>Clear previous searches</ClearHistoryQueries>
     </div>
     <!-- Next Queries -->
@@ -70,6 +76,7 @@
   import { Component } from 'vue-property-decorator';
   import { deepMerge } from '@empathybroker/deep-merge';
   import { Result } from '@empathy/search-types';
+  import { CrossIcon, SearchIcon } from '../components/icons/index';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
@@ -107,6 +114,7 @@
       next();
     },
     components: {
+      CrossIcon,
       SearchButton,
       ClearHistoryQueries,
       ClearSearchInput,
@@ -116,7 +124,8 @@
       QuerySuggestion,
       QuerySuggestions,
       RelatedTags,
-      SearchInput
+      SearchInput,
+      SearchIcon
     }
   })
   export default class SearchBoxView extends Vue {

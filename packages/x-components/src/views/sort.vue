@@ -3,22 +3,24 @@
     <!-- Search Section -->
     <SearchInput placeholder="Search" aria-label="Search for products" />
     <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-    <SearchButton aria-label="Search"></SearchButton>
+    <SearchButton aria-label="Search"><SearchIcon /></SearchButton>
     <!-- Sort -->
     <h1>SortDropdown</h1>
     <SortDropdown :items="sortValues">
       <template #toggle="{ item, isOpen }">
-        {{ item || 'Default' }} {{ isOpen ? '🔼' : '🔽' }}
+        <span>{{ item || 'Default' }}</span>
+        <ChevronUpIcon v-if="isOpen" />
+        <ChevronDownIcon v-else />
       </template>
       <template #item="{ item, isHighlighted, isSelected }">
-        <span v-if="isSelected">✅</span>
+        <span v-if="isSelected"><CheckIcon /></span>
         {{ item || 'Default' }}
       </template>
     </SortDropdown>
     <h1>SortList</h1>
     <SortList :items="sortValues">
       <template #default="{ item, isSelected }">
-        <span v-if="isSelected">✅</span>
+        <span v-if="isSelected"><CheckIcon /></span>
         {{ item || 'Default' }}
       </template>
     </SortList>
@@ -49,6 +51,7 @@
   import { getBannersStub } from '../__stubs__/banners-stubs.factory';
   import { getPromotedsStub } from '../__stubs__/promoteds-stubs.factory';
   import BaseGrid from '../components/base-grid.vue';
+  import { CheckIcon, ChevronDownIcon, ChevronUpIcon, SearchIcon } from '../components/icons/index';
   import BaseResultLink from '../components/result/base-result-link.vue';
   import BaseResultImage from '../components/result/base-result-image.vue';
   import { GridItem } from '../utils/types';
@@ -72,12 +75,16 @@
       next();
     },
     components: {
+      CheckIcon,
+      ChevronDownIcon,
+      ChevronUpIcon,
       ResultsList,
       BaseGrid,
       BaseResultLink,
       BaseResultImage,
       ClearSearchInput,
       SearchButton,
+      SearchIcon,
       SearchInput,
       SortDropdown,
       SortList

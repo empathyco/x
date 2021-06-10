@@ -4,7 +4,7 @@
       <!-- Search Section -->
       <SearchInput placeholder="Search" aria-label="Search for products" />
       <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-      <SearchButton aria-label="Search"></SearchButton>
+      <SearchButton aria-label="Search"><SearchIcon /></SearchButton>
       <!-- Facets -->
       <h1>Facets</h1>
       <SelectedFilters>
@@ -12,7 +12,7 @@
           Filters selected: {{ selectedFilters.length }}
         </template>
       </SelectedFilters>
-      <SelectedFiltersList>
+      <SelectedFiltersList class="x-list--horizontal x-list--gap-02">
         <template #default="{ filter }">Default: {{ filter.label }}</template>
         <template #brand_facet="{ filter }">Brand: {{ filter.label }}</template>
         <template #age_facet="{ filter }">Age: {{ filter.label }}</template>
@@ -102,7 +102,7 @@
         <h1>History queries</h1>
         <HistoryQueries>
           <template #suggestion-remove-content="{ suggestion }">
-            <span :aria-label="`Remove ${suggestion.query} from history`">x</span>
+            <span :aria-label="`Remove ${suggestion.query} from history`"><CrossIcon /></span>
           </template>
         </HistoryQueries>
         <ClearHistoryQueries>Clear previous searches</ClearHistoryQueries>
@@ -124,6 +124,7 @@
   import { Component } from 'vue-property-decorator';
   import { State } from '../components/decorators/store.decorators';
   import BasePriceFilterLabel from '../components/filters/labels/base-price-filter-label.vue';
+  import { CrossIcon, SearchIcon } from '../components/icons/index';
   import AllFilter from '../x-modules/facets/components/filters/all-filter.vue';
   import SlicedFilters from '../x-modules/facets/components/lists/sliced-filters.vue';
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
@@ -173,6 +174,7 @@
       ClearFilters,
       ClearHistoryQueries,
       ClearSearchInput,
+      CrossIcon,
       Facets,
       FiltersSearch,
       HistoryQueries,
@@ -185,7 +187,8 @@
       SelectedFilters,
       SelectedFiltersList,
       SearchButton,
-      SearchInput
+      SearchInput,
+      SearchIcon
     }
   })
   export default class App extends Vue {
@@ -207,6 +210,13 @@
     flex-flow: row;
   }
 
+  .x-selected-filters-list {
+    display: flex;
+
+    &__item {
+      flex: 0 1 auto;
+    }
+  }
   .x-header-toggle-panel {
     &__header {
       margin-bottom: 10px;

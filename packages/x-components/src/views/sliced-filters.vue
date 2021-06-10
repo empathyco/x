@@ -16,7 +16,7 @@
     <!-- Search Section -->
     <SearchInput placeholder="Search" aria-label="Search for products" />
     <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-    <SearchButton aria-label="Search"></SearchButton>
+    <SearchButton aria-label="Search"><SearchIcon /></SearchButton>
     <!-- Facets -->
     <h1>Facets</h1>
     <ClearFilters v-slot="{ selectedFilters }" :alwaysVisible="true">
@@ -112,6 +112,7 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import BasePriceFilterLabel from '../components/filters/labels/base-price-filter-label.vue';
+  import { SearchIcon } from '../components/icons/index';
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
   import { XPlugin } from '../plugins/x-plugin';
   import { XInstaller } from '../x-installer/x-installer';
@@ -159,6 +160,7 @@
       SearchInput,
       SelectedFilters,
       SelectedFiltersList,
+      SearchIcon,
       SimpleFilter,
       SlicedFilters
     }

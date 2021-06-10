@@ -7,7 +7,7 @@
     xmlns:xlink="http://www.w3.org/1999/xlink"
   >
     <g fill="none" fill-rule="evenodd">
-      <rect x="2.5" y="2.5" />
+      <rect x="2.5" y="2.5" width="11" height="11" />
       <polyline points="12 5 6.5 11 4 8.27272727" />
     </g>
   </svg>

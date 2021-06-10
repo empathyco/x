@@ -3,7 +3,7 @@
     <!-- Search Section -->
     <SearchInput placeholder="Search" aria-label="Search for products" />
     <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-    <SearchButton aria-label="Search"></SearchButton>
+    <SearchButton aria-label="Search"><SearchIcon /></SearchButton>
     <!-- Facets -->
     <h1>Facets</h1>
     <Facets renderable-facets="brand_facet">
@@ -57,6 +57,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import { SearchIcon } from '../components/icons/index';
   import { XPlugin } from '../plugins/x-plugin';
   import { XInstaller } from '../x-installer/x-installer';
   import HierarchicalFilter from '../x-modules/facets/components//filters/hierarchical-filter.vue';
@@ -85,6 +86,7 @@
       HierarchicalFilter,
       SearchButton,
       SearchInput,
+      SearchIcon,
       SimpleFilter,
       SlicedFilters
     }

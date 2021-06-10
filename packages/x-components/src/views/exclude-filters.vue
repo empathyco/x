@@ -3,7 +3,7 @@
     <!-- Search Section -->
     <SearchInput placeholder="Search" aria-label="Search for products" />
     <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-    <SearchButton aria-label="Search"></SearchButton>
+    <SearchButton aria-label="Search"><SearchIcon /></SearchButton>
     <!-- Facets -->
     <h1>Facets</h1>
     <SelectedFilters>
@@ -11,7 +11,7 @@
         Filters selected: {{ selectedFilters.length }}
       </template>
     </SelectedFilters>
-    <SelectedFiltersList>
+    <SelectedFiltersList class="x-list--horizontal x-list--gap-02">
       <template #default="{ filter }">Default: {{ filter.label }}</template>
       <template #brand_facet="{ filter }">Brand: {{ filter.label }}</template>
       <template #age_facet="{ filter }">Age: {{ filter.label }}</template>
@@ -110,6 +110,7 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import BasePriceFilterLabel from '../components/filters/labels/base-price-filter-label.vue';
+  import { SearchIcon } from '../components/icons/index';
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
   import { XPlugin } from '../plugins/x-plugin';
   import { XInstaller } from '../x-installer/x-installer';
@@ -158,7 +159,8 @@
       SelectedFilters,
       SelectedFiltersList,
       SimpleFilter,
-      SlicedFilters
+      SlicedFilters,
+      SearchIcon
     }
   })
   export default class App extends Vue {}

@@ -10,7 +10,11 @@
         </div>
         <div class="x-column">
           <h1>History queries</h1>
-          <HistoryQueries :animation="fadeAndSlide" />
+          <HistoryQueries :animation="fadeAndSlide">
+            <template #suggestion-remove-content="{ suggestion }">
+              <span :aria-label="`Remove ${suggestion.query} from history`"><CrossIcon /></span>
+            </template>
+          </HistoryQueries>
           <ClearHistoryQueries>Clear previous searches</ClearHistoryQueries>
         </div>
         <div class="x-column">
@@ -53,6 +57,7 @@
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import FadeAndSlide from '../components/animations/fade-and-slide.vue';
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
+  import { CrossIcon } from '../components/icons/index';
   import BaseResultLink from '../components/result/base-result-link.vue';
   import { XInstaller } from '../x-installer/x-installer';
   import Empathize from '../x-modules/empathize/components/empathize.vue';
@@ -81,6 +86,7 @@
       next();
     },
     components: {
+      CrossIcon,
       ClearSearchInput,
       BaseKeyboardNavigation,
       BaseResultLink,

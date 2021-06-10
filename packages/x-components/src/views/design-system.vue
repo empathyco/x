@@ -72,11 +72,11 @@
         <li title="ChevronUpIcon">
           <ChevronUpIcon class="x-icon--s" />
         </li>
-        <li title="CloseTinyIcon">
-          <CloseTinyIcon class="x-icon--s" />
+        <li title="CrossTinyIcon">
+          <CrossTinyIcon class="x-icon--s" />
         </li>
-        <li title="CloseIcon">
-          <CloseIcon class="x-icon--s" />
+        <li title="CrossIcon">
+          <CrossIcon class="x-icon--s" />
         </li>
         <li title="FiltersIcon">
           <FiltersIcon class="x-icon--s" />
@@ -208,11 +208,11 @@
         <li title="ChevronUpIcon">
           <ChevronUpIcon class="x-icon--m" />
         </li>
-        <li title="CloseTinyIcon">
-          <CloseTinyIcon class="x-icon--m" />
+        <li title="CrossTinyIcon">
+          <CrossTinyIcon class="x-icon--m" />
         </li>
-        <li title="CloseIcon">
-          <CloseIcon class="x-icon--m" />
+        <li title="CrossIcon">
+          <CrossIcon class="x-icon--m" />
         </li>
         <li title="FiltersIcon">
           <FiltersIcon class="x-icon--m" />
@@ -344,11 +344,11 @@
         <li title="ChevronUpIcon">
           <ChevronUpIcon class="x-icon--l" />
         </li>
-        <li title="CloseTinyIcon">
-          <CloseTinyIcon class="x-icon--l" />
+        <li title="CrossTinyIcon">
+          <CrossTinyIcon class="x-icon--l" />
         </li>
-        <li title="CloseIcon">
-          <CloseIcon class="x-icon--l" />
+        <li title="CrossIcon">
+          <CrossIcon class="x-icon--l" />
         </li>
         <li title="FiltersIcon">
           <FiltersIcon class="x-icon--l" />
@@ -480,11 +480,11 @@
         <li title="ChevronUpIcon">
           <ChevronUpIcon class="x-icon--xl" />
         </li>
-        <li title="CloseTinyIcon">
-          <CloseTinyIcon class="x-icon--xl" />
+        <li title="CrossTinyIcon">
+          <CrossTinyIcon class="x-icon--xl" />
         </li>
-        <li title="CloseIcon">
-          <CloseIcon class="x-icon--xl" />
+        <li title="CrossIcon">
+          <CrossIcon class="x-icon--xl" />
         </li>
         <li title="FiltersIcon">
           <FiltersIcon class="x-icon--xl" />
@@ -565,19 +565,19 @@
         <h2 class="x-title2">Default</h2>
         <button class="x-button">Default</button>
         <button class="x-button">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
           <span>Default</span>
         </button>
         <button class="x-button x-button--card">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
           <span>Default Card</span>
         </button>
         <button class="x-button x-button--pill">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
           <span>Default Pill</span>
         </button>
         <button class="x-button x-button--round">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
         </button>
       </article>
 
@@ -585,19 +585,19 @@
         <h2 class="x-title2">Primary</h2>
         <button class="x-button">Primary</button>
         <button class="x-button">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
           <span>Primary</span>
         </button>
         <button class="x-button x-button--card">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
           <span>Primary Card</span>
         </button>
         <button class="x-button x-button--pill">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
           <span>Primary Pill</span>
         </button>
         <button class="x-button x-button--round">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
         </button>
       </article>
 
@@ -605,19 +605,19 @@
         <h2 class="x-title2">Secondary</h2>
         <button class="x-button">Secondary</button>
         <button class="x-button">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
           <span>Secondary</span>
         </button>
         <button class="x-button x-button--card">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
           <span>Secondary Card</span>
         </button>
         <button class="x-button x-button--pill">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
           <span>Secondary Pill</span>
         </button>
         <button class="x-button x-button--round">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
         </button>
       </article>
 
@@ -625,19 +625,19 @@
         <h2 class="x-title2">Tertiary</h2>
         <button class="x-button">Tertiary</button>
         <button class="x-button">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
           <span>Tertiary</span>
         </button>
         <button class="x-button x-button--card">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
           <span>Tertiary Card</span>
         </button>
         <button class="x-button x-button--pill">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
           <span>Tertiary Pill</span>
         </button>
         <button class="x-button x-button--round">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
         </button>
       </article>
 
@@ -645,19 +645,19 @@
         <h2 class="x-title2">Ghost</h2>
         <button class="x-button">Ghost</button>
         <button class="x-button">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
           <span>Ghost</span>
         </button>
         <button class="x-button x-button--card">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
           <span>Ghost Card</span>
         </button>
         <button class="x-button x-button--pill">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
           <span>Ghost Pill</span>
         </button>
         <button class="x-button x-button--round">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
         </button>
       </article>
     </section>
@@ -696,12 +696,12 @@
           <input type="text" class="x-input" placeholder="type here" />
           <button class="x-button">Clear</button>
           <button class="x-button x-input-group__action">
-            <span class="x-icon">⌕</span>
+            <SearchIcon />
           </button>
         </div>
 
         <div class="x-input-group">
-          <span class="x-icon x-input-group__action">⌕</span>
+          <span class="x-input-group__action"><SearchIcon /></span>
           <input type="text" class="x-input" placeholder="type here" />
           <button class="x-button">Clear</button>
           <button class="x-button x-button--secondary x-input-group__action">Search</button>
@@ -709,7 +709,7 @@
 
         <div class="x-input-group">
           <button class="x-button x-button--tertiary x-input-group__action">
-            <span class="x-icon">⌕</span>
+            <SearchIcon />
           </button>
           <input type="text" class="x-input" placeholder="type here" />
           <button class="x-button">Clear</button>
@@ -723,12 +723,12 @@
           <input type="text" class="x-input" placeholder="type here" />
           <button class="x-button">Clear</button>
           <button class="x-button x-input-group__action">
-            <span class="x-icon">⌕</span>
+            <SearchIcon />
           </button>
         </div>
 
         <div class="x-input-group">
-          <span class="x-icon x-input-group__action">⌕</span>
+          <span class="x-input-group__action"><SearchIcon /></span>
           <input type="text" class="x-input" placeholder="type here" />
           <button class="x-button">Clear</button>
           <button class="x-button x-button--secondary x-input-group__action">Search</button>
@@ -736,7 +736,7 @@
 
         <div class="x-input-group">
           <button class="x-button x-button--tertiary x-input-group__action">
-            <span class="x-icon">⌕</span>
+            <SearchIcon />
           </button>
           <input type="text" class="x-input" placeholder="type here" />
           <button class="x-button">Clear</button>
@@ -750,12 +750,12 @@
           <input type="text" class="x-input" placeholder="type here" />
           <button class="x-button">Clear</button>
           <button class="x-button x-input-group__action">
-            <span class="x-icon">⌕</span>
+            <SearchIcon />
           </button>
         </div>
 
         <div class="x-input-group">
-          <span class="x-icon x-input-group__action">⌕</span>
+          <span class="x-input-group__action"><SearchIcon /></span>
           <input type="text" class="x-input" placeholder="type here" />
           <button class="x-button">Clear</button>
           <button class="x-button x-button--secondary x-input-group__action">Search</button>
@@ -763,7 +763,7 @@
 
         <div class="x-input-group">
           <button class="x-button x-button--tertiary x-input-group__action">
-            <span class="x-icon">⌕</span>
+            <SearchIcon />
           </button>
           <input type="text" class="x-input" placeholder="type here" />
           <button class="x-button">Clear</button>
@@ -777,12 +777,12 @@
           <input type="text" class="x-input" placeholder="type here" />
           <button class="x-button">Clear</button>
           <button class="x-button x-input-group__action">
-            <span class="x-icon">⌕</span>
+            <SearchIcon />
           </button>
         </div>
 
         <div class="x-input-group">
-          <span class="x-icon x-input-group__action">⌕</span>
+          <span class="x-input-group__action"><SearchIcon /></span>
           <input type="text" class="x-input" placeholder="type here" />
           <button class="x-button">Clear</button>
           <button class="x-button x-button--secondary x-input-group__action">Search</button>
@@ -790,7 +790,7 @@
 
         <div class="x-input-group">
           <button class="x-button x-button--tertiary x-input-group__action">
-            <span class="x-icon">⌕</span>
+            <SearchIcon />
           </button>
           <input type="text" class="x-input" placeholder="type here" />
           <button class="x-button">Clear</button>
@@ -809,34 +809,34 @@
         </div>
 
         <div class="x-filter">
-          <span class="x-icon">☑</span>
+          <CheckboxSelectedIcon />
           <span class="x-filter__label">Filter value</span>
         </div>
 
         <div class="x-filter">
-          <span class="x-icon">☑</span>
-          <span class="x-filter__label">Filter value</span>
-          <span class="x-filter__count">(10)</span>
-        </div>
-
-        <div class="x-filter">
-          <span class="x-icon">☑</span>
+          <CheckboxSelectedIcon />
           <span class="x-filter__label">Filter value</span>
           <span class="x-filter__count">(10)</span>
-          <span class="x-icon">✓</span>
         </div>
 
         <div class="x-filter">
-          <span class="x-icon">☑</span>
+          <CheckboxSelectedIcon />
+          <span class="x-filter__label">Filter value</span>
+          <span class="x-filter__count">(10)</span>
+          <CheckIcon />
+        </div>
+
+        <div class="x-filter">
+          <CheckboxSelectedIcon />
           <span class="x-filter__label">Filter extra large name</span>
           <span class="x-filter__count">(10)</span>
         </div>
 
         <div class="x-filter">
-          <span class="x-icon">☑</span>
+          <CheckboxSelectedIcon />
           <span class="x-filter__label">Filter extra large name</span>
           <span class="x-filter__count">(10)</span>
-          <span class="x-icon">✓</span>
+          <CheckIcon />
         </div>
       </article>
 
@@ -848,34 +848,34 @@
         </div>
 
         <div class="x-filter x-filter--is-selected">
-          <span class="x-icon">☑</span>
+          <CheckboxSelectedIcon />
           <span class="x-filter__label">Filter value</span>
         </div>
 
         <div class="x-filter x-filter--is-selected">
-          <span class="x-icon">☑</span>
-          <span class="x-filter__label">Filter value</span>
-          <span class="x-filter__count">(10)</span>
-        </div>
-
-        <div class="x-filter x-filter--is-selected">
-          <span class="x-icon">☑</span>
+          <CheckboxSelectedIcon />
           <span class="x-filter__label">Filter value</span>
           <span class="x-filter__count">(10)</span>
-          <span class="x-icon">✓</span>
         </div>
 
         <div class="x-filter x-filter--is-selected">
-          <span class="x-icon">☑</span>
+          <CheckboxSelectedIcon />
+          <span class="x-filter__label">Filter value</span>
+          <span class="x-filter__count">(10)</span>
+          <CheckIcon />
+        </div>
+
+        <div class="x-filter x-filter--is-selected">
+          <CheckboxSelectedIcon />
           <span class="x-filter__label">Filter extra large name</span>
           <span class="x-filter__count">(10)</span>
         </div>
 
         <div class="x-filter x-filter--is-selected">
-          <span class="x-icon">☑</span>
+          <CheckboxSelectedIcon />
           <span class="x-filter__label">Filter extra large name</span>
           <span class="x-filter__count">(10)</span>
-          <span class="x-icon">✓</span>
+          <CheckIcon />
         </div>
       </article>
 
@@ -887,34 +887,34 @@
         </div>
 
         <div class="x-filter">
-          <span class="x-icon">☑</span>
+          <CheckboxSelectedIcon />
           <span class="x-filter__label">Filter value</span>
         </div>
 
         <div class="x-filter">
-          <span class="x-icon">☑</span>
-          <span class="x-filter__label">Filter value</span>
-          <span class="x-filter__count">(10)</span>
-        </div>
-
-        <div class="x-filter">
-          <span class="x-icon">☑</span>
+          <CheckboxSelectedIcon />
           <span class="x-filter__label">Filter value</span>
           <span class="x-filter__count">(10)</span>
-          <span class="x-icon">✓</span>
         </div>
 
         <div class="x-filter">
-          <span class="x-icon">☑</span>
+          <CheckboxSelectedIcon />
+          <span class="x-filter__label">Filter value</span>
+          <span class="x-filter__count">(10)</span>
+          <CheckIcon />
+        </div>
+
+        <div class="x-filter">
+          <CheckboxSelectedIcon />
           <span class="x-filter__label">Filter extra large name</span>
           <span class="x-filter__count">(10)</span>
         </div>
 
         <div class="x-filter">
-          <span class="x-icon">☑</span>
+          <CheckboxSelectedIcon />
           <span class="x-filter__label">Filter extra large name</span>
           <span class="x-filter__count">(10)</span>
-          <span class="x-icon">✓</span>
+          <CheckIcon />
         </div>
       </article>
 
@@ -926,34 +926,34 @@
         </div>
 
         <div class="x-filter x-filter--is-selected">
-          <span class="x-icon">☑</span>
+          <CheckboxSelectedIcon />
           <span class="x-filter__label">Filter value</span>
         </div>
 
         <div class="x-filter x-filter--is-selected">
-          <span class="x-icon">☑</span>
-          <span class="x-filter__label">Filter value</span>
-          <span class="x-filter__count">(10)</span>
-        </div>
-
-        <div class="x-filter x-filter--is-selected">
-          <span class="x-icon">☑</span>
+          <CheckboxSelectedIcon />
           <span class="x-filter__label">Filter value</span>
           <span class="x-filter__count">(10)</span>
-          <span class="x-icon">✓</span>
         </div>
 
         <div class="x-filter x-filter--is-selected">
-          <span class="x-icon">☑</span>
+          <CheckboxSelectedIcon />
+          <span class="x-filter__label">Filter value</span>
+          <span class="x-filter__count">(10)</span>
+          <CheckIcon />
+        </div>
+
+        <div class="x-filter x-filter--is-selected">
+          <CheckboxSelectedIcon />
           <span class="x-filter__label">Filter extra large name</span>
           <span class="x-filter__count">(10)</span>
         </div>
 
         <div class="x-filter x-filter--is-selected">
-          <span class="x-icon">☑</span>
+          <CheckboxSelectedIcon />
           <span class="x-filter__label">Filter extra large name</span>
           <span class="x-filter__count">(10)</span>
-          <span class="x-icon">✓</span>
+          <CheckIcon />
         </div>
       </article>
 
@@ -1002,37 +1002,37 @@
 
         <div class="x-hierarchical-filter-container">
           <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-            <span class="x-icon">☑</span>
+            <CheckboxSelectedIcon />
             <span class="x-filter__label">Parent Filter</span>
           </div>
           <ul class="x-hierarchical-filter__children">
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 1</span>
               </div>
             </li>
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 2</span>
               </div>
               <ul class="x-hierarchical-filter__children">
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 1</span>
                   </div>
                 </li>
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 2</span>
                   </div>
                 </li>
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 3</span>
                   </div>
                 </li>
@@ -1040,7 +1040,7 @@
             </li>
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 3</span>
               </div>
             </li>
@@ -1049,114 +1049,53 @@
 
         <div class="x-hierarchical-filter-container">
           <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-            <span class="x-icon">☑</span>
-            <span class="x-filter__label">Parent Filter</span>
-            <span class="x-filter__count">(10)</span>
-          </div>
-          <ul class="x-hierarchical-filter__children">
-            <li class="x-hierarchical-filter-container">
-              <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
-                <span class="x-filter__label">Child Filter 1</span>
-                <span class="x-filter__count">(10)</span>
-              </div>
-            </li>
-            <li class="x-hierarchical-filter-container">
-              <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                <span class="x-icon">☑</span>
-                <span class="x-filter__label">Child Filter 2</span>
-                <span class="x-filter__count">(10)</span>
-              </div>
-              <ul class="x-hierarchical-filter__children">
-                <li class="x-hierarchical-filter-container">
-                  <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
-                    <span class="x-filter__label">Child Filter 1</span>
-                    <span class="x-filter__count">(10)</span>
-                  </div>
-                </li>
-                <li class="x-hierarchical-filter-container">
-                  <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                    <span class="x-icon">☑</span>
-                    <span class="x-filter__label">Child Filter 2</span>
-                    <span class="x-filter__count">(10)</span>
-                  </div>
-                </li>
-                <li class="x-hierarchical-filter-container">
-                  <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
-                    <span class="x-filter__label">Child Filter 3</span>
-                    <span class="x-filter__count">(10)</span>
-                  </div>
-                </li>
-              </ul>
-            </li>
-            <li class="x-hierarchical-filter-container">
-              <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
-                <span class="x-filter__label">Child Filter 3</span>
-                <span class="x-filter__count">(10)</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-
-        <div class="x-hierarchical-filter-container">
-          <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-            <span class="x-icon">☑</span>
+            <CheckboxSelectedIcon />
             <span class="x-filter__label">Parent Filter</span>
             <span class="x-filter__count">(10)</span>
-            <span class="x-icon">✓</span>
           </div>
           <ul class="x-hierarchical-filter__children">
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 1</span>
                 <span class="x-filter__count">(10)</span>
-                <span class="x-icon">✓</span>
               </div>
             </li>
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 2</span>
                 <span class="x-filter__count">(10)</span>
-                <span class="x-icon">✓</span>
               </div>
               <ul class="x-hierarchical-filter__children">
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 1</span>
                     <span class="x-filter__count">(10)</span>
-                    <span class="x-icon">✓</span>
                   </div>
                 </li>
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 2</span>
                     <span class="x-filter__count">(10)</span>
-                    <span class="x-icon">✓</span>
                   </div>
                 </li>
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 3</span>
                     <span class="x-filter__count">(10)</span>
-                    <span class="x-icon">✓</span>
                   </div>
                 </li>
               </ul>
             </li>
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 3</span>
                 <span class="x-filter__count">(10)</span>
-                <span class="x-icon">✓</span>
               </div>
             </li>
           </ul>
@@ -1164,42 +1103,103 @@
 
         <div class="x-hierarchical-filter-container">
           <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-            <span class="x-icon">☑</span>
+            <CheckboxSelectedIcon />
+            <span class="x-filter__label">Parent Filter</span>
+            <span class="x-filter__count">(10)</span>
+            <CheckIcon />
+          </div>
+          <ul class="x-hierarchical-filter__children">
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <CheckboxSelectedIcon />
+                <span class="x-filter__label">Child Filter 1</span>
+                <span class="x-filter__count">(10)</span>
+                <CheckIcon />
+              </div>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                <CheckboxSelectedIcon />
+                <span class="x-filter__label">Child Filter 2</span>
+                <span class="x-filter__count">(10)</span>
+                <CheckIcon />
+              </div>
+              <ul class="x-hierarchical-filter__children">
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <CheckboxSelectedIcon />
+                    <span class="x-filter__label">Child Filter 1</span>
+                    <span class="x-filter__count">(10)</span>
+                    <CheckIcon />
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                    <CheckboxSelectedIcon />
+                    <span class="x-filter__label">Child Filter 2</span>
+                    <span class="x-filter__count">(10)</span>
+                    <CheckIcon />
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <CheckboxSelectedIcon />
+                    <span class="x-filter__label">Child Filter 3</span>
+                    <span class="x-filter__count">(10)</span>
+                    <CheckIcon />
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <CheckboxSelectedIcon />
+                <span class="x-filter__label">Child Filter 3</span>
+                <span class="x-filter__count">(10)</span>
+                <CheckIcon />
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="x-hierarchical-filter-container">
+          <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+            <CheckboxSelectedIcon />
             <span class="x-filter__label">Parent Filter extra large name</span>
             <span class="x-filter__count">(10)</span>
           </div>
           <ul class="x-hierarchical-filter__children">
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 1 extra large name</span>
                 <span class="x-filter__count">(10)</span>
               </div>
             </li>
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 2 extra large name</span>
                 <span class="x-filter__count">(10)</span>
               </div>
               <ul class="x-hierarchical-filter__children">
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 1 extra large name</span>
                     <span class="x-filter__count">(10)</span>
                   </div>
                 </li>
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 2 extra large name</span>
                     <span class="x-filter__count">(10)</span>
                   </div>
                 </li>
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 3 extra large name</span>
                     <span class="x-filter__count">(10)</span>
                   </div>
@@ -1208,7 +1208,7 @@
             </li>
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 3 extra large name</span>
                 <span class="x-filter__count">(10)</span>
               </div>
@@ -1218,60 +1218,60 @@
 
         <div class="x-hierarchical-filter-container">
           <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-            <span class="x-icon">☑</span>
+            <CheckboxSelectedIcon />
             <span class="x-filter__label">Parent Filter extra large name</span>
             <span class="x-filter__count">(10)</span>
-            <span class="x-icon">✓</span>
+            <CheckIcon />
           </div>
           <ul class="x-hierarchical-filter__children">
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 1 extra large name</span>
                 <span class="x-filter__count">(10)</span>
-                <span class="x-icon">✓</span>
+                <CheckIcon />
               </div>
             </li>
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 2 extra large name</span>
                 <span class="x-filter__count">(10)</span>
-                <span class="x-icon">✓</span>
+                <CheckIcon />
               </div>
               <ul class="x-hierarchical-filter__children">
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 1 extra large name</span>
                     <span class="x-filter__count">(10)</span>
-                    <span class="x-icon">✓</span>
+                    <CheckIcon />
                   </div>
                 </li>
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 2 extra large name</span>
                     <span class="x-filter__count">(10)</span>
-                    <span class="x-icon">✓</span>
+                    <CheckIcon />
                   </div>
                 </li>
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 3 extra large name</span>
                     <span class="x-filter__count">(10)</span>
-                    <span class="x-icon">✓</span>
+                    <CheckIcon />
                   </div>
                 </li>
               </ul>
             </li>
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 3 extra large name</span>
                 <span class="x-filter__count">(10)</span>
-                <span class="x-icon">✓</span>
+                <CheckIcon />
               </div>
             </li>
           </ul>
@@ -1323,37 +1323,37 @@
 
         <div class="x-hierarchical-filter-container">
           <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-            <span class="x-icon">☑</span>
+            <CheckboxSelectedIcon />
             <span class="x-filter__label">Parent Filter</span>
           </div>
           <ul class="x-hierarchical-filter__children">
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 1</span>
               </div>
             </li>
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 2</span>
               </div>
               <ul class="x-hierarchical-filter__children">
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 1</span>
                   </div>
                 </li>
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 2</span>
                   </div>
                 </li>
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 3</span>
                   </div>
                 </li>
@@ -1361,7 +1361,7 @@
             </li>
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 3</span>
               </div>
             </li>
@@ -1370,114 +1370,53 @@
 
         <div class="x-hierarchical-filter-container">
           <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-            <span class="x-icon">☑</span>
-            <span class="x-filter__label">Parent Filter</span>
-            <span class="x-filter__count">(10)</span>
-          </div>
-          <ul class="x-hierarchical-filter__children">
-            <li class="x-hierarchical-filter-container">
-              <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
-                <span class="x-filter__label">Child Filter 1</span>
-                <span class="x-filter__count">(10)</span>
-              </div>
-            </li>
-            <li class="x-hierarchical-filter-container">
-              <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                <span class="x-icon">☑</span>
-                <span class="x-filter__label">Child Filter 2</span>
-                <span class="x-filter__count">(10)</span>
-              </div>
-              <ul class="x-hierarchical-filter__children">
-                <li class="x-hierarchical-filter-container">
-                  <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
-                    <span class="x-filter__label">Child Filter 1</span>
-                    <span class="x-filter__count">(10)</span>
-                  </div>
-                </li>
-                <li class="x-hierarchical-filter-container">
-                  <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                    <span class="x-icon">☑</span>
-                    <span class="x-filter__label">Child Filter 2</span>
-                    <span class="x-filter__count">(10)</span>
-                  </div>
-                </li>
-                <li class="x-hierarchical-filter-container">
-                  <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
-                    <span class="x-filter__label">Child Filter 3</span>
-                    <span class="x-filter__count">(10)</span>
-                  </div>
-                </li>
-              </ul>
-            </li>
-            <li class="x-hierarchical-filter-container">
-              <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
-                <span class="x-filter__label">Child Filter 3</span>
-                <span class="x-filter__count">(10)</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-
-        <div class="x-hierarchical-filter-container">
-          <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-            <span class="x-icon">☑</span>
+            <CheckboxSelectedIcon />
             <span class="x-filter__label">Parent Filter</span>
             <span class="x-filter__count">(10)</span>
-            <span class="x-icon">✓</span>
           </div>
           <ul class="x-hierarchical-filter__children">
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 1</span>
                 <span class="x-filter__count">(10)</span>
-                <span class="x-icon">✓</span>
               </div>
             </li>
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 2</span>
                 <span class="x-filter__count">(10)</span>
-                <span class="x-icon">✓</span>
               </div>
               <ul class="x-hierarchical-filter__children">
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 1</span>
                     <span class="x-filter__count">(10)</span>
-                    <span class="x-icon">✓</span>
                   </div>
                 </li>
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 2</span>
                     <span class="x-filter__count">(10)</span>
-                    <span class="x-icon">✓</span>
                   </div>
                 </li>
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 3</span>
                     <span class="x-filter__count">(10)</span>
-                    <span class="x-icon">✓</span>
                   </div>
                 </li>
               </ul>
             </li>
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 3</span>
                 <span class="x-filter__count">(10)</span>
-                <span class="x-icon">✓</span>
               </div>
             </li>
           </ul>
@@ -1485,42 +1424,103 @@
 
         <div class="x-hierarchical-filter-container">
           <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-            <span class="x-icon">☑</span>
+            <CheckboxSelectedIcon />
+            <span class="x-filter__label">Parent Filter</span>
+            <span class="x-filter__count">(10)</span>
+            <CheckIcon />
+          </div>
+          <ul class="x-hierarchical-filter__children">
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <CheckboxSelectedIcon />
+                <span class="x-filter__label">Child Filter 1</span>
+                <span class="x-filter__count">(10)</span>
+                <CheckIcon />
+              </div>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                <CheckboxSelectedIcon />
+                <span class="x-filter__label">Child Filter 2</span>
+                <span class="x-filter__count">(10)</span>
+                <CheckIcon />
+              </div>
+              <ul class="x-hierarchical-filter__children">
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <CheckboxSelectedIcon />
+                    <span class="x-filter__label">Child Filter 1</span>
+                    <span class="x-filter__count">(10)</span>
+                    <CheckIcon />
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+                    <CheckboxSelectedIcon />
+                    <span class="x-filter__label">Child Filter 2</span>
+                    <span class="x-filter__count">(10)</span>
+                    <CheckIcon />
+                  </div>
+                </li>
+                <li class="x-hierarchical-filter-container">
+                  <div class="x-filter x-hierarchical-filter">
+                    <CheckboxSelectedIcon />
+                    <span class="x-filter__label">Child Filter 3</span>
+                    <span class="x-filter__count">(10)</span>
+                    <CheckIcon />
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="x-hierarchical-filter-container">
+              <div class="x-filter x-hierarchical-filter">
+                <CheckboxSelectedIcon />
+                <span class="x-filter__label">Child Filter 3</span>
+                <span class="x-filter__count">(10)</span>
+                <CheckIcon />
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="x-hierarchical-filter-container">
+          <div class="x-filter x-hierarchical-filter x-filter--is-selected">
+            <CheckboxSelectedIcon />
             <span class="x-filter__label">Parent Filter extra large name</span>
             <span class="x-filter__count">(10)</span>
           </div>
           <ul class="x-hierarchical-filter__children">
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 1 extra large name</span>
                 <span class="x-filter__count">(10)</span>
               </div>
             </li>
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 2 extra large name</span>
                 <span class="x-filter__count">(10)</span>
               </div>
               <ul class="x-hierarchical-filter__children">
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 1 extra large name</span>
                     <span class="x-filter__count">(10)</span>
                   </div>
                 </li>
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 2 extra large name</span>
                     <span class="x-filter__count">(10)</span>
                   </div>
                 </li>
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 3 extra large name</span>
                     <span class="x-filter__count">(10)</span>
                   </div>
@@ -1529,7 +1529,7 @@
             </li>
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 3 extra large name</span>
                 <span class="x-filter__count">(10)</span>
               </div>
@@ -1539,60 +1539,60 @@
 
         <div class="x-hierarchical-filter-container">
           <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-            <span class="x-icon">☑</span>
+            <CheckboxSelectedIcon />
             <span class="x-filter__label">Parent Filter extra large name</span>
             <span class="x-filter__count">(10)</span>
-            <span class="x-icon">✓</span>
+            <CheckIcon />
           </div>
           <ul class="x-hierarchical-filter__children">
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 1 extra large name</span>
                 <span class="x-filter__count">(10)</span>
-                <span class="x-icon">✓</span>
+                <CheckIcon />
               </div>
             </li>
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 2 extra large name</span>
                 <span class="x-filter__count">(10)</span>
-                <span class="x-icon">✓</span>
+                <CheckIcon />
               </div>
               <ul class="x-hierarchical-filter__children">
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 1 extra large name</span>
                     <span class="x-filter__count">(10)</span>
-                    <span class="x-icon">✓</span>
+                    <CheckIcon />
                   </div>
                 </li>
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter x-filter--is-selected">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 2 extra large name</span>
                     <span class="x-filter__count">(10)</span>
-                    <span class="x-icon">✓</span>
+                    <CheckIcon />
                   </div>
                 </li>
                 <li class="x-hierarchical-filter-container">
                   <div class="x-filter x-hierarchical-filter">
-                    <span class="x-icon">☑</span>
+                    <CheckboxSelectedIcon />
                     <span class="x-filter__label">Child Filter 3 extra large name</span>
                     <span class="x-filter__count">(10)</span>
-                    <span class="x-icon">✓</span>
+                    <CheckIcon />
                   </div>
                 </li>
               </ul>
             </li>
             <li class="x-hierarchical-filter-container">
               <div class="x-filter x-hierarchical-filter">
-                <span class="x-icon">☑</span>
+                <CheckboxSelectedIcon />
                 <span class="x-filter__label">Child Filter 3 extra large name</span>
                 <span class="x-filter__count">(10)</span>
-                <span class="x-icon">✓</span>
+                <CheckIcon />
               </div>
             </li>
           </ul>
@@ -1609,7 +1609,7 @@
         <div class="x-facet">
           <button>
             <span>Facet title</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
           <div>
             <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
@@ -1619,7 +1619,7 @@
         <div class="x-facet">
           <button>
             <span>Facet title Extra Large Name</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
           <div>
             <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
@@ -1628,7 +1628,7 @@
 
         <div class="x-facet">
           <button>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
             <span>Facet title</span>
           </button>
           <div>
@@ -1638,7 +1638,7 @@
 
         <div class="x-facet">
           <button>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
             <span>Facet title Extra Large Name</span>
           </button>
           <div>
@@ -1653,7 +1653,7 @@
         <div class="x-facet">
           <button>
             <span>Facet title</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
           <div>
             <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
@@ -1663,7 +1663,7 @@
         <div class="x-facet">
           <button>
             <span>Facet title Extra Large Name</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
           <div>
             <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
@@ -1672,7 +1672,7 @@
 
         <div class="x-facet">
           <button>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
             <span>Facet title</span>
           </button>
           <div>
@@ -1682,7 +1682,7 @@
 
         <div class="x-facet">
           <button>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
             <span>Facet title Extra Large Name</span>
           </button>
           <div>
@@ -1697,7 +1697,7 @@
         <div class="x-facet">
           <button>
             <span>Facet title</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
           <div>
             <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
@@ -1707,7 +1707,7 @@
         <div class="x-facet">
           <button>
             <span>Facet title Extra Large Name</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
           <div>
             <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
@@ -1716,7 +1716,7 @@
 
         <div class="x-facet">
           <button>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
             <span>Facet title</span>
           </button>
           <div>
@@ -1726,7 +1726,7 @@
 
         <div class="x-facet">
           <button>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
             <span>Facet title Extra Large Name</span>
           </button>
           <div>
@@ -1741,7 +1741,7 @@
         <div class="x-facet">
           <button>
             <span>Facet title</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
           <div>
             <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
@@ -1751,7 +1751,7 @@
         <div class="x-facet">
           <button>
             <span>Facet title Extra Large Name</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
           <div>
             <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
@@ -1760,7 +1760,7 @@
 
         <div class="x-facet">
           <button>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
             <span>Facet title</span>
           </button>
           <div>
@@ -1770,7 +1770,7 @@
 
         <div class="x-facet">
           <button>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
             <span>Facet title Extra Large Name</span>
           </button>
           <div>
@@ -1785,7 +1785,7 @@
         <div class="x-facet x-facet--outlined x-facet--line">
           <button>
             <span>Facet Outlined + Line</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
           <div>
             <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
@@ -1795,7 +1795,7 @@
         <div class="x-facet x-facet--outlined x-facet--card">
           <button>
             <span>Facet Outlined + Card</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
           <div>
             <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
@@ -1805,7 +1805,7 @@
         <div class="x-facet x-facet--line x-facet--card">
           <button>
             <span>Facet Line + Card</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
           <div>
             <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
@@ -1815,7 +1815,7 @@
         <div class="x-facet x-facet--outlined x-facet--line x-facet--card">
           <button>
             <span>Facet Outlined + Line + Card</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
           <div>
             <pre style="height: 100%; text-align: center; vertical-align: center">&lt;slot&gt;</pre>
@@ -1838,7 +1838,7 @@
         </div>
 
         <div class="x-suggestion">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
           <span class="x-suggestion__query">
             Suggestion
             <span class="x-suggestion__matching-part">Query</span>
@@ -1850,11 +1850,11 @@
             Suggestion
             <span class="x-suggestion__matching-part">Query</span>
           </span>
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
         </div>
 
         <div class="x-suggestion">
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
           <span class="x-suggestion__query">
             Suggestion extra large name
             <span class="x-suggestion__matching-part">Query</span>
@@ -1866,7 +1866,7 @@
             Suggestion extra large name
             <span class="x-suggestion__matching-part">Query</span>
           </span>
-          <span class="x-icon">⌕</span>
+          <SearchIcon />
         </div>
       </article>
     </section>
@@ -1885,13 +1885,13 @@
             </span>
           </div>
           <button class="x-button">
-            <span class="x-icon">✗</span>
+            <CrossIcon />
           </button>
         </div>
 
         <div class="x-suggestion-group">
           <button class="x-button">
-            <span class="x-icon">✗</span>
+            <CrossIcon />
           </button>
           <div class="x-suggestion">
             <span class="x-suggestion__query">
@@ -1903,40 +1903,40 @@
 
         <div class="x-suggestion-group">
           <div class="x-suggestion">
-            <span class="x-icon">⌕</span>
+            <SearchIcon />
             <span class="x-suggestion__query">
               Suggestion
               <span class="x-suggestion__matching-part">Query</span>
             </span>
           </div>
           <button class="x-button">
-            <span class="x-icon">✗</span>
+            <CrossIcon />
           </button>
         </div>
 
         <div class="x-suggestion-group">
           <button class="x-button">
-            <span class="x-icon">✗</span>
+            <CrossIcon />
           </button>
           <div class="x-suggestion">
             <span class="x-suggestion__query">
               Suggestion
               <span class="x-suggestion__matching-part">Query</span>
             </span>
-            <span class="x-icon">⌕</span>
+            <SearchIcon />
           </div>
         </div>
 
         <div class="x-suggestion-group">
           <button class="x-button">
-            <span class="x-icon">✗</span>
+            <CrossIcon />
           </button>
           <div class="x-suggestion">
             <span class="x-suggestion__query">
               Suggestion extra large name
               <span class="x-suggestion__matching-part">Query</span>
             </span>
-            <span class="x-icon">⌕</span>
+            <SearchIcon />
           </div>
         </div>
       </article>
@@ -1947,11 +1947,11 @@
       <article>
         <h2 class="x-title2">Default</h2>
         <div class="x-tag">
-          <span class="x-icon">＋</span>
+          <PlusIcon />
           <span>text tag</span>
         </div>
         <div class="x-tag">
-          <span class="x-icon">＋</span>
+          <PlusIcon />
           <span>text tag extra large name</span>
         </div>
         <div class="x-tag">
@@ -1964,11 +1964,11 @@
       <article>
         <h2 class="x-title2">Default Selected</h2>
         <div class="x-tag x-tag--is-selected">
-          <span class="x-icon">＋</span>
+          <PlusIcon />
           <span>text tag</span>
         </div>
         <div class="x-tag x-tag--is-selected">
-          <span class="x-icon">＋</span>
+          <PlusIcon />
           <span>text tag extra large name</span>
         </div>
         <div class="x-tag x-tag--is-selected">
@@ -1981,11 +1981,11 @@
       <article>
         <h2 class="x-title2">Card</h2>
         <div class="x-tag x-tag--card">
-          <span class="x-icon">＋</span>
+          <PlusIcon />
           <span>text tag</span>
         </div>
         <div class="x-tag x-tag--card">
-          <span class="x-icon">＋</span>
+          <PlusIcon />
           <span>text tag extra large name</span>
         </div>
         <div class="x-tag x-tag--card">
@@ -1998,11 +1998,11 @@
       <article>
         <h2 class="x-title2">Card Selected</h2>
         <div class="x-tag x-tag--card x-tag--is-selected">
-          <span class="x-icon">＋</span>
+          <PlusIcon />
           <span>text tag</span>
         </div>
         <div class="x-tag x-tag--card x-tag--is-selected">
-          <span class="x-icon">＋</span>
+          <PlusIcon />
           <span>text tag extra large name</span>
         </div>
         <div class="x-tag x-tag--card x-tag--is-selected">
@@ -2015,11 +2015,11 @@
       <article>
         <h2 class="x-title2">Pill</h2>
         <div class="x-tag x-tag--pill">
-          <span class="x-icon">＋</span>
+          <PlusIcon />
           <span>text tag</span>
         </div>
         <div class="x-tag x-tag--pill">
-          <span class="x-icon">＋</span>
+          <PlusIcon />
           <span>text tag extra large name</span>
         </div>
         <div class="x-tag x-tag--pill">
@@ -2035,11 +2035,11 @@
       <article>
         <h2 class="x-title2">Pill Selected</h2>
         <div class="x-tag x-tag--pill x-tag--is-selected">
-          <span class="x-icon">＋</span>
+          <PlusIcon />
           <span>text tag</span>
         </div>
         <div class="x-tag x-tag--pill x-tag--is-selected">
-          <span class="x-icon">＋</span>
+          <PlusIcon />
           <span>text tag extra large name</span>
         </div>
         <div class="x-tag x-tag--pill x-tag--is-selected">
@@ -2055,11 +2055,11 @@
       <article>
         <h2 class="x-title2">Ghost</h2>
         <div class="x-tag x-tag--ghost">
-          <span class="x-icon">＋</span>
+          <PlusIcon />
           <span>text tag</span>
         </div>
         <div class="x-tag x-tag--ghost">
-          <span class="x-icon">＋</span>
+          <PlusIcon />
           <span>text tag extra large name</span>
         </div>
         <div class="x-tag x-tag--ghost">
@@ -2072,11 +2072,11 @@
       <article>
         <h2 class="x-title2">Ghost Selected</h2>
         <div class="x-tag x-tag--ghost x-tag--is-selected">
-          <span class="x-icon">＋</span>
+          <PlusIcon />
           <span>text tag</span>
         </div>
         <div class="x-tag x-tag--ghost x-tag--is-selected">
-          <span class="x-icon">＋</span>
+          <PlusIcon />
           <span>text tag extra large name</span>
         </div>
         <div class="x-tag x-tag--ghost x-tag--is-selected">
@@ -2098,19 +2098,19 @@
           <button class="x-dropdown__toggle">
             Sort by
             <span class="x-dropdown__toggle-selected-value">Relevance</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
         </div>
         <div class="x-dropdown x-dropdown--is-open">
           <button class="x-dropdown__toggle">
             Sort by
             <span class="x-dropdown__toggle-selected-value">Relevance</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
           <div class="x-dropdown__items-list">
             <button class="x-dropdown__item x-dropdown__item--is-selected">
               Relevance
-              <span class="x-icon">✓</span>
+              <CheckIcon />
             </button>
             <button class="x-dropdown__item">Alphabetical</button>
             <button class="x-dropdown__item">Price</button>
@@ -2125,19 +2125,19 @@
           <button class="x-dropdown__toggle">
             Sort by
             <span class="x-dropdown__toggle-selected-value">Relevance</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
         </div>
         <div class="x-dropdown x-dropdown--is-open x-dropdown--card">
           <button class="x-dropdown__toggle">
             Sort by
             <span class="x-dropdown__toggle-selected-value">Relevance</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
           <div class="x-dropdown__items-list">
             <button class="x-dropdown__item x-dropdown__item--is-selected">
               Relevance
-              <span class="x-icon">✓</span>
+              <CheckIcon />
             </button>
             <button class="x-dropdown__item">Alphabetical</button>
             <button class="x-dropdown__item">Price</button>
@@ -2152,19 +2152,19 @@
           <button class="x-dropdown__toggle">
             Sort by
             <span class="x-dropdown__toggle-selected-value">Relevance</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
         </div>
         <div class="x-dropdown x-dropdown--is-open x-dropdown--pill">
           <button class="x-dropdown__toggle">
             Sort by
             <span class="x-dropdown__toggle-selected-value">Relevance</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
           <div class="x-dropdown__items-list">
             <button class="x-dropdown__item x-dropdown__item--is-selected">
               Relevance
-              <span class="x-icon">✓</span>
+              <CheckIcon />
             </button>
             <button class="x-dropdown__item">Alphabetical</button>
             <button class="x-dropdown__item">Price</button>
@@ -2179,19 +2179,19 @@
           <button class="x-dropdown__toggle">
             Sort by
             <span class="x-dropdown__toggle-selected-value">Relevance</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
         </div>
         <div class="x-dropdown x-dropdown--is-open x-dropdown--line">
           <button class="x-dropdown__toggle">
             Sort by
             <span class="x-dropdown__toggle-selected-value">Relevance</span>
-            <span class="x-icon">▾</span>
+            <ChevronDownIcon />
           </button>
           <div class="x-dropdown__items-list">
             <button class="x-dropdown__item x-dropdown__item--is-selected">
               Relevance
-              <span class="x-icon">✓</span>
+              <CheckIcon />
             </button>
             <button class="x-dropdown__item">Alphabetical</button>
             <button class="x-dropdown__item">Price</button>
@@ -2244,168 +2244,192 @@
       <article>
         <h2 class="x-title2">Default</h2>
         <SlidingPanel>
+          <template #sliding-panel-left-button>
+            <ChevronLeftIcon />
+          </template>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Bogotá</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Baghdad</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Nairobi</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Ankara</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Thais</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Edron</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Venore</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Carlin</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Ab'Dendriel</span>
           </button>
+          <template #sliding-panel-right-button>
+            <ChevronRightIcon />
+          </template>
         </SlidingPanel>
       </article>
 
       <article>
         <h2 class="x-title2">Buttons overflow</h2>
         <SlidingPanel class="x-sliding-panel--buttons-overflow">
+          <template #sliding-panel-left-button>
+            <ChevronLeftIcon />
+          </template>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Bogotá</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Baghdad</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Nairobi</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Ankara</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Thais</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Edron</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Venore</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Carlin</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Ab'Dendriel</span>
           </button>
+          <template #sliding-panel-right-button>
+            <ChevronRightIcon />
+          </template>
         </SlidingPanel>
       </article>
 
       <article>
         <h2 class="x-title2">No gradient</h2>
         <SlidingPanel class="x-sliding-panel--no-gradient">
+          <template #sliding-panel-left-button>
+            <ChevronLeftIcon />
+          </template>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Bogotá</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Baghdad</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Nairobi</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Ankara</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Thais</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Edron</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Venore</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Carlin</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Ab'Dendriel</span>
           </button>
+          <template #sliding-panel-right-button>
+            <ChevronRightIcon />
+          </template>
         </SlidingPanel>
       </article>
 
       <article>
         <h2 class="x-title2">Buttons visible on hover</h2>
         <SlidingPanel class="x-sliding-panel--show-buttons-on-hover">
+          <template #sliding-panel-left-button>
+            <ChevronLeftIcon />
+          </template>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Bogotá</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Baghdad</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Nairobi</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Ankara</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Thais</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Edron</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Venore</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Carlin</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Ab'Dendriel</span>
           </button>
+          <template #sliding-panel-right-button>
+            <ChevronRightIcon />
+          </template>
         </SlidingPanel>
       </article>
 
@@ -2414,42 +2438,48 @@
         <SlidingPanel
           class="x-sliding-panel--show-buttons-on-hover x-sliding-panel--buttons-overflow"
         >
+          <template #sliding-panel-left-button>
+            <ChevronLeftIcon />
+          </template>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Bogotá</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Baghdad</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Nairobi</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Ankara</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Thais</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Edron</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Venore</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Carlin</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Ab'Dendriel</span>
           </button>
+          <template #sliding-panel-right-button>
+            <ChevronRightIcon />
+          </template>
         </SlidingPanel>
       </article>
 
@@ -2462,42 +2492,48 @@
             x-sliding-panel--buttons-overflow
           "
         >
+          <template #sliding-panel-left-button>
+            <ChevronLeftIcon />
+          </template>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Bogotá</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Baghdad</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Nairobi</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Ankara</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Thais</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Edron</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Venore</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Carlin</span>
           </button>
           <button class="x-button x-button--tertiary x-button--card">
-            <span class="x-icon">＋</span>
+            <PlusIcon />
             <span>Ab'Dendriel</span>
           </button>
+          <template #sliding-panel-right-button>
+            <ChevronRightIcon />
+          </template>
         </SlidingPanel>
       </article>
     </section>
@@ -3177,8 +3213,8 @@
     ChevronTinyRightIcon,
     ChevronTinyUpIcon,
     ChevronUpIcon,
-    CloseTinyIcon,
-    CloseIcon,
+    CrossTinyIcon,
+    CrossIcon,
     FiltersIcon,
     Grid1ColIcon,
     Grid2ColIcon,
@@ -3226,8 +3262,8 @@
       ChevronTinyRightIcon,
       ChevronTinyUpIcon,
       ChevronUpIcon,
-      CloseTinyIcon,
-      CloseIcon,
+      CrossTinyIcon,
+      CrossIcon,
       FiltersIcon,
       Grid1ColIcon,
       Grid2ColIcon,

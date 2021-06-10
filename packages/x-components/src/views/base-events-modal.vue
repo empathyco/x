@@ -3,7 +3,7 @@
     <BaseEventsOpenButton>Open search (events modal)</BaseEventsOpenButton>
     <BaseEventsModal :animation="collapseFromTop">
       <SearchInput placeholder="Search" aria-label="Search for products" />
-      <BaseEventsCloseButton aria-label="Close search">x</BaseEventsCloseButton>
+      <BaseEventsCloseButton aria-label="Close search"><CrossIcon /></BaseEventsCloseButton>
     </BaseEventsModal>
   </main>
 </template>
@@ -11,6 +11,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import { CrossIcon } from '../components/icons/index';
   import BaseEventsModal from '../components/modals/base-events-modal.vue';
   import BaseEventsCloseButton from '../components/modals/base-events-modal-close.vue';
   import BaseEventsOpenButton from '../components/modals/base-events-modal-open.vue';
@@ -25,6 +26,7 @@
       next();
     },
     components: {
+      CrossIcon,
       BaseEventsModal,
       BaseEventsCloseButton,
       BaseEventsOpenButton,

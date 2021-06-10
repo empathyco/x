@@ -3,7 +3,7 @@
     <!-- Search Section -->
     <SearchInput placeholder="Search" aria-label="Search for products" />
     <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-    <SearchButton aria-label="Search"></SearchButton>
+    <SearchButton aria-label="Search"><SearchIcon /></SearchButton>
     <!-- Facets -->
     <h1>Facets</h1>
     <ClearFilters v-slot="{ selectedFilters }" :alwaysVisible="true">
@@ -114,6 +114,7 @@
   import { Component } from 'vue-property-decorator';
   import { Result } from '@empathy/search-types';
   import BasePriceFilterLabel from '../components/filters/labels/base-price-filter-label.vue';
+  import { SearchIcon } from '../components/icons/index';
   import AllFilter from '../x-modules/facets/components/filters/all-filter.vue';
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
@@ -157,7 +158,8 @@
       MultiSelectFilters,
       SelectedFilters,
       SearchButton,
-      SearchInput
+      SearchInput,
+      SearchIcon
     }
   })
   export default class MultiselectFilters extends Vue {
