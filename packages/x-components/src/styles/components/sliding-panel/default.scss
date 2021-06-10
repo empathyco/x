@@ -9,12 +9,18 @@
 
   &.x-sliding-panel--buttons-overflow {
     .x-sliding-panel {
+      &__button {
+        // others
+        pointer-events: all;
+      }
+
       &__button-left {
         // layout
         transform: translateX(
           calc(-100% - var(--x-space-horizontal-margin-sliding-panel-button-overflow))
         );
       }
+
       &__button-right {
         // layout
         transform: translateX(
@@ -26,6 +32,7 @@
 
   &.x-sliding-panel--show-buttons-on-hover {
     .x-sliding-panel__button {
+      // visibility
       opacity: 0;
     }
 
@@ -33,12 +40,19 @@
       .x-sliding-panel__button-left {
         // visibility
         opacity: 1;
+
+        // others
+        pointer-events: all;
       }
     }
+
     &:not(.x-sliding-panel--at-end):hover {
       .x-sliding-panel__button-right {
         // visibility
         opacity: 1;
+
+        // others
+        pointer-events: all;
       }
     }
   }
@@ -51,6 +65,7 @@
 
       // other
       content: '';
+      pointer-events: none;
 
       // sizing
       height: 100%;

@@ -198,6 +198,7 @@
 
     &__button {
       opacity: 0;
+      pointer-events: none;
       position: absolute;
       transition: all ease-out 0.2s;
       z-index: 1;
@@ -228,11 +229,13 @@
     &:not(.x-sliding-panel--show-buttons-on-hover):not(.x-sliding-panel--at-start) {
       .x-sliding-panel__button-left {
         opacity: 1;
+        pointer-events: all;
       }
     }
     &:not(.x-sliding-panel--show-buttons-on-hover):not(.x-sliding-panel--at-end) {
       .x-sliding-panel__button-right {
         opacity: 1;
+        pointer-events: all;
       }
     }
   }
