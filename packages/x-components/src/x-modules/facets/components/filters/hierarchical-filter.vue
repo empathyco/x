@@ -33,16 +33,16 @@
       </slot>
     </RenderlessFilter>
     <Filters
-      v-slot="{ filter }"
+      #default="{ filter: childFilter }"
       :animation="childrenAnimation"
-      :filters="filter.children"
+      :filters="renderedChildrenFilters"
       class="x-hierarchical-filter__children"
       data-test="children-filters"
     >
       <HierarchicalFilter
-        v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
+        #default="{ filter, clickFilter, cssClasses, isDisabled }"
         :childrenAnimation="childrenAnimation"
-        :filter="filter"
+        :filter="childFilter"
       >
         <slot v-bind="{ filter, clickFilter, cssClasses, isDisabled }" />
       </HierarchicalFilter>
@@ -53,7 +53,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { HierarchicalFilter as HierarchicalFilterModel } from '@empathy/search-types';
+  import { Filter, HierarchicalFilter as HierarchicalFilterModel } from '@empathy/search-types';
   import { xComponentMixin } from '../../../../components';
   import { isFilterPartiallySelected } from '../../../../utils/filters';
   import { VueCSSClasses } from '../../../../utils/types';
@@ -117,6 +117,18 @@
      */
     protected get isPartiallySelected(): boolean {
       return isFilterPartiallySelected(this.filter);
+    }
+
+    /**
+     * List of filters to render, in case that the children's array
+     * is empty it will return an empty array instead of inject the ones from the parent.
+     *
+     * @returns A list of filters.
+     *
+     * @internal
+     */
+    protected get renderedChildrenFilters(): Filter[] {
+      return this.filter.children ?? [];
     }
   }
 </script>
