@@ -3115,6 +3115,20 @@
           <img class="x-picture__image" :src="whiteBackgroundImageUrl" />
         </picture>
       </article>
+
+      <article class="x-picture-show-case">
+        <h2 class="x-title2">Fallback</h2>
+        <picture class="x-picture">
+          <BaseResultFallbackImage />
+        </picture>
+      </article>
+
+      <article class="x-picture-show-case">
+        <h2 class="x-title2">Placeholder</h2>
+        <picture class="x-picture">
+          <BaseResultPlaceholderImage />
+        </picture>
+      </article>
     </section>
 
     <section>
@@ -3192,6 +3206,8 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import BaseResultFallbackImage from '../components/result/base-result-fallback-image.vue';
+  import BaseResultPlaceholderImage from '../components/result/base-result-placeholder-image.vue';
   import SlidingPanel from '../components/sliding-panel.vue';
   import {
     ArrowIcon,
@@ -3242,6 +3258,8 @@
 
   @Component({
     components: {
+      BaseResultPlaceholderImage,
+      BaseResultFallbackImage,
       SlidingPanel,
       ArrowIcon,
       BagIcon,

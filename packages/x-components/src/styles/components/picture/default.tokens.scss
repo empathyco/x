@@ -4,6 +4,10 @@
 
   // color
   --x-color-background-picture: transparent;
+  --x-color-fill-placeholder-path: var(--x-color-neutral-70);
+  --x-color-fill-placeholder-rect: var(--x-color-neutral-95);
+  --x-color-fill-fallback-path: var(--x-color-neutral-70);
+  --x-color-fill-fallback-rect: var(--x-color-neutral-95);
 
   // others
   --x-object-fit-picture-image: contain;

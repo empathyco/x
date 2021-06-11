@@ -24,11 +24,23 @@
     &--fallback {
       --x-object-fit-picture-image: var(--x-object-fit-picture-image-fallback);
       --x-mix-blend-mode-picture-image: var(--x-mix-blend-mode-picture-image-fallback);
+      & > rect{
+        fill: var(--x-color-fill-fallback-rect);
+      }
+      & > path{
+        fill: var(--x-color-fill-fallback-path);
+      }
     }
 
     &--placeholder {
       --x-object-fit-picture-image: var(--x-object-fit-picture-image-placeholder);
       --x-mix-blend-mode-picture-image: var(--x-mix-blend-mode-picture-image-placeholder);
+      & > rect{
+        fill: var(--x-color-fill-placeholder-rect);
+      }
+      & > path{
+        fill: var(--x-color-fill-placeholder-path);
+      }
     }
   }
 }
