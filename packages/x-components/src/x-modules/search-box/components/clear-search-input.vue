@@ -5,7 +5,7 @@
     :events="clearSearchInputEvents"
     data-test="clear-search-input"
   >
-    <!-- @slot (Required) Button content with a text, an icon or both -->
+    <!-- @slot _Required_. Button content (text, icon, or both) -->
     <slot>✕</slot>
   </BaseEventButton>
 </template>
@@ -21,9 +21,13 @@
   import { searchBoxXModule } from '../x-module';
 
   /**
+   * This component renders a button which is intended to be used to clear the query.
+   *
+   * @remarks
    * A button that when pressed emits the {@link SearchBoxXEvents.UserPressedClearSearchBoxButton}
    * and {@link SearchBoxXEvents.UserClearedQuery} events, expressing the user intention to clear
    * the current query.
+   * It also adds `x-clear-search-input--has-empty-query` as class when there is no query.
    *
    * @public
    */
@@ -56,128 +60,118 @@
   }
 </script>
 
-<!--eslint-disable-->
-<docs>
-  import { NextItem } from '@docusaurus/react-components/Utils';
-  import Tabs from '@theme/Tabs';
-  import TabItem from '@theme/TabItem';
-  import { ReactClearSearchInput, ReactSearchInput, doMagic } from '@docusaurus/react-components/ReactComponents';
+<docs lang="mdx">
+## Events
 
-  The ClearSearchInput is a button that when pressed emits [UserPressedClearsearchBoxButton](x-components.searchboxxevents.userpressedclearsearchboxbutton)
-  event, expressing the user intention to clear the current query.
+This component emits the following events:
 
-  ## Basic Usage
+- [`UserPressedClearSearchBoxButton`](./../../api/x-components.searchboxxevents.md)
+- [`UserClearedQuery`](./../../api/x-components.searchboxxevents.md)
 
-  <Tabs
-    defaultValue="vue"
-    values={[
-    {label: 'Vue', value: 'vue'},
-  {label: 'Live', value: 'live'},
-  ]}>
-  <TabItem value="vue">
+## See it in action
 
-    ```jsx
-    <ClearSearchInput />
-    ```
+Here a basic example of how the clear button is rendered.
 
-  </TabItem>
-  <TabItem value="live">
-    <ReactSearchInput />
-    <ReactClearSearchInput> Clear </ReactClearSearchInput>
-  </TabItem>
-  </Tabs>
+_Type any term in the input field and then click the Clear button to try it out!_
 
-  ## Overriding slot
+```vue
+<template>
+  <SearchInput />
+  <ClearSearchInput />
+</template>
 
-  If You need to add custom content inside this component. You only need to pass a new
-  component in the default slot:
+<script>
+  import { ClearSearchInput, SearchInput } from '@empathy/x-components/search-box';
 
-  <Tabs
-    defaultValue="vue"
-    values={[
-    {label: 'Vue', value: 'vue'},
-  {label: 'Live', value: 'live'},
-  ]}>
-  <TabItem value="vue">
+  export default {
+    name: 'ClearSearchInputDemo',
+    components: {
+      ClearSearchInput,
+      SearchInput
+    }
+  };
+</script>
+```
 
-    ```jsx
-    <ClearSearchInput>
-      <img src="./my-awesome-clear-icon.svg" />
-    </ClearSearchInput>
-    ```
+### Play with default slot
 
-  </TabItem>
-  <TabItem value="live">
-    <ReactSearchInput />
-    <ReactClearSearchInput><img style={{height:'16px',margin:'0',border:'0'}}
-                                src="https://image.flaticon.com/icons/svg/864/864393.svg" /></ReactClearSearchInput>
-  </TabItem>
-  </Tabs>
+In this example, a custom text is passed in the default slot instead of the default text to
+customize the button content.
 
-  ## Using the events
+_Click the icon button to try it out!_
 
-  :::info
-  There is a list of events that can be emitted. [XEvents](x-components.xeventstypes)
-  :::
+```vue
+<template>
+  <ClearSearchInput>Clear</ClearSearchInput>
+</template>
 
-  Exist the possibility of call methods to do something when an event is emitted:
+<script>
+  import { ClearSearchInput } from '@empathy/x-components/search-box';
 
-  <Tabs
-    defaultValue="vue"
-    values={[
-    {label: 'Vue', value: 'vue'},
-  {label: 'Live', value: 'live'},
-  ]}>
-  <TabItem value="vue">
+  export default {
+    name: 'ClearSearchInputDemo',
+    components: {
+      ClearSearchInput
+    }
+  };
+</script>
+```
 
-    ```jsx
-    <ClearSearchInput  @UserPressedClearSearchBoxButton="doMagic()" />
-    ```
+### Play with events
 
-  </TabItem>
-  <TabItem value="live">
-    <ReactClearSearchInput on={ {UserPressedClearSearchBoxButton: doMagic} }> Clear </ReactClearSearchInput>
-  </TabItem>
-  </Tabs>
+In this example, the `UserPressedClearSearchBoxButton` event is implemented, triggering the message
+“clear” when the clear search input button is clicked.
 
+_Click the Clear button to try it out!_
 
-  ## Used with other components
+```vue
+<template>
+  <ClearSearchInput @UserPressedClearSearchBoxButton="logUserPressedClearSearchBoxButton">
+    Clear
+  </ClearSearchInput>
+</template>
 
-  If you want to use this component with another one, you can add other components and they will communicate with each other.
+<script>
+  import { ClearSearchInput } from '@empathy/x-components/search-box';
 
-  This example shows how the clear search button communicates with the <Highlight color="#25c2a0">Search Input</Highlight>:
+  export default {
+    name: 'ClearSearchInputDemo',
+    components: {
+      ClearSearchInput
+    },
+    methods: {
+      logUserPressedClearSearchBoxButton() {
+        console.log('User pressed clear search box button');
+      }
+    }
+  };
+</script>
+```
 
-  <Tabs
-    defaultValue="vue"
-    values={[
-    {label: 'Vue', value: 'vue'},
-  {label: 'Live', value: 'live'},
-  ]}>
-  <TabItem value="vue">
+## Extending the component
 
-    ```jsx
-    <SearchInput />
-    <ClearSearchInput>
-      <img src="./my-awesome-clear-icon.svg" />
-    </ClearSearchInput>
-    ```
+Components can be combined and communicate with each other. Commonly, the `ClearSearchInput`
+component communicates with the [`SearchInput`](./search-input.md), deleting the search term
+entered.
 
-  </TabItem>
-  <TabItem value="live">
-    <div style={{display:'flex',alignItems:'center'}} ><ReactSearchInput></ReactSearchInput><ReactClearSearchInput><img style={{height:'16px',margin:'0',border:'0'}} src="https://image.flaticon.com/icons/svg/864/864393.svg" /></ReactClearSearchInput></div>
-  </TabItem>
-  </Tabs>
+_Type any term in the input field and then click the icon button to try it out!_
 
-  ## Events
+```vue
+<template>
+  <SearchInput />
+  <ClearSearchInput />
+</template>
 
-  A list of events that the component will emit:
+<script>
+  import { ClearSearchInput, SearchInput } from '@empathy/x-components/search-box';
 
-  - `UserPressedClearSearchBoxButton`: the event is emitted after the user clicks the button.
-
-  ## Up next
-
-  Ready for more? Continue reading with:
-
-  <NextItem color="#e77962" font="white" next="x-components.searchbutton">Search button</NextItem>
-
+  export default {
+    name: 'ClearSearchInputDemo',
+    components: {
+      ClearSearchInput,
+      SearchInput
+    }
+  };
+</script>
+```
 </docs>
