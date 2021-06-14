@@ -50,9 +50,9 @@
 
 ### Documentation
 
-* **search-box:** update search input component documentation ([22f87db](https://bitbucket.org/colbenson/x-components/commits/22f87db5b2143cfde49b17d380c3156cb6610590)), closes [EX-4029](https://searchbroker.atlassian.net/browse/EX-4029)
-* **search-box:** update ClearSearchInput documentation ([0f01401](https://bitbucket.org/colbenson/x-components/commits/0f0140174878edfbba86ec761e66704b09e72721)), closes [EX-4101](https://searchbroker.atlassian.net/browse/EX-4101)
-* **search-box:** update SearchButton documentation ([c38f154](https://bitbucket.org/colbenson/x-components/commits/c38f154f4b7293e20004b15096d921bb6107fc0d)), closes [EX-4090](https://searchbroker.atlassian.net/browse/EX-4090)
+* **search-box:** update `SearcInput` component documentation ([22f87db](https://bitbucket.org/colbenson/x-components/commits/22f87db5b2143cfde49b17d380c3156cb6610590)), closes [EX-4029](https://searchbroker.atlassian.net/browse/EX-4029)
+* **search-box:** update `ClearSearchInput` documentation ([0f01401](https://bitbucket.org/colbenson/x-components/commits/0f0140174878edfbba86ec761e66704b09e72721)), closes [EX-4101](https://searchbroker.atlassian.net/browse/EX-4101)
+* **search-box:** update `SearchButton` documentation ([c38f154](https://bitbucket.org/colbenson/x-components/commits/c38f154f4b7293e20004b15096d921bb6107fc0d)), closes [EX-4090](https://searchbroker.atlassian.net/browse/EX-4090)
 * **build:** avoid creating Methods section in components documentation ([2383080](https://bitbucket.org/colbenson/x-components/commits/2383080e4b73236f937fde6cdd4eb83b8ae9c5eb)), closes [EX-4028](https://searchbroker.atlassian.net/browse/EX-4028)
 
 
