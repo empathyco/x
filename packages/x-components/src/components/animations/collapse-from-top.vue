@@ -1,5 +1,5 @@
 <template>
-  <transition v-on="$listeners" appear name="x-collapse-from-top-" duration="300">
+  <transition v-on="$listeners" appear name="x-collapse-from-top-">
     <!-- @slot (Required) to add content to the transition -->
     <slot />
   </transition>
@@ -11,7 +11,7 @@
 
   /**
    * Renders a transition group wrapping the element passed in the default slot and animating
-   * it with a scale and opacity animation.
+   * it with a scale.
    *
    * @public
    */
@@ -21,30 +21,56 @@
 
 <style lang="scss" scoped>
   .x-collapse-from-top {
-    &--enter,
-    &--leave-to {
-      transform: scaleY(0);
-
-      & > ::v-deep * {
-        opacity: 0;
-      }
-    }
-
-    &--enter-active {
-      transition: transform 150ms ease-out;
+    &--enter-active,
+    &--leave-active,
+    &--enter-active ::v-deep > *,
+    &--leave-active ::v-deep > * {
       transform-origin: top center;
-
-      & > ::v-deep * {
-        transition: opacity 150ms ease-out 150ms;
-      }
+      animation-duration: 0.4s;
+      animation-timing-function: linear;
     }
 
+    &--enter-active,
     &--leave-active {
-      transition: transform 150ms ease-out 150ms;
-      transform-origin: top center;
+      animation-name: containerAnimation;
+      overflow: hidden;
+    }
 
-      & > ::v-deep * {
-        transition: opacity 150ms ease-out;
+    &--enter-active ::v-deep > *,
+    &--leave-active ::v-deep > * {
+      animation-name: contentAnimation;
+    }
+
+    &--leave-active,
+    &--leave-active > ::v-deep * {
+      animation-direction: reverse;
+    }
+  }
+
+  @function easeInOut($x) {
+    @if $x < 0.5 {
+      @return 8 * $x * $x * $x * $x;
+    } @else {
+      $x: $x - 1;
+      @return 1 - (8 * $x * $x * $x * $x);
+    }
+  }
+
+  @keyframes containerAnimation {
+    @for $step from 0 through 100 {
+      $scale: easeInOut($step / 100);
+      #{$step}% {
+        transform: scaleY(#{$scale});
+      }
+    }
+  }
+
+  @keyframes contentAnimation {
+    @for $step from 0 through 100 {
+      $scale: easeInOut($step / 100);
+      $invScale: if($scale > 0, 1 / $scale, 99999999);
+      #{$step}% {
+        transform: scaleY(#{$invScale});
       }
     }
   }
