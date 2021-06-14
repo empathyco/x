@@ -75,6 +75,10 @@
     flex: 1 1 auto;
   }
 
+  .x-list__item--stretch {
+    align-self: stretch;
+  }
+
   @for $i from 1 through 12 {
     .x-list__item--#{$i} {
       flex: $i #{13 - $i} auto;

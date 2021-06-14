@@ -62,6 +62,7 @@
     &::after {
       // layout
       position: absolute;
+      z-index: 1;
 
       // other
       content: '';

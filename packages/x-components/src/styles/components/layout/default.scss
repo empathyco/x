@@ -118,6 +118,8 @@
       [empathize-end];
 
     // spacing
+    padding-top: var(--x-space-padding-top-layout-empathize);
+    padding-bottom: var(--x-space-padding-bottom-layout-empathize);
     margin-top: var(--x-space-margin-top-layout-empathize);
     margin-bottom: var(--x-space-margin-bottom-layout-empathize);
 
@@ -133,10 +135,6 @@
   &__empathize-content {
     // layout
     grid-column: empathize-content;
-
-    // spacing
-    padding-top: var(--x-space-padding-top-layout-empathize);
-    padding-bottom: var(--x-space-padding-bottom-layout-empathize);
     &.x-list {
       flex-flow: var(--x-space-flow-layout-empathize);
       justify-content: var(--x-space-justify-layout-empathize);

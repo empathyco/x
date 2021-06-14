@@ -8,10 +8,10 @@
   //spacing
 
   // spacing - header
-  --x-space-padding-top-layout-header: var(--x-space-06);
+  --x-space-padding-top-layout-header: var(--x-space-07);
   --x-space-padding-bottom-layout-header: var(--x-space-05);
   --x-space-margin-top-layout-header: 0;
-  --x-space-margin-bottom-layout-header: var(--x-space-05);
+  --x-space-margin-bottom-layout-header: 0;
 
   --x-space-flow-layout-header-start: row nowrap;
   --x-space-justify-layout-header-start: flex-start;
@@ -29,15 +29,15 @@
   --x-space-padding-top-layout-empathize: var(--x-space-05);
   --x-space-padding-bottom-layout-empathize: var(--x-space-06);
   --x-space-margin-top-layout-empathize: 0;
-  --x-space-margin-bottom-layout-empathize: var(--x-space-06);
+  --x-space-margin-bottom-layout-empathize: 0;
 
   --x-space-flow-layout-empathize: row nowrap;
   --x-space-justify-layout-empathize: flex-start;
   --x-space-align-layout-empathize: flex-start;
 
   // spacing - toolbar
-  --x-space-padding-top-layout-toolbar: 0;
-  --x-space-padding-bottom-layout-toolbar: 0;
+  --x-space-padding-top-layout-toolbar: var(--x-space-05);
+  --x-space-padding-bottom-layout-toolbar: var(--x-space-03);
   --x-space-margin-top-layout-toolbar: 0;
   --x-space-margin-bottom-layout-toolbar: 0;
 
