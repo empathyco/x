@@ -4,12 +4,12 @@
 
 ### Features
 
-* **components:** add AnimateWidth animation component ([8c7c3e5](https://bitbucket.org/colbenson/x-components/commits/8c7c3e59973d4bed5ff54c673af0b02a69318a34)), closes [EX-4107](https://searchbroker.atlassian.net/browse/EX-4107)
+* **components:** add `AnimateWidth` animation component ([8c7c3e5](https://bitbucket.org/colbenson/x-components/commits/8c7c3e59973d4bed5ff54c673af0b02a69318a34)), closes [EX-4107](https://searchbroker.atlassian.net/browse/EX-4107)
 * **design-system:** add `SlidingPanel` default CSS and tokens ([08c7539](https://bitbucket.org/colbenson/x-components/commits/08c7539b18eeacf798a49f146f8e3f67447dedd7)), closes [EX-3864](https://searchbroker.atlassian.net/browse/EX-3864)
 * **design-system:** add `x-scroll` component and tokens ([7ba7913](https://bitbucket.org/colbenson/x-components/commits/7ba791318eb0c27011346821b230f5873de37e6f)), closes [EX-4085](https://searchbroker.atlassian.net/browse/EX-4085)
 * **design-system:** add Design System classes for the picture image fallback and placeholder ([5503e63](https://bitbucket.org/colbenson/x-components/commits/5503e63e8c96a4fa3b1ba26302e6b3e51a0f9ed8)), closes [EX-4070](https://searchbroker.atlassian.net/browse/EX-4070)
-* **design-system:** add design system icons ([dfe4e51](https://bitbucket.org/colbenson/x-components/commits/dfe4e5188ae5c37463e03a707092fa146ecac127)), closes [EX-3973](https://searchbroker.atlassian.net/browse/EX-3973)
-* **design-system:** add direction Border and Padding List variants ([2efdc21](https://bitbucket.org/colbenson/x-components/commits/2efdc21f97416e9a6f9f1cd6e7bd377ad7893c19)), closes [EX-4064](https://searchbroker.atlassian.net/browse/EX-4064)
+* **design-system:** add Design System icons ([dfe4e51](https://bitbucket.org/colbenson/x-components/commits/dfe4e5188ae5c37463e03a707092fa146ecac127)), closes [EX-3973](https://searchbroker.atlassian.net/browse/EX-3973)
+* **design-system:** add Direction Border and Padding List variants ([2efdc21](https://bitbucket.org/colbenson/x-components/commits/2efdc21f97416e9a6f9f1cd6e7bd377ad7893c19)), closes [EX-4064](https://searchbroker.atlassian.net/browse/EX-4064)
 * **design-system:** add icons to the Design System view ([b5f86ce](https://bitbucket.org/colbenson/x-components/commits/b5f86cecb39fa9b039317fead3d5461b4ac71357)), closes [EX-4110](https://searchbroker.atlassian.net/browse/EX-4110)
 * **design-system:** add Layout component and Design System Layout component ([acc0e2e](https://bitbucket.org/colbenson/x-components/commits/acc0e2eba22af933ec977be615f64702c909f9b3)), closes [EX-3866](https://searchbroker.atlassian.net/browse/EX-3866)
 * **design-system:** add list design tokens ([83a024c](https://bitbucket.org/colbenson/x-components/commits/83a024ca2872001382cf5352184150d73d75057c)), closes [EX-3925](https://searchbroker.atlassian.net/browse/EX-3925)
@@ -20,8 +20,8 @@
 * **design-system:** improve `x-icon` token ([088ee0a](https://bitbucket.org/colbenson/x-components/commits/088ee0aa9305306f66297d1c35fc47c856c2d361)), closes [EX-4017](https://searchbroker.atlassian.net/browse/EX-4017)
 * **design-tokens:** add `x-row` and `x-row-item` tokens ([fb58ef1](https://bitbucket.org/colbenson/x-components/commits/fb58ef1d6835cf55bc38226efe30d9cc613680ba)), closes [EX-4000](https://searchbroker.atlassian.net/browse/EX-4000)
 * **design-tokens:** add `x-picture` Design System tokens ([7117399](https://bitbucket.org/colbenson/x-components/commits/71173997a39b2de1b018f4b96485dbfab940c382)), closes [EX-3977](https://searchbroker.atlassian.net/browse/EX-3977)
-* **facets:** add SortedFilters component ([319106b](https://bitbucket.org/colbenson/x-components/commits/319106b785ea13457c3cdb824ac371160077704d))
-* **no-element:** change NoElement component to be not functional ([c4d4590](https://bitbucket.org/colbenson/x-components/commits/c4d45908d27801b0a8c847dbff54a9acd74dfd43)), closes [EX-3997](https://searchbroker.atlassian.net/browse/EX-3997)
+* **facets:** add `SortedFilters` component ([319106b](https://bitbucket.org/colbenson/x-components/commits/319106b785ea13457c3cdb824ac371160077704d))
+* **no-element:** change `NoElement` component to be not functional ([c4d4590](https://bitbucket.org/colbenson/x-components/commits/c4d45908d27801b0a8c847dbff54a9acd74dfd43)), closes [EX-3997](https://searchbroker.atlassian.net/browse/EX-3997)
 * **result-image:** add fallback and placeholder components ([cd246ce](https://bitbucket.org/colbenson/x-components/commits/cd246ce004eb04d5fa5f601fce281c1841fc4e14)), closes [EX-4129](https://searchbroker.atlassian.net/browse/EX-4129)
 
 
@@ -40,7 +40,7 @@
 
 ### Continuous Integration
 
-* update package-lock ([9d0c764](https://bitbucket.org/colbenson/x-components/commits/9d0c764181280135ccae3db16b1171a9cc066818)), closes [EX-4046](https://searchbroker.atlassian.net/browse/EX-4046)
+* **CI:** update package-lock ([9d0c764](https://bitbucket.org/colbenson/x-components/commits/9d0c764181280135ccae3db16b1171a9cc066818)), closes [EX-4046](https://searchbroker.atlassian.net/browse/EX-4046)
 
 
 ### Build System
@@ -53,7 +53,7 @@
 * **search:** update search input component documentation ([22f87db](https://bitbucket.org/colbenson/x-components/commits/22f87db5b2143cfde49b17d380c3156cb6610590)), closes [EX-4029](https://searchbroker.atlassian.net/browse/EX-4029)
 * **search-box:** update ClearSearchInput documentation ([0f01401](https://bitbucket.org/colbenson/x-components/commits/0f0140174878edfbba86ec761e66704b09e72721)), closes [EX-4101](https://searchbroker.atlassian.net/browse/EX-4101)
 * **search-button:** update SearchButton documentation ([c38f154](https://bitbucket.org/colbenson/x-components/commits/c38f154f4b7293e20004b15096d921bb6107fc0d)), closes [EX-4090](https://searchbroker.atlassian.net/browse/EX-4090)
-* avoid creating Methods section in components documentation ([2383080](https://bitbucket.org/colbenson/x-components/commits/2383080e4b73236f937fde6cdd4eb83b8ae9c5eb)), closes [EX-4028](https://searchbroker.atlassian.net/browse/EX-4028)
+* **build:** avoid creating Methods section in components documentation ([2383080](https://bitbucket.org/colbenson/x-components/commits/2383080e4b73236f937fde6cdd4eb83b8ae9c5eb)), closes [EX-4028](https://searchbroker.atlassian.net/browse/EX-4028)
 
 
 ### Code Refactoring
