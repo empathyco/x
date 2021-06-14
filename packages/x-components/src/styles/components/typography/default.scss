@@ -1,44 +1,72 @@
 // text
 .x-text {
+  //typography
   font-family: var(--x-font-family-text);
   font-size: var(--x-font-size-text);
   font-weight: var(--x-font-weight-text);
   line-height: var(--x-font-line-height-text);
+
+  // color
+  color: var(--x-color-text);
 }
 
 // title1
 .x-title1 {
+  //typography
   font-family: var(--x-font-family-title1);
   font-size: var(--x-font-size-title1);
   font-weight: var(--x-font-weight-title1);
   line-height: var(--x-font-line-height-title1);
+
+  // color
+  color: var(--x-color-text);
+
+  // spacing
   margin: 0;
 }
 
 // title2
 .x-title2 {
+  //typography
   font-family: var(--x-font-family-title2);
   font-size: var(--x-font-size-title2);
   font-weight: var(--x-font-weight-title2);
   line-height: var(--x-font-line-height-title2);
+
+  // color
+  color: var(--x-color-text);
+
+  // spacing
   margin: 0;
 }
 
 // title3
 .x-title3 {
+  //typography
   font-family: var(--x-font-family-title3);
   font-size: var(--x-font-size-title3);
   font-weight: var(--x-font-weight-title3);
   line-height: var(--x-font-line-height-title3);
+
+  // color
+  color: var(--x-color-text);
+
+  // spacing
   margin: 0;
 }
 
 // small
 .x-small {
+  //typography
   font-family: var(--x-font-family-small);
   font-size: var(--x-font-size-small);
   font-weight: var(--x-font-weight-small);
   line-height: var(--x-font-line-height-small);
+
+  // color
+  color: var(--x-color-text);
+
+  // spacing
   margin: 0;
 }
 
