@@ -15,11 +15,11 @@
 * **design-system:** add list design tokens ([83a024c](https://bitbucket.org/colbenson/x-components/commits/83a024ca2872001382cf5352184150d73d75057c)), closes [EX-3925](https://searchbroker.atlassian.net/browse/EX-3925)
 * **design-system:** add new typography variants ([fc934bc](https://bitbucket.org/colbenson/x-components/commits/fc934bc2026d8d161c394f9c51f2eab6b87c0ac5)), closes [EX-4092](https://searchbroker.atlassian.net/browse/EX-4092)
 * **design-system:** add option list tokens ([088ad59](https://bitbucket.org/colbenson/x-components/commits/088ad5952a04e22f23639ebe194236db199d0b39)), closes [EX-3860](https://searchbroker.atlassian.net/browse/EX-3860)
-* **design-system:** add x-grid Design System tokens ([5f198c5](https://bitbucket.org/colbenson/x-components/commits/5f198c587cae04443d28b329f6ff6db883c0073e)), closes [EX-4082](https://searchbroker.atlassian.net/browse/EX-4082)
-* **design-system:** add x-result Design System tokens ([33c13d7](https://bitbucket.org/colbenson/x-components/commits/33c13d79fa5444c48b1514ddbc77bcb718a303fc)), closes [EX-3765](https://searchbroker.atlassian.net/browse/EX-3765)
+* **design-system:** add `x-grid` Design System tokens ([5f198c5](https://bitbucket.org/colbenson/x-components/commits/5f198c587cae04443d28b329f6ff6db883c0073e)), closes [EX-4082](https://searchbroker.atlassian.net/browse/EX-4082)
+* **design-system:** add `x-result` Design System tokens ([33c13d7](https://bitbucket.org/colbenson/x-components/commits/33c13d79fa5444c48b1514ddbc77bcb718a303fc)), closes [EX-3765](https://searchbroker.atlassian.net/browse/EX-3765)
 * **design-system:** improve `x-icon` token ([088ee0a](https://bitbucket.org/colbenson/x-components/commits/088ee0aa9305306f66297d1c35fc47c856c2d361)), closes [EX-4017](https://searchbroker.atlassian.net/browse/EX-4017)
 * **design-tokens:** add `x-row` and `x-row-item` tokens ([fb58ef1](https://bitbucket.org/colbenson/x-components/commits/fb58ef1d6835cf55bc38226efe30d9cc613680ba)), closes [EX-4000](https://searchbroker.atlassian.net/browse/EX-4000)
-* **design-tokens:** add result image design tokens ([7117399](https://bitbucket.org/colbenson/x-components/commits/71173997a39b2de1b018f4b96485dbfab940c382)), closes [EX-3977](https://searchbroker.atlassian.net/browse/EX-3977)
+* **design-tokens:** add `x-picture` Design System tokens ([7117399](https://bitbucket.org/colbenson/x-components/commits/71173997a39b2de1b018f4b96485dbfab940c382)), closes [EX-3977](https://searchbroker.atlassian.net/browse/EX-3977)
 * **facets:** add SortedFilters component ([319106b](https://bitbucket.org/colbenson/x-components/commits/319106b785ea13457c3cdb824ac371160077704d))
 * **no-element:** change NoElement component to be not functional ([c4d4590](https://bitbucket.org/colbenson/x-components/commits/c4d45908d27801b0a8c847dbff54a9acd74dfd43)), closes [EX-3997](https://searchbroker.atlassian.net/browse/EX-3997)
 * **result-image:** add fallback and placeholder components ([cd246ce](https://bitbucket.org/colbenson/x-components/commits/cd246ce004eb04d5fa5f601fce281c1841fc4e14)), closes [EX-4129](https://searchbroker.atlassian.net/browse/EX-4129)
@@ -27,7 +27,7 @@
 
 ### Bug Fixes
 
-* **components:** `SlidingPanel` buttons were blocking clicks while invisible ([ee9a94a](https://bitbucket.org/colbenson/x-components/commits/ee9a94a227bd942570f689744b3f7c5cd351c342)), closes [EX-4096](https://searchbroker.atlassian.net/browse/EX-4096)
+* **components:** fix `SlidingPanel` buttons were blocking clicks while invisible ([ee9a94a](https://bitbucket.org/colbenson/x-components/commits/ee9a94a227bd942570f689744b3f7c5cd351c342)), closes [EX-4096](https://searchbroker.atlassian.net/browse/EX-4096)
 * **facets:** fix issue with hierarchical filters with no children ([0c60915](https://bitbucket.org/colbenson/x-components/commits/0c609153764e3ad39bc3ed3bf7a0e47f92b94120)), closes [EX-4136](https://searchbroker.atlassian.net/browse/EX-4136)
 * **search:** fix infinite scroll issues when filtering ([4f08e32](https://bitbucket.org/colbenson/x-components/commits/4f08e32bf9de0f783cae9681733699b6a3c72d3a)), closes [EX-4033](https://searchbroker.atlassian.net/browse/EX-4033)
 
