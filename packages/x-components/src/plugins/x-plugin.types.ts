@@ -134,6 +134,8 @@ export interface XComponentAliasAPI {
   readonly selectedFilters: Filter[];
   /** The {@link SearchXModule} total results. */
   readonly totalResults: number;
+  /** The {@link Empathize} is open state. */
+  readonly isEmpathizeOpen: boolean;
 }
 
 /**
@@ -230,16 +232,15 @@ export interface PrivateXModuleOptions<Module extends AnyXModule> {
  *
  * @public
  */
-export type XStoreModuleOptions<
-  StoreModule extends AnyXStoreModule
-> = StoreModule extends XStoreModule<infer State, infer Getters, infer Mutations, infer Actions>
-  ? {
-      state?: DeepPartial<State>;
-      actions?: DeepPartial<ActionsTree<State, Getters, Mutations, Actions>>;
-      getters?: DeepPartial<GettersTree<State, Getters>>;
-      mutations?: DeepPartial<MutationsTree<State, Mutations>>;
-    }
-  : never;
+export type XStoreModuleOptions<StoreModule extends AnyXStoreModule> =
+  StoreModule extends XStoreModule<infer State, infer Getters, infer Mutations, infer Actions>
+    ? {
+        state?: DeepPartial<State>;
+        actions?: DeepPartial<ActionsTree<State, Getters, Mutations, Actions>>;
+        getters?: DeepPartial<GettersTree<State, Getters>>;
+        mutations?: DeepPartial<MutationsTree<State, Mutations>>;
+      }
+    : never;
 
 /**
  * Alias for any store module option. Use only when you don't care about the module concrete type.

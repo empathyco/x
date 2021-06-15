@@ -88,6 +88,9 @@ export function getAliasAPI(
     },
     get totalResults() {
       return store.state.x.search?.totalResults ?? 0;
+    },
+    get isEmpathizeOpen() {
+      return store.state.x.empathize?.isOpen ?? false;
     }
   };
 }

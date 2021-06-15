@@ -7,9 +7,14 @@ import { EmpathizeXStoreModule } from './types';
  */
 export const empathizeXStoreModule: EmpathizeXStoreModule = {
   state: () => ({
-    config: {}
+    config: {},
+    isOpen: false
   }),
   getters: {},
-  mutations: {},
+  mutations: {
+    setIsOpen(state, isOpen) {
+      state.isOpen = isOpen;
+    }
+  },
   actions: {}
 };
