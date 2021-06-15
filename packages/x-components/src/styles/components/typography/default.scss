@@ -5,9 +5,13 @@
   font-size: var(--x-font-size-text);
   font-weight: var(--x-font-weight-text);
   line-height: var(--x-font-line-height-text);
+  text-decoration: var(--x-font-decoration-text);
 
   // color
   color: var(--x-color-text);
+
+  // spacing
+  margin: 0;
 }
 
 // title1
@@ -17,6 +21,7 @@
   font-size: var(--x-font-size-title1);
   font-weight: var(--x-font-weight-title1);
   line-height: var(--x-font-line-height-title1);
+  text-decoration: var(--x-font-decoration-title1);
 
   // color
   color: var(--x-color-text);
@@ -32,6 +37,7 @@
   font-size: var(--x-font-size-title2);
   font-weight: var(--x-font-weight-title2);
   line-height: var(--x-font-line-height-title2);
+  text-decoration: var(--x-font-decoration-title2);
 
   // color
   color: var(--x-color-text);
@@ -47,6 +53,7 @@
   font-size: var(--x-font-size-title3);
   font-weight: var(--x-font-weight-title3);
   line-height: var(--x-font-line-height-title3);
+  text-decoration: var(--x-font-decoration-title3);
 
   // color
   color: var(--x-color-text);
@@ -62,6 +69,7 @@
   font-size: var(--x-font-size-small);
   font-weight: var(--x-font-weight-small);
   line-height: var(--x-font-line-height-small);
+  text-decoration: var(--x-font-decoration-small);
 
   // color
   color: var(--x-color-text);

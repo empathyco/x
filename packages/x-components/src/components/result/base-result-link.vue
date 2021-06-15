@@ -100,6 +100,12 @@
   }
 </script>
 
+<style lang="scss" scoped>
+  .x-result-link {
+    text-decoration: none;
+  }
+</style>
+
 <docs>
   #Examples
 

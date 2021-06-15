@@ -1,4 +1,18 @@
 // text
 .x-text--stroke {
-  text-decoration: line-through;
+  &.x-text {
+    --x-font-decoration-text: line-through;
+  }
+  &.x-title1 {
+    --x-font-decoration-title1: line-through;
+  }
+  &.x-title2 {
+    --x-font-decoration-title2: line-through;
+  }
+  &.x-title3 {
+    --x-font-decoration-title3: line-through;
+  }
+  &.x-small {
+    --x-font-decoration-small: line-through;
+  }
 }
