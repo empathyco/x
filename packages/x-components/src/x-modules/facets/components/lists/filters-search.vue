@@ -1,5 +1,5 @@
 <template>
-  <div class="x-filters-search" :class="cssClasses" data-test="filters-search">
+  <div class="x-list x-filters-search" :class="cssClasses" data-test="filters-search">
     <!--
       @slot Search content. It is the content which triggers the filters sifting.
         @binding {string} query - The query to search in filters.
