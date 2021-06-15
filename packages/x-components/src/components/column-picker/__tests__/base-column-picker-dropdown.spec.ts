@@ -62,6 +62,25 @@ function renderBaseColumnPickerDropdownComponent({
 }
 
 describe('testing BaseColumnPickerDropdown', () => {
+  it('emits ColumnPickerSetColumnsNumber event with the column number on init', () => {
+    const columns = [1, 3, 6];
+    const index = 1;
+    const value = columns[index];
+    const { wrapper } = renderBaseColumnPickerDropdownComponent({
+      columns,
+      template: `<BaseColumnPickerDropdown :columns="columns" :value="${value}" />`
+    });
+    const listenerColumnPicker = jest.fn();
+    wrapper.vm.$x.on('ColumnPickerSetColumnsNumber', true).subscribe(listenerColumnPicker);
+    expect(listenerColumnPicker).toHaveBeenCalledTimes(1);
+    expect(listenerColumnPicker).toHaveBeenNthCalledWith(1, {
+      eventPayload: 3,
+      metadata: {
+        moduleName: null
+      }
+    });
+  });
+
   it('sets value prop as initial selectedColumn', () => {
     const { toggleWrapper } = renderBaseColumnPickerDropdownComponent({
       selectedColumn: 4,
@@ -80,14 +99,11 @@ describe('testing BaseColumnPickerDropdown', () => {
 
   // eslint-disable-next-line max-len
   it('sets selectedColumn and emits "UserClickedColumnPicker" X Event with the column as payload on value change', async () => {
-    const {
-      wrapper,
-      toggleWrapper,
-      setWrapperSelectedColumn
-    } = renderBaseColumnPickerDropdownComponent({
-      selectedColumn: undefined,
-      columns: [2, 4, 6]
-    });
+    const { wrapper, toggleWrapper, setWrapperSelectedColumn } =
+      renderBaseColumnPickerDropdownComponent({
+        selectedColumn: undefined,
+        columns: [2, 4, 6]
+      });
     const listener = jest.fn();
     wrapper.vm.$x.on('UserClickedColumnPicker').subscribe(listener);
     expect(toggleWrapper.text()).toBe('2');

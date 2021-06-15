@@ -57,6 +57,11 @@ export interface XEventsTypes
    */
   ConfigConsentChanged: boolean;
   /**
+   * The columns picker set columns number.
+   * * Payload: the column number.
+   */
+  ColumnPickerSetColumnsNumber: number;
+  /**
    * The {@link XConfig.documentDirection} has changed
    * * Payload: The new document direction.
    */

@@ -36,10 +36,6 @@ function renderComponent({ items = itemsStub }: RenderOptions): RenderAPI {
     hasColumns(columns: number): boolean {
       return gridWrapper.classes().includes(`x-base-grid--cols-${columns}`);
     },
-    setColumns(columns: number): Promise<void> {
-      gridWrapper.vm.$x.emit('UserClickedColumnPicker', columns);
-      return gridWrapper.vm.$nextTick();
-    },
     isScopedSlotOverridden(selector): boolean {
       return gridWrapper.find(getDataTestSelector(selector)).exists();
     }
@@ -47,12 +43,23 @@ function renderComponent({ items = itemsStub }: RenderOptions): RenderAPI {
 }
 
 describe('testing BaseVariableColumnGrid component', () => {
-  it('renders the amount of columns emitted by the UserClickedColumnPicker event', async () => {
+  it('renders the columns number emitted by the ColumnPickerSetColumnsNumber event', async () => {
+    const newColumns = 4;
+    const { gridWrapper, hasColumns } = renderComponent({});
+    gridWrapper.vm.$x.emit('ColumnPickerSetColumnsNumber', newColumns);
+
+    expect(hasColumns(newColumns)).toBe(false);
+    await gridWrapper.vm.$nextTick();
+    expect(hasColumns(newColumns)).toBe(true);
+  });
+
+  it('renders the columns number emitted by the UserClickedColumnPicker event', async () => {
     const newColumns = 2;
-    const { setColumns, hasColumns } = renderComponent({});
+    const { gridWrapper, hasColumns } = renderComponent({});
+    gridWrapper.vm.$x.emit('UserClickedColumnPicker', newColumns);
 
-    await setColumns(newColumns);
-
+    expect(hasColumns(newColumns)).toBe(false);
+    await gridWrapper.vm.$nextTick();
     expect(hasColumns(newColumns)).toBe(true);
   });
 
@@ -74,8 +81,6 @@ interface RenderAPI {
   gridWrapper: Wrapper<Vue>;
   /** Checks if the grid has a certain number of columns. */
   hasColumns: (columns: number) => boolean;
-  /** Sets the number of columns by emitting `UserClickedColumnPicker`. */
-  setColumns: (columns: number) => Promise<void>;
   /** Check if a scoped slot is overridden. */
   isScopedSlotOverridden: (selector: string) => boolean;
 }

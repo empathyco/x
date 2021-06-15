@@ -188,4 +188,6 @@ An event that the component will emit:
 
 - `UserClickedColumnPicker`: the event is emitted after the user clicks an item in the dropdown. The
   event payload is the number of columns that the clicked item represents.
+- `ColumnPickerSetColumnsNumber`: the event is emitted on component mount. The event payload is the
+  current `selectedColumn` value.
 </docs>

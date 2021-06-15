@@ -20,8 +20,9 @@
 
   /**
    * The `BaseVariableColumnGrid` component is a wrapper of the `BaseGrid` component that listens to
-   * the `UserClickedColumnPicker` event and passes the selected number of columns to the grid. It
-   * also allows to customize the grid items using the available `scopedSlots`.
+   * the `UserClickedColumnPicker` and the `ColumnPickerSetColumnsNumber` events and passes the
+   * selected number of columns to the grid. It also allows to customize the grid items using the
+   * available `scopedSlots`.
    *
    * @public
    */
@@ -62,7 +63,7 @@
      *
      * @internal
      */
-    @XOn('UserClickedColumnPicker')
+    @XOn(['UserClickedColumnPicker', 'ColumnPickerSetColumnsNumber'])
     setColumns(newColumns: number): void {
       this.columns = newColumns;
     }
@@ -73,8 +74,9 @@
 # Example
 
 The `BaseVariableColumnGrid` component is a wrapper of the `BaseGrid` component that listens to the
-`UserClickedColumnPicker` and passes the selected amount of columns to the grid. It also allows to
-customize the grid items using the available `scopedSlots`.
+`UserClickedColumnPicker` and the `ColumnPickerSetColumnsNumber` events and passes the selected
+amount of columns to the grid. It also allows you to customize the grid items using the available
+`scopedSlots`.
 
 ```vue
 <template>

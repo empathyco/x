@@ -43,14 +43,31 @@ function renderBaseColumnPickerListComponent({
 }
 
 describe('testing Base Column Picker List', () => {
-  const columns = [1, 3, 6];
+  it('emits ColumnPickerSetColumnsNumber event with the column number on init', () => {
+    const columns = [1, 3, 6];
+    const index = 1;
+    const value = columns[index];
+    const { wrapper } = renderBaseColumnPickerListComponent({
+      columns,
+      template: `<BaseColumnPickerList :columns="columns" :value="${value}" />`
+    });
+    const listenerColumnPicker = jest.fn();
+    wrapper.vm.$x.on('ColumnPickerSetColumnsNumber', true).subscribe(listenerColumnPicker);
+    expect(listenerColumnPicker).toHaveBeenCalledTimes(1);
+    expect(listenerColumnPicker).toHaveBeenNthCalledWith(1, {
+      eventPayload: 3,
+      metadata: {
+        moduleName: null
+      }
+    });
+  });
 
   it('emits UserClickedColumnPicker event with the column number as payload', async () => {
+    const columns = [1, 3, 6];
     const index = 1;
     const { wrapper, clickEventButton } = renderBaseColumnPickerListComponent({ columns });
     const listenerColumnPicker = jest.fn();
     wrapper.vm.$x.on('UserClickedColumnPicker', true).subscribe(listenerColumnPicker);
-    expect(listenerColumnPicker).toHaveBeenCalledTimes(0);
     await clickEventButton(index);
     expect(listenerColumnPicker).toHaveBeenCalledTimes(1);
     expect(listenerColumnPicker).toHaveBeenNthCalledWith(1, {
@@ -63,17 +80,18 @@ describe('testing Base Column Picker List', () => {
   });
 
   it('emits an `input` event with the selected column if it has changed.', async () => {
+    const columns = [1, 3, 6];
     const index = 1;
     const { wrapper, clickEventButton } = renderBaseColumnPickerListComponent({ columns });
     const listenerColumnPicker = jest.fn();
     wrapper.vm.$x.on('UserClickedColumnPicker', true).subscribe(listenerColumnPicker);
-    expect(listenerColumnPicker).toHaveBeenCalledTimes(0);
     await clickEventButton(index);
     expect(wrapper.emitted('input')).toEqual([[columns[index]]]);
     expect(listenerColumnPicker).toHaveBeenCalledTimes(1);
   });
 
   it('allows configuring the number of columns and updates the css class accordingly', () => {
+    const columns = [1, 3, 6];
     const { wrapper } = renderBaseColumnPickerListComponent({ columns });
     const columnPickerListWrapper = wrapper.findAll(getDataTestSelector('column-picker-item'));
     columns.forEach((column, index) => {
@@ -84,6 +102,7 @@ describe('testing Base Column Picker List', () => {
   });
 
   it('allows customizing slots', () => {
+    const columns = [1, 3, 6];
     const customItemSlot = `
       <template #default="{ column }">
         <p data-test="column-slot">{{ column }}</p>
