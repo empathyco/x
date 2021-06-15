@@ -5,7 +5,7 @@
     :class="dynamicClasses"
     data-test="search-button"
   >
-    <!-- @slot (Required) Button content with a text, an icon or both -->
+    <!-- @slot _Required_. Button content (text, icon, or both) -->
     <slot><span class="x-icon">⌕</span></slot>
   </BaseEventButton>
 </template>

@@ -44,25 +44,25 @@
     public $refs!: { input: HTMLInputElement };
 
     /**
-     * Max characters number allowed in the input search.
+     * Maximum characters allowed in the input search.
      */
     @Prop({ default: 64 })
     protected maxLength!: number;
 
     /**
-     * Allow input autofocus when the search box has been rendered.
+     * Allows input autofocus when the search field is rendered.
      */
     @Prop({ default: true })
     protected autofocus!: boolean;
 
     /**
-     * Enable the auto accept query after debounce.
+     * Enables the auto-accept query after debounce.
      */
     @Prop({ default: true })
     protected instant!: boolean;
 
     /**
-     * The debounce time for the instant.
+     * Debounce time for the instant.
      */
     @Prop({ default: 500 })
     protected instantDebounceInMs!: number;
@@ -74,7 +74,7 @@
     protected autocompleteKeyboardKeys!: string[]; // https://keycode.info/
 
     /**
-     * Event to retrieve the suggestion will be used to autocomplete.
+     * Event that retrieves the autocomplete suggestion.
      */
     @Prop({ default: 'QuerySuggestionsChanged' })
     protected autocompleteSuggestionsEvent!: PropsWithType<XEventsTypes, Suggestion[]>;
@@ -240,11 +240,6 @@
 </style>
 
 <docs lang="mdx">
-import { NextItem } from '@docusaurus/react-components/Utils';
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { ReactSearchInput, doMagic } from '@docusaurus/react-components/ReactComponents';
-
 ## Events
 
 This component emits the following events:
@@ -267,6 +262,7 @@ _Type any term in the input field to try it out!_
 <template>
   <SearchInput />
 </template>
+
 <script>
   import { SearchInput } from '@empathy/x-components/search-box';
 
@@ -291,6 +287,7 @@ _Type a term with more than 5 characters to try it out!_
 <template>
   <SearchInput :maxLength="5" :autofocus="false" :instant="true" :instantDebounceInMs="1000" />
 </template>
+
 <script>
   import { SearchInput } from '@empathy/x-components/search-box';
 
@@ -321,6 +318,7 @@ _Type any term in the input field to try it out!_
     @UserIsTypingAQuery="value = 'focus'"
   />
 </template>
+
 <script>
   import { SearchInput } from '@empathy/x-components/search-box';
 
@@ -367,6 +365,7 @@ _Type “puzzle” or another toy in the input field and then click the clear ic
     <QuerySuggestions />
   </div>
 </template>
+
 <script>
   import {
     SearchInput,

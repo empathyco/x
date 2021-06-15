@@ -14,8 +14,8 @@ const { cleanMarkdown } = require('../utils');
 function createDocsPropsSection(props) {
   return `
 ## Props
-| Prop name     | Description | Type      | Values      | Default     |
-| ------------- |-------------| --------- | ----------- | ----------- |
+| Name          | Description | Type      | Default     |
+| ------------- |-------------| --------- | ----------- |
 ${props.map(toPropsMarkdownTable).join('\n')}
 `;
 }
@@ -32,17 +32,14 @@ function toPropsMarkdownTable({
   name = '',
   type = {},
   defaultValue = {},
-  values = [],
   description = ''
 }) {
   const typeName = type.name ? type.name : '';
   const value = defaultValue.value ? defaultValue.value : '';
-  const valuesString =
-    values.length > 0 ? values.map(valueItem => `\`${valueItem}\``).join(', ') : '-';
 
   return `| ${cleanMarkdown(name)} | ${cleanMarkdown(description)} | ${cleanMarkdown(
     typeName
-  )} | ${cleanMarkdown(value)} | ${cleanMarkdown(valuesString)} |`;
+  )} | ${cleanMarkdown(value)} |`;
 }
 
 module.exports = createDocsPropsSection;
