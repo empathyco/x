@@ -80,6 +80,16 @@ describe('testing hasQueryChanged util', () => {
     const previousQuery = 'pantalones cortos de pana azules';
     expect(isNewQuery(newQuery, previousQuery)).toBe(true);
   });
+  it('returns true when the new query is empty but the previous is not', () => {
+    const newQuery = '';
+    const previousQuery = 'trousers';
+    expect(isNewQuery(newQuery, previousQuery)).toBe(true);
+  });
+  it('returns true when the previous query is empty but the new is not', () => {
+    const newQuery = 'trousers';
+    const previousQuery = '';
+    expect(isNewQuery(newQuery, previousQuery)).toBe(true);
+  });
   it('returns false when the new query has only one different word', () => {
     const newQuery = 'pantalon corto rojo';
     const previousQuery = 'pantalon corto';

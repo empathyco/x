@@ -140,6 +140,9 @@ export const facetsWiring = createWiring({
   UserAcceptedAQuery: {
     setFacetsQuery
   },
+  UserClearedQuery: {
+    setFacetsQuery
+  },
   FacetsQueryChanged: {
     clearSelectedFiltersWire
   },

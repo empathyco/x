@@ -3,6 +3,7 @@ import {
   Filter,
   isEditableNumberRangeFilter
 } from '@empathy/search-types';
+import { isStringEmpty } from '../../utils/string';
 
 /**
  * Compares two filters array using
@@ -78,12 +79,18 @@ export function areEditableNumberRangeFiltersDifferent(
  * @returns A boolean which flags if the query is refined or not.
  */
 export function isNewQuery(newQuery: string, previousQuery: string): boolean {
+  const isNewQueryEmpty = isStringEmpty(newQuery);
+  const isPreviousQueryEmpty = isStringEmpty(previousQuery);
   const previousQueryWords = previousQuery.split(' ');
   const newQueryWords = newQuery.split(' ');
-  return !previousQueryWords.every(previousQueryWord =>
-    newQueryWords.some(
-      newQueryWord =>
-        newQueryWord.includes(previousQueryWord) || previousQueryWord.includes(newQueryWord)
-    )
+  return (
+    !previousQueryWords.every(previousQueryWord =>
+      newQueryWords.some(
+        newQueryWord =>
+          newQueryWord.includes(previousQueryWord) || previousQueryWord.includes(newQueryWord)
+      )
+    ) ||
+    (isNewQueryEmpty && !isPreviousQueryEmpty) ||
+    (!isNewQueryEmpty && isPreviousQueryEmpty)
   );
 }
