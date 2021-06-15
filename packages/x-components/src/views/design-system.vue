@@ -2242,6 +2242,98 @@
           </div>
         </div>
       </article>
+
+      <article class="x-list x-list--gap-06">
+        <h2 class="x-title2">Size variants</h2>
+        <article class="x-dropdown-show-case">
+          <h3 class="x-title3">Default</h3>
+          <div class="x-dropdown">
+            <button class="x-dropdown__toggle">
+              <span class="x-dropdown__toggle-selected-value">Relevance</span>
+              <ChevronDownIcon />
+            </button>
+            <div class="x-dropdown__items-list">
+              <button class="x-dropdown__item x-dropdown__item--is-selected">
+                Relevance
+                <CheckIcon />
+              </button>
+              <button class="x-dropdown__item">Alphabetical</button>
+              <button class="x-dropdown__item">Price</button>
+            </div>
+          </div>
+        </article>
+        <article class="x-dropdown-show-case">
+          <h3 class="x-title3">Small</h3>
+          <div class="x-dropdown x-dropdown--s x-dropdown--is-open">
+            <button class="x-dropdown__toggle">
+              <Grid2ColIcon />
+              <ChevronDownIcon />
+            </button>
+            <div class="x-dropdown__items-list">
+              <button class="x-dropdown__item">
+                <Grid1ColIcon />
+              </button>
+              <button class="x-dropdown__item x-dropdown__item--is-selected">
+                <Grid2ColIcon />
+                <CheckIcon />
+              </button>
+            </div>
+          </div>
+        </article>
+        <article class="x-dropdown-show-case">
+          <h3 class="x-title3">Medium</h3>
+          <div class="x-dropdown x-dropdown--m x-dropdown--is-open">
+            <button class="x-dropdown__toggle">
+              Sort by
+              <ChevronDownIcon />
+            </button>
+            <div class="x-dropdown__items-list">
+              <button class="x-dropdown__item x-dropdown__item--is-selected">
+                Relevance
+                <CheckIcon />
+              </button>
+              <button class="x-dropdown__item">Alphabetical</button>
+              <button class="x-dropdown__item">Price</button>
+            </div>
+          </div>
+        </article>
+        <article class="x-dropdown-show-case">
+          <h3 class="x-title3">Large</h3>
+          <div class="x-dropdown x-dropdown--l x-dropdown--is-open">
+            <button class="x-dropdown__toggle">
+              Sort by
+              <span class="x-dropdown__toggle-selected-value">Relevance</span>
+              <ChevronDownIcon />
+            </button>
+            <div class="x-dropdown__items-list">
+              <button class="x-dropdown__item x-dropdown__item--is-selected">
+                Relevance
+                <CheckIcon />
+              </button>
+              <button class="x-dropdown__item">Alphabetical</button>
+              <button class="x-dropdown__item">Price</button>
+            </div>
+          </div>
+        </article>
+        <article class="x-dropdown-show-case">
+          <h3 class="x-title3">Extra large</h3>
+          <div class="x-dropdown x-dropdown--xl x-dropdown--is-open">
+            <button class="x-dropdown__toggle">
+              Sort by
+              <span class="x-dropdown__toggle-selected-value">Relevance</span>
+              <ChevronDownIcon />
+            </button>
+            <div class="x-dropdown__items-list">
+              <button class="x-dropdown__item x-dropdown__item--is-selected">
+                Relevance
+                <CheckIcon />
+              </button>
+              <button class="x-dropdown__item">Alphabetical</button>
+              <button class="x-dropdown__item">Price</button>
+            </div>
+          </div>
+        </article>
+      </article>
     </section>
 
     <section>
@@ -3393,7 +3485,8 @@
       row-gap: var(--x-space-03);
       flex-flow: row wrap;
 
-      h2 {
+      h2,
+      h3 {
         width: 100%;
       }
     }

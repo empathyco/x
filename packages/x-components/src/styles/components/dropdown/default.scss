@@ -25,12 +25,16 @@
     padding-inline: var(--x-space-padding-inline-dropdown-item);
     gap: var(--x-space-gap-dropdown-item);
 
+    // size
+    width: var(--x-size-width-dropdown);
+
     // layout
     display: flex;
     flex-flow: row nowrap;
 
     // other
     cursor: pointer;
+    overflow: hidden;
 
     .x-icon {
       // layout
