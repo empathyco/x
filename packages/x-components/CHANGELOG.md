@@ -1,4 +1,40 @@
 # X Components
+## [2.1.0-alpha.1](https://bitbucket.org/colbenson/x-components/branches/compare/v2.1.0-alpha.1%0Dv2.1.0-alpha.0) (2021-06-16)
+
+
+### Features
+
+* **components:** change the render conditions in the Layout component ([35645de](https://bitbucket.org/colbenson/x-components/commits/35645de648a0226b6d1a247c3f5353fb5a43cf35)), closes [EX-4171](https://searchbroker.atlassian.net/browse/EX-4171)
+* **design-system:** add `x-button--ghost-start` and `x-button--ghost-end` modifiers to `x-button--ghost` variant ([2803dd1](https://bitbucket.org/colbenson/x-components/commits/2803dd1bc7209c07f90dbc4a49d255032b18f5b8)), closes [EX-4179](https://searchbroker.atlassian.net/browse/EX-4179)
+* **design-system:** add `x-dropdown` size variants ([d5649ab](https://bitbucket.org/colbenson/x-components/commits/d5649abb8b6a527426cd12a2dea6c950054c42ca)), closes [EX-4098](https://searchbroker.atlassian.net/browse/EX-4098)
+* **design-system:** add more values to the `x-list` variants ([5295e2e](https://bitbucket.org/colbenson/x-components/commits/5295e2e0bd2a6db15e13a0bd3b316ae5dcb99616)), closes [EX-4174](https://searchbroker.atlassian.net/browse/EX-4174)
+* **design-system:** fix the issue with the `x-tag` and `x-filter` in the selected filters ([bdcbdeb](https://bitbucket.org/colbenson/x-components/commits/bdcbdeb5b351f9fca148afb4ec1a8fdd1d4173e3)), closes [EX-4178](https://searchbroker.atlassian.net/browse/EX-4178)
+* **empathize:** add `isOpen` to store state and expose through the Alias API ([590e4db](https://bitbucket.org/colbenson/x-components/commits/590e4db5ef700434bbcf9787825e0ebcfc01b7ff)), closes [EX-4164](https://searchbroker.atlassian.net/browse/EX-4164)
+* **facets:** add `isSelected` binding to the All Filter component slot ([2b86731](https://bitbucket.org/colbenson/x-components/commits/2b86731725bb84220b7a0dd7247fe034781442fc)), closes [EX-4173](https://searchbroker.atlassian.net/browse/EX-4173)
+
+
+### Bug Fixes
+
+* **components:** emit initial default value in the `ColumnPicker` mixin ([d7439b8](https://bitbucket.org/colbenson/x-components/commits/d7439b8317a820a710186870c8a2740b65d45d5b)), closes [EX-4114](https://searchbroker.atlassian.net/browse/EX-4114)
+* **design-system:** fix the stroke and the text decoration in the typography ([6bd879d](https://bitbucket.org/colbenson/x-components/commits/6bd879d751ef3c839ad2d466b7887e4048d14157)), closes [EX-4176](https://searchbroker.atlassian.net/browse/EX-4176)
+* **facets:** `isNewQuery` utility was returning false when only one query was empty ([b0405e2](https://bitbucket.org/colbenson/x-components/commits/b0405e2eb7effc27f7de9e358ae95e0f3b860d1c)), closes [EX-4160](https://searchbroker.atlassian.net/browse/EX-4160)
+* **facets:** new label slot inside the `Hierarchical Filter` children ([7fd1275](https://bitbucket.org/colbenson/x-components/commits/7fd1275fcc52b80d26e08a077091d8e38a14db98)), closes [EX-4172](https://searchbroker.atlassian.net/browse/EX-4172)
+
+
+### Documentation
+
+* **search-box:** remove values column in props generated table in component doc ([efcb814](https://bitbucket.org/colbenson/x-components/commits/efcb814151bbfcbfb304dd0c4fbf499d501a3e65)), closes [EX-4137](https://searchbroker.atlassian.net/browse/EX-4137)
+
+
+### Testing
+
+* **e2e:** add partial results tests ([4f09ab4](https://bitbucket.org/colbenson/x-components/commits/4f09ab49bfe232f4d7fdeedf22e67adb7bb9b6f6)), closes [EX-3959](https://searchbroker.atlassian.net/browse/EX-3959)
+
+
+### Code Refactoring
+
+* **utils:** add missing exports to barrel ([abc8059](https://bitbucket.org/colbenson/x-components/commits/abc8059bc8ce1c2a7fe7a063a784d74fca789e36)), closes [EX-4182](https://searchbroker.atlassian.net/browse/EX-4182)
+
 ## [2.1.0-alpha.0](https://bitbucket.org/colbenson/x-components/branches/compare/v2.1.0-alpha.0%0Dv2.0.0-alpha.13) (2021-06-14)
 
 
