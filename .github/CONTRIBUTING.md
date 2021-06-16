@@ -74,6 +74,7 @@ This is a perfect example to know how to use the X-Components. (To be moved here
 guidelines of ESLint to develop a custom plugin, but it includes also style formatter and good practices outside ESLint, as 
 [prettier](https://prettier.io/) and [standard-version](https://github.com/conventional-changelog/standard-version) 
 * [@empathyco/x-logger](https://github.com/empathyco/x/tree/main/packages/x-logger) - A custom implementation of default node's logger.
+* [@empathyco/x-get-safe-property-chain](https://github.com/empathyco/x/tree/main/packages/x-get-safe-property-chain) - A utility for safely retrieving nested values.
 
 ## How Can I Contribute?
 

@@ -1,5 +1,5 @@
 {
-  "name": "@empathy/get-safe-property-chain",
+  "name": "@empathyco/x-get-safe-property-chain",
   "version": "1.2.0",
   "description": "A utility for safely retrieving nested values",
   "main": "dist/cjs/get-safe-property-chain.js",
@@ -20,15 +20,16 @@
   "author": "",
   "license": "ISC",
   "homepage": "https://bitbucket.org/colbenson/get-safe-property-chain#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@types/jest": "^24.0.12",
     "jest": "^24.7.1",
     "ts-jest": "^24.0.2",
-    "tslint": "^5.18.0",
     "typescript": "~3.8.3"
   },
   "dependencies": {
-    "@empathybroker/eb-tslint": "^0.0.10",
     "tslib": "~1.11.1"
   },
   "files": [
