@@ -39,12 +39,13 @@
       class="x-hierarchical-filter__children"
       data-test="children-filters"
     >
-      <HierarchicalFilter
-        #default="{ filter, clickFilter, cssClasses, isDisabled }"
-        :childrenAnimation="childrenAnimation"
-        :filter="childFilter"
-      >
-        <slot v-bind="{ filter, clickFilter, cssClasses, isDisabled }" />
+      <HierarchicalFilter :childrenAnimation="childrenAnimation" :filter="childFilter">
+        <template #default="{ filter, clickFilter, cssClasses, isDisabled }">
+          <slot v-bind="{ filter, clickFilter, cssClasses, isDisabled }" />
+        </template>
+        <template #label="{ filter }">
+          <slot name="label" :filter="filter" />
+        </template>
       </HierarchicalFilter>
     </Filters>
   </div>
