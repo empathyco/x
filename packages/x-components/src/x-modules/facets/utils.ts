@@ -16,6 +16,8 @@ import { isStringEmpty } from '../../utils/string';
  * @param oldFilters - Old filters array.
  *
  * @returns True if filters arrays are different. False if are not different.
+ *
+ * @public
  */
 export function areFiltersDifferent(newFilters: Filter[], oldFilters: Filter[]): boolean {
   return (
@@ -40,6 +42,8 @@ export function areFiltersDifferent(newFilters: Filter[], oldFilters: Filter[]):
  * @param filterB - Filter B.
  *
  * @returns True if the filters are different.
+ *
+ * @public
  */
 export function areEditableNumberRangeFiltersDifferent(
   filterA: EditableNumberRangeFilter,
@@ -77,6 +81,8 @@ export function areEditableNumberRangeFiltersDifferent(
  * @param previousQuery - The previous query.
  *
  * @returns A boolean which flags if the query is refined or not.
+ *
+ * @public
  */
 export function isNewQuery(newQuery: string, previousQuery: string): boolean {
   const isNewQueryEmpty = isStringEmpty(newQuery);
