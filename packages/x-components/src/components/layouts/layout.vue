@@ -86,7 +86,7 @@
 <script lang="ts">
   import Component from 'vue-class-component';
   import { Prop } from 'vue-property-decorator';
-  import Vue from 'vue';
+  import Vue, { VNode } from 'vue';
   import Empathize from '../../x-modules/empathize/components/empathize.vue';
   import CollapseFromTop from '../animations/collapse-from-top.vue';
   import BaseTogglePanel from '../panels/base-toggle-panel.vue';
@@ -134,17 +134,39 @@
     @Prop({ default: () => CollapseFromTop })
     protected empathizeAnimation!: Vue;
 
+    /**
+     * Computed with the conditions to render each part of the layout.
+     *
+     * @returns Object with one key by layout section.
+     *
+     * @internal
+     */
     // eslint-disable-next-line @typescript-eslint/ban-types
     protected get renderConditions(): {} {
       return {
-        headerStart: this.devMode || this.$slots['header-start'],
-        headerMiddle: this.devMode || this.$slots['header-middle'],
-        headerEnd: this.devMode || this.$slots['header-end'],
-        empathize: this.devMode || this.$slots.empathize,
-        toolbar: this.devMode || !!this.$slots['toolbar-aside'] || !!this.$slots['toolbar-body'],
-        mainAside: this.devMode || this.$slots['main-aside'],
-        mainBody: this.devMode || this.$slots['main-body']
+        headerStart: this.devMode || this.hasContent(this.$slots['header-start']),
+        headerMiddle: this.devMode || this.hasContent(this.$slots['header-middle']),
+        headerEnd: this.devMode || this.hasContent(this.$slots['header-end']),
+        empathize: this.devMode || this.hasContent(this.$slots.empathize),
+        toolbar:
+          this.devMode ||
+          this.hasContent(this.$slots['toolbar-aside']) ||
+          this.hasContent(this.$slots['toolbar-body']),
+        mainAside: this.devMode || this.hasContent(this.$slots['main-aside']),
+        mainBody: this.devMode || this.hasContent(this.$slots['main-body'])
       };
+    }
+
+    /**
+     * Function to check if an slot has rendered content or not.
+     *
+     * @param slot - A VNode Array with of each slot.
+     * @returns True if the slot has rendered content or false otherwise.
+     *
+     * @internal
+     */
+    protected hasContent(slot: VNode[] | undefined): boolean {
+      return slot?.some(vNode => vNode.tag !== undefined) ?? false;
     }
   }
 </script>
