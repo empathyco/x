@@ -1,0 +1,39 @@
+{
+  "name": "@empathyco/x-get-safe-property-chain",
+  "version": "1.2.0",
+  "description": "A utility for safely retrieving nested values",
+  "main": "dist/cjs/get-safe-property-chain.js",
+  "module": "dist/esm/get-safe-property-chain.js",
+  "types": "types/get-safe-property-chain.d.ts",
+  "scripts": {
+    "build": "tsc && tsc --project tsconfig.esm.json",
+    "build:watch": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://cbn-javieri@bitbucket.org/colbenson/get-safe-property-chain.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/colbenson/get-safe-property-chain#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.12",
+    "jest": "^24.7.1",
+    "ts-jest": "^24.0.2",
+    "typescript": "~3.8.3"
+  },
+  "dependencies": {
+    "tslib": "~1.11.1"
+  },
+  "files": [
+    "dist",
+    "types"
+  ]
+}
