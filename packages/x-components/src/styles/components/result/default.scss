@@ -25,6 +25,10 @@
   border-width: var(--x-border-width-result);
   border-radius: var(--x-border-radius-result);
 
+  > * {
+    min-width: 0;
+  }
+
   &__picture {
     // layout
     grid-column: result;

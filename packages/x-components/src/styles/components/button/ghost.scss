@@ -5,3 +5,15 @@
   --x-color-border-button: var(--x-color-border-button-ghost);
   --x-color-text-button: var(--x-color-text-button-ghost);
 }
+
+.x-button--ghost.x-button--ghost-start.x-button,
+.x-button--ghost.x-button--ghost-start .x-button {
+  // spacing
+  padding-inline-start: 0;
+}
+
+.x-button--ghost.x-button--ghost-end.x-button,
+.x-button--ghost.x-button--ghost-end .x-button {
+  // spacing
+  padding-inline-end: 0;
+}

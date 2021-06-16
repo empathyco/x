@@ -16,7 +16,7 @@ import { RecommendationsXStoreModule } from './types';
 export const recommendationsXStoreModule: RecommendationsXStoreModule = {
   state: () => ({
     config: {
-      maxItemsToRequest: 5
+      maxItemsToRequest: 24
     },
     origin: RECOMMENDATIONS_ORIGIN,
     status: 'success',
