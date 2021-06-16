@@ -14,7 +14,6 @@
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
           <SelectedFilters :facetId="facet.id" />
-          <AllFilter :facet="facet" />
           <MultiSelectFilters v-slot="{ filter }" :filters="facet.filters">
             <SimpleFilter :filter="filter" :data-test="facet.id">
               <template #label="{ filter }">
@@ -29,7 +28,6 @@
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
           <SelectedFilters :facetId="facet.id" />
-          <AllFilter :facet="facet" />
           <MultiSelectFilters
             v-slot="// eslint-disable-next-line vue/no-unused-vars
             { filter }"
@@ -81,7 +79,6 @@
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
           <SelectedFilters :facetId="facet.id" />
-          <AllFilter :facet="facet" />
           <MultiSelectFilters v-slot="{ filter }" :filters="facet.filters">
             <NumberRangeFilter :filter="filter" :data-test="facet.id">
               <template #default="{ filter }">
@@ -115,7 +112,6 @@
   import { Result } from '@empathy/search-types';
   import BasePriceFilterLabel from '../components/filters/labels/base-price-filter-label.vue';
   import { SearchIcon } from '../components/icons/index';
-  import AllFilter from '../x-modules/facets/components/filters/all-filter.vue';
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
   import Filters from '../x-modules/facets/components/lists/filters.vue';
@@ -144,7 +140,6 @@
     },
     components: {
       SortedFilters,
-      AllFilter,
       ClearSearchInput,
       Filters,
       FiltersSearch,

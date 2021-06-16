@@ -1,10 +1,15 @@
 import { Facet } from '@empathy/search-types';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
+import Vuex, { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
-import { XPlugin } from '../../../../../plugins/x-plugin';
 import { getSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
 import { installNewXPlugin } from '../../../../../__tests__/utils';
+import { RootXStoreState } from '../../../../../store/store.types';
+import { DeepPartial } from '../../../../../utils/types';
+import { FacetsState } from '../../../store/types';
+import { facetsXModule } from '../../../x-module';
+import { resetXFacetsStateWith } from '../../__tests__/utils';
 import AllFilter from '../all-filter.vue';
 /**
  * Renders the `AllFilter` component, exposing a basic API for testing.
@@ -17,10 +22,17 @@ function renderAllFilter({
 }: RenderAllFilterOptions = {}): RenderAllFilterAPI {
   const facet = getSimpleFacetStub();
   Vue.observable(facet);
+  const facetsState: Partial<FacetsState> = {
+    backendFacets: {
+      brand_facet: facet
+    }
+  };
 
   const localVue = createLocalVue();
-  installNewXPlugin({}, localVue);
-  XPlugin.resetInstance();
+  localVue.use(Vuex);
+  const store = new Store<DeepPartial<RootXStoreState>>({});
+  installNewXPlugin({ store, initialXModules: [facetsXModule] }, localVue);
+  resetXFacetsStateWith(store, facetsState);
 
   const wrapper = mount(
     {
@@ -31,6 +43,7 @@ function renderAllFilter({
       props: ['facet']
     },
     {
+      store,
       localVue,
       propsData: {
         facet

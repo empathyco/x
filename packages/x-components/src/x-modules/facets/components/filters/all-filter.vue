@@ -11,18 +11,20 @@
         @slot The content to render inside the button
             @binding {Facet} Facet - The facet data
       -->
-    <slot :facet="facet">all</slot>
+    <slot :facet="facet" :isSelected="isSelected">all</slot>
   </BaseEventButton>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { BooleanFilter, Facet } from '@empathy/search-types';
-  import { xComponentMixin } from '../../../../components';
+  import { Facet } from '@empathy/search-types';
+  import { Getter, xComponentMixin } from '../../../../components';
   import BaseEventButton from '../../../../components/base-event-button.vue';
+  import { isArrayEmpty } from '../../../../utils/array';
   import { VueCSSClasses } from '../../../../utils/types';
   import { XEventsTypes } from '../../../../wiring/events.types';
+  import { FiltersByFacet } from '../../store/types';
   import { facetsXModule } from '../../x-module';
 
   /**
@@ -43,6 +45,10 @@
     @Prop({ required: true })
     public facet!: Facet;
 
+    /** The getter of the selectedFiltersByFacet. */
+    @Getter('facets', 'selectedFiltersByFacet')
+    public selectedFiltersByFacet!: FiltersByFacet;
+
     /**
      * The event that will be emitted when the all filter button is clicked.
      *
@@ -51,6 +57,15 @@
     protected clickEvent: Partial<XEventsTypes> = {
       UserClickedFacetAllFilter: this.facet.id
     };
+
+    /**
+     * Computed to retrieve the selected state of this component.
+     *
+     * @returns True if is selected false otherwise.
+     */
+    protected get isSelected(): boolean {
+      return isArrayEmpty(this.selectedFiltersByFacet?.[this.facet.id]);
+    }
 
     /**
      * Dynamic CSS classes to apply to the component.
@@ -63,9 +78,8 @@
      */
     protected get cssClasses(): VueCSSClasses {
       return {
-        'x-all-filter--is-selected': !(this.facet.filters as BooleanFilter[]).some(
-          filter => filter.selected
-        )
+        'x-filter--is-selected': this.isSelected,
+        'x-all-filter--is-selected': this.isSelected
       };
     }
   }
