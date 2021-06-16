@@ -16,10 +16,12 @@
     "type": "git",
     "url": "git+https://cbn-javieri@bitbucket.org/colbenson/get-safe-property-chain.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/colbenson/get-safe-property-chain#readme",
+  "keywords": [
+    "optional chaining"
+  ],
+  "author": "Empathy Systems Corporation S.L.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/x-get-safe-property-chain#readme",
   "publishConfig": {
     "access": "public"
   },
