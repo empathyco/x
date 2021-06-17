@@ -1,4 +1,7 @@
 {
+  "author": "Empathy Systems Corporation S.L.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/x-deep-merge#readme",
   "name": "@empathyco/x-deep-merge",
   "version": "1.2.1",
   "description": "Clones an array of objects into another object.",
@@ -21,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/colbenson/eb-deep-merge.git"
+    "url": "git+https://github.com/empathyco/x.git"
   },
   "engines": {
     "node": ">=6.0.0"
