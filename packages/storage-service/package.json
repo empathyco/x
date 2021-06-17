@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/colbenson/storage-service.git"
+    "url": "git+ssh://git@github.com/empathyco/x.git"
   },
   "keywords": [
     "storage",
@@ -28,8 +28,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "author": "empathy.co",
-  "homepage": "https://bitbucket.org/colbenson/storage-service#readme",
+  "author": "Empathy Systems Corporation S.L.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/storage-service#readme",
   "devDependencies": {
     "@types/jest": "~24.0.15",
     "jest": "~24.8.0",
