@@ -37,7 +37,7 @@
     "typescript": "~3.8.3"
   },
   "dependencies": {
-    "@empathy/logger": "^1.1.0-alpha.1",
+    "@empathyco/x-logger": "^1.1.2-alpha.0",
     "tslib": "~1.11.1"
   },
   "files": [
