@@ -135,6 +135,11 @@ const routes: RouteConfig[] = [
     component: () => import('./views/multiselect-filters.vue')
   },
   {
+    path: '/test/identifier-results',
+    name: 'Identifier Results',
+    component: () => import('./views/identifier-results.vue')
+  },
+  {
     path: '/test/partial-results',
     name: 'Partial Results',
     component: () => import('./views/partial-results.vue')
