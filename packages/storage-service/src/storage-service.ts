@@ -1,4 +1,4 @@
-import { Logger, logger } from '@empathy/logger';
+import { Logger, logger } from '@empathyco/x-logger';
 
 export class StorageService {
   protected logger: Logger;
