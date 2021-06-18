@@ -1,10 +1,10 @@
 {
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/empathyco/x/tree/main/packages/x-deep-merge#readme",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/deep-merge#readme",
   "name": "@empathyco/x-deep-merge",
   "version": "1.2.1",
-  "description": "Clones an array of objects into another object.",
+  "description": "Utility for deep cloning objects.",
   "keywords": [
     "deep",
     "merge",
