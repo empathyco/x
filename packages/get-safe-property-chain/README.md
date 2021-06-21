@@ -1,15 +1,21 @@
-# CHANGELOG
+# x-get-safe-property-chain
 
-## 1.2.0 - 05/06/2020
+A utility for safely retrieving nested values.
 
-> EX-1843 Add ESM build keeping the CommonJS
+### Installation
 
-## 1.1.0
+You can install the package using `npm`
 
-> EX-1317 Fix crash on intermediate null values
->
-> Refactor to avoid multiple join and concat
+```
+npm install @empathyco/x-get-safe-property-chain --save-dev
+```
 
-## 1.0.0
+### Usage
 
-> First release
+```
+import { getSafePropertyChain } from '@empathyco/x-get-safe-property-chain';
+
+const obj = { nestedObject: { anotherNestedObject: { message: 'Hell yeah!' } } }; 
+const message = getSafePropertyChain(obj, 'nestedObject.anotherNestedObject.message');
+console.log(message); // 'Hell yeah!'
+```
