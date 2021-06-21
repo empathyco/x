@@ -1,6 +1,6 @@
 enum Behaviour {
   Replace = 'replace',
-  DeepMerge = 'deep-merge',
+  DeepMerge = 'deep-merge'
 }
 
 /**
