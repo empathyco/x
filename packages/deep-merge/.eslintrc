@@ -1,0 +1,3 @@
+{
+  "extends": ["plugin:@empathyco/x/all"]
+}

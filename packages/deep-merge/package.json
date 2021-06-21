@@ -34,12 +34,13 @@
     "build:local": "webpack --mode production && npm pack",
     "clean": "rimraf dist && rimraf coverage",
     "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
-    "lint": "",
+    "lint": "eslint \"src/**/*.ts\"",
     "prepublishOnly": "npm run build",
     "prebuild": "npm run clean && npm run lint && echo Using TypeScript && tsc --version",
     "test": "jest"
   },
   "devDependencies": {
+    "@empathyco/eslint-plugin-x": "1.4.0-alpha.0",
     "@types/jest": "~25.2.1",
     "jest": "~25.4.0",
     "rimraf": "~2.6.2",
