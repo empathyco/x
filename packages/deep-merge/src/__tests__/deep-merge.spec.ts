@@ -1,4 +1,4 @@
-import { deepMerge, deepMergeBehaviour, replaceBehaviour } from '../src/deep-merge';
+import { deepMerge, deepMergeBehaviour, replaceBehaviour } from '../deep-merge';
 
 describe('deep-merge.ts', () => {
   it('copies simple objects', () => {
@@ -95,7 +95,13 @@ describe('deep-merge.ts', () => {
   });
 
   it('removes target object properties if they are `undefined` in the source object', () => {
-    const target = { a: 1, b: 'b', c: [1, 2, 3], d: { d1: 5 }, f: { f1: 'f1', f2: 'f2' } };
+    const target = {
+      a: 1,
+      b: 'b',
+      c: [1, 2, 3],
+      d: { d1: 5 },
+      f: { f1: 'f1', f2: 'f2' }
+    };
     const firstSource = { a: undefined, b: undefined };
     const secondSource = { c: undefined, d: undefined };
     const thirdSource = { f: { f1: undefined, f2: 'f2' } };
@@ -132,7 +138,7 @@ describe('deep-merge.ts', () => {
     expect(target.children).not.toBe(firstSource.children);
   });
 
-  it('passes replace behaviour to the sources objects if it\'s present in target object', () => {
+  it("passes replace behaviour to the sources objects if it's present in target object", () => {
     const target = { children: replaceBehaviour({ a: 1, b: 2, c: 3 }) };
     const firstSource = { children: { c: 4, d: 5 } };
     const secondSource = { children: { e: 5, f: 6 } };
@@ -140,35 +146,38 @@ describe('deep-merge.ts', () => {
     expect(target).toEqual({ children: { e: 5, f: 6 } });
   });
 
+  // eslint-disable-next-line max-len
   it('stops passing replace behaviour to the sources objects if deep-merge behaviour is specified', () => {
     const target = { children: replaceBehaviour({ a: 1, b: 2, c: 3 }) };
     const firstSource = { children: deepMergeBehaviour({ c: 4, d: 5 }) };
     const secondSource = { children: { e: 5, f: 6 } };
     deepMerge(target, firstSource, secondSource);
-    expect(target).toEqual({ children: { a: 1, b: 2, c: 4, d: 5, e: 5, f: 6 } });
+    expect(target).toEqual({
+      children: { a: 1, b: 2, c: 4, d: 5, e: 5, f: 6 }
+    });
   });
 
   it('replaces the target which contains a function', () => {
-    const target = { a: function() {} };
-    deepMerge(target, { a: { a1: 'h1' }});
-    expect(target).toEqual({ a: { a1: 'h1' }});
+    const target = { a: () => undefined };
+    deepMerge(target, { a: { a1: 'h1' } });
+    expect(target).toEqual({ a: { a1: 'h1' } });
   });
 
   it('replaces the target which contains a string', () => {
     const target = { a: 'test' };
-    deepMerge(target, { a: { a1: 'h1' }});
-    expect(target).toEqual({ a: { a1: 'h1' }});
+    deepMerge(target, { a: { a1: 'h1' } });
+    expect(target).toEqual({ a: { a1: 'h1' } });
   });
 
   it('replaces the target which contains a boolean', () => {
     const target = { a: true };
-    deepMerge(target, { a: { a1: 'h1' }});
-    expect(target).toEqual({ a: { a1: 'h1' }});
+    deepMerge(target, { a: { a1: 'h1' } });
+    expect(target).toEqual({ a: { a1: 'h1' } });
   });
 
   it('replaces the target which contains a number', () => {
     const target = { a: 123 };
-    deepMerge(target, { a: { a1: 'h1' }});
-    expect(target).toEqual({ a: { a1: 'h1' }});
+    deepMerge(target, { a: { a1: 'h1' } });
+    expect(target).toEqual({ a: { a1: 'h1' } });
   });
 });
