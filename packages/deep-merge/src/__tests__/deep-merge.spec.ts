@@ -44,7 +44,7 @@ describe('deep-merge.ts', () => {
     expect(target).toEqual({
       a: { value: 1 },
       b: { value: 2 },
-      c: { value: 3 },
+      c: { value: 3 }
     });
   });
 
@@ -56,7 +56,7 @@ describe('deep-merge.ts', () => {
     deepMerge(target, firstSource, secondSource, thirdSource);
     expect(target).toEqual({
       a: { value: 3 },
-      b: { value: 2 },
+      b: { value: 2 }
     });
   });
 
@@ -66,7 +66,7 @@ describe('deep-merge.ts', () => {
     const secondSource: any = { a: { newValue: 2 } };
     deepMerge(target, firstSource, secondSource);
     expect(target).toEqual({
-      a: { value: 1, newValue: 2 },
+      a: { value: 1, newValue: 2 }
     });
   });
 
@@ -100,7 +100,7 @@ describe('deep-merge.ts', () => {
       b: 'b',
       c: [1, 2, 3],
       d: { d1: 5 },
-      f: { f1: 'f1', f2: 'f2' },
+      f: { f1: 'f1', f2: 'f2' }
     };
     const firstSource = { a: undefined, b: undefined };
     const secondSource = { c: undefined, d: undefined };
@@ -153,7 +153,7 @@ describe('deep-merge.ts', () => {
     const secondSource = { children: { e: 5, f: 6 } };
     deepMerge(target, firstSource, secondSource);
     expect(target).toEqual({
-      children: { a: 1, b: 2, c: 4, d: 5, e: 5, f: 6 },
+      children: { a: 1, b: 2, c: 4, d: 5, e: 5, f: 6 }
     });
   });
 
