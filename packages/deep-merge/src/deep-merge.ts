@@ -1,6 +1,6 @@
 enum Behaviour {
-  Replace = "replace",
-  DeepMerge = "deep-merge",
+  Replace = 'replace',
+  DeepMerge = 'deep-merge',
 }
 
 /**
@@ -48,9 +48,7 @@ export function replaceBehaviour<T extends Record<string, unknown>>(obj: T): T {
  *
  * @returns The same object with the new behaviour.
  */
-export function deepMergeBehaviour<T extends Record<string, unknown>>(
-  obj: T
-): T {
+export function deepMergeBehaviour<T extends Record<string, unknown>>(obj: T): T {
   behaviourMap.set(obj, Behaviour.DeepMerge);
   return obj;
 }
@@ -63,10 +61,7 @@ export function deepMergeBehaviour<T extends Record<string, unknown>>(
  *
  * @returns The union of the target and source.
  */
-function cloneSourcesProperties(
-  target: any,
-  source: any
-): (source: any) => void {
+function cloneSourcesProperties(target: any, source: any): (source: any) => void {
   if (source) {
     return Object.entries(source).reduce(cloneObjectProperties, target);
   } else {
@@ -103,7 +98,7 @@ function cloneObjectProperties(target: any, [key, value]: any): any {
  * @returns A boolean indicating if the parameter is an object.
  */
 function isObject(obj: any): obj is Record<string, unknown> {
-  return obj && typeof obj === "object" && !Array.isArray(obj);
+  return obj && typeof obj === 'object' && !Array.isArray(obj);
 }
 
 /**

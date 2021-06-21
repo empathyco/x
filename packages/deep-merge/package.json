@@ -33,7 +33,7 @@
     "build": "tsc && tsc --project tsconfig.esm.json",
     "build:local": "webpack --mode production && npm pack",
     "clean": "rimraf dist && rimraf coverage",
-    "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
+    "format": "prettier --write \"src/**/*.ts\" --single-quote --trailing-comma es5",
     "lint": "eslint \"src/**/*.ts\"",
     "prepublishOnly": "npm run build",
     "prebuild": "npm run clean && npm run lint && echo Using TypeScript && tsc --version",
@@ -50,5 +50,6 @@
   },
   "dependencies": {
     "tslib": "~1.11.1"
-  }
+  },
+  "prettier": "@empathyco/eslint-plugin-x/prettier-config"
 }
