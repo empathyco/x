@@ -1,4 +1,4 @@
-import { deepMerge, deepMergeBehaviour, replaceBehaviour } from '../src/deep-merge';
+import { deepMerge, deepMergeBehaviour, replaceBehaviour } from '../deep-merge';
 
 describe('deep-merge.ts', () => {
   it('copies simple objects', () => {

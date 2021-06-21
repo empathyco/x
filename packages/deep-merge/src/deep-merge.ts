@@ -78,9 +78,9 @@ function cloneSourcesProperties(
  * A function which clones the properties of two object.
  *
  * @param target - The target object to clone in.
- * @param source - The source objet to clone.
+ * @param source - Key-Value to clone into the target object.
  *
- * @returns The union of the target and source.
+ * @returns The target object updated with the entry parameter.
  */
 function cloneObjectProperties(target: any, [key, value]: any): any {
   if (value === undefined) {
@@ -110,7 +110,7 @@ function isObject(obj: any): obj is Record<string, unknown> {
  * A function which merges two sources.
  *
  * @param target - The target object to clone in.
- * @param source - The source objet to clone.
+ * @param source - Key-Value to clone into the target object.
  *
  */
 function mergeObject(target: any, [key, value]: any): void {
