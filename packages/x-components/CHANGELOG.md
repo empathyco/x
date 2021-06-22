@@ -1,4 +1,25 @@
 # X Components
+## [3.0.0-alpha.0](https://bitbucket.org/colbenson/x-components/branches/compare/v3.0.0-alpha.0%0Dv2.1.0-alpha.1) (2021-06-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **design-system:** Design system styles have now to be imported from `@empathy/x-components/design-system` instead of `@empathy/x-components/css`
+
+### Features
+
+* **components:** add new `BaseIdPanelToggleButton` and `BaseIdPanelToggle` components ([c10b484](https://bitbucket.org/colbenson/x-components/commits/c10b48487732512edf40565b3abb892ce518c6dd)), closes [EX-4100](https://searchbroker.atlassian.net/browse/EX-4100)
+
+
+### Testing
+
+* **e2e:** add identifier results tests ([9e93136](https://bitbucket.org/colbenson/x-components/commits/9e93136c61315bc8d4bb7b0d0f61135413d6d7a9)), closes [EX-3961](https://searchbroker.atlassian.net/browse/EX-3961)
+
+
+### Code Refactoring
+
+* **design-system:** rename `styles` folder to `design-system` ([48b5868](https://bitbucket.org/colbenson/x-components/commits/48b586823afcbe59a5d164c2b0f85fa7bccebab7)), closes [EX-4227](https://searchbroker.atlassian.net/browse/EX-4227)
+
 ## [2.1.0-alpha.1](https://bitbucket.org/colbenson/x-components/branches/compare/v2.1.0-alpha.1%0Dv2.1.0-alpha.0) (2021-06-16)
 
 
