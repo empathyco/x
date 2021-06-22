@@ -7,7 +7,8 @@ import { Plugin } from 'rollup';
  *
  * @param file - The file path where to interpolate the `.tokens` suffix.
  * @returns The path of the tokens file if it exists. `null` otherwise.
- * @example `src/styles/button/default.scss` returns `src/styles/button/default.tokens.scss` if
+ * @example `src/design-system/button/default.scss`
+ * returns `src/design-system/button/default.tokens.scss` if exists.
  * @internal
  */
 function getTokensFilePath(file: string): string | null {

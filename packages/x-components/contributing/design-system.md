@@ -159,16 +159,16 @@ that token.
 
 ## Design System Files Structure
 
-### `src/styles`
+### `src/design-system`
 
-All the tokens and styles of the Design System are located in the `src/styles` directory.
+All the tokens and styles of the Design System are located in the `src/design-system` directory.
 
-### `src/styles/base`
+### `src/design-system/base`
 
 Inside this directory are the base tokens shared by the all the components. The name of a file
 tokens have this shape: `name.tokens.scss`. The `.tokens.` suffix is mandatory.
 
-### `src/styles/components`
+### `src/design-system/components`
 
 Inside this directory are a folder for each component of the Design System (do not confuse with Vue
 components). Inside each component folder there are all the CSS files and tokens files for that
@@ -181,14 +181,14 @@ The default css and tokens of a component must be named as `default.scss` and `d
 
 ## Design System Build
 
-During the build process, all the files of the Design System (`src/styles`) are processed, and the
+During the build process, all the files of the Design System (`src/design-system`) are processed, and the
 output files are generated in the `dist/css` folder.
 
 This process is divided in 4 steps:
 
 #### 1. Design System Components.
 
-All the files in `src/styles/components` are processed, merging together the `xxxx.scss` and
+All the files in `src/design-system/components` are processed, merging together the `xxxx.scss` and
 `xxxx.tokens.scss` files of each component variant. These generated files will have a name with the
 shape `component-variant.css`, where `component` is the name of the component (the folder), and the
 `variant` is the name of the variant (the file). Example: `button/default.scss` +
@@ -196,18 +196,18 @@ shape `component-variant.css`, where `component` is the name of the component (t
 
 #### 2. Base Tokens.
 
-All the files in `src/styles/base` are processed and merged together into one file `base.css`. This
+All the files in `src/design-system/base` are processed and merged together into one file `base.css`. This
 contains the base tokens on which depend the rest of the components.
 
 #### 3. Default Theme
 
-All the files in `src/styles/base` and all the `default` variants of each component, are merged
-together in a `default-theme.css` file. This will contains the tokens and CSS necessary for all the
+All the files in `src/design-system/base` and all the `default` variants of each component, are merged
+together in a `default-theme.css` file. This will contain the tokens and CSS necessary for all the
 default variant of the components.
 
 #### 4. Full Theme
 
-All the files in `src/styles` are merged together in a `full-theme.css` file. This will contains all
+All the files in `src/design-system` are merged together in a `full-theme.css` file. This will contain all
 the Design System Tokens and Components.
 
 ### Why all this CSS files?
