@@ -176,6 +176,16 @@ export interface XEventsTypes
    * * Payload: The scroll id which has scrolled to top.
    */
   UserClickedScrollToTop: string;
+  /**
+   * The user clicked the button to toggle a panel.
+   * * Payload: the id of the panel to toggle.
+   */
+  UserClickedPanelToggleButton: string;
+  /**
+   * The `BaseToggleIdPanel` `isOpen` state changed.
+   * * Payload: the new state.
+   */
+  TogglePanelStateChanged: boolean;
 }
 
 /**

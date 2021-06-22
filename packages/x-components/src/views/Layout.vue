@@ -2,7 +2,7 @@
   <div>
     <BaseIdModalOpen modal-id="x-app">Start</BaseIdModalOpen>
     <BaseIdModal modal-id="x-app">
-      <Layout :isAsideOpen="isAsideOpen">
+      <Layout>
         <template #header-middle>
           <div
             class="
@@ -41,13 +41,13 @@
         </template>
 
         <template #toolbar-aside>
-          <button
+          <BaseIdTogglePanelButton
             v-if="$x.totalResults > 0"
-            @click="isAsideOpen = !isAsideOpen"
+            panelId="aside-panel"
             class="x-button x-button--ghost"
           >
             Toggle Aside
-          </button>
+          </BaseIdTogglePanelButton>
         </template>
 
         <template #toolbar-body>
@@ -151,6 +151,7 @@
   import { deepMerge } from '@empathybroker/deep-merge';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import { BaseIdTogglePanelButton } from '../components';
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
   import BaseGrid from '../components/base-grid.vue';
   import BaseVariableColumnGrid from '../components/base-variable-column-grid.vue';
@@ -206,6 +207,7 @@
       infiniteScroll
     },
     components: {
+      BaseIdTogglePanelButton,
       ChevronDown,
       ChevronRight,
       ChevronLeft,
@@ -245,9 +247,6 @@
   export default class App extends Vue {
     protected sortValues = ['', 'priceSort asc', 'priceSort desc'];
     protected columnPickerValues = [0, 4, 6];
-    // TODO: remove and replace by new component when this Task is done:
-    //  https://searchbroker.atlassian.net/browse/EX-4099
-    protected isAsideOpen = true;
     protected resultsAnimation = StaggeredFadeAndSlide;
   }
 </script>

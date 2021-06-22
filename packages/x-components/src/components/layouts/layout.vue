@@ -55,10 +55,10 @@
     </section>
 
     <main class="x-layout__main">
-      <BaseTogglePanel
+      <BaseIdTogglePanel
         v-if="renderConditions.mainAside"
+        panelId="aside-panel"
         :animation="asideAnimation"
-        :open="isAsideOpen"
         class="x-layout__collapse-aside"
       >
         <BaseIdScroll id="aside-scroll" class="x-layout__aside-scroll">
@@ -69,7 +69,7 @@
             </slot>
           </div>
         </BaseIdScroll>
-      </BaseTogglePanel>
+      </BaseIdTogglePanel>
 
       <BaseIdScroll v-if="renderConditions.mainBody" id="body-scroll" class="x-layout__body-scroll">
         <section class="x-layout__main-body x-list x-list--vertical">
@@ -89,7 +89,7 @@
   import Vue, { VNode } from 'vue';
   import Empathize from '../../x-modules/empathize/components/empathize.vue';
   import CollapseFromTop from '../animations/collapse-from-top.vue';
-  import BaseTogglePanel from '../panels/base-toggle-panel.vue';
+  import BaseIdTogglePanel from '../panels/base-id-toggle-panel.vue';
   import BaseIdScroll from '../scroll/base-id-scroll.vue';
   import AnimateWidth from '../animations/animate-width.vue';
 
@@ -99,7 +99,7 @@
    * @public
    */
   @Component({
-    components: { Empathize, BaseTogglePanel, BaseIdScroll }
+    components: { Empathize, BaseIdTogglePanel, BaseIdScroll }
   })
   export default class Layout extends Vue {
     /**
@@ -109,14 +109,6 @@
      */
     @Prop({ default: false })
     protected devMode!: boolean;
-
-    /**
-     * Prop to open and close the Main Aside panel.
-     *
-     * @public
-     */
-    @Prop({ default: true })
-    protected isAsideOpen!: boolean;
 
     /**
      * The animation used for the Main Aside.
