@@ -148,9 +148,7 @@ export class XInstaller {
    *
    * @public
    */
-  async init(
-    snippetConfig: SnippetConfig
-  ): Promise<{
+  async init(snippetConfig: SnippetConfig): Promise<{
     app: Vue | undefined;
     api: XAPI | undefined;
     bus: XBus;
@@ -162,7 +160,7 @@ export class XInstaller {
     const pluginOptions = this.getPluginOptions(snippetConfig);
     const plugin = this.installPlugin(pluginOptions, bus);
     const extraPlugins = await this.installExtraPlugins(snippetConfig, bus);
-    const app = this.createApp(extraPlugins);
+    const app = this.createApp(extraPlugins, snippetConfig);
     this.api?.setBus(bus);
 
     return {
@@ -321,17 +319,27 @@ export class XInstaller {
    * In the case that the `app` parameter is present in the {@link InstallXOptions}, then a new Vue
    * application is created using that app.
    *
-   * @param extraPlugins - The client configuration options.
+   * @param extraPlugins - Vue plugins initialisation data.
+   * @param snippetConfig - Configuration from the client snippet.
    * @returns The Created Vue application or undefined if not created.
    *
    * @internal
    */
-  protected createApp(extraPlugins: VueConstructorPartialArgument): Vue | undefined {
+  protected createApp(
+    extraPlugins: VueConstructorPartialArgument,
+    snippetConfig: SnippetConfig
+  ): Vue | undefined {
     if (this.options.app !== undefined) {
       const vue = this.getVue();
+      vue.observable(snippetConfig);
       return new vue({
         ...extraPlugins,
         ...this.options.vueOptions,
+        provide() {
+          return {
+            snippetConfig
+          };
+        },
         store: this.options.store,
         el: this.getMountingTarget(this.options.domElement),
         render: h => h(this.options.app)

@@ -12,11 +12,11 @@ import { XInstaller } from '../x-installer';
 describe('testing `XInstaller` utility', () => {
   const adapter = SearchAdapterDummy;
   const xPluginMock = { install: jest.fn() };
-  const plugin = (xPluginMock as unknown) as XPlugin;
-  const store = ({} as unknown) as Store<any>;
-  const xModules = ({} as unknown) as XModulesOptions;
-  const __PRIVATE__xModules = ({} as unknown) as PrivateXModulesOptions;
-  const initialXModule = ({} as unknown) as AnyXModule;
+  const plugin = xPluginMock as unknown as XPlugin;
+  const store = {} as unknown as Store<any>;
+  const xModules = {} as unknown as XModulesOptions;
+  const __PRIVATE__xModules = {} as unknown as PrivateXModulesOptions;
+  const initialXModule = {} as unknown as AnyXModule;
 
   const component: ComponentOptions<Vue> = {
     render(h) {
@@ -161,5 +161,27 @@ describe('testing `XInstaller` utility', () => {
     expect(app).toHaveProperty('$router');
     expect(app).toHaveProperty('bus');
     expect(app).toHaveProperty('snippet', snippetConfig);
+  });
+
+  it('provides the snippet config', async () => {
+    const vue = createLocalVue();
+    const { app } = await new XInstaller({
+      adapter,
+      vue,
+      app: vue.extend({
+        inject: ['snippetConfig'],
+        render(h) {
+          // Vue does not provide type safety for inject
+          const instance = (this as any).snippetConfig.instance;
+          return h('h1', [instance]);
+        }
+      })
+    }).init(snippetConfig);
+
+    expect(app?.$el).toHaveTextContent(snippetConfig.instance);
+
+    snippetConfig.instance = 'test-2';
+    await vue.nextTick();
+    expect(app?.$el).toHaveTextContent('test-2');
   });
 });
