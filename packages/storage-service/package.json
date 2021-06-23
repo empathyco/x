@@ -1,0 +1,47 @@
+{
+  "name": "@empathyco/x-storage-service",
+  "version": "1.3.0",
+  "description": "Storage service with TTL",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "build": "tsc && tsc --project tsconfig.esm.json",
+    "build:watch": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/colbenson/storage-service.git"
+  },
+  "keywords": [
+    "storage",
+    "cache",
+    "service",
+    "ttl",
+    "local",
+    "session"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "empathy.co",
+  "homepage": "https://bitbucket.org/colbenson/storage-service#readme",
+  "devDependencies": {
+    "@types/jest": "~24.0.15",
+    "jest": "~24.8.0",
+    "ts-jest": "~24.0.2",
+    "typescript": "~3.8.3"
+  },
+  "dependencies": {
+    "@empathyco/x-logger": "^1.1.2-alpha.0",
+    "tslib": "~1.11.1"
+  },
+  "files": [
+    "dist",
+    "types"
+  ]
+}

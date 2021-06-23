@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "outDir": "./dist/cjs",
+    "declaration": true,
+    "declarationDir": "./types",
+    "sourceMap": true,
+    "inlineSources": true,
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "types": [
+      "jest"
+    ],
+    "lib": [
+      "dom",
+      "esnext"
+    ]
+  },
+  "include": [
+    "./src/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "**/__tests__/**/*"
+  ]
+}
