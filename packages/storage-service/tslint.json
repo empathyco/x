@@ -1,8 +1,0 @@
-{
-  "rulesDirectory": [
-    "node_modules/tslint"
-  ],
-  "extends": [
-    "@empathybroker/eb-tslint/tslint-base"
-  ]
-}

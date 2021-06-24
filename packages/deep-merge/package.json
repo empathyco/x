@@ -1,0 +1,55 @@
+{
+  "author": "Empathy Systems Corporation S.L.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/deep-merge#readme",
+  "name": "@empathyco/x-deep-merge",
+  "version": "1.2.1",
+  "description": "Utility for deep cloning objects.",
+  "keywords": [
+    "deep",
+    "merge",
+    "assign",
+    "clone",
+    "copy"
+  ],
+  "main": "./dist/cjs/deep-merge.js",
+  "module": "./dist/esm/deep-merge.js",
+  "types": "./types/deep-merge.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empathyco/x.git"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "build": "tsc && tsc --project tsconfig.esm.json",
+    "build:local": "webpack --mode production && npm pack",
+    "clean": "rimraf dist && rimraf coverage",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint \"src/**/*.ts\"",
+    "prepublishOnly": "npm run build",
+    "prebuild": "npm run clean && npm run lint && echo Using TypeScript && tsc --version",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@empathyco/eslint-plugin-x": "1.4.0-alpha.0",
+    "@types/jest": "~25.2.1",
+    "jest": "~25.4.0",
+    "rimraf": "~2.6.2",
+    "ts-jest": "~25.4.0",
+    "ts-node": "~8.9.1",
+    "typescript": "~3.8.3"
+  },
+  "dependencies": {
+    "tslib": "~1.11.1"
+  },
+  "prettier": "@empathyco/eslint-plugin-x/prettier-config"
+}
