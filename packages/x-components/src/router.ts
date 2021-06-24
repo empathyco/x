@@ -143,6 +143,11 @@ const routes: RouteConfig[] = [
     path: '/test/partial-results',
     name: 'Partial Results',
     component: () => import('./views/partial-results.vue')
+  },
+  {
+    path: '/test/spellcheck',
+    name: 'Spellcheck',
+    component: () => import('./views/spellcheck.vue')
   }
 ];
 
