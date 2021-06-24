@@ -2,6 +2,7 @@ import { Result, Suggestion } from '@empathy/search-types';
 import { ScrollDirection } from '../components/scroll/scroll.types';
 import { DocumentDirection } from '../plugins/x-plugin.types';
 import { ArrowKey, PropsWithType } from '../utils';
+import { DeviceXEvents } from '../x-modules/device';
 import { EmpathizeXEvents } from '../x-modules/empathize/events.types';
 import { FacetsXEvents } from '../x-modules/facets/events.types';
 import { HistoryQueriesXEvents } from '../x-modules/history-queries/events.types';
@@ -21,6 +22,7 @@ import { SearchXEvents } from '../x-modules/search/events.types';
  * @remarks
  * Aside from common {@link XEvent | XEvents}, this interface also extends the different XModule's
  * XEventsTypes:
+ * * {@link DeviceXEvents}
  * * {@link EmpathizeXEvents}
  * * {@link FacetsXEvents}
  * * {@link HistoryQueriesXEvents}
@@ -35,7 +37,8 @@ import { SearchXEvents } from '../x-modules/search/events.types';
  * @public
  */
 export interface XEventsTypes
-  extends EmpathizeXEvents,
+  extends DeviceXEvents,
+    EmpathizeXEvents,
     FacetsXEvents,
     HistoryQueriesXEvents,
     IdentifierResultsXEvents,

@@ -1,6 +1,7 @@
 import { StoreEmitters } from '../store/store-emitters.types';
 import { AnyXStoreModule, XStoreModule } from '../store/store.types';
 import { Wiring } from '../wiring/wiring.types';
+import { DeviceXModule } from './device/x-module';
 import { EmpathizeXModule } from './empathize/x-module';
 import { FacetsXModule } from './facets/x-module';
 import { HistoryQueriesXModule } from './history-queries/x-module';
@@ -21,6 +22,7 @@ import { TaggingXModule } from './tagging';
  * @public
  */
 export interface XModulesTree {
+  device: DeviceXModule;
   empathize: EmpathizeXModule;
   facets: FacetsXModule;
   historyQueries: HistoryQueriesXModule;
