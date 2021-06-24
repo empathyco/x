@@ -1,6 +1,12 @@
+@import '../../mixins';
+
 .x-input {
   // layout
   box-sizing: border-box;
+  margin: 0;
+  @include safari {
+    -webkit-appearance: none;
+  }
 
   // spacing
   padding: var(--x-space-padding-input);

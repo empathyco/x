@@ -1,23 +1,8 @@
-.x-list--gap-02.x-list {
-  gap: var(--x-space-gap-list-02);
-}
+@import '../../mixins';
 
-.x-list--gap-03.x-list {
-  gap: var(--x-space-gap-list-03);
-}
-
-.x-list--gap-04.x-list {
-  gap: var(--x-space-gap-list-04);
-}
-
-.x-list--gap-05.x-list {
-  gap: var(--x-space-gap-list-05);
-}
-
-.x-list--gap-06.x-list {
-  gap: var(--x-space-gap-list-06);
-}
-
-.x-list--gap-07.x-list {
-  gap: var(--x-space-gap-list-07);
+@for $i from 1 through 7 {
+  $i: zerofill($i);
+  .x-list--gap-#{$i}.x-list {
+    --x-space-gap-list: var(--x-space-gap-list-#{$i});
+  }
 }

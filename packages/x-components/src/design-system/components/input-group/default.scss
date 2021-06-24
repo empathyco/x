@@ -1,3 +1,5 @@
+@import '../../mixins';
+
 .x-input-group {
   // layout
   display: flex;
@@ -8,6 +10,7 @@
 
   // spacing
   gap: var(--x-space-gap-input-group);
+  @include safari-gap(var(--x-space-gap-input-group));
 
   // color
   background-color: var(--x-color-background-input-group);
@@ -24,11 +27,16 @@
     border-color: var(--x-color-border-input-group-focus);
   }
 
-  > * {
+  > *,
+  > .x-input,
+  > .x-button {
     //layout
     flex: 0 0 auto;
 
     // typography
+    font-family: var(--x-font-family-input-group);
+    font-size: var(--x-font-size-input-group);
+    font-weight: var(--x-font-weight-input-group);
     line-height: var(--x-font-line-height-input-group);
   }
 
@@ -39,11 +47,6 @@
 
     // border
     border: none;
-
-    // typography
-    font-family: var(--x-font-family-input-group);
-    font-size: var(--x-font-size-input-group);
-    font-weight: var(--x-font-weight-input-group);
 
     // spacing
     padding: var(--x-space-padding-top-input-group) 0 var(--x-space-padding-bottom-input-group) 0;
@@ -61,6 +64,10 @@
     //layout
     flex: 1 1 100%;
     min-width: 0;
+    @include safari {
+      margin-top: calc(var(--x-font-size-input-group) * -0.13) !important;
+      margin-bottom: calc(var(--x-font-size-input-group) * -0.13) !important;
+    }
 
     &::placeholder {
       // typography
@@ -78,6 +85,9 @@
   }
 
   > .x-input-group__action {
+    //layout
+    align-self: stretch;
+
     // spacing
     padding: var(--x-space-padding-input-group-action);
 
@@ -85,6 +95,17 @@
     border-radius: var(--x-border-radius-input-group-action);
     // need negative margin equals to the border width to make
     // the child border to overlap the parent border.
-    margin: calc(#{var(--x-space-margin-input-group-action)} * -1);
+    --x-calculated-margin: calc(#{var(--x-space-margin-input-group-action)} * -1);
+    margin-top: var(--x-calculated-margin) !important;
+    margin-bottom: var(--x-calculated-margin) !important;
+    &:first-child {
+      margin-left: var(--x-calculated-margin) !important;
+    }
+    &:last-child {
+      margin-right: var(--x-calculated-margin) !important;
+    }
   }
+
+  // spacing
+  @include safari-gap(var(--x-space-gap-input-group));
 }

@@ -1,12 +1,16 @@
+@import '../../mixins';
+
 .x-button {
   // layout
   display: inline-flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+  margin: 0;
 
   // spacing
   gap: var(--x-space-gap-button);
+  @include safari-gap(var(--x-space-gap-button));
   padding: var(--x-space-padding-button);
 
   // color

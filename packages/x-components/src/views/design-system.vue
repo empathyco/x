@@ -1,10 +1,14 @@
 <template>
   <main class="x-design-system">
-    <section>
+    <section
+      class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+    >
       <h1 class="x-title1">Typography</h1>
 
       <h1 class="x-text">Text</h1>
-      <section>
+      <section
+        class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+      >
         <span class="x-text">text typography</span>
         <span class="x-text x-text--accent">text typography accent</span>
         <span class="x-text x-text--bold">text typography bold</span>
@@ -14,7 +18,9 @@
       </section>
 
       <h1 class="x-title1">Title 1</h1>
-      <section>
+      <section
+        class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+      >
         <span class="x-title1">Title1 Typography</span>
         <span class="x-title1 x-text--accent">Title1 Typography Accent</span>
         <span class="x-title1 x-text--bold">Title1 Typography Bold</span>
@@ -24,7 +30,9 @@
       </section>
 
       <h1 class="x-title2">Title 2</h1>
-      <section>
+      <section
+        class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+      >
         <span class="x-title2">Title2 Typography</span>
         <span class="x-title2 x-text--accent">Title2 Typography Accent</span>
         <span class="x-title2 x-text--bold">Title2 Typography Bold</span>
@@ -34,7 +42,9 @@
       </section>
 
       <h1 class="x-title3">Title 3</h1>
-      <section>
+      <section
+        class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+      >
         <span class="x-title3">Title3 Typography</span>
         <span class="x-title3 x-text--accent">Title3 Typography Accent</span>
         <span class="x-title3 x-text--bold">Title3 Typography Bold</span>
@@ -44,7 +54,9 @@
       </section>
 
       <h1 class="x-small">Small</h1>
-      <section>
+      <section
+        class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+      >
         <span class="x-small">small typography</span>
         <span class="x-small x-text--accent">small typography accent</span>
         <span class="x-small x-text--bold">small typography bold</span>
@@ -54,11 +66,13 @@
       </section>
     </section>
 
-    <section class="x-icons">
+    <section
+      class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+    >
       <h1 class="x-title1">Icons</h1>
 
       <h2 class="x-title2">Small</h2>
-      <ul class="x-list x-list--wrap">
+      <ul class="x-list x-list--wrap x-list--gap-06">
         <li title="ArrowIcon">
           <ArrowIcon class="x-icon--s" />
         </li>
@@ -194,7 +208,7 @@
       </ul>
 
       <h2 class="x-title2">Default</h2>
-      <ul class="x-list x-list--wrap">
+      <ul class="x-list x-list--wrap x-list--gap-05">
         <li title="ArrowIcon">
           <ArrowIcon class="x-icon--m" />
         </li>
@@ -330,7 +344,7 @@
       </ul>
 
       <h2 class="x-title2">Large</h2>
-      <ul class="x-list x-list--wrap x-list--gap-02">
+      <ul class="x-list x-list--wrap x-list--gap-03">
         <li title="ArrowIcon">
           <ArrowIcon class="x-icon--l" />
         </li>
@@ -466,7 +480,7 @@
       </ul>
 
       <h2 class="x-title2">Extra large</h2>
-      <ul class="x-list x-list--wrap x-list--gap-04">
+      <ul class="x-list x-list--wrap">
         <li title="ArrowIcon">
           <ArrowIcon class="x-icon--xl" />
         </li>
@@ -602,10 +616,12 @@
       </ul>
     </section>
 
-    <section>
+    <section
+      class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+    >
       <h1 class="x-title1">Button</h1>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Default</h2>
         <button class="x-button">Default</button>
         <button class="x-button">
@@ -625,7 +641,7 @@
         </button>
       </article>
 
-      <article class="x-button--primary">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-button--primary">
         <h2 class="x-title2">Primary</h2>
         <button class="x-button">Primary</button>
         <button class="x-button">
@@ -645,7 +661,7 @@
         </button>
       </article>
 
-      <article class="x-button--secondary">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-button--secondary">
         <h2 class="x-title2">Secondary</h2>
         <button class="x-button">Secondary</button>
         <button class="x-button">
@@ -665,7 +681,7 @@
         </button>
       </article>
 
-      <article class="x-button--tertiary">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-button--tertiary">
         <h2 class="x-title2">Tertiary</h2>
         <button class="x-button">Tertiary</button>
         <button class="x-button">
@@ -685,7 +701,7 @@
         </button>
       </article>
 
-      <article class="x-button--ghost">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-button--ghost">
         <h2 class="x-title2">Ghost</h2>
         <button class="x-button">Ghost</button>
         <button class="x-button">
@@ -706,34 +722,38 @@
       </article>
     </section>
 
-    <section>
+    <section
+      class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+    >
       <h1 class="x-title1">Input</h1>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Default</h2>
         <input type="text" class="x-input" placeholder="type here" />
       </article>
 
-      <article class="x-input--card">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-input--card">
         <h2 class="x-title2">Card</h2>
         <input type="text" class="x-input" placeholder="type here" />
       </article>
 
-      <article class="x-input--line">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-input--line">
         <h2 class="x-title2">Line</h2>
         <input type="text" class="x-input" placeholder="type here" />
       </article>
 
-      <article class="x-input--pill">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-input--pill">
         <h2 class="x-title2">Pill</h2>
         <input type="text" class="x-input" placeholder="type here" />
       </article>
     </section>
 
-    <section>
+    <section
+      class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+    >
       <h1 class="x-title1">Input Group</h1>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Default</h2>
 
         <div class="x-input-group">
@@ -760,7 +780,7 @@
         </div>
       </article>
 
-      <article class="x-input-group--pill">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-input-group--pill">
         <h2 class="x-title2">Pill</h2>
 
         <div class="x-input-group">
@@ -787,7 +807,7 @@
         </div>
       </article>
 
-      <article class="x-input-group--card">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-input-group--card">
         <h2 class="x-title2">Card</h2>
 
         <div class="x-input-group">
@@ -814,7 +834,7 @@
         </div>
       </article>
 
-      <article class="x-input-group--line">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-input-group--line">
         <h2 class="x-title2">Line</h2>
 
         <div class="x-input-group">
@@ -842,10 +862,12 @@
       </article>
     </section>
 
-    <section>
+    <section
+      class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+    >
       <h1 class="x-title1">Filter</h1>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Default</h2>
 
         <div class="x-filter">
@@ -884,7 +906,7 @@
         </div>
       </article>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Default Selected</h2>
 
         <div class="x-filter x-filter--is-selected">
@@ -923,7 +945,7 @@
         </div>
       </article>
 
-      <article class="x-filter--justified">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-filter--justified">
         <h2 class="x-title2">Justified</h2>
 
         <div class="x-filter">
@@ -962,7 +984,7 @@
         </div>
       </article>
 
-      <article class="x-filter--justified">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-filter--justified">
         <h2 class="x-title2">Justified Selected</h2>
 
         <div class="x-filter x-filter--is-selected">
@@ -1001,7 +1023,7 @@
         </div>
       </article>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Hierarchical Filter</h2>
 
         <div class="x-hierarchical-filter-container">
@@ -1322,7 +1344,7 @@
         </div>
       </article>
 
-      <article class="x-filter--justified">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-filter--justified">
         <h2 class="x-title2">Justified Hierarchical Filter</h2>
 
         <div class="x-hierarchical-filter-container">
@@ -1644,10 +1666,12 @@
       </article>
     </section>
 
-    <section>
+    <section
+      class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+    >
       <h1 class="x-title1">Facet</h1>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Default</h2>
 
         <div class="x-facet">
@@ -1691,7 +1715,7 @@
         </div>
       </article>
 
-      <article class="x-facet--outlined">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-facet--outlined">
         <h2 class="x-title2">Outlined</h2>
 
         <div class="x-facet">
@@ -1735,7 +1759,7 @@
         </div>
       </article>
 
-      <article class="x-facet--line">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-facet--line">
         <h2 class="x-title2">Line</h2>
 
         <div class="x-facet">
@@ -1779,7 +1803,7 @@
         </div>
       </article>
 
-      <article class="x-facet--card">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-facet--card">
         <h2 class="x-title2">Card</h2>
 
         <div class="x-facet">
@@ -1823,7 +1847,7 @@
         </div>
       </article>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Combinations</h2>
 
         <div class="x-facet x-facet--outlined x-facet--line">
@@ -1868,10 +1892,12 @@
       </article>
     </section>
 
-    <section>
+    <section
+      class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+    >
       <h1 class="x-title1">Suggestion</h1>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Default</h2>
 
         <div class="x-suggestion">
@@ -1915,10 +1941,12 @@
       </article>
     </section>
 
-    <section>
+    <section
+      class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+    >
       <h1 class="x-title1">Suggestion Group</h1>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Default</h2>
 
         <div class="x-suggestion-group">
@@ -1986,9 +2014,11 @@
       </article>
     </section>
 
-    <section>
+    <section
+      class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+    >
       <h1 class="x-title1">Tags</h1>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Default</h2>
         <div class="x-tag">
           <PlusIcon />
@@ -2005,7 +2035,7 @@
           <span>text tag extra large name</span>
         </div>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Default Selected</h2>
         <div class="x-tag x-tag--is-selected">
           <PlusIcon />
@@ -2022,7 +2052,7 @@
           <span>text tag extra large name</span>
         </div>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Card</h2>
         <div class="x-tag x-tag--card">
           <PlusIcon />
@@ -2039,7 +2069,7 @@
           <span>text tag extra large name</span>
         </div>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Card Selected</h2>
         <div class="x-tag x-tag--card x-tag--is-selected">
           <PlusIcon />
@@ -2056,7 +2086,7 @@
           <span>text tag extra large name</span>
         </div>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Pill</h2>
         <div class="x-tag x-tag--pill">
           <PlusIcon />
@@ -2076,7 +2106,7 @@
           <span>1</span>
         </div>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Pill Selected</h2>
         <div class="x-tag x-tag--pill x-tag--is-selected">
           <PlusIcon />
@@ -2096,7 +2126,7 @@
           <span>1</span>
         </div>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Ghost</h2>
         <div class="x-tag x-tag--ghost">
           <PlusIcon />
@@ -2113,7 +2143,7 @@
           <span>text tag extra large name</span>
         </div>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Ghost Selected</h2>
         <div class="x-tag x-tag--ghost x-tag--is-selected">
           <PlusIcon />
@@ -2132,28 +2162,30 @@
       </article>
     </section>
 
-    <section class="row">
+    <section
+      class="row x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+    >
       <h1 class="x-title1">Dropdown</h1>
 
-      <article class="x-dropdown-show-case">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-dropdown-show-case">
         <h2 class="x-title2">Default</h2>
 
         <div class="x-dropdown">
           <button class="x-dropdown__toggle">
-            Sort by
+            <span>Sort by</span>
             <span class="x-dropdown__toggle-selected-value">Relevance</span>
             <ChevronDownIcon />
           </button>
         </div>
         <div class="x-dropdown x-dropdown--is-open">
           <button class="x-dropdown__toggle">
-            Sort by
+            <span>Sort by</span>
             <span class="x-dropdown__toggle-selected-value">Relevance</span>
             <ChevronDownIcon />
           </button>
           <div class="x-dropdown__items-list">
             <button class="x-dropdown__item x-dropdown__item--is-selected">
-              Relevance
+              <span>Relevance</span>
               <CheckIcon />
             </button>
             <button class="x-dropdown__item">Alphabetical</button>
@@ -2162,25 +2194,25 @@
         </div>
       </article>
 
-      <article class="x-dropdown-show-case">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-dropdown-show-case">
         <h2 class="x-title2">Card</h2>
 
         <div class="x-dropdown x-dropdown--card">
           <button class="x-dropdown__toggle">
-            Sort by
+            <span>Sort by</span>
             <span class="x-dropdown__toggle-selected-value">Relevance</span>
             <ChevronDownIcon />
           </button>
         </div>
         <div class="x-dropdown x-dropdown--is-open x-dropdown--card">
           <button class="x-dropdown__toggle">
-            Sort by
+            <span>Sort by</span>
             <span class="x-dropdown__toggle-selected-value">Relevance</span>
             <ChevronDownIcon />
           </button>
           <div class="x-dropdown__items-list">
             <button class="x-dropdown__item x-dropdown__item--is-selected">
-              Relevance
+              <span>Relevance</span>
               <CheckIcon />
             </button>
             <button class="x-dropdown__item">Alphabetical</button>
@@ -2189,25 +2221,25 @@
         </div>
       </article>
 
-      <article class="x-dropdown-show-case">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-dropdown-show-case">
         <h2 class="x-title2">Pill</h2>
 
         <div class="x-dropdown x-dropdown--pill">
           <button class="x-dropdown__toggle">
-            Sort by
+            <span>Sort by</span>
             <span class="x-dropdown__toggle-selected-value">Relevance</span>
             <ChevronDownIcon />
           </button>
         </div>
         <div class="x-dropdown x-dropdown--is-open x-dropdown--pill">
           <button class="x-dropdown__toggle">
-            Sort by
+            <span>Sort by</span>
             <span class="x-dropdown__toggle-selected-value">Relevance</span>
             <ChevronDownIcon />
           </button>
           <div class="x-dropdown__items-list">
             <button class="x-dropdown__item x-dropdown__item--is-selected">
-              Relevance
+              <span>Relevance</span>
               <CheckIcon />
             </button>
             <button class="x-dropdown__item">Alphabetical</button>
@@ -2216,25 +2248,25 @@
         </div>
       </article>
 
-      <article class="x-dropdown-show-case">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-dropdown-show-case">
         <h2 class="x-title2">Line</h2>
 
         <div class="x-dropdown x-dropdown--line">
           <button class="x-dropdown__toggle">
-            Sort by
+            <span>Sort by</span>
             <span class="x-dropdown__toggle-selected-value">Relevance</span>
             <ChevronDownIcon />
           </button>
         </div>
         <div class="x-dropdown x-dropdown--is-open x-dropdown--line">
           <button class="x-dropdown__toggle">
-            Sort by
+            <span>Sort by</span>
             <span class="x-dropdown__toggle-selected-value">Relevance</span>
             <ChevronDownIcon />
           </button>
           <div class="x-dropdown__items-list">
             <button class="x-dropdown__item x-dropdown__item--is-selected">
-              Relevance
+              <span>Relevance</span>
               <CheckIcon />
             </button>
             <button class="x-dropdown__item">Alphabetical</button>
@@ -2243,9 +2275,11 @@
         </div>
       </article>
 
-      <article class="x-list x-list--gap-06">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-list x-list--gap-06">
         <h2 class="x-title2">Size variants</h2>
-        <article class="x-dropdown-show-case">
+        <article
+          class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-dropdown-show-case"
+        >
           <h3 class="x-title3">Default</h3>
           <div class="x-dropdown">
             <button class="x-dropdown__toggle">
@@ -2254,7 +2288,7 @@
             </button>
             <div class="x-dropdown__items-list">
               <button class="x-dropdown__item x-dropdown__item--is-selected">
-                Relevance
+                <span>Relevance</span>
                 <CheckIcon />
               </button>
               <button class="x-dropdown__item">Alphabetical</button>
@@ -2262,7 +2296,9 @@
             </div>
           </div>
         </article>
-        <article class="x-dropdown-show-case">
+        <article
+          class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-dropdown-show-case"
+        >
           <h3 class="x-title3">Small</h3>
           <div class="x-dropdown x-dropdown--s x-dropdown--is-open">
             <button class="x-dropdown__toggle">
@@ -2280,16 +2316,18 @@
             </div>
           </div>
         </article>
-        <article class="x-dropdown-show-case">
+        <article
+          class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-dropdown-show-case"
+        >
           <h3 class="x-title3">Medium</h3>
           <div class="x-dropdown x-dropdown--m x-dropdown--is-open">
             <button class="x-dropdown__toggle">
-              Sort by
+              <span>Sort by</span>
               <ChevronDownIcon />
             </button>
             <div class="x-dropdown__items-list">
               <button class="x-dropdown__item x-dropdown__item--is-selected">
-                Relevance
+                <span>Relevance</span>
                 <CheckIcon />
               </button>
               <button class="x-dropdown__item">Alphabetical</button>
@@ -2297,17 +2335,19 @@
             </div>
           </div>
         </article>
-        <article class="x-dropdown-show-case">
+        <article
+          class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-dropdown-show-case"
+        >
           <h3 class="x-title3">Large</h3>
           <div class="x-dropdown x-dropdown--l x-dropdown--is-open">
             <button class="x-dropdown__toggle">
-              Sort by
+              <span>Sort by</span>
               <span class="x-dropdown__toggle-selected-value">Relevance</span>
               <ChevronDownIcon />
             </button>
             <div class="x-dropdown__items-list">
               <button class="x-dropdown__item x-dropdown__item--is-selected">
-                Relevance
+                <span>Relevance</span>
                 <CheckIcon />
               </button>
               <button class="x-dropdown__item">Alphabetical</button>
@@ -2315,17 +2355,19 @@
             </div>
           </div>
         </article>
-        <article class="x-dropdown-show-case">
+        <article
+          class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-dropdown-show-case"
+        >
           <h3 class="x-title3">Extra large</h3>
           <div class="x-dropdown x-dropdown--xl x-dropdown--is-open">
             <button class="x-dropdown__toggle">
-              Sort by
+              <span>Sort by</span>
               <span class="x-dropdown__toggle-selected-value">Relevance</span>
               <ChevronDownIcon />
             </button>
             <div class="x-dropdown__items-list">
               <button class="x-dropdown__item x-dropdown__item--is-selected">
-                Relevance
+                <span>Relevance</span>
                 <CheckIcon />
               </button>
               <button class="x-dropdown__item">Alphabetical</button>
@@ -2336,9 +2378,11 @@
       </article>
     </section>
 
-    <section>
+    <section
+      class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+    >
       <h1 class="x-title1">Option List</h1>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Divider</h2>
         <div>
           <span class="x-text">Sort by</span>
@@ -2355,7 +2399,7 @@
           </ul>
         </div>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Bottom</h2>
         <div>
           <span class="x-text">Sort by</span>
@@ -2374,10 +2418,11 @@
       </article>
     </section>
 
-    <!-- eslint-disable max-len -->
-    <section>
+    <section
+      class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+    >
       <h1 class="x-title1">Sliding panel</h1>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Default</h2>
         <SlidingPanel>
           <template #sliding-panel-left-button>
@@ -2425,7 +2470,7 @@
         </SlidingPanel>
       </article>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Buttons overflow</h2>
         <SlidingPanel class="x-sliding-panel--buttons-overflow">
           <template #sliding-panel-left-button>
@@ -2473,7 +2518,7 @@
         </SlidingPanel>
       </article>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">No gradient</h2>
         <SlidingPanel class="x-sliding-panel--no-gradient">
           <template #sliding-panel-left-button>
@@ -2521,7 +2566,7 @@
         </SlidingPanel>
       </article>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Buttons visible on hover</h2>
         <SlidingPanel class="x-sliding-panel--show-buttons-on-hover">
           <template #sliding-panel-left-button>
@@ -2569,7 +2614,7 @@
         </SlidingPanel>
       </article>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Buttons visible on hover with overflow</h2>
         <SlidingPanel
           class="x-sliding-panel--show-buttons-on-hover x-sliding-panel--buttons-overflow"
@@ -2619,7 +2664,7 @@
         </SlidingPanel>
       </article>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Buttons visible on hover, with overflow and no gradient</h2>
         <SlidingPanel
           class="
@@ -2673,282 +2718,351 @@
         </SlidingPanel>
       </article>
     </section>
-    <!-- eslint-enable max-len -->
 
-    <section class="x-list-show-case">
+    <section
+      class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+    >
       <h1 class="x-title1">Lists</h1>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Vertical</h2>
-        <ul class="x-list x-list--vertical">
+        <ul class="x-list x-list--vertical x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Vertical Gap</h2>
-        <ul class="x-list x-list--vertical x-list--gap-02">
+        <ul class="x-list x-list--vertical x-list--gap-02 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--vertical x-list--gap-03">
+        <ul class="x-list x-list--vertical x-list--gap-03 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--vertical x-list--gap-04">
+        <ul class="x-list x-list--vertical x-list--gap-04 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--vertical x-list--gap-05">
+        <ul class="x-list x-list--vertical x-list--gap-05 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--vertical x-list--gap-06">
+        <ul class="x-list x-list--vertical x-list--gap-06 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Vertical Padding</h2>
-        <ul class="x-list x-list--vertical x-list--padding-02">
+        <ul class="x-list x-list--vertical x-list--padding-02 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--vertical x-list--padding-03">
+        <ul class="x-list x-list--vertical x-list--padding-03 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--vertical x-list--padding-04">
+        <ul class="x-list x-list--vertical x-list--padding-04 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--vertical x-list--padding-05">
+        <ul class="x-list x-list--vertical x-list--padding-05 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--vertical x-list--padding-06">
+        <ul class="x-list x-list--vertical x-list--padding-06 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Vertical Padding Direction</h2>
-        <ul class="x-list x-list--vertical x-list--padding-06 x-list--padding-top">
+        <ul class="x-list x-list--vertical x-list--padding-06 x-list--padding-top x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--vertical x-list--padding-06 x-list--padding-right">
+        <ul
+          class="x-list x-list--vertical x-list--padding-06 x-list--padding-right x-list-show-case"
+        >
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--vertical x-list--padding-06 x-list--padding-bottom">
+        <ul
+          class="x-list x-list--vertical x-list--padding-06 x-list--padding-bottom x-list-show-case"
+        >
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--vertical x-list--padding-06 x-list--padding-left">
+        <ul
+          class="x-list x-list--vertical x-list--padding-06 x-list--padding-left x-list-show-case"
+        >
           <li></li>
           <li></li>
           <li></li>
         </ul>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Vertical Border</h2>
-        <ul class="x-list x-list--vertical x-list--padding-06 x-list--border">
+        <ul class="x-list x-list--vertical x-list--padding-06 x-list--border x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Vertical Border Direction</h2>
-        <ul class="x-list x-list--vertical x-list--padding-06 x-list--border x-list--border-top">
+        <ul
+          class="
+            x-list x-list--vertical x-list--padding-06 x-list--border x-list--border-top
+            x-list-show-case
+          "
+        >
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--vertical x-list--padding-06 x-list--border x-list--border-right">
+        <ul
+          class="
+            x-list x-list--vertical x-list--padding-06 x-list--border x-list--border-right
+            x-list-show-case
+          "
+        >
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--vertical x-list--padding-06 x-list--border x-list--border-bottom">
+        <ul
+          class="
+            x-list x-list--vertical x-list--padding-06 x-list--border x-list--border-bottom
+            x-list-show-case
+          "
+        >
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--vertical x-list--padding-06 x-list--border x-list--border-left">
+        <ul
+          class="
+            x-list x-list--vertical x-list--padding-06 x-list--border x-list--border-left
+            x-list-show-case
+          "
+        >
           <li></li>
           <li></li>
           <li></li>
         </ul>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Horizontal</h2>
-        <ul class="x-list x-list--horizontal">
+        <ul class="x-list x-list--horizontal x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Horizontal Gap</h2>
-        <ul class="x-list x-list--horizontal x-list--gap-02">
+        <ul class="x-list x-list--horizontal x-list--gap-02 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--horizontal x-list--gap-03">
+        <ul class="x-list x-list--horizontal x-list--gap-03 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--horizontal x-list--gap-04">
+        <ul class="x-list x-list--horizontal x-list--gap-04 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--horizontal x-list--gap-05">
+        <ul class="x-list x-list--horizontal x-list--gap-05 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--horizontal x-list--gap-06">
+        <ul class="x-list x-list--horizontal x-list--gap-06 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Horizontal Padding</h2>
-        <ul class="x-list x-list--horizontal x-list--padding-02">
+        <ul class="x-list x-list--horizontal x-list--padding-02 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--horizontal x-list--padding-03">
+        <ul class="x-list x-list--horizontal x-list--padding-03 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--horizontal x-list--padding-04">
+        <ul class="x-list x-list--horizontal x-list--padding-04 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--horizontal x-list--padding-05">
+        <ul class="x-list x-list--horizontal x-list--padding-05 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--horizontal x-list--padding-06">
+        <ul class="x-list x-list--horizontal x-list--padding-06 x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Horizontal Padding Direction</h2>
-        <ul class="x-list x-list--horizontal x-list--padding-06 x-list--padding-top">
+        <ul
+          class="x-list x-list--horizontal x-list--padding-06 x-list--padding-top x-list-show-case"
+        >
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--horizontal x-list--padding-06 x-list--padding-right">
+        <ul
+          class="
+            x-list x-list--horizontal x-list--padding-06 x-list--padding-right
+            x-list-show-case
+          "
+        >
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--horizontal x-list--padding-06 x-list--padding-bottom">
+        <ul
+          class="
+            x-list x-list--horizontal x-list--padding-06 x-list--padding-bottom
+            x-list-show-case
+          "
+        >
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--horizontal x-list--padding-06 x-list--padding-left">
+        <ul
+          class="x-list x-list--horizontal x-list--padding-06 x-list--padding-left x-list-show-case"
+        >
           <li></li>
           <li></li>
           <li></li>
         </ul>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Horizontal Border</h2>
-        <ul class="x-list x-list--horizontal x-list--padding-06 x-list--border">
+        <ul class="x-list x-list--horizontal x-list--padding-06 x-list--border x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
         </ul>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Horizontal Border Direction</h2>
-        <ul class="x-list x-list--horizontal x-list--padding-06 x-list--border x-list--border-top">
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
         <ul
-          class="x-list x-list--horizontal x-list--padding-06 x-list--border x-list--border-right"
+          class="
+            x-list x-list--horizontal x-list--padding-06 x-list--border x-list--border-top
+            x-list-show-case
+          "
         >
           <li></li>
           <li></li>
           <li></li>
         </ul>
         <ul
-          class="x-list x-list--horizontal x-list--padding-06 x-list--border x-list--border-bottom"
+          class="
+            x-list x-list--horizontal x-list--padding-06 x-list--border x-list--border-right
+            x-list-show-case
+          "
         >
           <li></li>
           <li></li>
           <li></li>
         </ul>
-        <ul class="x-list x-list--horizontal x-list--padding-06 x-list--border x-list--border-left">
+        <ul
+          class="
+            x-list x-list--horizontal x-list--padding-06 x-list--border x-list--border-bottom
+            x-list-show-case
+          "
+        >
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul
+          class="
+            x-list x-list--horizontal x-list--padding-06 x-list--border x-list--border-left
+            x-list-show-case
+          "
+        >
           <li></li>
           <li></li>
           <li></li>
         </ul>
       </article>
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Wrap</h2>
-        <ul class="x-list x-list--wrap">
+        <ul class="x-list x-list--wrap x-list-show-case">
           <li></li>
           <li></li>
           <li></li>
           <li></li>
         </ul>
       </article>
-      <article class="x-list-alignment">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-list-alignment">
         <h2 class="x-title2">Alignment</h2>
         <div class="x-list-alignment-horizontal">
           <h2 class="x-title3">Horizontal Justify & Align Start</h2>
-          <ul class="x-list x-list--horizontal x-list--justify-start x-list--align-start">
+          <ul
+            class="
+              x-list x-list--horizontal x-list--justify-start x-list--align-start
+              x-list-show-case
+            "
+          >
             <li></li>
             <li></li>
             <li></li>
           </ul>
           <h2 class="x-title3">Horizontal Justify & Align Center</h2>
-          <ul class="x-list x-list--horizontal x-list--justify-center x-list--align-center">
+          <ul
+            class="
+              x-list x-list--horizontal x-list--justify-center x-list--align-center
+              x-list-show-case
+            "
+          >
             <li></li>
             <li></li>
             <li></li>
           </ul>
           <h2 class="x-title3">Horizontal Justify & Align End</h2>
-          <ul class="x-list x-list--horizontal x-list--justify-end x-list--align-end">
+          <ul
+            class="x-list x-list--horizontal x-list--justify-end x-list--align-end x-list-show-case"
+          >
             <li></li>
             <li></li>
             <li></li>
           </ul>
           <h2 class="x-title3">Horizontal Align Baseline</h2>
-          <ul class="x-list x-list--horizontal x-list--align-baseline">
+          <ul class="x-list x-list--horizontal x-list--align-baseline x-list-show-case">
             <li></li>
             <li></li>
             <li></li>
@@ -2956,50 +3070,64 @@
         </div>
         <div class="x-list-alignment-vertical">
           <h2 class="x-title3">Vertical Justify & Align Start</h2>
-          <ul class="x-list x-list--vertical x-list--justify-start x-list--align-start">
+          <ul
+            class="
+              x-list x-list--vertical x-list--justify-start x-list--align-start
+              x-list-show-case
+            "
+          >
             <li></li>
             <li></li>
             <li></li>
           </ul>
           <h2 class="x-title3">Vertical Justify & Align Center</h2>
-          <ul class="x-list x-list--vertical x-list--justify-center x-list--align-center">
+          <ul
+            class="
+              x-list x-list--vertical x-list--justify-center x-list--align-center
+              x-list-show-case
+            "
+          >
             <li></li>
             <li></li>
             <li></li>
           </ul>
           <h2 class="x-title3">Vertical Justify & Align End</h2>
-          <ul class="x-list x-list--vertical x-list--justify-end x-list--align-end">
+          <ul
+            class="x-list x-list--vertical x-list--justify-end x-list--align-end x-list-show-case"
+          >
             <li></li>
             <li></li>
             <li></li>
           </ul>
           <h2 class="x-title3">Vertical Align Baseline</h2>
-          <ul class="x-list x-list--vertical x-list--align-baseline">
+          <ul class="x-list x-list--vertical x-list--align-baseline x-list-show-case">
             <li></li>
             <li></li>
             <li></li>
           </ul>
         </div>
       </article>
-      <article class="x-list-sizing">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-list-sizing">
         <h2 class="x-title2">Items sizing</h2>
-        <ul class="x-list x-list--vertical">
-          <li class="x-list__item--2">02</li>
-          <li class="x-list__item--6">06</li>
-          <li class="x-list__item--2">02</li>
+        <ul class="x-list x-list--vertical x-list-show-case">
+          <li class="x-list__item x-list__item--2">02</li>
+          <li class="x-list__item x-list__item--6">06</li>
+          <li class="x-list__item x-list__item--2">02</li>
         </ul>
-        <ul class="x-list x-list--horizontal">
-          <li class="x-list__item--1">01</li>
-          <li class="x-list__item--5">05</li>
-          <li class="x-list__item--1">01</li>
-          <li class="x-list__item--2">02</li>
+        <ul class="x-list x-list--horizontal x-list-show-case">
+          <li class="x-list__item x-list__item--1">01</li>
+          <li class="x-list__item x-list__item--5">05</li>
+          <li class="x-list__item x-list__item--1">01</li>
+          <li class="x-list__item x-list__item--2">02</li>
         </ul>
       </article>
     </section>
-    <section>
+    <section
+      class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+    >
       <h1 class="x-title1">Row</h1>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Default</h2>
         <ul class="x-row">
           <li class="x-row__item x-row__item--span-2 x-row__item--start-1">0</li>
@@ -3010,7 +3138,7 @@
         </ul>
       </article>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Padding</h2>
 
         <ul class="x-row x-row--padding-02">
@@ -3054,7 +3182,7 @@
         </ul>
       </article>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Gap</h2>
 
         <ul class="x-row x-row--gap-02">
@@ -3098,7 +3226,7 @@
         </ul>
       </article>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Alignment</h2>
         <div>
           <h3 class="x-title3">Stretch</h3>
@@ -3142,7 +3270,7 @@
         </div>
       </article>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Justify</h2>
         <div>
           <h3 class="x-title3">Stretch (default)</h3>
@@ -3187,17 +3315,19 @@
       </article>
     </section>
 
-    <section>
+    <section
+      class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+    >
       <h1 class="x-title1">Row Item</h1>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Default</h2>
         <ul class="x-row">
           <li class="x-row__item">0</li>
         </ul>
       </article>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Span</h2>
 
         <ul v-for="span in 12" :key="span" class="x-row">
@@ -3205,7 +3335,7 @@
         </ul>
       </article>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Start</h2>
 
         <ul v-for="start in 12" :key="start" class="x-row">
@@ -3214,52 +3344,54 @@
       </article>
     </section>
 
-    <section>
+    <section
+      class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+    >
       <h1 class="x-title1">Product image</h1>
 
-      <article class="x-picture-show-case">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
         <h2 class="x-title2">Default</h2>
         <picture class="x-picture">
           <img class="x-picture__image" :src="standardImageUrl" />
         </picture>
       </article>
 
-      <article class="x-picture-show-case">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
         <h2 class="x-title2">Card</h2>
         <picture class="x-picture x-picture--card">
           <img class="x-picture__image" :src="standardImageUrl" />
         </picture>
       </article>
 
-      <article class="x-picture-show-case">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
         <h2 class="x-title2">Cover</h2>
         <picture class="x-picture x-picture--cover">
           <img class="x-picture__image" :src="whiteBackgroundImageUrl" />
         </picture>
       </article>
 
-      <article class="x-picture-show-case">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
         <h2 class="x-title2">Colored</h2>
         <picture class="x-picture x-picture--colored">
           <img class="x-picture__image" :src="whiteBackgroundImageUrl" />
         </picture>
       </article>
 
-      <article class="x-picture-show-case">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
         <h2 class="x-title2">Fixed Ratio</h2>
         <picture class="x-picture x-picture--fixed-ratio">
           <img class="x-picture__image" :src="whiteBackgroundImageUrl" />
         </picture>
       </article>
 
-      <article class="x-picture-show-case">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
         <h2 class="x-title2">Fallback</h2>
         <picture class="x-picture">
           <BaseResultFallbackImage />
         </picture>
       </article>
 
-      <article class="x-picture-show-case">
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
         <h2 class="x-title2">Placeholder</h2>
         <picture class="x-picture">
           <BaseResultPlaceholderImage />
@@ -3267,10 +3399,12 @@
       </article>
     </section>
 
-    <section>
+    <section
+      class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+    >
       <h1 class="x-title1">Result</h1>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Default</h2>
         <div class="x-result">
           <div class="x-result__picture">
@@ -3291,7 +3425,7 @@
             </picture>
           </div>
           <div class="x-result__overlay x-list x-list--horizontal x-list--padding-02">
-            <button class="x-button primary x-list__item--expanded">Add to Cart</button>
+            <button class="x-button primary x-list__item--expand">Add to Cart</button>
           </div>
           <div class="x-result__description x-list x-list--align-center">
             <h1 class="x-title2">Empathy Dress</h1>
@@ -3301,7 +3435,7 @@
         </div>
       </article>
 
-      <article>
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Card</h2>
         <div class="x-result x-result--card">
           <div class="x-result__picture">
@@ -3322,7 +3456,7 @@
             </picture>
           </div>
           <div class="x-result__overlay x-list x-list--horizontal x-list--padding-02">
-            <button class="x-button primary x-list__item--expanded">Add to Cart</button>
+            <button class="x-button primary x-list__item--expand">Add to Cart</button>
           </div>
           <div class="x-result__description x-list x-list--align-center">
             <h1 class="x-title2">Empathy Dress</h1>
@@ -3464,149 +3598,59 @@
 </script>
 
 <style lang="scss">
+  @import '../design-system/mixins';
+
   .x-design-system {
     * {
       outline: none;
     }
 
-    section {
-      display: flex;
-      flex-flow: column nowrap;
-      align-items: flex-start;
-      justify-content: flex-start;
-      gap: var(--x-space-05);
-      padding: var(--x-space-07);
-    }
-
-    article {
-      display: flex;
-      align-items: flex-start;
-      column-gap: var(--x-space-09);
-      row-gap: var(--x-space-03);
-      flex-flow: row wrap;
-
-      h2,
-      h3 {
-        width: 100%;
-      }
-    }
-
-    h1,
-    h2 {
+    .x-title1,
+    .x-title2 {
+      width: 100%;
       margin: var(--x-space-04) 0 var(--x-space-02);
     }
 
     .x-input-group {
       width: 250px;
     }
-
-    article > {
-      .x-filter,
-      .x-hierarchical-filter-container {
-        width: 220px;
-      }
-    }
-
-    .x-facet {
-      width: 200px;
-
-      &--card {
-        --x-color-background-facet: var(--x-color-neutral-95);
-      }
-    }
-
-    .x-suggestion {
-      width: 220px;
-    }
-
+    .x-facet,
+    .x-filter,
+    .x-suggestion,
     .x-tag {
       max-width: 200px;
     }
 
-    .x-list-show-case .x-list {
-      list-style-type: none;
-      background: var(--x-color-neutral-95);
-      & > * {
-        width: 100px;
-        height: 30px;
-        background: var(--x-color-auxiliary);
-        border: solid 1px var(--x-color-neutral-95);
-      }
-      &--wrap {
-        max-width: 306px;
-      }
-
-      &-alignment {
-        .x-list {
-          &--horizontal {
-            width: 500px;
-            height: 80px;
-          }
-
-          &--vertical {
-            width: 150px;
-            height: 120px;
-          }
-        }
-      }
-      &-sizing {
-        .x-list {
-          &--horizontal {
-            width: 600px;
-          }
-
-          &--vertical {
-            height: 120px;
-          }
-        }
-      }
-    }
-    [class^='x-list__item'] {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: var(--x-color-neutral-95);
+    .x-hierarchical-filter-container {
+      max-width: 270px;
     }
 
-    .x-result {
-      width: 332px;
-      background-color: #e2e6e6;
-
-      &__picture-placeholder {
-        height: 332px;
-        width: 100%;
-        background-color: #c4d2d8;
-      }
-
-      &__overlay-placeholder {
-        height: 64px;
-        width: 100%;
-        background-color: #bbc3c6;
-      }
-
-      &__description-placeholder {
-        height: 96px;
-        width: 100%;
-        background-color: #929fa5;
-      }
-
-      .x-title2 {
-        margin: 0;
-      }
-
-      .x-picture {
-        height: 356px;
-      }
-    }
-
-    .info {
-      position: fixed;
-      right: var(--x-space-08);
-      bottom: var(--x-space-08);
+    .x-facet--card {
+      --x-color-background-facet: var(--x-color-neutral-95);
     }
 
     .x-dropdown-show-case {
-      margin-bottom: 8em;
+      padding-bottom: 8em;
+    }
+
+    .x-sliding-panel {
+      max-width: 500px;
+
+      &__scroll {
+        gap: var(--x-space-03);
+        @include safari-gap(var(--x-space-03));
+      }
+    }
+
+    .x-list-show-case {
+      background: var(--x-color-neutral-95);
+      > * {
+        width: 100px;
+        height: 30px;
+      }
+      &.x-list--wrap {
+        max-width: 300px;
+      }
     }
 
     .x-row {
@@ -3615,54 +3659,64 @@
       height: var(--x-space-08);
 
       &__item {
-        box-sizing: border-box;
-        background: var(--x-color-auxiliary);
         padding: var(--x-space-02);
-        color: var(--x-color-neutral-70);
-        vertical-align: middle;
-        text-align: center;
-        border: solid var(--x-border-width) var(--x-color-auxiliary);
       }
     }
 
-    .x-sliding-panel {
-      max-width: 500px;
-
-      &__scroll {
-        gap: var(--x-space-03);
-      }
+    .x-list-show-case > *,
+    .x-row__item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--x-color-auxiliary);
+      border: solid 1px var(--x-color-neutral-95);
+      color: var(--x-color-neutral-95);
     }
 
     .x-picture-show-case {
       width: 100px;
     }
 
-    .x-icons {
-      .x-list {
-        background: white;
-        list-style-type: none;
+    .x-result {
+      width: 250px;
+      background-color: var(--x-color-neutral-95);
 
-        > * {
-          background: white;
-          border-color: white;
-        }
+      &__picture-placeholder {
+        height: 300px;
+        width: 100%;
+        background-color: var(--x-color-auxiliary);
+      }
 
-        &.x-list--wrap {
-          max-width: unset;
-        }
+      &__overlay-placeholder {
+        height: 60px;
+        width: 100%;
+        background-color: var(--x-color-neutral-70);
+      }
 
-        li {
-          text-align: center;
-        }
+      &__description-placeholder {
+        height: 90px;
+        width: 100%;
+        background-color: var(--x-color-lead);
+      }
+
+      .x-title1,
+      .x-title2 {
+        width: auto;
       }
     }
+  }
+
+  .info {
+    position: fixed;
+    right: var(--x-space-06);
+    bottom: var(--x-space-04);
   }
 
   head {
     background: lightgoldenrodyellow;
     position: fixed;
     padding: var(--x-space-04) var(--x-space-09);
-    bottom: 0;
+    bottom: var(--x-space-10);
     right: 0;
     height: 80%;
     overflow: auto;

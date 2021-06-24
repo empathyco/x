@@ -1,3 +1,5 @@
+@import '../../mixins';
+
 .x-tag {
   // layout
   display: flex;
@@ -24,6 +26,7 @@
 
   // spacing
   gap: var(--x-space-gap-tag);
+  @include safari-gap(var(--x-space-gap-tag));
   padding: var(--x-space-padding-tag);
   min-width: calc(3 * var(--x-font-line-height-tag));
 

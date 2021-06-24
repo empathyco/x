@@ -1,3 +1,5 @@
+@import '../../mixins';
+
 .x-dropdown {
   // layout
   box-sizing: border-box;
@@ -21,9 +23,9 @@
     border-color: var(--x-color-border-dropdown-toggle);
 
     // spacing
-    padding-block: var(--x-space-padding-block-dropdown-item);
-    padding-inline: var(--x-space-padding-inline-dropdown-item);
+    padding: var(--x-space-padding-block-dropdown-item) var(--x-space-padding-inline-dropdown-item);
     gap: var(--x-space-gap-dropdown-item);
+    @include safari-gap(var(--x-space-gap-dropdown-item));
 
     // size
     width: var(--x-size-width-dropdown);
@@ -31,6 +33,7 @@
     // layout
     display: flex;
     flex-flow: row nowrap;
+    margin: 0;
 
     // other
     cursor: pointer;
@@ -77,9 +80,9 @@
     background: var(--x-color-background-dropdown);
 
     // spacing
-    padding-block: var(--x-space-padding-block-dropdown-item);
-    padding-inline: var(--x-space-padding-inline-dropdown-item);
+    padding: var(--x-space-padding-block-dropdown-item) var(--x-space-padding-inline-dropdown-item);
     gap: var(--x-space-gap-dropdown-item);
+    @include safari-gap(var(--x-space-gap-dropdown-item));
 
     // border
     border: none;
@@ -90,6 +93,7 @@
     justify-content: space-between;
     text-align: left;
     width: 100%;
+    margin: 0;
 
     // other
     cursor: pointer;

@@ -1,3 +1,5 @@
+@import '../../mixins';
+
 .x-suggestion {
   // layout
   display: flex;
@@ -23,6 +25,7 @@
   // spacing
   padding: var(--x-space-padding-suggestion);
   gap: var(--x-space-gap-suggestion);
+  @include safari-gap(var(--x-space-gap-suggestion));
 
   &__query {
     // layout

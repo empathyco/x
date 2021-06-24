@@ -1,3 +1,5 @@
+@import '../../mixins';
+
 .x-list {
   // layout
   display: flex;
@@ -6,6 +8,19 @@
 
   // spacing
   gap: var(--x-space-gap-list);
+  &:not(.x-list--horizontal),
+  &.x-list--vertical {
+    @include safari-gap($vertical-gap: var(--x-space-gap-list));
+  }
+
+  &.x-list--horizontal {
+    @include safari-gap(var(--x-space-gap-list));
+  }
+
+  &.x-list--wrap {
+    @include safari-gap(var(--x-space-gap-list), var(--x-space-gap-list));
+  }
+
   margin: 0;
   padding: var(--x-space-padding-list);
   justify-content: var(--x-space-justify-list);
@@ -81,7 +96,7 @@
   }
 
   @for $i from 1 through 12 {
-    .x-list__item--#{$i} {
+    .x-list__item--#{zerofill($i)} {
       flex: $i #{13 - $i} auto;
     }
   }
