@@ -2,21 +2,9 @@
   "name": "@empathyco/x-storage-service",
   "version": "1.3.0",
   "description": "Storage service with TTL",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "types/index.d.ts",
-  "scripts": {
-    "build": "tsc && tsc --project tsconfig.esm.json",
-    "build:watch": "tsc --watch",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "lint": ""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/empathyco/x.git"
-  },
+  "author": "Empathy Systems Corporation S.L.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/storage-service#readme",
   "keywords": [
     "storage",
     "cache",
@@ -25,24 +13,37 @@
     "local",
     "session"
   ],
-  "publishConfig": {
-    "access": "public"
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empathyco/x.git",
+    "directory": "packages/storage-service"
   },
-  "author": "Empathy Systems Corporation S.L.",
-  "license": "Apache-2.0",
-  "homepage": "https://github.com/empathyco/x/tree/main/packages/storage-service#readme",
+  "scripts": {
+    "build": "tsc && tsc --project tsconfig.esm.json",
+    "build:watch": "tsc --watch",
+    "lint": "",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "@empathyco/x-logger": "^1.1.2-alpha.0",
+    "tslib": "~1.11.1"
+  },
   "devDependencies": {
     "@types/jest": "~24.0.15",
     "jest": "~24.8.0",
     "ts-jest": "~24.0.2",
     "typescript": "~3.8.3"
   },
-  "dependencies": {
-    "@empathyco/x-logger": "^1.1.2-alpha.0",
-    "tslib": "~1.11.1"
-  },
-  "files": [
-    "dist",
-    "types"
-  ]
+  "publishConfig": {
+    "access": "public"
+  }
 }
