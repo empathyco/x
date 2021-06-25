@@ -19,8 +19,8 @@ function createDocsSlotsSection(slots) {
   return `
 ## Slots
 
-| Name          | Description  | Bindings |
-| ------------- | ------------ | -------- |
+| Name          | Description  | Bindings<br />(name - type - description) |
+| ------------- | ------------ | ---------------------------------------  |
 ${slots.map(toSlotsMarkdownTable).join('\n')}
 `;
 }
@@ -61,8 +61,8 @@ const formatBindings = bindings => {
  * @internal
  */
 function toSlotsMarkdownTable({ description = '', bindings = {}, name }) {
-  const readableBindings = Object.keys(bindings).length ? `${formatBindings(bindings)}` : '';
-  return `| ${cleanMarkdown(name)} | ${cleanMarkdown(description)} | ${cleanMarkdown(
+  const readableBindings = Object.keys(bindings).length ? `${formatBindings(bindings)}` : 'None';
+  return `| <code>${cleanMarkdown(name)}</code> | ${cleanMarkdown(description)} | ${cleanMarkdown(
     readableBindings
   )} |`;
 }

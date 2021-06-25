@@ -21,7 +21,7 @@
   import { searchBoxXModule } from '../x-module';
 
   /**
-   * This component renders a button which is intended to be used to clear the query.
+   * This component renders a button to delete the current query.
    *
    * @remarks
    * A button that when pressed emits the {@link SearchBoxXEvents.UserPressedClearSearchBoxButton}

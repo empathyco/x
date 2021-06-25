@@ -254,6 +254,12 @@ This component emits the following events:
 
 ## See it in action
 
+<!-- prettier-ignore-start -->
+:::warning Backend service required
+To use this component, the Search service must be implemented.
+:::
+<!-- prettier-ignore-end -->
+
 Here you have a basic example of how the search input is rendered.
 
 _Type any term in the input field to try it out!_

@@ -37,9 +37,9 @@ function toPropsMarkdownTable({
   const typeName = type.name ? type.name : '';
   const value = defaultValue.value ? defaultValue.value : '';
 
-  return `| ${cleanMarkdown(name)} | ${cleanMarkdown(description)} | ${cleanMarkdown(
+  return `| <code>${cleanMarkdown(name)}</code> | ${cleanMarkdown(description)} | <code>${cleanMarkdown(
     typeName
-  )} | ${cleanMarkdown(value)} |`;
+  )}</code> | <code>${cleanMarkdown(value)}</code> |`;
 }
 
 module.exports = createDocsPropsSection;

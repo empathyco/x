@@ -67,10 +67,11 @@ This component emits the following events:
 - [`UserAcceptedAQuery`](./../../api/x-components.xeventstypes.md)
 - [`UserPressedSearchButton`](./../../api/x-components.searchboxxevents.md)
 
-<!-- prettier-ignore -->
+<!-- prettier-ignore-start -->
 :::warning
-  Note that no events are emitted if the query is empty.
+Note that no events are emitted if the query is empty.
 :::
+<!-- prettier-ignore-end -->
 
 ## Dynamic classes
 
