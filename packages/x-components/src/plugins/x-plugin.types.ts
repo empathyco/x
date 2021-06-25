@@ -32,8 +32,6 @@ export interface XPluginOptions {
   /** A Vuex store to install the X module. If not passed a new one will be created and injected
    * into every component. */
   store?: Store<any>;
-  /** The global {@link XConfig} accessible in any {@link XComponentAPI | XComponent}. */
-  xConfig?: DeepPartial<XConfig>;
   /** A {@link XModule | XModules} to be registered during the {@link XPlugin} installation. */
   initialXModules?: AnyXModule[];
   /** Override the {@link XModule | XModules} config state and its wiring. */
@@ -41,18 +39,6 @@ export interface XPluginOptions {
   /** Override the {@link XModule | XModules} store module and store emitters. It must be used
    * only in exceptional cases. */
   __PRIVATE__xModules?: PrivateXModulesOptions;
-}
-
-/**
- * The global configuration accessible from every component.
- *
- * @public
- */
-export interface XConfig {
-  /** Consent to send the user data (userId and sessionId) to our API. */
-  consent: boolean;
-  /** HTML dir attribute. Possible values are: ltr(left to right) or rtl(right to left). */
-  documentDirection: DocumentDirection;
 }
 
 /**
@@ -64,12 +50,12 @@ export interface XConfig {
 export type DocumentDirection = 'ltr' | 'rtl';
 
 /**
- * The XComponentAPI exposes access to the {@link XBus}, {@link XConfig}, and store aliases to the
+ * The XComponentAPI exposes access to the {@link XBus}, and store aliases to the
  * components.
  *
  * @public
  */
-export interface XComponentAPI extends XComponentBusAPI, XComponentXConfigAPI, XComponentAliasAPI {}
+export interface XComponentAPI extends XComponentBusAPI, XComponentAliasAPI {}
 
 /**
  * API for emitting and subscribing to events of the {@link XBus}.
@@ -89,17 +75,6 @@ export interface XComponentBusAPI {
     metadata?: Omit<WireMetadata, 'moduleName'>
   ): void;
   /* eslint-enable jsdoc/require-description-complete-sentence */
-}
-
-/**
- * API for reading and modifying the config.
- *
- * @public
- */
-export interface XComponentXConfigAPI {
-  /* eslint-disable-next-line jsdoc/require-description-complete-sentence */
-  /** {@inheritDoc XConfig} */
-  xConfig: XConfig;
 }
 
 /**

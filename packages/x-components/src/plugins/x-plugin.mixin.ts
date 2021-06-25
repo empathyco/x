@@ -5,7 +5,7 @@ import { XEvent, XEventPayload } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
 import { XBus } from './x-bus.types';
 import { getAliasAPI } from './x-plugin.alias';
-import { XComponentAPI, XComponentBusAPI, XComponentXConfigAPI, XConfig } from './x-plugin.types';
+import { XComponentAPI, XComponentBusAPI } from './x-plugin.types';
 
 declare module 'vue/types/vue' {
   export interface Vue {
@@ -17,22 +17,19 @@ declare module 'vue/types/vue' {
  * Vue global mixin that adds a `$x` object to every component with the {@link XComponentAPI}.
  *
  * @param bus - The {@link XBus} to use inside the components for emitting events.
- * @param xConfig - The global {@link XConfig}.
  * @returns Mixin options which registers the component as X-Component and the $x.
  * @internal
  */
 export const createXComponentAPIMixin = (
-  bus: XBus,
-  xConfig: XConfig
+  bus: XBus
 ): ComponentOptions<Vue> & ThisType<Vue & { xComponent: XComponent | undefined }> => ({
   created(): void {
     this.xComponent = getRootXComponent(this);
 
     const aliasAPI = getAliasAPI(this.$store);
     const busAPI = getBusAPI(bus, this.xComponent);
-    const xConfigAPI = getXConfigAPI(xConfig);
 
-    this.$x = Object.assign(aliasAPI, busAPI, xConfigAPI);
+    this.$x = Object.assign(aliasAPI, busAPI);
   }
 });
 
@@ -57,17 +54,6 @@ export function getBusAPI(bus: XBus, xComponent: XComponent | undefined): XCompo
     },
     on: bus.on.bind(bus)
   };
-}
-
-/**
- * Creates an object containing the API related to the {@link XConfig}.
- *
- * @param xConfig - The initial global {@link XConfig}.
- * @returns A object containing the API related to {@link XConfig}.
- * @internal
- */
-export function getXConfigAPI(xConfig: XConfig): XComponentXConfigAPI {
-  return { xConfig };
 }
 
 /**

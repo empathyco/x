@@ -3,7 +3,7 @@ import { ComponentOptions, default as Vue } from 'vue';
 import VueRouter from 'vue-router';
 import { Store } from 'vuex';
 import { XPlugin } from '../../../plugins/x-plugin';
-import { PrivateXModulesOptions, XConfig, XModulesOptions } from '../../../plugins/x-plugin.types';
+import { PrivateXModulesOptions, XModulesOptions } from '../../../plugins/x-plugin.types';
 import { SearchAdapterDummy } from '../../../__tests__/adapter.dummy';
 import { AnyXModule } from '../../../x-modules/x-modules.types';
 import { InstallXOptions } from '../types';
@@ -54,35 +54,6 @@ describe('testing `XInstaller` utility', () => {
     expect(params.initialXModules).toHaveLength(1);
     expect(params.initialXModules[0]).toEqual(initialXModule);
     expect(params.__PRIVATE__xModules).toEqual(__PRIVATE__xModules);
-  });
-
-  it('installs the XPlugin with the passed XConfig', () => {
-    const xConfig = {
-      consent: true,
-      documentDirection: 'rtl'
-    } as XConfig;
-    new XInstaller({ adapter, plugin, xConfig, vue: createLocalVue() }).init(snippetConfig);
-    const params = xPluginMock.install.mock.calls[0][1];
-
-    expect(params.xConfig.consent).toBe(xConfig.consent);
-    expect(params.xConfig.documentDirection).toBe(xConfig.documentDirection);
-  });
-
-  it('installs the XPlugin using the snippet config over the default', () => {
-    const xConfig = {
-      consent: true,
-      documentDirection: 'rtl',
-      currencyOptions: { symbol: '&' }
-    } as XConfig;
-    new XInstaller({ adapter, plugin, xConfig, vue: createLocalVue() }).init({
-      ...snippetConfig,
-      consent: false,
-      documentDirection: 'ltr'
-    });
-    const params = xPluginMock.install.mock.calls[0][1];
-
-    expect(params.xConfig.consent).toBe(false);
-    expect(params.xConfig.documentDirection).toBe('ltr');
   });
 
   it('creates the public API in global scope by default', () => {

@@ -3,7 +3,6 @@ import { deepMerge } from '@empathybroker/deep-merge';
 import { PluginObject, VueConstructor } from 'vue';
 import Vuex, { Module, Store } from 'vuex';
 import { FILTERS_REGISTRY } from '../filters/filters.registry';
-import { registerReactiveConfig } from '../services/config.service';
 import {
   AnySimpleStateSelector,
   AnyStateSelector,
@@ -15,17 +14,15 @@ import {
   getGettersProxyFromModule
 } from '../store/utils/get-getters-proxy';
 import { RootXStoreModule } from '../store/x.module';
-import { DeepPartial, Dictionary, forEach } from '../utils';
+import { Dictionary, forEach } from '../utils';
 import { AnyWire, Wiring } from '../wiring/wiring.types';
 import { AnyXModule, XModuleName } from '../x-modules/x-modules.types';
 import { bus } from './x-bus';
 import { XBus } from './x-bus.types';
-import { DEFAULT_X_CONFIG } from './x-plugin.config';
 import { createXComponentAPIMixin } from './x-plugin.mixin';
 import {
   AnyXStoreModuleOption,
   PrivateXModuleOptions,
-  XConfig,
   XModuleOptions,
   XPluginOptions
 } from './x-plugin.types';
@@ -62,16 +59,6 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    */
   public static get bus(): XBus {
     return this.getInstance().bus;
-  }
-
-  /**
-   * Gets the global reactive {@link XConfig}.
-   *
-   * @returns Global XConfig - The xConfig.
-   * @public
-   */
-  public static get xConfig(): XConfig {
-    return this.getInstance().xConfig;
   }
 
   /**
@@ -156,12 +143,6 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * @internal
    */
   protected vue!: VueConstructor;
-  /**
-   * The {@link XConfig} is a reactive configuration.
-   *
-   * @internal
-   */
-  protected xConfig!: XConfig;
 
   /**
    * Creates a new instance of the XPlugin with the given bus passed as parameter.
@@ -227,23 +208,13 @@ export class XPlugin implements PluginObject<XPluginOptions> {
     this.vue = vue;
     this.options = options;
     this.adapter = options.adapter;
-    this.registerXConfig();
+    this.createAdapterConfigChangedListener();
     this.registerStore();
     this.applyMixins();
     this.registerFilters();
     this.registerInitialModules();
     this.registerPendingXModules();
     this.isInstalled = true;
-  }
-
-  /**
-   * Overrides the existing {@link XConfig}.
-   *
-   * @param xConfig - The new or partially new global {@link XConfig}.
-   * @public
-   */
-  setXConfig(xConfig: DeepPartial<XConfig>): void {
-    deepMerge(this.xConfig, xConfig);
   }
 
   /**
@@ -428,7 +399,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * @internal
    */
   protected applyMixins(): void {
-    this.vue.mixin(createXComponentAPIMixin(this.bus, this.xConfig));
+    this.vue.mixin(createXComponentAPIMixin(this.bus));
   }
 
   /**
@@ -456,25 +427,13 @@ export class XPlugin implements PluginObject<XPluginOptions> {
   }
 
   /**
-   * Registers the global reactive {@link XConfig}.
-   *
-   * @internal
-   */
-  protected registerXConfig(): void {
-    const config: XConfig = deepMerge({}, DEFAULT_X_CONFIG, this.options.xConfig);
-    this.createAdapterConfigChangedListener(this.options.adapter);
-    this.xConfig = registerReactiveConfig(this.bus, config);
-  }
-
-  /**
    * If the received adapter supports it, it registers a listener to emit the
    * {@link XEventsTypes.AdapterConfigChanged} event whenever the config of it changes.
    *
-   * @param adapter - The adapter to register the listener when its config changes.
    * @internal
    */
-  protected createAdapterConfigChangedListener(adapter: SearchAdapter): void {
-    adapter.addConfigChangedListener?.(newAdapterConfig => {
+  protected createAdapterConfigChangedListener(): void {
+    this.options.adapter.addConfigChangedListener?.(newAdapterConfig => {
       this.bus.emit('AdapterConfigChanged', newAdapterConfig);
     });
   }

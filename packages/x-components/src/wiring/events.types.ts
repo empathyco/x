@@ -1,6 +1,5 @@
 import { Result, Suggestion } from '@empathy/search-types';
 import { ScrollDirection } from '../components/scroll/scroll.types';
-import { DocumentDirection } from '../plugins/x-plugin.types';
 import { ArrowKey, PropsWithType } from '../utils';
 import { DeviceXEvents } from '../x-modules/device';
 import { EmpathizeXEvents } from '../x-modules/empathize/events.types';
@@ -55,25 +54,20 @@ export interface XEventsTypes
    */
   AdapterConfigChanged: unknown;
   /**
-   * The {@link XConfig.consent} has changed
-   * * Payload: The new consent.
-   */
-  ConfigConsentChanged: boolean;
-  /**
    * The columns picker set columns number.
    * * Payload: the column number.
    */
   ColumnPickerSetColumnsNumber: number;
   /**
-   * The {@link XConfig.documentDirection} has changed
-   * * Payload: The new document direction.
-   */
-  ConfigDocumentDirectionChanged: DocumentDirection;
-  /**
    * Any kind of suggestions have been displayed (query-suggestions, popular searches...)
    * * Payload: The displayed {@link @empathy/search-types#Suggestion | suggestions}.
    */
   SuggestionsDisplayed: Suggestion[];
+  /**
+   * The `BaseToggleIdPanel` `isOpen` state changed.
+   * * Payload: the new state.
+   */
+  TogglePanelStateChanged: boolean;
   /**
    * The user has accepted a query
    * * Payload: the accepted query.
@@ -85,50 +79,70 @@ export interface XEventsTypes
    */
   UserAcceptedSpellcheckQuery: string;
   /**
+   * The user has almost reached the scroll end.
+   * * Payload: The distance missing to end position position.
+   */
+  UserAlmostReachedScrollEnd: number;
+  /**
+   * The user has changed the direction of scroll.
+   * * Payload: The new {@link ScrollDirection} when user changes scroll direction.
+   */
+  UserChangedScrollDirection: ScrollDirection;
+  /**
    * The user has clicked on a result.
    * * Payload: The {@link @empathy/search-types#Result | result} that the user clicked.
    */
   UserClickedAResult: Result;
-  /**
-   * The user has clicked on the add to cart button of a result.
-   * * Payload: The {@link @empathy/search-types#Result | result} that the user clicked.
-   */
-  UserClickedResultAddToCart: Result;
-  /**
-   * The user clicked the button to close the XComponents modal.
-   * * Payload: none.
-   */
-  UserClickedCloseX: void;
-  /**
-   * The user clicked the button to open the XComponents modal.
-   * * Payload: none.
-   */
-  UserClickedOpenX: void;
-  /**
-   * The user clicked out of the X Modal while it is opened.
-   * * Payload: none.
-   */
-  UserClickedOutOfXModal: void;
-  /**
-   * The user clicked the button to open a modal.
-   * * Payload: the id of the modal to open.
-   */
-  UserClickedOpenModal: string;
   /**
    * The user clicked the button to close a modal.
    * * Payload: the id of the modal to close.
    */
   UserClickedCloseModal: string;
   /**
+   * The user clicked the button to close the XComponents modal.
+   * * Payload: none.
+   */
+  UserClickedCloseX: void;
+  /**
    * The user clicked the button to select the number of columns.
    * * Payload: the column number.
    */
   UserClickedColumnPicker: number;
   /**
+   * The user clicked the button to open a modal.
+   * * Payload: the id of the modal to open.
+   */
+  UserClickedOpenModal: string;
+  /**
+   * The user clicked the button to open the XComponents modal.
+   * * Payload: none.
+   */
+  UserClickedOpenX: void;
+  /**
    * The user clicked out of a modal while it was opened.
    * * Payload: the id of the modal.
    */
   UserClickedOutOfModal: string;
+  /**
+   * The user clicked out of the X Modal while it is opened.
+   * * Payload: none.
+   */
+  UserClickedOutOfXModal: void;
+  /**
+   * The user clicked the button to toggle a panel.
+   * * Payload: the id of the panel to toggle.
+   */
+  UserClickedPanelToggleButton: string;
+  /**
+   * The user has clicked on the add to cart button of a result.
+   * * Payload: The {@link @empathy/search-types#Result | result} that the user clicked.
+   */
+  UserClickedResultAddToCart: Result;
+  /**
+   * The user has clicked the scroll to top button.
+   * * Payload: The scroll id which has scrolled to top.
+   */
+  UserClickedScrollToTop: string;
   /**
    * The user pressed an {@link ArrowKey | arrow key} with the focus on the search-box.
    * * Payload: the pressed {@link ArrowKey | arrow key}.
@@ -140,55 +154,30 @@ export interface XEventsTypes
    */
   UserReachedEmpathizeTop: void;
   /**
-   * The user has right clicked on a result.
-   * * Payload: The {@link @empathy/search-types#Result | result} that the user right clicked.
+   * The user has reached the scroll end.
+   * * Payload: none.
    */
-  UserRightClickedAResult: Result;
-  /**
-   * User selected any kind of suggestion (query-suggestion, popular-search...)
-   * * Payload: The {@link @empathy/search-types#Suggestion | suggestion} that the user selected.
-   */
-  UserSelectedASuggestion: Suggestion;
-  /**
-   * The user has scrolled.
-   * * Payload: The new position of scroll.
-   */
-  UserScrolled: number;
-  /**
-   * The user has changed the direction of scroll.
-   * * Payload: The new {@link ScrollDirection} when user changes scroll direction.
-   */
-  UserChangedScrollDirection: ScrollDirection;
+  UserReachedScrollEnd: void;
   /**
    * The user has reached the scroll start.
    * * Payload: none.
    */
   UserReachedScrollStart: void;
   /**
-   * The user has almost reached the scroll end.
-   * * Payload: The distance missing to end position position.
+   * The user has right clicked on a result.
+   * * Payload: The {@link @empathy/search-types#Result | result} that the user right clicked.
    */
-  UserAlmostReachedScrollEnd: number;
+  UserRightClickedAResult: Result;
   /**
-   * The user has reached the scroll end.
-   * * Payload: none.
+   * The user has scrolled.
+   * * Payload: The new position of scroll.
    */
-  UserReachedScrollEnd: void;
+  UserScrolled: number;
   /**
-   * The user has clicked the scroll to top button.
-   * * Payload: The scroll id which has scrolled to top.
+   * User selected any kind of suggestion (query-suggestion, popular-search...)
+   * * Payload: The {@link @empathy/search-types#Suggestion | suggestion} that the user selected.
    */
-  UserClickedScrollToTop: string;
-  /**
-   * The user clicked the button to toggle a panel.
-   * * Payload: the id of the panel to toggle.
-   */
-  UserClickedPanelToggleButton: string;
-  /**
-   * The `BaseToggleIdPanel` `isOpen` state changed.
-   * * Payload: the new state.
-   */
-  TogglePanelStateChanged: boolean;
+  UserSelectedASuggestion: Suggestion;
 }
 
 /**

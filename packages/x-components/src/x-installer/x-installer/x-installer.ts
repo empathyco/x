@@ -4,7 +4,7 @@ import Vue, { PluginObject, VueConstructor } from 'vue';
 import { BaseXBus } from '../../plugins/x-bus';
 import { XBus } from '../../plugins/x-bus.types';
 import { XPlugin } from '../../plugins/x-plugin';
-import { XConfig, XPluginOptions } from '../../plugins/x-plugin.types';
+import { XPluginOptions } from '../../plugins/x-plugin.types';
 import { cleanUndefined } from '../../utils/object';
 import { DeepPartial } from '../../utils/types';
 import { SnippetConfig, XAPI } from '../api/api.types';
@@ -16,15 +16,6 @@ declare global {
     X?: XAPI;
   }
 }
-
-/** Default {@link XConfig} to use as fallback.
- *
- * @internal
- * */
-const defaultXConfig: DeepPartial<XConfig> = {
-  consent: false,
-  documentDirection: 'ltr'
-};
 
 const defaultAdapterConfig: DeepPartial<EmpathyAdapterConfig> = {
   env: 'live',
@@ -157,7 +148,7 @@ export class XInstaller {
     const adapterConfig = this.getAdapterConfig(snippetConfig);
     this.applyConfigToAdapter(adapterConfig);
     const bus = this.createBus();
-    const pluginOptions = this.getPluginOptions(snippetConfig);
+    const pluginOptions = this.getPluginOptions();
     const plugin = this.installPlugin(pluginOptions, bus);
     const extraPlugins = await this.installExtraPlugins(snippetConfig, bus);
     const app = this.createApp(extraPlugins, snippetConfig);
@@ -207,35 +198,20 @@ export class XInstaller {
   }
 
   /**
-   * Creates the {@link XPluginOptions} object using the {@link SnippetConfig} to do it. It also
-   * merges the default configuration and the options coming from {@link InstallXOptions}. The
-   * priority of the merge is Snippet -\> InstallXOptions -\> default options. So far the
-   * default options only includes de {@link XConfig}.
-   *
-   * @param options - The {@link SnippetConfig}.
+   * Creates the {@link XPluginOptions} object.
    *
    * @returns The {@link XPluginOptions} object.
    *
    * @internal
    */
-  protected getPluginOptions({ consent, documentDirection }: SnippetConfig): XPluginOptions {
-    const xConfig: XConfig = deepMerge(
-      {},
-      defaultXConfig,
-      this.options.xConfig,
-      cleanUndefined({
-        consent,
-        documentDirection
-      })
-    );
+  protected getPluginOptions(): XPluginOptions {
     const { adapter, store, initialXModules, xModules, __PRIVATE__xModules } = this.options;
     return {
       adapter,
       store,
       xModules,
       initialXModules,
-      __PRIVATE__xModules,
-      xConfig
+      __PRIVATE__xModules
     };
   }
 
