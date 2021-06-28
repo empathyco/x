@@ -25,6 +25,7 @@
     "tslib": "~1.11.1"
   },
   "devDependencies": {
+    "@empathyco/eslint-plugin-x": "^1.4.0-alpha.0",
     "@types/jest": "^24.0.13",
     "jest": "^24.8.0",
     "ts-jest": "^24.0.2",
@@ -33,5 +34,6 @@
   "files": [
     "dist",
     "types"
-  ]
+  ],
+  "prettier": "@empathyco/eslint-plugin-x/prettier-config"
 }

@@ -32,6 +32,7 @@
   "license": "Apache-2.0",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/storage-service#readme",
   "devDependencies": {
+    "@empathyco/eslint-plugin-x": "^1.4.0-alpha.0",
     "@types/jest": "~24.0.15",
     "jest": "~24.8.0",
     "ts-jest": "~24.0.2",
@@ -44,5 +45,6 @@
   "files": [
     "dist",
     "types"
-  ]
+  ],
+  "prettier": "@empathyco/eslint-plugin-x/prettier-config"
 }
