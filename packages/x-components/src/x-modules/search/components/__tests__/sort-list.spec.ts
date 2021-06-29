@@ -117,7 +117,7 @@ describe('testing SortList component', () => {
   });
 
   it('allows providing a selected sort value using props', async () => {
-    const { onSelectedSortProvided, wrapper, setValue } = renderSortList({
+    const { onSelectedSortProvided, setValue } = renderSortList({
       items: ['price desc', 'price asc', 'default'],
       value: 'default'
     });
@@ -126,7 +126,7 @@ describe('testing SortList component', () => {
     expect(onSelectedSortProvided).toHaveBeenCalledWith<[WirePayload<Sort>]>({
       eventPayload: 'default',
       // This event gets emitted immediately, before the component has been mounted
-      metadata: { moduleName: 'search', target: undefined }
+      metadata: { moduleName: 'search' }
     });
 
     await setValue('price asc');
@@ -134,7 +134,7 @@ describe('testing SortList component', () => {
     expect(onSelectedSortProvided).toHaveBeenCalledTimes(2);
     expect(onSelectedSortProvided).toHaveBeenCalledWith<[WirePayload<Sort>]>({
       eventPayload: 'price asc',
-      metadata: { moduleName: 'search', target: wrapper.vm.$el as HTMLElement }
+      metadata: { moduleName: 'search' }
     });
   });
 
@@ -148,7 +148,7 @@ describe('testing SortList component', () => {
     expect(onSelectedSortProvided).toHaveBeenCalledWith<[WirePayload<Sort>]>({
       eventPayload: 'price desc',
       // This event gets emitted immediately, before the component has been mounted
-      metadata: { moduleName: 'search', target: undefined }
+      metadata: { moduleName: 'search' }
     });
   });
 

@@ -37,10 +37,9 @@
 <script lang="ts">
   import { Facet, Filter } from '@empathy/search-types';
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { XOn } from '../../../components';
+  import { XEmit, XOn } from '../../../components';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { clone } from '../../../utils/clone';
   import { extractFilters, isFilterSelected } from '../../../utils/filters';
   import { objectFilter } from '../../../utils/object';
   import { Dictionary } from '../../../utils/types';
@@ -71,22 +70,25 @@
     @Prop({ default: 'ul' })
     public animation!: Vue | string;
     /**
-     * If this prop is provided, these facets are used, and stored in the
-     * {@link FacetsState.backendFacets}.
+     * If this prop is provided, the
+     * {@link FacetsXEvents.BackendFacetsProvided | BackendFacetsProvided} event is emitted
+     * to store them into {@link FacetsState.backendFacets}.
      *
      * @public
      */
     @Prop()
-    public backendFacets?: Facet[];
+    @XEmit('BackendFacetsProvided')
+    public backendFacets: Facet[] | undefined;
     /**
-     * If this prop is provided, these facets are used, and stored in the
-     * {@link FacetsState.frontendFacets}. These facets state will be managed solely in the
-     * frontend.
+     * If this prop is provided, the
+     * {@link FacetsXEvents.FrontendFacetsChanged | FrontendFacetsChanged} event is emitted
+     * to store them into {@link FacetsState.frontendFacets}.
      *
      * @public
      */
     @Prop()
-    public frontendFacets?: Facet[];
+    @XEmit('FrontendFacetsChanged')
+    public frontendFacets: Facet[] | undefined;
     /**
      * Discriminates the facets rendered by this component. It expects a string containing facets
      * ids, comma separated. This property will include or exclude facets based on its value.
@@ -181,13 +183,6 @@
       if (this.backendFacets) {
         // eslint-disable-next-line @typescript-eslint/unbound-method
         this.$watch('backendFacets', this.extractSelectedFilters, { immediate: true });
-        // eslint-disable-next-line @typescript-eslint/unbound-method
-        this.$watch('backendFacets', this.emitBackendFacetsProvided, { immediate: true });
-      }
-
-      if (this.frontendFacets) {
-        // eslint-disable-next-line @typescript-eslint/unbound-method
-        this.$watch('frontendFacets', this.emitFrontendFacetsChanged, { immediate: true });
       }
     }
 
@@ -207,30 +202,6 @@
         this.$x.emit('UserChangedSelectedFilters', selectedFilters);
       }
       this.selectedFilters = null;
-    }
-
-    /**
-     * Handler for the `backendFacets` prop watcher. Emits
-     * {@link FacetsXEvents.BackendFacetsChanged} event when facets change.
-     *
-     * @param newFacets - The list of new facets.
-     *
-     * @internal
-     */
-    protected emitBackendFacetsProvided(newFacets: Facet[]): void {
-      this.$x.emit('BackendFacetsProvided', clone(newFacets));
-    }
-
-    /**
-     * Handler for the `frontendFacets` prop watcher. Emits
-     * {@link FacetsXEvents.FrontendFacetsChanged} event when facets change.
-     *
-     * @param newFacets - The list of new facets.
-     *
-     * @internal
-     */
-    protected emitFrontendFacetsChanged(newFacets: Facet[]): void {
-      this.$x.emit('FrontendFacetsChanged', clone(newFacets));
     }
 
     /**

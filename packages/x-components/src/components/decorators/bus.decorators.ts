@@ -1,7 +1,8 @@
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import Vue from 'vue';
+import Vue, { WatchOptions } from 'vue';
 import { createDecorator } from 'vue-class-component';
+import { clone } from '../../utils/clone';
 import { AnyFunction, DecoratorFor } from '../../utils/types';
 import { XEvent, XEventPayload } from '../../wiring/events.types';
 import { WireMetadata } from '../../wiring/wiring.types';
@@ -29,7 +30,7 @@ export function XOn<Event extends XEvent>(
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const originalCreated = options.created;
     Object.assign(options, {
-      created() {
+      created(this: Vue) {
         originalCreated?.apply(this);
         const componentCreateSubscription = createSubscription.bind(this);
         const subscriptionMetadata: SubscriptionMetadata<Event> = {
@@ -59,7 +60,7 @@ export function XOn<Event extends XEvent>(
         // original component's 'beforeDestroy' method to override it plus calling
         // originalBeforeDestroy.apply(this) to preserve the existing original hook functionality
       }
-    } as ThisType<Vue>);
+    });
   });
 }
 
@@ -127,4 +128,37 @@ interface SubscriptionMetadata<Event extends XEvent> {
    * The metadataFilteringOptions to filter out the execution of the callback.
    */
   metadataFilteringOptions: Partial<WireMetadata>;
+}
+
+/**
+ * Emits the provided event whenever the decorated property changes.
+ *
+ * @param xEvent - The event to emit.
+ * @param watcherOptions - Options for Vue's watcher.
+ * @returns Decorator that makes the component emit an event when the decorated property changes.
+ * @public
+ */
+export function XEmit<Event extends XEvent>(
+  xEvent: Event,
+  { immediate = true, deep = false }: WatchOptions = {}
+): DecoratorFor<XEventPayload<Event> | undefined> {
+  return createDecorator((options, key) => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    const originalCreated = options.created;
+    options.created = function (this: Vue) {
+      originalCreated?.apply(this);
+      if ((this as any)[key] !== undefined) {
+        this.$watch(
+          key,
+          newValue => {
+            this.$x.emit(
+              xEvent,
+              typeof newValue === 'object' && newValue !== null ? clone(newValue) : newValue
+            );
+          },
+          { immediate, deep }
+        );
+      }
+    };
+  });
 }
