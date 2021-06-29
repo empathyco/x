@@ -6,7 +6,8 @@
   import Vue from 'vue';
   import GlobalEvents from 'vue-global-events';
   import { Component, Prop, Watch } from 'vue-property-decorator';
-  import { xComponentMixin, XEmit } from '../../../components';
+  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { XEmit } from '../../../components/decorators/bus.decorators';
   import { throttle } from '../../../utils/throttle';
   import { deviceXModule } from '../x-module';
 
