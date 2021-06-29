@@ -78,6 +78,8 @@
     "eslint": "~7.18.0",
     "glob": "~7.1.6",
     "lint-staged": "~10.0.7",
+    "postcss-dir-pseudo-class": "~5.0.0",
+    "postcss-logical": "~4.0.2",
     "rollup": "~1.31.0",
     "rollup-plugin-copy": "~3.4.0",
     "rollup-plugin-delete": "~1.2.0",

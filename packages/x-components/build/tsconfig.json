@@ -14,8 +14,10 @@
     "noImplicitThis": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "baseUrl": "../",
-    "types": ["node"],
+    "baseUrl": ".",
+    "types": [
+      "node"
+    ],
     "paths": {},
     "lib": ["esnext", "dom", "scripthost"]
   },
