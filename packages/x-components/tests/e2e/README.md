@@ -6,4 +6,4 @@ Currently, there are two spec sources:
 This configuration is within [cypress.json](../../cypress.json) file.
 
 The idea is rewrite the default ones with Cucumber syntax which is WIP. Please, remove this
- README.md and the default folder when this is already done.
+README.md and the default folder when this is already done.

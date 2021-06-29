@@ -11,10 +11,8 @@ import { HistoryQueriesXStoreModule } from '../types';
  * @public
  */
 // eslint-disable-next-line max-len
-export const loadHistoryQueriesFromBrowserStorage: HistoryQueriesXStoreModule['actions']['loadHistoryQueriesFromBrowserStorage'] = ({
-  commit,
-  getters
-}) => {
-  const historyQueries = localStorageService.getItem<HistoryQuery[]>(getters.storageKey) ?? [];
-  commit('setHistoryQueries', historyQueries);
-};
+export const loadHistoryQueriesFromBrowserStorage: HistoryQueriesXStoreModule['actions']['loadHistoryQueriesFromBrowserStorage'] =
+  ({ commit, getters }) => {
+    const historyQueries = localStorageService.getItem<HistoryQuery[]>(getters.storageKey) ?? [];
+    commit('setHistoryQueries', historyQueries);
+  };

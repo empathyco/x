@@ -28,18 +28,13 @@ ${props.map(toPropsMarkdownTable).join('\n')}
  *
  * @internal
  */
-function toPropsMarkdownTable({
-  name = '',
-  type = {},
-  defaultValue = {},
-  description = ''
-}) {
+function toPropsMarkdownTable({ name = '', type = {}, defaultValue = {}, description = '' }) {
   const typeName = type.name ? type.name : '';
   const value = defaultValue.value ? defaultValue.value : '';
 
-  return `| <code>${cleanMarkdown(name)}</code> | ${cleanMarkdown(description)} | <code>${cleanMarkdown(
-    typeName
-  )}</code> | <code>${cleanMarkdown(value)}</code> |`;
+  return `| <code>${cleanMarkdown(name)}</code> | ${cleanMarkdown(
+    description
+  )} | <code>${cleanMarkdown(typeName)}</code> | <code>${cleanMarkdown(value)}</code> |`;
 }
 
 module.exports = createDocsPropsSection;

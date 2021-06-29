@@ -10,8 +10,7 @@ import { IdentifierResultsXStoreModule } from '../types';
  * @public
  */
 // eslint-disable-next-line max-len
-export const identifierDetectionRegexp: IdentifierResultsXStoreModule['getters']['identifierDetectionRegexp'] = ({
-  config
-}) => {
-  return new RegExp(config.identifierDetectionRegexp);
-};
+export const identifierDetectionRegexp: IdentifierResultsXStoreModule['getters']['identifierDetectionRegexp'] =
+  ({ config }) => {
+    return new RegExp(config.identifierDetectionRegexp);
+  };

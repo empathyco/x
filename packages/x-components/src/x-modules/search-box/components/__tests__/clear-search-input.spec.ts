@@ -29,7 +29,6 @@ describe('testing ClearSearchInput component', () => {
     const renderedSlotHTML = clearSearchInput.element.querySelector('.x-clear-search-input__text');
 
     expect(renderedSlotHTML).toBeDefined();
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(renderedSlotHTML!.textContent).toEqual('Clear');
   });
 });

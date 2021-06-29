@@ -46,7 +46,6 @@ describe('testing next queries module getters', () => {
     const searchedQueries = createHistoryQueries('limes');
     const nextQueries = getNextQueriesStub();
 
-    // eslint-disable-next-line max-len
     it('should return the next queries without the previously searched queries', () => {
       resetNextQueriesStateWith(store, {
         searchedQueries,

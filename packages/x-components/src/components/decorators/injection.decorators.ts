@@ -234,7 +234,7 @@ function getComputedProperty(
 ): ComponentOptions<Vue>['computed'] {
   return {
     [computedKey]: function (): unknown {
-      return ((this as unknown) as Record<string, { value: unknown }>)[privateComponentKey].value;
+      return (this as unknown as Record<string, { value: unknown }>)[privateComponentKey].value;
     }
   };
 }

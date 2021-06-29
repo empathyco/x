@@ -321,12 +321,8 @@ describe('testing Dropdown component', () => {
 
     // eslint-disable-next-line max-len
     it('focuses the first element when the home button is pressed and the last when the end key is pressed', async () => {
-      const {
-        pressKeyFromFocusedItem,
-        clickToggleButton,
-        getListItems,
-        getHighlightedItem
-      } = renderDropdown();
+      const { pressKeyFromFocusedItem, clickToggleButton, getListItems, getHighlightedItem } =
+        renderDropdown();
 
       await clickToggleButton();
       const listItems = getListItems();

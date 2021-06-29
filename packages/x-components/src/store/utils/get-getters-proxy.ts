@@ -41,7 +41,7 @@ export function getGettersProxyFromModule<ModuleName extends XModuleName>(
       defineGetterProxy(safeGettersProxy, getterName, `${modulePath}${getterName}`, getters),
     {} as ExtractGetters<ModuleName>
   );
-  cache[moduleName] = (safeGetters as unknown) as Getters[ModuleName];
+  cache[moduleName] = safeGetters as unknown as Getters[ModuleName];
   return safeGetters;
 }
 
@@ -74,7 +74,7 @@ export function getGettersProxy<ModuleName extends XModuleName>(
     const getterName = fullPathGetterName.replace(modulePath, '');
     return defineGetterProxy(safeGettersProxy, getterName, fullPathGetterName, getters);
   }, {} as ExtractGetters<ModuleName>);
-  cache[moduleName] = (safeGetters as unknown) as Getters[ModuleName];
+  cache[moduleName] = safeGetters as unknown as Getters[ModuleName];
   return safeGetters;
 }
 

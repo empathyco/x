@@ -72,9 +72,8 @@ function renderHierarchicalFilter({
     const containerSelector = getDataTestSelector('hierarchical-filter-container');
     return filters.wrappers.reduce<Wrapper<Vue>[][]>((depthLevels, filterWrapper) => {
       let depth = -1;
-      let currentAncestor: Element | null | undefined = filterWrapper.element.closest(
-        containerSelector
-      );
+      let currentAncestor: Element | null | undefined =
+        filterWrapper.element.closest(containerSelector);
       while (currentAncestor) {
         currentAncestor = currentAncestor.parentElement?.closest(containerSelector);
         depth++;
@@ -323,13 +322,10 @@ describe('testing `HierarchicalFilter` component', () => {
 
     it('adds a CSS class when the filter is partially selected', async () => {
       const targetClass = 'x-hierarchical-filter--is-partially-selected';
-      const {
-        getFilterModelsByDepth,
-        getFilterWrappersByDepth,
-        transverseFilters
-      } = renderHierarchicalFilter({
-        filter: hierarchicalFilter
-      });
+      const { getFilterModelsByDepth, getFilterWrappersByDepth, transverseFilters } =
+        renderHierarchicalFilter({
+          filter: hierarchicalFilter
+        });
 
       const [
         [rootFilterPartiallySelected],

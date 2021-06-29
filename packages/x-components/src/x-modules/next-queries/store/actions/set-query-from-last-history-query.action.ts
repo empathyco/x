@@ -11,11 +11,9 @@ import { NextQueriesXStoreModule } from '../types';
  * @public
  */
 //eslint-disable-next-line max-len
-export const setQueryFromLastHistoryQuery: NextQueriesXStoreModule['actions']['setQueryFromLastHistoryQuery'] = (
-  { state, commit },
-  historyQueries: HistoryQuery[]
-) => {
-  if (!isArrayEmpty(historyQueries) && state.config.loadOnInit) {
-    commit('setQuery', historyQueries[0].query);
-  }
-};
+export const setQueryFromLastHistoryQuery: NextQueriesXStoreModule['actions']['setQueryFromLastHistoryQuery'] =
+  ({ state, commit }, historyQueries: HistoryQuery[]) => {
+    if (!isArrayEmpty(historyQueries) && state.config.loadOnInit) {
+      commit('setQuery', historyQueries[0].query);
+    }
+  };

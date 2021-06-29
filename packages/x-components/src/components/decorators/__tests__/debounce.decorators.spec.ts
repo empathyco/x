@@ -44,9 +44,8 @@ describe('testing debounce decorator', () => {
 
   it('debounces the method for the provided time', () => {
     // eslint-disable-next-line @typescript-eslint/unbound-method
-    const { debounceTest, mockedDebouncedFunction } = renderDebounceDecoratorComponent(
-      defaultDebounceTime
-    );
+    const { debounceTest, mockedDebouncedFunction } =
+      renderDebounceDecoratorComponent(defaultDebounceTime);
 
     debounceTest();
     expect(mockedDebouncedFunction).not.toHaveBeenCalled();
@@ -58,10 +57,10 @@ describe('testing debounce decorator', () => {
 
   it('debounces the method for the provided time and options', () => {
     // eslint-disable-next-line @typescript-eslint/unbound-method
-    const {
-      debounceTest,
-      mockedDebouncedFunction
-    } = renderDebounceDecoratorComponent(defaultDebounceTime, { leading: true, trailing: false });
+    const { debounceTest, mockedDebouncedFunction } = renderDebounceDecoratorComponent(
+      defaultDebounceTime,
+      { leading: true, trailing: false }
+    );
 
     debounceTest();
     expect(mockedDebouncedFunction).toHaveBeenCalledTimes(1);
@@ -74,9 +73,8 @@ describe('testing debounce decorator', () => {
   it('applies the arguments correctly to the decorated method', () => {
     const mockedArgument = 'potatoe';
     // eslint-disable-next-line @typescript-eslint/unbound-method
-    const { debounceTest, mockedDebouncedFunction } = renderDebounceDecoratorComponent(
-      defaultDebounceTime
-    );
+    const { debounceTest, mockedDebouncedFunction } =
+      renderDebounceDecoratorComponent(defaultDebounceTime);
 
     debounceTest(mockedArgument);
     jest.advanceTimersByTime(defaultDebounceTime);

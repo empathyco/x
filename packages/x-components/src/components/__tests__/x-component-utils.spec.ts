@@ -15,7 +15,7 @@ describe('testing the x-component utils', () => {
   let testXComponentWrapper: Vue;
 
   beforeEach(() => {
-    testXComponentWrapper = (mount(testComponent) as unknown) as Vue;
+    testXComponentWrapper = mount(testComponent) as unknown as Vue;
   });
 
   it('sets and gets as XComponent name the passed name parameter to the passed component', () => {

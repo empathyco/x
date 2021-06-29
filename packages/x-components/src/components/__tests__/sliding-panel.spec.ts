@@ -114,13 +114,8 @@ describe('testing sliding panel component', () => {
   });
 
   it('scrolls when clicking the scrolling buttons', async () => {
-    const {
-      resizeElementScroll,
-      doScroll,
-      scrollBySpy,
-      getLeftButton,
-      getRightButton
-    } = renderSlidingPanel();
+    const { resizeElementScroll, doScroll, scrollBySpy, getLeftButton, getRightButton } =
+      renderSlidingPanel();
     await resizeElementScroll(1024, 200);
     getRightButton().trigger('click');
 

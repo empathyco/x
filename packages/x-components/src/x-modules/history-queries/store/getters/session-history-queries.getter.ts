@@ -8,10 +8,7 @@ import { HistoryQueriesXStoreModule } from '../types';
  * @returns The history queries that have been made in the current session.
  * @public
  */
-// eslint-disable-next-line max-len
-export const sessionHistoryQueries: HistoryQueriesXStoreModule['getters']['sessionHistoryQueries'] = ({
-  sessionTimeStampInMs,
-  historyQueries
-}) => {
-  return historyQueries.filter(historyQuery => historyQuery.timestamp > sessionTimeStampInMs);
-};
+export const sessionHistoryQueries: HistoryQueriesXStoreModule['getters']['sessionHistoryQueries'] =
+  ({ sessionTimeStampInMs, historyQueries }) => {
+    return historyQueries.filter(historyQuery => historyQuery.timestamp > sessionTimeStampInMs);
+  };

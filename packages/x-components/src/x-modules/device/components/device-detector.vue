@@ -6,7 +6,7 @@
   import Vue from 'vue';
   import GlobalEvents from 'vue-global-events';
   import { Component, Prop, Watch } from 'vue-property-decorator';
-  import { xComponentMixin } from '../../../components';
+  import { xComponentMixin, XEmit } from '../../../components';
   import { throttle } from '../../../utils/throttle';
   import { deviceXModule } from '../x-module';
 
@@ -90,7 +90,8 @@
      *
      * @internal
      */
-    protected get detectedDevice(): string | null {
+    @XEmit('DeviceProvided')
+    public get detectedDevice(): string | null {
       if (this.force) {
         return this.force;
       } else if (this.windowWidthPx === null) {
@@ -123,23 +124,6 @@
     protected updateThrottledStoreWindowWidth(throttleMs: number): void {
       // eslint-disable-next-line @typescript-eslint/unbound-method
       this.throttledStoreWindowWidth = throttle(this.storeWindowWidth, throttleMs);
-    }
-
-    /**
-     * Registers a watcher over {@link DeviceDetector.detectedDevice} to emit the
-     * {@link DeviceXEvents.DeviceProvided} event.
-     *
-     * @internal
-     */
-    created(): void {
-      // TODO Use `@XEmit` decorator when available
-      this.$watch(
-        'detectedDevice',
-        device => {
-          this.$x.emit('DeviceProvided', device);
-        },
-        { immediate: true }
-      );
     }
 
     /**

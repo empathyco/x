@@ -12,10 +12,9 @@ import { IdentifierResultsXStoreModule } from '../types';
  * @public
  */
 //eslint-disable-next-line max-len
-export const fetchIdentifierResults: IdentifierResultsXStoreModule['actions']['fetchIdentifierResults'] = ({
-  getters
-}) => {
-  return getters.identifierResultsRequest
-    ? XPlugin.adapter.searchById(getters.identifierResultsRequest).then(({ results }) => results)
-    : [];
-};
+export const fetchIdentifierResults: IdentifierResultsXStoreModule['actions']['fetchIdentifierResults'] =
+  ({ getters }) => {
+    return getters.identifierResultsRequest
+      ? XPlugin.adapter.searchById(getters.identifierResultsRequest).then(({ results }) => results)
+      : [];
+  };

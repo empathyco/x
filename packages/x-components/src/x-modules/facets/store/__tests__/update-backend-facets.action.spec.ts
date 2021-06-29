@@ -78,7 +78,6 @@ describe(`${actionsKeys.updateBackendFacets} action`, () => {
       });
     });
 
-    // eslint-disable-next-line max-len
     it('should overwrite new hierarchical filters selected values with state values', async () => {
       const currentCategoryFacet = createHierarchicalFacetStub(
         'Category',

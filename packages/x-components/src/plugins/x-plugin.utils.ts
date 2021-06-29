@@ -16,7 +16,6 @@ export function assertXPluginOptionsAreValid(
     );
   }
 
-  // eslint-disable-next-line eqeqeq
   if (options.adapter == null) {
     throw new Error(
       // eslint-disable-next-line max-len

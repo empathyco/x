@@ -63,7 +63,6 @@ describe('testing RemoveHistoryQuery component', () => {
     );
 
     expect(renderedSlotHTML).toBeDefined();
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(renderedSlotHTML!.textContent).toEqual('Remove');
   });
 });

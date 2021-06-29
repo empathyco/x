@@ -15,21 +15,10 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "baseUrl": "../",
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "paths": {},
-    "lib": [
-      "esnext",
-      "dom",
-      "scripthost"
-    ]
+    "lib": ["esnext", "dom", "scripthost"]
   },
-  "include": [
-    "**/*.ts",
-    "docgen/templates/*.js"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["**/*.ts", "docgen/templates/*.js"],
+  "exclude": ["node_modules"]
 }

@@ -13,8 +13,8 @@ export const toggleSimpleFilter: FacetsXStoreModule['actions']['toggleSimpleFilt
  *
  * @public
  */
-// eslint-disable-next-line max-len
-export const toggleNumberRangeFilter: FacetsXStoreModule['actions']['toggleNumberRangeFilter'] = toggleFilter;
+export const toggleNumberRangeFilter: FacetsXStoreModule['actions']['toggleNumberRangeFilter'] =
+  toggleFilter;
 
 /**
  * Select or deselect filter.

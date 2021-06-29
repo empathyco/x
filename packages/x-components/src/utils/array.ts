@@ -8,7 +8,6 @@ import { PropsWithType } from './types';
  * @public
  */
 export function isArrayEmpty(array: unknown[] | undefined | null): array is undefined | null | [] {
-  // eslint-disable-next-line
   return array == null || array.length === 0;
 }
 
@@ -67,7 +66,7 @@ export function arrayToObject<ArrayType, KeyType extends string | number>(
 ): Record<string, ArrayType> {
   return array.reduce<Record<string, ArrayType>>((accumulator, current) => {
     if (key) {
-      accumulator[(current[key] as unknown) as string] = current;
+      accumulator[current[key] as unknown as string] = current;
     } else if (typeof current === 'string') {
       accumulator[current] = current;
     }

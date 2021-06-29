@@ -9,13 +9,11 @@ import { SearchXStoreModule } from '../types';
  * @public
  */
 // eslint-disable-next-line max-len
-export const increasePageAppendingResults: SearchXStoreModule['actions']['increasePageAppendingResults'] = ({
-  commit,
-  state
-}) => {
-  const newPage = state.page + 1;
-  if (newPage >= 1 && newPage * state.config.pageSize <= state.totalResults) {
-    commit('setPage', newPage);
-    commit('setIsAppendResults', true);
-  }
-};
+export const increasePageAppendingResults: SearchXStoreModule['actions']['increasePageAppendingResults'] =
+  ({ commit, state }) => {
+    const newPage = state.page + 1;
+    if (newPage >= 1 && newPage * state.config.pageSize <= state.totalResults) {
+      commit('setPage', newPage);
+      commit('setIsAppendResults', true);
+    }
+  };

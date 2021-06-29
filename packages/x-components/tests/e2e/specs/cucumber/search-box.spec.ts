@@ -10,7 +10,6 @@ let startSecondQuery = 0;
 let interval = 0;
 
 Given(
-  // eslint-disable-next-line max-len
   'following config: hide if equals query {boolean}, instant search {boolean}, debounce {int}',
   (hideIfEqualsQuery: boolean, instant: boolean, instantDebounceInMs: number) => {
     const config: InstallXOptions['xModules'] = {

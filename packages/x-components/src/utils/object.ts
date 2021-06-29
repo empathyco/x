@@ -12,7 +12,6 @@ export function forEach<T extends Dictionary>(
   obj: T | undefined | null,
   callbackFn: (key: keyof T, value: Exclude<T[keyof T], undefined>, index: number) => void
 ): void {
-  // eslint-disable-next-line eqeqeq
   if (obj == null) {
     return;
   }

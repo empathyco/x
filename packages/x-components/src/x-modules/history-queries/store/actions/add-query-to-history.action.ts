@@ -172,6 +172,5 @@ const addQueryToHistoryAction = new AddQueryToHistoryAction();
  *
  * @public
  */
-export const addQueryToHistory = addQueryToHistoryAction.addQueryToHistory.bind(
-  addQueryToHistoryAction
-);
+export const addQueryToHistory =
+  addQueryToHistoryAction.addQueryToHistory.bind(addQueryToHistoryAction);

@@ -85,9 +85,8 @@ describe('testing BaseShowMoreFilters', () => {
   });
 
   it('slices the filters when the show more/less buttons are clicked', async () => {
-    const { getFiltersWrapper, getShowMoreButton, getShowLessButton } = renderBaseShowMoreFilters(
-      2
-    );
+    const { getFiltersWrapper, getShowMoreButton, getShowLessButton } =
+      renderBaseShowMoreFilters(2);
 
     expect(getFiltersWrapper()).toHaveLength(2);
     expect(getShowMoreButton().text()).toEqual('Expand 6 more filters');

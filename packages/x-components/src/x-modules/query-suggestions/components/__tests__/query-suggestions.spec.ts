@@ -74,8 +74,9 @@ describe('testing Suggestions component', () => {
       store
     });
 
-    const suggestionsItemWrappers = querySuggestions.findAll(getDataTestSelector('suggestion-item'))
-      .wrappers;
+    const suggestionsItemWrappers = querySuggestions.findAll(
+      getDataTestSelector('suggestion-item')
+    ).wrappers;
     expect(suggestionsItemWrappers).toHaveLength(suggestions.length);
 
     suggestionsItemWrappers.forEach((slot, index) => {

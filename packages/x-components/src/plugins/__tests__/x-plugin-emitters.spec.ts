@@ -212,7 +212,6 @@ describe('testing X Plugin emitters', () => {
   });
 
   describe('isDifferent configuration option', () => {
-    // eslint-disable-next-line max-len
     it('should not trigger the event if the provided filter function returns false', async () => {
       const testWire = jest.fn();
       const wiring = {

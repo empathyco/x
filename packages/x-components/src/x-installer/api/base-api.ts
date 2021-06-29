@@ -73,7 +73,7 @@ export class BaseXAPI implements XAPI {
       this.isXInitialized = true;
       this?.initCallback(config);
     } else {
-      // eslint-disable-next-line no-console
+      //eslint-disable-next-line no-console
       console.warn('We know X is awesome, but you only need to initialize it once.');
     }
   }

@@ -88,9 +88,8 @@ export const clearSelectedFilters = clearFilters.clearSelectedFilters.bind(clear
  *
  * @public
  */
-export const clearFacetsSelectedFilters = clearFilters.clearFacetsSelectedFilters.bind(
-  clearFilters
-);
+export const clearFacetsSelectedFilters =
+  clearFilters.clearFacetsSelectedFilters.bind(clearFilters);
 // eslint-disable-next-line jsdoc/require-description-complete-sentence
 /**
  * {@inheritDoc ClearFilters.clearFacetSelectedFilters}

@@ -98,13 +98,10 @@ describe('testing BaseNumberRangeFilter component', () => {
   });
 
   it('renders the provided filter by default', () => {
-    const {
-      filterWrapper,
-      applyButtonWrapper,
-      clearButtonWrapper
-    } = renderEditableNumberRangeFilter({
-      range: { min: 1, max: 5 }
-    });
+    const { filterWrapper, applyButtonWrapper, clearButtonWrapper } =
+      renderEditableNumberRangeFilter({
+        range: { min: 1, max: 5 }
+      });
     expect(
       (filterWrapper.find(getDataTestSelector('range-min')).element as HTMLInputElement).value
     ).toBe('1');
@@ -178,12 +175,8 @@ describe('testing BaseNumberRangeFilter component', () => {
 
   describe('clear button testing', () => {
     it('sets min and max component values to null on clear button click', () => {
-      const {
-        filterWrapper,
-        filter,
-        clearButtonWrapper,
-        applyButtonWrapper
-      } = renderEditableNumberRangeFilter({ range: { min: 1, max: 5 } });
+      const { filterWrapper, filter, clearButtonWrapper, applyButtonWrapper } =
+        renderEditableNumberRangeFilter({ range: { min: 1, max: 5 } });
 
       const listener = jest.fn();
       filterWrapper.vm.$x.on('UserModifiedEditableNumberRangeFilter').subscribe(listener);
@@ -240,15 +233,9 @@ describe('testing BaseNumberRangeFilter component', () => {
     });
 
     it('allows to customize the default slot', async () => {
-      const {
-        filter,
-        filterWrapper,
-        applyButtonWrapper,
-        clearButtonWrapper,
-        typeMin,
-        typeMax
-      } = renderEditableNumberRangeFilter({
-        template: `
+      const { filter, filterWrapper, applyButtonWrapper, clearButtonWrapper, typeMin, typeMax } =
+        renderEditableNumberRangeFilter({
+          template: `
                     <EditableNumberRangeFilterComponent
                       :filter="filter"
                       #default="{
@@ -278,8 +265,8 @@ describe('testing BaseNumberRangeFilter component', () => {
                       <div data-test="has-error" v-if="hasError">⚠️ Invalid range values</div>
                     </EditableNumberRangeFilterComponent>
                   `,
-        range: { min: 7, max: 4 }
-      });
+          range: { min: 7, max: 4 }
+        });
 
       const listener = jest.fn();
       filterWrapper.vm.$x.on('UserModifiedEditableNumberRangeFilter').subscribe(listener);

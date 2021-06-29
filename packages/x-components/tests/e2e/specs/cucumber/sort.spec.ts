@@ -12,11 +12,13 @@ let defaultPriceResults: number[] = [];
 function isSortedByPrice(prices: number[], direction: string): boolean {
   const limit = prices.length - 1;
   if (direction === 'desc') {
-    // eslint-disable-next-line
-    return prices.every((_value, index) => (index < limit ? prices[index] >= prices[index + 1] : true));
+    return prices.every((_value, index) =>
+      index < limit ? prices[index] >= prices[index + 1] : true
+    );
   } else if (direction === 'asc') {
-    // eslint-disable-next-line
-    return prices.every((_value, index) => (index < limit ? prices[index] <= prices[index + 1] : true));
+    return prices.every((_value, index) =>
+      index < limit ? prices[index] <= prices[index + 1] : true
+    );
   } else {
     return false;
   }

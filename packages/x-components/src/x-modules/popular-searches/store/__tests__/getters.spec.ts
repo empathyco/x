@@ -31,7 +31,6 @@ describe('testing popular searches module getters', () => {
     localVue.use(Vuex);
     installNewXPlugin({ store, adapter }, localVue);
 
-    // eslint-disable-next-line max-len
     it('should return the popular searches without the previously searched queries', () => {
       resetPopularSearchesStateWith(store, {
         searchedQueries,

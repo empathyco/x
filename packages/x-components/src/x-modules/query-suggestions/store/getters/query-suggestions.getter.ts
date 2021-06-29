@@ -35,7 +35,6 @@ export class QuerySuggestionsGetter implements GettersClass<QuerySuggestionsXSto
   protected isInQuerySuggestions(normalizedQuery: string): (suggestion: Suggestion) => boolean {
     return (suggestion: Suggestion) => {
       const normalizedSuggestionQuery = normalizeString(suggestion.query);
-      // eslint-disable-next-line max-len
       // TODO Hide the suggestion if it's equals to the query and it does NOT have facets. (EX-3184)
       // The logic is here https://bitbucket.org/colbenson/x-components/pull-requests/432
       // normalizedSuggestionQuery !== normalizedQuery || !isArrayEmpty(suggestion.facets)
@@ -52,6 +51,5 @@ const querySuggestionsGetter = new QuerySuggestionsGetter();
  *
  * @public
  */
-export const querySuggestions = querySuggestionsGetter.querySuggestions.bind(
-  querySuggestionsGetter
-);
+export const querySuggestions =
+  querySuggestionsGetter.querySuggestions.bind(querySuggestionsGetter);

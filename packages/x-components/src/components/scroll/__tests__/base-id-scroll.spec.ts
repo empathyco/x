@@ -30,8 +30,9 @@ function renderBaseIdScroll({
   );
 
   const wrapper = wrapperContainer.findComponent(BaseIdScroll);
-  const scrollElement: HTMLElement = wrapperContainer.find(getDataTestSelector('base-scroll'))
-    .element;
+  const scrollElement: HTMLElement = wrapperContainer.find(
+    getDataTestSelector('base-scroll')
+  ).element;
   jest.spyOn(scrollElement, 'clientHeight', 'get').mockImplementation(() => clientHeight);
   jest.spyOn(scrollElement, 'scrollHeight', 'get').mockImplementation(() => scrollHeight);
 

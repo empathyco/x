@@ -9,16 +9,14 @@ import { IdentifierResultsXStoreModule } from '../types';
  * @public
  */
 // eslint-disable-next-line max-len
-export const identifierResultsRequest: IdentifierResultsXStoreModule['getters']['identifierResultsRequest'] = ({
-  query,
-  config
-}) => {
-  return query.trim()
-    ? {
-        query,
-        rows: config.maxItemsToRequest,
-        start: 0,
-        origin: 'default' //TODO Remove origin parameter when added as optional in search adapter.
-      }
-    : null;
-};
+export const identifierResultsRequest: IdentifierResultsXStoreModule['getters']['identifierResultsRequest'] =
+  ({ query, config }) => {
+    return query.trim()
+      ? {
+          query,
+          rows: config.maxItemsToRequest,
+          start: 0,
+          origin: 'default' //TODO Remove origin parameter when added as optional in search adapter.
+        }
+      : null;
+  };

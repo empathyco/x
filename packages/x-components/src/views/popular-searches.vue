@@ -62,7 +62,6 @@
 </template>
 
 <script lang="ts">
-  // eslint-disable-next-line max-len
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { deepMerge } from '@empathybroker/deep-merge';

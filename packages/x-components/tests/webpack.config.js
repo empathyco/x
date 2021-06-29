@@ -1,5 +1,5 @@
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const {resolve} = require('path');
+const { resolve } = require('path');
 
 module.exports = {
   resolve: {

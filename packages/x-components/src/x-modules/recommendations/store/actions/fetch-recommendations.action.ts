@@ -10,11 +10,9 @@ import { RecommendationsXStoreModule } from '../types';
  *
  * @public
  */
-// eslint-disable-next-line max-len
-export const fetchRecommendations: RecommendationsXStoreModule['actions']['fetchRecommendations'] = ({
-  getters
-}) => {
-  return getters.request
-    ? XPlugin.adapter.getTopRecommendations(getters.request).then(({ results }) => results)
-    : [];
-};
+export const fetchRecommendations: RecommendationsXStoreModule['actions']['fetchRecommendations'] =
+  ({ getters }) => {
+    return getters.request
+      ? XPlugin.adapter.getTopRecommendations(getters.request).then(({ results }) => results)
+      : [];
+  };
