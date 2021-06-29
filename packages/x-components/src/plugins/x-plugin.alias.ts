@@ -91,6 +91,9 @@ export function getAliasAPI(
     },
     get isEmpathizeOpen() {
       return store.state.x.empathize?.isOpen ?? false;
+    },
+    get device() {
+      return store.state.x.device?.name ?? null;
     }
   };
 }

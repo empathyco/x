@@ -111,6 +111,8 @@ export interface XComponentAliasAPI {
   readonly totalResults: number;
   /** The {@link Empathize} is open state. */
   readonly isEmpathizeOpen: boolean;
+  /** The {@link DeviceXModule} detected device. */
+  readonly device: string | null;
 }
 
 /**

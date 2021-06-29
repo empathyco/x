@@ -7,12 +7,12 @@ import { DeviceXStoreModule } from './types';
  */
 export const deviceXStoreModule: DeviceXStoreModule = {
   state: () => ({
-    device: null
+    name: null
   }),
   getters: {},
   mutations: {
-    setDevice(state, device) {
-      state.device = device;
+    setName(state, name) {
+      state.name = name;
     }
   },
   actions: {}

@@ -11,7 +11,7 @@ export interface DeviceState {
    *
    * @public
    */
-  device: string | null;
+  name: string | null;
 }
 
 /**
@@ -28,11 +28,11 @@ export interface DeviceGetters {}
  */
 export interface DeviceMutations {
   /**
-   * Sets the {@link DeviceState.device} of the module.
+   * Sets the {@link DeviceState.name} of the module.
    *
    * @param device - The new device state to set.
    */
-  setDevice(device: string | null): void;
+  setName(device: string | null): void;
 }
 
 /**

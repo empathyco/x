@@ -1,5 +1,8 @@
 <template>
   <main>
+    <!-- Phantom components -->
+    <DeviceDetector :breakpoints="breakpoints" />
+
     <!-- Search Box -->
     <div class="x-search-box x-input-group x-input-group--card">
       <SearchInput placeholder="Search" aria-label="Search for products" />
@@ -358,6 +361,7 @@
   import BaseIdScroll from '../components/scroll/base-id-scroll.vue';
   import BasePriceFilterLabel from '../components/filters/labels/base-price-filter-label.vue';
   import BaseCurrency from '../components/currency/base-currency.vue';
+  import DeviceDetector from '../x-modules/device/components/device-detector.vue';
   import AllFilter from '../x-modules/facets/components/filters/all-filter.vue';
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
   import SlicedFilters from '../x-modules/facets/components/lists/sliced-filters.vue';
@@ -378,7 +382,7 @@
   import BaseResultLink from '../components/result/base-result-link.vue';
   import BaseResultImage from '../components/result/base-result-image.vue';
   import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
-  import { GridItem } from '../utils/types';
+  import { Dictionary, GridItem } from '../utils/types';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
   import SelectedFiltersList from '../x-modules/facets/components/lists/selected-filters-list.vue';
   import SortedFilters from '../x-modules/facets/components/lists/sorted-filters.vue';
@@ -430,6 +434,7 @@
       next();
     },
     components: {
+      DeviceDetector,
       CrossIcon,
       ChevronLeftIcon,
       ChevronUpIcon,
@@ -513,6 +518,12 @@
     }
 
     public sortValues: Sort[] = ['', 'priceSort asc', 'priceSort desc'];
+
+    protected breakpoints: Dictionary<number> = {
+      small: 500,
+      medium: 900,
+      large: Number.POSITIVE_INFINITY
+    };
   }
 </script>
 

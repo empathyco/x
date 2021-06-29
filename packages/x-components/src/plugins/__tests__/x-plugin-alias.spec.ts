@@ -66,7 +66,8 @@ describe('testing plugin alias', () => {
       facets: {},
       selectedFilters: [],
       totalResults: 0,
-      isEmpathizeOpen: false
+      isEmpathizeOpen: false,
+      device: null
     };
     expect(componentInstance.vm.$x).toMatchObject(defaultValues);
   });
