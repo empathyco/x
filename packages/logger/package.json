@@ -2,25 +2,31 @@
   "name": "@empathyco/x-logger",
   "version": "1.1.2-alpha.0",
   "description": "Empathy simple logger",
+  "author": "Empathy Systems Corporation S.L.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/logger#readme",
+  "keywords": [
+    "logger",
+    "logging",
+    "tools"
+  ],
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "./types/index.d.ts",
-  "publishConfig": {
-    "access": "public"
+  "files": [
+    "dist",
+    "types"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empathyco/x.git",
+    "directory": "packages/logger"
   },
   "scripts": {
     "build": "tsc && tsc --project tsconfig.esm.json",
     "build:watch": "tsc --watch",
     "test": "jest"
   },
-  "keywords": [
-    "logger",
-    "logging",
-    "tools"
-  ],
-  "author": "Empathy Systems Corporation S.L.",
-  "license": "Apache-2.0",
-  "homepage": "https://github.com/empathyco/x/tree/main/packages/logger#readme",
   "dependencies": {
     "tslib": "~1.11.1"
   },
@@ -30,8 +36,7 @@
     "ts-jest": "^24.0.2",
     "typescript": "~3.8.3"
   },
-  "files": [
-    "dist",
-    "types"
-  ]
+  "publishConfig": {
+    "access": "public"
+  }
 }
