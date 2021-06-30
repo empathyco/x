@@ -1,4 +1,35 @@
 # X Components
+## [3.0.0-alpha.1](https://bitbucket.org/colbenson/x-components/branches/compare/v3.0.0-alpha.1%0Dv3.0.0-alpha.0) (2021-06-30)
+
+
+### Features
+
+* **components:** Add `@XEmit` decorator ([b4e107a](https://bitbucket.org/colbenson/x-components/commits/b4e107a710ec0312a50366f43b30745c72e69eff)), closes [EX-4245](https://searchbroker.atlassian.net/browse/EX-4245)
+* **device:** Add `device` module ([f02cd8b](https://bitbucket.org/colbenson/x-components/commits/f02cd8b47999235f888c883b07504307110ed0c4)), closes [EX-4243](https://searchbroker.atlassian.net/browse/EX-4243)
+* **device:** add `DeviceDetector` component ([7b1df85](https://bitbucket.org/colbenson/x-components/commits/7b1df85238ab7ed70e165d499425846e39fbc5de)), closes [EX-4244](https://searchbroker.atlassian.net/browse/EX-4244)
+* **x-installer:** make `SnippetConfig` object available for all components ([b7a3f30](https://bitbucket.org/colbenson/x-components/commits/b7a3f3047fa5f72995da0f69ca0624d4a24fed49)), closes [EX-3553](https://searchbroker.atlassian.net/browse/EX-3553)
+* **x-plugin:** Remove `XConfig` ([bf54080](https://bitbucket.org/colbenson/x-components/commits/bf54080d18f0c3bc67589d695fde8d9418240d32)), closes [EX-4240](https://searchbroker.atlassian.net/browse/EX-4240)
+
+
+### Bug Fixes
+
+* **design-system:** solve `Safari` `gap` issues ([c26917a](https://bitbucket.org/colbenson/x-components/commits/c26917a9b38363ea77eee19d26bad61c2a8ae5a8)), closes [EX-3894](https://searchbroker.atlassian.net/browse/EX-3894)
+
+
+### Testing
+
+* **e2e:** add test for spellcheck component ([456e120](https://bitbucket.org/colbenson/x-components/commits/456e120924377203986d50a58f4b9733aee2be8b)), closes [EX-3963](https://searchbroker.atlassian.net/browse/EX-3963)
+
+
+### Documentation
+
+* **search-box:** update props and bindings table style and avoid warning block auto-formatting ([ab8716b](https://bitbucket.org/colbenson/x-components/commits/ab8716b1e00e1886a523b3f2acb029ce4d918287)), closes [EX-4231](https://searchbroker.atlassian.net/browse/EX-4231)
+
+
+### Styling
+
+* format entire project ([8083870](https://bitbucket.org/colbenson/x-components/commits/80838700530436c6e566a89c13a4912fb754f512)), closes [EX-4287](https://searchbroker.atlassian.net/browse/EX-4287)
+
 ## [3.0.0-alpha.0](https://bitbucket.org/colbenson/x-components/branches/compare/v3.0.0-alpha.0%0Dv2.1.0-alpha.1) (2021-06-22)
 
 
