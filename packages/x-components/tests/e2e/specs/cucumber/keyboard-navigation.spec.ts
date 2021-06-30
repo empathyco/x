@@ -29,18 +29,16 @@ Then('next element position is "{direction}"', (expectedPosition: Direction) => 
     cy.get('@originalElement').should($originalElement => {
       switch (expectedPosition) {
         case 'on the right':
-          expect($originalElement.position().left).to.be.lessThan($targetElement.position().left);
+          expect($originalElement.offset()!.left).to.be.lessThan($targetElement.offset()!.left);
           break;
         case 'on the left':
-          expect($originalElement.position().left).to.be.greaterThan(
-            $targetElement.position().left
-          );
+          expect($originalElement.offset()!.left).to.be.greaterThan($targetElement.offset()!.left);
           break;
         case 'below':
-          expect($originalElement.position().top).to.be.lessThan($targetElement.position().top);
+          expect($originalElement.offset()!.top).to.be.lessThan($targetElement.offset()!.top);
           break;
         case 'above':
-          expect($originalElement.position().top).to.be.greaterThan($targetElement.position().top);
+          expect($originalElement.offset()!.top).to.be.greaterThan($targetElement.offset()!.top);
           break;
       }
     });
@@ -73,7 +71,7 @@ Then('top out of bounds is reached', () => {
     .trigger('keydown', { key: 'ArrowUp' })
     .then($targetElement => {
       cy.get('@originalElement').should($originalElement => {
-        expect($originalElement.position().left).to.be.eq($targetElement.position().left);
+        expect($originalElement.offset()!.left).to.be.eq($targetElement.offset()!.left);
       });
     });
 });

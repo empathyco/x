@@ -10,7 +10,7 @@ import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import ResultsList from '../results-list.vue';
-import { InfiniteScroll } from '../../../../directives/infinite-scroll';
+import { InfiniteScroll } from '../../../../directives/infinite-scroll/infinite-scroll.types';
 import { resetXSearchStateWith } from './utils';
 
 /**

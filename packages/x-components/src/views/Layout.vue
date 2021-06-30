@@ -170,7 +170,7 @@
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
   import BaseResultImage from '../components/result/base-result-image.vue';
   import SlidingPanel from '../components/sliding-panel.vue';
-  import { infiniteScroll } from '../directives/infinite-scroll';
+  import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
   import { XPlugin } from '../plugins/x-plugin';
   import { XInstaller } from '../x-installer/x-installer';
   import Facets from '../x-modules/facets/components/facets.vue';

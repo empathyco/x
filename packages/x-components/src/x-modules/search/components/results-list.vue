@@ -32,7 +32,7 @@
   import { NoElement } from '../../../components/no-element';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { searchXModule } from '../x-module';
-  import { InfiniteScroll } from '../../../directives/infinite-scroll';
+  import { InfiniteScroll } from '../../../directives/infinite-scroll/infinite-scroll.types';
 
   /**
    * It renders a list of results from {@link SearchState.results} by default.

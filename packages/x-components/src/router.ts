@@ -121,8 +121,24 @@ const routes: RouteConfig[] = [
   },
   {
     path: '/test/infinite-scroll',
-    name: 'Infinite scroll',
+    name: 'Infinite Scroll Container',
     component: () => import('./views/infinite-scroll.vue')
+  },
+
+  {
+    path: '/infinite-scroll-document',
+    name: 'Infinite Scroll Document',
+    component: () => import('./views/infinite-scroll-document.vue')
+  },
+  {
+    path: '/infinite-scroll-html',
+    name: 'Infinite Scroll HTML',
+    component: () => import('./views/infinite-scroll-html.vue')
+  },
+  {
+    path: '/infinite-scroll-body',
+    name: 'Infinite Scroll Body',
+    component: () => import('./views/infinite-scroll-body.vue')
   },
   {
     path: '/test/sliced-filters',

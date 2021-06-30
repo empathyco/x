@@ -4,9 +4,7 @@
     <header class="header">
       <SearchInput />
     </header>
-    <BaseScroll id="test1" class="main-scroll">
-      <ResultsList v-infinite-scroll:test1 />
-    </BaseScroll>
+    <ResultsList v-infinite-scroll:body />
   </div>
 </template>
 
@@ -17,7 +15,6 @@
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import ResultsList from '../x-modules/search/components/results-list.vue';
   import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
-  import BaseScroll from '../components/scroll/base-scroll.vue';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
@@ -26,7 +23,6 @@
       next();
     },
     components: {
-      BaseScroll,
       ResultsList,
       SearchInput
     },
@@ -38,12 +34,21 @@
 </script>
 
 <style lang="scss">
-  .main-scroll {
-    margin: 20px 0;
-    height: 400px;
-    overflow-y: auto;
+  html,
+  body {
+    height: 100%;
+    max-height: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  html {
+    overflow: hidden;
+  }
+  body {
+    overflow: auto;
     border: 2px solid darkorange;
   }
+
   .x-results-list {
     margin: 10px;
     border: 2px solid darkcyan;
