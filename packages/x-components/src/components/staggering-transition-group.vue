@@ -83,16 +83,18 @@
      *
      * @internal */
     protected newChildren!: TransitionVNode[];
-    /** A map containing the previous positions for each DOM element rendered by this component.
+    /** A map containing the previous positions relative to the container, for each item
+     * rendered inside the slot of this component component.
      * This is used together with the `newPositions` to calculate the move transition.
      *
      * @internal */
-    protected oldPositions!: WeakMap<Element, DOMRect>;
-    /** A map containing the last positions for each DOM element rendered by this component.
-     * This is used together with the `oldPositions` to calculate the move transition.
+    protected oldPositions!: WeakMap<Element, Bounds>;
+    /** A map containing the new positions relative to the container, for each item
+     * rendered inside the slot of this component component.
+     * This is used together with the `newPositions` to calculate the move transition.
      *
      * @internal */
-    protected newPositions!: WeakMap<Element, DOMRect>;
+    protected newPositions!: WeakMap<Element, Bounds>;
     /** A map containing the move cleanup functions pending to have been called. When invoked
      * this functions remove all the styles and classes associated to the move transition.
      *
@@ -111,7 +113,7 @@
 
     beforeCreate(): void {
       /* Initialize properties here to avoid making them reactive,
-      which would cause infinite loops */
+     which would cause infinite loops */
       this.oldChildren = [];
       this.newChildren = [];
       this.oldPositions = new WeakMap();
@@ -147,6 +149,7 @@
     }
 
     updated(): void {
+      this.wrapperBounds = this.$el.getBoundingClientRect();
       this.newChildren.forEach(this.recordNewPosition);
       const { leavingNodes, stayingNodes, enteringNodes } = this.getNodesByTransitionType();
 
@@ -172,14 +175,14 @@
      */
     protected addRestorePositionHook(transitionHook: TransitionHook = noOp): TransitionHook {
       return element => {
-        const position = this.oldPositions.get(element)!;
-        const elementComputedStyle = window.getComputedStyle(element);
-        const marginTopComputedStyle = parseFloat(elementComputedStyle.marginTop);
-        const marginLeftComputedStyle = parseFloat(elementComputedStyle.marginLeft);
+        const { top, left, width, height } = this.oldPositions.get(element)!;
+        const { marginTop, marginLeft } = window.getComputedStyle(element);
         const style = element.style;
         style.position = 'absolute';
-        style.top = `${position.top - this.wrapperBounds.top - marginTopComputedStyle}px`;
-        style.left = `${position.left - this.wrapperBounds.left - marginLeftComputedStyle}px`;
+        style.top = `${top - parseFloat(marginTop)}px`;
+        style.left = `${left - parseFloat(marginLeft)}px`;
+        style.width = `${width}px`;
+        style.height = `${height}px`;
         this.newPositions.delete(element);
         this.oldPositions.delete(element);
         const pendingCallback = this.pendingCleanupMoveCallbacks.get(element);
@@ -251,8 +254,7 @@
      * @internal
      */
     protected recordOldPosition(vNode: TransitionVNode): void {
-      const element = vNode.elm;
-      this.oldPositions.set(element, element.getBoundingClientRect());
+      this.oldPositions.set(vNode.elm, this.createRelativeBounds(vNode));
     }
 
     /**
@@ -262,8 +264,25 @@
      * @internal
      */
     protected recordNewPosition(vNode: TransitionVNode): void {
-      const element = vNode.elm;
-      this.newPositions.set(element, element.getBoundingClientRect());
+      this.newPositions.set(vNode.elm, this.createRelativeBounds(vNode));
+    }
+
+    /**
+     * Creates an object containing the position of the vNode relative to its container.
+     *
+     * @param vNode - The virtual node to store its relative position.
+     * @returns The relative bounds of the provided virtual node.
+     * @internal
+     */
+    protected createRelativeBounds(vNode: TransitionVNode): Bounds {
+      const { left, top, width, height } = vNode.elm.getBoundingClientRect();
+      const { left: wrapperLeft, top: wrapperTop } = this.wrapperBounds;
+      return {
+        left: left - wrapperLeft,
+        top: top - wrapperTop,
+        width,
+        height
+      };
     }
 
     /**
@@ -414,6 +433,16 @@
    * of Vue transitions happens.
    */
   type TransitionHook = (element: HTMLElement) => void;
+
+  /**
+   * Represents the dimensions and positions of an element.
+   */
+  interface Bounds {
+    top: number;
+    left: number;
+    width: number;
+    height: number;
+  }
 </script>
 
 <style lang="scss" scoped>
