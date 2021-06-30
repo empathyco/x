@@ -1,3 +1,6 @@
 {
-  "extends": ["plugin:@empathyco/x/all"]
+  "extends": ["plugin:@empathyco/x/all"],
+  "rules": {
+    "no-console": "off"
+  }
 }

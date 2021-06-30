@@ -34,7 +34,7 @@
     "build:local": "webpack --mode production && npm pack",
     "clean": "rimraf dist && rimraf coverage",
     "format": "prettier --write \"src/**/*.ts\"",
-    "lint": "eslint \"src/**/*.ts\"",
+    "lint": "eslint src",
     "prepublishOnly": "npm run build",
     "prebuild": "npm run clean && npm run lint && echo Using TypeScript && tsc --version",
     "test": "jest"

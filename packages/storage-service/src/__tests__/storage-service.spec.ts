@@ -7,7 +7,7 @@ const anotherKey = 'another-key';
 const item = { a: 'item', b: true, c: 288 };
 const startingTimestamp = 1563868724320;
 
-describe(`testing ${StorageService.name}`, () => {
+describe('testing StorageService', () => {
   beforeEach(() => {
     localStorage.clear();
     storage = new StorageService(localStorage);

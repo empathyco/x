@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tsc && tsc --project tsconfig.esm.json",
     "build:watch": "tsc --watch",
+    "lint": "eslint src",
     "test": "jest"
   },
   "keywords": [

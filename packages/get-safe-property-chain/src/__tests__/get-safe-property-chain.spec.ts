@@ -1,6 +1,6 @@
 import { getSafePropertyChain } from '../get-safe-property-chain';
 
-describe(`testing ${getSafePropertyChain.name} function`, () => {
+describe('testing getSafePropertyChain function', () => {
   it('retrieves shallow values', () => {
     const obj = { message: 'Hell yeah!' };
     const result = getSafePropertyChain(obj, 'message');

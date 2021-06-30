@@ -59,10 +59,9 @@ export class SimpleLogger implements Logger {
   }
 
   private sendLogToConsole(level: LogLevel, ...args: any[]): void {
-    const consoleFunctionName: keyof typeof console = LogLevel[level] as any;
+    const consoleFunctionName = LogLevel[level] as Exclude<keyof typeof LogLevel, 'silent'>;
     // To prevent failure on old browsers
     if (console[consoleFunctionName]) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       console[consoleFunctionName](...args);
     } else {
       console.log(...args);

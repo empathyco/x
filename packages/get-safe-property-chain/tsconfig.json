@@ -13,6 +13,6 @@
     "types": ["jest"],
     "lib": ["dom", "esnext"]
   },
-  "include": ["src/**/*.ts", "types/get-safe-property-chain.d.ts"],
-  "exclude": ["node_modules", "dist/**/*.ts", "types/**/*.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/__tests__/**/*.spec.ts"]
 }
