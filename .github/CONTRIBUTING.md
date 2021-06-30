@@ -77,6 +77,7 @@ guidelines of ESLint to develop a custom plugin, but it includes also style form
 * [@empathyco/x-get-safe-property-chain](https://github.com/empathyco/x/tree/main/packages/x-get-safe-property-chain) - A utility for safely retrieving nested values.
 * [@empathyco/x-storage-service](https://github.com/empathyco/x/tree/main/packages/x-storage-service) - Storage service with TTL.
 * [@empathyco/x-deep-merge](https://github.com/empathyco/x/tree/main/packages/deep-merge) - Clones an array of objects into another object.
+* [@empathyco/x-jest-utils](https://github.com/empathyco/x/tree/main/packages/jest-utils) - Jest extensions for easier testing.
 
 ## How Can I Contribute?
 

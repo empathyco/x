@@ -2,25 +2,29 @@
   "name": "@empathyco/x-jest-utils",
   "version": "1.0.1",
   "description": "Jest extensions for easier testing",
+  "author": "Empathy Systems Corporation S.L.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/jest-utils#readme",
+  "keywords": [
+    "test",
+    "jest"
+  ],
   "main": "dist/jest-utils.js",
-  "types": "dist/jest-utils.d.ts",
-  "publishConfig": {
-    "access": "public"
-  },
-  "scripts": {
-    "build": "tsc",
-    "build:watch": "tsc --watch",
-    "lint": "eslint src"
-  },
+  "files": [
+    "dist/**/*"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/empathyco/x.git",
     "directory": "packages/jest-utils"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/colbenson/jest-utils#readme",
+  "types": "dist/jest-utils.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "lint": "eslint src"
+  },
+  "dependencies": {},
   "devDependencies": {
     "@empathyco/eslint-plugin-x": "^1.4.0-alpha.0",
     "@types/jest": "^24.0.12",
@@ -28,9 +32,8 @@
     "ts-jest": "^24.0.2",
     "typescript": "^3.4.5"
   },
-  "dependencies": {},
-  "files": [
-    "dist/**/*"
-  ],
-  "prettier": "@empathyco/eslint-plugin-x/prettier-config"
+  "prettier": "@empathyco/eslint-plugin-x/prettier-config",
+  "publishConfig": {
+    "access": "public"
+  }
 }
