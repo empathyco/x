@@ -1,11 +1,11 @@
-# x-deep-merge
+# x-jest-utils
 
-Utility for deep cloning objects.
+Jest extensions for easier testing.
 
 ### How to install
 
 ```
-npm install @empathyco/x-deep-merge --save
+npm install @empathyco/x-jest-utils --save-dev
 ```
 
 If you want to find out all the matchers, check the `jest-utils.types.ts` file.
