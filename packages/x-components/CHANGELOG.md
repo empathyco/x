@@ -1,4 +1,16 @@
 # X Components
+## [3.0.0-alpha.2](https://bitbucket.org/colbenson/x-components/branches/compare/v3.0.0-alpha.2%0Dv3.0.0-alpha.1) (2021-06-30)
+
+
+### Features
+
+* **facets:** add `click:show-more` & `click:show-less` events to the `SlicedFilters` component. ([cc1396f](https://bitbucket.org/colbenson/x-components/commits/cc1396fd2e0e07b1e5994ba82cc721aecdfa0bc6)), closes [EX-4284](https://searchbroker.atlassian.net/browse/EX-4284)
+
+
+### Bug Fixes
+
+* **components:** `StaggeringTransitionGroup` elements now are positioned correctly in scroll containers ([54dbc83](https://bitbucket.org/colbenson/x-components/commits/54dbc83ba764617b4be48c8f7f8272f92e71b924)), closes [EX-4257](https://searchbroker.atlassian.net/browse/EX-4257)
+
 ## [3.0.0-alpha.1](https://bitbucket.org/colbenson/x-components/branches/compare/v3.0.0-alpha.1%0Dv3.0.0-alpha.0) (2021-06-30)
 
 
