@@ -100,6 +100,19 @@ describe('testing BaseShowMoreFilters', () => {
 
     expect(getFiltersWrapper()).toHaveLength(2);
   });
+
+  it('emits Vue events when the show more/less buttons are clicked', async () => {
+    const { filterWrapper, getShowMoreButton, getShowLessButton } = renderBaseShowMoreFilters(2);
+
+    expect(filterWrapper.emitted('click:show-more')).toBeUndefined();
+    expect(filterWrapper.emitted('click:show-less')).toBeUndefined();
+
+    await getShowMoreButton().trigger('click');
+    expect(filterWrapper.emitted('click:show-more')).toEqual([[expect.any(MouseEvent)]]);
+
+    await getShowLessButton().trigger('click');
+    expect(filterWrapper.emitted('click:show-less')).toEqual([[expect.any(MouseEvent)]]);
+  });
 });
 
 interface BaseShowMoreFiltersAPI {

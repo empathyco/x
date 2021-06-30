@@ -96,12 +96,15 @@
     }
 
     /**
-     * Show or hide the remaining filters.
+     * Show or hide the remaining filters. It also emits a Vue event based on the clicked button.
+     *
+     * @param event - The click event.
      *
      * @internal
      */
-    protected toggleShowMoreFilters(): void {
+    protected toggleShowMoreFilters(event: MouseEvent): void {
       this.showMoreFilters = !this.showMoreFilters;
+      this.$emit(this.showMoreFilters ? 'click:show-less' : 'click:show-more', event);
     }
 
     /**
