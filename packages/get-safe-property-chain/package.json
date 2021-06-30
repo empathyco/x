@@ -23,6 +23,7 @@
   "scripts": {
     "build": "tsc && tsc --project tsconfig.esm.json",
     "build:watch": "tsc --watch",
+    "lint": "eslint src",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
@@ -31,11 +32,13 @@
     "tslib": "~1.11.1"
   },
   "devDependencies": {
+    "@empathyco/eslint-plugin-x": "^1.4.0-alpha.0",
     "@types/jest": "^24.0.12",
     "jest": "^24.7.1",
     "ts-jest": "^24.0.2",
     "typescript": "~3.8.3"
   },
+  "prettier": "@empathyco/eslint-plugin-x/prettier-config",
   "publishConfig": {
     "access": "public"
   }

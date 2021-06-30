@@ -10,19 +10,9 @@
     "importHelpers": true,
     "moduleResolution": "node",
     "strict": true,
-    "types": [
-      "jest"
-    ],
-    "lib": [
-      "dom",
-      "esnext"
-    ]
+    "types": ["jest"],
+    "lib": ["dom", "esnext"]
   },
-  "include": [
-    "./src/**/*.ts"
-  ],
-  "exclude": [
-    "**/*.spec.ts",
-    "**/__tests__/**/*"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/__tests__/**/*.spec.ts"]
 }

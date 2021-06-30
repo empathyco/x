@@ -5,43 +5,43 @@ export class SimpleLogger implements Logger {
   private static commonServerLevel: LogLevel = LogLevel.error;
   private readonly instanceTags: any[] = [];
 
-  constructor(...args: any[]) {
+  public constructor(...args: any[]) {
     this.instanceTags = args;
   }
 
-  set consoleLevel(level: LogLevel) {
+  public set consoleLevel(level: LogLevel) {
     SimpleLogger.commonConsoleLevel = level;
   }
 
-  get consoleLevel() {
+  public get consoleLevel(): LogLevel {
     return SimpleLogger.commonConsoleLevel;
   }
 
-  set serverLevel(level: LogLevel) {
+  public set serverLevel(level: LogLevel) {
     SimpleLogger.commonServerLevel = level;
   }
 
-  get serverLevel() {
+  public get serverLevel(): LogLevel {
     return SimpleLogger.commonServerLevel;
   }
 
-  error(...args: any[]) {
+  error(...args: any[]): void {
     this.log(LogLevel.error, args);
   }
 
-  warn(...args: any[]) {
+  warn(...args: any[]): void {
     this.log(LogLevel.warn, args);
   }
 
-  info(...args: any[]) {
+  info(...args: any[]): void {
     this.log(LogLevel.info, args);
   }
 
-  debug(...args: any[]) {
+  debug(...args: any[]): void {
     this.log(LogLevel.debug, args);
   }
 
-  trace(...args: any[]) {
+  trace(...args: any[]): void {
     this.log(LogLevel.trace, args);
   }
 
@@ -49,7 +49,7 @@ export class SimpleLogger implements Logger {
     return new SimpleLogger(...this.instanceTags, ...args);
   }
 
-  private log(level: LogLevel, args: any[]) {
+  private log(level: LogLevel, args: any[]): void {
     if (this.consoleLevel >= level) {
       this.sendLogToConsole(level, ...this.instanceTags.concat(args));
     }
@@ -58,8 +58,8 @@ export class SimpleLogger implements Logger {
     }
   }
 
-  private sendLogToConsole(level: LogLevel, ...args: any[]) {
-    const consoleFunctionName: keyof typeof console = LogLevel[level] as any;
+  private sendLogToConsole(level: LogLevel, ...args: any[]): void {
+    const consoleFunctionName = LogLevel[level] as Exclude<keyof typeof LogLevel, 'silent'>;
     // To prevent failure on old browsers
     if (console[consoleFunctionName]) {
       console[consoleFunctionName](...args);
@@ -68,7 +68,7 @@ export class SimpleLogger implements Logger {
     }
   }
 
-  private sendLogToServer(level: LogLevel, ...args: any[]) {
+  private sendLogToServer(level: LogLevel, ...args: any[]): void {
     console.log(LogLevel[level], 'sending to server...', ...args);
   }
 }
