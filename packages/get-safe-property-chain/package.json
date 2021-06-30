@@ -2,9 +2,24 @@
   "name": "@empathyco/x-get-safe-property-chain",
   "version": "1.2.0",
   "description": "A utility for safely retrieving nested values",
+  "author": "Empathy Systems Corporation S.L.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/get-safe-property-chain#readme",
+  "keywords": [
+    "optional chaining"
+  ],
   "main": "dist/cjs/get-safe-property-chain.js",
   "module": "dist/esm/get-safe-property-chain.js",
   "types": "types/get-safe-property-chain.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empathyco/x.git",
+    "directory": "packages/get-safe-property-chain"
+  },
   "scripts": {
     "build": "tsc && tsc --project tsconfig.esm.json",
     "build:watch": "tsc --watch",
@@ -13,18 +28,8 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/empathyco/x.git"
-  },
-  "keywords": [
-    "optional chaining"
-  ],
-  "author": "Empathy Systems Corporation S.L.",
-  "license": "Apache-2.0",
-  "homepage": "https://github.com/empathyco/x/tree/main/packages/get-safe-property-chain#readme",
-  "publishConfig": {
-    "access": "public"
+  "dependencies": {
+    "tslib": "~1.11.1"
   },
   "devDependencies": {
     "@empathyco/eslint-plugin-x": "^1.4.0-alpha.0",
@@ -33,12 +38,8 @@
     "ts-jest": "^24.0.2",
     "typescript": "~3.8.3"
   },
-  "dependencies": {
-    "tslib": "~1.11.1"
-  },
-  "files": [
-    "dist",
-    "types"
-  ],
-  "prettier": "@empathyco/eslint-plugin-x/prettier-config"
+  "prettier": "@empathyco/eslint-plugin-x/prettier-config",
+  "publishConfig": {
+    "access": "public"
+  }
 }

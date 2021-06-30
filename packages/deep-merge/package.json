@@ -1,10 +1,10 @@
 {
-  "author": "Empathy Systems Corporation S.L.",
-  "license": "Apache-2.0",
-  "homepage": "https://github.com/empathyco/x/tree/main/packages/deep-merge#readme",
   "name": "@empathyco/x-deep-merge",
   "version": "1.2.1",
   "description": "Utility for deep cloning objects.",
+  "author": "Empathy Systems Corporation S.L.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/deep-merge#readme",
   "keywords": [
     "deep",
     "merge",
@@ -19,12 +19,10 @@
     "dist",
     "types"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/empathyco/x.git"
+    "url": "https://github.com/empathyco/x.git",
+    "directory": "packages/deep-merge"
   },
   "engines": {
     "node": ">=6.0.0"
@@ -39,6 +37,9 @@
     "prebuild": "npm run clean && npm run lint && echo Using TypeScript && tsc --version",
     "test": "jest"
   },
+  "dependencies": {
+    "tslib": "~1.11.1"
+  },
   "devDependencies": {
     "@empathyco/eslint-plugin-x": "^1.4.0-alpha.0",
     "@types/jest": "~25.2.1",
@@ -48,8 +49,8 @@
     "ts-node": "~8.9.1",
     "typescript": "~3.8.3"
   },
-  "dependencies": {
-    "tslib": "~1.11.1"
-  },
-  "prettier": "@empathyco/eslint-plugin-x/prettier-config"
+  "prettier": "@empathyco/eslint-plugin-x/prettier-config",
+  "publishConfig": {
+    "access": "public"
+  }
 }
