@@ -7,7 +7,7 @@
   >
     <template #default="{ suggestion, index }">
       <!--
-        @slot Query Suggestion item
+        @slot Custom component that replaces the `QuerySuggestion` component
             @binding {Suggestion} suggestion - Query Suggestion data
             @binding {number} index - Query Suggestion index
       -->
@@ -16,9 +16,9 @@
           <template #default="{ queryHTML }">
             <!-- eslint-disable max-len -->
             <!--
-              @slot Query Suggestion content
+              @slot Custom content that replaces the `QuerySuggestion` default content
                   @binding {Suggestion} suggestion - Query Suggestion data
-                  @binding {string} queryHTML - Suggestion's query with the matching part inside a span tag
+                  @binding {string} queryHTML - Suggestion’s query with the matching part wrapped in a HTML span tag
                   @binding {number} index - Query Suggestion index
             -->
             <!-- eslint-enable max-len -->
@@ -41,12 +41,9 @@
   import QuerySuggestion from './query-suggestion.vue';
 
   /**
-   * Simple query-suggestions component that renders a list of query suggestions.
-   *
-   * @remarks
-   * A query suggestion is just a query that contains the user query, and that can have associated
-   * a set of filters. I.e. If you are searching for `shirt`, a query suggestion could be
-   * `long sleeve shirt`.
+   * This component renders a list of possible search queries to select from as a query is entered
+   * in the input field. By default, this is a list of
+   * [`QuerySuggestion`](./x-components.query-suggestion.md) components.
    *
    * @public
    */
@@ -58,13 +55,13 @@
     /**
      * The module's list of suggestions.
      *
-     * @public
+     * @internal
      */
     @Getter('querySuggestions', 'querySuggestions')
     public suggestions!: Suggestion[];
 
     /**
-     * Animation component that will be used to animate the suggestions.
+     * Animation component for `QuerySuggestions`.
      *
      * @public
      */
@@ -73,103 +70,213 @@
   }
 </script>
 
-<!--eslint-disable-->
-<docs>
-  import { ReactQuerySuggestions, ReactSearchInput } from '@docusaurus/react-components/ReactComponents';
-  import { NextItem } from '@docusaurus/react-components/Utils';
-  import Tabs from '@theme/Tabs';
-  import TabItem from '@theme/TabItem';
+<docs lang="mdx">
+## See it in action
 
-  This component renders a list of query suggestions.
-  A query suggestion is just a query that contains the user query and can have associated
-  a set of filters. I.e. If you are searching for `shirt`, a query suggestion could be
-  `long sleeve shirt`.
+<!-- prettier-ignore-start -->
+:::warning Backend microservice required
+To use this component, the <b>Empathize</b> microservice must be
+implemented.
+:::
+<!-- prettier-ignore-end -->
 
-  ## Usage
+In this example, a list of query suggestions is displayed. See how the suggestions change as you
+type “puzzle”. If you click on a suggestion, the search term in the search input is updated and the
+query suggestions are changed to reflect the new search term.
 
-  <Tabs
-    defaultValue="vue"
-    values={[
-    {label: 'Vue', value: 'vue'}
-  ]}>
-  <TabItem value="vue">
+_Type “puzzle” or another toy in the input field to try it out!_
 
-    ```jsx
-    <QuerySuggestions />
-    ```
-
-  </TabItem>
-  </Tabs>
-
-
-  ## Overriding slots
-
-  ### Overriding Query Suggestion slot
-
-  The default `QuerySuggestion` component that is used in every suggestion can be replaced.
-  To do so, the `suggestion` slot is available, containing the query suggestion data under the
-  `suggestion` property. Remember that if QuerySuggestion component isn't used, the
-  `handleQuerySuggestionSelection` method needs to be implemented emitting the needed events.
-
-  ```jsx
-  <QuerySuggestions>
-    <template #suggestion="{ suggestion }">
-      <img class="x-query-suggestion__icon" src="./query-suggestion-extra-icon.svg"/>
-      <QuerySuggestion :suggestion="suggestion"/>
-    </template>
-  </QuerySuggestions>
-  ```
-
-  ### Overriding Query Suggestion's content slot
-
-  The content of the `QuerySuggestion` component can be overridden. For replacing the default
-  suggestion content, the `suggestion-content` slot is available, containing the query suggestion
-  data (in the `suggestion` property), and the matching query part HTML (in the
-  `queryHTML` property).
-
-  ```jsx
-  <QuerySuggestions>
-    <template #suggestion-content="{ suggestion, queryHTML }">
-      <img class="x-query-suggestion__icon" src="./query-suggestion-icon.svg"/>
-      <span
-        :aria-label="`Select ${suggestion.query}`"
-        class="x-query-suggestion__query"
-        v-html="queryHTML"
-      />
-    </template>
-  </QuerySuggestions>
-  ```
-
-  ## Used with other components
-
-  If you want to use this component with another one, you can add other components and they will communicate with each other.
-
-  This example shows how the query suggestions communicates with the `Search Input`:
-
-  <Tabs
-    defaultValue="live"
-    values={[
-    {label: 'Vue', value: 'vue'},
-    {label: 'Live', value: 'live'}
-  ]}>
-  <TabItem value="vue">
-
-    ```jsx
+```vue
+<template>
+  <div>
     <SearchInput />
     <QuerySuggestions />
-    ```
+  </div>
+</template>
 
-  </TabItem>
-    <TabItem value="live">
-    <ReactSearchInput></ReactSearchInput><ReactQuerySuggestions />
-  </TabItem>
-  </Tabs>
+<script>
+  import { QuerySuggestions } from '@empathy/x-components/query-suggestions';
+  import { SearchInput } from '@empathy/x-components/search-box';
 
+  export default {
+    name: 'QuerySuggestionsDemo',
+    components: {
+      QuerySuggestions,
+      SearchInput
+    }
+  };
+</script>
+```
 
-  ## Up next
+### Play with props
 
-  Ready for more? Continue reading with:
+In this example, an `StaggeredFadeAndSlide` animation component has been passed as prop, so that the
+matching query suggestions are shuffled with a slight delay as more letters of the term are typed.
 
-  <NextItem color="#e77962" font='white' next="x-components.nextqueries">Next queries</NextItem>
+_Type “puzzle” or another toy in the input field to try it out!_
 
+```vue
+<template>
+  <div>
+    <SearchInput />
+    <QuerySuggestions animation="StaggeredFadeAndSlide" />
+  </div>
+</template>
+
+<script>
+  import { QuerySuggestions } from '@empathy/x-components/query-suggestions';
+  import { SearchInput } from '@empathy/x-components/search-box';
+  import { StaggeredFadeAndSlide } from '@empathy/x-components';
+
+  // Register the animation as a global component
+  Vue.component('StaggeredFadeAndSlide', StaggeredFadeAndSlide);
+  export default {
+    name: 'QuerySuggestionsDemo',
+    components: {
+      QuerySuggestions,
+      SearchInput
+    }
+  };
+</script>
+```
+
+### Play with suggestion slot
+
+Here, the `suggestion` binding property passes the suggestion data.
+
+_Type “puzzle” or another toy in the input field to try it out!_
+
+```vue
+<template>
+  <div>
+    <SearchInput />
+    <QuerySuggestions #suggestion="{ suggestion }">
+      <QuerySuggestion :suggestion="suggestion" #default="{ queryHTML }">
+        <span v-html="queryHTML" />
+      </QuerySuggestion>
+    </QuerySuggestions>
+  </div>
+</template>
+
+<script>
+  import { QuerySuggestion, QuerySuggestions } from '@empathy/x-components/query-suggestions';
+
+  export default {
+    name: 'QuerySuggestionsDemo',
+    components: {
+      QuerySuggestion,
+      QuerySuggestions
+    }
+  };
+</script>
+```
+
+<!-- prettier-ignore-start -->
+::: danger
+If you're not using the [`QuerySuggestion`](./query-suggestion.md) component, then
+you must implement the `UserAcceptedAQuery` and `UserSelectedAQuerySuggestion` events in
+`QuerySuggestions`.
+
+```vue
+<template>
+  <div>
+    <SearchInput />
+    <QuerySuggestions #suggestion="{ suggestion }">
+      <button @click="emitSuggestionClickedEvents($event, suggestion)">
+        {{ suggestion.query }}
+      </button>
+    </QuerySuggestions>
+  </div>
+</template>
+
+<script>
+  import { QuerySuggestions } from '@empathy/x-components/query-suggestions';
+  import { SearchInput } from '@empathy/x-components/search-box';
+
+  export default {
+    name: 'QuerySuggestionsDemo',
+    components: {
+      SearchInput,
+      QuerySuggestions
+    },
+    methods: {
+      emitSuggestionClickedEvents(event, suggestion) {
+        this.$x.emit('UserAcceptedAQuery', suggestion.query, {
+          target: event.target
+        });
+        this.$x.emit('UserSelectedASuggestion', suggestion, {
+          target: event.target
+        });
+        this.$x.emit('UserSelectedAQuerySuggestion', suggestion, {
+          target: event.target
+        });
+      }
+    }
+  };
+</script>
+```
+
+:::
+<!-- prettier-ignore-end -->
+
+### Play with suggestion-content slot
+
+In this example, the `suggestion` and `queryHTML` bindings have been passed in the
+`suggestion-content` slot to paint the resulting query suggestions in blue.
+
+_Type “puzzle” or another toy in the input field to try it out!_
+
+```vue
+<template>
+  <div>
+    <SearchInput />
+    <QuerySuggestions #suggestion-content="{ suggestion, queryHTML }">
+      <span :aria-label="`Select ${suggestion.query}`" style="color: blue;" v-html="queryHTML" />
+    </QuerySuggestions>
+  </div>
+</template>
+
+<script>
+  import { QuerySuggestions } from '@empathy/x-components/query-suggestions';
+  import { SearchInput } from '@empathy/x-components/search-box';
+
+  export default {
+    name: 'QuerySuggestionsDemo',
+    components: {
+      SearchInput,
+      QuerySuggestions
+    }
+  };
+</script>
+```
+
+## Extending the component
+
+Components can be combined and communicate with each other. Commonly, the `QuerySuggestions`
+component communicates with the [`SearchInput`](../search-box/x-components.search-input.md),
+updating the term in the search input.
+
+_Type “puzzle” or another toy in the input field to try it out!_
+
+```vue
+<template>
+  <div>
+    <SearchInput />
+    <QuerySuggestions />
+  </div>
+</template>
+
+<script>
+  import { QuerySuggestions } from '@empathy/x-components/query-suggestions';
+  import { SearchInput } from '@empathy/x-components/search-box';
+
+  export default {
+    name: 'QuerySuggestionsDemo',
+    components: {
+      SearchInput,
+      QuerySuggestions
+    }
+  };
+</script>
+```
 </docs>

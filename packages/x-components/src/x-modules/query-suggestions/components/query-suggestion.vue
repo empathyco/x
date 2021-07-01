@@ -8,9 +8,9 @@
     <template #default="{ suggestion, queryHTML }">
       <!-- eslint-disable max-len -->
       <!--
-        @slot Query Suggestion content
+        @slot Custom content that replaces the `QuerySuggestion` default content
             @binding {Suggestion} suggestion - Query Suggestion data
-            @binding {string} queryHTML - Suggestion's query with the matching part inside a span tag
+            @binding {string} queryHTML - Suggestion’s query with the matching part wrapped in a HTML span tag
       -->
       <!-- eslint-enable max-len -->
       <slot v-bind="{ suggestion, queryHTML }" />
@@ -28,12 +28,9 @@
   import { querySuggestionsXModule } from '../x-module';
 
   /**
-   * Simple query-suggestion component that renders a suggestion.
-   *
-   * @remarks
-   * A query suggestion is just a query that contains the user query, and that can have associated
-   * a set of filters. I.e. If you are searching for `shirt`, a query suggestion could be
-   * `long sleeve shirt`.
+   * This component renders a suggestion for a query. A query suggestion is a recommended query
+   * based on previous search queries. It contains the query itself and a set of filters associated.
+   * For example, if you're searching for _shirt_, a query suggestion could be _long sleeve shirt_.
    *
    * @public
    */
@@ -45,7 +42,7 @@
     /**
      * The normalized query of the query-suggestions module.
      *
-     * @public
+     * @internal
      */
     @Getter('querySuggestions', 'normalizedQuery')
     public query!: string;
@@ -70,36 +67,113 @@
   }
 </script>
 
-<docs>
-  #Example
+<docs lang="mdx">
+## Events
 
-  The query suggestion component expects to receive a suggestion as a prop. When clicked, emits a
-  UserSelectedAQuerySuggestion event.
+This component emits the following events:
 
-  ## Basic Usage
+- [`UserSelectedAQuerySuggestion`] (./../../api/x-components.querysuggestionsxevents.md)
 
-  ```vue
-  <QuerySuggestion :suggestion="suggestion"/>
-  ```
+## See it in action
 
-  ## Custom Usage
+<!-- prettier-ignore-start -->
+:::warning Backend microservice required
+To use this component, the <b>Empathize</b> microservice must be
+implemented.
+:::
+<!-- prettier-ignore-end -->
 
-  With an icon overriding the default slot, which has bound the suggestion and the
-  queryHTML.
+Here you can see how a single query suggestion is rendered using the `suggestion` prop.
 
-  ```vue
-  <QuerySuggestion :suggestion="suggestion">
-    <template #default="{ suggestion, queryHTML }">
-      <img src="./query-suggestion-icon.svg" class="x-query-suggestion__icon"/>
-      <span v-html="queryHTML" class="x-query-suggestion__query"/>
-    </template>
+```vue
+<template>
+  <QuerySuggestion :suggestion="suggestion" />
+</template>
+
+<script>
+  import { QuerySuggestion } from '@empathy/x-components/query-suggestions';
+  export default {
+    name: 'QuerySuggestionDemo',
+    components: {
+      QuerySuggestion
+    },
+    data() {
+      return {
+        suggestion: {
+          modelName: 'QuerySuggestion',
+          query: 'beer',
+          facets: []
+        }
+      };
+    }
+  };
+</script>
+```
+
+### Play with default slot
+
+In this example, the query suggestion is painted in blue by passing a color style in the HTML span
+element.
+
+```vue
+<template>
+  <QuerySuggestion :suggestion="suggestion" #default="{ queryHTML }">
+    <span v-html="queryHTML" style="color: blue;" />
   </QuerySuggestion>
-  ```
+</template>
 
-  ## Events
+<script>
+  import { QuerySuggestion } from '@empathy/x-components/query-suggestions';
+  export default {
+    name: 'QuerySuggestionDemo',
+    components: {
+      QuerySuggestion
+    },
+    data() {
+      return {
+        suggestion: {
+          modelName: 'QuerySuggestion',
+          query: 'beer',
+          facets: []
+        }
+      };
+    }
+  };
+</script>
+```
 
-  A list of events that the component will emit:
+### Play with events
 
-  - `UserSelectedAQuerySuggestion`: the event is emitted after the user clicks the button. The event
-  payload is the query suggestion data.
+In this example, when you click on the query suggestion, a message is displayed to illustrate that
+the `UserSelectedAQuerySuggestion` event has been triggered.
+
+```vue
+<template>
+  <QuerySuggestion :suggestion="suggestion" @UserSelectedAQuerySuggestion="alertSuggestion" />
+</template>
+
+<script>
+  import { QuerySuggestion } from '@empathy/x-components/query-suggestions';
+  export default {
+    name: 'QuerySuggestionDemo',
+    components: {
+      QuerySuggestion
+    },
+    data() {
+      return {
+        suggestion: {
+          modelName: 'QuerySuggestion',
+          query: 'beer',
+          facets: []
+        }
+      };
+    },
+    methods: {
+      alertSuggestion(querySuggestion) {
+        alert(`You have clicked the query suggestion: ${querySuggestion.query}`);
+      }
+    }
+  };
+</script>
+```
 </docs>
