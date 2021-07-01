@@ -1,4 +1,4 @@
-import '@empathy/jest-utils';
+import '@empathyco/x-jest-utils';
 
 export * from './banner.schema';
 export * from './facet.schema';
