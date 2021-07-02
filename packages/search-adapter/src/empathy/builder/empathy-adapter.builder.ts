@@ -1,6 +1,6 @@
-import { UserInfo } from '@empathy/search-types';
-import { StorageService } from '@empathy/storage-service';
-import { deepMerge } from '@empathybroker/deep-merge';
+import { UserInfo } from '@empathyco/x-types';
+import { StorageService } from '@empathyco/x-storage-service';
+import { deepMerge } from '@empathyco/x-deep-merge';
 import { Container, injectable } from 'inversify';
 import { DeepPartial, FeatureNames, Newable } from '../../types';
 import { EmpathyAdapterConfig, FacetConfig, FeatureConfig } from '../config/empathy-adapter-config.types';

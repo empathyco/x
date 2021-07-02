@@ -1,4 +1,4 @@
-import { Sort } from '@empathy/search-types';
+import { Sort } from '@empathyco/x-types';
 import { injectable } from 'inversify';
 import { RequestMapper } from '../../../empathy-adapter.types';
 

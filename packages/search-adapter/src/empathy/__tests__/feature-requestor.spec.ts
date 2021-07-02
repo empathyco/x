@@ -1,4 +1,4 @@
-import { Suggestion } from '@empathy/search-types';
+import { Suggestion } from '@empathyco/x-types';
 import { Container } from 'inversify';
 import { SuggestionsResponse } from '../../types';
 import {

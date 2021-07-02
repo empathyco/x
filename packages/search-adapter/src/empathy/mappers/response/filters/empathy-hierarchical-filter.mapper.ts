@@ -1,4 +1,4 @@
-import { HierarchicalFilter } from '@empathy/search-types';
+import { HierarchicalFilter } from '@empathyco/x-types';
 import { injectable } from 'inversify';
 import { ResponseMapper, ResponseMapperContext } from '../../../empathy-adapter.types';
 import { EmpathyFilter } from '../../../models';

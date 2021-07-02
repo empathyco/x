@@ -1,4 +1,4 @@
-import { RelatedTag } from '@empathy/search-types';
+import { RelatedTag } from '@empathyco/x-types';
 import { QueryableRequest } from '../../../../types';
 import { EmpathyRequestRelatedTagsQueryMapper } from '../../../mappers/request/params/empathy-request-related-tags-query.mapper';
 

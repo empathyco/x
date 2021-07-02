@@ -1,4 +1,4 @@
-import { deepMerge } from '@empathybroker/deep-merge';
+import { deepMerge } from '@empathyco/x-deep-merge';
 import { inject, injectable, optional } from 'inversify';
 import {
   ClicksRecommendationsRequest,

@@ -1,4 +1,4 @@
-import { RecommendationSchema, TaggingSchema } from '@empathy/search-types/schemas';
+import { RecommendationSchema, TaggingSchema } from '@empathyco/x-types/schemas';
 import { DiscoveryWallRecommendationsResponse } from '../../__fixtures__/responses/discovery-wall-recommendations.response';
 import { adapter } from '../../__mocks__/adapter.mocks';
 import { getFetchMock } from '../../__mocks__/fetch.mock';

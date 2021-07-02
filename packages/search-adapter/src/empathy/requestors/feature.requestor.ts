@@ -1,4 +1,4 @@
-import { getSafePropertyChain } from '@empathy/get-safe-property-chain';
+import { getSafePropertyChain } from '@empathyco/x-get-safe-property-chain';
 import { inject, injectable, multiInject, optional } from 'inversify';
 import { Dictionary, FeatureNames, RequestOptions } from '../../types';
 import { EmpathyAdapterConfig, FeatureConfig } from '../config/empathy-adapter-config.types';

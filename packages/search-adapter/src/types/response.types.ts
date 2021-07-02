@@ -9,7 +9,7 @@ import {
   Result,
   Suggestion,
   Tagging
-} from '@empathy/search-types';
+} from '@empathyco/x-types';
 
 /**
  * TODO https://searchbroker.atlassian.net/browse/EX-2163

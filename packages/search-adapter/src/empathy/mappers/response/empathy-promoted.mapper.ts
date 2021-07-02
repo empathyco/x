@@ -1,4 +1,4 @@
-import { Promoted, Tagging } from '@empathy/search-types';
+import { Promoted, Tagging } from '@empathyco/x-types';
 import { injectable, multiInject } from 'inversify';
 import { DEPENDENCIES } from '../../container/container.const';
 import { MapFn, ResponseMapper, ResponseMapperContext } from '../../empathy-adapter.types';

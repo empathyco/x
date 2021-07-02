@@ -1,4 +1,4 @@
-import { RelatedTag } from '@empathy/search-types';
+import { RelatedTag } from '@empathyco/x-types';
 import { injectable } from 'inversify';
 import { ResponseMapper } from '../../empathy-adapter.types';
 import { EmpathyRelatedTag } from '../../models';

@@ -5,8 +5,8 @@ import {
   Filter,
   RangeValue,
   SimpleFilter
-} from '@empathy/search-types';
-import { deepMerge } from '@empathybroker/deep-merge';
+} from '@empathyco/x-types';
+import { deepMerge } from '@empathyco/x-deep-merge';
 import { Container } from 'inversify';
 import { DeepPartial, Dictionary } from '../../../../types';
 import { EmpathyAdapterConfig } from '../../../config/empathy-adapter-config.types';

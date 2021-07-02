@@ -1,4 +1,4 @@
-import { RelatedTagSchema } from '@empathy/search-types/schemas';
+import { RelatedTagSchema } from '@empathyco/x-types/schemas';
 import { RelatedTagsSimpleResponse } from '../../__fixtures__/responses/related-tags.response';
 import { adapter } from '../../__mocks__/adapter.mocks';
 import { getFetchMock } from '../../__mocks__/fetch.mock';

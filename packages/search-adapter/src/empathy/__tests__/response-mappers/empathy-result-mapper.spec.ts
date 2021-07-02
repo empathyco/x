@@ -1,6 +1,6 @@
-import { Result } from '@empathy/search-types';
-import { ResultSchema } from '@empathy/search-types/schemas';
-import { deepMerge } from '@empathybroker/deep-merge';
+import { Result } from '@empathyco/x-types';
+import { ResultSchema } from '@empathyco/x-types/schemas';
+import { deepMerge } from '@empathyco/x-deep-merge';
 import { Container } from 'inversify';
 import { SearchSimpleResponse, SearchSimpleResponseWithNoTagging } from '../../__fixtures__/responses/search.response';
 import { EmpathyAdapterBuilder } from '../../builder/empathy-adapter.builder';

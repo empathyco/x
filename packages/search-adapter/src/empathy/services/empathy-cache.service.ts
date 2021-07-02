@@ -1,4 +1,4 @@
-import { StorageService } from '@empathy/storage-service';
+import { StorageService } from '@empathyco/x-storage-service';
 import { inject, injectable } from 'inversify';
 import { DEPENDENCIES } from '../container/container.const';
 import { CacheService } from './cache-service.types';

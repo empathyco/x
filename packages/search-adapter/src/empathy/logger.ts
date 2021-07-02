@@ -1,4 +1,4 @@
-import { logger } from '@empathy/logger';
+import { logger } from '@empathyco/x-logger';
 
 /**
  * TODO https://searchbroker.atlassian.net/browse/EX-2163

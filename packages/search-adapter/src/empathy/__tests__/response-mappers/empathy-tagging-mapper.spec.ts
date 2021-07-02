@@ -1,4 +1,4 @@
-import { Tagging } from '@empathy/search-types';
+import { Tagging } from '@empathyco/x-types';
 import { EmpathyTaggingMapper } from '../../mappers/response/empathy-tagging.mapper';
 
 const taggingMapper = new EmpathyTaggingMapper();

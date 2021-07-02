@@ -1,4 +1,4 @@
-import { Suggestion } from '@empathy/search-types';
+import { Suggestion } from '@empathyco/x-types';
 import { injectable } from 'inversify';
 import { ResponseMapper, ResponseMapperContext } from '../../../empathy-adapter.types';
 import { EmpathySuggestion } from '../../../models';

@@ -1,4 +1,4 @@
-import { RelatedTag } from '@empathy/search-types';
+import { RelatedTag } from '@empathyco/x-types';
 import { Container } from 'inversify';
 import { QueryableRequest, SearchRequest } from '../../../types';
 import { DEPENDENCIES } from '../../container/container.const';

@@ -1,4 +1,4 @@
-import { StorageService } from '@empathy/storage-service';
+import { StorageService } from '@empathyco/x-storage-service';
 import { getFetchMock, koFetchMock, okFetchMock } from '../__mocks__/fetch.mock';
 import { FetchHttpClient } from '../http-clients/fetch-http-client';
 import { EmpathyCacheService } from '../services/empathy-cache.service';

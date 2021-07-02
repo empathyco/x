@@ -4,7 +4,7 @@ import {
   Filter,
   isBooleanFilter,
   isEditableNumberRangeFilter
-} from '@empathy/search-types';
+} from '@empathyco/x-types';
 import { inject, injectable } from 'inversify';
 import { EmpathyAdapterConfig } from '../../../config/empathy-adapter-config.types';
 import { DEPENDENCIES } from '../../../container/container.const';
@@ -61,7 +61,7 @@ export class EmpathyRequestFiltersSolrSyntaxMapper implements Mapper<Filter[], s
   }
 
   /**
-   * Check if the filters passed are of type {@link @empathy/search-types#BooleanFilter | BooleanFilter}.
+   * Check if the filters passed are of type {@link @empathyco/x-types#BooleanFilter | BooleanFilter}.
    *
    * @param filters - The array of filters to check.
    *
@@ -72,7 +72,7 @@ export class EmpathyRequestFiltersSolrSyntaxMapper implements Mapper<Filter[], s
   }
 
   /**
-   * Check if the filters passed are of type {@link @empathy/search-types#EditableNumberRangeFilter | EditableNumberRangeFilter}.
+   * Check if the filters passed are of type {@link @empathyco/x-types#EditableNumberRangeFilter | EditableNumberRangeFilter}.
    *
    * @param filters - The array of filters to check.
    *
