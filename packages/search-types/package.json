@@ -1,0 +1,51 @@
+{
+  "name": "@empathyco/x-types",
+  "version": "9.0.0",
+  "description": "Empathy search types",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/x-types.d.ts",
+  "scripts": {
+    "build": "rollup -c && npm run gen:docs && npm pack",
+    "build:watch": "rollup -c -w",
+    "gen:model-docs": "api-extractor run -c search-types-extractor.json -l && api-extractor run -c schema-extractor.json -l && api-extractor run -l",
+    "gen:typescript-docs": "api-documenter markdown -i report -o docs",
+    "gen:docs": "npm run gen:model-docs && npm run gen:typescript-docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://cbn-javieri@bitbucket.org/colbenson/search-types.git"
+  },
+  "keywords": [
+    "search",
+    "types",
+    "models",
+    "interfaces"
+  ],
+  "author": "Empathy",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/colbenson/search-types#readme",
+  "dependencies": {
+    "tslib": "~1.11.1"
+  },
+  "devDependencies": {
+    "@empathyco/x-jest-utils": "^1.3.0",
+    "@microsoft/api-documenter": "~7.5.8",
+    "@microsoft/api-extractor": "~7.5.6",
+    "@types/jest": "^24.0.12 <= 24.0.13",
+    "jest": "~24.8.0",
+    "rollup": "~2.7.3",
+    "rollup-plugin-delete": "~1.2.0",
+    "rollup-plugin-typescript2": "~0.27.0",
+    "tslint": "~5.16.0",
+    "typescript": "~3.8.3"
+  },
+  "files": [
+    "dist",
+    "schemas",
+    "report"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
