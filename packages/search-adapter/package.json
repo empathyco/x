@@ -1,10 +1,10 @@
 {
   "name": "@empathyco/x-adapter",
   "version": "6.1.0",
-  "description": "Empathy search types",
+  "description": "A search client for the Empathy search API ",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/empathyco/x/tree/main/packages/search-types#readme",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/search-adapter#readme",
   "keywords": [
     "search",
     "adapter",
