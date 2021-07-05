@@ -26,7 +26,7 @@ Empathy Search Adapter is a library for making it easier to consume Empathy Sear
 You can use a builder that will help you configuring the Empathy Search Adapter. If you simply need an adapter, without any advanced settings, you can run this code:
 
 ```javascript
-import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
+import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
 
 const adapter = new EmpathyAdapterBuilder()
     .setLang('en')
@@ -162,7 +162,7 @@ Then, you have these options for registering the mapper:
 You just have to call the `addMapper` (for functions) or `addClassMapper` (for classes) method of the builder, and pass it the new mapper, and the entity name that is going to map.
 
 ```javascript
-import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
+import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
 
 const adapter = new EmpathyAdapterBuilder()
     .addMapper(mapSizes, 'results')
@@ -170,7 +170,7 @@ const adapter = new EmpathyAdapterBuilder()
 ```
 
 ```javascript
-import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
+import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
 
 const adapter = new EmpathyAdapterBuilder()
     .addClassMapper(SizesResultMapper, 'results')
@@ -180,7 +180,7 @@ const adapter = new EmpathyAdapterBuilder()
 Optionally, you can pass to these functions a third argument, to only apply this new mapper to a single feature. Following the example, imagine that you only want to add this `size` attribute to the results that come from the search call. You can do so by passing `search` as the 3rd argument.
 
 ```javascript
-import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
+import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
 
 const adapter = new EmpathyAdapterBuilder()
     .addMapper(CustomResultMapper, 'results', 'search')
@@ -192,7 +192,7 @@ const adapter = new EmpathyAdapterBuilder()
 Perhaps you want to completely override the mappers for an entity. Well, this is also easy to do with the `EmpathyAdapterBuilder`. Just call the `replaceMapper` (for functions) or `replaceClassMapper` (for classes) methods:
 
 ```javascript
-import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
+import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
 
 const adapter = new EmpathyAdapterBuilder()
     .replaceMapper(mapSizes, 'results')
@@ -200,7 +200,7 @@ const adapter = new EmpathyAdapterBuilder()
 ```
 
 ```javascript
-import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
+import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
 
 const adapter = new EmpathyAdapterBuilder()
     .replaceClassMapper(SizesResultMapper, 'results')
@@ -235,7 +235,7 @@ Both of them only add a new random parameter to the request. For registering the
 If you decide to use functions:
 
 ```javascript
-import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
+import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
 
 const adapter = new EmpathyAdapterBuilder()
     .addRequestMapper(customRequestMapper)
@@ -243,7 +243,7 @@ const adapter = new EmpathyAdapterBuilder()
 ```
 
 ```javascript
-import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
+import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
 
 const adapter = new EmpathyAdapterBuilder()
     .addRequestMapper(customRequestMapper, 'search')
@@ -251,7 +251,7 @@ const adapter = new EmpathyAdapterBuilder()
 ```
 
 ```javascript
-import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
+import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
 
 const adapter = new EmpathyAdapterBuilder()
     .replaceRequestMapper(customRequestMapper)
@@ -261,7 +261,7 @@ const adapter = new EmpathyAdapterBuilder()
 And if you decide to use classes: 
 
 ```javascript
-import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
+import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
 
 const adapter = new EmpathyAdapterBuilder()
     .addClassRequestMapper(CustomRequestMapper)
@@ -269,7 +269,7 @@ const adapter = new EmpathyAdapterBuilder()
 ```
 
 ```javascript
-import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
+import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
 
 const adapter = new EmpathyAdapterBuilder()
     .addClassRequestMapper(CustomRequestMapper, 'search')
@@ -277,7 +277,7 @@ const adapter = new EmpathyAdapterBuilder()
 ```
 
 ```javascript
-import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
+import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
 
 const adapter = new EmpathyAdapterBuilder()
     .replaceClassRequestMapper(CustomRequestMapper)
@@ -291,7 +291,7 @@ Hooks are just functions that will be executed at certain time in the flow of an
 You can add them by calling the `onBeforeRequest`, `onBeforeResponseTransform` and `onResponseTransformed` methods.
 
 ```javascript
-import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
+import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
 
 const adapter = new EmpathyAdapterBuilder()
     .onBeforeRequest(context => console.log('The request has not been made yet', context))
@@ -342,7 +342,7 @@ const adapter = new EmpathyAdapterBuilder()
 The purpose of the builder is to simplify the most common use cases encapsulating Inversify, but maybe you need to add some advancing binding behaviour. There is a method called `configureContainer`, which receives a callback that has access to the Inversify container. If you need to re-bind other things apart from mappers and hooks this is the place to do it. You have a global constant with the binding keys, called `DEPENDENCIES`, which you can use for it.
 
 ```javascript
-import { EmpathyAdapterBuilder, DEPENDENCIES } from '@empathy/search-adapter';
+import { EmpathyAdapterBuilder, DEPENDENCIES } from '@empathyco/x-adapter';
 
 const adapter = new EmpathyAdapterBuilder()
     .configureContainer(container => {
@@ -378,7 +378,7 @@ var CustomAdapter = {
 
 Each one of this methods receives the request parameters, and the requestOptions, which is a map of any additional params you may need. Finally, this methods must return a `Promise` with the transformed data.
 
-However, it is recommended to use TypeScript for preventing some of the most common errors (typos, using wrong types...), and having better IDE auto-complete features. If you decide to use it, you can import all the types from `@empathy/search-adapter`. Below, you can find a more advanced example using these types and a `class` instead of a `var`:
+However, it is recommended to use TypeScript for preventing some of the most common errors (typos, using wrong types...), and having better IDE auto-complete features. If you decide to use it, you can import all the types from `@empathyco/x-adapter`. Below, you can find a more advanced example using these types and a `class` instead of a `var`:
 
 ```typescript
 import {
@@ -397,7 +397,7 @@ import {
   SuggestionsRequest,
   SuggestionsResponse,
   TrackingRequest
-} from '@empathy/search-adapter';
+} from '@empathyco/x-adapter';
 
 export class CustomAdapter implements SearchAdapter {
   getNextQueries(request: NextQueriesRequest, requestOptions: Partial<RequestOptions> = {}): Promise<NextQueriesResponse> { ... }
@@ -420,7 +420,7 @@ These are the basic methods for a custom adapter to work, but there are also som
 Note that for some of these methods to work, you will have to pass a configuration type to the `SearchAdapter` interface.
 
 ```typescript
-import { SearchAdapter } from '@empathy/search-adapter'; import { DeepPartial } from './utils.types';
+import { SearchAdapter } from '@empathyco/x-adapter'; import { DeepPartial } from './utils.types';
 
 export interface AdvancedAdapterConfig {
   env: 'live' | 'staging';
