@@ -1,77 +1,76 @@
-# Changelog
+# x-types
 
-## 9.0.0 - 2021/05/19
+TypeScript model types, guards, and jest schemas to use across the X project.
 
-> EX-3917 Change `HierarchicalFilter` `children` prop to be optional.
+### How to install
 
-## 8.0.0 - 2021/04/16
+```
+npm install @empathyco/x-types --save
+```
 
-> EX-3347 Remove `MultiSelect` model.
-> 
-> EX-3347 Add type guards for filters and facets models.
-> 
-> EX-3347 Change `BooleanFilterModelName` to support any string.
-> 
-> EX-3300 Transform `Sort` model into a string.
-> 
-> EX-3473 Make `BooleanFilter`'s `totalResults` property optional.
+### How to use
 
-## 7.0.0 - 2021/03/03
+The package export several model types that can be used to safely create objects that
+match the expectations of X packages.
 
-> EX-3291 Add `Identifiable` interface to  `Banner`, `Facet`, `Filter`, `Next-queries`, `Promoted`, `Redirection` and `Result`.
-> 
-> EX-3222 Add `BooleanFilter` and `EditableNumberRange`.
->
-> EX-3222 Add `Banner` and `Promoted` to `ModelNameType`.
+```ts
+import { RelatedTag } from "@empathyco/x-types";
 
-## 6.0.0 - 2020/01/07
+const relatedTag: RelatedTag = {
+  query: "lego",
+  tag: "city",
+  selected: false,
+  previous: "lego",
+};
+```
 
-> EX-2521 Remove `BaseFilter` and `Facet` from the possible model names.
->
-> EX-2479 Added FacetModelName and FilterModelName types.
->
-> EX-2447 Support null value in `parentId` for the `HierarchicalFilter` model.
->
-> EX-2320 Refactor Facet & Filter models, renaming fields and splitting in different subtypes.
+Additionally it also exposes some type guards to check between different types.
 
-## 5.0.1 - 2020/09/18
+```ts
+import { Filter, isHierarchicalFilter } from "@empathyco/x-types";
 
-> EX-2152 Fix api-extractor doc model and improve build
+const filter: Filter = {
+  modelName: "HierarchicalFilter",
+  id: "color:red",
+  facetId: "color",
+  label: "red",
+  selected: false,
+  children: [],
+};
+// You can't access filter.children before the `if` because you have a `Filter`, not a `HierarchicalFilter`.
 
-## 5.0.0 - 2020/07/30
+if (isHierarchicalFilter(filter)) {
+  // But after using the `isHierarchicalFilter` guard, you can acces it.
+  console.log("Children:", filter.children);
+}
+```
 
-> EX-1875 Close tags within the documentation between backslashes
->
-> EX-1843 Add ESM build keeping also the old CommonJS
->
-> EX-1837 Changed next query schema facets to be an array instead of an object.
->
-> EX-1693 Unified Suggestion like models properties (RelatedTag, NextQuery, Suggestion, HistoryTerm, PartialResult)
->
-> EX-1161 Add type to the attribute `modelName` in the interface `NamedModel`
+Finally, there are some `jest` schemas helpers that you could use to validate your objects.
 
-## 4.0.0 - 2020/02/04
+```ts
+import { HierarchicalFilterSchema } from "@empathyco/x-types/schemas";
+import { Filter, isHierarchicalFilter } from "@empathyco/x-types";
 
-> EX-1506 Add `isWishlisted` field to result model
->
-> EX-1437 Add RollupJS build process with document support
->
-> EX-1437 Concatenate types in a single file
+it("is a hierarchical filter", () => {
+  const filter: Filter = {
+    modelName: "HierarchicalFilter",
+    id: "color:red",
+    facetId: "color",
+    label: "red",
+    selected: false,
+    children: [],
+  };
 
-## 3.1.1
+  expect(filter).toEqual(HierarchicalFilterSchema);
+});
+```
 
-> EX-1540 Update `@empathy/jest-utils` to use minor version
+### How to update the version
 
-## 3.1.0
+You can check if a new version has been published running [npm outdated](https://docs.npmjs.com/cli/outdated):
 
-> EX-1454 Add optional `callbackInfo` object to Promoted, Banner and Result models
+`npm outdated @empathyco/x-types`
 
-## 3.0.0
+And update it using [npm update](https://docs.npmjs.com/cli/update):
 
-> EX-1276 Add `checkout` to `ResultTagging` model
->
-> EX-1355 Removed `preselected` property from `Facet`
-
-## 2.0.0
-
-> EX-1240 Removed `entityDetected` and `needParentFilter` properties from `Filter`
+`npm update --save @empathyco/x-types`

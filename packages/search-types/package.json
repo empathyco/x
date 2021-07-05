@@ -2,9 +2,31 @@
   "name": "@empathyco/x-types",
   "version": "9.0.0",
   "description": "Empathy search types",
+  "author": "Empathy Systems Corporation S.L.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/search-types#readme",
+  "keywords": [
+    "search",
+    "types",
+    "models",
+    "interfaces"
+  ],
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/x-types.d.ts",
+  "files": [
+    "dist",
+    "schemas",
+    "report"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empathyco/x.git",
+    "directory": "packages/search-types"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "scripts": {
     "build": "rollup -c && npm run gen:docs && npm pack",
     "build:watch": "rollup -c -w",
@@ -12,19 +34,6 @@
     "gen:typescript-docs": "api-documenter markdown -i report -o docs",
     "gen:docs": "npm run gen:model-docs && npm run gen:typescript-docs"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://cbn-javieri@bitbucket.org/colbenson/search-types.git"
-  },
-  "keywords": [
-    "search",
-    "types",
-    "models",
-    "interfaces"
-  ],
-  "author": "Empathy",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/colbenson/search-types#readme",
   "dependencies": {
     "tslib": "~1.11.1"
   },
@@ -40,11 +49,6 @@
     "tslint": "~5.16.0",
     "typescript": "~3.8.3"
   },
-  "files": [
-    "dist",
-    "schemas",
-    "report"
-  ],
   "publishConfig": {
     "access": "public"
   }
