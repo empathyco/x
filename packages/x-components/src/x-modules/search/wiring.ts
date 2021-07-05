@@ -108,6 +108,13 @@ export const setPageSize = wireCommit('setPageSize');
 export const resetPage = wireCommit('setPage', 1);
 
 /**
+ * Sets empty value to the search state `sort`.
+ *
+ * @public
+ */
+export const resetSort = wireCommit('setSort', '');
+
+/**
  * Search wiring.
  *
  * @internal
@@ -115,7 +122,8 @@ export const resetPage = wireCommit('setPage', 1);
 export const searchWiring = createWiring({
   UserAcceptedAQuery: {
     resetPage,
-    setSearchQuery
+    setSearchQuery,
+    resetSort
   },
   UserAcceptedSpellcheckQuery: {
     resetPage,
