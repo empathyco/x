@@ -71,16 +71,16 @@ Interface X is composed of some different packages. New packages will be added h
 - [@empathyco/x-archetype](https://github.com/empathyco/x-archetype) - This package is the Empathy vision of the
   perfect X-Components mixing. A project showing the power of the components ready to connect to any Search API with customizable layout through Design Tokens.
   This is a perfect example to know how to use the X-Components.
-- [@empathyco/x-deep-merge](packages/deep-merge) - Clones an array of objects into another object.
-- [@empathyco/eslint-plugin-x](packages/eslint-plugin-x) - The package name is just to follow the
+- [@empathyco/x-deep-merge](/packages/deep-merge) - Clones an array of objects into another object.
+- [@empathyco/eslint-plugin-x](/packages/eslint-plugin-x) - The package name is just to follow the
   guidelines of ESLint to develop a custom plugin, but it includes also style formatter and good practices outside ESLint, as
   [prettier](https://prettier.io/) and [standard-version](https://github.com/conventional-changelog/standard-version)
-- [@empathyco/x-get-safe-property-chain](packages/get-safe-property-chain) - A utility for safely retrieving nested values.
-- [@empathyco/x-jest-utils](packages/jest-utils) - Jest extensions for easier testing.
-- [@empathyco/x-logger](packages/logger) - A custom implementation of a logger.
-- [@empathyco/x-adapter](packages/search-adapter) - A search client for Empathy's API.
-- [@empathyco/x-types](packages/search-types) - TypeScript types & guards for X models.
-- [@empathyco/x-storage-service](packages/storage-service) - Storage service with TTL.
+- [@empathyco/x-get-safe-property-chain](/packages/get-safe-property-chain) - A utility for safely retrieving nested values.
+- [@empathyco/x-jest-utils](/packages/jest-utils) - Jest extensions for easier testing.
+- [@empathyco/x-logger](/packages/logger) - A custom implementation of a logger.
+- [@empathyco/x-adapter](/packages/search-adapter) - A search client for Empathy's API.
+- [@empathyco/x-types](/packages/search-types) - TypeScript types & guards for X models.
+- [@empathyco/x-storage-service](/packages/storage-service) - Storage service with TTL.
 
 ## How Can I Contribute?
 
