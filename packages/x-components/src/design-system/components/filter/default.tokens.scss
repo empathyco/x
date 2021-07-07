@@ -1,0 +1,26 @@
+:root {
+  // color
+  --x-color-background-filter: transparent;
+  --x-color-border-filter: var(--x-color-background-filter);
+  --x-color-text-filter: var(--x-color-text);
+  --x-color-background-filter-selected: var(--x-color-background-filter);
+  --x-color-border-filter-selected: var(--x-color-border-filter);
+  --x-color-text-filter-selected: var(--x-color-text-filter);
+
+  // border
+  --x-border-radius-filter: var(--x-border-radius-none);
+  --x-border-width-filter: var(--x-border-width);
+
+  // spacing
+  --x-space-padding-filter: var(--x-space-03) 0;
+  --x-space-gap-filter: var(--x-space-03);
+
+  // typography
+  --x-font-family-filter: var(--x-font-family-text);
+  --x-font-size-filter: var(--x-font-size-text);
+  --x-font-weight-filter: var(--x-font-weight-regular);
+  --x-font-weight-filter-selected: var(--x-font-weight-bold);
+  --x-font-weight-filter-count: var(--x-font-weight-light);
+  --x-font-weight-filter-count-selected: var(--x-font-weight-filter-count);
+  --x-font-line-height-filter: var(--x-font-line-height-text);
+}

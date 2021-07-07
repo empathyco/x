@@ -1,0 +1,5 @@
+.x-input-group--pill.x-input-group,
+.x-input-group--pill .x-input-group {
+  --x-border-radius-input-group: var(--x-border-radius-input-group-pill);
+  --x-border-radius-input-group-action: var(--x-border-radius-input-group);
+}

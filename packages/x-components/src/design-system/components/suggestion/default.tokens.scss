@@ -1,0 +1,20 @@
+:root {
+  // color
+  --x-color-text-suggestion: var(--x-color-text);
+  --x-color-text-suggestion-matching-part: var(--x-color-neutral-35);
+  --x-color-background-suggestion: transparent;
+
+  // spacing
+  --x-space-padding-suggestion: var(--x-space-02) 0;
+  --x-space-gap-suggestion: var(--x-space-03);
+
+  // typography
+  --x-font-family-suggestion: var(--x-font-family-text);
+  --x-font-size-suggestion: var(--x-font-size-text);
+  --x-font-line-height-suggestion: var(--x-font-line-height-text);
+  --x-font-weight-suggestion: var(--x-font-weight-text);
+  --x-font-family-suggestion-matching-part: var(--x-font-family-suggestion);
+  --x-font-size-suggestion-matching-part: var(--x-font-size-suggestion);
+  --x-font-line-height-suggestion-matching-part: var(--x-font-line-height-suggestion);
+  --x-font-weight-suggestion-matching-part: var(--x-font-weight-suggestion);
+}

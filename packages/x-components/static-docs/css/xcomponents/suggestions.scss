@@ -1,0 +1,19 @@
+.x-query-suggestions {
+  list-style-type: none;
+  width: 300px;
+  padding-left: 10px;
+  margin: 0 auto;
+  text-align: left;
+  .x-query-suggestion {
+    border: 0;
+    background: none;
+    .x-suggestion__query {
+      font-family: $montserrat-font;
+      font-weight: 300;
+    }
+    .x-suggestion__matching-part {
+      font-family: $montserrat-font;
+      font-weight: bold;
+    }
+  }
+}

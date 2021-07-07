@@ -1,0 +1,77 @@
+@import '../../mixins';
+
+.x-tag {
+  // layout
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+
+  // border
+  border-style: solid;
+  border-radius: var(--x-border-radius-tag);
+  border-width: var(--x-border-width-tag);
+
+  // color
+  background-color: var(--x-color-background-tag);
+  border-color: var(--x-color-border-tag);
+  color: var(--x-color-text-tag);
+
+  // typography
+  line-height: var(--x-font-line-height-tag);
+  font-family: var(--x-font-family-tag);
+  font-size: var(--x-font-size-tag);
+  font-weight: var(--x-font-weight-tag);
+
+  // spacing
+  gap: var(--x-space-gap-tag);
+  @include safari-gap(var(--x-space-gap-tag));
+  padding: var(--x-space-padding-tag);
+  min-width: calc(3 * var(--x-font-line-height-tag));
+
+  // other
+  cursor: pointer;
+
+  &.x-filter {
+    // color
+    --x-color-background-filter: transparent;
+    --x-border-width-filter: 0;
+    --x-color-text-filter: var(--x-color-text-tag);
+
+    // spacing
+    --x-space-padding-filter: 0;
+    --x-space-gap-filter: var(--x-space-gap-tag);
+
+    // typography
+    --x-font-family-filter: var(--x-font-family-tag);
+    --x-font-size-filter: var(--x-font-size-tag);
+    --x-font-weight-filter: var(--x-font-weight-tag);
+    --x-font-line-height-filter: var(--x-font-line-height-tag);
+  }
+
+  // selected (the double .x-tag is to override specificity of the scoped component style)
+  &.x-tag.x-tag--is-selected {
+    // color
+    background-color: var(--x-color-background-tag-selected);
+    border-color: var(--x-color-border-tag-selected);
+    color: var(--x-color-text-tag-selected);
+
+    // typography
+    line-height: var(--x-font-line-height-tag-selected);
+    font-family: var(--x-font-family-tag-selected);
+    font-size: var(--x-font-size-tag-selected);
+    font-weight: var(--x-font-weight-tag-selected);
+
+    &.x-filter {
+      // color
+      --x-color-text-filter: var(--x-color-text-tag-selected);
+
+      // typography
+      --x-font-family-filter: var(--x-font-family-tag-selected);
+      --x-font-size-filter: var(--x-font-size-tag-selected);
+      --x-font-weight-filter: var(--x-font-weight-tag-selected);
+      --x-font-line-height-filter: var(--x-font-line-height-tag-selected);
+    }
+  }
+}

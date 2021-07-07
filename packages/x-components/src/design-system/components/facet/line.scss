@@ -1,0 +1,8 @@
+.x-facet--line.x-facet,
+.x-facet--line .x-facet {
+  // color
+  --x-color-border-facet-header: var(--x-color-border-facet-header-line);
+
+  // border
+  --x-border-width-facet-header: var(--x-border-width-facet-header-line);
+}

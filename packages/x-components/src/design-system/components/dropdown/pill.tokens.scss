@@ -1,0 +1,11 @@
+:root {
+  // spacing
+  --x-space-gap-dropdown-pill: var(--x-space-03);
+
+  // border
+  --x-border-radius-dropdown-pill: calc(
+    var(--x-font-line-height-dropdown) / 2 + var(--x-space-padding-block-dropdown-item) +
+      var(--x-border-width-dropdown-toggle)
+  );
+  --x-border-width-dropdown-list-pill: var(--x-border-width);
+}

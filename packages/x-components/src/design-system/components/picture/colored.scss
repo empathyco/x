@@ -1,0 +1,21 @@
+.x-picture--colored.x-picture {
+  // colors
+  --x-color-background-picture: var(--x-color-background-picture-colored);
+
+  .x-picture {
+    &__image {
+      // others
+      --x-mix-blend-mode-picture-image: var(--x-mix-blend-mode-picture-image-colored);
+    }
+
+    &--fallback {
+      // others
+      --x-mix-blend-mode-picture-image: var(--x-mix-blend-mode-picture-image-fallback-colored);
+    }
+
+    &--placeholder {
+      // others
+      --x-mix-blend-mode-picture-image: var(--x-mix-blend-mode-picture-image-placeholder-colored);
+    }
+  }
+}

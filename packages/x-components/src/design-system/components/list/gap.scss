@@ -1,0 +1,8 @@
+@import '../../mixins';
+
+@for $i from 1 through 7 {
+  $i: zerofill($i);
+  .x-list--gap-#{$i}.x-list {
+    --x-space-gap-list: var(--x-space-gap-list-#{$i});
+  }
+}

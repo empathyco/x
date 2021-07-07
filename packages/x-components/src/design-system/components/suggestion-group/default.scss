@@ -1,0 +1,47 @@
+@import '../../mixins';
+
+.x-suggestion-group {
+  // layout
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  box-sizing: border-box;
+
+  // color
+  border: none;
+  background-color: var(--x-color-background-suggestion-group);
+  color: var(--x-color-text-suggestion-group);
+
+  // typography
+  font-family: var(--x-font-family-suggestion-group);
+  font-size: var(--x-font-size-suggestion-group);
+  line-height: var(--x-font-line-height-suggestion-group);
+  font-weight: var(--x-font-weight-suggestion-group);
+
+  // other
+  cursor: pointer;
+
+  // spacing
+  padding: var(--x-space-padding-suggestion-group);
+  gap: var(--x-space-gap-suggestion-group);
+  @include safari-gap(var(--x-space-gap-suggestion-group));
+
+  .x-suggestion {
+    // layout
+    padding: 0;
+    flex: 1 1 auto;
+  }
+
+  .x-button {
+    // color
+    --x-color-background-button: transparent;
+    --x-color-border-button: transparent;
+    --x-color-text-button: var(--x-color-text-suggestion-group);
+
+    // spacing
+    --x-space-padding-button: 0;
+
+    // border
+    border: none;
+  }
+}

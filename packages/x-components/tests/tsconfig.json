@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "declaration": false,
+    "declarationMap": false,
+    "types": ["node", "cypress"],
+    "downlevelIteration": true
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["**/__tests__/**/*"]
+}

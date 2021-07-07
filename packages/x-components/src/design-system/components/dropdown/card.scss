@@ -1,0 +1,8 @@
+.x-dropdown--card {
+  // spacing
+  --x-space-gap-dropdown: var(--x-space-gap-dropdown-card);
+
+  // border
+  --x-border-radius-dropdown: var(--x-border-radius-dropdown-card);
+  --x-border-width-dropdown-list: var(--x-border-width-dropdown-list-card);
+}

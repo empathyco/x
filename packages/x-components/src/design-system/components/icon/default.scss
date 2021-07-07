@@ -1,0 +1,23 @@
+.x-icon {
+  // colors
+  stroke: var(--x-color-stroke-icon);
+  fill: var(--x-color-fill-icon);
+
+  // layout
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+  vertical-align: middle;
+
+  // sizing
+  line-height: var(--x-size-height-icon);
+  width: var(--x-size-width-icon);
+  height: var(--x-size-height-icon);
+  font-size: var(--x-size-height-icon);
+
+  // stroke
+  stroke-linecap: var(--x-stroke-linecap-icon);
+  stroke-linejoin: var(--x-stroke-linejoin-icon);
+  stroke-width: var(--x-stroke-width-icon);
+}

@@ -1,0 +1,13 @@
+:root {
+  // color
+  --x-color-border-option-list-item-bottom: var(--x-color-neutral-10);
+  --x-color-text-option-list-button-bottom-hover: var(--x-color-neutral-10);
+
+  // border
+  --x-border-width-option-list-item-bottom: 0;
+  --x-border-width-option-list-item-bottom-selected: 0 0 var(--x-border-width);
+
+  // typography
+  --x-font-decoration-option-list-button-bottom-hover: none;
+  --x-font-weight-option-list-button-bottom-selected: (--x-font-weight-regular);
+}

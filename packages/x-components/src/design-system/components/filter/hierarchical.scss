@@ -1,0 +1,15 @@
+.x-hierarchical-filter-container {
+  list-style: none;
+
+  .x-hierarchical-filter {
+    &__children.x-list {
+      margin: var(--x-space-margin-filter-children);
+      padding: var(--x-space-padding-filter-children);
+    }
+  }
+
+  .x-hierarchical-filter-container,
+  .x-filter {
+    width: 100%;
+  }
+}

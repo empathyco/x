@@ -1,0 +1,17 @@
+{
+  "baseUrl": "http://localhost:8080",
+  "fixturesFolder": "tests/e2e/fixtures",
+  "integrationFolder": "tests/e2e/specs",
+  "pluginsFile": "tests/e2e/plugins/index.js",
+  "screenshotsFolder": "tests/e2e/screenshots",
+  "screenshotOnRunFailure": false,
+  "supportFile": "tests/e2e/support/index.ts",
+  "video": false,
+  "testFiles": [
+    "cucumber/**/*.features",
+    "default/**/*.spec.ts"
+  ],
+  "defaultCommandTimeout": 8000,
+  "viewportHeight": 1080,
+  "viewportWidth": 1920
+}

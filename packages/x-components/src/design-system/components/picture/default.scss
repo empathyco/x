@@ -1,0 +1,46 @@
+.x-picture {
+  // layout
+  display: block;
+  overflow: hidden;
+
+  // border
+  border-radius: var(--x-border-radius-picture);
+
+  // color
+  background: var(--x-color-background-picture);
+
+  &__image {
+    // layout
+    display: block;
+
+    // sizes
+    width: 100%;
+    height: 100%;
+
+    // others
+    object-fit: var(--x-object-fit-picture-image);
+    mix-blend-mode: var(--x-mix-blend-mode-picture-image);
+
+    &--fallback {
+      --x-object-fit-picture-image: var(--x-object-fit-picture-image-fallback);
+      --x-mix-blend-mode-picture-image: var(--x-mix-blend-mode-picture-image-fallback);
+      & > rect{
+        fill: var(--x-color-fill-fallback-rect);
+      }
+      & > path{
+        fill: var(--x-color-fill-fallback-path);
+      }
+    }
+
+    &--placeholder {
+      --x-object-fit-picture-image: var(--x-object-fit-picture-image-placeholder);
+      --x-mix-blend-mode-picture-image: var(--x-mix-blend-mode-picture-image-placeholder);
+      & > rect{
+        fill: var(--x-color-fill-placeholder-rect);
+      }
+      & > path{
+        fill: var(--x-color-fill-placeholder-path);
+      }
+    }
+  }
+}
