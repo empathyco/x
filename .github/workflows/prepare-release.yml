@@ -3,14 +3,12 @@ on: [workflow_dispatch]
 jobs:
   prepare-release:
     runs-on: ubuntu-latest
+    container: cypress/browsers:node12.18.3-chrome87-ff82
     steps:
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.SUPPORT_TOKEN }}
           fetch-depth: 0
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 12
       - name: Install lerna and all packages
         run: npm ci
       - name: Build all packages
