@@ -22,7 +22,7 @@
     "test:unit-watch": "vue-cli-service test:unit --watch",
     "test:e2e": "vue-cli-service test:e2e",
     "test:e2e:ci": "vue-cli-service test:e2e --headless --browser chrome",
-    "test": "npm run lint && npm run test:unit && npm run test:e2e:ci",
+    "test": "npm run lint && npm run test:unit",
     "cypress:open": "cypress open",
     "lint": "vue-cli-service lint build src tests",
     "commit": "git-cz",
