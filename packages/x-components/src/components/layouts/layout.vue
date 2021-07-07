@@ -79,6 +79,12 @@
           </slot>
         </section>
       </BaseIdScroll>
+
+      <div class="x-layout__scroll-to-top">
+        <slot name="scroll-to-top">
+          <span v-if="devMode" class="slot-helper" style="height: 50px">SCROLL TO TOP</span>
+        </slot>
+      </div>
     </main>
   </div>
 </template>
@@ -145,7 +151,8 @@
           this.hasContent(this.$slots['toolbar-aside']) ||
           this.hasContent(this.$slots['toolbar-body']),
         mainAside: this.devMode || this.hasContent(this.$slots['main-aside']),
-        mainBody: this.devMode || this.hasContent(this.$slots['main-body'])
+        mainBody: this.devMode || this.hasContent(this.$slots['main-body']),
+        scrollToTop: this.devMode || this.hasContent(this.$slots['scroll-to-top'])
       };
     }
 

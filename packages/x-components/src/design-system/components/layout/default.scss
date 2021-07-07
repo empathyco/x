@@ -260,4 +260,14 @@
       --x-space-gap-grid: var(--x-space-column-gap-layout);
     }
   }
+
+  &__scroll-to-top {
+    // layout
+    position: absolute;
+
+    // spacing
+    inset-inline-end: var(--x-space-inset-inline-end-scroll-to-top);
+    bottom: var(--x-space-bottom-scroll-to-top);
+    margin-inline-end: calc(var(--x-space-margin-layout) + var(--x-space-column-gap-layout));
+  }
 }

@@ -142,6 +142,11 @@
             </template>
           </ResultsList>
         </template>
+        <template #scroll-to-top>
+          <BaseScrollToTop scroll-id="body-scroll" :threshold-px="500">
+            <span>⬆</span>
+          </BaseScrollToTop>
+        </template>
       </Layout>
     </BaseIdModal>
   </div>
@@ -191,6 +196,7 @@
   import { searchXModule } from '../x-modules/search/x-module';
   import SearchIcon from '../components/icons/search.vue';
   import CrossIcon from '../components/icons/cross.vue';
+  import BaseScrollToTop from '../components/scroll/base-scroll-to-top.vue';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
@@ -208,6 +214,7 @@
     },
     components: {
       BaseIdTogglePanelButton,
+      BaseScrollToTop,
       ChevronDown,
       ChevronRight,
       ChevronLeft,

@@ -49,7 +49,7 @@
     // layout
     grid-column: result;
     grid-row: overlay;
-    z-index: 1;
+    z-index: 0;
 
     // color
     border-color: var(--x-color-border-result-overlay);

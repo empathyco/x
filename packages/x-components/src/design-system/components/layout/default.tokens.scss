@@ -63,6 +63,10 @@
   --x-space-justify-layout-main-body: flex-start;
   --x-space-align-layout-main-body: stretch;
 
+  // spacing - scroll to top
+  --x-space-inset-inline-end-scroll-to-top: 0;
+  --x-space-bottom-scroll-to-top: 16px;
+
   // color
   --x-color-background-layout: var(--x-color-neutral-100);
   --x-color-background-layout-header: transparent;
