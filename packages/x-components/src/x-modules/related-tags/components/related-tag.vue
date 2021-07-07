@@ -6,9 +6,9 @@
     :class="dynamicClasses"
   >
     <!--
-      @slot Related Tag content
-          @binding {RelatedTag} relatedTag - Related Tag data
-          @binding {boolean} isSelected - True if the related tag is selected. False otherwise.
+      @slot Custom content that replaces the RelatedTag default content.
+      @binding {RelatedTag} relatedTag - Related tag data.
+      @binding {boolean} isSelected - Related tag status.
       -->
     <slot v-bind="{ relatedTag, isSelected }">{{ relatedTag.tag }}</slot>
   </BaseEventButton>
@@ -26,7 +26,9 @@
   import { relatedTagsXModule } from '../x-module';
 
   /**
-   * Renders a related tag item which receives the related tag that will be rendered as a prop.
+   * This component renders a related tag for a query. A related tag is a descriptive keyword
+   * related to the current query to fine-tune the search. For example, if you are searching
+   * for *lego*, a related tag could be *city*, refining the search with *lego city*.
    *
    * @public
    */
@@ -36,7 +38,7 @@
   })
   export default class RelatedTag extends Vue {
     /**
-     * The related tag to render and use in the default slot.
+     * The related tag model data.
      *
      * @public
      */
@@ -45,16 +47,17 @@
     /**
      * The selected related tags.
      *
-     * @public
+     * @internal
      */
     @State('relatedTags', 'selectedRelatedTags')
     public selectedRelatedTags!: RelatedTagModel[];
+
     /**
-     * Events list which are going to be emitted when a related tag is selected.
+     * Events list which is going to be emitted when a related tag is selected.
      *
      * @returns The {@link XEvent | XEvents} to emit.
      *
-     * @public
+     * @internal
      */
     protected get events(): Partial<RelatedTagsXEvents> {
       return this.isSelected
@@ -67,12 +70,13 @@
             UserSelectedARelatedTag: this.relatedTag
           };
     }
+
     /**
      * Check if the related tag is selected or not.
      *
      * @returns If the related tag is selected.
      *
-     * @public
+     * @internal
      */
     protected get isSelected(): boolean {
       return this.selectedRelatedTags.includes(this.relatedTag);
@@ -83,7 +87,7 @@
      *
      * @returns The class to be added to the component.
      *
-     * @public
+     * @internal
      */
     protected get dynamicClasses(): VueCSSClasses {
       return {
@@ -97,46 +101,140 @@
 <style lang="scss" scoped>
   .x-related-tag {
     white-space: nowrap;
+
     &--is-selected {
       background: lightgrey;
     }
   }
 </style>
 
-<docs>
-  #Example
+<docs lang="mdx">
+## Dynamic classes
 
-  This components expects just a related tag as a prop to be rendered. It has a slot to override
-  the content. By default, it renders the tag of the related tag.
+`RelatedTag` uses the `x-related-tag--is-selected` dynamic CSS class so you can style it when is
+selected.
 
-  ## Basic Usage
+## Events
 
-  Using default slot:
-  ```vue
-  <RelatedTag :relatedTag="relatedTag"/>
-  ```
+This component emits the following events:
 
-  ## Overriding default slot .
+- [`UserDeselectedARelatedTag`](./../../api/x-components.relatedtagsxevents.md)
+- [`UserPickedARelatedTag`](./../../api/x-components.relatedtagsxevents.md)
+- [`UserSelectedARelatedTag`](./../../api/x-components.relatedtagsxevents.md)
 
-  The default slot allows you to replace the content of the related tag.
+## See it in action
 
-  ```vue
-  <RelatedTag :relatedTag="relatedTag">
-    <template #default="{ relatedTag }">
-      <img class="x-related-tag__icon" src="./related-tag.svg" />
-      <span class="x-related-tag__tag" :aria-label="relatedTag.tag">{{ relatedTag.tag }}</span>
-    </template>
+<!-- prettier-ignore-start -->
+:::warning Backend service required
+The QuerySignals microservice must be implemented.
+:::
+<!-- prettier-ignore-end -->
+
+In this example related tag data is passed as a prop.
+
+_Here you can see how the RelatedTag component is rendered._
+
+```vue
+<template>
+  <RelatedTag :relatedTag="tag"></RelatedTag>
+</template>
+
+<script>
+  import { RelatedTag } from '@empathyco/x-components/related-tags';
+
+  export default {
+    name: 'RelatedTagDemo',
+    components: {
+      RelatedTag
+    },
+    data() {
+      return {
+        tag: {
+          modelName: 'RelatedTag',
+          previous: 'toy',
+          query: 'toy story',
+          selected: false,
+          tag: 'story'
+        }
+      };
+    }
+  };
+</script>
+```
+
+### Play with default slot
+
+In this example, an HTML span element is passed in the `default` slot.
+
+_See how the related tag can be rendered._
+
+```vue
+<template>
+  <RelatedTag :relatedTag="tag" #default="{ relatedTag }">
+    <span :aria-label="relatedTag.tag">{{ relatedTag.tag }}</span>
   </RelatedTag>
-  ```
+</template>
 
-  ## Events
+<script>
+  import { RelatedTag } from '@empathyco/x-components/related-tags';
 
-  A list of events that the component will emit:
+  export default {
+    name: 'RelatedTagDemo',
+    components: {
+      RelatedTag
+    },
+    data() {
+      return {
+        tag: {
+          modelName: 'RelatedTag',
+          previous: 'toy',
+          query: 'toy story',
+          selected: false,
+          tag: 'story'
+        }
+      };
+    }
+  };
+</script>
+```
 
-  - `UserPickedARelatedTag`: the event is emitted after the user clicks the button. The event
-  payload is the related tag data.
-  - `UserSelectedARelatedTag`: the event is emitted after the user clicks the button and if the
-  state is not selected. The event payload is the related tag data.
-  - `UserDeselectedARelatedTag`: the event is emitted after the user clicks the button and if the
-  state is selected. The event payload is the related tag data.
+### Play with events
+
+In this example, the [`UserSelectedARelatedTag`](./../../api/x-components.relatedtagsxevents.md)
+event is implemented, as illustrated by the “Tag” message returned.
+
+_See how the event is triggered when the related tag is clicked._
+
+```vue
+<template>
+  <RelatedTag :relatedTag="tag" @UserSelectedARelatedTag="alertRelatedTag"></RelatedTag>
+</template>
+
+<script>
+  import { RelatedTag } from '@empathyco/x-components/related-tags';
+
+  export default {
+    name: 'RelatedTagDemo',
+    components: {
+      RelatedTag
+    },
+    data() {
+      return {
+        tag: {
+          modelName: 'RelatedTag',
+          previous: 'toy',
+          query: 'toy story',
+          selected: false,
+          tag: 'story'
+        }
+      };
+    },
+    methods: {
+      alertRelatedTag(relatedTag) {
+        alert(`You have clicked the related tag: ${relatedTag.query}`);
+      }
+    }
+  };
+</script>
+```
 </docs>

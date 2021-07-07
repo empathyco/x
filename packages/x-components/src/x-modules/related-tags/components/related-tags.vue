@@ -13,17 +13,16 @@
       data-test="related-tag-item"
     >
       <!--
-        @slot Related Tag item
-            @binding {RelatedTag} relatedTag - Related Tag data
+        @slot Custom content that replaces the RelatedTag component.
+        @binding {RelatedTag} relatedTag - Related tag data.
        -->
       <slot name="related-tag" :relatedTag="relatedTag">
         <RelatedTag :relatedTag="relatedTag">
           <template #default="{ relatedTag, isSelected }">
             <!--
-              @slot Related Tag content
-                  @binding {RelatedTag} relatedTag - Related Tag data
-                  @binding {boolean} isSelected - True if the related tag is selected.
-                  False otherwise.
+              @slot Custom content that replaces the RelatedTag default content.
+              @binding {RelatedTag} relatedTag - Related tag data.
+              @binding {boolean} isSelected - Related tag status.
             -->
             <slot name="related-tag-content" v-bind="{ relatedTag, isSelected }" />
           </template>
@@ -43,12 +42,9 @@
   import RelatedTag from './related-tag.vue';
 
   /**
-   * Simple related-tags component that renders a list of related tags.
-   *
-   * @remarks
-   * A related tag is just a tag related with the previous query refining it.
-   * I.e. If you are searching for `lego`, a related tag could be `city` and this refine the search
-   * with this new tag, 'lego city'.
+   * For example, if you are searching for *lego*, different related tags could be *city*,
+   * *friends*, or *harry potter*, refining the search with *lego city*, *lego friends*,
+   * or *lego harry potter*.
    *
    * @public
    */
@@ -89,58 +85,166 @@
   }
 </style>
 
-<docs>
-  #Examples
+<docs lang="mdx">
+## See it in action
 
-  ## Basic example
+<!-- prettier-ignore-start -->
+:::warning Backend microservice required
+To use this component, the QuerySignals microservice must be implemented.
+:::
+<!-- prettier-ignore-end -->
 
-  You don't need to pass any props, or slots. Simply add the component, and when it has any related
-  tags it will show them
+This example shows how related tags can be rendered without any additional effects.
 
-  ```vue
-  <RelatedTags />
-  ```
+_Search for a toy and press enter._
 
-  ## Overriding Related Tag's Content
+```vue
+<template>
+  <div>
+    <SearchInput></SearchInput>
+    <RelatedTags></RelatedTags>
+  </div>
+</template>
 
-  You can use your custom implementation of the Related Tag's content.
-  In the example below, instead of using the default Related Tag's content, an icon
-  is added, as well as a span with the query of the Related Tag.
+<script>
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { RelatedTags } from '@empathyco/x-components/related-tags';
 
-  ```vue
-  <RelatedTags>
-    <template #related-tag-content="{relatedTag}">
-      <img src="./related-tag-icon.svg" class="x-related-tag__icon"/>
-      <span class="x-related-tag__tag">{{ relatedTag.tag }}</span>
-    </template>
-  </RelatedTags>
-  ```
+  export default {
+    name: 'RelatedTagsDemo',
+    components: {
+      SearchInput,
+      RelatedTags
+    }
+  };
+</script>
+```
 
-  ## Adding a custom related tag component
+### Play with props
 
-  You can use your custom implementation of a Related Tag component.
-  In the example below, instead of using the default `button` tag for a Related Tag, an icon is
-  added, and the text of the related tag is wrapped in a `span`
+In this example, the number of related tags rendered has been limited to 3. A fade and slide effect
+has been added so that the related tags appear with a delay, then slide upwards and fade
 
-  ```vue
-  <RelatedTags>
-    <template #related-tag="{relatedTag}">
-      <RelatedTag :relatedTag="relatedTag">
-        <template #default>
-          <img src="./related-tag-icon.svg" class="x-related-tag__icon"/>
-          <span class="x-related-tag__tag">{{ relatedTag.tag }}</span>
-        </template>
-      </RelatedTag>
-      <button>Custom Behaviour</button>
-    </template>
-  </RelatedTags>
-  ```
+_Search for a toy and press Enter to see the related tags with the animation effect._
 
-  ## Limiting the number of rendered related tags
+```vue
+<template>
+  <div>
+    <SearchInput></SearchInput>
+    <RelatedTags animation="StaggeredFadeAndSlide" :maxItemsToRender="3"></RelatedTags>
+  </div>
+</template>
 
-  You can render a maximum number of related tags rendered.
+<script>
+  import Vue from 'vue';
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { RelatedTags } from '@empathyco/x-components/related-tags';
+  import { StaggeredFadeAndSlide } from '@empathyco/x-components';
 
-  ```vue
-  <RelatedTags maxItemsToRender="3" />
-  ```
+  Vue.component('StaggeredFadeAndSlide', StaggeredFadeAndSlide);
+  export default {
+    name: 'RelatedTagsDemo',
+    components: {
+      SearchInput,
+      RelatedTags
+    }
+  };
+</script>
+```
+
+### Play with related-tag slot
+
+In this example, the [`RelatedTag`](../related-tags/related-tag.md) component is passed in the
+`related-tag` slot (although any other component could potentially be passed).
+
+_Search for a toy and see how the related tags can be rendered._
+
+```vue
+<template>
+  <div>
+    <SearchInput></SearchInput>
+    <RelatedTags #related-tag="{ relatedTag }">
+      <RelatedTag :relatedTag="relatedTag"></RelatedTag>
+    </RelatedTags>
+  </div>
+</template>
+
+<script>
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { RelatedTags, RelatedTag } from '@empathyco/x-components/related-tags';
+
+  export default {
+    name: 'RelatedTagsDemo',
+    components: {
+      SearchInput,
+      RelatedTags,
+      RelatedTag
+    }
+  };
+</script>
+```
+
+### Play with related-tag-content slot
+
+To continue the previous example, the [`RelatedTag`](./x-components.related-tag.md) component is
+passed in the `related-tag-content` slot, but in addition, an HTML span tag for the text are also
+passed.
+
+_Search for a toy and see how the related tags are rendered._
+
+```vue
+<template>
+  <div>
+    <SearchInput></SearchInput>
+    <RelatedTags #related-tag-content="{ relatedTag }">
+      <span>{{ relatedTag.tag }}</span>
+    </RelatedTags>
+  </div>
+</template>
+
+<script>
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { RelatedTags } from '@empathyco/x-components/related-tags';
+
+  export default {
+    name: 'RelatedTagsDemo',
+    components: {
+      SearchInput,
+      RelatedTags
+    }
+  };
+</script>
+```
+
+## Extending the component
+
+Components can be combined and communicate with each other. The `RelatedTags` component can
+communicate with the [`SearchInput`](../search-box/search-input.md) as follows:
+
+_Search for a toy and see how the related tags can be rendered._
+
+```vue
+<template>
+  <div>
+    <SearchInput></SearchInput>
+    <RelatedTags></RelatedTags>
+    <ResultsList></ResultsList>
+  </div>
+</template>
+
+<script>
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { RelatedTags } from '@empathyco/x-components/related-tags';
+  import { ResultsList } from '@empathyco/x-components/search';
+
+  export default {
+    name: 'RelatedTagsDemo',
+    components: {
+      SearchInput,
+      RelatedTags,
+      ResultsList
+    }
+  };
+</script>
+```
 </docs>
