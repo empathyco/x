@@ -64,8 +64,8 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { deepMerge } from '@empathybroker/deep-merge';
-  import { Result } from '@empathy/search-types';
+  import { deepMerge } from '@empathyco/x-deep-merge';
+  import { Result } from '@empathyco/x-types';
   import { CrossIcon } from '../components/icons/index';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';

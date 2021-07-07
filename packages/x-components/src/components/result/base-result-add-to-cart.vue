@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-  import { Result } from '@empathy/search-types';
+  import { Result } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { XEventsTypes } from '../../wiring/events.types';
@@ -27,7 +27,7 @@
   })
   export default class BaseResultAddToCart extends Vue {
     /**
-     * (Required) The {@link @empathy/search-types#Result | result} information.
+     * (Required) The {@link @empathyco/x-types#Result | result} information.
      *
      * @public
      */

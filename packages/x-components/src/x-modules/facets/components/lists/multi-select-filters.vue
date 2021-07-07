@@ -17,7 +17,7 @@
   import Vue from 'vue';
   import { mixins } from 'vue-class-component';
   import { Component, Prop } from 'vue-property-decorator';
-  import { Facet } from '@empathy/search-types';
+  import { Facet } from '@empathyco/x-types';
   import { State } from '../../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
   import { facetsXModule } from '../../x-module';
@@ -147,8 +147,8 @@ mandatory prop, it allows you to configure the transitions (using the `animation
 </template>
 
 <script>
-  import { StaggeredFadeAndSlide } from '@empathy/x-components';
-  import { Facets, MultiSelectFilters, SimpleFilter } from '@empathy/x-components/facets';
+  import { StaggeredFadeAndSlide } from '@empathyco/x-components';
+  import { Facets, MultiSelectFilters, SimpleFilter } from '@empathyco/x-components/facets';
 
   export default {
     components: {

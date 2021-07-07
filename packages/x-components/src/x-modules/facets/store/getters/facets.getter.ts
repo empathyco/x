@@ -1,4 +1,4 @@
-import { Facet } from '@empathy/search-types';
+import { Facet } from '@empathyco/x-types';
 import { FacetsXStoreModule } from '../types';
 
 /**

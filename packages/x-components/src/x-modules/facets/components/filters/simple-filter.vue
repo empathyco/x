@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-  import { SimpleFilter as SimpleFilterModel } from '@empathy/search-types';
+  import { SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { xComponentMixin } from '../../../../components';
@@ -108,7 +108,7 @@ property as text.
 </template>
 
 <script>
-  import { SimpleFilter } from '@empathy/x-components/facets';
+  import { SimpleFilter } from '@empathyco/x-components/facets';
 
   export default {
     name: 'SimpleFilterTest',
@@ -148,7 +148,7 @@ data and methods needed:
 </template>
 
 <script>
-  import { SimpleFilter } from '@empathy/x-components/facets';
+  import { SimpleFilter } from '@empathyco/x-components/facets';
 
   export default {
     name: 'SimpleFilterTest',
@@ -188,7 +188,7 @@ receive the filter data.
 </template>
 
 <script>
-  import { SimpleFilter } from '@empathy/x-components/facets';
+  import { SimpleFilter } from '@empathyco/x-components/facets';
 
   export default {
     name: 'SimpleFilterTest',

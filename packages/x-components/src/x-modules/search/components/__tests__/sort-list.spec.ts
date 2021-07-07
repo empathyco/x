@@ -1,6 +1,6 @@
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { Sort } from '@empathy/search-types';
+import { Sort } from '@empathyco/x-types';
 import Vuex, { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { WirePayload } from '../../../../wiring';

@@ -66,7 +66,7 @@ This two props should be show like a message comparing them.
 </Spellcheck>
 
 <script>
-  import { Spellcheck } from '@empathy/x-components/search';
+  import { Spellcheck } from '@empathyco/x-components/search';
 
   export default {
     components: {

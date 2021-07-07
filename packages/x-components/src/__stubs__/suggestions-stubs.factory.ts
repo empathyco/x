@@ -1,4 +1,4 @@
-import { ModelNameType, Suggestion } from '@empathy/search-types';
+import { ModelNameType, Suggestion } from '@empathyco/x-types';
 import { createFacetWithFilter } from './facets-stubs.factory';
 
 /**

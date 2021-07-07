@@ -1,4 +1,4 @@
-import { HistoryQuery } from '@empathy/search-types';
+import { HistoryQuery } from '@empathyco/x-types';
 import { isArrayEmpty } from '../../../../utils/array';
 import { NextQueriesXStoreModule } from '../types';
 

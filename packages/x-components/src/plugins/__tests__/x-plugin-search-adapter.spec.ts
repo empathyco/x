@@ -1,4 +1,4 @@
-import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
+import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
 import { createLocalVue } from '@vue/test-utils';
 import { VueConstructor } from 'vue';
 import { createWireFromFunction } from '../../wiring/wires.factory';

@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-  import { Facet, Filter } from '@empathy/search-types';
+  import { Facet, Filter } from '@empathyco/x-types';
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { XEmit, XOn } from '../../../components';
   import { Getter } from '../../../components/decorators/store.decorators';
@@ -279,7 +279,7 @@ rendered as specified in the default slot.
 </template>
 
 <script>
-  import { Facets } from '@empathy/x-components/facets';
+  import { Facets } from '@empathyco/x-components/facets';
 
   export default {
     components: {
@@ -322,7 +322,7 @@ just to the "color" Facet. The other facets will fallback to the composition of 
 </template>
 
 <script>
-  import { Facets } from '@empathy/x-components/facets';
+  import { Facets } from '@empathyco/x-components/facets';
 
   export default {
     components: {
@@ -352,7 +352,7 @@ To do so, pass an array of facets using the `facets` prop.
 </template>
 
 <script>
-  import { Facets } from '@empathy/x-components/facets';
+  import { Facets } from '@empathyco/x-components/facets';
 
   export default {
     components: {
@@ -411,7 +411,7 @@ independent, you can use the `frontendFacets` prop.
 </template>
 
 <script>
-  import { Facets } from '@empathy/x-components/facets';
+  import { Facets } from '@empathyco/x-components/facets';
 
   export default {
     components: {
@@ -521,7 +521,7 @@ ones. In the following example, the component will only render color and categor
 </template>
 
 <script>
-  import { Facets } from '@empathy/x-components/facets';
+  import { Facets } from '@empathyco/x-components/facets';
 
   export default {
     components: {
@@ -552,7 +552,7 @@ render every facet except color and price.
 </template>
 
 <script>
-  import { Facets } from '@empathy/x-components/facets';
+  import { Facets } from '@empathyco/x-components/facets';
 
   export default {
     components: {
@@ -608,9 +608,9 @@ the `Facets` component using the `FiltersSearch` `MultiSelectFilters`, `SimpleFi
     MultiSelectFilters,
     NumberRangeFilter,
     SimpleFilter
-  } from '@empathy/x-components/facets';
+  } from '@empathyco/x-components/facets';
 
-  import { BasePriceFilterLabel } from '@empathy/x-components';
+  import { BasePriceFilterLabel } from '@empathyco/x-components';
 
   export default {
     components: {

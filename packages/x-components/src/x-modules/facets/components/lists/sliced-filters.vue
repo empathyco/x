@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-  import { Filter } from '@empathy/search-types';
+  import { Filter } from '@empathyco/x-types';
   import { mixins } from 'vue-class-component';
   import { Component, Prop } from 'vue-property-decorator';
   import { xComponentMixin, XProvide } from '../../../../components';
@@ -161,8 +161,8 @@
     </Facets>
   </template>
   <script>
-    import { BaseShowMoreFilters} from "@empathy/x-components";
-    import { Facets, SimpleFilter, Filters } from "@empathy/x-components";
+    import { BaseShowMoreFilters} from "@empathyco/x-components";
+    import { Facets, SimpleFilter, Filters } from "@empathyco/x-components";
 
     export default {
       components: {

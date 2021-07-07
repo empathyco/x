@@ -1,5 +1,5 @@
 {
-  "extends": ["plugin:@empathy/x/all"],
+  "extends": ["plugin:@empathyco/x/all"],
   "rules": {
     "no-dupe-class-members": "off"
   }

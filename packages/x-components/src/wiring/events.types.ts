@@ -1,4 +1,4 @@
-import { Result, Suggestion } from '@empathy/search-types';
+import { Result, Suggestion } from '@empathyco/x-types';
 import { ScrollDirection } from '../components/scroll/scroll.types';
 import { ArrowKey, PropsWithType } from '../utils';
 import { DeviceXEvents } from '../x-modules/device';
@@ -60,7 +60,7 @@ export interface XEventsTypes
   ColumnPickerSetColumnsNumber: number;
   /**
    * Any kind of suggestions have been displayed (query-suggestions, popular searches...)
-   * * Payload: The displayed {@link @empathy/search-types#Suggestion | suggestions}.
+   * * Payload: The displayed {@link @empathyco/x-types#Suggestion | suggestions}.
    */
   SuggestionsDisplayed: Suggestion[];
   /**
@@ -90,7 +90,7 @@ export interface XEventsTypes
   UserChangedScrollDirection: ScrollDirection;
   /**
    * The user has clicked on a result.
-   * * Payload: The {@link @empathy/search-types#Result | result} that the user clicked.
+   * * Payload: The {@link @empathyco/x-types#Result | result} that the user clicked.
    */
   UserClickedAResult: Result;
   /**
@@ -135,7 +135,7 @@ export interface XEventsTypes
   UserClickedPanelToggleButton: string;
   /**
    * The user has clicked on the add to cart button of a result.
-   * * Payload: The {@link @empathy/search-types#Result | result} that the user clicked.
+   * * Payload: The {@link @empathyco/x-types#Result | result} that the user clicked.
    */
   UserClickedResultAddToCart: Result;
   /**
@@ -165,7 +165,7 @@ export interface XEventsTypes
   UserReachedScrollStart: void;
   /**
    * The user has right clicked on a result.
-   * * Payload: The {@link @empathy/search-types#Result | result} that the user right clicked.
+   * * Payload: The {@link @empathyco/x-types#Result | result} that the user right clicked.
    */
   UserRightClickedAResult: Result;
   /**
@@ -175,7 +175,7 @@ export interface XEventsTypes
   UserScrolled: number;
   /**
    * User selected any kind of suggestion (query-suggestion, popular-search...)
-   * * Payload: The {@link @empathy/search-types#Suggestion | suggestion} that the user selected.
+   * * Payload: The {@link @empathyco/x-types#Suggestion | suggestion} that the user selected.
    */
   UserSelectedASuggestion: Suggestion;
 }

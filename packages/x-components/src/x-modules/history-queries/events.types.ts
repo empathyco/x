@@ -1,4 +1,4 @@
-import { HistoryQuery } from '@empathy/search-types';
+import { HistoryQuery } from '@empathyco/x-types';
 
 /**
  * Dictionary of the events of HistoryQueries XModule, where each key is the event name, and the
@@ -34,13 +34,13 @@ export interface HistoryQueriesXEvents {
   UserPressedClearHistoryQueries: void;
   /**
    * The user pressed the button for removing a single
-   * {@link @empathy/search-types#HistoryQuery | history query}.
+   * {@link @empathyco/x-types#HistoryQuery | history query}.
    * * Payload: The `HistoryQuery` to remove.
    */
   UserPressedRemoveHistoryQuery: HistoryQuery;
   /**
    * The user has selected a history-query.
-   * * Payload: The {@link @empathy/search-types#HistoryQuery | history query} selected.
+   * * Payload: The {@link @empathyco/x-types#HistoryQuery | history query} selected.
    */
   UserSelectedAHistoryQuery: HistoryQuery;
 }

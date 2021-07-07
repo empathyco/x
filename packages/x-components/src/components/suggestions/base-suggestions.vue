@@ -24,7 +24,7 @@
 
 <script lang="ts">
   import { Component, Prop } from 'vue-property-decorator';
-  import { Suggestion, Facet } from '@empathy/search-types';
+  import { Suggestion, Facet } from '@empathyco/x-types';
   import Vue from 'vue';
   import { isArrayEmpty } from '../../utils/array';
 

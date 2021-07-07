@@ -90,7 +90,7 @@ _Click the Search button to try it out!_
 </template>
 
 <script>
-  import { SearchButton } from '@empathy/x-components/search-box';
+  import { SearchButton } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'SearchButtonDemo',
@@ -113,7 +113,7 @@ _Click the icon button to try it out!_
 </template>
 
 <script>
-  import { SearchButton } from '@empathy/x-components/search-box';
+  import { SearchButton } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'SearchButtonDemo',
@@ -143,7 +143,7 @@ _Type any term in the input field and then click the Search button to try it out
 </template>
 
 <script>
-  import { SearchButton } from '@empathy/x-components/search-box';
+  import { SearchButton } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'SearchButtonDemo',
@@ -169,7 +169,7 @@ _Type any term in the input field and then click the Search button to try it out
 </template>
 
 <script>
-  import { SearchButton, SearchInput } from '@empathy/x-components/search-box';
+  import { SearchButton, SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'SearchButtonDemo',

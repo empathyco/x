@@ -1,4 +1,4 @@
-import { HistoryQuery as HistoryQueryModel } from '@empathy/search-types';
+import { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';

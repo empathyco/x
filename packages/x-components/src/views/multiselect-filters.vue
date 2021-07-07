@@ -109,7 +109,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { Result } from '@empathy/search-types';
+  import { Result } from '@empathyco/x-types';
   import BasePriceFilterLabel from '../components/filters/labels/base-price-filter-label.vue';
   import { SearchIcon } from '../components/icons/index';
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';

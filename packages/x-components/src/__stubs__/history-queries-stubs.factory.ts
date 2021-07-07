@@ -1,5 +1,5 @@
-import { HistoryQuery } from '@empathy/search-types';
-import { deepMerge } from '@empathybroker/deep-merge';
+import { HistoryQuery } from '@empathyco/x-types';
+import { deepMerge } from '@empathyco/x-deep-merge';
 import { DeepPartial } from '../utils/types';
 
 /**

@@ -1,4 +1,4 @@
-import { Suggestion } from '@empathy/search-types';
+import { Suggestion } from '@empathyco/x-types';
 import { GettersClass } from '../../../../store/getters.types';
 import { normalizeString } from '../../../../utils/normalize';
 import { QuerySuggestionsState, QuerySuggestionsXStoreModule } from '../types';

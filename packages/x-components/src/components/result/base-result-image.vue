@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-  import { Result } from '@empathy/search-types';
+  import { Result } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { NoElement } from '../no-element';
@@ -74,7 +74,7 @@
     protected hasImageLoaded = false;
 
     /**
-     * (Required) The {@link @empathy/search-types#Result | result} information.
+     * (Required) The {@link @empathyco/x-types#Result | result} information.
      *
      * @public
      */

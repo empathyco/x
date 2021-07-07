@@ -1,8 +1,8 @@
-import { Banner, Tagging } from '@empathy/search-types';
+import { Banner, Tagging } from '@empathyco/x-types';
 import { DeepPartial } from '../utils/types';
 
 /**
- * Creates {@link @empathy/search-types#Banner | banners} stub.
+ * Creates {@link @empathyco/x-types#Banner | banners} stub.
  *
  * @returns Array of banners stub.
  *
@@ -47,7 +47,7 @@ function getBannerCommonValues(): DeepPartial<Banner> {
 }
 
 /**
- * Creates a {@link @empathy/search-types#Tagging | banner tagging} mocked object.
+ * Creates a {@link @empathyco/x-types#Tagging | banner tagging} mocked object.
  *
  * @param action - String with the action to tag.
  * @param params - Params to add to the tagging request.

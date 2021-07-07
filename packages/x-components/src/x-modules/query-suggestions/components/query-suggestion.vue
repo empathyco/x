@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-  import { Suggestion } from '@empathy/search-types';
+  import { Suggestion } from '@empathyco/x-types';
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
   import { Getter } from '../../../components/decorators/store.decorators';
@@ -91,7 +91,7 @@ Here you can see how a single query suggestion is rendered using the `suggestion
 </template>
 
 <script>
-  import { QuerySuggestion } from '@empathy/x-components/query-suggestions';
+  import { QuerySuggestion } from '@empathyco/x-components/query-suggestions';
   export default {
     name: 'QuerySuggestionDemo',
     components: {
@@ -123,7 +123,7 @@ element.
 </template>
 
 <script>
-  import { QuerySuggestion } from '@empathy/x-components/query-suggestions';
+  import { QuerySuggestion } from '@empathyco/x-components/query-suggestions';
   export default {
     name: 'QuerySuggestionDemo',
     components: {
@@ -153,7 +153,7 @@ the `UserSelectedAQuerySuggestion` event has been triggered.
 </template>
 
 <script>
-  import { QuerySuggestion } from '@empathy/x-components/query-suggestions';
+  import { QuerySuggestion } from '@empathyco/x-components/query-suggestions';
   export default {
     name: 'QuerySuggestionDemo',
     components: {

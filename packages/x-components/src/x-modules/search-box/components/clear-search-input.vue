@@ -81,7 +81,7 @@ _Type any term in the input field and then click the Clear button to try it out!
 </template>
 
 <script>
-  import { ClearSearchInput, SearchInput } from '@empathy/x-components/search-box';
+  import { ClearSearchInput, SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'ClearSearchInputDemo',
@@ -106,7 +106,7 @@ _Click the icon button to try it out!_
 </template>
 
 <script>
-  import { ClearSearchInput } from '@empathy/x-components/search-box';
+  import { ClearSearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'ClearSearchInputDemo',
@@ -132,7 +132,7 @@ _Click the Clear button to try it out!_
 </template>
 
 <script>
-  import { ClearSearchInput } from '@empathy/x-components/search-box';
+  import { ClearSearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'ClearSearchInputDemo',
@@ -163,7 +163,7 @@ _Type any term in the input field and then click the icon button to try it out!_
 </template>
 
 <script>
-  import { ClearSearchInput, SearchInput } from '@empathy/x-components/search-box';
+  import { ClearSearchInput, SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'ClearSearchInputDemo',

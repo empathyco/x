@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-  import { HistoryQuery } from '@empathy/search-types';
+  import { HistoryQuery } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { State } from '../../../components/decorators/store.decorators';

@@ -5,7 +5,7 @@ import {
   isBooleanFilter,
   isEditableNumberRangeFilter,
   isHierarchicalFacet
-} from '@empathy/search-types';
+} from '@empathyco/x-types';
 import { deepFlat } from './array';
 
 /**

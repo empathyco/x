@@ -54,7 +54,7 @@ modalId `my-modal`.
 </template>
 
 <script>
-  import { BaseIdModalClose } from '@empathy/x-components';
+  import { BaseIdModalClose } from '@empathyco/x-components';
 
   export default {
     name: 'BaseIdModalCloseTest',

@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-  import { Result } from '@empathy/search-types';
+  import { Result } from '@empathyco/x-types';
   import { Component, Prop } from 'vue-property-decorator';
   import Vue from 'vue';
   import { State } from '../../../components/decorators/store.decorators';

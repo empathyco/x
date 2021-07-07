@@ -1,4 +1,4 @@
-import { Identifiable } from '@empathy/search-types';
+import { Identifiable } from '@empathyco/x-types';
 import { mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import BaseDropdown from '../base-dropdown.vue';

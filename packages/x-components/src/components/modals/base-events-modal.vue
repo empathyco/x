@@ -135,7 +135,7 @@ emit the same events that the `BaseEventsModal` component is listening to:
 </template>
 
 <script>
-  import { BaseEventsModalOpen, BaseEventsModal } from '@empathy/x-components';
+  import { BaseEventsModalOpen, BaseEventsModal } from '@empathyco/x-components';
 
   export default {
     name: 'ModalTest',
@@ -177,7 +177,7 @@ see a full example on how this would work with custom events.
     BaseEventsModalOpen,
     BaseEventsModal,
     BaseEventsModalClose
-  } from '@empathy/x-components';
+  } from '@empathyco/x-components';
 
   export default {
     name: 'ModalTest',

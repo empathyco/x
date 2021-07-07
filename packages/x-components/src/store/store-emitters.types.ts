@@ -12,8 +12,11 @@ import { AnyXStoreModule } from './store.types';
  * @param Getters - The type of the getters of the {@link XModule} where this selector is used.
  * @public
  */
-export type SimpleStateSelector<ReturnType, State extends Dictionary, Getters extends Dictionary> =
-  (state: State, getters: Getters) => ReturnType;
+export type SimpleStateSelector<
+  ReturnType,
+  State extends Dictionary,
+  Getters extends Dictionary
+> = (state: State, getters: Getters) => ReturnType;
 
 /**
  * Composition type of {@link SimpleStateSelector} which allows to indicate if the state selector

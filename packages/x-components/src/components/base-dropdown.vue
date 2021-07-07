@@ -66,7 +66,7 @@
 </template>
 
 <script lang="ts">
-  import { Identifiable } from '@empathy/search-types';
+  import { Identifiable } from '@empathyco/x-types';
   import { Component, Prop, Watch } from 'vue-property-decorator';
   import Vue from 'vue';
   import { normalizeString } from '../utils/normalize';
@@ -482,7 +482,7 @@ provided, the `item` slot will be used for that.
 </template>
 
 <script>
-  import { BaseDropdown } from '@empathy/x-components';
+  import { BaseDropdown } from '@empathyco/x-components';
 
   export default {
     name: 'DropdownTest',

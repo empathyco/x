@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-  import { Suggestion } from '@empathy/search-types';
+  import { Suggestion } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';

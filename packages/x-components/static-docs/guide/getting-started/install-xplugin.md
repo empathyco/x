@@ -13,7 +13,7 @@ The adapter is mandatory. You should use your own adapter or the one that we pro
 :::
 
 ```js
-import { installX } from '@empathy/x-components';
+import { installX } from '@empathyco/x-components';
 
 installX({adapter});
 
@@ -47,7 +47,7 @@ It is mandatory to import 'reflect-metadata' if you use our adapter!
 ```js
 import 'reflect-metadata';
 import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
-import { installX } from '@empathy/x-components';
+import { installX } from '@empathyco/x-components';
 
 const adapter = new EmpathyAdapterBuilder()
   .withConfiguration({instance: 'my-instance-id'})

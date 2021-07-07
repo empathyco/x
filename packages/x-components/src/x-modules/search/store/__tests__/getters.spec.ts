@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { SearchRequest } from '@empathy/search-adapter';
+import { SearchRequest } from '@empathyco/x-adapter';
 import { map } from '../../../../utils';
 import { searchXStoreModule } from '../module';
 import { SearchState } from '../types';

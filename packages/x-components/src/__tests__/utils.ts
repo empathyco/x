@@ -11,8 +11,8 @@ import {
   SuggestionsResponse,
   TopRecommendationsResponse,
   UserRecommendationsResponse
-} from '@empathy/search-adapter';
-import { deepMerge } from '@empathybroker/deep-merge';
+} from '@empathyco/x-adapter';
+import { deepMerge } from '@empathyco/x-deep-merge';
 import { createLocalVue } from '@vue/test-utils';
 import Vue from 'vue';
 import { Store } from 'vuex';
@@ -111,12 +111,12 @@ export function getMockedAdapterFunction<T = any>(whatReturns: T | null): Mock<P
 }
 
 /**
- * Mocks the {@link @empathy/search-adapter#SearchAdapter | SearchAdapter} features with the
+ * Mocks the {@link @empathyco/x-adapter#SearchAdapter | SearchAdapter} features with the
  * features responses passes as parameter. Features responses are not passes through the
  * parameter will resolve the promise as empty.
  *
  * @param responseFeatures - The features responses available to be mocked.
- * @returns The {@link @empathy/search-adapter#SearchAdapter | SearchAdapter} with the features
+ * @returns The {@link @empathyco/x-adapter#SearchAdapter | SearchAdapter} with the features
  * mocked.
  *
  * @internal

@@ -56,7 +56,7 @@ of them...
 </template>
 
 <script>
-  import { BaseEventsModalOpen } from '@empathy/x-components';
+  import { BaseEventsModalOpen } from '@empathyco/x-components';
 
   export default {
     name: 'BaseEventsModalOpenTest',
@@ -81,7 +81,7 @@ This event can be changed using the `openingEvent` prop, but remember to change 
 </template>
 
 <script>
-  import { BaseEventsModalOpen } from '@empathy/x-components';
+  import { BaseEventsModalOpen } from '@empathyco/x-components';
 
   export default {
     name: 'BaseEventsModalOpenTest',

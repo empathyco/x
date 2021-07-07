@@ -4,7 +4,7 @@ import {
   HierarchicalFilter,
   NumberRangeFilter,
   SimpleFilter
-} from '@empathy/search-types';
+} from '@empathyco/x-types';
 import { EditableNumberRangeFilterChange, MultiSelectChange } from './store/types';
 
 /**
@@ -16,7 +16,7 @@ import { EditableNumberRangeFilterChange, MultiSelectChange } from './store/type
 export interface FacetsXEvents {
   /**
    * The backend facets have changed.
-   * * Payload: The {@link @empathy/search-types#Facet | facets} array.
+   * * Payload: The {@link @empathyco/x-types#Facet | facets} array.
    */
   BackendFacetsChanged: Facet[];
   /**

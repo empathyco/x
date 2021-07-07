@@ -1,4 +1,4 @@
-import { SimpleFilter, NumberRangeFilter, BooleanFilter } from '@empathy/search-types';
+import { SimpleFilter, NumberRangeFilter, BooleanFilter } from '@empathyco/x-types';
 import { FacetsActionsContext, FacetsXStoreModule } from '../types';
 
 /**

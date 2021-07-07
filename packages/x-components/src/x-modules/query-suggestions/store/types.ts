@@ -1,5 +1,5 @@
-import { SuggestionsRequest } from '@empathy/search-adapter';
-import { Suggestion } from '@empathy/search-types';
+import { SuggestionsRequest } from '@empathyco/x-adapter';
+import { Suggestion } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { QuerySuggestionsConfig } from '../config.types';

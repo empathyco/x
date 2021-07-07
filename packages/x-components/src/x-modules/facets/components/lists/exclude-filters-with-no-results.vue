@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Filter, isBooleanFilter } from '@empathy/search-types';
+  import { Filter, isBooleanFilter } from '@empathyco/x-types';
   import { CreateElement, VNode } from 'vue';
   import { mixins } from 'vue-class-component';
   import { Component } from 'vue-property-decorator';
@@ -68,7 +68,7 @@ filters list to their children, it is mandatory to send it as prop.
 </template>
 
 <script>
-  import { ExcludeFiltersWithNoResults } from '@empathy/x-components/facets';
+  import { ExcludeFiltersWithNoResults } from '@empathyco/x-components/facets';
 
   export default {
     components: {
@@ -137,7 +137,7 @@ filters list to their children, it is mandatory to send it as prop.
     FiltersSearch,
     Filters,
     SimpleFilter
-  } from '@empathy/x-components/facets';
+  } from '@empathyco/x-components/facets';
 
   export default {
     components: {

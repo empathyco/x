@@ -71,7 +71,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { Result } from '@empathy/search-types';
+  import { Result } from '@empathyco/x-types';
   import { State } from '../components/decorators/store.decorators';
   import { CheckIcon, ChevronLeftIcon, CrossIcon } from '../components/icons/index';
   import Filters from '../x-modules/facets/components/lists/filters.vue';

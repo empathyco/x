@@ -1,4 +1,4 @@
-import { Filter, HierarchicalFacet, SimpleFacet } from '@empathy/search-types';
+import { Filter, HierarchicalFacet, SimpleFacet } from '@empathyco/x-types';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { map } from '../../../../utils/object';

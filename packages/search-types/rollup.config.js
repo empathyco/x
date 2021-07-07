@@ -38,7 +38,7 @@ const schemas = {
     file: 'schemas/index.js',
     format: 'cjs'
   },
-  external: ['@empathy/jest-utils'],
+  external: ['@empathyco/x-jest-utils'],
   plugins: [
     del({ targets: 'schemas' }),
     typescript({ clean: true }),

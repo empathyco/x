@@ -1,4 +1,4 @@
-import { BooleanFilter, Facet, Filter } from '@empathy/search-types';
+import { BooleanFilter, Facet, Filter } from '@empathyco/x-types';
 import Vuex, { Store } from 'vuex';
 import Vue from 'vue';
 import { arrayToObject } from '../../../../utils/array';

@@ -47,7 +47,7 @@ Used as a prop in an animatable component:
 </template>
 
 <script>
-  import AnimateWidth from '@empathy/x-components/js/components/animations/animate-width.vue';
+  import AnimateWidth from '@empathyco/x-components/js/components/animations/animate-width.vue';
 
   export default {
     data() {
@@ -72,7 +72,7 @@ Used as a regular Transition:
 </template>
 
 <script>
-  import AnimateWidth from '@empathy/x-components/js/components/animations/animate-width.vue';
+  import AnimateWidth from '@empathyco/x-components/js/components/animations/animate-width.vue';
 
   export default {
     data() {

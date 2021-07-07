@@ -39,7 +39,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { Facet } from '@empathy/search-types';
+  import { Facet } from '@empathyco/x-types';
   import { xComponentMixin } from '../../../../components/index';
   import { facetsXModule } from '../../x-module';
   import SelectedFilters from '../selected-filters.vue';
@@ -110,7 +110,7 @@ The property "alwaysVisible" handles if the component is rendered if no filters 
 </template>
 
 <script>
-  import { SelectedFiltersList } from '@empathy/x-components/facets';
+  import { SelectedFiltersList } from '@empathyco/x-components/facets';
 
   export default {
     components: {
@@ -128,7 +128,7 @@ The property "alwaysVisible" handles if the component is rendered if no filters 
 </template>
 
 <script>
-  import { SelectedFilters } from '@empathy/x-components/facets';
+  import { SelectedFilters } from '@empathyco/x-components/facets';
 
   export default {
     components: {
@@ -149,7 +149,7 @@ The property "alwaysVisible" handles if the component is rendered if no filters 
 </template>
 
 <script>
-  import { SelectedFilters } from '@empathy/x-components/facets';
+  import { SelectedFilters } from '@empathyco/x-components/facets';
 
   export default {
     components: {

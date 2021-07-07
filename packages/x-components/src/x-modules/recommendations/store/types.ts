@@ -1,5 +1,5 @@
-import { TopRecommendationsRequest } from '@empathy/search-adapter';
-import { Result } from '@empathy/search-types';
+import { TopRecommendationsRequest } from '@empathyco/x-adapter';
+import { Result } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { RecommendationsConfig } from '../config.types';

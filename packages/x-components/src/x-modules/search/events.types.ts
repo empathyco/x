@@ -1,5 +1,5 @@
-import { SearchRequest } from '@empathy/search-adapter';
-import { Facet, Result, Sort } from '@empathy/search-types';
+import { SearchRequest } from '@empathyco/x-adapter';
+import { Facet, Result, Sort } from '@empathyco/x-types';
 
 /**
  * Dictionary of the events of Search XModule, where each key is the event name, and the value is
@@ -10,12 +10,12 @@ import { Facet, Result, Sort } from '@empathy/search-types';
 export interface SearchXEvents {
   /**
    * The backend facets have changed.
-   * * Payload: The {@link @empathy/search-types#Facet | facets} array.
+   * * Payload: The {@link @empathyco/x-types#Facet | facets} array.
    */
   BackendFacetsChanged: Facet[];
   /**
    * Results have been changed.
-   * * Payload: The new {@link @empathy/search-types#Result | results}.
+   * * Payload: The new {@link @empathyco/x-types#Result | results}.
    */
   ResultsChanged: Result[];
   /**

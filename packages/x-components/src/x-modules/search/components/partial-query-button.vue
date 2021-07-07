@@ -83,7 +83,7 @@ The component sets the current query as the new query and emits the `UserAccepte
 </template>
 
 <script>
-  import { PartialQueryButton } from '@empathy/x-components/search';
+  import { PartialQueryButton } from '@empathyco/x-components/search';
 
   export default {
     components: {

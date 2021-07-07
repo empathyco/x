@@ -96,7 +96,7 @@ amount of columns to the grid. It also allows you to customize the grid items us
 </template>
 
 <script>
-  import { BaseVariableColumnGrid, StaggeredFadeAndSlide } from '@empathy/x-components';
+  import { BaseVariableColumnGrid, StaggeredFadeAndSlide } from '@empathyco/x-components';
 
   export default {
     name: 'ResultsSection',

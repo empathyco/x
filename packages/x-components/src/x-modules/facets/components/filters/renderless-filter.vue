@@ -1,7 +1,7 @@
 <script lang="ts">
   import Vue, { CreateElement, VNode } from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { BooleanFilter } from '@empathy/search-types';
+  import { BooleanFilter } from '@empathyco/x-types';
   import { xComponentMixin } from '../../../../components';
   import { VueCSSClasses } from '../../../../utils/types';
   import { XEvent, XEventsTypes } from '../../../../wiring/events.types';
@@ -9,7 +9,7 @@
 
   /**
    * Renders default slot content. It binds to the default slot a
-   * {@link @empathy/search-types#BooleanFilter | BooleanFilter}, the {@link XEvent | XEvents}
+   * {@link @empathyco/x-types#BooleanFilter | BooleanFilter}, the {@link XEvent | XEvents}
    * that will be emitted when clicking the content, the css classes and if the content should be
    * disabled.
    *
@@ -125,7 +125,7 @@ be emitted when clicking the content, the css classes and if the content should 
 </template>
 
 <script>
-  import { RenderlessFilter } from '@empathy/x-components';
+  import { RenderlessFilter } from '@empathyco/x-components';
 
   export default {
     components: {

@@ -17,7 +17,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { RelatedTag as RelatedTagModel } from '@empathy/search-types';
+  import { RelatedTag as RelatedTagModel } from '@empathyco/x-types';
   import BaseEventButton from '../../../components/base-event-button.vue';
   import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';

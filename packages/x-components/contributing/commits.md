@@ -114,7 +114,7 @@ BREAKING-CHANGE: Rename `BaseEventsButton` to `EventsButton`.
 ```
 
 ```
-BREAKING-CHANGE: Rename `BaseFilter` component to `Filter`, and move it from `components` to the `facets` module. Now it can be imported like this: `import { Filter } from '@empathy/x-components/facets'`.
+BREAKING-CHANGE: Rename `BaseFilter` component to `Filter`, and move it from `components` to the `facets` module. Now it can be imported like this: `import { Filter } from '@empathyco/x-components/facets'`.
 ```
 
 #### Issue
