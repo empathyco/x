@@ -121,7 +121,7 @@ Using default slot:
     BaseIdTogglePanel,
     BaseIdTogglePanelButton,
     CollapseFromTop
-  } from '@empathy/x-components';
+  } from '@empathyco/x-components';
 
   export default {
     components: {

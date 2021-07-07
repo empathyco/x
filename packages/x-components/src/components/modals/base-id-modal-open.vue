@@ -55,7 +55,7 @@ The component rendering content passed to the default slot and opening the modal
 </template>
 
 <script>
-  import { BaseIdModalOpen } from '@empathy/x-components';
+  import { BaseIdModalOpen } from '@empathyco/x-components';
 
   export default {
     name: 'BaseIdModalOpenTest',

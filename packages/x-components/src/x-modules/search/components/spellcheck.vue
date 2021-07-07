@@ -14,9 +14,9 @@
    might have misspelled the search query. This message can be set using the default slot
    of the component, which gives access to the searched query using the `query` scope property,
    and the spellchecked query proposal, using the `spellcheckedQuery` scope property.
-   
+
    The component will only render itself if the `spellcheckedQuery` property has value.
-   
+
    * @public
    */
   @Component({
@@ -66,7 +66,7 @@ This two props should be show like a message comparing them.
 </Spellcheck>
 
 <script>
-  import { Spellcheck } from '@empathy/x-components/search';
+  import { Spellcheck } from '@empathyco/x-components/search';
 
   export default {
     components: {

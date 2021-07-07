@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-  import { Facet, Filter } from '@empathy/search-types';
+  import { Facet, Filter } from '@empathyco/x-types';
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { Getter, NoElement, xComponentMixin } from '../../../components';
   import { FiltersByFacet } from '../store/types';

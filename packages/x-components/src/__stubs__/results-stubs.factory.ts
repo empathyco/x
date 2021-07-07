@@ -1,9 +1,9 @@
-import { Result, ResultTagging, Tagging } from '@empathy/search-types';
+import { Result, ResultTagging, Tagging } from '@empathyco/x-types';
 import { toKebabCase } from '../utils/string';
 import { DeepPartial } from '../utils/types';
 
 /**
- * Creates {@link @empathy/search-types#Result | results} stub.
+ * Creates {@link @empathyco/x-types#Result | results} stub.
  *
  * @returns Array of results stub.
  *
@@ -89,7 +89,7 @@ export function getResultsStub(): Result[] {
 }
 
 /**
- * Function to create a {@link @empathy/search-types#ResultTagging | result tagging} mocked object
+ * Function to create a {@link @empathyco/x-types#ResultTagging | result tagging} mocked object
  * based on result id.
  *
  * @param productId - Product id to build mocked params.
@@ -107,7 +107,7 @@ function getResultTagging(productId: string): ResultTagging {
 }
 
 /**
- * Creates a {@link @empathy/search-types#Tagging | result tagging} mocked object.
+ * Creates a {@link @empathyco/x-types#Tagging | result tagging} mocked object.
  *
  * @param action - String with the action to tag.
  * @param params - Params to add to the tagging request.

@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-  import { PartialResult } from '@empathy/search-types';
+  import { PartialResult } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { State } from '../../../components/decorators/store.decorators';

@@ -175,7 +175,7 @@ next events and XEvents depending of movement that realize the user:
 </template>
 
 <script>
-  import { BaseMainScroll } from '@empathy/x-components';
+  import { BaseMainScroll } from '@empathyco/x-components';
 
   export default {
     name: 'ScrollIdTest',
@@ -217,7 +217,7 @@ similar styles the corresponding style for tag body like in the next example.
 </template>
 
 <script>
-  import { BaseMainScroll } from '@empathy/x-components';
+  import { BaseMainScroll } from '@empathyco/x-components';
 
   export default {
     name: 'MainComponent',

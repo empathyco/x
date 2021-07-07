@@ -6,10 +6,10 @@ import {
   RangeValue,
   EditableNumberRangeFilter,
   Filter
-} from '@empathy/search-types';
+} from '@empathyco/x-types';
 
 /**
- * Creates {@link @empathy/search-types#SimpleFilter | SimpleFilter} stub.
+ * Creates {@link @empathyco/x-types#SimpleFilter | SimpleFilter} stub.
  *
  * @param filter - A partial filter to override certain properties. Useful for testing.
  * @returns A Simple filter.
@@ -33,7 +33,7 @@ export function getSimpleFilterStub(filter: Partial<SimpleFilter> = {}): SimpleF
 }
 
 /**
- * Creates {@link @empathy/search-types#NumberRangeFilter | NumberRangeFilter} stub.
+ * Creates {@link @empathyco/x-types#NumberRangeFilter | NumberRangeFilter} stub.
  *
  * @param filter - A partial filter to override certain properties. Useful for testing.
  * @returns A Number range filter.
@@ -117,7 +117,7 @@ export function createHierarchicalFilterFactory(
 }
 
 /**
- * Creates {@link @empathy/search-types#HierarchicalFilter | HierarchicalFilter} stub.
+ * Creates {@link @empathyco/x-types#HierarchicalFilter | HierarchicalFilter} stub.
  *
  * @param filter - A partial filter to override certain properties. Useful for testing.
  * @returns A Hierarchical filter.
@@ -145,7 +145,7 @@ export function getHierarchicalFilterStub(
 }
 
 /**
- * Creates a {@link @empathy/search-types#Filter | Filter} with the provided `modelName`, `facetId`
+ * Creates a {@link @empathyco/x-types#Filter | Filter} with the provided `modelName`, `facetId`
  * and `label`.
  *
  * @param modelName - Filter model name.
@@ -153,7 +153,7 @@ export function getHierarchicalFilterStub(
  * @param label - The filter label. Used to set the `id` (combined with the facetId)
  * and `label` fields.
  *
- * @returns A {@link @empathy/search-types#Filter | Filter}.
+ * @returns A {@link @empathyco/x-types#Filter | Filter}.
  */
 function createFilter<SomeModelName extends FilterModelName>(
   modelName: SomeModelName,
@@ -170,7 +170,7 @@ function createFilter<SomeModelName extends FilterModelName>(
 }
 
 /**
- * Creates a {@link @empathy/search-types#EditableNumberRangeFilter | EditableNumberRangeFilter}
+ * Creates a {@link @empathyco/x-types#EditableNumberRangeFilter | EditableNumberRangeFilter}
  * with the provided `label` and `range`.
  *
  * @param facetId - The facet id.
@@ -178,7 +178,7 @@ function createFilter<SomeModelName extends FilterModelName>(
  * and `label` fields.
  * @param range - The range value with min and max set to null by default.
  *
- * @returns An {@link @empathy/search-types#EditableNumberRangeFilter | EditableNumberRangeFilter}.
+ * @returns An {@link @empathyco/x-types#EditableNumberRangeFilter | EditableNumberRangeFilter}.
  */
 export function createEditableNumberRangeFilter(
   facetId: string,
@@ -192,7 +192,7 @@ export function createEditableNumberRangeFilter(
 }
 
 /**
- * Creates a {@link @empathy/search-types#SimpleFilter | SimpleFilter} with the `facetId`, `label`
+ * Creates a {@link @empathyco/x-types#SimpleFilter | SimpleFilter} with the `facetId`, `label`
  * and `selected` value.
  *
  * @param facetId - The facet id.
@@ -200,7 +200,7 @@ export function createEditableNumberRangeFilter(
  * and `label` fields.
  * @param selected - The selected value, false by default.
  *
- * @returns An {@link @empathy/search-types#SimpleFilter | SimpleFilter}.
+ * @returns An {@link @empathyco/x-types#SimpleFilter | SimpleFilter}.
  */
 export function createSimpleFilter(facetId: string, label: string, selected = false): SimpleFilter {
   return {
@@ -212,13 +212,13 @@ export function createSimpleFilter(facetId: string, label: string, selected = fa
 }
 
 /**
- * Creates a {@link @empathy/search-types#HierarchicalFilter | HierarchicalFilter}.
+ * Creates a {@link @empathyco/x-types#HierarchicalFilter | HierarchicalFilter}.
  *
  * @param facetId - The facet id.
  * @param label - The filter label. Used to set the `id` (combined with the facetId)
  * and `label` fields.
  * @param selected - The selected value, false by default.
- * @returns An {@link @empathy/search-types#HierarchicalFilter | HierarchicalFilter}.
+ * @returns An {@link @empathyco/x-types#HierarchicalFilter | HierarchicalFilter}.
  */
 export function createHierarchicalFilter(
   facetId: string,
@@ -235,12 +235,12 @@ export function createHierarchicalFilter(
 
 /**
  *
- * Creates a {@link @empathy/search-types#NumberRangeFilter | NumberRangeFilter}.
+ * Creates a {@link @empathyco/x-types#NumberRangeFilter | NumberRangeFilter}.
  *
  * @param facetId - The facet id.
  * @param range - The `min` and `max` values of the filter.
  * @param selected - The selected value, false by default.
- * @returns An {@link @empathy/search-types#NumberRangeFilter | NumberRangeFilter}.
+ * @returns An {@link @empathyco/x-types#NumberRangeFilter | NumberRangeFilter}.
  */
 export function createNumberRangeFilter(
   facetId: string,

@@ -1,4 +1,4 @@
-import { Filter } from '@empathy/search-types';
+import { Filter } from '@empathyco/x-types';
 import { objectFilter } from '../../../../utils';
 import { isFilterSelected } from '../../../../utils/filters';
 import { FacetsXStoreModule } from '../types';

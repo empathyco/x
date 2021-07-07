@@ -1,4 +1,4 @@
-import { RelatedTag } from '@empathy/search-types';
+import { RelatedTag } from '@empathyco/x-types';
 // eslint-disable-next-line max-len
 import { createFetchAndSaveAction } from '../../../../store/utils/helpers/fetch-and-save-action.helpers';
 import { RelatedTagsActionContext } from '../types';

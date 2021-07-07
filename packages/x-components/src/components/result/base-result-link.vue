@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-  import { Result } from '@empathy/search-types';
+  import { Result } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Inject, Prop } from 'vue-property-decorator';
   import { QueryOrigin } from '../../types/query-origin';
@@ -39,7 +39,7 @@
   export default class BaseResultLink extends Vue {
     /**
      * The origin to be sent as part of the `params` property in the
-     * {@link @empathy/search-types#Tagging | tagging} information.
+     * {@link @empathyco/x-types#Tagging | tagging} information.
      *
      * @public
      */
@@ -55,7 +55,7 @@
     protected resultClickExtraEvents!: PropsWithType<XEventsTypes, Result>[];
 
     /**
-     * (Required) The {@link @empathy/search-types#Result | result} information.
+     * (Required) The {@link @empathyco/x-types#Result | result} information.
      *
      * @public
      */

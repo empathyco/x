@@ -1,4 +1,4 @@
-import { SearchAdapter } from '@empathy/search-adapter';
+import { SearchAdapter } from '@empathyco/x-adapter';
 
 declare global {
   interface Window {

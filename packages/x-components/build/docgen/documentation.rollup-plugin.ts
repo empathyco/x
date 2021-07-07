@@ -33,8 +33,8 @@ export function apiDocumentation(options: APIDocumentationPluginOptions): Plugin
     async generateBundle() {
       const reportFolder = path.join(options.buildPath, 'report');
       ensureDirectoryPathExists(reportFolder);
-      copyThirdPartyDocModel(reportFolder, 'search-types');
-      copyThirdPartyDocModel(reportFolder, 'search-adapter');
+      copyThirdPartyDocModel(reportFolder, 'x-types');
+      copyThirdPartyDocModel(reportFolder, 'x-adapter');
 
       const apiExtractorJsonPath: string = path.join(rootDir, 'build/api-extractor.json');
       const extractorConfig = ExtractorConfig.loadFileAndPrepare(apiExtractorJsonPath);
@@ -64,7 +64,7 @@ function copyThirdPartyDocModel(buildPath: string, packageName: string): void {
   const docModelName = `${packageName}.api.json`;
   const originalLocationPath = path.join(
     rootDir,
-    `node_modules/@empathy/${packageName}/report/${docModelName}`
+    `node_modules/@empathyco/${packageName}/report/${docModelName}`
   );
   const destinationLocationPath = path.join(buildPath, docModelName);
   fs.copyFileSync(originalLocationPath, destinationLocationPath);

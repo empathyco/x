@@ -1,4 +1,4 @@
-import { Result } from '@empathy/search-types';
+import { Result } from '@empathyco/x-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue, { ComponentOptions } from 'vue';
 import { getDataTestSelector } from '../../../__tests__/utils';

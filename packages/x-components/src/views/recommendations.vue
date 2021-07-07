@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-  import { deepMerge } from '@empathybroker/deep-merge';
+  import { deepMerge } from '@empathyco/x-deep-merge';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import BaseResultLink from '../components/result/base-result-link.vue';

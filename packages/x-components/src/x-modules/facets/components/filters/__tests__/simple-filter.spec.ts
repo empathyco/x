@@ -1,4 +1,4 @@
-import { SimpleFilter as SimpleFilterModel } from '@empathy/search-types';
+import { SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory';

@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-  import { Suggestion } from '@empathy/search-types';
+  import { Suggestion } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
@@ -95,8 +95,8 @@ _Type “puzzle” or another toy in the input field to try it out!_
 </template>
 
 <script>
-  import { QuerySuggestions } from '@empathy/x-components/query-suggestions';
-  import { SearchInput } from '@empathy/x-components/search-box';
+  import { QuerySuggestions } from '@empathyco/x-components/query-suggestions';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'QuerySuggestionsDemo',
@@ -124,9 +124,9 @@ _Type “puzzle” or another toy in the input field to try it out!_
 </template>
 
 <script>
-  import { QuerySuggestions } from '@empathy/x-components/query-suggestions';
-  import { SearchInput } from '@empathy/x-components/search-box';
-  import { StaggeredFadeAndSlide } from '@empathy/x-components';
+  import { QuerySuggestions } from '@empathyco/x-components/query-suggestions';
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { StaggeredFadeAndSlide } from '@empathyco/x-components';
 
   // Register the animation as a global component
   Vue.component('StaggeredFadeAndSlide', StaggeredFadeAndSlide);
@@ -159,7 +159,7 @@ _Type “puzzle” or another toy in the input field to try it out!_
 </template>
 
 <script>
-  import { QuerySuggestion, QuerySuggestions } from '@empathy/x-components/query-suggestions';
+  import { QuerySuggestion, QuerySuggestions } from '@empathyco/x-components/query-suggestions';
 
   export default {
     name: 'QuerySuggestionsDemo',
@@ -190,8 +190,8 @@ you must implement the `UserAcceptedAQuery` and `UserSelectedAQuerySuggestion` e
 </template>
 
 <script>
-  import { QuerySuggestions } from '@empathy/x-components/query-suggestions';
-  import { SearchInput } from '@empathy/x-components/search-box';
+  import { QuerySuggestions } from '@empathyco/x-components/query-suggestions';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'QuerySuggestionsDemo',
@@ -237,8 +237,8 @@ _Type “puzzle” or another toy in the input field to try it out!_
 </template>
 
 <script>
-  import { QuerySuggestions } from '@empathy/x-components/query-suggestions';
-  import { SearchInput } from '@empathy/x-components/search-box';
+  import { QuerySuggestions } from '@empathyco/x-components/query-suggestions';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'QuerySuggestionsDemo',
@@ -267,8 +267,8 @@ _Type “puzzle” or another toy in the input field to try it out!_
 </template>
 
 <script>
-  import { QuerySuggestions } from '@empathy/x-components/query-suggestions';
-  import { SearchInput } from '@empathy/x-components/search-box';
+  import { QuerySuggestions } from '@empathyco/x-components/query-suggestions';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'QuerySuggestionsDemo',

@@ -1,4 +1,4 @@
-import { Suggestion } from '@empathy/search-types';
+import { Suggestion } from '@empathyco/x-types';
 import { mount } from '@vue/test-utils';
 import { getSuggestionsStub } from '../../../__stubs__/suggestions-stubs.factory';
 import BaseSuggestions from '../base-suggestions.vue';

@@ -1,4 +1,4 @@
-import { SearchRequest, SearchResponse } from '@empathy/search-adapter';
+import { SearchRequest, SearchResponse } from '@empathyco/x-adapter';
 import {
   Banner,
   Facet,
@@ -8,7 +8,7 @@ import {
   RelatedTag,
   Result,
   Sort
-} from '@empathy/search-types';
+} from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { Dictionary } from '../../../utils/types';

@@ -195,7 +195,7 @@ It renders an element with scroll, with the content passed in the `default slot`
 </template>
 
 <script>
-  import { BaseIdScroll } from '@empathy/x-components';
+  import { BaseIdScroll } from '@empathyco/x-components';
 
   export default {
     name: 'ScrollIdTest',
@@ -230,7 +230,7 @@ It renders an element with scroll, with the content passed in the `default slot`
 </template>
 
 <script>
-  import { BaseIdScroll } from '@empathy/x-components';
+  import { BaseIdScroll } from '@empathyco/x-components';
 
   export default {
     name: 'ScrollIdTest',
@@ -275,7 +275,7 @@ You can use the XEvents subscribing to them.
 </template>
 
 <script>
-  import { BaseIdScroll } from '@empathy/x-components';
+  import { BaseIdScroll } from '@empathyco/x-components';
 
   export default {
     name: 'ScrollIdTest',
@@ -318,7 +318,7 @@ Set to false the reset scroll on query change feature which is true by default.
 </template>
 
 <script>
-  import { BaseIdScroll } from '@empathy/x-components';
+  import { BaseIdScroll } from '@empathyco/x-components';
 
   export default {
     name: 'ScrollIdTest',

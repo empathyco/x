@@ -1,4 +1,4 @@
-import { NextQuery } from '@empathy/search-types';
+import { NextQuery } from '@empathyco/x-types';
 import { areNextQueriesDifferent } from '../utils';
 
 describe('testing areNextQueriesDifferent', () => {

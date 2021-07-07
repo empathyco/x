@@ -1,4 +1,4 @@
-import { RelatedTag } from '@empathy/search-types';
+import { RelatedTag } from '@empathyco/x-types';
 import { RelatedTagsXStoreModule } from '../types';
 
 /**

@@ -1,8 +1,8 @@
-import { Promoted, Tagging } from '@empathy/search-types';
+import { Promoted, Tagging } from '@empathyco/x-types';
 import { DeepPartial } from '../utils/types';
 
 /**
- * Creates {@link @empathy/search-types#Promoted | promoted} stub.
+ * Creates {@link @empathyco/x-types#Promoted | promoted} stub.
  *
  * @returns Array of promoteds stub.
  *
@@ -47,7 +47,7 @@ function getPromotedCommonValues(): DeepPartial<Promoted> {
 }
 
 /**
- * Creates a {@link @empathy/search-types#Tagging | promoted tagging} mocked object.
+ * Creates a {@link @empathyco/x-types#Tagging | promoted tagging} mocked object.
  *
  * @param action - String with the action to tag.
  * @param params - Params to add to the tagging request.

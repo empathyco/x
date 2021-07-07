@@ -1,4 +1,4 @@
-import { Facet } from '@empathy/search-types';
+import { Facet } from '@empathyco/x-types';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';

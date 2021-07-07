@@ -1,5 +1,5 @@
-import { SuggestionsRequest } from '@empathy/search-adapter';
-import { Suggestion } from '@empathy/search-types';
+import { SuggestionsRequest } from '@empathyco/x-adapter';
+import { Suggestion } from '@empathyco/x-types';
 
 /**
  * Dictionary of the events of QuerySuggestions XModule, where each key is the event name, and the
@@ -10,12 +10,12 @@ import { Suggestion } from '@empathy/search-types';
 export interface QuerySuggestionsXEvents {
   /**
    * Query suggestions have been changed.
-   * * Payload: The new {@link @empathy/search-types#Suggestion | query suggestions}.
+   * * Payload: The new {@link @empathyco/x-types#Suggestion | query suggestions}.
    */
   QuerySuggestionsChanged: Suggestion[];
   /**
    * The query suggestions have been displayed.
-   * * Payload: The displayed {@link @empathy/search-types#Suggestion | query suggestions}.
+   * * Payload: The displayed {@link @empathyco/x-types#Suggestion | query suggestions}.
    */
   QuerySuggestionsDisplayed: Suggestion[];
   /**
@@ -26,7 +26,7 @@ export interface QuerySuggestionsXEvents {
   QuerySuggestionsRequestChanged: SuggestionsRequest | null;
   /**
    * User selected a query suggestion
-   * * Payload: The {@link @empathy/search-types#Suggestion | query suggestion} that the user
+   * * Payload: The {@link @empathyco/x-types#Suggestion | query suggestion} that the user
    * selected.
    */
   UserSelectedAQuerySuggestion: Suggestion;

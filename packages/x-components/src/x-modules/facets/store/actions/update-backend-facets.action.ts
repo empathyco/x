@@ -1,4 +1,4 @@
-import { BooleanFilter, Filter, isBooleanFilter } from '@empathy/search-types';
+import { BooleanFilter, Filter, isBooleanFilter } from '@empathyco/x-types';
 import { extractFilters } from '../../../../utils/filters';
 import { FacetsXStoreModule } from '../types';
 

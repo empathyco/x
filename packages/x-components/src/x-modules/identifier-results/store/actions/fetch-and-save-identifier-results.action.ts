@@ -1,4 +1,4 @@
-import { Result } from '@empathy/search-types';
+import { Result } from '@empathyco/x-types';
 // eslint-disable-next-line max-len
 import { createFetchAndSaveAction } from '../../../../store/utils/helpers/fetch-and-save-action.helpers';
 import { IdentifierResultsActionsContext } from '../types';

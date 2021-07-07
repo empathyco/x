@@ -1,4 +1,4 @@
-import { SearchResponse } from '@empathy/search-adapter';
+import { SearchResponse } from '@empathyco/x-adapter';
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';

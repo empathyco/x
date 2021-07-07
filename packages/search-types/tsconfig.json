@@ -13,7 +13,7 @@
     "noFallthroughCasesInSwitch": true,
     "types": [
       "jest",
-      "@empathy/jest-utils"
+      "@empathyco/x-jest-utils"
     ],
     "lib": [
       "dom",

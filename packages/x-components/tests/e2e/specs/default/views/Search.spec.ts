@@ -1,4 +1,4 @@
-import { SearchResponse } from '@empathy/search-adapter';
+import { SearchResponse } from '@empathyco/x-adapter';
 import {
   createHierarchicalFacetStub,
   createSimpleFacetStub

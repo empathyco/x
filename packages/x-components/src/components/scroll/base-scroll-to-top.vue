@@ -211,7 +211,7 @@ the scroll.
 </template>
 
 <script>
-  import { BaseScrollToTop } from '@empathy/x-components';
+  import { BaseScrollToTop } from '@empathyco/x-components';
 
   export default {
     name: 'ScrollToTopTest',

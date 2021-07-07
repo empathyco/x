@@ -1,4 +1,4 @@
-import { HistoryQuery } from '@empathy/search-types';
+import { HistoryQuery } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { HistoryQueriesConfig } from '../config.types';
 

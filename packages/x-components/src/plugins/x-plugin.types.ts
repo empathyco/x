@@ -1,4 +1,4 @@
-import { SearchAdapter } from '@empathy/search-adapter';
+import { SearchAdapter } from '@empathyco/x-adapter';
 import {
   Facet,
   Filter,
@@ -7,7 +7,7 @@ import {
   RelatedTag,
   Result,
   Suggestion
-} from '@empathy/search-types';
+} from '@empathyco/x-types';
 import { Store } from 'vuex';
 import { ActionsTree } from '../store/actions.types';
 import { GettersTree } from '../store/getters.types';

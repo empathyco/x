@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-  import { Sort } from '@empathy/search-types';
+  import { Sort } from '@empathyco/x-types';
   import Vue from 'vue';
   import { mixins } from 'vue-class-component';
   import { Component, Prop } from 'vue-property-decorator';
@@ -108,7 +108,7 @@ values. This can be done with the`toggle` and `item` slots.
 </template>
 
 <script>
-  import { SortDropdown } from '@empathy/x-components/search';
+  import { SortDropdown } from '@empathyco/x-components/search';
 
   export default {
     components: {
@@ -136,7 +136,7 @@ values. This can be done with the`toggle` and `item` slots.
 </template>
 
 <script>
-  import { SortDropdown } from '@empathy/x-components/search';
+  import { SortDropdown } from '@empathyco/x-components/search';
 
   export default {
     components: {

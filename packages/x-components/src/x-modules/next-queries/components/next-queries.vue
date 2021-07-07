@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-  import { NextQuery as NextQueryModel } from '@empathy/search-types';
+  import { NextQuery as NextQueryModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';

@@ -1,5 +1,5 @@
-import { SuggestionsRequest } from '@empathy/search-adapter';
-import { Suggestion } from '@empathy/search-types';
+import { SuggestionsRequest } from '@empathyco/x-adapter';
+import { Suggestion } from '@empathyco/x-types';
 
 /**
  * Dictionary of the events of PopularSearches XModule, where each key is the event name, and the
@@ -15,7 +15,7 @@ export interface PopularSearchesXEvents {
   PopularSearchesRequestChanged: SuggestionsRequest;
   /**
    * The popular searches have been displayed.
-   * * Payload: The displayed {@link @empathy/search-types#Suggestion | popular searches}.
+   * * Payload: The displayed {@link @empathyco/x-types#Suggestion | popular searches}.
    */
   PopularSearchDisplayed: Suggestion[];
   /**

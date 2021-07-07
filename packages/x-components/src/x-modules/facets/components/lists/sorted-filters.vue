@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { BooleanFilter, Filter, isBooleanFilter } from '@empathy/search-types';
+  import { BooleanFilter, Filter, isBooleanFilter } from '@empathyco/x-types';
   import { mixins } from 'vue-class-component';
   import { Component } from 'vue-property-decorator';
   import { CreateElement, VNode } from 'vue';
@@ -71,7 +71,7 @@
   </template>
 
   <script>
-    import { Facets, SimpleFilter, Filters } from "@empathy/x-components";
+    import { Facets, SimpleFilter, Filters } from "@empathyco/x-components";
 
     export default {
       components: {
@@ -97,7 +97,7 @@
   </Facets>
 
   <script>
-    import { Facets, FiltersSearch, SimpleFilter, Filters } from "@empathy/x-components";
+    import { Facets, FiltersSearch, SimpleFilter, Filters } from "@empathyco/x-components";
 
     export default {
       components: {

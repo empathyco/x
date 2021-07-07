@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-  import { Suggestion } from '@empathy/search-types';
+  import { Suggestion } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { XOn } from '../../../components/decorators/bus.decorators';
@@ -270,7 +270,7 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { SearchInput } from '@empathy/x-components/search-box';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'SearchInputDemo',
@@ -295,7 +295,7 @@ _Type a term with more than 5 characters to try it out!_
 </template>
 
 <script>
-  import { SearchInput } from '@empathy/x-components/search-box';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'SearchInputDemo',
@@ -326,7 +326,7 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { SearchInput } from '@empathy/x-components/search-box';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'SearchInputDemo',
@@ -377,8 +377,8 @@ _Type “puzzle” or another toy in the input field and then click the clear ic
     SearchInput,
     ClearSearchInput,
     ClearSearchButton
-  } from '@empathy/x-components/search-box';
-  import { QuerySuggestions } from '@empathy/x-components/query-suggestions';
+  } from '@empathyco/x-components/search-box';
+  import { QuerySuggestions } from '@empathyco/x-components/query-suggestions';
 
   export default {
     name: 'SearchInputDemo',

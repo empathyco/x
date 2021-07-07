@@ -1,4 +1,4 @@
-import { Suggestion } from '@empathy/search-types';
+import { Suggestion } from '@empathyco/x-types';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { map, normalizeString } from '../../../../utils';

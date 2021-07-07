@@ -19,7 +19,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { BooleanFilter } from '@empathy/search-types';
+  import { BooleanFilter } from '@empathyco/x-types';
   import { xComponentMixin } from '../../../../components';
   import BaseEventButton from '../../../../components/base-event-button.vue';
   import { VueCSSClasses } from '../../../../utils/types';
@@ -28,7 +28,7 @@
 
   /**
    * Renders a button with a default slot. It receives a
-   * {@link @empathy/search-types#BooleanFilter | BooleanFilter} that will be used in the
+   * {@link @empathyco/x-types#BooleanFilter | BooleanFilter} that will be used in the
    * default slot and the {@link XEvent | XEvents} that will be emitted when clicking the button.
    *
    * @public
@@ -114,7 +114,7 @@ This component receives a `filter` as prop and renders a button, which on clicke
 </template>
 
 <script>
-  import { BaseFilter } from '@empathy/x-components';
+  import { BaseFilter } from '@empathyco/x-components';
 
   export default {
     components: {

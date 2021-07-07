@@ -1,5 +1,5 @@
 import { mount, Wrapper } from '@vue/test-utils';
-import { NumberRangeFilter } from '@empathy/search-types';
+import { NumberRangeFilter } from '@empathyco/x-types';
 import { getNumberRangeFilterStub } from '../../../../__stubs__/filters-stubs.factory';
 import BasePriceFilterLabel from '../base-price-filter-label.vue';
 

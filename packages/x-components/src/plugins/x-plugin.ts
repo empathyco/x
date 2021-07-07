@@ -1,5 +1,5 @@
-import { SearchAdapter } from '@empathy/search-adapter';
-import { deepMerge } from '@empathybroker/deep-merge';
+import { SearchAdapter } from '@empathyco/x-adapter';
+import { deepMerge } from '@empathyco/x-deep-merge';
 import { PluginObject, VueConstructor } from 'vue';
 import Vuex, { Module, Store } from 'vuex';
 import { FILTERS_REGISTRY } from '../filters/filters.registry';
@@ -36,7 +36,7 @@ import { assertXPluginOptionsAreValid } from './x-plugin.utils';
  */
 export class XPlugin implements PluginObject<XPluginOptions> {
   /**
-   * {@link @empathy/search-adapter#SearchAdapter | SearchAdapter} Is the middleware between
+   * {@link @empathyco/x-adapter#SearchAdapter | SearchAdapter} Is the middleware between
    * the components and our API where data can be mapped to client needs.
    * This property is only available after installing the plugin.
    *

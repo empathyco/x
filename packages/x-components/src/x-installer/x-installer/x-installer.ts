@@ -1,5 +1,5 @@
-import { EmpathyAdapterConfig } from '@empathy/search-adapter';
-import { deepMerge } from '@empathybroker/deep-merge';
+import { EmpathyAdapterConfig } from '@empathyco/x-adapter';
+import { deepMerge } from '@empathyco/x-deep-merge';
 import Vue, { PluginObject, VueConstructor } from 'vue';
 import { BaseXBus } from '../../plugins/x-bus';
 import { XBus } from '../../plugins/x-bus.types';

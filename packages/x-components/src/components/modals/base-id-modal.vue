@@ -116,7 +116,7 @@ share the same value in their `modalId` prop to work:
 </template>
 
 <script>
-  import { BaseIdModalOpen, BaseIdModal, BaseIdModalClose } from '@empathy/x-components';
+  import { BaseIdModalOpen, BaseIdModal, BaseIdModalClose } from '@empathyco/x-components';
 
   export default {
     name: 'TestModal',

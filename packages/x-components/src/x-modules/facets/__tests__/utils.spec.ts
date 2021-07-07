@@ -1,4 +1,4 @@
-import { EditableNumberRangeFilter, SimpleFilter } from '@empathy/search-types';
+import { EditableNumberRangeFilter, SimpleFilter } from '@empathyco/x-types';
 import { areFiltersDifferent, isNewQuery } from '../utils';
 import {
   createEditableNumberRangeFilter,

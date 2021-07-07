@@ -100,7 +100,7 @@ unlike the `toggle`, which renders the same `item` slot defined by default.
 </template>
 
 <script>
-  import { BaseColumnPickerDropdown } from '@empathy/x-components';
+  import { BaseColumnPickerDropdown } from '@empathyco/x-components';
 
   export default {
     name: 'BaseColumnPickerDropdownTest',
@@ -131,7 +131,7 @@ unlike the `toggle`, which renders the same `item` slot defined by default.
 </template>
 
 <script>
-  import { BaseColumnPickerDropdown } from '@empathy/x-components';
+  import { BaseColumnPickerDropdown } from '@empathyco/x-components';
 
   export default {
     name: 'BaseColumnPickerDropdownTest',
@@ -166,7 +166,7 @@ with other column pickers.
 </template>
 
 <script>
-  import { BaseColumnPickerDropdown } from '@empathy/x-components';
+  import { BaseColumnPickerDropdown } from '@empathyco/x-components';
 
   export default {
     name: 'BaseColumnPickerDropdownTest',

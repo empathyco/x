@@ -102,7 +102,7 @@ movement that realize the user:
 </template>
 
 <script>
-  import { BaseScroll } from '@empathy/x-components';
+  import { BaseScroll } from '@empathyco/x-components';
 
   export default {
     name: 'ScrollTest',
@@ -156,7 +156,7 @@ Set to false the reset scroll on query change feature which is true by default.
 </template>
 
 <script>
-  import { BaseScroll } from '@empathy/x-components';
+  import { BaseScroll } from '@empathyco/x-components';
 
   export default {
     name: 'ScrollTest',

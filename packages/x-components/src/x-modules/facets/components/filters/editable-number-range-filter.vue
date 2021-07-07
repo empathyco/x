@@ -74,7 +74,7 @@
   import {
     EditableNumberRangeFilter as EditableNumberRangeFilterModel,
     RangeValue
-  } from '@empathy/search-types';
+  } from '@empathyco/x-types';
   import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
   import { VueCSSClasses } from '../../../../utils/types';
   import { facetsXModule } from '../../x-module';
@@ -177,7 +177,7 @@
     }
 
     /**
-     * Returns {@link @empathy/search-types#RangeValue | RangeValue} with component min and max
+     * Returns {@link @empathyco/x-types#RangeValue | RangeValue} with component min and max
      * values.
      *
      * @returns Range value object with component values.
@@ -317,7 +317,7 @@ True by default.
 </template>
 
 <script>
-  import { EditableNumberRangeFilter } from '@empathy/x-components';
+  import { EditableNumberRangeFilter } from '@empathyco/x-components';
 
   export default {
     components: {
@@ -350,7 +350,7 @@ True by default.
 </template>
 
 <script>
-  import { EditableNumberRangeFilter } from '@empathy/x-components';
+  import { EditableNumberRangeFilter } from '@empathyco/x-components';
 
   export default {
     components: {
@@ -386,7 +386,7 @@ True by default.
 </template>
 
 <script>
-  import { EditableNumberRangeFilter } from '@empathy/x-components';
+  import { EditableNumberRangeFilter } from '@empathyco/x-components';
 
   export default {
     components: {
@@ -428,7 +428,7 @@ True by default.
 </template>
 
 <script>
-  import { EditableNumberRangeFilter } from '@empathy/x-components';
+  import { EditableNumberRangeFilter } from '@empathyco/x-components';
 
   export default {
     components: {

@@ -26,7 +26,7 @@
 </style>
 
 <script lang="ts">
-  import { Sort } from '@empathy/search-types';
+  import { Sort } from '@empathyco/x-types';
   import Vue from 'vue';
   import { mixins } from 'vue-class-component';
   import { Component, Prop } from 'vue-property-decorator';
@@ -119,7 +119,7 @@ the `default` slot.
 </template>
 
 <script>
-  import { SortList } from '@empathy/x-components/search';
+  import { SortList } from '@empathyco/x-components/search';
 
   export default {
     components: {
@@ -145,7 +145,7 @@ the `default` slot.
 </template>
 
 <script>
-  import { SortList } from '@empathy/x-components/search';
+  import { SortList } from '@empathyco/x-components/search';
 
   export default {
     components: {

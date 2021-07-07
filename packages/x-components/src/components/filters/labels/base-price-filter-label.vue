@@ -1,7 +1,7 @@
 <script lang="ts">
   import Vue, { CreateElement, VNode, VNodeChildren } from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { RangeValue } from '@empathy/search-types';
+  import { RangeValue } from '@empathyco/x-types';
   import BaseCurrency from '../../currency/base-currency.vue';
 
   /**
@@ -130,8 +130,8 @@ how the price should look like.
 </template>
 
 <script>
-  import { BasePriceFilterLabel } from '@empathy/x-components';
-  import { Filters, Facets, NumberRangeFilter } from '@empathy/x-components/facets';
+  import { BasePriceFilterLabel } from '@empathyco/x-components';
+  import { Filters, Facets, NumberRangeFilter } from '@empathyco/x-components/facets';
 
   export default {
     name: 'MyFacets',

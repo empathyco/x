@@ -1,5 +1,5 @@
-import { NextQueriesRequest } from '@empathy/search-adapter';
-import { HistoryQuery, NextQuery } from '@empathy/search-types';
+import { NextQueriesRequest } from '@empathyco/x-adapter';
+import { HistoryQuery, NextQuery } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { NextQueriesConfig } from '../config.types';

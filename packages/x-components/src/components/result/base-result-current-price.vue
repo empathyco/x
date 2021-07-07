@@ -15,14 +15,14 @@
 </template>
 
 <script lang="ts">
-  import { Result } from '@empathy/search-types';
+  import { Result } from '@empathyco/x-types';
   import { Component, Prop } from 'vue-property-decorator';
   import Vue from 'vue';
   import { VueCSSClasses } from '../../utils/types';
   import BaseCurrency from '../currency/base-currency.vue';
 
   /**
-   * Component that renders the {@link @empathy/search-types#Result | result} current price
+   * Component that renders the {@link @empathyco/x-types#Result | result} current price
    * that may or may not be on sale.
    *
    * @public
@@ -32,7 +32,7 @@
   })
   export default class BaseResultCurrentPrice extends Vue {
     /**
-     * (Required) The {@link @empathy/search-types#Result | result} information.
+     * (Required) The {@link @empathyco/x-types#Result | result} information.
      *
      * @public
      */

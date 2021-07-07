@@ -9,7 +9,7 @@ import {
   RangeValue,
   SimpleFacet,
   SimpleFilter
-} from '@empathy/search-types';
+} from '@empathyco/x-types';
 import { arrayToObject } from '../utils';
 import { Dictionary } from '../utils/types';
 import {
@@ -19,7 +19,7 @@ import {
 } from './filters-stubs.factory';
 
 /**
- * Creates {@link @empathy/search-types#SimpleFacet | SimpleFacet} stub.
+ * Creates {@link @empathyco/x-types#SimpleFacet | SimpleFacet} stub.
  *
  * @returns A SimpleFacet.
  *
@@ -276,7 +276,7 @@ export function getSimpleFacetStub(): SimpleFacet {
 }
 
 /**
- * Creates {@link @empathy/search-types#HierarchicalFacet | HierarchicalFacet} stub.
+ * Creates {@link @empathyco/x-types#HierarchicalFacet | HierarchicalFacet} stub.
  *
  * @returns A HierarchicalFacet.
  *
@@ -438,7 +438,7 @@ export function getHierarchicalFacetStub(): HierarchicalFacet {
 }
 
 /**
- * Creates {@link @empathy/search-types#NumberRangeFacet | NumberRangeFacet} stub.
+ * Creates {@link @empathyco/x-types#NumberRangeFacet | NumberRangeFacet} stub.
  *
  * @returns A NumberRangeFacet.
  *
@@ -543,7 +543,7 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
 }
 
 /**
- * Creates {@link @empathy/search-types#Facet | facets} stub.
+ * Creates {@link @empathyco/x-types#Facet | facets} stub.
  *
  * @returns Array of facets stub.
  *
@@ -554,7 +554,7 @@ export function getFacetsStub(): Facet[] {
 }
 
 /**
- * Creates {@link @empathy/search-types#Facet | facets} stub.
+ * Creates {@link @empathyco/x-types#Facet | facets} stub.
  *
  * @returns Dictionary of facets stub.
  *
@@ -660,13 +660,13 @@ export function createNumberRangeFacet(
 }
 
 /**
- * Creates a {@link @empathy/search-types#EditableNumberRangeFacet | EditableNumberRangeFacet} given
+ * Creates a {@link @empathyco/x-types#EditableNumberRangeFacet | EditableNumberRangeFacet} given
  * a label. It uses the `label` properties for generating the ids of the filters.
  *
  * @param label - The facet label is also used for generating the facet id.
  * @param createChildren - A function to create the child filters. This function is invoked with
  * a factory to create each child filter, only providing the filter `label` and its `range`.
- * @returns An {@link @empathy/search-types#EditableNumberRangeFacet | EditableNumberRangeFacet}.
+ * @returns An {@link @empathyco/x-types#EditableNumberRangeFacet | EditableNumberRangeFacet}.
  */
 export function createEditableNumberRangeFacetStub(
   label: string,

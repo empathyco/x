@@ -18,7 +18,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { Facet } from '@empathy/search-types';
+  import { Facet } from '@empathyco/x-types';
   import { Getter, xComponentMixin } from '../../../../components';
   import BaseEventButton from '../../../../components/base-event-button.vue';
   import { isArrayEmpty } from '../../../../utils/array';
@@ -29,7 +29,7 @@
 
   /**
    * This component receives a required `facet` with
-   * {@link @empathy/search-types#BooleanFilter | BooleanFilter} as prop and renders a button, which
+   * {@link @empathyco/x-types#BooleanFilter | BooleanFilter} as prop and renders a button, which
    * on clicked emits the {@link FacetsXEvents.UserClickedFacetAllFilter} event. By default
    * the rendered button displays a message with the facet label but this content is customizable
    * through the default slot.

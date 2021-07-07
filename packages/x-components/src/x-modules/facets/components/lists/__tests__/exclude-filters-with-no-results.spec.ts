@@ -1,4 +1,4 @@
-import { Filter } from '@empathy/search-types';
+import { Filter } from '@empathyco/x-types';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory';

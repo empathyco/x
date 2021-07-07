@@ -1,4 +1,4 @@
-import { SearchResponse } from '@empathy/search-adapter';
+import { SearchResponse } from '@empathyco/x-adapter';
 // eslint-disable-next-line max-len
 import { createFetchAndSaveAction } from '../../../../store/utils/helpers/fetch-and-save-action.helpers';
 import { SearchActionContext } from '../types';

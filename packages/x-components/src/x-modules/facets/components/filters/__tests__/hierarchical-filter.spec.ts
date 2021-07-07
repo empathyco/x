@@ -1,5 +1,5 @@
-import { HierarchicalFilter as HierarchicalFilterModel } from '@empathy/search-types';
-import { deepMerge } from '@empathybroker/deep-merge';
+import { HierarchicalFilter as HierarchicalFilterModel } from '@empathyco/x-types';
+import { deepMerge } from '@empathyco/x-deep-merge';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getHierarchicalFilterStub } from '../../../../../__stubs__/filters-stubs.factory';

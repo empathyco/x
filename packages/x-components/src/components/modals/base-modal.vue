@@ -200,7 +200,7 @@ open.
 </template>
 
 <script>
-  import { BaseModal, FadeAndSlide } from '@empathy/x-components';
+  import { BaseModal, FadeAndSlide } from '@empathyco/x-components';
   import Vue from 'vue';
 
   Vue.component('fadeAndSlide', FadeAndSlide);

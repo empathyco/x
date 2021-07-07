@@ -163,7 +163,7 @@ _Try resizing the browser window!_
 </template>
 
 <script>
-  import { DeviceDetector } from '@empathy/x-components/device';
+  import { DeviceDetector } from '@empathyco/x-components/device';
 
   export default {
     name: 'DeviceDemo',
@@ -199,7 +199,7 @@ _Try resizing the window to check that it never changes_
 </template>
 
 <script>
-  import { DeviceDetector } from '@empathy/x-components/device';
+  import { DeviceDetector } from '@empathyco/x-components/device';
 
   export default {
     name: 'DeviceDemo',
@@ -235,7 +235,7 @@ _Try resizing the browser window!_
 </template>
 
 <script>
-  import { DeviceDetector } from '@empathy/x-components/device';
+  import { DeviceDetector } from '@empathyco/x-components/device';
 
   export default {
     name: 'DeviceDemo',

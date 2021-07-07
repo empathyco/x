@@ -1,4 +1,4 @@
-import { Filter } from '@empathy/search-types';
+import { Filter } from '@empathyco/x-types';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getFacetsStub } from '../../../../../__stubs__/facets-stubs.factory';

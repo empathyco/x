@@ -99,7 +99,7 @@ The component rendering content passed to the default slot and opening the panel
     BaseIdTogglePanel,
     BaseIdTogglePanelButton,
     CollapseFromTop
-  } from '@empathy/x-components';
+  } from '@empathyco/x-components';
 
   export default {
     components: {
