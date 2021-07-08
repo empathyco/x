@@ -1,7 +1,6 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
 
-let nextQueriesResults = 0;
 let resultsCount = 0;
 let resultsList: string[] = [];
 const compoundResultsList: string[] = [];
@@ -69,15 +68,6 @@ And(
 );
 
 // Scenario 2
-And('the number of next query results are stored', () => {
-  if (cy.$$('[data-test = "next-queries"]').length > 0) {
-    cy.getByDataTest('next-query').then($elements => {
-      nextQueriesResults = $elements.length;
-    });
-  } else {
-    nextQueriesResults = 0;
-  }
-});
 
 And('History queries are being displayed is not {boolean}', (hideIfEqualsQuery: boolean) => {
   if (hideIfEqualsQuery) {
@@ -101,11 +91,13 @@ And('query suggestions are cleared', () => {
   cy.getByDataTest('query-suggestions').should('not.exist');
 });
 And('next queries are not cleared', () => {
-  if (nextQueriesResults === 0) {
-    cy.getByDataTest('next-query').should('not.exist');
-  } else {
-    cy.getByDataTest('next-query').should('have.length.at.least', 1);
-  }
+  cy.getByDataTest('next-query').then(nextQuery => {
+    if (nextQuery.length > 0) {
+      expect(nextQuery.length).to.be.at.least(1);
+    } else {
+      expect(nextQuery).to.not.exist;
+    }
+  });
 });
 And('related tags are cleared', () => {
   cy.getByDataTest('related-tag').should('not.exist');
