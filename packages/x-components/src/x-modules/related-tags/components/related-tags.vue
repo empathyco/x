@@ -42,6 +42,7 @@
   import RelatedTag from './related-tag.vue';
 
   /**
+   * Simple related-tags component that renders a list of related tags.
    * For example, if you are searching for *lego*, different related tags could be *city*,
    * *friends*, or *harry potter*, refining the search with *lego city*, *lego friends*,
    * or *lego harry potter*.
