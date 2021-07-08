@@ -123,7 +123,7 @@ _Search for a toy and press enter._
 ### Play with props
 
 In this example, the number of related tags rendered has been limited to 3. A fade and slide effect
-has been added so that the related tags appear with a delay, then slide upwards and fade
+has been added so that the related tags appear with a delay, then slide upwards and fade.
 
 _Search for a toy and press Enter to see the related tags with the animation effect._
 
