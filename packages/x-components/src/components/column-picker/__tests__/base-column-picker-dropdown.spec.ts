@@ -108,9 +108,13 @@ describe('testing BaseColumnPickerDropdown', () => {
         selectedColumns: undefined,
         columns: [2, 4, 6]
       });
+
     const listener = jest.fn();
     wrapper.vm.$x.on('ColumnsNumberProvided').subscribe(listener);
     expect(toggleWrapper.text()).toBe('2');
+    expect(listener).toHaveBeenCalledTimes(1);
+    expect(listener).toHaveBeenNthCalledWith(1, 2);
+
     await setWrapperSelectedColumns(4);
     expect(listener).toHaveBeenCalledTimes(2);
     expect(listener).toHaveBeenNthCalledWith(2, 4);
