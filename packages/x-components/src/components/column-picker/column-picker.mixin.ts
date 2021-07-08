@@ -45,16 +45,16 @@ export default class ColumnPickerMixin extends Vue {
   }
 
   /**
-   * It sets the selected column with the one provided by argument and emits an `change` event if it
-   * has changed.
+   * Synchronizes the selected column with the one provided by argument.
    *
-   * @param column - The column number.
+   * @param columns - The column number.
    *
    * @internal
    */
+  @Watch('providedSelectedColumns')
   @XOn('ColumnsNumberProvided')
-  selectColumn(column: number): void {
-    this.selectedColumns = column;
+  setSelectedColumns(columns: number): void {
+    this.selectedColumns = columns;
   }
 
   /**
@@ -67,18 +67,6 @@ export default class ColumnPickerMixin extends Vue {
   @Watch('selectedColumns')
   protected emitChange(column: number): void {
     this.$emit('change', column);
-  }
-
-  /**
-   * Synchronizes the selected number of columns with the provided value.
-   *
-   * @param providedSelectedColumns - The provided number of columns.
-   *
-   * @internal
-   */
-  @Watch('providedSelectedColumns')
-  protected syncSelectedColumns(providedSelectedColumns: number): void {
-    this.selectedColumns = providedSelectedColumns;
   }
 
   /**
