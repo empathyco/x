@@ -8,11 +8,7 @@ import { XEmit, XOn } from '../decorators/bus.decorators';
  *
  * @public
  */
-@Component({
-  model: {
-    event: 'change'
-  }
-})
+@Component
 export default class ColumnPickerMixin extends Vue {
   /**
    * The value of the selected columns number.

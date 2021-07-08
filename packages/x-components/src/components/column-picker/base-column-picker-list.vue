@@ -56,7 +56,10 @@
    * @public
    */
   @Component({
-    components: { BaseEventButton }
+    components: { BaseEventButton },
+    model: {
+      event: 'change'
+    }
   })
   export default class BaseColumnPickerList extends mixins(ColumnPickerMixin) {
     /**

@@ -127,7 +127,7 @@ describe('testing BaseColumnPickerDropdown', () => {
       selectedColumns: 2,
       columns: [2, 4, 6]
     });
-    wrapper.vm.$x.emit('UserClickedColumnPicker', 4);
+    wrapper.vm.$x.emit('ColumnsNumberProvided', 4);
     await wrapper.vm.$nextTick();
     expect(componentWrapper.emitted('change')).toEqual([[4]]);
     expect(toggleWrapper.text()).toBe('4');
