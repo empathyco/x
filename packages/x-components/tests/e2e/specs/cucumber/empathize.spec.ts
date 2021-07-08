@@ -52,7 +52,7 @@ And('identifier results number {int} is clicked', (identifierResultItem: number)
 Then(
   'user is redirected to the product page',
   function (this: { clickedIdentifierResult: string }) {
-    cy.url().should('include', this.clickedIdentifierResult);
+    cy.url().should('include', encodeURIComponent(this.clickedIdentifierResult));
   }
 );
 
