@@ -2,7 +2,7 @@ import { NextItem } from '@docusaurus/react-components/Utils';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import { ReactQuerySuggestions, ReactSearchInput, ReactClearSearchInput, ReactFadeAndSlide } from '@docusaurus/react-components/ReactComponents';
-import { FadeAndSlide } from '@empathy/x-components/core';
+import { FadeAndSlide } from '@empathyco/x-components/core';
 
 :::caution
 Before start you should install the [XPlugin](./install-xplugin)
@@ -23,7 +23,7 @@ using it in your template.
 </template>
 
 <script>
-  import { SearchInput} from '@empathy/x-components/search-box';
+  import { SearchInput} from '@empathyco/x-components/search-box';
 
   export default {
     name: 'App',

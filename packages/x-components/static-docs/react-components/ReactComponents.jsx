@@ -1,9 +1,9 @@
 import 'reflect-metadata';
-import { XInstaller } from '@empathy/x-components';
-import { NextQueries } from '@empathy/x-components/next-queries';
-import { QuerySuggestions } from '@empathy/x-components/query-suggestions';
+import { XInstaller } from '@empathyco/x-components';
+import { NextQueries } from '@empathyco/x-components/next-queries';
+import { QuerySuggestions } from '@empathyco/x-components/query-suggestions';
 import React from 'react';
-import { SearchInput, ClearSearchInput, SearchButton } from '@empathy/x-components/search-box';
+import { SearchInput, ClearSearchInput, SearchButton } from '@empathyco/x-components/search-box';
 import { ReactWrapper } from '@empathy/react-wrapper';
 import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
 

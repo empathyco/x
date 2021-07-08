@@ -1,5 +1,5 @@
 import { ReactQuerySuggestions, ReactSearchInput, ReactClearSearchInput, ReactFadeAndSlide, ReactSearchButton } from '@docusaurus/react-components/ReactComponents';
-import { FadeAndSlide } from '@empathy/x-components/core';
+import { FadeAndSlide } from '@empathyco/x-components/core';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 

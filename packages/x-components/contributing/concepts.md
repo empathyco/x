@@ -2,7 +2,7 @@
 
 ## X Module
 
-The `@empathy/x-components` project is organized in X Modules. You can find them in the
+The `@empathyco/x-components` project is organized in X Modules. You can find them in the
 `src/x-modules` directory. An X Module is a logical group of Components, Vuex, Wiring, Emitters and
 services, that are related by a common feature.
 
@@ -19,18 +19,18 @@ component is imported, its X Module will be registered.
 
 Because this component depends on an X Module, and every X Module has its own Vuex module, an X
 Component can access that part of the store. Every other component type inside the
-`@empathy/x-components` project can’t access the Vuex Store instance.
+`@empathyco/x-components` project can’t access the Vuex Store instance.
 
 ## X Event
 
-The `@empathy/x-components` project has an event's driven architecture. Different pieces of the
+The `@empathyco/x-components` project has an event's driven architecture. Different pieces of the
 library (components, wiring, emitters...) can communicate between themselves using events. An X
 Event is just one of these events, that can have associated or not a payload type, and some metadata
 (which X Module emitted this event, from what DOM element has it been emitted if there are any…).
 
 ## Base Components
 
-Base components are components that do not have any dependencies with the `@empathy/x-components`
+Base components are components that do not have any dependencies with the `@empathyco/x-components`
 events system or X Modules.
 
 This kind of components are intended to serve as a foundation to build other components.

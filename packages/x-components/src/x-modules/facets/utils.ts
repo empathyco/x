@@ -1,8 +1,4 @@
-import {
-  EditableNumberRangeFilter,
-  Filter,
-  isEditableNumberRangeFilter
-} from '@empathyco/x-types';
+import { EditableNumberRangeFilter, Filter, isEditableNumberRangeFilter } from '@empathyco/x-types';
 import { isStringEmpty } from '../../utils/string';
 
 /**

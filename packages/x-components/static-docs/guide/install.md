@@ -14,7 +14,7 @@ You can check the current x-components version here: [X-Components](https://bitb
 Run this command:
 
 ```jsx
-  npm install @empathy/x-components
+  npm install @empathyco/x-components
 ```
 
  ## Up next
