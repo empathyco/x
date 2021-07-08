@@ -1,9 +1,36 @@
 {
   "name": "@empathyco/x-components",
+  "version": "3.0.0-alpha.2",
+  "description": "Empathy X Components",
+  "author": "Empathy Systems Corporation S.L.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/x-components#readme",
+  "keywords": [
+    "apache",
+    "components",
+    "ecommerce",
+    "empathy",
+    "facets",
+    "frontend",
+    "interface",
+    "instantsearch",
+    "joy",
+    "open source",
+    "search",
+    "serp",
+    "suggestions",
+    "ui",
+    "ux",
+    "vue"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empathyco/x.git",
+    "directory": "packages/x-components"
+  },
   "main": "./core/index.js",
   "module": "./core/index.js",
   "types": "./core/index.d.ts",
-  "version": "3.0.0-alpha.2",
   "sideEffects": [
     "./tests/**/*",
     "**/*.scss",
@@ -109,5 +136,8 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
