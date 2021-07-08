@@ -6,44 +6,58 @@ import { BaseEventButton } from '../../index';
 
 function renderBaseColumnPickerListComponent({
   columns,
+  selectedColumns,
   customItemSlot = `
     <template #default="{ column }">
       <p data-test="column-slot">{{ column }}</p>
     </template>`,
   template = `
-   <BaseColumnPickerList :columns="columns">
+   <BaseColumnPickerList :columns="columns" v-model="selectedColumns">
       ${customItemSlot ?? ''}
    </BaseColumnPickerList>`
 }: BaseColumnPickerListRenderOptions = {}): BaseColumnPickerListComponentAPI {
   const [, localVue] = installNewXPlugin();
-  const columnPickerListWrapper = mount(
-    {
-      components: {
-        BaseColumnPickerList
+  function mountComponent(options: { selectedColumns?: number } = {}): Wrapper<Vue> {
+    return mount(
+      {
+        components: {
+          BaseColumnPickerList
+        },
+        props: ['columns'],
+        template,
+        data() {
+          return { selectedColumns: options.selectedColumns ?? selectedColumns };
+        }
       },
-      props: ['columns'],
-      template
-    },
-    {
-      propsData: {
-        columns
-      },
-      localVue
-    }
-  );
+      {
+        propsData: {
+          columns
+        },
+        localVue
+      }
+    );
+  }
+
+  const columnPickerListWrapper = mountComponent();
   const wrapper = columnPickerListWrapper.findComponent(BaseColumnPickerList);
 
   return {
     wrapper,
-    async clickEventButton(index: number) {
-      const eventButtons = wrapper.findAll(getDataTestSelector('column-picker-button'));
-      await eventButtons.at(index).trigger('click');
+    mountComponent,
+    async clickNthItem(nth: number) {
+      await wrapper.findAll(getDataTestSelector('column-picker-button')).at(nth).trigger('click');
+    },
+    async setWrapperselectedColumns(column: number): Promise<void> {
+      await wrapper.setData({ selectedColumns: column });
+    },
+    getSelectedItem() {
+      return wrapper.find('[aria-selected=true]');
     }
   };
 }
 
 describe('testing Base Column Picker List', () => {
-  it('emits ColumnPickerSetColumnsNumber event with the column number on init', () => {
+  it('emits ColumnsNumberProvided event with the column number on init', () => {
     const columns = [1, 3, 6];
     const index = 1;
     const value = columns[index];
@@ -52,7 +66,7 @@ describe('testing Base Column Picker List', () => {
       template: `<BaseColumnPickerList :columns="columns" :value="${value}" />`
     });
     const listenerColumnPicker = jest.fn();
-    wrapper.vm.$x.on('ColumnPickerSetColumnsNumber', true).subscribe(listenerColumnPicker);
+    wrapper.vm.$x.on('ColumnsNumberProvided', true).subscribe(listenerColumnPicker);
     expect(listenerColumnPicker).toHaveBeenCalledTimes(1);
     expect(listenerColumnPicker).toHaveBeenNthCalledWith(1, {
       eventPayload: 3,
@@ -65,10 +79,10 @@ describe('testing Base Column Picker List', () => {
   it('emits UserClickedColumnPicker event with the column number as payload', async () => {
     const columns = [1, 3, 6];
     const index = 1;
-    const { wrapper, clickEventButton } = renderBaseColumnPickerListComponent({ columns });
+    const { wrapper, clickNthItem } = renderBaseColumnPickerListComponent({ columns });
     const listenerColumnPicker = jest.fn();
     wrapper.vm.$x.on('UserClickedColumnPicker', true).subscribe(listenerColumnPicker);
-    await clickEventButton(index);
+    await clickNthItem(index);
     expect(listenerColumnPicker).toHaveBeenCalledTimes(1);
     expect(listenerColumnPicker).toHaveBeenNthCalledWith(1, {
       eventPayload: columns[index],
@@ -79,14 +93,14 @@ describe('testing Base Column Picker List', () => {
     });
   });
 
-  it('emits an `input` event with the selected column if it has changed.', async () => {
+  it('emits a `change` event with the selected column if it has changed.', async () => {
     const columns = [1, 3, 6];
     const index = 1;
-    const { wrapper, clickEventButton } = renderBaseColumnPickerListComponent({ columns });
+    const { wrapper, clickNthItem } = renderBaseColumnPickerListComponent({ columns });
     const listenerColumnPicker = jest.fn();
     wrapper.vm.$x.on('UserClickedColumnPicker', true).subscribe(listenerColumnPicker);
-    await clickEventButton(index);
-    expect(wrapper.emitted('input')).toEqual([[columns[index]]]);
+    await clickNthItem(index);
+    expect(wrapper.emitted('change')).toEqual([[columns[index]]]);
     expect(listenerColumnPicker).toHaveBeenCalledTimes(1);
   });
 
@@ -117,11 +131,50 @@ describe('testing Base Column Picker List', () => {
       expect(columnsSlots.at(index).text()).toEqual(column.toString());
     });
   });
+
+  it('updates selected value on fresh mounts correctly', async () => {
+    const getSelectedItem = (wrapper: Wrapper<Vue>): string =>
+      wrapper.get('[aria-selected=true]').text();
+    const { wrapper, mountComponent, clickNthItem, setWrapperselectedColumns } =
+      renderBaseColumnPickerListComponent({
+        columns: [4, 6, 0]
+      });
+
+    expect(getSelectedItem(wrapper)).toBe('4');
+
+    const wrapper2 = mountComponent();
+    expect(getSelectedItem(wrapper2)).toBe('4');
+
+    await clickNthItem(1);
+    expect(getSelectedItem(wrapper)).toBe('6');
+    expect(getSelectedItem(wrapper2)).toBe('6');
+
+    const wrapper3 = mountComponent();
+    expect(getSelectedItem(wrapper)).toBe('6');
+    expect(getSelectedItem(wrapper2)).toBe('6');
+    expect(getSelectedItem(wrapper3)).toBe('6');
+
+    await setWrapperselectedColumns(0);
+    const wrapper4 = mountComponent();
+    expect(getSelectedItem(wrapper)).toBe('0');
+    expect(getSelectedItem(wrapper2)).toBe('0');
+    expect(getSelectedItem(wrapper3)).toBe('0');
+    expect(getSelectedItem(wrapper4)).toBe('0');
+
+    const wrapper5 = mountComponent({ selectedColumns: 6 });
+    expect(getSelectedItem(wrapper)).toBe('0');
+    expect(getSelectedItem(wrapper2)).toBe('0');
+    expect(getSelectedItem(wrapper3)).toBe('0');
+    expect(getSelectedItem(wrapper4)).toBe('0');
+    expect(getSelectedItem(wrapper5)).toBe('0');
+  });
 });
 
 interface BaseColumnPickerListRenderOptions {
   /** The number of columns to be rendered. */
   columns?: number[];
+  /** The initial selected column value. */
+  selectedColumns?: number;
   /** The custom element to be rendered. */
   customItemSlot?: string;
   /** The template to be rendered. */
@@ -132,5 +185,11 @@ interface BaseColumnPickerListComponentAPI {
   /** The wrapper of the container element.*/
   wrapper: Wrapper<Vue>;
   /** Clicks the event button and waits for the view to update. */
-  clickEventButton: (index: number) => Promise<void>;
+  clickNthItem: (index: number) => Promise<void>;
+  /** Mounts a new component. */
+  mountComponent: (options?: { selectedColumns?: number }) => Wrapper<Vue>;
+  /** Changes parent wrapper selected column to simulate v-model change. */
+  setWrapperselectedColumns: (column: number) => Promise<void>;
+  /** Gets the selected item. */
+  getSelectedItem: () => Wrapper<Vue>;
 }

@@ -1,7 +1,7 @@
 <template>
   <ul class="x-option-list x-column-picker-list" data-test="column-picker-list">
     <li
-      v-for="{ column, cssClasses } in columnsWithCssClasses"
+      v-for="{ column, cssClasses, events, isSelected } in columnsWithCssClasses"
       :key="column"
       :class="cssClasses"
       class="x-option-list__item x-column-picker-list__item"
@@ -10,14 +10,15 @@
       <BaseEventButton
         class="x-button column-picker-item__button"
         data-test="column-picker-button"
-        :events="{ UserClickedColumnPicker: column }"
+        :aria-selected="isSelected.toString()"
+        :events="events"
       >
         <!--
           @slot Customized Column Picker Button content. Specifying a slot with the column value
           will result in the column using that slot composition to render.
-              @binding {column} column - Column Number to pick.
+          @binding {column} column - Column Number to pick.
         -->
-        <slot v-bind="{ column }">
+        <slot v-bind="{ column, isSelected }">
           {{ column }}
         </slot>
       </BaseEventButton>
@@ -33,11 +34,19 @@
 </style>
 
 <script lang="ts">
-  import { Component } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
+  import { Component } from 'vue-property-decorator';
   import { VueCSSClasses } from '../../utils/types';
+  import { XEventsTypes } from '../../wiring';
   import BaseEventButton from '../base-event-button.vue';
   import ColumnPickerMixin from './column-picker.mixin';
+
+  interface ColumnPickerItem {
+    column: number;
+    cssClasses: VueCSSClasses;
+    events: Partial<XEventsTypes>;
+    isSelected: boolean;
+  }
 
   /**
    * Column picker list component renders a list of buttons to choose the columns number.
@@ -57,45 +66,75 @@
      *
      * @internal
      */
-    public get columnsWithCssClasses(): {
-      column: number;
-      cssClasses: VueCSSClasses;
-    }[] {
+    public get columnsWithCssClasses(): ColumnPickerItem[] {
       return this.columns.map(column => ({
         column,
         cssClasses: [
           `x-column-picker-list__item--${column}-cols`,
           {
-            'x-column-picker-list__item--is-selected': this.selectedColumn === column,
-            'x-option-list__item--is-selected': this.selectedColumn === column
+            'x-column-picker-list__item--is-selected': this.selectedColumns === column,
+            'x-option-list__item--is-selected': this.selectedColumns === column
           }
-        ]
+        ],
+        isSelected: this.selectedColumns === column,
+        events: {
+          UserClickedColumnPicker: column,
+          ColumnsNumberProvided: column
+        }
       }));
     }
   }
 </script>
 
-<docs>
+<docs lang="mdx">
 #Examples
 
-This component renders a list of elements in different slots depending on the columns prop.
-Each element will emit an event with the number of columns that it is being selected when it is
-clicked.
+This component renders a list of elements in different slots depending on the columns prop. Each
+element will emit an event with the number of columns that it is being selected when it is clicked.
 
 ## Default usage
 
 It is required to send the columns prop.
 
 ```vue
-<BaseColumnPickerList :columns="[2, 4, 6]"/>
+<template>
+  <BaseColumnPickerList :columns="columns" />
+</template>
+<script>
+  import { BaseColumnPickerList } from '@empathyco/xcomponents';
+
+  export default {
+    components: {
+      BaseColumnPickerList
+    },
+    data() {
+      return { columns: [2, 4, 6] };
+    }
+  };
+</script>
 ```
+
 ### Using v-model
 
 It is possible to do two way binding in order to synchronize the value with the parents. It will be
 updated if it changed the value or if the parent changes it.
 
 ```vue
-<BaseColumnPickerList #default="{ column }" v-model="currentColumn" :columns="[2, 4, 6]" />
+<template>
+  <BaseColumnPickerList :columns="columns" v-model="selectedColumns" />
+</template>
+<script>
+  import { BaseColumnPickerList } from '@empathyco/xcomponents';
+
+  export default {
+    components: {
+      BaseColumnPickerList
+    },
+    data() {
+      return { columns: [2, 4, 6], selectedColumns: 4 };
+    }
+  };
+</script>
 ```
 
 ## Customized usage
@@ -105,9 +144,23 @@ updated if it changed the value or if the parent changes it.
 It is possible to override the column picker button content.
 
 ```vue
-<BaseColumnPickerList #default="{ column }" :columns="[2, 4, 6]">
-  <span>{{ column }}</span>
-</BaseColumnPickerList>
+<template>
+  <BaseColumnPickerList :columns="columns" #default="{ column, isSelected }">
+    <span>{{ column }} {{ isSelected ? '🟢' : '' }}</span>
+  </BaseColumnPickerList>
+</template>
+<script>
+  import { BaseColumnPickerList } from '@empathyco/xcomponents';
+
+  export default {
+    components: {
+      BaseColumnPickerList
+    },
+    data() {
+      return { columns: [2, 4, 6] };
+    }
+  };
+</script>
 ```
 
 ## Events
@@ -115,7 +168,7 @@ It is possible to override the column picker button content.
 A list of events that the component will emit:
 
 - `UserClickedColumnPicker`: the event is emitted after the user clicks an item. The event payload
-is the number of columns that the clicked item represents.
-- `ColumnPickerSetColumnsNumber`: the event is emitted on component mount. The event payload
-is the current `selectedColumn` value.
+  is the number of columns that the clicked item represents.
+- `ColumnsNumberProvided`: the event is emitted on component mount. The event payload is the current
+  `selectedColumns` value.
 </docs>

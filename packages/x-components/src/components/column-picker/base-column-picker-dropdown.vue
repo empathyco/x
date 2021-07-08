@@ -1,33 +1,31 @@
 <template>
-  <div class="x-column-picker-dropdown">
-    <BaseDropdown
-      @change="emitEvent"
-      :value="selectedColumn"
-      :items="columns"
-      :animation="animation"
-    >
-      <template v-if="$scopedSlots['toggle']" #toggle="{ item, isOpen }">
-        <!--
+  <BaseDropdown
+    @change="emitEvent"
+    :value="selectedColumns"
+    :items="columns"
+    :animation="animation"
+  >
+    <template v-if="$scopedSlots.toggle" #toggle="{ item, isOpen }">
+      <!--
            @slot From `BaseDropdown` component: Used to render the contents of the dropdown toggle
            button. If not provided, it uses the `item` slot as fallback.
-               @binding {string|number|Identifiable} item - The item data to render.
-               @binding {boolean} isOpen - True if the dropdown is opened, and false if it is
-               closed.
+           @binding {string|number|Identifiable} item - The item data to render.
+           @binding {boolean} isOpen - True if the dropdown is opened, and false if it is
+           closed.
         -->
-        <slot name="toggle" v-bind="{ item, isOpen }" />
-      </template>
-      <template #item="{ item, isSelected, isHighlighted }">
-        <!--
+      <slot name="toggle" v-bind="{ item, isOpen }" />
+    </template>
+    <template #item="{ item, isSelected, isHighlighted }">
+      <!--
            @slot (required) From `BaseDropdown` component: Used to render each one of the items
            content, and as fallback for the toggle button content slot if it is not provided.
-               @binding {string|number|Identifiable} item - Item to render
-               @binding {boolean} isHighlighted - True when the item has the focus.
-               @binding {boolean} isSelected - True when the item is selected.
+           @binding {string|number|Identifiable} item - Item to render
+           @binding {boolean} isHighlighted - True when the item has the focus.
+           @binding {boolean} isSelected - True when the item is selected.
         -->
-        <slot name="item" v-bind="{ item, isSelected, isHighlighted }" />
-      </template>
-    </BaseDropdown>
-  </div>
+      <slot name="item" v-bind="{ item, isSelected, isHighlighted }" />
+    </template>
+  </BaseDropdown>
 </template>
 
 <script lang="ts">
@@ -71,6 +69,7 @@
      */
     emitEvent(column: number): void {
       this.$x.emit('UserClickedColumnPicker', column);
+      this.$x.emit('ColumnsNumberProvided', column);
     }
   }
 </script>
@@ -90,7 +89,7 @@ unlike the `toggle`, which renders the same `item` slot defined by default.
 
 ```vue
 <template>
-  <BaseColumnPickerDropdown v-model="selectedColumn" :columns="[2, 4, 6]">
+  <BaseColumnPickerDropdown v-model="selectedColumns" :columns="[2, 4, 6]">
     <template #item="{ item, isSelected, isHighlighted }">
       <span v-if="isHighlighted">🟢</span>
       <span v-if="isSelected">✅</span>
@@ -109,7 +108,7 @@ unlike the `toggle`, which renders the same `item` slot defined by default.
     },
     data() {
       return {
-        selectedColumn: 2
+        selectedColumns: 2
       };
     }
   };
@@ -120,7 +119,7 @@ unlike the `toggle`, which renders the same `item` slot defined by default.
 
 ```vue
 <template>
-  <BaseColumnPickerDropdown v-model="selectedColumn" :columns="[2, 4, 6]">
+  <BaseColumnPickerDropdown v-model="selectedColumns" :columns="[2, 4, 6]">
     <template #toggle="{ item, isOpen }">Selected: {{ item }} {{ isOpen ? '🔼' : '🔽' }}️</template>
     <template #item="{ item, isSelected, isHighlighted }">
       <span v-if="isHighlighted">🟢</span>
@@ -140,7 +139,7 @@ unlike the `toggle`, which renders the same `item` slot defined by default.
     },
     data() {
       return {
-        selectedColumn: 2
+        selectedColumns: 2
       };
     }
   };
@@ -172,11 +171,6 @@ with other column pickers.
     name: 'BaseColumnPickerDropdownTest',
     components: {
       BaseColumnPickerDropdown
-    },
-    data() {
-      return {
-        selectedColumn: 2
-      };
     }
   };
 </script>
@@ -188,6 +182,6 @@ An event that the component will emit:
 
 - `UserClickedColumnPicker`: the event is emitted after the user clicks an item in the dropdown. The
   event payload is the number of columns that the clicked item represents.
-- `ColumnPickerSetColumnsNumber`: the event is emitted on component mount. The event payload is the
-  current `selectedColumn` value.
+- `ColumnsNumberProvided`: the event is emitted on component mount. The event payload is the current
+  `selectedColumns` value.
 </docs>
