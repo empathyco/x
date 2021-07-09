@@ -70,11 +70,9 @@ And(
 
 // Scenario 2
 And('the number of next query results are stored', () => {
-  cy.get('body')
-    .getByDataTest('next-query')
-    .then($nextQueries => {
-      nextQueriesResults = $nextQueries.length;
-    });
+  cy.get('body').then($body => {
+    nextQueriesResults = $body.find('[data-test="next-query"]').length;
+  });
 });
 
 And('History queries are being displayed is not {boolean}', (hideIfEqualsQuery: boolean) => {
