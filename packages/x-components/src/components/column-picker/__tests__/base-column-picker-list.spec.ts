@@ -47,7 +47,7 @@ function renderBaseColumnPickerListComponent({
     async clickNthItem(nth: number) {
       await wrapper.findAll(getDataTestSelector('column-picker-button')).at(nth).trigger('click');
     },
-    async setWrapperselectedColumns(column: number): Promise<void> {
+    async setWrapperSelectedColumns(column: number): Promise<void> {
       await wrapper.setData({ selectedColumns: column });
     },
     getSelectedItem() {
@@ -135,33 +135,42 @@ describe('testing Base Column Picker List', () => {
   it('updates selected value on fresh mounts correctly', async () => {
     const getSelectedItem = (wrapper: Wrapper<Vue>): string =>
       wrapper.get('[aria-selected=true]').text();
-    const { wrapper, mountComponent, clickNthItem, setWrapperselectedColumns } =
+    const { wrapper, mountComponent, clickNthItem, setWrapperSelectedColumns } =
       renderBaseColumnPickerListComponent({
         columns: [4, 6, 0]
       });
 
     expect(getSelectedItem(wrapper)).toBe('4');
 
+    // Mounting another component does not change selected value
     const wrapper2 = mountComponent();
+    await wrapper.vm.$nextTick();
     expect(getSelectedItem(wrapper2)).toBe('4');
-
+    // Clicking the first item updates the selected value in both items
     await clickNthItem(1);
+    await wrapper.vm.$nextTick();
     expect(getSelectedItem(wrapper)).toBe('6');
     expect(getSelectedItem(wrapper2)).toBe('6');
 
+    // Mounting a new component receives the updated selected value
     const wrapper3 = mountComponent();
+    await wrapper.vm.$nextTick();
     expect(getSelectedItem(wrapper)).toBe('6');
     expect(getSelectedItem(wrapper2)).toBe('6');
     expect(getSelectedItem(wrapper3)).toBe('6');
 
-    await setWrapperselectedColumns(0);
+    // Changing the value using v-model in one components updates all of them
+    await setWrapperSelectedColumns(0);
+    await wrapper.vm.$nextTick();
     const wrapper4 = mountComponent();
     expect(getSelectedItem(wrapper)).toBe('0');
     expect(getSelectedItem(wrapper2)).toBe('0');
     expect(getSelectedItem(wrapper3)).toBe('0');
     expect(getSelectedItem(wrapper4)).toBe('0');
 
+    // New component instances initial value is ignored
     const wrapper5 = mountComponent({ selectedColumns: 6 });
+    await wrapper.vm.$nextTick();
     expect(getSelectedItem(wrapper)).toBe('0');
     expect(getSelectedItem(wrapper2)).toBe('0');
     expect(getSelectedItem(wrapper3)).toBe('0');
@@ -189,7 +198,7 @@ interface BaseColumnPickerListComponentAPI {
   /** Mounts a new component. */
   mountComponent: (options?: { selectedColumns?: number }) => Wrapper<Vue>;
   /** Changes parent wrapper selected column to simulate v-model change. */
-  setWrapperselectedColumns: (column: number) => Promise<void>;
+  setWrapperSelectedColumns: (column: number) => Promise<void>;
   /** Gets the selected item. */
   getSelectedItem: () => Wrapper<Vue>;
 }

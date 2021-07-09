@@ -57,6 +57,7 @@ function renderBaseColumnPickerDropdownComponent({
     toggleDropdown,
     async setWrapperSelectedColumns(column: number): Promise<void> {
       await wrapper.setData({ selectedColumns: column });
+      await localVue.nextTick();
     },
     async clickNthItem(nth: number): Promise<void> {
       await toggleDropdown();
@@ -202,26 +203,37 @@ describe('testing BaseColumnPickerDropdown', () => {
 
     expect(wrapper.text()).toBe('4');
 
+    // Mounting another component does not change selected value
     const wrapper2 = mountComponent();
+    await wrapper.vm.$nextTick();
+    expect(wrapper.text()).toBe('4');
     expect(wrapper2.text()).toBe('4');
 
+    // Clicking the first item updates the selected value in both items
     await clickNthItem(1);
+    await wrapper.vm.$nextTick();
     expect(wrapper.text()).toBe('6');
     expect(wrapper2.text()).toBe('6');
 
+    // Mounting a new component receives the updated selected value
     const wrapper3 = mountComponent();
+    await wrapper.vm.$nextTick();
     expect(wrapper.text()).toBe('6');
     expect(wrapper2.text()).toBe('6');
     expect(wrapper3.text()).toBe('6');
 
+    // Changing the value using v-model in one components updates all of them
     await setWrapperSelectedColumns(0);
     const wrapper4 = mountComponent();
+    await wrapper.vm.$nextTick();
     expect(wrapper.text()).toBe('0');
     expect(wrapper2.text()).toBe('0');
     expect(wrapper3.text()).toBe('0');
     expect(wrapper4.text()).toBe('0');
 
+    // New component instances initial value is ignored
     const wrapper5 = mountComponent({ selectedColumns: 6 });
+    await wrapper.vm.$nextTick();
     expect(wrapper.text()).toBe('0');
     expect(wrapper2.text()).toBe('0');
     expect(wrapper3.text()).toBe('0');

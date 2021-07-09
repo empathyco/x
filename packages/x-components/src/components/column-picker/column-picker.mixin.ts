@@ -66,7 +66,9 @@ export default class ColumnPickerMixin extends Vue {
    */
   @Watch('selectedColumns')
   protected emitChange(column: number): void {
-    this.$emit('change', column);
+    if (this.value !== column) {
+      this.$emit('change', column);
+    }
   }
 
   /**
