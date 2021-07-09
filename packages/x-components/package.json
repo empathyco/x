@@ -1,15 +1,42 @@
 {
   "name": "@empathyco/x-components",
+  "version": "3.0.0-alpha.2",
+  "description": "Empathy X Components",
+  "author": "Empathy Systems Corporation S.L.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/x-components#readme",
+  "keywords": [
+    "apache",
+    "components",
+    "ecommerce",
+    "empathy",
+    "facets",
+    "frontend",
+    "interface",
+    "instantsearch",
+    "joy",
+    "open source",
+    "search",
+    "serp",
+    "suggestions",
+    "ui",
+    "ux",
+    "vue"
+  ],
   "main": "./core/index.js",
   "module": "./core/index.js",
   "types": "./core/index.d.ts",
-  "version": "3.0.0-alpha.2",
   "sideEffects": [
     "./tests/**/*",
     "**/*.scss",
     "**/*.css",
     "**/*.vue"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empathyco/x.git",
+    "directory": "packages/x-components"
+  },
   "scripts": {
     "serve": "vue-cli-service serve --skip-plugins eslint",
     "build": "ts-node --project ./build/tsconfig.json ./build/build.ts && npm pack ./dist",
@@ -97,6 +124,9 @@
     "vue-docgen-cli": "~4.13.1",
     "vue-router": "~3.4.3",
     "vue-template-compiler": "~2.6.10 <2.6.13"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "prettier": "@empathyco/eslint-plugin-x/prettier-config",
   "gitHooks": {
