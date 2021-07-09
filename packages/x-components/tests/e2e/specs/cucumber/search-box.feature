@@ -19,6 +19,7 @@ Feature: Search-box component
     Given following config: hide if equals query <hideIfEqualsQuery>, instant search <instant>, debounce <instantDebounceInMs>
     And   "<query>" is searched
     And   related results are displayed
+    And   the number of next query results are stored
     When  the "<query>" is cleared by "<cleared>"
     Then  the search box is empty
     And   related results are cleared

@@ -4,8 +4,8 @@
   "scripts": {
     "postinstall": "lerna bootstrap --hoist",
     "build": "lerna run build",
-    "lint": "lerna run lint",
-    "test": "lerna run test",
+    "lint": "lerna run nope",
+    "test": "lerna run test:e2e:ci",
     "prepare-release:stable": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes",
     "release:alpha": "lerna publish --conventional-commits --conventional-prerelease --yes",
     "publish-release": "node scripts/publish-release"
