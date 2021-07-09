@@ -156,7 +156,7 @@ _Search for a toy and press Enter to see the related tags with the animation eff
 
 ### Play with related-tag slot
 
-In this example, the [`RelatedTag`](../related-tags/related-tag.md) component is passed in the
+In this example, the [`RelatedTag`](./x-components.related-tag.md) component is passed in the
 `related-tag` slot (although any other component could potentially be passed).
 
 _Search for a toy and see how the related tags can be rendered._
@@ -221,7 +221,7 @@ _Search for a toy and see how the related tags are rendered._
 ## Extending the component
 
 Components can be combined and communicate with each other. The `RelatedTags` component can
-communicate with the [`SearchInput`](../search-box/search-input.md) as follows:
+communicate with the [`SearchInput`](../search-box/x-components.search-input.md) as follows:
 
 _Search for a toy and see how the related tags can be rendered._
 
