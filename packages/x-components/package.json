@@ -23,11 +23,6 @@
     "ux",
     "vue"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/empathyco/x.git",
-    "directory": "packages/x-components"
-  },
   "main": "./core/index.js",
   "module": "./core/index.js",
   "types": "./core/index.d.ts",
@@ -37,6 +32,11 @@
     "**/*.css",
     "**/*.vue"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empathyco/x.git",
+    "directory": "packages/x-components"
+  },
   "scripts": {
     "serve": "vue-cli-service serve --skip-plugins eslint",
     "build": "ts-node --project ./build/tsconfig.json ./build/build.ts && npm pack ./dist",
@@ -125,6 +125,9 @@
     "vue-router": "~3.4.3",
     "vue-template-compiler": "~2.6.10 <2.6.13"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "prettier": "@empathyco/eslint-plugin-x/prettier-config",
   "gitHooks": {
     "pre-commit": "lint-staged"
@@ -136,8 +139,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }
