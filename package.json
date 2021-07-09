@@ -3,7 +3,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "postinstall": "lerna bootstrap --hoist",
-    "build": "lerna run build --parallel",
+    "build": "lerna run build",
     "lint": "lerna run nope",
     "test": "lerna run test:e2e:ci --parallel",
     "prepare-release:stable": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes",
