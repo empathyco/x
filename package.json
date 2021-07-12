@@ -11,6 +11,7 @@
     "publish-release": "node scripts/publish-release"
   },
   "devDependencies": {
+    "conventional-changelog-conventionalcommits": "~4.6.0",
     "lerna": "~4.0.0"
   }
 }

@@ -5,7 +5,6 @@
     "name": "conventionalcommits",
     "issuePrefixes": ["EX-"],
     "issueUrlFormat": "https://searchbroker.atlassian.net/browse/EX-{{id}}",
-    "header": "Changelog",
     "types": [
       { "type": "feat", "section": "Features" },
       { "type": "fix", "section": "Bug Fixes" },
