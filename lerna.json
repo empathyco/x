@@ -2,6 +2,7 @@
   "packages": ["packages/*"],
   "version": "independent",
   "changelogPreset": {
+    "name": "angular",
     "issuePrefixes": ["EX-"],
     "issueUrlFormat": "https://searchbroker.atlassian.net/browse/EX-{{id}}",
     "header": "Changelog",
