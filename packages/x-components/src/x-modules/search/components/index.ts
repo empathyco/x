@@ -1,3 +1,4 @@
+export { default as Banner } from './banner.vue';
 export { default as PartialQueryButton } from './partial-query-button.vue';
 export { default as ResultsList } from './results-list.vue';
 export { default as SortDropdown } from './sort-dropdown.vue';

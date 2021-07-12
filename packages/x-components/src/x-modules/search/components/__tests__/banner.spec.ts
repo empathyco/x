@@ -1,0 +1,75 @@
+import { Banner as BannerModel } from '@empathyco/x-types';
+import { mount, Wrapper } from '@vue/test-utils';
+import Vue from 'vue';
+import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
+import { installNewXPlugin } from '../../../../__tests__/utils';
+import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
+import Banner from '../banner.vue';
+
+function renderBanner({
+  template = `<Banner :item="item"/>`,
+  item = getBannersStub()[0]
+}: RenderBannerOptions = {}): RenderBannerAPI {
+  const [, localVue] = installNewXPlugin();
+
+  const wrapper = mount(
+    {
+      components: {
+        Banner
+      },
+      props: ['item'],
+      template
+    },
+    {
+      propsData: {
+        item
+      },
+      localVue
+    }
+  );
+
+  return {
+    wrapper: wrapper.findComponent(Banner)
+  };
+}
+
+describe('testing Banner component', () => {
+  it('is an XComponent', () => {
+    const { wrapper } = renderBanner();
+    expect(isXComponent(wrapper.vm)).toEqual(true);
+  });
+
+  it('has Search as XModule', () => {
+    const { wrapper } = renderBanner();
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('search');
+  });
+
+  it('renders the banner component', () => {
+    const { wrapper } = renderBanner({
+      item: {
+        modelName: 'Banner',
+        id: '12345',
+        url: 'https://empathy.co',
+        title: 'Search UIs',
+        image: 'https://empathy.co/x-components.jpg',
+        tagging: {
+          click: { url: 'https://track-things.com', params: {} }
+        }
+      }
+    });
+
+    expect(wrapper.text()).toEqual('Search UIs');
+  });
+});
+
+interface RenderBannerOptions {
+  /** The banner data. */
+  item?: BannerModel;
+  /** The template to be rendered. */
+  template?: string;
+}
+
+interface RenderBannerAPI {
+  /** The wrapper of the container element.*/
+  wrapper: Wrapper<Vue>;
+}
