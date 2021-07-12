@@ -145,6 +145,7 @@ describe('testing Base Column Picker List', () => {
     // Mounting another component does not change selected value
     const wrapper2 = mountComponent();
     await wrapper.vm.$nextTick();
+    expect(getSelectedItem(wrapper)).toBe('4');
     expect(getSelectedItem(wrapper2)).toBe('4');
     // Clicking the first item updates the selected value in both items
     await clickNthItem(1);
