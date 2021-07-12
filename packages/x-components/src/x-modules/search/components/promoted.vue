@@ -1,7 +1,7 @@
 <template>
   <a :href="item.url" class="x-promoted" data-test="promoted">
     <img :src="item.image" class="x-promoted__image" alt="" />
-    <h1 class="x-promoted__title">{{ item.title }}</h1>
+    <h2 class="x-promoted__title">{{ item.title }}</h2>
   </a>
 </template>
 
