@@ -1,8 +1,8 @@
 import { Promoted as PromotedModel } from '@empathyco/x-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { createPromotedStub } from '../../../../__stubs__/promoted-stubs.factory';
-import { installNewXPlugin } from '../../../../__tests__/utils';
+import { createPromotedStub } from '../../../../__stubs__/promoteds-stubs.factory';
+import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import Promoted from '../promoted.vue';
 
@@ -58,7 +58,7 @@ describe('testing Promoted component', () => {
       }
     });
 
-    expect(wrapper.text()).toEqual('Search UIs');
+    expect(wrapper.get(getDataTestSelector('promoted')).text()).toEqual('Search UIs');
   });
 });
 

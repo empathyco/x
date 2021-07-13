@@ -62,7 +62,7 @@ _Here you can see how the `Promoted` component is rendered._
         promoted: {
           modelName: 'Promoted',
           id: 'promoted-example',
-          link: 'https://my-website.com/summer-shirts',
+          url: 'https://my-website.com/summer-shirts',
           image: 'https://my-website.com/images/summer-shirts.jpg',
           title: 'Trendy summer shirts'
         }
