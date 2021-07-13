@@ -14,8 +14,8 @@
   /**
    * A banner result is just an item that has been inserted into the search results to advertise
    * something. Usually it is the first item in the grid or it can be placed in the middle of them
-   * , and fill the whole row where appears. It just contains a link to the banner content, an image
-   * , and a title.
+   * and fill the whole row where appears. It just contains a link to the banner content, an image
+   * and a title.
    *
    * @public
    */
