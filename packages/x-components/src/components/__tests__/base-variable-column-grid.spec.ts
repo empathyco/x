@@ -31,7 +31,7 @@ function renderComponent({ items = itemsStub }: RenderOptions = {}): RenderAPI {
   const wrapper = mountComponent();
 
   return {
-    gridWrapper: wrapper,
+    wrapper: wrapper,
     mountComponent,
     hasColumns(columns: number): boolean {
       return wrapper.classes(`x-base-grid--cols-${columns}`);
@@ -45,11 +45,12 @@ function renderComponent({ items = itemsStub }: RenderOptions = {}): RenderAPI {
 describe('testing BaseVariableColumnGrid component', () => {
   it('renders the columns number emitted by the ColumnsNumberProvided event', async () => {
     const newColumns = 4;
-    const { gridWrapper, hasColumns } = renderComponent();
-    gridWrapper.vm.$x.emit('ColumnsNumberProvided', newColumns);
+    const { wrapper, hasColumns } = renderComponent();
 
     expect(hasColumns(newColumns)).toBe(false);
-    await gridWrapper.vm.$nextTick();
+
+    wrapper.vm.$x.emit('ColumnsNumberProvided', newColumns);
+    await wrapper.vm.$nextTick();
     expect(hasColumns(newColumns)).toBe(true);
   });
 
@@ -61,14 +62,14 @@ describe('testing BaseVariableColumnGrid component', () => {
   });
 
   it('re-renders custom content for the available scoped slots', async () => {
-    const { gridWrapper, hasColumns, mountComponent } = renderComponent();
-    gridWrapper.vm.$x.emit('ColumnsNumberProvided', 6);
+    const { wrapper, hasColumns, mountComponent } = renderComponent();
+    wrapper.vm.$x.emit('ColumnsNumberProvided', 6);
 
-    await gridWrapper.vm.$nextTick();
+    await wrapper.vm.$nextTick();
     expect(hasColumns(6)).toBe(true);
 
-    const gridWrapper2 = mountComponent();
-    expect(gridWrapper2.classes('x-base-grid--cols-6')).toBe(true);
+    const wrapper2 = mountComponent();
+    expect(wrapper2.classes('x-base-grid--cols-6')).toBe(true);
   });
 });
 
@@ -79,7 +80,7 @@ interface RenderOptions {
 
 interface RenderAPI {
   /** The grid's wrapper. */
-  gridWrapper: Wrapper<Vue>;
+  wrapper: Wrapper<Vue>;
   /** Mounts the grid component. */
   mountComponent: () => Wrapper<Vue>;
   /** Checks if the grid has a certain number of columns. */

@@ -57,10 +57,7 @@
    * @public
    */
   @Component({
-    components: { BaseEventButton },
-    model: {
-      event: 'change'
-    }
+    components: { BaseEventButton }
   })
   export default class BaseColumnPickerList extends mixins(ColumnPickerMixin) {
     /**
@@ -70,7 +67,7 @@
      *
      * @internal
      */
-    public get columnsWithCssClasses(): ColumnPickerItem[] {
+    protected get columnsWithCssClasses(): ColumnPickerItem[] {
       return this.columns.map(column => ({
         column,
         cssClasses: [
@@ -94,7 +91,8 @@
 #Examples
 
 This component renders a list of elements in different slots depending on the columns prop. Each
-element will emit an event with the number of columns that it is being selected when it is clicked.
+element will emit the needed events to sync other instances of columns pickers, or grids with the
+number of columns that it is being selected when it is clicked.
 
 ## Default usage
 

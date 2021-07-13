@@ -59,7 +59,6 @@ describe('testing Banner component', () => {
     });
 
     expect(wrapper.get(getDataTestSelector('banner')).text()).toEqual('Search UIs');
-
   });
 });
 

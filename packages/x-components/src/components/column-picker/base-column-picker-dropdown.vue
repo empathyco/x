@@ -48,10 +48,7 @@
    * @public
    */
   @Component({
-    components: { BaseDropdown, BaseEventButton },
-    model: {
-      event: 'change'
-    }
+    components: { BaseDropdown, BaseEventButton }
   })
   export default class BaseColumnPickerDropdown extends mixins(ColumnPickerMixin) {
     /**
@@ -63,7 +60,8 @@
     public animation?: string | typeof Vue;
 
     /**
-     * It emits an {@link XEventsTypes.UserClickedColumnPicker | UserClickedColumnPicker} event.
+     * Emits a {@link XEventsTypes.UserClickedColumnPicker | UserClickedColumnPicker} and
+     * {@link XEventsTypes.ColumnsNumberProvided | ColumnsNumberProvided} events.
      *
      * @param column - Column number payload.
      */
@@ -182,6 +180,6 @@ An event that the component will emit:
 
 - `UserClickedColumnPicker`: the event is emitted after the user clicks an item in the dropdown. The
   event payload is the number of columns that the clicked item represents.
-- `ColumnsNumberProvided`: the event is emitted on component mount. The event payload is the current
-  `selectedColumns` value.
+- `ColumnsNumberProvided`: the event is emitted on component mount, and whenever the value changes.
+  The event payload is the current `selectedColumns` value.
 </docs>
