@@ -71,21 +71,3 @@ And(
     }
   }
 );
-
-And('next queries for the popular search are displayed', () => {
-  cy.wait('@waitForNextQueriesResponsePS').then(() => {
-    if (cy.$$('[data-test = "next-queries"]').length === 1) {
-      cy.getByDataTest('next-query').should('have.length.at.least', 1);
-    } else {
-      cy.getByDataTest('next-query').should('not.exist');
-    }
-  });
-});
-
-And('related tags for the popular search are displayed', () => {
-  if (cy.$$('[data-test = "related-tags"]').length === 1) {
-    cy.getByDataTest('related-tag').should('have.length.at.least', 1);
-  } else {
-    cy.getByDataTest('related-tag').should('not.exist');
-  }
-});
