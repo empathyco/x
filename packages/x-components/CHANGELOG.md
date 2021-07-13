@@ -1,4 +1,8 @@
-# X Components
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.2](https://bitbucket.org/colbenson/x-components/branches/compare/v3.0.0-alpha.2%0Dv3.0.0-alpha.1) (2021-06-30)
 
 
