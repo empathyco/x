@@ -44,7 +44,7 @@
     "gen:docs": "rimraf ./docs && npm run gen:typescript-docs && npm run gen:component-docs",
     "gen:typescript-docs": "api-documenter markdown --input-folder dist/report --output-folder docs/API-reference/api",
     "gen:component-docs": "vue-docgen",
-    "test:unit": "vue-cli-service test:unit",
+    "test:unit": "npm run test:unit-jest && npm run test:unit-cypress",
     "test:unit-jest": "vue-cli-service test:unit",
     "test:unit-cypress": "cypress run-ct",
     "test:unit-coverage": "vue-cli-service test:unit --coverage",
