@@ -58,8 +58,8 @@
             <span>{{ $x.totalResults }} Results</span>
             <BaseColumnPickerList
               #default="{ column }"
-              :columns="columnPickerValues"
               v-model="selectedColumns"
+              :columns="columnPickerValues"
             >
               <template v-if="column === 0">
                 <ChevronTinyRight />
