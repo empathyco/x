@@ -19,9 +19,9 @@
       <!--
            @slot (required) From `BaseDropdown` component: Used to render each one of the items
            content, and as fallback for the toggle button content slot if it is not provided.
-           @binding {string|number|Identifiable} item - Item to render
-           @binding {boolean} isHighlighted - True when the item has the focus.
-           @binding {boolean} isSelected - True when the item is selected.
+             @binding {string|number|Identifiable} item - Item to render
+             @binding {boolean} isHighlighted - True when the item has the focus.
+             @binding {boolean} isSelected - True when the item is selected.
         -->
       <slot name="item" v-bind="{ item, isSelected, isHighlighted }" />
     </template>

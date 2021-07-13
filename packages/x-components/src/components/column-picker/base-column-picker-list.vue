@@ -16,7 +16,8 @@
         <!--
           @slot Customized Column Picker Button content. Specifying a slot with the column value
           will result in the column using that slot composition to render.
-          @binding {column} column - Column Number to pick.
+            @binding {number} column - Columns Number to pick.
+            @binding {boolean} isSelected - True if the columns number are the chosen value.
         -->
         <slot v-bind="{ column, isSelected }">
           {{ column }}
