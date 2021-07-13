@@ -1,14 +1,14 @@
 import { Banner as BannerModel } from '@empathyco/x-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
-import { installNewXPlugin } from '../../../../__tests__/utils';
+import { createBannerStub } from '../../../../__stubs__/banners-stubs.factory';
+import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import Banner from '../banner.vue';
 
 function renderBanner({
   template = `<Banner :item="item"/>`,
-  item = getBannersStub()[0]
+  item = createBannerStub('default-banner')
 }: RenderBannerOptions = {}): RenderBannerAPI {
   const [, localVue] = installNewXPlugin();
 
@@ -58,7 +58,8 @@ describe('testing Banner component', () => {
       }
     });
 
-    expect(wrapper.text()).toEqual('Search UIs');
+    expect(wrapper.get(getDataTestSelector('banner')).text()).toEqual('Search UIs');
+
   });
 });
 
