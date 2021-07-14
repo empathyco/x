@@ -8,7 +8,6 @@ import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
-import { InfiniteScroll } from '../../../../directives/infinite-scroll/infinite-scroll.types';
 import PromotedsList from '../promoteds-list.vue';
 import { getPromotedsStub } from '../../../../__stubs__/promoteds-stubs.factory';
 import { resetXSearchStateWith } from './utils';
