@@ -68,7 +68,6 @@ describe('testing Filters component', () => {
         getSimpleFilterStub({ label: 'Kids', totalResults: undefined })
       ]
     });
-    console.log('test');
     const renderedFilters = getRenderedFilters();
     expect(renderedFilters).toHaveLength(2);
     expect(renderedFilters.wrappers.map(wrapper => wrapper.text())).toEqual(['Women', 'Kids']);
