@@ -120,14 +120,27 @@
           </Recommendations>
 
           <!-- Results -->
-          <!-- <ResultsList v-infinite-scroll:body-scroll> -->
-          <BannersList>
-            <ResultsList>
-                <PromotedsList>
-                  <BaseVariableColumnGrid />
-                </PromotedsList>
-            </ResultsList>
-          </BannersList>
+          <ResultsList v-infinite-scroll:body-scroll>
+            <template #layout="{ results }">
+              <BaseVariableColumnGrid
+                #default="{ item: result }"
+                :animation="resultsAnimation"
+                :items="results"
+              >
+                <article class="result" style="max-width: 300px">
+                  <BaseResultImage class="x-picture--colored" :result="result">
+                    <template #placeholder>
+                      <div style="padding-top: 100%; background-color: lightgray"></div>
+                    </template>
+                    <template #fallback>
+                      <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                    </template>
+                  </BaseResultImage>
+                  <h1 class="x-title3">{{ result.name }}</h1>
+                </article>
+              </BaseVariableColumnGrid>
+            </template>
+          </ResultsList>
 
           <BaseVariableColumnGrid>
             <ResultsList>
