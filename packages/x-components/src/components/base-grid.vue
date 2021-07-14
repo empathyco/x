@@ -34,6 +34,7 @@
   import { Component, Prop } from 'vue-property-decorator';
   import { toKebabCase } from '../utils/string';
   import { GridItem, VueCSSClasses } from '../utils/types';
+  import {XInject} from "./decorators/injection.decorators";
 
   /**
    * Grid component that is able to render different items based on their modelName value. In order
@@ -69,8 +70,12 @@
      *
      * @public
      */
-    @Prop({ required: true })
-    protected items!: GridItem[];
+    @Prop({ required: false })
+    protected items?: GridItem[];
+
+    protected get computedItems(): GridItem[] {
+      return this.items || this.injectedGridItems;
+    }
 
     /**
      * CSS class based on the column property value so items inside the grid can fill different
@@ -111,13 +116,16 @@
       item: GridItem;
       cssClass: VueCSSClasses;
     }[] {
-      return this.items.map(item => ({
+      return this.computedItems.map(item => ({
         item,
         cssClass: item.modelName
           ? `x-base-grid__${toKebabCase(item.modelName)}`
           : 'x-base-grid__default'
       }));
     }
+
+    @XInject('gridItems')
+    public injectedGridItems!: GridItem[];
   }
 </script>
 

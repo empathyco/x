@@ -46,8 +46,8 @@
      *
      * @public
      */
-    @Prop({ required: true })
-    protected items!: GridItem[];
+    @Prop({ required: false })
+    protected items?: GridItem[];
 
     /**
      * The columns to render in the grid.

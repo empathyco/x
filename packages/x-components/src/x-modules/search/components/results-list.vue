@@ -1,12 +1,19 @@
 <template>
-  <NoElement v-if="results.length">
+  <NoElement>
     <!--
-      @slot Customized Results List layout.
-          @binding {results} results - Results to render
-          @binding {animation} animation - Animation to animate the elements
+      @slot Customize ResultsList.
+          @binding {results} results - Results to render.
+          @binding {gridItems} gridItems - `Results` and `injectedGridItems`.
+          @binding {animation} animation - Animation to animate the elements.
     -->
-    <slot name="layout" v-bind="{ results, animation }">
-      <component :is="animation" tag="ul" class="x-list x-results-list" data-test="results-list">
+    <slot v-bind="{ results, gridItems, animation }">
+      <component
+        :is="animation"
+        v-if="results.length"
+        tag="ul"
+        class="x-list x-results-list"
+        data-test="results-list"
+      >
         <li
           v-for="result in results"
           :key="result.id"
@@ -14,7 +21,7 @@
           data-test="results-list-item"
         >
           <!--
-            @slot Customized Results List result.
+            @slot Customize ResultsList result.
                 @binding {result} result - Result data
           -->
           <slot :result="result" name="result">{{ result.name }}</slot>
@@ -33,10 +40,13 @@
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { searchXModule } from '../x-module';
   import { InfiniteScroll } from '../../../directives/infinite-scroll/infinite-scroll.types';
+  import { XInject, XProvide } from '../../../components/decorators/injection.decorators';
+  import { GridItem } from '../../../utils/types';
 
   /**
    * It renders a list of results from {@link SearchState.results} by default.
-   * The component provides the slot layout which wraps the whole component with the results bound.
+   * The component provides a default slot which wraps the whole component with the `results` bound
+   * and the `gridItems` which also contains the injected grid items from an ancestor.
    * It also provides the slot result to customize the item, which is within the layout slot, with
    * the result bound.
    *
@@ -73,24 +83,39 @@
     onInfiniteScrollEnd(): void {
       this.$x.emit('UserReachedResultsListEnd');
     }
+
+    /**
+     * It injects gridItems provided by an ancestor as injectedGridItems.
+     *
+     * @internal
+     */
+    @XInject('gridItems', <GridItem[]>[])
+    public injectedGridItems!: GridItem[];
+
+    /**
+     * It provides `gridItems` which is the result of concatenating the `results` and the
+     * `injectedGridItems`.
+     *
+     * @returns Array of `results` and `injectedGridItems`.
+     *
+     * @internal
+     */
+    @XProvide('gridItems')
+    public get gridItems(): GridItem[] {
+      return [...this.results, ...this.injectedGridItems];
+    }
   }
 </script>
 
 <docs lang="mdx">
-#Examples
+## Events
 
-It renders a list of results from {@link SearchState.results} by default. The component provides the
-slot layout which wraps the whole component with the results bound. It also provides the slot result
-to customize the item, which is within the layout slot, with the result bound.
+This component emits no events.
 
-## Basic example
+## See it in action
 
-You don't need to pass any props or slots. Simply add the component and when it has any results it
-will show them.
+_Here you can see how the `ResultsList` component is rendered._
 
-```vue
-<ResultsList />
-```
 
 ## Configuring the animation
 
