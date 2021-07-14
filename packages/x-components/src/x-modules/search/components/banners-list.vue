@@ -2,8 +2,9 @@
   <NoElement>
     <!--
       @slot Customized Banners List layout.
-          @binding {banners} banners - Banners to render
-          @binding {animation} animation - Animation to animate the elements
+          @binding {banners} banners - Banners to render.
+          @binding {gridItems} gridItems - `Results` and `injectedGridItems`.
+          @binding {animation} animation - Animation to animate the elements.
     -->
     <slot v-bind="{ banners, gridItems, animation }">
       <component
@@ -43,11 +44,11 @@
   /**
    * It renders a list of banners from {@link SearchState.banners} by default.
    *
-   * The component provides the slot layout which wraps the whole component with the promoteds
-   * bound.
+   * The component provides a default slot which wraps the whole component with the `banners` bound
+   * and the `gridItems` which also contains the injected grid items from an ancestor.
    *
-   * It also provides the slot result to customize the item, which is within the layout slot, with
-   * the promoted bound.
+   * It also provides the slot banner to customize the item, which is within the default slot, with
+   * the result bound.
    *
    * @public
    */
@@ -98,60 +99,158 @@
 </script>
 
 <docs lang="mdx">
-#Examples
+## Events
 
-It renders a list of results from {@link SearchState.results} by default. The component provides the
-slot layout which wraps the whole component with the results bound. It also provides the slot result
-to customize the item, which is within the layout slot, with the result bound.
+This component emits no events.
 
-## Basic example
+## See it in action
 
-You don't need to pass any props or slots. Simply add the component and when it has any results it
-will show them.
+<!-- prettier-ignore-start -->
+:::warning Backend service required
+To use this component, the Search service must be implemented.
+:::
+<!-- prettier-ignore-end -->
+
+Here you have a basic example of how the BannersList is rendered.
+
+_Type any term in the input field to try it out!_
 
 ```vue
-<ResultsList />
+<template>
+  <div>
+    <SearchInput />
+    <BannersList />
+  </div>
+</template>
+
+<script>
+  import { SearchInput, BannersList } from '@empathyco/x-components/search';
+
+  export default {
+    name: 'BannersListDemo',
+    components: {
+      SearchInput,
+      BannersList
+    }
+  };
+</script>
 ```
 
-## Configuring the animation
-
-The component has an optional prop, `animation`, to render the component using an animation.
+### Play with the animation
 
 ```vue
-<ResultsList :animation="FadeAndSlide" />
+<template>
+  <div>
+    <SearchInput />
+    <BannersList :animation="fadeAndSlide" />
+  </div>
+</template>
+
+<script>
+  import { SearchInput, BannersList } from '@empathyco/x-components/search';
+  import { FadeAndSlide } from '@empathyco/x-components/animations';
+
+  export default {
+    name: 'BannersListDemo',
+    components: {
+      SearchInput,
+      BannersList
+    },
+    data() {
+      return {
+        fadeAndSlide: FadeAndSlide
+      };
+    }
+  };
+</script>
 ```
 
-## Overriding result content
-
-It renders a list of results using the result slot.
+### Overriding default content
 
 ```vue
-<ResultsList :animation="FadeAndSlide">
-  <template #result="{ result }">
-      <span class="result">
-        {{ result.name }}
-      </span>
-  </template>
-</ResultsList>
-```
-
-## Overriding layout content
-
-It renders a list of results customizing the layout slot. In the example below, instead of using the
-default ResultsList content, a BaseGrid component is used to render the results.
-
-```vue
-<ResultsList :animation="FadeAndSlide">
-  <template #layout="{ results, animation }">
-    <BaseGrid :items="results" :animation="animation">
-      <template #Result="{ item }">
-        <span>Result: {{ item.name }}</span>
+<template>
+  <div>
+    <SearchInput />
+    <BannersList>
+      <template #default="{ banners, animation }">
+        <BaseGrid :items="banners" :animation="animation">
+          <template #Banner="{ item }">
+            <span>Banner: {{ item.name }}</span>
+          </template>
+          <template #default="{ item }">
+            <span>Default: {{ item }}</span>
+          </template>
+        </BaseGrid>
       </template>
-      <template #default="{ item }">
-        <span>Default: {{ item }}</span>
+    </BannersList>
+  </div>
+</template>
+
+<script>
+  import { SearchInput, BannersList } from '@empathyco/x-components/search';
+
+  export default {
+    name: 'BannersListDemo',
+    components: {
+      SearchInput,
+      BannersList
+    }
+  };
+</script>
+```
+
+### Overriding banner content
+
+```vue
+<template>
+  <div>
+    <SearchInput />
+    <BannersList>
+      <template #banner="{ banner }">
+        <span class="banner">
+          {{ banner.name }}
+        </span>
       </template>
-    </BaseGrid>
-  </template>
-</ResultsList>
+    </BannersList>
+  </div>
+</template>
+
+<script>
+  import { SearchInput, BannersList } from '@empathyco/x-components/search';
+
+  export default {
+    name: 'BannersListDemo',
+    components: {
+      SearchInput,
+      BannersList
+    }
+  };
+</script>
+```
+
+### Data injection
+
+```vue
+<template>
+  <div>
+    <SearchInput />
+    <ResultsList>
+      <BannersList />
+    </ResultsList>
+  </div>
+</template>
+
+<script>
+  import { SearchInput, ResultsList, BannersList } from '@empathyco/x-components/search';
+
+  export default {
+    name: 'BannersListDemo',
+    components: {
+      SearchInput,
+      ResultsList,
+      BannersList
+    }
+  };
+</script>
 ```
 </docs>

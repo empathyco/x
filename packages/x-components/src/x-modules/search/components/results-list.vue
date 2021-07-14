@@ -45,9 +45,11 @@
 
   /**
    * It renders a list of results from {@link SearchState.results} by default.
+   *
    * The component provides a default slot which wraps the whole component with the `results` bound
    * and the `gridItems` which also contains the injected grid items from an ancestor.
-   * It also provides the slot result to customize the item, which is within the layout slot, with
+   *
+   * It also provides the slot result to customize the item, which is within the default slot, with
    * the result bound.
    *
    * @public
@@ -114,48 +116,152 @@ This component emits no events.
 
 ## See it in action
 
-_Here you can see how the `ResultsList` component is rendered._
+<!-- prettier-ignore-start -->
+:::warning Backend service required
+To use this component, the Search service must be implemented.
+:::
+<!-- prettier-ignore-end -->
 
+Here you have a basic example of how the ResultsList is rendered.
 
-## Configuring the animation
-
-The component has an optional prop, `animation`, to render the component using an animation.
+_Type any term in the input field to try it out!_
 
 ```vue
-<ResultsList :animation="FadeAndSlide" />
+<template>
+  <div>
+    <SearchInput />
+    <ResultsList />
+  </div>
+</template>
+
+<script>
+  import { SearchInput, ResultsList } from '@empathyco/x-components/search';
+
+  export default {
+    name: 'ResultsListDemo',
+    components: {
+      SearchInput,
+      ResultsList
+    }
+  };
+</script>
 ```
 
-## Overriding result content
-
-It renders a list of results using the result slot.
+### Play with the animation
 
 ```vue
-<ResultsList :animation="FadeAndSlide">
-    <template #result="{ result }">
-      <span class="result">
-        {{ result.name }}
-      </span>
-    </template>
-  </ResultsList>
+<template>
+  <div>
+    <SearchInput />
+    <ResultsList :animation="fadeAndSlide" />
+  </div>
+</template>
+
+<script>
+  import { SearchInput, ResultsList } from '@empathyco/x-components/search';
+  import { FadeAndSlide } from '@empathyco/x-components/animations';
+
+  export default {
+    name: 'ResultsListDemo',
+    components: {
+      SearchInput,
+      ResultsList
+    },
+    data() {
+      return {
+        fadeAndSlide: FadeAndSlide
+      };
+    }
+  };
+</script>
 ```
 
-## Overriding layout content
-
-It renders a list of results customizing the layout slot. In the example below, instead of using the
-default ResultsList content, a BaseGrid component is used to render the results.
+### Overriding default content
 
 ```vue
-<ResultsList :animation="FadeAndSlide">
-    <template #layout="{ results, animation }">
-      <BaseGrid :items="results" :animation="animation">
-        <template #Result="{ item }">
-          <span>Result: {{ item.name }}</span>
-        </template>
-        <template #default="{ item }">
-          <span>Default: {{ item }}</span>
-        </template>
-      </BaseGrid>
-    </template>
-  </ResultsList>
+<template>
+  <div>
+    <SearchInput />
+    <ResultsList>
+      <template #default="{ results, animation }">
+        <BaseGrid :items="results" :animation="animation">
+          <template #Result="{ item }">
+            <span>Result: {{ item.name }}</span>
+          </template>
+          <template #default="{ item }">
+            <span>Default: {{ item }}</span>
+          </template>
+        </BaseGrid>
+      </template>
+    </ResultsList>
+  </div>
+</template>
+
+<script>
+  import { SearchInput, ResultsList } from '@empathyco/x-components/search';
+
+  export default {
+    name: 'ResultsListDemo',
+    components: {
+      SearchInput,
+      ResultsList
+    }
+  };
+</script>
+```
+
+### Overriding result content
+
+```vue
+<template>
+  <div>
+    <SearchInput />
+    <ResultsList>
+      <template #result="{ result }">
+        <span class="result">
+          {{ result.name }}
+        </span>
+      </template>
+    </ResultsList>
+  </div>
+</template>
+
+<script>
+  import { SearchInput, ResultsList } from '@empathyco/x-components/search';
+
+  export default {
+    name: 'ResultsListDemo',
+    components: {
+      SearchInput,
+      ResultsList
+    }
+  };
+</script>
+```
+
+### Data injection
+
+```vue
+<template>
+  <div>
+    <SearchInput />
+    <BannersList>
+      <ResultsList />
+    </BannersList>
+  </div>
+</template>
+
+<script>
+  import { SearchInput, ResultsList, BannersList } from '@empathyco/x-components/search';
+
+  export default {
+    name: 'ResultsListDemo',
+    components: {
+      SearchInput,
+      ResultsList,
+      BannersList
+    }
+  };
+</script>
 ```
 </docs>
