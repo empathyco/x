@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.2...@empathyco/x-components@3.0.0-alpha.3) (2021-07-14)
+
+
+### Features
+
+* **design-system:** add scroll-to-top slot in Layout ([421e937](https://github.com/empathyco/x/commit/421e9371da6f84069ae033cf0cba8ef360c2603e)), closes [EX-4192](https://searchbroker.atlassian.net/browse/EX-4192)
+* **search:** add `Promoted` component ([9c887dc](https://github.com/empathyco/x/commit/9c887dc77e66bf4847a0592557f68461844e0c44)), closes [EX-4289](https://searchbroker.atlassian.net/browse/EX-4289)
+* **search:** add Banner component (#42) ([205bf13](https://github.com/empathyco/x/commit/205bf13fe72a5d2c9b28fd0866a9ceb2d14b1700)), closes [EX-4291](https://searchbroker.atlassian.net/browse/EX-4291)
+
+
+### Bug Fixes
+
+* **components:** make column picker & grid components listen to only `ColumnsNumberProvided` event to fix incorrect columns number on re-mounts ([0d3d366](https://github.com/empathyco/x/commit/0d3d366266cee2e383d442913736d35d2f80ea7c)), closes [EX-4189](https://searchbroker.atlassian.net/browse/EX-4189)
+* **directives:** `InfiniteScroll` now works properly in Safari and with html or body as containers ([4921d31](https://github.com/empathyco/x/commit/4921d315b9732f200b1946e2938d20277f04cace)), closes [EX-3826](https://searchbroker.atlassian.net/browse/EX-3826)
+* **search:** clean sort value after accept a new query ([0e49049](https://github.com/empathyco/x/commit/0e490499c35ac56705a05c12b05be4f5a86ae8ce)), closes [EX-4188](https://searchbroker.atlassian.net/browse/EX-4188)
+
+
+### Documentation
+
+* **query-suggestions:** adapt examples to edocs guidelines ([b2380f9](https://github.com/empathyco/x/commit/b2380f95f85d838f0762ea1e608a3ae65ea11b58)), closes [EX-3490](https://searchbroker.atlassian.net/browse/EX-3490)
+* **related-tags:** adapt to eDocs guidelines (#35) ([c0cc8ba](https://github.com/empathyco/x/commit/c0cc8ba8a04ca21a206cecd9e657b354e1ece782))
+
+
+### Testing
+
+* enable e2e test and fix tests (#38) ([9d07a2a](https://github.com/empathyco/x/commit/9d07a2a0d146c5ad9cd5441023b864148759b5b5)), closes [EX-4363](https://searchbroker.atlassian.net/browse/EX-4363)
+
+
+
 ## [3.0.0-alpha.2](https://bitbucket.org/colbenson/x-components/branches/compare/v3.0.0-alpha.2%0Dv3.0.0-alpha.1) (2021-06-30)
 
 

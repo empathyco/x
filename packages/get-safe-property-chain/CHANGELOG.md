@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### 1.2.1-alpha.0 (2021-07-14)
+
+
+### Documentation
+
+* add LICENSE and update package.json ([0671946](https://github.com/empathyco/x/commit/06719465da210dbc36395612f0b1b847567eb68f)), closes [EX-3933](https://searchbroker.atlassian.net/browse/EX-3933)
+
+
+### Styling
+
+* add `@empathyco/eslint-plugin-x` to all packages ([e36dc80](https://github.com/empathyco/x/commit/e36dc8022196df4c977045ca2e9a38be17657b83)), closes [EX-4273](https://searchbroker.atlassian.net/browse/EX-4273)
+
+
+
 ## 1.2.0 - 05/06/2020
 
 > EX-1843 Add ESM build keeping the CommonJS
