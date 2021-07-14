@@ -130,7 +130,8 @@
     "vue-template-compiler": "~2.6.10 <2.6.13"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "directory": "dist"
   },
   "prettier": "@empathyco/eslint-plugin-x/prettier-config",
   "gitHooks": {
