@@ -97,11 +97,11 @@ describe('testing Results list component', () => {
     );
   });
 
-  it('allows customizing the layout slot', () => {
+  it('allows customizing the default slot', () => {
     const { resultsListWrapper } = renderResultsList({
       template: `
         <ResultsList>
-          <template #layout="{ results }">
+          <template #default="{ results }">
             <BaseGrid :items="results" data-test="layout-slot-overridden"/>
           </template>
         </ResultsList>`,

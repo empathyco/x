@@ -24,7 +24,7 @@
             @slot Customized Promoteds List promoted.
                 @binding {promoted} promoted - Promoted data
           -->
-          <slot :promoted="promoted" name="promoted">{{ promoted.name }}</slot>
+          <slot :promoted="promoted" name="promoted">{{ promoted.title }}</slot>
         </li>
       </component>
     </slot>
@@ -80,7 +80,7 @@
      *
      * @internal
      */
-    @XInject('gridItems', <GridItem[]>[])
+    @XInject('gridItems', [] as GridItem[])
     public injectedGridItems!: GridItem[];
 
     /**
@@ -175,7 +175,7 @@ _Type any term in the input field to try it out!_
       <template #default="{ promoteds, animation }">
         <BaseGrid :items="promoteds" :animation="animation">
           <template #Promoted="{ item }">
-            <span>Promoted: {{ item.name }}</span>
+            <span>Promoted: {{ item.title }}</span>
           </template>
           <template #default="{ item }">
             <span>Default: {{ item }}</span>
@@ -208,7 +208,7 @@ _Type any term in the input field to try it out!_
     <PromotedsList>
       <template #promoted="{ promoted }">
         <span class="promoted">
-          {{ promoted.name }}
+          {{ promoted.title }}
         </span>
       </template>
     </PromotedsList>

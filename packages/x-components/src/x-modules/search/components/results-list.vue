@@ -91,7 +91,7 @@
      *
      * @internal
      */
-    @XInject('gridItems', <GridItem[]>[])
+    @XInject('gridItems', [] as GridItem[])
     public injectedGridItems!: GridItem[];
 
     /**

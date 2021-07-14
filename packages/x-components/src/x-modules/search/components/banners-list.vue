@@ -80,7 +80,7 @@
      *
      * @internal
      */
-    @XInject('gridItems', <GridItem[]>[])
+    @XInject('gridItems', [] as GridItem[])
     public injectedGridItems!: GridItem[];
 
     /**
@@ -175,7 +175,7 @@ _Type any term in the input field to try it out!_
       <template #default="{ banners, animation }">
         <BaseGrid :items="banners" :animation="animation">
           <template #Banner="{ item }">
-            <span>Banner: {{ item.name }}</span>
+            <span>Banner: {{ item.title }}</span>
           </template>
           <template #default="{ item }">
             <span>Default: {{ item }}</span>
@@ -208,7 +208,7 @@ _Type any term in the input field to try it out!_
     <BannersList>
       <template #banner="{ banner }">
         <span class="banner">
-          {{ banner.name }}
+          {{ banner.title }}
         </span>
       </template>
     </BannersList>
