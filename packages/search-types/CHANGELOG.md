@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 9.1.0-alpha.0 (2021-07-14)
+
+
+### Features
+
+* prepare `search-types` for the mono-repo ([67cd79f](https://github.com/empathyco/x/commit/67cd79fd2d17f49ed9a49c74b316651fb55203df)), closes [EX-3850](https://searchbroker.atlassian.net/browse/EX-3850)
+* update `search-types` package information ([465da36](https://github.com/empathyco/x/commit/465da36630a3e4545f2eadff540dbf3ae9de0d0a)), closes [EX-3934](https://searchbroker.atlassian.net/browse/EX-3934)
+
+
+
 ## 9.0.0 - 2021/05/19
 
 > EX-3917 Change `HierarchicalFilter` `children` prop to be optional.

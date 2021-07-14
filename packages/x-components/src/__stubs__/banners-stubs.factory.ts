@@ -1,5 +1,4 @@
-import { Banner, Tagging } from '@empathyco/x-types';
-import { DeepPartial } from '../utils/types';
+import { Banner } from '@empathyco/x-types';
 
 /**
  * Creates {@link @empathyco/x-types#Banner | banners} stub.
@@ -9,58 +8,30 @@ import { DeepPartial } from '../utils/types';
  * @internal
  */
 export function getBannersStub(): Banner[] {
-  return [
-    {
-      ...getBannerCommonValues(),
-      id: 'xb-001',
-      title: 'Banner 01',
-      url: 'http://x-components.com',
-      image: 'xc-01.jpg',
-      tagging: {
-        click: getTaggingByAction('click', { productId: 'xc-001' })
+  return [createBannerStub('1'), createBannerStub('2')];
+}
+
+/**
+ * Creates a banner with a "unique" identifier.
+ *
+ * @param identifier - The banner identifier.
+ *
+ * @returns The banner.
+ *
+ * @internal
+ */
+export function createBannerStub(identifier: string): Banner {
+  return {
+    id: `xp-${identifier}`,
+    title: `Banner ${identifier}`,
+    url: `http://x-components-banner-${identifier}.com`,
+    image: `xp-${identifier}.jpg`,
+    tagging: {
+      click: {
+        params: {},
+        url: ''
       }
     },
-    {
-      ...getBannerCommonValues(),
-      id: 'xb-002',
-      title: 'Banner 02',
-      url: 'http://x-components.com',
-      image: 'xc-02.jpg',
-      tagging: {
-        click: getTaggingByAction('click', { productId: 'xc-002' })
-      }
-    }
-  ] as Banner[];
-}
-
-/**
- * Creates a deep partial banner with common values for all banner stub array.
- *
- * @returns DeepPartial banner.
- *
- * @internal
- */
-function getBannerCommonValues(): DeepPartial<Banner> {
-  return {
     modelName: 'Banner'
-  };
-}
-
-/**
- * Creates a {@link @empathyco/x-types#Tagging | banner tagging} mocked object.
- *
- * @param action - String with the action to tag.
- * @param params - Params to add to the tagging request.
- *
- * @returns Tagging mocked object.
- *
- * @internal
- */
-function getTaggingByAction(action: string, params: Record<string, any>): Tagging {
-  return {
-    url: `http://x-components.com/tagging/${action}`,
-    params: {
-      ...params
-    }
   };
 }
