@@ -28,11 +28,14 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json && npm run gen:docs && npm pack",
+    "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json && npm run gen:docs",
     "build:watch": "tsc --watch",
     "gen:model-docs": "api-extractor run -l",
     "gen:typescript-docs": "api-documenter markdown -i report -o docs",
     "gen:docs": "npm run gen:model-docs && npm run gen:typescript-docs",
+    "postbuild": "npm pack",
+    "postinstall": "npm run build",
+    "prepublishOnly": "npm run build",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
