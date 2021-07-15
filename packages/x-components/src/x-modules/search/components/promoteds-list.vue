@@ -178,7 +178,7 @@ _Type any term in the input field to try it out!_
 </script>
 ```
 
-### Overriding banner content
+### Overriding promoted content
 
 ```vue
 <template>
@@ -221,7 +221,7 @@ _Type any term in the input field to try it out!_
   import { SearchInput, ResultsList, PromotedsList } from '@empathyco/x-components/search';
 
   export default {
-    name: 'BannersListDemo',
+    name: 'PromotedsListDemo',
     components: {
       SearchInput,
       ResultsList,

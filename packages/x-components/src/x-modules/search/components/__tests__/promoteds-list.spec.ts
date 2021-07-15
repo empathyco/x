@@ -100,14 +100,14 @@ describe('testing PromotedsList component', () => {
     const { wrapper } = renderPromotedsList({
       template: `
         <PromotedsList>
-          <template #default="{ banners }">
-            <p :items="banners" data-test="default-slot-overridden"/>
+          <template #default="{ promoteds }">
+            <p :items="promoteds" data-test="default-slot-overridden"/>
           </template>
         </PromotedsList>`,
       components: { BaseGrid }
     });
 
-    expect(wrapper.find(getDataTestSelector('banners-list')).exists()).toBe(false);
+    expect(wrapper.find(getDataTestSelector('promoteds-list')).exists()).toBe(false);
     expect(wrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toBe(true);
   });
 });
