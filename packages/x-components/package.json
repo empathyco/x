@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-components",
-  "version": "3.0.0-alpha.3",
+  "version": "3.0.0-alpha.4",
   "description": "Empathy X Components",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -79,9 +79,9 @@
   "devDependencies": {
     "@cucumber/cucumber": "~7.0.0-rc.0",
     "@cypress/browserify-preprocessor": "~3.0.1",
-    "@cypress/webpack-preprocessor": "~5.1.1",
     "@cypress/vue": "~2.2.3",
     "@cypress/webpack-dev-server": "~1.4.0",
+    "@cypress/webpack-preprocessor": "~5.1.1",
     "@empathyco/eslint-plugin-x": "^1.4.0-alpha.1",
     "@microsoft/api-documenter": "~7.7.12",
     "@microsoft/api-extractor": "~7.7.8",
