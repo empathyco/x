@@ -34,7 +34,7 @@
   import { Component, Prop } from 'vue-property-decorator';
   import { toKebabCase } from '../utils/string';
   import { GridItem, VueCSSClasses } from '../utils/types';
-  import {XInject} from "./decorators/injection.decorators";
+  import { XInject } from './decorators/injection.decorators';
 
   /**
    * Grid component that is able to render different items based on their modelName value. In order
@@ -55,6 +55,7 @@
      */
     @Prop({ default: 'ul' })
     protected animation!: Vue | string;
+
     /**
      * Number of columns the grid is divided into. By default, its value is 0, setting the grid
      * columns mode to auto-fill.
@@ -63,6 +64,7 @@
      */
     @Prop({ default: 0 })
     protected columns!: number;
+
     /**
      * The list of items to be rendered.
      *
@@ -70,11 +72,32 @@
      *
      * @public
      */
-    @Prop({ required: false })
+    @Prop()
     protected items?: GridItem[];
 
+    /**
+     * It injects {@link GridItem} provided by an ancestor as injectedItems.
+     *
+     * @internal
+     */
+    @XInject('gridItems')
+    public injectedItems!: GridItem[];
+
+    /**
+     * It returns the items passed as props or the injected ones.
+     *
+     * @returns List of grid items.
+     *
+     * @public
+     */
     protected get computedItems(): GridItem[] {
-      return this.items || this.injectedGridItems;
+      return (
+        this.items ??
+        this.injectedItems ??
+        //TODO: add here logger
+        //eslint-disable-next-line no-console
+        console.warn('It is necessary to pass a prop or inject the list of filters')
+      );
     }
 
     /**
@@ -123,9 +146,6 @@
           : 'x-base-grid__default'
       }));
     }
-
-    @XInject('gridItems')
-    public injectedGridItems!: GridItem[];
   }
 </script>
 

@@ -2,27 +2,28 @@
   <NoElement>
     <!--
       @slot Customized Banners List layout.
-          @binding {banners} banners - Banners to render.
-          @binding {gridItems} gridItems - `Results` and `injectedGridItems`.
-          @binding {animation} animation - Animation to animate the elements.
+        @binding {Banner[]} items - Banners to render.
+        @binding {GridItem[]} providedItems - A list containing the injected grid items, plus the
+        retrieved banners, concatenated in the first positions.
+        @binding {Vue | string} animation - Animation to animate the elements.
     -->
-    <slot v-bind="{ banners, gridItems, animation }">
+    <slot v-bind="{ items, providedItems, animation }">
       <component
         :is="animation"
-        v-if="banners.length"
+        v-if="items.length"
         tag="ul"
         class="x-list x-banners-list"
         data-test="banners-list"
       >
         <li
-          v-for="banner in banners"
+          v-for="banner in items"
           :key="banner.id"
           class="x-banners-list__item"
           data-test="banners-list-item"
         >
           <!--
             @slot Customized Banners List banner.
-                @binding {banner} banner - Banner data
+                @binding {Banner} banner - Banner data
           -->
           <slot :banner="banner" name="banner">{{ banner.title }}</slot>
         </li>
@@ -39,15 +40,16 @@
   import { NoElement } from '../../../components/no-element';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { searchXModule } from '../x-module';
-  import { XInject, XProvide } from '../../../components/decorators/injection.decorators';
-  import { GridItem } from '../../../utils/types';
+  import GridItemsInjectionMixin from './grid-items-injection.mixin';
+
   /**
-   * It renders a list of banners from {@link SearchState.banners} by default.
+   * It renders a list of banners from props or from {@link SearchState.banners} by default
+   * using the {@link GridItemsInjectionMixin}.
    *
-   * The component provides a default slot which wraps the whole component with the `banners` bound
-   * and the `gridItems` which also contains the injected grid items from an ancestor.
+   * The component provides a default slot which wraps the whole component with the `items`
+   * bound and the `injectedItems` which also contains the injected grid items from an ancestor.
    *
-   * It also provides the slot banner to customize the item, which is within the default slot, with
+   * It also provides the slot result to customize the item, which is within the default slot, with
    * the result bound.
    *
    * @public
@@ -56,7 +58,7 @@
     components: {
       NoElement
     },
-    mixins: [xComponentMixin(searchXModule)]
+    mixins: [xComponentMixin(searchXModule), GridItemsInjectionMixin]
   })
   export default class BannersList extends Vue {
     /**
@@ -65,36 +67,15 @@
      * @public
      */
     @State('search', 'banners')
-    public banners!: Banner[];
+    public stateItems!: Banner[];
 
     /**
-     * Animation component that will be used to animate the promoteds.
+     * Animation component that will be used to animate the banners.
      *
      * @public
      */
     @Prop({ default: 'ul' })
     protected animation!: Vue | string;
-
-    /**
-     * It injects gridItems provided by an ancestor as injectedGridItems.
-     *
-     * @internal
-     */
-    @XInject('gridItems', [] as GridItem[])
-    public injectedGridItems!: GridItem[];
-
-    /**
-     * It provides `gridItems` which is the result of concatenating the `banners` and the
-     * `injectedGridItems`.
-     *
-     * @returns Array of `banners` and `injectedGridItems`.
-     *
-     * @internal
-     */
-    @XProvide('gridItems')
-    public get gridItems(): GridItem[] {
-      return [...this.banners, ...this.injectedGridItems];
-    }
   }
 </script>
 
@@ -171,17 +152,15 @@ _Type any term in the input field to try it out!_
 <template>
   <div>
     <SearchInput />
-    <BannersList>
-      <template #default="{ banners, animation }">
-        <BaseGrid :items="banners" :animation="animation">
-          <template #Banner="{ item }">
-            <span>Banner: {{ item.title }}</span>
-          </template>
-          <template #default="{ item }">
-            <span>Default: {{ item }}</span>
-          </template>
-        </BaseGrid>
-      </template>
+    <BannersList #default="{ items, animation }">
+      <BaseGrid :items="items" :animation="animation">
+        <template #Banner="{ item }">
+          <span>Banner: {{ item.title }}</span>
+        </template>
+        <template #default="{ item }">
+          <span>Default: {{ item }}</span>
+        </template>
+      </BaseGrid>
     </BannersList>
   </div>
 </template>
@@ -205,12 +184,10 @@ _Type any term in the input field to try it out!_
 <template>
   <div>
     <SearchInput />
-    <BannersList>
-      <template #banner="{ banner }">
-        <span class="banner">
-          {{ banner.title }}
-        </span>
-      </template>
+    <BannersList #banner="{ banner }">
+      <span class="banner">
+        {{ banner.title }}
+      </span>
     </BannersList>
   </div>
 </template>

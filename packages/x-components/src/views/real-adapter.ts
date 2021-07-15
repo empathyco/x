@@ -8,7 +8,7 @@ export const realAdapter = new EmpathyAdapterBuilder()
     return result;
   }, 'results')
   .setFeatureConfig('search', {
-    endpoint: 'https://api.empathybroker.com/search/v1/query/juguettos/searchv2'
+    endpoint: 'https://api-staging.empathybroker.com/search/v1/query/juguettos/searchv2'
   })
   .setFacetConfig(
     {

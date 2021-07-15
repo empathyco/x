@@ -47,6 +47,12 @@ export const searchXStoreModule: SearchXStoreModule = {
     appendResults(state, results) {
       state.results.push(...results);
     },
+    appendBanners(state, banners) {
+      state.banners.push(...banners);
+    },
+    appendPromoteds(state, promoteds) {
+      state.promoteds.push(...promoteds);
+    },
     setPartialResults(state, partialResults) {
       state.partialResults = partialResults;
     },

@@ -2,27 +2,28 @@
   <NoElement>
     <!--
       @slot Customized Promoteds List layout.
-          @binding {promoteds} promoteds - Promoteds to render.
-          @binding {gridItems} gridItems - `Results` and `injectedGridItems`.
-          @binding {animation} animation - Animation to animate the elements.
+        @binding {Promoted[]} items - Promoteds to render.
+        @binding {GridItem[]} providedItems - A list containing the injected grid items, plus the
+        retrieved promoteds, concatenated in the first positions.
+        @binding {Vue | string} animation - Animation to animate the elements.
     -->
-    <slot v-bind="{ promoteds, gridItems, animation }">
+    <slot v-bind="{ items, providedItems, animation }">
       <component
         :is="animation"
-        v-if="promoteds.length"
+        v-if="items.length"
         tag="ul"
         class="x-list x-promoteds-list"
         data-test="promoteds-list"
       >
         <li
-          v-for="promoted in gridItems"
+          v-for="promoted in items"
           :key="promoted.id"
           class="x-promoteds-list__item"
           data-test="promoteds-list-item"
         >
           <!--
             @slot Customized Promoteds List promoted.
-                @binding {promoted} promoted - Promoted data
+                @binding {Promoted} promoted - Promoted data
           -->
           <slot :promoted="promoted" name="promoted">{{ promoted.title }}</slot>
         </li>
@@ -39,15 +40,16 @@
   import { NoElement } from '../../../components/no-element';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { searchXModule } from '../x-module';
-  import { XInject, XProvide } from '../../../components/decorators/injection.decorators';
-  import { GridItem } from '../../../utils/types';
+  import GridItemsInjectionMixin from './grid-items-injection.mixin';
+
   /**
-   * It renders a list of promoteds from {@link SearchState.promoteds} by default.
+   * It renders a list of promoteds from props or from {@link SearchState.promoteds} by default
+   * using the {@link GridItemsInjectionMixin}.
    *
-   * The component provides a default slot which wraps the whole component with the `promoteds`
-   * bound and the `gridItems` which also contains the injected grid items from an ancestor.
+   * The component provides a default slot which wraps the whole component with the `items`
+   * bound and the `injectedItems` which also contains the injected grid items from an ancestor.
    *
-   * It also provides the slot promoted to customize the item, which is within the layout slot, with
+   * It also provides the slot result to customize the item, which is within the default slot, with
    * the result bound.
    *
    * @public
@@ -56,16 +58,16 @@
     components: {
       NoElement
     },
-    mixins: [xComponentMixin(searchXModule)]
+    mixins: [xComponentMixin(searchXModule), GridItemsInjectionMixin]
   })
   export default class PromotedsList extends Vue {
     /**
-     * The results to render.
+     * The promoteds to render from the state.
      *
      * @public
      */
     @State('search', 'promoteds')
-    public promoteds!: Promoted[];
+    public stateItems!: Promoted[];
 
     /**
      * Animation component that will be used to animate the promoteds.
@@ -74,27 +76,6 @@
      */
     @Prop({ default: 'ul' })
     protected animation!: Vue | string;
-
-    /**
-     * It injects gridItems provided by an ancestor as injectedGridItems.
-     *
-     * @internal
-     */
-    @XInject('gridItems', [] as GridItem[])
-    public injectedGridItems!: GridItem[];
-
-    /**
-     * It provides `gridItems` which is the result of concatenating the `banners` and the
-     * `injectedGridItems`.
-     *
-     * @returns Array of `banners` and `injectedGridItems`.
-     *
-     * @internal
-     */
-    @XProvide('gridItems')
-    public get gridItems(): GridItem[] {
-      return [...this.promoteds, ...this.injectedGridItems];
-    }
   }
 </script>
 
@@ -171,17 +152,15 @@ _Type any term in the input field to try it out!_
 <template>
   <div>
     <SearchInput />
-    <PromotedsList>
-      <template #default="{ promoteds, animation }">
-        <BaseGrid :items="promoteds" :animation="animation">
-          <template #Promoted="{ item }">
-            <span>Promoted: {{ item.title }}</span>
-          </template>
-          <template #default="{ item }">
-            <span>Default: {{ item }}</span>
-          </template>
-        </BaseGrid>
-      </template>
+    <PromotedsList #default="{ items, animation }">
+      <BaseGrid :items="items" :animation="animation">
+        <template #Promoted="{ item }">
+          <span>Promoted: {{ item.title }}</span>
+        </template>
+        <template #default="{ item }">
+          <span>Default: {{ item }}</span>
+        </template>
+      </BaseGrid>
     </PromotedsList>
   </div>
 </template>
@@ -205,12 +184,10 @@ _Type any term in the input field to try it out!_
 <template>
   <div>
     <SearchInput />
-    <PromotedsList>
-      <template #promoted="{ promoted }">
-        <span class="promoted">
-          {{ promoted.title }}
-        </span>
-      </template>
+    <PromotedsList #promoted="{ promoted }">
+      <span class="promoted">
+        {{ promoted.title }}
+      </span>
     </PromotedsList>
   </div>
 </template>

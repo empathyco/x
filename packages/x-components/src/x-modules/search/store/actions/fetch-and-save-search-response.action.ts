@@ -16,9 +16,13 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
   ) {
     if (state.isAppendResults) {
       commit('appendResults', results);
+      commit('appendBanners', banners);
+      commit('appendPromoteds', promoteds);
       commit('setIsAppendResults', false);
     } else {
       commit('setResults', results);
+      commit('setBanners', banners);
+      commit('setPromoteds', promoteds);
     }
 
     commit('setPartialResults', partialResults ?? []);
@@ -27,8 +31,6 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
       commit('setFacets', facets);
     }
 
-    commit('setBanners', banners);
-    commit('setPromoteds', promoteds);
     commit('setTotalResults', totalResults);
     commit('setSpellcheck', spellcheck ?? '');
   }

@@ -301,25 +301,23 @@
       <span>⬆</span>
     </BaseScrollToTop>
     <BaseIdScroll id="scrollId">
-      <ResultsList :animation="staggeredFadeAndSlide">
-        <template #layout="{ results, animation }">
-          <BaseGrid :animation="animation" :items="results" :columns="currentColumn">
-            <template #Result="{ item }">
-              <BaseResultLink :result="item">
-                <template #default="{ result }">
-                  <BaseResultImage :result="result" />
-                  <span>{{ result.name }}</span>
-                </template>
-              </BaseResultLink>
-            </template>
-            <template #Banner="{ item }">
-              <span>{{ item.title }}</span>
-            </template>
-            <template #Promoted="{ item }">
-              <span>{{ item.title }}</span>
-            </template>
-          </BaseGrid>
-        </template>
+      <ResultsList #default="{ items, animation }" :animation="staggeredFadeAndSlide">
+        <BaseGrid :animation="animation" :items="items" :columns="currentColumn">
+          <template #Result="{ item }">
+            <BaseResultLink :result="item">
+              <template #default="{ result }">
+                <BaseResultImage :result="result" />
+                <span>{{ result.name }}</span>
+              </template>
+            </BaseResultLink>
+          </template>
+          <template #Banner="{ item }">
+            <span>{{ item.title }}</span>
+          </template>
+          <template #Promoted="{ item }">
+            <span>{{ item.title }}</span>
+          </template>
+        </BaseGrid>
       </ResultsList>
     </BaseIdScroll>
     <!-- Partial Results -->

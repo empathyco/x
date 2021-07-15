@@ -33,19 +33,17 @@
     </BaseGrid>
     <!-- Results -->
     <h1>Results</h1>
-    <ResultsList :animation="staggeredFadeAndSlide">
-      <template #layout="{ results, animation }">
-        <BaseGrid :animation="animation" :items="results" :columns="currentColumn">
-          <template #Result="{ item }">
-            <BaseResultLink :result="item">
-              <template #default="{ result }">
-                <BaseResultImage :result="result" />
-                <span>{{ result.name }}</span>
-              </template>
-            </BaseResultLink>
-          </template>
-        </BaseGrid>
-      </template>
+    <ResultsList #default="{ items, animation }" :animation="staggeredFadeAndSlide">
+      <BaseGrid :animation="animation" :items="items" :columns="currentColumn">
+        <template #Result="{ item }">
+          <BaseResultLink :result="item">
+            <template #default="{ result }">
+              <BaseResultImage :result="result" />
+              <span>{{ result.name }}</span>
+            </template>
+          </BaseResultLink>
+        </template>
+      </BaseGrid>
     </ResultsList>
   </main>
 </template>

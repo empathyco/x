@@ -9,19 +9,17 @@
 
     <!-- Results -->
     <h1 class="x-title1">Results {{ results.length }} / {{ $x.totalResults }}</h1>
-    <ResultsList :animation="staggeredFadeAndSlide">
-      <template #layout="{ results, animation }">
-        <BaseGrid :animation="animation" :items="results" :columns="4">
-          <template #Result="{ item }">
-            <BaseResultLink :result="item" data-test="regular-result">
-              <template #default="{ result }">
-                <BaseResultImage :result="result" />
-                <span>{{ result.name }}</span>
-              </template>
-            </BaseResultLink>
-          </template>
-        </BaseGrid>
-      </template>
+    <ResultsList #default="{ items, animation }" :animation="staggeredFadeAndSlide">
+      <BaseGrid :animation="animation" :items="items" :columns="4">
+        <template #Result="{ item }">
+          <BaseResultLink :result="item" data-test="regular-result">
+            <template #default="{ result }">
+              <BaseResultImage :result="result" />
+              <span>{{ result.name }}</span>
+            </template>
+          </BaseResultLink>
+        </template>
+      </BaseGrid>
     </ResultsList>
 
     <!-- Partial Results -->

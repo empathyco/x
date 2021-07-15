@@ -1,12 +1,12 @@
 import { Banner } from '@empathyco/x-types';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue, { VueConstructor } from 'vue';
+import Vue, { VueConstructor, ComponentOptions } from 'vue';
 import Vuex, { Store } from 'vuex';
 import BaseGrid from '../../../../components/base-grid.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial } from '../../../../utils/types';
+import { DeepPartial, Dictionary } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
 import BannersList from '../banners-list.vue';
@@ -48,7 +48,7 @@ function renderBannersList({
   const bannersListWrapper = wrapper.findComponent(BannersList);
 
   return {
-    bannersListWrapper,
+    wrapper: bannersListWrapper,
     getBanners() {
       return banners;
     }
@@ -57,18 +57,18 @@ function renderBannersList({
 
 describe('testing BannersList component', () => {
   it('is an XComponent', () => {
-    const { bannersListWrapper } = renderBannersList();
-    expect(isXComponent(bannersListWrapper.vm)).toEqual(true);
+    const { wrapper } = renderBannersList();
+    expect(isXComponent(wrapper.vm)).toEqual(true);
   });
 
   it('has Search as XModule', () => {
-    const { bannersListWrapper } = renderBannersList();
-    expect(getXComponentXModuleName(bannersListWrapper.vm)).toEqual('search');
+    const { wrapper } = renderBannersList();
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('search');
   });
 
   it('renders the banners in the state', () => {
-    const { bannersListWrapper, getBanners } = renderBannersList();
-    const bannersListItems = bannersListWrapper.findAll(getDataTestSelector('banners-list-item'));
+    const { wrapper, getBanners } = renderBannersList();
+    const bannersListItems = wrapper.findAll(getDataTestSelector('banners-list-item'));
 
     getBanners().forEach((result, index) => {
       expect(bannersListItems.at(index).text()).toEqual(result.title);
@@ -76,41 +76,39 @@ describe('testing BannersList component', () => {
   });
 
   it('does not render any banner if the are none', () => {
-    const { bannersListWrapper } = renderBannersList({ banners: [] });
-    expect(bannersListWrapper.html()).toEqual('');
+    const { wrapper } = renderBannersList({ banners: [] });
+    expect(wrapper.html()).toEqual('');
   });
 
   it('allows customizing the banner slot', () => {
-    const { bannersListWrapper } = renderBannersList({
+    const { wrapper, getBanners } = renderBannersList({
       template: `
         <BannersList>
           <template #banner="{ banner }">
-            <p data-test="banner-slot-overridden">{{ banner.title }}</p>
+            <p data-test="banner-slot-overridden">Custom banner: {{ banner.title }}</p>
           </template>
         </BannersList>`
     });
 
-    expect(bannersListWrapper.find(getDataTestSelector('banners-list')).exists()).toBe(true);
-    expect(bannersListWrapper.find(getDataTestSelector('banner-slot-overridden')).exists()).toBe(
-      true
+    expect(wrapper.find(getDataTestSelector('banners-list')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('banner-slot-overridden')).text()).toBe(
+      `Custom banner: ${getBanners()[0].title}`
     );
   });
 
   it('allows customizing the default slot', () => {
-    const { bannersListWrapper } = renderBannersList({
+    const { wrapper } = renderBannersList({
       template: `
         <BannersList>
           <template #default="{ banners }">
-            <BaseGrid :items="banners" data-test="default-slot-overridden"/>
+            <p data-test="default-slot-overridden"/>
           </template>
         </BannersList>`,
       components: { BaseGrid }
     });
 
-    expect(bannersListWrapper.find(getDataTestSelector('banners-list')).exists()).toBe(false);
-    expect(bannersListWrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toBe(
-      true
-    );
+    expect(wrapper.find(getDataTestSelector('banners-list')).exists()).toBe(false);
+    expect(wrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toBe(true);
   });
 });
 
@@ -118,14 +116,14 @@ interface RenderBannersListOptions {
   /** The template to be rendered. */
   template?: string;
   /** Components to be rendered. */
-  components?: { [p: string]: VueConstructor };
+  components?: Dictionary<VueConstructor | ComponentOptions<Vue>>;
   /** The `banners` used to be rendered. */
   banners?: Banner[];
 }
 
 interface RendersBannerListAPI {
-  /** The `bannersListWrapper` wrapper component. */
-  bannersListWrapper: Wrapper<Vue>;
+  /** The `wrapper` wrapper component. */
+  wrapper: Wrapper<Vue>;
   /** The `banners` used to be rendered. */
   getBanners: () => Banner[];
 }
