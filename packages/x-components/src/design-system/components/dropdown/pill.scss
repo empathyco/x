@@ -1,0 +1,8 @@
+.x-dropdown--pill {
+  // spacing
+  --x-space-gap-dropdown: var(--x-space-gap-dropdown-pill);
+
+  // border
+  --x-border-radius-dropdown: var(--x-border-radius-dropdown-pill);
+  --x-border-width-dropdown-list: var(--x-border-width-dropdown-list-pill);
+}

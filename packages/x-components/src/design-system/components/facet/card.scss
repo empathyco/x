@@ -1,0 +1,8 @@
+.x-facet--card.x-facet,
+.x-facet--card .x-facet {
+  // border
+  --x-border-radius-facet: var(--x-border-radius-facet-card);
+
+  // spacing
+  --x-space-padding-facet-header: var(--x-space-padding-facet-header-card);
+}

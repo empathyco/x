@@ -1,0 +1,16 @@
+.x-picture--fixed-ratio.x-picture {
+  // layout
+  position: relative;
+  height: 0;
+
+  // size
+  padding: calc(var(--x-size-aspect-ratio-picture) * 100%) 0 0 0;
+  width: 100%;
+
+  .x-picture__image {
+    // layout
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

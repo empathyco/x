@@ -1,0 +1,60 @@
+@import '../../mixins';
+
+.x-filter {
+  // layout
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  box-sizing: border-box;
+  text-align: left;
+
+  // spacing
+  gap: var(--x-space-gap-filter);
+  @include safari-gap(var(--x-space-gap-filter));
+  padding: var(--x-space-padding-filter);
+
+  // color
+  background-color: var(--x-color-background-filter);
+  border-color: var(--x-color-border-filter);
+  color: var(--x-color-text-filter);
+
+  // border
+  border-style: solid;
+  border-width: var(--x-border-width-filter);
+  border-radius: var(--x-border-radius-filter);
+
+  // typography
+  font-family: var(--x-font-family-filter);
+  font-size: var(--x-font-size-filter);
+  font-weight: var(--x-font-weight-filter);
+  line-height: var(--x-font-line-height-filter);
+
+  // other
+  cursor: pointer;
+
+  > * {
+    // layout
+    flex: 0 0 auto;
+  }
+
+  &__label {
+    // layout
+    flex: 0 1 auto;
+  }
+
+  &__count {
+    // typography
+    font-weight: var(--x-font-weight-filter-count);
+  }
+
+  &--is-selected {
+    // color
+    --x-color-background-filter: var(--x-color-background-filter-selected);
+    --x-color-border-filter: var(--x-color-border-filter-selected);
+    --x-color-text-filter: var(--x-color-text-filter-selected);
+
+    // typography
+    --x-font-weight-filter: var(--x-font-weight-filter-selected);
+    --x-font-weight-filter-count: var(--x-font-weight-filter-count-selected);
+  }
+}

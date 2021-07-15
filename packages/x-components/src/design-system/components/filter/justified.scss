@@ -1,0 +1,7 @@
+.x-filter--justified.x-filter,
+.x-filter--justified .x-filter {
+  > *:last-child:not(.x-filter__label) {
+    // layout
+    margin-left: auto;
+  }
+}

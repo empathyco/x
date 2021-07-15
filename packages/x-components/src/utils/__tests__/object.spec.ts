@@ -1,0 +1,332 @@
+import { cleanUndefined, forEach, map, reduce } from '../object';
+import { Dictionary } from '../types';
+
+class Person {
+  public constructor(public name: string) {}
+}
+
+(Person.prototype as any).inheritedProperty = 'Inherited property';
+
+describe('testing object utils', () => {
+  beforeEach(jest.clearAllMocks);
+
+  describe('forEach', () => {
+    const forEachCallback = jest.fn();
+
+    it('iterates through object properties', () => {
+      const obj = {
+        a: 1,
+        b: true,
+        c: 'hello',
+        d: [],
+        e: {},
+        f: () => {
+          return;
+        }
+      };
+
+      forEach(obj, forEachCallback);
+
+      expectForEachToHaveBeenCalledWithValidParameters(obj);
+      expectForEachCallsToHaveValidIndexParameter();
+    });
+
+    it('does not iterate through undefined values', () => {
+      const obj = { a: 0, b: false, c: '', d: null, e: undefined };
+
+      forEach(obj, forEachCallback);
+
+      const { e, ...objToIterate } = obj;
+      expectForEachToHaveBeenCalledWithValidParameters(objToIterate);
+      expectForEachCallsToHaveValidIndexParameter();
+      expect(forEachCallback).not.toHaveBeenCalledWith('e', obj.e, expect.any(Number));
+    });
+
+    it('does not iterate through not owned properties', () => {
+      const person = new Person('Eusebio');
+
+      forEach(person, forEachCallback);
+
+      expect(forEachCallback).toHaveBeenCalledTimes(1);
+      expect(forEachCallback).toHaveBeenCalledWith('name', person.name, expect.any(Number));
+    });
+
+    it('does not iterate if the object is null', () => {
+      forEach(null, forEachCallback);
+
+      expect(forEachCallback).not.toHaveBeenCalled();
+    });
+
+    it('does not iterate if the object is undefined', () => {
+      forEach(undefined, forEachCallback);
+
+      expect(forEachCallback).not.toHaveBeenCalled();
+    });
+
+    function expectForEachToHaveBeenCalledWithValidParameters(
+      obj: Dictionary,
+      callback = forEachCallback
+    ): void {
+      const objEntries = Object.entries(obj);
+      expect(callback).toHaveBeenCalledTimes(objEntries.length);
+      expect(objEntries).toHaveLength(objEntries.length);
+      objEntries.forEach(([prop, value]) => {
+        expect(callback).toHaveBeenCalledWith(prop, value, expect.any(Number));
+      });
+    }
+
+    function expectForEachCallsToHaveValidIndexParameter(callback = forEachCallback): void {
+      callback.mock.calls
+        .map(function selectIndexParameter(call) {
+          return call[2];
+        }) // 3rd parameter of the forEach call is the index
+        .sort(function sortIndexAscending(i1, i2) {
+          return i1 - i2;
+        }) // Sort them from lower to higher index
+        .forEach((forEachIndex, index) => {
+          expect(forEachIndex).toBeGreaterThanOrEqual(index);
+        });
+    }
+  });
+
+  describe('reduce', () => {
+    const reducer = jest.fn(
+      (count: number, _: string, propertyValue) => count + (propertyValue ? 1 : 0)
+    ); // Counts truthy properties
+    it('iterates through object properties', () => {
+      const obj = {
+        a: 1,
+        b: true,
+        c: 'hello',
+        d: [],
+        e: {},
+        f: () => {
+          return;
+        }
+      };
+
+      const result = reduce(obj, reducer, 0);
+
+      expect(result).toEqual(6);
+      expectReduceToHaveBeenCalledWithValidParameters(obj);
+      expectReduceCallsToHaveValidIndexParameter();
+    });
+
+    it('does not iterate through undefined values', () => {
+      const obj = { a: 0, b: false, c: '', d: null, e: undefined };
+
+      const result = reduce(obj, reducer, 0);
+
+      const { e, ...objToIterate } = obj;
+      expect(result).toEqual(0);
+      expectReduceToHaveBeenCalledWithValidParameters(objToIterate);
+      expectReduceCallsToHaveValidIndexParameter();
+      expect(reducer).not.toHaveBeenCalledWith('e', obj.e, expect.any(Number));
+    });
+
+    it('does not iterate through not owned properties', () => {
+      const person = new Person('Eusebio');
+
+      const result = reduce(person, reducer, 0);
+
+      expect(result).toEqual(1);
+      expect(reducer).toHaveBeenCalledTimes(1);
+      expect(reducer).toHaveBeenCalledWith(0, 'name', person.name, expect.any(Number));
+    });
+
+    it('does not iterate if the object is null', () => {
+      const result = reduce(null, reducer, 0);
+
+      expect(result).toEqual(0);
+      expect(reducer).not.toHaveBeenCalled();
+    });
+
+    it('does not iterate if the object is undefined', () => {
+      const result = reduce(undefined, reducer, 0);
+
+      expect(result).toEqual(0);
+      expect(reducer).not.toHaveBeenCalled();
+    });
+
+    function expectReduceToHaveBeenCalledWithValidParameters(
+      obj: Dictionary,
+      callback: jest.Mock = reducer
+    ): void {
+      const objEntries = Object.entries(obj);
+      expect(callback).toHaveBeenCalledTimes(objEntries.length);
+      expect(objEntries).toHaveLength(objEntries.length);
+      objEntries.forEach(([prop, value]) => {
+        expect(callback).toHaveBeenCalledWith(expect.any(Number), prop, value, expect.any(Number));
+      });
+    }
+
+    function expectReduceCallsToHaveValidIndexParameter(callback: jest.Mock = reducer): void {
+      callback.mock.calls
+        .map(function selectIndexParameter(call) {
+          return call[3];
+        }) // 4th parameter of the reduce call is the index
+        .sort(function sortIndexAscending(i1, i2) {
+          return i1 - i2;
+        }) // Sort them from lower to higher index
+        .forEach((forEachIndex, index) => {
+          expect(forEachIndex).toBeGreaterThanOrEqual(index);
+        });
+    }
+  });
+
+  describe('map', () => {
+    const mapCallback = jest.fn((_: string, propertyValue: any) => !!propertyValue);
+    // Transform each property to a boolean
+
+    it('iterates through object properties', () => {
+      const obj = {
+        a: 1,
+        b: true,
+        c: 'hello',
+        d: [],
+        e: {},
+        f: () => {
+          return;
+        }
+      };
+
+      const result = map(obj, mapCallback);
+
+      expect(result).toEqual({
+        a: true,
+        b: true,
+        c: true,
+        d: true,
+        e: true,
+        f: true
+      });
+      expectMapToHaveBeenCalledWithValidParameters(obj);
+      expectMapCallsToHaveValidIndexParameter();
+    });
+
+    it('does not iterate through undefined values', () => {
+      const obj = { a: 0, b: false, c: '', d: null, e: undefined };
+
+      const result = map(obj, mapCallback);
+
+      const { e, ...objToIterate } = obj;
+      expect(result).toEqual({ a: false, b: false, c: false, d: false });
+      expectMapToHaveBeenCalledWithValidParameters(objToIterate);
+      expectMapCallsToHaveValidIndexParameter();
+      expect(mapCallback).not.toHaveBeenCalledWith('e', obj.e, expect.any(Number));
+    });
+
+    it('does not iterate through not owned properties', () => {
+      const person = new Person('Eusebio');
+
+      const result = map(person, mapCallback);
+
+      expect(result).toEqual({ name: true });
+      expect(mapCallback).toHaveBeenCalledTimes(1);
+      expect(mapCallback).toHaveBeenCalledWith('name', person.name, expect.any(Number));
+    });
+
+    it('does not iterate if the object is null', () => {
+      const result = map(null, mapCallback);
+
+      expect(result).toEqual({});
+      expect(mapCallback).not.toHaveBeenCalled();
+    });
+
+    it('does not iterate if the object is undefined', () => {
+      const result = map(undefined, mapCallback);
+
+      expect(result).toEqual({});
+      expect(mapCallback).not.toHaveBeenCalled();
+    });
+
+    function expectMapToHaveBeenCalledWithValidParameters(
+      obj: Dictionary,
+      callback: jest.Mock = mapCallback
+    ): void {
+      const objEntries = Object.entries(obj);
+      expect(callback).toHaveBeenCalledTimes(objEntries.length);
+      expect(objEntries).toHaveLength(objEntries.length);
+      objEntries.forEach(([prop, value]) => {
+        expect(callback).toHaveBeenCalledWith(prop, value, expect.any(Number));
+      });
+    }
+
+    function expectMapCallsToHaveValidIndexParameter(callback: jest.Mock = mapCallback): void {
+      callback.mock.calls
+        .map(function selectIndexParameter(call) {
+          return call[2];
+        }) // 3rd parameter of the forEach call is the index
+        .sort(function sortIndexAscending(i1, i2) {
+          return i1 - i2;
+        }) // Sort them from lower to higher index
+        .forEach((forEachIndex, index) => {
+          expect(forEachIndex).toBeGreaterThanOrEqual(index);
+        });
+    }
+  });
+
+  describe('cleanUndefined', () => {
+    it('cleans undefined values from an object', () => {
+      const testObj = {
+        a: 1,
+        b: 2,
+        c: undefined
+      };
+
+      const cleanObject = cleanUndefined(testObj);
+      expect(hasProperty(cleanObject, 'a')).toBe(true);
+      expect(hasProperty(cleanObject, 'b')).toBe(true);
+      expect(hasProperty(cleanObject, 'c')).not.toBe(true);
+    });
+
+    it('cleans undefined values from an object recursively', () => {
+      const testObj = {
+        a: 1,
+        b: {
+          c: 2,
+          d: undefined,
+          e: {
+            f: undefined,
+            g: 3
+          },
+          h: {}
+        }
+      };
+
+      const cleanObject = cleanUndefined(testObj);
+      expect(hasProperty(cleanObject, 'a')).toBe(true);
+      expect(hasProperty(cleanObject, 'b')).toBe(true);
+      expect(hasProperty(cleanObject.b, 'c')).toBe(true);
+      expect(hasProperty(cleanObject.b, 'd')).not.toBe(true);
+      expect(hasProperty(cleanObject.b, 'e')).toBe(true);
+      expect(hasProperty(cleanObject.b.e, 'f')).not.toBe(true);
+      expect(hasProperty(cleanObject.b.e, 'g')).toBe(true);
+      expect(hasProperty(cleanObject.b, 'h')).toBe(true);
+    });
+
+    it('returns the same value as passed if it is not an object', () => {
+      const testValue1 = 'a';
+      const returnedValue1 = cleanUndefined(testValue1);
+      expect(returnedValue1).toBe(testValue1);
+
+      const testValue2 = 1;
+      const returnedValue2 = cleanUndefined(testValue2);
+      expect(returnedValue2).toBe(testValue2);
+    });
+
+    it('returns undefined if the value passed is undefined', () => {
+      const returnedValue = cleanUndefined(undefined);
+      expect(returnedValue).toBeUndefined();
+    });
+
+    it('returns null if the value passed is null', () => {
+      const returnedValue = cleanUndefined(null);
+      expect(returnedValue).toBeNull();
+    });
+
+    function hasProperty(obj: any, key: string): boolean {
+      return key in obj;
+    }
+  });
+});

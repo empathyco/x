@@ -1,0 +1,59 @@
+@import '../../mixins';
+
+.x-facet {
+  // layout
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  box-sizing: border-box;
+
+  // color
+  background-color: var(--x-color-background-facet);
+  border-color: var(--x-color-border-facet);
+
+  // border
+  border-style: solid;
+  border-width: var(--x-border-width-facet);
+  border-radius: var(--x-border-radius-facet);
+
+  > *:first-child,
+  &__header {
+    // layout
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: stretch;
+    align-items: flex-start;
+    text-align: start;
+    box-sizing: border-box;
+
+    // color
+    background-color: var(--x-color-background-facet-header);
+    border-color: var(--x-color-border-facet-header);
+    color: var(--x-color-text-facet);
+
+    // spacing
+    gap: var(--x-space-gap-facet-header);
+    @include safari-gap(var(--x-space-gap-facet-header));
+    padding: var(--x-space-padding-facet-header);
+
+    // border
+    border-style: solid;
+    border-width: var(--x-border-width-facet-header);
+    border-radius: var(--x-border-radius-facet-header);
+
+    // typography
+    font-family: var(--x-font-family-facet);
+    font-size: var(--x-font-size-facet);
+    font-weight: var(--x-font-weight-facet);
+    line-height: var(--x-font-line-height-facet);
+
+    .x-icon {
+      --x-size-height-icon: var(--x-font-line-height-facet);
+      --x-size-width-icon: var(--x-font-line-height-facet);
+
+      &:last-child:not(:first-child) {
+        margin-left: auto;
+      }
+    }
+  }
+}

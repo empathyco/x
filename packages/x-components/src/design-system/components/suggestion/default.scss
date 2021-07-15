@@ -1,0 +1,45 @@
+@import '../../mixins';
+
+.x-suggestion {
+  // layout
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  box-sizing: border-box;
+  text-align: start;
+
+  // color
+  border: none;
+  background-color: var(--x-color-background-suggestion);
+  color: var(--x-color-text-suggestion);
+
+  // typography
+  font-family: var(--x-font-family-suggestion);
+  font-size: var(--x-font-size-suggestion);
+  line-height: var(--x-font-line-height-suggestion);
+  font-weight: var(--x-font-weight-suggestion);
+
+  // other
+  cursor: pointer;
+
+  // spacing
+  padding: var(--x-space-padding-suggestion);
+  gap: var(--x-space-gap-suggestion);
+  @include safari-gap(var(--x-space-gap-suggestion));
+
+  &__query {
+    // layout
+    flex: 1 1 auto;
+  }
+
+  &__matching-part {
+    // typography
+    font-family: var(--x-font-family-suggestion-matching-part);
+    font-size: var(--x-font-size-suggestion-matching-part);
+    line-height: var(--x-font-line-height-suggestion-matching-part);
+    font-weight: var(--x-font-weight-suggestion-matching-part);
+
+    // color
+    color: var(--x-color-text-suggestion-matching-part);
+  }
+}

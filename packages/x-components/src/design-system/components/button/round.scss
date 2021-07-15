@@ -1,0 +1,13 @@
+.x-button--round.x-button,
+.x-button--round .x-button {
+  // border
+  --x-border-radius-button: var(--x-border-radius-button-round);
+
+  // spacing
+  --x-space-padding-button: var(--x-space-padding-button-round);
+
+  // sizing
+  width: var(--x-size-width-icon);
+  height: var(--x-size-height-icon);
+  box-sizing: content-box;
+}

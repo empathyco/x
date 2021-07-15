@@ -1,0 +1,16 @@
+@import '../global';
+
+.x-query-suggestions{
+  list-style-type: none;
+  width: 250px;
+  .x-query-suggestion {
+    border: 0;
+    background: none;
+  }
+}
+.x-playground {
+  text-align: center;
+  @import 'clear-search-input';
+  @import 'search-input';
+  @import 'suggestions';
+}

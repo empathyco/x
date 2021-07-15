@@ -1,0 +1,9 @@
+:root {
+  // spacing
+  --x-space-padding-block-dropdown-item-line: var(--x-space-03);
+  --x-space-padding-inline-dropdown-item-line: 0 var(--x-space-03);
+
+  // border
+  --x-border-width-dropdown-toggle-line: 0 0 var(--x-border-width) 0;
+  --x-border-width-dropdown-list-line: 0;
+}

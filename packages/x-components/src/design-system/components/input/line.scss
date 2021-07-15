@@ -1,0 +1,5 @@
+.x-input--line .x-input,
+.x-input--line.x-input {
+  --x-border-width-input: var(--x-border-width-input-line);
+  --x-space-padding-input: var(--x-space-padding-input-line);
+}

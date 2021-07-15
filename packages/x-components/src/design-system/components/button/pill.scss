@@ -1,0 +1,5 @@
+.x-button--pill.x-button,
+.x-button--pill .x-button {
+  // border
+  --x-border-radius-button: var(--x-border-radius-button-pill);
+}

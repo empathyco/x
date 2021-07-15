@@ -1,0 +1,9 @@
+.x-clear-search-input {
+  transition: opacity 0.3s ease-in-out;
+  border: 1px solid gray;
+  margin-left: 5px;
+  border-radius: 5px;
+  &--has-empty-query {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,23 @@
+@import '../../mixins';
+
+[class*='x-list--padding-'].x-list {
+  $directions: top, right, bottom, left;
+  @each $direction1 in $directions {
+    @each $direction2 in $directions {
+      @if $direction1 != $direction2 {
+        &.x-list--padding-#{$direction1} {
+          &:not(.x-list--padding-#{$direction2}) {
+            padding-#{$direction2}: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@for $i from 1 through 7 {
+  $i: zerofill($i);
+  .x-list--padding-#{$i}.x-list {
+    --x-space-padding-list: var(--x-space-padding-list-#{$i});
+  }
+}
