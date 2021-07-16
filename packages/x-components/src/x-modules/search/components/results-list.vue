@@ -45,7 +45,7 @@
 
   /**
    * It renders a list of results from props or from {@link SearchState.results} by default using
-   * the {@link GridItemsInjectionMixin}.
+   * the `GridItemsInjectionMixin`.
    *
    * The component provides a default slot which wraps the whole component with the `items`
    * bound and the `injectedItems` which also contains the injected grid items from an ancestor.
