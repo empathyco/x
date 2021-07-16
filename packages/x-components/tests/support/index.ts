@@ -1,9 +1,8 @@
 import 'cypress-plugin-tab';
-
-import { noOp } from '../../../src/utils/function';
-import { forEach } from '../../../src/utils/object';
-import { AnyFunction } from '../../../src/utils/types';
-import { AdapterMockedResponses } from '../../../src/views/mocked-adapter';
+import { noOp } from '../../src/utils/function';
+import { forEach } from '../../src/utils/object';
+import { AnyFunction } from '../../src/utils/types';
+import { AdapterMockedResponses } from '../../src/views/mocked-adapter';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -18,17 +17,6 @@ import Timeoutable = Cypress.Timeoutable;
 import Withinable = Cypress.Withinable;
 
 interface CustomCommands {
-  /**
-   * Gets a DOM element searching by its data-test attribute.
-   *
-   * @example
-   * cy.getByDataTest('query-suggestion')
-   *
-   * @param value - The data test attribute value to look for in the DOM.
-   * @param options - The options passed to the Cypress command.
-   * @returns A Chainable object.
-   */
-  getByDataTest(value: string, options?: CypressCommandOptions): Cypress.Chainable<JQuery>;
   /**
    * Searches a query by typing it in the search input and pressing enter.
    *
@@ -108,11 +96,9 @@ interface CustomCommands {
    */
   assertFilterIs(label: string, status: SelectedStatus): Cypress.Chainable<JQuery>;
   /**
-   * Mocks the next search response with the provided value.
-   *
-   * @param searchResponse - The next response for the `search` adapter method.
+   * Waits for the results to update by checking the existence of a loading item.
    */
-  waitForResultsToRender(): Cypress.Chainable<void>;
+  waitForResultsToRender(): void;
   /**
    * Mocks the search response with the provided value.
    *
@@ -158,8 +144,6 @@ interface ClickFilterOptions {
 export type CypressCommandOptions = Partial<Loggable & Timeoutable & Withinable & Shadow>;
 
 const customCommands: CustomCommands = {
-  getByDataTest: (value: string, options?: CypressCommandOptions) =>
-    cy.get(`[data-test=${value}]`, options),
   searchQuery: query => cy.typeQuery(query).type('{enter}'),
   searchQueries: (...queries) => {
     queries.forEach(query => {
@@ -199,8 +183,7 @@ const customCommands: CustomCommands = {
   },
   waitForResultsToRender() {
     cy.getByDataTest('loading').should('exist');
-    // Noop is here to not return the `loading` HTML element
-    return cy.getByDataTest('loading').should('not.exist').then(noOp);
+    cy.getByDataTest('loading').should('not.exist').then(noOp);
   },
   fakeSearchResponse: searchResponse => {
     cy.window().then(window => {

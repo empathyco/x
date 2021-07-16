@@ -1,5 +1,5 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
+import { InstallXOptions } from '../../../src/x-installer/x-installer/types';
 
 Given(
   'following config: hide if equals query {boolean}, requested items {int}',

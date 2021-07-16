@@ -1,4 +1,16 @@
-# CHANGELOG
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+### 1.3.1-alpha.0 (2021-07-14)
+
+
+### Documentation
+
+* add `LICENSE` and update `package.json` ([836ba28](https://github.com/empathyco/x/commit/836ba287dab3a04181658ff5150ea62264038cc8)), closes [EX-3932](https://searchbroker.atlassian.net/browse/EX-3932)
+
+
 
 ## 1.3.0
 

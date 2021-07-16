@@ -56,7 +56,11 @@
             class="x-list x-list--horizontal x-list--align-center x-list--gap-04"
           >
             <span>{{ $x.totalResults }} Results</span>
-            <BaseColumnPickerList #default="{ column }" :columns="columnPickerValues">
+            <BaseColumnPickerList
+              #default="{ column }"
+              v-model="selectedColumns"
+              :columns="columnPickerValues"
+            >
               <template v-if="column === 0">
                 <ChevronTinyRight />
                 <Grid1Col />
@@ -257,6 +261,7 @@
   export default class App extends Vue {
     protected sortValues = ['', 'priceSort asc', 'priceSort desc'];
     protected columnPickerValues = [0, 4, 6];
+    protected selectedColumns = 4;
     protected resultsAnimation = StaggeredFadeAndSlide;
   }
 </script>

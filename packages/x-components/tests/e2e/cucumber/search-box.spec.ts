@@ -1,5 +1,5 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
+import { InstallXOptions } from '../../../src/x-installer/x-installer/types';
 
 let nextQueriesResults = 0;
 let resultsCount = 0;

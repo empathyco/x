@@ -1,4 +1,17 @@
-# Search Adapter Changelog
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## 6.2.0-alpha.0 (2021-07-14)
+
+
+### Features
+
+* prepare `search-adapter` for the mono-repo ([59d1443](https://github.com/empathyco/x/commit/59d14434a663d14384532fe9aeee7e4d93c02675)), closes [EX-3854](https://searchbroker.atlassian.net/browse/EX-3854)
+* update `search-adapter` package information (#33) ([a8cdb8d](https://github.com/empathyco/x/commit/a8cdb8d9f9be7f41b40f53e75339df3d1c22bd17)), closes [EX-3935](https://searchbroker.atlassian.net/browse/EX-3935)
+
+
 
 ## 6.1.0 - 2020/06/03
 

@@ -1,0 +1,73 @@
+<template>
+  <a :href="item.url" class="x-banner" data-test="banner">
+    <img :src="item.image" class="x-banner__image" alt="" />
+    <h2 class="x-banner__title">{{ item.title }}</h2>
+  </a>
+</template>
+
+<script lang="ts">
+  import { Banner as BannerModel } from '@empathyco/x-types';
+  import Vue from 'vue';
+  import { Component, Prop } from 'vue-property-decorator';
+  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { searchXModule } from '../x-module';
+  /**
+   * A banner result is just an item that has been inserted into the search results to advertise
+   * something. Usually it is the first item in the grid or it can be placed in the middle of them
+   * and fill the whole row where appears. It just contains a link to the banner content, an image
+   * and a title.
+   *
+   * @public
+   */
+  @Component({
+    mixins: [xComponentMixin(searchXModule)]
+  })
+  export default class Banner extends Vue {
+    /**
+     * The banner data.
+     *
+     * @public
+     */
+    @Prop({ required: true })
+    public item!: BannerModel;
+  }
+</script>
+
+<docs lang="mdx">
+## Events
+
+This component emits no events.
+
+## See it in action
+
+In this example banned data is passed as a prop.
+
+_Here you can see how the `Banner` component is rendered._
+
+```vue
+<template>
+  <Banner :item="banner" />
+</template>
+
+<script>
+  import { Banner } from '@empathyco/x-components/search';
+  export default {
+    name: 'BannerDemo',
+    components: {
+      Banner
+    },
+    data() {
+      return {
+        banner: {
+          modelName: 'Banner',
+          id: 'banner-example',
+          url: 'https://my-website.com/summer-shirts',
+          image: 'https://my-website.com/images/summer-shirts.jpg',
+          title: 'Trendy summer shirts'
+        }
+      };
+    }
+  };
+</script>
+```
+</docs>

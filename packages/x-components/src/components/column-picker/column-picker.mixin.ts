@@ -1,14 +1,18 @@
 import Vue from 'vue';
 import { Prop, Watch } from 'vue-property-decorator';
 import Component from 'vue-class-component';
-import { XOn } from '../decorators/bus.decorators';
+import { XEmit, XOn } from '../decorators/bus.decorators';
 
 /**
  * Mixin to share Column Pickers logic.
  *
  * @public
  */
-@Component
+@Component({
+  model: {
+    event: 'change'
+  }
+})
 export default class ColumnPickerMixin extends Vue {
   /**
    * The value of the selected columns number.
@@ -31,47 +35,59 @@ export default class ColumnPickerMixin extends Vue {
    *
    * @internal
    */
-  protected selectedColumn = this.value ?? this.columns[0];
+  @XEmit('ColumnsNumberProvided', { immediate: false })
+  public selectedColumns = this.providedSelectedColumns;
 
   /**
-   * It sets `selectedColumn` value with `value` prop when it changes and emits an  event if it
-   * has changed.
+   * Retrieves the provided selected column.
    *
-   * @param column - New value column.
+   * @returns The provided `value`, or the first value of the list of possible columns.
+   * @internal
+   */
+  public get providedSelectedColumns(): number {
+    return this.value ?? this.columns[0];
+  }
+
+  /**
+   * Synchronizes the selected column with the one provided by argument.
+   *
+   * @param columns - The column number.
    *
    * @internal
    */
-  @Watch('value')
-  protected onValueChange(column: number): void {
-    if (column && !isNaN(column) && this.selectedColumn !== column) {
-      this.selectedColumn = column;
-      this.$x.emit('UserClickedColumnPicker', column);
+  @Watch('providedSelectedColumns')
+  @XOn('ColumnsNumberProvided')
+  setSelectedColumns(columns: number): void {
+    this.selectedColumns = columns;
+  }
+
+  /**
+   * Synchronizes the number of selected columns with the provided selected column value.
+   *
+   * @param column - The new number of columns.
+   *
+   * @internal
+   */
+  @Watch('selectedColumns')
+  protected emitChange(column: number): void {
+    if (this.value !== column) {
+      this.$emit('change', column);
     }
   }
 
   /**
-   * It sets the selected column with the one provided by argument and emits an `input` event if it
-   * has changed.
-   *
-   * @param column - The column number.
-   *
-   * @public
-   */
-  @XOn(['UserClickedColumnPicker', 'ColumnPickerSetColumnsNumber'])
-  selectColumn(column: number): void {
-    if (this.selectedColumn !== column) {
-      this.$emit('input', column);
-      this.selectedColumn = column;
-    }
-  }
-
-  /**
-   * It emits the initial selectedColumn value because the value watcher has a condition to avoid
-   * emitting the {@link XEventsTypes.ColumnPickerSetColumnsNumber} if it's not different.
+   * Synchronizes the columns number before mounting the component. If the real number of selected
+   * columns equals the provided columns, it emits the event to sync it with every other component.
+   * If it is not equal it means that the user has already selected a number of columns, so we emit
+   * a `change` event so developers can sync the provided value.
    *
    * @internal
    */
-  mounted(): void {
-    this.$x.emit('ColumnPickerSetColumnsNumber', this.selectedColumn);
+  beforeMount(): void {
+    if (this.selectedColumns === this.providedSelectedColumns) {
+      this.$x.emit('ColumnsNumberProvided', this.selectedColumns);
+    } else {
+      this.emitChange(this.selectedColumns);
+    }
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-storage-service",
-  "version": "1.3.0",
+  "version": "1.3.1-alpha.0",
   "description": "Storage service with TTL",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -31,14 +31,17 @@
     "lint": "eslint src",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "postbuild": "npm pack",
+    "postinstall": "npm run build",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@empathyco/x-logger": "^1.1.2-alpha.0",
+    "@empathyco/x-logger": "^1.1.2-alpha.1",
     "tslib": "~1.11.1"
   },
   "devDependencies": {
-    "@empathyco/eslint-plugin-x": "^1.4.0-alpha.0",
+    "@empathyco/eslint-plugin-x": "^1.4.0-alpha.1",
     "@types/jest": "~24.0.15",
     "jest": "~24.8.0",
     "ts-jest": "~24.0.2",
