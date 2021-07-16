@@ -36,7 +36,7 @@
 <docs lang="mdx">
 ## Events
 
-This component emits no events.
+This component doesn't emit events.
 
 ## See it in action
 

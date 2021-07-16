@@ -46,7 +46,7 @@
      *
      * @public
      */
-    @Prop({ required: false })
+    @Prop()
     protected items?: GridItem[];
 
     /**

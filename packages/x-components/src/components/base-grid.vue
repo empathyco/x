@@ -81,7 +81,7 @@
      * @internal
      */
     @XInject('gridItems')
-    public injectedItems!: GridItem[];
+    public injectedItems?: GridItem[];
 
     /**
      * It returns the items passed as props or the injected ones.
