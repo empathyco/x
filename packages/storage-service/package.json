@@ -31,7 +31,10 @@
     "lint": "eslint src",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "postbuild": "npm pack",
+    "postinstall": "npm run build",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@empathyco/x-logger": "^1.1.2-alpha.1",

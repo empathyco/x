@@ -26,6 +26,9 @@
     "build": "tsc && tsc --project tsconfig.esm.json",
     "build:watch": "tsc --watch",
     "lint": "eslint src",
+    "postbuild": "npm pack",
+    "postinstall": "npm run build",
+    "prepublishOnly": "npm run build",
     "test": "jest"
   },
   "dependencies": {
