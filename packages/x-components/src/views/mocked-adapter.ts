@@ -33,8 +33,16 @@ export const mockedAdapter: SearchAdapter = {
   getNextQueries() {
     return tryResolve('getNextQueries');
   },
-  getTopRecommendations() {
-    return tryResolve('getTopRecommendations');
+  getTopRecommendations(request) {
+    return fetch('https://api.empathy.co/recommendations', {
+      method: 'POST',
+      body: JSON.stringify(request)
+    })
+      .then(response => {
+        console.log('Response adapter');
+        return response.json();
+      })
+      .catch(() => console.log('Catch adapter'));
   },
   getSectionRecommendations() {
     return tryResolve('getSectionRecommendations');
