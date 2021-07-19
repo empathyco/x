@@ -9,7 +9,6 @@ import { TaggingSchema } from './tagging.schema';
  */
 export const ResultSchema: Result = {
   ...IdentifiableSchema,
-  callbackInfo: expect.any(Object),
   identifier: {
     value: expect.any(String)
   },
@@ -41,7 +40,6 @@ export const ResultSchema: Result = {
  * @public
  */
 export const RecommendationSchema: Result = {
-  callbackInfo: expect.any(Object),
   ...IdentifiableSchema,
   identifier: {
     value: expect.any(String)

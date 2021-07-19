@@ -2,19 +2,23 @@ import { BooleanFilterModelName } from '../../named-model.model';
 import { Filter } from './filter.model';
 
 /**
- * A boolean filter used in {@link Facet}, which status can be selected or not.
+ * A boolean filter used in a {@link Facet}, which status can be selected or not and
+ * it may contains the total results number that the filter should return.
+ *
+ * @remarks It is like an "abstract" interface because it is not going to be implemented
+ * but it is extended by other interfaces. There will never be an object with this type.
  *
  * @public
  */
 export interface BooleanFilter extends Filter {
-  /** Type to narrow {@link ModelNameType} from the extended Filter for the known subtypes */
-  modelName: BooleanFilterModelName;
-  /** Flag if the filter is selected or not. */
-  selected: boolean;
-  /** Filter value to use with the API. */
-  value: string;
-  /** Number of items for the filter. **/
-  totalResults?: number;
+    /** Type to narrow {@link ModelNameType} from the extended Filter for the known subtypes. */
+    modelName: BooleanFilterModelName;
+    /** Text to render the filter label. */
+    label: string;
+    /** Value to be sent to the backend. */
+    value: string;
+    /** Amount of matching results. **/
+    totalResults?: number;
 }
 
 /**
@@ -25,5 +29,5 @@ export interface BooleanFilter extends Filter {
  * @public
  */
 export function isBooleanFilter(filter: Filter): filter is BooleanFilter {
-  return typeof (filter as BooleanFilter).selected === 'boolean';
+   return 'label' in filter && 'value' in filter;
 }
