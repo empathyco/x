@@ -28,11 +28,14 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "build": "rollup -c && npm run gen:docs && npm pack",
+    "build": "rollup -c && npm run gen:docs",
     "build:watch": "rollup -c -w",
     "gen:model-docs": "api-extractor run -c search-types-extractor.json -l && api-extractor run -c schema-extractor.json -l && api-extractor run -l",
     "gen:typescript-docs": "api-documenter markdown -i report -o docs",
-    "gen:docs": "npm run gen:model-docs && npm run gen:typescript-docs"
+    "gen:docs": "npm run gen:model-docs && npm run gen:typescript-docs",
+    "postbuild": "npm pack",
+    "postinstall": "npm run build",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "tslib": "~1.11.1"

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.3...@empathyco/x-components@3.0.0-alpha.4) (2021-07-15)
+
+
+### Testing
+
+* **component:** configure Cypress component testing ([a39172e](https://github.com/empathyco/x/commit/a39172e030f81abf6f9ad1a0cdd5079ec4320e1b)), closes [EX-4339](https://searchbroker.atlassian.net/browse/EX-4339)
+
+
+
 ## [3.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.2...@empathyco/x-components@3.0.0-alpha.3) (2021-07-14)
 
 

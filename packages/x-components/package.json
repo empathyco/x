@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-components",
-  "version": "3.0.0-alpha.3",
+  "version": "3.0.0-alpha.4",
   "description": "Empathy X Components",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -39,12 +39,17 @@
   },
   "scripts": {
     "serve": "vue-cli-service serve --skip-plugins eslint",
-    "build": "ts-node --project ./build/tsconfig.json ./build/build.ts && npm pack ./dist",
+    "build": "ts-node --project ./build/tsconfig.json ./build/build.ts",
     "build:website": "vue-cli-service build",
     "gen:docs": "rimraf ./docs && npm run gen:typescript-docs && npm run gen:component-docs",
     "gen:typescript-docs": "api-documenter markdown --input-folder dist/report --output-folder docs/API-reference/api",
     "gen:component-docs": "vue-docgen",
-    "test:unit": "vue-cli-service test:unit",
+    "postbuild": "npm pack ./dist",
+    "postinstall": "npm run build",
+    "prepublishOnly": "npm run build",
+    "test:unit": "npm run test:unit-jest && npm run test:unit-cypress",
+    "test:unit-jest": "vue-cli-service test:unit",
+    "test:unit-cypress": "cypress run-ct",
     "test:unit-coverage": "vue-cli-service test:unit --coverage",
     "test:unit-watch": "vue-cli-service test:unit --watch",
     "test:e2e": "vue-cli-service test:e2e",
@@ -77,6 +82,8 @@
   "devDependencies": {
     "@cucumber/cucumber": "~7.0.0-rc.0",
     "@cypress/browserify-preprocessor": "~3.0.1",
+    "@cypress/vue": "~2.2.3",
+    "@cypress/webpack-dev-server": "~1.4.0",
     "@cypress/webpack-preprocessor": "~5.1.1",
     "@empathyco/eslint-plugin-x": "^1.4.0-alpha.1",
     "@microsoft/api-documenter": "~7.7.12",
@@ -98,7 +105,7 @@
     "@vue/test-utils": "~1.0.3",
     "autoprefixer": "~9.7.4",
     "commitizen": "~4.0.3",
-    "cypress": "~7.4.0",
+    "cypress": "~7.7.0",
     "cypress-cucumber-preprocessor": "~4.0.0",
     "cypress-plugin-tab": "~1.0.5",
     "cz-conventional-changelog": "~3.1.0",
@@ -126,7 +133,8 @@
     "vue-template-compiler": "~2.6.10 <2.6.13"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "directory": "dist"
   },
   "prettier": "@empathyco/eslint-plugin-x/prettier-config",
   "gitHooks": {
