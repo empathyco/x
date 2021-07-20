@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-deep-merge",
-  "version": "1.2.2-alpha.0",
+  "version": "1.2.2-alpha.1",
   "description": "Utility for deep cloning objects.",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
