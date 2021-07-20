@@ -5,7 +5,7 @@
     "postinstall": "lerna bootstrap --hoist",
     "build": "lerna run build",
     "lint": "lerna run lint",
-    "test": "lerna run test",
+    "test": "lerna run test --parallel",
     "prepare-release:stable": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes",
     "release:alpha": "lerna publish --conventional-commits --conventional-prerelease --yes --no-push",
     "publish-release": "node scripts/publish-release"
