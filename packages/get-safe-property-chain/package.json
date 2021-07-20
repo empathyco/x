@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-get-safe-property-chain",
-  "version": "1.2.1-alpha.0",
+  "version": "1.2.1-alpha.1",
   "description": "A utility for safely retrieving nested values",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -24,6 +24,9 @@
     "build": "tsc && tsc --project tsconfig.esm.json",
     "build:watch": "tsc --watch",
     "lint": "eslint src",
+    "postbuild": "npm pack",
+    "postinstall": "npm run build",
+    "prepublishOnly": "npm run build",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"

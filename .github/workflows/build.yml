@@ -10,8 +10,6 @@ jobs:
           token: ${{ secrets.SUPPORT_TOKEN }}
       - name: Install lerna and all packages
         run: npm ci
-      - name: Build all packages
-        run: npm run build
       - name: Run linter in all packages
         run: npm run lint
       - name: Run tests in all packages

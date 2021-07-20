@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter@6.2.0-alpha.0...@empathyco/x-adapter@6.2.0-alpha.1) (2021-07-20)
+
+
+### Continuous Integration
+
+* Fix publishing in x-components. Normalize build scripts. (#46) ([c3c2f85](https://github.com/empathyco/x/commit/c3c2f8519c0de1b164074e87e68e77ad1af0d702)), closes [EX-4413](https://searchbroker.atlassian.net/browse/EX-4413)
+
+
+
 ## 6.2.0-alpha.0 (2021-07-14)
 
 
