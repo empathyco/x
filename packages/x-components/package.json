@@ -39,9 +39,9 @@
   },
   "scripts": {
     "serve": "vue-cli-service serve --skip-plugins eslint",
-    "build": "ts-node --project ./build/tsconfig.json ./build/build.ts",
+    "build": "pwd && ts-node --project ./build/tsconfig.json ./build/build.ts",
     "build:website": "vue-cli-service build",
-    "gen:docs": "rimraf ./docs && npm run gen:typescript-docs && npm run gen:component-docs",
+    "gen:docs": "npm run gen:typescript-docs && npm run gen:component-docs",
     "gen:typescript-docs": "api-documenter markdown --input-folder dist/report --output-folder docs/API-reference/api",
     "gen:component-docs": "vue-docgen",
     "postbuild": "npm pack ./dist",

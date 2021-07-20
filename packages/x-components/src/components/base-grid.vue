@@ -34,7 +34,9 @@
   import { Component, Prop } from 'vue-property-decorator';
   import { toKebabCase } from '../utils/string';
   import { GridItem, VueCSSClasses } from '../utils/types';
-  import { XInject } from './decorators/injection.decorators';
+  import { XInject, XInjectKey } from './decorators/injection.decorators';
+
+  const gridItemsKey: XInjectKey<GridItem[]> = 'gridItems';
 
   /**
    * Grid component that is able to render different items based on their modelName value. In order
@@ -73,15 +75,15 @@
      * @public
      */
     @Prop()
-    protected items?: GridItem[];
+    protected items!: GridItem[];
 
     /**
      * It injects {@link GridItem} provided by an ancestor as injectedItems.
      *
      * @internal
      */
-    @XInject('gridItems')
-    public injectedItems?: GridItem[];
+    @XInject(gridItemsKey, [] as GridItem[])
+    public injectedItems!: GridItem[];
 
     /**
      * It returns the items passed as props or the injected ones.
