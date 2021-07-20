@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.4...@empathyco/x-components@3.0.0-alpha.5) (2021-07-20)
+
+
+### Continuous Integration
+
+* Fix publishing in x-components. Normalize build scripts. (#46) ([c3c2f85](https://github.com/empathyco/x/commit/c3c2f8519c0de1b164074e87e68e77ad1af0d702)), closes [EX-4413](https://searchbroker.atlassian.net/browse/EX-4413)
+
+
+
 ## [3.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.3...@empathyco/x-components@3.0.0-alpha.4) (2021-07-15)
 
 

@@ -1,7 +1,6 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { InstallXOptions } from '../../../src/x-installer/x-installer/types';
 
-let nextQueriesResults = 0;
 let resultsCount = 0;
 let resultsList: string[] = [];
 const compoundResultsList: string[] = [];
@@ -69,12 +68,6 @@ And(
 );
 
 // Scenario 2
-And('the number of next query results are stored', () => {
-  cy.get('body').then($body => {
-    nextQueriesResults = $body.find('[data-test="next-query"]').length;
-  });
-});
-
 And('History queries are being displayed is not {boolean}', (hideIfEqualsQuery: boolean) => {
   if (hideIfEqualsQuery) {
     cy.getByDataTest('history-queries').should('not.exist');
@@ -97,11 +90,7 @@ And('query suggestions are cleared', () => {
   cy.getByDataTest('query-suggestions').should('not.exist');
 });
 And('next queries are not cleared', () => {
-  if (nextQueriesResults === 0) {
-    cy.getByDataTest('next-query').should('not.exist');
-  } else {
-    cy.getByDataTest('next-query').should('have.length.at.least', 1);
-  }
+  cy.getByDataTest('next-query').should('have.length.at.least', 1);
 });
 And('related tags are cleared', () => {
   cy.getByDataTest('related-tag').should('not.exist');
