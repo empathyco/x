@@ -23,7 +23,6 @@
     "build": "tsc",
     "build:watch": "tsc --watch",
     "postbuild": "npm pack",
-    "postinstall": "npm run build",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {

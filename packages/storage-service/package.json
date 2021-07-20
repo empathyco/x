@@ -33,7 +33,6 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "postbuild": "npm pack",
-    "postinstall": "npm run build",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {

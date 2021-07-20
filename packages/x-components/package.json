@@ -45,7 +45,6 @@
     "gen:typescript-docs": "api-documenter markdown --input-folder dist/report --output-folder docs/API-reference/api",
     "gen:component-docs": "vue-docgen",
     "postbuild": "npm pack ./dist",
-    "postinstall": "npm run build",
     "prepublishOnly": "npm run build",
     "test:unit": "npm run test:unit-jest && npm run test:unit-cypress",
     "test:unit-jest": "vue-cli-service test:unit",

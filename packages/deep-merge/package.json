@@ -33,7 +33,6 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint src",
     "postbuild": "npm pack",
-    "postinstall": "npm run build",
     "prepublishOnly": "npm run build",
     "prebuild": "npm run clean",
     "test": "jest"
