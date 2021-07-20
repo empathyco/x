@@ -20,16 +20,7 @@ Then(
 
 // Next Queries
 Then('next queries are displayed', () => {
-  cy.get('body').then($body => {
-    if ($body.find('[data-test="next-queries"]').length === 1) {
-      cy.getByDataTest('next-query')
-        .should('have.length.at.least', 1)
-        .invoke('text')
-        .as('nextQueries');
-    } else {
-      cy.getByDataTest('next-query').should('not.exist');
-    }
-  });
+  cy.getByDataTest('next-query').should('have.length.at.least', 1).invoke('text').as('nextQueries');
 });
 
 // Query Suggestions
