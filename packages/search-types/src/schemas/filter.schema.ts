@@ -15,7 +15,7 @@ import { IdentifiableSchema } from './identifiable.schema';
 export const FilterSchema: Filter = {
   ...IdentifiableSchema,
   modelName: expect.any(String),
-  selected: expect.any(Boolean),
+  selected: expect.any(Boolean)
 };
 
 /**
@@ -26,7 +26,7 @@ export const FilterSchema: Filter = {
 export const FacetFilterSchema: FacetFilter = {
   ...FilterSchema,
   facetId: expect.anyOf([Number, String]),
-  modelName: expect.any(String) && expect.not.stringMatching('RawFilter')
+  modelName: expect.any(String)
 };
 
 /**
@@ -48,8 +48,8 @@ export const RawFilterSchema: RawFilter = {
  */
 export const BooleanFilterSchema: BooleanFilter = {
   ...FacetFilterSchema,
+  modelName: expect.any(String),
   label: expect.any(String),
-  value: expect.any(String),
   totalResults: expect.undefinedOr(Number)
 };
 
@@ -60,7 +60,7 @@ export const BooleanFilterSchema: BooleanFilter = {
  */
 export const SimpleFilterSchema: SimpleFilter = {
   ...BooleanFilterSchema,
-  modelName: 'SimpleFilter',
+  modelName: 'SimpleFilter'
 };
 
 /**
