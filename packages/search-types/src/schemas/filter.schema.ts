@@ -1,8 +1,9 @@
-import { EditableNumberRangeFilter } from '../facet/filter';
+import { EditableNumberRangeFilter, FacetFilter } from '../facet/filter';
 import { BooleanFilter } from '../facet/filter/boolean-filter.model';
 import { Filter } from '../facet/filter/filter.model';
 import { HierarchicalFilter } from '../facet/filter/hierarchical-filter.model';
 import { NumberRangeFilter } from '../facet/filter/number-range-filter.model';
+import { RawFilter } from '../facet/filter/raw-filter.model';
 import { SimpleFilter } from '../facet/filter/simple-filter.model';
 import { IdentifiableSchema } from './identifiable.schema';
 
@@ -13,10 +14,31 @@ import { IdentifiableSchema } from './identifiable.schema';
  */
 export const FilterSchema: Filter = {
   ...IdentifiableSchema,
+  modelName: expect.any(String),
+  selected: expect.any(Boolean),
+};
+
+/**
+ * Jest schema for validating {@link FacetFilter} entities.
+ *
+ * @public
+ */
+export const FacetFilterSchema: FacetFilter = {
+  ...FilterSchema,
   facetId: expect.anyOf([Number, String]),
-  label: expect.any(String),
-  callbackInfo: expect.any(Object),
-  modelName: expect.any(String)
+  modelName: expect.any(String) && expect.not.stringMatching('RawFilter')
+};
+
+/**
+ * Jest schema for validating RawFilter entities.
+ *
+ * @public
+ */
+export const RawFilterSchema: RawFilter = {
+  ...FilterSchema,
+  modelName: 'RawFilter',
+  id: expect.any(String),
+  selected: true
 };
 
 /**
@@ -25,10 +47,10 @@ export const FilterSchema: Filter = {
  * @public
  */
 export const BooleanFilterSchema: BooleanFilter = {
-  ...FilterSchema,
-  modelName: expect.any(String),
-  selected: expect.any(Boolean),
-  value: expect.any(String)
+  ...FacetFilterSchema,
+  label: expect.any(String),
+  value: expect.any(String),
+  totalResults: expect.undefinedOr(Number)
 };
 
 /**

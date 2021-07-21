@@ -35,11 +35,11 @@ export interface NamedModel<T extends ModelNameType = ModelNameType> {
 export type FacetModelName = 'SimpleFacet' | 'HierarchicalFacet' | 'NumberRangeFacet' | 'EditableNumberRangeFacet';
 
 /**
- * Filters model names type. It can be: {@link BooleanFilterModelName} or EditableNumberRangeFilter.
+ * Filters model names type. It can be: {@link BooleanFilterModelName}, RawFilter or EditableNumberRangeFilter.
  *
  * @public
  */
-export type FilterModelName = BooleanFilterModelName | 'EditableNumberRangeFilter';
+export type FilterModelName = BooleanFilterModelName | 'EditableNumberRangeFilter' | 'RawFilter';
 
 /**
  * Type to ease the usage of a model name in a {@link BooleanFilter} with autocomplete suggestions.
