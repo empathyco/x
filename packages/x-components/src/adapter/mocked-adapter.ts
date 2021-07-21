@@ -20,8 +20,6 @@ export type AdapterMockedResponses = {
     ? Value | Error
     : never;
 };
-export type f = keyof MockedAdapterConfig['responses'];
-
 export interface MockedAdapterConfig {
   delayMs: number;
   responses: Partial<AdapterMockedResponses>;
