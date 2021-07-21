@@ -1,10 +1,12 @@
 import { mount } from '@vue/test-utils';
-import { getResultsStub } from '../../../__stubs__/results-stubs.factory';
+import { createResultStub } from '../../../__stubs__/results-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseResultImage from '../base-result-image.vue';
 
 describe('testing BaseResultImage component', () => {
-  const result = getResultsStub()[0];
+  const result = createResultStub('Product 001', {
+    images: ['https://picsum.photos/seed/1/200/300', 'https://picsum.photos/seed/2/200/300']
+  });
   const [, localVue] = installNewXPlugin();
 
   it('renders the content overriding placeholder', () => {
