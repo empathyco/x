@@ -3,11 +3,9 @@
     <!--
       @slot Customize ResultsList.
         @binding {Result[]} items - Results to render.
-        @binding {GridItem[]} providedItems - A list containing the injected grid items, plus the
-        retrieved results, concatenated in the first positions.
         @binding {Vue | string} animation - Animation to animate the elements.
     -->
-    <slot v-bind="{ items, providedItems, animation }">
+    <slot v-bind="{ items, animation }">
       <component
         :is="animation"
         v-if="items.length"
@@ -41,14 +39,13 @@
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { searchXModule } from '../x-module';
   import { InfiniteScroll } from '../../../directives/infinite-scroll/infinite-scroll.types';
-  import GridItemsInjectionMixin from './grid-items-injection.mixin';
+  import { SEARCH_ITEMS_KEY } from '../../../components/decorators/injection.consts';
+  import { XProvide } from '../../../components/decorators/injection.decorators';
 
   /**
-   * It renders a list of results from props or from {@link SearchState.results} by default using
-   * the `GridItemsInjectionMixin`.
+   * It renders a list of results from {@link SearchState.results} by default.
    *
-   * The component provides a default slot which wraps the whole component with the `items`
-   * bound and the `injectedItems` which also contains the injected grid items from an ancestor.
+   * The component provides a default slot which wraps the whole component with the `results` bound.
    *
    * It also provides the slot result to customize the item, which is within the default slot, with
    * the result bound.
@@ -59,16 +56,21 @@
     components: {
       NoElement
     },
-    mixins: [xComponentMixin(searchXModule), GridItemsInjectionMixin]
+    mixins: [xComponentMixin(searchXModule)]
   })
   export default class ResultsList extends Vue implements InfiniteScroll {
     /**
      * The results to render from the state.
      *
+     * @remarks The results list are provided with {@link SEARCH_ITEMS_KEY} key. It can be
+     * concatenated with search items from components such as `BannersList`, `PromotedsList` or any
+     * `BaseGrid` component.
+     *
      * @public
      */
+    @XProvide(SEARCH_ITEMS_KEY)
     @State('search', 'results')
-    public stateItems!: Result[];
+    public items!: Result[];
 
     /**
      * Animation component that will be used to animate the results.
@@ -217,25 +219,39 @@ _Type any term in the input field to try it out!_
 
 ### Data injection
 
+Starting with the `ResultsList` component as root element, you can concat the list of search items
+using `BannersList` and `PromotedsList` in order to be injected by the `BaseGrid` (or components
+that extend it).
+
 ```vue
 <template>
   <div>
     <SearchInput />
-    <BannersList>
-      <ResultsList />
-    </BannersList>
+    <ResultsList>
+      <BannersList>
+        <PromotedsList>
+          <BaseGrid />
+        </PromotedsList>
+      </BannersList>
+    </ResultsList>
   </div>
 </template>
 
 <script>
-  import { SearchInput, ResultsList, BannersList } from '@empathyco/x-components/search';
+  import {
+    SearchInput,
+    ResultsList,
+    BannersList,
+    PromotedsList
+  } from '@empathyco/x-components/search';
 
   export default {
-    name: 'ResultsListDemo',
+    name: 'BannersListDemo',
     components: {
       SearchInput,
       ResultsList,
-      BannersList
+      BannersList,
+      PromotedsList
     }
   };
 </script>

@@ -124,12 +124,12 @@
           </Recommendations>
 
           <!-- Results -->
-          <BannersList>
-            <PromotedsList>
-              <ResultsList v-infinite-scroll:body-scroll>
+          <ResultsList v-infinite-scroll:body-scroll>
+            <BannersList>
+              <PromotedsList>
                 <BaseVariableColumnGrid #Result="{ item: result }" :animation="resultsAnimation">
                   <article class="result" style="max-width: 300px">
-                    <BaseResultImage class="x-picture--colored" :result="result">
+                    <BaseResultImage class="x-picture&#45;&#45;colored" :result="result">
                       <template #placeholder>
                         <div style="padding-top: 100%; background-color: lightgray"></div>
                       </template>
@@ -140,9 +140,9 @@
                     <h1 class="x-title3">{{ result.name }}</h1>
                   </article>
                 </BaseVariableColumnGrid>
-              </ResultsList>
-            </PromotedsList>
-          </BannersList>
+              </PromotedsList>
+            </BannersList>
+          </ResultsList>
         </template>
 
         <template #scroll-to-top>
@@ -203,6 +203,7 @@
   import BannersList from '../x-modules/search/components/banners-list.vue';
   import PromotedsList from '../x-modules/search/components/promoteds-list.vue';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
+  import Banner from '../x-modules/search/components/banner.vue';
 
   @Component({
     beforeRouteEnter(_to, _from, next: () => void): void {
@@ -218,6 +219,7 @@
       infiniteScroll
     },
     components: {
+      Banner,
       PromotedsList,
       BannersList,
       BaseIdTogglePanelButton,

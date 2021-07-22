@@ -2,12 +2,11 @@
   <NoElement>
     <!--
       @slot Customized Promoteds List layout.
-        @binding {Promoted[]} items - Promoteds to render.
-        @binding {GridItem[]} providedItems - A list containing the injected grid items, plus the
-        retrieved promoteds, concatenated in the first positions.
+        @binding {Promoted[]} items - Promoteds plus the injected search items to render.
+        @binding {SearchItem[]} promoteds - Promoteds list.
         @binding {Vue | string} animation - Animation to animate the elements.
     -->
-    <slot v-bind="{ items, providedItems, animation }">
+    <slot v-bind="{ items, promoteds: stateItems, animation }">
       <component
         :is="animation"
         v-if="items.length"
@@ -40,17 +39,21 @@
   import { NoElement } from '../../../components/no-element';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { searchXModule } from '../x-module';
-  import GridItemsInjectionMixin from './grid-items-injection.mixin';
+  import { XProvide } from '../../../components/decorators/injection.decorators';
+  import { SearchItem } from '../../../utils/types';
+  import { SEARCH_ITEMS_KEY } from '../../../components/decorators/injection.consts';
+  import SearchItemsInjectionMixin from './search-items-injection.mixin';
 
   /**
-   * It renders a list of promoteds from props or from {@link SearchState.promoteds} by default
-   * using the `GridItemsInjectionMixin`.
+   * It renders a list of promoteds from {@link SearchState.promoteds} by default
+   * using the `SearchItemsInjectionMixin`.
    *
-   * The component provides a default slot which wraps the whole component with the `items`
-   * bound and the `injectedItems` which also contains the injected grid items from an ancestor.
+   * The component provides a default slot which wraps the whole component with the `promoteds`
+   * bound plus the `searchInjectedItems` which also contains the injected search items from
+   * the ancestor.
    *
-   * It also provides the slot result to customize the item, which is within the default slot, with
-   * the result bound.
+   * It also provides the slot `promoted` to customize the item, which is within the default slot,
+   * with the promoted bound.
    *
    * @public
    */
@@ -58,9 +61,9 @@
     components: {
       NoElement
     },
-    mixins: [xComponentMixin(searchXModule), GridItemsInjectionMixin]
+    mixins: [xComponentMixin(searchXModule)]
   })
-  export default class PromotedsList extends Vue {
+  export default class PromotedsList extends SearchItemsInjectionMixin {
     /**
      * The promoteds to render from the state.
      *
@@ -76,6 +79,20 @@
      */
     @Prop({ default: 'ul' })
     protected animation!: Vue | string;
+
+    /**
+     * The `stateItems` concatenated with the `injectedSearchItems` if there are.
+     *
+     * @returns List of {@link SearchItem}.
+     *
+     * @internal
+     */
+    @XProvide(SEARCH_ITEMS_KEY)
+    public get items(): SearchItem[] {
+      return this.injectedSearchItems
+        ? [...this.stateItems, ...this.injectedSearchItems]
+        : this.stateItems;
+    }
   }
 </script>
 
@@ -206,6 +223,9 @@ _Type any term in the input field to try it out!_
 ```
 
 ### Data injection
+
+Starting with the `ResultsList` component as root element, you can concat the list of results and
+promoteds in order to be injected by the `BaseGrid` (or components that extend it).
 
 ```vue
 <template>

@@ -33,10 +33,9 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { toKebabCase } from '../utils/string';
-  import { GridItem, VueCSSClasses } from '../utils/types';
-  import { XInject, XInjectKey } from './decorators/injection.decorators';
-
-  const gridItemsKey: XInjectKey<GridItem[]> = 'gridItems';
+  import { SearchItem, VueCSSClasses } from '../utils/types';
+  import { XInject } from './decorators/injection.decorators';
+  import { SEARCH_ITEMS_KEY } from './decorators/injection.consts';
 
   /**
    * Grid component that is able to render different items based on their modelName value. In order
@@ -75,15 +74,15 @@
      * @public
      */
     @Prop()
-    protected items!: GridItem[];
+    protected items!: SearchItem[];
 
     /**
-     * It injects {@link GridItem} provided by an ancestor as injectedItems.
+     * It injects {@link SearchItem} provided by an ancestor.
      *
      * @internal
      */
-    @XInject(gridItemsKey, [] as GridItem[])
-    public injectedItems!: GridItem[];
+    @XInject(SEARCH_ITEMS_KEY)
+    public injectedSearchItems!: SearchItem[];
 
     /**
      * It returns the items passed as props or the injected ones.
@@ -92,10 +91,10 @@
      *
      * @public
      */
-    protected get computedItems(): GridItem[] {
+    protected get computedItems(): SearchItem[] {
       return (
         this.items ??
-        this.injectedItems ??
+        this.injectedSearchItems ??
         //TODO: add here logger
         //eslint-disable-next-line no-console
         console.warn('It is necessary to pass a prop or inject the list of filters')
@@ -138,7 +137,7 @@
      * @internal
      */
     protected get itemsWithCSSClass(): {
-      item: GridItem;
+      item: SearchItem;
       cssClass: VueCSSClasses;
     }[] {
       return this.computedItems.map(item => ({

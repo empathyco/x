@@ -2,12 +2,11 @@
   <NoElement>
     <!--
       @slot Customized Banners List layout.
-        @binding {Banner[]} items - Banners to render.
-        @binding {GridItem[]} providedItems - A list containing the injected grid items, plus the
-        retrieved banners, concatenated in the first positions.
+        @binding {Banner[]} items - Banners plus the injected search items to render.
+        @binding {SearchItem[]} banners - Banners list.
         @binding {Vue | string} animation - Animation to animate the elements.
     -->
-    <slot v-bind="{ items, providedItems, animation }">
+    <slot v-bind="{ items, banners: stateItems, animation }">
       <component
         :is="animation"
         v-if="items.length"
@@ -25,7 +24,7 @@
             @slot Customized Banners List banner.
                 @binding {Banner} banner - Banner data
           -->
-          <slot :banner="banner" name="banner">{{ banner.title }}</slot>
+          <slot :banner="banner" name="banner">{{ banner.id }}</slot>
         </li>
       </component>
     </slot>
@@ -40,17 +39,21 @@
   import { NoElement } from '../../../components/no-element';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { searchXModule } from '../x-module';
-  import GridItemsInjectionMixin from './grid-items-injection.mixin';
+  import { XProvide } from '../../../components/decorators/injection.decorators';
+  import { SearchItem } from '../../../utils/types';
+  import { SEARCH_ITEMS_KEY } from '../../../components/decorators/injection.consts';
+  import SearchItemsInjectionMixin from './search-items-injection.mixin';
 
   /**
-   * It renders a list of banners from props or from {@link SearchState.banners} by default
-   * using the `GridItemsInjectionMixin`.
+   * It renders a list of banners from {@link SearchState.banners} by default
+   * using the `SearchItemsInjectionMixin`.
    *
-   * The component provides a default slot which wraps the whole component with the `items`
-   * bound and the `injectedItems` which also contains the injected grid items from an ancestor.
+   * The component provides a default slot which wraps the whole component with the `banners`
+   * bound plus the `searchInjectedItems` which also contains the injected search items from
+   * the ancestor.
    *
-   * It also provides the slot result to customize the item, which is within the default slot, with
-   * the result bound.
+   * It also provides the slot `banner` to customize the item, which is within the default slot,
+   * with the promoted bound.
    *
    * @public
    */
@@ -58,11 +61,11 @@
     components: {
       NoElement
     },
-    mixins: [xComponentMixin(searchXModule), GridItemsInjectionMixin]
+    mixins: [xComponentMixin(searchXModule)]
   })
-  export default class BannersList extends Vue {
+  export default class BannersList extends SearchItemsInjectionMixin {
     /**
-     * The results to render.
+     * The banners to render from the state.
      *
      * @public
      */
@@ -76,6 +79,20 @@
      */
     @Prop({ default: 'ul' })
     protected animation!: Vue | string;
+
+    /**
+     * The `stateItems` concatenated with the `injectedSearchItems` if there are.
+     *
+     * @returns List of {@link SearchItem}.
+     *
+     * @internal
+     */
+    @XProvide(SEARCH_ITEMS_KEY)
+    public get items(): SearchItem[] {
+      return this.injectedSearchItems
+        ? [...this.stateItems, ...this.injectedSearchItems]
+        : this.stateItems;
+    }
   }
 </script>
 
@@ -206,6 +223,9 @@ _Type any term in the input field to try it out!_
 ```
 
 ### Data injection
+
+Starting with the `ResultsList` component as root element, you can concat the list of results and
+banners in order to be injected by the `BaseGrid` (or components that extend it).
 
 ```vue
 <template>

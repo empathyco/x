@@ -1,15 +1,19 @@
-import { Banner } from '@empathyco/x-types';
+import { Banner, Result } from '@empathyco/x-types';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue, { VueConstructor, ComponentOptions } from 'vue';
 import Vuex, { Store } from 'vuex';
+import { Component } from 'vue-property-decorator';
 import BaseGrid from '../../../../components/base-grid.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial, Dictionary } from '../../../../utils/types';
+import { DeepPartial, Dictionary, SearchItem } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
 import BannersList from '../banners-list.vue';
+import { SEARCH_ITEMS_KEY } from '../../../../components/decorators/injection.consts';
+import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
+import { XProvide } from '../../../../components/decorators/injection.decorators';
 import { resetXSearchStateWith } from './utils';
 
 /**
@@ -109,6 +113,41 @@ describe('testing BannersList component', () => {
 
     expect(wrapper.find(getDataTestSelector('banners-list')).exists()).toBe(false);
     expect(wrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toBe(true);
+  });
+
+  it('provides', () => {
+    const resultStub = getResultsStub().slice(0, 1);
+    const bannerStub = getBannersStub().slice(0, 1);
+    const localVue = createLocalVue();
+    localVue.use(Vuex);
+    const store = new Store<DeepPartial<RootXStoreState>>({});
+    installNewXPlugin({ store }, localVue);
+    resetXSearchStateWith(store, { banners: bannerStub });
+
+    @Component({
+      template: `<div><slot/></div>`
+    })
+    class Provider extends Vue {
+      @XProvide(SEARCH_ITEMS_KEY)
+      public providedStub: Result[] = resultStub;
+    }
+
+    const wrapper = mount(
+      {
+        template: '<Provider v-bind="$attrs"><BannersList><BaseGrid/></BannersList></Provider>',
+        components: {
+          Provider,
+          BannersList,
+          BaseGrid
+        }
+      },
+      {
+        localVue,
+        store
+      }
+    );
+
+    expect(wrapper.text()).toBe('Banner 1');
   });
 });
 
