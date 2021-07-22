@@ -124,22 +124,34 @@
           </Recommendations>
 
           <!-- Results -->
-          <ResultsList v-infinite-scroll:body-scroll>
+          <!--
+            <ResultsList v-infinite-scroll:body-scroll>
+              <BannersList>
+                <PromotedsList>
+                  <BaseVariableColumnGrid #Result="{ item: result }" :animation="resultsAnimation">
+                    <article class="result" style="max-width: 300px">
+                      <BaseResultImage class="x-picture&#45;&#45;colored" :result="result">
+                        <template #placeholder>
+                          <div style="padding-top: 100%; background-color: lightgray"></div>
+                        </template>
+                        <template #fallback>
+                          <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                        </template>
+                      </BaseResultImage>
+                      <h1 class="x-title3">{{ result.name }}</h1>
+                    </article>
+                  </BaseVariableColumnGrid>
+                </PromotedsList>
+              </BannersList>
+            </ResultsList>
+          -->
+
+          <ResultsList>
             <BannersList>
               <PromotedsList>
-                <BaseVariableColumnGrid #Result="{ item: result }" :animation="resultsAnimation">
-                  <article class="result" style="max-width: 300px">
-                    <BaseResultImage class="x-picture&#45;&#45;colored" :result="result">
-                      <template #placeholder>
-                        <div style="padding-top: 100%; background-color: lightgray"></div>
-                      </template>
-                      <template #fallback>
-                        <div style="padding-top: 100%; background-color: lightsalmon"></div>
-                      </template>
-                    </BaseResultImage>
-                    <h1 class="x-title3">{{ result.name }}</h1>
-                  </article>
-                </BaseVariableColumnGrid>
+                <template #banner="{ searchItem }">Banner: {{ searchItem.id }}</template>
+                <template #promoted="{ searchItem }">Promoted: {{ searchItem.id }}</template>
+                <template #result="{ searchItem }">Result: {{ searchItem.id }}</template>
               </PromotedsList>
             </BannersList>
           </ResultsList>

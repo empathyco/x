@@ -3,30 +3,14 @@
     <!--
       @slot Customized Promoteds List layout.
         @binding {Promoted[]} items - Promoteds plus the injected search items to render.
-        @binding {SearchItem[]} promoteds - Promoteds list.
         @binding {Vue | string} animation - Animation to animate the elements.
     -->
-    <slot v-bind="{ items, promoteds: stateItems, animation }">
-      <component
-        :is="animation"
-        v-if="items.length"
-        tag="ul"
-        class="x-list x-promoteds-list"
-        data-test="promoteds-list"
-      >
-        <li
-          v-for="promoted in items"
-          :key="promoted.id"
-          class="x-promoteds-list__item"
-          data-test="promoteds-list-item"
-        >
-          <!--
-            @slot Customized Promoteds List promoted.
-                @binding {Promoted} promoted - Promoted data
-          -->
-          <slot :promoted="promoted" name="promoted">{{ promoted.title }}</slot>
-        </li>
-      </component>
+    <slot v-bind="{ items, animation }">
+      <SearchItemsList :animation="animation" :searchItems="items">
+        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ searchItem }">
+          <slot :name="slotName" :searchItem="searchItem" />
+        </template>
+      </SearchItemsList>
     </slot>
   </NoElement>
 </template>
@@ -43,6 +27,7 @@
   import { SearchItem } from '../../../utils/types';
   import { SEARCH_ITEMS_KEY } from '../../../components/decorators/injection.consts';
   import SearchItemsInjectionMixin from './search-items-injection.mixin';
+  import SearchItemsList from './search-items-list.vue';
 
   /**
    * It renders a list of promoteds from {@link SearchState.promoteds} by default
@@ -59,7 +44,8 @@
    */
   @Component({
     components: {
-      NoElement
+      NoElement,
+      SearchItemsList
     },
     mixins: [xComponentMixin(searchXModule)]
   })

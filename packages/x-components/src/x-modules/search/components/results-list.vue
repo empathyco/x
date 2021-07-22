@@ -6,26 +6,11 @@
         @binding {Vue | string} animation - Animation to animate the elements.
     -->
     <slot v-bind="{ items, animation }">
-      <component
-        :is="animation"
-        v-if="items.length"
-        tag="ul"
-        class="x-list x-results-list"
-        data-test="results-list"
-      >
-        <li
-          v-for="result in items"
-          :key="result.id"
-          class="x-results-list__item"
-          data-test="results-list-item"
-        >
-          <!--
-            @slot Customize ResultsList result.
-                @binding {Result} result - Result data
-          -->
-          <slot :result="result" name="result">{{ result.name }}</slot>
-        </li>
-      </component>
+      <SearchItemsList :animation="animation" :searchItems="items">
+        <template v-for="(_, slot) in $scopedSlots" v-slot:[slot]="props">
+          <slot :name="slot" v-bind="props" />
+        </template>
+      </SearchItemsList>
     </slot>
   </NoElement>
 </template>
@@ -41,6 +26,7 @@
   import { InfiniteScroll } from '../../../directives/infinite-scroll/infinite-scroll.types';
   import { SEARCH_ITEMS_KEY } from '../../../components/decorators/injection.consts';
   import { XProvide } from '../../../components/decorators/injection.decorators';
+  import SearchItemsList from './search-items-list.vue';
 
   /**
    * It renders a list of results from {@link SearchState.results} by default.
@@ -54,7 +40,8 @@
    */
   @Component({
     components: {
-      NoElement
+      NoElement,
+      SearchItemsList
     },
     mixins: [xComponentMixin(searchXModule)]
   })

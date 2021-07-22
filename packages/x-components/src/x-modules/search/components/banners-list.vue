@@ -3,30 +3,14 @@
     <!--
       @slot Customized Banners List layout.
         @binding {Banner[]} items - Banners plus the injected search items to render.
-        @binding {SearchItem[]} banners - Banners list.
         @binding {Vue | string} animation - Animation to animate the elements.
     -->
-    <slot v-bind="{ items, banners: stateItems, animation }">
-      <component
-        :is="animation"
-        v-if="items.length"
-        tag="ul"
-        class="x-list x-banners-list"
-        data-test="banners-list"
-      >
-        <li
-          v-for="banner in items"
-          :key="banner.id"
-          class="x-banners-list__item"
-          data-test="banners-list-item"
-        >
-          <!--
-            @slot Customized Banners List banner.
-                @binding {Banner} banner - Banner data
-          -->
-          <slot :banner="banner" name="banner">{{ banner.title }}</slot>
-        </li>
-      </component>
+    <slot v-bind="{ items, animation }">
+      <SearchItemsList :animation="animation" :searchItems="items">
+        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ searchItem }">
+          <slot :name="slotName" :searchItem="searchItem" />
+        </template>
+      </SearchItemsList>
     </slot>
   </NoElement>
 </template>
@@ -43,6 +27,7 @@
   import { SearchItem } from '../../../utils/types';
   import { SEARCH_ITEMS_KEY } from '../../../components/decorators/injection.consts';
   import SearchItemsInjectionMixin from './search-items-injection.mixin';
+  import SearchItemsList from './search-items-list.vue';
 
   /**
    * It renders a list of banners from {@link SearchState.banners} by default
@@ -59,6 +44,7 @@
    */
   @Component({
     components: {
+      SearchItemsList,
       NoElement
     },
     mixins: [xComponentMixin(searchXModule)]
