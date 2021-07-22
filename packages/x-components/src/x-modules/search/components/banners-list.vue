@@ -24,7 +24,7 @@
             @slot Customized Banners List banner.
                 @binding {Banner} banner - Banner data
           -->
-          <slot :banner="banner" name="banner">{{ banner.id }}</slot>
+          <slot :banner="banner" name="banner">{{ banner.title }}</slot>
         </li>
       </component>
     </slot>
