@@ -1,20 +1,23 @@
 :root {
   // color
-  --x-color-text-suggestion: var(--x-color-text);
-  --x-color-text-suggestion-matching-part: var(--x-color-neutral-35);
-  --x-color-background-suggestion: transparent;
+  --x-color-text-suggestion-default: var(--x-color-text-default);
+  --x-color-text-suggestion-matching-part-default: var(--x-color-base-neutral-35);
+  --x-color-background-suggestion-default: transparent;
 
-  // spacing
-  --x-space-padding-suggestion: var(--x-space-02) 0;
-  --x-space-gap-suggestion: var(--x-space-03);
+  // size
+  --x-size-padding-top-suggestion-default: var(--x-size-base-01);
+  --x-size-padding-right-suggestion-default: 0;
+  --x-size-padding-bottom-suggestion-default: var(--x-size-base-02);
+  --x-size-padding-left-suggestion-default: 0;
+  --x-size-gap-suggestion-default: var(--x-size-base-03);
 
   // typography
-  --x-font-family-suggestion: var(--x-font-family-text);
-  --x-font-size-suggestion: var(--x-font-size-text);
-  --x-font-line-height-suggestion: var(--x-font-line-height-text);
-  --x-font-weight-suggestion: var(--x-font-weight-text);
-  --x-font-family-suggestion-matching-part: var(--x-font-family-suggestion);
-  --x-font-size-suggestion-matching-part: var(--x-font-size-suggestion);
-  --x-font-line-height-suggestion-matching-part: var(--x-font-line-height-suggestion);
-  --x-font-weight-suggestion-matching-part: var(--x-font-weight-suggestion);
+  --x-font-family-suggestion-default: var(--x-font-family-text);
+  --x-size-font-suggestion-default: var(--x-size-font-text);
+  --x-size-line-height-suggestion:-default var(--x-size-line-height-text);
+  --x-number-font-weight-suggestion-default: var(--x-number-font-weight-text);
+  --x-font-family-suggestion-matching-part-default: var(--x-font-family-suggestion-default);
+  --x-size-font-suggestion-matching-part-default: var(--x-size-font-suggestion-default);
+  --x-size-line-height-suggestion-matching-part-default: var(--x-size-line-height-suggestion-default);
+  --x-number-font-weight-suggestion-matching-part-default: var(--x-number-font-weight-suggestion-default);
 }

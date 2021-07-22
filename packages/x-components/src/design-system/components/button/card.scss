@@ -1,5 +1,15 @@
 .x-button--card.x-button,
 .x-button--card .x-button {
   // border
-  --x-border-radius-button: var(--x-border-radius-button-card);
+  --x-size-border-radius-button-default: var(--x-size-border-radius-button-card);
+  --x-size-border-radius-top-left-button-default: var(--x-size-border-radius-top-left-button-card);
+  --x-size-border-radius-top-right-button-default: var(
+    --x-size-border-radius-top-right-button-card
+  );
+  --x-size-border-radius-bottom-right-button-default: var(
+    --x-size-border-radius-bottom-right-button-card
+  );
+  --x-size-border-radius-bottom-left-button-default: var(
+    --x-size-border-radius-bottom-left-button-card
+  );
 }

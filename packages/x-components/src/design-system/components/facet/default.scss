@@ -8,13 +8,18 @@
   box-sizing: border-box;
 
   // color
-  background-color: var(--x-color-background-facet);
-  border-color: var(--x-color-border-facet);
+  background-color: var(--x-color-background-facet-default);
+  border-color: var(--x-color-border-facet-default);
 
   // border
   border-style: solid;
-  border-width: var(--x-border-width-facet);
-  border-radius: var(--x-border-radius-facet);
+  border-width: var(--x-size-border-width-top-facet-default)
+    var(--x-size-border-width-right-facet-default) var(--x-size-border-width-bottom-facet-default)
+    var(--x-size-border-width-left-facet-default);
+  border-radius: var(--x-size-border-radius-top-left-facet-default)
+    var(--x-size-border-radius-top-right-facet-default)
+    var(--x-size-border-radius-bottom-right-facet-default)
+    var(--x-size-border-radius-bottom-left-facet-default);
 
   > *:first-child,
   &__header {
@@ -27,29 +32,34 @@
     box-sizing: border-box;
 
     // color
-    background-color: var(--x-color-background-facet-header);
-    border-color: var(--x-color-border-facet-header);
-    color: var(--x-color-text-facet);
+    background-color: var(--x-color-background-facet-header-default);
+    border-color: var(--x-color-border-facet-header-default);
+    color: var(--x-color-text-facet-default);
 
-    // spacing
-    gap: var(--x-space-gap-facet-header);
-    @include safari-gap(var(--x-space-gap-facet-header));
-    padding: var(--x-space-padding-facet-header);
+    // size
+    gap: var(--x-size-gap-facet-header-default);
+    @include safari-gap(var(--x-size-gap-facet-header-default));
+    padding: var(--x-size-padding-top-facet-header-default)
+      var(--x-size-padding-right-facet-header-default)
+      var(--x-size-padding-bottom-facet-header-default)
+      var(--x-size-padding-left-facet-header-default);
 
     // border
     border-style: solid;
-    border-width: var(--x-border-width-facet-header);
-    border-radius: var(--x-border-radius-facet-header);
+    border-width: var(--x-size-border-width-top-facet-header-default)
+      var(--x-size-border-width-right-facet-header-default)
+      var(--x-size-border-width-bottom-facet-header-default)
+      var(--x-size-border-width-left-facet-header-default);
 
     // typography
-    font-family: var(--x-font-family-facet);
-    font-size: var(--x-font-size-facet);
-    font-weight: var(--x-font-weight-facet);
-    line-height: var(--x-font-line-height-facet);
+    font-family: var(--x-font-family-facet-default);
+    font-size: var(--x-size-font-facet-default);
+    font-weight: var(--x-number-font-weight-facet-default);
+    line-height: var(--x-size-line-height-facet-default);
 
     .x-icon {
-      --x-size-height-icon: var(--x-font-line-height-facet);
-      --x-size-width-icon: var(--x-font-line-height-facet);
+      --x-size-height-icon: var(--x-size-line-height-facet-default);
+      --x-size-width-icon: var(--x-size-line-height-facet-default);
 
       &:last-child:not(:first-child) {
         margin-left: auto;

@@ -1,4 +1,8 @@
 :root{
   // border
-  --x-border-radius-input-pill: var(--x-border-radius-pill);
+  --x-size-border-radius-input-pill: var(--x-size-border-radius-base-pill);
+  --x-size-border-radius-top-left-input-pill: var(--x-size-border-radius-input-pill);
+  --x-size-border-radius-top-right-input-pill: var(--x-size-border-radius-input-pill);
+  --x-size-border-radius-bottom-right-input-pill: var(--x-size-border-radius-input-pill);
+  --x-size-border-radius-bottom-left-input-pill: var(--x-size-border-radius-input-pill);
 }

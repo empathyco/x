@@ -6,29 +6,38 @@
   position: relative;
 
   // font
-  font-size: var(--x-font-size-dropdown);
-  font-family: var(--x-font-family-dropdown);
-  font-weight: var(--x-font-weight-dropdown);
-  line-height: var(--x-font-line-height-dropdown);
+  font-size: var(--x-size-font-dropdown-default);
+  font-family: var(--x-font-family-dropdown-default);
+  font-weight: var(--x-number-font-weight-dropdown-default);
+  line-height: var(--x-size-line-height-dropdown-default);
 
   &__toggle {
     // border
     border-style: solid;
-    border-width: var(--x-border-width-dropdown-toggle);
-    border-radius: var(--x-border-radius-dropdown);
+    border-width: var(--x-size-border-width-top-dropdown-toggle-default)
+      var(--x-size-border-width-right-dropdown-toggle-default)
+      var(--x-size-border-width-bottom-dropdown-toggle-default)
+      var(--x-size-border-width-left-dropdown-toggle-default);
+    border-radius: var(--x-size-border-radius-top-left-dropdown-default)
+      var(--x-size-border-radius-top-right-dropdown-default)
+      var(--x-size-border-radius-bottom-right-dropdown-default)
+      var(--x-size-border-radius-bottom-left-dropdown-default);
 
     // color
-    background: var(--x-color-background-dropdown-toggle);
-    color: var(--x-color-font-dropdown-toggle);
-    border-color: var(--x-color-border-dropdown-toggle);
-
-    // spacing
-    padding: var(--x-space-padding-block-dropdown-item) var(--x-space-padding-inline-dropdown-item);
-    gap: var(--x-space-gap-dropdown-item);
-    @include safari-gap(var(--x-space-gap-dropdown-item));
+    background: var(--x-color-background-dropdown-toggle-default);
+    color: var(--x-color-font-dropdown-toggle-default);
+    border-color: var(--x-color-border-dropdown-toggle-default);
 
     // size
-    width: var(--x-size-width-dropdown);
+    padding: var(--x-size-padding-top-dropdown-item-default)
+      var(--x-size-padding-right-dropdown-item-default)
+      var(--x-size-padding-bottom-dropdown-item-default)
+      var(--x-size-padding-left-dropdown-item-default);
+    gap: var(--x-size-gap-dropdown-item-default);
+    @include safari-gap(var(--x-size-gap-dropdown-item-default));
+
+    // size
+    width: var(--x-size-width-dropdown-default);
 
     // layout
     display: flex;
@@ -47,7 +56,7 @@
 
   &__toggle-selected-value {
     // color
-    color: var(--x-color-font-dropdown-toggle-selected);
+    color: var(--x-color-font-dropdown-toggle-default-selected);
   }
 
   &__items-list {
@@ -56,18 +65,24 @@
     width: 100%;
     position: absolute;
     left: 0;
-    top: calc(100% + var(--x-space-gap-dropdown));
+    top: calc(100% + var(--x-size-gap-dropdown-default));
     overflow: hidden;
 
     // color
-    border-color: var(--x-color-border-dropdown-list);
+    border-color: var(--x-color-border-dropdown-list-default);
 
     // border
-    border-width: var(--x-border-width-dropdown-list);
-    border-radius: var(--x-border-radius-dropdown);
+    border-width: var(--x-size-border-width-top-dropdown-list-default)
+      var(--x-size-border-width-right-dropdown-list-default)
+      var(--x-size-border-width-bottom-dropdown-list-default)
+      var(--x-size-border-width-left-dropdown-list-default);
+    border-radius: var(--x-size-border-radius-top-left-dropdown-default)
+      var(--x-size-border-radius-top-right-dropdown-default)
+      var(--x-size-border-radius-bottom-right-dropdown-default)
+      var(--x-size-border-radius-bottom-left-dropdown-default);
     border-style: solid;
 
-    // spacing
+    // size
     margin: 0;
     padding: 0;
 
@@ -77,12 +92,15 @@
 
   &__item {
     // color
-    background: var(--x-color-background-dropdown);
+    background: var(--x-color-background-dropdown-default);
 
-    // spacing
-    padding: var(--x-space-padding-block-dropdown-item) var(--x-space-padding-inline-dropdown-item);
-    gap: var(--x-space-gap-dropdown-item);
-    @include safari-gap(var(--x-space-gap-dropdown-item));
+    // size
+    padding: var(--x-size-padding-top-dropdown-item-default)
+      var(--x-size-padding-right-dropdown-item-default)
+      var(--x-size-padding-bottom-dropdown-item-default)
+      var(--x-size-padding-left-dropdown-item-default);
+    gap: var(--x-size-gap-dropdown-item-default);
+    @include safari-gap(var(--x-size-gap-dropdown-item-default));
 
     // border
     border: none;
@@ -101,22 +119,22 @@
     &:hover,
     &--is-highlighted {
       // color
-      color: var(--x-color-font-dropdown-item-hover);
-      background-color: var(--x-color-background-dropdown-item-hover);
+      color: var(--x-color-font-dropdown-item-default-hover);
+      background-color: var(--x-color-background-dropdown-item-default-hover);
 
       // font
-      font-weight: var(--x-font-weight-dropdown-item-hover);
-      text-decoration: var(--x-font-decoration-dropdown-item-hover);
+      font-weight: var(--x-number-font-weight-dropdown-item-default-hover);
+      text-decoration: var(--x-font-decoration-dropdown-item-default-hover);
     }
 
     &--is-selected {
       // color
-      color: var(--x-color-font-dropdown-item-selected);
-      background-color: var(--x-color-background-dropdown-item-selected);
+      color: var(--x-color-font-dropdown-item-default-selected);
+      background-color: var(--x-color-background-dropdown-item-default-selected);
 
       // font
-      font-weight: var(--x-font-weight-dropdown-item-selected);
-      text-decoration: var(--x-font-decoration-dropdown-item-selected);
+      font-weight: var(--x-number-font-weight-dropdown-item-default-selected);
+      text-decoration: var(--x-font-decoration-dropdown-item-default-selected);
     }
   }
 

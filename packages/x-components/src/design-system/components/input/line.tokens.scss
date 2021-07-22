@@ -1,7 +1,13 @@
 :root {
-  // spacing
-  --x-space-padding-input-line: var(--x-space-03) 0;
+  // size
+  --x-size-padding-top-input-line: var(--x-size-base-03);
+  --x-size-padding-right-input-line: 0;
+  --x-size-padding-bottom-input-line: var(--x-size-base-03);
+  --x-size-padding-left-input-line: 0;
 
   // border
-  --x-border-width-input-line: 0 0 var(--x-border-width) 0;
+  --x-size-border-width-top-input-line: 0;
+  --x-size-border-width-right-input-line: 0;
+  --x-size-border-width-bottom-input-line: var(--x-size-border-width-base);
+  --x-size-border-width-left-input-line: 0;
 }

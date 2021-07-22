@@ -3,6 +3,19 @@
 @for $i from 1 through 7 {
   $i: zerofill($i);
   .x-list--gap-#{$i}.x-list {
-    --x-space-gap-list: var(--x-space-gap-list-#{$i});
+    gap: var(--x-size-gap-list-#{$i});
+
+    &:not(.x-list--horizontal),
+    &.x-list--vertical {
+      @include safari-gap($vertical-gap: var(--x-size-gap-list-#{$i}));
+    }
+
+    &.x-list--horizontal {
+      @include safari-gap(var(--x-size-gap-list-#{$i}));
+    }
+
+    &.x-list--wrap {
+      @include safari-gap(var(--x-size-gap-list-#{$i}), var(--x-size-gap-list-#{$i}));
+    }
   }
 }

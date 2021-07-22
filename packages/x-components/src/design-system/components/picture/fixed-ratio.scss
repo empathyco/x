@@ -4,7 +4,7 @@
   height: 0;
 
   // size
-  padding: calc(var(--x-size-aspect-ratio-picture) * 100%) 0 0 0;
+  padding: calc(var(--x-number-aspect-ratio-picture) * 100%) 0 0 0;
   width: 100%;
 
   .x-picture__image {

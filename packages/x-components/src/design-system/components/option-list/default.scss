@@ -6,64 +6,103 @@
   box-sizing: border-box;
   list-style-type: none;
 
-  // spacing
+  // size
   margin: 0;
   padding: 0;
 
   &__item {
     // color
-    border-color: var(--x-color-border-option-list-item);
+    border-color: var(--x-color-border-option-list-item-default);
 
     // border
     border-style: solid;
-    border-width: var(--x-border-width-option-list-item);
+    border-width: var(--x-size-border-width-top-option-list-item-default)
+      var(--x-size-border-width-right-option-list-item-default)
+      var(--x-size-border-width-bottom-option-list-item-default)
+      var(--x-size-border-width-left-option-list-item-default);
 
     &.x-option-list__item--is-selected {
       // border
-      --x-border-width-option-list-item: var(--x-border-width-option-list-item-selected);
+      --x-size-border-width-option-list-item-default: var(
+        --x-size-border-width-option-list-item-default-selected
+      );
+      --x-size-border-width-top-option-list-item-default: var(
+        --x-size-border-width-top-option-list-item-default-selected
+      );
+      --x-size-border-width-right-option-list-item-default: var(
+        --x-size-border-width-right-option-list-item-default-selected
+      );
+      --x-size-border-width-bottom-option-list-item-default: var(
+        --x-size-border-width-bottom-option-list-item-default-selected
+      );
+      --x-size-border-width-left-option-list-item-default: var(
+        --x-size-border-width-left-option-list-item-default-selected
+      );
 
       .x-button {
         // color
-        --x-color-background-button: var(--x-color-background-option-list-button-selected);
-        --x-color-border-button: var(--x-color-border-option-list-button-selected);
-        --x-color-text-button: var(--x-color-text-option-list-button-selected);
+        --x-color-background-button-default: var(
+          --x-color-background-option-list-button-default-selected
+        );
+        --x-color-border-button-default: var(--x-color-border-option-list-button-default-selected);
+        --x-color-text-button-default: var(--x-color-text-option-list-button-default-selected);
 
         // typography
-        --x-font-weight-option-list-button: var(--x-font-weight-option-list-button-selected);
+        --x-number-font-weight-option-list-button-default: var(
+          --x-number-font-weight-option-list-button-default-selected
+        );
 
         &:hover {
           // color
-          --x-color-background-button: var(--x-color-background-option-list-button-selected-hover);
-          --x-color-border-button: var(--x-color-border-option-list-button-selected-hover);
-          --x-color-text-button: var(--x-color-text-option-list-button-selected-hover);
+          --x-color-background-button-default: var(
+            --x-color-background-option-list-button-default-selected-hover
+          );
+          --x-color-border-button-default: var(
+            --x-color-border-option-list-button-default-selected-hover
+          );
+          --x-color-text-button-default: var(
+            --x-color-text-option-list-button-default-selected-hover
+          );
         }
       }
     }
 
     &:last-child {
-      --x-border-width-option-list-item: 0;
+      --x-size-border-width-option-list-item-default: 0;
+      --x-size-border-width-top-option-list-item-default: 0;
+      --x-size-border-width-right-option-list-item-default: 0;
+      --x-size-border-width-bottom-option-list-item-default: 0;
+      --x-size-border-width-left-option-list-item-default: 0;
     }
 
     .x-button {
       // color
-      --x-color-background-button: var(--x-color-background-option-list-button);
-      --x-color-border-button: var(--x-color-border-option-list-button);
-      --x-color-text-button: var(--x-color-text-option-list-button);
+      --x-color-background-button-default: var(--x-color-background-option-list-button-default);
+      --x-color-border-button-default: var(--x-color-border-option-list-button-default);
+      --x-color-text-button-default: var(--x-color-text-option-list-button-default);
 
-      // spacing
-      --x-space-padding-button: var(--x-space-padding-option-list-button);
+      // size
+      --x-size-padding-button-default: var(--x-size-padding-option-list-button-default);
+      --x-size-padding-top-button-default: var(--x-size-padding-top-option-list-button-default);
+      --x-size-padding-right-button-default: var(--x-size-padding-right-option-list-button-default);
+      --x-size-padding-bottom-button-default: var(
+        --x-size-padding-bottom-option-list-button-default
+      );
+      --x-size-padding-left-button-default: var(--x-size-padding-left-option-list-button-default);
 
       // typography
-      --x-font-weight-button: var(--x-font-weight-option-list-button);
+      --x-number-font-weight-button-default: var(--x-number-font-weight-option-list-button-default);
 
       &:hover {
         // color
-        --x-color-background-button: var(--x-color-background-option-list-button-hover);
-        --x-color-border-button: var(--x-color-border-option-list-button-hover);
-        --x-color-text-button: var(--x-color-text-option-list-button-hover);
+        --x-color-background-button-default: var(
+          --x-color-background-option-list-button-default-hover
+        );
+        --x-color-border-button-default: var(--x-color-border-option-list-button-default-hover);
+        --x-color-text-button-default: var(--x-color-text-option-list-button-default-hover);
 
         // typography
-        text-decoration: var(--x-font-decoration-option-list-button-hover);
+        text-decoration: var(--x-font-decoration-option-list-button-default-hover);
       }
     }
   }

@@ -8,36 +8,40 @@
     -webkit-appearance: none;
   }
 
-  // spacing
-  padding: var(--x-space-padding-input);
+  // size
+  padding: var(--x-size-padding-top-input-default) var(--x-size-padding-right-input-default)
+    var(--x-size-padding-bottom-input-default) var(--x-size-padding-left-input-default);
 
   // color
-  background-color: var(--x-color-background-input);
-  border-color: var(--x-color-border-input);
-  color: var(--x-color-text-input);
+  background-color: var(--x-color-background-input-default);
+  border-color: var(--x-color-border-input-default);
+  color: var(--x-color-text-input-default);
 
   // border
-  border-width: var(--x-border-width-input);
-  border-radius: var(--x-border-radius-input);
+  border-width: var(--x-size-border-width-top-input-default) var(--x-size-border-width-right-input-default)
+    var(--x-size-border-width-bottom-input-default) var(--x-size-border-width-left-input-default);
+  border-radius: var(--x-size-border-radius-top-left-input-default)
+    var(--x-size-border-radius-top-right-input-default) var(--x-size-border-radius-bottom-right-input-default)
+    var(--x-size-border-radius-bottom-left-input-default);
   border-style: solid;
 
   // typography
-  font-family: var(--x-font-family-input);
-  font-size: var(--x-font-size-input);
-  font-weight: var(--x-font-weight-input);
-  line-height: var(--x-font-line-height-input);
+  font-family: var(--x-font-family-input-default);
+  font-size: var(--x-size-font-input-default);
+  font-weight: var(--x-number-font-weight-input-default);
+  line-height: var(--x-size-line-height-input-default);
 
   &:focus {
     // color
-    border-color: var(--x-color-border-input-focus);
+    border-color: var(--x-color-border-input-default-focus);
   }
 
   &::placeholder {
     // typography
-    color: var(--x-color-text-input-placeholder);
-    font-family: var(--x-font-family-input-placeholder);
-    font-size: var(--x-font-size-input-placeholder);
-    font-weight: var(--x-font-weight-input-placeholder);
-    line-height: var(--x-font-line-height-input-placeholder);
+    color: var(--x-color-text-input-placeholder-default);
+    font-family: var(--x-font-family-input-placeholder-default);
+    font-size: var(--x-size-font-input-placeholder-default);
+    font-weight: var(--x-number-font-weight-input-placeholder-default);
+    line-height: var(--x-size-line-height-input-placeholder-default);
   }
 }

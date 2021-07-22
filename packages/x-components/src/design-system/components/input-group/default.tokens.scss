@@ -1,33 +1,53 @@
 :root {
   // color
-  --x-color-background-input-group: var(--x-color-background-input);
-  --x-color-border-input-group: var(--x-color-border-input);
-  --x-color-border-input-group-focus: var(--x-color-border-input-focus);
-  --x-color-text-input-group: var(--x-color-text-input);
-  --x-color-text-input-group-placeholder: var(--x-color-text-input-placeholder);
+  --x-color-background-input-group-default: var(--x-color-background-input-default);
+  --x-color-border-input-group-default: var(--x-color-border-input-default);
+  --x-color-border-input-group-default-focus: var(--x-color-border-input-default-focus);
+  --x-color-text-input-group-default: var(--x-color-text-input-default);
+  --x-color-text-input-group-placeholder-default: var(--x-color-text-input-placeholder-default);
 
-  // spacing
-  --x-space-gap-input-group: var(--x-space-03);
-  --x-space-padding-top-input-group: var(--x-space-03);
-  --x-space-padding-bottom-input-group: var(--x-space-padding-top-input-group);
-  --x-space-padding-left-input-group: var(--x-space-06);
-  --x-space-padding-right-input-group: var(--x-space-padding-left-input-group);
-  --x-space-padding-input-group-action: var(--x-space-padding-top-input-group);
-  --x-space-margin-input-group-action: var(--x-border-width-input-group);
+  // size
+  --x-size-gap-input-group-default: var(--x-size-base-03);
+  --x-size-padding-top-input-group-default: var(--x-size-base-03);
+  --x-size-padding-bottom-input-group-default: var(--x-size-padding-top-input-group-default);
+  --x-size-padding-left-input-group-default: var(--x-size-base-06);
+  --x-size-padding-right-input-group-default: var(--x-size-padding-left-input-group-default);
+  --x-size-padding-input-group-default-action: var(--x-size-padding-top-input-group-default);
 
   // border
-  --x-border-width-input-group: var(--x-border-width-input);
-  --x-border-radius-input-group: var(--x-border-radius-input);
-  --x-border-radius-input-group-action: var(--x-border-radius-input);
+  --x-size-border-width-input-group-default: var(--x-size-border-width-input-default);
+  --x-size-border-width-top-input-group-default: var(--x-size-border-width-input-group-default);
+  --x-size-border-width-right-input-group-default: var(--x-size-border-width-input-group-default);
+  --x-size-border-width-bottom-input-group-default: var(--x-size-border-width-input-group-default);
+  --x-size-border-width-left-input-group-default: var(--x-size-border-width-input-group-default);
+
+  --x-size-border-radius-input-group-default: var(--x-size-border-radius-input-default);
+
+  --x-size-border-radius-top-left-input-group-default: var(
+    --x-size-border-radius-input-group-default
+  );
+  --x-size-border-radius-top-right-input-group-default: var(
+    --x-size-border-radius-input-group-default
+  );
+  --x-size-border-radius-bottom-right-input-group-default: var(
+    --x-size-border-radius-input-group-default
+  );
+  --x-size-border-radius-bottom-left-input-group-default: var(
+    --x-size-border-radius-input-group-default
+  );
 
   // typography
-  --x-font-family-input-group: var(--x-font-family-input);
-  --x-font-size-input-group: var(--x-font-size-input);
-  --x-font-line-height-input-group: var(--x-font-line-height-input);
-  --x-font-weight-input-group: var(--x-font-weight-input);
-  --x-font-family-input-group-placeholder: var(--x-font-family-input-group);
-  --x-font-size-input-group-placeholder: var(--x-font-size-input-group);
-  --x-font-line-height-input-group-placeholder: var(--x-font-line-height-input-group);
-  --x-font-weight-input-group-placeholder: var(--x-font-weight-input-group);
-  --x-font-weight-input-group-button: var(--x-font-weight-light);
+  --x-font-family-input-group-default: var(--x-font-family-input-default);
+  --x-size-font-input-group-default: var(--x-size-font-input-default);
+  --x-size-line-height-input-group-default: var(--x-size-line-height-input-default);
+  --x-number-font-weight-input-group-default: var(--x-number-font-weight-input-default);
+  --x-font-family-input-group-placeholder-default: var(--x-font-family-input-group-default);
+  --x-size-font-input-group-placeholder-default: var(--x-size-font-input-group-default);
+  --x-size-line-height-input-group-placeholder-default: var(
+    --x-size-line-height-input-group-default
+  );
+  --x-number-font-weight-input-group-placeholder-default: var(
+    --x-number-font-weight-input-group-default
+  );
+  --x-number-font-weight-input-group-default-button: var(--x-number-font-weight-base-light);
 }

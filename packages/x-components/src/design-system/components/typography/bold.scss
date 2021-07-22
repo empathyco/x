@@ -1,18 +1,18 @@
 // text
 .x-text--bold {
   &.x-text {
-    --x-font-weight-text: var(--x-font-weight-bold);
+    --x-number-font-weight-text: var(--x-number-font-weight-base-bold);
   }
   &.x-title1 {
-    --x-font-weight-title1: var(--x-font-weight-bold);
+    --x-number-font-weight-title1: var(--x-number-font-weight-base-bold);
   }
   &.x-title2 {
-    --x-font-weight-title2: var(--x-font-weight-bold);
+    --x-number-font-weight-title2: var(--x-number-font-weight-base-bold);
   }
   &.x-title3 {
-    --x-font-weight-title3: var(--x-font-weight-bold);
+    --x-number-font-weight-title3: var(--x-number-font-weight-base-bold);
   }
   &.x-small {
-    --x-font-weight-small: var(--x-font-weight-bold);
+    --x-number-font-weight-small: var(--x-number-font-weight-base-bold);
   }
 }

@@ -1,4 +1,12 @@
 .x-input--card.x-input,
 .x-input--card .x-input {
-  --x-border-radius-input: var(--x-border-radius-input-card);
+  --x-size-border-radius-input-default: var(--x-size-border-radius-input-card);
+  --x-size-border-radius-top-left-input-default: var(--x-size-border-radius-top-left-input-card);
+  --x-size-border-radius-top-right-input-default: var(--x-size-border-radius-top-right-input-card);
+  --x-size-border-radius-bottom-right-input-default: var(
+    --x-size-border-radius-bottom-right-input-card
+  );
+  --x-size-border-radius-bottom-left-input-default: var(
+    --x-size-border-radius-bottom-left-input-card
+  );
 }

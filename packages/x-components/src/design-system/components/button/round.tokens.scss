@@ -1,7 +1,15 @@
 :root {
   // border
-  --x-border-radius-button-round: var(--x-border-radius-pill);
+  --x-size-border-radius-button-round: var(--x-size-border-radius-base-pill);
+  --x-size-border-radius-top-left-button-round: var(--x-size-border-radius-button-round);
+  --x-size-border-radius-top-right-button-round: var(--x-size-border-radius-button-round);
+  --x-size-border-radius-bottom-right-button-round: var(--x-size-border-radius-button-round);
+  --x-size-border-radius-bottom-left-button-round: var(--x-size-border-radius-button-round);
 
   // spacing
-  --x-space-padding-button-round: var(--x-space-04);
+  --x-space-padding-button-round: var(--x-size-base-04);
+  --x-size-padding-left-button-round: var(--x-space-padding-button-round);
+  --x-size-padding-bottom-button-round: var(--x-space-padding-button-round);
+  --x-size-padding-right-button-round: var(--x-space-padding-button-round);
+  --x-size-padding-top-button-round: var(--x-space-padding-button-round);
 }

@@ -1,4 +1,8 @@
 :root {
   // border
-  --x-border-radius-picture-card: var(--x-border-radius-s);
+  --x-size-border-radius-picture-card: var(--x-size-border-radius-base-s);
+  --x-size-border-radius-top-picture-card: var(--x-size-border-radius-picture-card);
+  --x-size-border-radius-right-picture-card: var(--x-size-border-radius-picture-card);
+  --x-size-border-radius-bottom-picture-card: var(--x-size-border-radius-picture-card);
+  --x-size-border-radius-left-picture-card: var(--x-size-border-radius-picture-card);
 }

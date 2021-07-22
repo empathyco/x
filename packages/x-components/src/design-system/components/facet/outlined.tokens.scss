@@ -1,10 +1,18 @@
 :root {
   // color
-  --x-color-border-facet-outlined: var(--x-color-neutral-70);
+  --x-color-border-facet-outlined: var(--x-color-base-neutral-70);
 
   // border
-  --x-border-width-facet-outlined: var(--x-border-width);
+  --x-size-border-width-facet-outlined: var(--x-size-border-width-base);
+  --x-size-border-width-top-facet-outlined: var(--x-size-border-width-facet-outlined);
+  --x-size-border-width-right-facet-outlined: var(--x-size-border-width-facet-outlined);
+  --x-size-border-width-bottom-facet-outlined: var(--x-size-border-width-facet-outlined);
+  --x-size-border-width-left-facet-outlined: var(--x-size-border-width-facet-outlined);
 
-  // spacing
-  --x-space-padding-facet-header-outlined: var(--x-space-03);
+  // size
+  --x-size-padding-facet-header-outlined: var(--x-size-base-03);
+  --x-size-padding-top-facet-header-outlined: var(--x-size-padding-facet-header-outlined);
+  --x-size-padding-right-facet-header-outlined: var(--x-size-padding-facet-header-outlined);
+  --x-size-padding-bottom-facet-header-outlined: var(--x-size-padding-facet-header-outlined);
+  --x-size-padding-left-facet-header-outlined: var(--x-size-padding-facet-header-outlined);
 }

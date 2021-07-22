@@ -1,8 +1,16 @@
 .x-facet--card.x-facet,
 .x-facet--card .x-facet {
   // border
-  --x-border-radius-facet: var(--x-border-radius-facet-card);
+  --x-size-border-radius-facet-default: var(--x-size-border-radius-facet-card);
+  --x-size-border-radius-top-left-facet-default: var(--x-size-border-radius-facet-card);
+  --x-size-border-radius-top-right-facet-default: var(--x-size-border-radius-facet-card);
+  --x-size-border-radius-bottom-right-facet-default: var(--x-size-border-radius-facet-card);
+  --x-size-border-radius-bottom-left-facet-default: var(--x-size-border-radius-facet-card);
 
-  // spacing
-  --x-space-padding-facet-header: var(--x-space-padding-facet-header-card);
+  // size
+  --x-size-padding-facet-header-default: var(--x-size-padding-facet-header-card);
+  --x-size-padding-top-facet-header-default: var(--x-size-padding-top-facet-header-card);
+  --x-size-padding-right-facet-header-default: var(--x-size-padding-right-facet-header-card);
+  --x-size-padding-bottom-facet-header-default: var(--x-size-padding-bottom-facet-header-card);
+  --x-size-padding-left-facet-header-default: var(--x-size-padding-left-facet-header-card);
 }

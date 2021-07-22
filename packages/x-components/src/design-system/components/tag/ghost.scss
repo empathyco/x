@@ -1,11 +1,11 @@
 .x-tag--ghost.x-tag,
 .x-tag--ghost .x-tag {
   // color
-  --x-color-background-tag: var(--x-color-background-tag-ghost);
-  --x-color-border-tag: var(--x-color-border-tag-ghost);
-  --x-color-background-tag-selected: var(--x-color-background-tag-selected-ghost);
-  --x-color-border-tag-selected: var(--x-color-border-tag-selected-ghost);
+  --x-color-background-tag-default: var(--x-color-background-tag-ghost);
+  --x-color-border-tag-default: var(--x-color-border-tag-ghost);
+  --x-color-background-tag-default-selected: var(--x-color-background-tag-selected-ghost);
+  --x-color-border-tag-default-selected: var(--x-color-border-tag-selected-ghost);
 
   // typography
-  --x-font-weight-tag-selected: var(--x-font-weight-tag-selected-ghost);
+  --x-number-font-weight-tag-default-selected: var(--x-number-font-weight-tag-selected-ghost);
 }

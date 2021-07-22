@@ -1,36 +1,39 @@
 :root {
+  // color
+  --x-color-text-default: var(--x-color-base-neutral-10);
+
   // text
-  --x-font-family-text: var(--x-font-family);
-  --x-font-size-text: var(--x-font-size-s);
-  --x-font-weight-text: var(--x-font-weight-regular);
-  --x-font-line-height-text: var(--x-font-line-height-s);
-  --x-font-decoration-text: none;
+  --x-font-family-text: var(--x-font-family-base);
+  --x-size-font-text: var(--x-size-font-base-s);
+  --x-number-font-weight-text: var(--x-number-font-weight-base-regular);
+  --x-size-line-height-text: var(--x-size-line-height-base-s);
+  --x-string-text-decoration-text: none;
 
   // title1
-  --x-font-family-title1: var(--x-font-family);
-  --x-font-size-title1: var(--x-font-size-xl);
-  --x-font-weight-title1: var(--x-font-weight-regular);
-  --x-font-line-height-title1: var(--x-font-line-height-l);
-  --x-font-decoration-title1: none;
+  --x-font-family-title1: var(--x-font-family-base);
+  --x-size-font-title1: var(--x-size-font-base-xl);
+  --x-number-font-weight-title1: var(--x-number-font-weight-base-regular);
+  --x-size-line-height-title1: var(--x-size-line-height-base-l);
+  --x-string-text-decoration-title1: none;
 
   // title2
-  --x-font-family-title2: var(--x-font-family);
-  --x-font-size-title2: var(--x-font-size-l);
-  --x-font-weight-title2: var(--x-font-weight-regular);
-  --x-font-line-height-title2: var(--x-font-line-height-m);
-  --x-font-decoration-title2: none;
+  --x-font-family-title2: var(--x-font-family-base);
+  --x-size-font-title2: var(--x-size-font-base-l);
+  --x-number-font-weight-title2: var(--x-number-font-weight-base-regular);
+  --x-size-line-height-title2: var(--x-size-line-height-base-m);
+  --x-string-text-decoration-title2: none;
 
   // title3
-  --x-font-family-title3: var(--x-font-family);
-  --x-font-size-title3: var(--x-font-size-m);
-  --x-font-weight-title3: var(--x-font-weight-regular);
-  --x-font-line-height-title3: var(--x-font-line-height-m);
-  --x-font-decoration-title3: none;
+  --x-font-family-title3: var(--x-font-family-base);
+  --x-size-font-title3: var(--x-size-font-base-m);
+  --x-number-font-weight-title3: var(--x-number-font-weight-base-regular);
+  --x-size-line-height-title3: var(--x-size-line-height-base-m);
+  --x-string-text-decoration-title3: none;
 
   // small
-  --x-font-family-small: var(--x-font-family);
-  --x-font-size-small: var(--x-font-size-xs);
-  --x-font-weight-small: var(--x-font-weight-regular);
-  --x-font-line-height-small: var(--x-font-line-height-s);
-  --x-font-decoration-small: none;
+  --x-font-family-small: var(--x-font-family-base);
+  --x-size-font-small: var(--x-size-font-base-xs);
+  --x-number-font-weight-small: var(--x-number-font-weight-base-regular);
+  --x-size-line-height-small: var(--x-size-line-height-base-s);
+  --x-string-text-decoration-small: none;
 }

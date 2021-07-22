@@ -18,6 +18,15 @@
 @for $i from 1 through 7 {
   $i: zerofill($i);
   .x-list--padding-#{$i}.x-list {
-    --x-space-padding-list: var(--x-space-padding-list-#{$i});
+    padding: var(--x-size-padding-list-#{$i});
+  }
+
+  .x-list--gap-.x-list {
+    gap: var(--x-size-gap-list-#{$i});
+    @include safari-gap($vertical-gap: var(--x-size-gap-list-#{$i}));
+
+    &.x-list--horizontal {
+      @include safari-gap(var(--x-size-gap-list-#{$i}));
+    }
   }
 }
