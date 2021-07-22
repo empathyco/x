@@ -92,7 +92,7 @@ export const NumberRangeFilterSchema: NumberRangeFilter = {
  * @public
  */
 export const EditableNumberRangeFilterSchema: EditableNumberRangeFilter = {
-  ...FilterSchema,
+  ...FacetFilterSchema,
   range: { min: expect.nullOr(Number), max: expect.nullOr(Number) },
   modelName: 'EditableNumberRangeFilter'
 };
