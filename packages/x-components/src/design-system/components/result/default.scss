@@ -13,8 +13,8 @@
   box-sizing: border-box;
 
   // color
-  background-color: var(--x-color-base-background-result);
-  border-color: var(--x-color-base-border-result);
+  background-color: var(--x-color-background-result-default);
+  border-color: var(--x-color-border-result-default);
 
   // size
   padding: var(--x-size-padding-result-default);
@@ -35,7 +35,7 @@
     grid-row: picture;
 
     // color
-    border-color: var(--x-color-base-border-result-picture);
+    border-color: var(--x-color-border-result-picture-default);
 
     // size
     padding: var(--x-size-padding-result-picture-default);
@@ -52,7 +52,7 @@
     z-index: 1;
 
     // color
-    border-color: var(--x-color-base-border-result-overlay);
+    border-color: var(--x-color-border-result-overlay-default);
 
     //spacing
     padding: var(--x-size-padding-result-overlay-default);
@@ -71,7 +71,7 @@
     grid-row: description;
 
     // color
-    border-color: var(--x-color-base-border-result-description);
+    border-color: var(--x-color-border-result-description-default);
 
     //spacing
     padding: var(--x-size-padding-result-description-default);
