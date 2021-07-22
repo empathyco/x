@@ -21,7 +21,7 @@ describe('slots test', () => {
 
     cy.get('@toggleShow').click();
     cy.getByDataTest('react-content').should('be.visible');
-    cy.getByDataTest('react-content').should('not.be.visible');
+    cy.getByDataTest('react-content').should('not.exist');
   });
 
   it('does not crash if the parent element is removed', () => {
@@ -29,7 +29,7 @@ describe('slots test', () => {
     cy.getByDataTest('react-content').should('be.visible');
 
     cy.get('@toggleContainer').click();
-    cy.getByDataTest('react-content').should('not.be.visible');
+    cy.getByDataTest('react-content').should('not.exist');
   });
 
   it('allows to update a vue component from a react children using scoped slots', () => {

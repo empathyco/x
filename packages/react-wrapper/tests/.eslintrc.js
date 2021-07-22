@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: ['plugin:@empathy/x/standard', 'plugin:react/recommended'],
+  extends: ['plugin:@empathyco/x/standard', 'plugin:react/recommended'],
   parserOptions: {
     tsconfigRootDir: __dirname,
     project: './tsconfig.json'

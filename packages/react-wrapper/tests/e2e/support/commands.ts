@@ -13,7 +13,7 @@ interface CustomCommands {
    * @param selector - The selector to match with the `data-test` attribute.
    * @example cy.getByDataTest('my-button'); // Same as Cypress.get('[data-test="my-button"]');
    */
-  getByDataTest(selector: string): Cypress.Chainable<JQuery<HTMLElement>>;
+  getByDataTest(selector: string): Cypress.Chainable<JQuery>;
 
   /**
    * Loads the specified view.

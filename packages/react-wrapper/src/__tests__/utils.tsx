@@ -43,7 +43,7 @@ export function renderClassComponent<SomeComponent extends ComponentClass>(
   ReactDOM.render(<ComponentToRender ref={instance} />, root);
 
   return {
-    instance: instance.current!,
+    instance: instance.current as InstanceType<SomeComponent>,
     root
   };
 }

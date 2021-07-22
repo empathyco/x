@@ -9,7 +9,7 @@ To start using this library, simply add it to your React project dependencies, t
 `react`, `react-dom`, and `vue`:
 
 ```
-npm install --save @empathy/react-wrapper react react-dom vue
+npm install --save @empathyco/react-wrapper react react-dom vue
 ```
 
 After installing these dependencies, you can start using the `ReactWrapper`. To do so, you just have
@@ -25,7 +25,7 @@ be passed with the Vue component to render.
 
 ```tsx
 // File App.ts
-import { ReactWrapper } from '@empathy/react-wrapper';
+import { ReactWrapper } from '@empathco/react-wrapper';
 import HelloWorld from './hello-world.vue';
 import React from 'react';
 
@@ -57,7 +57,7 @@ a normal React component. `ReactWrapper` will forward them to the Vue component:
 
 ```tsx
 // File App.tsx
-import { ReactWrapper } from '@empathy/react-wrapper';
+import { ReactWrapper } from '@empathyco/react-wrapper';
 import Message from './message.vue';
 import React from 'react';
 
@@ -99,7 +99,7 @@ value is the callback itself, which can have a payload associated.
 
 ```tsx
 // File App.tsx
-import { ReactWrapper } from '@empathy/react-wrapper';
+import { ReactWrapper } from '@empathyco/react-wrapper';
 import Button from './button.vue';
 import React from 'react';
 
@@ -141,7 +141,7 @@ To use default slots there are 3 ways: nesting the children inside the component
 
 ```tsx
 // File App.tsx
-import { ReactWrapper } from '@empathy/react-wrapper';
+import { ReactWrapper } from '@empathyco/react-wrapper';
 import Title from './title.vue';
 import React from 'react';
 
@@ -160,7 +160,7 @@ function App() {
 
 ```tsx
 // File App.tsx
-import { ReactWrapper } from '@empathy/react-wrapper';
+import { ReactWrapper } from '@empathyco/react-wrapper';
 import Title from './title.vue';
 import React from 'react';
 
@@ -204,7 +204,7 @@ function App() {
 
 ```tsx
 // File App.tsx
-import { ReactWrapper } from '@empathy/react-wrapper';
+import { ReactWrapper } from '@empathyco/react-wrapper';
 import ArticlePreview from './article-preview.vue';
 import React from 'react';
 
