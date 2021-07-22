@@ -30,10 +30,21 @@ We are going to follow the next levels convention to name the tokens:
 
 `[namespace]-[category]-[property]-[component]-[element]-[variant]-[state]-[scale]`
 
-Examples: `--x-color-background-button-icon-filled-hover` `--x-font-size-xs`
+Examples: `--x-color-background-button-icon-filled-hover` `--x-size-font-button`
 
 ⚠️ Not all levels are going to be used in every token. Only the needed, and we will increase the
 tokens and its levels according to our needs.
+
+⚠️ We are going to use the [Style Dictionary](https://amzn.github.io/style-dictionary) tool to
+generate the tokens from JSON files. So we have to be careful with the naming of the tokens. The
+main issue to avoid is to have tokens names that start with other token name.
+
+Example (NOT TO DO THIS): `--x-color-button` `--x-color-button-primary`
+
+This is a problem when the tokens are stored as JSON. To avoid this we have to add the `-default`
+variant to the default tokens:
+
+Example: `--x-color-button-default` `--x-color-button-primary`
 
 ### `[namespace]`
 
@@ -44,31 +55,34 @@ Example: `--x-color-background-filter`
 
 ### `[category]`
 
-This level is to describe what kind of property is going to configure the token. We are going to use
-the following categories:
+This level is to describe what kind of property is going to configure the token. This is important
+because it will be used to determine how to format the token value for the different platforms. We
+are going to use the following categories:
 
-- `color`
-- `font`
-- `border`
-- `space`
-- ...
+- `color`: For the color values (#FFAABB, lightblue, etc.).
+- `size`: For any value with size units (px, em, %, etc).
+- `number`: For any number value (font-weight, etc).
+- `font`: For the font family.
+- `time`: For animations times.
+- `string`: For any other token value that doesn't fit in previous categories.
 
-Examples: `--x-color-text-input` `--x-color-background-button` `--x-font-size` `--x-border-radius`
-`--x-space-margin-button`
+Examples: `--x-color-text-input` `--x-color-background-button` `--x-font-family-text`
+`--x-size-border-radius` `--x-size-margin-button`
 
 ### `[property]`
 
-This level describes the property that the token is going to use. It can have multiple values
+This level describes the css property that the token is going to use. It can have multiple values
 depending on the context:
 
-- `text`
+- `font-weight`
+- `line-height`
 - `background`
-- `radius`
+- `border-radius`
 - `width`
 - ...
 
-Examples: `--x-color-text-input` `--x-color-background-button` `--x-font-size` `--x-border-radius`
-`--x-border-width` `--x-space-margin-button`
+Examples: `--x-color-text-input` `--x-color-background-button` `--x-size-font`
+`--x-size-border-radius` `--x-size-border-width` `--x-size-margin-button`
 
 ### `[component]`
 
@@ -100,6 +114,12 @@ This level is to describe the different variations we can have about a component
 Example: `--x-color-background-button-primary` `--x-color-background-button-secondary`
 `--x-color-background-input-pill`
 
+⚠️ As mentioned before, it is important to not repeat a token name as the beginning of other token
+name. To avoid that the `-default`  variant will be added for the default tokens:
+
+Example: `--x-color-button-default` `--x-color-button-primary`
+
+
 ### `[state]`
 
 This level is to describe different states a component can have. We don't have to define all the
@@ -111,7 +131,8 @@ Example: `--x-color-background-button-hover` `--x-color-background-input-focus`
 
 This level is to define a scale of values. Used specially in the base tokens.
 
-Example: `--x-space-01` `--x-space-02` `--x-font-size-xs` `--x-font-size-s` `--x-font-weight-bold`
+Example: `--x-size-base-01` `--x--size-base-02` `--x-size-font-base-xs` `--x-size-font-base-s`
+`--x-number-font-weight-bold`
 
 ## Tokens Architecture
 
@@ -123,11 +144,11 @@ border color of the different buttons.
 
 - Base Color Token:
 
-  `--x-color-lead: #36515b;`
+  `--x-color-base-lead: #36515b;`
 
 - Button Component Token:
 
-  `--x-color-background-button: var(--x-color-lead);`
+  `--x-color-background-button: var(--x-color-base-lead);`
 
   `--x-color-border-button: var(--x-color-background-button);`
 
@@ -141,11 +162,11 @@ As you can see, there are tokens using other tokens as value. This is a relation
 Tokens. Making those tokens depending on the others we can make changes with the granularity we
 need:
 
-- If we change the value of `--x-color-lead` token, then all the components besides the buttons,
-  will be affected.
+- If we change the value of `--x-color-base-lead` token, then all the components besides the
+  buttons, will be affected.
 
 - If we change the value of `--x-color-background-button` the color of all the buttons and its
-  variations will change, but the rest of the components will keep using the `--x-color-lead`.
+  variations will change, but the rest of the components will keep using the `--x-color-base-lead`.
 
 - If we change the value of `--x-color-background-button-secondary` then only that variation of the
   button will be affected.
@@ -181,8 +202,8 @@ The default css and tokens of a component must be named as `default.scss` and `d
 
 ## Design System Build
 
-During the build process, all the files of the Design System (`src/design-system`) are processed, and the
-output files are generated in the `dist/css` folder.
+During the build process, all the files of the Design System (`src/design-system`) are processed,
+and the output files are generated in the `dist/css` folder.
 
 This process is divided in 4 steps:
 
@@ -196,19 +217,19 @@ shape `component-variant.css`, where `component` is the name of the component (t
 
 #### 2. Base Tokens.
 
-All the files in `src/design-system/base` are processed and merged together into one file `base.css`. This
-contains the base tokens on which depend the rest of the components.
+All the files in `src/design-system/base` are processed and merged together into one file
+`base.css`. This contains the base tokens on which depend the rest of the components.
 
 #### 3. Default Theme
 
-All the files in `src/design-system/base` and all the `default` variants of each component, are merged
-together in a `default-theme.css` file. This will contain the tokens and CSS necessary for all the
-default variant of the components.
+All the files in `src/design-system/base` and all the `default` variants of each component, are
+merged together in a `default-theme.css` file. This will contain the tokens and CSS necessary for
+all the default variant of the components.
 
 #### 4. Full Theme
 
-All the files in `src/design-system` are merged together in a `full-theme.css` file. This will contain all
-the Design System Tokens and Components.
+All the files in `src/design-system` are merged together in a `full-theme.css` file. This will
+contain all the Design System Tokens and Components.
 
 ### Why all this CSS files?
 
@@ -218,8 +239,8 @@ the user of the Design System:
 - If the user wants all the Design System without worrying about the size, then he can import
   `full-theme.css`.
 
-- If the user wants only the default styles of the components and maybe some variants, then he
-  can import `default-theme.scss` + the desire variants like `button-pill.css`.
+- If the user wants only the default styles of the components and maybe some variants, then he can
+  import `default-theme.scss` + the desire variants like `button-pill.css`.
 
 - If the user wants to control exactly what components and what variants to import, then he can
   import the `base.css` + the desire components + the desire variants.
