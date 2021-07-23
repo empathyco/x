@@ -1,20 +1,9 @@
-import { Banner, Result } from '@empathyco/x-types';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue, { VueConstructor, ComponentOptions } from 'vue';
-import Vuex, { Store } from 'vuex';
-import { Component } from 'vue-property-decorator';
-import BaseGrid from '../../../../components/base-grid.vue';
-import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
-import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial, Dictionary, SearchItem } from '../../../../utils/types';
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
+import { mount, Wrapper } from '@vue/test-utils';
+import Vue from 'vue';
+import { SearchItem } from '../../../../utils/types';
+import { getDataTestSelector } from '../../../../__tests__/utils';
 import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
-import BannersList from '../banners-list.vue';
-import { SEARCH_ITEMS_KEY } from '../../../../components/decorators/injection.consts';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
-import { XInject, XProvide } from '../../../../components/decorators/injection.decorators';
-import { resetXSearchStateWith } from './utils';
 import { SearchItemsList } from '../index';
 import { getPromotedsStub } from '../../../../__stubs__/promoteds-stubs.factory';
 
