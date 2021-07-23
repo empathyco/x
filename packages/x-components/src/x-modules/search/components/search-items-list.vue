@@ -17,7 +17,7 @@
         @slot Customized Search items list search item.
           @binding {SearchItem} searchItem - Search item data.
       -->
-      <slot :searchItem="searchItem" :name="searchItem.slotName">{{ searchItem.slotName }}</slot>
+      <slot :searchItem="searchItem" :name="searchItem.slotName">{{ searchItem.id }}</slot>
     </li>
   </component>
 </template>
@@ -28,6 +28,12 @@
   import { SearchItem } from '../../../utils/types';
   import { toKebabCase } from '../../../utils/string';
 
+  /**
+   * It renders a list of {@link SearchItem} providing a slot for each `slotName` which depends on
+   * the `modelName`of the searchItem.
+   *
+   * @public
+   */
   @Component
   export default class SearchItemList extends Vue {
     /**
@@ -61,8 +67,8 @@
         const modelName = toKebabCase(searchItem.modelName);
         return {
           ...searchItem,
-          dataTest: `${modelName}-list-item`,
-          class: [`${modelName}-list-item`],
+          dataTest: `${modelName}s-list-item`,
+          class: [`x-${modelName}s-list-item`],
           slotName: modelName
         };
       });

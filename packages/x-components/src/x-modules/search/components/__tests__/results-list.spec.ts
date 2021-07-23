@@ -7,11 +7,14 @@ import BaseGrid from '../../../../components/base-grid.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial, Dictionary } from '../../../../utils/types';
+import { DeepPartial, Dictionary, SearchItem } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import ResultsList from '../results-list.vue';
 import { InfiniteScroll } from '../../../../directives/infinite-scroll/infinite-scroll.types';
 import { resetXSearchStateWith } from './utils';
+import { XInject } from '../../../../components/decorators/injection.decorators';
+import { SEARCH_ITEMS_KEY } from '../../../../components/decorators/injection.consts';
+import Component from 'vue-class-component';
 
 /**
  * Renders the `ResultsList` component, exposing a basic API for testing.
@@ -72,7 +75,7 @@ describe('testing Results list component', () => {
     const resultsListItems = wrapper.findAll(getDataTestSelector('results-list-item'));
 
     getResults().forEach((result, index) => {
-      expect(resultsListItems.at(index).text()).toEqual(result.name);
+      expect(resultsListItems.at(index).text()).toEqual(result.id);
     });
   });
 
@@ -85,13 +88,14 @@ describe('testing Results list component', () => {
     const { wrapper, getResults } = renderResultsList({
       template: `
         <ResultsList>
-          <template #result="{ result }">
-            <p data-test="result-slot-overridden">Custom result: {{ result.name }}</p>
+          <template #result="{ searchItem }">
+            <p data-test="result-slot-overridden">Custom result: {{ searchItem.name }}</p>
           </template>
         </ResultsList>`
     });
 
-    expect(wrapper.find(getDataTestSelector('results-list')).exists()).toBe(true);
+    expect(wrapper.classes('x-search-items-list')).toBe(true);
+    expect(wrapper.find(getDataTestSelector('results-list-item')).exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('result-slot-overridden')).text()).toBe(
       `Custom result: ${getResults()[0].name}`
     );
@@ -121,6 +125,28 @@ describe('testing Results list component', () => {
     (wrapper.vm as Vue & InfiniteScroll).onInfiniteScrollEnd();
 
     expect(listener).toHaveBeenCalledTimes(1);
+  });
+
+  it('provides the results from state with the key `searchItem`', () => {
+    @Component({
+      template: `
+        <div>{{ items[0].id }}</div>
+      `
+    })
+    class Child extends Vue {
+      @XInject(SEARCH_ITEMS_KEY)
+      public items!: SearchItem[];
+    }
+
+    const { wrapper, getResults } = renderResultsList({
+      template: '<ResultsList><Child /></ResultsList>',
+      components: {
+        Child
+      }
+    });
+
+    const childWrapper = wrapper.find(Child);
+    expect(childWrapper.text()).toBe(getResults()[0].id);
   });
 });
 

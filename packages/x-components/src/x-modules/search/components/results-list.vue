@@ -217,22 +217,31 @@ value.
     <SearchInput />
     <ResultsList>
       <BannersList>
-        <template #banner="{ searchItem }">Banner: {{ searchItem.id }}</template>
-        <template #result="{ searchItem }">Result: {{ searchItem.id }}</template>
+        <PromotedsList>
+          <template #result="{ searchItem }">Result: {{ searchItem.id }}</template>
+          <template #banner="{ searchItem }">Banner: {{ searchItem.id }}</template>
+          <template #promoted="{ searchItem }">Promoted: {{ searchItem.id }}</template>
+        </PromotedsList>
       </BannersList>
     </ResultsList>
   </div>
 </template>
 
 <script>
-  import { SearchInput, ResultsList, BannersList } from '@empathyco/x-components/search';
+  import {
+    SearchInput,
+    ResultsList,
+    BannersList,
+    PromotedsList
+  } from '@empathyco/x-components/search';
 
   export default {
     name: 'ResultsListDemo',
     components: {
       SearchInput,
       ResultsList,
-      BannersList
+      BannersList,
+      PromotedsList
     }
   };
 </script>

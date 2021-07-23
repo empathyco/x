@@ -1,7 +1,7 @@
 <template>
   <NoElement>
     <!--
-      @slot Customized Banners List layout.
+      @slot Customized BannersList layout.
         @binding {Banner[]} items - Banners plus the injected search items to render.
         @binding {Vue | string} animation - Animation to animate the elements.
     -->
@@ -37,8 +37,7 @@
    * plus the `searchInjectedItems` which also contains the injected search items from
    * the ancestor.
    *
-   * It also provides the slot `banner` to customize the item, which is within the default slot,
-   * with the promoted bound.
+   * It also provides the parent slots to customize the items.
    *
    * @public
    */
@@ -216,12 +215,21 @@ _Type any term in the input field to try it out!_
 Starting with the `ResultsList` component as root element, you can concat the list of results and
 banners in order to be injected by the `BaseGrid` (or components that extend it).
 
+### Data injection
+
+Starting with the `ResultsList` component as root element, you can concat the list of search items
+using `BannersList`, `PromotedsList`, `BaseGrid` or any component that injects the `searchItems`
+value.
+
 ```vue
 <template>
   <div>
     <SearchInput />
     <ResultsList>
-      <BannersList />
+      <BannersList>
+        <template #banner="{ searchItem }">Banner: {{ searchItem.id }}</template>
+        <template #result="{ searchItem }">Result: {{ searchItem.id }}</template>
+      </BannersList>
     </ResultsList>
   </div>
 </template>

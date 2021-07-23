@@ -6,11 +6,17 @@ import BaseGrid from '../../../../components/base-grid.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial, Dictionary } from '../../../../utils/types';
+import { DeepPartial, Dictionary, SearchItem } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import PromotedsList from '../promoteds-list.vue';
 import { getPromotedsStub } from '../../../../__stubs__/promoteds-stubs.factory';
 import { resetXSearchStateWith } from './utils';
+import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
+import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
+import { XInject, XProvide } from '../../../../components/decorators/injection.decorators';
+import { SEARCH_ITEMS_KEY } from '../../../../components/decorators/injection.consts';
+import BannersList from '../banners-list.vue';
+import Component from 'vue-class-component';
 
 /**
  * Renders the `PromotedsList` component, exposing a basic API for testing.
@@ -71,7 +77,7 @@ describe('testing PromotedsList component', () => {
     const promotedsListItems = wrapper.findAll(getDataTestSelector('promoteds-list-item'));
 
     getPromoteds().forEach((result, index) => {
-      expect(promotedsListItems.at(index).text()).toEqual(result.title);
+      expect(promotedsListItems.at(index).text()).toEqual(result.id);
     });
   });
 
@@ -84,13 +90,14 @@ describe('testing PromotedsList component', () => {
     const { wrapper, getPromoteds } = renderPromotedsList({
       template: `
         <PromotedsList>
-          <template #promoted="{ promoted }">
-            <p data-test="promoted-slot-overridden">Custom promoted: {{ promoted.title }}</p>
+          <template #promoted="{ searchItem }">
+            <p data-test="promoted-slot-overridden">Custom promoted: {{ searchItem.title }}</p>
           </template>
         </PromotedsList>`
     });
 
-    expect(wrapper.find(getDataTestSelector('promoteds-list')).exists()).toBe(true);
+    expect(wrapper.classes('x-search-items-list')).toBe(true);
+    expect(wrapper.find(getDataTestSelector('promoteds-list-item')).exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('promoted-slot-overridden')).text()).toBe(
       `Custom promoted: ${getPromoteds()[0].title}`
     );
@@ -109,6 +116,60 @@ describe('testing PromotedsList component', () => {
 
     expect(wrapper.find(getDataTestSelector('promoteds-list')).exists()).toBe(false);
     expect(wrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toBe(true);
+  });
+
+  it('provides the result of concatenating ancestor injected items with the promoteds', () => {
+    const resultStub = getResultsStub().slice(0, 1);
+    const promotedStub = getPromotedsStub().slice(0, 1);
+    const localVue = createLocalVue();
+    localVue.use(Vuex);
+    const store = new Store<DeepPartial<RootXStoreState>>({});
+    installNewXPlugin({ store }, localVue);
+    resetXSearchStateWith(store, { promoteds: promotedStub });
+
+    /* It provides an array with one result */
+    @Component({
+      template: `<div><slot/></div>`
+    })
+    class Provider extends Vue {
+      @XProvide(SEARCH_ITEMS_KEY)
+      public providedStub: SearchItem[] = resultStub;
+    }
+
+    /*
+     * It should inject an array with the result from the Provider and the banner concatenated from
+     * BannersList
+     */
+    @Component({
+      template: `
+        <p>{{ injectedItemsString }}</p>
+      `
+    })
+    class Child extends Vue {
+      @XInject(SEARCH_ITEMS_KEY)
+      public injectedItems: SearchItem[] | undefined;
+
+      protected get injectedItemsString(): string {
+        return this.injectedItems?.map(item => item.id).join(',') ?? '';
+      }
+    }
+
+    const wrapper = mount(
+      {
+        template: '<Provider v-bind="$attrs"><PromotedsList><Child /></PromotedsList></Provider>',
+        components: {
+          Provider,
+          Child,
+          PromotedsList
+        }
+      },
+      {
+        localVue,
+        store
+      }
+    );
+
+    expect(wrapper.text()).toBe(`${promotedStub[0].id},${resultStub[0].id}`);
   });
 });
 

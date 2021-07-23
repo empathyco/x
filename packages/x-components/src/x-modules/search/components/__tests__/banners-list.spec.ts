@@ -13,7 +13,7 @@ import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
 import BannersList from '../banners-list.vue';
 import { SEARCH_ITEMS_KEY } from '../../../../components/decorators/injection.consts';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
-import { XProvide } from '../../../../components/decorators/injection.decorators';
+import { XInject, XProvide } from '../../../../components/decorators/injection.decorators';
 import { resetXSearchStateWith } from './utils';
 
 /**
@@ -75,7 +75,7 @@ describe('testing BannersList component', () => {
     const bannersListItems = wrapper.findAll(getDataTestSelector('banners-list-item'));
 
     getBanners().forEach((result, index) => {
-      expect(bannersListItems.at(index).text()).toEqual(result.title);
+      expect(bannersListItems.at(index).text()).toEqual(result.id);
     });
   });
 
@@ -88,13 +88,14 @@ describe('testing BannersList component', () => {
     const { wrapper, getBanners } = renderBannersList({
       template: `
         <BannersList>
-          <template #banner="{ banner }">
-            <p data-test="banner-slot-overridden">Custom banner: {{ banner.title }}</p>
+          <template #banner="{ searchItem }">
+            <p data-test="banner-slot-overridden">Custom banner: {{ searchItem.title }}</p>
           </template>
         </BannersList>`
     });
 
-    expect(wrapper.find(getDataTestSelector('banners-list')).exists()).toBe(true);
+    expect(wrapper.classes('x-search-items-list')).toBe(true);
+    expect(wrapper.find(getDataTestSelector('banners-list-item')).exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('banner-slot-overridden')).text()).toBe(
       `Custom banner: ${getBanners()[0].title}`
     );
@@ -104,7 +105,7 @@ describe('testing BannersList component', () => {
     const { wrapper } = renderBannersList({
       template: `
         <BannersList>
-          <template #default="{ banners }">
+          <template #default="{ items }">
             <p data-test="default-slot-overridden"/>
           </template>
         </BannersList>`,
@@ -115,7 +116,7 @@ describe('testing BannersList component', () => {
     expect(wrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toBe(true);
   });
 
-  it('provides', () => {
+  it('provides the result of concatenating ancestor injected items with the banners', () => {
     const resultStub = getResultsStub().slice(0, 1);
     const bannerStub = getBannersStub().slice(0, 1);
     const localVue = createLocalVue();
@@ -124,21 +125,40 @@ describe('testing BannersList component', () => {
     installNewXPlugin({ store }, localVue);
     resetXSearchStateWith(store, { banners: bannerStub });
 
+    /* It provides an array with one result */
     @Component({
       template: `<div><slot/></div>`
     })
     class Provider extends Vue {
       @XProvide(SEARCH_ITEMS_KEY)
-      public providedStub: Result[] = resultStub;
+      public providedStub: SearchItem[] = resultStub;
+    }
+
+    /*
+     * It should inject an array with the result from the Provider and the banner concatenated from
+     * BannersList
+     */
+    @Component({
+      template: `
+        <p>{{ injectedItemsString }}</p>
+      `
+    })
+    class Child extends Vue {
+      @XInject(SEARCH_ITEMS_KEY)
+      public injectedItems: SearchItem[] | undefined;
+
+      protected get injectedItemsString(): string {
+        return this.injectedItems?.map(item => item.id).join(',') ?? '';
+      }
     }
 
     const wrapper = mount(
       {
-        template: '<Provider v-bind="$attrs"><BannersList><BaseGrid/></BannersList></Provider>',
+        template: '<Provider v-bind="$attrs"><BannersList><Child /></BannersList></Provider>',
         components: {
           Provider,
-          BannersList,
-          BaseGrid
+          Child,
+          BannersList
         }
       },
       {
@@ -147,7 +167,7 @@ describe('testing BannersList component', () => {
       }
     );
 
-    expect(wrapper.text()).toBe('Banner 1');
+    expect(wrapper.text()).toBe(`${bannerStub[0].id},${resultStub[0].id}`);
   });
 });
 

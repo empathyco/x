@@ -124,34 +124,22 @@
           </Recommendations>
 
           <!-- Results -->
-          <!--
-            <ResultsList v-infinite-scroll:body-scroll>
-              <BannersList>
-                <PromotedsList>
-                  <BaseVariableColumnGrid #Result="{ item: result }" :animation="resultsAnimation">
-                    <article class="result" style="max-width: 300px">
-                      <BaseResultImage class="x-picture&#45;&#45;colored" :result="result">
-                        <template #placeholder>
-                          <div style="padding-top: 100%; background-color: lightgray"></div>
-                        </template>
-                        <template #fallback>
-                          <div style="padding-top: 100%; background-color: lightsalmon"></div>
-                        </template>
-                      </BaseResultImage>
-                      <h1 class="x-title3">{{ result.name }}</h1>
-                    </article>
-                  </BaseVariableColumnGrid>
-                </PromotedsList>
-              </BannersList>
-            </ResultsList>
-          -->
-
-          <ResultsList>
+          <ResultsList v-infinite-scroll:body-scroll>
             <BannersList>
               <PromotedsList>
-                <template #banner="{ searchItem }">Banner: {{ searchItem.id }}</template>
-                <template #promoted="{ searchItem }">Promoted: {{ searchItem.id }}</template>
-                <template #result="{ searchItem }">Result: {{ searchItem.id }}</template>
+                <BaseVariableColumnGrid #Result="{ item: result }" :animation="resultsAnimation">
+                  <article class="result" style="max-width: 300px">
+                    <BaseResultImage class="x-picture&#45;&#45;colored" :result="result">
+                      <template #placeholder>
+                        <div style="padding-top: 100%; background-color: lightgray"></div>
+                      </template>
+                      <template #fallback>
+                        <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                      </template>
+                    </BaseResultImage>
+                    <h1 class="x-title3">{{ result.name }}</h1>
+                  </article>
+                </BaseVariableColumnGrid>
               </PromotedsList>
             </BannersList>
           </ResultsList>
@@ -215,7 +203,6 @@
   import BannersList from '../x-modules/search/components/banners-list.vue';
   import PromotedsList from '../x-modules/search/components/promoteds-list.vue';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
-  import Banner from '../x-modules/search/components/banner.vue';
 
   @Component({
     beforeRouteEnter(_to, _from, next: () => void): void {
@@ -231,7 +218,6 @@
       infiniteScroll
     },
     components: {
-      Banner,
       PromotedsList,
       BannersList,
       BaseIdTogglePanelButton,

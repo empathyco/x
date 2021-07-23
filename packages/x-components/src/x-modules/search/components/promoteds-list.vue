@@ -37,8 +37,7 @@
    * plus the `searchInjectedItems` which also contains the injected search items from
    * the ancestor.
    *
-   * It also provides the slot `promoted` to customize the item, which is within the default slot,
-   * with the promoted bound.
+   * It also provides the parent slots to customize the items.
    *
    * @public
    */
@@ -234,7 +233,7 @@ value.
   import { SearchInput, ResultsList, PromotedsList } from '@empathyco/x-components/search';
 
   export default {
-    name: 'ResultsListDemo',
+    name: 'PromotedsListDemo',
     components: {
       SearchInput,
       ResultsList,
