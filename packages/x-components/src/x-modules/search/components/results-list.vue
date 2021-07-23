@@ -50,7 +50,7 @@
     /**
      * The results to render from the state.
      *
-     * @remarks The results list are provided with {@link SEARCH_ITEMS_KEY} key. It can be
+     * @remarks The results list are provided with `searchItems` key. It can be
      * concatenated with search items from components such as `BannersList`, `PromotedsList`,
      * `BaseGrid` or any component that injects the list.
      *

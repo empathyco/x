@@ -1,4 +1,4 @@
-import { mount, Wrapper, MountOptions } from '@vue/test-utils';
+import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { SearchItem } from '../../../../utils/types';
 import { getDataTestSelector } from '../../../../__tests__/utils';
