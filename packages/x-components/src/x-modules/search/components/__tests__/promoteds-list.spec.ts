@@ -2,6 +2,7 @@ import { Promoted } from '@empathyco/x-types';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue, { VueConstructor, ComponentOptions } from 'vue';
 import Vuex, { Store } from 'vuex';
+import Component from 'vue-class-component';
 import BaseGrid from '../../../../components/base-grid.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
@@ -10,13 +11,10 @@ import { DeepPartial, Dictionary, SearchItem } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import PromotedsList from '../promoteds-list.vue';
 import { getPromotedsStub } from '../../../../__stubs__/promoteds-stubs.factory';
-import { resetXSearchStateWith } from './utils';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
-import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
 import { XInject, XProvide } from '../../../../components/decorators/injection.decorators';
 import { SEARCH_ITEMS_KEY } from '../../../../components/decorators/injection.consts';
-import BannersList from '../banners-list.vue';
-import Component from 'vue-class-component';
+import { resetXSearchStateWith } from './utils';
 
 /**
  * Renders the `PromotedsList` component, exposing a basic API for testing.

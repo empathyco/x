@@ -2,6 +2,7 @@ import { Result } from '@empathyco/x-types';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue, { VueConstructor, ComponentOptions } from 'vue';
 import Vuex, { Store } from 'vuex';
+import Component from 'vue-class-component';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
 import BaseGrid from '../../../../components/base-grid.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
@@ -11,10 +12,9 @@ import { DeepPartial, Dictionary, SearchItem } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import ResultsList from '../results-list.vue';
 import { InfiniteScroll } from '../../../../directives/infinite-scroll/infinite-scroll.types';
-import { resetXSearchStateWith } from './utils';
 import { XInject } from '../../../../components/decorators/injection.decorators';
 import { SEARCH_ITEMS_KEY } from '../../../../components/decorators/injection.consts';
-import Component from 'vue-class-component';
+import { resetXSearchStateWith } from './utils';
 
 /**
  * Renders the `ResultsList` component, exposing a basic API for testing.
