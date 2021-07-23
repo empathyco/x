@@ -1,4 +1,4 @@
-import { mount, Wrapper } from '@vue/test-utils';
+import { mount, Wrapper, MountOptions } from '@vue/test-utils';
 import Vue from 'vue';
 import { SearchItem } from '../../../../utils/types';
 import { getDataTestSelector } from '../../../../__tests__/utils';
@@ -109,7 +109,7 @@ interface RenderSearchItemsListOptions {
   /** Items to be passed to the component. */
   searchItems?: SearchItem[];
   /** Scoped slots to be passed to the mount function. */
-  scopedSlots?: any;
+  scopedSlots?: Record<string, string>;
 }
 
 interface RendersSearchItemsListAPI {
