@@ -39,7 +39,7 @@ tokens and its levels according to our needs.
 generate the tokens from JSON files. So we have to be careful with the naming of the tokens. The
 main issue to avoid is to have tokens names that start with other token name.
 
-Example (NOT TO DO THIS): `--x-color-button` `--x-color-button-primary`
+Example (❌  DON'T DO THIS): `--x-color-button` `--x-color-button-primary`
 
 This is a problem when the tokens are stored as JSON. To avoid this we have to add the `-default`
 variant to the default tokens:
