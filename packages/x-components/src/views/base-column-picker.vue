@@ -33,8 +33,8 @@
     </BaseGrid>
     <!-- Results -->
     <h1>Results</h1>
-    <ResultsList #default="{ items, animation }" :animation="staggeredFadeAndSlide">
-      <BaseGrid :animation="animation" :items="items" :columns="currentColumn">
+    <ResultsList #default="{ items }">
+      <BaseGrid :animation="staggeredFadeAndSlide" :items="items" :columns="currentColumn">
         <template #Result="{ item }">
           <BaseResultLink :result="item">
             <template #default="{ result }">

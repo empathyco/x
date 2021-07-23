@@ -33,6 +33,19 @@
   }
 </script>
 
+<style lang="scss">
+  .x-banner {
+    display: flex;
+    flex-flow: column nowrap;
+    text-decoration: none;
+
+    &__image {
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+</style>
+
 <docs lang="mdx">
 ## Events
 

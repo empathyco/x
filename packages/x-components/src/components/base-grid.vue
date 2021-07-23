@@ -157,6 +157,11 @@
     display: grid;
     grid-auto-flow: dense;
     list-style: none;
+
+    &__banner {
+      grid-column-start: 1;
+      grid-column-end: -1;
+    }
   }
 </style>
 
