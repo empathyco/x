@@ -7,8 +7,8 @@
     -->
     <slot v-bind="{ items, animation }">
       <SearchItemsList :animation="animation" :searchItems="items">
-        <template v-for="(_, slot) in $scopedSlots" v-slot:[slot]="props">
-          <slot :name="slot" v-bind="props" />
+        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ searchItem }">
+          <slot :name="slotName" :searchItem="searchItem" />
         </template>
       </SearchItemsList>
     </slot>
@@ -29,7 +29,8 @@
   import SearchItemsList from './search-items-list.vue';
 
   /**
-   * It renders a list of results from {@link SearchState.results} by default.
+   * It renders a {@link SearchItemsList} list with the results from {@link SearchState.results} by
+   * default.
    *
    * The component provides a default slot which wraps the whole component with the `results` bound.
    *
@@ -50,8 +51,8 @@
      * The results to render from the state.
      *
      * @remarks The results list are provided with {@link SEARCH_ITEMS_KEY} key. It can be
-     * concatenated with search items from components such as `BannersList`, `PromotedsList` or any
-     * `BaseGrid` component.
+     * concatenated with search items from components such as `BannersList`, `PromotedsList`,
+     * `BaseGrid` or any component that injects the list.
      *
      * @public
      */
@@ -207,8 +208,8 @@ _Type any term in the input field to try it out!_
 ### Data injection
 
 Starting with the `ResultsList` component as root element, you can concat the list of search items
-using `BannersList` and `PromotedsList` in order to be injected by the `BaseGrid` (or components
-that extend it).
+using `BannersList`, `PromotedsList`, `BaseGrid` or any component that injects the `searchItems`
+value.
 
 ```vue
 <template>
@@ -216,29 +217,22 @@ that extend it).
     <SearchInput />
     <ResultsList>
       <BannersList>
-        <PromotedsList>
-          <BaseGrid />
-        </PromotedsList>
+        <template #banner="{ searchItem }">Banner: {{ searchItem.id }}</template>
+        <template #result="{ searchItem }">Result: {{ searchItem.id }}</template>
       </BannersList>
     </ResultsList>
   </div>
 </template>
 
 <script>
-  import {
-    SearchInput,
-    ResultsList,
-    BannersList,
-    PromotedsList
-  } from '@empathyco/x-components/search';
+  import { SearchInput, ResultsList, BannersList } from '@empathyco/x-components/search';
 
   export default {
-    name: 'BannersListDemo',
+    name: 'ResultsListDemo',
     components: {
       SearchInput,
       ResultsList,
-      BannersList,
-      PromotedsList
+      BannersList
     }
   };
 </script>

@@ -30,11 +30,11 @@
   import SearchItemsList from './search-items-list.vue';
 
   /**
-   * It renders a list of promoteds from {@link SearchState.promoteds} by default
+   * It renders a {@link SearchItemsList} of promoteds from {@link SearchState.promoteds} by default
    * using the `SearchItemsInjectionMixin`.
    *
    * The component provides a default slot which wraps the whole component with the `promoteds`
-   * bound plus the `searchInjectedItems` which also contains the injected search items from
+   * plus the `searchInjectedItems` which also contains the injected search items from
    * the ancestor.
    *
    * It also provides the slot `promoted` to customize the item, which is within the default slot,
@@ -68,6 +68,9 @@
 
     /**
      * The `stateItems` concatenated with the `injectedSearchItems` if there are.
+     *
+     * @remarks This computed defines the merging strategy of the `stateItems` and the
+     * `injectedSearchItems`.
      *
      * @returns List of {@link SearchItem}.
      *
@@ -210,15 +213,19 @@ _Type any term in the input field to try it out!_
 
 ### Data injection
 
-Starting with the `ResultsList` component as root element, you can concat the list of results and
-promoteds in order to be injected by the `BaseGrid` (or components that extend it).
+Starting with the `ResultsList` component as root element, you can concat the list of search items
+using `BannersList`, `PromotedsList`, `BaseGrid` or any component that injects the `searchItems`
+value.
 
 ```vue
 <template>
   <div>
     <SearchInput />
     <ResultsList>
-      <PromotedsList />
+      <PromotedsList>
+        <template #promoted="{ searchItem }">Promoted: {{ searchItem.id }}</template>
+        <template #result="{ searchItem }">Result: {{ searchItem.id }}</template>
+      </PromotedsList>
     </ResultsList>
   </div>
 </template>
@@ -227,7 +234,7 @@ promoteds in order to be injected by the `BaseGrid` (or components that extend i
   import { SearchInput, ResultsList, PromotedsList } from '@empathyco/x-components/search';
 
   export default {
-    name: 'PromotedsListDemo',
+    name: 'ResultsListDemo',
     components: {
       SearchInput,
       ResultsList,

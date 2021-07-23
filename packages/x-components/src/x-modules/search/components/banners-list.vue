@@ -30,11 +30,11 @@
   import SearchItemsList from './search-items-list.vue';
 
   /**
-   * It renders a list of banners from {@link SearchState.banners} by default
-   * using the `SearchItemsInjectionMixin`.
+   * It renders a {@link SearchItemsList} list of banners from {@link SearchState.banners} by
+   * default using the `SearchItemsInjectionMixin`.
    *
    * The component provides a default slot which wraps the whole component with the `banners`
-   * bound plus the `searchInjectedItems` which also contains the injected search items from
+   * plus the `searchInjectedItems` which also contains the injected search items from
    * the ancestor.
    *
    * It also provides the slot `banner` to customize the item, which is within the default slot,
@@ -68,6 +68,9 @@
 
     /**
      * The `stateItems` concatenated with the `injectedSearchItems` if there are.
+     *
+     * @remarks This computed defines the merging strategy of the `stateItems` and the
+     * `injectedSearchItems`.
      *
      * @returns List of {@link SearchItem}.
      *
