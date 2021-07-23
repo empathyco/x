@@ -127,7 +127,5 @@ function mockFetch<Feature extends keyof MockedAdapterConfig['responses']>(
   return fetch(`https://api.empathy.co/${mockRoute}`, {
     method: 'POST',
     body: JSON.stringify(request)
-  }).then(response => {
-    return response.json();
-  });
+  }).then(response => response.json());
 }

@@ -8,6 +8,6 @@ Feature: Recommendations component
     And   each recommendation has an associated hyperlink containing image and text
 
     Examples:
-      | maxItemsToRequest | mock    |
-      | 3                 | default |
-      | 160               | default |
+      | maxItemsToRequest | mock                |
+      | 3                 | recommendationsStub |
+      | 160               | recommendationsStub |

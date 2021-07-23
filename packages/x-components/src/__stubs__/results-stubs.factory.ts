@@ -4,16 +4,16 @@ import { toKebabCase } from '../utils/string';
 /**
  * Creates {@link @empathyco/x-types#Result | results} stub.
  *
+ * @param amount - Number of stubbed results to create.
+ *
  * @returns Array of results stub.
  *
  * @internal
  */
-export function getResultsStub(): Result[] {
-  return [
-    createResultStub('Product 1'),
-    createResultStub('Product 2'),
-    createResultStub('Product 3')
-  ];
+export function getResultsStub(amount = 3): Result[] {
+  return Array.from<number, Result>({ length: amount }, element =>
+    createResultStub(`Product ${element + 1}`)
+  );
 }
 
 /**
@@ -47,7 +47,7 @@ export function createResultStub(name: string, result?: Partial<Result>): Result
       value: 5
     },
     tagging: getResultTagging(kebabCaseName),
-    url: `/products/${name}`,
+    url: `/products/${kebabCaseName}`,
     ...result
   };
 }
