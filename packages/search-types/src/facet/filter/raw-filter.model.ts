@@ -6,12 +6,12 @@ import { Filter } from './filter.model';
  * @public
  */
 export interface RawFilter extends Filter {
-    /** Model name to indicate the filter type. */
-    modelName: 'RawFilter';
-    /** The value of the filter. */
-    id: string;
-    /** Force {@link Filter#selected | Filter selected} property to true */
-    selected: true;
+  /** The value of the filter. */
+  id: string;
+  /** Model name to indicate the filter type. */
+  modelName: 'RawFilter';
+  /** Force {@link Filter#selected | Filter selected} property to true */
+  selected: true;
 }
 
 /**
@@ -22,5 +22,5 @@ export interface RawFilter extends Filter {
  * @public
  */
 export function isRawFilter(filter: Filter): filter is RawFilter {
-    return filter.modelName === 'RawFilter';
+  return filter.modelName === 'RawFilter';
 }
