@@ -10,8 +10,10 @@ import { Result } from './result/result.model';
  * @public
  */
 export interface PartialResult extends Previewable {
-  /** {@inheritDoc Previewable.results} */
+  // eslint-disable-next-line tsdoc/syntax
+  /** {@inheritDoc Previewable.results}. */
   results: Result[] | null;
-  /** {@inheritDoc Previewable.totalResults} */
+  // eslint-disable-next-line tsdoc/syntax
+  /** {@inheritDoc Previewable.totalResults}. */
   totalResults: number | null;
 }

@@ -4,6 +4,6 @@
  * @public
  */
 export interface Identifiable {
-    /** A unique ID that identifies the Object. */
-    id: string | number;
+  /** A unique ID that identifies the Object. */
+  id: string | number;
 }

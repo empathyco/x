@@ -10,7 +10,7 @@ export interface RawFilter extends Filter {
   id: string;
   /** Model name to indicate the filter type. */
   modelName: 'RawFilter';
-  /** Force {@link Filter#selected | Filter selected} property to true */
+  /** Force {@link Filter#selected | Filter selected} property to true. */
   selected: true;
 }
 
@@ -18,6 +18,8 @@ export interface RawFilter extends Filter {
  * Type guard to check if a filter is a {@link RawFilter}.
  *
  * @param filter - The filter to check.
+ *
+ * @returns A boolean that represents if a filter is an {@link RawFilter}.
  *
  * @public
  */

@@ -28,7 +28,8 @@ export interface NamedModel<T extends ModelNameType = ModelNameType> {
 }
 
 /**
- * Facets model names type. It can be: SimpleFacet, HierarchicalFacet, NumberRangeFacet or EditableNumberRangeFacet.
+ * Facets model names type. It can be: SimpleFacet, HierarchicalFacet, NumberRangeFacet
+ * or EditableNumberRangeFacet.
  *
  * @public
  */
@@ -39,7 +40,8 @@ export type FacetModelName =
   | 'EditableNumberRangeFacet';
 
 /**
- * Filters model names type. It can be: {@link BooleanFilterModelName}, RawFilter or EditableNumberRangeFilter.
+ * Filters model names type. It can be: {@link BooleanFilterModelName}, RawFilter
+ * or EditableNumberRangeFilter.
  *
  * @public
  */

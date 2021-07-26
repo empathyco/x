@@ -11,10 +11,13 @@ import { Filter } from './filter.model';
  * @public
  */
 export interface FacetFilter extends Filter {
-    /** The filter {@link ModelNameType | model name} excluding {@link RawFilter#modelName | RawFilter} model name. */
-    modelName: Exclude<FilterModelName, 'RawFilter'>;
-    /** An unique ID that identifies the facet that uses this filter */
-    facetId: Facet['id'];
+  /**
+   * The filter {@link ModelNameType | model name} excluding
+   * {@link RawFilter#modelName | RawFilter} model name.
+   **/
+  modelName: Exclude<FilterModelName, 'RawFilter'>;
+  /** An unique ID that identifies the facet that uses this filter. */
+  facetId: Facet['id'];
 }
 
 /**
@@ -22,8 +25,10 @@ export interface FacetFilter extends Filter {
  *
  * @param filter - The filter to check.
  *
+ * @returns A boolean that represents if a filter is an {@link FacetFilter}.
+ *
  * @public
  */
 export function isFacetFilter(filter: Filter): filter is FacetFilter {
-    return 'facetId' in filter;
+  return 'facetId' in filter;
 }
