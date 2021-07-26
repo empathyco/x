@@ -3110,15 +3110,15 @@
       <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-list-sizing">
         <h2 class="x-title2">Items sizing</h2>
         <ul class="x-list x-list--vertical x-list-show-case">
-          <li class="x-list__item x-list__item--2">02</li>
-          <li class="x-list__item x-list__item--6">06</li>
-          <li class="x-list__item x-list__item--2">02</li>
+          <li class="x-list__item x-list__item--02">02</li>
+          <li class="x-list__item x-list__item--06">06</li>
+          <li class="x-list__item x-list__item--02">02</li>
         </ul>
         <ul class="x-list x-list--horizontal x-list-show-case">
-          <li class="x-list__item x-list__item--1">01</li>
-          <li class="x-list__item x-list__item--5">05</li>
-          <li class="x-list__item x-list__item--1">01</li>
-          <li class="x-list__item x-list__item--2">02</li>
+          <li class="x-list__item x-list__item--01">01</li>
+          <li class="x-list__item x-list__item--05">05</li>
+          <li class="x-list__item x-list__item--01">01</li>
+          <li class="x-list__item x-list__item--02">02</li>
         </ul>
       </article>
     </section>
@@ -3656,6 +3656,21 @@
 
     .x-list-alignment-horizontal > .x-list {
       height: 90px;
+    }
+
+    .x-list-sizing {
+      .x-list--vertical {
+        height: 300px;
+        .x-list__item {
+          height: auto;
+        }
+      }
+      .x-list--horizontal {
+        width: 600px;
+        .x-list__item {
+          width: auto;
+        }
+      }
     }
 
     .x-row {
