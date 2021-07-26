@@ -143,11 +143,11 @@
                   </template>
 
                   <template #Banner="{ item: banner }">
-                    <Banner banner="banner"/>
+                    <Banner :banner="banner" />
                   </template>
 
                   <template #Promoted="{ item: promoted }">
-                    <Promoted promoted="promoted"/>
+                    <Promoted :promoted="promoted" />
                   </template>
                 </BaseVariableColumnGrid>
               </PromotedsList>
