@@ -9,25 +9,34 @@
   margin: 0;
 
   // spacing
-  gap: var(--x-space-gap-button);
-  @include safari-gap(var(--x-space-gap-button));
-  padding: var(--x-space-padding-button);
+  gap: var(--x-size-gap-button-default);
+  @include safari-gap(var(--x-size-gap-button-default));
+  padding-block-start: var(--x-size-padding-top-button-default);
+  padding-block-end: var(--x-size-padding-bottom-button-default);
+  padding-inline-end: var(--x-size-padding-right-button-default);
+  padding-inline-start: var(--x-size-padding-left-button-default);
 
   // color
-  background-color: var(--x-color-background-button);
-  border-color: var(--x-color-border-button);
-  color: var(--x-color-text-button);
+  background-color: var(--x-color-background-button-default);
+  border-color: var(--x-color-border-button-default);
+  color: var(--x-color-text-button-default);
 
   // border
   border-style: solid;
-  border-width: var(--x-border-width-button);
-  border-radius: var(--x-border-radius-button);
+  border-block-start-width: var(--x-size-border-width-top-button-default);
+  border-block-end-width: var(--x-size-border-width-bottom-button-default);
+  border-inline-start-width: var(--x-size-border-width-left-button-default);
+  border-inline-end-width: var(--x-size-border-width-right-button-default);
+  border-radius: var(--x-size-border-radius-top-left-button-default)
+    var(--x-size-border-radius-top-right-button-default)
+    var(--x-size-border-radius-bottom-right-button-default)
+    var(--x-size-border-radius-bottom-left-button-default);
 
   // typography
-  font-family: var(--x-font-family-button);
-  font-size: var(--x-font-size-button);
-  font-weight: var(--x-font-weight-button);
-  line-height: var(--x-font-line-height-button);
+  font-family: var(--x-font-family-button-default);
+  font-size: var(--x-size-font-button-default);
+  font-weight: var(--x-number-font-weight-button-default);
+  line-height: var(--x-size-line-height-button-default);
 
   // other
   cursor: pointer;

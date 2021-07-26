@@ -1,7 +1,16 @@
 :root {
   // border
-  --x-border-radius-facet-card: var(--x-border-radius-s);
+  // border
+  --x-size-border-radius-facet-card: var(--x-size-border-radius-base-s);
+  --x-size-border-radius-top-left-facet-card: var(--x-size-border-radius-facet-card);
+  --x-size-border-radius-top-right-facet-card: var(--x-size-border-radius-facet-card);
+  --x-size-border-radius-bottom-right-facet-card: var(--x-size-border-radius-facet-card);
+  --x-size-border-radius-bottom-left-facet-card: var(--x-size-border-radius-facet-card);
 
-  // spacing
-  --x-space-padding-facet-header-card: var(--x-space-03);
+  // size
+  --x-size-padding-facet-header-card: var(--x-size-base-03);
+  --x-size-padding-top-facet-header-card: var(--x-size-padding-facet-header-card);
+  --x-size-padding-right-facet-header-card: var(--x-size-padding-facet-header-card);
+  --x-size-padding-bottom-facet-header-card: var(--x-size-padding-facet-header-card);
+  --x-size-padding-left-facet-header-card: var(--x-size-padding-facet-header-card);
 }

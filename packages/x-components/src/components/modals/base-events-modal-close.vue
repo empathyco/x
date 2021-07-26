@@ -55,7 +55,7 @@ of them...
 </template>
 
 <script>
-  import { BaseEventsModalClose } from '@empathy/components';
+  import { BaseEventsModalClose } from '@empathyco/x-components';
 
   export default {
     name: 'BaseEventsModalCloseTest',
@@ -77,7 +77,7 @@ This event can be changed using the `closingEvent` prop.
 </template>
 
 <script>
-  import { BaseEventsModalClose } from '@empathy/components';
+  import { BaseEventsModalClose } from '@empathyco/x-components';
 
   export default {
     name: 'BaseEventsModalCloseTest',

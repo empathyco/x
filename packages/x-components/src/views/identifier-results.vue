@@ -77,7 +77,7 @@
   }
 
   :root {
-    --x-space-gap-grid: 12px;
+    --x-size-gap-grid: 12px;
   }
 
   .x-search-box {

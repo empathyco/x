@@ -1,15 +1,27 @@
 .x-input-group--card.x-input-group,
 .x-input-group--card .x-input-group {
-  --x-border-radius-input-group: var(--x-border-radius-input-group-card);
+  --x-size-border-radius-input-group-default: var(--x-size-border-radius-input-group-card);
+  --x-size-border-radius-top-left-input-group-default: var(
+    --x-size-border-radius-top-left-input-group-card
+  );
+  --x-size-border-radius-top-right-input-group-default: var(
+    --x-size-border-radius-top-right-input-group-card
+  );
+  --x-size-border-radius-bottom-right-input-group-default: var(
+    --x-size-border-radius-bottom-right-input-group-card
+  );
+  --x-size-border-radius-bottom-left-input-group-default: var(
+    --x-size-border-radius-bottom-left-input-group-card
+  );
 
   &__action {
     &:first-child {
-      --x-border-radius-input-group-action: var(--x-border-radius-input-group) 0 0
-        var(--x-border-radius-input-group);
+      --x-size-border-radius-top-right-input-group-default: 0;
+      --x-size-border-radius-bottom-right-input-group-default: 0;
     }
     &:last-child {
-      --x-border-radius-input-group-action: 0 var(--x-border-radius-input-group)
-        var(--x-border-radius-input-group) 0;
+      --x-size-border-radius-top-left-input-group-default: 0;
+      --x-size-border-radius-bottom-left-input-group-default: 0;
     }
   }
 }

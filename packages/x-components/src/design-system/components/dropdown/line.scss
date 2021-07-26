@@ -1,9 +1,36 @@
 .x-dropdown--line {
-  // spacing
-  --x-space-padding-block-dropdown-item: var(--x-space-padding-block-dropdown-item-line);
-  --x-space-padding-inline-dropdown-item: var(--x-space-padding-inline-dropdown-item-line);
+  // size
+  --x-size-padding-top-dropdown-item-default: var(--x-size-padding-top-dropdown-item-line);
+  --x-size-padding-right-dropdown-item-default: var(--x-size-padding-right-dropdown-item-line);
+  --x-size-padding-bottom-dropdown-item-default: var(--x-size-padding-bottom-dropdown-item-line);
+  --x-size-padding-left-dropdown-item-default: var(--x-size-padding-left-dropdown-item-line);
 
   // border
-  --x-border-width-dropdown-toggle: var(--x-border-width-dropdown-toggle-line);
-  --x-border-width-dropdown-list: var(--x-border-width-dropdown-list-line);
+  --x-size-border-width-dropdown-toggle-default: var(--x-size-border-width-dropdown-toggle-line);
+  --x-size-border-width-top-dropdown-toggle-default: var(
+    --x-size-border-width-top-dropdown-toggle-line
+  );
+  --x-size-border-width-right-dropdown-toggle-default: var(
+    --x-size-border-width-right-dropdown-toggle-line
+  );
+  --x-size-border-width-bottom-dropdown-toggle-default: var(
+    --x-size-border-width-bottom-dropdown-toggle-line
+  );
+  --x-size-border-width-left-dropdown-toggle-default: var(
+    --x-size-border-width-left-dropdown-toggle-line
+  );
+
+  --x-size-border-width-dropdown-list-default: var(--x-size-border-width-dropdown-list-line);
+  --x-size-border-width-top-dropdown-list-default: var(
+    --x-size-border-width-top-dropdown-list-line
+  );
+  --x-size-border-width-right-dropdown-list-default: var(
+    --x-size-border-width-right-dropdown-list-line
+  );
+  --x-size-border-width-bottom-dropdown-list-default: var(
+    --x-size-border-width-bottom-dropdown-list-line
+  );
+  --x-size-border-width-left-dropdown-list-default: var(
+    --x-size-border-width-left-dropdown-list-line
+  );
 }

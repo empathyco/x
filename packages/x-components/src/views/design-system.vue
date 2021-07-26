@@ -3030,7 +3030,7 @@
       </article>
       <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-list-alignment">
         <h2 class="x-title2">Alignment</h2>
-        <div class="x-list-alignment-horizontal">
+        <div class="x-list x-list--gap-03 x-list-alignment-horizontal">
           <h2 class="x-title3">Horizontal Justify & Align Start</h2>
           <ul
             class="
@@ -3068,7 +3068,7 @@
             <li></li>
           </ul>
         </div>
-        <div class="x-list-alignment-vertical">
+        <div class="x-list x-list--gap-03 x-list-alignment-vertical">
           <h2 class="x-title3">Vertical Justify & Align Start</h2>
           <ul
             class="
@@ -3110,15 +3110,15 @@
       <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-list-sizing">
         <h2 class="x-title2">Items sizing</h2>
         <ul class="x-list x-list--vertical x-list-show-case">
-          <li class="x-list__item x-list__item--2">02</li>
-          <li class="x-list__item x-list__item--6">06</li>
-          <li class="x-list__item x-list__item--2">02</li>
+          <li class="x-list__item x-list__item--02">02</li>
+          <li class="x-list__item x-list__item--06">06</li>
+          <li class="x-list__item x-list__item--02">02</li>
         </ul>
         <ul class="x-list x-list--horizontal x-list-show-case">
-          <li class="x-list__item x-list__item--1">01</li>
-          <li class="x-list__item x-list__item--5">05</li>
-          <li class="x-list__item x-list__item--1">01</li>
-          <li class="x-list__item x-list__item--2">02</li>
+          <li class="x-list__item x-list__item--01">01</li>
+          <li class="x-list__item x-list__item--05">05</li>
+          <li class="x-list__item x-list__item--01">01</li>
+          <li class="x-list__item x-list__item--02">02</li>
         </ul>
       </article>
     </section>
@@ -3347,7 +3347,7 @@
     <section
       class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
     >
-      <h1 class="x-title1">Product image</h1>
+      <h1 class="x-title1">Picture</h1>
 
       <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
         <h2 class="x-title2">Default</h2>
@@ -3608,25 +3608,26 @@
     .x-title1,
     .x-title2 {
       width: 100%;
-      margin: var(--x-space-04) 0 var(--x-space-02);
+      margin: var(--x-size-base-04) 0 var(--x-size-base-02);
     }
 
     .x-input-group {
       width: 250px;
     }
     .x-facet,
-    .x-filter,
+    .x-filter:not(.x-hierarchical-filter),
+    .x-hierarchical-filter-container,
     .x-suggestion,
     .x-tag {
-      max-width: 200px;
+      max-width: 220px;
     }
 
-    .x-hierarchical-filter-container {
+    .x-hierarchical-filter-base-container {
       max-width: 270px;
     }
 
     .x-facet--card {
-      --x-color-background-facet: var(--x-color-neutral-95);
+      --x-color-background-facet-default: var(--x-color-base-neutral-95);
     }
 
     .x-dropdown-show-case {
@@ -3637,13 +3638,13 @@
       max-width: 500px;
 
       &__scroll {
-        gap: var(--x-space-03);
-        @include safari-gap(var(--x-space-03));
+        gap: var(--x-size-base-03);
+        @include safari-gap(var(--x-size-base-03));
       }
     }
 
     .x-list-show-case {
-      background: var(--x-color-neutral-95);
+      background: var(--x-color-base-neutral-95);
       > * {
         width: 100px;
         height: 30px;
@@ -3653,13 +3654,32 @@
       }
     }
 
+    .x-list-alignment-horizontal > .x-list {
+      height: 90px;
+    }
+
+    .x-list-sizing {
+      .x-list--vertical {
+        height: 300px;
+        .x-list__item {
+          height: auto;
+        }
+      }
+      .x-list--horizontal {
+        width: 600px;
+        .x-list__item {
+          width: auto;
+        }
+      }
+    }
+
     .x-row {
-      background: var(--x-color-neutral-95);
+      background: var(--x-color-base-neutral-95);
       width: 500px;
-      height: var(--x-space-08);
+      height: var(--x-size-base-08);
 
       &__item {
-        padding: var(--x-space-02);
+        padding: var(--x-size-base-02);
       }
     }
 
@@ -3668,9 +3688,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: var(--x-color-auxiliary);
-      border: solid 1px var(--x-color-neutral-95);
-      color: var(--x-color-neutral-95);
+      background: var(--x-color-base-auxiliary);
+      border: solid 1px var(--x-color-base-neutral-95);
+      color: var(--x-color-base-neutral-95);
+    }
+
+    .x-picture-show-case {
+      width: 100px;
     }
 
     .x-picture-show-case {
@@ -3679,24 +3703,24 @@
 
     .x-result {
       width: 250px;
-      background-color: var(--x-color-neutral-95);
+      background-color: var(--x-color-base-neutral-95);
 
       &__picture-placeholder {
         height: 300px;
         width: 100%;
-        background-color: var(--x-color-auxiliary);
+        background-color: var(--x-color-base-auxiliary);
       }
 
       &__overlay-placeholder {
         height: 60px;
         width: 100%;
-        background-color: var(--x-color-neutral-70);
+        background-color: var(--x-color-base-neutral-70);
       }
 
       &__description-placeholder {
         height: 90px;
         width: 100%;
-        background-color: var(--x-color-lead);
+        background-color: var(--x-color-base-lead);
       }
 
       .x-title1,
@@ -3708,15 +3732,15 @@
 
   .info {
     position: fixed;
-    right: var(--x-space-06);
-    bottom: var(--x-space-04);
+    right: var(--x-size-base-06);
+    bottom: var(--x-size-base-04);
   }
 
   head {
     background: lightgoldenrodyellow;
     position: fixed;
-    padding: var(--x-space-04) var(--x-space-09);
-    bottom: var(--x-space-10);
+    padding: var(--x-size-base-04) var(--x-size-base-09);
+    bottom: var(--x-size-base-10);
     right: 0;
     height: 80%;
     overflow: auto;
@@ -3726,14 +3750,14 @@
       font-family: var(--x-font-family);
       content: 'You can edit here the Design Tokens';
       display: block;
-      font-size: var(--x-font-size-xl);
+      font-size: var(--x-size-font-xl);
       padding-bottom: 10px;
     }
 
     style {
       white-space: pre;
       font-family: monospace;
-      margin-block: var(--x-space-04);
+      margin-block: var(--x-size-base-04);
     }
   }
 

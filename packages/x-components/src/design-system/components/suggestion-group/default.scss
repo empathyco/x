@@ -9,22 +9,25 @@
 
   // color
   border: none;
-  background-color: var(--x-color-background-suggestion-group);
-  color: var(--x-color-text-suggestion-group);
+  background-color: var(--x-color-background-suggestion-group-default);
+  color: var(--x-color-text-suggestion-group-default);
 
   // typography
-  font-family: var(--x-font-family-suggestion-group);
-  font-size: var(--x-font-size-suggestion-group);
-  line-height: var(--x-font-line-height-suggestion-group);
-  font-weight: var(--x-font-weight-suggestion-group);
+  font-family: var(--x-font-family-suggestion-group-default);
+  font-size: var(--x-size-font-suggestion-group-default);
+  line-height: var(--x-size-line-height-suggestion-group-default);
+  font-weight: var(--x-number-font-weight-suggestion-group-default);
 
   // other
   cursor: pointer;
 
-  // spacing
-  padding: var(--x-space-padding-suggestion-group);
-  gap: var(--x-space-gap-suggestion-group);
-  @include safari-gap(var(--x-space-gap-suggestion-group));
+  // size
+  padding-block-start: var(--x-size-padding-top-sugestion-group-default);
+  padding-block-end: var(--x-size-padding-bottom-sugestion-group-default);
+  padding-inline-start: var(--x-size-padding-left-sugestion-group-default);
+  padding-inline-end: var(--x-size-padding-right-sugestion-group-default);
+  gap: var(--x-size-gap-suggestion-group-default);
+  @include safari-gap(var(--x-size-gap-suggestion-group-default));
 
   .x-suggestion {
     // layout
@@ -34,12 +37,15 @@
 
   .x-button {
     // color
-    --x-color-background-button: transparent;
-    --x-color-border-button: transparent;
-    --x-color-text-button: var(--x-color-text-suggestion-group);
+    --x-color-background-button-default: transparent;
+    --x-color-border-button-default: transparent;
+    --x-color-text-button-default: var(--x-color-text-suggestion-group-default);
 
-    // spacing
-    --x-space-padding-button: 0;
+    // size
+    --x-size-padding-top-button-default: 0;
+    --x-size-padding-right-button-default: 0;
+    --x-size-padding-bottom-button-default: 0;
+    --x-size-padding-left-button-default: 0;
 
     // border
     border: none;

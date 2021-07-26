@@ -1,13 +1,27 @@
 :root {
   // color
-  --x-color-border-option-list-item-bottom: var(--x-color-neutral-10);
-  --x-color-text-option-list-button-bottom-hover: var(--x-color-neutral-10);
+  --x-color-border-option-list-item-bottom: var(--x-color-base-neutral-10);
+  --x-color-text-option-list-button-bottom-hover: var(--x-color-base-neutral-10);
 
   // border
-  --x-border-width-option-list-item-bottom: 0;
-  --x-border-width-option-list-item-bottom-selected: 0 0 var(--x-border-width);
+  --x-size-border-width-option-list-item-bottom-selected: var(--x-size-border-width-base);
+
+  --x-size-border-width-option-list-item-bottom: 0;
+  --x-size-border-width-top-option-list-item-bottom: 0;
+  --x-size-border-width-right-option-list-item-bottom: var(
+    --x-size-border-width-option-list-item-bottom
+  );
+  --x-size-border-width-bottom-option-list-item-bottom: 0;
+  --x-size-border-width-left-option-list-item-bottom: 0;
+
+  --x-size-border-width-top-option-list-item-bottom-selected: 0;
+  --x-size-border-width-right-option-list-item-bottom-selected: 0;
+  --x-size-border-width-bottom-option-list-item-bottom-selected: var(
+    --x-size-border-width-option-list-item-bottom-selected
+  );
+  --x-size-border-width-left-option-list-item-bottom-selected: 0;
 
   // typography
   --x-font-decoration-option-list-button-bottom-hover: none;
-  --x-font-weight-option-list-button-bottom-selected: (--x-font-weight-regular);
+  --x-number-font-weight-option-list-button-bottom-selected: (--x-number-font-weight-base-regular);
 }

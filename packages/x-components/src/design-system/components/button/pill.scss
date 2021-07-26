@@ -1,5 +1,15 @@
 .x-button--pill.x-button,
 .x-button--pill .x-button {
   // border
-  --x-border-radius-button: var(--x-border-radius-button-pill);
+  --x-size-border-radius-button-default: var(--x-size-border-radius-button-pill);
+  --x-size-border-radius-top-left-button-default: var(--x-size-border-radius-top-left-button-pill);
+  --x-size-border-radius-top-right-button-default: var(
+      --x-size-border-radius-top-right-button-pill
+  );
+  --x-size-border-radius-bottom-right-button-default: var(
+      --x-size-border-radius-bottom-right-button-pill
+  );
+  --x-size-border-radius-bottom-left-button-default: var(
+      --x-size-border-radius-bottom-left-button-pill
+  );
 }

@@ -1,6 +1,6 @@
 :root {
-  --x-color-background-picture-colored: var(--x-color-neutral-95);
-  --x-mix-blend-mode-picture-image-colored: multiply;
-  --x-mix-blend-mode-picture-image-fallback-colored: var(--x-mix-blend-mode-picture-image-colored);
-  --x-mix-blend-mode-picture-image-placeholder-colored: var(--x-mix-blend-mode-picture-image-colored);
+  --x-color-background-picture-colored: var(--x-color-base-neutral-95);
+  --x-mix-blend-mode-picture-colored: multiply;
+  --x-mix-blend-mode-picture-fallback-colored: var(--x-mix-blend-mode-picture-colored);
+  --x-mix-blend-mode-picture-placeholder-colored: var(--x-mix-blend-mode-picture-colored);
 }

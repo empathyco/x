@@ -10,22 +10,25 @@
 
   // color
   border: none;
-  background-color: var(--x-color-background-suggestion);
-  color: var(--x-color-text-suggestion);
+  background-color: var(--x-color-background-suggestion-default);
+  color: var(--x-color-text-suggestion-default);
 
   // typography
-  font-family: var(--x-font-family-suggestion);
-  font-size: var(--x-font-size-suggestion);
-  line-height: var(--x-font-line-height-suggestion);
-  font-weight: var(--x-font-weight-suggestion);
+  font-family: var(--x-font-family-suggestion-default);
+  font-size: var(--x-size-font-suggestion-default);
+  line-height: var(--x-size-line-height-suggestion-default);
+  font-weight: var(--x-number-font-weight-suggestion-default);
 
   // other
   cursor: pointer;
 
-  // spacing
-  padding: var(--x-space-padding-suggestion);
-  gap: var(--x-space-gap-suggestion);
-  @include safari-gap(var(--x-space-gap-suggestion));
+  // size
+  padding-block-start: var(--x-size-padding-top-suggestion-default);
+  padding-block-end: var(--x-size-padding-bottom-suggestion-default);
+  padding-inline-start: var(--x-size-padding-left-suggestion-default);
+  padding-inline-end: var(--x-size-padding-right-suggestion-default);
+  gap: var(--x-size-gap-suggestion-default);
+  @include safari-gap(var(--x-size-gap-suggestion-default));
 
   &__query {
     // layout
@@ -34,12 +37,12 @@
 
   &__matching-part {
     // typography
-    font-family: var(--x-font-family-suggestion-matching-part);
-    font-size: var(--x-font-size-suggestion-matching-part);
-    line-height: var(--x-font-line-height-suggestion-matching-part);
-    font-weight: var(--x-font-weight-suggestion-matching-part);
+    font-family: var(--x-font-family-suggestion-matching-part-default);
+    font-size: var(--x-size-font-suggestion-matching-part-default);
+    line-height: var(--x-size-line-height-suggestion-matching-part-default);
+    font-weight: var(--x-number-font-weight-suggestion-matching-part-default);
 
     // color
-    color: var(--x-color-text-suggestion-matching-part);
+    color: var(--x-color-text-suggestion-matching-part-default);
   }
 }

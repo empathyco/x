@@ -1,25 +1,37 @@
 :root {
   // color
-  --x-color-background-input: var(--x-color-neutral-100);
-  --x-color-border-input: var(--x-color-neutral-70);
-  --x-color-border-input-focus: var(--x-color-lead);
-  --x-color-text-input: var(--x-color-text);
-  --x-color-text-input-placeholder: var(--x-color-neutral-35);
+  --x-color-background-input-default: var(--x-color-base-neutral-100);
+  --x-color-border-input-default: var(--x-color-base-neutral-70);
+  --x-color-border-input-default-focus: var(--x-color-base-lead);
+  --x-color-text-input-default: var(--x-color-text-default);
+  --x-color-text-input-placeholder-default: var(--x-color-base-neutral-35);
 
   // border
-  --x-border-width-input: var(--x-border-width);
-  --x-border-radius-input: var(--x-border-radius-none);
+  --x-size-border-width-input-default: var(--x-size-border-width-base);
+  --x-size-border-width-top-input-default: var(--x-size-border-width-input-default);
+  --x-size-border-width-right-input-default: var(--x-size-border-width-input-default);
+  --x-size-border-width-bottom-input-default: var(--x-size-border-width-input-default);
+  --x-size-border-width-left-input-default: var(--x-size-border-width-input-default);
 
-  // spacing
-  --x-space-padding-input: var(--x-space-03) var(--x-space-04);
+  --x-size-border-radius-input-default: var(--x-size-border-radius-base-none);
+  --x-size-border-radius-top-left-input-default: var(--x-size-border-radius-input-default);
+  --x-size-border-radius-top-right-input-default: var(--x-size-border-radius-input-default);
+  --x-size-border-radius-bottom-right-input-default: var(--x-size-border-radius-input-default);
+  --x-size-border-radius-bottom-left-input-default: var(--x-size-border-radius-input-default);
+
+  // size
+  --x-size-padding-top-input-default: var(--x-size-base-03);
+  --x-size-padding-right-input-default: var(--x-size-base-04);
+  --x-size-padding-bottom-input-default: var(--x-size-base-03);
+  --x-size-padding-left-input-default: var(--x-size-base-04);
 
   // typography
-  --x-font-family-input: var(--x-font-family-text);
-  --x-font-size-input: var(--x-font-size-text);
-  --x-font-line-height-input: var(--x-font-line-height-text);
-  --x-font-weight-input: var(--x-font-weight-text);
-  --x-font-family-input-placeholder: var(--x-font-family-input);
-  --x-font-size-input-placeholder: var(--x-font-size-input);
-  --x-font-line-height-input-placeholder: var(--x-font-line-height-input);
-  --x-font-weight-input-placeholder: var(--x-font-weight-input);
+  --x-font-family-input-default: var(--x-font-family-text);
+  --x-size-font-input-default: var(--x-size-font-text);
+  --x-size-line-height-input-default: var(--x-size-line-height-text);
+  --x-number-font-weight-input-default: var(--x-number-font-weight-text);
+  --x-font-family-input-placeholder-default: var(--x-font-family-input-default);
+  --x-size-font-input-placeholder-default: var(--x-size-font-input-default);
+  --x-size-line-height-input-placeholder-default: var(--x-size-line-height-input-default);
+  --x-number-font-weight-input-placeholder-default: var(--x-number-font-weight-input-default);
 }

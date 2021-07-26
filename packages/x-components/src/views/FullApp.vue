@@ -546,7 +546,7 @@
     flex-direction: column;
 
     + .x-column {
-      margin-left: var(--x-space-07, 20px);
+      margin-left: var(--x-size-07, 20px);
     }
   }
 
@@ -555,8 +555,8 @@
   }
 
   .x-empathize {
-    background-color: var(--x-color-neutral-95);
-    border-radius: var(--x-border-radius-s);
+    background-color: var(--x-color-base-neutral-95);
+    border-radius: var(--x-border-radius-base-s);
     z-index: 2;
     width: 100%;
     position: relative;

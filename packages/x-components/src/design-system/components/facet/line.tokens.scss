@@ -1,7 +1,11 @@
 :root {
   // color
-  --x-color-border-facet-header-line: var(--x-color-neutral-10);
+  --x-color-border-facet-header-line: var(--x-color-base-neutral-10);
 
   // border
-  --x-border-width-facet-header-line: 0 0 var(--x-border-width);
+  --x-size-border-width-facet-header-line: var(--x-size-border-width-base);
+  --x-size-border-width-top-facet-header-line: 0;
+  --x-size-border-width-right-facet-header-line: 0;
+  --x-size-border-width-bottom-facet-header-line: var(--x-size-border-width-facet-header-line);
+  --x-size-border-width-left-facet-header-line: 0;
 }

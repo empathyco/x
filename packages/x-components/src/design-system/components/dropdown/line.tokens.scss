@@ -1,9 +1,25 @@
 :root {
-  // spacing
-  --x-space-padding-block-dropdown-item-line: var(--x-space-03);
-  --x-space-padding-inline-dropdown-item-line: 0 var(--x-space-03);
+  // size
+  --x-size-padding-block-dropdown-item-line: var(--x-size-base-03);
+  --x-size-padding-inline-dropdown-item-line: 0 var(--x-size-base-03);
+
+  --x-size-padding-top-dropdown-item-line: var(--x-size-base-03);
+  --x-size-padding-right-dropdown-item-line: 0;
+  --x-size-padding-bottom-dropdown-item-line: var(--x-size-base-03);
+  --x-size-padding-left-dropdown-item-line: 0;
 
   // border
-  --x-border-width-dropdown-toggle-line: 0 0 var(--x-border-width) 0;
-  --x-border-width-dropdown-list-line: 0;
+  --x-size-border-width-dropdown-toggle-line: var(--x-size-border-width-base);
+  --x-size-border-width-top-dropdown-toggle-line: 0;
+  --x-size-border-width-right-dropdown-toggle-line: 0;
+  --x-size-border-width-bottom-dropdown-toggle-line: var(
+    --x-size-border-width-dropdown-toggle-line
+  );
+  --x-size-border-width-left-dropdown-toggle-line: 0;
+
+  --x-size-border-width-dropdown-list-line: 0;
+  --x-size-border-width-top-dropdown-list-line: var(--x-size-border-width-dropdown-list-line);
+  --x-size-border-width-right-dropdown-list-line: var(--x-size-border-width-dropdown-list-line);
+  --x-size-border-width-bottom-dropdown-list-line: var(--x-size-border-width-dropdown-list-line);
+  --x-size-border-width-left-dropdown-list-line: var(--x-size-border-width-dropdown-list-line);
 }

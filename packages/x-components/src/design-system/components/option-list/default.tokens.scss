@@ -1,40 +1,78 @@
 :root {
   // color - button
-  --x-color-background-option-list-button: transparent;
-  --x-color-border-option-list-button: transparent;
-  --x-color-text-option-list-button: var(--x-color-neutral-35);
+  --x-color-background-option-list-button-default: transparent;
+  --x-color-border-option-list-button-default: transparent;
+  --x-color-text-option-list-button-default: var(--x-color-base-neutral-35);
 
   // color - button hover
-  --x-color-background-option-list-button-hover: var(--x-color-background-option-list-button);
-  --x-color-border-option-list-button-hover: var(--x-color-border-option-list-button);
-  --x-color-text-option-list-button-hover: var(--x-color-text-option-list-button);
+  --x-color-background-option-list-button-default-hover: var(
+    --x-color-background-option-list-button-default
+  );
+  --x-color-border-option-list-button-default-hover: var(
+    --x-color-border-option-list-button-default
+  );
+  --x-color-text-option-list-button-default-hover: var(--x-color-text-option-list-button-default);
 
   // color - button selected
-  --x-color-background-option-list-button-selected: var(--x-color-background-option-list-button);
-  --x-color-border-option-list-button-selected: var(--x-color-border-option-list-button);
-  --x-color-text-option-list-button-selected: var(--x-color-text);
+  --x-color-background-option-list-button-default-selected: var(
+    --x-color-background-option-list-button-default
+  );
+  --x-color-border-option-list-button-default-selected: var(
+    --x-color-border-option-list-button-default
+  );
+  --x-color-text-option-list-button-default-selected: var(--x-color-text-default);
 
   // color - button selected hover
-  --x-color-background-option-list-button-selected-hover: var(
-    --x-color-background-option-list-button-selected
+  --x-color-background-option-list-button-default-selected-hover: var(
+    --x-color-background-option-list-button-default-selected
   );
-  --x-color-border-option-list-button-selected-hover: var(
-    --x-color-border-option-list-button-selected
+  --x-color-border-option-list-button-default-selected-hover: var(
+    --x-color-border-option-list-button-default-selected
   );
-  --x-color-text-option-list-button-selected-hover: var(--x-color-text-option-list-button-selected);
+  --x-color-text-option-list-button-default-selected-hover: var(
+    --x-color-text-option-list-button-default-selected
+  );
 
   // color - list item
-  --x-color-border-option-list-item: var(--x-color-neutral-70);
+  --x-color-border-option-list-item-default: var(--x-color-base-neutral-70);
 
   // border
-  --x-border-width-option-list-item: 0 var(--x-border-width) 0 0;
-  --x-border-width-option-list-item-selected: var(--x-border-width-option-list-item);
+  --x-size-border-width-option-list-item-default: var(--x-size-border-width-base);
+  --x-size-border-width-top-option-list-item-default: 0;
+  --x-size-border-width-right-option-list-item-default: var(
+    --x-size-border-width-option-list-item-default
+  );
+  --x-size-border-width-bottom-option-list-item-default: 0;
+  --x-size-border-width-left-option-list-item-default: 0;
 
-  // spacing
-  --x-space-padding-option-list-button: var(--x-space-02);
+  --x-size-border-width-top-option-list-item-default-selected: var(
+    --x-size-border-width-top-option-list-item-default
+  );
+  --x-size-border-width-right-option-list-item-default-selected: var(
+    --x-size-border-width-right-option-list-item-default
+  );
+  --x-size-border-width-bottom-option-list-item-default-selected: var(
+    --x-size-border-width-bottom-option-list-item-default
+  );
+  --x-size-border-width-left-option-list-item-default-selected: var(
+    --x-size-border-width-left-option-list-item-default
+  );
+
+  // size
+  --x-size-padding-option-list-button-default: var(--x-size-base-02);
+  --x-size-padding-top-option-list-button-default: var(--x-size-padding-option-list-button-default);
+  --x-size-padding-right-option-list-button-default: var(
+    --x-size-padding-option-list-button-default
+  );
+  --x-size-padding-bottom-option-list-button-default: var(
+    --x-size-padding-option-list-button-default
+  );
+  --x-size-padding-left-option-list-button-default: var(
+    --x-size-padding-option-list-button-default
+  );
 
   // typography
-  --x-font-decoration-option-list-button-hover: underline;
-  --x-font-weight-option-list-button: var(--x-font-weight-regular);
-  --x-font-weight-option-list-button-selected: var(--x-font-weight-bold);
+  --x-font-decoration-option-list-button-default-hover: underline;
+  --x-number-font-weight-option-list-button-default: var(--x-number-font-weight-base-regular);
+  --x-number-font-weight-option-list-button-default-selected: var(--x-number-font-weight-base-bold);
 }

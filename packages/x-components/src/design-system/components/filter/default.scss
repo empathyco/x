@@ -8,26 +8,35 @@
   box-sizing: border-box;
   text-align: left;
 
-  // spacing
-  gap: var(--x-space-gap-filter);
-  @include safari-gap(var(--x-space-gap-filter));
-  padding: var(--x-space-padding-filter);
+  // size
+  gap: var(--x-size-gap-filter-default);
+  @include safari-gap(var(--x-size-gap-filter-default));
+  padding-block-start: var(--x-size-padding-top-filter-default);
+  padding-block-end: var(--x-size-padding-bottom-filter-default);
+  padding-inline-start: var(--x-size-padding-left-filter-default);
+  padding-inline-end: var(--x-size-padding-right-filter-default);
 
   // color
-  background-color: var(--x-color-background-filter);
-  border-color: var(--x-color-border-filter);
-  color: var(--x-color-text-filter);
+  background-color: var(--x-color-background-filter-default);
+  border-color: var(--x-color-border-filter-default);
+  color: var(--x-color-text-filter-default);
 
   // border
   border-style: solid;
-  border-width: var(--x-border-width-filter);
-  border-radius: var(--x-border-radius-filter);
+  border-block-start-width: var(--x-size-border-width-top-filter-default);
+  border-inline-end-width: var(--x-size-border-width-right-filter-default);
+  border-block-end-width: var(--x-size-border-width-bottom-filter-default);
+  border-inline-start-width: var(--x-size-border-width-left-filter-default);
+  border-radius: var(--x-size-border-radius-top-left-filter-default)
+    var(--x-size-border-radius-top-right-filter-default)
+    var(--x-size-border-radius-bottom-right-filter-default)
+    var(--x-size-border-radius-bottom-left-filter-default);
 
   // typography
-  font-family: var(--x-font-family-filter);
-  font-size: var(--x-font-size-filter);
-  font-weight: var(--x-font-weight-filter);
-  line-height: var(--x-font-line-height-filter);
+  font-family: var(--x-font-family-filter-default);
+  font-size: var(--x-size-font-filter-default);
+  font-weight: var(--x-number-font-weight-filter-default);
+  line-height: var(--x-size-line-height-filter-default);
 
   // other
   cursor: pointer;
@@ -44,17 +53,19 @@
 
   &__count {
     // typography
-    font-weight: var(--x-font-weight-filter-count);
+    font-weight: var(--x-number-font-weight-filter-count-default);
   }
 
   &--is-selected {
     // color
-    --x-color-background-filter: var(--x-color-background-filter-selected);
-    --x-color-border-filter: var(--x-color-border-filter-selected);
-    --x-color-text-filter: var(--x-color-text-filter-selected);
+    --x-color-background-filter-default: var(--x-color-background-filter-default-selected);
+    --x-color-border-filter-default: var(--x-color-border-filter-default-selected);
+    --x-color-text-filter-default: var(--x-color-text-filter-default-selected);
 
     // typography
-    --x-font-weight-filter: var(--x-font-weight-filter-selected);
-    --x-font-weight-filter-count: var(--x-font-weight-filter-count-selected);
+    --x-number-font-weight-filter-default: var(--x-number-font-weight-filter-default-selected);
+    --x-number-font-weight-filter-count-default: var(
+      --x-number-font-weight-filter-count-default-selected
+    );
   }
 }

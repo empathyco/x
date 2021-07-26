@@ -3,18 +3,18 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: 1fr;
-  justify-items: var(--x-space-justify-row);
-  align-items: var(--x-space-align-row);
+  justify-items: var(--x-size-justify-row);
+  align-items: var(--x-size-align-row);
 
-  // spacing
-  padding: var(--x-space-padding-row);
-  gap: var(--x-space-gap-row);
+  // size
+  padding: var(--x-size-padding-row);
+  gap: var(--x-size-gap-row);
   margin: 0;
 
   &__item {
     // layout
-    grid-column-start: var(--x-space-start-row-item);
-    grid-column-end: span var(--x-space-span-row-item);
+    grid-column-start: var(--x-size-start-row-item);
+    grid-column-end: span var(--x-size-span-row-item);
 
     //others
     list-style: none;
@@ -22,23 +22,23 @@
 
   @for $i from 1 through 12 {
     &__item--span-#{$i} {
-      --x-space-span-row-item: #{$i};
+      --x-size-span-row-item: #{$i};
     }
   }
 
   @for $i from 1 through 12 {
     &__item--start-#{$i} {
-      --x-space-start-row-item: #{$i};
+      --x-size-start-row-item: #{$i};
     }
   }
 }
 
 @each $alignment in start, center, end, stretch {
   .x-row--justify-#{$alignment} {
-    --x-space-justify-row: #{$alignment};
+    --x-size-justify-row: #{$alignment};
   }
 
   .x-row--align-#{$alignment} {
-    --x-space-align-row: #{$alignment};
+    --x-size-align-row: #{$alignment};
   }
 }

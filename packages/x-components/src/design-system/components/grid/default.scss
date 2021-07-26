@@ -4,8 +4,8 @@
   display: grid;
   grid-auto-flow: dense;
   list-style: none;
-  padding: var(--x-space-padding-grid);
-  gap: var(--x-space-gap-grid);
+  padding: var(--x-size-padding-grid);
+  gap: var(--x-size-gap-grid);
 
   &__item {
     // layout
