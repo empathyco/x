@@ -1,4 +1,8 @@
 :root {
   // border
-  --x-border-radius-button-card: var(--x-border-radius-s);
+  --x-size-border-radius-button-card: var(--x-size-border-radius-base-s);
+  --x-size-border-radius-top-left-button-card: var(--x-size-border-radius-button-card);
+  --x-size-border-radius-top-right-button-card: var(--x-size-border-radius-button-card);
+  --x-size-border-radius-bottom-right-button-card: var(--x-size-border-radius-button-card);
+  --x-size-border-radius-bottom-left-button-card: var(--x-size-border-radius-button-card);
 }

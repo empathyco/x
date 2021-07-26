@@ -152,7 +152,7 @@
 
 <style lang="scss" scoped>
   .x-base-grid {
-    padding: var(--x-space-padding-grid, 0);
+    padding: var(--x-size-padding-grid, 0);
     margin: 0;
     display: grid;
     grid-auto-flow: dense;

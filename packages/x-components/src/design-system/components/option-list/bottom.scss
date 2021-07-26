@@ -1,20 +1,48 @@
 .x-option-list--bottom.x-option-list,
 .x-option-list--bottom .x-option-list {
   // color
-  --x-color-border-option-list-item: var(--x-color-border-option-list-item-bottom);
-  --x-color-text-option-list-button-hover: var(--x-color-text-option-list-button-bottom-hover);
+  --x-color-border-option-list-item-default: var(--x-color-border-option-list-item-bottom);
+  --x-color-text-option-list-button-default-hover: var(
+    --x-color-base-text-option-list-button-bottom-hover
+  );
 
   // border
-  --x-border-width-option-list-item: var(--x-border-width-option-list-item-bottom);
+  --x-size-border-width-option-list-item-default: var(
+    --x-size-border-width-option-list-item-bottom
+  );
+  --x-size-border-width-top-option-list-item-default: var(
+    --x-size-border-width-top-option-list-item-bottom
+  );
+  --x-size-border-width-right-option-list-item-default: var(
+    --x-size-border-width-right-option-list-item-bottom
+  );
+  --x-size-border-width-bottom-option-list-item-default: var(
+    --x-size-border-width-bottom-option-list-item-bottom
+  );
+  --x-size-border-width-left-option-list-item-default: var(
+    --x-size-border-width-left-option-list-item-bottom
+  );
+
   .x-option-list__item.x-option-list__item--is-selected {
-    --x-border-width-option-list-item: var(--x-border-width-option-list-item-bottom-selected);
+    --x-size-border-width-top-option-list-item-default: var(
+      --x-size-border-width-top-option-list-item-bottom-selected
+    );
+    --x-size-border-width-right-option-list-item-default: var(
+      --x-size-border-width-right-option-list-item-bottom-selected
+    );
+    --x-size-border-width-bottom-option-list-item-default: var(
+      --x-size-border-width-bottom-option-list-item-bottom-selected
+    );
+    --x-size-border-width-left-option-list-item-default: var(
+      --x-size-border-width-left-option-list-item-bottom-selected
+    );
   }
 
   // typography
-  --x-font-decoration-option-list-button-hover: var(
+  --x-font-decoration-option-list-button-default-hover: var(
     --x-font-decoration-option-list-button-bottom-hover
   );
-  --x-font-weight-option-list-button-selected: var(
-    --x-font-weight-option-list-button-bottom-selected
+  --x-number-font-weight-option-list-button-default-selected: var(
+    --x-number-font-weight-option-list-button-bottom-selected
   );
 }

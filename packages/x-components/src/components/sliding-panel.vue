@@ -201,7 +201,7 @@
       pointer-events: none;
       position: absolute;
       transition: all ease-out 0.2s;
-      z-index: 1;
+      z-index: 2; /* To overlay the design system gradient with z-index:1 */
 
       &-left {
         left: 0;

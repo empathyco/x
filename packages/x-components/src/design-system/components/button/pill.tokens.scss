@@ -1,4 +1,8 @@
 :root {
   // border
-  --x-border-radius-button-pill: var(--x-border-radius-pill);
+  --x-size-border-radius-button-pill: var(--x-size-border-radius-base-pill);
+  --x-size-border-radius-top-left-button-pill: var(--x-size-border-radius-button-pill);
+  --x-size-border-radius-top-right-button-pill: var(--x-size-border-radius-button-pill);
+  --x-size-border-radius-bottom-right-button-pill: var(--x-size-border-radius-button-pill);
+  --x-size-border-radius-bottom-left-button-pill: var(--x-size-border-radius-button-pill);
 }

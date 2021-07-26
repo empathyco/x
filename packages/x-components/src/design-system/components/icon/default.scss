@@ -1,7 +1,7 @@
 .x-icon {
   // colors
-  stroke: var(--x-color-stroke-icon);
-  fill: var(--x-color-fill-icon);
+  stroke: var(--x-color-stroke-icon-default);
+  fill: var(--x-color-fill-icon-default);
 
   // layout
   display: inline-flex;
@@ -11,13 +11,13 @@
   vertical-align: middle;
 
   // sizing
-  line-height: var(--x-size-height-icon);
-  width: var(--x-size-width-icon);
-  height: var(--x-size-height-icon);
-  font-size: var(--x-size-height-icon);
+  line-height: var(--x-size-height-icon-default);
+  width: var(--x-size-width-icon-default);
+  height: var(--x-size-height-icon-default);
+  font-size: var(--x-size-height-icon-default);
 
   // stroke
-  stroke-linecap: var(--x-stroke-linecap-icon);
-  stroke-linejoin: var(--x-stroke-linejoin-icon);
-  stroke-width: var(--x-stroke-width-icon);
+  stroke-linecap: var(--x-string-stroke-linecap-icon-default);
+  stroke-linejoin: var(--x-string-stroke-linejoin-icon-default);
+  stroke-width: var(--x-size-stroke-width-icon-default);
 }

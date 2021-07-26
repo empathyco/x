@@ -1,8 +1,38 @@
 .x-dropdown--pill {
-  // spacing
-  --x-space-gap-dropdown: var(--x-space-gap-dropdown-pill);
+  // size
+  --x-size-gap-dropdown-default: var(--x-size-gap-dropdown-pill);
 
   // border
-  --x-border-radius-dropdown: var(--x-border-radius-dropdown-pill);
-  --x-border-width-dropdown-list: var(--x-border-width-dropdown-list-pill);
+  --x-size-border-radius-top-left-dropdown-default: calc(
+    var(--x-size-line-height-dropdown-default) / 2 + var(--x-size-padding-top-dropdown-item-default) +
+      var(--x-size-border-width-top-dropdown-toggle-default)
+  );
+  --x-size-border-radius-top-right-dropdown-default: calc(
+    var(--x-size-line-height-dropdown-default) / 2 + var(--x-size-padding-top-dropdown-item-default) +
+      var(--x-size-border-width-top-dropdown-toggle-default)
+  );
+  --x-size-border-radius-bottom-right-dropdown-default: calc(
+    var(--x-size-line-height-dropdown-default) / 2 +
+      var(--x-size-padding-bottom-dropdown-item-default) +
+      var(--x-size-border-width-bottom-dropdown-toggle-default)
+  );
+  --x-size-border-radius-bottom-left-dropdown-default: calc(
+    var(--x-size-line-height-dropdown-default) / 2 +
+      var(--x-size-padding-bottom-dropdown-item-default) +
+      var(--x-size-border-width-bottom-dropdown-toggle-default)
+  );
+
+  --x-size-border-width-dropdown-list-default: var(--x-size-border-width-dropdown-list-pill);
+  --x-size-border-width-top-dropdown-list-default: var(
+    --x-size-border-width-top-dropdown-list-pill
+  );
+  --x-size-border-width-right-dropdown-list-default: var(
+    --x-size-border-width-right-dropdown-list-pill
+  );
+  --x-size-border-width-bottom-dropdown-list-default: var(
+    --x-size-border-width-bottom-dropdown-list-pill
+  );
+  --x-size-border-width-left-dropdown-list-default: var(
+    --x-size-border-width-left-dropdown-list-pill
+  );
 }

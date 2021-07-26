@@ -1,5 +1,14 @@
 .x-input--line .x-input,
 .x-input--line.x-input {
-  --x-border-width-input: var(--x-border-width-input-line);
-  --x-space-padding-input: var(--x-space-padding-input-line);
+  // size
+  --x-size-padding-top-input-default: var(--x-size-padding-top-input-line);
+  --x-size-padding-right-input-default: var(--x-size-padding-right-input-line);
+  --x-size-padding-bottom-input-default: var(--x-size-padding-bottom-input-line);
+  --x-size-padding-left-input-default: var(--x-size-padding-left-input-line);
+
+  // border
+  --x-size-border-width-top-input-default: var(--x-size-border-width-top-input-line);
+  --x-size-border-width-right-input-default: var(--x-size-border-width-right-input-line);
+  --x-size-border-width-bottom-input-default: var(--x-size-border-width-bottom-input-line);
+  --x-size-border-width-left-input-default: var(--x-size-border-width-left-input-line);
 }

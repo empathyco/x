@@ -1,25 +1,26 @@
 .x-input-group--line .x-input-group,
 .x-input-group--line.x-input-group {
-  // spacing
+  // size
   > *:not(.x-input-group__action) {
-    padding: var(--x-space-padding-top-input-group-line) 0
-      var(--x-space-padding-bottom-input-group-line) 0;
-
-    &:first-child {
-      padding-left: var(--x-space-padding-left-input-group-line);
-    }
-
-    &:last-child {
-      padding-right: var(--x-space-padding-right-input-group-line);
-    }
+    --x-size-padding-top-input-group-default: var(--x-size-padding-top-input-group-line);
+    --x-size-padding-right-input-group-default: var(--x-size-padding-right-input-group-line);
+    --x-size-padding-bottom-input-group-default: var(--x-size-padding-bottom-input-group-line);
+    --x-size-padding-left-input-group-default: var(--x-size-padding-left-input-group-line);
   }
 
   // border
-  --x-border-width-input-group: var(--x-border-width-input-group-line);
-  --x-space-margin-input-group-action: var(--x-space-margin-input-group-action-line);
+  --x-size-border-width-input-group-default: var(--x-size-border-width-input-group-line);
+  --x-size-border-width-top-input-group-default: var(--x-size-border-width-top-input-group-line);
+  --x-size-border-width-right-input-group-default: var(
+    --x-size-border-width-right-input-group-line
+  );
+  --x-size-border-width-bottom-input-group-default: var(
+    --x-size-border-width-bottom-input-group-line
+  );
+  --x-size-border-width-left-input-group-default: var(--x-size-border-width-left-input-group-line);
 
   > .x-input-group__action {
-    // spacing
+    // size
     margin-top: 0;
     margin-left: 0;
     margin-right: 0;

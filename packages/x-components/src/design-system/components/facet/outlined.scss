@@ -1,11 +1,19 @@
 .x-facet--outlined.x-facet,
 .x-facet--outlined .x-facet {
   // color
-  --x-color-border-facet: var(--x-color-border-facet-outlined);
+  --x-color-border-facet-default: var(--x-color-border-facet-outlined);
 
   // border
-  --x-border-width-facet: var(--x-border-width-facet-outlined);
+  --x-size-border-width-facet-default: var(--x-size-border-width-facet-outlined);
+  --x-size-border-width-top-facet-default: var(--x-size-border-width-top-facet-outlined);
+  --x-size-border-width-right-facet-default: var(--x-size-border-width-right-facet-outlined);
+  --x-size-border-width-bottom-facet-default: var(--x-size-border-width-bottom-facet-outlined);
+  --x-size-border-width-left-facet-default: var(--x-size-border-width-left-facet-outlined);
 
-  // spacing
-  --x-space-padding-facet-header: var(--x-space-padding-facet-header-outlined);
+  // size
+  --x-size-padding-facet-header-default: var(--x-size-padding-facet-header-outlined);
+  --x-size-padding-top-facet-header-default: var(--x-size-padding-top-facet-header-outlined);
+  --x-size-padding-right-facet-header-default: var(--x-size-padding-right-facet-header-outlined);
+  --x-size-padding-bottom-facet-header-default: var(--x-size-padding-bottom-facet-header-outlined);
+  --x-size-padding-left-facet-header-default: var(--x-size-padding-left-facet-header-outlined);
 }

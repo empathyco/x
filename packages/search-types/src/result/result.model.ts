@@ -1,4 +1,3 @@
-import { CallbackInfo } from '../callback-info.model';
 import { Identifiable } from '../identifiable.model';
 import { NamedModel } from '../named-model.model';
 import { ResultIdentifier } from './result-identifier.model';
@@ -11,7 +10,7 @@ import { ResultTagging } from './result-tagging.model';
  *
  * @public
  */
-export interface Result extends NamedModel, CallbackInfo, Identifiable {
+export interface Result extends NamedModel, Identifiable {
   /** The type of the result. i.e. product, article, pack... */
   type: string;
   /** Images of the result. It should be the URLs. */

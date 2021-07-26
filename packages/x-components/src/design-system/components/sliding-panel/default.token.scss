@@ -1,13 +1,13 @@
 :root {
   // color
-  --x-color-background-sliding-panel: var(--x-color-neutral-100);
+  --x-color-background-sliding-panel: var(--x-color-base-neutral-100);
   --x-color-background-sliding-panel-middle: rgba(255, 255, 255, 0.94);
   --x-color-background-sliding-panel-end: rgba(255, 255, 255, 0);
 
   // sizing
-  --x-size-width-sliding-panel-gradient: var(--x-space-09);
+  --x-size-width-sliding-panel-gradient: var(--x-size-base-09);
 
-  // spacing
-  --x-space-padding-sliding-panel-button: var(--x-space-03);
-  --x-space-horizontal-margin-sliding-panel-button-overflow: var(--x-space-02);
+  // size
+  --x-size-padding-sliding-panel-button: var(--x-size-base-03);
+  --x-size-horizontal-margin-sliding-panel-button-overflow: var(--x-size-base-02);
 }

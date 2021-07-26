@@ -10,25 +10,34 @@
 
   // border
   border-style: solid;
-  border-radius: var(--x-border-radius-tag);
-  border-width: var(--x-border-width-tag);
+  border-block-start-width: var(--x-size-border-width-top-tag-default);
+  border-block-end-width: var(--x-size-border-width-bottom-tag-default);
+  border-inline-start-width: var(--x-size-border-width-left-tag-default);
+  border-inline-end-width: var(--x-size-border-width-right-tag-default);
+  border-radius: var(--x-size-border-radius-top-left-tag-default)
+    var(--x-size-border-radius-top-right-tag-default)
+    var(--x-size-border-radius-bottom-right-tag-default)
+    var(--x-size-border-radius-bottom-left-tag-default);
 
   // color
-  background-color: var(--x-color-background-tag);
-  border-color: var(--x-color-border-tag);
-  color: var(--x-color-text-tag);
+  background-color: var(--x-color-background-tag-default);
+  border-color: var(--x-color-border-tag-default);
+  color: var(--x-color-text-tag-default);
 
   // typography
-  line-height: var(--x-font-line-height-tag);
-  font-family: var(--x-font-family-tag);
-  font-size: var(--x-font-size-tag);
-  font-weight: var(--x-font-weight-tag);
+  line-height: var(--x-size-line-height-tag-default);
+  font-family: var(--x-font-family-tag-default);
+  font-size: var(--x-size-font-tag-default);
+  font-weight: var(--x-number-font-weight-tag-default);
 
-  // spacing
-  gap: var(--x-space-gap-tag);
-  @include safari-gap(var(--x-space-gap-tag));
-  padding: var(--x-space-padding-tag);
-  min-width: calc(3 * var(--x-font-line-height-tag));
+  // size
+  gap: var(--x-size-gap-tag-default);
+  @include safari-gap(var(--x-size-gap-tag-default));
+  padding-block-start: var(--x-size-padding-top-tag-default);
+  padding-block-end: var(--x-size-padding-bottom-tag-default);
+  padding-inline-start: var(--x-size-padding-left-tag-default);
+  padding-inline-end: var(--x-size-padding-right-tag-default);
+  min-width: calc(3 * var(--x-size-line-height-tag-default));
 
   // other
   cursor: pointer;
@@ -36,42 +45,42 @@
   &.x-filter {
     // color
     --x-color-background-filter: transparent;
-    --x-border-width-filter: 0;
-    --x-color-text-filter: var(--x-color-text-tag);
+    --x-size-border-width-filter: 0;
+    --x-color-text-filter: var(--x-color-text-tag-default);
 
-    // spacing
-    --x-space-padding-filter: 0;
-    --x-space-gap-filter: var(--x-space-gap-tag);
+    // size
+    --x-size-padding-filter: 0;
+    --x-size-gap-filter: var(--x-size-gap-tag-default);
 
     // typography
-    --x-font-family-filter: var(--x-font-family-tag);
-    --x-font-size-filter: var(--x-font-size-tag);
-    --x-font-weight-filter: var(--x-font-weight-tag);
-    --x-font-line-height-filter: var(--x-font-line-height-tag);
+    --x-font-family-filter: var(--x-font-family-tag-default);
+    --x-size-font-filter: var(--x-size-font-tag-default);
+    --x-number-font-weight-filter: var(--x-number-font-weight-tag-default);
+    --x-size-line-height-filter: var(--x-size-line-height-tag-default);
   }
 
   // selected (the double .x-tag is to override specificity of the scoped component style)
   &.x-tag.x-tag--is-selected {
     // color
-    background-color: var(--x-color-background-tag-selected);
-    border-color: var(--x-color-border-tag-selected);
-    color: var(--x-color-text-tag-selected);
+    background-color: var(--x-color-background-tag-default-selected);
+    border-color: var(--x-color-border-tag-default-selected);
+    color: var(--x-color-text-tag-default-selected);
 
     // typography
-    line-height: var(--x-font-line-height-tag-selected);
-    font-family: var(--x-font-family-tag-selected);
-    font-size: var(--x-font-size-tag-selected);
-    font-weight: var(--x-font-weight-tag-selected);
+    line-height: var(--x-size-line-height-tag-default-selected);
+    font-family: var(--x-font-family-tag-default-selected);
+    font-size: var(--x-size-font-tag-default-selected);
+    font-weight: var(--x-number-font-weight-tag-default-selected);
 
     &.x-filter {
       // color
-      --x-color-text-filter: var(--x-color-text-tag-selected);
+      --x-color-text-filter: var(--x-color-text-tag-default-selected);
 
       // typography
-      --x-font-family-filter: var(--x-font-family-tag-selected);
-      --x-font-size-filter: var(--x-font-size-tag-selected);
-      --x-font-weight-filter: var(--x-font-weight-tag-selected);
-      --x-font-line-height-filter: var(--x-font-line-height-tag-selected);
+      --x-font-family-filter: var(--x-font-family-tag-default-selected);
+      --x-size-font-filter: var(--x-size-font-tag-default-selected);
+      --x-number-font-weight-filter: var(--x-number-font-weight-tag-default-selected);
+      --x-size-line-height-filter: var(--x-size-line-height-tag-default-selected);
     }
   }
 }

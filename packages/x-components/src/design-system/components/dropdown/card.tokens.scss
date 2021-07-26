@@ -1,8 +1,17 @@
 :root {
-  // spacing
-  --x-space-gap-dropdown-card: var(--x-space-03);
+  // size
+  --x-size-gap-dropdown-card: var(--x-size-base-03);
 
   // border
-  --x-border-radius-dropdown-card: var(--x-border-radius-s);
-  --x-border-width-dropdown-list-card: var(--x-border-width);
+  --x-size-border-radius-dropdown-card: var(--x-size-border-radius-base-s);
+  --x-size-border-radius-top-left-dropdown-card: var(--x-size-border-radius-dropdown-card);
+  --x-size-border-radius-top-right-dropdown-card: var(--x-size-border-radius-dropdown-card);
+  --x-size-border-radius-bottom-right-dropdown-card: var(--x-size-border-radius-dropdown-card);
+  --x-size-border-radius-bottom-left-dropdown-card: var(--x-size-border-radius-dropdown-card);
+
+  --x-size-border-width-dropdown-list-card: var(--x-size-border-width-base);
+  --x-size-border-width-top-dropdown-list-card: var(--x-size-border-width-dropdown-list-card);
+  --x-size-border-width-right-dropdown-list-card: var(--x-size-border-width-dropdown-list-card);
+  --x-size-border-width-bottom-dropdown-list-card: var(--x-size-border-width-dropdown-list-card);
+  --x-size-border-width-left-dropdown-list-card: var(--x-size-border-width-dropdown-list-card);
 }

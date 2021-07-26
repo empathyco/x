@@ -32,7 +32,7 @@ You can check the current search adapter version here: [Search Adapter](https://
 :::
 
 ```jsx
-npm install @empathy/search-adapter
+npm install @empathyco/x-adapter
 ```
 
 And after that you will import it where you install the plugin:
@@ -46,7 +46,7 @@ It is mandatory to import 'reflect-metadata' if you use our adapter!
 
 ```js
 import 'reflect-metadata';
-import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
+import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
 import { installX } from '@empathyco/x-components';
 
 const adapter = new EmpathyAdapterBuilder()

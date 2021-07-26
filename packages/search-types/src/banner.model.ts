@@ -1,4 +1,3 @@
-import { CallbackInfo } from './callback-info.model';
 import { Identifiable } from './identifiable.model';
 import { NamedModel } from './named-model.model';
 import { Tagging } from './tagging.model';
@@ -10,7 +9,7 @@ import { Tagging } from './tagging.model';
  *
  * @public
  */
-export interface Banner extends NamedModel, CallbackInfo, Identifiable {
+export interface Banner extends NamedModel, Identifiable {
   /** Banner title. */
   title: string;
   /** URL to redirect. */

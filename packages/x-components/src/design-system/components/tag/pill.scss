@@ -1,5 +1,11 @@
 .x-tag--pill.x-tag,
 .x-tag--pill .x-tag {
   // border
-  --x-border-radius-tag: var(--x-border-radius-tag-pill)
+  --x-size-border-radius-tag-default: var(--x-size-border-radius-tag-pill);
+  --x-size-border-radius-top-left-tag-default: var(--x-size-border-radius-top-left-tag-pill);
+  --x-size-border-radius-top-right-tag-default: var(--x-size-border-radius-top-right-tag-pill);
+  --x-size-border-radius-bottom-right-tag-default: var(
+    --x-size-border-radius-bottom-right-tag-pill
+  );
+  --x-size-border-radius-bottom-left-tag-default: var(--x-size-border-radius-bottom-left-tag-pill);
 }

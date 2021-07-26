@@ -62,10 +62,18 @@ export function apiDocumentation(options: APIDocumentationPluginOptions): Plugin
  */
 function copyThirdPartyDocModel(buildPath: string, packageName: string): void {
   const docModelName = `${packageName}.api.json`;
-  const originalLocationPath = path.join(
+
+  let originalLocationPath = path.join(
     rootDir,
     `node_modules/@empathyco/${packageName}/report/${docModelName}`
   );
+  if (!fs.existsSync(originalLocationPath)) {
+    originalLocationPath = path.join(
+      rootDir,
+      '../../',
+      `node_modules/@empathyco/${packageName}/report/${docModelName}`
+    );
+  }
   const destinationLocationPath = path.join(buildPath, docModelName);
   fs.copyFileSync(originalLocationPath, destinationLocationPath);
 }

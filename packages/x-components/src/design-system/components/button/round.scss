@@ -1,13 +1,26 @@
 .x-button--round.x-button,
 .x-button--round .x-button {
   // border
-  --x-border-radius-button: var(--x-border-radius-button-round);
+  --x-size-border-radius-button-default: var(--x-size-border-radius-button-round);
+  --x-size-border-radius-top-left-button-default: var(--x-size-border-radius-top-left-button-round);
+  --x-size-border-radius-top-right-button-default: var(
+    --x-size-border-radius-top-right-button-round
+  );
+  --x-size-border-radius-bottom-right-button-default: var(
+    --x-size-border-radius-bottom-right-button-round
+  );
+  --x-size-border-radius-bottom-left-button-default: var(
+    --x-size-border-radius-bottom-left-button-round
+  );
 
-  // spacing
-  --x-space-padding-button: var(--x-space-padding-button-round);
+  // size
+  --x-size-padding-top-button-default: var(--x-size-padding-top-button-round);
+  --x-size-padding-right-button-default: var(--x-size-padding-right-button-round);
+  --x-size-padding-bottom-button-default: var(--x-size-padding-bottom-button-round);
+  --x-size-padding-left-button-default: var(--x-size-padding-left-button-round);
 
   // sizing
-  width: var(--x-size-width-icon);
-  height: var(--x-size-height-icon);
+  min-width: var(--x-size-width-icon);
+  min-height: var(--x-size-height-icon);
   box-sizing: content-box;
 }

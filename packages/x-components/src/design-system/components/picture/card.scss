@@ -1,4 +1,8 @@
 .x-picture--card.x-picture {
   // border
-  --x-border-radius-picture: var(--x-border-radius-picture-card);
+  --x-size-border-radius-picture-default: var(--x-size-border-radius-picture-card);
+  --x-size-border-radius-top-picture-default: var(--x-size-border-radius-top-picture-card);
+  --x-size-border-radius-right-picture-default: var(--x-size-border-radius-right-picture-card);
+  --x-size-border-radius-bottom-picture-default: var(--x-size-border-radius-bottom-picture-card);
+  --x-size-border-radius-left-picture-default: var(--x-size-border-radius-left-picture-card);
 }

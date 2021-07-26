@@ -5,3 +5,5 @@ export * from './range-value.model';
 export * from './simple-filter.model';
 export * from './boolean-filter.model';
 export * from './editable-number-range-filter.model';
+export * from './raw-filter.model';
+export * from './facet-filter.model';

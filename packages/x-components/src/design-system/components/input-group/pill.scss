@@ -1,5 +1,16 @@
 .x-input-group--pill.x-input-group,
 .x-input-group--pill .x-input-group {
-  --x-border-radius-input-group: var(--x-border-radius-input-group-pill);
-  --x-border-radius-input-group-action: var(--x-border-radius-input-group);
+  --x-size-border-radius-input-group-default: var(--x-size-border-radius-input-group-pill);
+  --x-size-border-radius-top-left-input-group-default: var(
+      --x-size-border-radius-top-left-input-group-pill
+  );
+  --x-size-border-radius-top-right-input-group-default: var(
+      --x-size-border-radius-top-right-input-group-pill
+  );
+  --x-size-border-radius-bottom-right-input-group-default: var(
+      --x-size-border-radius-bottom-right-input-group-pill
+  );
+  --x-size-border-radius-bottom-left-input-group-default: var(
+      --x-size-border-radius-bottom-left-input-group-pill
+  );
 }
