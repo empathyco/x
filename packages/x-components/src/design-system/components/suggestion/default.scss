@@ -23,9 +23,10 @@
   cursor: pointer;
 
   // size
-  padding: var(--x-size-padding-top-suggestion-default)
-    var(--x-size-padding-right-suggestion-default) var(--x-size-padding-bottom-suggestion-default)
-    var(--x-size-padding-left-suggestion-default);
+  padding-block-start: var(--x-size-padding-top-suggestion-default);
+  padding-block-end: var(--x-size-padding-bottom-suggestion-default);
+  padding-inline-start: var(--x-size-padding-left-suggestion-default);
+  padding-inline-end: var(--x-size-padding-right-suggestion-default);
   gap: var(--x-size-gap-suggestion-default);
   @include safari-gap(var(--x-size-gap-suggestion-default));
 

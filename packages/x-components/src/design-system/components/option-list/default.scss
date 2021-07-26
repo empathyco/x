@@ -16,10 +16,10 @@
 
     // border
     border-style: solid;
-    border-width: var(--x-size-border-width-top-option-list-item-default)
-      var(--x-size-border-width-right-option-list-item-default)
-      var(--x-size-border-width-bottom-option-list-item-default)
-      var(--x-size-border-width-left-option-list-item-default);
+    border-block-start-width: var(--x-size-border-width-top-option-list-item-default);
+    border-inline-end-width: var(--x-size-border-width-right-option-list-item-default);
+    border-block-end-width: var(--x-size-border-width-bottom-option-list-item-default);
+    border-inline-start-width: var(--x-size-border-width-left-option-list-item-default);
 
     &.x-option-list__item--is-selected {
       // border

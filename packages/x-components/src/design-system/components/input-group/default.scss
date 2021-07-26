@@ -18,10 +18,10 @@
   color: var(--x-color-text-input-group-default);
 
   // border
-  border-width: var(--x-size-border-width-top-input-group-default)
-    var(--x-size-border-width-right-input-group-default)
-    var(--x-size-border-width-bottom-input-group-default)
-    var(--x-size-border-width-left-input-group-default);
+  border-block-start-width: var(--x-size-border-width-top-input-group-default);
+  border-inline-end-width: var(--x-size-border-width-right-input-group-default);
+  border-block-end-width: var(--x-size-border-width-bottom-input-group-default);
+  border-inline-start-width: var(--x-size-border-width-left-input-group-default);
   border-radius: var(--x-size-border-radius-top-left-input-group-default)
     var(--x-size-border-radius-top-right-input-group-default)
     var(--x-size-border-radius-bottom-right-input-group-default)
@@ -55,8 +55,10 @@
     border: none;
 
     // size
-    padding: var(--x-size-padding-top-input-group-default) 0
-      var(--x-size-padding-bottom-input-group-default) 0;
+    padding-block-start: var(--x-size-padding-top-input-group-default);
+    padding-block-end: var(--x-size-padding-bottom-input-group-default);
+    padding-inline-start: 0;
+    padding-inline-end: 0;
 
     &:first-child {
       padding-inline-start: var(--x-size-padding-left-input-group-default);
@@ -72,8 +74,8 @@
     flex: 1 1 100%;
     min-width: 0;
     @include safari {
-      margin-top: calc(var(--x-size-font-input-group-default) * -0.13) !important;
-      margin-bottom: calc(var(--x-size-font-input-group-default) * -0.13) !important;
+      margin-block-start: calc(var(--x-size-font-input-group-default) * -0.13) !important;
+      margin-block-end: calc(var(--x-size-font-input-group-default) * -0.13) !important;
     }
 
     &::placeholder {
@@ -106,13 +108,19 @@
 
     // need negative margin equals to the border width to make
     // the child border to overlap the parent border.
-    margin-top: calc(#{var(--x-size-border-width-top-input-group-default)} * -1) !important;
-    margin-bottom: calc(#{var(--x-size-border-width-bottom-input-group-default)} * -1) !important;
+    margin-block-start: calc(#{var(--x-size-border-width-top-input-group-default)} * -1) !important;
+    margin-block-end: calc(
+      #{var(--x-size-border-width-bottom-input-group-default)} * -1
+    ) !important;
     &:first-child {
-      margin-left: calc(#{var(--x-size-border-width-left-input-group-default)} * -1) !important;
+      margin-inline-start: calc(
+        #{var(--x-size-border-width-left-input-group-default)} * -1
+      ) !important;
     }
     &:last-child {
-      margin-right: calc(#{var(--x-size-border-width-right-input-group-default)} * -1) !important;
+      margin-inline-end: calc(
+        #{var(--x-size-border-width-right-input-group-default)} * -1
+      ) !important;
     }
   }
 }

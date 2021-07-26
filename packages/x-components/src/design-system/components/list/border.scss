@@ -11,7 +11,15 @@
       @if $direction1 != $direction2 {
         &.x-list--border-#{$direction1} {
           &:not(.x-list--border-#{$direction2}) {
-            border-#{$direction2}-width: 0;
+            @if $direction2 == top {
+              border-block-start-width: 0;
+            } @else if $direction2 == right {
+              border-inline-end-width: 0;
+            } @else if $direction2 == bottom {
+              border-block-end-width: 0;
+            } @else {
+              border-inline-start-width: 0;
+            }
           }
         }
       }

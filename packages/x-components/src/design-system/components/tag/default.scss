@@ -10,9 +10,10 @@
 
   // border
   border-style: solid;
-  border-width: var(--x-size-border-width-top-tag-default)
-    var(--x-size-border-width-right-tag-default) var(--x-size-border-width-bottom-tag-default)
-    var(--x-size-border-width-left-tag-default);
+  border-block-start-width: var(--x-size-border-width-top-tag-default);
+  border-block-end-width: var(--x-size-border-width-bottom-tag-default);
+  border-inline-start-width: var(--x-size-border-width-left-tag-default);
+  border-inline-end-width: var(--x-size-border-width-right-tag-default);
   border-radius: var(--x-size-border-radius-top-left-tag-default)
     var(--x-size-border-radius-top-right-tag-default)
     var(--x-size-border-radius-bottom-right-tag-default)
@@ -32,8 +33,10 @@
   // size
   gap: var(--x-size-gap-tag-default);
   @include safari-gap(var(--x-size-gap-tag-default));
-  padding: var(--x-size-padding-top-tag-default) var(--x-size-padding-right-tag-default)
-    var(--x-size-padding-bottom-tag-default) var(--x-size-padding-left-tag-default);
+  padding-block-start: var(--x-size-padding-top-tag-default);
+  padding-block-end: var(--x-size-padding-bottom-tag-default);
+  padding-inline-start: var(--x-size-padding-left-tag-default);
+  padding-inline-end: var(--x-size-padding-right-tag-default);
   min-width: calc(3 * var(--x-size-line-height-tag-default));
 
   // other

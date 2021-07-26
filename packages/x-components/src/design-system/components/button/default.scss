@@ -11,8 +11,10 @@
   // spacing
   gap: var(--x-size-gap-button-default);
   @include safari-gap(var(--x-size-gap-button-default));
-  padding: var(--x-size-padding-top-button-default) var(--x-size-padding-right-button-default)
-    var(--x-size-padding-bottom-button-default) var(--x-size-padding-left-button-default);
+  padding-block-start: var(--x-size-padding-top-button-default);
+  padding-block-end: var(--x-size-padding-bottom-button-default);
+  padding-inline-end: var(--x-size-padding-right-button-default);
+  padding-inline-start: var(--x-size-padding-left-button-default);
 
   // color
   background-color: var(--x-color-background-button-default);
@@ -21,9 +23,10 @@
 
   // border
   border-style: solid;
-  border-width: var(--x-size-border-width-top-button-default)
-    var(--x-size-border-width-right-button-default) var(--x-size-border-width-bottom-button-default)
-    var(--x-size-border-width-left-button-default);
+  border-block-start-width: var(--x-size-border-width-top-button-default);
+  border-block-end-width: var(--x-size-border-width-bottom-button-default);
+  border-inline-start-width: var(--x-size-border-width-left-button-default);
+  border-inline-end-width: var(--x-size-border-width-right-button-default);
   border-radius: var(--x-size-border-radius-top-left-button-default)
     var(--x-size-border-radius-top-right-button-default)
     var(--x-size-border-radius-bottom-right-button-default)

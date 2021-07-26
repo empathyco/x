@@ -5,7 +5,10 @@
     &__children,
     &__children.x-list {
       margin: var(--x-size-margin-filter-children);
-      padding: var(--x-size-padding-filter-children);
+      padding-block-start: var(--x-size-padding-top-filter-children);
+      padding-block-end: var(--x-size-padding-bottom-filter-children);
+      padding-inline-start: var(--x-size-padding-left-filter-children);
+      padding-inline-end: var(--x-size-padding-right-filter-children);
     }
   }
 

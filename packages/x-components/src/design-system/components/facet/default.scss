@@ -13,10 +13,11 @@
 
   // border
   border-style: solid;
-  border-width: var(--x-size-border-width-top-facet-default)
-    var(--x-size-border-width-right-facet-default) var(--x-size-border-width-bottom-facet-default)
-    var(--x-size-border-width-left-facet-default);
-  border-radius: var(--x-size-border-radius-top-left-facet-default)
+  border-block-start-width: var(--x-size-border-width-top-facet-default);
+  border-inline-end-width: var(--x-size-border-width-right-facet-default);
+  border-block-end-width: var(--x-size-border-width-bottom-facet-default);
+  border-inline-start-width: var(--x-size-border-width-left-facet-default);
+  border-radius:var(--x-size-border-radius-top-left-facet-default)
     var(--x-size-border-radius-top-right-facet-default)
     var(--x-size-border-radius-bottom-right-facet-default)
     var(--x-size-border-radius-bottom-left-facet-default);
@@ -39,17 +40,17 @@
     // size
     gap: var(--x-size-gap-facet-header-default);
     @include safari-gap(var(--x-size-gap-facet-header-default));
-    padding: var(--x-size-padding-top-facet-header-default)
-      var(--x-size-padding-right-facet-header-default)
-      var(--x-size-padding-bottom-facet-header-default)
-      var(--x-size-padding-left-facet-header-default);
+    padding-block-start: var(--x-size-padding-top-facet-header-default);
+    padding-block-end: var(--x-size-padding-bottom-facet-header-default);
+    padding-inline-start: var(--x-size-padding-left-facet-header-default);
+    padding-inline-end: var(--x-size-padding-right-facet-header-default);
 
     // border
     border-style: solid;
-    border-width: var(--x-size-border-width-top-facet-header-default)
-      var(--x-size-border-width-right-facet-header-default)
-      var(--x-size-border-width-bottom-facet-header-default)
-      var(--x-size-border-width-left-facet-header-default);
+    border-block-start-width: var(--x-size-border-width-top-facet-header-default);
+    border-inline-end-width: var(--x-size-border-width-right-facet-header-default);
+    border-block-end-width: var(--x-size-border-width-bottom-facet-header-default);
+    border-inline-start-width: var(--x-size-border-width-left-facet-header-default);
 
     // typography
     font-family: var(--x-font-family-facet-default);

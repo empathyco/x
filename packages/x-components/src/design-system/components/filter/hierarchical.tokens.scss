@@ -1,4 +1,7 @@
 :root {
   --x-size-margin-filter-children: 0;
-  --x-size-padding-filter-children: 0 0 0 var(--x-size-base-05);
+  --x-size-padding-top-filter-children: 0;
+  --x-size-padding-right-filter-children: 0;
+  --x-size-padding-bottom-filter-children: 0;
+  --x-size-padding-left-filter-children: var(--x-size-base-05);
 }
