@@ -17,7 +17,7 @@ export interface SimpleFilter extends BooleanFilter {
  *
  * @param filter - The filter to check.
  *
- * @returns A boolean that represents if a filter is an {@link SimpleFilter}.
+ * @returns True if the filter is a {@link SimpleFilter}, false otherwise.
  *
  * @public
  */

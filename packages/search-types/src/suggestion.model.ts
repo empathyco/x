@@ -9,8 +9,8 @@ import { Previewable } from './previewable.model';
  * @public
  */
 export interface Suggestion extends NamedModel, Previewable {
-  // eslint-disable-next-line tsdoc/syntax
-  /** {@inheritDoc Previewable.facets}. */
+  // eslint-disable-next-line jsdoc/require-description-complete-sentence
+  /** {@inheritDoc Previewable.facets} */
   facets: Facet[];
   /**
    * Unique identifier of the suggestion.

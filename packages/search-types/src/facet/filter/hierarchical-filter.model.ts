@@ -21,7 +21,7 @@ export interface HierarchicalFilter extends BooleanFilter {
  *
  * @param filter - The filter to check.
  *
- * @returns A boolean that represents if a filter is an {@link HierarchicalFilter}.
+ * @returns True if the filter is a {@link HierarchicalFilter}, false otherwise.
  *
  * @public
  */

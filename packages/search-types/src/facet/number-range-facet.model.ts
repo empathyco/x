@@ -2,8 +2,8 @@ import { Facet } from './facet.model';
 import { NumberRangeFilter } from './filter/number-range-filter.model';
 
 /**
- * Number Range Facet is a trait for filtering results. It extends from {@link Facet},
- * changes the modelName and uses {@link NumberRangeFilter} as filters.
+ * Number Range Facet is a trait for filtering results. It extends from {@link Facet}, changes the
+ * modelName and uses {@link NumberRangeFilter} as filters.
  *
  * @public
  */
@@ -19,7 +19,7 @@ export interface NumberRangeFacet extends Facet {
  *
  * @param facet - The facet to check.
  *
- * @returns A boolean that represents if a facet is an {@link NumberRangeFacet}.
+ * @returns True if the facet is a {@link NumberRangeFacet}, false otherwise.
  *
  * @public
  */

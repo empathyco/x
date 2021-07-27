@@ -12,9 +12,9 @@ import { Filter } from './filter.model';
  */
 export interface FacetFilter extends Filter {
   /**
-   * The filter {@link ModelNameType | model name} excluding
-   * {@link RawFilter#modelName | RawFilter} model name.
-   **/
+   * The filter {@link ModelNameType | model name} excluding {@link RawFilter#modelName | RawFilter}
+   * model name.
+   */
   modelName: Exclude<FilterModelName, 'RawFilter'>;
   /** An unique ID that identifies the facet that uses this filter. */
   facetId: Facet['id'];
@@ -25,7 +25,7 @@ export interface FacetFilter extends Filter {
  *
  * @param filter - The filter to check.
  *
- * @returns A boolean that represents if a filter is an {@link FacetFilter}.
+ * @returns  True if the filter is a {@link FacetFilter}, false otherwise.
  *
  * @public
  */

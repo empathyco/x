@@ -23,7 +23,7 @@ export interface NumberRangeFilter extends BooleanFilter {
  *
  * @param filter - The filter to check.
  *
- * @returns A boolean that represents if a filter is an {@link NumberRangeFilter}.
+ * @returns True if the filter is a {@link NumberRangeFilter}, false otherwise.
  *
  * @public
  */

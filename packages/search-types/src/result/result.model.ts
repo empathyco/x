@@ -11,7 +11,7 @@ import { ResultTagging } from './result-tagging.model';
  * @public
  */
 export interface Result extends NamedModel, Identifiable {
-  /** The type of the result. I.e. Product, article, pack... */
+  /** The type of the result: product, article, pack, etc... */
   type: string;
   /** Images of the result. It should be the URLs. */
   images: string[];

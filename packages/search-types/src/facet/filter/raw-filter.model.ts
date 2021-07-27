@@ -19,7 +19,7 @@ export interface RawFilter extends Filter {
  *
  * @param filter - The filter to check.
  *
- * @returns A boolean that represents if a filter is an {@link RawFilter}.
+ * @returns True if the filter is a {@link RawFilter}, false otherwise.
  *
  * @public
  */

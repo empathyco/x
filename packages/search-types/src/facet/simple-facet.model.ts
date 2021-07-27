@@ -2,8 +2,8 @@ import { Facet } from './facet.model';
 import { SimpleFilter } from './filter/simple-filter.model';
 
 /**
- * Simple facet is a trait for filtering results. It extends from {@link Facet},
- * changes the modelName and uses {@link SimpleFilter} as filters.
+ * Simple facet is a trait for filtering results. It extends from {@link Facet}, changes the
+ * modelName and uses {@link SimpleFilter} as filters.
  *
  * @public
  */
@@ -19,7 +19,7 @@ export interface SimpleFacet extends Facet {
  *
  * @param facet - The facet to check.
  *
- * @returns A boolean that represents if a facet is an {@link SimpleFacet}.
+ * @returns True if the facet is a {@link SimpleFacet}, false otherwise.
  *
  * @public
  */

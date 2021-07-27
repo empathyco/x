@@ -2,10 +2,8 @@ import { Facet } from './facet.model';
 import { HierarchicalFilter } from './filter/hierarchical-filter.model';
 
 /**
- * Hierarchical facet is a trait for filtering results. It extends from {@link Facet}
- * changes the modelName and uses {@link HierarchicalFilter} as filters.
- *
- * @public
+ * Hierarchical facet is a trait for filtering results. It extends from {@link Facet} changes the
+ * modelName and uses {@link HierarchicalFilter} as filters.
  */
 export interface HierarchicalFacet extends Facet {
   /** Model name to indicate the facet type. */
@@ -19,7 +17,7 @@ export interface HierarchicalFacet extends Facet {
  *
  * @param facet - The facet to check.
  *
- * @returns A boolean that represents if a facet is an {@link HierarchicalFacet}.
+ * @returns True if the facet is a {@link HierarchicalFacet}, false otherwise.
  *
  * @public
  */
