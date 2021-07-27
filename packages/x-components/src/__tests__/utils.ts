@@ -1,17 +1,4 @@
-import {
-  ClicksRecommendationsResponse,
-  FeaturesResponseTypes,
-  NextQueriesResponse,
-  QueriesRecommendationsResponse,
-  RelatedTagsResponse,
-  SearchAdapter,
-  SearchByIdResponse,
-  SearchResponse,
-  SectionRecommendationsResponse,
-  SuggestionsResponse,
-  TopRecommendationsResponse,
-  UserRecommendationsResponse
-} from '@empathyco/x-adapter';
+import { FeaturesResponseTypes, SearchAdapter } from '@empathyco/x-adapter';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { createLocalVue } from '@vue/test-utils';
 import Vue from 'vue';
@@ -94,7 +81,7 @@ export function resetStoreXModuleState<ModuleName extends XModuleName>(
 /**
  * Mocks an adapter function.
  *
- * @param whatReturns - The returned response object or null to resolve with empty.
+ * @param whatReturns - The returned response.
  * @returns Mocked promise.
  *
  * @internal
@@ -102,11 +89,11 @@ export function resetStoreXModuleState<ModuleName extends XModuleName>(
 export function getMockedAdapterFunction<T>(whatReturns: T): Mock<Promise<T>> {
   return jest.fn(
     () =>
-      new Promise(resolve =>
+      new Promise(resolve => {
         setTimeout(() => {
           resolve(whatReturns);
-        })
-      )
+        });
+      })
   );
 }
 
