@@ -75,8 +75,7 @@
      *
      * @internal
      */
-    @XProvide(SEARCH_ITEMS_KEY)
-    public get items(): SearchItem[] {
+    public override get items(): SearchItem[] {
       return this.injectedSearchItems
         ? [...this.stateItems, ...this.injectedSearchItems]
         : this.stateItems;
