@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-types@9.1.0-alpha.1...@empathyco/x-types@10.0.0-alpha.2) (2021-07-27)
+
+
+### Bug Fixes
+
+* **x-types:** Fix filters models inheritance. (#51) ([01b6b1e](https://github.com/empathyco/x/commit/01b6b1e1841deaab84c2c090d26a7e25102252c7)), closes [EX-4449](https://searchbroker.atlassian.net/browse/EX-4449)
+
+
+
 ## [9.1.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-types@9.1.0-alpha.1...@empathyco/x-types@9.1.0-alpha.2) (2021-07-20)
 
 **Note:** Version bump only for package @empathyco/x-types
