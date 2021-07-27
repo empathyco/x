@@ -125,27 +125,36 @@
 
           <!-- Results -->
           <ResultsList v-infinite-scroll:body-scroll>
-            <template #layout="{ results }">
-              <BaseVariableColumnGrid
-                #default="{ item: result }"
-                :animation="resultsAnimation"
-                :items="results"
-              >
-                <article class="result" style="max-width: 300px">
-                  <BaseResultImage class="x-picture--colored" :result="result">
-                    <template #placeholder>
-                      <div style="padding-top: 100%; background-color: lightgray"></div>
-                    </template>
-                    <template #fallback>
-                      <div style="padding-top: 100%; background-color: lightsalmon"></div>
-                    </template>
-                  </BaseResultImage>
-                  <h1 class="x-title3">{{ result.name }}</h1>
-                </article>
-              </BaseVariableColumnGrid>
-            </template>
+            <BannersList>
+              <PromotedsList>
+                <BaseVariableColumnGrid :animation="resultsAnimation">
+                  <template #Result="{ item: result }">
+                    <article class="result" style="max-width: 300px">
+                      <BaseResultImage class="x-picture&#45;&#45;colored" :result="result">
+                        <template #placeholder>
+                          <div style="padding-top: 100%; background-color: lightgray"></div>
+                        </template>
+                        <template #fallback>
+                          <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                        </template>
+                      </BaseResultImage>
+                      <h1 class="x-title3">{{ result.name }}</h1>
+                    </article>
+                  </template>
+
+                  <template #Banner="{ item: banner }">
+                    <Banner :banner="banner" />
+                  </template>
+
+                  <template #Promoted="{ item: promoted }">
+                    <Promoted :promoted="promoted" />
+                  </template>
+                </BaseVariableColumnGrid>
+              </PromotedsList>
+            </BannersList>
           </ResultsList>
         </template>
+
         <template #scroll-to-top>
           <BaseScrollToTop scroll-id="body-scroll" :threshold-px="500">
             <span>⬆</span>
@@ -201,6 +210,10 @@
   import SearchIcon from '../components/icons/search.vue';
   import CrossIcon from '../components/icons/cross.vue';
   import BaseScrollToTop from '../components/scroll/base-scroll-to-top.vue';
+  import BannersList from '../x-modules/search/components/banners-list.vue';
+  import PromotedsList from '../x-modules/search/components/promoteds-list.vue';
+  import Promoted from '../x-modules/search/components/promoted.vue';
+  import Banner from '../x-modules/search/components/banner.vue';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
@@ -217,6 +230,10 @@
       infiniteScroll
     },
     components: {
+      Promoted,
+      PromotedsList,
+      Banner,
+      BannersList,
       BaseIdTogglePanelButton,
       BaseScrollToTop,
       ChevronDown,

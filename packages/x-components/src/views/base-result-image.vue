@@ -36,7 +36,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { getResultsStub } from '../__stubs__/results-stubs.factory';
+  import { createResultStub } from '../__stubs__/results-stubs.factory';
   import { BaseResultImage } from '../components';
   import { XInstaller } from '../x-installer/x-installer';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
@@ -51,7 +51,20 @@
     }
   })
   export default class BaseResultImageView extends Vue {
-    private resultsStub = getResultsStub();
+    private resultsStub = [
+      createResultStub('Product 001', {
+        images: ['https://picsum.photos/seed/1/200/300', 'https://picsum.photos/seed/2/200/300']
+      }),
+      createResultStub('Product 002', { images: ['product-002-01.jpg', 'product-002-02.jpg'] }),
+      createResultStub('Product 003', {
+        images: [
+          'https://notexistsimage1.com',
+          'https://notexistsimage2.com',
+          'https://notexistsimage3.com',
+          'https://picsum.photos/seed/3/200/300'
+        ]
+      })
+    ];
     protected resultWithImages = this.resultsStub[0];
     protected resultWithFailImages = this.resultsStub[1];
     protected resultWithFailImagesAndOkImages = this.resultsStub[2];

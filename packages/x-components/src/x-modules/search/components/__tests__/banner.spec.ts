@@ -7,8 +7,8 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components/x
 import Banner from '../banner.vue';
 
 function renderBanner({
-  template = `<Banner :item="item"/>`,
-  item = createBannerStub('default-banner')
+  template = `<Banner :banner="banner"/>`,
+  banner = createBannerStub('default-banner')
 }: RenderBannerOptions = {}): RenderBannerAPI {
   const [, localVue] = installNewXPlugin();
 
@@ -17,12 +17,12 @@ function renderBanner({
       components: {
         Banner
       },
-      props: ['item'],
+      props: ['banner'],
       template
     },
     {
       propsData: {
-        item
+        banner
       },
       localVue
     }
@@ -46,7 +46,7 @@ describe('testing Banner component', () => {
 
   it('renders the banner component', () => {
     const { wrapper } = renderBanner({
-      item: {
+      banner: {
         modelName: 'Banner',
         id: '12345',
         url: 'https://empathy.co',
@@ -64,7 +64,7 @@ describe('testing Banner component', () => {
 
 interface RenderBannerOptions {
   /** The banner data. */
-  item?: BannerModel;
+  banner?: BannerModel;
   /** The template to be rendered. */
   template?: string;
 }

@@ -14,7 +14,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { GridItem } from '../utils/types';
+  import { SearchItem } from '../utils/types';
   import BaseGrid from './base-grid.vue';
   import { XOn } from './decorators/bus.decorators';
 
@@ -46,8 +46,8 @@
      *
      * @public
      */
-    @Prop({ required: true })
-    protected items!: GridItem[];
+    @Prop()
+    protected items?: SearchItem[];
 
     /**
      * The columns to render in the grid.
