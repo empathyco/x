@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.5...@empathyco/x-components@3.0.0-alpha.7) (2021-07-27)
+
+
+### Features
+
+* **search:** add `BannersList` and `PromotedsList` components ([5794f31](https://github.com/empathyco/x/commit/5794f312d21e8b4ec64192ec0533a6f762b39959)), closes [EX-4293](https://searchbroker.atlassian.net/browse/EX-4293)
+
+
+### Bug Fixes
+
+* **design-system:** Fix padding in Input Group Line variant (#58) ([bea2153](https://github.com/empathyco/x/commit/bea2153b702a37e05cc3240fc6201f5b7f38ed5f)), closes [EX-4459](https://searchbroker.atlassian.net/browse/EX-4459)
+
+
+### Code Refactoring
+
+* **design-system:** rename `tokens`  to use `style-dictionary` ([1c25fdc](https://github.com/empathyco/x/commit/1c25fdcbe7e13388e465dabd565597acbda32f85)), closes [EX-4327](https://searchbroker.atlassian.net/browse/EX-4327)
+
+
+### Testing
+
+* **e2e:** stub 'adapter.getTopRecommendations` calls ([93480b4](https://github.com/empathyco/x/commit/93480b4cd14f90b17d85a12debb4a922381b5de7)), closes [EX-3433](https://searchbroker.atlassian.net/browse/EX-3433)
+
+
+
 ## [3.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.5...@empathyco/x-components@3.0.0-alpha.6) (2021-07-20)
 
 **Note:** Version bump only for package @empathyco/x-components
