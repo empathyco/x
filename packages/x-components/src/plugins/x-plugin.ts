@@ -345,12 +345,8 @@ export class XPlugin implements PluginObject<XPluginOptions> {
     forEach(
       customizedStoreEmitters,
       (event, stateSelector: AnySimpleStateSelector | AnyStateSelector) => {
-        const {
-          selector,
-          immediate = false,
-          filter = () => true,
-          ...options
-        } = this.isSimpleSelector(stateSelector) ? { selector: stateSelector } : stateSelector;
+        const { selector, immediate, filter, ...options } =
+          this.normalizeStateSelector(stateSelector);
 
         this.store.watch(
           state => selector(state.x[name], safeGettersProxy),
@@ -369,6 +365,28 @@ export class XPlugin implements PluginObject<XPluginOptions> {
         }
       }
     );
+  }
+
+  /**
+   * Transforms a {@link AnySimpleStateSelector} into a {@link AnyStateSelector}, and sets
+   * default values for its properties.
+   *
+   * @param stateSelector - The state selector to normalize.
+   * @returns A {@link AnyStateSelector} with all the properties set.
+   * @internal
+   */
+  protected normalizeStateSelector(
+    stateSelector: AnySimpleStateSelector | AnyStateSelector
+  ): Required<AnyStateSelector> {
+    const normalizedSelector = this.isSimpleSelector(stateSelector)
+      ? { selector: stateSelector }
+      : stateSelector;
+    return {
+      deep: false,
+      immediate: false,
+      filter: () => true,
+      ...normalizedSelector
+    };
   }
 
   /**
