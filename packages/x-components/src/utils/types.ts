@@ -140,7 +140,7 @@ export type EventsForDirectionLimit = {
  *
  * @public
  */
-export type GridItem = Identifiable & Partial<NamedModel>;
+export type SearchItem = Identifiable & NamedModel;
 
 /**
  * The type returned by the {@link debounce} function. Basically is the function the

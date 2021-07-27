@@ -33,7 +33,9 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { toKebabCase } from '../utils/string';
-  import { GridItem, VueCSSClasses } from '../utils/types';
+  import { SearchItem, VueCSSClasses } from '../utils/types';
+  import { XInject } from './decorators/injection.decorators';
+  import { SEARCH_ITEMS_KEY } from './decorators/injection.consts';
 
   /**
    * Grid component that is able to render different items based on their modelName value. In order
@@ -54,6 +56,7 @@
      */
     @Prop({ default: 'ul' })
     protected animation!: Vue | string;
+
     /**
      * Number of columns the grid is divided into. By default, its value is 0, setting the grid
      * columns mode to auto-fill.
@@ -62,6 +65,7 @@
      */
     @Prop({ default: 0 })
     protected columns!: number;
+
     /**
      * The list of items to be rendered.
      *
@@ -69,8 +73,33 @@
      *
      * @public
      */
-    @Prop({ required: true })
-    protected items!: GridItem[];
+    @Prop()
+    protected items!: SearchItem[];
+
+    /**
+     * It injects {@link SearchItem} provided by an ancestor.
+     *
+     * @internal
+     */
+    @XInject(SEARCH_ITEMS_KEY)
+    public injectedSearchItems!: SearchItem[];
+
+    /**
+     * It returns the items passed as props or the injected ones.
+     *
+     * @returns List of grid items.
+     *
+     * @public
+     */
+    protected get computedItems(): SearchItem[] {
+      return (
+        this.items ??
+        this.injectedSearchItems ??
+        //TODO: add here logger
+        //eslint-disable-next-line no-console
+        console.warn('It is necessary to pass a prop or inject the list of filters')
+      );
+    }
 
     /**
      * CSS class based on the column property value so items inside the grid can fill different
@@ -108,10 +137,10 @@
      * @internal
      */
     protected get itemsWithCSSClass(): {
-      item: GridItem;
+      item: SearchItem;
       cssClass: VueCSSClasses;
     }[] {
-      return this.items.map(item => ({
+      return this.computedItems.map(item => ({
         item,
         cssClass: item.modelName
           ? `x-base-grid__${toKebabCase(item.modelName)}`
@@ -128,6 +157,11 @@
     display: grid;
     grid-auto-flow: dense;
     list-style: none;
+
+    &__banner {
+      grid-column-start: 1;
+      grid-column-end: -1;
+    }
   }
 </style>
 
