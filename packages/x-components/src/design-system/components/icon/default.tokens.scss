@@ -1,14 +1,14 @@
 :root {
   // color
-  --x-color-stroke-icon: currentColor;
-  --x-color-fill-icon: none;
+  --x-color-stroke-icon-default: currentColor;
+  --x-color-fill-icon-default: none;
 
   // sizing
-  --x-size-width-icon: var(--x-size-width-icon-m);
-  --x-size-height-icon: var(--x-size-height-icon-m);
+  --x-size-width-icon-default: var(--x-size-width-icon-m);
+  --x-size-height-icon-default: var(--x-size-height-icon-m);
 
   // stroke
-  --x-stroke-linecap-icon: butt;
-  --x-stroke-linejoin-icon: mitter;
-  --x-stroke-width-icon: 1px;
+  --x-string-stroke-linecap-icon-default: butt;
+  --x-string-stroke-linejoin-icon-default: mitter;
+  --x-size-stroke-width-icon-default: 1px;
 }

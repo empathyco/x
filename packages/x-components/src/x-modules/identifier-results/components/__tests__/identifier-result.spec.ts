@@ -3,13 +3,13 @@ import Vuex, { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
-import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
+import { createResultStub } from '../../../../__stubs__/results-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { IdentifierResult } from '../index';
 import { resetStoreIdentifierResultState } from './utils';
 
 describe('testing IdentifierResult component', () => {
-  const result = getResultsStub()[0];
+  const result = createResultStub('a022/3234');
 
   let identifierResultWrapper: Wrapper<IdentifierResult>;
 
@@ -36,7 +36,7 @@ describe('testing IdentifierResult component', () => {
     await localVue.nextTick();
 
     expect(getIdentifierResultSpanHtml()).toEqual(
-      '<span class="x-identifier-result__matching-part">A022/32</span>34'
+      '<span class="x-identifier-result__matching-part">a022/32</span>34'
     );
   });
 
@@ -45,7 +45,7 @@ describe('testing IdentifierResult component', () => {
     await localVue.nextTick();
 
     expect(getIdentifierResultSpanHtml()).toEqual(
-      '<span class="x-identifier-result__matching-part">A022/32</span>34'
+      '<span class="x-identifier-result__matching-part">a022/32</span>34'
     );
   });
 
@@ -58,11 +58,11 @@ describe('testing IdentifierResult component', () => {
 
   // eslint-disable-next-line max-len
   it('highlights the part of the identifier  that matches the query with optional character', async () => {
-    resetStoreIdentifierResultState(store, { query: 'A022/32' });
+    resetStoreIdentifierResultState(store, { query: 'a022/32' });
     await localVue.nextTick();
 
     expect(getIdentifierResultSpanHtml()).toEqual(
-      '<span class="x-identifier-result__matching-part">A022/32</span>34'
+      '<span class="x-identifier-result__matching-part">a022/32</span>34'
     );
   });
 
@@ -72,7 +72,7 @@ describe('testing IdentifierResult component', () => {
     await localVue.nextTick();
 
     expect(getIdentifierResultSpanHtml()).toEqual(
-      '<span class="x-identifier-result__matching-part">A022/32</span>34'
+      '<span class="x-identifier-result__matching-part">a022/32</span>34'
     );
   });
 
@@ -82,7 +82,7 @@ describe('testing IdentifierResult component', () => {
     await localVue.nextTick();
 
     expect(getIdentifierResultSpanHtml()).toEqual(
-      '<span class="x-identifier-result__matching-part">A022/32</span>34'
+      '<span class="x-identifier-result__matching-part">a022/32</span>34'
     );
   });
 
@@ -90,7 +90,7 @@ describe('testing IdentifierResult component', () => {
     resetStoreIdentifierResultState(store, { query: 'B022/32' });
     await localVue.nextTick();
 
-    expect(getIdentifierResultSpanHtml()).toEqual('A022/3234');
+    expect(getIdentifierResultSpanHtml()).toEqual('a022/3234');
   });
 
   function getIdentifierResultSpanHtml(): string {

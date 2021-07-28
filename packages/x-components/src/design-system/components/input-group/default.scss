@@ -8,23 +8,29 @@
   align-items: center;
   box-sizing: border-box;
 
-  // spacing
-  gap: var(--x-space-gap-input-group);
-  @include safari-gap(var(--x-space-gap-input-group));
+  // size
+  gap: var(--x-size-gap-input-group-default);
+  @include safari-gap(var(--x-size-gap-input-group-default));
 
   // color
-  background-color: var(--x-color-background-input-group);
-  border-color: var(--x-color-border-input-group);
-  color: var(--x-color-text-input-group);
+  background-color: var(--x-color-background-input-group-default);
+  border-color: var(--x-color-border-input-group-default);
+  color: var(--x-color-text-input-group-default);
 
   // border
-  border-width: var(--x-border-width-input-group);
-  border-radius: var(--x-border-radius-input-group);
+  border-block-start-width: var(--x-size-border-width-top-input-group-default);
+  border-inline-end-width: var(--x-size-border-width-right-input-group-default);
+  border-block-end-width: var(--x-size-border-width-bottom-input-group-default);
+  border-inline-start-width: var(--x-size-border-width-left-input-group-default);
+  border-radius: var(--x-size-border-radius-top-left-input-group-default)
+    var(--x-size-border-radius-top-right-input-group-default)
+    var(--x-size-border-radius-bottom-right-input-group-default)
+    var(--x-size-border-radius-bottom-left-input-group-default);
   border-style: solid;
 
   &:focus-within {
     // color
-    border-color: var(--x-color-border-input-group-focus);
+    border-color: var(--x-color-border-input-group-default-focus);
   }
 
   > *,
@@ -34,29 +40,32 @@
     flex: 0 0 auto;
 
     // typography
-    font-family: var(--x-font-family-input-group);
-    font-size: var(--x-font-size-input-group);
-    font-weight: var(--x-font-weight-input-group);
-    line-height: var(--x-font-line-height-input-group);
+    font-family: var(--x-font-family-input-group-default);
+    font-size: var(--x-size-font-input-group-default);
+    font-weight: var(--x-number-font-weight-input-group-default);
+    line-height: var(--x-size-line-height-input-group-default);
   }
 
   > *:not(.x-input-group__action) {
     // color
     background-color: transparent;
-    color: var(--x-color-text-input-group);
+    color: var(--x-color-text-input-group-default);
 
     // border
     border: none;
 
-    // spacing
-    padding: var(--x-space-padding-top-input-group) 0 var(--x-space-padding-bottom-input-group) 0;
+    // size
+    padding-block-start: var(--x-size-padding-top-input-group-default);
+    padding-block-end: var(--x-size-padding-bottom-input-group-default);
+    padding-inline-start: 0;
+    padding-inline-end: 0;
 
     &:first-child {
-      padding-left: var(--x-space-padding-left-input-group);
+      padding-inline-start: var(--x-size-padding-left-input-group-default);
     }
 
     &:last-child {
-      padding-right: var(--x-space-padding-right-input-group);
+      padding-inline-end: var(--x-size-padding-right-input-group-default);
     }
   }
 
@@ -65,47 +74,53 @@
     flex: 1 1 100%;
     min-width: 0;
     @include safari {
-      margin-top: calc(var(--x-font-size-input-group) * -0.13) !important;
-      margin-bottom: calc(var(--x-font-size-input-group) * -0.13) !important;
+      margin-block-start: calc(var(--x-size-font-input-group-default) * -0.13) !important;
+      margin-block-end: calc(var(--x-size-font-input-group-default) * -0.13) !important;
     }
 
     &::placeholder {
       // typography
-      color: var(--x-color-text-input-group-placeholder);
-      font-family: var(--x-font-family-input-group-placeholder);
-      font-size: var(--x-font-size-input-group-placeholder);
-      font-weight: var(--x-font-weight-input-group-placeholder);
-      line-height: var(--x-font-line-height-input-group-placeholder);
+      color: var(--x-color-text-input-group-placeholder-default);
+      font-family: var(--x-font-family-input-group-placeholder-default);
+      font-size: var(--x-size-font-input-group-placeholder-default);
+      font-weight: var(--x-number-font-weight-input-group-placeholder-default);
+      line-height: var(--x-size-line-height-input-group-placeholder-default);
     }
   }
 
   > .x-button:not(.x-input-group__action) {
     // typography
-    font-weight: var(--x-font-weight-input-group-button);
+    font-weight: var(--x-number-font-weight-input-group-default-button);
   }
 
   > .x-input-group__action {
     //layout
     align-self: stretch;
 
-    // spacing
-    padding: var(--x-space-padding-input-group-action);
+    // size
+    padding: var(--x-size-padding-input-group-default-action);
 
     // border
-    border-radius: var(--x-border-radius-input-group-action);
+    border-radius: var(--x-size-border-radius-top-left-input-group-default)
+      var(--x-size-border-radius-top-right-input-group-default)
+      var(--x-size-border-radius-bottom-right-input-group-default)
+      var(--x-size-border-radius-bottom-left-input-group-default);
+
     // need negative margin equals to the border width to make
     // the child border to overlap the parent border.
-    --x-calculated-margin: calc(#{var(--x-space-margin-input-group-action)} * -1);
-    margin-top: var(--x-calculated-margin) !important;
-    margin-bottom: var(--x-calculated-margin) !important;
+    margin-block-start: calc(#{var(--x-size-border-width-top-input-group-default)} * -1) !important;
+    margin-block-end: calc(
+      #{var(--x-size-border-width-bottom-input-group-default)} * -1
+    ) !important;
     &:first-child {
-      margin-left: var(--x-calculated-margin) !important;
+      margin-inline-start: calc(
+        #{var(--x-size-border-width-left-input-group-default)} * -1
+      ) !important;
     }
     &:last-child {
-      margin-right: var(--x-calculated-margin) !important;
+      margin-inline-end: calc(
+        #{var(--x-size-border-width-right-input-group-default)} * -1
+      ) !important;
     }
   }
-
-  // spacing
-  @include safari-gap(var(--x-space-gap-input-group));
 }

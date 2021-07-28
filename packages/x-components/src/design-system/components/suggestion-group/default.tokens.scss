@@ -1,16 +1,19 @@
 :root {
   // color
-  --x-color-text-suggestion-group: var(--x-color-text-suggestion);
-  --x-color-text-suggestion-group-matching-part: var(--x-color-text-suggestion-matching-part);
-  --x-color-background-suggestion-group: var(--x-color-background-suggestion);
+  --x-color-text-suggestion-group-default: var(--x-color-text-suggestion-default);
+  --x-color-text-suggestion-group-matching-part-default: var(--x-color-text-suggestion-matching-part-default);
+  --x-color-background-suggestion-group-default: var(--x-color-background-suggestion-default);
 
-  // spacing
-  --x-space-padding-suggestion-group: var(--x-space-padding-suggestion) 0;
-  --x-space-gap-suggestion-group: var(--x-space-gap-suggestion);
+  // size
+  --x-size-padding-top-suggestion-group-default: var(--x-size-padding-top-suggestion-default);
+  --x-size-padding-right-suggestion-group-default: var(--x-size-padding-right-suggestion-default);
+  --x-size-padding-bottom-suggestion-group-default: var(--x-size-padding-bottom-suggestion-default);
+  --x-size-padding-left-suggestion-group-default: var(--x-size-padding-left-suggestion-default);
+  --x-size-gap-suggestion-group-default: var(--x-size-gap-suggestion-default);
 
   // typography
-  --x-font-family-suggestion-group: var(--x-font-family-suggestion);
-  --x-font-size-suggestion-group: var(--x-font-size-suggestion);
-  --x-font-line-height-suggestion-group: var(--x-font-line-height-suggestion);
-  --x-font-weight-suggestion-group: var(--x-font-weight-suggestion);
+  --x-font-family-suggestion-group-default: var(--x-font-family-suggestion-default);
+  --x-size-font-suggestion-group-default: var(--x-size-font-suggestion-default);
+  --x-size-line-height-suggestion-group-default: var(--x-size-line-height-suggestion-default);
+  --x-number-font-weight-suggestion-group-default: var(--x-number-font-weight-suggestion);
 }

@@ -1,7 +1,7 @@
 <template>
-  <a :href="item.url" class="x-banner" data-test="banner">
-    <img :src="item.image" class="x-banner__image" alt="" />
-    <h2 class="x-banner__title">{{ item.title }}</h2>
+  <a :href="banner.url" class="x-banner" data-test="banner">
+    <img :src="banner.image" class="x-banner__image" alt="" />
+    <h2 class="x-banner__title">{{ banner.title }}</h2>
   </a>
 </template>
 
@@ -29,14 +29,27 @@
      * @public
      */
     @Prop({ required: true })
-    public item!: BannerModel;
+    public banner!: BannerModel;
   }
 </script>
+
+<style lang="scss">
+  .x-banner {
+    display: flex;
+    flex-flow: column nowrap;
+    text-decoration: none;
+
+    &__image {
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+</style>
 
 <docs lang="mdx">
 ## Events
 
-This component emits no events.
+This component doesn't emit events.
 
 ## See it in action
 
@@ -46,7 +59,7 @@ _Here you can see how the `Banner` component is rendered._
 
 ```vue
 <template>
-  <Banner :item="banner" />
+  <Banner :banner="banner" />
 </template>
 
 <script>

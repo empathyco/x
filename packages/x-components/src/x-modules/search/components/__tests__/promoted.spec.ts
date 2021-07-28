@@ -7,8 +7,8 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components/x
 import Promoted from '../promoted.vue';
 
 function renderPromoted({
-  template = `<Promoted :item="item"/>`,
-  item = createPromotedStub('default-promoted')
+  template = `<Promoted :promoted="promoted"/>`,
+  promoted = createPromotedStub('default-promoted')
 }: RenderPromotedOptions = {}): RenderPromotedAPI {
   const [, localVue] = installNewXPlugin();
 
@@ -17,12 +17,12 @@ function renderPromoted({
       components: {
         Promoted
       },
-      props: ['item'],
+      props: ['promoted'],
       template
     },
     {
       propsData: {
-        item
+        promoted
       },
       localVue
     }
@@ -46,7 +46,7 @@ describe('testing Promoted component', () => {
 
   it('renders the promoted component', () => {
     const { wrapper } = renderPromoted({
-      item: {
+      promoted: {
         modelName: 'Promoted',
         id: '12345',
         url: 'https://empathy.co',
@@ -64,7 +64,7 @@ describe('testing Promoted component', () => {
 
 interface RenderPromotedOptions {
   /** The promoted data. */
-  item?: PromotedModel;
+  promoted?: PromotedModel;
   /** The template to be rendered. */
   template?: string;
 }

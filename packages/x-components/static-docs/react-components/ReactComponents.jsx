@@ -5,7 +5,7 @@ import { QuerySuggestions } from '@empathyco/x-components/query-suggestions';
 import React from 'react';
 import { SearchInput, ClearSearchInput, SearchButton } from '@empathyco/x-components/search-box';
 import { ReactWrapper } from '@empathy/react-wrapper';
-import { EmpathyAdapterBuilder } from '@empathy/search-adapter';
+import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
 
 if (typeof window !== 'undefined' && window.localStorage) {
   const adapter = new EmpathyAdapterBuilder()

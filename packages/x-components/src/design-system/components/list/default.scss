@@ -3,11 +3,11 @@
 .x-list {
   // layout
   display: flex;
-  flex-flow: var(--x-space-flow-list);
+  flex-flow: var(--x-size-flow-list);
   list-style: none;
 
-  // spacing
-  gap: var(--x-space-gap-list);
+  // size
+  gap: var(--x-size-gap-list);
   &:not(.x-list--horizontal),
   &.x-list--vertical {
     @include safari-gap($vertical-gap: var(--x-space-gap-list));
@@ -22,15 +22,15 @@
   }
 
   margin: 0;
-  padding: var(--x-space-padding-list);
-  justify-content: var(--x-space-justify-list);
-  align-items: var(--x-space-align-list);
+  padding: var(--x-size-padding-list);
+  justify-content: var(--x-size-justify-list);
+  align-items: var(--x-size-align-list);
 
   // typography
   font-family: var(--x-font-family-text);
-  font-size: var(--x-font-size-text);
-  font-weight: var(--x-font-weight-text);
-  line-height: var(--x-font-line-height-text);
+  font-size: var(--x-size-font-text);
+  font-weight: var(--x-number-font-weight-text);
+  line-height: var(--x-size-line-height-text);
 
   > * {
     min-width: 0;

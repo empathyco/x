@@ -69,7 +69,7 @@
 
 <style lang="scss" scoped>
   .x-base-scroll {
-    overflow-y: var(--x-space-overflow-scroll, auto);
+    overflow-y: var(--x-string-overflow-scroll, auto);
   }
 </style>
 

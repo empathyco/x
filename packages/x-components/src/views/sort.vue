@@ -26,20 +26,18 @@
     </SortList>
     <!-- Results -->
     <h1>Results</h1>
-    <ResultsList :animation="staggeredFadeAndSlide">
-      <template #layout="{ results, animation }">
-        <BaseGrid :animation="animation" :items="results" :columns="currentColumn">
-          <template #Result="{ item }">
-            <BaseResultLink :result="item">
-              <template #default="{ result }">
-                <span data-test="result-price">{{ result.price.value }}</span>
-                <BaseResultImage :result="result" />
-                <span>{{ result.name }}</span>
-              </template>
-            </BaseResultLink>
-          </template>
-        </BaseGrid>
-      </template>
+    <ResultsList #default="{ items, animation }" :animation="staggeredFadeAndSlide">
+      <BaseGrid :animation="animation" :items="items" :columns="currentColumn">
+        <template #Result="{ item }">
+          <BaseResultLink :result="item">
+            <template #default="{ result }">
+              <span data-test="result-price">{{ result.price.value }}</span>
+              <BaseResultImage :result="result" />
+              <span>{{ result.name }}</span>
+            </template>
+          </BaseResultLink>
+        </template>
+      </BaseGrid>
     </ResultsList>
   </main>
 </template>
@@ -54,7 +52,7 @@
   import { CheckIcon, ChevronDownIcon, ChevronUpIcon, SearchIcon } from '../components/icons/index';
   import BaseResultLink from '../components/result/base-result-link.vue';
   import BaseResultImage from '../components/result/base-result-image.vue';
-  import { GridItem } from '../utils/types';
+  import { SearchItem } from '../utils/types';
   import SortDropdown from '../x-modules/search/components/sort-dropdown.vue';
   import SortList from '../x-modules/search/components/sort-list.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
@@ -97,7 +95,7 @@
     @State('search', 'results')
     public results!: Result[];
 
-    protected get gridItems(): GridItem[] {
+    protected get gridItems(): SearchItem[] {
       return [...getBannersStub(), ...getPromotedsStub(), ...this.results];
     }
 

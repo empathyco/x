@@ -75,6 +75,18 @@ export interface SearchMutations extends StatusMutations {
    */
   appendResults(results: Result[]): void;
   /**
+   * Append the banners to the banners state.
+   *
+   * @param banners - Banners array.
+   */
+  appendBanners(banners: Banner[]): void;
+  /**
+   * Append the promoteds to the promoteds state.
+   *
+   * @param promoteds - Promoteds array.
+   */
+  appendPromoteds(promoteds: Promoted[]): void;
+  /**
    * Sets the banners of the module.
    *
    * @param banners - The new banners to save to the state.

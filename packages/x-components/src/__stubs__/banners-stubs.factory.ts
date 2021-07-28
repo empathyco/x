@@ -22,10 +22,10 @@ export function getBannersStub(): Banner[] {
  */
 export function createBannerStub(identifier: string): Banner {
   return {
-    id: `xp-${identifier}`,
+    id: `xb-${identifier}`,
     title: `Banner ${identifier}`,
     url: `http://x-components-banner-${identifier}.com`,
-    image: `xp-${identifier}.jpg`,
+    image: `xb-${identifier}.jpg`,
     tagging: {
       click: {
         params: {},

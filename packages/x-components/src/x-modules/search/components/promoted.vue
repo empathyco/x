@@ -1,7 +1,7 @@
 <template>
-  <a :href="item.url" class="x-promoted" data-test="promoted">
-    <img :src="item.image" class="x-promoted__image" alt="" />
-    <h2 class="x-promoted__title">{{ item.title }}</h2>
+  <a :href="promoted.url" class="x-promoted" data-test="promoted">
+    <img :src="promoted.image" class="x-promoted__image" alt="" />
+    <h2 class="x-promoted__title">{{ promoted.title }}</h2>
   </a>
 </template>
 
@@ -29,14 +29,27 @@
      * @public
      */
     @Prop({ required: true })
-    public item!: PromotedModel;
+    public promoted!: PromotedModel;
   }
 </script>
+
+<style lang="scss">
+  .x-promoted {
+    display: flex;
+    flex-flow: column nowrap;
+    text-decoration: none;
+
+    &__image {
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+</style>
 
 <docs lang="mdx">
 ## Events
 
-This component emits no events.
+This component doesn't emit events.
 
 ## See it in action
 
@@ -46,7 +59,7 @@ _Here you can see how the `Promoted` component is rendered._
 
 ```vue
 <template>
-  <Promoted :item="promoted" />
+  <Promoted :promoted="promoted" />
 </template>
 
 <script>

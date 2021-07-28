@@ -4,10 +4,13 @@
   overflow: hidden;
 
   // border
-  border-radius: var(--x-border-radius-picture);
+  border-radius: var(--x-size-border-radius-top-picture-default)
+    var(--x-size-border-radius-right-picture-default)
+    var(--x-size-border-radius-bottom-picture-default)
+    var(--x-size-border-radius-left-picture-default);
 
   // color
-  background: var(--x-color-background-picture);
+  background: var(--x-color-background-picture-default);
 
   &__image {
     // layout
@@ -18,28 +21,28 @@
     height: 100%;
 
     // others
-    object-fit: var(--x-object-fit-picture-image);
-    mix-blend-mode: var(--x-mix-blend-mode-picture-image);
+    object-fit: var(--x-object-fit-picture-default);
+    mix-blend-mode: var(--x-mix-blend-mode-picture-default);
 
     &--fallback {
-      --x-object-fit-picture-image: var(--x-object-fit-picture-image-fallback);
-      --x-mix-blend-mode-picture-image: var(--x-mix-blend-mode-picture-image-fallback);
-      & > rect{
-        fill: var(--x-color-fill-fallback-rect);
+      --x-object-fit-picture-default: var(--x-object-fit-picture-fallback-default);
+      --x-mix-blend-mode-picture-default: var(--x-mix-blend-mode-picture-fallback-default);
+      & > rect {
+        fill: var(--x-color-fill-picture-fallback-rect-default);
       }
-      & > path{
-        fill: var(--x-color-fill-fallback-path);
+      & > path {
+        fill: var(--x-color-fill-picture-fallback-path-default);
       }
     }
 
     &--placeholder {
-      --x-object-fit-picture-image: var(--x-object-fit-picture-image-placeholder);
-      --x-mix-blend-mode-picture-image: var(--x-mix-blend-mode-picture-image-placeholder);
-      & > rect{
-        fill: var(--x-color-fill-placeholder-rect);
+      --x-object-fit-picture-default: var(--x-object-fit-picture-placeholder-default);
+      --x-mix-blend-mode-picture-default: var(--x-mix-blend-mode-picture-placeholder-default);
+      & > rect {
+        fill: var(--x-color-fill-picture-placeholder-rect-default);
       }
-      & > path{
-        fill: var(--x-color-fill-placeholder-path);
+      & > path {
+        fill: var(--x-color-fill-picture-placeholder-path-default);
       }
     }
   }

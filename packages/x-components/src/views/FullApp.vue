@@ -301,25 +301,23 @@
       <span>⬆</span>
     </BaseScrollToTop>
     <BaseIdScroll id="scrollId">
-      <ResultsList :animation="staggeredFadeAndSlide">
-        <template #layout="{ results, animation }">
-          <BaseGrid :animation="animation" :items="results" :columns="currentColumn">
-            <template #Result="{ item }">
-              <BaseResultLink :result="item">
-                <template #default="{ result }">
-                  <BaseResultImage :result="result" />
-                  <span>{{ result.name }}</span>
-                </template>
-              </BaseResultLink>
-            </template>
-            <template #Banner="{ item }">
-              <span>{{ item.title }}</span>
-            </template>
-            <template #Promoted="{ item }">
-              <span>{{ item.title }}</span>
-            </template>
-          </BaseGrid>
-        </template>
+      <ResultsList #default="{ items }">
+        <BaseGrid :animation="staggeredFadeAndSlide" :items="items" :columns="currentColumn">
+          <template #Result="{ item }">
+            <BaseResultLink :result="item">
+              <template #default="{ result }">
+                <BaseResultImage :result="result" />
+                <span>{{ result.name }}</span>
+              </template>
+            </BaseResultLink>
+          </template>
+          <template #Banner="{ item }">
+            <span>{{ item.title }}</span>
+          </template>
+          <template #Promoted="{ item }">
+            <span>{{ item.title }}</span>
+          </template>
+        </BaseGrid>
       </ResultsList>
     </BaseIdScroll>
     <!-- Partial Results -->
@@ -380,7 +378,7 @@
   import BaseResultLink from '../components/result/base-result-link.vue';
   import BaseResultImage from '../components/result/base-result-image.vue';
   import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
-  import { Dictionary, GridItem } from '../utils/types';
+  import { Dictionary, SearchItem } from '../utils/types';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
   import SelectedFiltersList from '../x-modules/facets/components/lists/selected-filters-list.vue';
   import SortedFilters from '../x-modules/facets/components/lists/sorted-filters.vue';
@@ -511,7 +509,7 @@
     @State('recommendations', 'recommendations')
     public recommendations!: Result[];
 
-    protected get gridItems(): GridItem[] {
+    protected get gridItems(): SearchItem[] {
       return [...getBannersStub(), ...getPromotedsStub(), ...this.results];
     }
 
@@ -546,7 +544,7 @@
     flex-direction: column;
 
     + .x-column {
-      margin-left: var(--x-space-07, 20px);
+      margin-left: var(--x-size-07, 20px);
     }
   }
 
@@ -555,8 +553,8 @@
   }
 
   .x-empathize {
-    background-color: var(--x-color-neutral-95);
-    border-radius: var(--x-border-radius-s);
+    background-color: var(--x-color-base-neutral-95);
+    border-radius: var(--x-border-radius-base-s);
     z-index: 2;
     width: 100%;
     position: relative;

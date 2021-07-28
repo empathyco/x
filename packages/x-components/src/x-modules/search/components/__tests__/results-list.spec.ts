@@ -1,16 +1,19 @@
 import { Result } from '@empathyco/x-types';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue, { VueConstructor } from 'vue';
+import Vue, { VueConstructor, ComponentOptions } from 'vue';
 import Vuex, { Store } from 'vuex';
+import Component from 'vue-class-component';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
 import BaseGrid from '../../../../components/base-grid.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial } from '../../../../utils/types';
+import { DeepPartial, Dictionary, SearchItem } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import ResultsList from '../results-list.vue';
 import { InfiniteScroll } from '../../../../directives/infinite-scroll/infinite-scroll.types';
+import { XInject } from '../../../../components/decorators/injection.decorators';
+import { SEARCH_ITEMS_KEY } from '../../../../components/decorators/injection.consts';
 import { resetXSearchStateWith } from './utils';
 
 /**
@@ -49,7 +52,7 @@ function renderResultsList({
   const resultsListWrapper = wrapper.findComponent(ResultsList);
 
   return {
-    resultsListWrapper,
+    wrapper: resultsListWrapper,
     getResults() {
       return results;
     }
@@ -58,71 +61,92 @@ function renderResultsList({
 
 describe('testing Results list component', () => {
   it('is an XComponent', () => {
-    const { resultsListWrapper } = renderResultsList();
-    expect(isXComponent(resultsListWrapper.vm)).toEqual(true);
+    const { wrapper } = renderResultsList();
+    expect(isXComponent(wrapper.vm)).toEqual(true);
   });
 
   it('has Search as XModule', () => {
-    const { resultsListWrapper } = renderResultsList();
-    expect(getXComponentXModuleName(resultsListWrapper.vm)).toEqual('search');
+    const { wrapper } = renderResultsList();
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('search');
   });
 
   it('renders the results in the state', () => {
-    const { resultsListWrapper, getResults } = renderResultsList();
-    const resultsListItems = resultsListWrapper.findAll(getDataTestSelector('results-list-item'));
+    const { wrapper, getResults } = renderResultsList();
+    const resultsListItems = wrapper.findAll(getDataTestSelector('results-list-item'));
 
     getResults().forEach((result, index) => {
-      expect(resultsListItems.at(index).text()).toEqual(result.name);
+      expect(resultsListItems.at(index).text()).toEqual(result.id);
     });
   });
 
   it('does not render any result if the are none', () => {
-    const { resultsListWrapper } = renderResultsList({ results: [] });
-    expect(resultsListWrapper.html()).toEqual('');
+    const { wrapper } = renderResultsList({ results: [] });
+    expect(wrapper.html()).toEqual('');
   });
 
   it('allows customizing the result slot', () => {
-    const { resultsListWrapper } = renderResultsList({
+    const { wrapper, getResults } = renderResultsList({
       template: `
         <ResultsList>
-          <template #result="{ result }">
-            <p data-test="result-slot-overridden">{{ result.name }}</p>
+          <template #result="{ searchItem }">
+            <p data-test="result-slot-overridden">Custom result: {{ searchItem.name }}</p>
           </template>
         </ResultsList>`
     });
 
-    expect(resultsListWrapper.find(getDataTestSelector('results-list')).exists()).toBe(true);
-    expect(resultsListWrapper.find(getDataTestSelector('result-slot-overridden')).exists()).toBe(
-      true
+    expect(wrapper.classes('x-search-items-list')).toBe(true);
+    expect(wrapper.find(getDataTestSelector('results-list-item')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('result-slot-overridden')).text()).toBe(
+      `Custom result: ${getResults()[0].name}`
     );
   });
 
-  it('allows customizing the layout slot', () => {
-    const { resultsListWrapper } = renderResultsList({
+  it('allows customizing the default slot', () => {
+    const { wrapper } = renderResultsList({
       template: `
         <ResultsList>
-          <template #layout="{ results }">
-            <BaseGrid :items="results" data-test="layout-slot-overridden"/>
+          <template #default="{ results }">
+            <p :items="results" data-test="default-slot-overridden"/>
           </template>
         </ResultsList>`,
       components: { BaseGrid }
     });
 
-    expect(resultsListWrapper.find(getDataTestSelector('results-list')).exists()).toBe(false);
-    expect(resultsListWrapper.find(getDataTestSelector('layout-slot-overridden')).exists()).toBe(
-      true
-    );
+    expect(wrapper.find(getDataTestSelector('results-list')).exists()).toBe(false);
+    expect(wrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toBe(true);
   });
 
   it('emits an `UserReachedResultListEnd` X event when onInfiniteScrollEnd is called', () => {
-    const { resultsListWrapper } = renderResultsList();
+    const { wrapper } = renderResultsList();
 
     const listener = jest.fn();
-    resultsListWrapper.vm.$x.on('UserReachedResultsListEnd').subscribe(listener);
+    wrapper.vm.$x.on('UserReachedResultsListEnd').subscribe(listener);
 
-    (resultsListWrapper.vm as Vue & InfiniteScroll).onInfiniteScrollEnd();
+    (wrapper.vm as Vue & InfiniteScroll).onInfiniteScrollEnd();
 
     expect(listener).toHaveBeenCalledTimes(1);
+  });
+
+  it('provides the results from state with the key `searchItem`', () => {
+    @Component({
+      template: `
+        <div>{{ items[0].id }}</div>
+      `
+    })
+    class Child extends Vue {
+      @XInject(SEARCH_ITEMS_KEY)
+      public items!: SearchItem[];
+    }
+
+    const { wrapper, getResults } = renderResultsList({
+      template: '<ResultsList><Child /></ResultsList>',
+      components: {
+        Child
+      }
+    });
+
+    const childWrapper = wrapper.find(Child);
+    expect(childWrapper.text()).toBe(getResults()[0].id);
   });
 });
 
@@ -130,14 +154,14 @@ interface RenderResultsListOptions {
   /** The template to be rendered. */
   template?: string;
   /** Components to be rendered. */
-  components?: { [p: string]: VueConstructor };
+  components?: Dictionary<VueConstructor | ComponentOptions<Vue>>;
   /** The `results` used to be rendered. */
   results?: Result[];
 }
 
 interface RenderResultsListAPI {
-  /** The `resultsListWrapper` wrapper component. */
-  resultsListWrapper: Wrapper<Vue>;
+  /** The `wrapper` wrapper component. */
+  wrapper: Wrapper<Vue>;
   /** The `results` used to be rendered. */
   getResults: () => Result[];
 }

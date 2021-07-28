@@ -1,25 +1,16 @@
 <template>
-  <NoElement v-if="results.length">
+  <NoElement>
     <!--
-      @slot Customized Results List layout.
-          @binding {results} results - Results to render
-          @binding {animation} animation - Animation to animate the elements
+      @slot Customize ResultsList.
+        @binding {Result[]} items - Results to render.
+        @binding {Vue | string} animation - Animation to animate the elements.
     -->
-    <slot name="layout" v-bind="{ results, animation }">
-      <component :is="animation" tag="ul" class="x-list x-results-list" data-test="results-list">
-        <li
-          v-for="result in results"
-          :key="result.id"
-          class="x-results-list__item"
-          data-test="results-list-item"
-        >
-          <!--
-            @slot Customized Results List result.
-                @binding {result} result - Result data
-          -->
-          <slot :result="result" name="result">{{ result.name }}</slot>
-        </li>
-      </component>
+    <slot v-bind="{ items, animation }">
+      <SearchItemsList :animation="animation" :searchItems="items">
+        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ searchItem }">
+          <slot :name="slotName" :searchItem="searchItem" />
+        </template>
+      </SearchItemsList>
     </slot>
   </NoElement>
 </template>
@@ -33,29 +24,41 @@
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { searchXModule } from '../x-module';
   import { InfiniteScroll } from '../../../directives/infinite-scroll/infinite-scroll.types';
+  import { SEARCH_ITEMS_KEY } from '../../../components/decorators/injection.consts';
+  import { XProvide } from '../../../components/decorators/injection.decorators';
+  import SearchItemsList from './search-items-list.vue';
 
   /**
-   * It renders a list of results from {@link SearchState.results} by default.
-   * The component provides the slot layout which wraps the whole component with the results bound.
-   * It also provides the slot result to customize the item, which is within the layout slot, with
+   * It renders a {@link SearchItemsList} list with the results from {@link SearchState.results} by
+   * default.
+   *
+   * The component provides a default slot which wraps the whole component with the `results` bound.
+   *
+   * It also provides the slot result to customize the item, which is within the default slot, with
    * the result bound.
    *
    * @public
    */
   @Component({
     components: {
-      NoElement
+      NoElement,
+      SearchItemsList
     },
     mixins: [xComponentMixin(searchXModule)]
   })
   export default class ResultsList extends Vue implements InfiniteScroll {
     /**
-     * The results to render.
+     * The results to render from the state.
+     *
+     * @remarks The results list are provided with `searchItems` key. It can be
+     * concatenated with search items from components such as `BannersList`, `PromotedsList`,
+     * `BaseGrid` or any component that injects the list.
      *
      * @public
      */
+    @XProvide(SEARCH_ITEMS_KEY)
     @State('search', 'results')
-    public results!: Result[];
+    public items!: Result[];
 
     /**
      * Animation component that will be used to animate the results.
@@ -77,52 +80,80 @@
 </script>
 
 <docs lang="mdx">
-#Examples
+## Events
 
-It renders a list of results from {@link SearchState.results} by default. The component provides the
-slot layout which wraps the whole component with the results bound. It also provides the slot result
-to customize the item, which is within the layout slot, with the result bound.
+This component doesn't emit events.
 
-## Basic example
+## See it in action
 
-You don't need to pass any props or slots. Simply add the component and when it has any results it
-will show them.
+<!-- prettier-ignore-start -->
+:::warning Backend service required
+To use this component, the Search service must be implemented.
+:::
+<!-- prettier-ignore-end -->
+
+Here you have a basic example of how the ResultsList is rendered.
+
+_Type any term in the input field to try it out!_
 
 ```vue
-<ResultsList />
+<template>
+  <div>
+    <SearchInput />
+    <ResultsList />
+  </div>
+</template>
+
+<script>
+  import { SearchInput, ResultsList } from '@empathyco/x-components/search';
+
+  export default {
+    name: 'ResultsListDemo',
+    components: {
+      SearchInput,
+      ResultsList
+    }
+  };
+</script>
 ```
 
-## Configuring the animation
-
-The component has an optional prop, `animation`, to render the component using an animation.
+### Play with the animation
 
 ```vue
-<ResultsList :animation="FadeAndSlide" />
+<template>
+  <div>
+    <SearchInput />
+    <ResultsList :animation="fadeAndSlide" />
+  </div>
+</template>
+
+<script>
+  import { SearchInput, ResultsList } from '@empathyco/x-components/search';
+  import { FadeAndSlide } from '@empathyco/x-components/animations';
+
+  export default {
+    name: 'ResultsListDemo',
+    components: {
+      SearchInput,
+      ResultsList
+    },
+    data() {
+      return {
+        fadeAndSlide: FadeAndSlide
+      };
+    }
+  };
+</script>
 ```
 
-## Overriding result content
-
-It renders a list of results using the result slot.
+### Overriding default content
 
 ```vue
-<ResultsList :animation="FadeAndSlide">
-    <template #result="{ result }">
-      <span class="result">
-        {{ result.name }}
-      </span>
-    </template>
-  </ResultsList>
-```
-
-## Overriding layout content
-
-It renders a list of results customizing the layout slot. In the example below, instead of using the
-default ResultsList content, a BaseGrid component is used to render the results.
-
-```vue
-<ResultsList :animation="FadeAndSlide">
-    <template #layout="{ results, animation }">
-      <BaseGrid :items="results" :animation="animation">
+<template>
+  <div>
+    <SearchInput />
+    <ResultsList #default="{ items, animation }">
+      <BaseGrid :items="items" :animation="animation">
         <template #Result="{ item }">
           <span>Result: {{ item.name }}</span>
         </template>
@@ -130,7 +161,89 @@ default ResultsList content, a BaseGrid component is used to render the results.
           <span>Default: {{ item }}</span>
         </template>
       </BaseGrid>
-    </template>
-  </ResultsList>
+    </ResultsList>
+  </div>
+</template>
+
+<script>
+  import { SearchInput, ResultsList } from '@empathyco/x-components/search';
+
+  export default {
+    name: 'ResultsListDemo',
+    components: {
+      SearchInput,
+      ResultsList
+    }
+  };
+</script>
+```
+
+### Overriding result content
+
+```vue
+<template>
+  <div>
+    <SearchInput />
+    <ResultsList #result="{ result }">
+      <span class="result">
+        {{ result.name }}
+      </span>
+    </ResultsList>
+  </div>
+</template>
+
+<script>
+  import { SearchInput, ResultsList } from '@empathyco/x-components/search';
+
+  export default {
+    name: 'ResultsListDemo',
+    components: {
+      SearchInput,
+      ResultsList
+    }
+  };
+</script>
+```
+
+### Data injection
+
+Starting with the `ResultsList` component as root element, you can concat the list of search items
+using `BannersList`, `PromotedsList`, `BaseGrid` or any component that injects the `searchItems`
+value.
+
+```vue
+<template>
+  <div>
+    <SearchInput />
+    <ResultsList>
+      <BannersList>
+        <PromotedsList>
+          <template #result="{ searchItem }">Result: {{ searchItem.id }}</template>
+          <template #banner="{ searchItem }">Banner: {{ searchItem.id }}</template>
+          <template #promoted="{ searchItem }">Promoted: {{ searchItem.id }}</template>
+        </PromotedsList>
+      </BannersList>
+    </ResultsList>
+  </div>
+</template>
+
+<script>
+  import {
+    SearchInput,
+    ResultsList,
+    BannersList,
+    PromotedsList
+  } from '@empathyco/x-components/search';
+
+  export default {
+    name: 'ResultsListDemo',
+    components: {
+      SearchInput,
+      ResultsList,
+      BannersList,
+      PromotedsList
+    }
+  };
+</script>
 ```
 </docs>

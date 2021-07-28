@@ -1,28 +1,39 @@
 :root {
-  // border
-  --x-border-width-tag: var(--x-border-width);
-  --x-border-radius-tag: var(--x-border-radius-none);
-
   // color
-  --x-color-background-tag: var(--x-color-neutral-100);
-  --x-color-border-tag: var(--x-color-text-tag);
-  --x-color-text-tag: var(--x-color-text);
-  --x-color-background-tag-selected: var(--x-color-neutral-95);
-  --x-color-border-tag-selected: var(--x-color-border-tag);
-  --x-color-text-tag-selected: var(--x-color-text-tag);
+  --x-color-background-tag-default: var(--x-color-base-neutral-100);
+  --x-color-border-tag-default: var(--x-color-text-tag-default);
+  --x-color-text-tag-default: var(--x-color-text-default);
+  --x-color-background-tag-default-selected: var(--x-color-base-neutral-95);
+  --x-color-border-tag-default-selected: var(--x-color-border-tag-default);
+  --x-color-text-tag-default-selected: var(--x-color-text-tag-default);
 
+  // border
+  --x-size-border-width-tag-default: var(--x-size-border-width-base);
+  --x-size-border-width-top-tag-default: var(--x-size-border-width-tag-default);
+  --x-size-border-width-right-tag-default: var(--x-size-border-width-tag-default);
+  --x-size-border-width-bottom-tag-default: var(--x-size-border-width-tag-default);
+  --x-size-border-width-left-tag-default: var(--x-size-border-width-tag-default);
 
-  // spacing
-  --x-space-padding-tag: var(--x-space-03) var(--x-space-04);
-  --x-space-gap-tag: var(--x-space-02);
+  --x-size-border-radius-tag-default: var(--x-size-border-radius-base-none);
+  --x-size-border-radius-top-left-tag-default: var(--x-size-border-radius-tag-default);
+  --x-size-border-radius-top-right-tag-default: var(--x-size-border-radius-tag-default);
+  --x-size-border-radius-bottom-right-tag-default: var(--x-size-border-radius-tag-default);
+  --x-size-border-radius-bottom-left-tag-default: var(--x-size-border-radius-tag-default);
+
+  // size
+  --x-size-padding-top-tag-default: var(--x-size-base-03);
+  --x-size-padding-right-tag-default: var(--x-size-base-04);
+  --x-size-padding-bottom-tag-default: var(--x-size-base-03);
+  --x-size-padding-left-tag-default: var(--x-size-base-04);
+  --x-size-gap-tag-default: var(--x-size-base-02);
 
   // typography
-  --x-font-family-tag: var(--x-font-family-text);
-  --x-font-size-tag: var(--x-font-size-text);
-  --x-font-line-height-tag: var(--x-font-line-height-text);
-  --x-font-weight-tag: var(--x-font-weight-text);
-  --x-font-family-tag-selected: var(--x-font-family-tag);
-  --x-font-size-tag-selected: var(--x-font-size-tag);
-  --x-font-line-height-tag-selected: var(--x-font-line-height-tag);
-  --x-font-weight-tag-selected: var(--x-font-weight-tag);
+  --x-font-family-tag-default: var(--x-font-family-text);
+  --x-size-font-tag-default: var(--x-size-font-text);
+  --x-size-line-height-tag-default: var(--x-size-line-height-text);
+  --x-number-font-weight-tag-default: var(--x-number-font-weight-text);
+  --x-font-family-tag-default-selected: var(--x-font-family-tag-default);
+  --x-size-font-tag-default-selected: var(--x-size-font-tag-default);
+  --x-size-line-height-tag-default-selected: var(--x-size-line-height-tag-default);
+  --x-number-font-weight-tag-default-selected: var(--x-number-font-weight-tag-default);
 }

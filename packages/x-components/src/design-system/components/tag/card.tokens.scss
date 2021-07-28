@@ -1,4 +1,8 @@
-:root {
+:root{
   // border
-  --x-border-radius-tag-card: var(--x-border-radius-s);
+  --x-size-border-radius-tag-card: var(--x-size-border-radius-base-s);
+  --x-size-border-radius-top-left-tag-card: var(--x-size-border-radius-tag-card);
+  --x-size-border-radius-top-right-tag-card: var(--x-size-border-radius-tag-card);
+  --x-size-border-radius-bottom-right-tag-card: var(--x-size-border-radius-tag-card);
+  --x-size-border-radius-bottom-left-tag-card: var(--x-size-border-radius-tag-card);
 }

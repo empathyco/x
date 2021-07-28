@@ -3,8 +3,8 @@
   background-color: var(--x-color-background-sliding-panel);
 
   &__button.x-button {
-    // spacing
-    --x-space-padding-button: var(--x-space-padding-sliding-panel-button);
+    // size
+    --x-size-padding-button: var(--x-size-padding-sliding-panel-button);
   }
 
   &.x-sliding-panel--buttons-overflow {
@@ -17,14 +17,14 @@
       &__button-left {
         // layout
         transform: translateX(
-          calc(-100% - var(--x-space-horizontal-margin-sliding-panel-button-overflow))
+          calc(-100% - var(--x-size-horizontal-margin-sliding-panel-button-overflow))
         );
       }
 
       &__button-right {
         // layout
         transform: translateX(
-          calc(100% + var(--x-space-horizontal-margin-sliding-panel-button-overflow))
+          calc(100% + var(--x-size-horizontal-margin-sliding-panel-button-overflow))
         );
       }
     }
@@ -115,7 +115,7 @@
     }
 
     > .x-list {
-      --x-space-flow-list: row nowrap;
+      --x-size-flow-list: row nowrap;
     }
   }
 }

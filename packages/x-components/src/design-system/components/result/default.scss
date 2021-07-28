@@ -13,17 +13,17 @@
   box-sizing: border-box;
 
   // color
-  background-color: var(--x-color-background-result);
-  border-color: var(--x-color-border-result);
+  background-color: var(--x-color-background-result-default);
+  border-color: var(--x-color-border-result-default);
 
-  // spacing
-  padding: var(--x-space-padding-result);
-  gap: var(--x-space-gap-result);
+  // size
+  padding: var(--x-size-padding-result-default);
+  gap: var(--x-size-gap-result-default);
 
   // border
   border-style: solid;
-  border-width: var(--x-border-width-result);
-  border-radius: var(--x-border-radius-result);
+  border-width: var(--x-size-border-width-result-default);
+  border-radius: var(--x-size-border-radius-result-default);
 
   > * {
     min-width: 0;
@@ -35,31 +35,31 @@
     grid-row: picture;
 
     // color
-    border-color: var(--x-color-border-result-picture);
+    border-color: var(--x-color-border-result-picture-default);
 
-    // spacing
-    padding: var(--x-space-padding-result-picture);
+    // size
+    padding: var(--x-size-padding-result-picture-default);
 
     // border
     border-style: solid;
-    border-width: var(--x-border-width-result-picture);
+    border-width: var(--x-size-border-width-result-picture-default);
   }
 
   &__overlay {
     // layout
     grid-column: result;
     grid-row: overlay;
-    z-index: 0;
+    z-index: 1;
 
     // color
-    border-color: var(--x-color-border-result-overlay);
+    border-color: var(--x-color-border-result-overlay-default);
 
     //spacing
-    padding: var(--x-space-padding-result-overlay);
+    padding: var(--x-size-padding-result-overlay-default);
 
     // border
     border-style: solid;
-    border-width: var(--x-border-width-result-overlay);
+    border-width: var(--x-size-border-width-result-overlay-default);
 
     // visibility
     opacity: 0;
@@ -71,14 +71,14 @@
     grid-row: description;
 
     // color
-    border-color: var(--x-color-border-result-description);
+    border-color: var(--x-color-border-result-description-default);
 
     //spacing
-    padding: var(--x-space-padding-result-description);
+    padding: var(--x-size-padding-result-description-default);
 
     // border
     border-style: solid;
-    border-width: var(--x-border-width-result-description);
+    border-width: var(--x-size-border-width-result-description-default);
   }
 
   &:hover {
