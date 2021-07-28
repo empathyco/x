@@ -1,0 +1,79 @@
+{
+  "name": "@empathyco/x-react-wrapper",
+  "version": "3.0.0",
+  "description": "A proxy that transforms Vue components into React ones",
+  "author": "Empathy Systems Corporation S.L.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/react-wrapper#readme",
+  "keywords": [
+    "vue",
+    "react",
+    "wrapper"
+  ],
+  "main": "dist/index.js",
+  "types": "types/index.js",
+  "files": [
+    "dist/**/*",
+    "types/**/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empathyco/x.git",
+    "directory": "packages/react-wrapper"
+  },
+  "scripts": {
+    "serve": "parcel tests/demo/index.html",
+    "build": "tsc",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --headless --browser chrome",
+    "lint": "eslint src",
+    "postbuild": "npm pack",
+    "prepublishOnly": "npm run build",
+    "test": "npm run test:unit && npm run test:e2e:ci",
+    "test:unit": "jest",
+    "test:e2e": "start-server-and-test serve http://localhost:1234 cypress:open",
+    "test:e2e:ci": "start-server-and-test serve http://localhost:1234 cypress:run"
+  },
+  "dependencies": {
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "tslib": "~1.11.1",
+    "vue": "~2.6.14"
+  },
+  "devDependencies": {
+    "@empathyco/eslint-plugin-x": "^1.4.0-alpha.2",
+    "@types/jest": "~25.2.3",
+    "@types/react": "~16.9.0",
+    "@types/react-dom": "~16.9.0",
+    "commitizen": "~4.1.2",
+    "cypress": "~7.7.0",
+    "cz-conventional-changelog": "~3.2.0",
+    "eslint-plugin-react": "~7.20.0",
+    "husky": "~4.2.5",
+    "jest": "~26.0.1",
+    "lint-staged": "~10.2.4",
+    "parcel": "~1.12.4",
+    "start-server-and-test": "~1.11.5",
+    "ts-jest": "~26.0.0",
+    "typescript": "~3.8.3"
+  },
+  "prettier": "@empathyco/eslint-plugin-x/prettier-config",
+  "publishConfig": {
+    "access": "public"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./**/*.{ts,tsx}": [
+      "npm run lint"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
