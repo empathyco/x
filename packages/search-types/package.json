@@ -30,6 +30,7 @@
   "scripts": {
     "build": "rollup -c && npm run gen:docs",
     "build:watch": "rollup -c -w",
+    "lint": "eslint src",
     "gen:model-docs": "api-extractor run -c search-types-extractor.json -l && api-extractor run -c schema-extractor.json -l && api-extractor run -l",
     "gen:typescript-docs": "api-documenter markdown -i report -o docs",
     "gen:docs": "npm run gen:model-docs && npm run gen:typescript-docs",
@@ -40,6 +41,7 @@
     "tslib": "~2.3.0"
   },
   "devDependencies": {
+    "@empathyco/eslint-plugin-x": "^1.4.0-alpha.2",
     "@empathyco/x-jest-utils": "^1.3.1-alpha.3",
     "@microsoft/api-documenter": "~7.13.33",
     "@microsoft/api-extractor": "~7.18.4",
@@ -51,6 +53,7 @@
     "tslint": "~5.16.0",
     "typescript": "~4.3.5"
   },
+  "prettier": "@empathyco/eslint-plugin-x/prettier-config",
   "publishConfig": {
     "access": "public"
   }

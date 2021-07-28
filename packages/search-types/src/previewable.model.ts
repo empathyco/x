@@ -15,6 +15,6 @@ export interface Previewable {
    * they have not been loaded yet. */
   results?: Result[] | null;
   /** The number of results that the combination of `query` and `facets` properties return, or
-   *  `null` if they have not been loaded yet. */
+   * `null` if they have not been loaded yet. */
   totalResults?: number | null;
 }

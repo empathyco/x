@@ -8,12 +8,12 @@ import { Filter } from './filter.model';
  * @public
  */
 export interface HierarchicalFilter extends BooleanFilter {
-    /** Model name to indicate the filter type. */
-    modelName: 'HierarchicalFilter';
-    /** An unique id used to reference the parent filter or null if it hasn't. */
-    parentId: Filter['id'] | null;
-    /** Descendants filters. */
-    children?: this[];
+  /** Model name to indicate the filter type. */
+  modelName: 'HierarchicalFilter';
+  /** An unique id used to reference the parent filter or null if it hasn't. */
+  parentId: Filter['id'] | null;
+  /** Descendants filters. */
+  children?: this[];
 }
 
 /**
@@ -21,8 +21,10 @@ export interface HierarchicalFilter extends BooleanFilter {
  *
  * @param filter - The filter to check.
  *
+ * @returns True if the filter is a {@link HierarchicalFilter}, false otherwise.
+ *
  * @public
  */
 export function isHierarchicalFilter(filter: Filter): filter is HierarchicalFilter {
-    return filter.modelName === 'HierarchicalFilter';
+  return filter.modelName === 'HierarchicalFilter';
 }

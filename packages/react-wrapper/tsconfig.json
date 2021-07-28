@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "baseUrl": ".",
+    "strict": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "declarationDir": "types",
+    "jsx": "react",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "downlevelIteration": true,
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "outDir": "dist"
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["**/__tests__/*/**"]
+}

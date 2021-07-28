@@ -9,13 +9,14 @@ import { Previewable } from './previewable.model';
  * @public
  */
 export interface Suggestion extends NamedModel, Previewable {
+  // eslint-disable-next-line jsdoc/require-description-complete-sentence
   /** {@inheritDoc Previewable.facets} */
   facets: Facet[];
   /**
-   * Unique identifier of the suggestion
+   * Unique identifier of the suggestion.
    *
    * @deprecated - The key field should be calculated if needed using the `query` and the
-   * `facets` properties
+   * `facets` properties.
    */
   key: string;
 }

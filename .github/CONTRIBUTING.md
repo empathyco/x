@@ -81,6 +81,7 @@ Interface X is composed of some different packages. New packages will be added h
 - [@empathyco/x-adapter](/packages/search-adapter) - A search client for Empathy's API.
 - [@empathyco/x-types](/packages/search-types) - TypeScript types & guards for X models.
 - [@empathyco/x-storage-service](/packages/storage-service) - Storage service with TTL.
+- [@empathyco/x-react-wrapper](/packages/react-wrapper) - A proxy that transforms Vue components into React ones.
 
 ## How Can I Contribute?
 
