@@ -1,3 +1,16 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+### 3.0.1-alpha.0 (2021-07-28)
+
+**Note:** Version bump only for package @empathyco/x-react-wrapper
+
+
+
+
+
 # React Wrapper
 ## [3.0.0](https://bitbucket.org/colbenson/react-wrapper/branches/compare/v3.0.0%0Dv2.0.0) (2021-02-18)
 

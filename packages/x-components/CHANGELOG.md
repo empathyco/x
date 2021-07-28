@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.7...@empathyco/x-components@3.0.0-alpha.8) (2021-07-28)
+
+
+### Bug Fixes
+
+* **promoted:** fix name export of PromotedsList component ([e29bc52](https://github.com/empathyco/x/commit/e29bc52d0c82ba85dc013882e5d80674a870de2f)), closes [EX-4484](https://searchbroker.atlassian.net/browse/EX-4484)
+
+
+
 ## [3.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.5...@empathyco/x-components@3.0.0-alpha.7) (2021-07-27)
 
 

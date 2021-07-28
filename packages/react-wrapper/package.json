@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-react-wrapper",
-  "version": "3.0.0",
+  "version": "3.0.1-alpha.0",
   "description": "A proxy that transforms Vue components into React ones",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
