@@ -16,7 +16,7 @@ export interface BooleanFilter extends FacetFilter {
   label: string;
   /** Type to narrow {@link ModelNameType} from the extended Filter for the known subtypes. */
   modelName: BooleanFilterModelName;
-  /** Amount of matching results. **/
+  /** Amount of matching results. */
   totalResults?: number;
 }
 
@@ -24,6 +24,8 @@ export interface BooleanFilter extends FacetFilter {
  * Type guard to check if a filter is a {@link BooleanFilter}.
  *
  * @param filter - The filter to check.
+ *
+ * @returns True if the filter is a {@link BooleanFilter}, false otherwise.
  *
  * @public
  */

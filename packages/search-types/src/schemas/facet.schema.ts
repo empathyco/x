@@ -31,7 +31,7 @@ export const FacetSchema: Facet = {
  */
 export const SimpleFacetSchema: SimpleFacet = {
   ...FacetSchema,
-  filters:  expect.arrayOfItemsMatching(SimpleFilterSchema),
+  filters: expect.arrayOfItemsMatching(SimpleFilterSchema),
   modelName: 'SimpleFacet'
 };
 
@@ -42,7 +42,7 @@ export const SimpleFacetSchema: SimpleFacet = {
  */
 export const HierarchicalFacetSchema: HierarchicalFacet = {
   ...FacetSchema,
-  filters:  expect.arrayOfItemsMatching(HierarchicalFilterSchema),
+  filters: expect.arrayOfItemsMatching(HierarchicalFilterSchema),
   modelName: 'HierarchicalFacet'
 };
 
@@ -53,7 +53,7 @@ export const HierarchicalFacetSchema: HierarchicalFacet = {
  */
 export const NumberRangeFacetSchema: NumberRangeFacet = {
   ...FacetSchema,
-  filters:  expect.arrayOfItemsMatching(NumberRangeFilterSchema),
+  filters: expect.arrayOfItemsMatching(NumberRangeFilterSchema),
   modelName: 'NumberRangeFacet'
 };
 
@@ -64,6 +64,6 @@ export const NumberRangeFacetSchema: NumberRangeFacet = {
  */
 export const EditableNumberRangeFacetSchema: EditableNumberRangeFacet = {
   ...FacetSchema,
-  filters:  expect.arrayOfItemsMatching(EditableNumberRangeFilterSchema),
+  filters: expect.arrayOfItemsMatching(EditableNumberRangeFilterSchema),
   modelName: 'EditableNumberRangeFacet'
 };

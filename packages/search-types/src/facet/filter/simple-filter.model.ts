@@ -8,8 +8,8 @@ import { Filter } from './filter.model';
  * @public
  */
 export interface SimpleFilter extends BooleanFilter {
-    /** Model name to indicate the filter type. */
-    modelName: 'SimpleFilter';
+  /** Model name to indicate the filter type. */
+  modelName: 'SimpleFilter';
 }
 
 /**
@@ -17,8 +17,10 @@ export interface SimpleFilter extends BooleanFilter {
  *
  * @param filter - The filter to check.
  *
+ * @returns True if the filter is a {@link SimpleFilter}, false otherwise.
+ *
  * @public
  */
 export function isSimpleFilter(filter: Filter): filter is SimpleFilter {
-    return filter.modelName === 'SimpleFilter';
+  return filter.modelName === 'SimpleFilter';
 }
