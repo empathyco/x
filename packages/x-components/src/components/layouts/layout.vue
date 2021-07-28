@@ -79,13 +79,12 @@
           </slot>
         </section>
       </BaseIdScroll>
-
-      <div class="x-layout__scroll-to-top">
-        <slot name="scroll-to-top">
-          <span v-if="devMode" class="slot-helper" style="height: 50px">SCROLL TO TOP</span>
-        </slot>
-      </div>
     </main>
+    <div class="x-layout__scroll-to-top">
+      <slot name="scroll-to-top">
+        <span v-if="devMode" class="slot-helper" style="height: 50px">SCROLL TO TOP</span>
+      </slot>
+    </div>
   </div>
 </template>
 
