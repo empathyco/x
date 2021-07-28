@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-  import { SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
+  import { SimpleFilter as SimpleFilterModel } from '@empathyco/x-types-old';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { xComponentMixin } from '../../../../components';

@@ -17,7 +17,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { NumberRangeFilter as NumberRangeFilterModel } from '@empathyco/x-types';
+  import { NumberRangeFilter as NumberRangeFilterModel } from '@empathyco/x-types-old';
   import { xComponentMixin } from '../../../../components';
   import { VueCSSClasses } from '../../../../utils/types';
   import { XEventsTypes } from '../../../../wiring/events.types';

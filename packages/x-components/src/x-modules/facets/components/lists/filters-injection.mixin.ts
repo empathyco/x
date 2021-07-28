@@ -1,4 +1,4 @@
-import { Filter } from '@empathyco/x-types';
+import { Filter } from '@empathyco/x-types-old';
 import Vue from 'vue';
 import { Prop } from 'vue-property-decorator';
 import Component from 'vue-class-component';

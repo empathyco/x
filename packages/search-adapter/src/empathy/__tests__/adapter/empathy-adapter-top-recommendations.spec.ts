@@ -1,4 +1,4 @@
-import { RecommendationSchema } from '@empathyco/x-types/schemas';
+import { RecommendationSchema } from '@empathyco/x-types-old/schemas';
 import { RecommendationsSimpleResponse } from '../../__fixtures__/responses/recommendations.response';
 import { adapter } from '../../__mocks__/adapter.mocks';
 import { getFetchMock, okFetchMock } from '../../__mocks__/fetch.mock';

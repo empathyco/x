@@ -1,4 +1,4 @@
-import { Facet } from '@empathyco/x-types';
+import { Facet } from '@empathyco/x-types-old';
 
 /**
  * Configuration options for the {@link FacetsXModule}.

@@ -1,4 +1,4 @@
-import { Banner, Tagging } from '@empathyco/x-types';
+import { Banner, Tagging } from '@empathyco/x-types-old';
 import { injectable, multiInject } from 'inversify';
 import { DEPENDENCIES } from '../../container/container.const';
 import { MapFn, ResponseMapper, ResponseMapperContext } from '../../empathy-adapter.types';

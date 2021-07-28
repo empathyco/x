@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-  import { Sort } from '@empathyco/x-types';
+  import { Sort } from '@empathyco/x-types-old';
   import Vue from 'vue';
   import { mixins } from 'vue-class-component';
   import { Component, Prop } from 'vue-property-decorator';

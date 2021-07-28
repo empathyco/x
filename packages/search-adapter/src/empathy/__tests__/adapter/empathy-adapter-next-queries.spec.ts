@@ -1,4 +1,4 @@
-import { NextQuerySchema } from '@empathyco/x-types/schemas';
+import { NextQuerySchema } from '@empathyco/x-types-old/schemas';
 import { NextQueriesSimpleResponse } from '../../__fixtures__/responses/next-queries.response';
 import { adapter } from '../../__mocks__/adapter.mocks';
 import { getFetchMock } from '../../__mocks__/fetch.mock';

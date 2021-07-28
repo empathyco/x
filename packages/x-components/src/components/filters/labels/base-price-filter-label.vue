@@ -1,7 +1,7 @@
 <script lang="ts">
   import Vue, { CreateElement, VNode, VNodeChildren } from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { RangeValue } from '@empathyco/x-types';
+  import { RangeValue } from '@empathyco/x-types-old';
   import BaseCurrency from '../../currency/base-currency.vue';
 
   /**

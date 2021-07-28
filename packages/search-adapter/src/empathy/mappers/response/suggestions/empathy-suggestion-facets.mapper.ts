@@ -1,4 +1,4 @@
-import { Facet, Suggestion } from '@empathyco/x-types';
+import { Facet, Suggestion } from '@empathyco/x-types-old';
 import { injectable, multiInject } from 'inversify';
 import { DEPENDENCIES } from '../../../container/container.const';
 import { MapResponse, ResponseMapper, ResponseMapperContext } from '../../../empathy-adapter.types';

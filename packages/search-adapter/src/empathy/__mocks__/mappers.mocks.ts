@@ -1,4 +1,4 @@
-import { Suggestion } from '@empathyco/x-types';
+import { Suggestion } from '@empathyco/x-types-old';
 import { inject, injectable } from 'inversify';
 import { Dictionary } from '../../types';
 import { FeatureConfig } from '../config/empathy-adapter-config.types';

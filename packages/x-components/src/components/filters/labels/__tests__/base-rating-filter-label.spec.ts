@@ -1,4 +1,4 @@
-import { SimpleFilter } from '@empathyco/x-types';
+import { SimpleFilter } from '@empathyco/x-types-old';
 import { mount, Wrapper } from '@vue/test-utils';
 import { getSimpleFilterStub } from '../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector } from '../../../../__tests__/utils';

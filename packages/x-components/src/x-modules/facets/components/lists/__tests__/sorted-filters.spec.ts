@@ -1,4 +1,4 @@
-import { BooleanFilter, Filter } from '@empathyco/x-types';
+import { BooleanFilter, Filter } from '@empathyco/x-types-old';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory';

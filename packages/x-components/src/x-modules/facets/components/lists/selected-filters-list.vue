@@ -39,7 +39,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { Facet } from '@empathyco/x-types';
+  import { Facet } from '@empathyco/x-types-old';
   import { xComponentMixin } from '../../../../components/index';
   import { facetsXModule } from '../../x-module';
   import SelectedFilters from '../selected-filters.vue';

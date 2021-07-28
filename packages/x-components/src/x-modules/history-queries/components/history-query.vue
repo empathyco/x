@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-  import { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types';
+  import { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types-old';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { Getter } from '../../../components/decorators/store.decorators';

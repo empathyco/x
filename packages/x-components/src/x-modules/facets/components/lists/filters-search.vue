@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-  import { Filter } from '@empathyco/x-types';
+  import { Filter } from '@empathyco/x-types-old';
   import { mixins } from 'vue-class-component';
   import { Component, Prop, Watch } from 'vue-property-decorator';
   import { xComponentMixin, XProvide } from '../../../../components';

@@ -1,5 +1,5 @@
 import { SearchByIdRequest } from '@empathyco/x-adapter';
-import { Result } from '@empathyco/x-types';
+import { Result } from '@empathyco/x-types-old';
 
 /**
  * Dictionary of the events of IdentifierResults XModule, where each key is the event name, and the
@@ -10,7 +10,7 @@ import { Result } from '@empathyco/x-types';
 export interface IdentifierResultsXEvents {
   /**
    * Identifier results have been changed.
-   * * Payload: The new {@link @empathyco/x-types#Result | identifier results}.
+   * * Payload: The new {@link @empathyco/x-types-old#Result | identifier results}.
    */
   IdentifierResultsChanged: Result[];
   /**
@@ -21,7 +21,7 @@ export interface IdentifierResultsXEvents {
   IdentifierResultsRequestChanged: SearchByIdRequest | null;
   /**
    * A identifier result has been clicked.
-   * * Payload: The {@link @empathyco/x-types#Result | result}.
+   * * Payload: The {@link @empathyco/x-types-old#Result | result}.
    */
   UserClickedAIdentifierResult: Result;
 }

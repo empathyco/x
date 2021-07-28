@@ -17,7 +17,7 @@
   import Vue from 'vue';
   import { mixins } from 'vue-class-component';
   import { Component, Prop } from 'vue-property-decorator';
-  import { Facet } from '@empathyco/x-types';
+  import { Facet } from '@empathyco/x-types-old';
   import { State } from '../../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
   import { facetsXModule } from '../../x-module';

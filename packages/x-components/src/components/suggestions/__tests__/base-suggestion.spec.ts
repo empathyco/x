@@ -1,4 +1,4 @@
-import { Suggestion } from '@empathyco/x-types';
+import { Suggestion } from '@empathyco/x-types-old';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { normalizeString } from '../../../utils/normalize';

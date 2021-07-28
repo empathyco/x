@@ -1,4 +1,4 @@
-import { PartialResult } from '@empathyco/x-types';
+import { PartialResult } from '@empathyco/x-types-old';
 import { createResultStub } from './results-stubs.factory';
 
 /**

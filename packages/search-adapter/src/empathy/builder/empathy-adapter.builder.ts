@@ -1,4 +1,4 @@
-import { UserInfo } from '@empathyco/x-types';
+import { UserInfo } from '@empathyco/x-types-old';
 import { StorageService } from '@empathyco/x-storage-service';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { Container, injectable } from 'inversify';

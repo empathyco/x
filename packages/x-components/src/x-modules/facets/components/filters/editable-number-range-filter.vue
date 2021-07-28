@@ -74,7 +74,7 @@
   import {
     EditableNumberRangeFilter as EditableNumberRangeFilterModel,
     RangeValue
-  } from '@empathyco/x-types';
+  } from '@empathyco/x-types-old';
   import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
   import { VueCSSClasses } from '../../../../utils/types';
   import { facetsXModule } from '../../x-module';
@@ -177,7 +177,7 @@
     }
 
     /**
-     * Returns {@link @empathyco/x-types#RangeValue | RangeValue} with component min and max
+     * Returns {@link @empathyco/x-types-old#RangeValue | RangeValue} with component min and max
      * values.
      *
      * @returns Range value object with component values.

@@ -1,4 +1,4 @@
-import { RelatedTag } from '@empathyco/x-types';
+import { RelatedTag } from '@empathyco/x-types-old';
 import { Container } from 'inversify';
 import { Dictionary, QueryableRequest } from '../../../types';
 import { DEFAULT_EMPATHY_ADAPTER_CONFIG } from '../../config/empathy-adapter.config';

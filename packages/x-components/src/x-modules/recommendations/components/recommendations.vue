@@ -31,7 +31,7 @@
 
 <script lang="ts">
   import { Component, Prop, Provide } from 'vue-property-decorator';
-  import { Result } from '@empathyco/x-types';
+  import { Result } from '@empathyco/x-types-old';
   import Vue from 'vue';
   import { State } from '../../../components/decorators/store.decorators';
   import { NoElement } from '../../../components/no-element';

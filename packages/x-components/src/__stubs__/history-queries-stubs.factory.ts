@@ -1,4 +1,4 @@
-import { HistoryQuery } from '@empathyco/x-types';
+import { HistoryQuery } from '@empathyco/x-types-old';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { DeepPartial } from '../utils/types';
 

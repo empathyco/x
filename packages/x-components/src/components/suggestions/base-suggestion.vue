@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-  import { Suggestion } from '@empathyco/x-types';
+  import { Suggestion } from '@empathyco/x-types-old';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { normalizeString } from '../../utils/normalize';

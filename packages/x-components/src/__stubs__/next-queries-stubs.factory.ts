@@ -1,4 +1,4 @@
-import { NextQuery } from '@empathyco/x-types';
+import { NextQuery } from '@empathyco/x-types-old';
 
 /**
  * Function to create next queries stub with the modelName passes as parameter.

@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-  import { Result } from '@empathyco/x-types';
+  import { Result } from '@empathyco/x-types-old';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { NoElement } from '../no-element';
@@ -74,7 +74,7 @@
     protected hasImageLoaded = false;
 
     /**
-     * (Required) The {@link @empathyco/x-types#Result | result} information.
+     * (Required) The {@link @empathyco/x-types-old#Result | result} information.
      *
      * @public
      */

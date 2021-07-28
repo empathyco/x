@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-  import { Banner as BannerModel } from '@empathyco/x-types';
+  import { Banner as BannerModel } from '@empathyco/x-types-old';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { xComponentMixin } from '../../../components/x-component.mixin';

@@ -1,7 +1,7 @@
-import { Banner } from '@empathyco/x-types';
+import { Banner } from '@empathyco/x-types-old';
 
 /**
- * Creates {@link @empathyco/x-types#Banner | banners} stub.
+ * Creates {@link @empathyco/x-types-old#Banner | banners} stub.
  *
  * @returns Array of banners stub.
  *

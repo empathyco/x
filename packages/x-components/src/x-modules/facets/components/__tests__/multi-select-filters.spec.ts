@@ -1,4 +1,4 @@
-import { BooleanFilter, Filter } from '@empathyco/x-types';
+import { BooleanFilter, Filter } from '@empathyco/x-types-old';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';

@@ -66,7 +66,7 @@
 </template>
 
 <script lang="ts">
-  import { Identifiable } from '@empathyco/x-types';
+  import { Identifiable } from '@empathyco/x-types-old';
   import { Component, Prop, Watch } from 'vue-property-decorator';
   import Vue from 'vue';
   import { normalizeString } from '../utils/normalize';

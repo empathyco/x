@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { BooleanFilter, Filter, isBooleanFilter } from '@empathyco/x-types';
+  import { BooleanFilter, Filter, isBooleanFilter } from '@empathyco/x-types-old';
   import { mixins } from 'vue-class-component';
   import { Component } from 'vue-property-decorator';
   import { CreateElement, VNode } from 'vue';

@@ -8,12 +8,12 @@ import {
   NumberRangeFilter,
   SimpleFacet,
   SimpleFilter
-} from '@empathyco/x-types';
+} from '@empathyco/x-types-old';
 import {
   HierarchicalFilterSchema,
   NumberRangeFacetSchema, NumberRangeFilterSchema,
   SimpleFacetSchema, SimpleFilterSchema
-} from '@empathyco/x-types/schemas';
+} from '@empathyco/x-types-old/schemas';
 import { Container } from 'inversify';
 import {
   dynamicNumberRangeRawFacet,

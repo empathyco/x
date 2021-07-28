@@ -1,4 +1,4 @@
-import { Filter, Sort } from '@empathyco/x-types';
+import { Filter, Sort } from '@empathyco/x-types-old';
 import { injectable, multiInject } from 'inversify';
 import { Dictionary, QueryableRequest, SearchRequest } from '../../../types';
 import { DEPENDENCIES } from '../../container/container.const';

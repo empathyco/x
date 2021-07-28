@@ -1,5 +1,5 @@
 import { NextQueriesRequest } from '@empathyco/x-adapter';
-import { NextQuery } from '@empathyco/x-types';
+import { NextQuery } from '@empathyco/x-types-old';
 
 /**
  * Dictionary of the events of NextQueries XModule, where each key is the event name, and the value
@@ -10,7 +10,7 @@ import { NextQuery } from '@empathyco/x-types';
 export interface NextQueriesXEvents {
   /**
    * Next Queries have been changed.
-   * * Payload: The new {@link @empathyco/x-types#NextQuery | next queries}.
+   * * Payload: The new {@link @empathyco/x-types-old#NextQuery | next queries}.
    */
   NextQueriesChanged: NextQuery[];
   /**

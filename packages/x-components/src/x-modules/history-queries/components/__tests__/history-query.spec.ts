@@ -1,4 +1,4 @@
-import { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types';
+import { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types-old';
 import { mount } from '@vue/test-utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';

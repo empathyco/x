@@ -1,4 +1,4 @@
-import { Filter, HierarchicalFilter } from '@empathyco/x-types';
+import { Filter, HierarchicalFilter } from '@empathyco/x-types-old';
 import { FacetsActionsContext, FacetsXStoreModule } from '../types';
 
 /**

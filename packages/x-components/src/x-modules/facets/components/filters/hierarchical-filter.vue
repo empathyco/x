@@ -54,7 +54,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { Filter, HierarchicalFilter as HierarchicalFilterModel } from '@empathyco/x-types';
+  import { Filter, HierarchicalFilter as HierarchicalFilterModel } from '@empathyco/x-types-old';
   import { xComponentMixin } from '../../../../components';
   import { isFilterPartiallySelected } from '../../../../utils/filters';
   import { VueCSSClasses } from '../../../../utils/types';

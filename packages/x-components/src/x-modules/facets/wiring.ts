@@ -69,28 +69,28 @@ export const setFrontendFacetsWire = wireDispatch('setFrontendFacets');
 export const setFacetMultiSelect = wireCommit('setFacetMultiSelect');
 
 /**
- * Toggles a {@link @empathyco/x-types#SimpleFilter | SimpleFilter}.
+ * Toggles a {@link @empathyco/x-types-old#SimpleFilter | SimpleFilter}.
  *
  * @public
  */
 export const toggleSimpleFilterWire = wireDispatch('toggleSimpleFilter');
 
 /**
- * Toggles a {@link @empathyco/x-types#HierarchicalFilter | HierarchicalFilter}.
+ * Toggles a {@link @empathyco/x-types-old#HierarchicalFilter | HierarchicalFilter}.
  *
  * @public
  */
 export const toggleHierarchicalFilterWire = wireDispatch('toggleHierarchicalFilter');
 
 /**
- * Toggles a {@link @empathyco/x-types#NumberRangeFilter | NumberRangeFilter}.
+ * Toggles a {@link @empathyco/x-types-old#NumberRangeFilter | NumberRangeFilter}.
  *
  * @public
  */
 export const toggleNumberRangeFilterWire = wireDispatch('toggleNumberRangeFilter');
 
 /**
- * Sets {@link @empathyco/x-types#EditableNumberRangeFilter | EditableNumberRangeFilter} range.
+ * Sets {@link @empathyco/x-types-old#EditableNumberRangeFilter | EditableNumberRangeFilter} range.
  *
  * @public
  */

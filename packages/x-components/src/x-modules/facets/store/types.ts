@@ -7,7 +7,7 @@ import {
   BooleanFilter,
   EditableNumberRangeFilter,
   RangeValue
-} from '@empathyco/x-types';
+} from '@empathyco/x-types-old';
 import { XActionContext, XStoreModule } from '../../../store';
 import { Dictionary } from '../../../utils';
 import { FacetsConfig } from '../config.types';

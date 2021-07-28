@@ -1,7 +1,7 @@
-import { Promoted } from '@empathyco/x-types';
+import { Promoted } from '@empathyco/x-types-old';
 
 /**
- * Creates {@link @empathyco/x-types#Promoted | Promoted} stub.
+ * Creates {@link @empathyco/x-types-old#Promoted | Promoted} stub.
  *
  * @returns Array of Promoted stub.
  *

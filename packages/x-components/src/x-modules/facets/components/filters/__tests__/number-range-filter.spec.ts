@@ -1,4 +1,4 @@
-import { NumberRangeFilter as NumberRangeFilterModel } from '@empathyco/x-types';
+import { NumberRangeFilter as NumberRangeFilterModel } from '@empathyco/x-types-old';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getNumberRangeFilterStub } from '../../../../../__stubs__/filters-stubs.factory';

@@ -77,7 +77,7 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { deepMerge } from '@empathyco/x-deep-merge';
-  import { Result } from '@empathyco/x-types';
+  import { Result } from '@empathyco/x-types-old';
   import { CrossIcon, SearchIcon } from '../components/icons/index';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';

@@ -1,8 +1,8 @@
-import { Result, ResultTagging, Tagging } from '@empathyco/x-types';
+import { Result, ResultTagging, Tagging } from '@empathyco/x-types-old';
 import { toKebabCase } from '../utils/string';
 
 /**
- * Creates {@link @empathyco/x-types#Result | results} stub.
+ * Creates {@link @empathyco/x-types-old#Result | results} stub.
  *
  * @param amount - Number of stubbed results to create.
  *
@@ -53,7 +53,7 @@ export function createResultStub(name: string, result?: Partial<Result>): Result
 }
 
 /**
- * Function to create a {@link @empathyco/x-types#ResultTagging | result tagging} mocked object
+ * Function to create a {@link @empathyco/x-types-old#ResultTagging | result tagging} mocked object
  * based on result id.
  *
  * @param productId - Product id to build mocked params.
@@ -71,7 +71,7 @@ function getResultTagging(productId: string): ResultTagging {
 }
 
 /**
- * Creates a {@link @empathyco/x-types#Tagging | result tagging} mocked object.
+ * Creates a {@link @empathyco/x-types-old#Tagging | result tagging} mocked object.
  *
  * @param action - String with the action to tag.
  * @param params - Params to add to the tagging request.

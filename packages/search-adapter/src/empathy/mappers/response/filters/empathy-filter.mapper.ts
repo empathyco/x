@@ -1,4 +1,4 @@
-import { Filter } from '@empathyco/x-types';
+import { Filter } from '@empathyco/x-types-old';
 import { injectable } from 'inversify';
 import { ResponseMapper, ResponseMapperContext } from '../../../empathy-adapter.types';
 import { EmpathyFilter } from '../../../models';

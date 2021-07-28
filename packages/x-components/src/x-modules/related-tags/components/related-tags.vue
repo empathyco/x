@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-  import { RelatedTag as RelatedTagModel } from '@empathyco/x-types';
+  import { RelatedTag as RelatedTagModel } from '@empathyco/x-types-old';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { Getter } from '../../../components/decorators/store.decorators';

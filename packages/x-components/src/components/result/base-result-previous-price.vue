@@ -19,13 +19,13 @@
 </template>
 
 <script lang="ts">
-  import { Result } from '@empathyco/x-types';
+  import { Result } from '@empathyco/x-types-old';
   import { Component, Prop } from 'vue-property-decorator';
   import Vue from 'vue';
   import BaseCurrency from '../currency/base-currency.vue';
 
   /**
-   * Component that renders the {@link @empathyco/x-types#Result | result} previous price.
+   * Component that renders the {@link @empathyco/x-types-old#Result | result} previous price.
    *
    * @public
    */
@@ -34,7 +34,7 @@
   })
   export default class BaseResultPreviousPrice extends Vue {
     /**
-     * (Required) The {@link @empathyco/x-types#Result | result} information.
+     * (Required) The {@link @empathyco/x-types-old#Result | result} information.
      *
      * @public
      */

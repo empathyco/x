@@ -1,4 +1,4 @@
-import { HistoryQuery } from '@empathyco/x-types';
+import { HistoryQuery } from '@empathyco/x-types-old';
 import { GettersClass } from '../../../../store/getters.types';
 import { normalizeString } from '../../../../utils/normalize';
 import { HistoryQueriesState, HistoryQueriesXStoreModule } from '../types';

@@ -1,4 +1,4 @@
-import { HierarchicalFilter as HierarchicalFilterModel } from '@empathyco/x-types';
+import { HierarchicalFilter as HierarchicalFilterModel } from '@empathyco/x-types-old';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';

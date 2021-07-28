@@ -1,4 +1,4 @@
-import { Promoted as PromotedModel } from '@empathyco/x-types';
+import { Promoted as PromotedModel } from '@empathyco/x-types-old';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { createPromotedStub } from '../../../../__stubs__/promoteds-stubs.factory';

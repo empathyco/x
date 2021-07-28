@@ -46,7 +46,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { Result } from '@empathyco/x-types';
+  import { Result } from '@empathyco/x-types-old';
   import BaseGrid from '../components/base-grid.vue';
   import BaseResultLink from '../components/result/base-result-link.vue';
   import BaseResultImage from '../components/result/base-result-image.vue';

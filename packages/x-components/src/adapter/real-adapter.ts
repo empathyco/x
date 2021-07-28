@@ -1,5 +1,5 @@
 import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
-import { Result } from '@empathyco/x-types';
+import { Result } from '@empathyco/x-types-old';
 
 export const realAdapter = new EmpathyAdapterBuilder()
   .addMapper((_, result: Result) => {

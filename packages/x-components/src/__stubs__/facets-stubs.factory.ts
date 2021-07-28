@@ -9,7 +9,7 @@ import {
   RangeValue,
   SimpleFacet,
   SimpleFilter
-} from '@empathyco/x-types';
+} from '@empathyco/x-types-old';
 import { arrayToObject } from '../utils';
 import { Dictionary } from '../utils/types';
 import {
@@ -19,7 +19,7 @@ import {
 } from './filters-stubs.factory';
 
 /**
- * Creates {@link @empathyco/x-types#SimpleFacet | SimpleFacet} stub.
+ * Creates {@link @empathyco/x-types-old#SimpleFacet | SimpleFacet} stub.
  *
  * @returns A SimpleFacet.
  *
@@ -276,7 +276,7 @@ export function getSimpleFacetStub(): SimpleFacet {
 }
 
 /**
- * Creates {@link @empathyco/x-types#HierarchicalFacet | HierarchicalFacet} stub.
+ * Creates {@link @empathyco/x-types-old#HierarchicalFacet | HierarchicalFacet} stub.
  *
  * @returns A HierarchicalFacet.
  *
@@ -438,7 +438,7 @@ export function getHierarchicalFacetStub(): HierarchicalFacet {
 }
 
 /**
- * Creates {@link @empathyco/x-types#NumberRangeFacet | NumberRangeFacet} stub.
+ * Creates {@link @empathyco/x-types-old#NumberRangeFacet | NumberRangeFacet} stub.
  *
  * @returns A NumberRangeFacet.
  *
@@ -543,7 +543,7 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
 }
 
 /**
- * Creates {@link @empathyco/x-types#Facet | facets} stub.
+ * Creates {@link @empathyco/x-types-old#Facet | facets} stub.
  *
  * @returns Array of facets stub.
  *
@@ -554,7 +554,7 @@ export function getFacetsStub(): Facet[] {
 }
 
 /**
- * Creates {@link @empathyco/x-types#Facet | facets} stub.
+ * Creates {@link @empathyco/x-types-old#Facet | facets} stub.
  *
  * @returns Dictionary of facets stub.
  *
@@ -660,13 +660,13 @@ export function createNumberRangeFacet(
 }
 
 /**
- * Creates a {@link @empathyco/x-types#EditableNumberRangeFacet | EditableNumberRangeFacet} given
- * a label. It uses the `label` properties for generating the ids of the filters.
+ * Creates a {@link @empathyco/x-types-old#EditableNumberRangeFacet | EditableNumberRangeFacet}
+ * given a label. It uses the `label` properties for generating the ids of the filters.
  *
  * @param label - The facet label is also used for generating the facet id.
  * @param createChildren - A function to create the child filters. This function is invoked with
  * a factory to create each child filter, only providing the filter `label` and its `range`.
- * @returns An {@link @empathyco/x-types#EditableNumberRangeFacet | EditableNumberRangeFacet}.
+ * @returns An {@link @empathyco/x-types-old#EditableNumberRangeFacet | EditableNumberRangeFacet}.
  */
 export function createEditableNumberRangeFacetStub(
   label: string,

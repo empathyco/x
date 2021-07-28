@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-  import { Suggestion } from '@empathyco/x-types';
+  import { Suggestion } from '@empathyco/x-types-old';
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
   import { Getter } from '../../../components/decorators/store.decorators';

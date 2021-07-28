@@ -1,5 +1,5 @@
 import { SuggestionsRequest } from '@empathyco/x-adapter';
-import { HistoryQuery, Suggestion } from '@empathyco/x-types';
+import { HistoryQuery, Suggestion } from '@empathyco/x-types-old';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { PopularSearchesConfig } from '../config.types';

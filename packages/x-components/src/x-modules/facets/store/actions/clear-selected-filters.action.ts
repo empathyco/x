@@ -1,4 +1,9 @@
-import { Facet, Filter, isBooleanFilter, isEditableNumberRangeFilter } from '@empathyco/x-types';
+import {
+  Facet,
+  Filter,
+  isBooleanFilter,
+  isEditableNumberRangeFilter
+} from '@empathyco/x-types-old';
 import { ActionsClass } from '../../../../store/actions.types';
 import { FacetsActionsContext, FacetsXStoreModule } from '../types';
 

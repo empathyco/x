@@ -1,4 +1,4 @@
-import { Filter, RelatedTag, Sort } from '@empathyco/x-types';
+import { Filter, RelatedTag, Sort } from '@empathyco/x-types-old';
 import { Dictionary } from './utils.types';
 
 /**

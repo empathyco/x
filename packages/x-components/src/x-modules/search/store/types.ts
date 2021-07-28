@@ -8,7 +8,7 @@ import {
   RelatedTag,
   Result,
   Sort
-} from '@empathyco/x-types';
+} from '@empathyco/x-types-old';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
 import { Dictionary } from '../../../utils/types';

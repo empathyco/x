@@ -1,11 +1,15 @@
-import { EditableNumberRangeFilter, Filter, isEditableNumberRangeFilter } from '@empathyco/x-types';
+import {
+  EditableNumberRangeFilter,
+  Filter,
+  isEditableNumberRangeFilter
+} from '@empathyco/x-types-old';
 import { isStringEmpty } from '../../utils/string';
 
 /**
  * Compares two filters array using
- * - the id of each filter for {@link @empathyco/x-types#BooleanFilter | BooleanFilter}
+ * - the id of each filter for {@link @empathyco/x-types-old#BooleanFilter | BooleanFilter}
  * - {@link areEditableNumberRangeFiltersDifferent} for
- * {@link @empathyco/x-types#EditableNumberRangeFilter | EditableNumberRangeFilter}
+ * {@link @empathyco/x-types-old#EditableNumberRangeFilter | EditableNumberRangeFilter}
  * no matter the order.
  *
  * @param newFilters - New filters array.
@@ -31,7 +35,7 @@ export function areFiltersDifferent(newFilters: Filter[], oldFilters: Filter[]):
 }
 
 /**
- * Compares two {@link @empathyco/x-types#EditableNumberRangeFilter | EditableNumberRangeFilter}
+ * Compares two {@link @empathyco/x-types-old#EditableNumberRangeFilter | EditableNumberRangeFilter}
  * using its id and its `range.min` and `range.max` values.
  *
  * @param filterA - Filter A.

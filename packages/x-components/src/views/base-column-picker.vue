@@ -51,7 +51,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { Result } from '@empathyco/x-types';
+  import { Result } from '@empathyco/x-types-old';
   // eslint-disable-next-line max-len
   import BaseColumnPickerDropdown from '../components/column-picker/base-column-picker-dropdown.vue';
   import BaseColumnPickerList from '../components/column-picker/base-column-picker-list.vue';

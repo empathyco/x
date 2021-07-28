@@ -1,5 +1,5 @@
-import { Result } from '@empathyco/x-types';
-import { ResultSchema } from '@empathyco/x-types/schemas';
+import { Result } from '@empathyco/x-types-old';
+import { ResultSchema } from '@empathyco/x-types-old/schemas';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { Container } from 'inversify';
 import { SearchSimpleResponse, SearchSimpleResponseWithNoTagging } from '../../__fixtures__/responses/search.response';

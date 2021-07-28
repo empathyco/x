@@ -7,7 +7,7 @@ import {
   RelatedTag,
   Result,
   Suggestion
-} from '@empathyco/x-types';
+} from '@empathyco/x-types-old';
 import { Store } from 'vuex';
 import { ActionsTree } from '../store/actions.types';
 import { GettersTree } from '../store/getters.types';

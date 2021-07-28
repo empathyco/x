@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-  import { Filter } from '@empathyco/x-types';
+  import { Filter } from '@empathyco/x-types-old';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import BaseRating from '../../base-rating.vue';

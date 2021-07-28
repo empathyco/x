@@ -1,4 +1,4 @@
-import { BooleanFilter, Facet, Filter } from '@empathyco/x-types';
+import { BooleanFilter, Facet, Filter } from '@empathyco/x-types-old';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { createSimpleFacetStub } from '../../../../__stubs__/facets-stubs.factory';

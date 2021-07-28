@@ -1,4 +1,4 @@
-import { ResultSchema } from '@empathyco/x-types/schemas';
+import { ResultSchema } from '@empathyco/x-types-old/schemas';
 import { SearchByIdSimpleResponse } from '../../__fixtures__/responses/search-by-id.response';
 import { adapter } from '../../__mocks__/adapter.mocks';
 import { getFetchMock } from '../../__mocks__/fetch.mock';

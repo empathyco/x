@@ -1,4 +1,4 @@
-import { Banner as BannerModel } from '@empathyco/x-types';
+import { Banner as BannerModel } from '@empathyco/x-types-old';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { createBannerStub } from '../../../../__stubs__/banners-stubs.factory';

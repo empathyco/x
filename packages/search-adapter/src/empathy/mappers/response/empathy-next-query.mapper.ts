@@ -1,4 +1,4 @@
-import { NextQuery } from '@empathyco/x-types';
+import { NextQuery } from '@empathyco/x-types-old';
 import { injectable } from 'inversify';
 import { ResponseMapper } from '../../empathy-adapter.types';
 import { EmpathyNextQuery } from '../../models/entities/empathy-next-query.model';

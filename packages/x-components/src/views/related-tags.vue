@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-  import { Result } from '@empathyco/x-types';
+  import { Result } from '@empathyco/x-types-old';
   import { deepMerge } from '@empathyco/x-deep-merge';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';

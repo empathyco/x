@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-  import { Facet, Filter } from '@empathyco/x-types';
+  import { Facet, Filter } from '@empathyco/x-types-old';
   import { Component, Prop } from 'vue-property-decorator';
   import Vue from 'vue';
   import { Getter, xComponentMixin } from '../../../components';

@@ -1,7 +1,7 @@
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { BooleanFilter } from '@empathyco/x-types';
+import { BooleanFilter } from '@empathyco/x-types-old';
 import { createSimpleFacetStub } from '../../../../__stubs__/facets-stubs.factory';
 import { getXComponentXModuleName, isXComponent } from '../../../../components';
 import { XPlugin } from '../../../../plugins';

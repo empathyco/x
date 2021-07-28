@@ -1,4 +1,4 @@
-import { EditableNumberRangeFilter, RangeValue } from '@empathyco/x-types';
+import { EditableNumberRangeFilter, RangeValue } from '@empathyco/x-types-old';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -307,10 +307,10 @@ describe('testing BaseNumberRangeFilter component', () => {
 interface EditableNumberRangeFilterOptions {
   /** The template to be rendered. */
   template?: string;
-  /** The {@link @empathyco/x-types#RangeValue | RangeValue} object to init the filter. */
+  /** The {@link @empathyco/x-types-old#RangeValue | RangeValue} object to init the filter. */
   range?: RangeValue;
   /**
-   * The {@link @empathyco/x-types#EditableNumberRangeFilter | EditableNumberRangeFilter} object
+   * The {@link @empathyco/x-types-old#EditableNumberRangeFilter | EditableNumberRangeFilter} object
    * to be passed to the component.
    */
   filter?: EditableNumberRangeFilter;

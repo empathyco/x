@@ -1,5 +1,5 @@
 import { getSafePropertyChain } from '@empathyco/x-get-safe-property-chain';
-import { Result, Tagging } from '@empathyco/x-types';
+import { Result, Tagging } from '@empathyco/x-types-old';
 import { inject, injectable, multiInject } from 'inversify';
 import { EmpathyAdapterConfig } from '../../../config/empathy-adapter-config.types';
 import { DEPENDENCIES } from '../../../container/container.const';

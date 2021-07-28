@@ -19,7 +19,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { BooleanFilter } from '@empathyco/x-types';
+  import { BooleanFilter } from '@empathyco/x-types-old';
   import { xComponentMixin } from '../../../../components';
   import BaseEventButton from '../../../../components/base-event-button.vue';
   import { VueCSSClasses } from '../../../../utils/types';
@@ -28,7 +28,7 @@
 
   /**
    * Renders a button with a default slot. It receives a
-   * {@link @empathyco/x-types#BooleanFilter | BooleanFilter} that will be used in the
+   * {@link @empathyco/x-types-old#BooleanFilter | BooleanFilter} that will be used in the
    * default slot and the {@link XEvent | XEvents} that will be emitted when clicking the button.
    *
    * @public

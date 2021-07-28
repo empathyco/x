@@ -1,4 +1,4 @@
-import { RelatedTag } from '@empathyco/x-types';
+import { RelatedTag } from '@empathyco/x-types-old';
 
 /**
  * Function to create related tags stub.

@@ -1,4 +1,4 @@
-import { BooleanFilter, Facet } from '@empathyco/x-types';
+import { BooleanFilter, Facet } from '@empathyco/x-types-old';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';

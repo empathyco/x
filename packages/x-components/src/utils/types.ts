@@ -1,4 +1,4 @@
-import { Identifiable, NamedModel } from '@empathyco/x-types';
+import { Identifiable, NamedModel } from '@empathyco/x-types-old';
 import { XEventsTypes } from '../wiring/events.types';
 import { XModuleName } from '../x-modules/x-modules.types';
 
@@ -135,8 +135,8 @@ export type EventsForDirectionLimit = {
 
 /**
  * Type representing a grid item. It has to be an
- * {@link @empathyco/x-types#Identifiable | Identifiable} object that can optionally contain a
- * {@link @empathyco/x-types#NamedModel.modelName | modelName}.
+ * {@link @empathyco/x-types-old#Identifiable | Identifiable} object that can optionally contain a
+ * {@link @empathyco/x-types-old#NamedModel.modelName | modelName}.
  *
  * @public
  */

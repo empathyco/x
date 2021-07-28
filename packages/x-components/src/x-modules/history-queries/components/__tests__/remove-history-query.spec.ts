@@ -1,4 +1,4 @@
-import { HistoryQuery } from '@empathyco/x-types';
+import { HistoryQuery } from '@empathyco/x-types-old';
 import { mount } from '@vue/test-utils';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import RemoveHistoryQuery from '../remove-history-query.vue';
