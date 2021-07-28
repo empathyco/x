@@ -130,7 +130,7 @@
     "typescript": "~3.8.3",
     "vue-docgen-cli": "~4.13.1",
     "vue-router": "~3.4.3",
-    "vue-template-compiler": "~2.6.10"
+    "vue-template-compiler": "^2.6.10"
   },
   "publishConfig": {
     "access": "public",
