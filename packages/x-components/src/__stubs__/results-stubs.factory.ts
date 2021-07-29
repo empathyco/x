@@ -11,8 +11,8 @@ import { toKebabCase } from '../utils/string';
  * @internal
  */
 export function getResultsStub(amount = 3): Result[] {
-  return Array.from<number, Result>({ length: amount }, element =>
-    createResultStub(`Product ${element + 1}`)
+  return Array.from<number, Result>({ length: amount }, (_, index) =>
+    createResultStub(`Product ${index + 1}`)
   );
 }
 

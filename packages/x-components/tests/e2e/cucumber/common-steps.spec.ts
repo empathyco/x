@@ -1,4 +1,4 @@
-import { Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 let resultsList: string[] = [];
 
@@ -33,7 +33,7 @@ Then('related tags are displayed', () => {
 });
 
 // Results
-Then('related results are displayed', () => {
+Then('results are displayed', () => {
   resultsList = [];
   cy.getByDataTest('result-item')
     .should('have.length.at.least', 1)
@@ -72,3 +72,11 @@ Then(
     cy.getByDataTest('search-input').should('have.value', this.searchedQuery);
   }
 );
+
+// Search
+And('search response being mock {string}', (mockName: string) => {
+  cy.intercept('https://api.empathy.co/search', async req => {
+    const module = await import('../dummy/search.dummy');
+    req.reply(module[mockName as keyof typeof module]);
+  });
+});

@@ -30,8 +30,8 @@ window.__mockedAdapter = {
 };
 
 export const mockedAdapter: SearchAdapter = {
-  getNextQueries() {
-    return tryResolve('getNextQueries');
+  getNextQueries(request) {
+    return mockFetch<'getNextQueries'>(request, 'nextQueries');
   },
   getTopRecommendations(request) {
     return mockFetch<'getTopRecommendations'>(request, 'topRecommendations');
@@ -54,8 +54,8 @@ export const mockedAdapter: SearchAdapter = {
   getSuggestions() {
     return tryResolve('getSuggestions');
   },
-  search() {
-    return tryResolve('search');
+  search(request) {
+    return mockFetch<'search'>(request, 'search');
   },
   searchById() {
     return tryResolve('searchById');

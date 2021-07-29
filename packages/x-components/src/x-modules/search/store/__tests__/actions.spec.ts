@@ -247,7 +247,7 @@ describe('testing search module actions', () => {
 
       adapter.search.mockResolvedValueOnce({
         ...mockedEmptySearchResponse,
-        results: resultsStub.slice(0, 1),
+        results: resultsStub.slice(1, 2),
         banners: bannersStub.slice(0, 1),
         promoteds: promotedsStub.slice(1, 2)
       });
