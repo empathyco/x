@@ -120,7 +120,7 @@ function createIntersectionObserver({
       }
     },
     {
-      threshold: 1,
+      threshold: 0.99,
       rootMargin,
       root
     }

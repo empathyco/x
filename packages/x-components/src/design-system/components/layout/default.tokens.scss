@@ -63,6 +63,10 @@
   --x-size-justify-layout-main-body: flex-start;
   --x-size-align-layout-main-body: stretch;
 
+  // size- scroll-to-top
+  --x-size-margin-bottom-layout-scroll-to-top: var(--x-size-base-03);
+  --x-size-margin-left-layout-scroll-to-top: var(--x-size-base-03);
+
   // color
   --x-color-background-layout: var(--x-color-base-neutral-100);
   --x-color-background-layout-header: transparent;
