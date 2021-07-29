@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.9...@empathyco/x-components@3.0.0-alpha.10) (2021-07-29)
+
+
+### Features
+
+* **facets-next:** add module (#64) ([b002637](https://github.com/empathyco/x/commit/b002637c535d9a1654a264cd3c759fc013cf8fdc)), closes [EX-3647](https://searchbroker.atlassian.net/browse/EX-3647)
+
+
+### Build System
+
+* use 2 different versions of search-types ([5a6ac76](https://github.com/empathyco/x/commit/5a6ac76fea26c0f284904d4f514a1370b7c6184b)), closes [EX-4477](https://searchbroker.atlassian.net/browse/EX-4477)
+
+
+
 ## [3.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.8...@empathyco/x-components@3.0.0-alpha.9) (2021-07-29)
 
 
