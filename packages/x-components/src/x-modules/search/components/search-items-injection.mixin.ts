@@ -37,7 +37,3 @@ export default class SearchItemsInjectionMixin extends Vue {
   @XInject(SEARCH_ITEMS_KEY)
   public injectedSearchItems: SearchItem[] | undefined;
 }
-
-type Something = `Some ${string}`;
-/** @public */
-export const test: Something = 'Some test';
