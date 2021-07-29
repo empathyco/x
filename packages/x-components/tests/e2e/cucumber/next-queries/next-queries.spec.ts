@@ -36,19 +36,6 @@ And('next queries response being mock {string}', (mockName: string) => {
   });
 });
 
-And('next queries response being mock {string}', (mockName: string) => {
-  cy.intercept('https://api.empathy.co/nextQueries', async req => {
-    const module = await import('./stubs/next-queries.stub');
-    req.reply(module[mockName as keyof typeof module]);
-  }).as('interceptedNextQueries');
-
-  cy.visit('/test/next-queries?useMockedAdapter=true', {
-    qs: {
-      xModules: JSON.stringify(config)
-    }
-  });
-});
-
 // Scenario 1
 Then('at most {int} next queries are displayed', (maxItemsToRequest: number) => {
   cy.getByDataTest('next-query')
