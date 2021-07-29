@@ -236,7 +236,7 @@ describe('testing search module actions', () => {
     });
 
     // eslint-disable-next-line max-len
-    it('appends results, banners and promoteds to the state when the page increases and the isAppendResults is true', async () => {
+    it('appends results to the state when the page increases and the isAppendResults is true', async () => {
       resetSearchStateWith(store, {
         query: 'lego',
         results: resultsStub.slice(0, 1),
@@ -247,16 +247,16 @@ describe('testing search module actions', () => {
 
       adapter.search.mockResolvedValueOnce({
         ...mockedEmptySearchResponse,
-        results: resultsStub.slice(1, 2),
-        banners: bannersStub.slice(1, 2),
+        results: resultsStub.slice(0, 1),
+        banners: bannersStub.slice(0, 1),
         promoteds: promotedsStub.slice(1, 2)
       });
 
       await store.dispatch(actionKeys.fetchAndSaveSearchResponse);
 
       expect(store.state.results).toEqual(resultsStub.slice(0, 2));
-      expect(store.state.banners).toEqual(bannersStub.slice(0, 2));
-      expect(store.state.promoteds).toEqual(promotedsStub.slice(0, 2));
+      expect(store.state.banners).toEqual(bannersStub.slice(0, 1));
+      expect(store.state.promoteds).toEqual(promotedsStub.slice(0, 1));
     });
 
     // eslint-disable-next-line max-len
