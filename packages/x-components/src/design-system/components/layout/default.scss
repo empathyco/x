@@ -272,5 +272,6 @@
     grid-area: scroll-to-top;
     margin-block-end: var(--x-size-margin-bottom-layout-scroll-to-top);
     margin-inline-start: var(--x-size-margin-left-layout-scroll-to-top);
+    z-index: 1;
   }
 }
