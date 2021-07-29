@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.2...@empathyco/x-types@10.0.0-alpha.3) (2021-07-28)
+
+
+### Styling
+
+* add @empathyco/eslint-plugin-x  dependency linting and formatting code ([35efd55](https://github.com/empathyco/x/commit/35efd554d134e351e9b089ddaa29c52c34bac3c9)), closes [EX-4313](https://searchbroker.atlassian.net/browse/EX-4313)
+
+
+
 ## [10.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-types@9.1.0-alpha.1...@empathyco/x-types@10.0.0-alpha.2) (2021-07-27)
 
 
