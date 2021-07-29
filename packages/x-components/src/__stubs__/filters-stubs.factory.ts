@@ -1,12 +1,13 @@
 import {
-  HierarchicalFilter,
-  SimpleFilter,
-  NumberRangeFilter,
-  FilterModelName,
-  RangeValue,
   EditableNumberRangeFilter,
-  Filter
+  Filter,
+  FilterModelName,
+  HierarchicalFilter,
+  NumberRangeFilter,
+  RangeValue,
+  SimpleFilter
 } from '@empathyco/x-types';
+import { RawFilter } from '@empathyco/x-types-next';
 
 /**
  * Creates {@link @empathyco/x-types#SimpleFilter | SimpleFilter} stub.
@@ -219,6 +220,7 @@ export function createSimpleFilter(facetId: string, label: string, selected = fa
  * and `label` fields.
  * @param selected - The selected value, false by default.
  * @returns An {@link @empathyco/x-types#HierarchicalFilter | HierarchicalFilter}.
+ * @deprecated Replace with createHierarchicalFilterNext.
  */
 export function createHierarchicalFilter(
   facetId: string,
@@ -255,5 +257,19 @@ export function createNumberRangeFilter(
     range,
     value: `{ "filter: "${min} to ${max}" }`,
     totalResults: 10
+  };
+}
+
+/**
+ * Creates a {@link @empathyco/x-types-next#RawFilter | RawFilter}.
+ *
+ * @param id - The identifier of the raw filter.
+ * @returns A {@link @empathyco/x-types-next#RawFilter | RawFilter}.
+ */
+export function createRawFilter(id: string): RawFilter {
+  return {
+    id,
+    modelName: 'RawFilter',
+    selected: true
   };
 }
