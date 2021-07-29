@@ -156,8 +156,8 @@
         </template>
 
         <template #scroll-to-top>
-          <BaseScrollToTop scroll-id="body-scroll" :threshold-px="500">
-            <span>⬆</span>
+          <BaseScrollToTop class="x-button--round" scroll-id="body-scroll" :threshold-px="500">
+            <ChevronUp />
           </BaseScrollToTop>
         </template>
       </Layout>
@@ -179,6 +179,7 @@
   import ChevronRight from '../components/icons/chevron-right.vue';
   import ChevronTinyLeft from '../components/icons/chevron-tiny-left.vue';
   import ChevronTinyRight from '../components/icons/chevron-tiny-right.vue';
+  import ChevronUp from '../components/icons/chevron-up.vue';
   import Grid1Col from '../components/icons/grid-1-col.vue';
   import Grid2Col from '../components/icons/grid-2-col.vue';
   import Layout from '../components/layouts/layout.vue';
@@ -230,6 +231,7 @@
       infiniteScroll
     },
     components: {
+      ChevronUp,
       Promoted,
       PromotedsList,
       Banner,
