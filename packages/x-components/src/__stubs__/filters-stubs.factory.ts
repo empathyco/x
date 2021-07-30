@@ -7,7 +7,13 @@ import {
   RangeValue,
   SimpleFilter
 } from '@empathyco/x-types';
-import { RawFilter } from '@empathyco/x-types-next';
+import {
+  EditableNumberRangeFilter as NextEditableNumberRangeFilter,
+  HierarchicalFilter as NextHierarchicalFilter,
+  NumberRangeFilter as NextNumberRangeFilter,
+  SimpleFilter as NextSimpleFilter,
+  RawFilter
+} from '@empathyco/x-types-next';
 
 /**
  * Creates {@link @empathyco/x-types#SimpleFilter | SimpleFilter} stub.
@@ -220,7 +226,7 @@ export function createSimpleFilter(facetId: string, label: string, selected = fa
  * and `label` fields.
  * @param selected - The selected value, false by default.
  * @returns An {@link @empathyco/x-types#HierarchicalFilter | HierarchicalFilter}.
- * @deprecated Replace with createHierarchicalFilterNext.
+ * @deprecated Replace with {@link createNextHierarchicalFilter}.
  */
 export function createHierarchicalFilter(
   facetId: string,
@@ -260,16 +266,112 @@ export function createNumberRangeFilter(
   };
 }
 
+/* @empathyco/x-types-next factories */
+
 /**
  * Creates a {@link @empathyco/x-types-next#RawFilter | RawFilter}.
  *
  * @param id - The identifier of the raw filter.
- * @returns A {@link @empathyco/x-types-next#RawFilter | RawFilter}.
+ * @returns A stub for {@link @empathyco/x-types-next#RawFilter | RawFilter}.
  */
 export function createRawFilter(id: string): RawFilter {
   return {
     id,
     modelName: 'RawFilter',
     selected: true
+  };
+}
+
+/**
+ * Creates a {@link @empathyco/x-types-next#SimpleFilter | SimpleFilter}.
+ *
+ * @param facetId - The facet id this filter belongs to.
+ * @param label - The text that this filter should display.
+ * @param selected - True when the filter is checked, false otherwise.
+ * @returns A stub for a {@link @empathyco/x-types-next#SimpleFilter | SimpleFilter}.
+ */
+export function createNextSimpleFilter(
+  facetId: string,
+  label: string,
+  selected = false
+): NextSimpleFilter {
+  return {
+    id: `${facetId}:${label}`,
+    modelName: 'SimpleFilter',
+    facetId,
+    totalResults: 10,
+    label,
+    selected
+  };
+}
+
+/**
+ * Creates a {@link @empathyco/x-types-next#HierarchicalFilter | HierarchicalFilter}.
+ *
+ * @param facetId - The facet id this filter belongs to.
+ * @param label - The text that this filter should display.
+ * @param selected - True when the filter is checked, false otherwise.
+ * @param children - A list of ids of child filters.
+ * @returns A stub for a {@link @empathyco/x-types-next#HierarchicalFilter | HierarchicalFilter}.
+ */
+export function createNextHierarchicalFilter(
+  facetId: string,
+  label: string,
+  selected = false,
+  children: string[] = []
+): NextHierarchicalFilter {
+  return {
+    facetId,
+    selected,
+    label,
+    id: `${facetId}:${label}`,
+    modelName: 'HierarchicalFilter',
+    parentId: null,
+    children
+  };
+}
+
+/**
+ * Creates a {@link @empathyco/x-types-next#NumberRangeFilter | NumberRangeFilter}.
+ *
+ * @param facetId - The facet id this filter belongs to.
+ * @param range - The range that this filter has.
+ * @param selected - True if the filter is selected, false otherwise.
+ * @returns A stub for a
+ * {@link @empathyco/x-types-next#NumberRangeFilter | NumberRangeFilter}.
+ */
+export function createNextNumberRangeFilter(
+  facetId: string,
+  range: RangeValue = { min: null, max: null },
+  selected = false
+): NextNumberRangeFilter {
+  return {
+    id: `${facetId}:${range.min ?? '*'}-${range.max ?? '*'}`,
+    modelName: 'NumberRangeFilter',
+    label: `From ${range.min ?? 'null'} to ${range.max ?? 'null'}`,
+    facetId,
+    range,
+    selected
+  };
+}
+
+/**
+ * Creates a {@link @empathyco/x-types-next#EditableNumberRangeFilter | EditableNumberRangeFilter}.
+ *
+ * @param facetId - The facet id this filter belongs to.
+ * @param range - The range that this filter has.
+ * @returns A stub for a
+ * {@link @empathyco/x-types-next#EditableNumberRangeFilter | EditableNumberRangeFilter}.
+ */
+export function createNextEditableNumberRangeFilter(
+  facetId: string,
+  range: RangeValue = { min: null, max: null }
+): NextEditableNumberRangeFilter {
+  return {
+    id: `${facetId}:${range.min ?? '*'}-${range.max ?? '*'}`,
+    facetId,
+    range,
+    modelName: 'EditableNumberRangeFilter',
+    selected: range.min !== null || range.max !== null
   };
 }

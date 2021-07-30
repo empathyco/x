@@ -1,3 +1,4 @@
+import { isFacetFilter } from '../../../../../../search-types/src/facet/filter/facet-filter.model';
 import { FacetsNextXStoreModule } from '../types';
 
 /**
@@ -11,4 +12,4 @@ import { FacetsNextXStoreModule } from '../types';
  * @public
  */
 export const selectedFilters: FacetsNextXStoreModule['getters']['selectedFilters'] = state =>
-  Object.values(state.filters).filter(filter => filter.selected);
+  Object.values(state.filters).filter(filter => isFacetFilter(filter) && filter.selected);
