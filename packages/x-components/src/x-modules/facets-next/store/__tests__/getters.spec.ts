@@ -8,7 +8,10 @@ import {
   createRawFilter,
   createNextSimpleFilter
 } from '../../../../__stubs__/filters-stubs.factory';
+import { ActionsDictionary, XActionContext } from '../../../../store/actions.types';
+import { MutationsDictionary } from '../../../../store/mutations.types';
 import { arrayToObject } from '../../../../utils/array';
+import { Dictionary } from '../../../../utils/types';
 import { facetsNextXStoreModule } from '../module';
 import {
   FacetsNextActions,
@@ -18,35 +21,13 @@ import {
 } from '../types';
 import { resetFacetsStateWith } from './utils';
 
-/**
- * Type safe object style commit payload.
- */
-type SafeMutationPayload<MutationName, MutationPayload> = MutationPayload & {
-  type: MutationName;
-};
-
-/**
- * Type safe vuex store.
- */
-interface SafeStore<
-  State,
-  Getters,
-  Mutations,
-  Actions extends Record<keyof Actions, (payload?: any) => any>
-> extends Store<State> {
-  getters: Getters;
-  commit<MutationName extends keyof Mutations>(
-    mutation: SafeMutationPayload<MutationName, Mutations[MutationName]>
-  ): void;
-  commit<MutationName extends keyof Mutations>(
-    mutation: MutationName,
-    payload: Mutations[MutationName]
-  ): void;
-  dispatch<ActionName extends keyof Actions>(
-    action: ActionName,
-    payload: Parameters<Actions[ActionName]>[0]
-  ): Promise<ReturnType<Actions[ActionName]>>;
-}
+/** Type safe single module store. */
+type SafeStore<
+  State extends Dictionary,
+  Getters extends Dictionary,
+  Mutations extends MutationsDictionary<Mutations>,
+  Actions extends ActionsDictionary<Actions>
+> = Omit<XActionContext<State, Getters, Mutations, Actions>, 'rootGetters' | 'rootState'>;
 
 describe('testing facets module getters', () => {
   function createFacetsStore(
