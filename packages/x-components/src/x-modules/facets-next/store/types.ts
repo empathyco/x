@@ -40,7 +40,7 @@ export interface FacetsNextMutations {
    *
    * @param filter - The filter to add.
    */
-  addFilter(filter: Filter): void;
+  setFilter(filter: Filter): void;
   /**
    * Removes the filter from the {@link FacetsNextState.filters | filters} record.
    *
