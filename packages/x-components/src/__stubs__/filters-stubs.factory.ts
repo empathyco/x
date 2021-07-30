@@ -272,7 +272,7 @@ export function createNumberRangeFilter(
  * Creates a {@link @empathyco/x-types-next#RawFilter | RawFilter}.
  *
  * @param id - The identifier of the raw filter.
- * @returns A stub for {@link @empathyco/x-types-next#RawFilter | RawFilter}.
+ * @returns A {@link @empathyco/x-types-next#RawFilter | RawFilter} stub.
  */
 export function createRawFilter(id: string): RawFilter {
   return {
@@ -348,7 +348,7 @@ export function createNextNumberRangeFilter(
   return {
     id: `${facetId}:${range.min ?? '*'}-${range.max ?? '*'}`,
     modelName: 'NumberRangeFilter',
-    label: `From ${range.min ?? 'null'} to ${range.max ?? 'null'}`,
+    label: `From ${String(range.min)} to ${String(range.max)}`,
     facetId,
     range,
     selected

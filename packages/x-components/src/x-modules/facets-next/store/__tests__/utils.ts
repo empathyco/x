@@ -5,7 +5,7 @@ import { facetsNextXStoreModule } from '../module';
 import { FacetsNextState } from '../types';
 
 /**
- * Reset facets module state with its original state and the partial state passes as
+ * Reset facets module state with its original state and the partial state passed as
  * parameter.
  *
  * @param store - Facets store state.

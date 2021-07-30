@@ -135,7 +135,7 @@ describe('testing facets module getters', () => {
         createNextNumberRangeFilter('price', { min: 25, max: 50 }, true),
         createNextEditableNumberRangeFilter('age', { min: null, max: 5 }),
         createNextEditableNumberRangeFilter('size', { min: null, max: null }),
-        // Raw filters are always selected, but shouldn't be returned in this getter.
+        // Raw filters don't belong to a facet so they're not retrieved by this getter
         createRawFilter('size:xl')
       ]);
 
