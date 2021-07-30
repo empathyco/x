@@ -8,9 +8,10 @@
  * @returns If the environment supports string normalization, the string without the combining
  * diacritical marks. Else the same string.
  */
-const removeCombiningDiacriticalMarks = String.prototype.normalize
-  ? (string: string) => string.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-  : (string: string) => string;
+const removeCombiningDiacriticalMarks =
+  typeof String.prototype.normalize === 'function'
+    ? (string: string) => string.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    : (string: string) => string;
 
 /**
  * Trims the string, transforms it to lower case, and removes

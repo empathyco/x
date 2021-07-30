@@ -22,10 +22,8 @@
   import { State } from '../../../components/decorators/store.decorators';
   import { NoElement } from '../../../components/no-element';
   import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { searchXModule } from '../x-module';
-  import { XProvide } from '../../../components/decorators/injection.decorators';
   import { SearchItem } from '../../../utils/types';
-  import { SEARCH_ITEMS_KEY } from '../../../components/decorators/injection.consts';
+  import { searchXModule } from '../x-module';
   import SearchItemsInjectionMixin from './search-items-injection.mixin';
   import SearchItemsList from './search-items-list.vue';
 
@@ -75,8 +73,7 @@
      *
      * @internal
      */
-    @XProvide(SEARCH_ITEMS_KEY)
-    public get items(): SearchItem[] {
+    public override get items(): SearchItem[] {
       return this.injectedSearchItems
         ? [...this.stateItems, ...this.injectedSearchItems]
         : this.stateItems;

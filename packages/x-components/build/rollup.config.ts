@@ -66,7 +66,6 @@ export const rollupConfig = createRollupOptions({
     del({ targets: [`${buildPath}/*`, `${path.join(rootDir, 'docs')}/*`] }),
     commonjs(),
     typescript({
-      objectHashIgnoreUnknownHack: true,
       useTsconfigDeclarationDir: true,
       tsconfig: path.resolve(rootDir, 'tsconfig.json'),
       tsconfigOverride: {

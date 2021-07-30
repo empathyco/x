@@ -1,17 +1,4 @@
-import {
-  ClicksRecommendationsResponse,
-  FeaturesResponseTypes,
-  NextQueriesResponse,
-  QueriesRecommendationsResponse,
-  RelatedTagsResponse,
-  SearchAdapter,
-  SearchByIdResponse,
-  SearchResponse,
-  SectionRecommendationsResponse,
-  SuggestionsResponse,
-  TopRecommendationsResponse,
-  UserRecommendationsResponse
-} from '@empathyco/x-adapter';
+import { FeaturesResponseTypes, SearchAdapter } from '@empathyco/x-adapter';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { createLocalVue } from '@vue/test-utils';
 import Vue from 'vue';
@@ -94,19 +81,19 @@ export function resetStoreXModuleState<ModuleName extends XModuleName>(
 /**
  * Mocks an adapter function.
  *
- * @param whatReturns - The returned response object or null to resolve with empty.
+ * @param whatReturns - The returned response.
  * @returns Mocked promise.
  *
  * @internal
  */
-export function getMockedAdapterFunction<T = any>(whatReturns: T | null): Mock<Promise<T>> {
+export function getMockedAdapterFunction<T>(whatReturns: T): Mock<Promise<T>> {
   return jest.fn(
     () =>
-      new Promise(resolve =>
+      new Promise(resolve => {
         setTimeout(() => {
-          return whatReturns ? resolve(whatReturns) : resolve();
-        })
-      )
+          resolve(whatReturns);
+        });
+      })
   );
 }
 
@@ -125,34 +112,20 @@ export function getMockedAdapter(
   responseFeatures?: Partial<Omit<FeaturesResponseTypes, 'track'>>
 ): MockedSearchAdapter {
   return {
+    /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
     // Required functions
-    getNextQueries: getMockedAdapterFunction<NextQueriesResponse>(
-      responseFeatures?.nextQueries ?? null
-    ),
-    getTopRecommendations: getMockedAdapterFunction<TopRecommendationsResponse>(
-      responseFeatures?.topRecommendations ?? null
-    ),
-    getSectionRecommendations: getMockedAdapterFunction<SectionRecommendationsResponse>(
-      responseFeatures?.sectionRecommendations ?? null
-    ),
-    getQueriesRecommendations: getMockedAdapterFunction<QueriesRecommendationsResponse>(
-      responseFeatures?.queriesRecommendations ?? null
-    ),
-    getClicksRecommendations: getMockedAdapterFunction<ClicksRecommendationsResponse>(
-      responseFeatures?.clicksRecommendations ?? null
-    ),
-    getUserRecommendations: getMockedAdapterFunction<UserRecommendationsResponse>(
-      responseFeatures?.userRecommendations ?? null
-    ),
-    getRelatedTags: getMockedAdapterFunction<RelatedTagsResponse>(
-      responseFeatures?.relatedTags ?? null
-    ),
-    getSuggestions: getMockedAdapterFunction<SuggestionsResponse>(
-      responseFeatures?.suggestions ?? null
-    ),
-    search: getMockedAdapterFunction<SearchResponse>(responseFeatures?.search ?? null),
-    searchById: getMockedAdapterFunction<SearchByIdResponse>(responseFeatures?.searchById ?? null),
-    track: getMockedAdapterFunction<void>(null),
+    getNextQueries: getMockedAdapterFunction(responseFeatures?.nextQueries!),
+    getTopRecommendations: getMockedAdapterFunction(responseFeatures?.topRecommendations!),
+    getSectionRecommendations: getMockedAdapterFunction(responseFeatures?.sectionRecommendations!),
+    getQueriesRecommendations: getMockedAdapterFunction(responseFeatures?.queriesRecommendations!),
+    getClicksRecommendations: getMockedAdapterFunction(responseFeatures?.clicksRecommendations!),
+    getUserRecommendations: getMockedAdapterFunction(responseFeatures?.userRecommendations!),
+    getRelatedTags: getMockedAdapterFunction(responseFeatures?.relatedTags!),
+    getSuggestions: getMockedAdapterFunction(responseFeatures?.suggestions!),
+    search: getMockedAdapterFunction(responseFeatures?.search!),
+    searchById: getMockedAdapterFunction(responseFeatures?.searchById!),
+    track: getMockedAdapterFunction(undefined),
+    /* eslint-enable @typescript-eslint/no-non-null-asserted-optional-chain */
     // Optional functions
     invalidateCache: jest.fn(),
     setConfig: jest.fn(),

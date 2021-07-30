@@ -25,6 +25,8 @@ describe('testing string normalization', () => {
     it('trims and lowercases characters', () => {
       /* eslint-disable @typescript-eslint/unbound-method */
       const originalStringNormalize = String.prototype.normalize;
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error TS does not allow removing properties that are not optional.
       delete String.prototype.normalize;
       let normalize: (string: string | undefined) => string;
 

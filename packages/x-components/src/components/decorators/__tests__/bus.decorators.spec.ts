@@ -1,4 +1,4 @@
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
+import { createLocalVue, mount, VueClass, Wrapper } from '@vue/test-utils';
 import Vue, { CreateElement, VNode, VueConstructor } from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 import Vuex, { Store } from 'vuex';
@@ -164,12 +164,12 @@ describe('testing @XEmit decorator', () => {
     propsData?: Record<string, unknown>;
   }
 
-  interface RenderXEmitTestAPI<Component extends typeof Vue> {
+  interface RenderXEmitTestAPI<Component extends VueClass<any>> {
     emit: Mock<void, [XEvent, XEventPayload<XEvent>]>;
     wrapper: Wrapper<InstanceType<Component>>;
   }
 
-  function renderXEmitTest<Component extends typeof Vue>(
+  function renderXEmitTest<Component extends VueClass<any>>(
     component: Component,
     { propsData }: RenderXEmitTestOptions = {}
   ): RenderXEmitTestAPI<Component> {
