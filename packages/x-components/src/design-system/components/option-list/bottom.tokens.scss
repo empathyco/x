@@ -23,5 +23,5 @@
 
   // typography
   --x-font-decoration-option-list-button-bottom-hover: none;
-  --x-number-font-weight-option-list-button-bottom-selected: (--x-number-font-weight-base-regular);
+  --x-number-font-weight-option-list-button-bottom-selected: var(--x-number-font-weight-base-regular);
 }

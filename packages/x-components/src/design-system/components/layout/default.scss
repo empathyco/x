@@ -99,7 +99,7 @@
     // layout
     grid-column: end-content;
     &.x-list {
-      flex-flow: var(--x-size-flow-layout-header-end);
+      flex-flow: var(--x-flow-layout-header-end);
       justify-content: var(--x-size-justify-layout-header-end);
       align-items: var(--x-size-align-layout-header-end);
     }
@@ -142,7 +142,7 @@
     // layout
     grid-column: empathize-content;
     &.x-list {
-      flex-flow: var(--x-size-flow-layout-empathize);
+      flex-flow: var(--x-flow-layout-empathize);
       justify-content: var(--x-size-justify-layout-empathize);
       align-items: var(--x-size-align-layout-empathize);
     }
@@ -185,7 +185,7 @@
     // layout
     grid-column: toolbar-aside;
     &.x-list {
-      flex-flow: var(--x-size-flow-layout-toolbar-aside);
+      flex-flow: var(--x-flow-layout-toolbar-aside);
       justify-content: var(--x-size-justify-layout-toolbar-aside);
       align-items: var(--x-size-align-layout-toolbar-aside);
     }
@@ -195,7 +195,7 @@
     // layout
     grid-column: toolbar-body;
     &.x-list {
-      flex-flow: var(--x-size-flow-layout-toolbar-body);
+      flex-flow: var(--x-flow-layout-toolbar-body);
       justify-content: var(--x-size-justify-layout-toolbar-body);
       align-items: var(--x-size-align-layout-toolbar-body);
     }
