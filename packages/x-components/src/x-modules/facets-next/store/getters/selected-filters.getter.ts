@@ -1,4 +1,4 @@
-import { isFacetFilter } from '../../../../../../search-types/src/facet/filter/facet-filter.model';
+import { isFacetFilter } from '@empathyco/x-types-next';
 import { FacetsNextXStoreModule } from '../types';
 
 /**
