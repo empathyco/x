@@ -33,7 +33,7 @@ Then('related tags are displayed', () => {
 });
 
 // Results
-Then('results are displayed', () => {
+Then('related results are displayed', () => {
   resultsList = [];
   cy.getByDataTest('result-item')
     .should('have.length.at.least', 1)

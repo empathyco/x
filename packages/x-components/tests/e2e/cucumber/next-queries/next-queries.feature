@@ -21,7 +21,7 @@ Feature: Next queries component
     When  clear search button is pressed
     And   search response being mock "<mockedSearch>"
     When  "<query>" is searched
-    Then  results are displayed
+    Then  related results are displayed
     And   next queries do not contain the history query is <hideSessionQueries>
     When  clear history queries button is clicked
     Then  next queries contain the history query
@@ -36,13 +36,13 @@ Feature: Next queries component
     And   next queries response being mock "<mock>"
     And   search response being mock "<mockedSearch>"
     When  "<query>" is searched
-    Then  results are displayed
+    Then  related results are displayed
     And   next queries are displayed
     When  the page is reloaded
     Then  next queries are still displayed is <loadOnInit>
     And   search response being mock "<mockedSearch>"
     When  "<query>" is searched
-    Then  results are displayed
+    Then  related results are displayed
     And   next queries are displayed
     When  clear search button is pressed
     Then  next queries are still displayed
