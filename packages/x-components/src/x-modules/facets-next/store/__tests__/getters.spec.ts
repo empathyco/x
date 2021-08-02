@@ -57,17 +57,17 @@ describe('testing facets module getters', () => {
         createNextNumberRangeFilter('price', { min: 25, max: 50 }, true),
         createNextEditableNumberRangeFilter('age', { min: null, max: 5 }),
         createNextEditableNumberRangeFilter('size', { min: null, max: null }),
-        // Raw filters are always selected, but shouldn't be returned in this getter.
         createRawFilter('size:xl')
       ]);
 
-      expect(store.getters.selectedFilters).toHaveLength(4);
+      expect(store.getters.selectedFilters).toHaveLength(5);
       expect(store.getters.selectedFilters).toEqual(
         expect.arrayContaining([
           store.state.filters['color:Blue'],
           store.state.filters['category:Shorts'],
           store.state.filters['price:25-50'],
-          store.state.filters['age:*-5']
+          store.state.filters['age:*-5'],
+          store.state.filters['size:xl']
         ])
       );
     });
@@ -118,10 +118,10 @@ describe('testing facets module getters', () => {
       );
     });
 
-    it('does not return raw filters', () => {
+    it('returns raw filters', () => {
       const store = createFacetsStore([createRawFilter('size:xl')]);
 
-      expect(store.getters.selectedFilters).toEqual([]);
+      expect(store.getters.selectedFilters).toEqual([store.state.filters['size:xl']]);
     });
   });
 
