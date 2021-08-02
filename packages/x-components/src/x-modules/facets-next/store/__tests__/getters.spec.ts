@@ -40,7 +40,7 @@ describe('testing facets module getters', () => {
     return store;
   }
 
-  describe(`selected filters getter`, () => {
+  describe('selected filters getter', () => {
     it('returns an empty array if there are no filters', () => {
       const store = createFacetsStore([]);
 
@@ -61,7 +61,7 @@ describe('testing facets module getters', () => {
         createRawFilter('size:xl')
       ]);
 
-      //expect(store.getters.selectedFilters).toHaveLength(4);
+      expect(store.getters.selectedFilters).toHaveLength(4);
       expect(store.getters.selectedFilters).toEqual(
         expect.arrayContaining([
           store.state.filters['color:Blue'],
@@ -117,9 +117,15 @@ describe('testing facets module getters', () => {
         expect.arrayContaining([store.state.filters['age:*-5']])
       );
     });
+
+    it('does not return raw filters', () => {
+      const store = createFacetsStore([createRawFilter('size:xl')]);
+
+      expect(store.getters.selectedFilters).toEqual([]);
+    });
   });
 
-  describe(`filters by facet getter`, () => {
+  describe('filters by facet getter', () => {
     it('returns an empty object if there are no facets', () => {
       const store = createFacetsStore([]);
       expect(store.getters.filtersByFacet).toEqual({});
@@ -189,6 +195,12 @@ describe('testing facets module getters', () => {
       expect(store.getters.filtersByFacet).toEqual({
         age: [store.state.filters['age:*-5']]
       });
+    });
+
+    it('does not return raw filters', () => {
+      const store = createFacetsStore([createRawFilter('size:xl')]);
+
+      expect(store.getters.filtersByFacet).toEqual({});
     });
   });
 });

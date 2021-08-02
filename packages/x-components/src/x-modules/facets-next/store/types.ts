@@ -20,7 +20,7 @@ export interface FacetsNextState {
  */
 export interface FacetsNextGetters {
   /**
-   * List of all selected filters.
+   * List of all selected filters that belong to a facet.
    */
   selectedFilters: Filter[];
   /**

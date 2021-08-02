@@ -12,4 +12,5 @@ import { FacetsNextXStoreModule } from '../types';
  * @public
  */
 export const selectedFilters: FacetsNextXStoreModule['getters']['selectedFilters'] = state =>
+  // It only returns selected filters that
   Object.values(state.filters).filter(filter => isFacetFilter(filter) && filter.selected);
