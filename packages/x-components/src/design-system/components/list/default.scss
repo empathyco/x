@@ -10,15 +10,15 @@
   gap: var(--x-size-gap-list);
   &:not(.x-list--horizontal),
   &.x-list--vertical {
-    @include safari-gap($vertical-gap: var(--x-space-gap-list));
+    @include safari-gap($vertical-gap: var(--x-size-gap-list));
   }
 
   &.x-list--horizontal {
-    @include safari-gap(var(--x-space-gap-list));
+    @include safari-gap(var(--x-size-gap-list));
   }
 
   &.x-list--wrap {
-    @include safari-gap(var(--x-space-gap-list), var(--x-space-gap-list));
+    @include safari-gap(var(--x-size-gap-list), var(--x-size-gap-list));
   }
 
   margin: 0;
