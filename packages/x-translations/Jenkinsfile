@@ -1,4 +1,0 @@
-npmPackagePipeline {
-  build=true
-  runner='node:14'
-}

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import path from 'path';
-import { deepMerge } from '@empathybroker/deep-merge';
+import { deepMerge } from '@empathyco/x-deep-merge';
 import { exportToFile, getParams, getSourcePaths, loadFile } from './utils';
 import { JSON } from './types';
 
