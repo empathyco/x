@@ -1,0 +1,16 @@
+key;base;tablet;desktop
+searchBox.clear;Borrar;Borrar tablet;Borrar desktop
+searchBox.placeholder;Empieza a buscar;Empieza a buscar tablet;Empieza a buscar desktop
+popularSearches.title;Búsquedas populares;Búsquedas populares tablet;Búsquedas populares desktop
+historyQueries.clear;Limpiar historial;;
+historyQueries.removeLabel;Borrar {suggestion} del historial;;
+historyQueries.title;Historial;;
+querySuggestions.title;Sugerencias;;
+nextQueries.title;Para ti;;
+identifierResults.title;Búsqueda SKU;;
+recommendations.title;Recomendaciones;;
+facets.hierarchical_category;Categorías;;
+facets.rootCategories_facet;Categorías;;
+facets.brand_facet;Marcas;;
+facets.age_facet;Edad;;
+facets.price_facet;Precio;;

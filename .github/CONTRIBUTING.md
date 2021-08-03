@@ -82,6 +82,7 @@ Interface X is composed of some different packages. New packages will be added h
 - [@empathyco/x-types](/packages/search-types) - TypeScript types & guards for X models.
 - [@empathyco/x-storage-service](/packages/storage-service) - Storage service with TTL.
 - [@empathyco/x-react-wrapper](/packages/react-wrapper) - A proxy that transforms Vue components into React ones.
+- [@empathyco/x-translations](/packages/x-translations) - A project which allows the user to import and export the translations.
 
 ## How Can I Contribute?
 
