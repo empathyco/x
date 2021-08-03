@@ -16,10 +16,10 @@ export class RawFilterEntity extends EquatableFilter implements FilterEntity {
   }
 
   deselect(): void {
-    this.store.commit('x/facetsNext/removeFilter', this.filter);
+    this.store.commit('x/facetsNext/removeFilter', { ...this.filter });
   }
 
   select(): void {
-    this.store.commit('x/facetsNext/setFilter', this.filter);
+    this.store.commit('x/facetsNext/setFilter', { ...this.filter });
   }
 }
