@@ -11,10 +11,17 @@
   "files": [
     "dist"
   ],
+  "bin": {
+    "json-csv": "dist/json-to-csv.js",
+    "csv-json": "dist/csv-to-json.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/empathyco/x.git",
     "directory": "packages/x-translations"
+  },
+  "engines": {
+    "node": ">=14.14.0"
   },
   "scripts": {
     "build": "tsc",
@@ -33,12 +40,8 @@
     "ts-jest": "~27.0.4",
     "typescript": "~4.3.5"
   },
-  "engines": {
-    "node": ">=14.14.0"
-  },
-  "bin": {
-    "json-csv": "dist/json-to-csv.js",
-    "csv-json": "dist/csv-to-json.js"
-  },
-  "prettier": "@empathyco/eslint-plugin-x/prettier-config"
+  "prettier": "@empathyco/eslint-plugin-x/prettier-config",
+  "publishConfig": {
+    "access": "public"
+  }
 }
