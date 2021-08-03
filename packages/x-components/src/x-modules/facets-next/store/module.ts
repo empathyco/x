@@ -1,4 +1,6 @@
 import Vue from 'vue';
+import { filtersByFacet } from './getters/filters-by-facet.getter';
+import { selectedFilters } from './getters/selected-filters.getter';
 import { FacetGroupEntry, FacetsNextXStoreModule } from './types';
 
 /**
@@ -12,12 +14,8 @@ export const facetsNextXStoreModule: FacetsNextXStoreModule = {
     groups: {}
   }),
   getters: {
-    selectedFilters() {
-      return [];
-    },
-    filtersByFacet() {
-      return {};
-    }
+    selectedFilters,
+    filtersByFacet
   },
   mutations: {
     setFilter(state, filter) {

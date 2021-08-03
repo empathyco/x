@@ -26,7 +26,7 @@ export interface FacetsNextGetters {
   /**
    * List of all filters grouped by their facet.
    */
-  filtersByFacet: Record<Facet['id'], Filter>;
+  filtersByFacet: Record<Facet['id'], Filter[]>;
 }
 
 /**

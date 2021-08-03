@@ -22,10 +22,10 @@
   cursor: pointer;
 
   // size
-  padding-block-start: var(--x-size-padding-top-sugestion-group-default);
-  padding-block-end: var(--x-size-padding-bottom-sugestion-group-default);
-  padding-inline-start: var(--x-size-padding-left-sugestion-group-default);
-  padding-inline-end: var(--x-size-padding-right-sugestion-group-default);
+  padding-block-start: var(--x-size-padding-top-suggestion-group-default);
+  padding-block-end: var(--x-size-padding-bottom-suggestion-group-default);
+  padding-inline-start: var(--x-size-padding-left-suggestion-group-default);
+  padding-inline-end: var(--x-size-padding-right-suggestion-group-default);
   gap: var(--x-size-gap-suggestion-group-default);
   @include safari-gap(var(--x-size-gap-suggestion-group-default));
 

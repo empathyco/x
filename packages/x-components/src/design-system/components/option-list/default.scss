@@ -23,9 +23,6 @@
 
     &.x-option-list__item--is-selected {
       // border
-      --x-size-border-width-option-list-item-default: var(
-        --x-size-border-width-option-list-item-default-selected
-      );
       --x-size-border-width-top-option-list-item-default: var(
         --x-size-border-width-top-option-list-item-default-selected
       );
