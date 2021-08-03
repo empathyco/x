@@ -38,7 +38,7 @@ export class HierarchicalFilterEntity extends EquatableFilter implements FilterE
    */
   protected selectAncestors(filter: HierarchicalFilter): void {
     if (filter.parentId) {
-      const parent = this.store.state.x.facetsNext.filters[filter.parentId] as HierarchicalFilter;
+      const parent = this.getFilterById(filter.parentId);
       this.saveFilter({ ...parent, selected: true });
       this.selectAncestors(parent);
     }
@@ -54,7 +54,7 @@ export class HierarchicalFilterEntity extends EquatableFilter implements FilterE
   protected deselectDescendants(filter: HierarchicalFilter): void {
     if (filter.children) {
       filter.children.forEach(childId => {
-        const child = this.store.state.x.facetsNext.filters[childId] as HierarchicalFilter;
+        const child = this.getFilterById(childId);
         this.saveFilter({ ...child, selected: false });
         this.deselectDescendants(child);
       });
@@ -69,5 +69,9 @@ export class HierarchicalFilterEntity extends EquatableFilter implements FilterE
    */
   protected saveFilter(filter: HierarchicalFilter): void {
     this.store.commit('x/facetsNext/setFilter', filter);
+  }
+
+  protected getFilterById(id: HierarchicalFilter['id']): HierarchicalFilter {
+    return this.store.state.x.facetsNext.filters[id] as HierarchicalFilter;
   }
 }
