@@ -72,7 +72,13 @@ export const rollupConfig = createRollupOptions({
         compilerOptions: {
           declarationDir: typesOutputDirectory
         },
-        exclude: ['node_modules', './src/main.ts', '**/*.spec.ts', '*test*', './src/design-system']
+        exclude: [
+          'node_modules',
+          './src/main.ts',
+          '**/__tests__/**',
+          '**/__stubs__/**',
+          './src/design-system'
+        ]
       }
     }),
     vue({

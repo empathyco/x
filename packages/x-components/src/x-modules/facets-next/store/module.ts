@@ -18,7 +18,7 @@ export const facetsNextXStoreModule: FacetsNextXStoreModule = {
     filtersByFacet
   },
   mutations: {
-    addFilter(state, filter) {
+    setFilter(state, filter) {
       Vue.set(state.filters, filter.id, filter);
     },
     removeFilter(state, { id }) {
