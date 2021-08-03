@@ -22,21 +22,16 @@ export interface Equatable {
 /**
  * Contains business logic to select or deselect a filter of a certain type.
  */
-export interface FilterEntity<SomeFilter extends Filter = Filter> {
+export interface FilterEntity {
   /** Selects the filter. */
   select(): void;
-  /** Selects the filter passing a filter as new state.
-   *
-   * @param filter - The filter passed as parameter to use as new state.
-   * */
-  select(filter: SomeFilter): void;
   /** Deselects the filter. */
   deselect(): void;
 }
 
 /** Constructor of a {@link FilterEntity}. */
 export interface FilterEntityConstructor<SomeFilter extends Filter> {
-  new (store: Store<RootXStoreState>, filter: SomeFilter): FilterEntity<SomeFilter>;
+  new (store: Store<RootXStoreState>, filter: SomeFilter): FilterEntity;
   /**
    * Checks if this class can create an instance with the passed filter DTO.
    *

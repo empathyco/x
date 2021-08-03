@@ -1,9 +1,10 @@
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
-import { createNextSimpleFilter } from '../../../../__stubs__/filters-stubs.factory';
+import { EditableNumberRangeFilter } from '@empathyco/x-types';
+import { createNextEditableNumberRangeFilter } from '../../../../__stubs__/filters-stubs.factory';
 import { RootXStoreState } from '../../../../store/store.types';
 import { facetsNextXStoreModule } from '../../store/module';
-import { EditableNumberRangeFilterEntity } from '../simple-filter.entity';
+import { EditableNumberRangeFilterEntity } from '../editable-number-range-filter.entity';
 
 describe('testing EditableNumberRangeFilterEntity', () => {
   function prepareFacetsStore(): Store<RootXStoreState> {
@@ -21,31 +22,50 @@ describe('testing EditableNumberRangeFilterEntity', () => {
     });
   }
 
-  it('allows selecting and deselecting a filter', () => {
+  it('allows selecting a filter when filter min is not null', () => {
     const store = prepareFacetsStore();
-    const filter = createNextSimpleFilter('size', 'xxs');
+    const filter = createNextEditableNumberRangeFilter('price', { min: 3, max: null });
     const filterEntity = new EditableNumberRangeFilterEntity(store, filter);
 
-    // Select a filter that is NOT in the store
-    filterEntity.select();
-    expect(store.state.x.facetsNext.filters[filter.id].selected).toBe(true);
-
-    // Deselect a filter that is in in the store
-    filterEntity.deselect();
-    expect(store.state.x.facetsNext.filters[filter.id].selected).toBe(false);
-
-    // Select a filter that is in the store
     filterEntity.select();
     expect(store.state.x.facetsNext.filters[filter.id].selected).toBe(true);
   });
 
-  it('allows deselecting a filter that is NOT in the store', () => {
+  it('allows selecting a filter when filter max is not null', () => {
     const store = prepareFacetsStore();
-    const filter = createNextSimpleFilter('size', 'xxs', true);
-    const filterEntity = new SimpleFilterEntity(store, filter);
+    const filter = createNextEditableNumberRangeFilter('price', { min: null, max: 5 });
+    const filterEntity = new EditableNumberRangeFilterEntity(store, filter);
 
-    // Deselect a filter that is NOT in the store
+    filterEntity.select();
+    expect(store.state.x.facetsNext.filters[filter.id].selected).toBe(true);
+  });
+
+  it('allows deselecting a filter and set its range values to null', () => {
+    const store = prepareFacetsStore();
+    const filter = createNextEditableNumberRangeFilter('price', { min: 2, max: 10 });
+    const filterEntity = new EditableNumberRangeFilterEntity(store, filter);
+
+    filterEntity.select();
+    expect(store.state.x.facetsNext.filters[filter.id].selected).toBe(true);
+
     filterEntity.deselect();
+    expect(store.state.x.facetsNext.filters[filter.id].selected).toBe(false);
+    expect(
+      (store.state.x.facetsNext.filters[filter.id] as unknown as EditableNumberRangeFilter).range
+        .min
+    ).toBeNull();
+    expect(
+      (store.state.x.facetsNext.filters[filter.id] as unknown as EditableNumberRangeFilter).range
+        .max
+    ).toBeNull();
+  });
+
+  it('deselects the filter when filter range values are null', () => {
+    const store = prepareFacetsStore();
+    const filter = createNextEditableNumberRangeFilter('price', { min: null, max: null });
+    const filterEntity = new EditableNumberRangeFilterEntity(store, filter);
+
+    filterEntity.select();
     expect(store.state.x.facetsNext.filters[filter.id].selected).toBe(false);
   });
 });
