@@ -1,10 +1,7 @@
-import { Filter } from '@empathyco/x-types-next';
-import { Store } from 'vuex';
 import { createNextHierarchicalFacetStub } from '../../../../__stubs__/facets-stubs.factory';
 import { createNextHierarchicalFilter } from '../../../../__stubs__/filters-stubs.factory';
-import { RootXStoreState } from '../../../../store/store.types';
 import { HierarchicalFilterEntity } from '../hierarchical-filter.entity';
-import { prepareFacetsStoreWithFilters } from './utils';
+import { isFilterSelected, prepareFacetsStoreWithFilters } from './utils';
 
 describe('testing HierarchicalFilterEntity', () => {
   it('allows selecting a filter that is not in the store', () => {
@@ -71,8 +68,4 @@ describe('testing HierarchicalFilterEntity', () => {
     expect(isFilterSelected(store, categoryJeans.id)).toBe(false);
     expect(isFilterSelected(store, categoryWomen.id)).toBe(false);
   });
-
-  function isFilterSelected(store: Store<RootXStoreState>, filterId: Filter['id']): boolean {
-    return store.state.x.facetsNext.filters[filterId].selected;
-  }
 });

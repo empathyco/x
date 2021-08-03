@@ -40,3 +40,14 @@ export function prepareFacetsStoreWithFilters(filters: Filter[]): Store<RootXSto
   });
   return store;
 }
+
+/**
+ * Retrieves the filter from the store and returns if it is selected.
+ *
+ * @param store - The store that contains the filter.
+ * @param filterId - The id of the filter to check if it is selected.
+ * @returns True if the filter is selected, false otherwise.
+ */
+export function isFilterSelected(store: Store<RootXStoreState>, filterId: Filter['id']): boolean {
+  return store.state.x.facetsNext.filters[filterId].selected;
+}
