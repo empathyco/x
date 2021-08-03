@@ -3,7 +3,7 @@ on: [workflow_dispatch]
 jobs:
   prepare-release:
     runs-on: ubuntu-latest
-    container: cypress/browsers:node12.18.3-chrome87-ff82
+    container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
       - uses: actions/checkout@v2
         with:

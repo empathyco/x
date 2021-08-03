@@ -1,0 +1,53 @@
+{
+  "name": "@empathyco/x-translations",
+  "version": "1.0.0",
+  "description": "A project which allows the user to import and export the translations.",
+  "author": "Empathy Systems Corporation S.L.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/x-translations#readme",
+  "keywords": [
+    "translations"
+  ],
+  "files": [
+    "package.json",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empathyco/x.git",
+    "directory": "packages/x-translations"
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint src",
+    "postbuild": "npm pack",
+    "test": "jest -i"
+  },
+  "dependencies": {
+    "@empathyco/x-deep-merge": "^1.2.2-alpha.5"
+  },
+  "devDependencies": {
+    "@empathyco/eslint-plugin-x": "^1.2.0",
+    "@types/jest": "~25.2.1",
+    "@types/node": "~14.14.39",
+    "commitizen": "~4.0.3",
+    "cz-conventional-changelog": "~3.1.0",
+    "jest": "~25.4.0",
+    "ts-node": "~8.6.2",
+    "ts-jest": "~25.4.0",
+    "typescript": "~3.8.3"
+  },
+  "engines": {
+    "node": ">=14.14.0"
+  },
+  "bin": {
+    "json-csv": "dist/json-to-csv.js",
+    "csv-json": "dist/csv-to-json.js"
+  },
+  "prettier": "@empathyco/eslint-plugin-x/prettier-config",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
