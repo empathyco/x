@@ -31,10 +31,10 @@ window.__mockedAdapter = {
 
 export const mockedAdapter: SearchAdapter = {
   getNextQueries(request) {
-    return mockFetch<'getNextQueries'>(request, 'nextQueries');
+    return mockFetch(request, 'getNextQueries');
   },
   getTopRecommendations(request) {
-    return mockFetch<'getTopRecommendations'>(request, 'topRecommendations');
+    return mockFetch(request, 'getTopRecommendations');
   },
   getSectionRecommendations() {
     return tryResolve('getSectionRecommendations');
@@ -55,7 +55,7 @@ export const mockedAdapter: SearchAdapter = {
     return tryResolve('getSuggestions');
   },
   search(request) {
-    return mockFetch<'search'>(request, 'search');
+    return mockFetch(request, 'search');
   },
   searchById() {
     return tryResolve('searchById');
@@ -116,16 +116,16 @@ function rejectIn(ms: number, rejectionValue: unknown): Promise<any> {
  * Creates a `fetch` call to a non existent API endpoint with the provided request body.
  *
  * @param request - The request's body to use in the `fetch`.
- * @param mockRoute - String that completes the endpoint route.
+ * @param path - The adapter's feature being mocked that completes the API's endpoint.
  *
  * @returns A promise that resolves with the result of calling a non existent API.
  */
 function mockFetch<Feature extends keyof MockedAdapterConfig['responses']>(
   request: Parameters<AdapterFeatures[Feature]>[0],
-  mockRoute: string
-): Promise<Exclude<MockedAdapterConfig['responses'][Feature], undefined | Error>> {
-  return fetch(`https://api.empathy.co/${mockRoute}`, {
+  path: Feature
+): ReturnType<AdapterFeatures[Feature]> {
+  return fetch(`https://api.empathy.co/${path}`, {
     method: 'POST',
     body: JSON.stringify(request)
-  }).then(response => response.json());
+  }).then(response => response.json()) as ReturnType<AdapterFeatures[Feature]>;
 }

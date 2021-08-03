@@ -23,8 +23,8 @@ Given(
   }
 );
 
-And('next queries response being mock {string}', (mockName: string) => {
-  cy.intercept('https://api.empathy.co/nextQueries', async req => {
+And('next queries API should respond with {string}', (mockName: string) => {
+  cy.intercept('https://api.empathy.co/getNextQueries', async req => {
     const module = await import('./stubs/next-queries.stub');
     req.reply(module[mockName as keyof typeof module]);
   }).as('interceptedNextQueries');

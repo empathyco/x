@@ -15,7 +15,7 @@ Given('following config: max items to store is {int}', (maxItemsToRequest: numbe
 });
 
 And('suggestions response being mock {string}', (mockName: string) => {
-  cy.intercept('https://api.empathy.co/topRecommendations', async req => {
+  cy.intercept('https://api.empathy.co/getTopRecommendations', async req => {
     const module = await import('./stubs/recommendations.stub');
     req.reply(module[mockName as keyof typeof module]);
   }).as('interceptedRecommendations');
