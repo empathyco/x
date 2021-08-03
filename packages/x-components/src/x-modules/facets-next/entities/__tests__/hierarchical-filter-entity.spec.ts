@@ -9,7 +9,7 @@ import { arrayToObject } from '../../../../utils/array';
 import { facetsNextXStoreModule } from '../../store/module';
 import { HierarchicalFilterEntity } from '../hierarchical-filter.entity';
 
-describe('testing SimpleFilterEntity', () => {
+describe('testing HierarchicalFilterEntity', () => {
   function prepareFacetsStore(filters: Filter[]): Store<RootXStoreState> {
     const vue = createLocalVue();
     vue.use(Vuex);
