@@ -1,5 +1,5 @@
 import { Store } from 'vuex';
-import { Filter } from '../../../../../search-types/src/facet/filter/filter.model';
+import { Filter } from '@empathyco/x-types-next';
 import { RootXStoreState } from '../../../store/store.types';
 
 /**
