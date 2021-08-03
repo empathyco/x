@@ -85,7 +85,7 @@ describe('testing HierarchicalFilterEntity', () => {
     expect(isFilterSelected(store, categoryJeans.id)).toBe(true);
     expect(isFilterSelected(store, categoryWomen.id)).toBe(false);
 
-    // Deselecting the root filter. No filters should be selected
+    // Deselect the root filter. No filters should be selected
     categoryMenEntity.deselect();
     expect(isFilterSelected(store, categoryLongSleeve.id)).toBe(false);
     expect(isFilterSelected(store, categoryShirts.id)).toBe(false);
