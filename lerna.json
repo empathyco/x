@@ -1,6 +1,7 @@
 {
   "packages": ["packages/*"],
   "version": "independent",
+  "ignoreChanges": ["**/package-lock.json"],
   "changelogPreset": {
     "name": "conventionalcommits",
     "issuePrefixes": ["EX-"],
