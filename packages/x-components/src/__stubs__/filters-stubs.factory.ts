@@ -360,6 +360,7 @@ export function createNextNumberRangeFilter(
  *
  * @param facetId - The facet id this filter belongs to.
  * @param range - The range that this filter has.
+ * @param selected - The selected value which has priority over the range values.
  * @returns A stub for a
  * {@link @empathyco/x-types-next#EditableNumberRangeFilter | EditableNumberRangeFilter}.
  */
