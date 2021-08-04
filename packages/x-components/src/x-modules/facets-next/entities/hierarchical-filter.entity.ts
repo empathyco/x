@@ -19,11 +19,17 @@ export class HierarchicalFilterEntity extends EquatableFilter implements FilterE
     return isHierarchicalFilter(filter);
   }
 
+  /**
+   * Deselects the hierarchical filter and all of its descendants.
+   */
   deselect(): void {
     this.saveFilter({ ...this.filter, selected: false });
     this.deselectDescendants(this.filter);
   }
 
+  /**
+   * Selects the hierarchical filter and its ancestors.
+   */
   select(): void {
     this.saveFilter({ ...this.filter, selected: true });
     this.selectAncestors(this.filter);
