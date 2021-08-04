@@ -47,11 +47,9 @@ export function isFilterSelected(store: Store<RootXStoreState>, filterId: Filter
  */
 export function getStoreEditableNumberRangeFilter(
   store: Store<RootXStoreState>,
-  filterId: NextEditableNumberRangeFilterNextEditableNumberRangeFilter['id']
-): NextEditableNumberRangeFilterNextEditableNumberRangeFilter {
-  return store.state.x.facetsNext.filters[
-    filterId
-  ] as NextEditableNumberRangeFilterNextEditableNumberRangeFilter;
+  filterId: NextEditableNumberRangeFilter['id']
+): NextEditableNumberRangeFilter {
+  return store.state.x.facetsNext.filters[filterId] as NextEditableNumberRangeFilter;
 }
 
 /**
