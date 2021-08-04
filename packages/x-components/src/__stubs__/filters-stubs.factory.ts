@@ -367,7 +367,7 @@ export function createNextNumberRangeFilter(
 export function createNextEditableNumberRangeFilter(
   facetId: string,
   range: RangeValue = { min: null, max: null },
-  selected = false
+  selected: boolean
 ): NextEditableNumberRangeFilter {
   return {
     id: `${facetId}:${range.min ?? '*'}-${range.max ?? '*'}`,
