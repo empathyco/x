@@ -1,55 +1,37 @@
-import { createLocalVue } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
 import { EditableNumberRangeFilter } from '@empathyco/x-types';
 import { createNextEditableNumberRangeFilter } from '../../../../__stubs__/filters-stubs.factory';
-import { RootXStoreState } from '../../../../store/store.types';
-import { facetsNextXStoreModule } from '../../store/module';
 import { EditableNumberRangeFilterEntity } from '../editable-number-range-filter.entity';
+import { isFilterSelected, prepareFacetsStore } from './utils';
 
 describe('testing EditableNumberRangeFilterEntity', () => {
-  function prepareFacetsStore(): Store<RootXStoreState> {
-    const vue = createLocalVue();
-    vue.use(Vuex);
-    return new Store({
-      modules: {
-        x: {
-          modules: {
-            facetsNext: { ...facetsNextXStoreModule, namespaced: true }
-          },
-          namespaced: true
-        }
-      }
-    });
-  }
-
-  it('allows selecting a filter when filter min is not null', () => {
+  it('allows selecting a non selected filter when its min value is not null', () => {
     const store = prepareFacetsStore();
-    const filter = createNextEditableNumberRangeFilter('price', { min: 3, max: null });
+    const filter = createNextEditableNumberRangeFilter('price', { min: 3, max: null }, false);
     const filterEntity = new EditableNumberRangeFilterEntity(store, filter);
 
+    expect(filter.selected).toBe(false);
     filterEntity.select();
-    expect(store.state.x.facetsNext.filters[filter.id].selected).toBe(true);
+    expect(isFilterSelected(store, filter.id)).toBe(true);
   });
 
-  it('allows selecting a filter when filter max is not null', () => {
+  it('allows selecting a non selected filter when its max value is not null', () => {
     const store = prepareFacetsStore();
-    const filter = createNextEditableNumberRangeFilter('price', { min: null, max: 5 });
+    const filter = createNextEditableNumberRangeFilter('price', { min: null, max: 5 }, false);
     const filterEntity = new EditableNumberRangeFilterEntity(store, filter);
 
+    expect(filter.selected).toBe(false);
     filterEntity.select();
-    expect(store.state.x.facetsNext.filters[filter.id].selected).toBe(true);
+    expect(isFilterSelected(store, filter.id)).toBe(true);
   });
 
-  it('allows deselecting a filter and set its range values to null', () => {
+  it('allows deselecting a selected filter and set its range values to null', () => {
     const store = prepareFacetsStore();
-    const filter = createNextEditableNumberRangeFilter('price', { min: 2, max: 10 });
+    const filter = createNextEditableNumberRangeFilter('price', { min: 2, max: 10 }, true);
     const filterEntity = new EditableNumberRangeFilterEntity(store, filter);
 
-    filterEntity.select();
-    expect(store.state.x.facetsNext.filters[filter.id].selected).toBe(true);
-
+    expect(filter.selected).toBe(true);
     filterEntity.deselect();
-    expect(store.state.x.facetsNext.filters[filter.id].selected).toBe(false);
+    expect(isFilterSelected(store, filter.id)).toBe(false);
     expect(
       (store.state.x.facetsNext.filters[filter.id] as unknown as EditableNumberRangeFilter).range
         .min
@@ -60,12 +42,13 @@ describe('testing EditableNumberRangeFilterEntity', () => {
     ).toBeNull();
   });
 
-  it('deselects the filter when filter range values are null', () => {
+  it('deselects a selected filter when filter range values are null', () => {
     const store = prepareFacetsStore();
-    const filter = createNextEditableNumberRangeFilter('price', { min: null, max: null });
+    const filter = createNextEditableNumberRangeFilter('price', { min: null, max: null }, true);
     const filterEntity = new EditableNumberRangeFilterEntity(store, filter);
 
+    expect(filter.selected).toBe(true);
     filterEntity.select();
-    expect(store.state.x.facetsNext.filters[filter.id].selected).toBe(false);
+    expect(isFilterSelected(store, filter.id)).toBe(false);
   });
 });

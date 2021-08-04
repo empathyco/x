@@ -365,13 +365,14 @@ export function createNextNumberRangeFilter(
  */
 export function createNextEditableNumberRangeFilter(
   facetId: string,
-  range: RangeValue = { min: null, max: null }
+  range: RangeValue = { min: null, max: null },
+  selected = false
 ): NextEditableNumberRangeFilter {
   return {
     id: `${facetId}:${range.min ?? '*'}-${range.max ?? '*'}`,
     facetId,
     range,
     modelName: 'EditableNumberRangeFilter',
-    selected: range.min !== null || range.max !== null
+    selected: selected ?? (range.min !== null || range.max !== null)
   };
 }
