@@ -77,6 +77,13 @@ export class HierarchicalFilterEntity extends EquatableFilter implements FilterE
     this.store.commit('x/facetsNext/setFilter', filter);
   }
 
+  /**
+   * Retrieves a hierarchical filter from the store by its id.
+   *
+   * @param id - The id of the filter to retrieve.
+   * @returns The hierarchical filter retrieved from the store.
+   * @internal
+   */
   protected getFilterById(id: HierarchicalFilter['id']): HierarchicalFilter {
     return this.store.state.x.facetsNext.filters[id] as HierarchicalFilter;
   }

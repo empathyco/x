@@ -1,11 +1,11 @@
 import { createNextHierarchicalFacetStub } from '../../../../__stubs__/facets-stubs.factory';
 import { createNextHierarchicalFilter } from '../../../../__stubs__/filters-stubs.factory';
 import { HierarchicalFilterEntity } from '../hierarchical-filter.entity';
-import { isFilterSelected, prepareFacetsStoreWithFilters } from './utils';
+import { isFilterSelected, prepareFacetsStore } from './utils';
 
 describe('testing HierarchicalFilterEntity', () => {
   it('allows selecting a filter that is not in the store', () => {
-    const store = prepareFacetsStoreWithFilters([]);
+    const store = prepareFacetsStore([]);
     const categoryWomen = createNextHierarchicalFilter('category', 'women', false);
     const categoryWomenEntity = new HierarchicalFilterEntity(store, categoryWomen);
 
@@ -14,7 +14,7 @@ describe('testing HierarchicalFilterEntity', () => {
   });
 
   it('allows deselecting a filter that is not in the store', () => {
-    const store = prepareFacetsStoreWithFilters([]);
+    const store = prepareFacetsStore([]);
     const categoryWomen = createNextHierarchicalFilter('category', 'women', true);
     const categoryWomenEntity = new HierarchicalFilterEntity(store, categoryWomen);
 
@@ -37,7 +37,7 @@ describe('testing HierarchicalFilterEntity', () => {
       ]),
       ...createChild('women', false)
     ]);
-    const store = prepareFacetsStoreWithFilters(categoryFacet.filters);
+    const store = prepareFacetsStore(categoryFacet.filters);
     const [categoryMen, categoryShirts, categoryLongSleeve, categoryJeans, categoryWomen] =
       categoryFacet.filters;
     const categoryLongSleeveEntity = new HierarchicalFilterEntity(store, categoryLongSleeve);

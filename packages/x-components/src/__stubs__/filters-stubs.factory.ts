@@ -391,6 +391,7 @@ export type CreateNextHierarchicalFilter = (
  * Creates a factory of
  * {@link @empathyco/x-types-next#HierarchicalFilter | HierarchicalFilter}s.
  *
+ * @remarks the id is created with `<facetId>:<label>`.
  * @param facetId - Facet id to which the filter belongs.
  * @param parentId - Filter's parent id if exists.
  * @returns A scoped function which is able to create `HierarchicalFilters`.
@@ -399,8 +400,8 @@ export function createNextHierarchicalFilterFactory(
   facetId: string,
   parentId: string | null = null
 ): CreateNextHierarchicalFilter {
-  return (label, selected, createChildren) => {
-    const filterId = `${facetId}:${label.toLowerCase()}`;
+  return (label, selected, createChildren): NextHierarchicalFilter[] => {
+    const filterId = `${facetId}:${label}`;
     const children = createChildren
       ? createChildren(createNextHierarchicalFilterFactory(facetId, filterId))
       : [];
@@ -412,9 +413,7 @@ export function createNextHierarchicalFilterFactory(
         selected,
         label,
         totalResults: 10,
-        callbackInfo: {},
-        children: children.map(filter => filter.id),
-        value: label.toLowerCase().replace(/\s+/g, '-'),
+        children: children.filter(filter => filter.parentId === filterId).map(filter => filter.id),
         modelName: 'HierarchicalFilter'
       },
       ...children
