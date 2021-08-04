@@ -1,26 +1,8 @@
-import { createLocalVue } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
 import { createNextSimpleFilter } from '../../../../__stubs__/filters-stubs.factory';
-import { RootXStoreState } from '../../../../store/store.types';
-import { facetsNextXStoreModule } from '../../store/module';
 import { SimpleFilterEntity } from '../simple-filter.entity';
+import { prepareFacetsStore } from './utils';
 
 describe('testing SimpleFilterEntity', () => {
-  function prepareFacetsStore(): Store<RootXStoreState> {
-    const vue = createLocalVue();
-    vue.use(Vuex);
-    return new Store({
-      modules: {
-        x: {
-          modules: {
-            facetsNext: { ...facetsNextXStoreModule, namespaced: true }
-          },
-          namespaced: true
-        }
-      }
-    });
-  }
-
   it('allows selecting and deselecting a filter', () => {
     const store = prepareFacetsStore();
     const filter = createNextSimpleFilter('size', 'xxs');

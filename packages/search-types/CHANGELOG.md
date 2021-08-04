@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.4...@empathyco/x-types@10.0.0-alpha.5) (2021-08-03)
+
+
+### Build System
+
+* Update TypeScript to 4.3.5.Update TSLib to 2.3.5. ([4cebdfc](https://github.com/empathyco/x/commit/4cebdfc11e1520552a687def3eda1bf0c132e031)), closes [EX-4435](https://searchbroker.atlassian.net/browse/EX-4435)
+
+
+
 ## [10.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.3...@empathyco/x-types@10.0.0-alpha.4) (2021-07-29)
 
 

@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.10...@empathyco/x-components@3.0.0-alpha.11) (2021-08-03)
+
+
+### Features
+
+* **facets-next:** add `SimpleFilterEntity` ([9b551a4](https://github.com/empathyco/x/commit/9b551a41d6e67c64942cfe26051a06ce7dc91a65)), closes [EX-4352](https://searchbroker.atlassian.net/browse/EX-4352)
+
+
+### Bug Fixes
+
+* **animations:** disable  leaving elements listening to click events (#70) ([3d7b92b](https://github.com/empathyco/x/commit/3d7b92b1baa2c86c3fe8e390cec8a203bc62c95e)), closes [EX-4504](https://searchbroker.atlassian.net/browse/EX-4504)
+
+
+### Build System
+
+* Update TypeScript to 4.3.5.Update TSLib to 2.3.5. ([4cebdfc](https://github.com/empathyco/x/commit/4cebdfc11e1520552a687def3eda1bf0c132e031)), closes [EX-4435](https://searchbroker.atlassian.net/browse/EX-4435)
+
+
+
 ## [3.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.9...@empathyco/x-components@3.0.0-alpha.10) (2021-07-29)
 
 
