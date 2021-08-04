@@ -1,4 +1,4 @@
-import { Filter } from '@empathyco/x-types-next';
+import { Filter, EditableNumberRangeFilter } from '@empathyco/x-types-next';
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { RootXStoreState } from '../../../../store/store.types';
@@ -33,4 +33,34 @@ export function prepareFacetsStore(): Store<RootXStoreState> {
  */
 export function isFilterSelected(store: Store<RootXStoreState>, filterId: Filter['id']): boolean {
   return store.state.x.facetsNext.filters[filterId].selected;
+}
+
+/**
+ * Returns a {@link NextEditableNumberRangeFilter} filter from store found with the `filterId`.
+ *
+ * @param store - The store that contains the filter.
+ * @param filterId - The id of the filter to check if it is selected.
+ * @returns A {@link NextEditableNumberRangeFilter} if found.
+ */
+export function getStoreEditableNumberRangeFilter(
+  store: Store<RootXStoreState>,
+  filterId: EditableNumberRangeFilter['id']
+): EditableNumberRangeFilter {
+  return store.state.x.facetsNext.filters[filterId] as EditableNumberRangeFilter;
+}
+
+/**
+ * Retrieves the filter from the store and returns if it is selected and one range value is not
+ * null.
+ *
+ * @param store - The store that contains the filter.
+ * @param filterId - The id of the filter to check if it is selected.
+ * @returns True if the filter is selected and one range value is not null, false otherwise.
+ */
+export function isEditableNumberRangeFilterSelected(
+  store: Store<RootXStoreState>,
+  filterId: EditableNumberRangeFilter['id']
+): boolean {
+  const filter = getStoreEditableNumberRangeFilter(store, filterId);
+  return filter.selected && (filter.range.min !== null || filter.range.max !== null);
 }
