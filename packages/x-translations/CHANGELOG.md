@@ -5,17 +5,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.1.0-alpha.0 (2021-08-03)
 
-
-### Features
-
-* **facets-next:** add `SimpleFilterEntity` ([9b551a4](https://github.com/empathyco/x/commit/9b551a41d6e67c64942cfe26051a06ce7dc91a65)), closes [EX-4352](https://searchbroker.atlassian.net/browse/EX-4352)
-* add support to transform a directory of input files ([4b40dec](https://github.com/empathyco/x/commit/4b40dec908cb8eaff6d5e242a305db1c4dbe6618)), closes [EX-3824](https://searchbroker.atlassian.net/browse/EX-3824)
-* **csv-json:** add command to transform a `.csv` file into a `.json` file. ([263795e](https://github.com/empathyco/x/commit/263795e47404c425cd8eadc99a6e1ee691aea257))
-* add initial project configuration ([15f8da0](https://github.com/empathyco/x/commit/15f8da005835a6944dc0a6cde3fb80c1cba7d8c7)), closes [EX-3645](https://searchbroker.atlassian.net/browse/EX-3645)
+**Note:** Version bump only for package @empathyco/x-translations
 
 
-
-# X Translations
 ## 1.0.0 (2021-05-28)
 
 

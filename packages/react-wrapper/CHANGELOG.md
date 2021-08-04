@@ -6,11 +6,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ## [3.1.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@3.0.1-alpha.1...@empathyco/x-react-wrapper@3.1.0-alpha.0) (2021-08-03)
 
 
-### Features
-
-* **facets-next:** add `SimpleFilterEntity` ([9b551a4](https://github.com/empathyco/x/commit/9b551a41d6e67c64942cfe26051a06ce7dc91a65)), closes [EX-4352](https://searchbroker.atlassian.net/browse/EX-4352)
-
-
 ### Build System
 
 * Update TypeScript to 4.3.5.Update TSLib to 2.3.5. ([4cebdfc](https://github.com/empathyco/x/commit/4cebdfc11e1520552a687def3eda1bf0c132e031)), closes [EX-4435](https://searchbroker.atlassian.net/browse/EX-4435)
