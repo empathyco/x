@@ -360,19 +360,21 @@ export function createNextNumberRangeFilter(
  *
  * @param facetId - The facet id this filter belongs to.
  * @param range - The range that this filter has.
+ * @param selected - The selected value which has priority over the range values.
  * @returns A stub for a
  * {@link @empathyco/x-types-next#EditableNumberRangeFilter | EditableNumberRangeFilter}.
  */
 export function createNextEditableNumberRangeFilter(
   facetId: string,
-  range: RangeValue = { min: null, max: null }
+  range: RangeValue = { min: null, max: null },
+  selected?: boolean
 ): NextEditableNumberRangeFilter {
   return {
     id: `${facetId}:${range.min ?? '*'}-${range.max ?? '*'}`,
     facetId,
     range,
     modelName: 'EditableNumberRangeFilter',
-    selected: range.min !== null || range.max !== null
+    selected: selected ?? (range.min !== null || range.max !== null)
   };
 }
 
