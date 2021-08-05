@@ -4,9 +4,9 @@
 [![Check branch is releasable](https://github.com/empathyco/x/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/empathyco/x/actions/workflows/build.yml)
 [![Created by](https://img.shields.io/badge/Created%20by-Empathy.co-green)](https://www.empathy.co)
 
-Give life to your Commerce Search over any end point (Elastic, Solr, Empathy, etc) with an irresistible, expressive and joyful search UI that is simple, configurable and incredibly smooth (out-of-the-box Vue.js components)
+Give life to your Commerce Search over any endpoint (Elastic, Solr, Empathy, etc.) with an irresistible, expressive and joyful search UI that is simple, configurable and incredibly smooth (out-of-the-box Vue.js components).
 
-Commerce Search Interface X Components are leveraged within some of the most beautiful Commerce Search Experiences out there like [Carrefour.es](https://www.carrefour.es), [Pull&Bear.com](https://www.pullandbear.com) or [Kroger.com](https://www.kroger.com)
+Commerce Search Interface X Components are leveraged within some of the most beautiful Commerce Search Experiences out there, like [Carrefour.es](https://www.carrefour.es), [Pull&Bear.com](https://www.pullandbear.com) and [Kroger.com](https://www.kroger.com).
 
 Transform your search UI, simplify product discovery, and configure the shopper experience with cutting-edge technology based on Vue.js and out-of-the-box components.
 
