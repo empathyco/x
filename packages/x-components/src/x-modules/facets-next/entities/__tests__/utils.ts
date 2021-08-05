@@ -1,4 +1,4 @@
-import { Filter, EditableNumberRangeFilter } from '@empathyco/x-types-next';
+import { EditableNumberRangeFilter, Filter, Facet } from '@empathyco/x-types-next';
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { resetStoreXModuleState } from '../../../../__tests__/utils';
@@ -44,18 +44,33 @@ export function prepareFacetsStore(filters?: Filter[]): Store<RootXStoreState> {
 export function isFilterSelected(store: Store<RootXStoreState>, filterId: Filter['id']): boolean {
   return store.state.x.facetsNext.filters[filterId].selected;
 }
+
 /**
- * Returns a {@link EditableNumberRangeFilter} filter from store found with the `filterId`.
+ * Returns the stored filter with the given id.
  *
  * @param store - The store that contains the filter.
- * @param filterId - The id of the filter to check if it is selected.
- * @returns A {@link EditableNumberRangeFilter} if found.
+ * @param filterId - The id of the filter to retrieve.
+ * @returns The filter if it exists in the store.
  */
-export function getStoreEditableNumberRangeFilter(
+export function getStoreFilter<SomeFilter extends Filter>(
   store: Store<RootXStoreState>,
   filterId: EditableNumberRangeFilter['id']
-): EditableNumberRangeFilter {
-  return store.state.x.facetsNext.filters[filterId] as EditableNumberRangeFilter;
+): SomeFilter {
+  return store.state.x.facetsNext.filters[filterId] as SomeFilter;
+}
+
+/**
+ * Returns a {@link Filter} array with the filters with the `facetId`.
+ *
+ * @param store - The store that contains the filters.
+ * @param facetId - The id of the facet to get its filters.
+ * @returns The array of filters with the facetId.
+ */
+export function getStoreFiltersByFacetId<SomeFilter extends Filter = Filter>(
+  store: Store<RootXStoreState>,
+  facetId: Facet['id']
+): SomeFilter[] {
+  return store.getters['x/facetsNext/filtersByFacet'][facetId];
 }
 
 /**
@@ -70,6 +85,6 @@ export function isEditableNumberRangeFilterSelected(
   store: Store<RootXStoreState>,
   filterId: EditableNumberRangeFilter['id']
 ): boolean {
-  const filter = getStoreEditableNumberRangeFilter(store, filterId);
+  const filter = getStoreFilter<EditableNumberRangeFilter>(store, filterId);
   return filter.selected && (filter.range.min !== null || filter.range.max !== null);
 }

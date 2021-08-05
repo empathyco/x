@@ -4,16 +4,14 @@ import {
   isEditableNumberRangeFilter
 } from '@empathyco/x-types-next';
 import { Store } from 'vuex';
-import { EquatableFilter } from './equatable-filter';
+import { RootXStoreState } from '../../../store/store.types';
 import { FilterEntity } from './types';
 
 /**
  * Allows selecting and deselecting a filter of {@link EditableNumberRangeFilter}.
  */
-export class EditableNumberRangeFilterEntity extends EquatableFilter implements FilterEntity {
-  public constructor(protected store: Store<unknown>, protected filter: EditableNumberRangeFilter) {
-    super(filter);
-  }
+export class EditableNumberRangeFilterEntity implements FilterEntity {
+  public constructor(protected store: Store<RootXStoreState>) {}
 
   static accepts(filter: Filter): boolean {
     return isEditableNumberRangeFilter(filter);
@@ -22,34 +20,48 @@ export class EditableNumberRangeFilterEntity extends EquatableFilter implements 
   /**
    * It sets {@link EditableNumberRangeFilter.selected} to false and reset the
    * {@link EditableNumberRangeFilter.range} values to null.
+   *
+   * @param filter - The filter to deselect.
    */
-  deselect(): void {
-    this.store.commit('x/facetsNext/setFilter', {
-      ...this.filter,
+  deselect(filter: EditableNumberRangeFilter): void {
+    const newFilter: EditableNumberRangeFilter = {
+      ...filter,
       selected: false,
       range: { min: null, max: null }
-    });
+    };
+    newFilter.id = this.getNewFilterId(newFilter);
+    this.store.commit('x/facetsNext/removeFilter', filter);
+    this.store.commit('x/facetsNext/setFilter', newFilter);
   }
 
   /**
    * It selects the {@link EditableNumberRangeFilter}.
    *
+   * @param filter - The filter to select.
    * @remarks If the filter has no selected range, then filter is deselected when this
    * method is called.
    */
-  select(): void {
+  select(filter: EditableNumberRangeFilter): void {
+    const newFilterId = this.getNewFilterId(filter);
+    this.store.commit('x/facetsNext/removeFilter', filter);
     this.store.commit('x/facetsNext/setFilter', {
-      ...this.filter,
-      selected: this.isSelected()
+      ...filter,
+      id: newFilterId,
+      selected: this.isSelected(filter)
     });
+  }
+
+  protected getNewFilterId(filter: EditableNumberRangeFilter): string {
+    return `${filter.facetId}:${String(filter.range.min)}_${String(filter.range.max)}`;
   }
 
   /**
    * It returns if the filter range min or the filter range max is not null.
    *
+   * @param filter - The filter to determine if it is selected or not.
    * @returns True if filter range min or filter range max is not null.
    */
-  protected isSelected(): boolean {
-    return this.filter.range.min !== null || this.filter.range.max !== null;
+  protected isSelected(filter: EditableNumberRangeFilter): boolean {
+    return filter.range.min !== null || filter.range.max !== null;
   }
 }
