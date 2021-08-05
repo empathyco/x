@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.11...@empathyco/x-components@3.0.0-alpha.12) (2021-08-05)
+
+
+### Features
+
+* **facets-next:** add `EditableNumberRangeFilterEntity` ([876da46](https://github.com/empathyco/x/commit/876da466da986de89b40dcceb4119cac816228d1)), closes [EX-4356](https://searchbroker.atlassian.net/browse/EX-4356)
+* **facets-next:** add `HierarchicalFilterEntity` (#75) ([d633721](https://github.com/empathyco/x/commit/d633721b6c795ee9145925d366216edd616b0807)), closes [EX-4354](https://searchbroker.atlassian.net/browse/EX-4354)
+* **facets-next:** add `RawFilterEntity` ([f87d873](https://github.com/empathyco/x/commit/f87d8737d8a2049f7311294f7c260b36f542014b)), closes [EX-4358](https://searchbroker.atlassian.net/browse/EX-4358)
+
+
+
 ## [3.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.10...@empathyco/x-components@3.0.0-alpha.11) (2021-08-03)
 
 

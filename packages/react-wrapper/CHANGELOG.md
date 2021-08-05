@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@3.1.0-alpha.0...@empathyco/x-react-wrapper@3.1.0-alpha.1) (2021-08-05)
+
+
+### Features
+
+* **facets-next:** add `HierarchicalFilterEntity` (#75) ([d633721](https://github.com/empathyco/x/commit/d633721b6c795ee9145925d366216edd616b0807)), closes [EX-4354](https://searchbroker.atlassian.net/browse/EX-4354)
+
+
+### Build System
+
+* upgrade dependencies ([b1d0e5d](https://github.com/empathyco/x/commit/b1d0e5df03cd48f3bb285830943bddf9bdc17acf)), closes [EX-4506](https://searchbroker.atlassian.net/browse/EX-4506)
+
+
+
 ## [3.1.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@3.0.1-alpha.1...@empathyco/x-react-wrapper@3.1.0-alpha.0) (2021-08-03)
 
 

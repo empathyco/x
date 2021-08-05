@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-translations",
-  "version": "1.1.0-alpha.0",
+  "version": "1.1.0-alpha.1",
   "description": "A project which allows the user to import and export the translations.",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -24,7 +24,7 @@
     "test": "jest -i"
   },
   "dependencies": {
-    "@empathyco/x-deep-merge": "^1.2.2-alpha.6"
+    "@empathyco/x-deep-merge": "^1.2.2-alpha.7"
   },
   "devDependencies": {
     "@empathyco/eslint-plugin-x": "^1.2.0",
