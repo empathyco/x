@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.1...@empathyco/x-translations@1.1.0-alpha.2) (2021-08-05)
+
+
+### Build System
+
+* upgrade x-translations dependencies ([6e538fa](https://github.com/empathyco/x/commit/6e538facd2a9655532f797e340572550347dfc72)), closes [EX-4506](https://searchbroker.atlassian.net/browse/EX-4506)
+
+
+
 ## [1.1.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.0...@empathyco/x-translations@1.1.0-alpha.1) (2021-08-05)
 
 
