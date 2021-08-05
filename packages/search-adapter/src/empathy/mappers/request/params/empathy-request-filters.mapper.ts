@@ -1,4 +1,4 @@
-import { Filter } from '@empathyco/x-types';
+import { Filter } from '@empathyco/x-types-next';
 import { injectable, multiInject } from 'inversify';
 import { Dictionary } from '../../../../types';
 import { DEPENDENCIES } from '../../../container/container.const';

@@ -3,7 +3,7 @@ export * from './facets/empathy-hierarchical-facet.mapper';
 export * from './facets/empathy-number-range-facet.mapper';
 export * from './facets/empathy-simple-facet.mapper';
 
-export * from './filters/empathy-filter.mapper';
+export * from './filters/empathy-facet-filter.mapper';
 export * from './filters/empathy-hierarchical-filter.mapper';
 export * from './filters/empathy-number-range-filter.mapper';
 export * from './filters/empathy-simple-filter.mapper';

@@ -1,4 +1,4 @@
-import { HierarchicalFacet, HierarchicalFilter } from '@empathyco/x-types';
+import { HierarchicalFacet, HierarchicalFilter, Filter } from '@empathyco/x-types-next';
 import { injectable, multiInject } from 'inversify';
 import { DEPENDENCIES } from '../../../container/container.const';
 import { MapFn, ResponseMapper, ResponseMapperContext } from '../../../empathy-adapter.types';
@@ -30,16 +30,25 @@ export class EmpathyHierarchicalFacetMapper implements ResponseMapper<EmpathyFac
   }
 
   protected mapFiltersTree(facet: HierarchicalFacet, rawFilters: EmpathyFilter[], context: ResponseMapperContext): HierarchicalFilter[] {
-    const initFilterProps: Partial<HierarchicalFilter> = { facetId: facet.id, parentId: null };
-    return this.mapDeepFilters(rawFilters, initFilterProps, context);
+    const filters: HierarchicalFilter[] = [];
+    const initFilterProps: Readonly<Partial<HierarchicalFilter>> = { facetId: facet.id, parentId: null };
+    rawFilters.forEach(rawFilter => {
+      this.mapDeepFilter(rawFilter, initFilterProps, context, filters);
+    });
+    return filters;
   }
 
-  protected mapDeepFilters(rawFilters: EmpathyFilter[] = [], initFilterProps: Readonly<Partial<HierarchicalFilter>>,
-    context: ResponseMapperContext): HierarchicalFilter[] {
-    return rawFilters.map(rawFilter => {
-      const filter = this.mapFilter(rawFilter, { ...initFilterProps } as HierarchicalFilter, context);
-      filter.children = this.mapDeepFilters(rawFilter.values, { ...initFilterProps, parentId: filter.id }, context);
-      return filter;
-    });
+  protected mapDeepFilter(
+    rawFilter: EmpathyFilter,
+    initFilterProps: Readonly<Partial<HierarchicalFilter>>,
+    context: ResponseMapperContext,
+    filters: HierarchicalFilter[]
+  ): string {
+    const filter = this.mapFilter(rawFilter, { ...initFilterProps } as HierarchicalFilter, context);
+    filter.children =
+      rawFilter.values?.map(
+        rawFilterChild => this.mapDeepFilter(rawFilterChild, { ...initFilterProps, parentId: filter.id }, context, filters));
+    filters.push(filter);
+    return `${ filter.id }`;
   }
 }

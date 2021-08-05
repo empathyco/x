@@ -26,7 +26,7 @@ import { EmpathyHierarchicalFacetMapper } from '../mappers/response/facets/empat
 import { EmpathyNumberRangeFacetMapper } from '../mappers/response/facets/empathy-number-range-facet.mapper';
 import { EmpathySimpleFacetMapper } from '../mappers/response/facets/empathy-simple-facet.mapper';
 import { EmpathyBooleanFilterMapper } from '../mappers/response/filters/empathy-boolean-filter.mapper';
-import { EmpathyFilterMapper } from '../mappers/response/filters/empathy-filter.mapper';
+import { EmpathyFacetFilterMapper } from '../mappers/response/filters/empathy-facet-filter.mapper';
 import { EmpathyHierarchicalFilterMapper } from '../mappers/response/filters/empathy-hierarchical-filter.mapper';
 import { EmpathyNumberRangeFilterMapper } from '../mappers/response/filters/empathy-number-range-filter.mapper';
 import { EmpathySimpleFilterMapper } from '../mappers/response/filters/empathy-simple-filter.mapper';
@@ -113,9 +113,9 @@ export const BINDINGS: BindingDictionary = {
     EmpathyHierarchicalFacetMapper,
     EmpathyNumberRangeFacetMapper
   ],
-  [DEPENDENCIES.ResponseMappers.simpleFilter]: [EmpathyFilterMapper, EmpathyBooleanFilterMapper, EmpathySimpleFilterMapper],
-  [DEPENDENCIES.ResponseMappers.hierarchicalFilter]: [EmpathyFilterMapper, EmpathyBooleanFilterMapper, EmpathyHierarchicalFilterMapper],
-  [DEPENDENCIES.ResponseMappers.numberRangeFilter]: [EmpathyFilterMapper, EmpathyBooleanFilterMapper, EmpathyNumberRangeFilterMapper],
+  [DEPENDENCIES.ResponseMappers.simpleFilter]: [EmpathyFacetFilterMapper, EmpathyBooleanFilterMapper, EmpathySimpleFilterMapper],
+  [DEPENDENCIES.ResponseMappers.hierarchicalFilter]: [EmpathyFacetFilterMapper, EmpathyBooleanFilterMapper, EmpathyHierarchicalFilterMapper],
+  [DEPENDENCIES.ResponseMappers.numberRangeFilter]: [EmpathyFacetFilterMapper, EmpathyBooleanFilterMapper, EmpathyNumberRangeFilterMapper],
   [DEPENDENCIES.ResponseMappers.nextQueries]: EmpathyNextQueryMapper,
   [DEPENDENCIES.ResponseMappers.partialResults]: EmpathyPartialResultMapper,
   [DEPENDENCIES.ResponseMappers.promoteds]: EmpathyPromotedMapper,

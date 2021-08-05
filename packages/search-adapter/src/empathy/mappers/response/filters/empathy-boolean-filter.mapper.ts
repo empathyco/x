@@ -1,4 +1,4 @@
-import { BooleanFilter, Filter } from '@empathyco/x-types';
+import { BooleanFilter, Filter } from '@empathyco/x-types-next';
 import { injectable } from 'inversify';
 import { ResponseMapper, ResponseMapperContext } from '../../../empathy-adapter.types';
 import { EmpathyFilter } from '../../../models';
@@ -10,11 +10,10 @@ import { EmpathyFilter } from '../../../models';
  */
 @injectable()
 export class EmpathyBooleanFilterMapper implements ResponseMapper<EmpathyFilter, Filter> {
-
   map(rawFilter: EmpathyFilter, filter: BooleanFilter, context: ResponseMapperContext): BooleanFilter {
     return Object.assign<BooleanFilter, Partial<BooleanFilter>>(filter, {
+      label: rawFilter.value,
       selected: rawFilter.selected ?? false,
-      value: rawFilter.filter,
       totalResults: rawFilter.count
     });
   }

@@ -3,8 +3,10 @@ import {
   EditableNumberRangeFilter,
   Filter,
   isBooleanFilter,
+  isRawFilter,
+  RawFilter,
   isEditableNumberRangeFilter
-} from '@empathyco/x-types';
+} from '@empathyco/x-types-next';
 import { inject, injectable } from 'inversify';
 import { EmpathyAdapterConfig } from '../../../config/empathy-adapter-config.types';
 import { DEPENDENCIES } from '../../../container/container.const';
@@ -29,8 +31,8 @@ export class EmpathyRequestFiltersSolrSyntaxMapper implements Mapper<Filter[], s
   }
 
   private composeFilters(filters: Filter[]): string[] {
-    if (this.isArrayOfBooleanFilters(filters)) {
-      return filters.map(filter => filter.value);
+    if (this.isArrayOfBooleanFilters(filters) || this.isArrayOfRawFilters(filters)) {
+      return filters.map(filter => `${filter.id}`);
     } else if (this.isArrayOfEditableNumberRangeFilters(filters)) {
       return this.mapEditableNumberRangeFiltersList(filters);
     }
@@ -61,7 +63,7 @@ export class EmpathyRequestFiltersSolrSyntaxMapper implements Mapper<Filter[], s
   }
 
   /**
-   * Check if the filters passed are of type {@link @empathyco/x-types#BooleanFilter | BooleanFilter}.
+   * Check if the filters passed are of type {@link @empathyco/x-types-next#BooleanFilter | BooleanFilter}.
    *
    * @param filters - The array of filters to check.
    *
@@ -72,7 +74,18 @@ export class EmpathyRequestFiltersSolrSyntaxMapper implements Mapper<Filter[], s
   }
 
   /**
-   * Check if the filters passed are of type {@link @empathyco/x-types#EditableNumberRangeFilter | EditableNumberRangeFilter}.
+   * Check if the filters passed are of type {@link @empathyco/x-types-next#RawFilter | RawFilter}.
+   *
+   * @param filters - The array of filters to check.
+   *
+   * @internal
+   */
+  private isArrayOfRawFilters(filters: Filter[]): filters is RawFilter[] {
+    return isRawFilter(filters[0]);
+  }
+
+  /**
+   * Check if the filters passed are of type {@link @empathyco/x-types-next#EditableNumberRangeFilter | EditableNumberRangeFilter}.
    *
    * @param filters - The array of filters to check.
    *

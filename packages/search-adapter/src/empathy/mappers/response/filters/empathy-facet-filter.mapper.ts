@@ -1,4 +1,4 @@
-import { Filter } from '@empathyco/x-types';
+import { FacetFilter } from '@empathyco/x-types-next';
 import { injectable } from 'inversify';
 import { ResponseMapper, ResponseMapperContext } from '../../../empathy-adapter.types';
 import { EmpathyFilter } from '../../../models';
@@ -9,16 +9,13 @@ import { EmpathyFilter } from '../../../models';
  * @public
  */
 @injectable()
-export class EmpathyFilterMapper implements ResponseMapper<EmpathyFilter, Filter> {
-
-  map(rawFilter: EmpathyFilter, filter: Filter, context: ResponseMapperContext): Filter {
+export class EmpathyFacetFilterMapper implements ResponseMapper<EmpathyFilter, FacetFilter> {
+  map(rawFilter: EmpathyFilter, filter: FacetFilter, context: ResponseMapperContext): FacetFilter {
     const value = rawFilter.filter;
     const id = `${ filter.facetId }:${ value }`;
 
-    return Object.assign<Filter, Partial<Filter>>(filter, {
+    return Object.assign<FacetFilter, Partial<FacetFilter>>(filter, {
       id,
-      label: rawFilter.value,
-      callbackInfo: {}
     });
   }
 }

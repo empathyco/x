@@ -5,7 +5,7 @@ import {
   Filter,
   RangeValue,
   SimpleFilter
-} from '@empathyco/x-types';
+} from '@empathyco/x-types-next';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { Container } from 'inversify';
 import { DeepPartial, Dictionary } from '../../../../types';
@@ -39,8 +39,8 @@ describe('EmpathyRequestFiltersSolrSyntaxMapper', () => {
     const facet = getMockedFacet('color');
     const filters: Dictionary<Filter[]> = {
       color: [
-        getMockedSimpleFilter('blue', facet, { value: '{!tag=color}color:blue' }),
-        getMockedSimpleFilter('red', facet, { value: '{!tag=color}color:red' })
+        getMockedSimpleFilter('blue', facet, { id: '{!tag=color}color:blue' }),
+        getMockedSimpleFilter('red', facet, { id: '{!tag=color}color:red' })
       ]
     };
 
@@ -64,7 +64,8 @@ describe('EmpathyRequestFiltersSolrSyntaxMapper', () => {
 
     it('Replaces template with min and max values', () => {
       const filters: Dictionary<EditableNumberRangeFilter[]> = getMockedEditableNumberRangeFilters('price', { min: 10, max: 20 });
-      expect(filtersMapper.map(filters, [], emptyContext)).toEqual(['{!tag:price}price:[10 to 20]']);
+      const result = filtersMapper.map(filters, [], emptyContext);
+      expect(result).toEqual(['{!tag:price}price:[10 to 20]']);
     });
 
     it('Replaces min null with * in the template', () => {
@@ -91,12 +92,9 @@ describe('EmpathyRequestFiltersSolrSyntaxMapper', () => {
     const filter: SimpleFilter = deepMerge({
       selected: true,
       facetId: facet.id,
-      callbackInfo: {},
       modelName: 'SimpleFilter',
-      count: 10,
       id: name,
       label: name,
-      value: name
     }, partial);
     facet.filters.push(filter);
     return filter;
@@ -129,14 +127,13 @@ describe('EmpathyRequestFiltersSolrSyntaxMapper', () => {
   ): EditableNumberRangeFilter {
     const sourceFilter: EditableNumberRangeFilter = {
       facetId: facet.id,
-      callbackInfo: {},
       modelName: 'EditableNumberRangeFilter',
       id: name,
-      label: name,
       range: {
         min: 0,
         max: 10
-      }
+      },
+      selected: true
     };
 
     const filter: EditableNumberRangeFilter = deepMerge(sourceFilter, customFilter);
