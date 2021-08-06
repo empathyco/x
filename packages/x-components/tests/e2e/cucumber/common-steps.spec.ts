@@ -1,5 +1,5 @@
 import { Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { PageableRequest } from '../../../../search-adapter/types/types/requests.types';
+import { PageableRequest } from '@empathyco/x-adapter';
 
 let resultsList: string[] = [];
 

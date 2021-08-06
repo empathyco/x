@@ -1,4 +1,5 @@
 import { And, Given, Then } from 'cypress-cucumber-preprocessor/steps';
+import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
 import { recommendationsStub } from './stubs/recommendations.stub';
 
 Given('suggestions API should respond with mocked suggestions', () => {
@@ -8,7 +9,7 @@ Given('suggestions API should respond with mocked suggestions', () => {
 });
 
 And('following config: max items to store is {int}', (maxItemsToRequest: number) => {
-  const config = {
+  const config: InstallXOptions['xModules'] = {
     recommendations: {
       config: {
         maxItemsToRequest

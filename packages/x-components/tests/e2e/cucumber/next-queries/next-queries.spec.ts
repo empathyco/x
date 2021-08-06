@@ -1,4 +1,5 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
 import { nextQueriesStub } from './stubs/next-queries.stub';
 
 Given('next queries API should respond with mocked next queries', () => {
@@ -10,7 +11,7 @@ Given('next queries API should respond with mocked next queries', () => {
 And(
   'following config: hide session queries {boolean}, requested items {int}, loadOnInit {boolean}',
   (hideSessionQueries: boolean, maxItemsToRequest: number, loadOnInit: boolean) => {
-    const config = {
+    const config: InstallXOptions['xModules'] = {
       nextQueries: {
         config: {
           hideSessionQueries,
