@@ -1,4 +1,4 @@
-import { HierarchicalFacet, HierarchicalFilter, Filter } from '@empathyco/x-types-next';
+import { HierarchicalFacet, HierarchicalFilter } from '@empathyco/x-types-next';
 import { injectable, multiInject } from 'inversify';
 import { DEPENDENCIES } from '../../../container/container.const';
 import { MapFn, ResponseMapper, ResponseMapperContext } from '../../../empathy-adapter.types';
