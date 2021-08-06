@@ -215,7 +215,7 @@ describe('testing filters entity factory', () => {
   });
 
   describe('testing modifiers', () => {
-    it('decorates entities with modifiers', () => {
+    it('decorates entities of the given facet with modifiers', () => {
       const store = prepareFacetsStore();
       const factory = new FiltersFactory();
       const redColorFilter = createSimpleFilter('color', 'red');

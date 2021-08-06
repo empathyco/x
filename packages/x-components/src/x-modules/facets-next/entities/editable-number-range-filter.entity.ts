@@ -1,5 +1,6 @@
 import {
   EditableNumberRangeFilter,
+  Facet,
   Filter,
   isEditableNumberRangeFilter
 } from '@empathyco/x-types-next';
@@ -30,7 +31,7 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
       range: { min: null, max: null }
     };
     newFilter.id = this.getNewFilterId(newFilter);
-    this.store.commit('x/facetsNext/removeFilter', filter);
+    this.removePreviousFilter(filter.facetId);
     this.store.commit('x/facetsNext/setFilter', newFilter);
   }
 
@@ -43,12 +44,16 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
    */
   select(filter: EditableNumberRangeFilter): void {
     const newFilterId = this.getNewFilterId(filter);
-    this.store.commit('x/facetsNext/removeFilter', filter);
+    this.removePreviousFilter(filter.facetId);
     this.store.commit('x/facetsNext/setFilter', {
       ...filter,
       id: newFilterId,
       selected: this.isSelected(filter)
     });
+  }
+
+  protected getFilterByFacet(facetId: Facet['id']): EditableNumberRangeFilter {
+    return (this.store.getters['x/facetsNext/filtersByFacet'][facetId] ?? [])[0];
   }
 
   protected getNewFilterId(filter: EditableNumberRangeFilter): string {
@@ -63,5 +68,12 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
    */
   protected isSelected(filter: EditableNumberRangeFilter): boolean {
     return filter.range.min !== null || filter.range.max !== null;
+  }
+
+  protected removePreviousFilter(facetId: Facet['id']): void {
+    const previousFilter = this.getFilterByFacet(facetId);
+    if (previousFilter) {
+      this.store.commit('x/facetsNext/removeFilter', previousFilter);
+    }
   }
 }

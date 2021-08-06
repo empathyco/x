@@ -70,7 +70,7 @@ export function getStoreFiltersByFacetId<SomeFilter extends Filter = Filter>(
   store: Store<RootXStoreState>,
   facetId: Facet['id']
 ): SomeFilter[] {
-  return store.getters['x/facetsNext/filtersByFacet'][facetId];
+  return store.getters['x/facetsNext/filtersByFacet'][facetId] ?? [];
 }
 
 /**
@@ -78,13 +78,27 @@ export function getStoreFiltersByFacetId<SomeFilter extends Filter = Filter>(
  * null.
  *
  * @param store - The store that contains the filter.
- * @param filterId - The id of the filter to check if it is selected.
+ * @param facetId - The id of the facet to check if it is selected.
  * @returns True if the filter is selected and one range value is not null, false otherwise.
  */
 export function isEditableNumberRangeFilterSelected(
   store: Store<RootXStoreState>,
-  filterId: EditableNumberRangeFilter['id']
+  facetId: Facet['id']
 ): boolean {
-  const filter = getStoreFilter<EditableNumberRangeFilter>(store, filterId);
+  const filter = getStoreEditableNumberRangeFilter(store, facetId);
   return filter.selected && (filter.range.min !== null || filter.range.max !== null);
+}
+
+/**
+ * Retrieves an editable number range filter from the store using the facet id.
+ *
+ * @param store - The store that contains the filter.
+ * @param facetId - The id of the facet to retrieve its editable filter.
+ * @returns The editable number range filter from the provided facet id.
+ */
+export function getStoreEditableNumberRangeFilter(
+  store: Store<RootXStoreState>,
+  facetId: Facet['id']
+): EditableNumberRangeFilter {
+  return getStoreFiltersByFacetId<EditableNumberRangeFilter>(store, facetId)[0];
 }
