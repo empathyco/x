@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@1.4.0-alpha.6...@empathyco/eslint-plugin-x@1.4.0-alpha.7) (2021-08-05)
+
+**Note:** Version bump only for package @empathyco/eslint-plugin-x
+
+
+
+
+
+## [1.4.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@1.4.0-alpha.5...@empathyco/eslint-plugin-x@1.4.0-alpha.6) (2021-08-05)
+
+
+### Build System
+
+* upgrade dependencies ([b1d0e5d](https://github.com/empathyco/x/commit/b1d0e5df03cd48f3bb285830943bddf9bdc17acf)), closes [EX-4506](https://searchbroker.atlassian.net/browse/EX-4506)
+
+
+
+## [1.4.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@1.4.0-alpha.4...@empathyco/eslint-plugin-x@1.4.0-alpha.5) (2021-08-03)
+
+**Note:** Version bump only for package @empathyco/eslint-plugin-x
+
+
+
+
+
+## [1.4.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@1.4.0-alpha.3...@empathyco/eslint-plugin-x@1.4.0-alpha.4) (2021-07-29)
+
+
+### Build System
+
+* use 2 different versions of search-types ([5a6ac76](https://github.com/empathyco/x/commit/5a6ac76fea26c0f284904d4f514a1370b7c6184b)), closes [EX-4477](https://searchbroker.atlassian.net/browse/EX-4477)
+
+
+
 ## [1.4.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@1.4.0-alpha.1...@empathyco/eslint-plugin-x@1.4.0-alpha.3) (2021-07-27)
 
 **Note:** Version bump only for package @empathyco/eslint-plugin-x

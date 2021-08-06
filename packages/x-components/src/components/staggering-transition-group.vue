@@ -153,7 +153,10 @@
       this.newChildren.forEach(this.recordNewPosition);
       const { leavingNodes, stayingNodes, enteringNodes } = this.getNodesByTransitionType();
 
-      leavingNodes.forEach(this.applyStagger);
+      leavingNodes.forEach(vNode => {
+        this.applyStagger(vNode);
+        this.disableClickingEvents(vNode);
+      });
       const movedChildren = stayingNodes.filter(this.applyTranslation);
       const movedStagger = movedChildren.map(this.getNextTransitionDelay);
       enteringNodes.forEach(this.applyStagger);
@@ -316,6 +319,19 @@
      */
     protected applyStagger(vNode: TransitionVNode): void {
       vNode.elm.style.transitionDelay = this.getNextTransitionDelay();
+    }
+
+    /**
+     * Disables listening to click events in a virtual node element.
+     *
+     * @remarks This is done to avoid letting the user click elements that are performing the moving
+     * animation to leave the DOM but are still rendered.
+     *
+     * @param vNode - The virtual node to disable listening to click events.
+     * @internal
+     */
+    protected disableClickingEvents(vNode: TransitionVNode): void {
+      vNode.elm.style.pointerEvents = 'none';
     }
 
     /**

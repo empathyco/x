@@ -3,9 +3,11 @@
   "license": "Apache-2.0",
   "scripts": {
     "postinstall": "lerna bootstrap --hoist && npm run build",
+    "postci": "lerna bootstrap --hoist --ci && npm run build",
     "build": "lerna run build",
     "lint": "lerna run lint --parallel",
     "test": "lerna run test --parallel",
+    "serve": "lerna run serve --parallel",
     "prepare-release:stable": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes",
     "release:alpha": "lerna publish --conventional-commits --conventional-prerelease --yes --no-push",
     "publish-release": "node scripts/publish-release"

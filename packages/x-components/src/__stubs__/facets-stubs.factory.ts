@@ -10,12 +10,18 @@ import {
   SimpleFacet,
   SimpleFilter
 } from '@empathyco/x-types';
+import {
+  HierarchicalFacet as NextHierarchicalFacet,
+  HierarchicalFilter as NextHierarchicalFilter
+} from '@empathyco/x-types-next';
 import { arrayToObject } from '../utils';
 import { Dictionary } from '../utils/types';
 import {
   createCategorySimpleFilter,
   CreateHierarchicalFilter,
-  createHierarchicalFilterFactory
+  createHierarchicalFilterFactory,
+  CreateNextHierarchicalFilter,
+  createNextHierarchicalFilterFactory
 } from './filters-stubs.factory';
 
 /**
@@ -704,5 +710,27 @@ export function createFacetWithFilter(category: string): SimpleFacet {
     modelName: 'SimpleFacet',
     filters: [createCategorySimpleFilter(category)],
     label: 'category'
+  };
+}
+
+/* Next Facets */
+
+/**
+ * Creates a hierarchical facet with the given parameters.
+ *
+ * @param label - Used for the facet `id` and `label` properties.
+ * @param createChildren - A function that returns the facet filters.
+ * @returns A hierarchical facet.
+ */
+export function createNextHierarchicalFacetStub(
+  label: string,
+  createChildren: (createChild: CreateNextHierarchicalFilter) => NextHierarchicalFilter[]
+): NextHierarchicalFacet {
+  const facetId = label.toLowerCase();
+  return {
+    modelName: 'HierarchicalFacet',
+    id: facetId,
+    label,
+    filters: createChildren(createNextHierarchicalFilterFactory(facetId))
   };
 }

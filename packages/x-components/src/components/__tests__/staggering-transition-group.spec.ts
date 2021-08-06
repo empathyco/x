@@ -117,6 +117,23 @@ describe('testing Staggering Transition Group component', () => {
     });
   });
 
+  it('disables pointer-events when a node leaves.', async () => {
+    const staggering = 100;
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    const { getChildren, setChildren } = renderStaggeringTransitionGroup({
+      appear: false,
+      children: [1, 2, 3],
+      staggering
+    });
+    setChildren([]);
+    await Vue.nextTick();
+    const childrenWrapper = getChildren();
+    expect(childrenWrapper).toHaveLength(3);
+    childrenWrapper.wrappers.forEach(child => {
+      expect(child.element.style.pointerEvents).toEqual('none');
+    });
+  });
+
   it(
     'applies enter classes when a new element enters and one element stay in ' +
       'same position after doing a search',

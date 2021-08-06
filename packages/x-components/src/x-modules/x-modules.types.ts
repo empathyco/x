@@ -3,6 +3,7 @@ import { AnyXStoreModule, XStoreModule } from '../store/store.types';
 import { Wiring } from '../wiring/wiring.types';
 import { DeviceXModule } from './device/x-module';
 import { EmpathizeXModule } from './empathize/x-module';
+import { FacetsNextXModule } from './facets-next/x-module';
 import { FacetsXModule } from './facets/x-module';
 import { HistoryQueriesXModule } from './history-queries/x-module';
 import { IdentifierResultsXModule } from './identifier-results/x-module';
@@ -25,6 +26,7 @@ export interface XModulesTree {
   device: DeviceXModule;
   empathize: EmpathizeXModule;
   facets: FacetsXModule;
+  facetsNext: FacetsNextXModule;
   historyQueries: HistoryQueriesXModule;
   identifierResults: IdentifierResultsXModule;
   nextQueries: NextQueriesXModule;

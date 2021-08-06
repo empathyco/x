@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-adapter@6.2.0-alpha.7...@empathyco/x-adapter@6.2.0-alpha.8) (2021-08-05)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+
+
+
+
+## [6.2.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-adapter@6.2.0-alpha.6...@empathyco/x-adapter@6.2.0-alpha.7) (2021-08-05)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+
+
+
+
+## [6.2.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-adapter@6.2.0-alpha.5...@empathyco/x-adapter@6.2.0-alpha.6) (2021-08-03)
+
+
+### Build System
+
+* Update TypeScript to 4.3.5.Update TSLib to 2.3.5. ([4cebdfc](https://github.com/empathyco/x/commit/4cebdfc11e1520552a687def3eda1bf0c132e031)), closes [EX-4435](https://searchbroker.atlassian.net/browse/EX-4435)
+
+
+
+## [6.2.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-adapter@6.2.0-alpha.4...@empathyco/x-adapter@6.2.0-alpha.5) (2021-07-29)
+
+
+### Build System
+
+* use 2 different versions of search-types ([5a6ac76](https://github.com/empathyco/x/commit/5a6ac76fea26c0f284904d4f514a1370b7c6184b)), closes [EX-4477](https://searchbroker.atlassian.net/browse/EX-4477)
+
+
+
 ## [6.2.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-adapter@6.2.0-alpha.3...@empathyco/x-adapter@6.2.0-alpha.4) (2021-07-28)
 
 **Note:** Version bump only for package @empathyco/x-adapter

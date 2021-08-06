@@ -12,8 +12,8 @@ export interface HierarchicalFilter extends BooleanFilter {
   modelName: 'HierarchicalFilter';
   /** An unique id used to reference the parent filter or null if it hasn't. */
   parentId: Filter['id'] | null;
-  /** Descendants filters. */
-  children?: this[];
+  /** Descendants filters id. */
+  children?: Filter['id'][];
 }
 
 /**

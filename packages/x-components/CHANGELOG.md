@@ -3,6 +3,59 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.12...@empathyco/x-components@3.0.0-alpha.13) (2021-08-05)
+
+
+### Build System
+
+* upgrade x-translations dependencies ([6e538fa](https://github.com/empathyco/x/commit/6e538facd2a9655532f797e340572550347dfc72)), closes [EX-4506](https://searchbroker.atlassian.net/browse/EX-4506)
+
+
+
+## [3.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.11...@empathyco/x-components@3.0.0-alpha.12) (2021-08-05)
+
+
+### Features
+
+* **facets-next:** add `EditableNumberRangeFilterEntity` ([876da46](https://github.com/empathyco/x/commit/876da466da986de89b40dcceb4119cac816228d1)), closes [EX-4356](https://searchbroker.atlassian.net/browse/EX-4356)
+* **facets-next:** add `HierarchicalFilterEntity` (#75) ([d633721](https://github.com/empathyco/x/commit/d633721b6c795ee9145925d366216edd616b0807)), closes [EX-4354](https://searchbroker.atlassian.net/browse/EX-4354)
+* **facets-next:** add `RawFilterEntity` ([f87d873](https://github.com/empathyco/x/commit/f87d8737d8a2049f7311294f7c260b36f542014b)), closes [EX-4358](https://searchbroker.atlassian.net/browse/EX-4358)
+
+
+
+## [3.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.10...@empathyco/x-components@3.0.0-alpha.11) (2021-08-03)
+
+
+### Features
+
+* **facets-next:** add `SimpleFilterEntity` ([9b551a4](https://github.com/empathyco/x/commit/9b551a41d6e67c64942cfe26051a06ce7dc91a65)), closes [EX-4352](https://searchbroker.atlassian.net/browse/EX-4352)
+
+
+### Bug Fixes
+
+* **animations:** disable  leaving elements listening to click events (#70) ([3d7b92b](https://github.com/empathyco/x/commit/3d7b92b1baa2c86c3fe8e390cec8a203bc62c95e)), closes [EX-4504](https://searchbroker.atlassian.net/browse/EX-4504)
+
+
+### Build System
+
+* Update TypeScript to 4.3.5.Update TSLib to 2.3.5. ([4cebdfc](https://github.com/empathyco/x/commit/4cebdfc11e1520552a687def3eda1bf0c132e031)), closes [EX-4435](https://searchbroker.atlassian.net/browse/EX-4435)
+
+
+
+## [3.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.9...@empathyco/x-components@3.0.0-alpha.10) (2021-07-29)
+
+
+### Features
+
+* **facets-next:** add module (#64) ([b002637](https://github.com/empathyco/x/commit/b002637c535d9a1654a264cd3c759fc013cf8fdc)), closes [EX-3647](https://searchbroker.atlassian.net/browse/EX-3647)
+
+
+### Build System
+
+* use 2 different versions of search-types ([5a6ac76](https://github.com/empathyco/x/commit/5a6ac76fea26c0f284904d4f514a1370b7c6184b)), closes [EX-4477](https://searchbroker.atlassian.net/browse/EX-4477)
+
+
+
 ## [3.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.8...@empathyco/x-components@3.0.0-alpha.9) (2021-07-29)
 
 

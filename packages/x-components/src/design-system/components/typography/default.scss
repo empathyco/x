@@ -21,7 +21,7 @@
   font-size: var(--x-size-font-title1);
   font-weight: var(--x-number-font-weight-title1);
   line-height: var(--x-size-line-height-title1);
-  text-decoration: var(--x-font-text-decoration-title1);
+  text-decoration: var(--x-string-text-decoration-title1);
 
   // color
   color: var(--x-color-text-default);
@@ -37,7 +37,7 @@
   font-size: var(--x-size-font-title2);
   font-weight: var(--x-number-font-weight-title2);
   line-height: var(--x-size-line-height-title2);
-  text-decoration: var(--x-font-text-decoration-title2);
+  text-decoration: var(--x-string-text-decoration-title2);
 
   // color
   color: var(--x-color-text-default);
@@ -53,7 +53,7 @@
   font-size: var(--x-size-font-title3);
   font-weight: var(--x-number-font-weight-title3);
   line-height: var(--x-size-line-height-title3);
-  text-decoration: var(--x-font-text-decoration-title3);
+  text-decoration: var(--x-string-text-decoration-title3);
 
   // color
   color: var(--x-color-text-default);
@@ -68,8 +68,8 @@
   font-family: var(--x-font-family-small);
   font-size: var(--x-size-font-small);
   font-weight: var(--x-number-font-weight-small);
-  line-height: var(--x-size-line-height-base-small);
-  text-decoration: var(--x-font-text-decoration-small);
+  line-height: var(--x-size-line-height-small);
+  text-decoration: var(--x-string-text-decoration-small);
 
   // color
   color: var(--x-color-text-default);

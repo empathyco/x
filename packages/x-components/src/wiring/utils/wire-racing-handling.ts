@@ -3,8 +3,8 @@ import { debounce as debounceRx, take as takeRx, throttle as throttleRx } from '
 import { Store } from 'vuex';
 import { XBus } from '../../plugins/x-bus.types';
 import { RootXStoreState } from '../../store/store.types';
-import { XEvent } from '.././events.types';
-import { TimeRetrieving, Wire } from '.././wiring.types';
+import { XEvent } from '../events.types';
+import { TimeRetrieving, Wire } from '../wiring.types';
 
 /**
  * Creates a {@link Wire} who's execution is timed, either by debouncing or throttling. If any of
@@ -24,7 +24,7 @@ import { TimeRetrieving, Wire } from '.././wiring.types';
 export function handleTimedWire<Payload>(
   wire: Wire<Payload>,
   timeInMs: TimeRetrieving | number,
-  timingOperatorRx: typeof debounceRx | typeof throttleRx,
+  timingOperatorRx: RXDebounce | RXThrottle,
   raceEvent: XEvent | XEvent[] = []
 ): Wire<Payload> {
   return (observable, store, on) => {
@@ -134,8 +134,11 @@ function updateRaceSubscription(
  * @param timingOperatorRx - The kind of Rx operator to be checked.
  * @returns If the timing operator provided is a debounce.
  */
-function isDebounceRx(
-  timingOperatorRx: typeof debounceRx | typeof throttleRx
-): timingOperatorRx is typeof debounceRx {
+function isDebounceRx(timingOperatorRx: RXDebounce | RXThrottle): timingOperatorRx is RXDebounce {
   return timingOperatorRx === debounceRx;
 }
+
+/* Type hack to allow TS to infer correct types. If `__kind__` is removed, TS will infer `never` in
+`else` type guard clauses*/
+type RXDebounce = typeof debounceRx & { __kind__?: 'debounce' };
+type RXThrottle = typeof throttleRx & { __kind__?: 'throttle' };
