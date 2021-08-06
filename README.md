@@ -1,14 +1,15 @@
-# Interface X
+# Commerce Search Interface X
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 [![Check branch is releasable](https://github.com/empathyco/x/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/empathyco/x/actions/workflows/build.yml)
 [![Created by](https://img.shields.io/badge/Created%20by-Empathy.co-green)](https://www.empathy.co)
 
-Search inevitably is key when people look for specific products in an online shop. Search is the door to the entire product catalogue, so having an outstanding, well-structured, and optimised UI is a must.
+Give life to your Commerce Search over any endpoint (Elastic, Solr, Empathy, etc.) with an irresistible, expressive and joyful search UI that is simple, configurable and incredibly smooth (out-of-the-box Vue.js components).
 
-Interface X is the solution. This renewed search experience interface layer, available for web and mobile, renders the magic of search and delights your shoppers with all experiences in one: user, search, navigation, and product discovery.
+Commerce Search Interface X Components are leveraged within some of the most beautiful Commerce Search Experiences out there, like [Carrefour.es](https://www.carrefour.es), [Pull&Bear.com](https://www.pullandbear.com) and [Kroger.com](https://www.kroger.com).
 
 Transform your search UI, simplify product discovery, and configure the shopper experience with cutting-edge technology based on Vue.js and out-of-the-box components.
+
 
 
 ## Ecosystem

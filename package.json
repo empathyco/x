@@ -3,6 +3,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "postinstall": "lerna bootstrap --hoist && npm run build",
+    "postci": "lerna bootstrap --hoist --ci && npm run build",
     "build": "lerna run build",
     "lint": "lerna run lint --parallel",
     "test": "lerna run test --parallel",

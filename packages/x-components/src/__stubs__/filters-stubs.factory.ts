@@ -318,7 +318,7 @@ export function createNextHierarchicalFilter(
   facetId: string,
   label: string,
   selected = false,
-  children: string[] = []
+  children: NextHierarchicalFilter['id'][] = []
 ): NextHierarchicalFilter {
   return {
     facetId,
@@ -360,18 +360,65 @@ export function createNextNumberRangeFilter(
  *
  * @param facetId - The facet id this filter belongs to.
  * @param range - The range that this filter has.
+ * @param selected - The selected value which has priority over the range values.
  * @returns A stub for a
  * {@link @empathyco/x-types-next#EditableNumberRangeFilter | EditableNumberRangeFilter}.
  */
 export function createNextEditableNumberRangeFilter(
   facetId: string,
-  range: RangeValue = { min: null, max: null }
+  range: RangeValue = { min: null, max: null },
+  selected?: boolean
 ): NextEditableNumberRangeFilter {
   return {
     id: `${facetId}:${range.min ?? '*'}-${range.max ?? '*'}`,
     facetId,
     range,
     modelName: 'EditableNumberRangeFilter',
-    selected: range.min !== null || range.max !== null
+    selected: selected ?? (range.min !== null || range.max !== null)
+  };
+}
+
+/**
+ * Type of a function that creates
+ * {@link @empathyco/x-types-next#HierarchicalFilter | HierarchicalFilter}s. Based on its label,
+ * selected value and children.
+ */
+export type CreateNextHierarchicalFilter = (
+  label: string,
+  selected: boolean,
+  createChildren?: (createChildren: CreateNextHierarchicalFilter) => NextHierarchicalFilter[]
+) => NextHierarchicalFilter[];
+
+/**
+ * Creates a factory of
+ * {@link @empathyco/x-types-next#HierarchicalFilter | HierarchicalFilter}s.
+ *
+ * @remarks the id is created with `<facetId>:<label>`.
+ * @param facetId - Facet id to which the filter belongs.
+ * @param parentId - Filter's parent id if exists.
+ * @returns A scoped function which is able to create `HierarchicalFilters`.
+ */
+export function createNextHierarchicalFilterFactory(
+  facetId: string,
+  parentId: string | null = null
+): CreateNextHierarchicalFilter {
+  return (label, selected, createChildren): NextHierarchicalFilter[] => {
+    const filterId = `${facetId}:${label}`;
+    const children = createChildren
+      ? createChildren(createNextHierarchicalFilterFactory(facetId, filterId))
+      : [];
+    return [
+      {
+        id: filterId,
+        facetId: facetId,
+        parentId,
+        selected,
+        label,
+        totalResults: 10,
+        children: children.filter(filter => filter.parentId === filterId).map(filter => filter.id),
+        modelName: 'HierarchicalFilter'
+      },
+      ...children
+    ];
   };
 }
