@@ -1,5 +1,4 @@
 import { And, Given, Then } from 'cypress-cucumber-preprocessor/steps';
-import { TopRecommendationsRequest } from '@empathyco/x-adapter';
 import { recommendationsStub } from './stubs/recommendations.stub';
 
 Given('suggestions API should respond with mocked suggestions', () => {

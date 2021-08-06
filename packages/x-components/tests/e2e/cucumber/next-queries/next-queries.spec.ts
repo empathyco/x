@@ -1,5 +1,4 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { PageableRequest } from '@empathyco/x-adapter';
 import { nextQueriesStub } from './stubs/next-queries.stub';
 
 Given('next queries API should respond with mocked next queries', () => {

@@ -1,6 +1,15 @@
 import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
 import { Result } from '@empathyco/x-types';
 
+/**
+ * Util function that adds configurations so the adapter built is using Juguettos' API.
+ *
+ * @param adapterBuilder - The adapter builder that will be creating the adapter.
+ *
+ * @returns An EmpathyAdapter ready to build.
+ *
+ * @internal
+ */
 export function configureAdapterWithJuguettos(
   adapterBuilder: EmpathyAdapterBuilder
 ): EmpathyAdapterBuilder {

@@ -1,4 +1,4 @@
-import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { PageableRequest } from '../../../../search-adapter/types/types/requests.types';
 
 let resultsList: string[] = [];
