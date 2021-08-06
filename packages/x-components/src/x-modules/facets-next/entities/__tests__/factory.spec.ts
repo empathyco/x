@@ -11,8 +11,10 @@ import {
 import { FiltersFactory } from '../factory';
 import { SingleSelectModifier } from '../single-select.modifier';
 import {
+  getStoreEditableNumberRangeFilter,
   getStoreFilter,
   getStoreFiltersByFacetId,
+  isEditableNumberRangeFilterSelected,
   isFilterSelected,
   prepareFacetsStore
 } from './utils';
@@ -81,7 +83,8 @@ describe('testing filters entity factory', () => {
   it('selects and deselects editable number range filters', () => {
     const store = prepareFacetsStore();
     const factory = new FiltersFactory();
-    const editableNumberRangeFilter = createNextEditableNumberRangeFilter('price', {
+    const facetId = 'price';
+    const editableNumberRangeFilter = createNextEditableNumberRangeFilter(facetId, {
       min: 10,
       max: null
     });
@@ -91,61 +94,44 @@ describe('testing filters entity factory', () => {
     );
 
     // Selecting a editable number range filter that is not in the store should add it as selected
-    // and set new range values.
+    // and set new range values
     editableNumberRangeFilterEntity.select(editableNumberRangeFilter);
-    let filters = getStoreFiltersByFacetId<EditableNumberRangeFilter>(
-      store,
-      editableNumberRangeFilter.facetId
-    );
-    let filter = filters[0];
-
-    expect(filters).toHaveLength(1);
-    expect(isFilterSelected(store, filter.id)).toBe(true);
-    expect(getStoreFilter<EditableNumberRangeFilter>(store, filter.id).range).toEqual({
+    expect(getStoreFiltersByFacetId(store, facetId)).toHaveLength(1);
+    expect(isEditableNumberRangeFilterSelected(store, facetId)).toBe(true);
+    expect(getStoreEditableNumberRangeFilter(store, facetId).range).toEqual({
       min: 10,
       max: null
     });
 
     // Selecting a editable number range filter already in the store but with other range of values,
     // it should replace previous filter in the store and change the range values and the filter id.
-    let previousId = filter.id;
+    let previousFilter = getStoreEditableNumberRangeFilter(store, facetId);
     const newFilter: EditableNumberRangeFilter = {
-      ...filter,
+      ...previousFilter,
       range: { min: 10, max: 20 }
     };
     editableNumberRangeFilterEntity.select(newFilter);
-    filters = getStoreFiltersByFacetId<EditableNumberRangeFilter>(
-      store,
-      editableNumberRangeFilter.facetId
-    );
-    filter = filters[0];
 
-    expect(filters).toHaveLength(1);
-    expect(isFilterSelected(store, filter.id)).toBe(true);
-
-    expect(getStoreFilter<EditableNumberRangeFilter>(store, filter.id).range).toEqual({
+    expect(getStoreFiltersByFacetId(store, facetId)).toHaveLength(1);
+    expect(isEditableNumberRangeFilterSelected(store, facetId)).toBe(true);
+    expect(getStoreEditableNumberRangeFilter(store, facetId).range).toEqual({
       min: 10,
       max: 20
     });
-    expect(previousId).not.toBe(filter.id);
+    expect(getStoreEditableNumberRangeFilter(store, facetId).id).not.toBe(previousFilter.id);
 
     // Deselecting a editable number range filter should  should keep it in the store with selected
     // to false and set the range values to null.
-    previousId = filter.id;
-    editableNumberRangeFilterEntity.deselect(filter);
-    filters = getStoreFiltersByFacetId<EditableNumberRangeFilter>(
-      store,
-      editableNumberRangeFilter.facetId
-    );
-    filter = filters[0];
+    previousFilter = getStoreEditableNumberRangeFilter(store, facetId);
+    editableNumberRangeFilterEntity.deselect(previousFilter);
 
-    expect(filters).toHaveLength(1);
-    expect(isFilterSelected(store, filter.id)).toBe(false);
-    expect(getStoreFilter<EditableNumberRangeFilter>(store, filter.id).range).toEqual({
+    expect(getStoreFiltersByFacetId(store, facetId)).toHaveLength(1);
+    expect(isEditableNumberRangeFilterSelected(store, facetId)).toBe(false);
+    expect(getStoreEditableNumberRangeFilter(store, facetId).range).toEqual({
       min: null,
       max: null
     });
-    expect(previousId).not.toBe(filter.id);
+    expect(getStoreEditableNumberRangeFilter(store, facetId).id).not.toBe(previousFilter.id);
   });
 
   describe('test raw behavior', () => {

@@ -47,9 +47,9 @@ describe('testing single select modifier', () => {
   it('makes single select hierarchical filters', () => {
     /*
      Dairy & Eggs
-     Milk
-     Yogurt
-     Flavored yogurt
+       Milk
+       Yogurt
+         Flavored yogurt
      Natural & Organic
      */
     const categoryFacet = createNextHierarchicalFacetStub('category', createFilter => [
