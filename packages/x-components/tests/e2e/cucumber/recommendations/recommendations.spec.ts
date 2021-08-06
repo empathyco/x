@@ -1,24 +1,21 @@
 import { And, Given, Then } from 'cypress-cucumber-preprocessor/steps';
-import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
-import { TopRecommendationsRequest } from '../../../../../search-adapter/src/types/requests.types';
+import { TopRecommendationsRequest } from '@empathyco/x-adapter';
+import { recommendationsStub } from './stubs/recommendations.stub';
 
-let config: InstallXOptions['xModules'];
+Given('suggestions API should respond with mocked suggestions', () => {
+  cy.intercept('https://api.empathy.co/getTopRecommendations', req => {
+    req.reply(recommendationsStub);
+  }).as('interceptedRecommendations');
+});
 
-Given('following config: max items to store is {int}', (maxItemsToRequest: number) => {
-  config = {
+And('following config: max items to store is {int}', (maxItemsToRequest: number) => {
+  const config = {
     recommendations: {
       config: {
         maxItemsToRequest
       }
     }
   };
-});
-
-And('suggestions response being mock {string}', (mockName: string) => {
-  cy.intercept('https://api.empathy.co/getTopRecommendations', async req => {
-    const module = await import('./stubs/recommendations.stub');
-    req.reply(module[mockName as keyof typeof module]);
-  }).as('interceptedRecommendations');
 
   cy.visit('/test/recommendations?useMockedAdapter=true', {
     qs: {
@@ -28,13 +25,6 @@ And('suggestions response being mock {string}', (mockName: string) => {
 });
 
 // Scenario 1
-Then('number of rows requested is {int}', (maxItemsToRequest: number) => {
-  cy.wait('@interceptedRecommendations').then(({ request }) => {
-    const { rows } = JSON.parse(request.body) as TopRecommendationsRequest;
-    expect(rows).to.equal(maxItemsToRequest);
-  });
-});
-
 Then(
   'number of displayed recommendations are equal or less than {int}',
   (maxItemsToRequest: number) => {

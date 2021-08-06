@@ -1,4 +1,5 @@
 import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { PageableRequest } from '../../../../search-adapter/types/types/requests.types';
 
 let resultsList: string[] = [];
 
@@ -73,10 +74,12 @@ Then(
   }
 );
 
-// Search
-And('search response being mock {string}', (mockName: string) => {
-  cy.intercept('https://api.empathy.co/search', async req => {
-    const module = await import('../dummy/search.dummy');
-    req.reply(module[mockName as keyof typeof module]);
-  });
-});
+Then(
+  'number of rows requested in {string} is {int}',
+  (request: string, maxItemsToRequest: number) => {
+    cy.wait(`@${request}`).then(({ request }) => {
+      const { rows } = JSON.parse(request.body) as PageableRequest;
+      expect(rows).to.equal(maxItemsToRequest);
+    });
+  }
+);

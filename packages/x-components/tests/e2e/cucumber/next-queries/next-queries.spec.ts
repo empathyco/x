@@ -1,12 +1,17 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
+import { PageableRequest } from '@empathyco/x-adapter';
+import { nextQueriesStub } from './stubs/next-queries.stub';
 
-let config: InstallXOptions['xModules'];
+Given('next queries API should respond with mocked next queries', () => {
+  cy.intercept('https://api.empathy.co/getNextQueries', req => {
+    req.reply(nextQueriesStub);
+  }).as('interceptedNextQueries');
+});
 
-Given(
+And(
   'following config: hide session queries {boolean}, requested items {int}, loadOnInit {boolean}',
   (hideSessionQueries: boolean, maxItemsToRequest: number, loadOnInit: boolean) => {
-    config = {
+    const config = {
       nextQueries: {
         config: {
           hideSessionQueries,
@@ -20,21 +25,14 @@ Given(
         }
       }
     };
+
+    cy.visit('/test/next-queries?useMockedAdapter=true', {
+      qs: {
+        xModules: JSON.stringify(config)
+      }
+    });
   }
 );
-
-And('next queries API should respond with {string}', (mockName: string) => {
-  cy.intercept('https://api.empathy.co/getNextQueries', async req => {
-    const module = await import('./stubs/next-queries.stub');
-    req.reply(module[mockName as keyof typeof module]);
-  }).as('interceptedNextQueries');
-
-  cy.visit('/test/next-queries?useMockedAdapter=true', {
-    qs: {
-      xModules: JSON.stringify(config)
-    }
-  });
-});
 
 // Scenario 1
 Then('at most {int} next queries are displayed', (maxItemsToRequest: number) => {
