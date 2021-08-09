@@ -26,7 +26,8 @@ export class SingleSelectModifier extends BaseFilterEntityModifier {
   protected getOtherFilters(filter: FacetFilter): FacetFilter[] {
     /* This check seems dumb, but when you instantiate this modifier using the factory, the types
       `FacetFilter` parameter type is lost, so we should check it to avoid unexpected crashes
-      due to a wrong configuration. When the logger is added we should add a warning here. */
+      due to a wrong configuration. */
+    // TODO Add a warning in case a non facet filter is passed here.
     return isFacetFilter(filter)
       ? this.getFacetFilters(filter.facetId).filter(
           storeFilter => storeFilter.id !== filter.id && storeFilter.selected

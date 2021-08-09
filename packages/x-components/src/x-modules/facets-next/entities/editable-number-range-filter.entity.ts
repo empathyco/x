@@ -6,6 +6,7 @@ import {
 } from '@empathyco/x-types-next';
 import { Store } from 'vuex';
 import { RootXStoreState } from '../../../store/store.types';
+import { FacetsNextGetters } from '../store/types';
 import { FilterEntity } from './types';
 
 /**
@@ -52,10 +53,13 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
     });
   }
 
-  protected getFilterByFacet(facetId: Facet['id']): EditableNumberRangeFilter {
-    return (this.store.getters['x/facetsNext/filtersByFacet'][facetId] ?? [])[0];
-  }
-
+  /**
+   * Generates a new filter id using the range values.
+   *
+   * @param filter - The filter to generate its new id.
+   * @returns The new filter id.
+   * @internal
+   */
   protected getNewFilterId(filter: EditableNumberRangeFilter): string {
     return `${filter.facetId}:${String(filter.range.min)}_${String(filter.range.max)}`;
   }
@@ -65,15 +69,35 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
    *
    * @param filter - The filter to determine if it is selected or not.
    * @returns True if filter range min or filter range max is not null.
+   * @internal
    */
   protected isSelected(filter: EditableNumberRangeFilter): boolean {
     return filter.range.min !== null || filter.range.max !== null;
   }
 
+  /**
+   * Removes the previous filter of this facet from the store, only if it exists.
+   *
+   * @param facetId - The facet to remove its only filter.
+   * @internal
+   */
   protected removePreviousFilter(facetId: Facet['id']): void {
     const previousFilter = this.getFilterByFacet(facetId);
     if (previousFilter) {
       this.store.commit('x/facetsNext/removeFilter', previousFilter);
     }
+  }
+
+  /**
+   * Retrieves the filter of the given facet id from the store.
+   *
+   * @param facetId -  The facet id to retrieve its filter.
+   * @returns The filter of the facet if it exists.
+   * @internal
+   */
+  protected getFilterByFacet(facetId: Facet['id']): EditableNumberRangeFilter | undefined {
+    return (
+      this.store.getters['x/facetsNext/filtersByFacet'] as FacetsNextGetters['filtersByFacet']
+    )[facetId]?.[0] as EditableNumberRangeFilter;
   }
 }

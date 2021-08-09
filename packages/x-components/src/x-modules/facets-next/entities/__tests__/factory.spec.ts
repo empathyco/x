@@ -8,7 +8,7 @@ import {
   createRawFilter,
   createSimpleFilter
 } from '../../../../__stubs__/filters-stubs.factory';
-import { FiltersFactory } from '../factory';
+import { FilterEntityFactory } from '../filter-entity.factory';
 import { SingleSelectModifier } from '../single-select.modifier';
 import {
   getStoreEditableNumberRangeFilter,
@@ -22,7 +22,7 @@ import {
 describe('testing filters entity factory', () => {
   it('selects and deselects raw filters', () => {
     const store = prepareFacetsStore();
-    const factory = new FiltersFactory();
+    const factory = new FilterEntityFactory();
     const rawFilter = createRawFilter('size:m');
     const rawFilterEntity = factory.createFilterEntity(store, rawFilter);
 
@@ -32,12 +32,12 @@ describe('testing filters entity factory', () => {
 
     // Deselecting a raw filter should remove it from the store.
     rawFilterEntity.deselect(rawFilter);
-    expect(store.state.x.facetsNext.filters).not.toHaveProperty(rawFilter.id);
+    expect(getStoreFilter(store, rawFilter.id)).toBeUndefined();
   });
 
   it('selects and deselects simple filters', () => {
     const store = prepareFacetsStore();
-    const factory = new FiltersFactory();
+    const factory = new FilterEntityFactory();
     const simpleFilter = createNextSimpleFilter('color', 'red');
     const simpleFilterEntity = factory.createFilterEntity(store, simpleFilter);
 
@@ -52,7 +52,7 @@ describe('testing filters entity factory', () => {
 
   it('selects and deselects hierarchical filters', () => {
     const store = prepareFacetsStore();
-    const factory = new FiltersFactory();
+    const factory = new FilterEntityFactory();
     const hierarchicalFilter = createNextHierarchicalFilter('category', 'shirts');
     const hierarchicalFilterEntity = factory.createFilterEntity(store, hierarchicalFilter);
 
@@ -67,7 +67,7 @@ describe('testing filters entity factory', () => {
 
   it('selects and deselects number range filters', () => {
     const store = prepareFacetsStore();
-    const factory = new FiltersFactory();
+    const factory = new FilterEntityFactory();
     const numberRangeFilter = createNextNumberRangeFilter('price', { min: 10, max: 20 });
     const numberRangeFilterEntity = factory.createFilterEntity(store, numberRangeFilter);
 
@@ -82,7 +82,7 @@ describe('testing filters entity factory', () => {
 
   it('selects and deselects editable number range filters', () => {
     const store = prepareFacetsStore();
-    const factory = new FiltersFactory();
+    const factory = new FilterEntityFactory();
     const facetId = 'price';
     const editableNumberRangeFilter = createNextEditableNumberRangeFilter(facetId, {
       min: 10,
@@ -137,7 +137,7 @@ describe('testing filters entity factory', () => {
   describe('test raw behavior', () => {
     it('simple filter overrides raw filter', () => {
       const store = prepareFacetsStore();
-      const factory = new FiltersFactory();
+      const factory = new FilterEntityFactory();
 
       const simpleFilter = createNextSimpleFilter('color', 'red');
       const simpleFilterEntity = factory.createFilterEntity(store, simpleFilter);
@@ -155,7 +155,7 @@ describe('testing filters entity factory', () => {
 
     it('hierarchical filter overrides raw filter', () => {
       const store = prepareFacetsStore();
-      const factory = new FiltersFactory();
+      const factory = new FilterEntityFactory();
 
       const hierarchicalFilter = createNextHierarchicalFilter('category', 'shirts');
       const hierarchicalFilterEntity = factory.createFilterEntity(store, hierarchicalFilter);
@@ -178,7 +178,7 @@ describe('testing filters entity factory', () => {
 
     it('number range filter overrides raw filter', () => {
       const store = prepareFacetsStore();
-      const factory = new FiltersFactory();
+      const factory = new FilterEntityFactory();
 
       const numberRangeFilter = createNumberRangeFilter('price', { min: 10, max: null });
       const numberRangeFilterEntity = factory.createFilterEntity(store, numberRangeFilter);
@@ -203,7 +203,7 @@ describe('testing filters entity factory', () => {
   describe('testing modifiers', () => {
     it('decorates entities of the given facet with modifiers', () => {
       const store = prepareFacetsStore();
-      const factory = new FiltersFactory();
+      const factory = new FilterEntityFactory();
       const redColorFilter = createSimpleFilter('color', 'red');
       const blueColorFilter = createSimpleFilter('color', 'blue');
       const mediumSizeFilter = createSimpleFilter('size', 'm');

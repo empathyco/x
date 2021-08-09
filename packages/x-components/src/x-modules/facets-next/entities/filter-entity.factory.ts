@@ -11,14 +11,14 @@ import { FilterEntity, FilterEntityConstructor, FilterEntityModifier } from './t
 /**
  * Creates {@link FilterEntity | FilterEntities} based on the provided configs.
  */
-export class FiltersFactory {
+export class FilterEntityFactory {
   /**
    * The public global instance of the Singleton.
    *
    * @remarks The constructor is not private, so it's possible to create more instances,
    * to simplify the testing.
    */
-  public static instance = new FiltersFactory();
+  public static instance = new FilterEntityFactory();
 
   /**
    * The registered entities by default to be used by the Factory.
@@ -50,16 +50,11 @@ export class FiltersFactory {
       throw new Error(`Entity configuration for ${filter.modelName} not registered.`);
     }
     const entity = new filterEntityConstructor(store);
-    if (isFacetFilter(filter)) {
-      const facetId = filter.facetId;
-      const modifiers = this.modifiers[facetId] ?? [];
-      return modifiers.reduce(
-        (modifiedEntity, modifier) => new modifier(store, modifiedEntity),
-        entity
-      );
-    } else {
-      return entity;
-    }
+    const modifiers = isFacetFilter(filter) ? this.modifiers[filter.facetId] ?? [] : [];
+    return modifiers.reduce(
+      (modifiedEntity, modifier) => new modifier(store, modifiedEntity),
+      entity
+    );
   }
 
   /**
@@ -68,7 +63,9 @@ export class FiltersFactory {
    * @param entity - The new {@link FilterEntity} to be registered in the factory.
    */
   registerFilterEntity(entity: FilterEntityConstructor): void {
-    this.entities.push(entity);
+    if (!this.entities.includes(entity)) {
+      this.entities.push(entity);
+    }
   }
 
   /**
@@ -82,6 +79,9 @@ export class FiltersFactory {
     if (!this.modifiers[facetId]) {
       this.modifiers[facetId] = [];
     }
-    this.modifiers[facetId].push(...modifiers);
+    const facetModifiers = this.modifiers[facetId];
+    if (!facetModifiers.includes(modifiers)) {
+      facetModifiers.push(...modifiers);
+    }
   }
 }

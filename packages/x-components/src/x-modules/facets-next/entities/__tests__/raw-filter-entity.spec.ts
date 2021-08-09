@@ -17,14 +17,13 @@ describe('testing RawFilterEntity', () => {
 
   it('adds the filter to the store when selecting it', () => {
     expect(getStoreFilter(store, filter.id)).toBeUndefined();
-
     filterEntity.select(filter);
     expect(isFilterSelected(store, filter.id)).toBe(true);
   });
 
   it('removes the filter from the store when deselecting it', () => {
     filterEntity.select(filter);
-    expect(isFilterSelected(store, filter.id)).not.toBeUndefined();
+    expect(isFilterSelected(store, filter.id)).toBe(true);
     filterEntity.deselect(filter);
     expect(getStoreFilter(store, filter.id)).toBeUndefined();
   });
