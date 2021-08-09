@@ -80,8 +80,7 @@ export class FilterEntityFactory {
       this.modifiers[facetId] = [];
     }
     const facetModifiers = this.modifiers[facetId];
-    if (!facetModifiers.includes(modifiers)) {
-      facetModifiers.push(...modifiers);
-    }
+    const newModifiers = modifiers.filter(modifier => !facetModifiers.includes(modifier));
+    facetModifiers.push(...newModifiers);
   }
 }
