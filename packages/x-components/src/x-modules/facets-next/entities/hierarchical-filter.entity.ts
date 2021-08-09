@@ -1,53 +1,34 @@
-import { isHierarchicalFilter, HierarchicalFilter, Filter } from '@empathyco/x-types-next';
+import { HierarchicalFilter, isHierarchicalFilter } from '@empathyco/x-types-next';
 import { Store } from 'vuex';
 import { RootXStoreState } from '../../../store/store.types';
-import { EquatableFilter } from './equatable-filter';
 import { FilterEntity } from './types';
 
 /**
  * Allows selecting and deselecting a filter of {@link HierarchicalFilter}.
  */
-export class HierarchicalFilterEntity extends EquatableFilter implements FilterEntity {
-  public constructor(
-    protected store: Store<RootXStoreState>,
-    protected filter: HierarchicalFilter
-  ) {
-    super(filter);
-  }
+export class HierarchicalFilterEntity implements FilterEntity {
+  public static accepts = isHierarchicalFilter;
 
-  static accepts(filter: Filter): boolean {
-    return isHierarchicalFilter(filter);
-  }
+  public constructor(protected store: Store<RootXStoreState>) {}
 
   /**
    * Deselects the hierarchical filter and all of its descendants.
+   *
+   * @param filter - The filter to deselect.
    */
-  deselect(): void {
-    this.saveFilter({ ...this.filter, selected: false });
-    this.deselectDescendants(this.filter);
+  deselect(filter: HierarchicalFilter): void {
+    this.saveFilter({ ...filter, selected: false });
+    this.deselectDescendants(filter);
   }
 
   /**
    * Selects the hierarchical filter and its ancestors.
-   */
-  select(): void {
-    this.saveFilter({ ...this.filter, selected: true });
-    this.selectAncestors(this.filter);
-  }
-
-  /**
-   * Selects all the ancestors of the given filter, saving them to the store.
    *
-   * @remarks The ancestors hierarchy is retrieved from the store.
-   * @param filter - The filter to select its ancestors.
-   * @internal
+   * @param filter - The filter to select.
    */
-  protected selectAncestors(filter: HierarchicalFilter): void {
-    if (filter.parentId) {
-      const parent = this.getFilterById(filter.parentId);
-      this.saveFilter({ ...parent, selected: true });
-      this.selectAncestors(parent);
-    }
+  select(filter: HierarchicalFilter): void {
+    this.saveFilter({ ...filter, selected: true });
+    this.selectAncestors(filter);
   }
 
   /**
@@ -68,6 +49,17 @@ export class HierarchicalFilterEntity extends EquatableFilter implements FilterE
   }
 
   /**
+   * Retrieves a hierarchical filter from the store by its id.
+   *
+   * @param id - The id of the filter to retrieve.
+   * @returns The hierarchical filter retrieved from the store.
+   * @internal
+   */
+  protected getFilterById(id: HierarchicalFilter['id']): HierarchicalFilter {
+    return this.store.state.x.facetsNext.filters[id] as HierarchicalFilter;
+  }
+
+  /**
    * Saves the given filter to the store.
    *
    * @param filter - The filter to save to the store.
@@ -78,13 +70,17 @@ export class HierarchicalFilterEntity extends EquatableFilter implements FilterE
   }
 
   /**
-   * Retrieves a hierarchical filter from the store by its id.
+   * Selects all the ancestors of the given filter, saving them to the store.
    *
-   * @param id - The id of the filter to retrieve.
-   * @returns The hierarchical filter retrieved from the store.
+   * @remarks The ancestors hierarchy is retrieved from the store.
+   * @param filter - The filter to select its ancestors.
    * @internal
    */
-  protected getFilterById(id: HierarchicalFilter['id']): HierarchicalFilter {
-    return this.store.state.x.facetsNext.filters[id] as HierarchicalFilter;
+  protected selectAncestors(filter: HierarchicalFilter): void {
+    if (filter.parentId) {
+      const parent = this.getFilterById(filter.parentId);
+      this.saveFilter({ ...parent, selected: true });
+      this.selectAncestors(parent);
+    }
   }
 }

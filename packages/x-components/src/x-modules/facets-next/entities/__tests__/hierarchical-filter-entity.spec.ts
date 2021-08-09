@@ -7,18 +7,18 @@ describe('testing HierarchicalFilterEntity', () => {
   it('allows selecting a filter that is not in the store', () => {
     const store = prepareFacetsStore([]);
     const categoryWomen = createNextHierarchicalFilter('category', 'women', false);
-    const categoryWomenEntity = new HierarchicalFilterEntity(store, categoryWomen);
+    const categoryWomenEntity = new HierarchicalFilterEntity(store);
 
-    categoryWomenEntity.select();
+    categoryWomenEntity.select(categoryWomen);
     expect(isFilterSelected(store, categoryWomen.id)).toBe(true);
   });
 
   it('allows deselecting a filter that is not in the store', () => {
     const store = prepareFacetsStore([]);
     const categoryWomen = createNextHierarchicalFilter('category', 'women', true);
-    const categoryWomenEntity = new HierarchicalFilterEntity(store, categoryWomen);
+    const categoryWomenEntity = new HierarchicalFilterEntity(store);
 
-    categoryWomenEntity.deselect();
+    categoryWomenEntity.deselect(categoryWomen);
     expect(isFilterSelected(store, categoryWomen.id)).toBe(false);
   });
 
@@ -40,12 +40,10 @@ describe('testing HierarchicalFilterEntity', () => {
     const store = prepareFacetsStore(categoryFacet.filters);
     const [categoryMen, categoryShirts, categoryLongSleeve, categoryJeans, categoryWomen] =
       categoryFacet.filters;
-    const categoryLongSleeveEntity = new HierarchicalFilterEntity(store, categoryLongSleeve);
-    const categoryMenEntity = new HierarchicalFilterEntity(store, categoryMen);
-    const categoryJeansEntity = new HierarchicalFilterEntity(store, categoryJeans);
+    const categoryEntity = new HierarchicalFilterEntity(store);
 
     // Select a nested filter. Parents should be selected
-    categoryLongSleeveEntity.select();
+    categoryEntity.select(categoryLongSleeve);
     expect(isFilterSelected(store, categoryLongSleeve.id)).toBe(true);
     expect(isFilterSelected(store, categoryShirts.id)).toBe(true);
     expect(isFilterSelected(store, categoryMen.id)).toBe(true);
@@ -53,7 +51,7 @@ describe('testing HierarchicalFilterEntity', () => {
     expect(isFilterSelected(store, categoryWomen.id)).toBe(false);
 
     // Select the jeans filter, previous selected filters should be kept.
-    categoryJeansEntity.select();
+    categoryEntity.select(categoryJeans);
     expect(isFilterSelected(store, categoryLongSleeve.id)).toBe(true);
     expect(isFilterSelected(store, categoryShirts.id)).toBe(true);
     expect(isFilterSelected(store, categoryMen.id)).toBe(true);
@@ -61,7 +59,7 @@ describe('testing HierarchicalFilterEntity', () => {
     expect(isFilterSelected(store, categoryWomen.id)).toBe(false);
 
     // Deselect the root filter. No filters should be selected
-    categoryMenEntity.deselect();
+    categoryEntity.deselect(categoryMen);
     expect(isFilterSelected(store, categoryLongSleeve.id)).toBe(false);
     expect(isFilterSelected(store, categoryShirts.id)).toBe(false);
     expect(isFilterSelected(store, categoryMen.id)).toBe(false);
