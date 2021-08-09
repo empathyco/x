@@ -2,14 +2,11 @@ import { Filter } from '@empathyco/x-types-next';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue, { ComponentOptions } from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
-import { createNextHierarchicalFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
 import {
   createNextHierarchicalFilter,
   createNextSimpleFilter
 } from '../../../../../__stubs__/filters-stubs.factory';
 import { XProvide } from '../../../../../components/decorators/injection.decorators';
-import { prepareFacetsStore } from '../../../entities/__tests__/utils';
-import { HierarchicalFilterEntity } from '../../../entities/hierarchical-filter.entity';
 import FiltersInjectionMixin from '../filters-injection.mixin';
 
 @Component({
