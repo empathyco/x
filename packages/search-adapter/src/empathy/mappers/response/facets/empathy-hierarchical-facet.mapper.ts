@@ -49,6 +49,6 @@ export class EmpathyHierarchicalFacetMapper implements ResponseMapper<EmpathyFac
       rawFilter.values?.map(
         rawFilterChild => this.mapDeepFilter(rawFilterChild, { ...initFilterProps, parentId: filter.id }, context, filters));
     filters.push(filter);
-    return `${ filter.id }`;
+    return filter.id.toString();
   }
 }
