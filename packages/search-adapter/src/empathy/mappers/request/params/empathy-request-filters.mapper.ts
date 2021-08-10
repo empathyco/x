@@ -12,7 +12,7 @@ import { pipeMappers } from '../../pipe-mappers';
  */
 @injectable()
 export class EmpathyRequestFiltersMapper implements Mapper<Dictionary<Filter[]>, string[]> {
-  private mapFiltersValue: MapRequest<Filter[], string[]>;
+  private readonly mapFiltersValue: MapRequest<Filter[], string[]>;
 
   constructor(
     @multiInject(DEPENDENCIES.RequestMappers.Parameters.filtersValue) filtersValueMappers: RequestMapper<Filter[], string[]>[]
