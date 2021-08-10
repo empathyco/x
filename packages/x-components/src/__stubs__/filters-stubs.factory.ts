@@ -409,7 +409,7 @@ export function createNextHierarchicalFilterFactory(
       : [];
     filter.parentId = parentId;
     filter.children = children
-      .filter(filter => filter.parentId === filter.id)
+      .filter(child => child.parentId === filter.id)
       .map(filter => filter.id);
     return [filter, ...children];
   };
