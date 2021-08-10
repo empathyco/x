@@ -1,5 +1,7 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import { nextQueriesStub } from './stubs/next-queries.stub';
 
 Given('next queries API should respond with mocked next queries', () => {

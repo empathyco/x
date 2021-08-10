@@ -11,6 +11,7 @@ Feature: Popular searches component
       | false              | 5                 | 10               |
 
   Scenario Outline: 2. Popular search is clicked
+    Given next queries API should respond with dummy next queries
     Given following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, rendered <maxItemsToRender>
     When  popular search number <popularSearchItem> is clicked
     Then  the searched query is displayed in the search-box

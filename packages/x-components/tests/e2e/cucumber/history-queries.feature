@@ -1,6 +1,7 @@
 Feature: History queries component
 
   Scenario Outline:  1. History query is clicked
+    Given next queries API should respond with dummy next queries
     Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>
     And   a "<list>" of queries already searched
     When  history query number <historyQueryItem> is clicked

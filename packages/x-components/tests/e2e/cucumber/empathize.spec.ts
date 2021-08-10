@@ -3,7 +3,7 @@ import { InstallXOptions } from '../../../src/x-installer/x-installer/types';
 
 // Scenario 1
 Given('no special config for full empathize view', () => {
-  cy.visit('/empathize');
+  cy.visit('/empathize?useMockedAdapter=true');
 });
 
 And('search-input is focused', () => {
