@@ -1,4 +1,4 @@
-import { HierarchicalFacet, HierarchicalFilter } from '@empathyco/x-types-next';
+import { HierarchicalFacet, HierarchicalFilter, Filter } from '@empathyco/x-types-next';
 import { injectable, multiInject } from 'inversify';
 import { DEPENDENCIES } from '../../../container/container.const';
 import { MapFn, ResponseMapper, ResponseMapperContext } from '../../../empathy-adapter.types';
@@ -43,12 +43,12 @@ export class EmpathyHierarchicalFacetMapper implements ResponseMapper<EmpathyFac
     initFilterProps: Readonly<Partial<HierarchicalFilter>>,
     context: ResponseMapperContext,
     filters: HierarchicalFilter[]
-  ): string {
+  ): Filter['id'] {
     const filter = this.mapFilter(rawFilter, { ...initFilterProps } as HierarchicalFilter, context);
     filter.children =
       rawFilter.values?.map(
         rawFilterChild => this.mapDeepFilter(rawFilterChild, { ...initFilterProps, parentId: filter.id }, context, filters));
     filters.push(filter);
-    return filter.id.toString();
+    return filter.id;
   }
 }

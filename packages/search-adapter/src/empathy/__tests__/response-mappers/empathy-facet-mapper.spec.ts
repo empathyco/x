@@ -48,31 +48,35 @@ describe('Empathy Hierarchical Facet', () => {
   it('maps a hierarchical facet', () => {
     const mappedFacet = mapFacet(hierarchicalRawFacet, {} as HierarchicalFacet, emptyContext) as HierarchicalFacet;
     expectAllFiltersToBeValid(mappedFacet.filters, HierarchicalFilterSchema);
-    expectFacetToMatchMock(mappedFacet, hierarchicalRawFacet.facet, countHierarchicalChildren(hierarchicalRawFacet));
+    expectFacetToMatchMock(mappedFacet, hierarchicalRawFacet.facet, 4);
+
+
+    const parentId = 'hierarchical_category:{!tag=hierarchical_category}hierarchical_category:"figuras_de_acción"'
+    const childrenId = 'hierarchical_category:{!tag=hierarchical_category}hierarchical_category:"juegos_de_manualidades\\/construye/construye-hija"';
 
     // Filter 0 has no children
-    expect(findFilterInChildren(mappedFacet.filters[0], mappedFacet.filters)).toBe(false);
+    expectFilterIdToBeInChildrenProperty(parentId, mappedFacet.filters, false);
 
     //Filter 1 has children
-    expect(findFilterInChildren(mappedFacet.filters[1], mappedFacet.filters)).toBe(true);
+    expectFilterIdToBeInChildrenProperty(childrenId, mappedFacet.filters, true);
 
     expectBooleanFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
   });
-  //
+
   it('maps filters correctly if the selected property is not defined', () => {
     const mappedFacet = mapFacet(hierarchicalRawFacetWithoutSelected, {} as HierarchicalFacet, emptyContext) as HierarchicalFacet;
 
-    expectFacetToMatchMock(mappedFacet, hierarchicalRawFacetWithoutSelected.facet,
-      countHierarchicalChildren(hierarchicalRawFacetWithoutSelected));
+    expectFacetToMatchMock(mappedFacet, hierarchicalRawFacetWithoutSelected.facet, 5);
     expectAllFiltersToBeValid(mappedFacet.filters, HierarchicalFilterSchema);
 
+    const parentId = 'hierarchical_category:{!tag=hierarchical_category}hierarchical_category:"figuras_de_acción"'
+    const childrenId = 'hierarchical_category:{!tag=hierarchical_category}hierarchical_category:"juegos_de_manualidades\\/construye\\/construye-hija"';
+
     // Filter 0 has no children
-    expect(findFilterInChildren(mappedFacet.filters[0], mappedFacet.filters)).toBe(false);
+    expectFilterIdToBeInChildrenProperty(parentId, mappedFacet.filters, false);
 
     //Filter 1 has children
-    expect(findFilterInChildren(mappedFacet.filters[1], mappedFacet.filters)).toBe(true);
-
-    expectBooleanFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
+    expectFilterIdToBeInChildrenProperty(childrenId, mappedFacet.filters, true);
   });
 });
 
@@ -126,16 +130,6 @@ function expectAllFiltersToBeValid(filters: Filter[], schema: HierarchicalFilter
   });
 }
 
-function countHierarchicalChildren(filter: EmpathyFacet | EmpathyFilter): number {
-  let counter = 0;
-  if (filter.values?.length) {
-    for (let value of filter.values) {
-      counter += countHierarchicalChildren(value);
-    }
-  }
-  return counter + (filter.values?.length || 0);
-}
-
-function findFilterInChildren({ parentId, id }: HierarchicalFilter, allFilters: HierarchicalFilter[]) {
-  return parentId !== null ? allFilters.some(filter => filter.children?.some(child => child === id)) : false;
+function expectFilterIdToBeInChildrenProperty(id: Filter['id'], filters: HierarchicalFilter[], selected: boolean | null): void {
+  expect(filters.some(filter => filter.children?.some(child => child === id))).toBe(selected)
 }
