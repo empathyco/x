@@ -91,7 +91,7 @@ describe('Test filters injection mixin', () => {
     expect(renderedIds).toContain(blueFilter.id);
   });
 
-  it('renders the injected filters', async () => {
+  it('renders the injected filters', () => {
     const whiteFilter = createNextSimpleFilter('color', 'white');
     const blackFilter = createNextSimpleFilter('color', 'black');
     const blueFilter = createNextSimpleFilter('color', 'blue');
@@ -105,7 +105,7 @@ describe('Test filters injection mixin', () => {
     expect(renderedIds).toContain(blueFilter.id);
   });
 
-  it('renders the prop filters when there are injected filters too', async () => {
+  it('renders the prop filters when there are injected filters too', () => {
     const whiteFilter = createNextSimpleFilter('color', 'white');
     const blackFilter = createNextSimpleFilter('color', 'black');
     const blueFilter = createNextSimpleFilter('color', 'blue');
@@ -120,7 +120,7 @@ describe('Test filters injection mixin', () => {
     expect(renderedIds).not.toContain(blueFilter.id);
   });
 
-  it('renders the first level Hierarchical Filters when no parentId prop passed', async () => {
+  it('renders the first level Hierarchical Filters when no parentId prop passed', () => {
     /*
      Women
      Men
@@ -147,7 +147,7 @@ describe('Test filters injection mixin', () => {
     expect(renderedIds).not.toContain(categoryShirts.id);
   });
 
-  it('renders the children Hierarchical Filters when parentId prop passed', async () => {
+  it('renders the children Hierarchical Filters when parentId prop passed', () => {
     /*
      Women
      Men
