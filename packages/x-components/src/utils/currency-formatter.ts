@@ -1,7 +1,7 @@
 /**
  * Regex to detect the format.
  */
-const FORMAT_REGEX = /(i([^id]+))?i+(([^id]+)(d+))?/;
+const FORMAT_REGEX = /(i([^id]+))?i+(([^id?]+)(\?)?(d+))?/;
 
 /**
  * Configuration for format currency.
@@ -14,6 +14,8 @@ interface CurrencyConfig {
   decimalSeparator: string;
   /** Length of decimals numbers. It counts the number of 'd's after the integer part. */
   decimalsNumber: number;
+  /** Boolean value to hide or show the decimal part when it has 0. */
+  hideIntegerDecimals: boolean;
 }
 
 /**
@@ -31,7 +33,6 @@ interface NumberParts {
  *
  * @param value - Numeric value to be formatted.
  * @param format - Format or mask to be defined as string.
- * @param hideIntegerDecimals - Boolean value to hide or show the decimal part when it has 0.
  *
  * @remarks
  * Format:
@@ -55,21 +56,19 @@ interface NumberParts {
  *
  * @public
  */
-export function currencyFormatter(
-  value: number,
-  format = 'i.iii,dd',
-  hideIntegerDecimals = false
-): string {
+export function currencyFormatter(value: number, format = 'i.iii,dd'): string {
   const { integer, decimal } = numberParts(value);
-  const { decimalSeparator, decimalsNumber, integerSeparator } = currencyConfig(format);
+  const { decimalSeparator, decimalsNumber, integerSeparator, hideIntegerDecimals } =
+    currencyConfig(format);
 
   const formattedInteger = formatInteger(integer, integerSeparator);
   const formattedDecimalsSeparator = formatDecimalSeparator(
-    decimalsNumber,
+    decimal,
     decimalSeparator,
     hideIntegerDecimals
   );
   const formattedDecimal = formatDecimal(decimal, decimalsNumber, hideIntegerDecimals);
+  debugger;
   return format.replace(
     FORMAT_REGEX,
     `${formattedInteger}${formattedDecimalsSeparator}${formattedDecimal}`
@@ -98,7 +97,7 @@ function formatInteger(integer: string, integerSeparator: string): string {
  * Returns the decimal separator set or empty string if the option 'hideIntegerDecimals' is true
  * and the value is an integer, or if there are no decimals number defined.
  *
- * @param decimalsNumber - Amount of decimal numbers.
+ * @param decimal - Decimal part of the number.
  * @param decimalSeparator - Decimal separator.
  * @param hideIntegerDecimals - Boolean value to hide or show the decimal part.
  *
@@ -107,11 +106,11 @@ function formatInteger(integer: string, integerSeparator: string): string {
  * @internal
  */
 function formatDecimalSeparator(
-  decimalsNumber: number,
+  decimal: string,
   decimalSeparator: string,
   hideIntegerDecimals: boolean
 ): string {
-  return !hideIntegerDecimals && decimalsNumber ? decimalSeparator : '';
+  return hideIntegerDecimals && !+decimal ? '' : decimalSeparator;
 }
 
 /**
@@ -134,9 +133,10 @@ function formatDecimal(
   decimalsNumber: number,
   hideIntegerDecimals: boolean
 ): string {
-  return !hideIntegerDecimals
-    ? decimal.padEnd(decimalsNumber, '0').substring(0, decimalsNumber)
-    : '';
+  debugger;
+  return hideIntegerDecimals && !+decimal
+    ? ''
+    : decimal.padEnd(decimalsNumber, '0').substring(0, decimalsNumber);
 }
 
 /**
@@ -150,12 +150,21 @@ function formatDecimal(
  * @internal
  */
 function currencyConfig(format: string): CurrencyConfig {
-  const [, , integerSeparator = '', , decimalSeparator = '', decimals = ''] =
-    FORMAT_REGEX.exec(format) ?? [];
+  const [
+    ,
+    ,
+    integerSeparator = '',
+    ,
+    decimalSeparator = '',
+    hideIntegerDecimals = '',
+    decimals = ''
+  ] = FORMAT_REGEX.exec(format) ?? [];
+  debugger;
   return {
     integerSeparator,
     decimalSeparator,
-    decimalsNumber: decimals.length
+    decimalsNumber: decimals.length,
+    hideIntegerDecimals: !!hideIntegerDecimals
   };
 }
 

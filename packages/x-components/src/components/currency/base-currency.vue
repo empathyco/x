@@ -6,11 +6,28 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { currencyFormatter } from '../../utils/currency-formatter';
+  import { XInject } from '../decorators/injection.decorators';
 
   /**
-   * Renders the value received as a property, which always must be a JavaScript number, with the
-   * proper format provided as string property. The rendered tag is a span in order to render a
-   * default inline HTML element.
+   * Renders the value received as a property which always must be a JavaScript number, with the
+   * proper format provided as string property or by injection. The rendered tag is a span in order
+   * to render a default inline HTML element.
+   *
+   * Regarding the format or mask to be defined as string:
+   * - Use 'i' to define integer numbers.
+   * - Use 'd' to define decimal numbers. You can define the length of the decimal part. If the
+   * doesn't include decimals, it is filled with zeros until reach the length defined with 'd's.
+   * - Integer separator must be defined between the 3rd and the 4th integer 'i' of a group.
+   * - Decimal separator must be defined between the last 'i' and the first 'd'. It can be more
+   * than one character.
+   * - If you want to hide the decimal part if it's zero, you can add the `?` symbol after the
+   * decimal separator (e.g. 'i.iii,?dd', for `1234` you would get `1.234` instead of `1.234,00`).
+   * - Set whatever you need around the integers and decimals marks.
+   * - Default mask: 'i.iii,dd' which returns '1.345,67'.
+   *
+   * @remarks The number of 'd', which is the maximum decimal length, MUST match with the length
+   * of decimals provided from the adapter. Otherwise, when the component truncate the decimal
+   * part, delete significant digits.
    *
    * @example
    * Basic example:
@@ -42,35 +59,37 @@
     protected value!: number;
 
     /**
-     * Format or mask to be defined as string.
-     * - Use 'i' to define integer numbers.
-     * - Use 'd' to define decimal numbers. You can define the length of the decimal part. If the
-     * doesn't include decimals, it is filled with zeros until reach the length defined with 'd's.
-     * - Integer separator must be defined between the 3rd and the 4th integer 'i' of a group.
-     * - Decimal separator must be defined between the last 'i' and the first 'd'. It can be more
-     * than one character.
-     * - Set whatever you need around the integers and decimals marks.
-     * - Default mask: 'i.iii,dd' which returns '1.345,67'.
-     *
-     * @remarks The number of 'd', which is the maximum decimal length, MUST match with the length
-     * of decimals provided from the adapter. Otherwise, when the component truncate the decimal
-     * part, delete significant digits.
+     * The format as string.
      *
      * @public
      */
-    @Prop({ default: 'i.iii,dd' })
-    protected format!: string;
+    @Prop()
+    protected format?: string;
 
     /**
-     * If true and the value is an integer without decimals, the decimal part is hidden including
-     * the decimal separator.
-     * If false, the default behaviour will fill with zeros the remaining length until getting
-     * the one defined with the 'd's.
+     * The injected format as string.
      *
      * @public
      */
-    @Prop({ default: false })
-    protected hideIntegerDecimals!: boolean;
+    @XInject('currencyFormat')
+    public injectedFormat!: string;
+
+    /**
+     * A format which can be passed through prop or injected.
+     *
+     * @returns A format as string.
+     *
+     * @internal
+     */
+    protected get renderedFormat(): string {
+      return (
+        this.format ??
+        this.injectedFormat ??
+        //TODO: add here logger
+        //eslint-disable-next-line no-console
+        console.warn('It is necessary to pass a prop or inject the format')
+      );
+    }
 
     /**
      * Returns the formatted result as string.
@@ -80,7 +99,7 @@
      * @internal
      */
     protected get currency(): string {
-      return currencyFormatter(this.value, this.format, this.hideIntegerDecimals);
+      return currencyFormatter(this.value, this.renderedFormat);
     }
   }
 </script>
@@ -97,33 +116,33 @@ HTML element.
 ### Example
 
 ```vue
-<BaseCurrency :value="12345678.87654321" format="i.iii,ddd €" :hide-integer-decimals="true" />
+<BaseCurrency :value="12345678.87654321" format="i.iii,?ddd €" />
 <!-- output: '12.345.678,876 €' -->
-<BaseCurrency :value="12345678" format="i.iii,ddd €" :hide-integer-decimals="true" />
+<BaseCurrency :value="12345678" format="i.iii,?ddd €" />
 <!-- output: '12.345.678 €' -->
-<BaseCurrency :value="12345678.87654321" format="$ i.iii,dd" :hide-integer-decimals="false" />
+<BaseCurrency :value="12345678.87654321" format="$ i.iii,dd" />
 <!-- output: '$ 12.345.678,87' -->
-<BaseCurrency :value="12345678.87654321" format="$i.iii,dd" :hide-integer-decimals="false" />
+<BaseCurrency :value="12345678.87654321" format="$i.iii,dd" />
 <!-- output: '$12.345.678,87' -->
-<BaseCurrency :value="12345678.87654321" format="i.iii,dd €" :hide-integer-decimals="false" />
+<BaseCurrency :value="12345678.87654321" format="i.iii,dd €" />
 <!-- output: '12.345.678,87 €' -->
-<BaseCurrency :value="12345678.87654321" format="i.iii,dd€" :hide-integer-decimals="false" />
+<BaseCurrency :value="12345678.87654321" format="i.iii,dd€" />
 <!-- output: '12.345.678,87€' -->
-<BaseCurrency :value="12345678.87654321" format="i,iii.dd €" :hide-integer-decimals="false" />
+<BaseCurrency :value="12345678.87654321" format="i,iii.dd €" />
 <!-- output: '12,345,678.87 €' -->
-<BaseCurrency :value="12345678.87654321" format="i iii.dd €" :hide-integer-decimals="false" />
+<BaseCurrency :value="12345678.87654321" format="i iii.dd €" />
 <!-- output: '12 345 678.87 €' -->
-<BaseCurrency :value="12345678.87654321" format="i iii - dd €" :hide-integer-decimals="false" />
+<BaseCurrency :value="12345678.87654321" format="i iii - dd €" />
 <!-- output: '12 345 678 - 87 €' -->
-<BaseCurrency :value="12345678.87654321" format="i.iii,dddddd €" :hide-integer-decimals="false" />
+<BaseCurrency :value="12345678.87654321" format="i.iii,dddddd €" />
 <!-- output: '12.345.678,876543 €' -->
-<BaseCurrency :value="12345678.87" format="i.iii,dddddd €" :hide-integer-decimals="false" />
+<BaseCurrency :value="12345678.87" format="i.iii,dddddd €" />
 <!-- output: '12.345.678,870000 €' -->
-<BaseCurrency :value="12345678" format="i.iii,dddddd €" :hide-integer-decimals="false" />
+<BaseCurrency :value="12345678" format="i.iii,dddddd €" />
 <!-- output: '12.345.678,000000 €' -->
-<BaseCurrency :value="12345678.87654321" format="i.iii,dd €" :hide-integer-decimals="false" />
+<BaseCurrency :value="12345678.87654321" format="i.iii,dd €" />
 <!-- output: '12.345.678,87 €' -->
-<BaseCurrency :value="12345678.87654321" format="i.iii €" :hide-integer-decimals="false" />
+<BaseCurrency :value="12345678.87654321" format="i.iii €" />
 <!-- output: '12.345.678 €' -->
 ```
 </docs>

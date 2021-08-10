@@ -25,8 +25,14 @@ describe('testing Currency formatter', () => {
     expect(format(1234.2345, 'i.iii,d')).toBe('1.234,2');
   });
 
-  it('allows to hide decimals', () => {
-    expect(format(1234.56, 'i.iii,d', true)).toBe('1.234');
+  it('allows to hide the decimal part', () => {
+    expect(format(1234.56, 'i.iii')).toBe('1.234');
+  });
+
+  it("allows to hide the decimal part if it's zero with the '?' symbol within the format", () => {
+    expect(format(1234, 'i.iii,dd')).toBe('1.234,00');
+    expect(format(1234, 'i.iii,?dd')).toBe('1.234');
+    expect(format(1234.56, 'i.iii,?dd')).toBe('1.234,56');
   });
 
   it('adds thousands separator successfully when the number has decimals', () => {
@@ -47,7 +53,7 @@ describe('testing Currency formatter', () => {
     expect(format(123456)).toBe('123.456,00');
   });
 
-  function format(value: number, format?: string, hideIntegerDecimals?: boolean): string {
-    return currencyFormatter(value, format, hideIntegerDecimals);
+  function format(value: number, format?: string): string {
+    return currencyFormatter(value, format);
   }
 });

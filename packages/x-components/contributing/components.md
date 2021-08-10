@@ -377,7 +377,7 @@ class CurrencyComponent {
    * @internal
    */
   protected get currency(): string {
-    return currencyFormatter(this.value, this.format, this.hideIntegerDecimals);
+    return currencyFormatter(this.value, this.format);
   }
 }
 
@@ -392,7 +392,7 @@ class CurrencyComponent {
    * @internal
    */
   protected get currency(): string {
-    return currencyFormatter(this.value, this.format, this.hideIntegerDecimals);
+    return currencyFormatter(this.value, this.format);
   }
 }
 ```

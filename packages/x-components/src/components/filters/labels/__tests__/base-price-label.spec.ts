@@ -5,7 +5,6 @@ import BasePriceFilterLabel from '../base-price-filter-label.vue';
 
 function renderBasePriceLabel({
   filter,
-  hideIntegerDecimals,
   format,
   lessThan = 'Less than {max}',
   from = 'More than {min}',
@@ -14,7 +13,6 @@ function renderBasePriceLabel({
   return mount(BasePriceFilterLabel, {
     propsData: {
       filter,
-      hideIntegerDecimals,
       format,
       lessThan,
       from,
@@ -28,8 +26,7 @@ describe('testing BasePriceLabel component', () => {
     const filter = getNumberRangeFilterStub({ range: { min: null, max: 10 } });
     const wrapper = renderBasePriceLabel({
       filter,
-      format: '$i.dd',
-      hideIntegerDecimals: true
+      format: '$i,iii'
     });
     expect(wrapper.text()).toEqual('Less than $10');
   });
@@ -38,8 +35,7 @@ describe('testing BasePriceLabel component', () => {
     const filter = getNumberRangeFilterStub({ range: { min: 0, max: 10 } });
     const wrapper = renderBasePriceLabel({
       filter,
-      format: 'i,dd €',
-      hideIntegerDecimals: false
+      format: 'i,dd €'
     });
     expect(wrapper.text()).toEqual('From 0,00 € to 10,00 €');
   });
@@ -60,7 +56,6 @@ describe('testing BasePriceLabel component', () => {
 interface RenderBasePriceLabelOptions {
   filter: NumberRangeFilter;
   format?: string;
-  hideIntegerDecimals?: boolean;
   lessThan?: string;
   fromTo?: string;
   from?: string;

@@ -8,7 +8,6 @@
       <BaseCurrency
         :value="result.price.value"
         :format="format"
-        :hideIntegerDecimals="hideIntegerDecimals"
       />
     </slot>
   </div>
@@ -56,19 +55,8 @@
      *
      * @public
      */
-    @Prop({ default: 'i.iii,dd' })
-    protected format!: string;
-
-    /**
-     * If true and the value is an integer without decimals, the decimal part is hidden including
-     * the decimal separator.
-     * If false, the default behaviour will fill with zeros the remaining length until getting
-     * the one defined with the 'd's.
-     *
-     * @public
-     */
-    @Prop({ default: false })
-    protected hideIntegerDecimals!: boolean;
+    @Prop()
+    protected format?: string;
 
     /**
      * Dynamic CSS classes to add to the root element of this component.
@@ -90,15 +78,14 @@
 
   ## Basic example
 
-  This component shows the current price formatted. The component has two
-  optional props. `format` to select the currency format to be applied and
-  `hideIntegerDecimals` to hide or not the decimal part.
+  This component shows the current price formatted. You can provide the `format` by property or let
+  the `BaseCurrency` component use an injected one.
 
   ```vue
   <BaseResultCurrentPrice
     :value="result"
     :format="'i.iii,ddd €'"
-    :hideIntegerDecimals="true" />
+  />
   ```
 
   ## Overriding default slot
