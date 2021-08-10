@@ -1,7 +1,9 @@
 Feature: Search-box component
 
-  Scenario Outline: 1. Query with results is typed and <buttonOrKey> is clicked/pressed (search-box is empty)
+  Background:
     Given next queries API should respond with dummy next queries
+
+  Scenario Outline: 1. Query with results is typed and <buttonOrKey> is clicked/pressed (search-box is empty)
     Given following config: hide if equals query <hideIfEqualsQuery>, instant search <instant>, debounce <instantDebounceInMs>
     And   no queries have been searched
     When  a "<query>" with results is typed
@@ -17,7 +19,6 @@ Feature: Search-box component
       | false             | 5000                | false   | star wars     | enterKey        |
 
   Scenario Outline: 2. Query with results exists and it's cleared by <cleared> (search-box is not empty)
-    Given next queries API should respond with dummy next queries
     Given following config: hide if equals query <hideIfEqualsQuery>, instant search <instant>, debounce <instantDebounceInMs>
     And   "<query>" is searched
     And   related results are displayed
@@ -34,7 +35,6 @@ Feature: Search-box component
       | false             | 500                 | true    | funko  | false             | manually        |
 
   Scenario Outline: 3. Query with results is typed and no button or key is pressed or clicked (search-box is empty)
-    Given next queries API should respond with dummy next queries
     Given following config: hide if equals query <hideIfEqualsQuery>, instant search <instant>, debounce <instantDebounceInMs>
     And   no queries have been searched
     When  a "<query>" with results is typed - timestamp needed
