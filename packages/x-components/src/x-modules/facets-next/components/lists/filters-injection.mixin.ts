@@ -1,8 +1,7 @@
-import { Filter } from '@empathyco/x-types-next';
+import { Filter, HierarchicalFilter, isHierarchicalFilter } from '@empathyco/x-types-next';
 import Vue from 'vue';
-import { Prop } from 'vue-property-decorator';
 import Component from 'vue-class-component';
-import { HierarchicalFilter, isHierarchicalFilter } from '@empathyco/x-types-next';
+import { Prop } from 'vue-property-decorator';
 import { XInject } from '../../../../components/decorators/injection.decorators';
 import { isArrayEmpty } from '../../../../utils/array';
 

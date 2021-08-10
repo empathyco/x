@@ -30,7 +30,7 @@ const Filters: ComponentOptions<Vue> = {
   `
 };
 
-describe('Test filters injection mixin', () => {
+describe('test filters injection mixin', () => {
   function renderFiltersMixin({
     propFilters,
     injectedFilters,
@@ -98,7 +98,7 @@ describe('Test filters injection mixin', () => {
     const { getRenderedFilterIds } = renderFiltersMixin({
       injectedFilters: [whiteFilter, blackFilter, blueFilter]
     });
-    let renderedIds = getRenderedFilterIds();
+    const renderedIds = getRenderedFilterIds();
 
     expect(renderedIds).toContain(whiteFilter.id);
     expect(renderedIds).toContain(blackFilter.id);
@@ -113,7 +113,7 @@ describe('Test filters injection mixin', () => {
       propFilters: [whiteFilter, blackFilter],
       injectedFilters: [blueFilter]
     });
-    let renderedIds = getRenderedFilterIds();
+    const renderedIds = getRenderedFilterIds();
 
     expect(renderedIds).toContain(whiteFilter.id);
     expect(renderedIds).toContain(blackFilter.id);
@@ -139,7 +139,7 @@ describe('Test filters injection mixin', () => {
     const { getRenderedFilterIds } = renderFiltersMixin({
       propFilters: [categoryShirts, categoryJeans, categoryMen, categoryWomen]
     });
-    let renderedIds = getRenderedFilterIds();
+    const renderedIds = getRenderedFilterIds();
 
     expect(renderedIds).toContain(categoryWomen.id);
     expect(renderedIds).toContain(categoryMen.id);
@@ -167,7 +167,7 @@ describe('Test filters injection mixin', () => {
       propFilters: [categoryShirts, categoryJeans, categoryMen, categoryWomen],
       parentId: categoryMen.id
     });
-    let renderedIds = getRenderedFilterIds();
+    const renderedIds = getRenderedFilterIds();
 
     expect(renderedIds).not.toContain(categoryWomen.id);
     expect(renderedIds).not.toContain(categoryMen.id);
