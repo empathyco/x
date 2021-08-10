@@ -14,7 +14,7 @@ function renderBaseCurrency({ value, format }: RenderBaseCurrencyOptions): Wrapp
 }
 
 describe('testing BaseCurrency component', () => {
-  it('renders the provided format correctly with "?" (hideIntegerDecimals) in the format', () => {
+  it('renders the provided format correctly with "?" after the decimal separator', () => {
     const wrapper = renderBaseCurrency({
       value: 12345678,
       format: 'i.iii,?ddd €'

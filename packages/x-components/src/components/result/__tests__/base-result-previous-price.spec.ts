@@ -15,9 +15,9 @@ const mockedResult: Pick<Result, 'price'> = {
 
 function renderBasePreviousPrice({
   format = 'i,iii.dd',
-  hideIntegerDecimals = false,
-  // eslint-disable-next-line max-len
-  template = `<BaseResultPreviousPrice :result="result" :format="format" :hideIntegerDecimals="hideIntegerDecimals" />`,
+  template = `
+    <BaseResultPreviousPrice :result="result"
+      :format="format" />`,
   result = mockedResult
 }: RenderBasePreviousPriceOptions = {}): RenderBasePreviousPriceAPI {
   const wrapperComponent: ComponentOptions<Vue> = {
@@ -25,13 +25,12 @@ function renderBasePreviousPrice({
     components: {
       BaseResultPreviousPrice
     },
-    props: ['format', 'hideIntegerDecimals', 'result']
+    props: ['format', 'result']
   };
 
   const wrapper = mount(wrapperComponent, {
     propsData: {
       format,
-      hideIntegerDecimals,
       result
     }
   });
@@ -93,12 +92,11 @@ describe('testing BaseResultPreviousPrice component', () => {
 interface RenderBasePreviousPriceOptions {
   /** The format to apply to the value. */
   format?: string;
-  /** Hide or show decimals. */
-  hideIntegerDecimals?: boolean;
   /** The result with the price to display. */
   result?: Pick<Result, 'price'>;
-  /** The template to render. Receives the 'result', 'format' and 'hideIntegerDecimals' props and
-   * has registered a {@link BaseCurrency | BaseCurrency component}. */
+  /** The template to render. Receives the 'result', 'format' prop and has registered a
+   * {@link BaseCurrency | BaseCurrency component}.
+   */
   template?: string;
 }
 
