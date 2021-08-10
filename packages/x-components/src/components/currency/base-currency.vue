@@ -71,7 +71,7 @@
      *
      * @public
      */
-    @XInject('currency')
+    @XInject('currencyFormat')
     public injectedFormat!: string;
 
     /**

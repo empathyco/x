@@ -123,7 +123,7 @@ describe('testing BaseCurrency component', () => {
       template: '<div><slot /></div>'
     })
     class Provider extends Vue {
-      @XProvide('currency')
+      @XProvide('currencyFormat')
       public providedFormat = '$i,iii.ddd';
     }
 

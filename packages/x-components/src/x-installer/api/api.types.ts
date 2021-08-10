@@ -65,7 +65,7 @@ export interface SnippetConfig {
   consent?: boolean;
   /** Document direction. */
   documentDirection?: DocumentDirection;
-  /** Currency format. */
+  /** Currency. */
   currency?: string;
   /** Any extra param to send in all backend calls. */
   [extra: string]: any;
