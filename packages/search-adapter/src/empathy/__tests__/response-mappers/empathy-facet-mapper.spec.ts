@@ -50,14 +50,10 @@ describe('Empathy Hierarchical Facet', () => {
     expectAllFiltersToBeValid(mappedFacet.filters, HierarchicalFilterSchema);
     expectFacetToMatchMock(mappedFacet, hierarchicalRawFacet.facet, 4);
 
+    const parentId = '{!tag=hierarchical_category}hierarchical_category:"figuras_de_acción"';
+    const childrenId = '{!tag=hierarchical_category}hierarchical_category:"juegos_de_manualidades\\/construye/construye-hija"';
 
-    const parentId = 'hierarchical_category:{!tag=hierarchical_category}hierarchical_category:"figuras_de_acción"'
-    const childrenId = 'hierarchical_category:{!tag=hierarchical_category}hierarchical_category:"juegos_de_manualidades\\/construye/construye-hija"';
-
-    // Filter 0 has no children
     expectFilterIdToBeInChildrenProperty(parentId, mappedFacet.filters, false);
-
-    //Filter 1 has children
     expectFilterIdToBeInChildrenProperty(childrenId, mappedFacet.filters, true);
 
     expectBooleanFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
@@ -69,13 +65,10 @@ describe('Empathy Hierarchical Facet', () => {
     expectFacetToMatchMock(mappedFacet, hierarchicalRawFacetWithoutSelected.facet, 5);
     expectAllFiltersToBeValid(mappedFacet.filters, HierarchicalFilterSchema);
 
-    const parentId = 'hierarchical_category:{!tag=hierarchical_category}hierarchical_category:"figuras_de_acción"'
-    const childrenId = 'hierarchical_category:{!tag=hierarchical_category}hierarchical_category:"juegos_de_manualidades\\/construye\\/construye-hija"';
+    const parentId = '{!tag=hierarchical_category}hierarchical_category:"figuras_de_acción"';
+    const childrenId = '{!tag=hierarchical_category}hierarchical_category:"juegos_de_manualidades\\/construye\\/construye-hija"';
 
-    // Filter 0 has no children
     expectFilterIdToBeInChildrenProperty(parentId, mappedFacet.filters, false);
-
-    //Filter 1 has children
     expectFilterIdToBeInChildrenProperty(childrenId, mappedFacet.filters, true);
   });
 });
@@ -131,5 +124,5 @@ function expectAllFiltersToBeValid(filters: Filter[], schema: HierarchicalFilter
 }
 
 function expectFilterIdToBeInChildrenProperty(id: Filter['id'], filters: HierarchicalFilter[], selected: boolean | null): void {
-  expect(filters.some(filter => filter.children?.some(child => child === id))).toBe(selected)
+  expect(filters.some(filter => filter.children?.some(child => child === id))).toBe(selected);
 }

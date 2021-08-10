@@ -12,7 +12,7 @@ import { EmpathyFilter } from '../../../models';
 export class EmpathyFacetFilterMapper implements ResponseMapper<EmpathyFilter, FacetFilter> {
   map(rawFilter: EmpathyFilter, filter: FacetFilter, context: ResponseMapperContext): FacetFilter {
     return Object.assign<FacetFilter, Partial<FacetFilter>>(filter, {
-      id: `${ filter.facetId }:${ rawFilter.filter }`,
+      id: rawFilter.filter,
     });
   }
 }

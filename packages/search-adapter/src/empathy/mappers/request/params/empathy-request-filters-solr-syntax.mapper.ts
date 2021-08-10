@@ -31,14 +31,9 @@ export class EmpathyRequestFiltersSolrSyntaxMapper implements Mapper<Filter[], s
   }
 
   private composeFilters(filters: Filter[]): string[] {
-    if (this.isArrayOfBooleanFilters(filters) || this.isArrayOfRawFilters(filters)) {
-      return filters.map(filter => filter.id.toString());
-    } else if (this.isArrayOfEditableNumberRangeFilters(filters)) {
-      return this.mapEditableNumberRangeFiltersList(filters);
-    }
-
-    this.logger.warn(`Unknown filter type ${ filters[0].modelName }`);
-    return [];
+    return this.isArrayOfEditableNumberRangeFilters(filters)
+      ? this.mapEditableNumberRangeFiltersList(filters)
+      : filters.map((filter) => filter.id.toString());
   }
 
   private mapEditableNumberRangeFiltersList(filters: EditableNumberRangeFilter[]): string[] {
