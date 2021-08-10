@@ -8,6 +8,11 @@ import { FilterEntity } from './entities/types';
 import { FacetGroup, FacetsService } from './facets-service.types';
 import { FacetGroupEntry, FacetsNextGetters } from './store';
 
+/**
+ * Default implementation for the {@link FacetsService}.
+ *
+ * @public
+ */
 export class BaseFacetsService implements FacetsService {
   protected get store(): Store<RootXStoreState> {
     return XPlugin.store;
@@ -53,14 +58,33 @@ export class BaseFacetsService implements FacetsService {
     }
   }
 
+  /**
+   * Creates an entity from a filter DTO.
+   *
+   * @param filter - The filter to create an entity from.
+   * @returns The filter entity.
+   * @internal
+   */
   protected createEntity(filter: Filter): FilterEntity {
     return FilterEntityFactory.instance.createFilterEntity(this.store, filter);
   }
 
+  /**
+   * Retrieves the selected filters from the store.
+   *
+   * @returns The list of selected filters of the store.
+   * @internal
+   */
   protected getSelectedFilters(): FacetsNextGetters['selectedFilters'] {
     return this.store.getters['x/facetsNext/selectedFilters'];
   }
 
+  /**
+   * Removes a filter from the store.
+   *
+   * @param filter - The filter to remove.
+   * @internal
+   */
   protected removeFilter(filter: Filter): void {
     this.store.commit('x/facetsNext/removeFilter', filter);
   }
@@ -104,6 +128,12 @@ export class BaseFacetsService implements FacetsService {
     });
   }
 
+  /**
+   * Sets the group that a facet belongs to.
+   *
+   * @param facetGroup - The id of the facet, and the group it belongs to.
+   * @internal
+   */
   protected setFacetGroup(facetGroup: FacetGroupEntry): void {
     this.store.commit('x/facetsNext/setFacetGroup', facetGroup);
   }

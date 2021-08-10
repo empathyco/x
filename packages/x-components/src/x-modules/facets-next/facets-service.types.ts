@@ -9,6 +9,8 @@ import { Facet, Filter } from '@empathyco/x-types-next';
  * appear. And, because now filters are stored in a dictionary instead of an array, and overridden
  * with each request, when the user performs a new query, we have to remove all the `Screen size`
  * filters because we don't know if the API will return them or not in the new query.
+ *
+ * @public
  */
 export interface FacetGroup {
   /** The list of facets that belong to the group. */
@@ -19,6 +21,8 @@ export interface FacetGroup {
 
 /**
  * Service to manipulate the filters.
+ *
+ * @public
  */
 export interface FacetsService {
   /**
@@ -43,7 +47,8 @@ export interface FacetsService {
    */
   deselect(filter: Filter): void;
   /**
-   * Replaces the facets of the group with the new ones.
+   * Replaces the facets of the group with the new ones. It ignores the provided filters selected
+   * state, replacing it with the previous selected filter.
    *
    * @param facetGroup - An objet containing the id of the facets group, and the list of new facets
    * to store.
