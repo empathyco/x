@@ -62,9 +62,9 @@ export default class FiltersInjectionMixin extends Vue {
 
   protected filterByParentId(filters: Filter[]): Filter[] {
     if (!isArrayEmpty(filters) && isHierarchicalFilter(filters[0])) {
-      return this.parentId === undefined
-        ? (filters as HierarchicalFilter[]).filter(filter => filter.parentId === null)
-        : (filters as HierarchicalFilter[]).filter(filter => filter.parentId === this.parentId);
+      return (filters as HierarchicalFilter[]).filter(
+        filter => filter.parentId === this.parentId ?? null
+      );
     } else {
       return filters;
     }
