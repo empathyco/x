@@ -32,7 +32,6 @@ export class EmpathyResultMapper implements ResponseMapper<EmpathyResult, Result
     const originalValue = Number.parseFloat((rawResult.originalPrice || rawResult.price) as string);
     const sku = rawResult.eb_sku || '';
     return Object.assign<Result, Result>(result, {
-      callbackInfo: {},
       modelName: 'Result',
       type: 'default',
       id: rawResult.id,

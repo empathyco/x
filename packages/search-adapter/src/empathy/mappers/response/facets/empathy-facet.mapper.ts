@@ -1,4 +1,4 @@
-import { Facet } from '@empathyco/x-types-next';
+import { Facet } from '@empathyco/x-types';
 import { inject, injectable } from 'inversify';
 import { EmpathyAdapterConfig, FacetsConfig } from '../../../config';
 import { DEPENDENCIES } from '../../../container/container.const';

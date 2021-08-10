@@ -1,4 +1,4 @@
-import { NumberRangeFacet, NumberRangeFilter } from '@empathyco/x-types-next';
+import { NumberRangeFacet, NumberRangeFilter } from '@empathyco/x-types';
 import { inject, injectable, multiInject } from 'inversify';
 import { EmpathyAdapterConfig, FacetsConfig } from '../../../config';
 import { DEPENDENCIES } from '../../../container/container.const';

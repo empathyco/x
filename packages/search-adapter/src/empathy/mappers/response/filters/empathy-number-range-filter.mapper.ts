@@ -1,4 +1,4 @@
-import { NumberRangeFilter } from '@empathyco/x-types-next';
+import { NumberRangeFilter } from '@empathyco/x-types';
 import { injectable } from 'inversify';
 import { ResponseMapper, ResponseMapperContext } from '../../../empathy-adapter.types';
 import { EmpathyFilter } from '../../../models';

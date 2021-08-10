@@ -5,7 +5,7 @@ import {
   Filter,
   RangeValue,
   SimpleFilter
-} from '@empathyco/x-types-next';
+} from '@empathyco/x-types';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { Container } from 'inversify';
 import { DeepPartial, Dictionary } from '../../../../types';

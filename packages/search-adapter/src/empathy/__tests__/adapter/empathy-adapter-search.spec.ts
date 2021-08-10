@@ -1,5 +1,4 @@
-import { BannerSchema, PromotedSchema, RedirectionSchema, ResultSchema, TaggingSchema } from '@empathyco/x-types/schemas';
-import { FacetSchema } from '@empathyco/x-types-next/schemas';
+import { BannerSchema, FacetSchema, PromotedSchema, RedirectionSchema, ResultSchema, TaggingSchema } from '@empathyco/x-types/schemas';
 import { SearchResponse } from '../../../types';
 import { SearchWithPartialsResponse } from '../../__fixtures__/responses/search-with-partials.response';
 import { SearchSimpleResponse } from '../../__fixtures__/responses/search.response';

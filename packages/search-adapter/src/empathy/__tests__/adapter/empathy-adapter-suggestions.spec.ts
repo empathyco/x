@@ -1,6 +1,5 @@
 import { Suggestion } from '@empathyco/x-types';
-import { SuggestionSchema } from '@empathyco/x-types/schemas';
-import { FacetSchema, FilterSchema } from '@empathyco/x-types-next/schemas';
+import { FacetSchema, FilterSchema, SuggestionSchema } from '@empathyco/x-types/schemas';
 import { SuggestionsWithLegoQuery } from '../../__fixtures__/responses/suggestions-with-query.response';
 import { SuggestionsWithoutQuery } from '../../__fixtures__/responses/suggestions-without-query.response';
 import { adapter } from '../../__mocks__/adapter.mocks';

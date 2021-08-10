@@ -1,4 +1,4 @@
-import { FacetModelName, Filter } from '@empathyco/x-types-next';
+import { FacetModelName, Filter } from '@empathyco/x-types';
 import {
   ClicksRecommendationsResponse,
   Dictionary,
