@@ -15,7 +15,6 @@ const mockedResult: Pick<Result, 'price'> = {
 
 function renderBaseCurrentPrice({
   format = 'i,iii.dd',
-  // eslint-disable-next-line max-len
   template = `<BaseResultCurrentPrice :result="result" :format="format" />`,
   result = mockedResult
 }: RenderBaseCurrentPriceOptions = {}): RenderBaseCurrentPriceAPI {
@@ -24,7 +23,7 @@ function renderBaseCurrentPrice({
     components: {
       BaseResultCurrentPrice
     },
-    props: ['format', 'hideIntegerDecimals', 'result']
+    props: ['format', 'result']
   };
 
   const wrapper = mount(wrapperComponent, {
@@ -100,7 +99,7 @@ interface RenderBaseCurrentPriceOptions {
   format?: string;
   /** The result with the price to display. */
   result?: Pick<Result, 'price'>;
-  /** The template to render. Receives the 'result', 'format' and 'hideIntegerDecimals' props and
+  /** The template to render. Receives the 'result', 'format' props and
    * has registered a {@link BaseCurrency | BaseCurrency component}. */
   template?: string;
 }

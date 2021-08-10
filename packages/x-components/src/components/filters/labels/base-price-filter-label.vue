@@ -22,9 +22,6 @@
     @Prop()
     public format?: string;
 
-    @Prop()
-    public hideIntegerDecimals?: boolean;
-
     /**
      * Message shown when the filter hasn't got the min value defined.
      *
@@ -72,7 +69,6 @@
             props: {
               value: this.filter.range.min,
               format: this.format,
-              hideIntegerDecimals: this.hideIntegerDecimals
             }
           });
         } else if (partMessage === '{max}') {
@@ -80,7 +76,6 @@
             props: {
               value: this.filter.range.max,
               format: this.format,
-              hideIntegerDecimals: this.hideIntegerDecimals
             }
           });
         }

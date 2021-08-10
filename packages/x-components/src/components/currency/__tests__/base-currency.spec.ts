@@ -99,8 +99,8 @@ describe('testing BaseCurrency component', () => {
   });
 
   it(
-    'renders the provided format correctly filling decimals with non-significant zeros and' +
-      ' hideIntegerDecimals as false',
+    'renders the provided format correctly filling decimals with non-significant zeros for an' +
+      'integer',
     () => {
       const wrapper = renderBaseCurrency({
         value: 12345678,
@@ -123,7 +123,7 @@ describe('testing BaseCurrency component', () => {
       template: '<div><slot /></div>'
     })
     class Provider extends Vue {
-      @XProvide('format')
+      @XProvide('currency')
       public providedFormat = '$i,iii.ddd';
     }
 
