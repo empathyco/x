@@ -385,7 +385,7 @@ export function createNextEditableNumberRangeFilter(
  */
 export type CreateNextHierarchicalFilter = (
   label: string,
-  selected: boolean,
+  selected?: boolean,
   createChildren?: (createChildren: CreateNextHierarchicalFilter) => NextHierarchicalFilter[]
 ) => NextHierarchicalFilter[];
 
@@ -400,25 +400,17 @@ export type CreateNextHierarchicalFilter = (
  */
 export function createNextHierarchicalFilterFactory(
   facetId: string,
-  parentId: string | null = null
+  parentId: NextHierarchicalFilter['id'] | null = null
 ): CreateNextHierarchicalFilter {
   return (label, selected, createChildren): NextHierarchicalFilter[] => {
-    const filterId = `${facetId}:${label}`;
+    const filter = createNextHierarchicalFilter(facetId, label, selected);
     const children = createChildren
-      ? createChildren(createNextHierarchicalFilterFactory(facetId, filterId))
+      ? createChildren(createNextHierarchicalFilterFactory(facetId, filter.id))
       : [];
-    return [
-      {
-        id: filterId,
-        facetId: facetId,
-        parentId,
-        selected,
-        label,
-        totalResults: 10,
-        children: children.filter(filter => filter.parentId === filterId).map(filter => filter.id),
-        modelName: 'HierarchicalFilter'
-      },
-      ...children
-    ];
+    filter.parentId = parentId;
+    filter.children = children
+      .filter(filter => filter.parentId === filter.id)
+      .map(filter => filter.id);
+    return [filter, ...children];
   };
 }
