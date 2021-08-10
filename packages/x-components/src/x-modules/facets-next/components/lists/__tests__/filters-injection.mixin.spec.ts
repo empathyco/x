@@ -180,10 +180,10 @@ describe('Test filters injection mixin', () => {
  * The returned API of the method {@link renderFiltersMixin}.
  */
 type TestFilterInjectionAPI = {
-  /** The wrapper of the mounted component. **/
+  /** The wrapper of the mounted component. */
   wrapper: Wrapper<Vue>;
-  /** It returns an array with the filter ids rendered in the mounted component. **/
+  /** It returns an array with the filter ids rendered in the mounted component. */
   getRenderedFilterIds: () => string[];
-  /** Changes the propFilters of the mounted component. **/
+  /** Changes the propFilters of the mounted component. */
   setPropFilters: (propFilters: Filter[]) => Promise<void>;
 };
