@@ -1,4 +1,5 @@
 import { Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { PageableRequest } from '@empathyco/x-adapter';
 
 let resultsList: string[] = [];
 
@@ -70,5 +71,15 @@ Then(
   'the searched query is displayed in the search-box',
   function (this: { searchedQuery: string }) {
     cy.getByDataTest('search-input').should('have.value', this.searchedQuery);
+  }
+);
+
+Then(
+  'number of rows requested in {string} is {int}',
+  (request: string, maxItemsToRequest: number) => {
+    cy.wait(`@${request}`).then(({ request }) => {
+      const { rows } = JSON.parse(request.body) as PageableRequest;
+      expect(rows).to.equal(maxItemsToRequest);
+    });
   }
 );

@@ -1,7 +1,14 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { InstallXOptions } from '../../../src/x-installer/x-installer/types';
+import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
+import { nextQueriesStub } from './stubs/next-queries.stub';
 
-Given(
+Given('next queries API should respond with mocked next queries', () => {
+  cy.intercept('https://api.empathy.co/getNextQueries', req => {
+    req.reply(nextQueriesStub);
+  }).as('interceptedNextQueries');
+});
+
+And(
   'following config: hide session queries {boolean}, requested items {int}, loadOnInit {boolean}',
   (hideSessionQueries: boolean, maxItemsToRequest: number, loadOnInit: boolean) => {
     const config: InstallXOptions['xModules'] = {
@@ -18,7 +25,8 @@ Given(
         }
       }
     };
-    cy.visit('/test/next-queries', {
+
+    cy.visit('/test/next-queries?useMockedAdapter=true', {
       qs: {
         xModules: JSON.stringify(config)
       }

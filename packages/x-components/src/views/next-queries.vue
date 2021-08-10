@@ -5,17 +5,6 @@
       <SearchInput placeholder="Search" aria-label="Search for products" />
       <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
     </div>
-    <!-- Popular Searches -->
-    <div class="x-column">
-      <h1>Popular Searches</h1>
-      <PopularSearches placeholder="Popular Searches" aria-label="Popular items" />
-    </div>
-    <!-- Query Suggestions -->
-    <div class="x-column">
-      <h1>Query Suggestions</h1>
-      <QuerySuggestions />
-      <NoSuggestions message="We couldn't find any suggestion. Try searching for {query}." />
-    </div>
     <!-- History Queries -->
     <div class="x-column">
       <h1>History queries</h1>
@@ -30,11 +19,6 @@
     <div class="x-column">
       <h1>Next Queries</h1>
       <NextQueries />
-    </div>
-    <!-- Related Tags -->
-    <div class="x-column">
-      <h1>Related tags</h1>
-      <RelatedTags class="x-list--horizontal x-list--wrap" />
     </div>
     <!-- Testing purpose -->
     <ul>
@@ -57,11 +41,6 @@
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
-  import NoSuggestions from '../x-modules/no-suggestions/components/no-suggestions.vue';
-  import PopularSearches from '../x-modules/popular-searches/components/popular-searches.vue';
-  import QuerySuggestion from '../x-modules/query-suggestions/components/query-suggestion.vue';
-  import QuerySuggestions from '../x-modules/query-suggestions/components/query-suggestions.vue';
-  import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
   import SearchButton from '../x-modules/search-box/components/search-button.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import { State } from '../components/decorators/store.decorators';
@@ -86,15 +65,10 @@
       CrossIcon,
       SearchButton,
       SearchInput,
-      PopularSearches,
       HistoryQueries,
       ClearHistoryQueries,
       ClearSearchInput,
-      NextQueries,
-      NoSuggestions,
-      QuerySuggestion,
-      QuerySuggestions,
-      RelatedTags
+      NextQueries
     }
   })
   export default class NextQueriesView extends Vue {
