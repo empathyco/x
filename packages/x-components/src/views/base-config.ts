@@ -19,5 +19,6 @@ export const baseInstallXOptions: InstallXOptions = {
         identifierDetectionRegexp: '^[a-zA-Z][0-9]+'
       }
     }
-  }
+  },
+  app: {}
 };

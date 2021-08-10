@@ -28,8 +28,7 @@ describe('testing BasePriceLabel component', () => {
     const filter = getNumberRangeFilterStub({ range: { min: null, max: 10 } });
     const wrapper = renderBasePriceLabel({
       filter,
-      format: '$i.dd',
-      hideIntegerDecimals: true
+      format: '$i,iii'
     });
     expect(wrapper.text()).toEqual('Less than $10');
   });

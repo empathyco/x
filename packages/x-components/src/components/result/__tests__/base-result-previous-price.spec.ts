@@ -57,7 +57,7 @@ describe('testing BaseResultPreviousPrice component', () => {
 
   it('renders the previous price hiding integer decimals', () => {
     const { wrapper } = renderBasePreviousPrice({
-      hideIntegerDecimals: true
+      format: 'i.iii'
     });
 
     expect(wrapper.text()).toBe('29');
