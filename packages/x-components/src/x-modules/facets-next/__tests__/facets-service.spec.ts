@@ -14,7 +14,7 @@ import {
 } from '../../../__stubs__/filters-stubs.factory';
 import { installNewXPlugin } from '../../../__tests__/utils';
 import { XPlugin } from '../../../plugins/x-plugin';
-import { BaseFacetsService } from '../base-facets.service';
+import { BaseFacetsService } from '../facets.service';
 import {
   getStoreEditableNumberRangeFilter,
   getStoreFilter,
