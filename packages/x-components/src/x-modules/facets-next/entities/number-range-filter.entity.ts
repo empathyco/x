@@ -1,13 +1,13 @@
-import { SimpleFilter, isSimpleFilter } from '@empathyco/x-types-next';
 import { Store } from 'vuex';
+import { isNumberRangeFilter, NumberRangeFilter } from '@empathyco/x-types-next';
 import { RootXStoreState } from '../../../store/store.types';
 import { FilterEntity } from './types';
 
 /**
- * Allows selecting and deselecting a filter of {@link SimpleFilter}.
+ * Allows selecting and deselecting a filter of {@link NumberRangeFilter}.
  */
-export class SimpleFilterEntity implements FilterEntity {
-  public static accepts = isSimpleFilter;
+export class NumberRangeFilterEntity implements FilterEntity {
+  public static accepts = isNumberRangeFilter;
 
   public constructor(protected store: Store<RootXStoreState>) {}
 
@@ -16,7 +16,7 @@ export class SimpleFilterEntity implements FilterEntity {
    *
    * @param filter - The filter to deselect.
    */
-  deselect(filter: SimpleFilter): void {
+  deselect(filter: NumberRangeFilter): void {
     this.store.commit('x/facetsNext/setFilter', { ...filter, selected: false });
   }
 
@@ -25,7 +25,7 @@ export class SimpleFilterEntity implements FilterEntity {
    *
    * @param filter - The filter to select.
    */
-  select(filter: SimpleFilter): void {
+  select(filter: NumberRangeFilter): void {
     this.store.commit('x/facetsNext/setFilter', { ...filter, selected: true });
   }
 }

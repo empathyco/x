@@ -1,37 +1,34 @@
-import { isRawFilter, RawFilter, Filter } from '@empathyco/x-types-next';
+import { isRawFilter, RawFilter } from '@empathyco/x-types-next';
 import { Store } from 'vuex';
-import { EquatableFilter } from './equatable-filter';
 import { FilterEntity } from './types';
 
 /**
  * Allows selecting and deselecting a filter of {@link RawFilter}.
  */
-export class RawFilterEntity extends EquatableFilter implements FilterEntity {
-  public constructor(protected store: Store<unknown>, protected filter: RawFilter) {
-    super(filter);
-  }
+export class RawFilterEntity implements FilterEntity {
+  public static accepts = isRawFilter;
 
-  static accepts(filter: Filter): boolean {
-    return isRawFilter(filter);
-  }
+  public constructor(protected store: Store<unknown>) {}
 
   /**
    * It deselects the {@link RawFilter}.
    *
+   * @param filter - The filter to deselect.
    * @remarks As the {@link RawFilter.selected} is always true,
    * the deselection just removes the filter from the store.
    */
-  deselect(): void {
-    this.store.commit('x/facetsNext/removeFilter', this.filter);
+  deselect(filter: RawFilter): void {
+    this.store.commit('x/facetsNext/removeFilter', filter);
   }
 
   /**
    * It selects the {@link RawFilter}.
    *
+   * @param filter - The filter to select.
    * @remarks As the {@link RawFilter.selected} is always true,
    * there is no need to set this property.
    */
-  select(): void {
-    this.store.commit('x/facetsNext/setFilter', { ...this.filter });
+  select(filter: RawFilter): void {
+    this.store.commit('x/facetsNext/setFilter', filter);
   }
 }

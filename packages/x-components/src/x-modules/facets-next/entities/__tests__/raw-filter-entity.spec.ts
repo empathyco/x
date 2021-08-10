@@ -3,7 +3,7 @@ import { RawFilter } from '@empathyco/x-types-next';
 import { createRawFilter } from '../../../../__stubs__/filters-stubs.factory';
 import { RawFilterEntity } from '../raw-filter.entity';
 import { RootXStoreState } from '../../../../store/store.types';
-import { prepareFacetsStore } from './utils';
+import { getStoreFilter, isFilterSelected, prepareFacetsStore } from './utils';
 
 describe('testing RawFilterEntity', () => {
   let store: Store<RootXStoreState>, filter: RawFilter, filterEntity: RawFilterEntity;
@@ -12,28 +12,27 @@ describe('testing RawFilterEntity', () => {
     store = prepareFacetsStore();
     filter = createRawFilter('rawFilter1');
 
-    filterEntity = new RawFilterEntity(store, filter);
+    filterEntity = new RawFilterEntity(store);
   });
 
   it('adds the filter to the store when selecting it', () => {
-    expect(store.state.x.facetsNext.filters[filter.id]).toBeUndefined();
-
-    filterEntity.select();
-    expect(store.state.x.facetsNext.filters[filter.id].selected).toBe(true);
+    expect(getStoreFilter(store, filter.id)).toBeUndefined();
+    filterEntity.select(filter);
+    expect(isFilterSelected(store, filter.id)).toBe(true);
   });
 
   it('removes the filter from the store when deselecting it', () => {
-    filterEntity.select();
-    expect(store.state.x.facetsNext.filters[filter.id]).not.toBeUndefined();
-    filterEntity.deselect();
-    expect(store.state.x.facetsNext.filters[filter.id]).toBeUndefined();
+    filterEntity.select(filter);
+    expect(isFilterSelected(store, filter.id)).toBe(true);
+    filterEntity.deselect(filter);
+    expect(getStoreFilter(store, filter.id)).toBeUndefined();
   });
 
   it('is always selected regardless of being selected or deselected from the store', () => {
     expect(filter.selected).toBe(true);
-    filterEntity.select();
+    filterEntity.select(filter);
     expect(filter.selected).toBe(true);
-    filterEntity.deselect();
+    filterEntity.deselect(filter);
     expect(filter.selected).toBe(true);
   });
 });

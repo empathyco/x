@@ -19,12 +19,12 @@ We encourage you to watch this project as it will be updated every week.
 
 As you can see there are a few packages but most of them are minor dependencies, we recommend to focus on two of them:
 
-* [@empathyco/x-components](https://github.com/empathyco/x/tree/main/packages/components) - This is the core package of this project. 
+* [@empathyco/x-components](https://github.com/empathyco/x/tree/main/packages/x-components) - This is the core package of this project. 
 These are standalone and configurable building blocks that allow you to quickly construct the search UI for your shop. 
 You can create a smooth, personalised search and discovery experience, while significantly minimising development time. (To be moved here soon) 
-* [@empathyco/x-archetype](https://github.com/empathyco/x/tree/main/packages/archetype) - This package is the Empathy vision of the 
+* [@empathyco/x-archetype](https://github.com/empathyco/x-archetype) - This project is the Empathy vision of the 
 perfect X-Components mixing. A project showing the power of the components ready to connect to any Search API with customizable layout through Design Tokens. 
-This is a perfect example to know how to use the X-Components. (To be moved here soon) 
+This is a perfect example to know how to use the X-Components. This package is now a project outside this mono-repo. 
 
 ## Roadmap
 

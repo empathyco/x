@@ -68,7 +68,7 @@ Interface X is composed of some different packages. New packages will be added h
 - [@empathyco/x-components](https://github.com/empathyco/x/tree/main/packages/x-components) - This is the core package of this project.
   These are standalone and configurable building blocks that allow you to quickly construct the search UI for your shop.
   You can create a smooth, personalised search and discovery experience, while significantly minimising development time. (To be moved here soon)
-- [@empathyco/x-archetype](https://github.com/empathyco/x-archetype) - This package is the Empathy vision of the
+- [@empathyco/x-archetype](https://github.com/empathyco/x-archetype) - This project is the Empathy vision of the
   perfect X-Components mixing. A project showing the power of the components ready to connect to any Search API with customizable layout through Design Tokens.
   This is a perfect example to know how to use the X-Components.
 - [@empathyco/x-deep-merge](/packages/deep-merge) - Clones an array of objects into another object.
