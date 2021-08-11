@@ -12,7 +12,13 @@ import {
 } from '@empathyco/x-types';
 import {
   HierarchicalFacet as NextHierarchicalFacet,
-  HierarchicalFilter as NextHierarchicalFilter
+  HierarchicalFilter as NextHierarchicalFilter,
+  SimpleFacet as NextSimpleFacet,
+  EditableNumberRangeFacet as NextEditableNumberRangeFacet,
+  NumberRangeFacet as NextNumberRangeFacet,
+  SimpleFilter as NextSimpleFilter,
+  EditableNumberRangeFilter as NextEditableNumberRangeFilter,
+  NumberRangeFilter as NextNumberRangeFilter
 } from '@empathyco/x-types-next';
 import { arrayToObject } from '../utils';
 import { Dictionary } from '../utils/types';
@@ -20,8 +26,11 @@ import {
   createCategorySimpleFilter,
   CreateHierarchicalFilter,
   createHierarchicalFilterFactory,
+  createNextEditableNumberRangeFilter,
   CreateNextHierarchicalFilter,
-  createNextHierarchicalFilterFactory
+  createNextHierarchicalFilterFactory,
+  createNextNumberRangeFilter,
+  createNextSimpleFilter
 } from './filters-stubs.factory';
 
 /**
@@ -714,6 +723,78 @@ export function createFacetWithFilter(category: string): SimpleFacet {
 }
 
 /* Next Facets */
+
+/**
+ * Creates a simple facet with the given parameters.
+ *
+ * @param label - Used for the facet `id` and `label` properties.
+ * @param createChildren - A function that returns the facet filters.
+ * @returns A simple facet.
+ */
+export function createNextSimpleFacetStub(
+  label: string,
+  createChildren: (
+    createChild: (label: string, selected?: boolean) => NextSimpleFilter
+  ) => NextSimpleFilter[]
+): NextSimpleFacet {
+  const facetId = label.toLowerCase();
+  return {
+    modelName: 'SimpleFacet',
+    id: facetId,
+    label,
+    filters: createChildren((label, selected) => createNextSimpleFilter(facetId, label, selected))
+  };
+}
+
+/**
+ * Creates a number range facet with the given parameters.
+ *
+ * @param label - Used for the facet `id` and `label` properties.
+ * @param createChildren - A function that returns the facet filters.
+ * @returns A number range facet.
+ */
+export function createNextNumberRangeFacetStub(
+  label: string,
+  createChildren: (
+    createChild: (range: RangeValue, selected?: boolean) => NextNumberRangeFilter
+  ) => NextNumberRangeFilter[]
+): NextNumberRangeFacet {
+  const facetId = label.toLowerCase();
+  return {
+    modelName: 'NumberRangeFacet',
+    id: facetId,
+    label,
+    filters: createChildren((range, selected) =>
+      createNextNumberRangeFilter(facetId, range, selected)
+    )
+  };
+}
+
+/**
+ * Creates an editable number range facet with the given parameters.
+ *
+ * @param label - Used for the facet `id` and `label` properties.
+ * @param createChildren - A function that returns the facet filters.
+ * @returns An editable number range facet.
+ */
+export function createNextEditableNumberRangeFacetStub(
+  label: string,
+  createChildren: (
+    createChild: (range: RangeValue, selected?: boolean) => NextEditableNumberRangeFilter
+  ) => NextEditableNumberRangeFilter
+): NextEditableNumberRangeFacet {
+  const facetId = label.toLowerCase();
+  return {
+    modelName: 'EditableNumberRangeFacet',
+    id: facetId,
+    label,
+    filters: [
+      createChildren((range, selected) =>
+        createNextEditableNumberRangeFilter(facetId, range, selected)
+      )
+    ]
+  };
+}
 
 /**
  * Creates a hierarchical facet with the given parameters.

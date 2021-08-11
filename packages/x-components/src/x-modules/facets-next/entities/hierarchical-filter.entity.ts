@@ -42,8 +42,10 @@ export class HierarchicalFilterEntity implements FilterEntity {
     if (filter.children) {
       filter.children.forEach(childId => {
         const child = this.getFilterById(childId);
-        this.saveFilter({ ...child, selected: false });
-        this.deselectDescendants(child);
+        if (child) {
+          this.saveFilter({ ...child, selected: false });
+          this.deselectDescendants(child);
+        }
       });
     }
   }

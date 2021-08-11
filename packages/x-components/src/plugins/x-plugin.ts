@@ -8,7 +8,7 @@ import {
   AnyStateSelector,
   AnyStoreEmitters
 } from '../store/store-emitters.types';
-import { AnyXStoreModule } from '../store/store.types';
+import { AnyXStoreModule, RootXStoreState } from '../store/store.types';
 import {
   cleanGettersProxyCache,
   getGettersProxyFromModule
@@ -59,6 +59,18 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    */
   public static get bus(): XBus {
     return this.getInstance().bus;
+  }
+
+  /**
+   * {@link https://vuex.vuejs.org | Vuex Store} Is the place where all shared data
+   * is saved.
+   *
+   * @returns The installed store.
+   * @throws If this property is accessed before calling `Vue.use(xPlugin)`.
+   * @public
+   */
+  public static get store(): Store<RootXStoreState> {
+    return this.getInstance().store;
   }
 
   /**
