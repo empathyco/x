@@ -92,7 +92,7 @@ export class BaseFacetsService implements FacetsService {
   /**
    * Removes the filters that belong to the given group.
    *
-   * @param groupId - The id of the group from whom remove the filters.
+   * @param groupId - The id of the group from whom remove the filters that are in the store.
    * @returns The removed filters.
    * @internal
    */
