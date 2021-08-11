@@ -1,7 +1,7 @@
 Feature: Full Empathize
 
   Background:
-    Given next queries API should respond with dummy next queries
+    Given a next queries API
 
   Scenario Outline: 1. Query suggestions
     Given no special config for full empathize view

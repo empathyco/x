@@ -1,7 +1,7 @@
 Feature: Search-box component
 
   Background:
-    Given next queries API should respond with dummy next queries
+    Given a next queries API
 
   Scenario Outline: 1. Query with results is typed and <buttonOrKey> is clicked/pressed (search-box is empty)
     Given following config: hide if equals query <hideIfEqualsQuery>, instant search <instant>, debounce <instantDebounceInMs>
