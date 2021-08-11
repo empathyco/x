@@ -12,10 +12,8 @@ import { EmpathyFilter } from '../../../models';
 export class EmpathyNumberRangeFilterMapper implements ResponseMapper<EmpathyFilter, NumberRangeFilter> {
   map(rawFilter: EmpathyFilter, filter: NumberRangeFilter, context: ResponseMapperContext): NumberRangeFilter {
     const [min, max] = rawFilter.value.split(':');
-    const id = `${ filter.facetId }:${ min || '*' } TO ${ max || '*' }`;
 
     return Object.assign<NumberRangeFilter, Partial<NumberRangeFilter>>(filter, {
-      id,
       modelName: 'NumberRangeFilter',
       range: {
         min: Number.parseFloat(min) || null,
