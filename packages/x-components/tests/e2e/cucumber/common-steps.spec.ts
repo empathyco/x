@@ -1,5 +1,6 @@
-import { Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { PageableRequest } from '@empathyco/x-adapter';
+import { getNextQueriesStub } from '../../../src/__stubs__/next-queries-stubs.factory';
 
 let resultsList: string[] = [];
 
@@ -83,3 +84,11 @@ Then(
     });
   }
 );
+
+Given('next queries API should respond with dummy next queries', () => {
+  cy.intercept('https://api.empathy.co/getNextQueries', req => {
+    req.reply({
+      nextQueries: getNextQueriesStub()
+    });
+  });
+});

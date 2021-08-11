@@ -1,5 +1,8 @@
 Feature: Popular searches component
 
+  Background:
+    Given next queries API should respond with dummy next queries
+
   Scenario Outline:  1. Popular searches are load together with the page
     Given following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, rendered <maxItemsToRender>
     Then  number of popular searches displayed is equal or less than <maxItemsToRender>

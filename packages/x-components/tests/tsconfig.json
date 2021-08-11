@@ -4,7 +4,8 @@
     "declaration": false,
     "declarationMap": false,
     "types": ["node", "cypress"],
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "rootDir": "../"
   },
   "include": ["./**/*.ts"],
   "exclude": ["**/__tests__/**/*"]

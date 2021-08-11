@@ -22,7 +22,7 @@ Given(
         }
       }
     };
-    cy.visit('/test/history-queries', {
+    cy.visit('/test/history-queries?useMockedAdapter=true', {
       qs: {
         xModules: JSON.stringify(config)
       }

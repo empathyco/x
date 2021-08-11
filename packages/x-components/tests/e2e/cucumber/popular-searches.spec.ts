@@ -17,7 +17,7 @@ Given(
         }
       }
     };
-    cy.visit('/test/popular-searches', {
+    cy.visit('/test/popular-searches?useMockedAdapter=true', {
       qs: {
         xModules: JSON.stringify(config)
       }

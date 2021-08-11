@@ -1,5 +1,8 @@
 Feature: Full Empathize
 
+  Background:
+    Given next queries API should respond with dummy next queries
+
   Scenario Outline: 1. Query suggestions
     Given no special config for full empathize view
     When  a "<query>" with results is typed
