@@ -68,14 +68,14 @@
           return createElement('BaseCurrency', {
             props: {
               value: this.filter.range.min,
-              format: this.format,
+              format: this.format
             }
           });
         } else if (partMessage === '{max}') {
           return createElement('BaseCurrency', {
             props: {
               value: this.filter.range.max,
-              format: this.format,
+              format: this.format
             }
           });
         }
