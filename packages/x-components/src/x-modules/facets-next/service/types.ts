@@ -43,7 +43,7 @@ export interface FacetsService {
   /**
    * Deselects filter, adding it to the store if it was not present.
    *
-   * @param filter - The filter to select.
+   * @param filter - The filter to deselect.
    */
   deselect(filter: Filter): void;
   /**
@@ -57,7 +57,7 @@ export interface FacetsService {
   /**
    * Selects filter, adding it to the store if it was not present.
    *
-   * @param filter - The filter to deselect.
+   * @param filter - The filter to select.
    */
   select(filter: Filter): void;
   /**
