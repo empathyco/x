@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter@6.2.0-alpha.8...@empathyco/x-adapter@7.0.0-alpha.0) (2021-08-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **facets-next:** Rename `EmpathyFilterMapper` to `EmpathyFacetFilterMapper`. Response filter mappers now map the API value in the `id` filters property.  `EmpathyHierarchicalFacetMapper` now flattens and stores all the filters in the `filter` property. `EmpathyHierarchicalFacetMapper` now only maps filters ids in `HierarchicalFilter` children. Bump up `@empathyco/x-types` major version in `@empathyco/x-adapter`.
+
+### Features
+
+* **facets-next:** add support for the new search types in search adapter ([aec475e](https://github.com/empathyco/x/commit/aec475e4f689e63a4dc1b0fed3c3ade73b5122f2)), closes [EX-3640](https://searchbroker.atlassian.net/browse/EX-3640)
+
+
+
 ## [6.2.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-adapter@6.2.0-alpha.7...@empathyco/x-adapter@6.2.0-alpha.8) (2021-08-05)
 
 **Note:** Version bump only for package @empathyco/x-adapter

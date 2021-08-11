@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.13...@empathyco/x-components@3.0.0-alpha.14) (2021-08-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **components:** Remove `hideIntegerDecimals` from `currency-formatter` util,  `base-currency` component.
+* **facets-next:** Rename `EmpathyFilterMapper` to `EmpathyFacetFilterMapper`. Response filter mappers now map the API value in the `id` filters property.  `EmpathyHierarchicalFacetMapper` now flattens and stores all the filters in the `filter` property. `EmpathyHierarchicalFacetMapper` now only maps filters ids in `HierarchicalFilter` children. Bump up `@empathyco/x-types` major version in `@empathyco/x-adapter`.
+
+### Features
+
+* **components:** add option to hide decimals if the number to format is an integer in `currencyFormatter` `format` option. ([b2f6450](https://github.com/empathyco/x/commit/b2f64507f3ce4713c9ed1df725a2c84c01c21f78)), closes [EX-3547](https://searchbroker.atlassian.net/browse/EX-3547)
+* **facets-next:** add entity filter modifiers (#81) ([7074938](https://github.com/empathyco/x/commit/70749382e0a310736ce9b75c5ac1d4466384d0fe)), closes [EX-3651](https://searchbroker.atlassian.net/browse/EX-3651)
+* **facets-next:** add support for the new search types in search adapter ([aec475e](https://github.com/empathyco/x/commit/aec475e4f689e63a4dc1b0fed3c3ade73b5122f2)), closes [EX-3640](https://searchbroker.atlassian.net/browse/EX-3640)
+
+
+### Testing
+
+* **e2e:** mock adapter on next queries requests (#66) ([1434ef7](https://github.com/empathyco/x/commit/1434ef767b305b90522d54ef0cd42d33eea8e38e)), closes [EX-4468](https://searchbroker.atlassian.net/browse/EX-4468)
+* **e2e:** mock all the e2e requests of Next Queries (#85) ([cff6438](https://github.com/empathyco/x/commit/cff6438dc3f9053d778ab8b58b789cb37104c3bd))
+
+
+
 ## [3.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.12...@empathyco/x-components@3.0.0-alpha.13) (2021-08-05)
 
 
