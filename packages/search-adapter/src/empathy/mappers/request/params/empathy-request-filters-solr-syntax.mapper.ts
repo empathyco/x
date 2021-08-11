@@ -3,6 +3,8 @@ import {
   EditableNumberRangeFilter,
   Filter,
   isBooleanFilter,
+  isRawFilter,
+  RawFilter,
   isEditableNumberRangeFilter
 } from '@empathyco/x-types';
 import { inject, injectable } from 'inversify';
@@ -29,14 +31,9 @@ export class EmpathyRequestFiltersSolrSyntaxMapper implements Mapper<Filter[], s
   }
 
   private composeFilters(filters: Filter[]): string[] {
-    if (this.isArrayOfBooleanFilters(filters)) {
-      return filters.map(filter => filter.value);
-    } else if (this.isArrayOfEditableNumberRangeFilters(filters)) {
-      return this.mapEditableNumberRangeFiltersList(filters);
-    }
-
-    this.logger.warn(`Unknown filter type ${ filters[0].modelName }`);
-    return [];
+    return this.isArrayOfEditableNumberRangeFilters(filters)
+      ? this.mapEditableNumberRangeFiltersList(filters)
+      : filters.map((filter) => filter.id.toString());
   }
 
   private mapEditableNumberRangeFiltersList(filters: EditableNumberRangeFilter[]): string[] {
@@ -58,17 +55,6 @@ export class EmpathyRequestFiltersSolrSyntaxMapper implements Mapper<Filter[], s
     return template
       .replace(/<min>/g, parseNullValues(min))
       .replace(/<max>/g, parseNullValues(max));
-  }
-
-  /**
-   * Check if the filters passed are of type {@link @empathyco/x-types#BooleanFilter | BooleanFilter}.
-   *
-   * @param filters - The array of filters to check.
-   *
-   * @internal
-   */
-  private isArrayOfBooleanFilters(filters: Filter[]): filters is BooleanFilter[] {
-    return isBooleanFilter(filters[0]);
   }
 
   /**

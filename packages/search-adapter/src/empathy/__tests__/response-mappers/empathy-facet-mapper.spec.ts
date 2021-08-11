@@ -23,7 +23,7 @@ import { EmpathyAdapterBuilder } from '../../builder/empathy-adapter.builder';
 import { DEPENDENCIES } from '../../container/container.const';
 import { MapFn, ResponseMapper, ResponseMapperContext } from '../../empathy-adapter.types';
 import { pipeMappers } from '../../mappers/pipe-mappers';
-import { EmpathyFacet } from '../../models';
+import { EmpathyFacet, EmpathyFilter } from '../../models';
 
 const emptyContext: ResponseMapperContext = { feature: '', url: '', requestOptions: {}, rawRequest: {}, request: {}, rawResponse: {} };
 const container = new Container();
@@ -47,22 +47,29 @@ afterEach(() => {
 describe('Empathy Hierarchical Facet', () => {
   it('maps a hierarchical facet', () => {
     const mappedFacet = mapFacet(hierarchicalRawFacet, {} as HierarchicalFacet, emptyContext) as HierarchicalFacet;
-
     expectAllFiltersToBeValid(mappedFacet.filters, HierarchicalFilterSchema);
-    expectFacetToMatchMock(mappedFacet, hierarchicalRawFacet.facet, hierarchicalRawFacet.values.length);
-    // tslint:disable-next-line:no-non-null-assertion
-    expect(mappedFacet.filters[1].children![0].children![0]).toBeDefined();
+    expectFacetToMatchMock(mappedFacet, hierarchicalRawFacet.facet, 4);
+
+    const parentId = '{!tag=hierarchical_category}hierarchical_category:"figuras_de_acción"';
+    const childrenId = '{!tag=hierarchical_category}hierarchical_category:"juegos_de_manualidades\\/construye/construye-hija"';
+
+    expectFilterIdToBeInChildrenProperty(parentId, mappedFacet.filters, false);
+    expectFilterIdToBeInChildrenProperty(childrenId, mappedFacet.filters, true);
+
     expectBooleanFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
   });
 
   it('maps filters correctly if the selected property is not defined', () => {
     const mappedFacet = mapFacet(hierarchicalRawFacetWithoutSelected, {} as HierarchicalFacet, emptyContext) as HierarchicalFacet;
 
-    expectFacetToMatchMock(mappedFacet, hierarchicalRawFacetWithoutSelected.facet, hierarchicalRawFacetWithoutSelected.values.length);
+    expectFacetToMatchMock(mappedFacet, hierarchicalRawFacetWithoutSelected.facet, 5);
     expectAllFiltersToBeValid(mappedFacet.filters, HierarchicalFilterSchema);
-    // tslint:disable-next-line:no-non-null-assertion
-    expect(mappedFacet.filters[1].children![1].children![0]).toBeDefined();
-    expectBooleanFiltersToHaveSelectedPropertyTo(mappedFacet.filters, false);
+
+    const parentId = '{!tag=hierarchical_category}hierarchical_category:"figuras_de_acción"';
+    const childrenId = '{!tag=hierarchical_category}hierarchical_category:"juegos_de_manualidades\\/construye\\/construye-hija"';
+
+    expectFilterIdToBeInChildrenProperty(parentId, mappedFacet.filters, false);
+    expectFilterIdToBeInChildrenProperty(childrenId, mappedFacet.filters, true);
   });
 });
 
@@ -107,21 +114,15 @@ function expectFacetToMatchMock(mappedFacet: HierarchicalFacet | SimpleFacet | N
 function expectBooleanFiltersToHaveSelectedPropertyTo(filters: BooleanFilter[], selected: boolean | null): void {
   filters.forEach(filter => {
     expect(filter.selected).toEqual(selected);
-    if (isHierarchicalFilter(filter) && !!filter.children) {
-      expectBooleanFiltersToHaveSelectedPropertyTo(filter.children, selected);
-    }
   });
 }
 
 function expectAllFiltersToBeValid(filters: Filter[], schema: HierarchicalFilter | SimpleFilter | NumberRangeFilter): void {
   return filters.forEach(filter => {
     expect(filter).toMatchObject(schema);
-    if (isHierarchicalFilter(filter) && filter.children) {
-      expectAllFiltersToBeValid(filter.children, HierarchicalFilterSchema);
-    }
   });
 }
 
-function isHierarchicalFilter(filter: Filter): filter is HierarchicalFilter {
-  return filter.modelName === 'HierarchicalFilter';
+function expectFilterIdToBeInChildrenProperty(id: Filter['id'], filters: HierarchicalFilter[], selected: boolean | null): void {
+  expect(filters.some(filter => filter.children?.some(child => child === id))).toBe(selected);
 }
