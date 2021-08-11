@@ -1,7 +1,7 @@
 Feature: Recommendations component
 
   Background:
-    Given a next queries API with a known response
+    Given a recommendations API with a known response
 
   Scenario Outline:  1. Recommendations are displayed
     Given following config: max items to store is <maxItemsToRequest>
