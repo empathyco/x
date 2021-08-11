@@ -35,7 +35,7 @@ export interface FacetsService {
    */
   areFiltersDifferent(someFilters: Filter[], anotherFilters: Filter[]): boolean;
   /**
-   * Deselects the list of filters.
+   * Deselects the selected filters.
    *
    * @param facetIds - An optional list of facets ids from whom deselect the filters.
    */
@@ -57,14 +57,14 @@ export interface FacetsService {
   /**
    * Selects filter, adding it to the store if it was not present.
    *
-   * @param filter - The filter to select.
+   * @param filter - The filter to deselect.
    */
   select(filter: Filter): void;
   /**
    * Selects a deselected filter, and deselects a selected filter, adding them to the store
    * in both cases.
    *
-   * @param filter - The filter to toggle its selected state.
+   * @param filter - The filter to toggle.
    */
   toggle(filter: Filter): void;
 }

@@ -33,6 +33,7 @@ function prepareFacetsService(): FacetsServiceTestAPI {
   XPlugin.resetInstance();
   installNewXPlugin();
   XPlugin.registerXModule(facetsNextXModule);
+
   return {
     service: new BaseFacetsService(),
     isFilterSelected(filter) {
@@ -99,7 +100,7 @@ describe('testing facets service', () => {
       const editableNumberRangeFilter = createNextEditableNumberRangeFilter(
         'price',
         {
-          min: 30,
+          min: 0,
           max: 40
         },
         false
@@ -107,9 +108,17 @@ describe('testing facets service', () => {
 
       service.select(editableNumberRangeFilter);
       expect(isEditableNumberRangeFilterSelected(editableNumberRangeFilter)).toBe(true);
+      expect(getStoreEditableNumberRangeFilter(editableNumberRangeFilter).range).toEqual({
+        min: 0,
+        max: 40
+      });
 
       service.deselect(editableNumberRangeFilter);
       expect(isEditableNumberRangeFilterSelected(editableNumberRangeFilter)).toBe(false);
+      expect(getStoreEditableNumberRangeFilter(editableNumberRangeFilter).range).toEqual({
+        min: null,
+        max: null
+      });
     });
 
     it('selects & deselects a raw filter', () => {
@@ -164,17 +173,25 @@ describe('testing facets service', () => {
       const editableNumberRangeFilter = createNextEditableNumberRangeFilter(
         'price',
         {
-          min: 30,
-          max: 40
+          min: 0,
+          max: 30
         },
         false
       );
 
       service.toggle(editableNumberRangeFilter);
       expect(isEditableNumberRangeFilterSelected(editableNumberRangeFilter)).toBe(true);
+      expect(getStoreEditableNumberRangeFilter(editableNumberRangeFilter).range).toEqual({
+        min: 0,
+        max: 30
+      });
 
       service.toggle(getStoreEditableNumberRangeFilter(editableNumberRangeFilter));
       expect(isEditableNumberRangeFilterSelected(editableNumberRangeFilter)).toBe(false);
+      expect(getStoreEditableNumberRangeFilter(editableNumberRangeFilter).range).toEqual({
+        min: null,
+        max: null
+      });
     });
   });
 
@@ -309,6 +326,7 @@ describe('testing facets service', () => {
       );
     });
   });
+
   describe('saves a group of facets', () => {
     it('saves groups of facets keeping its previous selected states', () => {
       const { service, getSelectedFilters, getFilters, getStoreEditableNumberRangeFilter } =
@@ -439,6 +457,9 @@ describe('testing facets service', () => {
   });
 });
 
+/**
+ * Utilities to test the facets service.
+ */
 interface FacetsServiceTestAPI {
   /**
    * Gets the stored filters.
