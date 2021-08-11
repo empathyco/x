@@ -1,7 +1,7 @@
 /**
  * Regex to detect the format.
  */
-const FORMAT_REGEX = /(i([^id]+))?i+(([^id?]+)(\?)?(d+))?/;
+const FORMAT_REGEX = /(i([^id]+))?i+(([^id?]+)(d+)(\?)?)?/;
 
 /**
  * Configuration for format currency.
@@ -44,11 +44,11 @@ interface NumberParts {
  * than one character.
  * - Set whatever you need around the integers and decimals marks.
  * - Default mask: 'i.iii,dd' which returns '1.345,67'.
- *
- * @remarks
- * hideIntegerDecimals:
- * - If true and the value is an integer without decimals, the decimal part is hidden including
- * the decimal separator.
+ * - If you want to hide the decimal part if it's zero (non significant), you can add the `?` symbol
+ * after the decimal characters (e.g. 'i.iii,dd?', for `1234` you would get `1.234` instead of
+ * `1.234,00`). It defines the value of `hideIntegerDecimals`:
+ * - If true (exists) and the value is an integer without decimals, the decimal non significant
+ * zeroes are hidden.
  * - If false, the default behaviour will fill with zeros the remaining length until getting
  * the one defined with the 'd's.
  *
@@ -62,17 +62,12 @@ export function currencyFormatter(value: number, format = 'i.iii,dd'): string {
     currencyConfig(format);
 
   const formattedInteger = formatInteger(integer, integerSeparator);
-  const formattedDecimalsSeparator = formatDecimalSeparator(
-    decimal,
-    decimalSeparator,
-    hideIntegerDecimals
-  );
-  const formattedDecimal = formatDecimal(decimal, decimalsNumber, hideIntegerDecimals);
-  debugger;
-  return format.replace(
-    FORMAT_REGEX,
-    `${formattedInteger}${formattedDecimalsSeparator}${formattedDecimal}`
-  );
+  const formattedDecimal = formatDecimal(decimal, {
+    decimalsNumber,
+    hideIntegerDecimals,
+    decimalSeparator
+  });
+  return format.replace(FORMAT_REGEX, `${formattedInteger}${formattedDecimal}`);
 }
 
 /**
@@ -93,27 +88,6 @@ function formatInteger(integer: string, integerSeparator: string): string {
 }
 
 /**
- * Formatted decimal separator.
- * Returns the decimal separator set or empty string if the option 'hideIntegerDecimals' is true
- * and the value is an integer, or if there are no decimals number defined.
- *
- * @param decimal - Decimal part of the number.
- * @param decimalSeparator - Decimal separator.
- * @param hideIntegerDecimals - Boolean value to hide or show the decimal part.
- *
- * @returns Decimal separator or empty string.
- *
- * @internal
- */
-function formatDecimalSeparator(
-  decimal: string,
-  decimalSeparator: string,
-  hideIntegerDecimals: boolean
-): string {
-  return hideIntegerDecimals && !+decimal ? '' : decimalSeparator;
-}
-
-/**
  * Returns the formatted decimal. This computed returns:
  * - decimal part filled with zeros until complete remaining slots defined with the decimal
  * length in the format.
@@ -121,8 +95,8 @@ function formatDecimalSeparator(
  * format prop. This must MATCH with the number of decimals provided from the adapter.
  *
  * @param decimal - Decimal part as a string.
- * @param decimalsNumber - Amount of decimal numbers.
- * @param hideIntegerDecimals - Boolean value to hide or show the decimal part.
+ * @param CurrencyConfig - From which the `decimalsNumber`, `decimalsSeparator` and
+ * `hideIntegerDecimals` are obtained.
  *
  * @returns Formatted integer.
  *
@@ -130,13 +104,15 @@ function formatDecimalSeparator(
  */
 function formatDecimal(
   decimal: string,
-  decimalsNumber: number,
-  hideIntegerDecimals: boolean
+  {
+    decimalsNumber,
+    decimalSeparator,
+    hideIntegerDecimals
+  }: Omit<CurrencyConfig, 'integerSeparator'>
 ): string {
-  debugger;
   return hideIntegerDecimals && !+decimal
     ? ''
-    : decimal.padEnd(decimalsNumber, '0').substring(0, decimalsNumber);
+    : `${decimalSeparator}${decimal.padEnd(decimalsNumber, '0').substring(0, decimalsNumber)}`;
 }
 
 /**
@@ -156,10 +132,9 @@ function currencyConfig(format: string): CurrencyConfig {
     integerSeparator = '',
     ,
     decimalSeparator = '',
-    hideIntegerDecimals = '',
-    decimals = ''
+    decimals = '',
+    hideIntegerDecimals = ''
   ] = FORMAT_REGEX.exec(format) ?? [];
-  debugger;
   return {
     integerSeparator,
     decimalSeparator,

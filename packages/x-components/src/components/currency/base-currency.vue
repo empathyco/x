@@ -10,24 +10,25 @@
 
   /**
    * Renders the value received as a property which always must be a JavaScript number, with the
-   * proper format provided as string property or by injection. The rendered tag is a span in order
-   * to render a default inline HTML element.
+   * proper format provided as a string property or by injection. The rendered tag is a span in
+   * order to render a default inline HTML element.
    *
    * Regarding the format or mask to be defined as string:
    * - Use 'i' to define integer numbers.
    * - Use 'd' to define decimal numbers. You can define the length of the decimal part. If the
-   * doesn't include decimals, it is filled with zeros until reach the length defined with 'd's.
+   * format doesn't include decimals, it is filled with zeros until reach the length defined with
+   * 'd's.
    * - Integer separator must be defined between the 3rd and the 4th integer 'i' of a group.
    * - Decimal separator must be defined between the last 'i' and the first 'd'. It can be more
    * than one character.
    * - If you want to hide the decimal part if it's zero, you can add the `?` symbol after the
-   * decimal separator (e.g. 'i.iii,?dd', for `1234` you would get `1.234` instead of `1.234,00`).
+   * decimal characters (e.g. 'i.iii,dd?', for `1234` you would get `1.234` instead of `1.234,00`).
    * - Set whatever you need around the integers and decimals marks.
    * - Default mask: 'i.iii,dd' which returns '1.345,67'.
    *
-   * @remarks The number of 'd', which is the maximum decimal length, MUST match with the length
+   * @remarks The number of 'd', which is the maximum decimal length, MUST matches with the length
    * of decimals provided from the adapter. Otherwise, when the component truncate the decimal
-   * part, delete significant digits.
+   * part, it deletes significant digits.
    *
    * @example
    * Basic example:
@@ -116,9 +117,9 @@ HTML element.
 ### Example
 
 ```vue
-<BaseCurrency :value="12345678.87654321" format="i.iii,?ddd €" />
+<BaseCurrency :value="12345678.87654321" format="i.iii,ddd? €" />
 <!-- output: '12.345.678,876 €' -->
-<BaseCurrency :value="12345678" format="i.iii,?ddd €" />
+<BaseCurrency :value="12345678" format="i.iii,ddd? €" />
 <!-- output: '12.345.678 €' -->
 <BaseCurrency :value="12345678.87654321" format="$ i.iii,dd" />
 <!-- output: '$ 12.345.678,87' -->

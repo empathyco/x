@@ -5,10 +5,7 @@
           @binding {result} result - Result data
     -->
     <slot :result="result">
-      <BaseCurrency
-        :value="result.price.value"
-        :format="format"
-      />
+      <BaseCurrency :value="result.price.value" :format="format" />
     </slot>
   </div>
 </template>

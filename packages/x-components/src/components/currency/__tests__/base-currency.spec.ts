@@ -17,7 +17,7 @@ describe('testing BaseCurrency component', () => {
   it('renders the provided format correctly with "?" after the decimal separator', () => {
     const wrapper = renderBaseCurrency({
       value: 12345678,
-      format: 'i.iii,?ddd €'
+      format: 'i.iii,ddd? €'
     });
     expect(wrapper.text()).toEqual('12.345.678 €');
   });
@@ -153,6 +153,8 @@ describe('testing BaseCurrency component', () => {
 });
 
 interface RenderBaseCurrencyOptions {
+  /** Number to be passed to the component. */
   value: number;
+  /** Format for rendering the currency. */
   format: string;
 }
