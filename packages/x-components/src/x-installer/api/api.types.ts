@@ -65,6 +65,8 @@ export interface SnippetConfig {
   consent?: boolean;
   /** Document direction. */
   documentDirection?: DocumentDirection;
+  /** The currency name. There should be a currency format associated to this name in the app. */
+  currency?: string;
   /** Any extra param to send in all backend calls. */
   [extra: string]: any;
 }

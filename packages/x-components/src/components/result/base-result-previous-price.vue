@@ -9,11 +9,7 @@
          @binding {result} result - Result data
     -->
     <slot :result="result">
-      <BaseCurrency
-        :value="result.price.originalValue"
-        :format="format"
-        :hideIntegerDecimals="hideIntegerDecimals"
-      />
+      <BaseCurrency :value="result.price.originalValue" :format="format" />
     </slot>
   </div>
 </template>
@@ -60,17 +56,6 @@
      */
     @Prop({ default: 'i.iii,dd' })
     protected format!: string;
-
-    /**
-     * If true and the value is an integer without decimals, the decimal part is hidden including
-     * the decimal separator.
-     * If false, the default behaviour will fill with zeros the remaining length until getting
-     * the one defined with the 'd's.
-     *
-     * @public
-     */
-    @Prop({ default: false })
-    protected hideIntegerDecimals!: boolean;
   }
 </script>
 
@@ -80,14 +65,13 @@
   ## Basic example
 
   This component shows the previous price formatted if it has discount. The component has two
-  optional props. `format` to select the currency format to be applied and
-  `hideIntegerDecimals` to hide or not the decimal part.
+  optional props. `format` to select the currency format to be applied.
 
   ```vue
   <BaseResultPreviousPrice
     :value="result"
     :format="'i.iii,ddd €'"
-    :hideIntegerDecimals="true" />
+  />
   ```
   ## Overriding default slot
   ```vue
