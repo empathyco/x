@@ -85,7 +85,7 @@ Then(
   }
 );
 
-Given('next queries API should respond with dummy next queries', () => {
+Given('a next queries API', () => {
   cy.intercept('https://api.empathy.co/getNextQueries', req => {
     req.reply({
       nextQueries: getNextQueriesStub()

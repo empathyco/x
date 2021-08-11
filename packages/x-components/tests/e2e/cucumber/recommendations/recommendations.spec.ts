@@ -1,14 +1,20 @@
 import { And, Given, Then } from 'cypress-cucumber-preprocessor/steps';
 import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
-import { recommendationsStub } from './stubs/recommendations.stub';
+import { createResultStub } from '../../../../src/__stubs__/results-stubs.factory';
 
-Given('suggestions API should respond with mocked suggestions', () => {
+Given('a recommendations API with a known response', () => {
   cy.intercept('https://api.empathy.co/getTopRecommendations', req => {
-    req.reply(recommendationsStub);
+    req.reply({
+      results: [
+        createResultStub('Piscina 3 Anillos'),
+        createResultStub('Among Us Figura Acción'),
+        createResultStub('Barbie Sirenas Dreamtopia')
+      ]
+    });
   }).as('interceptedRecommendations');
 });
 
-And('following config: max items to store is {int}', (maxItemsToRequest: number) => {
+Given('following config: max items to store is {int}', (maxItemsToRequest: number) => {
   const config: InstallXOptions['xModules'] = {
     recommendations: {
       config: {

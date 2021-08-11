@@ -1,8 +1,10 @@
 Feature: Next queries component
 
+  Background:
+    Given a next queries API with a known response
+
   Scenario Outline: 1. Next query is clicked
-    Given next queries API should respond with mocked next queries
-    And   following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, loadOnInit <loadOnInit>
+    Given following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, loadOnInit <loadOnInit>
     When  "<query>" is searched
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
     Then  at most <maxItemsToRequest> next queries are displayed
@@ -14,8 +16,7 @@ Feature: Next queries component
       | true               | 5                 | true       | playmobil | 0             | interceptedNextQueries |
 
   Scenario Outline: 2. Next query is not shown if it matches a session history query
-    Given next queries API should respond with mocked next queries
-    And   following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, loadOnInit <loadOnInit>
+    Given following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, loadOnInit <loadOnInit>
     When  "<query>" is searched
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
     And   next query number <nextQueryItem> is clicked
@@ -33,8 +34,7 @@ Feature: Next queries component
       | false              | 5                 | true       | playmobil | 0             | interceptedNextQueries |
 
   Scenario Outline: 3. Next queries persistence
-    Given next queries API should respond with mocked next queries
-    And   following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, loadOnInit <loadOnInit>
+    Given following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, loadOnInit <loadOnInit>
     When  "<query>" is searched
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
     Then  related results are displayed
