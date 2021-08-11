@@ -4,25 +4,25 @@ import {
   createNextHierarchicalFacetStub,
   createNextNumberRangeFacetStub,
   createNextSimpleFacetStub
-} from '../../../__stubs__/facets-stubs.factory';
+} from '../../../../__stubs__/facets-stubs.factory';
 import {
   createNextEditableNumberRangeFilter,
   createNextHierarchicalFilter,
   createNextNumberRangeFilter,
   createNextSimpleFilter,
   createRawFilter
-} from '../../../__stubs__/filters-stubs.factory';
-import { installNewXPlugin } from '../../../__tests__/utils';
-import { XPlugin } from '../../../plugins/x-plugin';
+} from '../../../../__stubs__/filters-stubs.factory';
+import { installNewXPlugin } from '../../../../__tests__/utils';
+import { XPlugin } from '../../../../plugins/x-plugin';
 import { BaseFacetsService } from '../facets.service';
 import {
   getStoreEditableNumberRangeFilter,
   getStoreFilter,
   isEditableNumberRangeFilterSelected,
   isFilterSelected
-} from '../entities/__tests__/utils';
-import { FacetsService } from '../facets-service.types';
-import { facetsNextXModule } from '../x-module';
+} from '../../entities/__tests__/utils';
+import { FacetsService } from '../types';
+import { facetsNextXModule } from '../../x-module';
 
 /**
  * Creates a fresh new {@link BaseFacetsService} with some helpful test methods.
@@ -96,7 +96,8 @@ describe('testing facets service', () => {
     });
 
     it('selects & deselects an editable number range filter', () => {
-      const { service, isEditableNumberRangeFilterSelected } = prepareFacetsService();
+      const { service, isEditableNumberRangeFilterSelected, getStoreEditableNumberRangeFilter } =
+        prepareFacetsService();
       const editableNumberRangeFilter = createNextEditableNumberRangeFilter(
         'price',
         {
@@ -453,6 +454,28 @@ describe('testing facets service', () => {
           age10To18Filter
         ])
       ).toBe(false);
+    });
+
+    // eslint-disable-next-line max-len
+    it('saves groups containing multiple deselected hierarchical filters levels that were not in the store', () => {
+      const { service, getFilters, getSelectedFilters } = prepareFacetsService();
+      const categoryFacet = createNextHierarchicalFacetStub('category', createFilter => [
+        ...createFilter('men'),
+        ...createFilter('women', false, createFilter => [
+          ...createFilter('skirt', false, createFilter => [
+            ...createFilter('long skirts'),
+            ...createFilter('floral skirts')
+          ]),
+          ...createFilter('dress', false, createFilter => [...createFilter('short dresses')])
+        ])
+      ]);
+
+      service.saveFacets({
+        id: 'static',
+        facets: [categoryFacet]
+      });
+      expect(service.areFiltersDifferent(getFilters(), categoryFacet.filters)).toBe(false);
+      expect(getSelectedFilters()).toEqual([]);
     });
   });
 });

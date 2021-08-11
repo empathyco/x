@@ -1,12 +1,12 @@
 import { Facet, Filter, isFacetFilter } from '@empathyco/x-types-next';
 import { Store } from 'vuex';
-import { XPlugin } from '../../plugins';
-import { RootXStoreState } from '../../store';
-import { arrayToObject, groupItemsBy } from '../../utils';
-import { FilterEntityFactory } from './entities/filter-entity.factory';
-import { FilterEntity } from './entities/types';
-import { FacetGroup, FacetsService } from './facets-service.types';
-import { FacetGroupEntry, FacetsNextGetters } from './store';
+import { XPlugin } from '../../../plugins/index';
+import { RootXStoreState } from '../../../store/index';
+import { arrayToObject, groupItemsBy } from '../../../utils/index';
+import { FilterEntityFactory } from '../entities/filter-entity.factory';
+import { FilterEntity } from '../entities/types';
+import { FacetGroupEntry, FacetsNextGetters } from '../store/types';
+import { FacetGroup, FacetsService } from './types';
 
 /**
  * Default implementation for the {@link FacetsService}.

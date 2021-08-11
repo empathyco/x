@@ -1,5 +1,5 @@
 import { XModule } from '../x-modules.types';
-import { BaseFacetsService } from './facets.service';
+import { BaseFacetsService } from './service/facets.service';
 import { facetsNextEmitters } from './store/emitters';
 import { facetsNextXStoreModule } from './store/module';
 import { FacetsNextXStoreModule } from './store/types';
