@@ -1,6 +1,6 @@
 /**
- * Configuration options for the {@link URLXModule}.
+ * Configuration options for the {@link UrlXModule}.
  *
  * @public
  */
-export interface URLConfig {}
+export interface UrlConfig {}

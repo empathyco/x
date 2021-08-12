@@ -4,4 +4,4 @@
  *
  * @public
  */
-export interface URLXEvents {}
+export interface UrlXEvents {}

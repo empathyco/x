@@ -5,32 +5,32 @@ import { XStoreModule } from '../../../store';
  *
  * @public
  */
-export interface URLState {}
+export interface UrlState {}
 
 /**
  * URL store getters.
  *
  * @public
  */
-export interface URLGetters {}
+export interface UrlGetters {}
 
 /**
  * URL store mutations.
  *
  * @public
  */
-export interface URLMutations {}
+export interface UrlMutations {}
 
 /**
  * URL store actions.
  *
  * @public
  */
-export interface URLActions {}
+export interface UrlActions {}
 
 /**
  * URL type safe store module.
  *
  * @public
  */
-export type URLXStoreModule = XStoreModule<URLState, URLGetters, URLMutations, URLActions>;
+export type UrlXStoreModule = XStoreModule<UrlState, UrlGetters, UrlMutations, UrlActions>;

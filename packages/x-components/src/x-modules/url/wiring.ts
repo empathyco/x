@@ -1,7 +1,7 @@
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
- * Wiring configuration for the {@link URLXModule | tagging module}.
+ * Wiring configuration for the {@link UrlXModule | url module}.
  *
  * @internal
  */

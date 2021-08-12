@@ -1,11 +1,11 @@
-import { URLXStoreModule } from './types';
+import { UrlXStoreModule } from './types';
 
 /**
  * {@link XStoreModule} For the URL module.
  *
  * @internal
  */
-export const urlXStoreModule: URLXStoreModule = {
+export const urlXStoreModule: UrlXStoreModule = {
   state: () => ({
     config: {}
   }),

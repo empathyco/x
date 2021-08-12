@@ -1,5 +1,5 @@
 import { XModule } from '../x-modules.types';
-import { urlEmitters, urlXStoreModule, URLXStoreModule } from './store';
+import { urlEmitters, urlXStoreModule, UrlXStoreModule } from './store';
 import { urlWiring } from './wiring';
 
 /**
@@ -7,15 +7,15 @@ import { urlWiring } from './wiring';
  *
  * @public
  */
-export type URLXModule = XModule<URLXStoreModule>;
+export type UrlXModule = XModule<UrlXStoreModule>;
 
 /**
  * URL {@link XModule} implementation. This module is auto-registered as soon as you
- * import any component from the `empathize` entry point.
+ * import any component from the `url` entry point.
  *
  * @public
  */
-export const urlXModule: URLXModule = {
+export const urlXModule: UrlXModule = {
   name: 'url',
   storeModule: urlXStoreModule,
   storeEmitters: urlEmitters,
