@@ -68,6 +68,23 @@ export type Primitive = string | number | boolean | undefined | null | symbol | 
 export type AnyFunction = (...args: any[]) => any;
 
 /**
+ * A function with no parameters that can return anything.
+ *
+ * @public
+ */
+export type NiladicFunction = () => any;
+
+/**
+ * A function with a single parameter that can return anything.
+ *
+ * @public
+ */
+export type MonadicFunction = (someParam: any) => any;
+
+export type FirstParameter<SomeFunction extends (...args: any[]) => any> =
+  Parameters<SomeFunction>[0];
+
+/**
  * Extracts the return type of each property of the T object.
  *
  * @param T - The dictionary of functions to extract its return type.

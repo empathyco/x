@@ -6,14 +6,19 @@ import { arrayToObject, groupItemsBy } from '../../../utils/index';
 import { FilterEntityFactory } from '../entities/filter-entity.factory';
 import { FilterEntity } from '../entities/types';
 import { FacetGroupEntry, FacetsNextGetters } from '../store/types';
-import { FacetGroup, FacetsService } from './types';
+import { FacetsGroup, FacetsService } from './types';
 
 /**
  * Default implementation for the {@link FacetsService}.
  *
  * @public
  */
-export class BaseFacetsService implements FacetsService {
+export class DefaultFacetsService implements FacetsService {
+  /**
+   * Global instance of the {@link FacetsService}.
+   */
+  public static instance: FacetsService = new DefaultFacetsService();
+
   protected get store(): Store<RootXStoreState> {
     return XPlugin.store;
   }
@@ -35,7 +40,7 @@ export class BaseFacetsService implements FacetsService {
     this.createEntity(filter).deselect(filter);
   }
 
-  saveFacets(facetGroup: FacetGroup): void {
+  updateFacets(facetGroup: FacetsGroup): void {
     const previousFilters = this.removeGroupFilters(facetGroup.id);
     facetGroup.facets.forEach(facet => {
       this.setFacetGroup({
@@ -43,6 +48,23 @@ export class BaseFacetsService implements FacetsService {
         groupId: facetGroup.id
       });
       this.saveFilters(facet.filters, previousFilters);
+    });
+  }
+
+  setFacets(facetGroup: FacetsGroup): void {
+    this.removeGroupFilters(facetGroup.id);
+    facetGroup.facets.forEach(facet => {
+      this.setFacetGroup({
+        facetId: facet.id,
+        groupId: facetGroup.id
+      });
+      facet.filters.forEach(filter => {
+        if (filter.selected) {
+          this.select(filter);
+        } else {
+          this.deselect(filter);
+        }
+      });
     });
   }
 
@@ -96,7 +118,7 @@ export class BaseFacetsService implements FacetsService {
    * @returns The removed filters.
    * @internal
    */
-  protected removeGroupFilters(groupId: FacetGroup['id']): Filter[] {
+  protected removeGroupFilters(groupId: FacetsGroup['id']): Filter[] {
     const filtersToRemove =
       groupItemsBy(Object.values(this.store.state.x.facetsNext.filters), filter =>
         isFacetFilter(filter)

@@ -12,7 +12,7 @@ import { Facet, Filter } from '@empathyco/x-types-next';
  *
  * @public
  */
-export interface FacetGroup {
+export interface FacetsGroup {
   /** The list of facets that belong to the group. */
   facets: Facet[];
   /** The group unique identifier. */
@@ -53,7 +53,15 @@ export interface FacetsService {
    * @param facetGroup - An objet containing the id of the facets group, and the list of new facets
    * to store.
    */
-  saveFacets(facetGroup: FacetGroup): void;
+  updateFacets(facetGroup: FacetsGroup): void;
+  /**
+   * Sets the facets of the group. This method just replaces the facets, and keeps the given facet's
+   * filters selected state as it is.
+   *
+   * @param facetGroup - An objet containing the id of the facets group, and the list of new facets
+   * to store.
+   */
+  setFacets(facetGroup: FacetsGroup): void;
   /**
    * Selects filter, adding it to the store if it was not present.
    *

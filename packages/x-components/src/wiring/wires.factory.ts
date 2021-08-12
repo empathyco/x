@@ -1,6 +1,13 @@
 import { Store } from 'vuex';
 import { RootStoreStateAndGetters, RootXStoreState } from '../store/store.types';
-import { AnyWire, Wire, WireParams, WirePayload } from './wiring.types';
+import {
+  AnyWire,
+  Wire,
+  WireParams,
+  WirePayload,
+  WireService,
+  WireServiceWithoutPayload
+} from './wiring.types';
 
 /**
  * Creates a wire that executes the function passed. This function will receive a
@@ -127,6 +134,40 @@ export function wireDispatch<Payload>(action: string, payload?: Payload): Wire<P
  */
 export function wireDispatchWithoutPayload(action: string): AnyWire {
   return (observable, store) => observable.subscribe(() => store.dispatch(action));
+}
+
+/**
+ * Creates a wires factory that can create wires that will invoke the service methods.
+ *
+ * @param service - The service to invoke its methods.
+ * @returns A factory to create wires that invoke the service methods.
+ * @public
+ */
+export function wireService<SomeService>(service: SomeService): WireService<SomeService> {
+  return (method, payload?) => {
+    return observable =>
+      observable.subscribe(
+        payload !== undefined
+          ? () => service[method](payload)
+          : observablePayload => service[method](observablePayload.eventPayload)
+      );
+  };
+}
+
+/**
+ * Creates a wires factory that can create wires that will invoke the service methods but
+ * without payload.
+ *
+ * @param service - The service to invoke its methods.
+ * @returns A factory to create wires that invoke the service methods without payload.
+ * @public
+ */
+export function wireServiceWithoutPayload<SomeService>(
+  service: SomeService
+): WireServiceWithoutPayload<SomeService> {
+  return method => {
+    return observable => observable.subscribe(() => service[method]());
+  };
 }
 
 /**

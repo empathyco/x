@@ -3,7 +3,13 @@ import { Store } from 'vuex';
 import { XBus } from '../plugins/x-bus.types';
 import { RootXStoreState } from '../store';
 import { QueryOrigin } from '../types/query-origin';
-import { Dictionary } from '../utils';
+import {
+  Dictionary,
+  FirstParameter,
+  PropsWithType,
+  MonadicFunction,
+  NiladicFunction
+} from '../utils';
 import { XModuleName } from '../x-modules/x-modules.types';
 import { XEvent, XEventPayload } from './events.types';
 
@@ -28,15 +34,15 @@ export type Wire<PayloadType> = (
  * @public
  */
 export interface WireMetadata {
+  /** The id of the component origin. */
+  id?: string;
   /** The {@link XModule} name that emitted the event or `null` if it has been emitted from an
    * unknown module. */
   moduleName: XModuleName | null;
-  /** The DOM element that triggered the event emission. */
-  target?: HTMLElement;
   /** The origin for tagging purposes. */
   origin?: QueryOrigin;
-  /** The id of the component origin. */
-  id?: string;
+  /** The DOM element that triggered the event emission. */
+  target?: HTMLElement;
 }
 
 /**
@@ -97,3 +103,47 @@ export interface WireParams<Payload> extends WirePayload<Payload> {
  * @public
  */
 export type TimeRetrieving = (storeModule: Store<RootXStoreState>) => number;
+
+/**
+ * Wires factory to invoke methods from a given service.
+ *
+ * @public
+ */
+export interface WireService<SomeService> {
+  /**
+   * Creates a wire that will invoke the given service function with the payload of the event it
+   * is subscribed to.
+   *
+   * @param method - The method to invoke.
+   * @returns A Wire that expects to receive the function parameter as payload.
+   */
+  <SomeMethod extends PropsWithType<SomeService, MonadicFunction>>(method: SomeMethod): Wire<
+    FirstParameter<SomeService[SomeMethod]>
+  >;
+  /**
+   * Creates a wire that will invoke the given service function with the provided static payload.
+   *
+   * @param method - The method to invoke.
+   * @param payload - The payload to invoke the service with.
+   * @returns A Wire that expects to receive the function parameter as payload.
+   */
+  <SomeMethod extends PropsWithType<SomeService, MonadicFunction>>(
+    method: SomeMethod,
+    payload: FirstParameter<SomeService[SomeMethod]>
+  ): AnyWire;
+}
+
+/**
+ * Wires factory to invoke methods from a given service.
+ *
+ * @public
+ */
+export interface WireServiceWithoutPayload<SomeService> {
+  /**
+   * Creates a wire that will invoke the given service function with no payload.
+   *
+   * @param method - The method to invoke.
+   * @returns A Wire that can be used anywhere.
+   */
+  <SomeMethod extends PropsWithType<SomeService, NiladicFunction>>(method: SomeMethod): AnyWire;
+}

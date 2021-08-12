@@ -11,6 +11,8 @@ export interface FacetsNextState {
   filters: Record<Filter['id'], Filter>;
   /** Record specifying the group each facet belongs to. */
   groups: Record<Facet['id'], GroupId>;
+  /** The query this facets belong to. */
+  query: string;
 }
 
 /**
@@ -36,12 +38,6 @@ export interface FacetsNextGetters {
  */
 export interface FacetsNextMutations {
   /**
-   * Adds the filter to the {@link FacetsNextState.filters | filters} record.
-   *
-   * @param filter - The filter to add.
-   */
-  setFilter(filter: Filter): void;
-  /**
    * Removes the filter from the {@link FacetsNextState.filters | filters} record.
    *
    * @param filter - The filter to remove.
@@ -54,6 +50,18 @@ export interface FacetsNextMutations {
    * update.
    */
   setFacetGroup(facetGroupEntry: FacetGroupEntry): void;
+  /**
+   * Adds the filter to the {@link FacetsNextState.filters | filters} record.
+   *
+   * @param filter - The filter to add.
+   */
+  setFilter(filter: Filter): void;
+  /**
+   * Sets the {@link FacetsState.query} property.
+   *
+   * @param query - The new {@link FacetsState.query}.
+   */
+  setQuery(query: string): void;
 }
 
 /**
