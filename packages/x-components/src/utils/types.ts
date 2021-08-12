@@ -81,6 +81,11 @@ export type NiladicFunction = () => any;
  */
 export type MonadicFunction = (someParam: any) => any;
 
+/**
+ * Alias to retrieve the first parameter type of a function.
+ *
+ * @public
+ */
 export type FirstParameter<SomeFunction extends (...args: any[]) => any> =
   Parameters<SomeFunction>[0];
 
