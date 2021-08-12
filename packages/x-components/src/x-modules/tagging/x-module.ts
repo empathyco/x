@@ -5,14 +5,14 @@ import { TaggingXStoreModule } from './store/types';
 import { taggingWiring } from './wiring';
 
 /**
- * Empathize {@link XModule} alias.
+ * Tagging {@link XModule} alias.
  *
  * @public
  */
 export type TaggingXModule = XModule<TaggingXStoreModule>;
 
 /**
- * Tadding {@link XModule} implementation. This module is auto-registered as soon as you
+ * Tagging {@link XModule} implementation. This module is auto-registered as soon as you
  * import any component from the `empathize` entry point.
  *
  * @public
