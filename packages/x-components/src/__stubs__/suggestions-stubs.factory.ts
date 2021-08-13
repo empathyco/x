@@ -1,4 +1,4 @@
-import { Suggestion } from '@empathyco/x-types';
+import { ModelNameType, Suggestion } from '@empathyco/x-types';
 
 /**
  * Creates {@link @empathyco/x-types#Suggestion | suggestions} stub.
@@ -9,7 +9,7 @@ import { Suggestion } from '@empathyco/x-types';
  *
  * @internal
  */
-export function getSuggestionsStub(amount = 3): Suggestion[] {
+export function getSuggestionsStub(modelName: ModelNameType, amount = 3): Suggestion[] {
   return Array.from<number, Suggestion>({ length: amount }, (_, index) =>
     createSuggestionStub(`Query ${index + 1}`)
   );
