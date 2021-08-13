@@ -47,7 +47,6 @@ export function getSuggestionsStub(modelName: ModelNameType): Suggestion[] {
  * it will be used to generate the facets, query, totalResults, results and modelName.
  *
  * @param query - The query of the suggestion.
- * @param modelName - Model name for each suggestion.
  * @param suggestion - An optional object with fields to override the suggestion.
  *
  * @returns A suggestion.
