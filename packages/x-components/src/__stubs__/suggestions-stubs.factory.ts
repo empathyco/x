@@ -1,5 +1,4 @@
 import { ModelNameType, Suggestion } from '@empathyco/x-types';
-import { createFacetWithFilter } from './facets-stubs.factory';
 
 /**
  * Creates {@link @empathyco/x-types#Suggestion | suggestions} stub.
@@ -22,6 +21,7 @@ export function getSuggestionsStub(modelName: ModelNameType, amount = 3): Sugges
  * it will be used to generate the facets, query, totalResults, results and modelName.
  *
  * @param query - The query of the suggestion.
+ * @param modelName - Model name for each suggestion.
  * @param suggestion - An optional object with fields to override the suggestion.
  *
  * @returns A suggestion.
