@@ -4,6 +4,8 @@ import {
   NextQueriesRequest,
   NextQueriesResponse,
   SearchAdapter,
+  SuggestionsRequest,
+  SuggestionsResponse,
   TopRecommendationsRequest,
   TopRecommendationsResponse
 } from '@empathyco/x-adapter';
@@ -47,6 +49,10 @@ class E2ETestsAdapter extends EmpathyAdapter {
 
   getTopRecommendations(request: TopRecommendationsRequest): Promise<TopRecommendationsResponse> {
     return mockFetch(request, 'getTopRecommendations');
+  }
+
+  getSuggestions(request: SuggestionsRequest): Promise<SuggestionsResponse> {
+    return mockFetch(request, 'getSuggestions');
   }
 }
 

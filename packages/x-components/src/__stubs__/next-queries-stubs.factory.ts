@@ -11,7 +11,7 @@ import { NextQuery } from '@empathyco/x-types';
  */
 export function getNextQueriesStub(amount = 3): NextQuery[] {
   return Array.from<number, NextQuery>({ length: amount }, (_, index) =>
-    createNextQueryStub(`Query ${index + 1}`)
+    createNextQueryStub(`Next query ${index + 1}`)
   );
 }
 
