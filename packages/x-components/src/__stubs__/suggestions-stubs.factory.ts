@@ -52,14 +52,14 @@ export function getSuggestionsStub(modelName: ModelNameType): Suggestion[] {
  *
  * @returns A suggestion.
  */
-export function createSuggestionStub(query: string, modelName?: ModelNameType, suggestion?: Partial<Suggestion>): Suggestion {
+export function createSuggestionStub(query: string, suggestion?: Partial<Suggestion>): Suggestion {
   return {
     facets: [],
     key: 'key',
     query,
     totalResults: 10,
     results: [],
-    modelName: modelName,
+    modelName: 'PopularSearch',
     ...suggestion
   };
 }
