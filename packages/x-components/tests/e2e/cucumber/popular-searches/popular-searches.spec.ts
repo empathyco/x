@@ -59,7 +59,7 @@ When('popular search number {int} is clicked', (popularSearchItem: number) => {
 });
 
 And(
-  'the clicked popular search is removed from Popular Searches if hideSessionQueries = {boolean} is true',
+  'the clicked popular search is removed from Popular Searches if {boolean} is true',
   function (this: { searchedQuery: string }, hideSessionQueries: boolean) {
     if (!hideSessionQueries) {
       cy.getByDataTest('popular-search').eq(0).should('have.text', this.searchedQuery);

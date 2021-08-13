@@ -19,7 +19,7 @@ Feature: Popular searches component
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
     When  popular search number <popularSearchItem> is clicked
     Then  the searched query is displayed in the search-box
-    And   the clicked popular search is removed from Popular Searches if hideSessionQueries = <hideSessionQueries> is true
+    And   the clicked popular search is removed from Popular Searches if <hideSessionQueries> is true
     And   no new term is displayed in Popular Searches if hideSessionQueries = <hideSessionQueries> is true and maxItemsToRender = <maxItemsToRender> > maxItemsToRequest = <maxItemsToRequest>
     And   related results are displayed
     And   the searched query is displayed in history queries

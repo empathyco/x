@@ -9,14 +9,14 @@ import { Suggestion } from '@empathyco/x-types';
  *
  * @internal
  */
-export function getSuggestionStub(amount = 3): Suggestion[] {
+export function getSuggestionsStub(amount = 3): Suggestion[] {
   return Array.from<number, Suggestion>({ length: amount }, (_, index) =>
     createSuggestionStub(`Query ${index + 1}`)
   );
 }
 
 /**
- * Creates a suggesiton stub with the provided options. If the name is the only property provided,
+ * Creates a suggestion stub with the provided options. If the name is the only property provided,
  * it will be used to generate the facets, query, totalResults, results and modelName.
  *
  * @param query - The query of the suggestion.
