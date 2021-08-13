@@ -26,7 +26,7 @@ export function getSuggestionsStub(modelName: ModelNameType, amount = 3): Sugges
  *
  * @returns A suggestion.
  */
-export function createSuggestionStub(query: string, modelName: 'Suggestion', suggestion?: Partial<Suggestion>): Suggestion {
+export function createSuggestionStub(query: string, modelName?: ModelNameType, suggestion?: Partial<Suggestion>): Suggestion {
   return {
     facets: [],
     key: 'key',
