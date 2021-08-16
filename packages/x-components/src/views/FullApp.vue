@@ -2,6 +2,15 @@
   <main>
     <!-- Phantom components -->
     <DeviceDetector :breakpoints="breakpoints" />
+    <ExtraParams
+      :events="{
+        UserChangedSearchRequestParams: {
+          warehouse: undefined,
+          store: undefined,
+          catalog: undefined
+        }
+      }"
+    />
 
     <!-- Search Box -->
     <div class="x-search-box x-input-group x-input-group--card">
@@ -347,7 +356,9 @@
   import { Result, Sort } from '@empathyco/x-types';
   import { getBannersStub } from '../__stubs__/banners-stubs.factory';
   import { getPromotedsStub } from '../__stubs__/promoteds-stubs.factory';
+  import { XProvide } from '../components';
   import BaseGrid from '../components/base-grid.vue';
+  import ExtraParams from '../components/extra-params.vue';
   import {
     SearchIcon,
     CrossIcon,
@@ -359,6 +370,7 @@
   import BaseIdScroll from '../components/scroll/base-id-scroll.vue';
   import BasePriceFilterLabel from '../components/filters/labels/base-price-filter-label.vue';
   import BaseCurrency from '../components/currency/base-currency.vue';
+  import { SnippetConfig } from '../x-installer';
   import DeviceDetector from '../x-modules/device/components/device-detector.vue';
   import AllFilter from '../x-modules/facets/components/filters/all-filter.vue';
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
@@ -430,6 +442,7 @@
       next();
     },
     components: {
+      ExtraParams,
       DeviceDetector,
       CrossIcon,
       ChevronLeftIcon,
@@ -499,6 +512,9 @@
     protected staggeredFadeAndSlide = StaggeredFadeAndSlide;
     protected collapseFromTop = CollapseFromTop;
     protected currentColumn = 2;
+
+    @XProvide('snippetConfig')
+    public snippetConfig: SnippetConfig = baseSnippetConfig;
 
     @State('search', 'results')
     public results!: Result[];
