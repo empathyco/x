@@ -16,6 +16,7 @@ import { RelatedTagsXModule } from './related-tags/x-module';
 import { SearchBoxXModule } from './search-box/x-module';
 import { SearchXModule } from './search/x-module';
 import { TaggingXModule } from './tagging';
+import { UrlXModule } from './url';
 
 /**
  * Gives each {@link XModule} a name, that can be used to retrieve then its value.
@@ -38,6 +39,7 @@ export interface XModulesTree {
   search: SearchXModule;
   searchBox: SearchBoxXModule;
   tagging: TaggingXModule;
+  url: UrlXModule;
 }
 
 /**

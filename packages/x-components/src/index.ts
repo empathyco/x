@@ -30,4 +30,5 @@ export * from './x-modules/related-tags';
 export * from './x-modules/search';
 export * from './x-modules/search-box';
 export * from './x-modules/tagging';
+export * from './x-modules/url';
 export * from './x-modules/x-modules.types';
