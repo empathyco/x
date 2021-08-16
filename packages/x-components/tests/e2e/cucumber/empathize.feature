@@ -2,6 +2,7 @@ Feature: Full Empathize
 
   Background:
     Given a next queries API
+    Given a suggestions API
 
   Scenario Outline: 1. Query suggestions
     Given no special config for full empathize view
