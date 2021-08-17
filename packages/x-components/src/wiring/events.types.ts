@@ -1,6 +1,5 @@
 import { Result, Suggestion } from '@empathyco/x-types';
 import { ScrollDirection } from '../components/scroll/scroll.types';
-import { ExtractMutations, ExtractPayload, MutationNamesFor } from '../store';
 import { ArrowKey, PropsWithType } from '../utils';
 import { DeviceXEvents } from '../x-modules/device';
 import { EmpathizeXEvents } from '../x-modules/empathize/events.types';
@@ -14,12 +13,6 @@ import { RecommendationsXEvents } from '../x-modules/recommendations/events.type
 import { RelatedTagsXEvents } from '../x-modules/related-tags/events.types';
 import { SearchBoxXEvents } from '../x-modules/search-box/events.types';
 import { SearchXEvents } from '../x-modules/search/events.types';
-import {
-  AnyXModule,
-  ExtractGetters,
-  XModuleName,
-  XModulesTree
-} from '../x-modules/x-modules.types';
 
 /**
  * Dictionary of all the {@link XEvent | XEvents}, where each key is the event name, and the value

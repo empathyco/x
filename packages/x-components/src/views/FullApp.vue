@@ -2,15 +2,6 @@
   <main>
     <!-- Phantom components -->
     <DeviceDetector :breakpoints="breakpoints" />
-    <ExtraParams
-      :events="{
-        UserChangedSearchRequestParams: {
-          warehouse: undefined,
-          store: undefined,
-          catalog: undefined
-        }
-      }"
-    />
 
     <!-- Search Box -->
     <div class="x-search-box x-input-group x-input-group--card">
@@ -358,7 +349,6 @@
   import { getPromotedsStub } from '../__stubs__/promoteds-stubs.factory';
   import { XProvide } from '../components';
   import BaseGrid from '../components/base-grid.vue';
-  import ExtraParams from '../components/extra-params.vue';
   import {
     SearchIcon,
     CrossIcon,
@@ -442,7 +432,6 @@
       next();
     },
     components: {
-      ExtraParams,
       DeviceDetector,
       CrossIcon,
       ChevronLeftIcon,
