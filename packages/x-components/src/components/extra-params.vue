@@ -1,6 +1,3 @@
-<template>
-  <div>Extra Params</div>
-</template>
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop, Watch } from 'vue-property-decorator';
@@ -9,7 +6,7 @@
   import { SnippetConfig } from '../x-installer';
   import { XInject } from './decorators/injection.decorators';
 
-  @Component({})
+  @Component
   export default class ExtraParams extends Vue {
     /**
      * (Required) A object where the keys are the {@link ExtraParamXEvent} and the values
@@ -68,5 +65,8 @@
     protected emitEvent(event: ExtraParamXEvent, payload: Record<string, any>): void {
       this.$x.emit(event, payload, { target: this.$el as HTMLElement });
     }
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    render(): void {}
   }
 </script>
