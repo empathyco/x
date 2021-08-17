@@ -192,6 +192,8 @@ export interface XEventsTypes
 /**
  * Dictionary of all the {@link XEvent | ExtraParamsXEvents}, where each key is the event name,
  * and the value is the event payload type or `void` if it has no payload.
+ *
+ * @public
  */
 export interface ExtraParamsXEvents
   extends Record<
