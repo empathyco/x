@@ -58,7 +58,7 @@ export function createSuggestionStub(query: string, suggestion?: Partial<Suggest
     query,
     totalResults: 10,
     results: [],
-    modelName: 'PopularSearch',
+    modelName: 'Suggestion',
     ...suggestion
   };
 }
