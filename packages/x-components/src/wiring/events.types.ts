@@ -99,10 +99,10 @@ export interface XEventsTypes
    */
   UserClickedCloseModal: string;
   /**
-   * The user clicked the button to close the XComponents modal.
+   * The user clicked the button to close the events modal.
    * * Payload: none.
    */
-  UserClickedCloseX: void;
+  UserClickedCloseEventsModal: void;
   /**
    * The user clicked the button to select the number of columns.
    * * Payload: the column number.
@@ -114,20 +114,20 @@ export interface XEventsTypes
    */
   UserClickedOpenModal: string;
   /**
-   * The user clicked the button to open the XComponents modal.
+   * The user clicked the button to open the events modal.
    * * Payload: none.
    */
-  UserClickedOpenX: void;
+  UserClickedOpenEventsModal: void;
   /**
    * The user clicked out of a modal while it was opened.
    * * Payload: the id of the modal.
    */
   UserClickedOutOfModal: string;
   /**
-   * The user clicked out of the X Modal while it is opened.
+   * The user clicked out of the events modal while it is opened.
    * * Payload: none.
    */
-  UserClickedOutOfXModal: void;
+  UserClickedOutOfEventsModal: void;
   /**
    * The user clicked the button to toggle a panel.
    * * Payload: the id of the panel to toggle.
@@ -143,6 +143,11 @@ export interface XEventsTypes
    * * Payload: The scroll id which has scrolled to top.
    */
   UserClickedScrollToTop: string;
+  /**
+   * The user has open X with the API.
+   * * Payload: none.
+   */
+  UserOpenXProgrammatically: void;
   /**
    * The user pressed an {@link ArrowKey | arrow key} with the focus on the search-box.
    * * Payload: the pressed {@link ArrowKey | arrow key}.

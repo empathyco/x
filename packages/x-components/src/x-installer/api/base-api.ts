@@ -56,9 +56,12 @@ export class BaseXAPI implements XAPI {
    *
    * @public
    */
-  search(query: string): void {
+  search(query?: string): void {
     // TODO - It should do more things like emit the query was changed out of the normal user flow
-    this.bus?.emit('UserAcceptedAQuery', query);
+    if (query) {
+      this.bus?.emit('UserAcceptedAQuery', query);
+    }
+    this.bus?.emit('UserOpenXProgrammatically');
   }
 
   /**
