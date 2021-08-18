@@ -18,9 +18,8 @@
   import BaseEventButton from '../base-event-button.vue';
 
   /**
-   * Component containing an event button that emits
-   * {@link XEventsTypes.UserClickedCloseEventsModal} when clicked. It has a default slot to
-   * customize its contents.
+   * Component contains an event button that emits {@link XEventsTypes.UserClickedCloseEventsModal}
+   * when clicked. It has a default slot to customize its contents.
    *
    * @public
    */

@@ -144,7 +144,7 @@ export interface XEventsTypes
    */
   UserClickedScrollToTop: string;
   /**
-   * The user has open X with the API.
+   * The user opened X programmatically.
    * * Payload: none.
    */
   UserOpenXProgrammatically: void;

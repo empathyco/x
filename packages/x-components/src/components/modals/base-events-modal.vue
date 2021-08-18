@@ -198,5 +198,6 @@ A list of events that the component will emit:
 
 - `UserClickedCloseEventsModal`: the event is emitted after clicking outside the content rendered in
   the default slot.
+- `UserClickedOutOfEventsModal`: the event is emitted after clicking outside the modal.
 - Custom events to open or close the modal.
 </docs>
