@@ -7,7 +7,7 @@ Feature: Next queries component
     Given following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, loadOnInit <loadOnInit>
     When  "<query>" is searched
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
-    Then  at most <maxItemsToRequest> next queries are displayed
+    And   at most <maxItemsToRequest> next queries are displayed
     When  next query number <nextQueryItem> is clicked
     Then  the searched query is displayed in the search-box
     And   next queries do not contain the searched query
@@ -20,9 +20,9 @@ Feature: Next queries component
     When  "<query>" is searched
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
     And   next query number <nextQueryItem> is clicked
-    Then  the searched query is displayed in history queries
+    And   the searched query is displayed in history queries
     When  clear search button is pressed
-    When  "<query>" is searched
+    And   "<query>" is searched
     Then  related results are displayed
     And   next queries do not contain the history query is <hideSessionQueries>
     When  clear history queries button is clicked
@@ -37,13 +37,13 @@ Feature: Next queries component
     Given following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, loadOnInit <loadOnInit>
     When  "<query>" is searched
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
-    Then  related results are displayed
+    And   related results are displayed
     And   next queries are displayed
     When  the page is reloaded
     Then  next queries are still displayed is <loadOnInit>
     When  "<query>" is searched
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
-    Then  related results are displayed
+    And   related results are displayed
     And   next queries are displayed
     When  clear search button is pressed
     Then  next queries are still displayed

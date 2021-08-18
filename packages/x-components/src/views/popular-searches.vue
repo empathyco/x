@@ -25,12 +25,6 @@
         :max-items-to-render="controls.popularSearches.maxItemsToRender"
       />
     </div>
-    <!-- Query Suggestions -->
-    <div class="x-column">
-      <h1>Query Suggestions</h1>
-      <QuerySuggestions />
-      <NoSuggestions message="We couldn't find any suggestion. Try searching for {query}." />
-    </div>
     <!-- History Queries -->
     <div class="x-column">
       <h1>History queries</h1>
@@ -40,16 +34,6 @@
         </template>
       </HistoryQueries>
       <ClearHistoryQueries>Clear previous searches</ClearHistoryQueries>
-    </div>
-    <!-- Next Queries -->
-    <div class="x-column">
-      <h1>Next Queries</h1>
-      <NextQueries />
-    </div>
-    <!-- Related Tags -->
-    <div class="x-column">
-      <h1>Related tags</h1>
-      <RelatedTags class="x-list--horizontal x-list--wrap" />
     </div>
     <!-- Testing purpose -->
     <ul>
