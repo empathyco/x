@@ -1,27 +1,30 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { getSelectedRelatedTagsStub } from '../../../../src/__stubs__/related-tags-stubs.factory';
 
 let relatedTagsList: string[] = [];
 const secondRelatedTagsList: string[] = [];
 
+// Scenario 1
 Given(
   'following config: requested items {int}, add to search-box {boolean}',
   (maxItemsToRequest: number, addToSearchBox: boolean) => {
-    cy.visit('/test/related-tags', {
+    const config = {
+      relatedTags: {
+        config: {
+          maxItemsToRequest: maxItemsToRequest,
+          addToSearchBox: addToSearchBox
+        }
+      }
+    };
+
+    cy.visit('/test/related-tags?useMockedAdapter=true', {
       qs: {
-        xModules: JSON.stringify({
-          relatedTags: {
-            config: {
-              maxItemsToRequest: maxItemsToRequest,
-              addToSearchBox: addToSearchBox
-            }
-          }
-        })
+        xModules: JSON.stringify(config)
       }
     });
   }
 );
 
-// Scenario 1
 And('at most {int} unselected related tags are displayed', (maxItemsToRequest: number) => {
   relatedTagsList = [];
   cy.getByDataTest('related-tag')
@@ -35,6 +38,12 @@ And('at most {int} unselected related tags are displayed', (maxItemsToRequest: n
 });
 
 When('related tag number {int} is clicked', (relatedTagItem: number) => {
+  cy.intercept('https://api.empathy.co/getRelatedTags', req => {
+    req.reply({
+      relatedTags: getSelectedRelatedTagsStub()
+    });
+  });
+
   cy.getByDataTest('related-tag')
     .should('have.length.gt', relatedTagItem)
     .eq(relatedTagItem)

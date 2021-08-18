@@ -9,9 +9,9 @@ export function getRelatedTagsStub(): RelatedTag[] {
   return [
     {
       previous: 'lego city',
-      query: 'lego city policia',
+      query: 'lego city marvel',
       selected: false,
-      tag: 'policia',
+      tag: 'marvel',
       modelName: 'RelatedTags'
     },
     {
@@ -26,6 +26,48 @@ export function getRelatedTagsStub(): RelatedTag[] {
       query: 'lego city ambulancia',
       selected: false,
       tag: 'ambulancia',
+      modelName: 'RelatedTags'
+    },
+    {
+      previous: 'lego city',
+      query: 'lego city marvel',
+      selected: false,
+      tag: 'barbie',
+      modelName: 'RelatedTags'
+    },
+    {
+      previous: 'lego city',
+      query: 'lego city bombero',
+      selected: false,
+      tag: 'coche',
+      modelName: 'RelatedTags'
+    },
+    {
+      previous: 'lego city',
+      query: 'lego city ambulancia',
+      selected: false,
+      tag: 'thor',
+      modelName: 'RelatedTags'
+    },
+    {
+      previous: 'lego city',
+      query: 'lego city marvel',
+      selected: false,
+      tag: 'bob',
+      modelName: 'RelatedTags'
+    },
+    {
+      previous: 'lego city',
+      query: 'lego city bombero',
+      selected: false,
+      tag: 'esponja',
+      modelName: 'RelatedTags'
+    },
+    {
+      previous: 'lego city',
+      query: 'lego city ambulancia',
+      selected: false,
+      tag: 'ben',
       modelName: 'RelatedTags'
     }
   ];
