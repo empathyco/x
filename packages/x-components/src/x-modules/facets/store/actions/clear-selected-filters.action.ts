@@ -28,9 +28,12 @@ export class ClearSelectedFilters implements ActionsClass<FacetsXStoreModule> {
    */
   clearFacetsSelectedFilters(
     { getters, commit }: FacetsActionsContext,
-    facetIds: Facet['id'][]
+    facetIds?: Facet['id'][]
   ): void {
-    getters.selectedFilters.filter(this.belongsToFacets(facetIds)).forEach(this.deselect(commit));
+    const filtersToDeselect = facetIds
+      ? getters.selectedFilters.filter(this.belongsToFacets(facetIds))
+      : getters.selectedFilters;
+    filtersToDeselect.forEach(this.deselect(commit));
   }
 
   /**

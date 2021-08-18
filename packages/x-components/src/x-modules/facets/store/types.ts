@@ -142,7 +142,7 @@ export interface FacetsActions {
    *
    * @param facetsIds - A list of facet ids from whom deselect all the filters.
    */
-  clearFacetsSelectedFilters(facetsIds: Array<Facet['id']>): void;
+  clearFacetsSelectedFilters(facetsIds?: Array<Facet['id']>): void;
   /**
    * Deselects all the filters.
    */
