@@ -1,5 +1,4 @@
-import { Facet } from '@empathyco/x-types';
-import { Filter, EditableNumberRangeFilter } from '@empathyco/x-types-next';
+import { Filter, EditableNumberRangeFilter, Facet } from '@empathyco/x-types-next';
 import { FacetsGroup } from './service/types';
 
 /**
@@ -36,7 +35,7 @@ export interface FacetsNextXEvents {
    * The user has clicked facet select all filters button.
    * * Payload: Facet id.
    */
-  UserClickedFacetAllNextFilter: Array<Facet['id']>;
+  UserClickedAllFilter: [Facet['id']];
   /**
    * The user has modified a filter which is of editable number range filter type.
    * * Payload: An {@link EditableNumberRangeFilterChange | object}.

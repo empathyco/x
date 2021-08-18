@@ -5,7 +5,6 @@ import {
   NumberRangeFilter,
   SimpleFilter
 } from '@empathyco/x-types';
-import { Filter as FilterNext } from '@empathyco/x-types-next';
 import { EditableNumberRangeFilterChange, MultiSelectChange } from './store/types';
 
 /**
@@ -58,7 +57,7 @@ export interface FacetsXEvents {
    * @remarks This event does not imply changing the selection state of the filter. Business logic
    * can prevent the filter from changing its state.
    */
-  UserClickedAFilter: Filter | FilterNext;
+  UserClickedAFilter: Filter;
   /**
    * The user has clicked a filter which is of hierarchical type.
    * * Payload: The clicked filter.

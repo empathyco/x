@@ -40,23 +40,23 @@ export class DefaultFacetsService implements FacetsService {
     this.createEntity(filter).deselect(filter);
   }
 
-  updateFacets(facetGroup: FacetsGroup): void {
-    const previousFilters = this.removeGroupFilters(facetGroup.id);
-    facetGroup.facets.forEach(facet => {
+  updateFacets(facetsGroup: FacetsGroup): void {
+    const previousFilters = this.removeGroupFilters(facetsGroup.id);
+    facetsGroup.facets.forEach(facet => {
       this.setFacetGroup({
         facetId: facet.id,
-        groupId: facetGroup.id
+        groupId: facetsGroup.id
       });
-      this.saveFilters(facet.filters, previousFilters);
+      this.saveFiltersWithPreviousState(facet.filters, previousFilters);
     });
   }
 
-  setFacets(facetGroup: FacetsGroup): void {
-    this.removeGroupFilters(facetGroup.id);
-    facetGroup.facets.forEach(facet => {
+  setFacets(facetsGroup: FacetsGroup): void {
+    this.removeGroupFilters(facetsGroup.id);
+    facetsGroup.facets.forEach(facet => {
       this.setFacetGroup({
         facetId: facet.id,
-        groupId: facetGroup.id
+        groupId: facetsGroup.id
       });
       facet.filters.forEach(filter => {
         if (filter.selected) {
@@ -138,7 +138,7 @@ export class DefaultFacetsService implements FacetsService {
    * @param previousFilters - The list of old filters, used to set the `newFilters`
    * selected state.
    */
-  protected saveFilters(newFilters: Filter[], previousFilters: Filter[]): void {
+  protected saveFiltersWithPreviousState(newFilters: Filter[], previousFilters: Filter[]): void {
     const filterEntity = FilterEntityFactory.instance.createFilterEntity(this.store, newFilters[0]);
     const previousFiltersMap = arrayToObject(previousFilters, 'id');
     newFilters.forEach(filter => {

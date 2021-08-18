@@ -93,7 +93,7 @@ export const facetsNextWiring = createWiring({
   UserModifiedEditableNumberRangeNextFilter: {
     selectFilterWire
   },
-  UserClickedFacetAllNextFilter: {
+  UserClickedAllFilter: {
     clearFiltersWire
   },
   UserAcceptedAQuery: {

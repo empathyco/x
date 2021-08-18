@@ -86,8 +86,7 @@ export type MonadicFunction = (someParam: any) => any;
  *
  * @public
  */
-export type FirstParameter<SomeFunction extends (...args: any[]) => any> =
-  Parameters<SomeFunction>[0];
+export type FirstParameter<SomeFunction extends AnyFunction> = Parameters<SomeFunction>[0];
 
 /**
  * Extracts the return type of each property of the T object.

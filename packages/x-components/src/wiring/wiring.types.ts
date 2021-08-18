@@ -125,7 +125,7 @@ export interface WireService<SomeService> {
    *
    * @param method - The method to invoke.
    * @param payload - The payload to invoke the service with.
-   * @returns A Wire that expects to receive the function parameter as payload.
+   * @returns A Wire that can be used anywhere.
    */
   <SomeMethod extends PropsWithType<SomeService, MonadicFunction>>(
     method: SomeMethod,

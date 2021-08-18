@@ -57,9 +57,9 @@ export interface FacetsNextMutations {
    */
   setFilter(filter: Filter): void;
   /**
-   * Sets the {@link FacetsState.query} property.
+   * Sets the {@link FacetsNextState.query} property.
    *
-   * @param query - The new {@link FacetsState.query}.
+   * @param query - The new {@link FacetsNextState.query}.
    */
   setQuery(query: string): void;
 }

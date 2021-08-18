@@ -50,18 +50,18 @@ export interface FacetsService {
    * Replaces the facets of the group with the new ones. It ignores the provided filters selected
    * state, replacing it with the previous selected filter.
    *
-   * @param facetGroup - An objet containing the id of the facets group, and the list of new facets
-   * to store.
+   * @param facetsGroup - An object containing the id of the facets group, and the list of new
+   * facets to store.
    */
-  updateFacets(facetGroup: FacetsGroup): void;
+  updateFacets(facetsGroup: FacetsGroup): void;
   /**
    * Sets the facets of the group. This method just replaces the facets, and keeps the given facet's
    * filters selected state as it is.
    *
-   * @param facetGroup - An objet containing the id of the facets group, and the list of new facets
-   * to store.
+   * @param facetsGroup - An object containing the id of the facets group, and the list of new
+   * facets to store.
    */
-  setFacets(facetGroup: FacetsGroup): void;
+  setFacets(facetsGroup: FacetsGroup): void;
   /**
    * Selects filter, adding it to the store if it was not present.
    *
