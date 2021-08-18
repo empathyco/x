@@ -1,7 +1,7 @@
 Feature: Related tags component
 
   Background:
-    Given a related tags API
+    Given a related tags API with a known response
 
   Scenario Outline: 1. Related tag is selected
     Given following config: requested items <maxItemsToRequest>, add to search-box <addToSearchBox>

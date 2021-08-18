@@ -1,8 +1,33 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { getSelectedRelatedTagsStub } from '../../../../src/__stubs__/related-tags-stubs.factory';
+import { createRelatedTagStub } from '../../../../src/__stubs__/related-tags-stubs.factory';
 
 let relatedTagsList: string[] = [];
 const secondRelatedTagsList: string[] = [];
+
+// Background
+Given('a related tags API with a known response', () => {
+  cy.intercept('https://api.empathy.co/getRelatedTags', req => {
+    req.reply({
+      relatedTags: [
+        createRelatedTagStub('lego', 'marvel', false, ''),
+        createRelatedTagStub('lego', 'bombero', false, 'marvel'),
+        createRelatedTagStub('lego', 'policia', false, 'bombero')
+      ]
+    });
+  }).as('interceptedRelatedTags');
+});
+
+Given('a related tags API with a selected one', () => {
+  cy.intercept('https://api.empathy.co/getRelatedTags', req => {
+    req.reply({
+      relatedTags: [
+        createRelatedTagStub('lego', 'bombero', false, ''),
+        createRelatedTagStub('lego', 'policia', false, 'bombero'),
+        createRelatedTagStub('lego', 'barbie', true, 'policia')
+      ]
+    });
+  }).as('interceptedRelatedTags');
+});
 
 // Scenario 1
 Given(
@@ -38,12 +63,6 @@ And('at most {int} unselected related tags are displayed', (maxItemsToRequest: n
 });
 
 When('related tag number {int} is clicked', (relatedTagItem: number) => {
-  cy.intercept('https://api.empathy.co/getRelatedTags', req => {
-    req.reply({
-      relatedTags: getSelectedRelatedTagsStub()
-    });
-  });
-
   cy.getByDataTest('related-tag')
     .should('have.length.gt', relatedTagItem)
     .eq(relatedTagItem)

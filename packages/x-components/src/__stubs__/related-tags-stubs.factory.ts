@@ -89,3 +89,32 @@ export function getSelectedRelatedTagsStub(): RelatedTag[] {
     }
   ];
 }
+
+/**
+ * Creates a related tag stub with the provided options. If the name is the only property provided,
+ * it will be used to generate the facets, query, totalResults, results and modelName.
+ *
+ * @param query - The query of the related tag.
+ * @param tag - The related tag.
+ * @param selected - An boolean if the RT is selected.
+ * @param previous - An string with the previous RT.
+ * @param relatedTag - An optional object with fields to override the related tag.
+ *
+ * @returns A related tag.
+ */
+export function createRelatedTagStub(
+  query: string,
+  tag: string,
+  selected: boolean,
+  previous: string,
+  relatedTag?: RelatedTag
+): RelatedTag {
+  return {
+    previous,
+    query,
+    selected,
+    tag,
+    modelName: 'RelatedTags',
+    ...relatedTag
+  };
+}
