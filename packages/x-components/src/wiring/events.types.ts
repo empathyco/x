@@ -191,37 +191,11 @@ export interface XEventsTypes
 }
 
 /**
- * Dictionary of all the {@link XEvent | ExtraParamsXEvents}, where each key is the event name,
- * and the value is the event payload type or `void` if it has no payload.
- *
- * @public
- */
-export interface ExtraParamsXEvents
-  extends Record<
-    `UserChanged${
-      | 'Search'
-      | 'NextQueries'
-      | 'RelatedTags'
-      | 'PopularSearches'
-      | 'Recommendations'
-      | 'QuerySuggestions'
-      | ''}RequestParam`,
-    Record<string, any>
-  > {}
-
-/**
  * Name of all available events.
  *
  * @public
  */
 export type XEvent = keyof XEventsTypes;
-
-/**
- * Name of all available extra param events.
- *
- * @public
- */
-export type ExtraParamXEvent = keyof ExtraParamsXEvents;
 
 /**
  * Selects events of the with a payload matching the provided type.
