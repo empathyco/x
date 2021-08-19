@@ -27,7 +27,9 @@ type NonRequestMethods =
 export type AdapterFeatures = Omit<SearchAdapter, NonRequestMethods>;
 
 export type AdapterMockedResponses = {
-  [Method in keyof AdapterFeatures]: ReturnType<AdapterFeatures[Method]> extends Promise<infer Value>
+  [Method in keyof AdapterFeatures]: ReturnType<AdapterFeatures[Method]> extends Promise<
+    infer Value
+  >
     ? Value | Error
     : never;
 };
@@ -76,7 +78,7 @@ function mockFetch<Feature extends keyof MockedAdapterConfig['responses']>(
   request: Parameters<AdapterFeatures[Feature]>[0],
   path: Feature
 ): ReturnType<AdapterFeatures[Feature]> {
-  return fetch(`https://api.empathy.co/${ path }`, {
+  return fetch(`https://api.empathy.co/${path}`, {
     method: 'POST',
     body: JSON.stringify(request)
   }).then(response => response.json()) as ReturnType<AdapterFeatures[Feature]>;

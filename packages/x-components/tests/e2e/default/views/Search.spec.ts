@@ -1,9 +1,9 @@
 import { SearchResponse } from '@empathyco/x-adapter';
 import {
   createHierarchicalFacetStub,
+  createResultStub,
   createSimpleFacetStub
-} from '../../../../src/__stubs__/facets-stubs.factory';
-import { createResultStub } from '../../../../src/__stubs__/results-stubs.factory';
+} from '../../../../src/__stubs__';
 
 describe('testing Search', () => {
   const results = {

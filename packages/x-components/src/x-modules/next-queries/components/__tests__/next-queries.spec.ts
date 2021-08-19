@@ -1,11 +1,11 @@
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
+import { getNextQueriesStub } from '../../../../__stubs__';
+import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
-import { getNextQueriesStub } from '../../../../__stubs__/next-queries-stubs.factory';
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import NextQueries from '../next-queries.vue';
 import NextQuery from '../next-query.vue';
 import { resetXNextQueriesStateWith } from './utils';
@@ -43,14 +43,14 @@ describe('testing next queries component', () => {
     const wrapperComponent = {
       template: `
         <NextQueries>
-          <template #suggestion-content="suggestionContentScope">
-            <img src="./next-query-icon.svg" class="x-next-query__icon" data-test="icon"/>
-            <span
+        <template #suggestion-content="suggestionContentScope">
+          <img src="./next-query-icon.svg" class="x-next-query__icon" data-test="icon"/>
+          <span
               class="x-next-query__query"
               data-test="query"
               :data-index="suggestionContentScope.index"
-              >{{ suggestionContentScope.suggestion.query }}</span>
-          </template>
+          >{{ suggestionContentScope.suggestion.query }}</span>
+        </template>
         </NextQueries>
       `,
       components: {
@@ -77,21 +77,21 @@ describe('testing next queries component', () => {
     const wrapperComponent = {
       template: `
         <NextQueries>
-          <template #suggestion="suggestionScope">
-            <NextQuery :suggestion="suggestionScope.suggestion">
-              <template #default="sugestionContentScope">
-                <img src="./next-query-icon.svg"
-                     class="x-next-query__icon"
-                     data-test="icon"/>
-                <span
+        <template #suggestion="suggestionScope">
+          <NextQuery :suggestion="suggestionScope.suggestion">
+            <template #default="sugestionContentScope">
+              <img src="./next-query-icon.svg"
+                   class="x-next-query__icon"
+                   data-test="icon"/>
+              <span
                   class="x-next-query__query"
                   data-test="query"
                   :data-index="suggestionScope.index"
-                  >{{ suggestionScope.suggestion.query }}</span>
-              </template>
-            </NextQuery>
-            <button data-test="custom-button">Custom Behaviour</button>
-          </template>
+              >{{ suggestionScope.suggestion.query }}</span>
+            </template>
+          </NextQuery>
+          <button data-test="custom-button">Custom Behaviour</button>
+        </template>
         </NextQueries>
       `,
       components: {

@@ -1,6 +1,6 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { createSuggestionStub } from '../../../../src/__stubs__';
 import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
-import { createSuggestionStub } from '../../../../src/__stubs__/suggestions-stubs.factory';
 
 // Background
 And('a popular searches API with a known response', () => {

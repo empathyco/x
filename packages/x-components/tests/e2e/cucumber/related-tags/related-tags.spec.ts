@@ -1,5 +1,5 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { createRelatedTagStub } from '../../../../src/__stubs__/related-tags-stubs.factory';
+import { createRelatedTagStub } from '../../../../src/__stubs__';
 
 let relatedTagsList: string[] = [];
 const secondRelatedTagsList: string[] = [];
@@ -9,9 +9,9 @@ Given('a related tags API with a known response', () => {
   cy.intercept('https://api.empathy.co/getRelatedTags', req => {
     req.reply({
       relatedTags: [
-        createRelatedTagStub('lego', 'marvel', false, ''),
-        createRelatedTagStub('lego', 'bombero', false, 'marvel'),
-        createRelatedTagStub('lego', 'policia', false, 'bombero')
+        createRelatedTagStub('lego', 'marvel'),
+        createRelatedTagStub('lego', 'bombero'),
+        createRelatedTagStub('lego', 'policia')
       ]
     });
   }).as('interceptedRelatedTags');
@@ -21,12 +21,12 @@ Given('a related tags API with a selected one', () => {
   cy.intercept('https://api.empathy.co/getRelatedTags', req => {
     req.reply({
       relatedTags: [
-        createRelatedTagStub('lego', 'bombero', false, ''),
-        createRelatedTagStub('lego', 'policia', false, 'bombero'),
-        createRelatedTagStub('lego', 'barbie', true, 'policia')
+        createRelatedTagStub('lego', 'bombero', true),
+        createRelatedTagStub('lego', 'policia'),
+        createRelatedTagStub('lego', 'barbie')
       ]
     });
-  }).as('interceptedRelatedTags');
+  }).as('interceptedRelatedTagsWithSelection');
 });
 
 // Scenario 1
