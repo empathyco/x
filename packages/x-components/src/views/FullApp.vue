@@ -347,7 +347,6 @@
   import { Result, Sort } from '@empathyco/x-types';
   import { getBannersStub } from '../__stubs__/banners-stubs.factory';
   import { getPromotedsStub } from '../__stubs__/promoteds-stubs.factory';
-  import { XProvide } from '../components';
   import BaseGrid from '../components/base-grid.vue';
   import {
     SearchIcon,
@@ -501,9 +500,6 @@
     protected staggeredFadeAndSlide = StaggeredFadeAndSlide;
     protected collapseFromTop = CollapseFromTop;
     protected currentColumn = 2;
-
-    @XProvide('snippetConfig')
-    public snippetConfig: SnippetConfig = baseSnippetConfig;
 
     @State('search', 'results')
     public results!: Result[];
