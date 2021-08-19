@@ -222,7 +222,7 @@ describe('testing facets module getters', () => {
       expect(store.getters.facets).toEqual({});
     });
 
-    it('returns an object containing all facets with their filters', () => {
+    it('returns an object containing all the facets with their filters', () => {
       const facets = [
         createNextSimpleFacetStub('color', createFilter => [
           createFilter('Red', false),

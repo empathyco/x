@@ -1,4 +1,5 @@
 import {
+  EditableNumberRangeFacet,
   EditableNumberRangeFilter,
   Facet,
   Filter,
@@ -33,6 +34,7 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
     newFilter.id = this.getNewFilterId(newFilter);
     this.removePreviousFilter(filter.facetId);
     this.store.commit('x/facetsNext/setFilter', newFilter);
+    this.addFacetIfNotPresent(filter);
   }
 
   /**
@@ -50,6 +52,7 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
       id: newFilterId,
       selected: this.isSelected(filter)
     });
+    this.addFacetIfNotPresent(filter);
   }
 
   /**
@@ -95,8 +98,23 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
    * @internal
    */
   protected getFilterByFacet(facetId: Facet['id']): EditableNumberRangeFilter | undefined {
-    return Object.values(this.store.state.x.facetsNext.filters).find(
-      filter => isEditableNumberRangeFilter(filter) && filter.facetId === facetId
-    ) as EditableNumberRangeFilter;
+    return this.store.getters['x/facetsNext/facets'][facetId]?.filters?.[0];
+  }
+
+  /**
+   * Adds an {@link EditableNumberRangeFacet} to the store in case it doesn't exist for the passed
+   * filter.
+   *
+   * @param filter - The {@link EditableNumberRangeFilter} for which the Facet will be created.
+   * @internal
+   */
+  protected addFacetIfNotPresent(filter: EditableNumberRangeFilter): void {
+    if (!this.store.state.x.facetsNext.facets[filter.facetId]) {
+      this.store.commit('x/facetsNext/setFacet', {
+        modelName: 'EditableNumberRangeFacet',
+        id: filter.facetId,
+        label: filter.facetId
+      } as Omit<EditableNumberRangeFacet, 'filters'>);
+    }
   }
 }

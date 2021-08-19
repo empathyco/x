@@ -17,7 +17,7 @@ export class DefaultFacetsService implements FacetsService {
   /**
    * Global instance of the {@link FacetsService}.
    */
-  public static instance: FacetsService = new DefaultFacetsService() as FacetsService;
+  public static instance: FacetsService = new DefaultFacetsService();
 
   protected get store(): Store<RootXStoreState> {
     return XPlugin.store;
@@ -173,10 +173,20 @@ export class DefaultFacetsService implements FacetsService {
    */
   protected removeGroupFacets(groupId: FacetsGroup['id']): Omit<Facet, 'filters'>[] {
     const facetsToRemove = Object.values(this.store.state.x.facetsNext.facets).filter(
-      facet => facet.id === groupId
+      facet => this.store.state.x.facetsNext.groups[facet.id] === groupId
     );
-    facetsToRemove.forEach(facet => this.store.commit('x/facetsNext/removeFacet', facet));
+    facetsToRemove.forEach(this.removeFacet.bind(this));
     return facetsToRemove;
+  }
+
+  /**
+   * Removes a facet from the store.
+   *
+   * @param facet - The facet to remove.
+   * @internal
+   */
+  protected removeFacet(facet: Omit<Facet, 'filters'>): void {
+    this.store.commit('x/facetsNext/removeFacet', facet);
   }
 
   /**

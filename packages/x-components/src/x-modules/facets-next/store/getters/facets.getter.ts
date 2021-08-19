@@ -1,4 +1,6 @@
-import { Facet, isFacetFilter } from '@empathyco/x-types-next';
+import { isFacetFilter } from '@empathyco/x-types-next';
+import { groupItemsBy } from '../../../../utils/array';
+import { map } from '../../../../utils/object';
 import { FacetsNextXStoreModule } from '../types';
 
 /**
@@ -11,13 +13,11 @@ import { FacetsNextXStoreModule } from '../types';
  * @public
  */
 export const facets: FacetsNextXStoreModule['getters']['facets'] = state => {
-  return Object.values(state.facets).reduce((facets, facet) => {
-    facets[facet.id] = {
-      ...facet,
-      filters: Object.values(state.filters).filter(
-        filter => isFacetFilter(filter) && filter.facetId === facet.id
-      )
-    };
-    return facets;
-  }, {} as Record<Facet['id'], Facet>);
+  const filtersByFacet = groupItemsBy(Object.values(state.filters), filter =>
+    isFacetFilter(filter) ? filter.facetId : '__unknown-facet__'
+  );
+  return map(state.facets, (_id, facet) => ({
+    ...facet,
+    filters: filtersByFacet[facet.id] ?? []
+  }));
 };
