@@ -33,7 +33,8 @@ export const RootXStoreModule: Module<XModuleState, any> = {
     facets: null,
     facetsNext: null,
     tagging: null,
-    url: null
+    url: null,
+    extraParams: null
   }),
   namespaced: true
 };

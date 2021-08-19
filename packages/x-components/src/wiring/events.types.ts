@@ -3,6 +3,7 @@ import { ScrollDirection } from '../components/scroll/scroll.types';
 import { ArrowKey, PropsWithType } from '../utils';
 import { DeviceXEvents } from '../x-modules/device';
 import { EmpathizeXEvents } from '../x-modules/empathize/events.types';
+import { ExtraParamsXEvents } from '../x-modules/extra-params';
 import { FacetsNextXEvents } from '../x-modules/facets-next/events.types';
 import { FacetsXEvents } from '../x-modules/facets/events.types';
 import { HistoryQueriesXEvents } from '../x-modules/history-queries/events.types';
@@ -49,7 +50,8 @@ export interface XEventsTypes
     SearchXEvents,
     SearchBoxXEvents,
     RecommendationsXEvents,
-    RelatedTagsXEvents {
+    RelatedTagsXEvents,
+    ExtraParamsXEvents {
   /**
    * The search adapter configuration has changed
    * * Payload: The new search adapter configuration.
