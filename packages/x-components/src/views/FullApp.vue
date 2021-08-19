@@ -359,7 +359,6 @@
   import BaseIdScroll from '../components/scroll/base-id-scroll.vue';
   import BasePriceFilterLabel from '../components/filters/labels/base-price-filter-label.vue';
   import BaseCurrency from '../components/currency/base-currency.vue';
-  import { SnippetConfig } from '../x-installer';
   import DeviceDetector from '../x-modules/device/components/device-detector.vue';
   import AllFilter from '../x-modules/facets/components/filters/all-filter.vue';
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
