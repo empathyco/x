@@ -6,8 +6,8 @@
   import { extraParamsXModule } from '../x-module';
 
   /**
-   * It emits a {@link ExtraParamsXEvents.ExtraRequestParamsProvided}
-   * with the values received as a prop.
+   * It emits a {@link ExtraParamsXEvents.ExtraRequestParamsProvided} with the values
+   * received as a prop.
    *
    * @public
    */
@@ -45,16 +45,23 @@ _See how the event is triggered when the component is rendered._
 
 ```vue
 <template>
-  <ExtraParams :values="{ warehouse: 123456789 }" />
+  <ExtraParams :values="values" />
 </template>
 
 <script>
-  import { ExtraParams } from '@empathyco/x-components/extra-params.vue';
+  import { ExtraParams } from '@empathyco/x-components/extra-params';
 
   export default {
     name: 'ExtraParamsDemo',
     components: {
       ExtraParams
+    },
+    data() {
+      return {
+        values: {
+          warehouse: 1234
+        }
+      };
     }
   };
 </script>
