@@ -40,7 +40,7 @@ describe('testing Open Button component', () => {
   it('emits UserClickedOpenX by default when clicked', async () => {
     const { wrapper, click } = renderBaseEventsModalOpen();
     const listener = jest.fn();
-    wrapper.vm.$x.on('UserClickedOpenX').subscribe(listener);
+    wrapper.vm.$x.on('UserClickedOpenEventsModal').subscribe(listener);
 
     await click();
 

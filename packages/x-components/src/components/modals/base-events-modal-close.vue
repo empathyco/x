@@ -18,8 +18,8 @@
   import BaseEventButton from '../base-event-button.vue';
 
   /**
-   * Component containing an event button that emits {@link XEventsTypes.UserClickedCloseX} when
-   * clicked. It has a default slot to customize its contents.
+   * Component contains an event button that emits {@link XEventsTypes.UserClickedCloseEventsModal}
+   * when clicked. It has a default slot to customize its contents.
    *
    * @public
    */
@@ -27,7 +27,7 @@
     components: { BaseEventButton }
   })
   export default class BaseEventsModalClose extends Vue {
-    @Prop({ default: 'UserClickedCloseX' })
+    @Prop({ default: 'UserClickedCloseEventsModal' })
     protected closingEvent!: PropsWithType<XEventsTypes, void>;
 
     protected get events(): Partial<XEventsTypes> {
@@ -92,5 +92,5 @@ This event can be changed using the `closingEvent` prop.
 
 A list of events that the component will emit:
 
-- `UserClickedCloseX`: the event is emitted after the user clicks the button.
+- `UserClickedCloseEventsModal`: the event is emitted after the user clicks the button.
 </docs>

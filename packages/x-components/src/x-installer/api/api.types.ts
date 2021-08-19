@@ -33,7 +33,7 @@ export interface XAPI {
    *
    * @public
    */
-  search(query: string): void;
+  search(query?: string): void;
 
   /**
    * Method to initialize the XComponents app.

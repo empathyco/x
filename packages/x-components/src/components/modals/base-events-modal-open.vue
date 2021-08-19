@@ -18,8 +18,8 @@
   import BaseEventButton from '../base-event-button.vue';
 
   /**
-   * Component containing an event button that emits {@link XEventsTypes.UserClickedOpenX} when
-   * clicked. It has a default slot to customize its contents.
+   * Component contains an event button that emits {@link XEventsTypes.UserClickedOpenEventsModal}
+   * when clicked. It has a default slot to customize its contents.
    *
    * @public
    */
@@ -27,7 +27,7 @@
     components: { BaseEventButton }
   })
   export default class BaseEventsModalOpen extends Vue {
-    @Prop({ default: 'UserClickedOpenX' })
+    @Prop({ default: 'UserClickedOpenEventsModal' })
     protected openingEvent!: PropsWithType<XEventsTypes, void>;
 
     protected get events(): Partial<XEventsTypes> {
@@ -96,5 +96,5 @@ This event can be changed using the `openingEvent` prop, but remember to change 
 
 A list of events that the component will emit:
 
-- `UserClickedOpenX`: the event is emitted after the user clicks the button.
+- `UserClickedOpenEventsModal`: the event is emitted after the user clicks the button.
 </docs>

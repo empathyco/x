@@ -19,7 +19,7 @@
   import BaseModal from './base-modal.vue';
 
   /**
-   * Component containing a modal that emits a {@link XEventsTypes.UserClickedCloseX} when
+   * Component containing a modal that emits a {@link XEventsTypes.UserClickedCloseEventsModal} when
    * clicking outside the content rendered in the default slot and can receive, through the
    * eventsToCloseModal prop, a list of {@link XEvent | xEvents} to listen to in order to close
    * also the modal, eventsToOpenModal prop,  another list of {@link XEvent | xEvents} to customize
@@ -41,19 +41,21 @@
     /**
      * Array of {@link XEvent | xEvents} to listen to open the modal.
      */
-    @Prop({ default: (): XEvent[] => ['UserClickedOpenX'] })
+    @Prop({ default: (): XEvent[] => ['UserClickedOpenEventsModal'] })
     public eventsToOpenModal!: XEvent[];
 
     /**
      * Array of {@link XEvent | xEvents} to listen to close the modal.
      */
-    @Prop({ default: (): XEvent[] => ['UserClickedCloseX', 'UserClickedOutOfXModal'] })
+    @Prop({
+      default: (): XEvent[] => ['UserClickedCloseEventsModal', 'UserClickedOutOfEventsModal']
+    })
     public eventsToCloseModal!: XEvent[];
 
     /**
      * Event to emit when any part of the website out of the modal has been clicked.
      */
-    @Prop({ default: 'UserClickedOutOfXModal' })
+    @Prop({ default: 'UserClickedOutOfEventsModal' })
     public bodyClickEvent!: XEvent;
 
     /**
@@ -194,7 +196,8 @@ see a full example on how this would work with custom events.
 
 A list of events that the component will emit:
 
-- `UserClickedCloseX`: the event is emitted after clicking outside the content rendered in the
-  default slot.
+- `UserClickedCloseEventsModal`: the event is emitted after clicking outside the content rendered in
+  the default slot.
+- `UserClickedOutOfEventsModal`: the event is emitted after clicking outside the modal.
 - Custom events to open or close the modal.
 </docs>

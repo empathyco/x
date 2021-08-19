@@ -55,17 +55,17 @@ describe('testing Base Events Modal  component', () => {
     const { emit, getModalContent } = mountBaseEventsModal();
     expect(getModalContent().exists()).toBe(false);
 
-    await emit('UserClickedOpenX');
+    await emit('UserClickedOpenEventsModal');
     expect(getModalContent().exists()).toBe(true);
 
-    await emit('UserClickedCloseX');
+    await emit('UserClickedCloseEventsModal');
     expect(getModalContent().exists()).toBe(false);
   });
 
   it('closes when clicking on the modal overlay', async () => {
     const { clickModalOverlay, emit, getModalContent } = mountBaseEventsModal();
 
-    await emit('UserClickedOpenX');
+    await emit('UserClickedOpenEventsModal');
     expect(getModalContent().exists()).toBe(true);
 
     await clickModalOverlay();
@@ -75,7 +75,7 @@ describe('testing Base Events Modal  component', () => {
   it('closes when focusing any other element out of the modal', async () => {
     const { emit, fakeFocusIn, getModalContent } = mountBaseEventsModal();
 
-    await emit('UserClickedOpenX');
+    await emit('UserClickedOpenEventsModal');
     expect(getModalContent().exists()).toBe(true);
 
     await fakeFocusIn();
@@ -89,7 +89,7 @@ describe('testing Base Events Modal  component', () => {
       `
     });
 
-    await emit('UserClickedOpenX');
+    await emit('UserClickedOpenEventsModal');
     expect(getModalContent().exists()).toBe(true);
 
     await wrapper.find(getDataTestSelector('test-button')).trigger('click');
@@ -127,7 +127,7 @@ describe('testing Base Events Modal  component', () => {
     const listener = jest.fn();
     wrapper.vm.$x.on(bodyClickEvent).subscribe(listener);
 
-    await emit('UserClickedOpenX');
+    await emit('UserClickedOpenEventsModal');
     expect(getModalContent().exists()).toBe(true);
 
     await clickModalOverlay();
