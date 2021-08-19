@@ -43,14 +43,14 @@ describe('testing next queries component', () => {
     const wrapperComponent = {
       template: `
         <NextQueries>
-        <template #suggestion-content="suggestionContentScope">
-          <img src="./next-query-icon.svg" class="x-next-query__icon" data-test="icon"/>
-          <span
-              class="x-next-query__query"
-              data-test="query"
-              :data-index="suggestionContentScope.index"
-          >{{ suggestionContentScope.suggestion.query }}</span>
-        </template>
+          <template #suggestion-content="suggestionContentScope">
+            <img src="./next-query-icon.svg" class="x-next-query__icon" data-test="icon"/>
+            <span
+                class="x-next-query__query"
+                data-test="query"
+                :data-index="suggestionContentScope.index"
+            >{{ suggestionContentScope.suggestion.query }}</span>
+          </template>
         </NextQueries>
       `,
       components: {
