@@ -11,7 +11,8 @@ import { FacetGroupEntry, FacetsNextXStoreModule } from './types';
 export const facetsNextXStoreModule: FacetsNextXStoreModule = {
   state: () => ({
     filters: {},
-    groups: {}
+    groups: {},
+    query: ''
   }),
   getters: {
     selectedFilters,
@@ -26,6 +27,9 @@ export const facetsNextXStoreModule: FacetsNextXStoreModule = {
     },
     setFacetGroup(state, { facetId, groupId }: FacetGroupEntry) {
       Vue.set(state.groups, facetId, groupId);
+    },
+    setQuery(state, query) {
+      state.query = query;
     }
   },
   actions: {}

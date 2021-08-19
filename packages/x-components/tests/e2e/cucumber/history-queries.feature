@@ -2,6 +2,7 @@ Feature: History queries component
 
   Background:
     Given a next queries API
+    Given a suggestions API
 
   Scenario Outline:  1. History query is clicked
     Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>

@@ -2,6 +2,7 @@ import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
 import { createNextQueryStub } from '../../../../src/__stubs__/next-queries-stubs.factory';
 
+// Background
 Given('a next queries API with a known response', () => {
   cy.intercept('https://api.empathy.co/getNextQueries', req => {
     req.reply({
@@ -41,13 +42,12 @@ Given(
 );
 
 // Scenario 1
-Then('at most {int} next queries are displayed', (maxItemsToRequest: number) => {
+And('at most {int} next queries are displayed', (maxItemsToRequest: number) => {
   cy.getByDataTest('next-query')
     .should('have.length.at.least', 1)
     .and('have.length.at.most', maxItemsToRequest);
 });
 
-// Scenario 2
 When('next query number {int} is clicked', (nextQueryItem: number) => {
   cy.getByDataTest('next-query').eq(nextQueryItem).click().invoke('text').as('searchedQuery');
 });
@@ -56,6 +56,7 @@ And('next queries do not contain the searched query', function (this: { searched
   cy.checkNextQueries(this.searchedQuery, false);
 });
 
+// Scenario 2
 And(
   'next queries do not contain the history query is {boolean}',
   function (this: { historicalQuery: string }, hideSessionQueries: boolean) {
@@ -71,13 +72,17 @@ And(
   }
 );
 
-And('next queries contain the history query', function (this: { historicalQuery: string }) {
+Then('next queries contain the history query', function (this: { historicalQuery: string }) {
   cy.getByDataTest('next-query').first().should('have.text', this.historicalQuery);
 });
 
 // Scenario 3
 When('the page is reloaded', () => {
   cy.reload();
+});
+
+And('next queries are still displayed', function (this: { nextQueries: string }) {
+  cy.getByDataTest('next-query').should('have.text', this.nextQueries);
 });
 
 Then(
@@ -90,7 +95,3 @@ Then(
     }
   }
 );
-
-Then('next queries are still displayed', function (this: { nextQueries: string }) {
-  cy.getByDataTest('next-query').should('have.text', this.nextQueries);
-});

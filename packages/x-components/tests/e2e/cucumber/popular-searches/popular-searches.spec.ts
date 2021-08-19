@@ -1,5 +1,21 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { InstallXOptions } from '../../../src/x-installer/x-installer/types';
+import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
+import { createSuggestionStub } from '../../../../src/__stubs__/suggestions-stubs.factory';
+
+// Background
+And('a popular searches API with a known response', () => {
+  cy.intercept('https://api.empathy.co/getSuggestions', req => {
+    req.reply({
+      suggestions: [
+        createSuggestionStub('playmobil'),
+        createSuggestionStub('lego'),
+        createSuggestionStub('mochila'),
+        createSuggestionStub('barbie'),
+        createSuggestionStub('dinosaurio')
+      ]
+    });
+  }).as('interceptedPopularSearches');
+});
 
 Given(
   'following config: hide session queries {boolean}, requested items {int}, rendered {int}',
@@ -27,14 +43,11 @@ Given(
 );
 
 // Scenario 1
-Then(
-  'number of popular searches displayed is equal or less than {int}',
-  (maxItemsToRender: number) => {
-    cy.getByDataTest('popular-search')
-      .should('have.length.at.least', 1)
-      .and('have.length.at.most', maxItemsToRender);
-  }
-);
+Then('at most {int} popular searched are displayed', (maxItemsToRender: number) => {
+  cy.getByDataTest('popular-search')
+    .should('have.length.at.least', 1)
+    .and('have.length.at.most', maxItemsToRender);
+});
 
 // Scenario 2
 When('popular search number {int} is clicked', (popularSearchItem: number) => {

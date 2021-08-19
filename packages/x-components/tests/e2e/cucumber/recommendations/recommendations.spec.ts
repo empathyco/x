@@ -1,7 +1,8 @@
-import { And, Given, Then } from 'cypress-cucumber-preprocessor/steps';
+import { And, Given } from 'cypress-cucumber-preprocessor/steps';
 import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
 import { createResultStub } from '../../../../src/__stubs__/results-stubs.factory';
 
+// Background
 Given('a recommendations API with a known response', () => {
   cy.intercept('https://api.empathy.co/getTopRecommendations', req => {
     req.reply({
@@ -14,6 +15,7 @@ Given('a recommendations API with a known response', () => {
   }).as('interceptedRecommendations');
 });
 
+// Scenario 1
 Given('following config: max items to store is {int}', (maxItemsToRequest: number) => {
   const config: InstallXOptions['xModules'] = {
     recommendations: {
@@ -30,8 +32,7 @@ Given('following config: max items to store is {int}', (maxItemsToRequest: numbe
   });
 });
 
-// Scenario 1
-Then(
+And(
   'number of displayed recommendations are equal or less than {int}',
   (maxItemsToRequest: number) => {
     cy.getByDataTest('recommendation-item')

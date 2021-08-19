@@ -37,10 +37,10 @@ function renderBaseEventsModalClose({
 }
 
 describe('testing Close Button component', () => {
-  it('emits UserClickedCloseX by default when clicked', async () => {
+  it('emits UserClickedCloseEventsModal by default when clicked', async () => {
     const { wrapper, click } = renderBaseEventsModalClose();
     const listener = jest.fn();
-    wrapper.vm.$x.on('UserClickedCloseX').subscribe(listener);
+    wrapper.vm.$x.on('UserClickedCloseEventsModal').subscribe(listener);
 
     await click();
 

@@ -14,7 +14,7 @@ import {
 } from '../../../../__stubs__/filters-stubs.factory';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { BaseFacetsService } from '../facets.service';
+import { DefaultFacetsService } from '../facets.service';
 import {
   getStoreEditableNumberRangeFilter,
   getStoreFilter,
@@ -25,9 +25,9 @@ import { FacetsService } from '../types';
 import { facetsNextXModule } from '../../x-module';
 
 /**
- * Creates a fresh new {@link BaseFacetsService} with some helpful test methods.
+ * Creates a fresh new {@link DefaultFacetsService} with some helpful test methods.
  *
- * @returns An object containing methods for testing {@link BaseFacetsService}.
+ * @returns An object containing methods for testing {@link DefaultFacetsService}.
  */
 function prepareFacetsService(): FacetsServiceTestAPI {
   XPlugin.resetInstance();
@@ -35,7 +35,7 @@ function prepareFacetsService(): FacetsServiceTestAPI {
   XPlugin.registerXModule(facetsNextXModule);
 
   return {
-    service: new BaseFacetsService(),
+    service: new DefaultFacetsService(),
     isFilterSelected(filter) {
       return isFilterSelected(XPlugin.store, filter.id);
     },
@@ -358,7 +358,7 @@ describe('testing facets service', () => {
 
       // Save a fresh new facets group. Because there
       // are no previous filters, all filters should be deselected.
-      service.saveFacets({
+      service.updateFacets({
         id: 'backend',
         facets: [colorFacet, categoryFacet, ageFacet, priceFacet]
       });
@@ -408,7 +408,7 @@ describe('testing facets service', () => {
         createFilter({ min: null, max: 10 }, true)
       );
 
-      service.saveFacets({
+      service.updateFacets({
         id: 'backend',
         facets: [newColorFacet, newCategoryFacet, newAgeFacet, newPriceFacet]
       });
@@ -434,7 +434,7 @@ describe('testing facets service', () => {
         createFilter('In store', true),
         createFilter('Express')
       ]);
-      service.saveFacets({
+      service.updateFacets({
         id: 'static',
         facets: [shipmentFacet]
       });
@@ -470,7 +470,7 @@ describe('testing facets service', () => {
         ])
       ]);
 
-      service.saveFacets({
+      service.updateFacets({
         id: 'static',
         facets: [categoryFacet]
       });

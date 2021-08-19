@@ -41,3 +41,24 @@ export function getSuggestionsStub(modelName: ModelNameType): Suggestion[] {
     }
   ];
 }
+
+/**
+ * Creates a suggestion stub with the provided options. If the name is the only property provided,
+ * it will be used to generate the facets, query, totalResults, results and modelName.
+ *
+ * @param query - The query of the suggestion.
+ * @param suggestion - An optional object with fields to override the suggestion.
+ *
+ * @returns A suggestion.
+ */
+export function createSuggestionStub(query: string, suggestion?: Partial<Suggestion>): Suggestion {
+  return {
+    facets: [],
+    key: 'key',
+    query,
+    totalResults: 10,
+    results: [],
+    modelName: 'Suggestion',
+    ...suggestion
+  };
+}
