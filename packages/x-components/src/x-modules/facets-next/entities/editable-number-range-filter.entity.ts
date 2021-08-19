@@ -6,7 +6,7 @@ import {
 } from '@empathyco/x-types-next';
 import { Store } from 'vuex';
 import { RootXStoreState } from '../../../store/store.types';
-import { FacetsNextGetters } from '../store/types';
+import { addFacetIfNotPresent } from './add-facet-if-not-present';
 import { FilterEntity } from './types';
 
 /**
@@ -34,6 +34,7 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
     newFilter.id = this.getNewFilterId(newFilter);
     this.removePreviousFilter(filter.facetId);
     this.store.commit('x/facetsNext/setFilter', newFilter);
+    addFacetIfNotPresent(this.store, filter.facetId, 'EditableNumberRangeFacet');
   }
 
   /**
@@ -51,6 +52,7 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
       id: newFilterId,
       selected: this.isSelected(filter)
     });
+    addFacetIfNotPresent(this.store, filter.facetId, 'EditableNumberRangeFacet');
   }
 
   /**
@@ -96,8 +98,6 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
    * @internal
    */
   protected getFilterByFacet(facetId: Facet['id']): EditableNumberRangeFilter | undefined {
-    return (
-      this.store.getters['x/facetsNext/filtersByFacet'] as FacetsNextGetters['filtersByFacet']
-    )[facetId]?.[0] as EditableNumberRangeFilter;
+    return this.store.getters['x/facetsNext/facets'][facetId]?.filters?.[0];
   }
 }

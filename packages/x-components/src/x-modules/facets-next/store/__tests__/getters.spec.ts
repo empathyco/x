@@ -1,12 +1,18 @@
-import { Filter } from '@empathyco/x-types-next';
+import { Facet, Filter } from '@empathyco/x-types-next';
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
+import {
+  createNextEditableNumberRangeFacetStub,
+  createNextHierarchicalFacetStub,
+  createNextNumberRangeFacetStub,
+  createNextSimpleFacetStub
+} from '../../../../__stubs__/facets-stubs.factory';
 import {
   createNextEditableNumberRangeFilter,
   createNextHierarchicalFilter,
   createNextNumberRangeFilter,
-  createRawFilter,
-  createNextSimpleFilter
+  createNextSimpleFilter,
+  createRawFilter
 } from '../../../../__stubs__/filters-stubs.factory';
 import { ActionsDictionary, XActionContext } from '../../../../store/actions.types';
 import { MutationsDictionary } from '../../../../store/mutations.types';
@@ -31,12 +37,16 @@ type SafeStore<
 
 describe('testing facets module getters', () => {
   function createFacetsStore(
-    filters: Filter[]
+    filters: Filter[],
+    facets: Omit<Facet, 'filters'>[] = []
   ): SafeStore<FacetsNextState, FacetsNextGetters, FacetsNextMutations, FacetsNextActions> {
     const localVue = createLocalVue();
     localVue.use(Vuex);
     const store = new Store<FacetsNextState>(facetsNextXStoreModule as any);
-    resetFacetsStateWith(store, { filters: arrayToObject(filters, 'id') });
+    resetFacetsStateWith(store, {
+      filters: arrayToObject(filters, 'id'),
+      facets: arrayToObject(facets, 'id')
+    });
     return store;
   }
 
@@ -125,13 +135,13 @@ describe('testing facets module getters', () => {
     });
   });
 
-  describe('filters by facet getter', () => {
-    it('returns an empty object if there are no facets', () => {
+  describe('selected filters by facet getter', () => {
+    it('returns an empty object if there are no filters', () => {
       const store = createFacetsStore([]);
-      expect(store.getters.filtersByFacet).toEqual({});
+      expect(store.getters.selectedFiltersByFacet).toEqual({});
     });
 
-    it('returns an object containing all the filters indexed by its facet', () => {
+    it('returns an object containing all the selected filters indexed by its facet', () => {
       const store = createFacetsStore([
         createNextSimpleFilter('color', 'Red', false),
         createNextSimpleFilter('color', 'Blue', true),
@@ -141,16 +151,16 @@ describe('testing facets module getters', () => {
         createNextNumberRangeFilter('price', { min: 25, max: 50 }, true),
         createNextEditableNumberRangeFilter('age', { min: null, max: 5 }),
         createNextEditableNumberRangeFilter('size', { min: null, max: null }),
-        // Raw filters don't belong to a facet so they're not retrieved by this getter
+        // Raw filters don't belong to a facet so they will be under `__unknown-facet__` key
         createRawFilter('size:xl')
       ]);
 
-      expect(store.getters.filtersByFacet).toEqual({
-        color: [store.state.filters['color:Red'], store.state.filters['color:Blue']],
-        category: [store.state.filters['category:Summer'], store.state.filters['category:Shorts']],
-        price: [store.state.filters['price:0-25'], store.state.filters['price:25-50']],
+      expect(store.getters.selectedFiltersByFacet).toEqual({
+        color: [store.state.filters['color:Blue']],
+        category: [store.state.filters['category:Shorts']],
+        price: [store.state.filters['price:25-50']],
         age: [store.state.filters['age:*-5']],
-        size: [store.state.filters['size:*-*']]
+        ['__unknown-facet__']: [store.state.filters['size:xl']]
       });
     });
 
@@ -160,8 +170,8 @@ describe('testing facets module getters', () => {
         createNextSimpleFilter('color', 'Blue', true)
       ]);
 
-      expect(store.getters.filtersByFacet).toEqual({
-        color: [store.state.filters['color:Red'], store.state.filters['color:Blue']]
+      expect(store.getters.selectedFiltersByFacet).toEqual({
+        color: [store.state.filters['color:Blue']]
       });
     });
 
@@ -171,8 +181,8 @@ describe('testing facets module getters', () => {
         createNextHierarchicalFilter('category', 'Shorts', true)
       ]);
 
-      expect(store.getters.filtersByFacet).toEqual({
-        category: [store.state.filters['category:Summer'], store.state.filters['category:Shorts']]
+      expect(store.getters.selectedFiltersByFacet).toEqual({
+        category: [store.state.filters['category:Shorts']]
       });
     });
 
@@ -182,8 +192,8 @@ describe('testing facets module getters', () => {
         createNextNumberRangeFilter('price', { min: 25, max: 50 }, true)
       ]);
 
-      expect(store.getters.filtersByFacet).toEqual({
-        price: [store.state.filters['price:0-25'], store.state.filters['price:25-50']]
+      expect(store.getters.selectedFiltersByFacet).toEqual({
+        price: [store.state.filters['price:25-50']]
       });
     });
 
@@ -192,15 +202,60 @@ describe('testing facets module getters', () => {
         createNextEditableNumberRangeFilter('age', { min: null, max: 5 })
       ]);
 
-      expect(store.getters.filtersByFacet).toEqual({
+      expect(store.getters.selectedFiltersByFacet).toEqual({
         age: [store.state.filters['age:*-5']]
       });
+    });
+
+    it('returns raw filters', () => {
+      const store = createFacetsStore([createRawFilter('size:xl')]);
+
+      expect(store.getters.selectedFiltersByFacet).toEqual({
+        ['__unknown-facet__']: [store.state.filters['size:xl']]
+      });
+    });
+  });
+
+  describe('facets getter', () => {
+    it('returns an empty object if there are no facets', () => {
+      const store = createFacetsStore([]);
+      expect(store.getters.facets).toEqual({});
+    });
+
+    it('returns an object containing all the facets with their filters', () => {
+      const facets = [
+        createNextSimpleFacetStub('color', createFilter => [
+          createFilter('Red', false),
+          createFilter('Blue', true)
+        ]),
+        createNextHierarchicalFacetStub('category', createFilter => [
+          ...createFilter('Summer', false),
+          ...createFilter('Shorts', true)
+        ]),
+        createNextNumberRangeFacetStub('price', createFilter => [
+          createFilter({ min: 0, max: 25 }, true),
+          createFilter({ min: 25, max: 50 }, true)
+        ]),
+        createNextEditableNumberRangeFacetStub('age', createFilter =>
+          createFilter({ min: null, max: 5 }, true)
+        ),
+        createNextEditableNumberRangeFacetStub('size', createFilter =>
+          createFilter({ min: null, max: null }, false)
+        )
+      ];
+
+      const store = createFacetsStore(
+        facets.map(facet => facet.filters).flat(),
+        facets.map(({ filters, ...restFacet }) => restFacet)
+      );
+
+      expect(store.getters.facets).toEqual(arrayToObject(facets, 'id'));
     });
 
     it('does not return raw filters', () => {
       const store = createFacetsStore([createRawFilter('size:xl')]);
 
-      expect(store.getters.filtersByFacet).toEqual({});
+      expect(store.getters.facets).toEqual({});
     });
   });
 });

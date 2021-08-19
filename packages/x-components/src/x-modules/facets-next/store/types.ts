@@ -13,6 +13,8 @@ export interface FacetsNextState {
   groups: Record<Facet['id'], GroupId>;
   /** The query this facets belong to. */
   query: string;
+  /** The facets without their filters. */
+  facets: Record<Facet['id'], Omit<Facet, 'filters'>>;
 }
 
 /**
@@ -26,9 +28,13 @@ export interface FacetsNextGetters {
    */
   selectedFilters: Filter[];
   /**
-   * List of all filters grouped by their facet.
+   * List of all selected filters grouped by their facet.
    */
-  filtersByFacet: Record<Facet['id'], Filter[]>;
+  selectedFiltersByFacet: FiltersByFacetNext;
+  /**
+   * List of all facets with their filters.
+   */
+  facets: Record<Facet['id'], Facet>;
 }
 
 /**
@@ -62,6 +68,18 @@ export interface FacetsNextMutations {
    * @param query - The new {@link FacetsNextState.query}.
    */
   setQuery(query: string): void;
+  /**
+   * Removes the facet from the {@link FacetsNextState.facets | facets} record.
+   *
+   * @param facet - The facet to remove.
+   */
+  removeFacet(facet: Facet): void;
+  /**
+   * Adds the facet to the {@link FacetsNextState.facets | facets} record.
+   *
+   * @param facet - The facet to set in the store.
+   */
+  setFacet(facet: Facet): void;
 }
 
 /**
@@ -113,3 +131,10 @@ export interface FacetGroupEntry {
   /** The group id. */
   groupId: GroupId;
 }
+
+/**
+ * Dictionary grouping filters by facet id.
+ *
+ * @public
+ */
+export type FiltersByFacetNext = Record<Facet['id'], Filter[]>;

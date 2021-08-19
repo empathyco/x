@@ -1,6 +1,7 @@
 import { SimpleFilter, isSimpleFilter } from '@empathyco/x-types-next';
 import { Store } from 'vuex';
 import { RootXStoreState } from '../../../store/store.types';
+import { addFacetIfNotPresent } from './add-facet-if-not-present';
 import { FilterEntity } from './types';
 
 /**
@@ -18,6 +19,7 @@ export class SimpleFilterEntity implements FilterEntity {
    */
   deselect(filter: SimpleFilter): void {
     this.store.commit('x/facetsNext/setFilter', { ...filter, selected: false });
+    addFacetIfNotPresent(this.store, filter.facetId, 'SimpleFacet');
   }
 
   /**
@@ -27,5 +29,6 @@ export class SimpleFilterEntity implements FilterEntity {
    */
   select(filter: SimpleFilter): void {
     this.store.commit('x/facetsNext/setFilter', { ...filter, selected: true });
+    addFacetIfNotPresent(this.store, filter.facetId, 'SimpleFacet');
   }
 }
