@@ -1,4 +1,9 @@
-import { debounce as debounceRx, filter as filterRx, throttle as throttleRx } from 'rxjs/operators';
+import {
+  debounce as debounceRx,
+  filter as filterRx,
+  map,
+  throttle as throttleRx
+} from 'rxjs/operators';
 import { XModuleName } from '../x-modules/x-modules.types';
 import { XEvent } from './events.types';
 import { handleTimedWire } from './utils/wire-racing-handling';
@@ -126,4 +131,31 @@ export function throttle<Payload>(
   raceEvent: XEvent | XEvent[] = []
 ): Wire<Payload> {
   return handleTimedWire(wire, timeInMs, throttleRx, raceEvent);
+}
+
+/**
+ * Creates a {@link Wire} from other `toWire` wire. It uses `mapFn` to transform the
+ * `FromPayload` received to `ToPayload` which `toWire` requires. This is
+ * useful to reuse wires in different Events where the payload doesn't fit exactly.
+ *
+ * @param toWire - The wire which the new Wire is created from.
+ * @param mapFn - Function to map the payload from `FromPayload` to `ToPayload`.
+ * @returns A new {@link Wire}.
+ *
+ * @public
+ */
+export function mapWire<FromPayload, ToPayload>(
+  toWire: Wire<ToPayload>,
+  mapFn: (payload: FromPayload) => ToPayload
+): Wire<FromPayload> {
+  return (observable, ...restWireParams) =>
+    toWire(
+      observable.pipe(
+        map(({ eventPayload, ...restWirePayload }) => ({
+          eventPayload: mapFn(eventPayload),
+          ...restWirePayload
+        }))
+      ),
+      ...restWireParams
+    );
 }

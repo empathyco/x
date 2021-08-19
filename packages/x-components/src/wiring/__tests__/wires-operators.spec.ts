@@ -8,6 +8,7 @@ import {
   filterFalsyPayload,
   filterTruthyPayload,
   filterWhitelistedModules,
+  mapWire,
   throttle
 } from '../wires.operators';
 import { WireParams, WirePayload } from '../wiring.types';
@@ -282,6 +283,24 @@ describe('testing wires operators', () => {
         jest.advanceTimersByTime(1);
         expect(executeFunction).toHaveBeenCalledTimes(2);
       });
+    });
+
+    describe('testing operator ' + mapWire.name, () => {
+      test(
+        mapWire.name + ' emits the valued transformed by the function passed by parameter',
+        () => {
+          const mappedWire = mapWire(wire, (payload: number) => payload + 1);
+
+          mappedWire(subjectHandler.subject, storeMock, busOnMock);
+          const emittedValues = [1, 2, 3, 4, 5];
+          subjectHandler.emit(emittedValues);
+
+          expect(executeFunction).toHaveBeenCalledTimes(5);
+          executeFunction.mock.calls.forEach(([payload], index) => {
+            expect(payload).toEqual(getExpectedWirePayload(emittedValues[index] + 1, storeMock));
+          });
+        }
+      );
     });
 
     function replaceDebouncedTimeInStore(debounceInMs: number): void {

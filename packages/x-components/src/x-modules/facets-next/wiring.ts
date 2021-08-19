@@ -1,5 +1,7 @@
+import { Facet } from '@empathyco/x-types-next';
 import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
 import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
+import { mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
 import { DefaultFacetsService } from './service/facets.service';
 
@@ -21,12 +23,18 @@ const wireFacetsServiceWithoutPayload = wireServiceWithoutPayload(DefaultFacetsS
 const facetsNextWireCommit = namespacedWireCommit('facetsNext');
 
 /**
- * Saves the facets contained in the group, removing the previous ones, and keeping the previous
- * filters selected state.
+ * Saves the facets contained in the `search` group, removing the previous ones, and keeping the
+ * previous filters selected state.
  *
  * @public
  */
-const updateFacetsGroupWire = wireFacetsService('updateFacets');
+const updateFacetsGroupWithSearchFacetsWire = mapWire(
+  wireFacetsService('updateFacets'),
+  (facets: Facet[]) => ({
+    facets,
+    id: 'search'
+  })
+);
 
 /**
  * Saves the facets contained in the group, removing the previous ones, and keeping the new filters
@@ -78,8 +86,8 @@ const setFacetsQuery = facetsNextWireCommit('setQuery');
  * @internal
  */
 export const facetsNextWiring = createWiring({
-  FacetsGroupChanged: {
-    updateFacetsGroupWire
+  FacetsChangedNext: {
+    updateFacetsGroupWithSearchFacetsWire
   },
   FacetsGroupProvided: {
     setFacetsGroupWire
