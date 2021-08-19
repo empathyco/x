@@ -35,7 +35,9 @@
 <docs lang="mdx">
 ## Events
 
-- [`ExtraRequestParamsProvided`](./../../api/x-components.extraparamsxevents.extrarequestparamsprovided.md)
+- [`ExtraRequestParamsProvided`][1]
+
+[1](./../../api/x-components.extraparamsxevents.extrarequestparamsprovided.md)
 
 ## See it in action
 
