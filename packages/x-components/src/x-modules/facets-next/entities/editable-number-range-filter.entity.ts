@@ -1,5 +1,4 @@
 import {
-  EditableNumberRangeFacet,
   EditableNumberRangeFilter,
   Facet,
   Filter,
