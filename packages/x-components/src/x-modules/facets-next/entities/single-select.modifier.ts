@@ -1,5 +1,4 @@
 import { isFacetFilter, FacetFilter, Facet } from '@empathyco/x-types-next';
-import { FacetsNextGetters } from '../store/types';
 import { BaseFilterEntityModifier } from './types';
 
 /**
