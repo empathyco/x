@@ -7,6 +7,7 @@ import {
 } from '@empathyco/x-types-next';
 import { Store } from 'vuex';
 import { RootXStoreState } from '../../../store/store.types';
+import { addFacetIfNotPresent } from './add-facet-if-not-present';
 import { FilterEntity } from './types';
 
 /**
@@ -34,7 +35,7 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
     newFilter.id = this.getNewFilterId(newFilter);
     this.removePreviousFilter(filter.facetId);
     this.store.commit('x/facetsNext/setFilter', newFilter);
-    this.addFacetIfNotPresent(filter);
+    addFacetIfNotPresent(this.store, filter.facetId, 'EditableNumberRangeFacet');
   }
 
   /**
@@ -52,7 +53,7 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
       id: newFilterId,
       selected: this.isSelected(filter)
     });
-    this.addFacetIfNotPresent(filter);
+    addFacetIfNotPresent(this.store, filter.facetId, 'EditableNumberRangeFacet');
   }
 
   /**
@@ -99,22 +100,5 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
    */
   protected getFilterByFacet(facetId: Facet['id']): EditableNumberRangeFilter | undefined {
     return this.store.getters['x/facetsNext/facets'][facetId]?.filters?.[0];
-  }
-
-  /**
-   * Adds an {@link EditableNumberRangeFacet} to the store in case it doesn't exist for the passed
-   * filter.
-   *
-   * @param filter - The {@link EditableNumberRangeFilter} for which the Facet will be created.
-   * @internal
-   */
-  protected addFacetIfNotPresent(filter: EditableNumberRangeFilter): void {
-    if (!this.store.state.x.facetsNext.facets[filter.facetId]) {
-      this.store.commit('x/facetsNext/setFacet', {
-        modelName: 'EditableNumberRangeFacet',
-        id: filter.facetId,
-        label: filter.facetId
-      } as Omit<EditableNumberRangeFacet, 'filters'>);
-    }
   }
 }

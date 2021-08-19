@@ -1,6 +1,7 @@
 import { HierarchicalFilter, isHierarchicalFilter } from '@empathyco/x-types-next';
 import { Store } from 'vuex';
 import { RootXStoreState } from '../../../store/store.types';
+import { addFacetIfNotPresent } from './add-facet-if-not-present';
 import { FilterEntity } from './types';
 
 /**
@@ -19,6 +20,7 @@ export class HierarchicalFilterEntity implements FilterEntity {
   deselect(filter: HierarchicalFilter): void {
     this.saveFilter({ ...filter, selected: false });
     this.deselectDescendants(filter);
+    addFacetIfNotPresent(this.store, filter.facetId, 'HierarchicalFacet');
   }
 
   /**
@@ -29,6 +31,7 @@ export class HierarchicalFilterEntity implements FilterEntity {
   select(filter: HierarchicalFilter): void {
     this.saveFilter({ ...filter, selected: true });
     this.selectAncestors(filter);
+    addFacetIfNotPresent(this.store, filter.facetId, 'HierarchicalFacet');
   }
 
   /**
