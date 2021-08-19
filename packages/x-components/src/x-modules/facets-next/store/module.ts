@@ -1,5 +1,7 @@
+import { Facet } from '@empathyco/x-types-next';
 import Vue from 'vue';
-import { filtersByFacet } from './getters/filters-by-facet.getter';
+import { facets } from './getters/facets.getter';
+import { selectedFiltersByFacet } from './getters/selected-filters-by-facet.getter';
 import { selectedFilters } from './getters/selected-filters.getter';
 import { FacetGroupEntry, FacetsNextXStoreModule } from './types';
 
@@ -12,11 +14,13 @@ export const facetsNextXStoreModule: FacetsNextXStoreModule = {
   state: () => ({
     filters: {},
     groups: {},
-    query: ''
+    query: '',
+    facets: {}
   }),
   getters: {
     selectedFilters,
-    filtersByFacet
+    selectedFiltersByFacet,
+    facets
   },
   mutations: {
     setFilter(state, filter) {
@@ -27,6 +31,12 @@ export const facetsNextXStoreModule: FacetsNextXStoreModule = {
     },
     setFacetGroup(state, { facetId, groupId }: FacetGroupEntry) {
       Vue.set(state.groups, facetId, groupId);
+    },
+    removeFacet(state, { id }) {
+      Vue.delete(state.facets, id);
+    },
+    setFacet(state, facet: Facet) {
+      Vue.set(state.facets, facet.id, facet);
     },
     setQuery(state, query) {
       state.query = query;

@@ -17,7 +17,7 @@ export class DefaultFacetsService implements FacetsService {
   /**
    * Global instance of the {@link FacetsService}.
    */
-  public static instance: FacetsService = new DefaultFacetsService();
+  public static instance: FacetsService = new DefaultFacetsService() as FacetsService;
 
   protected get store(): Store<RootXStoreState> {
     return XPlugin.store;
@@ -41,6 +41,7 @@ export class DefaultFacetsService implements FacetsService {
   }
 
   updateFacets(facetsGroup: FacetsGroup): void {
+    this.removeGroupFacets(facetsGroup.id);
     const previousFilters = this.removeGroupFilters(facetsGroup.id);
     facetsGroup.facets.forEach(facet => {
       this.setFacetGroup({
@@ -49,9 +50,11 @@ export class DefaultFacetsService implements FacetsService {
       });
       this.saveFiltersWithPreviousState(facet.filters, previousFilters);
     });
+    facetsGroup.facets.forEach(facet => this.setFacet(facet));
   }
 
   setFacets(facetsGroup: FacetsGroup): void {
+    this.removeGroupFacets(facetsGroup.id);
     this.removeGroupFilters(facetsGroup.id);
     facetsGroup.facets.forEach(facet => {
       this.setFacetGroup({
@@ -66,6 +69,7 @@ export class DefaultFacetsService implements FacetsService {
         }
       });
     });
+    facetsGroup.facets.forEach(facet => this.setFacet(facet));
   }
 
   select(filter: Filter): void {
@@ -102,16 +106,6 @@ export class DefaultFacetsService implements FacetsService {
   }
 
   /**
-   * Removes a filter from the store.
-   *
-   * @param filter - The filter to remove.
-   * @internal
-   */
-  protected removeFilter(filter: Filter): void {
-    this.store.commit('x/facetsNext/removeFilter', filter);
-  }
-
-  /**
    * Removes the filters that belong to the given group.
    *
    * @param groupId - The id of the group from whom remove the filters that are in the store.
@@ -127,6 +121,16 @@ export class DefaultFacetsService implements FacetsService {
       )[groupId] ?? [];
     filtersToRemove.forEach(this.removeFilter.bind(this));
     return filtersToRemove;
+  }
+
+  /**
+   * Removes a filter from the store.
+   *
+   * @param filter - The filter to remove.
+   * @internal
+   */
+  protected removeFilter(filter: Filter): void {
+    this.store.commit('x/facetsNext/removeFilter', filter);
   }
 
   /**
@@ -158,5 +162,31 @@ export class DefaultFacetsService implements FacetsService {
    */
   protected setFacetGroup(facetGroup: FacetGroupEntry): void {
     this.store.commit('x/facetsNext/setFacetGroup', facetGroup);
+  }
+
+  /**
+   * Removes the facets that belong to the given group.
+   *
+   * @param groupId - The id of the group from whom remove the facets that are in the store.
+   * @returns The removed facets.
+   * @internal
+   */
+  protected removeGroupFacets(groupId: FacetsGroup['id']): Omit<Facet, 'filters'>[] {
+    const facetsToRemove = Object.values(this.store.state.x.facetsNext.facets).filter(
+      facet => facet.id === groupId
+    );
+    facetsToRemove.forEach(facet => this.store.commit('x/facetsNext/removeFacet', facet));
+    return facetsToRemove;
+  }
+
+  /**
+   * Sets the Facet to the store facets record.
+   *
+   * @param facet - The facet to store.
+   *
+   * @internal
+   */
+  protected setFacet({ filters, ...restFacet }: Facet): void {
+    this.store.commit('x/facetsNext/setFacet', restFacet);
   }
 }

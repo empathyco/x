@@ -6,7 +6,6 @@ import {
 } from '@empathyco/x-types-next';
 import { Store } from 'vuex';
 import { RootXStoreState } from '../../../store/store.types';
-import { FacetsNextGetters } from '../store/types';
 import { FilterEntity } from './types';
 
 /**
@@ -96,8 +95,8 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
    * @internal
    */
   protected getFilterByFacet(facetId: Facet['id']): EditableNumberRangeFilter | undefined {
-    return (
-      this.store.getters['x/facetsNext/filtersByFacet'] as FacetsNextGetters['filtersByFacet']
-    )[facetId]?.[0] as EditableNumberRangeFilter;
+    return Object.values(this.store.state.x.facetsNext.filters).find(
+      filter => isEditableNumberRangeFilter(filter) && filter.facetId === facetId
+    ) as EditableNumberRangeFilter;
   }
 }

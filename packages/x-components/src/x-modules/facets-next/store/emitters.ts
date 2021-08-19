@@ -1,5 +1,5 @@
 import { createStoreEmitters } from '../../../store/store.utils';
-import { isNewQuery } from '../../facets/utils';
+import { isNewQuery } from '../utils';
 import { DefaultFacetsService } from '../service/facets.service';
 import { facetsNextXStoreModule } from './module';
 
