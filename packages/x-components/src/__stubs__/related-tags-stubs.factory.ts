@@ -21,7 +21,7 @@ export function getRelatedTagsStub(amount = 9): RelatedTag[] {
  * @returns Array of selected related tags stub.
  */
 export function getSelectedRelatedTagsStub(): RelatedTag[] {
-  return [createRelatedTagStub('Related Tag Query', `Related Tag`, true)];
+  return [createRelatedTagStub('Related Tag Query', `Related Tag`, { selected: true })];
 }
 
 /**
@@ -29,7 +29,6 @@ export function getSelectedRelatedTagsStub(): RelatedTag[] {
  *
  * @param query - The query of the related tag.
  * @param tag - The related tag.
- * @param selected - An boolean if the RT is selected.
  * @param relatedTag - An optional object with fields to override the related tag.
  *
  * @returns A related tag.
@@ -37,14 +36,13 @@ export function getSelectedRelatedTagsStub(): RelatedTag[] {
 export function createRelatedTagStub(
   query: string,
   tag: string,
-  selected = false,
   relatedTag?: Partial<RelatedTag>
 ): RelatedTag {
   return {
     previous: 'previous',
     query,
-    selected,
     tag,
+    selected: false,
     modelName: 'RelatedTags',
     ...relatedTag
   };
