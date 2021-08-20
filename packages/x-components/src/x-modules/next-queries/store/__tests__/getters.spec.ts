@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
+import { createHistoryQueries, getNextQueriesStub } from '../../../../__stubs__';
 import { map } from '../../../../utils';
-import { createHistoryQueries } from '../../../../__stubs__/history-queries-stubs.factory';
-import { getNextQueriesStub } from '../../../../__stubs__/next-queries-stubs.factory';
 import { nextQueriesXStoreModule } from '../module';
 import { NextQueriesState } from '../types';
 import { resetNextQueriesStateWith } from './utils';

@@ -1,34 +1,18 @@
 import { RelatedTag } from '@empathyco/x-types';
 
 /**
- * Function to create related tags stub.
+ * Creates {@link @empathyco/x-types#RelatedTag | related tags} stub.
+ *
+ * @param amount - Number of stubbed related tags to create.
  *
  * @returns Array of related tags stub.
+ *
+ * @internal
  */
-export function getRelatedTagsStub(): RelatedTag[] {
-  return [
-    {
-      previous: 'lego city',
-      query: 'lego city policia',
-      selected: false,
-      tag: 'policia',
-      modelName: 'RelatedTags'
-    },
-    {
-      previous: 'lego city',
-      query: 'lego city bombero',
-      selected: false,
-      tag: 'bombero',
-      modelName: 'RelatedTags'
-    },
-    {
-      previous: 'lego city',
-      query: 'lego city ambulancia',
-      selected: false,
-      tag: 'ambulancia',
-      modelName: 'RelatedTags'
-    }
-  ];
+export function getRelatedTagsStub(amount = 9): RelatedTag[] {
+  return Array.from<number, RelatedTag>({ length: amount }, (_, index) =>
+    createRelatedTagStub('Related Tag', `Related Tag ${index + 1}`)
+  );
 }
 
 /**
@@ -37,13 +21,29 @@ export function getRelatedTagsStub(): RelatedTag[] {
  * @returns Array of selected related tags stub.
  */
 export function getSelectedRelatedTagsStub(): RelatedTag[] {
-  return [
-    {
-      previous: 'lego',
-      query: 'lego city',
-      selected: true,
-      tag: 'city',
-      modelName: 'RelatedTags'
-    }
-  ];
+  return [createRelatedTagStub('Related Tag Query', `Related Tag`, { selected: true })];
+}
+
+/**
+ * Creates a related tag stub with the provided options.
+ *
+ * @param query - The query of the related tag.
+ * @param tag - The related tag.
+ * @param relatedTag - An optional object with fields to override the related tag.
+ *
+ * @returns A related tag.
+ */
+export function createRelatedTagStub(
+  query: string,
+  tag: string,
+  relatedTag?: Partial<RelatedTag>
+): RelatedTag {
+  return {
+    previous: 'previous',
+    query,
+    tag,
+    selected: false,
+    modelName: 'RelatedTags',
+    ...relatedTag
+  };
 }
