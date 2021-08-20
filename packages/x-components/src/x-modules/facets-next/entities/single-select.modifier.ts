@@ -1,5 +1,4 @@
 import { isFacetFilter, FacetFilter, Facet } from '@empathyco/x-types-next';
-import { FacetsNextGetters } from '../store/types';
 import { BaseFilterEntityModifier } from './types';
 
 /**
@@ -44,9 +43,8 @@ export class SingleSelectModifier extends BaseFilterEntityModifier {
    */
   protected getFacetFilters(facetId: Facet['id']): FacetFilter[] {
     return (
-      ((this.store.getters['x/facetsNext/filtersByFacet'] as FacetsNextGetters['filtersByFacet'])[
-        facetId
-      ] as FacetFilter[]) ?? []
+      ((this.store.getters['x/facetsNext/facets'] as Record<Facet['id'], Facet>)[facetId]
+        ?.filters as FacetFilter[]) ?? []
     );
   }
 }

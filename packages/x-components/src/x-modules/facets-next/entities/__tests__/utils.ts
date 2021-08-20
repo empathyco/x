@@ -70,7 +70,7 @@ export function getStoreFiltersByFacetId<SomeFilter extends Filter = Filter>(
   store: Store<RootXStoreState>,
   facetId: Facet['id']
 ): SomeFilter[] {
-  return store.getters['x/facetsNext/filtersByFacet'][facetId] ?? [];
+  return store.getters['x/facetsNext/facets'][facetId]?.filters ?? [];
 }
 
 /**

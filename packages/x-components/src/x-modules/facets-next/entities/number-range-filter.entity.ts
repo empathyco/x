@@ -1,6 +1,7 @@
 import { Store } from 'vuex';
 import { isNumberRangeFilter, NumberRangeFilter } from '@empathyco/x-types-next';
 import { RootXStoreState } from '../../../store/store.types';
+import { addFacetIfNotPresent } from './add-facet-if-not-present';
 import { FilterEntity } from './types';
 
 /**
@@ -18,6 +19,7 @@ export class NumberRangeFilterEntity implements FilterEntity {
    */
   deselect(filter: NumberRangeFilter): void {
     this.store.commit('x/facetsNext/setFilter', { ...filter, selected: false });
+    addFacetIfNotPresent(this.store, filter.facetId, 'NumberRangeFacet');
   }
 
   /**
@@ -27,5 +29,6 @@ export class NumberRangeFilterEntity implements FilterEntity {
    */
   select(filter: NumberRangeFilter): void {
     this.store.commit('x/facetsNext/setFilter', { ...filter, selected: true });
+    addFacetIfNotPresent(this.store, filter.facetId, 'NumberRangeFacet');
   }
 }
