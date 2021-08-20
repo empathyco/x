@@ -60,11 +60,11 @@ describe('testing snippet config extra params component', () => {
   });
 
   // eslint-disable-next-line max-len
-  it('emits the ExtraRequestParamsProvided event when the component is loaded and when the snippet config changes', async () => {
+  it('emits the ExtraParamsProvided event when the component is loaded and when the snippet config changes', async () => {
     const { wrapper, setSnippetConfig } = renderSnippetConfigExtraParams();
     const extraParamsProvidedCallback = jest.fn();
 
-    wrapper.vm.$x.on('ExtraRequestParamsProvided', true).subscribe(extraParamsProvidedCallback);
+    wrapper.vm.$x.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
 
     expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
       eventPayload: { warehouse: 1234 },

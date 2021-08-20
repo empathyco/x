@@ -32,31 +32,25 @@ describe('testing extra params component', () => {
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('extraParams');
   });
 
-  it('emits the ExtraRequestParamsProvided event when the values change', async () => {
+  it('emits the ExtraParamsProvided event when the values change', async () => {
     const { wrapper } = renderExtraParams({ warehouse: 1234 });
-    const extraRequestParamsProvidedCallback = jest.fn();
+    const extraParamsProvidedCallback = jest.fn();
 
-    wrapper.vm.$x
-      .on('ExtraRequestParamsProvided', true)
-      .subscribe(extraRequestParamsProvidedCallback);
+    wrapper.vm.$x.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
 
-    expect(extraRequestParamsProvidedCallback).toHaveBeenCalledWith<
-      [WirePayload<Dictionary<unknown>>]
-    >({
+    expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
       eventPayload: { warehouse: 1234 },
       metadata: { moduleName: 'extraParams' }
     });
-    expect(extraRequestParamsProvidedCallback).toHaveBeenCalledTimes(1);
+    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
 
     await wrapper.setProps({ values: { warehouse: 5678 } });
 
-    expect(extraRequestParamsProvidedCallback).toHaveBeenCalledWith<
-      [WirePayload<Dictionary<unknown>>]
-    >({
+    expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
       eventPayload: { warehouse: 5678 },
       metadata: { moduleName: 'extraParams' }
     });
-    expect(extraRequestParamsProvidedCallback).toHaveBeenCalledTimes(2);
+    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(2);
   });
 });
 

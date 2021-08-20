@@ -21,10 +21,10 @@ export const setExtraParams = wireCommit('setParams');
  * @internal
  */
 export const extraParamsWiring = createWiring({
-  UserChangedExtraRequestParam: {
+  UserChangedExtraParams: {
     setExtraParams
   },
-  ExtraRequestParamsProvided: {
+  ExtraParamsProvided: {
     setExtraParams
   }
 });
