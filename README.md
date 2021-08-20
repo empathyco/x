@@ -43,8 +43,9 @@ ideal mix of X&nbsp;Components. A project showing the power of the X&nbsp;Compon
 It is the perfect example to learn how to use the X&nbsp;Components to get you started. This package is now a project outside this monorepo.
 
 ## Product documentation
-Each component contains inline comments. Alternatively, you can read the product documentation on Empathy’s [eDocs documentation portal](https://docs.empathy.co).
-- [Overview of X Components](https://docs.empathy.co/explore-empathy-platform/experience-search-&-discovery/)
+Each component contains inline comments. Alternatively, you can read the product documentation on Empathy’s [eDocs documentation portal](https://docs.empathy.co/explore-empathy-platform/experience-search-&-discovery/).
+- [Overview of Empathy Platform features supported by X Components](https://docs.empathy.co/explore-empathy-platform/search-features/)
+- [Interface X architecture](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/x-architecture/)
 - [Full UI Reference](https://docs.empathy.co/empathy-for-developers/ui-reference)
 <!--- [Frequently Asked Questions](Content to be developed for GitHub project)--->
 
@@ -68,13 +69,12 @@ To prepare your development environment, proceed as follows:
 2. Install the dependencies in the root folder: `npm install`. This links all the projects.
 3. Run a build so that the linked projects work: `npm run build`.
 
-For more information, see [how to build your search UI](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/interface-x-integration-guide.html).
+For more information, see [how to build your search UI](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/).
 
 ## How to implement Interface X
 
 Watch Ivan Tajes’ [explanation on how to build a search experience using the X Components](https://www.youtube.com/watch?v=JjjIaQlG9aE)
-- [Interface X architecture](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/x-architecture/)
-- [How to implement the X Components](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/)
+- [How to implement the X Components](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/interface-x-integration-guide.html)
 
 ## How to contribute
 
