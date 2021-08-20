@@ -77,7 +77,7 @@ Watch Ivan Tajes’ [explanation on how to build a search experience using the X
 We are building the Interface X ecosystem. If you are interested in helping us out and being part of the future of search experiences, please check our [contributing guidelines](./.github/CONTRIBUTING.md).
 
 ## How to report issues
-Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/). Create an issue in the repo and provide the following information by filling in [the bug template](./ISSUE_TEMPLATE/bug_report.md).
+Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/). Create an issue in the repo and provide the following information by filling in [the bug template](./.github/ISSUE_TEMPLATE/bug_report.md).
 
 
 ## Core Team
