@@ -15,13 +15,14 @@ import { XPlugin } from '../../../../../plugins/x-plugin';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
 
-if (!HTMLInputElement.prototype.valueAsNumber) {
-  Object.defineProperty(HTMLInputElement.prototype, 'valueAsNumber', {
-    get() {
-      return parseFloat(this.value);
-    }
-  });
-}
+Object.defineProperty(HTMLInputElement.prototype, 'valueAsNumber', {
+  get() {
+    return parseFloat(this.value);
+  },
+  writable: true,
+  configurable: true,
+  enumerable: true
+});
 
 function renderEditableNumberRangeFilter({
   template = `

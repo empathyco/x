@@ -16,13 +16,14 @@ import { facetsNextXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
 import EditableNumberRangeFilterComponent from '../editable-number-range-filter.vue';
 
-if (!HTMLInputElement.prototype.valueAsNumber) {
-  Object.defineProperty(HTMLInputElement.prototype, 'valueAsNumber', {
-    get() {
-      return parseFloat(this.value);
-    }
-  });
-}
+Object.defineProperty(HTMLInputElement.prototype, 'valueAsNumber', {
+  get() {
+    return parseFloat(this.value);
+  },
+  writable: true,
+  configurable: true,
+  enumerable: true
+});
 
 function renderEditableNumberRangeFilter({
   template = `
