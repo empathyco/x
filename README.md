@@ -6,7 +6,7 @@
 
 Whether you use Empathy Search API endpoints, Elasticsearch, Solr or other search APIs, bring your commerce search and discovery experience to life with Interface X, an irresistible, expressive, and joyful search UI.  Interface X is used within some of the most beautiful commerce search experiences out there, e.g. [Carrefour.es](https://www.carrefour.es), [Pull&Bear.com](https://www.pullandbear.com), and [Kroger.com](https://www.kroger.com).
 
-Interface X is a library of standalone, configurable building blocks (available as Vue.js based X%nsp;Components) that allow you to quickly construct the search UI for your shop. You can create a smooth, personalized search and discovery experience, while significantly minimizing development time.
+Interface X is a library of standalone, configurable building blocks (available as Vue.js based X&nbsp;Components) that allow you to quickly construct the search UI for your shop. You can create a smooth, personalized search and discovery experience, while significantly minimizing development time.
 ![X Components](.github/all_popular_next_searches.gif)
 
 Each component represents a graphical part of the UI, with its own unique view and behavior. They’ve been smartly designed to work together yet independently, so a single component adds real value to your UI by itself. The more components you add and combine, the more functionality you get.
