@@ -10,6 +10,7 @@ Interface X is a library of standalone, configurable building blocks (available 
 
 <br>
 ![X Components](.github/all_popular_next_searches.gif)
+
 <br>
 
 Each component represents a graphical part of the UI, with its own unique view and behavior. They’ve been smartly designed to work together yet independently, so a single component adds real value to your UI by itself. The more components you add and combine, the more functionality you get.
