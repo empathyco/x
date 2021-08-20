@@ -69,12 +69,12 @@ To prepare your development environment, proceed as follows:
 2. Install the dependencies in the root folder: `npm install`. This links all the projects.
 3. Run a build so that the linked projects work: `npm run build`.
 
-For more information, see [how to build your search UI](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/).
+For more information, see [Build your search UI](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/).
 
 ## How to implement Interface X
 
 Watch Ivan Tajes’ [explanation on how to build a search experience using the X Components](https://www.youtube.com/watch?v=JjjIaQlG9aE)
-- [How to implement the X Components](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/interface-x-integration-guide.html)
+- [How to build your search UI](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/interface-x-integration-guide.html)
 
 ## How to contribute
 
