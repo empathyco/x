@@ -8,10 +8,10 @@ Whether you use Empathy Search API endpoints, Elasticsearch, Solr or other searc
 
 Interface X is a library of standalone, configurable building blocks (available as Vue.js based X&nbsp;Components) that allow you to quickly construct the search UI for your shop. You can create a smooth, personalized search and discovery experience, while significantly minimizing development time.
 
-<br>
+
 ![X Components](.github/all_popular_next_searches.gif)
 
-<br>
+
 
 Each component represents a graphical part of the UI, with its own unique view and behavior. They’ve been smartly designed to work together yet independently, so a single component adds real value to your UI by itself. The more components you add and combine, the more functionality you get.
 You can craft your own UI bundle with the right components for your shop. There are numerous components to choose from, and the catalog evolves quickly with new experiences.
