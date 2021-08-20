@@ -43,7 +43,7 @@ ideal mix of X&nbsp;Components. A project showing the power of the X&nbsp;Compon
 It is the perfect example to learn how to use the X&nbsp;Components to get you started. This package is now a project outside this monorepo.
 
 ## Product documentation
-Each component contains inline comments. Alternatively, you can read the product documentation on Empathy’s eDocs documentation portal).
+Each component contains inline comments. Alternatively, you can read the product documentation on Empathy’s eDocs documentation portal.
 - [Overview of X Components](https://docs.empathy.co/explore-empathy-platform/experience-search-&-discovery/)
 - [Interface X architecture](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/x-architecture/)
 - [Full UI Reference](https://docs.empathy.co/empathy-for-developers/ui-reference)
@@ -72,8 +72,9 @@ To prepare your development environment, proceed as follows:
 
 ## How to implement Interface X
 
-Once you have installed the project, follow the step-by-step guide - [How to build your search UI](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/interface-x-integration-guide.html).
-You can also check out Ivan Tajes’ [explanation on how to build a search experience using the X Components](https://www.youtube.com/watch?v=JjjIaQlG9aE).
+Once you have installed the project, follow the step-by-step guide - [How to build your search UI](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/interface-x-integration-guide.html).   
+
+Watch Ivan Tajes’ [explanation on how to build a search experience using the X Components](https://www.youtube.com/watch?v=JjjIaQlG9aE).
 
 ## How to contribute
 
