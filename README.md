@@ -16,7 +16,7 @@ Interface X is a library of standalone, configurable building blocks (available 
 Each component represents a graphical part of the UI, with its own unique view and behavior. They’ve been smartly designed to work together yet independently, so a single component adds real value to your UI by itself. The more components you add and combine, the more functionality you get.
 You can craft your own UI bundle with the right components for your shop. There are numerous components to choose from, and the catalog evolves quickly with new experiences.
 
-See an [overview of the features](https://docs.empathy.co/explore-empathy-platform/experience-search-&-discovery/) supported by Interface X.
+See an [overview of the features](https://docs.empathy.co/explore-empathy-platform/search-features/) supported by Interface X.
 
 ## Highlights
 
@@ -43,8 +43,8 @@ ideal mix of X&nbsp;Components. A project showing the power of the X&nbsp;Compon
 It is the perfect example to learn how to use the X&nbsp;Components to get you started. This package is now a project outside this monorepo.
 
 ## Product documentation
-Each component contains inline comments. Alternatively, you can read the product documentation on Empathy’s [eDocs documentation portal](https://docs.empathy.co/explore-empathy-platform/experience-search-&-discovery/).
-- [Overview of Empathy Platform features supported by X Components](https://docs.empathy.co/explore-empathy-platform/search-features/)
+Each component contains inline comments. Alternatively, you can read the product documentation on Empathy’s eDocs documentation portal).
+- [Overview of X Components](https://docs.empathy.co/explore-empathy-platform/experience-search-&-discovery/)
 - [Interface X architecture](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/x-architecture/)
 - [Full UI Reference](https://docs.empathy.co/empathy-for-developers/ui-reference)
 <!--- [Frequently Asked Questions](Content to be developed for GitHub project)--->
@@ -69,12 +69,11 @@ To prepare your development environment, proceed as follows:
 2. Install the dependencies in the root folder: `npm install`. This links all the projects.
 3. Run a build so that the linked projects work: `npm run build`.
 
-For more information, see [Build your search UI](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/).
 
 ## How to implement Interface X
 
-Watch Ivan Tajes’ [explanation on how to build a search experience using the X Components](https://www.youtube.com/watch?v=JjjIaQlG9aE)
-- [How to build your search UI](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/interface-x-integration-guide.html)
+Once you have installed the project, follow the step-by-step guide - [How to build your search UI](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/interface-x-integration-guide.html).
+You can also check out Ivan Tajes’ [explanation on how to build a search experience using the X Components](https://www.youtube.com/watch?v=JjjIaQlG9aE).
 
 ## How to contribute
 
