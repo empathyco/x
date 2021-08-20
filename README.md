@@ -16,7 +16,7 @@ Interface X is a library of standalone, configurable building blocks (available 
 Each component represents a graphical part of the UI, with its own unique view and behavior. They’ve been smartly designed to work together yet independently, so a single component adds real value to your UI by itself. The more components you add and combine, the more functionality you get.
 You can craft your own UI bundle with the right components for your shop. There are numerous components to choose from, and the catalog evolves quickly with new experiences.
 
-See an [overview of the features](https://docs.empathy.co/explore-empathy-platform/search-features/) supported by Interface X.
+See an [overview of the Empathy Platform features](https://docs.empathy.co/explore-empathy-platform/search-features/) supported by Interface X.
 
 ## Highlights
 
