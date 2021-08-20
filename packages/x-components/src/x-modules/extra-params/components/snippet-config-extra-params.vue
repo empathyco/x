@@ -67,7 +67,7 @@
 <docs lang="mdx">
 ## See it in action
 
-_See how the snippet config is injected and passed to the ExtraParams component._
+_See how the snippet config is injected and passed to the SnippetConfigExtraParams component._
 
 ```vue
 <template>
