@@ -34,6 +34,7 @@ import { SearchXEvents } from '../x-modules/search/events.types';
  * * {@link RecommendationsXEvents}
  * * {@link RelatedTagsXEvents}
  * * {@link SearchBoxXEvents}
+ * * {@link ExtraParamsXEvents}
  *
  * @public
  */
