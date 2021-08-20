@@ -8,9 +8,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **extraParams:** add new extra params module ([f20323d](https://github.com/empathyco/x/commit/f20323d5ae817576b468c04a240eee380e8ff5be)), closes [EX-4585](https://searchbroker.atlassian.net/browse/EX-4585)
+* **extra-params:** add `ExtraParams` component ([e1bbf2c](https://github.com/empathyco/x/commit/e1bbf2cbf251a5e7cdf4ebefbd3f4bcf4230cb21)), closes [EX-4575](https://searchbroker.atlassian.net/browse/EX-4575)
+* **extra-params:** add module ([f20323d](https://github.com/empathyco/x/commit/f20323d5ae817576b468c04a240eee380e8ff5be)), closes [EX-4585](https://searchbroker.atlassian.net/browse/EX-4585)
 * **facets-next:** add facets to the state and facets getter ([27ce68d](https://github.com/empathyco/x/commit/27ce68d47a6414457cd648f261b50bb88e171718)), closes [EX-4584](https://searchbroker.atlassian.net/browse/EX-4584)
-* modify search function in XAPI to open X (#96) ([9c42da0](https://github.com/empathyco/x/commit/9c42da0af70dfdb5f767eccb08f47e402ac47a70)), closes [EX-3555](https://searchbroker.atlassian.net/browse/EX-3555)
+* modify search function in XAPI to open X ([9c42da0](https://github.com/empathyco/x/commit/9c42da0af70dfdb5f767eccb08f47e402ac47a70)), closes [EX-3555](https://searchbroker.atlassian.net/browse/EX-3555)
 * **facets-next:** Add `FacetsService` ([3b2871f](https://github.com/empathyco/x/commit/3b2871f9993b8cde206585e863f7c10cbe1f80d9)), closes [EX-3653](https://searchbroker.atlassian.net/browse/EX-3653)
 * **facets-next:** add wiring. add new `wireService` and `wireServiceWithoutPayload` wires factories. ([b28a221](https://github.com/empathyco/x/commit/b28a221b8a23ca2d307f75b01242ccabb7d218e0)), closes [EX-3657](https://searchbroker.atlassian.net/browse/EX-3657)
 * **url:** add new empty module ([955a3bf](https://github.com/empathyco/x/commit/955a3bf35930be8688ad8fefc20632573e8e899b)), closes [EX-3203](https://searchbroker.atlassian.net/browse/EX-3203)
@@ -18,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Testing
 
-* mock popular searches adapter in e2e tests (#93) ([2a8d652](https://github.com/empathyco/x/commit/2a8d6529c361be7922a2f640affdedd5e830f82e)), closes [EX-4466](https://searchbroker.atlassian.net/browse/EX-4466)
+* **e2e:** mock adapter on popular searches requests ([2a8d652](https://github.com/empathyco/x/commit/2a8d6529c361be7922a2f640affdedd5e830f82e)), closes [EX-4466](https://searchbroker.atlassian.net/browse/EX-4466)
 * **e2e:** move stubs creation within the test itself and rewrite mocking features ([f99d4e4](https://github.com/empathyco/x/commit/f99d4e4297dc5e55fbf6b7a3f23dfde4db25d2c6)), closes [EX-4533](https://searchbroker.atlassian.net/browse/EX-4533)
 
 
@@ -34,14 +35,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 * **components:** add option to hide decimals if the number to format is an integer in `currencyFormatter` `format` option. ([b2f6450](https://github.com/empathyco/x/commit/b2f64507f3ce4713c9ed1df725a2c84c01c21f78)), closes [EX-3547](https://searchbroker.atlassian.net/browse/EX-3547)
-* **facets-next:** add entity filter modifiers (#81) ([7074938](https://github.com/empathyco/x/commit/70749382e0a310736ce9b75c5ac1d4466384d0fe)), closes [EX-3651](https://searchbroker.atlassian.net/browse/EX-3651)
+* **facets-next:** add entity filter modifiers ([7074938](https://github.com/empathyco/x/commit/70749382e0a310736ce9b75c5ac1d4466384d0fe)), closes [EX-3651](https://searchbroker.atlassian.net/browse/EX-3651)
 * **facets-next:** add support for the new search types in search adapter ([aec475e](https://github.com/empathyco/x/commit/aec475e4f689e63a4dc1b0fed3c3ade73b5122f2)), closes [EX-3640](https://searchbroker.atlassian.net/browse/EX-3640)
 
 
 ### Testing
 
-* **e2e:** mock adapter on next queries requests (#66) ([1434ef7](https://github.com/empathyco/x/commit/1434ef767b305b90522d54ef0cd42d33eea8e38e)), closes [EX-4468](https://searchbroker.atlassian.net/browse/EX-4468)
-* **e2e:** mock all the e2e requests of Next Queries (#85) ([cff6438](https://github.com/empathyco/x/commit/cff6438dc3f9053d778ab8b58b789cb37104c3bd))
+* **e2e:** mock adapter on next queries requests ([1434ef7](https://github.com/empathyco/x/commit/1434ef767b305b90522d54ef0cd42d33eea8e38e)), closes [EX-4468](https://searchbroker.atlassian.net/browse/EX-4468)
+* **e2e:** mock all the e2e requests of Next Queries ([cff6438](https://github.com/empathyco/x/commit/cff6438dc3f9053d778ab8b58b789cb37104c3bd))
 
 
 
@@ -60,7 +61,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 * **facets-next:** add `EditableNumberRangeFilterEntity` ([876da46](https://github.com/empathyco/x/commit/876da466da986de89b40dcceb4119cac816228d1)), closes [EX-4356](https://searchbroker.atlassian.net/browse/EX-4356)
-* **facets-next:** add `HierarchicalFilterEntity` (#75) ([d633721](https://github.com/empathyco/x/commit/d633721b6c795ee9145925d366216edd616b0807)), closes [EX-4354](https://searchbroker.atlassian.net/browse/EX-4354)
+* **facets-next:** add `HierarchicalFilterEntity` ([d633721](https://github.com/empathyco/x/commit/d633721b6c795ee9145925d366216edd616b0807)), closes [EX-4354](https://searchbroker.atlassian.net/browse/EX-4354)
 * **facets-next:** add `RawFilterEntity` ([f87d873](https://github.com/empathyco/x/commit/f87d8737d8a2049f7311294f7c260b36f542014b)), closes [EX-4358](https://searchbroker.atlassian.net/browse/EX-4358)
 
 
@@ -75,7 +76,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **animations:** disable  leaving elements listening to click events (#70) ([3d7b92b](https://github.com/empathyco/x/commit/3d7b92b1baa2c86c3fe8e390cec8a203bc62c95e)), closes [EX-4504](https://searchbroker.atlassian.net/browse/EX-4504)
+* **animations:** disable  leaving elements listening to click events ([3d7b92b](https://github.com/empathyco/x/commit/3d7b92b1baa2c86c3fe8e390cec8a203bc62c95e)), closes [EX-4504](https://searchbroker.atlassian.net/browse/EX-4504)
 
 
 ### Build System
@@ -89,7 +90,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **facets-next:** add module (#64) ([b002637](https://github.com/empathyco/x/commit/b002637c535d9a1654a264cd3c759fc013cf8fdc)), closes [EX-3647](https://searchbroker.atlassian.net/browse/EX-3647)
+* **facets-next:** add module ([b002637](https://github.com/empathyco/x/commit/b002637c535d9a1654a264cd3c759fc013cf8fdc)), closes [EX-3647](https://searchbroker.atlassian.net/browse/EX-3647)
 
 
 ### Build System
@@ -103,7 +104,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **banners:** fix repeated banners and promoted on page load (#62) ([aec10f1](https://github.com/empathyco/x/commit/aec10f1a6d8b65e32eaf459a2d110cb6ea18111f)), closes [EX-4492](https://searchbroker.atlassian.net/browse/EX-4492)
+* **banners:** fix repeated banners and promoted on page load ([aec10f1](https://github.com/empathyco/x/commit/aec10f1a6d8b65e32eaf459a2d110cb6ea18111f)), closes [EX-4492](https://searchbroker.atlassian.net/browse/EX-4492)
 * **directives:** change `infinite-scroll` threshold to avoid decimals bug in `Chrome` ([41b9c6e](https://github.com/empathyco/x/commit/41b9c6ebe295e0887dbf65a4ad54dfdef501ca15)), closes [EX-4489](https://searchbroker.atlassian.net/browse/EX-4489)
 
 
@@ -127,7 +128,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **design-system:** Fix padding in Input Group Line variant (#58) ([bea2153](https://github.com/empathyco/x/commit/bea2153b702a37e05cc3240fc6201f5b7f38ed5f)), closes [EX-4459](https://searchbroker.atlassian.net/browse/EX-4459)
+* **design-system:** Fix padding in Input Group Line variant ([bea2153](https://github.com/empathyco/x/commit/bea2153b702a37e05cc3240fc6201f5b7f38ed5f)), closes [EX-4459](https://searchbroker.atlassian.net/browse/EX-4459)
 
 
 ### Code Refactoring
@@ -154,7 +155,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Continuous Integration
 
-* Fix publishing in x-components. Normalize build scripts. (#46) ([c3c2f85](https://github.com/empathyco/x/commit/c3c2f8519c0de1b164074e87e68e77ad1af0d702)), closes [EX-4413](https://searchbroker.atlassian.net/browse/EX-4413)
+* Fix publishing in x-components. Normalize build scripts. ([c3c2f85](https://github.com/empathyco/x/commit/c3c2f8519c0de1b164074e87e68e77ad1af0d702)), closes [EX-4413](https://searchbroker.atlassian.net/browse/EX-4413)
 
 
 
@@ -174,7 +175,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * **design-system:** add scroll-to-top slot in Layout ([421e937](https://github.com/empathyco/x/commit/421e9371da6f84069ae033cf0cba8ef360c2603e)), closes [EX-4192](https://searchbroker.atlassian.net/browse/EX-4192)
 * **search:** add `Promoted` component ([9c887dc](https://github.com/empathyco/x/commit/9c887dc77e66bf4847a0592557f68461844e0c44)), closes [EX-4289](https://searchbroker.atlassian.net/browse/EX-4289)
-* **search:** add Banner component (#42) ([205bf13](https://github.com/empathyco/x/commit/205bf13fe72a5d2c9b28fd0866a9ceb2d14b1700)), closes [EX-4291](https://searchbroker.atlassian.net/browse/EX-4291)
+* **search:** add Banner component ([205bf13](https://github.com/empathyco/x/commit/205bf13fe72a5d2c9b28fd0866a9ceb2d14b1700)), closes [EX-4291](https://searchbroker.atlassian.net/browse/EX-4291)
 
 
 ### Bug Fixes
@@ -187,12 +188,12 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Documentation
 
 * **query-suggestions:** adapt examples to edocs guidelines ([b2380f9](https://github.com/empathyco/x/commit/b2380f95f85d838f0762ea1e608a3ae65ea11b58)), closes [EX-3490](https://searchbroker.atlassian.net/browse/EX-3490)
-* **related-tags:** adapt to eDocs guidelines (#35) ([c0cc8ba](https://github.com/empathyco/x/commit/c0cc8ba8a04ca21a206cecd9e657b354e1ece782))
+* **related-tags:** adapt to eDocs guidelines ([c0cc8ba](https://github.com/empathyco/x/commit/c0cc8ba8a04ca21a206cecd9e657b354e1ece782))
 
 
 ### Testing
 
-* enable e2e test and fix tests (#38) ([9d07a2a](https://github.com/empathyco/x/commit/9d07a2a0d146c5ad9cd5441023b864148759b5b5)), closes [EX-4363](https://searchbroker.atlassian.net/browse/EX-4363)
+* enable e2e test and fix tests ([9d07a2a](https://github.com/empathyco/x/commit/9d07a2a0d146c5ad9cd5441023b864148759b5b5)), closes [EX-4363](https://searchbroker.atlassian.net/browse/EX-4363)
 
 
 
