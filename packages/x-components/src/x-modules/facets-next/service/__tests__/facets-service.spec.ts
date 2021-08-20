@@ -380,10 +380,10 @@ describe('testing facets service', () => {
       ).toBe(false);
       expect(getSelectedFilters()).toEqual([]);
       expect(getFacets()).toEqual({
-        [colorFacet.id]: excludeFiltersProperty(colorFacet),
-        [categoryFacet.id]: excludeFiltersProperty(categoryFacet),
-        [ageFacet.id]: excludeFiltersProperty(ageFacet),
-        [priceFacet.id]: excludeFiltersProperty(priceFacet)
+        [colorFacet.id]: omitFiltersProperty(colorFacet),
+        [categoryFacet.id]: omitFiltersProperty(categoryFacet),
+        [ageFacet.id]: omitFiltersProperty(ageFacet),
+        [priceFacet.id]: omitFiltersProperty(priceFacet)
       });
 
       // Select some filters, and save a new group of facets
@@ -469,11 +469,11 @@ describe('testing facets service', () => {
         ])
       ).toBe(false);
       expect(getFacets()).toEqual({
-        [colorFacet.id]: excludeFiltersProperty(colorFacet),
-        [categoryFacet.id]: excludeFiltersProperty(categoryFacet),
-        [ageFacet.id]: excludeFiltersProperty(ageFacet),
-        [priceFacet.id]: excludeFiltersProperty(priceFacet),
-        [shipmentFacet.id]: excludeFiltersProperty(shipmentFacet)
+        [colorFacet.id]: omitFiltersProperty(colorFacet),
+        [categoryFacet.id]: omitFiltersProperty(categoryFacet),
+        [ageFacet.id]: omitFiltersProperty(ageFacet),
+        [priceFacet.id]: omitFiltersProperty(priceFacet),
+        [shipmentFacet.id]: omitFiltersProperty(shipmentFacet)
       });
     });
 
@@ -557,10 +557,10 @@ describe('testing facets service', () => {
         ])
       );
       expect(getFacets()).toEqual({
-        [colorFacet.id]: excludeFiltersProperty(colorFacet),
-        [categoryFacet.id]: excludeFiltersProperty(categoryFacet),
-        [ageFacet.id]: excludeFiltersProperty(ageFacet),
-        [priceFacet.id]: excludeFiltersProperty(priceFacet)
+        [colorFacet.id]: omitFiltersProperty(colorFacet),
+        [categoryFacet.id]: omitFiltersProperty(categoryFacet),
+        [ageFacet.id]: omitFiltersProperty(ageFacet),
+        [priceFacet.id]: omitFiltersProperty(priceFacet)
       });
 
       // Set a new group of facets
@@ -639,11 +639,11 @@ describe('testing facets service', () => {
         ])
       ).toBe(false);
       expect(getFacets()).toEqual({
-        [colorFacet.id]: excludeFiltersProperty(colorFacet),
-        [categoryFacet.id]: excludeFiltersProperty(categoryFacet),
-        [ageFacet.id]: excludeFiltersProperty(ageFacet),
-        [priceFacet.id]: excludeFiltersProperty(priceFacet),
-        [shipmentFacet.id]: excludeFiltersProperty(shipmentFacet)
+        [colorFacet.id]: omitFiltersProperty(colorFacet),
+        [categoryFacet.id]: omitFiltersProperty(categoryFacet),
+        [ageFacet.id]: omitFiltersProperty(ageFacet),
+        [priceFacet.id]: omitFiltersProperty(priceFacet),
+        [shipmentFacet.id]: omitFiltersProperty(shipmentFacet)
       });
     });
   });
@@ -714,6 +714,12 @@ interface FacetsServiceTestAPI {
   service: FacetsService;
 }
 
-function excludeFiltersProperty({ filters, ...facet }: Facet): Omit<Facet, 'filters'> {
+/**
+ * Excludes the filters property from the given facet.
+ *
+ * @param facet - The full facet from whom exclude its filter property.
+ * @returns The given facet without the `filters` property.
+ */
+function omitFiltersProperty({ filters, ...facet }: Facet): Omit<Facet, 'filters'> {
   return facet;
 }
