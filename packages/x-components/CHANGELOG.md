@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.14...@empathyco/x-components@3.0.0-alpha.15) (2021-08-20)
+
+
+### Features
+
+* **extraParams:** add new extra params module ([f20323d](https://github.com/empathyco/x/commit/f20323d5ae817576b468c04a240eee380e8ff5be)), closes [EX-4585](https://searchbroker.atlassian.net/browse/EX-4585)
+* **facets-next:** add facets to the state and facets getter ([27ce68d](https://github.com/empathyco/x/commit/27ce68d47a6414457cd648f261b50bb88e171718)), closes [EX-4584](https://searchbroker.atlassian.net/browse/EX-4584)
+* modify search function in XAPI to open X (#96) ([9c42da0](https://github.com/empathyco/x/commit/9c42da0af70dfdb5f767eccb08f47e402ac47a70)), closes [EX-3555](https://searchbroker.atlassian.net/browse/EX-3555)
+* **facets-next:** Add `FacetsService` ([3b2871f](https://github.com/empathyco/x/commit/3b2871f9993b8cde206585e863f7c10cbe1f80d9)), closes [EX-3653](https://searchbroker.atlassian.net/browse/EX-3653)
+* **facets-next:** add wiring. add new `wireService` and `wireServiceWithoutPayload` wires factories. ([b28a221](https://github.com/empathyco/x/commit/b28a221b8a23ca2d307f75b01242ccabb7d218e0)), closes [EX-3657](https://searchbroker.atlassian.net/browse/EX-3657)
+* **url:** add new empty module ([955a3bf](https://github.com/empathyco/x/commit/955a3bf35930be8688ad8fefc20632573e8e899b)), closes [EX-3203](https://searchbroker.atlassian.net/browse/EX-3203)
+
+
+### Testing
+
+* mock popular searches adapter in e2e tests (#93) ([2a8d652](https://github.com/empathyco/x/commit/2a8d6529c361be7922a2f640affdedd5e830f82e)), closes [EX-4466](https://searchbroker.atlassian.net/browse/EX-4466)
+* **e2e:** move stubs creation within the test itself and rewrite mocking features ([f99d4e4](https://github.com/empathyco/x/commit/f99d4e4297dc5e55fbf6b7a3f23dfde4db25d2c6)), closes [EX-4533](https://searchbroker.atlassian.net/browse/EX-4533)
+
+
+
 ## [3.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.13...@empathyco/x-components@3.0.0-alpha.14) (2021-08-11)
 
 
