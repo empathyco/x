@@ -7,7 +7,7 @@ import { XPlugin } from '../../../../plugins';
 import { Dictionary } from '../../../../utils';
 import { WirePayload } from '../../../../wiring';
 import { extraParamsXModule } from '../../x-module';
-import SnippetConfigExtraRequestParams from '../snippet-config-extra-params.vue';
+import SnippetConfigExtraParams from '../snippet-config-extra-params.vue';
 
 describe('testing snippet config extra params component', () => {
   @Component({
@@ -29,12 +29,12 @@ describe('testing snippet config extra params component', () => {
       {
         template: `
           <Provider>
-            <SnippetConfigExtraRequestParams />
+            <SnippetConfigExtraParams />
           </Provider>
         `,
         components: {
           Provider,
-          SnippetConfigExtraRequestParams
+          SnippetConfigExtraParams
         }
       },
       {
@@ -42,8 +42,14 @@ describe('testing snippet config extra params component', () => {
       }
     );
 
+    function setSnippetConfig(newValue: Dictionary<unknown>): void | Promise<void> {
+      const providerWrapper = wrapper.findComponent(Provider);
+      return providerWrapper.setData({ snippetConfig: newValue });
+    }
+
     return {
-      wrapper: wrapper.findComponent(SnippetConfigExtraRequestParams)
+      wrapper: wrapper.findComponent(SnippetConfigExtraParams),
+      setSnippetConfig
     };
   }
 
@@ -53,26 +59,34 @@ describe('testing snippet config extra params component', () => {
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('extraParams');
   });
 
-  it('emits the ExtraRequestParamsProvided event', () => {
-    const { wrapper } = renderSnippetConfigExtraParams();
-    const extraRequestParamsProvidedCallback = jest.fn();
+  // eslint-disable-next-line max-len
+  it('emits the ExtraRequestParamsProvided event when the component is loaded and when the snippet config changes', async () => {
+    const { wrapper, setSnippetConfig } = renderSnippetConfigExtraParams();
+    const extraParamsProvidedCallback = jest.fn();
 
-    wrapper.vm.$x
-      .on('ExtraRequestParamsProvided', true)
-      .subscribe(extraRequestParamsProvidedCallback);
+    wrapper.vm.$x.on('ExtraRequestParamsProvided', true).subscribe(extraParamsProvidedCallback);
 
-    expect(extraRequestParamsProvidedCallback).toHaveBeenCalledWith<
-      [WirePayload<Dictionary<unknown>>]
-    >({
+    expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
       eventPayload: { warehouse: 1234 },
       metadata: { moduleName: 'extraParams' }
     });
 
-    expect(extraRequestParamsProvidedCallback).toHaveBeenCalledTimes(1);
+    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
+
+    await setSnippetConfig({ warehouse: 45678 });
+
+    expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
+      eventPayload: { warehouse: 45678 },
+      metadata: { moduleName: 'extraParams' }
+    });
+
+    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(2);
   });
 });
 
 interface RenderExtraParamsApi {
-  /** The wrapper for the extra params component. */
+  /** The wrapper for the snippet config component. */
   wrapper: Wrapper<Vue>;
+  /** Helper method to change the snippet config. */
+  setSnippetConfig: (newSnippetConfig: Dictionary<unknown>) => void | Promise<void>;
 }

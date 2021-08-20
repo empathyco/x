@@ -1,5 +1,5 @@
 <template>
-  <ExtraParams :values="extraRequestParams" />
+  <ExtraParams :values="extraParams" />
 </template>
 
 <script lang="ts">
@@ -12,7 +12,8 @@
   import ExtraParams from './extra-params.vue';
 
   /**
-   * It renders a {@link ExtraParams} component and pass the snippetConfig.
+   * Extracts the extra parameters from the {@link SnippetConfig} and syncs it with the request
+   * objects of every x-module.
    *
    * @public
    */
@@ -20,23 +21,81 @@
     components: { ExtraParams },
     mixins: [xComponentMixin(extraParamsXModule)]
   })
-  export default class SnippetConfigExtraRequestParams extends Vue {
+  export default class SnippetConfigExtraParams extends Vue {
+    /**
+     * It injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
+     *
+     * @internal
+     */
     @XInject('snippetConfig')
     public snippetConfig!: SnippetConfig;
 
-    public extraRequestParams: Dictionary<unknown> = {};
+    /**
+     * Custom object containing the extra params from the snippet config.
+     *
+     * @remarks This object keeps manually the desired snippet config properties to avoid
+     * unnecessary re-renders.
+     */
+    public extraParams: Dictionary<unknown> = {};
 
+    /**
+     * Updates the extraParams object when the snippet config changes.
+     *
+     * @param snippetConfig - The new snippet config.
+     *
+     * @internal
+     */
     @Watch('snippetConfig', { deep: true, immediate: true })
-    syncExtraRequestParams({
+    syncExtraParams({
+      instance,
+      env,
+      scope,
       lang,
       searchLang,
-      instance,
-      scope,
-      ...extraRequestParams
+      consent,
+      documentDirection,
+      currency,
+      ...snippetExtraParams
     }: SnippetConfig): void {
-      forEach(extraRequestParams, (name, value) => {
-        this.$set(this.extraRequestParams, name, value);
+      forEach(snippetExtraParams, (name, value) => {
+        this.$set(this.extraParams, name, value);
       });
     }
   }
 </script>
+
+<docs lang="mdx">
+## See it in action
+
+_See how the snippet config is injected and passed to the ExtraParams component._
+
+```vue
+<template>
+  <Provider>
+    <SnippetConfigExtraParams />
+  </Provider>
+</template>
+
+<script>
+  import { SnippetConfigExtraParams } from '@empathyco/x-components/snippet-config-extra-params';
+
+  const Provider = {
+    provide: {
+      snippetConfig: {
+        instance: 'demo',
+        lang: 'es',
+        warehouse: 1234
+      }
+    }
+  };
+
+  export default {
+    name: 'SnippetConfigExtraParamsDemo',
+    components: {
+      Provider,
+      SnippetConfigExtraParams
+    }
+  };
+</script>
+```
+</docs>
