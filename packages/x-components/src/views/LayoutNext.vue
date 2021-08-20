@@ -193,7 +193,6 @@
   import BaseScrollToTop from '../components/scroll/base-scroll-to-top.vue';
   import SlidingPanel from '../components/sliding-panel.vue';
   import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
-  import { XPlugin } from '../plugins/x-plugin';
   import { XInstaller } from '../x-installer/x-installer';
   import Facets from '../x-modules/facets-next/components/facets/facets.vue';
   import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
@@ -214,12 +213,10 @@
   import ResultsList from '../x-modules/search/components/results-list.vue';
   import SortDropdown from '../x-modules/search/components/sort-dropdown.vue';
   import SortList from '../x-modules/search/components/sort-list.vue';
-  import { searchXModule } from '../x-modules/search/x-module';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
     beforeRouteEnter(_to, _from, next: () => void): void {
-      XPlugin.registerXModule(searchXModule);
       new XInstaller(
         deepMerge(baseInstallXOptions, {
           xModules: { recommendations: { config: { maxItemsToRequest: 48 } } }
