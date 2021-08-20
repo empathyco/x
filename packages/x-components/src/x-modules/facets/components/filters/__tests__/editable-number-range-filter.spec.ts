@@ -19,7 +19,6 @@ Object.defineProperty(HTMLInputElement.prototype, 'valueAsNumber', {
   get() {
     return parseFloat(this.value);
   },
-  writable: false,
   configurable: true,
   enumerable: true
 });
