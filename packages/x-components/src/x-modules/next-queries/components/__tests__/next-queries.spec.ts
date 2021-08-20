@@ -46,9 +46,9 @@ describe('testing next queries component', () => {
           <template #suggestion-content="suggestionContentScope">
             <img src="./next-query-icon.svg" class="x-next-query__icon" data-test="icon"/>
             <span
-                class="x-next-query__query"
-                data-test="query"
-                :data-index="suggestionContentScope.index"
+              class="x-next-query__query"
+              data-test="query"
+              :data-index="suggestionContentScope.index"
             >{{ suggestionContentScope.suggestion.query }}</span>
           </template>
         </NextQueries>
@@ -77,21 +77,21 @@ describe('testing next queries component', () => {
     const wrapperComponent = {
       template: `
         <NextQueries>
-        <template #suggestion="suggestionScope">
-          <NextQuery :suggestion="suggestionScope.suggestion">
-            <template #default="sugestionContentScope">
-              <img src="./next-query-icon.svg"
-                   class="x-next-query__icon"
-                   data-test="icon"/>
-              <span
+          <template #suggestion="suggestionScope">
+            <NextQuery :suggestion="suggestionScope.suggestion">
+              <template #default="sugestionContentScope">
+                <img src="./next-query-icon.svg" 
+                  class="x-next-query__icon"
+                  data-test="icon"/>
+                <span
                   class="x-next-query__query"
                   data-test="query"
                   :data-index="suggestionScope.index"
-              >{{ suggestionScope.suggestion.query }}</span>
-            </template>
-          </NextQuery>
-          <button data-test="custom-button">Custom Behaviour</button>
-        </template>
+                >{{ suggestionScope.suggestion.query }}</span>
+              </template>
+            </NextQuery>
+            <button data-test="custom-button">Custom Behaviour</button>
+          </template>
         </NextQueries>
       `,
       components: {
