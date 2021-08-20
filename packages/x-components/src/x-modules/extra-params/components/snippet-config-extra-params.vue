@@ -77,7 +77,7 @@ _See how the snippet config is injected and passed to the SnippetConfigExtraPara
 </template>
 
 <script>
-  import { SnippetConfigExtraParams } from '@empathyco/x-components/snippet-config-extra-params';
+  import { SnippetConfigExtraParams } from '@empathyco/x-components/extra-params';
 
   const Provider = {
     provide: {
