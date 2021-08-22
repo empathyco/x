@@ -35,8 +35,10 @@
      *
      * @remarks This object keeps manually the desired snippet config properties to avoid
      * unnecessary re-renders.
+     *
+     * @internal
      */
-    public extraParams: Dictionary<unknown> = {};
+    protected extraParams: Dictionary<unknown> = {};
 
     /**
      * Updates the extraParams object when the snippet config changes.

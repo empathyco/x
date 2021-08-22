@@ -82,6 +82,34 @@ describe('testing snippet config extra params component', () => {
 
     expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(2);
   });
+
+  // eslint-disable-next-line max-len
+  it('not emits the ExtraParamsProvided event when any no extra params in the snippet config changes', async () => {
+    const { wrapper, setSnippetConfig } = renderSnippetConfigExtraParams();
+    const extraParamsProvidedCallback = jest.fn();
+
+    wrapper.vm.$x.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
+
+    expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
+      eventPayload: { warehouse: 1234 },
+      metadata: { moduleName: 'extraParams' }
+    });
+
+    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
+
+    await setSnippetConfig({ lang: 'es' });
+
+    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
+
+    await setSnippetConfig({ warehouse: 45678 });
+
+    expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
+      eventPayload: { warehouse: 45678 },
+      metadata: { moduleName: 'extraParams' }
+    });
+
+    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(2);
+  });
 });
 
 interface RenderExtraParamsApi {
