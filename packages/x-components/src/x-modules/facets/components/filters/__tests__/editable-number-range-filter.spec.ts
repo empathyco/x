@@ -18,7 +18,9 @@ import { resetXFacetsStateWith } from '../../__tests__/utils';
 Object.defineProperty(HTMLInputElement.prototype, 'valueAsNumber', {
   get() {
     return parseFloat(this.value);
-  }
+  },
+  configurable: true,
+  enumerable: true
 });
 
 function renderEditableNumberRangeFilter({

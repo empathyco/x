@@ -6,7 +6,7 @@
   import { extraParamsXModule } from '../x-module';
 
   /**
-   * It emits a {@link ExtraParamsXEvents.ExtraRequestParamsProvided} with the values
+   * It emits a {@link ExtraParamsXEvents.ExtraParamsProvided} with the values
    * received as a prop.
    *
    * @public
@@ -18,12 +18,12 @@
     /**
      * (Required) A Dictionary where the keys are the extra param names and its values.
      *
-     * @remarks Emits the {@link ExtraParamsXEvents.ExtraRequestParamsProvided} when the
+     * @remarks Emits the {@link ExtraParamsXEvents.ExtraParamsProvided} when the
      * component is rendered or the values changed.
      *
      * @public
      */
-    @XEmit('ExtraRequestParamsProvided', { immediate: true, deep: true })
+    @XEmit('ExtraParamsProvided', { immediate: true, deep: true })
     @Prop({ required: true })
     public values!: Dictionary<unknown>;
 
@@ -35,9 +35,9 @@
 <docs lang="mdx">
 ## Events
 
-- [`ExtraRequestParamsProvided`][1]
+- [`ExtraParamsProvided`][1]
 
-[1](./../../api/x-components.extraparamsxevents.extrarequestparamsprovided.md)
+[1](./../../api/x-components.extraparamsxevents.extraparamsprovided.md)
 
 ## See it in action
 
