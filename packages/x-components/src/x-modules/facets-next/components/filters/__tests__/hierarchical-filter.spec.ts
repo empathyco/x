@@ -49,10 +49,10 @@ function renderHierarchicalFilter({
     await localVue.nextTick();
   }
 
-  async function setRootFilter(newFilter: HierarchicalFilterModel): Promise<void> {
+  function setRootFilter(newFilter: HierarchicalFilterModel): Promise<void> {
     filter = newFilter;
-    await setFilter(newFilter);
     wrapper.setProps({ filterId: filter.id });
+    return setFilter(newFilter);
   }
 
   async function clickFilter(): Promise<void> {
@@ -60,8 +60,7 @@ function renderHierarchicalFilter({
   }
 
   function updateFilter(newFields: Partial<HierarchicalFilterModel>): Promise<void> {
-    setFilter({ ...filter, ...newFields });
-    return localVue.nextTick();
+    return setFilter({ ...filter, ...newFields });
   }
 
   function getFilters(filterIds: Array<HierarchicalFilterModel['id']>): HierarchicalFilterModel[] {
