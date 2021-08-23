@@ -20,7 +20,6 @@
           :aria-checked="filter.selected.toString()"
           :class="cssClasses"
           :disabled="isDisabled"
-          :events="clickEvents"
           data-test="filter"
           role="checkbox"
         >
@@ -32,10 +31,11 @@
         </button>
       </slot>
     </RenderlessFilter>
-    <Filters
+    <FiltersList
       #default="{ filter: childFilter }"
       :animation="childrenAnimation"
       :filters="renderedChildrenFilters"
+      :parent-id="filter.id"
       class="x-hierarchical-filter__children"
       data-test="children-filters"
     >
@@ -47,7 +47,7 @@
           <slot name="label" :filter="filter" />
         </template>
       </HierarchicalFilter>
-    </Filters>
+    </FiltersList>
   </div>
 </template>
 
@@ -59,7 +59,7 @@
   import { VueCSSClasses } from '../../../../utils/types';
   import { XEventsTypes } from '../../../../wiring/events.types';
   import { facetsNextXModule } from '../../x-module';
-  import Filters from '../lists/filters.vue';
+  import FiltersList from '../lists/filters-list.vue';
   import RenderlessFilter from './renderless-filter.vue';
 
   /**
@@ -69,7 +69,7 @@
    */
   @Component({
     name: 'HierarchicalFilter',
-    components: { Filters, RenderlessFilter },
+    components: { FiltersList, RenderlessFilter },
     mixins: [xComponentMixin(facetsNextXModule)]
   })
   export default class HierarchicalFilter extends Vue {
