@@ -1,22 +1,30 @@
-import { mount, Wrapper } from '@vue/test-utils';
+import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
+import Vuex, { Store } from 'vuex';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components';
-import { XPlugin } from '../../../../plugins';
-import { AnyFunction, Dictionary } from '../../../../utils';
+import { RootXStoreState } from '../../../../store';
+import { AnyFunction, DeepPartial, Dictionary } from '../../../../utils';
 import { WirePayload } from '../../../../wiring';
-import { extraParamsXModule } from '../../x-module';
+import { resetXExtraParamStateWith } from '../../store/__tests__/utils';
 import RenderlessExtraParam from '../renderless-extra-param.vue';
 
 describe('testing Renderless extra params component', () => {
   function renderRenderlessExtraParams({
     scopedSlots,
     defaultValue,
-    extraParamName
+    extraParamName,
+    params
   }: RenderlessExtraParamsOptions): RenderlessExtraParamsAPI {
-    XPlugin.resetInstance();
-    const [, localVue] = installNewXPlugin();
-    XPlugin.registerXModule(extraParamsXModule);
+    const localVue = createLocalVue();
+    localVue.use(Vuex);
+
+    const store: Store<DeepPartial<RootXStoreState>> = new Store({});
+    installNewXPlugin({ store }, localVue);
+
+    resetXExtraParamStateWith(store, {
+      params: params ?? {}
+    });
 
     const wrapper = mount(RenderlessExtraParam, {
       propsData: {
@@ -24,6 +32,7 @@ describe('testing Renderless extra params component', () => {
         defaultValue
       },
       localVue,
+      store,
       scopedSlots
     });
 
@@ -47,7 +56,8 @@ describe('testing Renderless extra params component', () => {
     expect(wrapper.find(getDataTestSelector('custom-slot')).text()).toEqual('Custom slot');
   });
 
-  it('emits ExtraParamsProvided event when the component receives a default value', () => {
+  // eslint-disable-next-line max-len
+  it("emits ExtraParamsProvided event when the component receives a default value and it isn't in the store", () => {
     const extraParamsProvidedCallback = jest.fn();
     const { wrapper } = renderRenderlessExtraParams({
       extraParamName: 'warehouse',
@@ -62,6 +72,21 @@ describe('testing Renderless extra params component', () => {
     });
 
     expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
+  });
+
+  // eslint-disable-next-line max-len
+  it('not emits ExtraParamsProvided event when the component receives a default value if its in the store', () => {
+    const extraParamsProvidedCallback = jest.fn();
+
+    const { wrapper } = renderRenderlessExtraParams({
+      extraParamName: 'warehouse',
+      defaultValue: 1234,
+      params: { warehouse: 1234 }
+    });
+
+    wrapper.vm.$x.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
+
+    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(0);
   });
 
   it('emits UserChangedExtraParams event when the update method is called', () => {
@@ -98,6 +123,8 @@ interface RenderlessExtraParamsOptions {
   extraParamName: string;
   /** The scoped slots to render. */
   scopedSlots?: Record<string, string | AnyFunction>;
+  /** A dictionary with the params to save in the store. */
+  params?: Dictionary<unknown>;
 }
 
 interface RenderlessExtraParamsAPI {

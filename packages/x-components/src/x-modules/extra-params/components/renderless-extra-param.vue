@@ -55,7 +55,7 @@
      * @internal
      */
     created(): void {
-      if (this.defaultValue !== undefined /* && this.value === undefined */) {
+      if (this.defaultValue !== undefined && this.value === undefined) {
         this.emitEvent('ExtraParamsProvided', this.defaultValue);
       }
     }
