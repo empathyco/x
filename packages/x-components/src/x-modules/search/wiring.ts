@@ -145,6 +145,13 @@ export const searchWiring = createWiring({
     resetPage,
     setSelectedFilters
   },
+  // TODO: remove when facets refactor is done
+  SelectedFiltersNextChanged: {
+    resetPage,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    setSelectedFilters
+  },
   UserClickedASort: {
     resetPage,
     setSort
