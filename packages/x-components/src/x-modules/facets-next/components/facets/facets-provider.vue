@@ -10,7 +10,7 @@
   import { facetsNextXModule as facetsXModule } from '../../x-module';
 
   /**
-   * This component allows to provide facets by prop, to add them to the state of  the
+   * This component allows to provide facets by prop, to add them to the state of the
    * `Facets X-Module`. These facets will be added to the `Facets X-Module` state together with
    * the facets emitted by the `Search X-Module` through the {@link SearchXEvents.FacetsChanged}
    * event.

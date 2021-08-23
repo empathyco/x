@@ -16,6 +16,7 @@ import { deepFlat } from './array';
  * @param anotherFilters - Another list of filters to compare.
  * @returns True if the two lists of filters are equal, which means that they have the same
  * filters. The position of the filter does not matter for this check.
+ * @public
  */
 export function areNextFiltersDifferent(
   someFilters: FilterNext[],

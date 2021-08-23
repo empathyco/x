@@ -454,7 +454,7 @@ describe('testing facets service', () => {
         facets: [colorFacet, categoryFacet, ageFacet, priceFacet]
       });
       expect(
-        service.areFiltersDifferent(getFilters(), [
+        areNextFiltersDifferent(getFilters(), [
           ...colorFacet.filters,
           ...categoryFacet.filters,
           ...ageFacet.filters,
@@ -509,7 +509,7 @@ describe('testing facets service', () => {
         facets: [newColorFacet, newCategoryFacet, newAgeFacet, newPriceFacet]
       });
       expect(
-        service.areFiltersDifferent(getFilters(), [
+        areNextFiltersDifferent(getFilters(), [
           ...newColorFacet.filters,
           ...newCategoryFacet.filters,
           ...newAgeFacet.filters,
@@ -517,7 +517,7 @@ describe('testing facets service', () => {
         ])
       ).toBe(false);
       expect(
-        service.areFiltersDifferent(getSelectedFilters(), [
+        areNextFiltersDifferent(getSelectedFilters(), [
           greenColorFilter,
           kidsCategoryFilter,
           ageMoreThan18Filter,
@@ -536,7 +536,7 @@ describe('testing facets service', () => {
         facets: [shipmentFacet]
       });
       expect(
-        service.areFiltersDifferent(getFilters(), [
+        areNextFiltersDifferent(getFilters(), [
           ...newColorFacet.filters,
           ...newCategoryFacet.filters,
           ...newAgeFacet.filters,
@@ -545,7 +545,7 @@ describe('testing facets service', () => {
         ])
       ).toBe(false);
       expect(
-        service.areFiltersDifferent(getSelectedFilters(), [
+        areNextFiltersDifferent(getSelectedFilters(), [
           greenColorFilter,
           kidsCategoryFilter,
           ageMoreThan18Filter,

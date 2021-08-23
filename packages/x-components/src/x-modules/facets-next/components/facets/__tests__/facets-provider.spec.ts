@@ -2,7 +2,7 @@ import { Facet, Filter } from '@empathyco/x-types-next';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
+import { createNextSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
 import { installNewXPlugin } from '../../../../../__tests__/utils';
 import {
   getXComponentXModuleName,
@@ -11,8 +11,11 @@ import {
 import { XPlugin } from '../../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../../store/store.types';
 import { arrayToObject } from '../../../../../utils/array';
+import { areNextFiltersDifferent } from '../../../../../utils/filters';
+import { reduce } from '../../../../../utils/object';
 import { DeepPartial, Dictionary } from '../../../../../utils/types';
 import { DefaultFacetsService } from '../../../service/facets.service';
+import { GroupId } from '../../../store/types';
 import { facetsNextXModule as facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
 import FacetsProvider from '../facets-provider.vue';
@@ -30,11 +33,11 @@ describe('testing Facets component', () => {
 
   it('keeps the state facets if no facets are provided', () => {
     const stateFacets = {
-      color_facet: createSimpleFacetStub('color', createSimpleFilter => [
+      color_facet: createNextSimpleFacetStub('color', createSimpleFilter => [
         createSimpleFilter('Red', false),
         createSimpleFilter('Blue', true)
       ]),
-      brand_facet: createSimpleFacetStub('brand', createSimpleFilter => [
+      brand_facet: createNextSimpleFacetStub('brand', createSimpleFilter => [
         createSimpleFilter('Adidas', false),
         createSimpleFilter('Nike', false)
       ])
@@ -48,21 +51,21 @@ describe('testing Facets component', () => {
 
   it('renders the provided facets keeping the state facets', () => {
     const stateFacets = {
-      color_facet: createSimpleFacetStub('color', createSimpleFilter => [
+      color_facet: createNextSimpleFacetStub('color', createSimpleFilter => [
         createSimpleFilter('Red', false),
         createSimpleFilter('Blue', true)
       ]),
-      brand_facet: createSimpleFacetStub('brand', createSimpleFilter => [
+      brand_facet: createNextSimpleFacetStub('brand', createSimpleFilter => [
         createSimpleFilter('Adidas', false),
         createSimpleFilter('Nike', false)
       ])
     };
     const providedFacets: Facet[] = [
-      createSimpleFacetStub('size', createSimpleFilter => [
+      createNextSimpleFacetStub('size', createSimpleFilter => [
         createSimpleFilter('Small', false),
         createSimpleFilter('Large', true)
       ]),
-      createSimpleFacetStub('stock', createSimpleFilter => [
+      createNextSimpleFacetStub('stock', createSimpleFilter => [
         createSimpleFilter('no stock', false),
         createSimpleFilter('with stock', false)
       ])
@@ -80,11 +83,11 @@ describe('testing Facets component', () => {
   it('emits the `UserChangedSelectedFilters` event when a filter is changed', async () => {
     const { wrapper, deselectFilters, selectFilters } = renderFacetsProviderComponent();
 
-    const colorFacet = createSimpleFacetStub('color', createSimpleFilter => [
+    const colorFacet = createNextSimpleFacetStub('color', createSimpleFilter => [
       createSimpleFilter('Red', false),
       createSimpleFilter('Blue', false)
     ]);
-    const sizeFacet = createSimpleFacetStub('size', createSimpleFilter => [
+    const sizeFacet = createNextSimpleFacetStub('size', createSimpleFilter => [
       createSimpleFilter('Big', false),
       createSimpleFilter('Small', true)
     ]);
@@ -97,7 +100,12 @@ describe('testing Facets component', () => {
 
     // Selecting a filter triggers UserChangedSelectedFilters
     await selectFilters([redFilter, bigFilter]);
-    expect(wrapper.emitted('UserChangedSelectedNextFilters')).toHaveLength(1);
+    let emittedEvents = wrapper.emitted('UserChangedSelectedNextFilters');
+    expect(emittedEvents).toHaveLength(1);
+    let emittedFilters: Filter[] = emittedEvents?.[0][0];
+    expect(areNextFiltersDifferent(emittedFilters, [redFilter, bigFilter, smallFilter])).toBe(
+      false
+    );
 
     // Modifying the prop again with selected filters does not trigger UserChangedSelectedFilters
     await wrapper.setProps({ facets: [colorFacet, sizeFacet] });
@@ -107,7 +115,10 @@ describe('testing Facets component', () => {
     expect(wrapper.emitted('UserChangedSelectedNextFilters')).toHaveLength(1);
 
     await deselectFilters([smallFilter]);
-    expect(wrapper.emitted('UserChangedSelectedNextFilters')).toHaveLength(2);
+    emittedEvents = wrapper.emitted('UserChangedSelectedNextFilters');
+    expect(emittedEvents).toHaveLength(2);
+    emittedFilters = emittedEvents?.[1][0];
+    expect(areNextFiltersDifferent(emittedFilters, [])).toBe(false);
   });
 });
 
@@ -126,7 +137,12 @@ function renderFacetsProviderComponent({
       .flat(),
     'id'
   );
-  resetXFacetsStateWith(store, { facets: stateFacets, filters });
+  const groups = reduce(
+    stateFacets,
+    (groups, facetId) => Object.assign(groups, { [facetId]: 'search' }),
+    {} as Record<Facet['id'], GroupId>
+  );
+  resetXFacetsStateWith(store, { facets: stateFacets, filters, groups });
 
   const facetWrapper = mount(
     {
@@ -153,23 +169,47 @@ function renderFacetsProviderComponent({
     },
     async selectFilters(filters: Filter[]): Promise<void> {
       filters.forEach(filter => DefaultFacetsService.instance.select(filter));
-      await Vue.nextTick();
+      await localVue.nextTick();
     },
     async deselectFilters(filters: Filter[]): Promise<void> {
       filters.forEach(filter => DefaultFacetsService.instance.deselect(filter));
-      await Vue.nextTick();
+      await localVue.nextTick();
     }
   };
 }
 
 interface FacetsRenderOptions {
-  stateFacets?: Dictionary<Facet>;
+  /**
+   * Facets to pass as prop to the {@link FacetsProvider} component.
+   */
   providedFacets?: Facet[];
+  /**
+   * Facets to initialise the store state with. They belong to a different group than the provided
+   * ones.
+   */
+  stateFacets?: Dictionary<Facet>;
 }
 
 interface FacetsComponentAPI {
-  wrapper: Wrapper<Vue>;
-  getStateFacets: () => Record<Facet['id'], Facet>;
-  selectFilters: (filters: Filter[]) => Promise<void>;
+  /**
+   * Selects the given filters. * * @param filters - The list of filters to deselect.
+   *
+   * @returns A promise that resolves after updating the view.
+   */
   deselectFilters: (filters: Filter[]) => Promise<void>;
+  /**
+   * Retrieves all the stored facets.
+   */
+  getStateFacets: () => Record<Facet['id'], Facet>;
+  /**
+   * Selects the given filters.
+   *
+   * @param filters - The list of filters to select.
+   * @returns A promise that resolves after updating the view.
+   */
+  selectFilters: (filters: Filter[]) => Promise<void>;
+  /**
+   * The testing wrapper of the {@link FacetsProvider} component.
+   */
+  wrapper: Wrapper<Vue>;
 }
