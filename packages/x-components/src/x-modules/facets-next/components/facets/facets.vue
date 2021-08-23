@@ -45,10 +45,8 @@
   import { facetsNextXModule as facetsXModule } from '../../x-module';
 
   /**
-   * This component renders the list of facets stored in the Facets module. This facets can be set
-   * either emitting the `BackendFacetsChanged` and/or `FrontendFacetsChanged` events, or by using
-   * the `backendFacets` and/or `frontendFacets` props. Facets can be rendered differently based on
-   * their purpose and this can be achieved using the exposed slots:
+   * This component renders the list of facets stored in the Facets module. Facets can be rendered
+   * differently based on their purpose and this can be achieved using the exposed slots:
    * - A default and required slot.
    * - A custom slot for each facet with the facetId as its name. This allows each facet to be
    * rendered differently based on its needs.

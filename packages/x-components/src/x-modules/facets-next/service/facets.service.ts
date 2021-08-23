@@ -23,13 +23,6 @@ export class DefaultFacetsService implements FacetsService {
     return XPlugin.store;
   }
 
-  areFiltersDifferent(someFilters: Filter[], anotherFilters: Filter[]): boolean {
-    return (
-      someFilters.length !== anotherFilters.length ||
-      someFilters.some(filter => !anotherFilters.find(otherFilter => otherFilter.id === filter.id))
-    );
-  }
-
   clearFilters(facetIds?: Array<Facet['id']>): void {
     this.getSelectedFilters()
       .filter(filter => !facetIds || (isFacetFilter(filter) && facetIds.includes(filter.facetId)))

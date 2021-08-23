@@ -6,7 +6,27 @@ import {
   isEditableNumberRangeFilter,
   isHierarchicalFacet
 } from '@empathyco/x-types';
+import { Filter as FilterNext } from '@empathyco/x-types-next';
 import { deepFlat } from './array';
+
+/**
+ * Compares if two lists contains the same filters.
+ *
+ * @param someFilters - A list of filters to compare.
+ * @param anotherFilters - Another list of filters to compare.
+ * @returns True if the two lists of filters are equal, which means that they have the same
+ * filters. The position of the filter does not matter for this check.
+ * @public
+ */
+export function areNextFiltersDifferent(
+  someFilters: FilterNext[],
+  anotherFilters: FilterNext[]
+): boolean {
+  return (
+    someFilters.length !== anotherFilters.length ||
+    someFilters.some(filter => !anotherFilters.find(otherFilter => otherFilter.id === filter.id))
+  );
+}
 
 /**
  * Checks if a filter is selected.

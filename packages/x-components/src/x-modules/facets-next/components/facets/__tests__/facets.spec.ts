@@ -12,7 +12,7 @@ import { XPlugin } from '../../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../../store/store.types';
 import { arrayToObject } from '../../../../../utils/array';
 import { DeepPartial, Dictionary } from '../../../../../utils/types';
-import { facetsNextXModule } from '../../../x-module';
+import { facetsNextXModule as facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
 import Facets from '../facets.vue';
 
@@ -221,7 +221,7 @@ function renderFacetsComponent({
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
   installNewXPlugin({ store }, localVue);
-  XPlugin.registerXModule(facetsNextXModule);
+  XPlugin.registerXModule(facetsXModule);
   const filters = arrayToObject(
     Object.values(facets)
       ?.map(facet => facet.filters)

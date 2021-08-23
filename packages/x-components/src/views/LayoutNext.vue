@@ -81,6 +81,7 @@
             v-if="$x.totalResults > 0"
             class="x-list x-list--padding-05 x-list--padding-top x-list--border x-list--border-top"
           >
+            <FacetsProvider :facets="staticFacets" />
             <Facets class="x-list--gap-06">
               <!--  Default Facet    -->
               <template #default="{ facet }">
@@ -167,6 +168,7 @@
 
 <script lang="ts">
   import { deepMerge } from '@empathyco/x-deep-merge';
+  import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types-next';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { BaseIdTogglePanelButton } from '../components';
@@ -194,6 +196,7 @@
   import SlidingPanel from '../components/sliding-panel.vue';
   import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
   import { XInstaller } from '../x-installer/x-installer';
+  import FacetsProvider from '../x-modules/facets-next/components/facets/facets-provider.vue';
   import Facets from '../x-modules/facets-next/components/facets/facets.vue';
   import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
   import MultiSelectFilters from '../x-modules/facets/components/lists/multi-select-filters.vue';
@@ -240,6 +243,8 @@
       ChevronLeft,
       ChevronTinyRight,
       ChevronTinyLeft,
+      Facets,
+      FacetsProvider,
       Grid2Col,
       Grid1Col,
       CrossIcon,
@@ -260,7 +265,6 @@
       SimpleFilter,
       MultiSelectFilters,
       BaseHeaderTogglePanel,
-      Facets,
       SearchButton,
       ClearSearchInput,
       BaseIdModalClose,
@@ -276,6 +280,22 @@
     protected columnPickerValues = [0, 4, 6];
     protected selectedColumns = 4;
     protected resultsAnimation = StaggeredFadeAndSlide;
+    protected staticFacets: Facet[] = [
+      {
+        modelName: 'SimpleFacet',
+        label: 'offer',
+        id: 'offer',
+        filters: [
+          {
+            facetId: 'offer',
+            modelName: 'SimpleFilter',
+            id: '{!tag=price_facet}priceSort:[0+TO+10]',
+            selected: false,
+            label: 'In Offer'
+          } as SimpleFilterModel
+        ]
+      }
+    ];
   }
 </script>
 

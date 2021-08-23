@@ -26,15 +26,6 @@ export interface FacetsGroup {
  */
 export interface FacetsService {
   /**
-   * Compares if two lists contains the same filters.
-   *
-   * @param someFilters - A list of filters to compare.
-   * @param anotherFilters - Another list of filters to compare.
-   * @returns True if the two lists of filters are equal, which means that they have the same
-   * filters. The position of the filter does not matter for this check.
-   */
-  areFiltersDifferent(someFilters: Filter[], anotherFilters: Filter[]): boolean;
-  /**
    * Deselects the selected filters.
    *
    * @param facetIds - An optional list of facets ids from whom deselect the filters.
