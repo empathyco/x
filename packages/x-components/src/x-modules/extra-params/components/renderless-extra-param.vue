@@ -26,11 +26,11 @@
     @Prop({ required: true })
     protected extraParamName!: string;
 
-    @Prop
+    @Prop()
     protected defaultValue?: string;
 
     protected updateValue(newValue: string): void {
-      this.$x.emit('UserChangedExtraParam', { [this.extraParamName]: newValue });
+      this.$x.emit('UserChangedExtraRequestParam', { [this.extraParamName]: newValue });
     }
   }
 </script>
