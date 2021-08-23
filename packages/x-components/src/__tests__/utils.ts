@@ -163,6 +163,7 @@ export function installNewXPlugin(
   options: Partial<XPluginOptions> = {},
   localVue: typeof Vue = createLocalVue()
 ): [XPlugin, typeof Vue] {
+  XPlugin.resetInstance();
   const xPlugin = new XPlugin(new BaseXBus());
   const installOptions: XPluginOptions = { adapter: SearchAdapterDummy, ...options };
   localVue.use(xPlugin, installOptions);
