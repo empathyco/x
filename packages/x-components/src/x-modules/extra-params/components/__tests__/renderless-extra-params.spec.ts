@@ -75,12 +75,12 @@ describe('testing Renderless extra params component', () => {
 });
 
 interface RenderlessExtraParamsOptions {
-  /** The scoped slots to render. */
-  scopedSlots?: Record<string, string | AnyFunction>;
-  /** The name of the extra param name to be changed. */
-  extraParamName: string;
   /** The default value of the extra param. */
   defaultValue?: string | number;
+  /** The name of the extra param name to be changed. */
+  extraParamName: string;
+  /** The scoped slots to render. */
+  scopedSlots?: Record<string, string | AnyFunction>;
 }
 
 interface RenderlessExtraParamsAPI {
