@@ -47,8 +47,8 @@ describe('testing Renderless extra params component', () => {
     expect(wrapper.find(getDataTestSelector('custom-slot')).text()).toEqual('Custom slot');
   });
 
-  it('emits UserChangedExtraRequestParam event when the update method is called', () => {
-    const userChangedExtraRequestParamCallback = jest.fn();
+  it('emits UserChangedExtraParams event when the update method is called', () => {
+    const userChangedExtraParamsCallback = jest.fn();
     const { wrapper } = renderRenderlessExtraParams({
       extraParamName: 'warehouse',
       scopedSlots: {
@@ -59,20 +59,18 @@ describe('testing Renderless extra params component', () => {
       }
     });
 
-    wrapper.vm.$x
-      .on('UserChangedExtraRequestParam', true)
-      .subscribe(userChangedExtraRequestParamCallback);
+    wrapper.vm.$x.on('UserChangedExtraParams', true).subscribe(userChangedExtraParamsCallback);
 
     wrapper.find(getDataTestSelector('custom-slot')).element.click();
 
-    expect(userChangedExtraRequestParamCallback).toHaveBeenCalledWith<
-      [WirePayload<Dictionary<unknown>>]
-    >({
-      eventPayload: { warehouse: 45678 },
-      metadata: { moduleName: 'extraParams' }
-    });
+    expect(userChangedExtraParamsCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>(
+      {
+        eventPayload: { warehouse: 45678 },
+        metadata: { moduleName: 'extraParams' }
+      }
+    );
 
-    expect(userChangedExtraRequestParamCallback).toHaveBeenCalledTimes(1);
+    expect(userChangedExtraParamsCallback).toHaveBeenCalledTimes(1);
   });
 });
 

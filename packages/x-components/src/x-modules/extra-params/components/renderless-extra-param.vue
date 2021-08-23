@@ -11,7 +11,7 @@
   import { extraParamsXModule } from '../x-module';
 
   /**
-   * It emits a {@link ExtraParamsXEvents.UserChangedExtraRequestParam} when the `updateValue`
+   * It emits a {@link ExtraParamsXEvents.UserChangedExtraParams} when the `updateValue`
    * is called.
    *
    * @public
@@ -31,7 +31,7 @@
     protected defaultValue?: string;
 
     protected updateValue(newValue: string): void {
-      this.$x.emit('UserChangedExtraRequestParam', { [this.extraParamName]: newValue });
+      this.$x.emit('UserChangedExtraParams', { [this.extraParamName]: newValue });
     }
   }
 </script>
