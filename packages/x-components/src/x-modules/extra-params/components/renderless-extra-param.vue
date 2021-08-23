@@ -11,7 +11,8 @@
   import { extraParamsXModule } from '../x-module';
 
   /**
-   * It emits a {@link ExtraParamsXEvents.UserChangedExtraParam} when the `updateValue` is called.
+   * It emits a {@link ExtraParamsXEvents.UserChangedExtraRequestParam} when the `updateValue`
+   * is called.
    *
    * @public
    */
