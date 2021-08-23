@@ -6,7 +6,7 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components';
 import { RootXStoreState } from '../../../../store';
 import { AnyFunction, DeepPartial, Dictionary } from '../../../../utils';
 import { WirePayload } from '../../../../wiring';
-import { resetXExtraParamStateWith } from '../../store/__tests__/utils';
+import { resetXExtraParamStateWith } from './utils';
 import RenderlessExtraParam from '../renderless-extra-param.vue';
 
 describe('testing Renderless extra params component', () => {
