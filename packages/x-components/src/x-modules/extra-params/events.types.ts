@@ -7,7 +7,7 @@ import { Dictionary } from '../../utils';
  * @public
  */
 export interface ExtraParamsXEvents {
-  UserChangedExtraRequestParam: Dictionary<unknown>;
-  ExtraRequestParamsChanged: Dictionary<unknown>;
-  ExtraRequestParamsProvided: Dictionary<unknown>;
+  UserChangedExtraParams: Dictionary<unknown>;
+  ExtraParamsChanged: Dictionary<unknown>;
+  ExtraParamsProvided: Dictionary<unknown>;
 }
