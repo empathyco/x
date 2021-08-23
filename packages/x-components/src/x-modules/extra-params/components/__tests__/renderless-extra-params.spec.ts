@@ -47,6 +47,23 @@ describe('testing Renderless extra params component', () => {
     expect(wrapper.find(getDataTestSelector('custom-slot')).text()).toEqual('Custom slot');
   });
 
+  it('emits ExtraParamsProvided event when the component receives a default value', () => {
+    const extraParamsProvidedCallback = jest.fn();
+    const { wrapper } = renderRenderlessExtraParams({
+      extraParamName: 'warehouse',
+      defaultValue: 1234
+    });
+
+    wrapper.vm.$x.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
+
+    expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
+      eventPayload: { warehouse: 1234 },
+      metadata: { moduleName: 'extraParams' }
+    });
+
+    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
+  });
+
   it('emits UserChangedExtraParams event when the update method is called', () => {
     const userChangedExtraParamsCallback = jest.fn();
     const { wrapper } = renderRenderlessExtraParams({
@@ -77,7 +94,7 @@ describe('testing Renderless extra params component', () => {
 interface RenderlessExtraParamsOptions {
   /** The default value of the extra param. */
   defaultValue?: string | number;
-  /** The name of the extra param name to be changed. */
+  /** The name of the extra param to be changed. */
   extraParamName: string;
   /** The scoped slots to render. */
   scopedSlots?: Record<string, string | AnyFunction>;
