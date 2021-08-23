@@ -27,14 +27,14 @@
     }
   })
   export default class RenderlessExtraParam extends Vue {
-    /** The name of the extra param.
+    /** The extra param's name.
      *
      * @public
      */
     @Prop({ required: true })
     public extraParamName!: string;
 
-    /** The default value of the extra param.
+    /** The extra param's default value.
      *
      * @public
      */
