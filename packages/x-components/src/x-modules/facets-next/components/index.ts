@@ -1,5 +1,6 @@
 // Facets
 export { default as Facets } from './facets/facets.vue';
+export { default as FacetsProvider } from './facets/facets-provider.vue';
 
 // Filters
 export { default as AllFilter } from './filters/all-filter.vue';

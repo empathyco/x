@@ -39,6 +39,11 @@ export interface FacetsNextXEvents {
    */
   UserClickedANextHierarchicalFilter: HierarchicalFilter;
   /**
+   * A user action has changed the selected filters.
+   * * Payload: The new list of selected filters.
+   */
+  UserChangedSelectedNextFilters: Filter[];
+  /**
    * The user has clicked any kind of filter.
    * * Payload: The clicked filter.
    *
