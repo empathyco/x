@@ -6,8 +6,8 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components';
 import { RootXStoreState } from '../../../../store';
 import { AnyFunction, DeepPartial, Dictionary } from '../../../../utils';
 import { WirePayload } from '../../../../wiring';
-import { resetXExtraParamStateWith } from './utils';
 import RenderlessExtraParam from '../renderless-extra-param.vue';
+import { resetXExtraParamStateWith } from './utils';
 
 describe('testing Renderless extra params component', () => {
   function renderRenderlessExtraParams({
@@ -66,12 +66,13 @@ describe('testing Renderless extra params component', () => {
 
     wrapper.vm.$x.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
 
-    expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
-      eventPayload: { warehouse: 1234 },
-      metadata: { moduleName: 'extraParams' }
-    });
-
-    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
+    expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
+      1,
+      {
+        eventPayload: { warehouse: 1234 },
+        metadata: { moduleName: 'extraParams' }
+      }
+    );
   });
 
   // eslint-disable-next-line max-len
@@ -105,14 +106,12 @@ describe('testing Renderless extra params component', () => {
 
     wrapper.find(getDataTestSelector('custom-slot')).element.click();
 
-    expect(userChangedExtraParamsCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>(
-      {
-        eventPayload: { warehouse: 45678 },
-        metadata: { moduleName: 'extraParams' }
-      }
-    );
-
-    expect(userChangedExtraParamsCallback).toHaveBeenCalledTimes(1);
+    expect(userChangedExtraParamsCallback).toHaveBeenNthCalledWith<
+      [WirePayload<Dictionary<unknown>>]
+    >(1, {
+      eventPayload: { warehouse: 45678 },
+      metadata: { moduleName: 'extraParams' }
+    });
   });
 });
 
