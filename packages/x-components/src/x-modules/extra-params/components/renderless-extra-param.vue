@@ -54,7 +54,7 @@
      * @internal
      */
     created(): void {
-      if (this.defaultValue !== undefined) {
+      if (this.defaultValue !== undefined /* && this.value === undefined */) {
         this.emitEvent('ExtraParamsProvided', this.defaultValue);
       }
     }
@@ -82,12 +82,12 @@
     /** It emits an {@link ExtraParamsXEvents| event} the passed as payload.
      *
      * @param event - The name of the event.
-     * @param payload - The value of the extra param.
+     * @param value - The value of the extra param.
      *
      * @internal
      */
-    protected emitEvent(event: keyof ExtraParamsXEvents, payload: unknown): void {
-      this.$x.emit(event, { [this.extraParamName]: payload });
+    protected emitEvent(event: keyof ExtraParamsXEvents, value: unknown): void {
+      this.$x.emit(event, { [this.extraParamName]: value });
     }
   }
 </script>
