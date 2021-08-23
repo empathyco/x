@@ -12,3 +12,4 @@ export { default as SimpleFilter } from './filters/simple-filter.vue';
 
 // Lists
 export { default as FiltersInjectionMixin } from './lists/filters-injection.mixin';
+export { default as FiltersList } from './lists/filters-list.vue';

@@ -4,13 +4,13 @@ import Vue from 'vue';
 import { createNextSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
 import { getDataTestSelector } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
-import Filters from '../filters.vue';
+import FiltersList from '../filters-list.vue';
 
 /**
  * Function that returns a Filters wrapper.
  *
  * @param filters - Filters filters props.
- * @returns Filters vue-test-utils wrapper.
+ * @returns FiltersList vue-test-utils wrapper.
  */
 function renderFilters({
   filters = [],
@@ -22,7 +22,7 @@ function renderFilters({
     {
       props: ['filters'],
       components: {
-        Filters
+        Filters: FiltersList
       },
       template
     },
@@ -32,7 +32,7 @@ function renderFilters({
     }
   );
 
-  const wrapper = wrapperTemplate.findComponent(Filters);
+  const wrapper = wrapperTemplate.findComponent(FiltersList);
 
   return {
     wrapper,

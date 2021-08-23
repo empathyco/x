@@ -90,9 +90,9 @@
                     <span class="x-ellipsis">{{ facet.label }}</span>
                     <ChevronDown />
                   </template>
-                  <MultiSelectFilters v-slot="{ filter }" :filters="facet.filters">
+                  <FiltersList v-slot="{ filter }" :filters="facet.filters">
                     <SimpleFilter :filter="filter" />
-                  </MultiSelectFilters>
+                  </FiltersList>
                 </BaseHeaderTogglePanel>
               </template>
             </Facets>
@@ -198,8 +198,8 @@
   import { XInstaller } from '../x-installer/x-installer';
   import FacetsProvider from '../x-modules/facets-next/components/facets/facets-provider.vue';
   import Facets from '../x-modules/facets-next/components/facets/facets.vue';
-  import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
-  import MultiSelectFilters from '../x-modules/facets/components/lists/multi-select-filters.vue';
+  import FiltersList from '../x-modules/facets-next/components/lists/filters-list.vue';
+  import SimpleFilter from '../x-modules/facets-next/components/filters/simple-filter.vue';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
   import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
   import PopularSearches from '../x-modules/popular-searches/components/popular-searches.vue';
@@ -231,6 +231,7 @@
       infiniteScroll
     },
     components: {
+      FiltersList,
       ChevronUp,
       Promoted,
       PromotedsList,
@@ -263,7 +264,6 @@
       BaseColumnPickerList,
       SortDropdown,
       SimpleFilter,
-      MultiSelectFilters,
       BaseHeaderTogglePanel,
       SearchButton,
       ClearSearchInput,

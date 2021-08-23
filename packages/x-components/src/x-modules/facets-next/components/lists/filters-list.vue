@@ -41,7 +41,7 @@
   @Component({
     mixins: [xComponentMixin(facetsNextXModule)]
   })
-  export default class Filters extends mixins(FiltersInjectionMixin) {
+  export default class FiltersList extends mixins(FiltersInjectionMixin) {
     /**
      * Animation component that will be used to animate the base filters.
      *
@@ -107,18 +107,18 @@ filters list to their children, it is mandatory to send it as prop.
 
 Using default slot:
 ```vue
-<Filters :filters="filters">
+<FiltersList :filters="filters">
   <template #default="{ filter }">
     <p>{{ filter.label }}</p>
   </template>
-</Filters>
+</FiltersList>
 ```
 
 Using default slot abbreviated syntax:
 ```vue
-<Filters :filters="filters" v-slot="{ filter }">
+<FiltersList :filters="filters" v-slot="{ filter }">
   <p>{{ filter.label }}</p>
-</Filters>
+</FiltersList>
 ```
 
 > **Using injection**: It can receive the filters list by injection. It only works if it has a
@@ -128,9 +128,9 @@ Using default slot abbreviated syntax:
 
 ```vue
 <SlicedFilters :filters="filters">
-  <Filters v-slot="{ filter }">
+  <FiltersList v-slot="{ filter }">
     <p>{{ filter.label }}</p>
-  </Filters>
+  </FiltersList>
 </SlicedFilters>
 ```
 </docs>
