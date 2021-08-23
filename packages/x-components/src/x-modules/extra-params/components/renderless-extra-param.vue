@@ -6,7 +6,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Prop, Watch } from 'vue-property-decorator';
   import { NoElement, State, xComponentMixin } from '../../../components';
   import { Dictionary } from '../../../utils';
   import { ExtraParamsXEvents } from '../events.types';
@@ -19,7 +19,6 @@
    *
    * @public
    */
-
   @Component({
     mixins: [xComponentMixin(extraParamsXModule)],
     components: {
@@ -39,7 +38,14 @@
      * @public
      */
     @Prop()
-    public defaultValue?: string;
+    public defaultValue?: unknown;
+
+    @Watch('defaultValue')
+    syncUpdateValue(newValue: unknown): void {
+      if (this.defaultValue !== undefined && this.value === undefined) {
+        this.emitEvent('ExtraParamsProvided', newValue);
+      }
+    }
 
     /** A dictionary with the extra params from the store.
      *
@@ -92,3 +98,30 @@
     }
   }
 </script>
+
+<docs lang="mdx">
+## Extending the component
+
+_See how this component has a slot which allow us to extend the default behaviour._
+
+```vue
+<template>
+  <RenderlessExtraParam name="warehouse" default="" #default="{ value, updateValue }">
+    <BaseDropdown :value="value" :items="[1234, 4567]" @change="updateValue" />
+  </RenderlessExtraParam>
+</template>
+
+<script>
+  import { RenderlessExtraParams } from '@empathyco/x-components/extra-params';
+  import { BaseDropdown } from '@empathyco/x-components';
+
+  export default {
+    name: 'RenderlessExtraParamsDemo',
+    components: {
+      RenderlessExtraParams,
+      BaseDropdown
+    }
+  };
+</script>
+```
+</docs>

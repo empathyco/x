@@ -9,7 +9,7 @@ import { WirePayload } from '../../../../wiring';
 import RenderlessExtraParam from '../renderless-extra-param.vue';
 import { resetXExtraParamStateWith } from './utils';
 
-describe('testing Renderless extra params component', () => {
+describe('testing RenderlessExtraParam component', () => {
   function renderRenderlessExtraParams({
     scopedSlots,
     defaultValue,
@@ -57,7 +57,7 @@ describe('testing Renderless extra params component', () => {
   });
 
   // eslint-disable-next-line max-len
-  it("emits ExtraParamsProvided event when the component receives a default value and it isn't in the store", () => {
+  it("emits ExtraParamsProvided event when the component receives a default value and and it doesn't exist in the store", () => {
     const extraParamsProvidedCallback = jest.fn();
     const { wrapper } = renderRenderlessExtraParams({
       extraParamName: 'warehouse',
@@ -76,7 +76,7 @@ describe('testing Renderless extra params component', () => {
   });
 
   // eslint-disable-next-line max-len
-  it('not emits ExtraParamsProvided event when the component receives a default value if its in the store', () => {
+  it("not emits ExtraParamsProvided event when the component receives a default value if it's in the store", () => {
     const extraParamsProvidedCallback = jest.fn();
 
     const { wrapper } = renderRenderlessExtraParams({
