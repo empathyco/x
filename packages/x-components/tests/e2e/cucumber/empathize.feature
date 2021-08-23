@@ -3,6 +3,7 @@ Feature: Full Empathize
   Background:
     Given a next queries API
     Given a suggestions API
+    Given a related tags API
 
   Scenario Outline: 1. Query suggestions
     Given no special config for full empathize view
@@ -35,8 +36,8 @@ Feature: Full Empathize
     Then  the deleted history query is removed from history queries
 
     Examples:
-      | list                        | historyQueryItem  | historyQueryItem2 |
-      | barbie, lego, puzzle, funko | 1                 | 0                 |
+      | list                        | historyQueryItem | historyQueryItem2 |
+      | barbie, lego, puzzle, funko | 1                | 0                 |
 
   Scenario Outline: 3. Popular searches
     Given no special config for full empathize view

@@ -1,10 +1,9 @@
 import { HistoryQuery } from '@empathyco/x-types';
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
-import { map } from '../../../../utils';
-import { createHistoryQueries } from '../../../../__stubs__/history-queries-stubs.factory';
-import { getNextQueriesStub } from '../../../../__stubs__/next-queries-stubs.factory';
+import { createHistoryQueries, getNextQueriesStub } from '../../../../__stubs__';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
+import { map } from '../../../../utils';
 import { nextQueriesXStoreModule } from '../module';
 import { NextQueriesState } from '../types';
 import { resetNextQueriesStateWith } from './utils';

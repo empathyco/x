@@ -1,27 +1,55 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { createRelatedTagStub } from '../../../../src/__stubs__';
 
 let relatedTagsList: string[] = [];
 const secondRelatedTagsList: string[] = [];
 
+// Background
+Given('a related tags API with a known response', () => {
+  cy.intercept('https://api.empathy.co/getRelatedTags', req => {
+    req.reply({
+      relatedTags: [
+        createRelatedTagStub('lego', 'marvel'),
+        createRelatedTagStub('lego', 'bombero'),
+        createRelatedTagStub('lego', 'policia')
+      ]
+    });
+  }).as('interceptedRelatedTags');
+});
+
+Given('a related tags API with a selected one', () => {
+  cy.intercept('https://api.empathy.co/getRelatedTags', req => {
+    req.reply({
+      relatedTags: [
+        createRelatedTagStub('lego', 'bombero', true),
+        createRelatedTagStub('lego', 'policia'),
+        createRelatedTagStub('lego', 'barbie')
+      ]
+    });
+  }).as('interceptedRelatedTagsWithSelection');
+});
+
+// Scenario 1
 Given(
   'following config: requested items {int}, add to search-box {boolean}',
   (maxItemsToRequest: number, addToSearchBox: boolean) => {
-    cy.visit('/test/related-tags', {
+    const config = {
+      relatedTags: {
+        config: {
+          maxItemsToRequest: maxItemsToRequest,
+          addToSearchBox: addToSearchBox
+        }
+      }
+    };
+
+    cy.visit('/test/related-tags?useMockedAdapter=true', {
       qs: {
-        xModules: JSON.stringify({
-          relatedTags: {
-            config: {
-              maxItemsToRequest: maxItemsToRequest,
-              addToSearchBox: addToSearchBox
-            }
-          }
-        })
+        xModules: JSON.stringify(config)
       }
     });
   }
 );
 
-// Scenario 1
 And('at most {int} unselected related tags are displayed', (maxItemsToRequest: number) => {
   relatedTagsList = [];
   cy.getByDataTest('related-tag')

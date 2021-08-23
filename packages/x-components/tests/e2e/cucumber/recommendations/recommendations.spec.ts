@@ -1,6 +1,6 @@
 import { And, Given } from 'cypress-cucumber-preprocessor/steps';
+import { createResultStub } from '../../../../src/__stubs__';
 import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
-import { createResultStub } from '../../../../src/__stubs__/results-stubs.factory';
 
 // Background
 Given('a recommendations API with a known response', () => {

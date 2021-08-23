@@ -1,7 +1,6 @@
-import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { PageableRequest } from '@empathyco/x-adapter';
-import { getNextQueriesStub } from '../../../src/__stubs__/next-queries-stubs.factory';
-import { getSuggestionsStub } from '../../../src/__stubs__/suggestions-stubs.factory';
+import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { getNextQueriesStub, getRelatedTagsStub, getSuggestionsStub } from '../../../src/__stubs__';
 
 let resultsList: string[] = [];
 
@@ -98,6 +97,14 @@ Given('a suggestions API', () => {
   cy.intercept('https://api.empathy.co/getSuggestions', req => {
     req.reply({
       suggestions: getSuggestionsStub('Suggestion')
+    });
+  });
+});
+
+Given('a related tags API', () => {
+  cy.intercept('https://api.empathy.co/getRelatedTags', req => {
+    req.reply({
+      relatedTags: getRelatedTagsStub()
     });
   });
 });

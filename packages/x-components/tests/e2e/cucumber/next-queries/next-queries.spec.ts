@@ -1,6 +1,6 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { createNextQueryStub } from '../../../../src/__stubs__';
 import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
-import { createNextQueryStub } from '../../../../src/__stubs__/next-queries-stubs.factory';
 
 // Background
 Given('a next queries API with a known response', () => {

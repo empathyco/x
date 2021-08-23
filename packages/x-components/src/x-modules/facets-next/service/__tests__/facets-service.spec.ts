@@ -1,4 +1,4 @@
-import { EditableNumberRangeFilter, Filter } from '@empathyco/x-types-next';
+import { EditableNumberRangeFilter, Filter, Facet } from '@empathyco/x-types-next';
 import {
   createNextEditableNumberRangeFacetStub,
   createNextHierarchicalFacetStub,
@@ -57,6 +57,9 @@ function prepareFacetsService(): FacetsServiceTestAPI {
     },
     getFilters() {
       return Object.values(XPlugin.store.state.x.facetsNext.filters);
+    },
+    getFacets() {
+      return XPlugin.store.state.x.facetsNext.facets;
     }
   };
 }
@@ -245,8 +248,13 @@ describe('testing facets service', () => {
 
   describe('saves a group of facets', () => {
     it('saves groups of facets keeping its previous selected states', () => {
-      const { service, getSelectedFilters, getFilters, getStoreEditableNumberRangeFilter } =
-        prepareFacetsService();
+      const {
+        service,
+        getSelectedFilters,
+        getFilters,
+        getStoreEditableNumberRangeFilter,
+        getFacets
+      } = prepareFacetsService();
 
       const colorFacet = createNextSimpleFacetStub('color', createFilter => [
         createFilter('red', true),
@@ -286,6 +294,12 @@ describe('testing facets service', () => {
         ])
       ).toBe(false);
       expect(getSelectedFilters()).toEqual([]);
+      expect(getFacets()).toEqual({
+        [colorFacet.id]: omitFiltersProperty(colorFacet),
+        [categoryFacet.id]: omitFiltersProperty(categoryFacet),
+        [ageFacet.id]: omitFiltersProperty(ageFacet),
+        [priceFacet.id]: omitFiltersProperty(priceFacet)
+      });
 
       // Select some filters, and save a new group of facets
       service.select(redColorFilter);
@@ -369,6 +383,13 @@ describe('testing facets service', () => {
           age10To18Filter
         ])
       ).toBe(false);
+      expect(getFacets()).toEqual({
+        [colorFacet.id]: omitFiltersProperty(colorFacet),
+        [categoryFacet.id]: omitFiltersProperty(categoryFacet),
+        [ageFacet.id]: omitFiltersProperty(ageFacet),
+        [priceFacet.id]: omitFiltersProperty(priceFacet),
+        [shipmentFacet.id]: omitFiltersProperty(shipmentFacet)
+      });
     });
 
     // eslint-disable-next-line max-len
@@ -393,12 +414,166 @@ describe('testing facets service', () => {
       expect(getSelectedFilters()).toEqual([]);
     });
   });
+
+  describe('sets a group of facets', () => {
+    it('sets groups of facets', () => {
+      const {
+        service,
+        getSelectedFilters,
+        getFilters,
+        getStoreEditableNumberRangeFilter,
+        getFacets
+      } = prepareFacetsService();
+
+      const colorFacet = createNextSimpleFacetStub('color', createFilter => [
+        createFilter('red', true),
+        createFilter('blue')
+      ]);
+      const redColorFilter = colorFacet.filters[0];
+      const categoryFacet = createNextHierarchicalFacetStub('category', createFilter => [
+        ...createFilter('men'),
+        ...createFilter('women', true, createFilter => [
+          ...createFilter('skirt', true),
+          ...createFilter('dress')
+        ])
+      ]);
+      const [, womenCategoryFilter, skirtCategoryFilter] = categoryFacet.filters;
+      const ageFacet = createNextNumberRangeFacetStub('age', createFilter => [
+        createFilter({ min: 0, max: 10 }, true),
+        createFilter({ min: 10, max: 18 })
+      ]);
+      const age10To18Filter = ageFacet.filters[0];
+      const priceFacet = createNextEditableNumberRangeFacetStub('price', createFilter =>
+        createFilter({ min: null, max: 10 }, true)
+      );
+      const priceUpTo10Filter = priceFacet.filters[0];
+
+      // Set a fresh new facets group. Filters should keep the selected state they have
+      service.setFacets({
+        id: 'backend',
+        facets: [colorFacet, categoryFacet, ageFacet, priceFacet]
+      });
+      expect(
+        service.areFiltersDifferent(getFilters(), [
+          ...colorFacet.filters,
+          ...categoryFacet.filters,
+          ...ageFacet.filters,
+          getStoreEditableNumberRangeFilter(priceUpTo10Filter)
+        ])
+      ).toBe(false);
+      expect(getSelectedFilters()).toHaveLength(5);
+      expect(getSelectedFilters()).toEqual(
+        expect.arrayContaining([
+          redColorFilter,
+          womenCategoryFilter,
+          skirtCategoryFilter,
+          age10To18Filter,
+          getStoreEditableNumberRangeFilter(priceUpTo10Filter)
+        ])
+      );
+      expect(getFacets()).toEqual({
+        [colorFacet.id]: omitFiltersProperty(colorFacet),
+        [categoryFacet.id]: omitFiltersProperty(categoryFacet),
+        [ageFacet.id]: omitFiltersProperty(ageFacet),
+        [priceFacet.id]: omitFiltersProperty(priceFacet)
+      });
+
+      // Set a new group of facets
+      const newColorFacet = createNextSimpleFacetStub('color', createFilter => [
+        createFilter('red'),
+        createFilter('blue'),
+        createFilter('green', true)
+      ]);
+      const greenColorFilter = newColorFacet.filters[2];
+      const newCategoryFacet = createNextHierarchicalFacetStub('category', createFilter => [
+        ...createFilter('men'),
+        ...createFilter('women', false, createFilter => [
+          ...createFilter('skirt'),
+          ...createFilter('dress')
+        ]),
+        ...createFilter('kids', true)
+      ]);
+      const kidsCategoryFilter = newCategoryFacet.filters[4];
+      const newAgeFacet = createNextNumberRangeFacetStub('age', createFilter => [
+        createFilter({ min: 0, max: 10 }),
+        createFilter({ min: 10, max: 18 }),
+        createFilter({ min: 18, max: null }, true)
+      ]);
+      const ageMoreThan18Filter = newAgeFacet.filters[2];
+      const newPriceFacet = createNextEditableNumberRangeFacetStub('price', createFilter =>
+        createFilter({ min: null, max: 10 }, true)
+      );
+
+      service.setFacets({
+        id: 'backend',
+        facets: [newColorFacet, newCategoryFacet, newAgeFacet, newPriceFacet]
+      });
+      expect(
+        service.areFiltersDifferent(getFilters(), [
+          ...newColorFacet.filters,
+          ...newCategoryFacet.filters,
+          ...newAgeFacet.filters,
+          getStoreEditableNumberRangeFilter(priceUpTo10Filter)
+        ])
+      ).toBe(false);
+      expect(
+        service.areFiltersDifferent(getSelectedFilters(), [
+          greenColorFilter,
+          kidsCategoryFilter,
+          ageMoreThan18Filter,
+          getStoreEditableNumberRangeFilter(priceUpTo10Filter)
+        ])
+      ).toBe(false);
+
+      // Saving a new group of facets shouldn't affect previous ones
+      const shipmentFacet = createNextSimpleFacetStub('shipment', createFilter => [
+        createFilter('In store', true),
+        createFilter('Express')
+      ]);
+      const inStoreShipmentFilter = shipmentFacet.filters[0];
+      service.setFacets({
+        id: 'static',
+        facets: [shipmentFacet]
+      });
+      expect(
+        service.areFiltersDifferent(getFilters(), [
+          ...newColorFacet.filters,
+          ...newCategoryFacet.filters,
+          ...newAgeFacet.filters,
+          getStoreEditableNumberRangeFilter(priceUpTo10Filter),
+          ...shipmentFacet.filters
+        ])
+      ).toBe(false);
+      expect(
+        service.areFiltersDifferent(getSelectedFilters(), [
+          greenColorFilter,
+          kidsCategoryFilter,
+          ageMoreThan18Filter,
+          getStoreEditableNumberRangeFilter(priceUpTo10Filter),
+          inStoreShipmentFilter
+        ])
+      ).toBe(false);
+      expect(getFacets()).toEqual({
+        [colorFacet.id]: omitFiltersProperty(colorFacet),
+        [categoryFacet.id]: omitFiltersProperty(categoryFacet),
+        [ageFacet.id]: omitFiltersProperty(ageFacet),
+        [priceFacet.id]: omitFiltersProperty(priceFacet),
+        [shipmentFacet.id]: omitFiltersProperty(shipmentFacet)
+      });
+    });
+  });
 });
 
 /**
  * Utilities to test the facets service.
  */
 interface FacetsServiceTestAPI {
+  /**
+   * Gets the stored facets.
+   *
+   * @returns A list containing the facets of the store.
+   */
+  getFacets: () => Record<Facet['id'], Omit<Facet, 'filters'>>;
   /**
    * Gets the stored filters.
    *
@@ -452,4 +627,14 @@ interface FacetsServiceTestAPI {
    * The facets service to test.
    */
   service: FacetsService;
+}
+
+/**
+ * Excludes the filters property from the given facet.
+ *
+ * @param facet - The full facet from whom exclude its filter property.
+ * @returns The given facet without the `filters` property.
+ */
+function omitFiltersProperty({ filters, ...facet }: Facet): Omit<Facet, 'filters'> {
+  return facet;
 }
