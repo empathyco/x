@@ -80,7 +80,7 @@
       this.emitEvent('UserChangedExtraParams', newValue);
     }
 
-    /** It emits an {@link ExtraParamsXEvents| event} the passed as payload.
+    /** It emits an {@link ExtraParamsXEvents| event} passed as payload.
      *
      * @param event - The name of the event.
      * @param value - The value of the extra param.
