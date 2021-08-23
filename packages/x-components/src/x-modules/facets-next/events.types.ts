@@ -31,14 +31,6 @@ export interface FacetsNextXEvents {
    */
   SelectedFiltersNextChanged: Filter[];
   /**
-   * The user has clicked a filter which is of hierarchical type.
-   * * Payload: The clicked filter.
-   *
-   * @remarks This event does not imply changing the selection state of the filter. Business logic
-   * can prevent the filter from changing its state.
-   */
-  UserClickedANextHierarchicalFilter: HierarchicalFilter;
-  /**
    * A user action has changed the selected filters.
    * * Payload: The new list of selected filters.
    */
@@ -51,6 +43,14 @@ export interface FacetsNextXEvents {
    * can prevent the filter from changing its state.
    */
   UserClickedANextFilter: Filter;
+  /**
+   * The user has clicked a filter which is of hierarchical type.
+   * * Payload: The clicked filter.
+   *
+   * @remarks This event does not imply changing the selection state of the filter. Business logic
+   * can prevent the filter from changing its state.
+   */
+  UserClickedANextHierarchicalFilter: HierarchicalFilter;
   /**
    * The user has clicked a filter which is of number range type.
    * * Payload: The clicked filter.
