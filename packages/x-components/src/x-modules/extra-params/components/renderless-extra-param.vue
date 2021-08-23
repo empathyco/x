@@ -26,14 +26,16 @@
     }
   })
   export default class RenderlessExtraParam extends Vue {
-    /** The extra param's name.
+    /**
+     * The extra param's name.
      *
      * @public
      */
     @Prop({ required: true })
     public extraParamName!: string;
 
-    /** The extra param's default value.
+    /**
+     * The extra param's default value.
      *
      * @public
      */
@@ -47,7 +49,8 @@
       }
     }
 
-    /** A dictionary with the extra params from the store.
+    /**
+     * A dictionary with the extra params from the store.
      *
      * @public
      */
@@ -66,7 +69,8 @@
       }
     }
 
-    /** It returns the value of the extra param from the store.
+    /**
+     * It returns the value of the extra param from the store.
      *
      * @returns Unknown - The value from the store.
      *
@@ -76,7 +80,8 @@
       return this.extraParams[this.extraParamName];
     }
 
-    /** It sets the new value to the store.
+    /**
+     * It sets the new value to the store.
      *
      * @param newValue - The new value of the extra param.
      *
@@ -86,7 +91,8 @@
       this.emitEvent('UserChangedExtraParams', newValue);
     }
 
-    /** It emits an {@link ExtraParamsXEvents| event} passed as payload.
+    /**
+     * It emits an {@link ExtraParamsXEvents| event} passed as payload.
      *
      * @param event - The name of the event.
      * @param value - The value of the extra param.
