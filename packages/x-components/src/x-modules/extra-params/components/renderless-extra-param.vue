@@ -14,7 +14,8 @@
 
   /**
    * It emits a {@link ExtraParamsXEvents.UserChangedExtraParams} when the `updateValue`
-   * is called.
+   * is called and the {@link ExtraParamsXEvents.ExtraParamsProvided} when it receives
+   * a defaultValue.
    *
    * @public
    */
