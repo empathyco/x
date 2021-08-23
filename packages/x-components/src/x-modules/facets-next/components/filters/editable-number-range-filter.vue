@@ -52,7 +52,7 @@
         <!--
             @slot Slot used to customize the apply button content.
         -->
-        <slot name="apply-content">✅</slot>
+        <slot name="apply-content">✓</slot>
       </button>
 
       <button
@@ -64,7 +64,7 @@
         <!--
             @slot Slot used to customize the clear button content.
         -->
-        <slot name="clear-content">🗑</slot>
+        <slot name="clear-content">𐄂</slot>
       </button>
     </slot>
   </div>

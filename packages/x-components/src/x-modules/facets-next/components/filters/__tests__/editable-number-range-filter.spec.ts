@@ -9,7 +9,6 @@ import {
   getXComponentXModuleName,
   isXComponent
 } from '../../../../../components/x-component.utils';
-import { XPlugin } from '../../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../../store/store.types';
 import { DeepPartial } from '../../../../../utils/types';
 import { facetsNextXModule } from '../../../x-module';
@@ -41,10 +40,7 @@ function renderEditableNumberRangeFilter({
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
-
-  XPlugin.resetInstance();
-  XPlugin.registerXModule(facetsNextXModule);
+  installNewXPlugin({ store, initialXModules: [facetsNextXModule] }, localVue);
 
   resetXFacetsStateWith(store, {});
   const wrapper = mount<EditableNumberRangeFilterComponent>(
@@ -111,8 +107,8 @@ describe('testing BaseNumberRangeFilter component', () => {
     expect(
       (filterWrapper.find(getDataTestSelector('range-max')).element as HTMLInputElement).value
     ).toBe('5');
-    expect(applyButtonWrapper.text()).toBe('✅');
-    expect(clearButtonWrapper.text()).toBe('🗑');
+    expect(applyButtonWrapper.text()).toBe('✓');
+    expect(clearButtonWrapper.text()).toBe('𐄂');
   });
 
   // eslint-disable-next-line max-len

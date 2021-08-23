@@ -327,6 +327,7 @@ export function createNextHierarchicalFilter(
     id: `${facetId}:${label}`,
     modelName: 'HierarchicalFilter',
     parentId: null,
+    totalResults: 10,
     children
   };
 }
