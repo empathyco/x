@@ -11,6 +11,7 @@ import { SearchXStoreModule } from '../types';
  */
 export const request: SearchXStoreModule['getters']['request'] = ({
   query,
+  extraParams,
   config,
   relatedTags,
   selectedFilters,
@@ -20,6 +21,7 @@ export const request: SearchXStoreModule['getters']['request'] = ({
   return query.trim()
     ? {
         query,
+        extraParams,
         relatedTags,
         sort,
         rows: config.pageSize,
