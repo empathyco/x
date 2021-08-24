@@ -17,7 +17,7 @@ import { SearchXStoreModule } from './types';
 export const searchXStoreModule: SearchXStoreModule = {
   state: () => ({
     query: '',
-    extraParams: {},
+    params: {},
     results: [],
     partialResults: [],
     facets: [],
@@ -85,8 +85,8 @@ export const searchXStoreModule: SearchXStoreModule = {
       state.isAppendResults = isAppendResults;
     },
     setStatus,
-    setExtraParams(state, params) {
-      state.extraParams = params;
+    setParams(state, params) {
+      state.params = params;
     }
   },
   actions: {

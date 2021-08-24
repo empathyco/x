@@ -3,6 +3,26 @@
     <!-- Phantom components -->
     <DeviceDetector :breakpoints="breakpoints" />
 
+    <!-- Extra params components -->
+    <RenderlessExtraParam #default="{ value, updateValue }" name="warehouse" defaultValue="1234">
+      <BaseDropdown @change="updateValue" :value="value" :items="items">
+        <template #item="{ item, isHighlighted, isSelected }">
+          <CheckIcon v-if="isSelected" />
+          <ChevronLeftIcon v-if="isHighlighted" />
+          Warehouse: {{ item }}
+        </template>
+      </BaseDropdown>
+    </RenderlessExtraParam>
+    <RenderlessExtraParam #default="{ value, updateValue }" name="catalog" defaultValue="en">
+      <BaseDropdown @change="updateValue" :value="value" :items="['en', 'es']">
+        <template #item="{ item, isHighlighted, isSelected }">
+          <CheckIcon v-if="isSelected" />
+          <ChevronLeftIcon v-if="isHighlighted" />
+          Catalog: {{ item }}
+        </template>
+      </BaseDropdown>
+    </RenderlessExtraParam>
+
     <!-- Search Box -->
     <div class="x-search-box x-input-group x-input-group--card">
       <SearchInput placeholder="Search" aria-label="Search for products" />
@@ -347,6 +367,7 @@
   import { Result, Sort } from '@empathyco/x-types';
   import { getBannersStub } from '../__stubs__/banners-stubs.factory';
   import { getPromotedsStub } from '../__stubs__/promoteds-stubs.factory';
+  import { BaseDropdown } from '../components';
   import BaseGrid from '../components/base-grid.vue';
   import {
     SearchIcon,
@@ -360,6 +381,7 @@
   import BasePriceFilterLabel from '../components/filters/labels/base-price-filter-label.vue';
   import BaseCurrency from '../components/currency/base-currency.vue';
   import DeviceDetector from '../x-modules/device/components/device-detector.vue';
+  import RenderlessExtraParam from '../x-modules/extra-params/components/renderless-extra-param.vue';
   import AllFilter from '../x-modules/facets/components/filters/all-filter.vue';
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
   import SlicedFilters from '../x-modules/facets/components/lists/sliced-filters.vue';
@@ -490,7 +512,9 @@
       BaseColumnPickerList,
       BaseColumnPickerDropdown,
       SortList,
-      SortedFilters
+      SortedFilters,
+      RenderlessExtraParam,
+      BaseDropdown
     }
   })
   export default class App extends Vue {
@@ -514,6 +538,8 @@
     }
 
     public sortValues: Sort[] = ['', 'priceSort asc', 'priceSort desc'];
+
+    protected items: string[] = ['1234', '4567'];
 
     protected breakpoints: Dictionary<number> = {
       small: 500,

@@ -114,8 +114,8 @@ default value of it.
 
 ```vue
 <template>
-  <RenderlessExtraParam name="warehouse" defaultValue="1234" #default="{ value, updateValue }">
-    <BaseDropdown :value="value" :items="items" @change="updateValue" />
+  <RenderlessExtraParam #default="{ value, updateValue }" name="warehouse" defaultValue="1234">
+    <BaseDropdown @change="updateValue" :value="value" :items="items" />
   </RenderlessExtraParam>
 </template>
 

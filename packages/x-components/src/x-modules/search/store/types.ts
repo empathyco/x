@@ -50,7 +50,7 @@ export interface SearchState extends StatusState {
   /** The total number of results, related to the `query` property of the state. */
   totalResults: number;
   /** The extra params property of the state. */
-  extraParams: Dictionary<unknown>;
+  params: Dictionary<unknown>;
 }
 
 /**
@@ -165,7 +165,7 @@ export interface SearchMutations extends StatusMutations {
    *
    * @param params - The new extra params.
    */
-  setExtraParams(params: Dictionary<unknown>): void;
+  setParams(params: Dictionary<unknown>): void;
 }
 
 /**
