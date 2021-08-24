@@ -3,26 +3,6 @@
     <!-- Phantom components -->
     <DeviceDetector :breakpoints="breakpoints" />
 
-    <!-- Extra params components -->
-    <RenderlessExtraParam #default="{ value, updateValue }" name="warehouse" defaultValue="1234">
-      <BaseDropdown @change="updateValue" :value="value" :items="items">
-        <template #item="{ item, isHighlighted, isSelected }">
-          <CheckIcon v-if="isSelected" />
-          <ChevronLeftIcon v-if="isHighlighted" />
-          Warehouse: {{ item }}
-        </template>
-      </BaseDropdown>
-    </RenderlessExtraParam>
-    <RenderlessExtraParam #default="{ value, updateValue }" name="catalog" defaultValue="en">
-      <BaseDropdown @change="updateValue" :value="value" :items="['en', 'es']">
-        <template #item="{ item, isHighlighted, isSelected }">
-          <CheckIcon v-if="isSelected" />
-          <ChevronLeftIcon v-if="isHighlighted" />
-          Catalog: {{ item }}
-        </template>
-      </BaseDropdown>
-    </RenderlessExtraParam>
-
     <!-- Search Box -->
     <div class="x-search-box x-input-group x-input-group--card">
       <SearchInput placeholder="Search" aria-label="Search for products" />
@@ -513,8 +493,6 @@
       BaseColumnPickerDropdown,
       SortList,
       SortedFilters,
-      RenderlessExtraParam,
-      BaseDropdown
     }
   })
   export default class App extends Vue {
@@ -538,8 +516,6 @@
     }
 
     public sortValues: Sort[] = ['', 'priceSort asc', 'priceSort desc'];
-
-    protected items: string[] = ['1234', '4567'];
 
     protected breakpoints: Dictionary<number> = {
       small: 500,
