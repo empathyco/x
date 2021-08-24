@@ -38,23 +38,19 @@ describe('testing extra params component', () => {
 
     wrapper.vm.$x.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
 
-    expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
-      1,
-      {
-        eventPayload: { warehouse: 1234 },
-        metadata: { moduleName: 'extraParams' }
-      }
-    );
+    expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
+      eventPayload: { warehouse: 1234 },
+      metadata: { moduleName: 'extraParams' }
+    });
+    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
 
     await wrapper.setProps({ values: { warehouse: 5678 } });
 
-    expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
-      2,
-      {
-        eventPayload: { warehouse: 5678 },
-        metadata: { moduleName: 'extraParams' }
-      }
-    );
+    expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
+      eventPayload: { warehouse: 5678 },
+      metadata: { moduleName: 'extraParams' }
+    });
+    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(2);
   });
 });
 
