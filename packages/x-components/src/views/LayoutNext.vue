@@ -10,17 +10,21 @@
             "
           >
             <div class="x-input-group x-input-group--card x-list__item--expand">
-              <SearchInput placeholder="Search" aria-label="Search for products" />
+              <SearchInput aria-label="Search for products" placeholder="Search" />
               <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-              <SearchButton class="x-input-group__action" aria-label="Search">
+              <SearchButton aria-label="Search" class="x-input-group__action">
                 <SearchIcon />
               </SearchButton>
             </div>
 
             <SlidingPanel v-if="$x.relatedTags.length">
-              <template #sliding-panel-left-button><ChevronLeft /></template>
+              <template #sliding-panel-left-button>
+                <ChevronLeft />
+              </template>
               <RelatedTags class="x-tag--card x-list--gap-03" />
-              <template #sliding-panel-right-button><ChevronRight /></template>
+              <template #sliding-panel-right-button>
+                <ChevronRight />
+              </template>
             </SlidingPanel>
           </div>
         </template>
@@ -43,8 +47,8 @@
         <template #toolbar-aside>
           <BaseIdTogglePanelButton
             v-if="$x.totalResults > 0"
-            panelId="aside-panel"
             class="x-button x-button--ghost"
+            panelId="aside-panel"
           >
             Toggle Aside
           </BaseIdTogglePanelButton>
@@ -69,7 +73,7 @@
               <Grid1Col v-else-if="column === 4" />
               <Grid2Col v-else-if="column === 6" />
             </BaseColumnPickerList>
-            <SortDropdown class="x-option-list--bottom" :items="sortValues">
+            <SortDropdown :items="sortValues" class="x-option-list--bottom">
               <template #toggle="{ item }">{{ item || 'default' }}</template>
               <template #item="{ item }">{{ item || 'default' }}</template>
             </SortDropdown>
@@ -79,9 +83,24 @@
         <template #main-aside>
           <div
             v-if="$x.totalResults > 0"
-            class="x-list x-list--padding-05 x-list--padding-top x-list--border x-list--border-top"
+            class="
+              x-list
+              x-list--padding-05
+              x-list--padding-top
+              x-list--gap-06
+              x-list--border
+              x-list--border-top
+            "
           >
             <FacetsProvider :facets="staticFacets" />
+            <ClearFilters />
+            <SelectedFiltersList>
+              <template #default="{ filter }">
+                <SimpleFilter :filter="filter" class="x-tag" />
+              </template>
+            </SelectedFiltersList>
+
+            <!-- Facets -->
             <Facets class="x-list--gap-06">
               <!--  Default Facet    -->
               <template #default="{ facet }">
@@ -90,9 +109,19 @@
                     <span class="x-ellipsis">{{ facet.label }}</span>
                     <ChevronDown />
                   </template>
-                  <FiltersList v-slot="{ filter }" :filters="facet.filters">
-                    <SimpleFilter :filter="filter" />
-                  </FiltersList>
+
+                  <!-- Filters -->
+                  <ExcludeFiltersWithNoResults :filters="facet.filters">
+                    <SortedFilters>
+                      <FiltersSearch>
+                        <SlicedFilters max="4">
+                          <FiltersList v-slot="{ filter }">
+                            <SimpleFilter :filter="filter" />
+                          </FiltersList>
+                        </SlicedFilters>
+                      </FiltersSearch>
+                    </SortedFilters>
+                  </ExcludeFiltersWithNoResults>
                 </BaseHeaderTogglePanel>
               </template>
             </Facets>
@@ -107,11 +136,11 @@
           >
             <BaseVariableColumnGrid
               #default="{ item: result }"
-              :items="recommendations"
               :animation="resultsAnimation"
+              :items="recommendations"
             >
               <article class="result" style="max-width: 300px">
-                <BaseResultImage class="x-picture--colored" :result="result">
+                <BaseResultImage :result="result" class="x-picture--colored">
                   <template #placeholder>
                     <div style="padding-top: 100%; background-color: lightgray"></div>
                   </template>
@@ -131,7 +160,7 @@
                 <BaseVariableColumnGrid :animation="resultsAnimation">
                   <template #Result="{ item: result }">
                     <article class="result" style="max-width: 300px">
-                      <BaseResultImage class="x-picture&#45;&#45;colored" :result="result">
+                      <BaseResultImage :result="result" class="x-picture&#45;&#45;colored">
                         <template #placeholder>
                           <div style="padding-top: 100%; background-color: lightgray"></div>
                         </template>
@@ -157,7 +186,7 @@
         </template>
 
         <template #scroll-to-top>
-          <BaseScrollToTop class="x-button--round" scroll-id="body-scroll" :threshold-px="500">
+          <BaseScrollToTop :threshold-px="500" class="x-button--round" scroll-id="body-scroll">
             <ChevronUp />
           </BaseScrollToTop>
         </template>
@@ -198,8 +227,16 @@
   import { XInstaller } from '../x-installer/x-installer';
   import FacetsProvider from '../x-modules/facets-next/components/facets/facets-provider.vue';
   import Facets from '../x-modules/facets-next/components/facets/facets.vue';
-  import FiltersList from '../x-modules/facets-next/components/lists/filters-list.vue';
   import SimpleFilter from '../x-modules/facets-next/components/filters/simple-filter.vue';
+  import FiltersList from '../x-modules/facets-next/components/lists/filters-list.vue';
+  import FiltersSearch from '../x-modules/facets-next/components/lists/filters-search.vue';
+  // eslint-disable-next-line max-len
+  import SelectedFiltersList from '../x-modules/facets-next/components/lists/selected-filters-list.vue';
+  import SlicedFilters from '../x-modules/facets-next/components/lists/sliced-filters.vue';
+  // eslint-disable-next-line max-len
+  import ExcludeFiltersWithNoResults from '../x-modules/facets-next/components/lists/exclude-filters-with-no-results.vue';
+  import SortedFilters from '../x-modules/facets-next/components/lists/sorted-filters.vue';
+  import ClearFilters from '../x-modules/facets-next/components/clear-filters.vue';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
   import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
   import PopularSearches from '../x-modules/popular-searches/components/popular-searches.vue';
@@ -231,6 +268,12 @@
       infiniteScroll
     },
     components: {
+      ClearFilters,
+      SortedFilters,
+      ExcludeFiltersWithNoResults,
+      FiltersSearch,
+      SlicedFilters,
+      SelectedFiltersList,
       FiltersList,
       ChevronUp,
       Promoted,
@@ -276,10 +319,10 @@
     }
   })
   export default class App extends Vue {
-    protected sortValues = ['', 'priceSort asc', 'priceSort desc'];
     protected columnPickerValues = [0, 4, 6];
-    protected selectedColumns = 4;
     protected resultsAnimation = StaggeredFadeAndSlide;
+    protected selectedColumns = 4;
+    protected sortValues = ['', 'priceSort asc', 'priceSort desc'];
     protected staticFacets: Facet[] = [
       {
         modelName: 'SimpleFacet',
@@ -301,8 +344,8 @@
 
 <style lang="scss" scoped>
   .x-modal::v-deep .x-modal__content {
+    overflow: hidden;
     width: 100%;
     height: 100%;
-    overflow: hidden;
   }
 </style>
