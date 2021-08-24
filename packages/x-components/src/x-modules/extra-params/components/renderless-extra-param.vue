@@ -61,7 +61,7 @@
         () => this.defaultValue,
         defaultValue => {
           if (defaultValue !== undefined && this.value === undefined) {
-            this.emitEvent('ExtraParamsProvided', { [this.name]: this.defaultValue });
+            this.emitEvent('ExtraParamsProvided', this.defaultValue);
           }
         },
         { immediate: true }
@@ -87,7 +87,7 @@
      * @internal
      */
     protected updateValue(newValue: unknown): void {
-      this.emitEvent('UserChangedExtraParams', { [this.name]: newValue });
+      this.emitEvent('UserChangedExtraParams', newValue);
     }
 
     /**
