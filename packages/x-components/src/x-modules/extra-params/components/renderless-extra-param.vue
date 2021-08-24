@@ -105,9 +105,12 @@
 </script>
 
 <docs lang="mdx">
-## Extending the component
+#Example
 
-_See how this component has a slot which allow us to extend the default behaviour._
+Renders default slot content. It binds to the default slot the name of the extra parameter and the
+default value of it.
+
+## Basic usage
 
 ```vue
 <template>
@@ -126,8 +129,11 @@ _See how this component has a slot which allow us to extend the default behaviou
       RenderlessExtraParams,
       BaseDropdown
     },
+    props: ['name', 'defaultValue'],
     data() {
-      return [1234, 4567];
+      return {
+        items: [1234, 4567]
+      };
     }
   };
 </script>
