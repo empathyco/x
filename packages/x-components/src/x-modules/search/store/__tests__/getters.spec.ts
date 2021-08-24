@@ -20,17 +20,24 @@ describe('testing search module getters', () => {
   describe(`${gettersKeys.request} getter`, () => {
     it('should return a request object if there is a query', () => {
       resetSearchStateWith(store, {
-        query: 'doraemon'
+        query: 'doraemon',
+        params: {
+          catalog: 'es'
+        }
       });
 
-      expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
+      expect(store.getters[gettersKeys.request]).toEqual<
+        SearchRequest & { [key: string]: unknown }
+        // TODO - Remove when the facets refactor is completed.
+      >({
         query: 'doraemon',
         origin: 'default',
         relatedTags: [],
         filters: {},
         sort: '',
         rows: 24,
-        start: 0
+        start: 0,
+        catalog: 'es'
       });
     });
 
@@ -52,6 +59,7 @@ describe('testing search module getters', () => {
 
       expect(store.getters[gettersKeys.request]).toEqual<
         SearchRequest & { [key: string]: unknown }
+        // TODO - Remove when the facets refactor is completed.
       >({
         query: 'salchipapa',
         sort: 'price-asc',
