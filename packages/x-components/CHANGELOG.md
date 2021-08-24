@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.15...@empathyco/x-components@3.0.0-alpha.16) (2021-08-24)
+
+
+### Features
+
+* **extra-params:** add new renderless extra params component ([ec844c3](https://github.com/empathyco/x/commit/ec844c359c3d5a7f8ecd389d0138c6c53c839c87)), closes [EX-4605](https://searchbroker.atlassian.net/browse/EX-4605)
+* **extra-params:** add new snippet extra params component ([33e68df](https://github.com/empathyco/x/commit/33e68dfdef7e44e67f7e9f4ff093ade235f0c563)), closes [EX-4545](https://searchbroker.atlassian.net/browse/EX-4545)
+* **facets-next:** add `AllFilter`, `BaseFilter` and `EditableNumberRangeFilter` components to `facets-next` x-module. ([8483937](https://github.com/empathyco/x/commit/84839377076cdf97a765d44511b12f770bd9b33f)), closes [EX-4592](https://searchbroker.atlassian.net/browse/EX-4592)
+* **facets-next:** add `Facets` component to `facets-next` x-module ([1a4daea](https://github.com/empathyco/x/commit/1a4daeaf6e49dee7c41c0a98811853c32c22e01b)), closes [EX-3661](https://searchbroker.atlassian.net/browse/EX-3661)
+* **facets-next:** add `FacetsProvider` component ([c52d972](https://github.com/empathyco/x/commit/c52d972e2d3470e7ae6b159e72b4deeac3971053)), closes [EX-4588](https://searchbroker.atlassian.net/browse/EX-4588)
+* **facets-next:** add `SimpleFilter`, `HierarchicalFilter`, `NumberRangeFilter`, `RenderlessFilter` and `Filters` components to the `facets-next` x-module. ([8f82d12](https://github.com/empathyco/x/commit/8f82d123c8dee6dcc403a46684c4793596d44008)), closes [EX-4614](https://searchbroker.atlassian.net/browse/EX-4614)
+
+
+### Testing
+
+* **facets-next:** add missing service tests ([7d462e1](https://github.com/empathyco/x/commit/7d462e18847dd0632a66701341078f0a9a1318a3)), closes [EX-4589](https://searchbroker.atlassian.net/browse/EX-4589)
+
+
+
 ## [3.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.14...@empathyco/x-components@3.0.0-alpha.15) (2021-08-20)
 
 

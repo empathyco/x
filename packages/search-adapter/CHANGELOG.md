@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.0...@empathyco/x-adapter@7.0.0-alpha.1) (2021-08-24)
+
+
+### Features
+
+* **request:** update search request type to include the new extra params ([5dc8bc2](https://github.com/empathyco/x/commit/5dc8bc2c4e3cb397ccc3ae10f64f2bca651336e5)), closes [EX-4634](https://searchbroker.atlassian.net/browse/EX-4634)
+
+
+
 ## [7.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter@6.2.0-alpha.8...@empathyco/x-adapter@7.0.0-alpha.0) (2021-08-11)
 
 
