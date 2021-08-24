@@ -32,7 +32,7 @@
      * @public
      */
     @Prop({ required: true })
-    public extraParamName!: string;
+    public name!: string;
 
     /**
      * The extra param's default value.
@@ -41,13 +41,6 @@
      */
     @Prop()
     public defaultValue?: unknown;
-
-    @Watch('defaultValue')
-    syncUpdateValue(newValue: unknown): void {
-      if (this.defaultValue !== undefined && this.value === undefined) {
-        this.emitEvent('ExtraParamsProvided', newValue);
-      }
-    }
 
     /**
      * A dictionary with the extra params from the store.
@@ -64,20 +57,26 @@
      * @internal
      */
     created(): void {
-      if (this.defaultValue !== undefined && this.value === undefined) {
-        this.emitEvent('ExtraParamsProvided', this.defaultValue);
-      }
+      this.$watch(
+        () => this.defaultValue,
+        defaultValue => {
+          if (defaultValue !== undefined && this.value === undefined) {
+            this.emitEvent('ExtraParamsProvided', this.defaultValue);
+          }
+        },
+        { immediate: true }
+      );
     }
 
     /**
      * It returns the value of the extra param from the store.
      *
-     * @returns Unknown - The value from the store.
+     * @returns - The value from the store.
      *
      * @internal
      */
     protected get value(): unknown {
-      return this.extraParams[this.extraParamName];
+      return this.extraParams[this.name];
     }
 
     /**
@@ -87,7 +86,7 @@
      *
      * @internal
      */
-    protected updateValue(newValue: string): void {
+    protected updateValue(newValue: unknown): void {
       this.emitEvent('UserChangedExtraParams', newValue);
     }
 
@@ -100,7 +99,7 @@
      * @internal
      */
     protected emitEvent(event: keyof ExtraParamsXEvents, value: unknown): void {
-      this.$x.emit(event, { [this.extraParamName]: value });
+      this.$x.emit(event, { [this.name]: value });
     }
   }
 </script>
@@ -112,8 +111,8 @@ _See how this component has a slot which allow us to extend the default behaviou
 
 ```vue
 <template>
-  <RenderlessExtraParam name="warehouse" default="" #default="{ value, updateValue }">
-    <BaseDropdown :value="value" :items="[1234, 4567]" @change="updateValue" />
+  <RenderlessExtraParam name="warehouse" defaultValue="1234" #default="{ value, updateValue }">
+    <BaseDropdown :value="value" :items="items" @change="updateValue" />
   </RenderlessExtraParam>
 </template>
 
@@ -126,6 +125,9 @@ _See how this component has a slot which allow us to extend the default behaviou
     components: {
       RenderlessExtraParams,
       BaseDropdown
+    },
+    data() {
+      return [1234, 4567];
     }
   };
 </script>

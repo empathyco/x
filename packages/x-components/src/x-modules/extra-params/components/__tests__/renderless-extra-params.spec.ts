@@ -1,86 +1,77 @@
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
+import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components';
-import { RootXStoreState } from '../../../../store';
-import { AnyFunction, DeepPartial, Dictionary } from '../../../../utils';
+import { XPlugin } from '../../../../plugins';
+import { Dictionary } from '../../../../utils';
 import { WirePayload } from '../../../../wiring';
+import { extraParamsXModule } from '../../x-module';
 import RenderlessExtraParam from '../renderless-extra-param.vue';
 import { resetXExtraParamStateWith } from './utils';
 
 describe('testing RenderlessExtraParam component', () => {
   function renderRenderlessExtraParams({
-    scopedSlots,
+    template = `<RenderlessExtraParam :name="name" :defaultValue="defaultValue" />`,
     defaultValue,
-    extraParamName,
+    name = 'warehouse',
     params
   }: RenderlessExtraParamsOptions): RenderlessExtraParamsAPI {
-    const localVue = createLocalVue();
-    localVue.use(Vuex);
-
-    const store: Store<DeepPartial<RootXStoreState>> = new Store({});
-    installNewXPlugin({ store }, localVue);
-
+    const [, localVue] = installNewXPlugin({ initialXModules: [extraParamsXModule] });
+    const store = XPlugin.store;
     resetXExtraParamStateWith(store, {
       params: params ?? {}
     });
 
-    const wrapper = mount(RenderlessExtraParam, {
-      propsData: {
-        extraParamName,
-        defaultValue
+    const wrapper = mount(
+      {
+        template,
+        components: {
+          RenderlessExtraParam
+        },
+        props: ['defaultValue', 'name']
       },
-      localVue,
-      store,
-      scopedSlots
-    });
+      {
+        propsData: {
+          defaultValue,
+          name
+        },
+        localVue,
+        store
+      }
+    );
 
     return {
-      wrapper
+      wrapper: wrapper.findComponent(RenderlessExtraParam)
     };
   }
 
   it('is an XComponent which has an XModule', () => {
-    const { wrapper } = renderRenderlessExtraParams({ extraParamName: 'warehouse' });
+    const { wrapper } = renderRenderlessExtraParams({});
     expect(isXComponent(wrapper.vm)).toEqual(true);
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('extraParams');
-  });
-
-  it('renders a custom slot content', () => {
-    const { wrapper } = renderRenderlessExtraParams({
-      extraParamName: 'warehouse',
-      scopedSlots: { default: `<span data-test="custom-slot">Custom slot</span>` }
-    });
-
-    expect(wrapper.find(getDataTestSelector('custom-slot')).text()).toEqual('Custom slot');
   });
 
   // eslint-disable-next-line max-len
   it("emits ExtraParamsProvided event when the component receives a default value and and it doesn't exist in the store", () => {
     const extraParamsProvidedCallback = jest.fn();
     const { wrapper } = renderRenderlessExtraParams({
-      extraParamName: 'warehouse',
       defaultValue: 1234
     });
 
     wrapper.vm.$x.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
 
-    expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
-      1,
-      {
-        eventPayload: { warehouse: 1234 },
-        metadata: { moduleName: 'extraParams' }
-      }
-    );
+    expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
+      eventPayload: { warehouse: 1234 },
+      metadata: { moduleName: 'extraParams' }
+    });
+
+    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
   });
 
   // eslint-disable-next-line max-len
   it("not emits ExtraParamsProvided event when the component receives a default value if it's in the store", () => {
     const extraParamsProvidedCallback = jest.fn();
-
     const { wrapper } = renderRenderlessExtraParams({
-      extraParamName: 'warehouse',
       defaultValue: 1234,
       params: { warehouse: 1234 }
     });
@@ -93,37 +84,38 @@ describe('testing RenderlessExtraParam component', () => {
   it('emits UserChangedExtraParams event when the update method is called', () => {
     const userChangedExtraParamsCallback = jest.fn();
     const { wrapper } = renderRenderlessExtraParams({
-      extraParamName: 'warehouse',
-      scopedSlots: {
-        default: `
-          <template #search="{ defaultValue, updateValue }">
-            <button data-test="custom-slot" @click="updateValue(45678)">Update warehouse</button>
-          </template>`
-      }
+      template: `
+        <RenderlessExtraParam name="warehouse" #default="{ defaultValue, updateValue }">
+          <button data-test="custom-slot" @click="updateValue(45678)">Update warehouse</button>
+        </RenderlessExtraParam>`
     });
 
     wrapper.vm.$x.on('UserChangedExtraParams', true).subscribe(userChangedExtraParamsCallback);
 
+    expect(userChangedExtraParamsCallback).toHaveBeenCalledTimes(0);
+
     wrapper.find(getDataTestSelector('custom-slot')).element.click();
 
-    expect(userChangedExtraParamsCallback).toHaveBeenNthCalledWith<
-      [WirePayload<Dictionary<unknown>>]
-    >(1, {
-      eventPayload: { warehouse: 45678 },
-      metadata: { moduleName: 'extraParams' }
-    });
+    expect(userChangedExtraParamsCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>(
+      {
+        eventPayload: { warehouse: 45678 },
+        metadata: { moduleName: 'extraParams' }
+      }
+    );
+
+    expect(userChangedExtraParamsCallback).toHaveBeenCalledTimes(1);
   });
 });
 
 interface RenderlessExtraParamsOptions {
-  /** The default value of the extra param. */
-  defaultValue?: string | number;
-  /** The name of the extra param to be changed. */
-  extraParamName: string;
-  /** The scoped slots to render. */
-  scopedSlots?: Record<string, string | AnyFunction>;
+  /** The extra param's default value. */
+  defaultValue?: unknown;
+  /** The extra param's name. */
+  name?: unknown;
   /** A dictionary with the params to save in the store. */
   params?: Dictionary<unknown>;
+  /** The template to render. */
+  template?: string;
 }
 
 interface RenderlessExtraParamsAPI {
