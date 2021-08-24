@@ -44,17 +44,23 @@ describe('testing search module getters', () => {
         selectedFilters,
         config: {
           pageSize: 48
+        },
+        params: {
+          warehouse: 1234
         }
       });
 
-      expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
+      expect(store.getters[gettersKeys.request]).toEqual<
+        SearchRequest & { [key: string]: unknown }
+      >({
         query: 'salchipapa',
         sort: 'price-asc',
         filters: selectedFilters,
         relatedTags,
         rows: 48,
         start: 0,
-        origin: 'default'
+        origin: 'default',
+        warehouse: 1234
       });
     });
 
