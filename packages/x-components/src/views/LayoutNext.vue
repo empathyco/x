@@ -237,6 +237,8 @@
   import ExcludeFiltersWithNoResults from '../x-modules/facets-next/components/lists/exclude-filters-with-no-results.vue';
   import SortedFilters from '../x-modules/facets-next/components/lists/sorted-filters.vue';
   import ClearFilters from '../x-modules/facets-next/components/clear-filters.vue';
+  import { FilterEntityFactory } from '../x-modules/facets-next/entities/filter-entity.factory';
+  import { SingleSelectModifier } from '../x-modules/facets-next/entities/single-select.modifier';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
   import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
   import PopularSearches from '../x-modules/popular-searches/components/popular-searches.vue';
@@ -262,6 +264,7 @@
           xModules: { recommendations: { config: { maxItemsToRequest: 48 } } }
         })
       ).init(baseSnippetConfig);
+      FilterEntityFactory.instance.registerFilterModifier('brand_facet', [SingleSelectModifier]);
       next();
     },
     directives: {
