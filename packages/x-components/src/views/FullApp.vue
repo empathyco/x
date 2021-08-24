@@ -347,7 +347,6 @@
   import { Result, Sort } from '@empathyco/x-types';
   import { getBannersStub } from '../__stubs__/banners-stubs.factory';
   import { getPromotedsStub } from '../__stubs__/promoteds-stubs.factory';
-  import { BaseDropdown } from '../components';
   import BaseGrid from '../components/base-grid.vue';
   import {
     SearchIcon,
@@ -361,7 +360,6 @@
   import BasePriceFilterLabel from '../components/filters/labels/base-price-filter-label.vue';
   import BaseCurrency from '../components/currency/base-currency.vue';
   import DeviceDetector from '../x-modules/device/components/device-detector.vue';
-  import RenderlessExtraParam from '../x-modules/extra-params/components/renderless-extra-param.vue';
   import AllFilter from '../x-modules/facets/components/filters/all-filter.vue';
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
   import SlicedFilters from '../x-modules/facets/components/lists/sliced-filters.vue';
@@ -492,7 +490,7 @@
       BaseColumnPickerList,
       BaseColumnPickerDropdown,
       SortList,
-      SortedFilters,
+      SortedFilters
     }
   })
   export default class App extends Vue {
