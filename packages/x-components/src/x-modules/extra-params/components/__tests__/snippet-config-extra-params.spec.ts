@@ -66,21 +66,23 @@ describe('testing snippet config extra params component', () => {
 
     wrapper.vm.$x.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
 
-    expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
-      eventPayload: { warehouse: 1234 },
-      metadata: { moduleName: 'extraParams' }
-    });
-
-    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
+    expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
+      1,
+      {
+        eventPayload: { warehouse: 1234 },
+        metadata: { moduleName: 'extraParams' }
+      }
+    );
 
     await setSnippetConfig({ warehouse: 45678 });
 
-    expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
-      eventPayload: { warehouse: 45678 },
-      metadata: { moduleName: 'extraParams' }
-    });
-
-    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(2);
+    expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
+      2,
+      {
+        eventPayload: { warehouse: 45678 },
+        metadata: { moduleName: 'extraParams' }
+      }
+    );
   });
 
   // eslint-disable-next-line max-len
@@ -90,12 +92,13 @@ describe('testing snippet config extra params component', () => {
 
     wrapper.vm.$x.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
 
-    expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
-      eventPayload: { warehouse: 1234 },
-      metadata: { moduleName: 'extraParams' }
-    });
-
-    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
+    expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
+      1,
+      {
+        eventPayload: { warehouse: 1234 },
+        metadata: { moduleName: 'extraParams' }
+      }
+    );
 
     await setSnippetConfig({ lang: 'es' });
 
@@ -103,12 +106,13 @@ describe('testing snippet config extra params component', () => {
 
     await setSnippetConfig({ warehouse: 45678 });
 
-    expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
-      eventPayload: { warehouse: 45678 },
-      metadata: { moduleName: 'extraParams' }
-    });
-
-    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(2);
+    expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
+      2,
+      {
+        eventPayload: { warehouse: 45678 },
+        metadata: { moduleName: 'extraParams' }
+      }
+    );
   });
 });
 

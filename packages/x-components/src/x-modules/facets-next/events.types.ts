@@ -1,4 +1,11 @@
-import { Filter, EditableNumberRangeFilter, Facet } from '@empathyco/x-types-next';
+import {
+  EditableNumberRangeFilter,
+  Facet,
+  Filter,
+  HierarchicalFilter,
+  NumberRangeFilter,
+  SimpleFilter
+} from '@empathyco/x-types-next';
 import { FacetsGroup } from './service/types';
 
 /**
@@ -36,6 +43,30 @@ export interface FacetsNextXEvents {
    * can prevent the filter from changing its state.
    */
   UserClickedANextFilter: Filter;
+  /**
+   * The user has clicked a filter which is of hierarchical type.
+   * * Payload: The clicked filter.
+   *
+   * @remarks This event does not imply changing the selection state of the filter. Business logic
+   * can prevent the filter from changing its state.
+   */
+  UserClickedANextHierarchicalFilter: HierarchicalFilter;
+  /**
+   * The user has clicked a filter which is of number range type.
+   * * Payload: The clicked filter.
+   *
+   * @remarks This event does not imply changing the selection state of the filter. Business logic
+   * can prevent the filter from changing its state.
+   */
+  UserClickedANextNumberRangeFilter: NumberRangeFilter;
+  /**
+   * The user has clicked a filter which is of simple type.
+   * * Payload: The clicked filter.
+   *
+   * @remarks This event does not imply changing the selection state of the filter. Business logic
+   * can prevent the filter from changing its state.
+   */
+  UserClickedANextSimpleFilter: SimpleFilter;
   /**
    * The user has clicked facet select all filters button.
    * * Payload: Facet id.
