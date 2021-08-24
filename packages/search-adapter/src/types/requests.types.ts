@@ -69,6 +69,7 @@ export interface RequestOptions {
  */
 export interface SearchRequest extends QueryableRequest, FilterableRequest, PageableRequest, TrackableRequest {
   sort?: Sort;
+  [key: string]: unknown; // extra params
 }
 
 /**
