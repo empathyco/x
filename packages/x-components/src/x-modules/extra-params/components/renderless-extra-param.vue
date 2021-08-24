@@ -61,7 +61,7 @@
         () => this.defaultValue,
         defaultValue => {
           if (defaultValue !== undefined && this.value === undefined) {
-            this.emitEvent('ExtraParamsProvided', this.defaultValue);
+            this.emitEvent('ExtraParamsProvided', { [this.name]: this.defaultValue });
           }
         },
         { immediate: true }
