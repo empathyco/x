@@ -69,7 +69,7 @@ describe('testing RenderlessExtraParam component', () => {
   });
 
   // eslint-disable-next-line max-len
-  it("not emits ExtraParamsProvided event when the component receives a default value if it's in the store", () => {
+  it("doesn't emit ExtraParamsProvided event when the component receives a default value if it's in the store", () => {
     const extraParamsProvidedCallback = jest.fn();
     const { wrapper } = renderRenderlessExtraParams({
       defaultValue: 1234,
