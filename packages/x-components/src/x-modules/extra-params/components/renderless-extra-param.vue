@@ -87,7 +87,7 @@
      * @internal
      */
     protected updateValue(newValue: unknown): void {
-      this.emitEvent('UserChangedExtraParams', newValue);
+      this.emitEvent('UserChangedExtraParams', { [this.name]: newValue });
     }
 
     /**
