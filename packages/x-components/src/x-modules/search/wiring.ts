@@ -85,7 +85,7 @@ export const setSort = wireCommit('setSort');
 export const setPage = wireCommit('setPage');
 
 /**
- * Sets the search state `page`.
+ * Sets the search state `params`.
  *
  * @public
  */
