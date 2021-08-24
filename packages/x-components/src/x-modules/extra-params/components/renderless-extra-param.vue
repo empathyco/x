@@ -6,7 +6,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Prop, Watch } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import { NoElement, State, xComponentMixin } from '../../../components';
   import { Dictionary } from '../../../utils';
   import { ExtraParamsXEvents } from '../events.types';
