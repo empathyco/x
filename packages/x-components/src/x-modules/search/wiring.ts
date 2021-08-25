@@ -89,7 +89,7 @@ export const setPage = wireCommit('setPage');
  *
  * @public
  */
-export const setParams = wireCommit('setParams');
+export const setSearchExtraParams = wireCommit('setParams');
 
 /**
  * Increases the current search state `page` by one.
@@ -178,7 +178,7 @@ export const searchWiring = createWiring({
     increasePageAppendingResults
   },
   ExtraParamsChanged: {
-    setParams,
+    setSearchExtraParams,
     resetPage,
     resetSort,
     resetFacets

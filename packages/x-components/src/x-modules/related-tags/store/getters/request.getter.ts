@@ -12,14 +12,16 @@ import { RelatedTagsXStoreModule } from '../types';
 export const request: RelatedTagsXStoreModule['getters']['request'] = ({
   query,
   selectedRelatedTags,
-  config
+  config,
+  params
 }) => {
   return query.trim()
     ? {
         query,
         relatedTags: selectedRelatedTags,
         rows: config.maxItemsToRequest,
-        start: 0
+        start: 0,
+        ...params
       }
     : null;
 };

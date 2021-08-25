@@ -2,6 +2,7 @@ import { RelatedTagsRequest } from '@empathyco/x-adapter';
 import { RelatedTag } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
+import { Dictionary } from '../../../utils';
 import { RelatedTagsConfig } from '../config.types';
 
 /**
@@ -18,6 +19,8 @@ export interface RelatedTagsState extends StatusState {
   selectedRelatedTags: RelatedTag[];
   /** The configuration of the related tags module. */
   config: RelatedTagsConfig;
+  /** The extra params property of the state. */
+  params: Dictionary<unknown>;
 }
 /**
  * RelatedTags store getters.
@@ -57,6 +60,12 @@ export interface RelatedTagsMutations extends StatusMutations {
    * @param selectedRelatedTags - The selected related tags to save to the state.
    */
   setSelectedRelatedTags(selectedRelatedTags: RelatedTag[]): void;
+  /**
+   * Sets the extra params of the module.
+   *
+   * @param params - The new extra params.
+   */
+  setParams(params: Dictionary<unknown>): void;
 }
 /**
  * RelatedTags store actions.
