@@ -39,7 +39,7 @@ const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleNa
 export const setNextQueriesQuery = wireCommit('setQuery');
 
 /**
- * Sets the related tags state `params`.
+ * Sets the next queries state `params`.
  *
  * @public
  */

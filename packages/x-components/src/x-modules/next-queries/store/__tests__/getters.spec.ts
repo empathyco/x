@@ -60,9 +60,6 @@ describe('testing next queries module getters', () => {
         config: {
           maxItemsToRequest: 5,
           hideSessionQueries: true
-        },
-        params: {
-          warehouse: 1234
         }
       });
       expect(store.getters[gettersKeys.nextQueries]).toEqual(
