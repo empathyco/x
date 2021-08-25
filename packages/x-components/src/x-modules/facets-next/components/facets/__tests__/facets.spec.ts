@@ -10,7 +10,6 @@ import {
 } from '../../../../../components/x-component.utils';
 import { XPlugin } from '../../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../../store/store.types';
-import { arrayToObject } from '../../../../../utils/array';
 import { DeepPartial, Dictionary } from '../../../../../utils/types';
 import { facetsNextXModule as facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
@@ -222,13 +221,7 @@ function renderFacetsComponent({
   const store = new Store<DeepPartial<RootXStoreState>>({});
   installNewXPlugin({ store }, localVue);
   XPlugin.registerXModule(facetsXModule);
-  const filters = arrayToObject(
-    Object.values(facets)
-      ?.map(facet => facet.filters)
-      .flat(),
-    'id'
-  );
-  resetXFacetsStateWith(store, { facets, filters });
+  resetXFacetsStateWith(store, facets);
 
   const facetWrapper = mount(
     {

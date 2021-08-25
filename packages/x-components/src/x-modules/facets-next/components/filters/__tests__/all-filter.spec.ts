@@ -6,7 +6,6 @@ import { createNextSimpleFacetStub } from '../../../../../__stubs__/facets-stubs
 import { installNewXPlugin } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import { RootXStoreState } from '../../../../../store/store.types';
-import { arrayToObject } from '../../../../../utils/array';
 import { facetsNextXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
 import AllFilter from '../all-filter.vue';
@@ -29,12 +28,7 @@ function renderAllFilter({
   localVue.use(Vuex);
   const store = new Store<RootXStoreState>({});
   installNewXPlugin({ store, initialXModules: [facetsNextXModule] }, localVue);
-  resetXFacetsStateWith(store, {
-    facets: {
-      [facet.id]: facet
-    },
-    filters: arrayToObject(facet.filters, 'id')
-  });
+  resetXFacetsStateWith(store, { category: facet });
 
   const wrapper = mount(
     {

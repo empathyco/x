@@ -12,10 +12,8 @@ import { XPlugin } from '../../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../../store/store.types';
 import { arrayToObject } from '../../../../../utils/array';
 import { areNextFiltersDifferent } from '../../../../../utils/filters';
-import { reduce } from '../../../../../utils/object';
 import { DeepPartial, Dictionary } from '../../../../../utils/types';
 import { DefaultFacetsService } from '../../../service/facets.service';
-import { GroupId } from '../../../store/types';
 import { facetsNextXModule as facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
 import FacetsProvider from '../facets-provider.vue';
@@ -131,18 +129,7 @@ function renderFacetsProviderComponent({
   const store = new Store<DeepPartial<RootXStoreState>>({});
   installNewXPlugin({ store }, localVue);
   XPlugin.registerXModule(facetsXModule);
-  const filters = arrayToObject(
-    Object.values(stateFacets)
-      ?.map(facet => facet.filters)
-      .flat(),
-    'id'
-  );
-  const groups = reduce(
-    stateFacets,
-    (groups, facetId) => Object.assign(groups, { [facetId]: 'search' }),
-    {} as Record<Facet['id'], GroupId>
-  );
-  resetXFacetsStateWith(store, { facets: stateFacets, filters, groups });
+  resetXFacetsStateWith(store, stateFacets);
 
   const facetWrapper = mount(
     {
