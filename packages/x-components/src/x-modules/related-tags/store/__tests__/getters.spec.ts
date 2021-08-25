@@ -1,4 +1,4 @@
-import { RelatedTagsRequest, SearchRequest } from '@empathyco/x-adapter';
+import { RelatedTagsRequest } from '@empathyco/x-adapter';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { map } from '../../../../utils';
