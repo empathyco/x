@@ -2,6 +2,7 @@ Feature: Popular searches component
 
   Background:
     Given a popular searches API with a known response
+    Given a results API
 
   Scenario Outline:  1. Popular searches are load together with the page
     Given following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, rendered <maxItemsToRender>
