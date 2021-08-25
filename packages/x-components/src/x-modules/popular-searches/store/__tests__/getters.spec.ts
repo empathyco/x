@@ -19,6 +19,18 @@ describe('testing popular searches module getters', () => {
       resetPopularSearchesStateWith(store, { config: { maxItemsToRequest: 3 } });
       expect(store.getters[gettersKeys.request]).toEqual({ rows: 3, start: 0 });
     });
+
+    it('should return a request object with extra params', () => {
+      resetPopularSearchesStateWith(store, {
+        config: { maxItemsToRequest: 3 },
+        params: { catalog: 'es' }
+      });
+      expect(store.getters[gettersKeys.request]).toEqual({
+        catalog: 'es',
+        rows: 3,
+        start: 0
+      });
+    });
   });
 
   describe(`${gettersKeys.popularSearches} getter`, () => {

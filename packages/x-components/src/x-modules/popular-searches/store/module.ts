@@ -22,7 +22,8 @@ export const popularSearchesXStoreModule: PopularSearchesXStoreModule = {
       hideSessionQueries: true,
       maxItemsToRequest: 20,
       showExtraSuggestionWithoutFilter: false
-    }
+    },
+    params: {}
   }),
   getters: {
     request,
@@ -35,7 +36,10 @@ export const popularSearchesXStoreModule: PopularSearchesXStoreModule = {
     setSearchedQueries(state, searchedQueries) {
       state.searchedQueries = searchedQueries;
     },
-    setStatus
+    setStatus,
+    setParams(state, params) {
+      state.params = params;
+    }
   },
   actions: {
     cancelFetchAndSaveSuggestions,
