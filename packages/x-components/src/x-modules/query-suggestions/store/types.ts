@@ -2,6 +2,7 @@ import { SuggestionsRequest } from '@empathyco/x-adapter';
 import { Suggestion } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
+import { Dictionary } from '../../../utils';
 import { QuerySuggestionsConfig } from '../config.types';
 
 /**
@@ -16,6 +17,8 @@ export interface QuerySuggestionsState extends StatusState {
   suggestions: Suggestion[];
   /** The configuration of the query suggestions module. */
   config: QuerySuggestionsConfig;
+  /** The extra params property of the state. */
+  params: Dictionary<unknown>;
 }
 
 /**
@@ -54,6 +57,12 @@ export interface QuerySuggestionsMutations extends StatusMutations {
    * @param suggestions - The suggestions list.
    */
   setSuggestions(suggestions: Suggestion[]): void;
+  /**
+   * Sets the extra params of the module.
+   *
+   * @param params - The new extra params.
+   */
+  setParams(params: Dictionary<unknown>): void;
 }
 
 /**
