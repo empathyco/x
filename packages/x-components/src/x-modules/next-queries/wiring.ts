@@ -39,6 +39,13 @@ const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleNa
 export const setNextQueriesQuery = wireCommit('setQuery');
 
 /**
+ * Sets the next queries state `params`.
+ *
+ * @public
+ */
+export const setNextQueriesExtraParams = wireCommit('setParams');
+
+/**
  * Requests and stores the next queries.
  *
  * @public
@@ -75,5 +82,8 @@ export const nextQueriesWiring = createWiring({
   },
   NextQueriesRequestChanged: {
     fetchAndSaveNextQueriesWire
+  },
+  ExtraParamsChanged: {
+    setNextQueriesExtraParams
   }
 });
