@@ -1,3 +1,4 @@
+import { NextQueriesRequest } from '@empathyco/x-adapter';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { createHistoryQueries, getNextQueriesStub } from '../../../../__stubs__';
@@ -21,13 +22,20 @@ describe('testing next queries module getters', () => {
         query: 'dorito',
         config: {
           maxItemsToRequest: 5
+        },
+        params: {
+          catalog: 'es'
         }
       });
 
-      expect(store.getters[gettersKeys.request]).toEqual({
+      expect(store.getters[gettersKeys.request]).toEqual<
+        NextQueriesRequest & { [key: string]: unknown }
+        // TODO - Remove when the facets refactor is completed.
+      >({
         query: 'dorito',
         rows: 5,
-        start: 0
+        start: 0,
+        catalog: 'es'
       });
     });
 
@@ -52,6 +60,9 @@ describe('testing next queries module getters', () => {
         config: {
           maxItemsToRequest: 5,
           hideSessionQueries: true
+        },
+        params: {
+          warehouse: 1234
         }
       });
       expect(store.getters[gettersKeys.nextQueries]).toEqual(
