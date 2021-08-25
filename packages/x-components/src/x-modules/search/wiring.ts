@@ -85,6 +85,13 @@ export const setSort = wireCommit('setSort');
 export const setPage = wireCommit('setPage');
 
 /**
+ * Sets the search state `params`.
+ *
+ * @public
+ */
+export const setParams = wireCommit('setParams');
+
+/**
  * Increases the current search state `page` by one.
  *
  * @public
@@ -113,6 +120,13 @@ export const resetPage = wireCommit('setPage', 1);
  * @public
  */
 export const resetSort = wireCommit('setSort', '');
+
+/**
+ * Sets empty value to the search state `facets`.
+ *
+ * @public
+ */
+export const resetFacets = wireCommit('setFacets', []);
 
 /**
  * Search wiring.
@@ -162,5 +176,11 @@ export const searchWiring = createWiring({
   },
   UserReachedResultsListEnd: {
     increasePageAppendingResults
+  },
+  ExtraParamsChanged: {
+    setParams,
+    resetPage,
+    resetSort,
+    resetFacets
   }
 });

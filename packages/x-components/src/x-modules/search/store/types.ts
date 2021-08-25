@@ -49,6 +49,8 @@ export interface SearchState extends StatusState {
   spellcheckedQuery: string;
   /** The total number of results, related to the `query` property of the state. */
   totalResults: number;
+  /** The extra params property of the state. */
+  params: Dictionary<unknown>;
 }
 
 /**
@@ -158,6 +160,12 @@ export interface SearchMutations extends StatusMutations {
    * @param totalResults - The new total results to save to the state.
    */
   setTotalResults(totalResults: number): void;
+  /**
+   * Sets the extra params of the module.
+   *
+   * @param params - The new extra params.
+   */
+  setParams(params: Dictionary<unknown>): void;
 }
 
 /**

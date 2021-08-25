@@ -17,6 +17,7 @@ import { SearchXStoreModule } from './types';
 export const searchXStoreModule: SearchXStoreModule = {
   state: () => ({
     query: '',
+    params: {},
     results: [],
     partialResults: [],
     facets: [],
@@ -83,7 +84,10 @@ export const searchXStoreModule: SearchXStoreModule = {
     setIsAppendResults(state, isAppendResults) {
       state.isAppendResults = isAppendResults;
     },
-    setStatus
+    setStatus,
+    setParams(state, params) {
+      state.params = params;
+    }
   },
   actions: {
     cancelFetchAndSaveSearchResponse,
