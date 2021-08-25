@@ -10,9 +10,10 @@ import { PopularSearchesXStoreModule } from '../types';
  *
  * @public
  */
-export const request: PopularSearchesXStoreModule['getters']['request'] = ({ config }) => {
+export const request: PopularSearchesXStoreModule['getters']['request'] = ({ config, params }) => {
   return {
     rows: config.maxItemsToRequest,
-    start: 0
+    start: 0,
+    ...params
   };
 };

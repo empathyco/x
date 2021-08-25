@@ -8,6 +8,7 @@ import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils
 import { popularSearchesXStoreModule } from '../module';
 import { PopularSearchesState } from '../types';
 import { resetPopularSearchesStateWith } from './utils';
+import { SuggestionsRequest } from '../../../../../../search-adapter/src/types/requests.types';
 
 describe('testing popular searches module getters', () => {
   Vue.use(Vuex);
@@ -16,8 +17,16 @@ describe('testing popular searches module getters', () => {
 
   describe(`${gettersKeys.request} getter`, () => {
     it('should return a request object with config default values', () => {
-      resetPopularSearchesStateWith(store, { config: { maxItemsToRequest: 3 } });
-      expect(store.getters[gettersKeys.request]).toEqual({ rows: 3, start: 0 });
+      resetPopularSearchesStateWith(store, {
+        config: { maxItemsToRequest: 3 },
+        params: {
+          catalog: 'es'
+        }
+      });
+      expect(store.getters[gettersKeys.request]).toEqual<
+        SuggestionsRequest & { [key: string]: unknown }
+        // TODO - Remove when the facets refactor is completed.
+      >({ rows: 3, start: 0, catalog: 'es' });
     });
   });
 
