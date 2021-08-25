@@ -9,10 +9,15 @@ import { RecommendationsXStoreModule } from '../types';
  *
  * @public
  */
-export const request: RecommendationsXStoreModule['getters']['request'] = ({ origin, config }) => {
+export const request: RecommendationsXStoreModule['getters']['request'] = ({
+  origin,
+  config,
+  params
+}) => {
   return {
     rows: config.maxItemsToRequest,
     start: 0,
-    origin
+    origin,
+    ...params
   };
 };

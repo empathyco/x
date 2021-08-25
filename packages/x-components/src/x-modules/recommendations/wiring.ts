@@ -1,4 +1,5 @@
 import { namespacedWireDispatchWithoutPayload } from '../../wiring/namespaced-wires.factory';
+import { wireCommit } from '../../wiring/wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
@@ -22,6 +23,13 @@ const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleNa
 const fetchAndSaveRecommendations = wireDispatchWithoutPayload('fetchAndSaveRecommendations');
 
 /**
+ * Sets the recommendations state `params`.
+ *
+ * @public
+ */
+export const setRecommendationsExtraParams = wireCommit('setParams');
+
+/**
  * Wiring configuration for the {@link RecommendationsXModule | recommendations module}.
  *
  * @internal
@@ -30,5 +38,8 @@ export const recommendationsWiring = createWiring({
   RecommendationsRequestChanged: {
     fetchAndSaveRecommendations
   },
-  UserClickedColumnPicker: {}
+  UserClickedColumnPicker: {},
+  ExtraParamsChanged: {
+    setRecommendationsExtraParams
+  }
 });
