@@ -2,6 +2,7 @@ import { NextQueriesRequest } from '@empathyco/x-adapter';
 import { HistoryQuery, NextQuery } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
+import { Dictionary } from '../../../utils';
 import { NextQueriesConfig } from '../config.types';
 
 /**
@@ -19,6 +20,8 @@ export interface NextQueriesState extends StatusState {
   searchedQueries: HistoryQuery[];
   /** Configuration options of the next queries module. */
   config: NextQueriesConfig;
+  /** The extra params property of the state. */
+  params: Dictionary<unknown>;
 }
 
 /**
@@ -58,6 +61,12 @@ export interface NextQueriesMutations extends StatusMutations {
    * @param searchedQueries - The searched queries to save to the state.
    */
   setSearchedQueries(searchedQueries: HistoryQuery[]): void;
+  /**
+   * Sets the extra params of the module.
+   *
+   * @param params - The new extra params.
+   */
+  setParams(params: Dictionary<unknown>): void;
 }
 
 /**

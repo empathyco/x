@@ -24,7 +24,8 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
       maxItemsToRequest: 20,
       hideSessionQueries: true,
       loadOnInit: true
-    }
+    },
+    params: {}
   }),
   getters: {
     request,
@@ -40,7 +41,10 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     setSearchedQueries(state, searchedQueries) {
       state.searchedQueries = searchedQueries;
     },
-    setStatus
+    setStatus,
+    setParams(state, params) {
+      state.params = params;
+    }
   },
   actions: {
     cancelFetchAndSaveNextQueries,
