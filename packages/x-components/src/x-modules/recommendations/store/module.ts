@@ -20,7 +20,8 @@ export const recommendationsXStoreModule: RecommendationsXStoreModule = {
     },
     origin: RECOMMENDATIONS_ORIGIN,
     status: 'success',
-    recommendations: []
+    recommendations: [],
+    params: {}
   }),
   getters: {
     request
@@ -29,7 +30,10 @@ export const recommendationsXStoreModule: RecommendationsXStoreModule = {
     setRecommendations(state, recommendations) {
       state.recommendations = recommendations;
     },
-    setStatus
+    setStatus,
+    setParams(state, params) {
+      state.params = params;
+    }
   },
   actions: {
     cancelFetchAndSaveRecommendations,

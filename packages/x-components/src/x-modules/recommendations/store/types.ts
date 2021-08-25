@@ -2,6 +2,7 @@ import { TopRecommendationsRequest } from '@empathyco/x-adapter';
 import { Result } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
+import { Dictionary } from '../../../utils/types';
 import { RecommendationsConfig } from '../config.types';
 
 /**
@@ -16,6 +17,8 @@ export interface RecommendationsState extends StatusState {
   origin: string;
   /** The recommendations of the module. */
   recommendations: Result[];
+  /** The extra params property of the state. */
+  params: Dictionary<unknown>;
 }
 
 /**
@@ -40,6 +43,12 @@ export interface RecommendationsMutations extends StatusMutations {
    * @param recommendations - The recommendations list.
    */
   setRecommendations(recommendations: Result[]): void;
+  /**
+   * Sets the extra params of the module.
+   *
+   * @param params - The new extra params.
+   */
+  setParams(params: Dictionary<unknown>): void;
 }
 
 /**
