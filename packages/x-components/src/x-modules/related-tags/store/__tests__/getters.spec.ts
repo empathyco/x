@@ -1,3 +1,4 @@
+import { RelatedTagsRequest, SearchRequest } from '@empathyco/x-adapter';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { map } from '../../../../utils';
@@ -21,14 +22,21 @@ describe('testing related tags module getters', () => {
   describe(`${gettersKeys.request} getter`, () => {
     it('should return a request object if there is a query', () => {
       resetRelatedTagsStateWith(store, {
-        query: 'doraemon'
+        query: 'doraemon',
+        params: {
+          catalog: 'es'
+        }
       });
 
-      expect(store.getters[gettersKeys.request]).toEqual({
+      expect(store.getters[gettersKeys.request]).toEqual<
+        RelatedTagsRequest & { [key: string]: unknown }
+        // TODO - Remove when the facets refactor is completed.
+      >({
         query: 'doraemon',
         relatedTags: [],
         rows: 10,
-        start: 0
+        start: 0,
+        catalog: 'es'
       });
     });
 
@@ -36,14 +44,21 @@ describe('testing related tags module getters', () => {
       const selectedRelatedTags = getSelectedRelatedTagsStub();
       resetRelatedTagsStateWith(store, {
         query: 'nobita',
-        selectedRelatedTags: selectedRelatedTags
+        selectedRelatedTags: selectedRelatedTags,
+        params: {
+          warehouse: 1234
+        }
       });
 
-      expect(store.getters[gettersKeys.request]).toEqual({
+      expect(store.getters[gettersKeys.request]).toEqual<
+        RelatedTagsRequest & { [key: string]: unknown }
+        // TODO - Remove when the facets refactor is completed.
+      >({
         query: 'nobita',
         relatedTags: selectedRelatedTags,
         rows: 10,
-        start: 0
+        start: 0,
+        warehouse: 1234
       });
     });
 
