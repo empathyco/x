@@ -44,14 +44,7 @@ export const setSearchedQueriesInPopularSearches = wireCommit('setSearchedQuerie
  *
  * @public
  */
-export const setRelatedTagsExtraParams = wireCommit('setParams');
-
-/**
- * Sets empty value to the popular searches state `popularSearches`.
- *
- * @public
- */
-export const setSuggestions = wireCommit('setSuggestions', []);
+export const setPopularSearchesExtraParams = wireCommit('setParams');
 
 /**
  * Wiring configuration for the popular searches modules.
@@ -66,7 +59,6 @@ export const popularSearchesWiring = createWiring({
     setSearchedQueriesInPopularSearches
   },
   ExtraParamsChanged: {
-    setRelatedTagsExtraParams,
-    setSuggestions
+    setPopularSearchesExtraParams
   }
 });

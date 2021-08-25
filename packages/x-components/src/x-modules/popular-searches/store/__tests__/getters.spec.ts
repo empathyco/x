@@ -16,20 +16,13 @@ describe('testing popular searches module getters', () => {
 
   describe(`${gettersKeys.request} getter`, () => {
     it('should return a request object with config default values', () => {
-      resetPopularSearchesStateWith(store, { config: { maxItemsToRequest: 3 } });
-      expect(store.getters[gettersKeys.request]).toEqual({ rows: 3, start: 0 });
-    });
-
-    it('should return a request object with extra params', () => {
       resetPopularSearchesStateWith(store, {
         config: { maxItemsToRequest: 3 },
-        params: { catalog: 'es' }
+        params: {
+          catalog: 'es'
+        }
       });
-      expect(store.getters[gettersKeys.request]).toEqual({
-        catalog: 'es',
-        rows: 3,
-        start: 0
-      });
+      expect(store.getters[gettersKeys.request]).toEqual({ rows: 3, start: 0, catalog: 'es' });
     });
   });
 
