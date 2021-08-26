@@ -63,6 +63,7 @@ export interface RequestOptions {
 }
 
 /**
+ * Interface to support extra params
  *
  * @public
  */
