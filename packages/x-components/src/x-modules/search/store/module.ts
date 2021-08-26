@@ -1,3 +1,4 @@
+import { isFacetFilter } from '@empathyco/x-types';
 import { setStatus } from '../../../store/utils/helpers/status.helpers';
 import { groupItemsBy } from '../../../utils/array';
 import {
@@ -58,7 +59,9 @@ export const searchXStoreModule: SearchXStoreModule = {
       state.relatedTags = relatedTags;
     },
     setSelectedFilters(state, selectedFilters) {
-      state.selectedFilters = groupItemsBy(selectedFilters, filter => filter.facetId);
+      state.selectedFilters = groupItemsBy(selectedFilters, filter =>
+        isFacetFilter(filter) ? filter.facetId : '__unknown__'
+      );
     },
     setBanners(state, banners) {
       state.banners = banners;

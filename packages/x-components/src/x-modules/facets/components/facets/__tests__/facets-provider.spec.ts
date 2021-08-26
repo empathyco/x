@@ -11,7 +11,7 @@ import {
 import { XPlugin } from '../../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../../store/store.types';
 import { arrayToObject } from '../../../../../utils/array';
-import { areNextFiltersDifferent } from '../../../../../utils/filters';
+import { areFiltersDifferent } from '../../../../../utils/filters';
 import { DeepPartial, Dictionary } from '../../../../../utils/types';
 import { DefaultFacetsService } from '../../../service/facets.service';
 import { facetsXModule } from '../../../x-module';
@@ -101,9 +101,7 @@ describe('testing Facets component', () => {
     let emittedEvents = wrapper.emitted('UserChangedSelectedFilters');
     expect(emittedEvents).toHaveLength(1);
     let emittedFilters: Filter[] = emittedEvents?.[0][0];
-    expect(areNextFiltersDifferent(emittedFilters, [redFilter, bigFilter, smallFilter])).toBe(
-      false
-    );
+    expect(areFiltersDifferent(emittedFilters, [redFilter, bigFilter, smallFilter])).toBe(false);
 
     // Modifying the prop again with selected filters does not trigger UserChangedSelectedFilters
     await wrapper.setProps({ facets: [colorFacet, sizeFacet] });
@@ -116,7 +114,7 @@ describe('testing Facets component', () => {
     emittedEvents = wrapper.emitted('UserChangedSelectedFilters');
     expect(emittedEvents).toHaveLength(2);
     emittedFilters = emittedEvents?.[1][0];
-    expect(areNextFiltersDifferent(emittedFilters, [])).toBe(false);
+    expect(areFiltersDifferent(emittedFilters, [])).toBe(false);
   });
 });
 

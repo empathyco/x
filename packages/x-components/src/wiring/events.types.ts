@@ -5,7 +5,6 @@ import { DeviceXEvents } from '../x-modules/device';
 import { EmpathizeXEvents } from '../x-modules/empathize/events.types';
 import { ExtraParamsXEvents } from '../x-modules/extra-params';
 import { FacetsXEvents } from '../x-modules/facets/events.types';
-import { FacetsXEvents } from '../x-modules/facets/events.types';
 import { HistoryQueriesXEvents } from '../x-modules/history-queries/events.types';
 import { IdentifierResultsXEvents } from '../x-modules/identifier-results/events.types';
 import { NextQueriesXEvents } from '../x-modules/next-queries/events.types';
@@ -41,7 +40,6 @@ import { SearchXEvents } from '../x-modules/search/events.types';
 export interface XEventsTypes
   extends DeviceXEvents,
     EmpathizeXEvents,
-    FacetsXEvents,
     FacetsXEvents,
     HistoryQueriesXEvents,
     IdentifierResultsXEvents,

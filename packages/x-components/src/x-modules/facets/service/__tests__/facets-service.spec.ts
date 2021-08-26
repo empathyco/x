@@ -14,7 +14,7 @@ import {
 } from '../../../../__stubs__/filters-stubs.factory';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { areNextFiltersDifferent } from '../../../../utils/filters';
+import { areFiltersDifferent } from '../../../../utils/filters';
 import {
   getStoreEditableNumberRangeFilter,
   getStoreFilter,
@@ -286,7 +286,7 @@ describe('testing facets service', () => {
         facets: [colorFacet, categoryFacet, ageFacet, priceFacet]
       });
       expect(
-        areNextFiltersDifferent(getFilters(), [
+        areFiltersDifferent(getFilters(), [
           ...colorFacet.filters,
           ...categoryFacet.filters,
           ...ageFacet.filters,
@@ -307,7 +307,7 @@ describe('testing facets service', () => {
       service.select(age10To18Filter);
       service.select(priceUpTo10Filter);
       expect(
-        areNextFiltersDifferent(getSelectedFilters(), [
+        areFiltersDifferent(getSelectedFilters(), [
           redColorFilter,
           menCategoryFilter,
           age10To18Filter,
@@ -342,7 +342,7 @@ describe('testing facets service', () => {
         facets: [newColorFacet, newCategoryFacet, newAgeFacet, newPriceFacet]
       });
       expect(
-        areNextFiltersDifferent(getFilters(), [
+        areFiltersDifferent(getFilters(), [
           ...newColorFacet.filters,
           ...newCategoryFacet.filters,
           ...newAgeFacet.filters,
@@ -351,7 +351,7 @@ describe('testing facets service', () => {
       ).toBe(false);
       expect(
         // Because newPriceFacet filter has a different id in this new group, it is de selected
-        areNextFiltersDifferent(getSelectedFilters(), [
+        areFiltersDifferent(getSelectedFilters(), [
           redColorFilter,
           menCategoryFilter,
           age10To18Filter
@@ -368,7 +368,7 @@ describe('testing facets service', () => {
         facets: [shipmentFacet]
       });
       expect(
-        areNextFiltersDifferent(getFilters(), [
+        areFiltersDifferent(getFilters(), [
           ...newColorFacet.filters,
           ...newCategoryFacet.filters,
           ...newAgeFacet.filters,
@@ -377,7 +377,7 @@ describe('testing facets service', () => {
         ])
       ).toBe(false);
       expect(
-        areNextFiltersDifferent(getSelectedFilters(), [
+        areFiltersDifferent(getSelectedFilters(), [
           redColorFilter,
           menCategoryFilter,
           age10To18Filter
@@ -410,7 +410,7 @@ describe('testing facets service', () => {
         id: 'static',
         facets: [categoryFacet]
       });
-      expect(areNextFiltersDifferent(getFilters(), categoryFacet.filters)).toBe(false);
+      expect(areFiltersDifferent(getFilters(), categoryFacet.filters)).toBe(false);
       expect(getSelectedFilters()).toEqual([]);
     });
   });
@@ -454,7 +454,7 @@ describe('testing facets service', () => {
         facets: [colorFacet, categoryFacet, ageFacet, priceFacet]
       });
       expect(
-        areNextFiltersDifferent(getFilters(), [
+        areFiltersDifferent(getFilters(), [
           ...colorFacet.filters,
           ...categoryFacet.filters,
           ...ageFacet.filters,
@@ -509,7 +509,7 @@ describe('testing facets service', () => {
         facets: [newColorFacet, newCategoryFacet, newAgeFacet, newPriceFacet]
       });
       expect(
-        areNextFiltersDifferent(getFilters(), [
+        areFiltersDifferent(getFilters(), [
           ...newColorFacet.filters,
           ...newCategoryFacet.filters,
           ...newAgeFacet.filters,
@@ -517,7 +517,7 @@ describe('testing facets service', () => {
         ])
       ).toBe(false);
       expect(
-        areNextFiltersDifferent(getSelectedFilters(), [
+        areFiltersDifferent(getSelectedFilters(), [
           greenColorFilter,
           kidsCategoryFilter,
           ageMoreThan18Filter,
@@ -536,7 +536,7 @@ describe('testing facets service', () => {
         facets: [shipmentFacet]
       });
       expect(
-        areNextFiltersDifferent(getFilters(), [
+        areFiltersDifferent(getFilters(), [
           ...newColorFacet.filters,
           ...newCategoryFacet.filters,
           ...newAgeFacet.filters,
@@ -545,7 +545,7 @@ describe('testing facets service', () => {
         ])
       ).toBe(false);
       expect(
-        areNextFiltersDifferent(getSelectedFilters(), [
+        areFiltersDifferent(getSelectedFilters(), [
           greenColorFilter,
           kidsCategoryFilter,
           ageMoreThan18Filter,

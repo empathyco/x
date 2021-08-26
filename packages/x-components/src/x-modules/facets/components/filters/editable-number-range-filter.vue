@@ -457,7 +457,7 @@ True by default.
 
 A list of events that the component will emit:
 
-- `UserModifiedEditableNumberRangeFilter`: this event is emitted instantly after typing the
-  value or clicking the submit button. The event payload in both cases is an object containing the
-  filter and the new value for the range.
+- `UserModifiedEditableNumberRangeFilter`: this event is emitted instantly after typing the value or
+  clicking the submit button. The event payload in both cases is an object containing the filter and
+  the new value for the range.
 </docs>

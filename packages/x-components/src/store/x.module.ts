@@ -31,7 +31,6 @@ export const RootXStoreModule: Module<XModuleState, any> = {
     identifierResults: null,
     search: null,
     facets: null,
-    facets: null,
     tagging: null,
     url: null,
     extraParams: null

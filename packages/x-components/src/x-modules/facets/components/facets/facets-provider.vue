@@ -4,7 +4,7 @@
   import { Component, Prop } from 'vue-property-decorator';
   import { XOn } from '../../../../components';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
-  import { areNextFiltersDifferent } from '../../../../utils/filters';
+  import { areFiltersDifferent } from '../../../../utils/filters';
   import { FacetsGroup } from '../../service/types';
   import { GroupId } from '../../store/types';
   import { facetsXModule } from '../../x-module';
@@ -80,7 +80,7 @@
     emitSelectedFiltersChanged(selectedFilters: Filter[]): void {
       if (
         this.selectedFilters === null ||
-        areNextFiltersDifferent(this.selectedFilters, selectedFilters)
+        areFiltersDifferent(this.selectedFilters, selectedFilters)
       ) {
         this.$x.emit('UserChangedSelectedFilters', selectedFilters);
       }

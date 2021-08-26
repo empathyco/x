@@ -1,4 +1,3 @@
-import { Facet as FacetNext } from '@empathyco/x-types';
 import { createStoreEmitters } from '../../../store';
 import { searchXStoreModule } from './module';
 
@@ -10,8 +9,6 @@ import { searchXStoreModule } from './module';
 export const searchEmitters = createStoreEmitters(searchXStoreModule, {
   ResultsChanged: state => state.results,
   SearchRequestChanged: (_, getters) => getters.request,
-  BackendFacetsChanged: state => state.facets,
-  //TODO remove when facets refactor is done
-  FacetsChanged: state => state.facets as unknown as FacetNext[],
+  FacetsChanged: state => state.facets,
   SpellcheckChanged: state => state.spellcheckedQuery
 });

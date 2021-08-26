@@ -20,11 +20,6 @@ const routes: RouteConfig[] = [
     component: () => import('./views/Layout.vue')
   },
   {
-    path: '/layout-next',
-    name: 'Layout Next',
-    component: () => import('./views/LayoutNext.vue')
-  },
-  {
     path: '/empathize',
     name: 'empathize',
     component: () => import('./views/empathize.vue')
