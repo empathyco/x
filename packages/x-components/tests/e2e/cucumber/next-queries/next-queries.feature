@@ -2,6 +2,7 @@ Feature: Next queries component
 
   Background:
     Given a next queries API with a known response
+    Given a results API
 
   Scenario Outline: 1. Next query is clicked
     Given following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, loadOnInit <loadOnInit>

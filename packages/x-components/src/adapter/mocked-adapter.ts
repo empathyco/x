@@ -5,6 +5,8 @@ import {
   NextQueriesResponse,
   RelatedTagsRequest,
   RelatedTagsResponse,
+  SearchRequest,
+  SearchResponse,
   SearchAdapter,
   SuggestionsRequest,
   SuggestionsResponse,
@@ -59,6 +61,10 @@ class E2ETestsAdapter extends EmpathyAdapter {
 
   getRelatedTags(request: RelatedTagsRequest): Promise<RelatedTagsResponse> {
     return mockFetch(request, 'getRelatedTags');
+  }
+
+  search(request: SearchRequest): Promise<SearchResponse> {
+    return mockFetch(request, 'search');
   }
 }
 
