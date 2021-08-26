@@ -45,8 +45,10 @@ function renderHierarchicalFilter({
   );
 
   const hierarchicalFilterWrapper = wrapper.findComponent(HierarchicalFilter);
+
   const getFilterWrapper = (): Wrapper<Vue> =>
     hierarchicalFilterWrapper.find(getDataTestSelector('filter'));
+
   const getFiltersWrappers = (): WrapperArray<Vue> =>
     hierarchicalFilterWrapper.findAll(getDataTestSelector('filter'));
 
@@ -67,7 +69,7 @@ function renderHierarchicalFilter({
     return getFilters().find(filter => filter.parentId === null)!;
   }
 
-  function getPartialSelectedFilters(): HierarchicalFilterModel[] {
+  function getPartiallySelectedFilters(): HierarchicalFilterModel[] {
     return getFilters().filter(filter =>
       ['category:root', 'category:child-0'].includes(String(filter.id))
     );
@@ -80,7 +82,7 @@ function renderHierarchicalFilter({
     emit,
     getRootFilter,
     getFilters,
-    getPartialSelectedFilters,
+    getPartiallySelectedFilters,
     setFilter,
     clickFilter
   };
@@ -124,15 +126,15 @@ describe('testing `HierarchicalFilter` component', () => {
   it('allows replacing the root element of the component', () => {
     const { hierarchicalFilterWrapper, getRootFilter, emit } = renderHierarchicalFilter({
       template: `
-      <HierarchicalFilter :filter="filter" v-slot="{ filter, clickFilter }">
-        <label data-test="custom-label">
-          <input data-test="custom-input"
-            type="checkbox"
-            @change="clickFilter"
-          >
-          {{ filter.label }}
-        </label>
-      </HierarchicalFilter>
+        <HierarchicalFilter :filter="filter" v-slot="{ filter, clickFilter }">
+          <label data-test="custom-label">
+            <input data-test="custom-input"
+              type="checkbox"
+              @change="clickFilter"
+            >
+            {{ filter.label }}
+          </label>
+        </HierarchicalFilter>
       `
     });
 
@@ -160,11 +162,11 @@ describe('testing `HierarchicalFilter` component', () => {
   it('allows customizing the rendered label content with an slot', () => {
     const { getFilterWrapper, getRootFilter } = renderHierarchicalFilter({
       template: `
-      <HierarchicalFilter :filter="filter">
-        <template #label :filter="filter">
-          <span data-test="custom-label">{{ filter.label }}</span>
-        </template>
-      </HierarchicalFilter>
+        <HierarchicalFilter :filter="filter">
+          <template #label :filter="filter">
+            <span data-test="custom-label">{{ filter.label }}</span>
+          </template>
+        </HierarchicalFilter>
       `
     });
 
@@ -238,7 +240,7 @@ describe('testing `HierarchicalFilter` component', () => {
       const { getFiltersWrappers, getFilters } = renderHierarchicalFilter({
         template: `
           <HierarchicalFilter :filter="filter" #label="{ filter }">
-          Custom - {{ filter.label }}
+            Custom - {{ filter.label }}
           </HierarchicalFilter>`
       });
 
@@ -288,8 +290,8 @@ describe('testing `HierarchicalFilter` component', () => {
     });
 
     it('adds a CSS class when the filter is partially selected', () => {
-      const { getFiltersWrappers, getPartialSelectedFilters } = renderHierarchicalFilter();
-      const partiallySelectedIds = getPartialSelectedFilters().map(filter => filter.id);
+      const { getFiltersWrappers, getPartiallySelectedFilters } = renderHierarchicalFilter();
+      const partiallySelectedIds = getPartiallySelectedFilters().map(filter => filter.id);
 
       expect(getFiltersWrappers().length).toBeGreaterThan(0);
 
@@ -308,19 +310,19 @@ describe('testing `HierarchicalFilter` component', () => {
     it('exposes proper css classes and attributes in the default slot to children', () => {
       const { setFilter, getFiltersWrappers } = renderHierarchicalFilter({
         template: `
-     <HierarchicalFilter
-       :filter="filter"
-       v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
-       >
-         <button
-         data-test="filter"
-         :class="cssClasses"
-         @click="clickFilter"
-         :disabled="isDisabled"
-         >
-           {{ filter.label }}
-         </button>
-     </HierarchicalFilter>
+           <HierarchicalFilter
+             :filter="filter"
+             v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
+             >
+               <button
+               data-test="filter"
+               :class="cssClasses"
+               @click="clickFilter"
+               :disabled="isDisabled"
+               >
+                 {{ filter.label }}
+               </button>
+           </HierarchicalFilter>
      `
       });
       const filtersWrappers = getFiltersWrappers();
@@ -407,5 +409,5 @@ interface HierarchicalFilterAPI {
    *
    * @returns All the partially selected filters of the hierarchical facet.
    */
-  getPartialSelectedFilters: () => HierarchicalFilterModel[];
+  getPartiallySelectedFilters: () => HierarchicalFilterModel[];
 }

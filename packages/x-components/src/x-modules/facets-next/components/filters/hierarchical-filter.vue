@@ -80,6 +80,7 @@
     /** The animation component to use for the children filters. */
     @Prop()
     public childrenAnimation?: Vue | string;
+
     /**
      * The state filters.
      *
