@@ -4,6 +4,7 @@ Feature: History queries component
     Given a next queries API
     Given a suggestions API
     Given a related tags API
+    Given a results API
 
   Scenario Outline:  1. History query is clicked
     Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>

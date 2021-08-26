@@ -39,6 +39,13 @@ const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleNa
 export const setRelatedTagsQuery = wireCommit('setQuery');
 
 /**
+ * Sets the related tags state `params`.
+ *
+ * @public
+ */
+export const setRelatedTagsExtraParams = wireCommit('setParams');
+
+/**
  * Requests and stores the related tags.
  *
  * @public
@@ -95,5 +102,8 @@ export const relatedTagsWiring = createWiring({
     cancelFetchAndSaveRelatedTagsWire,
     clearRelatedTagsQuery,
     clearSelectedRelatedTags
+  },
+  ExtraParamsChanged: {
+    setRelatedTagsExtraParams
   }
 });

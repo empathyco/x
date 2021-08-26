@@ -1,5 +1,6 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { InstallXOptions } from '../../../src/x-installer/x-installer/types';
+import { createResultStub } from '../../../../src/__stubs__';
+import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
 
 let resultsCount = 0;
 let resultsList: string[] = [];
@@ -7,6 +8,24 @@ const compoundResultsList: string[] = [];
 let startQuery = 0;
 let startSecondQuery = 0;
 let interval = 0;
+
+// Background
+Given('a results API with a known response', () => {
+  cy.intercept('https://api.empathy.co/search', req => {
+    req.reply({
+      results: [
+        createResultStub('LEGO Super Mario Pack Inicial: Aventuras con Mario - 71360'),
+        createResultStub('LEGO Duplo Classic Caja de Ladrillos - 10913'),
+        createResultStub('LEGO City Coche Patrulla de Policía - 60239'),
+        createResultStub('LEGO City Police Caja de Ladrillos - 60270'),
+        createResultStub('LEGO Friends Parque para Cachorros - 41396'),
+        createResultStub('LEGO Creator Ciberdrón - 31111'),
+        createResultStub('LEGO Technic Dragster - 42103'),
+        createResultStub('LEGO Technic Dragster - 42103')
+      ]
+    });
+  }).as('interceptedResults');
+});
 
 Given(
   'following config: hide if equals query {boolean}, instant search {boolean}, debounce {int}',
@@ -73,6 +92,7 @@ And('History queries are being displayed is not {boolean}', (hideIfEqualsQuery: 
     cy.getByDataTest('history-queries').should('not.exist');
   }
 });
+
 When('the {string} is cleared by {string}', (query: string, cleared: string) => {
   if (cleared === 'clickButton') {
     cy.clearSearchInput();
@@ -80,18 +100,23 @@ When('the {string} is cleared by {string}', (query: string, cleared: string) => 
     cy.getByDataTest('search-input').type('{backspace}'.repeat(query.length));
   }
 });
+
 Then('the search box is empty', () => {
   cy.getByDataTest('search-input').should('have.value', '');
 });
+
 And('related results are cleared', () => {
   cy.getByDataTest('result-item').should('not.exist');
 });
+
 And('query suggestions are cleared', () => {
   cy.getByDataTest('query-suggestions').should('not.exist');
 });
+
 And('next queries are not cleared', () => {
   cy.getByDataTest('next-query').should('have.length.at.least', 1);
 });
+
 And('related tags are cleared', () => {
   cy.getByDataTest('related-tag').should('not.exist');
 });
@@ -148,11 +173,23 @@ And('related tags are displayed after instantDebounceInMs is {boolean}', (instan
 });
 
 // Scenario 4
+Given('a second results API with a known response', () => {
+  cy.intercept('https://api.empathy.co/search', req => {
+    req.reply({
+      results: [
+        createResultStub('LEGO Duplo Disney Tren de Cumpleaños de Mickey y Minnie - 10941'),
+        createResultStub('LEGO Disney Granja de Mickey Mouse y el Pato Donald - 10775')
+      ]
+    });
+  }).as('interceptedSecondResults');
+});
+
 When('{string} is added to the search', (secondQuery: string) => {
   cy.typeQuery(` ${secondQuery}`).then(() => {
     startSecondQuery = Date.now();
   });
 });
+
 Then('new related results are not displayed before {int}', (instantDebounceInMs: number) => {
   cy.getByDataTest('result-item')
     .should($results => {
@@ -163,6 +200,7 @@ Then('new related results are not displayed before {int}', (instantDebounceInMs:
       expect(instantDebounceInMs).to.be.greaterThan(interval);
     });
 });
+
 And(
   'new related results are displayed after {int} is {boolean}',
   (instantDebounceInMs: number, instant: boolean) => {
@@ -182,6 +220,7 @@ And(
     }
   }
 );
+
 And('new related results are different from previous ones', () => {
   expect(compoundResultsList.every(item => resultsList.includes(item))).to.eq(false);
 });
@@ -193,6 +232,7 @@ When('{string} is deleted from the search', (secondQuery: string) => {
       startQuery = Date.now();
     });
 });
+
 Then('old related results are not displayed before {int}', (instantDebounceInMs: number) => {
   cy.getByDataTest('result-item')
     .should('have.length', compoundResultsList.length)

@@ -33,6 +33,13 @@ const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleNa
 export const setQuerySuggestionsQuery = wireCommit('setQuery');
 
 /**
+ * Sets the query suggestions state `params`.
+ *
+ * @public
+ */
+export const setQuerySuggestionsExtraParams = wireCommit('setParams');
+
+/**
  * Clears the query-suggestions module query.
  *
  * @public
@@ -82,5 +89,8 @@ export const querySuggestionsWiring = createWiring({
   },
   QuerySuggestionsRequestChanged: {
     fetchAndSaveSuggestionsWire
+  },
+  ExtraParamsChanged: {
+    setQuerySuggestionsExtraParams
   }
 });

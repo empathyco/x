@@ -23,7 +23,8 @@ export const relatedTagsXStoreModule: RelatedTagsXStoreModule = {
     status: 'success',
     config: {
       maxItemsToRequest: 10
-    }
+    },
+    params: {}
   }),
   getters: {
     request,
@@ -39,7 +40,10 @@ export const relatedTagsXStoreModule: RelatedTagsXStoreModule = {
     setSelectedRelatedTags(state, selectedRelatedTags) {
       state.selectedRelatedTags = selectedRelatedTags;
     },
-    setStatus
+    setStatus,
+    setParams(state, params) {
+      state.params = params;
+    }
   },
   actions: {
     cancelFetchAndSaveRelatedTags,

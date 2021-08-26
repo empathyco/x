@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.16...@empathyco/x-components@3.0.0-alpha.17) (2021-08-26)
+
+
+### Features
+
+* **facets-next:** add all remaining components to Facets Next X-Module ([b9e0afc](https://github.com/empathyco/x/commit/b9e0afcbc657ec4925054bcb24f61de5f35fc741)), closes [EX-4615](https://searchbroker.atlassian.net/browse/EX-4615)
+* **next-queries:** add extra params in the request ([d6b362b](https://github.com/empathyco/x/commit/d6b362ba94c1755004f005b6841c03a4e73bfe98)), closes [EX-4624](https://searchbroker.atlassian.net/browse/EX-4624)
+* **popular-searches:** add extra params ([697055e](https://github.com/empathyco/x/commit/697055eb28bf4640eb879d4559d083c51ab775f9)), closes [EX-4623](https://searchbroker.atlassian.net/browse/EX-4623)
+* **query-suggestions:** add new extra params in the request ([c15512c](https://github.com/empathyco/x/commit/c15512cd6b633d5eefecf8e9efdef2e921d84901)), closes [EX-4627](https://searchbroker.atlassian.net/browse/EX-4627)
+* **recommendations:** recommendations extra params and state reset on change. ([a5938ac](https://github.com/empathyco/x/commit/a5938ac1280fc273c633061f411c5a47b15e5d78)), closes [EX-4626](https://searchbroker.atlassian.net/browse/EX-4626)
+* **related-tags:** add new extra params in the request ([6d642b5](https://github.com/empathyco/x/commit/6d642b59b3030c5c04f00e38a90253aa2199d0a8)), closes [EX-4625](https://searchbroker.atlassian.net/browse/EX-4625)
+* **search:** add extra params to search module ([1c44a70](https://github.com/empathyco/x/commit/1c44a708a4df63b879fccc8617bf1b1fb12747a0)), closes [EX-4554](https://searchbroker.atlassian.net/browse/EX-4554)
+
+
+### Testing
+
+* **e2e:** mock search-box e2e tests ([155b15c](https://github.com/empathyco/x/commit/155b15c046956fec2ecfbed8bc322360bcad43f0)), closes [EX-4474](https://searchbroker.atlassian.net/browse/EX-4474)
+
+
+
 ## [3.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.15...@empathyco/x-components@3.0.0-alpha.16) (2021-08-24)
 
 

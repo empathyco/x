@@ -24,7 +24,8 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
       maxItemsToRequest: 10,
       showExtraSuggestionWithoutFilter: true,
       hideIfEqualsQuery: true
-    }
+    },
+    params: {}
   }),
   getters: {
     request,
@@ -38,7 +39,10 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
     setSuggestions(state, suggestions) {
       state.suggestions = suggestions;
     },
-    setStatus
+    setStatus,
+    setParams(state, params) {
+      state.params = params;
+    }
   },
   actions: {
     cancelFetchAndSaveSuggestions,

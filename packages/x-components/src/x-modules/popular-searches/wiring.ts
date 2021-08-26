@@ -40,6 +40,13 @@ const retrievePopularSuggestions = wireDispatchWithoutPayload('fetchAndSaveSugge
 export const setSearchedQueriesInPopularSearches = wireCommit('setSearchedQueries');
 
 /**
+ * Sets the popular searches state `params`.
+ *
+ * @public
+ */
+export const setPopularSearchesExtraParams = wireCommit('setParams');
+
+/**
  * Wiring configuration for the popular searches modules.
  *
  * @internal
@@ -50,5 +57,8 @@ export const popularSearchesWiring = createWiring({
   },
   SessionHistoryQueriesChanged: {
     setSearchedQueriesInPopularSearches
+  },
+  ExtraParamsChanged: {
+    setPopularSearchesExtraParams
   }
 });
