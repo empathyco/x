@@ -7,7 +7,11 @@ import { UrlXStoreModule } from './types';
  */
 export const urlXStoreModule: UrlXStoreModule = {
   state: () => ({
-    config: {}
+    query: '',
+    page: 1,
+    filters: [],
+    sort: '',
+    relatedTag: ''
   }),
   getters: {},
   mutations: {},
