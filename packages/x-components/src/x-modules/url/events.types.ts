@@ -47,7 +47,7 @@ export interface UrlXEvents {
   SortLoadedFromUrl: string;
   /**
    * Related tags has been loaded from the URL.
-   * * Payload: The related tag string.
+   * * Payload: The related tag array.
    */
-  RelatedTagsLoadedFromUrl: string;
+  RelatedTagsLoadedFromUrl: string[];
 }
