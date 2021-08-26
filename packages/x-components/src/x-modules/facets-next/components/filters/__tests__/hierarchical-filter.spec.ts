@@ -13,10 +13,10 @@ function renderHierarchicalFilter({
   template = `<HierarchicalFilter :filter="filter" />`
 }: HierarchicalFilterOptions = {}): HierarchicalFilterAPI {
   const facet = createNextHierarchicalFacetStub('category', createFilter => [
+    // Partially selected
     ...createFilter('root', false, createFilter => [
       // Partially selected
       ...createFilter('child-0', true, createFilter => [
-        // Partially selected
         ...createFilter('grand-child-0', false), // Unselected
         ...createFilter('grand-child-1', true) // Selected
       ]),
@@ -64,7 +64,13 @@ function renderHierarchicalFilter({
   }
 
   function getRootFilter(): HierarchicalFilterModel {
-    return <HierarchicalFilterModel>getFilters().find(filter => filter.parentId === null);
+    return getFilters().find(filter => filter.parentId === null)!;
+  }
+
+  function getPartialSelectedFilters(): HierarchicalFilterModel[] {
+    return getFilters().filter(filter =>
+      ['category:root', 'category:child-0'].includes(String(filter.id))
+    );
   }
 
   return {
@@ -74,6 +80,7 @@ function renderHierarchicalFilter({
     emit,
     getRootFilter,
     getFilters,
+    getPartialSelectedFilters,
     setFilter,
     clickFilter
   };
@@ -280,75 +287,71 @@ describe('testing `HierarchicalFilter` component', () => {
       });
     });
 
-    /* it('adds a CSS class when the filter is partially selected', async () => {
-      const { getFilterModelsByDepth, getFilterWrappersByDepth, transverseFilters } =
-        renderHierarchicalFilter();
+    it('adds a CSS class when the filter is partially selected', () => {
+      const { getFiltersWrappers, getPartialSelectedFilters } = renderHierarchicalFilter();
+      const partiallySelectedIds = getPartialSelectedFilters().map(filter => filter.id);
 
-      const [
-        [rootFilterPartiallySelected],
-        [childFilterPartiallySelected, childFilterSelected],
-        [grandChildUnselected, grandChildSelected]
-      ] = getFilterWrappersByDepth();
-      const [, , [unselectedFilter]] = getFilterModelsByDepth();
-      const partiallySelected = [rootFilterPartiallySelected, childFilterPartiallySelected];
-      const notPartiallySelected = [childFilterSelected, grandChildUnselected, grandChildSelected];
+      expect(getFiltersWrappers().length).toBeGreaterThan(0);
 
-      partiallySelected.forEach(filterWrapper => {
-        expect(filterWrapper.classes()).toContain('x-hierarchical-filter--is-partially-selected');
-      });
-      notPartiallySelected.forEach(filterWrapper => {
-        expect(filterWrapper.classes()).not.toContain(filterWrapper);
-      });
-
-      unselectedFilter.selected = true;
-      await rootFilterPartiallySelected.vm.$nextTick();
-
-      transverseFilters(filterWrapper => {
-        expect(filterWrapper.classes()).not.toContain(filterWrapper);
+      getFiltersWrappers().wrappers.forEach(filterWrapper => {
+        const filter = (filterWrapper.vm as unknown as any).filter;
+        if (partiallySelectedIds.includes(filter.id)) {
+          expect(filterWrapper.classes()).toContain('x-hierarchical-filter--is-partially-selected');
+        } else {
+          expect(filterWrapper.classes()).not.toContain(
+            'x-hierarchical-filter--is-partially-selected'
+          );
+        }
       });
     });
 
-    it('exposes proper css classes and attributes in the default slot to children', async () => {
-      const { wrapper, setFilter, filter } = renderHierarchicalFilter({
+    it('exposes proper css classes and attributes in the default slot to children', () => {
+      const { setFilter, getFiltersWrappers } = renderHierarchicalFilter({
         template: `
-          <HierarchicalFilter
-            :filter="filter"
-            v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
-          >
-          <button
-            :data-test="filter.id"
-            :class="cssClasses"
-            @click="clickFilter"
-            :disabled="isDisabled"
-          >
-            {{ filter.label }}
-          </button>
-          </HierarchicalFilter>
-        `
+     <HierarchicalFilter
+     :filter="filter"
+     v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
+     >
+     <button
+     data-test="filter"
+     :class="cssClasses"
+     @click="clickFilter"
+     :disabled="isDisabled"
+     >
+     {{ filter.label }}
+     </button>
+     </HierarchicalFilter>
+     `
       });
-      const childrenFilterWrapper = wrapper.find(getDataTestSelector(filter.id.toString()));
+      const filtersWrappers = getFiltersWrappers();
 
-      expect(childrenFilterWrapper.attributes()).not.toHaveProperty('disabled');
-      expect(childrenFilterWrapper.classes()).toHaveLength(6);
-      expect(childrenFilterWrapper.classes()).toEqual(
-        expect.arrayContaining([
-          'x-filter',
-          'x-filter--is-selected',
-          'x-filter--is-partially-selected',
-          'x-hierarchical-filter',
-          'x-hierarchical-filter--is-selected',
-          'x-hierarchical-filter--is-partially-selected'
-        ])
-      );
+      expect(filtersWrappers.length).toBeGreaterThan(1);
 
-      await setFilter({ ...filter, selected: false, totalResults: 0, children: [] });
+      filtersWrappers.wrappers.forEach(async filterWrapper => {
+        const filter = (filterWrapper.vm as unknown as any).filter;
 
-      expect(childrenFilterWrapper.attributes()).toHaveProperty('disabled');
-      expect(childrenFilterWrapper.classes()).toHaveLength(3);
-      expect(childrenFilterWrapper.classes()).toEqual(
-        expect.arrayContaining(['x-filter', 'x-hierarchical-filter', 'x-filter--is-disabled'])
-      );
-    });*/
+        expect(filterWrapper.attributes()).not.toHaveProperty('disabled');
+        expect(filterWrapper.classes()).toHaveLength(6);
+        expect(filterWrapper.classes()).toEqual(
+          expect.arrayContaining([
+            'x-filter',
+            'x-filter--is-selected',
+            'x-filter--is-partially-selected',
+            'x-hierarchical-filter',
+            'x-hierarchical-filter--is-selected',
+            'x-hierarchical-filter--is-partially-selected'
+          ])
+        );
+
+        await setFilter({ ...filter, selected: false, totalResults: 0, children: [] });
+
+        expect(filterWrapper.attributes()).toHaveProperty('disabled');
+        expect(filterWrapper.classes()).toHaveLength(3);
+        expect(filterWrapper.classes()).toEqual(
+          expect.arrayContaining(['x-filter', 'x-hierarchical-filter', 'x-filter--is-disabled'])
+        );
+      });
+    });
   });
 });
 
@@ -399,4 +402,10 @@ interface HierarchicalFilterAPI {
    * @returns All the filters of the hierarchical facet.
    */
   getFilters: () => HierarchicalFilterModel[];
+  /**
+   * Returns all the partially selected filters of the hierarchical facet.
+   *
+   * @returns All the partially selected filters of the hierarchical facet.
+   */
+  getPartialSelectedFilters: () => HierarchicalFilterModel[];
 }
