@@ -26,6 +26,11 @@ export interface SearchXEvents {
    */
   BackendFacetsChanged: Facet[];
   /**
+   * Page has been change.
+   * * Payload: The new page number.
+   */
+  PageChanged: number;
+  /**
    * Results have been changed.
    * * Payload: The new {@link @empathyco/x-types#Result | results}.
    */
@@ -36,6 +41,11 @@ export interface SearchXEvents {
    * to conform a valid request.
    */
   SearchRequestChanged: SearchRequest | null;
+  /**
+   * Sort has been changed.
+   * * Payload: The new sort string.
+   */
+  SortChanged: string;
   /**
    * Spellcheck has been changed.
    * * Payload: The new spellcheckedQuery string.

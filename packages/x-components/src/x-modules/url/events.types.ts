@@ -4,4 +4,45 @@
  *
  * @public
  */
-export interface UrlXEvents {}
+export interface UrlXEvents {
+  /**
+   * URl state changed.
+   * * Payload: none.
+   */
+  UrlStateChanged: void;
+  /**
+   * Document has finished loading.
+   * * Payload: none.
+   */
+  DocumentLoaded: void;
+  /**
+   * Document history has changed.
+   * * Payload: none.
+   */
+  DocumentHistoryChanged: void;
+  /**
+   * Query has been loaded from the URL.
+   * * Payload: The query string.
+   */
+  QueryLoadedFromUrl: string;
+  /**
+   * Page has been loaded from the URL.
+   * * Payload: The page number.
+   */
+  PageLoadedFromUrl: string;
+  /**
+   * Filters has been loaded from the URL.
+   * * Payload: The filters array.
+   */
+  FiltersLoadedFromUrl: string[];
+  /**
+   * Sort has been loaded from the URL.
+   * * Payload: The sort string.
+   */
+  SortLoadedFromUrl: string;
+  /**
+   * Related tags has been loaded from the URL.
+   * * Payload: The related tag string.
+   */
+  RelatedTagsLoadedFromUrl: string;
+}
