@@ -26,7 +26,7 @@ export interface SearchXEvents {
    */
   BackendFacetsChanged: Facet[];
   /**
-   * Page has been change.
+   * Page has been changed.
    * * Payload: The new page number.
    */
   PageChanged: number;

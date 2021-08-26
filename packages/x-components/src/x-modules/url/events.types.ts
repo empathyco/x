@@ -6,7 +6,7 @@
  */
 export interface UrlXEvents {
   /**
-   * URl state changed.
+   * Url state changed.
    * * Payload: none.
    */
   UrlStateChanged: void;
@@ -20,6 +20,11 @@ export interface UrlXEvents {
    * * Payload: none.
    */
   DocumentHistoryChanged: void;
+  /**
+   * Extra params has been loaded from the URL.
+   * * Payload: The extra params array.
+   */
+  ExtraParamsLoadedFromUrl: string[];
   /**
    * Query has been loaded from the URL.
    * * Payload: The query string.
