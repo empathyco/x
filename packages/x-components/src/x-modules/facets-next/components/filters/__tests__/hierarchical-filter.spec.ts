@@ -309,17 +309,17 @@ describe('testing `HierarchicalFilter` component', () => {
       const { setFilter, getFiltersWrappers } = renderHierarchicalFilter({
         template: `
      <HierarchicalFilter
-     :filter="filter"
-     v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
-     >
-     <button
-     data-test="filter"
-     :class="cssClasses"
-     @click="clickFilter"
-     :disabled="isDisabled"
-     >
-     {{ filter.label }}
-     </button>
+       :filter="filter"
+       v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
+       >
+         <button
+         data-test="filter"
+         :class="cssClasses"
+         @click="clickFilter"
+         :disabled="isDisabled"
+         >
+           {{ filter.label }}
+         </button>
      </HierarchicalFilter>
      `
       });
@@ -384,9 +384,9 @@ interface HierarchicalFilterAPI {
   /** The hierarchical filter wrapper.*/
   hierarchicalFilterWrapper: Wrapper<Vue>;
   /**
-   * Returns the rendered filter.
+   * Returns the root filter.
    *
-   * @returns The rendered filter.
+   * @returns The root filter.
    */
   getRootFilter: () => HierarchicalFilterModel;
   /**
