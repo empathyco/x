@@ -5,6 +5,7 @@ import { getXComponentXModuleName, isXComponent } from '../../../../../component
 import { XEventsTypes } from '../../../../../wiring/events.types';
 import {
   createSimpleFilter,
+  createSimpleFilter,
   getSimpleFilterStub
 } from '../../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector } from '../../../../../__tests__/utils';
@@ -12,7 +13,7 @@ import BaseFilter from '../base-filter.vue';
 
 function renderBaseFilter({
   template = '<BaseFilter :filter="filter" :clickEvents="clickEvents"/>',
-  filter = getSimpleFilterStub(),
+  filter = createSimpleFilter('category', 'men'),
   clickEvents
 }: RenderBaseFilterOptions = {}): RenderBaseFilterAPI {
   Vue.observable(filter);

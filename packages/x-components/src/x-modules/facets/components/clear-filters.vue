@@ -7,14 +7,14 @@
     :events="events"
     :class="cssClasses"
   >
-    <slot :selectedFilters="facetsSelectedFilters" />
+    <slot :selectedFilters="facetsSelectedFilters">Clear Filters</slot>
   </BaseEventButton>
 </template>
 
 <script lang="ts">
-  import { Facet, Filter } from '@empathyco/x-types';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Facet, Filter, isFacetFilter } from '@empathyco/x-types';
   import Vue from 'vue';
+  import { Component, Prop } from 'vue-property-decorator';
   import { Getter, xComponentMixin } from '../../../components';
   import BaseEventButton from '../../../components/base-event-button.vue';
   import { VueCSSClasses } from '../../../utils';
@@ -82,7 +82,9 @@
      */
     protected get facetsSelectedFilters(): Filter[] {
       if (this.facetsIds) {
-        return this.allSelectedFilters.filter(filter => this.facetsIds!.includes(filter.facetId));
+        return this.allSelectedFilters.filter(
+          filter => isFacetFilter(filter) && this.facetsIds!.includes(filter.facetId)
+        );
       } else {
         return this.allSelectedFilters;
       }

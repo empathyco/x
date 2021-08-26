@@ -24,7 +24,7 @@
   import { isArrayEmpty } from '../../../../utils/array';
   import { VueCSSClasses } from '../../../../utils/types';
   import { XEventsTypes } from '../../../../wiring/events.types';
-  import { FiltersByFacet } from '../../store/types';
+  import { FiltersByFacet } from '../../store';
   import { facetsXModule } from '../../x-module';
 
   /**
@@ -52,11 +52,14 @@
     /**
      * The event that will be emitted when the all filter button is clicked.
      *
+     * @returns The event to emit on click.
      * @internal
      */
-    protected clickEvent: Partial<XEventsTypes> = {
-      UserClickedFacetAllFilter: this.facet.id
-    };
+    protected get clickEvent(): Partial<XEventsTypes> {
+      return {
+        UserClickedAllFilter: [this.facet.id]
+      };
+    }
 
     /**
      * Computed to retrieve the selected state of this component.
@@ -137,6 +140,6 @@ facet label but this content is customizable through the default slot.
 
 A list of events that the component will emit:
 
-- `UserClickedFacetAllFilter`: the event is emitted after the user clicks the button. The event
+- `UserClickedAllFilter`: the event is emitted after the user clicks the button. The event
 payload is the id of the facet that this `AllFilter` component corresponds to.
 </docs>

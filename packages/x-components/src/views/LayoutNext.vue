@@ -197,7 +197,7 @@
 
 <script lang="ts">
   import { deepMerge } from '@empathyco/x-deep-merge';
-  import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types-next';
+  import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { BaseIdTogglePanelButton } from '../components';
@@ -225,20 +225,20 @@
   import SlidingPanel from '../components/sliding-panel.vue';
   import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
   import { XInstaller } from '../x-installer/x-installer';
-  import FacetsProvider from '../x-modules/facets-next/components/facets/facets-provider.vue';
-  import Facets from '../x-modules/facets-next/components/facets/facets.vue';
-  import SimpleFilter from '../x-modules/facets-next/components/filters/simple-filter.vue';
-  import FiltersList from '../x-modules/facets-next/components/lists/filters-list.vue';
-  import FiltersSearch from '../x-modules/facets-next/components/lists/filters-search.vue';
+  import FacetsProvider from '../x-modules/facets/components/facets/facets-provider.vue';
+  import Facets from '../x-modules/facets/components/facets/facets.vue';
+  import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
+  import FiltersList from '../x-modules/facets/components/lists/filters-list.vue';
+  import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
   // eslint-disable-next-line max-len
-  import SelectedFiltersList from '../x-modules/facets-next/components/lists/selected-filters-list.vue';
-  import SlicedFilters from '../x-modules/facets-next/components/lists/sliced-filters.vue';
+  import SelectedFiltersList from '../x-modules/facets/components/lists/selected-filters-list.vue';
+  import SlicedFilters from '../x-modules/facets/components/lists/sliced-filters.vue';
   // eslint-disable-next-line max-len
-  import ExcludeFiltersWithNoResults from '../x-modules/facets-next/components/lists/exclude-filters-with-no-results.vue';
-  import SortedFilters from '../x-modules/facets-next/components/lists/sorted-filters.vue';
-  import ClearFilters from '../x-modules/facets-next/components/clear-filters.vue';
-  import { FilterEntityFactory } from '../x-modules/facets-next/entities/filter-entity.factory';
-  import { SingleSelectModifier } from '../x-modules/facets-next/entities/single-select.modifier';
+  import ExcludeFiltersWithNoResults from '../x-modules/facets/components/lists/exclude-filters-with-no-results.vue';
+  import SortedFilters from '../x-modules/facets/components/lists/sorted-filters.vue';
+  import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
+  import { FilterEntityFactory } from '../x-modules/facets/entities/filter-entity.factory';
+  import { SingleSelectModifier } from '../x-modules/facets/entities/single-select.modifier';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
   import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
   import PopularSearches from '../x-modules/popular-searches/components/popular-searches.vue';

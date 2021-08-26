@@ -1,17 +1,17 @@
-import { BooleanFilter, Facet } from '@empathyco/x-types';
+import { Facet } from '@empathyco/x-types';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
-import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial } from '../../../../utils/types';
 import {
   createHierarchicalFacetStub,
   createSimpleFacetStub
 } from '../../../../__stubs__/facets-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
-import { FacetsState } from '../../store/types';
+import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
+import { XPlugin } from '../../../../plugins/x-plugin';
+import { RootXStoreState } from '../../../../store/store.types';
+import { DeepPartial } from '../../../../utils/types';
+import { DefaultFacetsService } from '../../service/facets.service';
 import { facetsXModule } from '../../x-module';
 import ClearFilters from '../clear-filters.vue';
 import { resetXFacetsStateWith } from './utils';
@@ -29,28 +29,24 @@ function renderClearFilters({
     </ClearFilters>
   `
 }: RenderFiltersOptions = {}): RenderFiltersAPI {
-  const facetsState: Partial<FacetsState> = {
-    backendFacets: {
-      category: createHierarchicalFacetStub('Category', createFilter => [
-        createFilter('Men', false),
-        createFilter('Women', false)
-      ]),
-      brand: createSimpleFacetStub('Brand', createFilter => [
-        createFilter('Audi', false),
-        createFilter('BMW', false)
-      ])
-    }
+  const facets = {
+    category: createHierarchicalFacetStub('Category', createFilter => [
+      createFilter('Men', false),
+      createFilter('Women', false)
+    ]),
+    brand: createSimpleFacetStub('Brand', createFilter => [
+      createFilter('Audi', false),
+      createFilter('BMW', false)
+    ])
   };
 
   const localVue = createLocalVue();
   localVue.use(Vuex);
-  const store = new Store<DeepPartial<RootXStoreState>>({});
+  const store: Store<DeepPartial<RootXStoreState>> = new Store<DeepPartial<RootXStoreState>>({});
   installNewXPlugin({ store }, localVue);
-
-  XPlugin.resetInstance();
   XPlugin.registerXModule(facetsXModule);
 
-  resetXFacetsStateWith(store, facetsState);
+  resetXFacetsStateWith(store, facets);
   const wrapper = mount(
     {
       components: {
@@ -71,9 +67,7 @@ function renderClearFilters({
     wrapper,
     clearFiltersWrapper,
     setCategoryFacetFiltersAsSelected() {
-      (facetsState.backendFacets?.category.filters as BooleanFilter[]).forEach(filter => {
-        filter.selected = true;
-      });
+      facets.category.filters.forEach(filter => DefaultFacetsService.instance.select(filter));
       return localVue.nextTick();
     },
     setFacetsIds(facetsIds) {

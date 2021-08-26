@@ -6,10 +6,10 @@ import {
 import {
   createEditableNumberRangeFilter,
   createHierarchicalFilter,
-  createNextEditableNumberRangeFilter,
-  createNextHierarchicalFilter,
-  createNextNumberRangeFilter,
-  createNextSimpleFilter,
+  createEditableNumberRangeFilter,
+  createHierarchicalFilter,
+  createNumberRangeFilter,
+  createSimpleFilter,
   createNumberRangeFilter,
   createRawFilter,
   createSimpleFilter,
@@ -24,30 +24,30 @@ import {
 
 describe(`testing ${areNextFiltersDifferent.name}`, () => {
   it('returns true with different filters', () => {
-    expect(areNextFiltersDifferent([createNextSimpleFilter('color', 'red')], [])).toBe(true);
-    expect(areNextFiltersDifferent([], [createNextSimpleFilter('color', 'red')])).toBe(true);
+    expect(areNextFiltersDifferent([createSimpleFilter('color', 'red')], [])).toBe(true);
+    expect(areNextFiltersDifferent([], [createSimpleFilter('color', 'red')])).toBe(true);
     expect(
       areNextFiltersDifferent(
-        [createNextSimpleFilter('color', 'red')],
-        [createNextSimpleFilter('color', 'blue')]
+        [createSimpleFilter('color', 'red')],
+        [createSimpleFilter('color', 'blue')]
       )
     ).toBe(true);
     expect(
       areNextFiltersDifferent(
-        [createNextHierarchicalFilter('category', 'shirt')],
-        [createNextHierarchicalFilter('category', 'jeans')]
+        [createHierarchicalFilter('category', 'shirt')],
+        [createHierarchicalFilter('category', 'jeans')]
       )
     ).toBe(true);
     expect(
       areNextFiltersDifferent(
-        [createNextNumberRangeFilter('price', { min: null, max: 10 })],
-        [createNextNumberRangeFilter('price', { min: null, max: 50 })]
+        [createNumberRangeFilter('price', { min: null, max: 10 })],
+        [createNumberRangeFilter('price', { min: null, max: 50 })]
       )
     ).toBe(true);
     expect(
       areNextFiltersDifferent(
-        [createNextEditableNumberRangeFilter('age', { min: null, max: 10 })],
-        [createNextEditableNumberRangeFilter('age', { min: null, max: 50 })]
+        [createEditableNumberRangeFilter('age', { min: null, max: 10 })],
+        [createEditableNumberRangeFilter('age', { min: null, max: 50 })]
       )
     ).toBe(true);
     expect(areNextFiltersDifferent([createRawFilter('size:m')], [createRawFilter('size:l')])).toBe(
@@ -58,26 +58,26 @@ describe(`testing ${areNextFiltersDifferent.name}`, () => {
   it('returns false with the same filters', () => {
     expect(
       areNextFiltersDifferent(
-        [createNextSimpleFilter('color', 'red', false)],
-        [createNextSimpleFilter('color', 'red', true)]
+        [createSimpleFilter('color', 'red', false)],
+        [createSimpleFilter('color', 'red', true)]
       )
     ).toBe(false);
     expect(
       areNextFiltersDifferent(
-        [createNextHierarchicalFilter('category', 'shirt')],
-        [createNextHierarchicalFilter('category', 'shirt')]
+        [createHierarchicalFilter('category', 'shirt')],
+        [createHierarchicalFilter('category', 'shirt')]
       )
     ).toBe(false);
     expect(
       areNextFiltersDifferent(
-        [createNextNumberRangeFilter('price', { min: null, max: 10 })],
-        [createNextNumberRangeFilter('price', { min: null, max: 10 })]
+        [createNumberRangeFilter('price', { min: null, max: 10 })],
+        [createNumberRangeFilter('price', { min: null, max: 10 })]
       )
     ).toBe(false);
     expect(
       areNextFiltersDifferent(
-        [createNextEditableNumberRangeFilter('age', { min: null, max: 30 })],
-        [createNextEditableNumberRangeFilter('age', { min: null, max: 30 })]
+        [createEditableNumberRangeFilter('age', { min: null, max: 30 })],
+        [createEditableNumberRangeFilter('age', { min: null, max: 30 })]
       )
     ).toBe(false);
     expect(areNextFiltersDifferent([createRawFilter('size:l')], [createRawFilter('size:l')])).toBe(
@@ -86,18 +86,18 @@ describe(`testing ${areNextFiltersDifferent.name}`, () => {
     expect(
       areNextFiltersDifferent(
         [
-          createNextSimpleFilter('color', 'red', false),
-          createNextHierarchicalFilter('category', 'shirt'),
-          createNextNumberRangeFilter('price', { min: null, max: 10 }),
-          createNextEditableNumberRangeFilter('age', { min: null, max: 30 }),
+          createSimpleFilter('color', 'red', false),
+          createHierarchicalFilter('category', 'shirt'),
+          createNumberRangeFilter('price', { min: null, max: 10 }),
+          createEditableNumberRangeFilter('age', { min: null, max: 30 }),
           createRawFilter('size:l')
         ],
         [
           createRawFilter('size:l'),
-          createNextEditableNumberRangeFilter('age', { min: null, max: 30 }),
-          createNextNumberRangeFilter('price', { min: null, max: 10 }),
-          createNextHierarchicalFilter('category', 'shirt'),
-          createNextSimpleFilter('color', 'red', false)
+          createEditableNumberRangeFilter('age', { min: null, max: 30 }),
+          createNumberRangeFilter('price', { min: null, max: 10 }),
+          createHierarchicalFilter('category', 'shirt'),
+          createSimpleFilter('color', 'red', false)
         ]
       )
     ).toBe(false);

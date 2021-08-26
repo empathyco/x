@@ -1,14 +1,14 @@
 import { SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory';
+import { createSimpleFilter } from '../../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import SimpleFilter from '../simple-filter.vue';
 
 function renderSimpleFilter({
   template = '<SimpleFilter :filter="filter"/>',
-  filter = getSimpleFilterStub()
+  filter = createSimpleFilter('category', 'women')
 }: RenderSimpleFilterOptions = {}): RenderSimpleFilterAPI {
   Vue.observable(filter);
   const emit = jest.fn();

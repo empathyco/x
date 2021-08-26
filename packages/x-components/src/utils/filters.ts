@@ -6,7 +6,7 @@ import {
   isEditableNumberRangeFilter,
   isHierarchicalFacet
 } from '@empathyco/x-types';
-import { Filter as FilterNext } from '@empathyco/x-types-next';
+import { Filter as FilterNext } from '@empathyco/x-types';
 import { deepFlat } from './array';
 
 /**

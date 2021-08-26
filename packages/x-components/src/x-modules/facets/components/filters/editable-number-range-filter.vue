@@ -52,7 +52,7 @@
         <!--
             @slot Slot used to customize the apply button content.
         -->
-        <slot name="apply-content">✅</slot>
+        <slot name="apply-content">✓</slot>
       </button>
 
       <button
@@ -64,7 +64,7 @@
         <!--
             @slot Slot used to customize the clear button content.
         -->
-        <slot name="clear-content">🗑</slot>
+        <slot name="clear-content">𐄂</slot>
       </button>
     </slot>
   </div>
@@ -276,7 +276,7 @@
     protected emitUserModifiedFilter(): void {
       if (!this.hasError && this.areValuesDifferent) {
         this.$x.emit('UserModifiedEditableNumberRangeFilter', {
-          filter: this.filter,
+          ...this.filter,
           range: this.range
         });
       }
@@ -317,7 +317,7 @@ True by default.
 </template>
 
 <script>
-  import { EditableNumberRangeFilter } from '@empathyco/x-components';
+  import { EditableNumberRangeFilter } from '@empathyco/x-components/facets';
 
   export default {
     components: {
@@ -350,7 +350,7 @@ True by default.
 </template>
 
 <script>
-  import { EditableNumberRangeFilter } from '@empathyco/x-components';
+  import { EditableNumberRangeFilter } from '@empathyco/x-components/facets';
 
   export default {
     components: {
@@ -386,7 +386,7 @@ True by default.
 </template>
 
 <script>
-  import { EditableNumberRangeFilter } from '@empathyco/x-components';
+  import { EditableNumberRangeFilter } from '@empathyco/x-components/facets';
 
   export default {
     components: {
@@ -428,7 +428,7 @@ True by default.
 </template>
 
 <script>
-  import { EditableNumberRangeFilter } from '@empathyco/x-components';
+  import { EditableNumberRangeFilter } from '@empathyco/x-components/facets';
 
   export default {
     components: {
@@ -457,7 +457,7 @@ True by default.
 
 A list of events that the component will emit:
 
-- `UserModifiedEditableNumberRangeFilter`: this event is emitted instantly after typing the value or
-  clicking the submit button. The event payload in both cases is an object containing the filter and
-  the new value for the range.
+- `UserModifiedEditableNumberRangeFilter`: this event is emitted instantly after typing the
+  value or clicking the submit button. The event payload in both cases is an object containing the
+  filter and the new value for the range.
 </docs>

@@ -1,5 +1,6 @@
-import { createStoreEmitters } from '../../../store';
-import { areFiltersDifferent, isNewQuery } from '../utils';
+import { createStoreEmitters } from '../../../store/store.utils';
+import { areNextFiltersDifferent } from '../../../utils/filters';
+import { isNewQuery } from '../utils';
 import { facetsXStoreModule } from './module';
 
 /**
@@ -10,7 +11,7 @@ import { facetsXStoreModule } from './module';
 export const facetsEmitters = createStoreEmitters(facetsXStoreModule, {
   SelectedFiltersChanged: {
     selector: (_, getters) => getters.selectedFilters,
-    filter: areFiltersDifferent
+    filter: areNextFiltersDifferent
   },
   FacetsQueryChanged: {
     selector: state => state.query,

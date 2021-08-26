@@ -1,11 +1,12 @@
 import {
+  EditableNumberRangeFilter,
   Facet,
   Filter,
   HierarchicalFilter,
   NumberRangeFilter,
   SimpleFilter
 } from '@empathyco/x-types';
-import { EditableNumberRangeFilterChange, MultiSelectChange } from './store/types';
+import { FacetsGroup } from './service/types';
 
 /**
  * Dictionary of the events of Facets XModule, where each key is the event name, and the
@@ -15,34 +16,23 @@ import { EditableNumberRangeFilterChange, MultiSelectChange } from './store/type
  */
 export interface FacetsXEvents {
   /**
-   * The backend facets have changed.
-   * * Payload: The {@link @empathyco/x-types#Facet | facets} array.
-   */
-  BackendFacetsChanged: Facet[];
-  /**
-   * The developer has provided with some custom backend facets. This facets should have the
-   * proper filters selected state.
-   * * Payload: The new backend facets.
-   */
-  BackendFacetsProvided: Facet[];
-  /**
-   * The multi select configuration has changed for a facet.
-   * * Payload: the facet id and the new value of the multiSelect.
-   */
-  FacetMultiSelectChanged: MultiSelectChange;
-  /**
    * The query used in the module has changed.
    * * Payload: The facets query.
    */
   FacetsQueryChanged: string;
   /**
-   * The frontend facets have changed.
-   * * Payload: The facets array.
+   * The facets from a group have changed
+   * * Payload: The group id and the new list of facets for it.
    */
-  FrontendFacetsChanged: Facet[];
+  FacetsGroupChanged: FacetsGroup;
+  /**
+   * A new set of facets for the group has been provided.
+   * * Payload: The group id and the new list of facets for it.
+   **/
+  FacetsGroupProvided: FacetsGroup;
   /**
    * The selected filters have changed.
-   * * Payload: filters array.
+   * * Payload: the new list of selected filters.
    */
   SelectedFiltersChanged: Filter[];
   /**
@@ -83,25 +73,13 @@ export interface FacetsXEvents {
    */
   UserClickedASimpleFilter: SimpleFilter;
   /**
-   * The user has clicked button clear filters.
-   * * Payload: array the facets ids.
-   */
-  UserClickedClearAllFilters: Array<Facet['id']> | undefined;
-  /**
-   * The user has clicked button clear filters when there are facets ids.
-   * * Payload: array the facets ids.
-   *
-   * @deprecated Use {@link FacetsXEvents.UserClickedClearAllFilters}.
-   */
-  UserClickedClearFacetFilters: Array<Facet['id']> | undefined;
-  /**
    * The user has clicked facet select all filters button.
    * * Payload: Facet id.
    */
-  UserClickedFacetAllFilter: Facet['id'];
+  UserClickedAllFilter: [Facet['id']];
   /**
    * The user has modified a filter which is of editable number range filter type.
    * * Payload: An {@link EditableNumberRangeFilterChange | object}.
    */
-  UserModifiedEditableNumberRangeFilter: EditableNumberRangeFilterChange;
+  UserModifiedEditableNumberRangeFilter: EditableNumberRangeFilter;
 }

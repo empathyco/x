@@ -39,7 +39,7 @@
   },
   "scripts": {
     "serve": "vue-cli-service serve --skip-plugins eslint",
-    "build": "ts-node --project ./build/tsconfig.json ./build/build.ts",
+    "build": "",
     "build:website": "vue-cli-service build",
     "gen:docs": "rimraf ./docs && npm run gen:typescript-docs && npm run gen:component-docs",
     "gen:typescript-docs": "api-documenter markdown --input-folder dist/report --output-folder docs/API-reference/api",
@@ -61,12 +61,11 @@
     "release:alpha": "standard-version --no-verify --prerelease alpha"
   },
   "dependencies": {
-    "@empathyco/x-adapter": "npm:@empathyco/x-adapter@^6.2.0-alpha.8",
+    "@empathyco/x-adapter": "7.0.0-alpha.1",
     "@empathyco/x-deep-merge": "^1.2.2-alpha.8",
     "@empathyco/x-logger": "^1.1.0",
     "@empathyco/x-storage-service": "^1.3.1-alpha.7",
-    "@empathyco/x-types": "^9.1.0-alpha.2",
-    "@empathyco/x-types-next": "npm:@empathyco/x-types@^10.0.0-alpha.4",
+    "@empathyco/x-types": "^10.0.0-alpha.4",
     "@types/resize-observer-browser": "~0.1.5",
     "magic-string": "~0.25.7",
     "reflect-metadata": "~0.1.13",

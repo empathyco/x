@@ -1,7 +1,7 @@
 import { Filter } from '@empathyco/x-types';
 import { mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
-import { createCategorySimpleFilter } from '../../../../../__stubs__/filters-stubs.factory';
+import { createSimpleFilter } from '../../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import SlicedFilters from '../sliced-filters.vue';
@@ -22,7 +22,7 @@ function renderBaseShowMoreFilters(max = 10): BaseShowMoreFiltersAPI {
     'Lego construccion',
     'Lego coleccionista',
     'Lego nuevo'
-  ].map(label => createCategorySimpleFilter(label));
+  ].map(label => createSimpleFilter('category', label));
 
   const wrapper = mount(
     {

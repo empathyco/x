@@ -17,9 +17,9 @@
 </template>
 
 <script lang="ts">
+  import { BooleanFilter } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { BooleanFilter } from '@empathyco/x-types';
   import { xComponentMixin } from '../../../../components';
   import BaseEventButton from '../../../../components/base-event-button.vue';
   import { VueCSSClasses } from '../../../../utils/types';
@@ -134,7 +134,8 @@ This component receives a `filter` as prop and renders a button, which on clicke
 
 A list of events that the component will emit:
 
-- `UserClickedAFilter`: the event is emitted after the user clicks the filter. The event payload is
+- `UserClickedAFilter`: the event is emitted after the user clicks the filter. The event payload
+is
 the filter data.
 - Custom events defined in the `clickEvents` prop.
 </docs>
