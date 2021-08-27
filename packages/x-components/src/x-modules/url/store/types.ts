@@ -5,14 +5,23 @@ import { XStoreModule } from '../../../store';
  *
  * @public
  */
-export interface UrlState {}
+export interface UrlState {
+  query: string;
+  page: number;
+  filters: string[];
+  sort: string;
+  relatedTags: string[];
+  [key: string]: unknown;
+}
 
 /**
  * URL store getters.
  *
  * @public
  */
-export interface UrlGetters {}
+export interface UrlGetters {
+  urlParams: UrlState;
+}
 
 /**
  * URL store mutations.

@@ -1,4 +1,5 @@
 import { UrlXStoreModule } from './types';
+import { urlParams } from './getters/url-params.getter';
 
 /**
  * {@link XStoreModule} For the URL module.
@@ -7,9 +8,15 @@ import { UrlXStoreModule } from './types';
  */
 export const urlXStoreModule: UrlXStoreModule = {
   state: () => ({
-    config: {}
+    query: '',
+    page: 1,
+    filters: [],
+    sort: '',
+    relatedTags: []
   }),
-  getters: {},
+  getters: {
+    urlParams
+  },
   mutations: {},
   actions: {}
 };
