@@ -4,12 +4,14 @@
  *
  * @public
  */
+import { UrlState } from './store/types';
+
 export interface UrlXEvents {
   /**
    * Url state changed.
-   * * Payload: none.
+   * * Payload: The url state.
    */
-  UrlStateChanged: void;
+  UrlStateChanged: UrlState;
   /**
    * Document has finished loading.
    * * Payload: none.

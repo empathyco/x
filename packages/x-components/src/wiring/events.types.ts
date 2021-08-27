@@ -15,6 +15,7 @@ import { RecommendationsXEvents } from '../x-modules/recommendations/events.type
 import { RelatedTagsXEvents } from '../x-modules/related-tags/events.types';
 import { SearchBoxXEvents } from '../x-modules/search-box/events.types';
 import { SearchXEvents } from '../x-modules/search/events.types';
+import { UrlXEvents } from '../x-modules/url/events.types';
 
 /**
  * Dictionary of all the {@link XEvent | XEvents}, where each key is the event name, and the value
@@ -33,6 +34,7 @@ import { SearchXEvents } from '../x-modules/search/events.types';
  * * {@link QuerySuggestionsXEvents}
  * * {@link RecommendationsXEvents}
  * * {@link RelatedTagsXEvents}
+ * * {@link UrlXEvents}
  * * {@link SearchBoxXEvents}
  * * {@link ExtraParamsXEvents}
  *
@@ -52,6 +54,7 @@ export interface XEventsTypes
     SearchBoxXEvents,
     RecommendationsXEvents,
     RelatedTagsXEvents,
+    UrlXEvents,
     ExtraParamsXEvents {
   /**
    * The search adapter configuration has changed
