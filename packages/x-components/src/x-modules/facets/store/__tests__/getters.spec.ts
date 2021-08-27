@@ -240,7 +240,7 @@ describe('testing facets module getters', () => {
       ];
 
       const store = createFacetsStore(
-        facets.map(facet => facet.filters).flat(),
+        facets.flatMap<Filter>(facet => facet.filters),
         facets.map(({ filters, ...restFacet }) => restFacet)
       );
 

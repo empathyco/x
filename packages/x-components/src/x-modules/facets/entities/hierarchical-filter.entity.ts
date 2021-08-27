@@ -54,6 +54,23 @@ export class HierarchicalFilterEntity implements FilterEntity {
   }
 
   /**
+   * Selects all the ancestors of the given filter, saving them to the store.
+   *
+   * @remarks The ancestors hierarchy is retrieved from the store.
+   * @param filter - The filter to select its ancestors.
+   * @internal
+   */
+  protected selectAncestors(filter: HierarchicalFilter): void {
+    if (filter.parentId) {
+      const parent = this.getFilterById(filter.parentId);
+      if (parent) {
+        this.saveFilter({ ...parent, selected: true });
+        this.selectAncestors(parent);
+      }
+    }
+  }
+
+  /**
    * Retrieves a hierarchical filter from the store by its id.
    *
    * @param id - The id of the filter to retrieve.
@@ -72,20 +89,5 @@ export class HierarchicalFilterEntity implements FilterEntity {
    */
   protected saveFilter(filter: HierarchicalFilter): void {
     this.store.commit('x/facets/setFilter', filter);
-  }
-
-  /**
-   * Selects all the ancestors of the given filter, saving them to the store.
-   *
-   * @remarks The ancestors hierarchy is retrieved from the store.
-   * @param filter - The filter to select its ancestors.
-   * @internal
-   */
-  protected selectAncestors(filter: HierarchicalFilter): void {
-    if (filter.parentId) {
-      const parent = this.getFilterById(filter.parentId);
-      this.saveFilter({ ...parent, selected: true });
-      this.selectAncestors(parent);
-    }
   }
 }

@@ -24,9 +24,7 @@ export function resetXFacetsStateWith(
   groupId: GroupId = 'search'
 ): void {
   const filters = arrayToObject(
-    Object.values(facets)
-      .map(facet => facet.filters)
-      .flat(),
+    Object.values(facets).flatMap(facet => facet.filters),
     'id'
   );
   const groups = reduce(

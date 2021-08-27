@@ -107,8 +107,7 @@
      */
     protected extractSelectedFilters(facets: Facet[]): void {
       this.selectedFilters = facets
-        .map(facet => facet.filters)
-        .flat()
+        .flatMap(facet => facet.filters)
         .filter(filter => filter.selected);
     }
 

@@ -2,7 +2,7 @@ import { Facet, Filter, isFacetFilter } from '@empathyco/x-types';
 import { Store } from 'vuex';
 import { XPlugin } from '../../../plugins/index';
 import { RootXStoreState } from '../../../store/index';
-import { arrayToObject, groupItemsBy } from '../../../utils/index';
+import { arrayToObject, groupItemsBy, isArrayEmpty } from '../../../utils/index';
 import { FilterEntityFactory } from '../entities/filter-entity.factory';
 import { FilterEntity } from '../entities/types';
 import { FacetGroupEntry, FacetsGetters } from '../store/types';
@@ -19,8 +19,22 @@ export class DefaultFacetsService implements FacetsService {
    */
   public static instance: FacetsService = new DefaultFacetsService();
 
+  /**
+   *
+   * @internal
+   */
   protected get store(): Store<RootXStoreState> {
     return XPlugin.store;
+  }
+
+  setFacets(facetsGroup: FacetsGroup): void {
+    const { newFilters } = this.updateStore(facetsGroup);
+    this.updateFiltersSelectedState(newFilters);
+  }
+
+  updateFacets(facetsGroup: FacetsGroup): void {
+    const { newFilters, previousFilters } = this.updateStore(facetsGroup);
+    this.updateFiltersSelectedState(newFilters, previousFilters);
   }
 
   clearFilters(facetIds?: Array<Facet['id']>): void {
@@ -31,38 +45,6 @@ export class DefaultFacetsService implements FacetsService {
 
   deselect(filter: Filter): void {
     this.createEntity(filter).deselect(filter);
-  }
-
-  updateFacets(facetsGroup: FacetsGroup): void {
-    this.removeGroupFacets(facetsGroup.id);
-    const previousFilters = this.removeGroupFilters(facetsGroup.id);
-    facetsGroup.facets.forEach(facet => {
-      this.setFacetGroup({
-        facetId: facet.id,
-        groupId: facetsGroup.id
-      });
-      this.saveFiltersWithPreviousState(facet.filters, previousFilters);
-    });
-    facetsGroup.facets.forEach(facet => this.setFacet(facet));
-  }
-
-  setFacets(facetsGroup: FacetsGroup): void {
-    this.removeGroupFacets(facetsGroup.id);
-    this.removeGroupFilters(facetsGroup.id);
-    facetsGroup.facets.forEach(facet => {
-      this.setFacetGroup({
-        facetId: facet.id,
-        groupId: facetsGroup.id
-      });
-      facet.filters.forEach(filter => {
-        if (filter.selected) {
-          this.select(filter);
-        } else {
-          this.deselect(filter);
-        }
-      });
-    });
-    facetsGroup.facets.forEach(facet => this.setFacet(facet));
   }
 
   select(filter: Filter): void {
@@ -89,6 +71,26 @@ export class DefaultFacetsService implements FacetsService {
   }
 
   /**
+   *
+   * @param facetsGroup
+   * @internal
+   */
+  protected updateStore(facetsGroup: FacetsGroup): {
+    previousFilters: Filter[];
+    newFilters: Filter[];
+  } {
+    this.removeGroupFacets(facetsGroup.id);
+    const previousFilters = this.removeGroupFilters(facetsGroup.id);
+    facetsGroup.facets.forEach(facet => {
+      this.setFacetGroup({ facetId: facet.id, groupId: facetsGroup.id });
+      this.setFacet(facet);
+    });
+    const newFilters = facetsGroup.facets.flatMap(facet => facet.filters);
+    newFilters.forEach(this.setFilter.bind(this));
+    return { newFilters, previousFilters };
+  }
+
+  /**
    * Retrieves the selected filters from the store.
    *
    * @returns The list of selected filters of the store.
@@ -96,6 +98,31 @@ export class DefaultFacetsService implements FacetsService {
    */
   protected getSelectedFilters(): FacetsGetters['selectedFilters'] {
     return this.store.getters['x/facets/selectedFilters'];
+  }
+
+  /**
+   * Changes the filters selection state to match the store.
+   *
+   * @param newFilters - The list of filters to save. They should belong to the same facet, or have
+   * no facet.
+   * @param previousFilters - The list of old filters, used to set the `newFilters`
+   * selected state.
+   */
+  protected updateFiltersSelectedState(newFilters: Filter[], previousFilters?: Filter[]): void {
+    if (!isArrayEmpty(newFilters)) {
+      const filterEntity = this.createEntity(newFilters[0]);
+      const previousFiltersMap = previousFilters && arrayToObject(previousFilters, 'id');
+      newFilters.forEach(filter => {
+        const isNewStateSelected = previousFiltersMap
+          ? previousFiltersMap[filter.id]?.selected
+          : filter.selected;
+        if (isNewStateSelected) {
+          filterEntity.select(filter);
+        } else {
+          filterEntity.deselect(filter);
+        }
+      });
+    }
   }
 
   /**
@@ -117,47 +144,6 @@ export class DefaultFacetsService implements FacetsService {
   }
 
   /**
-   * Removes a filter from the store.
-   *
-   * @param filter - The filter to remove.
-   * @internal
-   */
-  protected removeFilter(filter: Filter): void {
-    this.store.commit('x/facets/removeFilter', filter);
-  }
-
-  /**
-   * Saves the list of filters to the store, changing its selection state to match the store
-   * filters one.
-   *
-   * @param newFilters - The list of filters to save. They should belong to the same facet, or have
-   * no facet.
-   * @param previousFilters - The list of old filters, used to set the `newFilters`
-   * selected state.
-   */
-  protected saveFiltersWithPreviousState(newFilters: Filter[], previousFilters: Filter[]): void {
-    const filterEntity = FilterEntityFactory.instance.createFilterEntity(this.store, newFilters[0]);
-    const previousFiltersMap = arrayToObject(previousFilters, 'id');
-    newFilters.forEach(filter => {
-      if (previousFiltersMap[filter.id]?.selected) {
-        filterEntity.select(filter);
-      } else {
-        filterEntity.deselect(filter);
-      }
-    });
-  }
-
-  /**
-   * Sets the group that a facet belongs to.
-   *
-   * @param facetGroup - The id of the facet, and the group it belongs to.
-   * @internal
-   */
-  protected setFacetGroup(facetGroup: FacetGroupEntry): void {
-    this.store.commit('x/facets/setFacetGroup', facetGroup);
-  }
-
-  /**
    * Removes the facets that belong to the given group.
    *
    * @param groupId - The id of the group from whom remove the facets that are in the store.
@@ -173,13 +159,13 @@ export class DefaultFacetsService implements FacetsService {
   }
 
   /**
-   * Removes a facet from the store.
+   * Sets the group that a facet belongs to.
    *
-   * @param facet - The facet to remove.
+   * @param facetGroup - The id of the facet, and the group it belongs to.
    * @internal
    */
-  protected removeFacet(facet: Omit<Facet, 'filters'>): void {
-    this.store.commit('x/facets/removeFacet', facet);
+  protected setFacetGroup(facetGroup: FacetGroupEntry): void {
+    this.store.commit('x/facets/setFacetGroup', facetGroup);
   }
 
   /**
@@ -191,5 +177,35 @@ export class DefaultFacetsService implements FacetsService {
    */
   protected setFacet({ filters, ...restFacet }: Facet): void {
     this.store.commit('x/facets/setFacet', restFacet);
+  }
+
+  /**
+   * Removes a facet from the store.
+   *
+   * @param facet - The facet to remove.
+   * @internal
+   */
+  protected removeFacet(facet: Omit<Facet, 'filters'>): void {
+    this.store.commit('x/facets/removeFacet', facet);
+  }
+
+  /**
+   * Saves a filter to the store without any state change logic applied.
+   *
+   * @param filter - The filter to save.
+   * @internal
+   */
+  protected setFilter(filter: Filter): void {
+    this.store.commit('x/facets/setFilter', filter);
+  }
+
+  /**
+   * Removes a filter from the store.
+   *
+   * @param filter - The filter to remove.
+   * @internal
+   */
+  protected removeFilter(filter: Filter): void {
+    this.store.commit('x/facets/removeFilter', filter);
   }
 }

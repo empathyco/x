@@ -101,7 +101,7 @@
             </SelectedFiltersList>
 
             <!-- Facets -->
-            <Facets class="x-list--gap-06">
+            <Facets class="x-list--gap-06" renderable-facets="!rootCategories_facet">
               <!--  Hierarchical Facet    -->
               <template #hierarchical_category="{ facet }">
                 <BaseHeaderTogglePanel class="x-facet">
@@ -118,8 +118,8 @@
                 </BaseHeaderTogglePanel>
               </template>
 
-              <!--  Default Facet    -->
-              <template #default="{ facet }">
+              <!--  Brand Facet    -->
+              <template #brand_facet="{ facet }">
                 <BaseHeaderTogglePanel class="x-facet">
                   <template #header-content>
                     <span class="x-ellipsis">{{ facet.label }}</span>
@@ -136,6 +136,27 @@
                           </FiltersList>
                         </SlicedFilters>
                       </FiltersSearch>
+                    </SortedFilters>
+                  </ExcludeFiltersWithNoResults>
+                </BaseHeaderTogglePanel>
+              </template>
+
+              <!--  Default Facet    -->
+              <template #default="{ facet }">
+                <BaseHeaderTogglePanel class="x-facet">
+                  <template #header-content>
+                    <span class="x-ellipsis">{{ facet.label }}</span>
+                    <ChevronDown />
+                  </template>
+
+                  <!-- Filters -->
+                  <ExcludeFiltersWithNoResults :filters="facet.filters">
+                    <SortedFilters>
+                      <SlicedFilters max="4">
+                        <FiltersList v-slot="{ filter }">
+                          <SimpleFilter :filter="filter" />
+                        </FiltersList>
+                      </SlicedFilters>
                     </SortedFilters>
                   </ExcludeFiltersWithNoResults>
                 </BaseHeaderTogglePanel>
@@ -281,7 +302,9 @@
           xModules: { recommendations: { config: { maxItemsToRequest: 48 } } }
         })
       ).init(baseSnippetConfig);
-      FilterEntityFactory.instance.registerFilterModifier('brand_facet', [SingleSelectModifier]);
+      ['hierarchical_category', 'brand_facet', 'age_facet', 'price_facet'].forEach(facetId =>
+        FilterEntityFactory.instance.registerFilterModifier(facetId, [SingleSelectModifier])
+      );
       next();
     },
     directives: {
@@ -353,7 +376,7 @@
           {
             facetId: 'offer',
             modelName: 'SimpleFilter',
-            id: '{!tag=price_facet}priceSort:[0+TO+10]',
+            id: 'priceSort:[0 TO 10]',
             selected: false,
             label: 'In Offer'
           } as SimpleFilterModel

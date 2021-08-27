@@ -1,4 +1,11 @@
-import { isFacetFilter, FacetFilter, Facet } from '@empathyco/x-types';
+import {
+  isFacetFilter,
+  isHierarchicalFilter,
+  FacetFilter,
+  Facet,
+  Filter,
+  HierarchicalFilter
+} from '@empathyco/x-types';
 import { BaseFilterEntityModifier } from './types';
 
 /**
@@ -11,7 +18,7 @@ export class SingleSelectModifier extends BaseFilterEntityModifier {
    * @param filter - The filter to select.
    */
   select(filter: FacetFilter): void {
-    this.getOtherFilters(filter).forEach(siblingFilter => this.deselect(siblingFilter));
+    this.getOtherFilters(filter).forEach(this.deselect.bind(this));
     this.entity.select(filter);
   }
 
@@ -26,12 +33,47 @@ export class SingleSelectModifier extends BaseFilterEntityModifier {
     /* This check seems dumb, but when you instantiate this modifier using the factory, the types
       `FacetFilter` parameter type is lost, so we should check it to avoid unexpected crashes
       due to a wrong configuration. */
-    // TODO Add a warning in case a non facet filter is passed here.
-    return isFacetFilter(filter)
-      ? this.getFacetFilters(filter.facetId).filter(
-          storeFilter => storeFilter.id !== filter.id && storeFilter.selected
+    if (isHierarchicalFilter(filter)) {
+      const ancestorsIds = this.getAncestorsIds(filter);
+      const descendantsIds = this.getDescendantsIds(filter);
+      return this.getFacetFilters(filter.facetId).filter(
+        storeFilter =>
+          !ancestorsIds.includes(storeFilter.id) && !descendantsIds.includes(storeFilter.id)
+      );
+    } else if (isFacetFilter(filter)) {
+      return this.getFacetFilters(filter.facetId).filter(
+        storeFilter => storeFilter.id !== filter.id && storeFilter.selected
+      );
+    } else {
+      // TODO Add a warning in case a non facet filter is passed here.
+      return [];
+    }
+  }
+
+  protected getAncestorsIds(
+    filter: HierarchicalFilter,
+    ids: Array<Filter['id']> = [filter.id]
+  ): Array<Filter['id']> {
+    return filter?.parentId
+      ? this.getAncestorsIds(
+          this.store.state.x.facets.filters[filter.parentId] as HierarchicalFilter,
+          [filter.parentId, ...ids]
         )
-      : [];
+      : ids;
+  }
+
+  protected getDescendantsIds(
+    filter: HierarchicalFilter,
+    ids: Array<Filter['id']> = [filter.id]
+  ): Array<Filter['id']> {
+    return filter?.children
+      ? filter?.children.flatMap(descendantId =>
+          this.getAncestorsIds(
+            this.store.state.x.facets.filters[descendantId] as HierarchicalFilter,
+            [descendantId, ...ids]
+          )
+        )
+      : ids;
   }
 
   /**
