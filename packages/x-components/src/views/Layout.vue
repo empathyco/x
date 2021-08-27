@@ -197,7 +197,7 @@
                 <BaseVariableColumnGrid :animation="resultsAnimation">
                   <template #Result="{ item: result }">
                     <article class="result" style="max-width: 300px">
-                      <BaseResultImage :result="result" class="x-picture&#45;&#45;colored">
+                      <BaseResultImage :result="result" class="x-picture--colored">
                         <template #placeholder>
                           <div style="padding-top: 100%; background-color: lightgray"></div>
                         </template>
