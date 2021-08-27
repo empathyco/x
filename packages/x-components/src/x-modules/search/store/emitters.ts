@@ -7,8 +7,10 @@ import { searchXStoreModule } from './module';
  * @internal
  */
 export const searchEmitters = createStoreEmitters(searchXStoreModule, {
+  FacetsChanged: state => state.facets,
+  PageChanged: state => state.page,
   ResultsChanged: state => state.results,
   SearchRequestChanged: (_, getters) => getters.request,
-  FacetsChanged: state => state.facets,
-  SpellcheckChanged: state => state.spellcheckedQuery
+  SpellcheckChanged: state => state.spellcheckedQuery,
+  SortChanged: state => state.sort
 });

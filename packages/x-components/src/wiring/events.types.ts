@@ -14,6 +14,7 @@ import { RecommendationsXEvents } from '../x-modules/recommendations/events.type
 import { RelatedTagsXEvents } from '../x-modules/related-tags/events.types';
 import { SearchBoxXEvents } from '../x-modules/search-box/events.types';
 import { SearchXEvents } from '../x-modules/search/events.types';
+import { UrlXEvents } from '../x-modules/url/events.types';
 
 /**
  * Dictionary of all the {@link XEvent | XEvents}, where each key is the event name, and the value
@@ -24,32 +25,36 @@ import { SearchXEvents } from '../x-modules/search/events.types';
  * XEventsTypes:
  * * {@link DeviceXEvents}
  * * {@link EmpathizeXEvents}
+ * * {@link ExtraParamsXEvents}
+ * * {@link FacetsXEvents}
  * * {@link HistoryQueriesXEvents}
  * * {@link IdentifierResultsXEvents}
  * * {@link NextQueriesXEvents}
  * * {@link PopularSearchesXEvents}
- * * {@link QuerySuggestionsXEvents}
+ * * {@link QuerySuggestionsXEvents},
  * * {@link RecommendationsXEvents}
  * * {@link RelatedTagsXEvents}
+ * * {@link SearchXEvents},
  * * {@link SearchBoxXEvents}
- * * {@link ExtraParamsXEvents}
+ * * {@link UrlXEvents}
  *
  * @public
  */
 export interface XEventsTypes
   extends DeviceXEvents,
     EmpathizeXEvents,
+    ExtraParamsXEvents,
     FacetsXEvents,
     HistoryQueriesXEvents,
     IdentifierResultsXEvents,
     NextQueriesXEvents,
     PopularSearchesXEvents,
     QuerySuggestionsXEvents,
-    SearchXEvents,
-    SearchBoxXEvents,
     RecommendationsXEvents,
     RelatedTagsXEvents,
-    ExtraParamsXEvents {
+    SearchXEvents,
+    SearchBoxXEvents,
+    UrlXEvents {
   /**
    * The search adapter configuration has changed
    * * Payload: The new search adapter configuration.
