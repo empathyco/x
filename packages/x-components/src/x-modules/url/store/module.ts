@@ -12,7 +12,7 @@ export const urlXStoreModule: UrlXStoreModule = {
     page: 1,
     filters: [],
     sort: '',
-    relatedTag: []
+    relatedTags: []
   }),
   getters: {
     urlParams

@@ -10,7 +10,7 @@ export interface UrlState {
   page: number;
   filters: string[];
   sort: string;
-  relatedTag: string[];
+  relatedTags: string[];
   [key: string]: unknown;
 }
 
