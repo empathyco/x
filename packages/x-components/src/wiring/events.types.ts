@@ -26,22 +26,26 @@ import { UrlXEvents } from '../x-modules/url/events.types';
  * XEventsTypes:
  * * {@link DeviceXEvents}
  * * {@link EmpathizeXEvents}
+ * * {@link ExtraParamsXEvents}
+ * * {@link FacetsNextXEvents}
  * * {@link FacetsXEvents}
  * * {@link HistoryQueriesXEvents}
  * * {@link IdentifierResultsXEvents}
  * * {@link NextQueriesXEvents}
  * * {@link PopularSearchesXEvents}
- * * {@link QuerySuggestionsXEvents}
+ * * {@link QuerySuggestionsXEvents},
  * * {@link RecommendationsXEvents}
  * * {@link RelatedTagsXEvents}
+ * * {@link SearchXEvents},
  * * {@link SearchBoxXEvents}
- * * {@link ExtraParamsXEvents}
+ * * {@link UrlXEvents}
  *
  * @public
  */
 export interface XEventsTypes
   extends DeviceXEvents,
     EmpathizeXEvents,
+    ExtraParamsXEvents,
     FacetsXEvents,
     FacetsNextXEvents,
     HistoryQueriesXEvents,
@@ -49,11 +53,10 @@ export interface XEventsTypes
     NextQueriesXEvents,
     PopularSearchesXEvents,
     QuerySuggestionsXEvents,
-    SearchXEvents,
-    SearchBoxXEvents,
     RecommendationsXEvents,
     RelatedTagsXEvents,
-    ExtraParamsXEvents,
+    SearchXEvents,
+    SearchBoxXEvents,
     UrlXEvents {
   /**
    * The search adapter configuration has changed
