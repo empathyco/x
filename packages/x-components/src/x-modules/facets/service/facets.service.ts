@@ -20,7 +20,9 @@ export class DefaultFacetsService implements FacetsService {
   public static instance: FacetsService = new DefaultFacetsService();
 
   /**
+   * The {@link https://vuex.vuejs.org/ | Vuex} store to use in the service.
    *
+   * @returns The store.
    * @internal
    */
   protected get store(): Store<RootXStoreState> {
@@ -71,8 +73,12 @@ export class DefaultFacetsService implements FacetsService {
   }
 
   /**
+   * Sets in the store the Facets, the Filters and the FacetsGroup, without applying any logic
+   * to the selected state.
    *
-   * @param facetsGroup
+   * @param facetsGroup - The {@link FacetsGroup} to set into the store state.
+   * @returns Object with the `previousFilters` removed from store state and the `newFilters` to
+   * set into the store state.
    * @internal
    */
   protected updateStore(facetsGroup: FacetsGroup): {
@@ -105,7 +111,7 @@ export class DefaultFacetsService implements FacetsService {
    *
    * @param newFilters - The list of filters to save. They should belong to the same facet, or have
    * no facet.
-   * @param previousFilters - The list of old filters, used to set the `newFilters`
+   * @param previousFilters - (Optional) The list of old filters, used to set the `newFilters`
    * selected state.
    */
   protected updateFiltersSelectedState(newFilters: Filter[], previousFilters?: Filter[]): void {

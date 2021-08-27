@@ -27,6 +27,9 @@ export class SingleSelectModifier extends BaseFilterEntityModifier {
    *
    * @param filter - The filter to find its relatives.
    * @returns A list of selected filters that belong to the same facet than the filter passed.
+   * @remarks It takes into account if the passed filter is an {@link HierarchicalFilter} to exclude
+   * the ancestors and descendants.
+   *
    * @internal
    */
   protected getOtherFilters(filter: FacetFilter): FacetFilter[] {
@@ -50,6 +53,14 @@ export class SingleSelectModifier extends BaseFilterEntityModifier {
     }
   }
 
+  /**
+   * Returns the ancestors Filters Ids of the passed filter.
+   *
+   * @param filter - The {@link Filter} which obtain the ancestors from.
+   * @param ids - (Optional) an Array with the Ids used to execute the method recursively.
+   * @returns An Array with the ancestors ids.
+   * @internal
+   */
   protected getAncestorsIds(
     filter: HierarchicalFilter,
     ids: Array<Filter['id']> = [filter.id]
@@ -62,6 +73,14 @@ export class SingleSelectModifier extends BaseFilterEntityModifier {
       : ids;
   }
 
+  /**
+   * Returns the descendants Filters Ids of the passed filter.
+   *
+   * @param filter - The {@link Filter} which obtain the descendants from.
+   * @param ids - (Optional) an Array with the Ids used to execute the method recursively.
+   * @returns An Array with the descendants ids.
+   * @internal
+   */
   protected getDescendantsIds(
     filter: HierarchicalFilter,
     ids: Array<Filter['id']> = [filter.id]
