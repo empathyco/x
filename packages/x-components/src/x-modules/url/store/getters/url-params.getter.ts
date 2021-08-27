@@ -1,3 +1,5 @@
+import { UrlXStoreModule } from '../types';
+
 /**
  * Default implementation for the {@link UrlGetters.urlParams} getter.
  *
@@ -6,9 +8,7 @@
  *
  * @public
  */
-import { UrlXStoreModule } from '../types';
-
-export const request: UrlXStoreModule['getters']['urlParams'] = ({
+export const urlParams: UrlXStoreModule['getters']['urlParams'] = ({
   query,
   page,
   filters,

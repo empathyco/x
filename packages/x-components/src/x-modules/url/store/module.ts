@@ -1,4 +1,5 @@
 import { UrlXStoreModule } from './types';
+import { urlParams } from './getters/url-params.getter';
 
 /**
  * {@link XStoreModule} For the URL module.
@@ -11,9 +12,11 @@ export const urlXStoreModule: UrlXStoreModule = {
     page: 1,
     filters: [],
     sort: '',
-    relatedTag: ''
+    relatedTag: []
   }),
-  getters: {},
+  getters: {
+    urlParams
+  },
   mutations: {},
   actions: {}
 };
