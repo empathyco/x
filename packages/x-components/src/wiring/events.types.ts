@@ -24,7 +24,6 @@ import { SearchXEvents } from '../x-modules/search/events.types';
  * XEventsTypes:
  * * {@link DeviceXEvents}
  * * {@link EmpathizeXEvents}
- * * {@link FacetsXEvents}
  * * {@link HistoryQueriesXEvents}
  * * {@link IdentifierResultsXEvents}
  * * {@link NextQueriesXEvents}

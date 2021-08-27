@@ -102,6 +102,22 @@
 
             <!-- Facets -->
             <Facets class="x-list--gap-06">
+              <!--  Hierarchical Facet    -->
+              <template #hierarchical_category="{ facet }">
+                <BaseHeaderTogglePanel class="x-facet">
+                  <template #header-content>
+                    <span class="x-ellipsis">{{ facet.label }}</span>
+                    <ChevronDown />
+                  </template>
+                  <!-- Filters -->
+                  <SlicedFilters max="4" :filters="facet.filters">
+                    <FiltersList v-slot="{ filter }">
+                      <HierarchicalFilter :filter="filter" />
+                    </FiltersList>
+                  </SlicedFilters>
+                </BaseHeaderTogglePanel>
+              </template>
+
               <!--  Default Facet    -->
               <template #default="{ facet }">
                 <BaseHeaderTogglePanel class="x-facet">
@@ -227,6 +243,7 @@
   import { XInstaller } from '../x-installer/x-installer';
   import FacetsProvider from '../x-modules/facets/components/facets/facets-provider.vue';
   import Facets from '../x-modules/facets/components/facets/facets.vue';
+  import HierarchicalFilter from '../x-modules/facets/components/filters/hierarchical-filter.vue';
   import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
   import FiltersList from '../x-modules/facets/components/lists/filters-list.vue';
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
@@ -271,6 +288,7 @@
       infiniteScroll
     },
     components: {
+      HierarchicalFilter,
       ClearFilters,
       SortedFilters,
       ExcludeFiltersWithNoResults,

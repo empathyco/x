@@ -31,8 +31,8 @@ function renderClearFilters({
 }: RenderFiltersOptions = {}): RenderFiltersAPI {
   const facets = {
     category: createHierarchicalFacetStub('Category', createFilter => [
-      createFilter('Men', false),
-      createFilter('Women', false)
+      ...createFilter('Men', false),
+      ...createFilter('Women', false)
     ]),
     brand: createSimpleFacetStub('Brand', createFilter => [
       createFilter('Audi', false),
@@ -147,11 +147,11 @@ describe('testing ClearFilters component', () => {
     }
   );
 
-  it('emits UserClickedClearFacetFilters event with the provided facetIds', async () => {
+  it('emits UserClickedClearAllFilters event with the provided facetIds', async () => {
     const listenerClearFilterFacets = jest.fn();
     const facetsIds = ['category'];
     const { wrapper, setCategoryFacetFiltersAsSelected, setFacetsIds } = renderClearFilters();
-    wrapper.vm.$x.on('UserClickedClearFacetFilters', true).subscribe(listenerClearFilterFacets);
+    wrapper.vm.$x.on('UserClickedClearAllFilters', true).subscribe(listenerClearFilterFacets);
 
     await setCategoryFacetFiltersAsSelected();
     await setFacetsIds(facetsIds);

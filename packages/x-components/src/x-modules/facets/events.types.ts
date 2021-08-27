@@ -79,7 +79,12 @@ export interface FacetsXEvents {
   UserClickedAllFilter: [Facet['id']];
   /**
    * The user has modified a filter which is of editable number range filter type.
-   * * Payload: An {@link EditableNumberRangeFilterChange | object}.
+   * * Payload: An {@link EditableNumberRangeFilter}.
    */
   UserModifiedEditableNumberRangeFilter: EditableNumberRangeFilter;
+  /**
+   * The user has clicked button clear filters.
+   * * Payload: array the facets ids.
+   */
+  UserClickedClearAllFilters: Array<Facet['id']> | undefined;
 }

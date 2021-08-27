@@ -3,8 +3,6 @@ import {
   createEditableNumberRangeFilter,
   createHierarchicalFilter,
   createNumberRangeFilter,
-  createSimpleFilter,
-  createNumberRangeFilter,
   createRawFilter,
   createSimpleFilter
 } from '../../../../__stubs__/filters-stubs.factory';

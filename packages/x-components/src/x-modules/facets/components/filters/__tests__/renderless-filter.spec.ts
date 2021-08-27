@@ -5,7 +5,6 @@ import { getXComponentXModuleName, isXComponent } from '../../../../../component
 import { XEventsTypes } from '../../../../../wiring/events.types';
 import {
   createSimpleFilter,
-  createSimpleFilter,
   getSimpleFilterStub
 } from '../../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector } from '../../../../../__tests__/utils';

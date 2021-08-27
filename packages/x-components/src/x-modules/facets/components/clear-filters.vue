@@ -109,7 +109,7 @@
     protected get events(): Partial<XEventsTypes> {
       return this.facetsIds
         ? {
-            UserClickedClearFacetFilters: this.facetsIds
+            UserClickedClearAllFilters: this.facetsIds
           }
         : {
             UserClickedClearAllFilters: undefined
@@ -134,7 +134,7 @@
 <docs>
 #Example
 
-This component renders a button, which on clicked emits the `UserClickedClearFacetFilters` or
+This component renders a button, which on clicked emits the `UserClickedClearAllFilters` or
 `UserClickedClearAllFilters` event.
 
 ## Basic usage
@@ -166,7 +166,7 @@ list of facets ids.
 
 A list of events that the component will emit:
 
-- `UserClickedClearFacetFilters`: the event is emitted after the user clicks the button to clear a
+- `UserClickedClearAllFilters`: the event is emitted after the user clicks the button to clear a
 certain facets filter. The event payload is the id of the facets that are going to be cleared.
 - `UserClickedClearAllFilters`: the event is emitted after the user clicks the button. The event
 payload is undefined.
