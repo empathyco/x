@@ -198,7 +198,6 @@ describe('testing Facets component', () => {
 function renderFacetsComponent({
   customFacetSlot = '',
   components,
-  // TODO remove cast after facets refactor
   facets = {},
   renderableFacets,
   template = `

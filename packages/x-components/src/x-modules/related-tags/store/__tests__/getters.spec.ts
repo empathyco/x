@@ -28,10 +28,7 @@ describe('testing related tags module getters', () => {
         }
       });
 
-      expect(store.getters[gettersKeys.request]).toEqual<
-        RelatedTagsRequest & { [key: string]: unknown }
-        // TODO - Remove when the facets refactor is completed.
-      >({
+      expect(store.getters[gettersKeys.request]).toEqual<RelatedTagsRequest>({
         query: 'doraemon',
         relatedTags: [],
         rows: 10,
@@ -50,10 +47,7 @@ describe('testing related tags module getters', () => {
         }
       });
 
-      expect(store.getters[gettersKeys.request]).toEqual<
-        RelatedTagsRequest & { [key: string]: unknown }
-        // TODO - Remove when the facets refactor is completed.
-      >({
+      expect(store.getters[gettersKeys.request]).toEqual<RelatedTagsRequest>({
         query: 'nobita',
         relatedTags: selectedRelatedTags,
         rows: 10,

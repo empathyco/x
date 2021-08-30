@@ -23,10 +23,11 @@ describe('testing popular searches module getters', () => {
           catalog: 'es'
         }
       });
-      expect(store.getters[gettersKeys.request]).toEqual<
-        SuggestionsRequest & { [key: string]: unknown }
-        // TODO - Remove when the facets refactor is completed.
-      >({ rows: 3, start: 0, catalog: 'es' });
+      expect(store.getters[gettersKeys.request]).toEqual<SuggestionsRequest>({
+        rows: 3,
+        start: 0,
+        catalog: 'es'
+      });
     });
   });
 

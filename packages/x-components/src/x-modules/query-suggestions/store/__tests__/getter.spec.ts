@@ -20,10 +20,7 @@ describe('testing query suggestions module getters', () => {
   describe(`${getters.request} getter`, () => {
     it('should return a request object if there is a query', () => {
       resetQuerySuggestionsStateWith(store, { query: 'dorito', params: { catalog: 'es' } });
-      expect(store.getters[getters.request]).toEqual<
-        SuggestionsRequest & { [key: string]: unknown }
-        // TODO - Remove when the facets refactor is completed.
-      >({
+      expect(store.getters[getters.request]).toEqual<SuggestionsRequest>({
         query: 'dorito',
         rows: 10,
         start: 0,
