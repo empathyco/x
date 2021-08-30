@@ -35,7 +35,7 @@ describe('testing $x component API global mixin', () => {
       expect(listener).toHaveBeenCalledTimes(1);
       expect(listener).toHaveBeenCalledWith({
         eventPayload: 'So awesome, much quality, such skill',
-        metadata: { moduleName: null, origin: 'default' }
+        metadata: { moduleName: null }
       });
     });
 

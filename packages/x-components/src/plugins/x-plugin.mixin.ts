@@ -30,7 +30,7 @@ export const createXComponentAPIMixin = (
   ThisType<Vue & { xComponent: XComponent | undefined; origin: QueryOrigin }> => ({
   inject: {
     origin: {
-      default: 'default'
+      default: undefined
     }
   },
   created(): void {
@@ -64,8 +64,9 @@ export function getBusAPI(
       payload?: XEventPayload<Event>,
       metadata: Omit<WireMetadata, 'moduleName'> = {}
     ) => {
+      debugger;
       const moduleName = rootComponent ? getXComponentXModuleName(rootComponent) : null;
-      bus.emit(event, payload as any, { ...metadata, moduleName, origin });
+      bus.emit(event, payload as any, { moduleName, origin, ...metadata });
       rootComponent?.$emit(event, payload);
     },
     on: bus.on.bind(bus)
