@@ -20,6 +20,12 @@ export default class FiltersInjectionMixin extends Vue {
   @Prop()
   protected filters!: Filter[];
 
+  /**
+   * This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
+   * to make the `renderedFilters` to return only the filters of each level of the hierarchy.
+   *
+   * @public
+   */
   @Prop({ required: false })
   protected parentId!: Filter['id'];
 
@@ -59,6 +65,17 @@ export default class FiltersInjectionMixin extends Vue {
     );
   }
 
+  /**
+   * In the case that the filters are {@link @empathyco/x-types#HierarchicalFilter}, this method
+   * removes from the filter list passed as a param, the filters that are not part of the level of
+   * the hierarchy, depending on the value of the `parentId` prop. In case this prop is undefined,
+   * then only the first level of filters hierarchy are returned. In the case the prop `parentId` is
+   * defined, then only the filters with the same `parentId` are returned.
+   *
+   * @param filters - The list of the filters to apply the filter.
+   * @returns The list of the filters filtered by parentId.
+   * @internal
+   */
   protected filterByParentId(filters: Filter[]): Filter[] {
     if (!isArrayEmpty(filters) && isHierarchicalFilter(filters[0])) {
       return (filters as HierarchicalFilter[]).filter(
