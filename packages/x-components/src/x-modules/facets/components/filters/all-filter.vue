@@ -30,7 +30,7 @@
   /**
    * This component receives a required `facet` with
    * {@link @empathyco/x-types#BooleanFilter | BooleanFilter} as prop and renders a button, which
-   * on clicked emits the {@link FacetsXEvents.UserClickedFacetAllFilter} event. By default
+   * on clicked emits the {@link FacetsXEvents.UserClickedAllFilter} event. By default
    * the rendered button displays a message with the facet label but this content is customizable
    * through the default slot.
    *
@@ -92,7 +92,7 @@
 #Example
 
 This component receives a required `facet` as prop and renders a button, which on clicked emits the
-UserClickedFacetAllFilter event. By default the rendered button displays a message with the
+UserClickedAllFilter event. By default the rendered button displays a message with the
 facet label but this content is customizable through the default slot.
 
 ## Basic usage

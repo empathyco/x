@@ -32,7 +32,7 @@
 
     /**
      * The facets to provide to the `Facets X-Module` state. They have to include the
-     * {@link Filter | filters}.
+     * {@link @empathyco/x-types#Filter | filters}.
      *
      * @internal
      */
@@ -40,7 +40,7 @@
     public facets!: Facet[];
 
     /**
-     * Temporarily stores the selected filters from the {@link Facets.facets} prop.
+     * Temporarily stores the selected filters from the {@link FacetsProvider.facets} prop.
      * This is necessary to handle the {@link FacetsXEvents.UserChangedSelectedFilters} event.
      *
      * @internal
@@ -89,7 +89,8 @@
 
     /**
      * Emits the {@link FacetsXEvents.FacetsGroupProvided} event with the
-     * {@link Facets.facetsGroup} as payload. It also extracts and saves the selected filters.
+     * {@link FacetsProvider.facetsGroup} as payload. It also extracts and saves the selected
+     * filters.
      */
     provideFacets(): void {
       if (this.facetsGroup.facets) {
@@ -100,7 +101,7 @@
 
     /**
      * Extracts the selected filters from the facets and stores them in the
-     * {@link Facets.selectedFilters} property.
+     * {@link FacetsProvider.selectedFilters} property.
      *
      * @param facets - The facets from whom extract the selected filters.
      * @internal

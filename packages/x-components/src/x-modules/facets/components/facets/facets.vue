@@ -106,7 +106,7 @@
     public facets!: Record<Facet['id'], Facet>;
 
     /**
-     * The facets to be rendered after filtering {@link Facets.stateFacets} by
+     * The facets to be rendered after filtering {@link Facets.facets} by
      * {@link Facets.renderableFacets} content.
      *
      * @returns The list of facets to be rendered.

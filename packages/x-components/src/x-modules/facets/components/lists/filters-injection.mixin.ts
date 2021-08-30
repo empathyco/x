@@ -32,7 +32,7 @@ export default class FiltersInjectionMixin extends Vue {
 
   /**
    * The prop or injected filters array, filtered by parentId if they are
-   * {@link HierarchicalFilter}.
+   * {@link @empathyco/x-types#HierarchicalFilter}.
    *
    * @returns An array of filters.
    *
