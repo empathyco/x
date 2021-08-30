@@ -3,7 +3,7 @@ import { groupItemsBy } from '../../../../utils/array';
 import { FacetsXStoreModule } from '../types';
 
 /**
- * Default implementation for the {@link FacetsGetters.filtersByFacet} getter.
+ * Default implementation for the {@link FacetsGetters.selectedFiltersByFacet} getter.
  *
  * @param _ - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the facets
  * module.
