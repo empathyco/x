@@ -32,11 +32,11 @@
             <template v-slot="{ slicedFilters }">
               <span>Sliced Filters:</span>
               <span data-test="sliced-filters">{{ slicedFilters.length }}</span>
-              <MultiSelectFilters v-slot="{ filter }" :filters="slicedFilters">
+              <FiltersList v-slot="{ filter }" :filters="slicedFilters">
                 <SimpleFilter :filter="filter" data-test="simple-filter">
                   {{ filter.label }}
                 </SimpleFilter>
-              </MultiSelectFilters>
+              </FiltersList>
             </template>
           </SlicedFilters>
         </BaseHeaderTogglePanel>
