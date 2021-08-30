@@ -10,7 +10,10 @@ import { addFacetIfNotPresent } from './add-facet-if-not-present';
 import { FilterEntity } from './types';
 
 /**
- * Allows selecting and deselecting a filter of {@link EditableNumberRangeFilter}.
+ * Allows selecting and deselecting a filter of {@link @empathyco/x-types#EditableNumberRangeFilter
+ * | EditableNumberRangeFilter}.
+ *
+ * @internal
  */
 export class EditableNumberRangeFilterEntity implements FilterEntity {
   public constructor(protected store: Store<RootXStoreState>) {}
@@ -20,8 +23,9 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
   }
 
   /**
-   * It sets {@link EditableNumberRangeFilter.selected} to false and reset the
-   * {@link EditableNumberRangeFilter.range} values to null.
+   * It sets {@link @empathyco/x-types#EditableNumberRangeFilter | EditableNumberRangeFilter} to
+   * false and reset the {@link @empathyco/x-types#EditableNumberRangeFilter
+   * | EditableNumberRangeFilter} values to null.
    *
    * @param filter - The filter to deselect.
    */
@@ -38,7 +42,8 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
   }
 
   /**
-   * It selects the {@link EditableNumberRangeFilter}.
+   * It selects the {@link @empathyco/x-types#EditableNumberRangeFilter
+   * | EditableNumberRangeFilter}.
    *
    * @param filter - The filter to select.
    * @remarks If the filter has no selected range, then filter is deselected when this

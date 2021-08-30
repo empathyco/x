@@ -10,6 +10,8 @@ import { FilterEntity, FilterEntityConstructor, FilterEntityModifier } from './t
 
 /**
  * Creates {@link FilterEntity | FilterEntities} based on the provided configs.
+ *
+ * @internal
  */
 export class FilterEntityFactory {
   /**

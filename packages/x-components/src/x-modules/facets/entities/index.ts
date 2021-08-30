@@ -1,4 +1,3 @@
-export * from './add-facet-if-not-present';
 export * from './editable-number-range-filter.entity';
 export * from './filter-entity.factory';
 export * from './hierarchical-filter.entity';

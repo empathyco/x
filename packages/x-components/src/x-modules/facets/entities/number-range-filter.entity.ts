@@ -6,6 +6,8 @@ import { FilterEntity } from './types';
 
 /**
  * Allows selecting and deselecting a filter of {@link NumberRangeFilter}.
+ *
+ * @internal
  */
 export class NumberRangeFilterEntity implements FilterEntity {
   public static accepts = isNumberRangeFilter;

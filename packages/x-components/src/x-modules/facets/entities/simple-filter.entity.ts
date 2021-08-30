@@ -6,6 +6,8 @@ import { FilterEntity } from './types';
 
 /**
  * Allows selecting and deselecting a filter of {@link SimpleFilter}.
+ *
+ * @internal
  */
 export class SimpleFilterEntity implements FilterEntity {
   public static accepts = isSimpleFilter;

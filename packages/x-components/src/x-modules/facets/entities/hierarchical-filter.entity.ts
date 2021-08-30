@@ -5,7 +5,10 @@ import { addFacetIfNotPresent } from './add-facet-if-not-present';
 import { FilterEntity } from './types';
 
 /**
- * Allows selecting and deselecting a filter of {@link HierarchicalFilter}.
+ * Allows selecting and deselecting a filter of {@link @empathyco/x-types#HierarchicalFilter
+ * | HierarchicalFilter}.
+ *
+ * @internal
  */
 export class HierarchicalFilterEntity implements FilterEntity {
   public static accepts = isHierarchicalFilter;
