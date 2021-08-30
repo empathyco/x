@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { XModuleName } from '../x-modules/x-modules.types';
+import { QueryOrigin } from '../types/query-origin';
 import { XComponentModule } from './x-component.utils';
 
 /**
@@ -16,4 +17,10 @@ export interface XComponent extends Vue {
    * @internal
    */
   [XComponentModule]: XModuleName;
+  /**
+   * Property to define the injected origin.
+   *
+   * @internal
+   */
+  origin?: QueryOrigin;
 }
