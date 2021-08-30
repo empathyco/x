@@ -14,21 +14,21 @@
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
           <SelectedFilters :facetId="facet.id" />
-          <MultiSelectFilters v-slot="{ filter }" :filters="facet.filters">
+          <FiltersList v-slot="{ filter }" :filters="facet.filters">
             <SimpleFilter :filter="filter" :data-test="facet.id">
               <template #label="{ filter }">
                 {{ filter.label }}
                 <span data-test="filter-total-results">{{ filter.totalResults }}</span>
               </template>
             </SimpleFilter>
-          </MultiSelectFilters>
+          </FiltersList>
         </BaseHeaderTogglePanel>
       </template>
       <template #hierarchical_category="{ facet }">
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
           <SelectedFilters :facetId="facet.id" />
-          <MultiSelectFilters
+          <FiltersList
             v-slot="// eslint-disable-next-line vue/no-unused-vars
             { filter }"
             :filters="facet.filters"
@@ -53,7 +53,7 @@
                 <span data-test="filter-total-results">{{ filter.totalResults }}</span>
               </button>
             </HierarchicalFilter>
-          </MultiSelectFilters>
+          </FiltersList>
         </BaseHeaderTogglePanel>
       </template>
       <template #brand_facet="{ facet }">
@@ -62,7 +62,7 @@
           <SelectedFilters :facetId="facet.id" />
           <SortedFilters :filters="facet.filters">
             <FiltersSearch>
-              <MultiSelectFilters v-slot="{ filter }">
+              <FiltersList v-slot="{ filter }">
                 <SimpleFilter v-slot="{ filter: slotFilter, clickFilter }" :filter="filter">
                   <label :data-test="facet.id">
                     <input @change="clickFilter" type="checkbox" :checked="filter.selected" />
@@ -70,7 +70,7 @@
                     <span data-test="filter-total-results">{{ filter.totalResults }}</span>
                   </label>
                 </SimpleFilter>
-              </MultiSelectFilters>
+              </FiltersList>
             </FiltersSearch>
           </SortedFilters>
         </BaseHeaderTogglePanel>
@@ -79,7 +79,7 @@
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
           <SelectedFilters :facetId="facet.id" />
-          <MultiSelectFilters v-slot="{ filter }" :filters="facet.filters">
+          <FiltersList v-slot="{ filter }" :filters="facet.filters">
             <NumberRangeFilter :filter="filter" :data-test="facet.id">
               <template #default="{ filter }">
                 <BasePriceFilterLabel
@@ -92,7 +92,7 @@
                 <span data-test="filter-total-results">{{ filter.totalResults }}</span>
               </template>
             </NumberRangeFilter>
-          </MultiSelectFilters>
+          </FiltersList>
         </BaseHeaderTogglePanel>
       </template>
     </Facets>
@@ -114,16 +114,15 @@
   import { SearchIcon } from '../components/icons/index';
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
-  import Filters from '../x-modules/facets/components/lists/filters.vue';
+  import FiltersList from '../x-modules/facets/components/lists/filters-list.vue';
   import HierarchicalFilter from '../x-modules/facets/components/filters/hierarchical-filter.vue';
   import NumberRangeFilter from '../x-modules/facets/components/filters/number-range-filter.vue';
   import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
   import SortedFilters from '../x-modules/facets/components/lists/sorted-filters.vue';
-  import SelectedFilters from '../x-modules/facets/components/selected-filters.vue';
+  import SelectedFilters from '../x-modules/facets/components/lists/selected-filters.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
-  import Facets from '../x-modules/facets/components/facets.vue';
-  import MultiSelectFilters from '../x-modules/facets/components/lists/multi-select-filters.vue';
+  import Facets from '../x-modules/facets/components/facets/facets.vue';
   import SearchButton from '../x-modules/search-box/components/search-button.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import { State } from '../components/decorators/store.decorators';
@@ -141,7 +140,7 @@
     components: {
       SortedFilters,
       ClearSearchInput,
-      Filters,
+      FiltersList,
       FiltersSearch,
       BaseHeaderTogglePanel,
       BasePriceFilterLabel,
@@ -150,7 +149,6 @@
       SimpleFilter,
       ClearFilters,
       Facets,
-      MultiSelectFilters,
       SelectedFilters,
       SearchButton,
       SearchInput,

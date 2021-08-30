@@ -1,5 +1,6 @@
-import { createStoreEmitters } from '../../../store';
-import { areFiltersDifferent, isNewQuery } from '../utils';
+import { createStoreEmitters } from '../../../store/store.utils';
+import { areFiltersDifferent } from '../../../utils/filters';
+import { isNewQuery } from '../utils';
 import { facetsXStoreModule } from './module';
 
 /**

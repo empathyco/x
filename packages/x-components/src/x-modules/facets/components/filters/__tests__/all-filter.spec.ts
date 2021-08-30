@@ -2,15 +2,14 @@ import { Facet } from '@empathyco/x-types';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { getXComponentXModuleName, isXComponent } from '../../../../../components';
-import { getSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
+import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
 import { installNewXPlugin } from '../../../../../__tests__/utils';
+import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import { RootXStoreState } from '../../../../../store/store.types';
-import { DeepPartial } from '../../../../../utils/types';
-import { FacetsState } from '../../../store/types';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
 import AllFilter from '../all-filter.vue';
+
 /**
  * Renders the `AllFilter` component, exposing a basic API for testing.
  *
@@ -20,19 +19,16 @@ import AllFilter from '../all-filter.vue';
 function renderAllFilter({
   template = `<AllFilter :facet="facet"></AllFilter>`
 }: RenderAllFilterOptions = {}): RenderAllFilterAPI {
-  const facet = getSimpleFacetStub();
-  Vue.observable(facet);
-  const facetsState: Partial<FacetsState> = {
-    backendFacets: {
-      brand_facet: facet
-    }
-  };
+  const facet = createSimpleFacetStub('category', createFilter => [
+    createFilter('men'),
+    createFilter('women')
+  ]);
 
   const localVue = createLocalVue();
   localVue.use(Vuex);
-  const store = new Store<DeepPartial<RootXStoreState>>({});
+  const store = new Store<RootXStoreState>({});
   installNewXPlugin({ store, initialXModules: [facetsXModule] }, localVue);
-  resetXFacetsStateWith(store, facetsState);
+  resetXFacetsStateWith(store, { category: facet });
 
   const wrapper = mount(
     {
@@ -58,7 +54,7 @@ function renderAllFilter({
     allFilterWrapper,
     facet,
     toggleFirstFilter() {
-      facet.filters[0].selected = !facet.filters[0].selected;
+      wrapper.vm.$x.emit('UserClickedAFilter', store.state.x.facets.filters[facet.filters[0].id]);
       return wrapper.vm.$nextTick();
     },
     clickAllFilter() {
@@ -84,22 +80,25 @@ describe('testing AllFilter component', () => {
   it('has x-all-filter--is-selected class while no filters are selected', async () => {
     const { allFilterWrapper, toggleFirstFilter } = renderAllFilter();
     expect(allFilterWrapper.classes('x-all-filter--is-selected')).toBe(true);
+    // Some filter should be selected now, so the all filter should be deselected.
     await toggleFirstFilter();
     expect(allFilterWrapper.classes('x-all-filter--is-selected')).toBe(false);
+    // No filter should be selected now, so the all filter should be selected.
     await toggleFirstFilter();
     expect(allFilterWrapper.classes('x-all-filter--is-selected')).toBe(true);
   });
 
-  it('emits UserClickedFacetAllFilter event with the facet id as payload', async () => {
+  it('emits `UserClickedAllFilter` event with the facet id as payload', async () => {
     const { wrapper, toggleFirstFilter, clickAllFilter, facet } = renderAllFilter();
     const listenerAllFilter = jest.fn();
-    wrapper.vm.$x.on('UserClickedFacetAllFilter', true).subscribe(listenerAllFilter);
+    wrapper.vm.$x.on('UserClickedAllFilter', true).subscribe(listenerAllFilter);
     await toggleFirstFilter();
     expect(listenerAllFilter).toHaveBeenCalledTimes(0);
+
     await clickAllFilter();
     expect(listenerAllFilter).toHaveBeenCalledTimes(1);
     expect(listenerAllFilter).toHaveBeenNthCalledWith(1, {
-      eventPayload: facet.id,
+      eventPayload: [facet.id],
       metadata: {
         moduleName: 'facets',
         target: wrapper.element
@@ -130,14 +129,14 @@ interface RenderAllFilterOptions {
 }
 
 interface RenderAllFilterAPI {
-  /** The wrapper of the container element.*/
-  wrapper: Wrapper<Vue>;
   /** The `AllFilter` wrapper component. */
   allFilterWrapper: Wrapper<Vue>;
+  /** Function that clicks all filter button. */
+  clickAllFilter: () => Promise<void>;
   /** Current facet passed as prop to the AllFilter component. */
   facet: Facet;
   /** Function that toggles first filter selected property. */
   toggleFirstFilter: () => Promise<void>;
-  /** Function that clicks all filter button. */
-  clickAllFilter: () => Promise<void>;
+  /** The wrapper of the container element.*/
+  wrapper: Wrapper<Vue>;
 }

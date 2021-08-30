@@ -12,9 +12,9 @@
           <template v-slot="{ slicedFilters }">
             <FiltersSearch :filters="slicedFilters" data-test="after-slice-filter-search">
               <template #default="{ siftedFilters }">
-                <Filters v-slot="{ filter }" :filters="siftedFilters">
+                <FiltersList v-slot="{ filter }" :filters="siftedFilters">
                   <SimpleFilter :filter="filter" data-test="brand-filter" />
-                </Filters>
+                </FiltersList>
               </template>
             </FiltersSearch>
           </template>
@@ -28,9 +28,9 @@
           :filters="facet.filters"
           data-test="no-slice-filter-search"
         >
-          <Filters v-slot="{ filter }" :filters="siftedFilters">
+          <FiltersList v-slot="{ filter }" :filters="siftedFilters">
             <SimpleFilter :filter="filter" data-test="brand-filter" />
-          </Filters>
+          </FiltersList>
         </FiltersSearch>
       </template>
     </Facets>
@@ -43,9 +43,9 @@
         >
           <SlicedFilters :filters="siftedFilters" :max="8">
             <template #default="{ slicedFilters }">
-              <Filters v-slot="{ filter }" :filters="slicedFilters">
+              <FiltersList v-slot="{ filter }" :filters="slicedFilters">
                 <SimpleFilter :filter="filter" data-test="brand-filter" />
-              </Filters>
+              </FiltersList>
             </template>
           </SlicedFilters>
         </FiltersSearch>
@@ -61,10 +61,10 @@
   import { XPlugin } from '../plugins/x-plugin';
   import { XInstaller } from '../x-installer/x-installer';
   import HierarchicalFilter from '../x-modules/facets/components//filters/hierarchical-filter.vue';
-  import Facets from '../x-modules/facets/components/facets.vue';
+  import Facets from '../x-modules/facets/components/facets/facets.vue';
   import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
-  import Filters from '../x-modules/facets/components/lists/filters.vue';
+  import FiltersList from '../x-modules/facets/components/lists/filters-list.vue';
   import SlicedFilters from '../x-modules/facets/components/lists/sliced-filters.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import SearchButton from '../x-modules/search-box/components/search-button.vue';
@@ -81,7 +81,7 @@
     components: {
       ClearSearchInput,
       Facets,
-      Filters,
+      FiltersList,
       FiltersSearch,
       HierarchicalFilter,
       SearchButton,

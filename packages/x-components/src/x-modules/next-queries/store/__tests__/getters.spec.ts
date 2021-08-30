@@ -28,10 +28,7 @@ describe('testing next queries module getters', () => {
         }
       });
 
-      expect(store.getters[gettersKeys.request]).toEqual<
-        NextQueriesRequest & { [key: string]: unknown }
-        // TODO - Remove when the facets refactor is completed.
-      >({
+      expect(store.getters[gettersKeys.request]).toEqual<NextQueriesRequest>({
         query: 'dorito',
         rows: 5,
         start: 0,

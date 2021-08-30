@@ -32,7 +32,6 @@ export function createResultStub(name: string, result?: Partial<Result>): Result
     modelName: 'Result',
     type: 'Product',
     isWishlisted: false,
-    callbackInfo: {},
     identifier: {
       value: kebabCaseName
     },
