@@ -1,4 +1,4 @@
-import { Store } from 'vuex';
+import { WireMetadata } from '../wiring/wiring.types';
 import {
   AnyXModule,
   ExtractGetters,
@@ -28,7 +28,12 @@ export interface RootXStoreState {
  *
  * @public
  */
-export type RootStoreStateAndGetters = Pick<Store<RootXStoreState>, 'state' | 'getters'>;
+export interface Things<Payload> {
+  state: RootXStoreState;
+  getters: unknown;
+  payload: Payload;
+  metadata: WireMetadata;
+}
 
 /**
  * Type safe which allows the access to the State and the Getters of a {@link XStoreModule}.
@@ -40,6 +45,13 @@ export type RootStoreStateAndGetters = Pick<Store<RootXStoreState>, 'state' | 'g
 export type StoreModuleStateAndGetters<ModuleName extends XModuleName> = {
   state: ExtractState<ModuleName>;
   getters: ExtractGetters<ModuleName>;
+};
+
+export type Things2<ModuleName extends XModuleName> = {
+  state: ExtractState<ModuleName>;
+  getters: ExtractGetters<ModuleName>;
+  payload: ExtractPayload<ModuleName>;
+  metadata: WireMetadata;
 };
 
 /**

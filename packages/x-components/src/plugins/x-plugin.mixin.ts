@@ -1,6 +1,7 @@
 import Vue, { ComponentOptions } from 'vue';
 import { XComponent } from '../components/x-component.types';
 import { getXComponentXModuleName, isXComponent } from '../components/x-component.utils';
+import { QueryOrigin } from '../types/query-origin';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
 import { XBus } from './x-bus.types';
@@ -22,12 +23,18 @@ declare module 'vue/types/vue' {
  */
 export const createXComponentAPIMixin = (
   bus: XBus
-): ComponentOptions<Vue> & ThisType<Vue & { xComponent: XComponent | undefined }> => ({
+): ComponentOptions<Vue> &
+  ThisType<Vue & { xComponent: XComponent | undefined; origin: QueryOrigin }> => ({
+  inject: {
+    origin: {
+      default: 'default'
+    }
+  },
   created(): void {
     this.xComponent = getRootXComponent(this);
 
     const aliasAPI = getAliasAPI(this.$store);
-    const busAPI = getBusAPI(bus, this.xComponent);
+    const busAPI = getBusAPI(bus, this.xComponent, this.origin);
 
     this.$x = Object.assign(aliasAPI, busAPI);
   }
@@ -41,16 +48,20 @@ export const createXComponentAPIMixin = (
  * @returns An object containing the {@link XComponentBusAPI}.
  * @internal
  */
-export function getBusAPI(bus: XBus, xComponent: XComponent | undefined): XComponentBusAPI {
+export function getBusAPI(
+  bus: XBus,
+  rootComponent: XComponent | undefined,
+  origin: QueryOrigin
+): XComponentBusAPI {
   return {
     emit: <Event extends XEvent>(
       event: Event,
       payload?: XEventPayload<Event>,
       metadata: Omit<WireMetadata, 'moduleName'> = {}
     ) => {
-      const moduleName = xComponent ? getXComponentXModuleName(xComponent) : null;
-      bus.emit(event, payload as any, { ...metadata, moduleName });
-      xComponent?.$emit(event, payload);
+      const moduleName = rootComponent ? getXComponentXModuleName(rootComponent) : null;
+      bus.emit(event, payload as any, { moduleName, origin, ...metadata });
+      rootComponent?.$emit(event, payload);
     },
     on: bus.on.bind(bus)
   };

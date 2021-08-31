@@ -1,4 +1,4 @@
-import { RootStoreStateAndGetters } from '../store/store.types';
+import { RootStoreStateAndGetters, Things2 } from '../store/store.types';
 import { XModuleName } from '../x-modules/x-modules.types';
 import {
   NamespacedWireCommit,
@@ -85,7 +85,7 @@ export function namespacedWireDispatchWithoutPayload<ModuleName extends XModuleN
  */
 function getPayload(moduleName: XModuleName, payload: unknown): unknown {
   return typeof payload === 'function'
-    ? ({ state, getters }: RootStoreStateAndGetters) =>
-        payload(getStateAndGettersFromModule(state, getters, moduleName))
+    ? ({ state, getters, metadata, payload: eventPay }: Things2<any>) =>
+        payload(getStateAndGettersFromModule(state, getters, moduleName), metadata, eventPay)
     : payload;
 }

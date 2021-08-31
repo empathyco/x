@@ -5,7 +5,8 @@ import {
   ExtractMutationPayload,
   ExtractMutations,
   MutationNamesFor,
-  StoreModuleStateAndGetters
+  StoreModuleStateAndGetters,
+  Things2
 } from '../store/store.types';
 import { PropsWithType } from '../utils/types';
 import { XModuleName, XModulesTree } from '../x-modules/x-modules.types';
@@ -115,9 +116,7 @@ export type NamespacedWireDispatchPayload<
   ActionName extends ActionNamesFor<ModuleName>
 > =
   | ExtractActionPayload<ModuleName, ActionName>
-  | ((
-      stateAndGetters: StoreModuleStateAndGetters<ModuleName>
-    ) => ExtractActionPayload<ModuleName, ActionName>);
+  | ((stateAndGetters: Things2<ModuleName>) => ExtractActionPayload<ModuleName, ActionName>);
 
 /**
  * Namespaced type for the {@link (wireDispatch:1)} which creates a wire with its payload

@@ -1,13 +1,13 @@
 import { createLocalVue } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
+import { SuggestionsRequest } from '../../../../../../search-adapter/types/types/requests.types';
 import { map } from '../../../../utils';
 import { createHistoryQueries } from '../../../../__stubs__/history-queries-stubs.factory';
 import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { popularSearchesXStoreModule } from '../module';
 import { PopularSearchesState } from '../types';
-import { SuggestionsRequest } from '../../../../../../search-adapter/src/types/requests.types';
 import { resetPopularSearchesStateWith } from './utils';
 
 describe('testing popular searches module getters', () => {

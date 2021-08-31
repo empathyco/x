@@ -196,6 +196,7 @@ export interface SearchActions {
    * for other purposes, please use the {@link SearchMutations.setPage} mutation.
    */
   increasePageAppendingResults(): void;
+  setOrigin(): void;
 }
 
 /**
