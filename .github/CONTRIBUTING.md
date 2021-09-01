@@ -19,15 +19,15 @@ And above all, a heartfelt **thank you** for making the time to contribute. Weâ€
 - [How to contribute](#how-to-contribute)
     + [Report bugs](#report-bugs)
     + [Suggest enhancements](#suggest-new-features-or-enhancements)
-    + [Contribute code for the first time](#contribute-code-for-first-time)
+    + [Contribute code for the first time](#contribute-code-for-the-first-time)
     + [Set up your development environment](#set-up-your-development-environment)
     + [Pull requests](#pull-requests)
 
 - [Style guides](#style-guides)
     + [Git commit messages](#git-commit-messages)
-    + [JavaScript style guide](#javascript-styleguide)
-    + [Documentation style guide](#documentation-styleguide)
-    + [Testing style guide](#testing-styleguide)
+    + [JavaScript style guide](#javascript-style-guide)
+    + [Documentation style guide](#documentation-style-guide)
+    + [Testing style guide](#testing-style-guide)
 - [Any questions?](#any-questions)
 
 
