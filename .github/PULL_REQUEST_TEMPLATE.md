@@ -13,7 +13,7 @@ List any dependencies that are required for this change. If the change fixes an 
 - [ ] Bug fix (non-breaking change that fixes an issue)
 - [ ] New feature (non-breaking change that adds functionality)
 - [ ] Breaking change (fix or feature that causes existing functionality to not work as expected)
-- [ ] This change requires a documentation update
+- [ ] Change requires a documentation update
 
 ## What is the destination branch of this PR?
 
