@@ -26,7 +26,7 @@ describe('testing $x component API global mixin', () => {
   });
 
   describe('testing origin', () => {
-    it('includes "default" origin in the $x.emit metadata', () => {
+    it("doesn't include origin in the $x.emit metadata by default", () => {
       const listener = jest.fn();
 
       componentInstance.vm.$x.on('UserIsTypingAQuery', true).subscribe(listener);
@@ -50,21 +50,15 @@ describe('testing $x component API global mixin', () => {
       })
       class Provider extends Vue {}
 
-      @Component({
-        mixins: [xComponentMixin(searchBoxXModule)]
-      })
-      class Injecter extends Vue {
-        render(createElement: CreateElement): VNode {
-          return createElement();
-        }
-      }
+      @Component({ template: '<div>{{ $origin }}</div>' })
+      class Injector extends Vue {}
 
       const wrapper = mount(
         {
-          template: `<Provider><Injecter /></Provider>`,
+          template: `<Provider><Injector /></Provider>`,
           components: {
             Provider,
-            Injecter
+            Injector
           }
         } as ComponentOptions<any> & ThisType<Vue>,
         {
@@ -73,15 +67,13 @@ describe('testing $x component API global mixin', () => {
       );
 
       wrapper
-        .findComponent(Injecter)
+        .findComponent(Injector)
         .vm.$x.emit('UserIsTypingAQuery', 'So awesome, much quality, such skill');
       componentInstance.vm.$x.on('UserIsTypingAQuery', true).subscribe(listener);
 
       expect(listener).toHaveBeenCalledTimes(1);
-      expect(listener).toHaveBeenCalledWith({
-        eventPayload: 'So awesome, much quality, such skill',
-        metadata: { moduleName: 'searchBox', origin: 'origin-test' }
-      });
+      const { metadata } = listener.mock.calls[0][0];
+      expect(metadata.origin).toBe('origin-test');
     });
   });
 

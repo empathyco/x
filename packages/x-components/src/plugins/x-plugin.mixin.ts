@@ -14,6 +14,11 @@ declare module 'vue/types/vue' {
   }
 }
 
+interface PrivateExtendedVueComponent extends Vue {
+  xComponent: XComponent | undefined;
+  $origin: QueryOrigin;
+}
+
 /**
  * Vue global mixin that adds a `$x` object to every component with the {@link XComponentAPI}.
  *
@@ -26,19 +31,17 @@ declare module 'vue/types/vue' {
  */
 export const createXComponentAPIMixin = (
   bus: XBus
-): ComponentOptions<Vue> &
-  ThisType<Vue & { xComponent: XComponent | undefined; origin: QueryOrigin }> => ({
+): ComponentOptions<Vue> & ThisType<PrivateExtendedVueComponent> => ({
   inject: {
-    origin: {
+    $origin: {
+      from: 'origin',
       default: undefined
     }
   },
   created(): void {
     this.xComponent = getRootXComponent(this);
-
     const aliasAPI = getAliasAPI(this.$store);
-    const busAPI = getBusAPI(bus, this.xComponent, this.origin);
-
+    const busAPI = getBusAPI(bus, this);
     this.$x = Object.assign(aliasAPI, busAPI);
   }
 });
@@ -47,26 +50,21 @@ export const createXComponentAPIMixin = (
  * Creates an object containing the API related to the {@link XBus}.
  *
  * @param bus - The global {@link XBus}.
- * @param rootComponent - The root {@link XComponent} that the component that owns this API has.
- * @param origin - The Vue component injected origin.
+ * @param component - The component instance.
  *
  * @returns An object containing the {@link XComponentBusAPI}.
  * @internal
  */
-export function getBusAPI(
-  bus: XBus,
-  rootComponent: XComponent | undefined,
-  origin: QueryOrigin
-): XComponentBusAPI {
+export function getBusAPI(bus: XBus, component: PrivateExtendedVueComponent): XComponentBusAPI {
   return {
     emit: <Event extends XEvent>(
       event: Event,
       payload?: XEventPayload<Event>,
-      metadata: Omit<WireMetadata, 'moduleName'> = {}
+      metadata: Omit<WireMetadata, 'moduleName' | 'origin'> = {}
     ) => {
-      debugger;
+      const rootComponent = component.xComponent;
       const moduleName = rootComponent ? getXComponentXModuleName(rootComponent) : null;
-      bus.emit(event, payload as any, { moduleName, origin, ...metadata });
+      bus.emit(event, payload as any, { moduleName, origin: component.$origin, ...metadata });
       rootComponent?.$emit(event, payload);
     },
     on: bus.on.bind(bus)
