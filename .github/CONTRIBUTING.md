@@ -87,7 +87,7 @@ Unsure where to start with Interface X? You can start by looking through these `
 
 Both issue lists are sorted by the total number of comments. While not perfect, the number of comments is a reasonable proxy for determining the impact that a given change will have.
 
-#### Set up your development environment
+### Set up your development environment
 
 This monorepo is handled by [Lerna](https://github.com/lerna/lerna) using `npm`. To prepare your development environment, proceed as follows:
 
@@ -125,7 +125,7 @@ In addition, follow the [naming guide](./contributing/base-naming.md) in every p
 
 ### Testing style guide
 
-Follow our [testing style guide](./contributing/tests.md)
+Follow our [testing style guide](./contributing/tests.md).
 
 ### Documentation style guide
 
