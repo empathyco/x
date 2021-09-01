@@ -8,15 +8,21 @@ import { urlParams } from './getters/url-params.getter';
  */
 export const urlXStoreModule: UrlXStoreModule = {
   state: () => ({
+    config: {},
     query: '',
     page: 1,
     filters: [],
     sort: '',
-    relatedTags: []
+    relatedTags: [],
+    extraParams: {}
   }),
   getters: {
     urlParams
   },
-  mutations: {},
+  mutations: {
+    setUrlConfig(state, urlConfig) {
+      state.config = urlConfig;
+    }
+  },
   actions: {}
 };

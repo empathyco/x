@@ -1,3 +1,4 @@
+import { UrlConfig } from './config.types';
 import { UrlState } from './store/types';
 /**
  * Dictionary of the events of URL XModule, where each key is the event name, and the value is
@@ -6,6 +7,11 @@ import { UrlState } from './store/types';
  * @public
  */
 export interface UrlXEvents {
+  /**
+   * The configuration for handling the URL has changed.
+   * * Payload: The new URL config.
+   */
+  UrlConfigProvided: UrlConfig;
   /**
    * Url state changed.
    * * Payload: The url state.
