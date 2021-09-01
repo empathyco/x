@@ -2,18 +2,18 @@ import { EditableNumberRangeFilter, RangeValue } from '@empathyco/x-types';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
+// eslint-disable-next-line max-len
 import { createEditableNumberRangeFilter } from '../../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils';
-import EditableNumberRangeFilterComponent from '../editable-number-range-filter.vue';
 import {
   getXComponentXModuleName,
   isXComponent
 } from '../../../../../components/x-component.utils';
-import { DeepPartial } from '../../../../../utils/types';
 import { RootXStoreState } from '../../../../../store/store.types';
-import { XPlugin } from '../../../../../plugins/x-plugin';
+import { DeepPartial } from '../../../../../utils/types';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
+import EditableNumberRangeFilterComponent from '../editable-number-range-filter.vue';
 
 Object.defineProperty(HTMLInputElement.prototype, 'valueAsNumber', {
   get() {
@@ -32,7 +32,7 @@ function renderEditableNumberRangeFilter({
     />
   `,
   range,
-  filter = createEditableNumberRangeFilter('age', 'primary', range),
+  filter = createEditableNumberRangeFilter('age', range),
   isInstant = false,
   hasClearButton = true
 }: EditableNumberRangeFilterOptions = {}): EditableNumberRangeFilterAPI {
@@ -40,10 +40,7 @@ function renderEditableNumberRangeFilter({
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
-
-  XPlugin.resetInstance();
-  XPlugin.registerXModule(facetsXModule);
+  installNewXPlugin({ store, initialXModules: [facetsXModule] }, localVue);
 
   resetXFacetsStateWith(store, {});
   const wrapper = mount<EditableNumberRangeFilterComponent>(
@@ -110,8 +107,8 @@ describe('testing BaseNumberRangeFilter component', () => {
     expect(
       (filterWrapper.find(getDataTestSelector('range-max')).element as HTMLInputElement).value
     ).toBe('5');
-    expect(applyButtonWrapper.text()).toBe('✅');
-    expect(clearButtonWrapper.text()).toBe('🗑');
+    expect(applyButtonWrapper.text()).toBe('✓');
+    expect(clearButtonWrapper.text()).toBe('𐄂');
   });
 
   // eslint-disable-next-line max-len
@@ -141,7 +138,7 @@ describe('testing BaseNumberRangeFilter component', () => {
     await typeMin(2);
 
     expect(listener).toHaveBeenNthCalledWith(1, {
-      filter,
+      ...filter,
       range: {
         min: 2,
         max: 5
@@ -151,7 +148,7 @@ describe('testing BaseNumberRangeFilter component', () => {
     await typeMax(7);
 
     expect(listener).toHaveBeenNthCalledWith(2, {
-      filter,
+      ...filter,
       range: {
         min: 2,
         max: 7
@@ -186,7 +183,7 @@ describe('testing BaseNumberRangeFilter component', () => {
       clearButtonWrapper.trigger('click');
       applyButtonWrapper.trigger('click');
       expect(listener).toHaveBeenNthCalledWith(1, {
-        filter,
+        ...filter,
         range: { min: null, max: null }
       });
       expect(listener).toHaveBeenCalledTimes(1);
@@ -284,7 +281,7 @@ describe('testing BaseNumberRangeFilter component', () => {
       await typeMax(6);
       await applyButtonWrapper.trigger('click');
       expect(listener).toHaveBeenNthCalledWith(1, {
-        filter,
+        ...filter,
         range: {
           min: 4,
           max: 6
@@ -294,7 +291,7 @@ describe('testing BaseNumberRangeFilter component', () => {
       await clearButtonWrapper.trigger('click');
       await applyButtonWrapper.trigger('click');
       expect(listener).toHaveBeenNthCalledWith(2, {
-        filter,
+        ...filter,
         range: {
           min: null,
           max: null
@@ -307,36 +304,36 @@ describe('testing BaseNumberRangeFilter component', () => {
 });
 
 interface EditableNumberRangeFilterOptions {
-  /** The template to be rendered. */
-  template?: string;
-  /** The {@link @empathyco/x-types#RangeValue | RangeValue} object to init the filter. */
-  range?: RangeValue;
   /**
    * The {@link @empathyco/x-types#EditableNumberRangeFilter | EditableNumberRangeFilter} object
    * to be passed to the component.
    */
   filter?: EditableNumberRangeFilter;
-  /** `isInstant` property to init the component. */
-  isInstant?: boolean;
   /** `hasClearButton` property to init the component. */
   hasClearButton?: boolean;
+  /** `isInstant` property to init the component. */
+  isInstant?: boolean;
+  /** The {@link @empathyco/x-types#RangeValue | RangeValue} object to init the filter. */
+  range?: RangeValue;
+  /** The template to be rendered. */
+  template?: string;
 }
 
 interface EditableNumberRangeFilterAPI {
-  /** Filter component wrapper. */
-  filterWrapper: Wrapper<Vue>;
-  /** Min input element wrapper. */
-  minInputWrapper: Wrapper<Vue>;
-  /** Max input element wrapper. */
-  maxInputWrapper: Wrapper<Vue>;
   /** Apply button wrapper. */
   applyButtonWrapper: Wrapper<Vue>;
   /** Clear button wrapper. */
   clearButtonWrapper: Wrapper<Vue>;
   /** The filter passed to the component. */
   filter: EditableNumberRangeFilter;
-  /** It sets min value and triggers change event in the wrapper. */
-  typeMin: (value: number) => Promise<any>;
+  /** Filter component wrapper. */
+  filterWrapper: Wrapper<Vue>;
+  /** Max input element wrapper. */
+  maxInputWrapper: Wrapper<Vue>;
+  /** Min input element wrapper. */
+  minInputWrapper: Wrapper<Vue>;
   /** It sets max value and triggers change event in the wrapper. */
   typeMax: (value: number) => Promise<any>;
+  /** It sets min value and triggers change event in the wrapper. */
+  typeMin: (value: number) => Promise<any>;
 }

@@ -58,8 +58,8 @@ describe('testing Search', () => {
         createFilter(filters.size.large, false)
       ]),
       createHierarchicalFacetStub('Category', createFilter => [
-        createFilter(filters.category.shirts, false),
-        createFilter(filters.category.jackets, false)
+        ...createFilter(filters.category.shirts, false),
+        ...createFilter(filters.category.jackets, false)
       ])
     ]
   });
@@ -116,11 +116,11 @@ describe('testing Search', () => {
         ],
         facets: [
           createHierarchicalFacetStub('Category', createFilter => [
-            createFilter(filters.category.shirts, false, createFilter => [
-              createFilter(filters.category.longSleeve, false),
-              createFilter(filters.category.shortSleeve, false)
+            ...createFilter(filters.category.shirts, false, createFilter => [
+              ...createFilter(filters.category.longSleeve, false),
+              ...createFilter(filters.category.shortSleeve, false)
             ]),
-            createFilter(filters.category.jackets, false)
+            ...createFilter(filters.category.jackets, false)
           ])
         ]
       });
@@ -145,14 +145,14 @@ describe('testing Search', () => {
         ],
         facets: [
           createHierarchicalFacetStub('Category', createFilter => [
-            createFilter(filters.category.shirts, false, createFilter => [
-              createFilter(filters.category.longSleeve, false, createChildren => [
-                createChildren(filters.category.floral, false),
-                createChildren(filters.category.classic, false)
+            ...createFilter(filters.category.shirts, false, createFilter => [
+              ...createFilter(filters.category.longSleeve, false, createFilter => [
+                ...createFilter(filters.category.floral, false),
+                ...createFilter(filters.category.classic, false)
               ]),
-              createFilter(filters.category.shortSleeve, false)
+              ...createFilter(filters.category.shortSleeve, false)
             ]),
-            createFilter(filters.category.jackets, false)
+            ...createFilter(filters.category.jackets, false)
           ])
         ]
       });

@@ -119,13 +119,13 @@
           </template>
           <SelectedFilters :facetId="facet.id" />
           <AllFilter :facet="facet" />
-          <MultiSelectFilters
+          <FiltersList
             v-slot="{ filter }"
             :filters="facet.filters"
             :animation="staggeredFadeAndSlide"
           >
             <SimpleFilter :filter="filter" />
-          </MultiSelectFilters>
+          </FiltersList>
         </BaseHeaderTogglePanel>
       </template>
 
@@ -195,7 +195,7 @@
           <SelectedFilters :facetId="facet.id" />
           <AllFilter :facet="facet" />
           <SortedFilters :filters="facet.filters">
-            <Filters v-slot="{ filter }" :animation="staggeredFadeAndSlide">
+            <FiltersList v-slot="{ filter }" :animation="staggeredFadeAndSlide">
               <NumberRangeFilter :filter="filter">
                 <template #default="{ filter }">
                   <BasePriceFilterLabel
@@ -207,7 +207,7 @@
                   />
                 </template>
               </NumberRangeFilter>
-            </Filters>
+            </FiltersList>
           </SortedFilters>
         </BaseHeaderTogglePanel>
       </template>
@@ -370,7 +370,7 @@
   import BaseScrollToTop from '../components/scroll/base-scroll-to-top.vue';
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
   import BaseEventsModalClose from '../components/modals/base-events-modal-close.vue';
-  import Filters from '../x-modules/facets/components/lists/filters.vue';
+  import FiltersList from '../x-modules/facets/components/lists/filters-list.vue';
   import HierarchicalFilter from '../x-modules/facets/components/filters/hierarchical-filter.vue';
   import NumberRangeFilter from '../x-modules/facets/components/filters/number-range-filter.vue';
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
@@ -382,7 +382,7 @@
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
   import SelectedFiltersList from '../x-modules/facets/components/lists/selected-filters-list.vue';
   import SortedFilters from '../x-modules/facets/components/lists/sorted-filters.vue';
-  import SelectedFilters from '../x-modules/facets/components/selected-filters.vue';
+  import SelectedFilters from '../x-modules/facets/components/lists/selected-filters.vue';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import PartialQueryButton from '../x-modules/search/components/partial-query-button.vue';
@@ -394,12 +394,11 @@
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import Empathize from '../x-modules/empathize/components/empathize.vue';
-  import Facets from '../x-modules/facets/components/facets.vue';
+  import Facets from '../x-modules/facets/components/facets/facets.vue';
   import FadeAndSlide from '../components/animations/fade-and-slide.vue';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
   import IdentifierResult from '../x-modules/identifier-results/components/identifier-result.vue';
   import IdentifierResults from '../x-modules/identifier-results/components/identifier-results.vue';
-  import MultiSelectFilters from '../x-modules/facets/components/lists/multi-select-filters.vue';
   import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
   import NoSuggestions from '../x-modules/no-suggestions/components/no-suggestions.vue';
   import PopularSearches from '../x-modules/popular-searches/components/popular-searches.vue';
@@ -448,7 +447,7 @@
       BaseIdScroll,
       BaseScrollToTop,
       AllFilter,
-      Filters,
+      FiltersList,
       FiltersSearch,
       SlicedFilters,
       BaseHeaderTogglePanel,
@@ -471,7 +470,6 @@
       HistoryQueries,
       IdentifierResult,
       IdentifierResults,
-      MultiSelectFilters,
       NextQueries,
       NoSuggestions,
       PopularSearches,

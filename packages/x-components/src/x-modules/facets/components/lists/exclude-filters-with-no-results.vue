@@ -83,9 +83,7 @@ filters list to their children, it is mandatory to send it as prop.
             id: 'category:men',
             modelName: 'SimpleFilter',
             selected: false,
-            callbackInfo: {},
             label: 'Men',
-            value: 'category:men',
             totalResults: 0
           },
           {
@@ -93,9 +91,7 @@ filters list to their children, it is mandatory to send it as prop.
             id: 'category:women',
             modelName: 'SimpleFilter',
             selected: false,
-            callbackInfo: {},
             label: 'Women',
-            value: 'category:women',
             totalResults: 10
           },
           {
@@ -103,9 +99,7 @@ filters list to their children, it is mandatory to send it as prop.
             id: 'category:kids',
             modelName: 'SimpleFilter',
             selected: false,
-            callbackInfo: {},
             label: 'Kids',
-            value: 'category:kids',
             totalResults: undefined
           }
         ]
@@ -155,9 +149,7 @@ filters list to their children, it is mandatory to send it as prop.
             id: 'category:men',
             modelName: 'SimpleFilter',
             selected: false,
-            callbackInfo: {},
             label: 'Men',
-            value: 'category:men',
             totalResults: 0
           },
           {
@@ -165,9 +157,7 @@ filters list to their children, it is mandatory to send it as prop.
             id: 'category:women',
             modelName: 'SimpleFilter',
             selected: false,
-            callbackInfo: {},
             label: 'Women',
-            value: 'category:women',
             totalResults: 10
           },
           {
@@ -175,9 +165,7 @@ filters list to their children, it is mandatory to send it as prop.
             id: 'category:kids',
             modelName: 'SimpleFilter',
             selected: false,
-            callbackInfo: {},
             label: 'Kids',
-            value: 'category:kids',
             totalResults: undefined
           }
         ]

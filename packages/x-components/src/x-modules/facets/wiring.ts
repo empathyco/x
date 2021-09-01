@@ -1,123 +1,84 @@
-import {
-  namespacedWireCommit,
-  namespacedWireDispatch,
-  namespacedWireDispatchWithoutPayload
-} from '../../wiring';
+import { Facet } from '@empathyco/x-types';
+import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
+import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
+import { mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
+import { DefaultFacetsService } from './service/facets.service';
 
 /**
- * `facets` {@link XModuleName | XModule name}.
- *
- * @internal
+ * Wires factory for {@link DefaultFacetsService}.
  */
-const moduleName = 'facets';
+const wireFacetsService = wireService(DefaultFacetsService.instance);
+
+/**
+ * Wires without payload factory for {@link DefaultFacetsService}.
+ */
+const wireFacetsServiceWithoutPayload = wireServiceWithoutPayload(DefaultFacetsService.instance);
 
 /**
  * WireCommit for {@link FacetsXModule}.
  *
  * @internal
  */
-const wireCommit = namespacedWireCommit(moduleName);
+const facetsWireCommit = namespacedWireCommit('facets');
 
 /**
- * WireDispatch for {@link FacetsXModule}.
+ * Saves the facets contained in the `search` group, removing the previous ones, and keeping the
+ * previous filters selected state.
  *
- * @internal
+ * @public
  */
-const wireDispatch = namespacedWireDispatch(moduleName);
+const updateFacetsGroupWithSearchFacetsWire = mapWire(
+  wireFacetsService('updateFacets'),
+  (facets: Facet[]) => ({
+    facets,
+    id: 'search'
+  })
+);
 
 /**
- * WireDispatchWithOutPayload for {@link FacetsXModule}.
+ * Saves the facets contained in the group, removing the previous ones, and keeping the new filters
+ * selected state.
  *
- * @internal
+ * @public
  */
-const wireDispatchWithOutPayload = namespacedWireDispatchWithoutPayload(moduleName);
+const setFacetsGroupWire = wireFacetsService('setFacets');
+
+/**
+ * Toggles the selected state of a filter.
+ *
+ * @public
+ */
+const toggleFilterWire = wireFacetsService('toggle');
+
+/**
+ * Deselects all the filters. Optionally, it can accept a list of facets ids as payload, and it will
+ * only deselect the filters from those facets.
+ *
+ * @public
+ */
+const clearFiltersWire = wireFacetsService('clearFilters');
+
+/**
+ * Deselects all selected filters.
+ *
+ * @public
+ */
+const clearAllFiltersWire = wireFacetsServiceWithoutPayload('clearFilters');
+
+/**
+ * Selects the filter passed by payload.
+ *
+ * @public
+ */
+const selectFilterWire = wireFacetsService('select');
 
 /**
  * Sets the facets state `query`.
  *
  * @public
  */
-export const setFacetsQuery = wireCommit('setQuery');
-
-/**
- * Sets the {@link FacetsState.backendFacets | backendFacets}.
- *
- * @public
- */
-export const setBackendFacetsWire = wireDispatch('setBackendFacets');
-
-/**
- * Updates the {@link FacetsState.backendFacets | backendFacets}.
- *
- * @public
- */
-export const updateBackendFacetsWire = wireDispatch('updateBackendFacets');
-
-/**
- * Sets the {@link FacetsState.frontendFacets | frontendFacets}.
- *
- * @public
- */
-export const setFrontendFacetsWire = wireDispatch('setFrontendFacets');
-
-/**
- * Changes the multi-select configuration for a facet.
- *
- * @public
- */
-export const setFacetMultiSelect = wireCommit('setFacetMultiSelect');
-
-/**
- * Toggles a {@link @empathyco/x-types#SimpleFilter | SimpleFilter}.
- *
- * @public
- */
-export const toggleSimpleFilterWire = wireDispatch('toggleSimpleFilter');
-
-/**
- * Toggles a {@link @empathyco/x-types#HierarchicalFilter | HierarchicalFilter}.
- *
- * @public
- */
-export const toggleHierarchicalFilterWire = wireDispatch('toggleHierarchicalFilter');
-
-/**
- * Toggles a {@link @empathyco/x-types#NumberRangeFilter | NumberRangeFilter}.
- *
- * @public
- */
-export const toggleNumberRangeFilterWire = wireDispatch('toggleNumberRangeFilter');
-
-/**
- * Sets {@link @empathyco/x-types#EditableNumberRangeFilter | EditableNumberRangeFilter} range.
- *
- * @public
- */
-export const setEditableNumberRangeFilterRangeWire = wireCommit(
-  'setEditableNumberRangeFilterRange'
-);
-
-/**
- * Deselects the filters of the provided facets ids.
- *
- * @public
- */
-export const clearFacetsSelectedFiltersWire = wireDispatch('clearFacetsSelectedFilters');
-
-/**
- * Deselects the filters of the provided facet id.
- *
- * @public
- */
-export const clearFacetSelectedFiltersWire = wireDispatch('clearFacetSelectedFilters');
-
-/**
- * Deselects all the filters.
- *
- * @public
- */
-export const clearSelectedFiltersWire = wireDispatchWithOutPayload('clearSelectedFilters');
+const setFacetsQuery = facetsWireCommit('setQuery');
 
 /**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
@@ -125,17 +86,23 @@ export const clearSelectedFiltersWire = wireDispatchWithOutPayload('clearSelecte
  * @internal
  */
 export const facetsWiring = createWiring({
-  BackendFacetsChanged: {
-    updateBackendFacetsWire
+  FacetsChanged: {
+    updateFacetsGroupWithSearchFacetsWire
   },
-  BackendFacetsProvided: {
-    setBackendFacetsWire
+  FacetsGroupProvided: {
+    setFacetsGroupWire
   },
-  FrontendFacetsChanged: {
-    setFrontendFacetsWire
+  UserClickedAFilter: {
+    toggleFilterWire
   },
-  FacetMultiSelectChanged: {
-    setFacetMultiSelect
+  UserClickedClearAllFilters: {
+    clearFiltersWire
+  },
+  UserModifiedEditableNumberRangeFilter: {
+    selectFilterWire
+  },
+  UserClickedAllFilter: {
+    clearFiltersWire
   },
   UserAcceptedAQuery: {
     setFacetsQuery
@@ -144,27 +111,6 @@ export const facetsWiring = createWiring({
     setFacetsQuery
   },
   FacetsQueryChanged: {
-    clearSelectedFiltersWire
-  },
-  UserClickedASimpleFilter: {
-    toggleSimpleFilterWire
-  },
-  UserClickedAHierarchicalFilter: {
-    toggleHierarchicalFilterWire
-  },
-  UserClickedANumberRangeFilter: {
-    toggleNumberRangeFilterWire
-  },
-  UserModifiedEditableNumberRangeFilter: {
-    setEditableNumberRangeFilterRangeWire
-  },
-  UserClickedClearFacetFilters: {
-    clearFacetsSelectedFiltersWire
-  },
-  UserClickedClearAllFilters: {
-    clearSelectedFiltersWire
-  },
-  UserClickedFacetAllFilter: {
-    clearFacetSelectedFiltersWire
+    clearAllFiltersWire
   }
 });

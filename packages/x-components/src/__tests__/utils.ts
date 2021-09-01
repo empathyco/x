@@ -31,7 +31,7 @@ export type MockedSearchAdapter = {
  * @internal
  */
 export function getDataTestSelector(dataTest: string): string {
-  return `[data-test=${dataTest}]`;
+  return `[data-test="${dataTest}"]`;
 }
 
 /**

@@ -1,6 +1,5 @@
 import { SearchRequest } from '@empathyco/x-adapter';
 import { Facet, Result, Sort } from '@empathyco/x-types';
-import { Facet as FacetNext } from '@empathyco/x-types-next';
 
 /**
  * Dictionary of the events of Search XModule, where each key is the event name, and the value is
@@ -9,22 +8,16 @@ import { Facet as FacetNext } from '@empathyco/x-types-next';
  * @public
  */
 export interface SearchXEvents {
-  //TODO remove when facets refactor is done
   /**
-   * The backend facets have changed.
-   * * Payload: The {@link @empathyco/x-types#Facet | facets} array.
-   */
-  FacetsChangedNext: FacetNext[];
-  /**
-   * The backend facets have changed.
+   * The facets have changed.
    * * Payload: The {@link @empathyco/x-types#Facet | facets} array.
    */
   FacetsChanged: Facet[];
   /**
-   * The backend facets have changed.
-   * * Payload: The {@link @empathyco/x-types#Facet | facets} array.
+   * Page has been changed.
+   * * Payload: The new page number.
    */
-  BackendFacetsChanged: Facet[];
+  PageChanged: number;
   /**
    * Results have been changed.
    * * Payload: The new {@link @empathyco/x-types#Result | results}.
@@ -36,6 +29,11 @@ export interface SearchXEvents {
    * to conform a valid request.
    */
   SearchRequestChanged: SearchRequest | null;
+  /**
+   * Sort has been changed.
+   * * Payload: The new sort string.
+   */
+  SortChanged: string;
   /**
    * Spellcheck has been changed.
    * * Payload: The new spellcheckedQuery string.

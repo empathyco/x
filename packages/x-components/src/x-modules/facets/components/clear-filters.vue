@@ -7,14 +7,14 @@
     :events="events"
     :class="cssClasses"
   >
-    <slot :selectedFilters="facetsSelectedFilters" />
+    <slot :selectedFilters="facetsSelectedFilters">Clear Filters</slot>
   </BaseEventButton>
 </template>
 
 <script lang="ts">
-  import { Facet, Filter } from '@empathyco/x-types';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Facet, Filter, isFacetFilter } from '@empathyco/x-types';
   import Vue from 'vue';
+  import { Component, Prop } from 'vue-property-decorator';
   import { Getter, xComponentMixin } from '../../../components';
   import BaseEventButton from '../../../components/base-event-button.vue';
   import { VueCSSClasses } from '../../../utils';
@@ -82,7 +82,9 @@
      */
     protected get facetsSelectedFilters(): Filter[] {
       if (this.facetsIds) {
-        return this.allSelectedFilters.filter(filter => this.facetsIds!.includes(filter.facetId));
+        return this.allSelectedFilters.filter(
+          filter => isFacetFilter(filter) && this.facetsIds!.includes(filter.facetId)
+        );
       } else {
         return this.allSelectedFilters;
       }
@@ -107,7 +109,7 @@
     protected get events(): Partial<XEventsTypes> {
       return this.facetsIds
         ? {
-            UserClickedClearFacetFilters: this.facetsIds
+            UserClickedClearAllFilters: this.facetsIds
           }
         : {
             UserClickedClearAllFilters: undefined
@@ -132,7 +134,7 @@
 <docs>
 #Example
 
-This component renders a button, which on clicked emits the `UserClickedClearFacetFilters` or
+This component renders a button, which on clicked emits the `UserClickedClearAllFilters` or
 `UserClickedClearAllFilters` event.
 
 ## Basic usage
@@ -164,7 +166,7 @@ list of facets ids.
 
 A list of events that the component will emit:
 
-- `UserClickedClearFacetFilters`: the event is emitted after the user clicks the button to clear a
+- `UserClickedClearAllFilters`: the event is emitted after the user clicks the button to clear a
 certain facets filter. The event payload is the id of the facets that are going to be cleared.
 - `UserClickedClearAllFilters`: the event is emitted after the user clicks the button. The event
 payload is undefined.

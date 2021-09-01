@@ -6,4 +6,6 @@ import { urlXStoreModule } from './module';
  *
  * @internal
  */
-export const urlEmitters = createStoreEmitters(urlXStoreModule, {});
+export const urlEmitters = createStoreEmitters(urlXStoreModule, {
+  UrlStateChanged: (_, getters) => getters.urlParams
+});
