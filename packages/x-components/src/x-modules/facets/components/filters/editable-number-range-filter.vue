@@ -333,8 +333,7 @@ True by default.
           range: {
             min: null,
             max: null
-          },
-          callbackInfo: {}
+          }
         }
       };
     }
@@ -366,8 +365,7 @@ True by default.
           range: {
             min: null,
             max: null
-          },
-          callbackInfo: {}
+          }
         }
       };
     }
@@ -402,8 +400,7 @@ True by default.
           range: {
             min: null,
             max: null
-          },
-          callbackInfo: {}
+          }
         }
       };
     }
@@ -444,8 +441,7 @@ True by default.
           range: {
             min: null,
             max: null
-          },
-          callbackInfo: {}
+          }
         }
       };
     }

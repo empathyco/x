@@ -271,7 +271,7 @@ describe('testing `HierarchicalFilter` component', () => {
       getFiltersWrappers().wrappers.forEach(filterWrapper => {
         emit.mockClear();
         filterWrapper.trigger('click');
-        const filter = (filterWrapper.vm as unknown as any).filter;
+        const filter = (filterWrapper.vm as any).filter;
 
         expect(emit).toHaveBeenCalledTimes(2);
         expect(emit).toHaveBeenCalledWith('UserClickedAFilter', filter, {
@@ -292,7 +292,7 @@ describe('testing `HierarchicalFilter` component', () => {
       expect(getFiltersWrappers().length).toBeGreaterThan(0);
 
       getFiltersWrappers().wrappers.forEach(filterWrapper => {
-        const filter = (filterWrapper.vm as unknown as any).filter;
+        const filter = (filterWrapper.vm as any).filter;
         if (partiallySelectedIds.includes(filter.id)) {
           expect(filterWrapper.classes()).toContain('x-hierarchical-filter--is-partially-selected');
         } else {
@@ -326,7 +326,7 @@ describe('testing `HierarchicalFilter` component', () => {
       expect(filtersWrappers.length).toBeGreaterThan(1);
 
       filtersWrappers.wrappers.forEach(async filterWrapper => {
-        const filter = (filterWrapper.vm as unknown as any).filter;
+        const filter = (filterWrapper.vm as any).filter;
 
         expect(filterWrapper.attributes()).not.toHaveProperty('disabled');
         expect(filterWrapper.classes()).toHaveLength(6);

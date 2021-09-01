@@ -508,10 +508,8 @@ export function createNumberRangeFacet(
         id: `${facetId}:${min ?? '*'}-${max ?? '*'}`,
         facetId: facetId,
         selected,
-        value: `${min ?? '*'}:${max ?? '*'}`,
         label: `${min ?? '0'} - ${max ?? 'None'}`,
         totalResults: 10,
-        callbackInfo: {},
         range,
         modelName: 'NumberRangeFilter'
       };

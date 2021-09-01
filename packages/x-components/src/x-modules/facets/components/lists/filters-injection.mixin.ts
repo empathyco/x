@@ -27,7 +27,7 @@ export default class FiltersInjectionMixin extends Vue {
    * @public
    */
   @Prop({ required: false })
-  protected parentId!: Filter['id'];
+  protected parentId?: Filter['id'];
 
   /** The injected filters array.
    *

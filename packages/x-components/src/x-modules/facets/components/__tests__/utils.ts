@@ -3,7 +3,7 @@ import { Store } from 'vuex';
 import { resetStoreXModuleState } from '../../../../__tests__/utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { arrayToObject } from '../../../../utils/array';
-import { reduce } from '../../../../utils/object';
+import { map } from '../../../../utils/object';
 import { DeepPartial } from '../../../../utils/types';
 import { facetsXStoreModule as facetsXStoreModule } from '../../store/module';
 import { GroupId } from '../../store/types';
@@ -27,11 +27,7 @@ export function resetXFacetsStateWith(
     Object.values(facets).flatMap(facet => facet.filters),
     'id'
   );
-  const groups = reduce(
-    facets,
-    (groups, facetId) => Object.assign(groups, { [facetId]: groupId }),
-    {} as Record<Facet['id'], GroupId>
-  );
+  const groups = map(facets, () => groupId);
 
   resetStoreXModuleState(store, 'facets', facetsXStoreModule.state(), {
     facets,

@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-  import { Filter, isBooleanFilter } from '@empathyco/x-types';
+  import { BooleanFilter } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import BaseRating from '../../base-rating.vue';
@@ -39,7 +39,7 @@
      * @public
      * */
     @Prop({ required: true })
-    public filter!: Filter;
+    public filter!: BooleanFilter;
 
     /**
      * Maximum number of elements to paint.
@@ -57,7 +57,7 @@
      * @internal
      * */
     protected get value(): number {
-      const value = isBooleanFilter(this.filter) ? parseFloat(this.filter.label) : 0;
+      const value = parseFloat(this.filter.label) ?? 0;
       return Number.isNaN(value) ? 0 : value;
     }
   }

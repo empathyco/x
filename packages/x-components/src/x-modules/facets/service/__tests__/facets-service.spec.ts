@@ -21,6 +21,8 @@ import {
   isEditableNumberRangeFilterSelected,
   isFilterSelected
 } from '../../entities/__tests__/utils';
+import { FilterEntityFactory } from '../../entities/filter-entity.factory';
+import { SingleSelectModifier } from '../../entities/single-select.modifier';
 import { facetsXModule } from '../../x-module';
 import { DefaultFacetsService } from '../facets.service';
 import { FacetsService } from '../types';
@@ -28,15 +30,16 @@ import { FacetsService } from '../types';
 /**
  * Creates a fresh new {@link DefaultFacetsService} with some helpful test methods.
  *
+ * @param filterEntityFactory - The optional filterEntityFactory to use in the test.
  * @returns An object containing methods for testing {@link DefaultFacetsService}.
  */
-function prepareFacetsService(): FacetsServiceTestAPI {
+function prepareFacetsService(filterEntityFactory?: FilterEntityFactory): FacetsServiceTestAPI {
   XPlugin.resetInstance();
   installNewXPlugin();
   XPlugin.registerXModule(facetsXModule);
 
   return {
-    service: new DefaultFacetsService(),
+    service: new DefaultFacetsService(filterEntityFactory),
     isFilterSelected(filter) {
       return isFilterSelected(XPlugin.store, filter.id);
     },
@@ -560,6 +563,37 @@ describe('testing facets service', () => {
         [priceFacet.id]: omitFiltersProperty(priceFacet),
         [shipmentFacet.id]: omitFiltersProperty(shipmentFacet)
       });
+
+      // Set a new Single Select facet with multiple selected values
+      const newSizeFacet = createSimpleFacetStub('size', createFilter => [
+        createFilter('s'),
+        createFilter('m', true),
+        createFilter('l', true)
+      ]);
+
+      service.setFacets({
+        id: 'backend',
+        facets: [newSizeFacet]
+      });
+    });
+
+    it('sets a new Single Select facet with multiple selected values', () => {
+      const filterEntityFactory = new FilterEntityFactory();
+      filterEntityFactory.registerFilterModifier('size', [SingleSelectModifier]);
+      const { service, getSelectedFilters } = prepareFacetsService(filterEntityFactory);
+
+      const newSizeFacet = createSimpleFacetStub('size', createFilter => [
+        createFilter('s'),
+        createFilter('m', true),
+        createFilter('l', true)
+      ]);
+
+      service.setFacets({
+        id: 'backend',
+        facets: [newSizeFacet]
+      });
+
+      expect(getSelectedFilters()).toHaveLength(1);
     });
   });
 });

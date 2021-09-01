@@ -19,6 +19,10 @@ export class DefaultFacetsService implements FacetsService {
    */
   public static instance: FacetsService = new DefaultFacetsService();
 
+  public constructor(
+    protected filterEntityFactory: FilterEntityFactory = FilterEntityFactory.instance
+  ) {}
+
   /**
    * The {@link https://vuex.vuejs.org/ | Vuex} store to use in the service.
    *
@@ -69,7 +73,7 @@ export class DefaultFacetsService implements FacetsService {
    * @internal
    */
   protected createEntity(filter: Filter): FilterEntity {
-    return FilterEntityFactory.instance.createFilterEntity(this.store, filter);
+    return this.filterEntityFactory.createFilterEntity(this.store, filter);
   }
 
   /**
@@ -117,12 +121,9 @@ export class DefaultFacetsService implements FacetsService {
   protected updateFiltersSelectedState(newFilters: Filter[], previousFilters?: Filter[]): void {
     if (!isArrayEmpty(newFilters)) {
       const filterEntity = this.createEntity(newFilters[0]);
-      const previousFiltersMap = previousFilters && arrayToObject(previousFilters, 'id');
+      const newStateFiltersMap = arrayToObject(previousFilters ?? newFilters, 'id');
       newFilters.forEach(filter => {
-        const isNewStateSelected = previousFiltersMap
-          ? previousFiltersMap[filter.id]?.selected
-          : filter.selected;
-        if (isNewStateSelected) {
+        if (newStateFiltersMap[filter.id]?.selected) {
           filterEntity.select(filter);
         } else {
           filterEntity.deselect(filter);
