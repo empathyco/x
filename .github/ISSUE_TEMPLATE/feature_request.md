@@ -6,14 +6,15 @@ labels: ''
 assignees: ''
 
 ---
+When suggesting a new feature, submit your idea as a user story and provide as much information as possible on how you would solve it, so the team can assess and analyze your idea.
 
-When defining a new feature, you need to consider it from two points of view: 
-- the [Final User](#final-user) accessing the commerce website that uses the component.
-- the [Developer User](#developer-user) who is going to use the components to build a website. 
-Depending on the feature, you may need to consider one or both..
+When defining your new feature, you need to consider it from two points of view: 
+- the [Final User](#final-user) who accesses the commerce website that uses the component.
+- the [Developer User](#developer-user) who is going to use the component to build a website. 
+Depending on the feature, you may need to consider one or both.
 
 # Final User
-When you define tasks from point of view of the final user, describe what the user needs and expects from this task:
+When you define the feature from the point of view of the final user, describe the problem encountered by the user, what they need to solve it, and what they expect.
 
 ## What does the user expect from this task?
 Provide a brief description of the interface and its expected behavior. 
@@ -58,7 +59,7 @@ Example:
 ----
 
 # Developer User
-When you define tasks from the point of view of a developer, you need to describe what the user of X Components library expects from this task.
+When you define the feature from the point of view of a developer, you need to describe what the user of X Components library expects, and how they can use it.
 
 *(!) DO NOT INCLUDE DESIGN DECISIONS HERE; JUST REQUIREMENTS*.
 
