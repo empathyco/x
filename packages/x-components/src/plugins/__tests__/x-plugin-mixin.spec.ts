@@ -1,5 +1,6 @@
 import { mount, shallowMount, Wrapper } from '@vue/test-utils';
 import { ComponentOptions, default as Vue } from 'vue';
+import { Component } from 'vue-property-decorator';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { xComponentMixin } from '../../components/x-component.mixin';
 import { searchBoxXModule } from '../../x-modules/search-box/x-module';
@@ -22,6 +23,58 @@ describe('testing $x component API global mixin', () => {
   afterEach(() => {
     componentInstance.destroy();
     jest.clearAllMocks();
+  });
+
+  describe('testing origin', () => {
+    it("doesn't include origin in the $x.emit metadata by default", () => {
+      const listener = jest.fn();
+
+      componentInstance.vm.$x.on('UserIsTypingAQuery', true).subscribe(listener);
+      componentInstance.vm.$x.emit('UserIsTypingAQuery', 'So awesome, much quality, such skill');
+
+      expect(listener).toHaveBeenCalledTimes(1);
+      expect(listener).toHaveBeenCalledWith({
+        eventPayload: 'So awesome, much quality, such skill',
+        metadata: { moduleName: null }
+      });
+    });
+
+    it('overrides the origin in the $x.emit metadata', () => {
+      const listener = jest.fn();
+
+      @Component({
+        template: `<div><slot/></div>`,
+        provide: {
+          origin: 'origin-test'
+        }
+      })
+      class Provider extends Vue {}
+
+      @Component({ template: '<div>{{ $origin }}</div>' })
+      class Injector extends Vue {}
+
+      const wrapper = mount(
+        {
+          template: `<Provider><Injector /></Provider>`,
+          components: {
+            Provider,
+            Injector
+          }
+        } as ComponentOptions<any> & ThisType<Vue>,
+        {
+          localVue
+        }
+      );
+
+      wrapper
+        .findComponent(Injector)
+        .vm.$x.emit('UserIsTypingAQuery', 'So awesome, much quality, such skill');
+      componentInstance.vm.$x.on('UserIsTypingAQuery', true).subscribe(listener);
+
+      expect(listener).toHaveBeenCalledTimes(1);
+      const { metadata } = listener.mock.calls[0][0];
+      expect(metadata.origin).toBe('origin-test');
+    });
   });
 
   it('allows emitting and subscribing to events via $x object', () => {
