@@ -1,6 +1,5 @@
 import {
   namespacedWireCommit,
-  namespacedWireDispatch,
   namespacedWireDispatchWithoutPayload
 } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
@@ -18,8 +17,6 @@ const moduleName = 'search';
  */
 const wireCommit = namespacedWireCommit(moduleName);
 
-const wireDispatch = namespacedWireDispatch(moduleName);
-
 /**
  * WireDispatchWithoutPayload for {@link SearchXModule}.
  *
@@ -36,10 +33,13 @@ export const cancelFetchAndSaveSearchResponseWire = wireDispatchWithoutPayload(
   'cancelFetchAndSaveSearchResponse'
 );
 
-export const setOrigin = wireDispatch('setOrigin', metadata => {
-  debugger;
-  return metadata;
-});
+/**
+ * Sets the search state `origin`.
+ *
+ * @public
+ */
+export const setOrigin = wireCommit('setOrigin', ({ metadata }) => metadata.origin ?? 'default');
+
 /**
  * Requests and stores the search response.
  *

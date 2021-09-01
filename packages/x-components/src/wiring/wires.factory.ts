@@ -1,5 +1,6 @@
 import { Store } from 'vuex';
-import { RootXStoreState, Things, Things2 } from '../store/store.types';
+import { RootXStoreState, WiringData } from '../store/store.types';
+import { XModuleName } from '../x-modules/x-modules.types';
 import {
   AnyWire,
   Wire,
@@ -38,7 +39,10 @@ export function createWireFromFunction<Payload>(
  * payloadFactory.
  * @public
  */
-export function wireCommit(mutation: string, payloadFactory: (params: Things<any>) => any): AnyWire;
+export function wireCommit<Payload>(
+  mutation: string,
+  payloadFactory: (params: WiringData<Payload>) => any
+): AnyWire;
 /**
  * Creates a wire that commits a mutation to the store. This wire can receive any value as payload.
  * This wire can be used in every event, as it does not have a payload type associated.
@@ -90,9 +94,9 @@ export function wireCommitWithoutPayload(mutation: string): AnyWire {
  * payloadFactory.
  * @public
  */
-export function wireDispatch(
+export function wireDispatch<Payload>(
   action: string,
-  payloadFactory: (params: Things2<any>) => any
+  payloadFactory: (params: WiringData<Payload>) => any
 ): AnyWire;
 /**
  * Creates a wire that dispatches an action to the store. This wire can be used in every event,
@@ -188,7 +192,6 @@ function createSubscriptionCallback<Payload>(
   payload?: Payload
 ): (observableValue: WirePayload<Payload>) => void {
   const storeExecutor = store[commitOrDispatch];
-  debugger;
   return typeof payload === 'function'
     ? ({ eventPayload, metadata }) => {
         return storeExecutor(

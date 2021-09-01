@@ -11,6 +11,7 @@ import {
 } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
+import { QueryOrigin } from '../../../types/query-origin';
 import { Dictionary } from '../../../utils/types';
 import { SearchConfig } from '../config.types';
 
@@ -51,6 +52,8 @@ export interface SearchState extends StatusState {
   totalResults: number;
   /** The extra params property of the state. */
   params: Dictionary<unknown>;
+  /** The origin property of the request. */
+  origin: QueryOrigin;
 }
 
 /**
@@ -166,6 +169,12 @@ export interface SearchMutations extends StatusMutations {
    * @param params - The new extra params.
    */
   setParams(params: Dictionary<unknown>): void;
+  /**
+   * Sets the origin of the module.
+   *
+   * @param origin - The new origin.
+   */
+  setOrigin(origin: QueryOrigin): void;
 }
 
 /**
@@ -196,7 +205,6 @@ export interface SearchActions {
    * for other purposes, please use the {@link SearchMutations.setPage} mutation.
    */
   increasePageAppendingResults(): void;
-  setOrigin(): void;
 }
 
 /**

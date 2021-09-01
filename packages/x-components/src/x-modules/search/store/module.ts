@@ -6,7 +6,6 @@ import {
 } from './actions/fetch-and-save-search-response.action';
 import { fetchSearchResponse } from './actions/fetch-search-response.action';
 import { increasePageAppendingResults } from './actions/increase-page-apending-results.action';
-import { setOrigin } from './actions/set-origin.action';
 import { request } from './getters/request.getter';
 import { SearchXStoreModule } from './types';
 
@@ -34,6 +33,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     status: 'success',
     sort: '',
     page: 1,
+    origin: 'default',
     isAppendResults: false
   }),
   getters: {
@@ -88,12 +88,14 @@ export const searchXStoreModule: SearchXStoreModule = {
     setStatus,
     setParams(state, params) {
       state.params = params;
+    },
+    setOrigin(state, origin) {
+      state.origin = origin;
     }
   },
   actions: {
     cancelFetchAndSaveSearchResponse,
     fetchSearchResponse,
-    setOrigin,
     fetchAndSaveSearchResponse,
     increasePageAppendingResults
   }

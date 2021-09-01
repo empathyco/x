@@ -1,3 +1,4 @@
+import { Store } from 'vuex';
 import { WireMetadata } from '../wiring/wiring.types';
 import {
   AnyXModule,
@@ -28,12 +29,29 @@ export interface RootXStoreState {
  *
  * @public
  */
-export interface Things<Payload> {
-  state: RootXStoreState;
-  getters: unknown;
+export type RootStoreStateAndGetters = Pick<Store<RootXStoreState>, 'state' | 'getters'>;
+
+/**
+ * State and Getters Store type for {@link RootXStoreState} and payload and metadata types.
+ *
+ * @public
+ */
+export type WiringData<Payload> = RootStoreStateAndGetters & {
   payload: Payload;
   metadata: WireMetadata;
-}
+};
+
+/**
+ * Type safe which allows the access to the State, the Getters,the payload and metadata of
+ * a {@link XStoreModule}.
+ *
+ * @public
+ */
+export type NamespacedWiringData<ModuleName extends XModuleName> =
+  StoreModuleStateAndGetters<ModuleName> & {
+    payload: ExtractPayload<ModuleName>;
+    metadata: WireMetadata;
+  };
 
 /**
  * Type safe which allows the access to the State and the Getters of a {@link XStoreModule}.
@@ -45,13 +63,6 @@ export interface Things<Payload> {
 export type StoreModuleStateAndGetters<ModuleName extends XModuleName> = {
   state: ExtractState<ModuleName>;
   getters: ExtractGetters<ModuleName>;
-};
-
-export type Things2<ModuleName extends XModuleName> = {
-  state: ExtractState<ModuleName>;
-  getters: ExtractGetters<ModuleName>;
-  payload: ExtractPayload<ModuleName>;
-  metadata: WireMetadata;
 };
 
 /**
