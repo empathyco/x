@@ -32,11 +32,11 @@
             <template v-slot="{ slicedFilters }">
               <span>Sliced Filters:</span>
               <span data-test="sliced-filters">{{ slicedFilters.length }}</span>
-              <MultiSelectFilters v-slot="{ filter }" :filters="slicedFilters">
+              <FiltersList v-slot="{ filter }" :filters="slicedFilters">
                 <SimpleFilter :filter="filter" data-test="simple-filter">
                   {{ filter.label }}
                 </SimpleFilter>
-              </MultiSelectFilters>
+              </FiltersList>
             </template>
           </SlicedFilters>
         </BaseHeaderTogglePanel>
@@ -50,11 +50,11 @@
             <template v-slot="{ slicedFilters }">
               <span>Sliced Filters:</span>
               <span data-test="sliced-filters">{{ slicedFilters.length }}</span>
-              <Filters v-slot="{ filter }">
+              <FiltersList v-slot="{ filter }">
                 <HierarchicalFilter :filter="filter">
                   {{ filter.label }}
                 </HierarchicalFilter>
-              </Filters>
+              </FiltersList>
             </template>
           </SlicedFilters>
         </BaseHeaderTogglePanel>
@@ -68,11 +68,11 @@
             <template v-slot="{ slicedFilters }">
               <span>Sliced Filters:</span>
               <span data-test="sliced-filters">{{ slicedFilters.length }}</span>
-              <Filters v-slot="{ filter }">
+              <FiltersList v-slot="{ filter }">
                 <SimpleFilter :filter="filter">
                   {{ filter.label }}
                 </SimpleFilter>
-              </Filters>
+              </FiltersList>
             </template>
           </SlicedFilters>
         </BaseHeaderTogglePanel>
@@ -86,7 +86,7 @@
             <template v-slot="{ slicedFilters }">
               <span>Sliced Filters:</span>
               <span data-test="sliced-filters">{{ slicedFilters.length }}</span>
-              <Filters v-slot="{ filter }">
+              <FiltersList v-slot="{ filter }">
                 <NumberRangeFilter :filter="filter">
                   <template #default="{ filter }">
                     <BasePriceFilterLabel
@@ -99,7 +99,7 @@
                     {{ filter.label }} >
                   </template>
                 </NumberRangeFilter>
-              </Filters>
+              </FiltersList>
             </template>
           </SlicedFilters>
         </BaseHeaderTogglePanel>
@@ -118,18 +118,17 @@
   import { XInstaller } from '../x-installer/x-installer';
   import HierarchicalFilter from '../x-modules/facets/components//filters/hierarchical-filter.vue';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
-  import Facets from '../x-modules/facets/components/facets.vue';
+  import Facets from '../x-modules/facets/components/facets/facets.vue';
   import AllFilter from '../x-modules/facets/components/filters/all-filter.vue';
   import NumberRangeFilter from '../x-modules/facets/components/filters/number-range-filter.vue';
   // eslint-disable-next-line max-len
   import ExcludeFiltersWithNoResults from '../x-modules/facets/components/lists/exclude-filters-with-no-results.vue';
   import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
-  import Filters from '../x-modules/facets/components/lists/filters.vue';
+  import FiltersList from '../x-modules/facets/components/lists/filters-list.vue';
   import SlicedFilters from '../x-modules/facets/components/lists/sliced-filters.vue';
-  import MultiSelectFilters from '../x-modules/facets/components/lists/multi-select-filters.vue';
   import SelectedFiltersList from '../x-modules/facets/components/lists/selected-filters-list.vue';
-  import SelectedFilters from '../x-modules/facets/components/selected-filters.vue';
+  import SelectedFilters from '../x-modules/facets/components/lists/selected-filters.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import SearchButton from '../x-modules/search-box/components/search-button.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
@@ -151,11 +150,10 @@
       ClearSearchInput,
       ExcludeFiltersWithNoResults,
       Facets,
-      Filters,
+      FiltersList,
       FiltersSearch,
       HierarchicalFilter,
       NumberRangeFilter,
-      MultiSelectFilters,
       SearchButton,
       SearchInput,
       SelectedFilters,

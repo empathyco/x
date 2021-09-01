@@ -1,14 +1,14 @@
 import { NumberRangeFilter as NumberRangeFilterModel } from '@empathyco/x-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { getNumberRangeFilterStub } from '../../../../../__stubs__/filters-stubs.factory';
+import { createNumberRangeFilter } from '../../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import NumberRangeFilter from '../number-range-filter.vue';
 
 function renderNumberRangeFilter({
   template = '<NumberRangeFilter :filter="filter"/>',
-  filter = getNumberRangeFilterStub()
+  filter = createNumberRangeFilter('price', { min: 0, max: 20 })
 }: NumberRangeFilterWrapperData = {}): NumberRangeFilterAPI {
   Vue.observable(filter);
   const emit = jest.fn();
@@ -104,15 +104,15 @@ describe('testing NumberRangeFilter component', () => {
 });
 
 interface NumberRangeFilterWrapperData {
-  template?: string;
   filter?: NumberRangeFilterModel;
+  template?: string;
 }
 
 interface NumberRangeFilterAPI {
-  wrapper: Wrapper<Vue>;
-  filterWrapper: Wrapper<Vue>;
+  clickFilter: () => void;
   emit: jest.Mock;
   filter: NumberRangeFilterModel;
-  clickFilter: () => void;
+  filterWrapper: Wrapper<Vue>;
   selectFilter: () => Promise<void>;
+  wrapper: Wrapper<Vue>;
 }

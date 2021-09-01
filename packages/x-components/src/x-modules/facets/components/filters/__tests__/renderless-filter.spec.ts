@@ -11,7 +11,7 @@ import { getDataTestSelector } from '../../../../../__tests__/utils';
 import RenderlessFilter from '../renderless-filter.vue';
 
 function renderComponent({
-  filter = getSimpleFilterStub(),
+  filter = createSimpleFilter('category', 'food'),
   clickEvents,
   template = `
         <RenderlessFilter

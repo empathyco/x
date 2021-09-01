@@ -17,9 +17,9 @@
 </template>
 
 <script lang="ts">
+  import { BooleanFilter } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { BooleanFilter } from '@empathyco/x-types';
   import { xComponentMixin } from '../../../../components';
   import BaseEventButton from '../../../../components/base-event-button.vue';
   import { VueCSSClasses } from '../../../../utils/types';

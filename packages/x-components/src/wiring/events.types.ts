@@ -4,7 +4,6 @@ import { ArrowKey, PropsWithType } from '../utils';
 import { DeviceXEvents } from '../x-modules/device';
 import { EmpathizeXEvents } from '../x-modules/empathize/events.types';
 import { ExtraParamsXEvents } from '../x-modules/extra-params';
-import { FacetsNextXEvents } from '../x-modules/facets-next/events.types';
 import { FacetsXEvents } from '../x-modules/facets/events.types';
 import { HistoryQueriesXEvents } from '../x-modules/history-queries/events.types';
 import { IdentifierResultsXEvents } from '../x-modules/identifier-results/events.types';
@@ -27,7 +26,6 @@ import { UrlXEvents } from '../x-modules/url/events.types';
  * * {@link DeviceXEvents}
  * * {@link EmpathizeXEvents}
  * * {@link ExtraParamsXEvents}
- * * {@link FacetsNextXEvents}
  * * {@link FacetsXEvents}
  * * {@link HistoryQueriesXEvents}
  * * {@link IdentifierResultsXEvents}
@@ -47,7 +45,6 @@ export interface XEventsTypes
     EmpathizeXEvents,
     ExtraParamsXEvents,
     FacetsXEvents,
-    FacetsNextXEvents,
     HistoryQueriesXEvents,
     IdentifierResultsXEvents,
     NextQueriesXEvents,
