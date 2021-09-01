@@ -26,10 +26,7 @@ describe('testing search module getters', () => {
         }
       });
 
-      expect(store.getters[gettersKeys.request]).toEqual<
-        SearchRequest & { [key: string]: unknown }
-        // TODO - Remove when the facets refactor is completed.
-      >({
+      expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
         query: 'doraemon',
         origin: 'default',
         relatedTags: [],
@@ -57,10 +54,7 @@ describe('testing search module getters', () => {
         }
       });
 
-      expect(store.getters[gettersKeys.request]).toEqual<
-        SearchRequest & { [key: string]: unknown }
-        // TODO - Remove when the facets refactor is completed.
-      >({
+      expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
         query: 'salchipapa',
         sort: 'price-asc',
         filters: selectedFilters,

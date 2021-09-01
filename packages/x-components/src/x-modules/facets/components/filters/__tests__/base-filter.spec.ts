@@ -12,7 +12,7 @@ import BaseFilter from '../base-filter.vue';
 
 function renderBaseFilter({
   template = '<BaseFilter :filter="filter" :clickEvents="clickEvents"/>',
-  filter = getSimpleFilterStub(),
+  filter = createSimpleFilter('category', 'men'),
   clickEvents
 }: RenderBaseFilterOptions = {}): RenderBaseFilterAPI {
   Vue.observable(filter);

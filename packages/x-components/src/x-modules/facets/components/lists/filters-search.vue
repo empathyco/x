@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-  import { Filter } from '@empathyco/x-types';
+  import { Filter, isBooleanFilter } from '@empathyco/x-types';
   import { mixins } from 'vue-class-component';
   import { Component, Prop, Watch } from 'vue-property-decorator';
   import { xComponentMixin, XProvide } from '../../../../components';
@@ -72,8 +72,8 @@
     @XProvide('filters')
     public get siftedFilters(): Filter[] {
       const normalizedQuery = normalizeString(this.query);
-      return this.renderedFilters.filter(filter =>
-        normalizeString(filter.label).includes(normalizedQuery)
+      return this.renderedFilters.filter(
+        filter => isBooleanFilter(filter) && normalizeString(filter.label).includes(normalizedQuery)
       );
     }
 

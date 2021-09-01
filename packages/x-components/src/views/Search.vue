@@ -29,9 +29,9 @@
         <Facets>
           <template #default="{ facet }">
             <h2>{{ facet.label }}</h2>
-            <Filters v-slot="{ filter }" :filters="facet.filters">
+            <FiltersList v-slot="{ filter }" :filters="facet.filters">
               <SimpleFilter :filter="filter" />
-            </Filters>
+            </FiltersList>
           </template>
 
           <template #rootCategories_facet>
@@ -40,16 +40,16 @@
 
           <template #size="{ facet }">
             <h2>{{ facet.label }}</h2>
-            <MultiSelectFilters v-slot="{ filter }" :filters="facet.filters">
+            <FiltersList v-slot="{ filter }" :filters="facet.filters">
               <SimpleFilter :filter="filter" />
-            </MultiSelectFilters>
+            </FiltersList>
           </template>
 
           <template #category="{ facet }">
             <h2>{{ facet.label }}</h2>
-            <Filters v-slot="{ filter }" :filters="facet.filters">
+            <FiltersList v-slot="{ filter }" :filters="facet.filters">
               <HierarchicalFilter :filter="filter" />
-            </Filters>
+            </FiltersList>
           </template>
         </Facets>
       </template>
@@ -74,14 +74,13 @@
   import { Result } from '@empathyco/x-types';
   import { State } from '../components/decorators/store.decorators';
   import { CheckIcon, ChevronLeftIcon, CrossIcon } from '../components/icons/index';
-  import Filters from '../x-modules/facets/components/lists/filters.vue';
+  import FiltersList from '../x-modules/facets/components/lists/filters-list.vue';
   import HierarchicalFilter from '../x-modules/facets/components/filters/hierarchical-filter.vue';
   import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
   import { XPlugin } from '../plugins/x-plugin';
   import { XInstaller } from '../x-installer/x-installer/x-installer';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
-  import Facets from '../x-modules/facets/components/facets.vue';
-  import MultiSelectFilters from '../x-modules/facets/components/lists/multi-select-filters.vue';
+  import Facets from '../x-modules/facets/components/facets/facets.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import { searchXModule } from '../x-modules/search/x-module';
@@ -102,8 +101,7 @@
       ClearFilters,
       HierarchicalFilter,
       SimpleFilter,
-      MultiSelectFilters,
-      Filters,
+      FiltersList,
       Facets,
       ClearSearchInput,
       SearchInput

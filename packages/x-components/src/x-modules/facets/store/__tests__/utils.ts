@@ -1,11 +1,11 @@
 import { Store } from 'vuex';
-import { DeepPartial } from '../../../../utils/types';
 import { resetStoreModuleState } from '../../../../__tests__/utils';
+import { DeepPartial } from '../../../../utils/types';
 import { facetsXStoreModule } from '../module';
 import { FacetsState } from '../types';
 
 /**
- * Reset facets module state with its original state and the partial state passes as
+ * Reset facets module state with its original state and the partial state passed as
  * parameter.
  *
  * @param store - Facets store state.

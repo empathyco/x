@@ -20,7 +20,6 @@
           :aria-checked="filter.selected.toString()"
           :class="cssClasses"
           :disabled="isDisabled"
-          :events="clickEvents"
           data-test="filter"
           role="checkbox"
         >
@@ -32,10 +31,11 @@
         </button>
       </slot>
     </RenderlessFilter>
-    <Filters
+    <FiltersList
       #default="{ filter: childFilter }"
       :animation="childrenAnimation"
       :filters="renderedChildrenFilters"
+      :parent-id="filter.id"
       class="x-hierarchical-filter__children"
       data-test="children-filters"
     >
@@ -47,20 +47,19 @@
           <slot name="label" :filter="filter" />
         </template>
       </HierarchicalFilter>
-    </Filters>
+    </FiltersList>
   </div>
 </template>
 
 <script lang="ts">
+  import { Filter, HierarchicalFilter as HierarchicalFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { Filter, HierarchicalFilter as HierarchicalFilterModel } from '@empathyco/x-types';
-  import { xComponentMixin } from '../../../../components';
-  import { isFilterPartiallySelected } from '../../../../utils/filters';
+  import { State, xComponentMixin } from '../../../../components';
   import { VueCSSClasses } from '../../../../utils/types';
   import { XEventsTypes } from '../../../../wiring/events.types';
   import { facetsXModule } from '../../x-module';
-  import Filters from '../lists/filters.vue';
+  import FiltersList from '../lists/filters-list.vue';
   import RenderlessFilter from './renderless-filter.vue';
 
   /**
@@ -70,7 +69,7 @@
    */
   @Component({
     name: 'HierarchicalFilter',
-    components: { Filters, RenderlessFilter },
+    components: { FiltersList, RenderlessFilter },
     mixins: [xComponentMixin(facetsXModule)]
   })
   export default class HierarchicalFilter extends Vue {
@@ -81,6 +80,13 @@
     /** The animation component to use for the children filters. */
     @Prop()
     public childrenAnimation?: Vue | string;
+    /**
+     * The state filters.
+     *
+     * @internal
+     */
+    @State('facets', 'filters')
+    public filters!: Record<Filter['id'], Filter>;
 
     /**
      * Additional events to emit when the filter is clicked.
@@ -117,7 +123,7 @@
      * @internal
      */
     protected get isPartiallySelected(): boolean {
-      return isFilterPartiallySelected(this.filter);
+      return this.isFilterPartiallySelected(this.filter);
     }
 
     /**
@@ -129,7 +135,20 @@
      * @internal
      */
     protected get renderedChildrenFilters(): Filter[] {
-      return this.filter.children ?? [];
+      return this.filter.children?.map(filterId => this.filters[filterId]) ?? [];
+    }
+
+    protected isFilterPartiallySelected(filter: HierarchicalFilterModel): boolean {
+      const selectedChildren = filter.children
+        ?.map(filterId => this.filters[filterId])
+        ?.filter(filter => filter?.selected) as HierarchicalFilterModel[] | undefined;
+      const filterChildrenLength = filter.children?.length ?? 0;
+      return (
+        !!selectedChildren &&
+        ((selectedChildren.length > 0 && selectedChildren.length < filterChildrenLength) ||
+          // eslint-disable-next-line @typescript-eslint/unbound-method
+          selectedChildren.some(this.isFilterPartiallySelected))
+      );
     }
   }
 </script>

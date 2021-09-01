@@ -27,9 +27,9 @@
             <template #header-content>{{ facet.label }}</template>
             <SelectedFilters :facetId="facet.id" />
             <AllFilter :facet="facet" />
-            <MultiSelectFilters v-slot="{ filter }" :filters="facet.filters">
+            <FiltersList v-slot="{ filter }" :filters="facet.filters">
               <SimpleFilter :filter="filter" />
-            </MultiSelectFilters>
+            </FiltersList>
           </BaseHeaderTogglePanel>
         </template>
         <template #hierarchical_category="{ facet }">
@@ -37,9 +37,9 @@
             <template #header-content>{{ facet.label }}</template>
             <SelectedFilters :facetId="facet.id" />
             <AllFilter :facet="facet" />
-            <Filters v-slot="{ filter }" :filters="facet.filters">
+            <FiltersList v-slot="{ filter }" :filters="facet.filters">
               <HierarchicalFilter :filter="filter" />
-            </Filters>
+            </FiltersList>
           </BaseHeaderTogglePanel>
         </template>
         <template #brand_facet="{ facet }">
@@ -49,9 +49,9 @@
             <FiltersSearch v-slot="{ siftedFilters }" :filters="facet.filters">
               <SlicedFilters :filters="siftedFilters" :max="8">
                 <template #default="{ slicedFilters }">
-                  <Filters v-slot="{ filter }" :filters="slicedFilters">
+                  <FiltersList v-slot="{ filter }" :filters="slicedFilters">
                     <SimpleFilter :filter="filter" data-test="brand-filter" />
-                  </Filters>
+                  </FiltersList>
                 </template>
                 <template #show-more="{ difference }">Show {{ difference }} more filters</template>
                 <template #show-less="{ difference }">Show {{ difference }} less filters</template>
@@ -64,7 +64,7 @@
             <template #header-content>{{ facet.label }}</template>
             <SelectedFilters :facetId="facet.id" />
             <AllFilter :facet="facet" />
-            <Filters v-slot="{ filter }" :filters="facet.filters">
+            <FiltersList v-slot="{ filter }" :filters="facet.filters">
               <NumberRangeFilter :filter="filter">
                 <template #default="{ filter }">
                   <BasePriceFilterLabel
@@ -76,7 +76,7 @@
                   />
                 </template>
               </NumberRangeFilter>
-            </Filters>
+            </FiltersList>
           </BaseHeaderTogglePanel>
         </template>
       </Facets>
@@ -128,7 +128,7 @@
   import AllFilter from '../x-modules/facets/components/filters/all-filter.vue';
   import SlicedFilters from '../x-modules/facets/components/lists/sliced-filters.vue';
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
-  import Filters from '../x-modules/facets/components/lists/filters.vue';
+  import FiltersList from '../x-modules/facets/components/lists/filters-list.vue';
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
   import HierarchicalFilter from '../x-modules/facets/components/filters/hierarchical-filter.vue';
   import NumberRangeFilter from '../x-modules/facets/components/filters/number-range-filter.vue';
@@ -136,13 +136,12 @@
   import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
   import SelectedFiltersList from '../x-modules/facets/components/lists/selected-filters-list.vue';
-  import SelectedFilters from '../x-modules/facets/components/selected-filters.vue';
+  import SelectedFilters from '../x-modules/facets/components/lists/selected-filters.vue';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
-  import Facets from '../x-modules/facets/components/facets.vue';
+  import Facets from '../x-modules/facets/components/facets/facets.vue';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
-  import MultiSelectFilters from '../x-modules/facets/components/lists/multi-select-filters.vue';
   import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
   import PopularSearches from '../x-modules/popular-searches/components/popular-searches.vue';
   import QuerySuggestion from '../x-modules/query-suggestions/components/query-suggestion.vue';
@@ -163,7 +162,7 @@
     },
     components: {
       AllFilter,
-      Filters,
+      FiltersList,
       SlicedFilters,
       BaseHeaderTogglePanel,
       HierarchicalFilter,
@@ -178,7 +177,6 @@
       Facets,
       FiltersSearch,
       HistoryQueries,
-      MultiSelectFilters,
       NextQueries,
       PopularSearches,
       QuerySuggestion,

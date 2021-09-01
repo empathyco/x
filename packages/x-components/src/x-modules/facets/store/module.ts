@@ -1,19 +1,9 @@
+import { Facet } from '@empathyco/x-types';
 import Vue from 'vue';
-import {
-  clearFacetSelectedFilters,
-  clearFacetsSelectedFilters,
-  clearSelectedFilters
-} from './actions/clear-selected-filters.action';
-import { setBackendFacets } from './actions/set-backend-facets.action';
-import { setFrontendFacets } from './actions/set-frontend-facets.action';
-import { toggleNumberRangeFilter, toggleSimpleFilter } from './actions/toggle-filter.action';
-import { toggleHierarchicalFilter } from './actions/toggle-hierarchical-filter.action';
-import { updateBackendFacets } from './actions/update-backend-facets.action';
 import { facets } from './getters/facets.getter';
-import { flattenedFilters } from './getters/flattened-filters.getter';
 import { selectedFiltersByFacet } from './getters/selected-filters-by-facet.getter';
 import { selectedFilters } from './getters/selected-filters.getter';
-import { FacetsXStoreModule } from './types';
+import { FacetGroupEntry, FacetsXStoreModule } from './types';
 
 /**
  * {@link XStoreModule} For the facets module.
@@ -22,49 +12,35 @@ import { FacetsXStoreModule } from './types';
  */
 export const facetsXStoreModule: FacetsXStoreModule = {
   state: () => ({
-    config: {
-      multiSelect: {}
-    },
-    backendFacets: {},
-    frontendFacets: {},
-    query: ''
+    filters: {},
+    groups: {},
+    query: '',
+    facets: {}
   }),
   getters: {
-    facets,
-    flattenedFilters,
     selectedFilters,
-    selectedFiltersByFacet
+    selectedFiltersByFacet,
+    facets
   },
   mutations: {
-    setBackendFacets(state, newFacets) {
-      state.backendFacets = newFacets;
+    setFilter(state, filter) {
+      Vue.set(state.filters, filter.id, filter);
     },
-    setFrontendFacets(state, newFacets) {
-      state.frontendFacets = newFacets;
+    removeFilter(state, { id }) {
+      Vue.delete(state.filters, id);
     },
-    setFacetMultiSelect(state, { facetId, multiSelect }) {
-      Vue.set(state.config.multiSelect, facetId, multiSelect);
+    setFacetGroup(state, { facetId, groupId }: FacetGroupEntry) {
+      Vue.set(state.groups, facetId, groupId);
     },
-    setFilterSelected(_state, { filter, selected }) {
-      filter.selected = selected;
+    removeFacet(state, { id }) {
+      Vue.delete(state.facets, id);
     },
-    setQuery(state, newQuery) {
-      state.query = newQuery;
+    setFacet(state, facet: Facet) {
+      Vue.set(state.facets, facet.id, facet);
     },
-    setEditableNumberRangeFilterRange(_state, { filter, range }) {
-      filter.range.min = range.min;
-      filter.range.max = range.max;
+    setQuery(state, query) {
+      state.query = query;
     }
   },
-  actions: {
-    clearSelectedFilters,
-    clearFacetSelectedFilters,
-    clearFacetsSelectedFilters,
-    updateBackendFacets,
-    setBackendFacets,
-    setFrontendFacets,
-    toggleSimpleFilter,
-    toggleHierarchicalFilter,
-    toggleNumberRangeFilter
-  }
+  actions: {}
 };

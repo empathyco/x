@@ -1,13 +1,13 @@
 import { createLocalVue } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
+import { SuggestionsRequest } from '@empathyco/x-adapter';
 import { map } from '../../../../utils';
 import { createHistoryQueries } from '../../../../__stubs__/history-queries-stubs.factory';
 import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { popularSearchesXStoreModule } from '../module';
 import { PopularSearchesState } from '../types';
-import { SuggestionsRequest } from '../../../../../../search-adapter/src/types/requests.types';
 import { resetPopularSearchesStateWith } from './utils';
 
 describe('testing popular searches module getters', () => {
@@ -23,10 +23,11 @@ describe('testing popular searches module getters', () => {
           catalog: 'es'
         }
       });
-      expect(store.getters[gettersKeys.request]).toEqual<
-        SuggestionsRequest & { [key: string]: unknown }
-        // TODO - Remove when the facets refactor is completed.
-      >({ rows: 3, start: 0, catalog: 'es' });
+      expect(store.getters[gettersKeys.request]).toEqual<SuggestionsRequest>({
+        rows: 3,
+        start: 0,
+        catalog: 'es'
+      });
     });
   });
 
