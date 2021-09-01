@@ -1,5 +1,5 @@
 import { mount, shallowMount, Wrapper } from '@vue/test-utils';
-import { ComponentOptions, CreateElement, VNode, default as Vue } from 'vue';
+import { ComponentOptions, default as Vue } from 'vue';
 import { Component } from 'vue-property-decorator';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { xComponentMixin } from '../../components/x-component.mixin';
