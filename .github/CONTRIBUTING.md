@@ -1,11 +1,13 @@
 # Contributing Guidelines
 
-We are really excited that you want to contribute to the Interface X open source project! For more information about the Interface X ecosystem and our product roadmap, see [the project’s README](../readme.md).
+We are really excited that you want to contribute to the Interface X open source project! For more information about the Interface X ecosystem and our product roadmap, see [the project’s README](https://github.com/empathyco/x).
 
-To make it easier for everyone, we’ve put together a set of guidelines for contributing to the Interface X project and its packages, which are hosted in the
+To make it easier for everyone, we’ve put together a set of **guidelines for contributing to the Interface X project** and its packages, which are hosted in the
 [Empathy Organization](https://github.com/empathyco) on GitHub.
 
-Don’t take these guidelines as hard and fast rules. Use your best judgment, and feel free to propose changes  in a pull request. And above all, a heartfelt **thank you** for making the time to contribute. We’re delighted to have you alongside!
+Don’t take these guidelines as hard and fast rules. Use your **best judgment**, and feel free to **propose changes in a pull request**. 
+
+And above all, a heartfelt **thank you** for making the time to contribute. We’re delighted to have you alongside!
 
 ---
 
@@ -21,7 +23,7 @@ Don’t take these guidelines as hard and fast rules. Use your best judgment, an
     + [Set up your development environment](#set-up-your-development-environment)
     + [Pull requests](#pull-requests)
 
-- [Style guides](#styleguides)
+- [Style guides](#style-guides)
     + [Git commit messages](#git-commit-messages)
     + [JavaScript style guide](#javascript-styleguide)
     + [Documentation style guide](#documentation-styleguide)
@@ -46,7 +48,7 @@ These standalone and configurable building blocks allow you to quickly construct
 - **[@empathyco/x-archetype](https://github.com/empathyco/x-archetype)** - This associated project is Empathy’s vision of the ideal mix of  X Components. A project showing the power of the X Components, ready to connect to any search API with customizable layout through design tokens. 
 It is the perfect example to learn how to use the X Components. This package is a project outside this monorepo.
 - **[@empathyco/x-deep-merge](/packages/deep-merge)** - This package clones an array of objects into another object.
-- **[@empathyco/eslint-plugin-x](/packages/eslint-plugin-x)** - This package is a customized version for the Interface X project of the [ESLint plugin](https://eslint.org/docs/about/), an open source JavaScript linting utility. It also includes a style formatter and best practices beyond the ESLint plugin, such as
+- **[@empathyco/eslint-plugin-x](/packages/eslint-plugin-x)** - Customized version for the Interface X project of the [ESLint plugin](https://eslint.org/docs/about/), an open source JavaScript linting utility. It also includes a style formatter and best practices beyond the ESLint plugin, such as
   [prettier](https://prettier.io/) and [standard-version](https://github.com/conventional-changelog/standard-version).
 - **[@empathyco/x-get-safe-property-chain](/packages/get-safe-property-chain)** - A utility designed to safely retrieve nested values.
 - **[@empathyco/x-jest-utils](/packages/jest-utils)** - Jest extensions for easier testing.
@@ -71,7 +73,7 @@ You can create an issue by filling in the [ bug template](./ISSUE_TEMPLATE/bug_r
 
 ### Suggest new features or enhancements
 
-We’d love to hear your suggestions for enhancements for Interface X, whether they are completely new features or minor improvements to existing functionality..
+We’d love to hear your suggestions for enhancements for Interface X, whether they are completely new features or minor improvements to existing functionality.
 
 To suggest any new feature, file a new issue using the [feature request template](./ISSUE_TEMPLATE/feature_request.md).
 
@@ -109,7 +111,7 @@ There are a number of steps must follow to have your contribution considered by 
 6. Acknowledge and respond to each and every comment.
 
 
-## Styleguides
+## Style guides
 
 ### Git commit messages
 
