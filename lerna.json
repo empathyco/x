@@ -19,5 +19,10 @@
       { "type": "chore", "section": "Others", "hidden": true },
       { "type": "revert", "section": "Reverts", "hidden": true }
     ]
+  },
+  "command": {
+    "bootstrap": {
+      "npmClientArgs": ["--legacy-peer-deps"]
+    }
   }
 }
