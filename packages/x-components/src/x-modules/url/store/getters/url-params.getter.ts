@@ -1,4 +1,5 @@
-import { UrlXStoreModule } from '../types';
+import { reduce } from '../../../../utils/object';
+import { UrlGetters, UrlParamValue, UrlXStoreModule } from '../types';
 
 /**
  * Default implementation for the {@link UrlGetters.urlParams} getter.
@@ -9,19 +10,17 @@ import { UrlXStoreModule } from '../types';
  * @public
  */
 export const urlParams: UrlXStoreModule['getters']['urlParams'] = ({
-  query,
-  page,
-  filters,
-  sort,
-  relatedTag,
-  ...extraParams
+  config,
+  extraParams,
+  ...rawUrlParams
 }) => {
-  return {
-    query,
-    page,
-    filters,
-    sort,
-    relatedTag,
-    ...extraParams
-  };
+  return reduce(
+    { ...rawUrlParams, ...extraParams },
+    (urlParams, key, value) => {
+      const newKey = config.urlParamNames[key] ?? key;
+      urlParams[newKey] = value as UrlParamValue;
+      return urlParams;
+    },
+    <UrlGetters['urlParams']>{}
+  );
 };

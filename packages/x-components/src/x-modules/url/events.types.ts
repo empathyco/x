@@ -1,4 +1,5 @@
-import { UrlState } from './store/types';
+import { UrlConfig } from './config.types';
+import { UrlGetters } from './store/types';
 /**
  * Dictionary of the events of URL XModule, where each key is the event name, and the value is
  * the event payload type or `void` if it has no payload.
@@ -7,10 +8,15 @@ import { UrlState } from './store/types';
  */
 export interface UrlXEvents {
   /**
-   * Url state changed.
-   * * Payload: The url state.
+   * The configuration for handling the URL has changed.
+   * * Payload: The new URL config.
    */
-  UrlStateChanged: UrlState;
+  UrlConfigProvided: UrlConfig;
+  /**
+   * Url state changed.
+   * * Payload: The new URL params.
+   */
+  UrlStateChanged: UrlGetters['urlParams'];
   /**
    * Document has finished loading.
    * * Payload: none.

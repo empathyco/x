@@ -11,24 +11,14 @@ import {
   createEditableNumberRangeFilter,
   createHierarchicalFilter,
   createNumberRangeFilter,
-  createSimpleFilter,
-  createRawFilter
+  createRawFilter,
+  createSimpleFilter
 } from '../../../../__stubs__/filters-stubs.factory';
-import { ActionsDictionary, XActionContext } from '../../../../store/actions.types';
-import { MutationsDictionary } from '../../../../store/mutations.types';
+import { SafeStore } from '../../../../store/__tests__/utils';
 import { arrayToObject } from '../../../../utils/array';
-import { Dictionary } from '../../../../utils/types';
 import { facetsXStoreModule } from '../module';
 import { FacetsActions, FacetsGetters, FacetsMutations, FacetsState } from '../types';
 import { resetFacetsStateWith } from './utils';
-
-/** Type safe single module store. */
-type SafeStore<
-  State extends Dictionary,
-  Getters extends Dictionary,
-  Mutations extends MutationsDictionary<Mutations>,
-  Actions extends ActionsDictionary<Actions>
-> = Omit<XActionContext<State, Getters, Mutations, Actions>, 'rootGetters' | 'rootState'>;
 
 describe('testing facets module getters', () => {
   function createFacetsStore(
