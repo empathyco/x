@@ -53,7 +53,14 @@ export interface UrlMutations {
  *
  * @public
  */
-export interface UrlActions {}
+export interface UrlActions {
+  /**
+   * It updates the URL with values from the store.
+   *
+   * @public
+   */
+  updateUrl(): void;
+}
 
 /**
  * URL type safe store module.

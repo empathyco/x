@@ -1,5 +1,6 @@
 import { UrlXStoreModule } from './types';
 import { urlParams } from './getters/url-params.getter';
+import { updateUrl } from './actions/update-url.action';
 
 /**
  * {@link XStoreModule} For the URL module.
@@ -9,7 +10,9 @@ import { urlParams } from './getters/url-params.getter';
 export const urlXStoreModule: UrlXStoreModule = {
   state: () => ({
     config: {
-      urlParamNames: {}
+      urlParamNames: {
+        query: 'guille'
+      }
     },
     query: '',
     page: 1,
@@ -26,5 +29,7 @@ export const urlXStoreModule: UrlXStoreModule = {
       state.config = urlConfig;
     }
   },
-  actions: {}
+  actions: {
+    updateUrl
+  }
 };
