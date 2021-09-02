@@ -32,28 +32,6 @@ export interface RootXStoreState {
 export type RootStoreStateAndGetters = Pick<Store<RootXStoreState>, 'state' | 'getters'>;
 
 /**
- * State and Getters Store type for {@link RootXStoreState} and payload and metadata types.
- *
- * @public
- */
-export type WiringData<Payload> = RootStoreStateAndGetters & {
-  payload: Payload;
-  metadata: WireMetadata;
-};
-
-/**
- * Type safe which allows the access to the State, the Getters,the payload and metadata of
- * a {@link XStoreModule}.
- *
- * @public
- */
-export type NamespacedWiringData<ModuleName extends XModuleName> =
-  StoreModuleStateAndGetters<ModuleName> & {
-    payload: ExtractPayload<ModuleName>;
-    metadata: WireMetadata;
-  };
-
-/**
  * Type safe which allows the access to the State and the Getters of a {@link XStoreModule}.
  *
  * @param ModuleName - The {@link XModuleName} of the module to get its state and getters.

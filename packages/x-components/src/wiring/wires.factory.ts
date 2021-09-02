@@ -1,8 +1,7 @@
 import { Store } from 'vuex';
-import { RootXStoreState, WiringData } from '../store/store.types';
-import { XModuleName } from '../x-modules/x-modules.types';
+import { RootXStoreState } from '../store/store.types';
 import {
-  AnyWire,
+  AnyWire, PayloadFactoryData,
   Wire,
   WireParams,
   WirePayload,
@@ -33,15 +32,15 @@ export function createWireFromFunction<Payload>(
  * This wire can be used in every event, as it does not have a payload type associated.
  *
  * @param mutation - The full mutation path to commit. I.e. `x/searchBox/setQuery`.
- * @param payloadFactory - A function that receives the an {@link RootStoreStateAndGetters | object}
- * with the Store state and getters as parameter.
+ * @param payloadFactory - A function that receives a {@link PayloadFactoryData | object}
+ * with the Store state, getters, payload and metadata as parameter.
  * @returns A {@link AnyWire} wire that commits the mutation with the payload returned by the
  * payloadFactory.
  * @public
  */
 export function wireCommit<Payload>(
   mutation: string,
-  payloadFactory: (params: WiringData<Payload>) => any
+  payloadFactory: (params: PayloadFactoryData<Payload>) => any
 ): AnyWire;
 /**
  * Creates a wire that commits a mutation to the store. This wire can receive any value as payload.
@@ -88,15 +87,15 @@ export function wireCommitWithoutPayload(mutation: string): AnyWire {
  * This wire can be used in every event, as it does not have a payload type associated.
  *
  * @param action - The full action path to dispatch. I.e. `x/querySuggestions/fetchSuggestions`.
- * @param payloadFactory - A function that receives the an {@link RootStoreStateAndGetters | object}
- * with the Store state and getters as parameter.
+ * @param payloadFactory - A function that receives a {@link PayloadFactoryData | object}
+ * with the Store state, getters, payload and metadata as parameter.
  * @returns A {@link AnyWire} wire that dispatches the action with the payload returned by the
  * payloadFactory.
  * @public
  */
 export function wireDispatch<Payload>(
   action: string,
-  payloadFactory: (params: WiringData<Payload>) => any
+  payloadFactory: (params: PayloadFactoryData<Payload>) => any
 ): AnyWire;
 /**
  * Creates a wire that dispatches an action to the store. This wire can be used in every event,
@@ -193,14 +192,13 @@ function createSubscriptionCallback<Payload>(
 ): (observableValue: WirePayload<Payload>) => void {
   const storeExecutor = store[commitOrDispatch];
   return typeof payload === 'function'
-    ? ({ eventPayload, metadata }) => {
+    ? wirePayload => {
         return storeExecutor(
           mutationOrAction,
           payload({
             state: store.state,
             getters: store.getters,
-            payload: eventPayload,
-            metadata
+            ...wirePayload
           })
         );
       }

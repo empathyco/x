@@ -4,14 +4,14 @@ import {
   ExtractActions,
   ExtractMutationPayload,
   ExtractMutations,
+  ExtractPayload,
   MutationNamesFor,
-  NamespacedWiringData,
   StoreModuleStateAndGetters
 } from '../store/store.types';
 import { PropsWithType } from '../utils/types';
 import { XModuleName, XModulesTree } from '../x-modules/x-modules.types';
 import { XEvent } from './events.types';
-import { AnyWire, Wire } from './wiring.types';
+import { AnyWire, Wire, WireMetadata } from './wiring.types';
 
 /**
  * Function type which receives the State and the Getters of the namespace {@link XStoreModule}
@@ -155,3 +155,15 @@ export type NamespacedWireDispatchWithoutPayload<ModuleName extends XModuleName>
 >(
   action: ActionName
 ) => AnyWire;
+
+/**
+ * Namespaced type safe which allows the access to the State, the Getters, the payload and metadata
+ * of a {@link XStoreModule}.
+ *
+ * @public
+ */
+export type NamespacedWiringData<ModuleName extends XModuleName> =
+  StoreModuleStateAndGetters<ModuleName> & {
+    eventPayload: ExtractPayload<ModuleName>;
+    metadata: WireMetadata;
+  };

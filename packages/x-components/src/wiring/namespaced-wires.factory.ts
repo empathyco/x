@@ -1,4 +1,3 @@
-import { WiringData } from '../store/store.types';
 import { XModuleName } from '../x-modules/x-modules.types';
 import {
   NamespacedWireCommit,
@@ -12,6 +11,7 @@ import {
   wireDispatch,
   wireDispatchWithoutPayload
 } from './wires.factory';
+import { PayloadFactoryData } from './wiring.types';
 import { getStateAndGettersFromModule } from './wiring.utils';
 
 /**
@@ -85,7 +85,7 @@ export function namespacedWireDispatchWithoutPayload<ModuleName extends XModuleN
  */
 function getPayload(moduleName: XModuleName, payload: unknown): unknown {
   return typeof payload === 'function'
-    ? ({ state, getters, payload: eventPayload, metadata }: WiringData<XModuleName>) =>
+    ? ({ state, getters, eventPayload, metadata }: PayloadFactoryData<XModuleName>) =>
         payload({
           ...getStateAndGettersFromModule(state, getters, moduleName),
           eventPayload,

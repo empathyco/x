@@ -38,7 +38,7 @@ export const cancelFetchAndSaveSearchResponseWire = wireDispatchWithoutPayload(
  *
  * @public
  */
-export const setOrigin = wireCommit('setOrigin', ({ metadata }) => metadata.origin ?? 'default');
+export const setOrigin = wireCommit('setOrigin', ({ metadata }) => metadata.origin);
 
 /**
  * Requests and stores the search response.
@@ -161,7 +161,8 @@ export const searchWiring = createWiring({
   },
   SelectedRelatedTagsChanged: {
     resetPage,
-    setRelatedTags
+    setRelatedTags,
+    setOrigin
   },
   SelectedFiltersChanged: {
     resetPage,

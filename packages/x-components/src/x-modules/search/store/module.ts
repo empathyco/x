@@ -34,7 +34,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     status: 'success',
     sort: '',
     page: 1,
-    origin: 'default',
+    origin: undefined,
     isAppendResults: false
   }),
   getters: {

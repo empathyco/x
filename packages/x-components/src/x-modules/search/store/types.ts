@@ -53,7 +53,7 @@ export interface SearchState extends StatusState {
   /** The extra params property of the state. */
   params: Dictionary<unknown>;
   /** The origin property of the request. */
-  origin: QueryOrigin;
+  origin: QueryOrigin | undefined;
 }
 
 /**
@@ -174,7 +174,7 @@ export interface SearchMutations extends StatusMutations {
    *
    * @param origin - The new origin.
    */
-  setOrigin(origin: QueryOrigin): void;
+  setOrigin(origin?: QueryOrigin | undefined): void;
 }
 
 /**
