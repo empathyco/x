@@ -1,5 +1,4 @@
 import { Store } from 'vuex';
-import { WireMetadata } from '../wiring/wiring.types';
 import {
   AnyXModule,
   ExtractGetters,
