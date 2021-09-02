@@ -40,7 +40,7 @@ export interface WireMetadata {
    * unknown module. */
   moduleName: XModuleName | null;
   /** The origin for tagging purposes. */
-  origin?: QueryOrigin | undefined;
+  origin?: QueryOrigin;
   /** The DOM element that triggered the event emission. */
   target?: HTMLElement;
 }

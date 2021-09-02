@@ -34,7 +34,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     status: 'success',
     sort: '',
     page: 1,
-    origin: undefined,
+    origin: null,
     isAppendResults: false
   }),
   getters: {
@@ -93,7 +93,7 @@ export const searchXStoreModule: SearchXStoreModule = {
       state.params = params;
     },
     setOrigin(state, origin) {
-      state.origin = origin;
+      state.origin = origin ?? null;
     }
   },
   actions: {
