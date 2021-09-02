@@ -17,7 +17,7 @@ export const urlParams: UrlXStoreModule['getters']['urlParams'] = ({
   return reduce(
     { ...rawUrlParams, ...extraParams },
     (urlParams, key, value) => {
-      const newKey = config[key] ?? key;
+      const newKey = config.urlParamNames[key] ?? key;
       urlParams[newKey] = value as UrlParamValue;
       return urlParams;
     },

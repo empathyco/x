@@ -28,9 +28,11 @@ describe('testing URL module getters', () => {
           warehouse: 12345
         },
         config: {
-          query: 'q',
-          relatedTags: 'tags',
-          filters: 'filter'
+          urlParamNames: {
+            query: 'q',
+            relatedTags: 'tags',
+            filters: 'filter'
+          }
         }
       });
 

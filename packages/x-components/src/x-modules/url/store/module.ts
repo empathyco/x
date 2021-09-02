@@ -8,7 +8,9 @@ import { urlParams } from './getters/url-params.getter';
  */
 export const urlXStoreModule: UrlXStoreModule = {
   state: () => ({
-    config: {},
+    config: {
+      urlParamNames: {}
+    },
     query: '',
     page: 1,
     filters: [],
