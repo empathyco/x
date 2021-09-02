@@ -1,0 +1,51 @@
+name: Copying documentation to eDocs
+on:
+  push:
+    branches:
+      - edocs-test
+jobs:
+  copy-documentation-to-edocs-repo:
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node14.17.0-chrome91-ff89
+    steps:
+        - uses: actions/checkout@v2
+          with:
+            token: ${{ secrets.SUPPORT_TOKEN }}
+        - name: Step 1 - Installing X dependencies
+          run: npm install
+        - name: Cloning edocs Documentation repository...
+          uses: actions/checkout@v2
+          with:
+                repository: empathyco/docs-empathy-documentation
+                path: edocs-documentation
+                token: ${{ secrets.SUPPORT_TOKEN }}
+        - name: Step 2 - Creating new branch Empathy documentation repository
+          run: |
+                cd edocs-documentation
+                git checkout -b XComponents_$GITHUB_SHA
+        - name: Step 3 - Copying necessary files
+          run: |
+                cd packages/x-components/docs/API-reference/components
+                find . -iname \*.md -exec cp --parents {} ../../../../../edocs-documentation/x-components \;
+        - name: Step 4 - Pushing the branch
+          run: |
+                cd edocs-documentation
+                git add .
+                git config --local user.email "x@empathy.co"
+                git config --local user.name "empathy/x"
+                git commit -m "Automatic documentation update from X-Components"
+                git push -u origin XComponents_$GITHUB_SHA
+
+  create-pull-request:
+    needs:   copy-documentation-to-edocs-repo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1 - Getting Empathy documentation repo
+        uses: actions/checkout@v2
+        with:
+          repository: empathyco/docs-empathy-documentation
+          token: ${{ secrets.SUPPORT_TOKEN }}
+      - name: Step 2 - Creating pull request to main
+        run: gh pr create --base main --head "XComponents_$GITHUB_SHA" --title "X-Components Documentation update" --body "Automatic X-Components documentation update from $GITHUB_HEAD_REF"
+        env:
+          GITHUB_TOKEN: ${{ secrets.SUPPORT_TOKEN }}
