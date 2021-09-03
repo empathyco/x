@@ -10,14 +10,19 @@ import { updateUrl } from './actions/update-url.action';
 export const urlXStoreModule: UrlXStoreModule = {
   state: () => ({
     config: {
-      urlParamNames: {}
+      urlParamNames: {
+        page: 'tortillas'
+      }
     },
     query: '',
-    page: 1,
+    page: 2,
     filters: [],
     sort: '',
-    relatedTags: [],
-    extraParams: {}
+    relatedTags: ['red1', 'red2'],
+    extraParams: {
+      beltran: 'eselmejor',
+      guille: 'quepepinodegrafica'
+    }
   }),
   getters: {
     urlParams

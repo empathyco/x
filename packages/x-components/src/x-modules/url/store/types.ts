@@ -1,6 +1,15 @@
 import { XStoreModule } from '../../../store';
 import { UrlConfig } from '../config.types';
 
+export interface MappedParams {
+  [originalParamName: string]: MappedParam;
+}
+
+export interface MappedParam {
+  key: UrlParamKey;
+  value: UrlParamValue;
+}
+
 /**
  * URL store state.
  *
@@ -22,7 +31,7 @@ export interface UrlState {
  * @public
  */
 export interface UrlGetters {
-  urlParams: Record<UrlParamKey, UrlParamValue>;
+  urlParams: MappedParams;
 }
 
 /**

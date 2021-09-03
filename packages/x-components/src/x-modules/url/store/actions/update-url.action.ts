@@ -1,4 +1,4 @@
-import { UrlParamKey, UrlParamValue, UrlXStoreModule } from '../types';
+import { MappedParam, MappedParams, UrlXStoreModule } from '../types';
 
 /**
  * Default implementation for the {@link UrlActions.updateUrl}.
@@ -8,18 +8,55 @@ import { UrlParamKey, UrlParamValue, UrlXStoreModule } from '../types';
  *
  * @public
  */
+
 // eslint-disable-next-line max-len
-export const replaceUrl: UrlXStoreModule['actions']['updateUrl'] = ({
+export const updateUrl: UrlXStoreModule['actions']['updateUrl'] = ({
   getters: {
-    urlParams: { scroll, ...urlParams }
+    urlParams: { page, ...params }
   }
 }) => {
   const currentUrl = window.location.href;
   const url = new URL(currentUrl);
 
-  Object.keys(urlParams).forEach((paramKey: UrlParamKey) => {
-    url.searchParams.set(paramKey, encodeURIComponent(urlParams[paramKey]));
-  });
+  clearUrlParams(url, Object.keys({ page, ...params }));
+  urlSetPage(url, page);
+  urlSetParams(url, params);
 
-  window.history.replaceState({ ...window.history.state, ...urlParams }, document.title, url.href);
+  window.history.replaceState({ ...window.history.state }, document.title, url.href);
 };
+
+function clearUrlParams(url: URL, paramsKeys: string[]): void {
+  paramsKeys.forEach(paramKey => {
+    url.searchParams.delete(paramKey);
+  });
+}
+
+function urlSetPage(url: URL, { key, value }: MappedParam): void {
+  if (value !== 1) {
+    url.searchParams.set(key, value.toString());
+  }
+}
+
+function urlSetString(url: URL, { key, value }: MappedParam): void {
+  if (value) {
+    url.searchParams.set(key, value.toString());
+  }
+}
+
+function urlSetArray(url: URL, { key, value: valArr }: MappedParam): void {
+  if (Array.isArray(valArr) && valArr.length) {
+    valArr.forEach(val => {
+      url.searchParams.append(key, val as string);
+    });
+  }
+}
+
+function urlSetParams(url: URL, mappedParams: MappedParams): void {
+  for (const mappedParam of Object.values(mappedParams)) {
+    if (Array.isArray(mappedParam.value)) {
+      urlSetArray(url, mappedParam);
+    } else {
+      urlSetString(url, mappedParam);
+    }
+  }
+}
