@@ -1,11 +1,17 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { SearchItem } from '../../../utils/types';
-import { XInject, XProvide } from '../../../components/decorators/injection.decorators';
-import { SEARCH_ITEMS_KEY } from '../../../components/decorators/injection.consts';
+import { SearchItem } from '../utils/types';
+import { XInject, XProvide } from './decorators/injection.decorators';
+import { SEARCH_ITEMS_KEY } from './decorators/injection.consts';
 
+/**
+ * Mixin to facilitate providing and injecting a list of search items. Injected list is
+ * available at `injectedSearchItems`, and the provided list should be stored in `items`.
+ *
+ * @public
+ */
 @Component
-export default class SearchItemsInjectionMixin extends Vue {
+export class SearchItemsInjectionMixin extends Vue {
   /**
    * The search items of the entity that uses the mixin from the state.
    *

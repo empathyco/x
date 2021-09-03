@@ -1,11 +1,11 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { SearchItem } from '../../../../utils/types';
-import { getDataTestSelector } from '../../../../__tests__/utils';
-import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
-import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
-import { SearchItemsList } from '../index';
-import { getPromotedsStub } from '../../../../__stubs__/promoteds-stubs.factory';
+import { SearchItem } from '../../utils/types';
+import { getDataTestSelector } from '../../__tests__/utils';
+import { getBannersStub } from '../../__stubs__/banners-stubs.factory';
+import { getResultsStub } from '../../__stubs__/results-stubs.factory';
+import { SearchItemsList } from '../../x-modules/search/components';
+import { getPromotedsStub } from '../../__stubs__/promoteds-stubs.factory';
 
 /**
  * Renders the `SearchItemsList` component, exposing a basic API for testing.

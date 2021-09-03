@@ -21,11 +21,11 @@
   import { Component, Prop } from 'vue-property-decorator';
   import { State } from '../../../components/decorators/store.decorators';
   import { NoElement } from '../../../components/no-element';
+  import { SearchItemsInjectionMixin } from '../../../components/search-items-injection.mixin';
+  import SearchItemsList from '../../../components/search-items-list.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { SearchItem } from '../../../utils/types';
   import { searchXModule } from '../x-module';
-  import SearchItemsInjectionMixin from './search-items-injection.mixin';
-  import SearchItemsList from './search-items-list.vue';
 
   /**
    * It renders a {@link SearchItemsList} of promoteds from {@link SearchState.promoteds} by default
@@ -101,13 +101,15 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput />
+    <SearchInput :instant="true" />
+
     <PromotedsList />
   </div>
 </template>
 
 <script>
-  import { SearchInput, PromotedsList } from '@empathyco/x-components/search';
+  import { PromotedsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'PromotedsListDemo',
@@ -124,14 +126,15 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput />
+    <SearchInput :instant="true" />
     <PromotedsList :animation="fadeAndSlide" />
   </div>
 </template>
 
 <script>
-  import { SearchInput, PromotedsList } from '@empathyco/x-components/search';
+  import { PromotedsList } from '@empathyco/x-components/search';
   import { FadeAndSlide } from '@empathyco/x-components/animations';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'PromotedsListDemo',
@@ -153,7 +156,7 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput />
+    <SearchInput :instant="true" />
     <PromotedsList #default="{ items, animation }">
       <BaseGrid :items="items" :animation="animation">
         <template #Promoted="{ item }">
@@ -168,13 +171,16 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { SearchInput, PromotedsList } from '@empathyco/x-components/search';
+  import { PromotedsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { BaseGrid } from '@empathyco/x-components';
 
   export default {
     name: 'PromotedsListDemo',
     components: {
       SearchInput,
-      PromotedsList
+      PromotedsList,
+      BaseGrid
     }
   };
 </script>
@@ -185,7 +191,7 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput />
+    <SearchInput :instant="true" />
     <PromotedsList #promoted="{ promoted }">
       <span class="promoted">
         {{ promoted.title }}
@@ -195,7 +201,8 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { SearchInput, PromotedsList } from '@empathyco/x-components/search';
+  import { PromotedsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'PromotedsListDemo',
@@ -216,7 +223,7 @@ value.
 ```vue
 <template>
   <div>
-    <SearchInput />
+    <SearchInput :instant="true" />
     <ResultsList>
       <PromotedsList>
         <template #promoted="{ searchItem }">Promoted: {{ searchItem.id }}</template>
@@ -227,7 +234,8 @@ value.
 </template>
 
 <script>
-  import { SearchInput, ResultsList, PromotedsList } from '@empathyco/x-components/search';
+  import { ResultsList, PromotedsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'PromotedsListDemo',

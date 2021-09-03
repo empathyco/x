@@ -19,14 +19,14 @@
   import { Result } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { State } from '../../../components/decorators/store.decorators';
-  import { NoElement } from '../../../components/no-element';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { searchXModule } from '../x-module';
-  import { InfiniteScroll } from '../../../directives/infinite-scroll/infinite-scroll.types';
   import { SEARCH_ITEMS_KEY } from '../../../components/decorators/injection.consts';
   import { XProvide } from '../../../components/decorators/injection.decorators';
-  import SearchItemsList from './search-items-list.vue';
+  import { State } from '../../../components/decorators/store.decorators';
+  import { NoElement } from '../../../components/no-element';
+  import SearchItemsList from '../../../components/search-items-list.vue';
+  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { InfiniteScroll } from '../../../directives/infinite-scroll/infinite-scroll.types';
+  import { searchXModule } from '../x-module';
 
   /**
    * It renders a {@link SearchItemsList} list with the results from {@link SearchState.results} by
@@ -99,13 +99,14 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput />
+    <SearchInput :instant="true" />
     <ResultsList />
   </div>
 </template>
 
 <script>
-  import { SearchInput, ResultsList } from '@empathyco/x-components/search';
+  import { ResultsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'ResultsListDemo',
@@ -122,13 +123,14 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput />
+    <SearchInput :instant="true" />
     <ResultsList :animation="fadeAndSlide" />
   </div>
 </template>
 
 <script>
-  import { SearchInput, ResultsList } from '@empathyco/x-components/search';
+  import { ResultsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
   import { FadeAndSlide } from '@empathyco/x-components/animations';
 
   export default {
@@ -151,7 +153,7 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput />
+    <SearchInput :instant="true" />
     <ResultsList #default="{ items, animation }">
       <BaseGrid :items="items" :animation="animation">
         <template #Result="{ item }">
@@ -166,13 +168,16 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { SearchInput, ResultsList } from '@empathyco/x-components/search';
+  import { ResultsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { BaseGrid } from '@empathyco/x-components';
 
   export default {
     name: 'ResultsListDemo',
     components: {
       SearchInput,
-      ResultsList
+      ResultsList,
+      BaseGrid
     }
   };
 </script>
@@ -183,7 +188,7 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput />
+    <SearchInput :instant="true" />
     <ResultsList #result="{ result }">
       <span class="result">
         {{ result.name }}
@@ -214,7 +219,7 @@ value.
 ```vue
 <template>
   <div>
-    <SearchInput />
+    <SearchInput :instant="true" />
     <ResultsList>
       <BannersList>
         <PromotedsList>
@@ -228,12 +233,8 @@ value.
 </template>
 
 <script>
-  import {
-    SearchInput,
-    ResultsList,
-    BannersList,
-    PromotedsList
-  } from '@empathyco/x-components/search';
+  import { ResultsList, BannersList, PromotedsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'ResultsListDemo',

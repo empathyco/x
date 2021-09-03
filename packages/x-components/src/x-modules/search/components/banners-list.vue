@@ -21,11 +21,11 @@
   import { Component, Prop } from 'vue-property-decorator';
   import { State } from '../../../components/decorators/store.decorators';
   import { NoElement } from '../../../components/no-element';
+  import { SearchItemsInjectionMixin } from '../../../components/search-items-injection.mixin';
+  import SearchItemsList from '../../../components/search-items-list.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { SearchItem } from '../../../utils/types';
   import { searchXModule } from '../x-module';
-  import SearchItemsInjectionMixin from './search-items-injection.mixin';
-  import SearchItemsList from './search-items-list.vue';
 
   /**
    * It renders a {@link SearchItemsList} list of banners from {@link SearchState.banners} by
@@ -101,13 +101,14 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput />
+    <SearchInput :instant="true" />
     <BannersList />
   </div>
 </template>
 
 <script>
-  import { SearchInput, BannersList } from '@empathyco/x-components/search';
+  import { BannersList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'BannersListDemo',
@@ -124,13 +125,14 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput />
+    <SearchInput :instant="true" />
     <BannersList :animation="fadeAndSlide" />
   </div>
 </template>
 
 <script>
-  import { SearchInput, BannersList } from '@empathyco/x-components/search';
+  import { BannersList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
   import { FadeAndSlide } from '@empathyco/x-components/animations';
 
   export default {
@@ -153,7 +155,7 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput />
+    <SearchInput :instant="true" />
     <BannersList #default="{ items, animation }">
       <BaseGrid :items="items" :animation="animation">
         <template #Banner="{ item }">
@@ -168,7 +170,8 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { SearchInput, BannersList } from '@empathyco/x-components/search';
+  import { BannersList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'BannersListDemo',
@@ -185,7 +188,7 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput />
+    <SearchInput :instant="true" />
     <BannersList #banner="{ banner }">
       <span class="banner">
         {{ banner.title }}
@@ -195,7 +198,8 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { SearchInput, BannersList } from '@empathyco/x-components/search';
+  import { BannersList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'BannersListDemo',
@@ -221,7 +225,7 @@ value.
 ```vue
 <template>
   <div>
-    <SearchInput />
+    <SearchInput :instant="true" />
     <ResultsList>
       <BannersList>
         <template #banner="{ searchItem }">Banner: {{ searchItem.id }}</template>
@@ -232,7 +236,8 @@ value.
 </template>
 
 <script>
-  import { SearchInput, ResultsList, BannersList } from '@empathyco/x-components/search';
+  import { ResultsList, BannersList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'BannersListDemo',

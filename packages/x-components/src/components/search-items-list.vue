@@ -25,8 +25,8 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { SearchItem } from '../../../utils/types';
-  import { toKebabCase } from '../../../utils/string';
+  import { SearchItem } from '../utils/types';
+  import { toKebabCase } from '../utils/string';
 
   /**
    * It renders a list of {@link SearchItem} providing a slot for each `slotName` which depends on
@@ -35,7 +35,7 @@
    * @public
    */
   @Component
-  export default class SearchItemList extends Vue {
+  export default class SearchItemsList extends Vue {
     /**
      * Animation component that will be used to animate the list.
      *
