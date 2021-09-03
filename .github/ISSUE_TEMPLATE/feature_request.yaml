@@ -1,13 +1,11 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
 title: "[FEATURE]: "
 labels: "feature,enhancement"
-assignees: ""
 
 ---
 body:
-   - type: markdown
+  - type: markdown
      attributes:
       value: |
       When suggesting a new feature for the Interface X project, submit your idea as a [user story](https://en.wikipedia.org/wiki/User_story) and provide as much information as possible on how you would solve it, so the team can assess and analyze your idea.
