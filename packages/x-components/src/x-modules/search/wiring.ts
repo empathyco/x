@@ -34,6 +34,13 @@ export const cancelFetchAndSaveSearchResponseWire = wireDispatchWithoutPayload(
 );
 
 /**
+ * Sets the search state `origin`.
+ *
+ * @public
+ */
+export const setOrigin = wireCommit('setOrigin', ({ metadata }) => metadata.origin);
+
+/**
  * Requests and stores the search response.
  *
  * @public
@@ -137,7 +144,8 @@ export const searchWiring = createWiring({
   UserAcceptedAQuery: {
     resetPage,
     setSearchQuery,
-    resetSort
+    resetSort,
+    setOrigin
   },
   UserAcceptedSpellcheckQuery: {
     resetPage,
@@ -153,7 +161,8 @@ export const searchWiring = createWiring({
   },
   SelectedRelatedTagsChanged: {
     resetPage,
-    setRelatedTags
+    setRelatedTags,
+    setOrigin
   },
   SelectedFiltersChanged: {
     resetPage,

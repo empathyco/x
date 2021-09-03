@@ -36,7 +36,7 @@ export interface PageableRequest {
  * @public
  */
 export interface TrackableRequest {
-  origin: string;
+  origin?: string;
 }
 
 /**

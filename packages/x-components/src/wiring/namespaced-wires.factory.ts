@@ -1,4 +1,3 @@
-import { RootStoreStateAndGetters } from '../store/store.types';
 import { XModuleName } from '../x-modules/x-modules.types';
 import {
   NamespacedWireCommit,
@@ -12,6 +11,7 @@ import {
   wireDispatch,
   wireDispatchWithoutPayload
 } from './wires.factory';
+import { PayloadFactoryData } from './wiring.types';
 import { getStateAndGettersFromModule } from './wiring.utils';
 
 /**
@@ -74,8 +74,8 @@ export function namespacedWireDispatchWithoutPayload<ModuleName extends XModuleN
 
 /**
  * Decision maker of if the payload is a function which receives the
- * {@link StoreModuleStateAndGetters | module state and getters} and returns the payload for
- * or a static value.
+ * {@link StoreModuleStateAndGetters | module state and getters}, the payload and the metadata,
+ * returns the payload for or a static value.
  *
  * @param moduleName - The {@link XModuleName | module name} for scoping the state and getters.
  * @param payload - The payload for the wire which can be a retrieving function or a static value.
@@ -85,7 +85,11 @@ export function namespacedWireDispatchWithoutPayload<ModuleName extends XModuleN
  */
 function getPayload(moduleName: XModuleName, payload: unknown): unknown {
   return typeof payload === 'function'
-    ? ({ state, getters }: RootStoreStateAndGetters) =>
-        payload(getStateAndGettersFromModule(state, getters, moduleName))
+    ? ({ state, getters, eventPayload, metadata }: PayloadFactoryData<XModuleName>) =>
+        payload({
+          ...getStateAndGettersFromModule(state, getters, moduleName),
+          eventPayload,
+          metadata
+        })
     : payload;
 }

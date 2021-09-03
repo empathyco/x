@@ -28,7 +28,6 @@ describe('testing search module getters', () => {
 
       expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
         query: 'doraemon',
-        origin: 'default',
         relatedTags: [],
         filters: {},
         sort: '',
@@ -61,7 +60,6 @@ describe('testing search module getters', () => {
         relatedTags,
         rows: 48,
         start: 0,
-        origin: 'default',
         warehouse: 1234
       });
     });
@@ -92,8 +90,7 @@ describe('testing search module getters', () => {
         relatedTags: [],
         sort: '',
         rows: 24,
-        start: 24,
-        origin: 'default'
+        start: 24
       });
 
       resetSearchStateWith(store, { query: 'salchipapa', page: 5 });
@@ -104,8 +101,7 @@ describe('testing search module getters', () => {
         relatedTags: [],
         sort: '',
         rows: 24,
-        start: 96,
-        origin: 'default'
+        start: 96
       });
 
       resetSearchStateWith(store, { query: 'salchipapa', page: 1 });
@@ -116,8 +112,7 @@ describe('testing search module getters', () => {
         relatedTags: [],
         sort: '',
         rows: 24,
-        start: 0,
-        origin: 'default'
+        start: 0
       });
     });
   });

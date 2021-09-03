@@ -16,8 +16,10 @@ export const request: SearchXStoreModule['getters']['request'] = ({
   relatedTags,
   selectedFilters,
   sort,
-  page
+  page,
+  origin
 }) => {
+  const newOrigin = origin === null ? undefined : origin;
   return query.trim()
     ? {
         query,
@@ -25,7 +27,7 @@ export const request: SearchXStoreModule['getters']['request'] = ({
         sort,
         rows: config.pageSize,
         start: config.pageSize * (page - 1),
-        origin: 'default',
+        origin: newOrigin,
         filters: selectedFilters,
         ...params
       }

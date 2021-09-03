@@ -60,7 +60,7 @@ export function getBusAPI(bus: XBus, component: PrivateExtendedVueComponent): XC
     emit: <Event extends XEvent>(
       event: Event,
       payload?: XEventPayload<Event>,
-      metadata: Omit<WireMetadata, 'moduleName' | 'origin'> = {}
+      metadata: Omit<WireMetadata, 'moduleName'> = {}
     ) => {
       const xComponent = component.xComponent;
       const moduleName = xComponent ? getXComponentXModuleName(xComponent) : null;

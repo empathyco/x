@@ -1,7 +1,7 @@
 import { Observable, Subscription } from 'rxjs';
 import { Store } from 'vuex';
 import { XBus } from '../plugins/x-bus.types';
-import { RootXStoreState } from '../store';
+import { RootStoreStateAndGetters, RootXStoreState } from '../store';
 import { QueryOrigin } from '../types/query-origin';
 import {
   Dictionary,
@@ -59,6 +59,17 @@ export interface WirePayload<PayloadType> {
   /** An object containing information about the emission of the event. */
   metadata: WireMetadata;
 }
+
+/**
+ * Type not safe which allows the access to the State, the Getters, the payload and metadata of
+ * a {@link XStoreModule}.
+ *
+ * @public
+ */
+export type PayloadFactoryData<Payload> = RootStoreStateAndGetters & {
+  eventPayload: Payload;
+  metadata: WireMetadata;
+};
 
 /**
  * Alias for a wire with the type of the event payload.
