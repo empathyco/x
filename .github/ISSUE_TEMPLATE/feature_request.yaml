@@ -2,8 +2,8 @@
 name: Feature request
 about: Suggest an idea for this project
 title: "[FEATURE]: "
-labels: 'feature' 'enhancement'
-assignees: ''
+labels: "feature,enhancement"
+assignees: ""
 
 ---
 body:
@@ -17,9 +17,9 @@ body:
 
       Depending on the feature, you may need to consider one or both.
    - type: textarea
-    id: suggestion
-    attributes:
-     label: How can the project be improved?
+     id: suggestion
+     attributes:
+      label: How can the project be improved?
       description: Describe the problem encountered by the user, what they need to solve it, and what they expect.
       placeholder: Provide a brief description of the interface and its expected behavior. Include details of other requirements that the feature must cover, such as dependencies and actions covered by other services, and other needs.
 
@@ -91,5 +91,5 @@ body:
       label: Code of Conduct
       description: By submitting this issue, you agree to follow our [Code of Conduct](./code_of_conduct.md)
       options:
-        - label: I agree to follow this project's Code of Conduct
+      - label: I agree to follow this project's Code of Conduct
           required: true
