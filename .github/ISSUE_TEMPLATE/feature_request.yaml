@@ -5,24 +5,15 @@ labels: "feature,enhancement"
 body:
 - type: markdown
 attributes:
- value: |
- When suggesting a new feature for the Interface X project, submit your idea as a user story and provide as much information as possible on how you would solve it, so the team can assess and analyze your idea.
- When defining your new feature, you need to consider it from two points of view.
- - the **Final User** who accesses the commerce website that uses the component.
- - the **Developer User** who is going to use the component to build a website. 
-
- Depending on the feature, you may need to consider one or both.
+ value: | When suggesting a new feature for the Interface X project, submit your idea as a user story and provide as much information as possible on how you would solve it, so the team can assess and analyze your idea.
+|  When defining your new feature, you need to consider it from two points of view. |  - the **Final User** who accesses the commerce website that uses the component. |  - the **Developer User** who is going to use the component to build a website. |  Depending on the feature, you may need to consider one or both.
 - type: textarea
   id: suggestion
   attributes:
    label: How can the project be improved?
    description: Describe the problem encountered by the user, what they need to solve it, and what they expect.
-   placeholder: Provide a brief description of the interface and its expected behavior. Include details of other requirements that the feature must cover, such as dependencies and actions covered by other services, and other needs.
-    Example for the History Queries module
-    * Display a list of search queries already performed by the user.
-    * Each search query of the list has a button to delete it from the list.
-    * The list of search queries must be maintained in the same device over time, even when the tab is closed.
-    * If there are no search queries, then nothing should be displayed. 
+   placeholder: Provide a brief description of the interface and its expected behavior. Include details of other requirements that the feature must cover, such as dependencies and actions covered by other services, and other needs. |  Example for the History Queries module | * Display a list of search queries already performed by the user.
+    * Each search query of the list has a button to delete it from the list. | * The list of search queries must be maintained in the same device over time, even when the tab is closed. | * If there are no search queries, then nothing should be displayed. 
 - type: textarea
   id: solution
   attributes:
