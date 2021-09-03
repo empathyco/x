@@ -1,10 +1,20 @@
 import { XStoreModule } from '../../../store';
 import { UrlConfig } from '../config.types';
 
+/**
+ * Describes a dictionary of {@link UrlParamKey} which values are {@link MappedParam}.
+ *
+ * @public
+ */
 export interface MappedParams {
   [originalParamName: string]: MappedParam;
 }
 
+/**
+ * Values for each {@link MappedParams}.
+ *
+ * @public
+ */
 export interface MappedParam {
   key: UrlParamKey;
   value: UrlParamValue;

@@ -421,12 +421,10 @@
   import BaseColumnPickerDropdown from '../components/column-picker/base-column-picker-dropdown.vue';
   import SortDropdown from '../x-modules/search/components/sort-dropdown.vue';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
-  import {urlXModule} from "../x-modules/url/x-module";
 
   @Component({
     beforeRouteEnter(_to, _from, next: () => void): void {
       XPlugin.registerXModule(searchXModule);
-      XPlugin.registerXModule(urlXModule);
 
       new XInstaller(baseInstallXOptions).init(baseSnippetConfig);
       next();
