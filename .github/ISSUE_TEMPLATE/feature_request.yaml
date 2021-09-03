@@ -7,7 +7,7 @@ body:
 attributes:
  value: |
  "When suggesting a new feature for the Interface X project, submit your idea as a [user story](https://en.wikipedia.org/wiki/User_story) and provide as much information as possible on how you would solve it, so the team can assess and analyze your idea.
- When defining your new feature, you need to consider it from two points of view: 
+ When defining your new feature, you need to consider it from two points of view:" 
  - the **Final User** who accesses the commerce website that uses the component.
  - the **Developer User** who is going to use the component to build a website. 
 
