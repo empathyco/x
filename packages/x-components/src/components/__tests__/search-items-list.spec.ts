@@ -4,7 +4,7 @@ import { SearchItem } from '../../utils/types';
 import { getDataTestSelector } from '../../__tests__/utils';
 import { getBannersStub } from '../../__stubs__/banners-stubs.factory';
 import { getResultsStub } from '../../__stubs__/results-stubs.factory';
-import { SearchItemsList } from '../../x-modules/search/components';
+import SearchItemsList from '../search-items-list.vue';
 import { getPromotedsStub } from '../../__stubs__/promoteds-stubs.factory';
 
 /**
