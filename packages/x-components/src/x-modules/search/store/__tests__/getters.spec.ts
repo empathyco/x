@@ -90,7 +90,7 @@ describe('testing search module getters', () => {
         relatedTags: [],
         sort: '',
         rows: 24,
-        start: 24,
+        start: 24
       });
 
       resetSearchStateWith(store, { query: 'salchipapa', page: 5 });

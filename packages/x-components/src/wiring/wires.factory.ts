@@ -1,7 +1,8 @@
 import { Store } from 'vuex';
 import { RootXStoreState } from '../store/store.types';
 import {
-  AnyWire, PayloadFactoryData,
+  AnyWire,
+  PayloadFactoryData,
   Wire,
   WireParams,
   WirePayload,
