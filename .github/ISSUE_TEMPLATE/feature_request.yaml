@@ -2,8 +2,6 @@
 name: Feature request
 title: "[FEATURE]: "
 labels: "feature,enhancement"
-
----
 body:
 - type: markdown
 attributes:
