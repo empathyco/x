@@ -10,10 +10,24 @@
     "serve": "lerna run serve --parallel",
     "prepare-release:stable": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes",
     "release:alpha": "lerna publish --conventional-commits --conventional-prerelease --yes --no-push",
-    "publish-release": "node scripts/publish-release"
+    "publish-release": "node scripts/publish-release",
+    "prepare": "husky install"
   },
   "devDependencies": {
+    "@empathyco/eslint-plugin-x": "file:./packages/eslint-plugin-x",
     "conventional-changelog-conventionalcommits": "~4.6.0",
-    "lerna": "~4.0.0"
+    "eslint": "~7.32.0",
+    "husky": "~7.0.2",
+    "lerna": "~4.0.0",
+    "lint-staged": "~11.1.2",
+    "prettier": "~2.3.2"
+  },
+  "prettier": "@empathyco/eslint-plugin-x/prettier-config",
+  "lint-staged": {
+    "*.{ts,tsx,md,vue}": [
+      "prettier --write",
+      "eslint --cache --fix"
+    ],
+    "*.{js,json}": "prettier --write"
   }
 }
