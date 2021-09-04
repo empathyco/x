@@ -1,8 +1,5 @@
 {
-  "parserOptions": {
-    "project": "./tsconfig.eslint.json"
-  },
-  "extends": ["plugin:@empathyco/x/recommended", "plugin:react/recommended"],
+  "extends": ["plugin:react/recommended"],
   "settings": {
     "react": {
       "pragma": "React",
