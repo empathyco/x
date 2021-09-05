@@ -5,7 +5,7 @@
     "postinstall": "lerna bootstrap --hoist && npm run build",
     "postci": "lerna bootstrap --hoist --ci && npm run build",
     "build": "lerna run build",
-    "lint": "lerna run lint --parallel",
+    "lint": "eslint packages",
     "test": "lerna run test --parallel",
     "serve": "lerna run serve --parallel",
     "prepare-release:stable": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes",
@@ -16,7 +16,7 @@
   "devDependencies": {
     "@empathyco/eslint-plugin-x": "^1.4.0-alpha.7",
     "conventional-changelog-conventionalcommits": "~4.6.0",
-    "eslint": "~7.32.0",
+    "eslint": "~7.18.0",
     "husky": "~7.0.2",
     "lerna": "~4.0.0",
     "lint-staged": "~11.1.2",

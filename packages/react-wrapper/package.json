@@ -26,7 +26,6 @@
     "build": "tsc",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --headless --browser chrome",
-    "lint": "eslint src",
     "postbuild": "npm pack",
     "prepublishOnly": "npm run build",
     "test": "npm run test:unit && npm run test:e2e:ci",

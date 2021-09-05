@@ -30,8 +30,6 @@
   "scripts": {
     "build": "tsc && tsc --project tsconfig.esm.json",
     "clean": "rimraf dist && rimraf coverage",
-    "format": "prettier --write \"src/**/*.ts\"",
-    "lint": "eslint src",
     "postbuild": "npm pack",
     "prepublishOnly": "npm run build",
     "prebuild": "npm run clean",

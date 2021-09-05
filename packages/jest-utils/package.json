@@ -22,7 +22,6 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "lint": "eslint src",
     "postbuild": "npm pack",
     "prepublishOnly": "npm run build"
   },

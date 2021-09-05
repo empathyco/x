@@ -25,7 +25,6 @@
   "scripts": {
     "build": "tsc && tsc --project tsconfig.esm.json",
     "build:watch": "tsc --watch",
-    "lint": "eslint src",
     "postbuild": "npm pack",
     "prepublishOnly": "npm run build",
     "test": "jest"

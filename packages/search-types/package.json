@@ -30,7 +30,6 @@
   "scripts": {
     "build": "rollup -c && npm run gen:docs",
     "build:watch": "rollup -c -w",
-    "lint": "eslint src",
     "gen:model-docs": "api-extractor run -c search-types-extractor.json -l && api-extractor run -c schema-extractor.json -l && api-extractor run -l",
     "gen:typescript-docs": "api-documenter markdown -i report -o docs",
     "gen:docs": "npm run gen:model-docs && npm run gen:typescript-docs",
