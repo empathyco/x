@@ -14,7 +14,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@empathyco/eslint-plugin-x": "file:./packages/eslint-plugin-x",
+    "@empathyco/eslint-plugin-x": "^1.4.0-alpha.7",
     "conventional-changelog-conventionalcommits": "~4.6.0",
     "eslint": "~7.32.0",
     "husky": "~7.0.2",

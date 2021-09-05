@@ -33,14 +33,12 @@
     "@empathyco/x-deep-merge": "^1.2.2-alpha.8"
   },
   "devDependencies": {
-    "@empathyco/eslint-plugin-x": "^1.4.0-alpha.7",
     "@types/jest": "~26.0.24",
     "@types/node": "~16.4.12",
     "jest": "~27.0.6",
     "ts-jest": "~27.0.4",
     "typescript": "~4.3.5"
   },
-  "prettier": "@empathyco/eslint-plugin-x/prettier-config",
   "publishConfig": {
     "access": "public"
   }
