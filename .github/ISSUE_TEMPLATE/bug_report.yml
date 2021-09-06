@@ -9,7 +9,7 @@ body:
       value: "##Thank you for taking the time to provide feedback!"
   - type: markdown
     attributes:
-     value: Before creating a new bug, please check for [existing issues](././../ISSUES).
+     value: Before creating a new bug, please check for [existing issues](https://github.com/empathyco/x/issues).
   - type: textarea
     id: bug-environment
     attributes:
