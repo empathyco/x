@@ -9,8 +9,6 @@ import rename from 'rollup-plugin-rename';
 import styles from 'rollup-plugin-styles';
 import typescript from 'rollup-plugin-typescript2';
 import vue from 'rollup-plugin-vue';
-import postcssLogical from 'postcss-logical';
-import postcssDirPseudoClass from 'postcss-dir-pseudo-class';
 import packageJSON from '../package.json';
 import { apiDocumentation } from './docgen/documentation.rollup-plugin';
 import {
@@ -19,6 +17,8 @@ import {
   renameComponentCssFile
 } from './rollup-plugins/design-system.rollup-plugin';
 import { generateEntryFiles } from './rollup-plugins/x-components.rollup-plugin';
+import postcssDirPseudoClass from 'postcss-dir-pseudo-class';
+import postcssLogical from 'postcss-logical';
 
 const rootDir = path.resolve(__dirname, '../');
 const buildPath = path.join(rootDir, 'dist');
