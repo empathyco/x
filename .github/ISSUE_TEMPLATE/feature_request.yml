@@ -9,19 +9,18 @@ body:
       value: "#Welcome!"
   - type: markdown
     attributes:
-     value: When suggesting a new feature for the Interface X project, submit your idea as a user story and provide as much information as possible on how you would solve it, so the team can assess and analyze your idea.| 
-      
+     value: When suggesting a new feature for the Interface X project, submit your idea as a user story and provide as much information as possible on how you would solve it, so the team can assess and analyze your idea.    
       When defining your new feature, you need to consider it from two points of view. 
       
-      - the **Final User** who accesses the commerce website that uses the component. 
-      - the **Developer User** who is going to use the component to build a website.
+      - the **Final User** who accesses the commerce website that uses the component.    
+      - the **Developer User** who is going to use the component to build a website.  
       
       Depending on the feature, you may need to consider one or both.
   - type: textarea
     id: suggestion
     attributes:
       label: How can the project be improved?
-      description: Describe the problem encountered by the user, what they need to solve it, and what they expect. Include details of other requirements that the feature must cover, such as dependencies and actions covered by other services, and other needs.
+      description: Describe the problem encountered, what you need to solve it, and what you expect. Include details of other requirements that the feature must cover such as dependencies and actions covered by other services.
       placeholder:
         e.g. Display a list of search queries already performed by the user. / Each search query of the list has a button to delete it from the list. / The list of search queries must be maintained in the same device over time, even when the tab is closed. / If there are no search queries, then nothing should be displayed.
   - type: textarea
@@ -34,7 +33,7 @@ body:
     id: feature-proposal
     attributes:
       label: Proposed solution
-      description: If you have any suggestions regarding how this need can be covered, please indicate.
+      description: If you have any suggestions regarding how this need can be covered, please provide details here.
   - type: textarea
     id: feature-customizations
     attributes:
@@ -59,7 +58,7 @@ body:
     id: feature-terms
     attributes:
       label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](../code_of_conduct.md).
+      description: By submitting this issue, you agree to follow our [Code of Conduct](.../code_of_conduct.md).
       options:
         - label: I agree to follow this project's Code of Conduct.
           required: true
