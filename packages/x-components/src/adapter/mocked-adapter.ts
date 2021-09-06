@@ -5,6 +5,8 @@ import {
   NextQueriesResponse,
   RelatedTagsRequest,
   RelatedTagsResponse,
+  SearchByIdRequest,
+  SearchByIdResponse,
   SearchRequest,
   SearchResponse,
   SearchAdapter,
@@ -47,6 +49,10 @@ window.__mockedAdapter = {
 };
 
 class E2ETestsAdapter extends EmpathyAdapter {
+  searchById(request: SearchByIdRequest): Promise<SearchByIdResponse> {
+    return mockFetch(request, 'searchById');
+  }
+
   getNextQueries(request: NextQueriesRequest): Promise<NextQueriesResponse> {
     return mockFetch(request, 'getNextQueries');
   }

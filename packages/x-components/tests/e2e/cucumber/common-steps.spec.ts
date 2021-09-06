@@ -9,6 +9,11 @@ import {
 
 let resultsList: string[] = [];
 
+// ID Results
+Then('identifier results are displayed', () => {
+  cy.getByDataTest('identifier-results-item').should('have.length.at.least', 1);
+});
+
 // History Queries
 When('clear history queries button is clicked', () => {
   cy.getByDataTest('clear-history-queries').click();
@@ -116,6 +121,14 @@ Given('a related tags API', () => {
 
 Given('a results API', () => {
   cy.intercept('https://api.empathy.co/search', req => {
+    req.reply({
+      results: getResultsStub()
+    });
+  });
+});
+
+Given('an ID results API', () => {
+  cy.intercept('https://api.empathy.co/searchById', req => {
     req.reply({
       results: getResultsStub()
     });
