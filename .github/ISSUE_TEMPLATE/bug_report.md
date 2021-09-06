@@ -7,31 +7,41 @@ assignees: ''
 
 ---
 
-## Where?
+## Environment affected
+<!-- Include specific details regarding where the bug occurred and the access used
 Example:
 * Customer: Stunning bikes
 * Environment: staging
 * URL: http://dev.stunningbikes.com/
 * Access: User: stnbikes pass: stnbks1234
+-->
 
-## What?
+## Issue encountered
+<!-- Provide a generic description of the bug
 Example:
 * The filters are not filtering
+-->
 
-## How? Describe the steps to reproduce the bug
+## Steps to reproduce the bug
+<!-- Describe the specific steps required to reproduce the bug.
 Example:
-1. Search for `gravel`
-2. Expand filters panel
-3. Click in facet `Category` the filter `Long Distance`
-4. The results are not changing
+1. Search for `gravel`.
+2. Expand the filters panel.
+3. In facet `Category`, click the filter `Long Distance`.
+4. The results do not change.
+-->
 
-## What package?
-Try to define what package is causing the bug. [List of packages](../CONTRIBUTING.md#interface-x-and-packages)
+## Package affected
+<!-- Try to define which package causes the bug. 
+See the [List of packages](../CONTRIBUTING.md#interface-x-and-packages).
+-->
 
 ----
 
-## Support attachments
+## Attachments
+<!-- Provide any additional information that you may help to identify and solve the bug.
+Example:
 * screenshots
 * videos
-* real examples links
-* etc.
+* links to real examples
+-->
