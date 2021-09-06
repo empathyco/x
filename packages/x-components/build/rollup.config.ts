@@ -9,8 +9,8 @@ import rename from 'rollup-plugin-rename';
 import styles from 'rollup-plugin-styles';
 import typescript from 'rollup-plugin-typescript2';
 import vue from 'rollup-plugin-vue';
-import postcssDirPseudoClass from 'postcss-dir-pseudo-class';
 import postcssLogical from 'postcss-logical';
+import postcssDirPseudoClass from 'postcss-dir-pseudo-class';
 import packageJSON from '../package.json';
 import { apiDocumentation } from './docgen/documentation.rollup-plugin';
 import {
