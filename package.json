@@ -5,7 +5,7 @@
     "postinstall": "lerna bootstrap --hoist && npm run build",
     "postci": "lerna bootstrap --hoist --ci && npm run build",
     "build": "lerna run build",
-    "lint": "eslint packages",
+    "lint": "eslint packages --ext .ts,.tsx",
     "test": "lerna run test --parallel",
     "serve": "lerna run serve --parallel",
     "prepare-release:stable": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes",
@@ -14,7 +14,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@empathyco/eslint-plugin-x": "^1.4.0-alpha.7",
+    "@empathyco/eslint-plugin-x": "file:packages/eslint-plugin-x",
     "conventional-changelog-conventionalcommits": "~4.6.0",
     "eslint": "~7.18.0",
     "husky": "~7.0.2",

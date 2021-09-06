@@ -3,12 +3,16 @@ module.exports = {
   ignorePatterns: [
     '**/*.d.ts',
     '**/*.js',
-    '**/.eslintrc.js',
-    'dist',
     '**/jest.setup.ts',
+    '**/dist',
     'packages/search-adapter'
   ],
   parserOptions: {
     project: './packages/**/tsconfig.eslint.json'
+  },
+  settings: {
+    'import/resolver': {
+      project: './packages/**/tsconfig.eslint.json'
+    }
   }
 };
