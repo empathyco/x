@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = {
   extends: ['plugin:react/recommended'],
   settings: {
@@ -9,6 +7,7 @@ module.exports = {
     }
   },
   parserOptions: {
-    project: path.resolve(__dirname, 'tsconfig.eslint.json')
+    tsconfigRootDir: __dirname,
+    project: 'tsconfig.eslint.json'
   }
 };

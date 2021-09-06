@@ -1,5 +1,3 @@
-const glob = require('glob');
-
 module.exports = {
   extends: ['plugin:@empathyco/x/recommended'],
   ignorePatterns: [
@@ -11,6 +9,6 @@ module.exports = {
     'packages/search-adapter'
   ],
   parserOptions: {
-    project: glob.sync('./packages/*/tsconfig.eslint.json')
+    project: './packages/**/tsconfig.eslint.json'
   }
 };
