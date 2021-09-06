@@ -55,7 +55,7 @@ body:
     id: bug-terms
     attributes:
       label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](.../code_of_conduct.md).
+      description: By submitting this issue, you agree to follow our [Code of Conduct](././code_of_conduct.md).
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true
