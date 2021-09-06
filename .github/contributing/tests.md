@@ -1,6 +1,6 @@
 # Tests
 
-- Keep the description blocks simple, explaining what is the test about, not how you are testing it:
+- Keep the description blocks simple: explain what the test is about, not how you tested it.
 
 ```js
 // ❌ Wrong
@@ -12,7 +12,7 @@ it(
 it('changes the selected element when navigating with the arrow keys');
 ```
 
-- The sentence must make sense when concatenating it with the `it` test method:
+- The sentence must make sense when concatenating it with the `it` test method.
 
 ```js
 // ❌ Wrong
@@ -22,7 +22,7 @@ it('the element is focused when the dropdown is open');
 it('focuses the element when the dropdown is open');
 ```
 
-- If the text description is longer than the max line length disable the eslint warning.
+- If the text description is longer than the max. line length, disable the eslint warning.
 
 ```js
 // ❌ Wrong
@@ -40,9 +40,7 @@ it(
 
 ## Factory functions
 
-Use
-[factory functions](https://lmiller1990.github.io/vue-testing-handbook/components-with-props.html#refactor-with-a-factory-function)
-whenever is possible to DRY in the mount process.
+Use [factory functions](https://lmiller1990.github.io/vue-testing-handbook/components-with-props.html#refactor-with-a-factory-function) whenever it is possible to DRY in the mount process.
 
 - Include every property passed to the `mount` function that is used in the tests.
 
@@ -85,9 +83,8 @@ it('does that', () => {
 });
 ```
 
-- Along it, you can return more properties including repeated functionality to keep the test simple.
-  Then you have an API with methods to test the component easier or just access to data like the
-  default data set in the component.
+- In addition, you can return more properties including repeated functionality to keep the test simple.
+  Then you have an API with methods to test the component more easily or just access to data like the default data set in the component.
 
 ```ts
 // ❌ Wrong
@@ -148,9 +145,7 @@ it('does that', async () => {
 });
 ```
 
-- Remember to give proper names to the API interface in order to give information about what it does
-  instead of how it does it. It's mandatory to define interfaces for the API inputs, and the output
-  to keep the API clearer.
+- Remember to give proper names to the API interface to provide information on what it does instead of how it does it. You must define interfaces for the API inputs, and the output to keep the API clearer.
 
 ```ts
 // ✅ Good
@@ -199,10 +194,7 @@ interface FactoryAPI {
 }
 ```
 
-- Sometimes it's easier to create a wrapper component in which we can import and render our
-  component or components, especially when we use slots, defining the template. It's preferable to
-  test the component isolated without this wrapper. Notice that you can also include this within a
-  factory function in order to override the template as another property.
+- Sometimes it's easier to create a wrapper component in which you can import and render your component or components, particularly when you use slots, defining the template. It's preferable to test the component isolated without this wrapper. Notice that you can also include this within a factory function to override the template as another property.
 
 ```js
 // ✅ Good
