@@ -83,36 +83,38 @@ export interface XComponentBusAPI {
  * @public
  */
 export interface XComponentAliasAPI {
-  /** The query value of the different modules. */
-  readonly query: XComponentAliasQueryAPI;
-  /** The status value of the different modules. */
-  readonly status: XComponentAliasStatusAPI;
+  /** The {@link DeviceXModule} detected device. */
+  readonly device: string | null;
+  /** The {@link FacetsXModule} facets. */
+  readonly facets: Record<Facet['id'], Facet>;
+  /** The {@link HistoryQueriesXModule} history queries. */
+  readonly historyQueries: ReadonlyArray<HistoryQuery>;
+  /** The {@link IdentifierResultsXModule} results. */
+  readonly identifierResults: ReadonlyArray<Result>;
+  /** The {@link Empathize} is open state. */
+  readonly isEmpathizeOpen: boolean;
   /** The {@link NextQueriesXModule} next queries. */
   readonly nextQueries: ReadonlyArray<NextQuery>;
   /** The {@link PopularSearchesXModule} popular searches. */
   readonly popularSearches: ReadonlyArray<Suggestion>;
-  /** The {@link HistoryQueriesXModule} history queries. */
-  readonly historyQueries: ReadonlyArray<HistoryQuery>;
+  /** The query value of the different modules. */
+  readonly query: XComponentAliasQueryAPI;
   /** The {@link QuerySuggestionsXModule} query suggestions. */
   readonly querySuggestions: ReadonlyArray<Suggestion>;
-  /** The {@link RelatedTagsXModule} related tags (Both selected and deselected). */
-  readonly relatedTags: ReadonlyArray<RelatedTag>;
-  /** The {@link RelatedTagsXModule} selected related tags. */
-  readonly selectedRelatedTags: ReadonlyArray<RelatedTag>;
-  /** The {@link IdentifierResultsXModule} results. */
-  readonly identifierResults: ReadonlyArray<Result>;
   /** The {@link RecommendationsXModule} recommendations. */
   readonly recommendations: ReadonlyArray<Result>;
-  /** The {@link FacetsXModule} facets. */
-  readonly facets: Record<Facet['id'], Facet>;
+  /** The {@link RelatedTagsXModule} related tags (Both selected and deselected). */
+  readonly relatedTags: ReadonlyArray<RelatedTag>;
   /** The {@link FacetsXModule} selected filters. */
   readonly selectedFilters: Filter[];
+  /** The {@link RelatedTagsXModule} selected related tags. */
+  readonly selectedRelatedTags: ReadonlyArray<RelatedTag>;
+  /** The {@link SearchXModule} spellchecked query. */
+  readonly spellcheckedQuery: string | null;
+  /** The status value of the different modules. */
+  readonly status: XComponentAliasStatusAPI;
   /** The {@link SearchXModule} total results. */
   readonly totalResults: number;
-  /** The {@link Empathize} is open state. */
-  readonly isEmpathizeOpen: boolean;
-  /** The {@link DeviceXModule} detected device. */
-  readonly device: string | null;
 }
 
 /**
