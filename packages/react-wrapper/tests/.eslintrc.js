@@ -4,7 +4,7 @@ module.exports = {
   ignorePatterns: ['**/*.js'],
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: 'tsconfig.eslint.json'
+    project: './tsconfig.eslint.json'
   },
   settings: {
     react: {
@@ -12,7 +12,7 @@ module.exports = {
       version: 'detect'
     },
     'import/resolver': {
-      typescript: { project: 'tsconfig.eslint.json' }
+      typescript: { project: './tsconfig.eslint.json' }
     }
   },
   rules: {

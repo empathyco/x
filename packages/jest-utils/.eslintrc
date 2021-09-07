@@ -1,6 +1,0 @@
-{
-  "rules": {
-    "@typescript-eslint/restrict-template-expressions": ["off", { "allowAny": true }],
-    "@typescript-eslint/no-namespace": ["off"]
-  }
-}
