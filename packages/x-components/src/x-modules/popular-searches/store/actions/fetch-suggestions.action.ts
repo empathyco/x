@@ -14,5 +14,7 @@ import { PopularSearchesXStoreModule } from '../types';
 export const fetchSuggestions: PopularSearchesXStoreModule['actions']['fetchSuggestions'] = ({
   getters
 }) => {
-  return XPlugin.adapter.getSuggestions(getters.request).then(({ suggestions }) => suggestions);
+  return XPlugin.adapter
+    .getSuggestions(getters.request, { requestId: 'popularSearches' })
+    .then(({ suggestions }) => suggestions);
 };
