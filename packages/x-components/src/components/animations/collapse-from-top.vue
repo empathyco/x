@@ -88,11 +88,4 @@ Used wrapping a component:
   <ComponentOrElement v-if="open"/>
 </CollapseFromTop>
 ```
-
-Used changing the origin of the animation:
-```vue
-<CollapseFromTop>
-  <ComponentOrElement v-if="open"/>
-</CollapseFromTop>
-```
 </docs>

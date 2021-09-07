@@ -1,7 +1,7 @@
 <template>
-  <component :is="animation">
+  <component :is="animation" @beforeEnter="showOverlay = false" @afterEnter="showOverlay = true">
     <div v-if="open" class="x-modal" data-test="modal">
-      <div ref="modal" class="x-modal__content" data-test="modal-content" role="dialog">
+      <div ref="modal" class="x-modal__content x-list" data-test="modal-content" role="dialog">
         <!-- @slot (Required) Modal container content -->
         <slot />
       </div>
@@ -9,6 +9,7 @@
         ref="overlay"
         @click="emitOverlayClicked"
         class="x-modal__overlay"
+        :class="{ 'x-modal__overlay--visible': showOverlay }"
         data-test="modal-overlay"
       />
     </div>
@@ -44,6 +45,8 @@
     protected previousBodyOverflow = '';
     /** The previous value of the HTML element overflow style. */
     protected previousHTMLOverflow = '';
+    /** To animate the overlay opacity after and before the animation. */
+    protected showOverlay = true;
 
     public $refs!: {
       modal: HTMLDivElement;
@@ -152,8 +155,6 @@
 
 <style lang="scss" scoped>
   .x-modal {
-    background-color: rgba(0, 0, 0, 0.7);
-
     position: fixed;
     top: 0;
     left: 0;
@@ -173,7 +174,14 @@
     &__overlay {
       width: 100%;
       height: 100%;
-      position: absolute;
+      position: fixed;
+      background-color: rgba(0, 0, 0, 0.7);
+      opacity: 0;
+
+      &--visible {
+        transition: opacity 0.3s ease-out;
+        opacity: 1;
+      }
     }
   }
 </style>
