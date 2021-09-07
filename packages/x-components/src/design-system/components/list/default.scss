@@ -3,7 +3,7 @@
 .x-list {
   // layout
   display: flex;
-  flex-flow: var(--x-size-flow-list);
+  flex-flow: var(--x-string-flow-list);
   list-style: none;
 
   // size
@@ -32,10 +32,7 @@
   font-weight: var(--x-number-font-weight-text);
   line-height: var(--x-size-line-height-text);
 
-  > * {
-    min-width: 0;
-    min-height: 0;
-  }
+  min-width: 0;
 }
 
 .x-list--vertical.x-list {
@@ -89,6 +86,18 @@
 .x-list {
   .x-list__item--expand {
     flex: 1 1 auto;
+  }
+
+  &.x-list--horizontal {
+    .x-list__item--expand {
+      min-width: 0;
+    }
+  }
+
+  &:not(.x-list--horizontal) {
+    .x-list__item--expand {
+      min-height: 0;
+    }
   }
 
   .x-list__item--stretch {

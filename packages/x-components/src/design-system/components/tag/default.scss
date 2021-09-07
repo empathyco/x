@@ -33,8 +33,7 @@
   // size
   gap: var(--x-size-gap-tag-default);
   @include safari-gap(var(--x-size-gap-tag-default));
-  padding-block-start: var(--x-size-padding-top-tag-default);
-  padding-block-end: var(--x-size-padding-bottom-tag-default);
+  min-height: var(--x-size-height-tag-default);
   padding-inline-start: var(--x-size-padding-left-tag-default);
   padding-inline-end: var(--x-size-padding-right-tag-default);
   min-width: calc(3 * var(--x-size-line-height-tag-default));

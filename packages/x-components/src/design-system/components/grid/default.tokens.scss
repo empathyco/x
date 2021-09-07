@@ -1,6 +1,6 @@
 :root {
   // layout
   --x-size-padding-grid: 0;
-  --x-size-gap-grid: 0;
+  --x-size-gap-grid: var(--x-size-base-03);
   --x-size-min-width-grid-item: 150px;
 }

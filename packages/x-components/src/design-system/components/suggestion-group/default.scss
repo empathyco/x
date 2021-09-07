@@ -42,9 +42,8 @@
     --x-color-text-button-default: var(--x-color-text-suggestion-group-default);
 
     // size
-    --x-size-padding-top-button-default: 0;
+    --x-size-height-button-default: var(--x-size-line-height-suggestion-group-default);
     --x-size-padding-right-button-default: 0;
-    --x-size-padding-bottom-button-default: 0;
     --x-size-padding-left-button-default: 0;
 
     // border
