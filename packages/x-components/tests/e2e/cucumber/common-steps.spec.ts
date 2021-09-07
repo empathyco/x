@@ -14,6 +14,10 @@ Then('identifier results are displayed', () => {
   cy.getByDataTest('identifier-results-item').should('have.length.at.least', 1);
 });
 
+Then('no identifier results are displayed', () => {
+  cy.getByDataTest('identifier-result-item').should('not.exist');
+});
+
 // History Queries
 When('clear history queries button is clicked', () => {
   cy.getByDataTest('clear-history-queries').click();

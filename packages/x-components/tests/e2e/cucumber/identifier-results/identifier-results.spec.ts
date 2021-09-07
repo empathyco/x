@@ -14,6 +14,14 @@ Given('an ID results API with a known response', () => {
   }).as('interceptedIDResults');
 });
 
+Given('an ID results API with no results', () => {
+  cy.intercept('https://api.empathy.co/searchById', req => {
+    req.reply({
+      results: []
+    });
+  }).as('interceptedNoIDResults');
+});
+
 And('no special config for identifier results view', () => {
-  cy.visit('/test/identifier-results');
+  cy.visit('/test/identifier-results?useMockedAdapter=true');
 });

@@ -49,10 +49,6 @@ window.__mockedAdapter = {
 };
 
 class E2ETestsAdapter extends EmpathyAdapter {
-  searchById(request: SearchByIdRequest): Promise<SearchByIdResponse> {
-    return mockFetch(request, 'searchById');
-  }
-
   getNextQueries(request: NextQueriesRequest): Promise<NextQueriesResponse> {
     return mockFetch(request, 'getNextQueries');
   }
@@ -71,6 +67,10 @@ class E2ETestsAdapter extends EmpathyAdapter {
 
   search(request: SearchRequest): Promise<SearchResponse> {
     return mockFetch(request, 'search');
+  }
+
+  searchById(request: SearchByIdRequest): Promise<SearchByIdResponse> {
+    return mockFetch(request, 'searchById');
   }
 }
 
