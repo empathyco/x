@@ -293,7 +293,7 @@ interface RenderNextQueriesListAPI {
   getNextQueryWrappers: (root?: Wrapper<Vue>) => WrapperArray<Vue>;
   /** Retrieves the wrappers of the list items. */
   getSearchItemWrappers: () => WrapperArray<Vue>;
-  /** Retrieves rendered text for each DOM search item. */
+  /** Retrieves rendered text for each DOM list item. */
   getItemsRenderedText: () => string[];
   /** The `wrapper` wrapper component. */
   wrapper: Wrapper<Vue>;
