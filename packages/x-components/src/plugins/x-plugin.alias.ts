@@ -94,6 +94,9 @@ export function getAliasAPI(
     },
     get device() {
       return store.state.x.device?.name ?? null;
+    },
+    get spellcheckedQuery() {
+      return store.state.x.search?.spellcheckedQuery ?? null;
     }
   };
 }

@@ -67,7 +67,8 @@ describe('testing plugin alias', () => {
       selectedFilters: [],
       totalResults: 0,
       isEmpathizeOpen: false,
-      device: null
+      device: null,
+      spellcheckedQuery: null
     };
     expect(componentInstance.vm.$x).toMatchObject(defaultValues);
   });
