@@ -2,25 +2,6 @@ import { XStoreModule } from '../../../store';
 import { UrlConfig } from '../config.types';
 
 /**
- * Describes a dictionary of {@link UrlParamKey} which values are {@link MappedParam}.
- *
- * @public
- */
-export interface MappedParams {
-  [originalParamName: string]: MappedParam;
-}
-
-/**
- * Values for each {@link MappedParams}.
- *
- * @public
- */
-export interface MappedParam {
-  key: UrlParamKey;
-  value: UrlParamValue;
-}
-
-/**
  * URL store state.
  *
  * @public
@@ -41,7 +22,7 @@ export interface UrlState {
  * @public
  */
 export interface UrlGetters {
-  urlParams: MappedParams;
+  urlParams: Record<UrlParamKey, UrlParamValue>;
 }
 
 /**
