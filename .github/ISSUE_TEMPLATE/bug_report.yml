@@ -6,7 +6,7 @@ labels: [bug]
 body:
   - type: markdown
     attributes:
-      value: "##Thank you for taking the time to provide feedback!"
+      value: " ##Thank you for taking the time to provide feedback!"
   - type: markdown
     attributes:
      value: Before creating a new bug, please check for [existing issues](https://github.com/empathyco/x/issues).
@@ -43,14 +43,6 @@ body:
       label: Supporting information
       description: Provide as much supporting information as possible. Including attachments will help us to better understand the issue.
       placeholder: Include supporting documentation, e.g. designs, diagrams, videos, Confluence links, real examples.
-  - type: input
-    id: bug-contact
-    attributes:
-      label: Contact details
-      description: How can we get in touch with you if we need more info?
-      placeholder: e.g. email@example.com
-    validations:
-      required: false
   - type: checkboxes
     id: bug-terms
     attributes:

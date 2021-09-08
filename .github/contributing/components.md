@@ -236,8 +236,6 @@ selectedFilters.ts
 selected-filters.getter.ts
 ```
 
-## Common patterns
-
 ## Documentation
 
 Components are documented using [Markdown](https://daringfireball.net/projects/markdown/basics) and [Vue Styleguidist](https://vue-styleguidist.github.io/docs/GettingStarted.html). The Vue Styleguidist library is used to export the doc to Markdown.
