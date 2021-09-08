@@ -5,7 +5,6 @@ export { default as PartialResultsList } from './partial-results-list.vue';
 export { default as Promoted } from './promoted.vue';
 export { default as PromotedsList } from './promoteds-list.vue';
 export { default as ResultsList } from './results-list.vue';
-export { default as SearchItemsList } from './search-items-list.vue';
 export { default as SortDropdown } from './sort-dropdown.vue';
 export { default as SortList } from './sort-list.vue';
 export { default as SortMixin } from './sort.mixin';

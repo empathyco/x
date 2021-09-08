@@ -52,7 +52,7 @@
   import { CheckIcon, ChevronDownIcon, ChevronUpIcon, SearchIcon } from '../components/icons/index';
   import BaseResultLink from '../components/result/base-result-link.vue';
   import BaseResultImage from '../components/result/base-result-image.vue';
-  import { SearchItem } from '../utils/types';
+  import { ListItem } from '../utils/types';
   import SortDropdown from '../x-modules/search/components/sort-dropdown.vue';
   import SortList from '../x-modules/search/components/sort-list.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
@@ -95,7 +95,7 @@
     @State('search', 'results')
     public results!: Result[];
 
-    protected get gridItems(): SearchItem[] {
+    protected get gridItems(): ListItem[] {
       return [...getBannersStub(), ...getPromotedsStub(), ...this.results];
     }
 

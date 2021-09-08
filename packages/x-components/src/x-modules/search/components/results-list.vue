@@ -6,11 +6,11 @@
         @binding {Vue | string} animation - Animation to animate the elements.
     -->
     <slot v-bind="{ items, animation }">
-      <SearchItemsList :animation="animation" :searchItems="items">
-        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ searchItem }">
-          <slot :name="slotName" :searchItem="searchItem" />
+      <ItemsList :animation="animation" :items="items">
+        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ item }">
+          <slot :name="slotName" :item="item" />
         </template>
-      </SearchItemsList>
+      </ItemsList>
     </slot>
   </NoElement>
 </template>
@@ -19,17 +19,17 @@
   import { Result } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
+  import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
+  import { XProvide } from '../../../components/decorators/injection.decorators';
   import { State } from '../../../components/decorators/store.decorators';
   import { NoElement } from '../../../components/no-element';
+  import ItemsList from '../../../components/items-list.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { searchXModule } from '../x-module';
   import { InfiniteScroll } from '../../../directives/infinite-scroll/infinite-scroll.types';
-  import { SEARCH_ITEMS_KEY } from '../../../components/decorators/injection.consts';
-  import { XProvide } from '../../../components/decorators/injection.decorators';
-  import SearchItemsList from './search-items-list.vue';
+  import { searchXModule } from '../x-module';
 
   /**
-   * It renders a {@link SearchItemsList} list with the results from {@link SearchState.results} by
+   * It renders a {@link ItemsList} list with the results from {@link SearchState.results} by
    * default.
    *
    * The component provides a default slot which wraps the whole component with the `results` bound.
@@ -42,7 +42,7 @@
   @Component({
     components: {
       NoElement,
-      SearchItemsList
+      ItemsList
     },
     mixins: [xComponentMixin(searchXModule)]
   })
@@ -50,13 +50,13 @@
     /**
      * The results to render from the state.
      *
-     * @remarks The results list are provided with `searchItems` key. It can be
-     * concatenated with search items from components such as `BannersList`, `PromotedsList`,
+     * @remarks The results list are provided with `items` key. It can be
+     * concatenated with list items from components such as `BannersList`, `PromotedsList`,
      * `BaseGrid` or any component that injects the list.
      *
      * @public
      */
-    @XProvide(SEARCH_ITEMS_KEY)
+    @XProvide(LIST_ITEMS_KEY)
     @State('search', 'results')
     public items!: Result[];
 
@@ -105,7 +105,8 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { SearchInput, ResultsList } from '@empathyco/x-components/search';
+  import { ResultsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'ResultsListDemo',
@@ -128,7 +129,8 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { SearchInput, ResultsList } from '@empathyco/x-components/search';
+  import { ResultsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
   import { FadeAndSlide } from '@empathyco/x-components/animations';
 
   export default {
@@ -166,13 +168,16 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { SearchInput, ResultsList } from '@empathyco/x-components/search';
+  import { ResultsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { BaseGrid } from '@empathyco/x-components';
 
   export default {
     name: 'ResultsListDemo',
     components: {
       SearchInput,
-      ResultsList
+      ResultsList,
+      BaseGrid
     }
   };
 </script>
@@ -184,9 +189,9 @@ _Type any term in the input field to try it out!_
 <template>
   <div>
     <SearchInput />
-    <ResultsList #result="{ result }">
+    <ResultsList #result="{ item }">
       <span class="result">
-        {{ result.name }}
+        {{ item.name }}
       </span>
     </ResultsList>
   </div>
@@ -207,8 +212,8 @@ _Type any term in the input field to try it out!_
 
 ### Data injection
 
-Starting with the `ResultsList` component as root element, you can concat the list of search items
-using `BannersList`, `PromotedsList`, `BaseGrid` or any component that injects the `searchItems`
+Starting with the `ResultsList` component as root element, you can concat the list of list items
+using `BannersList`, `PromotedsList`, `BaseGrid` or any component that injects the `listItems`
 value.
 
 ```vue
@@ -218,9 +223,9 @@ value.
     <ResultsList>
       <BannersList>
         <PromotedsList>
-          <template #result="{ searchItem }">Result: {{ searchItem.id }}</template>
-          <template #banner="{ searchItem }">Banner: {{ searchItem.id }}</template>
-          <template #promoted="{ searchItem }">Promoted: {{ searchItem.id }}</template>
+          <template #result="{ item }">Result: {{ item.id }}</template>
+          <template #banner="{ item }">Banner: {{ item.id }}</template>
+          <template #promoted="{ item }">Promoted: {{ item.id }}</template>
         </PromotedsList>
       </BannersList>
     </ResultsList>
@@ -228,12 +233,8 @@ value.
 </template>
 
 <script>
-  import {
-    SearchInput,
-    ResultsList,
-    BannersList,
-    PromotedsList
-  } from '@empathyco/x-components/search';
+  import { ResultsList, BannersList, PromotedsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'ResultsListDemo',
