@@ -6,10 +6,9 @@
         <slot />
       </div>
       <div
-        ref="overlay"
         @click="emitOverlayClicked"
         class="x-modal__overlay"
-        :class="{ 'x-modal__overlay--visible': showOverlay }"
+        :class="{ 'x-modal__overlay--is-visible': showOverlay }"
         data-test="modal-overlay"
       />
     </div>
@@ -50,7 +49,6 @@
 
     public $refs!: {
       modal: HTMLDivElement;
-      overlay: HTMLDivElement;
     };
 
     protected mounted(): void {
@@ -134,9 +132,7 @@
      * @internal
      */
     protected emitOverlayClicked(event: MouseEvent): void {
-      if (this.$refs.overlay === event.target) {
-        this.$emit('click:overlay', event);
-      }
+      this.$emit('click:overlay', event);
     }
 
     /**
@@ -178,7 +174,7 @@
       background-color: rgba(0, 0, 0, 0.7);
       opacity: 0;
 
-      &--visible {
+      &--is-visible {
         transition: opacity 0.3s ease-out;
         opacity: 1;
       }
@@ -192,14 +188,14 @@
 The `BaseModal` is a simple component that serves to create complex modals. Its open state has to be
 passed via prop. It also accepts an animation to use for opening & closing.
 
-It emits a `click:body` event when any part out of the content is clicked, but only if the modal is
-open.
+It emits a `click:overlay` event when any part out of the content is clicked, but only if the modal
+is open.
 
 ```vue
 <template>
   <div>
     <button @click="open = true">Open modal</button>
-    <BaseModal animation="fadeAndSlide" :open="open" @click:body="open = false">
+    <BaseModal animation="fadeAndSlide" :open="open" @click:overlay="open = false">
       <h1>Hello</h1>
       <p>The modal is working</p>
       <button @click="open = false">Close modal</button>
@@ -230,8 +226,8 @@ open.
 
 A list of events that the component will emit:
 
-- `click:body`: the event is emitted after the user clicks any part out of the content but only if
-  the modal is open. The event payload is the mouse event that triggers it.
+- `click:overlay`: the event is emitted after the user clicks any part out of the content but only
+  if the modal is open. The event payload is the mouse event that triggers it.
 - `focusin:body`: the event is emitted after the user focus in any part out of the content but only
   if the modal is open. The event payload is the focus event that triggers it.
 </docs>
