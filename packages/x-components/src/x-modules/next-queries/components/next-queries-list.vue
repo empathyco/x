@@ -2,7 +2,7 @@
   <NoElement>
     <!--
       @slot Next queries list layout.
-        @binding {SearchItem[]} items - Next queries groups plus the injected search items to
+        @binding {SearchItem[]} items - Next queries groups plus the injected list items to
         render.
         @binding {Vue | string} animation - Animation to animate the elements.
     -->
@@ -85,7 +85,7 @@
     public maxNextQueriesPerGroup!: number;
 
     /**
-     * The maximum number of groups to insert into the injected search items list.
+     * The maximum number of groups to insert into the injected list items list.
      *
      * @public
      */
@@ -196,7 +196,7 @@ example, the first group of next queries will be inserted at the index `48` (`of
 second group will be inserted at index `120` because of the `frequency` prop configured to `72`.
 Finally, a third group will be inserted at index `192`. Because `maxGroups` is configured to `3`, no
 more groups will be inserted. Each one of this groups will have up to `6` next queries
-(`maxGroups`).
+(`maxNextQueriesPerGroup`).
 
 ```vue
 <template>

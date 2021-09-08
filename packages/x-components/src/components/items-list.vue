@@ -3,7 +3,7 @@
     :is="animation"
     v-if="items.length"
     tag="ul"
-    class="x-search-items-list"
+    class="x-items-list"
     data-test="items-list"
   >
     <li
@@ -14,7 +14,7 @@
       :data-test="item.dataTest"
     >
       <!--
-        @slot Customized Search items list search item.
+        @slot Custom item to render.
           @binding {ListItem} item - Item data.
       -->
       <slot :item="item" :name="item.slotName">{{ item.id }}</slot>
@@ -45,7 +45,7 @@
     protected animation!: Vue | string;
 
     /**
-     * List of search items.
+     * List of items.
      *
      * @public
      */
@@ -55,7 +55,7 @@
     /**
      * The list of the items with additional properties.
      *
-     * @returns A list of search items with `dataTest`, `class` and the `slotName` for each item.
+     * @returns A list of items with `dataTest`, `class` and the `slotName` for each item.
      *
      * @internal
      */

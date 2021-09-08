@@ -2,7 +2,7 @@
   <NoElement>
     <!--
       @slot Customized BannersList layout.
-        @binding {Banner[]} items - Banners plus the injected search items to render.
+        @binding {Banner[]} items - Banners plus the injected list items to render.
         @binding {Vue | string} animation - Animation to animate the elements.
     -->
     <slot v-bind="{ items, animation }">
@@ -32,7 +32,7 @@
    * default using the `ItemsInjectionMixin`.
    *
    * The component provides a default slot which wraps the whole component with the `banners`
-   * plus the `searchInjectedItems` which also contains the injected search items from
+   * plus the `searchInjectedItems` which also contains the injected list items from
    * the ancestor.
    *
    * It also provides the parent slots to customize the items.
@@ -218,7 +218,7 @@ banners in order to be injected by the `BaseGrid` (or components that extend it)
 
 ### Data injection
 
-Starting with the `ResultsList` component as root element, you can concat the list of search items
+Starting with the `ResultsList` component as root element, you can concat the list of list items
 using `BannersList`, `PromotedsList`, `BaseGrid` or any component that injects the `listItems`
 value.
 

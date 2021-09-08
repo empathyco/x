@@ -51,7 +51,7 @@
      * The results to render from the state.
      *
      * @remarks The results list are provided with `items` key. It can be
-     * concatenated with search items from components such as `BannersList`, `PromotedsList`,
+     * concatenated with list items from components such as `BannersList`, `PromotedsList`,
      * `BaseGrid` or any component that injects the list.
      *
      * @public
@@ -212,7 +212,7 @@ _Type any term in the input field to try it out!_
 
 ### Data injection
 
-Starting with the `ResultsList` component as root element, you can concat the list of search items
+Starting with the `ResultsList` component as root element, you can concat the list of list items
 using `BannersList`, `PromotedsList`, `BaseGrid` or any component that injects the `listItems`
 value.
 

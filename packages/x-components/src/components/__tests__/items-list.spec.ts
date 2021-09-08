@@ -39,7 +39,7 @@ describe('testing ItemsList component', () => {
       items: []
     });
 
-    expect(wrapper.find(getDataTestSelector('search-items-list')).exists()).toBe(false);
+    expect(wrapper.find(getDataTestSelector('items-list')).exists()).toBe(false);
   });
 
   it('renders the items list passed as property', () => {
@@ -47,7 +47,7 @@ describe('testing ItemsList component', () => {
       items: resultsStub
     });
 
-    const itemsWrapperArray = wrapper.findAll('.x-search-items-list__item');
+    const itemsWrapperArray = wrapper.findAll('.x-items-list__item');
     expect(itemsWrapperArray).toHaveLength(resultsStub.length);
     resultsStub.forEach((result, index: number) => {
       expect(itemsWrapperArray.at(index).text()).toBe(result.id);
@@ -61,24 +61,15 @@ describe('testing ItemsList component', () => {
 
     const resultItemWrapper = wrapper.find(getDataTestSelector('results-list-item'));
     expect(resultItemWrapper.exists()).toBe(true);
-    expect(resultItemWrapper.classes()).toEqual([
-      'x-search-items-list__item',
-      'x-results-list-item'
-    ]);
+    expect(resultItemWrapper.classes()).toEqual(['x-items-list__item', 'x-results-list-item']);
 
     const bannerItemWrapper = wrapper.find(getDataTestSelector('banners-list-item'));
     expect(bannerItemWrapper.exists()).toBe(true);
-    expect(bannerItemWrapper.classes()).toEqual([
-      'x-search-items-list__item',
-      'x-banners-list-item'
-    ]);
+    expect(bannerItemWrapper.classes()).toEqual(['x-items-list__item', 'x-banners-list-item']);
 
     const promotedItemWrapper = wrapper.find(getDataTestSelector('promoteds-list-item'));
     expect(promotedItemWrapper.exists()).toBe(true);
-    expect(promotedItemWrapper.classes()).toEqual([
-      'x-search-items-list__item',
-      'x-promoteds-list-item'
-    ]);
+    expect(promotedItemWrapper.classes()).toEqual(['x-items-list__item', 'x-promoteds-list-item']);
   });
 
   it('allows to customize each item using the slot', () => {

@@ -5,7 +5,7 @@ import { XInject, XProvide } from './decorators/injection.decorators';
 import { LIST_ITEMS_KEY } from './decorators/injection.consts';
 
 /**
- * Mixin to facilitate providing and injecting a list of search items. Injected list is
+ * Mixin to facilitate providing and injecting a list of list items. Injected list is
  * available at `injectedListItems`, and the provided list should be stored in `items`.
  *
  * @public
@@ -13,7 +13,7 @@ import { LIST_ITEMS_KEY } from './decorators/injection.consts';
 @Component
 export class ItemsListInjectionMixin extends Vue {
   /**
-   * The search items of the entity that uses the mixin from the state.
+   * The list items of the entity that uses the mixin from the state.
    *
    * @remarks It should be defined in the component that uses the mixin and it's intended to be
    * filled with items from the state. Vue doesn't allow mixins as abstract classes.
@@ -23,7 +23,7 @@ export class ItemsListInjectionMixin extends Vue {
   protected stateItems!: ListItem[];
 
   /**
-   * The computed search items of the entity that uses the mixin.
+   * The computed list items of the entity that uses the mixin.
    *
    * @remarks It should be overridden in the component that uses the mixin and it's intended to be
    * filled with items from the state. Vue doesn't allow mixins as abstract classes.

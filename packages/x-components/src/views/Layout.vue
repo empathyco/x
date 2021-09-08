@@ -217,6 +217,12 @@
                     <template #Promoted="{ item: promoted }">
                       <Promoted :promoted="promoted" />
                     </template>
+
+                    <template #NextQueriesGroup="{ item: { nextQueries } }">
+                      <BaseSuggestions #default="{ suggestion }" :suggestions="nextQueries">
+                        <NextQuery :suggestion="suggestion" />
+                      </BaseSuggestions>
+                    </template>
                   </BaseVariableColumnGrid>
                 </NextQueriesList>
               </PromotedsList>

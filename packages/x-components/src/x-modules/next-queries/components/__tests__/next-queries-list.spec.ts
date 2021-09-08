@@ -120,7 +120,7 @@ describe('testing NextQueriesList component', () => {
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('nextQueries');
   });
 
-  it('renders no group if no search items are injected', () => {
+  it('renders no group if no list items are injected', () => {
     const nextQueries = createNextQueries('milk', 'sugar', 'beer');
     const { getNextQueryGroupWrappers, getSearchItemWrappers } = renderNextQueriesList({
       nextQueries,
@@ -229,7 +229,7 @@ describe('testing NextQueriesList component', () => {
     ]);
   });
 
-  it('provides the modified list of search items', () => {
+  it('provides the modified list of list items', () => {
     const CustomList: ComponentOptions<Vue> = {
       mixins: [ItemsListInjectionMixin],
       template: `
@@ -274,7 +274,7 @@ interface RenderNextQueriesListOptions {
   extraItems?: ListItem[];
   /** Indicates the cycle size to insert next queries group at. */
   frequency?: number;
-  /** The maximum number of groups to add to the search items list. */
+  /** The maximum number of groups to add to the list items list. */
   maxGroups?: number;
   /** The maximum number of next queries to insert in a group. */
   maxNextQueriesPerGroup?: number;
@@ -291,7 +291,7 @@ interface RenderNextQueriesListAPI {
   getNextQueryGroupWrappers: () => WrapperArray<Vue>;
   /** Retrieves the wrappers of the individual next queries. */
   getNextQueryWrappers: (root?: Wrapper<Vue>) => WrapperArray<Vue>;
-  /** Retrieves the wrappers of the search items. */
+  /** Retrieves the wrappers of the list items. */
   getSearchItemWrappers: () => WrapperArray<Vue>;
   /** Retrieves rendered text for each DOM search item. */
   getItemsRenderedText: () => string[];
