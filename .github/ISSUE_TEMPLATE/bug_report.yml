@@ -6,7 +6,7 @@ labels: [bug]
 body:
   - type: markdown
     attributes:
-      value: " ##Thank you for taking the time to provide feedback!"
+      value: "Thank you for taking the time to provide feedback!"
   - type: markdown
     attributes:
      value: Before creating a new bug, please check for [existing issues](https://github.com/empathyco/x/issues).
