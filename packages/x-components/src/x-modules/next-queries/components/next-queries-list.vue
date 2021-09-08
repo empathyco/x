@@ -166,7 +166,7 @@ results list.
 ```vue
 <template>
   <div>
-    <SearchInput :instant="true" />
+    <SearchInput />
     <ResultsList>
       <NextQueriesList />
     </ResultsList>
@@ -201,7 +201,7 @@ more groups will be inserted. Each one of this groups will have up to `6` next q
 ```vue
 <template>
   <div>
-    <SearchInput :instant="true" />
+    <SearchInput />
     <ResultsList>
       <NextQueriesList :offset="48" :frequency="72" :maxNextQueriesPerGroup="6" :maxGroups="3" />
     </ResultsList>
@@ -233,7 +233,7 @@ component, for example the `BaseGrid`. To do so, you can use the `default` slot
 ```vue
 <template>
   <div>
-    <SearchInput :instant="true" />
+    <SearchInput />
     <ResultsList>
       <NextQueriesList
         :offset="48"

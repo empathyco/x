@@ -101,7 +101,7 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput :instant="true" />
+    <SearchInput />
 
     <PromotedsList />
   </div>
@@ -126,7 +126,7 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput :instant="true" />
+    <SearchInput />
     <PromotedsList :animation="fadeAndSlide" />
   </div>
 </template>
@@ -156,7 +156,7 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput :instant="true" />
+    <SearchInput />
     <PromotedsList #default="{ items, animation }">
       <BaseGrid :items="items" :animation="animation">
         <template #Promoted="{ item }">
@@ -191,7 +191,7 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput :instant="true" />
+    <SearchInput />
     <PromotedsList #promoted="{ item }">
       <span class="promoted">
         {{ item.title }}
@@ -223,7 +223,7 @@ value.
 ```vue
 <template>
   <div>
-    <SearchInput :instant="true" />
+    <SearchInput />
     <ResultsList>
       <PromotedsList>
         <template #promoted="{ item }">Promoted: {{ item.id }}</template>

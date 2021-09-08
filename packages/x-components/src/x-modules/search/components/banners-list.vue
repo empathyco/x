@@ -101,7 +101,7 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput :instant="true" />
+    <SearchInput />
     <BannersList />
   </div>
 </template>
@@ -125,7 +125,7 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput :instant="true" />
+    <SearchInput />
     <BannersList :animation="fadeAndSlide" />
   </div>
 </template>
@@ -155,7 +155,7 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput :instant="true" />
+    <SearchInput />
     <BannersList #default="{ items, animation }">
       <BaseGrid :items="items" :animation="animation">
         <template #Banner="{ item }">
@@ -188,7 +188,7 @@ _Type any term in the input field to try it out!_
 ```vue
 <template>
   <div>
-    <SearchInput :instant="true" />
+    <SearchInput />
     <BannersList #banner="{ item }">
       <span class="banner">
         {{ item.title }}
@@ -225,7 +225,7 @@ value.
 ```vue
 <template>
   <div>
-    <SearchInput :instant="true" />
+    <SearchInput />
     <ResultsList>
       <BannersList>
         <template #banner="{ item }">Banner: {{ item.id }}</template>
