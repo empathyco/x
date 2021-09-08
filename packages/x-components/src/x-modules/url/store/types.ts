@@ -55,7 +55,8 @@ export interface UrlMutations {
  */
 export interface UrlActions {
   /**
-   * It updates the URL with values from the store.
+   * Updates the URL with values from the store. It replaces the current url with a new entry in the
+   * browser history. Also returns the params with the custom names provided in the config if any.
    *
    * @public
    */
