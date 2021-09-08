@@ -1,25 +1,25 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { SearchItem } from '../../utils/types';
+import { ListItem } from '../../utils/types';
 import { getDataTestSelector } from '../../__tests__/utils';
 import { getBannersStub } from '../../__stubs__/banners-stubs.factory';
 import { getResultsStub } from '../../__stubs__/results-stubs.factory';
-import SearchItemsList from '../search-items-list.vue';
+import ItemsList from '../items-list.vue';
 import { getPromotedsStub } from '../../__stubs__/promoteds-stubs.factory';
 
 /**
- * Renders the `SearchItemsList` component, exposing a basic API for testing.
+ * Renders the `ItemsList` component, exposing a basic API for testing.
  *
  * @param options - The options to render the component with.
  * @returns The API for testing the `BannersList` component.
  */
-function renderSearchItemsList({
-  searchItems = [],
+function renderItemsList({
+  items = [],
   scopedSlots
-}: RenderSearchItemsListOptions = {}): RendersSearchItemsListAPI {
-  const wrapper = mount(SearchItemsList, {
+}: RenderItemsListOptions = {}): RendersItemsListAPI {
+  const wrapper = mount(ItemsList, {
     propsData: {
-      searchItems
+      items
     },
     scopedSlots
   });
@@ -29,22 +29,22 @@ function renderSearchItemsList({
   };
 }
 
-describe('testing SearchItemsList component', () => {
+describe('testing ItemsList component', () => {
   const resultsStub = getResultsStub();
   const promotedsStub = getPromotedsStub();
   const bannersStub = getBannersStub();
 
-  it("doesn't render the list if `searchItems` are provided", () => {
-    const { wrapper } = renderSearchItemsList({
-      searchItems: []
+  it("doesn't render the list if `items` are provided", () => {
+    const { wrapper } = renderItemsList({
+      items: []
     });
 
     expect(wrapper.find(getDataTestSelector('search-items-list')).exists()).toBe(false);
   });
 
   it('renders the items list passed as property', () => {
-    const { wrapper } = renderSearchItemsList({
-      searchItems: resultsStub
+    const { wrapper } = renderItemsList({
+      items: resultsStub
     });
 
     const itemsWrapperArray = wrapper.findAll('.x-search-items-list__item');
@@ -55,8 +55,8 @@ describe('testing SearchItemsList component', () => {
   });
 
   it('renders item attributes depending on the item `modelName`', () => {
-    const { wrapper } = renderSearchItemsList({
-      searchItems: [resultsStub[0], promotedsStub[0], bannersStub[0]]
+    const { wrapper } = renderItemsList({
+      items: [resultsStub[0], promotedsStub[0], bannersStub[0]]
     });
 
     const resultItemWrapper = wrapper.find(getDataTestSelector('results-list-item'));
@@ -82,13 +82,13 @@ describe('testing SearchItemsList component', () => {
   });
 
   it('allows to customize each item using the slot', () => {
-    const { wrapper } = renderSearchItemsList({
+    const { wrapper } = renderItemsList({
       scopedSlots: {
-        result: `<template #result="{ searchItem }">Result: {{ searchItem.name }}</template>`,
-        banner: `<template #banner="{ searchItem }">Banner: {{ searchItem.title }}</template>`,
-        promoted: `<template #promoted="{ searchItem }">Promoted: {{ searchItem.title }}</template>`
+        result: `<template #result="{ item }">Result: {{ item.name }}</template>`,
+        banner: `<template #banner="{ item }">Banner: {{ item.title }}</template>`,
+        promoted: `<template #promoted="{ item }">Promoted: {{ item.title }}</template>`
       },
-      searchItems: [resultsStub[0], promotedsStub[0], bannersStub[0]]
+      items: [resultsStub[0], promotedsStub[0], bannersStub[0]]
     });
 
     expect(wrapper.find(getDataTestSelector('results-list-item')).text()).toBe(
@@ -105,14 +105,14 @@ describe('testing SearchItemsList component', () => {
   });
 });
 
-interface RenderSearchItemsListOptions {
+interface RenderItemsListOptions {
   /** Items to be passed to the component. */
-  searchItems?: SearchItem[];
+  items?: ListItem[];
   /** Scoped slots to be passed to the mount function. */
   scopedSlots?: Record<string, string>;
 }
 
-interface RendersSearchItemsListAPI {
+interface RendersItemsListAPI {
   /** The `wrapper` wrapper component. */
   wrapper: Wrapper<Vue>;
 }

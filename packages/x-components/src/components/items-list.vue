@@ -1,23 +1,23 @@
 <template>
   <component
     :is="animation"
-    v-if="searchItems.length"
+    v-if="items.length"
     tag="ul"
     class="x-search-items-list"
     data-test="search-items-list"
   >
     <li
-      v-for="searchItem in computedSearchItems"
-      :key="searchItem.id"
+      v-for="item in computedItems"
+      :key="item.id"
       class="x-search-items-list__item"
-      :class="searchItem.class"
-      :data-test="searchItem.dataTest"
+      :class="item.class"
+      :data-test="item.dataTest"
     >
       <!--
         @slot Customized Search items list search item.
-          @binding {SearchItem} searchItem - Search item data.
+          @binding {SearchItem} item - Search item data.
       -->
-      <slot :searchItem="searchItem" :name="searchItem.slotName">{{ searchItem.id }}</slot>
+      <slot :item="item" :name="item.slotName">{{ item.id }}</slot>
     </li>
   </component>
 </template>
@@ -25,17 +25,17 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { SearchItem } from '../utils/types';
+  import { ListItem } from '../utils/types';
   import { toKebabCase } from '../utils/string';
 
   /**
-   * It renders a list of {@link SearchItem} providing a slot for each `slotName` which depends on
-   * the `modelName`of the searchItem.
+   * It renders a list of {@link ListItem} providing a slot for each `slotName` which depends on
+   * the `modelName`of the item.
    *
    * @public
    */
   @Component
-  export default class SearchItemsList extends Vue {
+  export default class ItemsList extends Vue {
     /**
      * Animation component that will be used to animate the list.
      *
@@ -50,7 +50,7 @@
      * @public
      */
     @Prop({ required: true })
-    protected searchItems!: SearchItem[];
+    protected items!: ListItem[];
 
     /**
      * The list of the search items with additional properties.
@@ -59,14 +59,14 @@
      *
      * @internal
      */
-    protected get computedSearchItems(): {
+    protected get computedItems(): {
       dataTest: string;
       class: string[];
     }[] {
-      return this.searchItems.map(searchItem => {
-        const modelName = toKebabCase(searchItem.modelName);
+      return this.items.map(item => {
+        const modelName = toKebabCase(item.modelName);
         return {
-          ...searchItem,
+          ...item,
           dataTest: `${modelName}s-list-item`,
           class: [`x-${modelName}s-list-item`],
           slotName: modelName

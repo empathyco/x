@@ -2,7 +2,7 @@ import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getSearchResponseStub } from '../../__stubs__/search-response-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils';
-import { SearchItem } from '../../utils/types';
+import { ListItem } from '../../utils/types';
 import BaseVariableColumnGrid from '../base-variable-column-grid.vue';
 
 const searchResponse = getSearchResponseStub();
@@ -75,7 +75,7 @@ describe('testing BaseVariableColumnGrid component', () => {
 
 interface RenderOptions {
   /** The array of items to render in the grid. */
-  items?: SearchItem[];
+  items?: ListItem[];
 }
 
 interface RenderAPI {

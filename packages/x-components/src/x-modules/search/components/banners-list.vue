@@ -6,11 +6,11 @@
         @binding {Vue | string} animation - Animation to animate the elements.
     -->
     <slot v-bind="{ items, animation }">
-      <SearchItemsList :animation="animation" :searchItems="items">
-        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ searchItem }">
-          <slot :name="slotName" :searchItem="searchItem" />
+      <ItemsList :animation="animation" :items="items">
+        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ item }">
+          <slot :name="slotName" :item="item" />
         </template>
-      </SearchItemsList>
+      </ItemsList>
     </slot>
   </NoElement>
 </template>
@@ -21,15 +21,15 @@
   import { Component, Prop } from 'vue-property-decorator';
   import { State } from '../../../components/decorators/store.decorators';
   import { NoElement } from '../../../components/no-element';
-  import { SearchItemsInjectionMixin } from '../../../components/search-items-injection.mixin';
-  import SearchItemsList from '../../../components/search-items-list.vue';
+  import { ItemsListInjectionMixin } from '../../../components/items-list-injection.mixin';
+  import ItemsList from '../../../components/items-list.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { SearchItem } from '../../../utils/types';
+  import { ListItem } from '../../../utils/types';
   import { searchXModule } from '../x-module';
 
   /**
-   * It renders a {@link SearchItemsList} list of banners from {@link SearchState.banners} by
-   * default using the `SearchItemsInjectionMixin`.
+   * It renders a {@link ItemsList} list of banners from {@link SearchState.banners} by
+   * default using the `ItemsInjectionMixin`.
    *
    * The component provides a default slot which wraps the whole component with the `banners`
    * plus the `searchInjectedItems` which also contains the injected search items from
@@ -41,12 +41,12 @@
    */
   @Component({
     components: {
-      SearchItemsList,
+      ItemsList,
       NoElement
     },
     mixins: [xComponentMixin(searchXModule)]
   })
-  export default class BannersList extends SearchItemsInjectionMixin {
+  export default class BannersList extends ItemsListInjectionMixin {
     /**
      * The banners to render from the state.
      *
@@ -64,18 +64,18 @@
     protected animation!: Vue | string;
 
     /**
-     * The `stateItems` concatenated with the `injectedSearchItems` if there are.
+     * The `stateItems` concatenated with the `injectedListItems` if there are.
      *
      * @remarks This computed defines the merging strategy of the `stateItems` and the
-     * `injectedSearchItems`.
+     * `injectedListItems`.
      *
-     * @returns List of {@link SearchItem}.
+     * @returns List of {@link ListItem}.
      *
      * @internal
      */
-    public override get items(): SearchItem[] {
-      return this.injectedSearchItems
-        ? [...this.stateItems, ...this.injectedSearchItems]
+    public override get items(): ListItem[] {
+      return this.injectedListItems
+        ? [...this.stateItems, ...this.injectedListItems]
         : this.stateItems;
     }
   }
@@ -189,9 +189,9 @@ _Type any term in the input field to try it out!_
 <template>
   <div>
     <SearchInput :instant="true" />
-    <BannersList #banner="{ banner }">
+    <BannersList #banner="{ item }">
       <span class="banner">
-        {{ banner.title }}
+        {{ item.title }}
       </span>
     </BannersList>
   </div>
@@ -219,7 +219,7 @@ banners in order to be injected by the `BaseGrid` (or components that extend it)
 ### Data injection
 
 Starting with the `ResultsList` component as root element, you can concat the list of search items
-using `BannersList`, `PromotedsList`, `BaseGrid` or any component that injects the `searchItems`
+using `BannersList`, `PromotedsList`, `BaseGrid` or any component that injects the `listItems`
 value.
 
 ```vue
@@ -228,8 +228,8 @@ value.
     <SearchInput :instant="true" />
     <ResultsList>
       <BannersList>
-        <template #banner="{ searchItem }">Banner: {{ searchItem.id }}</template>
-        <template #result="{ searchItem }">Result: {{ searchItem.id }}</template>
+        <template #banner="{ item }">Banner: {{ item.id }}</template>
+        <template #result="{ item }">Result: {{ item.id }}</template>
       </BannersList>
     </ResultsList>
   </div>

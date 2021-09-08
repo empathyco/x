@@ -18,7 +18,7 @@ export { default as BaseRating } from './base-rating.vue';
 export { default as BaseVariableColumnGrid } from './base-variable-column-grid.vue';
 export { NoElement } from './no-element';
 export { default as SlidingPanel } from './sliding-panel.vue';
-export { default as SearchItemsList } from './search-items-list.vue';
+export { default as ItemsList } from './items-list.vue';
 export { default as StaggeringTransitionGroup } from './staggering-transition-group.vue';
 export { default as Layout } from './layouts/layout.vue';
 
@@ -27,7 +27,7 @@ export * from './decorators/bus.decorators';
 export * from './decorators/debounce.decorators';
 export * from './decorators/injection.decorators';
 export * from './decorators/store.decorators';
-export * from './search-items-injection.mixin';
+export * from './items-list-injection.mixin';
 export * from './x-component.mixin';
 export * from './x-component.types';
 export * from './x-component.utils';

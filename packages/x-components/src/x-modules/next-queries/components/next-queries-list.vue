@@ -7,11 +7,11 @@
         @binding {Vue | string} animation - Animation to animate the elements.
     -->
     <slot v-bind="{ items, animation }">
-      <SearchItemsList :animation="animation" :searchItems="items">
-        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ searchItem }">
-          <slot :name="slotName" :searchItem="searchItem" />
+      <ItemsList :animation="animation" :items="items">
+        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ item }">
+          <slot :name="slotName" :item="item" />
         </template>
-      </SearchItemsList>
+      </ItemsList>
     </slot>
   </NoElement>
 </template>
@@ -22,17 +22,17 @@
   import { Component, Prop } from 'vue-property-decorator';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { NoElement } from '../../../components/no-element';
-  import { SearchItemsInjectionMixin } from '../../../components/search-items-injection.mixin';
-  import SearchItemsList from '../../../components/search-items-list.vue';
+  import { ItemsListInjectionMixin } from '../../../components/items-list-injection.mixin';
+  import ItemsList from '../../../components/items-list.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { groupItemsBy, SearchItem } from '../../../utils';
+  import { groupItemsBy, ListItem } from '../../../utils';
   import ResultsList from '../../search/components/results-list.vue';
   import { nextQueriesXModule } from '../x-module';
 
   /**
    * A list of next queries.
    */
-  interface NextQueriesGroup extends SearchItem {
+  interface NextQueriesGroup extends ListItem {
     modelName: 'NextQueriesGroup';
     nextQueries: NextQuery[];
   }
@@ -47,11 +47,11 @@
     components: {
       ResultsList,
       NoElement,
-      SearchItemsList
+      ItemsList
     },
     mixins: [xComponentMixin(nextQueriesXModule)]
   })
-  export default class NextQueriesList extends mixins(SearchItemsInjectionMixin) {
+  export default class NextQueriesList extends mixins(ItemsListInjectionMixin) {
     /**
      * Animation component that will be used to animate the next queries groups.
      *
@@ -121,25 +121,25 @@
     }
 
     /**
-     * New list of {@link SearchItem}s to render.
+     * New list of {@link ListItem}s to render.
      *
-     * @returns The new list of {@link SearchItem}s with the next queries groups inserted.
+     * @returns The new list of {@link ListItem}s with the next queries groups inserted.
      * @internal
      */
-    public override get items(): SearchItem[] {
-      if (!this.injectedSearchItems) {
+    public override get items(): ListItem[] {
+      if (!this.injectedListItems) {
         return this.nextQueriesGroups;
       }
 
       return this.nextQueriesGroups.reduce(
-        (searchItems, nextQueriesGroup, index) => {
+        (items, nextQueriesGroup, index) => {
           const targetIndex = this.offset + this.frequency * index;
-          if (targetIndex <= searchItems.length) {
-            searchItems.splice(targetIndex, 0, nextQueriesGroup);
+          if (targetIndex <= items.length) {
+            items.splice(targetIndex, 0, nextQueriesGroup);
           }
-          return searchItems;
+          return items;
         },
-        [...this.injectedSearchItems]
+        [...this.injectedListItems]
       );
     }
   }

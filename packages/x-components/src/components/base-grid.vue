@@ -33,9 +33,9 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { toKebabCase } from '../utils/string';
-  import { SearchItem, VueCSSClasses } from '../utils/types';
+  import { ListItem, VueCSSClasses } from '../utils/types';
   import { XInject } from './decorators/injection.decorators';
-  import { SEARCH_ITEMS_KEY } from './decorators/injection.consts';
+  import { LIST_ITEMS_KEY } from './decorators/injection.consts';
 
   /**
    * Grid component that is able to render different items based on their modelName value. In order
@@ -74,15 +74,15 @@
      * @public
      */
     @Prop()
-    protected items!: SearchItem[];
+    protected items!: ListItem[];
 
     /**
-     * It injects {@link SearchItem} provided by an ancestor.
+     * It injects {@link ListItem} provided by an ancestor.
      *
      * @internal
      */
-    @XInject(SEARCH_ITEMS_KEY)
-    public injectedSearchItems!: SearchItem[];
+    @XInject(LIST_ITEMS_KEY)
+    public injectedListItems!: ListItem[];
 
     /**
      * It returns the items passed as props or the injected ones.
@@ -91,10 +91,10 @@
      *
      * @public
      */
-    protected get computedItems(): SearchItem[] {
+    protected get computedItems(): ListItem[] {
       return (
         this.items ??
-        this.injectedSearchItems ??
+        this.injectedListItems ??
         //TODO: add here logger
         //eslint-disable-next-line no-console
         console.warn('It is necessary to pass a prop or inject the list of filters')
@@ -137,7 +137,7 @@
      * @internal
      */
     protected get itemsWithCSSClass(): {
-      item: SearchItem;
+      item: ListItem;
       cssClass: VueCSSClasses;
     }[] {
       return this.computedItems.map(item => ({

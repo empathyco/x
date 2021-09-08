@@ -1,17 +1,17 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { SearchItem } from '../utils/types';
+import { ListItem } from '../utils/types';
 import { XInject, XProvide } from './decorators/injection.decorators';
-import { SEARCH_ITEMS_KEY } from './decorators/injection.consts';
+import { LIST_ITEMS_KEY } from './decorators/injection.consts';
 
 /**
  * Mixin to facilitate providing and injecting a list of search items. Injected list is
- * available at `injectedSearchItems`, and the provided list should be stored in `items`.
+ * available at `injectedListItems`, and the provided list should be stored in `items`.
  *
  * @public
  */
 @Component
-export class SearchItemsInjectionMixin extends Vue {
+export class ItemsListInjectionMixin extends Vue {
   /**
    * The search items of the entity that uses the mixin from the state.
    *
@@ -20,7 +20,7 @@ export class SearchItemsInjectionMixin extends Vue {
    *
    * @internal
    */
-  protected stateItems!: SearchItem[];
+  protected stateItems!: ListItem[];
 
   /**
    * The computed search items of the entity that uses the mixin.
@@ -30,16 +30,16 @@ export class SearchItemsInjectionMixin extends Vue {
    * @returns An empty array as fallback in case it is not overridden.
    * @internal
    */
-  @XProvide(SEARCH_ITEMS_KEY)
-  public get items(): SearchItem[] {
+  @XProvide(LIST_ITEMS_KEY)
+  public get items(): ListItem[] {
     return [];
   }
 
   /**
-   * It injects {@link SearchItem} provided by an ancestor as injectedItems.
+   * It injects {@link ListItem} provided by an ancestor as injectedListItems.
    *
    * @internal
    */
-  @XInject(SEARCH_ITEMS_KEY)
-  public injectedSearchItems: SearchItem[] | undefined;
+  @XInject(LIST_ITEMS_KEY)
+  public injectedListItems: ListItem[] | undefined;
 }

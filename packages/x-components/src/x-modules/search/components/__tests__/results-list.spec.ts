@@ -8,12 +8,12 @@ import BaseGrid from '../../../../components/base-grid.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial, Dictionary, SearchItem } from '../../../../utils/types';
+import { DeepPartial, Dictionary, ListItem } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import ResultsList from '../results-list.vue';
 import { InfiniteScroll } from '../../../../directives/infinite-scroll/infinite-scroll.types';
 import { XInject } from '../../../../components/decorators/injection.decorators';
-import { SEARCH_ITEMS_KEY } from '../../../../components/decorators/injection.consts';
+import { LIST_ITEMS_KEY } from '../../../../components/decorators/injection.consts';
 import { resetXSearchStateWith } from './utils';
 
 /**
@@ -88,8 +88,8 @@ describe('testing Results list component', () => {
     const { wrapper, getResults } = renderResultsList({
       template: `
         <ResultsList>
-          <template #result="{ searchItem }">
-            <p data-test="result-slot-overridden">Custom result: {{ searchItem.name }}</p>
+          <template #result="{ item }">
+            <p data-test="result-slot-overridden">Custom result: {{ item.name }}</p>
           </template>
         </ResultsList>`
     });
@@ -127,15 +127,15 @@ describe('testing Results list component', () => {
     expect(listener).toHaveBeenCalledTimes(1);
   });
 
-  it('provides the results from state with the key `searchItem`', () => {
+  it('provides the results from state with the key `item`', () => {
     @Component({
       template: `
         <div>{{ items[0].id }}</div>
       `
     })
     class Child extends Vue {
-      @XInject(SEARCH_ITEMS_KEY)
-      public items!: SearchItem[];
+      @XInject(LIST_ITEMS_KEY)
+      public items!: ListItem[];
     }
 
     const { wrapper, getResults } = renderResultsList({

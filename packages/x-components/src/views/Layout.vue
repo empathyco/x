@@ -194,29 +194,31 @@
           <ResultsList v-infinite-scroll:body-scroll>
             <BannersList>
               <PromotedsList>
-                <BaseVariableColumnGrid :animation="resultsAnimation">
-                  <template #Result="{ item: result }">
-                    <article class="result" style="max-width: 300px">
-                      <BaseResultImage :result="result" class="x-picture--colored">
-                        <template #placeholder>
-                          <div style="padding-top: 100%; background-color: lightgray"></div>
-                        </template>
-                        <template #fallback>
-                          <div style="padding-top: 100%; background-color: lightsalmon"></div>
-                        </template>
-                      </BaseResultImage>
-                      <h1 class="x-title3">{{ result.name }}</h1>
-                    </article>
-                  </template>
+                <NextQueriesList>
+                  <BaseVariableColumnGrid :animation="resultsAnimation">
+                    <template #Result="{ item: result }">
+                      <article class="result" style="max-width: 300px">
+                        <BaseResultImage :result="result" class="x-picture--colored">
+                          <template #placeholder>
+                            <div style="padding-top: 100%; background-color: lightgray"></div>
+                          </template>
+                          <template #fallback>
+                            <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                          </template>
+                        </BaseResultImage>
+                        <h1 class="x-title3">{{ result.name }}</h1>
+                      </article>
+                    </template>
 
-                  <template #Banner="{ item: banner }">
-                    <Banner :banner="banner" />
-                  </template>
+                    <template #Banner="{ item: banner }">
+                      <Banner :banner="banner" />
+                    </template>
 
-                  <template #Promoted="{ item: promoted }">
-                    <Promoted :promoted="promoted" />
-                  </template>
-                </BaseVariableColumnGrid>
+                    <template #Promoted="{ item: promoted }">
+                      <Promoted :promoted="promoted" />
+                    </template>
+                  </BaseVariableColumnGrid>
+                </NextQueriesList>
               </PromotedsList>
             </BannersList>
           </ResultsList>
@@ -278,6 +280,7 @@
   import { FilterEntityFactory } from '../x-modules/facets/entities/filter-entity.factory';
   import { SingleSelectModifier } from '../x-modules/facets/entities/single-select.modifier';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
+  import NextQueriesList from '../x-modules/next-queries/components/next-queries-list.vue';
   import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
   import PopularSearches from '../x-modules/popular-searches/components/popular-searches.vue';
   import QuerySuggestions from '../x-modules/query-suggestions/components/query-suggestions.vue';
@@ -311,6 +314,7 @@
       infiniteScroll
     },
     components: {
+      NextQueriesList,
       HierarchicalFilter,
       ClearFilters,
       SortedFilters,

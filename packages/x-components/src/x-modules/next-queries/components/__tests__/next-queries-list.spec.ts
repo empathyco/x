@@ -4,10 +4,10 @@ import Vue, { ComponentOptions, VueConstructor } from 'vue';
 import Vuex, { Store } from 'vuex';
 import { createNextQueryStub } from '../../../../__stubs__/next-queries-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
-import { SearchItemsInjectionMixin } from '../../../../components/search-items-injection.mixin';
+import { ItemsListInjectionMixin } from '../../../../components/items-list-injection.mixin';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial, Dictionary, SearchItem } from '../../../../utils/types';
+import { DeepPartial, Dictionary, ListItem } from '../../../../utils/types';
 import { nextQueriesXModule } from '../../x-module';
 import NextQueriesList from '../next-queries-list.vue';
 import { resetXNextQueriesStateWith } from './utils';
@@ -21,9 +21,9 @@ import { resetXNextQueriesStateWith } from './utils';
 function renderNextQueriesList({
   template = `
     <NextQueriesList v-bind="$attrs">
-     <template #next-queries-group="{ searchItem }">
+     <template #next-queries-group="{ item }">
         <ul class="next-queries-group">
-          <li v-for="nextQuery in searchItem.nextQueries" class="next-query">{{
+          <li v-for="nextQuery in item.nextQueries" class="next-query">{{
            nextQuery.query
           }}</li>
         </ul>
@@ -47,7 +47,7 @@ function renderNextQueriesList({
         NextQueriesList,
         ...components
       },
-      mixins: [SearchItemsInjectionMixin],
+      mixins: [ItemsListInjectionMixin],
       computed: {
         items() {
           return extraItems;
@@ -80,19 +80,19 @@ function renderNextQueriesList({
     getNextQueryWrappers(root = nextQueriesListWrapper) {
       return root.findAll('.next-query');
     },
-    getSearchItemsRenderedText() {
+    getItemsRenderedText() {
       return getSearchItemWrappers().wrappers.map(wrapper => wrapper.text());
     }
   };
 }
 
 /**
- * Creates a list of {@link SearchItem} of the given length.
+ * Creates a list of {@link ListItem} of the given length.
  *
  * @param length - The length of the list to create.
- * @returns A list of simple {@link SearchItem}s.
+ * @returns A list of simple {@link ListItem}s.
  */
-function createExtraItems(length: number): SearchItem[] {
+function createExtraItems(length: number): ListItem[] {
   return Array.from({ length }, (_, index) => ({
     id: `Extra ${index}`,
     modelName: `ExtraItem`
@@ -145,7 +145,7 @@ describe('testing NextQueriesList component', () => {
       'flank steak' // This one should be ignored as there is no room for it.
     );
     const extraItems = createExtraItems(11);
-    const { getSearchItemsRenderedText } = renderNextQueriesList({
+    const { getItemsRenderedText } = renderNextQueriesList({
       nextQueries,
       extraItems,
       maxNextQueriesPerGroup: 2,
@@ -154,7 +154,7 @@ describe('testing NextQueriesList component', () => {
     });
 
     // 11 extra items + 4 groups of NQs at index 4, 7, 10, 13
-    expect(getSearchItemsRenderedText()).toEqual([
+    expect(getItemsRenderedText()).toEqual([
       extraItems[0].id,
       extraItems[1].id,
       extraItems[2].id,
@@ -183,7 +183,7 @@ describe('testing NextQueriesList component', () => {
       'dark-rum' // Should be ignored because maxGroups: 2
     );
     const extraItems = createExtraItems(10);
-    const { getSearchItemsRenderedText } = renderNextQueriesList({
+    const { getItemsRenderedText } = renderNextQueriesList({
       nextQueries,
       extraItems,
       maxNextQueriesPerGroup: 2,
@@ -193,7 +193,7 @@ describe('testing NextQueriesList component', () => {
     });
 
     // 10 extra items + 2 groups of NQs at index 4, 7
-    expect(getSearchItemsRenderedText()).toEqual([
+    expect(getItemsRenderedText()).toEqual([
       extraItems[0].id,
       extraItems[1].id,
       extraItems[2].id,
@@ -212,7 +212,7 @@ describe('testing NextQueriesList component', () => {
   it('renders a group even if it has not enough next queries', () => {
     const nextQueries = createNextQueries('piña colada');
     const extraItems = createExtraItems(4);
-    const { getSearchItemsRenderedText } = renderNextQueriesList({
+    const { getItemsRenderedText } = renderNextQueriesList({
       nextQueries,
       extraItems,
       maxNextQueriesPerGroup: 4,
@@ -220,7 +220,7 @@ describe('testing NextQueriesList component', () => {
     });
 
     // 4 extra items + 1 groups of NQs at index 2
-    expect(getSearchItemsRenderedText()).toEqual([
+    expect(getItemsRenderedText()).toEqual([
       extraItems[0].id,
       extraItems[1].id,
       'piña colada',
@@ -231,10 +231,10 @@ describe('testing NextQueriesList component', () => {
 
   it('provides the modified list of search items', () => {
     const CustomList: ComponentOptions<Vue> = {
-      mixins: [SearchItemsInjectionMixin],
+      mixins: [ItemsListInjectionMixin],
       template: `
         <ul>
-        <li class="search-item" v-for="item in injectedSearchItems">{{ item.id }}</li>
+        <li class="search-item" v-for="item in injectedListItems">{{ item.id }}</li>
         </ul>`
     };
     const nextQueries = createNextQueries('rib chop', 'shoulder steak');
@@ -252,11 +252,11 @@ describe('testing NextQueriesList component', () => {
       offset: 2
     });
 
-    const customSearchItemsRenderedText = wrapper
+    const customItemsRenderedText = wrapper
       .findAll('.search-item')
       .wrappers.map(wrapper => wrapper.text());
 
-    expect(customSearchItemsRenderedText).toEqual([
+    expect(customItemsRenderedText).toEqual([
       extraItems[0].id,
       extraItems[1].id,
       'rib chop',
@@ -271,7 +271,7 @@ interface RenderNextQueriesListOptions {
   /** Extra components to be registered and rendered. */
   components?: Dictionary<VueConstructor | ComponentOptions<Vue>>;
   /** Extra items to be rendered. */
-  extraItems?: SearchItem[];
+  extraItems?: ListItem[];
   /** Indicates the cycle size to insert next queries group at. */
   frequency?: number;
   /** The maximum number of groups to add to the search items list. */
@@ -294,7 +294,7 @@ interface RenderNextQueriesListAPI {
   /** Retrieves the wrappers of the search items. */
   getSearchItemWrappers: () => WrapperArray<Vue>;
   /** Retrieves rendered text for each DOM search item. */
-  getSearchItemsRenderedText: () => string[];
+  getItemsRenderedText: () => string[];
   /** The `wrapper` wrapper component. */
   wrapper: Wrapper<Vue>;
 }

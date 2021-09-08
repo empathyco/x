@@ -378,7 +378,7 @@
   import BaseResultLink from '../components/result/base-result-link.vue';
   import BaseResultImage from '../components/result/base-result-image.vue';
   import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
-  import { Dictionary, SearchItem } from '../utils/types';
+  import { Dictionary, ListItem } from '../utils/types';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
   import SelectedFiltersList from '../x-modules/facets/components/lists/selected-filters-list.vue';
   import SortedFilters from '../x-modules/facets/components/lists/sorted-filters.vue';
@@ -507,7 +507,7 @@
     @State('recommendations', 'recommendations')
     public recommendations!: Result[];
 
-    protected get gridItems(): SearchItem[] {
+    protected get gridItems(): ListItem[] {
       return [...getBannersStub(), ...getPromotedsStub(), ...this.results];
     }
 
