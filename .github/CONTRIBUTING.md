@@ -82,8 +82,8 @@ To suggest any new feature, file a new issue using the [feature request template
 
 Unsure where to start with Interface X? You can start by looking through these `beginner` and `help-wanted` issues:
 
-- [Beginner issues][beginner] - issues that should only require a few lines of code, and a test or two.
-- [Help wanted issues][help-wanted] - issues that are usually a bit more involved than `beginner` issues.
+- [Beginner issues](https://github.com/empathyco/x/labels/good%20first%20issue) - issues that should only require a few lines of code, and a test or two.
+- [Help wanted issues](https://github.com/empathyco/x/labels/help-wanted) - issues that are usually a bit more involved than `beginner` issues.
 
 Both issue lists are sorted by the total number of comments. While not perfect, the number of comments is a reasonable proxy for determining the impact that a given change will have.
 
