@@ -4,13 +4,15 @@
   // layout
   box-sizing: border-box;
   margin: 0;
+  min-width: 0;
   @include safari {
     -webkit-appearance: none;
   }
 
   // size
-  padding-block-start: var(--x-size-padding-top-input-default);
-  padding-block-end: var(--x-size-padding-bottom-input-default);
+  height: var(--x-size-height-input-default);
+  padding-block-start: 0;
+  padding-block-end: 0;
   padding-inline-start: var(--x-size-padding-left-input-default);
   padding-inline-end: var(--x-size-padding-right-input-default);
 

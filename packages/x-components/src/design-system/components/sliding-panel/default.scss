@@ -111,11 +111,11 @@
 
   &__scroll {
     > * {
-      min-width: auto;
+      flex: 0 0 auto;
     }
 
     > .x-list {
-      --x-size-flow-list: row nowrap;
+      --x-string-flow-list: row nowrap;
     }
   }
 }

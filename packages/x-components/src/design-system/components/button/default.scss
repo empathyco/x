@@ -11,8 +11,7 @@
   // spacing
   gap: var(--x-size-gap-button-default);
   @include safari-gap(var(--x-size-gap-button-default));
-  padding-block-start: var(--x-size-padding-top-button-default);
-  padding-block-end: var(--x-size-padding-bottom-button-default);
+  min-height: var(--x-size-height-button-default);
   padding-inline-end: var(--x-size-padding-right-button-default);
   padding-inline-start: var(--x-size-padding-left-button-default);
 
