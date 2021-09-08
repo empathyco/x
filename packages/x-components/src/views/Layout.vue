@@ -219,9 +219,19 @@
                     </template>
 
                     <template #NextQueriesGroup="{ item: { nextQueries } }">
-                      <BaseSuggestions #default="{ suggestion }" :suggestions="nextQueries">
-                        <NextQuery :suggestion="suggestion" />
-                      </BaseSuggestions>
+                      <div class="x-list x-list--gap-03">
+                        <h1 class="x-title2">What's next?</h1>
+                        <BaseSuggestions
+                          #default="{ suggestion }"
+                          :suggestions="nextQueries"
+                          class="x-list--gap-03"
+                        >
+                          <NextQuery #default="{ suggestion: nextQuery }" :suggestion="suggestion">
+                            <Nq1 />
+                            {{ nextQuery.query }}
+                          </NextQuery>
+                        </BaseSuggestions>
+                      </div>
                     </template>
                   </BaseVariableColumnGrid>
                 </NextQueriesList>
@@ -245,7 +255,7 @@
   import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { BaseIdTogglePanelButton } from '../components';
+  import { BaseIdTogglePanelButton, BaseSuggestions } from '../components';
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
   import BaseGrid from '../components/base-grid.vue';
   import BaseVariableColumnGrid from '../components/base-variable-column-grid.vue';
@@ -259,6 +269,7 @@
   import CrossIcon from '../components/icons/cross.vue';
   import Grid1Col from '../components/icons/grid-1-col.vue';
   import Grid2Col from '../components/icons/grid-2-col.vue';
+  import Nq1 from '../components/icons/nq-1.vue';
   import SearchIcon from '../components/icons/search.vue';
   import Layout from '../components/layouts/layout.vue';
   import BaseIdModalClose from '../components/modals/base-id-modal-close.vue';
@@ -270,22 +281,23 @@
   import SlidingPanel from '../components/sliding-panel.vue';
   import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
   import { XInstaller } from '../x-installer/x-installer';
+  import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
   import FacetsProvider from '../x-modules/facets/components/facets/facets-provider.vue';
   import Facets from '../x-modules/facets/components/facets/facets.vue';
   import HierarchicalFilter from '../x-modules/facets/components/filters/hierarchical-filter.vue';
   import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
+  // eslint-disable-next-line max-len
+  import ExcludeFiltersWithNoResults from '../x-modules/facets/components/lists/exclude-filters-with-no-results.vue';
   import FiltersList from '../x-modules/facets/components/lists/filters-list.vue';
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
   // eslint-disable-next-line max-len
   import SelectedFiltersList from '../x-modules/facets/components/lists/selected-filters-list.vue';
   import SlicedFilters from '../x-modules/facets/components/lists/sliced-filters.vue';
-  // eslint-disable-next-line max-len
-  import ExcludeFiltersWithNoResults from '../x-modules/facets/components/lists/exclude-filters-with-no-results.vue';
   import SortedFilters from '../x-modules/facets/components/lists/sorted-filters.vue';
-  import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
   import { FilterEntityFactory } from '../x-modules/facets/entities/filter-entity.factory';
   import { SingleSelectModifier } from '../x-modules/facets/entities/single-select.modifier';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
+  import { NextQuery } from '../x-modules/next-queries';
   import NextQueriesList from '../x-modules/next-queries/components/next-queries-list.vue';
   import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
   import PopularSearches from '../x-modules/popular-searches/components/popular-searches.vue';
@@ -320,56 +332,59 @@
       infiniteScroll
     },
     components: {
-      NextQueriesList,
-      HierarchicalFilter,
-      ClearFilters,
-      SortedFilters,
-      ExcludeFiltersWithNoResults,
-      FiltersSearch,
-      SlicedFilters,
-      SelectedFiltersList,
-      FiltersList,
-      ChevronUp,
-      Promoted,
-      PromotedsList,
+      Nq1,
       Banner,
       BannersList,
-      BaseIdTogglePanelButton,
-      BaseScrollToTop,
-      ChevronDown,
-      ChevronRight,
-      ChevronLeft,
-      ChevronTinyRight,
-      ChevronTinyLeft,
-      Facets,
-      FacetsProvider,
-      Grid2Col,
-      Grid1Col,
-      CrossIcon,
-      SearchIcon,
-      NextQueries,
-      QuerySuggestions,
-      HistoryQueries,
-      RelatedTags,
-      SlidingPanel,
-      Recommendations,
-      BaseResultImage,
-      BaseVariableColumnGrid,
-      BaseGrid,
-      ResultsList,
-      SortList,
       BaseColumnPickerList,
-      SortDropdown,
-      SimpleFilter,
+      BaseGrid,
       BaseHeaderTogglePanel,
-      SearchButton,
-      ClearSearchInput,
+      BaseIdModal,
       BaseIdModalClose,
       BaseIdModalOpen,
-      BaseIdModal,
-      SearchInput,
+      BaseIdTogglePanelButton,
+      BaseResultImage,
+      BaseScrollToTop,
+      BaseSuggestions,
+      BaseVariableColumnGrid,
+      ChevronDown,
+      ChevronLeft,
+      ChevronRight,
+      ChevronTinyLeft,
+      ChevronTinyRight,
+      ChevronUp,
+      ClearFilters,
+      ClearSearchInput,
+      CrossIcon,
+      ExcludeFiltersWithNoResults,
+      Facets,
+      FacetsProvider,
+      FiltersList,
+      FiltersSearch,
+      Grid1Col,
+      Grid2Col,
+      HierarchicalFilter,
+      HistoryQueries,
+      Layout,
+      NextQueries,
+      NextQueriesList,
+      NextQuery,
       PopularSearches,
-      Layout
+      Promoted,
+      PromotedsList,
+      QuerySuggestions,
+      Recommendations,
+      RelatedTags,
+      ResultsList,
+      SearchButton,
+      SearchIcon,
+      SearchInput,
+      SelectedFiltersList,
+      SimpleFilter,
+      SlicedFilters,
+      SlidingPanel,
+      SortDropdown,
+      SortList,
+      SortedFilters
     }
   })
   export default class App extends Vue {
