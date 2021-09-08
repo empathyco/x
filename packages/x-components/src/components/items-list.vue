@@ -4,18 +4,18 @@
     v-if="items.length"
     tag="ul"
     class="x-search-items-list"
-    data-test="search-items-list"
+    data-test="items-list"
   >
     <li
       v-for="item in computedItems"
       :key="item.id"
-      class="x-search-items-list__item"
+      class="x-items-list__item"
       :class="item.class"
       :data-test="item.dataTest"
     >
       <!--
         @slot Customized Search items list search item.
-          @binding {SearchItem} item - Search item data.
+          @binding {ListItem} item - Item data.
       -->
       <slot :item="item" :name="item.slotName">{{ item.id }}</slot>
     </li>
@@ -53,7 +53,7 @@
     protected items!: ListItem[];
 
     /**
-     * The list of the search items with additional properties.
+     * The list of the items with additional properties.
      *
      * @returns A list of search items with `dataTest`, `class` and the `slotName` for each item.
      *
