@@ -7,7 +7,7 @@ import { UrlXStoreModule } from '../types';
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
  *
- * @public
+ * @internal
  */
 export const updateUrl: UrlXStoreModule['actions']['updateUrl'] = ({
   getters: { urlParams },
