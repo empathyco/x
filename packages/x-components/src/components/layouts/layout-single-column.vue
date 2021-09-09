@@ -30,12 +30,12 @@
     </div>
 
     <main v-if="hasContent('main')" class="x-layout__main x-list x-list--vertical">
-      <BaseScroll id="main-scroll">
+      <BaseIdScroll id="main-scroll">
         <!-- @slot Slot that is be used for insert content into the Main. -->
         <slot name="main">
           <span v-if="devMode" class="slot-helper">MAIN</span>
         </slot>
-      </BaseScroll>
+      </BaseIdScroll>
     </main>
 
     <div v-if="hasContent('floating')" class="x-layout__floating x-list x-list--horizontal">
@@ -71,6 +71,7 @@
   import { Component, Prop } from 'vue-property-decorator';
   import BaseIdModal from '../modals/base-id-modal.vue';
   import TranslateFromRight from '../animations/translate-from-right.vue';
+  import BaseIdScroll from '../scroll/base-id-scroll.vue';
   import BaseScroll from '../scroll/base-scroll.vue';
 
   /**
@@ -79,7 +80,7 @@
    * @public
    */
   @Component({
-    components: { BaseScroll, BaseIdModal }
+    components: { BaseIdScroll, BaseScroll, BaseIdModal }
   })
   export default class LayoutS extends Vue {
     /**
