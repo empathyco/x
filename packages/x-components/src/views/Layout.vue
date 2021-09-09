@@ -2,7 +2,7 @@
   <div>
     <BaseIdModalOpen modal-id="x-app">Start</BaseIdModalOpen>
     <BaseIdModal modal-id="x-app">
-      <Layout>
+      <MultiColumnMaxWidthLayout>
         <template #header-middle>
           <div
             class="
@@ -250,7 +250,7 @@
             <ChevronUp />
           </BaseScrollToTop>
         </template>
-      </Layout>
+      </MultiColumnMaxWidthLayout>
     </BaseIdModal>
   </div>
 </template>
@@ -277,7 +277,7 @@
   import Grid2Col from '../components/icons/grid-2-col.vue';
   import Nq1 from '../components/icons/nq-1.vue';
   import SearchIcon from '../components/icons/search.vue';
-  import Layout from '../components/layouts/layout-columns.vue';
+  import MultiColumnMaxWidthLayout from '../components/layouts/multi-column-max-width-layout.vue';
   import BaseIdModalClose from '../components/modals/base-id-modal-close.vue';
   import BaseIdModalOpen from '../components/modals/base-id-modal-open.vue';
   import BaseIdModal from '../components/modals/base-id-modal.vue';
@@ -361,6 +361,7 @@
       ChevronUp,
       ClearFilters,
       ClearSearchInput,
+      MultiColumnMaxWidthLayout,
       CrossIcon,
       Empathize,
       ExcludeFiltersWithNoResults,
@@ -372,7 +373,6 @@
       Grid2Col,
       HierarchicalFilter,
       HistoryQueries,
-      Layout,
       NextQueries,
       NextQueriesList,
       NextQuery,

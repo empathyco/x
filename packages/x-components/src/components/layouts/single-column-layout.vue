@@ -82,7 +82,7 @@
   @Component({
     components: { BaseIdScroll, BaseScroll, BaseIdModal }
   })
-  export default class LayoutS extends Vue {
+  export default class SingleColumnLayout extends Vue {
     /**
      * Enables the devMode, which shows the available slots to use with its names.
      *

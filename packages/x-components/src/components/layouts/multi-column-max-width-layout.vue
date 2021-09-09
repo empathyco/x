@@ -102,7 +102,7 @@
   @Component({
     components: { BaseIdTogglePanel, BaseIdScroll }
   })
-  export default class ColumnsLayout extends Vue {
+  export default class MultiColumnMaxWidthLayout extends Vue {
     /**
      * Enables the devMode, which shows the available slots to use with its names.
      *
