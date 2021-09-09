@@ -6,21 +6,21 @@
   >
     <header class="x-layout__header">
       <div v-if="hasContent('header-start')" class="x-list x-layout__header-start">
-        <!-- @slot Slot that is be used for insert content into the Header Left. -->
+        <!-- @slot Slot that can be used to insert content into the left part of the header. -->
         <slot name="header-start">
           <span v-if="devMode" class="slot-helper">HEADER START</span>
         </slot>
       </div>
 
       <div v-if="hasContent('header-middle')" class="x-list x-layout__header-middle">
-        <!-- @slot Slot that is be used for insert content into the Header Middle. -->
+        <!-- @slot Slot that can be used to insert content into the center part of the header. -->
         <slot name="header-middle">
           <span v-if="devMode" class="slot-helper">HEADER MIDDLE</span>
         </slot>
       </div>
 
       <div v-if="hasContent('header-end')" class="x-list x-layout__header-end">
-        <!-- @slot Slot that is be used for insert content into the Header Right. -->
+        <!-- @slot Slot that can be used to insert content into the right part of the header. -->
         <slot name="header-end">
           <span v-if="devMode" class="slot-helper">HEADER END</span>
         </slot>
@@ -29,7 +29,7 @@
 
     <div v-if="hasContent('sub-header')" class="x-layout__sub-header">
       <div class="x-layout__sub-header-content">
-        <!-- @slot Slot that is be used for insert content into the Sub Header. -->
+        <!-- @slot Slot that can be used to insert content into below the header. -->
         <slot name="sub-header">
           <span v-if="devMode" class="slot-helper">SUB HEADER</span>
         </slot>
@@ -39,13 +39,13 @@
     <section v-if="hasContent('toolbar-aside', 'toolbar-body')" class="x-layout__toolbar">
       <aside class="x-list x-layout__toolbar-aside">
         <slot name="toolbar-aside">
-          <!-- @slot Slot that is be used for insert content into the Toolbar Aside. -->
+          <!-- @slot Slot that can be used to insert content above the left aside. -->
           <span v-if="devMode" class="slot-helper">TOOLBAR ASIDE</span>
         </slot>
       </aside>
 
       <div class="x-list x-layout__toolbar-body">
-        <!-- @slot Slot that is be used for insert content into the Toolbar Body. -->
+        <!-- @slot Slot that can be used to insert content above the body. -->
         <slot name="toolbar-body">
           <span v-if="devMode" class="slot-helper">TOOLBAR BODY</span>
         </slot>
@@ -61,7 +61,7 @@
       >
         <BaseIdScroll id="aside-scroll" class="x-layout__aside-scroll">
           <div class="x-layout__main-aside x-list x-list--vertical">
-            <!-- @slot Slot that is be used for insert content into the Main Aside. -->
+            <!-- @slot Slot that can be used to insert content into the left side bar. -->
             <slot name="main-aside">
               <span v-if="devMode" class="slot-helper" style="height: 110vh">MAIN ASIDE</span>
             </slot>
@@ -71,7 +71,7 @@
 
       <BaseIdScroll v-if="hasContent('main-body')" id="main-scroll" class="x-layout__body-scroll">
         <section class="x-layout__main-body x-list x-list--vertical">
-          <!-- @slot Slot that is be used for insert content into the Main Body. -->
+          <!-- @slot Slot that can be used to insert the body content. -->
           <slot name="main-body">
             <span v-if="devMode" class="slot-helper" style="height: 110vh">MAIN BODY</span>
           </slot>

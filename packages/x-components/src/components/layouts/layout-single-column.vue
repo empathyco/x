@@ -1,20 +1,20 @@
 <template>
   <div class="x-layout x-layout--single-column" :class="{ 'dev-mode': devMode }">
     <header v-if="hasContent('header')" class="x-layout__header x-list x-list--horizontal">
-      <!-- @slot Slot that is be used for insert content into the Header. -->
+      <!-- @slot Slot that is used to insert content into the Header. -->
       <slot name="header">
         <span v-if="devMode" class="slot-helper">HEADER</span>
       </slot>
     </header>
     <div v-if="hasContent('sub-header')" class="x-layout__sub-header x-list x-list--horizontal">
-      <!-- @slot Slot that is be used for insert content into the Sub Header. -->
+      <!-- @slot Slot that can be used to insert content into the Sub Header. -->
       <slot name="sub-header">
         <span v-if="devMode" class="slot-helper">SUB HEADER</span>
       </slot>
     </div>
 
     <div v-if="hasContent('toolbar')" class="x-layout__toolbar x-list x-list--horizontal">
-      <!-- @slot Slot that is be used for insert content into the Toolbar. -->
+      <!-- @slot Slot that can be used to insert content into the Toolbar. -->
       <slot name="toolbar">
         <span v-if="devMode" class="slot-helper">TOOLBAR</span>
       </slot>
@@ -22,7 +22,7 @@
 
     <div v-if="hasContent('predictive')" class="x-layout__predictive x-list x-list--vertical">
       <BaseScroll>
-        <!-- @slot Slot that is be used for insert content into the Predictive Layer. -->
+        <!-- @slot Slot that can be used to insert content into the Predictive Layer. -->
         <slot name="predictive">
           <span v-if="devMode" class="slot-helper">PREDICTIVE</span>
         </slot>
@@ -31,7 +31,7 @@
 
     <main v-if="hasContent('main')" class="x-layout__main x-list x-list--vertical">
       <BaseIdScroll id="main-scroll">
-        <!-- @slot Slot that is be used for insert content into the Main. -->
+        <!-- @slot Slot that can be used to insert content into the Main. -->
         <slot name="main">
           <span v-if="devMode" class="slot-helper">MAIN</span>
         </slot>
@@ -39,14 +39,14 @@
     </main>
 
     <div v-if="hasContent('floating')" class="x-layout__floating x-list x-list--horizontal">
-      <!-- @slot Slot that is be used for insert content into the Floating. -->
+      <!-- @slot Slot that can be used to insert content into the Floating. -->
       <slot name="floating">
         <span v-if="devMode" class="slot-helper">FLOATING</span>
       </slot>
     </div>
 
     <footer v-if="hasContent('footer')" class="x-layout__footer x-list x-list--horizontal">
-      <!-- @slot Slot that is be used for insert content into the Footer. -->
+      <!-- @slot Slot that can be used to insert content into the Footer. -->
       <slot name="footer">
         <span v-if="devMode" class="slot-helper">FOOTER</span>
       </slot>
@@ -58,7 +58,7 @@
       modalId="aside-modal"
       class="x-layout__aside"
     >
-      <!-- @slot Slot that is be used for insert content into the Aside. -->
+      <!-- @slot Slot that can be used to insert content into the Aside. -->
       <slot name="aside">
         <span v-if="devMode" class="slot-helper">ASIDE</span>
       </slot>
