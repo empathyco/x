@@ -46,6 +46,9 @@ export type UrlParamValue = string | number | boolean | Array<string | number | 
  */
 export interface UrlMutations {
   setUrlConfig(config: UrlConfig): void;
+  setQuery(query: string): void;
+  setRelatedTags(relatedTags: string[]): void;
+  setExtraParams(extraParam: Record<string, string>): void;
 }
 
 /**
@@ -61,6 +64,12 @@ export interface UrlActions {
    * @public
    */
   updateUrl(): void;
+  /**
+   * Updates the store with values from the URL.
+   *
+   * @public
+   */
+  updateStoreFromUrl(): void;
 }
 
 /**

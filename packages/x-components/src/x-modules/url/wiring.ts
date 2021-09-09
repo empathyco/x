@@ -1,4 +1,7 @@
-import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
+import {
+  namespacedWireCommit,
+  namespacedWireDispatch
+} from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
@@ -7,6 +10,7 @@ import { createWiring } from '../../wiring/wiring.utils';
  * @internal
  */
 const wireCommit = namespacedWireCommit('url');
+const wireDispatch = namespacedWireDispatch('url');
 
 /**
  * Sets the URL config.
@@ -14,6 +18,8 @@ const wireCommit = namespacedWireCommit('url');
  * @public
  */
 export const setUrlConfigWire = wireCommit('setUrlConfig');
+
+export const updateStore = wireDispatch('updateStoreFromUrl');
 
 /**
  * Wiring configuration for the {@link UrlXModule | url module}.
@@ -23,5 +29,8 @@ export const setUrlConfigWire = wireCommit('setUrlConfig');
 export const urlWiring = createWiring({
   UrlConfigProvided: {
     setUrlConfigWire
+  },
+  EmpathizeOpened: {
+    updateStore
   }
 });

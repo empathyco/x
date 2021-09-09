@@ -1,6 +1,7 @@
 import { UrlXStoreModule } from './types';
 import { urlParams } from './getters/url-params.getter';
 import { updateUrl } from './actions/update-url.action';
+import { updateStoreFromUrl } from './actions/update-store-from-url.action';
 
 /**
  * {@link XStoreModule} For the URL module.
@@ -10,14 +11,20 @@ import { updateUrl } from './actions/update-url.action';
 export const urlXStoreModule: UrlXStoreModule = {
   state: () => ({
     config: {
-      urlParamNames: {}
+      urlParamNames: {
+        query: 'ebq',
+        relatedTags: 'tag'
+      }
     },
     query: '',
-    page: 1,
+    page: 2,
     filters: [],
     sort: '',
     relatedTags: [],
-    extraParams: {}
+    extraParams: {
+      patata: '',
+      store: ''
+    }
   }),
   getters: {
     urlParams
@@ -25,9 +32,19 @@ export const urlXStoreModule: UrlXStoreModule = {
   mutations: {
     setUrlConfig(state, urlConfig) {
       state.config = urlConfig;
+    },
+    setQuery(state, query) {
+      state.query = query;
+    },
+    setRelatedTags(state, relatedTags) {
+      state.relatedTags = relatedTags;
+    },
+    setExtraParams(state, extraParam) {
+      state.extraParams = { ...state.extraParams, ...extraParam };
     }
   },
   actions: {
-    updateUrl
+    updateUrl,
+    updateStoreFromUrl
   }
 };
