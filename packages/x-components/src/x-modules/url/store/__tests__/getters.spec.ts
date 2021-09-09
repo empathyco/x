@@ -20,27 +20,19 @@ describe('testing URL module getters', () => {
     it('re-maps values using the config', () => {
       const store = createUrlStore({
         query: 'salmorejo',
-        filters: ['drinks'],
+        filters: [],
         relatedTags: ['with eggs'],
         page: 1,
         sort: 'default',
         extraParams: {
-          warehouse: 12345
-        },
-        config: {
-          urlParamNames: {
-            query: 'q',
-            relatedTags: 'tags',
-            filters: 'filter'
-          }
+          warehouse: 12345,
+          store: ''
         }
       });
 
       expect(store.getters.urlParams).toEqual<UrlGetters['urlParams']>({
-        q: 'salmorejo',
-        filter: ['drinks'],
-        tags: ['with eggs'],
-        page: 1,
+        query: 'salmorejo',
+        relatedTags: ['with eggs'],
         sort: 'default',
         warehouse: 12345
       });
