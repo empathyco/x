@@ -102,7 +102,7 @@
   @Component({
     components: { BaseIdTogglePanel, BaseIdScroll }
   })
-  export default class LayoutL extends Vue {
+  export default class ColumnsLayout extends Vue {
     /**
      * Enables the devMode, which shows the available slots to use with its names.
      *
