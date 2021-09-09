@@ -20,7 +20,8 @@ export { NoElement } from './no-element';
 export { default as SlidingPanel } from './sliding-panel.vue';
 export { default as ItemsList } from './items-list.vue';
 export { default as StaggeringTransitionGroup } from './staggering-transition-group.vue';
-export { default as Layout } from './layouts/layout.vue';
+export { default as LayoutColumns } from './layouts/layout-columns.vue';
+export { default as LayoutSingleColumn } from './layouts/layout-single-column.vue';
 
 // Utils
 export * from './decorators/bus.decorators';

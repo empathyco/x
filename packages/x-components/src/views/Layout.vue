@@ -35,13 +35,18 @@
           </BaseIdModalClose>
         </template>
 
-        <template #empathize>
-          <div class="x-list x-list--horizontal x-list--gap-06">
+        <template #sub-header>
+          <Empathize
+            :animation="empathizeAnimation"
+            class="
+              x-list x-list--horizontal x-list--padding-05 x-list--padding-bottom x-list--gap-06
+            "
+          >
             <PopularSearches max-items-to-render="10" />
             <HistoryQueries max-items-to-render="10" />
             <QuerySuggestions max-items-to-render="10" />
             <NextQueries max-items-to-render="10" />
-          </div>
+          </Empathize>
         </template>
 
         <template #toolbar-aside>
@@ -191,7 +196,7 @@
           </Recommendations>
 
           <!-- Results -->
-          <ResultsList v-infinite-scroll:body-scroll>
+          <ResultsList v-infinite-scroll:main-scroll>
             <BannersList>
               <PromotedsList>
                 <NextQueriesList>
@@ -256,6 +261,7 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { BaseIdTogglePanelButton, BaseSuggestions } from '../components';
+  import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
   import BaseGrid from '../components/base-grid.vue';
   import BaseVariableColumnGrid from '../components/base-variable-column-grid.vue';
@@ -271,7 +277,7 @@
   import Grid2Col from '../components/icons/grid-2-col.vue';
   import Nq1 from '../components/icons/nq-1.vue';
   import SearchIcon from '../components/icons/search.vue';
-  import Layout from '../components/layouts/layout.vue';
+  import Layout from '../components/layouts/layout-columns.vue';
   import BaseIdModalClose from '../components/modals/base-id-modal-close.vue';
   import BaseIdModalOpen from '../components/modals/base-id-modal-open.vue';
   import BaseIdModal from '../components/modals/base-id-modal.vue';
@@ -314,6 +320,7 @@
   import ResultsList from '../x-modules/search/components/results-list.vue';
   import SortDropdown from '../x-modules/search/components/sort-dropdown.vue';
   import SortList from '../x-modules/search/components/sort-list.vue';
+  import Empathize from '../x-modules/empathize/components/empathize.vue';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
@@ -355,6 +362,7 @@
       ClearFilters,
       ClearSearchInput,
       CrossIcon,
+      Empathize,
       ExcludeFiltersWithNoResults,
       Facets,
       FacetsProvider,
@@ -390,6 +398,7 @@
   export default class App extends Vue {
     protected columnPickerValues = [0, 4, 6];
     protected resultsAnimation = StaggeredFadeAndSlide;
+    protected empathizeAnimation = CollapseFromTop;
     protected selectedColumns = 4;
     protected sortValues = ['', 'priceSort asc', 'priceSort desc'];
     protected staticFacets: Facet[] = [
