@@ -31,7 +31,7 @@
 
     <main v-if="hasContent('main')" class="x-layout__main x-list x-list--vertical">
       <BaseScroll id="main-scroll">
-        <!-- @slot Slot that is be used for insert content into the Predictive Layer. -->
+        <!-- @slot Slot that is be used for insert content into the Main. -->
         <slot name="main">
           <span v-if="devMode" class="slot-helper">MAIN</span>
         </slot>
@@ -39,14 +39,14 @@
     </main>
 
     <div v-if="hasContent('floating')" class="x-layout__floating x-list x-list--horizontal">
-      <!-- @slot Slot that is be used for insert content into the Toolbar. -->
+      <!-- @slot Slot that is be used for insert content into the Floating. -->
       <slot name="floating">
         <span v-if="devMode" class="slot-helper">FLOATING</span>
       </slot>
     </div>
 
     <footer v-if="hasContent('footer')" class="x-layout__footer x-list x-list--horizontal">
-      <!-- @slot Slot that is be used for insert content into the Toolbar. -->
+      <!-- @slot Slot that is be used for insert content into the Footer. -->
       <slot name="footer">
         <span v-if="devMode" class="slot-helper">FOOTER</span>
       </slot>
@@ -58,7 +58,7 @@
       modalId="aside-modal"
       class="x-layout__aside"
     >
-      <!-- @slot Slot that is be used for insert content into the Predictive Layer. -->
+      <!-- @slot Slot that is be used for insert content into the Aside. -->
       <slot name="aside">
         <span v-if="devMode" class="slot-helper">ASIDE</span>
       </slot>
