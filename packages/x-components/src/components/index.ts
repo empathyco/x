@@ -26,6 +26,7 @@ export { default as SingleColumnLayout } from './layouts/single-column-layout.vu
 // Utils
 export * from './decorators/bus.decorators';
 export * from './decorators/debounce.decorators';
+export * from './decorators/injection.consts';
 export * from './decorators/injection.decorators';
 export * from './decorators/store.decorators';
 export * from './items-list-injection.mixin';
