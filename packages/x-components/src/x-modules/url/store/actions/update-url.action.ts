@@ -16,6 +16,7 @@ export const updateUrl: UrlXStoreModule['actions']['updateUrl'] = ({
   }
 }) => {
   const url = new URL(window.location.href);
+
   forEach(urlMappedParamNames, (_, value) => {
     url.searchParams.delete(value);
   });

@@ -4,10 +4,13 @@ import { createUrlStore, resetUrlStateWith } from './utils';
 
 describe('testing Url module actions', () => {
   const actionKeys = map(urlXStoreModule.actions, action => action);
+  const store = createUrlStore();
+  beforeEach(() => {
+    window.history.replaceState({}, document.title, window.location.hostname);
+  });
+
   describe(`${actionKeys.updateUrl}`, () => {
     it('should add the correct params to the url', async () => {
-      const store = createUrlStore();
-
       resetUrlStateWith(store, {
         config: {
           urlParamNames: {
@@ -29,8 +32,6 @@ describe('testing Url module actions', () => {
 
     // eslint-disable-next-line max-len
     it('should remove all the parameters from the url that are empty or not valid in the state', async () => {
-      const store = createUrlStore();
-
       resetUrlStateWith(store, {
         page: 2,
         query: 'doramion'
