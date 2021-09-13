@@ -14,9 +14,8 @@ import { URLManager } from '../index';
  * @returns The API for testing the {@link URLManager} component.
  */
 function renderURLManager({ template = `<URLManager />` }: URLManagerOptions = {}): URLManagerAPI {
-  XPlugin.resetInstance();
   const [, localVue] = installNewXPlugin();
-  XPlugin.registerXModule(urlXModule);
+
   const wrapper = mount(
     {
       template,
