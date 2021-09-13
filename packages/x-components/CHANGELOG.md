@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.18...@empathyco/x-components@3.0.0-alpha.19) (2021-09-13)
+
+
+### Bug Fixes
+
+* Fix recommendations `setParams` wire. Export `LIST_ITEMS_KEY`. ([6262d80](https://github.com/empathyco/x/commit/6262d8076941847900a9f577a6588547e4fb703c)), closes [EX-4724](https://searchbroker.atlassian.net/browse/EX-4724)
+
+
+
 ## [3.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.17...@empathyco/x-components@3.0.0-alpha.18) (2021-09-10)
 
 
