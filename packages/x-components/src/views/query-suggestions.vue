@@ -35,7 +35,6 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { deepMerge } from '@empathyco/x-deep-merge';
-  import { Result } from '@empathyco/x-types';
   import { CrossIcon } from '../components/icons/index';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
@@ -45,7 +44,6 @@
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import QuerySuggestion from '../x-modules/query-suggestions/components/query-suggestion.vue';
   import QuerySuggestions from '../x-modules/query-suggestions/components/query-suggestions.vue';
-  import { State } from '../components/decorators/store.decorators';
   import { searchXModule } from '../x-modules/search/x-module';
   import { historyQueriesXModule } from '../x-modules/history-queries/x-module';
   import { XInstaller } from '../x-installer/x-installer';
