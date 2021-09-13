@@ -20,6 +20,14 @@ const invalidUrlValues: Record<string, UrlParamValue> = {
   page: 1
 };
 
+/**
+ * Checks if a value is valid to add it to the URL.
+ *
+ * @param key - The key parameter.
+ * @param value - The value of the key parameter.
+ *
+ * @returns A boolean indicating if the parameter is valid or not.
+ */
 function isValidParam(key: string, value: UrlParamValue): boolean {
   return Array.isArray(value)
     ? value.length > 0
