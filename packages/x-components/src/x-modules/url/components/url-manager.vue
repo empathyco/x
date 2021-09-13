@@ -2,6 +2,7 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { UrlConfig } from '../config.types';
   import { urlXModule } from '../x-module';
 
   @Component({
@@ -24,15 +25,18 @@
     }
 
     private saveURLConfig(): void {
-      this.$x.emit('UrlConfigProvided', {
-        urlParamNames: {
-          query: this.$attrs['query'] ?? 'q',
-          page: this.$attrs['page'] ?? 'page',
-          filters: this.$attrs['filters'] ?? 'filters',
-          relatedTags: this.$attrs['relatedTags'] ?? 'tag',
-          sort: this.$attrs['sort'] ?? 'sort'
-        }
-      });
+      if (Object.keys(this.$attrs).length > 0) {
+        const params = Object.entries(this.$attrs).reduce((acc, [key, value]) => {
+          acc[key] = value;
+          return acc;
+        }, {} as Record<keyof UrlConfig['urlParamNames'], string>);
+
+        this.$x.emit('UrlConfigProvided', {
+          urlParamNames: {
+            ...params
+          }
+        });
+      }
     }
   }
 </script>

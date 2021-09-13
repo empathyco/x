@@ -46,26 +46,15 @@ describe('testing URLManager component', () => {
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('url');
   });
 
-  it('emits the `UrlConfigProvided` event with the default keys when its created', () => {
+  // eslint-disable-next-line max-len
+  it("doesn't emit the `UrlConfigProvided` if there are not custom keys keys when its created", () => {
     const { wrapper } = renderURLManager();
 
     const urlManagerProvidedCallback = jest.fn();
 
     wrapper.vm.$x.on('UrlConfigProvided', true).subscribe(urlManagerProvidedCallback);
 
-    expect(urlManagerProvidedCallback).toHaveBeenCalledWith<[WirePayload<UrlConfig>]>({
-      eventPayload: {
-        urlParamNames: {
-          query: 'q',
-          page: 'page',
-          filters: 'filters',
-          relatedTags: 'tag',
-          sort: 'sort'
-        }
-      },
-      metadata: { moduleName: 'url' }
-    });
-    expect(urlManagerProvidedCallback).toHaveBeenCalledTimes(1);
+    expect(urlManagerProvidedCallback).not.toHaveBeenCalled();
   });
 
   it('emits the `UrlConfigProvided` event with the custom keys when its created', () => {
@@ -81,10 +70,7 @@ describe('testing URLManager component', () => {
       eventPayload: {
         urlParamNames: {
           query: 'query',
-          page: 'p',
-          filters: 'filters',
-          relatedTags: 'tag',
-          sort: 'sort'
+          page: 'p'
         }
       },
       metadata: { moduleName: 'url' }
