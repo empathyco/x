@@ -1,19 +1,5 @@
-import { UrlXStoreModule } from '../types';
-
-const getValues = (params, key: string, configKey?: string): string | string[] => {
-  const urlSearchParams = new URLSearchParams(window.location.search);
-  if (Array.isArray(params[key])) {
-    return urlSearchParams.getAll(key);
-  } else {
-    return urlSearchParams.get(key);
-  }
-};
-
-const existsInUrl = (value): boolean => {
-  const urlSearchParams = new URLSearchParams(window.location.search);
-
-  return !!urlSearchParams.get(value);
-};
+import { forEach } from '../../../../utils/object';
+import { UrlParamKey, UrlParamValue, UrlXStoreModule } from '../types';
 
 /**
  * Default implementation for the {@link UrlActions.updateStoreFromUrl }.
@@ -24,51 +10,108 @@ const existsInUrl = (value): boolean => {
  * @internal
  */
 export const updateStoreFromUrl: UrlXStoreModule['actions']['updateStoreFromUrl'] = ({
-  state: {
-    config: { urlParamNames },
-    extraParams,
-    ...params
-  },
+  state: { config, extraParams, params },
   commit
 }) => {
-  Object.entries(params).forEach(([key]) => {
-    if (urlParamNames[key] && existsInUrl(urlParamNames[key])) {
-      commit(
-        `set${key.charAt(0).toUpperCase() + key.slice(1)}`,
-        getValues(params, key, urlParamNames[key])
-      );
-    } else if (params[key] || existsInUrl(key)) {
-      commit(`set${key.charAt(0).toUpperCase() + key.slice(1)}`, getValues(params, key));
-    } else if (key in extraParams) {
-      commit('setExtraParams', { [key]: urlValue });
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const mappedParams = {} as Record<UrlParamKey, UrlParamValue>;
+  const mappedExtraParams = {} as Record<UrlParamKey, UrlParamValue>;
+  forEach({ ...params, ...extraParams }, (stateParam, stateValue) => {
+    const urlParam = config.urlParamNames[stateParam] ?? stateParam;
+    if (urlSearchParams.has(urlParam)) {
+      const param = getParamByType(urlSearchParams, stateValue, urlParam);
+
+      if (urlParam in extraParams) {
+        mappedExtraParams[stateParam] = param;
+      } else {
+        mappedParams[stateParam] = param;
+      }
     }
   });
-  /*forEach(urlParamNames, (key, value) => {
-   if (Array.isArray(params[key])) {
-   debugger;
-   commit(
-   `set${(key as string).charAt(0).toUpperCase() + (key as string).slice(1)}`,
-   urlSearchParams.getAll(value)
-   );
-   } else {
-   commit(
-   `set${(key as string).charAt(0).toUpperCase() + (key as string).slice(1)}`,
-   urlSearchParams.get(value)
-   );
-   }
-   });*/
-  //Buena! Un poco al menos
-  /*urlSearchParams.forEach((urlValue, key) => {
-   const configParam = Object.keys(urlParamNames).find(
-   configKey => urlParamNames[configKey] === key
-   );
-   debugger;
-   if (configParam) {
-   commit(`set${configParam.charAt(0).toUpperCase() + configParam.slice(1)}`, urlValue);
-   } else if (key in params) {
-   commit(`set${key.charAt(0).toUpperCase() + key.slice(1)}`, urlValue);
-   } else if (key in extraParams) {
-   commit('setExtraParams', { [key]: urlValue });
-   }
-   });*/
+
+  commit('setParams', mappedParams);
+  commit('setExtraParams', mappedExtraParams);
 };
+
+/**
+ *
+ * Gets the parameter from the url depending on the state parameter type.
+ *
+ * @param urlSearchParams - All the search params
+ * @param stateValue - Value of the current state
+ * @param urlParam - The param to get
+ *
+ * @internal
+ *
+ * @returns UrlParamValue
+ */
+function getParamByType(
+  urlSearchParams: URLSearchParams,
+  stateValue: UrlParamValue,
+  urlParam: UrlParamKey
+): UrlParamValue {
+  switch (typeof stateValue) {
+    case 'number':
+      return Number(urlSearchParams.get(urlParam));
+    case 'boolean':
+      return (urlSearchParams.get(urlParam) as string).toLowerCase() === 'true';
+    case 'string':
+      return urlSearchParams.get(urlParam) as string;
+    default:
+      //array
+      return urlSearchParams.getAll(urlParam);
+  }
+}
+
+// const urlSearchParams = new URLSearchParams(window.location.search);
+// forEach({ ...params, ...extraParams }, (stateParam, stateValue) => {
+//   const urlParam = config.urlParamNames[stateParam] ?? stateParam;
+//   if (urlSearchParams.has(urlParam)) {
+//     if (!urlParam in extraParams) {
+//       if (Array.isArray(stateValue)) {
+//         commit('setRelatedTags', urlSearchParams.getAll(urlParam));
+//       } else {
+//         commit('setQuery', urlSearchParams.get(urlParam));
+//       }
+//     } else {
+//       if (Array.isArray(stateValue)) {
+//         commit('setExtraParams', { [stateParam]: urlSearchParams.getAll(urlParam) });
+//       } else {
+//         commit('setExtraParams', { [stateParam]: urlSearchParams.get(urlParam) });
+//       }
+//     }
+//   }
+// });
+
+// const urlSearchParams = new URLSearchParams(window.location.search);
+// forEach({ ...params, ...extraParams }, (stateParam, stateValue) => {
+//   const urlParam = config.urlParamNames[stateParam] ?? stateParam;
+//   if (urlSearchParams.has(urlParam)) {
+//     const payload = Array.isArray(stateValue)
+//                     ? { [stateParam]: urlSearchParams.getAll(urlParam) }
+//                     : { [stateParam]: urlSearchParams.get(urlParam) };
+//
+//     const mutation = !(urlParam in extraParams) ? 'setParam' : 'setExtraParams';
+//
+//     console.log(mutation, payload);
+//     commit(mutation, payload);
+//   }
+// });
+
+// const url = new URL(window.location.href);
+// const mappedUrlParams = {} as Record<string, string | string[] | Record<string, string>>;
+// url.searchParams.forEach((value, key) => {
+//   console.log(`param => ${key}: ${value}`);
+//   const [configKeyNew] =
+//     Object.entries(config.urlParamNames).find(([, configValue]) => {
+//       return configValue === key;
+//     }) ?? [];
+//   if (configKeyNew) {
+//     mappedUrlParams[configKeyNew] = value;
+//   } else if (key in params) {
+//     mappedUrlParams[key] = value;
+//   } else if (key in extraParams) {
+//     mappedUrlParams['extraParams'] = { [key]: value };
+//   }
+// });
+// console.log(mappedUrlParams);

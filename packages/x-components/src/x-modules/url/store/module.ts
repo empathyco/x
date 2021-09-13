@@ -11,20 +11,16 @@ import { updateStoreFromUrl } from './actions/update-store-from-url.action';
 export const urlXStoreModule: UrlXStoreModule = {
   state: () => ({
     config: {
-      urlParamNames: {
-        query: 'ebq',
-        relatedTags: 'tag'
-      }
+      urlParamNames: {}
     },
-    query: '',
-    page: 2,
-    filters: [],
-    sort: '',
-    relatedTags: [],
-    extraParams: {
-      patata: '',
-      store: ''
-    }
+    params: {
+      query: '',
+      page: 1,
+      filters: [],
+      sort: '',
+      relatedTags: []
+    },
+    extraParams: {}
   }),
   getters: {
     urlParams
@@ -33,14 +29,11 @@ export const urlXStoreModule: UrlXStoreModule = {
     setUrlConfig(state, urlConfig) {
       state.config = urlConfig;
     },
-    setQuery(state, query) {
-      state.query = query;
-    },
-    setRelatedTags(state, relatedTags) {
-      state.relatedTags = relatedTags;
-    },
     setExtraParams(state, extraParam) {
       state.extraParams = { ...state.extraParams, ...extraParam };
+    },
+    setParams(state, params) {
+      state.params = { ...state.params, ...params };
     }
   },
   actions: {
