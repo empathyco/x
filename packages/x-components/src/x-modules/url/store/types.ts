@@ -8,12 +8,21 @@ import { UrlConfig } from '../config.types';
  */
 export interface UrlState {
   config: UrlConfig;
+  params: Params;
+  extraParams: Record<UrlParamKey, UrlParamValue>;
+}
+
+/**
+ * URL store params.
+ *
+ * @public
+ */
+export interface Params {
   query: string;
   page: number;
   filters: string[];
   sort: string;
   relatedTags: string[];
-  extraParams: Record<UrlParamKey, UrlParamValue>;
 }
 
 /**
@@ -46,9 +55,8 @@ export type UrlParamValue = string | number | boolean | Array<string | number | 
  */
 export interface UrlMutations {
   setUrlConfig(config: UrlConfig): void;
-  setQuery(query: string): void;
-  setRelatedTags(relatedTags: string[]): void;
-  setExtraParams(extraParam: Record<string, string>): void;
+  setExtraParams(extraParam: Record<UrlParamKey, UrlParamValue>): void;
+  setParams(params: Record<UrlParamKey, UrlParamValue>): void;
 }
 
 /**
