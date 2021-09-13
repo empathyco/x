@@ -79,7 +79,8 @@ When('{string} is searched', (query: string) => {
 });
 
 When('clear search button is pressed', () => {
-  cy.clearSearchInput();
+  cy.clearSearchInput().then(() => {
+  });
 });
 
 Then(
