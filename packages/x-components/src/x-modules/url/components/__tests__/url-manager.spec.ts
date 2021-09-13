@@ -85,5 +85,6 @@ interface URLManagerAPI {
 }
 
 interface URLManagerOptions {
+  /** The template to render. Receives the `params` via prop. */
   template?: string;
 }

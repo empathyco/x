@@ -16,11 +16,11 @@
       this.saveURLConfig();
 
       window.onload = () => {
-        // INIT URL STORE
+        this.$x.emit('DocumentLoaded');
       };
 
       window.onpopstate = () => {
-        // UPDATE URL STORE
+        this.$x.emit('DocumentHistoryChanged');
       };
     }
 
