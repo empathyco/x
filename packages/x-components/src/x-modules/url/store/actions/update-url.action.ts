@@ -1,4 +1,4 @@
-import { forEach } from '../../../../utils/object';
+import { forEach, reduce } from '../../../../utils/object';
 import { UrlXStoreModule } from '../types';
 
 /**
@@ -10,25 +10,31 @@ import { UrlXStoreModule } from '../types';
  * @internal
  */
 export const updateUrl: UrlXStoreModule['actions']['updateUrl'] = ({
-  getters: { urlParams },
+  getters: { urlParams, urlMappedParamNames },
   state: {
     config: { urlParamNames }
   }
 }) => {
   const url = new URL(window.location.href);
-
-  forEach(urlParams, (paramKey, paramValue) => {
-    const newKey = urlParamNames[paramKey] ?? paramKey;
-    url.searchParams.delete(newKey);
-
-    if (Array.isArray(paramValue)) {
-      paramValue.forEach(value => {
-        url.searchParams.append(newKey, value.toString());
-      });
-    } else {
-      url.searchParams.set(newKey, paramValue.toString());
-    }
+  forEach(urlMappedParamNames, (_, value) => {
+    url.searchParams.delete(value);
   });
 
+  reduce(
+    urlParams,
+    (url, paramKey, paramValue) => {
+      const newKey = urlParamNames[paramKey] ?? paramKey;
+
+      if (Array.isArray(paramValue)) {
+        paramValue.forEach(value => {
+          url.searchParams.append(newKey, value.toString());
+        });
+      } else {
+        url.searchParams.set(newKey, paramValue.toString());
+      }
+      return url;
+    },
+    url
+  );
   window.history.replaceState({ ...window.history.state }, document.title, url.href);
 };

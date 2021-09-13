@@ -1,3 +1,4 @@
+import { urlMappedParamNames } from './getters/url-param-names.getter';
 import { UrlXStoreModule } from './types';
 import { urlParams } from './getters/url-params.getter';
 import { updateUrl } from './actions/update-url.action';
@@ -20,7 +21,8 @@ export const urlXStoreModule: UrlXStoreModule = {
     extraParams: {}
   }),
   getters: {
-    urlParams
+    urlParams,
+    urlMappedParamNames
   },
   mutations: {
     setUrlConfig(state, urlConfig) {

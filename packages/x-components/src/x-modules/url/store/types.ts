@@ -23,6 +23,7 @@ export interface UrlState {
  */
 export interface UrlGetters {
   urlParams: Record<UrlParamKey, UrlParamValue>;
+  urlMappedParamNames: Record<UrlParamKey, UrlParamKey>;
 }
 
 /**
