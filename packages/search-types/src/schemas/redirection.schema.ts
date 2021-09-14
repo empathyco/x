@@ -9,6 +9,7 @@ import { TaggingSchema } from './tagging.schema';
  */
 export const RedirectionSchema: Redirection = {
   ...IdentifiableSchema,
+  modelName: 'Redirection',
   title: expect.any(String),
   url: expect.any(String),
   tagging: {

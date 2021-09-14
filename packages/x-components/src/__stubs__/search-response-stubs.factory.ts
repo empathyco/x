@@ -2,6 +2,7 @@ import { SearchResponse } from '@empathyco/x-adapter';
 import { getBannersStub } from './banners-stubs.factory';
 import { getFacetsStub } from './facets-stubs.factory';
 import { getPromotedsStub } from './promoteds-stubs.factory';
+import { getRedirectionsStub } from './redirections-stubs.factory';
 import { getResultsStub } from './results-stubs.factory';
 
 /**
@@ -21,9 +22,9 @@ export function getSearchResponseStub(): SearchResponse {
       params: {},
       url: ''
     },
-    redirections: [],
+    redirections: getRedirectionsStub(),
     results: getResultsStub(),
     spellcheck: '',
-    totalResults: 0
+    totalResults: 100
   };
 }

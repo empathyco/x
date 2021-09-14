@@ -1,4 +1,5 @@
 import { Identifiable } from './identifiable.model';
+import { NamedModel } from './named-model.model';
 import { Tagging } from './tagging.model';
 
 /**
@@ -9,7 +10,7 @@ import { Tagging } from './tagging.model';
  *
  * @public
  */
-export interface Redirection extends Identifiable {
+export interface Redirection extends NamedModel<'Redirection'>, Identifiable {
   /** Redirect title. */
   title: string;
   /** URL to redirect. */
