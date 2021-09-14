@@ -9,7 +9,7 @@ import { Tagging } from './tagging.model';
  *
  * @public
  */
-export interface Banner extends NamedModel, Identifiable {
+export interface Banner extends NamedModel<'Banner'>, Identifiable {
   /** Banner title. */
   title: string;
   /** URL to redirect. */

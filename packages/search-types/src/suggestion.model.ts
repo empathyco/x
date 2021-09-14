@@ -8,7 +8,7 @@ import { Previewable } from './previewable.model';
  *
  * @public
  */
-export interface Suggestion extends NamedModel, Previewable {
+export interface Suggestion extends NamedModel<'Suggestion'>, Previewable {
   // eslint-disable-next-line jsdoc/require-description-complete-sentence
   /** {@inheritDoc Previewable.facets} */
   facets: Facet[];

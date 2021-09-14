@@ -10,7 +10,7 @@ import { ResultTagging } from './result-tagging.model';
  *
  * @public
  */
-export interface Result extends NamedModel, Identifiable {
+export interface Result extends NamedModel<'Result'>, Identifiable {
   /** The type of the result: product, article, pack, etc... */
   type: string;
   /** Images of the result. It should be the URLs. */

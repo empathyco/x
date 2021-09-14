@@ -7,4 +7,4 @@ import { Previewable } from '../previewable.model';
  *
  * @public
  */
-export interface NextQuery extends NamedModel, Required<Previewable> {}
+export interface NextQuery extends NamedModel<'NextQuery'>, Required<Previewable> {}
