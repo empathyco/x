@@ -1,5 +1,4 @@
-import { ModelNameType, Suggestion } from '@empathyco/x-types';
-import { createFacetWithFilter } from './facets-stubs.factory';
+import { Suggestion } from '@empathyco/x-types';
 
 /**
  * Creates {@link @empathyco/x-types#Suggestion | suggestions} stub.

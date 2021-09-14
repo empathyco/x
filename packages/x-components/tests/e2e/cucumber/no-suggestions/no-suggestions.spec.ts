@@ -1,6 +1,6 @@
 import { And, Given } from 'cypress-cucumber-preprocessor/steps';
 
-Given('a suggestion API with no results', () => {
+Given('a suggestions API with no results', () => {
   cy.intercept('https://api.empathy.co/getSuggestions', req => {
     req.reply({
       suggestions: []
