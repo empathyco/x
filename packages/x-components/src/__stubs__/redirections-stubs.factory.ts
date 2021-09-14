@@ -24,7 +24,7 @@ export function createRedirectionStub(title: string): Redirection {
   return {
     id: `xr-${title}`,
     title,
-    url: `https://shop.empathy.co/${title}`,
+    url: `https://picsum.photos/seed/${title}/500`,
     tagging: {
       click: {
         params: {},
