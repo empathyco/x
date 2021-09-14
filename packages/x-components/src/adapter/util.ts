@@ -20,7 +20,7 @@ export function configureAdapterWithJuguettos(
       return result;
     }, 'results')
     .setFeatureConfig('search', {
-      endpoint: 'https://api.empathybroker.com/search/v1/query/juguettos/searchv2'
+      endpoint: 'https://api{env}.empathybroker.com/search/v1/query/juguettos/searchv2'
     })
     .setFacetConfig(
       {
