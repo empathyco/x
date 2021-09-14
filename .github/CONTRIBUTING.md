@@ -66,7 +66,7 @@ It is the perfect example to learn how to use the X Components. This package is 
 
 Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/). 
 
-You can create an issue by filling in the [ bug template](./ISSUE_TEMPLATE/bug_report.md). Before creating a new bug issue, do a quick check to make sure the issue hasn’t been discussed or created before in the project. 
+You can create an issue by filling in the [ bug template](./ISSUE_TEMPLATE/bug_report.yml). Before creating a new bug issue, do a quick check to make sure the issue hasn’t been discussed or created before in the project. 
 
 > **Note:** If you find a **closed** issue that seems to describe the same situation as that you're experiencing, open a new issue and include a link to the original issue in the body.
 
@@ -75,7 +75,7 @@ You can create an issue by filling in the [ bug template](./ISSUE_TEMPLATE/bug_r
 
 We’d love to hear your suggestions for enhancements for Interface X, whether they are completely new features or minor improvements to existing functionality.
 
-To suggest any new feature, file a new issue using the [feature request template](./ISSUE_TEMPLATE/feature_request.md).
+To suggest any new feature, file a new issue using the [feature request template](./ISSUE_TEMPLATE/feature_request.yml).
 
 
 ### Contribute code for the first time
