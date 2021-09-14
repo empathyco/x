@@ -1,7 +1,7 @@
 import { RelatedTag } from '@empathyco/x-types';
 
 /**
- * Creates {@link @empathyco/x-types#RelatedTag | related tags} stub.
+ * Creates a {@link @empathyco/x-types#RelatedTag | related tags} stub.
  *
  * @param amount - Number of stubbed related tags to create.
  *

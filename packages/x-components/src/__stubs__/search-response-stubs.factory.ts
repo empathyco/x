@@ -6,7 +6,7 @@ import { getRedirectionsStub } from './redirections-stubs.factory';
 import { getResultsStub } from './results-stubs.factory';
 
 /**
- * Creates {@link @empathyco/x-adapter#SearchResponse | search response} stub.
+ * Creates a {@link @empathyco/x-adapter#SearchResponse | search response} stub.
  *
  * @returns Object of search response stub.
  *

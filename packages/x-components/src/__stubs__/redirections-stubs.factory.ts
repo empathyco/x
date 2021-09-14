@@ -1,7 +1,7 @@
 import { Redirection } from '@empathyco/x-types';
 
 /**
- * Creates {@link @empathyco/x-types#Redirection | redirections} stub.
+ * Creates a {@link @empathyco/x-types#Redirection | redirections} stub.
  *
  * @returns A list of redirections.
  *
