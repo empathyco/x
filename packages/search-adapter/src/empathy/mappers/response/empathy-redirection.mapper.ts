@@ -22,6 +22,7 @@ export class EmpathyRedirectionMapper implements ResponseMapper<EmpathyDirect, R
 
   map(rawDirect: EmpathyDirect, redirection: Redirection, context: ResponseMapperContext): Redirection {
     return Object.assign(redirection, {
+      modelName: 'Redirection',
       id: rawDirect.id,
       title: rawDirect.title,
       url: rawDirect.url,
