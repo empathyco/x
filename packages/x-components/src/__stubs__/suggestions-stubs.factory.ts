@@ -1,45 +1,18 @@
-import { ModelNameType, Suggestion } from '@empathyco/x-types';
-import { createFacetWithFilter } from './facets-stubs.factory';
+import { Suggestion } from '@empathyco/x-types';
 
 /**
- * Function to create suggestions stub with the modelName passes as parameter.
+ * Creates {@link @empathyco/x-types#Suggestion | suggestions} stub.
  *
- * @param modelName - Model name for each suggestion.
- * @returns Array of suggestion stub.
+ * @param amount - Number of stubbed suggestions to create.
+ *
+ * @returns Array of suggestions stub.
+ *
+ * @internal
  */
-export function getSuggestionsStub(modelName: ModelNameType): Suggestion[] {
-  return [
-    {
-      facets: [],
-      query: 'salt',
-      key: 'salt',
-      modelName: modelName
-    },
-    {
-      facets: [],
-      query: 'limes',
-      key: 'limes',
-      modelName: modelName
-    },
-    {
-      facets: [createFacetWithFilter('fruit')],
-      query: 'limes',
-      key: 'limes',
-      modelName: modelName
-    },
-    {
-      facets: [createFacetWithFilter('fresh')],
-      query: 'limes',
-      key: 'limes',
-      modelName: modelName
-    },
-    {
-      facets: [],
-      query: 'beef short ribs',
-      key: 'beef short ribs',
-      modelName: modelName
-    }
-  ];
+export function getSuggestionsStub(amount = 3): Suggestion[] {
+  return Array.from<number, Suggestion>({ length: amount }, (_, index) =>
+    createSuggestionStub(`Suggestion ${index + 1}`)
+  );
 }
 
 /**
