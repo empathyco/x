@@ -14,8 +14,8 @@
     render(): void {}
 
     /**
-     * Saves the new parameter names, if present, and add two listeners
-     * (`onload` and `onpopstate`) to the browser window.
+     * Saves the new parameter names, if present, and add two XEvents to the
+     * (`onload` and `onpopstate`) listeners of the browser window.
      *
      * @internal
      */
