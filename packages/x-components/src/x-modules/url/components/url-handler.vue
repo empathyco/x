@@ -22,13 +22,13 @@
     mounted(): void {
       this.saveURLConfig();
 
-      window.onload = () => {
+      window.addEventListener('load', () => {
         this.$x.emit('DocumentLoaded');
-      };
+      });
 
-      window.onpopstate = () => {
+      window.addEventListener('popstate', () => {
         this.$x.emit('DocumentHistoryChanged');
-      };
+      });
     }
 
     /**
