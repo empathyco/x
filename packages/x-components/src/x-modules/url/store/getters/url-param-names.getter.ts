@@ -1,3 +1,4 @@
+import { Dictionary } from '../../../../utils/types';
 import { UrlParamKey, UrlXStoreModule } from '../types';
 import { reduce } from '../../../../utils/object';
 
@@ -21,6 +22,6 @@ export const urlMappedParamNames: UrlXStoreModule['getters']['urlMappedParamName
       urlParams[key] = urlParamNames[key] ?? key;
       return urlParams;
     },
-    {} as Record<UrlParamKey, UrlParamKey>
+    {} as Dictionary<UrlParamKey>
   );
 };

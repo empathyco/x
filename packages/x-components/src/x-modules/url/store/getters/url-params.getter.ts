@@ -1,3 +1,4 @@
+import { Dictionary } from '../../../../utils/types';
 import { UrlParamValue, UrlXStoreModule } from '../types';
 import { objectFilter } from '../../../../utils/object';
 
@@ -16,7 +17,7 @@ export const urlParams: UrlXStoreModule['getters']['urlParams'] = ({
   ...rawUrlParams
 }) => objectFilter({ ...rawUrlParams, ...extraParams }, isValidParam);
 
-const invalidUrlValues: Record<string, UrlParamValue> = {
+const invalidUrlValues: Dictionary<UrlParamValue> = {
   page: 1
 };
 

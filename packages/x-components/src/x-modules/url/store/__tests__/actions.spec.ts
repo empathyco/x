@@ -5,6 +5,7 @@ import { createUrlStore, resetUrlStateWith } from './utils';
 describe('testing Url module actions', () => {
   const actionKeys = map(urlXStoreModule.actions, action => action);
   const store = createUrlStore();
+
   beforeEach(() => {
     window.history.replaceState({}, document.title, window.location.hostname);
   });
@@ -24,7 +25,9 @@ describe('testing Url module actions', () => {
         page: 1,
         extraParams: { warehouse: '0123999' }
       });
+
       await store.dispatch(actionKeys.updateUrl);
+
       expect(window.location.search).toEqual(
         '?q=sudadera&tag=con+capucha&tag=disney&warehouse=0123999'
       );
@@ -36,9 +39,13 @@ describe('testing Url module actions', () => {
         page: 2,
         query: 'doramion'
       });
+
       await store.dispatch(actionKeys.updateUrl);
+
       resetUrlStateWith(store, { page: 1, query: '' });
+
       await store.dispatch(actionKeys.updateUrl);
+
       expect(window.location.search).toEqual('');
     });
   });

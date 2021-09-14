@@ -30,7 +30,10 @@ export function createUrlStore(state?: Partial<UrlState>): Store<UrlState> {
   const localVue = createLocalVue();
   localVue.config.productionTip = false; // Silent production console messages.
   localVue.use(Vuex);
+
   const store = new Store<UrlState>(urlXStoreModule as any);
+
   resetUrlStateWith(store, state);
+
   return store;
 }
