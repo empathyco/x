@@ -21,10 +21,9 @@ export class EmpathyRedirectionMapper implements ResponseMapper<EmpathyDirect, R
   }
 
   map(rawDirect: EmpathyDirect, redirection: Redirection, context: ResponseMapperContext): Redirection {
-    return Object.assign(redirection, {
+    return Object.assign<Redirection, Partial<Redirection>>(redirection, {
       modelName: 'Redirection',
       id: rawDirect.id,
-      title: rawDirect.title,
       url: rawDirect.url,
       tagging: {
         click: this.mapTagging(rawDirect.trackable_url, {} as Tagging, context)
