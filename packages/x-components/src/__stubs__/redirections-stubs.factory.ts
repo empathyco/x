@@ -14,17 +14,16 @@ export function getRedirectionsStub(): Redirection[] {
 /**
  * Creates a redirection with a unique identifier.
  *
- * @param title - The redirection title.
+ * @param id - The redirection identifier.
  *
  * @returns A redirection.
  *
  * @internal
  */
-export function createRedirectionStub(title: string): Redirection {
+export function createRedirectionStub(id: string): Redirection {
   return {
-    id: `xr-${title}`,
-    title,
-    url: `https://picsum.photos/seed/${title}/500`,
+    id: `xr-${id}`,
+    url: `https://picsum.photos/seed/${id}/500`,
     tagging: {
       click: {
         params: {},
