@@ -1,0 +1,136 @@
+<script lang="ts">
+  import Vue from 'vue';
+  import { Component } from 'vue-property-decorator';
+  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { reduce } from '../../../utils';
+  import { UrlConfig } from '../config.types';
+  import { urlXModule } from '../x-module';
+
+  @Component({
+    mixins: [xComponentMixin(urlXModule)]
+  })
+  export default class URLHandler extends Vue {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    render(): void {}
+
+    /**
+     * Saves the new parameter names, if present, and add two listeners
+     * (`onload` and `onpopstate`) to the browser window.
+     *
+     * @internal
+     */
+    mounted(): void {
+      this.saveURLConfig();
+
+      window.onload = () => {
+        this.$x.emit('DocumentLoaded');
+      };
+
+      window.onpopstate = () => {
+        this.$x.emit('DocumentHistoryChanged');
+      };
+    }
+
+    /**
+     * If present, save the url parameters names in the store passed as prop and read as attrs.
+     *
+     * @internal
+     */
+    private saveURLConfig(): void {
+      if (Object.keys(this.$attrs).length > 0) {
+        const params = reduce(
+          this.$attrs,
+          (acc, key, value) => {
+            acc[key] = value;
+            return acc;
+          },
+          {} as Record<keyof UrlConfig['urlParamNames'], string>
+        );
+
+        this.$x.emit('UrlConfigProvided', {
+          urlParamNames: {
+            ...params
+          }
+        });
+      }
+    }
+  }
+</script>
+
+<docs lang="mdx">
+## Events
+
+This component emits the following events:
+
+- [`UrlConfigProvided`](./../../api/x-components.urlxevents.urlconfigprovided.md)
+- [`DocumentLoaded`](./../../api/x-components.urlxevents.documentloaded.md)
+- [`DocumentHistoryChanged`](./../../api/x-components.urlxevents.documenthistorychanged.md)
+
+## See it in action
+
+This component doesn't render elements to the DOM, but serves as way to easily change the default
+url parameter names.
+
+_Try to make some request and take a look to the url!_
+
+```vue
+<template>
+  <UrlHandler />
+</template>
+
+<script>
+  import { UrlHandler } from '@empathyco/x-components/url-handler';
+
+  export default {
+    name: 'URLHandlerDemo',
+    components: {
+      UrlHandler
+    }
+  };
+</script>
+```
+
+### Play with props
+
+In this example, the `URLHandler` component changes the following query parameter names:
+
+- `q` to be `ebq`.
+- `page` to be just `p`.
+- `filters` to be `f`
+- `sort` to be `s`
+
+_Try to make some request and take a look to the url!_
+
+```vue
+<template>
+  <UrlHandler :query="query" :page="page" :filters="filters" :sort="sort" />
+</template>
+
+<script>
+  import { UrlHandler } from '@empathyco/x-components/url-handler';
+
+  export default {
+    name: 'URLHandlerDemo',
+    components: {
+      UrlHandler
+    },
+    data() {
+      return {
+        query: 'ebq',
+        page: 'p',
+        filters: 'f',
+        sort: 's'
+      };
+    }
+  };
+</script>
+```
+
+### Play with events
+
+The `URLHandler` will emit a `UrlConfigProvided` event, with the new url param names if they are
+provided.
+
+It also emit the `DocumentLoaded` when the page is loaded and the `DocumentHistoryChanged` when the
+url changes.
+</docs>

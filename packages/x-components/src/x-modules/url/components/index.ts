@@ -1,1 +1,1 @@
-export { default as URLManager } from './url-manager.vue';
+export { default as URLHandler } from './url-handler.vue';
