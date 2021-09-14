@@ -2,7 +2,7 @@
   <div>
     <BaseIdModalOpen modal-id="x-app">Start</BaseIdModalOpen>
     <BaseIdModal modal-id="x-app">
-      <Layout>
+      <MultiColumnMaxWidthLayout>
         <template #header-middle>
           <div
             class="
@@ -35,13 +35,18 @@
           </BaseIdModalClose>
         </template>
 
-        <template #empathize>
-          <div class="x-list x-list--horizontal x-list--gap-06">
+        <template #sub-header>
+          <Empathize
+            :animation="empathizeAnimation"
+            class="
+              x-list x-list--horizontal x-list--padding-05 x-list--padding-bottom x-list--gap-06
+            "
+          >
             <PopularSearches max-items-to-render="10" />
             <HistoryQueries max-items-to-render="10" />
             <QuerySuggestions max-items-to-render="10" />
             <NextQueries max-items-to-render="10" />
-          </div>
+          </Empathize>
         </template>
 
         <template #toolbar-aside>
@@ -191,32 +196,50 @@
           </Recommendations>
 
           <!-- Results -->
-          <ResultsList v-infinite-scroll:body-scroll>
+          <ResultsList v-infinite-scroll:main-scroll>
             <BannersList>
               <PromotedsList>
-                <BaseVariableColumnGrid :animation="resultsAnimation">
-                  <template #Result="{ item: result }">
-                    <article class="result" style="max-width: 300px">
-                      <BaseResultImage :result="result" class="x-picture--colored">
-                        <template #placeholder>
-                          <div style="padding-top: 100%; background-color: lightgray"></div>
-                        </template>
-                        <template #fallback>
-                          <div style="padding-top: 100%; background-color: lightsalmon"></div>
-                        </template>
-                      </BaseResultImage>
-                      <h1 class="x-title3">{{ result.name }}</h1>
-                    </article>
-                  </template>
+                <NextQueriesList>
+                  <BaseVariableColumnGrid :animation="resultsAnimation">
+                    <template #Result="{ item: result }">
+                      <article class="result" style="max-width: 300px">
+                        <BaseResultImage :result="result" class="x-picture--colored">
+                          <template #placeholder>
+                            <div style="padding-top: 100%; background-color: lightgray"></div>
+                          </template>
+                          <template #fallback>
+                            <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                          </template>
+                        </BaseResultImage>
+                        <h1 class="x-title3">{{ result.name }}</h1>
+                      </article>
+                    </template>
 
-                  <template #Banner="{ item: banner }">
-                    <Banner :banner="banner" />
-                  </template>
+                    <template #Banner="{ item: banner }">
+                      <Banner :banner="banner" />
+                    </template>
 
-                  <template #Promoted="{ item: promoted }">
-                    <Promoted :promoted="promoted" />
-                  </template>
-                </BaseVariableColumnGrid>
+                    <template #Promoted="{ item: promoted }">
+                      <Promoted :promoted="promoted" />
+                    </template>
+
+                    <template #NextQueriesGroup="{ item: { nextQueries } }">
+                      <div class="x-list x-list--gap-03">
+                        <h1 class="x-title2">What's next?</h1>
+                        <BaseSuggestions
+                          #default="{ suggestion }"
+                          :suggestions="nextQueries"
+                          class="x-list--gap-03"
+                        >
+                          <NextQuery #default="{ suggestion: nextQuery }" :suggestion="suggestion">
+                            <Nq1 />
+                            {{ nextQuery.query }}
+                          </NextQuery>
+                        </BaseSuggestions>
+                      </div>
+                    </template>
+                  </BaseVariableColumnGrid>
+                </NextQueriesList>
               </PromotedsList>
             </BannersList>
           </ResultsList>
@@ -227,7 +250,7 @@
             <ChevronUp />
           </BaseScrollToTop>
         </template>
-      </Layout>
+      </MultiColumnMaxWidthLayout>
     </BaseIdModal>
   </div>
 </template>
@@ -237,7 +260,8 @@
   import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { BaseIdTogglePanelButton } from '../components';
+  import { BaseIdTogglePanelButton, BaseSuggestions } from '../components';
+  import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
   import BaseGrid from '../components/base-grid.vue';
   import BaseVariableColumnGrid from '../components/base-variable-column-grid.vue';
@@ -251,8 +275,9 @@
   import CrossIcon from '../components/icons/cross.vue';
   import Grid1Col from '../components/icons/grid-1-col.vue';
   import Grid2Col from '../components/icons/grid-2-col.vue';
+  import Nq1 from '../components/icons/nq-1.vue';
   import SearchIcon from '../components/icons/search.vue';
-  import Layout from '../components/layouts/layout.vue';
+  import MultiColumnMaxWidthLayout from '../components/layouts/multi-column-max-width-layout.vue';
   import BaseIdModalClose from '../components/modals/base-id-modal-close.vue';
   import BaseIdModalOpen from '../components/modals/base-id-modal-open.vue';
   import BaseIdModal from '../components/modals/base-id-modal.vue';
@@ -262,22 +287,24 @@
   import SlidingPanel from '../components/sliding-panel.vue';
   import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
   import { XInstaller } from '../x-installer/x-installer';
+  import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
   import FacetsProvider from '../x-modules/facets/components/facets/facets-provider.vue';
   import Facets from '../x-modules/facets/components/facets/facets.vue';
   import HierarchicalFilter from '../x-modules/facets/components/filters/hierarchical-filter.vue';
   import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
+  // eslint-disable-next-line max-len
+  import ExcludeFiltersWithNoResults from '../x-modules/facets/components/lists/exclude-filters-with-no-results.vue';
   import FiltersList from '../x-modules/facets/components/lists/filters-list.vue';
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
   // eslint-disable-next-line max-len
   import SelectedFiltersList from '../x-modules/facets/components/lists/selected-filters-list.vue';
   import SlicedFilters from '../x-modules/facets/components/lists/sliced-filters.vue';
-  // eslint-disable-next-line max-len
-  import ExcludeFiltersWithNoResults from '../x-modules/facets/components/lists/exclude-filters-with-no-results.vue';
   import SortedFilters from '../x-modules/facets/components/lists/sorted-filters.vue';
-  import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
   import { FilterEntityFactory } from '../x-modules/facets/entities/filter-entity.factory';
   import { SingleSelectModifier } from '../x-modules/facets/entities/single-select.modifier';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
+  import { NextQuery } from '../x-modules/next-queries';
+  import NextQueriesList from '../x-modules/next-queries/components/next-queries-list.vue';
   import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
   import PopularSearches from '../x-modules/popular-searches/components/popular-searches.vue';
   import QuerySuggestions from '../x-modules/query-suggestions/components/query-suggestions.vue';
@@ -293,6 +320,7 @@
   import ResultsList from '../x-modules/search/components/results-list.vue';
   import SortDropdown from '../x-modules/search/components/sort-dropdown.vue';
   import SortList from '../x-modules/search/components/sort-list.vue';
+  import Empathize from '../x-modules/empathize/components/empathize.vue';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
@@ -311,60 +339,66 @@
       infiniteScroll
     },
     components: {
-      HierarchicalFilter,
-      ClearFilters,
-      SortedFilters,
-      ExcludeFiltersWithNoResults,
-      FiltersSearch,
-      SlicedFilters,
-      SelectedFiltersList,
-      FiltersList,
-      ChevronUp,
-      Promoted,
-      PromotedsList,
+      Nq1,
       Banner,
       BannersList,
-      BaseIdTogglePanelButton,
-      BaseScrollToTop,
-      ChevronDown,
-      ChevronRight,
-      ChevronLeft,
-      ChevronTinyRight,
-      ChevronTinyLeft,
-      Facets,
-      FacetsProvider,
-      Grid2Col,
-      Grid1Col,
-      CrossIcon,
-      SearchIcon,
-      NextQueries,
-      QuerySuggestions,
-      HistoryQueries,
-      RelatedTags,
-      SlidingPanel,
-      Recommendations,
-      BaseResultImage,
-      BaseVariableColumnGrid,
-      BaseGrid,
-      ResultsList,
-      SortList,
       BaseColumnPickerList,
-      SortDropdown,
-      SimpleFilter,
+      BaseGrid,
       BaseHeaderTogglePanel,
-      SearchButton,
-      ClearSearchInput,
+      BaseIdModal,
       BaseIdModalClose,
       BaseIdModalOpen,
-      BaseIdModal,
-      SearchInput,
+      BaseIdTogglePanelButton,
+      BaseResultImage,
+      BaseScrollToTop,
+      BaseSuggestions,
+      BaseVariableColumnGrid,
+      ChevronDown,
+      ChevronLeft,
+      ChevronRight,
+      ChevronTinyLeft,
+      ChevronTinyRight,
+      ChevronUp,
+      ClearFilters,
+      ClearSearchInput,
+      MultiColumnMaxWidthLayout,
+      CrossIcon,
+      Empathize,
+      ExcludeFiltersWithNoResults,
+      Facets,
+      FacetsProvider,
+      FiltersList,
+      FiltersSearch,
+      Grid1Col,
+      Grid2Col,
+      HierarchicalFilter,
+      HistoryQueries,
+      NextQueries,
+      NextQueriesList,
+      NextQuery,
       PopularSearches,
-      Layout
+      Promoted,
+      PromotedsList,
+      QuerySuggestions,
+      Recommendations,
+      RelatedTags,
+      ResultsList,
+      SearchButton,
+      SearchIcon,
+      SearchInput,
+      SelectedFiltersList,
+      SimpleFilter,
+      SlicedFilters,
+      SlidingPanel,
+      SortDropdown,
+      SortList,
+      SortedFilters
     }
   })
   export default class App extends Vue {
     protected columnPickerValues = [0, 4, 6];
     protected resultsAnimation = StaggeredFadeAndSlide;
+    protected empathizeAnimation = CollapseFromTop;
     protected selectedColumns = 4;
     protected sortValues = ['', 'priceSort asc', 'priceSort desc'];
     protected staticFacets: Facet[] = [

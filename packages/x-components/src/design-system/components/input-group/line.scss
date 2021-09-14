@@ -2,9 +2,7 @@
 .x-input-group--line.x-input-group {
   // size
   > *:not(.x-input-group__action) {
-    --x-size-padding-top-input-group-default: var(--x-size-padding-top-input-group-line);
     --x-size-padding-right-input-group-default: var(--x-size-padding-right-input-group-line);
-    --x-size-padding-bottom-input-group-default: var(--x-size-padding-bottom-input-group-line);
     --x-size-padding-left-input-group-default: var(--x-size-padding-left-input-group-line);
   }
 
@@ -19,9 +17,11 @@
   --x-size-border-width-left-input-group-default: var(--x-size-border-width-left-input-group-line);
 
   > .x-input-group__action {
-    // size
-    margin-top: 0;
-    margin-left: 0;
-    margin-right: 0;
+    margin-block-start: calc(#{var(--x-size-border-width-top-input-group-line)} * -1) !important;
+    margin-inline-end: calc(#{var(--x-size-border-width-right-input-group-line)} * -1) !important;
+    margin-block-end: calc(#{var(--x-size-border-width-bottom-input-group-line)} * -1) !important;
+    margin-inline-start: calc(
+      #{var(--x-size-border-width-inline-input-group-line)} * -1
+    ) !important;
   }
 }

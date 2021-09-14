@@ -18,14 +18,18 @@ export { default as BaseRating } from './base-rating.vue';
 export { default as BaseVariableColumnGrid } from './base-variable-column-grid.vue';
 export { NoElement } from './no-element';
 export { default as SlidingPanel } from './sliding-panel.vue';
+export { default as ItemsList } from './items-list.vue';
 export { default as StaggeringTransitionGroup } from './staggering-transition-group.vue';
-export { default as Layout } from './layouts/layout.vue';
+export { default as MultiColumnMaxWidthLayout } from './layouts/multi-column-max-width-layout.vue';
+export { default as SingleColumnLayout } from './layouts/single-column-layout.vue';
 
 // Utils
 export * from './decorators/bus.decorators';
 export * from './decorators/debounce.decorators';
+export * from './decorators/injection.consts';
 export * from './decorators/injection.decorators';
 export * from './decorators/store.decorators';
+export * from './items-list-injection.mixin';
 export * from './x-component.mixin';
 export * from './x-component.types';
 export * from './x-component.utils';

@@ -4,6 +4,7 @@ Feature: Full Empathize
     Given a next queries API
     Given a suggestions API
     Given a related tags API
+    Given an ID results API
 
   Scenario Outline: 1. Query suggestions
     Given no special config for full empathize view

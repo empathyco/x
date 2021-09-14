@@ -3,6 +3,61 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.18...@empathyco/x-components@3.0.0-alpha.19) (2021-09-13)
+
+
+### Bug Fixes
+
+* Fix recommendations `setParams` wire. Export `LIST_ITEMS_KEY`. ([6262d80](https://github.com/empathyco/x/commit/6262d8076941847900a9f577a6588547e4fb703c)), closes [EX-4724](https://searchbroker.atlassian.net/browse/EX-4724)
+
+
+
+## [3.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.17...@empathyco/x-components@3.0.0-alpha.18) (2021-09-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* **facets:** Rename `Filters` component to `FiltersList`.
+* **facets:** Remove `MultiSelectFilters` component. Filters are multi-select by default. Apply the `SingleSelectModifier` using the `FilterEntityFactory` to make the desired `Facet` single select.
+* **facets:** Refactor `HierarchicalFilter.children` field. Now, this field is a list of the `Filter.ids` of the children filter. All `HierarchicalFilter`s are flattened in the `Facet.filters` list.
+* **facets:** Remove `facets` prop in the `Facets` component to provide `Facets` to the state. Use the `FacetsProvider` component instead.
+* **facets:** Remove `UserChangedSelectedFilters` event from `Facets` component. Use `FacetsProvider` component instead.
+* **facets:** Remove `UserClickedClearFacetFilters` event. `UserClickedClearAllFilters` is emitted instead. Its payload is now a list of `Facet.id`s.
+* **facets:** Rename `UserClickedFacetAllFilter` event to `UserClickedAllFilter`. Its payload is now a list of `Facet.id`s.
+* **facets:** Remove `BackendFacetsChanged` event. Use `FacetsChanged` event instead.
+* **facets:** Remove `BackendFacetsProvided` event. Use `FacetsGroupProvided` instead.
+* **facets:** Remove `FrontendFacetsChanged` event. Use `FacetsGroupProvided` instead.
+* **facets:** Remove `FacetMultiSelectChanged` event. `Filter`s are multi-select by default. Apply the `SingleSelectModifier` using the `FilterEntityFactory` to make the desired `Facet` single select.
+* **facets:** Change `UserModifiedEditableNumberRangeFilter` payload. Now it is the `EditableNumberRangeFilter` filter with the new range value.
+
+### Features
+
+* **animations:** add new `TranslateFromRight` animation ([e13561f](https://github.com/empathyco/x/commit/e13561f79e6ec04fed9ed99e56d75254f40858f5)), closes [EX-4696](https://searchbroker.atlassian.net/browse/EX-4696)
+* **design-system:** add `SingleColumnLayout` component. ([97f3000](https://github.com/empathyco/x/commit/97f3000ff024c0d46ce06099babc0ed17bc6ebe2)), closes [EX-4706](https://searchbroker.atlassian.net/browse/EX-4706)
+* **design-system:** add lists background colors to Design System ([9d23d61](https://github.com/empathyco/x/commit/9d23d6145d3a6ac12f0553af5ced2c5cc9c68653)), closes [EX-4695](https://searchbroker.atlassian.net/browse/EX-4695)
+* **facets-next:** move HierarchicalFilter component to new `facets-next` x-module ([a8c18ea](https://github.com/empathyco/x/commit/a8c18ea47df4ee451a13a55d5e9ee58dc8a5cf56)), closes [EX-4622](https://searchbroker.atlassian.net/browse/EX-4622)
+* **facets:** remove old `facets` X Module and replace by `facets-next`. ([a47d99f](https://github.com/empathyco/x/commit/a47d99fd9ccbb046c5a5054a92e723f2675b7563)), closes [EX-3663](https://searchbroker.atlassian.net/browse/EX-3663)
+* **mixin:** add origin injection in the mixin and the bus ([2304155](https://github.com/empathyco/x/commit/2304155aa5ab422193e4a9f01755c066a25f0c9e)), closes [EX-4636](https://searchbroker.atlassian.net/browse/EX-4636)
+* **next-queries:** add `NextQueriesList` component. ([eeb66c8](https://github.com/empathyco/x/commit/eeb66c865d9ca269ee4ef54e664c272a2d9ef233)), closes [EX-4527](https://searchbroker.atlassian.net/browse/EX-4527)
+* **search:** add origin to the request ([eb81c7e](https://github.com/empathyco/x/commit/eb81c7e1dacdf0cc201995c9ac5dfe9bb4f64a2d)), closes [EX-4637](https://searchbroker.atlassian.net/browse/EX-4637)
+* **spellcheck:** add spellchecked query to Alias API ([226f1fe](https://github.com/empathyco/x/commit/226f1fe2ddc5426472fd5819a999102395d0fdab)), closes [EX-4694](https://searchbroker.atlassian.net/browse/EX-4694)
+* **url:** add `url` x-module config. (#129) ([6570590](https://github.com/empathyco/x/commit/6570590738f3667419427fcde74fafe96e851f3c)), closes [EX-4578](https://searchbroker.atlassian.net/browse/EX-4578)
+* **url:** add new events ([702a8a8](https://github.com/empathyco/x/commit/702a8a8342b63831c78f6c3b018351787cd27c0a)), closes [EX-4562](https://searchbroker.atlassian.net/browse/EX-4562)
+* **url:** add url module state, urlParams getter and its emitter ([2c549ec](https://github.com/empathyco/x/commit/2c549eca859aafd68e67eddf4882d9ae43827991)), closes [EX-4570](https://searchbroker.atlassian.net/browse/EX-4570)
+
+
+### Bug Fixes
+
+* **design-system:** fix issues with components height and layout ([4499b10](https://github.com/empathyco/x/commit/4499b101c9207f080e1995faa3d6639c102e0f2f)), closes [EX-4693](https://searchbroker.atlassian.net/browse/EX-4693)
+* **popular-searches:** fix popular searches and query suggestions canceling requests. ([818c373](https://github.com/empathyco/x/commit/818c373acc0036b2f20378ebdcba2c261890d03b)), closes [EX-4697](https://searchbroker.atlassian.net/browse/EX-4697)
+
+
+### Testing
+
+* **e2e:** mock adapter for identifier results ([44b0f3a](https://github.com/empathyco/x/commit/44b0f3ac2c8adbcc0d9deedbbdad8a120b51b1cc)), closes [EX-4472](https://searchbroker.atlassian.net/browse/EX-4472)
+
+
+
 ## [3.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.16...@empathyco/x-components@3.0.0-alpha.17) (2021-08-26)
 
 

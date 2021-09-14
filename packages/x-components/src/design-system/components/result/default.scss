@@ -87,4 +87,10 @@
       opacity: 1;
     }
   }
+  @media (hover: none) {
+    .x-result__overlay {
+      // visibility
+      opacity: 1;
+    }
+  }
 }

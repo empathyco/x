@@ -14,13 +14,7 @@
   );
 
   // size
-  --x-size-padding-top-button-default: var(--x-size-padding-top-button-round);
-  --x-size-padding-right-button-default: var(--x-size-padding-right-button-round);
-  --x-size-padding-bottom-button-default: var(--x-size-padding-bottom-button-round);
-  --x-size-padding-left-button-default: var(--x-size-padding-left-button-round);
-
-  // sizing
-  min-width: var(--x-size-width-icon);
-  min-height: var(--x-size-height-icon);
-  box-sizing: content-box;
+  min-width: var(--x-size-height-button-default);
+  --x-size-padding-left-button-default: 0;
+  --x-size-padding-right-button-default: 0;
 }

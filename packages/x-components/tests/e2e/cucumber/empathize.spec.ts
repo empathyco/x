@@ -32,14 +32,6 @@ Given('following config: max recommendations to request {int}', (maxItemsToReque
 });
 
 // Scenario 7
-Then('identifier results are displayed', () => {
-  cy.getByDataTest('identifier-results-item').should('have.length.at.least', 1);
-});
-
-Then('no identifier results are displayed', () => {
-  cy.getByDataTest('identifier-result').should('not.exist');
-});
-
 And('identifier results number {int} is clicked', (identifierResultItem: number) => {
   cy.getByDataTest('identifier-result')
     .should('have.length.gt', identifierResultItem)

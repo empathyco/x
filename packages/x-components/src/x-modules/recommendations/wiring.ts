@@ -1,5 +1,7 @@
-import { namespacedWireDispatchWithoutPayload } from '../../wiring/namespaced-wires.factory';
-import { wireCommit } from '../../wiring/wires.factory';
+import {
+  namespacedWireCommit,
+  namespacedWireDispatchWithoutPayload
+} from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
@@ -14,6 +16,12 @@ const moduleName = 'recommendations';
  * @internal
  */
 const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
+/**
+ * WireCommit for {@link RecommendationsXModule}.
+ *
+ * @internal
+ */
+const wireCommit = namespacedWireCommit(moduleName);
 
 /**
  * Requests and stores the recommendations.

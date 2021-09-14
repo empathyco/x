@@ -13,7 +13,6 @@ Feature: Sliced Filters components
       | 2                | muñeca |
       | 10               | juego  |
 
-
   Scenario Outline: 2. Show more / less button displays or hide part of the results
     Given following config: max of sliced filters <slicedFiltersMax>
     When  "<query>" is searched
