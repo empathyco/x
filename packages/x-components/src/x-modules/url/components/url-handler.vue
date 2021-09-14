@@ -9,7 +9,7 @@
   @Component({
     mixins: [xComponentMixin(urlXModule)]
   })
-  export default class URLHandler extends Vue {
+  export default class UrlHandler extends Vue {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     render(): void {}
 
@@ -20,7 +20,7 @@
      * @internal
      */
     mounted(): void {
-      this.saveURLConfig();
+      this.saveUrlConfig();
 
       window.addEventListener('load', () => {
         this.$x.emit('DocumentLoaded');
@@ -36,7 +36,7 @@
      *
      * @internal
      */
-    private saveURLConfig(): void {
+    private saveUrlConfig(): void {
       if (Object.keys(this.$attrs).length > 0) {
         const params = reduce(
           this.$attrs,
@@ -82,7 +82,7 @@ _Try to make some request and take a look to the url!_
   import { UrlHandler } from '@empathyco/x-components/url-handler';
 
   export default {
-    name: 'URLHandlerDemo',
+    name: 'UrlHandlerDemo',
     components: {
       UrlHandler
     }
@@ -92,7 +92,7 @@ _Try to make some request and take a look to the url!_
 
 ### Play with props
 
-In this example, the `URLHandler` component changes the following query parameter names:
+In this example, the `UrlHandler` component changes the following query parameter names:
 
 - `q` to be `ebq`.
 - `page` to be just `p`.
@@ -110,7 +110,7 @@ _Try to make some request and take a look to the url!_
   import { UrlHandler } from '@empathyco/x-components/url-handler';
 
   export default {
-    name: 'URLHandlerDemo',
+    name: 'UrlHandlerDemo',
     components: {
       UrlHandler
     },
@@ -128,7 +128,7 @@ _Try to make some request and take a look to the url!_
 
 ### Play with events
 
-The `URLHandler` will emit a `UrlConfigProvided` event, with the new url param names if they are
+The `UrlHandler` will emit a `UrlConfigProvided` event, with the new url param names if they are
 provided.
 
 It also emit the `DocumentLoaded` when the page is loaded and the `DocumentHistoryChanged` when the

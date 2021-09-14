@@ -4,21 +4,21 @@ import { installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components';
 import { WirePayload } from '../../../../wiring';
 import { UrlConfig } from '../../config.types';
-import { URLHandler } from '../index';
+import { UrlHandler } from '../index';
 
 /**
- * Renders the {@link URLHandler} component, exposing a basic API for testing.
+ * Renders the {@link UrlHandler} component, exposing a basic API for testing.
  *
- * @returns The API for testing the {@link URLHandler} component.
+ * @returns The API for testing the {@link UrlHandler} component.
  */
-function renderURLHandler({ template = `<URLHandler />` }: URLHandlerOptions = {}): URLHandlerAPI {
+function renderUrlHandler({ template = `<UrlHandler />` }: UrlHandlerOptions = {}): UrlHandlerAPI {
   const [, localVue] = installNewXPlugin();
 
   const wrapper = mount(
     {
       template,
       components: {
-        URLHandler
+        UrlHandler
       }
     },
     {
@@ -27,20 +27,20 @@ function renderURLHandler({ template = `<URLHandler />` }: URLHandlerOptions = {
   );
 
   return {
-    wrapper: wrapper.findComponent(URLHandler)
+    wrapper: wrapper.findComponent(UrlHandler)
   };
 }
 
-describe('testing URLHandler component', () => {
+describe('testing UrlHandler component', () => {
   it('is an XComponent which has an XModule', () => {
-    const { wrapper } = renderURLHandler();
+    const { wrapper } = renderUrlHandler();
     expect(isXComponent(wrapper.vm)).toEqual(true);
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('url');
   });
 
   // eslint-disable-next-line max-len
   it("doesn't emit the `UrlConfigProvided` if there are not custom keys keys when its created", () => {
-    const { wrapper } = renderURLHandler();
+    const { wrapper } = renderUrlHandler();
 
     const urlHandlerProvidedCallback = jest.fn();
 
@@ -50,8 +50,8 @@ describe('testing URLHandler component', () => {
   });
 
   it('emits the `UrlConfigProvided` event with the custom keys when its created', () => {
-    const { wrapper } = renderURLHandler({
-      template: `<URLHandler query="query" page="p" />`
+    const { wrapper } = renderUrlHandler({
+      template: `<UrlHandler query="query" page="p" />`
     });
 
     const urlHandlerProvidedCallback = jest.fn();
@@ -71,7 +71,7 @@ describe('testing URLHandler component', () => {
   });
 
   it('emits the `DocumentLoaded` when the window is loaded', () => {
-    const { wrapper } = renderURLHandler();
+    const { wrapper } = renderUrlHandler();
 
     const urlHandlerProvidedCallback = jest.fn();
 
@@ -83,7 +83,7 @@ describe('testing URLHandler component', () => {
   });
 
   it('emits the `DocumentHistoryChanged` when the url change', () => {
-    const { wrapper } = renderURLHandler();
+    const { wrapper } = renderUrlHandler();
 
     const urlHandlerProvidedCallback = jest.fn();
 
@@ -95,12 +95,12 @@ describe('testing URLHandler component', () => {
   });
 });
 
-interface URLHandlerAPI {
-  /** Test wrapper of the {@link URLHandler} instance. */
+interface UrlHandlerAPI {
+  /** Test wrapper of the {@link UrlHandler} instance. */
   wrapper: Wrapper<Vue>;
 }
 
-interface URLHandlerOptions {
+interface UrlHandlerOptions {
   /** The template to render. Receives the `params` via prop. */
   template?: string;
 }
