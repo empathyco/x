@@ -5,7 +5,7 @@ import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/ut
 import NextQuery from '../next-query.vue';
 
 describe('testing next query item component', () => {
-  const suggestion = getSuggestionsStub('NextQuery')[0];
+  const suggestion = getSuggestionsStub()[0];
   const [, localVue] = installNewXPlugin();
 
   const nextQueryWrapper = mount(NextQuery, { localVue, propsData: { suggestion } });

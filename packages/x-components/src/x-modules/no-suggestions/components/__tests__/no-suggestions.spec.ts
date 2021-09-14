@@ -18,7 +18,7 @@ describe('testing no suggestions component', () => {
 
   let noSuggestionsWrapper: Wrapper<Vue>;
   const query = 'Mitsubishi evo IX';
-  const suggestions = getSuggestionsStub('QuerySuggestion');
+  const suggestions = getSuggestionsStub();
   const message = 'No suggestions for "{query}".';
 
   beforeEach(() => {

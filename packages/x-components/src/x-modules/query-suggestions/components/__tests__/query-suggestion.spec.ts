@@ -14,7 +14,7 @@ describe('testing query-suggestion component', () => {
   const store = new Store<DeepPartial<RootXStoreState>>({});
   installNewXPlugin({ store }, localVue);
 
-  const suggestion = getSuggestionsStub('QuerySuggestion')[0];
+  const suggestion = getSuggestionsStub()[0];
 
   const component = mount(QuerySuggestion, {
     localVue,
@@ -36,7 +36,7 @@ describe('testing query-suggestion component', () => {
 
   // TODO: Refactor state to normalized query getter
   it('highlights the suggestion matching parts with the state query', async () => {
-    resetXQuerySuggestionsStateWith(store, { query: 'sal' });
+    resetXQuerySuggestionsStateWith(store, { query: 'Suggestion 1' });
 
     await localVue.nextTick();
 

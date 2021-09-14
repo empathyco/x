@@ -7,7 +7,7 @@ import { popularSearchesXStoreModule } from '../module';
 import { PopularSearchesState } from '../types';
 
 describe('testing popular searches module actions', () => {
-  const mockedSuggestions = getSuggestionsStub('PopularSearch');
+  const mockedSuggestions = getSuggestionsStub();
   const adapter = getMockedAdapter({ suggestions: { suggestions: mockedSuggestions } });
 
   const actionKeys = map(popularSearchesXStoreModule.actions, action => action);
