@@ -1,7 +1,11 @@
 Feature: Partial results component
 
+  Background:
+    Given a results API with partial results
+
   Scenario Outline:  1. Shows no partial results if there are enough results
-    Given no special config for partial-results view
+    Given a results API
+    And   no special config for partial-results view
     When  "<query>" is searched
     Then  at least 4 related results are displayed
     And   no partial results are displayed
@@ -26,7 +30,8 @@ Feature: Partial results component
     Then  less than 4 related results are displayed
     And   partial results are displayed
     And   "<query>" contains the partial query
-    When  first partial query button is clicked
+    When  a results API
+    And   first partial query button is clicked
     Then  first partial query is displayed in the search-box
     And   at least 4 related results are displayed
     And   no partial results are displayed
