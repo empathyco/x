@@ -1,4 +1,5 @@
 import { XStoreModule } from '../../../store';
+import { Dictionary } from '../../../utils/types';
 import { UrlConfig } from '../config.types';
 
 /**
@@ -13,7 +14,7 @@ export interface UrlState {
   filters: string[];
   sort: string;
   relatedTags: string[];
-  extraParams: Record<UrlParamKey, UrlParamValue>;
+  extraParams: Dictionary<UrlParamValue>;
 }
 
 /**
@@ -22,7 +23,8 @@ export interface UrlState {
  * @public
  */
 export interface UrlGetters {
-  urlParams: Record<UrlParamKey, UrlParamValue>;
+  urlParams: Dictionary<UrlParamValue>;
+  urlMappedParamNames: Dictionary<UrlParamKey>;
 }
 
 /**
@@ -53,7 +55,16 @@ export interface UrlMutations {
  *
  * @public
  */
-export interface UrlActions {}
+export interface UrlActions {
+  /**
+   * Updates the URL with values from the store. It replaces the current url with a new entry in the
+   * browser history. Also returns the params with the custom names provided in the config if
+   * present.
+   *
+   * @public
+   */
+  updateUrl(): void;
+}
 
 /**
  * URL type safe store module.

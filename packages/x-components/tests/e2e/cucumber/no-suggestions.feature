@@ -18,5 +18,5 @@ Feature: No Suggestions component
 
     Examples:
       | queryWithoutSuggestions | queryWithSuggestions |
-      | asdfg                   | puzzle               |
+      | asdfg                   | lego                 |
 
