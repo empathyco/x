@@ -31,7 +31,7 @@ Example for the History Queries module:
 * When the user clicks on the delete button, then the search query is removed from the list.
 
 ## What does the result of this task look like?
-Simple version of HTML expected, if needed. 
+Provide a simple version of HTML expected, if needed. 
 
 Example:
 ```
@@ -88,7 +88,7 @@ Example:
 
 ----
 
-## Supporting informations
+## Supporting information
 Provide as much supporting information as possible. Including attachments will help us to better understand your feature request and requirements.
 
 Example:

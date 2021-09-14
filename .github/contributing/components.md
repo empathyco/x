@@ -45,7 +45,7 @@ When a component is used in a template, the tag of the component must be written
 
 ### Base components
 
-The base components have no dependencies with any [X Module](./concepts.md#x-module). They serve as a blocks to build more complex components. Base components must be prefixed with `Base` using `PascalCase`.
+The base components have no dependencies with any [X Module](./concepts.md#x-module). They serve as blocks to build more complex components. Base components must be prefixed with `Base` using `PascalCase`.
 
 ```ts
 // ❌ Wrong
@@ -93,8 +93,8 @@ suggestion-list.vue
 
 ### Button components
 
-These components are perceived by the User as buttons. They are not the same as a html `<button>` tag. There are components with `<button>` that are displayed with `link` style, for example. Valid examples include the button used to clear the search input or the button to clear the selected filters. 
-If the button represents an entity, the entity name should be used instead. For example, with different type of suggestions (`NextQuery`, `PopularSearch`, `QuerySuggestion`...). 
+These components are perceived by the User as buttons. They are not the same as an HTML `<button>` tag. There are components with `<button>` that are displayed with `link` style, for example. Valid examples include the button used to clear the search input or the button to clear the selected filters. 
+If the button represents an entity, the entity name should be used instead. For example, with different types of suggestions (`NextQuery`, `PopularSearch`, `QuerySuggestion`...). 
 
 Button components must be suffixed with `Button`.
 
@@ -184,7 +184,7 @@ If a component can emit multiple types of events, such as clicks depending on th
 
 ## Naming getters
 
-Getters belong to [X Module](./concepts.md#x-module). There are two different ways of declare a getter. It can be a **function** or a **class** with multiple getters. 
+Getters belong to [X Module](./concepts.md#x-module). There are two different ways of declaring a getter. It can be a **function** or a **class** with multiple getters. 
 If the getter is a **function**, it should be named using `camelCase`. It should explain what it returns.
 
 ```ts

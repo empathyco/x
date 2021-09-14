@@ -2,7 +2,7 @@
 
 All commits must follow the
 [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) specification syntax.
-The `CHANGELOG.md` file is generated automatically using standard version that requires the commits to be in a specific format in order to be parsed.
+The `CHANGELOG.md` file is generated automatically using [standard version](https://www.npmjs.com/package/standard-version) that requires the commits to be in a specific format in order to be parsed.
 
 ```
 <type>[optional scope]: <description>
@@ -19,10 +19,10 @@ The commit type part must be one defined by the [Angular convention](https://git
 
 - **build**: Changes that affect the build system or external dependencies.
 - **ci**: Changes to our CI configuration files and scripts.
-- **chore**: Changes that you don’t want to appear in the change log. For example, this can be used to fix the change log if any release goes wrong.
+- **chore**: Changes that you don’t want to appear in the changelog. For example, this can be used to fix the changelog if any release goes wrong.
 - **docs**: Documentation only changes.
 - **feat**: A new feature. New components, services, utilities…
-- **fix**: A bug fix, or a hot fix
+- **fix**: A bug fix, or a hotfix
 - **perf**: A code change that improves performance.
 - **refactor**: An internal code change that neither fixes a bug nor adds a feature while keeping the same public API of the affected parts.
 - **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc).
@@ -32,7 +32,7 @@ The commit type part must be one defined by the [Angular convention](https://git
 
 The scope is optional. If a change affects the whole project, i.e. changing Prettier rules, you do not need to add a scope that says “all the project”. This part must only be added if the change affects a specific part of the code.
 
-The scope is used to group the related changes in the change log, so you can easily see all the changes that have been done to an specific part of the library.
+The scope is used to group the related changes in the changelog, so you can easily see all the changes that have been done to an specific part of the library.
 
 If you don’t know what scope your commit should have, probably you should do multiple commits.
 
@@ -72,13 +72,13 @@ The description is a short sentence written in **present tense** with an **imper
 
 ### Optional body
 
-If a simple description is not enough to describe the change, you give more details in the body of the commit. The body is optional. Remember that the purpose of using this commit format is to automate change log generation.
+If a simple description is not enough to describe the change, you give more details in the body of the commit. The body is optional. Remember that the purpose of using this commit format is to automate changelog generation.
 
-This change log is read by all users of the library, so keep the level of details low.
+This changelog is read by all users of the library, so keep the level of details low.
 Users want to know how upgrading a version will affect their project, but they don’t care about internal or private changes.
 
 ```
-The `Dropdown` component serves as a replacement of the standard HTML `select` component. It exposes the same API to set the values and selected values. In addition, it also allows you to configure the animation to open and close the dropdown, and determine how each item is rendered.
+The `Dropdown` component serves as a replacement for the standard HTML `select` component. It exposes the same API to set the values and selected values. In addition, it also allows you to configure the animation to open and close the dropdown, and determine how each item is rendered.
 ```
 
 ### Optional footer
@@ -99,7 +99,7 @@ BREAKING-CHANGE: Rename `BaseFilter` component to `Filter`, and move it from `co
 
 #### Issue
 
-To properly link the commit with the issue ID, add it to the end of the commit footer. The change log includes a link to the task so users can read more about the motivation of the change.
+To properly link the commit with the issue ID, add it to the end of the commit footer. The changelog includes a link to the task so users can read more about the motivation of the change.
 
 ```
 EX-1234

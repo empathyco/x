@@ -2,7 +2,7 @@
 
 ## Variables, attributes, and properties
 
-These rules are apply to any kind of variable, whether it is defined as an attribute, a class
+These rules apply to any kind of variable, whether it is defined as an attribute, a class
 property, an object property, or a Vue component prop.
 
 - The name must be written in `camelCase`.
