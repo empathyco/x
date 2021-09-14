@@ -6,8 +6,6 @@ import { WirePayload } from '../../../../wiring';
 import { UrlConfig } from '../../config.types';
 import { URLHandler } from '../index';
 
-jest.useFakeTimers();
-
 /**
  * Renders the {@link URLHandler} component, exposing a basic API for testing.
  *
@@ -28,15 +26,8 @@ function renderURLHandler({ template = `<URLHandler />` }: URLHandlerOptions = {
     }
   );
 
-  async function executeWindowEvent(event: string): Promise<void> {
-    window.dispatchEvent(new Event(event));
-    jest.runAllTimers();
-    await wrapper.vm.$nextTick();
-  }
-
   return {
-    wrapper: wrapper.findComponent(URLHandler),
-    executeWindowEvent
+    wrapper: wrapper.findComponent(URLHandler)
   };
 }
 
@@ -79,26 +70,26 @@ describe('testing URLHandler component', () => {
     expect(urlHandlerProvidedCallback).toHaveBeenCalledTimes(1);
   });
 
-  it('emits the `DocumentLoaded` when the window is loaded', async () => {
-    const { wrapper, executeWindowEvent } = renderURLHandler();
+  it('emits the `DocumentLoaded` when the window is loaded', () => {
+    const { wrapper } = renderURLHandler();
 
     const urlHandlerProvidedCallback = jest.fn();
 
     wrapper.vm.$x.on('DocumentLoaded', false).subscribe(urlHandlerProvidedCallback);
 
-    await executeWindowEvent('load');
+    window.dispatchEvent(new Event('load'));
 
     expect(urlHandlerProvidedCallback).toHaveBeenCalledTimes(1);
   });
 
-  it('emits the `DocumentHistoryChanged` when the url change', async () => {
-    const { wrapper, executeWindowEvent } = renderURLHandler();
+  it('emits the `DocumentHistoryChanged` when the url change', () => {
+    const { wrapper } = renderURLHandler();
 
     const urlHandlerProvidedCallback = jest.fn();
 
     wrapper.vm.$x.on('DocumentHistoryChanged', false).subscribe(urlHandlerProvidedCallback);
 
-    await executeWindowEvent('popstate');
+    window.dispatchEvent(new Event('popstate'));
 
     expect(urlHandlerProvidedCallback).toHaveBeenCalledTimes(1);
   });
@@ -107,8 +98,6 @@ describe('testing URLHandler component', () => {
 interface URLHandlerAPI {
   /** Test wrapper of the {@link URLHandler} instance. */
   wrapper: Wrapper<Vue>;
-  /** Simulates window events for testing. */
-  executeWindowEvent: (event: string) => Promise<void>;
 }
 
 interface URLHandlerOptions {
