@@ -33,12 +33,12 @@ describe('testing next query item component', () => {
     const wrapperComponent = {
       template: `
         <NextQuery :suggestion="suggestion">
-        <template #default="{ suggestion }">
-          <img data-test="next-query-icon" src="./next-query.svg"/>
-          <span data-test="next-query-query" :aria-label="suggestion.query">
-              {{ suggestion.query }}
-            </span>
-        </template>
+          <template #default="{ suggestion }">
+            <img data-test="next-query-icon" src="./next-query.svg"/>
+            <span data-test="next-query-query" :aria-label="suggestion.query">
+                  {{ suggestion.query }}
+                </span>
+          </template>
         </NextQuery>
       `,
       props: ['suggestion'],
