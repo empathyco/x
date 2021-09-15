@@ -426,7 +426,6 @@
   @Component({
     beforeRouteEnter(_to, _from, next: () => void): void {
       XPlugin.registerXModule(searchXModule);
-      XPlugin.registerXModule(urlXModule);
       new XInstaller(baseInstallXOptions).init(baseSnippetConfig);
       next();
     },
