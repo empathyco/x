@@ -4,7 +4,7 @@ import { getSuggestionsStub } from '../../../__stubs__/suggestions-stubs.factory
 import BaseSuggestions from '../base-suggestions.vue';
 
 describe('testing Base Suggestions component', () => {
-  const suggestions = getSuggestionsStub('QuerySuggestion');
+  const suggestions = getSuggestionsStub();
 
   it('renders a list of suggestions passed as props', () => {
     const wrapper = mount(BaseSuggestions, {

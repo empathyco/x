@@ -6,7 +6,7 @@ import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/ut
 import PopularSearch from '../popular-search.vue';
 
 describe('testing popular search item component', () => {
-  const suggestion: Suggestion = getSuggestionsStub('PopularSearch')[0];
+  const suggestion: Suggestion = getSuggestionsStub()[0];
 
   const [, localVue] = installNewXPlugin();
 

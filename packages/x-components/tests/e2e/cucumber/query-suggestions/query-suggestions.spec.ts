@@ -1,5 +1,22 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { InstallXOptions } from '../../../src/x-installer/x-installer/types';
+import { createSuggestionStub } from '../../../../src/__stubs__/suggestions-stubs.factory';
+import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
+
+// Background
+Given('a query suggestions API with a known response', () => {
+  cy.intercept('https://api.empathy.co/getSuggestions', req => {
+    req.reply({
+      suggestions: [
+        createSuggestionStub('lego'),
+        createSuggestionStub('lego marvel'),
+        createSuggestionStub('lego friends'),
+        createSuggestionStub('lego star wars'),
+        createSuggestionStub('lego city'),
+        createSuggestionStub('lego harry potter')
+      ]
+    });
+  }).as('interceptedQuerySuggestions');
+});
 
 Given(
   'following config: hide if equals query {boolean}, requested items {int}',
@@ -17,7 +34,7 @@ Given(
         }
       }
     };
-    cy.visit('/test/query-suggestions', {
+    cy.visit('/test/query-suggestions?useMockedAdapter=true', {
       qs: {
         xModules: JSON.stringify(config)
       }
@@ -26,7 +43,7 @@ Given(
 );
 
 // Scenario 1
-And('no query suggestion are displayed', () => {
+And('no query suggestions are displayed', () => {
   cy.getByDataTest('query-suggestion').should('not.exist');
 });
 
@@ -45,6 +62,14 @@ And('all query suggestions contain the searched query', function (this: { search
       }
     });
   });
+});
+
+When('a query suggestions API with no query suggestions', () => {
+  cy.intercept('https://api.empathy.co/getSuggestions', req => {
+    req.reply({
+      suggestions: []
+    });
+  }).as('interceptedQuerySuggestions');
 });
 
 // Scenario 2

@@ -11,7 +11,7 @@ import PopularSearches from '../popular-searches.vue';
 import { resetXPopularSearchesStateWith } from './utils';
 
 describe('testing popular searches component', () => {
-  const popularSearches = getSuggestionsStub('PopularSearch');
+  const popularSearches = getSuggestionsStub();
 
   const localVue = createLocalVue();
   localVue.use(Vuex);
