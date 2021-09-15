@@ -17,7 +17,8 @@
     @include safari-gap(var(--x-size-gap-list));
   }
 
-  &.x-list--wrap {
+  &.x-list--wrap,
+  &.x-list--wrap-reverse {
     @include safari-gap(var(--x-size-gap-list), var(--x-size-gap-list));
   }
 
@@ -45,6 +46,10 @@
 
 .x-list--wrap.x-list {
   flex-flow: row wrap;
+}
+
+.x-list--wrap-reverse.x-list {
+  flex-flow: row wrap-reverse;
 }
 
 .x-list--justify-stretch.x-list {

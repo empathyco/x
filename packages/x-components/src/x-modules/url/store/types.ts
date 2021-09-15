@@ -1,4 +1,5 @@
 import { XStoreModule } from '../../../store';
+import { Dictionary } from '../../../utils/types';
 import { UrlConfig } from '../config.types';
 
 /**
@@ -9,7 +10,7 @@ import { UrlConfig } from '../config.types';
 export interface UrlState {
   config: UrlConfig;
   params: Params;
-  extraParams: Record<UrlParamKey, UrlParamValue>;
+  extraParams: Dictionary<UrlParamValue>;
 }
 
 /**
@@ -31,7 +32,8 @@ export interface Params {
  * @public
  */
 export interface UrlGetters {
-  urlParams: Record<UrlParamKey, UrlParamValue>;
+  urlParams: Dictionary<UrlParamValue>;
+  urlMappedParamNames: Dictionary<UrlParamKey>;
 }
 
 /**
