@@ -1,6 +1,6 @@
 import { Store } from 'vuex';
 import { RootXStoreState } from '../store';
-import { RequestStatus } from '../store/utils/helpers/status.helpers';
+import { RequestStatus } from '../store/status.helpers';
 import {
   XComponentAliasAPI,
   XComponentAliasQueryAPI,

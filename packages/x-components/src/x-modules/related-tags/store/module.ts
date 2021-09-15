@@ -1,4 +1,4 @@
-import { setStatus } from '../../../store/utils/helpers/status.helpers';
+import { setStatus } from '../../../store/status.helpers';
 import {
   cancelFetchAndSaveRelatedTags,
   fetchAndSaveRelatedTags

@@ -14,7 +14,7 @@ import { GettersTree } from '../store/getters.types';
 import { MutationsTree } from '../store/mutations.types';
 import { StoreEmitters } from '../store/store-emitters.types';
 import { AnyXStoreModule, XStoreModule } from '../store/store.types';
-import { RequestStatus } from '../store/utils/helpers/status.helpers';
+import { RequestStatus } from '../store/status.helpers';
 import { DeepPartial, PropsWithType } from '../utils';
 import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
 import { WireMetadata, Wiring } from '../wiring/wiring.types';

@@ -1,5 +1,5 @@
 import { isFacetFilter } from '@empathyco/x-types';
-import { setStatus } from '../../../store/utils/helpers/status.helpers';
+import { setStatus } from '../../../store/status.helpers';
 import { groupItemsBy } from '../../../utils/array';
 import {
   cancelFetchAndSaveSearchResponse,

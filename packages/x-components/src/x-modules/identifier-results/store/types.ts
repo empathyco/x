@@ -1,7 +1,7 @@
 import { SearchByIdRequest } from '@empathyco/x-adapter';
 import { Result } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
-import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
+import { StatusMutations, StatusState } from '../../../store/status.helpers';
 import { IdentifierResultsConfig } from '../config.types';
 
 /**

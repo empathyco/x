@@ -1,4 +1,4 @@
-import { createStoreEmitters } from '../../../store/store.utils';
+import { createStoreEmitters } from '../../../store/store-emitters.utils';
 import { areFiltersDifferent } from '../../../utils/filters';
 import { isNewQuery } from '../utils';
 import { facetsXStoreModule } from './module';

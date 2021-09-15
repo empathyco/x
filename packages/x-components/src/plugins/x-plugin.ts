@@ -9,10 +9,7 @@ import {
   AnyStoreEmitters
 } from '../store/store-emitters.types';
 import { AnyXStoreModule, RootXStoreState } from '../store/store.types';
-import {
-  cleanGettersProxyCache,
-  getGettersProxyFromModule
-} from '../store/utils/get-getters-proxy';
+import { cleanGettersProxyCache, getGettersProxyFromModule } from '../store/get-getters-proxy';
 import { RootXStoreModule } from '../store/x.module';
 import { Dictionary, forEach } from '../utils';
 import { AnyWire, Wiring } from '../wiring/wiring.types';
