@@ -1,3 +1,4 @@
+import { WatchOptions } from 'vue';
 import { Dictionary, Returns } from '../../utils/types';
 import { XEvent, XEventPayload } from '../../wiring/events.types';
 import { AnyXStoreModule } from '../store.types';
