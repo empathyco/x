@@ -1,11 +1,12 @@
 import { mount } from '@vue/test-utils';
+import { createNextQueryStub } from '../../../../__stubs__/next-queries-stubs.factory';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import NextQuery from '../next-query.vue';
 
 describe('testing next query item component', () => {
-  const suggestion = getSuggestionsStub('NextQuery')[0];
+  const suggestion = createNextQueryStub('milk');
   const [, localVue] = installNewXPlugin();
 
   const nextQueryWrapper = mount(NextQuery, { localVue, propsData: { suggestion } });
