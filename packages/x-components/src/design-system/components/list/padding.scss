@@ -15,7 +15,7 @@
   }
 }
 
-@for $i from 1 through 7 {
+@for $i from 1 through 10 {
   $i: zerofill($i);
   .x-list--padding-#{$i}.x-list {
     padding: var(--x-size-padding-list-#{$i});

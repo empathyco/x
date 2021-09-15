@@ -228,7 +228,7 @@
 
       // color
       background-color: var(--x-color-background-layout-columns-header, transparent);
-      border-color: var(--x-color-border-layout-columns-header, trasparent);
+      border-color: var(--x-color-border-layout-columns-header, transparent);
 
       // border
       border-style: solid;
