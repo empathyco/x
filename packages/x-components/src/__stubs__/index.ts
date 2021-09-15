@@ -10,3 +10,4 @@ export * from './related-tags-stubs.factory';
 export * from './results-stubs.factory';
 export * from './search-response-stubs.factory';
 export * from './suggestions-stubs.factory';
+export { createPopularSearch } from './popular-searches-stubs.factory';
