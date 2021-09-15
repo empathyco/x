@@ -5,11 +5,6 @@ Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
   {
-    path: '/',
-    name: 'app',
-    component: () => import('./views/FullApp.vue')
-  },
-  {
     path: '/design-system',
     name: 'Design System',
     component: () => import('./views/design-system.vue')
