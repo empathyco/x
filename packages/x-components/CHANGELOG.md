@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.20...@empathyco/x-components@3.0.0-alpha.21) (2021-09-15)
+
+
+### Features
+
+* **design-system:** add `Shadow` component ([2592a4d](https://github.com/empathyco/x/commit/2592a4d9975109b0733a550c7d40f271ec984456)), closes [EX-4739](https://searchbroker.atlassian.net/browse/EX-4739)
+* **e2e:** mock adapter for query suggestions tests  ([8566a82](https://github.com/empathyco/x/commit/8566a82954f12bf1592e398a8eed5871596b6f2a)), closes [EX-4645](https://searchbroker.atlassian.net/browse/EX-4645)
+* export store utils ([663f952](https://github.com/empathyco/x/commit/663f95227815fe2f7a9fcbb0b290774f26b4d7eb)), closes [EX-4742](https://searchbroker.atlassian.net/browse/EX-4742)
+
+
+### Bug Fixes
+
+* **design-system:** fix typo. Increase `gap` and `padding` tokens up to 10.  Add class for list item flex none ([c47a888](https://github.com/empathyco/x/commit/c47a888c43ceb9f152f55b3831aaf575586942a3)), closes [EX-4720](https://searchbroker.atlassian.net/browse/EX-4720)
+
+
+
 ## [3.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.19...@empathyco/x-components@3.0.0-alpha.20) (2021-09-15)
 
 
