@@ -1,7 +1,7 @@
 import { Suggestion } from '@empathyco/x-types';
 
 /**
- * Creates {@link @empathyco/x-types#Suggestion | suggestions} stub.
+ * Creates a {@link @empathyco/x-types#Suggestion | suggestions} stub.
  *
  * @param amount - Number of stubbed suggestions to create.
  *
