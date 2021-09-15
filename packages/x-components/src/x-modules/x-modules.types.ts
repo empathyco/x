@@ -1,5 +1,5 @@
-import { StoreEmitters } from '../store/utils/store-emitters.types';
 import { AnyXStoreModule, XStoreModule } from '../store/store.types';
+import { StoreEmitters } from '../store/utils/store-emitters.utils';
 import { Wiring } from '../wiring/wiring.types';
 import { DeviceXModule } from './device/x-module';
 import { EmpathizeXModule } from './empathize/x-module';

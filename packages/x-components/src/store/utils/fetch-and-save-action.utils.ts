@@ -1,6 +1,6 @@
 import { cancellablePromise, CancelSymbol } from '../../utils/cancellable-promise';
 import { XActionContext } from '../actions.types';
-import { StatusMutations, StatusState } from './status.helpers';
+import { StatusMutations, StatusState } from './status-store.utils';
 
 /**
  * Utility to create an action that requests and save some data asynchronously, with the

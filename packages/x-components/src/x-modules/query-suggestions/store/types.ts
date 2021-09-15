@@ -1,7 +1,7 @@
 import { SuggestionsRequest } from '@empathyco/x-adapter';
 import { Suggestion } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
-import { StatusMutations, StatusState } from '../../../store/utils/status.helpers';
+import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { Dictionary } from '../../../utils';
 import { QuerySuggestionsConfig } from '../config.types';
 
