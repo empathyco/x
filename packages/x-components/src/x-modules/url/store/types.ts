@@ -32,8 +32,11 @@ export interface Params {
  * @public
  */
 export interface UrlGetters {
+  /** The current params in the url. */
   urlParams: Dictionary<UrlParamValue>;
-  urlMappedParamNames: Dictionary<UrlParamKey>;
+
+  /** All the parameter names with their corresponding key. */
+  urlMappedParamNames: Dictionary<UrlParamKey | string>;
 }
 
 /**
@@ -41,7 +44,7 @@ export interface UrlGetters {
  *
  * @public
  */
-export type UrlParamKey = string;
+export type UrlParamKey = Extract<keyof Params, string>;
 
 /**
  * The allowed values of the parameters to store in the URL.
@@ -56,8 +59,23 @@ export type UrlParamValue = string | number | boolean | Array<string | number | 
  * @public
  */
 export interface UrlMutations {
+  /**
+   * Sets a new url configuration.
+   *
+   * @param config - The new query of the search-box.
+   */
   setUrlConfig(config: UrlConfig): void;
-  setExtraParams(extraParam: Record<UrlParamKey, UrlParamValue>): void;
+  /**
+   * Sets new extra params.
+   *
+   * @param extraParam - The new query of the search-box.
+   */
+  setExtraParams(extraParam: Dictionary<UrlParamValue>): void;
+  /**
+   * Sets the new params.
+   *
+   * @param params - The new query of the search-box.
+   */
   setParams(params: Record<UrlParamKey, UrlParamValue>): void;
 }
 

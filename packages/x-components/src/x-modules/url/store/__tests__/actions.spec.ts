@@ -1,5 +1,7 @@
 import { map } from '../../../../utils/object';
+import { Dictionary } from '../../../../utils/types';
 import { urlXStoreModule } from '../module';
+import { Params, UrlParamValue } from '../types';
 import { createUrlStore, resetUrlStateWith } from './utils';
 
 describe('testing Url module actions', () => {
@@ -60,7 +62,9 @@ describe('testing Url module actions', () => {
         window.location.href +
           '?q=sudadera&tag=capucha&tag=disney&page=3&warehouse=01234&consent=true&store=1111'
       );
+
       window.history.replaceState({ ...window.history.state }, document.title, url.href);
+
       resetUrlStateWith(store, {
         config: {
           urlParamNames: {
@@ -72,12 +76,18 @@ describe('testing Url module actions', () => {
       });
 
       await store.dispatch(actionKeys.updateStoreFromUrl);
-      expect(store.state.params.page).toEqual(3);
-      expect(store.state.params.query).toEqual('sudadera');
-      expect(store.state.params.relatedTags).toEqual(['capucha', 'disney']);
-      expect(store.state.extraParams.warehouse).toEqual('01234');
-      expect(store.state.extraParams.consent).toEqual(true);
-      expect(store.state.extraParams.store).toBeUndefined();
+
+      expect(store.state.params).toEqual<Partial<Params>>({
+        page: 3,
+        query: 'sudadera',
+        relatedTags: ['capucha', 'disney'],
+        filters: [],
+        sort: ''
+      });
+      expect(store.state.extraParams).toEqual<Dictionary<UrlParamValue>>({
+        warehouse: '01234',
+        consent: true
+      });
     });
   });
 });

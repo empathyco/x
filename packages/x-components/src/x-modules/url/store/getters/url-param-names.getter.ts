@@ -22,6 +22,6 @@ export const urlMappedParamNames: UrlXStoreModule['getters']['urlMappedParamName
       urlParams[key] = urlParamNames[key] ?? key;
       return urlParams;
     },
-    {} as Dictionary<UrlParamKey>
+    {} as Dictionary<UrlParamKey | string>
   );
 };

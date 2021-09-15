@@ -16,17 +16,17 @@ export const updateStoreFromUrl: UrlXStoreModule['actions']['updateStoreFromUrl'
   commit
 }) => {
   const urlSearchParams = new URLSearchParams(window.location.search);
-  const mappedParams = {} as Dictionary<UrlParamValue>;
+  const mappedParams = {} as Record<UrlParamKey, UrlParamValue>;
   const mappedExtraParams = {} as Dictionary<UrlParamValue>;
-  forEach({ ...params, ...extraParams }, (stateParam, stateValue) => {
-    const urlParam = urlMappedParamNames[stateParam];
+  forEach({ ...params, ...extraParams }, (stateKey, stateValue) => {
+    const urlParam = urlMappedParamNames[stateKey];
     if (urlSearchParams.has(urlParam)) {
       const param = getParamByType(urlSearchParams, stateValue, urlParam);
 
       if (urlParam in extraParams) {
-        mappedExtraParams[stateParam] = param;
+        mappedExtraParams[stateKey] = param;
       } else {
-        mappedParams[stateParam] = param;
+        mappedParams[stateKey] = param;
       }
     }
   });
@@ -39,28 +39,28 @@ export const updateStoreFromUrl: UrlXStoreModule['actions']['updateStoreFromUrl'
  *
  * Gets the parameter from the url depending on the state parameter type.
  *
- * @param urlSearchParams - All the search params
- * @param stateValue - Value of the current state
- * @param urlParam - The param to get
+ * @param urlSearchParams - All the search params.
+ * @param stateValue - Value of the current state.
+ * @param urlParam - The param to get.
  *
  * @internal
  *
- * @returns UrlParamValue
+ * @returns UrlParamValue.
  */
 function getParamByType(
   urlSearchParams: URLSearchParams,
   stateValue: UrlParamValue,
-  urlParam: UrlParamKey
+  urlParam: UrlParamKey | string
 ): UrlParamValue {
   switch (typeof stateValue) {
     case 'number':
       return Number(urlSearchParams.get(urlParam));
     case 'boolean':
-      return (urlSearchParams.get(urlParam) as string).toLowerCase() === 'true';
+      return urlSearchParams.get(urlParam)!.toLowerCase() === 'true';
     case 'string':
-      return urlSearchParams.get(urlParam) as string;
+      return urlSearchParams.get(urlParam)!;
     default:
-      //array
+      // array
       return urlSearchParams.getAll(urlParam);
   }
 }
