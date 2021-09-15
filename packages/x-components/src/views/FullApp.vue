@@ -420,7 +420,6 @@
   // eslint-disable-next-line max-len
   import BaseColumnPickerDropdown from '../components/column-picker/base-column-picker-dropdown.vue';
   import SortDropdown from '../x-modules/search/components/sort-dropdown.vue';
-  import { urlXModule } from '../x-modules/url/x-module';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
