@@ -1,4 +1,4 @@
-import { ModelNameType, Suggestion } from '@empathyco/x-types';
+import { Suggestion } from '@empathyco/x-types';
 import { createFacetWithFilter } from './facets-stubs.factory';
 
 /**
@@ -7,7 +7,7 @@ import { createFacetWithFilter } from './facets-stubs.factory';
  * @param modelName - Model name for each suggestion.
  * @returns Array of suggestion stub.
  */
-export function getSuggestionsStub(modelName: ModelNameType): Suggestion[] {
+export function getSuggestionsStub(modelName: Suggestion['modelName']): Suggestion[] {
   return [
     {
       facets: [],
@@ -54,7 +54,7 @@ export function getSuggestionsStub(modelName: ModelNameType): Suggestion[] {
 export function createSuggestionStub(query: string, suggestion?: Partial<Suggestion>): Suggestion {
   return {
     facets: [],
-    key: 'key',
+    key: query,
     query,
     totalResults: 10,
     results: [],
