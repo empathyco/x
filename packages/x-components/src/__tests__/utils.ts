@@ -9,7 +9,7 @@ import { XPlugin } from '../plugins/x-plugin';
 import { ActionsDictionary } from '../store/actions.types';
 import { MutationsDictionary } from '../store/mutations.types';
 import { RootXStoreState, XStoreModule } from '../store/store.types';
-import { cleanGettersProxyCache } from '../store/utils/get-getters-proxy';
+import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
 import { DeepPartial, Dictionary } from '../utils/types';
 import { ExtractState, XModule, XModuleName } from '../x-modules/x-modules.types';
 import { SearchAdapterDummy } from './adapter.dummy';

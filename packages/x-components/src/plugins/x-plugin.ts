@@ -3,16 +3,16 @@ import { deepMerge } from '@empathyco/x-deep-merge';
 import { PluginObject, VueConstructor } from 'vue';
 import Vuex, { Module, Store } from 'vuex';
 import { FILTERS_REGISTRY } from '../filters/filters.registry';
-import {
-  AnySimpleStateSelector,
-  AnyStateSelector,
-  AnyStoreEmitters
-} from '../store/store-emitters.types';
 import { AnyXStoreModule, RootXStoreState } from '../store/store.types';
 import {
   cleanGettersProxyCache,
   getGettersProxyFromModule
-} from '../store/utils/get-getters-proxy';
+} from '../store/utils/getters-proxy.utils';
+import {
+  AnySimpleStateSelector,
+  AnyStateSelector,
+  AnyStoreEmitters
+} from '../store/utils/store-emitters.utils';
 import { RootXStoreModule } from '../store/x.module';
 import { Dictionary, forEach } from '../utils';
 import { AnyWire, Wiring } from '../wiring/wiring.types';

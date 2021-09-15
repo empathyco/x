@@ -1,13 +1,13 @@
-import { cancellablePromise, CancelSymbol } from '../../../utils/cancellable-promise';
-import { XActionContext } from '../../actions.types';
-import { StatusMutations, StatusState } from './status.helpers';
+import { cancellablePromise, CancelSymbol } from '../../utils/cancellable-promise';
+import { XActionContext } from '../actions.types';
+import { StatusMutations, StatusState } from './status-store.utils';
 
 /**
  * Utility to create an action that requests and save some data asynchronously, with the
  * option to cancel the request at any moment. This factory provides with the standard flow
  * for requesting, cancelling, handling errors for a module, while also taking care of its status.
  *
- * @internal
+ * @public
  * @returns An action to fetch and save some data, and an action to cancel the last request.
  */
 export function createFetchAndSaveAction<
@@ -20,7 +20,7 @@ export function createFetchAndSaveAction<
   onSuccess,
   onError,
   onCancel
-}: FetchAndSaveActionOptions<Context, Response>): FetchAndSaveAction<Context> {
+}: CreateFetchAndSaveActionsOptions<Context, Response>): FetchAndSaveActions<Context> {
   let cancelPreviousRequest: undefined | (() => void);
 
   /**
@@ -64,7 +64,7 @@ export function createFetchAndSaveAction<
   }
 
   // eslint-disable-next-line
-  /** @see FetchAndSaveAction.fetchAndSave */
+  /** @see FetchAndSaveActions.fetchAndSave */
   function fetchAndSave(context: Context): Promise<void> {
     cancelPrevious();
     context.commit('setStatus', 'loading');
@@ -79,7 +79,7 @@ export function createFetchAndSaveAction<
   }
 
   // eslint-disable-next-line
-  /** @see FetchAndSaveAction.cancelPrevious */
+  /** @see FetchAndSaveActions.cancelPrevious */
   function cancelPrevious(): void {
     cancelPreviousRequest?.();
   }
@@ -90,7 +90,12 @@ export function createFetchAndSaveAction<
   };
 }
 
-export interface FetchAndSaveActionOptions<
+/**
+ * Options to use with the {@link createFetchAndSaveAction} factory.
+ *
+ * @public
+ */
+export interface CreateFetchAndSaveActionsOptions<
   // Using `object` type to ensure no actions/getters can be used.
   // eslint-disable-next-line @typescript-eslint/ban-types
   Context extends XActionContext<StatusState, object, StatusMutations, object>,
@@ -104,17 +109,17 @@ export interface FetchAndSaveActionOptions<
    */
   fetch(context: Context): Promise<Response>;
   /**
-   * Asynchronous callback executed when the {@link FetchAndSaveActionOptions.fetch} is performed
-   * successfully.
+   * Asynchronous callback executed when the {@link CreateFetchAndSaveActionsOptions.fetch} is
+   * performed successfully.
    *
    * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the
    * actions, provided by Vuex.
-   * @param response - The data returned by {@link FetchAndSaveActionOptions.fetch}.
+   * @param response - The data returned by {@link CreateFetchAndSaveActionsOptions.fetch}.
    */
   onSuccess(context: Context, response: Response): void;
   /**
-   * Asynchronous callback executed when either the {@link FetchAndSaveActionOptions.fetch} or
-   * {@link FetchAndSaveActionOptions.onSuccess} methods fail.
+   * Asynchronous callback executed when either the {@link CreateFetchAndSaveActionsOptions.fetch}
+   * or {@link CreateFetchAndSaveActionsOptions.onSuccess} methods fail.
    *
    * @param error - The error that triggered this callback.
    */
@@ -122,16 +127,19 @@ export interface FetchAndSaveActionOptions<
   /**
    * Synchronous callback executed when the request is cancelled. This can happen mainly for two
    * reasons:
-   * - The {@link FetchAndSaveAction.action} is dispatched.
-   * - A new {@link FetchAndSaveAction.fetchAndSave} is dispatched before the previous one was
+   * - The {@link FetchAndSaveActions.cancelPrevious} action is dispatched.
+   * - A new {@link FetchAndSaveActions.fetchAndSave} is dispatched before the previous one was
    * resolved.
-   *
-   * @param error - The error that triggered this callback.
    */
   onCancel?(): void;
 }
 
-export interface FetchAndSaveAction<
+/**
+ * Actions returned from the {@link createFetchAndSaveAction}.
+ *
+ * @public
+ */
+export interface FetchAndSaveActions<
   // Using `object` type to ensure no actions/getters can be used.
   // eslint-disable-next-line @typescript-eslint/ban-types
   Context extends XActionContext<StatusState, object, StatusMutations, object>
