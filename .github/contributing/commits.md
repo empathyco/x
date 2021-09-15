@@ -45,7 +45,6 @@ As a starting point, this project uses the following scopes:
   - **history-queries**
   - **identifier-results**
   - **next-queries**
-  - **no-suggestions**
   - **popular-searches**
   - **query-suggestions**
   - **recommendations**

@@ -8,7 +8,7 @@ import { QuerySuggestionsState } from '../types';
 import { resetQuerySuggestionsStateWith } from './utils';
 
 describe('testing query suggestions module actions', () => {
-  const mockedSuggestions = getSuggestionsStub('QuerySuggestion');
+  const mockedSuggestions = getSuggestionsStub();
 
   const adapter = getMockedAdapter({ suggestions: { suggestions: mockedSuggestions } });
 

@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.19...@empathyco/x-components@3.0.0-alpha.20) (2021-09-15)
+
+
+### Features
+
+* **no-suggestions:** Remove `no-suggestions` module. ([4a859e7](https://github.com/empathyco/x/commit/4a859e787736feccc0a38b25ae7594553f8f4978)), closes [EX-4736](https://searchbroker.atlassian.net/browse/EX-4736)
+* **search:** save `Redirection`'s entities ([cdba4a6](https://github.com/empathyco/x/commit/cdba4a656f7cea74115d06173151d450657d1aed)), closes [EX-4730](https://searchbroker.atlassian.net/browse/EX-4730)
+
+
+
 ## [3.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.18...@empathyco/x-components@3.0.0-alpha.19) (2021-09-13)
 
 

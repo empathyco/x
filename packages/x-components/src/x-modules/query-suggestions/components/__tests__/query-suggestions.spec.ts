@@ -14,7 +14,7 @@ describe('testing Suggestions component', () => {
   const store = new Store<DeepPartial<RootXStoreState>>({});
   installNewXPlugin({ store }, localVue);
 
-  const suggestions = getSuggestionsStub('QuerySuggestion');
+  const suggestions = getSuggestionsStub();
 
   const component = mount(QuerySuggestions, {
     localVue,

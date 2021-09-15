@@ -39,7 +39,6 @@
     <div class="x-column">
       <h1>Query Suggestions</h1>
       <QuerySuggestions />
-      <NoSuggestions message="We couldn't find any suggestion. Try searching for {query}." />
     </div>
     <!-- History Queries -->
     <div class="x-column">
@@ -82,7 +81,6 @@
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
   import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
-  import NoSuggestions from '../x-modules/no-suggestions/components/no-suggestions.vue';
   import QuerySuggestion from '../x-modules/query-suggestions/components/query-suggestion.vue';
   import QuerySuggestions from '../x-modules/query-suggestions/components/query-suggestions.vue';
   import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
@@ -120,7 +118,6 @@
       ClearSearchInput,
       HistoryQueries,
       NextQueries,
-      NoSuggestions,
       QuerySuggestion,
       QuerySuggestions,
       RelatedTags,

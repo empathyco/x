@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.2...@empathyco/x-adapter@7.0.0-alpha.3) (2021-09-15)
+
+
+### Features
+
+* **search:** save `Redirection`'s entities ([cdba4a6](https://github.com/empathyco/x/commit/cdba4a656f7cea74115d06173151d450657d1aed)), closes [EX-4730](https://searchbroker.atlassian.net/browse/EX-4730)
+
+
+
 ## [7.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.1...@empathyco/x-adapter@7.0.0-alpha.2) (2021-09-10)
 
 
