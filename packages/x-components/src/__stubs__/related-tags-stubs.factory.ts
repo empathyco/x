@@ -43,7 +43,7 @@ export function createRelatedTagStub(
     query,
     tag,
     selected: false,
-    modelName: 'RelatedTags',
+    modelName: 'RelatedTag',
     ...relatedTag
   };
 }
