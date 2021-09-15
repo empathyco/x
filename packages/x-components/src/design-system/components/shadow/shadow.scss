@@ -1,0 +1,11 @@
+@import '../../mixins';
+
+.x-shadow {
+  box-shadow: var(--x-string-box-shadow-default, none);
+  @for $i from 1 through 10 {
+    $i: zerofill($i);
+    &--#{$i} {
+      box-shadow: var(--x-string-box-shadow-#{$i});
+    }
+  }
+}
