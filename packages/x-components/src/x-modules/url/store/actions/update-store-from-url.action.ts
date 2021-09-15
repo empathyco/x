@@ -1,4 +1,5 @@
 import { forEach } from '../../../../utils/object';
+import { Dictionary } from '../../../../utils/types';
 import { UrlParamKey, UrlParamValue, UrlXStoreModule } from '../types';
 
 /**
@@ -10,14 +11,15 @@ import { UrlParamKey, UrlParamValue, UrlXStoreModule } from '../types';
  * @internal
  */
 export const updateStoreFromUrl: UrlXStoreModule['actions']['updateStoreFromUrl'] = ({
-  state: { config, extraParams, params },
+  getters: { urlMappedParamNames },
+  state: { extraParams, params },
   commit
 }) => {
   const urlSearchParams = new URLSearchParams(window.location.search);
-  const mappedParams = {} as Record<UrlParamKey, UrlParamValue>;
-  const mappedExtraParams = {} as Record<UrlParamKey, UrlParamValue>;
+  const mappedParams = {} as Dictionary<UrlParamValue>;
+  const mappedExtraParams = {} as Dictionary<UrlParamValue>;
   forEach({ ...params, ...extraParams }, (stateParam, stateValue) => {
-    const urlParam = config.urlParamNames[stateParam] ?? stateParam;
+    const urlParam = urlMappedParamNames[stateParam];
     if (urlSearchParams.has(urlParam)) {
       const param = getParamByType(urlSearchParams, stateValue, urlParam);
 
@@ -62,56 +64,3 @@ function getParamByType(
       return urlSearchParams.getAll(urlParam);
   }
 }
-
-// const urlSearchParams = new URLSearchParams(window.location.search);
-// forEach({ ...params, ...extraParams }, (stateParam, stateValue) => {
-//   const urlParam = config.urlParamNames[stateParam] ?? stateParam;
-//   if (urlSearchParams.has(urlParam)) {
-//     if (!urlParam in extraParams) {
-//       if (Array.isArray(stateValue)) {
-//         commit('setRelatedTags', urlSearchParams.getAll(urlParam));
-//       } else {
-//         commit('setQuery', urlSearchParams.get(urlParam));
-//       }
-//     } else {
-//       if (Array.isArray(stateValue)) {
-//         commit('setExtraParams', { [stateParam]: urlSearchParams.getAll(urlParam) });
-//       } else {
-//         commit('setExtraParams', { [stateParam]: urlSearchParams.get(urlParam) });
-//       }
-//     }
-//   }
-// });
-
-// const urlSearchParams = new URLSearchParams(window.location.search);
-// forEach({ ...params, ...extraParams }, (stateParam, stateValue) => {
-//   const urlParam = config.urlParamNames[stateParam] ?? stateParam;
-//   if (urlSearchParams.has(urlParam)) {
-//     const payload = Array.isArray(stateValue)
-//                     ? { [stateParam]: urlSearchParams.getAll(urlParam) }
-//                     : { [stateParam]: urlSearchParams.get(urlParam) };
-//
-//     const mutation = !(urlParam in extraParams) ? 'setParam' : 'setExtraParams';
-//
-//     console.log(mutation, payload);
-//     commit(mutation, payload);
-//   }
-// });
-
-// const url = new URL(window.location.href);
-// const mappedUrlParams = {} as Record<string, string | string[] | Record<string, string>>;
-// url.searchParams.forEach((value, key) => {
-//   console.log(`param => ${key}: ${value}`);
-//   const [configKeyNew] =
-//     Object.entries(config.urlParamNames).find(([, configValue]) => {
-//       return configValue === key;
-//     }) ?? [];
-//   if (configKeyNew) {
-//     mappedUrlParams[configKeyNew] = value;
-//   } else if (key in params) {
-//     mappedUrlParams[key] = value;
-//   } else if (key in extraParams) {
-//     mappedUrlParams['extraParams'] = { [key]: value };
-//   }
-// });
-// console.log(mappedUrlParams);

@@ -14,10 +14,10 @@ import { reduce } from '../../../../utils/object';
 export const urlMappedParamNames: UrlXStoreModule['getters']['urlMappedParamNames'] = ({
   config: { urlParamNames },
   extraParams,
-  ...rawUrlParams
+  params
 }) => {
   return reduce(
-    { ...rawUrlParams, ...extraParams },
+    { ...params, ...extraParams },
     (urlParams, key) => {
       urlParams[key] = urlParamNames[key] ?? key;
       return urlParams;

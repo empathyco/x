@@ -38,13 +38,15 @@ describe('testing Url module actions', () => {
     // eslint-disable-next-line max-len
     it('should remove all the parameters from the url that are empty or not valid in the state', async () => {
       resetUrlStateWith(store, {
-        page: 2,
-        query: 'doramion'
+        params: {
+          page: 2,
+          query: 'doramion'
+        }
       });
 
       await store.dispatch(actionKeys.updateUrl);
 
-      resetUrlStateWith(store, { page: 1, query: '' });
+      resetUrlStateWith(store, { params: { page: 1, query: '' } });
 
       await store.dispatch(actionKeys.updateUrl);
 
@@ -56,7 +58,7 @@ describe('testing Url module actions', () => {
     it('should update the state with the correct url parameters', async () => {
       const url = new URL(
         window.location.href +
-        '?q=sudadera&tag=capucha&tag=disney&page=3&warehouse=01234&consent=true&store=1111'
+          '?q=sudadera&tag=capucha&tag=disney&page=3&warehouse=01234&consent=true&store=1111'
       );
       window.history.replaceState({ ...window.history.state }, document.title, url.href);
       resetUrlStateWith(store, {

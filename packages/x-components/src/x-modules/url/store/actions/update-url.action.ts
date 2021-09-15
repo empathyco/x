@@ -10,10 +10,7 @@ import { UrlXStoreModule } from '../types';
  * @internal
  */
 export const updateUrl: UrlXStoreModule['actions']['updateUrl'] = ({
-  getters: { urlParams, urlMappedParamNames },
-  state: {
-    config: { urlParamNames }
-  }
+  getters: { urlParams, urlMappedParamNames }
 }) => {
   const url = new URL(window.location.href);
 
@@ -24,7 +21,7 @@ export const updateUrl: UrlXStoreModule['actions']['updateUrl'] = ({
   reduce(
     urlParams,
     (url, paramKey, paramValue) => {
-      const newKey = urlParamNames[paramKey] ?? paramKey;
+      const newKey = urlMappedParamNames[paramKey];
 
       if (Array.isArray(paramValue)) {
         paramValue.forEach(value => {
