@@ -1,7 +1,7 @@
 import { NextQuery } from '@empathyco/x-types';
 
 /**
- * Creates {@link @empathyco/x-types#NextQuery | next queries} stub.
+ * Creates a {@link @empathyco/x-types#NextQuery | next queries} stub.
  *
  * @param amount - Number of stubbed next queries to create.
  *

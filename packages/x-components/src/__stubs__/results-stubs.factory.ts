@@ -2,7 +2,7 @@ import { Result, ResultTagging, Tagging } from '@empathyco/x-types';
 import { toKebabCase } from '../utils/string';
 
 /**
- * Creates {@link @empathyco/x-types#Result | results} stub.
+ * Creates a {@link @empathyco/x-types#Result | results} stub.
  *
  * @param amount - Number of stubbed results to create.
  *

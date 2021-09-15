@@ -8,7 +8,7 @@ import {
 } from '@empathyco/x-types';
 
 /**
- * Creates {@link @empathyco/x-types#SimpleFilter | SimpleFilter} stub.
+ * Creates a {@link @empathyco/x-types#SimpleFilter | SimpleFilter} stub.
  *
  * @param filter - A partial filter to override certain properties. Useful for testing.
  * @returns A Simple filter.
@@ -30,7 +30,7 @@ export function getSimpleFilterStub(filter: Partial<SimpleFilter> = {}): SimpleF
 }
 
 /**
- * Creates {@link @empathyco/x-types#NumberRangeFilter | NumberRangeFilter} stub.
+ * Creates a {@link @empathyco/x-types#NumberRangeFilter | NumberRangeFilter} stub.
  *
  * @param filter - A partial filter to override certain properties. Useful for testing.
  * @returns A Number range filter.
@@ -58,7 +58,7 @@ export function getNumberRangeFilterStub(
 }
 
 /**
- * Creates {@link @empathyco/x-types#HierarchicalFilter | HierarchicalFilter} stub.
+ * Creates a {@link @empathyco/x-types#HierarchicalFilter | HierarchicalFilter} stub.
  *
  * @param filter - A partial filter to override certain properties. Useful for testing.
  * @returns A Hierarchical filter.
