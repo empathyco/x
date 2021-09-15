@@ -1,0 +1,57 @@
+---
+name: Feature request
+description: Add a new suggestion for feature
+title: "[FEATURE]: "
+labels: [feature,enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: "Welcome!"
+  - type: markdown
+    attributes:
+     value: When suggesting a new feature for the Interface X project, submit your idea as a user story and provide as much information as possible on how you would solve it, so the team can assess and analyze your idea.    
+      When defining your new feature, you need to consider it from two points of view. 
+      
+      - the **Final User** who accesses the commerce website that uses the component.  
+
+      - the **Developer User** who is going to use the component to build a website.  
+      
+      Depending on the feature, you may need to consider one or both.
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: How can the project be improved?
+      description: Describe the problem encountered, what you need to solve it, and what you expect. Include details of other requirements that the feature must cover such as dependencies and actions covered by other services.
+      placeholder:
+        e.g. Display a list of search queries already performed by the user. / Each search query of the list has a button to delete it from the list. / The list of search queries must be maintained in the same device over time, even when the tab is closed. / If there are no search queries, then nothing should be displayed.
+  - type: textarea
+    id: solution
+    attributes:
+      label: How can this be solved?
+      description: Explain the different interactions of the user.
+      placeholder: e.g. When the user clicks on an item of the list, then that search query is performed. / When the user clicks on the delete button, then the search query is removed from the list.
+  - type: textarea
+    id: feature-proposal
+    attributes:
+      label: Proposed solution
+      description: If you have any suggestions regarding how this need can be covered, please provide details here.
+  - type: textarea
+    id: feature-customizations
+    attributes:
+      label: Customizations supported
+      description: Provide ideas for customizations that can be performed by the developer
+      placeholder: e.g. Change the content of each search query / Change the complete content of the item  / Add different animation to items / Change the number of the search queries to show
+  - type: textarea
+    id: feature-info
+    attributes:
+      label: Additional information
+      description: Provide as much supporting information as possible. Including attachments will help us to better understand your feature request and requirements.
+      placeholder: e.g. designs, diagrams, videos, Confluence links, real examples
+  - type: checkboxes
+    id: feature-terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](./../CODE_OF_CONDUCT.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct.
+          required: true

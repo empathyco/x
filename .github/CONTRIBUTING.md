@@ -1,159 +1,136 @@
-# Contributing to Interface X
+# Contributing Guidelines
 
-Let us begin saying that we are really excited that you are open to contribute!
+We are really excited that you want to contribute to the Interface X open source project! For more information about the Interface X ecosystem and our product roadmap, see [the project’s README](https://github.com/empathyco/x).
 
-The following is a set of guidelines for contributing to Interface X and its packages, which are hosted in the
-[Empathy Organization](https://github.com/empathyco) on GitHub. These are mostly guidelines, not rules.
-Use your best judgment, and feel free to propose changes to this document in a pull request.
+To make it easier for everyone, we’ve put together a set of **guidelines for contributing to the Interface X project** and its packages, which are hosted in the
+[Empathy Organization](https://github.com/empathyco) on GitHub.
 
-#### Table Of Contents
+Don’t take these guidelines as hard and fast rules. Use your **best judgment**, and feel free to **propose changes in a pull request**. 
 
-[Mission](#mission)
+And above all, a heartfelt **thank you** for making the time to contribute. We’re delighted to have you alongside!
 
-[Code of Conduct](#code-of-conduct)
+---
 
-[I have a question](#i-have-a-question)
+#### Table of Contents
 
-[What should I know before I get started?](#what-should-i-know-before-i-get-started)
+- [Code of Conduct](#code-of-conduct)
+- [What you need to know before getting started](#what-you-need-to-know-before-getting-started)
+    + [Interface X and packages](#interface-x-and-packages)
+- [How to contribute](#how-to-contribute)
+    + [Report bugs](#report-bugs)
+    + [Suggest enhancements](#suggest-new-features-or-enhancements)
+    + [Contribute code for the first time](#contribute-code-for-the-first-time)
+    + [Set up your development environment](#set-up-your-development-environment)
+    + [Pull requests](#pull-requests)
 
-- [Interface X and packages](#interface-x-and-packages)
+- [Style guides](#style-guides)
+    + [Git commit messages](#git-commit-messages)
+    + [JavaScript style guide](#javascript-style-guide)
+    + [Documentation style guide](#documentation-style-guide)
+    + [Testing style guide](#testing-style-guide)
+- [Any questions?](#any-questions)
 
-[How Can I Contribute?](#how-can-i-contribute)
-
-- [Reporting Bugs](#reporting-bugs)
-- [Suggesting Enhancements](#suggesting-new-features-or-enhancements)
-- [Your First Code Contribution](#your-first-code-contribution)
-- [Development Setup](#development-setup)
-- [Pull Requests](#pull-requests)
-
-[Styleguides](#styleguides)
-
-- [Git Commit Messages](#git-commit-messages)
-- [JavaScript Styleguide](#javascript-styleguide)
-- [Documentation Styleguide](#documentation-styleguide)
-- [Testing Styleguide](#testing-styleguide)
-
-## Mission
-
-We want to create attractive products for the users (both users: the website user and the developer user).
-
-We want to create products that are usable, fast, easy to use...
-
-> X = usable + fun + easy + adaptable + beautiful + fast + efficient + effective + ...
-
-But all that are emotions, Positive Emotions: X = Pe
-
-But the emotions are subjective, cultural, not perceived in the same way by all the people. We have to understand the nature of those
-emotions, and what observer's perceptions cause those feelings.
-
-Once we have understood that, we have to figure out what we can do to match those emotions, which of those perceptions we can provoke.
-
-So we have to Negotiate those Perceptions: **X = Pe · Np**
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by the [Interface X Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are
-expected to uphold this code. Please report unacceptable behavior to [x@empathy.co](mailto:x@empathy.co).
+This project and everyone who participates in it is governed by the [Interface X Code of Conduct](CODE_OF_CONDUCT.md). 
+By participating, you are expected to adhere to this code. Please report any unacceptable behavior to [x@empathy.co](mailto:x@empathy.co).
 
-## I have a question!!!
 
-If you have a question you can file it through the email account [x@empathy.co](mailto:x@empathy.com)
-
-## What should I know before I get started?
+## What you need to know before getting started
 
 ### Interface X and Packages
 
-Interface X is composed of some different packages. New packages will be added here because we are moving to this mono-repo.
+Interface X is composed of different packages. New packages will be added here as the project evolves.
 
-- [@empathyco/x-components](https://github.com/empathyco/x/tree/main/packages/x-components) - This is the core package of this project.
-  These are standalone and configurable building blocks that allow you to quickly construct the search UI for your shop.
-  You can create a smooth, personalised search and discovery experience, while significantly minimising development time. (To be moved here soon)
-- [@empathyco/x-archetype](https://github.com/empathyco/x-archetype) - This project is the Empathy vision of the
-  perfect X-Components mixing. A project showing the power of the components ready to connect to any Search API with customizable layout through Design Tokens.
-  This is a perfect example to know how to use the X-Components.
-- [@empathyco/x-deep-merge](/packages/deep-merge) - Clones an array of objects into another object.
-- [@empathyco/eslint-plugin-x](/packages/eslint-plugin-x) - The package name is just to follow the
-  guidelines of ESLint to develop a custom plugin, but it includes also style formatter and good practices outside ESLint, as
-  [prettier](https://prettier.io/) and [standard-version](https://github.com/conventional-changelog/standard-version)
-- [@empathyco/x-get-safe-property-chain](/packages/get-safe-property-chain) - A utility for safely retrieving nested values.
-- [@empathyco/x-jest-utils](/packages/jest-utils) - Jest extensions for easier testing.
-- [@empathyco/x-logger](/packages/logger) - A custom implementation of a logger.
-- [@empathyco/x-adapter](/packages/search-adapter) - A search client for Empathy's API.
-- [@empathyco/x-types](/packages/search-types) - TypeScript types & guards for X models.
-- [@empathyco/x-storage-service](/packages/storage-service) - Storage service with TTL.
-- [@empathyco/x-react-wrapper](/packages/react-wrapper) - A proxy that transforms Vue components into React ones.
-- [@empathyco/x-translations](/packages/x-translations) - A project which allows the user to import and export the translations.
+- **[@empathyco/x-components](https://github.com/empathyco/x/tree/main/packages/x-components)** - This is the core package of the project.
+These standalone and configurable building blocks allow you to quickly construct the search UI for your shop.
+- **[@empathyco/x-archetype](https://github.com/empathyco/x-archetype)** - This associated project is Empathy’s vision of the ideal mix of  X Components. A project showing the power of the X Components, ready to connect to any search API with customizable layout through design tokens. 
+It is the perfect example to learn how to use the X Components. This package is a project outside this monorepo.
+- **[@empathyco/x-deep-merge](/packages/deep-merge)** - This package clones an array of objects into another object.
+- **[@empathyco/eslint-plugin-x](/packages/eslint-plugin-x)** - Customized version for the Interface X project of the [ESLint plugin](https://eslint.org/docs/about/), an open source JavaScript linting utility. It also includes a style formatter and best practices beyond the ESLint plugin, such as
+  [prettier](https://prettier.io/) and [standard-version](https://github.com/conventional-changelog/standard-version).
+- **[@empathyco/x-get-safe-property-chain](/packages/get-safe-property-chain)** - A utility designed to safely retrieve nested values.
+- **[@empathyco/x-jest-utils](/packages/jest-utils)** - Jest extensions for easier testing.
+- **[@empathyco/x-logger](/packages/logger)** - A custom implementation of a logger.
+- **[@empathyco/x-adapter](/packages/search-adapter)** - A search client for Empathy's Search API.
+- **[@empathyco/x-types](/packages/search-types)** - TypeScript types & guards for X models.
+- **[@empathyco/x-storage-service](/packages/storage-service)** - Storage service with TTL.
+- **[@empathyco/x-react-wrapper](/packages/react-wrapper)** - A proxy that transforms Vue components into React components.
+- **[@empathyco/x-translations](/packages/x-translations)** - A project that allows you to import and export the translations.
 
-## How Can I Contribute?
 
-### Reporting Bugs
+## How to contribute
 
-Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/). Create an issue on that repository and provide the following information by filling in [the bug template](./ISSUE_TEMPLATE/bug_report.md).
+### Report Bugs
 
-Check the already created issues in the repository to not file a repeated bug.
+Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/). 
 
-> **Note:** If you find a **Closed** issue that seems like it is the same thing that you're experiencing, open a new issue and include a link to the original issue in the body of your new one.
+You can create an issue by filling in the [ bug template](./ISSUE_TEMPLATE/bug_report.yml). Before creating a new bug issue, do a quick check to make sure the issue hasn’t been discussed or created before in the project. 
 
-### Suggesting new features or enhancements
+> **Note:** If you find a **closed** issue that seems to describe the same situation as that you're experiencing, open a new issue and include a link to the original issue in the body.
 
-This section guides you through submitting an enhancement suggestion for Interface X, including completely new features and minor improvements to existing functionality.
 
-To suggest any new feature file a new issue using the [feature request template](./ISSUE_TEMPLATE/feature_request.md)
+### Suggest new features or enhancements
 
-### Your First Code Contribution
+We’d love to hear your suggestions for enhancements for Interface X, whether they are completely new features or minor improvements to existing functionality.
 
-Unsure where to begin contributing to Interface X? You can start by looking through these `beginner` and `help-wanted` issues:
+To suggest any new feature, file a new issue using the [feature request template](./ISSUE_TEMPLATE/feature_request.yml).
 
-- [Beginner issues][beginner] - issues which should only require a few lines of code, and a test or two.
-- [Help wanted issues][help-wanted] - issues which should be a bit more involved than `beginner` issues.
 
-Both issue lists are sorted by total number of comments. While not perfect, number of comments is a reasonable proxy for impact a given change will have.
+### Contribute code for the first time
 
-#### Development setup
+Unsure where to start with Interface X? You can start by looking through these `beginner` and `help-wanted` issues:
 
-This mono-repo is handled by [Lerna](https://github.com/lerna/lerna) using `npm`. Follow the next steps to prepare your
-development environment.
+- [Beginner issues](https://github.com/empathyco/x/labels/good%20first%20issue) - issues that should only require a few lines of code, and a test or two.
+- [Help wanted issues](https://github.com/empathyco/x/labels/help-wanted) - issues that are usually a bit more involved than `beginner` issues.
 
-1. Clone repository: `git clone https://github.com/empathyco/x.git`.
-2. From the root folder, install the dependencies: `npm install`. This will link all the project between themselves.
-3. Run a build so linked projects work: `npm run build`.
+Both issue lists are sorted by the total number of comments. While not perfect, the number of comments is a reasonable proxy for determining the impact that a given change will have.
 
-### Pull Requests
+### Set up your development environment
 
-Please follow these steps to have your contribution considered by the maintainers:
+This monorepo is handled by [Lerna](https://github.com/lerna/lerna) using `npm`. To prepare your development environment, proceed as follows:
 
-1. Keep em small
-2. Perform a Self-Review
-   - Create a draft PR and do a full review yourself — complete with comments and tasks.
-     After finishing a piece of code, it's very tempting to just dump your changes in a PR and let other people find the mistakes,
-     particularly if it is a larger change that took a few days. Don’t be lazy — be disciplined, your work is not over yet.
-   - You can also use this “self-review” to point things out to your reviewers — “I’m not sure about this name? Can you think of a better one?”,
-     “Should this really be nullable?? What do you think?” — often while writing such questions, you find that actually, you can answer them yourself
-     and the self-reflection becomes built into your everyday coding thought process. In other words, this process of self-review makes you a better developer.
-3. Follow all instructions in [the template](./PULL_REQUEST_TEMPLATE.md)
-4. Follow the [styleguides](#styleguides)
-5. After you submit your pull request, verify that all [status checks](https://help.github.com/articles/about-status-checks/) are passing
-6. Acknowledge each and every comment
-7. You will need 2 approves from the maintainers to merge
+1. Fork the X repo and then clone it to your local environment: `git clone https://github.com/empathyco/x.git`.
+2. Install the dependencies in the root folder: `npm install`. This links all the projects.
+3. Run a build so that the linked projects work: `npm run build`.
 
-## Styleguides
 
-### Git Commit Messages
+### Pull requests
 
-Please check the [commit's section](./contributing/commits.md) based on conventional commits.
+There are a number of steps must follow to have your contribution considered by the repo maintainers. All pull requests (PRs) must be approved by 2 reviewers to be merged into the project:
 
-### JavaScript Styleguide
+1. Keep your PRs small - don’t pack multiple changes into the same PR.
+2. Perform a self-review before submitting your PR:
+   - Create a draft PR and do a full review yourself — complete with comments, docs, and tasks.
+     After finishing a piece of code, it's very tempting to just dump your changes in a PR and let other people find the mistakes (particularly if it is a larger change that took a few days). Don’t be lazy — be disciplined; your work is not over yet.
+   - You can also use this “self-review” to point things out to your reviewers — “I’m not sure about this name? Can you think of a better one?”, “Should this really be nullable? What do you think?” — Often by writing such questions, you actually find you can answer them yourself and self-reflection becomes part of your everyday coding thought process. In other words, internalizing this self-review process makes you a better developer.
+3. Follow all instructions given in [the PR template](./PULL_REQUEST_TEMPLATE.md).
+4. Follow the [style guides](#style-guides).
+5. After you submit your PR, verify that all [status checks](https://help.github.com/articles/about-status-checks/) are passing.
+6. Acknowledge and respond to each and every comment.
+
+
+## Style guides
+
+### Git commit messages
+
+Please check the [commit section](./contributing/commits.md), based on the Conventional Commits specification.
+
+### JavaScript style guide
 
 All JavaScript code is linted using the [@empathyco/eslint-plugin-x](https://github.com/empathyco/x/tree/main/packages/eslint-plugin-x) package.
 
-Besides that please follow the [naming guide](./contributing/base-naming.md) in every package inside this project.
+In addition, follow the [naming guide](./contributing/base-naming.md) in every package inside this project, and the [Vue components style guide](./contributing/components.md) for components.
 
-And there is a [Vue components style guide](./contributing/components.md) available too.
+### Testing style guide
 
-### Testing Styleguide
+Follow our [testing style guide](./contributing/tests.md).
 
-Follow our [testing styleguide](./contributing/tests.md)
+### Documentation style guide
 
-### Documentation Styleguide
+Use [JsDoc](https://github.com/jsdoc/jsdoc) tags. For more information, see [JsDoc documentation](https://jsdoc.app/).
 
-- Use [JsDoc](https://github.com/jsdoc/jsdoc) tags.
+## Any questions?
+
+If you have a question or doubts about the project, you can contact us at  [x@empathy.co](mailto:x@empathy.com).
