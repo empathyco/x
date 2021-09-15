@@ -1,5 +1,5 @@
 import { StoreEmitters } from './store-emitters.types';
-import { AnyXStoreModule } from './store.types';
+import { AnyXStoreModule } from '../store.types';
 
 /**
  * Helper function for creating type-safe {@link StoreEmitters}.

@@ -1,5 +1,5 @@
-import { cancellablePromise, CancelSymbol } from '../utils/cancellable-promise';
-import { XActionContext } from './actions.types';
+import { cancellablePromise, CancelSymbol } from '../../utils/cancellable-promise';
+import { XActionContext } from '../actions.types';
 import { StatusMutations, StatusState } from './status.helpers';
 
 /**

@@ -1,7 +1,7 @@
 import { RelatedTagsRequest } from '@empathyco/x-adapter';
 import { RelatedTag } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
-import { StatusMutations, StatusState } from '../../../store/status.helpers';
+import { StatusMutations, StatusState } from '../../../store/utils/status.helpers';
 import { Dictionary } from '../../../utils';
 import { RelatedTagsConfig } from '../config.types';
 

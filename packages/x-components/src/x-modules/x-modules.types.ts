@@ -1,4 +1,4 @@
-import { StoreEmitters } from '../store/store-emitters.types';
+import { StoreEmitters } from '../store/utils/store-emitters.types';
 import { AnyXStoreModule, XStoreModule } from '../store/store.types';
 import { Wiring } from '../wiring/wiring.types';
 import { DeviceXModule } from './device/x-module';

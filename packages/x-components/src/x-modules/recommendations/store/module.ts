@@ -1,4 +1,4 @@
-import { setStatus } from '../../../store/status.helpers';
+import { setStatus } from '../../../store/utils/status.helpers';
 import {
   cancelFetchAndSaveRecommendations,
   fetchAndSaveRecommendations

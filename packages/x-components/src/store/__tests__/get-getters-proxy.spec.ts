@@ -1,7 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { AnyXStoreModule, RootXStoreState } from '../store.types';
-import { getGettersProxy, getGettersProxyFromModule } from '../get-getters-proxy';
+import { getGettersProxy, getGettersProxyFromModule } from '../utils/get-getters-proxy';
 
 const getter1Spy = jest.fn();
 const getter2Spy = jest.fn();

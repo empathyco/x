@@ -1,7 +1,7 @@
 import { WatchOptions } from 'vue';
-import { Dictionary, Returns } from '../utils';
-import { XEvent, XEventPayload } from '../wiring/events.types';
-import { AnyXStoreModule } from './store.types';
+import { Dictionary, Returns } from '../../utils/index';
+import { XEvent, XEventPayload } from '../../wiring/events.types';
+import { AnyXStoreModule } from '../store.types';
 
 /**
  * Selects a part of the store state or getters (AKA "getter" inside

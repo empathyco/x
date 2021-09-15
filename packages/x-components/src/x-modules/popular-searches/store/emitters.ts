@@ -1,4 +1,4 @@
-import { createStoreEmitters } from '../../../store/store-emitters.utils';
+import { createStoreEmitters } from '../../../store/utils/store-emitters.utils';
 import { popularSearchesXStoreModule } from './module';
 
 /**
