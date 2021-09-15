@@ -56,7 +56,6 @@ As a starting point we define the following scopes:
   - **history-queries**
   - **identifier-results**
   - **next-queries**
-  - **no-suggestions**
   - **popular-searches**
   - **query-suggestions**
   - **recommendations**
