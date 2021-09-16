@@ -1,5 +1,5 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { createSuggestionStub } from '../../../../src/__stubs__/suggestions-stubs.factory';
+import { createQuerySuggestion } from '../../../../src/__stubs__/query-suggestions-stubs.factory';
 import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
 
 // Background
@@ -7,12 +7,12 @@ Given('a query suggestions API with a known response', () => {
   cy.intercept('https://api.empathy.co/getSuggestions', req => {
     req.reply({
       suggestions: [
-        createSuggestionStub('lego'),
-        createSuggestionStub('lego marvel'),
-        createSuggestionStub('lego friends'),
-        createSuggestionStub('lego star wars'),
-        createSuggestionStub('lego city'),
-        createSuggestionStub('lego harry potter')
+        createQuerySuggestion('lego'),
+        createQuerySuggestion('lego marvel'),
+        createQuerySuggestion('lego friends'),
+        createQuerySuggestion('lego star wars'),
+        createQuerySuggestion('lego city'),
+        createQuerySuggestion('lego harry potter')
       ]
     });
   }).as('interceptedQuerySuggestions');
