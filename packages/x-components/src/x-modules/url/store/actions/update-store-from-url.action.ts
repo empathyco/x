@@ -31,8 +31,12 @@ export const updateStoreFromUrl: UrlXStoreModule['actions']['updateStoreFromUrl'
     }
   });
 
-  commit('setParams', mappedParams);
-  commit('setExtraParams', mappedExtraParams);
+  if (hasValues(mappedParams)) {
+    commit('setParams', mappedParams);
+  }
+  if (hasValues(mappedExtraParams)) {
+    commit('setExtraParams', mappedExtraParams);
+  }
 };
 
 /**
@@ -63,4 +67,10 @@ function getParamByType(
       // array
       return urlSearchParams.getAll(urlParam);
   }
+}
+
+function hasValues(
+  object: Record<keyof Params, UrlParamValue> | Dictionary<UrlParamValue>
+): boolean {
+  return Object.keys(object).length > 0;
 }
