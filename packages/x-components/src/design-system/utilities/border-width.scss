@@ -1,7 +1,7 @@
 @import '../mixins';
 
 *[class*='x-border-width--'] {
-  border: 0;
+  border-width: 0;
 }
 
 .x-border-width {
