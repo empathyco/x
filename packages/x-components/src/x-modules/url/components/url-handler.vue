@@ -94,8 +94,8 @@ _Try to make some requests and take a look to the url!_
 
 In this example, the `UrlHandler` component changes the following query parameter names:
 
-- `q` to be `ebq`.
-- `page` to be just `p`.
+- `query` to be `ebq`.
+- `page` to be `p`.
 - `filters` to be `f`
 - `sort` to be `s`
 
