@@ -29,10 +29,10 @@
     border-color: var(--x-color-border-dropdown-toggle-default);
 
     // size
-    padding-block-start: var(--x-size-padding-top-dropdown-item-default);
-    padding-inline-end: var(--x-size-padding-right-dropdown-item-default);
-    padding-block-end: var(--x-size-padding-bottom-dropdown-item-default);
-    padding-inline-start: var(--x-size-padding-left-dropdown-item-default);
+    padding-block-start: var(--x-size-padding-top-dropdown-toggle-default);
+    padding-inline-end: var(--x-size-padding-right-dropdown-toggle-default);
+    padding-block-end: var(--x-size-padding-bottom-dropdown-toggle-default);
+    padding-inline-start: var(--x-size-padding-left-dropdown-toggle-default);
     gap: var(--x-size-gap-dropdown-item-default);
     @include safari-gap(var(--x-size-gap-dropdown-item-default));
 
@@ -47,11 +47,7 @@
     // other
     cursor: pointer;
     overflow: hidden;
-
-    .x-icon {
-      // layout
-      transform: rotate(var(--x-rotation-toggle-icon-collapsed));
-    }
+    box-shadow: var(--x-string-box-shadow-dropdown-default);
   }
 
   &__toggle-selected-value {
@@ -61,6 +57,7 @@
 
   &__items-list {
     // layout
+    background: var(--x-color-background-dropdown-default);
     box-sizing: border-box;
     width: 100%;
     position: absolute;
@@ -87,7 +84,15 @@
     padding: 0;
 
     // other
+    box-shadow: var(--x-string-box-shadow-03);
     z-index: 1;
+
+    &:before,
+    &:after {
+      content: '';
+      display: block;
+      height: var(--x-size-padding-vertical-dropdown-list-default);
+    }
   }
 
   &__item {
@@ -108,10 +113,11 @@
     // layout
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     text-align: left;
     width: 100%;
     margin: 0;
+    white-space: nowrap;
 
     // other
     cursor: pointer;
@@ -136,16 +142,13 @@
       font-weight: var(--x-number-font-weight-dropdown-item-default-selected);
       text-decoration: var(--x-font-decoration-dropdown-item-default-selected);
     }
+
+    .x-icon:last-child {
+      margin-inline-start: auto;
+    }
   }
 
   &--is-open {
-    .x-dropdown {
-      &__toggle {
-        .x-icon {
-          // layout
-          transform: rotate(var(--x-rotation-toggle-icon-expanded));
-        }
-      }
-    }
+    --x-color-background-dropdown-toggle-default: var(--x-color-background-dropdown-toggle-open-default);
   }
 }

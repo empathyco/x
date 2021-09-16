@@ -447,7 +447,7 @@
       padding: 0;
       margin: 0;
       left: 0;
-      top: 100%;
+      top: calc(100% + var(--x-size-gap-dropdown-default, 0));
     }
   }
 </style>

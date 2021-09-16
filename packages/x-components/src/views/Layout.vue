@@ -78,9 +78,17 @@
               <Grid1Col v-else-if="column === 4" />
               <Grid2Col v-else-if="column === 6" />
             </BaseColumnPickerList>
-            <SortDropdown :items="sortValues" class="x-option-list--bottom">
-              <template #toggle="{ item }">{{ item || 'default' }}</template>
-              <template #item="{ item }">{{ item || 'default' }}</template>
+            <SortDropdown
+              :items="sortValues"
+              class="x-dropdown--round x-dropdown--right"
+              :animation="sortDropdownAnimation"
+            >
+              <template #toggle><ChevronTinyRight /></template>
+              <template #item="{ item, isSelected }">
+                <ChevronTinyRight />
+                <span>{{ item || 'default' }}</span>
+                <CheckTiny v-if="isSelected" />
+              </template>
             </SortDropdown>
           </div>
         </template>
@@ -260,12 +268,13 @@
   import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { BaseIdTogglePanelButton, BaseSuggestions } from '../components';
+  import { BaseIdTogglePanelButton, BaseSuggestions, CollapseHeight } from '../components';
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
   import BaseGrid from '../components/base-grid.vue';
   import BaseVariableColumnGrid from '../components/base-variable-column-grid.vue';
   import BaseColumnPickerList from '../components/column-picker/base-column-picker-list.vue';
+  import CheckTiny from '../components/icons/check-tiny.vue';
   import ChevronDown from '../components/icons/chevron-down.vue';
   import ChevronLeft from '../components/icons/chevron-left.vue';
   import ChevronRight from '../components/icons/chevron-right.vue';
@@ -339,6 +348,7 @@
       infiniteScroll
     },
     components: {
+      CheckTiny,
       Nq1,
       Banner,
       BannersList,
@@ -399,6 +409,7 @@
     protected columnPickerValues = [0, 4, 6];
     protected resultsAnimation = StaggeredFadeAndSlide;
     protected empathizeAnimation = CollapseFromTop;
+    protected sortDropdownAnimation = CollapseHeight;
     protected selectedColumns = 4;
     protected sortValues = ['', 'priceSort asc', 'priceSort desc'];
     protected staticFacets: Facet[] = [
