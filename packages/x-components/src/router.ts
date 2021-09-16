@@ -5,11 +5,6 @@ Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
   {
-    path: '/',
-    name: 'app',
-    component: () => import('./views/FullApp.vue')
-  },
-  {
     path: '/design-system',
     name: 'Design System',
     component: () => import('./views/design-system.vue')
@@ -73,11 +68,6 @@ const routes: RouteConfig[] = [
     path: '/test/related-tags',
     name: 'Related Tags',
     component: () => import('./views/related-tags.vue')
-  },
-  {
-    path: '/test/no-suggestions',
-    name: 'No Suggestions',
-    component: () => import('./views/no-suggestions.vue')
   },
   {
     path: '/test/base-events-modal',

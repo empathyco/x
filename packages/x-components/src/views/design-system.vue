@@ -3467,6 +3467,47 @@
       </article>
     </section>
 
+    <section
+      class="x-list x-list--padding-07 x-list--gap-05 x-list--justify-start x-list--align-start"
+    >
+      <h1 class="x-title1">Shadows</h1>
+
+      <article
+        class="
+          x-list
+          x-list--wrap
+          x-list--gap-06
+          x-list--align-start
+          x-list--padding-06
+          x-list--padding-bottom
+        "
+      >
+        <div class="x-list x-list--padding-06 x-shadow--01">Shadow 01</div>
+        <div class="x-list x-list--padding-06 x-shadow--02">Shadow 02</div>
+        <div class="x-list x-list--padding-06 x-shadow--03">Shadow 03</div>
+        <div class="x-list x-list--padding-06 x-shadow--04">Shadow 04</div>
+        <div class="x-list x-list--padding-06 x-shadow--05">Shadow 05</div>
+        <div class="x-list x-list--padding-06 x-shadow--06">Shadow 06</div>
+        <div class="x-list x-list--padding-06 x-shadow--07">Shadow 07</div>
+        <div class="x-list x-list--padding-06 x-shadow--08">Shadow 08</div>
+        <div class="x-list x-list--padding-06 x-shadow--09">Shadow 09</div>
+        <div class="x-list x-list--padding-06 x-shadow--10">Shadow 10</div>
+      </article>
+
+      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
+        <button class="x-button x-shadow--01">Shadow 01</button>
+        <button class="x-button x-shadow--02">Shadow 02</button>
+        <button class="x-button x-shadow--03">Shadow 03</button>
+        <button class="x-button x-shadow--04">Shadow 04</button>
+        <button class="x-button x-shadow--05">Shadow 05</button>
+        <button class="x-button x-shadow--06">Shadow 06</button>
+        <button class="x-button x-shadow--07">Shadow 07</button>
+        <button class="x-button x-shadow--08">Shadow 08</button>
+        <button class="x-button x-shadow--09">Shadow 09</button>
+        <button class="x-button x-shadow--10">Shadow 10</button>
+      </article>
+    </section>
+
     <button @click="toggleTokens" class="info x-button x-button--tertiary x-button--round">
       i
     </button>

@@ -1,24 +1,25 @@
 Feature: Query-suggestions component
 
+  Background:
+    Given a query suggestions API with a known response
+
   Scenario Outline: 1. Query suggestions are displayed while typing a query
     Given following config: hide if equals query <hideIfEqualsQuery>, requested items <maxItemsToRequest>
-    And   no query suggestion are displayed
+    And   no query suggestions are displayed
     When  a "<syllable>" with results is typed
     Then  at most <maxItemsToRequest> query suggestions are displayed
     And   all query suggestions contain the searched query
     When  a "<secondSyllable>" with results is typed
     Then  all query suggestions contain the searched query
     And   at most <maxItemsToRequest> query suggestions are displayed
-    When  clear search button is pressed
-    And   a "<newQuery>" with results is typed
-    Then  at most <maxItemsToRequest> query suggestions are displayed
-    And   all query suggestions contain the searched query
+    When  a query suggestions API with no query suggestions
+    And   clear search button is pressed
+    Then  no query suggestions are displayed
 
     Examples:
-      | hideIfEqualsQuery | maxItemsToRequest | syllable  | secondSyllable  | newQuery  |
-      | true              | 5                 | ma        | rio             | peluche   |
-      | false             | 10                | bar       | bie             | peluche   |
-      | false             | 15                | le        | go              | peluche   |
+      | hideIfEqualsQuery | maxItemsToRequest | syllable  | secondSyllable  |
+      | false             | 6                 | le        | go              |
+      | true              | 6                 | le        | go              |
 
   Scenario Outline: 2. Query suggestion is clicked
     Given following config: hide if equals query <hideIfEqualsQuery>, requested items <maxItemsToRequest>
@@ -28,14 +29,11 @@ Feature: Query-suggestions component
     When  query suggestion number <querySuggestionItem> is clicked
     And   the searched query is displayed in the search-box
     Then  all query suggestions contain the searched query
-    And   related results are displayed
     And   the searched query is displayed in history queries
 
     Examples:
       | hideIfEqualsQuery | maxItemsToRequest | query   | querySuggestionItem |
-      | true              | 2                 | ani     | 0                   |
-      | false             | 3                 | funko   | 2                   |
-      | false             | 5                 | lego    | 4                   |
+      | true              | 6                 | le      | 0                   |
 
   Scenario Outline: 3. hideIfEqualsQuery behavior
     Given following config: hide if equals query <hideIfEqualsQuery>, requested items <maxItemsToRequest>
@@ -44,5 +42,5 @@ Feature: Query-suggestions component
 
     Examples:
       | hideIfEqualsQuery | maxItemsToRequest | query   |
-      | false             | 5                 | puzzle  |
-      | true              | 5                 | nenuco  |
+      | false             | 5                 | lego    |
+      | true              | 5                 | lego    |

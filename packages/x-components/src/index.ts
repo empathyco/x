@@ -22,7 +22,6 @@ export * from './x-modules/facets';
 export * from './x-modules/history-queries';
 export * from './x-modules/identifier-results';
 export * from './x-modules/next-queries';
-export * from './x-modules/no-suggestions';
 export * from './x-modules/popular-searches';
 export * from './x-modules/query-suggestions';
 export * from './x-modules/recommendations';

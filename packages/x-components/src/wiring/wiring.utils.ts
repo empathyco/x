@@ -1,6 +1,6 @@
 import { Store } from 'vuex';
 import { RootXStoreState, StoreModuleStateAndGetters } from '../store/store.types';
-import { getGettersProxy } from '../store/utils/get-getters-proxy';
+import { getGettersProxy } from '../store/utils/getters-proxy.utils';
 import { ExtractState, XModuleName } from '../x-modules/x-modules.types';
 import { Wiring } from './wiring.types';
 

@@ -1,43 +1,37 @@
 import { Suggestion } from '@empathyco/x-types';
-import { createFacetWithFilter } from './facets-stubs.factory';
 
 /**
- * Function to create suggestions stub with the modelName passes as parameter.
+ * Creates a {@link @empathyco/x-types#Suggestion | suggestions} stub.
  *
- * @param modelName - Model name for each suggestion.
- * @returns Array of suggestion stub.
+ * @param amount - Number of stubbed suggestions to create.
+ *
+ * @returns Array of suggestions stub.
+ *
+ * @internal
  */
-export function getSuggestionsStub(modelName: Suggestion['modelName']): Suggestion[] {
-  return [
-    {
-      facets: [],
-      query: 'salt',
-      key: 'salt',
-      modelName: modelName
-    },
-    {
-      facets: [],
-      query: 'limes',
-      key: 'limes',
-      modelName: modelName
-    },
-    {
-      facets: [createFacetWithFilter('fruit')],
-      query: 'limes',
-      key: 'limes',
-      modelName: modelName
-    },
-    {
-      facets: [createFacetWithFilter('fresh')],
-      query: 'limes',
-      key: 'limes',
-      modelName: modelName
-    },
-    {
-      facets: [],
-      query: 'beef short ribs',
-      key: 'beef short ribs',
-      modelName: modelName
-    }
-  ];
+export function getSuggestionsStub(amount = 3): Suggestion[] {
+  return Array.from<number, Suggestion>({ length: amount }, (_, index) =>
+    createSuggestionStub(`Suggestions ${index + 1}`)
+  );
+}
+
+/**
+ * Creates a suggestion stub with the provided options. If the name is the only property provided,
+ * it will be used to generate the facets, query, totalResults, results and modelName.
+ *
+ * @param query - The query of the suggestion.
+ * @param suggestion - An optional object with fields to override the suggestion.
+ *
+ * @returns A suggestion.
+ */
+export function createSuggestionStub(query: string, suggestion?: Partial<Suggestion>): Suggestion {
+  return {
+    facets: [],
+    key: 'key',
+    query,
+    totalResults: 10,
+    results: [],
+    modelName: 'Suggestion',
+    ...suggestion
+  };
 }

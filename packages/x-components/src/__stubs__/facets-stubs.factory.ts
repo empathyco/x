@@ -21,7 +21,7 @@ import {
 } from './filters-stubs.factory';
 
 /**
- * Creates {@link @empathyco/x-types#SimpleFacet | SimpleFacet} stub.
+ * Creates a {@link @empathyco/x-types#SimpleFacet | SimpleFacet} stub.
  *
  * @returns A SimpleFacet.
  *
@@ -230,7 +230,7 @@ export function getSimpleFacetStub(): SimpleFacet {
 }
 
 /**
- * Creates {@link @empathyco/x-types#HierarchicalFacet | HierarchicalFacet} stub.
+ * Creates a {@link @empathyco/x-types#HierarchicalFacet | HierarchicalFacet} stub.
  *
  * @returns A HierarchicalFacet.
  *
@@ -370,7 +370,7 @@ export function getHierarchicalFacetStub(): HierarchicalFacet {
 }
 
 /**
- * Creates {@link @empathyco/x-types#NumberRangeFacet | NumberRangeFacet} stub.
+ * Creates a {@link @empathyco/x-types#NumberRangeFacet | NumberRangeFacet} stub.
  *
  * @returns A NumberRangeFacet.
  *
@@ -459,7 +459,7 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
 }
 
 /**
- * Creates {@link @empathyco/x-types#Facet | facets} stub.
+ * Creates a {@link @empathyco/x-types#Facet | facets} stub.
  *
  * @returns Array of facets stub.
  *
@@ -470,7 +470,7 @@ export function getFacetsStub(): Facet[] {
 }
 
 /**
- * Creates {@link @empathyco/x-types#Facet | facets} stub.
+ * Creates a {@link @empathyco/x-types#Facet | facets} stub.
  *
  * @returns Dictionary of facets stub.
  *

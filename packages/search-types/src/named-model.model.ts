@@ -13,6 +13,7 @@ export type ModelNameType =
   | 'HistoryQuery'
   | 'Banner'
   | 'Promoted'
+  | 'Redirection'
   | FilterModelName
   | FacetModelName
   | string;

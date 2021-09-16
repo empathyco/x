@@ -110,7 +110,7 @@ Given('a next queries API', () => {
 Given('a suggestions API', () => {
   cy.intercept('https://api.empathy.co/getSuggestions', req => {
     req.reply({
-      suggestions: getSuggestionsStub('QuerySuggestion')
+      suggestions: getSuggestionsStub()
     });
   });
 });
