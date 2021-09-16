@@ -143,7 +143,8 @@ describe('testing Url module actions', () => {
         query: 'sudadera',
         relatedTags: ['capucha', 'disney'],
         filters: [],
-        sort: ''
+        sort: '',
+        scroll: 0
       });
       expect(store.state.extraParams).toEqual<Dictionary<UrlParamValue>>({
         warehouse: '01234',
