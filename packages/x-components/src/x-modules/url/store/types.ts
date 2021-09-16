@@ -9,12 +9,21 @@ import { UrlConfig } from '../config.types';
  */
 export interface UrlState {
   config: UrlConfig;
+  params: Record<keyof Params, UrlParamValue>;
+  extraParams: Dictionary<UrlParamValue>;
+}
+
+/**
+ * URL store params.
+ *
+ * @public
+ */
+export interface Params {
   query: string;
   page: number;
   filters: string[];
   sort: string;
   relatedTags: string[];
-  extraParams: Dictionary<UrlParamValue>;
 }
 
 /**
@@ -23,8 +32,11 @@ export interface UrlState {
  * @public
  */
 export interface UrlGetters {
+  /** The current params in the url. */
   urlParams: Dictionary<UrlParamValue>;
-  urlMappedParamNames: Dictionary<UrlParamKey>;
+
+  /** All the parameter names with their corresponding key. */
+  urlMappedParamNames: Dictionary<UrlParamKey | string>;
 }
 
 /**
@@ -32,7 +44,7 @@ export interface UrlGetters {
  *
  * @public
  */
-export type UrlParamKey = string;
+export type UrlParamKey = Extract<keyof Params, string>;
 
 /**
  * The allowed values of the parameters to store in the URL.
@@ -47,7 +59,24 @@ export type UrlParamValue = string | number | boolean | Array<string | number | 
  * @public
  */
 export interface UrlMutations {
+  /**
+   * Sets a new url configuration.
+   *
+   * @param config - The new query of the search-box.
+   */
   setUrlConfig(config: UrlConfig): void;
+  /**
+   * Sets new extra params.
+   *
+   * @param extraParam - The new query of the search-box.
+   */
+  setExtraParams(extraParam: Dictionary<UrlParamValue>): void;
+  /**
+   * Sets the new params.
+   *
+   * @param params - The new query of the search-box.
+   */
+  setParams(params: Record<keyof Params, UrlParamValue>): void;
 }
 
 /**
@@ -58,12 +87,17 @@ export interface UrlMutations {
 export interface UrlActions {
   /**
    * Updates the URL with values from the store. It replaces the current url with a new entry in the
-   * browser history. Also returns the params with the custom names provided in the config if
-   * present.
+   * browser history. Also returns the params with the custom names provided in the config if any.
    *
    * @public
    */
   updateUrl(): void;
+  /**
+   * Updates the store with values from the URL.
+   *
+   * @public
+   */
+  updateStoreFromUrl(): void;
 }
 
 /**
