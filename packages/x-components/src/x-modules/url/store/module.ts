@@ -1,4 +1,4 @@
-import { urlMappedParamNames } from './getters/url-param-names.getter';
+import { urlMappedParamNames } from './getters/url-mapped-param-names.getter';
 import { UrlXStoreModule } from './types';
 import { urlParams } from './getters/url-params.getter';
 import { updateUrl } from './actions/update-url.action';

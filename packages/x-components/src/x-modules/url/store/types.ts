@@ -9,7 +9,7 @@ import { UrlConfig } from '../config.types';
  */
 export interface UrlState {
   config: UrlConfig;
-  params: Params;
+  params: Record<keyof Params, UrlParamValue>;
   extraParams: Dictionary<UrlParamValue>;
 }
 
@@ -76,7 +76,7 @@ export interface UrlMutations {
    *
    * @param params - The new query of the search-box.
    */
-  setParams(params: Record<UrlParamKey, UrlParamValue>): void;
+  setParams(params: Record<keyof Params, UrlParamValue>): void;
 }
 
 /**

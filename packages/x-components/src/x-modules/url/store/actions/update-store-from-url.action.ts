@@ -16,7 +16,7 @@ export const updateStoreFromUrl: UrlXStoreModule['actions']['updateStoreFromUrl'
   commit
 }) => {
   const urlSearchParams = new URLSearchParams(window.location.search);
-  const mappedParams = {} as Params;
+  const mappedParams = {} as Record<keyof Params, UrlParamValue>;
   const mappedExtraParams = {} as Dictionary<UrlParamValue>;
   forEach({ ...params, ...extraParams }, (stateKey, stateValue) => {
     const urlParam = urlMappedParamNames[stateKey];
