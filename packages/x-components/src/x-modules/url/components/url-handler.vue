@@ -68,10 +68,10 @@ This component emits the following events:
 
 ## See it in action
 
-This component doesn't render elements to the DOM, but serves as way to easily change the default
+This component doesn't render elements to the DOM, but serves as a way to easily change the default
 url parameter names.
 
-_Try to make some request and take a look to the url!_
+_Try to make some requests and take a look to the url!_
 
 ```vue
 <template>
@@ -99,7 +99,7 @@ In this example, the `UrlHandler` component changes the following query paramete
 - `filters` to be `f`
 - `sort` to be `s`
 
-_Try to make some request and take a look to the url!_
+_Try to make some requests and take a look to the url!_
 
 ```vue
 <template>
@@ -131,6 +131,6 @@ _Try to make some request and take a look to the url!_
 The `UrlHandler` will emit a `UrlConfigProvided` event, with the new url param names if they are
 provided.
 
-It also emit the `DocumentLoaded` when the page is loaded and the `DocumentHistoryChanged` when the
+It also emits the `DocumentLoaded` when the page is loaded and the `DocumentHistoryChanged` when the
 url changes.
 </docs>
