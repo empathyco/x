@@ -58,9 +58,8 @@
   --x-string-box-shadow-dropdown-default: var(--x-string-box-shadow-dropdown-round);
 
   .x-dropdown {
-    &__items-list {
+    &__toggle {
       width: auto;
-      justify-items: stretch;
     }
   }
 

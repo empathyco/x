@@ -80,7 +80,7 @@
             </BaseColumnPickerList>
             <SortDropdown
               :items="sortValues"
-              class="x-dropdown--round x-dropdown--right"
+              class="x-dropdown--round x-dropdown--right x-dropdown--l"
               :animation="sortDropdownAnimation"
             >
               <template #toggle><ChevronTinyRight /></template>

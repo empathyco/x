@@ -37,7 +37,7 @@
     @include safari-gap(var(--x-size-gap-dropdown-item-default));
 
     // size
-    width: var(--x-size-width-dropdown-default);
+    width: 100%;
 
     // layout
     display: flex;
@@ -59,7 +59,7 @@
     // layout
     background: var(--x-color-background-dropdown-default);
     box-sizing: border-box;
-    width: 100%;
+    width: var(--x-size-width-dropdown-default);
     position: absolute;
     left: 0;
     top: calc(100% + var(--x-size-gap-dropdown-default));
