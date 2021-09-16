@@ -1,3 +1,4 @@
+/* @deprecated */
 @for $i from 2 through 6 {
   .x-row--padding-0#{$i}{
     --x-size-padding-row: var(--x-size-padding-row-0#{$i});

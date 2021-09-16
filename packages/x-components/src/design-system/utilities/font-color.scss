@@ -1,0 +1,30 @@
+.x-font-color {
+  &--lead {
+    color: var(--x-color-base-lead);
+    --x-color-font-utility: var(--x-color-base-lead);
+  }
+  &--auxiliary {
+    color: var(--x-color-base-auxiliary);
+    --x-color-font-utility: var(--x-color-base-auxiliary);
+  }
+  &--neutral-10 {
+    color: var(--x-color-base-neutral-10);
+    --x-color-font-utility: var(--x-color-base-neutral-10);
+  }
+  &--neutral-35 {
+    color: var(--x-color-base-neutral-35);
+    --x-color-font-utility: var(--x-color-base-neutral-35);
+  }
+  &--neutral-70 {
+    color: var(--x-color-base-neutral-70);
+    --x-color-font-utility: var(--x-color-base-neutral-70);
+  }
+  &--neutral-95 {
+    color: var(--x-color-base-neutral-95);
+    --x-color-font-utility: var(--x-color-base-neutral-95);
+  }
+  &--neutral-100 {
+    color: var(--x-color-base-neutral-100);
+    --x-color-font-utility: var(--x-color-base-neutral-100);
+  }
+}

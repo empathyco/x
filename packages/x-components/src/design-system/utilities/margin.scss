@@ -1,0 +1,28 @@
+@import '../mixins';
+
+.x-margin {
+  &--00 {
+    margin: 0;
+  }
+  @for $i from 1 through 10 {
+    $i: zerofill($i);
+    &--#{$i} {
+      margin: var(--x-size-base-#{$i});
+    }
+  }
+  @for $i from 1 through 10 {
+    $i: zerofill($i);
+    &--top-#{$i} {
+      margin-top: var(--x-size-base-#{$i});
+    }
+    &--bottom-#{$i} {
+      margin-bottom: var(--x-size-base-#{$i});
+    }
+    &--right-#{$i} {
+      margin-right: var(--x-size-base-#{$i});
+    }
+    &--left-#{$i} {
+      margin-left: var(--x-size-base-#{$i});
+    }
+  }
+}
