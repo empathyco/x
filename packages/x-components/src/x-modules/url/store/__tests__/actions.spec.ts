@@ -116,4 +116,39 @@ describe('testing Url module actions', () => {
       });
     });
   });
+
+  describe(`${actionKeys.updateStoreFromUrl}`, () => {
+    it('should update the state with the correct url parameters', async () => {
+      const url = new URL(
+        window.location.href +
+          '?q=sudadera&tag=capucha&tag=disney&page=3&warehouse=01234&consent=true&store=1111'
+      );
+
+      window.history.replaceState({ ...window.history.state }, document.title, url.href);
+
+      resetUrlStateWith(store, {
+        config: {
+          urlParamNames: {
+            query: 'q',
+            relatedTags: 'tag'
+          }
+        },
+        extraParams: { warehouse: '', consent: false }
+      });
+
+      await store.dispatch(actionKeys.updateStoreFromUrl);
+
+      expect(store.state.params).toEqual<Partial<Params>>({
+        page: 3,
+        query: 'sudadera',
+        relatedTags: ['capucha', 'disney'],
+        filters: [],
+        sort: ''
+      });
+      expect(store.state.extraParams).toEqual<Dictionary<UrlParamValue>>({
+        warehouse: '01234',
+        consent: true
+      });
+    });
+  });
 });
