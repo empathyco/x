@@ -68,9 +68,16 @@ function getParamByType(
       return urlSearchParams.getAll(urlParam);
   }
 }
-
-function hasValues(
-  object: Record<keyof Params, UrlParamValue> | Dictionary<UrlParamValue>
-): boolean {
+/**
+ *
+ * Checks if the object has any keys.
+ *
+ * @param object - Any object.
+ *
+ * @internal
+ *
+ * @returns Boolean.
+ */
+function hasValues(object: Dictionary): boolean {
   return Object.keys(object).length > 0;
 }
