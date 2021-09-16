@@ -1,13 +1,13 @@
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
-import { map } from '../../../../utils';
-import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
+import { getPopularSearchesStub } from '../../../../__stubs__/popular-searches-stubs.factory';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
+import { map } from '../../../../utils';
 import { popularSearchesXStoreModule } from '../module';
 import { PopularSearchesState } from '../types';
 
 describe('testing popular searches module actions', () => {
-  const mockedSuggestions = getSuggestionsStub();
+  const mockedSuggestions = getPopularSearchesStub();
   const adapter = getMockedAdapter({ suggestions: { suggestions: mockedSuggestions } });
 
   const actionKeys = map(popularSearchesXStoreModule.actions, action => action);

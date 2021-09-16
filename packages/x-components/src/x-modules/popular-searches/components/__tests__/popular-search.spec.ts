@@ -1,12 +1,11 @@
-import { Suggestion } from '@empathyco/x-types';
 import { mount } from '@vue/test-utils';
-import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
+import { createPopularSearch } from '../../../../__stubs__/popular-searches-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
+import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import PopularSearch from '../popular-search.vue';
 
 describe('testing popular search item component', () => {
-  const suggestion: Suggestion = getSuggestionsStub()[0];
+  const suggestion = createPopularSearch('beer');
 
   const [, localVue] = installNewXPlugin();
 
@@ -36,12 +35,12 @@ describe('testing popular search item component', () => {
     const wrapperComponent = {
       template: `
         <PopularSearch :suggestion="suggestion">
-          <template #default="{ suggestion }">
-            <svg data-test="icon" height="10" width="10">
-              <circle cx="5" cy="5" r="4" stroke="black" />
-            </svg>
-            <span data-test="query" :aria-label="suggestion.query">{{ suggestion.query }}</span>
-          </template>
+        <template #default="{ suggestion }">
+          <svg data-test="icon" height="10" width="10">
+            <circle cx="5" cy="5" r="4" stroke="black"/>
+          </svg>
+          <span data-test="query" :aria-label="suggestion.query">{{ suggestion.query }}</span>
+        </template>
         </PopularSearch>
       `,
       props: ['suggestion'],

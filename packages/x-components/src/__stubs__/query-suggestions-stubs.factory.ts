@@ -1,39 +1,35 @@
 import { Suggestion } from '@empathyco/x-types';
-import { createFacetWithFilter } from './facets-stubs.factory';
 
 /**
- * Function to create query suggestions stub with facets with the modelName and query search
- * passes as parameter.
+ * Creates a list of generic query suggestions for the given query.
  *
- * @param query - Query search of current state.
+ * @param query - The query the suggestions belong to.
+ * @param amount - The number of query suggestions to create.
  *
- * @returns Array of suggestion stub.
+ * @returns An array of query suggestions.
  */
-export function getQuerySuggestionsStub(query: string): Suggestion[] {
-  return [
-    {
-      facets: [],
-      query: `salt ${query}`,
-      key: `salt ${query}`,
-      modelName: 'QuerySuggestion'
-    },
-    {
-      facets: [createFacetWithFilter('category01')],
-      query: `${query}`,
-      key: `${query}`,
-      modelName: 'QuerySuggestion'
-    },
-    {
-      facets: [],
-      query: `${query}`,
-      key: `${query}`,
-      modelName: 'QuerySuggestion'
-    },
-    {
-      facets: [],
-      query: `bë&éf shórt ribs ${query}`,
-      key: `beef short ribs ${query}`,
-      modelName: 'QuerySuggestion'
-    }
-  ];
+export function getQuerySuggestionsStub(query: string, amount = 3): Suggestion[] {
+  return Array.from({ length: amount }, (_, index) =>
+    createQuerySuggestion(`${query} suggestion ${index}`)
+  );
+}
+
+/**
+ * Creates a query suggestion stub with the provided options.
+ *
+ * @param query - The query of the suggestion.
+ * @param suggestion - An optional object with fields to override the suggestion.
+ *
+ * @returns A query suggestion.
+ */
+export function createQuerySuggestion(query: string, suggestion?: Partial<Suggestion>): Suggestion {
+  return {
+    facets: [],
+    key: query,
+    query,
+    totalResults: 10,
+    results: [],
+    modelName: 'QuerySuggestion',
+    ...suggestion
+  };
 }

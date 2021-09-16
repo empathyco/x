@@ -1,17 +1,17 @@
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
+import { getPopularSearchesStub } from '../../../../__stubs__/popular-searches-stubs.factory';
+import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
-import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import PopularSearch from '../popular-search.vue';
 import PopularSearches from '../popular-searches.vue';
 import { resetXPopularSearchesStateWith } from './utils';
 
 describe('testing popular searches component', () => {
-  const popularSearches = getSuggestionsStub();
+  const popularSearches = getPopularSearchesStub();
 
   const localVue = createLocalVue();
   localVue.use(Vuex);
@@ -43,11 +43,11 @@ describe('testing popular searches component', () => {
     const wrapperComponent = {
       template: `
         <PopularSearches>
-          <template #suggestion-content="suggestionContentScope">
-            <img src="./popular-search-icon.svg" class="x-popular-search__icon" data-test="icon"/>
-            <span class="x-popular-search__query" :data-index="suggestionContentScope.index"
-                  data-test="query">{{ suggestionContentScope.suggestion.query }}</span>
-          </template>
+        <template #suggestion-content="suggestionContentScope">
+          <img src="./popular-search-icon.svg" class="x-popular-search__icon" data-test="icon"/>
+          <span class="x-popular-search__query" :data-index="suggestionContentScope.index"
+                data-test="query">{{ suggestionContentScope.suggestion.query }}</span>
+        </template>
         </PopularSearches>
       `,
       components: {
@@ -73,18 +73,18 @@ describe('testing popular searches component', () => {
     const wrapperComponent = {
       template: `
         <PopularSearches>
-          <template #suggestion="{suggestion}">
-            <PopularSearch :suggestion="suggestion">
-              <template #default="{suggestion}">
-                <img src="./popular-search-icon.svg"
-                     class="x-popular-search__icon"
-                     data-test="icon"/>
-                <span class="x-popular-search__query"
-                      data-test="query">{{ suggestion.query }}</span>
-              </template>
-            </PopularSearch>
-            <button data-test="custom-button">Custom Behaviour</button>
-          </template>
+        <template #suggestion="{suggestion}">
+          <PopularSearch :suggestion="suggestion">
+            <template #default="{suggestion}">
+              <img src="./popular-search-icon.svg"
+                   class="x-popular-search__icon"
+                   data-test="icon"/>
+              <span class="x-popular-search__query"
+                    data-test="query">{{ suggestion.query }}</span>
+            </template>
+          </PopularSearch>
+          <button data-test="custom-button">Custom Behaviour</button>
+        </template>
         </PopularSearches>
       `,
       components: {
