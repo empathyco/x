@@ -7,9 +7,11 @@ import { createUrlStore, resetUrlStateWith } from './utils';
 describe('testing Url module actions', () => {
   const actionKeys = map(urlXStoreModule.actions, action => action);
   const store = createUrlStore();
-  let historyReplaceFn: (data: any, title: string, url?: string | null | undefined) => void;
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const historyReplaceFn = window.history.replaceState;
 
   beforeEach(() => {
+    window.history.replaceState = historyReplaceFn;
     window.history.replaceState({}, document.title, window.location.hostname);
   });
 
@@ -82,8 +84,6 @@ describe('testing Url module actions', () => {
     });
 
     it('should replace the state when the parameter is not pushable', async () => {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      historyReplaceFn = window.history.replaceState;
       window.history.replaceState = jest.fn();
 
       resetUrlStateWith(store, {
@@ -111,9 +111,6 @@ describe('testing Url module actions', () => {
 
   describe(`${actionKeys.updateStoreFromUrl}`, () => {
     it('should update the state with the correct url parameters', async () => {
-      // restore window replace function
-      window.history.replaceState = historyReplaceFn;
-
       const url = new URL(
         window.location.href +
           '?q=sudadera&tag=capucha&tag=disney&page=3&warehouse=01234&consent=true&store=1111'
