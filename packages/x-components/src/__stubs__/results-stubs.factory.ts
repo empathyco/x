@@ -2,7 +2,7 @@ import { Result, ResultTagging, Tagging } from '@empathyco/x-types';
 import { toKebabCase } from '../utils/string';
 
 /**
- * Creates {@link @empathyco/x-types#Result | results} stub.
+ * Creates a {@link @empathyco/x-types#Result | results} stub.
  *
  * @param amount - Number of stubbed results to create.
  *
@@ -10,7 +10,7 @@ import { toKebabCase } from '../utils/string';
  *
  * @internal
  */
-export function getResultsStub(amount = 3): Result[] {
+export function getResultsStub(amount = 4): Result[] {
   return Array.from<number, Result>({ length: amount }, (_, index) =>
     createResultStub(`Product ${index + 1}`)
   );

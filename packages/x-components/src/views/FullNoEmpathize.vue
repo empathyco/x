@@ -13,7 +13,6 @@
             />
           </template>
         </QuerySuggestions>
-        <NoSuggestions message="We couldn't find any suggestion. Try searching for {query}." />
       </div>
       <div class="x-column">
         <h1>History queries</h1>
@@ -90,7 +89,6 @@
   import IdentifierResult from '../x-modules/identifier-results/components/identifier-result.vue';
   import IdentifierResults from '../x-modules/identifier-results/components/identifier-results.vue';
   import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
-  import NoSuggestions from '../x-modules/no-suggestions/components/no-suggestions.vue';
   import PopularSearches from '../x-modules/popular-searches/components/popular-searches.vue';
   import QuerySuggestion from '../x-modules/query-suggestions/components/query-suggestion.vue';
   import QuerySuggestions from '../x-modules/query-suggestions/components/query-suggestions.vue';
@@ -127,7 +125,6 @@
       IdentifierResult,
       IdentifierResults,
       NextQueries,
-      NoSuggestions,
       PopularSearches,
       QuerySuggestion,
       QuerySuggestions,

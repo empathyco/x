@@ -1,11 +1,11 @@
 # Naming
 
-## Variables, attributes, properties
+## Variables, attributes, and properties
 
-These rules are applicable for any kind of variable, either if it is defined as an attribute, class
-property, object property, Vue component prop.
+These rules apply to any kind of variable, whether it is defined as an attribute, a class
+property, an object property, or a Vue component prop.
 
-- Its name must be written in `camelCase`:
+- The name must be written in `camelCase`.
 
 ```ts
 // ❌ Wrong
@@ -16,7 +16,7 @@ const SearchBoxQuery = 'beer';
 const searchBoxQuery = 'beer';
 ```
 
-- Avoid adding words that do not add value:
+- Avoid adding words that do not add value.
 
 ```ts
 // ❌ Wrong
@@ -30,7 +30,7 @@ const searchDebounceMs = 100;
 const searchingURL = 'api.empathybroker.com';
 ```
 
-- `boolean` variables have to be prefixed:
+- `boolean` variables must be prefixed.
 
 ```ts
 // ❌ Wrong
@@ -54,7 +54,7 @@ export default class MyComponent extends Vue {
 }
 ```
 
-- If the variable refers to something measurable, add the unit name:
+- If the variable refers to something measurable, add the unit name.
 
 ```ts
 // ❌ Wrong
@@ -69,7 +69,7 @@ const heightPx = 100;
 ```
 
 - Avoid abbreviations unless they refer to a unit name, or are widely accepted concepts (like URL,
-  CSS, HTML…):
+  CSS, HTML…).
 
 ```ts
 // ❌ Wrong
@@ -83,7 +83,7 @@ const url = 'https://empathy.co';
 const sizePx = 100;
 ```
 
-- Use lowercase for the abbreviation if it is the start of the variable name, and uppercase if it is
+- Use lowercase for the abbreviation only if it is the start of the variable name, and uppercase if it is
   in the middle of the word.
 
 ```ts
@@ -96,7 +96,7 @@ const cssClasses = 'x-suggestion x-popular-search';
 const websiteURL = 'https://empathy.co';
 ```
 
-- Avoid repeating the context:
+- Avoid repeating the context.
 
 ```ts
 // ❌ Wrong
@@ -118,9 +118,9 @@ class Facets {
 }
 ```
 
-## Methods and Functions
+## Methods and functions
 
-- Must start with a verb
+- Methods and functions must start with a verb.
 
 ```ts
 // ❌ Wrong
@@ -130,9 +130,9 @@ function result() {}
 function createResult() {}
 ```
 
-## Interfaces andTypes
+## Interfaces and types
 
-- Its name must be written in `PascalCase`
+- The name must be written in `PascalCase`.
 
 ```ts
 // ❌ Wrong
@@ -146,7 +146,7 @@ type Dictionary = Record<string, unknown>;
 interface SearchResponse {}
 ```
 
-- Generics must have a proper readable name.
+- Generic values must have a meaningful name.
 
 ```ts
 // ❌ Wrong
@@ -156,7 +156,7 @@ type Dictionary<T> = Record<string, T>;
 type Dictionary<Value> = Record<string, Value>;
 ```
 
-- Abbreviations must be in upper case regardless of their position:
+- Abbreviations must be in uppercase regardless of the position.
 
 ```ts
 // ❌ Wrong
@@ -168,10 +168,9 @@ interface URLQuery {}
 
 ## Classes
 
-The JavaScript Classes introduced in ES06, are a great way to group and encapsulate code. Their
-names must be written always in `PascalCase` . Its attributes and methods must follow the
-[Variables, attributes, properties](#Variables,-attributes,-properties) and
-[Methods and Functions](#methods-and-functions) conventions.
+The JavaScript classes introduced in ES6 are a great way to group and encapsulate code. Names must be written always in `PascalCase`. Attributes and methods must follow the
+[Variables, attributes, and properties](#Variables-attributes-properties) and
+[Methods and functions](#methods-and-functions) conventions.
 
 ```ts
 // ❌ Wrong
@@ -191,10 +190,10 @@ class SystemService {
 
 ## CSS Classes
 
-The CSS classes are named following the
+The CSS classes are named according to the
 [BEM — Block Element Modifier](http://getbem.com/introduction/) convention.
 
-- Every class must be prefixed with `x-` to avoid collision with client projects naming.
+- Every class must be prefixed with `x-` to avoid collision with client project naming.
 
 ```html
 // ❌ Wrong
@@ -204,7 +203,7 @@ The CSS classes are named following the
 <button class="x-search-button">Search</button>
 ```
 
-- Classes must be written in `kebab-case`
+- Classes must be written in `kebab-case`.
 
 ```html
 // ❌ Wrong
@@ -215,7 +214,7 @@ The CSS classes are named following the
 <button class="x-search-button">Search</button>
 ```
 
-- The Classes of an element must match the block component name:
+- The classes of an element must match the block component name.
 
 ```html
 // ❌ Wrong
@@ -229,7 +228,7 @@ The CSS classes are named following the
 </button>
 ```
 
-- There is only a level of nesting allowed with `block__element`.
+- Only one level of nesting is allowed with `block__element`.
 
 ```html
 // ❌ Wrong
@@ -249,7 +248,7 @@ The CSS classes are named following the
 </div>
 ```
 
-- Modifier part should use a prefix if it depends on a part of the state
+- Modifiers should use a prefix if they depend on a part of the state.
 
 ```html
 // ❌ Wrong
@@ -261,10 +260,9 @@ The CSS classes are named following the
 
 ## X Events
 
-So far there are 2 types of X Events: User triggered events, and state change triggered events. Each
-one of these events kinds has its own rules, but they share some similarities:
+There are two types of X Events: **[user triggered events](#user-events)** and **[state change triggered events](#state-change-events)**. Each type has its own rules, but they share some common rules.
 
-- Use the same abstraction:
+- Use the same abstraction.
 
 ```
 // ❌ Wrong
@@ -275,12 +273,12 @@ UserClickedAFilter VS UserPickedARelatedTag VS UserSelectedASuggestion
 UserClickedAFilter VS UserClickedARelatedTag VS UserClickedASuggestion
 ```
 
-### User triggered events
+### User events
 
-These are events emitted because the user performed an action in the website. Clicking, hovering,
-typing, pressing a key are some examples of actions that the user can do to emit these events.
+These events are emitted when the user performs an action in the website. Clicking, hovering,
+typing, pressing a key are some examples of actions that the user may perform to emit these events.
 
-- They must be prefixed with `User` to clearly identify its origin.
+- Prefix these events with `User` to clearly identify the origin.
 
 ```
 // ❌ Wrong
@@ -290,7 +288,7 @@ SuggestionClicked
 UserClickedASuggestion
 ```
 
-- They must include a verb in past tense that describe what user action triggered the event.
+- Include a verb in past tense to describe the user action that triggered the event.
 
 ```
 // ❌ Wrong
@@ -300,7 +298,7 @@ UserClickSuggestion
 UserClickedASuggestion
 ```
 
-- They must describe the action that the user did to trigger that event, not the expected effects of
+- Describe the action that the user performed to trigger the event, not the expected outcome of
   the user action.
 
 ```
@@ -311,11 +309,11 @@ UserClearedSelectedFilters
 UserClickedClearSelectedFiltersButton
 ```
 
-### State change triggered events
+### State change events
 
-These events are emitted because a part of the application state has changed.
+These events are emitted when a part of the application state has changed.
 
-- They must be suffixed with `Changed`, `Loaded`, or any other suffix that explains the change type.
+- Suffix these events with `Changed`, `Loaded`, or any other suffix that explains the change type.
 
 ```
 // ❌ Wrong
@@ -327,7 +325,7 @@ SearchRequestChanged
 SearchBoxQueryCleared
 ```
 
-- They must describe precisely which part of the state changed.
+- Describe the part of the state that changed.
 
 ```
 // ❌ Wrong

@@ -1,0 +1,53 @@
+---
+name: Bug report
+description: Create a report to help us improve
+title: "[BUG]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "Thank you for taking the time to provide feedback!"
+  - type: markdown
+    attributes:
+     value: Before creating a new bug, please check for [existing issues](https://github.com/empathyco/x/issues).
+  - type: textarea
+    id: bug-environment
+    attributes:
+      label: Environment affected
+      description: Provide specific details regarding where the bug occurred and the access used.
+      placeholder: e.g. customer name, environment, URL, access details (user name and password), OS, browser (including version)
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Description
+      description: Provide a clear and concise description of what you are experiencing.
+      placeholder: e.g. The filters are not filtering.
+  - type: textarea
+    id: bug-current-behavior
+    attributes:
+      label: Current behavior and expected result
+      description: Describe what is currently happening, giving details on what you expected to happen.
+  - type: textarea
+    id: bug-steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: e.g. 1. Search for `gravel`. / 2. Expand the filters panel. / 3. In facet `Category`, click the filter `Long Distance`. / 4. The results do not change.
+  - type: textarea
+    id: bug-package
+    attributes:
+      label: Package affected
+      description: If you know the Interface X package affected, please specify. See the [List of packages](../CONTRIBUTING.md#interface-x-and-packages). 
+  - type: textarea
+    id: bug-info
+    attributes:
+      label: Supporting information
+      description: Provide as much supporting information as possible. Including attachments will help us to better understand the issue.
+      placeholder: Include supporting documentation, e.g. designs, diagrams, videos, Confluence links, real examples.
+  - type: checkboxes
+    id: bug-terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](./../CODE_OF_CONDUCT.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

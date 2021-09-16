@@ -109,6 +109,10 @@
     align-self: stretch;
   }
 
+  > .x-list__item--flex-none {
+    flex: none;
+  }
+
   @for $i from 1 through 12 {
     > .x-list__item--#{zerofill($i)} {
       flex: $i #{13 - $i} auto;

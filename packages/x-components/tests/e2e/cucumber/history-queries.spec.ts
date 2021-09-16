@@ -102,10 +102,6 @@ And('clear history queries button is disabled', () => {
 });
 
 // Scenario 4
-And('clear search button is clicked', () => {
-  cy.clearSearchInput();
-});
-
 Then(
   '{string} is deleted from history queries, whereas {string} remains',
   (query: string, followingQuery: string) => {

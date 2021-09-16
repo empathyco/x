@@ -1,6 +1,6 @@
 import { SearchResponse } from '@empathyco/x-adapter';
 // eslint-disable-next-line max-len
-import { createFetchAndSaveAction } from '../../../../store/utils/helpers/fetch-and-save-action.helpers';
+import { createFetchAndSaveAction } from '../../../../store/utils/fetch-and-save-action.utils';
 import { SearchActionContext } from '../types';
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
@@ -12,7 +12,7 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
   },
   onSuccess(
     { commit, state },
-    { results, partialResults, facets, banners, promoteds, totalResults, spellcheck }
+    { results, partialResults, facets, banners, promoteds, totalResults, spellcheck, redirections }
   ) {
     if (state.isAppendResults) {
       commit('appendResults', results);
@@ -21,6 +21,7 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
       commit('setResults', results);
       commit('setBanners', banners);
       commit('setPromoteds', promoteds);
+      commit('setRedirections', redirections);
     }
 
     commit('setPartialResults', partialResults ?? []);

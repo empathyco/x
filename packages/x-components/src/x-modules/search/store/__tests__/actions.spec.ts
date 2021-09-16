@@ -3,6 +3,7 @@ import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
 import { getPromotedsStub } from '../../../../__stubs__/promoteds-stubs.factory';
+import { getRedirectionsStub } from '../../../../__stubs__/redirections-stubs.factory';
 import { map } from '../../../../utils';
 import { getFacetsStub } from '../../../../__stubs__/facets-stubs.factory';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
@@ -17,6 +18,7 @@ describe('testing search module actions', () => {
   const facetsStub = getFacetsStub();
   const bannersStub = getBannersStub();
   const promotedsStub = getPromotedsStub();
+  const redirectionsStub = getRedirectionsStub();
   const searchResponseStub = getSearchResponseStub();
 
   const mockedEmptySearchResponse: SearchResponse = {
@@ -65,7 +67,8 @@ describe('testing search module actions', () => {
   });
 
   describe(`${actionKeys.fetchAndSaveSearchResponse}`, () => {
-    it('should request and store results, facets, banners and promoteds in the state', async () => {
+    // eslint-disable-next-line max-len
+    it('should request and store results, facets, banners, promoteds and redirections in the state', async () => {
       resetSearchStateWith(store, {
         query: 'lego'
       });
@@ -77,6 +80,7 @@ describe('testing search module actions', () => {
       expect(store.state.facets).toEqual(facetsStub);
       expect(store.state.banners).toEqual(bannersStub);
       expect(store.state.promoteds).toEqual(promotedsStub);
+      expect(store.state.redirections).toEqual(redirectionsStub);
       expect(store.state.page).toEqual(1);
       expect(store.state.config.pageSize).toEqual(24);
       expect(store.state.status).toEqual('success');
@@ -155,7 +159,8 @@ describe('testing search module actions', () => {
         results: initialResults,
         facets: initialFacets,
         banners: initialBanners,
-        promoteds: initialPromoteds
+        promoteds: initialPromoteds,
+        redirections: initialRedirections
       } = store.state;
       adapter.search.mockResolvedValueOnce({
         ...mockedEmptySearchResponse,
@@ -172,12 +177,15 @@ describe('testing search module actions', () => {
       expect(store.state.facets).toBe(initialFacets);
       expect(store.state.banners).toEqual(initialBanners);
       expect(store.state.promoteds).toEqual(initialPromoteds);
+      expect(store.state.promoteds).toEqual(initialPromoteds);
+      expect(store.state.redirections).toEqual(initialRedirections);
       await secondRequest;
       expect(store.state.status).toEqual('success');
       expect(store.state.results).toEqual(resultsStub);
       expect(store.state.facets).toEqual(facetsStub);
       expect(store.state.banners).toEqual(bannersStub);
       expect(store.state.promoteds).toEqual(promotedsStub);
+      expect(store.state.redirections).toEqual(redirectionsStub);
     });
 
     it('should set the status to error when it fails', async () => {

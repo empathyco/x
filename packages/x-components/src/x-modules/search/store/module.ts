@@ -1,5 +1,5 @@
 import { isFacetFilter } from '@empathyco/x-types';
-import { setStatus } from '../../../store/utils/helpers/status.helpers';
+import { setStatus } from '../../../store/utils/status-store.utils';
 import { groupItemsBy } from '../../../utils/array';
 import {
   cancelFetchAndSaveSearchResponse,
@@ -35,7 +35,8 @@ export const searchXStoreModule: SearchXStoreModule = {
     sort: '',
     page: 1,
     origin: null,
-    isAppendResults: false
+    isAppendResults: false,
+    redirections: []
   }),
   getters: {
     request
@@ -94,6 +95,9 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     setOrigin(state, origin) {
       state.origin = origin ?? null;
+    },
+    setRedirections(state, redirections) {
+      state.redirections = redirections;
     }
   },
   actions: {

@@ -33,7 +33,7 @@ describe('testing popular searches module getters', () => {
 
   describe(`${gettersKeys.popularSearches} getter`, () => {
     const searchedQueries = createHistoryQueries('limes');
-    const mockedSuggestions = getSuggestionsStub('PopularSearch');
+    const mockedSuggestions = getSuggestionsStub();
 
     const adapter = getMockedAdapter({ suggestions: { suggestions: mockedSuggestions } });
     const localVue = createLocalVue();
