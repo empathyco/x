@@ -1,8 +1,38 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { createResultStub } from '../../../../src/__stubs__/results-stubs.factory';
+
+// Background
+Given('a results API with partial results', () => {
+  cy.intercept('https://api.empathy.co/search', req => {
+    req.reply({
+      results: [],
+      partialResults: [
+        {
+          query: 'verde azul',
+          results: [
+            createResultStub('Twister'),
+            createResultStub('Juego de Anillas Acuáticas Peces'),
+            createResultStub('Jurassic World Dinosaurio de Ataque Varios Modelos')
+          ],
+          totalResults: 9
+        },
+        {
+          query: 'lego verde',
+          results: [
+            createResultStub('LEGO Classic Ladrillos Creativos Verdes - 11007'),
+            createResultStub('LEGO Creator Grandes Dinosaurios -31058'),
+            createResultStub('LEGO My City Casa Familiar - 60291')
+          ],
+          totalResults: 6
+        }
+      ]
+    });
+  }).as('interceptedPartialResults');
+});
 
 // Scenario 1
 Given('no special config for partial-results view', () => {
-  cy.visit('test/partial-results');
+  cy.visit('test/partial-results?useMockedAdapter=true');
 });
 
 Then('at least {int} related results are displayed', (minResultsWithoutPartials: number) => {
@@ -10,11 +40,7 @@ Then('at least {int} related results are displayed', (minResultsWithoutPartials:
 });
 
 And('no partial results are displayed', () => {
-  cy.getByDataTest('result-picture__image')
-    .should('be.visible')
-    .then(() => {
-      cy.getByDataTest('partial-result-item').should('not.exist');
-    });
+  cy.getByDataTest('partial-result-item').should('not.exist');
 });
 
 // Scenario 2
@@ -23,11 +49,7 @@ Then('less than {int} related results are displayed', (minResultsWithoutPartials
 });
 
 And('partial results are displayed', () => {
-  cy.getByDataTest('result-picture__image')
-    .should('be.visible')
-    .then(() => {
-      cy.getByDataTest('partial-result-item').should('exist');
-    });
+  cy.getByDataTest('partial-result-item').should('exist');
 });
 
 // Scenario 3

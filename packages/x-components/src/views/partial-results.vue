@@ -30,7 +30,6 @@
         <BaseGrid :animation="staggeredFadeAndSlide" :columns="4" :items="partialResult.results">
           <template #Result="{ item }">
             <BaseResultLink :result="item" class="x-result-link">
-              <BaseResultImage :result="item" />
               <span class="x-result__title" data-test="partial-result-item">{{ item.name }}</span>
             </BaseResultLink>
           </template>
