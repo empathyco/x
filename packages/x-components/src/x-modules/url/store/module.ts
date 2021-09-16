@@ -19,6 +19,7 @@ export const urlXStoreModule: UrlXStoreModule = {
       page: 1,
       filters: [],
       sort: '',
+      scroll: 0,
       relatedTags: []
     },
     extraParams: {}

@@ -1,5 +1,6 @@
+import { Dictionary } from '../../../../utils';
 import { forEach, reduce } from '../../../../utils/object';
-import { UrlXStoreModule } from '../types';
+import { UrlParamValue, UrlXStoreModule } from '../types';
 
 /**
  * Default implementation for the {@link UrlActions.updateUrl}.
@@ -13,6 +14,7 @@ export const updateUrl: UrlXStoreModule['actions']['updateUrl'] = ({
   getters: { urlParams, urlMappedParamNames }
 }) => {
   const url = new URL(window.location.href);
+  const oldParams = url.searchParams;
 
   forEach(urlMappedParamNames, (_, value) => {
     url.searchParams.delete(value);
@@ -34,5 +36,28 @@ export const updateUrl: UrlXStoreModule['actions']['updateUrl'] = ({
     },
     url
   );
-  window.history.replaceState({ ...window.history.state }, document.title, url.href);
+
+  if (pushableParamsChanged(urlParams, oldParams)) {
+    window.history.pushState({ ...window.history.state }, document.title, url.href);
+  } else {
+    window.history.replaceState({ ...window.history.state }, document.title, url.href);
+  }
 };
+
+/**
+ * Checks if the pushable params have changed.
+ *
+ * @param urlParams - The new Url params.
+ * @param oldValues - The old Url params.
+ *
+ * @returns True if the param has changed.
+ */
+function pushableParamsChanged(
+  urlParams: Dictionary<UrlParamValue>,
+  oldValues: URLSearchParams
+): boolean {
+  const pushableParams = ['scroll'];
+  return pushableParams.some(key =>
+    oldValues.has(key) ? oldValues.get(key) !== urlParams[key] : false
+  );
+}

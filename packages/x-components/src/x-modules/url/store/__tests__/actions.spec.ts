@@ -54,6 +54,31 @@ describe('testing Url module actions', () => {
 
       expect(window.location.search).toEqual('');
     });
+
+    it('should push the state when the parameter is pushable', async () => {
+      window.history.pushState = jest.fn();
+
+      resetUrlStateWith(store, {
+        config: {
+          urlParamNames: {
+            query: 'q',
+            relatedTags: 'tag'
+          }
+        },
+        params: {
+          query: 'sudadera',
+          filters: [],
+          relatedTags: [],
+          page: 1,
+          scroll: 2
+        }
+      });
+
+      await store.dispatch(actionKeys.updateUrl);
+
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(window.history.pushState).toHaveBeenCalled();
+    });
   });
 
   describe(`${actionKeys.updateStoreFromUrl}`, () => {
@@ -82,7 +107,8 @@ describe('testing Url module actions', () => {
         query: 'sudadera',
         relatedTags: ['capucha', 'disney'],
         filters: [],
-        sort: ''
+        sort: '',
+        scroll: 0
       });
       expect(store.state.extraParams).toEqual<Dictionary<UrlParamValue>>({
         warehouse: '01234',
