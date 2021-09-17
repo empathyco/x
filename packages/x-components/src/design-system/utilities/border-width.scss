@@ -8,27 +8,27 @@
   @for $i from 0 through 10 {
     $j: zerofill($i);
     &--#{$j} {
-      border-width: #{$i}px;
-      border-style: solid;
+      border-width: #{$i}px !important;
+      border-style: solid !important;
     }
   }
   @for $i from 0 through 10 {
     $j: zerofill($i);
     &--top-#{$j} {
-      border-top-width: #{$i}px;
-      border-style: solid;
+      border-top-width: #{$i}px !important;
+      border-style: solid !important;
     }
     &--bottom-#{$j} {
-      border-bottom-width: #{$i}px;
-      border-style: solid;
+      border-bottom-width: #{$i}px !important;
+      border-style: solid !important;
     }
     &--right-#{$j} {
-      border-right-width: #{$i}px;
-      border-style: solid;
+      border-right-width: #{$i}px !important;
+      border-style: solid !important;
     }
     &--left-#{$j} {
-      border-left-width: #{$i}px;
-      border-style: solid;
+      border-left-width: #{$i}px !important;
+      border-style: solid !important;
     }
   }
 }

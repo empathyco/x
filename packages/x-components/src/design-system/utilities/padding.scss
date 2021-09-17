@@ -2,34 +2,28 @@
 
 .x-padding {
   &--0 {
-    padding: 0;
-    --x-size-padding-utility: 0;
+    padding: 0 !important;
   }
 
-  @for $i from 1 through 10 {
+  @for $i from 1 through 13 {
     $i: zerofill($i);
     &--#{$i} {
-      padding: var(--x-size-base-#{$i});
-      --x-size-padding-utility: var(--x-size-base-#{$i});
+      padding: var(--x-size-base-#{$i}) !important;
     }
   }
-  @for $i from 1 through 10 {
+  @for $i from 1 through 13 {
     $i: zerofill($i);
     &--top-#{$i} {
-      padding-top: var(--x-size-base-#{$i});
-      --x-size-padding-top-utility: var(--x-size-base-#{$i});
+      padding-top: var(--x-size-base-#{$i}) !important;
     }
     &--bottom-#{$i} {
-      padding-bottom: var(--x-size-base-#{$i});
-      --x-size-padding-bottom-utility: var(--x-size-base-#{$i});
+      padding-bottom: var(--x-size-base-#{$i}) !important;
     }
     &--right-#{$i} {
-      padding-right: var(--x-size-base-#{$i});
-      --x-size-padding-right-utility: var(--x-size-base-#{$i});
+      padding-right: var(--x-size-base-#{$i}) !important;
     }
     &--left-#{$i} {
-      padding-left: var(--x-size-base-#{$i});
-      --x-size-padding-left-utility: var(--x-size-base-#{$i});
+      padding-left: var(--x-size-base-#{$i}) !important;
     }
   }
 }

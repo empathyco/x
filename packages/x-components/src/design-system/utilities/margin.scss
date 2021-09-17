@@ -2,27 +2,27 @@
 
 .x-margin {
   &--00 {
-    margin: 0;
+    margin: 0 !important;
   }
-  @for $i from 1 through 10 {
+  @for $i from 1 through 13 {
     $i: zerofill($i);
     &--#{$i} {
-      margin: var(--x-size-base-#{$i});
+      margin: var(--x-size-base-#{$i}) !important;
     }
   }
-  @for $i from 1 through 10 {
+  @for $i from 1 through 13 {
     $i: zerofill($i);
     &--top-#{$i} {
-      margin-top: var(--x-size-base-#{$i});
+      margin-top: var(--x-size-base-#{$i}) !important;
     }
     &--bottom-#{$i} {
-      margin-bottom: var(--x-size-base-#{$i});
+      margin-bottom: var(--x-size-base-#{$i}) !important;
     }
     &--right-#{$i} {
-      margin-right: var(--x-size-base-#{$i});
+      margin-right: var(--x-size-base-#{$i}) !important;
     }
     &--left-#{$i} {
-      margin-left: var(--x-size-base-#{$i});
+      margin-left: var(--x-size-base-#{$i}) !important;
     }
   }
 }
