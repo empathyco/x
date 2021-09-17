@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.21...@empathyco/x-components@3.0.0-alpha.22) (2021-09-17)
+
+
+### Features
+
+* **design-system:** add utilities ([cc5c6cc](https://github.com/empathyco/x/commit/cc5c6cc2eb2daf48cf06c968a06465bb19ff89d9)), closes [EX-4746](https://searchbroker.atlassian.net/browse/EX-4746)
+* **url:** Add an action to save from url to the store. ([9fbf8d4](https://github.com/empathyco/x/commit/9fbf8d448bd243a3850eebbe1a4520372260e28a)), closes [EX-4712](https://searchbroker.atlassian.net/browse/EX-4712)
+* **url:** add new URL Manager component  ([b3ea10d](https://github.com/empathyco/x/commit/b3ea10dfa0f94d13104372e6bde1733a2c013dae)), closes [EX-4566](https://searchbroker.atlassian.net/browse/EX-4566)
+
+
+### Testing
+
+* **partial-results:** mock adapter for partial results e2e tests ([1515e79](https://github.com/empathyco/x/commit/1515e796ab72ada9936cb5d288dea76f83e50bf5)), closes [EX-4647](https://searchbroker.atlassian.net/browse/EX-4647)
+
+
+
 ## [3.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.20...@empathyco/x-components@3.0.0-alpha.21) (2021-09-15)
 
 
