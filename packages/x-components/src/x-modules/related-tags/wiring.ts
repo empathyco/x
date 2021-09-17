@@ -82,6 +82,11 @@ export const clearSelectedRelatedTags = wireCommit('setSelectedRelatedTags', [])
  */
 export const clearRelatedTagsQuery = wireCommit('setQuery', '');
 
+/**
+ * Set the related tags of the url in the store.
+ *
+ * @public
+ */
 export const setUrlRelatedTagsWire = wireCommit('setUrlRelatedTags');
 
 /**
