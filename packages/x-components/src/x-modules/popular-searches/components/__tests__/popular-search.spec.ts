@@ -35,12 +35,12 @@ describe('testing popular search item component', () => {
     const wrapperComponent = {
       template: `
         <PopularSearch :suggestion="suggestion">
-        <template #default="{ suggestion }">
-          <svg data-test="icon" height="10" width="10">
-            <circle cx="5" cy="5" r="4" stroke="black"/>
-          </svg>
-          <span data-test="query" :aria-label="suggestion.query">{{ suggestion.query }}</span>
-        </template>
+          <template #default="{ suggestion }">
+            <svg data-test="icon" height="10" width="10">
+              <circle cx="5" cy="5" r="4" stroke="black"/>
+            </svg>
+            <span data-test="query" :aria-label="suggestion.query">{{ suggestion.query }}</span>
+          </template>
         </PopularSearch>
       `,
       props: ['suggestion'],

@@ -43,11 +43,11 @@ describe('testing popular searches component', () => {
     const wrapperComponent = {
       template: `
         <PopularSearches>
-        <template #suggestion-content="suggestionContentScope">
-          <img src="./popular-search-icon.svg" class="x-popular-search__icon" data-test="icon"/>
-          <span class="x-popular-search__query" :data-index="suggestionContentScope.index"
-                data-test="query">{{ suggestionContentScope.suggestion.query }}</span>
-        </template>
+          <template #suggestion-content="suggestionContentScope">
+            <img src="./popular-search-icon.svg" class="x-popular-search__icon" data-test="icon"/>
+            <span class="x-popular-search__query" :data-index="suggestionContentScope.index"
+                  data-test="query">{{ suggestionContentScope.suggestion.query }}</span>
+          </template>
         </PopularSearches>
       `,
       components: {
@@ -73,18 +73,18 @@ describe('testing popular searches component', () => {
     const wrapperComponent = {
       template: `
         <PopularSearches>
-        <template #suggestion="{suggestion}">
-          <PopularSearch :suggestion="suggestion">
-            <template #default="{suggestion}">
-              <img src="./popular-search-icon.svg"
-                   class="x-popular-search__icon"
-                   data-test="icon"/>
-              <span class="x-popular-search__query"
-                    data-test="query">{{ suggestion.query }}</span>
-            </template>
-          </PopularSearch>
-          <button data-test="custom-button">Custom Behaviour</button>
-        </template>
+          <template #suggestion="{suggestion}">
+            <PopularSearch :suggestion="suggestion">
+              <template #default="{suggestion}">
+                <img src="./popular-search-icon.svg"
+                     class="x-popular-search__icon"
+                     data-test="icon"/>
+                <span class="x-popular-search__query"
+                      data-test="query">{{ suggestion.query }}</span>
+              </template>
+            </PopularSearch>
+            <button data-test="custom-button">Custom Behaviour</button>
+          </template>
         </PopularSearches>
       `,
       components: {

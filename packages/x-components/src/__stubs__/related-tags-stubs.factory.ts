@@ -10,7 +10,7 @@ import { RelatedTag } from '@empathyco/x-types';
  * @internal
  */
 export function getRelatedTagsStub(amount = 9): RelatedTag[] {
-  return Array.from<number, RelatedTag>({ length: amount }, (_, index) =>
+  return Array.from({ length: amount }, (_, index) =>
     createRelatedTagStub('Related Tag', `Related Tag ${index + 1}`)
   );
 }
