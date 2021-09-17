@@ -25,7 +25,7 @@
 
     // color
     background: var(--x-color-background-dropdown-toggle-default);
-    color: var(--x-color-font-dropdown-toggle-default);
+    color: var(--x-color-text-dropdown-toggle-default);
     border-color: var(--x-color-border-dropdown-toggle-default);
 
     // size
@@ -46,13 +46,13 @@
 
     // other
     cursor: pointer;
-    overflow: hidden;
+    overflow: var(--x-string-overflow-dropdown-toggle-default);
     box-shadow: var(--x-string-box-shadow-dropdown-default);
   }
 
   &__toggle-selected-value {
     // color
-    color: var(--x-color-font-dropdown-toggle-default-selected);
+    color: var(--x-color-text-dropdown-toggle-default-selected);
   }
 
   &__items-list {
@@ -61,9 +61,8 @@
     box-sizing: border-box;
     min-width: var(--x-size-min-width-dropdown-list-default);
     position: absolute;
-    left: 0;
     top: calc(100% + var(--x-size-gap-dropdown-default));
-    overflow: hidden;
+    overflow: var(--x-string-overflow-dropdown-list-default);
 
     // color
     border-color: var(--x-color-border-dropdown-list-default);
@@ -125,7 +124,7 @@
     &:hover,
     &--is-highlighted {
       // color
-      color: var(--x-color-font-dropdown-item-default-hover);
+      color: var(--x-color-text-dropdown-item-default-hover);
       background-color: var(--x-color-background-dropdown-item-default-hover);
 
       // font
@@ -135,7 +134,7 @@
 
     &--is-selected {
       // color
-      color: var(--x-color-font-dropdown-item-default-selected);
+      color: var(--x-color-text-dropdown-item-default-selected);
       background-color: var(--x-color-background-dropdown-item-default-selected);
 
       // font
@@ -152,5 +151,13 @@
     --x-color-background-dropdown-toggle-default: var(
       --x-color-background-dropdown-toggle-open-default
     );
+  }
+
+  &--right {
+    .x-dropdown {
+      &__items-list {
+        inset-block-end: 0;
+      }
+    }
   }
 }

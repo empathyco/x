@@ -2255,36 +2255,6 @@
         </div>
       </article>
 
-      <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-dropdown-show-case">
-        <h2 class="x-title2">Round</h2>
-
-        <div class="x-dropdown x-dropdown--round">
-          <button class="x-dropdown__toggle">
-            <TrendingIcon />
-          </button>
-        </div>
-        <div class="x-dropdown x-dropdown--is-open x-dropdown--round">
-          <button class="x-dropdown__toggle">
-            <TrendingIcon />
-          </button>
-          <div class="x-dropdown__items-list">
-            <button class="x-dropdown__item x-dropdown__item--is-selected">
-              <TrendingIcon />
-              <span>Relevance</span>
-              <CheckIcon />
-            </button>
-            <button class="x-dropdown__item">
-              <TrendingIcon />
-              <span>Alphabetical</span>
-            </button>
-            <button class="x-dropdown__item">
-              <TrendingIcon />
-              <span>Price</span>
-            </button>
-          </div>
-        </div>
-      </article>
-
       <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-list x-list--gap-06">
         <h2 class="x-title2">Size variants</h2>
         <article
