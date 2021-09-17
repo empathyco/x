@@ -1,3 +1,4 @@
+import { RelatedTag } from '@empathyco/x-types';
 import { UrlConfig } from './config.types';
 import { UrlGetters } from './store/types';
 /**
@@ -17,6 +18,11 @@ export interface UrlXEvents {
    * * Payload: The new URL params.
    */
   UrlStateChanged: UrlGetters['urlParams'];
+  /**
+   * Url related tags state changed.
+   * * Payload: The new related tags.
+   */
+  UrlRelatedTagsChanged: RelatedTag[];
   /**
    * Document has finished loading.
    * * Payload: none.

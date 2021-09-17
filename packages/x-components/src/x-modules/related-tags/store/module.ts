@@ -43,6 +43,9 @@ export const relatedTagsXStoreModule: RelatedTagsXStoreModule = {
     setStatus,
     setParams(state, params) {
       state.params = params;
+    },
+    setUrlRelatedTags(state, newRelatedTags) {
+      state.relatedTags = newRelatedTags;
     }
   },
   actions: {

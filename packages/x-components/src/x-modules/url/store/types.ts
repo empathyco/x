@@ -1,3 +1,4 @@
+import { RelatedTag } from '@empathyco/x-types';
 import { XStoreModule } from '../../../store';
 import { Dictionary } from '../../../utils/types';
 import { UrlConfig } from '../config.types';
@@ -37,6 +38,9 @@ export interface UrlGetters {
 
   /** All the parameter names with their corresponding key. */
   urlMappedParamNames: Dictionary<UrlParamKey | string>;
+
+  /** The related tags of the url build as {@link @empathyco/x-types#RelatedTag}. */
+  relatedTags: RelatedTag[];
 }
 
 /**
@@ -77,6 +81,12 @@ export interface UrlMutations {
    * @param params - The new query of the search-box.
    */
   setParams(params: Record<keyof Params, UrlParamValue>): void;
+  /**
+   * Sets the rt.
+   *
+   * @param relatedTags - The new query of the search-box.
+   */
+  setRelatedTags(relatedTags: RelatedTag[]): void;
 }
 
 /**

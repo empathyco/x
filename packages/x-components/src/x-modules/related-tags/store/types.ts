@@ -66,6 +66,12 @@ export interface RelatedTagsMutations extends StatusMutations {
    * @param params - The new extra params.
    */
   setParams(params: Dictionary<unknown>): void;
+  /**
+   * Sets the related tags of the module.
+   *
+   * @param relatedTags - The new related tags.
+   */
+  setUrlRelatedTags(relatedTags: RelatedTag[]): void;
 }
 /**
  * RelatedTags store actions.

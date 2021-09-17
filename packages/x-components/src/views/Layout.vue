@@ -1,5 +1,7 @@
 <template>
   <div>
+    <UrlHandler />
+
     <BaseIdModalOpen modal-id="x-app">Start</BaseIdModalOpen>
     <BaseIdModal modal-id="x-app">
       <MultiColumnMaxWidthLayout>
@@ -321,6 +323,7 @@
   import SortDropdown from '../x-modules/search/components/sort-dropdown.vue';
   import SortList from '../x-modules/search/components/sort-list.vue';
   import Empathize from '../x-modules/empathize/components/empathize.vue';
+  import UrlHandler from '../x-modules/url/components/url-handler.vue';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
@@ -339,6 +342,7 @@
       infiniteScroll
     },
     components: {
+      UrlHandler,
       Nq1,
       Banner,
       BannersList,

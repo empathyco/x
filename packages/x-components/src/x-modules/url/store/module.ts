@@ -1,3 +1,4 @@
+import { relatedTags } from './getters/related-tags.getter';
 import { urlMappedParamNames } from './getters/url-mapped-param-names.getter';
 import { UrlXStoreModule } from './types';
 import { urlParams } from './getters/url-params.getter';
@@ -12,7 +13,9 @@ import { updateStoreFromUrl } from './actions/update-store-from-url.action';
 export const urlXStoreModule: UrlXStoreModule = {
   state: () => ({
     config: {
-      urlParamNames: {}
+      urlParamNames: {
+        relatedTags: 'tag'
+      }
     },
     params: {
       query: '',
@@ -25,7 +28,8 @@ export const urlXStoreModule: UrlXStoreModule = {
   }),
   getters: {
     urlParams,
-    urlMappedParamNames
+    urlMappedParamNames,
+    relatedTags
   },
   mutations: {
     setUrlConfig(state, urlConfig) {
@@ -36,6 +40,9 @@ export const urlXStoreModule: UrlXStoreModule = {
     },
     setParams(state, params) {
       state.params = { ...state.params, ...params };
+    },
+    setRelatedTags(state, relatedTags) {
+      state.params.relatedTags = relatedTags.map(r => r.tag);
     }
   },
   actions: {
