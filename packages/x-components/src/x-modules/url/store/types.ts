@@ -82,9 +82,9 @@ export interface UrlMutations {
    */
   setParams(params: Record<keyof Params, UrlParamValue>): void;
   /**
-   * Sets the rt.
+   * Sets the new related tags.
    *
-   * @param relatedTags - The new query of the search-box.
+   * @param relatedTags - The new related tags.
    */
   setRelatedTags(relatedTags: RelatedTag[]): void;
 }
