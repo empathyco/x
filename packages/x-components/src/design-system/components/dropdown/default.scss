@@ -37,7 +37,7 @@
     @include safari-gap(var(--x-size-gap-dropdown-item-default));
 
     // size
-    width: 100%;
+    width: var(--x-size-width-dropdown-toggle-default);
 
     // layout
     display: flex;
@@ -59,7 +59,7 @@
     // layout
     background: var(--x-color-background-dropdown-default);
     box-sizing: border-box;
-    width: var(--x-size-width-dropdown-default);
+    min-width: var(--x-size-min-width-dropdown-list-default);
     position: absolute;
     left: 0;
     top: calc(100% + var(--x-size-gap-dropdown-default));
@@ -84,7 +84,7 @@
     padding: 0;
 
     // other
-    box-shadow: var(--x-string-box-shadow-03);
+    box-shadow: var(--x-string-box-shadow-dropdown-default);
     z-index: 1;
 
     &:before,
@@ -149,6 +149,8 @@
   }
 
   &--is-open {
-    --x-color-background-dropdown-toggle-default: var(--x-color-background-dropdown-toggle-open-default);
+    --x-color-background-dropdown-toggle-default: var(
+      --x-color-background-dropdown-toggle-open-default
+    );
   }
 }

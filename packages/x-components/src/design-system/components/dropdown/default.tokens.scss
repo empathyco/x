@@ -59,7 +59,8 @@
   --x-font-decoration-dropdown-item-default-selected: none;
 
   // size
-  --x-size-width-dropdown-default: auto;
+  --x-size-width-dropdown-toggle-default: 100%;
+  --x-size-min-width-dropdown-list-default: 100%;
   --x-size-gap-dropdown-default: 0;
 
   --x-size-padding-top-dropdown-toggle-default: var(--x-size-padding-top-dropdown-item-default);

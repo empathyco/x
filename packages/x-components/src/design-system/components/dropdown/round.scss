@@ -6,10 +6,12 @@
 
   --x-size-padding-vertical-dropdown-list-default: var(--x-size-base-05);
 
-  --x-size-padding-top-dropdown-toggle-default: var(--x-size-padding-dropdown-buble);
-  --x-size-padding-right-dropdown-toggle-default: var(--x-size-padding-dropdown-buble);
-  --x-size-padding-bottom-dropdown-toggle-default: var(--x-size-padding-dropdown-buble);
-  --x-size-padding-left-dropdown-toggle-default: var(--x-size-padding-dropdown-buble);
+  --x-size-padding-top-dropdown-toggle-default: var(--x-size-padding-dropdown-round);
+  --x-size-padding-right-dropdown-toggle-default: var(--x-size-padding-dropdown-round);
+  --x-size-padding-bottom-dropdown-toggle-default: var(--x-size-padding-dropdown-round);
+  --x-size-padding-left-dropdown-toggle-default: var(--x-size-padding-dropdown-round);
+
+  --x-size-width-dropdown-toggle-default: auto;
 
   // border
   --x-size-border-radius-dropdown-default: var(--x-size-border-radius-base-pill);
@@ -56,12 +58,6 @@
 
   // other
   --x-string-box-shadow-dropdown-default: var(--x-string-box-shadow-dropdown-round);
-
-  .x-dropdown {
-    &__toggle {
-      width: auto;
-    }
-  }
 
   &.x-dropdown {
     &--right {

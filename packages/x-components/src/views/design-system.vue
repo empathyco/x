@@ -2276,7 +2276,7 @@
       </article>
 
       <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-dropdown-show-case">
-        <h2 class="x-title2">Bubble</h2>
+        <h2 class="x-title2">Round</h2>
 
         <div class="x-dropdown x-dropdown--round">
           <button class="x-dropdown__toggle">
