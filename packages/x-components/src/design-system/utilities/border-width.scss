@@ -15,19 +15,19 @@
   @for $i from 0 through 10 {
     $j: zerofill($i);
     &--top-#{$j} {
-      border-top-width: #{$i}px !important;
+      border-block-start-width: #{$i}px !important;
       border-style: solid !important;
     }
     &--bottom-#{$j} {
-      border-bottom-width: #{$i}px !important;
+      border-block-end-width: #{$i}px !important;
       border-style: solid !important;
     }
     &--right-#{$j} {
-      border-right-width: #{$i}px !important;
+      border-inline-end-width: #{$i}px !important;
       border-style: solid !important;
     }
     &--left-#{$j} {
-      border-left-width: #{$i}px !important;
+      border-inline-start-width: #{$i}px !important;
       border-style: solid !important;
     }
   }
