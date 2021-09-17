@@ -9,11 +9,13 @@ describe('testing url module getters', () => {
         relatedTags: 'tag'
       }
     },
-    query: 'salmorejo',
-    filters: [],
-    relatedTags: ['with eggs'],
-    page: 1,
-    sort: 'default',
+    params: {
+      query: 'salmorejo',
+      filters: [],
+      relatedTags: ['with eggs'],
+      page: 1,
+      sort: 'default'
+    },
     extraParams: {
       warehouse: 12345,
       store: ''

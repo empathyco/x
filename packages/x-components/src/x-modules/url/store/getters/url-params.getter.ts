@@ -11,11 +11,8 @@ import { objectFilter } from '../../../../utils/object';
  *
  * @public
  */
-export const urlParams: UrlXStoreModule['getters']['urlParams'] = ({
-  config,
-  extraParams,
-  ...rawUrlParams
-}) => objectFilter({ ...rawUrlParams, ...extraParams }, isValidParam);
+export const urlParams: UrlXStoreModule['getters']['urlParams'] = ({ extraParams, params }) =>
+  objectFilter({ ...params, ...extraParams }, isValidParam);
 
 const invalidUrlValues: Dictionary<UrlParamValue> = {
   page: 1

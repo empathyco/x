@@ -1,7 +1,9 @@
-@import '../../mixins';
+@import '../mixins';
 
+.x-shadow--none {
+  box-shadow: none;
+}
 .x-shadow {
-  box-shadow: var(--x-string-box-shadow-default, none);
   @for $i from 1 through 10 {
     $i: zerofill($i);
     &--#{$i} {
