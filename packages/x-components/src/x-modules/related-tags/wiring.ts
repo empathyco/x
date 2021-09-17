@@ -83,13 +83,6 @@ export const clearSelectedRelatedTags = wireCommit('setSelectedRelatedTags', [])
 export const clearRelatedTagsQuery = wireCommit('setQuery', '');
 
 /**
- * Set the related tags of the url in the store.
- *
- * @public
- */
-export const setUrlRelatedTagsWire = wireCommit('setUrlRelatedTags');
-
-/**
  * Wiring configuration for the {@link RelatedTagsXModule | related tags module}.
  *
  * @internal
@@ -112,8 +105,5 @@ export const relatedTagsWiring = createWiring({
   },
   ExtraParamsChanged: {
     setRelatedTagsExtraParams
-  },
-  UrlRelatedTagsChanged: {
-    setUrlRelatedTagsWire
   }
 });

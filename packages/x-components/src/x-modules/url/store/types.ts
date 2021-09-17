@@ -38,9 +38,6 @@ export interface UrlGetters {
 
   /** All the parameter names with their corresponding key. */
   urlMappedParamNames: Dictionary<UrlParamKey | string>;
-
-  /** The related tags of the url build as {@link @empathyco/x-types#RelatedTag}. */
-  relatedTags: RelatedTag[];
 }
 
 /**

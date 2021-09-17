@@ -1,4 +1,3 @@
-import { relatedTags } from './getters/related-tags.getter';
 import { urlMappedParamNames } from './getters/url-mapped-param-names.getter';
 import { UrlXStoreModule } from './types';
 import { urlParams } from './getters/url-params.getter';
@@ -28,8 +27,7 @@ export const urlXStoreModule: UrlXStoreModule = {
   }),
   getters: {
     urlParams,
-    urlMappedParamNames,
-    relatedTags
+    urlMappedParamNames
   },
   mutations: {
     setUrlConfig(state, urlConfig) {

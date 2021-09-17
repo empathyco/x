@@ -19,11 +19,6 @@ export interface UrlXEvents {
    */
   UrlStateChanged: UrlGetters['urlParams'];
   /**
-   * Url related tags state changed.
-   * * Payload: The new related tags.
-   */
-  UrlRelatedTagsChanged: RelatedTag[];
-  /**
    * Document has finished loading.
    * * Payload: none.
    */

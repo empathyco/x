@@ -1,9 +1,8 @@
 <template>
   <div>
     <UrlHandler />
-
-    <BaseIdModalOpen modal-id="x-app">Start</BaseIdModalOpen>
-    <BaseIdModal modal-id="x-app">
+    <BaseEventsModalOpen openingEvent="UserOpenXProgrammatically">Open</BaseEventsModalOpen>
+    <BaseEventsModal :eventsToOpenModal="openEvents" class="x-modal" :animation="collapseFromTop">
       <MultiColumnMaxWidthLayout>
         <template #header-middle>
           <div
@@ -32,14 +31,14 @@
         </template>
 
         <template #header-end>
-          <BaseIdModalClose class="x-button--ghost" modal-id="x-app">
+          <BaseEventsModalClose class="x-button--ghost">
             <CrossIcon />
-          </BaseIdModalClose>
+          </BaseEventsModalClose>
         </template>
 
         <template #sub-header>
           <Empathize
-            :animation="empathizeAnimation"
+            :animation="collapseFromTop"
             class="
               x-list x-list--horizontal x-list--padding-05 x-list--padding-bottom x-list--gap-06
             "
@@ -253,7 +252,7 @@
           </BaseScrollToTop>
         </template>
       </MultiColumnMaxWidthLayout>
-    </BaseIdModal>
+    </BaseEventsModal>
   </div>
 </template>
 
@@ -262,7 +261,7 @@
   import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { BaseIdTogglePanelButton, BaseSuggestions } from '../components';
+  import { BaseEventsModal, BaseIdTogglePanelButton, BaseSuggestions } from '../components';
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
   import BaseGrid from '../components/base-grid.vue';
@@ -280,6 +279,8 @@
   import Nq1 from '../components/icons/nq-1.vue';
   import SearchIcon from '../components/icons/search.vue';
   import MultiColumnMaxWidthLayout from '../components/layouts/multi-column-max-width-layout.vue';
+  import BaseEventsModalClose from '../components/modals/base-events-modal-close.vue';
+  import BaseEventsModalOpen from '../components/modals/base-events-modal-open.vue';
   import BaseIdModalClose from '../components/modals/base-id-modal-close.vue';
   import BaseIdModalOpen from '../components/modals/base-id-modal-open.vue';
   import BaseIdModal from '../components/modals/base-id-modal.vue';
@@ -342,6 +343,9 @@
       infiniteScroll
     },
     components: {
+      BaseEventsModalClose,
+      BaseEventsModalOpen,
+      BaseEventsModal,
       UrlHandler,
       Nq1,
       Banner,
@@ -401,8 +405,9 @@
   })
   export default class App extends Vue {
     protected columnPickerValues = [0, 4, 6];
+    protected openEvents = ['UserClickedOpenEventsModal', 'UserOpenXProgrammatically'];
     protected resultsAnimation = StaggeredFadeAndSlide;
-    protected empathizeAnimation = CollapseFromTop;
+    protected collapseFromTop = CollapseFromTop;
     protected selectedColumns = 4;
     protected sortValues = ['', 'priceSort asc', 'priceSort desc'];
     protected staticFacets: Facet[] = [

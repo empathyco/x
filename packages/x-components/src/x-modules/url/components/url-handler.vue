@@ -1,9 +1,12 @@
 <script lang="ts">
+  import { RelatedTag } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import { XOn } from '../../../components';
   import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { reduce } from '../../../utils';
+  import { Dictionary, reduce } from '../../../utils';
   import { UrlConfig } from '../config.types';
+  import { Params, UrlParamValue } from '../store';
   import { urlXModule } from '../x-module';
 
   @Component({
@@ -29,6 +32,42 @@
       window.addEventListener('popstate', () => {
         this.$x.emit('DocumentHistoryChanged');
       });
+    }
+
+    @XOn('UrlStateChanged')
+    syncUrlState(params: Dictionary<UrlParamValue>): void {
+      if (Object.keys(params).length) {
+        const { query, relatedTags } = params;
+
+        if (relatedTags) {
+          this.$x.emit(
+            'RelatedTagsChanged',
+            (relatedTags as string[]).reduce<RelatedTag[]>((acc, relatedTag) => {
+              acc.push(this.generateRelatedTag(relatedTag, query as string));
+              return acc;
+            }, [])
+          );
+        }
+      }
+    }
+
+    /**
+     * Generates a {@link @empathyco/x-types#RelatedTag | related tags} entity from a tag and
+     * a query.
+     *
+     * @param relatedTag - The tag from the url.
+     * @param query - The query from the url.
+     *
+     * @returns A {@link @empathyco/x-types#RelatedTag | related tag}.
+     */
+    protected generateRelatedTag(relatedTag: string, query: string): RelatedTag {
+      return {
+        tag: `${relatedTag} ${query}`,
+        modelName: 'RelatedTag',
+        selected: true,
+        query,
+        previous: ''
+      };
     }
 
     /**
