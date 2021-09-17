@@ -6,7 +6,7 @@
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { Dictionary, reduce } from '../../../utils';
   import { UrlConfig } from '../config.types';
-  import { Params, UrlParamValue } from '../store';
+  import { UrlParamValue } from '../store';
   import { urlXModule } from '../x-module';
 
   @Component({
