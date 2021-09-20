@@ -57,7 +57,7 @@
      *
      * @public
      */
-    @Prop({ default: NoElement })
+    @Prop({ default: () => NoElement })
     public animation!: string | typeof Vue;
     /**
      * The image has entered in the port view.
@@ -201,18 +201,18 @@
   }
 </style>
 
-<docs>
-#Examples
+<docs lang="mdx">
+# Examples
 
 ## Basic example
 
-This component is for the result image. It may be part of
-the search result page, recommendations or other section which needs to include results.
+This component is for the result image. It may be part of the search result page, recommendations or
+other section which needs to include results.
 
 The result prop is required. It will render a `<img/>` with the result image:
 
 ```vue
-<BaseResultImage :result="result"/>
+<BaseResultImage :result="result" />
 ```
 
 ## Customizing slots content
