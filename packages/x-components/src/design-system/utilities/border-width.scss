@@ -1,0 +1,34 @@
+@import '../mixins';
+
+*[class*='x-border-width--'] {
+  border-width: 0;
+}
+
+.x-border-width {
+  @for $i from 0 through 10 {
+    $j: zerofill($i);
+    &--#{$j} {
+      border-width: #{$i}px !important;
+      border-style: solid !important;
+    }
+  }
+  @for $i from 0 through 10 {
+    $j: zerofill($i);
+    &--top-#{$j} {
+      border-block-start-width: #{$i}px !important;
+      border-style: solid !important;
+    }
+    &--bottom-#{$j} {
+      border-block-end-width: #{$i}px !important;
+      border-style: solid !important;
+    }
+    &--right-#{$j} {
+      border-inline-end-width: #{$i}px !important;
+      border-style: solid !important;
+    }
+    &--left-#{$j} {
+      border-inline-start-width: #{$i}px !important;
+      border-style: solid !important;
+    }
+  }
+}

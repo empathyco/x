@@ -39,13 +39,16 @@
   --x-color-border-dropdown-list-default: var(--x-color-border-dropdown-toggle-default);
   --x-color-background-dropdown-default: var(--x-color-base-neutral-100);
   --x-color-background-dropdown-toggle-default: var(--x-color-base-neutral-100);
+  --x-color-background-dropdown-toggle-open-default: var(
+    --x-color-background-dropdown-toggle-default
+  );
   --x-color-background-dropdown-item-default-selected: var(--x-color-base-neutral-95);
   --x-color-background-dropdown-item-default-hover: var(--x-color-base-neutral-95);
-  --x-color-font-dropdown-default: var(--x-color-text-default);
-  --x-color-font-dropdown-toggle-default: var(--x-color-font-dropdown-default);
-  --x-color-font-dropdown-toggle-default-selected: var(--x-color-base-neutral-35);
-  --x-color-font-dropdown-item-default-hover: var(--x-color-base-neutral-35);
-  --x-color-font-dropdown-item-default-selected: var(--x-color-text-default);
+  --x-color-text-dropdown-default: var(--x-color-text-default);
+  --x-color-text-dropdown-toggle-default: var(--x-color-text-dropdown-default);
+  --x-color-text-dropdown-toggle-default-selected: var(--x-color-base-neutral-35);
+  --x-color-text-dropdown-item-default-hover: var(--x-color-base-neutral-35);
+  --x-color-text-dropdown-item-default-selected: var(--x-color-text-default);
 
   // font
   --x-font-family-dropdown-default: var(--x-font-family-text);
@@ -58,8 +61,19 @@
   --x-font-decoration-dropdown-item-default-selected: none;
 
   // size
-  --x-size-width-dropdown-default: auto;
+  --x-size-width-dropdown-toggle-default: 100%;
+  --x-size-min-width-dropdown-list-default: 100%;
   --x-size-gap-dropdown-default: 0;
+
+  --x-size-padding-top-dropdown-toggle-default: var(--x-size-padding-top-dropdown-item-default);
+  --x-size-padding-right-dropdown-toggle-default: var(--x-size-padding-right-dropdown-item-default);
+  --x-size-padding-bottom-dropdown-toggle-default: var(
+    --x-size-padding-bottom-dropdown-item-default
+  );
+  --x-size-padding-left-dropdown-toggle-default: var(--x-size-padding-left-dropdown-item-default);
+
+  --x-size-padding-vertical-dropdown-list-default: 0;
+
   --x-size-padding-top-dropdown-item-default: var(--x-size-base-04);
   --x-size-padding-right-dropdown-item-default: var(--x-size-base-05);
   --x-size-padding-bottom-dropdown-item-default: var(--x-size-base-04);
@@ -67,6 +81,7 @@
   --x-size-gap-dropdown-item-default: var(--x-size-base-03);
 
   // other
-  --x-rotation-toggle-icon-collapsed: 0;
-  --x-rotation-toggle-icon-expanded: 180deg;
+  --x-string-box-shadow-dropdown-default: none;
+  --x-string-overflow-dropdown-toggle-default: hidden;
+  --x-string-overflow-dropdown-list-default: hidden;
 }

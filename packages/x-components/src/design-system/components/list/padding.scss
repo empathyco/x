@@ -1,3 +1,5 @@
+/* @deprecated */
+
 @import '../../mixins';
 
 [class*='x-list--padding-'].x-list {
@@ -15,7 +17,7 @@
   }
 }
 
-@for $i from 1 through 10 {
+@for $i from 1 through 13 {
   $i: zerofill($i);
   .x-list--padding-#{$i}.x-list {
     padding: var(--x-size-padding-list-#{$i});

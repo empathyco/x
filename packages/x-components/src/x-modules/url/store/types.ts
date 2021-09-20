@@ -25,6 +25,7 @@ export interface Params {
   filters: string[];
   sort: string;
   relatedTags: string[];
+  scroll: number;
 }
 
 /**

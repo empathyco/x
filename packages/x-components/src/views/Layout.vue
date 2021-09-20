@@ -1,14 +1,13 @@
 <template>
   <div>
     <UrlHandler />
-    <BaseEventsModalOpen modal-id="x-app">Start</BaseEventsModalOpen>
+    <BaseEventsModalOpen>Start</BaseEventsModalOpen>
     <BaseEventsModal
       :eventsToOpenModal="[
         'UserClickedOpenEventsModal',
         'UserOpenXProgrammatically',
         'QueryLoadedFromUrl'
       ]"
-      modal-id="x-app"
     >
       <MultiColumnMaxWidthLayout>
         <template #header-middle>
@@ -17,7 +16,7 @@
               x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand
             "
           >
-            <div class="x-input-group x-input-group--card x-list__item--expand">
+            <div class="x-input-group x-input-group--card">
               <SearchInput aria-label="Search for products" placeholder="Search" />
               <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
               <SearchButton aria-label="Search" class="x-input-group__action">
@@ -38,9 +37,9 @@
         </template>
 
         <template #header-end>
-          <BaseIdModalClose class="x-button--ghost" modal-id="x-app">
+          <BaseEventsModalClose lass="x-button--ghost">
             <CrossIcon />
-          </BaseIdModalClose>
+          </BaseEventsModalClose>
         </template>
 
         <template #sub-header>
@@ -86,9 +85,20 @@
               <Grid1Col v-else-if="column === 4" />
               <Grid2Col v-else-if="column === 6" />
             </BaseColumnPickerList>
-            <SortDropdown :items="sortValues" class="x-option-list--bottom">
-              <template #toggle="{ item }">{{ item || 'default' }}</template>
-              <template #item="{ item }">{{ item || 'default' }}</template>
+            <SortDropdown
+              :items="sortValues"
+              class="x-dropdown--round x-dropdown--right x-dropdown--l"
+              :animation="sortDropdownAnimation"
+            >
+              <template #toggle="{ item }">
+                <span>{{ item || 'default' }}</span>
+                <ChevronTinyDown />
+              </template>
+              <template #item="{ item, isSelected }">
+                <ChevronTinyRight />
+                <span>{{ item || 'default' }}</span>
+                <CheckTiny v-if="isSelected" />
+              </template>
             </SortDropdown>
           </div>
         </template>
@@ -268,20 +278,17 @@
   import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import {
-    BaseEventsModal,
-    BaseEventsModalOpen,
-    BaseIdTogglePanelButton,
-    BaseSuggestions
-  } from '../components';
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
+  import CollapseHeight from '../components/animations/collapse-height.vue';
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
   import BaseGrid from '../components/base-grid.vue';
   import BaseVariableColumnGrid from '../components/base-variable-column-grid.vue';
   import BaseColumnPickerList from '../components/column-picker/base-column-picker-list.vue';
+  import CheckTiny from '../components/icons/check-tiny.vue';
   import ChevronDown from '../components/icons/chevron-down.vue';
   import ChevronLeft from '../components/icons/chevron-left.vue';
   import ChevronRight from '../components/icons/chevron-right.vue';
+  import ChevronTinyDown from '../components/icons/chevron-tiny-down.vue';
   import ChevronTinyLeft from '../components/icons/chevron-tiny-left.vue';
   import ChevronTinyRight from '../components/icons/chevron-tiny-right.vue';
   import ChevronUp from '../components/icons/chevron-up.vue';
@@ -291,13 +298,16 @@
   import Nq1 from '../components/icons/nq-1.vue';
   import SearchIcon from '../components/icons/search.vue';
   import MultiColumnMaxWidthLayout from '../components/layouts/multi-column-max-width-layout.vue';
-  import BaseIdModalClose from '../components/modals/base-id-modal-close.vue';
-  import BaseIdModalOpen from '../components/modals/base-id-modal-open.vue';
-  import BaseIdModal from '../components/modals/base-id-modal.vue';
+  import BaseEventsModalClose from '../components/modals/base-events-modal-close.vue';
+  import BaseEventsModalOpen from '../components/modals/base-events-modal-open.vue';
+  import BaseEventsModal from '../components/modals/base-events-modal.vue';
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
+  import BaseIdTogglePanelButton from '../components/panels/base-id-toggle-panel-button.vue';
+  import BaseIdTogglePanel from '../components/panels/base-id-toggle-panel.vue';
   import BaseResultImage from '../components/result/base-result-image.vue';
   import BaseScrollToTop from '../components/scroll/base-scroll-to-top.vue';
   import SlidingPanel from '../components/sliding-panel.vue';
+  import BaseSuggestions from '../components/suggestions/base-suggestions.vue';
   import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
   import { XInstaller } from '../x-installer/x-installer';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
@@ -353,18 +363,19 @@
       infiniteScroll
     },
     components: {
-      BaseEventsModal,
-      UrlHandler,
+      BaseEventsModalClose,
+      ChevronTinyDown,
+      CheckTiny,
       Nq1,
       Banner,
       BannersList,
       BaseColumnPickerList,
+      BaseEventsModal,
+      BaseEventsModalOpen,
       BaseGrid,
       BaseHeaderTogglePanel,
-      BaseIdModal,
-      BaseIdModalClose,
-      BaseIdModalOpen,
       BaseIdTogglePanelButton,
+      BaseIdTogglePanel,
       BaseResultImage,
       BaseScrollToTop,
       BaseSuggestions,
@@ -409,13 +420,14 @@
       SortDropdown,
       SortList,
       SortedFilters,
-      BaseEventsModalOpen
+      UrlHandler
     }
   })
   export default class App extends Vue {
     protected columnPickerValues = [0, 4, 6];
     protected resultsAnimation = StaggeredFadeAndSlide;
     protected empathizeAnimation = CollapseFromTop;
+    protected sortDropdownAnimation = CollapseHeight;
     protected selectedColumns = 4;
     protected sortValues = ['', 'priceSort asc', 'priceSort desc'];
     protected staticFacets: Facet[] = [
