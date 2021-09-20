@@ -1,17 +1,17 @@
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
+import { getPopularSearchesStub } from '../../../../__stubs__/popular-searches-stubs.factory';
+import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
-import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import PopularSearch from '../popular-search.vue';
 import PopularSearches from '../popular-searches.vue';
 import { resetXPopularSearchesStateWith } from './utils';
 
 describe('testing popular searches component', () => {
-  const popularSearches = getSuggestionsStub();
+  const popularSearches = getPopularSearchesStub();
 
   const localVue = createLocalVue();
   localVue.use(Vuex);

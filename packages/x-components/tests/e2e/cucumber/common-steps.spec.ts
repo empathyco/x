@@ -2,9 +2,10 @@ import { PageableRequest } from '@empathyco/x-adapter';
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import {
   getNextQueriesStub,
+  getPopularSearchesStub,
+  getQuerySuggestionsStub,
   getRelatedTagsStub,
-  getResultsStub,
-  getSuggestionsStub
+  getResultsStub
 } from '../../../src/__stubs__';
 
 let resultsList: string[] = [];
@@ -110,7 +111,7 @@ Given('a next queries API', () => {
 Given('a suggestions API', () => {
   cy.intercept('https://api.empathy.co/getSuggestions', req => {
     req.reply({
-      suggestions: getSuggestionsStub()
+      suggestions: req.body.query ? getQuerySuggestionsStub('rum') : getPopularSearchesStub()
     });
   });
 });
