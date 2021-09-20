@@ -1,15 +1,13 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import Vuex  from 'vuex';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components';
-import { XPlugin } from '../../../../plugins';
+import { XComponentAPI, XPlugin } from '../../../../plugins';
 import { WirePayload } from '../../../../wiring';
 import { UrlConfig } from '../../config.types';
-import { Params, UrlParamValue, UrlState } from '../../store';
+import { UrlState } from '../../store';
 import { urlXModule } from '../../x-module';
 import { UrlHandler } from '../index';
-import { resetStoreUrlState } from './utils';
 
 /**
  * Renders the {@link UrlHandler} component, exposing a basic API for testing.
@@ -17,15 +15,10 @@ import { resetStoreUrlState } from './utils';
  * @returns The API for testing the {@link UrlHandler} component.
  */
 function renderUrlHandler({
-  template = `<UrlHandler />`,
-  state = {}
+  template = `<UrlHandler />`
 }: UrlHandlerOptions = {}): UrlHandlerAPI {
   const [, localVue] = installNewXPlugin({ initialXModules: [urlXModule] });
-  const store = XPlugin.store;
-  localVue.use(Vuex);
-  resetStoreUrlState(store, state);
-
-  const wrapper = mount(
+  const wrapperTemplate = mount(
     {
       template,
       components: {
@@ -33,13 +26,13 @@ function renderUrlHandler({
       }
     },
     {
-      localVue,
-      store
+      localVue
     }
   );
 
   return {
-    wrapper: wrapper.findComponent(UrlHandler)
+    wrapper: wrapperTemplate.findComponent(UrlHandler),
+    $x: wrapperTemplate.vm.$x
   };
 }
 
@@ -52,23 +45,23 @@ describe('testing UrlHandler component', () => {
 
   // eslint-disable-next-line max-len
   it("doesn't emit the `UrlConfigProvided` if there are not custom keys keys when its created", () => {
-    const { wrapper } = renderUrlHandler();
+    const { $x } = renderUrlHandler();
 
     const urlHandlerProvidedCallback = jest.fn();
 
-    wrapper.vm.$x.on('UrlConfigProvided', true).subscribe(urlHandlerProvidedCallback);
+    $x.on('UrlConfigProvided', true).subscribe(urlHandlerProvidedCallback);
 
     expect(urlHandlerProvidedCallback).not.toHaveBeenCalled();
   });
 
   it('emits the `UrlConfigProvided` event with the custom keys when its created', () => {
-    const { wrapper } = renderUrlHandler({
+    const { $x } = renderUrlHandler({
       template: `<UrlHandler query="query" page="p" />`
     });
 
     const urlHandlerProvidedCallback = jest.fn();
 
-    wrapper.vm.$x.on('UrlConfigProvided', true).subscribe(urlHandlerProvidedCallback);
+    $x.on('UrlConfigProvided', true).subscribe(urlHandlerProvidedCallback);
 
     expect(urlHandlerProvidedCallback).toHaveBeenCalledWith<[WirePayload<UrlConfig>]>({
       eventPayload: {
@@ -83,11 +76,11 @@ describe('testing UrlHandler component', () => {
   });
 
   it('emits the `DocumentLoaded` when the window is loaded', () => {
-    const { wrapper } = renderUrlHandler();
+    const { $x } = renderUrlHandler();
 
     const urlHandlerProvidedCallback = jest.fn();
 
-    wrapper.vm.$x.on('DocumentLoaded', false).subscribe(urlHandlerProvidedCallback);
+    $x.on('DocumentLoaded', false).subscribe(urlHandlerProvidedCallback);
 
     window.dispatchEvent(new Event('load'));
 
@@ -95,11 +88,11 @@ describe('testing UrlHandler component', () => {
   });
 
   it('emits the `DocumentHistoryChanged` when the url change', () => {
-    const { wrapper } = renderUrlHandler();
+    const { $x } = renderUrlHandler();
 
     const urlHandlerProvidedCallback = jest.fn();
 
-    wrapper.vm.$x.on('DocumentHistoryChanged', false).subscribe(urlHandlerProvidedCallback);
+    $x.on('DocumentHistoryChanged', false).subscribe(urlHandlerProvidedCallback);
 
     window.dispatchEvent(new Event('popstate'));
 
@@ -107,38 +100,36 @@ describe('testing UrlHandler component', () => {
   });
 
   it('emits the different events with the state values when the document is loaded', () => {
-    const { wrapper } = renderUrlHandler({
-      state: {
-        params: {
-          query: 'lego',
-          relatedTags: ['marvel', 'camion']
-        } as Record<keyof Params, UrlParamValue>
-      }
-    });
+    const url = new URL(
+      window.location.href + '?query=sudadera&relatedTags=capucha&relatedTags=disney'
+    );
 
-    const queryHandlerProvidedCallback = jest.fn();
-    const relatedTagsHandlerProvidedCallback = jest.fn();
+    window.history.pushState({ ...window.history.state }, document.title, url.href);
 
-    wrapper.vm.$x.on('QueryLoadedFromUrl', false).subscribe(queryHandlerProvidedCallback);
-    wrapper.vm.$x
-      .on('RelatedTagsLoadedFromUrl', false)
-      .subscribe(relatedTagsHandlerProvidedCallback);
+    const { $x } = renderUrlHandler();
 
-    wrapper.vm.$x.emit('DocumentLoaded');
+    const queryLoadedFromUrl = jest.fn();
+    const relatedTagsLoadedFromUrl = jest.fn();
 
-    expect(queryHandlerProvidedCallback).toHaveBeenCalledTimes(1);
-    expect(relatedTagsHandlerProvidedCallback).toHaveBeenCalledTimes(1);
+    $x.on('QueryLoadedFromUrl').subscribe(queryLoadedFromUrl);
+    $x.on('RelatedTagsLoadedFromUrl').subscribe(relatedTagsLoadedFromUrl);
+
+    window.dispatchEvent(new Event('load'));
+
+    expect(queryLoadedFromUrl).toHaveBeenCalledTimes(1);
+    expect(relatedTagsLoadedFromUrl).toHaveBeenCalledTimes(1);
   });
 });
 
 interface UrlHandlerAPI {
   /** Test wrapper of the {@link UrlHandler} instance. */
   wrapper: Wrapper<Vue>;
+
+  /** The {@link XComponentAPI} used by the rendered {@link UrlHandler}. */
+  $x: XComponentAPI;
 }
 
 interface UrlHandlerOptions {
   /** The template to render. Receives the `params` via prop. */
   template?: string;
-  /** The state of the url module. */
-  state?: Partial<UrlState>;
 }
