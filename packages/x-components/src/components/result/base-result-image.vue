@@ -1,33 +1,36 @@
 <template>
   <picture ref="image" class="x-picture x-result-picture" data-test="result-picture">
-    <NoElement
+    <component
+      :is="animation"
       v-if="!hasImageLoaded && !hasAllImagesFailed"
       class="x-picture__image x-picture__image--placeholder"
     >
       <!-- eslint-disable-next-line max-len -->
       <!-- @slot (Required) Loading image content. It will be rendered while the real image is not loaded -->
       <slot name="placeholder" />
-    </NoElement>
-    <img
-      v-if="imageSrc"
-      v-show="hasImageLoaded"
-      @error="flagImageAsFailed"
-      @load="flagImageLoaded"
-      :alt="result.name"
-      :src="imageSrc"
-      class="x-picture__image x-result-picture__image"
-      data-test="result-picture__image"
-    />
-    <NoElement v-else-if="hasAllImagesFailed" class="x-picture__image x-picture__image--fallback">
-      <!--
-      Vue styleguidist doesn't generate slot docs for v-else and v-else-if conditions
-      due to a bug https://github.com/vuejs/vue/pull/10286.
-      TODO - Bump styleguidist version when the fix branch is merged and a new version released.
-      -->
-      <!-- eslint-disable-next-line max-len -->
-      <!-- @slot (Required) Fallback image content. It will be rendered when all the images failed -->
-      <slot name="fallback" />
-    </NoElement>
+    </component>
+    <component :is="animation">
+      <img
+        v-if="imageSrc"
+        v-show="hasImageLoaded"
+        @error="flagImageAsFailed"
+        @load="flagImageLoaded"
+        :alt="result.name"
+        :src="imageSrc"
+        class="x-picture__image x-result-picture__image"
+        data-test="result-picture__image"
+      />
+      <NoElement v-else-if="hasAllImagesFailed" class="x-picture__image x-picture__image--fallback">
+        <!--
+        Vue styleguidist doesn't generate slot docs for v-else and v-else-if conditions
+        due to a bug https://github.com/vuejs/vue/pull/10286.
+        TODO - Bump styleguidist version when the fix branch is merged and a new version released.
+        -->
+        <!-- eslint-disable-next-line max-len -->
+        <!-- @slot (Required) Fallback image content. It will be rendered when all the images failed -->
+        <slot name="fallback" />
+      </NoElement>
+    </component>
   </picture>
 </template>
 
@@ -48,6 +51,14 @@
     }
   })
   export default class BaseResultImage extends Vue {
+    /**
+     * Animation to use when switching between the placeholder, the loaded image, or the failed
+     * image fallback.
+     *
+     * @public
+     */
+    @Prop({ default: NoElement })
+    public animation!: string | typeof Vue;
     /**
      * The image has entered in the port view.
      *
@@ -180,45 +191,47 @@
   .x-result-picture {
     min-width: 1px;
     min-height: 1px;
+    position: relative;
+
     &__image {
       max-width: 100%;
       max-height: 100%;
-      object-fit: fill;
+      object-fit: cover;
     }
   }
 </style>
 
 <docs>
-  #Examples
+#Examples
 
-  ## Basic example
+## Basic example
 
-  This component is for the result image. It may be part of
-  the search result page, recommendations or other section which needs to include results.
+This component is for the result image. It may be part of
+the search result page, recommendations or other section which needs to include results.
 
-  The result prop is required. It will render a `<img/>` with the result image:
+The result prop is required. It will render a `<img/>` with the result image:
 
-  ```vue
-  <BaseResultImage :result="result"/>
-  ```
+```vue
+<BaseResultImage :result="result"/>
+```
 
-  ## Customizing slots content
+## Customizing slots content
 
-  Fallback and placeholder contents can be customized.
+Fallback and placeholder contents can be customized.
 
-  The fallback slot allows you to replace the content of the fallback image.
+The fallback slot allows you to replace the content of the fallback image.
 
-  The other slot is called `placeholder`, and allows you to set the image that its going to be
-  displayed while the real one is loaded.
+The other slot is called `placeholder`, and allows you to set the image that its going to be
+displayed while the real one is loaded.
 
-  ```vue
-  <BaseResultImage :result="result">
-    <template #placeholder>
-      <img class="x-result-picture__placeholder" src="./placeholder-image.svg"/>
-    </template>
-    <template #fallback>
-      <img class="x-result-picture__fallback" src="./fallback-image.svg"/>
-    </template>
-  </BaseResultImage>
-  ```
+```vue
+<BaseResultImage :result="result">
+  <template #placeholder>
+    <img class="x-result-picture__placeholder" src="./placeholder-image.svg"/>
+  </template>
+  <template #fallback>
+    <img class="x-result-picture__fallback" src="./fallback-image.svg"/>
+  </template>
+</BaseResultImage>
+```
 </docs>
