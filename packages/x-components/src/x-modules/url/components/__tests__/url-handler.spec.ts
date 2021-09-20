@@ -29,6 +29,7 @@ function renderUrlHandler({ template = `<UrlHandler />` }: UrlHandlerOptions = {
   );
   const wrapper = wrapperTemplate.findComponent(UrlHandler);
   const $x = wrapperTemplate.vm.$x;
+
   return {
     wrapper,
     $x
