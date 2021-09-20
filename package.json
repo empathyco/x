@@ -13,8 +13,8 @@
     "publish-release": "node scripts/publish-release"
   },
   "devDependencies": {
-    "conventional-changelog-conventionalcommits": "~4.6.0",
-    "cypress": "~8.4.0",
+    "conventional-changelog-conventionalcommits": "^4.6.1",
+    "cypress": "~8.4.1",
     "lerna": "~4.0.0"
   }
 }
