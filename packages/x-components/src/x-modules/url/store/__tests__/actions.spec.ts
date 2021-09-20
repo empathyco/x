@@ -7,8 +7,11 @@ import { createUrlStore, resetUrlStateWith } from './utils';
 describe('testing Url module actions', () => {
   const actionKeys = map(urlXStoreModule.actions, action => action);
   const store = createUrlStore();
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const historyReplaceFn = window.history.replaceState;
 
   beforeEach(() => {
+    window.history.replaceState = historyReplaceFn;
     window.history.replaceState({}, document.title, window.location.hostname);
   });
 
@@ -54,6 +57,56 @@ describe('testing Url module actions', () => {
 
       expect(window.location.search).toEqual('');
     });
+
+    it('should push the state when the parameter is pushable', async () => {
+      window.history.pushState = jest.fn();
+
+      resetUrlStateWith(store, {
+        config: {
+          urlParamNames: {
+            query: 'q',
+            relatedTags: 'tag'
+          }
+        },
+        params: {
+          query: 'sudadera',
+          filters: [],
+          relatedTags: [],
+          page: 1,
+          scroll: 2
+        }
+      });
+
+      await store.dispatch(actionKeys.updateUrl);
+
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(window.history.pushState).toHaveBeenCalled();
+    });
+
+    it('should replace the state when the parameter is not pushable', async () => {
+      window.history.replaceState = jest.fn();
+
+      resetUrlStateWith(store, {
+        config: {
+          urlParamNames: {
+            query: 'q',
+            relatedTags: 'tag'
+          }
+        },
+        params: {
+          query: 'sudadera',
+          filters: [],
+          relatedTags: [],
+          page: 1,
+          scroll: 0
+        }
+      });
+
+      await store.dispatch(actionKeys.updateUrl);
+
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(window.history.replaceState).toHaveBeenCalled();
+    });
   });
 
   describe(`${actionKeys.updateStoreFromUrl}`, () => {
@@ -82,7 +135,8 @@ describe('testing Url module actions', () => {
         query: 'sudadera',
         relatedTags: ['capucha', 'disney'],
         filters: [],
-        sort: ''
+        sort: '',
+        scroll: 0
       });
       expect(store.state.extraParams).toEqual<Dictionary<UrlParamValue>>({
         warehouse: '01234',

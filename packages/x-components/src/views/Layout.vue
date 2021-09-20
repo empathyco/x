@@ -9,7 +9,7 @@
               x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand
             "
           >
-            <div class="x-input-group x-input-group--card x-list__item--expand">
+            <div class="x-input-group x-input-group--card">
               <SearchInput aria-label="Search for products" placeholder="Search" />
               <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
               <SearchButton aria-label="Search" class="x-input-group__action">
@@ -78,9 +78,20 @@
               <Grid1Col v-else-if="column === 4" />
               <Grid2Col v-else-if="column === 6" />
             </BaseColumnPickerList>
-            <SortDropdown :items="sortValues" class="x-option-list--bottom">
-              <template #toggle="{ item }">{{ item || 'default' }}</template>
-              <template #item="{ item }">{{ item || 'default' }}</template>
+            <SortDropdown
+              :items="sortValues"
+              class="x-dropdown--round x-dropdown--right x-dropdown--l"
+              :animation="sortDropdownAnimation"
+            >
+              <template #toggle="{ item }">
+                <span>{{ item || 'default' }}</span>
+                <ChevronTinyDown />
+              </template>
+              <template #item="{ item, isSelected }">
+                <ChevronTinyRight />
+                <span>{{ item || 'default' }}</span>
+                <CheckTiny v-if="isSelected" />
+              </template>
             </SortDropdown>
           </div>
         </template>
@@ -260,15 +271,17 @@
   import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { BaseIdTogglePanelButton, BaseSuggestions } from '../components';
+  import { BaseIdTogglePanelButton, BaseSuggestions, CollapseHeight } from '../components';
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
   import BaseGrid from '../components/base-grid.vue';
   import BaseVariableColumnGrid from '../components/base-variable-column-grid.vue';
   import BaseColumnPickerList from '../components/column-picker/base-column-picker-list.vue';
+  import CheckTiny from '../components/icons/check-tiny.vue';
   import ChevronDown from '../components/icons/chevron-down.vue';
   import ChevronLeft from '../components/icons/chevron-left.vue';
   import ChevronRight from '../components/icons/chevron-right.vue';
+  import ChevronTinyDown from '../components/icons/chevron-tiny-down.vue';
   import ChevronTinyLeft from '../components/icons/chevron-tiny-left.vue';
   import ChevronTinyRight from '../components/icons/chevron-tiny-right.vue';
   import ChevronUp from '../components/icons/chevron-up.vue';
@@ -339,6 +352,8 @@
       infiniteScroll
     },
     components: {
+      ChevronTinyDown,
+      CheckTiny,
       Nq1,
       Banner,
       BannersList,
@@ -399,6 +414,7 @@
     protected columnPickerValues = [0, 4, 6];
     protected resultsAnimation = StaggeredFadeAndSlide;
     protected empathizeAnimation = CollapseFromTop;
+    protected sortDropdownAnimation = CollapseHeight;
     protected selectedColumns = 4;
     protected sortValues = ['', 'priceSort asc', 'priceSort desc'];
     protected staticFacets: Facet[] = [
