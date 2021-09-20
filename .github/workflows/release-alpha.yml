@@ -2,7 +2,7 @@ name: Release alpha version
 on: [workflow_dispatch]
 jobs:
   release-alpha:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
       - uses: actions/checkout@v2
