@@ -1,3 +1,4 @@
+import { RelatedTag } from '@empathyco/x-types';
 import { UrlGetters } from '../types';
 import { createUrlStore } from './utils';
 
@@ -41,5 +42,17 @@ describe('testing url module getters', () => {
       warehouse: 'warehouse',
       store: 'store'
     });
+  });
+
+  it('builds the related tag entity from the tag string', () => {
+    expect(store.getters.relatedTags).toEqual<UrlGetters['relatedTags']>([
+      {
+        tag: 'with eggs',
+        modelName: 'RelatedTag',
+        selected: true,
+        query: 'salmorejo',
+        previous: ''
+      }
+    ]);
   });
 });

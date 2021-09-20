@@ -1,13 +1,13 @@
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
+import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import Vuex  from 'vuex';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components';
-import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial } from '../../../../utils/types';
+import { XPlugin } from '../../../../plugins';
 import { WirePayload } from '../../../../wiring';
 import { UrlConfig } from '../../config.types';
-import { Params, UrlParamValue, UrlState } from '../../store/types';
+import { Params, UrlParamValue, UrlState } from '../../store';
+import { urlXModule } from '../../x-module';
 import { UrlHandler } from '../index';
 import { resetStoreUrlState } from './utils';
 
@@ -20,10 +20,9 @@ function renderUrlHandler({
   template = `<UrlHandler />`,
   state = {}
 }: UrlHandlerOptions = {}): UrlHandlerAPI {
-  const localVue = createLocalVue();
+  const [, localVue] = installNewXPlugin({ initialXModules: [urlXModule] });
+  const store = XPlugin.store;
   localVue.use(Vuex);
-  const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
   resetStoreUrlState(store, state);
 
   const wrapper = mount(
@@ -126,6 +125,7 @@ describe('testing UrlHandler component', () => {
       .subscribe(relatedTagsHandlerProvidedCallback);
 
     wrapper.vm.$x.emit('DocumentLoaded');
+
     expect(queryHandlerProvidedCallback).toHaveBeenCalledTimes(1);
     expect(relatedTagsHandlerProvidedCallback).toHaveBeenCalledTimes(1);
   });

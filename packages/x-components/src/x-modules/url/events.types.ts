@@ -1,3 +1,4 @@
+import { RelatedTag } from '@empathyco/x-types';
 import { UrlConfig } from './config.types';
 import { UrlGetters } from './store/types';
 /**
@@ -56,5 +57,5 @@ export interface UrlXEvents {
    * Related tags has been loaded from the URL.
    * * Payload: The related tag array.
    */
-  RelatedTagsLoadedFromUrl: string[];
+  RelatedTagsLoadedFromUrl: RelatedTag[];
 }

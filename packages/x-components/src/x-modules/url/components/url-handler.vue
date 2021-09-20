@@ -1,13 +1,14 @@
 <script lang="ts">
   import Vue from 'vue';
+  import { RelatedTag } from '@empathyco/x-types';
   import { Component } from 'vue-property-decorator';
   import { XOn } from '../../../components/decorators/bus.decorators';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { capitalize, Dictionary, forEach, reduce } from '../../../utils';
+  import { capitalize, forEach, reduce } from '../../../utils';
   import { UrlConfig } from '../config.types';
   import { UrlXEvents } from '../events.types';
-  import { UrlParamValue } from '../store/types';
+  import { Params, UrlParamValue } from '../store/types';
   import { urlXModule } from '../x-module';
 
   @Component({
@@ -18,7 +19,10 @@
     render(): void {}
 
     @Getter('url', 'urlParams')
-    public urlParams!: Dictionary<UrlParamValue>;
+    urlParams!: Record<keyof Params, UrlParamValue>;
+
+    @Getter('url', 'relatedTags')
+    relatedTags!: RelatedTag[];
 
     /**
      * Saves the new parameter names, if present, and add two XEvents to the
@@ -70,8 +74,17 @@
     @XOn('DocumentLoaded')
     emitEvents(): void {
       forEach(this.urlParams, (key, value) => {
-        this.$x.emit(`${capitalize(key)}LoadedFromUrl` as keyof UrlXEvents, value as any);
+        this.emitEvent(`${key}LoadedFromUrl`, value);
       });
+    }
+
+    protected emitEvent(event: `${keyof Params}LoadedFromUrl`, payload: UrlParamValue) {
+      const xEvent = capitalize(event) as keyof UrlXEvents;
+      if (xEvent === 'RelatedTagsLoadedFromUrl') {
+        this.$x.emit(xEvent, this.relatedTags);
+      } else {
+        this.$x.emit(xEvent, payload as any);
+      }
     }
   }
 </script>

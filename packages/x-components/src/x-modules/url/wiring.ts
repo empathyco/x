@@ -26,6 +26,13 @@ const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload('url');
 export const setUrlConfigWire = wireCommit('setUrlConfig');
 
 /**
+ * Sets the URL config.
+ *
+ * @public
+ */
+export const setRelatedTagsWire = wireCommit('setRelatedTags');
+
+/**
  * Updates the URL.
  *
  * @public
@@ -69,5 +76,8 @@ export const urlWiring = createWiring({
   },
   DocumentHistoryChanged: {
     updateStoreUrl
+  },
+  SelectedRelatedTagsChanged: {
+    setRelatedTagsWire
   }
 });

@@ -76,6 +76,13 @@ export const toggleRelatedTagWire = wireDispatch('toggleRelatedTag');
 export const clearSelectedRelatedTags = wireCommit('setSelectedRelatedTags', []);
 
 /**
+ * Sets the selected related tags.
+ *
+ * @public
+ */
+export const setSelectedRelatedTagsWire = wireCommit('setSelectedRelatedTags');
+
+/**
  * Clear the related tags query.
  *
  * @public
@@ -105,5 +112,11 @@ export const relatedTagsWiring = createWiring({
   },
   ExtraParamsChanged: {
     setRelatedTagsExtraParams
+  },
+  QueryLoadedFromUrl: {
+    setRelatedTagsQuery
+  },
+  RelatedTagsLoadedFromUrl: {
+    setSelectedRelatedTagsWire
   }
 });
