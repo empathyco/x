@@ -1,10 +1,10 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
+import { createQuerySuggestion } from '../../../../__stubs__/query-suggestions-stubs.factory';
+import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
-import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import QuerySuggestion from '../query-suggestion.vue';
 import { resetXQuerySuggestionsStateWith } from './utils';
 
@@ -14,7 +14,7 @@ describe('testing query-suggestion component', () => {
   const store = new Store<DeepPartial<RootXStoreState>>({});
   installNewXPlugin({ store }, localVue);
 
-  const suggestion = getSuggestionsStub()[0];
+  const suggestion = createQuerySuggestion('baileys');
 
   const component = mount(QuerySuggestion, {
     localVue,
@@ -36,7 +36,7 @@ describe('testing query-suggestion component', () => {
 
   // TODO: Refactor state to normalized query getter
   it('highlights the suggestion matching parts with the state query', async () => {
-    resetXQuerySuggestionsStateWith(store, { query: 'Suggestions 1' });
+    resetXQuerySuggestionsStateWith(store, { query: 'Bá' });
 
     await localVue.nextTick();
 

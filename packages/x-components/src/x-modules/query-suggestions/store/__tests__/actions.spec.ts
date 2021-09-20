@@ -1,14 +1,14 @@
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
+import { getQuerySuggestionsStub } from '../../../../__stubs__/query-suggestions-stubs.factory';
 import { map } from '../../../../utils';
-import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { querySuggestionsXStoreModule } from '../module';
 import { QuerySuggestionsState } from '../types';
 import { resetQuerySuggestionsStateWith } from './utils';
 
 describe('testing query suggestions module actions', () => {
-  const mockedSuggestions = getSuggestionsStub();
+  const mockedSuggestions = getQuerySuggestionsStub('milk');
 
   const adapter = getMockedAdapter({ suggestions: { suggestions: mockedSuggestions } });
 

@@ -8,7 +8,7 @@ import { Tagging } from './tagging.model';
  *
  * @public
  */
-export interface Promoted extends NamedModel, Identifiable {
+export interface Promoted extends NamedModel<'Promoted'>, Identifiable {
   /** Promoted title. */
   title: string;
   /** URL to redirect. */
