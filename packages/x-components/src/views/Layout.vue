@@ -9,7 +9,7 @@
               x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand
             "
           >
-            <div class="x-input-group x-input-group--card x-list__item--expand">
+            <div class="x-input-group x-input-group--card">
               <SearchInput aria-label="Search for products" placeholder="Search" />
               <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
               <SearchButton aria-label="Search" class="x-input-group__action">
@@ -83,7 +83,10 @@
               class="x-dropdown--round x-dropdown--right x-dropdown--l"
               :animation="sortDropdownAnimation"
             >
-              <template #toggle><ChevronTinyRight /></template>
+              <template #toggle="{ item }">
+                <span>{{ item || 'default' }}</span>
+                <ChevronTinyDown />
+              </template>
               <template #item="{ item, isSelected }">
                 <ChevronTinyRight />
                 <span>{{ item || 'default' }}</span>
@@ -278,6 +281,7 @@
   import ChevronDown from '../components/icons/chevron-down.vue';
   import ChevronLeft from '../components/icons/chevron-left.vue';
   import ChevronRight from '../components/icons/chevron-right.vue';
+  import ChevronTinyDown from '../components/icons/chevron-tiny-down.vue';
   import ChevronTinyLeft from '../components/icons/chevron-tiny-left.vue';
   import ChevronTinyRight from '../components/icons/chevron-tiny-right.vue';
   import ChevronUp from '../components/icons/chevron-up.vue';
@@ -348,6 +352,7 @@
       infiniteScroll
     },
     components: {
+      ChevronTinyDown,
       CheckTiny,
       Nq1,
       Banner,
