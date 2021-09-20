@@ -62,21 +62,27 @@ export interface UrlMutations {
   /**
    * Sets a new url configuration.
    *
-   * @param config - The new query of the search-box.
+   * @param config - The new config of the Url.
    */
   setUrlConfig(config: UrlConfig): void;
   /**
    * Sets new extra params.
    *
-   * @param extraParam - The new query of the search-box.
+   * @param extraParam - The new extra params of the Url.
    */
   setExtraParams(extraParam: Dictionary<UrlParamValue>): void;
   /**
    * Sets the new params.
    *
-   * @param params - The new query of the search-box.
+   * @param params - The new params of the Url.
    */
   setParams(params: Record<keyof Params, UrlParamValue>): void;
+  /**
+   * Sets the new query.
+   *
+   * @param query - The new query of the Url.
+   */
+  setQuery(query: string): void;
 }
 
 /**

@@ -1,9 +1,13 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import { XOn } from '../../../components/decorators/bus.decorators';
+  import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { reduce } from '../../../utils';
+  import { capitalize, Dictionary, forEach, reduce } from '../../../utils';
   import { UrlConfig } from '../config.types';
+  import { UrlXEvents } from '../events.types';
+  import { UrlParamValue } from '../store/types';
   import { urlXModule } from '../x-module';
 
   @Component({
@@ -12,6 +16,9 @@
   export default class UrlHandler extends Vue {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     render(): void {}
+
+    @Getter('url', 'urlParams')
+    public urlParams!: Dictionary<UrlParamValue>;
 
     /**
      * Saves the new parameter names, if present, and add two XEvents to the
@@ -54,6 +61,18 @@
         });
       }
     }
+
+    /**
+     * Emits the different Url events with the state values when the document is loaded.
+     *
+     * @internal
+     */
+    @XOn('DocumentLoaded')
+    emitEvents(): void {
+      forEach(this.urlParams, (key, value) => {
+        this.$x.emit(`${capitalize(key)}LoadedFromUrl` as keyof UrlXEvents, value as any);
+      });
+    }
   }
 </script>
 
@@ -65,6 +84,11 @@ This component emits the following events:
 - [`UrlConfigProvided`](./../../api/x-components.urlxevents.urlconfigprovided.md)
 - [`DocumentLoaded`](./../../api/x-components.urlxevents.documentloaded.md)
 - [`DocumentHistoryChanged`](./../../api/x-components.urlxevents.documenthistorychanged.md)
+- [`QueryLoadedFromUrl`](./../../api/x-components.urlxevents.queryloadedfromurl.md)
+- [`RelatedTagsLoadedFromUrl`](./../../api/x-components.urlxevents.relatedtagsloadedfromurl.md)
+- [`FiltersLoadedFromUrl`](./../../api/x-components.urlxevents.filtersloadedfromurl.md)
+- [`PageLoadedFromUrl`](./../../api/x-components.urlxevents.pageloadedfromurl.md)
+- [`SortLoadedFromUrl`](./../../api/x-components.urlxevents.sortloadedfromurl.md)
 
 ## See it in action
 

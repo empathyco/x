@@ -184,5 +184,11 @@ export const searchWiring = createWiring({
     resetPage,
     resetSort,
     resetFacets
+  },
+  QueryLoadedFromUrl: {
+    resetPage,
+    setSearchQuery,
+    resetSort,
+    setOrigin
   }
 });

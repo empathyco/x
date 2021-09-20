@@ -1,4 +1,7 @@
-import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
+import {
+  namespacedWireCommit,
+  namespacedWireDispatchWithoutPayload
+} from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
@@ -9,11 +12,39 @@ import { createWiring } from '../../wiring/wiring.utils';
 const wireCommit = namespacedWireCommit('url');
 
 /**
+ * WireDispatch for {@link UrlXModule}.
+ *
+ * @internal
+ */
+const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload('url');
+
+/**
  * Sets the URL config.
  *
  * @public
  */
 export const setUrlConfigWire = wireCommit('setUrlConfig');
+
+/**
+ * Updates the URL.
+ *
+ * @public
+ */
+export const updateUrl = wireDispatchWithoutPayload('updateUrl');
+
+/**
+ * Updates the store state from the URL.
+ *
+ * @public
+ */
+export const updateStoreUrl = wireDispatchWithoutPayload('updateStoreFromUrl');
+
+/**
+ * Sets the query of the url module.
+ *
+ * @public
+ */
+export const setQuery = wireCommit('setQuery');
 
 /**
  * Wiring configuration for the {@link UrlXModule | url module}.
@@ -23,5 +54,20 @@ export const setUrlConfigWire = wireCommit('setUrlConfig');
 export const urlWiring = createWiring({
   UrlConfigProvided: {
     setUrlConfigWire
+  },
+  UserAcceptedAQuery: {
+    setQuery
+  },
+  UserClearedQuery: {
+    setQuery
+  },
+  UrlStateChanged: {
+    updateUrl
+  },
+  DocumentLoaded: {
+    updateStoreUrl
+  },
+  DocumentHistoryChanged: {
+    updateStoreUrl
   }
 });

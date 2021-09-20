@@ -29,3 +29,17 @@ export function toKebabCase(str: string): string {
     .replace(/\s+|_/g, '-')
     .toLowerCase();
 }
+
+/**
+ * Util to capitalize a string .
+ *
+ * @example
+ * Transforms `query` into `Query`
+ *
+ * @param str - String value.
+ * @returns Returns the string capitalized.
+ * @public
+ */
+export function capitalize(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}

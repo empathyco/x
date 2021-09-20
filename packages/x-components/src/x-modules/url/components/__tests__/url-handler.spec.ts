@@ -1,18 +1,30 @@
-import { mount, Wrapper } from '@vue/test-utils';
+import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
+import Vuex, { Store } from 'vuex';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components';
+import { RootXStoreState } from '../../../../store/store.types';
+import { DeepPartial } from '../../../../utils/types';
 import { WirePayload } from '../../../../wiring';
 import { UrlConfig } from '../../config.types';
+import { Params, UrlParamValue, UrlState } from '../../store/types';
 import { UrlHandler } from '../index';
+import { resetStoreUrlState } from './utils';
 
 /**
  * Renders the {@link UrlHandler} component, exposing a basic API for testing.
  *
  * @returns The API for testing the {@link UrlHandler} component.
  */
-function renderUrlHandler({ template = `<UrlHandler />` }: UrlHandlerOptions = {}): UrlHandlerAPI {
-  const [, localVue] = installNewXPlugin();
+function renderUrlHandler({
+  template = `<UrlHandler />`,
+  state = {}
+}: UrlHandlerOptions = {}): UrlHandlerAPI {
+  const localVue = createLocalVue();
+  localVue.use(Vuex);
+  const store = new Store<DeepPartial<RootXStoreState>>({});
+  installNewXPlugin({ store }, localVue);
+  resetStoreUrlState(store, state);
 
   const wrapper = mount(
     {
@@ -22,7 +34,8 @@ function renderUrlHandler({ template = `<UrlHandler />` }: UrlHandlerOptions = {
       }
     },
     {
-      localVue
+      localVue,
+      store
     }
   );
 
@@ -93,6 +106,29 @@ describe('testing UrlHandler component', () => {
 
     expect(urlHandlerProvidedCallback).toHaveBeenCalledTimes(1);
   });
+
+  it('emits the different events with the state values when the document is loaded', () => {
+    const { wrapper } = renderUrlHandler({
+      state: {
+        params: {
+          query: 'lego',
+          relatedTags: ['marvel', 'camion']
+        } as Record<keyof Params, UrlParamValue>
+      }
+    });
+
+    const queryHandlerProvidedCallback = jest.fn();
+    const relatedTagsHandlerProvidedCallback = jest.fn();
+
+    wrapper.vm.$x.on('QueryLoadedFromUrl', false).subscribe(queryHandlerProvidedCallback);
+    wrapper.vm.$x
+      .on('RelatedTagsLoadedFromUrl', false)
+      .subscribe(relatedTagsHandlerProvidedCallback);
+
+    wrapper.vm.$x.emit('DocumentLoaded');
+    expect(queryHandlerProvidedCallback).toHaveBeenCalledTimes(1);
+    expect(relatedTagsHandlerProvidedCallback).toHaveBeenCalledTimes(1);
+  });
 });
 
 interface UrlHandlerAPI {
@@ -103,4 +139,6 @@ interface UrlHandlerAPI {
 interface UrlHandlerOptions {
   /** The template to render. Receives the `params` via prop. */
   template?: string;
+  /** The state of the url module. */
+  state?: Partial<UrlState>;
 }

@@ -1,7 +1,15 @@
 <template>
   <div>
-    <BaseIdModalOpen modal-id="x-app">Start</BaseIdModalOpen>
-    <BaseIdModal modal-id="x-app">
+    <UrlHandler />
+    <BaseEventsModalOpen modal-id="x-app">Start</BaseEventsModalOpen>
+    <BaseEventsModal
+      :eventsToOpenModal="[
+        'UserClickedOpenEventsModal',
+        'UserOpenXProgrammatically',
+        'QueryLoadedFromUrl'
+      ]"
+      modal-id="x-app"
+    >
       <MultiColumnMaxWidthLayout>
         <template #header-middle>
           <div
@@ -251,7 +259,7 @@
           </BaseScrollToTop>
         </template>
       </MultiColumnMaxWidthLayout>
-    </BaseIdModal>
+    </BaseEventsModal>
   </div>
 </template>
 
@@ -260,7 +268,12 @@
   import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { BaseIdTogglePanelButton, BaseSuggestions } from '../components';
+  import {
+    BaseEventsModal,
+    BaseEventsModalOpen,
+    BaseIdTogglePanelButton,
+    BaseSuggestions
+  } from '../components';
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
   import BaseGrid from '../components/base-grid.vue';
@@ -321,6 +334,7 @@
   import SortDropdown from '../x-modules/search/components/sort-dropdown.vue';
   import SortList from '../x-modules/search/components/sort-list.vue';
   import Empathize from '../x-modules/empathize/components/empathize.vue';
+  import UrlHandler from '../x-modules/url/components/url-handler.vue';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
@@ -339,6 +353,8 @@
       infiniteScroll
     },
     components: {
+      BaseEventsModal,
+      UrlHandler,
       Nq1,
       Banner,
       BannersList,
@@ -392,7 +408,8 @@
       SlidingPanel,
       SortDropdown,
       SortList,
-      SortedFilters
+      SortedFilters,
+      BaseEventsModalOpen
     }
   })
   export default class App extends Vue {
