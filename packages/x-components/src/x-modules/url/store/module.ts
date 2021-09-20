@@ -22,9 +22,7 @@ export const urlXStoreModule: UrlXStoreModule = {
       scroll: 0,
       relatedTags: []
     },
-    extraParams: {
-      store: ''
-    }
+    extraParams: {}
   }),
   getters: {
     urlParams,
