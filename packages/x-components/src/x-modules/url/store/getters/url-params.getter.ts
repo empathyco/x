@@ -15,7 +15,8 @@ export const urlParams: UrlXStoreModule['getters']['urlParams'] = ({ extraParams
   objectFilter({ ...params, ...extraParams }, isValidParam);
 
 const invalidUrlValues: Dictionary<UrlParamValue> = {
-  page: 1
+  page: 1,
+  scroll: 0
 };
 
 /**
