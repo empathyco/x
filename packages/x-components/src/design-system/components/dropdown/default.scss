@@ -49,7 +49,7 @@
     overflow: var(--x-string-overflow-dropdown-toggle-default);
     box-shadow: var(--x-string-box-shadow-dropdown-default);
 
-    .x-icon:last-child {
+    * + .x-icon:last-child {
       margin-inline-start: auto;
     }
   }
