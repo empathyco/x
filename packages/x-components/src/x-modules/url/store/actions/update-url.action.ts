@@ -57,7 +57,5 @@ function pushableParamsChanged(
   oldValues: URLSearchParams
 ): boolean {
   const pushableParams = ['scroll'];
-  return pushableParams.some(key =>
-    oldValues.has(key) ? oldValues.get(key) !== urlParams[key] : false
-  );
+  return pushableParams.some(key => oldValues.has(key) && oldValues.get(key) !== urlParams[key]);
 }
