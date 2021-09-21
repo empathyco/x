@@ -3,7 +3,6 @@
   border-radius: var(--x-size-border-radius-badge-default);
   border-style: solid;
   border-width: var(--x-size-border-width-badge-default);
-  border-color: var(--x-color-border-badge-default);
 
   // font
   font-size: var(--x-size-font-badge-default);
@@ -19,8 +18,10 @@
   z-index: 1;
 
   // size
-  inset-inline-end: calc(var(--x-size-width-badge-default) / var(--x-number-inset-ratio-badge-default));
-  inset-block-start: calc(var(--x-size-width-badge-default) / var(--x-number-inset-ratio-badge-default));
+  /* We dont' want to have the button fully centered in the top right corner, the top right corner
+  of the text is the one that should be aligned with the top right corner of the container. */
+  inset-inline-end: calc(var(--x-size-width-badge-default) / 4);
+  inset-block-start: calc(var(--x-size-width-badge-default) / 4);
   min-width: var(--x-size-width-badge-default);
   height: var(--x-size-width-badge-default);
   padding: 2px;
@@ -28,7 +29,7 @@
   // color
   background: var(--x-color-background-badge-default);
   color: var(--x-color-text-badge-default);
-
+  border-color: var(--x-color-border-badge-default);
 
   &:dir(rtl) {
     transform: translate(-50%, -50%);
