@@ -1,6 +1,6 @@
 import { urlMappedParamNames } from './getters/url-mapped-param-names.getter';
-import { UrlXStoreModule } from './types';
 import { urlParams } from './getters/url-params.getter';
+import { UrlXStoreModule } from './types';
 import { updateUrl } from './actions/update-url.action';
 import { updateStoreFromUrl } from './actions/update-store-from-url.action';
 
@@ -37,6 +37,9 @@ export const urlXStoreModule: UrlXStoreModule = {
     },
     setParams(state, params) {
       state.params = { ...state.params, ...params };
+    },
+    setQuery(state, query) {
+      state.params.query = query;
     }
   },
   actions: {

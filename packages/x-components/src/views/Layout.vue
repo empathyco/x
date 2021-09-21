@@ -1,7 +1,14 @@
 <template>
   <div>
-    <BaseIdModalOpen modal-id="x-app">Start</BaseIdModalOpen>
-    <BaseIdModal modal-id="x-app">
+    <UrlHandler />
+    <BaseEventsModalOpen>Start</BaseEventsModalOpen>
+    <BaseEventsModal
+      :eventsToOpenModal="[
+        'UserClickedOpenEventsModal',
+        'UserOpenXProgrammatically',
+        'QueryLoadedFromUrl'
+      ]"
+    >
       <MultiColumnMaxWidthLayout>
         <template #header-middle>
           <div
@@ -30,9 +37,9 @@
         </template>
 
         <template #header-end>
-          <BaseIdModalClose class="x-button--ghost" modal-id="x-app">
+          <BaseEventsModalClose lass="x-button--ghost">
             <CrossIcon />
-          </BaseIdModalClose>
+          </BaseEventsModalClose>
         </template>
 
         <template #sub-header>
@@ -262,7 +269,7 @@
           </BaseScrollToTop>
         </template>
       </MultiColumnMaxWidthLayout>
-    </BaseIdModal>
+    </BaseEventsModal>
   </div>
 </template>
 
@@ -271,8 +278,8 @@
   import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { BaseIdTogglePanelButton, BaseSuggestions, CollapseHeight } from '../components';
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
+  import CollapseHeight from '../components/animations/collapse-height.vue';
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
   import BaseGrid from '../components/base-grid.vue';
   import BaseVariableColumnGrid from '../components/base-variable-column-grid.vue';
@@ -291,13 +298,16 @@
   import Nq1 from '../components/icons/nq-1.vue';
   import SearchIcon from '../components/icons/search.vue';
   import MultiColumnMaxWidthLayout from '../components/layouts/multi-column-max-width-layout.vue';
-  import BaseIdModalClose from '../components/modals/base-id-modal-close.vue';
-  import BaseIdModalOpen from '../components/modals/base-id-modal-open.vue';
-  import BaseIdModal from '../components/modals/base-id-modal.vue';
+  import BaseEventsModalClose from '../components/modals/base-events-modal-close.vue';
+  import BaseEventsModalOpen from '../components/modals/base-events-modal-open.vue';
+  import BaseEventsModal from '../components/modals/base-events-modal.vue';
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
+  import BaseIdTogglePanelButton from '../components/panels/base-id-toggle-panel-button.vue';
+  import BaseIdTogglePanel from '../components/panels/base-id-toggle-panel.vue';
   import BaseResultImage from '../components/result/base-result-image.vue';
   import BaseScrollToTop from '../components/scroll/base-scroll-to-top.vue';
   import SlidingPanel from '../components/sliding-panel.vue';
+  import BaseSuggestions from '../components/suggestions/base-suggestions.vue';
   import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
   import { XInstaller } from '../x-installer/x-installer';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
@@ -334,6 +344,7 @@
   import SortDropdown from '../x-modules/search/components/sort-dropdown.vue';
   import SortList from '../x-modules/search/components/sort-list.vue';
   import Empathize from '../x-modules/empathize/components/empathize.vue';
+  import UrlHandler from '../x-modules/url/components/url-handler.vue';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
@@ -352,18 +363,19 @@
       infiniteScroll
     },
     components: {
+      BaseEventsModalClose,
       ChevronTinyDown,
       CheckTiny,
       Nq1,
       Banner,
       BannersList,
       BaseColumnPickerList,
+      BaseEventsModal,
+      BaseEventsModalOpen,
       BaseGrid,
       BaseHeaderTogglePanel,
-      BaseIdModal,
-      BaseIdModalClose,
-      BaseIdModalOpen,
       BaseIdTogglePanelButton,
+      BaseIdTogglePanel,
       BaseResultImage,
       BaseScrollToTop,
       BaseSuggestions,
@@ -407,7 +419,8 @@
       SlidingPanel,
       SortDropdown,
       SortList,
-      SortedFilters
+      SortedFilters,
+      UrlHandler
     }
   })
   export default class App extends Vue {

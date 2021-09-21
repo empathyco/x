@@ -1,9 +1,11 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { reduce } from '../../../utils';
+  import { Dictionary, reduce } from '../../../utils';
   import { UrlConfig } from '../config.types';
+  import { UrlParamValue } from '../store/types';
   import { urlXModule } from '../x-module';
 
   @Component({
@@ -12,6 +14,9 @@
   export default class UrlHandler extends Vue {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     render(): void {}
+
+    @Getter('url', 'urlParams')
+    public urlParams!: Dictionary<UrlParamValue>;
 
     /**
      * Saves the new parameter names, if present, and add two XEvents to the
@@ -24,10 +29,12 @@
 
       window.addEventListener('load', () => {
         this.$x.emit('DocumentLoaded');
+        this.emitEvents();
       });
 
       window.addEventListener('popstate', () => {
         this.$x.emit('DocumentHistoryChanged');
+        this.emitEvents();
       });
     }
 
@@ -54,6 +61,21 @@
         });
       }
     }
+
+    /**
+     * Emits the event with the state values when the document is loaded and open X if there is
+     * a query in the Url.
+     *
+     * @internal
+     */
+    protected emitEvents(): void {
+      if (Object.entries(this.urlParams).length) {
+        this.$x.emit('ParamsLoadedFromUrl', this.urlParams);
+        if (this.urlParams['query']) {
+          this.$x.emit('UserOpenXProgrammatically');
+        }
+      }
+    }
   }
 </script>
 
@@ -65,6 +87,8 @@ This component emits the following events:
 - [`UrlConfigProvided`](./../../api/x-components.urlxevents.urlconfigprovided.md)
 - [`DocumentLoaded`](./../../api/x-components.urlxevents.documentloaded.md)
 - [`DocumentHistoryChanged`](./../../api/x-components.urlxevents.documenthistorychanged.md)
+- [`ParamsLoadedFromUrl`](./../../api/x-components.urlxevents.paramsloadedfromurl.md)
+- [`UserOpenXProgrammatically`](./../../api/x-components.xeventstypes.useropenxprotrammaticaaly.md)
 
 ## See it in action
 
