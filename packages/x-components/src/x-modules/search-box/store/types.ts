@@ -1,4 +1,6 @@
 import { XStoreModule } from '../../../store';
+import { Dictionary } from '../../../utils';
+import { UrlParamValue } from '../../url';
 
 /**
  * SearchBox store state.
@@ -39,7 +41,14 @@ export interface SearchBoxMutations {
  *
  * @public
  */
-export interface SearchBoxActions {}
+export interface SearchBoxActions {
+  /**
+   * Checks if the url has a query on it and then updates the state with that value.
+   *
+   * @param urlParams - List of params from the url.
+   */
+  setQueryFromUrl(urlParams: Dictionary<UrlParamValue>): void;
+}
 
 /**
  * SearchBox type safe store module.

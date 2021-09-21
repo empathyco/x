@@ -291,4 +291,22 @@ describe('testing search module actions', () => {
       expect(store.state.promoteds).toEqual(promotedsStub.slice(1, 2));
     });
   });
+
+  describe(`${actionKeys.setQueryFromUrl}`, () => {
+    it('should set the query of the search module', async () => {
+      resetSearchStateWith(store, { query: 'funko' });
+
+      await store.dispatch(actionKeys.setQueryFromUrl, { query: 'lego' });
+
+      expect(store.state.query).toEqual('lego');
+    });
+
+    it('should not set the query of the search module', async () => {
+      resetSearchStateWith(store, { query: 'funko' });
+
+      await store.dispatch(actionKeys.setQueryFromUrl, { page: 2 });
+
+      expect(store.state.query).toEqual('funko');
+    });
+  });
 });

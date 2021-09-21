@@ -14,6 +14,7 @@ import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { QueryOrigin } from '../../../types/query-origin';
 import { Dictionary } from '../../../utils/types';
+import { UrlParamValue } from '../../url';
 import { SearchConfig } from '../config.types';
 
 /**
@@ -214,6 +215,12 @@ export interface SearchActions {
    * for other purposes, please use the {@link SearchMutations.setPage} mutation.
    */
   increasePageAppendingResults(): void;
+  /**
+   * Checks if the url has a query on it and then updates the state with that value.
+   *
+   * @param urlParams - List of params from the url.
+   */
+  setQueryFromUrl(urlParams: Dictionary<UrlParamValue>): void;
 }
 
 /**

@@ -1,3 +1,4 @@
+import { setQueryFromUrl } from './actions/set-query-from-url.action';
 import { SearchBoxXStoreModule } from './types';
 
 /**
@@ -19,5 +20,7 @@ export const searchBoxXStoreModule: SearchBoxXStoreModule = {
       state.query = newQuery;
     }
   },
-  actions: {}
+  actions: {
+    setQueryFromUrl
+  }
 };

@@ -1,9 +1,9 @@
-import { Dictionary } from '../../utils/types';
-import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
+import {
+  namespacedWireCommit,
+  namespacedWireDispatch
+} from '../../wiring/namespaced-wires.factory';
 import { NamespacedWireCommit } from '../../wiring/namespaced-wiring.types';
-import { filter, mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
-import { UrlParamValue } from '../url/store/types';
 
 /**
  * `searchBox` {@link XModuleName | XModule name}.
@@ -17,6 +17,13 @@ const moduleName = 'searchBox';
  * @internal
  */
 const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName);
+
+/**
+ * WireDispatch for {@link SearchBoxXModule}.
+ *
+ * @internal
+ */
+const wireDispatch = namespacedWireDispatch(moduleName);
 
 /**
  * Sets the query of the search-box module.
@@ -33,14 +40,11 @@ const setSearchBoxQuery = wireCommit('setQuery');
 const clearSearchBoxQuery = wireCommit('setQuery', '');
 
 /**
- * Sets the search state `sort`.
+ * Sets the search state `query`.
  *
  * @public
  */
-export const setQueryFromUrl = filter(
-  mapWire(wireCommit('setQuery'), (payload: Dictionary<UrlParamValue>) => payload.query as string),
-  ({ eventPayload}) => !!eventPayload.query
-);
+export const setQueryFromUrlAction = wireDispatch('setQueryFromUrl');
 
 /**
  * SearchBox wiring.
@@ -58,6 +62,6 @@ export const searchBoxWiring = createWiring({
     clearSearchBoxQuery
   },
   ParamsLoadedFromUrl: {
-    setQueryFromUrl
+    setQueryFromUrlAction
   }
 });

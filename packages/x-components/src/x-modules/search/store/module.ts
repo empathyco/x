@@ -7,6 +7,7 @@ import {
 } from './actions/fetch-and-save-search-response.action';
 import { fetchSearchResponse } from './actions/fetch-search-response.action';
 import { increasePageAppendingResults } from './actions/increase-page-apending-results.action';
+import { setQueryFromUrl } from './actions/set-query-from-url.action';
 import { request } from './getters/request.getter';
 import { SearchXStoreModule } from './types';
 
@@ -104,6 +105,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     cancelFetchAndSaveSearchResponse,
     fetchSearchResponse,
     fetchAndSaveSearchResponse,
-    increasePageAppendingResults
+    increasePageAppendingResults,
+    setQueryFromUrl
   }
 };
