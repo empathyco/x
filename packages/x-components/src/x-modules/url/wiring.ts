@@ -5,7 +5,6 @@ import {
   namespacedWireDispatchWithoutPayload
 } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
-import { relatedTags } from '../related-tags';
 
 /**
  * WireCommit for {@link UrlXModule}.
