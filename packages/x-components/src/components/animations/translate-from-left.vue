@@ -1,5 +1,5 @@
 <template>
-  <transition v-on="$listeners" appear name="x-translate-from-right-">
+  <transition v-on="$listeners" appear name="x-translate-from-left-">
     <!-- @slot (Required) to add content to the transition -->
     <slot />
   </transition>
@@ -16,11 +16,11 @@
    * @public
    */
   @Component
-  export default class TranslateFromRight extends Vue {}
+  export default class TranslateFromLeft extends Vue {}
 </script>
 
 <style lang="scss" scoped>
-  .x-translate-from-right {
+  .x-translate-from-left {
     &--enter-active,
     &--leave-active {
       transition: transform 0.3s ease-out;
@@ -28,7 +28,7 @@
 
     &--leave-to,
     &--enter {
-      transform: translateX(100%);
+      transform: translateX(-100%);
     }
   }
 </style>
@@ -37,13 +37,13 @@
 # Example
 
 The `TranslateFromRight` component is intended to be used as animation to wrap an element with v-if
-or v-show and animate it. The animation translates the item from/to right 100%.
+or v-show and animate it. The animation translates the item from/to left 100%.
 
-Used wrapping a component:
+Wrapping a component:
 
 ```vue
-<TranslateFromRight>
+<TranslateFromLeft>
   <ComponentOrElement v-if="open"/>
-</TranslateFromRight>
+</TranslateFromLeft>
 ```
 </docs>

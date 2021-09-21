@@ -1,6 +1,9 @@
 @import '../mixins';
 
 .x-margin {
+  &--auto {
+    margin: auto !important;
+  }
   &--00 {
     margin: 0 !important;
   }
@@ -10,6 +13,33 @@
       margin: var(--x-size-base-#{$i}) !important;
     }
   }
+
+  &--top-auto {
+    margin-block-start: auto !important;
+  }
+  &--bottom-auto {
+    margin-block-end: auto !important;
+  }
+  &--right-auto {
+    margin-inline-end: auto !important;
+  }
+  &--left-auto {
+    margin-inline-start: auto !important;
+  }
+
+  &--top-00 {
+    margin-block-start: 0 !important;
+  }
+  &--bottom-00 {
+    margin-block-end: 0 !important;
+  }
+  &--right-00 {
+    margin-inline-end: 0 !important;
+  }
+  &--left-00 {
+    margin-inline-start: 0 !important;
+  }
+
   @for $i from 1 through 13 {
     $i: zerofill($i);
     &--top-#{$i} {

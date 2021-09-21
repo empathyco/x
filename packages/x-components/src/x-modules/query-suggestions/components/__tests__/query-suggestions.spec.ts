@@ -1,20 +1,20 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
+import { getQuerySuggestionsStub } from '../../../../__stubs__/query-suggestions-stubs.factory';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
-import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import QuerySuggestions from '../query-suggestions.vue';
 import { resetXQuerySuggestionsStateWith } from './utils';
 
-describe('testing Suggestions component', () => {
+describe('testing Query Suggestions component', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
   installNewXPlugin({ store }, localVue);
 
-  const suggestions = getSuggestionsStub();
+  const suggestions = getQuerySuggestionsStub('gin');
 
   const component = mount(QuerySuggestions, {
     localVue,

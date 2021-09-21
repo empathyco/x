@@ -12,7 +12,6 @@ describe('testing query suggestions module getters', () => {
   Vue.use(Vuex);
   const getters = map(querySuggestionsXStoreModule.getters, getter => getter);
   const store: Store<QuerySuggestionsState> = new Store(querySuggestionsXStoreModule as any);
-  const modelName = 'QuerySuggestion';
   beforeEach(() => {
     resetQuerySuggestionsStateWith(store);
   });
@@ -56,7 +55,7 @@ describe('testing query suggestions module getters', () => {
         'hideIfEqualsQuery is false',
       () => {
         const querySearch = 'limes';
-        const suggestionsStub = getQuerySuggestionsStub(modelName, querySearch);
+        const suggestionsStub = getQuerySuggestionsStub(querySearch);
         resetQuerySuggestionsStateWith(store, {
           config: { hideIfEqualsQuery: false },
           suggestions: suggestionsStub,
@@ -74,7 +73,7 @@ describe('testing query suggestions module getters', () => {
         'characters or have not facets and hideIfEqualsQuery is true',
       () => {
         const querySearch = 'limés';
-        const suggestionsStub = getQuerySuggestionsStub(modelName, querySearch);
+        const suggestionsStub = getQuerySuggestionsStub(querySearch);
         resetQuerySuggestionsStateWith(store, {
           config: { hideIfEqualsQuery: true },
           suggestions: suggestionsStub,
@@ -100,7 +99,7 @@ describe('testing query suggestions module getters', () => {
         'and hideIfEqualsQuery is true',
       () => {
         const querySearch = 'limes';
-        const suggestionsStub = getQuerySuggestionsStub(modelName, querySearch);
+        const suggestionsStub = getQuerySuggestionsStub(querySearch);
         resetQuerySuggestionsStateWith(store, {
           config: { hideIfEqualsQuery: true },
           suggestions: suggestionsStub,

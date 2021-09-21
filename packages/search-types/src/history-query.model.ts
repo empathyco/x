@@ -6,7 +6,7 @@ import { Previewable } from './previewable.model';
  *
  * @public
  */
-export interface HistoryQuery extends Previewable, NamedModel {
+export interface HistoryQuery extends Previewable, NamedModel<'HistoryQuery'> {
   /** Timestamp when the history query was created. */
   timestamp: number;
 }

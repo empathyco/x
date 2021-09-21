@@ -7,7 +7,7 @@ import { NextQuery } from './next-query.model';
  *
  * @public
  */
-export interface NextQueries extends NamedModel, Identifiable {
+export interface NextQueries extends NamedModel<'NextQueries'>, Identifiable {
   /** Array of next queries available inside the group. */
   nextQueries: NextQuery[];
 }
