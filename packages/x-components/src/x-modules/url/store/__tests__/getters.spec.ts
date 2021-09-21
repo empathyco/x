@@ -1,4 +1,3 @@
-import { RelatedTag } from '@empathyco/x-types';
 import { UrlGetters } from '../types';
 import { createUrlStore } from './utils';
 
