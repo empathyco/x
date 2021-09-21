@@ -42,7 +42,7 @@ export const urlXStoreModule: UrlXStoreModule = {
       state.params.query = query;
     },
     setRelatedTags(state, relatedTags) {
-      state.params.relatedTags = relatedTags.map(relatedTag => relatedTag.tag);
+      state.params.relatedTags = relatedTags;
     }
   },
   actions: {

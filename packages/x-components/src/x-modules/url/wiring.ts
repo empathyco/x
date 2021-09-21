@@ -1,8 +1,11 @@
+import { RelatedTag } from '@empathyco/x-types';
+import { mapWire } from '../../wiring';
 import {
   namespacedWireCommit,
   namespacedWireDispatchWithoutPayload
 } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
+import { relatedTags } from '../related-tags';
 
 /**
  * WireCommit for {@link UrlXModule}.
@@ -30,7 +33,10 @@ export const setUrlConfigWire = wireCommit('setUrlConfig');
  *
  * @public
  */
-export const setRelatedTagsWire = wireCommit('setRelatedTags');
+export const setRelatedTagsWire = mapWire(
+  wireCommit('setRelatedTags'),
+  (relatedTags: RelatedTag[]) => relatedTags.map(relatedTag => relatedTag.tag)
+);
 
 /**
  * Updates the URL.

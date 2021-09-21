@@ -90,7 +90,7 @@ export interface UrlMutations {
    *
    * @param relatedTags - The new related tags of the Url.
    */
-  setRelatedTags(relatedTags: RelatedTag[]): void;
+  setRelatedTags(relatedTags: string[]): void;
 }
 
 /**
