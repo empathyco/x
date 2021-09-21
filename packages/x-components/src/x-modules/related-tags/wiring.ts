@@ -1,6 +1,3 @@
-import { RelatedTag } from '../../../../search-types';
-import { Dictionary, map } from '../../utils';
-import { mapWire } from '../../wiring';
 import {
   namespacedWireCommit,
   namespacedWireDispatch,
@@ -8,7 +5,6 @@ import {
 } from '../../wiring/namespaced-wires.factory';
 import { NamespacedWireCommit, NamespacedWireDispatch } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
-import { UrlParamValue } from '../url';
 
 /**
  * `relatedTags` {@link XModuleName | XModule name}.
