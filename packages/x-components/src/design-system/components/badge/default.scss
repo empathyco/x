@@ -1,0 +1,28 @@
+.x-badge {
+  // border
+  border-radius: 50%;
+
+  // font
+  font-size: var(--x-size-font-badge-default);
+  font-weight: var(--x-number-font-weight-badge-default);
+  text-align: center;
+  vertical-align: middle;
+
+  // layout
+  position: absolute;
+
+  // size
+  inset-inline-end: var(--x-size-right-badge-default);
+  inset-block-start: var(--x-size-top-badge-default);
+  width: var(--x-size-width-badge-default);
+  line-height: var(--x-size-width-badge-default);
+
+  // color
+  background: var(--x-color-background-badge-default);
+  color: var(--x-color-text-badge-default);
+}
+
+.x-badge-container {
+  // layout
+  position: relative;
+}

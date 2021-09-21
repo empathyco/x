@@ -1,0 +1,15 @@
+:root {
+  // color
+  --x-color-background-badge-default: var(--x-color-base-neutral-10);
+  --x-color-text-badge-default: var(--x-color-base-neutral-100);
+
+  // size
+  --x-size-inset-badge-default: calc(var(--x-size-width-badge-default) / -4);
+  --x-size-top-badge-default: var(--x-size-inset-badge-default);
+  --x-size-right-badge-default: var(--x-size-inset-badge-default);
+  --x-size-width-badge-default: 1.5em;
+
+  // font
+  --x-number-font-weight-badge-default: 600;
+  --x-size-font-badge-default: var(--x-size-font-small);
+}
