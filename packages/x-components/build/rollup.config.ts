@@ -136,7 +136,7 @@ export const cssComponentsRollupConfig = createRollupOptions({
   plugins: [
     importTokens(),
     rename({ map: renameComponentCssFile }),
-    styles({ mode: 'extract', plugins }),
+    styles({ mode: 'extract' }),
     omitJsFiles()
   ]
 });
@@ -163,8 +163,7 @@ export const cssDefaultThemeRollupConfig = createRollupOptions({
   plugins: [
     importTokens(),
     styles({
-      mode: ['extract', 'default-theme.css'],
-      plugins
+      mode: ['extract', 'default-theme.css']
     }),
     omitJsFiles()
   ]
@@ -178,8 +177,7 @@ export const cssFullThemeRollupConfig = createRollupOptions({
   input: glob('src/design-system/**/*.scss'),
   plugins: [
     styles({
-      mode: ['extract', 'full-theme.css'],
-      plugins
+      mode: ['extract', 'full-theme.css']
     }),
     omitJsFiles()
   ]
