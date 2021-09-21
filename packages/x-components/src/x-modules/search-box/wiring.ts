@@ -1,7 +1,7 @@
 import { Dictionary } from '../../utils/types';
 import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
 import { NamespacedWireCommit } from '../../wiring/namespaced-wiring.types';
-import { mapWire } from '../../wiring/wires.operators';
+import { filter, mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
 import { UrlParamValue } from '../url/store/types';
 
@@ -37,9 +37,9 @@ const clearSearchBoxQuery = wireCommit('setQuery', '');
  *
  * @public
  */
-export const setQueryFromUrl = mapWire(
-  wireCommit('setQuery'),
-  (payload: Dictionary<UrlParamValue>) => payload.query as string
+export const setQueryFromUrl = filter(
+  mapWire(wireCommit('setQuery'), (payload: Dictionary<UrlParamValue>) => payload.query as string),
+  ({ eventPayload}) => !!eventPayload.query
 );
 
 /**

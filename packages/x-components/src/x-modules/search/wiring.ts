@@ -3,7 +3,7 @@ import {
   namespacedWireCommit,
   namespacedWireDispatchWithoutPayload
 } from '../../wiring/namespaced-wires.factory';
-import { mapWire } from '../../wiring/wires.operators';
+import { filter, mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
 import { UrlParamValue } from '../url/store/types';
 
@@ -92,9 +92,9 @@ export const setSort = wireCommit('setSort');
  *
  * @public
  */
-export const setSearchQueryFromUrl = mapWire(
-  wireCommit('setQuery'),
-  (payload: Dictionary<UrlParamValue>) => payload.query as string
+export const setSearchQueryFromUrl = filter(
+  mapWire(wireCommit('setQuery'), (payload: Dictionary<UrlParamValue>) => payload.query as string),
+  ({ eventPayload }) => !!eventPayload.query
 );
 
 /**
