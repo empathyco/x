@@ -159,7 +159,7 @@ describe('testing related tags module actions', () => {
     it('should add just the query and not related tags to the store', () => {
       resetRelatedTagsStateWith(store, {
         selectedRelatedTags: mockedRelatedTags
-      })
+      });
       store.dispatch(actionKeys.setUrlParamsFromTheUrl, {
         query: 'funko'
       });
@@ -170,8 +170,8 @@ describe('testing related tags module actions', () => {
 
     it('should add just the related tags and not query to the store', () => {
       resetRelatedTagsStateWith(store, {
-          query: 'lego'
-      })
+        query: 'lego'
+      });
       store.dispatch(actionKeys.setUrlParamsFromTheUrl, {
         relatedTags: ['lego', 'pop']
       });

@@ -1,4 +1,3 @@
-import { RelatedTag } from '@empathyco/x-types';
 import { urlMappedParamNames } from './getters/url-mapped-param-names.getter';
 import { urlParams } from './getters/url-params.getter';
 import { UrlXStoreModule } from './types';
@@ -43,7 +42,7 @@ export const urlXStoreModule: UrlXStoreModule = {
       state.params.query = query;
     },
     setRelatedTags(state, relatedTags) {
-      state.params.relatedTags = (relatedTags as RelatedTag[]).map(relatedTag => relatedTag.tag);
+      state.params.relatedTags = relatedTags.map(relatedTag => relatedTag.tag);
     }
   },
   actions: {

@@ -1,4 +1,4 @@
-import { RelatedTag }  from '@empathyco/x-types';
+import { RelatedTag } from '@empathyco/x-types';
 import { XStoreModule } from '../../../store';
 import { Dictionary } from '../../../utils/types';
 import { UrlConfig } from '../config.types';
