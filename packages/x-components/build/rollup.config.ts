@@ -1,8 +1,7 @@
 import path from 'path';
-import { sync as glob } from 'glob';
 import buble from '@rollup/plugin-buble';
 import commonjs from '@rollup/plugin-commonjs';
-import autoprefixer from 'autoprefixer';
+import { sync as glob } from 'glob';
 import { RollupOptions } from 'rollup';
 import copy from 'rollup-plugin-copy';
 import del from 'rollup-plugin-delete';
@@ -10,13 +9,11 @@ import rename from 'rollup-plugin-rename';
 import styles from 'rollup-plugin-styles';
 import typescript from 'rollup-plugin-typescript2';
 import vue from 'rollup-plugin-vue';
-import postcssLogical from 'postcss-logical';
-import postcssDirPseudoClass from 'postcss-dir-pseudo-class';
 import packageJSON from '../package.json';
 import { apiDocumentation } from './docgen/documentation.rollup-plugin';
 import {
-  omitJsFiles,
   importTokens,
+  omitJsFiles,
   renameComponentCssFile
 } from './rollup-plugins/design-system.rollup-plugin';
 import { generateEntryFiles } from './rollup-plugins/x-components.rollup-plugin';
@@ -28,7 +25,6 @@ const dependencies = new Set(Object.keys(packageJSON.dependencies));
 const jsOutputDirectory = path.join(buildPath, 'js');
 const typesOutputDirectory = path.join(buildPath, 'types');
 const cssOutputDirectory = path.join(buildPath, 'design-system');
-const postcssPlugins = [autoprefixer(), postcssLogical(), postcssDirPseudoClass()];
 
 export const rollupConfig = createRollupOptions({
   input: path.join(rootDir, 'src/index.ts'),
@@ -92,10 +88,7 @@ export const rollupConfig = createRollupOptions({
        * https://github.com/vuejs/rollup-plugin-vue/issues/262#issuecomment-655966620 */
       normalizer: '~vue-runtime-helpers/dist/normalize-component.js',
       /* Replace the component style injector because the default one outputs ES6 code */
-      styleInjector: '~vue-runtime-helpers/dist/inject-style/browser.js',
-      style: {
-        postcssPlugins
-      }
+      styleInjector: '~vue-runtime-helpers/dist/inject-style/browser.js'
     }),
     buble({
       include: '**/*.vue'
@@ -143,7 +136,7 @@ export const cssComponentsRollupConfig = createRollupOptions({
   plugins: [
     importTokens(),
     rename({ map: renameComponentCssFile }),
-    styles({ mode: 'extract', plugins: postcssPlugins }),
+    styles({ mode: 'extract', plugins }),
     omitJsFiles()
   ]
 });
@@ -154,7 +147,7 @@ export const cssComponentsRollupConfig = createRollupOptions({
 export const cssBaseRollupConfig = createRollupOptions({
   ...commonCssOptions,
   input: glob('src/design-system/base/**/*.scss'),
-  plugins: [styles({ mode: ['extract', 'base.css'], plugins: postcssPlugins }), omitJsFiles()]
+  plugins: [styles({ mode: ['extract', 'base.css'] }), omitJsFiles()]
 });
 
 /**
@@ -171,7 +164,7 @@ export const cssDefaultThemeRollupConfig = createRollupOptions({
     importTokens(),
     styles({
       mode: ['extract', 'default-theme.css'],
-      plugins: postcssPlugins
+      plugins
     }),
     omitJsFiles()
   ]
@@ -186,7 +179,7 @@ export const cssFullThemeRollupConfig = createRollupOptions({
   plugins: [
     styles({
       mode: ['extract', 'full-theme.css'],
-      plugins: postcssPlugins
+      plugins
     }),
     omitJsFiles()
   ]

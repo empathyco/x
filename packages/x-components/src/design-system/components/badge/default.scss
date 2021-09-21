@@ -15,6 +15,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transform: translate(50%, -50%);
   z-index: 1;
 
   // size
@@ -22,12 +23,16 @@
   inset-block-start: calc(var(--x-size-width-badge-default) / var(--x-number-inset-ratio-badge-default));
   min-width: var(--x-size-width-badge-default);
   height: var(--x-size-width-badge-default);
-  transform: translate(50%, -50%);
   padding: 2px;
 
   // color
   background: var(--x-color-background-badge-default);
   color: var(--x-color-text-badge-default);
+
+
+  &:dir(rtl) {
+    transform: translate(-50%, -50%);
+  }
 }
 
 .x-badge-container {
