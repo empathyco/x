@@ -1,12 +1,10 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { XOn } from '../../../components/decorators/bus.decorators';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { capitalize, Dictionary, forEach, reduce } from '../../../utils';
+  import { Dictionary, reduce } from '../../../utils';
   import { UrlConfig } from '../config.types';
-  import { UrlXEvents } from '../events.types';
   import { UrlParamValue } from '../store/types';
   import { urlXModule } from '../x-module';
 
@@ -31,10 +29,12 @@
 
       window.addEventListener('load', () => {
         this.$x.emit('DocumentLoaded');
+        this.emitEvents();
       });
 
       window.addEventListener('popstate', () => {
         this.$x.emit('DocumentHistoryChanged');
+        this.emitEvents();
       });
     }
 
@@ -63,15 +63,18 @@
     }
 
     /**
-     * Emits the different Url events with the state values when the document is loaded.
+     * Emits the event with the state values when the document is loaded and open X if there is
+     * a query in the Url.
      *
      * @internal
      */
-    @XOn('DocumentLoaded')
-    emitEvents(): void {
-      forEach(this.urlParams, (key, value) => {
-        this.$x.emit(`${capitalize(key)}LoadedFromUrl` as keyof UrlXEvents, value as any);
-      });
+    protected emitEvents(): void {
+      if (Object.entries(this.urlParams).length) {
+        this.$x.emit('ParamsLoadedFromUrl', this.urlParams);
+        if (this.urlParams['query']) {
+          this.$x.emit('UserOpenXProgrammatically');
+        }
+      }
     }
   }
 </script>
@@ -84,11 +87,8 @@ This component emits the following events:
 - [`UrlConfigProvided`](./../../api/x-components.urlxevents.urlconfigprovided.md)
 - [`DocumentLoaded`](./../../api/x-components.urlxevents.documentloaded.md)
 - [`DocumentHistoryChanged`](./../../api/x-components.urlxevents.documenthistorychanged.md)
-- [`QueryLoadedFromUrl`](./../../api/x-components.urlxevents.queryloadedfromurl.md)
-- [`RelatedTagsLoadedFromUrl`](./../../api/x-components.urlxevents.relatedtagsloadedfromurl.md)
-- [`FiltersLoadedFromUrl`](./../../api/x-components.urlxevents.filtersloadedfromurl.md)
-- [`PageLoadedFromUrl`](./../../api/x-components.urlxevents.pageloadedfromurl.md)
-- [`SortLoadedFromUrl`](./../../api/x-components.urlxevents.sortloadedfromurl.md)
+- [`ParamsLoadedFromUrl`](./../../api/x-components.urlxevents.paramsloadedfromurl.md)
+- [`UserOpenXProgrammatically`](./../../api/x-components.xeventstypes.useropenxprotrammaticaaly.md)
 
 ## See it in action
 

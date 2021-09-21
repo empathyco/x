@@ -99,26 +99,30 @@ describe('testing UrlHandler component', () => {
     expect(urlHandlerProvidedCallback).toHaveBeenCalledTimes(1);
   });
 
-  it('emits the different events with the state values when the document is loaded', () => {
-    const url = new URL(
-      window.location.href + '?query=sudadera&relatedTags=capucha&relatedTags=disney'
-    );
+  it(
+    'emits the `ParamsLoadedFromUrl` event when the document is loaded and ' +
+      '`UserOpenXProgrammatically` if there is query',
+    () => {
+      const url = new URL(
+        window.location.href + '?query=sudadera&relatedTags=capucha&relatedTags=disney'
+      );
 
-    window.history.pushState({ ...window.history.state }, document.title, url.href);
+      window.history.pushState({ ...window.history.state }, document.title, url.href);
 
-    const { $x } = renderUrlHandler();
+      const { $x } = renderUrlHandler();
 
-    const queryLoadedFromUrl = jest.fn();
-    const relatedTagsLoadedFromUrl = jest.fn();
+      const paramsLoadedFromUrl = jest.fn();
+      const openXProgrammaticaly = jest.fn();
 
-    $x.on('QueryLoadedFromUrl').subscribe(queryLoadedFromUrl);
-    $x.on('RelatedTagsLoadedFromUrl').subscribe(relatedTagsLoadedFromUrl);
+      $x.on('ParamsLoadedFromUrl').subscribe(paramsLoadedFromUrl);
+      $x.on('UserOpenXProgrammatically').subscribe(openXProgrammaticaly);
 
-    window.dispatchEvent(new Event('load'));
+      window.dispatchEvent(new Event('load'));
 
-    expect(queryLoadedFromUrl).toHaveBeenCalledTimes(1);
-    expect(relatedTagsLoadedFromUrl).toHaveBeenCalledTimes(1);
-  });
+      expect(paramsLoadedFromUrl).toHaveBeenCalledTimes(1);
+      expect(openXProgrammaticaly).toHaveBeenCalledTimes(1);
+    }
+  );
 });
 
 interface UrlHandlerAPI {

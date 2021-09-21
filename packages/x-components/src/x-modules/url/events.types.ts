@@ -18,6 +18,11 @@ export interface UrlXEvents {
    */
   UrlStateChanged: UrlGetters['urlParams'];
   /**
+   * Url loaded from the url changed.
+   * * Payload: The new URL params.
+   */
+  ParamsLoadedFromUrl: UrlGetters['urlParams'];
+  /**
    * Document has finished loading.
    * * Payload: none.
    */

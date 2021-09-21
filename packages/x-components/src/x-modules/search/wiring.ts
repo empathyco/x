@@ -1,8 +1,11 @@
+import { Dictionary } from '../../utils/types';
 import {
   namespacedWireCommit,
   namespacedWireDispatchWithoutPayload
 } from '../../wiring/namespaced-wires.factory';
+import { mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
+import { UrlParamValue } from '../url/store/types';
 
 /**
  * `search` {@link XModuleName | XModule name}.
@@ -83,6 +86,16 @@ export const setSelectedFilters = wireCommit('setSelectedFilters');
  * @public
  */
 export const setSort = wireCommit('setSort');
+
+/**
+ * Sets the search state `query`.
+ *
+ * @public
+ */
+export const setQueryFromUrl = mapWire(
+  wireCommit('setQuery'),
+  (payload: Dictionary<UrlParamValue>) => payload.query as string
+);
 
 /**
  * Sets the search state `page`.
@@ -185,10 +198,7 @@ export const searchWiring = createWiring({
     resetSort,
     resetFacets
   },
-  QueryLoadedFromUrl: {
-    resetPage,
-    setSearchQuery,
-    resetSort,
-    setOrigin
+  ParamsLoadedFromUrl: {
+    setQueryFromUrl
   }
 });
