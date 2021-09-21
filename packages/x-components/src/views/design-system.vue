@@ -3335,12 +3335,17 @@
 
         <div class="x-button x-badge-container">
           More filters
-          <span class="x-badge x-padding--01">2</span>
+          <span class="x-badge">2</span>
+        </div>
+
+        <div class="x-button x-badge-container">
+          More filters
+          <span class="x-badge">+1234</span>
         </div>
 
         <div class="x-button x-button--round x-badge-container">
           <FiltersIcon />
-          <span class="x-badge x-padding--01">40</span>
+          <span class="x-badge">40</span>
         </div>
       </article>
     </section>

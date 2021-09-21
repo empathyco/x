@@ -1,21 +1,29 @@
 .x-badge {
   // border
-  border-radius: 50%;
+  border-radius: var(--x-size-border-radius-badge-default);
+  border-style: solid;
+  border-width: var(--x-size-border-width-badge-default);
+  border-color: var(--x-color-border-badge-default);
 
   // font
   font-size: var(--x-size-font-badge-default);
   font-weight: var(--x-number-font-weight-badge-default);
-  text-align: center;
-  vertical-align: middle;
 
   // layout
+  box-sizing: border-box;
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
 
   // size
-  inset-inline-end: var(--x-size-right-badge-default);
-  inset-block-start: var(--x-size-top-badge-default);
-  width: var(--x-size-width-badge-default);
-  line-height: var(--x-size-width-badge-default);
+  inset-inline-end: calc(var(--x-size-width-badge-default) / var(--x-number-inset-ratio-badge-default));
+  inset-block-start: calc(var(--x-size-width-badge-default) / var(--x-number-inset-ratio-badge-default));
+  min-width: var(--x-size-width-badge-default);
+  height: var(--x-size-width-badge-default);
+  transform: translate(50%, -50%);
+  padding: 2px;
 
   // color
   background: var(--x-color-background-badge-default);
