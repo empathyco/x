@@ -92,7 +92,7 @@ export const setSort = wireCommit('setSort');
  *
  * @public
  */
-export const setQueryFromUrl = mapWire(
+export const setSearchQueryFromUrl = mapWire(
   wireCommit('setQuery'),
   (payload: Dictionary<UrlParamValue>) => payload.query as string
 );
@@ -199,6 +199,6 @@ export const searchWiring = createWiring({
     resetFacets
   },
   ParamsLoadedFromUrl: {
-    setQueryFromUrl
+    setSearchQueryFromUrl
   }
 });
