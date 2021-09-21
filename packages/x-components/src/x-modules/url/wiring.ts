@@ -28,7 +28,7 @@ const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload('url');
 export const setUrlConfigWire = wireCommit('setUrlConfig');
 
 /**
- * Sets the URL config.
+ * Sets the {@link RelatedTag | related tags }.
  *
  * @public
  */
