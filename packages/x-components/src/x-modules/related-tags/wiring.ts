@@ -93,22 +93,12 @@ export const setSelectedRelatedTagsWire = wireCommit('setSelectedRelatedTags');
  */
 export const clearRelatedTagsQuery = wireCommit('setQuery', '');
 
-export const setRelatedTagsQueryFromUrlWire = mapWire( wireCommit('setQuery'),
-  (payload: Dictionary<UrlParamValue>) => payload.query as string
-);
-
-export const setSelectedRelatedTagsFromUrlWire = mapWire( wireCommit('setSelectedRelatedTags'),
-  (payload: Dictionary<UrlParamValue>) => (payload.relatedTags as string[]).reduce<RelatedTag[]>((acc, relatedTag) => {
-    acc.push({
-      tag: relatedTag,
-      modelName: 'RelatedTag',
-      selected: true,
-      query: payload.query as string,
-      previous: ''
-    });
-    return acc;
-  }, [])
-);
+/**
+ * Saves the related tags from the url.
+ *
+ * @public
+ */
+export const setUrlParamsFromTheUrlWire = wireDispatch('setUrlParamsFromTheUrl');
 
 /**
  * Wiring configuration for the {@link RelatedTagsXModule | related tags module}.
@@ -135,7 +125,6 @@ export const relatedTagsWiring = createWiring({
     setRelatedTagsExtraParams
   },
   ParamsLoadedFromUrl: {
-    setRelatedTagsQueryFromUrlWire,
-    setSelectedRelatedTagsFromUrlWire
+    setUrlParamsFromTheUrlWire
   }
 });

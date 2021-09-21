@@ -45,16 +45,4 @@ describe('testing url module getters', () => {
       store: 'store'
     });
   });
-
-  it('builds the related tag entity from the tag string', () => {
-    expect(store.getters.relatedTags).toEqual<UrlGetters['relatedTags']>([
-      {
-        tag: 'with eggs',
-        modelName: 'RelatedTag',
-        selected: true,
-        query: 'salmorejo',
-        previous: ''
-      }
-    ]);
-  });
 });

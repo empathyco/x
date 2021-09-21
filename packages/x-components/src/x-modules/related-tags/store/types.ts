@@ -3,6 +3,7 @@ import { RelatedTag } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { Dictionary } from '../../../utils';
+import { UrlParamValue } from '../../url';
 import { RelatedTagsConfig } from '../config.types';
 
 /**
@@ -91,6 +92,11 @@ export interface RelatedTagsActions {
    * Add or remove the clicked related tag from selected related tags.
    */
   toggleRelatedTag(relatedTag: RelatedTag): void;
+  /**
+   * Receives the params from the url as a list of strings, builds the entities and
+   * set them in the store.
+   */
+  setUrlParamsFromTheUrl(urlParams: Dictionary<UrlParamValue>): void;
 }
 /**
  * RelatedTags type safe store module.

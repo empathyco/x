@@ -1,3 +1,4 @@
+import { RelatedTag } from '@empathyco/x-types';
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { map } from '../../../../utils';
@@ -127,5 +128,71 @@ describe('testing related tags module actions', () => {
         expect(store.state.relatedTags).toContain(relatedTagToSelect);
       }
     );
+  });
+
+  describe(`${actionKeys.setUrlParamsFromTheUrl}`, () => {
+    it('should add the query and related tags to the store', () => {
+      store.dispatch(actionKeys.setUrlParamsFromTheUrl, {
+        query: 'funko',
+        relatedTags: ['pop', 'lego']
+      });
+
+      expect(store.state.query).toEqual('funko');
+      expect(store.state.selectedRelatedTags).toEqual<RelatedTag[]>([
+        {
+          modelName: 'RelatedTag',
+          tag: 'pop',
+          query: 'funko',
+          previous: '',
+          selected: true
+        },
+        {
+          modelName: 'RelatedTag',
+          tag: 'lego',
+          query: 'funko',
+          previous: '',
+          selected: true
+        }
+      ]);
+    });
+
+    it('should add just the query and not related tags to the store', () => {
+      resetRelatedTagsStateWith(store, {
+        selectedRelatedTags: mockedRelatedTags
+      })
+      store.dispatch(actionKeys.setUrlParamsFromTheUrl, {
+        query: 'funko'
+      });
+
+      expect(store.state.query).toEqual('funko');
+      expect(store.state.selectedRelatedTags).toEqual<RelatedTag[]>(mockedRelatedTags);
+    });
+
+    it('should add just the related tags and not query to the store', () => {
+      resetRelatedTagsStateWith(store, {
+          query: 'lego'
+      })
+      store.dispatch(actionKeys.setUrlParamsFromTheUrl, {
+        relatedTags: ['lego', 'pop']
+      });
+
+      expect(store.state.query).toBe('lego');
+      expect(store.state.selectedRelatedTags).toEqual<RelatedTag[]>([
+        {
+          modelName: 'RelatedTag',
+          tag: 'lego',
+          query: '',
+          previous: '',
+          selected: true
+        },
+        {
+          modelName: 'RelatedTag',
+          tag: 'pop',
+          query: '',
+          previous: '',
+          selected: true
+        }
+      ]);
+    });
   });
 });

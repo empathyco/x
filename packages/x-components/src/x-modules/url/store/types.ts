@@ -39,8 +39,6 @@ export interface UrlGetters {
 
   /** All the parameter names with their corresponding key. */
   urlMappedParamNames: Dictionary<UrlParamKey | string>;
-
-  relatedTags: RelatedTag[];
 }
 
 /**
