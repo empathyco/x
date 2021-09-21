@@ -37,7 +37,9 @@ export function toKebabCase(str: string): string {
  * Transforms `query` into `Query`
  *
  * @param str - String value.
+ *
  * @returns Returns the string capitalized.
+ *
  * @public
  */
 export function capitalize(str: string): string {

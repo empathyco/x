@@ -1,3 +1,6 @@
+import { RelatedTag } from '../../../../search-types';
+import { Dictionary, map } from '../../utils';
+import { mapWire } from '../../wiring';
 import {
   namespacedWireCommit,
   namespacedWireDispatch,
@@ -5,6 +8,7 @@ import {
 } from '../../wiring/namespaced-wires.factory';
 import { NamespacedWireCommit, NamespacedWireDispatch } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
+import { UrlParamValue } from '../url';
 
 /**
  * `relatedTags` {@link XModuleName | XModule name}.
@@ -89,6 +93,23 @@ export const setSelectedRelatedTagsWire = wireCommit('setSelectedRelatedTags');
  */
 export const clearRelatedTagsQuery = wireCommit('setQuery', '');
 
+export const setRelatedTagsQueryFromUrlWire = mapWire( wireCommit('setQuery'),
+  (payload: Dictionary<UrlParamValue>) => payload.query as string
+);
+
+export const setSelectedRelatedTagsFromUrlWire = mapWire( wireCommit('setSelectedRelatedTags'),
+  (payload: Dictionary<UrlParamValue>) => (payload.relatedTags as string[]).reduce<RelatedTag[]>((acc, relatedTag) => {
+    acc.push({
+      tag: relatedTag,
+      modelName: 'RelatedTag',
+      selected: true,
+      query: payload.query as string,
+      previous: ''
+    });
+    return acc;
+  }, [])
+);
+
 /**
  * Wiring configuration for the {@link RelatedTagsXModule | related tags module}.
  *
@@ -113,10 +134,8 @@ export const relatedTagsWiring = createWiring({
   ExtraParamsChanged: {
     setRelatedTagsExtraParams
   },
-  QueryLoadedFromUrl: {
-    setRelatedTagsQuery
-  },
-  RelatedTagsLoadedFromUrl: {
-    setSelectedRelatedTagsWire
+  ParamsLoadedFromUrl: {
+    setRelatedTagsQueryFromUrlWire,
+    setSelectedRelatedTagsFromUrlWire
   }
 });

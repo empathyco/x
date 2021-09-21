@@ -2,10 +2,9 @@ import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components';
-import { XComponentAPI, XPlugin } from '../../../../plugins';
+import { XComponentAPI } from '../../../../plugins/x-plugin.types';
 import { WirePayload } from '../../../../wiring';
 import { UrlConfig } from '../../config.types';
-import { UrlState } from '../../store';
 import { urlXModule } from '../../x-module';
 import { UrlHandler } from '../index';
 
@@ -14,10 +13,9 @@ import { UrlHandler } from '../index';
  *
  * @returns The API for testing the {@link UrlHandler} component.
  */
-function renderUrlHandler({
-  template = `<UrlHandler />`
-}: UrlHandlerOptions = {}): UrlHandlerAPI {
+function renderUrlHandler({ template = `<UrlHandler />` }: UrlHandlerOptions = {}): UrlHandlerAPI {
   const [, localVue] = installNewXPlugin({ initialXModules: [urlXModule] });
+
   const wrapperTemplate = mount(
     {
       template,
@@ -29,10 +27,12 @@ function renderUrlHandler({
       localVue
     }
   );
+  const wrapper = wrapperTemplate.findComponent(UrlHandler);
+  const $x = wrapperTemplate.vm.$x;
 
   return {
-    wrapper: wrapperTemplate.findComponent(UrlHandler),
-    $x: wrapperTemplate.vm.$x
+    wrapper,
+    $x
   };
 }
 
@@ -49,7 +49,7 @@ describe('testing UrlHandler component', () => {
 
     const urlHandlerProvidedCallback = jest.fn();
 
-    $x.on('UrlConfigProvided', true).subscribe(urlHandlerProvidedCallback);
+    $x.on('UrlConfigProvided').subscribe(urlHandlerProvidedCallback);
 
     expect(urlHandlerProvidedCallback).not.toHaveBeenCalled();
   });
@@ -80,7 +80,7 @@ describe('testing UrlHandler component', () => {
 
     const urlHandlerProvidedCallback = jest.fn();
 
-    $x.on('DocumentLoaded', false).subscribe(urlHandlerProvidedCallback);
+    $x.on('DocumentLoaded').subscribe(urlHandlerProvidedCallback);
 
     window.dispatchEvent(new Event('load'));
 
@@ -92,39 +92,42 @@ describe('testing UrlHandler component', () => {
 
     const urlHandlerProvidedCallback = jest.fn();
 
-    $x.on('DocumentHistoryChanged', false).subscribe(urlHandlerProvidedCallback);
+    $x.on('DocumentHistoryChanged').subscribe(urlHandlerProvidedCallback);
 
     window.dispatchEvent(new Event('popstate'));
 
     expect(urlHandlerProvidedCallback).toHaveBeenCalledTimes(1);
   });
 
-  it('emits the different events with the state values when the document is loaded', () => {
-    const url = new URL(
-      window.location.href + '?query=sudadera&relatedTags=capucha&relatedTags=disney'
-    );
+  it(
+    'emits the `ParamsLoadedFromUrl` event when the document is loaded and ' +
+      '`UserOpenXProgrammatically` if there is query',
+    () => {
+      const url = new URL(
+        window.location.href + '?query=sudadera&relatedTags=capucha&relatedTags=disney'
+      );
 
-    window.history.pushState({ ...window.history.state }, document.title, url.href);
+      window.history.pushState({ ...window.history.state }, document.title, url.href);
 
-    const { $x } = renderUrlHandler();
+      const { $x } = renderUrlHandler();
 
-    const queryLoadedFromUrl = jest.fn();
-    const relatedTagsLoadedFromUrl = jest.fn();
+      const paramsLoadedFromUrl = jest.fn();
+      const openXProgrammaticaly = jest.fn();
 
-    $x.on('QueryLoadedFromUrl').subscribe(queryLoadedFromUrl);
-    $x.on('RelatedTagsLoadedFromUrl').subscribe(relatedTagsLoadedFromUrl);
+      $x.on('ParamsLoadedFromUrl').subscribe(paramsLoadedFromUrl);
+      $x.on('UserOpenXProgrammatically').subscribe(openXProgrammaticaly);
 
-    window.dispatchEvent(new Event('load'));
+      window.dispatchEvent(new Event('load'));
 
-    expect(queryLoadedFromUrl).toHaveBeenCalledTimes(1);
-    expect(relatedTagsLoadedFromUrl).toHaveBeenCalledTimes(1);
-  });
+      expect(paramsLoadedFromUrl).toHaveBeenCalledTimes(1);
+      expect(openXProgrammaticaly).toHaveBeenCalledTimes(1);
+    }
+  );
 });
 
 interface UrlHandlerAPI {
   /** Test wrapper of the {@link UrlHandler} instance. */
   wrapper: Wrapper<Vue>;
-
   /** The {@link XComponentAPI} used by the rendered {@link UrlHandler}. */
   $x: XComponentAPI;
 }
