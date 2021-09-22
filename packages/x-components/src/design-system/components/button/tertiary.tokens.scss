@@ -3,4 +3,10 @@
   --x-color-background-button-tertiary: var(--x-color-base-neutral-95);
   --x-color-border-button-tertiary: var(--x-color-base-neutral-70);
   --x-color-text-button-tertiary: var(--x-color-text-default);
+  // border
+  --x-size-border-width-button-tertiary: var(--x-size-border-width-base);
+  --x-size-border-width-top-button-tertiary: var(--x-size-border-width-button-tertiary);
+  --x-size-border-width-right-button-tertiary: var(--x-size-border-width-button-tertiary);
+  --x-size-border-width-bottom-button-tertiary: var(--x-size-border-width-button-tertiary);
+  --x-size-border-width-left-button-tertiary: var(--x-size-border-width-button-tertiary);
 }

@@ -1,0 +1,17 @@
+:root {
+  // color
+  --x-color-background-badge-default: var(--x-color-base-neutral-10);
+  --x-color-text-badge-default: var(--x-color-base-neutral-100);
+  --x-color-border-badge-default: var(--x-color-base-neutral-10);
+
+  // border
+  --x-size-border-radius-badge-default: var(--x-size-border-radius-base-pill);
+  --x-size-border-width-badge-default: 0;
+
+  // size
+  --x-size-width-badge-default: 1.5em;
+
+  // font
+  --x-number-font-weight-badge-default: var(--x-number-font-weight-base-regular);
+  --x-size-font-badge-default: var(--x-size-font-base-xs);
+}
