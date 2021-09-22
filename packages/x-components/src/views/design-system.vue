@@ -1884,7 +1884,7 @@
       <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <h2 class="x-title2">Default</h2>
 
-        <div class="x-suggestion x-suggestion--has-matching-query">
+        <div class="x-suggestion">
           <span class="x-suggestion__query">Suggestion</span>
         </div>
 
@@ -1895,7 +1895,7 @@
           </span>
         </div>
 
-        <div class="x-suggestion">
+        <div class="x-suggestion x-suggestion--has-matching-query">
           <SearchIcon />
           <span class="x-suggestion__query">
             Suggestion
@@ -1936,7 +1936,7 @@
         <h2 class="x-title2">Default</h2>
 
         <div class="x-suggestion-group">
-          <div class="x-suggestion x-suggestion--has-matching-query">
+          <div class="x-suggestion">
             <span class="x-suggestion__query">Suggestion</span>
           </div>
           <button class="x-button">

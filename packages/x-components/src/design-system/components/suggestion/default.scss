@@ -36,19 +36,20 @@
   }
 
   &--has-matching-query {
-    .x-suggestion {
-      // typography
-      --x-font-family-suggestion-default: var(--x-font-family-suggestion-non-matching-part-default);
-      --x-size-font-suggestion-default: var(--x-size-font-suggestion-non-matching-part-default);
-      --x-size-line-height-suggestion-default: var(
-        --x-size-line-height-suggestion-non-matching-part-default
-      );
-      --x-number-font-weight-suggestion-default: var(
-        --x-number-font-weight-suggestion-non-matching-part-default
-      );
+    // typography
+    --x-font-family-suggestion-default: var(--x-font-family-suggestion-non-matching-part-default);
+    --x-size-font-suggestion-default: var(--x-size-font-suggestion-non-matching-part-default);
+    --x-size-line-height-suggestion-default: var(
+      --x-size-line-height-suggestion-non-matching-part-default
+    );
+    --x-number-font-weight-suggestion-default: var(
+      --x-number-font-weight-suggestion-non-matching-part-default
+    );
 
-      // color
-      color: var(--x-color-text-suggestion-non-matching-part-default);
+    // color
+    --x-color-text-suggestion-default: var(--x-color-text-suggestion-non-matching-part-default);
+
+    .x-suggestion {
       &__matching-part {
         // typography
         font-family: var(--x-font-family-suggestion-matching-part-default);
