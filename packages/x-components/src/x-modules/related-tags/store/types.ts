@@ -93,7 +93,7 @@ export interface RelatedTagsActions {
    */
   toggleRelatedTag(relatedTag: RelatedTag): void;
   /**
-   * Receives the params from the url as a list of strings, builds the entities and
+   * Receives a list of params from the url, builds the entities and
    * set them in the store.
    */
   setUrlParamsFromTheUrl(urlParams: Dictionary<UrlParamValue>): void;
