@@ -2,6 +2,28 @@
   <div>
     <UrlHandler />
     <BaseEventsModalOpen>Start</BaseEventsModalOpen>
+    <h1>Test controls</h1>
+    <ul class="x-test-controls">
+      <li class="x-test-controls__control">
+        <label>
+          <input
+            v-model="controls.searchInput.instant"
+            type="checkbox"
+            data-test="search-input-instant"
+          />
+          search-input - instant
+        </label>
+      </li>
+      <li class="x-test-controls__control">
+        <label for="searchInput.instantDebounceInMs">search-input - debounce</label>
+        <input
+          v-model="controls.searchInput.instantDebounceInMs"
+          id="searchInput.instantDebounceInMs"
+          type="number"
+          data-test="search-input-debounce"
+        />
+      </li>
+    </ul>
     <BaseEventsModal
       :eventsToOpenModal="[
         'UserClickedOpenEventsModal',
@@ -229,7 +251,7 @@
                             <div style="padding-top: 100%; background-color: lightsalmon"></div>
                           </template>
                         </BaseResultImage>
-                        <h1 class="x-title3">{{ result.name }}</h1>
+                        <h1 class="x-title3" data-test="result-text">{{ result.name }}</h1>
                       </article>
                     </template>
 
@@ -430,6 +452,12 @@
     protected sortDropdownAnimation = CollapseHeight;
     protected selectedColumns = 4;
     protected sortValues = ['', 'priceSort asc', 'priceSort desc'];
+    protected controls = {
+      searchInput: {
+        instant: true,
+        instantDebounceInMs: 500 // default
+      }
+    };
     protected staticFacets: Facet[] = [
       {
         modelName: 'SimpleFacet',

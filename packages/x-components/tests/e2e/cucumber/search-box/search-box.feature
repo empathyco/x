@@ -3,19 +3,21 @@ Feature: Search-box component
 
   Background:
     Given a results API with a known response
-    Given a next queries API
-    Given a suggestions API
-    Given a related tags API
+    And   a next queries API
+    And   a suggestions API
+    And   a related tags API
 
   Scenario Outline: 1. Query with results is typed and <buttonOrKey> is clicked/pressed (search-box is empty)
     Given following config: hide if equals query <hideIfEqualsQuery>, instant search <instant>, debounce <instantDebounceInMs>
-    And   no queries have been searched
-    When  a "<query>" with results is typed
+    And   start button is clicked
+    When  no queries have been searched
+    And   a "<query>" with results is typed
     And   "<buttonOrKey>" is clicked immediately after
     Then  related results are displayed
-    And   query suggestions are displayed
-    And   next queries are displayed
     And   related tags are displayed
+    When  search-input is focused
+    Then  query suggestions are displayed
+    And   next queries are displayed
     And   "<query>" is displayed in history queries is not <hideIfEqualsQuery>
     Examples:
       | hideIfEqualsQuery | instantDebounceInMs | instant | query     | buttonOrKey  |
@@ -24,8 +26,9 @@ Feature: Search-box component
 
   Scenario Outline: 2. Query with results exists and it's cleared by <cleared> (search-box is not empty)
     Given following config: hide if equals query <hideIfEqualsQuery>, instant search <instant>, debounce <instantDebounceInMs>
-    And   "<query>" is searched
-    And   related results are displayed
+    And   start button is clicked
+    When  "<query>" is searched
+    Then   related results are displayed
     When  the "<query>" is cleared by "<cleared>"
     Then  the search box is empty
     And   related results are cleared
@@ -40,8 +43,9 @@ Feature: Search-box component
 
   Scenario Outline: 3. Query with results is typed and no button or key is pressed or clicked (search-box is empty)
     Given following config: hide if equals query <hideIfEqualsQuery>, instant search <instant>, debounce <instantDebounceInMs>
-    And   no queries have been searched
-    When  a "<query>" with results is typed - timestamp needed
+    And   start button is clicked
+    When  no queries have been searched
+    And   a "<query>" with results is typed - timestamp needed
     Then  no related results are displayed before <instantDebounceInMs>
     And   related results are displayed after <instantDebounceInMs> is <instant>
     And   next queries are displayed after instantDebounceInMs is <instant>
@@ -53,8 +57,9 @@ Feature: Search-box component
 
   Scenario Outline: 4. Adding or deleting words from a query (search-box is empty)
     Given following config: hide if equals query <hideIfEqualsQuery>, instant search <instant>, debounce <instantDebounceInMs>
-    And   no queries have been searched
-    When  a "<firstQuery>" with results is typed - timestamp needed
+    And   start button is clicked
+    When  no queries have been searched
+    And   a "<firstQuery>" with results is typed - timestamp needed
     Then  no related results are displayed before <instantDebounceInMs>
     And   related results are displayed after <instantDebounceInMs> is <instant>
     Given a second results API with a known response

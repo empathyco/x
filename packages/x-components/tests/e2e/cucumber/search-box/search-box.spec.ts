@@ -14,14 +14,30 @@ Given('a results API with a known response', () => {
   cy.intercept('https://api.empathy.co/search', req => {
     req.reply({
       results: [
-        createResultStub('LEGO Super Mario Pack Inicial: Aventuras con Mario - 71360'),
-        createResultStub('LEGO Duplo Classic Caja de Ladrillos - 10913'),
-        createResultStub('LEGO City Coche Patrulla de Policía - 60239'),
-        createResultStub('LEGO City Police Caja de Ladrillos - 60270'),
-        createResultStub('LEGO Friends Parque para Cachorros - 41396'),
-        createResultStub('LEGO Creator Ciberdrón - 31111'),
-        createResultStub('LEGO Technic Dragster - 42103'),
-        createResultStub('LEGO Technic Dragster - 42103')
+        createResultStub('LEGO Super Mario Pack Inicial: Aventuras con Mario - 71360', {
+          images: ['https://picsum.photos/seed/1/100/100']
+        }),
+        createResultStub('LEGO Duplo Classic Caja de Ladrillos - 1091', {
+          images: ['https://picsum.photos/seed/1/100/200']
+        }),
+        createResultStub('LEGO City Coche Patrulla de Policía - 60239', {
+          images: ['https://picsum.photos/seed/1/100/300']
+        }),
+        createResultStub('LEGO City Police Caja de Ladrillos - 60270', {
+          images: ['https://picsum.photos/seed/1/100/400']
+        }),
+        createResultStub('LEGO Friends Parque para Cachorros - 41396', {
+          images: ['https://picsum.photos/seed/1/100/500']
+        }),
+        createResultStub('LEGO Creator Ciberdrón - 31111', {
+          images: ['https://picsum.photos/seed/1/100/600']
+        }),
+        createResultStub('LEGO Technic Dragster - 42103', {
+          images: ['https://picsum.photos/seed/1/100/700']
+        }),
+        createResultStub('LEGO Technic Dragster - 42103', {
+          images: ['https://picsum.photos/seed/1/100/800']
+        })
       ]
     });
   }).as('interceptedResults');
@@ -37,7 +53,7 @@ Given(
         }
       }
     };
-    cy.visit('/test/search-box?useMockedAdapter=true', {
+    cy.visit('/layout?useMockedAdapter=true', {
       qs: {
         xModules: JSON.stringify(config)
       }
