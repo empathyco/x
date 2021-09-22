@@ -97,7 +97,7 @@ export const setSort = wireCommit('setSort');
  *
  * @public
  */
-export const setSearchQueryFromUrlAction = wireDispatch('setQueryFromUrl');
+export const setSearchQueryFromUrl = wireDispatch('setQueryFromUrl');
 
 /**
  * Sets the search state `page`.
@@ -201,6 +201,6 @@ export const searchWiring = createWiring({
     resetFacets
   },
   ParamsLoadedFromUrl: {
-    setSearchQueryFromUrlAction
+    setSearchQueryFromUrl
   }
 });

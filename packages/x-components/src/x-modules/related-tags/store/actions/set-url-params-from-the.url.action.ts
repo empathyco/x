@@ -4,7 +4,7 @@ import { UrlParamValue } from '../../../url';
 import { RelatedTagsXStoreModule } from '../types';
 
 /**
- * Helper method which created the {@link RelatedTag} entity from the string of the url.
+ * Helper method which creates the {@link RelatedTag} entity from the string of the url.
  *
  * @param relatedTags - List of related tags as strings from the url.
  * @param query - Query from the url.
@@ -34,9 +34,9 @@ const createRelatedTags = (relatedTags: string[], query: string): RelatedTag[] =
  * @public
  */
 export const setUrlParamsFromTheUrl: RelatedTagsXStoreModule['actions']['setUrlParamsFromTheUrl'] =
-  ({ commit}, urlParams: Dictionary<UrlParamValue>) => {
-    const newRelatedTags = urlParams.relatedTags as string[];
-    const newQuery = urlParams.query as string;
+  ({ commit }, { query, relatedTags }: Dictionary<UrlParamValue>) => {
+    const newRelatedTags = relatedTags as string[];
+    const newQuery = query as string;
 
     if (newRelatedTags) {
       commit('setSelectedRelatedTags', createRelatedTags(newRelatedTags, newQuery));
