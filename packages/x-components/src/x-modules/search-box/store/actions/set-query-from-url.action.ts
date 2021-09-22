@@ -11,10 +11,9 @@ import { SearchBoxXStoreModule } from '../types';
  */
 export const setQueryFromUrl: SearchBoxXStoreModule['actions']['setQueryFromUrl'] = (
   { commit },
-  urlParams
+  { query }
 ) => {
-  const newQuery = urlParams.query as string;
-  if (newQuery) {
-    commit('setQuery', newQuery);
+  if (query) {
+    commit('setQuery', query as string);
   }
 };
