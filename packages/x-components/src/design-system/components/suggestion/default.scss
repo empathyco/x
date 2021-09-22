@@ -35,33 +35,27 @@
     flex: 1 1 auto;
   }
 
-  &--has-matching-query {
+  &__matching-part {
     // typography
-    --x-font-family-suggestion-default: var(--x-font-family-suggestion-default-has-matching-query);
-    --x-size-font-suggestion-default: var(--x-size-font-suggestion-default-has-matching-query);
-    --x-size-line-height-suggestion-default: var(
-      --x-size-line-height-suggestion-default-has-matching-query
-    );
+    font-family: var(--x-font-family-suggestion-matching-part-default);
+    font-size: var(--x-size-font-suggestion-matching-part-default);
+    line-height: var(--x-size-line-height-suggestion-matching-part-default);
+    font-weight: var(--x-number-font-weight-suggestion-matching-part-default);
+
+    // color
+    color: var(--x-color-text-suggestion-matching-part-default);
+  }
+
+  &--matching {
+    // typography
+    --x-font-family-suggestion-default: var(--x-font-family-suggestion-default-matching);
+    --x-size-font-suggestion-default: var(--x-size-font-suggestion-default-matching);
+    --x-size-line-height-suggestion-default: var(--x-size-line-height-suggestion-default-matching);
     --x-number-font-weight-suggestion-default: var(
-      --x-number-font-weight-suggestion-default-has-matching-query
+      --x-number-font-weight-suggestion-default-matching
     );
 
     // color
-    --x-color-text-suggestion-default: var(--x-color-text-suggestion-default-has-matching-query);
-
-    .x-suggestion {
-      &__matching-part {
-        // typography
-        font-family: var(--x-font-family-suggestion-matching-part-default-has-matching-query);
-        font-size: var(--x-size-font-suggestion-matching-part-default-has-matching-query);
-        line-height: var(--x-size-line-height-suggestion-matching-part-default-has-matching-query);
-        font-weight: var(
-          --x-number-font-weight-suggestion-matching-part-default-has-matching-query
-        );
-
-        // color
-        color: var(--x-color-text-suggestion-matching-part-default-has-matching-query);
-      }
-    }
+    --x-color-text-suggestion-default: var(--x-color-text-suggestion-default-matching);
   }
 }
