@@ -292,21 +292,31 @@ describe('testing search module actions', () => {
     });
   });
 
-  describe(`${actionKeys.setQueryFromUrl}`, () => {
-    it('should set the query of the search module', async () => {
-      resetSearchStateWith(store, { query: 'funko' });
+  describe(`${actionKeys.setParamsFromUrl}`, () => {
+    it('should set the params of the search module', async () => {
+      resetSearchStateWith(store, { query: 'funko', page : 1 });
 
-      await store.dispatch(actionKeys.setQueryFromUrl, { query: 'lego' });
+      await store.dispatch(actionKeys.setParamsFromUrl, { query: 'lego' , page: 2 });
 
       expect(store.state.query).toEqual('lego');
+      expect(store.state.page).toEqual(2);
     });
 
     it('should not set the query of the search module', async () => {
       resetSearchStateWith(store, { query: 'funko' });
 
-      await store.dispatch(actionKeys.setQueryFromUrl, { page: 2 });
+      await store.dispatch(actionKeys.setParamsFromUrl, { page: 2 });
 
       expect(store.state.query).toEqual('funko');
+      expect(store.state.page).toEqual(2);
+    });
+
+    it('should not set the page of the search module', async () => {
+      resetSearchStateWith(store, { page: 1 });
+
+      await store.dispatch(actionKeys.setParamsFromUrl, { query: 'funko' });
+
+      expect(store.state.page).toEqual(1);
     });
   });
 });
