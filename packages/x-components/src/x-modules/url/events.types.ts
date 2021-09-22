@@ -37,29 +37,4 @@ export interface UrlXEvents {
    * * Payload: The extra params array.
    */
   ExtraParamsLoadedFromUrl: string[];
-  /**
-   * Query has been loaded from the URL.
-   * * Payload: The query string.
-   */
-  QueryLoadedFromUrl: string;
-  /**
-   * Page has been loaded from the URL.
-   * * Payload: The page number.
-   */
-  PageLoadedFromUrl: string;
-  /**
-   * Filters has been loaded from the URL.
-   * * Payload: The filters array.
-   */
-  FiltersLoadedFromUrl: string[];
-  /**
-   * Sort has been loaded from the URL.
-   * * Payload: The sort string.
-   */
-  SortLoadedFromUrl: string;
-  /**
-   * Related tags has been loaded from the URL.
-   * * Payload: The related tag array.
-   */
-  RelatedTagsLoadedFromUrl: string[];
 }

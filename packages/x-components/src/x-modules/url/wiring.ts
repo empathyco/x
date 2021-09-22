@@ -1,3 +1,5 @@
+import { RelatedTag } from '@empathyco/x-types';
+import { mapWire } from '../../wiring';
 import {
   namespacedWireCommit,
   namespacedWireDispatchWithoutPayload
@@ -24,6 +26,16 @@ const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload('url');
  * @public
  */
 export const setUrlConfigWire = wireCommit('setUrlConfig');
+
+/**
+ * Sets the {@link RelatedTag | related tags }.
+ *
+ * @public
+ */
+export const setRelatedTagsWire = mapWire(
+  wireCommit('setRelatedTags'),
+  (relatedTags: RelatedTag[]) => relatedTags.map(relatedTag => relatedTag.tag)
+);
 
 /**
  * Updates the URL.
@@ -69,5 +81,8 @@ export const urlWiring = createWiring({
   },
   DocumentHistoryChanged: {
     updateStoreUrl
+  },
+  SelectedRelatedTagsChanged: {
+    setRelatedTagsWire
   }
 });

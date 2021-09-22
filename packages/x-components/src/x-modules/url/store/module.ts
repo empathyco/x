@@ -40,6 +40,9 @@ export const urlXStoreModule: UrlXStoreModule = {
     },
     setQuery(state, query) {
       state.params.query = query;
+    },
+    setRelatedTags(state, relatedTags) {
+      state.params.relatedTags = relatedTags;
     }
   },
   actions: {

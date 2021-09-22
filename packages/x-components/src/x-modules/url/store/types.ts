@@ -84,6 +84,12 @@ export interface UrlMutations {
    * @param query - The new query of the Url.
    */
   setQuery(query: string): void;
+  /**
+   * Sets the new related tags.
+   *
+   * @param relatedTags - The new related tags of the url.
+   */
+  setRelatedTags(relatedTags: string[]): void;
 }
 
 /**
