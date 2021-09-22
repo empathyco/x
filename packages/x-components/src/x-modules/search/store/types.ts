@@ -216,7 +216,7 @@ export interface SearchActions {
    */
   increasePageAppendingResults(): void;
   /**
-   * Checks if the url has parameters on it and then updates the state with that values.
+   * Checks if the url has parameters on it and then updates the state with these values.
    *
    * @param urlParams - List of params from the url.
    */

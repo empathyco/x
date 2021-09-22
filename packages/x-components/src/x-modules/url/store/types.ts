@@ -91,6 +91,12 @@ export interface UrlMutations {
    */
   setRelatedTags(relatedTags: string[]): void;
   /**
+   * Sets the new page.
+   *
+   * @param page - The new page of the url.
+   */
+  setPage(page: number): void;
+  /**
    * Sets the new sort.
    *
    * @param sort - The new sort of the Url.
