@@ -14,7 +14,7 @@ import { createWiring } from '../../wiring/wiring.utils';
 const wireCommit = namespacedWireCommit('url');
 
 /**
- * WireDispatch for {@link UrlXModule}.
+ * WireDispatch without payload for {@link UrlXModule}.
  *
  * @internal
  */
@@ -59,6 +59,13 @@ export const updateStoreUrl = wireDispatchWithoutPayload('updateStoreFromUrl');
 export const setQuery = wireCommit('setQuery');
 
 /**
+ * Sets the page of the url module.
+ *
+ * @public
+ */
+export const setPage = wireCommit('setPage');
+
+/**
  * Wiring configuration for the {@link UrlXModule | url module}.
  *
  * @internal
@@ -84,5 +91,8 @@ export const urlWiring = createWiring({
   },
   SelectedRelatedTagsChanged: {
     setRelatedTagsWire
+  },
+  PageChanged: {
+    setPage
   }
 });

@@ -43,6 +43,9 @@ export const urlXStoreModule: UrlXStoreModule = {
     },
     setRelatedTags(state, relatedTags) {
       state.params.relatedTags = relatedTags;
+    },
+    setPage(state, page) {
+      state.params.page = page;
     }
   },
   actions: {

@@ -97,14 +97,14 @@ export const setSort = wireCommit('setSort');
  *
  * @public
  */
-export const setSearchQueryFromUrl = wireDispatch('setQueryFromUrl');
+export const setParamsFromUrl = wireDispatch('setParamsFromUrl');
 
 /**
  * Sets the search state `page`.
  *
  * @public
  */
-export const setPage = wireCommit('setPage');
+export const setSearchPage = wireCommit('setPage');
 
 /**
  * Sets the search state `params`.
@@ -188,7 +188,6 @@ export const searchWiring = createWiring({
     setSort
   },
   SelectedSortProvided: {
-    resetPage,
     setSort
   },
   UserReachedResultsListEnd: {
@@ -201,6 +200,6 @@ export const searchWiring = createWiring({
     resetFacets
   },
   ParamsLoadedFromUrl: {
-    setSearchQueryFromUrl
+    setParamsFromUrl
   }
 });
