@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.24...@empathyco/x-components@3.0.0-alpha.25) (2021-09-22)
+
+
+### Features
+
+* **components:** Add `TranslateFromLeft` and `CrossFade` animations. ([7690dcd](https://github.com/empathyco/x/commit/7690dcdd1b3286b36584a18de5141038aaa1597d)), closes [EX-4772](https://searchbroker.atlassian.net/browse/EX-4772)
+* **url:** syncronize url and state with the query ([95af0c5](https://github.com/empathyco/x/commit/95af0c5094c4dc1fccbde5a4ed75178f6a041661)), closes [EX-3509](https://searchbroker.atlassian.net/browse/EX-3509)
+
+
+### Code Refactoring
+
+* use `NamedModel` generic parameter to better type models ([4255c94](https://github.com/empathyco/x/commit/4255c94c05b497272409fcba745c29cd8b0d870a)), closes [EX-4734](https://searchbroker.atlassian.net/browse/EX-4734)
+
+
+
 ## [3.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.23...@empathyco/x-components@3.0.0-alpha.24) (2021-09-20)
 
 **Note:** Version bump only for package @empathyco/x-components
