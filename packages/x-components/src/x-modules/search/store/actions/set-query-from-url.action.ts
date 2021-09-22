@@ -11,7 +11,7 @@ import { SearchXStoreModule } from '../types';
  * @public
  */
 export const setQueryFromUrl: SearchXStoreModule['actions']['setQueryFromUrl'] = (
-  { commit, state: { query } },
+  { commit },
   urlParams
 ) => {
   const newQuery = urlParams.query as string;
