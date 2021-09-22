@@ -91,7 +91,7 @@ export interface UrlMutations {
    */
   setRelatedTags(relatedTags: string[]): void;
   /**
-   * Sets the page.
+   * Sets the new page.
    *
    * @param page - The new page of the url.
    */
