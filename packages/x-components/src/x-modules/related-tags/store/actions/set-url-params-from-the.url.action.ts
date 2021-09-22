@@ -1,7 +1,5 @@
 import { RelatedTag } from '@empathyco/x-types';
 import { Dictionary } from '../../../../utils';
-import { areRelatedTagsDifferent } from '../../../../utils/related-tags';
-import { isNewQuery } from '../../../facets';
 import { UrlParamValue } from '../../../url';
 import { RelatedTagsXStoreModule } from '../types';
 
@@ -40,11 +38,11 @@ export const setUrlParamsFromTheUrl: RelatedTagsXStoreModule['actions']['setUrlP
     const newRelatedTags = urlParams.relatedTags as string[];
     const newQuery = urlParams.query as string;
 
-    if (newRelatedTags && areRelatedTagsDifferent(relatedTags, newRelatedTags)) {
+    if (newRelatedTags) {
       commit('setSelectedRelatedTags', createRelatedTags(newRelatedTags, query));
     }
 
-    if (newQuery && isNewQuery(newQuery, query)) {
+    if (newQuery) {
       commit('setQuery', query);
     }
   };

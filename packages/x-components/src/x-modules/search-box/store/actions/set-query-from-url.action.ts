@@ -1,4 +1,3 @@
-import { isNewQuery } from '../../../facets';
 import { SearchBoxXStoreModule } from '../types';
 
 /**
@@ -15,7 +14,7 @@ export const setQueryFromUrl: SearchBoxXStoreModule['actions']['setQueryFromUrl'
   urlParams
 ) => {
   const newQuery = urlParams.query as string;
-  if (newQuery && isNewQuery(newQuery, query)) {
+  if (newQuery) {
     commit('setQuery', newQuery);
   }
 };
