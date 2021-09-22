@@ -1,8 +1,8 @@
 :root {
   // color
   --x-color-text-suggestion-default: var(--x-color-text-default);
-  --x-color-text-suggestion-matching-part-default: red;
-  --x-color-text-suggestion-default-matching: blue;
+  --x-color-text-suggestion-matching-part-default: var(--x-color-base-neutral-35);
+  --x-color-text-suggestion-default-matching: var(--x-color-text-suggestion-default);
   --x-color-background-suggestion-default: transparent;
 
   // size
@@ -27,8 +27,8 @@
   );
   --x-font-family-suggestion-default-matching: var(--x-font-family-suggestion-default);
   --x-size-font-suggestion-default-matching: var(--x-size-font-suggestion-default);
-  --x-size-line-height-suggestion-default-matching: var(
-    --x-size-line-height-suggestion-default
+  --x-size-line-height-suggestion-default-matching: var(--x-size-line-height-suggestion-default);
+  --x-number-font-weight-suggestion-default-matching: var(
+    --x-number-font-weight-suggestion-default
   );
-  --x-number-font-weight-suggestion-default-matching: bold;
 }
