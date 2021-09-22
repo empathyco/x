@@ -1,8 +1,8 @@
 :root {
   // color
   --x-color-text-suggestion-default: var(--x-color-text-default);
-  --x-color-text-suggestion-matching-part-default: var(--x-color-base-neutral-35);
-  --x-color-text-suggestion-non-matching-part-default: var(--x-color-text-suggestion-default);
+  --x-color-text-suggestion-matching-part-default-has-matching-query: red;
+  --x-color-text-suggestion-default-has-matching-query: blue;
   --x-color-background-suggestion-default: transparent;
 
   // size
@@ -17,20 +17,18 @@
   --x-size-font-suggestion-default: var(--x-size-font-text);
   --x-size-line-height-suggestion-default: var(--x-size-line-height-text);
   --x-number-font-weight-suggestion-default: var(--x-number-font-weight-text);
-  --x-font-family-suggestion-matching-part-default: var(--x-font-family-suggestion-default);
-  --x-size-font-suggestion-matching-part-default: var(--x-size-font-suggestion-default);
-  --x-size-line-height-suggestion-matching-part-default: var(
+  --x-font-family-suggestion-matching-part-default-has-matching-query: var(--x-font-family-suggestion-default);
+  --x-size-font-suggestion-matching-part-default-has-matching-query: var(--x-size-font-suggestion-default);
+  --x-size-line-height-suggestion-matching-part-default-has-matching-query: var(
     --x-size-line-height-suggestion-default
   );
-  --x-number-font-weight-suggestion-matching-part-default: var(
+  --x-number-font-weight-suggestion-matching-part-default-has-matching-query: var(
     --x-number-font-weight-suggestion-default
   );
-  --x-font-family-suggestion-non-matching-part-default: var(--x-font-family-suggestion-default);
-  --x-size-font-suggestion-non-matching-part-default: var(--x-size-font-suggestion-default);
-  --x-size-line-height-suggestion-non-matching-part-default: var(
+  --x-font-family-suggestion-default-has-matching-query: var(--x-font-family-suggestion-default);
+  --x-size-font-suggestion-default-has-matching-query: var(--x-size-font-suggestion-default);
+  --x-size-line-height-suggestion-default-has-matching-query: var(
     --x-size-line-height-suggestion-default
   );
-  --x-number-font-weight-suggestion-non-matching-part-default: var(
-    --x-number-font-weight-suggestion-default
-  );
+  --x-number-font-weight-suggestion-default-has-matching-query: bold;
 }
