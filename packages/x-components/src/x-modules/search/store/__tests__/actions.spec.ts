@@ -309,7 +309,7 @@ describe('testing search module actions', () => {
       await store.dispatch(actionKeys.setParamsFromUrl, { sort: 'priceSort asc' });
 
       expect(store.state.query).toEqual('funko');
-      expect(store.state.query).toEqual('priceSort asc');
+      expect(store.state.sort).toEqual('priceSort asc');
     });
   });
 });
