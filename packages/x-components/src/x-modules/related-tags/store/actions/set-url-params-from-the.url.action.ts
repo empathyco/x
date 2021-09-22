@@ -17,7 +17,7 @@ const createRelatedTags = (relatedTags: string[], query: string): RelatedTag[] =
       tag: relatedTag,
       modelName: 'RelatedTag',
       selected: true,
-      query: query ?? '',
+      query: query ? `${query} ${relatedTag}` : '',
       previous: ''
     });
     return acc;
