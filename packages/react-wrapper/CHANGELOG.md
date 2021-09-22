@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@3.1.0-alpha.2...@empathyco/x-react-wrapper@4.0.0-alpha.0) (2021-09-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **facets:** Rename `Filters` component to `FiltersList`.
+* **facets:** Remove `MultiSelectFilters` component. Filters are multi-select by default. Apply the `SingleSelectModifier` using the `FilterEntityFactory` to make the desired `Facet` single select.
+* **facets:** Refactor `HierarchicalFilter.children` field. Now, this field is a list of the `Filter.ids` of the children filter. All `HierarchicalFilter`s are flattened in the `Facet.filters` list.
+* **facets:** Remove `facets` prop in the `Facets` component to provide `Facets` to the state. Use the `FacetsProvider` component instead.
+* **facets:** Remove `UserChangedSelectedFilters` event from `Facets` component. Use `FacetsProvider` component instead.
+* **facets:** Remove `UserClickedClearFacetFilters` event. `UserClickedClearAllFilters` is emitted instead. Its payload is now a list of `Facet.id`s.
+* **facets:** Rename `UserClickedFacetAllFilter` event to `UserClickedAllFilter`. Its payload is now a list of `Facet.id`s.
+* **facets:** Remove `BackendFacetsChanged` event. Use `FacetsChanged` event instead.
+* **facets:** Remove `BackendFacetsProvided` event. Use `FacetsGroupProvided` instead.
+* **facets:** Remove `FrontendFacetsChanged` event. Use `FacetsGroupProvided` instead.
+* **facets:** Remove `FacetMultiSelectChanged` event. `Filter`s are multi-select by default. Apply the `SingleSelectModifier` using the `FilterEntityFactory` to make the desired `Facet` single select.
+* **facets:** Change `UserModifiedEditableNumberRangeFilter` payload. Now it is the `EditableNumberRangeFilter` filter with the new range value.
+
+### Features
+
+* **facets:** remove old `facets` X Module and replace by `facets-next`. ([a47d99f](https://github.com/empathyco/x/commit/a47d99fd9ccbb046c5a5054a92e723f2675b7563)), closes [EX-3663](https://searchbroker.atlassian.net/browse/EX-3663)
+
+
+
 ## [3.1.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@3.1.0-alpha.1...@empathyco/x-react-wrapper@3.1.0-alpha.2) (2021-08-05)
 
 **Note:** Version bump only for package @empathyco/x-react-wrapper
