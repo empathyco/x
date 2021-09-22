@@ -292,21 +292,24 @@ describe('testing search module actions', () => {
     });
   });
 
-  describe(`${actionKeys.setQueryFromUrl}`, () => {
-    it('should set the query of the search module', async () => {
-      resetSearchStateWith(store, { query: 'funko' });
+  describe(`${actionKeys.setParamsFromUrl}`, () => {
+    it('should set the params coming from the url', async () => {
+      resetSearchStateWith(store, { query: 'funko', sort: '' });
 
-      await store.dispatch(actionKeys.setQueryFromUrl, { query: 'lego' });
+      await store.dispatch(actionKeys.setParamsFromUrl, { query: 'lego', sort: 'priceSort asc' });
 
       expect(store.state.query).toEqual('lego');
+      expect(store.state.sort).toEqual('priceSort asc');
     });
 
-    it('should not set the query of the search module', async () => {
-      resetSearchStateWith(store, { query: 'funko' });
+    // eslint-disable-next-line max-len
+    it('should not set in the state of the search module those params that are not the Url', async () => {
+      resetSearchStateWith(store, { query: 'funko', sort: '' });
 
-      await store.dispatch(actionKeys.setQueryFromUrl, { page: 2 });
+      await store.dispatch(actionKeys.setParamsFromUrl, { sort: 'priceSort asc' });
 
       expect(store.state.query).toEqual('funko');
+      expect(store.state.query).toEqual('priceSort asc');
     });
   });
 });
