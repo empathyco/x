@@ -93,11 +93,11 @@ export const setSelectedFilters = wireCommit('setSelectedFilters');
 export const setSort = wireCommit('setSort');
 
 /**
- * Sets the search state with the new params from the url.
+ * Sets the search state `query`.
  *
  * @public
  */
-export const setParamsFromUrlAction = wireDispatch('setParamsFromUrl');
+export const setParamsFromUrl = wireDispatch('setParamsFromUrl');
 
 /**
  * Sets the search state `page`.
@@ -200,6 +200,6 @@ export const searchWiring = createWiring({
     resetFacets
   },
   ParamsLoadedFromUrl: {
-    setParamsFromUrlAction
+    setParamsFromUrl
   }
 });

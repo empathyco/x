@@ -142,14 +142,14 @@ describe('testing related tags module actions', () => {
         {
           modelName: 'RelatedTag',
           tag: 'pop',
-          query: 'funko',
+          query: 'funko pop',
           previous: '',
           selected: true
         },
         {
           modelName: 'RelatedTag',
           tag: 'lego',
-          query: 'funko',
+          query: 'funko lego',
           previous: '',
           selected: true
         }

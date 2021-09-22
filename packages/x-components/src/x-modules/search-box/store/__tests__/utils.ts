@@ -5,11 +5,11 @@ import { searchBoxXStoreModule } from '../module';
 import { SearchBoxState } from '../types';
 
 /**
- * Reset search module state with its original state and the partial state passes as
+ * Reset search box module state with its original state and the partial state passes as
  * parameter.
  *
- * @param store - Search store state.
- * @param state - Partial search store state to be replaced.
+ * @param store - Search box store state.
+ * @param state - Partial search box store state to be replaced.
  *
  * @internal
  */

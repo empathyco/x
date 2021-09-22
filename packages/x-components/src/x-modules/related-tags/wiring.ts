@@ -83,7 +83,7 @@ export const clearSelectedRelatedTags = wireCommit('setSelectedRelatedTags', [])
 export const clearRelatedTagsQuery = wireCommit('setQuery', '');
 
 /**
- * Saves the related tags from the url.
+ * Saves the params from the url.
  *
  * @public
  */
