@@ -1,7 +1,7 @@
 import { SearchXStoreModule } from '../types';
 
 /**
- * Default implementation for the {@link SearchActions.setQueryFromUrl}.
+ * Default implementation for the {@link SearchActions.setParamsFromUrl}.
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
@@ -10,11 +10,14 @@ import { SearchXStoreModule } from '../types';
  *
  * @public
  */
-export const setQueryFromUrl: SearchXStoreModule['actions']['setQueryFromUrl'] = (
+export const setParamsFromUrl: SearchXStoreModule['actions']['setParamsFromUrl'] = (
   { commit },
-  { query }
+  { query, sort }
 ) => {
   if (query) {
     commit('setQuery', query as string);
+  }
+  if (sort) {
+    commit('setSort', sort as string);
   }
 };

@@ -216,11 +216,11 @@ export interface SearchActions {
    */
   increasePageAppendingResults(): void;
   /**
-   * Checks if the url has a query on it and then updates the state with that value.
+   * Checks if the url has parameters on it and then updates the state with that values.
    *
    * @param urlParams - List of params from the url.
    */
-  setQueryFromUrl(urlParams: Dictionary<UrlParamValue>): void;
+  setParamsFromUrl(urlParams: Dictionary<UrlParamValue>): void;
 }
 
 /**

@@ -90,6 +90,12 @@ export interface UrlMutations {
    * @param relatedTags - The new related tags of the url.
    */
   setRelatedTags(relatedTags: string[]): void;
+  /**
+   * Sets the new sort.
+   *
+   * @param sort - The new sort of the Url.
+   */
+  setSort(sort: string): void;
 }
 
 /**

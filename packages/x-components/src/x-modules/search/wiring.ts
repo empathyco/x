@@ -1,9 +1,12 @@
+import { Dictionary } from '../../utils/types';
 import {
   namespacedWireCommit,
   namespacedWireDispatch,
   namespacedWireDispatchWithoutPayload
 } from '../../wiring/namespaced-wires.factory';
+import { mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
+import { UrlParamValue } from '../url/store/types';
 
 /**
  * `search` {@link XModuleName | XModule name}.
@@ -93,11 +96,21 @@ export const setSelectedFilters = wireCommit('setSelectedFilters');
 export const setSort = wireCommit('setSort');
 
 /**
- * Sets the search state `query`.
+ * Sets the search state `sort`.
  *
  * @public
  */
-export const setSearchQueryFromUrl = wireDispatch('setQueryFromUrl');
+export const setSortFromUrl = mapWire(
+  wireCommit('setSort'),
+  ({ sort }: Dictionary<UrlParamValue>) => sort as string
+);
+
+/**
+ * Sets the params in the search state.
+ *
+ * @public
+ */
+export const setParamsFromUrl = wireDispatch('setParamsFromUrl');
 
 /**
  * Sets the search state `page`.
@@ -201,6 +214,6 @@ export const searchWiring = createWiring({
     resetFacets
   },
   ParamsLoadedFromUrl: {
-    setSearchQueryFromUrl
+    setParamsFromUrl
   }
 });

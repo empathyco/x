@@ -43,6 +43,9 @@ export const urlXStoreModule: UrlXStoreModule = {
     },
     setRelatedTags(state, relatedTags) {
       state.params.relatedTags = relatedTags;
+    },
+    setSort(state, sort) {
+      state.params.sort = sort;
     }
   },
   actions: {

@@ -59,6 +59,13 @@ export const updateStoreUrl = wireDispatchWithoutPayload('updateStoreFromUrl');
 export const setQuery = wireCommit('setQuery');
 
 /**
+ * Sets the sort of the url module.
+ *
+ * @public
+ */
+export const setUrlSort = wireCommit('setSort');
+
+/**
  * Wiring configuration for the {@link UrlXModule | url module}.
  *
  * @internal
@@ -84,5 +91,8 @@ export const urlWiring = createWiring({
   },
   SelectedRelatedTagsChanged: {
     setRelatedTagsWire
+  },
+  UserClickedASort: {
+    setUrlSort
   }
 });

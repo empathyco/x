@@ -28,7 +28,8 @@ describe('testing Url module actions', () => {
           query: 'sudadera',
           filters: [],
           relatedTags: ['con capucha', 'disney'],
-          page: 1
+          page: 1,
+          sort: 'priceSort desc'
         },
         extraParams: { warehouse: '0123999' }
       });
@@ -36,7 +37,7 @@ describe('testing Url module actions', () => {
       await store.dispatch(actionKeys.updateUrl);
 
       expect(window.location.search).toEqual(
-        '?q=sudadera&tag=con+capucha&tag=disney&warehouse=0123999'
+        '?q=sudadera&sort=priceSort+desc&tag=con+capucha&tag=disney&warehouse=0123999'
       );
     });
 
@@ -113,7 +114,8 @@ describe('testing Url module actions', () => {
     it('should update the state with the correct url parameters', async () => {
       const url = new URL(
         window.location.href +
-          '?q=sudadera&tag=capucha&tag=disney&page=3&warehouse=01234&consent=true&store=1111'
+          '?q=sudadera&tag=capucha&tag=disney&page=3&warehouse=01234&consent=true&store=1111' +
+          '&sort=priceSort+asc'
       );
 
       window.history.replaceState({ ...window.history.state }, document.title, url.href);
@@ -135,7 +137,7 @@ describe('testing Url module actions', () => {
         query: 'sudadera',
         relatedTags: ['capucha', 'disney'],
         filters: [],
-        sort: '',
+        sort: 'priceSort asc',
         scroll: 0
       });
       expect(store.state.extraParams).toEqual<Dictionary<UrlParamValue>>({
