@@ -1,3 +1,4 @@
+import { isNewQuery } from '../../../facets';
 import { SearchXStoreModule } from '../types';
 
 /**
@@ -9,11 +10,12 @@ import { SearchXStoreModule } from '../types';
  * @public
  */
 export const setQueryFromUrl: SearchXStoreModule['actions']['setQueryFromUrl'] = (
-  { commit },
+  { commit, state: { query } },
   urlParams
 ) => {
-  const query = urlParams.query as string;
-  if (query) {
-    commit('setQuery', query);
+  const newQuery = urlParams.query as string;
+
+  if (newQuery && isNewQuery(newQuery, query)) {
+    commit('setQuery', newQuery);
   }
 };

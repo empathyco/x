@@ -1,5 +1,7 @@
 import { RelatedTag } from '@empathyco/x-types';
 import { Dictionary } from '../../../../utils';
+import { areRelatedTagsDifferent } from '../../../../utils/related-tags';
+import { isNewQuery } from '../../../facets';
 import { UrlParamValue } from '../../../url';
 import { RelatedTagsXStoreModule } from '../types';
 
@@ -34,15 +36,19 @@ const createRelatedTags = (relatedTags: string[], query: string): RelatedTag[] =
  * @public
  */
 export const setUrlParamsFromTheUrl: RelatedTagsXStoreModule['actions']['setUrlParamsFromTheUrl'] =
-  ({ commit }, urlParams: Dictionary<UrlParamValue>) => {
-    if (urlParams.relatedTags) {
+  ({ commit, state: { query, relatedTags } }, urlParams: Dictionary<UrlParamValue>) => {
+    const newRelatedTags = urlParams.relatedTags as string[]
+    const newQuery = urlParams.query as string;
+
+    if (newRelatedTags && areRelatedTagsDifferent(relatedTags, newRelatedTags)) {
       commit(
         'setSelectedRelatedTags',
-        createRelatedTags(urlParams.relatedTags as string[], urlParams.query as string)
+        createRelatedTags(newRelatedTags , query)
       );
     }
 
-    if (urlParams.query) {
-      commit('setQuery', urlParams.query as string);
+    if (newQuery && isNewQuery(newQuery, query)) {
+      commit('setQuery', query);
     }
   };
+
