@@ -50,12 +50,24 @@ export interface FacetsMutations {
    */
   removeFilter(filter: Filter): void;
   /**
+   * Removes a list of filters from the {@link FacetsState.filters | filters} record.
+   *
+   * @param filters - The filters to remove.
+   */
+  removeFilters(filters: Filter[]): void;
+  /**
    * Sets the group id of the facet.
    *
    * @param facetGroupEntry - An object containing the new groupId and the facetId of the facet to
    * update.
    */
   setFacetGroup(facetGroupEntry: FacetGroupEntry): void;
+  /**
+   * Adds a list of filters to the {@link FacetsState.filters | filters} record.
+   *
+   * @param filters - The filters to add.
+   */
+  setFilters(filters: Filter[]): void;
   /**
    * Adds the filter to the {@link FacetsState.filters | filters} record.
    *
