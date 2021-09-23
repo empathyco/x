@@ -1885,13 +1885,17 @@
         <h2 class="x-title2">Default</h2>
 
         <div class="x-suggestion">
+          <span class="x-suggestion__query">Suggestion</span>
+        </div>
+
+        <div class="x-suggestion x-suggestion--matching">
           <span class="x-suggestion__query">
             Suggestion
             <span class="x-suggestion__matching-part">Query</span>
           </span>
         </div>
 
-        <div class="x-suggestion">
+        <div class="x-suggestion x-suggestion--matching">
           <SearchIcon />
           <span class="x-suggestion__query">
             Suggestion
@@ -1899,7 +1903,7 @@
           </span>
         </div>
 
-        <div class="x-suggestion">
+        <div class="x-suggestion x-suggestion--matching">
           <span class="x-suggestion__query">
             Suggestion
             <span class="x-suggestion__matching-part">Query</span>
@@ -1907,7 +1911,7 @@
           <SearchIcon />
         </div>
 
-        <div class="x-suggestion">
+        <div class="x-suggestion x-suggestion--matching">
           <SearchIcon />
           <span class="x-suggestion__query">
             Suggestion extra large name
@@ -1915,7 +1919,7 @@
           </span>
         </div>
 
-        <div class="x-suggestion">
+        <div class="x-suggestion x-suggestion--matching">
           <span class="x-suggestion__query">
             Suggestion extra large name
             <span class="x-suggestion__matching-part">Query</span>
@@ -1933,6 +1937,15 @@
 
         <div class="x-suggestion-group">
           <div class="x-suggestion">
+            <span class="x-suggestion__query">Suggestion</span>
+          </div>
+          <button class="x-button">
+            <CrossIcon />
+          </button>
+        </div>
+
+        <div class="x-suggestion-group">
+          <div class="x-suggestion x-suggestion--matching">
             <span class="x-suggestion__query">
               Suggestion
               <span class="x-suggestion__matching-part">Query</span>
@@ -1947,7 +1960,7 @@
           <button class="x-button">
             <CrossIcon />
           </button>
-          <div class="x-suggestion">
+          <div class="x-suggestion x-suggestion--matching">
             <span class="x-suggestion__query">
               Suggestion
               <span class="x-suggestion__matching-part">Query</span>
@@ -1956,7 +1969,7 @@
         </div>
 
         <div class="x-suggestion-group">
-          <div class="x-suggestion">
+          <div class="x-suggestion x-suggestion--matching">
             <SearchIcon />
             <span class="x-suggestion__query">
               Suggestion
@@ -1972,7 +1985,7 @@
           <button class="x-button">
             <CrossIcon />
           </button>
-          <div class="x-suggestion">
+          <div class="x-suggestion x-suggestion--matching">
             <span class="x-suggestion__query">
               Suggestion
               <span class="x-suggestion__matching-part">Query</span>
@@ -1985,7 +1998,7 @@
           <button class="x-button">
             <CrossIcon />
           </button>
-          <div class="x-suggestion">
+          <div class="x-suggestion x-suggestion--matching">
             <span class="x-suggestion__query">
               Suggestion extra large name
               <span class="x-suggestion__matching-part">Query</span>
