@@ -16,7 +16,6 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
   ) {
     if (state.isAppendResults) {
       commit('appendResults', results);
-      commit('setIsAppendResults', false);
     } else {
       commit('setResults', results);
       commit('setBanners', banners);
