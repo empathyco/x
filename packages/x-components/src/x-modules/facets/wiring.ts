@@ -1,5 +1,5 @@
 import { Facet } from '@empathyco/x-types';
-import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
+import { namespacedWireCommit, namespacedWireDispatch } from '../../wiring/namespaced-wires.factory';
 import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
 import { mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
@@ -21,6 +21,13 @@ const wireFacetsServiceWithoutPayload = wireServiceWithoutPayload(DefaultFacetsS
  * @internal
  */
 const facetsWireCommit = namespacedWireCommit('facets');
+
+/**
+ * WireCommit for {@link FacetsXModule}.
+ *
+ * @internal
+ */
+const facetsWireDispatch = namespacedWireDispatch('facets');
 
 /**
  * Saves the facets contained in the `search` group, removing the previous ones, and keeping the
@@ -81,6 +88,13 @@ const selectFilterWire = wireFacetsService('select');
 const setFacetsQuery = facetsWireCommit('setQuery');
 
 /**
+ * Saves the params from the url.
+ *
+ * @public
+ */
+export const setFacetParamsFromTheUrlWire = facetsWireDispatch('setUrlParamsFromTheUrl');
+
+/**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
  *
  * @internal
@@ -90,7 +104,7 @@ export const facetsWiring = createWiring({
     updateFacetsGroupWithSearchFacetsWire
   },
   FacetsGroupProvided: {
-    setFacetsGroupWire
+    //setFacetsGroupWire
   },
   UserClickedAFilter: {
     toggleFilterWire
@@ -112,5 +126,8 @@ export const facetsWiring = createWiring({
   },
   FacetsQueryChanged: {
     clearAllFiltersWire
+  },
+  ParamsLoadedFromUrl: {
+    setFacetUrlParamsFromTheUrlWire: setFacetParamsFromTheUrlWire
   }
 });

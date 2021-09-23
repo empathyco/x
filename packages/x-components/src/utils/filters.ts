@@ -15,3 +15,21 @@ export function areFiltersDifferent(someFilters: Filter[], anotherFilters: Filte
     someFilters.some(filter => !anotherFilters.find(otherFilter => otherFilter.id === filter.id))
   );
 }
+
+/**
+ * Helper method which creates the {@link Filter} entity from the filter ir of the url.
+ *
+ * @param filterIds - List of filter ids from the url.
+ *
+ * @returns A list of {@link Filter | raw filter}.
+ */
+export const createRawFilters = (filterIds: (string | number)[]): Filter[] => {
+  return filterIds.reduce<Filter[]>((acc, filterId) => {
+    acc.push({
+      id: filterId,
+      modelName: 'RawFilter',
+      selected: true
+    });
+    return acc;
+  }, []);
+};

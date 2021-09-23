@@ -189,8 +189,7 @@ export const searchWiring = createWiring({
   },
   SelectedFiltersChanged: {
     resetPage,
-    resetAppending,
-    setSelectedFilters
+    resetAppending
   },
   UserClickedASort: {
     resetPage,

@@ -1,5 +1,6 @@
 import { Facet } from '@empathyco/x-types';
 import Vue from 'vue';
+import { setUrlParamsFromTheUrl } from './actions/set-filters-from-url.action';
 import { facets } from './getters/facets.getter';
 import { selectedFiltersByFacet } from './getters/selected-filters-by-facet.getter';
 import { selectedFilters } from './getters/selected-filters.getter';
@@ -48,5 +49,7 @@ export const facetsXStoreModule: FacetsXStoreModule = {
       state.query = query;
     }
   },
-  actions: {}
+  actions: {
+    setUrlParamsFromTheUrl
+  }
 };

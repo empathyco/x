@@ -1,5 +1,5 @@
-import { RelatedTag } from '@empathyco/x-types';
-import { mapWire } from '../../wiring';
+import { Filter, RelatedTag } from '@empathyco/x-types';
+import { mapWire, namespacedWireCommitWithoutPayload } from '../../wiring';
 import {
   namespacedWireCommit,
   namespacedWireDispatchWithoutPayload
@@ -12,6 +12,13 @@ import { createWiring } from '../../wiring/wiring.utils';
  * @internal
  */
 const wireCommit = namespacedWireCommit('url');
+
+/**
+ * WireCommit for {@link UrlXModule}.
+ *
+ * @internal
+ */
+const wireCommitWithoutPayload = namespacedWireCommitWithoutPayload('url');
 
 /**
  * WireDispatch without payload for {@link UrlXModule}.
@@ -36,6 +43,20 @@ export const setRelatedTagsWire = mapWire(
   wireCommit('setRelatedTags'),
   (relatedTags: RelatedTag[]) => relatedTags.map(relatedTag => relatedTag.tag)
 );
+
+/**
+ * Sets the {@link Filter | filter }.
+ *
+ * @public
+ */
+export const setFilterWire = mapWire(wireCommit('setFilter'), (filter: Filter) => filter.id);
+
+/**
+ * Resets the {@link Filters | related tags }.
+ *
+ * @public
+ */
+export const resetFilterWire = wireCommitWithoutPayload('resetFilters');
 
 /**
  * Updates the URL.
@@ -78,7 +99,8 @@ export const urlWiring = createWiring({
     setQuery
   },
   UserClearedQuery: {
-    setQuery
+    setQuery,
+    resetFilterWire
   },
   UrlStateChanged: {
     updateUrl
@@ -91,6 +113,9 @@ export const urlWiring = createWiring({
   },
   SelectedRelatedTagsChanged: {
     setRelatedTagsWire
+  },
+  UserClickedAFilter: {
+    setFilterWire
   },
   PageChanged: {
     setPage

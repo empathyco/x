@@ -44,6 +44,12 @@ export const urlXStoreModule: UrlXStoreModule = {
     setRelatedTags(state, relatedTags) {
       state.params.relatedTags = relatedTags;
     },
+    setFilter(state, newFilter) {
+      (state.params.filters as (string|number)[]).push(newFilter);
+    },
+    resetFilters(state) {
+      state.params.filters = [];
+    },
     setPage(state, page) {
       state.params.page = page;
     }

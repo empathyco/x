@@ -1,3 +1,4 @@
+import { createRawFilters } from '../../../../utils';
 import { SearchXStoreModule } from '../types';
 
 /**
@@ -12,10 +13,11 @@ import { SearchXStoreModule } from '../types';
  */
 export const setParamsFromUrl: SearchXStoreModule['actions']['setParamsFromUrl'] = (
   { commit },
-  { query, page }
+  { query, page, filters }
 ) => {
   const newQuery = query as string;
   const newPage = page as number;
+  const newFilters = filters as (string | number)[];
 
   if (newQuery) {
     commit('setQuery', newQuery);
@@ -23,5 +25,9 @@ export const setParamsFromUrl: SearchXStoreModule['actions']['setParamsFromUrl']
 
   if (newPage) {
     commit('setPage', newPage);
+  }
+
+  if (newFilters) {
+    commit('setSelectedFilters', createRawFilters(newFilters));
   }
 };

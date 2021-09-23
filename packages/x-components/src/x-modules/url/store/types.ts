@@ -1,3 +1,4 @@
+import { Filter } from '../../../../../search-types';
 import { XStoreModule } from '../../../store';
 import { Dictionary } from '../../../utils/types';
 import { UrlConfig } from '../config.types';
@@ -90,6 +91,17 @@ export interface UrlMutations {
    * @param relatedTags - The new related tags of the url.
    */
   setRelatedTags(relatedTags: string[]): void;
+  /**
+   * Sets the new filter.
+   *
+   * @param filter - The new filter of the url.
+   */
+  setFilter(filter: string | number): void;
+  /**
+   * Resets the filters.
+   *
+   */
+  resetFilters(): void;
   /**
    * Sets the new page.
    *
