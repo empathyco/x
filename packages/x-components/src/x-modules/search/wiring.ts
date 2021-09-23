@@ -151,6 +151,13 @@ export const resetSort = wireCommit('setSort', '');
 export const resetFacets = wireCommit('setFacets', []);
 
 /**
+ * Resets the search state `isAppendingResults`.
+ *
+ * @public
+ */
+export const resetAppending = wireCommit('setIsAppendResults', false);
+
+/**
  * Search wiring.
  *
  * @internal
@@ -158,8 +165,8 @@ export const resetFacets = wireCommit('setFacets', []);
 export const searchWiring = createWiring({
   UserAcceptedAQuery: {
     resetPage,
-    setSearchQuery,
     resetSort,
+    setSearchQuery,
     setOrigin
   },
   UserAcceptedSpellcheckQuery: {
@@ -176,15 +183,18 @@ export const searchWiring = createWiring({
   },
   SelectedRelatedTagsChanged: {
     resetPage,
+    resetAppending,
     setRelatedTags,
     setOrigin
   },
   SelectedFiltersChanged: {
     resetPage,
+    resetAppending,
     setSelectedFilters
   },
   UserClickedASort: {
     resetPage,
+    resetAppending,
     setSort
   },
   SelectedSortProvided: {
@@ -194,10 +204,10 @@ export const searchWiring = createWiring({
     increasePageAppendingResults
   },
   ExtraParamsChanged: {
-    setSearchExtraParams,
     resetPage,
     resetSort,
-    resetFacets
+    resetFacets,
+    setSearchExtraParams
   },
   ParamsLoadedFromUrl: {
     setParamsFromUrl

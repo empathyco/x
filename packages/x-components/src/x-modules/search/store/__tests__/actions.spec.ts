@@ -325,11 +325,11 @@ describe('testing search module actions', () => {
     });
 
     it('should not set the sort of the search module', async () => {
-      resetSearchStateWith(store, { query: 'doramion' });
+      resetSearchStateWith(store, { sort: 'priceSort asc' });
 
       await store.dispatch(actionKeys.setParamsFromUrl, { query: 'funko' });
 
-      expect(store.state.sort).toEqual(1);
+      expect(store.state.sort).toEqual('priceSort asc');
     });
   });
 });

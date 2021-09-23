@@ -89,11 +89,53 @@ describe('testing search module getters', () => {
         filters: {},
         relatedTags: [],
         sort: '',
+        rows: 48,
+        start: 0
+      });
+
+      resetSearchStateWith(store, { query: 'salchipapa', page: 5 });
+
+      expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
+        query: 'salchipapa',
+        filters: {},
+        relatedTags: [],
+        sort: '',
+        rows: 120,
+        start: 0
+      });
+
+      resetSearchStateWith(store, { query: 'salchipapa', page: 1 });
+
+      expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
+        query: 'salchipapa',
+        filters: {},
+        relatedTags: [],
+        sort: '',
+        rows: 24,
+        start: 0
+      });
+    });
+
+    it('calculates the start and rows parameters correctly when there is scroll down', () => {
+      resetSearchStateWith(store, {
+        query: 'salchipapa',
+        page: 2,
+        config: {
+          pageSize: 24
+        },
+        isAppendResults: true
+      });
+
+      expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
+        query: 'salchipapa',
+        filters: {},
+        relatedTags: [],
+        sort: '',
         rows: 24,
         start: 24
       });
 
-      resetSearchStateWith(store, { query: 'salchipapa', page: 5 });
+      resetSearchStateWith(store, { query: 'salchipapa', page: 5, isAppendResults: true });
 
       expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
         query: 'salchipapa',
@@ -104,7 +146,7 @@ describe('testing search module getters', () => {
         start: 96
       });
 
-      resetSearchStateWith(store, { query: 'salchipapa', page: 1 });
+      resetSearchStateWith(store, { query: 'salchipapa', page: 1, isAppendResults: true });
 
       expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
         query: 'salchipapa',
