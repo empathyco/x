@@ -3,7 +3,7 @@
     @change="emitUserClickedASort"
     :animation="animation"
     :items="items"
-    :value="selectedSort"
+    :value="providedSelectedSort"
     class="x-sort-dropdown"
     data-test="sort-dropdown"
   >
