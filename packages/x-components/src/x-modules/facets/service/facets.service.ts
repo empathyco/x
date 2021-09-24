@@ -136,21 +136,27 @@ export class DefaultFacetsService implements FacetsService {
    * Removes the filters that belong to the given group.
    *
    * @param groupId - The id of the group from whom remove the filters that are in the store.
+   *
    * @returns The removed filters.
+   *
    * @internal
    */
   protected removeGroupFilters(groupId: FacetsGroup['id']): Filter[] {
-    const filtersToRemove = groupItemsBy(Object.values(this.store.state.x.facets.filters), filter =>
-      isFacetFilter(filter) ? this.store.state.x.facets.groups[filter.facetId] : '__unknown-group__'
+    const groupFiltersToRemove = groupItemsBy(
+      Object.values(this.store.state.x.facets.filters),
+      filter =>
+        isFacetFilter(filter)
+          ? this.store.state.x.facets.groups[filter.facetId]
+          : '__unknown-group__'
     );
 
-    const unknownFilters = filtersToRemove['__unknown-group__'] ?? [];
-    const selectedGroupFiltersToRemove = filtersToRemove[groupId] ?? [];
-    const allFiltersToRemove = unknownFilters.concat(selectedGroupFiltersToRemove);
+    const unknownFilters = groupFiltersToRemove['__unknown-group__'] ?? [];
+    const selectedGroupFiltersToRemove = groupFiltersToRemove[groupId] ?? [];
+    const filtersToRemove = [...unknownFilters, ...selectedGroupFiltersToRemove];
 
-    this.removeFilters(allFiltersToRemove);
+    this.removeFilters(filtersToRemove);
 
-    return allFiltersToRemove;
+    return filtersToRemove;
   }
   /**
    * Removes the facets that belong to the given group.
