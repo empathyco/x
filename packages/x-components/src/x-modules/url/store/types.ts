@@ -92,11 +92,11 @@ export interface UrlMutations {
    */
   setRelatedTags(relatedTags: string[]): void;
   /**
-   * Sets the new filter.
+   * Sets the new filter ids.
    *
-   * @param filter - The new filter of the url.
+   * @param filterIds - The new filter ids of the url.
    */
-  setFilter(filter: string | number): void;
+  setFilters(filterIds: (string | number)[]): void;
   /**
    * Resets the filters.
    *

@@ -140,16 +140,18 @@ export class DefaultFacetsService implements FacetsService {
    * @internal
    */
   protected removeGroupFilters(groupId: FacetsGroup['id']): Filter[] {
-    const filtersToRemove =
-      groupItemsBy(Object.values(this.store.state.x.facets.filters), filter =>
-        isFacetFilter(filter)
-          ? this.store.state.x.facets.groups[filter.facetId]
-          : '__unknown-group__'
-      )[groupId] ?? [];
-    this.removeFilters(filtersToRemove);
-    return filtersToRemove;
-  }
+    const filtersToRemove = groupItemsBy(Object.values(this.store.state.x.facets.filters), filter =>
+      isFacetFilter(filter) ? this.store.state.x.facets.groups[filter.facetId] : '__unknown-group__'
+    );
 
+    const unknownFilters = filtersToRemove['__unknown-group__'] ?? [];
+    const selectedGroupFiltersToRemove = filtersToRemove[groupId] ?? [];
+    const allFiltersToRemove = unknownFilters.concat(selectedGroupFiltersToRemove);
+
+    this.removeFilters(allFiltersToRemove);
+
+    return allFiltersToRemove;
+  }
   /**
    * Removes the facets that belong to the given group.
    *

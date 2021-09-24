@@ -104,7 +104,7 @@ export const facetsWiring = createWiring({
     updateFacetsGroupWithSearchFacetsWire
   },
   FacetsGroupProvided: {
-    //setFacetsGroupWire
+    setFacetsGroupWire
   },
   UserClickedAFilter: {
     toggleFilterWire
@@ -122,12 +122,10 @@ export const facetsWiring = createWiring({
     setFacetsQuery
   },
   UserClearedQuery: {
-    setFacetsQuery
-  },
-  FacetsQueryChanged: {
+    setFacetsQuery,
     clearAllFiltersWire
   },
   ParamsLoadedFromUrl: {
-    setFacetUrlParamsFromTheUrlWire: setFacetParamsFromTheUrlWire
+    setFacetParamsFromTheUrlWire
   }
 });

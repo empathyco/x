@@ -49,7 +49,9 @@ export const setRelatedTagsWire = mapWire(
  *
  * @public
  */
-export const setFilterWire = mapWire(wireCommit('setFilter'), (filter: Filter) => filter.id);
+export const setFiltersWire = mapWire(wireCommit('setFilters'), (filters: Filter[]) =>
+  filters.map(f => f.id)
+);
 
 /**
  * Resets the {@link Filters | related tags }.
@@ -114,8 +116,8 @@ export const urlWiring = createWiring({
   SelectedRelatedTagsChanged: {
     setRelatedTagsWire
   },
-  UserClickedAFilter: {
-    setFilterWire
+  SelectedFiltersChanged: {
+    setFiltersWire
   },
   PageChanged: {
     setPage
