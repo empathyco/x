@@ -1,6 +1,0 @@
-@empathy:registry=https://nexus.shared.empathy.co/content/groups/npm-registry/
-@empathybroker:registry=https://nexus.shared.empathy.co/content/groups/npm-regi$
-//nexus.shared.empathy.co/content/groups/npm-registry/:_auth=cG1hcmVrZTpnaHBfUVYyWTZpd3BJNm4yOVB1czZYZ3BxOXZ4Z2xpZ2hyM3RldmhF
-
-
-loglevel=warn
