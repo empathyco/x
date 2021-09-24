@@ -272,11 +272,12 @@ describe('testing facets service', () => {
         ])
       ]);
       const menCategoryFilter = categoryFacet.filters[0];
+      const skirtCategory = categoryFacet.filters[2];
       const ageFacet = createNumberRangeFacetStub('age', createFilter => [
         createFilter({ min: 0, max: 10 }, true),
         createFilter({ min: 10, max: 18 })
       ]);
-      const age10To18Filter = ageFacet.filters[0];
+      const age0To10Filter = ageFacet.filters[0];
       const priceFacet = createEditableNumberRangeFacetStub('price', createFilter =>
         createFilter({ min: null, max: 10 }, true)
       );
@@ -296,7 +297,12 @@ describe('testing facets service', () => {
           getStoreEditableNumberRangeFilter(priceUpTo10Filter)
         ])
       ).toBe(false);
-      expect(getSelectedFilters()).toEqual([]);
+      expect(getSelectedFilters()).toEqual([
+        redColorFilter,
+        skirtCategory,
+        age0To10Filter,
+        priceUpTo10Filter
+      ]);
       expect(getFacets()).toEqual({
         [colorFacet.id]: omitFiltersProperty(colorFacet),
         [categoryFacet.id]: omitFiltersProperty(categoryFacet),
@@ -307,13 +313,14 @@ describe('testing facets service', () => {
       // Select some filters, and save a new group of facets
       service.select(redColorFilter);
       service.select(menCategoryFilter);
-      service.select(age10To18Filter);
+      service.select(age0To10Filter);
       service.select(priceUpTo10Filter);
       expect(
         areFiltersDifferent(getSelectedFilters(), [
           redColorFilter,
           menCategoryFilter,
-          age10To18Filter,
+          skirtCategory,
+          age0To10Filter,
           getStoreEditableNumberRangeFilter(priceUpTo10Filter)
         ])
       ).toBe(false);
@@ -323,6 +330,8 @@ describe('testing facets service', () => {
         createFilter('blue', true),
         createFilter('green', true)
       ]);
+      const newBlueColorFilter = newColorFacet.filters[1];
+      const newRedColorFilter = newColorFacet.filters[2];
       const newCategoryFacet = createHierarchicalFacetStub('category', createFilter => [
         ...createFilter('men'),
         ...createFilter('women', true, createFilter => [
@@ -331,14 +340,19 @@ describe('testing facets service', () => {
         ]),
         ...createFilter('kids')
       ]);
+      const newWomenFilter = newCategoryFacet.filters[1];
+      const newSkirtFilter = newCategoryFacet.filters[2];
       const newAgeFacet = createNumberRangeFacetStub('age', createFilter => [
         createFilter({ min: 0, max: 10 }),
         createFilter({ min: 10, max: 18 }, true),
         createFilter({ min: 18, max: null }, true)
       ]);
+      const newAge10To18Filter = newAgeFacet.filters[1];
+      const newAgeUpTo18Filter = newAgeFacet.filters[2];
       const newPriceFacet = createEditableNumberRangeFacetStub('price', createFilter =>
         createFilter({ min: null, max: 10 }, true)
       );
+      const newPriceUpTo10Filter = newPriceFacet.filters[0];
 
       service.updateFacets({
         id: 'backend',
@@ -355,9 +369,13 @@ describe('testing facets service', () => {
       expect(
         // Because newPriceFacet filter has a different id in this new group, it is de selected
         areFiltersDifferent(getSelectedFilters(), [
-          redColorFilter,
-          menCategoryFilter,
-          age10To18Filter
+          newBlueColorFilter,
+          newRedColorFilter,
+          newWomenFilter,
+          newSkirtFilter,
+          newAge10To18Filter,
+          newAgeUpTo18Filter,
+          getStoreEditableNumberRangeFilter(newPriceUpTo10Filter)
         ])
       ).toBe(false);
 
@@ -366,6 +384,8 @@ describe('testing facets service', () => {
         createFilter('In store', true),
         createFilter('Express')
       ]);
+      const inStoreShipmentFilter = shipmentFacet.filters[0];
+
       service.updateFacets({
         id: 'static',
         facets: [shipmentFacet]
@@ -381,9 +401,14 @@ describe('testing facets service', () => {
       ).toBe(false);
       expect(
         areFiltersDifferent(getSelectedFilters(), [
-          redColorFilter,
-          menCategoryFilter,
-          age10To18Filter
+          newBlueColorFilter,
+          newRedColorFilter,
+          newWomenFilter,
+          newSkirtFilter,
+          newAge10To18Filter,
+          newAgeUpTo18Filter,
+          getStoreEditableNumberRangeFilter(newPriceUpTo10Filter),
+          inStoreShipmentFilter
         ])
       ).toBe(false);
       expect(getFacets()).toEqual({
