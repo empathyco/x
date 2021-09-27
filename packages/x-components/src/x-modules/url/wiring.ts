@@ -45,7 +45,7 @@ export const setRelatedTagsWire = mapWire(
 );
 
 /**
- * Sets the {@link Filter | filters }.
+ * Sets the {@link @empathyco/x-types#Filter | filters }.
  *
  * @public
  */
