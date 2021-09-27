@@ -54,7 +54,7 @@ export const setFiltersWire = mapWire(wireCommit('setFilters'), (filters: Filter
 );
 
 /**
- * Resets the {@link Filters | related tags }.
+ * Resets the {@link RelatedTag | related tags }.
  *
  * @public
  */
