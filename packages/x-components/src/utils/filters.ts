@@ -19,11 +19,11 @@ export function areFiltersDifferent(someFilters: Filter[], anotherFilters: Filte
 }
 
 /**
- * Helper method which creates the {@link Filter} entity from the filter ir of the url.
+ * Helper method which creates the filter entity from the filter ir of the url.
  *
  * @param filterIds - List of filter ids from the url.
  *
- * @returns A list of {@link Filter | raw filter}.
+ * @returns A list of  filters.
  *
  * @public
  */

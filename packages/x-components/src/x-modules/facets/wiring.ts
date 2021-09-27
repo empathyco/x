@@ -1,5 +1,8 @@
 import { Facet } from '@empathyco/x-types';
-import { namespacedWireCommit, namespacedWireDispatch } from '../../wiring/namespaced-wires.factory';
+import {
+  namespacedWireCommit,
+  namespacedWireDispatch
+} from '../../wiring/namespaced-wires.factory';
 import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
 import { mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';

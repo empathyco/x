@@ -45,7 +45,7 @@ export const setRelatedTagsWire = mapWire(
 );
 
 /**
- * Sets the {@link Filter | filter }.
+ * Sets the {@link Filter | filters }.
  *
  * @public
  */

@@ -294,9 +294,9 @@ describe('testing search module actions', () => {
 
   describe(`${actionKeys.setParamsFromUrl}`, () => {
     it('should set the params of the search module', async () => {
-      resetSearchStateWith(store, { query: 'funko', page : 1 });
+      resetSearchStateWith(store, { query: 'funko', page: 1 });
 
-      await store.dispatch(actionKeys.setParamsFromUrl, { query: 'lego' , page: 2 });
+      await store.dispatch(actionKeys.setParamsFromUrl, { query: 'lego', page: 2 });
 
       expect(store.state.query).toEqual('lego');
       expect(store.state.page).toEqual(2);
