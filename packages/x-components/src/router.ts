@@ -5,14 +5,14 @@ Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
   {
+    path: '/',
+    name: 'Layout',
+    component: () => import('./views/Layout.vue')
+  },
+  {
     path: '/design-system',
     name: 'Design System',
     component: () => import('./views/design-system.vue')
-  },
-  {
-    path: '/layout',
-    name: 'Layout',
-    component: () => import('./views/Layout.vue')
   },
   {
     path: '/empathize',

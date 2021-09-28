@@ -25,7 +25,7 @@ Given('following config: max items to store is {int}', (maxItemsToRequest: numbe
     }
   };
 
-  cy.visit('/test/recommendations?useMockedAdapter=true', {
+  cy.visit('/?useMockedAdapter=true', {
     qs: {
       xModules: JSON.stringify(config)
     }

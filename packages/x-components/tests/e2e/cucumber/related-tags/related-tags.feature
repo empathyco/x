@@ -6,6 +6,7 @@ Feature: Related tags component
 
   Scenario Outline: 1. Related tag is selected
     Given following config: requested items <maxItemsToRequest>, add to search-box <addToSearchBox>
+    And   start button is clicked
     When  "<query>" is searched
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
     Then  related results are displayed
@@ -28,6 +29,7 @@ Feature: Related tags component
 
   Scenario Outline: 2. Multiple related tags are selected
     Given following config: requested items <maxItemsToRequest>, add to search-box <addToSearchBox>
+    And   start button is clicked
     When  "<query>" is searched
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
     Then  at most <maxItemsToRequest> unselected related tags are displayed
@@ -53,6 +55,7 @@ Feature: Related tags component
 
   Scenario Outline: 3. Related tag persistence
     Given following config: requested items <maxItemsToRequest>, add to search-box <addToSearchBox>
+    And   start button is clicked
     When  "<query>" is searched
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
     And   related tag number <relatedTagItem> is clicked

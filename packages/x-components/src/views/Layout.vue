@@ -23,6 +23,15 @@
           data-test="search-input-debounce"
         />
       </li>
+      <li class="x-test-controls__control">
+        <label for="popularSearches.maxItemsToRender">popular-searches - maxItemsToRender</label>
+        <input
+          v-model="controls.popularSearches.maxItemsToRender"
+          id="popularSearches.maxItemsToRender"
+          type="number"
+          data-test="popular-searches-max-to-render"
+        />
+      </li>
     </ul>
     <BaseEventsModal
       :eventsToOpenModal="[
@@ -39,7 +48,12 @@
             "
           >
             <div class="x-input-group x-input-group--card">
-              <SearchInput aria-label="Search for products" placeholder="Search" />
+              <SearchInput
+                aria-label="Search for products"
+                placeholder="Search"
+                :instant="controls.searchInput.instant"
+                :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
+              />
               <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
               <SearchButton aria-label="Search" class="x-input-group__action">
                 <SearchIcon />
@@ -73,6 +87,10 @@
           >
             <PopularSearches max-items-to-render="10" />
             <HistoryQueries max-items-to-render="10" />
+            <ClearHistoryQueries class="x-button--ghost x-button--ghost-start">
+              <CrossTinyIcon />
+              <span>Clear previous searches</span>
+            </ClearHistoryQueries>
             <QuerySuggestions max-items-to-render="10" />
             <NextQueries max-items-to-render="10" />
           </Empathize>
@@ -212,10 +230,7 @@
 
         <template #main-body>
           <!-- Recommendations -->
-          <Recommendations
-            v-if="!$x.query.search || $x.totalResults === 0"
-            #layout="{ recommendations }"
-          >
+          <Recommendations v-if="!$x.query.search" #layout="{ recommendations }">
             <BaseVariableColumnGrid
               #default="{ item: result }"
               :animation="resultsAnimation"
@@ -230,59 +245,43 @@
                     <div style="padding-top: 100%; background-color: lightsalmon"></div>
                   </template>
                 </BaseResultImage>
-                <h1 class="x-title3">{{ result.name }}</h1>
+                <h1 class="x-title3" data-test="recommendation-item">{{ result.name }}</h1>
               </article>
             </BaseVariableColumnGrid>
           </Recommendations>
 
           <!-- Results -->
           <ResultsList v-infinite-scroll:main-scroll>
-            <BannersList>
-              <PromotedsList>
-                <NextQueriesList>
-                  <BaseVariableColumnGrid :animation="resultsAnimation">
-                    <template #Result="{ item: result }">
-                      <article class="result" style="max-width: 300px">
-                        <BaseResultImage :result="result" class="x-picture--colored">
-                          <template #placeholder>
-                            <div style="padding-top: 100%; background-color: lightgray"></div>
-                          </template>
-                          <template #fallback>
-                            <div style="padding-top: 100%; background-color: lightsalmon"></div>
-                          </template>
-                        </BaseResultImage>
-                        <h1 class="x-title3" data-test="result-text">{{ result.name }}</h1>
-                      </article>
+            <BaseVariableColumnGrid :animation="resultsAnimation">
+              <template #Result="{ item: result }">
+                <article class="result" style="max-width: 300px">
+                  <BaseResultImage :result="result" class="x-picture--colored">
+                    <template #placeholder>
+                      <div style="padding-top: 100%; background-color: lightgray"></div>
                     </template>
-
-                    <template #Banner="{ item: banner }">
-                      <Banner :banner="banner" />
+                    <template #fallback>
+                      <div style="padding-top: 100%; background-color: lightsalmon"></div>
                     </template>
-
-                    <template #Promoted="{ item: promoted }">
-                      <Promoted :promoted="promoted" />
-                    </template>
-
-                    <template #NextQueriesGroup="{ item: { nextQueries } }">
-                      <div class="x-list x-list--gap-03">
-                        <h1 class="x-title2">What's next?</h1>
-                        <BaseSuggestions
-                          #default="{ suggestion }"
-                          :suggestions="nextQueries"
-                          class="x-list--gap-03"
-                        >
-                          <NextQuery #default="{ suggestion: nextQuery }" :suggestion="suggestion">
-                            <Nq1 />
-                            {{ nextQuery.query }}
-                          </NextQuery>
-                        </BaseSuggestions>
-                      </div>
-                    </template>
-                  </BaseVariableColumnGrid>
-                </NextQueriesList>
-              </PromotedsList>
-            </BannersList>
+                  </BaseResultImage>
+                  <h1 class="x-title3" data-test="result-text">{{ result.name }}</h1>
+                </article>
+              </template>
+            </BaseVariableColumnGrid>
           </ResultsList>
+
+          <PartialResultsList :animation="resultsAnimation">
+            <template #default="{ partialResult }">
+              <span data-test="partial-query">{{ partialResult.query }}</span>
+              <BaseGrid :animation="resultsAnimation" :columns="4" :items="partialResult.results">
+                <template #Result="{ item }">
+                  <Result :result="item" data-test="partial-result-item"/>
+                </template>
+              </BaseGrid>
+              <PartialQueryButton :query="partialResult.query">
+                <template #default="{ query }">Ver todos {{ query }}</template>
+              </PartialQueryButton>
+            </template>
+          </PartialResultsList>
         </template>
 
         <template #scroll-to-top>
@@ -297,9 +296,12 @@
 
 <script lang="ts">
   import { deepMerge } from '@empathyco/x-deep-merge';
-  import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
+  import { Facet, Result, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import { State } from '../components/decorators/store.decorators';
+  // eslint-disable-next-line max-len
+  import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import CollapseHeight from '../components/animations/collapse-height.vue';
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
@@ -351,6 +353,8 @@
   import { NextQuery } from '../x-modules/next-queries';
   import NextQueriesList from '../x-modules/next-queries/components/next-queries-list.vue';
   import NextQueries from '../x-modules/next-queries/components/next-queries.vue';
+  import PartialQueryButton from '../x-modules/search/components/partial-query-button.vue';
+  import PartialResultsList from '../x-modules/search/components/partial-results-list.vue';
   import PopularSearches from '../x-modules/popular-searches/components/popular-searches.vue';
   import QuerySuggestions from '../x-modules/query-suggestions/components/query-suggestions.vue';
   import Recommendations from '../x-modules/recommendations/components/recommendations.vue';
@@ -367,15 +371,17 @@
   import SortList from '../x-modules/search/components/sort-list.vue';
   import Empathize from '../x-modules/empathize/components/empathize.vue';
   import UrlHandler from '../x-modules/url/components/url-handler.vue';
+  import IdentifierResults from '../x-modules/identifier-results/components/identifier-results.vue';
+  import IdentifierResult from '../x-modules/identifier-results/components/identifier-result.vue';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
-    beforeRouteEnter(_to, _from, next: () => void): void {
-      new XInstaller(
-        deepMerge(baseInstallXOptions, {
-          xModules: { recommendations: { config: { maxItemsToRequest: 48 } } }
-        })
-      ).init(baseSnippetConfig);
+    beforeRouteEnter(to, _from, next: () => void): void {
+      let customQueryConfig = JSON.parse(to.query.xModules?.toString() ?? '{}');
+      const configLayoutView = deepMerge(baseInstallXOptions, {
+        xModules: deepMerge(customQueryConfig)
+      });
+      new XInstaller(configLayoutView).init(baseSnippetConfig);
       ['hierarchical_category', 'brand_facet', 'age_facet', 'price_facet'].forEach(facetId =>
         FilterEntityFactory.instance.registerFilterModifier(facetId, [SingleSelectModifier])
       );
@@ -385,6 +391,8 @@
       infiniteScroll
     },
     components: {
+      IdentifierResults,
+      IdentifierResult,
       BaseEventsModalClose,
       ChevronTinyDown,
       CheckTiny,
@@ -409,6 +417,7 @@
       ChevronTinyRight,
       ChevronUp,
       ClearFilters,
+      ClearHistoryQueries,
       ClearSearchInput,
       MultiColumnMaxWidthLayout,
       CrossIcon,
@@ -425,6 +434,8 @@
       NextQueries,
       NextQueriesList,
       NextQuery,
+      PartialQueryButton,
+      PartialResultsList,
       PopularSearches,
       Promoted,
       PromotedsList,
@@ -456,6 +467,9 @@
       searchInput: {
         instant: true,
         instantDebounceInMs: 500 // default
+      },
+      popularSearches: {
+        maxItemsToRender: 10
       }
     };
     protected staticFacets: Facet[] = [

@@ -4,7 +4,7 @@ import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
 
 let resultsCount = 0;
 let resultsList: string[] = [];
-const compoundResultsList: string[] = [];
+let compoundResultsList: string[] = [];
 let startQuery = 0;
 let startSecondQuery = 0;
 let interval = 0;
@@ -18,25 +18,22 @@ Given('a results API with a known response', () => {
           images: ['https://picsum.photos/seed/1/100/100']
         }),
         createResultStub('LEGO Duplo Classic Caja de Ladrillos - 1091', {
-          images: ['https://picsum.photos/seed/1/100/200']
+          images: ['https://picsum.photos/seed/2/100/100']
         }),
         createResultStub('LEGO City Coche Patrulla de Policía - 60239', {
-          images: ['https://picsum.photos/seed/1/100/300']
+          images: ['https://picsum.photos/seed/3/100/100']
         }),
         createResultStub('LEGO City Police Caja de Ladrillos - 60270', {
-          images: ['https://picsum.photos/seed/1/100/400']
+          images: ['https://picsum.photos/seed/4/100/100']
         }),
         createResultStub('LEGO Friends Parque para Cachorros - 41396', {
-          images: ['https://picsum.photos/seed/1/100/500']
+          images: ['https://picsum.photos/seed/5/100/100']
         }),
         createResultStub('LEGO Creator Ciberdrón - 31111', {
-          images: ['https://picsum.photos/seed/1/100/600']
+          images: ['https://picsum.photos/seed/6/100/100']
         }),
         createResultStub('LEGO Technic Dragster - 42103', {
-          images: ['https://picsum.photos/seed/1/100/700']
-        }),
-        createResultStub('LEGO Technic Dragster - 42103', {
-          images: ['https://picsum.photos/seed/1/100/800']
+          images: ['https://picsum.photos/seed/7/100/100']
         })
       ]
     });
@@ -53,7 +50,7 @@ Given(
         }
       }
     };
-    cy.visit('/layout?useMockedAdapter=true', {
+    cy.visit('/?useMockedAdapter=true', {
       qs: {
         xModules: JSON.stringify(config)
       }
@@ -157,7 +154,7 @@ And(
   'related results are displayed after {int} is {boolean}',
   (instantDebounceInMs: number, instant: boolean) => {
     if (instant) {
-      cy.getByDataTest('result-item')
+      cy.getByDataTest('result-text')
         .should('have.length.gt', resultsCount)
         .each($result => {
           resultsList.push($result.text());
@@ -193,11 +190,15 @@ Given('a second results API with a known response', () => {
   cy.intercept('https://api.empathy.co/search', req => {
     req.reply({
       results: [
-        createResultStub('LEGO Duplo Disney Tren de Cumpleaños de Mickey y Minnie - 10941'),
-        createResultStub('LEGO Disney Granja de Mickey Mouse y el Pato Donald - 10775')
+        createResultStub('LEGO Duplo Disney Tren de Cumpleaños de Mickey y Minnie - 10941', {
+          images: ['https://picsum.photos/seed/8/100/100']
+        }),
+        createResultStub('LEGO Disney Granja de Mickey Mouse y el Pato Donald - 10775', {
+          images: ['https://picsum.photos/seed/10/100/100']
+        })
       ]
     });
-  }).as('interceptedSecondResults');
+  }).as('interceptedNewResults');
 });
 
 When('{string} is added to the search', (secondQuery: string) => {
@@ -207,7 +208,7 @@ When('{string} is added to the search', (secondQuery: string) => {
 });
 
 Then('new related results are not displayed before {int}', (instantDebounceInMs: number) => {
-  cy.getByDataTest('result-item')
+  cy.getByDataTest('result-text')
     .should($results => {
       expect($results).to.have.length(resultsCount);
     })
@@ -221,8 +222,8 @@ And(
   'new related results are displayed after {int} is {boolean}',
   (instantDebounceInMs: number, instant: boolean) => {
     if (instant) {
-      cy.getByDataTest('result-item')
-        .should('have.length.at.most', resultsCount - 1)
+      cy.getByDataTest('result-text')
+        .should('have.length', 2)
         .each($result => {
           compoundResultsList.push($result.text());
         })
@@ -232,13 +233,13 @@ And(
           resultsCount = resultsList.length;
         });
     } else {
-      cy.getByDataTest('result-item').should('not.exist');
+      cy.getByDataTest('result-text').should('not.exist');
     }
   }
 );
 
 And('new related results are different from previous ones', () => {
-  expect(compoundResultsList.every(item => resultsList.includes(item))).to.eq(false);
+  expect(compoundResultsList).to.not.equal(resultsList);
 });
 
 When('{string} is deleted from the search', (secondQuery: string) => {
@@ -250,7 +251,7 @@ When('{string} is deleted from the search', (secondQuery: string) => {
 });
 
 Then('old related results are not displayed before {int}', (instantDebounceInMs: number) => {
-  cy.getByDataTest('result-item')
+  cy.getByDataTest('result-text')
     .should('have.length', compoundResultsList.length)
     .then(() => {
       interval = startQuery + instantDebounceInMs - Date.now();

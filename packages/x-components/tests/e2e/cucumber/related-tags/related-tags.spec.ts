@@ -42,7 +42,7 @@ Given(
       }
     };
 
-    cy.visit('/test/related-tags?useMockedAdapter=true', {
+    cy.visit('/?useMockedAdapter=true', {
       qs: {
         xModules: JSON.stringify(config)
       }
@@ -87,7 +87,7 @@ And(
     if (addToSearchBox) {
       cy.getByDataTest('search-input').should(
         'contain',
-        this.searchedQuery + this.clickedRelatedTag
+        this.searchedQuery + ' ' + this.clickedRelatedTag
       );
     } else {
       cy.getByDataTest('search-input').should(

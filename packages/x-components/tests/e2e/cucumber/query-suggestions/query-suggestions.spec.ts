@@ -34,7 +34,7 @@ Given(
         }
       }
     };
-    cy.visit('/test/query-suggestions?useMockedAdapter=true', {
+    cy.visit('/?useMockedAdapter=true', {
       qs: {
         xModules: JSON.stringify(config)
       }

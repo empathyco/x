@@ -65,9 +65,9 @@ Then('related results are displayed', () => {
 });
 
 Then('related results have changed', () => {
-  cy.getByDataTest('result-item').should($results => {
+  cy.getByDataTest('result-text').should($results => {
     const compoundResultsList = $results.toArray().map(resultElement => resultElement.textContent);
-    expect(compoundResultsList.every(item => resultsList.includes(item!))).to.eq(false);
+    expect(compoundResultsList).to.not.equal(resultsList);
   });
 });
 

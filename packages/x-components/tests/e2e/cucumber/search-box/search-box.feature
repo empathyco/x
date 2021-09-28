@@ -32,7 +32,8 @@ Feature: Search-box component
     When  the "<query>" is cleared by "<cleared>"
     Then  the search box is empty
     And   related results are cleared
-    And   query suggestions are cleared
+    When  search-input is focused
+    Then  query suggestions are cleared
     And   next queries are not cleared
     And   related tags are cleared
     And   the searched query is displayed in history queries

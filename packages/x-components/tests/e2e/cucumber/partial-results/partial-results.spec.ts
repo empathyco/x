@@ -10,18 +10,30 @@ Given('a results API with partial results', () => {
         {
           query: 'verde azul',
           results: [
-            createResultStub('Twister'),
-            createResultStub('Juego de Anillas Acuáticas Peces'),
-            createResultStub('Jurassic World Dinosaurio de Ataque Varios Modelos')
+            createResultStub('Twister', {
+              images: ['https://picsum.photos/seed/30/100/100']
+            }),
+            createResultStub('Juego de Anillas Acuáticas Peces', {
+              images: ['https://picsum.photos/seed/31/100/100']
+            }),
+            createResultStub('Jurassic World Dinosaurio de Ataque Varios Modelos', {
+              images: ['https://picsum.photos/seed/32/100/100']
+            })
           ],
           totalResults: 9
         },
         {
           query: 'lego verde',
           results: [
-            createResultStub('LEGO Classic Ladrillos Creativos Verdes - 11007'),
-            createResultStub('LEGO Creator Grandes Dinosaurios -31058'),
-            createResultStub('LEGO My City Casa Familiar - 60291')
+            createResultStub('LEGO Classic Ladrillos Creativos Verdes - 11007', {
+              images: ['https://picsum.photos/seed/33/100/100']
+            }),
+            createResultStub('LEGO Creator Grandes Dinosaurios -31058', {
+              images: ['https://picsum.photos/seed/34/100/100']
+            }),
+            createResultStub('LEGO My City Casa Familiar - 60291', {
+              images: ['https://picsum.photos/seed/35/100/100']
+            })
           ],
           totalResults: 6
         }
@@ -32,11 +44,11 @@ Given('a results API with partial results', () => {
 
 // Scenario 1
 Given('no special config for partial-results view', () => {
-  cy.visit('test/partial-results?useMockedAdapter=true');
+  cy.visit('/?useMockedAdapter=true');
 });
 
 Then('at least {int} related results are displayed', (minResultsWithoutPartials: number) => {
-  cy.getByDataTest('regular-result').should('have.length.at.least', minResultsWithoutPartials);
+  cy.getByDataTest('result-text').should('have.length.at.least', minResultsWithoutPartials);
 });
 
 And('no partial results are displayed', () => {
