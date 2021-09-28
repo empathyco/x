@@ -14,13 +14,17 @@ export function createFetchAndSaveAction<
   // Using `object` type to ensure no actions/getters can be used.
   // eslint-disable-next-line @typescript-eslint/ban-types
   Context extends XActionContext<StatusState, object, StatusMutations, object>,
+  Request,
   Response
 >({
   fetch,
   onSuccess,
   onError,
   onCancel
-}: CreateFetchAndSaveActionsOptions<Context, Response>): FetchAndSaveActions<Context> {
+}: CreateFetchAndSaveActionsOptions<Context, Request, Response>): FetchAndSaveActions<
+  Context,
+  Request
+> {
   let cancelPreviousRequest: undefined | (() => void);
 
   /**
@@ -65,10 +69,10 @@ export function createFetchAndSaveAction<
 
   // eslint-disable-next-line
   /** @see FetchAndSaveActions.fetchAndSave */
-  function fetchAndSave(context: Context): Promise<void> {
+  function fetchAndSave(context: Context, request: Request): Promise<void> {
     cancelPrevious();
     context.commit('setStatus', 'loading');
-    const { promise, cancel } = cancellablePromise(fetch(context), () => {
+    const { promise, cancel } = cancellablePromise(fetch(context, request), () => {
       handleCancel(context);
     });
 
@@ -99,6 +103,7 @@ export interface CreateFetchAndSaveActionsOptions<
   // Using `object` type to ensure no actions/getters can be used.
   // eslint-disable-next-line @typescript-eslint/ban-types
   Context extends XActionContext<StatusState, object, StatusMutations, object>,
+  Request,
   Response
 > {
   /**
@@ -107,7 +112,7 @@ export interface CreateFetchAndSaveActionsOptions<
    * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the
    * actions, provided by Vuex.
    */
-  fetch(context: Context): Promise<Response>;
+  fetch(context: Context, request: Request): Promise<Response>;
   /**
    * Asynchronous callback executed when the {@link CreateFetchAndSaveActionsOptions.fetch} is
    * performed successfully.
@@ -142,7 +147,8 @@ export interface CreateFetchAndSaveActionsOptions<
 export interface FetchAndSaveActions<
   // Using `object` type to ensure no actions/getters can be used.
   // eslint-disable-next-line @typescript-eslint/ban-types
-  Context extends XActionContext<StatusState, object, StatusMutations, object>
+  Context extends XActionContext<StatusState, object, StatusMutations, object>,
+  Request
 > {
   /**
    * Action that requests and saves the response.
@@ -151,7 +157,7 @@ export interface FetchAndSaveActions<
    * actions, provided by Vuex.
    * @returns A promise that resolves after saving the response.
    */
-  fetchAndSave: (context: Context) => void | Promise<void>;
+  fetchAndSave: (context: Context, request: Request) => void | Promise<void>;
   /**
    * Action that cancels the previous request call if it stills in progress.
    */

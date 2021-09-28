@@ -81,11 +81,11 @@ export interface QuerySuggestionsActions {
    *
    * @returns A new list of suggestions.
    */
-  fetchSuggestions(): Suggestion[];
+  fetchSuggestions(request: SuggestionsRequest | null): Suggestion[];
   /**
    * Requests and saves to the state a list of suggestions.
    */
-  fetchAndSaveSuggestions(): void;
+  fetchAndSaveSuggestions(request: SuggestionsRequest | null): void;
 }
 
 /**
