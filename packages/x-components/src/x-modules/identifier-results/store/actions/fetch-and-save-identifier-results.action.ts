@@ -7,7 +7,7 @@ import { IdentifierResultsActionsContext } from '../types';
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
   IdentifierResultsActionsContext,
-  SearchByIdRequest,
+  SearchByIdRequest | null,
   Result[]
 >({
   fetch({ dispatch }, request) {

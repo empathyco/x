@@ -7,7 +7,7 @@ import { NextQueriesActionContext } from '../types';
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
   NextQueriesActionContext,
-  NextQueriesRequest,
+  NextQueriesRequest | null,
   NextQuery[] | null
 >({
   fetch({ dispatch }, request) {

@@ -7,7 +7,7 @@ import { PopularSearchesActionContext } from '../types';
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
   PopularSearchesActionContext,
-  SuggestionsRequest,
+  SuggestionsRequest | null,
   Suggestion[]
 >({
   fetch({ dispatch }, request) {

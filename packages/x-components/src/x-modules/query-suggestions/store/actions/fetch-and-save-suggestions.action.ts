@@ -6,7 +6,7 @@ import { QuerySuggestionsActionContext } from '../types';
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
   QuerySuggestionsActionContext,
-  SuggestionsRequest,
+  SuggestionsRequest | null,
   Suggestion[]
 >({
   fetch({ dispatch }, request) {

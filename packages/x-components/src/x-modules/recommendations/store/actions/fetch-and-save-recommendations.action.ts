@@ -6,7 +6,7 @@ import { RecommendationsActionContext } from '../types';
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
   RecommendationsActionContext,
-  TopRecommendationsRequest,
+  TopRecommendationsRequest | null,
   Result[]
 >({
   fetch({ dispatch }, request) {

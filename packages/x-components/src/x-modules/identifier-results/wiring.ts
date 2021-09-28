@@ -51,9 +51,7 @@ export const clearIdentifierResultsQuery = wireCommit('setQuery', '');
  *
  * @public
  */
-export const fetchAndSaveIdentifierResultsWire = wireDispatchWithoutPayload(
-  'fetchAndSaveIdentifierResults'
-);
+export const fetchAndSaveIdentifierResultsWire = wireDispatch('fetchAndSaveIdentifierResults');
 
 /**
  * Cancels the {@link IdentifierResultsActions.fetchAndSaveIdentifierResults} request promise.

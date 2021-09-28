@@ -4,7 +4,7 @@ import { SearchActionContext } from '../types';
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
   SearchActionContext,
-  SearchRequest,
+  SearchRequest | null,
   SearchResponse
 >({
   fetch({ dispatch }, request) {

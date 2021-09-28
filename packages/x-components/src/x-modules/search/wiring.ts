@@ -53,9 +53,7 @@ export const setOrigin = wireCommit('setOrigin', ({ metadata }) => metadata.orig
  *
  * @public
  */
-export const fetchAndSaveSearchResponseWire = wireDispatchWithoutPayload(
-  'fetchAndSaveSearchResponse'
-);
+export const fetchAndSaveSearchResponseWire = wireDispatch('fetchAndSaveSearchResponse');
 
 /**
  * Resets the search state `spellcheckedQuery` to its initial value, an empty string.

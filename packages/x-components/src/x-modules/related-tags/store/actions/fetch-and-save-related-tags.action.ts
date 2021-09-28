@@ -6,7 +6,7 @@ import { RelatedTagsActionContext } from '../types';
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
   RelatedTagsActionContext,
-  RelatedTagsRequest,
+  RelatedTagsRequest | null,
   RelatedTag[]
 >({
   fetch({ dispatch }, request) {
