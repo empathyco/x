@@ -2,32 +2,41 @@ import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { getPopularSearchesStub } from '../../../../__stubs__/popular-searches-stubs.factory';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
-import { map } from '../../../../utils';
+import { SafeStore } from '../../../../store/__tests__/utils';
 import { popularSearchesXStoreModule } from '../module';
-import { PopularSearchesState } from '../types';
+import {
+  PopularSearchesActions,
+  PopularSearchesGetters,
+  PopularSearchesMutations,
+  PopularSearchesState
+} from '../types';
 
 describe('testing popular searches module actions', () => {
   const mockedSuggestions = getPopularSearchesStub();
   const adapter = getMockedAdapter({ suggestions: { suggestions: mockedSuggestions } });
 
-  const actionKeys = map(popularSearchesXStoreModule.actions, action => action);
   const localVue = createLocalVue();
   localVue.config.productionTip = false; // Silent production console messages.
   localVue.use(Vuex);
 
-  const store: Store<PopularSearchesState> = new Store(popularSearchesXStoreModule as any);
+  const store: SafeStore<
+    PopularSearchesState,
+    PopularSearchesGetters,
+    PopularSearchesMutations,
+    PopularSearchesActions
+  > = new Store(popularSearchesXStoreModule as any);
   installNewXPlugin({ store, adapter }, localVue);
 
-  describe(`${actionKeys.fetchSuggestions}`, () => {
+  describe(`fetchSuggestions`, () => {
     it('should return suggestions', async () => {
-      const suggestions = await store.dispatch(actionKeys.fetchSuggestions);
+      const suggestions = await store.dispatch('fetchSuggestions', store.getters.request);
       expect(suggestions).toEqual(mockedSuggestions);
     });
   });
 
-  describe(`${actionKeys.fetchAndSaveSuggestions}`, () => {
+  describe(`fetchAndSaveSuggestions`, () => {
     it('should request and store suggestions in the state', async () => {
-      const actionPromise = store.dispatch(actionKeys.fetchAndSaveSuggestions);
+      const actionPromise = store.dispatch('fetchAndSaveSuggestions', store.getters.request);
       expect(store.state.status).toEqual('loading');
       await actionPromise;
       expect(store.state.popularSearches).toEqual(mockedSuggestions);
@@ -38,8 +47,8 @@ describe('testing popular searches module actions', () => {
       const initialPopularSearches = store.state.popularSearches;
       adapter.getSuggestions.mockResolvedValueOnce({ suggestions: mockedSuggestions.slice(0, 1) });
 
-      const firstRequest = store.dispatch(actionKeys.fetchAndSaveSuggestions);
-      const secondRequest = store.dispatch(actionKeys.fetchAndSaveSuggestions);
+      const firstRequest = store.dispatch('fetchAndSaveSuggestions', store.getters.request);
+      const secondRequest = store.dispatch('fetchAndSaveSuggestions', store.getters.request);
 
       await firstRequest;
       expect(store.state.status).toEqual('loading');
@@ -52,19 +61,19 @@ describe('testing popular searches module actions', () => {
     it('should set the status to error when it fails', async () => {
       adapter.getSuggestions.mockRejectedValueOnce('Generic error');
       const popularSearches = store.state.popularSearches;
-      await store.dispatch(actionKeys.fetchAndSaveSuggestions);
+      await store.dispatch('fetchAndSaveSuggestions', store.getters.request);
 
       expect(store.state.popularSearches).toBe(popularSearches);
       expect(store.state.status).toEqual('error');
     });
   });
 
-  describe(`${actionKeys.cancelFetchAndSaveSuggestions}`, () => {
+  describe(`cancelFetchAndSaveSuggestions`, () => {
     it('should cancel the request and do not modify stored popular searches', async () => {
       const previousPopularSearches = store.state.popularSearches;
       await Promise.all([
-        store.dispatch(actionKeys.fetchAndSaveSuggestions),
-        store.dispatch(actionKeys.cancelFetchAndSaveSuggestions)
+        store.dispatch('fetchAndSaveSuggestions', store.getters.request),
+        store.dispatch('cancelFetchAndSaveSuggestions')
       ]);
       expect(store.state.popularSearches).toEqual(previousPopularSearches);
       expect(store.state.status).toEqual('success');
