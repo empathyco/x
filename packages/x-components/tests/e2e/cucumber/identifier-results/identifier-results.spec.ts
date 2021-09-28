@@ -30,6 +30,14 @@ Given('an ID results API with no results', () => {
   }).as('interceptedNoIDResults');
 });
 
+And('a results API with no results', () => {
+  cy.intercept('https://api.empathy.co/search', req => {
+    req.reply({
+      results: []
+    });
+  }).as('interceptedNoResults');
+});
+
 And('no special config for identifier results view', () => {
   cy.visit('/?useMockedAdapter=true');
 });

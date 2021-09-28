@@ -274,7 +274,7 @@
               <span data-test="partial-query">{{ partialResult.query }}</span>
               <BaseGrid :animation="resultsAnimation" :columns="4" :items="partialResult.results">
                 <template #Result="{ item }">
-                  <Result :result="item" data-test="partial-result-item"/>
+                  <Result :result="item" data-test="partial-result-item" />
                 </template>
               </BaseGrid>
               <PartialQueryButton :query="partialResult.query">
@@ -282,7 +282,28 @@
               </PartialQueryButton>
             </template>
           </PartialResultsList>
+
+          <IdentifierResults v-if="$x.identifierResults.length">
+            <template #default="{ identifierResults }">
+              <BaseGrid :animation="resultsAnimation" :columns="4" :items="identifierResults">
+                <template #Result="{ item: result }">
+                  <article class="result" style="max-width: 300px">
+                    <BaseResultImage :result="result" class="x-picture--colored">
+                      <template #placeholder>
+                        <div style="padding-top: 100%; background-color: lightgray"></div>
+                      </template>
+                      <template #fallback>
+                        <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                      </template>
+                    </BaseResultImage>
+                    <h1 class="x-title3" data-test="identifier-results-item">{{ result.name }}</h1>
+                  </article>
+                </template>
+              </BaseGrid>
+            </template>
+          </IdentifierResults>
         </template>
+
 
         <template #scroll-to-top>
           <BaseScrollToTop :threshold-px="500" class="x-button--round" scroll-id="body-scroll">
@@ -296,10 +317,9 @@
 
 <script lang="ts">
   import { deepMerge } from '@empathyco/x-deep-merge';
-  import { Facet, Result, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
+  import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { State } from '../components/decorators/store.decorators';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';

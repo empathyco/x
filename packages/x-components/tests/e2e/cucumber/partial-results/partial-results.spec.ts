@@ -77,11 +77,8 @@ And('{string} contains the partial query', function (this: { searchedQuery: stri
 });
 
 When('first partial query button is clicked', function (this: { partialQueryButtonText: string }) {
-  cy.getByDataTest('partial-query-button')
-    .first()
-    .click()
-    .invoke('text')
-    .as('partialQueryButtonText');
+  cy.getByDataTest('partial-query').first().invoke('text').as('partialQueryButtonText');
+  cy.getByDataTest('partial-query-button').first().click();
 });
 
 Then(

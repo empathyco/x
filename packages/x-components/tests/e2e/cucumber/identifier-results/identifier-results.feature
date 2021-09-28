@@ -1,7 +1,12 @@
 Feature: Identifier results component
 
   Background:
-    Given   no special config for identifier results view
+    Given a related tags API with a known response
+    And   a query suggestions API with a known response
+    And   a next queries API with a known response
+    And   a recommendations API with a known response
+    And   a results API with no results
+    And   no special config for identifier results view
 
   Scenario Outline: 1. ID search with results is made
     Given an ID results API with a known response
