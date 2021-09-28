@@ -382,6 +382,14 @@ describe('testing X Plugin', () => {
       }
     });
 
+    beforeAll(() => {
+      jest.useFakeTimers();
+    });
+
+    afterAll(() => {
+      jest.useFakeTimers();
+    });
+
     beforeEach(() => {
       XPlugin.registerXModule({
         name: 'searchBox',
@@ -403,7 +411,8 @@ describe('testing X Plugin', () => {
     it('store-emitters emit a changed event when the observed store state changes', async () => {
       component.vm.$x.emit('UserIsTypingAQuery', 'New York strip steak');
 
-      await localVue.nextTick();
+      await localVue.nextTick(); // Needed so Vue has updated the reactive dependencies.
+      jest.runAllTimers(); // Needed for the debounce of the emitters.
 
       expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(1);
       expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith({
@@ -423,7 +432,32 @@ describe('testing X Plugin', () => {
         component.vm.$x.emit('UserIsTypingAQuery', 'Prime rib');
         component.vm.$x.emit('UserIsTypingAQuery', 'Tomahawk steak');
 
-        await localVue.nextTick();
+        await localVue.nextTick(); // Needed so Vue has updated the reactive dependencies.
+        jest.runAllTimers(); // Needed for the debounce of the emitters.
+
+        expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(1);
+        expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith({
+          eventPayload: 'Tomahawk steak',
+          metadata: {
+            moduleName: 'searchBox'
+          },
+          store
+        });
+      }
+    );
+
+    it(
+      "store-emitters don't emit multiple events if the events that are modifying the observed" +
+        ' value are emitted asynchronously but consecutively',
+      async () => {
+        component.vm.$x.emit('UserIsTypingAQuery', 'New York strip steak');
+        await localVue.nextTick(); // Needed so Vue has updated the reactive dependencies.
+        component.vm.$x.emit('UserIsTypingAQuery', 'Prime rib');
+        await localVue.nextTick(); // Needed so Vue has updated the reactive dependencies.
+        component.vm.$x.emit('UserIsTypingAQuery', 'Tomahawk steak');
+
+        await localVue.nextTick(); // Needed so Vue has updated the reactive dependencies.
+        jest.runAllTimers(); // Needed for the debounce of the emitters.
 
         expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(1);
         expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith({
@@ -440,7 +474,8 @@ describe('testing X Plugin', () => {
       component.vm.$x.emit('UserIsTypingAQuery', 'chinchulines');
       component.vm.$x.emit('UserIsTypingAQuery', '');
 
-      await localVue.nextTick();
+      await localVue.nextTick(); // Needed so Vue has updated the reactive dependencies.
+      jest.runAllTimers(); // Needed for the debounce of the emitters.
 
       expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(0);
     });
