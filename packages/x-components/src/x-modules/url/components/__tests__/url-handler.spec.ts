@@ -87,18 +87,6 @@ describe('testing UrlHandler component', () => {
     expect(urlHandlerProvidedCallback).toHaveBeenCalledTimes(1);
   });
 
-  it('emits the `DocumentHistoryChanged` when the url change', () => {
-    const { $x } = renderUrlHandler();
-
-    const urlHandlerProvidedCallback = jest.fn();
-
-    $x.on('DocumentHistoryChanged').subscribe(urlHandlerProvidedCallback);
-
-    window.dispatchEvent(new Event('popstate'));
-
-    expect(urlHandlerProvidedCallback).toHaveBeenCalledTimes(1);
-  });
-
   it(
     'emits the `ParamsLoadedFromUrl` event when the document is loaded and ' +
       '`UserOpenXProgrammatically` if there is query',

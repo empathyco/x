@@ -22,7 +22,8 @@ export const urlXStoreModule: UrlXStoreModule = {
       scroll: 0,
       relatedTag: []
     },
-    extraParams: {}
+    extraParams: {},
+    isLoadedFromUrl: false
   }),
   getters: {
     urlParams,
@@ -46,6 +47,9 @@ export const urlXStoreModule: UrlXStoreModule = {
     },
     setPage(state, page) {
       state.params.page = page;
+    },
+    setLoadedFromUrl(state, isLoadedFromUrl) {
+      state.isLoadedFromUrl = isLoadedFromUrl;
     }
   },
   actions: {

@@ -209,7 +209,7 @@ export const searchWiring = createWiring({
     resetFacets,
     setSearchExtraParams
   },
-  ParamsLoadedFromUrl: {
+  UrlChanged: {
     setParamsFromUrl
   }
 });

@@ -11,6 +11,7 @@ export interface UrlState {
   config: UrlConfig;
   params: Record<keyof Params, UrlParamValue>;
   extraParams: Dictionary<UrlParamValue>;
+  isLoadedFromUrl: boolean;
 }
 
 /**
@@ -96,6 +97,12 @@ export interface UrlMutations {
    * @param page - The new page of the url.
    */
   setPage(page: number): void;
+  /**
+   * Sets the flag to know if loaded from URL.
+   *
+   * @param isLoadedFromUrl - The flag state.
+   */
+  setLoadedFromUrl(isLoadedFromUrl: boolean): void;
 }
 
 /**
@@ -116,7 +123,7 @@ export interface UrlActions {
    *
    * @public
    */
-  updateStoreFromUrl(): void;
+  updateStoreFromUrl(url: string): void;
 }
 
 /**

@@ -7,15 +7,15 @@ import { Params, UrlParamKey, UrlParamValue, UrlXStoreModule } from '../types';
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
+ * @param url - The URL string to update the state.
  *
  * @internal
  */
-export const updateStoreFromUrl: UrlXStoreModule['actions']['updateStoreFromUrl'] = ({
-  getters: { urlMappedParamNames },
-  state: { extraParams, params },
-  commit
-}) => {
-  const urlSearchParams = new URLSearchParams(window.location.search);
+export const updateStoreFromUrl: UrlXStoreModule['actions']['updateStoreFromUrl'] = (
+  { getters: { urlMappedParamNames }, state: { extraParams, params }, commit },
+  url: string
+) => {
+  const urlSearchParams = new URL(url).searchParams;
   const mappedParams = {} as Record<keyof Params, UrlParamValue>;
   const mappedExtraParams = {} as Dictionary<UrlParamValue>;
   forEach({ ...params, ...extraParams }, (stateKey, stateValue) => {
