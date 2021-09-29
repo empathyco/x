@@ -3,7 +3,15 @@ import { Dictionary } from '../../../../utils';
 import { forEach } from '../../../../utils/object';
 import { UrlActionContext, UrlParamKey, UrlParamValue, UrlXStoreModule } from '../types';
 
+/**
+ * Class implementation for the {@link UpdateUrlAction.updateUrl} action.
+ *
+ * @public
+ */
 export class UpdateUrlAction implements ActionsClass<UrlXStoreModule> {
+  /** Parameters that will require to push the browser state instead of replace. */
+  protected pushableParams: UrlParamKey[] = ['scroll'];
+
   /**
    * Default implementation for the {@link UrlActions.updateUrl}.
    *
@@ -12,10 +20,23 @@ export class UpdateUrlAction implements ActionsClass<UrlXStoreModule> {
    *
    * @internal
    */
-  updateUrl({ getters: { urlParams, urlMappedParamNames } }: UrlActionContext): void {
+  updateUrl({
+    getters: {
+      urlParams: { isLoadedFromUrl, ...parameters },
+      urlMappedParamNames
+    }
+  }: UrlActionContext): void {
     const url = new URL(window.location.href);
+    const currentParams = url.searchParams;
+
     this.deleteUrlParameters(url, urlMappedParamNames);
-    this.setUrlParameters(url, urlParams, urlMappedParamNames);
+    this.setUrlParameters(url, parameters, urlMappedParamNames);
+
+    if (this.pushableParamsChanged(parameters, currentParams)) {
+      window.history.pushState({ ...window.history.state }, document.title, url.href);
+    } else {
+      window.history.replaceState({ ...window.history.state }, document.title, url.href);
+    }
   }
 
   /**
@@ -31,74 +52,49 @@ export class UpdateUrlAction implements ActionsClass<UrlXStoreModule> {
     });
   }
 
+  /**
+   * Set all the provided parameters to the url with the mapped key.
+   *
+   * @param url - The current URL.
+   * @param parameters - The list of parameters to be deleted.
+   * @param mappedParameters - The parameter keys to be set in the url.
+   * @internal
+   * **/
   protected setUrlParameters(
     url: URL,
     parameters: Dictionary<UrlParamValue>,
     mappedParameters: Dictionary<UrlParamKey | string>
   ): void {
     forEach(parameters, (paramKey, paramValue) => {
-      const newKey = mappedParameters[paramKey];
+      const urlParamKey = mappedParameters[paramKey];
 
       if (Array.isArray(paramValue)) {
         paramValue.forEach(value => {
-          url.searchParams.append(newKey, value.toString());
+          url.searchParams.append(urlParamKey, value.toString());
         });
       } else {
-        url.searchParams.set(newKey, paramValue.toString());
+        url.searchParams.set(urlParamKey, paramValue.toString());
       }
     });
   }
+
+  /**
+   * Checks if the pushable params have changed.
+   *
+   * @param urlParams - The new Url params.
+   * @param oldValues - The old Url params.
+   * @internal
+   * @returns True if some of the parameters has changed.
+   */
+  protected pushableParamsChanged(
+    urlParams: Dictionary<UrlParamValue>,
+    oldValues: URLSearchParams
+  ): boolean {
+    return this.pushableParams.some(
+      key => oldValues.has(key) && oldValues.get(key) !== urlParams[key]
+    );
+  }
 }
-
-// export const updateUrl: UrlXStoreModule['actions']['updateUrl'] = ({
-//   getters: { urlParams, urlMappedParamNames }
-// }) => {
-//   const url = new URL(window.location.href);
-//   const oldParams = url.searchParams;
-//
-//   forEach(urlMappedParamNames, (_, value) => {
-//     url.searchParams.delete(value);
-//   });
-//
-//   reduce(
-//     urlParams,
-//     (url, paramKey, paramValue) => {
-//       const newKey = urlMappedParamNames[paramKey];
-//
-//       if (Array.isArray(paramValue)) {
-//         paramValue.forEach(value => {
-//           url.searchParams.append(newKey, value.toString());
-//         });
-//       } else {
-//         url.searchParams.set(newKey, paramValue.toString());
-//       }
-//       return url;
-//     },
-//     url
-//   );
-//
-//   if (pushableParamsChanged(urlParams, oldParams)) {
-//     window.history.pushState({ ...window.history.state }, document.title, url.href);
-//   } else {
-//     window.history.replaceState({ ...window.history.state }, document.title, url.href);
-//   }
-// };
-
-// /**
-//  * Checks if the pushable params have changed.
-//  *
-//  * @param urlParams - The new Url params.
-//  * @param oldValues - The old Url params.
-//  *
-//  * @returns True if the param has changed.
-//  */
-// function pushableParamsChanged(
-//   urlParams: Dictionary<UrlParamValue>,
-//   oldValues: URLSearchParams
-// ): boolean {
-//   const pushableParams = ['scroll'];
-//   return pushableParams.some(key => oldValues.has(key) && oldValues.get(key) !== urlParams[key]);
-// }
 
 const updateUrlAction = new UpdateUrlAction();
 
