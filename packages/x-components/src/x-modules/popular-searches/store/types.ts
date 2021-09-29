@@ -75,11 +75,11 @@ export interface PopularSearchesActions {
    *
    * @returns The new set of suggestions.
    */
-  fetchSuggestions(request: SuggestionsRequest | null): Suggestion[];
+  fetchSuggestions(request: SuggestionsRequest): Suggestion[];
   /**
    * Fetches a new set of suggestions and stores them in the module state.
    */
-  fetchAndSaveSuggestions(request: SuggestionsRequest | null): void;
+  fetchAndSaveSuggestions(request: SuggestionsRequest): void;
 }
 
 /**

@@ -4,17 +4,18 @@ import { PopularSearchesXStoreModule } from '../types';
 /**
  * Default implementation for the {@link PopularSearchesActions.fetchSuggestions}.
  *
- * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
+ * @param _ - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- *
- * @returns A Promise of Suggestion[] that resolves when it fetches suggestions.
+ * @param request - The popular searches request to make.
+ * @returns A Promise of search response that resolves when it fetches the popular searches.
  *
  * @public
  */
-export const fetchSuggestions: PopularSearchesXStoreModule['actions']['fetchSuggestions'] = ({
-  getters
-}) => {
+export const fetchSuggestions: PopularSearchesXStoreModule['actions']['fetchSuggestions'] = (
+  _,
+  request
+) => {
   return XPlugin.adapter
-    .getSuggestions(getters.request, { requestId: 'popularSearches' })
+    .getSuggestions(request, { requestId: 'popularSearches' })
     .then(({ suggestions }) => suggestions);
 };
