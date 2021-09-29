@@ -111,7 +111,7 @@ describe('testing namespaced wires factory', () => {
   });
 
   describe('testing namespaced actions wires factory', () => {
-    const actionName = 'fetchAndSaveSuggestions';
+    const actionName = 'cancelFetchAndSaveSuggestions';
     const querySuggestionsWireDispatch = namespacedWireDispatch(moduleName);
     const actionFullPath = `x/${moduleName}/${actionName}`;
 

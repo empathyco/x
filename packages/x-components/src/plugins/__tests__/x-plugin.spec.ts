@@ -432,8 +432,7 @@ describe('testing X Plugin', () => {
         component.vm.$x.emit('UserIsTypingAQuery', 'Prime rib');
         component.vm.$x.emit('UserIsTypingAQuery', 'Tomahawk steak');
 
-        await localVue.nextTick(); // Needed so Vue has updated the reactive dependencies.
-        jest.runAllTimers(); // Needed for the debounce of the emitters.
+        await waitNextTick();
 
         expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(1);
         expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith({
@@ -456,8 +455,7 @@ describe('testing X Plugin', () => {
         await localVue.nextTick(); // Needed so Vue has updated the reactive dependencies.
         component.vm.$x.emit('UserIsTypingAQuery', 'Tomahawk steak');
 
-        await localVue.nextTick(); // Needed so Vue has updated the reactive dependencies.
-        jest.runAllTimers(); // Needed for the debounce of the emitters.
+        await waitNextTick();
 
         expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(1);
         expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith({
@@ -474,10 +472,21 @@ describe('testing X Plugin', () => {
       component.vm.$x.emit('UserIsTypingAQuery', 'chinchulines');
       component.vm.$x.emit('UserIsTypingAQuery', '');
 
-      await localVue.nextTick(); // Needed so Vue has updated the reactive dependencies.
-      jest.runAllTimers(); // Needed for the debounce of the emitters.
+      await waitNextTick();
 
       expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(0);
     });
   });
 });
+
+/**
+ * Waits for Vue's reactivity to update getters and watchers, and flushes the pending emitters.
+ *
+ * @remarks It needs `jest.useFakeTimers()` to have been called to wait for the emitters.
+ * @returns A promise that resolves after the reactivity has been updated and the pending emitters
+ * have been run.
+ */
+async function waitNextTick(): Promise<void> {
+  await localVue.nextTick();
+  jest.runAllTimers();
+}
