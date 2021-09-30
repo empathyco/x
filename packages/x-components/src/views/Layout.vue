@@ -273,9 +273,9 @@
             <template #default="{ partialResult }">
               <span data-test="partial-query">{{ partialResult.query }}</span>
               <BaseGrid :animation="resultsAnimation" :columns="4" :items="partialResult.results">
-                <template #Result="{ item: partialResult }">
+                <template #Result="{ item }">
                   <article class="result" style="max-width: 300px">
-                    <BaseResultImage :result="partialResult" class="x-picture--colored">
+                    <BaseResultImage :result="item" class="x-picture--colored">
                       <template #placeholder>
                         <div style="padding-top: 100%; background-color: lightgray"></div>
                       </template>
@@ -283,7 +283,7 @@
                         <div style="padding-top: 100%; background-color: lightsalmon"></div>
                       </template>
                     </BaseResultImage>
-                    <BaseResultLink :result="partialResult" class="x-result-link">
+                    <BaseResultLink :result="item" class="x-result-link">
                       <span class="x-result__title" data-test="partial-result-item">
                         {{ item.name }}
                       </span>
@@ -297,26 +297,27 @@
             </template>
           </PartialResultsList>
 
-          <IdentifierResults v-if="$x.identifierResults.length">
-            <template #default="{ identifierResults }">
-              <BaseGrid :animation="resultsAnimation" :columns="4" :items="identifierResults">
-                <template #Result="{ item: identifierResult }">
-                  <article class="result" style="max-width: 300px">
-                    <BaseResultImage :result="identifierResult" class="x-picture--colored">
-                      <template #placeholder>
-                        <div style="padding-top: 100%; background-color: lightgray"></div>
-                      </template>
-                      <template #fallback>
-                        <div style="padding-top: 100%; background-color: lightsalmon"></div>
-                      </template>
-                    </BaseResultImage>
-                    <h1 class="x-title3" data-test="identifier-results-item">
-                      {{ identifierResult.name }}
-                    </h1>
-                  </article>
-                </template>
-              </BaseGrid>
-            </template>
+          <h1 v-if="$x.identifierResults.length" class="x-title1">Identifier Results</h1>
+          <IdentifierResults v-if="$x.identifierResults.length" #layout="{ identifierResult }">
+            <BaseGrid :animation="resultsAnimation" :columns="4" :items="identifierResult.results">
+              <template #Result="{ item: identifierResult }">
+                <article class="result" style="max-width: 300px">
+                  <BaseResultImage :result="identifierResult" class="x-picture--colored">
+                    <template #placeholder>
+                      <div style="padding-top: 100%; background-color: lightgray"></div>
+                    </template>
+                    <template #fallback>
+                      <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                    </template>
+                  </BaseResultImage>
+                  <BaseResultLink :result="identifierResult" class="x-result-link">
+                    <span class="x-result__title" data-test="identifier-results-item">
+                      {{ item.name }}
+                    </span>
+                  </BaseResultLink>
+                </article>
+              </template>
+            </BaseGrid>
           </IdentifierResults>
         </template>
 
@@ -332,9 +333,10 @@
 
 <script lang="ts">
   import { deepMerge } from '@empathyco/x-deep-merge';
-  import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
+  import { Facet, Result, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import { State } from '../components/decorators/store.decorators';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
