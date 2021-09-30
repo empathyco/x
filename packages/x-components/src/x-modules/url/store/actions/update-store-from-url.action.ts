@@ -37,8 +37,6 @@ export const updateStoreFromUrl: UrlXStoreModule['actions']['updateStoreFromUrl'
   if (hasValues(mappedExtraParams)) {
     commit('setExtraParams', mappedExtraParams);
   }
-
-  commit('setLoadedFromUrl', false);
 };
 
 /**

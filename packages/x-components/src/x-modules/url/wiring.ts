@@ -39,7 +39,19 @@ export const setRelatedTagsWire = mapWire(
   (relatedTags: RelatedTag[]) => relatedTags.map(relatedTag => relatedTag.tag)
 );
 
-export const setLoadedFromUrl = wireCommit('setLoadedFromUrl', true);
+/**
+ * Enables loading params from the url.
+ *
+ * @public
+ */
+export const enableLoadFromUrl = wireCommit('setLoadedFromUrl', true);
+
+/**
+ * Disables loading params from the url.
+ *
+ * @public
+ */
+export const disableLoadFromUrl = wireCommit('setLoadedFromUrl', false);
 
 /**
  * Updates the URL.
@@ -89,7 +101,10 @@ export const urlWiring = createWiring({
   },
   DocumentLoaded: {
     updateState,
-    setLoadedFromUrl
+    enableLoadFromUrl
+  },
+  UrlChanged: {
+    disableLoadFromUrl
   },
   SelectedRelatedTagsChanged: {
     setRelatedTagsWire
