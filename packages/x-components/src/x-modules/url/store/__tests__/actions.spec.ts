@@ -125,7 +125,7 @@ describe('testing Url module actions', () => {
         extraParams: { warehouse: '', consent: false }
       });
 
-      await store.dispatch('updateStoreFromUrl');
+      await store.dispatch('updateStoreFromUrl', url);
 
       expect(store.state.params).toEqual<Partial<Params>>({
         page: 3,

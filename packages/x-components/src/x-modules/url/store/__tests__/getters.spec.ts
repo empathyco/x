@@ -28,7 +28,8 @@ describe('testing url module getters', () => {
       query: 'salmorejo',
       relatedTag: ['with eggs'],
       sort: 'default',
-      warehouse: 12345
+      warehouse: 12345,
+      isLoadedFromUrl: false
     });
   });
 
