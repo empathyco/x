@@ -14,8 +14,8 @@ export const setParamsFromUrl: SearchXStoreModule['actions']['setParamsFromUrl']
   { commit },
   { query, page }
 ) => {
-  const newQuery = query;
-  const newPage = page;
+  const newQuery = query as string;
+  const newPage = page as number;
 
   if (newQuery) {
     commit('setQuery', newQuery);

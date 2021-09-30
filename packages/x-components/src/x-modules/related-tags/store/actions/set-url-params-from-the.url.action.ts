@@ -33,11 +33,14 @@ const createRelatedTags = (relatedTags: string[], query: string): RelatedTag[] =
  */
 export const setUrlParamsFromTheUrl: RelatedTagsXStoreModule['actions']['setUrlParamsFromTheUrl'] =
   ({ commit }, { query, relatedTags }) => {
-    if (relatedTags) {
-      commit('setSelectedRelatedTags', createRelatedTags(relatedTags, query));
+  const newQuery = query as string;
+  const newRelatedTags = relatedTags as string[];
+
+  if (relatedTags) {
+      commit('setSelectedRelatedTags', createRelatedTags(newRelatedTags, newQuery));
     }
 
     if (query) {
-      commit('setQuery', query);
+      commit('setQuery', newQuery);
     }
   };

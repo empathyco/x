@@ -14,7 +14,9 @@ export const setFiltersFromUrl: FacetsXStoreModule['actions']['setFiltersFromUrl
   { commit },
   { filters }
 ) => {
-  if (filters) {
-    commit('setFilters', createRawFilters(filters as (string | number)[]));
+  const newFilters = filters as (string | number)[];
+
+  if (newFilters) {
+    commit('setFilters', createRawFilters(newFilters));
   }
 };

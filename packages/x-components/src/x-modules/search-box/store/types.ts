@@ -1,5 +1,6 @@
 import { XStoreModule } from '../../../store';
-import { UrlParams } from '../../url';
+import { Dictionary } from '../../../utils';
+import { UrlParams, UrlParamValue } from '../../url';
 
 /**
  * SearchBox store state.
@@ -46,7 +47,7 @@ export interface SearchBoxActions {
    *
    * @param urlParams - List of params from the url.
    */
-  setQueryFromUrl(urlParams: UrlParams): void;
+  setQueryFromUrl(urlParams: Dictionary<UrlParamValue>): void;
 }
 
 /**
