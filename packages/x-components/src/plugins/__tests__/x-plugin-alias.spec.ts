@@ -39,7 +39,6 @@ describe('testing plugin alias', () => {
   it('returns default values when no module is registered', () => {
     const defaultValues: XComponentAliasAPI = {
       query: {
-        facets: '',
         searchBox: '',
         nextQueries: '',
         querySuggestions: '',
