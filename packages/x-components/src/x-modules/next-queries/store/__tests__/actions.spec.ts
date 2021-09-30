@@ -33,7 +33,7 @@ describe('testing next queries module actions', () => {
     resetNextQueriesStateWith(store);
   });
 
-  describe(`fetchNextQueries`, () => {
+  describe('fetchNextQueries', () => {
     it('should return next queries', async () => {
       resetNextQueriesStateWith(store, {
         query: 'honeyboo'
@@ -49,7 +49,7 @@ describe('testing next queries module actions', () => {
     });
   });
 
-  describe(`fetchAndSaveNextQueries`, () => {
+  describe('fetchAndSaveNextQueries', () => {
     it('should request and store next queries in the state', async () => {
       resetNextQueriesStateWith(store, {
         query: 'honeyboo',
@@ -99,7 +99,7 @@ describe('testing next queries module actions', () => {
     });
   });
 
-  describe(`cancelFetchAndSaveNextQueries`, () => {
+  describe('cancelFetchAndSaveNextQueries', () => {
     it('should cancel the request and do not modify the stored next queries', async () => {
       resetNextQueriesStateWith(store, { query: 'honeyboo' });
       const previousNextQueries = store.state.nextQueries;
@@ -112,7 +112,7 @@ describe('testing next queries module actions', () => {
     });
   });
 
-  describe(`setQueryFromLastHistoryQuery`, () => {
+  describe('setQueryFromLastHistoryQuery', () => {
     it('should set the query with the first query of history query list', async () => {
       const historyQueries = createHistoryQueries('shoes', 'shirt');
       resetNextQueriesStateWith(store, {

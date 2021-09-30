@@ -32,7 +32,7 @@ describe('testing identifier results module actions', () => {
     resetIdentifierResultsStateWith(store);
   });
 
-  describe(`fetchIdentifierResults`, () => {
+  describe('fetchIdentifierResults', () => {
     it('should return identifier results', async () => {
       resetIdentifierResultsStateWith(store, { query: 'xc' });
 
@@ -52,7 +52,7 @@ describe('testing identifier results module actions', () => {
     });
   });
 
-  describe(`fetchAndSaveIdentifierResults`, () => {
+  describe('fetchAndSaveIdentifierResults', () => {
     it('should request and store identifier results in the state', async () => {
       resetIdentifierResultsStateWith(store, { query: 'xc' });
 
@@ -100,7 +100,7 @@ describe('testing identifier results module actions', () => {
     });
   });
 
-  describe(`cancelFetchAndSaveIdentifierResults`, () => {
+  describe('cancelFetchAndSaveIdentifierResults', () => {
     it('should cancel the request and do not modify the stored identifier results', async () => {
       resetIdentifierResultsStateWith(store, { query: 'xc' });
       const previousIdentifierResults = store.state.identifierResults;
@@ -113,7 +113,7 @@ describe('testing identifier results module actions', () => {
     });
   });
 
-  describe(`saveQuery`, () => {
+  describe('saveQuery', () => {
     const identifierDetectionRegexp = '^[0-9]{2,}$';
     it('should store the query in the state if it matches the regex', async () => {
       resetIdentifierResultsStateWith(store, { config: { identifierDetectionRegexp } });

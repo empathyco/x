@@ -51,7 +51,7 @@ describe('testing search module actions', () => {
     resetSearchStateWith(store);
   });
 
-  describe(`fetchSearchResponse`, () => {
+  describe('fetchSearchResponse', () => {
     it('should return search response', async () => {
       resetSearchStateWith(store, {
         query: 'lego'
@@ -67,7 +67,7 @@ describe('testing search module actions', () => {
     });
   });
 
-  describe(`fetchAndSaveSearchResponse`, () => {
+  describe('fetchAndSaveSearchResponse', () => {
     // eslint-disable-next-line max-len
     it('should request and store results, facets, banners, promoteds and redirections in the state', async () => {
       resetSearchStateWith(store, {
@@ -203,7 +203,7 @@ describe('testing search module actions', () => {
     });
   });
 
-  describe(`cancelFetchAndSaveSearchResponse`, () => {
+  describe('cancelFetchAndSaveSearchResponse', () => {
     it('should cancel the request and do not modify the stored results', async () => {
       resetSearchStateWith(store, { query: 'lego' });
       const {
@@ -224,7 +224,7 @@ describe('testing search module actions', () => {
     });
   });
 
-  describe(`increasePageAppendingResults`, () => {
+  describe('increasePageAppendingResults', () => {
     it('should increases by one the current page of the search module', async () => {
       resetSearchStateWith(store, { totalResults: 100 });
 
@@ -293,7 +293,7 @@ describe('testing search module actions', () => {
     });
   });
 
-  describe(`setParamsFromUrl`, () => {
+  describe('setParamsFromUrl', () => {
     it('should set the params of the search module', async () => {
       resetSearchStateWith(store, { query: 'funko', page: 1 });
 

@@ -19,7 +19,7 @@ describe('testing search box module actions', () => {
     resetSearchBoxStateWith(store);
   });
 
-  describe(`setQueryFromUrl`, () => {
+  describe('setQueryFromUrl', () => {
     it('should set the query of the search box module', async () => {
       resetSearchBoxStateWith(store, { query: 'funko' });
 

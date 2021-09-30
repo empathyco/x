@@ -1,10 +1,10 @@
 import { SuggestionsRequest } from '@empathyco/x-adapter';
 import { Suggestion } from '@empathyco/x-types';
 // eslint-disable-next-line max-len
-import { createFetchAndSaveAction } from '../../../../store/utils/fetch-and-save-action.utils';
+import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
 import { QuerySuggestionsActionContext } from '../types';
 
-const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
+const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   QuerySuggestionsActionContext,
   SuggestionsRequest | null,
   Suggestion[]

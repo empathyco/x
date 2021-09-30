@@ -33,7 +33,7 @@ describe('testing related tags module actions', () => {
     resetRelatedTagsStateWith(store);
   });
 
-  describe(`fetchRelatedTags`, () => {
+  describe('fetchRelatedTags', () => {
     it('should return related tags', async () => {
       resetRelatedTagsStateWith(store, {
         query: 'lego'
@@ -49,7 +49,7 @@ describe('testing related tags module actions', () => {
     });
   });
 
-  describe(`fetchAndSaveRelatedTags`, () => {
+  describe('fetchAndSaveRelatedTags', () => {
     it('should request and store related tags in the state', async () => {
       resetRelatedTagsStateWith(store, {
         query: 'lego'
@@ -94,7 +94,7 @@ describe('testing related tags module actions', () => {
     });
   });
 
-  describe(`cancelFetchAndSaveRelatedTags`, () => {
+  describe('cancelFetchAndSaveRelatedTags', () => {
     it('should cancel the request and do not modify the stored related tags', async () => {
       resetRelatedTagsStateWith(store, { query: 'lego' });
       const previousRelatedTags = store.state.relatedTags;
@@ -107,7 +107,7 @@ describe('testing related tags module actions', () => {
     });
   });
 
-  describe(`toggleRelatedTag`, () => {
+  describe('toggleRelatedTag', () => {
     const relatedTagToSelect = mockedRelatedTags[0];
 
     it(
@@ -139,7 +139,7 @@ describe('testing related tags module actions', () => {
     );
   });
 
-  describe(`setUrlParamsFromTheUrl`, () => {
+  describe('setUrlParamsFromTheUrl', () => {
     it('should add the query and related tags to the store', () => {
       store.dispatch('setUrlParamsFromTheUrl', {
         query: 'funko',

@@ -12,7 +12,7 @@ describe('testing Url module actions', () => {
     window.history.replaceState({}, document.title, window.location.hostname);
   });
 
-  describe(`updateUrl`, () => {
+  describe('updateUrl', () => {
     it('should add the correct params to the url', async () => {
       resetUrlStateWith(store, {
         config: {
@@ -106,7 +106,7 @@ describe('testing Url module actions', () => {
     });
   });
 
-  describe(`updateStoreFromUrl`, () => {
+  describe('updateStoreFromUrl', () => {
     it('should update the state with the correct url parameters', async () => {
       const url = new URL(
         window.location.href +

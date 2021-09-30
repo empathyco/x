@@ -27,14 +27,14 @@ describe('testing popular searches module actions', () => {
   > = new Store(popularSearchesXStoreModule as any);
   installNewXPlugin({ store, adapter }, localVue);
 
-  describe(`fetchSuggestions`, () => {
+  describe('fetchSuggestions', () => {
     it('should return suggestions', async () => {
       const suggestions = await store.dispatch('fetchSuggestions', store.getters.request);
       expect(suggestions).toEqual(mockedSuggestions);
     });
   });
 
-  describe(`fetchAndSaveSuggestions`, () => {
+  describe('fetchAndSaveSuggestions', () => {
     it('should request and store suggestions in the state', async () => {
       const actionPromise = store.dispatch('fetchAndSaveSuggestions', store.getters.request);
       expect(store.state.status).toEqual('loading');
@@ -68,7 +68,7 @@ describe('testing popular searches module actions', () => {
     });
   });
 
-  describe(`cancelFetchAndSaveSuggestions`, () => {
+  describe('cancelFetchAndSaveSuggestions', () => {
     it('should cancel the request and do not modify stored popular searches', async () => {
       const previousPopularSearches = store.state.popularSearches;
       await Promise.all([

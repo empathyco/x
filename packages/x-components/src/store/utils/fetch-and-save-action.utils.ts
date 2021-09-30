@@ -10,7 +10,7 @@ import { StatusMutations, StatusState } from './status-store.utils';
  * @public
  * @returns An action to fetch and save some data, and an action to cancel the last request.
  */
-export function createFetchAndSaveAction<
+export function createFetchAndSaveActions<
   // Using `object` type to ensure no actions/getters can be used.
   // eslint-disable-next-line @typescript-eslint/ban-types
   Context extends XActionContext<StatusState, object, StatusMutations, object>,
@@ -21,10 +21,7 @@ export function createFetchAndSaveAction<
   onSuccess,
   onError,
   onCancel
-}: CreateFetchAndSaveActionsOptions<Context, Request, Response>): FetchAndSaveActions<
-  Context,
-  Request
-> {
+}: FetchAndSaveHooks<Context, Request, Response>): FetchAndSaveActions<Context, Request> {
   let cancelPreviousRequest: undefined | (() => void);
 
   /**
@@ -95,11 +92,11 @@ export function createFetchAndSaveAction<
 }
 
 /**
- * Options to use with the {@link createFetchAndSaveAction} factory.
+ * Options to use with the {@link createFetchAndSaveActions} factory.
  *
  * @public
  */
-export interface CreateFetchAndSaveActionsOptions<
+export interface FetchAndSaveHooks<
   // Using `object` type to ensure no actions/getters can be used.
   // eslint-disable-next-line @typescript-eslint/ban-types
   Context extends XActionContext<StatusState, object, StatusMutations, object>,
@@ -111,20 +108,22 @@ export interface CreateFetchAndSaveActionsOptions<
    *
    * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the
    * actions, provided by Vuex.
+   * @param request - The request object used for fetching.
+   * @returns A Promise resolved with the response of the fetch request.
    */
   fetch(context: Context, request: Request): Promise<Response>;
   /**
-   * Asynchronous callback executed when the {@link CreateFetchAndSaveActionsOptions.fetch} is
+   * Asynchronous callback executed when the {@link FetchAndSaveHooks.fetch} is
    * performed successfully.
    *
    * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the
    * actions, provided by Vuex.
-   * @param response - The data returned by {@link CreateFetchAndSaveActionsOptions.fetch}.
+   * @param response - The data returned by {@link FetchAndSaveHooks.fetch}.
    */
   onSuccess(context: Context, response: Response): void;
   /**
-   * Asynchronous callback executed when either the {@link CreateFetchAndSaveActionsOptions.fetch}
-   * or {@link CreateFetchAndSaveActionsOptions.onSuccess} methods fail.
+   * Asynchronous callback executed when either the {@link FetchAndSaveHooks.fetch}
+   * or {@link FetchAndSaveHooks.onSuccess} methods fail.
    *
    * @param error - The error that triggered this callback.
    */
@@ -140,7 +139,7 @@ export interface CreateFetchAndSaveActionsOptions<
 }
 
 /**
- * Actions returned from the {@link createFetchAndSaveAction}.
+ * Actions returned from the {@link createFetchAndSaveActions}.
  *
  * @public
  */

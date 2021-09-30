@@ -33,7 +33,7 @@ describe('testing query suggestions module actions', () => {
     resetQuerySuggestionsStateWith(store, { query: '' });
   });
 
-  describe(`fetchSuggestions`, () => {
+  describe('fetchSuggestions', () => {
     it('should return suggestions if there is request', async () => {
       resetQuerySuggestionsStateWith(store, { query: 'luichito' });
 
@@ -47,7 +47,7 @@ describe('testing query suggestions module actions', () => {
     });
   });
 
-  describe(`fetchAndSaveSuggestions`, () => {
+  describe('fetchAndSaveSuggestions', () => {
     it('should request and store suggestions in the state', async () => {
       resetQuerySuggestionsStateWith(store, { query: 'luichito' });
 
@@ -90,7 +90,7 @@ describe('testing query suggestions module actions', () => {
     });
   });
 
-  describe(`cancelFetchAndSaveSuggestions`, () => {
+  describe('cancelFetchAndSaveSuggestions', () => {
     it('should cancel the request and do not modify the stored suggestions', async () => {
       resetQuerySuggestionsStateWith(store, { query: 'luichito' });
       const previousSuggestions = store.state.suggestions;

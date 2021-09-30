@@ -2,10 +2,10 @@ import { Result } from '@empathyco/x-types';
 import { SearchByIdRequest } from '@empathyco/x-adapter';
 
 // eslint-disable-next-line max-len
-import { createFetchAndSaveAction } from '../../../../store/utils/fetch-and-save-action.utils';
+import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
 import { IdentifierResultsActionsContext } from '../types';
 
-const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
+const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   IdentifierResultsActionsContext,
   SearchByIdRequest | null,
   Result[]

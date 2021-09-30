@@ -111,7 +111,7 @@ describe('testing namespaced wires factory', () => {
   });
 
   describe('testing namespaced actions wires factory', () => {
-    const actionName = 'cancelFetchAndSaveSuggestions';
+    const actionName = 'fetchAndSaveSuggestions';
     const querySuggestionsWireDispatch = namespacedWireDispatch(moduleName);
     const actionFullPath = `x/${moduleName}/${actionName}`;
 
@@ -192,12 +192,16 @@ describe('testing namespaced wires factory', () => {
       namespacedWireDispatchWithoutPayload.name +
         ' allows creating wires that dispatch an action without payload',
       () => {
-        const wire = namespacedWireDispatchWithoutPayload(moduleName)(actionName);
+        const wire = namespacedWireDispatchWithoutPayload(moduleName)(
+          'cancelFetchAndSaveSuggestions'
+        );
 
         wire(subjectHandler.subject, storeMock, busOnMock);
         subjectHandler.emit('celery');
 
-        expect(storeMock.dispatch).toHaveBeenCalledWith(actionFullPath);
+        expect(storeMock.dispatch).toHaveBeenCalledWith(
+          `x/${moduleName}/cancelFetchAndSaveSuggestions`
+        );
       }
     );
   });

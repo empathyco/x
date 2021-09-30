@@ -1,8 +1,8 @@
 import { SearchResponse, SearchRequest } from '@empathyco/x-adapter';
-import { createFetchAndSaveAction } from '../../../../store/utils/fetch-and-save-action.utils';
+import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
 import { SearchActionContext } from '../types';
 
-const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
+const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   SearchActionContext,
   SearchRequest | null,
   SearchResponse

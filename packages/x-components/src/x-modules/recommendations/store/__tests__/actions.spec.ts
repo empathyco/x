@@ -27,14 +27,14 @@ describe('testing recommendations module actions', () => {
   > = new Store(recommendationsXStoreModule as any);
   installNewXPlugin({ store, adapter }, localVue);
 
-  describe(`fetchRecommendations`, () => {
+  describe('fetchRecommendations', () => {
     it('should return recommendations', async () => {
       const suggestions = await store.dispatch('fetchRecommendations', store.getters.request);
       expect(suggestions).toEqual(mockedResults);
     });
   });
 
-  describe(`fetchAndSaveRecommendations`, () => {
+  describe('fetchAndSaveRecommendations', () => {
     it('should request and store recommendations in the state', async () => {
       const actionPromise = store.dispatch('fetchAndSaveRecommendations', store.getters.request);
       expect(store.state.status).toEqual('loading');
@@ -68,7 +68,7 @@ describe('testing recommendations module actions', () => {
     });
   });
 
-  describe(`cancelFetchAndSaveRecommendations`, () => {
+  describe('cancelFetchAndSaveRecommendations', () => {
     it('should cancel the request and do not modify the stored recommendations', async () => {
       const previousRecommendations = store.state.recommendations;
       await Promise.all([
