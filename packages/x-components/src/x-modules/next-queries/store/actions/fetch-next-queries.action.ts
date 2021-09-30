@@ -4,7 +4,7 @@ import { NextQueriesXStoreModule } from '../types';
 /**
  * Default implementation for the {@link NextQueriesActions.fetchNextQueries}.
  *
- * @param _ - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
+ * @param _context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
  * @param request - The next queries request to make.
  * @returns A Promise of NextQuery[] that resolves when it fetches next queries or `null`
@@ -13,7 +13,7 @@ import { NextQueriesXStoreModule } from '../types';
  * @public
  */
 export const fetchNextQueries: NextQueriesXStoreModule['actions']['fetchNextQueries'] = (
-  _,
+  _context,
   request
 ) => {
   return request
