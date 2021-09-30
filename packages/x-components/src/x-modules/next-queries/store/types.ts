@@ -84,11 +84,11 @@ export interface NextQueriesActions {
    *
    * @returns An array of next queries, or null if the request was not made.
    */
-  fetchNextQueries(): NextQuery[] | null;
+  fetchNextQueries(request: NextQueriesRequest | null): NextQuery[] | null;
   /**
    * Requests a new set of next queries and stores them in the module.
    */
-  fetchAndSaveNextQueries(): void;
+  fetchAndSaveNextQueries(request: NextQueriesRequest | null): void;
   /**
    * Sets the query of the module based on the last history query.
    */
