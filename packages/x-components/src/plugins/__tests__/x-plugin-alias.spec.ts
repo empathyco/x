@@ -2,7 +2,6 @@ import { shallowMount, Wrapper } from '@vue/test-utils';
 import { ComponentOptions, default as Vue } from 'vue';
 import { Store } from 'vuex';
 import { installNewXPlugin } from '../../__tests__/utils';
-import { facetsXModule } from '../../x-modules/facets/x-module';
 import { identifierResultsXModule } from '../../x-modules/identifier-results/x-module';
 import { nextQueriesXModule } from '../../x-modules/next-queries/x-module';
 import { popularSearchesXModule } from '../../x-modules/popular-searches/x-module';
@@ -90,7 +89,7 @@ describe('testing plugin alias', () => {
       nextQueries: 'is',
       querySuggestions: 'working',
       relatedTags: 'properly',
-      search: 'nice',
+      search: 'nice'
     });
   });
 
