@@ -1,5 +1,6 @@
+import { Dictionary } from '../../../../utils';
 import { forEach, reduce } from '../../../../utils/object';
-import { UrlParamKey, UrlParams, UrlXStoreModule } from '../types';
+import { UrlParamKey, UrlParamValue, UrlXStoreModule } from '../types';
 
 /**
  * Default implementation for the {@link UrlActions.updateUrl}.
@@ -51,7 +52,10 @@ export const updateUrl: UrlXStoreModule['actions']['updateUrl'] = ({
  *
  * @returns True if the param has changed.
  */
-function pushableParamsChanged(urlParams: UrlParams, oldValues: URLSearchParams): boolean {
+function pushableParamsChanged(
+  urlParams: Dictionary<UrlParamValue>,
+  oldValues: URLSearchParams
+): boolean {
   const pushableParams = ['scroll'];
   return pushableParams.some(
     key => oldValues.has(key) && oldValues.get(key) !== urlParams[key as UrlParamKey]

@@ -34,7 +34,7 @@ export interface UrlParams {
  */
 export interface UrlGetters {
   /** The current params in the url. */
-  urlParams: UrlParams;
+  urlParams: Dictionary<UrlParamValue>;
 
   /** All the parameter names with their corresponding key. */
   urlMappedParamNames: Dictionary<UrlParamKey | string>;

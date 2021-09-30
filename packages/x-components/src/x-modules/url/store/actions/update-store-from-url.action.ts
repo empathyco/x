@@ -23,7 +23,7 @@ export const updateStoreFromUrl: UrlXStoreModule['actions']['updateStoreFromUrl'
     if (urlSearchParams.has(urlParam)) {
       const param = getParamByType(urlSearchParams, stateValue, urlParam);
 
-      if (urlParam in params) {
+      if (stateKey in params) {
         mappedParams[stateKey] = param;
       } else {
         mappedExtraParams[stateKey] = param;

@@ -24,7 +24,7 @@ describe('testing url module getters', () => {
   });
 
   it('re-maps values using the config', () => {
-    expect(store.getters.urlParams).toEqual<UrlGetters['urlParams']>({
+    expect(store.getters.urlParams).toEqual<Partial<UrlGetters['urlParams']>>({
       query: 'salmorejo',
       relatedTags: ['with eggs'],
       sort: 'default',
