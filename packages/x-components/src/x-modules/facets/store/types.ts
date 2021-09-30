@@ -1,7 +1,6 @@
 import { Facet, Filter } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
-import { Dictionary } from '../../../utils';
-import { UrlParams, UrlParamValue } from '../../url';
+import { UrlParams } from '../../url';
 
 /**
  * Facets store state.

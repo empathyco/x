@@ -35,4 +35,4 @@ export function createRawFilters(filterIds: Array<Filter['id']>): Filter[] {
       selected: true
     };
   });
-};
+}

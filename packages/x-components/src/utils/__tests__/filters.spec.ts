@@ -92,23 +92,23 @@ describe(`testing ${areFiltersDifferent.name}`, () => {
 
 describe(`testing ${createRawFilters.name}`, () => {
   it('returns a list of raw filters based on a list of filter ids', () => {
-      const filterIds = [
-        '{!tag=hierarchical_category}hierarchical_category:"catálogos"',
-        241008287272164729465721528295504357972
-      ];
-      const rawFilters = createRawFilters(filterIds);
+    const filterIds = [
+      '{!tag=hierarchical_category}hierarchical_category:"catálogos"',
+      241008287272164729465721528295504357972
+    ];
+    const rawFilters = createRawFilters(filterIds);
 
-      expect(rawFilters).toEqual<Filter[]>([
-        {
-          id: '{!tag=hierarchical_category}hierarchical_category:"catálogos"',
-          modelName: 'RawFilter',
-          selected: true
-        },
-        {
-          id: 241008287272164729465721528295504357972,
-          modelName: 'RawFilter',
-          selected: true
-        }
-      ])
+    expect(rawFilters).toEqual<Filter[]>([
+      {
+        id: '{!tag=hierarchical_category}hierarchical_category:"catálogos"',
+        modelName: 'RawFilter',
+        selected: true
+      },
+      {
+        id: 241008287272164729465721528295504357972,
+        modelName: 'RawFilter',
+        selected: true
+      }
+    ]);
   });
 });

@@ -12,10 +12,10 @@ import { SearchXStoreModule } from '../types';
  */
 export const setParamsFromUrl: SearchXStoreModule['actions']['setParamsFromUrl'] = (
   { commit },
-  { query, page, filters }
+  { query, page }
 ) => {
-  const newQuery = query as string;
-  const newPage = page as number;
+  const newQuery = query;
+  const newPage = page;
 
   if (newQuery) {
     commit('setQuery', newQuery);

@@ -5,7 +5,6 @@ import { RootXStoreState } from '../../../store/index';
 import { arrayToObject, groupItemsBy, isArrayEmpty } from '../../../utils/index';
 import { FilterEntityFactory } from '../entities/filter-entity.factory';
 import { FilterEntity } from '../entities/types';
-import { selectedFilters } from '../store';
 import { FacetGroupEntry, FacetsGetters } from '../store/types';
 import { FacetsGroup, FacetsService } from './types';
 

@@ -14,6 +14,6 @@ export const setQueryFromUrl: SearchBoxXStoreModule['actions']['setQueryFromUrl'
   { query }
 ) => {
   if (query) {
-    commit('setQuery', query as string);
+    commit('setQuery', query);
   }
 };

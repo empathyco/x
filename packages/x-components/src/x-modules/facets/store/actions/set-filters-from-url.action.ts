@@ -1,5 +1,4 @@
 import { createRawFilters } from '../../../../utils';
-import { UrlParams } from '../../../url/store/types';
 import { FacetsXStoreModule } from '../types';
 
 /**
@@ -13,12 +12,9 @@ import { FacetsXStoreModule } from '../types';
  */
 export const setFiltersFromUrl: FacetsXStoreModule['actions']['setFiltersFromUrl'] = (
   { commit },
-  { filters }: UrlParams
+  { filters }
 ) => {
-  const newFilters = filters as string[];
-
-  if (newFilters) {
-    const filters = createRawFilters(newFilters);
-    commit('setFilters', filters);
+  if (filters) {
+    commit('setFilters', createRawFilters(filters));
   }
 };

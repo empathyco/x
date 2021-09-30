@@ -9,7 +9,7 @@ import { UrlConfig } from '../config.types';
  */
 export interface UrlState {
   config: UrlConfig;
-  params: Record<keyof UrlParams, UrlParamValue>;
+  params: UrlParams;
   extraParams: Dictionary<UrlParamValue>;
 }
 
@@ -21,7 +21,7 @@ export interface UrlState {
 export interface UrlParams {
   query: string;
   page: number;
-  filters: string[];
+  filters: Array<string | number>;
   sort: string;
   relatedTags: string[];
   scroll: number;

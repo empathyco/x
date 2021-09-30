@@ -1,5 +1,5 @@
 import { Filter, RelatedTag } from '@empathyco/x-types';
-import { mapWire, namespacedWireCommitWithoutPayload } from '../../wiring';
+import { mapWire } from '../../wiring';
 import {
   namespacedWireCommit,
   namespacedWireDispatchWithoutPayload
@@ -12,13 +12,6 @@ import { createWiring } from '../../wiring/wiring.utils';
  * @internal
  */
 const wireCommit = namespacedWireCommit('url');
-
-/**
- * WireCommit for {@link UrlXModule}.
- *
- * @internal
- */
-const wireCommitWithoutPayload = namespacedWireCommitWithoutPayload('url');
 
 /**
  * WireDispatch without payload for {@link UrlXModule}.

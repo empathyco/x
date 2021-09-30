@@ -1,6 +1,4 @@
 import { RelatedTag } from '@empathyco/x-types';
-import { Dictionary } from '../../../../utils';
-import { UrlParamValue } from '../../../url';
 import { RelatedTagsXStoreModule } from '../types';
 
 /**
@@ -34,15 +32,12 @@ const createRelatedTags = (relatedTags: string[], query: string): RelatedTag[] =
  * @public
  */
 export const setUrlParamsFromTheUrl: RelatedTagsXStoreModule['actions']['setUrlParamsFromTheUrl'] =
-  ({ commit }, { query, relatedTags }: Dictionary<UrlParamValue>) => {
-    const newRelatedTags = relatedTags as string[];
-    const newQuery = query as string;
-
-    if (newRelatedTags) {
-      commit('setSelectedRelatedTags', createRelatedTags(newRelatedTags, newQuery));
+  ({ commit }, { query, relatedTags }) => {
+    if (relatedTags) {
+      commit('setSelectedRelatedTags', createRelatedTags(relatedTags, query));
     }
 
-    if (newQuery) {
-      commit('setQuery', newQuery);
+    if (query) {
+      commit('setQuery', query);
     }
   };
