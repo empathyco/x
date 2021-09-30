@@ -78,14 +78,12 @@ describe('testing plugin alias', () => {
     XPlugin.registerXModule(relatedTagsXModule);
     XPlugin.registerXModule(searchBoxXModule);
     XPlugin.registerXModule(searchXModule);
-    XPlugin.registerXModule(facetsXModule);
 
     componentInstance.vm.$store.commit('x/searchBox/setQuery', 'this');
     componentInstance.vm.$store.commit('x/nextQueries/setQuery', 'is');
     componentInstance.vm.$store.commit('x/querySuggestions/setQuery', 'working');
     componentInstance.vm.$store.commit('x/relatedTags/setQuery', 'properly');
     componentInstance.vm.$store.commit('x/search/setQuery', 'nice');
-    componentInstance.vm.$store.commit('x/facets/setQuery', '!');
 
     expect(componentInstance.vm.$x.query).toEqual({
       searchBox: 'this',
@@ -93,7 +91,6 @@ describe('testing plugin alias', () => {
       querySuggestions: 'working',
       relatedTags: 'properly',
       search: 'nice',
-      facets: '!'
     });
   });
 

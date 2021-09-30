@@ -77,7 +77,7 @@ export interface UrlMutations {
    *
    * @param params - The new params of the Url.
    */
-  setParams(params: Record<keyof UrlParams, UrlParamValue>): void;
+  setParams(params: UrlParams): void;
   /**
    * Sets the new query.
    *

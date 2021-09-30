@@ -16,23 +16,23 @@ export const updateStoreFromUrl: UrlXStoreModule['actions']['updateStoreFromUrl'
   commit
 }) => {
   const urlSearchParams = new URLSearchParams(window.location.search);
-  const mappedParams = {} as Record<keyof UrlParams, UrlParamValue>;
+  const mappedParams = {} as Record<UrlParamKey, UrlParamValue>;
   const mappedExtraParams = {} as Dictionary<UrlParamValue>;
   forEach({ ...params, ...extraParams }, (stateKey, stateValue) => {
     const urlParam = urlMappedParamNames[stateKey];
     if (urlSearchParams.has(urlParam)) {
       const param = getParamByType(urlSearchParams, stateValue, urlParam);
 
-      if (urlParam in extraParams) {
-        mappedExtraParams[stateKey] = param;
-      } else {
+      if (urlParam in params) {
         mappedParams[stateKey] = param;
+      } else {
+        mappedExtraParams[stateKey] = param;
       }
     }
   });
 
   if (hasValues(mappedParams)) {
-    commit('setParams', mappedParams);
+    commit('setParams', mappedParams as UrlParams);
   }
   if (hasValues(mappedExtraParams)) {
     commit('setExtraParams', mappedExtraParams);
