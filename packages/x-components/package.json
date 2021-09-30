@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-components",
-  "version": "3.0.0-alpha.25",
+  "version": "3.0.0-alpha.26",
   "description": "Empathy X Components",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -55,7 +55,8 @@
     "test:e2e:ci": "vue-cli-service --skip-plugins eslint test:e2e --headless --browser chrome",
     "test": "npm run test:unit && npm run test:e2e:ci",
     "cypress:open": "cypress open",
-    "lint": "vue-cli-service lint build src tests",
+    "lint": "vue-cli-service lint build src tests --no-fix",
+    "lint:fix": "vue-cli-service lint build src tests",
     "commit": "git-cz",
     "release": "standard-version --no-verify",
     "release:alpha": "standard-version --no-verify --prerelease alpha"
