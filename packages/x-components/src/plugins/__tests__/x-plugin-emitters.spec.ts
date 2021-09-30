@@ -48,6 +48,13 @@ let localVue: VueConstructor<Vue>;
 let store: Store<any>; // Any to handle creation of new properties
 
 describe('testing X Plugin emitters', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
   beforeEach(() => {
     jest.clearAllMocks();
     plugin = new XPlugin(new BaseXBus());
@@ -130,13 +137,13 @@ describe('testing X Plugin emitters', () => {
     // eslint-disable-next-line max-len
     it('should not emit event after not meeting the condition defined in overwritten filter', async () => {
       store.commit(SET_QUERY_MUTATION, 'doraemon');
-      await localVue.nextTick();
+      await waitNextTick();
       expect(usedClearedWireInstance).toHaveBeenCalledTimes(0);
     });
 
     it('should emit event after meeting the condition defined in overwritten filter', async () => {
       store.commit(SET_QUERY_MUTATION, expectedQuery);
-      await localVue.nextTick();
+      await waitNextTick();
       expect(usedClearedWireInstance).toHaveBeenCalledTimes(1);
     });
   });
@@ -245,18 +252,30 @@ describe('testing X Plugin emitters', () => {
       const metadata: WireMetadata = { moduleName: 'searchBox' };
 
       store.commit('x/searchBox/setQuery', 'wheat');
-      await localVue.nextTick();
+      await waitNextTick();
       expect(testWire).toHaveBeenCalledTimes(1);
       expect(testWire).toHaveBeenCalledWith({ eventPayload: 'wheat', metadata, store });
 
       store.commit('x/searchBox/setQuery', 'whe');
-      await localVue.nextTick();
+      await waitNextTick();
       expect(testWire).toHaveBeenCalledTimes(1);
 
       store.commit('x/searchBox/setQuery', 'wheat beer');
-      await localVue.nextTick();
+      await waitNextTick();
       expect(testWire).toHaveBeenCalledTimes(2);
       expect(testWire).toHaveBeenCalledWith({ eventPayload: 'wheat beer', metadata, store });
     });
   });
 });
+
+/**
+ * Waits for Vue's reactivity to update getters and watchers, and flushes the pending emitters.
+ *
+ * @remarks It needs `jest.useFakeTimers()` to have been called to wait for the emitters.
+ * @returns A promise that resolves after the reactivity has been updated and the pending emitters
+ * have been run.
+ */
+async function waitNextTick(): Promise<void> {
+  await localVue.nextTick();
+  jest.runAllTimers();
+}

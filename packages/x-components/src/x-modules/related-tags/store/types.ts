@@ -83,11 +83,11 @@ export interface RelatedTagsActions {
    *
    * @returns The new set of related tags.
    */
-  fetchRelatedTags(): RelatedTag[];
+  fetchRelatedTags(request: RelatedTagsRequest | null): RelatedTag[];
   /**
    * Fetches a new set of related tags and stores them in the module state.
    */
-  fetchAndSaveRelatedTags(): void;
+  fetchAndSaveRelatedTags(request: RelatedTagsRequest | null): void;
   /**
    * Add or remove the clicked related tag from selected related tags.
    */
