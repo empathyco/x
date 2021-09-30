@@ -9,7 +9,7 @@ import { UrlConfig } from '../config.types';
  */
 export interface UrlState {
   config: UrlConfig;
-  params: Record<keyof Params, UrlParamValue>;
+  params: Record<keyof UrlParams, UrlParamValue>;
   extraParams: Dictionary<UrlParamValue>;
 }
 
@@ -18,7 +18,7 @@ export interface UrlState {
  *
  * @public
  */
-export interface Params {
+export interface UrlParams {
   query: string;
   page: number;
   filters: string[];
@@ -34,7 +34,7 @@ export interface Params {
  */
 export interface UrlGetters {
   /** The current params in the url. */
-  urlParams: Dictionary<UrlParamValue>;
+  urlParams: UrlParams;
 
   /** All the parameter names with their corresponding key. */
   urlMappedParamNames: Dictionary<UrlParamKey | string>;
@@ -45,7 +45,7 @@ export interface UrlGetters {
  *
  * @public
  */
-export type UrlParamKey = Extract<keyof Params, string>;
+export type UrlParamKey = Extract<keyof UrlParams, string>;
 
 /**
  * The allowed values of the parameters to store in the URL.
@@ -77,7 +77,7 @@ export interface UrlMutations {
    *
    * @param params - The new params of the Url.
    */
-  setParams(params: Record<keyof Params, UrlParamValue>): void;
+  setParams(params: Record<keyof UrlParams, UrlParamValue>): void;
   /**
    * Sets the new query.
    *
@@ -96,11 +96,6 @@ export interface UrlMutations {
    * @param filterIds - The new filter ids of the url.
    */
   setFilters(filterIds: (string | number)[]): void;
-  /**
-   * Resets the filters.
-   *
-   */
-  resetFilters(): void;
   /**
    * Sets the new page.
    *

@@ -27,13 +27,12 @@ export function areFiltersDifferent(someFilters: Filter[], anotherFilters: Filte
  *
  * @public
  */
-export const createRawFilters = (filterIds: (string | number)[]): Filter[] => {
-  return filterIds.reduce<Filter[]>((acc, filterId) => {
-    acc.push({
+export function createRawFilters(filterIds: Array<Filter['id']>): Filter[] {
+  return filterIds.map(filterId => {
+    return {
       id: filterId,
       modelName: 'RawFilter',
       selected: true
-    });
-    return acc;
-  }, []);
+    };
+  });
 };

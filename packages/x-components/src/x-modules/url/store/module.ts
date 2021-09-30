@@ -47,9 +47,6 @@ export const urlXStoreModule: UrlXStoreModule = {
     setFilters(state, newFilters) {
       state.params.filters = newFilters;
     },
-    resetFilters(state) {
-      state.params.filters = [];
-    },
     setPage(state, page) {
       state.params.page = page;
     }

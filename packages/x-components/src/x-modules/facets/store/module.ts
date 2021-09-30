@@ -1,6 +1,6 @@
 import { Facet } from '@empathyco/x-types';
 import Vue from 'vue';
-import { setUrlParamsFromTheUrl } from './actions/set-filters-from-url.action';
+import { setFiltersFromUrl } from './actions/set-filters-from-url.action';
 import { facets } from './getters/facets.getter';
 import { selectedFiltersByFacet } from './getters/selected-filters-by-facet.getter';
 import { selectedFilters } from './getters/selected-filters.getter';
@@ -15,7 +15,6 @@ export const facetsXStoreModule: FacetsXStoreModule = {
   state: () => ({
     filters: {},
     groups: {},
-    query: '',
     facets: {}
   }),
   getters: {
@@ -44,12 +43,9 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     },
     setFacet(state, facet: Facet) {
       Vue.set(state.facets, facet.id, facet);
-    },
-    setQuery(state, query) {
-      state.query = query;
     }
   },
   actions: {
-    setUrlParamsFromTheUrl
+    setFiltersFromUrl
   }
 };

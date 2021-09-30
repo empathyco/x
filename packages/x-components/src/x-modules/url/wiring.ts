@@ -50,15 +50,8 @@ export const setRelatedTagsWire = mapWire(
  * @public
  */
 export const setFiltersWire = mapWire(wireCommit('setFilters'), (filters: Filter[]) =>
-  filters.map(f => f.id)
+  filters.map(filter => filter.id)
 );
-
-/**
- * Resets the {@link RelatedTag | related tags }.
- *
- * @public
- */
-export const resetFilterWire = wireCommitWithoutPayload('resetFilters');
 
 /**
  * Updates the URL.
@@ -101,8 +94,7 @@ export const urlWiring = createWiring({
     setQuery
   },
   UserClearedQuery: {
-    setQuery,
-    resetFilterWire
+    setQuery
   },
   UrlStateChanged: {
     updateUrl

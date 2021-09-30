@@ -1,7 +1,7 @@
 import { map } from '../../../../utils/object';
 import { Dictionary } from '../../../../utils/types';
 import { urlXStoreModule } from '../module';
-import { Params, UrlParamValue } from '../types';
+import { UrlParams, UrlParamValue } from '../types';
 import { createUrlStore, resetUrlStateWith } from './utils';
 
 describe('testing Url module actions', () => {
@@ -130,7 +130,7 @@ describe('testing Url module actions', () => {
 
       await store.dispatch(actionKeys.updateStoreFromUrl);
 
-      expect(store.state.params).toEqual<Partial<Params>>({
+      expect(store.state.params).toEqual<Partial<UrlParams>>({
         page: 3,
         query: 'sudadera',
         relatedTags: ['capucha', 'disney'],

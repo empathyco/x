@@ -1,5 +1,5 @@
-import { createRawFilters, Dictionary } from '../../../../utils';
-import { UrlParamValue } from '../../../url';
+import { createRawFilters } from '../../../../utils';
+import { UrlParams } from '../../../url/store/types';
 import { FacetsXStoreModule } from '../types';
 
 /**
@@ -11,16 +11,11 @@ import { FacetsXStoreModule } from '../types';
  *
  * @public
  */
-export const setUrlParamsFromTheUrl: FacetsXStoreModule['actions']['setUrlParamsFromTheUrl'] = (
+export const setFiltersFromUrl: FacetsXStoreModule['actions']['setFiltersFromUrl'] = (
   { commit },
-  { query, filters }: Dictionary<UrlParamValue>
+  { filters }: UrlParams
 ) => {
-  const newQuery = query as string;
   const newFilters = filters as string[];
-
-  if (newQuery) {
-    commit('setQuery', newQuery);
-  }
 
   if (newFilters) {
     const filters = createRawFilters(newFilters);

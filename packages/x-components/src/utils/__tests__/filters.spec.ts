@@ -1,3 +1,4 @@
+import { Filter } from '../../../../search-types';
 import {
   createEditableNumberRangeFilter,
   createHierarchicalFilter,
@@ -5,7 +6,7 @@ import {
   createRawFilter,
   createSimpleFilter
 } from '../../__stubs__/filters-stubs.factory';
-import { areFiltersDifferent } from '../filters';
+import { areFiltersDifferent, createRawFilters } from '../filters';
 
 describe(`testing ${areFiltersDifferent.name}`, () => {
   it('returns true with different filters', () => {
@@ -86,5 +87,28 @@ describe(`testing ${areFiltersDifferent.name}`, () => {
         ]
       )
     ).toBe(false);
+  });
+});
+
+describe(`testing ${createRawFilters.name}`, () => {
+  it('returns a list of raw filters based on a list of filter ids', () => {
+      const filterIds = [
+        '{!tag=hierarchical_category}hierarchical_category:"catálogos"',
+        241008287272164729465721528295504357972
+      ];
+      const rawFilters = createRawFilters(filterIds);
+
+      expect(rawFilters).toEqual<Filter[]>([
+        {
+          id: '{!tag=hierarchical_category}hierarchical_category:"catálogos"',
+          modelName: 'RawFilter',
+          selected: true
+        },
+        {
+          id: 241008287272164729465721528295504357972,
+          modelName: 'RawFilter',
+          selected: true
+        }
+      ])
   });
 });

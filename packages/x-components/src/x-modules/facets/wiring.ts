@@ -84,18 +84,11 @@ const clearAllFiltersWire = wireFacetsServiceWithoutPayload('clearFilters');
 const selectFilterWire = wireFacetsService('select');
 
 /**
- * Sets the facets state `query`.
- *
- * @public
- */
-const setFacetsQuery = facetsWireCommit('setQuery');
-
-/**
  * Saves the params from the url.
  *
  * @public
  */
-export const setFacetParamsFromTheUrlWire = facetsWireDispatch('setUrlParamsFromTheUrl');
+export const setFiltersFromUrl = facetsWireDispatch('setFiltersFromUrl');
 
 /**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
@@ -121,14 +114,10 @@ export const facetsWiring = createWiring({
   UserClickedAllFilter: {
     clearFiltersWire
   },
-  UserAcceptedAQuery: {
-    setFacetsQuery
-  },
   UserClearedQuery: {
-    setFacetsQuery,
     clearAllFiltersWire
   },
   ParamsLoadedFromUrl: {
-    setFacetParamsFromTheUrlWire
+    setFiltersFromUrl
   }
 });

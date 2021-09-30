@@ -5,6 +5,7 @@ import { RootXStoreState } from '../../../store/index';
 import { arrayToObject, groupItemsBy, isArrayEmpty } from '../../../utils/index';
 import { FilterEntityFactory } from '../entities/filter-entity.factory';
 import { FilterEntity } from '../entities/types';
+import { selectedFilters } from '../store';
 import { FacetGroupEntry, FacetsGetters } from '../store/types';
 import { FacetsGroup, FacetsService } from './types';
 
@@ -39,8 +40,9 @@ export class DefaultFacetsService implements FacetsService {
   }
 
   updateFacets(facetsGroup: FacetsGroup): void {
+    const selectedFilters = this.getSelectedFilters();
     const { newFilters } = this.updateStore(facetsGroup);
-    this.updateFiltersSelectedState(newFilters, this.getSelectedFilters());
+    this.updateFiltersSelectedState(newFilters, selectedFilters);
   }
 
   clearFilters(facetIds?: Array<Facet['id']>): void {
@@ -148,9 +150,7 @@ export class DefaultFacetsService implements FacetsService {
           ? this.store.state.x.facets.groups[filter.facetId]
           : '__unknown-group__'
       )[groupId] ?? [];
-
     this.removeFilters(filtersToRemove);
-
     return filtersToRemove;
   }
   /**
