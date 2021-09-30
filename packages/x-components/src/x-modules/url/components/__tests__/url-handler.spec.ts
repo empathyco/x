@@ -86,31 +86,6 @@ describe('testing UrlHandler component', () => {
 
     expect(urlHandlerProvidedCallback).toHaveBeenCalledTimes(1);
   });
-
-  it(
-    'emits the `ParamsLoadedFromUrl` event when the document is loaded and ' +
-      '`UserOpenXProgrammatically` if there is query',
-    () => {
-      const url = new URL(
-        window.location.href + '?query=sudadera&relatedTags=capucha&relatedTags=disney'
-      );
-
-      window.history.pushState({ ...window.history.state }, document.title, url.href);
-
-      const { $x } = renderUrlHandler();
-
-      const paramsLoadedFromUrl = jest.fn();
-      const openXProgrammaticaly = jest.fn();
-
-      $x.on('ParamsLoadedFromUrl').subscribe(paramsLoadedFromUrl);
-      $x.on('UserOpenXProgrammatically').subscribe(openXProgrammaticaly);
-
-      window.dispatchEvent(new Event('load'));
-
-      expect(paramsLoadedFromUrl).toHaveBeenCalledTimes(1);
-      expect(openXProgrammaticaly).toHaveBeenCalledTimes(1);
-    }
-  );
 });
 
 interface UrlHandlerAPI {
