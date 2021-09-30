@@ -1,6 +1,6 @@
 import { XStoreModule } from '../../../store';
 import { Dictionary } from '../../../utils';
-import { UrlParams, UrlParamValue } from '../../url';
+import { UrlParamValue } from '../../url';
 
 /**
  * SearchBox store state.

@@ -14,7 +14,7 @@ import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { QueryOrigin } from '../../../types/query-origin';
 import { Dictionary } from '../../../utils/types';
-import { UrlParams, UrlParamValue } from '../../url';
+import { UrlParamValue } from '../../url';
 import { SearchConfig } from '../config.types';
 
 /**

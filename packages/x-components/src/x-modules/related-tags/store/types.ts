@@ -3,7 +3,7 @@ import { RelatedTag } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { Dictionary } from '../../../utils';
-import { UrlParams, UrlParamValue } from '../../url';
+import { UrlParamValue } from '../../url';
 import { RelatedTagsConfig } from '../config.types';
 
 /**
