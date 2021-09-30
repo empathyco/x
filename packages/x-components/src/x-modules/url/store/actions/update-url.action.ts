@@ -51,10 +51,9 @@ export const updateUrl: UrlXStoreModule['actions']['updateUrl'] = ({
  *
  * @returns True if the param has changed.
  */
-function pushableParamsChanged(
-  urlParams: UrlParams,
-  oldValues: URLSearchParams
-): boolean {
+function pushableParamsChanged(urlParams: UrlParams, oldValues: URLSearchParams): boolean {
   const pushableParams = ['scroll'];
-  return pushableParams.some(key => oldValues.has(key) && oldValues.get(key) !== urlParams[key as UrlParamKey]);
+  return pushableParams.some(
+    key => oldValues.has(key) && oldValues.get(key) !== urlParams[key as UrlParamKey]
+  );
 }
