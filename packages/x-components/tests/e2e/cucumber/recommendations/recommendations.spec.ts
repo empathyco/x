@@ -36,6 +36,7 @@ And(
   'number of displayed recommendations are equal or less than {int}',
   (maxItemsToRequest: number) => {
     cy.getByDataTest('recommendation-item')
+      .should('be.visible')
       .should('have.length.at.least', 1)
       .and('have.length.at.most', maxItemsToRequest);
   }

@@ -17,11 +17,13 @@ When('start button is clicked', () => {
 
 // ID Results
 Then('identifier results are displayed', () => {
-  cy.getByDataTest('identifier-results-item').should('have.length.at.least', 1);
+  cy.getByDataTest('identifier-results-item')
+    .should('be.visible')
+    .should('have.length.at.least', 1);
 });
 
 Then('no identifier results are displayed', () => {
-  cy.getByDataTest('identifier-result-item').should('not.exist');
+  cy.getByDataTest('identifier-result-item').should('not.be.visible').should('not.exist');
 });
 
 // History Queries
@@ -58,6 +60,7 @@ Then('related tags are displayed', () => {
 Then('related results are displayed', () => {
   resultsList = [];
   cy.getByDataTest('result-text')
+    .should('be.visible')
     .should('have.length.at.least', 1)
     .each($result => {
       resultsList.push($result.text());
@@ -65,8 +68,12 @@ Then('related results are displayed', () => {
 });
 
 Then('related results have changed', () => {
-  cy.getByDataTest('result-text').should($results => {
-    const compoundResultsList = $results.toArray().map(resultElement => resultElement.textContent);
+  cy.getByDataTest('result-text')
+    .should('be.visible')
+    .should($results => {
+      const compoundResultsList = $results
+        .toArray()
+        .map(resultElement => resultElement.textContent);
     expect(compoundResultsList).to.not.equal(resultsList);
   });
 });
@@ -134,7 +141,7 @@ Given('a results API', () => {
     req.reply({
       results: getResultsStub()
     });
-  });
+  }).as('interceptedRawResults');
 });
 
 Given('an ID results API', () => {

@@ -273,8 +273,22 @@
             <template #default="{ partialResult }">
               <span data-test="partial-query">{{ partialResult.query }}</span>
               <BaseGrid :animation="resultsAnimation" :columns="4" :items="partialResult.results">
-                <template #Result="{ item }">
-                  <Result :result="item" data-test="partial-result-item" />
+                <template #Result="{ item: partialResult }">
+                  <article class="result" style="max-width: 300px">
+                    <BaseResultImage :result="partialResult" class="x-picture--colored">
+                      <template #placeholder>
+                        <div style="padding-top: 100%; background-color: lightgray"></div>
+                      </template>
+                      <template #fallback>
+                        <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                      </template>
+                    </BaseResultImage>
+                    <BaseResultLink :result="partialResult" class="x-result-link">
+                      <span class="x-result__title" data-test="partial-result-item">
+                        {{ item.name }}
+                      </span>
+                    </BaseResultLink>
+                  </article>
                 </template>
               </BaseGrid>
               <PartialQueryButton :query="partialResult.query">
@@ -286,9 +300,9 @@
           <IdentifierResults v-if="$x.identifierResults.length">
             <template #default="{ identifierResults }">
               <BaseGrid :animation="resultsAnimation" :columns="4" :items="identifierResults">
-                <template #Result="{ item: result }">
+                <template #Result="{ item: identifierResult }">
                   <article class="result" style="max-width: 300px">
-                    <BaseResultImage :result="result" class="x-picture--colored">
+                    <BaseResultImage :result="identifierResult" class="x-picture--colored">
                       <template #placeholder>
                         <div style="padding-top: 100%; background-color: lightgray"></div>
                       </template>
@@ -296,14 +310,15 @@
                         <div style="padding-top: 100%; background-color: lightsalmon"></div>
                       </template>
                     </BaseResultImage>
-                    <h1 class="x-title3" data-test="identifier-results-item">{{ result.name }}</h1>
+                    <h1 class="x-title3" data-test="identifier-results-item">
+                      {{ identifierResult.name }}
+                    </h1>
                   </article>
                 </template>
               </BaseGrid>
             </template>
           </IdentifierResults>
         </template>
-
 
         <template #scroll-to-top>
           <BaseScrollToTop :threshold-px="500" class="x-button--round" scroll-id="body-scroll">

@@ -25,7 +25,7 @@ Feature: Next queries component
     And   next query number <nextQueryItem> is clicked
     And   the searched query is displayed in history queries
     When  clear search button is pressed
-    And   "<query>" is searched
+    And   a "<query>" with results is typed
     Then  next queries do not contain the history query is <hideSessionQueries>
     When  clear history queries button is clicked
     Then  next queries contain the history query
@@ -43,7 +43,7 @@ Feature: Next queries component
     And   next queries are displayed
     When  the page is reloaded
     Then  next queries are still displayed is <loadOnInit>
-    When  "<query>" is searched
+    When  a "<query>" with results is typed
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
     And   next queries are displayed
     When  clear search button is pressed

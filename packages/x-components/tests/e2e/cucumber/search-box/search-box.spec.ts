@@ -155,6 +155,7 @@ And(
   (instantDebounceInMs: number, instant: boolean) => {
     if (instant) {
       cy.getByDataTest('result-text')
+        .should('be.visible')
         .should('have.length.gt', resultsCount)
         .each($result => {
           resultsList.push($result.text());
@@ -209,6 +210,7 @@ When('{string} is added to the search', (secondQuery: string) => {
 
 Then('new related results are not displayed before {int}', (instantDebounceInMs: number) => {
   cy.getByDataTest('result-text')
+    .should('be.visible')
     .should($results => {
       expect($results).to.have.length(resultsCount);
     })
@@ -223,6 +225,7 @@ And(
   (instantDebounceInMs: number, instant: boolean) => {
     if (instant) {
       cy.getByDataTest('result-text')
+        .should('be.visible')
         .should('have.length', 2)
         .each($result => {
           compoundResultsList.push($result.text());
@@ -252,6 +255,7 @@ When('{string} is deleted from the search', (secondQuery: string) => {
 
 Then('old related results are not displayed before {int}', (instantDebounceInMs: number) => {
   cy.getByDataTest('result-text')
+    .should('be.visible')
     .should('have.length', compoundResultsList.length)
     .then(() => {
       interval = startQuery + instantDebounceInMs - Date.now();
