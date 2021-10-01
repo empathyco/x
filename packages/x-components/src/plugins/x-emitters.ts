@@ -14,6 +14,8 @@ import { XBus } from './x-bus.types';
  * @internal
  * @param bus - The {@Link XBus} to emit the events by the Emitters.
  * @param store - The Vuex store to access to state and getters to watch them.
+ *
+ * @internal
  */
 export function registerStoreEmitters(
   { name, storeEmitters, storeModule }: AnyXModule,
