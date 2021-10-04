@@ -76,7 +76,7 @@ Then('related results have changed', () => {
         .toArray()
         .map(resultElement => resultElement.textContent);
       expect(compoundResultsList.every(item => resultsList.includes(item!))).to.eq(false);
-  });
+    });
 });
 
 // Search Box
@@ -178,7 +178,6 @@ Given('a results API with a known response', () => {
     });
   }).as('interceptedResults');
 });
-
 
 Given('an ID results API', () => {
   cy.intercept('https://api.empathy.co/searchById', req => {
