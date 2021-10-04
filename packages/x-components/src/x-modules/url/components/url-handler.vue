@@ -59,12 +59,12 @@
     /**
      * Checks if the parameter query is in the url.
      *
-     * @returns Boolean.
+     * @returns A boolean whether the parameter is present or not.
      * @internal
      */
     protected get isQueryInUrl(): boolean {
       const urlParams = new URLSearchParams(document.location.search);
-      return !!urlParams.get(this.$attrs.query ?? 'query');
+      return urlParams.has(this.$attrs.query ?? 'query');
     }
 
     /**
