@@ -56,14 +56,19 @@
       }
     }
 
+    /**
+     * Checks if the parameter query is in the url.
+     *
+     * @returns Boolean.
+     * @internal
+     */
     protected get isQueryInUrl(): boolean {
       const urlParams = new URLSearchParams(document.location.search.substring(1));
       return !!urlParams.get(this.$attrs.query ?? 'query');
     }
 
     /**
-     * Emits the event with the state values when the document is loaded and open X if there is
-     * a query in the Url.
+     * Open X if there is a query in the Url.
      *
      * @internal
      */

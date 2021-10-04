@@ -24,7 +24,7 @@ export interface UrlXEvents {
   ParamsLoadedFromUrl: UrlGetters['urlParams'];
   /**
    * Document has finished loading.
-   * * Payload: none.
+   * * Payload: The URL string.
    */
   DocumentLoaded: string;
   /**
@@ -33,7 +33,8 @@ export interface UrlXEvents {
    */
   ExtraParamsLoadedFromUrl: string[];
   /**
-   *
+   * Url has changed.
+   * Payload: The new URL params.
    */
   UrlChanged: UrlGetters['urlParams'];
 }

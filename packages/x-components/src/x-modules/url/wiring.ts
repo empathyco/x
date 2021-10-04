@@ -13,6 +13,12 @@ import { createWiring } from '../../wiring/wiring.utils';
  * @internal
  */
 const wireCommit = namespacedWireCommit('url');
+
+/**
+ * WireDispatch for {@link UrlXModule}.
+ *
+ * @internal
+ */
 const wireDispatch = namespacedWireDispatch('url');
 
 /**

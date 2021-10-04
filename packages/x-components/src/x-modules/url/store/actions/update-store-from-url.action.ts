@@ -47,9 +47,8 @@ export const updateStoreFromUrl: UrlXStoreModule['actions']['updateStoreFromUrl'
  * @param stateValue - Value of the current state.
  * @param urlParam - The param to get.
  *
- * @internal
- *
  * @returns UrlParamValue.
+ * @internal
  */
 function getParamByType(
   urlSearchParams: URLSearchParams,
@@ -74,9 +73,8 @@ function getParamByType(
  *
  * @param object - Any object.
  *
- * @internal
- *
  * @returns Boolean.
+ * @internal
  */
 function hasValues(object: Dictionary): boolean {
   return Object.keys(object).length > 0;
