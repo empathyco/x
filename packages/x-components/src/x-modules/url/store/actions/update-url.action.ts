@@ -9,9 +9,6 @@ import { UrlActionContext, UrlParamKey, UrlParamValue, UrlXStoreModule } from '.
  * @public
  */
 export class UpdateUrlAction implements ActionsClass<UrlXStoreModule> {
-  /** Parameters that will require to push the browser state instead of replace. */
-  protected pushableParams: UrlParamKey[] = ['scroll'];
-
   /**
    * Default implementation for the {@link UrlActions.updateUrl}.
    *
@@ -90,9 +87,8 @@ export class UpdateUrlAction implements ActionsClass<UrlXStoreModule> {
     urlParams: Dictionary<UrlParamValue>,
     oldValues: URLSearchParams
   ): boolean {
-    return this.pushableParams.some(
-      key => oldValues.has(key) && oldValues.get(key) !== urlParams[key]
-    );
+    const pushableParams: UrlParamKey[] = ['scroll'];
+    return pushableParams.some(key => oldValues.has(key) && oldValues.get(key) !== urlParams[key]);
   }
 }
 
