@@ -63,7 +63,7 @@
      * @internal
      */
     protected get isQueryInUrl(): boolean {
-      const urlParams = new URLSearchParams(document.location.search.substring(1));
+      const urlParams = new URLSearchParams(document.location.search);
       return !!urlParams.get(this.$attrs.query ?? 'query');
     }
 
