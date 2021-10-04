@@ -180,10 +180,12 @@ export const searchWiring = createWiring({
     fetchAndSaveSearchResponseWire
   },
   SelectedRelatedTagsChanged: {
-    resetPage,
     resetAppending,
     setRelatedTags,
     setOrigin
+  },
+  UserPickedARelatedTag: {
+    resetPage
   },
   SelectedFiltersChanged: {
     resetPage,
