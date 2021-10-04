@@ -18,13 +18,13 @@ describe('testing Url module actions', () => {
         config: {
           urlParamNames: {
             query: 'q',
-            relatedTags: 'tag'
+            relatedTag: 'tag'
           }
         },
         params: {
           query: 'sudadera',
           filters: [],
-          relatedTags: ['con capucha', 'disney'],
+          relatedTag: ['con capucha', 'disney'],
           page: 1
         },
         extraParams: { warehouse: '0123999' }
@@ -62,13 +62,13 @@ describe('testing Url module actions', () => {
         config: {
           urlParamNames: {
             query: 'q',
-            relatedTags: 'tag'
+            relatedTag: 'tag'
           }
         },
         params: {
           query: 'sudadera',
           filters: [],
-          relatedTags: [],
+          relatedTag: [],
           page: 1,
           scroll: 2
         }
@@ -87,13 +87,13 @@ describe('testing Url module actions', () => {
         config: {
           urlParamNames: {
             query: 'q',
-            relatedTags: 'tag'
+            relatedTag: 'tag'
           }
         },
         params: {
           query: 'sudadera',
           filters: [],
-          relatedTags: [],
+          relatedTag: [],
           page: 1,
           scroll: 0
         }
@@ -119,18 +119,18 @@ describe('testing Url module actions', () => {
         config: {
           urlParamNames: {
             query: 'q',
-            relatedTags: 'tag'
+            relatedTag: 'tag'
           }
         },
         extraParams: { warehouse: '', consent: false }
       });
 
-      await store.dispatch('updateStoreFromUrl');
+      await store.dispatch('updateStoreFromUrl', url);
 
       expect(store.state.params).toEqual<Partial<Params>>({
         page: 3,
         query: 'sudadera',
-        relatedTags: ['capucha', 'disney'],
+        relatedTag: ['capucha', 'disney'],
         filters: [],
         sort: '',
         scroll: 0

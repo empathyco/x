@@ -7,5 +7,9 @@ import { urlXStoreModule } from './module';
  * @internal
  */
 export const urlEmitters = createStoreEmitters(urlXStoreModule, {
-  UrlStateChanged: (_, getters) => getters.urlParams
+  UrlStateChanged: (_, getters) => getters.urlParams,
+  UrlChanged: {
+    selector: (_, getters) => getters.urlParams,
+    filter: urlParams => urlParams.isLoadedFromUrl as boolean
+  }
 });

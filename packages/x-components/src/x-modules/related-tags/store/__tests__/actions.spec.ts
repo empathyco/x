@@ -143,7 +143,7 @@ describe('testing related tags module actions', () => {
     it('should add the query and related tags to the store', () => {
       store.dispatch('setUrlParamsFromTheUrl', {
         query: 'funko',
-        relatedTags: ['pop', 'lego']
+        relatedTag: ['pop', 'lego']
       });
 
       expect(store.state.query).toEqual('funko');
@@ -182,7 +182,7 @@ describe('testing related tags module actions', () => {
         query: 'lego'
       });
       store.dispatch('setUrlParamsFromTheUrl', {
-        relatedTags: ['lego', 'pop']
+        relatedTag: ['lego', 'pop']
       });
 
       expect(store.state.query).toBe('lego');
