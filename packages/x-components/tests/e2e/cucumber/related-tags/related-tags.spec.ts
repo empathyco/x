@@ -92,7 +92,7 @@ And(
     } else {
       cy.getByDataTest('search-input').should(
         'not.contain',
-        this.searchedQuery + this.clickedRelatedTag
+        this.searchedQuery + ' ' + this.clickedRelatedTag
       );
     }
   }
@@ -102,6 +102,10 @@ Then('related tag number {int} is shown as not selected', (relatedTagItem: numbe
   cy.getByDataTest('related-tag')
     .eq(relatedTagItem)
     .should('not.have.class', 'x-related-tag--is-selected');
+});
+
+And('raw related results are displayed', () => {
+  cy.getByDataTest('result-text').should('have.length', 4);
 });
 
 // Scenario 2

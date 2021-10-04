@@ -1,6 +1,7 @@
 import { PageableRequest } from '@empathyco/x-adapter';
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import {
+  createResultStub,
   getNextQueriesStub,
   getPopularSearchesStub,
   getQuerySuggestionsStub,
@@ -74,7 +75,7 @@ Then('related results have changed', () => {
       const compoundResultsList = $results
         .toArray()
         .map(resultElement => resultElement.textContent);
-      expect(compoundResultsList).to.not.equal(resultsList);
+      expect(compoundResultsList.every(item => resultsList.includes(item!))).to.eq(false);
   });
 });
 
@@ -139,10 +140,45 @@ Given('a related tags API', () => {
 Given('a results API', () => {
   cy.intercept('https://api.empathy.co/search', req => {
     req.reply({
+      banners: [],
+      promoteds: [],
       results: getResultsStub()
     });
   }).as('interceptedRawResults');
 });
+
+Given('a results API with a known response', () => {
+  cy.intercept('https://api.empathy.co/search', req => {
+    req.reply({
+      banners: [],
+      promoteds: [],
+      results: [
+        createResultStub('LEGO Super Mario Pack Inicial: Aventuras con Mario - 71360', {
+          images: ['https://picsum.photos/seed/1/100/100']
+        }),
+        createResultStub('LEGO Duplo Classic Caja de Ladrillos - 1091', {
+          images: ['https://picsum.photos/seed/2/100/100']
+        }),
+        createResultStub('LEGO City Coche Patrulla de Policía - 60239', {
+          images: ['https://picsum.photos/seed/3/100/100']
+        }),
+        createResultStub('LEGO City Police Caja de Ladrillos - 60270', {
+          images: ['https://picsum.photos/seed/4/100/100']
+        }),
+        createResultStub('LEGO Friends Parque para Cachorros - 41396', {
+          images: ['https://picsum.photos/seed/5/100/100']
+        }),
+        createResultStub('LEGO Creator Ciberdrón - 31111', {
+          images: ['https://picsum.photos/seed/6/100/100']
+        }),
+        createResultStub('LEGO Technic Dragster - 42103', {
+          images: ['https://picsum.photos/seed/7/100/100']
+        })
+      ]
+    });
+  }).as('interceptedResults');
+});
+
 
 Given('an ID results API', () => {
   cy.intercept('https://api.empathy.co/searchById', req => {

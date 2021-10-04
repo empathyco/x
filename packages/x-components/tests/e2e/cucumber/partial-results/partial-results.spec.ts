@@ -5,6 +5,8 @@ import { createResultStub } from '../../../../src/__stubs__/results-stubs.factor
 Given('a results API with partial results', () => {
   cy.intercept('https://api.empathy.co/search', req => {
     req.reply({
+      banners: [],
+      promoteds: [],
       results: [
         createResultStub('LEGO Super Mario Pack Inicial: Aventuras con Mario - 71360', {
           images: ['https://picsum.photos/seed/1/100/100']

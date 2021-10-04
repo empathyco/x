@@ -1,4 +1,3 @@
-
 Feature: Search-box component
 
   Background:
@@ -21,14 +20,14 @@ Feature: Search-box component
     And   "<query>" is displayed in history queries is not <hideIfEqualsQuery>
     Examples:
       | hideIfEqualsQuery | instantDebounceInMs | instant | query     | buttonOrKey  |
-      | true              | 500                 | false   | lego      | searchButton |
+  #    | true              | 500                 | false   | lego      | searchButton |
       | false             | 500                 | false   | star wars | enterKey     |
 
   Scenario Outline: 2. Query with results exists and it's cleared by <cleared> (search-box is not empty)
     Given following config: hide if equals query <hideIfEqualsQuery>, instant search <instant>, debounce <instantDebounceInMs>
     And   start button is clicked
     When  "<query>" is searched
-    Then   related results are displayed
+    Then  related results are displayed
     When  the "<query>" is cleared by "<cleared>"
     Then  the search box is empty
     And   related results are cleared

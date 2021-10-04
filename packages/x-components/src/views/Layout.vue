@@ -271,21 +271,51 @@
 
           <!-- Results -->
           <ResultsList v-infinite-scroll:main-scroll>
-            <BaseVariableColumnGrid :animation="resultsAnimation">
-              <template #Result="{ item: result }">
-                <article class="result" style="max-width: 300px">
-                  <BaseResultImage :result="result" class="x-picture--colored">
-                    <template #placeholder>
-                      <div style="padding-top: 100%; background-color: lightgray"></div>
+            <BannersList>
+              <PromotedsList>
+                <NextQueriesList>
+                  <BaseVariableColumnGrid :animation="resultsAnimation">
+                    <template #Result="{ item: result }">
+                      <article class="result" style="max-width: 300px">
+                        <BaseResultImage :result="result" class="x-picture--colored">
+                          <template #placeholder>
+                            <div style="padding-top: 100%; background-color: lightgray"></div>
+                          </template>
+                          <template #fallback>
+                            <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                          </template>
+                        </BaseResultImage>
+                        <h1 class="x-title3" data-test="result-text">{{ result.name }}</h1>
+                      </article>
                     </template>
-                    <template #fallback>
-                      <div style="padding-top: 100%; background-color: lightsalmon"></div>
+
+                    <template #Banner="{ item: banner }">
+                      <Banner :banner="banner" />
                     </template>
-                  </BaseResultImage>
-                  <h1 class="x-title3" data-test="result-text">{{ result.name }}</h1>
-                </article>
-              </template>
-            </BaseVariableColumnGrid>
+
+                    <template #Promoted="{ item: promoted }">
+                      <Promoted :promoted="promoted" />
+                    </template>
+
+                    <template #NextQueriesGroup="{ item: { nextQueries } }">
+                      <div class="x-list x-list--gap-03">
+                        <h1 class="x-title2">What's next?</h1>
+                        <BaseSuggestions
+                          #default="{ suggestion }"
+                          :suggestions="nextQueries"
+                          class="x-list--gap-03"
+                        >
+                          <NextQuery #default="{ suggestion: nextQuery }" :suggestion="suggestion">
+                            <Nq1 />
+                            {{ nextQuery.query }}
+                          </NextQuery>
+                        </BaseSuggestions>
+                      </div>
+                    </template>
+                  </BaseVariableColumnGrid>
+                </NextQueriesList>
+              </PromotedsList>
+            </BannersList>
           </ResultsList>
 
           <PartialResultsList :animation="resultsAnimation">
@@ -329,10 +359,9 @@
 
 <script lang="ts">
   import { deepMerge } from '@empathyco/x-deep-merge';
-  import { Facet, Result, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
+  import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { State } from '../components/decorators/store.decorators';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';

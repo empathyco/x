@@ -4,42 +4,12 @@ import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
 
 let resultsCount = 0;
 let resultsList: string[] = [];
-let compoundResultsList: string[] = [];
+const compoundResultsList: string[] = [];
 let startQuery = 0;
 let startSecondQuery = 0;
 let interval = 0;
 
-// Background
-Given('a results API with a known response', () => {
-  cy.intercept('https://api.empathy.co/search', req => {
-    req.reply({
-      results: [
-        createResultStub('LEGO Super Mario Pack Inicial: Aventuras con Mario - 71360', {
-          images: ['https://picsum.photos/seed/1/100/100']
-        }),
-        createResultStub('LEGO Duplo Classic Caja de Ladrillos - 1091', {
-          images: ['https://picsum.photos/seed/2/100/100']
-        }),
-        createResultStub('LEGO City Coche Patrulla de Policía - 60239', {
-          images: ['https://picsum.photos/seed/3/100/100']
-        }),
-        createResultStub('LEGO City Police Caja de Ladrillos - 60270', {
-          images: ['https://picsum.photos/seed/4/100/100']
-        }),
-        createResultStub('LEGO Friends Parque para Cachorros - 41396', {
-          images: ['https://picsum.photos/seed/5/100/100']
-        }),
-        createResultStub('LEGO Creator Ciberdrón - 31111', {
-          images: ['https://picsum.photos/seed/6/100/100']
-        }),
-        createResultStub('LEGO Technic Dragster - 42103', {
-          images: ['https://picsum.photos/seed/7/100/100']
-        })
-      ]
-    });
-  }).as('interceptedResults');
-});
-
+// Scenario 1
 Given(
   'following config: hide if equals query {boolean}, instant search {boolean}, debounce {int}',
   (hideIfEqualsQuery: boolean, instant: boolean, instantDebounceInMs: number) => {
@@ -65,7 +35,6 @@ Given(
   }
 );
 
-// Scenario 1
 And('no queries have been searched', () => {
   cy.getByDataTest('search-input').should('exist');
   cy.getByDataTest('search-input').should('have.value', '');
@@ -163,9 +132,9 @@ And(
         .then(() => {
           interval = Date.now() - startQuery;
           expect(interval).to.be.greaterThan(instantDebounceInMs);
+          resultsCount = resultsList.length;
+          resultsList = [];
         });
-      resultsCount = resultsList.length;
-      resultsList = [];
     } else {
       cy.getByDataTest('result-item').should('not.exist');
     }
@@ -190,6 +159,8 @@ And('related tags are displayed after instantDebounceInMs is {boolean}', (instan
 Given('a second results API with a known response', () => {
   cy.intercept('https://api.empathy.co/search', req => {
     req.reply({
+      banners: [],
+      promoteds: [],
       results: [
         createResultStub('LEGO Duplo Disney Tren de Cumpleaños de Mickey y Minnie - 10941', {
           images: ['https://picsum.photos/seed/8/100/100']
@@ -210,7 +181,6 @@ When('{string} is added to the search', (secondQuery: string) => {
 
 Then('new related results are not displayed before {int}', (instantDebounceInMs: number) => {
   cy.getByDataTest('result-text')
-    .should('be.visible')
     .should($results => {
       expect($results).to.have.length(resultsCount);
     })
@@ -242,7 +212,7 @@ And(
 );
 
 And('new related results are different from previous ones', () => {
-  expect(compoundResultsList).to.not.equal(resultsList);
+  expect(compoundResultsList.every(item => resultsList.includes(item))).to.eq(false);
 });
 
 When('{string} is deleted from the search', (secondQuery: string) => {
