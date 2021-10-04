@@ -23,7 +23,7 @@ Then('identifier results are displayed', () => {
 });
 
 Then('no identifier results are displayed', () => {
-  cy.getByDataTest('identifier-result-item').should('not.be.visible').should('not.exist');
+  cy.getByDataTest('identifier-result-item').should('not.exist');
 });
 
 // History Queries
@@ -74,7 +74,7 @@ Then('related results have changed', () => {
       const compoundResultsList = $results
         .toArray()
         .map(resultElement => resultElement.textContent);
-    expect(compoundResultsList).to.not.equal(resultsList);
+      expect(compoundResultsList).to.not.equal(resultsList);
   });
 });
 

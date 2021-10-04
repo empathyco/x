@@ -229,6 +229,25 @@
         </template>
 
         <template #main-body>
+          <!-- IdentifierResults -->
+          <div v-if="$x.identifierResults.length">
+            <IdentifierResults class="x-list x-list--horizontal">
+              <template #default="{ identifierResult }">
+                <article class="result" style="max-width: 300px">
+                  <BaseResultImage :result="identifierResult" class="x-picture--colored">
+                    <template #placeholder>
+                      <div style="padding-top: 100%; background-color: lightgray"></div>
+                    </template>
+                    <template #fallback>
+                      <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                    </template>
+                  </BaseResultImage>
+                  <h1 class="x-title3" data-test="result-text">{{ identifierResult.name }}</h1>
+                </article>
+              </template>
+            </IdentifierResults>
+          </div>
+
           <!-- Recommendations -->
           <Recommendations v-if="!$x.query.search" #layout="{ recommendations }">
             <BaseVariableColumnGrid
@@ -296,29 +315,6 @@
               </PartialQueryButton>
             </template>
           </PartialResultsList>
-
-          <h1 v-if="$x.identifierResults.length" class="x-title1">Identifier Results</h1>
-          <IdentifierResults v-if="$x.identifierResults.length" #layout="{ identifierResult }">
-            <BaseGrid :animation="resultsAnimation" :columns="4" :items="identifierResult.results">
-              <template #Result="{ item: identifierResult }">
-                <article class="result" style="max-width: 300px">
-                  <BaseResultImage :result="identifierResult" class="x-picture--colored">
-                    <template #placeholder>
-                      <div style="padding-top: 100%; background-color: lightgray"></div>
-                    </template>
-                    <template #fallback>
-                      <div style="padding-top: 100%; background-color: lightsalmon"></div>
-                    </template>
-                  </BaseResultImage>
-                  <BaseResultLink :result="identifierResult" class="x-result-link">
-                    <span class="x-result__title" data-test="identifier-results-item">
-                      {{ item.name }}
-                    </span>
-                  </BaseResultLink>
-                </article>
-              </template>
-            </BaseGrid>
-          </IdentifierResults>
         </template>
 
         <template #scroll-to-top>
