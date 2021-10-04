@@ -65,13 +65,13 @@ export interface RecommendationsActions {
   /**
    * Requests and saves to the state a list of recommendations.
    */
-  fetchAndSaveRecommendations(): void;
+  fetchAndSaveRecommendations(request: TopRecommendationsRequest | null): void;
   /**
    * Requests and returns a list of recommendations based on the module state.
    *
    * @returns A new list of results.
    */
-  fetchRecommendations(): Result[];
+  fetchRecommendations(request: TopRecommendationsRequest | null): Result[];
 }
 
 /**

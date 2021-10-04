@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.25...@empathyco/x-components@3.0.0-alpha.26) (2021-09-23)
+
+
+### Features
+
+* **design-system:** add tokens for non matching part of suggestion ([550f2f4](https://github.com/empathyco/x/commit/550f2f42940019b3108fb4a83c88fc668a1f47e1)), closes [EX-4786](https://searchbroker.atlassian.net/browse/EX-4786)
+* **url:** set the related tags from the url in the store and viceversa ([ec3baa8](https://github.com/empathyco/x/commit/ec3baa84732019b3c2c599c3e809124ede199fa3)), closes [EX-3509](https://searchbroker.atlassian.net/browse/EX-3509)
+* **url:** syncronize url and state with the page ([2590cdc](https://github.com/empathyco/x/commit/2590cdc8e6c7effb075c3c4407ad1379e0fa3201)), closes [EX-3519](https://searchbroker.atlassian.net/browse/EX-3519)
+
+
+### Code Refactoring
+
+* **facets:** fix facets performance issues ([e4d0361](https://github.com/empathyco/x/commit/e4d036132761814205ff393bd2b14af8f548ba67)), closes [EX-4800](https://searchbroker.atlassian.net/browse/EX-4800)
+
+
+### Styling
+
+* format with prettier and avoid fixing code while linting ([54539a7](https://github.com/empathyco/x/commit/54539a7e4c34bc6a77ab48c4618e14b40be69e16))
+
+
+
 ## [3.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.24...@empathyco/x-components@3.0.0-alpha.25) (2021-09-22)
 
 

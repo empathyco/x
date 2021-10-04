@@ -40,7 +40,7 @@ describe('testing query-suggestion component', () => {
 
     await localVue.nextTick();
 
-    expect(component.classes()).toContain('x-suggestion--has-matching-query');
+    expect(component.classes()).toContain('x-suggestion--matching');
   });
 
   it('renders the suggestion received as prop', () => {

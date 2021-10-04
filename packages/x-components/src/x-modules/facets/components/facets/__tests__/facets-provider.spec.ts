@@ -19,6 +19,13 @@ import { resetXFacetsStateWith } from '../../__tests__/utils';
 import FacetsProvider from '../facets-provider.vue';
 
 describe('testing Facets component', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
   it('is an XComponent', () => {
     const { wrapper } = renderFacetsProviderComponent();
     expect(isXComponent(wrapper.vm)).toEqual(true);
@@ -155,10 +162,12 @@ function renderFacetsProviderComponent({
     async selectFilters(filters: Filter[]): Promise<void> {
       filters.forEach(filter => DefaultFacetsService.instance.select(filter));
       await localVue.nextTick();
+      jest.runAllTimers();
     },
     async deselectFilters(filters: Filter[]): Promise<void> {
       filters.forEach(filter => DefaultFacetsService.instance.deselect(filter));
       await localVue.nextTick();
+      jest.runAllTimers();
     }
   };
 }

@@ -24,10 +24,16 @@ export const facetsXStoreModule: FacetsXStoreModule = {
   },
   mutations: {
     setFilter(state, filter) {
-      Vue.set(state.filters, filter.id, filter);
+      Vue.set(state.filters, filter.id, Object.freeze(filter));
+    },
+    setFilters(state, filters) {
+      filters.forEach(filter => Vue.set(state.filters, filter.id, Object.freeze(filter)));
     },
     removeFilter(state, { id }) {
       Vue.delete(state.filters, id);
+    },
+    removeFilters(state, filters) {
+      filters.forEach(({ id }) => Vue.delete(state.filters, id));
     },
     setFacetGroup(state, { facetId, groupId }: FacetGroupEntry) {
       Vue.set(state.groups, facetId, groupId);

@@ -11,13 +11,11 @@ import { objectFilter } from '../../../../utils/object';
  *
  * @public
  */
-export const urlParams: UrlXStoreModule['getters']['urlParams'] = ({ extraParams, params }) =>
-  objectFilter({ ...params, ...extraParams }, isValidParam);
-
-const invalidUrlValues: Dictionary<UrlParamValue> = {
-  page: 1,
-  scroll: 0
-};
+export const urlParams: UrlXStoreModule['getters']['urlParams'] = ({
+  extraParams,
+  params,
+  isLoadedFromUrl
+}) => ({ ...objectFilter({ ...params, ...extraParams }, isValidParam), isLoadedFromUrl });
 
 /**
  * Checks if a value is valid to add it to the URL.
@@ -28,6 +26,10 @@ const invalidUrlValues: Dictionary<UrlParamValue> = {
  * @returns A boolean indicating if the parameter is valid or not.
  */
 function isValidParam(key: string, value: UrlParamValue): boolean {
+  const invalidUrlValues: Dictionary<UrlParamValue> = {
+    page: 1,
+    scroll: 0
+  };
   return Array.isArray(value)
     ? value.length > 0
     : value != null && value !== '' && value !== invalidUrlValues[key];

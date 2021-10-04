@@ -2,6 +2,7 @@ import { RelatedTag } from '@empathyco/x-types';
 import { mapWire } from '../../wiring';
 import {
   namespacedWireCommit,
+  namespacedWireDispatch,
   namespacedWireDispatchWithoutPayload
 } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
@@ -12,6 +13,13 @@ import { createWiring } from '../../wiring/wiring.utils';
  * @internal
  */
 const wireCommit = namespacedWireCommit('url');
+
+/**
+ * WireDispatch for {@link UrlXModule}.
+ *
+ * @internal
+ */
+const wireDispatch = namespacedWireDispatch('url');
 
 /**
  * WireDispatch without payload for {@link UrlXModule}.
@@ -38,6 +46,20 @@ export const setRelatedTagsWire = mapWire(
 );
 
 /**
+ * Enables loading params from the url.
+ *
+ * @public
+ */
+export const enableLoadFromUrl = wireCommit('setLoadedFromUrl', true);
+
+/**
+ * Disables loading params from the url.
+ *
+ * @public
+ */
+export const disableLoadFromUrl = wireCommit('setLoadedFromUrl', false);
+
+/**
  * Updates the URL.
  *
  * @public
@@ -49,7 +71,7 @@ export const updateUrl = wireDispatchWithoutPayload('updateUrl');
  *
  * @public
  */
-export const updateStoreUrl = wireDispatchWithoutPayload('updateStoreFromUrl');
+export const updateState = wireDispatch('updateStoreFromUrl');
 
 /**
  * Sets the query of the url module.
@@ -91,10 +113,11 @@ export const urlWiring = createWiring({
     updateUrl
   },
   DocumentLoaded: {
-    updateStoreUrl
+    updateState,
+    enableLoadFromUrl
   },
-  DocumentHistoryChanged: {
-    updateStoreUrl
+  UrlChanged: {
+    disableLoadFromUrl
   },
   SelectedRelatedTagsChanged: {
     setRelatedTagsWire

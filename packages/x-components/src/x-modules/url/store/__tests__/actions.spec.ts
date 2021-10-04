@@ -1,11 +1,8 @@
-import { map } from '../../../../utils/object';
 import { Dictionary } from '../../../../utils/types';
-import { urlXStoreModule } from '../module';
 import { Params, UrlParamValue } from '../types';
 import { createUrlStore, resetUrlStateWith } from './utils';
 
 describe('testing Url module actions', () => {
-  const actionKeys = map(urlXStoreModule.actions, action => action);
   const store = createUrlStore();
   // eslint-disable-next-line @typescript-eslint/unbound-method
   const historyReplaceFn = window.history.replaceState;
@@ -15,26 +12,26 @@ describe('testing Url module actions', () => {
     window.history.replaceState({}, document.title, window.location.hostname);
   });
 
-  describe(`${actionKeys.updateUrl}`, () => {
+  describe('updateUrl', () => {
     it('should add the correct params to the url', async () => {
       resetUrlStateWith(store, {
         config: {
           urlParamNames: {
             query: 'q',
-            relatedTags: 'tag'
+            relatedTag: 'tag'
           }
         },
         params: {
           query: 'sudadera',
           filters: [],
-          relatedTags: ['con capucha', 'disney'],
+          relatedTag: ['con capucha', 'disney'],
           page: 1,
           sort: 'priceSort desc'
         },
         extraParams: { warehouse: '0123999' }
       });
 
-      await store.dispatch(actionKeys.updateUrl);
+      await store.dispatch('updateUrl');
 
       expect(window.location.search).toEqual(
         '?q=sudadera&sort=priceSort+desc&tag=con+capucha&tag=disney&warehouse=0123999'
@@ -50,11 +47,11 @@ describe('testing Url module actions', () => {
         }
       });
 
-      await store.dispatch(actionKeys.updateUrl);
+      await store.dispatch('updateUrl');
 
       resetUrlStateWith(store, { params: { page: 1, query: '' } });
 
-      await store.dispatch(actionKeys.updateUrl);
+      await store.dispatch('updateUrl');
 
       expect(window.location.search).toEqual('');
     });
@@ -66,19 +63,19 @@ describe('testing Url module actions', () => {
         config: {
           urlParamNames: {
             query: 'q',
-            relatedTags: 'tag'
+            relatedTag: 'tag'
           }
         },
         params: {
           query: 'sudadera',
           filters: [],
-          relatedTags: [],
+          relatedTag: [],
           page: 1,
           scroll: 2
         }
       });
 
-      await store.dispatch(actionKeys.updateUrl);
+      await store.dispatch('updateUrl');
 
       // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(window.history.pushState).toHaveBeenCalled();
@@ -91,26 +88,26 @@ describe('testing Url module actions', () => {
         config: {
           urlParamNames: {
             query: 'q',
-            relatedTags: 'tag'
+            relatedTag: 'tag'
           }
         },
         params: {
           query: 'sudadera',
           filters: [],
-          relatedTags: [],
+          relatedTag: [],
           page: 1,
           scroll: 0
         }
       });
 
-      await store.dispatch(actionKeys.updateUrl);
+      await store.dispatch('updateUrl');
 
       // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(window.history.replaceState).toHaveBeenCalled();
     });
   });
 
-  describe(`${actionKeys.updateStoreFromUrl}`, () => {
+  describe('updateStoreFromUrl', () => {
     it('should update the state with the correct url parameters', async () => {
       const url = new URL(
         window.location.href +
@@ -124,18 +121,18 @@ describe('testing Url module actions', () => {
         config: {
           urlParamNames: {
             query: 'q',
-            relatedTags: 'tag'
+            relatedTag: 'tag'
           }
         },
         extraParams: { warehouse: '', consent: false }
       });
 
-      await store.dispatch(actionKeys.updateStoreFromUrl);
+      await store.dispatch('updateStoreFromUrl', url);
 
       expect(store.state.params).toEqual<Partial<Params>>({
         page: 3,
         query: 'sudadera',
-        relatedTags: ['capucha', 'disney'],
+        relatedTag: ['capucha', 'disney'],
         filters: [],
         sort: 'priceSort asc',
         scroll: 0

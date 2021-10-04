@@ -58,7 +58,12 @@
      *
      * @internal
      */
-    @XOn(['UserAcceptedAQuery', 'SortChanged'])
+    @XOn([
+      'UserAcceptedAQuery',
+      'SortChanged',
+      'SelectedFiltersChanged',
+      'SelectedRelatedTagsChanged'
+    ])
     scrollToTop(): void {
       if (this.resetOnQueryChange) {
         this.$el?.scrollTo({ top: 0 });

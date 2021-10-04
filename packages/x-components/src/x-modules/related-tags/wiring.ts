@@ -50,7 +50,7 @@ export const setRelatedTagsExtraParams = wireCommit('setParams');
  *
  * @public
  */
-export const fetchAndSaveRelatedTagsWire = wireDispatchWithoutPayload('fetchAndSaveRelatedTags');
+export const fetchAndSaveRelatedTagsWire = wireDispatch('fetchAndSaveRelatedTags');
 
 /**
  * Cancels the {@link RelatedTagsActions.fetchAndSaveRelatedTags} request promise.
@@ -113,7 +113,7 @@ export const relatedTagsWiring = createWiring({
   ExtraParamsChanged: {
     setRelatedTagsExtraParams
   },
-  ParamsLoadedFromUrl: {
+  UrlChanged: {
     setUrlParamsFromTheUrlWire
   }
 });

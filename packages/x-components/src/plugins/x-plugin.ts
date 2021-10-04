@@ -15,6 +15,7 @@ import {
 } from '../store/utils/store-emitters.utils';
 import { RootXStoreModule } from '../store/x.module';
 import { Dictionary, forEach } from '../utils';
+import { debounce } from '../utils/debounce';
 import { AnyWire, Wiring } from '../wiring/wiring.types';
 import { AnyXModule, XModuleName } from '../x-modules/x-modules.types';
 import { bus } from './x-bus';
@@ -362,11 +363,11 @@ export class XPlugin implements PluginObject<XPluginOptions> {
 
         this.store.watch(
           state => selector(state.x[name], safeGettersProxy),
-          (newValue, oldValue) => {
+          debounce((newValue, oldValue) => {
             if (filter(newValue, oldValue)) {
               this.bus.emit(event, newValue, { moduleName: name });
             }
-          },
+          }, 0),
           options
         );
 

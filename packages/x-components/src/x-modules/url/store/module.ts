@@ -20,9 +20,10 @@ export const urlXStoreModule: UrlXStoreModule = {
       filters: [],
       sort: '',
       scroll: 0,
-      relatedTags: []
+      relatedTag: []
     },
-    extraParams: {}
+    extraParams: {},
+    isLoadedFromUrl: false
   }),
   getters: {
     urlParams,
@@ -41,11 +42,14 @@ export const urlXStoreModule: UrlXStoreModule = {
     setQuery(state, query) {
       state.params.query = query;
     },
-    setRelatedTags(state, relatedTags) {
-      state.params.relatedTags = relatedTags;
+    setRelatedTags(state, relatedTag) {
+      state.params.relatedTag = relatedTag;
     },
     setPage(state, page) {
       state.params.page = page;
+    },
+    setLoadedFromUrl(state, isLoadedFromUrl) {
+      state.isLoadedFromUrl = isLoadedFromUrl;
     },
     setSort(state, sort) {
       state.params.sort = sort;

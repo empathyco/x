@@ -1,4 +1,4 @@
-import { XStoreModule } from '../../../store';
+import { XActionContext, XStoreModule } from '../../../store';
 import { Dictionary } from '../../../utils/types';
 import { UrlConfig } from '../config.types';
 
@@ -11,6 +11,7 @@ export interface UrlState {
   config: UrlConfig;
   params: Record<keyof Params, UrlParamValue>;
   extraParams: Dictionary<UrlParamValue>;
+  isLoadedFromUrl: boolean;
 }
 
 /**
@@ -23,7 +24,7 @@ export interface Params {
   page: number;
   filters: string[];
   sort: string;
-  relatedTags: string[];
+  relatedTag: string[];
   scroll: number;
 }
 
@@ -97,6 +98,12 @@ export interface UrlMutations {
    */
   setPage(page: number): void;
   /**
+   * Sets the flag to know if loaded from URL.
+   *
+   * @param isLoadedFromUrl - The flag state.
+   */
+  setLoadedFromUrl(isLoadedFromUrl: boolean): void;
+  /**
    * Sets the new sort.
    *
    * @param sort - The new sort of the Url.
@@ -122,7 +129,7 @@ export interface UrlActions {
    *
    * @public
    */
-  updateStoreFromUrl(): void;
+  updateStoreFromUrl(url: string): void;
 }
 
 /**
@@ -131,3 +138,10 @@ export interface UrlActions {
  * @public
  */
 export type UrlXStoreModule = XStoreModule<UrlState, UrlGetters, UrlMutations, UrlActions>;
+
+/**
+ * Alias type for actions context of the {@link UrlXStoreModule}.
+ *
+ * @public
+ */
+export type UrlActionContext = XActionContext<UrlState, UrlGetters, UrlMutations, UrlActions>;

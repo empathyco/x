@@ -6,13 +6,13 @@ describe('testing url module getters', () => {
     config: {
       urlParamNames: {
         query: 'q',
-        relatedTags: 'tag'
+        relatedTag: 'tag'
       }
     },
     params: {
       query: 'salmorejo',
       filters: [],
-      relatedTags: ['with eggs'],
+      relatedTag: ['with eggs'],
       page: 1,
       sort: 'default',
       scroll: 0
@@ -26,9 +26,10 @@ describe('testing url module getters', () => {
   it('re-maps values using the config', () => {
     expect(store.getters.urlParams).toEqual<UrlGetters['urlParams']>({
       query: 'salmorejo',
-      relatedTags: ['with eggs'],
+      relatedTag: ['with eggs'],
       sort: 'default',
-      warehouse: 12345
+      warehouse: 12345,
+      isLoadedFromUrl: false
     });
   });
 
@@ -36,7 +37,7 @@ describe('testing url module getters', () => {
     expect(store.getters.urlMappedParamNames).toEqual<UrlGetters['urlMappedParamNames']>({
       query: 'q',
       filters: 'filters',
-      relatedTags: 'tag',
+      relatedTag: 'tag',
       page: 'page',
       scroll: 'scroll',
       sort: 'sort',

@@ -200,13 +200,13 @@ export interface SearchActions {
   /**
    * Fetches a new search response and stores them in the module state.
    */
-  fetchAndSaveSearchResponse(): void;
+  fetchAndSaveSearchResponse(request: SearchRequest | null): void;
   /**
    * Fetches the search response and returns them.
    *
    * @returns The new search response.
    */
-  fetchSearchResponse(): SearchResponse;
+  fetchSearchResponse(request: SearchRequest | null): SearchResponse;
   /**
    * Checks if there are more pages of results to load. If there are, then increases the page
    * number in state and set to `true` the {@link SearchState.isAppendResults} flag.

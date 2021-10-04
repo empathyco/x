@@ -1,5 +1,6 @@
 import {
   namespacedWireCommit,
+  namespacedWireDispatch,
   namespacedWireDispatchWithoutPayload
 } from '../../wiring/namespaced-wires.factory';
 import { namespacedDebounce } from '../../wiring/namespaced-wires.operators';
@@ -12,18 +13,27 @@ import { createWiring } from '../../wiring/wiring.utils';
  * @internal
  */
 const moduleName = 'querySuggestions';
+
 /**
  * WireCommit for {@link QuerySuggestionsXModule}.
  *
  * @internal
  */
 const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName);
+
 /**
  * WireDispatchWithoutPayload for {@link QuerySuggestionsXModule}.
  *
  * @internal
  */
 const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
+
+/**
+ * WireDispatch for {@link QuerySuggestionsXModule}.
+ *
+ * @internal
+ */
+const wireDispatch = namespacedWireDispatch(moduleName);
 
 /**
  * Sets the query-suggestions module query.
@@ -51,7 +61,7 @@ export const clearQuerySuggestionsQuery = wireCommit('setQuery', '');
  *
  * @public
  */
-export const fetchAndSaveSuggestionsWire = wireDispatchWithoutPayload('fetchAndSaveSuggestions');
+export const fetchAndSaveSuggestionsWire = wireDispatch('fetchAndSaveSuggestions');
 
 /**
  * Cancels the {@link QuerySuggestionsActions.fetchAndSaveSuggestions} request promise.
