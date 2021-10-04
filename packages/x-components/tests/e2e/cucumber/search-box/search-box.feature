@@ -1,10 +1,11 @@
 Feature: Search-box component
 
   Background:
-    Given a results API with a known response
-    And   a next queries API
+    Given   a next queries API
     And   a suggestions API
     And   a related tags API
+    And   a recommendations API with a known response
+    And   a results API with a known response
 
   Scenario Outline: 1. Query with results is typed and <buttonOrKey> is clicked/pressed (search-box is empty)
     Given following config: hide if equals query <hideIfEqualsQuery>, instant search <instant>, debounce <instantDebounceInMs>
@@ -20,7 +21,7 @@ Feature: Search-box component
     And   "<query>" is displayed in history queries is not <hideIfEqualsQuery>
     Examples:
       | hideIfEqualsQuery | instantDebounceInMs | instant | query     | buttonOrKey  |
-  #    | true              | 500                 | false   | lego      | searchButton |
+      | true              | 500                 | false   | lego      | searchButton |
       | false             | 500                 | false   | star wars | enterKey     |
 
   Scenario Outline: 2. Query with results exists and it's cleared by <cleared> (search-box is not empty)

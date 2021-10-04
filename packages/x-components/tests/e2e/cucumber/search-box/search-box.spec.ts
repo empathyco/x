@@ -36,7 +36,6 @@ Given(
 );
 
 And('no queries have been searched', () => {
-  cy.getByDataTest('search-input').should('exist');
   cy.getByDataTest('search-input').should('have.value', '');
   cy.getByDataTest('results-list').should('not.exist');
   cy.getByDataTest('query-suggestions').should('not.exist');
