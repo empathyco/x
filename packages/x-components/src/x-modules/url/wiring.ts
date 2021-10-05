@@ -1,5 +1,6 @@
 import { Filter, RelatedTag } from '@empathyco/x-types';
-import { mapWire } from '../../wiring';
+import { map } from '../../utils';
+import { mapWire, namespacedWireDispatch } from '../../wiring';
 import {
   namespacedWireCommit,
   namespacedWireDispatchWithoutPayload
@@ -12,6 +13,13 @@ import { createWiring } from '../../wiring/wiring.utils';
  * @internal
  */
 const wireCommit = namespacedWireCommit('url');
+
+/**
+ * WireDispatch for {@link UrlXModule}.
+ *
+ * @internal
+ */
+const wireDispatch = namespacedWireDispatch('url');
 
 /**
  * WireDispatch without payload for {@link UrlXModule}.
@@ -38,13 +46,18 @@ export const setRelatedTagsWire = mapWire(
 );
 
 /**
- * Sets the {@link @empathyco/x-types#Filter | filters }.
+ * Enables loading params from the url.
  *
  * @public
  */
-export const setFiltersWire = mapWire(wireCommit('setFilters'), (filters: Filter[]) =>
-  filters.map(filter => filter.id)
-);
+export const enableLoadFromUrl = wireCommit('setLoadedFromUrl', true);
+
+/**
+ * Disables loading params from the url.
+ *
+ * @public
+ */
+export const disableLoadFromUrl = wireCommit('setLoadedFromUrl', false);
 
 /**
  * Updates the URL.
@@ -58,7 +71,7 @@ export const updateUrl = wireDispatchWithoutPayload('updateUrl');
  *
  * @public
  */
-export const updateStoreUrl = wireDispatchWithoutPayload('updateStoreFromUrl');
+export const updateState = wireDispatch('updateStoreFromUrl');
 
 /**
  * Sets the query of the url module.
@@ -73,6 +86,15 @@ export const setQuery = wireCommit('setQuery');
  * @public
  */
 export const setPage = wireCommit('setPage');
+
+/**
+ * Sets the filters of the url module.
+ *
+ * @public
+ */
+export const setFiltersWire = mapWire(wireCommit('setFilters'),
+  (filters: Filter[]) => filters.map(filter => filter.id)
+)
 
 /**
  * Wiring configuration for the {@link UrlXModule | url module}.
@@ -93,10 +115,11 @@ export const urlWiring = createWiring({
     updateUrl
   },
   DocumentLoaded: {
-    updateStoreUrl
+    updateState,
+    enableLoadFromUrl
   },
-  DocumentHistoryChanged: {
-    updateStoreUrl
+  UrlChanged: {
+    disableLoadFromUrl
   },
   SelectedRelatedTagsChanged: {
     setRelatedTagsWire

@@ -1,22 +1,32 @@
 import { HistoryQuery } from '@empathyco/x-types';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { DeepPartial, map } from '../../../../utils';
-import { localStorageService } from '../../../../utils/storage';
 import {
   createHistoryQueries,
   createHistoryQuery
 } from '../../../../__stubs__/history-queries-stubs.factory';
+import { SafeStore } from '../../../../store/__tests__/utils';
+import { DeepPartial } from '../../../../utils';
+import { localStorageService } from '../../../../utils/storage';
 import { SESSION_TIME_STAMP_STORAGE_KEY } from '../constants';
 import { historyQueriesXStoreModule } from '../module';
-import { HistoryQueriesState } from '../types';
+import {
+  HistoryQueriesActions,
+  HistoryQueriesGetters,
+  HistoryQueriesMutations,
+  HistoryQueriesState
+} from '../types';
 import { resetHistoryQueriesStateWith } from './utils';
 
 describe('testing history queries module actions', () => {
   Vue.use(Vuex);
-  const store: Store<HistoryQueriesState> = new Store(historyQueriesXStoreModule as any);
+  const store: SafeStore<
+    HistoryQueriesState,
+    HistoryQueriesGetters,
+    HistoryQueriesMutations,
+    HistoryQueriesActions
+  > = new Store(historyQueriesXStoreModule as any);
   let currentTimeStamp = 0;
-  const actionsKeys = map(historyQueriesXStoreModule.actions, action => action);
   Date.now = () => currentTimeStamp; // Mock Date.now to always return 0
 
   function resetStateWith(state: DeepPartial<HistoryQueriesState>): void {
@@ -34,9 +44,9 @@ describe('testing history queries module actions', () => {
     currentTimeStamp = 0;
   });
 
-  describe(`${actionsKeys.addQueryToHistory}`, () => {
+  describe('addQueryToHistory', () => {
     it('does not add the query if it is empty', () => {
-      store.dispatch(actionsKeys.addQueryToHistory, ' ');
+      store.dispatch('addQueryToHistory', ' ');
 
       expectHistoryQueriesToEqual([]);
     });
@@ -50,9 +60,9 @@ describe('testing history queries module actions', () => {
         'jeans',
         'long sleve shirt'
       );
-      store.dispatch(actionsKeys.addQueryToHistory, tShirt.query);
-      store.dispatch(actionsKeys.addQueryToHistory, jeans.query);
-      store.dispatch(actionsKeys.addQueryToHistory, longSleveShirt.query);
+      store.dispatch('addQueryToHistory', tShirt.query);
+      store.dispatch('addQueryToHistory', jeans.query);
+      store.dispatch('addQueryToHistory', longSleveShirt.query);
 
       expectHistoryQueriesToEqual([longSleveShirt, jeans, tShirt, shirt]);
     });
@@ -61,7 +71,7 @@ describe('testing history queries module actions', () => {
       const [shoes, shirt] = createHistoryQueries('shoes', 'shirt');
       resetStateWith({ historyQueries: [shoes, shirt] });
 
-      store.dispatch(actionsKeys.addQueryToHistory, 'shirt');
+      store.dispatch('addQueryToHistory', 'shirt');
 
       expectHistoryQueriesToEqual([shirt, shoes]);
     });
@@ -71,7 +81,7 @@ describe('testing history queries module actions', () => {
       resetStateWith({ historyQueries: [be, shirt] });
 
       const belt = createHistoryQuery({ query: 'belt' });
-      store.dispatch(actionsKeys.addQueryToHistory, belt.query);
+      store.dispatch('addQueryToHistory', belt.query);
 
       expectHistoryQueriesToEqual([belt, shirt]);
     });
@@ -80,7 +90,7 @@ describe('testing history queries module actions', () => {
       const [shoes, shirt] = createHistoryQueries('shoes', 'shirt');
       resetStateWith({ historyQueries: [shoes, shirt] });
 
-      store.dispatch(actionsKeys.addQueryToHistory, 'shoe');
+      store.dispatch('addQueryToHistory', 'shoe');
 
       expectHistoryQueriesToEqual([shoes, shirt]);
     });
@@ -90,7 +100,7 @@ describe('testing history queries module actions', () => {
       resetStateWith({ historyQueries: [longSleeveShirt, jeans] });
 
       const shirt = createHistoryQuery({ query: 'shirt' });
-      store.dispatch(actionsKeys.addQueryToHistory, shirt.query);
+      store.dispatch('addQueryToHistory', shirt.query);
 
       expectHistoryQueriesToEqual([shirt, longSleeveShirt, jeans]);
     });
@@ -103,11 +113,11 @@ describe('testing history queries module actions', () => {
         'pantalon azul',
         'pantalon amarillo'
       );
-      store.dispatch(actionsKeys.addQueryToHistory, one.query);
-      store.dispatch(actionsKeys.addQueryToHistory, two.query);
-      store.dispatch(actionsKeys.addQueryToHistory, three.query);
-      store.dispatch(actionsKeys.addQueryToHistory, four.query);
-      store.dispatch(actionsKeys.addQueryToHistory, five.query);
+      store.dispatch('addQueryToHistory', one.query);
+      store.dispatch('addQueryToHistory', two.query);
+      store.dispatch('addQueryToHistory', three.query);
+      store.dispatch('addQueryToHistory', four.query);
+      store.dispatch('addQueryToHistory', five.query);
 
       expectHistoryQueriesToEqual([five, four, two]);
     });
@@ -119,10 +129,10 @@ describe('testing history queries module actions', () => {
         'puzzle',
         'puzzle'
       );
-      store.dispatch(actionsKeys.addQueryToHistory, puzzle1000.query);
-      store.dispatch(actionsKeys.addQueryToHistory, puzzleBig.query);
-      store.dispatch(actionsKeys.addQueryToHistory, puzzle.query);
-      store.dispatch(actionsKeys.addQueryToHistory, puzzle.query);
+      store.dispatch('addQueryToHistory', puzzle1000.query);
+      store.dispatch('addQueryToHistory', puzzleBig.query);
+      store.dispatch('addQueryToHistory', puzzle.query);
+      store.dispatch('addQueryToHistory', puzzle.query);
 
       expectHistoryQueriesToEqual([puzzle, puzzleBig, puzzle1000]);
     });
@@ -134,17 +144,17 @@ describe('testing history queries module actions', () => {
         'lego st',
         'lego star wars'
       );
-      store.dispatch(actionsKeys.addQueryToHistory, le.query);
-      store.dispatch(actionsKeys.addQueryToHistory, lego.query);
-      store.dispatch(actionsKeys.addQueryToHistory, legoSt.query);
-      store.dispatch(actionsKeys.addQueryToHistory, legoStarWars.query);
-      store.dispatch(actionsKeys.addQueryToHistory, lego.query);
+      store.dispatch('addQueryToHistory', le.query);
+      store.dispatch('addQueryToHistory', lego.query);
+      store.dispatch('addQueryToHistory', legoSt.query);
+      store.dispatch('addQueryToHistory', legoStarWars.query);
+      store.dispatch('addQueryToHistory', lego.query);
 
       expectHistoryQueriesToEqual([lego, legoStarWars]);
     });
   });
 
-  describe(`${actionsKeys.removeFromHistory}`, () => {
+  describe('removeFromHistory', () => {
     it('removes the given query from the history', () => {
       const [caffeAmericano, capuccino, caramelMacchiato] = createHistoryQueries(
         'Caffé americano',
@@ -153,16 +163,16 @@ describe('testing history queries module actions', () => {
       );
       resetStateWith({ historyQueries: [caffeAmericano, capuccino, caramelMacchiato] });
 
-      store.dispatch(actionsKeys.removeFromHistory, capuccino);
+      store.dispatch('removeFromHistory', capuccino);
 
       expectHistoryQueriesToEqual([caffeAmericano, caramelMacchiato]);
     });
   });
 
-  describe(`${actionsKeys.setHistoryQueries}`, () => {
+  describe('setHistoryQueries', () => {
     it('sets the new history queries to the state and the browser storage', () => {
       const historyQueries = [createHistoryQuery({ query: 'Pumpkin spice latte' })];
-      store.dispatch(actionsKeys.setHistoryQueries, historyQueries);
+      store.dispatch('setHistoryQueries', historyQueries);
 
       expectHistoryQueriesToEqual(historyQueries);
     });
@@ -180,13 +190,13 @@ describe('testing history queries module actions', () => {
         }
       });
 
-      store.dispatch(actionsKeys.setHistoryQueries, [whiteMocha, espresso, completeCoffee]);
+      store.dispatch('setHistoryQueries', [whiteMocha, espresso, completeCoffee]);
 
       expectHistoryQueriesToEqual([whiteMocha, espresso]);
     });
   });
 
-  describe(`${actionsKeys.refreshSession}`, () => {
+  describe('refreshSession', () => {
     it('updates the session time stamp with the configured TTL', () => {
       localStorageService.setItem(
         SESSION_TIME_STAMP_STORAGE_KEY,
@@ -196,7 +206,7 @@ describe('testing history queries module actions', () => {
       resetStateWith({ config: { sessionTTLInMs: 20 } });
 
       currentTimeStamp = 5;
-      store.dispatch(actionsKeys.refreshSession);
+      store.dispatch('refreshSession');
       expect(localStorageService.getItem(SESSION_TIME_STAMP_STORAGE_KEY)).toEqual(0);
       expect(store.state.sessionTimeStampInMs).toEqual(0);
 
@@ -206,16 +216,16 @@ describe('testing history queries module actions', () => {
       currentTimeStamp = 25;
       expect(localStorageService.getItem(SESSION_TIME_STAMP_STORAGE_KEY)).toBeNull();
 
-      store.dispatch(actionsKeys.refreshSession);
+      store.dispatch('refreshSession');
       expect(localStorageService.getItem(SESSION_TIME_STAMP_STORAGE_KEY)).toEqual(25);
       expect(store.state.sessionTimeStampInMs).toEqual(25);
     });
   });
 
-  describe(`${actionsKeys.loadHistoryQueriesFromBrowserStorage}`, () => {
+  describe('loadHistoryQueriesFromBrowserStorage', () => {
     it('loads an empty array if storage does not contain the key', () => {
       localStorageService.removeItem(store.getters.storageKey);
-      store.dispatch(actionsKeys.loadHistoryQueriesFromBrowserStorage);
+      store.dispatch('loadHistoryQueriesFromBrowserStorage');
 
       expect(store.state.historyQueries).toEqual([]);
     });
@@ -223,7 +233,7 @@ describe('testing history queries module actions', () => {
     it('loads history queries from browser storage', () => {
       const historyQueries: HistoryQuery[] = createHistoryQueries('molleja', 'araña');
       localStorageService.setItem(store.getters.storageKey, historyQueries);
-      store.dispatch(actionsKeys.loadHistoryQueriesFromBrowserStorage);
+      store.dispatch('loadHistoryQueriesFromBrowserStorage');
 
       expect(store.state.historyQueries).toEqual(historyQueries);
     });

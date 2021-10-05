@@ -10,17 +10,18 @@ import { StatusMutations, StatusState } from './status-store.utils';
  * @public
  * @returns An action to fetch and save some data, and an action to cancel the last request.
  */
-export function createFetchAndSaveAction<
+export function createFetchAndSaveActions<
   // Using `object` type to ensure no actions/getters can be used.
   // eslint-disable-next-line @typescript-eslint/ban-types
   Context extends XActionContext<StatusState, object, StatusMutations, object>,
+  Request,
   Response
 >({
   fetch,
   onSuccess,
   onError,
   onCancel
-}: CreateFetchAndSaveActionsOptions<Context, Response>): FetchAndSaveActions<Context> {
+}: FetchAndSaveHooks<Context, Request, Response>): FetchAndSaveActions<Context, Request> {
   let cancelPreviousRequest: undefined | (() => void);
 
   /**
@@ -65,10 +66,10 @@ export function createFetchAndSaveAction<
 
   // eslint-disable-next-line
   /** @see FetchAndSaveActions.fetchAndSave */
-  function fetchAndSave(context: Context): Promise<void> {
+  function fetchAndSave(context: Context, request: Request): Promise<void> {
     cancelPrevious();
     context.commit('setStatus', 'loading');
-    const { promise, cancel } = cancellablePromise(fetch(context), () => {
+    const { promise, cancel } = cancellablePromise(fetch(context, request), () => {
       handleCancel(context);
     });
 
@@ -91,14 +92,15 @@ export function createFetchAndSaveAction<
 }
 
 /**
- * Options to use with the {@link createFetchAndSaveAction} factory.
+ * Options to use with the {@link createFetchAndSaveActions} factory.
  *
  * @public
  */
-export interface CreateFetchAndSaveActionsOptions<
+export interface FetchAndSaveHooks<
   // Using `object` type to ensure no actions/getters can be used.
   // eslint-disable-next-line @typescript-eslint/ban-types
   Context extends XActionContext<StatusState, object, StatusMutations, object>,
+  Request,
   Response
 > {
   /**
@@ -106,20 +108,22 @@ export interface CreateFetchAndSaveActionsOptions<
    *
    * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the
    * actions, provided by Vuex.
+   * @param request - The request object used for fetching.
+   * @returns A Promise resolved with the response of the fetch request.
    */
-  fetch(context: Context): Promise<Response>;
+  fetch(context: Context, request: Request): Promise<Response>;
   /**
-   * Asynchronous callback executed when the {@link CreateFetchAndSaveActionsOptions.fetch} is
+   * Asynchronous callback executed when the {@link FetchAndSaveHooks.fetch} is
    * performed successfully.
    *
    * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the
    * actions, provided by Vuex.
-   * @param response - The data returned by {@link CreateFetchAndSaveActionsOptions.fetch}.
+   * @param response - The data returned by {@link FetchAndSaveHooks.fetch}.
    */
   onSuccess(context: Context, response: Response): void;
   /**
-   * Asynchronous callback executed when either the {@link CreateFetchAndSaveActionsOptions.fetch}
-   * or {@link CreateFetchAndSaveActionsOptions.onSuccess} methods fail.
+   * Asynchronous callback executed when either the {@link FetchAndSaveHooks.fetch}
+   * or {@link FetchAndSaveHooks.onSuccess} methods fail.
    *
    * @param error - The error that triggered this callback.
    */
@@ -135,14 +139,15 @@ export interface CreateFetchAndSaveActionsOptions<
 }
 
 /**
- * Actions returned from the {@link createFetchAndSaveAction}.
+ * Actions returned from the {@link createFetchAndSaveActions}.
  *
  * @public
  */
 export interface FetchAndSaveActions<
   // Using `object` type to ensure no actions/getters can be used.
   // eslint-disable-next-line @typescript-eslint/ban-types
-  Context extends XActionContext<StatusState, object, StatusMutations, object>
+  Context extends XActionContext<StatusState, object, StatusMutations, object>,
+  Request
 > {
   /**
    * Action that requests and saves the response.
@@ -151,7 +156,7 @@ export interface FetchAndSaveActions<
    * actions, provided by Vuex.
    * @returns A promise that resolves after saving the response.
    */
-  fetchAndSave: (context: Context) => void | Promise<void>;
+  fetchAndSave: (context: Context, request: Request) => void | Promise<void>;
   /**
    * Action that cancels the previous request call if it stills in progress.
    */

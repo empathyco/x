@@ -1,7 +1,6 @@
 import {
   namespacedWireCommit,
-  namespacedWireDispatch,
-  namespacedWireDispatchWithoutPayload
+  namespacedWireDispatch
 } from '../../wiring/namespaced-wires.factory';
 import { NamespacedWireCommit, NamespacedWireDispatch } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
@@ -24,12 +23,6 @@ const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit
  * @internal
  */
 const wireDispatch: NamespacedWireDispatch<typeof moduleName> = namespacedWireDispatch(moduleName);
-/**
- * WireDispatchWithoutPayload for {@link NextQueriesXModule}.
- *
- * @internal
- */
-const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
 
 /**
  * Sets the next queries state `query`.
@@ -50,7 +43,7 @@ export const setNextQueriesExtraParams = wireCommit('setParams');
  *
  * @public
  */
-export const fetchAndSaveNextQueriesWire = wireDispatchWithoutPayload('fetchAndSaveNextQueries');
+export const fetchAndSaveNextQueriesWire = wireDispatch('fetchAndSaveNextQueries');
 
 /**
  * Sets the next queries state `query` with the last query in history queries.
