@@ -1,5 +1,4 @@
 import { Filter, RelatedTag } from '@empathyco/x-types';
-import { map } from '../../utils';
 import { mapWire, namespacedWireDispatch } from '../../wiring';
 import {
   namespacedWireCommit,
@@ -92,9 +91,9 @@ export const setPage = wireCommit('setPage');
  *
  * @public
  */
-export const setFiltersWire = mapWire(wireCommit('setFilters'),
-  (filters: Filter[]) => filters.map(filter => filter.id)
-)
+export const setFiltersWire = mapWire(wireCommit('setFilters'), (filters: Filter[]) =>
+  filters.map(filter => filter.id)
+);
 
 /**
  * Wiring configuration for the {@link UrlXModule | url module}.
