@@ -78,7 +78,7 @@ const selectFilterWire = wireFacetsService('select');
  *
  * @public
  */
-export const setFiltersFromUrl = facetsWireDispatch('setFiltersFromUrl');
+const setFiltersFromUrl = facetsWireDispatch('setFiltersFromUrl');
 
 /**
  * Wiring configuration for the {@link FacetsXModule | facets module}.

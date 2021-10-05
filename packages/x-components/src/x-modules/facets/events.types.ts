@@ -16,11 +16,6 @@ import { FacetsGroup } from './service/types';
  */
 export interface FacetsXEvents {
   /**
-   * The query used in the module has changed.
-   * * Payload: The facets query.
-   */
-  FacetsQueryChanged: string;
-  /**
    * The facets from a group have changed
    * * Payload: The group id and the new list of facets for it.
    */
