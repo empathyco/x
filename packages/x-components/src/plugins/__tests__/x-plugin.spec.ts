@@ -457,7 +457,7 @@ describe('testing X Plugin', () => {
 
         await waitNextTick();
 
-        expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(1);
+        expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(3);
         expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith({
           eventPayload: 'Tomahawk steak',
           metadata: {
