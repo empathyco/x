@@ -1,7 +1,6 @@
 import { Store } from 'vuex';
 import { getGettersProxyFromModule } from '../store/utils/getters-proxy.utils';
 import { AnySimpleStateSelector, AnyStateSelector } from '../store/utils/store-emitters.utils';
-import { debounce } from '../utils/debounce';
 import { forEach } from '../utils/object';
 import { AnyXModule } from '../x-modules/x-modules.types';
 import { XBus } from './x-bus.types';
@@ -11,7 +10,6 @@ import { XBus } from './x-bus.types';
  * changes.
  *
  * @param xModule - The {@link XModule} to register its Store Emitters.
- * @internal
  * @param bus - The {@Link XBus} to emit the events by the Emitters.
  * @param store - The Vuex store to access to state and getters to watch them.
  *

@@ -234,10 +234,11 @@ export class XPlugin implements PluginObject<XPluginOptions> {
   }
 
   /**
-   * Performs a customization of a {@link XModule} using the XPlugin public and private optioins.
+   * Performs a customization of a {@link XModule} using the XPlugin public and private options.
    *
    * @param xModule - The module to customize.
    * @returns The customized xModule.
+   * @public
    */
   customizeXModule({
     name,
