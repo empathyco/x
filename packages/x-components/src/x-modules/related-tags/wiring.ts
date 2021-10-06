@@ -113,7 +113,7 @@ export const relatedTagsWiring = createWiring({
   ExtraParamsChanged: {
     setRelatedTagsExtraParams
   },
-  ParamsLoadedFromUrl: {
+  UrlChanged: {
     setUrlParamsFromTheUrlWire
   }
 });

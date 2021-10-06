@@ -61,7 +61,7 @@ export const searchBoxWiring = createWiring({
   UserPressedClearSearchBoxButton: {
     clearSearchBoxQuery
   },
-  ParamsLoadedFromUrl: {
+  UrlChanged: {
     setQueryFromUrl
   }
 });

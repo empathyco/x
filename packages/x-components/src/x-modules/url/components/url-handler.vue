@@ -1,11 +1,9 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { Dictionary, reduce } from '../../../utils';
+  import { reduce } from '../../../utils';
   import { UrlConfig } from '../config.types';
-  import { UrlParamValue } from '../store/types';
   import { urlXModule } from '../x-module';
 
   @Component({
@@ -14,9 +12,6 @@
   export default class UrlHandler extends Vue {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     render(): void {}
-
-    @Getter('url', 'urlParams')
-    public urlParams!: Dictionary<UrlParamValue>;
 
     /**
      * Saves the new parameter names, if present, and add two XEvents to the
@@ -28,13 +23,12 @@
       this.saveUrlConfig();
 
       window.addEventListener('load', () => {
-        this.$x.emit('DocumentLoaded');
-        this.emitEvents();
+        this.$x.emit('DocumentLoaded', window.location.href);
+        this.emitOpenEvent();
       });
-
       window.addEventListener('popstate', () => {
-        this.$x.emit('DocumentHistoryChanged');
-        this.emitEvents();
+        this.$x.emit('DocumentLoaded', window.location.href);
+        this.emitOpenEvent();
       });
     }
 
@@ -43,13 +37,13 @@
      *
      * @internal
      */
-    private saveUrlConfig(): void {
+    protected saveUrlConfig(): void {
       if (Object.keys(this.$attrs).length > 0) {
         const params = reduce(
           this.$attrs,
-          (acc, key, value) => {
-            acc[key] = value;
-            return acc;
+          (urlParamsConfig, paramName, urlParamName) => {
+            urlParamsConfig[paramName] = urlParamName;
+            return urlParamsConfig;
           },
           {} as Record<keyof UrlConfig['urlParamNames'], string>
         );
@@ -63,17 +57,24 @@
     }
 
     /**
-     * Emits the event with the state values when the document is loaded and open X if there is
-     * a query in the Url.
+     * Checks if the parameter query is in the url.
+     *
+     * @returns A boolean whether the parameter is present or not.
+     * @internal
+     */
+    protected get isQueryInUrl(): boolean {
+      const urlParams = new URLSearchParams(document.location.search);
+      return urlParams.has(this.$attrs.query ?? 'query');
+    }
+
+    /**
+     * Open X if there is a query in the Url.
      *
      * @internal
      */
-    protected emitEvents(): void {
-      if (Object.entries(this.urlParams).length) {
-        this.$x.emit('ParamsLoadedFromUrl', this.urlParams);
-        if (this.urlParams['query']) {
-          this.$x.emit('UserOpenXProgrammatically');
-        }
+    protected emitOpenEvent(): void {
+      if (this.isQueryInUrl) {
+        this.$x.emit('UserOpenXProgrammatically');
       }
     }
   }
