@@ -1,6 +1,7 @@
 import { Store } from 'vuex';
 import { getGettersProxyFromModule } from '../store/utils/getters-proxy.utils';
 import { AnySimpleStateSelector, AnyStateSelector } from '../store/utils/store-emitters.utils';
+import { debounce } from '../utils/debounce';
 import { forEach } from '../utils/object';
 import { AnyXModule } from '../x-modules/x-modules.types';
 import { XBus } from './x-bus.types';
@@ -26,11 +27,11 @@ export function registerStoreEmitters(
 
     store.watch(
       state => selector(state.x[name], safeGettersProxy),
-      (newValue, oldValue) => {
+      debounce((newValue, oldValue) => {
         if (filter(newValue, oldValue)) {
           bus.emit(event, newValue, { moduleName: name });
         }
-      },
+      }, 0),
       options
     );
 
