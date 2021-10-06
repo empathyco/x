@@ -187,8 +187,10 @@ export const searchWiring = createWiring({
   UserPickedARelatedTag: {
     resetPage
   },
+  UserClickedAFilter: {
+    resetPage
+  },
   SelectedFiltersChanged: {
-    resetPage,
     resetAppending,
     setSelectedFilters
   },

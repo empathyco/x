@@ -1,6 +1,6 @@
 import { forEach } from '../../../../utils/object';
 import { Dictionary } from '../../../../utils/types';
-import { Params, UrlParamKey, UrlParamValue, UrlXStoreModule } from '../types';
+import { UrlParamKey, UrlParams, UrlParamValue, UrlXStoreModule } from '../types';
 
 /**
  * Default implementation for the {@link UrlActions.updateStoreFromUrl }.
@@ -16,7 +16,7 @@ export const updateStoreFromUrl: UrlXStoreModule['actions']['updateStoreFromUrl'
   url: string
 ) => {
   const urlSearchParams = new URL(url).searchParams;
-  const mappedParams = {} as Record<keyof Params, UrlParamValue>;
+  const mappedParams = {} as Record<keyof UrlParams, UrlParamValue>;
   const mappedExtraParams = {} as Dictionary<UrlParamValue>;
   forEach({ ...params, ...extraParams }, (stateKey, stateValue) => {
     const urlParam = urlMappedParamNames[stateKey];
@@ -32,7 +32,7 @@ export const updateStoreFromUrl: UrlXStoreModule['actions']['updateStoreFromUrl'
   });
 
   if (hasValues(mappedParams)) {
-    commit('setParams', mappedParams);
+    commit('setParams', mappedParams as UrlParams);
   }
   if (hasValues(mappedExtraParams)) {
     commit('setExtraParams', mappedExtraParams);

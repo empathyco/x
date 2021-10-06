@@ -59,7 +59,7 @@
      * @internal
      */
     @XOn([
-      'UserAcceptedAQuery',
+      'SearchBoxQueryChanged',
       'SortChanged',
       'SelectedFiltersChanged',
       'SelectedRelatedTagsChanged'

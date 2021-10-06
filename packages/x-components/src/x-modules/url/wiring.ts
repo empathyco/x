@@ -1,8 +1,7 @@
-import { RelatedTag } from '@empathyco/x-types';
-import { mapWire } from '../../wiring';
+import { Filter, RelatedTag } from '@empathyco/x-types';
+import { mapWire, namespacedWireDispatch } from '../../wiring';
 import {
   namespacedWireCommit,
-  namespacedWireDispatch,
   namespacedWireDispatchWithoutPayload
 } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
@@ -88,6 +87,15 @@ export const setQuery = wireCommit('setQuery');
 export const setPage = wireCommit('setPage');
 
 /**
+ * Sets the filters of the url module.
+ *
+ * @public
+ */
+export const setFiltersWire = mapWire(wireCommit('setFilters'), (filters: Filter[]) =>
+  filters.map(filter => filter.id)
+);
+
+/**
  * Wiring configuration for the {@link UrlXModule | url module}.
  *
  * @internal
@@ -114,6 +122,9 @@ export const urlWiring = createWiring({
   },
   SelectedRelatedTagsChanged: {
     setRelatedTagsWire
+  },
+  SelectedFiltersChanged: {
+    setFiltersWire
   },
   PageChanged: {
     setPage

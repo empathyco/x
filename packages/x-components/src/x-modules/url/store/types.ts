@@ -9,7 +9,7 @@ import { UrlConfig } from '../config.types';
  */
 export interface UrlState {
   config: UrlConfig;
-  params: Record<keyof Params, UrlParamValue>;
+  params: UrlParams;
   extraParams: Dictionary<UrlParamValue>;
   isLoadedFromUrl: boolean;
 }
@@ -19,10 +19,10 @@ export interface UrlState {
  *
  * @public
  */
-export interface Params {
+export interface UrlParams {
   query: string;
   page: number;
-  filters: string[];
+  filters: Array<string | number>;
   sort: string;
   relatedTag: string[];
   scroll: number;
@@ -46,7 +46,7 @@ export interface UrlGetters {
  *
  * @public
  */
-export type UrlParamKey = Extract<keyof Params, string>;
+export type UrlParamKey = Extract<keyof UrlParams, string>;
 
 /**
  * The allowed values of the parameters to store in the URL.
@@ -78,7 +78,7 @@ export interface UrlMutations {
    *
    * @param params - The new params of the Url.
    */
-  setParams(params: Record<keyof Params, UrlParamValue>): void;
+  setParams(params: UrlParams): void;
   /**
    * Sets the new query.
    *
@@ -91,6 +91,12 @@ export interface UrlMutations {
    * @param relatedTags - The new related tags of the url.
    */
   setRelatedTags(relatedTags: string[]): void;
+  /**
+   * Sets the new filter ids.
+   *
+   * @param filterIds - The new filter ids of the url.
+   */
+  setFilters(filterIds: (string | number)[]): void;
   /**
    * Sets the new page.
    *
