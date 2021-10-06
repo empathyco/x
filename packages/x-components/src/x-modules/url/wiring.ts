@@ -125,7 +125,7 @@ export const urlWiring = createWiring({
   PageChanged: {
     setPage
   },
-  UserClickedASort: {
+  SortChanged: {
     setUrlSort
   }
 });

@@ -173,6 +173,7 @@ export const searchWiring = createWiring({
   },
   UserClearedQuery: {
     resetPage,
+    resetSort,
     setSearchQuery,
     cancelFetchAndSaveSearchResponseWire
   },
