@@ -48,6 +48,7 @@ export function registerStoreEmitters(
  *
  * @param stateSelector - The state selector to normalize.
  * @returns A {@link AnyStateSelector} with all the properties set.
+ *
  * @internal
  */
 function normalizeStateSelector(
@@ -70,6 +71,7 @@ function normalizeStateSelector(
  *
  * @param stateSelector - The store emitter selector.
  * @returns A boolean which flags if the stateSelector is simple (function) or complex (object).
+ *
  * @internal
  */
 export function isSimpleSelector(

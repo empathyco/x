@@ -148,6 +148,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * Creates a new instance of the XPlugin with the given bus passed as parameter.
    *
    * @param bus - The {@link XBus} implementation to use for the plugin.
+   *
    * @public
    */
   public constructor(bus: XBus) {
@@ -159,6 +160,8 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * has not been installed yet, it stores the module in a list until the plugin is installed.
    *
    * @param xModule - The module to register.
+   *
+   * @public
    */
   static registerXModule(xModule: AnyXModule): void {
     if (this.instance) {
@@ -185,6 +188,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * process.
    *
    * @param xModule - The module to register.
+   *
    * @internal
    */
   protected static lazyRegisterXModule(xModule: AnyXModule): void {
@@ -197,6 +201,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * @param vue - The GlobalVue object.
    * @param options - The options to install this plugin with.
    * @throws If the XPlugin has already been installed, or the options are not valid.
+   *
    * @internal
    */
   install(vue: VueConstructor, options?: XPluginOptions): void {
@@ -221,6 +226,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * Performs the registration of a {@link XModule}.
    *
    * @param xModule - The module to register.
+   *
    * @internal
    */
   protected registerXModule(xModule: AnyXModule): void {
@@ -238,6 +244,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    *
    * @param xModule - The module to customize.
    * @returns The customized xModule.
+   *
    * @public
    */
   customizeXModule({
@@ -269,6 +276,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * executing each wire.
    *
    * @param xModule - The {@link XModule} to register its wiring.
+   *
    * @internal
    */
   protected registerWiring({ wiring }: AnyXModule): void {
@@ -286,6 +294,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * Registers a {@link https://vuex.vuejs.org/ | Vuex} store module under the 'x' module.
    *
    * @param xModule - The {@link XModule} to register its Store Module.
+   *
    * @internal
    */
   protected registerStoreModule({ name, storeModule }: AnyXModule): void {
@@ -305,6 +314,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * @param moduleOptions - The state, actions, mutations and getters to override the defaultModule.
    * @param configOptions - The state config to override the moduleOptions.
    * @returns The {@link XStoreModule} customized.
+   *
    * @internal
    */
   protected customizeStoreModule(
@@ -323,6 +333,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * changes.
    *
    * @param xModule - The {@link XModule} to register its Store Emitters.
+   *
    * @internal
    */
   protected registerStoreEmitters(xModule: AnyXModule): void {
