@@ -8,11 +8,15 @@
   "pluginsFile": "tests/plugins/index.js",
   "supportFile": "tests/support/index.ts",
   "integrationFolder": "tests/e2e",
-  "testFiles": ["cucumber/**/*.features"],
+  "testFiles": [
+    "cucumber/**/*.feature"
+  ],
   "fixturesFolder": "tests/e2e/fixtures",
   "screenshotsFolder": "tests/e2e/screenshots",
   "component": {
     "componentFolder": "tests/unit",
     "testFiles": "**/*.spec.ts"
-  }
+  },
+  "retries": 2
 }
+
