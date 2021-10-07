@@ -87,12 +87,12 @@ And(
     if (addToSearchBox) {
       cy.getByDataTest('search-input').should(
         'contain',
-        this.searchedQuery + ' ' + this.clickedRelatedTag
+        `${this.searchedQuery} ${this.clickedRelatedTag}`
       );
     } else {
       cy.getByDataTest('search-input').should(
         'not.contain',
-        this.searchedQuery + ' ' + this.clickedRelatedTag
+        `${this.searchedQuery} ${this.clickedRelatedTag}`
       );
     }
   }

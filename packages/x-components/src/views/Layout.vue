@@ -3,8 +3,8 @@
     <UrlHandler />
     <BaseEventsModalOpen>Start</BaseEventsModalOpen>
     <h1>Test controls</h1>
-    <ul class="x-test-controls">
-      <li class="x-test-controls__control">
+    <ul class="x-test-controls x-list x-list--gap-05">
+      <li class="x-test-controls__item x-list__item">
         <label>
           <input
             v-model="controls.searchInput.instant"
@@ -14,7 +14,7 @@
           search-input - instant
         </label>
       </li>
-      <li class="x-test-controls__control">
+      <li class="x-test-controls__item x-list__item">
         <label for="searchInput.instantDebounceInMs">search-input - debounce</label>
         <input
           v-model="controls.searchInput.instantDebounceInMs"
@@ -23,7 +23,7 @@
           data-test="search-input-debounce"
         />
       </li>
-      <li class="x-test-controls__control">
+      <li class="x-test-controls__item x-list__item">
         <label for="popularSearches.maxItemsToRender">popular-searches - maxItemsToRender</label>
         <input
           v-model="controls.popularSearches.maxItemsToRender"
@@ -233,7 +233,7 @@
           <div v-if="$x.identifierResults.length">
             <IdentifierResults class="x-list x-list--horizontal">
               <template #default="{ identifierResult }">
-                <article class="result" style="max-width: 300px">
+                <article class="result">
                   <BaseResultImage :result="identifierResult" class="x-picture--colored">
                     <template #placeholder>
                       <div style="padding-top: 100%; background-color: lightgray"></div>
@@ -318,6 +318,7 @@
             </BannersList>
           </ResultsList>
 
+          <!-- Partials -->
           <PartialResultsList :animation="resultsAnimation">
             <template #default="{ partialResult }">
               <span data-test="partial-query">{{ partialResult.query }}</span>
@@ -379,6 +380,7 @@
   import ChevronTinyRight from '../components/icons/chevron-tiny-right.vue';
   import ChevronUp from '../components/icons/chevron-up.vue';
   import CrossIcon from '../components/icons/cross.vue';
+  import CrossTinyIcon from '../components/icons/cross-tiny.vue';
   import Grid1Col from '../components/icons/grid-1-col.vue';
   import Grid2Col from '../components/icons/grid-2-col.vue';
   import Nq1 from '../components/icons/nq-1.vue';
@@ -405,7 +407,6 @@
   import ExcludeFiltersWithNoResults from '../x-modules/facets/components/lists/exclude-filters-with-no-results.vue';
   import FiltersList from '../x-modules/facets/components/lists/filters-list.vue';
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
-  // eslint-disable-next-line max-len
   import SelectedFiltersList from '../x-modules/facets/components/lists/selected-filters-list.vue';
   import SlicedFilters from '../x-modules/facets/components/lists/sliced-filters.vue';
   import SortedFilters from '../x-modules/facets/components/lists/sorted-filters.vue';
@@ -458,6 +459,7 @@
       BaseEventsModalClose,
       ChevronTinyDown,
       CheckTiny,
+      CrossTinyIcon,
       Nq1,
       Banner,
       BannersList,
