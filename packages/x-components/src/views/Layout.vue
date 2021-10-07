@@ -219,7 +219,7 @@
               <PromotedsList>
                 <NextQueriesList>
                   <BaseVariableColumnGrid :animation="resultsAnimation">
-                    <template #Result="{ item: result }">
+                    <template #result="{ item: result }">
                       <article class="result" style="max-width: 300px">
                         <BaseResultImage :result="result" class="x-picture--colored">
                           <template #placeholder>
@@ -237,11 +237,11 @@
                       <Banner :banner="banner" />
                     </template>
 
-                    <template #Promoted="{ item: promoted }">
+                    <template #promoted="{ item: promoted }">
                       <Promoted :promoted="promoted" />
                     </template>
 
-                    <template #NextQueriesGroup="{ item: { nextQueries } }">
+                    <template #next-queries-group="{ item: { nextQueries } }">
                       <div class="x-list x-list--gap-03">
                         <h1 class="x-title2">What's next?</h1>
                         <BaseSuggestions

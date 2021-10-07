@@ -141,7 +141,10 @@
       cssClass: VueCSSClasses;
     }[] {
       return this.computedItems.map(item => ({
-        item,
+        item: {
+          ...item,
+            modelName: toKebabCase(item.modelName)
+        },
         cssClass: item.modelName
           ? `x-base-grid__${toKebabCase(item.modelName)}`
           : 'x-base-grid__default'
@@ -214,22 +217,22 @@ and are rendered in different slots.
 ```vue
 <template>
   <BaseGrid :animation="animation" :items="items">
-    <template #Banner="{ item }">
+    <template #banner="{ item }">
       <span class="banner">
         {{ `${item.title} banner` }}
       </span>
     </template>
-    <template #NextQueries="{ item }">
+    <template #next-queries="{ item }">
       <span>
         {{ `${item.totalResults} next queries` }}
       </span>
     </template>
-    <template #Promoted="{ item }">
+    <template #promoted="{ item }">
       <span class="promoted">
         {{ `${item.title} promoted` }}
       </span>
     </template>
-    <template #Result="{ item }">
+    <template #result="{ item }">
       <BaseResultLink :result="item">
         {{ item.name }}
       </BaseResultLink>

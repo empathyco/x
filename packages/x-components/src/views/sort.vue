@@ -28,7 +28,7 @@
     <h1>Results</h1>
     <ResultsList #default="{ items, animation }" :animation="staggeredFadeAndSlide">
       <BaseGrid :animation="animation" :items="items" :columns="currentColumn">
-        <template #Result="{ item }">
+        <template #result="{ item }">
           <BaseResultLink :result="item">
             <template #default="{ result }">
               <span data-test="result-price">{{ result.price.value }}</span>

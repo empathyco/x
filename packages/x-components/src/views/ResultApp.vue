@@ -40,13 +40,13 @@
       <template #Banner="{ item }">
         <span :class="`x-banner__${item.id}`">Banner: {{ item.modelName }}</span>
       </template>
-      <template #Promoted="{ item }">
+      <template #promoted="{ item }">
         <span>Promoted: {{ item.modelName }}</span>
       </template>
-      <template #Result="{ item }">
+      <template #result="{ item }">
         <span>Result: {{ item.modelName }}</span>
       </template>
-      <template #NextQueries="{ item }">
+      <template #next-queries="{ item }">
         <span>Nextqueries: {{ item.modelName }}</span>
       </template>
       <template #default="{ item }">

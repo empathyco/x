@@ -243,10 +243,10 @@ component, for example the `BaseGrid`. To do so, you can use the `default` slot
         #default="{ items }"
       >
         <BaseGrid :items="items" :animation="animation">
-          <template #NextQueriesGroup="{ item }">
+          <template #next-queries-group="{ item }">
             <span>NextQueriesGroup: {{ item.queries.join(', ') }}</span>
           </template>
-          <template #Result="{ item }">
+          <template #result="{ item }">
             <span>Result: {{ item.name }}</span>
           </template>
           <template #default="{ item }">

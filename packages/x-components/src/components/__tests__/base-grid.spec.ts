@@ -1,18 +1,19 @@
-import { Identifiable } from '@empathyco/x-types';
 import { mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
+import { getNextQueriesStub } from '../../__stubs__';
 import { getSearchResponseStub } from '../../__stubs__/search-response-stubs.factory';
 import { getDataTestSelector } from '../../__tests__/utils';
+import { ListItem } from '../../utils';
 import BaseGrid from '../base-grid.vue';
 
 function renderBaseGridComponent({
   columns,
   items,
   customItemSlot = `
-    <template #Banner="{ item }">
+    <template #banner="{ item }">
       <p data-test="banner-slot">{{ item.modelName }}</p>
     </template>
-    <template #Result="{ item }">
+    <template #result="{ item }">
       <p data-test="result-slot">{{ item.modelName }}</p>
     </template>`,
   template = `
@@ -53,8 +54,13 @@ function renderBaseGridComponent({
 
 describe('testing Base Grid', () => {
   const searchResponse = getSearchResponseStub();
+  const nextQueriesResponse =  [{
+    modelName: 'NextQueriesGroup',
+    id: 'nextQueries',
+    nextQueries: getNextQueriesStub()
+  }];
   const columns = 3;
-  const items = [...searchResponse.banners, ...searchResponse.promoteds, ...searchResponse.results];
+  const items = [...searchResponse.banners, ...searchResponse.promoteds, ...searchResponse.results, ...nextQueriesResponse];
 
   it('allows configuring the number of columns and updates the css class accordingly', () => {
     const { wrapper } = renderBaseGridComponent({ items, columns });
@@ -87,11 +93,33 @@ describe('testing Base Grid', () => {
     expect(getScopedSlot('result').exists()).toBe(false);
     expect(getScopedSlot('banner').exists()).toBe(true);
   });
+
+  it('allows customizing named slots only using kebab case', () => {
+    const customValidItemSlot = `
+    <template #banner="{ item }">
+      <p data-test="banner-slot">{{ item.modelName }}</p>
+    </template>
+    <template #NextQueriesGroup="{ item }">
+      <p data-test="next-queries-group-slot">{{ item.modelName }}</p>
+    </template>
+    <template #next-queries-group="{ item }">
+      <p data-test="next-queries-group-slot">{{ item.modelName }}</p>
+    </template>`;
+    const { getScopedSlot } = renderBaseGridComponent({
+      items,
+      columns,
+      customItemSlot: customValidItemSlot
+    });
+
+    expect(getScopedSlot('banner').exists()).toBe(true);
+    expect(getScopedSlot('NextQueriesGroup').exists()).toBe(false);
+    expect(getScopedSlot('next-queries-group').exists()).toBe(true);
+  });
 });
 
 interface BaseGridRenderOptions {
   columns?: number;
-  items?: Identifiable[];
+  items?: ListItem[];
   customItemSlot?: string;
   template?: string;
 }
