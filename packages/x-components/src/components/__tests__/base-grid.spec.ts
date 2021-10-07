@@ -54,13 +54,20 @@ function renderBaseGridComponent({
 
 describe('testing Base Grid', () => {
   const searchResponse = getSearchResponseStub();
-  const nextQueriesResponse =  [{
-    modelName: 'NextQueries',
-    id: 'nextQueries',
-    nextQueries: getNextQueriesStub()
-  }];
+  const nextQueriesResponse = [
+    {
+      modelName: 'NextQueries',
+      id: 'nextQueries',
+      nextQueries: getNextQueriesStub()
+    }
+  ];
   const columns = 3;
-  const items = [...searchResponse.banners, ...searchResponse.promoteds, ...searchResponse.results, ...nextQueriesResponse];
+  const items = [
+    ...searchResponse.banners,
+    ...searchResponse.promoteds,
+    ...searchResponse.results,
+    ...nextQueriesResponse
+  ];
 
   it('allows configuring the number of columns and updates the css class accordingly', () => {
     const { wrapper } = renderBaseGridComponent({ items, columns });

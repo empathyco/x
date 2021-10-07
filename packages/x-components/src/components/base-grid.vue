@@ -143,7 +143,7 @@
       return this.computedItems.map(item => ({
         item: {
           ...item,
-            modelName: toKebabCase(item.modelName)
+          modelName: toKebabCase(item.modelName)
         },
         cssClass: item.modelName
           ? `x-base-grid__${toKebabCase(item.modelName)}`
