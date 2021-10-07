@@ -2,7 +2,10 @@ Feature: Popular searches component
 
   Background:
     Given a popular searches API with a known response
-    Given a results API
+    And   a results API
+    And   a next queries API
+    And   a recommendations API with a known response
+    And   a related tags API
 
   Scenario Outline:  1. Popular searches are load together with the page
     Given following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, rendered <maxItemsToRender>
@@ -22,7 +25,8 @@ Feature: Popular searches component
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
     When  popular search number <popularSearchItem> is clicked
     Then  the searched query is displayed in the search-box
-    And   the clicked popular search is removed from Popular Searches if <hideSessionQueries> is true
+    When  search-input is focused
+    Then  the clicked popular search is removed from Popular Searches if <hideSessionQueries> is true
     And   no new term is displayed in Popular Searches if hideSessionQueries = <hideSessionQueries> is true and maxItemsToRender = <maxItemsToRender> > maxItemsToRequest = <maxItemsToRequest>
     And   the searched query is displayed in history queries
 
