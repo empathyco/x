@@ -87,7 +87,7 @@ describe('testing Base Grid', () => {
 
   it('allows customizing named slots', () => {
     const customItemSlot = `
-      <template #Banner="{ item }">
+      <template #banner="{ item }">
         <p data-test="banner-slot">{{ item.modelName }}</p>
       </template>`;
     const { getDefaultSlot, getScopedSlot } = renderBaseGridComponent({

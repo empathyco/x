@@ -233,7 +233,7 @@
                       </article>
                     </template>
 
-                    <template #Banner="{ item: banner }">
+                    <template #banner="{ item: banner }">
                       <Banner :banner="banner" />
                     </template>
 

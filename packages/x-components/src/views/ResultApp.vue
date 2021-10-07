@@ -37,7 +37,7 @@
       <span>{{ column }}⇋</span>
     </BaseColumnPickerList>
     <BaseVariableColumnGrid :items="searchResponseStub">
-      <template #Banner="{ item }">
+      <template #banner="{ item }">
         <span :class="`x-banner__${item.id}`">Banner: {{ item.modelName }}</span>
       </template>
       <template #promoted="{ item }">

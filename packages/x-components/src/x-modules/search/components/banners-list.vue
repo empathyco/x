@@ -158,7 +158,7 @@ _Type any term in the input field to try it out!_
     <SearchInput />
     <BannersList #default="{ items, animation }">
       <BaseGrid :items="items" :animation="animation">
-        <template #Banner="{ item }">
+        <template #banner="{ item }">
           <span>Banner: {{ item.title }}</span>
         </template>
         <template #default="{ item }">
