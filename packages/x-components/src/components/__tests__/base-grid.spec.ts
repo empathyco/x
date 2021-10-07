@@ -55,7 +55,7 @@ function renderBaseGridComponent({
 describe('testing Base Grid', () => {
   const searchResponse = getSearchResponseStub();
   const nextQueriesResponse =  [{
-    modelName: 'NextQueriesGroup',
+    modelName: 'NextQueries',
     id: 'nextQueries',
     nextQueries: getNextQueriesStub()
   }];
@@ -99,11 +99,11 @@ describe('testing Base Grid', () => {
     <template #banner="{ item }">
       <p data-test="banner-slot">{{ item.modelName }}</p>
     </template>
-    <template #NextQueriesGroup="{ item }">
-      <p data-test="next-queries-group-slot">{{ item.modelName }}</p>
+    <template #NextQueries="{ item }">
+      <p data-test="next-queries-slot">{{ item.modelName }}</p>
     </template>
-    <template #next-queries-group="{ item }">
-      <p data-test="next-queries-group-slot">{{ item.modelName }}</p>
+    <template #next-queries="{ item }">
+      <p data-test="next-queries-slot">{{ item.modelName }}</p>
     </template>`;
     const { getScopedSlot } = renderBaseGridComponent({
       items,
@@ -112,8 +112,8 @@ describe('testing Base Grid', () => {
     });
 
     expect(getScopedSlot('banner').exists()).toBe(true);
-    expect(getScopedSlot('NextQueriesGroup').exists()).toBe(false);
-    expect(getScopedSlot('next-queries-group').exists()).toBe(true);
+    expect(getScopedSlot('NextQueries').exists()).toBe(false);
+    expect(getScopedSlot('next-queries').exists()).toBe(true);
   });
 });
 
