@@ -9,7 +9,7 @@
   "supportFile": "tests/support/index.ts",
   "integrationFolder": "tests/e2e",
   "testFiles": [
-    "cucumber/**/*.feature"
+    "cucumber/**/*.features"
   ],
   "fixturesFolder": "tests/e2e/fixtures",
   "screenshotsFolder": "tests/e2e/screenshots",
