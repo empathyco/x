@@ -70,7 +70,7 @@ describe('testing Url module actions', () => {
           filters: [],
           relatedTag: [],
           page: 1,
-          scroll: 2
+          scroll: ''
         }
       });
 
@@ -95,7 +95,7 @@ describe('testing Url module actions', () => {
           filters: [],
           relatedTag: [],
           page: 1,
-          scroll: 0
+          scroll: ''
         }
       });
 
@@ -133,7 +133,7 @@ describe('testing Url module actions', () => {
         relatedTag: ['capucha', 'disney'],
         filters: [],
         sort: '',
-        scroll: 0
+        scroll: ''
       });
       expect(store.state.extraParams).toEqual<Dictionary<UrlParamValue>>({
         warehouse: '01234',

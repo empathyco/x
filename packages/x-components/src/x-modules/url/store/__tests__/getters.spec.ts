@@ -15,7 +15,7 @@ describe('testing url module getters', () => {
       relatedTag: ['with eggs'],
       page: 1,
       sort: 'default',
-      scroll: 0
+      scroll: ''
     },
     extraParams: {
       warehouse: 12345,

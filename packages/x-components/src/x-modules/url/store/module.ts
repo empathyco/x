@@ -19,7 +19,7 @@ export const urlXStoreModule: UrlXStoreModule = {
       page: 1,
       filters: [],
       sort: '',
-      scroll: 0,
+      scroll: '',
       relatedTag: []
     },
     extraParams: {},
@@ -50,6 +50,9 @@ export const urlXStoreModule: UrlXStoreModule = {
     },
     setPage(state, page) {
       state.params.page = page;
+    },
+    setScroll(state, scroll) {
+      state.params.scroll = scroll;
     },
     setLoadedFromUrl(state, isLoadedFromUrl) {
       state.isLoadedFromUrl = isLoadedFromUrl;

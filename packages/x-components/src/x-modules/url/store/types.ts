@@ -25,7 +25,7 @@ export interface UrlParams {
   filters: Array<string | number>;
   sort: string;
   relatedTag: string[];
-  scroll: number;
+  scroll: string;
 }
 
 /**
@@ -103,6 +103,12 @@ export interface UrlMutations {
    * @param page - The new page of the url.
    */
   setPage(page: number): void;
+  /**
+   * Sets the new scroll.
+   *
+   * @param scroll - The new scroll of the url.
+   */
+  setScroll(scroll: string): void;
   /**
    * Sets the flag to know if loaded from URL.
    *

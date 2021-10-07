@@ -185,6 +185,7 @@ export interface XEventsTypes
    * * Payload: The new position of scroll.
    */
   UserScrolled: number;
+  FirstScrollItemChanged: string;
   /**
    * User selected any kind of suggestion (query-suggestion, popular-search...)
    * * Payload: The {@link @empathyco/x-types#Suggestion | suggestion} that the user selected.

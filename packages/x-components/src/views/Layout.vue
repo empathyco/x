@@ -220,7 +220,7 @@
                 <NextQueriesList>
                   <BaseVariableColumnGrid :animation="resultsAnimation">
                     <template #Result="{ item: result }">
-                      <article class="result" style="max-width: 300px">
+                      <article class="result" :data-scroll-id="result.id" style="max-width: 300px">
                         <BaseResultImage :result="result" class="x-picture--colored">
                           <template #placeholder>
                             <div style="padding-top: 100%; background-color: lightgray"></div>
@@ -454,5 +454,8 @@
     overflow: hidden;
     width: 100%;
     height: 100%;
+  }
+  .result {
+    min-height: 250px;
   }
 </style>

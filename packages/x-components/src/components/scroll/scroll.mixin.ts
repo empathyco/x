@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import { Prop, Watch } from 'vue-property-decorator';
 import Component from 'vue-class-component';
+import { Dictionary } from '../../utils/types';
+import { UrlParamValue } from '../../x-modules/url/store/types';
+import { XOn } from '../decorators/bus.decorators';
 import { ScrollDirection } from './scroll.types';
 
 /**
@@ -135,6 +138,7 @@ export default class ScrollMixin extends Vue {
   emitScroll(_newScrollPosition: number, oldScrollPosition: number): void {
     this.$emit('scroll', this.currentPosition);
     this.previousPosition = oldScrollPosition;
+    this.setFirstGridItemIdInView();
   }
 
   /**
@@ -184,6 +188,65 @@ export default class ScrollMixin extends Vue {
   emitScrollAtEnd(isScrollAtEnd: boolean): void {
     if (isScrollAtEnd) {
       this.$emit('scroll:at-end');
+    }
+  }
+
+  /**
+   * Emits 'FirstScrollItemChanged' event with the id of the first element that it is inside the
+   * scroll element.
+   *
+   * @internal
+   */
+  protected setFirstGridItemIdInView(): void {
+    if (this.$el) {
+      const scrollTargets = this.$el.querySelectorAll<HTMLElement>('[data-scroll-id]');
+
+      const firstElementInView = Array.from(scrollTargets).find(element =>
+        this.isAnyPartOfElementInViewport(element)
+      );
+      if (firstElementInView) {
+        this.$x.emit('FirstScrollItemChanged', firstElementInView.dataset.scrollId as string);
+      }
+    }
+  }
+
+  /**
+   * Check if an element is inside the scroll element viewport.
+   *
+   * @param element - The Element to check.
+   *
+   * @returns True if an element is inside of the scroll element viewport.
+   *
+   * @internal
+   */
+  protected isAnyPartOfElementInViewport(element: Element): boolean {
+    if (!element) {
+      return false;
+    }
+    const elementRect = element.getBoundingClientRect();
+    const scrollRect = this.$el.getBoundingClientRect();
+
+    return elementRect.top + elementRect.height * 0.25 > scrollRect.top;
+  }
+
+  /**
+   * Scrolls to the element.
+   *
+   * @param scroll - The scroll id.
+   *
+   * @internal
+   */
+  @XOn('UrlChanged')
+  restoreScroll({ scroll }: Dictionary<UrlParamValue>): void {
+    if (this.$el) {
+      const elementToScrollTo: HTMLElement | null = this.$el.querySelector(
+        `[data-scroll-id="${scroll as string}"]`
+      );
+      if (elementToScrollTo) {
+        this.$el.scrollTop = (elementToScrollTo.offsetParent as HTMLElement).offsetTop;
+      } else {
+        setTimeout(() => this.restoreScroll({ scroll }));
+      }
     }
   }
 }
