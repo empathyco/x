@@ -32,6 +32,14 @@ export default class ScrollMixin extends Vue {
   public distanceToBottom!: number;
 
   /**
+   * Percent of the element that has to be outside of the scroll viewport.
+   *
+   * @public
+   */
+  @Prop({ default: 0.25 })
+  public hiddenPercentOfFirstItem!: number;
+
+  /**
    * Property for getting the current position of scroll.
    *
    * @internal
@@ -138,7 +146,7 @@ export default class ScrollMixin extends Vue {
   emitScroll(_newScrollPosition: number, oldScrollPosition: number): void {
     this.$emit('scroll', this.currentPosition);
     this.previousPosition = oldScrollPosition;
-    this.setFirstGridItemIdInView();
+    this.setFirstItemInScrollView();
   }
 
   /**
@@ -192,12 +200,12 @@ export default class ScrollMixin extends Vue {
   }
 
   /**
-   * Emits 'FirstScrollItemChanged' event with the id of the first element that it is inside the
-   * scroll element.
+   * Emits 'FirstItemInScrollViewChanged' event with the id of the first element that it is inside
+   * the scroll element.
    *
    * @internal
    */
-  protected setFirstGridItemIdInView(): void {
+  protected setFirstItemInScrollView(): void {
     if (this.$el) {
       const scrollTargets = this.$el.querySelectorAll<HTMLElement>('[data-scroll-id]');
 
@@ -205,7 +213,7 @@ export default class ScrollMixin extends Vue {
         this.isAnyPartOfElementInViewport(element)
       );
       if (firstElementInView) {
-        this.$x.emit('FirstScrollItemChanged', firstElementInView.dataset.scrollId as string);
+        this.$x.emit('FirstItemInScrollViewChanged', firstElementInView.dataset.scrollId as string);
       }
     }
   }
@@ -226,7 +234,7 @@ export default class ScrollMixin extends Vue {
     const elementRect = element.getBoundingClientRect();
     const scrollRect = this.$el.getBoundingClientRect();
 
-    return elementRect.top + elementRect.height * 0.25 > scrollRect.top;
+    return elementRect.top + elementRect.height * this.hiddenPercentOfFirstItem > scrollRect.top;
   }
 
   /**

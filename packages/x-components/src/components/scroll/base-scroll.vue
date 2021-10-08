@@ -189,6 +189,62 @@ Set to false the reset scroll on query change feature which is true by default.
 </script>
 ```
 
+## Change percent of an element to consider that it is inside or outside into the scroll viewport.
+
+Set to 0.5 the value to change the first element when the 50% of the element is inside of the scroll
+viewport.
+
+```vue
+<template>
+  <BaseScroll
+    @scroll="scroll"
+    @scroll:direction-change="scrollDirectionChange"
+    @scroll:at-start="scrollAtStart"
+    @scroll:almost-at-end="scrollAlmostAtEnd"
+    @scroll:at-end="scrollAtEnd"
+    :resetOnQueryChange="false"
+    :hiddenPercentOfFirstItem="0.5"
+    throttleMs="1000"
+    distanceToBottom="200"
+  >
+    <template>
+      <div class="content-scroll">
+        <span>content1</span>
+        <span>content1</span>
+      </div>
+    </template>
+  </BaseScroll>
+</template>
+
+<script>
+  import { BaseScroll } from '@empathyco/x-components';
+
+  export default {
+    name: 'ScrollTest',
+    components: {
+      BaseScroll
+    },
+    methods: {
+      scroll(position) {
+        console.log('scroll', position);
+      },
+      scrollDirectionChange(direction) {
+        console.log('scroll:direction-change', direction);
+      },
+      scrollAtStart() {
+        console.log('scroll:at-start');
+      },
+      scrollAlmostAtEnd(distance) {
+        console.log('scroll:almost-at-end', distance);
+      },
+      scrollAtEnd() {
+        console.log('scroll:at-end');
+      }
+    }
+  };
+</script>
+```
+
 ## Vue Events:
 
 - `scroll`: the event is emitted after the user scrolls in this container. The payload is the scroll
