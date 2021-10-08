@@ -94,6 +94,13 @@ export const setPage = wireCommit('setPage');
 export const setScroll = wireCommit('setScroll');
 
 /**
+ * Resets the scroll of the url module.
+ *
+ * @public
+ */
+export const resetScroll = wireCommit('setScroll', '');
+
+/**
  * Sets the filters of the url module.
  *
  * @public
@@ -115,7 +122,8 @@ export const urlWiring = createWiring({
     setQuery
   },
   UserClearedQuery: {
-    setQuery
+    setQuery,
+    resetScroll
   },
   UrlStateChanged: {
     updateUrl

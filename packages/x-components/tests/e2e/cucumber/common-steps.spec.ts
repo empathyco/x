@@ -10,6 +10,11 @@ import {
 
 let resultsList: string[] = [];
 
+// Init
+When('start button is clicked', () => {
+  cy.getByDataTest('open-modal').click();
+});
+
 // ID Results
 Then('identifier results are displayed', () => {
   cy.getByDataTest('identifier-results-item').should('have.length.at.least', 1);

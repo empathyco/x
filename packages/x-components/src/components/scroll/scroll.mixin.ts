@@ -75,6 +75,22 @@ export default class ScrollMixin extends Vue {
   protected direction!: ScrollDirection;
 
   /**
+   * Property to scroll when the time out.
+   *
+   * @internal
+   */
+  protected scrollTimeout!: number;
+
+  /**
+   * Clears the time out when the component is unmounted.
+   *
+   * @internal
+   */
+  unmounted(): void {
+    clearTimeout(this.scrollTimeout);
+  }
+
+  /**
    * Returns end position of scroll.
    *
    * @returns A number for knowing end position of scroll.
@@ -138,15 +154,19 @@ export default class ScrollMixin extends Vue {
   /**
    * Emits the `scroll` event.
    *
-   * @param _newScrollPosition - The new position of scroll.
+   * @param newScrollPosition - The new position of scroll.
    * @param oldScrollPosition - The old position of scroll.
    * @internal
    */
   @Watch('currentPosition')
-  emitScroll(_newScrollPosition: number, oldScrollPosition: number): void {
+  emitScroll(newScrollPosition: number, oldScrollPosition: number): void {
     this.$emit('scroll', this.currentPosition);
     this.previousPosition = oldScrollPosition;
-    this.setFirstItemInScrollView();
+    this.scrollTimeout = setTimeout(() => {
+      if (newScrollPosition !== 0) {
+        this.setFirstItemInScrollView();
+      }
+    }, 500);
   }
 
   /**
@@ -246,7 +266,7 @@ export default class ScrollMixin extends Vue {
    */
   @XOn('UrlChanged')
   restoreScroll({ scroll }: Dictionary<UrlParamValue>): void {
-    if (this.$el) {
+    if (this.$el && scroll) {
       const elementToScrollTo: HTMLElement | null = this.$el.querySelector(
         `[data-scroll-id="${scroll as string}"]`
       );

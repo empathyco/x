@@ -56,7 +56,7 @@ describe('testing Url module actions', () => {
     });
 
     it('should push the state when the parameter is pushable', async () => {
-      window.history.pushState = jest.fn();
+      window.history.replaceState = jest.fn();
 
       resetUrlStateWith(store, {
         config: {
@@ -77,7 +77,7 @@ describe('testing Url module actions', () => {
       await store.dispatch('updateUrl');
 
       // eslint-disable-next-line @typescript-eslint/unbound-method
-      expect(window.history.pushState).toHaveBeenCalled();
+      expect(window.history.replaceState).toHaveBeenCalled();
     });
 
     it('should replace the state when the parameter is not pushable', async () => {
