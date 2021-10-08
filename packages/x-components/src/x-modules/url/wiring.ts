@@ -136,7 +136,7 @@ export const urlWiring = createWiring({
   PageChanged: {
     setPage
   },
-  FirstScrollItemChanged: {
+  FirstItemInScrollViewChanged: {
     setScroll
   }
 });
