@@ -12,6 +12,7 @@
       class="x-items-list__item"
       :class="item.class"
       :data-test="item.dataTest"
+      :data-scroll-id="item.id"
     >
       <!--
         @slot Custom item to render.
