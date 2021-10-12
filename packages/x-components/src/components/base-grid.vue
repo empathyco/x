@@ -8,7 +8,7 @@
     data-test="grid"
   >
     <li
-      v-for="{ item, cssClass } in itemsWithCSSClass"
+      v-for="{ slotName, item, cssClass } in gridItems"
       :key="item.id"
       :class="cssClass"
       class="x-grid__item x-base-grid__item"
@@ -18,7 +18,7 @@
         the item using that slot composition to render.
             @binding {item} item - Item to render
       -->
-      <slot v-if="$scopedSlots[item.modelName]" :name="item.modelName" :item="item" />
+      <slot v-if="$scopedSlots[slotName]" :name="slotName" :item="item" />
       <!--
         @slot (required) Default item rendering. This slot will be used by default for rendering
         the item without an specific slot implementation.
@@ -33,7 +33,7 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { toKebabCase } from '../utils/string';
-  import { ListItem, VueCSSClasses } from '../utils/types';
+  import { GridItem, ListItem, VueCSSClasses } from '../utils/types';
   import { XInject } from './decorators/injection.decorators';
   import { LIST_ITEMS_KEY } from './decorators/injection.consts';
 
@@ -130,25 +130,21 @@
     }
 
     /**
-     * Maps the item to an object containing: the `item` and its `CSS class`.
+     * Maps the item to an object containing: the `item`, its `CSS class` and its slot name.
      *
      * @returns An array of objects containing the item and its CSS class.
      *
      * @internal
      */
-    protected get itemsWithCSSClass(): {
-      item: ListItem;
-      cssClass: VueCSSClasses;
-    }[] {
-      return this.computedItems.map(item => ({
-        item: {
-          ...item,
-          modelName: toKebabCase(item.modelName)
-        },
-        cssClass: item.modelName
-          ? `x-base-grid__${toKebabCase(item.modelName)}`
-          : 'x-base-grid__default'
-      }));
+    protected get gridItems(): GridItem[] {
+      return this.computedItems.map(item => {
+        const slotName = toKebabCase(item.modelName);
+        return {
+          slotName,
+          item,
+          cssClass: `x-base-grid__${slotName}`
+        };
+      });
     }
   }
 </script>

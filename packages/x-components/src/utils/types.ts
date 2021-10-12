@@ -164,6 +164,17 @@ export type EventsForDirectionLimit = {
 export type ListItem = Identifiable & NamedModel;
 
 /**
+ * The type returned by the {@link gridItems} function. Basically it's a list of items with its CSS classes and a slotName
+ *
+ * @public
+ */
+export interface GridItem {
+  slotName: string;
+  item: ListItem;
+  cssClass: VueCSSClasses;
+}
+
+/**
  * The type returned by the {@link debounce} function. Basically is the function the
  * {@link debounce} receives but debounced and with a method `cancel()` to cancel pending timeouts.
  *
