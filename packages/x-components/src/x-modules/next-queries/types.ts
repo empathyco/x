@@ -1,4 +1,4 @@
-import { NextQuery } from '../../../../search-types';
+import { NextQuery } from '@empathyco/x-types';
 import { ListItem } from '../../utils';
 
 /**
