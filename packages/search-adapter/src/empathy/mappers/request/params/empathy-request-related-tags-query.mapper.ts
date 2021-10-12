@@ -1,3 +1,4 @@
+import { RelatedTag } from '@empathyco/x-types';
 import { injectable } from 'inversify';
 import { QueryableRequest } from '../../../../types';
 import { RequestMapper } from '../../../empathy-adapter.types';
@@ -8,9 +9,24 @@ import { RequestMapper } from '../../../empathy-adapter.types';
  * @public
  */
 @injectable()
-export class EmpathyRequestRelatedTagsQueryMapper implements RequestMapper<QueryableRequest, string> {
-
+export class EmpathyRequestRelatedTagsQueryMapper
+  implements RequestMapper<QueryableRequest, string>
+{
   map({ relatedTags = [] }: QueryableRequest, query: string): string {
-    return relatedTags.reduce((chain, rt) => `${chain} ${rt.tag}`, query).trim();
+    const [leftRts, rightRts] = this.splitRelatedTagsByQueryPosition(relatedTags, query);
+    return `${leftRts} ${query} ${rightRts}`.trim();
+  }
+
+  splitRelatedTagsByQueryPosition(array: RelatedTag[], query: string): string[] {
+    return array
+      .reduce(
+        ([left, right], rt) => {
+          return rt.query.indexOf(query) > rt.query.indexOf(rt.tag)
+            ? [`${left} ${rt.tag}`, right]
+            : [left, `${right} ${rt.tag}`];
+        },
+        ['', '']
+      )
+      .map((rts) => rts.trim());
   }
 }
