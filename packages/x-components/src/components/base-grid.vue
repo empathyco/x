@@ -33,9 +33,21 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { toKebabCase } from '../utils/string';
-  import { GridItem, ListItem, VueCSSClasses } from '../utils/types';
+  import { ListItem, VueCSSClasses } from '../utils/types';
   import { XInject } from './decorators/injection.decorators';
   import { LIST_ITEMS_KEY } from './decorators/injection.consts';
+
+
+  /**
+   * The type returned by the gridItems function. Basically it's a list of items with its CSS classes and a slotName
+   *
+   * @public
+   */
+  interface GridItem {
+    slotName: string;
+    item: ListItem;
+    cssClass: VueCSSClasses;
+  }
 
   /**
    * Grid component that is able to render different items based on their modelName value. In order

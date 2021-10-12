@@ -1,4 +1,4 @@
-import { Identifiable, NamedModel } from '@empathyco/x-types';
+import { Identifiable, NamedModel, NextQuery } from '@empathyco/x-types';
 import { XEventsTypes } from '../wiring/events.types';
 import { XModuleName } from '../x-modules/x-modules.types';
 
@@ -164,17 +164,6 @@ export type EventsForDirectionLimit = {
 export type ListItem = Identifiable & NamedModel;
 
 /**
- * The type returned by the {@link gridItems} function. Basically it's a list of items with its CSS classes and a slotName
- *
- * @public
- */
-export interface GridItem {
-  slotName: string;
-  item: ListItem;
-  cssClass: VueCSSClasses;
-}
-
-/**
  * The type returned by the {@link debounce} function. Basically is the function the
  * {@link debounce} receives but debounced and with a method `cancel()` to cancel pending timeouts.
  *
@@ -207,4 +196,15 @@ export interface DebounceOptions {
  */
 export interface ThrottleFunction<Params extends any[]> {
   (...args: Params): void;
+}
+
+/**
+ * A list of next queries.
+ *
+ * @public
+ */
+// TODO Remove this interface when the original from the next-queries.list.vue is exported.
+export interface NextQueriesGroup extends ListItem {
+  modelName: 'NextQueriesGroup';
+  nextQueries: NextQuery[];
 }

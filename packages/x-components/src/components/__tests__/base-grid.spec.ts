@@ -1,14 +1,13 @@
 import { mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
-import { NextQuery } from '../../../../search-types';
 import { getNextQueriesStub } from '../../__stubs__';
 import { getSearchResponseStub } from '../../__stubs__/search-response-stubs.factory';
 import { getDataTestSelector } from '../../__tests__/utils';
-import { ListItem } from '../../utils';
+import { ListItem, NextQueriesGroup } from '../../utils';
 import BaseGrid from '../base-grid.vue';
 
 function renderBaseGridComponent({
-  columns,
+  columns = 3,
   items,
   customItemSlot = `
     <template #banner="{ item }">
@@ -65,10 +64,9 @@ function renderBaseGridComponent({
 }
 
 describe('testing Base Grid', () => {
-  const columns = 3;
   it('allows configuring the number of columns and updates the css class accordingly', () => {
-    const { wrapper } = renderBaseGridComponent({ columns });
-    expect(wrapper.classes()).toContain(`x-base-grid--cols-${columns}`);
+    const { wrapper } = renderBaseGridComponent({ columns: 5 });
+    expect(wrapper.classes()).toContain(`x-base-grid--cols-5`);
   });
 
   it('allows customizing the default slot', () => {
@@ -78,7 +76,7 @@ describe('testing Base Grid', () => {
              <p data-test="default-slot-overridden">{{ item.modelName }}</p>
            </template>
          </BaseGrid>`;
-    const { wrapper } = renderBaseGridComponent({ columns, template });
+    const { wrapper } = renderBaseGridComponent({ template });
     expect(wrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toBe(true);
   });
 
@@ -88,7 +86,6 @@ describe('testing Base Grid', () => {
         <p data-test="banner-slot">{{ item.modelName }}</p>
       </template>`;
     const { getDefaultSlot, getScopedSlot } = renderBaseGridComponent({
-      columns,
       customItemSlot
     });
 
@@ -109,7 +106,6 @@ describe('testing Base Grid', () => {
         <p data-test="next-queries-group-slot">{{ item.modelName }}</p>
       </template>`;
     const { getScopedSlot } = renderBaseGridComponent({
-      columns,
       customItemSlot: customValidItemSlot
     });
 
@@ -130,10 +126,4 @@ interface BaseGridComponentAPI {
   wrapper: Wrapper<Vue>;
   getDefaultSlot: () => WrapperArray<Vue>;
   getScopedSlot: (modelName: string) => WrapperArray<Vue>;
-}
-
-// TODO Remove this interface when the original from the next-queries.list.vue is exported.
-interface NextQueriesGroup extends ListItem {
-  modelName: 'NextQueriesGroup';
-  nextQueries: NextQuery[];
 }
