@@ -18,9 +18,9 @@
             @binding {Facet} facet - Facet to render
       -->
       <slot
-        v-if="$scopedSlots[facetId]"
+        v-if="$scopedSlots[slotName(facetId)]"
         v-bind="{ facet, selectedFilters: selectedFiltersByFacet[facetId] || [] }"
-        :name="facetId"
+        :name="slotName(facetId)"
       />
       <!--
         @slot (required) Default Facet rendering. This slot will be used by default for rendering
@@ -39,6 +39,7 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { Getter } from '../../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
+  import { toKebabCase } from '../../../../utils';
   import { objectFilter } from '../../../../utils/object';
   import { Dictionary } from '../../../../utils/types';
   import { FiltersByFacet } from '../../store/types';
@@ -161,6 +162,19 @@
 
         return hasAnyFacetIncluded ? isIncluded && !isExcluded : !isExcluded;
       });
+    }
+
+    /**
+     * Kebab trans formation of the facet id.
+     *
+     * @param facetId - The id of the facet to transform in kebab case.
+     *
+     * @returns A kebab case id.
+     *
+     * @internal
+     */
+    protected slotName(facetId: string): string {
+      return toKebabCase(facetId);
     }
   }
 </script>

@@ -18,8 +18,8 @@
               @binding {Filter} filter - Filter to render.
         -->
         <slot
-          v-if="$scopedSlots[selectedFilter.facetId]"
-          :name="selectedFilter.facetId"
+          v-if="$scopedSlots[slotName(selectedFilter.facetId)]"
+          :name="slotName(selectedFilter.facetId)"
           :filter="selectedFilter"
         >
           <span class="x-tag">{{ selectedFilter.label }}</span>
@@ -41,6 +41,7 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { Facet } from '@empathyco/x-types';
   import { xComponentMixin } from '../../../../components/index';
+  import { toKebabCase } from '../../../../utils';
   import { facetsXModule } from '../../x-module';
   import SelectedFilters from './selected-filters.vue';
 
@@ -68,6 +69,19 @@
      */
     @Prop()
     protected facetId: Facet['id'] | undefined;
+
+    /**
+     * Kebab trans formation of the facet id.
+     *
+     * @param facetId - The id of the facet to transform in kebab case.
+     *
+     * @returns A kebab case id.
+     *
+     * @internal
+     */
+    protected slotName(facetId: string): string {
+      return toKebabCase(facetId);
+    }
 
     /**
      * It is directly passed to the selected filters component. It handles if the SelectedFilters
