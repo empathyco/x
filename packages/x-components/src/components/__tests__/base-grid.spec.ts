@@ -99,15 +99,15 @@ describe('testing Base Grid', () => {
 
   it('allows customizing named slots only using kebab case', () => {
     const customValidItemSlot = `
-    <template #banner="{ item }">
-      <p data-test="banner-slot">{{ item.modelName }}</p>
-    </template>
-    <template #NextQueriesGroup="{ item }">
-      <p data-test="next-queries-group-slot">{{ item.modelName }}</p>
-    </template>
-    <template #next-queries-group="{ item }">
-      <p data-test="next-queries-group-slot">{{ item.modelName }}</p>
-    </template>`;
+      <template #banner="{ item }">
+        <p data-test="banner-slot">{{ item.modelName }}</p>
+      </template>
+      <template #NextQueriesGroup="{ item }">
+        <p data-test="next-queries-group-slot">{{ item.modelName }}</p>
+      </template>
+      <template #next-queries-group="{ item }">
+        <p data-test="next-queries-group-slot">{{ item.modelName }}</p>
+      </template>`;
     const { getScopedSlot } = renderBaseGridComponent({
       columns,
       customItemSlot: customValidItemSlot
