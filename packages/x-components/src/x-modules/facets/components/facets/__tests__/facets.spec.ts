@@ -10,7 +10,7 @@ import {
 } from '../../../../../components/x-component.utils';
 import { XPlugin } from '../../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../../store/store.types';
-import { toKebabCase } from '../../../../../utils';
+import { toKebabCase } from '../../../../../utils/string';
 import { DeepPartial, Dictionary } from '../../../../../utils/types';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';

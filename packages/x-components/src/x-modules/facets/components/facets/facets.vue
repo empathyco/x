@@ -7,7 +7,7 @@
     tag="ul"
   >
     <li
-      v-for="(facet, facetId) in facetsToRender"
+      v-for="(facet, facetId) in mappedFacets"
       :key="facetId"
       class="x-facets-list__item"
       data-test="facets-facet"
@@ -18,9 +18,9 @@
             @binding {Facet} facet - Facet to render
       -->
       <slot
-        v-if="$scopedSlots[slotName(facetId)]"
+        v-if="$scopedSlots[facet.slotName]"
         v-bind="{ facet, selectedFilters: selectedFiltersByFacet[facetId] || [] }"
-        :name="slotName(facetId)"
+        :name="facet.slotName"
       />
       <!--
         @slot (required) Default Facet rendering. This slot will be used by default for rendering
@@ -39,8 +39,8 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { Getter } from '../../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
-  import { toKebabCase } from '../../../../utils';
-  import { objectFilter } from '../../../../utils/object';
+  import { toKebabCase } from '../../../../utils/string';
+  import { map, objectFilter } from '../../../../utils/object';
   import { Dictionary } from '../../../../utils/types';
   import { FiltersByFacet } from '../../store/types';
   import { facetsXModule } from '../../x-module';
@@ -107,6 +107,20 @@
     public facets!: Record<Facet['id'], Facet>;
 
     /**
+     * Transform a dictionary of Facets including the slot name.
+     *
+     * @returns A dictionary of facets with the slot name.
+     *
+     * @internal
+     */
+    protected get mappedFacets(): Dictionary<Facet> {
+      return map(this.facetsToRender, (_, facet) => ({
+        ...facet,
+        slotName: toKebabCase(facet.id as string)
+      }));
+    }
+
+    /**
      * The facets to be rendered after filtering {@link Facets.facets} by
      * {@link Facets.renderableFacets} content.
      *
@@ -162,19 +176,6 @@
 
         return hasAnyFacetIncluded ? isIncluded && !isExcluded : !isExcluded;
       });
-    }
-
-    /**
-     * Kebab trans formation of the facet id.
-     *
-     * @param facetId - The id of the facet to transform in kebab case.
-     *
-     * @returns A kebab case id.
-     *
-     * @internal
-     */
-    protected slotName(facetId: string): string {
-      return toKebabCase(facetId);
     }
   }
 </script>

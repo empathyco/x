@@ -1,4 +1,4 @@
-import { Identifiable, NamedModel, NextQuery } from '@empathyco/x-types';
+import { Identifiable, NamedModel } from '@empathyco/x-types';
 import { XEventsTypes } from '../wiring/events.types';
 import { XModuleName } from '../x-modules/x-modules.types';
 
@@ -196,15 +196,4 @@ export interface DebounceOptions {
  */
 export interface ThrottleFunction<Params extends any[]> {
   (...args: Params): void;
-}
-
-/**
- * A list of next queries.
- *
- * @public
- */
-// TODO Remove this interface when the original from the next-queries.list.vue is exported.
-export interface NextQueriesGroup extends ListItem {
-  modelName: 'NextQueriesGroup';
-  nextQueries: NextQuery[];
 }

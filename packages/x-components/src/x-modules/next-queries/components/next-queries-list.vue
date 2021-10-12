@@ -25,17 +25,11 @@
   import { ItemsListInjectionMixin } from '../../../components/items-list-injection.mixin';
   import ItemsList from '../../../components/items-list.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { groupItemsBy, ListItem } from '../../../utils';
+  import { groupItemsBy } from '../../../utils/array';
+  import { ListItem } from '../../../utils/types';
   import ResultsList from '../../search/components/results-list.vue';
+  import { NextQueriesGroup } from '../types';
   import { nextQueriesXModule } from '../x-module';
-
-  /**
-   * A list of next queries.
-   */
-  interface NextQueriesGroup extends ListItem {
-    modelName: 'NextQueriesGroup';
-    nextQueries: NextQuery[];
-  }
 
   /**
    * Component that inserts groups of next queries in different positions of the injected search

@@ -3,7 +3,8 @@ import Vue from 'vue';
 import { getNextQueriesStub } from '../../__stubs__';
 import { getSearchResponseStub } from '../../__stubs__/search-response-stubs.factory';
 import { getDataTestSelector } from '../../__tests__/utils';
-import { ListItem, NextQueriesGroup } from '../../utils';
+import { ListItem } from '../../utils';
+import { NextQueriesGroup } from '../../x-modules/next-queries/types';
 import BaseGrid from '../base-grid.vue';
 
 function renderBaseGridComponent({
