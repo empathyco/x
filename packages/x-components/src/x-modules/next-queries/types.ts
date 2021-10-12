@@ -2,7 +2,7 @@ import { NextQuery } from '../../../../search-types';
 import { ListItem } from '../../utils';
 
 /**
- * Next queries group interface for the {@link NextQuery|NextQueries}.
+ * Next queries group interface for the NextQueries.
  *
  * @public
  */
