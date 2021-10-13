@@ -57,9 +57,9 @@
   /**
    * Custom interface to provide a slot name to a Facet.
    *
-   * @public
+   * @internal
    */
-  export interface RenderFacet {
+  interface RenderFacet {
     slotName: string;
     facet: Facet;
   }

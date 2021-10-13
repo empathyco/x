@@ -44,9 +44,9 @@
   /**
    * Custom interface to provide a slot name to a Filter.
    *
-   * @public
+   * @internal
    */
-  export interface RenderFilter {
+  interface RenderFilter {
     slotName: string;
     selectedFilter: Filter;
   }
