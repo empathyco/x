@@ -51,14 +51,6 @@
     public extraParams!: Dictionary<unknown>;
 
     /**
-     * A dictionary with the extra params from the url.
-     *
-     * @public
-     */
-    @State('url', 'extraParams')
-    public urlExtraParams!: Dictionary<unknown>;
-
-    /**
      * Emits the {@link ExtraParamsXEvents.ExtraParamsProvided} when the component
      * is mounted if the defaultValue is set.
      *
@@ -68,11 +60,7 @@
       this.$watch(
         () => this.defaultValue,
         defaultValue => {
-          if (
-            defaultValue !== undefined &&
-            this.value === undefined &&
-            this.urlExtraParams[this.name] === undefined
-          ) {
+          if (defaultValue !== undefined && this.value === undefined) {
             this.emitEvent('ExtraParamsProvided', this.defaultValue);
           }
         },
