@@ -7,7 +7,7 @@
     tag="ul"
   >
     <li
-      v-for="({facet, slotName}, facetId) in mappedFacets"
+      v-for="({ facet, slotName }, facetId) in mappedFacets"
       :key="facetId"
       class="x-facets-list__item"
       data-test="facets-facet"
