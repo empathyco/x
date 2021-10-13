@@ -1,4 +1,7 @@
-import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
+import {
+  namespacedWireCommit,
+  namespacedWireDispatch
+} from '../../wiring/namespaced-wires.factory';
 import { NamespacedWireCommit } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 
@@ -16,6 +19,13 @@ const moduleName = 'searchBox';
 const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName);
 
 /**
+ * WireDispatch for {@link SearchBoxXModule}.
+ *
+ * @internal
+ */
+const wireDispatch = namespacedWireDispatch(moduleName);
+
+/**
  * Sets the query of the search-box module.
  *
  * @public
@@ -28,6 +38,13 @@ const setSearchBoxQuery = wireCommit('setQuery');
  * @public
  */
 const clearSearchBoxQuery = wireCommit('setQuery', '');
+
+/**
+ * Sets the search state `query`.
+ *
+ * @public
+ */
+export const setQueryFromUrl = wireDispatch('setQueryFromUrl');
 
 /**
  * SearchBox wiring.
@@ -43,5 +60,8 @@ export const searchBoxWiring = createWiring({
   },
   UserPressedClearSearchBoxButton: {
     clearSearchBoxQuery
+  },
+  UrlChanged: {
+    setQueryFromUrl
   }
 });

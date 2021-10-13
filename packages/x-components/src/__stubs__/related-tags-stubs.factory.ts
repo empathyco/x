@@ -1,7 +1,7 @@
 import { RelatedTag } from '@empathyco/x-types';
 
 /**
- * Creates {@link @empathyco/x-types#RelatedTag | related tags} stub.
+ * Creates a {@link @empathyco/x-types#RelatedTag | related tags} stub.
  *
  * @param amount - Number of stubbed related tags to create.
  *
@@ -10,7 +10,7 @@ import { RelatedTag } from '@empathyco/x-types';
  * @internal
  */
 export function getRelatedTagsStub(amount = 9): RelatedTag[] {
-  return Array.from<number, RelatedTag>({ length: amount }, (_, index) =>
+  return Array.from({ length: amount }, (_, index) =>
     createRelatedTagStub('Related Tag', `Related Tag ${index + 1}`)
   );
 }
@@ -43,7 +43,7 @@ export function createRelatedTagStub(
     query,
     tag,
     selected: false,
-    modelName: 'RelatedTags',
+    modelName: 'RelatedTag',
     ...relatedTag
   };
 }

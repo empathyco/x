@@ -45,4 +45,17 @@
     // color
     color: var(--x-color-text-suggestion-matching-part-default);
   }
+
+  &--matching {
+    // typography
+    --x-font-family-suggestion-default: var(--x-font-family-suggestion-default-matching);
+    --x-size-font-suggestion-default: var(--x-size-font-suggestion-default-matching);
+    --x-size-line-height-suggestion-default: var(--x-size-line-height-suggestion-default-matching);
+    --x-number-font-weight-suggestion-default: var(
+      --x-number-font-weight-suggestion-default-matching
+    );
+
+    // color
+    --x-color-text-suggestion-default: var(--x-color-text-suggestion-default-matching);
+  }
 }

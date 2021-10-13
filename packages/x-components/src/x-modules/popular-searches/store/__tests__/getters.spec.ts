@@ -1,11 +1,11 @@
+import { SuggestionsRequest } from '@empathyco/x-adapter';
 import { createLocalVue } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { SuggestionsRequest } from '@empathyco/x-adapter';
-import { map } from '../../../../utils';
 import { createHistoryQueries } from '../../../../__stubs__/history-queries-stubs.factory';
-import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
+import { getPopularSearchesStub } from '../../../../__stubs__/popular-searches-stubs.factory';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
+import { map } from '../../../../utils';
 import { popularSearchesXStoreModule } from '../module';
 import { PopularSearchesState } from '../types';
 import { resetPopularSearchesStateWith } from './utils';
@@ -33,7 +33,7 @@ describe('testing popular searches module getters', () => {
 
   describe(`${gettersKeys.popularSearches} getter`, () => {
     const searchedQueries = createHistoryQueries('limes');
-    const mockedSuggestions = getSuggestionsStub('PopularSearch');
+    const mockedSuggestions = getPopularSearchesStub();
 
     const adapter = getMockedAdapter({ suggestions: { suggestions: mockedSuggestions } });
     const localVue = createLocalVue();

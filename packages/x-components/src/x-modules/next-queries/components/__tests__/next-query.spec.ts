@@ -1,11 +1,11 @@
 import { mount } from '@vue/test-utils';
-import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { getSuggestionsStub } from '../../../../__stubs__/suggestions-stubs.factory';
+import { createNextQueryStub } from '../../../../__stubs__/next-queries-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
+import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import NextQuery from '../next-query.vue';
 
 describe('testing next query item component', () => {
-  const suggestion = getSuggestionsStub('NextQuery')[0];
+  const suggestion = createNextQueryStub('milk');
   const [, localVue] = installNewXPlugin();
 
   const nextQueryWrapper = mount(NextQuery, { localVue, propsData: { suggestion } });
@@ -34,10 +34,10 @@ describe('testing next query item component', () => {
       template: `
         <NextQuery :suggestion="suggestion">
           <template #default="{ suggestion }">
-            <img  data-test="next-query-icon" src="./next-query.svg"/>
+            <img data-test="next-query-icon" src="./next-query.svg"/>
             <span data-test="next-query-query" :aria-label="suggestion.query">
-              {{ suggestion.query }}
-            </span>
+                  {{ suggestion.query }}
+                </span>
           </template>
         </NextQuery>
       `,

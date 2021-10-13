@@ -1,7 +1,7 @@
 import { NextQueriesRequest } from '@empathyco/x-adapter';
 import { HistoryQuery, NextQuery } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
-import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
+import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { Dictionary } from '../../../utils';
 import { NextQueriesConfig } from '../config.types';
 
@@ -84,11 +84,11 @@ export interface NextQueriesActions {
    *
    * @returns An array of next queries, or null if the request was not made.
    */
-  fetchNextQueries(): NextQuery[] | null;
+  fetchNextQueries(request: NextQueriesRequest | null): NextQuery[] | null;
   /**
    * Requests a new set of next queries and stores them in the module.
    */
-  fetchAndSaveNextQueries(): void;
+  fetchAndSaveNextQueries(request: NextQueriesRequest | null): void;
   /**
    * Sets the query of the module based on the last history query.
    */

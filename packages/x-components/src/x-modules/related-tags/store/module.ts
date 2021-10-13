@@ -1,9 +1,10 @@
-import { setStatus } from '../../../store/utils/helpers/status.helpers';
+import { setStatus } from '../../../store/utils/status-store.utils';
 import {
   cancelFetchAndSaveRelatedTags,
   fetchAndSaveRelatedTags
 } from './actions/fetch-and-save-related-tags.action';
 import { fetchRelatedTags } from './actions/fetch-related-tags.action';
+import { setUrlParamsFromTheUrl } from './actions/set-url-params-from-the.url.action';
 import { toggleRelatedTag } from './actions/toggle-related-tag.action';
 import { relatedTags } from './getters/related-tags.getter';
 import { request } from './getters/request.getter';
@@ -49,6 +50,7 @@ export const relatedTagsXStoreModule: RelatedTagsXStoreModule = {
     cancelFetchAndSaveRelatedTags,
     fetchRelatedTags,
     fetchAndSaveRelatedTags,
-    toggleRelatedTag
+    toggleRelatedTag,
+    setUrlParamsFromTheUrl
   }
 };

@@ -1,5 +1,6 @@
 import {
   namespacedWireCommit,
+  namespacedWireDispatch,
   namespacedWireDispatchWithoutPayload
 } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
@@ -16,6 +17,13 @@ const moduleName = 'search';
  * @internal
  */
 const wireCommit = namespacedWireCommit(moduleName);
+
+/**
+ * WireDispatch for {@link SearchXModule}.
+ *
+ * @internal
+ */
+const wireDispatch = namespacedWireDispatch(moduleName);
 
 /**
  * WireDispatchWithoutPayload for {@link SearchXModule}.
@@ -45,9 +53,7 @@ export const setOrigin = wireCommit('setOrigin', ({ metadata }) => metadata.orig
  *
  * @public
  */
-export const fetchAndSaveSearchResponseWire = wireDispatchWithoutPayload(
-  'fetchAndSaveSearchResponse'
-);
+export const fetchAndSaveSearchResponseWire = wireDispatch('fetchAndSaveSearchResponse');
 
 /**
  * Resets the search state `spellcheckedQuery` to its initial value, an empty string.
@@ -85,11 +91,18 @@ export const setSelectedFilters = wireCommit('setSelectedFilters');
 export const setSort = wireCommit('setSort');
 
 /**
+ * Sets the search state `query`.
+ *
+ * @public
+ */
+export const setParamsFromUrl = wireDispatch('setParamsFromUrl');
+
+/**
  * Sets the search state `page`.
  *
  * @public
  */
-export const setPage = wireCommit('setPage');
+export const setSearchPage = wireCommit('setPage');
 
 /**
  * Sets the search state `params`.
@@ -136,6 +149,13 @@ export const resetSort = wireCommit('setSort', '');
 export const resetFacets = wireCommit('setFacets', []);
 
 /**
+ * Resets the search state `isAppendingResults`.
+ *
+ * @public
+ */
+export const resetAppending = wireCommit('setIsAppendResults', false);
+
+/**
  * Search wiring.
  *
  * @internal
@@ -143,8 +163,8 @@ export const resetFacets = wireCommit('setFacets', []);
 export const searchWiring = createWiring({
   UserAcceptedAQuery: {
     resetPage,
-    setSearchQuery,
     resetSort,
+    setSearchQuery,
     setOrigin
   },
   UserAcceptedSpellcheckQuery: {
@@ -160,29 +180,38 @@ export const searchWiring = createWiring({
     fetchAndSaveSearchResponseWire
   },
   SelectedRelatedTagsChanged: {
-    resetPage,
+    resetAppending,
     setRelatedTags,
     setOrigin
   },
+  UserPickedARelatedTag: {
+    resetPage
+  },
+  UserClickedAFilter: {
+    resetPage
+  },
   SelectedFiltersChanged: {
-    resetPage,
+    resetAppending,
     setSelectedFilters
   },
   UserClickedASort: {
     resetPage,
+    resetAppending,
     setSort
   },
   SelectedSortProvided: {
-    resetPage,
     setSort
   },
   UserReachedResultsListEnd: {
     increasePageAppendingResults
   },
   ExtraParamsChanged: {
-    setSearchExtraParams,
     resetPage,
     resetSort,
-    resetFacets
+    resetFacets,
+    setSearchExtraParams
+  },
+  UrlChanged: {
+    setParamsFromUrl
   }
 });

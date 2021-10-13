@@ -7,11 +7,11 @@ import BaseGrid from '../../../../components/base-grid.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial, Dictionary, SearchItem } from '../../../../utils/types';
+import { DeepPartial, Dictionary, ListItem } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
 import BannersList from '../banners-list.vue';
-import { SEARCH_ITEMS_KEY } from '../../../../components/decorators/injection.consts';
+import { LIST_ITEMS_KEY } from '../../../../components/decorators/injection.consts';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
 import { XInject, XProvide } from '../../../../components/decorators/injection.decorators';
 import { resetXSearchStateWith } from './utils';
@@ -88,13 +88,13 @@ describe('testing BannersList component', () => {
     const { wrapper, getBanners } = renderBannersList({
       template: `
         <BannersList>
-          <template #banner="{ searchItem }">
-            <p data-test="banner-slot-overridden">Custom banner: {{ searchItem.title }}</p>
+          <template #banner="{ item }">
+            <p data-test="banner-slot-overridden">Custom banner: {{ item.title }}</p>
           </template>
         </BannersList>`
     });
 
-    expect(wrapper.classes('x-search-items-list')).toBe(true);
+    expect(wrapper.classes('x-items-list')).toBe(true);
     expect(wrapper.find(getDataTestSelector('banners-list-item')).exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('banner-slot-overridden')).text()).toBe(
       `Custom banner: ${getBanners()[0].title}`
@@ -130,8 +130,8 @@ describe('testing BannersList component', () => {
       template: `<div><slot/></div>`
     })
     class Provider extends Vue {
-      @XProvide(SEARCH_ITEMS_KEY)
-      public providedStub: SearchItem[] = resultStub;
+      @XProvide(LIST_ITEMS_KEY)
+      public providedStub: ListItem[] = resultStub;
     }
 
     /*
@@ -140,15 +140,15 @@ describe('testing BannersList component', () => {
      */
     @Component({
       template: `
-        <p>{{ injectedItemsString }}</p>
+        <p>{{ injectedListItemsString }}</p>
       `
     })
     class Child extends Vue {
-      @XInject(SEARCH_ITEMS_KEY)
-      public injectedItems: SearchItem[] | undefined;
+      @XInject(LIST_ITEMS_KEY)
+      public injectedListItems: ListItem[] | undefined;
 
-      protected get injectedItemsString(): string {
-        return this.injectedItems?.map(item => item.id).join(',') ?? '';
+      protected get injectedListItemsString(): string {
+        return this.injectedListItems?.map(item => item.id).join(',') ?? '';
       }
     }
 

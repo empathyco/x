@@ -1,10 +1,10 @@
 import { Suggestion } from '@empathyco/x-types';
 import { mount } from '@vue/test-utils';
-import { getSuggestionsStub } from '../../../__stubs__/suggestions-stubs.factory';
+import { getPopularSearchesStub } from '../../../__stubs__/popular-searches-stubs.factory';
 import BaseSuggestions from '../base-suggestions.vue';
 
 describe('testing Base Suggestions component', () => {
-  const suggestions = getSuggestionsStub('QuerySuggestion');
+  const suggestions = getPopularSearchesStub();
 
   it('renders a list of suggestions passed as props', () => {
     const wrapper = mount(BaseSuggestions, {

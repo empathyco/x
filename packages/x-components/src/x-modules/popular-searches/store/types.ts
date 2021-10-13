@@ -1,7 +1,7 @@
 import { SuggestionsRequest } from '@empathyco/x-adapter';
 import { HistoryQuery, Suggestion } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
-import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
+import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { PopularSearchesConfig } from '../config.types';
 import { Dictionary } from '../../../utils/types';
 
@@ -75,11 +75,11 @@ export interface PopularSearchesActions {
    *
    * @returns The new set of suggestions.
    */
-  fetchSuggestions(): Suggestion[];
+  fetchSuggestions(request: SuggestionsRequest): Suggestion[];
   /**
    * Fetches a new set of suggestions and stores them in the module state.
    */
-  fetchAndSaveSuggestions(): void;
+  fetchAndSaveSuggestions(request: SuggestionsRequest): void;
 }
 
 /**

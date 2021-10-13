@@ -94,14 +94,14 @@
      * Generates css classes dynamically.
      *
      * @remarks
-     * 'x-suggestion--has-matching-query added when the query should be matched.
+     * 'x-suggestion--matching added when the query should be matched.
      *
      * @returns The {@link VueCSSClasses} classes.
      * @public
      */
     protected get dynamicCSSClasses(): VueCSSClasses {
       return {
-        'x-suggestion--has-matching-query': this.hasMatchingQuery
+        'x-suggestion--matching': this.hasMatchingQuery
       };
     }
 

@@ -1,7 +1,7 @@
 import { SearchByIdRequest } from '@empathyco/x-adapter';
 import { Result } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
-import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
+import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { IdentifierResultsConfig } from '../config.types';
 
 /**
@@ -70,11 +70,11 @@ export interface IdentifierResultsActions {
    *
    * @returns An array of identifier results.
    */
-  fetchIdentifierResults(): Result[];
+  fetchIdentifierResults(request: SearchByIdRequest | null): Result[];
   /**
    * Requests a new set of identifier results and stores them in the module.
    */
-  fetchAndSaveIdentifierResults(): void;
+  fetchAndSaveIdentifierResults(request: SearchByIdRequest | null): void;
   /**
    * Stores the query in the module if it matches the regex.
    */

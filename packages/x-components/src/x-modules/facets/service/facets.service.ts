@@ -39,8 +39,9 @@ export class DefaultFacetsService implements FacetsService {
   }
 
   updateFacets(facetsGroup: FacetsGroup): void {
-    const { newFilters, previousFilters } = this.updateStore(facetsGroup);
-    this.updateFiltersSelectedState(newFilters, previousFilters);
+    const selectedFilters = this.getSelectedFilters();
+    const { newFilters } = this.updateStore(facetsGroup);
+    this.updateFiltersSelectedState(newFilters, selectedFilters);
   }
 
   clearFilters(facetIds?: Array<Facet['id']>): void {
@@ -96,7 +97,7 @@ export class DefaultFacetsService implements FacetsService {
       this.setFacet(facet);
     });
     const newFilters = facetsGroup.facets.flatMap(facet => facet.filters);
-    newFilters.forEach(this.setFilter.bind(this));
+    this.setFilters(newFilters);
     return { newFilters, previousFilters };
   }
 
@@ -136,7 +137,9 @@ export class DefaultFacetsService implements FacetsService {
    * Removes the filters that belong to the given group.
    *
    * @param groupId - The id of the group from whom remove the filters that are in the store.
+   *
    * @returns The removed filters.
+   *
    * @internal
    */
   protected removeGroupFilters(groupId: FacetsGroup['id']): Filter[] {
@@ -146,10 +149,9 @@ export class DefaultFacetsService implements FacetsService {
           ? this.store.state.x.facets.groups[filter.facetId]
           : '__unknown-group__'
       )[groupId] ?? [];
-    filtersToRemove.forEach(this.removeFilter.bind(this));
+    this.removeFilters(filtersToRemove);
     return filtersToRemove;
   }
-
   /**
    * Removes the facets that belong to the given group.
    *
@@ -197,22 +199,22 @@ export class DefaultFacetsService implements FacetsService {
   }
 
   /**
-   * Saves a filter to the store without any state change logic applied.
+   * Saves a list of filters to the store without any state change logic applied.
    *
-   * @param filter - The filter to save.
+   * @param filters - The filters to save.
    * @internal
    */
-  protected setFilter(filter: Filter): void {
-    this.store.commit('x/facets/setFilter', filter);
+  protected setFilters(filters: Filter[]): void {
+    this.store.commit('x/facets/setFilters', filters);
   }
 
   /**
-   * Removes a filter from the store.
+   * Removes a list of filters from the store.
    *
-   * @param filter - The filter to remove.
+   * @param filters - The filters to remove.
    * @internal
    */
-  protected removeFilter(filter: Filter): void {
-    this.store.commit('x/facets/removeFilter', filter);
+  protected removeFilters(filters: Filter[]): void {
+    this.store.commit('x/facets/removeFilters', filters);
   }
 }

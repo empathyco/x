@@ -5,14 +5,16 @@ import {
   Filter,
   PartialResult,
   Promoted,
+  Redirection,
   RelatedTag,
   Result,
   Sort
 } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
-import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
+import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { QueryOrigin } from '../../../types/query-origin';
 import { Dictionary } from '../../../utils/types';
+import { UrlParamValue } from '../../url';
 import { SearchConfig } from '../config.types';
 
 /**
@@ -29,14 +31,20 @@ export interface SearchState extends StatusState {
   facets: Facet[];
   /** A flag to indicate if new results are append to the current instead of replacing them. */
   isAppendResults: boolean;
+  /** The origin property of the request. */
+  origin: QueryOrigin | null;
   /** The current page of the request. */
   page: number;
+  /** The extra params property of the state. */
+  params: Dictionary<unknown>;
   /** The list of the partial results, related to the `query` property of the state. */
   partialResults: PartialResult[];
   /** The list of the promoted, related to the `query` property of the state. */
   promoteds: Promoted[];
   /** The internal query of the module. Used to request the search results. */
   query: string;
+  /** The redirections associated to the `query`. */
+  redirections: Redirection[];
   /** The list of the related tags, related to the `query` property of the state. */
   relatedTags: RelatedTag[];
   /** The list of the results, related to the `query` property of the state. */
@@ -50,10 +58,6 @@ export interface SearchState extends StatusState {
   spellcheckedQuery: string;
   /** The total number of results, related to the `query` property of the state. */
   totalResults: number;
-  /** The extra params property of the state. */
-  params: Dictionary<unknown>;
-  /** The origin property of the request. */
-  origin: QueryOrigin | null;
 }
 
 /**
@@ -98,6 +102,12 @@ export interface SearchMutations extends StatusMutations {
    */
   setIsAppendResults(isAppendResults: boolean): void;
   /**
+   * Sets the origin of the module.
+   *
+   * @param origin - The new origin.
+   */
+  setOrigin(origin: QueryOrigin | undefined): void;
+  /**
    * Sets the page of the module.
    *
    * @param page - The new page.
@@ -109,6 +119,12 @@ export interface SearchMutations extends StatusMutations {
    * @param pageSize - The new page size.
    */
   setPageSize(pageSize: number): void;
+  /**
+   * Sets the extra params of the module.
+   *
+   * @param params - The new extra params.
+   */
+  setParams(params: Dictionary<unknown>): void;
   /**
    * Sets the partial results of the module.
    *
@@ -127,6 +143,12 @@ export interface SearchMutations extends StatusMutations {
    * @param newQuery - The new query to save to the state.
    */
   setQuery(newQuery: string): void;
+  /**
+   * Sets the redirection of the module.
+   *
+   * @param redirections - The redirections to store.
+   */
+  setRedirections(redirections: Redirection[]): void;
   /**
    * Sets the related tags of the module.
    *
@@ -163,18 +185,6 @@ export interface SearchMutations extends StatusMutations {
    * @param totalResults - The new total results to save to the state.
    */
   setTotalResults(totalResults: number): void;
-  /**
-   * Sets the extra params of the module.
-   *
-   * @param params - The new extra params.
-   */
-  setParams(params: Dictionary<unknown>): void;
-  /**
-   * Sets the origin of the module.
-   *
-   * @param origin - The new origin.
-   */
-  setOrigin(origin: QueryOrigin | undefined): void;
 }
 
 /**
@@ -190,13 +200,13 @@ export interface SearchActions {
   /**
    * Fetches a new search response and stores them in the module state.
    */
-  fetchAndSaveSearchResponse(): void;
+  fetchAndSaveSearchResponse(request: SearchRequest | null): void;
   /**
    * Fetches the search response and returns them.
    *
    * @returns The new search response.
    */
-  fetchSearchResponse(): SearchResponse;
+  fetchSearchResponse(request: SearchRequest | null): SearchResponse;
   /**
    * Checks if there are more pages of results to load. If there are, then increases the page
    * number in state and set to `true` the {@link SearchState.isAppendResults} flag.
@@ -205,6 +215,12 @@ export interface SearchActions {
    * for other purposes, please use the {@link SearchMutations.setPage} mutation.
    */
   increasePageAppendingResults(): void;
+  /**
+   * Checks if the url has params on it and then updates the state with these values.
+   *
+   * @param urlParams - List of params from the url.
+   */
+  setParamsFromUrl(urlParams: Dictionary<UrlParamValue>): void;
 }
 
 /**

@@ -1,8 +1,9 @@
 import { RelatedTagsRequest } from '@empathyco/x-adapter';
 import { RelatedTag } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
-import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
+import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { Dictionary } from '../../../utils';
+import { UrlParamValue } from '../../url';
 import { RelatedTagsConfig } from '../config.types';
 
 /**
@@ -82,15 +83,20 @@ export interface RelatedTagsActions {
    *
    * @returns The new set of related tags.
    */
-  fetchRelatedTags(): RelatedTag[];
+  fetchRelatedTags(request: RelatedTagsRequest | null): RelatedTag[];
   /**
    * Fetches a new set of related tags and stores them in the module state.
    */
-  fetchAndSaveRelatedTags(): void;
+  fetchAndSaveRelatedTags(request: RelatedTagsRequest | null): void;
   /**
    * Add or remove the clicked related tag from selected related tags.
    */
   toggleRelatedTag(relatedTag: RelatedTag): void;
+  /**
+   * Receives a list of params from the url, builds the entities and
+   * set them in the store.
+   */
+  setUrlParamsFromTheUrl(urlParams: Dictionary<UrlParamValue>): void;
 }
 /**
  * RelatedTags type safe store module.

@@ -1,7 +1,7 @@
 import { SuggestionsRequest } from '@empathyco/x-adapter';
 import { Suggestion } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
-import { StatusMutations, StatusState } from '../../../store/utils/helpers/status.helpers';
+import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { Dictionary } from '../../../utils';
 import { QuerySuggestionsConfig } from '../config.types';
 
@@ -32,10 +32,7 @@ export interface QuerySuggestionsGetters {
   request: SuggestionsRequest | null;
   /** The normalized module's query. */
   normalizedQuery: string;
-  /**
-   * The full list of queries suggestions related to the query search.
-   *
-   */
+  /** The full list of queries suggestions related to the query search. */
   querySuggestions: Suggestion[];
 }
 
@@ -81,11 +78,11 @@ export interface QuerySuggestionsActions {
    *
    * @returns A new list of suggestions.
    */
-  fetchSuggestions(): Suggestion[];
+  fetchSuggestions(request: SuggestionsRequest | null): Suggestion[];
   /**
    * Requests and saves to the state a list of suggestions.
    */
-  fetchAndSaveSuggestions(): void;
+  fetchAndSaveSuggestions(request: SuggestionsRequest | null): void;
 }
 
 /**

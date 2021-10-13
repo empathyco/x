@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.3...@empathyco/x-adapter@7.0.0-alpha.4) (2021-09-22)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+
+
+
+
+## [7.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.2...@empathyco/x-adapter@7.0.0-alpha.3) (2021-09-15)
+
+
+### Features
+
+* **search:** save `Redirection`'s entities ([cdba4a6](https://github.com/empathyco/x/commit/cdba4a656f7cea74115d06173151d450657d1aed)), closes [EX-4730](https://searchbroker.atlassian.net/browse/EX-4730)
+
+
+
+## [7.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.1...@empathyco/x-adapter@7.0.0-alpha.2) (2021-09-10)
+
+
+### Features
+
+* **adapter:** Add new Extra Params interface to all the current Requests interfaces ([9b8f8eb](https://github.com/empathyco/x/commit/9b8f8eb4301f4ddfa547e93d6ef35fbdaffc3200)), closes [EX-4643](https://searchbroker.atlassian.net/browse/EX-4643)
+* **search:** add origin to the request ([eb81c7e](https://github.com/empathyco/x/commit/eb81c7e1dacdf0cc201995c9ac5dfe9bb4f64a2d)), closes [EX-4637](https://searchbroker.atlassian.net/browse/EX-4637)
+
+
+
 ## [7.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.0...@empathyco/x-adapter@7.0.0-alpha.1) (2021-08-24)
 
 

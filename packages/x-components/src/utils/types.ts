@@ -161,7 +161,7 @@ export type EventsForDirectionLimit = {
  *
  * @public
  */
-export type SearchItem = Identifiable & NamedModel;
+export type ListItem = Identifiable & NamedModel;
 
 /**
  * The type returned by the {@link debounce} function. Basically is the function the

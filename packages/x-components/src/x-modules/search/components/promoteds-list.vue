@@ -2,15 +2,15 @@
   <NoElement>
     <!--
       @slot Customized Promoteds List layout.
-        @binding {Promoted[]} items - Promoteds plus the injected search items to render.
+        @binding {Promoted[]} items - Promoteds plus the injected list items to render.
         @binding {Vue | string} animation - Animation to animate the elements.
     -->
     <slot v-bind="{ items, animation }">
-      <SearchItemsList :animation="animation" :searchItems="items">
-        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ searchItem }">
-          <slot :name="slotName" :searchItem="searchItem" />
+      <ItemsList :animation="animation" :items="items">
+        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ item }">
+          <slot :name="slotName" :item="item" />
         </template>
-      </SearchItemsList>
+      </ItemsList>
     </slot>
   </NoElement>
 </template>
@@ -21,18 +21,18 @@
   import { Component, Prop } from 'vue-property-decorator';
   import { State } from '../../../components/decorators/store.decorators';
   import { NoElement } from '../../../components/no-element';
+  import { ItemsListInjectionMixin } from '../../../components/items-list-injection.mixin';
+  import ItemsList from '../../../components/items-list.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { SearchItem } from '../../../utils/types';
+  import { ListItem } from '../../../utils/types';
   import { searchXModule } from '../x-module';
-  import SearchItemsInjectionMixin from './search-items-injection.mixin';
-  import SearchItemsList from './search-items-list.vue';
 
   /**
-   * It renders a {@link SearchItemsList} of promoteds from {@link SearchState.promoteds} by default
-   * using the `SearchItemsInjectionMixin`.
+   * It renders a {@link ItemsList} of promoteds from {@link SearchState.promoteds} by default
+   * using the `ItemsInjectionMixin`.
    *
    * The component provides a default slot which wraps the whole component with the `promoteds`
-   * plus the `searchInjectedItems` which also contains the injected search items from
+   * plus the `searchInjectedItems` which also contains the injected list items from
    * the ancestor.
    *
    * It also provides the parent slots to customize the items.
@@ -42,11 +42,11 @@
   @Component({
     components: {
       NoElement,
-      SearchItemsList
+      ItemsList
     },
     mixins: [xComponentMixin(searchXModule)]
   })
-  export default class PromotedsList extends SearchItemsInjectionMixin {
+  export default class PromotedsList extends ItemsListInjectionMixin {
     /**
      * The promoteds to render from the state.
      *
@@ -64,18 +64,18 @@
     protected animation!: Vue | string;
 
     /**
-     * The `stateItems` concatenated with the `injectedSearchItems` if there are.
+     * The `stateItems` concatenated with the `injectedListItems` if there are.
      *
      * @remarks This computed defines the merging strategy of the `stateItems` and the
-     * `injectedSearchItems`.
+     * `injectedListItems`.
      *
-     * @returns List of {@link SearchItem}.
+     * @returns List of {@link ListItem}.
      *
      * @internal
      */
-    public override get items(): SearchItem[] {
-      return this.injectedSearchItems
-        ? [...this.stateItems, ...this.injectedSearchItems]
+    public override get items(): ListItem[] {
+      return this.injectedListItems
+        ? [...this.stateItems, ...this.injectedListItems]
         : this.stateItems;
     }
   }
@@ -102,12 +102,14 @@ _Type any term in the input field to try it out!_
 <template>
   <div>
     <SearchInput />
+
     <PromotedsList />
   </div>
 </template>
 
 <script>
-  import { SearchInput, PromotedsList } from '@empathyco/x-components/search';
+  import { PromotedsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'PromotedsListDemo',
@@ -130,8 +132,9 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { SearchInput, PromotedsList } from '@empathyco/x-components/search';
+  import { PromotedsList } from '@empathyco/x-components/search';
   import { FadeAndSlide } from '@empathyco/x-components/animations';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'PromotedsListDemo',
@@ -168,13 +171,16 @@ _Type any term in the input field to try it out!_
 </template>
 
 <script>
-  import { SearchInput, PromotedsList } from '@empathyco/x-components/search';
+  import { PromotedsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { BaseGrid } from '@empathyco/x-components';
 
   export default {
     name: 'PromotedsListDemo',
     components: {
       SearchInput,
-      PromotedsList
+      PromotedsList,
+      BaseGrid
     }
   };
 </script>
@@ -186,16 +192,17 @@ _Type any term in the input field to try it out!_
 <template>
   <div>
     <SearchInput />
-    <PromotedsList #promoted="{ promoted }">
+    <PromotedsList #promoted="{ item }">
       <span class="promoted">
-        {{ promoted.title }}
+        {{ item.title }}
       </span>
     </PromotedsList>
   </div>
 </template>
 
 <script>
-  import { SearchInput, PromotedsList } from '@empathyco/x-components/search';
+  import { PromotedsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'PromotedsListDemo',
@@ -209,8 +216,8 @@ _Type any term in the input field to try it out!_
 
 ### Data injection
 
-Starting with the `ResultsList` component as root element, you can concat the list of search items
-using `BannersList`, `PromotedsList`, `BaseGrid` or any component that injects the `searchItems`
+Starting with the `ResultsList` component as root element, you can concat the list of list items
+using `BannersList`, `PromotedsList`, `BaseGrid` or any component that injects the `listItems`
 value.
 
 ```vue
@@ -219,15 +226,16 @@ value.
     <SearchInput />
     <ResultsList>
       <PromotedsList>
-        <template #promoted="{ searchItem }">Promoted: {{ searchItem.id }}</template>
-        <template #result="{ searchItem }">Result: {{ searchItem.id }}</template>
+        <template #promoted="{ item }">Promoted: {{ item.id }}</template>
+        <template #result="{ item }">Result: {{ item.id }}</template>
       </PromotedsList>
     </ResultsList>
   </div>
 </template>
 
 <script>
-  import { SearchInput, ResultsList, PromotedsList } from '@empathyco/x-components/search';
+  import { ResultsList, PromotedsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'PromotedsListDemo',

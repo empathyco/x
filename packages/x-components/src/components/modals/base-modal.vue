@@ -1,14 +1,14 @@
 <template>
-  <component :is="animation">
+  <component :is="animation" @beforeEnter="showOverlay = false" @afterEnter="showOverlay = true">
     <div v-if="open" class="x-modal" data-test="modal">
-      <div ref="modal" class="x-modal__content" data-test="modal-content" role="dialog">
+      <div ref="modal" class="x-modal__content x-list" data-test="modal-content" role="dialog">
         <!-- @slot (Required) Modal container content -->
         <slot />
       </div>
       <div
-        ref="overlay"
         @click="emitOverlayClicked"
         class="x-modal__overlay"
+        :class="{ 'x-modal__overlay--is-visible': showOverlay }"
         data-test="modal-overlay"
       />
     </div>
@@ -44,10 +44,11 @@
     protected previousBodyOverflow = '';
     /** The previous value of the HTML element overflow style. */
     protected previousHTMLOverflow = '';
+    /** To animate the overlay opacity after and before the animation. */
+    protected showOverlay = true;
 
     public $refs!: {
       modal: HTMLDivElement;
-      overlay: HTMLDivElement;
     };
 
     protected mounted(): void {
@@ -131,9 +132,7 @@
      * @internal
      */
     protected emitOverlayClicked(event: MouseEvent): void {
-      if (this.$refs.overlay === event.target) {
-        this.$emit('click:overlay', event);
-      }
+      this.$emit('click:overlay', event);
     }
 
     /**
@@ -152,8 +151,6 @@
 
 <style lang="scss" scoped>
   .x-modal {
-    background-color: rgba(0, 0, 0, 0.7);
-
     position: fixed;
     top: 0;
     left: 0;
@@ -173,7 +170,14 @@
     &__overlay {
       width: 100%;
       height: 100%;
-      position: absolute;
+      position: fixed;
+      background-color: rgba(0, 0, 0, 0.7);
+      opacity: 0;
+
+      &--is-visible {
+        transition: opacity 0.3s ease-out;
+        opacity: 1;
+      }
     }
   }
 </style>
@@ -184,14 +188,14 @@
 The `BaseModal` is a simple component that serves to create complex modals. Its open state has to be
 passed via prop. It also accepts an animation to use for opening & closing.
 
-It emits a `click:body` event when any part out of the content is clicked, but only if the modal is
-open.
+It emits a `click:overlay` event when any part out of the content is clicked, but only if the modal
+is open.
 
 ```vue
 <template>
   <div>
     <button @click="open = true">Open modal</button>
-    <BaseModal animation="fadeAndSlide" :open="open" @click:body="open = false">
+    <BaseModal animation="fadeAndSlide" :open="open" @click:overlay="open = false">
       <h1>Hello</h1>
       <p>The modal is working</p>
       <button @click="open = false">Close modal</button>
@@ -222,8 +226,8 @@ open.
 
 A list of events that the component will emit:
 
-- `click:body`: the event is emitted after the user clicks any part out of the content but only if
-  the modal is open. The event payload is the mouse event that triggers it.
+- `click:overlay`: the event is emitted after the user clicks any part out of the content but only
+  if the modal is open. The event payload is the mouse event that triggers it.
 - `focusin:body`: the event is emitted after the user focus in any part out of the content but only
   if the modal is open. The event payload is the focus event that triggers it.
 </docs>

@@ -1,13 +1,31 @@
 import { PageableRequest } from '@empathyco/x-adapter';
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import {
+  createResultStub,
   getNextQueriesStub,
+  getPopularSearchesStub,
+  getQuerySuggestionsStub,
   getRelatedTagsStub,
-  getResultsStub,
-  getSuggestionsStub
+  getResultsStub
 } from '../../../src/__stubs__';
 
 let resultsList: string[] = [];
+
+// Init
+When('start button is clicked', () => {
+  cy.getByDataTest('open-modal').click();
+});
+
+// ID Results
+Then('identifier results are displayed', () => {
+  cy.getByDataTest('identifier-results-item')
+    .should('be.visible')
+    .should('have.length.at.least', 1);
+});
+
+Then('no identifier results are displayed', () => {
+  cy.getByDataTest('identifier-result-item').should('not.exist');
+});
 
 // History Queries
 When('clear history queries button is clicked', () => {
@@ -42,7 +60,8 @@ Then('related tags are displayed', () => {
 // Results
 Then('related results are displayed', () => {
   resultsList = [];
-  cy.getByDataTest('result-item')
+  cy.getByDataTest('result-text')
+    .should('be.visible')
     .should('have.length.at.least', 1)
     .each($result => {
       resultsList.push($result.text());
@@ -50,10 +69,14 @@ Then('related results are displayed', () => {
 });
 
 Then('related results have changed', () => {
-  cy.getByDataTest('result-item').should($results => {
-    const compoundResultsList = $results.toArray().map(resultElement => resultElement.textContent);
-    expect(compoundResultsList.every(item => resultsList.includes(item!))).to.eq(false);
-  });
+  cy.getByDataTest('result-text')
+    .should('be.visible')
+    .should($results => {
+      const compoundResultsList = $results
+        .toArray()
+        .map(resultElement => resultElement.textContent);
+      expect(compoundResultsList.every(item => resultsList.includes(item!))).to.eq(false);
+    });
 });
 
 // Search Box
@@ -101,7 +124,7 @@ Given('a next queries API', () => {
 Given('a suggestions API', () => {
   cy.intercept('https://api.empathy.co/getSuggestions', req => {
     req.reply({
-      suggestions: getSuggestionsStub('Suggestion')
+      suggestions: req.body.query ? getQuerySuggestionsStub('rum') : getPopularSearchesStub()
     });
   });
 });
@@ -116,6 +139,48 @@ Given('a related tags API', () => {
 
 Given('a results API', () => {
   cy.intercept('https://api.empathy.co/search', req => {
+    req.reply({
+      banners: [],
+      promoteds: [],
+      results: getResultsStub()
+    });
+  }).as('interceptedRawResults');
+});
+
+Given('a results API with a known response', () => {
+  cy.intercept('https://api.empathy.co/search', req => {
+    req.reply({
+      banners: [],
+      promoteds: [],
+      results: [
+        createResultStub('LEGO Super Mario Pack Inicial: Aventuras con Mario - 71360', {
+          images: ['https://picsum.photos/seed/1/100/100']
+        }),
+        createResultStub('LEGO Duplo Classic Caja de Ladrillos - 1091', {
+          images: ['https://picsum.photos/seed/2/100/100']
+        }),
+        createResultStub('LEGO City Coche Patrulla de Policía - 60239', {
+          images: ['https://picsum.photos/seed/3/100/100']
+        }),
+        createResultStub('LEGO City Police Caja de Ladrillos - 60270', {
+          images: ['https://picsum.photos/seed/4/100/100']
+        }),
+        createResultStub('LEGO Friends Parque para Cachorros - 41396', {
+          images: ['https://picsum.photos/seed/5/100/100']
+        }),
+        createResultStub('LEGO Creator Ciberdrón - 31111', {
+          images: ['https://picsum.photos/seed/6/100/100']
+        }),
+        createResultStub('LEGO Technic Dragster - 42103', {
+          images: ['https://picsum.photos/seed/7/100/100']
+        })
+      ]
+    });
+  }).as('interceptedResults');
+});
+
+Given('an ID results API', () => {
+  cy.intercept('https://api.empathy.co/searchById', req => {
     req.reply({
       results: getResultsStub()
     });

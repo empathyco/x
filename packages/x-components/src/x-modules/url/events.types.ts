@@ -18,43 +18,23 @@ export interface UrlXEvents {
    */
   UrlStateChanged: UrlGetters['urlParams'];
   /**
-   * Document has finished loading.
-   * * Payload: none.
+   * Url loaded from the url changed.
+   * * Payload: The new URL params.
    */
-  DocumentLoaded: void;
+  ParamsLoadedFromUrl: UrlGetters['urlParams'];
   /**
-   * Document history has changed.
-   * * Payload: none.
+   * Document has finished loading.
+   * * Payload: The URL string.
    */
-  DocumentHistoryChanged: void;
+  DocumentLoaded: string;
   /**
    * Extra params has been loaded from the URL.
    * * Payload: The extra params array.
    */
   ExtraParamsLoadedFromUrl: string[];
   /**
-   * Query has been loaded from the URL.
-   * * Payload: The query string.
+   * Url has changed.
+   * Payload: The new URL params.
    */
-  QueryLoadedFromUrl: string;
-  /**
-   * Page has been loaded from the URL.
-   * * Payload: The page number.
-   */
-  PageLoadedFromUrl: string;
-  /**
-   * Filters has been loaded from the URL.
-   * * Payload: The filters array.
-   */
-  FiltersLoadedFromUrl: string[];
-  /**
-   * Sort has been loaded from the URL.
-   * * Payload: The sort string.
-   */
-  SortLoadedFromUrl: string;
-  /**
-   * Related tags has been loaded from the URL.
-   * * Payload: The related tag array.
-   */
-  RelatedTagsLoadedFromUrl: string[];
+  UrlChanged: UrlGetters['urlParams'];
 }

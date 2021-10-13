@@ -50,7 +50,7 @@ export const setRelatedTagsExtraParams = wireCommit('setParams');
  *
  * @public
  */
-export const fetchAndSaveRelatedTagsWire = wireDispatchWithoutPayload('fetchAndSaveRelatedTags');
+export const fetchAndSaveRelatedTagsWire = wireDispatch('fetchAndSaveRelatedTags');
 
 /**
  * Cancels the {@link RelatedTagsActions.fetchAndSaveRelatedTags} request promise.
@@ -83,6 +83,13 @@ export const clearSelectedRelatedTags = wireCommit('setSelectedRelatedTags', [])
 export const clearRelatedTagsQuery = wireCommit('setQuery', '');
 
 /**
+ * Saves the params from the url.
+ *
+ * @public
+ */
+export const setUrlParamsFromTheUrlWire = wireDispatch('setUrlParamsFromTheUrl');
+
+/**
  * Wiring configuration for the {@link RelatedTagsXModule | related tags module}.
  *
  * @internal
@@ -105,5 +112,8 @@ export const relatedTagsWiring = createWiring({
   },
   ExtraParamsChanged: {
     setRelatedTagsExtraParams
+  },
+  UrlChanged: {
+    setUrlParamsFromTheUrlWire
   }
 });

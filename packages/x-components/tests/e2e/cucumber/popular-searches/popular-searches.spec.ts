@@ -1,5 +1,5 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { createSuggestionStub } from '../../../../src/__stubs__';
+import { createPopularSearch } from '../../../../src/__stubs__';
 import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
 
 // Background
@@ -7,11 +7,11 @@ And('a popular searches API with a known response', () => {
   cy.intercept('https://api.empathy.co/getSuggestions', req => {
     req.reply({
       suggestions: [
-        createSuggestionStub('playmobil'),
-        createSuggestionStub('lego'),
-        createSuggestionStub('mochila'),
-        createSuggestionStub('barbie'),
-        createSuggestionStub('dinosaurio')
+        createPopularSearch('playmobil'),
+        createPopularSearch('lego'),
+        createPopularSearch('mochila'),
+        createPopularSearch('barbie'),
+        createPopularSearch('dinosaurio')
       ]
     });
   }).as('interceptedPopularSearches');
@@ -33,7 +33,7 @@ Given(
         }
       }
     };
-    cy.visit('/test/popular-searches?useMockedAdapter=true', {
+    cy.visit('/?useMockedAdapter=true', {
       qs: {
         xModules: JSON.stringify(config)
       }

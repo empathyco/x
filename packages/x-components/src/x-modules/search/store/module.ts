@@ -1,5 +1,5 @@
 import { isFacetFilter } from '@empathyco/x-types';
-import { setStatus } from '../../../store/utils/helpers/status.helpers';
+import { setStatus } from '../../../store/utils/status-store.utils';
 import { groupItemsBy } from '../../../utils/array';
 import {
   cancelFetchAndSaveSearchResponse,
@@ -7,6 +7,7 @@ import {
 } from './actions/fetch-and-save-search-response.action';
 import { fetchSearchResponse } from './actions/fetch-search-response.action';
 import { increasePageAppendingResults } from './actions/increase-page-apending-results.action';
+import { setParamsFromUrl } from './actions/set-params-from-url.action';
 import { request } from './getters/request.getter';
 import { SearchXStoreModule } from './types';
 
@@ -35,7 +36,8 @@ export const searchXStoreModule: SearchXStoreModule = {
     sort: '',
     page: 1,
     origin: null,
-    isAppendResults: false
+    isAppendResults: false,
+    redirections: []
   }),
   getters: {
     request
@@ -94,12 +96,16 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     setOrigin(state, origin) {
       state.origin = origin ?? null;
+    },
+    setRedirections(state, redirections) {
+      state.redirections = redirections;
     }
   },
   actions: {
     cancelFetchAndSaveSearchResponse,
     fetchSearchResponse,
     fetchAndSaveSearchResponse,
-    increasePageAppendingResults
+    increasePageAppendingResults,
+    setParamsFromUrl
   }
 };

@@ -1,14 +1,16 @@
+import { RelatedTagsRequest } from '@empathyco/x-adapter';
 import { RelatedTag } from '@empathyco/x-types';
 // eslint-disable-next-line max-len
-import { createFetchAndSaveAction } from '../../../../store/utils/helpers/fetch-and-save-action.helpers';
+import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
 import { RelatedTagsActionContext } from '../types';
 
-const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
+const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   RelatedTagsActionContext,
+  RelatedTagsRequest | null,
   RelatedTag[]
 >({
-  fetch({ dispatch }) {
-    return dispatch('fetchRelatedTags');
+  fetch({ dispatch }, request) {
+    return dispatch('fetchRelatedTags', request);
   },
   onSuccess({ commit }, relatedTags) {
     commit('setRelatedTags', relatedTags);

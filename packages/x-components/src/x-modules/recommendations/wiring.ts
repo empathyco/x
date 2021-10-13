@@ -1,5 +1,7 @@
-import { namespacedWireDispatchWithoutPayload } from '../../wiring/namespaced-wires.factory';
-import { wireCommit } from '../../wiring/wires.factory';
+import {
+  namespacedWireCommit,
+  namespacedWireDispatch
+} from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
@@ -9,18 +11,24 @@ import { createWiring } from '../../wiring/wiring.utils';
  */
 const moduleName = 'recommendations';
 /**
- * WireDispatchWithoutPayload for {@link RecommendationsXModule}.
+ * WireDispatch for {@link RecommendationsXModule}.
  *
  * @internal
  */
-const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
+const wireDispatch = namespacedWireDispatch(moduleName);
+/**
+ * WireCommit for {@link RecommendationsXModule}.
+ *
+ * @internal
+ */
+const wireCommit = namespacedWireCommit(moduleName);
 
 /**
  * Requests and stores the recommendations.
  *
  * @public
  */
-const fetchAndSaveRecommendations = wireDispatchWithoutPayload('fetchAndSaveRecommendations');
+const fetchAndSaveRecommendations = wireDispatch('fetchAndSaveRecommendations');
 
 /**
  * Sets the recommendations state `params`.

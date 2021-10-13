@@ -7,12 +7,11 @@
   --x-color-text-input-group-placeholder-default: var(--x-color-text-input-placeholder-default);
 
   // size
+  --x-size-height-input-group-default: var(--x-size-height-input-default);
   --x-size-gap-input-group-default: var(--x-size-base-03);
-  --x-size-padding-top-input-group-default: var(--x-size-base-03);
-  --x-size-padding-bottom-input-group-default: var(--x-size-padding-top-input-group-default);
   --x-size-padding-left-input-group-default: var(--x-size-base-06);
   --x-size-padding-right-input-group-default: var(--x-size-padding-left-input-group-default);
-  --x-size-padding-input-group-default-action: var(--x-size-padding-top-input-group-default);
+  --x-size-padding-input-group-default-action: var(--x-size-base-03);
 
   // border
   --x-size-border-width-input-group-default: var(--x-size-border-width-input-default);

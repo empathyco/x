@@ -4,6 +4,7 @@ Feature: Full Empathize
     Given a next queries API
     Given a suggestions API
     Given a related tags API
+    Given an ID results API
 
   Scenario Outline: 1. Query suggestions
     Given no special config for full empathize view
@@ -14,7 +15,7 @@ Feature: Full Empathize
     And   the searched query is displayed in the search-box
     When  clear search button is pressed
     And   search-input is focused
-    Then  no query suggestion are displayed
+    Then  no query suggestions are displayed
 
     Examples:
       | query | maxItemsToRequest | querySuggestionItem |

@@ -1,5 +1,5 @@
 import { Facet } from '@empathyco/x-types';
-import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
+import { namespacedWireDispatch } from '../../wiring/namespaced-wires.factory';
 import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
 import { mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
@@ -20,7 +20,7 @@ const wireFacetsServiceWithoutPayload = wireServiceWithoutPayload(DefaultFacetsS
  *
  * @internal
  */
-const facetsWireCommit = namespacedWireCommit('facets');
+const facetsWireDispatch = namespacedWireDispatch('facets');
 
 /**
  * Saves the facets contained in the `search` group, removing the previous ones, and keeping the
@@ -74,11 +74,11 @@ const clearAllFiltersWire = wireFacetsServiceWithoutPayload('clearFilters');
 const selectFilterWire = wireFacetsService('select');
 
 /**
- * Sets the facets state `query`.
+ * Saves the params from the url.
  *
  * @public
  */
-const setFacetsQuery = facetsWireCommit('setQuery');
+const setFiltersFromUrl = facetsWireDispatch('setFiltersFromUrl');
 
 /**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
@@ -104,13 +104,10 @@ export const facetsWiring = createWiring({
   UserClickedAllFilter: {
     clearFiltersWire
   },
-  UserAcceptedAQuery: {
-    setFacetsQuery
-  },
   UserClearedQuery: {
-    setFacetsQuery
-  },
-  FacetsQueryChanged: {
     clearAllFiltersWire
+  },
+  UrlChanged: {
+    setFiltersFromUrl
   }
 });

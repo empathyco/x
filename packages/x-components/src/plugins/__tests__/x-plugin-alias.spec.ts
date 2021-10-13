@@ -2,7 +2,6 @@ import { shallowMount, Wrapper } from '@vue/test-utils';
 import { ComponentOptions, default as Vue } from 'vue';
 import { Store } from 'vuex';
 import { installNewXPlugin } from '../../__tests__/utils';
-import { facetsXModule } from '../../x-modules/facets/x-module';
 import { identifierResultsXModule } from '../../x-modules/identifier-results/x-module';
 import { nextQueriesXModule } from '../../x-modules/next-queries/x-module';
 import { popularSearchesXModule } from '../../x-modules/popular-searches/x-module';
@@ -39,7 +38,6 @@ describe('testing plugin alias', () => {
   it('returns default values when no module is registered', () => {
     const defaultValues: XComponentAliasAPI = {
       query: {
-        facets: '',
         searchBox: '',
         nextQueries: '',
         querySuggestions: '',
@@ -67,7 +65,8 @@ describe('testing plugin alias', () => {
       selectedFilters: [],
       totalResults: 0,
       isEmpathizeOpen: false,
-      device: null
+      device: null,
+      spellcheckedQuery: null
     };
     expect(componentInstance.vm.$x).toMatchObject(defaultValues);
   });
@@ -78,22 +77,19 @@ describe('testing plugin alias', () => {
     XPlugin.registerXModule(relatedTagsXModule);
     XPlugin.registerXModule(searchBoxXModule);
     XPlugin.registerXModule(searchXModule);
-    XPlugin.registerXModule(facetsXModule);
 
     componentInstance.vm.$store.commit('x/searchBox/setQuery', 'this');
     componentInstance.vm.$store.commit('x/nextQueries/setQuery', 'is');
     componentInstance.vm.$store.commit('x/querySuggestions/setQuery', 'working');
     componentInstance.vm.$store.commit('x/relatedTags/setQuery', 'properly');
     componentInstance.vm.$store.commit('x/search/setQuery', 'nice');
-    componentInstance.vm.$store.commit('x/facets/setQuery', '!');
 
     expect(componentInstance.vm.$x.query).toEqual({
       searchBox: 'this',
       nextQueries: 'is',
       querySuggestions: 'working',
       relatedTags: 'properly',
-      search: 'nice',
-      facets: '!'
+      search: 'nice'
     });
   });
 

@@ -1,6 +1,6 @@
 import { Store } from 'vuex';
 import { RootXStoreState } from '../store';
-import { RequestStatus } from '../store/utils/helpers/status.helpers';
+import { RequestStatus } from '../store/utils/status-store.utils';
 import {
   XComponentAliasAPI,
   XComponentAliasQueryAPI,
@@ -19,7 +19,6 @@ export function getAliasAPI(
   store: Store<{ x: Partial<RootXStoreState['x']> }>
 ): XComponentAliasAPI {
   const queryModules = [
-    'facets',
     'searchBox',
     'nextQueries',
     'querySuggestions',
@@ -94,6 +93,9 @@ export function getAliasAPI(
     },
     get device() {
       return store.state.x.device?.name ?? null;
+    },
+    get spellcheckedQuery() {
+      return store.state.x.search?.spellcheckedQuery ?? null;
     }
   };
 }

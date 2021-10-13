@@ -154,7 +154,7 @@
     @XOn('UserClickedScrollToTop')
     scrollToTop(payload: string): void {
       if (payload === this.id && this.$el) {
-        this.$el?.scrollTo({ top: 0 });
+        this.$el?.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
   }

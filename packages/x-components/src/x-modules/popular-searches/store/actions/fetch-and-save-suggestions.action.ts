@@ -1,14 +1,17 @@
 import { Suggestion } from '@empathyco/x-types';
+import { SuggestionsRequest } from '@empathyco/x-adapter';
+
 // eslint-disable-next-line max-len
-import { createFetchAndSaveAction } from '../../../../store/utils/helpers/fetch-and-save-action.helpers';
+import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
 import { PopularSearchesActionContext } from '../types';
 
-const { fetchAndSave, cancelPrevious } = createFetchAndSaveAction<
+const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   PopularSearchesActionContext,
+  SuggestionsRequest,
   Suggestion[]
 >({
-  fetch({ dispatch }) {
-    return dispatch('fetchSuggestions');
+  fetch({ dispatch }, request) {
+    return dispatch('fetchSuggestions', request);
   },
   onSuccess({ commit }, suggestions) {
     commit('setSuggestions', suggestions);

@@ -1,0 +1,43 @@
+@import '../mixins';
+
+.x-padding {
+  &--00 {
+    padding: 0 !important;
+  }
+
+  @for $i from 1 through 13 {
+    $i: zerofill($i);
+    &--#{$i} {
+      padding: var(--x-size-base-#{$i}) !important;
+    }
+  }
+
+  &--top-00 {
+    padding-block-start: 0 !important;
+  }
+  &--bottom-00 {
+    padding-block-end: 0 !important;
+  }
+  &--right-00 {
+    padding-inline-end: 0 !important;
+  }
+  &--left-00 {
+    padding-inline-start: 0 !important;
+  }
+
+  @for $i from 1 through 13 {
+    $i: zerofill($i);
+    &--top-#{$i} {
+      padding-block-start: var(--x-size-base-#{$i}) !important;
+    }
+    &--bottom-#{$i} {
+      padding-block-end: var(--x-size-base-#{$i}) !important;
+    }
+    &--right-#{$i} {
+      padding-inline-end: var(--x-size-base-#{$i}) !important;
+    }
+    &--left-#{$i} {
+      padding-inline-start: var(--x-size-base-#{$i}) !important;
+    }
+  }
+}
