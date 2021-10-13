@@ -65,7 +65,7 @@
     <!-- Testing purpose -->
     <ul>
       <h1>Results</h1>
-      <li v-for="result in results" :key="result.id" data-test="result-item">
+      <li v-for="result in results" :key="result.id" data-test="result-text">
         {{ result.name }}
       </li>
     </ul>
