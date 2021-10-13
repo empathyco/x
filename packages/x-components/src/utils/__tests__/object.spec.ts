@@ -325,6 +325,11 @@ describe('testing object utils', () => {
       expect(returnedValue).toBeNull();
     });
 
+    it('returns arrays untouched', () => {
+      const returnedValue = cleanUndefined({ a: [undefined, 1] });
+      expect(returnedValue.a).toEqual([undefined, 1]);
+    });
+
     function hasProperty(obj: any, key: string): boolean {
       return key in obj;
     }

@@ -3,15 +3,9 @@ import { createUrlStore } from './utils';
 
 describe('testing url module getters', () => {
   const store = createUrlStore({
-    config: {
-      urlParamNames: {
-        query: 'q',
-        relatedTag: 'tag'
-      }
-    },
     params: {
       query: 'salmorejo',
-      filters: [],
+      filter: [],
       relatedTag: ['with eggs'],
       page: 1,
       sort: 'default',
@@ -28,21 +22,7 @@ describe('testing url module getters', () => {
       query: 'salmorejo',
       relatedTag: ['with eggs'],
       sort: 'default',
-      warehouse: 12345,
-      isLoadedFromUrl: false
-    });
-  });
-
-  it('maps the param key from the state with the config one or itself', () => {
-    expect(store.getters.urlMappedParamNames).toEqual<UrlGetters['urlMappedParamNames']>({
-      query: 'q',
-      filters: 'filters',
-      relatedTag: 'tag',
-      page: 'page',
-      scroll: 'scroll',
-      sort: 'sort',
-      warehouse: 'warehouse',
-      store: 'store'
+      warehouse: 12345
     });
   });
 });

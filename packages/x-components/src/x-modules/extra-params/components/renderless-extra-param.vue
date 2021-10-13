@@ -43,12 +43,20 @@
     public defaultValue?: unknown;
 
     /**
-     * A dictionary with the extra params from the store.
+     * A dictionary with the extra params.
      *
      * @public
      */
     @State('extraParams', 'params')
     public extraParams!: Dictionary<unknown>;
+
+    /**
+     * A dictionary with the extra params from the url.
+     *
+     * @public
+     */
+    @State('url', 'extraParams')
+    public urlExtraParams!: Dictionary<unknown>;
 
     /**
      * Emits the {@link ExtraParamsXEvents.ExtraParamsProvided} when the component
@@ -60,7 +68,11 @@
       this.$watch(
         () => this.defaultValue,
         defaultValue => {
-          if (defaultValue !== undefined && this.value === undefined) {
+          if (
+            defaultValue !== undefined &&
+            this.value === undefined &&
+            this.urlExtraParams[this.name] === undefined
+          ) {
             this.emitEvent('ExtraParamsProvided', this.defaultValue);
           }
         },

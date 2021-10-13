@@ -14,7 +14,7 @@ import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { QueryOrigin } from '../../../types/query-origin';
 import { Dictionary } from '../../../utils/types';
-import { UrlParamValue } from '../../url';
+import { UrlParams } from '../../url';
 import { SearchConfig } from '../config.types';
 
 /**
@@ -220,7 +220,7 @@ export interface SearchActions {
    *
    * @param urlParams - List of params from the url.
    */
-  setParamsFromUrl(urlParams: Dictionary<UrlParamValue>): void;
+  setParamsFromUrl(urlParams: UrlParams): void;
 }
 
 /**

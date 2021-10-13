@@ -1,5 +1,4 @@
-import { Dictionary } from '../../../../utils/types';
-import { UrlParamValue, UrlXStoreModule } from '../types';
+import { UrlParams, UrlParamValue, UrlXStoreModule } from '../types';
 import { objectFilter } from '../../../../utils/object';
 
 /**
@@ -11,11 +10,8 @@ import { objectFilter } from '../../../../utils/object';
  *
  * @public
  */
-export const urlParams: UrlXStoreModule['getters']['urlParams'] = ({
-  extraParams,
-  params,
-  isLoadedFromUrl
-}) => ({ ...objectFilter({ ...params, ...extraParams }, isValidParam), isLoadedFromUrl });
+export const urlParams: UrlXStoreModule['getters']['urlParams'] = ({ extraParams, params }) =>
+  objectFilter({ ...params, ...extraParams }, isValidUrlParam);
 
 /**
  * Checks if a value is valid to add it to the URL.
@@ -25,8 +21,8 @@ export const urlParams: UrlXStoreModule['getters']['urlParams'] = ({
  *
  * @returns A boolean indicating if the parameter is valid or not.
  */
-function isValidParam(key: string, value: UrlParamValue): boolean {
-  const invalidUrlValues: Dictionary<UrlParamValue> = {
+function isValidUrlParam(key: string | number, value: UrlParamValue | unknown): boolean {
+  const invalidUrlValues: Partial<UrlParams> = {
     page: 1,
     scroll: 0
   };

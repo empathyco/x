@@ -107,7 +107,7 @@ export const facetsWiring = createWiring({
   UserClearedQuery: {
     clearAllFiltersWire
   },
-  UrlChanged: {
+  ParamsLoadedFromUrl: {
     setFiltersFromUrl
   }
 });

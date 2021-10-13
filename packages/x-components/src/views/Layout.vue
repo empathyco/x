@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UrlHandler />
+    <UrlHandler query="q" portal="portal" />
     <BaseEventsModalOpen>Start</BaseEventsModalOpen>
     <h1>Test controls</h1>
     <ul class="x-test-controls x-list x-list--gap-05">
@@ -396,6 +396,7 @@
   import BaseSuggestions from '../components/suggestions/base-suggestions.vue';
   import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
   import { XInstaller } from '../x-installer/x-installer';
+  // eslint-disable-next-line max-len
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
   import FacetsProvider from '../x-modules/facets/components/facets/facets-provider.vue';
   import Facets from '../x-modules/facets/components/facets/facets.vue';

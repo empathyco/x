@@ -9,6 +9,7 @@ import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
 import { getSearchResponseStub } from '../../../../__stubs__/search-response-stubs.factory';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
+import { UrlParams } from '../../../url/store/types';
 import { searchXStoreModule } from '../module';
 import { SearchActions, SearchGetters, SearchMutations, SearchState } from '../types';
 import { resetSearchStateWith } from './utils';
@@ -297,7 +298,7 @@ describe('testing search module actions', () => {
     it('should set the params of the search module', async () => {
       resetSearchStateWith(store, { query: 'funko', page: 1 });
 
-      await store.dispatch('setParamsFromUrl', { query: 'lego', page: 2 });
+      await store.dispatch('setParamsFromUrl', { query: 'lego', page: 2 } as UrlParams);
 
       expect(store.state.query).toEqual('lego');
       expect(store.state.page).toEqual(2);
@@ -306,7 +307,7 @@ describe('testing search module actions', () => {
     it('should not set the query of the search module', async () => {
       resetSearchStateWith(store, { query: 'funko' });
 
-      await store.dispatch('setParamsFromUrl', { page: 2 });
+      await store.dispatch('setParamsFromUrl', { page: 2 } as UrlParams);
 
       expect(store.state.query).toEqual('funko');
       expect(store.state.page).toEqual(2);
@@ -315,7 +316,7 @@ describe('testing search module actions', () => {
     it('should not set the page of the search module', async () => {
       resetSearchStateWith(store, { page: 1 });
 
-      await store.dispatch('setParamsFromUrl', { query: 'funko' });
+      await store.dispatch('setParamsFromUrl', { query: 'funko' } as UrlParams);
 
       expect(store.state.page).toEqual(1);
     });
