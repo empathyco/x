@@ -7,7 +7,7 @@
     tag="ul"
   >
     <li
-      v-for="(facet, facetId) in mappedFacets"
+      v-for="(mappedFacet, facetId) in mappedFacets"
       :key="facetId"
       class="x-facets-list__item"
       data-test="facets-facet"
@@ -18,16 +18,25 @@
             @binding {Facet} facet - Facet to render
       -->
       <slot
-        v-if="$scopedSlots[facet.slotName]"
-        v-bind="{ facet, selectedFilters: selectedFiltersByFacet[facetId] || [] }"
-        :name="facet.slotName"
+        v-if="$scopedSlots[mappedFacet.slotName]"
+        v-bind="{
+          facet: mappedFacet.facet,
+          selectedFilters: selectedFiltersByFacet[facetId] || []
+        }"
+        :name="mappedFacet.slotName"
       />
       <!--
         @slot (required) Default Facet rendering. This slot will be used by default for rendering
         the facets without an specific slot implementation.
             @binding {Facet} facet - Facet to render
       -->
-      <slot v-else v-bind="{ facet, selectedFilters: selectedFiltersByFacet[facetId] || [] }">
+      <slot
+        v-else
+        v-bind="{
+          facet: mappedFacet.facet,
+          selectedFilters: selectedFiltersByFacet[facetId] || []
+        }"
+      >
         This is the {{ facet.label }} facet. Pass something into its slot to display content.
       </slot>
     </li>
@@ -41,9 +50,19 @@
   import { xComponentMixin } from '../../../../components/x-component.mixin';
   import { toKebabCase } from '../../../../utils/string';
   import { map, objectFilter } from '../../../../utils/object';
-  import { Dictionary, RenderFacet } from '../../../../utils/types';
+  import { Dictionary } from '../../../../utils/types';
   import { FiltersByFacet } from '../../store/types';
   import { facetsXModule } from '../../x-module';
+
+  /**
+   * Custom interface to provide a slot name to a Facet.
+   *
+   * @public
+   */
+  export interface RenderFacet {
+    slotName: string;
+    facet: Facet;
+  }
 
   /**
    * This component renders the list of facets stored in the Facets module. Facets can be rendered
@@ -107,7 +126,7 @@
     public facets!: Record<Facet['id'], Facet>;
 
     /**
-     * Transform a dictionary of Facets including the slot name.
+     * Transforms a dictionary of Facets including the slot name.
      *
      * @returns A dictionary of facets with the slot name.
      *
@@ -115,8 +134,8 @@
      */
     protected get mappedFacets(): Dictionary<RenderFacet> {
       return map(this.facetsToRender, (_, facet) => ({
-        ...facet,
-        slotName: toKebabCase(facet.id as string)
+        slotName: toKebabCase(facet.id as string),
+        facet
       }));
     }
 
