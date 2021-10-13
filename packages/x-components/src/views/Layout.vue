@@ -321,7 +321,7 @@
             <template #default="{ partialResult }">
               <span data-test="partial-query">{{ partialResult.query }}</span>
               <BaseGrid :animation="resultsAnimation" :columns="4" :items="partialResult.results">
-                <template #Result="{ item }">
+                <template #result="{ item }">
                   <article class="result" style="max-width: 300px">
                     <BaseResultImage :result="item" class="x-picture--colored">
                       <template #placeholder>
