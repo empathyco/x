@@ -12,9 +12,12 @@ Given('a results scroll API with a known response', () => {
   }).as('interceptedResults');
 });
 
-// Scenario 1
 Given('following basic config', () => {
   cy.visit('/layout?useMockedAdapter=true', {});
+});
+
+Given('an url with scroll parameter', () => {
+  cy.visit('/layout?useMockedAdapter=true&query=lego&page=4&scroll=product-25', {});
 });
 
 Then('scroll down the results', () => {
@@ -23,4 +26,12 @@ Then('scroll down the results', () => {
 
 And('the first element id in the scroll viewport is in the url', () => {
   cy.url().should('include', 'product-32');
+});
+
+And('the first element in the view is the scroll {int}', (id: number) => {
+  cy.get(`[data-scroll-id=product-${id}]`)
+    .should('be.visible')
+    .then(() => {
+      cy.get(`[data-scroll-id=product-${id - 1}]`).should('not.be.visible');
+    });
 });

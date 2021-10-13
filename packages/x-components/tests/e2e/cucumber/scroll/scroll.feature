@@ -1,10 +1,12 @@
 Feature: Scroll component
+
   Background:
     Given a results scroll API with a known response
     Given a related tags API with a known response
     Given a next queries API with a known response
     Given a recommendations API with a known response
     Given a query suggestions API with a known response
+
   Scenario Outline: 1. The first element in the scroll viewport is set in the URL
     Given following basic config
     And start button is clicked
@@ -15,3 +17,11 @@ Feature: Scroll component
     Examples:
     | query |
     | lego  |
+
+  Scenario Outline: 2. The scroll url param is read and scroll into
+    Given an url with scroll parameter
+    Then  related results are displayed
+    Then  the first element in the view is the scroll <id>
+    Examples:
+      | id |
+      | 17 |

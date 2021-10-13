@@ -226,8 +226,16 @@ export default class ScrollMixin extends Vue {
    * @internal
    */
   protected setFirstItemInScrollView(): void {
-    if (this.$el) {
-      const scrollTargets = this.$el.querySelectorAll<HTMLElement>('[data-scroll-id]');
+    let element: HTMLElement;
+    if (this.$parent.$props['tag'] === 'html') {
+      element = document.documentElement;
+    } else if (this.$parent.$props['tag'] === 'body') {
+      element = document.body;
+    } else {
+      element = this.$el as HTMLElement;
+    }
+    if (element) {
+      const scrollTargets = element.querySelectorAll<HTMLElement>('[data-scroll-id]');
 
       const firstElementInView = Array.from(scrollTargets).find(element =>
         this.isAnyPartOfElementInViewport(element)
