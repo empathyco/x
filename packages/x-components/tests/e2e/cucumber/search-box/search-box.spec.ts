@@ -9,24 +9,7 @@ let startQuery = 0;
 let startSecondQuery = 0;
 let interval = 0;
 
-// Background
-Given('a results API with a known response', () => {
-  cy.intercept('https://api.empathy.co/search', req => {
-    req.reply({
-      results: [
-        createResultStub('LEGO Super Mario Pack Inicial: Aventuras con Mario - 71360'),
-        createResultStub('LEGO Duplo Classic Caja de Ladrillos - 10913'),
-        createResultStub('LEGO City Coche Patrulla de Policía - 60239'),
-        createResultStub('LEGO City Police Caja de Ladrillos - 60270'),
-        createResultStub('LEGO Friends Parque para Cachorros - 41396'),
-        createResultStub('LEGO Creator Ciberdrón - 31111'),
-        createResultStub('LEGO Technic Dragster - 42103'),
-        createResultStub('LEGO Technic Dragster - 42103')
-      ]
-    });
-  }).as('interceptedResults');
-});
-
+// Scenario 1
 Given(
   'following config: hide if equals query {boolean}, instant search {boolean}, debounce {int}',
   (hideIfEqualsQuery: boolean, instant: boolean, instantDebounceInMs: number) => {
@@ -37,7 +20,7 @@ Given(
         }
       }
     };
-    cy.visit('/test/search-box?useMockedAdapter=true', {
+    cy.visit('/?useMockedAdapter=true', {
       qs: {
         xModules: JSON.stringify(config)
       }
@@ -52,9 +35,7 @@ Given(
   }
 );
 
-// Scenario 1
 And('no queries have been searched', () => {
-  cy.getByDataTest('search-input').should('exist');
   cy.getByDataTest('search-input').should('have.value', '');
   cy.getByDataTest('results-list').should('not.exist');
   cy.getByDataTest('query-suggestions').should('not.exist');
@@ -141,7 +122,8 @@ And(
   'related results are displayed after {int} is {boolean}',
   (instantDebounceInMs: number, instant: boolean) => {
     if (instant) {
-      cy.getByDataTest('result-item')
+      cy.getByDataTest('result-text')
+        .should('be.visible')
         .should('have.length.gt', resultsCount)
         .each($result => {
           resultsList.push($result.text());
@@ -149,9 +131,9 @@ And(
         .then(() => {
           interval = Date.now() - startQuery;
           expect(interval).to.be.greaterThan(instantDebounceInMs);
+          resultsCount = resultsList.length;
+          resultsList = [];
         });
-      resultsCount = resultsList.length;
-      resultsList = [];
     } else {
       cy.getByDataTest('result-item').should('not.exist');
     }
@@ -176,12 +158,18 @@ And('related tags are displayed after instantDebounceInMs is {boolean}', (instan
 Given('a second results API with a known response', () => {
   cy.intercept('https://api.empathy.co/search', req => {
     req.reply({
+      banners: [],
+      promoteds: [],
       results: [
-        createResultStub('LEGO Duplo Disney Tren de Cumpleaños de Mickey y Minnie - 10941'),
-        createResultStub('LEGO Disney Granja de Mickey Mouse y el Pato Donald - 10775')
+        createResultStub('LEGO Duplo Disney Tren de Cumpleaños de Mickey y Minnie - 10941', {
+          images: ['https://picsum.photos/seed/8/100/100']
+        }),
+        createResultStub('LEGO Disney Granja de Mickey Mouse y el Pato Donald - 10775', {
+          images: ['https://picsum.photos/seed/10/100/100']
+        })
       ]
     });
-  }).as('interceptedSecondResults');
+  }).as('interceptedNewResults');
 });
 
 When('{string} is added to the search', (secondQuery: string) => {
@@ -191,7 +179,7 @@ When('{string} is added to the search', (secondQuery: string) => {
 });
 
 Then('new related results are not displayed before {int}', (instantDebounceInMs: number) => {
-  cy.getByDataTest('result-item')
+  cy.getByDataTest('result-text')
     .should($results => {
       expect($results).to.have.length(resultsCount);
     })
@@ -205,8 +193,9 @@ And(
   'new related results are displayed after {int} is {boolean}',
   (instantDebounceInMs: number, instant: boolean) => {
     if (instant) {
-      cy.getByDataTest('result-item')
-        .should('have.length.at.most', resultsCount - 1)
+      cy.getByDataTest('result-text')
+        .should('be.visible')
+        .should('have.length', 2)
         .each($result => {
           compoundResultsList.push($result.text());
         })
@@ -216,7 +205,7 @@ And(
           resultsCount = resultsList.length;
         });
     } else {
-      cy.getByDataTest('result-item').should('not.exist');
+      cy.getByDataTest('result-text').should('not.exist');
     }
   }
 );
@@ -234,7 +223,8 @@ When('{string} is deleted from the search', (secondQuery: string) => {
 });
 
 Then('old related results are not displayed before {int}', (instantDebounceInMs: number) => {
-  cy.getByDataTest('result-item')
+  cy.getByDataTest('result-text')
+    .should('be.visible')
     .should('have.length', compoundResultsList.length)
     .then(() => {
       interval = startQuery + instantDebounceInMs - Date.now();

@@ -5,23 +5,41 @@ import { createResultStub } from '../../../../src/__stubs__/results-stubs.factor
 Given('a results API with partial results', () => {
   cy.intercept('https://api.empathy.co/search', req => {
     req.reply({
-      results: [],
+      banners: [],
+      promoteds: [],
+      results: [
+        createResultStub('LEGO Super Mario Pack Inicial: Aventuras con Mario - 71360', {
+          images: ['https://picsum.photos/seed/1/100/100']
+        })
+      ],
       partialResults: [
         {
           query: 'verde azul',
           results: [
-            createResultStub('Twister'),
-            createResultStub('Juego de Anillas Acuáticas Peces'),
-            createResultStub('Jurassic World Dinosaurio de Ataque Varios Modelos')
+            createResultStub('Twister', {
+              images: ['https://picsum.photos/seed/30/100/100']
+            }),
+            createResultStub('Juego de Anillas Acuáticas Peces', {
+              images: ['https://picsum.photos/seed/31/100/100']
+            }),
+            createResultStub('Jurassic World Dinosaurio de Ataque Varios Modelos', {
+              images: ['https://picsum.photos/seed/32/100/100']
+            })
           ],
           totalResults: 9
         },
         {
           query: 'lego verde',
           results: [
-            createResultStub('LEGO Classic Ladrillos Creativos Verdes - 11007'),
-            createResultStub('LEGO Creator Grandes Dinosaurios -31058'),
-            createResultStub('LEGO My City Casa Familiar - 60291')
+            createResultStub('LEGO Classic Ladrillos Creativos Verdes - 11007', {
+              images: ['https://picsum.photos/seed/33/100/100']
+            }),
+            createResultStub('LEGO Creator Grandes Dinosaurios -31058', {
+              images: ['https://picsum.photos/seed/34/100/100']
+            }),
+            createResultStub('LEGO My City Casa Familiar - 60291', {
+              images: ['https://picsum.photos/seed/35/100/100']
+            })
           ],
           totalResults: 6
         }
@@ -32,11 +50,13 @@ Given('a results API with partial results', () => {
 
 // Scenario 1
 Given('no special config for partial-results view', () => {
-  cy.visit('test/partial-results?useMockedAdapter=true');
+  cy.visit('/?useMockedAdapter=true');
 });
 
 Then('at least {int} related results are displayed', (minResultsWithoutPartials: number) => {
-  cy.getByDataTest('regular-result').should('have.length.at.least', minResultsWithoutPartials);
+  cy.getByDataTest('result-text')
+    .should('be.visible')
+    .should('have.length.at.least', minResultsWithoutPartials);
 });
 
 And('no partial results are displayed', () => {
@@ -45,11 +65,13 @@ And('no partial results are displayed', () => {
 
 // Scenario 2
 Then('less than {int} related results are displayed', (minResultsWithoutPartials: number) => {
-  cy.getByDataTest('regular-result').should('have.length.at.most', minResultsWithoutPartials - 1);
+  cy.getByDataTest('result-text')
+    .should('be.visible')
+    .should('have.length.at.most', minResultsWithoutPartials - 1);
 });
 
 And('partial results are displayed', () => {
-  cy.getByDataTest('partial-result-item').should('exist');
+  cy.getByDataTest('partial-result-item').should('be.visible');
 });
 
 // Scenario 3
@@ -65,11 +87,8 @@ And('{string} contains the partial query', function (this: { searchedQuery: stri
 });
 
 When('first partial query button is clicked', function (this: { partialQueryButtonText: string }) {
-  cy.getByDataTest('partial-query-button')
-    .first()
-    .click()
-    .invoke('text')
-    .as('partialQueryButtonText');
+  cy.getByDataTest('partial-query').first().invoke('text').as('partialQueryButtonText');
+  cy.getByDataTest('partial-query-button').first().click();
 });
 
 Then(
