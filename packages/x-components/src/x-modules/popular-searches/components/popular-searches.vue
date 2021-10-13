@@ -1,6 +1,7 @@
 <template>
   <BaseSuggestions
     :suggestions="popularSearches"
+    :maxItemsToRender="maxItemsToRender"
     class="x-popular-searches"
     data-test="popular-searches"
     :animation="animation"
@@ -66,12 +67,13 @@
     @Prop({ default: 5 })
     protected maxItemsToRender!: number;
 
+    /**
+     * The list of popular searches.
+     *
+     * @internal
+     */
     @Getter('popularSearches', 'popularSearches')
-    public storedPopularSearches!: Suggestion[];
-
-    protected get popularSearches(): Suggestion[] {
-      return this.storedPopularSearches.slice(0, this.maxItemsToRender);
-    }
+    public popularSearches!: Suggestion[];
   }
 </script>
 

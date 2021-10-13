@@ -1,5 +1,5 @@
 import { Result } from '@empathyco/x-types';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
+import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
@@ -91,7 +91,7 @@ describe('testing recommendations component', () => {
       }
     });
 
-    const renderedRecommendations = wrapper.findAll(getDataTestSelector('custom-default-slot'));
+    const renderedRecommendations = findTestDataById(wrapper, 'custom-default-slot');
 
     expect(renderedRecommendations).toHaveLength(recommendations.length);
     recommendations.forEach((recommendation, index) => {
@@ -114,6 +114,27 @@ describe('testing recommendations component', () => {
 
     expect(isScopedSlotOverridden('custom-layout')).toBe(true);
   });
+
+  // eslint-disable-next-line max-len
+  it('renders at most the number of recommendations defined by `maxItemsToRender` prop', async () => {
+    const { wrapper, recommendations } = mountRecommendations();
+
+    const renderedRecommendations = (): WrapperArray<Vue> =>
+      findTestDataById(wrapper, 'recommendation-item');
+
+    await wrapper.setProps({ maxItemsToRender: 2 });
+    expect(renderedRecommendations()).toHaveLength(2);
+
+    await wrapper.setProps({ maxItemsToRender: 3 });
+    expect(renderedRecommendations()).toHaveLength(3);
+
+    await wrapper.setProps({ maxItemsToRender: 5 });
+    expect(renderedRecommendations()).toHaveLength(recommendations.length);
+  });
+
+  function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {
+    return wrapper.findAll(getDataTestSelector(testDataId));
+  }
 });
 
 interface MountRecommendationsOptions {

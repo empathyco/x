@@ -4,6 +4,7 @@
     data-test="next-queries"
     class="x-next-queries"
     :animation="animation"
+    :maxItemsToRender="maxItemsToRender"
   >
     <template #default="{ suggestion, index }">
       <!--
@@ -67,12 +68,13 @@
     @Prop({ default: 5 })
     protected maxItemsToRender!: number;
 
+    /**
+     * The list of next queries.
+     *
+     * @internal
+     */
     @Getter('nextQueries', 'nextQueries')
-    public storedNextQueries!: NextQueryModel[];
-
-    protected get nextQueries(): NextQueryModel[] {
-      return this.storedNextQueries.slice(0, this.maxItemsToRender);
-    }
+    public nextQueries!: NextQueryModel[];
   }
 </script>
 

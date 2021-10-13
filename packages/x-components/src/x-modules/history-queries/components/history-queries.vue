@@ -4,6 +4,7 @@
     class="x-history-queries"
     data-test="history-queries"
     :animation="animation"
+    :maxItemsToRender="maxItemsToRender"
   >
     <template #default="{ suggestion, index }">
       <!--
@@ -90,11 +91,7 @@
      * @internal
      */
     @Getter('historyQueries', 'historyQueries')
-    public storedHistoryQueries!: HistoryQueryModel[];
-
-    protected get historyQueries(): HistoryQueryModel[] {
-      return this.storedHistoryQueries.slice(0, this.maxItemsToRender);
-    }
+    public historyQueries!: HistoryQueryModel[];
   }
 </script>
 

@@ -63,7 +63,7 @@
      * @public
      */
     @State('recommendations', 'recommendations')
-    public recommendations!: Result[];
+    public storedRecommendations!: Result[];
 
     /**
      * Animation component that will be used to animate the recommendations.
@@ -74,6 +74,14 @@
     protected animation!: Vue;
 
     /**
+     * Number of recommendations to be rendered.
+     *
+     * @public
+     */
+    @Prop({ default: 5 })
+    protected maxItemsToRender!: number;
+
+    /**
      * The additional events to be emitted by the mandatory {@link BaseResultLink} component.
      *
      * @public
@@ -82,6 +90,17 @@
     protected resultClickExtraEvents: PropsWithType<XEventsTypes, Result>[] = [
       'UserClickedARecommendation'
     ];
+
+    /**
+     * Slices the recommendations from the state.
+     *
+     * @returns - The list of recommendations slice by the number of items to render.
+     *
+     * @internal
+     */
+    protected get recommendations(): Result[] {
+      return this.storedRecommendations.slice(0, this.maxItemsToRender);
+    }
   }
 </script>
 
@@ -141,6 +160,34 @@
       </BaseGrid>
     </template>
   </Recommendations>
+  ```
+
+  ### Play with props
+
+  In this example, the recommendations has been limited to render a maximum of 3 items.
+
+  _Type “puzzle” or another toy in the input field to try it out!_
+
+  ```vue
+  <template>
+    <div>
+      <SearchInput />
+      <Recommendations :maxItemToRender="3" />
+    </div>
+  </template>
+
+  <script>
+    import { SearchInput } from '@empathyco/x-components/search-box';
+    import { Recommendations } from '@empathyco/x-components/recommendations';
+
+    export default {
+      name: 'RecommendationsDemo',
+      components: {
+        SearchInput,
+        Recommendations
+      }
+    };
+  </script>
   ```
 
   ## Events
