@@ -96,7 +96,7 @@ export interface RelatedTagsActions {
    * Receives a list of params from the url, builds the entities and
    * set them in the store.
    */
-  setUrlParamsFromTheUrl(urlParams: UrlParams): void;
+  setUrlParams(urlParams: UrlParams): void;
 }
 /**
  * RelatedTags type safe store module.

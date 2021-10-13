@@ -15,7 +15,7 @@ export const initialUrlState: UrlState = {
     filter: [],
     sort: '',
     scroll: 0,
-    relatedTag: []
+    tag: []
   },
   extraParams: {}
 };
@@ -43,7 +43,7 @@ export const urlXStoreModule: UrlXStoreModule = {
       state.params.query = query;
     },
     setRelatedTags(state, relatedTags) {
-      state.params.relatedTag = relatedTags.map(relatedTag => relatedTag.tag);
+      state.params.tag = relatedTags.map(relatedTag => relatedTag.tag);
     },
     setFilters(state, newFilters) {
       state.params.filter = newFilters.map(filter => filter.id as string);

@@ -52,11 +52,9 @@ describe('testing UrlHandler component', () => {
     const eventSpy = jest.fn();
     on('ParamsLoadedFromUrl').subscribe(eventSpy);
 
+    loadUrlWithParams('query=lego&page=2&tag=marvel&sort=price desc&scroll=333&filter=brand:lego');
     loadUrlWithParams(
-      'query=lego&page=2&relatedTag=marvel&sort=price desc&scroll=333&filter=brand:lego'
-    );
-    loadUrlWithParams(
-      'query=playmobil&page=3&relatedTag=harry potter' +
+      'query=playmobil&page=3&tag=harry potter' +
         '&sort=price asc&scroll=444&filter=brand:playmobil'
     );
 
@@ -66,7 +64,7 @@ describe('testing UrlHandler component', () => {
       filter: ['brand:lego'],
       sort: 'price desc',
       scroll: 333,
-      relatedTag: ['marvel']
+      tag: ['marvel']
     } as UrlParams);
 
     expect(eventSpy).toHaveBeenNthCalledWith(2, {
@@ -75,7 +73,7 @@ describe('testing UrlHandler component', () => {
       filter: ['brand:playmobil'],
       sort: 'price asc',
       scroll: 444,
-      relatedTag: ['harry potter']
+      tag: ['harry potter']
     } as UrlParams);
   });
 
@@ -85,10 +83,10 @@ describe('testing UrlHandler component', () => {
     on('ParamsLoadedFromUrl').subscribe(eventSpy);
 
     popstateUrlWithParams(
-      'query=lego&page=2&relatedTag=marvel&sort=price desc&scroll=333&filter=brand:lego'
+      'query=lego&page=2&tag=marvel&sort=price desc&scroll=333&filter=brand:lego'
     );
     popstateUrlWithParams(
-      'query=playmobil&page=3&relatedTag=harry potter' +
+      'query=playmobil&page=3&tag=harry potter' +
         '&sort=price asc&scroll=444&filter=brand:playmobil'
     );
 
@@ -98,7 +96,7 @@ describe('testing UrlHandler component', () => {
       filter: ['brand:lego'],
       sort: 'price desc',
       scroll: 333,
-      relatedTag: ['marvel']
+      tag: ['marvel']
     } as UrlParams);
 
     expect(eventSpy).toHaveBeenNthCalledWith(2, {
@@ -107,7 +105,7 @@ describe('testing UrlHandler component', () => {
       filter: ['brand:playmobil'],
       sort: 'price asc',
       scroll: 444,
-      relatedTag: ['harry potter']
+      tag: ['harry potter']
     } as UrlParams);
   });
   it('emits the `ParamsLoadedFromUrl` initial state values for not present params', () => {

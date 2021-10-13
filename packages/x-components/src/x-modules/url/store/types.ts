@@ -22,7 +22,7 @@ export interface UrlParams {
   page: number;
   filter: string[];
   sort: string;
-  relatedTag: string[];
+  tag: string[];
   scroll: number;
   [extraParamKey: string]: unknown;
 }

@@ -140,11 +140,11 @@ describe('testing related tags module actions', () => {
     );
   });
 
-  describe('setUrlParamsFromTheUrl', () => {
+  describe('setUrlParams', () => {
     it('should add the query and related tags to the store', () => {
-      store.dispatch('setUrlParamsFromTheUrl', {
+      store.dispatch('setUrlParams', {
         query: 'funko',
-        relatedTag: ['pop', 'lego']
+        tag: ['pop', 'lego']
       } as UrlParams);
 
       expect(store.state.query).toEqual('funko');
@@ -170,7 +170,7 @@ describe('testing related tags module actions', () => {
       resetRelatedTagsStateWith(store, {
         selectedRelatedTags: mockedRelatedTags
       });
-      store.dispatch('setUrlParamsFromTheUrl', {
+      store.dispatch('setUrlParams', {
         query: 'funko'
       } as UrlParams);
 
@@ -182,8 +182,8 @@ describe('testing related tags module actions', () => {
       resetRelatedTagsStateWith(store, {
         query: 'lego'
       });
-      store.dispatch('setUrlParamsFromTheUrl', {
-        relatedTag: ['lego', 'pop']
+      store.dispatch('setUrlParams', {
+        tag: ['lego', 'pop']
       } as UrlParams);
 
       expect(store.state.query).toBe('lego');

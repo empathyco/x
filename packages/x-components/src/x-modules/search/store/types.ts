@@ -220,7 +220,7 @@ export interface SearchActions {
    *
    * @param urlParams - List of params from the url.
    */
-  setParamsFromUrl(urlParams: UrlParams): void;
+  setUrlParams(urlParams: UrlParams): void;
 }
 
 /**

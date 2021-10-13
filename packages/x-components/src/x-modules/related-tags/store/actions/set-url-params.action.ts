@@ -24,7 +24,7 @@ const createRelatedTags = (relatedTags: string[], query: string): RelatedTag[] =
 };
 
 /**
- * Default implementation for the {@link RelatedTagsActions.setUrlParamsFromTheUrl}.
+ * Default implementation for the {@link RelatedTagsActions.setUrlParams}.
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
@@ -32,16 +32,15 @@ const createRelatedTags = (relatedTags: string[], query: string): RelatedTag[] =
  *
  * @public
  */
-export const setUrlParamsFromTheUrl: RelatedTagsXStoreModule['actions']['setUrlParamsFromTheUrl'] =
-  ({ commit }, { query, relatedTag }: UrlParams) => {
-    const newRelatedTags = relatedTag;
-    const newQuery = query;
+export const setUrlParams: RelatedTagsXStoreModule['actions']['setUrlParams'] = (
+  { commit },
+  { query, tag }: UrlParams
+) => {
+  if (tag) {
+    commit('setSelectedRelatedTags', createRelatedTags(tag, query));
+  }
 
-    if (newRelatedTags) {
-      commit('setSelectedRelatedTags', createRelatedTags(newRelatedTags, newQuery));
-    }
-
-    if (newQuery) {
-      commit('setQuery', newQuery);
-    }
-  };
+  if (query) {
+    commit('setQuery', query);
+  }
+};

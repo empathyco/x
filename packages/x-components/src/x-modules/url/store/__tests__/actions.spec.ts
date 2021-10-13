@@ -9,7 +9,7 @@ describe('testing Url module actions', () => {
     it('should update the state with the correct url parameters', async () => {
       const urlParams: Partial<UrlParams> = {
         query: 'sudadera',
-        relatedTag: ['capucha', 'disney'],
+        tag: ['capucha', 'disney'],
         page: 3,
         warehouse: '01234',
         consent: true
@@ -19,7 +19,7 @@ describe('testing Url module actions', () => {
       expect(store.state.params).toEqual<Partial<UrlParams>>({
         page: 3,
         query: 'sudadera',
-        relatedTag: ['capucha', 'disney'],
+        tag: ['capucha', 'disney'],
         filter: [],
         sort: '',
         scroll: 0

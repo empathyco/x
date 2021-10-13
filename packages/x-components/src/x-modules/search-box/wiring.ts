@@ -44,7 +44,7 @@ const clearSearchBoxQuery = wireCommit('setQuery', '');
  *
  * @public
  */
-export const setQueryFromUrl = wireDispatch('setQueryFromUrl');
+const setUrlParams = wireDispatch('setUrlParams');
 
 /**
  * SearchBox wiring.
@@ -62,6 +62,6 @@ export const searchBoxWiring = createWiring({
     clearSearchBoxQuery
   },
   ParamsLoadedFromUrl: {
-    setQueryFromUrl
+    setUrlParams
   }
 });

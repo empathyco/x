@@ -1,6 +1,5 @@
 import { Facet, Filter } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
-import { UrlParams } from '../../url';
 
 /**
  * Facets store state.
@@ -92,13 +91,7 @@ export interface FacetsMutations {
  *
  * @public
  */
-export interface FacetsActions {
-  /**
-   * Receives a list of params from the url, builds the entities and
-   * set them in the store.
-   */
-  setFiltersFromUrl(urlParams: UrlParams): void;
-}
+export interface FacetsActions {}
 
 /**
  * The type of the context object for the facets module actions.

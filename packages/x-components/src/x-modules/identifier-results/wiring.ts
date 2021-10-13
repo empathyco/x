@@ -47,6 +47,13 @@ export const setIdentifierResultsQuery = wireDispatch('saveQuery');
 export const clearIdentifierResultsQuery = wireCommit('setQuery', '');
 
 /**
+ * Sets the identifier results state `query` from url.
+ *
+ * @public
+ */
+const setUrlParams = wireDispatch('setUrlParams');
+
+/**
  * Requests and stores a new set of identifier results for the {@link IdentifierResultsState.query}.
  *
  * @public
@@ -89,5 +96,8 @@ export const identifierResultsWiring = createWiring({
   },
   IdentifierResultsRequestChanged: {
     fetchAndSaveIdentifierResultsWire
+  },
+  ParamsLoadedFromUrl: {
+    setUrlParams
   }
 });

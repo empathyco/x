@@ -54,11 +54,11 @@ export interface FacetsService {
    */
   setFacets(facetsGroup: FacetsGroup): void;
   /**
-   * Selects filter, adding it to the store if it was not present.
+   * Selects filter/filters, adding it/them to the store if it/they was not present.
    *
-   * @param filter - The filter to select.
+   * @param filter - The filter/filters to select.
    */
-  select(filter: Filter): void;
+  select(filter: Filter | Filter[]): void;
   /**
    * Selects a deselected filter, and deselects a selected filter, adding them to the store
    * in both cases.

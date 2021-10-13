@@ -1,7 +1,7 @@
-import { SearchBoxXStoreModule } from '../types';
+import { HistoryQueriesXStoreModule } from '../types';
 
 /**
- * Default implementation for the {@link SearchBoxActions.setQueryFromUrl}.
+ * Default implementation for the {@link QuerySuggestionsXStoreModule.setUrlParams}.
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
@@ -9,7 +9,7 @@ import { SearchBoxXStoreModule } from '../types';
  * @param urlParams - List of params from the url.
  * @public
  */
-export const setQueryFromUrl: SearchBoxXStoreModule['actions']['setQueryFromUrl'] = (
+export const setUrlParams: HistoryQueriesXStoreModule['actions']['setUrlParams'] = (
   { commit },
   { query }
 ) => {

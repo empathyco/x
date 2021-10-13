@@ -294,11 +294,11 @@ describe('testing search module actions', () => {
     });
   });
 
-  describe('setParamsFromUrl', () => {
+  describe('setUrlParams', () => {
     it('should set the params of the search module', async () => {
       resetSearchStateWith(store, { query: 'funko', page: 1 });
 
-      await store.dispatch('setParamsFromUrl', { query: 'lego', page: 2 } as UrlParams);
+      await store.dispatch('setUrlParams', { query: 'lego', page: 2 } as UrlParams);
 
       expect(store.state.query).toEqual('lego');
       expect(store.state.page).toEqual(2);
@@ -307,7 +307,7 @@ describe('testing search module actions', () => {
     it('should not set the query of the search module', async () => {
       resetSearchStateWith(store, { query: 'funko' });
 
-      await store.dispatch('setParamsFromUrl', { page: 2 } as UrlParams);
+      await store.dispatch('setUrlParams', { page: 2 } as UrlParams);
 
       expect(store.state.query).toEqual('funko');
       expect(store.state.page).toEqual(2);
@@ -316,7 +316,7 @@ describe('testing search module actions', () => {
     it('should not set the page of the search module', async () => {
       resetSearchStateWith(store, { page: 1 });
 
-      await store.dispatch('setParamsFromUrl', { query: 'funko' } as UrlParams);
+      await store.dispatch('setUrlParams', { query: 'funko' } as UrlParams);
 
       expect(store.state.page).toEqual(1);
     });

@@ -1,8 +1,9 @@
 import { Facet } from '@empathyco/x-types';
-import { namespacedWireDispatch } from '../../wiring/namespaced-wires.factory';
+import { createRawFilters } from '../../utils/filters';
 import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
 import { mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
+import { UrlParams } from '../url/store/types';
 import { DefaultFacetsService } from './service/facets.service';
 
 /**
@@ -14,13 +15,6 @@ const wireFacetsService = wireService(DefaultFacetsService.instance);
  * Wires without payload factory for {@link DefaultFacetsService}.
  */
 const wireFacetsServiceWithoutPayload = wireServiceWithoutPayload(DefaultFacetsService.instance);
-
-/**
- * WireCommit for {@link FacetsXModule}.
- *
- * @internal
- */
-const facetsWireDispatch = namespacedWireDispatch('facets');
 
 /**
  * Saves the facets contained in the `search` group, removing the previous ones, and keeping the
@@ -78,7 +72,9 @@ const selectFilterWire = wireFacetsService('select');
  *
  * @public
  */
-const setFiltersFromUrl = facetsWireDispatch('setFiltersFromUrl');
+const setFiltersFromUrl = mapWire(wireFacetsService('select'), ({ filter }: UrlParams) =>
+  createRawFilters(filter)
+);
 
 /**
  * Wiring configuration for the {@link FacetsXModule | facets module}.

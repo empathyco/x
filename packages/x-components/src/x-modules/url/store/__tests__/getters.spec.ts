@@ -6,7 +6,7 @@ describe('testing url module getters', () => {
     params: {
       query: 'salmorejo',
       filter: [],
-      relatedTag: ['with eggs'],
+      tag: ['with eggs'],
       page: 1,
       sort: 'default',
       scroll: 0
@@ -20,7 +20,7 @@ describe('testing url module getters', () => {
   it('re-maps values using the config', () => {
     expect(store.getters.urlParams).toEqual<Partial<UrlGetters['urlParams']>>({
       query: 'salmorejo',
-      relatedTag: ['with eggs'],
+      tag: ['with eggs'],
       sort: 'default',
       warehouse: 12345
     });

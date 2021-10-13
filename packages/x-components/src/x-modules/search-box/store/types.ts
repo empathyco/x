@@ -46,7 +46,7 @@ export interface SearchBoxActions {
    *
    * @param urlParams - List of params from the url.
    */
-  setQueryFromUrl(urlParams: UrlParams): void;
+  setUrlParams(urlParams: UrlParams): void;
 }
 
 /**
