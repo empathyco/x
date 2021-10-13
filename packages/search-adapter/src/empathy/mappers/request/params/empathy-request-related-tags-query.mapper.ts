@@ -13,12 +13,18 @@ export class EmpathyRequestRelatedTagsQueryMapper
   implements RequestMapper<QueryableRequest, string>
 {
   map({ relatedTags = [] }: QueryableRequest, query: string): string {
-    const [leftRts, rightRts] = this.splitRelatedTagsByQueryPosition(relatedTags, query);
+    const [leftRts, rightRts] = this.splitRelatedTagsByQueryPosition(
+      relatedTags,
+      query
+    );
     return `${leftRts} ${query} ${rightRts}`.trim();
   }
 
-  splitRelatedTagsByQueryPosition(array: RelatedTag[], query: string): string[] {
-    return array
+  splitRelatedTagsByQueryPosition(
+    relatedTags: RelatedTag[],
+    query: string
+  ): string[] {
+    return relatedTags
       .reduce(
         ([left, right], rt) => {
           return rt.query.indexOf(query) > rt.query.indexOf(rt.tag)
@@ -27,6 +33,6 @@ export class EmpathyRequestRelatedTagsQueryMapper
         },
         ['', '']
       )
-      .map((rts) => rts.trim());
+      .map(rts => rts.trim());
   }
 }
