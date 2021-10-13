@@ -7,7 +7,7 @@
       tag="ul"
     >
       <li
-        v-for="selectedFilter in selectedFilters"
+        v-for="selectedFilter in mapSlot(selectedFilters)"
         :key="selectedFilter.id"
         class="x-selected-filters-list__item"
         data-test="selected-filters-list-item"
@@ -39,8 +39,10 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { Facet } from '@empathyco/x-types';
+  import { Facet, Filter, isFacetFilter } from '@empathyco/x-types';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
+  import { RenderFilter } from '../../../../utils/types';
+  import { toKebabCase } from '../../../../utils/string';
   import { facetsXModule } from '../../x-module';
   import SelectedFilters from './selected-filters.vue';
 
@@ -88,6 +90,20 @@
      */
     @Prop({ default: 'ul' })
     protected animation!: Vue | string;
+
+    /**
+     * Transform a dictionary of Filters including the slot name.
+     *
+     * @returns A dictionary of facets with the slot name.
+     *
+     * @internal
+     */
+    protected mapSlot(selectedFilters: Filter[]): RenderFilter[] {
+      return selectedFilters.map((filter: Filter) => ({
+        ...filter,
+        slotName: isFacetFilter(filter) ? toKebabCase(filter['facetId'] as string) :' default'
+      }));
+    }
   }
 </script>
 

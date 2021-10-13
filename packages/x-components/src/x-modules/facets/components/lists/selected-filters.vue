@@ -1,16 +1,15 @@
 <template>
   <NoElement v-if="show" class="x-selected-filters">
-    <slot v-bind="{ selectedFilters: mappedSelectedFilters }">{{ selectedFilters.length }}</slot>
+    <slot v-bind="{ selectedFilters }">{{ selectedFilters.length }}</slot>
   </NoElement>
 </template>
 
 <script lang="ts">
-  import { Facet, Filter } from '@empathyco/x-types';
+import { Facet, Filter } from '@empathyco/x-types';
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { Getter } from '../../../../components/decorators/store.decorators';
   import { NoElement } from '../../../../components';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
-  import { toKebabCase } from '../../../../utils/string';
   import { FiltersByFacet } from '../../store/types';
   import { facetsXModule } from '../../x-module';
 
@@ -64,20 +63,6 @@
      */
     @Getter('facets', 'selectedFiltersByFacet')
     public selectedFiltersByFacet!: FiltersByFacet;
-
-    /**
-     * Transform a dictionary of Facets including the slot name.
-     *
-     * @returns A dictionary of facets with the slot name.
-     *
-     * @internal
-     */
-    protected get mappedSelectedFilters(): Filter[] {
-      return this.selectedFilters.map((filter: any) => ({
-        ...filter,
-        slotName: toKebabCase(filter['facetId'] ?? '')
-      }));
-    }
 
     /**
      * It returns an array of selected filters. If a facet id is passed as prop to the component,

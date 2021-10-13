@@ -41,7 +41,7 @@
   import { xComponentMixin } from '../../../../components/x-component.mixin';
   import { toKebabCase } from '../../../../utils/string';
   import { map, objectFilter } from '../../../../utils/object';
-  import { Dictionary } from '../../../../utils/types';
+  import { Dictionary, RenderFacet } from '../../../../utils/types';
   import { FiltersByFacet } from '../../store/types';
   import { facetsXModule } from '../../x-module';
 
@@ -113,7 +113,7 @@
      *
      * @internal
      */
-    protected get mappedFacets(): Dictionary<Facet> {
+    protected get mappedFacets(): Dictionary<RenderFacet> {
       return map(this.facetsToRender, (_, facet) => ({
         ...facet,
         slotName: toKebabCase(facet.id as string)

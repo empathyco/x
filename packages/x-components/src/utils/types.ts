@@ -1,4 +1,4 @@
-import { Identifiable, NamedModel } from '@empathyco/x-types';
+import { Facet, Filter, Identifiable, NamedModel } from '@empathyco/x-types';
 import { XEventsTypes } from '../wiring/events.types';
 import { XModuleName } from '../x-modules/x-modules.types';
 
@@ -196,4 +196,22 @@ export interface DebounceOptions {
  */
 export interface ThrottleFunction<Params extends any[]> {
   (...args: Params): void;
+}
+
+/**
+ * Custom interface to provide a slot name to a Filter.
+ *
+ * @public
+ */
+export interface RenderFilter extends Filter {
+  slotName: string;
+}
+
+/**
+ * Custom interface to provide a slot name to a Facet.
+ *
+ * @public
+ */
+export interface RenderFacet extends Facet {
+  slotName: string;
 }
