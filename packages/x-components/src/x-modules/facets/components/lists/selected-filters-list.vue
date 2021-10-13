@@ -107,7 +107,7 @@
      */
     protected mapSlot(selectedFilters: Filter[]): RenderFilter[] {
       return selectedFilters.map(filter => ({
-        slotName: isFacetFilter(filter) ? toKebabCase(filter.facetId as string) : ' default',
+        slotName: isFacetFilter(filter) ? toKebabCase(filter.facetId as string) : 'default',
         selectedFilter: filter
       }));
     }

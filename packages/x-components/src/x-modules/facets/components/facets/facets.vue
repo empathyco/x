@@ -7,7 +7,7 @@
     tag="ul"
   >
     <li
-      v-for="(mappedFacet, facetId) in mappedFacets"
+      v-for="({facet, slotName}, facetId) in mappedFacets"
       :key="facetId"
       class="x-facets-list__item"
       data-test="facets-facet"
@@ -18,12 +18,12 @@
             @binding {Facet} facet - Facet to render
       -->
       <slot
-        v-if="$scopedSlots[mappedFacet.slotName]"
+        v-if="$scopedSlots[slotName]"
         v-bind="{
-          facet: mappedFacet.facet,
+          facet,
           selectedFilters: selectedFiltersByFacet[facetId] || []
         }"
-        :name="mappedFacet.slotName"
+        :name="slotName"
       />
       <!--
         @slot (required) Default Facet rendering. This slot will be used by default for rendering
@@ -33,7 +33,7 @@
       <slot
         v-else
         v-bind="{
-          facet: mappedFacet.facet,
+          facet,
           selectedFilters: selectedFiltersByFacet[facetId] || []
         }"
       >
@@ -133,8 +133,8 @@
      * @internal
      */
     protected get mappedFacets(): Dictionary<RenderFacet> {
-      return map(this.facetsToRender, (_, facet) => ({
-        slotName: toKebabCase(facet.id as string),
+      return map(this.facetsToRender, (facetId, facet) => ({
+        slotName: toKebabCase(facetId),
         facet
       }));
     }
