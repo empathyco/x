@@ -21,7 +21,7 @@ export class EmpathyRequestRelatedTagsQueryMapper
     return relatedTags
       .reduce(
         ([left, right], { tag, query }) => {
-          return this.isTagBeforeQuery(tag, query)
+          return this.startsWith(tag, query)
             ? [`${left} ${tag}`, right]
             : [left, `${right} ${tag}`];
         },
@@ -30,8 +30,8 @@ export class EmpathyRequestRelatedTagsQueryMapper
       .map(sortedRelatedTags => sortedRelatedTags.trim());
   }
 
-  // Checks if the query is after the tag.
-  isTagBeforeQuery(tag: string, query: string): boolean {
+  // Checks if the query starts with the tag.
+  startsWith(tag: string, query: string): boolean {
     return query.indexOf(tag) === 0;
   }
 }
