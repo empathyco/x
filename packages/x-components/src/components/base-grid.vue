@@ -8,7 +8,7 @@
     data-test="grid"
   >
     <li
-      v-for="{ item, cssClass } in itemsWithCSSClass"
+      v-for="{ slotName, item, cssClass } in gridItems"
       :key="item.id"
       :class="cssClass"
       class="x-grid__item x-base-grid__item"
@@ -18,7 +18,7 @@
         the item using that slot composition to render.
             @binding {item} item - Item to render
       -->
-      <slot v-if="$scopedSlots[item.modelName]" :name="item.modelName" :item="item" />
+      <slot v-if="$scopedSlots[slotName]" :name="slotName" :item="item" />
       <!--
         @slot (required) Default item rendering. This slot will be used by default for rendering
         the item without an specific slot implementation.
@@ -36,6 +36,18 @@
   import { ListItem, VueCSSClasses } from '../utils/types';
   import { XInject } from './decorators/injection.decorators';
   import { LIST_ITEMS_KEY } from './decorators/injection.consts';
+
+  /**
+   * The type returned by the gridItems function. Basically it's a list of items with its CSS
+   * classes and a slotName.
+   *
+   * @internal
+   */
+  interface GridItem {
+    slotName: string;
+    item: ListItem;
+    cssClass: VueCSSClasses;
+  }
 
   /**
    * Grid component that is able to render different items based on their modelName value. In order
@@ -130,22 +142,21 @@
     }
 
     /**
-     * Maps the item to an object containing: the `item` and its `CSS class`.
+     * Maps the item to an object containing: the `item`, its `CSS class` and its slot name.
      *
      * @returns An array of objects containing the item and its CSS class.
      *
      * @internal
      */
-    protected get itemsWithCSSClass(): {
-      item: ListItem;
-      cssClass: VueCSSClasses;
-    }[] {
-      return this.computedItems.map(item => ({
-        item,
-        cssClass: item.modelName
-          ? `x-base-grid__${toKebabCase(item.modelName)}`
-          : 'x-base-grid__default'
-      }));
+    protected get gridItems(): GridItem[] {
+      return this.computedItems.map(item => {
+        const slotName = toKebabCase(item.modelName);
+        return {
+          slotName,
+          item,
+          cssClass: `x-base-grid__${slotName}`
+        };
+      });
     }
   }
 </script>
@@ -214,22 +225,22 @@ and are rendered in different slots.
 ```vue
 <template>
   <BaseGrid :animation="animation" :items="items">
-    <template #Banner="{ item }">
+    <template #banner="{ item }">
       <span class="banner">
         {{ `${item.title} banner` }}
       </span>
     </template>
-    <template #NextQueries="{ item }">
+    <template #next-queries="{ item }">
       <span>
         {{ `${item.totalResults} next queries` }}
       </span>
     </template>
-    <template #Promoted="{ item }">
+    <template #promoted="{ item }">
       <span class="promoted">
         {{ `${item.title} promoted` }}
       </span>
     </template>
-    <template #Result="{ item }">
+    <template #result="{ item }">
       <BaseResultLink :result="item">
         {{ item.name }}
       </BaseResultLink>

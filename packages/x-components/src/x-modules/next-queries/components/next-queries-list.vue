@@ -25,17 +25,11 @@
   import { ItemsListInjectionMixin } from '../../../components/items-list-injection.mixin';
   import ItemsList from '../../../components/items-list.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { groupItemsBy, ListItem } from '../../../utils';
+  import { groupItemsBy } from '../../../utils/array';
+  import { ListItem } from '../../../utils/types';
   import ResultsList from '../../search/components/results-list.vue';
+  import { NextQueriesGroup } from '../types';
   import { nextQueriesXModule } from '../x-module';
-
-  /**
-   * A list of next queries.
-   */
-  interface NextQueriesGroup extends ListItem {
-    modelName: 'NextQueriesGroup';
-    nextQueries: NextQuery[];
-  }
 
   /**
    * Component that inserts groups of next queries in different positions of the injected search
@@ -243,10 +237,10 @@ component, for example the `BaseGrid`. To do so, you can use the `default` slot
         #default="{ items }"
       >
         <BaseGrid :items="items" :animation="animation">
-          <template #NextQueriesGroup="{ item }">
+          <template #next-queries-group="{ item }">
             <span>NextQueriesGroup: {{ item.queries.join(', ') }}</span>
           </template>
-          <template #Result="{ item }">
+          <template #result="{ item }">
             <span>Result: {{ item.name }}</span>
           </template>
           <template #default="{ item }">

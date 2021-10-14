@@ -1,7 +1,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { xComponentMixin, XEmit } from '../../../components';
+  import { State, xComponentMixin, XEmit } from '../../../components';
   import { Dictionary } from '../../../utils';
   import { extraParamsXModule } from '../x-module';
 
@@ -15,6 +15,10 @@
     mixins: [xComponentMixin(extraParamsXModule)]
   })
   export default class ExtraParams extends Vue {
+    mounted(): void {
+      this.$x.emit('ExtraParamsProvided', { ...this.values, ...this.storeExtraParams });
+    }
+
     /**
      * (Required) A Dictionary where the keys are the extra param names and its values.
      *
@@ -23,9 +27,12 @@
      *
      * @public
      */
-    @XEmit('ExtraParamsProvided', { immediate: true, deep: true })
+    @XEmit('ExtraParamsProvided', { deep: true })
     @Prop({ required: true })
     public values!: Dictionary<unknown>;
+
+    @State('extraParams', 'params')
+    public storeExtraParams!: Dictionary<unknown>;
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     render(): void {}

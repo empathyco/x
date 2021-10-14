@@ -29,6 +29,10 @@ function renderSelectedFiltersList({
     brand: createSimpleFacetStub('brand', createFilter => [
       createFilter('Audi', false),
       createFilter('BMW', false)
+    ]),
+    rootCategories: createSimpleFacetStub('root_categories', createFilter => [
+      createFilter('Meat', false),
+      createFilter('Vegetables', false)
     ])
   };
 
@@ -100,12 +104,15 @@ describe('testing SelectedFiltersList component', () => {
         <SelectedFiltersList>
           <template #default="{ filter }">{{ filter.label }} selected!</template>
           <template #brand="{ filter }">Which one? {{ filter.label }}</template>
+          <template #root-categories="{ filter }">Much better: {{ filter.label }}</template>
+          <template #rootCategories="{ filter }">Much better: {{ filter.label }}</template>
         </SelectedFiltersList>
       `
     });
 
     await toggleFacetNthFilter('gender', 0);
     await toggleFacetNthFilter('brand', 1);
+    await toggleFacetNthFilter('rootCategories', 0);
 
     const selectedFiltersItems = selectedFiltersListWrapper.findAll(
       getDataTestSelector('selected-filters-list-item')
@@ -113,6 +120,8 @@ describe('testing SelectedFiltersList component', () => {
 
     expect(selectedFiltersItems.at(0).text()).toBe('Men selected!');
     expect(selectedFiltersItems.at(1).text()).toBe('Which one? BMW');
+    expect(selectedFiltersItems.at(2).text()).toBe('Much better: Meat');
+    expect(selectedFiltersItems).toHaveLength(3);
   });
 
   it('renders selectedFilters of the facet id provided', async () => {

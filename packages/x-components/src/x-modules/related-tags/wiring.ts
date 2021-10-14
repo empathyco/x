@@ -87,7 +87,7 @@ export const clearRelatedTagsQuery = wireCommit('setQuery', '');
  *
  * @public
  */
-export const setUrlParamsFromTheUrlWire = wireDispatch('setUrlParamsFromTheUrl');
+export const setUrlParamsWire = wireDispatch('setUrlParams');
 
 /**
  * Wiring configuration for the {@link RelatedTagsXModule | related tags module}.
@@ -113,7 +113,7 @@ export const relatedTagsWiring = createWiring({
   ExtraParamsChanged: {
     setRelatedTagsExtraParams
   },
-  UrlChanged: {
-    setUrlParamsFromTheUrlWire
+  ParamsLoadedFromUrl: {
+    setUrlParamsWire
   }
 });

@@ -1,4 +1,11 @@
-import { arrayToObject, deepFilter, deepFlat, groupItemsBy, isArrayEmpty } from '../array';
+import {
+  arrayToObject,
+  createArrayComparator,
+  deepFilter,
+  deepFlat,
+  groupItemsBy,
+  isArrayEmpty
+} from '../array';
 
 describe(`testing ${isArrayEmpty.name} utility method`, () => {
   it('returns `true` when the array is `null`, `undefined` or has no elements', () => {
@@ -350,5 +357,15 @@ describe(`testing ${groupItemsBy.name} utility method`, () => {
     expect(negative).toEqual([-2, -1]);
     expect(zero).toEqual([0, 0]);
     expect(positive).toEqual([1, 2]);
+  });
+});
+
+describe(`testing ${createArrayComparator.name} utility method`, () => {
+  it('returns `true` when the arrays are different', () => {
+    const comparator = createArrayComparator('query');
+
+    expect(comparator([], [])).toEqual(false);
+    expect(comparator([{ query: 'lego' }], [{ query: 'lego' }])).toEqual(false);
+    expect(comparator([{ query: 'lego' }], [{ query: 'playmobil' }])).toEqual(true);
   });
 });

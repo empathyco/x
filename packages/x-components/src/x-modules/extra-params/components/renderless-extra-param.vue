@@ -9,13 +9,11 @@
   import { Component, Prop } from 'vue-property-decorator';
   import { NoElement, State, xComponentMixin } from '../../../components';
   import { Dictionary } from '../../../utils';
-  import { ExtraParamsXEvents } from '../events.types';
   import { extraParamsXModule } from '../x-module';
 
   /**
    * It emits a {@link ExtraParamsXEvents.UserChangedExtraParams} when the `updateValue`
-   * is called and the {@link ExtraParamsXEvents.ExtraParamsProvided} when it receives
-   * a defaultValue.
+   * is called.
    *
    * @public
    */
@@ -35,38 +33,12 @@
     public name!: string;
 
     /**
-     * The extra param's default value.
-     *
-     * @public
-     */
-    @Prop()
-    public defaultValue?: unknown;
-
-    /**
-     * A dictionary with the extra params from the store.
+     * A dictionary with the extra params in the store state.
      *
      * @public
      */
     @State('extraParams', 'params')
-    public extraParams!: Dictionary<unknown>;
-
-    /**
-     * Emits the {@link ExtraParamsXEvents.ExtraParamsProvided} when the component
-     * is mounted if the defaultValue is set.
-     *
-     * @internal
-     */
-    created(): void {
-      this.$watch(
-        () => this.defaultValue,
-        defaultValue => {
-          if (defaultValue !== undefined && this.value === undefined) {
-            this.emitEvent('ExtraParamsProvided', this.defaultValue);
-          }
-        },
-        { immediate: true }
-      );
-    }
+    public stateParams!: Dictionary<unknown>;
 
     /**
      * It returns the value of the extra param from the store.
@@ -76,7 +48,7 @@
      * @internal
      */
     protected get value(): unknown {
-      return this.extraParams[this.name];
+      return this.stateParams[this.name];
     }
 
     /**
@@ -87,19 +59,7 @@
      * @internal
      */
     protected updateValue(newValue: unknown): void {
-      this.emitEvent('UserChangedExtraParams', newValue);
-    }
-
-    /**
-     * It emits an {@link ExtraParamsXEvents| event} passed as payload.
-     *
-     * @param event - The name of the event.
-     * @param value - The value of the extra param.
-     *
-     * @internal
-     */
-    protected emitEvent(event: keyof ExtraParamsXEvents, value: unknown): void {
-      this.$x.emit(event, { [this.name]: value });
+      this.$x.emit('UserChangedExtraParams', { [this.name]: newValue });
     }
   }
 </script>
@@ -114,7 +74,7 @@ default value of it.
 
 ```vue
 <template>
-  <RenderlessExtraParam #default="{ value, updateValue }" name="warehouse" defaultValue="1234">
+  <RenderlessExtraParam #default="{ value, updateValue }" name="store">
     <BaseDropdown @change="updateValue" :value="value" :items="items" />
   </RenderlessExtraParam>
 </template>
@@ -129,10 +89,10 @@ default value of it.
       RenderlessExtraParams,
       BaseDropdown
     },
-    props: ['name', 'defaultValue'],
+    props: ['name'],
     data() {
       return {
-        items: [1234, 4567]
+        items: ['spain', 'portugal']
       };
     }
   };

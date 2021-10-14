@@ -7,7 +7,7 @@
       tag="ul"
     >
       <li
-        v-for="selectedFilter in selectedFilters"
+        v-for="{ slotName, selectedFilter } in mapSlot(selectedFilters)"
         :key="selectedFilter.id"
         class="x-selected-filters-list__item"
         data-test="selected-filters-list-item"
@@ -17,11 +17,7 @@
           facet id. It renders the filter label by default.
               @binding {Filter} filter - Filter to render.
         -->
-        <slot
-          v-if="$scopedSlots[selectedFilter.facetId]"
-          :name="selectedFilter.facetId"
-          :filter="selectedFilter"
-        >
+        <slot v-if="$scopedSlots[slotName]" :name="slotName" :filter="selectedFilter">
           <span class="x-tag">{{ selectedFilter.label }}</span>
         </slot>
 
@@ -39,10 +35,21 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { Facet } from '@empathyco/x-types';
-  import { xComponentMixin } from '../../../../components/index';
+  import { Facet, Filter, isFacetFilter } from '@empathyco/x-types';
+  import { xComponentMixin } from '../../../../components/x-component.mixin';
+  import { toKebabCase } from '../../../../utils/string';
   import { facetsXModule } from '../../x-module';
   import SelectedFilters from './selected-filters.vue';
+
+  /**
+   * Custom interface to provide a slot name to a Filter.
+   *
+   * @internal
+   */
+  interface RenderFilter {
+    slotName: string;
+    selectedFilter: Filter;
+  }
 
   /**
    * This component renders a list of selected filters from every facet, or from the facet
@@ -88,6 +95,22 @@
      */
     @Prop({ default: 'ul' })
     protected animation!: Vue | string;
+
+    /**
+     * Transforms a dictionary of Filters including the slot name.
+     *
+     * @param selectedFilters - A list of selected filters without slot name.
+     *
+     * @returns A dictionary of facets with the slot name.
+     *
+     * @internal
+     */
+    protected mapSlot(selectedFilters: Filter[]): RenderFilter[] {
+      return selectedFilters.map(filter => ({
+        slotName: isFacetFilter(filter) ? toKebabCase(filter.facetId as string) : 'default',
+        selectedFilter: filter
+      }));
+    }
   }
 </script>
 

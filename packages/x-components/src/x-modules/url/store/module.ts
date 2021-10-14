@@ -1,8 +1,7 @@
-import { urlMappedParamNames } from './getters/url-mapped-param-names.getter';
 import { urlParams } from './getters/url-params.getter';
+import { initialUrlState } from './initial-state';
+import { setParams } from './mutations/set-params.mutation';
 import { UrlXStoreModule } from './types';
-import { updateUrl } from './actions/update-url.action';
-import { updateStoreFromUrl } from './actions/update-store-from-url.action';
 
 /**
  * {@link XStoreModule} For the URL module.
@@ -11,52 +10,25 @@ import { updateStoreFromUrl } from './actions/update-store-from-url.action';
  */
 export const urlXStoreModule: UrlXStoreModule = {
   state: () => ({
-    config: {
-      urlParamNames: {}
-    },
-    params: {
-      query: '',
-      page: 1,
-      filters: [],
-      sort: '',
-      scroll: 0,
-      relatedTag: []
-    },
-    extraParams: {},
-    isLoadedFromUrl: false
+    ...initialUrlState
   }),
   getters: {
-    urlParams,
-    urlMappedParamNames
+    urlParams
   },
   mutations: {
-    setUrlConfig(state, urlConfig) {
-      state.config = urlConfig;
-    },
-    setExtraParams(state, extraParam) {
-      state.extraParams = { ...state.extraParams, ...extraParam };
-    },
-    setParams(state, params) {
-      state.params = { ...state.params, ...params };
-    },
+    setParams,
     setQuery(state, query) {
-      state.params.query = query;
+      state.query = query;
     },
-    setRelatedTags(state, relatedTag) {
-      state.params.relatedTag = relatedTag;
+    setRelatedTags(state, relatedTags) {
+      state.tag = relatedTags.map(relatedTag => relatedTag.tag);
     },
     setFilters(state, newFilters) {
-      state.params.filters = newFilters;
+      state.filter = newFilters.map(filter => filter.id as string);
     },
     setPage(state, page) {
-      state.params.page = page;
-    },
-    setLoadedFromUrl(state, isLoadedFromUrl) {
-      state.isLoadedFromUrl = isLoadedFromUrl;
+      state.page = page;
     }
   },
-  actions: {
-    updateUrl,
-    updateStoreFromUrl
-  }
+  actions: {}
 };

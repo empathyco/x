@@ -1,6 +1,7 @@
-import { Dictionary } from '../../../../utils/types';
+import { UrlParams } from '../../../../types/url-params';
+import { reduce } from '../../../../utils/object';
+import { initialUrlState } from '../initial-state';
 import { UrlParamValue, UrlXStoreModule } from '../types';
-import { objectFilter } from '../../../../utils/object';
 
 /**
  * Default implementation for the {@link UrlGetters.urlParams} getter.
@@ -11,26 +12,41 @@ import { objectFilter } from '../../../../utils/object';
  *
  * @public
  */
-export const urlParams: UrlXStoreModule['getters']['urlParams'] = ({
-  extraParams,
-  params,
-  isLoadedFromUrl
-}) => ({ ...objectFilter({ ...params, ...extraParams }, isValidParam), isLoadedFromUrl });
+export const urlParams: UrlXStoreModule['getters']['urlParams'] = state =>
+  reduce(
+    state,
+    (params, paramKey, paramValue) => {
+      const isInitialParam = paramKey in initialUrlState;
+      if (
+        (isInitialParam && isNotDefaultValue(paramKey, paramValue)) ||
+        (!isInitialParam && isNotEmptyParam(paramValue))
+      ) {
+        params[paramKey] = paramValue;
+      }
+      return params;
+    },
+    {} as UrlParams
+  );
 
 /**
- * Checks if a value is valid to add it to the URL.
+ * Checks if a parameter is not empty to avoid adding it to the URL.
+ *
+ * @param value - The value of the key parameter.
+ *
+ * @returns True if is not empty, False otherwise.
+ */
+function isNotEmptyParam(value: UrlParamValue | unknown): boolean {
+  return Array.isArray(value) ? value.length > 0 : value != null && value !== '';
+}
+
+/**
+ * Checks if a parameter is not the default state value to avoid adding it to the URL.
  *
  * @param key - The key parameter.
  * @param value - The value of the key parameter.
  *
- * @returns A boolean indicating if the parameter is valid or not.
+ * @returns True if is not the default state value, False otherwise.
  */
-function isValidParam(key: string, value: UrlParamValue): boolean {
-  const invalidUrlValues: Dictionary<UrlParamValue> = {
-    page: 1,
-    scroll: 0
-  };
-  return Array.isArray(value)
-    ? value.length > 0
-    : value != null && value !== '' && value !== invalidUrlValues[key];
+function isNotDefaultValue(key: string | number, value: UrlParamValue | unknown): boolean {
+  return Array.isArray(value) ? value.length > 0 : initialUrlState[key] !== value;
 }

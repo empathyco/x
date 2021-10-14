@@ -2,6 +2,7 @@ import { NextQueriesRequest } from '@empathyco/x-adapter';
 import { HistoryQuery, NextQuery } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
+import { UrlParams } from '../../../types/url-params';
 import { Dictionary } from '../../../utils';
 import { NextQueriesConfig } from '../config.types';
 
@@ -93,6 +94,12 @@ export interface NextQueriesActions {
    * Sets the query of the module based on the last history query.
    */
   setQueryFromLastHistoryQuery(historyQueries: HistoryQuery[]): void;
+  /**
+   * Checks if the url has a query on it and then updates the state with that value.
+   *
+   * @param urlParams - List of params from the url.
+   */
+  setUrlParams(urlParams: UrlParams): void;
 }
 
 /**

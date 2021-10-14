@@ -1,4 +1,4 @@
-export * from './config.types';
+export * from './components';
 export * from './events.types';
 export * from './store';
 export * from './wiring';

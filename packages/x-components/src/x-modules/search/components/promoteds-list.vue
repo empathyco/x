@@ -159,7 +159,7 @@ _Type any term in the input field to try it out!_
     <SearchInput />
     <PromotedsList #default="{ items, animation }">
       <BaseGrid :items="items" :animation="animation">
-        <template #Promoted="{ item }">
+        <template #promoted="{ item }">
           <span>Promoted: {{ item.title }}</span>
         </template>
         <template #default="{ item }">

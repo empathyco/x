@@ -1,5 +1,6 @@
-import { UrlConfig } from './config.types';
-import { UrlGetters } from './store/types';
+import { UrlParams } from '../../types/url-params';
+import { Dictionary } from '../../utils/types';
+
 /**
  * Dictionary of the events of URL XModule, where each key is the event name, and the value is
  * the event payload type or `void` if it has no payload.
@@ -8,33 +9,23 @@ import { UrlGetters } from './store/types';
  */
 export interface UrlXEvents {
   /**
-   * The configuration for handling the URL has changed.
-   * * Payload: The new URL config.
+   * Url loaded.
+   * * Payload: The new {@link UrlParams} params.
    */
-  UrlConfigProvided: UrlConfig;
+  ParamsLoadedFromUrl: UrlParams;
   /**
-   * Url state changed.
+   * Url loaded.
+   * * Payload: The extra params form URL in form of {@link Dictionary} with `unknown` values.
+   */
+  ExtraParamsLoadedFromUrl: Dictionary<unknown>;
+  /**
+   * Url state changed with a change to add new entry to browser URL History State.
    * * Payload: The new URL params.
    */
-  UrlStateChanged: UrlGetters['urlParams'];
+  PushableUrlStateChanged: UrlParams;
   /**
-   * Url loaded from the url changed.
+   * Url state changed with a change to replace the current entry to browser URL History State.
    * * Payload: The new URL params.
    */
-  ParamsLoadedFromUrl: UrlGetters['urlParams'];
-  /**
-   * Document has finished loading.
-   * * Payload: The URL string.
-   */
-  DocumentLoaded: string;
-  /**
-   * Extra params has been loaded from the URL.
-   * * Payload: The extra params array.
-   */
-  ExtraParamsLoadedFromUrl: string[];
-  /**
-   * Url has changed.
-   * Payload: The new URL params.
-   */
-  UrlChanged: UrlGetters['urlParams'];
+  ReplaceableUrlStateChanged: UrlParams;
 }

@@ -4,6 +4,7 @@ import Vuex, { Store } from 'vuex';
 import { getRelatedTagsStub } from '../../../../__stubs__/related-tags-stubs.factory';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
+import { UrlParams } from '../../../../types/url-params';
 import { relatedTagsXStoreModule } from '../module';
 import {
   RelatedTagsActions,
@@ -139,12 +140,12 @@ describe('testing related tags module actions', () => {
     );
   });
 
-  describe('setUrlParamsFromTheUrl', () => {
+  describe('setUrlParams', () => {
     it('should add the query and related tags to the store', () => {
-      store.dispatch('setUrlParamsFromTheUrl', {
+      store.dispatch('setUrlParams', {
         query: 'funko',
-        relatedTag: ['pop', 'lego']
-      });
+        tag: ['pop', 'lego']
+      } as UrlParams);
 
       expect(store.state.query).toEqual('funko');
       expect(store.state.selectedRelatedTags).toEqual<RelatedTag[]>([
@@ -169,9 +170,10 @@ describe('testing related tags module actions', () => {
       resetRelatedTagsStateWith(store, {
         selectedRelatedTags: mockedRelatedTags
       });
-      store.dispatch('setUrlParamsFromTheUrl', {
-        query: 'funko'
-      });
+      store.dispatch('setUrlParams', {
+        query: 'funko',
+        tag: [] as string[]
+      } as UrlParams);
 
       expect(store.state.query).toEqual('funko');
       expect(store.state.selectedRelatedTags).toEqual<RelatedTag[]>(mockedRelatedTags);
@@ -181,9 +183,9 @@ describe('testing related tags module actions', () => {
       resetRelatedTagsStateWith(store, {
         query: 'lego'
       });
-      store.dispatch('setUrlParamsFromTheUrl', {
-        relatedTag: ['lego', 'pop']
-      });
+      store.dispatch('setUrlParams', {
+        tag: ['lego', 'pop']
+      } as UrlParams);
 
       expect(store.state.query).toBe('lego');
       expect(store.state.selectedRelatedTags).toEqual<RelatedTag[]>([

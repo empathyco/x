@@ -57,6 +57,13 @@ export const setQuerySuggestionsExtraParams = wireCommit('setParams');
 export const clearQuerySuggestionsQuery = wireCommit('setQuery', '');
 
 /**
+ * Sets the query-suggestions state `query` from url.
+ *
+ * @public
+ */
+const setUrlParams = wireDispatch('setUrlParams');
+
+/**
  * Requests and stores a new set of query suggestions for the {@link QuerySuggestionsState.query}.
  *
  * @public
@@ -102,5 +109,8 @@ export const querySuggestionsWiring = createWiring({
   },
   ExtraParamsChanged: {
     setQuerySuggestionsExtraParams
+  },
+  ParamsLoadedFromUrl: {
+    setUrlParams
   }
 });

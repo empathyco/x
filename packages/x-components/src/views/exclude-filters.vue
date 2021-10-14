@@ -13,9 +13,9 @@
     </SelectedFilters>
     <SelectedFiltersList class="x-list--horizontal x-list--gap-02">
       <template #default="{ filter }">Default: {{ filter.label }}</template>
-      <template #brand_facet="{ filter }">Brand: {{ filter.label }}</template>
-      <template #age_facet="{ filter }">Age: {{ filter.label }}</template>
-      <template #price_facet="{ filter }">Price: {{ filter.label }}</template>
+      <template #brand-facet="{ filter }">Brand: {{ filter.label }}</template>
+      <template #age-facet="{ filter }">Age: {{ filter.label }}</template>
+      <template #price-facet="{ filter }">Price: {{ filter.label }}</template>
     </SelectedFiltersList>
     <ClearFilters v-slot="{ selectedFilters }" :alwaysVisible="true">
       Clear {{ selectedFilters.length }} filters
@@ -37,7 +37,7 @@
           </ExcludeFiltersWithNoResults>
         </BaseHeaderTogglePanel>
       </template>
-      <template #hierarchical_category="{ facet }">
+      <template #hierarchical-category="{ facet }">
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
           <span>Total Filters:</span>
@@ -53,7 +53,7 @@
           </ExcludeFiltersWithNoResults>
         </BaseHeaderTogglePanel>
       </template>
-      <template #brand_facet="{ facet }">
+      <template #brand-facet="{ facet }">
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
           <span>Total Filters:</span>
@@ -77,7 +77,7 @@
           </FiltersSearch>
         </BaseHeaderTogglePanel>
       </template>
-      <template #price_facet="{ facet }">
+      <template #price-facet="{ facet }">
         <BaseHeaderTogglePanel>
           <template #header-content>{{ facet.label }}</template>
           <span>Total Filters:</span>
