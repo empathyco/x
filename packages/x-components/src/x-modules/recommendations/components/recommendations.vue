@@ -132,7 +132,7 @@
   <Recommendations :animation="staggeredFadeAndSlide">
     <template #layout="{ recommendations, animation }">
       <BaseGrid :items="recommendations" :animation="animation">
-        <template #Result="{ item }">
+        <template #result="{ item }">
           <BaseResultLink :result="item">
             <BaseResultImage :result="item" />
             <span class="x-result__title">{{ item.name }}</span>

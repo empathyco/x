@@ -7,7 +7,9 @@
 <script lang="ts">
   import { Facet, Filter } from '@empathyco/x-types';
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { Getter, NoElement, xComponentMixin } from '../../../../components';
+  import { Getter } from '../../../../components/decorators/store.decorators';
+  import { NoElement } from '../../../../components';
+  import { xComponentMixin } from '../../../../components/x-component.mixin';
   import { FiltersByFacet } from '../../store/types';
   import { facetsXModule } from '../../x-module';
 

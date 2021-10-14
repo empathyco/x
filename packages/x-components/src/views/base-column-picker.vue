@@ -24,7 +24,7 @@
     <!-- Recommendations -->
     <h1>Recommendations</h1>
     <BaseGrid :animation="staggeredFadeAndSlide" :items="recommendations" :columns="currentColumn">
-      <template #Result="{ item }">
+      <template #result="{ item }">
         <BaseResultLink :result="item" class="x-result-link">
           <BaseResultImage :result="item" />
           <span class="x-result__title">{{ item.name }}</span>
@@ -35,7 +35,7 @@
     <h1>Results</h1>
     <ResultsList #default="{ items }">
       <BaseGrid :animation="staggeredFadeAndSlide" :items="items" :columns="currentColumn">
-        <template #Result="{ item }">
+        <template #result="{ item }">
           <BaseResultLink :result="item">
             <template #default="{ result }">
               <BaseResultImage :result="result" />
