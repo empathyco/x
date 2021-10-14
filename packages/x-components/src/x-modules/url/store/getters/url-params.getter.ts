@@ -1,5 +1,5 @@
 import { objectFilter } from '../../../../utils/object';
-import { initialUrlState } from '../module';
+import { initialUrlState } from '../initial-state';
 import { UrlParamValue, UrlXStoreModule } from '../types';
 
 /**

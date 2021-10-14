@@ -4,7 +4,7 @@ import { installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components';
 import { XComponentBusAPI } from '../../../../plugins/x-plugin.types';
 import { UrlParams } from '../../../../types/url-params';
-import { initialUrlState } from '../../store/module';
+import { initialUrlState } from '../../store/initial-state';
 import { urlXModule } from '../../x-module';
 import { UrlHandler } from '../index';
 

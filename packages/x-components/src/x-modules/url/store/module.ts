@@ -1,24 +1,7 @@
 import { urlParams } from './getters/url-params.getter';
-import { UrlState, UrlXStoreModule } from './types';
+import { initialUrlState } from './initial-state';
+import { UrlXStoreModule } from './types';
 import { updateStoreFromUrl } from './actions/update-store-from-url.action';
-
-/**
- * The initial state of the Url store module. This is exported and used in other parts of the code
- * to use as default values for {@link UrlState}.
- *
- * @internal
- */
-export const initialUrlState: UrlState = {
-  params: {
-    query: '',
-    page: 1,
-    filter: [],
-    sort: '',
-    scroll: 0,
-    tag: []
-  },
-  extraParams: {}
-};
 
 /**
  * {@link XStoreModule} For the URL module.

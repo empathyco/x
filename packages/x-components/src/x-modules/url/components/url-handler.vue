@@ -5,7 +5,7 @@
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { UrlParams } from '../../../types/url-params';
   import { cleanUndefined } from '../../../utils/object';
-  import { initialUrlState } from '../store/module';
+  import { initialUrlState } from '../store/initial-state';
   import { UrlParamValue } from '../store/types';
   import { urlXModule } from '../x-module';
 
