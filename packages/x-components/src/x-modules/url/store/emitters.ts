@@ -21,7 +21,7 @@ export const replaceableParams: UrlParamKey[] = ['scroll', 'page'];
  *
  * @returns True if is pushable change, false otherwise.
  */
-export function isPushableParams(newParams: UrlParams, oldParams: UrlParams): boolean {
+function isPushableParams(newParams: UrlParams, oldParams: UrlParams): boolean {
   return !replaceableParams.some(key => oldParams[key] && oldParams[key] !== newParams[key]);
 }
 
