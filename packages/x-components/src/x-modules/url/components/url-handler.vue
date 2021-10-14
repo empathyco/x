@@ -4,7 +4,6 @@
   import { XOn } from '../../../components/decorators/bus.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { UrlParams } from '../../../types/url-params';
-  import { cleanUndefined } from '../../../utils/object';
   import { initialUrlState } from '../store/initial-state';
   import { UrlParamValue } from '../store/types';
   import { urlXModule } from '../x-module';
@@ -14,9 +13,9 @@
   })
   export default class UrlHandler extends Vue {
     /**
-     * Computed to know which params we must to get from URL. It gets the params names from the
-     * initial state, to get all default params names, and also from the `$attrs` to get the extra
-     * params names to take into account.
+     * Computed to know which params we must get from URL. It gets the params names from the initial
+     * state, to get all default params names, and also from the `$attrs` to get the extra params
+     * names to take into account.
      *
      * @returns An array with the name of the params.
      *
@@ -99,10 +98,12 @@
     protected getUrlParams(): UrlParams {
       const urlSearchParams = new URL(window.location.href).searchParams;
       const urlParams = this.paramsNames.reduce((urlParams, paramName) => {
-        urlParams[paramName] = this.getParamByType(urlSearchParams, paramName);
+        if (urlSearchParams.has(this.getUrlKey(paramName))) {
+          urlParams[paramName] = this.getParamByType(urlSearchParams, paramName);
+        }
         return urlParams;
       }, {} as UrlParams);
-      return Object.assign({}, initialUrlState.params, cleanUndefined(urlParams));
+      return Object.assign({}, initialUrlState.params, urlParams);
     }
 
     /**
@@ -181,23 +182,18 @@
      *
      * @internal
      */
-    protected getParamByType(
-      urlSearchParams: URLSearchParams,
-      paramName: string
-    ): UrlParamValue | undefined {
+    protected getParamByType(urlSearchParams: URLSearchParams, paramName: string): UrlParamValue {
       const key = this.getUrlKey(paramName);
       if (!(paramName in initialUrlState.params)) {
-        return urlSearchParams.get(key) ?? undefined;
+        return urlSearchParams.get(key) ?? '';
       } else {
         switch (typeof initialUrlState.params[paramName]) {
-          case 'number': {
-            const numberOrNull = urlSearchParams.get(key);
-            return numberOrNull ? Number(numberOrNull) : undefined;
-          }
+          case 'number':
+            return Number(urlSearchParams.get(key));
           case 'boolean':
             return urlSearchParams.get(key)?.toLowerCase() === 'true';
           case 'string':
-            return urlSearchParams.get(key) ?? undefined;
+            return urlSearchParams.get(key) ?? '';
           default:
             // array
             return urlSearchParams.getAll(key);
@@ -246,7 +242,7 @@ _Try to make some requests and take a look to the url!_
 
 In this example, the `UrlHandler` component changes the following query parameter names:
 
-- `query` to be `ebq`.
+- `query` to be `q`.
 - `page` to be `p`.
 - `filter` to be `f`
 - `sort` to be `s`
@@ -255,7 +251,7 @@ _Try to make some requests and take a look to the url!_
 
 ```vue
 <template>
-  <UrlHandler query="query" page="page" filter="filter" sort="sort" />
+  <UrlHandler query="q" page="p" filter="f" sort="s" />
 </template>
 
 <script>

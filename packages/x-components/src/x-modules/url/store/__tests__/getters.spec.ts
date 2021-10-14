@@ -50,10 +50,8 @@ describe('testing url module getters', () => {
 
   it('removes all the empty extra params', () => {
     resetUrlStateWith(store, {
-      params: {
-        query: 'doramion',
-        warehouse: '11111'
-      }
+      params: { query: 'doramion' },
+      extraParams: { warehouse: '11111' }
     });
 
     expect(store.getters.urlParams).toEqual<Partial<UrlGetters['urlParams']>>({
@@ -61,7 +59,10 @@ describe('testing url module getters', () => {
       warehouse: '11111'
     });
 
-    resetUrlStateWith(store, { params: { warehouse: '' } });
+    resetUrlStateWith(store, {
+      params: { query: 'doramion' },
+      extraParams: { warehouse: '' }
+    });
 
     expect(store.getters.urlParams).toEqual<Partial<UrlGetters['urlParams']>>({
       query: 'doramion'
