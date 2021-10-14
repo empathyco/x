@@ -3,9 +3,10 @@
   import { Component } from 'vue-property-decorator';
   import { XOn } from '../../../components/decorators/bus.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { UrlParams } from '../../../types/url-params';
   import { cleanUndefined } from '../../../utils/object';
   import { initialUrlState } from '../store/module';
-  import { UrlParams, UrlParamValue } from '../store/types';
+  import { UrlParamValue } from '../store/types';
   import { urlXModule } from '../x-module';
 
   @Component({
@@ -18,6 +19,7 @@
      * params names to take into account.
      *
      * @returns An array with the name of the params.
+     *
      * @internal
      */
     protected get paramsNames(): string[] {
@@ -29,8 +31,8 @@
      * we can support any param and extra param, no matters its name.
      *
      * @param paramName - The param name to get the Url key.
-     * @returns A dictionary where the key is the internal param name (example: 'query') and the
-     * value is the key used in the URL (example: 'q').
+     * @returns The key used in the URL for the `paramName` passed.
+     *
      * @internal
      */
     protected getUrlKey(paramName: string): string {
@@ -176,6 +178,7 @@
      * @param urlSearchParams - The {@link URLSearchParams} to get the param.
      * @param paramName - The name of the param in {@link UrlParams}.
      * @returns The parsed value.
+     *
      * @internal
      */
     protected getParamByType(
@@ -213,7 +216,7 @@
 This component emits the following events:
 
 - [`ParamsLoadedFromUrl`](./../../api/x-components.urlxevents.paramsloadedfromurl.md)
-- [`UserOpenXProgrammatically`](./../../api/x-components.xeventstypes.useropenxprotrammaticaaly.md)
+- [`UserOpenXProgrammatically`](./../../api/x-components.xeventstypes.useropenxprogrammatically.md)
 
 ## See it in action
 

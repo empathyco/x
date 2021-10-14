@@ -2,8 +2,8 @@ import { NextQueriesRequest } from '@empathyco/x-adapter';
 import { HistoryQuery, NextQuery } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
+import { UrlParams } from '../../../types/url-params';
 import { Dictionary } from '../../../utils';
-import { UrlParams } from '../../url/store/types';
 import { NextQueriesConfig } from '../config.types';
 
 /**

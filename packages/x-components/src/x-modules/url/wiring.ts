@@ -28,7 +28,7 @@ export const setUrlRelatedTags = wireCommit('setRelatedTags');
  *
  * @public
  */
-export const updateState = wireDispatch('updateStoreFromUrl');
+export const updateStoreFromUrl = wireDispatch('updateStoreFromUrl');
 
 /**
  * Sets the query of the url module.
@@ -70,7 +70,7 @@ export const urlWiring = createWiring({
     setUrlQuery
   },
   ParamsLoadedFromUrl: {
-    updateState
+    updateStoreFromUrl
   },
   SelectedRelatedTagsChanged: {
     setUrlRelatedTags

@@ -9,7 +9,7 @@ import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
 import { getSearchResponseStub } from '../../../../__stubs__/search-response-stubs.factory';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
-import { UrlParams } from '../../../url/store/types';
+import { UrlParams } from '../../../../types/url-params';
 import { searchXStoreModule } from '../module';
 import { SearchActions, SearchGetters, SearchMutations, SearchState } from '../types';
 import { resetSearchStateWith } from './utils';

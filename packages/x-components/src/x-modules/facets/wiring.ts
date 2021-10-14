@@ -1,9 +1,9 @@
 import { Facet } from '@empathyco/x-types';
+import { UrlParams } from '../../types/url-params';
 import { createRawFilters } from '../../utils/filters';
 import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
 import { mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
-import { UrlParams } from '../url/store/types';
 import { DefaultFacetsService } from './service/facets.service';
 
 /**

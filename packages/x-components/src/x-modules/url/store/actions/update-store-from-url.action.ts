@@ -1,6 +1,7 @@
+import { UrlParams } from '../../../../types/url-params';
 import { forEach } from '../../../../utils/object';
 import { Dictionary } from '../../../../utils/types';
-import { UrlParams, UrlXStoreModule } from '../types';
+import { UrlXStoreModule } from '../types';
 
 /**
  * Default implementation for the {@link UrlActions.updateStoreFromUrl }.

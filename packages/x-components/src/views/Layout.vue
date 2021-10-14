@@ -394,7 +394,6 @@
   import BaseSuggestions from '../components/suggestions/base-suggestions.vue';
   import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
   import { XInstaller } from '../x-installer/x-installer';
-  // eslint-disable-next-line max-len
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
   import FacetsProvider from '../x-modules/facets/components/facets/facets-provider.vue';
   import Facets from '../x-modules/facets/components/facets/facets.vue';

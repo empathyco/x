@@ -1,5 +1,6 @@
+import { UrlParams } from '../../../../types/url-params';
 import { Dictionary } from '../../../../utils/types';
-import { UrlParams, UrlParamValue } from '../types';
+import { UrlParamValue } from '../types';
 import { createUrlStore } from './utils';
 
 describe('testing Url module actions', () => {

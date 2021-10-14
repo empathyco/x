@@ -1,5 +1,5 @@
 import { RelatedTag } from '@empathyco/x-types';
-import { UrlParams } from '../../../url';
+import { UrlParams } from '../../../../types/url-params';
 import { RelatedTagsXStoreModule } from '../types';
 
 /**

@@ -1,6 +1,6 @@
 import { HistoryQuery } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
-import { UrlParams } from '../../url/store/types';
+import { UrlParams } from '../../../types/url-params';
 import { HistoryQueriesConfig } from '../config.types';
 
 /**

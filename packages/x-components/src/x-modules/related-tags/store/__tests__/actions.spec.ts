@@ -4,7 +4,7 @@ import Vuex, { Store } from 'vuex';
 import { getRelatedTagsStub } from '../../../../__stubs__/related-tags-stubs.factory';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
-import { UrlParams } from '../../../url/store/types';
+import { UrlParams } from '../../../../types/url-params';
 import { relatedTagsXStoreModule } from '../module';
 import {
   RelatedTagsActions,

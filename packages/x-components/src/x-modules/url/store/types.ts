@@ -1,5 +1,6 @@
 import { Filter, RelatedTag } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
+import { UrlParams } from '../../../types/url-params';
 import { Dictionary } from '../../../utils/types';
 
 /**
@@ -10,21 +11,6 @@ import { Dictionary } from '../../../utils/types';
 export interface UrlState {
   params: UrlParams;
   extraParams: Dictionary<unknown>;
-}
-
-/**
- * URL store params.
- *
- * @public
- */
-export interface UrlParams {
-  query: string;
-  page: number;
-  filter: string[];
-  sort: string;
-  tag: string[];
-  scroll: number;
-  [extraParamKey: string]: unknown;
 }
 
 /**

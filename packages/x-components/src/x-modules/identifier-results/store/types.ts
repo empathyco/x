@@ -2,7 +2,7 @@ import { SearchByIdRequest } from '@empathyco/x-adapter';
 import { Result } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
-import { UrlParams } from '../../url/store/types';
+import { UrlParams } from '../../../types/url-params';
 import { IdentifierResultsConfig } from '../config.types';
 
 /**
