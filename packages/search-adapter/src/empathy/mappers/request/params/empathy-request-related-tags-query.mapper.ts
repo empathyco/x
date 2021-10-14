@@ -29,7 +29,7 @@ export class EmpathyRequestRelatedTagsQueryMapper
         },
         ['', '']
       )
-      .map((sortedRelatedTags) => sortedRelatedTags.trim());
+      .map(sortedRelatedTags => sortedRelatedTags.trim());
   }
 
   // Checks if the query is after the tag.
