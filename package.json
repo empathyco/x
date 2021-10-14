@@ -12,7 +12,7 @@
     "prepare-release:stable": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes",
     "release:alpha": "lerna publish --conventional-commits --conventional-prerelease --yes --no-push",
     "publish-release": "node scripts/publish-release",
-    "prepare": "husky install"
+    "prepare": "husky install && chmod +x .husky/pre-commit"
   },
   "devDependencies": {
     "@empathyco/eslint-plugin-x": "file:packages/eslint-plugin-x",
