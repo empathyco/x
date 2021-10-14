@@ -16,8 +16,8 @@ export const urlXStoreModule: UrlXStoreModule = {
     urlParams
   },
   mutations: {
-    setExtraParams(state, extraParam) {
-      state.extraParams = { ...state.extraParams, ...extraParam };
+    setExtraParams(state, extraParams) {
+      state.extraParams = { ...state.extraParams, ...extraParams };
     },
     setParams(state, params) {
       state.params = { ...state.params, ...params };

@@ -46,9 +46,9 @@ export interface UrlMutations {
   /**
    * Sets new extra params.
    *
-   * @param extraParam - The new extra params of the Url.
+   * @param extraParams - The new extra params of the Url.
    */
-  setExtraParams(extraParam: Dictionary<unknown>): void;
+  setExtraParams(extraParams: Dictionary<unknown>): void;
   /**
    * Sets the new params.
    *
@@ -70,9 +70,9 @@ export interface UrlMutations {
   /**
    * Sets the new filter ids.
    *
-   * @param filterIds - The new filter ids of the url.
+   * @param filters - The new filter ids of the url.
    */
-  setFilters(filterIds: Filter[]): void;
+  setFilters(filters: Filter[]): void;
   /**
    * Sets the new page.
    *

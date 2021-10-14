@@ -16,7 +16,7 @@ export const updateStoreFromUrl: UrlXStoreModule['actions']['updateStoreFromUrl'
   { state: { params: stateParams }, commit },
   urlParams: UrlParams
 ) => {
-  const params = {} as any;
+  const params = {} as UrlParams;
   const extraParams = {} as Dictionary<unknown>;
   forEach(urlParams, (paramKey, paramValue) => {
     if (paramKey in stateParams) {
@@ -26,6 +26,6 @@ export const updateStoreFromUrl: UrlXStoreModule['actions']['updateStoreFromUrl'
     }
   });
 
-  commit('setParams', params as UrlParams);
+  commit('setParams', params);
   commit('setExtraParams', extraParams);
 };
