@@ -13,26 +13,27 @@ export class EmpathyRequestRelatedTagsQueryMapper
   implements RequestMapper<QueryableRequest, string>
 {
   map({ relatedTags = [] }: QueryableRequest, query: string): string {
-    const [leftRts, rightRts] = this.splitRelatedTagsByQueryPosition(
-      relatedTags,
-      query
-    );
-    return `${leftRts} ${query} ${rightRts}`.trim();
+    const [leftRelatedTags, rightRelatedTags] =
+      this.splitRelatedTagsByQueryPosition(relatedTags, query);
+    return `${leftRelatedTags} ${query} ${rightRelatedTags}`.trim();
   }
 
-  splitRelatedTagsByQueryPosition(
-    relatedTags: RelatedTag[],
-    query: string
-  ): string[] {
+  splitRelatedTagsByQueryPosition(relatedTags: RelatedTag[], query: string): string[] {
     return relatedTags
       .reduce(
-        ([left, right], rt) => {
-          return rt.query.indexOf(query) > rt.query.indexOf(rt.tag)
-            ? [`${left} ${rt.tag}`, right]
-            : [left, `${right} ${rt.tag}`];
+        ([left, right], relatedTag) => {
+          const normalizedQuery = query.toLocaleLowerCase();
+          return this.isQueryAfterTag(relatedTag, normalizedQuery)
+            ? [`${left} ${relatedTag.tag}`, right]
+            : [left, `${right} ${relatedTag.tag}`];
         },
         ['', '']
       )
-      .map(rts => rts.trim());
+      .map((sortedRelatedTags) => sortedRelatedTags.trim());
+  }
+
+  // Checks if the query is after the tag.
+  isQueryAfterTag({ tag, query: relatedTagQuery }: RelatedTag, query: string): boolean {
+    return relatedTagQuery.indexOf(query) > relatedTagQuery.indexOf(tag);
   }
 }

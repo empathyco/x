@@ -28,11 +28,11 @@ describe('Related tags query mapper', () => {
         previous: 'lego',
         query: 'lego playmobil farm',
         selected: true,
-      },
+      }
     ];
     const rawRequest: QueryableRequest = {
       query: query,
-      relatedTags: relatedTags,
+      relatedTags: relatedTags
     };
 
     const requestMapped = relatedTagsMapper.map(rawRequest, query);
