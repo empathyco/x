@@ -13,19 +13,17 @@ export class EmpathyRequestRelatedTagsQueryMapper
   implements RequestMapper<QueryableRequest, string>
 {
   map({ relatedTags = [] }: QueryableRequest, query: string): string {
-    const [leftRelatedTags, rightRelatedTags] =
-      this.splitRelatedTagsByQueryPosition(relatedTags, query);
+    const [leftRelatedTags, rightRelatedTags] = this.splitRelatedTagsByQueryPosition(relatedTags);
     return `${leftRelatedTags} ${query} ${rightRelatedTags}`.trim();
   }
 
-  splitRelatedTagsByQueryPosition(relatedTags: RelatedTag[], query: string): string[] {
+  splitRelatedTagsByQueryPosition(relatedTags: RelatedTag[]): string[] {
     return relatedTags
       .reduce(
-        ([left, right], relatedTag) => {
-          const normalizedQuery = query.toLocaleLowerCase();
-          return this.isQueryAfterTag(relatedTag, normalizedQuery)
-            ? [`${left} ${relatedTag.tag}`, right]
-            : [left, `${right} ${relatedTag.tag}`];
+        ([left, right], { tag, query }) => {
+          return this.isTagBeforeQuery(tag, query)
+            ? [`${left} ${tag}`, right]
+            : [left, `${right} ${tag}`];
         },
         ['', '']
       )
@@ -33,7 +31,7 @@ export class EmpathyRequestRelatedTagsQueryMapper
   }
 
   // Checks if the query is after the tag.
-  isQueryAfterTag({ tag, query: relatedTagQuery }: RelatedTag, query: string): boolean {
-    return relatedTagQuery.indexOf(query) > relatedTagQuery.indexOf(tag);
+  isTagBeforeQuery(tag: string, query: string): boolean {
+    return query.indexOf(tag) === 0;
   }
 }
