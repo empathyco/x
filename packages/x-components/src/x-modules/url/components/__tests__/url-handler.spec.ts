@@ -19,7 +19,7 @@ function renderUrlHandler({ template = `<UrlHandler />` }: UrlHandlerOptions = {
   const wrapperTemplate = mount({ template, components: { UrlHandler } }, { localVue });
   const wrapper = wrapperTemplate.findComponent(UrlHandler);
 
-  function dispatchWindowEvent(event: string) {
+  function dispatchWindowEvent(event: string): (urlParams: string) => void {
     return function (urlParams: string): void {
       const newUrl = new URL(window.location.href);
       newUrl.search = urlParams;
