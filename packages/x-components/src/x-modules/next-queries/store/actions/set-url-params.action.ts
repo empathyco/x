@@ -1,7 +1,7 @@
 import { NextQueriesXStoreModule } from '../types';
 
 /**
- * Default implementation for the {@link QuerySuggestionsXStoreModule.setUrlParams}.
+ * Default implementation for the {@link NextQueriesActions.setUrlParams}.
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.

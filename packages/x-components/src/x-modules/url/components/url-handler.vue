@@ -103,7 +103,7 @@
         }
         return urlParams;
       }, {} as UrlParams);
-      return Object.assign({}, initialUrlState.params, urlParams);
+      return { ...initialUrlState.params, ...urlParams };
     }
 
     /**

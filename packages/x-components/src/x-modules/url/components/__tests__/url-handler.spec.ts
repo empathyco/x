@@ -19,7 +19,7 @@ function renderUrlHandler({ template = `<UrlHandler />` }: UrlHandlerOptions = {
   const wrapperTemplate = mount({ template, components: { UrlHandler } }, { localVue });
   const wrapper = wrapperTemplate.findComponent(UrlHandler);
 
-  function getUrlFunction(event: string) {
+  function dispatchWindowEvent(event: string) {
     return function (urlParams: string): void {
       const newUrl = new URL(window.location.href);
       newUrl.search = urlParams;
@@ -32,8 +32,8 @@ function renderUrlHandler({ template = `<UrlHandler />` }: UrlHandlerOptions = {
     wrapper,
     on: wrapperTemplate.vm.$x.on.bind(wrapperTemplate.vm.$x),
     emit: wrapperTemplate.vm.$x.emit.bind(wrapperTemplate.vm.$x),
-    loadUrlWithParams: getUrlFunction('load'),
-    popstateUrlWithParams: getUrlFunction('popstate'),
+    loadUrlWithParams: dispatchWindowEvent('load'),
+    popstateUrlWithParams: dispatchWindowEvent('popstate'),
     getCurrentUrlParams(): URLSearchParams {
       return new URL(window.location.href).searchParams;
     }
