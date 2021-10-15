@@ -1,6 +1,5 @@
 import { Facet } from '@empathyco/x-types';
 import Vue from 'vue';
-import { setFiltersFromUrl } from './actions/set-filters-from-url.action';
 import { facets } from './getters/facets.getter';
 import { selectedFiltersByFacet } from './getters/selected-filters-by-facet.getter';
 import { selectedFilters } from './getters/selected-filters.getter';
@@ -45,7 +44,5 @@ export const facetsXStoreModule: FacetsXStoreModule = {
       Vue.set(state.facets, facet.id, facet);
     }
   },
-  actions: {
-    setFiltersFromUrl
-  }
+  actions: {}
 };

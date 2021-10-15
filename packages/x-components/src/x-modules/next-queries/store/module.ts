@@ -5,6 +5,7 @@ import {
 } from './actions/fetch-and-save-next-queries.action';
 import { fetchNextQueries } from './actions/fetch-next-queries.action';
 import { setQueryFromLastHistoryQuery } from './actions/set-query-from-last-history-query.action';
+import { setUrlParams } from './actions/set-url-params.action';
 import { nextQueries } from './getters/next-queries.getter';
 import { request } from './getters/request.getter';
 import { NextQueriesXStoreModule } from './types';
@@ -50,6 +51,7 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     cancelFetchAndSaveNextQueries,
     fetchAndSaveNextQueries,
     fetchNextQueries,
-    setQueryFromLastHistoryQuery
+    setQueryFromLastHistoryQuery,
+    setUrlParams
   }
 };

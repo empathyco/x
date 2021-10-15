@@ -1,5 +1,6 @@
 import { HistoryQuery } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
+import { UrlParams } from '../../../types/url-params';
 import { HistoryQueriesConfig } from '../config.types';
 
 /**
@@ -150,6 +151,12 @@ export interface HistoryQueriesActions {
    * @param historyQueries - The new history queries to save to the state and the browser storage.
    */
   setHistoryQueries(historyQueries: HistoryQuery[]): void;
+  /**
+   * Checks if the url has a query on it and then updates the state with that value.
+   *
+   * @param urlParams - List of params from the url.
+   */
+  setUrlParams(urlParams: UrlParams): void;
 }
 /**
  * HistoryQueries type safe store module.

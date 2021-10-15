@@ -32,6 +32,13 @@ const wireDispatch: NamespacedWireDispatch<typeof moduleName> = namespacedWireDi
 export const setNextQueriesQuery = wireCommit('setQuery');
 
 /**
+ * Sets the next queries state `query` from url.
+ *
+ * @public
+ */
+const setUrlParams = wireDispatch('setUrlParams');
+
+/**
  * Sets the next queries state `params`.
  *
  * @public
@@ -78,5 +85,8 @@ export const nextQueriesWiring = createWiring({
   },
   ExtraParamsChanged: {
     setNextQueriesExtraParams
+  },
+  ParamsLoadedFromUrl: {
+    setUrlParams
   }
 });

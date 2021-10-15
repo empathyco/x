@@ -54,8 +54,9 @@ export class DefaultFacetsService implements FacetsService {
     this.createEntity(filter).deselect(filter);
   }
 
-  select(filter: Filter): void {
-    this.createEntity(filter).select(filter);
+  select(filterOrFilters: Filter | Filter[]): void {
+    const filters = Array.isArray(filterOrFilters) ? filterOrFilters : [filterOrFilters];
+    filters.forEach(filter => this.createEntity(filter).select(filter));
   }
 
   toggle(filter: Filter): void {

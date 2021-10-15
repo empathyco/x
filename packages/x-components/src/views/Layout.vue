@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UrlHandler />
+    <UrlHandler query="q" portal="portal" />
     <BaseEventsModalOpen>Start</BaseEventsModalOpen>
     <h1>Test controls</h1>
     <ul class="x-test-controls x-list x-list--gap-05">
@@ -331,11 +331,9 @@
                         <div style="padding-top: 100%; background-color: lightsalmon"></div>
                       </template>
                     </BaseResultImage>
-                    <BaseResultLink :result="item" class="x-result-link">
-                      <span class="x-result__title" data-test="partial-result-item">
-                        {{ item.name }}
-                      </span>
-                    </BaseResultLink>
+                    <span class="x-result__title" data-test="partial-result-item">
+                      {{ item.name }}
+                    </span>
                   </article>
                 </template>
               </BaseGrid>
