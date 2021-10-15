@@ -17,6 +17,7 @@
   "devDependencies": {
     "@empathyco/eslint-plugin-x": "file:packages/eslint-plugin-x",
     "conventional-changelog-conventionalcommits": "~4.6.0",
+    "cross-env": "~7.0.3",
     "eslint": "~7.18.0",
     "husky": "~7.0.2",
     "lerna": "~4.0.0",
@@ -27,7 +28,7 @@
   "lint-staged": {
     "*.{ts,tsx,md,vue}": [
       "prettier --write",
-      "eslint --cache --fix"
+      "cross-env NODE_ENV=production eslint --cache --fix"
     ],
     "*.{js,json}": "prettier --write"
   }
