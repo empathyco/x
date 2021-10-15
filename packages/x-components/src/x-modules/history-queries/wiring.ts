@@ -47,7 +47,7 @@ export const addQueryToHistoryQueries = wireDispatch('addQueryToHistory');
 export const setHistoryQueriesQuery = wireCommit('setQuery');
 
 /**
- * Sets the next queries state `query` from url.
+ * Sets the history queries state `query` from url.
  *
  * @public
  */
