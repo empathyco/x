@@ -25,7 +25,7 @@ export function registerStoreEmitters(
   forEach(storeEmitters, (event, stateSelector: AnySimpleStateSelector | AnyStateSelector) => {
     const { selector, immediate, filter, ...options } = normalizeStateSelector(stateSelector);
     /*
-     * Due the debounce added to the watch callback, the `oldValue` would be the one from  the last
+     * Due the debounce added to the watch callback, the `oldValue` would be the one from the last
      * watcher execution instead of the last callback execution. This would cause problems receiving
      * unstable oldValues, used in the Emitter filter.
      * To solve this, we store the `oldValue` of the watcher in the `previousValue` variable, and we
