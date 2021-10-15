@@ -1,8 +1,5 @@
 name: Copying documentation to eDocs
-on:
-  push:
-    branches:
-      - edocs-test
+on: [workflow_dispatch]
 jobs:
   copy-documentation-to-edocs-repo:
     runs-on: ubuntu-latest
