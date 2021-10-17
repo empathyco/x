@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UrlHandler />
+    <UrlHandler query="q" portal="portal" />
     <BaseEventsModalOpen>Start</BaseEventsModalOpen>
     <h1>Test controls</h1>
     <ul class="x-test-controls x-list x-list--gap-05">
@@ -273,7 +273,7 @@
               <PromotedsList>
                 <NextQueriesList>
                   <BaseVariableColumnGrid :animation="resultsAnimation">
-                    <template #Result="{ item: result }">
+                    <template #result="{ item: result }">
                       <article class="result" style="max-width: 300px">
                         <BaseResultImage :result="result" class="x-picture--colored">
                           <template #placeholder>
@@ -287,15 +287,15 @@
                       </article>
                     </template>
 
-                    <template #Banner="{ item: banner }">
+                    <template #banner="{ item: banner }">
                       <Banner :banner="banner" />
                     </template>
 
-                    <template #Promoted="{ item: promoted }">
+                    <template #promoted="{ item: promoted }">
                       <Promoted :promoted="promoted" />
                     </template>
 
-                    <template #NextQueriesGroup="{ item: { nextQueries } }">
+                    <template #next-queries-group="{ item: { nextQueries } }">
                       <div class="x-list x-list--gap-03">
                         <h1 class="x-title2">What's next?</h1>
                         <BaseSuggestions
@@ -321,7 +321,7 @@
             <template #default="{ partialResult }">
               <span data-test="partial-query">{{ partialResult.query }}</span>
               <BaseGrid :animation="resultsAnimation" :columns="4" :items="partialResult.results">
-                <template #Result="{ item }">
+                <template #result="{ item }">
                   <article class="result" style="max-width: 300px">
                     <BaseResultImage :result="item" class="x-picture--colored">
                       <template #placeholder>
@@ -331,11 +331,9 @@
                         <div style="padding-top: 100%; background-color: lightsalmon"></div>
                       </template>
                     </BaseResultImage>
-                    <BaseResultLink :result="item" class="x-result-link">
-                      <span class="x-result__title" data-test="partial-result-item">
-                        {{ item.name }}
-                      </span>
-                    </BaseResultLink>
+                    <span class="x-result__title" data-test="partial-result-item">
+                      {{ item.name }}
+                    </span>
                   </article>
                 </template>
               </BaseGrid>

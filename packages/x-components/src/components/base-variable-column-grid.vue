@@ -39,6 +39,7 @@
      */
     @Prop({ default: 'ul' })
     protected animation!: Vue | string;
+
     /**
      * The list of items to be rendered.
      *
@@ -87,7 +88,7 @@ you to customize the grid items using the available `scopedSlots`.
       <template #default="{ item }">
         <span data-test="default-slot">{{ item.id }}</span>
       </template>
-      <template #Result="{ item }">
+      <template #result="{ item }">
         <span data-test="result-slot">{{ 'Result ' + item.id }}</span>
       </template>
     </BaseVariableColumnGrid>

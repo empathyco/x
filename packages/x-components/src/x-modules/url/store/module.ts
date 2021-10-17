@@ -1,7 +1,6 @@
-import { urlMappedParamNames } from './getters/url-mapped-param-names.getter';
 import { urlParams } from './getters/url-params.getter';
+import { initialUrlState } from './initial-state';
 import { UrlXStoreModule } from './types';
-import { updateUrl } from './actions/update-url.action';
 import { updateStoreFromUrl } from './actions/update-store-from-url.action';
 
 /**
@@ -11,30 +10,14 @@ import { updateStoreFromUrl } from './actions/update-store-from-url.action';
  */
 export const urlXStoreModule: UrlXStoreModule = {
   state: () => ({
-    config: {
-      urlParamNames: {}
-    },
-    params: {
-      query: '',
-      page: 1,
-      filters: [],
-      sort: '',
-      scroll: 0,
-      relatedTag: []
-    },
-    extraParams: {},
-    isLoadedFromUrl: false
+    ...initialUrlState
   }),
   getters: {
-    urlParams,
-    urlMappedParamNames
+    urlParams
   },
   mutations: {
-    setUrlConfig(state, urlConfig) {
-      state.config = urlConfig;
-    },
-    setExtraParams(state, extraParam) {
-      state.extraParams = { ...state.extraParams, ...extraParam };
+    setExtraParams(state, extraParams) {
+      state.extraParams = { ...state.extraParams, ...extraParams };
     },
     setParams(state, params) {
       state.params = { ...state.params, ...params };
@@ -42,21 +25,17 @@ export const urlXStoreModule: UrlXStoreModule = {
     setQuery(state, query) {
       state.params.query = query;
     },
-    setRelatedTags(state, relatedTag) {
-      state.params.relatedTag = relatedTag;
+    setRelatedTags(state, relatedTags) {
+      state.params.tag = relatedTags.map(relatedTag => relatedTag.tag);
     },
     setFilters(state, newFilters) {
-      state.params.filters = newFilters;
+      state.params.filter = newFilters.map(filter => filter.id as string);
     },
     setPage(state, page) {
       state.params.page = page;
-    },
-    setLoadedFromUrl(state, isLoadedFromUrl) {
-      state.isLoadedFromUrl = isLoadedFromUrl;
     }
   },
   actions: {
-    updateUrl,
     updateStoreFromUrl
   }
 };

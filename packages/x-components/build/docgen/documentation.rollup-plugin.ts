@@ -46,8 +46,9 @@ export function apiDocumentation(options: APIDocumentationPluginOptions): Plugin
         await generateDocumentation();
         copyStaticDocumentation('static-docs', 'docs');
         modifyDocForRunbooks('docs');
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(error);
       }
     }
   };

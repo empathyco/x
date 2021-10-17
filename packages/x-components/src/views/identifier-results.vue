@@ -11,7 +11,7 @@
     <!-- Identifier Results -->
     <h1 v-if="$x.identifierResults.length" class="x-title1">Identifier Results</h1>
     <BaseGrid :animation="staggeredFadeAndSlide" :items="identifierResults" :columns="1">
-      <template #Result="{ item }">
+      <template #result="{ item }">
         <BaseResultLink :result="item" class="x-result-link">
           <template #default="{ result }">
             <IdentifierResult :result="result" data-test="identifier-results-item" />

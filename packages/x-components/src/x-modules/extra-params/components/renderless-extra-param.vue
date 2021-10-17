@@ -43,7 +43,7 @@
     public defaultValue?: unknown;
 
     /**
-     * A dictionary with the extra params from the store.
+     * A dictionary with the extra params.
      *
      * @public
      */

@@ -245,7 +245,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * @param xModule - The module to customize.
    * @returns The customized xModule.
    *
-   * @public
+   * @internal
    */
   customizeXModule({
     name,

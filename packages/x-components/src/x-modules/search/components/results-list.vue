@@ -156,7 +156,7 @@ _Type any term in the input field to try it out!_
     <SearchInput />
     <ResultsList #default="{ items, animation }">
       <BaseGrid :items="items" :animation="animation">
-        <template #Result="{ item }">
+        <template #result="{ item }">
           <span>Result: {{ item.name }}</span>
         </template>
         <template #default="{ item }">
