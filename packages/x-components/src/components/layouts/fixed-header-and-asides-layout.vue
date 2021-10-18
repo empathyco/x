@@ -1,6 +1,5 @@
 <template>
   <BaseIdScroll
-    key="main-scroll"
     @scroll="setPosition"
     id="main-scroll"
     class="x-layout x-layout--fixed-header-and-asides"
