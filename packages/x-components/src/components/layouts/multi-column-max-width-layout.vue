@@ -78,6 +78,7 @@
         </section>
       </BaseIdScroll>
     </main>
+
     <div v-if="hasContent('scroll-to-top')" class="x-layout__scroll-to-top">
       <slot name="scroll-to-top">
         <span v-if="devMode" class="slot-helper" style="height: 50px">SCROLL TO TOP</span>
@@ -87,12 +88,13 @@
 </template>
 
 <script lang="ts">
-  import Component from 'vue-class-component';
+  import Component, { mixins } from 'vue-class-component';
   import { Prop } from 'vue-property-decorator';
   import Vue from 'vue';
   import BaseIdTogglePanel from '../panels/base-id-toggle-panel.vue';
   import BaseIdScroll from '../scroll/base-id-scroll.vue';
   import AnimateWidth from '../animations/animate-width.vue';
+  import LayoutsMixin from './layouts.mixin';
 
   /**
    * Component for use as Layout to be filled with the rest of the Components.
@@ -102,15 +104,7 @@
   @Component({
     components: { BaseIdTogglePanel, BaseIdScroll }
   })
-  export default class MultiColumnMaxWidthLayout extends Vue {
-    /**
-     * Enables the devMode, which shows the available slots to use with its names.
-     *
-     * @public
-     */
-    @Prop({ default: false })
-    protected devMode!: boolean;
-
+  export default class MultiColumnMaxWidthLayout extends mixins(LayoutsMixin) {
     /**
      * The animation used for the Main Aside.
      *
@@ -118,24 +112,6 @@
      */
     @Prop({ default: () => AnimateWidth })
     protected asideAnimation!: Vue;
-
-    /**
-     * Function to check if an slot has rendered content or not.
-     *
-     * @param slotNames - A VNode Array with of each slot.
-     * @returns True if the slot has rendered content or false otherwise.
-     *
-     * @internal
-     */
-    protected hasContent(...slotNames: string[]): boolean {
-      return (
-        (this.devMode ||
-          slotNames.some(slotName =>
-            this.$slots[slotName]?.some(vNode => vNode.tag !== undefined)
-          )) ??
-        false
-      );
-    }
   }
 </script>
 

@@ -68,11 +68,13 @@
 
 <script lang="ts">
   import Vue from 'vue';
+  import { mixins } from 'vue-class-component';
   import { Component, Prop } from 'vue-property-decorator';
   import BaseIdModal from '../modals/base-id-modal.vue';
   import TranslateFromRight from '../animations/translate-from-right.vue';
   import BaseIdScroll from '../scroll/base-id-scroll.vue';
   import BaseScroll from '../scroll/base-scroll.vue';
+  import LayoutsMixin from './layouts.mixin';
 
   /**
    * Component for use as Layout to be filled with the rest of the Components.
@@ -82,15 +84,7 @@
   @Component({
     components: { BaseIdScroll, BaseScroll, BaseIdModal }
   })
-  export default class SingleColumnLayout extends Vue {
-    /**
-     * Enables the devMode, which shows the available slots to use with its names.
-     *
-     * @public
-     */
-    @Prop({ default: false })
-    protected devMode!: boolean;
-
+  export default class SingleColumnLayout extends mixins(LayoutsMixin) {
     /**
      * The animation used for the Main Aside.
      *
@@ -98,24 +92,6 @@
      */
     @Prop({ default: () => TranslateFromRight })
     protected asideAnimation!: Vue;
-
-    /**
-     * Function to check if an slot has rendered content or not.
-     *
-     * @param slotNames - A VNode Array with of each slot.
-     * @returns True if the slot has rendered content or false otherwise.
-     *
-     * @internal
-     */
-    protected hasContent(...slotNames: string[]): boolean {
-      return (
-        (this.devMode ||
-          slotNames.some(slotName =>
-            this.$slots[slotName]?.some(vNode => vNode.tag !== undefined)
-          )) ??
-        false
-      );
-    }
   }
 </script>
 
