@@ -122,13 +122,15 @@ describe('testing recommendations component', () => {
   it('renders at most the number of recommendations defined by `maxItemsToRender` prop', async () => {
     const { wrapper, recommendations, getDefaultRecommendations } = mountRecommendations();
 
-    await wrapper.setProps({ maxItemsToRender: 2 });
-    expect(getDefaultRecommendations()).toHaveLength(2);
+    expect(getDefaultRecommendations()).toHaveLength(recommendations.length);
 
-    await wrapper.setProps({ maxItemsToRender: 3 });
-    expect(getDefaultRecommendations()).toHaveLength(3);
+    await wrapper.setProps({ maxItemsToRender: recommendations.length - 1 });
+    expect(getDefaultRecommendations()).toHaveLength(recommendations.length - 1);
 
-    await wrapper.setProps({ maxItemsToRender: 5 });
+    await wrapper.setProps({ maxItemsToRender: recommendations.length });
+    expect(getDefaultRecommendations()).toHaveLength(recommendations.length);
+
+    await wrapper.setProps({ maxItemsToRender: recommendations.length + 1 });
     expect(getDefaultRecommendations()).toHaveLength(recommendations.length);
   });
 });

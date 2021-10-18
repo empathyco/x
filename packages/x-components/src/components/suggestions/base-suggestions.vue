@@ -111,7 +111,7 @@
   }
 </script>
 
-<docs>
+<docs lang="mdx">
   #Example
 
   For this component to work, you will need to set a list of suggestions as prop, and also to
