@@ -255,6 +255,11 @@
       width: 100%;
       pointer-events: none;
 
+      // color
+      background-color: var(
+        --color-background-layout-header-backdrop,
+        var(--x-color-base-neutral-100, white)
+      );
       mask: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
 
       // transition
