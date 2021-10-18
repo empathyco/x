@@ -45,6 +45,9 @@ function mountRecommendations({
     recommendations,
     isScopedSlotOverridden(selector) {
       return wrapper.find(getDataTestSelector(selector)).exists();
+    },
+    getDefaultRecommendations() {
+      return wrapper.findAll(getDataTestSelector('recommendation-item'));
     }
   };
 }
@@ -91,7 +94,7 @@ describe('testing recommendations component', () => {
       }
     });
 
-    const renderedRecommendations = findTestDataById(wrapper, 'custom-default-slot');
+    const renderedRecommendations = wrapper.findAll(getDataTestSelector('custom-default-slot'));
 
     expect(renderedRecommendations).toHaveLength(recommendations.length);
     recommendations.forEach((recommendation, index) => {
@@ -117,24 +120,17 @@ describe('testing recommendations component', () => {
 
   // eslint-disable-next-line max-len
   it('renders at most the number of recommendations defined by `maxItemsToRender` prop', async () => {
-    const { wrapper, recommendations } = mountRecommendations();
-
-    const renderedRecommendations = (): WrapperArray<Vue> =>
-      findTestDataById(wrapper, 'recommendation-item');
+    const { wrapper, recommendations, getDefaultRecommendations } = mountRecommendations();
 
     await wrapper.setProps({ maxItemsToRender: 2 });
-    expect(renderedRecommendations()).toHaveLength(2);
+    expect(getDefaultRecommendations()).toHaveLength(2);
 
     await wrapper.setProps({ maxItemsToRender: 3 });
-    expect(renderedRecommendations()).toHaveLength(3);
+    expect(getDefaultRecommendations()).toHaveLength(3);
 
     await wrapper.setProps({ maxItemsToRender: 5 });
-    expect(renderedRecommendations()).toHaveLength(recommendations.length);
+    expect(getDefaultRecommendations()).toHaveLength(recommendations.length);
   });
-
-  function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {
-    return wrapper.findAll(getDataTestSelector(testDataId));
-  }
 });
 
 interface MountRecommendationsOptions {
@@ -149,6 +145,8 @@ interface MountRecommendationsAPI {
   wrapper: Wrapper<Vue>;
   /** The rendered `recommendations`. */
   recommendations: Result[];
+  /** The default `recommendations`. */
+  getDefaultRecommendations: () => WrapperArray<Vue>;
   /** Check if a scoped slot is overridden. */
   isScopedSlotOverridden: (selector: string) => boolean;
 }

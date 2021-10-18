@@ -130,16 +130,15 @@ describe('testing Query Suggestions component', () => {
     const renderedQuerySuggestions = (): WrapperArray<Vue> =>
       findTestDataById(querySuggestionsWrapper, 'query-suggestion');
 
-    await querySuggestionsWrapper.setProps({ maxItemsToRender: 2 });
-    expect(renderedQuerySuggestions()).toHaveLength(2);
+    await querySuggestionsWrapper.setProps({ maxItemsToRender: suggestions.length - 1 });
+    expect(renderedQuerySuggestions()).toHaveLength(suggestions.length - 1);
 
-    await querySuggestionsWrapper.setProps({ maxItemsToRender: 3 });
-    expect(renderedQuerySuggestions()).toHaveLength(3);
+    await querySuggestionsWrapper.setProps({ maxItemsToRender: suggestions.length });
+    expect(renderedQuerySuggestions()).toHaveLength(suggestions.length);
 
-    await querySuggestionsWrapper.setProps({ maxItemsToRender: 5 });
+    await querySuggestionsWrapper.setProps({ maxItemsToRender: suggestions.length + 1 });
     expect(renderedQuerySuggestions()).toHaveLength(suggestions.length);
   });
-
   function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {
     return wrapper.findAll(getDataTestSelector(testDataId));
   }

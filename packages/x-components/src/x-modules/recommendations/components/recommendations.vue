@@ -78,8 +78,8 @@
      *
      * @public
      */
-    @Prop({ default: 5 })
-    protected maxItemsToRender!: number;
+    @Prop()
+    protected maxItemsToRender?: number;
 
     /**
      * The additional events to be emitted by the mandatory {@link BaseResultLink} component.
@@ -170,20 +170,15 @@
 
   ```vue
   <template>
-    <div>
-      <SearchInput />
-      <Recommendations :maxItemToRender="3" />
-    </div>
+    <Recommendations :maxItemToRender="3" />
   </template>
 
   <script>
-    import { SearchInput } from '@empathyco/x-components/search-box';
     import { Recommendations } from '@empathyco/x-components/recommendations';
 
     export default {
       name: 'RecommendationsDemo',
       components: {
-        SearchInput,
         Recommendations
       }
     };

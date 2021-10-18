@@ -64,8 +64,8 @@
      *
      * @public
      */
-    @Prop({ default: 5 })
-    protected maxItemsToRender!: number;
+    @Prop()
+    protected maxItemsToRender?: number;
 
     /**
      * The list of popular searches.

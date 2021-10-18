@@ -41,13 +41,15 @@ describe('testing Base Suggestions component', () => {
     const renderedSuggestions = (): WrapperArray<Vue> =>
       findTestDataById(wrapper, 'suggestion-item');
 
-    await wrapper.setProps({ maxItemsToRender: 2 });
-    expect(renderedSuggestions()).toHaveLength(2);
+    expect(renderedSuggestions()).toHaveLength(suggestions.length);
 
-    await wrapper.setProps({ maxItemsToRender: 3 });
-    expect(renderedSuggestions()).toHaveLength(3);
+    await wrapper.setProps({ maxItemsToRender: suggestions.length - 1 });
+    expect(renderedSuggestions()).toHaveLength(suggestions.length - 1);
 
-    await wrapper.setProps({ maxItemsToRender: 5 });
+    await wrapper.setProps({ maxItemsToRender: suggestions.length });
+    expect(renderedSuggestions()).toHaveLength(suggestions.length);
+
+    await wrapper.setProps({ maxItemsToRender: suggestions.length + 1 });
     expect(renderedSuggestions()).toHaveLength(suggestions.length);
   });
 

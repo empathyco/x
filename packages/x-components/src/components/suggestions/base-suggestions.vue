@@ -154,20 +154,15 @@
 
   ```vue
   <template>
-    <div>
-      <SearchInput />
-      <BaseSuggestions :maxItemToRender="3" />
-    </div>
+    <BaseSuggestions :suggestions="suggestions" :maxItemToRender="3" />
   </template>
 
   <script>
-    import { SearchInput } from '@empathyco/x-components/search-box';
     import { BaseSuggestions } from '@empathyco/x-components';
 
     export default {
       name: 'BaseSuggestionsDemo',
       components: {
-        SearchInput,
         BaseSuggestions
       }
     };
