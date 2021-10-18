@@ -26,10 +26,10 @@
   },
   "prettier": "@empathyco/eslint-plugin-x/prettier-config",
   "lint-staged": {
-    "*.{ts,tsx,md,vue}": [
+    "*.{ts,tsx,vue}": [
       "prettier --write",
       "cross-env NODE_ENV=production eslint --cache --fix"
     ],
-    "*.{js,json}": "prettier --write"
+    "*.{md,js,json}": "prettier --write"
   }
 }
