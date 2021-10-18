@@ -168,14 +168,6 @@
       auto
       [main-end scroll-to-top-end page-end];
 
-    // color
-    background-color: var(--x-color-background-layout-columns, white);
-    border-color: var(--x-color-border-layout-columns);
-
-    // border
-    border-style: solid;
-    border-width: var(--x-size-border-width-layout-columns, 0);
-
     &__header {
       // layout
       grid-column: page;
