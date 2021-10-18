@@ -81,7 +81,7 @@
 </style>
 
 <docs lang="mdx">
-#Examples
+# Examples
 
 This component loops through an array of partials an exposed a slot to use customize each partial.
 

@@ -58,36 +58,37 @@
   }
 </script>
 
-<docs>
-  #Example
+<docs lang="mdx">
+# Examples
 
-  This components expects just a suggestion as a prop to be rendered. It has a slot to override
-  the content. By default, it renders the suggestion query of the next query.
+This components expects just a suggestion as a prop to be rendered. It has a slot to override the
+content. By default, it renders the suggestion query of the next query.
 
-  ## Basic Usage
+## Basic Usage
 
-  Using default slot:
-  ```vue
-  <NextQuery :suggestion="suggestion"/>
-  ```
+Using default slot:
 
-  ## Overriding default slot.
+```vue
+<NextQuery :suggestion="suggestion" />
+```
 
-  The default slot allows you to replace the content of the suggestion button.
+## Overriding default slot.
 
-  ```vue
-  <NextQuery :suggestion="suggestion">
-    <template #default="{ suggestion }">
-      <img class="x-next-query__icon" src="./next-query.svg" />
-      <span class="x-next-query__query" :aria-label="suggestion.query">{{ suggestion.query }}</span>
-    </template>
-  </NextQuery>
-  ```
+The default slot allows you to replace the content of the suggestion button.
 
-  ## Events
+```vue
+<NextQuery :suggestion="suggestion">
+  <template #default="{ suggestion }">
+    <img class="x-next-query__icon" src="./next-query.svg" />
+    <span class="x-next-query__query" :aria-label="suggestion.query">{{ suggestion.query }}</span>
+  </template>
+</NextQuery>
+```
 
-  A list of events that the component will emit:
+## Events
 
-  - `UserSelectedANextQuery`: the event is emitted after the user clicks the button. The event
-  payload is the next query data.
+A list of events that the component will emit:
+
+- `UserSelectedANextQuery`: the event is emitted after the user clicks the button. The event payload
+  is the next query data.
 </docs>

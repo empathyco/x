@@ -121,74 +121,72 @@
   }
 </script>
 
-<docs>
-  # Example
+<docs lang="mdx">
+# Example
 
-  The sliced filters component, takes a list of filters, and the maximum number of filters to
-  render as prop. Then, it slices the list of filters using the `max` prop, and returns this new
-  filters list using the default scoped slot.
+The sliced filters component, takes a list of filters, and the maximum number of filters to render
+as prop. Then, it slices the list of filters using the `max` prop, and returns this new filters list
+using the default scoped slot.
 
-  The user can click the show more button if he wants to see the full list of filters, or the show
-  less button when he wants to reset the filters. This buttons text or icons can be configured
-  via slot too. They receive a `difference` prop which can be useful for writing friendlier
-  messages.
+The user can click the show more button if he wants to see the full list of filters, or the show
+less button when he wants to reset the filters. This buttons text or icons can be configured via
+slot too. They receive a `difference` prop which can be useful for writing friendlier messages.
 
-  This component is usually integrated with the `Facets` and `Filters` component. It is useful
-  when there are lots of available filters for a single facet, helping to improve the
-  app performance, as less nodes are rendered.
+This component is usually integrated with the `Facets` and `Filters` component. It is useful when
+there are lots of available filters for a single facet, helping to improve the app performance, as
+less nodes are rendered.
 
-  ## Important
+## Important
 
-  The component has two ways of receive the filters list, it can be injected by another component or
-  be send it as a prop. If the component doesnt have a parent component that receive and exposed a
-  filters list to their children, it is mandatory to send it as prop.
+The component has two ways of receive the filters list, it can be injected by another component or
+be send it as a prop. If the component doesnt have a parent component that receive and exposed a
+filters list to their children, it is mandatory to send it as prop.
 
+## Basic usage
 
-  ## Basic usage
-
-  ```vue
-  <template>
-    <Facets v-slot="{ facet }">
-      <SlicedFilters :filters="facet.filters" :max="4">
-        <template #default="{ slicedFilters }">
-          <Filters :items="slicedFilters" v-slot="{ filter }">
-            <SimpleFilter :filter="filter"/>
-          </Filters>
-        </template>
-        <template #show-more="{ difference }">Show {{ difference }} more filters</template>
-        <template #show-less="{ difference }">Show {{ difference }} less filters</template>
-      </SlicedFilters>
-    </Facets>
-  </template>
-  <script>
-    import { BaseShowMoreFilters} from "@empathyco/x-components";
-    import { Facets, SimpleFilter, Filters } from "@empathyco/x-components";
-
-    export default {
-      components: {
-        Facets,
-        BaseShowMoreFilters,
-        Filters,
-        SimpleFilter
-      }
-    }
-  </script>
-  ```
-
-  > **Using injection**: It can receive the filters list by injection. It only works if it has a
-  > parent component that receives and exposes the filters list. Using the injection, It is not
-  > necessary to send the prop to the child components, it has to be send it in the parent component
-  > , the rest of components will inject this list.
-
-  ```vue
+```vue
+<template>
   <Facets v-slot="{ facet }">
     <SlicedFilters :filters="facet.filters" :max="4">
-        <Filters v-slot="{ filter }">
-          <SimpleFilter :filter="filter"/>
+      <template #default="{ slicedFilters }">
+        <Filters :items="slicedFilters" v-slot="{ filter }">
+          <SimpleFilter :filter="filter" />
         </Filters>
+      </template>
       <template #show-more="{ difference }">Show {{ difference }} more filters</template>
       <template #show-less="{ difference }">Show {{ difference }} less filters</template>
     </SlicedFilters>
   </Facets>
-  ```
+</template>
+<script>
+  import { BaseShowMoreFilters } from '@empathyco/x-components';
+  import { Facets, SimpleFilter, Filters } from '@empathyco/x-components';
+
+  export default {
+    components: {
+      Facets,
+      BaseShowMoreFilters,
+      Filters,
+      SimpleFilter
+    }
+  };
+</script>
+```
+
+> **Using injection**: It can receive the filters list by injection. It only works if it has a
+> parent component that receives and exposes the filters list. Using the injection, It is not
+> necessary to send the prop to the child components, it has to be send it in the parent component ,
+> the rest of components will inject this list.
+
+```vue
+<Facets v-slot="{ facet }">
+  <SlicedFilters :filters="facet.filters" :max="4">
+      <Filters v-slot="{ filter }">
+        <SimpleFilter :filter="filter"/>
+      </Filters>
+    <template #show-more="{ difference }">Show {{ difference }} more filters</template>
+    <template #show-less="{ difference }">Show {{ difference }} less filters</template>
+  </SlicedFilters>
+</Facets>
+```
 </docs>

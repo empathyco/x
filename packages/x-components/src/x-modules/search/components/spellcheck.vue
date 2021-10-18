@@ -42,18 +42,17 @@
   }
 </script>
 
-<docs>
-#Example
+<docs lang="mdx">
+# Examples
 
-This default spellcheck component expects a query and a spellcheckedQuery to render
-and pass to its default slot.
+This default spellcheck component expects a query and a spellcheckedQuery to render and pass to its
+default slot.
 
 This two props should be show like a message comparing them.
 
 ## Basic usage
 
 ```vue
-
 <Spellcheck />
 ```
 

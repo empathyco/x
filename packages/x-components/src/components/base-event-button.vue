@@ -38,27 +38,27 @@
   }
 </script>
 
-<docs>
-  #Examples
+<docs lang="mdx">
+# Examples
 
-  ## Basic example
+## Basic example
 
-  The event prop is required. It will render a <button></button> that emits the event passed as
-  prop with the value as payload on click:
+The event prop is required. It will render a <button></button> that emits the event passed as prop
+with the value as payload on click:
 
-  ```vue
-  <BaseEventButton :events="{myEvent: payload}"/>
-  ```
+```vue
+<BaseEventButton :events="{ myEvent: payload }" />
+```
 
-  If the event doesn't need payload then `undefined` must be passed:
+If the event doesn't need payload then `undefined` must be passed:
 
-  ```vue
-  <BaseEventButton :events="{myEvent: undefined}"/>
-  ```
+```vue
+<BaseEventButton :events="{ myEvent: undefined }" />
+```
 
-  It can emit multiple events at the same time:
+It can emit multiple events at the same time:
 
-  ```vue
-  <BaseEventButton :events="{myFirstEvent: payload1, mySecondEvent: payload2}"/>
-  ```
+```vue
+<BaseEventButton :events="{ myFirstEvent: payload1, mySecondEvent: payload2 }" />
+```
 </docs>

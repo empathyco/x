@@ -131,8 +131,8 @@
   }
 </script>
 
-<docs>
-#Example
+<docs lang="mdx">
+# Examples
 
 This component renders a button, which on clicked emits the `UserClickedClearAllFilters` or
 `UserClickedClearAllFilters` event.
@@ -148,13 +148,13 @@ This component renders a button, which on clicked emits the `UserClickedClearAll
 In this example, show the custom message in button.
 
 ```vue
-<ClearFilters v-slot="{ selectedFilters }" >
+<ClearFilters v-slot="{ selectedFilters }">
   Delete {{ selectedFilters.length }} selected
 </ClearFilters>
 ```
 
-In this example, show the custom message in button with always visible a true and
-list of facets ids.
+In this example, show the custom message in button with always visible a true and list of facets
+ids.
 
 ```vue
 <ClearFilters v-slot="{ selectedFilters }" :alwaysVisible="true" :facetsIds="facetsIds">
@@ -167,8 +167,7 @@ list of facets ids.
 A list of events that the component will emit:
 
 - `UserClickedClearAllFilters`: the event is emitted after the user clicks the button to clear a
-certain facets filter. The event payload is the id of the facets that are going to be cleared.
+  certain facets filter. The event payload is the id of the facets that are going to be cleared.
 - `UserClickedClearAllFilters`: the event is emitted after the user clicks the button. The event
-payload is undefined.
-
+  payload is undefined.
 </docs>
