@@ -164,6 +164,20 @@ _Type “puzzle” or another toy in the input field to try it out!_
     name: 'BaseSuggestionsDemo',
     components: {
       BaseSuggestions
+    },
+    data() {
+      return {
+        suggestions: [
+          {
+            facets: [],
+            key: 'chips',
+            query: 'Chips',
+            totalResults: 10,
+            results: [],
+            modelName: 'PopularSearch'
+          }
+        ]
+      };
     }
   };
 </script>
