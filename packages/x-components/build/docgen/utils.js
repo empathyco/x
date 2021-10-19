@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
+const { join } = require('path');
+
 /**
  * Replaces returns and tubes to make the input compatible with markdown.
  *
@@ -23,15 +24,15 @@ const COMPONENTS_DOC_FOLDER = 'API-reference/components';
  * includes de file name and extension.
  */
 function getDocumentFileDestination(file, config) {
-  const commonComponentsRegex = /^components\/(.*)\/(.*)\.vue$/;
-  const xModulesRegex = /^x-modules\/(.+)\/components\/(.+)\.vue$/;
+  const commonComponentsRegex = /^components\/?(?<path>.*)\/(?<componentName>.+)\.vue$/;
+  const xModulesRegex = /^x-modules\/(?<path>.+)\/components\/(?<componentName>.+)\.vue$/;
 
   const destinationFileName =
-    generateDestination(`${COMPONENTS_DOC_FOLDER}/common`, commonComponentsRegex, file) ||
-    generateDestination(`${COMPONENTS_DOC_FOLDER}`, xModulesRegex, file);
+    generateDestination(join(COMPONENTS_DOC_FOLDER, 'common'), commonComponentsRegex, file) ||
+    generateDestination(COMPONENTS_DOC_FOLDER, xModulesRegex, file);
 
   if (destinationFileName) {
-    return `${config.outDir}/${destinationFileName}`;
+    return join(config.outDir, destinationFileName);
   } else {
     return '';
   }
@@ -50,8 +51,8 @@ function getDocumentFileDestination(file, config) {
 function generateDestination(folder, regex, file) {
   const match = regex.exec(file);
   if (match) {
-    const [, path, componentName] = match;
-    return `${folder}/${path}/x-components.${componentName}.md`;
+    const { path, componentName } = match.groups;
+    return join(folder, path, `x-components.${componentName}.md`);
   } else {
     return '';
   }
