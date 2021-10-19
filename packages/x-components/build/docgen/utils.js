@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
+const { join } = require('path');
+
 /**
  * Replaces returns and tubes to make the input compatible with markdown.
  *
@@ -27,11 +28,11 @@ function getDocumentFileDestination(file, config) {
   const xModulesRegex = /^x-modules\/(?<path>.+)\/components\/(?<componentName>.+)\.vue$/;
 
   const destinationFileName =
-    generateDestination(`${COMPONENTS_DOC_FOLDER}/common`, commonComponentsRegex, file) ||
-    generateDestination(`${COMPONENTS_DOC_FOLDER}`, xModulesRegex, file);
+    generateDestination(join(COMPONENTS_DOC_FOLDER, 'common'), commonComponentsRegex, file) ||
+    generateDestination(COMPONENTS_DOC_FOLDER, xModulesRegex, file);
 
   if (destinationFileName) {
-    return `${config.outDir}/${destinationFileName}`;
+    return join(config.outDir, destinationFileName);
   } else {
     return '';
   }
@@ -51,7 +52,8 @@ function generateDestination(folder, regex, file) {
   const match = regex.exec(file);
   if (match) {
     const { path, componentName } = match.groups;
-    return `${folder}/${path}/x-components.${componentName}.md`;
+    console.log(join(folder, path, `x-components.${componentName}.md`));
+    return join(folder, path, `x-components.${componentName}.md`);
   } else {
     return '';
   }
