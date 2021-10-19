@@ -81,7 +81,7 @@ export function map<T extends Dictionary, W>(
  * @public
  */
 export function cleanUndefined<T>(obj: T): T {
-  return typeof obj !== 'object' || obj === null
+  return typeof obj !== 'object' || obj === null || Array.isArray(obj)
     ? obj
     : reduce(
         obj,

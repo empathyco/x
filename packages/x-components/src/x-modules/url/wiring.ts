@@ -1,9 +1,5 @@
-import { Filter, RelatedTag } from '@empathyco/x-types';
-import { mapWire, namespacedWireDispatch } from '../../wiring';
-import {
-  namespacedWireCommit,
-  namespacedWireDispatchWithoutPayload
-} from '../../wiring/namespaced-wires.factory';
+import { namespacedWireDispatch } from '../../wiring';
+import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
@@ -21,79 +17,45 @@ const wireCommit = namespacedWireCommit('url');
 const wireDispatch = namespacedWireDispatch('url');
 
 /**
- * WireDispatch without payload for {@link UrlXModule}.
- *
- * @internal
- */
-const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload('url');
-
-/**
- * Sets the URL config.
- *
- * @public
- */
-export const setUrlConfigWire = wireCommit('setUrlConfig');
-
-/**
  * Sets the {@link RelatedTag | related tags }.
  *
  * @public
  */
-export const setRelatedTagsWire = mapWire(
-  wireCommit('setRelatedTags'),
-  (relatedTags: RelatedTag[]) => relatedTags.map(relatedTag => relatedTag.tag)
-);
-
-/**
- * Enables loading params from the url.
- *
- * @public
- */
-export const enableLoadFromUrl = wireCommit('setLoadedFromUrl', true);
-
-/**
- * Disables loading params from the url.
- *
- * @public
- */
-export const disableLoadFromUrl = wireCommit('setLoadedFromUrl', false);
-
-/**
- * Updates the URL.
- *
- * @public
- */
-export const updateUrl = wireDispatchWithoutPayload('updateUrl');
+export const setUrlRelatedTags = wireCommit('setRelatedTags');
 
 /**
  * Updates the store state from the URL.
  *
  * @public
  */
-export const updateState = wireDispatch('updateStoreFromUrl');
+export const updateStoreFromUrl = wireDispatch('updateStoreFromUrl');
 
 /**
  * Sets the query of the url module.
  *
  * @public
  */
-export const setQuery = wireCommit('setQuery');
+export const setUrlQuery = wireCommit('setQuery');
 
 /**
  * Sets the page of the url module.
  *
  * @public
  */
-export const setPage = wireCommit('setPage');
+export const setUrlPage = wireCommit('setPage');
+/**
+ * Sets the extra params of the url module.
+ *
+ * @public
+ */
+export const setUrlExtraParams = wireCommit('setExtraParams');
 
 /**
  * Sets the filters of the url module.
  *
  * @public
  */
-export const setFiltersWire = mapWire(wireCommit('setFilters'), (filters: Filter[]) =>
-  filters.map(filter => filter.id)
-);
+export const setUrlFilters = wireCommit('setFilters');
 
 /**
  * Wiring configuration for the {@link UrlXModule | url module}.
@@ -101,32 +63,28 @@ export const setFiltersWire = mapWire(wireCommit('setFilters'), (filters: Filter
  * @internal
  */
 export const urlWiring = createWiring({
-  UrlConfigProvided: {
-    setUrlConfigWire
-  },
   UserAcceptedAQuery: {
-    setQuery
+    setUrlQuery
   },
   UserClearedQuery: {
-    setQuery
+    setUrlQuery
   },
-  UrlStateChanged: {
-    updateUrl
-  },
-  DocumentLoaded: {
-    updateState,
-    enableLoadFromUrl
-  },
-  UrlChanged: {
-    disableLoadFromUrl
+  ParamsLoadedFromUrl: {
+    updateStoreFromUrl
   },
   SelectedRelatedTagsChanged: {
-    setRelatedTagsWire
+    setUrlRelatedTags
   },
   SelectedFiltersChanged: {
-    setFiltersWire
+    setUrlFilters
   },
   PageChanged: {
-    setPage
+    setUrlPage
+  },
+  ExtraParamsProvided: {
+    setUrlExtraParams
+  },
+  UserChangedExtraParams: {
+    setUrlExtraParams
   }
 });

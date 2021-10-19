@@ -95,58 +95,57 @@
   }
 </script>
 
-<docs>
-  # Examples
+<docs lang="mdx">
+# Examples
 
-  This component renders a list of suggestions coming from the user queries history
+This component renders a list of suggestions coming from the user queries history
 
-  ## Default usage
+## Default usage
 
-  No props are required for the usage of this component.
+No props are required for the usage of this component.
 
-  ```vue
-  <HistoryQueries/>
-  ```
+```vue
+<HistoryQueries />
+```
 
-  The component has two optional props. `animation` to render the component with an animation and
-  `maxItemToRender` to limit the number of history queries will be rendered (by default it is 5).
+The component has two optional props. `animation` to render the component with an animation and
+`maxItemToRender` to limit the number of history queries will be rendered (by default it is 5).
 
-  ```vue
-  <HistoryQueries :animation="FadeAndSlide" :maxItemsToRender="10"/>
-  ```
+```vue
+<HistoryQueries :animation="FadeAndSlide" :maxItemsToRender="10" />
+```
 
-  ## Overriding Suggestion component
+## Overriding Suggestion component
 
-  The default `HistoryQuery` component that is used in every suggestion can be replaced.
-  To do so, the `suggestion` slot is available, containing the history query data under the
-  `suggestion` property. Remember that if HistoryQuery component wasn't used the
-  `handleHistoryQuerySelection` method needs to be implemented emitting the needed events.
+The default `HistoryQuery` component that is used in every suggestion can be replaced. To do so, the
+`suggestion` slot is available, containing the history query data under the `suggestion` property.
+Remember that if HistoryQuery component wasn't used the `handleHistoryQuerySelection` method needs
+to be implemented emitting the needed events.
 
-  ```vue
-  <HistoryQueries>
-    <template #suggestion="{ suggestion }">
-      <img class="x-history-query__icon" src="./history-query-extra-icon.svg"/>
-      <HistoryQuery :suggestion="suggestion"/>
-    </template>
-  </HistoryQueries>
-  ```
+```vue
+<HistoryQueries>
+  <template #suggestion="{ suggestion }">
+    <img class="x-history-query__icon" src="./history-query-extra-icon.svg"/>
+    <HistoryQuery :suggestion="suggestion"/>
+  </template>
+</HistoryQueries>
+```
 
-  ## Overriding suggestion-content and suggestion-remove-content slot
+## Overriding suggestion-content and suggestion-remove-content slot
 
-  The content of the `HistoryQuery` component can be overridden. For replacing the default
-  suggestion content, the `suggestion-content` slot is available, containing the history query
-  suggestion (in the `suggestion` property), and the matching query part HTML (in the
-  `queryHTML` property).
+The content of the `HistoryQuery` component can be overridden. For replacing the default suggestion
+content, the `suggestion-content` slot is available, containing the history query suggestion (in the
+`suggestion` property), and the matching query part HTML (in the `queryHTML` property).
 
-  ```vue
-  <HistoryQueries>
-    <template #suggestion-content="{ queryHTML }">
-      <img class="x-history-query__history-icon" src="./history-icon.svg"/>
-      <span class="x-history-query__matching-part" v-html="queryHTML"></span>
-    </template>
-    <template #suggestion-remove-content>
-      <img class="x-history-queries__remove" src="./remove-icon.svg"/>
-    </template>
-  </HistoryQueries>
-  ```
+```vue
+<HistoryQueries>
+  <template #suggestion-content="{ queryHTML }">
+    <img class="x-history-query__history-icon" src="./history-icon.svg"/>
+    <span class="x-history-query__matching-part" v-html="queryHTML"></span>
+  </template>
+  <template #suggestion-remove-content>
+    <img class="x-history-queries__remove" src="./remove-icon.svg"/>
+  </template>
+</HistoryQueries>
+```
 </docs>

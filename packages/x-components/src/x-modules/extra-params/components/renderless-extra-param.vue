@@ -43,7 +43,7 @@
     public defaultValue?: unknown;
 
     /**
-     * A dictionary with the extra params from the store.
+     * A dictionary with the extra params.
      *
      * @public
      */
@@ -105,7 +105,7 @@
 </script>
 
 <docs lang="mdx">
-#Example
+# Examples
 
 Renders default slot content. It binds to the default slot the name of the extra parameter and the
 default value of it.

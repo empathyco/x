@@ -7,7 +7,7 @@
     <!-- Facets -->
     <h1>Facets</h1>
     <Facets renderable-facets="brand_facet">
-      <template #brand_facet="{ facet }">
+      <template #brand-facet="{ facet }">
         <SlicedFilters :filters="facet.filters" :max="8">
           <template v-slot="{ slicedFilters }">
             <FiltersSearch :filters="slicedFilters" data-test="after-slice-filter-search">
@@ -22,7 +22,7 @@
       </template>
     </Facets>
     <Facets renderable-facets="brand_facet">
-      <template #brand_facet="{ facet }">
+      <template #brand-facet="{ facet }">
         <FiltersSearch
           v-slot="{ siftedFilters }"
           :filters="facet.filters"
@@ -35,7 +35,7 @@
       </template>
     </Facets>
     <Facets renderable-facets="brand_facet">
-      <template #brand_facet="{ facet }">
+      <template #brand-facet="{ facet }">
         <FiltersSearch
           v-slot="{ siftedFilters }"
           :filters="facet.filters"

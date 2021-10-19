@@ -19,11 +19,11 @@ describe('testing search box module actions', () => {
     resetSearchBoxStateWith(store);
   });
 
-  describe('setQueryFromUrl', () => {
+  describe('setUrlParams', () => {
     it('should set the query of the search box module', async () => {
       resetSearchBoxStateWith(store, { query: 'funko' });
 
-      await store.dispatch('setQueryFromUrl', { query: 'lego' });
+      await store.dispatch('setUrlParams', { query: 'lego' });
 
       expect(store.state.query).toEqual('lego');
     });
@@ -31,7 +31,7 @@ describe('testing search box module actions', () => {
     it('should not set the query of the search box module', async () => {
       resetSearchBoxStateWith(store, { query: 'funko' });
 
-      await store.dispatch('setQueryFromUrl', { page: 2 });
+      await store.dispatch('setUrlParams', { page: 2 });
 
       expect(store.state.query).toEqual('funko');
     });

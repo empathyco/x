@@ -2,8 +2,8 @@ import { RelatedTagsRequest } from '@empathyco/x-adapter';
 import { RelatedTag } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
+import { UrlParams } from '../../../types/url-params';
 import { Dictionary } from '../../../utils';
-import { UrlParamValue } from '../../url';
 import { RelatedTagsConfig } from '../config.types';
 
 /**
@@ -96,7 +96,7 @@ export interface RelatedTagsActions {
    * Receives a list of params from the url, builds the entities and
    * set them in the store.
    */
-  setUrlParamsFromTheUrl(urlParams: Dictionary<UrlParamValue>): void;
+  setUrlParams(urlParams: UrlParams): void;
 }
 /**
  * RelatedTags type safe store module.

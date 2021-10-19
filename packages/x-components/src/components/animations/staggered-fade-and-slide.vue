@@ -51,23 +51,22 @@
   }
 </style>
 
-<docs>
-
-The Staggered fade and slide components works as the normal fade and slide components, but
-it also adds a configurable delay to each transition.
+<docs lang="mdx">
+The Staggered fade and slide components works as the normal fade and slide components, but it also
+adds a configurable delay to each transition.
 
 ## Example
 
 ### Used with animatable components
 
 ```vue
-<AnimatableComponent :animation="StaggeredFadeAndSlide"/>
+<AnimatableComponent :animation="StaggeredFadeAndSlide" />
 ```
 
 ### Used as a regular component:
 
-This components exposes all the props and events of the Staggering transition group, like the
-`tag` or the `stagger` props:
+This components exposes all the props and events of the Staggering transition group, like the `tag`
+or the `stagger` props:
 
 ```vue
 <StaggeredFadeAndSlide tag="ul" :stagger="50">
@@ -76,5 +75,4 @@ This components exposes all the props and events of the Staggering transition gr
   <li>Element to animate</li>
 </StaggeredFadeAndSlide>
 ```
-
 </docs>

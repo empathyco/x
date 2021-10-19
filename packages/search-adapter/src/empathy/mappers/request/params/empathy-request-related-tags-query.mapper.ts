@@ -8,9 +8,16 @@ import { RequestMapper } from '../../../empathy-adapter.types';
  * @public
  */
 @injectable()
-export class EmpathyRequestRelatedTagsQueryMapper implements RequestMapper<QueryableRequest, string> {
-
+export class EmpathyRequestRelatedTagsQueryMapper implements RequestMapper<QueryableRequest, string>
+{
   map({ relatedTags = [] }: QueryableRequest, query: string): string {
-    return relatedTags.reduce((chain, rt) => `${chain} ${rt.tag}`, query).trim();
+    return relatedTags.reduce(
+      (partialQuery, { tag, query: relatedTagQuery }) =>
+        relatedTagQuery.startsWith(tag)
+          ? `${tag} ${partialQuery}`
+          : `${partialQuery} ${tag}`,
+      query
+    )
+    .trim();
   }
 }

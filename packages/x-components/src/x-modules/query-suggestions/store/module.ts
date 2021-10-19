@@ -4,6 +4,7 @@ import {
   fetchAndSaveSuggestions
 } from './actions/fetch-and-save-suggestions.action';
 import { fetchSuggestions } from './actions/fetch-suggestions.action';
+import { setUrlParams } from './actions/set-url-params.action';
 import { normalizedQuery } from './getters/normalized-query.getter';
 import { querySuggestions } from './getters/query-suggestions.getter';
 import { request } from './getters/request.getter';
@@ -47,6 +48,7 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
   actions: {
     cancelFetchAndSaveSuggestions,
     fetchSuggestions,
-    fetchAndSaveSuggestions
+    fetchAndSaveSuggestions,
+    setUrlParams
   }
 };

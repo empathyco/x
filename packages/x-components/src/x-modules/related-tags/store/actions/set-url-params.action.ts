@@ -1,6 +1,5 @@
 import { RelatedTag } from '@empathyco/x-types';
-import { Dictionary } from '../../../../utils';
-import { UrlParamValue } from '../../../url';
+import { UrlParams } from '../../../../types/url-params';
 import { RelatedTagsXStoreModule } from '../types';
 
 /**
@@ -25,7 +24,7 @@ const createRelatedTags = (relatedTags: string[], query: string): RelatedTag[] =
 };
 
 /**
- * Default implementation for the {@link RelatedTagsActions.setUrlParamsFromTheUrl}.
+ * Default implementation for the {@link RelatedTagsActions.setUrlParams}.
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
@@ -33,16 +32,15 @@ const createRelatedTags = (relatedTags: string[], query: string): RelatedTag[] =
  *
  * @public
  */
-export const setUrlParamsFromTheUrl: RelatedTagsXStoreModule['actions']['setUrlParamsFromTheUrl'] =
-  ({ commit }, { query, relatedTag }: Dictionary<UrlParamValue>) => {
-    const newRelatedTag = relatedTag as string[];
-    const newQuery = query as string;
+export const setUrlParams: RelatedTagsXStoreModule['actions']['setUrlParams'] = (
+  { commit },
+  { query, tag }: UrlParams
+) => {
+  if (tag) {
+    commit('setSelectedRelatedTags', createRelatedTags(tag, query));
+  }
 
-    if (newRelatedTag) {
-      commit('setSelectedRelatedTags', createRelatedTags(newRelatedTag, newQuery));
-    }
-
-    if (newQuery) {
-      commit('setQuery', newQuery);
-    }
-  };
+  if (query) {
+    commit('setQuery', query);
+  }
+};

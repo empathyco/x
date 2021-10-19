@@ -97,7 +97,7 @@
 </script>
 
 <docs lang="mdx">
-#Example
+# Examples
 
 ## Basic usage
 

@@ -47,6 +47,13 @@ export const addQueryToHistoryQueries = wireDispatch('addQueryToHistory');
 export const setHistoryQueriesQuery = wireCommit('setQuery');
 
 /**
+ * Sets the history queries state `query` from url.
+ *
+ * @public
+ */
+const setUrlParams = wireDispatch('setUrlParams');
+
+/**
  * Sets the query of the history queries module to an empty string.
  *
  * @public
@@ -121,5 +128,8 @@ export const historyQueriesWiring = createWiring({
   },
   UserPressedRemoveHistoryQuery: {
     removeHistoryQuery
+  },
+  ParamsLoadedFromUrl: {
+    setUrlParams
   }
 });

@@ -1,18 +1,20 @@
-import { Identifiable } from '@empathyco/x-types';
 import { mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
+import { getNextQueriesStub } from '../../__stubs__';
 import { getSearchResponseStub } from '../../__stubs__/search-response-stubs.factory';
 import { getDataTestSelector } from '../../__tests__/utils';
+import { ListItem } from '../../utils';
+import { NextQueriesGroup } from '../../x-modules/next-queries/types';
 import BaseGrid from '../base-grid.vue';
 
 function renderBaseGridComponent({
-  columns,
+  columns = 3,
   items,
   customItemSlot = `
-    <template #Banner="{ item }">
+    <template #banner="{ item }">
       <p data-test="banner-slot">{{ item.modelName }}</p>
     </template>
-    <template #Result="{ item }">
+    <template #result="{ item }">
       <p data-test="result-slot">{{ item.modelName }}</p>
     </template>`,
   template = `
@@ -23,6 +25,17 @@ function renderBaseGridComponent({
       ${customItemSlot ?? ''}
    </BaseGrid>`
 }: BaseGridRenderOptions = {}): BaseGridComponentAPI {
+  const searchResponse = getSearchResponseStub();
+  const defaultItems = [
+    ...searchResponse.banners,
+    ...searchResponse.promoteds,
+    ...searchResponse.results,
+    {
+      modelName: 'NextQueriesGroup',
+      nextQueries: getNextQueriesStub()
+    } as NextQueriesGroup
+  ];
+
   const gridWrapper = mount(
     {
       components: {
@@ -33,7 +46,7 @@ function renderBaseGridComponent({
     },
     {
       propsData: {
-        items,
+        items: items ?? defaultItems,
         columns
       }
     }
@@ -52,13 +65,9 @@ function renderBaseGridComponent({
 }
 
 describe('testing Base Grid', () => {
-  const searchResponse = getSearchResponseStub();
-  const columns = 3;
-  const items = [...searchResponse.banners, ...searchResponse.promoteds, ...searchResponse.results];
-
   it('allows configuring the number of columns and updates the css class accordingly', () => {
-    const { wrapper } = renderBaseGridComponent({ items, columns });
-    expect(wrapper.classes()).toContain(`x-base-grid--cols-${columns}`);
+    const { wrapper } = renderBaseGridComponent({ columns: 5 });
+    expect(wrapper.classes()).toContain(`x-base-grid--cols-5`);
   });
 
   it('allows customizing the default slot', () => {
@@ -68,18 +77,16 @@ describe('testing Base Grid', () => {
              <p data-test="default-slot-overridden">{{ item.modelName }}</p>
            </template>
          </BaseGrid>`;
-    const { wrapper } = renderBaseGridComponent({ items, columns, template });
+    const { wrapper } = renderBaseGridComponent({ template });
     expect(wrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toBe(true);
   });
 
   it('allows customizing named slots', () => {
     const customItemSlot = `
-      <template #Banner="{ item }">
+      <template #banner="{ item }">
         <p data-test="banner-slot">{{ item.modelName }}</p>
       </template>`;
     const { getDefaultSlot, getScopedSlot } = renderBaseGridComponent({
-      items,
-      columns,
       customItemSlot
     });
 
@@ -87,11 +94,30 @@ describe('testing Base Grid', () => {
     expect(getScopedSlot('result').exists()).toBe(false);
     expect(getScopedSlot('banner').exists()).toBe(true);
   });
+
+  it('allows customizing named slots only using kebab case', () => {
+    const { getScopedSlot } = renderBaseGridComponent({
+      customItemSlot: `
+        <template #banner="{ item }">
+          <p data-test="banner-slot">{{ item.modelName }}</p>
+        </template>
+        <template #NextQueriesGroup="{ item }">
+          <p data-test="NextQueriesGroup-slot">{{ item.modelName }}</p>
+        </template>
+        <template #next-queries-group="{ item }">
+          <p data-test="next-queries-group-slot">{{ item.modelName }}</p>
+        </template>`
+    });
+
+    expect(getScopedSlot('banner').exists()).toBe(true);
+    expect(getScopedSlot('NextQueriesGroup').exists()).toBe(false);
+    expect(getScopedSlot('next-queries-group').exists()).toBe(true);
+  });
 });
 
 interface BaseGridRenderOptions {
   columns?: number;
-  items?: Identifiable[];
+  items?: ListItem[];
   customItemSlot?: string;
   template?: string;
 }

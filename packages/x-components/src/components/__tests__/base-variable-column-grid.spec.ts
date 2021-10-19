@@ -23,7 +23,7 @@ function renderComponent({ items = itemsStub }: RenderOptions = {}): RenderAPI {
       localVue,
       scopedSlots: {
         default: '<span data-test="default-slot" slot-scope="{ item }">{{ item.id }}</span>',
-        Result: '<span data-test="result-slot" slot-scope="{ item }">{{ item.name }}</span>'
+        result: '<span data-test="result-slot" slot-scope="{ item }">{{ item.name }}</span>'
       }
     });
   }

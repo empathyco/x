@@ -69,14 +69,15 @@
   }
 </script>
 
-<docs>
-  #Example
+<docs lang="mdx">
+# Examples
 
-  This component renders an identifier result value and highlights its matching part with the query
-  from the state. Receives as prop the result data
+This component renders an identifier result value and highlights its matching part with the query
+from the state. Receives as prop the result data
 
-  ## Basic usage:
-  ```vue
-  <IdentifierResult v-bind="{ result }"/>
-  ```
+## Basic usage:
+
+```vue
+<IdentifierResult v-bind="{ result }" />
+```
 </docs>

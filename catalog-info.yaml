@@ -1,0 +1,28 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: Interface-X
+  tags:
+    - x
+    - components
+    - frontend
+    - interface
+    - docs
+  description: Commerce Search & Discovery Frontend components
+  annotations:
+    github.com/project-slug: empathyco/x
+    backstage.io/techdocs-ref: url:https://github.com/empathyco/x/tree/main/packages/x-components
+    backstage.io/edit-url: https://github.com/empathyco/x/edit/main/catalog-info.yaml
+    sonarqube.org/project-key: empathyx-components
+    jira/project-key: EX
+  links:
+    - url: https://docs.empathy.co/empathy-for-developers/ui-reference/
+      title: X Components Reference
+      icon: web
+    - url: https://docs.empathy.co/empathy-for-developers/build-search-ui/
+      title: Build your search UI
+      icon: web
+spec:
+  type: library
+  lifecycle: production
+  owner: x

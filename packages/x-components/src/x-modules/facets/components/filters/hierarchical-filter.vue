@@ -153,8 +153,8 @@
   }
 </script>
 
-<docs>
-#Example
+<docs lang="mdx">
+# Examples
 
 This component renders a button, which on clicked emits the `UserClickedAFilter` and
 `UserClickedAHierarchicalFilter` events. By default it renders the filter label as the button text.
@@ -199,6 +199,6 @@ In this example, the child filters will also include the label and checkbox.
 
 A list of events that the component will emit:
 
-- `UserClickedAHierarchicalFilter`: the event is emitted after the user clicks the button. The
-event payload is the hierarchical filter.
+- `UserClickedAHierarchicalFilter`: the event is emitted after the user clicks the button. The event
+  payload is the hierarchical filter.
 </docs>

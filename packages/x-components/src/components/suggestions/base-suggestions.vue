@@ -112,7 +112,7 @@
 </script>
 
 <docs lang="mdx">
-#Example
+# Examples
 
 For this component to work, you will need to set a list of suggestions as prop, and also to
 implement the component for single suggestion, which handles the click event. In the following
