@@ -1,5 +1,5 @@
 import { SearchRequest } from '@empathyco/x-adapter';
-import { Facet, Result, Sort } from '@empathyco/x-types';
+import { Facet, Result, Sort, Redirection } from '@empathyco/x-types';
 
 /**
  * Dictionary of the events of Search XModule, where each key is the event name, and the value is
@@ -61,4 +61,14 @@ export interface SearchXEvents {
    * The user reached the limit of the scrollable content in a results list.
    */
   UserReachedResultsListEnd: void;
+  /**
+   * The user has clicked a redirection.
+   * * Payload: The clicked redirection.
+   */
+  UserClickedARedirection: Redirection;
+  /**
+   * The user has viewed a redirection.
+   * * Payload: The viewed redirection.
+   */
+  UserViewedARedirection: Redirection;
 }
