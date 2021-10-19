@@ -39,15 +39,16 @@
   }
 </style>
 
-<docs>
-#Example
-The CollapseWidth component is intended to be used as animation to wrap an element with
-v-if or v-show and animate it. The animation consists on scale its width size from 0 to auto.
-This transition does not work with components that have horizontal margin, padding or border. It
-also is dependant of the width of the child elements and not the root element.
+<docs lang="mdx">
+# Examples
 
+The CollapseWidth component is intended to be used as animation to wrap an element with v-if or
+v-show and animate it. The animation consists on scale its width size from 0 to auto. This
+transition does not work with components that have horizontal margin, padding or border. It also is
+dependant of the width of the child elements and not the root element.
 
 Used wrapping a component:
+
 ```vue
 <CollapseWidth>
   <ComponentOrElement v-if="open"/>

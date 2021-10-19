@@ -92,38 +92,38 @@
   }
 </script>
 
-<docs>
-  #Example
+<docs lang="mdx">
+# Examples
 
-  For this component to work, you will need to set a list of suggestions as prop, and also to
-  implement the component for single suggestion, which handles the click event. In the following
-  example, the suggestions are retrieved from a property called `suggestions`, and the
-  implementation of the suggestion component is a simple `button`, that calls the
-  `emitSuggestionSelected` method when clicked.
+For this component to work, you will need to set a list of suggestions as prop, and also to
+implement the component for single suggestion, which handles the click event. In the following
+example, the suggestions are retrieved from a property called `suggestions`, and the implementation
+of the suggestion component is a simple `button`, that calls the `emitSuggestionSelected` method
+when clicked.
 
-  ```vue
-  <BaseSuggestions :suggestions="suggestions">
-    <template #default="{ suggestion }">
-      <button @click="emitSuggestionSelected($event, suggestion)">
-        {{ suggestion.query }}
-      </button>
-    </template>
-  </BaseSuggestions>
-  ```
+```vue
+<BaseSuggestions :suggestions="suggestions">
+  <template #default="{ suggestion }">
+    <button @click="emitSuggestionSelected($event, suggestion)">
+      {{ suggestion.query }}
+    </button>
+  </template>
+</BaseSuggestions>
+```
 
-  Following the previous example, the component options object could be something like this:
+Following the previous example, the component options object could be something like this:
 
-  ```js
-    export default {
-      computed: {
-        ...mapGetters(['x', 'querySuggestions'], { suggestions: 'suggestions' })
-      },
-      methods: {
-        emitSuggestionSelected(event, suggestion) {
-          this.$x.emit('UserAcceptedAQuery', suggestion.query, { target: event.target });
-          this.$x.emit('UserSelectedAQuerySuggestion', suggestion, { target: event.target });
-        }
-      }
+```js
+export default {
+  computed: {
+    ...mapGetters(['x', 'querySuggestions'], { suggestions: 'suggestions' })
+  },
+  methods: {
+    emitSuggestionSelected(event, suggestion) {
+      this.$x.emit('UserAcceptedAQuery', suggestion.query, { target: event.target });
+      this.$x.emit('UserSelectedAQuerySuggestion', suggestion, { target: event.target });
     }
-  ```
+  }
+};
+```
 </docs>

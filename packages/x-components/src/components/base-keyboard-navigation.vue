@@ -144,64 +144,68 @@
   }
 </script>
 
-<docs>
-  #Example
+<docs lang="mdx">
+# Examples
 
-  This component has a slot to inject other components inside it. The component expects a required
-  prop, navigationHijacker, which is an array of objects containing: the xEvent to listen to, the
-  moduleName in charge of emitting the event and to which direction it should react to; to take
-  control of the navigation. It has another prop, optional in this case, to emit an xEvent when
-  reaching the navigation limit in any direction.
+This component has a slot to inject other components inside it. The component expects a required
+prop, navigationHijacker, which is an array of objects containing: the xEvent to listen to, the
+moduleName in charge of emitting the event and to which direction it should react to; to take
+control of the navigation. It has another prop, optional in this case, to emit an xEvent when
+reaching the navigation limit in any direction.
 
-  ## Basic Usage
+## Basic Usage
 
-  ```vue
-  <KeyboardNavigation>
-    <QuerySuggestions/>
-  </KeyboardNavigation>
-  ```
+```vue
+<KeyboardNavigation>
+  <QuerySuggestions/>
+</KeyboardNavigation>
+```
 
-  ## Defining multiple conditions to take navigation's control
+## Defining multiple conditions to take navigation's control
 
-  ```vue
-  <KeyboardNavigation
-    :navigationHijacker="[{
+```vue
+<KeyboardNavigation
+  :navigationHijacker="[
+    {
       xEvent: 'UserPressedArrowKey',
       moduleName: 'searchBox',
       direction: 'ArrowDown'
-    }, {
+    },
+    {
       xEvent: 'UserPressedArrowKey',
       moduleName: 'facets',
       direction: 'ArrowRight'
-    }]"
-  >
-    <QuerySuggestions/>
-  </KeyboardNavigation>
-  ```
+    }
+  ]"
+>
+  <QuerySuggestions/>
+</KeyboardNavigation>
+```
 
-  ## Defining events to emit when reaching a navigation limit
+## Defining events to emit when reaching a navigation limit
 
-  ```vue
-  <KeyboardNavigation
-    :navigationHijacker="[{
+```vue
+<KeyboardNavigation
+  :navigationHijacker="[
+    {
       xEvent: 'UserPressedArrowKey',
       moduleName: 'searchBox',
       direction: 'ArrowDown'
-    }]"
-    :eventsForDirectionLimit="{
-      ArrowUp: 'UserReachedEmpathizeTop'
-    }"
-  >
-    <QuerySuggestions/>
-  </KeyboardNavigation>
-  ```
+    }
+  ]"
+  :eventsForDirectionLimit="{
+    ArrowUp: 'UserReachedEmpathizeTop'
+  }"
+>
+  <QuerySuggestions/>
+</KeyboardNavigation>
+```
 
+## Events
 
-  ## Events
+An event that the component will emit:
 
-  An event that the component will emit:
-
-  - `UserReachedEmpathizeTop`: the event emitted by default when the container reaches its top
+- `UserReachedEmpathizeTop`: the event emitted by default when the container reaches its top
   navigation, but more events can be emitted for each direction using the `eventsForDirectionLimit`
   prop.
 </docs>

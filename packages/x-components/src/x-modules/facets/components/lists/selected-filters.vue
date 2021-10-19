@@ -96,7 +96,7 @@
 </script>
 
 <docs lang="mdx">
-#Example
+# Examples
 
 Provides a scoped slot with the selected filters from every facet, or from the facet which facet id
 is passed as property.

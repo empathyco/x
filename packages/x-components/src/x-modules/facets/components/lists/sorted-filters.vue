@@ -40,73 +40,73 @@
   }
 </script>
 
-<docs>
-  # Example
+<docs lang="mdx">
+# Example
 
-  The sorted filters component takes a list of filters and returns this new filters list sorted by
-  the `selected` filter property.
+The sorted filters component takes a list of filters and returns this new filters list sorted by the
+`selected` filter property.
 
-  ## Remarks
+## Remarks
 
-  - The component can receive the filters list by property or using the XInjection feature.
-  - It also provides the resultant list bound in the default slot or with the XProvide feature.
+- The component can receive the filters list by property or using the XInjection feature.
+- It also provides the resultant list bound in the default slot or with the XProvide feature.
 
-  Both XInjection and XProvide features are from the extended FiltersInjectionMixin. You don't have
-  to use XInjection and XProvide together, e.g. you can use pass the filters using a prop and then
-  returns the result with XProvide.
+Both XInjection and XProvide features are from the extended FiltersInjectionMixin. You don't have to
+use XInjection and XProvide together, e.g. you can use pass the filters using a prop and then
+returns the result with XProvide.
 
-  ## Basic usage
+## Basic usage
 
-  ### Using props and binding the result
+### Using props and binding the result
 
-  ```vue
-  <template>
-    <Facets v-slot="{ facet }">
-      <SortedFilters :filters="facet.filters" #default="{ sortedFilters }">
-        <Filters :items="sortedFilters" v-slot="{ filter }">
-          <SimpleFilter :filter="filter"/>
-        </Filters>
-      </SortedFilters>
-    </Facets>
-  </template>
-
-  <script>
-    import { Facets, SimpleFilter, Filters } from "@empathyco/x-components";
-
-    export default {
-      components: {
-        Facets,
-        Filters,
-        SimpleFilter
-      }
-    }
-  </script>
-  ```
-
-  ### Using XInject and XProvide
-
-  ```vue
+```vue
+<template>
   <Facets v-slot="{ facet }">
-    <FiltersSearch :filters="facet.filters">
-      <SortedFilters>
-        <Filters v-slot="{ filter }">
-          <SimpleFilter :filter="filter"/>
-        </Filters>
-      </SortedFilters>
-    </FiltersSearch>
+    <SortedFilters :filters="facet.filters" #default="{ sortedFilters }">
+      <Filters :items="sortedFilters" v-slot="{ filter }">
+        <SimpleFilter :filter="filter" />
+      </Filters>
+    </SortedFilters>
   </Facets>
+</template>
 
-  <script>
-    import { Facets, FiltersSearch, SimpleFilter, Filters } from "@empathyco/x-components";
+<script>
+  import { Facets, SimpleFilter, Filters } from '@empathyco/x-components';
 
-    export default {
-      components: {
-        Facets,
-        FiltersSearch,
-        Filters,
-        SimpleFilter
-      }
+  export default {
+    components: {
+      Facets,
+      Filters,
+      SimpleFilter
     }
-  </script>
-  ```
+  };
+</script>
+```
+
+### Using XInject and XProvide
+
+```vue
+<Facets v-slot="{ facet }">
+  <FiltersSearch :filters="facet.filters">
+    <SortedFilters>
+      <Filters v-slot="{ filter }">
+        <SimpleFilter :filter="filter"/>
+      </Filters>
+    </SortedFilters>
+  </FiltersSearch>
+</Facets>
+
+<script>
+  import { Facets, FiltersSearch, SimpleFilter, Filters } from '@empathyco/x-components';
+
+  export default {
+    components: {
+      Facets,
+      FiltersSearch,
+      Filters,
+      SimpleFilter
+    }
+  };
+</script>
+```
 </docs>

@@ -37,7 +37,7 @@
 </script>
 
 <docs lang="mdx">
-#Examples
+# Examples
 
 This component serves to open the `BaseEventsModal`.
 

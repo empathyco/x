@@ -86,11 +86,11 @@
   }
 </style>
 
-<docs>
-#Example
+<docs lang="mdx">
+# Examples
 
-Toggle panel which uses the base toggle panel, adds a header and manage the open / close state
-of the panel.
+Toggle panel which uses the base toggle panel, adds a header and manage the open / close state of
+the panel.
 
 ## Basic usage
 

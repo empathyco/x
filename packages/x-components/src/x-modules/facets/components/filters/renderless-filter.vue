@@ -94,16 +94,16 @@
   }
 </script>
 
-<docs>
-#Example
+<docs lang="mdx">
+# Examples
 
-Renders default slot content. It binds to the default slot a filter, the events that will
-be emitted when clicking the content, the css classes and if the content should be disabled.
+Renders default slot content. It binds to the default slot a filter, the events that will be emitted
+when clicking the content, the css classes and if the content should be disabled.
 
 ## Basic usage
 
 ```vue
-<RenderlessFilter :filter="filter"/>
+<RenderlessFilter :filter="filter" />
 ```
 
 ## Customizing its contents and adding new events
@@ -113,14 +113,11 @@ be emitted when clicking the content, the css classes and if the content should 
   <RenderlessFilter
     :filter="filter"
     :clickEvents="clickEvents"
-    v-slot="{ filter, clickFilter, cssClasses, isDisabled }">
-      <button
-        @click="clickFilter"
-        :class="cssClasses"
-        :disabled="isDisabled"
-      >
-        {{ filter.label }}
-      </button>
+    v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
+  >
+    <button @click="clickFilter" :class="cssClasses" :disabled="isDisabled">
+      {{ filter.label }}
+    </button>
   </RenderlessFilter>
 </template>
 
@@ -140,5 +137,4 @@ be emitted when clicking the content, the css classes and if the content should 
   };
 </script>
 ```
-
 </docs>

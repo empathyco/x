@@ -57,24 +57,24 @@
   }
 </script>
 
-<docs>
-  #Examples
+<docs lang="mdx">
+# Examples
 
-  ## Adding a IdentifierResult component within a BaseResultLink
+## Adding a IdentifierResult component within a BaseResultLink
 
-  A IdentifierResult **must** be used inside the IdentifierResults component. In the example below
-  the BaseResultLink is used as a wrapper and its default slot is filled with the IdentifierResult
-  component.
+A IdentifierResult **must** be used inside the IdentifierResults component. In the example below the
+BaseResultLink is used as a wrapper and its default slot is filled with the IdentifierResult
+component.
 
-  ```vue
-  <IdentifierResults :animation="fadeAndSlide">
-    <template #default="{ identifierResult }">
-      <BaseResultLink :result="identifierResult">
-        <template #default="{ result }">
-          <IdentifierResult :result="result"/>
-        </template>
-      </BaseResultLink>
-    </template>
-  </IdentifierResults>
-  ```
+```vue
+<IdentifierResults :animation="fadeAndSlide">
+  <template #default="{ identifierResult }">
+    <BaseResultLink :result="identifierResult">
+      <template #default="{ result }">
+        <IdentifierResult :result="result"/>
+      </template>
+    </BaseResultLink>
+  </template>
+</IdentifierResults>
+```
 </docs>

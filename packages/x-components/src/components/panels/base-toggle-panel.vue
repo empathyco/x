@@ -38,8 +38,8 @@
   }
 </script>
 
-<docs>
-#Example
+<docs lang="mdx">
+# Examples
 
 Simple panel that receives its open state via prop, which is responsible of rendering default slot
 inside a configurable transition.
@@ -47,6 +47,7 @@ inside a configurable transition.
 ## Basic usage
 
 Using default slot:
+
 ```vue
 <BaseTogglePanel :open="true" :animation="collapseFromTop">
   <Filters :filters="filters">

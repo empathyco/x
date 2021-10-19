@@ -76,13 +76,15 @@
   }
 </style>
 
-<docs>
-#Example
-The CollapseTop component is intended to be used as animation to wrap an element with
-v-if or v-show and animate it. The animation consists on scale its vertical size from 0 to 1, and
-after this show the content with an opacity transition
+<docs lang="mdx">
+# Examples
+
+The CollapseTop component is intended to be used as animation to wrap an element with v-if or v-show
+and animate it. The animation consists on scale its vertical size from 0 to 1, and after this show
+the content with an opacity transition
 
 Used wrapping a component:
+
 ```vue
 <CollapseFromTop>
   <ComponentOrElement v-if="open"/>
