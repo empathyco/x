@@ -52,7 +52,6 @@ function generateDestination(folder, regex, file) {
   const match = regex.exec(file);
   if (match) {
     const { path, componentName } = match.groups;
-    console.log(join(folder, path, `x-components.${componentName}.md`));
     return join(folder, path, `x-components.${componentName}.md`);
   } else {
     return '';
