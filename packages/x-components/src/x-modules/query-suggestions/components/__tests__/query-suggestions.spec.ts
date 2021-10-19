@@ -1,4 +1,4 @@
-import { createLocalVue, mount } from '@vue/test-utils';
+import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { getQuerySuggestionsStub } from '../../../../__stubs__/query-suggestions-stubs.factory';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
@@ -16,25 +16,23 @@ describe('testing Query Suggestions component', () => {
 
   const suggestions = getQuerySuggestionsStub('gin');
 
-  const component = mount(QuerySuggestions, {
-    localVue,
-    store
-  });
+  let querySuggestionsWrapper: Wrapper<Vue>;
 
   beforeEach(() => {
+    querySuggestionsWrapper = mount(QuerySuggestions, { localVue, store });
     resetXQuerySuggestionsStateWith(store, {});
   });
 
   it('is an XComponent', () => {
-    expect(isXComponent(component.vm)).toEqual(true);
+    expect(isXComponent(querySuggestionsWrapper.vm)).toEqual(true);
   });
 
   it('has QuerySuggestionModule as XModule', () => {
-    expect(getXComponentXModuleName(component.vm)).toEqual('querySuggestions');
+    expect(getXComponentXModuleName(querySuggestionsWrapper.vm)).toEqual('querySuggestions');
   });
 
   it('does not render anything when suggestions are empty', () => {
-    expect(component.findAll('li')).toHaveLength(0);
+    expect(querySuggestionsWrapper.findAll('li')).toHaveLength(0);
   });
 
   it('renders a list of suggestions passed as props', async () => {
@@ -42,7 +40,7 @@ describe('testing Query Suggestions component', () => {
 
     await localVue.nextTick();
 
-    expect(component.findAll('li')).toHaveLength(suggestions.length);
+    expect(querySuggestionsWrapper.findAll('li')).toHaveLength(suggestions.length);
   });
 
   it('renders a custom query suggestion when overriding the suggestion slot', () => {
@@ -116,9 +114,7 @@ describe('testing Query Suggestions component', () => {
       store
     });
 
-    const suggestionsItemWrappers = querySuggestions.findAll(
-      getDataTestSelector('query-suggestion')
-    ).wrappers;
+    const suggestionsItemWrappers = findTestDataById(querySuggestions, 'query-suggestion').wrappers;
     expect(suggestionsItemWrappers).toHaveLength(suggestions.length);
 
     suggestionsItemWrappers.forEach((slot, index) => {
@@ -126,4 +122,24 @@ describe('testing Query Suggestions component', () => {
       expect(slot.find(getDataTestSelector('query')).text()).toEqual(suggestions[index].query);
     });
   });
+
+  // eslint-disable-next-line max-len
+  it('renders at most the number of QuerySuggestion defined by `maxItemsToRender` prop', async () => {
+    resetXQuerySuggestionsStateWith(store, { suggestions });
+
+    const renderedQuerySuggestions = (): WrapperArray<Vue> =>
+      findTestDataById(querySuggestionsWrapper, 'query-suggestion');
+
+    await querySuggestionsWrapper.setProps({ maxItemsToRender: suggestions.length - 1 });
+    expect(renderedQuerySuggestions()).toHaveLength(suggestions.length - 1);
+
+    await querySuggestionsWrapper.setProps({ maxItemsToRender: suggestions.length });
+    expect(renderedQuerySuggestions()).toHaveLength(suggestions.length);
+
+    await querySuggestionsWrapper.setProps({ maxItemsToRender: suggestions.length + 1 });
+    expect(renderedQuerySuggestions()).toHaveLength(suggestions.length);
+  });
+  function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {
+    return wrapper.findAll(getDataTestSelector(testDataId));
+  }
 });

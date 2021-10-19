@@ -63,7 +63,7 @@
      * @public
      */
     @State('recommendations', 'recommendations')
-    public recommendations!: Result[];
+    public storedRecommendations!: Result[];
 
     /**
      * Animation component that will be used to animate the recommendations.
@@ -74,6 +74,14 @@
     protected animation!: Vue;
 
     /**
+     * Number of recommendations to be rendered.
+     *
+     * @public
+     */
+    @Prop()
+    protected maxItemsToRender?: number;
+
+    /**
      * The additional events to be emitted by the mandatory {@link BaseResultLink} component.
      *
      * @public
@@ -82,6 +90,17 @@
     protected resultClickExtraEvents: PropsWithType<XEventsTypes, Result>[] = [
       'UserClickedARecommendation'
     ];
+
+    /**
+     * Slices the recommendations from the state.
+     *
+     * @returns - The list of recommendations slice by the number of items to render.
+     *
+     * @internal
+     */
+    protected get recommendations(): Result[] {
+      return this.storedRecommendations.slice(0, this.maxItemsToRender);
+    }
   }
 </script>
 
@@ -140,6 +159,43 @@ recommendations.
     </BaseGrid>
   </template>
 </Recommendations>
+```
+
+### Play with props
+
+In this example, the suggestions has been limited to render a maximum of 3 items.
+
+_Type “puzzle” or another toy in the input field to try it out!_
+
+```vue
+<template>
+  <BaseSuggestions :suggestions="suggestions" :maxItemToRender="3" />
+</template>
+
+<script>
+  import { BaseSuggestions } from '@empathyco/x-components';
+
+  export default {
+    name: 'BaseSuggestionsDemo',
+    components: {
+      BaseSuggestions
+    },
+    data() {
+      return {
+        suggestions: [
+          {
+            facets: [],
+            key: 'chips',
+            query: 'Chips',
+            totalResults: 10,
+            results: [],
+            modelName: 'PopularSearch'
+          }
+        ]
+      };
+    }
+  };
+</script>
 ```
 
 ## Events

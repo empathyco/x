@@ -4,6 +4,7 @@
     class="x-query-suggestions"
     data-test="query-suggestions"
     :animation="animation"
+    :maxItemsToRender="maxItemsToRender"
   >
     <template #default="{ suggestion, index }">
       <!--
@@ -67,6 +68,14 @@
      */
     @Prop()
     protected animation!: Vue;
+
+    /**
+     * Number of query suggestions to be rendered.
+     *
+     * @public
+     */
+    @Prop()
+    protected maxItemsToRender?: number;
   }
 </script>
 
