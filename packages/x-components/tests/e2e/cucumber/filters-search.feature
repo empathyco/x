@@ -8,7 +8,7 @@ Feature: Filters search component
     And   a related tags API
 
   Scenario Outline: 1. Brand filters are updated based on regular and sifted queries
-    Given no special config for base-filters-search view
+    Given no special config for layout view
     And   start button is clicked
     When  "<query>" is searched
     Then  filters for the searched query in "<facetName>" are displayed

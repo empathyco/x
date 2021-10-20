@@ -1,4 +1,4 @@
-import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 const initialRelatedTags: string[] = [];
 const finalRelatedTags: string[] = [];
@@ -22,10 +22,6 @@ function isElementVisible(element: HTMLElement, scrollContainer: HTMLElement): b
 
   return isVisible;
 }
-
-Given('no special config for sliding-panel view', () => {
-  cy.visit('/?useMockedAdapter=true');
-});
 
 Then('{string} sliding panel arrow is displayed', (displayedArrows: string) => {
   switch (displayedArrows) {

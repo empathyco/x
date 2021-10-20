@@ -132,10 +132,6 @@ Given('a results API response for a misspelled word', () => {
   });
 });
 
-Given('no special config for spellcheck view', () => {
-  cy.visit('/?useMockedAdapter=true');
-});
-
 Then(
   'spellcheck component is shown and its button contains the spellchecked query {string}',
   (spellcheckedQuery: string) => {

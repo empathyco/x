@@ -37,7 +37,3 @@ And('a results API with no results', () => {
     });
   }).as('interceptedNoResults');
 });
-
-And('no special config for identifier results view', () => {
-  cy.visit('/?useMockedAdapter=true');
-});

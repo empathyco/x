@@ -1,8 +1,4 @@
-import { And, Given, Then } from 'cypress-cucumber-preprocessor/steps';
-
-Given('no special config for exclude-filters view', () => {
-  cy.visit('/?useMockedAdapter=true');
-});
+import { And, Then } from 'cypress-cucumber-preprocessor/steps';
 
 Then(
   'only filters with totalResults undefined or greater than 0 are shown in facet {string}',

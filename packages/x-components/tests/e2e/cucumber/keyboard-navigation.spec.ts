@@ -1,4 +1,4 @@
-import { And, Given, Then, When, defineParameterType } from 'cypress-cucumber-preprocessor/steps';
+import { And, Then, When, defineParameterType } from 'cypress-cucumber-preprocessor/steps';
 
 defineParameterType({
   name: 'direction',
@@ -8,10 +8,6 @@ defineParameterType({
   }
 });
 type Direction = 'above' | 'below' | 'on the left' | 'on the right';
-
-Given('no special config for keyboard-navigation view', () => {
-  cy.visit('/?useMockedAdapter=true');
-});
 
 // Scenario 1
 And('{string} element position is stored', (focusableElement: string) => {
@@ -74,10 +70,6 @@ Then('top out of bounds is reached', () => {
         expect($originalElement.offset()!.left).to.be.eq($targetElement.offset()!.left);
       });
     });
-});
-
-When('clear history button position is stored', () => {
-  cy.getByDataTest('result-link').last().focus().scrollIntoView().as('originalElement');
 });
 
 Then('bottom out of bounds is reached', () => {

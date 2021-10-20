@@ -5,7 +5,7 @@ Feature: Spellcheck component
     And   a next queries API
     And   a suggestions API
     And   a related tags API
-    And   no special config for spellcheck view
+    And   no special config for layout view
     And   start button is clicked
 
   Scenario Outline: 1. Misspelled word is searched

@@ -8,7 +8,7 @@ Feature: Base column pickers components
     And   a related tags API
 
   Scenario Outline: 1. Column picker list and dropdown sets Recommendations and Results columns
-    Given no special config for base-column-picker view
+    Given no special config for layout view
     And   start button is clicked
     Then  "recommendations" are displayed in "auto" columns
     When  "<query>" is searched

@@ -3,7 +3,7 @@ Feature: Sliding panel component
   Background:
     Given a related tags API
     And   a results API with a known response
-    And   no special config for sliding-panel view
+    And   no special config for layout view
     And   start button is clicked
 
 

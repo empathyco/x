@@ -1,8 +1,4 @@
-import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-
-Given('no special config for sort view', () => {
-  cy.visit('/?useMockedAdapter=true');
-});
+import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 When(
   'sort option {string} is selected from the sort {string}',

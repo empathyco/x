@@ -1,12 +1,4 @@
-import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-
-Given('no special config for base-events-modal view', () => {
-  cy.visit('/?useMockedAdapter=true');
-});
-
-When('open modal button is clicked', () => {
-  cy.getByDataTest('open-modal').click();
-});
+import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 Then('modal is opened', () => {
   cy.getByDataTest('modal').should('exist');

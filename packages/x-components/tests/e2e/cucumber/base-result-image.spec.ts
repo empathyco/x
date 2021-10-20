@@ -1,4 +1,4 @@
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { createSimpleFacetStub } from '../../../src/__stubs__/facets-stubs.factory';
 import { createResultStub } from '../../../src/__stubs__/results-stubs.factory';
 
@@ -286,10 +286,6 @@ Given('a results API with fallback images', () => {
       totalResults: 7
     });
   }).as('interceptedFallbackResults');
-});
-
-And('no special config for base-result-image view', () => {
-  cy.visit('/?useMockedAdapter=true');
 });
 
 When('scroll down is performed', () => {

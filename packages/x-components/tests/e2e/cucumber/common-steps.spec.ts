@@ -15,6 +15,10 @@ import {
 let resultsList: string[] = [];
 
 // Init
+Given('no special config for layout view', () => {
+  cy.visit('/?useMockedAdapter=true');
+});
+
 When('start button is clicked', () => {
   cy.getByDataTest('open-modal').click();
 });
@@ -33,6 +37,10 @@ Then('no identifier results are displayed', () => {
 // History Queries
 When('clear history queries button is clicked', () => {
   cy.getByDataTest('clear-history-queries').click();
+});
+
+Then('history queries are displayed', () => {
+  cy.getByDataTest('history-query').should('have.length.at.least', 1);
 });
 
 Then(
@@ -83,6 +91,11 @@ Then('related results have changed', () => {
 });
 
 // Search Box
+
+When('search-input is focused', () => {
+  cy.focusSearchInput();
+});
+
 When('a {string} with results is typed', (query: string) => {
   cy.typeQuery(query).then(() => {
     cy.getByDataTest('search-input').invoke('val').as('searchedQuery');

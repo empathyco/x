@@ -6,7 +6,7 @@ Feature: Base result image component
     And   a next queries API
     And   a suggestions API
     And   a related tags API
-    And   no special config for base-result-image view
+    And   no special config for layout view
     And   start button is clicked
 
   Scenario Outline: 1. Placeholders are replaced for images or fallbacks in case it is not possible to load the images

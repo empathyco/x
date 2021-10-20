@@ -1,8 +1,4 @@
-import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-
-Given('no special config for base-column-picker view', () => {
-  cy.visit('/?useMockedAdapter=true');
-});
+import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 When('{string} columns are selected from the column picker list', (numberOfColumns: string) => {
   cy.getByDataTest('column-picker-list')

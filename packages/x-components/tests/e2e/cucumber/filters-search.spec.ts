@@ -1,8 +1,4 @@
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-
-Given('no special config for base-filters-search view', () => {
-  cy.visit('/?useMockedAdapter=true');
-});
+import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 Then('filters for the searched query in {string} are displayed', (facetName: string) => {
   cy.getByDataTest(facetName)

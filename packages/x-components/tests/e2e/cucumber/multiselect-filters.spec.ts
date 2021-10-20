@@ -1,4 +1,4 @@
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 /**
  * Click on a filter from a certain facet.
@@ -17,10 +17,6 @@ function clickFacetNthFilter(facetName: string, nthFilter: number): void {
     .invoke('text')
     .as('clickedFilter');
 }
-
-Given('no special config for multiselect filters view', () => {
-  cy.visit('/?useMockedAdapter=true');
-});
 
 When(
   'filter number {int} is selected in facet {string}',

@@ -8,7 +8,7 @@ Feature: Keyboard navigation component
     And   a related tags API
 
   Scenario Outline: 1. Navigating with arrow keys
-    Given no special config for keyboard-navigation view
+    Given no special config for layout view
     And   start button is clicked
     When  "<query>" is searched
     And   related results are displayed
@@ -29,21 +29,19 @@ Feature: Keyboard navigation component
       | lego  | search-input     |
 
   Scenario Outline: 2. Not navigating out of bounds
-    Given no special config for keyboard-navigation view
+    Given no special config for layout view
     And   start button is clicked
     When  "<query>" is searched
     And   related results are displayed
     And   "<focusableElement>" element position is stored
     Then  top out of bounds is reached
-    When  clear history button position is stored
-    Then  bottom out of bounds is reached
 
     Examples:
       | query | focusableElement |
       | lego  | search-input     |
 
   Scenario Outline: 3. Navigating with tab key
-    Given no special config for keyboard-navigation view
+    Given no special config for layout view
     And   start button is clicked
     When  "<query>" is searched
     And   related results are displayed
@@ -51,8 +49,6 @@ Feature: Keyboard navigation component
     When  tab key is pressed 2 times
     Then  focused element is different from previous one
     When  tab key is pressed 25 times
-    Then  focused element is different from previous one
-    When  tab key is pressed 10 times
     Then  focused element is different from previous one
 
     Examples:

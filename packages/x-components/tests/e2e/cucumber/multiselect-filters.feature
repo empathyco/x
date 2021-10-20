@@ -8,7 +8,7 @@ Feature: MultiSelect filters component
     And   a related tags API
 
   Scenario Outline: 1. Number of results and clear-filters button are updated accordingly when selecting multiple filters per facet
-    Given no special config for multiselect filters view
+    Given no special config for layout view
     And   start button is clicked
     When  "<query>" is searched
     Then  related results are displayed
