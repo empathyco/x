@@ -1,27 +1,24 @@
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 Given('no special config for base-column-picker view', () => {
-  cy.visit('/test/base-column-picker');
+  cy.visit('/?useMockedAdapter=true');
 });
 
-When('{int} columns are selected from the column picker list', (numberOfColumnsList: number) => {
-  cy.getByDataTest('column-picker-list').children().contains(numberOfColumnsList).click();
+When('{string} columns are selected from the column picker list', (numberOfColumns: string) => {
+  cy.getByDataTest('column-picker-list')
+    .children(`.x-column-picker-list__item--${numberOfColumns}-cols`)
+    .click();
 });
 
-When(
-  '{int} columns are selected from the column picker dropdown',
-  (numberOfColumnsDropDown: number) => {
-    cy.getByDataTest('dropdown-toggle')
-      .click()
-      .siblings('ul')
-      .children('li')
-      .contains(numberOfColumnsDropDown)
-      .click();
+Then(
+  '{string} are displayed in {string} columns',
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars-experimental
+  (resultType: string, numberOfColumns: string) => {
+    if (numberOfColumns === '0') {
+      numberOfColumns = 'auto';
+    }
+    cy.getByDataTest('grid').each(grid =>
+      expect(grid).to.have.class(`x-base-grid--cols-${numberOfColumns.toString()}`)
+    );
   }
 );
-
-Then('recommendations and results are displayed in {int} columns', (numberOfColumns: number) => {
-  cy.getByDataTest('grid')
-    .should('have.length', 2)
-    .each(grid => expect(grid).to.have.class(`x-base-grid--cols-${numberOfColumns.toString()}`));
-});

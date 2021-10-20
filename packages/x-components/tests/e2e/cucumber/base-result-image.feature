@@ -1,16 +1,22 @@
 Feature: Base result image component
 
+  Background:
+    Given a results API with fallback images
+    And   a recommendations API with a known response
+    And   a next queries API
+    And   a suggestions API
+    And   a related tags API
+    And   no special config for base-result-image view
+    And   start button is clicked
+
   Scenario Outline: 1. Placeholders are replaced for images or fallbacks in case it is not possible to load the images
-    Given no special config for base-result-image view
-    And   3 picture placeholders with no final content loaded yet
+    And   "<query>" is searched
+    Then  related results are displayed
     When  scroll down is performed
-    Then  placeholder 0 is replaced for "<image>"
-    And   placeholder 1 is replaced for "<fallback>"
-    And   placeholder 2 is replaced for "<imagesAndFallbacks>"
+    Then  placeholder 17 is replaced for "<image>"
+    And   placeholder 18 is replaced for "<fallback>"
+    And   placeholder 19 is replaced for "<imagesAndFallbacks>"
 
     Examples:
-      | image                  | fallback                  | imagesAndFallbacks    |
-      | result-picture__image  | result-picture__fallback  | result-picture__image |
-
-
-
+      | query | image                  | fallback                  | imagesAndFallbacks    |
+      | lego  | result-picture__image  | result-picture__fallback  | result-picture__image |

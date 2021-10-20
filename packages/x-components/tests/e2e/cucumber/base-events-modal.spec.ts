@@ -1,7 +1,7 @@
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 Given('no special config for base-events-modal view', () => {
-  cy.visit('/test/base-events-modal');
+  cy.visit('/?useMockedAdapter=true');
 });
 
 When('open modal button is clicked', () => {
@@ -13,11 +13,11 @@ Then('modal is opened', () => {
 });
 
 When('clicking in a modal rendered component', () => {
-  cy.getByDataTest('modal').children().getByDataTest('search-input').click();
+  cy.getByDataTest('modal').children().getByDataTest('base-scroll').click();
 });
 
 When('clicking outside modal slot content', () => {
-  cy.get('body').click('topRight');
+  cy.getByDataTest('modal').click('bottom');
 });
 
 Then('modal is closed', () => {

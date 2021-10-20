@@ -24,7 +24,7 @@ function isElementVisible(element: HTMLElement, scrollContainer: HTMLElement): b
 }
 
 Given('no special config for sliding-panel view', () => {
-  cy.visit('/test/sliding-panel');
+  cy.visit('/?useMockedAdapter=true');
 });
 
 Then('{string} sliding panel arrow is displayed', (displayedArrows: string) => {
@@ -59,7 +59,7 @@ Then('wait for the movement of the elements inside the sliding panel', () => {
 
 Then('only some related tags are visible', () => {
   cy.getByDataTest('sliding-panel-scroll').then($scroll => {
-    cy.getByDataTest('item')
+    cy.getByDataTest('related-tag-item')
       .filter((_index, $element) => isElementVisible($element, $scroll.get(0)))
       .each($element => initialRelatedTags.push($element.get(0).textContent ?? ''));
   });
@@ -67,7 +67,7 @@ Then('only some related tags are visible', () => {
 
 Then('visible related tags have changed', () => {
   cy.getByDataTest('sliding-panel-scroll').then($scroll => {
-    cy.getByDataTest('item')
+    cy.getByDataTest('related-tag-item')
       .filter((_index, $element) => isElementVisible($element, $scroll.get(0)))
       .each($element => finalRelatedTags.push($element.get(0).textContent ?? ''))
       .then(() => {

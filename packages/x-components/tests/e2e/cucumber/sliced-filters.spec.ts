@@ -1,9 +1,9 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
-let totalFiltersByFacet: number[], slicedFiltersByFacet: number[], hiddenFiltersByFacet: number[];
+let totalFilters: number, slicedFilters: number, hiddenFilters: number;
 
 Given('following config: max of sliced filters {int}', (slicedFiltersMax: number) => {
-  cy.visit('/test/sliced-filters');
+  cy.visit('/?useMockedAdapter=true');
   cy.getByDataTest('sliced-filters-max').clear().type(slicedFiltersMax.toString());
 });
 
@@ -11,53 +11,59 @@ And('filters are displayed', () => {
   cy.getByDataTest('base-filters').should('have.length', 5);
 });
 
-And('number of total filters per facet are stored', () => {
-  cy.getByDataTest('base-toggle-panel')
-    .getByDataTest('total-filters')
-    .should($totals => {
-      totalFiltersByFacet = $totals.toArray().map(totalElement => Number(totalElement.textContent));
+And('number of sliced filters in facet {string} are stored', (facetName: string) => {
+  cy.getByDataTest(facetName)
+    .parent('button')
+    .siblings('div')
+    .getByDataTest('base-filters-item')
+    .then($filters => {
+      slicedFilters = $filters.length;
     });
 });
 
-And('number of sliced filters per facet are stored', () => {
-  cy.getByDataTest('base-toggle-panel')
-    .getByDataTest('filters-show-more')
-    .getByDataTest('sliced-filters')
-    .should($sliced => {
-      slicedFiltersByFacet = $sliced
-        .toArray()
-        .map(slicedElement => Number(slicedElement.textContent));
+And('number of sliced filters match {int}', (slicedFiltersMax: number) => {
+  expect(slicedFilters).to.eq(slicedFiltersMax);
+});
+
+And('number of hidden filters in facet {string} are stored', (facetName: string) => {
+  cy.getByDataTest(facetName)
+    .parent('button')
+    .siblings('div')
+    .getByDataTest('sliced-filters-show-more-button')
+    .then($button => {
+      hiddenFilters = Number($button.text().match(/[0-9]+/g));
     });
 });
 
-Then('hidden filters per facet are calculated', () => {
-  hiddenFiltersByFacet = totalFiltersByFacet
-    .map((number, index) => number - slicedFiltersByFacet[index])
-    .filter(hiddenFilters => hiddenFilters > 0);
+Then('total filters per facet are calculated', () => {
+  totalFilters = slicedFilters + hiddenFilters;
+  cy.log(slicedFilters.toString());
+  cy.log(hiddenFilters.toString());
 });
 
-Then('total filters - hidden filters per facet is displayed in show more button', () => {
-  hiddenFiltersByFacet.forEach((result, index) => {
-    cy.getByDataTest('sliced-filters-show-more-button').eq(index).should('contain', `${result}`);
-  });
+When('clicking in show more button {string}', (facetName: string) => {
+  cy.getByDataTest(facetName)
+    .parent('button')
+    .siblings('div')
+    .getByDataTest('sliced-filters-show-more-button')
+    .click();
+});
+
+Then('total filters match displayed + hidden filters', () => {
+  expect(totalFilters).to.eq(slicedFilters);
 });
 
 // Scenario 2
-And('show more buttons are clicked', () => {
-  cy.getByDataTest('sliced-filters-show-more-button').click({ multiple: true });
+And('number of sliced filters are at most {int}', (slicedFiltersMax: number) => {
+  expect(slicedFilters).to.be.lte(slicedFiltersMax);
 });
 
-Then('numbers of sliced and total filters per facet match', () => {
-  expect(totalFiltersByFacet).to.deep.equal(slicedFiltersByFacet);
-});
-
-When('show less buttons are clicked', () => {
-  cy.getByDataTest('sliced-filters-show-less-button').click({ multiple: true });
-});
-
-And('show less button hides all filters above number {int}', (slicedFiltersMax: number) => {
-  totalFiltersByFacet.forEach((totalFilters, index) => {
-    expect(slicedFiltersByFacet[index]).lte(totalFilters);
-    expect(slicedFiltersByFacet[index]).lte(slicedFiltersMax);
-  });
+And('no show more / show less buttons are displayed in {string}', (facetName: string) => {
+  cy.getByDataTest(facetName)
+    .parent('button')
+    .siblings('div')
+    .getByDataTest('sliced-filters-show-more-button')
+    .should('not.exist')
+    .getByDataTest('sliced-filters-show-less-button')
+    .should('not.exist');
 });

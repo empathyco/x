@@ -39,12 +39,12 @@ describe('testing Facets component', () => {
   it('keeps the state facets if no facets are provided', () => {
     const stateFacets = {
       color_facet: createSimpleFacetStub('color', createSimpleFilter => [
-        createSimpleFilter('Red', false),
-        createSimpleFilter('Blue', true)
+        createSimpleFilter('Red', 10, false),
+        createSimpleFilter('Blue', 10, true)
       ]),
       brand_facet: createSimpleFacetStub('brand', createSimpleFilter => [
-        createSimpleFilter('Adidas', false),
-        createSimpleFilter('Nike', false)
+        createSimpleFilter('Adidas', 10, false),
+        createSimpleFilter('Nike', 10, false)
       ])
     };
     const { getStateFacets } = renderFacetsProviderComponent({
@@ -57,22 +57,22 @@ describe('testing Facets component', () => {
   it('renders the provided facets keeping the state facets', () => {
     const stateFacets = {
       color_facet: createSimpleFacetStub('color', createSimpleFilter => [
-        createSimpleFilter('Red', false),
-        createSimpleFilter('Blue', true)
+        createSimpleFilter('Red', 10, false),
+        createSimpleFilter('Blue', 10, true)
       ]),
       brand_facet: createSimpleFacetStub('brand', createSimpleFilter => [
-        createSimpleFilter('Adidas', false),
-        createSimpleFilter('Nike', false)
+        createSimpleFilter('Adidas', 10, false),
+        createSimpleFilter('Nike', 10, false)
       ])
     };
     const providedFacets: Facet[] = [
       createSimpleFacetStub('size', createSimpleFilter => [
-        createSimpleFilter('Small', false),
-        createSimpleFilter('Large', true)
+        createSimpleFilter('Small', 10, false),
+        createSimpleFilter('Large', 10, true)
       ]),
       createSimpleFacetStub('stock', createSimpleFilter => [
-        createSimpleFilter('no stock', false),
-        createSimpleFilter('with stock', false)
+        createSimpleFilter('no stock', 10, false),
+        createSimpleFilter('with stock', 10, false)
       ])
     ];
     const { getStateFacets } = renderFacetsProviderComponent({
@@ -89,12 +89,12 @@ describe('testing Facets component', () => {
     const { wrapper, deselectFilters, selectFilters } = renderFacetsProviderComponent();
 
     const colorFacet = createSimpleFacetStub('color', createSimpleFilter => [
-      createSimpleFilter('Red', false),
-      createSimpleFilter('Blue', false)
+      createSimpleFilter('Red', 10, false),
+      createSimpleFilter('Blue', 10, false)
     ]);
     const sizeFacet = createSimpleFacetStub('size', createSimpleFilter => [
-      createSimpleFilter('Big', false),
-      createSimpleFilter('Small', true)
+      createSimpleFilter('Big', 10, false),
+      createSimpleFilter('Small', 10, true)
     ]);
     const [redFilter] = colorFacet.filters;
     const [bigFilter, smallFilter] = sizeFacet.filters;

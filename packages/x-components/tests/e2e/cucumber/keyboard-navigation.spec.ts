@@ -10,12 +10,12 @@ defineParameterType({
 type Direction = 'above' | 'below' | 'on the left' | 'on the right';
 
 Given('no special config for keyboard-navigation view', () => {
-  cy.visit('/test/keyboard-navigation');
+  cy.visit('/?useMockedAdapter=true');
 });
 
 // Scenario 1
-And('search-box position is stored', () => {
-  cy.getByDataTest('search-input').click().focused().as('originalElement');
+And('{string} element position is stored', (focusableElement: string) => {
+  cy.getByDataTest(focusableElement).focus().as('originalElement');
 });
 
 And('right arrow is pressed {int} times', (pressedTimes: number) => {
@@ -77,7 +77,7 @@ Then('top out of bounds is reached', () => {
 });
 
 When('clear history button position is stored', () => {
-  cy.getByDataTest('clear-history-queries').focus().scrollIntoView().as('originalElement');
+  cy.getByDataTest('result-link').last().focus().scrollIntoView().as('originalElement');
 });
 
 Then('bottom out of bounds is reached', () => {
@@ -93,10 +93,15 @@ Then('bottom out of bounds is reached', () => {
 
 // Scenario 3
 When('tab key is pressed {int} times', (pressedTimes: number) => {
-  for (let i = 0; i < pressedTimes; i++) {
-    cy.focused().tab();
-  }
-  cy.focused().as('targetElement');
+  cy.focused()
+    .then(() => {
+      for (let i = 0; i < pressedTimes; i++) {
+        cy.focused().tab();
+      }
+    })
+    .then(() => {
+      cy.focused().as('targetElement');
+    });
 });
 
 Then('focused element is different from previous one', () => {

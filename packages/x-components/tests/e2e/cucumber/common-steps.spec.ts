@@ -6,7 +6,10 @@ import {
   getPopularSearchesStub,
   getQuerySuggestionsStub,
   getRelatedTagsStub,
-  getResultsStub
+  getResultsStub,
+  createSimpleFacetStub,
+  createNumberRangeFacetStub,
+  createHierarchicalFacetStub
 } from '../../../src/__stubs__';
 
 let resultsList: string[] = [];
@@ -147,42 +150,161 @@ Given('a results API', () => {
   }).as('interceptedRawResults');
 });
 
-Given('a results API with a known response', () => {
-  cy.intercept('https://api.empathy.co/search', req => {
-    req.reply({
-      banners: [],
-      promoteds: [],
-      results: [
-        createResultStub('LEGO Super Mario Pack Inicial: Aventuras con Mario - 71360', {
-          images: ['https://picsum.photos/seed/1/100/100']
-        }),
-        createResultStub('LEGO Duplo Classic Caja de Ladrillos - 1091', {
-          images: ['https://picsum.photos/seed/2/100/100']
-        }),
-        createResultStub('LEGO City Coche Patrulla de Policía - 60239', {
-          images: ['https://picsum.photos/seed/3/100/100']
-        }),
-        createResultStub('LEGO City Police Caja de Ladrillos - 60270', {
-          images: ['https://picsum.photos/seed/4/100/100']
-        }),
-        createResultStub('LEGO Friends Parque para Cachorros - 41396', {
-          images: ['https://picsum.photos/seed/5/100/100']
-        }),
-        createResultStub('LEGO Creator Ciberdrón - 31111', {
-          images: ['https://picsum.photos/seed/6/100/100']
-        }),
-        createResultStub('LEGO Technic Dragster - 42103', {
-          images: ['https://picsum.photos/seed/7/100/100']
-        })
-      ]
-    });
-  }).as('interceptedResults');
-});
-
 Given('an ID results API', () => {
   cy.intercept('https://api.empathy.co/searchById', req => {
     req.reply({
       results: getResultsStub()
     });
   });
+});
+
+Given('a results API with a known response', () => {
+  cy.intercept('https://api.empathy.co/search', req => {
+    req.reply({
+      banners: [],
+      promoteds: [],
+      facets: [
+        createSimpleFacetStub('brand_facet', createSimpleFilter => [
+          createSimpleFilter('Juguetes deportivos', 3, false),
+          createSimpleFilter('Puzzles', 0, false),
+          createSimpleFilter('Construcción', 7, false),
+          createSimpleFilter('Construye', 6, false),
+          createSimpleFilter('Disfraces', 0, false)
+        ]),
+        createNumberRangeFacetStub('price_facet', createNumberRangeFilter => [
+          createNumberRangeFilter({ min: 0, max: 10 }, false),
+          createNumberRangeFilter({ min: 10, max: 20 }, false),
+          createNumberRangeFilter({ min: 20, max: 30 }, false),
+          createNumberRangeFilter({ min: 30, max: 40 }, false),
+          createNumberRangeFilter({ min: 40, max: 60 }, false),
+          createNumberRangeFilter({ min: 60, max: 100 }, false)
+        ]),
+        createNumberRangeFacetStub('age_facet', createNumberRangeFilter => [
+          createNumberRangeFilter({ min: 0, max: 1 }, false),
+          createNumberRangeFilter({ min: 1, max: 3 }, false),
+          createNumberRangeFilter({ min: 3, max: 6 }, false),
+          createNumberRangeFilter({ min: 6, max: 9 }, false),
+          createNumberRangeFilter({ min: 9, max: 12 }, false),
+          createNumberRangeFilter({ min: 12, max: 99 }, false)
+        ]),
+        createHierarchicalFacetStub('hierarchical_category', createFilter => [
+          ...createFilter('Vehículos y pistas', false, createFilter => [
+            ...createFilter('Radiocontrol', false)
+          ]),
+          ...createFilter('Juguetes electrónicos', false, createFilter => [
+            ...createFilter('Imagen y audio', false)
+          ]),
+          ...createFilter('Educativos', false, createFilter => [
+            ...createFilter('Juguetes educativos', false)
+          ]),
+          ...createFilter('Creativos', false, createFilter => [...createFilter('Crea', false)]),
+          ...createFilter('Muñecas', false, createFilter => [
+            ...createFilter('Peluches', false),
+            ...createFilter('Ropa y accesorios', false),
+            ...createFilter('Muñecas', false),
+            ...createFilter('Playsets', false),
+            ...createFilter('Bebés', false),
+            ...createFilter('Carros', false)
+          ]),
+          ...createFilter('Construcción', false, createFilter => [
+            ...createFilter('Construye', false)
+          ])
+        ])
+      ],
+      results: [
+        createResultStub('LEGO Super Mario Pack Inicial: Aventuras con Mario - 71360', {
+          images: ['https://picsum.photos/seed/1/100/100'],
+          minAge: 6,
+          maxAge: 9,
+          price: {
+            hasDiscount: false,
+            originalValue: 59.99,
+            value: 59.99
+          },
+          unitAge: 'y',
+          brands: ['LEGO'],
+          categories: ['CONSTRUCCIÓN', 'CONSTRUYE']
+        }),
+        createResultStub('LEGO Duplo Classic Caja de Ladrillos - 1091', {
+          images: ['https://picsum.photos/seed/2/100/100'],
+          minAge: 1,
+          maxAge: 3,
+          price: {
+            hasDiscount: false,
+            originalValue: 29.99,
+            value: 29.99
+          },
+          unitAge: 'y',
+          brands: ['LEGO'],
+          categories: ['CONSTRUCCIÓN', '1ª CONSTRUCCIÓN']
+        }),
+        createResultStub('LEGO City Coche Patrulla de Policía - 60239', {
+          images: ['https://picsum.photos/seed/3/100/100'],
+          minAge: 6,
+          maxAge: 9,
+          price: {
+            hasDiscount: false,
+            originalValue: 11.99,
+            value: 11.99
+          },
+          unitAge: 'y',
+          brands: ['LEGO'],
+          categories: ['CONSTRUCCIÓN', 'VEHÍCULOS']
+        }),
+        createResultStub('LEGO City Police Caja de Ladrillos - 60270', {
+          images: ['https://picsum.photos/seed/4/100/100'],
+          minAge: 6,
+          maxAge: 9,
+          price: {
+            hasDiscount: false,
+            originalValue: 39.99,
+            value: 39.99
+          },
+          unitAge: 'y',
+          brands: ['LEGO'],
+          categories: ['CONSTRUCCIÓN', 'CONSTRUYE']
+        }),
+        createResultStub('LEGO Friends Parque para Cachorros - 41396', {
+          images: ['https://picsum.photos/seed/5/100/100'],
+          minAge: 6,
+          maxAge: 9,
+          price: {
+            hasDiscount: false,
+            originalValue: 11.99,
+            value: 11.99
+          },
+          unitAge: 'y',
+          brands: ['LEGO'],
+          categories: ['CONSTRUCCIÓN', 'CONSTRUYE']
+        }),
+        createResultStub('LEGO Creator Ciberdrón - 31111', {
+          images: ['https://picsum.photos/seed/6/100/100'],
+          minAge: 1,
+          maxAge: 12,
+          price: {
+            hasDiscount: false,
+            originalValue: 11.99,
+            value: 11.99
+          },
+          unitAge: 'y',
+          brands: ['LEGO'],
+          categories: ['CONSTRUCCIÓN', 'CONSTRUYE']
+        }),
+        createResultStub('LEGO Technic Dragster - 42103', {
+          images: ['https://picsum.photos/seed/7/100/100'],
+          minAge: 6,
+          maxAge: 9,
+          price: {
+            hasDiscount: false,
+            originalValue: 22.99,
+            value: 22.99
+          },
+          unitAge: 'y',
+          brands: ['LEGO'],
+          categories: ['CONSTRUCCIÓN', 'CONSTRUYE']
+        })
+      ],
+      totalResults: 7
+    });
+  }).as('interceptedResults');
 });

@@ -1,26 +1,32 @@
 Feature: Spellcheck component
 
   Background:
-    Given no special config for spellcheck view
+    Given a recommendations API with a known response
+    And   a next queries API
+    And   a suggestions API
+    And   a related tags API
+    And   no special config for spellcheck view
+    And   start button is clicked
 
   Scenario Outline: 1. Misspelled word is searched
+    Given  a results API response for a misspelled word
     When   "<misspelledQuery>" is searched
     Then   spellcheck component is shown and its button contains the spellchecked query "<spellcheckedQuery>"
 
     Examples:
       | misspelledQuery | spellcheckedQuery |
-      | brbie           | barbie            |
-      | fnko            | funko             |
+      | lgo             | lego              |
 
   Scenario Outline: 2. Correct word is searched
+    Given a results API with a known response
     When  "<query>" is searched
     Then  spellcheck component is not shown
     Examples:
       | query  |
-      | barbie |
-      | funko  |
+      | lego   |
 
   Scenario Outline: 3. Clicking spellcheck button changes query in search-box
+    Given  a results API response for a misspelled word
     When  "<misspelledQuery>" is searched
     Then  the searched query is displayed in the search-box
     And   spellcheck button contains the spellchecked query "<spellcheckedQuery>"
@@ -29,4 +35,4 @@ Feature: Spellcheck component
 
     Examples:
       | misspelledQuery | spellcheckedQuery |
-      | brbie           | barbie            |
+      | lgo             | lego              |

@@ -126,7 +126,7 @@ describe('testing Filter component', () => {
   });
 
   it('disables the filter when it has no results', async () => {
-    const filter = createSimpleFilter('category', 'men', false);
+    const filter = createSimpleFilter('category', 'men', 10, false);
     const { wrapper } = renderBaseFilter({ filter });
 
     expect(wrapper.classes()).not.toContain('x-filter--is-disabled');

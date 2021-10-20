@@ -44,8 +44,8 @@ describe(`testing ${areFiltersDifferent.name}`, () => {
   it('returns false with the same filters', () => {
     expect(
       areFiltersDifferent(
-        [createSimpleFilter('color', 'red', false)],
-        [createSimpleFilter('color', 'red', true)]
+        [createSimpleFilter('color', 'red', 10, false)],
+        [createSimpleFilter('color', 'red', 10, true)]
       )
     ).toBe(false);
     expect(
@@ -72,7 +72,7 @@ describe(`testing ${areFiltersDifferent.name}`, () => {
     expect(
       areFiltersDifferent(
         [
-          createSimpleFilter('color', 'red', false),
+          createSimpleFilter('color', 'red', 10, false),
           createHierarchicalFilter('category', 'shirt'),
           createNumberRangeFilter('price', { min: null, max: 10 }),
           createEditableNumberRangeFilter('age', { min: null, max: 30 }),
@@ -83,7 +83,7 @@ describe(`testing ${areFiltersDifferent.name}`, () => {
           createEditableNumberRangeFilter('age', { min: null, max: 30 }),
           createNumberRangeFilter('price', { min: null, max: 10 }),
           createHierarchicalFilter('category', 'shirt'),
-          createSimpleFilter('color', 'red', false)
+          createSimpleFilter('color', 'red', 10, false)
         ]
       )
     ).toBe(false);

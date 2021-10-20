@@ -1,30 +1,32 @@
 Feature: Sliced Filters components
 
-  Scenario Outline: 1. Total filters match displayed + hidden filters
-    Given following config: max of sliced filters <slicedFiltersMax>
-    When  "<query>" is searched
-    And   filters are displayed
-    And   number of total filters per facet are stored
-    And   number of sliced filters per facet are stored
-    Then  hidden filters per facet are calculated
-    Then  total filters - hidden filters per facet is displayed in show more button
-    Examples:
-      | slicedFiltersMax | query  |
-      | 2                | muñeca |
-      | 10               | juego  |
+  Background:
+    Given a results API with a known response
 
-  Scenario Outline: 2. Show more / less button displays or hide part of the results
+  Scenario Outline: 1. Filters received in a facet are more than slicedFiltersMax
     Given following config: max of sliced filters <slicedFiltersMax>
+    And   start button is clicked
     When  "<query>" is searched
     And   filters are displayed
-    And   show more buttons are clicked
-    And   number of total filters per facet are stored
-    And   number of sliced filters per facet are stored
-    Then  numbers of sliced and total filters per facet match
-    When  show less buttons are clicked
-    And   number of sliced filters per facet are stored
-    And   show less button hides all filters above number <slicedFiltersMax>
+    Then  number of sliced filters in facet "<facetName>" are stored
+    And   number of sliced filters match <slicedFiltersMax>
+    And   number of hidden filters in facet "<facetName>" are stored
+    And   total filters per facet are calculated
+    When  clicking in show more button "<facetName>"
+    Then  number of sliced filters in facet "<facetName>" are stored
+    And   total filters match displayed + hidden filters
     Examples:
-      | slicedFiltersMax | query  |
-      | 2                | muñeca |
-      | 10               | juego  |
+      | slicedFiltersMax | query  | facetName |
+      | 2                | lego   | age_facet |
+
+  Scenario Outline: 2. Filters received in a facet are less than slicedFiltersMax
+    Given following config: max of sliced filters <slicedFiltersMax>
+    And   start button is clicked
+    When  "<query>" is searched
+    And   filters are displayed
+    Then  number of sliced filters in facet "<facetName>" are stored
+    And   number of sliced filters are at most <slicedFiltersMax>
+    And   no show more / show less buttons are displayed in "<facetName>"
+    Examples:
+      | slicedFiltersMax | query  | facetName |
+      | 10               | lego   | age_facet |
