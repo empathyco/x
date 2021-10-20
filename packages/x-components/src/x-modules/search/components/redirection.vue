@@ -38,9 +38,9 @@
       return this.redirections[0] ?? null;
     }
 
-    @Watch('mode', { immediate: true })
-    protected redirectDelayed(mode: this['mode']): void {
-      if (this.redirection && mode === 'auto') {
+    @Watch('redirections', { immediate: true })
+    protected redirectDelayed(): void {
+      if (this.redirection && this.mode === 'auto') {
         this.timeoutId = setTimeout(this.redirect.bind(this, this.redirection), this.delayMs);
       }
     }

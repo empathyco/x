@@ -82,23 +82,24 @@ describe('testing Redirection component', () => {
     expect(getXComponentXModuleName(redirectionWrapper.vm)).toEqual('search');
   });
 
-  it("doesn't render the redirection component", () => {
+  it("doesn't render when there are no redirections", () => {
     const { redirectionWrapper } = renderRedirection({ redirections: [] });
 
     expect(redirectionWrapper.html()).toBe('');
   });
 
   it('renders the redirection component slot', () => {
-    const { redirectionWrapper } = renderRedirection();
+    const { redirectionWrapper } = renderRedirection({
+      template: `
+        <Redirection :mode="mode" :delayMs="delayMs">
+          <template v-slot="{ redirection, redirect, abortRedirect }">
+            <span data-test="redirection-url">{{ redirection.url }}</span>
+          </template>
+        </Redirection>`
+    });
 
     expect(redirectionWrapper.get(getDataTestSelector('redirection-url')).text()).toEqual(
       'https://picsum.photos/seed/redirection/500'
-    );
-    expect(redirectionWrapper.get(getDataTestSelector('redirection-accept')).text()).toEqual(
-      'Redirect now!'
-    );
-    expect(redirectionWrapper.get(getDataTestSelector('redirection-abort')).text()).toEqual(
-      'Abort redirection!'
     );
   });
 
@@ -114,16 +115,20 @@ describe('testing Redirection component', () => {
   });
 
   it('accepts the redirection in auto mode', () => {
+    const { wrapper } = renderRedirection();
     const onUserClickedARedirection = jest.fn();
-    const { wrapper } = renderRedirection({ mode: 'auto' });
+
     jest.advanceTimersByTime(1000);
+
     wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
+
     expect(onUserClickedARedirection).toHaveBeenCalledTimes(1);
   });
 
   it('aborts the redirection', () => {
-    const onUserClickedARedirection = jest.fn();
     const { wrapper, abortRedirection } = renderRedirection();
+    const onUserClickedARedirection = jest.fn();
+
     wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
 
     abortRedirection();
