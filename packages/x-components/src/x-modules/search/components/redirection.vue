@@ -1,5 +1,5 @@
 <template>
-  <div v-if="redirection" class="x-redirection">
+  <div v-if="redirection" class="x-redirection" data-test="redirection">
     <slot v-bind="{ redirection, redirect, abortRedirect }" />
   </div>
 </template>
@@ -70,40 +70,68 @@
 </style>
 
 <docs lang="mdx">
-## Events
+## Basic example
 
-This component doesn't emit events.
-
-## See it in action
-
-In this example banned data is passed as a prop.
-
-_Here you can see how the `Banner` component is rendered._
+This component provides a slot with two methods, one for redirect and another one for cancelling it,
+also provides the first redirection from the search state.
 
 ```vue
 <template>
-  <Banner :banner="banner" />
+  <Redirection>
+    <template v-slot="{ redirection, redirect, abortRedirect }">
+      <span>{{ redirection.url }}</span>
+      <button @click="redirection">Redirect now!</button>
+      <button @click="abortRedirect">Abort redirection!</button>
+    </template>
+  </Redirection>
 </template>
 
 <script>
-  import { Banner } from '@empathyco/x-components/search';
+  import { Redirection } from '@empathyco/x-components/search';
   export default {
-    name: 'BannerDemo',
+    name: 'RedirectionDemo',
     components: {
-      Banner
+      Redirection
+    }
+  };
+</script>
+```
+
+## Advance Example
+
+In this example the mode and delayMs data is passed as a prop.
+
+_Here you can see how the `Redirection` component is rendered._
+
+```vue
+<template>
+  <Redirection :mode="mode" :delayMs="delayMs">
+    <template v-slot="{ redirection, redirect, abortRedirect }">
+      <span>{{ redirection.url }}</span>
+      <button @click="redirection">Redirect now!</button>
+      <button @click="abortRedirect">Abort redirection!</button>
+    </template>
+  </Redirection>
+</template>
+
+<script>
+  import { Redirection } from '@empathyco/x-components/search';
+  export default {
+    name: 'RedirectionDemo',
+    components: {
+      Redirection
     },
     data() {
       return {
-        banner: {
-          modelName: 'Banner',
-          id: 'banner-example',
-          url: 'https://my-website.com/summer-shirts',
-          image: 'https://my-website.com/images/summer-shirts.jpg',
-          title: 'Trendy summer shirts'
-        }
+        mode: 'auto',
+        delayMs: 100
       };
     }
   };
 </script>
 ```
+
+## Events
+
+This component emits the `UserClickedARedirection` after the user clicks the redirection button.
 </docs>
