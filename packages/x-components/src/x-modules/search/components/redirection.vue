@@ -52,22 +52,12 @@
 
     protected abortRedirect(): void {
       clearTimeout(this.timeoutId);
+      this.$x.emit('UserClickedAbortARedirection');
     }
   }
 </script>
 
-<style lang="scss">
-  .x-banner {
-    display: flex;
-    flex-flow: column nowrap;
-    text-decoration: none;
-
-    &__image {
-      width: 100%;
-      object-fit: contain;
-    }
-  }
-</style>
+<style lang="scss"></style>
 
 <docs lang="mdx">
 ## Basic example

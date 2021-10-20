@@ -229,6 +229,14 @@
         </template>
 
         <template #main-body>
+          <Redirection>
+            <template v-slot="{ redirection, redirect, abortRedirect }">
+              <span>{{ redirection.url }}</span>
+              <button @click="redirection">Redirect now!</button>
+              <button @click="abortRedirect">Abort redirection!</button>
+              <ProgressBar />
+            </template>
+          </Redirection>
           <!-- IdentifierResults -->
           <IdentifierResults class="x-list x-list--horizontal">
             <template #default="{ identifierResult }">
@@ -423,8 +431,10 @@
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import Banner from '../x-modules/search/components/banner.vue';
   import BannersList from '../x-modules/search/components/banners-list.vue';
+  import ProgressBar from '../x-modules/search/components/progress-bar.vue';
   import Promoted from '../x-modules/search/components/promoted.vue';
   import PromotedsList from '../x-modules/search/components/promoteds-list.vue';
+  import Redirection from '../x-modules/search/components/redirection.vue';
   import ResultsList from '../x-modules/search/components/results-list.vue';
   import SortDropdown from '../x-modules/search/components/sort-dropdown.vue';
   import SortList from '../x-modules/search/components/sort-list.vue';
@@ -450,6 +460,7 @@
       infiniteScroll
     },
     components: {
+      ProgressBar,
       IdentifierResults,
       IdentifierResult,
       BaseEventsModalClose,
@@ -513,7 +524,8 @@
       SortDropdown,
       SortList,
       SortedFilters,
-      UrlHandler
+      UrlHandler,
+      Redirection
     }
   })
   export default class App extends Vue {
