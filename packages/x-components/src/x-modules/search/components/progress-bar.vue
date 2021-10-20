@@ -1,6 +1,6 @@
 <template>
   <div class="x-progress-bar">
-    <div class="x-progress-bar__fill" :style="{ width: width }"></div>
+    <div class="x-progress-bar__fill" :style="cssStyles"></div>
   </div>
 </template>
 
@@ -19,60 +19,38 @@
     mixins: [xComponentMixin(searchXModule)]
   })
   export default class ProgressBar extends Vue {
-    @Prop({ default: 10000 })
+    @Prop({ default: 2 })
     public duration!: number;
 
-    @Prop({ default: 25 })
-    public step!: number;
-
-    protected value = 0;
-
-    protected intervalID!: number;
-
-    mounted(): void {
-      this.intervalID = setInterval(() => {
-        this.calculateWidth();
-      }, this.duration / this.step);
-    }
-
-    /**
-     * Calculates the width of the progress bar.
-     *
-     * @internal
-     */
-    protected calculateWidth(): void {
-      this.value += this.step;
-      if (this.value === 100) {
-        clearInterval(this.intervalID);
-      }
-    }
-
-    /**
-     * Represents the width of the progress bar.
-     *
-     * @returns Percentage - & of the progress bar.
-     *
-     * @internal
-     */
-    protected get width(): string {
-      return `${this.value}%`;
+    protected get cssStyles(): any {
+      return this.duration === 0 ? { display: 'none' } : { animationDuration: `${this.duration}s` };
     }
 
     @XOn('UserClickedAbortARedirection')
     stop(): void {
-      clearInterval(this.intervalID);
+      this.duration = 0;
     }
   }
 </script>
 
 <style lang="scss">
   .x-progress-bar {
-    border: 1px solid black;
     height: 10px;
+    display: flex;
     &__fill {
-      height: 100%;
-      background: red;
-      transition: width 0.25s ease-in-out;
+      border-radius: 10px;
+      flex: 1 0 auto;
+      background: black;
+      animation-name: slide;
+      animation-timing-function: ease-in;
+    }
+  }
+  @keyframes slide {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0%);
     }
   }
 </style>
