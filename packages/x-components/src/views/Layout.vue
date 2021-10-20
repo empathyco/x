@@ -431,7 +431,7 @@
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import Banner from '../x-modules/search/components/banner.vue';
   import BannersList from '../x-modules/search/components/banners-list.vue';
-  import ProgressBar from '../x-modules/search/components/progress-bar.vue';
+  import AutoProgressBar from '../components/auto-progress-bar.vue';
   import Promoted from '../x-modules/search/components/promoted.vue';
   import PromotedsList from '../x-modules/search/components/promoteds-list.vue';
   import Redirection from '../x-modules/search/components/redirection.vue';
@@ -460,7 +460,7 @@
       infiniteScroll
     },
     components: {
-      ProgressBar,
+      AutoProgressBar,
       IdentifierResults,
       IdentifierResult,
       BaseEventsModalClose,
