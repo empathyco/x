@@ -134,3 +134,9 @@ Use [JsDoc](https://github.com/jsdoc/jsdoc) tags. For more information, see [JsD
 ## Any questions?
 
 If you have a question or doubts about the project, you can contact us at  [x@empathy.co](mailto:x@empathy.com).
+
+## License
+
+By contributing your code, you agree to license your contribution under the terms of the APLv2: https://www.apache.org/licenses/LICENSE-2.0
+
+All files are released with the Apache 2.0 license.
