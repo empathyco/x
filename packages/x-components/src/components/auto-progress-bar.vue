@@ -71,19 +71,17 @@ This component renders a progress bar with a duration is the `isWaiting` flag is
 
 ```vue
 <template>
-  <Redirection>
-    <template v-slot="{ isWaiting, delay }">
-      <AutoProgressBar :isWaiting="isWaiting" :duration="delay" />
-    </template>
-  </Redirection>
+  <AutoProgressBar :isWaiting="isWaiting" :duration="delay" />
 </template>
 
 <script>
-  import { Redirection } from '@empathyco/x-components/search';
   export default {
     name: 'AutoProgressBarDemo',
-    components: {
-      Redirection
+    data() {
+      return {
+        isWaiting: true,
+        delay: 2
+      };
     }
   };
 </script>
