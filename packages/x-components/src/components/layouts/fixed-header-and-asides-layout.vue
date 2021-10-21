@@ -87,43 +87,6 @@
   import BaseIdScroll from '../scroll/base-id-scroll.vue';
   import LayoutsMixin from './layouts.mixin';
 
-  /*
- <docs lang="mdx">
- # Layout
-
- This component has the following layout with fixed headers and collapsible fixed asides:
-
- |            |   header   |               |
- | :--------: | :--------: | :-----------: |
- | left-aside | sub-header |  right-aside  |
- |            |  toolbar   |               |
- |            |    main    |               |
- |            |            | scroll-to-top |
-
- # Design Tokens
-
- The component has also the following `Design Tokens` to configure it:
-
- |                   token                     |             default value                 |
- | :---------------------------------------:   | :---------------------------------------: |
- |       --x-size-height-layout-backdrop       |                  40vh                     |
- |         --x-size-width-layout-aside         |                  300px                    |
- |        --x-size-min-margin-layout           |                  20px                     |
- |     --x-size-max-height-layout-header       |                  auto                     |
- |         --x-size-max-width-layout           |                 1440px                    |
- | --x-color-background-layout-header-backdrop |                 white                     |
-
- |                   token                     |                   use                     |
- | :---------------------------------------:   | :--------------------------------------:  |
- |       --x-size-height-layout-backdrop       | The height for header gradient backdrop   |
- |         --x-size-width-layout-aside         |         The width of the asides           |
- |        --x-size-min-margin-layout           | The min horizontal margin for the Layout  |
- |     --x-size-max-height-layout-header       |   The max height for the Layout Header    |
- |         --x-size-max-width-layout           |       The max width for the Layout        |
- | --x-color-background-layout-header-backdrop | The background color of the head backdrop |
- </docs>
- */
-
   /**
    * Component for use as Layout to be filled with the rest of the components.
    *
@@ -276,3 +239,38 @@
     }
   }
 </style>
+
+<docs lang="mdx">
+# Layout
+
+This component has the following layout with fixed headers and collapsible fixed asides:
+
+|            |   header   |               |
+| :--------: | :--------: | :-----------: |
+| left-aside | sub-header |  right-aside  |
+|            |  toolbar   |               |
+|            |    main    |               |
+|            |            | scroll-to-top |
+
+# Design Tokens
+
+The component has also the following `Design Tokens` to configure it:
+
+|                    token                    | default value |
+| :-----------------------------------------: | :-----------: |
+|       --x-size-height-layout-backdrop       |     40vh      |
+|         --x-size-width-layout-aside         |     300px     |
+|         --x-size-min-margin-layout          |     20px      |
+|      --x-size-max-height-layout-header      |     auto      |
+|          --x-size-max-width-layout          |    1440px     |
+| --x-color-background-layout-header-backdrop |     white     |
+
+|                    token                    |                    use                    |
+| :-----------------------------------------: | :---------------------------------------: |
+|       --x-size-height-layout-backdrop       |  The height for header gradient backdrop  |
+|         --x-size-width-layout-aside         |          The width of the asides          |
+|         --x-size-min-margin-layout          | The min horizontal margin for the Layout  |
+|      --x-size-max-height-layout-header      |   The max height for the Layout Header    |
+|          --x-size-max-width-layout          |       The max width for the Layout        |
+| --x-color-background-layout-header-backdrop | The background color of the head backdrop |
+</docs>
