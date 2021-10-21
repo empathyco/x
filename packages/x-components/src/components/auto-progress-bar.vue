@@ -31,6 +31,13 @@
     @Prop({ default: 5 })
     public duration!: number;
 
+    /**
+     * Computed property to calculate the animation's duration.
+     *
+     * @returns The CSS styles of the animation.
+     *
+     * @internal
+     */
     protected get cssStyles(): Partial<CSSStyleDeclaration> {
       return { animationDuration: `${this.duration}s` };
     }

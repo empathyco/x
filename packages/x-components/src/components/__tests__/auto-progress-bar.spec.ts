@@ -10,7 +10,6 @@ function renderAutoProgressBar({
   const wrapper = mount(
     {
       components: { AutoProgressBar },
-      props: ['duration', 'isWaiting'],
       template
     },
     {

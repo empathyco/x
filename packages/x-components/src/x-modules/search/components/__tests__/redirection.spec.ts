@@ -10,6 +10,8 @@ import { DeepPartial } from '../../../../utils';
 import Redirection from '../redirection.vue';
 import { resetXSearchStateWith } from './utils';
 
+const stubRedirections = [createRedirectionStub('redirection')];
+
 function renderRedirection({
   template = `
   <Redirection :mode="mode" :delay="delay"  v-slot="{ redirection, redirect, abortRedirect }">
@@ -18,7 +20,7 @@ function renderRedirection({
      <button data-test="redirection-abort" @click="abortRedirect">Abort redirection!</button>
   </Redirection>
 `,
-  redirections = [createRedirectionStub('redirection')],
+  redirections = stubRedirections,
   mode = 'auto',
   delay = 1
 }: RenderRedirectionOptions = {}): RenderRedirectionAPI {
@@ -48,16 +50,13 @@ function renderRedirection({
     }
   );
 
-  const redirectionWrapper = wrapper.findComponent(Redirection);
-
   return {
-    wrapper,
-    redirectionWrapper,
+    wrapper: wrapper.findComponent(Redirection),
     acceptRedirection() {
-      redirectionWrapper.find(getDataTestSelector('redirection-accept')).element.click();
+      wrapper.find(getDataTestSelector('redirection-accept')).element.click();
     },
     abortRedirection() {
-      redirectionWrapper.find(getDataTestSelector('redirection-abort')).element.click();
+      wrapper.find(getDataTestSelector('redirection-abort')).element.click();
     }
   };
 }
@@ -72,31 +71,31 @@ describe('testing Redirection component', () => {
   });
 
   it('is an XComponent', () => {
-    const { redirectionWrapper } = renderRedirection();
-    expect(isXComponent(redirectionWrapper.vm)).toEqual(true);
+    const { wrapper } = renderRedirection();
+    expect(isXComponent(wrapper.vm)).toEqual(true);
   });
 
   it('has Search as XModule', () => {
-    const { redirectionWrapper } = renderRedirection();
-    expect(getXComponentXModuleName(redirectionWrapper.vm)).toEqual('search');
+    const { wrapper } = renderRedirection();
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('search');
   });
 
   it("doesn't render when there are no redirections", () => {
-    const { redirectionWrapper } = renderRedirection({ redirections: [] });
+    const { wrapper } = renderRedirection({ redirections: [] });
 
-    expect(redirectionWrapper.html()).toBe('');
+    expect(wrapper.html()).toBe('');
   });
 
   it('renders the redirection component slot', () => {
-    const { redirectionWrapper } = renderRedirection({
+    const { wrapper } = renderRedirection({
       template: `
         <Redirection :mode="mode" :delay="delay" v-slot="{ redirection, redirect, abortRedirect }">
           <span data-test="redirection-url">{{ redirection.url }}</span>
         </Redirection>`
     });
 
-    expect(redirectionWrapper.get(getDataTestSelector('redirection-url')).text()).toEqual(
-      'https://picsum.photos/seed/redirection/500'
+    expect(wrapper.get(getDataTestSelector('redirection-url')).text()).toEqual(
+      stubRedirections[0].url
     );
   });
 
@@ -158,8 +157,6 @@ interface RenderRedirectionOptions {
 interface RenderRedirectionAPI {
   /** The wrapper of the container element.*/
   wrapper: Wrapper<Vue>;
-  /** The wrapper of the container element.*/
-  redirectionWrapper: Wrapper<Vue>;
   /** Helper method to accept a redirection. */
   acceptRedirection: () => void;
   /** Helper method to abort a redirection. */
