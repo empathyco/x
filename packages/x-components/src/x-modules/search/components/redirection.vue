@@ -76,11 +76,10 @@
      */
     @Watch('redirections', { immediate: true })
     protected redirectDelayed(): void {
-      if (this.redirection && this.delay === 0) {
-        this.redirect(this.redirection);
-      }
-
-      if (this.redirection && this.mode === 'auto') {
+      if (this.mode === 'auto' && this.redirection) {
+        if (this.delay === 0) {
+          this.redirect(this.redirection);
+        }
         this.timeoutId = setTimeout(this.redirect.bind(this, this.redirection), this.delay * 1000);
       }
     }
@@ -113,19 +112,30 @@
 <style lang="scss"></style>
 
 <docs lang="mdx">
-## Basic example
+### Play with the component
 
-This component provides a slot with two methods, one for redirect and another one for cancelling it,
-also provides the first redirection from the search state.
+In this example, a query has been searched in the search input resulting in a case where the
+response has a redirection.
+
+A text box appears bellow the search box indicating that you're going to be redirected to another
+web page.
+
+This component has two modes:
+
+- Auto mode means that the redirection will occur after a certain number of seconds passed as a
+  property.
+  - If the value is 0 the redirection will be instantly.
+- Manual mode means that the user have to click the redirect button or nothing will happen.
+
+_Type any term in the input field to try it out!_
 
 ```vue
 <template>
-  <Redirection>
-    <template v-slot="{ redirection, redirect, abortRedirect, isWaiting }">
-      <span>{{ redirection.url }}</span>
-      <button @click="redirection">Redirect now!</button>
-      <button @click="abortRedirect">Abort redirection!</button>
-    </template>
+  <Redirection template v-slot="{ redirection, redirect, abortRedirect, isWaiting }">
+    <span>In a few seconds you're going to be redirected!</span>
+    <span>{{ redirection.url }}</span>
+    <button @click="redirection">Redirect now!</button>
+    <button @click="abortRedirect">Abort redirection!</button>
   </Redirection>
 </template>
 
@@ -140,21 +150,16 @@ also provides the first redirection from the search state.
 </script>
 ```
 
-## Advance Example
+## Extending the component
 
-In this example the mode and delay data is passed as a prop.
-
-_Here you can see how the `Redirection` component is rendered._
+Components behaviour can be changed, in this example the mode of the component will be manual
+forcing the user to accept the redirection
 
 ```vue
 <template>
-  <Redirection :mode="mode" :delay="delay">
-    <template v-slot="{ redirection, redirect, abortRedirect, isWaiting }">
-      <span>{{ redirection.url }}</span>
-      <button @click="redirection">Redirect now!</button>
-      <button @click="abortRedirect">Abort redirection!</button>
-      <AutoProgressBar :isWaiting="isWaiting" />
-    </template>
+  <Redirection :mode="mode" v-slot="{ redirection, redirect, abortRedirect, isWaiting }">
+    <span>{{ redirection.url }}</span>
+    <button @click="redirection">Redirect now!</button>
   </Redirection>
 </template>
 
@@ -169,7 +174,7 @@ _Here you can see how the `Redirection` component is rendered._
     },
     data() {
       return {
-        mode: 'auto',
+        mode: 'manual',
         delay: 100
       };
     }
@@ -179,5 +184,8 @@ _Here you can see how the `Redirection` component is rendered._
 
 ## Events
 
-This component emits the `UserClickedARedirection` after the user clicks the redirection button.
+This component emits the following events:
+
+- `UserClickedARedirection` after the user clicks the redirection button.
+- `UserClickedAbortARedirection` after the user clicks the abort redirection button.
 </docs>
