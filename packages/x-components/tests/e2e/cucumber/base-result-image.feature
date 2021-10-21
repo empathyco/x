@@ -12,10 +12,9 @@ Feature: Base result image component
   Scenario Outline: 1. Placeholders are replaced for images or fallbacks in case it is not possible to load the images
     And   "<query>" is searched
     Then  related results are displayed
-    When  scroll down is performed
-    Then  placeholder 17 is replaced for "<image>"
-    And   placeholder 18 is replaced for "<fallback>"
-    And   placeholder 19 is replaced for "<imagesAndFallbacks>"
+    And   placeholder 0 is replaced for "<image>"
+    And   placeholder 1 is replaced for "<fallback>"
+    And   placeholder 2 is replaced for "<imagesAndFallbacks>"
 
     Examples:
       | query | image                  | fallback                  | imagesAndFallbacks    |

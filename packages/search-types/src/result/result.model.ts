@@ -17,14 +17,6 @@ export interface Result extends NamedModel<'Result'>, Identifiable {
   images: string[];
   /** Result name. */
   name: string;
-  /** Minimum age use of the result. */
-  minAge: number;
-  /** Max age use of the result. */
-  maxAge: number;
-  /** Unit for the ages in the result. */
-  unitAge: string;
-  /** Brands associated with the result. */
-  brands: string[];
   /** Categories associated with the result. */
   categories: string[];
   /** {@link ResultPrice | Result price}.  */

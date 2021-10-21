@@ -13,7 +13,7 @@ Feature: Base column pickers components
     Then  "recommendations" are displayed in "auto" columns
     When  "<query>" is searched
     Then  related results are displayed
-    Then  "results" are displayed in "4" columns
+    Then  results are displayed in "4" columns
     When  "<numberOfColumns1>" columns are selected from the column picker list
     Then  "results" are displayed in "<numberOfColumns1>" columns
     When  "<numberOfColumns2>" columns are selected from the column picker list

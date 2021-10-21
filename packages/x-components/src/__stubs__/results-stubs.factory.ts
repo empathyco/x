@@ -37,11 +37,6 @@ export function createResultStub(name: string, result?: Partial<Result>): Result
     },
     images: [],
     name,
-    brands: [],
-    categories: [],
-    maxAge: 1,
-    minAge: 3,
-    unitAge: 'y',
     price: {
       hasDiscount: false,
       originalValue: 10,
