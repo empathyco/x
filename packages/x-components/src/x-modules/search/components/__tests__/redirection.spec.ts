@@ -22,7 +22,7 @@ function renderRedirection({
 `,
   redirections = [createRedirectionStub('redirection')],
   mode = 'auto',
-  delayMs = 10
+  delayMs = 1
 }: RenderRedirectionOptions = {}): RenderRedirectionAPI {
   const localVue = createLocalVue();
   localVue.use(Vuex);
@@ -104,7 +104,7 @@ describe('testing Redirection component', () => {
   });
 
   it('accepts the redirection in manual mode when the user click the button', () => {
-    const { wrapper, acceptRedirection } = renderRedirection();
+    const { wrapper, acceptRedirection } = renderRedirection({ mode: 'manual' });
     const onUserClickedARedirection = jest.fn();
 
     wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
@@ -118,7 +118,7 @@ describe('testing Redirection component', () => {
     const { wrapper } = renderRedirection();
     const onUserClickedARedirection = jest.fn();
 
-    jest.advanceTimersByTime(1000);
+    jest.advanceTimersByTime(2000);
 
     wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
 
@@ -132,7 +132,7 @@ describe('testing Redirection component', () => {
     wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
 
     abortRedirection();
-    jest.advanceTimersByTime(1000);
+    jest.advanceTimersByTime(2000);
 
     expect(onUserClickedARedirection).not.toHaveBeenCalled();
   });

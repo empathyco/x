@@ -60,6 +60,7 @@ describe('testing AutoProgressBar component', () => {
     );
   });
 });
+
 /**
  * Options to configure how the progress bar component should be rendered.
  */
