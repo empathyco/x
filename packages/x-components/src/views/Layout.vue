@@ -230,11 +230,11 @@
 
         <template #main-body>
           <Redirection>
-            <template v-slot="{ redirection, redirect, abortRedirect }">
+            <template v-slot="{ redirection, redirect, abortRedirect, isActive, delayMs }">
               <span>{{ redirection.url }}</span>
               <button @click="redirection">Redirect now!</button>
               <button @click="abortRedirect">Abort redirection!</button>
-              <ProgressBar />
+              <AutoProgressBar :isActive="isActive" :duration="delayMs" />
             </template>
           </Redirection>
           <!-- IdentifierResults -->

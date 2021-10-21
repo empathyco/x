@@ -1,6 +1,6 @@
 <template>
   <div v-if="redirection" class="x-redirection" data-test="redirection">
-    <slot v-bind="{ redirection, redirect, abortRedirect }" />
+    <slot v-bind="{ redirection, redirect, abortRedirect, isActive, delayMs }" />
   </div>
 </template>
 
@@ -8,7 +8,8 @@
   import { Redirection as RedirectionModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop, Watch } from 'vue-property-decorator';
-  import { State } from '../../../components';
+  import AutoProgressBar from '../../../components/auto-progress-bar.vue';
+  import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { searchXModule } from '../x-module';
 
@@ -20,38 +21,91 @@
    * @public
    */
   @Component({
+    components: { AutoProgressBar },
     mixins: [xComponentMixin(searchXModule)]
   })
   export default class Redirection extends Vue {
     @State('search', 'redirections')
     public redirections!: RedirectionModel[];
 
+    /**
+     * The redirection mode. Auto for auto redirection and manual for an user interaction.
+     *
+     * @public
+     */
     @Prop({ default: 'auto' })
     public mode!: 'auto' | 'manual';
 
-    @Prop({ default: 5000 })
+    /**
+     * The waiting time in seconds until the redirection is made.
+     *
+     * @remarks this delay only works in auto mode.
+     *
+     * @public
+     */
+    @Prop({ default: 2 })
     public delayMs!: number;
 
+    /**
+     * The timeout id, used to cancel the redirection.
+     *
+     * @internal
+     */
     protected timeoutId!: number;
 
+    /**
+     * Boolean flag which indicates the waiting time was aborted.
+     *
+     * @public
+     */
+    protected isActive = true;
+
+    /**
+     * Computed property which returns the first recommendation of the state, if any returns null.
+     *
+     * @returns The first redirection of the state.
+     *
+     * @internal
+     */
     protected get redirection(): RedirectionModel | null {
       return this.redirections[0] ?? null;
     }
 
+    /**
+     * Computed property which returns the first recommendation of the state, if any returns null.
+     *
+     * @internal
+     */
     @Watch('redirections', { immediate: true })
     protected redirectDelayed(): void {
       if (this.redirection && this.mode === 'auto') {
-        this.timeoutId = setTimeout(this.redirect.bind(this, this.redirection), this.delayMs);
+        this.timeoutId = setTimeout(
+          this.redirect.bind(this, this.redirection),
+          this.delayMs * 1000
+        );
       }
     }
 
+    /**
+     * Dispatches the redirection, emitting `UserClickedARedirection` event.
+     *
+     * @param  redirection - The clicked redirection.
+     *
+     * @public
+     */
     protected redirect(redirection: RedirectionModel): void {
       clearTimeout(this.timeoutId);
       this.$x.emit('UserClickedARedirection', redirection);
     }
 
+    /**
+     * Stops the redirection, emitting `UserClickedAbortARedirection` event.
+     *
+     * @public
+     */
     protected abortRedirect(): void {
       clearTimeout(this.timeoutId);
+      this.isActive = false;
       this.$x.emit('UserClickedAbortARedirection');
     }
   }
@@ -68,7 +122,7 @@ also provides the first redirection from the search state.
 ```vue
 <template>
   <Redirection>
-    <template v-slot="{ redirection, redirect, abortRedirect }">
+    <template v-slot="{ redirection, redirect, abortRedirect, isActive }">
       <span>{{ redirection.url }}</span>
       <button @click="redirection">Redirect now!</button>
       <button @click="abortRedirect">Abort redirection!</button>
@@ -96,20 +150,23 @@ _Here you can see how the `Redirection` component is rendered._
 ```vue
 <template>
   <Redirection :mode="mode" :delayMs="delayMs">
-    <template v-slot="{ redirection, redirect, abortRedirect }">
+    <template v-slot="{ redirection, redirect, abortRedirect, isActive }">
       <span>{{ redirection.url }}</span>
       <button @click="redirection">Redirect now!</button>
       <button @click="abortRedirect">Abort redirection!</button>
+      <AutoProgressBar :isActive="isActive" />
     </template>
   </Redirection>
 </template>
 
 <script>
+  import { AutoProgressBar } from '@empathyco/x-components';
   import { Redirection } from '@empathyco/x-components/search';
   export default {
     name: 'RedirectionDemo',
     components: {
-      Redirection
+      Redirection,
+      AutoProgressBar
     },
     data() {
       return {
