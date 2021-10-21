@@ -116,20 +116,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .dev-mode {
-    .slot-helper {
-      font-family: inherit;
-      color: grey;
-      box-sizing: border-box;
-      display: flex;
-      height: 100%;
-      width: 100%;
-      justify-content: center;
-      align-items: center;
-      border: dashed 1px grey;
-      border-radius: 10px;
-    }
-  }
+  @import '../../design-system/utilities/dev.mode';
 
   .x-layout {
     // custom properties
@@ -376,16 +363,6 @@
       margin-right: var(--x-size-gap-default);
     }
 
-    &__main-aside {
-      // color
-      background-color: var(--x-color-background-layout-columns-main-aside, transparent);
-      border-color: var(--x-color-border-layout-columns-main-aside, transparent);
-
-      // border
-      border-style: solid;
-      border-width: var(--x-size-border-width-layout-columns-main-aside, 0);
-    }
-
     &__body-scroll {
       flex: 1 1 auto;
       width: 0;
@@ -393,20 +370,6 @@
 
       &.x-scroll {
         --x-string-overflow-scroll: scroll;
-      }
-    }
-
-    &__main-body {
-      // color
-      background-color: var(--x-color-background-layout-columns-main-body, transparent);
-      border-color: var(--x-color-border-layout-columns-main-body, transparent);
-
-      // border
-      border-style: solid;
-      border-width: var(--x-size-border-width-layout-columns-main-body, 0);
-
-      ::v-deep .x-grid {
-        --x-size-gap-grid: var(--x-size-gap-default);
       }
     }
 

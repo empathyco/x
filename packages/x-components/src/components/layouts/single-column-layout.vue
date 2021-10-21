@@ -96,6 +96,8 @@
 </script>
 
 <style scoped lang="scss">
+  @import '../../design-system/utilities/dev.mode';
+
   .x-layout {
     display: grid;
     align-content: stretch;
@@ -174,21 +176,6 @@
           pointer-events: all;
         }
       }
-    }
-  }
-
-  .dev-mode {
-    .slot-helper {
-      font-family: inherit;
-      color: grey;
-      box-sizing: border-box;
-      display: flex;
-      height: 100%;
-      width: 100%;
-      justify-content: center;
-      align-items: center;
-      border: dashed 1px grey;
-      border-radius: 10px;
     }
   }
 </style>

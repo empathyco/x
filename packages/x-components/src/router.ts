@@ -10,9 +10,9 @@ const routes: RouteConfig[] = [
     component: () => import('./views/Layout.vue')
   },
   {
-    path: '/jumbo',
-    name: 'Jumbo',
-    component: () => import('./views/fixed-header-and-asides-layout-demo.vue')
+    path: '/fixed-header-layout',
+    name: 'Fixed Header Layout',
+    component: () => import('./views/fixed-header-and-asides-layout.vue')
   },
   {
     path: '/design-system',

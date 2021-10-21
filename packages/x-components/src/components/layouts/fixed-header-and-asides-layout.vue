@@ -104,21 +104,23 @@
 
  The component has also the following `Design Tokens` to configure it:
 
- |                   token                   |             default value              |
- | :---------------------------------------: | :------------------------------------: |
- |       --size-height-layout-backdrop       |                  40vh                  |
- |         --size-width-layout-aside         |                 300px                  |
- |        --x-size-min-margin-layout         |                  20px                  |
- |     --x-size-max-height-layout-header     |                  auto                  |
- |         --x-size-max-width-layout         |                 1440px                 |
+ |                   token                     |             default value                 |
+ | :---------------------------------------:   | :---------------------------------------: |
+ |       --x-size-height-layout-backdrop       |                  40vh                     |
+ |         --x-size-width-layout-aside         |                  300px                    |
+ |        --x-size-min-margin-layout           |                  20px                     |
+ |     --x-size-max-height-layout-header       |                  auto                     |
+ |         --x-size-max-width-layout           |                 1440px                    |
+ | --x-color-background-layout-header-backdrop |                 white                     |
 
- |                   token                   |                   use                    |
- | :---------------------------------------: | :--------------------------------------: |
- |       --size-height-layout-backdrop       | The height for header gradient backdrop  |
- |         --size-width-layout-aside         |         The width of the asides          |
- |        --x-size-min-margin-layout         | The min horizontal margin for the Layout |
- |     --x-size-max-height-layout-header     |   The max height for the Layout Header   |
- |         --x-size-max-width-layout         |       The max width for the Layout       |
+ |                   token                     |                   use                     |
+ | :---------------------------------------:   | :--------------------------------------:  |
+ |       --x-size-height-layout-backdrop       | The height for header gradient backdrop   |
+ |         --x-size-width-layout-aside         |         The width of the asides           |
+ |        --x-size-min-margin-layout           | The min horizontal margin for the Layout  |
+ |     --x-size-max-height-layout-header       |   The max height for the Layout Header    |
+ |         --x-size-max-width-layout           |       The max width for the Layout        |
+ | --x-color-background-layout-header-backdrop | The background color of the head backdrop |
  </docs>
  */
 
@@ -149,6 +151,8 @@
 </script>
 
 <style scoped lang="scss">
+  @import '../../design-system/utilities/dev.mode';
+
   .x-layout {
     // custom properties
     display: grid;
@@ -222,7 +226,7 @@
 
         ::v-deep .x-modal__content {
           background-color: transparent;
-          width: var(--size-width-layout-aside, 300px);
+          width: var(--x-size-width-layout-aside, 300px);
         }
       }
 
@@ -251,13 +255,13 @@
       position: sticky;
       top: -0.5px;
       z-index: 1;
-      height: var(--size-height-layout-backdrop, 40vh);
+      height: var(--x-size-height-layout-backdrop, 40vh);
       width: 100%;
       pointer-events: none;
 
       // color
       background-color: var(
-        --color-background-layout-header-backdrop,
+        --x-color-background-layout-header-backdrop,
         var(--x-color-base-neutral-100, white)
       );
       mask: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
@@ -269,21 +273,6 @@
       &--is-visible {
         opacity: 1;
       }
-    }
-  }
-
-  .dev-mode {
-    .slot-helper {
-      font-family: inherit;
-      color: grey;
-      box-sizing: border-box;
-      display: flex;
-      height: 100%;
-      width: 100%;
-      justify-content: center;
-      align-items: center;
-      border: dashed 1px grey;
-      border-radius: 10px;
     }
   }
 </style>
