@@ -229,13 +229,14 @@
         </template>
 
         <template #main-body>
-          <Redirection>
-            <template v-slot="{ redirection, redirect, abortRedirect, isActive, delayMs }">
-              <span>{{ redirection.url }}</span>
-              <button @click="redirection">Redirect now!</button>
-              <button @click="abortRedirect">Abort redirection!</button>
-              <AutoProgressBar :isActive="isActive" :duration="delayMs" />
-            </template>
+          <Redirection
+            v-slot="{ redirection, redirect, abortRedirect, isWaiting, delay }"
+            :delay="5"
+          >
+            <span>{{ redirection.url }}</span>
+            <button @click="redirect">Redirect now!</button>
+            <button @click="abortRedirect">Abort redirection!</button>
+            <AutoProgressBar :isWaiting="isWaiting" :duration="delay" />
           </Redirection>
           <!-- IdentifierResults -->
           <IdentifierResults class="x-list x-list--horizontal">

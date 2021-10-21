@@ -1,6 +1,6 @@
 <template>
   <div v-if="redirection" class="x-redirection" data-test="redirection">
-    <slot v-bind="{ redirection, redirect, abortRedirect, isActive, delayMs }" />
+    <slot v-bind="{ redirection, redirect, abortRedirect, isWaiting, delay }" />
   </div>
 </template>
 
@@ -8,7 +8,6 @@
   import { Redirection as RedirectionModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop, Watch } from 'vue-property-decorator';
-  import AutoProgressBar from '../../../components/auto-progress-bar.vue';
   import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { searchXModule } from '../x-module';
@@ -21,7 +20,6 @@
    * @public
    */
   @Component({
-    components: { AutoProgressBar },
     mixins: [xComponentMixin(searchXModule)]
   })
   export default class Redirection extends Vue {
@@ -43,8 +41,8 @@
      *
      * @public
      */
-    @Prop({ default: 2 })
-    public delayMs!: number;
+    @Prop({ default: 0 })
+    public delay!: number;
 
     /**
      * The timeout id, used to cancel the redirection.
@@ -58,7 +56,7 @@
      *
      * @public
      */
-    protected isActive = true;
+    protected isWaiting = true;
 
     /**
      * Computed property which returns the first recommendation of the state, if any returns null.
@@ -78,11 +76,12 @@
      */
     @Watch('redirections', { immediate: true })
     protected redirectDelayed(): void {
+      if (this.redirection && this.delay === 0) {
+        this.redirect(this.redirection);
+      }
+
       if (this.redirection && this.mode === 'auto') {
-        this.timeoutId = setTimeout(
-          this.redirect.bind(this, this.redirection),
-          this.delayMs * 1000
-        );
+        this.timeoutId = setTimeout(this.redirect.bind(this, this.redirection), this.delay * 1000);
       }
     }
 
@@ -105,7 +104,7 @@
      */
     protected abortRedirect(): void {
       clearTimeout(this.timeoutId);
-      this.isActive = false;
+      this.isWaiting = false;
       this.$x.emit('UserClickedAbortARedirection');
     }
   }
@@ -122,7 +121,7 @@ also provides the first redirection from the search state.
 ```vue
 <template>
   <Redirection>
-    <template v-slot="{ redirection, redirect, abortRedirect, isActive }">
+    <template v-slot="{ redirection, redirect, abortRedirect, isWaiting }">
       <span>{{ redirection.url }}</span>
       <button @click="redirection">Redirect now!</button>
       <button @click="abortRedirect">Abort redirection!</button>
@@ -143,18 +142,18 @@ also provides the first redirection from the search state.
 
 ## Advance Example
 
-In this example the mode and delayMs data is passed as a prop.
+In this example the mode and delay data is passed as a prop.
 
 _Here you can see how the `Redirection` component is rendered._
 
 ```vue
 <template>
-  <Redirection :mode="mode" :delayMs="delayMs">
-    <template v-slot="{ redirection, redirect, abortRedirect, isActive }">
+  <Redirection :mode="mode" :delay="delay">
+    <template v-slot="{ redirection, redirect, abortRedirect, isWaiting }">
       <span>{{ redirection.url }}</span>
       <button @click="redirection">Redirect now!</button>
       <button @click="abortRedirect">Abort redirection!</button>
-      <AutoProgressBar :isActive="isActive" />
+      <AutoProgressBar :isWaiting="isWaiting" />
     </template>
   </Redirection>
 </template>
@@ -171,7 +170,7 @@ _Here you can see how the `Redirection` component is rendered._
     data() {
       return {
         mode: 'auto',
-        delayMs: 100
+        delay: 100
       };
     }
   };

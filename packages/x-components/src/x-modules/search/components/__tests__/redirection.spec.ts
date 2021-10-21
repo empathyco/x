@@ -12,17 +12,15 @@ import { resetXSearchStateWith } from './utils';
 
 function renderRedirection({
   template = `
-  <Redirection :mode="mode" :delayMs="delayMs">
-  <template v-slot="{ redirection, redirect, abortRedirect }">
-      <span data-test="redirection-url">{{ redirection.url }}</span>
-      <button data-test="redirection-accept" @click="redirect">Redirect now!</button>
-      <button data-test="redirection-abort" @click="abortRedirect">Abort redirection!</button>
-    </template>
+  <Redirection :mode="mode" :delay="delay"  v-slot="{ redirection, redirect, abortRedirect }">
+     <span data-test="redirection-url">{{ redirection.url }}</span>
+     <button data-test="redirection-accept" @click="redirect">Redirect now!</button>
+     <button data-test="redirection-abort" @click="abortRedirect">Abort redirection!</button>
   </Redirection>
 `,
   redirections = [createRedirectionStub('redirection')],
   mode = 'auto',
-  delayMs = 1
+  delay = 1
 }: RenderRedirectionOptions = {}): RenderRedirectionAPI {
   const localVue = createLocalVue();
   localVue.use(Vuex);
@@ -36,13 +34,14 @@ function renderRedirection({
       components: {
         Redirection
       },
-      props: ['mode', 'delayMs'],
       template
     },
     {
-      propsData: {
-        mode,
-        delayMs
+      data() {
+        return {
+          mode,
+          delay
+        };
       },
       localVue,
       store
@@ -91,10 +90,8 @@ describe('testing Redirection component', () => {
   it('renders the redirection component slot', () => {
     const { redirectionWrapper } = renderRedirection({
       template: `
-        <Redirection :mode="mode" :delayMs="delayMs">
-          <template v-slot="{ redirection, redirect, abortRedirect }">
-            <span data-test="redirection-url">{{ redirection.url }}</span>
-          </template>
+        <Redirection :mode="mode" :delay="delay" v-slot="{ redirection, redirect, abortRedirect }">
+          <span data-test="redirection-url">{{ redirection.url }}</span>
         </Redirection>`
     });
 
@@ -114,13 +111,22 @@ describe('testing Redirection component', () => {
     expect(onUserClickedARedirection).toHaveBeenCalledTimes(1);
   });
 
+  it("doesn't emit the event in manual when the user doesn't click the button", () => {
+    const { wrapper } = renderRedirection({ mode: 'manual' });
+    const onUserClickedARedirection = jest.fn();
+
+    wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
+
+    expect(onUserClickedARedirection).not.toHaveBeenCalled();
+  });
+
   it('accepts the redirection in auto mode', () => {
     const { wrapper } = renderRedirection();
     const onUserClickedARedirection = jest.fn();
 
-    jest.advanceTimersByTime(2000);
-
     wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
+
+    jest.advanceTimersByTime(2000);
 
     expect(onUserClickedARedirection).toHaveBeenCalledTimes(1);
   });
@@ -141,8 +147,8 @@ describe('testing Redirection component', () => {
 interface RenderRedirectionOptions {
   /** The redirection mode. */
   mode?: 'auto' | 'manual';
-  /** The redirection delay in milliseconds. */
-  delayMs?: number;
+  /** The redirection delay in seconds. */
+  delay?: number;
   /** The template to be rendered. */
   template?: string;
   /** List of redirections to be rendered. */

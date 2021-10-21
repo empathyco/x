@@ -1,12 +1,6 @@
 <template>
-  <div v-if="isActive" class="x-progress-bar" data-test="progress-bar">
-    <slot v-bind="{ duration }">
-      <div
-        class="x-progress-bar__line"
-        :style="{ animationDuration: `${duration}s` }"
-        data-test="progress-bar__line"
-      ></div>
-    </slot>
+  <div v-if="isWaiting" class="x-progress-bar" data-test="progress-bar" role="progressbar">
+    <div class="x-progress-bar__line" :style="cssStyles" data-test="progress-bar__line"></div>
   </div>
 </template>
 
@@ -27,15 +21,19 @@
      * @public
      */
     @Prop({ default: true })
-    public isActive!: boolean;
+    public isWaiting!: boolean;
 
     /**
      * The duration in seconds of the progress bar.
      *
      * @public
      */
-    @Prop({ default: 2 })
+    @Prop({ default: 5 })
     public duration!: number;
+
+    protected get cssStyles(): Partial<CSSStyleDeclaration> {
+      return { animationDuration: `${this.duration}s` };
+    }
   }
 </script>
 
@@ -69,13 +67,13 @@
 <docs lang="mdx">
 ## Basic example
 
-This component renders a progress bar with a duration is the `isActive` flag is true.
+This component renders a progress bar with a duration is the `isWaiting` flag is true.
 
 ```vue
 <template>
   <Redirection>
-    <template v-slot="{ isActive, delayMs }">
-      <AutoProgressBar :isActive="isActive" :duration="delayMs" />
+    <template v-slot="{ isWaiting, delay }">
+      <AutoProgressBar :isWaiting="isWaiting" :duration="delay" />
     </template>
   </Redirection>
 </template>
@@ -89,40 +87,7 @@ This component renders a progress bar with a duration is the `isActive` flag is 
     }
   };
 </script>
+
+## Events This component doesn't emits events.
 ```
-
-## Advance Example
-
-This component allows overriding the default slot and let you implement you own scroll bar.
-
-```vue
-<template>
-  <AutoProgressBar :isActive="isActive" :duration="duration">
-    <template v-slot="{ duration }">
-      <span>{{ duration }}</span>
-    </template>
-  </AutoProgressBar>
-</template>
-
-<script>
-  import { AutoProgressBar } from '@empathyco/x-components';
-  import { Redirection } from '@empathyco/x-components/search';
-  export default {
-    name: 'AutoProgressBarDemo',
-    components: {
-      AutoProgressBar
-    },
-    data() {
-      return {
-        isActive: true,
-        duration: 5
-      };
-    }
-  };
-</script>
-```
-
-## Events
-
-This component doesn't emits events.
 </docs>

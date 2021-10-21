@@ -70,9 +70,4 @@ export interface SearchXEvents {
    * The user has aborted a redirection.
    */
   UserClickedAbortARedirection: void;
-  /**
-   * The user has viewed a redirection.
-   * * Payload: The viewed redirection.
-   */
-  UserViewedARedirection: Redirection;
 }
