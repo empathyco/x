@@ -57,23 +57,25 @@
   }
 </style>
 
-<docs>
-  #Example
+<docs lang="mdx">
+# Examples
 
-  The FadeAndSlide component is intended to be used as a prop in animatable components but also
-  works as a wrapper of a transition group that can receive the tag it will render to as a prop.
+The FadeAndSlide component is intended to be used as a prop in animatable components but also works
+as a wrapper of a transition group that can receive the tag it will render to as a prop.
 
-  Used as a prop in an animatable component:
-  ```vue
-  <AnimatableComponent :animation="FadeAndSlide" />
-  ```
+Used as a prop in an animatable component:
 
-  Used as a regular component passing a the tag as prop:
-  ```vue
-  <FadeAndSlide tag="ul">
-    <li>Element to animate</li>
-    <li>Element to animate</li>
-    <li>Element to animate</li>
-  </FadeAndSlide>
-  ```
+```vue
+<AnimatableComponent :animation="FadeAndSlide" />
+```
+
+Used as a regular component passing a the tag as prop:
+
+```vue
+<FadeAndSlide tag="ul">
+  <li>Element to animate</li>
+  <li>Element to animate</li>
+  <li>Element to animate</li>
+</FadeAndSlide>
+```
 </docs>

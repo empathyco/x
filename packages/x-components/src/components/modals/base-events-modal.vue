@@ -114,7 +114,7 @@
 </script>
 
 <docs lang="mdx">
-#Examples
+# Examples
 
 The `BaseEventsModal` component handles the modal open/close state via the events passed via props.
 Its configured by default to work as a modal for a whole search application, but if the events are

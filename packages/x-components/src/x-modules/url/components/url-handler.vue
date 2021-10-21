@@ -47,6 +47,11 @@
       return this.$attrs[paramName] ?? paramName;
     }
 
+    /**
+     * Flag to know if the params were already loaded from the URL.
+     *
+     * @internal
+     */
     protected urlLoaded = false;
 
     created(): void {

@@ -70,26 +70,23 @@
   }
 </script>
 
-<docs>
-  #Examples
+<docs lang="mdx">
+# Examples
 
-  ## Basic example
+## Basic example
 
-  This component shows the current price formatted. You can provide the `format` by property or let
-  the `BaseCurrency` component use an injected one.
+This component shows the current price formatted. You can provide the `format` by property or let
+the `BaseCurrency` component use an injected one.
 
-  ```vue
-  <BaseResultCurrentPrice
-    :value="result"
-    :format="'i.iii,ddd €'"
-  />
-  ```
+```vue
+<BaseResultCurrentPrice :value="result" :format="'i.iii,ddd €'" />
+```
 
-  ## Overriding default slot
+## Overriding default slot
 
-  ```vue
-  <BaseResultCurrentPrice :result="result">
-    <span class="custom-base-result-current-price">{{ result.price.value }}</span>
-  </BaseResultCurrentPrice>
-  ```
+```vue
+<BaseResultCurrentPrice :result="result">
+  <span class="custom-base-result-current-price">{{ result.price.value }}</span>
+</BaseResultCurrentPrice>
+```
 </docs>

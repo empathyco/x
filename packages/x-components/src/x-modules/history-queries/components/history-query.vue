@@ -83,45 +83,39 @@
   }
 </script>
 
-<docs>
-  # Examples
+<docs lang="mdx">
+# Examples
 
-  ## Basic usage
+## Basic usage
 
-  This component only requires a prop called `suggestion`
+This component only requires a prop called `suggestion`
 
-  ```vue
-  <HistoryQuery :suggestion="historyQuery"/>
-  ```
+```vue
+<HistoryQuery :suggestion="historyQuery" />
+```
 
-  ## Customizing slots content
+## Customizing slots content
 
-  Suggestion and remove buttons contents can be customized.
+Suggestion and remove buttons contents can be customized.
 
-  The default slot allows you to replace the content of the suggestion button. It has two
-  properties, the suggestion itself, and a `string` of HTML with the matched query.
+The default slot allows you to replace the content of the suggestion button. It has two properties,
+the suggestion itself, and a `string` of HTML with the matched query.
 
-  The other slot is called `remove-button-content`, and allows you to set the content of the
-  button that serves to remove this query from the history. This slot only has one property, the
-  suggestion.
+The other slot is called `remove-button-content`, and allows you to set the content of the button
+that serves to remove this query from the history. This slot only has one property, the suggestion.
 
-  ```vue
-  <HistoryQuery :suggestion="historyQuery">
-    <template #default="{ suggestion, queryHTML }">
-      <img class="x-history-query__history-icon" src="./history-icon.svg"/>
-      <span class="x-history-query__matching-part" v-html="queryHTML"/>
-    </template>
+````vue
+<HistoryQuery :suggestion="historyQuery">
+  <template #default="{ suggestion, queryHTML }">
+    <img class="x-history-query__history-icon" src="./history-icon.svg"/>
+    <span class="x-history-query__matching-part" v-html="queryHTML"/>
+  </template>
 
-    <template #remove-button-content="{ suggestion }">
-      <img class="x-history-query__remove-icon" src="./remove-icon.svg"/>
-    </template>
-  </HistoryQuery>
-    ```
-
-  ## Events
-
-  A list of events that the component will emit:
-
-  - `UserSelectedAHistoryQuery`: the event is emitted after the user clicks the button. The event
-  payload is the history query data.
+  <template #remove-button-content="{ suggestion }">
+    <img class="x-history-query__remove-icon" src="./remove-icon.svg"/>
+  </template>
+</HistoryQuery>
+``` ## Events A list of events that the component will emit: - `UserSelectedAHistoryQuery`: the
+event is emitted after the user clicks the button. The event payload is the history query data.
+````
 </docs>

@@ -134,7 +134,7 @@
 </style>
 
 <docs lang="mdx">
-#Example
+# Examples
 
 It renders an input and a list of filters passed as prop or being injected. The list of filters can
 be sifted with the query typed in the input. This component has also a debounce prop to set the time

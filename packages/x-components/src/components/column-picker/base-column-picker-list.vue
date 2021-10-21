@@ -88,7 +88,7 @@
 </script>
 
 <docs lang="mdx">
-#Examples
+# Examples
 
 This component renders a list of elements in different slots depending on the columns prop. Each
 element will emit the needed events to sync other instances of columns pickers, or grids with the

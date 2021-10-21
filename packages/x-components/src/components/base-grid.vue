@@ -177,7 +177,7 @@
 </style>
 
 <docs lang="mdx">
-#Examples
+# Examples
 
 This component renders a list of elements in different slots depending on their modelName. In order
 to achieve this, it exposes a scopedSlot for each different modelName. In case the items used do not

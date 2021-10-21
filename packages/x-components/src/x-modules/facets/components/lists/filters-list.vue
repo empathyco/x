@@ -91,11 +91,11 @@
   }
 </style>
 
-<docs>
-#Example
+<docs lang="mdx">
+# Examples
 
-Renders a list with a list item per each filter in the filters prop array.
-Each list item has a scoped slot, passing the filter as slot prop.
+Renders a list with a list item per each filter in the filters prop array. Each list item has a
+scoped slot, passing the filter as slot prop.
 
 ## Important
 
@@ -106,6 +106,7 @@ filters list to their children, it is mandatory to send it as prop.
 ## Basic usage
 
 Using default slot:
+
 ```vue
 <FiltersList :filters="filters">
   <template #default="{ filter }">
@@ -115,6 +116,7 @@ Using default slot:
 ```
 
 Using default slot abbreviated syntax:
+
 ```vue
 <FiltersList :filters="filters" v-slot="{ filter }">
   <p>{{ filter.label }}</p>
@@ -123,8 +125,8 @@ Using default slot abbreviated syntax:
 
 > **Using injection**: It can receive the filters list by injection. It only works if it has a
 > parent component that receives and exposes the filters list. Using the injection, It is not
-> necessary to send the prop to the child components, it has to be send it in the parent component
-> , the rest of components will inject this list.
+> necessary to send the prop to the child components, it has to be send it in the parent component ,
+> the rest of components will inject this list.
 
 ```vue
 <SlicedFilters :filters="filters">

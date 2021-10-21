@@ -58,33 +58,35 @@
   }
 </script>
 
-<docs>
-  #Example
+<docs lang="mdx">
+# Examples
 
-  This components expects just a suggestion as a prop to be rendered. It has a slot to override
-  the content. By default, it renders the suggestion query of the popular search.
+This components expects just a suggestion as a prop to be rendered. It has a slot to override the
+content. By default, it renders the suggestion query of the popular search.
 
-  ## Basic Usage
-  ```vue
-  <PopularSearch :suggestion="suggestion"/>
-  ```
+## Basic Usage
 
-  ## Custom Usage
-  ```vue
-  <PopularSearch :suggestion="suggestion">
-    <template #default="{ suggestion }">
-      <svg height="10" width="10">
-        <circle cx="5" cy="5" r="4" stroke="black" />
-      </svg>
-      <span :aria-label="suggestion.query">{{ suggestion.query }}</span>
-    </template>
-  </PopularSearch>
-  ```
+```vue
+<PopularSearch :suggestion="suggestion" />
+```
 
-  ## Events
+## Custom Usage
 
-  A list of events that the component will emit:
+```vue
+<PopularSearch :suggestion="suggestion">
+  <template #default="{ suggestion }">
+    <svg height="10" width="10">
+      <circle cx="5" cy="5" r="4" stroke="black" />
+    </svg>
+    <span :aria-label="suggestion.query">{{ suggestion.query }}</span>
+  </template>
+</PopularSearch>
+```
 
-  - `UserSelectedAPopularSearch`: the event is emitted after the user clicks the button. The event
+## Events
+
+A list of events that the component will emit:
+
+- `UserSelectedAPopularSearch`: the event is emitted after the user clicks the button. The event
   payload is the popular search data.
 </docs>
