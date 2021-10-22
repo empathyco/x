@@ -72,9 +72,9 @@
 </style>
 
 <docs lang="mdx">
-## Basic example
+## See it in action
 
-This component renders a progress bar with a duration is the `isWaiting` flag is true.
+Here you have a basic example of how the auto progress bar is rendered.
 
 ```vue
 <template>
@@ -87,12 +87,34 @@ This component renders a progress bar with a duration is the `isWaiting` flag is
     data() {
       return {
         isWaiting: true,
-        delay: 2
+        delay: 100
       };
     }
   };
 </script>
-
-## Events This component doesn't emits events.
 ```
+
+### Play with props
+
+In this example, the auto progress bar has been set to do an animation for 5 seconds. There is a way
+to cancel the animation by sending the isWaiting prop to false.
+
+```vue
+<template>
+  <AutoProgressBar :duration="5" :isWaiting="true" />
+</template>
+
+<script>
+  export default {
+    name: 'AutoProgressBarDemo'
+  };
+</script>
+```
+
+## Events
+
+This component emits the following events:
+
+- `UserClickedARedirection` after the user clicks the redirection button.
+- `UserClickedAbortARedirection` after the user clicks the abort redirection button.
 </docs>
