@@ -78,7 +78,7 @@ Here you have a basic example of how the auto progress bar is rendered.
 
 ```vue
 <template>
-  <AutoProgressBar :isLoading="isLoading" :duration="delay" />
+  <AutoProgressBar :isLoading="isLoading" :duration="delayInSeconds" />
 </template>
 
 <script>
@@ -87,7 +87,7 @@ Here you have a basic example of how the auto progress bar is rendered.
     data() {
       return {
         isLoading: true,
-        delay: 100
+        delayInSeconds: 100
       };
     }
   };

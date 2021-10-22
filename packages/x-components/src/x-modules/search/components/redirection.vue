@@ -1,6 +1,6 @@
 <template>
   <div v-if="redirection" class="x-redirection" data-test="redirection">
-    <slot v-bind="{ redirection, redirect, abortRedirect, isLoading, delay }" />
+    <slot v-bind="{ redirection, redirect, abortRedirect, isLoading, delayInSeconds }" />
   </div>
 </template>
 
@@ -43,7 +43,7 @@
      * @public
      */
     @Prop({ default: 0 })
-    public delay!: number;
+    public delayInSeconds!: number;
 
     /**
      * The timeout id, used to cancel the redirection.
@@ -79,7 +79,7 @@
     protected redirectDelayed(): void {
       if (this.mode === 'auto' && this.redirection) {
         // eslint-disable-next-line @typescript-eslint/unbound-method
-        this.timeoutId = setTimeout(this.redirect, this.delay * 1000);
+        this.timeoutId = setTimeout(this.redirect, this.delayInSeconds * 1000);
       }
     }
 

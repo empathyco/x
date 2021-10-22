@@ -15,7 +15,10 @@ const stubRedirections = [createRedirectionStub('redirection')];
 
 function renderRedirection({
   template = `
-  <Redirection :mode="mode" :delay="delay"  v-slot="{ redirection, redirect, abortRedirect }">
+  <Redirection 
+    :mode="mode" 
+    :delayInSeconds="delayInSeconds"
+    v-slot="{ redirection, redirect, abortRedirect }">
      <span data-test="redirection-url">{{ redirection.url }}</span>
      <button data-test="redirection-accept" @click="redirect">Redirect now!</button>
      <button data-test="redirection-abort" @click="abortRedirect">Abort redirection!</button>
@@ -23,7 +26,7 @@ function renderRedirection({
 `,
   redirections = stubRedirections,
   mode = 'auto',
-  delay = 1
+  delayInSeconds = 1
 }: RenderRedirectionOptions = {}): RenderRedirectionAPI {
   const localVue = createLocalVue();
   localVue.use(Vuex);
@@ -43,7 +46,7 @@ function renderRedirection({
       data() {
         return {
           mode,
-          delay
+          delayInSeconds
         };
       },
       localVue,
@@ -90,7 +93,10 @@ describe('testing Redirection component', () => {
   it('renders the redirection component slot', () => {
     const { wrapper } = renderRedirection({
       template: `
-        <Redirection :mode="mode" :delay="delay" v-slot="{ redirection, redirect, abortRedirect }">
+        <Redirection
+        :mode="mode"
+        :delayInSeconds="delayInSeconds"
+        v-slot="{ redirection, redirect, abortRedirect }">
           <span data-test="redirection-url">{{ redirection.url }}</span>
         </Redirection>`
     });
@@ -144,7 +150,7 @@ describe('testing Redirection component', () => {
   });
 
   it('redirects instantly in auto mode and 0 delay', () => {
-    const { wrapper } = renderRedirection({ delay: 0 });
+    const { wrapper } = renderRedirection({ delayInSeconds: 0 });
     const onUserClickedARedirection = jest.fn();
 
     wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
@@ -190,7 +196,7 @@ interface RenderRedirectionOptions {
   /** The redirection mode. */
   mode?: 'auto' | 'manual';
   /** The redirection delay in seconds. */
-  delay?: number;
+  delayInSeconds?: number;
   /** The template to be rendered. */
   template?: string;
   /** List of redirections to be rendered. */
