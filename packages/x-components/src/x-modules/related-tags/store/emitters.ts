@@ -1,5 +1,5 @@
 import { createStoreEmitters } from '../../../store';
-import { createArrayComparator } from '../../../utils/array';
+import { createEmitterArrayFilter } from '../../../utils/array';
 import { relatedTagsXStoreModule } from './module';
 
 /**
@@ -12,6 +12,6 @@ export const relatedTagsEmitters = createStoreEmitters(relatedTagsXStoreModule, 
   RelatedTagsRequestChanged: (_, getters) => getters.request,
   SelectedRelatedTagsChanged: {
     selector: state => state.selectedRelatedTags,
-    filter: createArrayComparator('tag')
+    filter: createEmitterArrayFilter('tag')
   }
 });

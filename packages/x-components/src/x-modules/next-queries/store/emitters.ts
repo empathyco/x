@@ -1,5 +1,5 @@
 import { createStoreEmitters } from '../../../store';
-import { createArrayComparator } from '../../../utils/array';
+import { createEmitterArrayFilter } from '../../../utils/array';
 import { nextQueriesXStoreModule } from './module';
 
 /**
@@ -10,7 +10,7 @@ import { nextQueriesXStoreModule } from './module';
 export const nextQueriesEmitters = createStoreEmitters(nextQueriesXStoreModule, {
   NextQueriesChanged: {
     selector: (_, getters) => getters.nextQueries,
-    filter: createArrayComparator('query')
+    filter: createEmitterArrayFilter('query')
   },
   NextQueriesRequestChanged: (_, getters) => getters.request
 });

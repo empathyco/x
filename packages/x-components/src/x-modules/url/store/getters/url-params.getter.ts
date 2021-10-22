@@ -13,11 +13,9 @@ import { UrlParamValue, UrlXStoreModule } from '../types';
  */
 export const urlParams: UrlXStoreModule['getters']['urlParams'] = state =>
   objectFilter(state, (paramKey, paramValue) => {
-    const isInitialParam = paramKey in initialUrlState;
-    return (
-      (isInitialParam && isNotDefaultValue(paramKey, paramValue)) ||
-      (!isInitialParam && isNotEmptyParam(paramValue))
-    );
+    return paramKey in initialUrlState
+      ? isNotDefaultValue(paramKey, paramValue)
+      : isNotEmptyParam(paramValue);
   });
 
 /**

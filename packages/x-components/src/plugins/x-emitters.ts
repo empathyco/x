@@ -148,21 +148,21 @@ function isRequestChangedEvent(event: XEvent): boolean {
  * Function to filter if a payload of a RequestChanged event has really changed or not. It only
  * compares the first level of fields and not deeply, to avoid CPU consuming task here.
  *
- * @param obj1 - First request to compare.
- * @param obj2 - Second request to compare.
+ * @param request1 - First request to compare.
+ * @param request2 - Second request to compare.
  * @returns True if the two objects are different, false otherwise.
  */
-function hasRequestPayloadChanged<T extends Dictionary>(obj1?: T, obj2?: T): boolean {
-  if (obj1 === obj2) {
+function hasRequestPayloadChanged<T extends Dictionary>(request1?: T, request2?: T): boolean {
+  if (request1 === request2) {
     return true;
   }
-  if (!obj1 || !obj2) {
+  if (!request1 || !request2) {
     return false;
   }
-  const keys1 = Object.keys(obj1);
-  const keys2 = Object.keys(obj2);
+  const keys1 = Object.keys(request1);
+  const keys2 = Object.keys(request2);
   if (keys1.length !== keys2.length) {
     return false;
   }
-  return !keys1.some(key => obj1[key] !== obj2[key]);
+  return !keys1.some(key => request1[key] !== request2[key]);
 }

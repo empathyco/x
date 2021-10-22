@@ -1,6 +1,6 @@
 import {
   arrayToObject,
-  createArrayComparator,
+  createEmitterArrayFilter,
   deepFilter,
   deepFlat,
   groupItemsBy,
@@ -360,24 +360,24 @@ describe(`testing ${groupItemsBy.name} utility method`, () => {
   });
 });
 
-describe(`testing ${createArrayComparator.name} utility method`, () => {
+describe(`testing ${createEmitterArrayFilter.name} utility method`, () => {
   it('returns `true` when the arrays are different', () => {
-    const simpleComparator = createArrayComparator('query');
+    const simpleComparator = createEmitterArrayFilter('query');
     expect(simpleComparator([{ query: 'lego' }], [{ query: 'playmobil' }])).toEqual(true);
-    const complexComparator = createArrayComparator<{ query: string }>(
+    const complexComparator = createEmitterArrayFilter<{ query: string }>(
       (item1, item2) => item1.query === item2.query
     );
     expect(complexComparator([{ query: 'lego' }], [{ query: 'playmobil' }])).toEqual(true);
   });
 
   it('returns `false` when the arrays equal', () => {
-    const simpleComparator = createArrayComparator('query');
+    const simpleComparator = createEmitterArrayFilter('query');
     expect(simpleComparator([], [])).toEqual(false);
     expect(simpleComparator([{ query: 'lego' }], [{ query: 'lego' }])).toEqual(false);
-    const complexComparator = createArrayComparator<{ query: string }>(
+    const complexComparator = createEmitterArrayFilter<{ query: string }>(
       (item1, item2) => item1.query === item2.query
     );
     expect(complexComparator([], [])).toEqual(false);
-    expect(complexComparator([{ query: 'lego' }], [{ query: 'lego' }])).toEqual(true);
+    expect(complexComparator([{ query: 'lego' }], [{ query: 'lego' }])).toEqual(false);
   });
 });

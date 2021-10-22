@@ -1,5 +1,5 @@
 import { createStoreEmitters } from '../../../store';
-import { createArrayComparator } from '../../../utils/array';
+import { createEmitterArrayFilter } from '../../../utils/array';
 import { identifierResultsXStoreModule } from './module';
 
 /**
@@ -10,7 +10,7 @@ import { identifierResultsXStoreModule } from './module';
 export const identifierResultsEmitters = createStoreEmitters(identifierResultsXStoreModule, {
   IdentifierResultsChanged: {
     selector: state => state.identifierResults,
-    filter: createArrayComparator('id')
+    filter: createEmitterArrayFilter('id')
   },
   IdentifierResultsRequestChanged: (_, getters) => getters.identifierResultsRequest
 });

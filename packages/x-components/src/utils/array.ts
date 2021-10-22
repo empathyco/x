@@ -256,7 +256,7 @@ export function deepFlat<ArrayType, Key extends PropsWithType<ArrayType, ArrayTy
 }
 
 /**
- * Creates a function to compare two arrays.
+ * Creates an Emitter filter function to compare two arrays and filter those that are equal.
  *
  * @param comparator - String with the name of the field of the arrays items to compare, or function
  * to compare items directly.
@@ -264,7 +264,7 @@ export function deepFlat<ArrayType, Key extends PropsWithType<ArrayType, ArrayTy
  *
  * @internal
  */
-export function createArrayComparator<T>(
+export function createEmitterArrayFilter<T>(
   comparator: keyof T | ((item1: T, item2: T) => boolean)
 ): (newCollection: Array<T>, oldCollection: Array<T>) => boolean {
   const comparatorFn =
