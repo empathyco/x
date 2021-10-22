@@ -7,6 +7,7 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components';
 import { XPlugin } from '../../../../plugins';
 import { RootXStoreState } from '../../../../store';
 import { DeepPartial } from '../../../../utils';
+import { WirePayload } from '../../../../wiring';
 import Redirection from '../redirection.vue';
 import { resetXSearchStateWith } from './utils';
 
@@ -108,6 +109,12 @@ describe('testing Redirection component', () => {
     acceptRedirection();
 
     expect(onUserClickedARedirection).toHaveBeenCalledTimes(1);
+    expect(onUserClickedARedirection).toHaveBeenCalledWith<[WirePayload<RedirectionModel>]>({
+      eventPayload: stubRedirections[0],
+      metadata: {
+        moduleName: 'search'
+      }
+    });
   });
 
   it("doesn't emit the event in manual when the user doesn't click the button", () => {
@@ -128,6 +135,28 @@ describe('testing Redirection component', () => {
     jest.advanceTimersByTime(2000);
 
     expect(onUserClickedARedirection).toHaveBeenCalledTimes(1);
+    expect(onUserClickedARedirection).toHaveBeenCalledWith<[WirePayload<RedirectionModel>]>({
+      eventPayload: stubRedirections[0],
+      metadata: {
+        moduleName: 'search'
+      }
+    });
+  });
+
+  it('redirects instantly in auto mode and 0 delay', () => {
+    const { wrapper } = renderRedirection({ delay: 0 });
+    const onUserClickedARedirection = jest.fn();
+
+    wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
+    jest.advanceTimersByTime(1);
+
+    expect(onUserClickedARedirection).toHaveBeenCalledTimes(1);
+    expect(onUserClickedARedirection).toHaveBeenCalledWith<[WirePayload<RedirectionModel>]>({
+      eventPayload: stubRedirections[0],
+      metadata: {
+        moduleName: 'search'
+      }
+    });
   });
 
   it('aborts the redirection', () => {
@@ -137,6 +166,18 @@ describe('testing Redirection component', () => {
     wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
 
     abortRedirection();
+    jest.advanceTimersByTime(2000);
+
+    expect(onUserClickedARedirection).not.toHaveBeenCalled();
+  });
+
+  it("doesn't emit the event `UserClickedARedirection` if there is a new query accepted", () => {
+    const { wrapper } = renderRedirection();
+    const onUserClickedARedirection = jest.fn();
+
+    wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
+    wrapper.vm.$x.emit('UserAcceptedAQuery', 'lego');
+
     jest.advanceTimersByTime(2000);
 
     expect(onUserClickedARedirection).not.toHaveBeenCalled();

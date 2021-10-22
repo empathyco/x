@@ -8,6 +8,7 @@
   import { Redirection as RedirectionModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop, Watch } from 'vue-property-decorator';
+  import { XOn } from '../../../components';
   import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { searchXModule } from '../x-module';
@@ -78,22 +79,21 @@
     protected redirectDelayed(): void {
       if (this.mode === 'auto' && this.redirection) {
         if (this.delay === 0) {
-          this.redirect(this.redirection);
+          setTimeout(this.redirect.bind(this), 0);
+        } else {
+          this.timeoutId = setTimeout(this.redirect.bind(this), this.delay * 1000);
         }
-        this.timeoutId = setTimeout(this.redirect.bind(this, this.redirection), this.delay * 1000);
       }
     }
 
     /**
      * Dispatches the redirection, emitting `UserClickedARedirection` event.
      *
-     * @param  redirection - The clicked redirection.
-     *
      * @public
      */
-    protected redirect(redirection: RedirectionModel): void {
+    protected redirect(): void {
       clearTimeout(this.timeoutId);
-      this.$x.emit('UserClickedARedirection', redirection);
+      this.$x.emit('UserClickedARedirection', this.redirection!);
     }
 
     /**
@@ -105,6 +105,16 @@
       clearTimeout(this.timeoutId);
       this.isWaiting = false;
       this.$x.emit('UserClickedAbortARedirection');
+    }
+
+    /**
+     * Stops the animation if the user search another query.
+     *
+     * @internal
+     */
+    @XOn('UserAcceptedAQuery')
+    stopAnimation(): void {
+      clearTimeout(this.timeoutId);
     }
   }
 </script>
