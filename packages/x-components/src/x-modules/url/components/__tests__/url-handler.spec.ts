@@ -167,6 +167,7 @@ describe('testing UrlHandler component', () => {
     expect(urlSearchParams.get('query')).toEqual('lego');
     expect(urlSearchParams.get('page')).toEqual('2');
     expect(urlSearchParams.get('store')).toEqual('111');
+    expect(urlSearchParams.get('warehouse')).toBeNull();
   });
 
   it('changes the URL params when `ReplaceableUrlStateChanged` is emitted', () => {
@@ -185,6 +186,7 @@ describe('testing UrlHandler component', () => {
     expect(urlSearchParams.get('query')).toEqual('lego');
     expect(urlSearchParams.get('page')).toEqual('2');
     expect(urlSearchParams.get('store')).toEqual('111');
+    expect(urlSearchParams.get('warehouse')).toBeNull();
   });
 });
 

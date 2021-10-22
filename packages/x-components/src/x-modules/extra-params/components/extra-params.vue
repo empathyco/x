@@ -15,6 +15,10 @@
     mixins: [xComponentMixin(extraParamsXModule)]
   })
   export default class ExtraParams extends Vue {
+    /**
+     * Emits the initial extra params, overriding with the state extra params, just in case, those
+     * values were already set by XComponents initialization (url, plugin config, etc.).
+     */
     mounted(): void {
       this.$x.emit('ExtraParamsProvided', { ...this.values, ...this.storeExtraParams });
     }
@@ -31,6 +35,9 @@
     @Prop({ required: true })
     public values!: Dictionary<unknown>;
 
+    /**
+     * State extra params. Used to override the initial extra params.
+     */
     @State('extraParams', 'params')
     public storeExtraParams!: Dictionary<unknown>;
 

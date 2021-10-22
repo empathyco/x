@@ -1,5 +1,4 @@
-import { UrlParams } from '../../../../types/url-params';
-import { reduce } from '../../../../utils/object';
+import { objectFilter } from '../../../../utils/object';
 import { initialUrlState } from '../initial-state';
 import { UrlParamValue, UrlXStoreModule } from '../types';
 
@@ -13,20 +12,13 @@ import { UrlParamValue, UrlXStoreModule } from '../types';
  * @public
  */
 export const urlParams: UrlXStoreModule['getters']['urlParams'] = state =>
-  reduce(
-    state,
-    (params, paramKey, paramValue) => {
-      const isInitialParam = paramKey in initialUrlState;
-      if (
-        (isInitialParam && isNotDefaultValue(paramKey, paramValue)) ||
-        (!isInitialParam && isNotEmptyParam(paramValue))
-      ) {
-        params[paramKey] = paramValue;
-      }
-      return params;
-    },
-    {} as UrlParams
-  );
+  objectFilter(state, (paramKey, paramValue) => {
+    const isInitialParam = paramKey in initialUrlState;
+    return (
+      (isInitialParam && isNotDefaultValue(paramKey, paramValue)) ||
+      (!isInitialParam && isNotEmptyParam(paramValue))
+    );
+  });
 
 /**
  * Checks if a parameter is not empty to avoid adding it to the URL.

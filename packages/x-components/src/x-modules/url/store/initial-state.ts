@@ -6,7 +6,7 @@ import { UrlState } from './types';
  *
  * @internal
  */
-export const initialUrlState: UrlState = {
+export const initialUrlState: Readonly<UrlState> = {
   query: '',
   page: 1,
   filter: [],

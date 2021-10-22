@@ -4,7 +4,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Watch } from 'vue-property-decorator';
+  import { Component, Watch, Inject } from 'vue-property-decorator';
   import { xComponentMixin } from '../../../components';
   import { Dictionary, forEach } from '../../../utils';
   import { SnippetConfig } from '../../../x-installer';
@@ -19,10 +19,17 @@
    */
   @Component({
     components: { ExtraParams },
-    mixins: [xComponentMixin(extraParamsXModule)],
-    inject: ['snippetConfig']
+    mixins: [xComponentMixin(extraParamsXModule)]
   })
   export default class SnippetConfigExtraParams extends Vue {
+    /**
+     * It injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
+     *
+     * @internal
+     */
+    @Inject('snippetConfig')
+    public snippetConfig!: SnippetConfig;
+
     /**
      * Custom object containing the extra params from the snippet config.
      *

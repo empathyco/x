@@ -1,5 +1,4 @@
 import { createStoreEmitters } from '../../../store';
-import { createArrayComparator } from '../../../utils/array';
 import { searchXStoreModule } from './module';
 
 /**
@@ -10,7 +9,9 @@ import { searchXStoreModule } from './module';
 export const searchEmitters = createStoreEmitters(searchXStoreModule, {
   FacetsChanged: {
     selector: state => state.facets,
-    filter: createArrayComparator('id')
+    filter(newValue, oldValue): boolean {
+      return newValue.length !== 0 || oldValue.length !== 0;
+    }
   },
   PageChanged: state => state.page,
   ResultsChanged: state => state.results,

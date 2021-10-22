@@ -1,5 +1,10 @@
+<template>
+  <GlobalEvents @popstate="emitEvents" target="window" />
+</template>
+
 <script lang="ts">
   import Vue from 'vue';
+  import GlobalEvents from 'vue-global-events';
   import { Component } from 'vue-property-decorator';
   import { XOn } from '../../../components/decorators/bus.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
@@ -10,6 +15,11 @@
   import { UrlParamValue } from '../store/types';
   import { urlXModule } from '../x-module';
 
+  interface ParsedUrlParams {
+    all: UrlParams;
+    extra: Dictionary<unknown>;
+  }
+
   /**
    * This component manage the browser URL parameters to perserve them through reloads and browser
    * history navigation. It allow to configure the default url parameter names using its attributes.
@@ -18,6 +28,9 @@
    * @public
    */
   @Component({
+    components: {
+      GlobalEvents
+    },
     mixins: [xComponentMixin(urlXModule)]
   })
   export default class UrlHandler extends Vue {
@@ -30,7 +43,7 @@
      *
      * @internal
      */
-    protected get paramsNames(): string[] {
+    protected get managedParamsNames(): string[] {
       return Object.keys({ ...initialUrlState, ...this.$attrs });
     }
 
@@ -56,19 +69,6 @@
 
     created(): void {
       this.emitEvents();
-    }
-
-    /**
-     * Add listeners to emit XEvents to the `onload` and `onpopstate` events of the browser window.
-     *
-     * @internal
-     */
-    mounted(): void {
-      window.addEventListener('popstate', this.emitEvents.bind(this));
-    }
-
-    beforeDestroy(): void {
-      window.removeEventListener('popstate', this.emitEvents.bind(this));
     }
 
     /**
@@ -100,10 +100,10 @@
      * @internal
      */
     protected emitEvents(): void {
-      const { urlParams, urlExtraParams } = this.getUrlParams();
-      this.$x.emit('ParamsLoadedFromUrl', urlParams);
-      this.$x.emit('ExtraParamsLoadedFromUrl', urlExtraParams);
-      if (urlParams.query) {
+      const { all, extra } = this.parseUrlParams();
+      this.$x.emit('ParamsLoadedFromUrl', all);
+      this.$x.emit('ExtraParamsLoadedFromUrl', extra);
+      if (all.query) {
         this.$x.emit('UserOpenXProgrammatically');
       }
       this.urlLoaded = true;
@@ -112,27 +112,27 @@
     /**
      * Gets the {@link UrlParams} from the URL, including only the params defined by `paramsNames`.
      *
-     * @returns UrlParams obtained from URL.
+     * @returns ParsedUrlParams obtained from URL.
      * @internal
      */
-    protected getUrlParams(): { urlParams: UrlParams; urlExtraParams: Dictionary<unknown> } {
+
+    protected parseUrlParams(): ParsedUrlParams {
       const urlSearchParams = new URL(window.location.href).searchParams;
-      const urlExtraParams: Dictionary<unknown> = {};
-      const urlParams = this.paramsNames.reduce((urlParams, paramName) => {
-        if (urlSearchParams.has(this.getUrlKey(paramName))) {
-          if (paramName in initialUrlState) {
-            urlParams[paramName] = this.getParamByType(urlSearchParams, paramName);
-          } else {
-            const key = this.getUrlKey(paramName);
-            urlExtraParams[paramName] = urlParams[paramName] = urlSearchParams.get(key) ?? '';
+      return this.managedParamsNames.reduce<ParsedUrlParams>(
+        (params, name) => {
+          const urlKey = this.getUrlKey(name);
+          if (urlSearchParams.has(urlKey)) {
+            if (name in initialUrlState) {
+              const urlValue = urlSearchParams.getAll(urlKey);
+              params.all[name] = this.parseUrlParam(name, urlValue);
+            } else {
+              params.all[name] = params.extra[name] = urlSearchParams.get(urlKey);
+            }
           }
-        }
-        return urlParams;
-      }, {} as UrlParams);
-      return {
-        urlParams: { ...initialUrlState, ...urlParams },
-        urlExtraParams
-      };
+          return params;
+        },
+        { all: { ...initialUrlState }, extra: {} }
+      );
     }
 
     /**
@@ -142,8 +142,10 @@
      *
      * @param newUrlParams - The new params to add to the browser URL.
      * @param historyMethod - The browser history method used to add the new URL.
+     *
+     * @internal
      */
-    updateUrl(
+    protected updateUrl(
       newUrlParams: UrlParams,
       historyMethod: History['pushState'] | History['replaceState']
     ): void {
@@ -164,7 +166,9 @@
      * @internal
      * **/
     protected deleteUrlParameters(url: URL): void {
-      this.paramsNames.forEach(paramName => url.searchParams.delete(this.getUrlKey(paramName)));
+      this.managedParamsNames.forEach(paramName =>
+        url.searchParams.delete(this.getUrlKey(paramName))
+      );
     }
 
     /**
@@ -172,11 +176,16 @@
      *
      * @param url - The current URL.
      * @param urlParams - The list of parameters to add.
+     * @remarks The params are filtered because there maybe received extra params which will not be
+     * managed by URL. This is defined by the `managedParamsNames` computed. Also, the parameters
+     * are sorted Alphabetically to produce always the same URL with the same parameters.This is
+     * important for SEO purposes.
+     *
      * @internal
      * **/
     protected setUrlParameters(url: URL, urlParams: UrlParams): void {
       const filteredParams = objectFilter(urlParams, paramName =>
-        this.paramsNames.includes(paramName as string)
+        this.managedParamsNames.includes(paramName as string)
       );
       const sortedParameters = this.sortParams(filteredParams);
       sortedParameters.forEach(([paramName, paramValue]) => {
@@ -210,29 +219,25 @@
      * can not know what type can have an extra param, all extra params are parsed as strings. We
      * know if it is an extra param because it is not in the initial state.
      *
-     * @param urlSearchParams - The `URLSearchParams` to get the param.
-     * @param paramName - The name of the param in {@link UrlParams}.
+     * @param name - The name of the param in {@link UrlParams}.
+     * @param value - The `URLSearchParams` value as an arry of strings.
      * @returns The parsed value.
      *
      * @internal
      */
-    protected getParamByType(urlSearchParams: URLSearchParams, paramName: string): UrlParamValue {
-      const key = this.getUrlKey(paramName);
-      switch (typeof initialUrlState[paramName]) {
+    protected parseUrlParam(name: string, value: string[]): UrlParamValue {
+      switch (typeof initialUrlState[name]) {
         case 'number':
-          return Number(urlSearchParams.get(key));
+          return Number(value[0]);
         case 'boolean':
-          return urlSearchParams.get(key)?.toLowerCase() === 'true';
+          return value[0].toLowerCase() === 'true';
         case 'string':
-          return urlSearchParams.get(key) ?? '';
+          return value[0];
         default:
           // array
-          return urlSearchParams.getAll(key);
+          return value;
       }
     }
-
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    render(): void {}
   }
 </script>
 
@@ -246,7 +251,7 @@ This component emits the following events:
 
 ## See it in action
 
-This component manage the browser URL parameters to perserve them through reloads and browser
+This component manages the browser URL parameters to preserve them through reloads and browser
 history navigation. It allow to configure the default url parameter names using its attributes. This
 component doesn't render elements to the DOM.
 

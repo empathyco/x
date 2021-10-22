@@ -29,44 +29,67 @@ export function registerStoreEmitters(
       stateSelector,
       event
     );
-    /*
-     * Due the debounce added to the watch callback, the `oldValue` would be the one from the last
-     * watcher execution instead of the last callback execution. This would cause problems receiving
-     * unstable oldValues, used in the Emitter filter.
-     * To solve this, we store the `oldValue` of the watcher in the `previousValue` variable, and we
-     * keep there until the watcher callback is finally executed (after the debounce). Then this
-     * `previousValue` is cleared to store the next `oldValue`.
-     */
-    let previousValue: any = undefined;
 
-    let watcherCallback = debounce((newValue: unknown, oldValue: unknown): void => {
-      if (filter(newValue, oldValue)) {
-        bus.emit(event, newValue, { moduleName: name });
-      }
-      previousValue = undefined;
-    }, 0);
-    /* Only applying the extra debounce to the `XxxRequestChanged` events to avoid repeating
-     * requests. If we only apply the debounce to all the events we still have the problem of
-     * repeated requests. */
-    if (isRequestChangedEvent(event)) {
-      watcherCallback = debounce(watcherCallback, 0);
-    }
+    const emit = (value: unknown): void => bus.emit(event, value, { moduleName: name });
+    const watcherSelector = (): unknown => selector(store.state.x[name], safeGettersProxy);
 
     store.watch(
-      state => selector(state.x[name], safeGettersProxy),
-      (newValue, oldValue) => {
-        previousValue = previousValue !== undefined ? previousValue : oldValue;
-        watcherCallback(newValue, previousValue);
-      },
+      watcherSelector,
+      debounceWatcherEffect(event, (newValue, oldValue) => {
+        if (filter(newValue, oldValue)) {
+          emit(newValue);
+        }
+      }),
       options
     );
 
     if (immediate) {
       Promise.resolve().then(() => {
-        bus.emit(event, selector(store.state.x[name], safeGettersProxy));
+        emit(watcherSelector());
       });
     }
   });
+}
+
+/**
+ * This function "wraps" the watcher effect (the callback of the watcher) with debounce to avoid
+ * repeating events and request. Right now this function wraps every effect in a debounce and adds
+ * an extra debounce to the `XxxRequestChanged` events, to try to delay this events after the state
+ * change events.
+ *
+ * @param event - The {@link XEvent} to emit.
+ * @param watcherEffect - The callback to execute.
+ * @returns A new function with the `watcherEffect` callback wrapped in debounce.
+ */
+function debounceWatcherEffect(
+  event: XEvent,
+  watcherEffect: (newValue: unknown, oldValue: unknown) => void
+): (newValue: unknown, oldValue: unknown) => void {
+  /*
+   * Due the debounce added to the watch callback, the `oldValue` would be the one from the last
+   * watcher execution instead of the last callback execution. This would cause problems receiving
+   * unstable oldValues, used in the Emitter filter.
+   * To solve this, we store the `oldValue` of the watcher in the `previousValue` variable, and we
+   * keep there until the watcher callback is finally executed (after the debounce). Then this
+   * `previousValue` is cleared to store the next `oldValue`.
+   */
+  let previousValue: unknown = undefined;
+
+  let watcherCallback = debounce((newValue: unknown, oldValue: unknown): void => {
+    watcherEffect(newValue, oldValue);
+    previousValue = undefined;
+  }, 0);
+  /* Only applying the extra debounce to the `XxxRequestChanged` events to avoid repeating
+   * requests. If we only apply the debounce to all the events we still have the problem of
+   * repeated requests. */
+  if (isRequestChangedEvent(event)) {
+    watcherCallback = debounce(watcherCallback, 0);
+  }
+
+  return (newValue, oldValue) => {
+    previousValue = previousValue !== undefined ? previousValue : oldValue;
+    watcherCallback(newValue, previousValue);
+  };
 }
 
 /**
@@ -90,7 +113,7 @@ function normalizeStateSelector(
     deep: false,
     immediate: false,
     filter: isRequestChangedEvent(event)
-      ? (newValue, oldValue) => !isRequestPayloadChanged(newValue, oldValue)
+      ? (newValue, oldValue) => !hasRequestPayloadChanged(newValue, oldValue)
       : () => true,
     ...normalizedSelector
   };
@@ -129,19 +152,17 @@ function isRequestChangedEvent(event: XEvent): boolean {
  * @param obj2 - Second request to compare.
  * @returns True if the two objects are different, false otherwise.
  */
-function isRequestPayloadChanged<T extends Dictionary>(obj1?: T, obj2?: T): boolean {
+function hasRequestPayloadChanged<T extends Dictionary>(obj1?: T, obj2?: T): boolean {
   if (obj1 === obj2) {
     return true;
-  } else if (!obj1 || !obj2) {
-    return false;
-  } else {
-    const keys1 = Object.keys(obj1);
-    const keys2 = Object.keys(obj2);
-
-    if (keys1.length !== keys2.length) {
-      return false;
-    } else {
-      return !keys1.some(key => obj1[key] !== obj2[key]);
-    }
   }
+  if (!obj1 || !obj2) {
+    return false;
+  }
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+  if (keys1.length !== keys2.length) {
+    return false;
+  }
+  return !keys1.some(key => obj1[key] !== obj2[key]);
 }

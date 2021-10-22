@@ -362,10 +362,22 @@ describe(`testing ${groupItemsBy.name} utility method`, () => {
 
 describe(`testing ${createArrayComparator.name} utility method`, () => {
   it('returns `true` when the arrays are different', () => {
-    const comparator = createArrayComparator('query');
+    const simpleComparator = createArrayComparator('query');
+    expect(simpleComparator([{ query: 'lego' }], [{ query: 'playmobil' }])).toEqual(true);
+    const complexComparator = createArrayComparator<{ query: string }>(
+      (item1, item2) => item1.query === item2.query
+    );
+    expect(complexComparator([{ query: 'lego' }], [{ query: 'playmobil' }])).toEqual(true);
+  });
 
-    expect(comparator([], [])).toEqual(false);
-    expect(comparator([{ query: 'lego' }], [{ query: 'lego' }])).toEqual(false);
-    expect(comparator([{ query: 'lego' }], [{ query: 'playmobil' }])).toEqual(true);
+  it('returns `false` when the arrays equal', () => {
+    const simpleComparator = createArrayComparator('query');
+    expect(simpleComparator([], [])).toEqual(false);
+    expect(simpleComparator([{ query: 'lego' }], [{ query: 'lego' }])).toEqual(false);
+    const complexComparator = createArrayComparator<{ query: string }>(
+      (item1, item2) => item1.query === item2.query
+    );
+    expect(complexComparator([], [])).toEqual(false);
+    expect(complexComparator([{ query: 'lego' }], [{ query: 'lego' }])).toEqual(true);
   });
 });
