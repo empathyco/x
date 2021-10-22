@@ -119,72 +119,41 @@
 <style lang="scss"></style>
 
 <docs lang="mdx">
-### Play with the component
+## See it in action
 
-In this example, a query has been searched in the search input resulting in a case where the
-response has a redirection.
-
-A text box appears bellow the search box indicating that you're going to be redirected to another
-web page.
-
-This component has two modes:
-
-- Auto mode means that the redirection will occur after a certain number of seconds passed as a
-  property.
-  - If the value is 0 the redirection will be instantly.
-- Manual mode means that the user have to click the redirect button or nothing will happen.
-
-_Type any term in the input field to try it out!_
+Here you have a basic example of how the auto progress bar is rendered.
 
 ```vue
 <template>
-  <Redirection template v-slot="{ redirection, redirect, abortRedirect, isWaiting }">
-    <span>In a few seconds you're going to be redirected!</span>
-    <span>{{ redirection.url }}</span>
-    <button @click="redirection">Redirect now!</button>
-    <button @click="abortRedirect">Abort redirection!</button>
-  </Redirection>
+  <AutoProgressBar :isWaiting="isWaiting" :duration="delay" />
 </template>
 
 <script>
-  import { Redirection } from '@empathyco/x-components/search';
   export default {
-    name: 'RedirectionDemo',
-    components: {
-      Redirection
+    name: 'AutoProgressBarDemo',
+    data() {
+      return {
+        isWaiting: true,
+        delay: 100
+      };
     }
   };
 </script>
 ```
 
-## Extending the component
+### Play with props
 
-Components behaviour can be changed, in this example the mode of the component will be manual
-forcing the user to accept the redirection
+In this example, the auto progress bar has been set to do an animation for 5 seconds. There is a way
+to cancel the animation by sending the isWaiting prop to false.
 
 ```vue
 <template>
-  <Redirection :mode="mode" v-slot="{ redirection, redirect, abortRedirect, isWaiting }">
-    <span>{{ redirection.url }}</span>
-    <button @click="redirection">Redirect now!</button>
-  </Redirection>
+  <AutoProgressBar :duration="5" :isWaiting="true" />
 </template>
 
 <script>
-  import { AutoProgressBar } from '@empathyco/x-components';
-  import { Redirection } from '@empathyco/x-components/search';
   export default {
-    name: 'RedirectionDemo',
-    components: {
-      Redirection,
-      AutoProgressBar
-    },
-    data() {
-      return {
-        mode: 'manual',
-        delay: 100
-      };
-    }
+    name: 'AutoProgressBarDemo'
   };
 </script>
 ```
