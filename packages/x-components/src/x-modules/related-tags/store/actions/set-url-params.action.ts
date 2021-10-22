@@ -11,16 +11,18 @@ import { RelatedTagsXStoreModule } from '../types';
  * @returns A list of {@link RelatedTag | related tags}.
  */
 const createRelatedTags = (relatedTags: string[], query: string): RelatedTag[] => {
-  return relatedTags.reduce<RelatedTag[]>((acc, relatedTag) => {
-    acc.push({
-      tag: relatedTag,
-      modelName: 'RelatedTag',
-      selected: true,
-      query: query ? `${query} ${relatedTag}` : '',
-      previous: ''
-    });
-    return acc;
-  }, []);
+  return (
+    relatedTags?.reduce<RelatedTag[]>((acc, relatedTag) => {
+      acc.push({
+        tag: relatedTag,
+        modelName: 'RelatedTag',
+        selected: true,
+        query: query ? `${query} ${relatedTag}` : '',
+        previous: ''
+      });
+      return acc;
+    }, []) ?? []
+  );
 };
 
 /**
@@ -36,11 +38,6 @@ export const setUrlParams: RelatedTagsXStoreModule['actions']['setUrlParams'] = 
   { commit },
   { query, tag }: UrlParams
 ) => {
-  if (tag.length > 0) {
-    commit('setSelectedRelatedTags', createRelatedTags(tag, query));
-  }
-
-  if (query) {
-    commit('setQuery', query);
-  }
+  commit('setSelectedRelatedTags', createRelatedTags(tag, query));
+  commit('setQuery', query);
 };
