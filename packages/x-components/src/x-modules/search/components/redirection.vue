@@ -78,11 +78,7 @@
     @Watch('redirections', { immediate: true })
     protected redirectDelayed(): void {
       if (this.mode === 'auto' && this.redirection) {
-        if (this.delay === 0) {
-          setTimeout(this.redirect.bind(this), 0);
-        } else {
-          this.timeoutId = setTimeout(this.redirect.bind(this), this.delay * 1000);
-        }
+        this.timeoutId = setTimeout(this.redirect.bind(this), this.delay * 1000);
       }
     }
 
