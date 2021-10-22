@@ -1,6 +1,6 @@
 <template>
   <div v-if="redirection" class="x-redirection" data-test="redirection">
-    <slot v-bind="{ redirection, redirect, abortRedirect, isWaiting, delay }" />
+    <slot v-bind="{ redirection, redirect, abortRedirect, isLoading, delay }" />
   </div>
 </template>
 
@@ -53,11 +53,11 @@
     protected timeoutId!: number;
 
     /**
-     * Boolean flag which indicates the waiting time was aborted.
+     * Boolean flag which indicates if the redirection is running.
      *
      * @public
      */
-    protected isWaiting = true;
+    protected isLoading = true;
 
     /**
      * Computed property which returns the first recommendation of the state, if any returns null.
@@ -100,7 +100,7 @@
      */
     protected abortRedirect(): void {
       clearTimeout(this.timeoutId);
-      this.isWaiting = false;
+      this.isLoading = false;
       this.$x.emit('UserClickedAbortARedirection');
     }
 
@@ -138,7 +138,7 @@ _Type any term in the input field to try it out!_
 
 ```vue
 <template>
-  <Redirection template v-slot="{ redirection, redirect, abortRedirect, isWaiting }">
+  <Redirection template v-slot="{ redirection, redirect, abortRedirect, isLoading }">
     <span>In a few seconds you're going to be redirected!</span>
     <span>{{ redirection.url }}</span>
     <button @click="redirection">Redirect now!</button>
@@ -164,7 +164,7 @@ forcing the user to accept the redirection
 
 ```vue
 <template>
-  <Redirection :mode="mode" v-slot="{ redirection, redirect, abortRedirect, isWaiting }">
+  <Redirection :mode="mode" v-slot="{ redirection, redirect, abortRedirect, isLoading }">
     <span>{{ redirection.url }}</span>
     <button @click="redirection">Redirect now!</button>
   </Redirection>

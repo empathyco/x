@@ -3,9 +3,9 @@ import { getDataTestSelector } from '../../__tests__/utils';
 import AutoProgressBar from '../auto-progress-bar.vue';
 
 function renderAutoProgressBar({
-  template = '<AutoProgressBar :duration="duration" :isWaiting="isWaiting"/>',
+  template = '<AutoProgressBar :duration="duration" :isLoading="isLoading"/>',
   duration = 1,
-  isWaiting = true
+  isLoading = true
 }: RenderBaseAutoProgressBarOptions = {}): RenderAutoProgressBarAPI {
   const wrapper = mount(
     {
@@ -16,7 +16,7 @@ function renderAutoProgressBar({
       data() {
         return {
           duration,
-          isWaiting
+          isLoading
         };
       }
     }
@@ -39,7 +39,7 @@ describe('testing AutoProgressBar component', () => {
 
     expect(wrapper.find(getDataTestSelector('progress-bar')).exists()).toBe(true);
 
-    await wrapper.setData({ isWaiting: false });
+    await wrapper.setData({ isLoading: false });
 
     expect(wrapper.find(getDataTestSelector('progress-bar')).exists()).toBe(false);
   });
@@ -61,8 +61,8 @@ interface RenderBaseAutoProgressBarOptions {
   template?: string;
   /** The duration of the animation. */
   duration?: number;
-  /** A flag indicating if the progress bar is waiting. */
-  isWaiting?: boolean;
+  /** A flag indicating if the progress bar is loading. */
+  isLoading?: boolean;
 }
 
 /**

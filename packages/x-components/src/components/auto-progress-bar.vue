@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isWaiting" class="x-progress-bar" data-test="progress-bar" role="progressbar">
+  <div v-if="isLoading" class="x-progress-bar" data-test="progress-bar" role="progressbar">
     <div class="x-progress-bar__line" :style="cssStyles" data-test="progress-bar__line"></div>
   </div>
 </template>
@@ -16,12 +16,12 @@
   @Component
   export default class AutoProgressBar extends Vue {
     /**
-     * A boolean flag indicating the end of the animation.
+     * A boolean flag indicating if the bar is loading.
      *
      * @public
      */
     @Prop({ default: true })
-    public isWaiting!: boolean;
+    public isLoading!: boolean;
 
     /**
      * The duration in seconds of the progress bar.
@@ -78,7 +78,7 @@ Here you have a basic example of how the auto progress bar is rendered.
 
 ```vue
 <template>
-  <AutoProgressBar :isWaiting="isWaiting" :duration="delay" />
+  <AutoProgressBar :isLoading="isLoading" :duration="delay" />
 </template>
 
 <script>
@@ -86,7 +86,7 @@ Here you have a basic example of how the auto progress bar is rendered.
     name: 'AutoProgressBarDemo',
     data() {
       return {
-        isWaiting: true,
+        isLoading: true,
         delay: 100
       };
     }
@@ -97,11 +97,11 @@ Here you have a basic example of how the auto progress bar is rendered.
 ### Play with props
 
 In this example, the auto progress bar has been set to do an animation for 5 seconds. There is a way
-to cancel the animation by sending the isWaiting prop to false.
+to cancel the animation by sending the isLoading prop to false.
 
 ```vue
 <template>
-  <AutoProgressBar :duration="5" :isWaiting="true" />
+  <AutoProgressBar :duration="5" :isLoading="true" />
 </template>
 
 <script>
