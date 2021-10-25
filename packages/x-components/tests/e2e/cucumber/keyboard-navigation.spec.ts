@@ -14,12 +14,6 @@ And('{string} element position is stored', (focusableElement: string) => {
   cy.getByDataTest(focusableElement).focus().as('originalElement');
 });
 
-And('right arrow is pressed {int} times', (pressedTimes: number) => {
-  for (let i = 0; i < pressedTimes; i++) {
-    cy.focused().trigger('keydown', { key: 'ArrowRight' });
-  }
-});
-
 Then('next element position is "{direction}"', (expectedPosition: Direction) => {
   cy.focused().then($targetElement => {
     cy.get('@originalElement').should($originalElement => {
@@ -42,23 +36,14 @@ Then('next element position is "{direction}"', (expectedPosition: Direction) => 
   cy.focused().as('originalElement');
 });
 
-When('down arrow is pressed {int} times', (pressedTimes: number) => {
-  for (let i = 0; i < pressedTimes; i++) {
-    cy.focused().trigger('keydown', { key: 'ArrowDown' });
+When(
+  '{string} arrow is pressed {int} times',
+  (direction: 'up' | 'right' | 'bottom' | 'right', pressedTimes: number) => {
+    for (let i = 0; i < pressedTimes; i++) {
+      cy.focused().type(`{${direction}arrow}`);
+    }
   }
-});
-
-When('left arrow is pressed {int} times', (pressedTimes: number) => {
-  for (let i = 0; i < pressedTimes; i++) {
-    cy.focused().trigger('keydown', { key: 'ArrowLeft' });
-  }
-});
-
-When('up arrow is pressed {int} times', (pressedTimes: number) => {
-  for (let i = 0; i < pressedTimes; i++) {
-    cy.focused().trigger('keydown', { key: 'ArrowUp' });
-  }
-});
+);
 
 // Scenario 2
 Then('top out of bounds is reached', () => {
@@ -81,24 +66,4 @@ Then('bottom out of bounds is reached', () => {
         expect($originalElement[0]).to.be.eq($targetElement[0]);
       });
     });
-});
-
-// Scenario 3
-When('tab key is pressed {int} times', (pressedTimes: number) => {
-  cy.focused()
-    .then(() => {
-      for (let i = 0; i < pressedTimes; i++) {
-        cy.focused().tab();
-      }
-    })
-    .then(() => {
-      cy.focused().as('targetElement');
-    });
-});
-
-Then('focused element is different from previous one', () => {
-  cy.get('@originalElement').should($originalElement => {
-    expect($originalElement).not.to.be.eq('@targetElement');
-  });
-  cy.focused().as('originalElement');
 });

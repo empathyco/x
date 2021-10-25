@@ -10,7 +10,7 @@ Then('results are displayed in {string} columns', (numberOfColumns: string) => {
   if (numberOfColumns === '0') {
     numberOfColumns = 'auto';
   }
-  cy.getByDataTest('grid').each(grid =>
-    expect(grid).to.have.class(`x-base-grid--cols-${numberOfColumns.toString()}`)
+  cy.getByDataTest('grid').should(grid =>
+    expect(grid).to.have.class(`x-base-grid--cols-${numberOfColumns}`)
   );
 });

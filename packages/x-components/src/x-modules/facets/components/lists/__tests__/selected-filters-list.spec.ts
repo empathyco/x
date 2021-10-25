@@ -23,16 +23,16 @@ function renderSelectedFiltersList({
 }: RenderSelectedFiltersListOptions = {}): RenderSelectedFiltersAPI {
   const facets: Record<Facet['id'], Facet> = {
     gender: createSimpleFacetStub('gender', createFilter => [
-      createFilter('Men', 10, false),
-      createFilter('Women', 10, false)
+      createFilter('Men', false),
+      createFilter('Women', false)
     ]),
     brand: createSimpleFacetStub('brand', createFilter => [
-      createFilter('Audi', 10, false),
-      createFilter('BMW', 10, false)
+      createFilter('Audi', false),
+      createFilter('BMW', false)
     ]),
     rootCategories: createSimpleFacetStub('root_categories', createFilter => [
-      createFilter('Meat', 10, false),
-      createFilter('Vegetables', 10, false)
+      createFilter('Meat', false),
+      createFilter('Vegetables', false)
     ])
   };
 

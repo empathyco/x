@@ -1,6 +1,6 @@
 import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
-Then('filters for the searched query in {string} are displayed', (facetName: string) => {
+Then('facet {string} has filters', (facetName: string) => {
   cy.getByDataTest(facetName)
     .parent('button')
     .siblings('div')
@@ -17,20 +17,20 @@ And('searchable {string} filters are stored', (facetName: string) => {
     .as('searchableFilters');
 });
 
-When('{string} is typed in the filters search input', (siftedQuery: string) => {
-  cy.getByDataTest('filters-search-input').type(siftedQuery);
+When('{string} is typed in the filters search input', (searchFiltersQuery: string) => {
+  cy.getByDataTest('filters-search-input').type(searchFiltersQuery);
 });
 
 Then(
-  'filters in {string} are refined with sifted search, {string}',
-  (facetName: string, siftedQuery: string) => {
+  'filters in {string} are refined with search, {string}',
+  (facetName: string, searchFiltersQuery: string) => {
     cy.getByDataTest(facetName)
       .parent('button')
       .siblings('div')
       .getByDataTest('base-filters-item')
-      .should(filterItem => {
-        filterItem.each((_, e) => {
-          expect(e.innerText.toLowerCase()).to.contain(siftedQuery);
+      .should(filterElements => {
+        filterElements.each((_, e) => {
+          expect(e.innerText.toLowerCase()).to.contain(searchFiltersQuery);
         });
       })
       .invoke('text')

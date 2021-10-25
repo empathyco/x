@@ -17,8 +17,6 @@ export interface Result extends NamedModel<'Result'>, Identifiable {
   images: string[];
   /** Result name. */
   name: string;
-  /** Categories associated with the result. */
-  categories: string[];
   /** {@link ResultPrice | Result price}.  */
   price: ResultPrice;
   /** {@link ResultRating | Result rating}.  */

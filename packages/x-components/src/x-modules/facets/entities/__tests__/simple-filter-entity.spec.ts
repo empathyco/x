@@ -23,7 +23,7 @@ describe('testing SimpleFilterEntity', () => {
 
   it('allows deselecting a filter that is NOT in the store', () => {
     const store = prepareFacetsStore();
-    const filter = createSimpleFilter('size', 'xxs', 10, true);
+    const filter = createSimpleFilter('size', 'xxs', true);
     const filterEntity = new SimpleFilterEntity(store);
 
     // Deselect a filter that is NOT in the store
@@ -33,8 +33,8 @@ describe('testing SimpleFilterEntity', () => {
 
   it('selects multiple filters at the same time', () => {
     const store = prepareFacetsStore();
-    const sizeSmallFilter = createSimpleFilter('size', 's', 10, true);
-    const sizeMediumFilter = createSimpleFilter('size', 'm', 10, true);
+    const sizeSmallFilter = createSimpleFilter('size', 's', true);
+    const sizeMediumFilter = createSimpleFilter('size', 'm', true);
     const filterEntity = new SimpleFilterEntity(store);
 
     // Deselect a filter that is NOT in the store

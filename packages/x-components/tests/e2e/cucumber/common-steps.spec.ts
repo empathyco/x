@@ -178,11 +178,11 @@ Given('a results API with a known response', () => {
       promoteds: [],
       facets: [
         createSimpleFacetStub('brand_facet', createSimpleFilter => [
-          createSimpleFilter('Juguetes deportivos', 3, false),
-          createSimpleFilter('Puzzles', 0, false),
-          createSimpleFilter('Construcción', 7, false),
-          createSimpleFilter('Construye', 6, false),
-          createSimpleFilter('Disfraces', 0, false)
+          createSimpleFilter('Juguetes deportivos', false, 3),
+          createSimpleFilter('Puzzles', false, 0),
+          createSimpleFilter('Construcción', false, 7),
+          createSimpleFilter('Construye', false, 6),
+          createSimpleFilter('Disfraces', false, 0)
         ]),
         createNumberRangeFacetStub('price_facet', createNumberRangeFilter => [
           createNumberRangeFilter({ min: 0, max: 10 }, false),

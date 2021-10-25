@@ -1,6 +1,6 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
-let totalFilters: number, slicedFilters: number, hiddenFilters: number;
+let totalFilters: number, hiddenFilters: number;
 
 Given('following config: max of sliced filters {int}', (slicedFiltersMax: number) => {
   cy.visit('/?useMockedAdapter=true');
@@ -16,14 +16,15 @@ And('number of sliced filters in facet {string} are stored', (facetName: string)
     .parent('button')
     .siblings('div')
     .getByDataTest('base-filters-item')
-    .then($filters => {
-      slicedFilters = $filters.length;
-    });
+    .as('slicedFilters');
 });
 
-And('number of sliced filters match {int}', (slicedFiltersMax: number) => {
-  expect(slicedFilters).to.eq(slicedFiltersMax);
-});
+And(
+  'number of sliced filters match {int}',
+  function (this: { slicedFilters: string[] }, slicedFiltersMax: number) {
+    expect(this.slicedFilters.length).to.eq(slicedFiltersMax);
+  }
+);
 
 And('number of hidden filters in facet {string} are stored', (facetName: string) => {
   cy.getByDataTest(facetName)
@@ -35,10 +36,8 @@ And('number of hidden filters in facet {string} are stored', (facetName: string)
     });
 });
 
-Then('total filters per facet are calculated', () => {
-  totalFilters = slicedFilters + hiddenFilters;
-  cy.log(slicedFilters.toString());
-  cy.log(hiddenFilters.toString());
+Then('total filters per facet are calculated', function (this: { slicedFilters: string[] }) {
+  totalFilters = this.slicedFilters.length + hiddenFilters;
 });
 
 When('clicking in show more button {string}', (facetName: string) => {
@@ -49,14 +48,20 @@ When('clicking in show more button {string}', (facetName: string) => {
     .click();
 });
 
-Then('total filters match displayed + hidden filters', () => {
-  expect(totalFilters).to.eq(slicedFilters);
-});
+Then(
+  'total filters match displayed + hidden filters',
+  function (this: { slicedFilters: string[] }) {
+    expect(totalFilters).to.eq(this.slicedFilters.length);
+  }
+);
 
 // Scenario 2
-And('number of sliced filters are at most {int}', (slicedFiltersMax: number) => {
-  expect(slicedFilters).to.be.lte(slicedFiltersMax);
-});
+And(
+  'number of sliced filters are at most {int}',
+  function (this: { slicedFilters: string[] }, slicedFiltersMax: number) {
+    expect(this.slicedFilters.length).to.be.lte(slicedFiltersMax);
+  }
+);
 
 And('no show more / show less buttons are displayed in {string}', (facetName: string) => {
   cy.getByDataTest(facetName)

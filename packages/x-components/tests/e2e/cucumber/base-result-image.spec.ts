@@ -1,7 +1,7 @@
-import { Given, Then } from 'cypress-cucumber-preprocessor/steps';
+import { And, Given, Then } from 'cypress-cucumber-preprocessor/steps';
 import { createResultStub } from '../../../src/__stubs__/results-stubs.factory';
 
-Given('a results API with fallback images', () => {
+Given('a results API with broken images', () => {
   cy.intercept('https://api.empathy.co/search', req => {
     req.reply({
       banners: [],
@@ -17,7 +17,7 @@ Given('a results API with fallback images', () => {
           }
         }),
         createResultStub('Result 2', {
-          images: ['product-002-01.jpg', 'product-002-02.jpg'],
+          images: ['https://notexistsimage1.com', 'https://notexistsimage2.com'],
           price: {
             hasDiscount: false,
             originalValue: 59.99,
@@ -43,13 +43,23 @@ Given('a results API with fallback images', () => {
   }).as('interceptedFallbackResults');
 });
 
-Then(
-  'placeholder {int} is replaced for {string}',
-  (placeholderIndexItem: number, loadedContent: string) => {
-    cy.get('.x-result-picture')
-      .eq(placeholderIndexItem)
-      .should('not.contain', 'placeholder')
-      .getByDataTest(loadedContent)
+Then('results display placeholder images before pertinent images are loaded', () => {
+  cy.getByDataTest('result-picture').should('have.length', 3);
+});
+
+And(
+  'result {int} with working image or mix of working and broken ones is displayed',
+  (resultPicturePosition: number) => {
+    cy.getByDataTest('result-picture')
+      .eq(resultPicturePosition)
+      .getByDataTest('result-picture-image')
       .should('exist');
   }
 );
+
+And('result {int} with broken images display a fallback image', (resultPicturePosition: number) => {
+  cy.getByDataTest('result-picture')
+    .eq(resultPicturePosition)
+    .getByDataTest('result-picture-fallback')
+    .should('exist');
+});

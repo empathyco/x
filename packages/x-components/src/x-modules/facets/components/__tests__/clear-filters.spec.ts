@@ -35,8 +35,8 @@ function renderClearFilters({
       ...createFilter('Women', false)
     ]),
     brand: createSimpleFacetStub('Brand', createFilter => [
-      createFilter('Audi', 10, false),
-      createFilter('BMW', 10, false)
+      createFilter('Audi', false),
+      createFilter('BMW', false)
     ])
   };
 

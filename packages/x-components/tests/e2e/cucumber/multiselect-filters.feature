@@ -6,10 +6,10 @@ Feature: MultiSelect filters component
     And   a next queries API
     And   a suggestions API
     And   a related tags API
+    And   no special config for layout view
+    And   start button is clicked
 
   Scenario Outline: 1. Number of results and clear-filters button are updated accordingly when selecting multiple filters per facet
-    Given no special config for layout view
-    And   start button is clicked
     When  "<query>" is searched
     Then  related results are displayed
     When  waiting for search request intercept

@@ -44,8 +44,8 @@ describe('testing facets module getters', () => {
 
     it('returns an array containing the selected filters', () => {
       const store = createFacetsStore([
-        createSimpleFilter('color', 'Red', 10, false),
-        createSimpleFilter('color', 'Blue', 10, true),
+        createSimpleFilter('color', 'Red', false),
+        createSimpleFilter('color', 'Blue', true),
         createHierarchicalFilter('category', 'Summer', false),
         createHierarchicalFilter('category', 'Shorts', true),
         createNumberRangeFilter('price', { min: 0, max: 25 }, false),
@@ -69,8 +69,8 @@ describe('testing facets module getters', () => {
 
     it('returns selected simple filters', () => {
       const store = createFacetsStore([
-        createSimpleFilter('color', 'Red', 10, false),
-        createSimpleFilter('color', 'Blue', 10, true)
+        createSimpleFilter('color', 'Red', false),
+        createSimpleFilter('color', 'Blue', true)
       ]);
 
       expect(store.getters.selectedFilters).toHaveLength(1);
@@ -128,8 +128,8 @@ describe('testing facets module getters', () => {
 
     it('returns an object containing all the selected filters indexed by its facet', () => {
       const store = createFacetsStore([
-        createSimpleFilter('color', 'Red', 10, false),
-        createSimpleFilter('color', 'Blue', 10, true),
+        createSimpleFilter('color', 'Red', false),
+        createSimpleFilter('color', 'Blue', true),
         createHierarchicalFilter('category', 'Summer', false),
         createHierarchicalFilter('category', 'Shorts', true),
         createNumberRangeFilter('price', { min: 0, max: 25 }, false),
@@ -151,8 +151,8 @@ describe('testing facets module getters', () => {
 
     it('returns a record containing the simple filters indexed by its id', () => {
       const store = createFacetsStore([
-        createSimpleFilter('color', 'Red', 10, false),
-        createSimpleFilter('color', 'Blue', 10, true)
+        createSimpleFilter('color', 'Red', false),
+        createSimpleFilter('color', 'Blue', true)
       ]);
 
       expect(store.getters.selectedFiltersByFacet).toEqual({
@@ -210,8 +210,8 @@ describe('testing facets module getters', () => {
     it('returns an object containing all the facets with their filters', () => {
       const facets = [
         createSimpleFacetStub('color', createFilter => [
-          createFilter('Red', 10, false),
-          createFilter('Blue', 10, true)
+          createFilter('Red', false),
+          createFilter('Blue', true)
         ]),
         createHierarchicalFacetStub('category', createFilter => [
           ...createFilter('Summer', false),

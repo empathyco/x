@@ -1,7 +1,7 @@
 Feature: Base result image component
 
   Background:
-    Given a results API with fallback images
+    Given a results API with broken images
     And   a recommendations API with a known response
     And   a next queries API
     And   a suggestions API
@@ -11,11 +11,11 @@ Feature: Base result image component
 
   Scenario Outline: 1. Placeholders are replaced for images or fallbacks in case it is not possible to load the images
     And   "<query>" is searched
-    Then  related results are displayed
-    And   placeholder 0 is replaced for "<image>"
-    And   placeholder 1 is replaced for "<fallback>"
-    And   placeholder 2 is replaced for "<imagesAndFallbacks>"
+    Then  results display placeholder images before pertinent images are loaded
+    And   result 0 with working image or mix of working and broken ones is displayed
+    And   result 1 with broken images display a fallback image
+    And   result 2 with working image or mix of working and broken ones is displayed
 
     Examples:
-      | query | image                  | fallback                  | imagesAndFallbacks    |
-      | lego  | result-picture__image  | result-picture__fallback  | result-picture__image |
+      | query |
+      | lego  |

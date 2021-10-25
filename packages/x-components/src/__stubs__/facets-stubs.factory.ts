@@ -544,7 +544,7 @@ export function createFacetWithFilter(category: string): SimpleFacet {
 export function createSimpleFacetStub(
   label: string,
   createChildren: (
-    createChild: (label: string, totalResults?: number, selected?: boolean) => SimpleFilter
+    createChild: (label: string, selected?: boolean, totalResults?: number) => SimpleFilter
   ) => SimpleFilter[]
 ): SimpleFacet {
   const facetId = label.toLowerCase();
@@ -552,8 +552,8 @@ export function createSimpleFacetStub(
     modelName: 'SimpleFacet',
     id: facetId,
     label,
-    filters: createChildren((label, totalResults, selected) =>
-      createSimpleFilter(facetId, label, totalResults, selected)
+    filters: createChildren((label, selected, totalResults) =>
+      createSimpleFilter(facetId, label, selected, totalResults)
     )
   };
 }

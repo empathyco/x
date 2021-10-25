@@ -71,7 +71,7 @@ describe('testing facets service', () => {
   describe('selects & deselects a filter', () => {
     it('selects & deselects a simple filter', () => {
       const { service, isFilterSelected } = prepareFacetsService();
-      const simpleFilter = createSimpleFilter('size', 'xs', 10, false);
+      const simpleFilter = createSimpleFilter('size', 'xs', false);
 
       service.select(simpleFilter);
       expect(isFilterSelected(simpleFilter)).toBe(true);
@@ -144,7 +144,7 @@ describe('testing facets service', () => {
   describe('toggles a filter', () => {
     it('toggles a simple filter', () => {
       const { service, isFilterSelected, getStoreFilter } = prepareFacetsService();
-      const simpleFilter = createSimpleFilter('size', 'xs', 10, false);
+      const simpleFilter = createSimpleFilter('size', 'xs', false);
 
       service.toggle(simpleFilter);
       expect(isFilterSelected(simpleFilter)).toBe(true);
@@ -212,7 +212,7 @@ describe('testing facets service', () => {
         createEditableNumberRangeFilter('category', { min: null, max: 30 }),
         createNumberRangeFilter('category', { min: null, max: 10 }),
         createHierarchicalFilter('category', 'shirt'),
-        createSimpleFilter('color', 'red', 10, false)
+        createSimpleFilter('color', 'red', false)
       ].forEach(filter => {
         service.select(filter);
       });
@@ -231,7 +231,7 @@ describe('testing facets service', () => {
         createEditableNumberRangeFilter('age', { min: null, max: 30 }),
         createNumberRangeFilter('price', { min: null, max: 10 }),
         createHierarchicalFilter('category', 'shirt'),
-        createSimpleFilter('color', 'red', 10, false)
+        createSimpleFilter('color', 'red', false)
       ];
       filters.forEach(filter => {
         service.select(filter);
@@ -260,7 +260,7 @@ describe('testing facets service', () => {
       } = prepareFacetsService();
 
       const colorFacet = createSimpleFacetStub('color', createFilter => [
-        createFilter('red', 10, true),
+        createFilter('red', true),
         createFilter('blue')
       ]);
       const redColorFilter = colorFacet.filters[0];
@@ -320,8 +320,8 @@ describe('testing facets service', () => {
 
       const newColorFacet = createSimpleFacetStub('color', createFilter => [
         createFilter('red'),
-        createFilter('blue', 10, true),
-        createFilter('green', 10, true)
+        createFilter('blue', true),
+        createFilter('green', true)
       ]);
       const newCategoryFacet = createHierarchicalFacetStub('category', createFilter => [
         ...createFilter('men'),
@@ -363,7 +363,7 @@ describe('testing facets service', () => {
 
       // Saving a new group of facets shouldn't affect previous ones
       const shipmentFacet = createSimpleFacetStub('shipment', createFilter => [
-        createFilter('In store', 10, true),
+        createFilter('In store', true),
         createFilter('Express')
       ]);
       service.updateFacets({
@@ -429,7 +429,7 @@ describe('testing facets service', () => {
       } = prepareFacetsService();
 
       const colorFacet = createSimpleFacetStub('color', createFilter => [
-        createFilter('red', 10, true),
+        createFilter('red', true),
         createFilter('blue')
       ]);
       const redColorFilter = colorFacet.filters[0];
@@ -485,7 +485,7 @@ describe('testing facets service', () => {
       const newColorFacet = createSimpleFacetStub('color', createFilter => [
         createFilter('red'),
         createFilter('blue'),
-        createFilter('green', 10, true)
+        createFilter('green', true)
       ]);
       const greenColorFilter = newColorFacet.filters[2];
       const newCategoryFacet = createHierarchicalFacetStub('category', createFilter => [
@@ -530,7 +530,7 @@ describe('testing facets service', () => {
 
       // Saving a new group of facets shouldn't affect previous ones
       const shipmentFacet = createSimpleFacetStub('shipment', createFilter => [
-        createFilter('In store', 10, true),
+        createFilter('In store', true),
         createFilter('Express')
       ]);
       const inStoreShipmentFilter = shipmentFacet.filters[0];
@@ -567,8 +567,8 @@ describe('testing facets service', () => {
       // Set a new Single Select facet with multiple selected values
       const newSizeFacet = createSimpleFacetStub('size', createFilter => [
         createFilter('s'),
-        createFilter('m', 10, true),
-        createFilter('l', 10, true)
+        createFilter('m', true),
+        createFilter('l', true)
       ]);
 
       service.setFacets({
@@ -584,8 +584,8 @@ describe('testing facets service', () => {
 
       const newSizeFacet = createSimpleFacetStub('size', createFilter => [
         createFilter('s'),
-        createFilter('m', 10, true),
-        createFilter('l', 10, true)
+        createFilter('m', true),
+        createFilter('l', true)
       ]);
 
       service.setFacets({

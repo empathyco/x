@@ -36,12 +36,12 @@ describe('testing Facets component', () => {
     const { getDefaultFacets, getStateFacets, getDefaultSelectedFilters } = renderFacetsComponent({
       facets: {
         color_facet: createSimpleFacetStub('color_facet', createSimpleFilter => [
-          createSimpleFilter('Red', 10, false),
-          createSimpleFilter('Blue', 10, true)
+          createSimpleFilter('Red', false),
+          createSimpleFilter('Blue', true)
         ]),
         brand_facet: createSimpleFacetStub('brand_facet', createSimpleFilter => [
-          createSimpleFilter('Adidas', 10, false),
-          createSimpleFilter('Nike', 10, false)
+          createSimpleFilter('Adidas', false),
+          createSimpleFilter('Nike', false)
         ])
       }
     });
@@ -72,12 +72,12 @@ describe('testing Facets component', () => {
           </template>`,
       facets: {
         [customFacetId]: createSimpleFacetStub(customFacetId, createSimpleFilter => [
-          createSimpleFilter('Red', 10, true),
-          createSimpleFilter('Blue', 10, true)
+          createSimpleFilter('Red', true),
+          createSimpleFilter('Blue', true)
         ]),
         brand_facet: createSimpleFacetStub('brand_facet', createSimpleFilter => [
-          createSimpleFilter('Adidas', 10, false),
-          createSimpleFilter('Nike', 10, false)
+          createSimpleFilter('Adidas', false),
+          createSimpleFilter('Nike', false)
         ])
       }
     });
@@ -99,12 +99,12 @@ describe('testing Facets component', () => {
       const { getDefaultFacets } = renderFacetsComponent({
         facets: {
           color: createSimpleFacetStub('color', createSimpleFilter => [
-            createSimpleFilter('Red', 10, false),
-            createSimpleFilter('Blue', 10, false)
+            createSimpleFilter('Red', false),
+            createSimpleFilter('Blue', false)
           ]),
           size: createSimpleFacetStub('size', createSimpleFilter => [
-            createSimpleFilter('Big', 10, false),
-            createSimpleFilter('Small', 10, false)
+            createSimpleFilter('Big', false),
+            createSimpleFilter('Small', false)
           ])
         }
       });
@@ -120,16 +120,16 @@ describe('testing Facets component', () => {
       const { getDefaultFacets } = renderFacetsComponent({
         facets: {
           color_facet: createSimpleFacetStub('color_facet', createSimpleFilter => [
-            createSimpleFilter('Red', 10, false),
-            createSimpleFilter('Blue', 10, true)
+            createSimpleFilter('Red', false),
+            createSimpleFilter('Blue', true)
           ]),
           brand_facet: createSimpleFacetStub('brand_facet', createSimpleFilter => [
-            createSimpleFilter('Adidas', 10, false),
-            createSimpleFilter('Nike', 10, false)
+            createSimpleFilter('Adidas', false),
+            createSimpleFilter('Nike', false)
           ]),
           price_facet: createSimpleFacetStub('price_facet', createSimpleFilter => [
-            createSimpleFilter('< 10 €', 10, false),
-            createSimpleFilter('10 - 50 €', 10, false)
+            createSimpleFilter('< 10 €', false),
+            createSimpleFilter('10 - 50 €', false)
           ])
         },
         renderableFacets: 'color_facet'
@@ -146,16 +146,16 @@ describe('testing Facets component', () => {
       const { getDefaultFacets } = renderFacetsComponent({
         facets: {
           color: createSimpleFacetStub('color', createSimpleFilter => [
-            createSimpleFilter('Red', 10, false),
-            createSimpleFilter('Blue', 10, false)
+            createSimpleFilter('Red', false),
+            createSimpleFilter('Blue', false)
           ]),
           size: createSimpleFacetStub('size', createSimpleFilter => [
-            createSimpleFilter('Big', 10, false),
-            createSimpleFilter('Small', 10, false)
+            createSimpleFilter('Big', false),
+            createSimpleFilter('Small', false)
           ]),
           price: createSimpleFacetStub('price', createSimpleFilter => [
-            createSimpleFilter('< 10 €', 10, false),
-            createSimpleFilter('10 - 50 €', 10, false)
+            createSimpleFilter('< 10 €', false),
+            createSimpleFilter('10 - 50 €', false)
           ])
         },
         renderableFacets: '!color'
@@ -172,16 +172,16 @@ describe('testing Facets component', () => {
       const { getDefaultFacets } = renderFacetsComponent({
         facets: {
           color: createSimpleFacetStub('color', createSimpleFilter => [
-            createSimpleFilter('Red', 10, false),
-            createSimpleFilter('Blue', 10, false)
+            createSimpleFilter('Red', false),
+            createSimpleFilter('Blue', false)
           ]),
           size: createSimpleFacetStub('size', createSimpleFilter => [
-            createSimpleFilter('Big', 10, false),
-            createSimpleFilter('Small', 10, false)
+            createSimpleFilter('Big', false),
+            createSimpleFilter('Small', false)
           ]),
           price: createSimpleFacetStub('price', createSimpleFilter => [
-            createSimpleFilter('< 10 €', 10, false),
-            createSimpleFilter('10 - 50 €', 10, false)
+            createSimpleFilter('< 10 €', false),
+            createSimpleFilter('10 - 50 €', false)
           ])
         },
         renderableFacets: 'color,!price'

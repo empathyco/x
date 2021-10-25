@@ -314,13 +314,13 @@
                             <BaseResultImage :result="result" class="x-picture--colored">
                               <template #placeholder>
                                 <div
-                                  data-test="result-picture__placeholder"
+                                  data-test="result-picture-placeholder"
                                   style="padding-top: 100%; background-color: lightgray"
                                 ></div>
                               </template>
                               <template #fallback>
                                 <div
-                                  data-test="result-picture__fallback"
+                                  data-test="result-picture-fallback"
                                   style="padding-top: 100%; background-color: lightsalmon"
                                 ></div>
                               </template>
@@ -494,7 +494,7 @@
         xModules: deepMerge(customQueryConfig)
       });
       new XInstaller(configLayoutView).init(baseSnippetConfig);
-      ['hierarchical_category', 'brand_facet', 'age_facet', 'price_facet'].forEach(facetId =>
+      ['hierarchical_category', 'brand_facet', 'age_facet'].forEach(facetId =>
         FilterEntityFactory.instance.registerFilterModifier(facetId, [SingleSelectModifier])
       );
       next();
