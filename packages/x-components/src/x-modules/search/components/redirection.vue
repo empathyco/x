@@ -77,6 +77,7 @@
      */
     @Watch('redirections', { immediate: true })
     protected redirectDelayed(): void {
+      this.isLoading = true;
       if (this.mode === 'auto' && this.redirection) {
         // eslint-disable-next-line @typescript-eslint/unbound-method
         this.timeoutId = setTimeout(this.redirect, this.delayInSeconds * 1000);
