@@ -3,7 +3,7 @@ import { getGettersProxyFromModule } from '../store/utils/getters-proxy.utils';
 import { AnySimpleStateSelector, AnyStateSelector } from '../store/utils/store-emitters.utils';
 import { debounce } from '../utils/debounce';
 import { forEach } from '../utils/object';
-import { Dictionary } from '../utils/types';
+import { DebouncedFunction, Dictionary } from '../utils/types';
 import { XEvent } from '../wiring/events.types';
 import { AnyXModule } from '../x-modules/x-modules.types';
 import { XBus } from './x-bus.types';
@@ -30,18 +30,17 @@ export function registerStoreEmitters(
       event
     );
 
-    const emit = (value: unknown): void => bus.emit(event, value, { moduleName: name });
+    const emit = (value: unknown): void => {
+      bus.emit(event, value, { moduleName: name });
+    };
     const watcherSelector = (): unknown => selector(store.state.x[name], safeGettersProxy);
+    const debouncedEffect = debounceWatcherEffect(event, (newValue, oldValue) => {
+      if (filter(newValue, oldValue)) {
+        emit(newValue);
+      }
+    });
 
-    store.watch(
-      watcherSelector,
-      debounceWatcherEffect(event, (newValue, oldValue) => {
-        if (filter(newValue, oldValue)) {
-          emit(newValue);
-        }
-      }),
-      options
-    );
+    store.watch(watcherSelector, debouncedEffect, options);
 
     if (immediate) {
       Promise.resolve().then(() => {
@@ -54,7 +53,7 @@ export function registerStoreEmitters(
 /**
  * This function "wraps" the watcher effect (the callback of the watcher) with debounce to avoid
  * repeating events and request. Right now this function wraps every effect in a debounce and adds
- * an extra debounce to the `XxxRequestChanged` events, to try to delay this events after the state
+ * an extra debounce to the "SecondLevelEvent" events, to try to delay this events after the state
  * change events.
  *
  * @param event - The {@link XEvent} to emit.
@@ -79,11 +78,16 @@ function debounceWatcherEffect(
     watcherEffect(newValue, oldValue);
     previousValue = undefined;
   }, 0);
-  /* Only applying the extra debounce to the `XxxRequestChanged` events to avoid repeating
-   * requests. If we only apply the debounce to all the events we still have the problem of
-   * repeated requests. */
-  if (isRequestChangedEvent(event)) {
-    watcherCallback = debounce(watcherCallback, 0);
+  /* Only applying the extra debounce to the "SecondLevelEvent" events to avoid repeating outer
+   * effects (requests, URL changes). If we only apply the debounce to all the events we still have
+   * the problem of outer effects. */
+  if (isSecondLevelEventEmitter(event)) {
+    const previousCallback = watcherCallback;
+    const debouncedPreviousCallback = debounce(previousCallback, 0);
+    watcherCallback = ((n, o) => {
+      previousCallback.cancel();
+      debouncedPreviousCallback(n, o);
+    }) as DebouncedFunction<any>;
   }
 
   return (newValue, oldValue) => {
@@ -112,8 +116,8 @@ function normalizeStateSelector(
   return {
     deep: false,
     immediate: false,
-    filter: isRequestChangedEvent(event)
-      ? (newValue, oldValue) => !hasRequestPayloadChanged(newValue, oldValue)
+    filter: isSecondLevelEventEmitter(event)
+      ? (newValue, oldValue) => !hasPayloadChanged(newValue, oldValue)
       : () => true,
     ...normalizedSelector
   };
@@ -134,25 +138,31 @@ export function isSimpleSelector(
   return typeof stateSelector === 'function';
 }
 
-/**
- * Function to detect if an {@link XEvent} is a `XxxRequestChanged`, to treat it differently.
- *
- * @param event - The name of the {@link XEvent} to check.
- * @returns True if is an `XxxRequestChanged`, False otherwise.
- */
-function isRequestChangedEvent(event: XEvent): boolean {
-  return event.endsWith('RequestChanged');
-}
+// TODO: Generalize the Naming of the Events to take this into account
+const secondLevelEvents: RegExp[] = [/RequestChanged$/, /UrlStateChanged$/];
 
 /**
- * Function to filter if a payload of a RequestChanged event has really changed or not. It only
+ * Function to detect if an {@link XEvent} is a "SecondLevelEvent", to treat it differently.
+ *
+ * @param event - The name of the {@link XEvent} to check.
+ * @returns True if is an `SecondLevelEvent`, False otherwise.
+ *
+ * @internal
+ */
+function isSecondLevelEventEmitter(event: XEvent): boolean {
+  return secondLevelEvents.some(regex => regex.test(event));
+}
+/**
+ * Function to filter if a payload of an {@link XEvent} has really changed or not. It only
  * compares the first level of fields and not deeply, to avoid CPU consuming task here.
  *
  * @param request1 - First request to compare.
  * @param request2 - Second request to compare.
  * @returns True if the two objects are different, false otherwise.
+ *
+ * @internal
  */
-function hasRequestPayloadChanged<T extends Dictionary>(request1?: T, request2?: T): boolean {
+function hasPayloadChanged<T extends Dictionary>(request1?: T, request2?: T): boolean {
   if (request1 === request2) {
     return true;
   }

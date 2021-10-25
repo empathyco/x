@@ -28,12 +28,20 @@ export const setUrlQuery = wireCommit('setQuery');
  * @public
  */
 export const setUrlPage = wireCommit('setPage');
+
 /**
  * Sets the extra params of the url module.
  *
  * @public
  */
 export const setParams = wireCommit('setParams');
+
+/**
+ * Sets the initial provided extra params.
+ *
+ * @public
+ */
+export const setInitialExtraParams = wireCommit('setInitialExtraParams');
 
 /**
  * Sets the filters of the url module.
@@ -68,5 +76,8 @@ export const urlWiring = createWiring({
   },
   ExtraParamsChanged: {
     setParams
+  },
+  ExtraParamsInitialized: {
+    setInitialExtraParams
   }
 });

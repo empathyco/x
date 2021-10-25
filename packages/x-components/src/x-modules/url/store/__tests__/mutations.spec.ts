@@ -23,7 +23,8 @@ describe('testing Url module mutations', () => {
         sort: '',
         scroll: 0,
         warehouse: '01234',
-        consent: true
+        consent: true,
+        initialExtraParams: {}
       });
     });
   });

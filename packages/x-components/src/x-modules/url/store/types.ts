@@ -1,13 +1,16 @@
 import { Filter, RelatedTag } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { UrlParams } from '../../../types/url-params';
+import { Dictionary } from '../../../utils/types';
 
 /**
  * URL store state.
  *
  * @public
  */
-export type UrlState = UrlParams;
+export type UrlState = UrlParams & {
+  initialExtraParams: Dictionary<unknown>;
+};
 
 /**
  * URL store getters.
@@ -69,6 +72,12 @@ export interface UrlMutations {
    * @param page - The new page of the url.
    */
   setPage(page: number): void;
+  /**
+   * Sets the initial extra params.
+   *
+   * @param extraParams - The new initial extra params.
+   */
+  setInitialExtraParams(extraParams: Dictionary<unknown>): void;
 }
 
 /**

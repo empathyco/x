@@ -10,7 +10,8 @@ import { UrlXStoreModule } from './types';
  */
 export const urlXStoreModule: UrlXStoreModule = {
   state: () => ({
-    ...initialUrlState
+    ...initialUrlState,
+    initialExtraParams: {}
   }),
   getters: {
     urlParams
@@ -28,6 +29,9 @@ export const urlXStoreModule: UrlXStoreModule = {
     },
     setPage(state, page) {
       state.page = page;
+    },
+    setInitialExtraParams(state, extraParams) {
+      state.initialExtraParams = extraParams;
     }
   },
   actions: {}
