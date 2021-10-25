@@ -58,7 +58,8 @@
       flex: 1 0 auto;
       background-color: #1a1a1a;
       animation-name: slide;
-      animation-timing-function: ease-in;
+      animation-timing-function: linear;
+      animation-iteration-count: initial;
     }
   }
   @keyframes slide {
