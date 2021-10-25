@@ -457,60 +457,61 @@ The component has also the following `Design Tokens` to configure it:
 | --x-size-margin-bottom-layout-columns-scroll-to-top |     10px      |
 |  --x-size-margin-left-layout-columns-scroll-to-top  |     10px      |
 
-// eslint-disable max-len | token | use | | :-------------------------------------------------: |
-:-----------------------------------------: | | --x-size-column-gap-layout-columns | The gap between
-columns | | --x-size-padding-top-layout-columns-header | The padding top of the header | |
---x-size-padding-bottom-layout-columns-header | The padding bottom of the header | |
---x-size-margin-top-layout-columns-header | The margin top of the header | |
---x-size-margin-bottom-layout-columns-header | The margin bottom of the header | |
---x-color-background-layout-columns-header | The background color of the header | |
---x-color-border-layout-columns-header | The border color of the header | |
---x-size-border-width-layout-columns-header | The border width of the header | |
---x-flow-layout-columns-header-start | The flex flow of the start header | |
---x-size-justify-layout-columns-header-start | The justify content of the start header | |
---x-size-align-layout-columns-header-start | The align items of the start header | |
---x-flow-layout-columns-header-middle | The flex flow of the middle header | |
---x-size-justify-layout-columns-header-middle | The justify content of the middle header | |
---x-size-align-layout-columns-header-middle | The align items of the middle header | |
---x-flow-layout-columns-header-end | The flex flow of the end header | |
---x-size-justify-layout-columns-header-end | The justify content of the end header | |
---x-size-align-layout-columns-header-end | The align items of the end header | |
---x-size-padding-top-layout-columns-sub-header | The padding bottom of the sub header | |
---x-size-padding-bottom-layout-columns-sub-header | The padding top of the sub header | |
---x-size-margin-top-layout-columns-sub-header | The margin bottom of the sub header | |
---x-size-margin-bottom-layout-columns-sub-header | The margin top of the sub header | |
---x-color-background-layout-columns-sub-header | The background color of the sub header | |
---x-color-border-layout-columns-sub-header | The border color of the sub header | |
---x-size-border-width-layout-columns-sub-header | The border width of the sub header | |
---x-flow-layout-columns-sub-header | The flex flow of the sub header | |
---x-size-justify-layout-columns-sub-header | The justify content of the sub header | |
---x-size-align-layout-columns-sub-header | The align items of the sub header | |
---x-size-padding-top-layout-columns-toolbar | The padding top of the toolbar | |
---x-size-padding-bottom-layout-columns-toolbar | The padding bottom of the toolbar | |
---x-size-margin-top-layout-columns-toolbar | The margin top of the toolbar | |
---x-size-margin-bottom-layout-columns-toolbar | The margin bottom of the toolbar | |
---x-color-background-layout-columns-toolbar | The background color of the toolbar | |
---x-color-border-layout-columns-sub-toolbar | The border color of the toolbar | |
---x-size-border-width-layout-columns-toolbar | The border width of the toolbar | |
---x-flow-layout-columns-toolbar-aside | The flex flow of the toolbar aside | |
---x-size-justify-layout-columns-toolbar-aside | The justify content of the toolbar aside | |
---x-size-align-layout-columns-toolbar-aside | The align items of the toolbar aside | |
---x-flow-layout-columns-toolbar-body | The flex flow of the end toolbar body | |
---x-size-justify-layout-columns-toolbar-body | The justify content of the end toolbar body | |
---x-size-align-layout-columns-toolbar-body | The align items of the toolbar body | |
---x-size-padding-top-layout-columns-main | The padding top of the main | |
---x-size-padding-bottom-layout-columns-main | The padding bottom of the main | |
---x-size-margin-top-layout-columns-main | The margin top of the main | |
---x-size-margin-bottom-layout-columns-main | The margin bottom of the main | |
---x-color-background-layout-columns-main | The background color of the main | |
---x-color-border-layout-columns-main | The border color of the main | |
---x-size-border-width-layout-columns-main | The border width of the main | |
---x-color-background-layout-columns-main-aside | The background color of the main aside | |
---x-color-border-layout-columns-main-aside | The border color of the main aside | |
---x-size-border-width-layout-columns-main-aside | The border width of the sub main aside | |
---x-color-background-layout-columns-main-body | The background color of the main body | |
---x-color-border-layout-columns-main-body | The border color of the main body | |
---x-size-border-width-layout-columns-main-body | The border width of the sub main body | |
---x-size-margin-bottom-layout-columns-scroll-to-top | The margin bottom of the scroll to top | |
---x-size-margin-left-layout-columns-scroll-to-top | The margin left of the scroll to top |
+|                        token                        |                   use                    |
+| :-------------------------------------------------: | :--------------------------------------: |
+|         --x-size-column-gap-layout-columns          |         The gap between columns          |
+|     --x-size-padding-top-layout-columns-header      |      The padding top of the header       |
+|    --x-size-padding-bottom-layout-columns-header    |     The padding bottom of the header     |
+|      --x-size-margin-top-layout-columns-header      |       The margin top of the header       |
+|    --x-size-margin-bottom-layout-columns-header     |     The margin bottom of the header      |
+|     --x-color-background-layout-columns-header      |    The background color of the header    |
+|       --x-color-border-layout-columns-header        |      The border color of the header      |
+|     --x-size-border-width-layout-columns-header     |      The border width of the header      |
+|        --x-flow-layout-columns-header-start         |    The flex flow of the start header     |
+|    --x-size-justify-layout-columns-header-start     | The justify content of the start header  |
+|     --x-size-align-layout-columns-header-start      |   The align items of the start header    |
+|        --x-flow-layout-columns-header-middle        |    The flex flow of the middle header    |
+|    --x-size-justify-layout-columns-header-middle    | The justify content of the middle header |
+|     --x-size-align-layout-columns-header-middle     |   The align items of the middle header   |
+|         --x-flow-layout-columns-header-end          |     The flex flow of the end header      |
+|     --x-size-justify-layout-columns-header-end      |  The justify content of the end header   |
+|      --x-size-align-layout-columns-header-end       |    The align items of the end header     |
+|   --x-size-padding-top-layout-columns-sub-header    |   The padding bottom of the sub header   |
+|  --x-size-padding-bottom-layout-columns-sub-header  |    The padding top of the sub header     |
+|    --x-size-margin-top-layout-columns-sub-header    |   The margin bottom of the sub header    |
+|  --x-size-margin-bottom-layout-columns-sub-header   |     The margin top of the sub header     |
+|   --x-color-background-layout-columns-sub-header    |  The background color of the sub header  |
+|     --x-color-border-layout-columns-sub-header      |    The border color of the sub header    |
+|   --x-size-border-width-layout-columns-sub-header   |    The border width of the sub header    |
+|         --x-flow-layout-columns-sub-header          |     The flex flow of the sub header      |
+|     --x-size-justify-layout-columns-sub-header      |  The justify content of the sub header   |
+|      --x-size-align-layout-columns-sub-header       |    The align items of the sub header     |
+|     --x-size-padding-top-layout-columns-toolbar     |      The padding top of the toolbar      |
+|   --x-size-padding-bottom-layout-columns-toolbar    |    The padding bottom of the toolbar     |
+|     --x-size-margin-top-layout-columns-toolbar      |      The margin top of the toolbar       |
+|    --x-size-margin-bottom-layout-columns-toolbar    |     The margin bottom of the toolbar     |
+|     --x-color-background-layout-columns-toolbar     |   The background color of the toolbar    |
+|     --x-color-border-layout-columns-sub-toolbar     |     The border color of the toolbar      |
+|    --x-size-border-width-layout-columns-toolbar     |     The border width of the toolbar      |
+|        --x-flow-layout-columns-toolbar-aside        |    The flex flow of the toolbar aside    |
+|    --x-size-justify-layout-columns-toolbar-aside    | The justify content of the toolbar aside |
+|     --x-size-align-layout-columns-toolbar-aside     |   The align items of the toolbar aside   |
+|        --x-flow-layout-columns-toolbar-body         |  The flex flow of the end toolbar body   |
+|    --x-size-justify-layout-columns-toolbar-body     | Justify content of the end toolbar body  |
+|     --x-size-align-layout-columns-toolbar-body      |   The align items of the toolbar body    |
+|      --x-size-padding-top-layout-columns-main       |       The padding top of the main        |
+|     --x-size-padding-bottom-layout-columns-main     |      The padding bottom of the main      |
+|       --x-size-margin-top-layout-columns-main       |        The margin top of the main        |
+|     --x-size-margin-bottom-layout-columns-main      |      The margin bottom of the main       |
+|      --x-color-background-layout-columns-main       |     The background color of the main     |
+|        --x-color-border-layout-columns-main         |       The border color of the main       |
+|      --x-size-border-width-layout-columns-main      |       The border width of the main       |
+|   --x-color-background-layout-columns-main-aside    |  The background color of the main aside  |
+|     --x-color-border-layout-columns-main-aside      |    The border color of the main aside    |
+|   --x-size-border-width-layout-columns-main-aside   |  The border width of the sub main aside  |
+|    --x-color-background-layout-columns-main-body    |  The background color of the main body   |
+|      --x-color-border-layout-columns-main-body      |    The border color of the main body     |
+|   --x-size-border-width-layout-columns-main-body    |  The border width of the sub main body   |
+| --x-size-margin-bottom-layout-columns-scroll-to-top |  The margin bottom of the scroll to top  |
+|  --x-size-margin-left-layout-columns-scroll-to-top  |   The margin left of the scroll to top   |
 </docs>
