@@ -69,8 +69,7 @@ describe('testing Redirection component', () => {
   const { location } = window;
 
   beforeEach(() => {
-    jest.clearAllMocks();
-    jest.useFakeTimers(); // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     delete window.location;
     window.location = { ...location, replace: spy };
