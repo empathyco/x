@@ -149,7 +149,7 @@ describe('testing Redirection component', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it("doesn't emit the event `UserClickedARedirection` if there is a new query accepted", () => {
+  it("doesn't redirect if there is a new query accepted", () => {
     const { wrapper } = renderRedirection();
 
     wrapper.vm.$x.emit('UserAcceptedAQuery', 'lego');

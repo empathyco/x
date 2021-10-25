@@ -84,7 +84,7 @@
     }
 
     /**
-     * Dispatches the redirection, emitting `UserClickedARedirection` event.
+     * Dispatches the redirection, updating the url.
      *
      * @public
      */
