@@ -34,7 +34,7 @@ describe('testing AutoProgressBar component', () => {
     expect(wrapper.find(getDataTestSelector('progress-bar')).exists()).toBe(true);
   });
 
-  it("doesn't render a progress bar component when is not active", async () => {
+  it("doesn't render a progress bar component when is not loading", async () => {
     const { wrapper } = renderAutoProgressBar();
 
     expect(wrapper.find(getDataTestSelector('progress-bar')).exists()).toBe(true);
