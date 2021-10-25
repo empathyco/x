@@ -156,6 +156,13 @@ export const resetFacets = wireCommit('setFacets', []);
 export const resetAppending = wireCommit('setIsAppendResults', false);
 
 /**
+ * Redirects to the new url.
+ *
+ * @public
+ */
+export const redirectWire = wireDispatch('redirect');
+
+/**
  * Search wiring.
  *
  * @internal
@@ -213,5 +220,8 @@ export const searchWiring = createWiring({
   },
   ParamsLoadedFromUrl: {
     setUrlParams
+  },
+  UserClickedARedirection: {
+    redirectWire
   }
 });

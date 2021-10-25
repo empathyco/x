@@ -321,4 +321,28 @@ describe('testing search module actions', () => {
       expect(store.state.page).toEqual(1);
     });
   });
+
+  describe('redirect', () => {
+    const spy = jest.fn();
+    beforeEach(() => {
+      const { location } = window;
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      delete window.location;
+      window.location = { ...location, replace: spy };
+    });
+
+    afterEach(() => {
+      window.location = location;
+    });
+
+    it('should changes the url', async () => {
+      const redirections = getRedirectionsStub();
+
+      await store.dispatch('redirect', redirections[0]);
+
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(spy).toHaveBeenCalledWith(redirections[0].url);
+    });
+  });
 });

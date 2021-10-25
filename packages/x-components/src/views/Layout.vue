@@ -230,7 +230,7 @@
 
         <template #main-body>
           <Redirection
-            v-slot="{ redirection, redirect, abortRedirect, isLoading }"
+            v-slot="{ redirection, redirect, abortRedirect, isLoading, delayInSeconds }"
             delayInSeconds="5"
           >
             <span>{{ redirection.url }}</span>
