@@ -56,16 +56,6 @@
 </script>
 
 <style scopped lang="scss">
-  .x-layout > * {
-    display: flex;
-    align-items: center;
-  }
-
-  .x-layout__sub-header-content {
-    display: flex;
-    justify-content: center;
-  }
-
   :root {
     --x-color-background-layout-columns-header: var(--x-color-base-lead);
     --x-color-background-layout-columns-sub-header: var(--x-color-base-auxiliary);

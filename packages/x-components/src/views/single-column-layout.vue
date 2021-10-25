@@ -56,11 +56,6 @@
 
 <style scopped lang="scss">
   .x-layout {
-    > * {
-      border: 1px solid black;
-      margin: 1px;
-      justify-content: center;
-    }
     &__header {
       background: var(--x-color-base-lead);
     }

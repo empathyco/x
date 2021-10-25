@@ -96,7 +96,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import '../../design-system/utilities/dev.mode';
+  @import '../../design-system/utilities/dev-mode';
 
   .x-layout {
     display: grid;
@@ -158,7 +158,7 @@
       z-index: 3;
 
       ::v-deep .x-modal__content {
-        margin-inline-start: var(--x-size-margin-left-layout-s, 0);
+        margin-inline-start: var(-x-size-margin-left-layout-single-column, 0);
       }
     }
     &__predictive,

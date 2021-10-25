@@ -1,6 +1,6 @@
 <template>
   <FixedHeaderAndAsidesLayout :dev-mode="true">
-    <template #header>
+    <template #header class="x-list">
       <BaseIdModalOpen modalId="left-aside">
         <Cross />
       </BaseIdModalOpen>
@@ -57,12 +57,6 @@
 </script>
 
 <style scopped lang="scss">
-  #main-scroll > * {
-    border: 1px solid black;
-    margin: 1px;
-    display: flex;
-    align-items: center;
-  }
   .x-layout {
     &__header {
       background: var(--x-color-base-lead);

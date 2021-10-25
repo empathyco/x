@@ -114,7 +114,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import '../../design-system/utilities/dev.mode';
+  @import '../../design-system/utilities/dev-mode';
 
   .x-layout {
     // custom properties
