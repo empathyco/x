@@ -159,29 +159,80 @@
       grid-column: page;
       max-height: var(--x-size-max-height-layout-header, auto);
       padding: 0 var(--x-size-margin-layout);
+
+      //color
+      background: var(--x-color-background-layout-header, transparent);
+      border-color: var(--x-size-border-color-layout-header, transparent);
+
+      // border
+      border-width: var(--x-size-border-width-layout-header, 0);
+      border-style: solid;
     }
 
     &__sub-header {
       // layout
       grid-row: sub-header;
       grid-column: page;
-
       padding: 0 var(--x-size-margin-layout);
+
+      //color
+      background: var(--x-color-background-layout-sub-header, transparent);
+      border-color: var(--x-size-border-color-layout-sub-header, transparent);
+
+      // border
+      border-width: var(--x-size-border-width-layout-sub-header, 0);
+      border-style: solid;
     }
 
     &__toolbar {
       // layout
       grid-row: toolbar;
       grid-column: max-width;
+
+      // color
+      background: var(--x-color-background-layout-toolbar, transparent);
+      border-color: var(--x-size-border-color-layout-toolbar, transparent);
+
+      // border
+      border-width: var(--x-size-border-width-layout-toolbar, 0);
+      border-style: solid;
     }
 
     &__main {
       // layout
       grid-row: main;
       grid-column: max-width;
+
+      // color
+      background: var(--x-color-background-layout-main, transparent);
+      border-color: var(--x-size-border-color-layout-main, transparent);
+
+      // border
+      border-width: var(--x-size-border-width-layout-main, 0);
+      border-style: solid;
     }
 
     &__aside {
+      &--left {
+        // color
+        background: var(--x-color-background-layout-aside-left, transparent);
+        border-color: var(--x-size-border-color-layout-aside-left, transparent);
+
+        // border
+        border-width: var(--x-size-border-width-layout-aside-left, 0);
+        border-style: solid;
+      }
+
+      &--right {
+        // color
+        background: var(--x-color-background-layout-aside-right, transparent);
+        border-color: var(--x-size-border-color-layout-aside-right, transparent);
+
+        // border
+        border-width: var(--x-size-border-width-layout-aside-right, 0);
+        border-style: solid;
+      }
+
       &.x-modal {
         // layout
         z-index: 3;
@@ -209,6 +260,14 @@
       z-index: 1;
       bottom: var(--x-size-margin-bottom-layout-scroll-to-top, 16px);
       right: var(--x-size-margin-right-layout-scroll-to-top, 16px);
+
+      // color
+      background: var(--x-color-background-layout-scroll-to-top, transparent);
+      border-color: var(--x-size-border-color-layout-scroll-to-top, transparent);
+
+      // border
+      border-width: var(--x-size-border-width-layout-scroll-to-top, 0);
+      border-style: solid;
     }
 
     &__header-backdrop {
@@ -264,6 +323,24 @@ The component has also the following `Design Tokens` to configure it:
 |      --x-size-max-height-layout-header      |     auto      |
 |          --x-size-max-width-layout          |    1440px     |
 | --x-color-background-layout-header-backdrop |     white     |
+|     --x-color-background-layout-header      |  transparent  |
+|     --x-size-border-color-layout-header     |  transparent  |
+|     --x-size-border-width-layout-header     |      0px      |
+|   --x-color-background-layout-sub-header    |  transparent  |
+|   --x-size-border-color-layout-sub-header   |  transparent  |
+|   --x-size-border-width-layout-sub-header   |      0px      |
+|   --x-color-background-layout-aside-left    |  transparent  |
+|   --x-size-border-color-layout-aside-left   |  transparent  |
+|   --x-size-border-width-layout-aside-left   |      0px      |
+|   --x-color-background-layout-aside-right   |  transparent  |
+|  --x-size-border-color-layout-aside-right   |  transparent  |
+|  --x-size-border-width-layout-aside-right   |      0px      |
+|     --x-color-background-layout-toolbar     |  transparent  |
+|    --x-size-border-color-layout-toolbar     |  transparent  |
+|    --x-size-border-width-layout-toolbar     |      0px      |
+|      --x-color-background-layout-main       |  transparent  |
+|      --x-size-border-color-layout-main      |  transparent  |
+|      --x-size-border-width-layout-main      |      0px      |
 
 |                    token                    |                    use                    |
 | :-----------------------------------------: | :---------------------------------------: |
@@ -273,4 +350,22 @@ The component has also the following `Design Tokens` to configure it:
 |      --x-size-max-height-layout-header      |   The max height for the Layout Header    |
 |          --x-size-max-width-layout          |       The max width for the Layout        |
 | --x-color-background-layout-header-backdrop | The background color of the head backdrop |
+|     --x-color-background-layout-header      |    The background color of the header     |
+|     --x-size-border-color-layout-header     |      The border color of the header       |
+|     --x-size-border-width-layout-header     |       The border with of the header       |
+|   --x-color-background-layout-sub-header    |  The background color of the sub header   |
+|   --x-size-border-color-layout-sub-header   |    The border color of the sub header     |
+|   --x-size-border-width-layout-sub-header   |     The border with of the sub header     |
+|   --x-color-background-layout-aside-left    |  The background color of the aside left   |
+|   --x-size-border-color-layout-aside-left   |    The border color of the aside left     |
+|   --x-size-border-width-layout-aside-left   |     The border with of the aside left     |
+|   --x-color-background-layout-aside-right   |  The background color of the aside right  |
+|  --x-size-border-color-layout-aside-right   |    The border color of the aside right    |
+|  --x-size-border-width-layout-aside-right   |    The border with of the aside right     |
+|     --x-color-background-layout-toolbar     |    The background color of the toolbar    |
+|    --x-size-border-color-layout-toolbar     |      The border color of the toolbar      |
+|    --x-size-border-width-layout-toolbar     |      The border with of the toolbar       |
+|      --x-color-background-layout-main       |     The background color of the main      |
+|      --x-size-border-color-layout-main      |       The border color of the main        |
+|      --x-size-border-width-layout-main      |        The border with of the main        |
 </docs>

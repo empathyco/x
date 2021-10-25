@@ -1,31 +1,43 @@
 <template>
   <FixedHeaderAndAsidesLayout :dev-mode="true">
-    <template #header class="x-list">
-      <BaseIdModalOpen modalId="left-aside">
-        <Cross />
-      </BaseIdModalOpen>
-      <span>HEADER</span>
-      <BaseIdModalOpen modalId="right-aside">
-        <FiltersIcon class="x-icon--l" />
-      </BaseIdModalOpen>
+    <template #header>
+      <div class="x-list x-list--horizontal x-list__item--expand x-list--align-center">
+        <BaseIdModalOpen modalId="left-aside">
+          <Cross />
+        </BaseIdModalOpen>
+        <div class="x-list__item--expand">HEADER</div>
+        <BaseIdModalOpen modalId="right-aside">
+          <FiltersIcon class="x-icon--l" />
+        </BaseIdModalOpen>
+      </div>
     </template>
     <template #sub-header>
-      <span>SUB-HEADER</span>
+      <div>SUB-HEADER</div>
     </template>
     <template #toolbar>
       <span>TOOLBAR</span>
     </template>
     <template #left-aside>
-      <span>LEFT SIDE</span>
+      <div>LEFT SIDE</div>
     </template>
     <template #right-aside>
-      <span>RIGHT SIDE</span>
+      <div>RIGHT SIDE</div>
     </template>
     <template #main>
       <span>MAIN</span>
     </template>
     <template #scroll-to-top>
-      <span>SCROLL TO TOP</span>
+      <div
+        class="
+          x-background--lead
+          x-border-width--02
+          x-list
+          x-border-width--01
+          x-border-color--neutral-10
+        "
+      >
+        SCROLL TO TOP
+      </div>
     </template>
   </FixedHeaderAndAsidesLayout>
 </template>
@@ -55,29 +67,34 @@
   })
   export default class FixedHeaderAndAsidesLayoutView extends Vue {}
 </script>
-
 <style scopped lang="scss">
-  .x-layout {
-    &__header {
-      background: var(--x-color-base-lead);
-      justify-content: space-between;
-    }
-    &__sub-header {
-      background: var(--x-color-base-auxiliary);
-      justify-content: center;
-    }
-    &__toolbar {
-      background: var(--x-color-base-neutral-35);
-      justify-content: center;
-    }
-    &__main {
-      background: var(--x-color-base-neutral-70);
-      justify-content: center;
-    }
-    &__scroll-to-top {
-      background: var(--x-color-base-neutral-95);
-      justify-content: center;
-      padding: 6px;
-    }
+  :root {
+    --x-color-background-layout-header: var(--x-color-base-lead);
+    --x-size-border-width-layout-header: var(--x-size-base-01);
+    --x-size-border-color-layout-header: var(--x-color-base-neutral-10);
+
+    --x-color-background-layout-sub-header: var(--x-color-base-auxiliary);
+    --x-size-border-width-layout-sub-header: var(--x-size-base-01);
+    --x-size-border-color-layout-sub-header: var(--x-color-base-neutral-10);
+
+    --x-color-background-layout-aside-left: var(--x-color-base-neutral-95);
+    --x-size-border-width-layout-aside-left: var(--x-size-base-01);
+    --x-size-border-color-layout-aside-left: var(--x-color-base-neutral-10);
+
+    --x-color-background-layout-aside-right: var(--x-color-base-neutral-95);
+    --x-size-border-width-layout-aside-right: var(--x-size-base-01);
+    --x-size-border-color-layout-aside-right: var(--x-color-base-neutral-10);
+
+    --x-color-background-layout-toolbar: var(--x-color-base-lead);
+    --x-size-border-width-layout-toolbar: var(--x-size-base-01);
+    --x-size-border-color-layout-toolbar: var(--x-color-base-neutral-10);
+
+    --x-color-background-layout-main: var(--x-color-base-auxiliary);
+    --x-size-border-width-layout-main: var(--x-size-base-01);
+    --x-size-border-color-layout-main: var(--x-color-base-neutral-10);
+
+    --x-color-background-layout-scroll-to-top: var(--x-color-base-auxiliary);
+    --x-size-border-width-layout-scroll-to-top: var(--x-size-base-01);
+    --x-size-border-color-layout-scroll-to-top: var(--x-color-base-neutral-10);
   }
 </style>
