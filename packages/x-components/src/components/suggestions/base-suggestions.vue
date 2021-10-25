@@ -1,7 +1,7 @@
 <template>
   <component :is="animation" v-if="suggestions.length" tag="ul" class="x-list x-suggestions">
     <li
-      v-for="(suggestion, index) in suggestions"
+      v-for="(suggestion, index) in suggestionsToRender"
       :key="suggestionsKeys[index]"
       class="x-suggestions__item"
       data-test="suggestion-item"
@@ -53,6 +53,14 @@
     protected animation!: Vue | string;
 
     /**
+     * Number of suggestions to be rendered.
+     *
+     * @public
+     */
+    @Prop()
+    protected maxItemsToRender?: number;
+
+    /**
      * An array with the unique keys for each suggestion. Required by the `v-for` loop.
      *
      * @returns An array with the unique keys of the suggestions.
@@ -88,6 +96,17 @@
      */
     protected getFacetKey(facet: Facet): string {
       return facet.filters.map(filter => filter.id).join('&');
+    }
+
+    /**
+     * Slices the suggestions from the state.
+     *
+     * @returns - The list of suggestions slice by the number of items to render.
+     *
+     * @internal
+     */
+    protected get suggestionsToRender(): Suggestion[] {
+      return this.suggestions.slice(0, this.maxItemsToRender);
     }
   }
 </script>
@@ -125,5 +144,42 @@ export default {
     }
   }
 };
+```
+
+### Play with props
+
+In this example, the suggestions has been limited to render a maximum of 3 items.
+
+_Type “puzzle” or another toy in the input field to try it out!_
+
+```vue
+<template>
+  <BaseSuggestions :suggestions="suggestions" :maxItemToRender="3" />
+</template>
+
+<script>
+  import { BaseSuggestions } from '@empathyco/x-components';
+
+  export default {
+    name: 'BaseSuggestionsDemo',
+    components: {
+      BaseSuggestions
+    },
+    data() {
+      return {
+        suggestions: [
+          {
+            facets: [],
+            key: 'chips',
+            query: 'Chips',
+            totalResults: 10,
+            results: [],
+            modelName: 'PopularSearch'
+          }
+        ]
+      };
+    }
+  };
+</script>
 ```
 </docs>
