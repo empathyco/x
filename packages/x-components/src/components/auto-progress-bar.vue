@@ -29,7 +29,7 @@
      * @public
      */
     @Prop({ default: 5 })
-    public duration!: number;
+    public durationInSeconds!: number;
 
     /**
      * Computed property to calculate the animation's duration.
@@ -39,7 +39,7 @@
      * @internal
      */
     protected get cssStyles(): Partial<CSSStyleDeclaration> {
-      return { animationDuration: `${this.duration}s` };
+      return { animationDuration: `${this.durationInSeconds}s` };
     }
   }
 </script>
@@ -79,7 +79,7 @@ Here you have a basic example of how the auto progress bar is rendered.
 
 ```vue
 <template>
-  <AutoProgressBar :isLoading="isLoading" :duration="delayInSeconds" />
+  <AutoProgressBar :isLoading="isLoading" :durationInSeconds="delayInSeconds" />
 </template>
 
 <script>
@@ -88,7 +88,7 @@ Here you have a basic example of how the auto progress bar is rendered.
     data() {
       return {
         isLoading: true,
-        delayInSeconds: 100
+        durationInSeconds: 100
       };
     }
   };
@@ -102,7 +102,7 @@ to cancel the animation by sending the isLoading prop to false.
 
 ```vue
 <template>
-  <AutoProgressBar :duration="5" :isLoading="true" />
+  <AutoProgressBar :durationInSeconds="5" :isLoading="true" />
 </template>
 
 <script>

@@ -236,7 +236,7 @@
             <span>{{ redirection.url }}</span>
             <button @click="redirect">Redirect now!</button>
             <button @click="abortRedirect">Abort redirection!</button>
-            <AutoProgressBar :isLoading="isLoading" :duration="delayInSeconds" />
+            <AutoProgressBar :isLoading="isLoading" :durationInSeconds="delayInSeconds" />
           </Redirection>
           <!-- IdentifierResults -->
           <IdentifierResults class="x-list x-list--horizontal">

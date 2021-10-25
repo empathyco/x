@@ -4,7 +4,7 @@ import AutoProgressBar from '../auto-progress-bar.vue';
 
 function renderAutoProgressBar({
   template = '<AutoProgressBar :duration="duration" :isLoading="isLoading"/>',
-  duration = 1,
+  durationInSeconds = 1,
   isLoading = true
 }: RenderBaseAutoProgressBarOptions = {}): RenderAutoProgressBarAPI {
   const wrapper = mount(
@@ -15,7 +15,7 @@ function renderAutoProgressBar({
     {
       data() {
         return {
-          duration,
+          durationInSeconds,
           isLoading
         };
       }
@@ -45,7 +45,7 @@ describe('testing AutoProgressBar component', () => {
   });
 
   it('render a progress bar component with an animation', () => {
-    const { wrapper } = renderAutoProgressBar({ duration: 5 });
+    const { wrapper } = renderAutoProgressBar({ durationInSeconds: 5 });
 
     expect(wrapper.find(getDataTestSelector('progress-bar__line')).attributes().style).toBe(
       'animation-duration: 5s;'
@@ -59,8 +59,8 @@ describe('testing AutoProgressBar component', () => {
 interface RenderBaseAutoProgressBarOptions {
   /** The template to render.*/
   template?: string;
-  /** The duration of the animation. */
-  duration?: number;
+  /** The duration in seconds of the animation. */
+  durationInSeconds?: number;
   /** A flag indicating if the progress bar is loading. */
   isLoading?: boolean;
 }
