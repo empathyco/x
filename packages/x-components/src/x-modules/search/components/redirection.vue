@@ -90,7 +90,7 @@
      */
     protected redirect(): void {
       clearTimeout(this.timeoutId);
-      this.$x.emit('UserClickedARedirection', this.redirection!);
+      window.location.replace(this.redirection!.url);
     }
 
     /**

@@ -221,12 +221,6 @@ export interface SearchActions {
    * @param urlParams - List of params from the url.
    */
   setUrlParams(urlParams: UrlParams): void;
-  /**
-   * Redirects to the url of the redirection.
-   *
-   * @param redirection - The redirection with the new url.
-   */
-  redirect(redirection: Redirection): void;
 }
 
 /**

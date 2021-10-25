@@ -7,7 +7,6 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components';
 import { XPlugin } from '../../../../plugins';
 import { RootXStoreState } from '../../../../store';
 import { DeepPartial } from '../../../../utils';
-import { WirePayload } from '../../../../wiring';
 import Redirection from '../redirection.vue';
 import { resetXSearchStateWith } from './utils';
 
@@ -66,12 +65,21 @@ function renderRedirection({
 }
 
 describe('testing Redirection component', () => {
-  beforeAll(() => {
-    jest.useFakeTimers();
+  const spy = jest.fn();
+  const { location } = window;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.useFakeTimers(); // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    delete window.location;
+    window.location = { ...location, replace: spy };
   });
 
-  afterAll(() => {
+  afterEach(() => {
+    jest.clearAllMocks();
     jest.useFakeTimers();
+    window.location = location;
   });
 
   it('is an XComponent', () => {
@@ -107,88 +115,49 @@ describe('testing Redirection component', () => {
   });
 
   it('accepts the redirection in manual mode when the user click the button', () => {
-    const { wrapper, acceptRedirection } = renderRedirection({ mode: 'manual' });
-    const onUserClickedARedirection = jest.fn();
-
-    wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
+    const { acceptRedirection } = renderRedirection({ mode: 'manual' });
 
     acceptRedirection();
 
-    expect(onUserClickedARedirection).toHaveBeenCalledTimes(1);
-    expect(onUserClickedARedirection).toHaveBeenCalledWith<[WirePayload<RedirectionModel>]>({
-      eventPayload: stubRedirections[0],
-      metadata: {
-        moduleName: 'search'
-      }
-    });
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith(stubRedirections[0].url);
   });
 
   it("doesn't emit the event in manual when the user doesn't click the button", () => {
-    const { wrapper } = renderRedirection({ mode: 'manual' });
-    const onUserClickedARedirection = jest.fn();
+    renderRedirection({ mode: 'manual' });
 
-    wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
+    jest.runAllTicks();
 
-    expect(onUserClickedARedirection).not.toHaveBeenCalled();
-  });
-
-  it('accepts the redirection in auto mode', () => {
-    const { wrapper } = renderRedirection();
-    const onUserClickedARedirection = jest.fn();
-
-    wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
-
-    jest.advanceTimersByTime(2000);
-
-    expect(onUserClickedARedirection).toHaveBeenCalledTimes(1);
-    expect(onUserClickedARedirection).toHaveBeenCalledWith<[WirePayload<RedirectionModel>]>({
-      eventPayload: stubRedirections[0],
-      metadata: {
-        moduleName: 'search'
-      }
-    });
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it('redirects instantly in auto mode and 0 delay', () => {
-    const { wrapper } = renderRedirection({ delayInSeconds: 0 });
-    const onUserClickedARedirection = jest.fn();
-
-    wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
+    renderRedirection({ delayInSeconds: 0 });
 
     // The delay 0 runs so fast the we need to force the test to simulate a wait.
-    jest.advanceTimersByTime(1);
+    jest.runTimersToTime(1);
 
-    expect(onUserClickedARedirection).toHaveBeenCalledTimes(1);
-    expect(onUserClickedARedirection).toHaveBeenCalledWith<[WirePayload<RedirectionModel>]>({
-      eventPayload: stubRedirections[0],
-      metadata: {
-        moduleName: 'search'
-      }
-    });
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith(stubRedirections[0].url);
   });
 
   it('aborts the redirection', () => {
-    const { wrapper, abortRedirection } = renderRedirection();
-    const onUserClickedARedirection = jest.fn();
-
-    wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
+    const { abortRedirection } = renderRedirection();
 
     abortRedirection();
-    jest.advanceTimersByTime(2000);
+    jest.runAllTicks();
 
-    expect(onUserClickedARedirection).not.toHaveBeenCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it("doesn't emit the event `UserClickedARedirection` if there is a new query accepted", () => {
     const { wrapper } = renderRedirection();
-    const onUserClickedARedirection = jest.fn();
 
-    wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
     wrapper.vm.$x.emit('UserAcceptedAQuery', 'lego');
 
-    jest.advanceTimersByTime(2000);
+    jest.runAllTicks();
 
-    expect(onUserClickedARedirection).not.toHaveBeenCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 });
 
