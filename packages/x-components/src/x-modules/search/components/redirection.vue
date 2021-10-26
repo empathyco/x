@@ -8,7 +8,7 @@
   import { Redirection as RedirectionModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop, Watch } from 'vue-property-decorator';
-  import { XOn } from '../../../components';
+  import { XOn } from '../../../components/decorators/bus.decorators';
   import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { searchXModule } from '../x-module';
@@ -91,6 +91,7 @@
      */
     protected redirect(): void {
       clearTimeout(this.timeoutId);
+      this.$x.emit('UserClickedARedirection', this.redirection!);
       window.location.replace(this.redirection!.url);
     }
 
