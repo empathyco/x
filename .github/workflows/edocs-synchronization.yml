@@ -4,6 +4,10 @@ jobs:
   connect-with-edocs:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout X mono-repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Get X Components Version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@master
