@@ -21,6 +21,6 @@ jobs:
           -u empathyco:${GITHUB_TOKEN} \
           --header 'content-type: application/json' \
           --url https://api.github.com/repos/empathyco/docs-empathy-documentation/actions/workflows/14218449/dispatches \
-          --data '{"ref": "main",  "inputs": {"branchName": "${BRANCH_NAME}", "version": "${{ steps.package-version.outputs.current-version }}"}}'
+          --data '{"ref": "main",  "inputs": {"branchName": "${{ env.BRANCH_NAME }}", "version": "${{ steps.package-version.outputs.current-version }}"}}'
         env:
           GITHUB_TOKEN: ${{ secrets.SUPPORT_TOKEN }}
