@@ -7,15 +7,7 @@ import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
  * @param nthFilter - Position of the filter to be clicked.
  */
 function clickFacetNthFilter(facetName: string, nthFilter: number): void {
-  cy.getByDataTest(facetName)
-    .parent('button')
-    .siblings('div')
-    .getByDataTest('base-filters-item')
-    .eq(nthFilter)
-    .children('button')
-    .click()
-    .invoke('text')
-    .as('clickedFilter');
+  cy.getByDataTest(`${facetName}_filter`).eq(nthFilter).click().invoke('text').as('clickedFilter');
 }
 
 When(
@@ -34,7 +26,7 @@ Then(
   function (this: { clickedFilter: string }) {
     cy.getByDataTest('selected-filters-list')
       .getByDataTest('selected-filters-list-item')
-      .children('button')
+      .getByDataTest('filter')
       .invoke('text')
       .then(filterName => {
         expect(filterName).to.eq(this.clickedFilter);

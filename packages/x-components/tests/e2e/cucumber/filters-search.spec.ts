@@ -1,54 +1,35 @@
 import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
-Then('facet {string} has filters', (facetName: string) => {
-  cy.getByDataTest(facetName)
-    .parent('button')
-    .siblings('div')
-    .getByDataTest('base-filters-item')
-    .should('have.length.at.least', 1);
+Then('facet has filters', () => {
+  cy.getByDataTest('brand-filter').should('have.length.at.least', 1);
 });
 
-And('searchable {string} filters are stored', (facetName: string) => {
-  cy.getByDataTest(facetName)
-    .parent('button')
-    .siblings('div')
-    .getByDataTest('base-filters-item')
-    .invoke('text')
-    .as('searchableFilters');
+And('searchable filters are stored', () => {
+  cy.getByDataTest('brand-filter').invoke('text').as('searchableFilters');
 });
 
 When('{string} is typed in the filters search input', (searchFiltersQuery: string) => {
   cy.getByDataTest('filters-search-input').type(searchFiltersQuery);
 });
 
-Then(
-  'filters in {string} are refined with search, {string}',
-  (facetName: string, searchFiltersQuery: string) => {
-    cy.getByDataTest(facetName)
-      .parent('button')
-      .siblings('div')
-      .getByDataTest('base-filters-item')
-      .should(filterElements => {
-        filterElements.each((_, e) => {
-          expect(e.innerText.toLowerCase()).to.contain(searchFiltersQuery);
-        });
-      })
-      .invoke('text')
-      .as('refinedFilters');
-  }
-);
+Then('filters in facet are refined with search, {string}', (searchFiltersQuery: string) => {
+  cy.getByDataTest('brand-filter')
+    .should(filterElements => {
+      filterElements.each((_, e) => {
+        expect(e.innerText.toLowerCase()).to.contain(searchFiltersQuery);
+      });
+    })
+    .invoke('text')
+    .as('refinedFilters');
+});
 
 And(
-  'searchable filters in {string} contain refined filters',
-  function (this: { searchableFilters: string[] }, facetName) {
-    cy.getByDataTest(facetName)
-      .parent('button')
-      .siblings('div')
-      .getByDataTest('base-filters-item')
-      .should(refinedFilter => {
-        refinedFilter.each((_, e) => {
-          expect(this.searchableFilters).to.contain(e.innerText);
-        });
+  'searchable filters in facet contain refined filters',
+  function (this: { searchableFilters: string[] }) {
+    cy.getByDataTest('brand-filter').should(refinedFilter => {
+      refinedFilter.each((_, e) => {
+        expect(this.searchableFilters).to.contain(e.innerText);
       });
+    });
   }
 );

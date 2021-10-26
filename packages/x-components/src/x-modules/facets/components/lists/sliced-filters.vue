@@ -16,7 +16,11 @@
           @slot Button show more filters.
             @binding {number} difference - The difference between the filters and max to show.
         -->
-        <slot name="show-more" :difference="difference">Show {{ difference }} more filters</slot>
+        <slot name="show-more" :difference="difference">
+          Show
+          <span data-test="show-more-amount">{{ difference }}</span>
+          more filters
+        </slot>
       </button>
       <button
         v-else
@@ -28,7 +32,11 @@
           @slot Button show less filters.
             @binding {number} difference - The difference between the filters and max to show.
         -->
-        <slot name="show-less" :difference="difference">Show {{ difference }} less filters</slot>
+        <slot name="show-less" :difference="difference">
+          Show
+          <span data-test="show-less-amount">{{ difference }}</span>
+          less filters
+        </slot>
       </button>
     </template>
   </div>
@@ -153,8 +161,16 @@ filters list to their children, it is mandatory to send it as prop.
           <SimpleFilter :filter="filter" />
         </Filters>
       </template>
-      <template #show-more="{ difference }">Show {{ difference }} more filters</template>
-      <template #show-less="{ difference }">Show {{ difference }} less filters</template>
+      <template #show-more="{ difference }">
+        Show
+        <span data-test="show-more-amount">{{ difference }}</span>
+        more filters
+      </template>
+      <template #show-less="{ difference }">
+        Show
+        <span data-test="show-less-amount">{{ difference }}</span>
+        less filters
+      </template>
     </SlicedFilters>
   </Facets>
 </template>

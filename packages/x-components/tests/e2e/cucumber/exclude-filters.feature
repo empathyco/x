@@ -11,7 +11,7 @@ Feature: Exclude filters with no results component
     Given no special config for layout view
     And   start button is clicked
     When  "<query>" is searched
-    Then  only filters with totalResults undefined or greater than 0 are shown in facet "<facetName>"
+    Then  only filters with totalResults undefined or greater than 0 are shown in facet
     And   "<facetName>" total filters are more than displayed filters
     Examples:
       | query     | facetName   |

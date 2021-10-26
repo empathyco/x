@@ -11,11 +11,11 @@ Feature: Filters search component
     Given no special config for layout view
     And   start button is clicked
     When  "<query>" is searched
-    Then  facet "<facetName>" has filters
-    And   searchable "<facetName>" filters are stored
+    Then  facet has filters
+    And   searchable filters are stored
     When  "<searchFiltersQuery>" is typed in the filters search input
-    Then  filters in "<facetName>" are refined with search, "<searchFiltersQuery>"
-    And   searchable filters in "<facetName>" contain refined filters
+    Then  filters in facet are refined with search, "<searchFiltersQuery>"
+    And   searchable filters in facet contain refined filters
     Examples:
       | query | facetName   | searchFiltersQuery |
-      | juego | brand_facet | on                 |
+      | lego  | brand_facet | on                 |

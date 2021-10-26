@@ -222,11 +222,14 @@
                     <ExcludeFiltersWithNoResults :filters="facet.filters">
                       <SortedFilters>
                         <FiltersSearch>
-                          <SlicedFilters :max="controls.slicedFilters.max">
+                          <SlicedFilters
+                            :max="controls.slicedFilters.max"
+                            :data-test="facet.label + '_sliced_filters'"
+                          >
                             <SelectedFilters :facetId="facet.id" />
                             <FiltersList v-slot="{ filter }">
-                              <SimpleFilter :filter="filter" />
-                              <span data-test="filter-total-results">
+                              <SimpleFilter :filter="filter" data-test="brand-filter" />
+                              <span data-test="brand-filter-total-results">
                                 {{ filter.totalResults }}
                               </span>
                             </FiltersList>
@@ -248,10 +251,13 @@
                     <!-- Filters -->
                     <ExcludeFiltersWithNoResults :filters="facet.filters">
                       <SortedFilters>
-                        <SlicedFilters :max="controls.slicedFilters.max">
+                        <SlicedFilters
+                          :max="controls.slicedFilters.max"
+                          :data-test="facet.label + '_sliced_filters'"
+                        >
                           <SelectedFilters :facetId="facet.id" />
                           <FiltersList v-slot="{ filter }">
-                            <SimpleFilter :filter="filter" />
+                            <SimpleFilter :filter="filter" :data-test="facet.label + '_filter'" />
                             <span data-test="filter-total-results">{{ filter.totalResults }}</span>
                           </FiltersList>
                         </SlicedFilters>
