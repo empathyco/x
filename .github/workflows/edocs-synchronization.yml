@@ -15,7 +15,7 @@ jobs:
           path: packages/x-components
       - name: Get branch name
         uses: nelonoel/branch-name@v1.0.1
-      - name: Calling to edocs action...
+      - name: Trigger eDocs repository action
         run: |
           curl --request POST \
           -u empathyco:${GITHUB_TOKEN} \
