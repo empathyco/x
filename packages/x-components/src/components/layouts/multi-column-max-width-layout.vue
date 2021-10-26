@@ -172,8 +172,9 @@
     grid-template-columns:
       [page-start]
       1fr
+      [scroll-to-top-start]
       calc(var(--x-size-margin-layout-columns) + var(--x-size-gap-default))
-      [page-end];
+      [scroll-to-top-end page-end];
 
     grid-template-rows:
       [page-start header-start]
@@ -184,8 +185,9 @@
       auto
       [toolbar-end main-start]
       1fr
+      [scroll-to-top-start]
       auto
-      [main-end page-end];
+      [main-end scroll-to-top-end page-end];
 
     &__header {
       // layout
@@ -406,10 +408,11 @@
     }
 
     &__scroll-to-top {
-      position: fixed;
+      //layout
+      grid-area: scroll-to-top;
+      margin-block-end: var(--x-size-margin-bottom-layout-columns-scroll-to-top, 10px);
+      margin-inline-start: var(--x-size-margin-left-layout-columns-scroll-to-top, 10px);
       z-index: 1;
-      bottom: var(--x-size-margin-bottom-layout-scroll-to-top, 16px);
-      right: var(--x-size-margin-right-layout-scroll-to-top, 16px);
     }
   }
 </style>

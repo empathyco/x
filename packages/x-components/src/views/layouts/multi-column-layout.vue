@@ -105,18 +105,9 @@
       </div>
     </template>
     <template #scroll-to-top>
-      <div
-        class="
-          x-text
-          x-padding--03
-          x-margin--right-06
-          x-background--neutral-95
-          x-border-width--01
-          x-border-color--neutral-35
-        "
-      >
-        SCROLL TO TOP
-      </div>
+      <ChevronUp
+        class="x-background--neutral-70 x-margin--right-06 x-padding--02 x-border-radius--06"
+      />
     </template>
   </MultiColumnMaxWidthLayout>
 </template>
@@ -126,6 +117,8 @@
   import { Component } from 'vue-property-decorator';
   import FiltersIcon from '../../components/icons/filters.vue';
   import Cross from '../../components/icons/cross.vue';
+  // eslint-disable-next-line max-len
+  import ChevronUp from '../../components/icons/chevron-up.vue';
   // eslint-disable-next-line max-len
   import MultiColumnMaxWidthLayout from '../../components/layouts/multi-column-max-width-layout.vue';
   import BaseIdModalOpen from '../../components/modals/base-id-modal-open.vue';
@@ -137,7 +130,8 @@
       Cross,
       MultiColumnMaxWidthLayout,
       BaseIdModalOpen,
-      FiltersIcon
+      FiltersIcon,
+      ChevronUp
     },
     beforeRouteEnter(_to, _from, next: () => void): void {
       new XInstaller(baseInstallXOptions).init(baseSnippetConfig);
