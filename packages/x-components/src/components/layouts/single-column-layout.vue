@@ -158,7 +158,9 @@
       z-index: 3;
 
       ::v-deep .x-modal__content {
-        margin-inline-start: var(-x-size-margin-left-layout-single-column, 0);
+        width: 100%;
+        height: 100%;
+        margin-inline-start: var(--x-size-margin-left-layout-single-column, 0);
       }
     }
     &__predictive,

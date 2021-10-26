@@ -3,7 +3,7 @@
     <template #header-start>
       <span
         class="
-          x-title1
+          x-title
           x-list__item--expand
           x-list x-list--horizontal x-list--justify-center
           x-margin--bottom-03 x-margin--top-03
@@ -27,7 +27,7 @@
     <template #header-end>
       <span
         class="
-          x-title1
+          x-title2
           x-list__item--expand
           x-list x-list--horizontal x-list--justify-center
           x-margin--bottom-03 x-margin--top-03
@@ -59,6 +59,9 @@
           x-margin--top-03 x-margin--bottom-03
         "
       >
+        <BaseIdTogglePanelButton class="x-button x-button--ghost" panelId="aside-panel">
+          <FiltersIcon />
+        </BaseIdTogglePanelButton>
         TOOLBAR ASIDE
       </div>
     </template>
@@ -105,9 +108,7 @@
       </div>
     </template>
     <template #scroll-to-top>
-      <ChevronUp
-        class="x-background--neutral-70 x-margin--right-06 x-padding--02 x-border-radius--06"
-      />
+      <ChevronUp class="x-background--neutral-70 x-padding--02 x-border-radius--06" />
     </template>
   </MultiColumnMaxWidthLayout>
 </template>
@@ -115,21 +116,18 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import FiltersIcon from '../../components/icons/filters.vue';
-  import Cross from '../../components/icons/cross.vue';
-  // eslint-disable-next-line max-len
   import ChevronUp from '../../components/icons/chevron-up.vue';
+  import FiltersIcon from '../../components/icons/filters.vue';
   // eslint-disable-next-line max-len
   import MultiColumnMaxWidthLayout from '../../components/layouts/multi-column-max-width-layout.vue';
-  import BaseIdModalOpen from '../../components/modals/base-id-modal-open.vue';
+  import BaseIdTogglePanelButton from '../../components/panels/base-id-toggle-panel-button.vue';
   import { XInstaller } from '../../x-installer';
   import { baseInstallXOptions, baseSnippetConfig } from '../base-config';
 
   @Component({
     components: {
-      Cross,
       MultiColumnMaxWidthLayout,
-      BaseIdModalOpen,
+      BaseIdTogglePanelButton,
       FiltersIcon,
       ChevronUp
     },

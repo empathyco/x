@@ -59,9 +59,13 @@
           x-font-color--neutral-10
           x-list__item--expand
           x-margin--top-03 x-margin--bottom-03
+          x-list x-list--horizontal x-list--justify-center
         "
       >
-        FLOATING
+        <BaseIdModalOpen modalId="aside-modal">
+          <FiltersIcon />
+          FLOATING
+        </BaseIdModalOpen>
       </div>
     </template>
     <template #main>
@@ -84,7 +88,6 @@
           x-list__item--expand
           x-text
           x-padding--03
-          x-margin--right-06
           x-background--neutral-95
           x-border-width--01
           x-border-color--neutral-35
@@ -94,7 +97,7 @@
       </div>
     </template>
     <template #aside>
-      <span>ASIDE</span>
+      <div class="x-background--neutral-100 x-list__item--expand x-padding--09">ASIDE</div>
     </template>
   </SingleColumnLayout>
 </template>
@@ -104,15 +107,12 @@
   import { Component } from 'vue-property-decorator';
   import { SingleColumnLayout } from '../../components';
   import FiltersIcon from '../../components/icons/filters.vue';
-  import Cross from '../../components/icons/cross.vue';
   import BaseIdModalOpen from '../../components/modals/base-id-modal-open.vue';
-  // eslint-disable-next-line max-len
   import { XInstaller } from '../../x-installer';
   import { baseInstallXOptions, baseSnippetConfig } from '../base-config';
 
   @Component({
     components: {
-      Cross,
       SingleColumnLayout,
       BaseIdModalOpen,
       FiltersIcon
@@ -132,5 +132,9 @@
       flex: 1 1 0%;
       min-height: 0;
     }
+  }
+
+  :root {
+    --x-size-margin-left-layout-single-column: 20vw;
   }
 </style>
