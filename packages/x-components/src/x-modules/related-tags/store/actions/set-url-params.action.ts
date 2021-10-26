@@ -3,27 +3,22 @@ import { UrlParams } from '../../../../types/url-params';
 import { RelatedTagsXStoreModule } from '../types';
 
 /**
- * Helper method which creates the {@link RelatedTag} entity from the string of the url.
+ * Helper method which creates the {@link RelatedTag} entity from the string array `tag` of the url.
  *
- * @param relatedTags - List of related tags as strings from the url.
+ * @param tags - List of tags from the url.
  * @param query - Query from the url.
  *
  * @returns A list of {@link RelatedTag | related tags}.
  */
-const createRelatedTags = (relatedTags: string[], query: string): RelatedTag[] => {
-  return (
-    relatedTags?.reduce<RelatedTag[]>((acc, relatedTag) => {
-      acc.push({
-        tag: relatedTag,
-        modelName: 'RelatedTag',
-        selected: true,
-        query: query ? `${query} ${relatedTag}` : '',
-        previous: ''
-      });
-      return acc;
-    }, []) ?? []
-  );
-};
+function createRelatedTags(tags: string[], query: string): RelatedTag[] {
+  return tags.map(tag => ({
+    tag,
+    modelName: 'RelatedTag',
+    selected: true,
+    query: query ? `${query} ${tag}` : '',
+    previous: ''
+  }));
+}
 
 /**
  * Default implementation for the {@link RelatedTagsActions.setUrlParams}.
@@ -39,5 +34,6 @@ export const setUrlParams: RelatedTagsXStoreModule['actions']['setUrlParams'] = 
   { query, tag }: UrlParams
 ) => {
   commit('setSelectedRelatedTags', createRelatedTags(tag, query));
+  commit('setRelatedTags', []);
   commit('setQuery', query);
 };

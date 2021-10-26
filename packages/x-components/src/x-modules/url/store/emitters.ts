@@ -23,7 +23,7 @@ export const replaceableParams: UrlParamKey[] = ['scroll', 'page'];
  */
 function isPushableParams(newParams: UrlParams, oldParams: UrlParams): boolean {
   return Object.keys(newParams).some(
-    key => !replaceableParams.includes(key) && oldParams[key] && oldParams[key] !== newParams[key]
+    key => !replaceableParams.includes(key) && oldParams[key] !== newParams[key]
   );
 }
 
