@@ -71,7 +71,8 @@
     }
 
     /**
-     * Computed property which returns the first recommendation of the state, if any returns null.
+     * Watcher function which adds a setTimeout to the redirect method is the component
+     * is in auto mode and there are redirections.
      *
      * @internal
      */
@@ -111,7 +112,7 @@
      *
      * @internal
      */
-    @XOn('UserAcceptedAQuery')
+    @XOn(['UserAcceptedAQuery', 'UserClearedQuery'])
     stopAnimation(): void {
       clearTimeout(this.timeoutId);
     }
