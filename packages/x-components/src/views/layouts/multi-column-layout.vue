@@ -33,12 +33,13 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import FiltersIcon from '../components/icons/filters.vue';
-  import Cross from '../components/icons/cross.vue';
-  import MultiColumnMaxWidthLayout from '../components/layouts/multi-column-max-width-layout.vue';
-  import BaseIdModalOpen from '../components/modals/base-id-modal-open.vue';
-  import { XInstaller } from '../x-installer';
-  import { baseInstallXOptions, baseSnippetConfig } from './base-config';
+  import FiltersIcon from '../../components/icons/filters.vue';
+  import Cross from '../../components/icons/cross.vue';
+  // eslint-disable-next-line max-len
+  import MultiColumnMaxWidthLayout from '../../components/layouts/multi-column-max-width-layout.vue';
+  import BaseIdModalOpen from '../../components/modals/base-id-modal-open.vue';
+  import { XInstaller } from '../../x-installer';
+  import { baseInstallXOptions, baseSnippetConfig } from '../base-config';
 
   @Component({
     components: {

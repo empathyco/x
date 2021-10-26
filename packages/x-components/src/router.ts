@@ -12,17 +12,17 @@ const routes: RouteConfig[] = [
   {
     path: '/fixed-header-layout',
     name: 'Fixed Header Layout',
-    component: () => import('./views/fixed-header-and-asides-layout.vue')
+    component: () => import('./views/layouts/fixed-header-and-asides-layout.vue')
   },
   {
     path: '/single-column-layout',
     name: 'Single Column Layout',
-    component: () => import('./views/single-column-layout.vue')
+    component: () => import('./views/layouts/single-column-layout.vue')
   },
   {
     path: '/multi-column-layout',
     name: 'Multi Column Layout',
-    component: () => import('./views/multi-column-layout.vue')
+    component: () => import('./views/layouts/multi-column-layout.vue')
   },
   {
     path: '/design-system',
