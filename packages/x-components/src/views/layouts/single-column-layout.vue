@@ -1,26 +1,97 @@
 <template>
   <SingleColumnLayout :dev-mode="true">
     <template #header>
-      <span>HEADER</span>
+      <span
+        class="
+          x-title1
+          x-list__item--expand
+          x-list x-list--horizontal x-list--justify-center
+          x-margin--bottom-03 x-margin--top-03
+          x-background--neutral-95
+        "
+      >
+        HEADER
+      </span>
     </template>
-    <template #sub-header>SUB HEADER</template>
+    <template #sub-header>
+      <span
+        class="
+          x-title2
+          x-list__item--expand
+          x-list x-list--horizontal x-list--justify-center
+          x-margin--bottom-03 x-margin--top-03
+          x-background--neutral-95
+        "
+      >
+        SUB HEADER
+      </span>
+    </template>
     <template #toolbar>
-      <span>TOOLBAR ASIDE</span>
+      <div
+        class="
+          x-title3
+          x-font-color--neutral-70
+          x-list__item--expand
+          x-border-width--02
+          x-border-color--neutral-70
+          x-margin--top-03 x-margin--bottom-03
+        "
+      >
+        TOOLBAR
+      </div>
     </template>
     <template #predictive>
-      <span>PREDICTIVE</span>
-    </template>
-    <template #main>
-      <span>MAIN</span>
+      <div
+        class="
+          x-title3
+          x-font-color--neutral-70
+          x-list__item--expand
+          x-margin--top-03 x-margin--bottom-03
+        "
+      >
+        PREDICTIVE
+      </div>
     </template>
     <template #floating>
-      <span>FLOATING</span>
+      <div
+        class="
+          x-title3
+          x-font-color--neutral-10
+          x-list__item--expand
+          x-margin--top-03 x-margin--bottom-03
+        "
+      >
+        FLOATING
+      </div>
     </template>
     <template #main>
-      <span>MAIN</span>
+      <div
+        class="x-list__item--stretch x-margin--top-05 x-margin--bottom-05 x-background--neutral-95"
+      >
+        MAIN
+        <div class="x-grid x-grid--cols-auto">
+          <article
+            v-for="i in 100"
+            :key="i"
+            class="x-background--neutral-70 x-padding--top-13 x-padding--left-6"
+          />
+        </div>
+      </div>
     </template>
     <template #footer>
-      <span>FOOTER</span>
+      <div
+        class="
+          x-list__item--expand
+          x-text
+          x-padding--03
+          x-margin--right-06
+          x-background--neutral-95
+          x-border-width--01
+          x-border-color--neutral-35
+        "
+      >
+        FOOTER
+      </div>
     </template>
     <template #aside>
       <span>ASIDE</span>
@@ -54,19 +125,12 @@
   export default class MultiColumnLayoutView extends Vue {}
 </script>
 
-<style scopped lang="scss">
-  .x-layout {
-    &__header {
-      background: var(--x-color-base-lead);
-    }
-    &__sub-header {
-      background: var(--x-color-base-auxiliary);
-    }
-    &__toolbar {
-      background: var(--x-color-base-neutral-35);
-    }
-    &__main {
-      background: var(--x-color-base-neutral-70);
+<style lang="scss">
+  .app {
+    max-height: 100%;
+    .x-layout {
+      flex: 1 1 0%;
+      min-height: 0;
     }
   }
 </style>

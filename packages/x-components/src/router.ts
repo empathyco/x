@@ -15,14 +15,14 @@ const routes: RouteConfig[] = [
     component: () => import('./views/layouts/fixed-header-and-asides-layout.vue')
   },
   {
-    path: '/single-column-layout',
-    name: 'Single Column Layout',
-    component: () => import('./views/layouts/single-column-layout.vue')
-  },
-  {
     path: '/multi-column-layout',
     name: 'Multi Column Layout',
     component: () => import('./views/layouts/multi-column-layout.vue')
+  },
+  {
+    path: '/single-column-layout',
+    name: 'Single Column Layout',
+    component: () => import('./views/layouts/single-column-layout.vue')
   },
   {
     path: '/design-system',
