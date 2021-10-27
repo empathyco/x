@@ -67,6 +67,10 @@
      */
     protected urlLoaded = false;
 
+    /**
+     * To emit the Url events just when the URL is load, and before the components mounted events
+     * and state changes, we do it in the created of this component.
+     */
     created(): void {
       this.emitEvents();
     }
@@ -103,6 +107,7 @@
       const { all, extra } = this.parseUrlParams();
       this.$x.emit('ParamsLoadedFromUrl', all);
       this.$x.emit('ExtraParamsLoadedFromUrl', extra);
+      // TODO: Move this logic from here.
       if (all.query) {
         this.$x.emit('UserOpenXProgrammatically');
       }
@@ -247,6 +252,7 @@
 This component emits the following events:
 
 - [`ParamsLoadedFromUrl`](./../../api/x-components.urlxevents.paramsloadedfromurl.md)
+- [`ExtraParamsLoadedFromUrl`](./../../api/x-components.urlxevents.extraparamsloadedfromurl.md)
 - [`UserOpenXProgrammatically`](./../../api/x-components.xeventstypes.useropenxprogrammatically.md)
 
 ## See it in action
@@ -305,4 +311,10 @@ _Try to make some requests and take a look to the url!_
 ### Play with events
 
 The `UrlHandler` will emit the `ParamsLoadedFromUrl` when the page is loaded.
+
+The `UrlHandler` will emit the `ExtraParamsLoadedFromUrl` when the page is loaded with an extra
+param configured and with a value in URL.
+
+The `UrlHandler` will emit the `UserOpenXProgrammatically` when the page is loaded with a query in
+the URL.
 </docs>
