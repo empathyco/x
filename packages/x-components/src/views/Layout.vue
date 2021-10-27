@@ -40,7 +40,7 @@
         'QueryLoadedFromUrl'
       ]"
     >
-      <MultiColumnMaxWidthLayout>
+      <MultiColumnMaxWidthLayout class="x-background--neutral-100">
         <template #header-middle>
           <div
             class="
