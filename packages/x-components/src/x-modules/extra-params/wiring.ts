@@ -26,5 +26,8 @@ export const extraParamsWiring = createWiring({
   },
   ExtraParamsProvided: {
     setExtraParams
+  },
+  ExtraParamsLoadedFromUrl: {
+    setExtraParams
   }
 });

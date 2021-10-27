@@ -28,12 +28,12 @@ describe('testing search box module actions', () => {
       expect(store.state.query).toEqual('lego');
     });
 
-    it('should not set the query of the search box module', async () => {
+    it('should set the query even if empty of the search box module', async () => {
       resetSearchBoxStateWith(store, { query: 'funko' });
 
-      await store.dispatch('setUrlParams', { page: 2 });
+      await store.dispatch('setUrlParams', { query: '' });
 
-      expect(store.state.query).toEqual('funko');
+      expect(store.state.query).toEqual('');
     });
   });
 });

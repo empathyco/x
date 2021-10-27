@@ -8,10 +8,9 @@ import { Dictionary } from '../../../utils/types';
  *
  * @public
  */
-export interface UrlState {
-  params: UrlParams;
-  extraParams: Dictionary<unknown>;
-}
+export type UrlState = UrlParams & {
+  initialExtraParams: Dictionary<unknown>;
+};
 
 /**
  * URL store getters.
@@ -44,17 +43,11 @@ export type UrlParamValue = string | number | boolean | Array<string | number | 
  */
 export interface UrlMutations {
   /**
-   * Sets new extra params.
-   *
-   * @param extraParams - The new extra params of the Url.
-   */
-  setExtraParams(extraParams: Dictionary<unknown>): void;
-  /**
    * Sets the new params.
    *
    * @param params - The new params of the Url.
    */
-  setParams(params: UrlParams): void;
+  setParams(params: Partial<UrlParams>): void;
   /**
    * Sets the new query.
    *
@@ -79,6 +72,12 @@ export interface UrlMutations {
    * @param page - The new page of the url.
    */
   setPage(page: number): void;
+  /**
+   * Sets the initial extra params.
+   *
+   * @param extraParams - The new initial extra params.
+   */
+  setInitialExtraParams(extraParams: Dictionary<unknown>): void;
 }
 
 /**
@@ -86,14 +85,7 @@ export interface UrlMutations {
  *
  * @public
  */
-export interface UrlActions {
-  /**
-   * Updates the store with values from the URL.
-   *
-   * @public
-   */
-  updateStoreFromUrl(urlParams: UrlParams): void;
-}
+export interface UrlActions {}
 
 /**
  * URL type safe store module.

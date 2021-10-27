@@ -11,20 +11,24 @@ import { UrlParamValue, UrlXStoreModule } from '../types';
  *
  * @public
  */
-export const urlParams: UrlXStoreModule['getters']['urlParams'] = ({ extraParams, params }) => ({
-  ...objectFilter(params, isNotDefaultValue),
-  ...objectFilter(extraParams, isNotEmptyParam)
-});
+export const urlParams: UrlXStoreModule['getters']['urlParams'] = ({
+  initialExtraParams,
+  ...params
+}) =>
+  objectFilter(params, (paramKey, paramValue) => {
+    return paramKey in initialUrlState
+      ? isNotDefaultValue(paramKey, paramValue, initialUrlState)
+      : isNotEmptyParam(paramValue) && isNotDefaultValue(paramKey, paramValue, initialExtraParams);
+  });
 
 /**
  * Checks if a parameter is not empty to avoid adding it to the URL.
  *
- * @param _ - The key parameter (unused).
  * @param value - The value of the key parameter.
  *
  * @returns True if is not empty, False otherwise.
  */
-function isNotEmptyParam(_: string | number, value: UrlParamValue | unknown): boolean {
+function isNotEmptyParam(value: UrlParamValue | unknown): boolean {
   return Array.isArray(value) ? value.length > 0 : value != null && value !== '';
 }
 
@@ -33,9 +37,14 @@ function isNotEmptyParam(_: string | number, value: UrlParamValue | unknown): bo
  *
  * @param key - The key parameter.
  * @param value - The value of the key parameter.
+ * @param defaultValues - The default values to compare.
  *
  * @returns True if is not the default state value, False otherwise.
  */
-function isNotDefaultValue(key: string | number, value: UrlParamValue | unknown): boolean {
-  return Array.isArray(value) ? value.length > 0 : initialUrlState.params[key] !== value;
+function isNotDefaultValue<Key extends string | number, Value extends UrlParamValue | unknown>(
+  key: Key,
+  value: Value,
+  defaultValues: Record<Key, Value>
+): boolean {
+  return Array.isArray(value) ? value.length > 0 : defaultValues[key] !== value;
 }

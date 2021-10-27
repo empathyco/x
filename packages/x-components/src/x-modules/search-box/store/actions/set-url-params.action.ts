@@ -13,7 +13,5 @@ export const setUrlParams: SearchBoxXStoreModule['actions']['setUrlParams'] = (
   { commit },
   { query }
 ) => {
-  if (query) {
-    commit('setQuery', query);
-  }
+  commit('setQuery', query);
 };

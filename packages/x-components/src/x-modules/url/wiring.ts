@@ -1,4 +1,3 @@
-import { namespacedWireDispatch } from '../../wiring';
 import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
 
@@ -10,25 +9,11 @@ import { createWiring } from '../../wiring/wiring.utils';
 const wireCommit = namespacedWireCommit('url');
 
 /**
- * WireDispatch for {@link UrlXModule}.
- *
- * @internal
- */
-const wireDispatch = namespacedWireDispatch('url');
-
-/**
  * Sets the {@link RelatedTag | related tags }.
  *
  * @public
  */
 export const setUrlRelatedTags = wireCommit('setRelatedTags');
-
-/**
- * Updates the store state from the URL.
- *
- * @public
- */
-export const updateStoreFromUrl = wireDispatch('updateStoreFromUrl');
 
 /**
  * Sets the query of the url module.
@@ -43,12 +28,20 @@ export const setUrlQuery = wireCommit('setQuery');
  * @public
  */
 export const setUrlPage = wireCommit('setPage');
+
 /**
  * Sets the extra params of the url module.
  *
  * @public
  */
-export const setUrlExtraParams = wireCommit('setExtraParams');
+export const setParams = wireCommit('setParams');
+
+/**
+ * Sets the initial provided extra params.
+ *
+ * @public
+ */
+export const setInitialExtraParams = wireCommit('setInitialExtraParams');
 
 /**
  * Sets the filters of the url module.
@@ -70,7 +63,7 @@ export const urlWiring = createWiring({
     setUrlQuery
   },
   ParamsLoadedFromUrl: {
-    updateStoreFromUrl
+    setParams
   },
   SelectedRelatedTagsChanged: {
     setUrlRelatedTags
@@ -81,10 +74,10 @@ export const urlWiring = createWiring({
   PageChanged: {
     setUrlPage
   },
-  ExtraParamsProvided: {
-    setUrlExtraParams
+  ExtraParamsChanged: {
+    setParams
   },
-  UserChangedExtraParams: {
-    setUrlExtraParams
+  ExtraParamsInitialized: {
+    setInitialExtraParams
   }
 });

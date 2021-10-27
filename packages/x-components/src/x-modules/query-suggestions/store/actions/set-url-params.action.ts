@@ -13,7 +13,5 @@ export const setUrlParams: QuerySuggestionsXStoreModule['actions']['setUrlParams
   { commit },
   { query }
 ) => {
-  if (query) {
-    commit('setQuery', query);
-  }
+  commit('setQuery', query);
 };

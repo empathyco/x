@@ -304,21 +304,13 @@ describe('testing search module actions', () => {
       expect(store.state.page).toEqual(2);
     });
 
-    it('should not set the query of the search module', async () => {
+    it('should set the query even if empty of the search module', async () => {
       resetSearchStateWith(store, { query: 'funko' });
 
-      await store.dispatch('setUrlParams', { page: 2 } as UrlParams);
+      await store.dispatch('setUrlParams', { page: 2, query: '' } as UrlParams);
 
-      expect(store.state.query).toEqual('funko');
+      expect(store.state.query).toEqual('');
       expect(store.state.page).toEqual(2);
-    });
-
-    it('should not set the page of the search module', async () => {
-      resetSearchStateWith(store, { page: 1 });
-
-      await store.dispatch('setUrlParams', { query: 'funko' } as UrlParams);
-
-      expect(store.state.page).toEqual(1);
     });
   });
 });

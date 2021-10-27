@@ -1,7 +1,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { xComponentMixin, XEmit } from '../../../components';
+  import { State, xComponentMixin, XEmit } from '../../../components';
   import { Dictionary } from '../../../utils';
   import { extraParamsXModule } from '../x-module';
 
@@ -16,6 +16,15 @@
   })
   export default class ExtraParams extends Vue {
     /**
+     * Emits the initial extra params, overriding with the state extra params, just in case, those
+     * values were already set by XComponents initialization (url, plugin config, etc.).
+     */
+    mounted(): void {
+      this.$x.emit('ExtraParamsInitialized', this.values);
+      this.$x.emit('ExtraParamsProvided', { ...this.values, ...this.storeExtraParams });
+    }
+
+    /**
      * (Required) A Dictionary where the keys are the extra param names and its values.
      *
      * @remarks Emits the {@link ExtraParamsXEvents.ExtraParamsProvided} when the
@@ -23,9 +32,15 @@
      *
      * @public
      */
-    @XEmit('ExtraParamsProvided', { immediate: true, deep: true })
+    @XEmit('ExtraParamsProvided', { deep: true })
     @Prop({ required: true })
     public values!: Dictionary<unknown>;
+
+    /**
+     * State extra params. Used to override the initial extra params.
+     */
+    @State('extraParams', 'params')
+    public storeExtraParams!: Dictionary<unknown>;
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     render(): void {}
