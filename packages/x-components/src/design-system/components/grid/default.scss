@@ -2,12 +2,13 @@
   // layout
   margin: 0;
   display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--x-size-min-width-grid-item), auto));
   grid-auto-flow: dense;
   list-style: none;
   padding: var(--x-size-padding-grid);
   gap: var(--x-size-gap-grid);
 
-  &--cols-auto.x-grid__item {
+  &--cols-auto .x-grid__item {
     // layout
     min-width: var(--x-size-min-width-grid-item);
   }
