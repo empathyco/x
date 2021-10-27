@@ -1,4 +1,4 @@
-import { Filter } from '../../../../search-types';
+import { Filter } from '@empathyco/x-types';
 import {
   createEditableNumberRangeFilter,
   createHierarchicalFilter,

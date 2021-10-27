@@ -78,6 +78,7 @@
         </section>
       </BaseIdScroll>
     </main>
+
     <div v-if="hasContent('scroll-to-top')" class="x-layout__scroll-to-top">
       <slot name="scroll-to-top">
         <span v-if="devMode" class="slot-helper" style="height: 50px">SCROLL TO TOP</span>
@@ -87,12 +88,13 @@
 </template>
 
 <script lang="ts">
-  import Component from 'vue-class-component';
+  import Component, { mixins } from 'vue-class-component';
   import { Prop } from 'vue-property-decorator';
   import Vue from 'vue';
   import BaseIdTogglePanel from '../panels/base-id-toggle-panel.vue';
   import BaseIdScroll from '../scroll/base-id-scroll.vue';
   import AnimateWidth from '../animations/animate-width.vue';
+  import LayoutsMixin from './layouts.mixin';
 
   /**
    * Component for use as Layout to be filled with the rest of the Components.
@@ -102,15 +104,7 @@
   @Component({
     components: { BaseIdTogglePanel, BaseIdScroll }
   })
-  export default class MultiColumnMaxWidthLayout extends Vue {
-    /**
-     * Enables the devMode, which shows the available slots to use with its names.
-     *
-     * @public
-     */
-    @Prop({ default: false })
-    protected devMode!: boolean;
-
+  export default class MultiColumnMaxWidthLayout extends mixins(LayoutsMixin) {
     /**
      * The animation used for the Main Aside.
      *
@@ -118,41 +112,44 @@
      */
     @Prop({ default: () => AnimateWidth })
     protected asideAnimation!: Vue;
-
-    /**
-     * Function to check if an slot has rendered content or not.
-     *
-     * @param slotNames - A VNode Array with of each slot.
-     * @returns True if the slot has rendered content or false otherwise.
-     *
-     * @internal
-     */
-    protected hasContent(...slotNames: string[]): boolean {
-      return (
-        (this.devMode ||
-          slotNames.some(slotName =>
-            this.$slots[slotName]?.some(vNode => vNode.tag !== undefined)
-          )) ??
-        false
-      );
-    }
   }
 </script>
 
 <style lang="scss" scoped>
-  .dev-mode {
-    .slot-helper {
-      font-family: inherit;
-      color: grey;
-      box-sizing: border-box;
-      display: flex;
-      height: 100%;
-      width: 100%;
-      justify-content: center;
-      align-items: center;
-      border: dashed 1px grey;
-      border-radius: 10px;
-    }
+  @import '../../design-system/utilities/dev-mode';
+
+  :root {
+    //layout
+    --x-size-min-margin-layout-columns: var(--x-size-base-06);
+    --x-size-column-gap-layout-columns: var(--x-size-base-06);
+
+    //spacing
+
+    // size - header
+    --x-size-padding-top-layout-columns-header: var(--x-size-base-07);
+    --x-size-padding-bottom-layout-columns-header: var(--x-size-base-05);
+
+    // size - toolbar
+    --x-size-padding-top-layout-columns-toolbar: var(--x-size-base-05);
+    --x-size-padding-bottom-layout-columns-toolbar: var(--x-size-base-03);
+
+    // size- scroll-to-top
+    --x-size-margin-bottom-layout-columns-scroll-to-top: var(--x-size-base-03);
+    --x-size-margin-left-layout-columns-scroll-to-top: var(--x-size-base-03);
+
+    // color
+    --x-color-background-layout-columns: var(--x-color-base-neutral-100);
+    --x-color-border-layout-columns: var(--x-color-base-neutral-70);
+    --x-color-border-layout-columns-header: var(--x-color-border-layout-columns);
+    --x-color-border-layout-columns-sub-header: var(--x-color-border-layout-columns);
+    --x-color-border-layout-columns-toolbar: var(--x-color-border-layout-columns);
+    --x-color-border-layout-columns-main: var(--x-color-border-layout-columns);
+    --x-color-border-layout-columns-main-aside: var(--x-color-border-layout-columns);
+    --x-color-border-layout-columns-main-body: var(--x-color-border-layout-columns);
+
+    // border
+    --x-size-border-width-layout-columns-header: 0;
+    --x-size-border-width-layout-columns-toolbar: 1px 0 0;
   }
 
   .x-layout {
@@ -191,14 +188,6 @@
       [scroll-to-top-start]
       auto
       [main-end scroll-to-top-end page-end];
-
-    // color
-    background-color: var(--x-color-background-layout-columns, white);
-    border-color: var(--x-color-border-layout-columns);
-
-    // border
-    border-style: solid;
-    border-width: var(--x-size-border-width-layout-columns, 0);
 
     &__header {
       // layout
@@ -408,16 +397,6 @@
       margin-right: var(--x-size-gap-default);
     }
 
-    &__main-aside {
-      // color
-      background-color: var(--x-color-background-layout-columns-main-aside, transparent);
-      border-color: var(--x-color-border-layout-columns-main-aside, transparent);
-
-      // border
-      border-style: solid;
-      border-width: var(--x-size-border-width-layout-columns-main-aside, 0);
-    }
-
     &__body-scroll {
       flex: 1 1 auto;
       width: 0;
@@ -425,20 +404,6 @@
 
       &.x-scroll {
         --x-string-overflow-scroll: scroll;
-      }
-    }
-
-    &__main-body {
-      // color
-      background-color: var(--x-color-background-layout-columns-main-body, transparent);
-      border-color: var(--x-color-border-layout-columns-main-body, transparent);
-
-      // border
-      border-style: solid;
-      border-width: var(--x-size-border-width-layout-columns-main-body, 0);
-
-      ::v-deep .x-grid {
-        --x-size-gap-grid: var(--x-size-gap-default);
       }
     }
 
@@ -451,3 +416,136 @@
     }
   }
 </style>
+
+<docs lang="mdx">
+# Layout
+
+This component has the following layout with fixed headers and collapsible fixed asides:
+
+| header-start  | header-middle |  header-end   |
+| :-----------: | :-----------: | :-----------: |
+|  sub-header   |               |               |
+| toolbar-aside |    toolbar    |               |
+|  main-aside   |     main      |               |
+|               |               | scroll-to-top |
+
+# Design Tokens
+
+The component has also the following `Design Tokens` to configure it:
+
+|                        token                        | default value |
+| :-------------------------------------------------: | :-----------: |
+|         --x-size-column-gap-layout-columns          |     20px      |
+|     --x-size-padding-top-layout-columns-header      |      0px      |
+|    --x-size-padding-bottom-layout-columns-header    |      0px      |
+|      --x-size-margin-top-layout-columns-header      |      0px      |
+|    --x-size-margin-bottom-layout-columns-header     |      0px      |
+|     --x-color-background-layout-columns-header      |  transparent  |
+|       --x-color-border-layout-columns-header        |  transparent  |
+|     --x-size-border-width-layout-columns-header     |      0px      |
+|        --x-flow-layout-columns-header-start         |  row nowrap   |
+|    --x-size-justify-layout-columns-header-start     |  flex-start   |
+|     --x-size-align-layout-columns-header-start      |  flex-start   |
+|        --x-flow-layout-columns-header-middle        |  row nowrap   |
+|    --x-size-justify-layout-columns-header-middle    |    center     |
+|     --x-size-align-layout-columns-header-middle     |  flex-start   |
+|         --x-flow-layout-columns-header-end          |  row nowrap   |
+|     --x-size-justify-layout-columns-header-end      |   flex-end    |
+|      --x-size-align-layout-columns-header-end       |   flex-end    |
+|   --x-size-padding-top-layout-columns-sub-header    |      0px      |
+|  --x-size-padding-bottom-layout-columns-sub-header  |      0px      |
+|    --x-size-margin-top-layout-columns-sub-header    |      0px      |
+|  --x-size-margin-bottom-layout-columns-sub-header   |      0px      |
+|   --x-color-background-layout-columns-sub-header    |  transparent  |
+|     --x-color-border-layout-columns-sub-header      |  transparent  |
+|   --x-size-border-width-layout-columns-sub-header   |      0px      |
+|         --x-flow-layout-columns-sub-header          |  row nowrap   |
+|     --x-size-justify-layout-columns-sub-header      |  flex-start   |
+|      --x-size-align-layout-columns-sub-header       |  flex-start   |
+|     --x-size-padding-top-layout-columns-toolbar     |      0px      |
+|   --x-size-padding-bottom-layout-columns-toolbar    |      0px      |
+|     --x-size-margin-top-layout-columns-toolbar      |      0px      |
+|    --x-size-margin-bottom-layout-columns-toolbar    |      0px      |
+|     --x-color-background-layout-columns-toolbar     |  transparent  |
+|     --x-color-border-layout-columns-sub-toolbar     |  transparent  |
+|    --x-size-border-width-layout-columns-toolbar     |      0px      |
+|        --x-flow-layout-columns-toolbar-aside        |  row nowrap   |
+|    --x-size-justify-layout-columns-toolbar-aside    |  flex-start   |
+|     --x-size-align-layout-columns-toolbar-aside     |    center     |
+|        --x-flow-layout-columns-toolbar-body         |  row nowrap   |
+|    --x-size-justify-layout-columns-toolbar-body     |  flex-start   |
+|     --x-size-align-layout-columns-toolbar-body      |    center     |
+|      --x-size-padding-top-layout-columns-main       |      0px      |
+|     --x-size-padding-bottom-layout-columns-main     |      0px      |
+|       --x-size-margin-top-layout-columns-main       |      0px      |
+|     --x-size-margin-bottom-layout-columns-main      |      0px      |
+|      --x-color-background-layout-columns-main       |  transparent  |
+|      --x-color-border-layout-columns-sub-main       |  transparent  |
+|      --x-size-border-width-layout-columns-main      |      0px      |
+|   --x-color-background-layout-columns-main-aside    |  transparent  |
+|   --x-color-border-layout-columns-sub-main-aside    |  transparent  |
+|   --x-size-border-width-layout-columns-main-aside   |      0px      |
+|    --x-color-background-layout-columns-main-body    |  transparent  |
+|    --x-color-border-layout-columns-sub-main-body    |  transparent  |
+|   --x-size-border-width-layout-columns-main-body    |      0px      |
+| --x-size-margin-bottom-layout-columns-scroll-to-top |     10px      |
+|  --x-size-margin-left-layout-columns-scroll-to-top  |     10px      |
+
+|                        token                        |                   use                    |
+| :-------------------------------------------------: | :--------------------------------------: |
+|         --x-size-column-gap-layout-columns          |         The gap between columns          |
+|     --x-size-padding-top-layout-columns-header      |      The padding top of the header       |
+|    --x-size-padding-bottom-layout-columns-header    |     The padding bottom of the header     |
+|      --x-size-margin-top-layout-columns-header      |       The margin top of the header       |
+|    --x-size-margin-bottom-layout-columns-header     |     The margin bottom of the header      |
+|     --x-color-background-layout-columns-header      |    The background color of the header    |
+|       --x-color-border-layout-columns-header        |      The border color of the header      |
+|     --x-size-border-width-layout-columns-header     |      The border width of the header      |
+|        --x-flow-layout-columns-header-start         |    The flex flow of the start header     |
+|    --x-size-justify-layout-columns-header-start     | The justify content of the start header  |
+|     --x-size-align-layout-columns-header-start      |   The align items of the start header    |
+|        --x-flow-layout-columns-header-middle        |    The flex flow of the middle header    |
+|    --x-size-justify-layout-columns-header-middle    | The justify content of the middle header |
+|     --x-size-align-layout-columns-header-middle     |   The align items of the middle header   |
+|         --x-flow-layout-columns-header-end          |     The flex flow of the end header      |
+|     --x-size-justify-layout-columns-header-end      |  The justify content of the end header   |
+|      --x-size-align-layout-columns-header-end       |    The align items of the end header     |
+|   --x-size-padding-top-layout-columns-sub-header    |   The padding bottom of the sub header   |
+|  --x-size-padding-bottom-layout-columns-sub-header  |    The padding top of the sub header     |
+|    --x-size-margin-top-layout-columns-sub-header    |   The margin bottom of the sub header    |
+|  --x-size-margin-bottom-layout-columns-sub-header   |     The margin top of the sub header     |
+|   --x-color-background-layout-columns-sub-header    |  The background color of the sub header  |
+|     --x-color-border-layout-columns-sub-header      |    The border color of the sub header    |
+|   --x-size-border-width-layout-columns-sub-header   |    The border width of the sub header    |
+|         --x-flow-layout-columns-sub-header          |     The flex flow of the sub header      |
+|     --x-size-justify-layout-columns-sub-header      |  The justify content of the sub header   |
+|      --x-size-align-layout-columns-sub-header       |    The align items of the sub header     |
+|     --x-size-padding-top-layout-columns-toolbar     |      The padding top of the toolbar      |
+|   --x-size-padding-bottom-layout-columns-toolbar    |    The padding bottom of the toolbar     |
+|     --x-size-margin-top-layout-columns-toolbar      |      The margin top of the toolbar       |
+|    --x-size-margin-bottom-layout-columns-toolbar    |     The margin bottom of the toolbar     |
+|     --x-color-background-layout-columns-toolbar     |   The background color of the toolbar    |
+|     --x-color-border-layout-columns-sub-toolbar     |     The border color of the toolbar      |
+|    --x-size-border-width-layout-columns-toolbar     |     The border width of the toolbar      |
+|        --x-flow-layout-columns-toolbar-aside        |    The flex flow of the toolbar aside    |
+|    --x-size-justify-layout-columns-toolbar-aside    | The justify content of the toolbar aside |
+|     --x-size-align-layout-columns-toolbar-aside     |   The align items of the toolbar aside   |
+|        --x-flow-layout-columns-toolbar-body         |  The flex flow of the end toolbar body   |
+|    --x-size-justify-layout-columns-toolbar-body     | Justify content of the end toolbar body  |
+|     --x-size-align-layout-columns-toolbar-body      |   The align items of the toolbar body    |
+|      --x-size-padding-top-layout-columns-main       |       The padding top of the main        |
+|     --x-size-padding-bottom-layout-columns-main     |      The padding bottom of the main      |
+|       --x-size-margin-top-layout-columns-main       |        The margin top of the main        |
+|     --x-size-margin-bottom-layout-columns-main      |      The margin bottom of the main       |
+|      --x-color-background-layout-columns-main       |     The background color of the main     |
+|        --x-color-border-layout-columns-main         |       The border color of the main       |
+|      --x-size-border-width-layout-columns-main      |       The border width of the main       |
+|   --x-color-background-layout-columns-main-aside    |  The background color of the main aside  |
+|     --x-color-border-layout-columns-main-aside      |    The border color of the main aside    |
+|   --x-size-border-width-layout-columns-main-aside   |  The border width of the sub main aside  |
+|    --x-color-background-layout-columns-main-body    |  The background color of the main body   |
+|      --x-color-border-layout-columns-main-body      |    The border color of the main body     |
+|   --x-size-border-width-layout-columns-main-body    |  The border width of the sub main body   |
+| --x-size-margin-bottom-layout-columns-scroll-to-top |  The margin bottom of the scroll to top  |
+|  --x-size-margin-left-layout-columns-scroll-to-top  |   The margin left of the scroll to top   |
+</docs>
