@@ -41,7 +41,7 @@
         'QueryLoadedFromUrl'
       ]"
     >
-      <MultiColumnMaxWidthLayout>
+      <MultiColumnMaxWidthLayout class="x-background--neutral-100">
         <template #header-middle>
           <div
             class="
@@ -239,6 +239,15 @@
         </template>
 
         <template #main-body>
+          <Redirection
+            #default="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
+            delayInSeconds="5"
+          >
+            <span>{{ redirection.url }}</span>
+            <button @click="redirect">Redirect now!</button>
+            <button @click="abortRedirect">Abort redirection!</button>
+            <AutoProgressBar :isLoading="isRedirecting" :durationInSeconds="delayInSeconds" />
+          </Redirection>
           <!-- IdentifierResults -->
           <IdentifierResults class="x-list x-list--horizontal">
             <template #default="{ identifierResult }">
@@ -372,6 +381,7 @@
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import CollapseHeight from '../components/animations/collapse-height.vue';
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
+  import AutoProgressBar from '../components/auto-progress-bar.vue';
   import BaseDropdown from '../components/base-dropdown.vue';
   import BaseGrid from '../components/base-grid.vue';
   import BaseVariableColumnGrid from '../components/base-variable-column-grid.vue';
@@ -444,6 +454,7 @@
   import PartialResultsList from '../x-modules/search/components/partial-results-list.vue';
   import Promoted from '../x-modules/search/components/promoted.vue';
   import PromotedsList from '../x-modules/search/components/promoteds-list.vue';
+  import Redirection from '../x-modules/search/components/redirection.vue';
   import ResultsList from '../x-modules/search/components/results-list.vue';
   import SortDropdown from '../x-modules/search/components/sort-dropdown.vue';
   import SortList from '../x-modules/search/components/sort-list.vue';
@@ -466,26 +477,27 @@
       infiniteScroll
     },
     components: {
+      AutoProgressBar,
       Banner,
       BannersList,
       BaseColumnPickerList,
-      BaseEventsModalClose,
       BaseDropdown,
       BaseEventsModal,
+      BaseEventsModalClose,
       BaseEventsModalOpen,
       BaseGrid,
       BaseHeaderTogglePanel,
-      BaseIdTogglePanelButton,
       BaseIdTogglePanel,
+      BaseIdTogglePanelButton,
       BaseResultImage,
       BaseScrollToTop,
       BaseSuggestions,
       BaseVariableColumnGrid,
       CheckTiny,
       ChevronDown,
-      ChevronTinyDown,
       ChevronLeft,
       ChevronRight,
+      ChevronTinyDown,
       ChevronTinyLeft,
       ChevronTinyRight,
       ChevronUp,
@@ -505,8 +517,8 @@
       Grid2Col,
       HierarchicalFilter,
       HistoryQueries,
-      IdentifierResults,
       IdentifierResult,
+      IdentifierResults,
       MultiColumnMaxWidthLayout,
       NextQueries,
       NextQueriesList,
@@ -519,6 +531,7 @@
       PromotedsList,
       QuerySuggestions,
       Recommendations,
+      Redirection,
       RelatedTags,
       RenderlessExtraParams,
       ResultsList,
@@ -531,8 +544,8 @@
       SlidingPanel,
       SnippetConfigExtraParams,
       SortDropdown,
-      SortList,
       SortedFilters,
+      SortList,
       UrlHandler
     }
   })

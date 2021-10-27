@@ -1,4 +1,7 @@
-> 0.75% and not dead and not op_mob > 0 and not baidu > 0
-ie >= 10
-safari >= 10.1
-edge > 17
+> 0.65% and last 3 versions and not dead
+not op_mob > 0
+not baidu > 0
+not ie >= 0
+not ie_mob >= 0
+not op_mini all
+not and_uc >= 0
