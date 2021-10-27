@@ -1,6 +1,6 @@
 <template>
   <div v-if="redirection" class="x-redirection" data-test="redirection">
-    <slot v-bind="{ redirection, redirect, abortRedirect, isLoading, delayInSeconds }" />
+    <slot v-bind="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }" />
   </div>
 </template>
 
@@ -57,7 +57,7 @@
      *
      * @public
      */
-    protected isLoading = true;
+    protected isRedirecting = true;
 
     /**
      * Computed property which returns the first recommendation of the state, if any returns null.
@@ -77,8 +77,8 @@
      * @internal
      */
     @Watch('redirections', { immediate: true })
-    protected redirectDelayed(): void {
-      this.isLoading = true;
+    protected redirectWithDelay(): void {
+      this.isRedirecting = true;
       if (this.mode === 'auto' && this.redirection) {
         // eslint-disable-next-line @typescript-eslint/unbound-method
         this.timeoutId = setTimeout(this.redirect, this.delayInSeconds * 1000);
@@ -102,8 +102,7 @@
      * @public
      */
     protected abortRedirect(): void {
-      clearTimeout(this.timeoutId);
-      this.isLoading = false;
+      this.cancelRedirect();
       this.$x.emit('UserClickedAbortARedirection');
     }
 
@@ -113,8 +112,9 @@
      * @internal
      */
     @XOn(['UserAcceptedAQuery', 'UserClearedQuery'])
-    stopAnimation(): void {
+    cancelRedirect(): void {
       clearTimeout(this.timeoutId);
+      this.isRedirecting = false;
     }
   }
 </script>
@@ -141,7 +141,7 @@ _Type any term in the input field to try it out!_
 
 ```vue
 <template>
-  <Redirection template v-slot="{ redirection, redirect, abortRedirect, isLoading }">
+  <Redirection #default="{ redirection, redirect, abortRedirect }">
     <span>In a few seconds you're going to be redirected!</span>
     <span>{{ redirection.url }}</span>
     <button @click="redirection">Redirect now!</button>
@@ -167,25 +167,22 @@ forcing the user to accept the redirection
 
 ```vue
 <template>
-  <Redirection :mode="mode" v-slot="{ redirection, redirect, abortRedirect, isLoading }">
+  <Redirection #default="{ redirection, redirect }">
     <span>{{ redirection.url }}</span>
-    <button @click="redirection">Redirect now!</button>
+    <button @click="redirect">Redirect now!</button>
   </Redirection>
 </template>
 
 <script>
-  import { AutoProgressBar } from '@empathyco/x-components';
   import { Redirection } from '@empathyco/x-components/search';
   export default {
     name: 'RedirectionDemo',
     components: {
-      Redirection,
-      AutoProgressBar
+      Redirection
     },
     data() {
       return {
-        mode: 'manual',
-        delay: 100
+        mode: 'manual'
       };
     }
   };

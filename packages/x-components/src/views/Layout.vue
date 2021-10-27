@@ -230,13 +230,13 @@
 
         <template #main-body>
           <Redirection
-            v-slot="{ redirection, redirect, abortRedirect, isLoading, delayInSeconds }"
+            #default="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
             delayInSeconds="5"
           >
             <span>{{ redirection.url }}</span>
             <button @click="redirect">Redirect now!</button>
             <button @click="abortRedirect">Abort redirection!</button>
-            <AutoProgressBar :isLoading="isLoading" :durationInSeconds="delayInSeconds" />
+            <AutoProgressBar :isLoading="isRedirecting" :durationInSeconds="delayInSeconds" />
           </Redirection>
           <!-- IdentifierResults -->
           <IdentifierResults class="x-list x-list--horizontal">

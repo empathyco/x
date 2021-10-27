@@ -47,7 +47,7 @@ describe('testing AutoProgressBar component', () => {
   it('render a progress bar component with an animation', () => {
     const { wrapper } = renderAutoProgressBar({ durationInSeconds: 5 });
 
-    expect(wrapper.find(getDataTestSelector('progress-bar__line')).attributes().style).toBe(
+    expect(wrapper.find(getDataTestSelector('progress-bar-line')).attributes().style).toBe(
       'animation-duration: 5s;'
     );
   });
