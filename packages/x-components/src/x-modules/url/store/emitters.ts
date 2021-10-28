@@ -19,8 +19,11 @@ export const replaceableParams: UrlParamKey[] = ['scroll', 'page'];
  *
  * @returns True if is pushable change, false otherwise.
  */
-function shouldPushUrl(newParams: UrlParams, oldParams: UrlParams): boolean {
-  const keys = Object.keys(oldParams).concat(Object.keys(newParams));
+function shouldPushUrl(
+  newParams: Partial<UrlParams> = {},
+  oldParams: Partial<UrlParams> = {}
+): boolean {
+  const keys = Object.keys({ ...oldParams, ...newParams });
   return keys.some(key => !replaceableParams.includes(key) && oldParams[key] !== newParams[key]);
 }
 
@@ -32,8 +35,11 @@ function shouldPushUrl(newParams: UrlParams, oldParams: UrlParams): boolean {
  *
  * @returns True if is pushable change, false otherwise.
  */
-function shouldReplaceUrl(newParams: UrlParams, oldParams: UrlParams): boolean {
-  const keys = Object.keys(oldParams).concat(Object.keys(newParams));
+function shouldReplaceUrl(
+  newParams: Partial<UrlParams> = {},
+  oldParams: Partial<UrlParams> = {}
+): boolean {
+  const keys = Object.keys({ ...oldParams, ...newParams });
   return (
     keys.some(key => replaceableParams.includes(key) && oldParams[key] !== newParams[key]) &&
     !shouldPushUrl(newParams, oldParams)
