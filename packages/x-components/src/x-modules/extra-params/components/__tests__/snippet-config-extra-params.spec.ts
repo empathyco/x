@@ -1,8 +1,7 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
 import { installNewXPlugin } from '../../../../__tests__/utils';
-import { getXComponentXModuleName, isXComponent, XProvide } from '../../../../components';
+import { getXComponentXModuleName, isXComponent } from '../../../../components';
 import { XPlugin } from '../../../../plugins';
 import { Dictionary } from '../../../../utils';
 import { WirePayload } from '../../../../wiring';
@@ -10,31 +9,24 @@ import { extraParamsXModule } from '../../x-module';
 import SnippetConfigExtraParams from '../snippet-config-extra-params.vue';
 
 describe('testing snippet config extra params component', () => {
-  @Component({
-    template: `<div><slot/></div>`
-  })
-  class Provider extends Vue {
-    @XProvide('snippetConfig')
-    public snippetConfig: Dictionary<unknown> = {
-      warehouse: 1234
-    };
-  }
-
   function renderSnippetConfigExtraParams(): RenderExtraParamsApi {
     XPlugin.resetInstance();
     const [, localVue] = installNewXPlugin();
     XPlugin.registerXModule(extraParamsXModule);
+    const snippetConfig = Vue.observable({ warehouse: 1234 });
 
     const wrapper = mount(
       {
         template: `
-          <Provider>
             <SnippetConfigExtraParams />
-          </Provider>
         `,
         components: {
-          Provider,
           SnippetConfigExtraParams
+        },
+        provide() {
+          return {
+            snippetConfig
+          };
         }
       },
       {
@@ -42,9 +34,9 @@ describe('testing snippet config extra params component', () => {
       }
     );
 
-    function setSnippetConfig(newValue: Dictionary<unknown>): void | Promise<void> {
-      const providerWrapper = wrapper.findComponent(Provider);
-      return providerWrapper.setData({ snippetConfig: newValue });
+    function setSnippetConfig(newValue: Dictionary<unknown>): Promise<void> {
+      Object.assign(snippetConfig, newValue);
+      return localVue.nextTick();
     }
 
     return {
@@ -68,20 +60,18 @@ describe('testing snippet config extra params component', () => {
 
     expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
       1,
-      {
-        eventPayload: { warehouse: 1234 },
-        metadata: { moduleName: 'extraParams' }
-      }
+      expect.objectContaining({
+        eventPayload: { warehouse: 1234 }
+      })
     );
 
     await setSnippetConfig({ warehouse: 45678 });
 
     expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
       2,
-      {
-        eventPayload: { warehouse: 45678 },
-        metadata: { moduleName: 'extraParams' }
-      }
+      expect.objectContaining({
+        eventPayload: { warehouse: 45678 }
+      })
     );
   });
 
@@ -94,10 +84,9 @@ describe('testing snippet config extra params component', () => {
 
     expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
       1,
-      {
-        eventPayload: { warehouse: 1234 },
-        metadata: { moduleName: 'extraParams' }
-      }
+      expect.objectContaining({
+        eventPayload: { warehouse: 1234 }
+      })
     );
 
     await setSnippetConfig({ lang: 'es' });
@@ -108,10 +97,9 @@ describe('testing snippet config extra params component', () => {
 
     expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
       2,
-      {
-        eventPayload: { warehouse: 45678 },
-        metadata: { moduleName: 'extraParams' }
-      }
+      expect.objectContaining({
+        eventPayload: { warehouse: 45678 }
+      })
     );
   });
 });

@@ -165,44 +165,5 @@ describe('testing related tags module actions', () => {
         }
       ]);
     });
-
-    it('should add just the query and not related tags to the store', () => {
-      resetRelatedTagsStateWith(store, {
-        selectedRelatedTags: mockedRelatedTags
-      });
-      store.dispatch('setUrlParams', {
-        query: 'funko'
-      } as UrlParams);
-
-      expect(store.state.query).toEqual('funko');
-      expect(store.state.selectedRelatedTags).toEqual<RelatedTag[]>(mockedRelatedTags);
-    });
-
-    it('should add just the related tags and not query to the store', () => {
-      resetRelatedTagsStateWith(store, {
-        query: 'lego'
-      });
-      store.dispatch('setUrlParams', {
-        tag: ['lego', 'pop']
-      } as UrlParams);
-
-      expect(store.state.query).toBe('lego');
-      expect(store.state.selectedRelatedTags).toEqual<RelatedTag[]>([
-        {
-          modelName: 'RelatedTag',
-          tag: 'lego',
-          query: '',
-          previous: '',
-          selected: true
-        },
-        {
-          modelName: 'RelatedTag',
-          tag: 'pop',
-          query: '',
-          previous: '',
-          selected: true
-        }
-      ]);
-    });
   });
 });

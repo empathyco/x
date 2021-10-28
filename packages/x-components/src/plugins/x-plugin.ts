@@ -247,7 +247,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    *
    * @internal
    */
-  customizeXModule({
+  protected customizeXModule({
     name,
     wiring,
     storeModule,

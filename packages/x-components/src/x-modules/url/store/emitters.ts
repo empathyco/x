@@ -12,17 +12,33 @@ import { UrlParamKey } from './types';
 export const replaceableParams: UrlParamKey[] = ['scroll', 'page'];
 
 /**
- * Compares new and old {@link UrlParams} to know if we have to do a push or a replace in the
- * browser URL history. It uses the `replaceableParams` const to know what params causes a replace
- * instead of a push..
+ * Compares new and old {@link UrlParams} to know if not replaceable params have changed.
  *
  * @param newParams - The new {@link UrlParams} to compare.
  * @param oldParams - The old {@link UrlParams} to compare.
  *
  * @returns True if is pushable change, false otherwise.
  */
-function isPushableParams(newParams: UrlParams, oldParams: UrlParams): boolean {
-  return !replaceableParams.some(key => oldParams[key] && oldParams[key] !== newParams[key]);
+function shouldPushUrl(newParams: UrlParams, oldParams: UrlParams): boolean {
+  return Object.keys(newParams).some(
+    key => !replaceableParams.includes(key) && oldParams[key] !== newParams[key]
+  );
+}
+
+/**
+ * Compares new and old {@link UrlParams} to know if replaceable params have changed.
+ *
+ * @param newParams - The new {@link UrlParams} to compare.
+ * @param oldParams - The old {@link UrlParams} to compare.
+ *
+ * @returns True if is pushable change, false otherwise.
+ */
+function shouldReplaceUrl(newParams: UrlParams, oldParams: UrlParams): boolean {
+  return (
+    Object.keys(newParams).some(
+      key => replaceableParams.includes(key) && oldParams[key] !== newParams[key]
+    ) && !shouldPushUrl(newParams, oldParams)
+  );
 }
 
 /**
@@ -33,10 +49,10 @@ function isPushableParams(newParams: UrlParams, oldParams: UrlParams): boolean {
 export const urlEmitters = createStoreEmitters(urlXStoreModule, {
   PushableUrlStateChanged: {
     selector: (_, getters) => getters.urlParams,
-    filter: isPushableParams
+    filter: shouldPushUrl
   },
   ReplaceableUrlStateChanged: {
     selector: (_, getters) => getters.urlParams,
-    filter: (newValues, oldValues) => !isPushableParams(newValues, oldValues)
+    filter: shouldReplaceUrl
   }
 });

@@ -1,4 +1,5 @@
 import { UrlParams } from '../../types/url-params';
+import { Dictionary } from '../../utils/types';
 
 /**
  * Dictionary of the events of URL XModule, where each key is the event name, and the value is
@@ -8,10 +9,15 @@ import { UrlParams } from '../../types/url-params';
  */
 export interface UrlXEvents {
   /**
-   * Url loaded from the url changed.
-   * * Payload: The new URL params.
+   * Url loaded.
+   * * Payload: The new {@link UrlParams} params.
    */
   ParamsLoadedFromUrl: UrlParams;
+  /**
+   * Url loaded.
+   * * Payload: The extra params form URL in form of {@link Dictionary} with `unknown` values.
+   */
+  ExtraParamsLoadedFromUrl: Dictionary<unknown>;
   /**
    * Url state changed with a change to add new entry to browser URL History State.
    * * Payload: The new URL params.
