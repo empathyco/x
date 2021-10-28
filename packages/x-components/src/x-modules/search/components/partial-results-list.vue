@@ -81,7 +81,7 @@
 </style>
 
 <docs lang="mdx">
-#Examples
+# Examples
 
 This component loops through an array of partials an exposed a slot to use customize each partial.
 
@@ -124,7 +124,7 @@ results and a button to update the query with the partial one.
     <template #default="{ partialResult }">
       <span>{{ partialResult.query }}</span>
       <BaseGrid :columns="4" :items="partialResult.results">
-        <template #Result="{ item }">
+        <template #result="{ item }">
           <BaseResultLink :result="item">
             <template #default="{ item }">
               <BaseResultImage :result="item" />

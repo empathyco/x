@@ -1,4 +1,4 @@
-import { setQueryFromUrl } from './actions/set-query-from-url.action';
+import { setUrlParams } from './actions/set-url-params.action';
 import { SearchBoxXStoreModule } from './types';
 
 /**
@@ -21,6 +21,6 @@ export const searchBoxXStoreModule: SearchBoxXStoreModule = {
     }
   },
   actions: {
-    setQueryFromUrl
+    setUrlParams
   }
 };

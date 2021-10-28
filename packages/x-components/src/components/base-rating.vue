@@ -108,8 +108,8 @@
   }
 </style>
 
-<docs>
-#Examples
+<docs lang="mdx">
+# Examples
 
 This component receives a `value` as prop and renders a set of elements, which will be filled based
 on this value.
@@ -117,7 +117,7 @@ on this value.
 ## Basic usage
 
 ```vue
-<BaseRating :value="5.23"/>
+<BaseRating :value="5.23" />
 ```
 
 ## Customizing its contents
@@ -132,5 +132,4 @@ on this value.
   </template>
 </BaseRating>
 ```
-
 </docs>

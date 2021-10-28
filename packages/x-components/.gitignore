@@ -2,6 +2,7 @@
 /node_modules
 /dist
 /docs
+/temp
 /*.tgz
 
 /tests/e2e/videos/

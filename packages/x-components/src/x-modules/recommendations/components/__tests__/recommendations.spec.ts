@@ -1,5 +1,5 @@
 import { Result } from '@empathyco/x-types';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
+import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
@@ -45,6 +45,9 @@ function mountRecommendations({
     recommendations,
     isScopedSlotOverridden(selector) {
       return wrapper.find(getDataTestSelector(selector)).exists();
+    },
+    getDefaultRecommendations() {
+      return wrapper.findAll(getDataTestSelector('recommendation-item'));
     }
   };
 }
@@ -114,6 +117,22 @@ describe('testing recommendations component', () => {
 
     expect(isScopedSlotOverridden('custom-layout')).toBe(true);
   });
+
+  // eslint-disable-next-line max-len
+  it('renders at most the number of recommendations defined by `maxItemsToRender` prop', async () => {
+    const { wrapper, recommendations, getDefaultRecommendations } = mountRecommendations();
+
+    expect(getDefaultRecommendations()).toHaveLength(recommendations.length);
+
+    await wrapper.setProps({ maxItemsToRender: recommendations.length - 1 });
+    expect(getDefaultRecommendations()).toHaveLength(recommendations.length - 1);
+
+    await wrapper.setProps({ maxItemsToRender: recommendations.length });
+    expect(getDefaultRecommendations()).toHaveLength(recommendations.length);
+
+    await wrapper.setProps({ maxItemsToRender: recommendations.length + 1 });
+    expect(getDefaultRecommendations()).toHaveLength(recommendations.length);
+  });
 });
 
 interface MountRecommendationsOptions {
@@ -128,6 +147,8 @@ interface MountRecommendationsAPI {
   wrapper: Wrapper<Vue>;
   /** The rendered `recommendations`. */
   recommendations: Result[];
+  /** The default `recommendations`. */
+  getDefaultRecommendations: () => WrapperArray<Vue>;
   /** Check if a scoped slot is overridden. */
   isScopedSlotOverridden: (selector: string) => boolean;
 }

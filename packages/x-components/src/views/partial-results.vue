@@ -11,7 +11,7 @@
     <h1 class="x-title1">Results {{ results.length }} / {{ $x.totalResults }}</h1>
     <ResultsList #default="{ items, animation }" :animation="staggeredFadeAndSlide">
       <BaseGrid :animation="animation" :items="items" :columns="4">
-        <template #Result="{ item }">
+        <template #result="{ item }">
           <BaseResultLink :result="item" data-test="regular-result">
             <template #default="{ result }">
               <BaseResultImage :result="result" />
@@ -28,7 +28,7 @@
       <template #default="{ partialResult }">
         <span data-test="partial-query">{{ partialResult.query }}</span>
         <BaseGrid :animation="staggeredFadeAndSlide" :columns="4" :items="partialResult.results">
-          <template #Result="{ item }">
+          <template #result="{ item }">
             <BaseResultLink :result="item" class="x-result-link">
               <span class="x-result__title" data-test="partial-result-item">{{ item.name }}</span>
             </BaseResultLink>

@@ -4,29 +4,16 @@ import { PluginObject, VueConstructor } from 'vue';
 import Vuex, { Module, Store } from 'vuex';
 import { FILTERS_REGISTRY } from '../filters/filters.registry';
 import { AnyXStoreModule, RootXStoreState } from '../store/store.types';
-import {
-  cleanGettersProxyCache,
-  getGettersProxyFromModule
-} from '../store/utils/getters-proxy.utils';
-import {
-  AnySimpleStateSelector,
-  AnyStateSelector,
-  AnyStoreEmitters
-} from '../store/utils/store-emitters.utils';
+import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
 import { RootXStoreModule } from '../store/x.module';
 import { Dictionary, forEach } from '../utils';
-import { debounce } from '../utils/debounce';
-import { AnyWire, Wiring } from '../wiring/wiring.types';
+import { AnyWire } from '../wiring/wiring.types';
 import { AnyXModule, XModuleName } from '../x-modules/x-modules.types';
 import { bus } from './x-bus';
 import { XBus } from './x-bus.types';
+import { registerStoreEmitters } from './x-emitters';
 import { createXComponentAPIMixin } from './x-plugin.mixin';
-import {
-  AnyXStoreModuleOption,
-  PrivateXModuleOptions,
-  XModuleOptions,
-  XPluginOptions
-} from './x-plugin.types';
+import { AnyXStoreModuleOption, XModuleOptions, XPluginOptions } from './x-plugin.types';
 import { assertXPluginOptionsAreValid } from './x-plugin.utils';
 
 /**
@@ -161,6 +148,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * Creates a new instance of the XPlugin with the given bus passed as parameter.
    *
    * @param bus - The {@link XBus} implementation to use for the plugin.
+   *
    * @public
    */
   public constructor(bus: XBus) {
@@ -172,6 +160,8 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * has not been installed yet, it stores the module in a list until the plugin is installed.
    *
    * @param xModule - The module to register.
+   *
+   * @public
    */
   static registerXModule(xModule: AnyXModule): void {
     if (this.instance) {
@@ -198,6 +188,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * process.
    *
    * @param xModule - The module to register.
+   *
    * @internal
    */
   protected static lazyRegisterXModule(xModule: AnyXModule): void {
@@ -210,6 +201,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * @param vue - The GlobalVue object.
    * @param options - The options to install this plugin with.
    * @throws If the XPlugin has already been installed, or the options are not valid.
+   *
    * @internal
    */
   install(vue: VueConstructor, options?: XPluginOptions): void {
@@ -234,31 +226,61 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * Performs the registration of a {@link XModule}.
    *
    * @param xModule - The module to register.
+   *
    * @internal
    */
-  protected registerXModule({ name, wiring, storeModule, storeEmitters }: AnyXModule): void {
-    if (!this.installedXModules.has(name)) {
-      this.registerStoreModule(name, storeModule);
-      this.registerWiring(name, wiring);
-      this.registerStoreEmitters(name, storeModule, storeEmitters);
-      this.installedXModules.add(name);
+  protected registerXModule(xModule: AnyXModule): void {
+    if (!this.installedXModules.has(xModule.name)) {
+      const customizedXModule = this.customizeXModule(xModule);
+      this.registerStoreModule(customizedXModule);
+      this.registerWiring(customizedXModule);
+      this.registerStoreEmitters(customizedXModule);
+      this.installedXModules.add(xModule.name);
     }
+  }
+
+  /**
+   * Performs a customization of a {@link XModule} using the XPlugin public and private options.
+   *
+   * @param xModule - The module to customize.
+   * @returns The customized xModule.
+   *
+   * @internal
+   */
+  customizeXModule({
+    name,
+    wiring,
+    storeModule,
+    storeEmitters,
+    ...restXModule
+  }: AnyXModule): AnyXModule {
+    const { wiring: wiringOptions, config }: XModuleOptions<XModuleName> =
+      this.options.xModules?.[name] ?? {};
+
+    const { storeModule: storeModuleOptions, storeEmitters: emittersOptions } =
+      this.options.__PRIVATE__xModules?.[name] ?? {};
+
+    return {
+      name,
+      wiring: wiringOptions ? deepMerge({}, wiring, wiringOptions) : wiring,
+      storeModule: this.customizeStoreModule(storeModule, storeModuleOptions ?? {}, config),
+      storeEmitters: emittersOptions
+        ? deepMerge({}, storeEmitters, emittersOptions)
+        : storeEmitters,
+      ...restXModule
+    };
   }
 
   /**
    * Performs the registration of the wiring, retrieving the observable for each event, and
    * executing each wire.
    *
-   * @param name - The name of the {@link XModule} of the wiring.
-   * @param wiring - The wiring to register.
+   * @param xModule - The {@link XModule} to register its wiring.
+   *
    * @internal
    */
-  protected registerWiring(name: XModuleName, wiring: Partial<Wiring>): void {
-    const wiringOptions = this.getXModuleOptions(name)?.wiring;
-    const customizedWiring: Partial<Wiring> = wiringOptions
-      ? deepMerge({}, wiring, wiringOptions)
-      : wiring;
-    forEach(customizedWiring, (event, wires: Dictionary<AnyWire>) => {
+  protected registerWiring({ wiring }: AnyXModule): void {
+    forEach(wiring, (event, wires: Dictionary<AnyWire>) => {
       // Obtain the observable
       const observable = this.bus.on(event, true);
       // Register event wires
@@ -271,44 +293,13 @@ export class XPlugin implements PluginObject<XPluginOptions> {
   /**
    * Registers a {@link https://vuex.vuejs.org/ | Vuex} store module under the 'x' module.
    *
-   * @param name - The module name.
-   * @param storeModule - The module definition to register.
-   * @internal
-   */
-  protected registerStoreModule(name: XModuleName, storeModule: AnyXStoreModule): void {
-    const storeModuleOptions = this.getPrivateXModuleOptions(name)?.storeModule ?? {};
-    const configOptions = this.getXModuleOptions(name)?.config;
-    const customizedStoreModule: Module<any, any> = this.customizeStoreModule(
-      storeModule,
-      storeModuleOptions,
-      configOptions
-    );
-    customizedStoreModule.namespaced = true;
-    this.store.registerModule(['x', name], customizedStoreModule);
-  }
-
-  /**
-   * Retrieves the overridden private options of an {@link XModule}.
+   * @param xModule - The {@link XModule} to register its Store Module.
    *
-   * @param name - The module name.
-   * @returns Private options of the {@link XModule}.
    * @internal
    */
-  protected getPrivateXModuleOptions(
-    name: XModuleName
-  ): PrivateXModuleOptions<AnyXModule> | undefined {
-    return this.options.__PRIVATE__xModules?.[name];
-  }
-
-  /**
-   * Retrieves the overridden public options of an {@link XModule}.
-   *
-   * @param name - The module name.
-   * @returns Public options of the {@link XModule}.
-   * @internal
-   */
-  protected getXModuleOptions(name: XModuleName): XModuleOptions<any> | undefined {
-    return this.options.xModules?.[name];
+  protected registerStoreModule({ name, storeModule }: AnyXModule): void {
+    (storeModule as Module<any, any>).namespaced = true;
+    this.store.registerModule(['x', name], storeModule);
   }
 
   /**
@@ -323,6 +314,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * @param moduleOptions - The state, actions, mutations and getters to override the defaultModule.
    * @param configOptions - The state config to override the moduleOptions.
    * @returns The {@link XStoreModule} customized.
+   *
    * @internal
    */
   protected customizeStoreModule(
@@ -340,66 +332,12 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * Registers the store emitters, making them emit the event when the part of the state selected
    * changes.
    *
-   * @param name - The module name.
-   * @param storeModule - The store module to retrieve its state and getters.
-   * @param storeEmitters - The store emitters to register.
-   * @internal
-   */
-  protected registerStoreEmitters(
-    name: XModuleName,
-    storeModule: AnyXStoreModule,
-    storeEmitters: AnyStoreEmitters
-  ): void {
-    const storeEmittersOptions = this.getPrivateXModuleOptions(name)?.storeEmitters;
-    const customizedStoreEmitters: AnyStoreEmitters = storeEmittersOptions
-      ? deepMerge({}, storeEmitters, storeEmittersOptions)
-      : storeEmitters;
-    const safeGettersProxy = getGettersProxyFromModule(this.store.getters, name, storeModule);
-    forEach(
-      customizedStoreEmitters,
-      (event, stateSelector: AnySimpleStateSelector | AnyStateSelector) => {
-        const { selector, immediate, filter, ...options } =
-          this.normalizeStateSelector(stateSelector);
-
-        this.store.watch(
-          state => selector(state.x[name], safeGettersProxy),
-          debounce((newValue, oldValue) => {
-            if (filter(newValue, oldValue)) {
-              this.bus.emit(event, newValue, { moduleName: name });
-            }
-          }, 0),
-          options
-        );
-
-        if (immediate) {
-          Promise.resolve().then(() => {
-            this.bus.emit(event, selector(this.store.state.x[name], safeGettersProxy));
-          });
-        }
-      }
-    );
-  }
-
-  /**
-   * Transforms a {@link AnySimpleStateSelector} into a {@link AnyStateSelector}, and sets
-   * default values for its properties.
+   * @param xModule - The {@link XModule} to register its Store Emitters.
    *
-   * @param stateSelector - The state selector to normalize.
-   * @returns A {@link AnyStateSelector} with all the properties set.
    * @internal
    */
-  protected normalizeStateSelector(
-    stateSelector: AnySimpleStateSelector | AnyStateSelector
-  ): Required<AnyStateSelector> {
-    const normalizedSelector = this.isSimpleSelector(stateSelector)
-      ? { selector: stateSelector }
-      : stateSelector;
-    return {
-      deep: false,
-      immediate: false,
-      filter: () => true,
-      ...normalizedSelector
-    };
+  protected registerStoreEmitters(xModule: AnyXModule): void {
+    registerStoreEmitters(xModule, this.bus, this.store);
   }
 
   /**
@@ -467,20 +405,6 @@ export class XPlugin implements PluginObject<XPluginOptions> {
     this.options.adapter.addConfigChangedListener?.(newAdapterConfig => {
       this.bus.emit('AdapterConfigChanged', newAdapterConfig);
     });
-  }
-
-  /**
-   * Checks if a the type of the store emitter selector is simple or complex. This selector can be
-   * a function if it is simple or an object with the selector and other options if it is complex.
-   *
-   * @param stateSelector - The store emitter selector.
-   * @returns A boolean which flags if the stateSelector is simple (function) or complex (object).
-   * @internal
-   */
-  protected isSimpleSelector(
-    stateSelector: AnySimpleStateSelector | AnyStateSelector
-  ): stateSelector is AnySimpleStateSelector {
-    return typeof stateSelector === 'function';
   }
 
   /**

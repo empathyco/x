@@ -88,12 +88,12 @@
   }
 </script>
 
-<docs>
-#Example
+<docs lang="mdx">
+# Examples
 
 This component receives a required `facet` as prop and renders a button, which on clicked emits the
-UserClickedAllFilter event. By default the rendered button displays a message with the
-facet label but this content is customizable through the default slot.
+UserClickedAllFilter event. By default the rendered button displays a message with the facet label
+but this content is customizable through the default slot.
 
 ## Basic usage
 
@@ -136,10 +136,11 @@ facet label but this content is customizable through the default slot.
   </template>
 </Facets>
 ```
+
 ## Events
 
 A list of events that the component will emit:
 
-- `UserClickedAllFilter`: the event is emitted after the user clicks the button. The event
-payload is the id of the facet that this `AllFilter` component corresponds to.
+- `UserClickedAllFilter`: the event is emitted after the user clicks the button. The event payload
+  is the id of the facet that this `AllFilter` component corresponds to.
 </docs>

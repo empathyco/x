@@ -10,6 +10,7 @@ import {
 } from '../../../../../components/x-component.utils';
 import { XPlugin } from '../../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../../store/store.types';
+import { toKebabCase } from '../../../../../utils/string';
 import { DeepPartial, Dictionary } from '../../../../../utils/types';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
@@ -63,7 +64,7 @@ describe('testing Facets component', () => {
 
     const { wrapper, getDefaultFacets } = renderFacetsComponent({
       customFacetSlot: `
-          <template #${customFacetId}="{ facet, selectedFilters }">
+          <template #${toKebabCase(customFacetId)}="{ facet, selectedFilters }">
             <p data-test="custom-facet">{{ facet.label }}</p>
             <div data-test="custom-facet-selected-filters">
               <span v-for="filter in selectedFilters">{{ filter.label }}</span>

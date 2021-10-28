@@ -11,6 +11,7 @@ import {
 
 const rootDir = path.resolve(__dirname, '../');
 
+// eslint-disable-next-line no-console
 build().catch(console.error);
 
 /**
@@ -35,6 +36,7 @@ async function build(): Promise<any> {
 
     return removeTempFiles();
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Build failed: ', error.message);
     process.exit(1);
   }

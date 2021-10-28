@@ -39,8 +39,9 @@ export class DefaultFacetsService implements FacetsService {
   }
 
   updateFacets(facetsGroup: FacetsGroup): void {
-    const { newFilters, previousFilters } = this.updateStore(facetsGroup);
-    this.updateFiltersSelectedState(newFilters, previousFilters);
+    const selectedFilters = this.getSelectedFilters();
+    const { newFilters } = this.updateStore(facetsGroup);
+    this.updateFiltersSelectedState(newFilters, selectedFilters);
   }
 
   clearFilters(facetIds?: Array<Facet['id']>): void {
@@ -53,8 +54,9 @@ export class DefaultFacetsService implements FacetsService {
     this.createEntity(filter).deselect(filter);
   }
 
-  select(filter: Filter): void {
-    this.createEntity(filter).select(filter);
+  select(filterOrFilters: Filter | Filter[]): void {
+    const filters = Array.isArray(filterOrFilters) ? filterOrFilters : [filterOrFilters];
+    filters.forEach(filter => this.createEntity(filter).select(filter));
   }
 
   toggle(filter: Filter): void {
@@ -136,7 +138,9 @@ export class DefaultFacetsService implements FacetsService {
    * Removes the filters that belong to the given group.
    *
    * @param groupId - The id of the group from whom remove the filters that are in the store.
+   *
    * @returns The removed filters.
+   *
    * @internal
    */
   protected removeGroupFilters(groupId: FacetsGroup['id']): Filter[] {
@@ -149,7 +153,6 @@ export class DefaultFacetsService implements FacetsService {
     this.removeFilters(filtersToRemove);
     return filtersToRemove;
   }
-
   /**
    * Removes the facets that belong to the given group.
    *

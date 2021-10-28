@@ -241,15 +241,14 @@
   }
 </style>
 
-<docs>
-#Example
+<docs lang="mdx">
+# Examples
 
-This component allows for any other component or element inside it to be horizontally navigable.
-It also implements customizable buttons as well as other minor customizations to its
-general behavior.
-The component uses the method `scrollBy` from `Element` to function, and it doesn't work properly
-in all browsers. A polyfill for the `scrollBy` would be needed for the component to behave as
-expected in those browsers.
+This component allows for any other component or element inside it to be horizontally navigable. It
+also implements customizable buttons as well as other minor customizations to its general behavior.
+The component uses the method `scrollBy` from `Element` to function, and it doesn't work properly in
+all browsers. A polyfill for the `scrollBy` would be needed for the component to behave as expected
+in those browsers.
 
 ## Default usage
 
@@ -272,8 +271,8 @@ Edit how much the scroll travels when navigating with the buttons by changing th
 ```
 
 Hide the navigational buttons completely by setting the `showButtons` prop to `false`. This is
-intended to be used when other scrolling options are available, like in mobile, where you can
-scroll just by swiping.
+intended to be used when other scrolling options are available, like in mobile, where you can scroll
+just by swiping.
 
 ```vue
 <SlidingPanel :showButtons="isMobile">

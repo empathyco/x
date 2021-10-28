@@ -5,6 +5,7 @@ Feature: Query-suggestions component
 
   Scenario Outline: 1. Query suggestions are displayed while typing a query
     Given following config: hide if equals query <hideIfEqualsQuery>, requested items <maxItemsToRequest>
+    And   start button is clicked
     And   no query suggestions are displayed
     When  a "<syllable>" with results is typed
     Then  at most <maxItemsToRequest> query suggestions are displayed
@@ -23,13 +24,16 @@ Feature: Query-suggestions component
 
   Scenario Outline: 2. Query suggestion is clicked
     Given following config: hide if equals query <hideIfEqualsQuery>, requested items <maxItemsToRequest>
+    And   start button is clicked
     And   a "<query>" with results is typed
     And   at most <maxItemsToRequest> query suggestions are displayed
     And   all query suggestions contain the searched query
     When  query suggestion number <querySuggestionItem> is clicked
     And   the searched query is displayed in the search-box
     Then  all query suggestions contain the searched query
-    And   the searched query is displayed in history queries
+    When  clear search button is pressed
+    And   search-input is focused
+    Then  the searched query is displayed in history queries
 
     Examples:
       | hideIfEqualsQuery | maxItemsToRequest | query   | querySuggestionItem |
@@ -37,6 +41,7 @@ Feature: Query-suggestions component
 
   Scenario Outline: 3. hideIfEqualsQuery behavior
     Given following config: hide if equals query <hideIfEqualsQuery>, requested items <maxItemsToRequest>
+    And   start button is clicked
     When  a "<query>" with results is typed
     Then  "<query>" term is not included as first query suggestion is <hideIfEqualsQuery>
 

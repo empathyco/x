@@ -65,8 +65,8 @@
   }
 </script>
 
-<docs>
-#Example
+<docs lang="mdx">
+# Examples
 
 This component renders a button, which on clicked emits the `UserClickedAFilter` and the
 `UserClickedANumberRangeFilter` events. By default, it renders the filter label as the button text.
@@ -91,5 +91,5 @@ This component renders a button, which on clicked emits the `UserClickedAFilter`
 A list of events that the component will emit:
 
 - `UserClickedANumberRangeFilter`: the event is emitted after the user clicks the button. The event
-payload is the number range filter.
+  payload is the number range filter.
 </docs>

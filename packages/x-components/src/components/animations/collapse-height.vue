@@ -39,13 +39,15 @@
   }
 </style>
 
-<docs>
-#Example
-The CollapseHeight component is intended to be used as animation to wrap an element with
-v-if or v-show and animate it. The animation consists on scale its height size from 0 to auto.
-This transition does not work with components that have vertical margin, padding or border.
+<docs lang="mdx">
+# Examples
+
+The CollapseHeight component is intended to be used as animation to wrap an element with v-if or
+v-show and animate it. The animation consists on scale its height size from 0 to auto. This
+transition does not work with components that have vertical margin, padding or border.
 
 Used wrapping a component:
+
 ```vue
 <CollapseHeight>
   <ComponentOrElement v-if="open"/>

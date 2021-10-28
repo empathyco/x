@@ -1,6 +1,7 @@
+import { Filter, RelatedTag } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
+import { UrlParams } from '../../../types/url-params';
 import { Dictionary } from '../../../utils/types';
-import { UrlConfig } from '../config.types';
 
 /**
  * URL store state.
@@ -8,24 +9,8 @@ import { UrlConfig } from '../config.types';
  * @public
  */
 export interface UrlState {
-  config: UrlConfig;
-  params: Record<keyof Params, UrlParamValue>;
-  extraParams: Dictionary<UrlParamValue>;
-  isLoadedFromUrl: boolean;
-}
-
-/**
- * URL store params.
- *
- * @public
- */
-export interface Params {
-  query: string;
-  page: number;
-  filters: string[];
-  sort: string;
-  relatedTag: string[];
-  scroll: number;
+  params: UrlParams;
+  extraParams: Dictionary<unknown>;
 }
 
 /**
@@ -35,10 +20,7 @@ export interface Params {
  */
 export interface UrlGetters {
   /** The current params in the url. */
-  urlParams: Dictionary<UrlParamValue>;
-
-  /** All the parameter names with their corresponding key. */
-  urlMappedParamNames: Dictionary<UrlParamKey | string>;
+  urlParams: UrlParams;
 }
 
 /**
@@ -46,7 +28,7 @@ export interface UrlGetters {
  *
  * @public
  */
-export type UrlParamKey = Extract<keyof Params, string>;
+export type UrlParamKey = Extract<keyof UrlParams, string>;
 
 /**
  * The allowed values of the parameters to store in the URL.
@@ -62,23 +44,17 @@ export type UrlParamValue = string | number | boolean | Array<string | number | 
  */
 export interface UrlMutations {
   /**
-   * Sets a new url configuration.
-   *
-   * @param config - The new config of the Url.
-   */
-  setUrlConfig(config: UrlConfig): void;
-  /**
    * Sets new extra params.
    *
-   * @param extraParam - The new extra params of the Url.
+   * @param extraParams - The new extra params of the Url.
    */
-  setExtraParams(extraParam: Dictionary<UrlParamValue>): void;
+  setExtraParams(extraParams: Dictionary<unknown>): void;
   /**
    * Sets the new params.
    *
    * @param params - The new params of the Url.
    */
-  setParams(params: Record<keyof Params, UrlParamValue>): void;
+  setParams(params: UrlParams): void;
   /**
    * Sets the new query.
    *
@@ -86,29 +62,23 @@ export interface UrlMutations {
    */
   setQuery(query: string): void;
   /**
-   * Sets the new related tags.
+   * Sets the related tags.
    *
    * @param relatedTags - The new related tags of the url.
    */
-  setRelatedTags(relatedTags: string[]): void;
+  setRelatedTags(relatedTags: RelatedTag[]): void;
+  /**
+   * Sets the new filter ids.
+   *
+   * @param filters - The new filter ids of the url.
+   */
+  setFilters(filters: Filter[]): void;
   /**
    * Sets the new page.
    *
    * @param page - The new page of the url.
    */
   setPage(page: number): void;
-  /**
-   * Sets the flag to know if loaded from URL.
-   *
-   * @param isLoadedFromUrl - The flag state.
-   */
-  setLoadedFromUrl(isLoadedFromUrl: boolean): void;
-  /**
-   * Sets the new sort.
-   *
-   * @param sort - The new sort of the Url.
-   */
-  setSort(sort: string): void;
 }
 
 /**
@@ -118,18 +88,11 @@ export interface UrlMutations {
  */
 export interface UrlActions {
   /**
-   * Updates the URL with values from the store. It replaces the current url with a new entry in the
-   * browser history. Also returns the params with the custom names provided in the config if any.
-   *
-   * @public
-   */
-  updateUrl(): void;
-  /**
    * Updates the store with values from the URL.
    *
    * @public
    */
-  updateStoreFromUrl(url: string): void;
+  updateStoreFromUrl(urlParams: UrlParams): void;
 }
 
 /**

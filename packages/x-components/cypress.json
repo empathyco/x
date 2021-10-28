@@ -14,5 +14,7 @@
   "component": {
     "componentFolder": "tests/unit",
     "testFiles": "**/*.spec.ts"
-  }
+  },
+  "retries": 2
 }
+

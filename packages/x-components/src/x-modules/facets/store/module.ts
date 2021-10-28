@@ -14,7 +14,6 @@ export const facetsXStoreModule: FacetsXStoreModule = {
   state: () => ({
     filters: {},
     groups: {},
-    query: '',
     facets: {}
   }),
   getters: {
@@ -43,9 +42,6 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     },
     setFacet(state, facet: Facet) {
       Vue.set(state.facets, facet.id, facet);
-    },
-    setQuery(state, query) {
-      state.query = query;
     }
   },
   actions: {}

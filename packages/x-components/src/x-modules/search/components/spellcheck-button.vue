@@ -52,7 +52,7 @@
 </script>
 
 <docs lang="mdx">
-#Examples
+# Examples
 
 ## Basic example
 

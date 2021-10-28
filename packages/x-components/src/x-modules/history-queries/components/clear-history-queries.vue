@@ -76,22 +76,22 @@
   }
 </script>
 
-<docs>
-  #Examples
+<docs lang="mdx">
+# Examples
 
-  ## Basic example
+## Basic example
 
-  The component exposes a single default slot, where you can add icons or text.
+The component exposes a single default slot, where you can add icons or text.
 
-  ```vue
-  <ClearHistoryQueries>
-    <img class="x-history-query__icon" src="./my-icon.svg"/>
-  </ClearHistoryQueries>
-  ```
+```vue
+<ClearHistoryQueries>
+  <img class="x-history-query__icon" src="./my-icon.svg"/>
+</ClearHistoryQueries>
+```
 
-  ## Events
+## Events
 
-  A list of events that the component will emit:
+A list of events that the component will emit:
 
-  - `UserPressedClearHistoryQueries`: the event is emitted after the user clicks the button.
+- `UserPressedClearHistoryQueries`: the event is emitted after the user clicks the button.
 </docs>

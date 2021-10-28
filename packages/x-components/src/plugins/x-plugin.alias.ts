@@ -19,7 +19,6 @@ export function getAliasAPI(
   store: Store<{ x: Partial<RootXStoreState['x']> }>
 ): XComponentAliasAPI {
   const queryModules = [
-    'facets',
     'searchBox',
     'nextQueries',
     'querySuggestions',

@@ -181,12 +181,12 @@ describe('testing Base Scroll Component', () => {
     expect(wrapper.emitted('scroll:at-end')).toHaveLength(2);
   });
 
-  it('scrolls to top on `UserAcceptedAQuery` X event', async () => {
+  it('scrolls to top on `SearchBoxQueryChanged` X event', async () => {
     const { wrapper, scroll } = renderBaseScroll();
 
     expect(wrapper.element.scrollTop).toBe(0);
     await scroll({ to: 200, durationMs: 0 });
-    wrapper.vm.$x.emit('UserAcceptedAQuery', '');
+    wrapper.vm.$x.emit('SearchBoxQueryChanged', '');
     expect(wrapper.element.scrollTop).toBe(0);
   });
 });

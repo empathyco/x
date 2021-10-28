@@ -106,40 +106,39 @@
   }
 </style>
 
-<docs>
-  #Examples
+<docs lang="mdx">
+# Examples
 
-  ## Basic example
+## Basic example
 
-  This component is a wrapper for the result contents (images, name, price...) It may be part of
-  the search result page, recommendations or other section which needs to include results.
+This component is a wrapper for the result contents (images, name, price...) It may be part of the
+search result page, recommendations or other section which needs to include results.
 
-  This component will emit `UserClickedAResult` when clicked or middle clicked and
-  `UserRightClickedAResult` when right  clicked.
+This component will emit `UserClickedAResult` when clicked or middle clicked and
+`UserRightClickedAResult` when right clicked.
 
-  Additionally, this component may be injected other events to be emitted on click event, so,
-  depending where it's used its father component may provide this events.
+Additionally, this component may be injected other events to be emitted on click event, so,
+depending where it's used its father component may provide this events.
 
-  The result prop is required. It will render a `<a></a>` with the href to the result URL:
+The result prop is required. It will render a `<a></a>` with the href to the result URL:
 
-  ```vue
-  <BaseResultLink :result="result">
-    <template #default="{ result }">
-      <img :src="result.images[0]"/>
-      <span>{{ result.name }}</span>
-    </template>
-  </BaseResultLink>
-  ```
+```vue
+<BaseResultLink :result="result">
+  <template #default="{ result }">
+    <img :src="result.images[0]"/>
+    <span>{{ result.name }}</span>
+  </template>
+</BaseResultLink>
+```
 
-  ## Events
+## Events
 
-  A list of events that the component will emit:
+A list of events that the component will emit:
 
-  - `UserClickedAResult`: the event is emitted after the user clicks the element. The event payload
-  is the result data and the metadata with the target and the origin of the element that emitted
-  it.
-  - `UserRightClickedAResult`: the event is emitted after the user right clicks the element. The
-  event payload is the result data and the metadata with the target and the origin of the element
-  that emitted it.
-  - The component can emit more events on click using the `resultClickExtraEvents` prop.
+- `UserClickedAResult`: the event is emitted after the user clicks the element. The event payload is
+  the result data and the metadata with the target and the origin of the element that emitted it.
+- `UserRightClickedAResult`: the event is emitted after the user right clicks the element. The event
+  payload is the result data and the metadata with the target and the origin of the element that
+  emitted it.
+- The component can emit more events on click using the `resultClickExtraEvents` prop.
 </docs>

@@ -37,7 +37,7 @@
 </script>
 
 <docs lang="mdx">
-#Examples
+# Examples
 
 The `BaseEventsModalClose` component can be used to close the `BaseEventsModal` component.
 

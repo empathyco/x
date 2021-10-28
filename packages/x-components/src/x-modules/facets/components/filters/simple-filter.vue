@@ -94,7 +94,7 @@
 </script>
 
 <docs lang="mdx">
-#Example
+# Examples
 
 This component renders a button, which on clicked emits the `UserClickedAFilter` and the
 `UserClickedASimpleFilter` events. By default, it renders a `button` with the `filter.label`

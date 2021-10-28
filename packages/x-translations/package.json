@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-translations",
-  "version": "1.1.0-alpha.2",
+  "version": "1.1.0-alpha.3",
   "description": "A project which allows the user to import and export the translations.",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -25,22 +25,19 @@
   },
   "scripts": {
     "build": "tsc",
-    "lint": "eslint src",
     "postbuild": "npm pack",
     "test": "jest -i"
   },
   "dependencies": {
-    "@empathyco/x-deep-merge": "^1.2.2-alpha.8"
+    "@empathyco/x-deep-merge": "^1.3.0-alpha.0"
   },
   "devDependencies": {
-    "@empathyco/eslint-plugin-x": "^1.4.0-alpha.7",
     "@types/jest": "~26.0.24",
     "@types/node": "~16.4.12",
     "jest": "~27.0.6",
     "ts-jest": "~27.0.4",
     "typescript": "~4.3.5"
   },
-  "prettier": "@empathyco/eslint-plugin-x/prettier-config",
   "publishConfig": {
     "access": "public"
   }

@@ -1,18 +1,12 @@
 import { UrlGetters } from '../types';
-import { createUrlStore } from './utils';
+import { createUrlStore, resetUrlStateWith } from './utils';
 
 describe('testing url module getters', () => {
   const store = createUrlStore({
-    config: {
-      urlParamNames: {
-        query: 'q',
-        relatedTag: 'tag'
-      }
-    },
     params: {
       query: 'salmorejo',
-      filters: [],
-      relatedTag: ['with eggs'],
+      filter: [],
+      tag: ['with eggs'],
       page: 1,
       sort: 'default',
       scroll: 0
@@ -24,25 +18,54 @@ describe('testing url module getters', () => {
   });
 
   it('re-maps values using the config', () => {
-    expect(store.getters.urlParams).toEqual<UrlGetters['urlParams']>({
+    expect(store.getters.urlParams).toEqual<Partial<UrlGetters['urlParams']>>({
       query: 'salmorejo',
-      relatedTag: ['with eggs'],
+      tag: ['with eggs'],
       sort: 'default',
-      warehouse: 12345,
-      isLoadedFromUrl: false
+      warehouse: 12345
     });
   });
 
-  it('maps the param key from the state with the config one or itself', () => {
-    expect(store.getters.urlMappedParamNames).toEqual<UrlGetters['urlMappedParamNames']>({
-      query: 'q',
-      filters: 'filters',
-      relatedTag: 'tag',
-      page: 'page',
-      scroll: 'scroll',
-      sort: 'sort',
-      warehouse: 'warehouse',
-      store: 'store'
+  it('removes all the parameters from the url that are the default values in the state', () => {
+    resetUrlStateWith(store, {
+      params: {
+        page: 2,
+        query: 'doramion',
+        scroll: 444
+      }
+    });
+
+    expect(store.getters.urlParams).toEqual<Partial<UrlGetters['urlParams']>>({
+      query: 'doramion',
+      page: 2,
+      scroll: 444
+    });
+
+    resetUrlStateWith(store, { params: { page: 1, query: 'lego', scroll: 0 } });
+
+    expect(store.getters.urlParams).toEqual<Partial<UrlGetters['urlParams']>>({
+      query: 'lego'
+    });
+  });
+
+  it('removes all the empty extra params', () => {
+    resetUrlStateWith(store, {
+      params: { query: 'doramion' },
+      extraParams: { warehouse: '11111' }
+    });
+
+    expect(store.getters.urlParams).toEqual<Partial<UrlGetters['urlParams']>>({
+      query: 'doramion',
+      warehouse: '11111'
+    });
+
+    resetUrlStateWith(store, {
+      params: { query: 'doramion' },
+      extraParams: { warehouse: '' }
+    });
+
+    expect(store.getters.urlParams).toEqual<Partial<UrlGetters['urlParams']>>({
+      query: 'doramion'
     });
   });
 });
