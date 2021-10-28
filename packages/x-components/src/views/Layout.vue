@@ -160,7 +160,7 @@
                 :animation="sortDropdownAnimation"
               >
                 <template #toggle="{ item }">
-                  <span>{{ item || 'default' }}</span>
+                  <span data-test="sort-dropdown-toggle">{{ item || 'default' }}</span>
                   <ChevronTinyDown />
                 </template>
                 <template #item="{ item, isSelected }">
@@ -502,8 +502,6 @@
   import SortedFilters from '../x-modules/facets/components/lists/sorted-filters.vue';
   import { FilterEntityFactory } from '../x-modules/facets/entities/filter-entity.factory';
   import { SingleSelectModifier } from '../x-modules/facets/entities/single-select.modifier';
-  // eslint-disable-next-line max-len
-  import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
   import IdentifierResult from '../x-modules/identifier-results/components/identifier-result.vue';
   import IdentifierResults from '../x-modules/identifier-results/components/identifier-results.vue';
@@ -529,7 +527,6 @@
   import SortList from '../x-modules/search/components/sort-list.vue';
   import SpellcheckButton from '../x-modules/search/components/spellcheck-button.vue';
   import Spellcheck from '../x-modules/search/components/spellcheck.vue';
-  import Empathize from '../x-modules/empathize/components/empathize.vue';
   import UrlHandler from '../x-modules/url/components/url-handler.vue';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
@@ -550,20 +547,13 @@
     },
     components: {
       BaseKeyboardNavigation,
-      IdentifierResults,
-      IdentifierResult,
       BaseEventsModalClose,
-      ChevronTinyDown,
-      CheckTiny,
-      CrossTinyIcon,
-      Nq1,
       AutoProgressBar,
       Banner,
       BannersList,
       BaseColumnPickerList,
       BaseDropdown,
       BaseEventsModal,
-      BaseEventsModalClose,
       BaseEventsModalOpen,
       BaseGrid,
       BaseHeaderTogglePanel,
