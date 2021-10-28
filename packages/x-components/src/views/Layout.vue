@@ -197,13 +197,14 @@
                 <template #hierarchical-category="{ facet }">
                   <BaseHeaderTogglePanel class="x-facet">
                     <template #header-content>
-                      <span class="x-ellipsis">{{ facet.label }}</span>
+                      <span :data-test="facet.label" class="x-ellipsis">{{ facet.label }}</span>
+                      <span data-test="total-filters">{{ facet.filters.length }}</span>
                       <ChevronDown />
                     </template>
                     <!-- Filters -->
                     <SlicedFilters max="4" :filters="facet.filters">
                       <FiltersList v-slot="{ filter }">
-                        <HierarchicalFilter :filter="filter" />
+                        <HierarchicalFilter :filter="filter" :data-test="facet.label + '_filter'" />
                       </FiltersList>
                     </SlicedFilters>
                   </BaseHeaderTogglePanel>
@@ -228,7 +229,7 @@
                           >
                             <SelectedFilters :facetId="facet.id" />
                             <FiltersList v-slot="{ filter }">
-                              <SimpleFilter :filter="filter" data-test="brand-filter" />
+                              <SimpleFilter :filter="filter" :data-test="facet.label + '_filter'" />
                               <span data-test="brand-filter-total-results">
                                 {{ filter.totalResults }}
                               </span>
