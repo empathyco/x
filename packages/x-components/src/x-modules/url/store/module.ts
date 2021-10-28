@@ -33,6 +33,9 @@ export const urlXStoreModule: UrlXStoreModule = {
     },
     setPage(state, page) {
       state.params.page = page;
+    },
+    setSort(state, sort) {
+      state.params.sort = sort;
     }
   },
   actions: {

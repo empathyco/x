@@ -296,12 +296,17 @@ describe('testing search module actions', () => {
 
   describe('setUrlParams', () => {
     it('should set the params of the search module', async () => {
-      resetSearchStateWith(store, { query: 'funko', page: 1 });
+      resetSearchStateWith(store, { query: 'funko', page: 1, sort: '' });
 
-      await store.dispatch('setUrlParams', { query: 'lego', page: 2 } as UrlParams);
+      await store.dispatch('setUrlParams', {
+        query: 'lego',
+        page: 2,
+        sort: 'priceSort asc'
+      } as UrlParams);
 
       expect(store.state.query).toEqual('lego');
       expect(store.state.page).toEqual(2);
+      expect(store.state.sort).toEqual('priceSort asc');
     });
 
     it('should not set the query of the search module', async () => {
@@ -319,6 +324,14 @@ describe('testing search module actions', () => {
       await store.dispatch('setUrlParams', { query: 'funko' } as UrlParams);
 
       expect(store.state.page).toEqual(1);
+    });
+
+    it('should not set the sort of the search module', async () => {
+      resetSearchStateWith(store, { sort: '' });
+
+      await store.dispatch('setUrlParams', { query: 'funko' } as UrlParams);
+
+      expect(store.state.sort).toEqual('');
     });
   });
 });

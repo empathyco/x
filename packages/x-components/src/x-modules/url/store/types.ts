@@ -79,6 +79,12 @@ export interface UrlMutations {
    * @param page - The new page of the url.
    */
   setPage(page: number): void;
+  /**
+   * Sets the new sort.
+   *
+   * @param sort - The new sort of the url.
+   */
+  setSort(sort: string): void;
 }
 
 /**
