@@ -146,7 +146,7 @@
       text-decoration: var(--x-font-decoration-dropdown-item-default-selected);
     }
 
-    .x-icon:last-child {
+    * + .x-icon:last-child {
       margin-inline-start: auto;
     }
   }
