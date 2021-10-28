@@ -1,0 +1,44 @@
+@import '../../mixins';
+
+.x-message {
+  // layout
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: var(--x-string-alignment-message-default);
+  align-items: center;
+  box-sizing: border-box;
+
+  // spacing
+  gap: var(--x-size-gap-message-default);
+  @include safari-gap(var(--x-size-gap-message-default));
+  padding: var(--x-size-padding-message-default);
+
+  // color
+  background-color: var(--x-color-background-message-default);
+  border-color: var(--x-color-border-message-default);
+  &,
+  > a {
+    color: var(--x-color-text-message-default);
+  }
+
+  // border
+  border-style: solid;
+  border-block-start-width: var(--x-size-border-width-top-message-default);
+  border-block-end-width: var(--x-size-border-width-bottom-message-default);
+  border-inline-start-width: var(--x-size-border-width-left-message-default);
+  border-inline-end-width: var(--x-size-border-width-right-message-default);
+  border-radius: var(--x-size-border-radius-top-left-message-default)
+    var(--x-size-border-radius-top-right-message-default)
+    var(--x-size-border-radius-bottom-right-message-default)
+    var(--x-size-border-radius-bottom-left-message-default);
+
+  // typography
+  font-family: var(--x-font-family-message-default);
+  font-size: var(--x-size-font-message-default);
+  font-weight: var(--x-number-font-weight-message-default);
+
+  // reset
+  > p {
+    margin: 0;
+  }
+}

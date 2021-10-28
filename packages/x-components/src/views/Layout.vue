@@ -239,128 +239,158 @@
         </template>
 
         <template #main-body>
+          <!--  Redirection  -->
           <Redirection
             #default="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
+            class="x-margin--top-03 x-margin--bottom-03"
             delayInSeconds="5"
           >
-            <span>{{ redirection.url }}</span>
-            <button @click="redirect">Redirect now!</button>
-            <button @click="abortRedirect">Abort redirection!</button>
+            <p>
+              Your search matches a special place in our website, to visit it, your are being
+              redirected
+            </p>
+            <a :href="redirection.url">{{ redirection.url }}</a>
+            <div class="x-list x-list--horizontal x-list--gap-07">
+              <button
+                @click="abortRedirect"
+                class="x-button x-button--ghost x-font-color--neutral-70"
+              >
+                No, I'll stay here
+              </button>
+              <button @click="redirect" class="x-button x-button--ghost x-font-color--neutral-10">
+                Yes, redirect me
+              </button>
+            </div>
             <AutoProgressBar :isLoading="isRedirecting" :durationInSeconds="delayInSeconds" />
           </Redirection>
-          <!-- IdentifierResults -->
-          <IdentifierResults class="x-list x-list--horizontal">
-            <template #default="{ identifierResult }">
-              <article class="result">
-                <BaseResultImage :result="identifierResult" class="x-picture--colored">
-                  <template #placeholder>
-                    <div style="padding-top: 100%; background-color: lightgray"></div>
-                  </template>
-                  <template #fallback>
-                    <div style="padding-top: 100%; background-color: lightsalmon"></div>
-                  </template>
-                </BaseResultImage>
-                <h1 class="x-title3" data-test="result-text">{{ identifierResult.name }}</h1>
-              </article>
-            </template>
-          </IdentifierResults>
 
-          <!-- Recommendations -->
-          <Recommendations v-if="!$x.query.search" #layout="{ recommendations }">
-            <BaseVariableColumnGrid
-              #default="{ item: result }"
-              :animation="resultsAnimation"
-              :items="recommendations"
-            >
-              <article class="result" style="max-width: 300px">
-                <BaseResultImage :result="result" class="x-picture--colored">
-                  <template #placeholder>
-                    <div style="padding-top: 100%; background-color: lightgray"></div>
-                  </template>
-                  <template #fallback>
-                    <div style="padding-top: 100%; background-color: lightsalmon"></div>
-                  </template>
-                </BaseResultImage>
-                <h1 class="x-title3" data-test="recommendation-item">{{ result.name }}</h1>
-              </article>
-            </BaseVariableColumnGrid>
-          </Recommendations>
-
-          <!-- Results -->
-          <ResultsList v-infinite-scroll:main-scroll>
-            <BannersList>
-              <PromotedsList>
-                <NextQueriesList>
-                  <BaseVariableColumnGrid :animation="resultsAnimation">
-                    <template #result="{ item: result }">
-                      <article class="result" style="max-width: 300px">
-                        <BaseResultImage :result="result" class="x-picture--colored">
-                          <template #placeholder>
-                            <div style="padding-top: 100%; background-color: lightgray"></div>
-                          </template>
-                          <template #fallback>
-                            <div style="padding-top: 100%; background-color: lightsalmon"></div>
-                          </template>
-                        </BaseResultImage>
-                        <h1 class="x-title3" data-test="result-text">{{ result.name }}</h1>
-                      </article>
+          <template v-if="!$x.redirections.length">
+            <!-- IdentifierResults -->
+            <IdentifierResults class="x-list x-list--horizontal">
+              <template #default="{ identifierResult }">
+                <article class="result">
+                  <BaseResultImage :result="identifierResult" class="x-picture--colored">
+                    <template #placeholder>
+                      <div style="padding-top: 100%; background-color: lightgray"></div>
                     </template>
-
-                    <template #banner="{ item: banner }">
-                      <Banner :banner="banner" />
+                    <template #fallback>
+                      <div style="padding-top: 100%; background-color: lightsalmon"></div>
                     </template>
+                  </BaseResultImage>
+                  <h1 class="x-title3" data-test="result-text">{{ identifierResult.name }}</h1>
+                </article>
+              </template>
+            </IdentifierResults>
 
-                    <template #promoted="{ item: promoted }">
-                      <Promoted :promoted="promoted" />
-                    </template>
+            <!--  No Results Message  -->
+            <div v-if="$x.noResults" class="x-message x-margin--top-03 x-margin--bottom-03">
+              <p>
+                There are no results for
+                <span class="x-font-weight--bold">{{ $x.query.search }}</span>
+              </p>
+              <p>You may be interested in these:</p>
+            </div>
 
-                    <template #next-queries-group="{ item: { nextQueries } }">
-                      <div class="x-list x-list--gap-03">
-                        <h1 class="x-title2">What's next?</h1>
-                        <BaseSuggestions
-                          #default="{ suggestion }"
-                          :suggestions="nextQueries"
-                          class="x-list--gap-03"
-                        >
-                          <NextQuery #default="{ suggestion: nextQuery }" :suggestion="suggestion">
-                            <Nq1 />
-                            {{ nextQuery.query }}
-                          </NextQuery>
-                        </BaseSuggestions>
-                      </div>
-                    </template>
-                  </BaseVariableColumnGrid>
-                </NextQueriesList>
-              </PromotedsList>
-            </BannersList>
-          </ResultsList>
-
-          <!-- Partials -->
-          <PartialResultsList :animation="resultsAnimation">
-            <template #default="{ partialResult }">
-              <span data-test="partial-query">{{ partialResult.query }}</span>
-              <BaseGrid :animation="resultsAnimation" :columns="4" :items="partialResult.results">
-                <template #result="{ item }">
-                  <article class="result" style="max-width: 300px">
-                    <BaseResultImage :result="item" class="x-picture--colored">
-                      <template #placeholder>
-                        <div style="padding-top: 100%; background-color: lightgray"></div>
+            <!-- Results -->
+            <ResultsList v-infinite-scroll:main-scroll>
+              <BannersList>
+                <PromotedsList>
+                  <NextQueriesList>
+                    <BaseVariableColumnGrid :animation="resultsAnimation">
+                      <template #result="{ item: result }">
+                        <article class="result" style="max-width: 300px">
+                          <BaseResultImage :result="result" class="x-picture--colored">
+                            <template #placeholder>
+                              <div style="padding-top: 100%; background-color: lightgray"></div>
+                            </template>
+                            <template #fallback>
+                              <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                            </template>
+                          </BaseResultImage>
+                          <h1 class="x-title3" data-test="result-text">{{ result.name }}</h1>
+                        </article>
                       </template>
-                      <template #fallback>
-                        <div style="padding-top: 100%; background-color: lightsalmon"></div>
+
+                      <template #banner="{ item: banner }">
+                        <Banner :banner="banner" />
                       </template>
-                    </BaseResultImage>
-                    <span class="x-result__title" data-test="partial-result-item">
-                      {{ item.name }}
-                    </span>
-                  </article>
-                </template>
-              </BaseGrid>
-              <PartialQueryButton :query="partialResult.query">
-                <template #default="{ query }">Ver todos {{ query }}</template>
-              </PartialQueryButton>
-            </template>
-          </PartialResultsList>
+
+                      <template #promoted="{ item: promoted }">
+                        <Promoted :promoted="promoted" />
+                      </template>
+
+                      <template #next-queries-group="{ item: { nextQueries } }">
+                        <div class="x-list x-list--gap-03">
+                          <h1 class="x-title2">What's next?</h1>
+                          <BaseSuggestions
+                            #default="{ suggestion }"
+                            :suggestions="nextQueries"
+                            class="x-list--gap-03"
+                          >
+                            <NextQuery
+                              #default="{ suggestion: nextQuery }"
+                              :suggestion="suggestion"
+                            >
+                              <Nq1 />
+                              {{ nextQuery.query }}
+                            </NextQuery>
+                          </BaseSuggestions>
+                        </div>
+                      </template>
+                    </BaseVariableColumnGrid>
+                  </NextQueriesList>
+                </PromotedsList>
+              </BannersList>
+            </ResultsList>
+
+            <!-- Partials -->
+            <PartialResultsList :animation="resultsAnimation">
+              <template #default="{ partialResult }">
+                <span data-test="partial-query">{{ partialResult.query }}</span>
+                <BaseGrid :animation="resultsAnimation" :columns="4" :items="partialResult.results">
+                  <template #result="{ item }">
+                    <article class="result" style="max-width: 300px">
+                      <BaseResultImage :result="item" class="x-picture--colored">
+                        <template #placeholder>
+                          <div style="padding-top: 100%; background-color: lightgray"></div>
+                        </template>
+                        <template #fallback>
+                          <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                        </template>
+                      </BaseResultImage>
+                      <span class="x-result__title" data-test="partial-result-item">
+                        {{ item.name }}
+                      </span>
+                    </article>
+                  </template>
+                </BaseGrid>
+                <PartialQueryButton :query="partialResult.query">
+                  <template #default="{ query }">Ver todos {{ query }}</template>
+                </PartialQueryButton>
+              </template>
+            </PartialResultsList>
+
+            <!-- Recommendations -->
+            <Recommendations v-if="!$x.query.search || $x.noResults" #layout="{ recommendations }">
+              <BaseVariableColumnGrid
+                #default="{ item: result }"
+                :animation="resultsAnimation"
+                :items="recommendations"
+              >
+                <article class="result" style="max-width: 300px">
+                  <BaseResultImage :result="result" class="x-picture--colored">
+                    <template #placeholder>
+                      <div style="padding-top: 100%; background-color: lightgray"></div>
+                    </template>
+                    <template #fallback>
+                      <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                    </template>
+                  </BaseResultImage>
+                  <h1 class="x-title3" data-test="recommendation-item">{{ result.name }}</h1>
+                </article>
+              </BaseVariableColumnGrid>
+            </Recommendations>
+          </template>
         </template>
 
         <template #scroll-to-top>

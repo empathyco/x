@@ -5,7 +5,7 @@
     padding: 0 !important;
   }
 
-  @for $i from 1 through 13 {
+  @for $i from 1 through 20 {
     $i: zerofill($i);
     &--#{$i} {
       padding: var(--x-size-base-#{$i}) !important;
@@ -25,7 +25,7 @@
     padding-inline-start: 0 !important;
   }
 
-  @for $i from 1 through 13 {
+  @for $i from 1 through 20 {
     $i: zerofill($i);
     &--top-#{$i} {
       padding-block-start: var(--x-size-base-#{$i}) !important;
