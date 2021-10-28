@@ -38,6 +38,8 @@ export class FilterEntityFactory {
    */
   protected modifiers: Record<Facet['id'], FilterEntityModifier[]> = {};
 
+  protected cache: Record<Facet['id'] | '__unknown-facet__', FilterEntity> = {};
+
   /**
    * Creates a new FilterEntity from a filter.
    *
@@ -47,6 +49,13 @@ export class FilterEntityFactory {
    * @returns The {@link FilterEntity} created by the factory.
    */
   createFilterEntity(store: Store<RootXStoreState>, filter: Filter): FilterEntity {
+    const cacheKey = isFacetFilter(filter) ? filter.facetId : '__unknown-facet__';
+    return (
+      this.cache[cacheKey] ?? (this.cache[cacheKey] = this.instantiateFilterEntity(store, filter))
+    );
+  }
+
+  protected instantiateFilterEntity(store: Store<RootXStoreState>, filter: Filter): FilterEntity {
     const filterEntityConstructor = this.entities.find(entity => entity.accepts(filter));
     if (!filterEntityConstructor) {
       throw new Error(`Entity configuration for ${filter.modelName} not registered.`);

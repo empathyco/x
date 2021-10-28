@@ -8,6 +8,7 @@ import { getXComponentXModuleName, isXComponent } from '../../../../../component
 import { XPlugin } from '../../../../../plugins';
 import { RootXStoreState } from '../../../../../store';
 import { DeepPartial } from '../../../../../utils';
+import { FilterEntityFactory } from '../../../entities/filter-entity.factory';
 import { DefaultFacetsService } from '../../../service/facets.service';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
@@ -22,6 +23,8 @@ import SelectedFilters from '../selected-filters.vue';
 function renderSelectedFilters({
   template = '<SelectedFilters />'
 }: RenderSelectedFiltersOptions = {}): RenderSelectedFiltersAPI {
+  DefaultFacetsService.instance = new DefaultFacetsService(new FilterEntityFactory());
+
   const facets: Record<Facet['id'], Facet> = {
     gender: createSimpleFacetStub('gender', createFilter => [
       createFilter('Men', false),

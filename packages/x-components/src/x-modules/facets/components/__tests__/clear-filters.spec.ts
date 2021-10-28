@@ -11,6 +11,7 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components/x
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
+import { FilterEntityFactory } from '../../entities/filter-entity.factory';
 import { DefaultFacetsService } from '../../service/facets.service';
 import { facetsXModule } from '../../x-module';
 import ClearFilters from '../clear-filters.vue';
@@ -29,6 +30,8 @@ function renderClearFilters({
     </ClearFilters>
   `
 }: RenderFiltersOptions = {}): RenderFiltersAPI {
+  DefaultFacetsService.instance = new DefaultFacetsService(new FilterEntityFactory());
+
   const facets = {
     category: createHierarchicalFacetStub('Category', createFilter => [
       ...createFilter('Men', false),
