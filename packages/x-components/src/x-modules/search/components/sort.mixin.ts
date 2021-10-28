@@ -12,8 +12,8 @@ import { State, XEmit } from '../../../components';
 @Component
 export default class SortMixin extends Vue {
   /**
-   * The list of possible sort values. If the {@link SortMixin.value} option
-   * is not provided, the first item of this list will be selected.
+   * The list of possible sort values. If there are no values selected, the first item of
+   * this list will be selected.
    *
    * @public
    */
@@ -31,7 +31,7 @@ export default class SortMixin extends Vue {
 
   /**
    * Emits the {@link SearchXEvents.SelectedSortProvided | SelectedSortProvided} event whenever the
-   * provided {@link SortMixin.value} changes. If no value is provided, the first item of the
+   * provided {@link SortMixin.selectedSort} changes. If no value is provided, the first item of the
    * {@link SortMixin.items} will be used as fallback.
    *
    * @returns The sorting value.
