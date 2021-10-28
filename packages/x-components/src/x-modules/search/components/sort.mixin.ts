@@ -30,16 +30,6 @@ export default class SortMixin extends Vue {
   public selectedSort!: Sort;
 
   /**
-   * The selected sort value. This is an optional prop that allows to change programmatically
-   * the selected sort. If it is not provided, the first item of the {@link SortMixin.items}
-   * list will be selected.
-   *
-   * @public
-   */
-  @Prop()
-  public value?: Sort;
-
-  /**
    * Emits the {@link SearchXEvents.SelectedSortProvided | SelectedSortProvided} event whenever the
    * provided {@link SortMixin.value} changes. If no value is provided, the first item of the
    * {@link SortMixin.items} will be used as fallback.
@@ -50,6 +40,6 @@ export default class SortMixin extends Vue {
    */
   @XEmit('SelectedSortProvided')
   public get providedSelectedSort(): Sort {
-    return this.value ?? this.items[0];
+    return this.selectedSort ?? this.items[0];
   }
 }
