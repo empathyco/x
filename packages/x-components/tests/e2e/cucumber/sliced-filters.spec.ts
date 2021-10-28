@@ -12,7 +12,7 @@ And('filters are displayed', () => {
 });
 
 And('number of sliced filters in facet {string} are stored', (facetName: string) => {
-  cy.getByDataTest(`${facetName}_filter`).as('slicedFilters');
+  cy.getByDataTest(`${facetName}-filter`).as('slicedFilters');
 });
 
 And(
@@ -23,7 +23,7 @@ And(
 );
 
 And('number of hidden filters in facet {string} are stored', (facetName: string) => {
-  cy.getByDataTest(`${facetName}_sliced_filters`)
+  cy.getByDataTest(`${facetName}-sliced-filters`)
     .getByDataTest('show-more-amount')
     .then($button => {
       hiddenFilters = Number($button.text());
@@ -35,7 +35,7 @@ Then('total filters per facet are calculated', function (this: { slicedFilters: 
 });
 
 When('clicking in show more button {string}', (facetName: string) => {
-  cy.getByDataTest(`${facetName}_sliced_filters`)
+  cy.getByDataTest(`${facetName}-sliced-filters`)
     .getByDataTest('sliced-filters-show-more-button')
     .click();
 });
@@ -56,7 +56,7 @@ And(
 );
 
 And('no show more / show less buttons are displayed in {string}', (facetName: string) => {
-  cy.getByDataTest(`${facetName}_sliced_filters`)
+  cy.getByDataTest(`${facetName}-sliced-filters`)
     .getByDataTest('sliced-filters-show-more-button')
     .should('not.exist')
     .getByDataTest('sliced-filters-show-less-button')

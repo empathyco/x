@@ -20,7 +20,7 @@ Feature: MultiSelect filters component
     And   filter number <filterNumber2> is selected in facet "<facetName>"
   # TODO  https://searchbroker.atlassian.net/browse/EX-4866
   # Then  selected filter is shown in the selected filters list
-    And   search request contains selected filter
+  # And   search request contains selected filter
   # TODO  https://searchbroker.atlassian.net/browse/EX-4866
   # And   clear-filters button displays the number of selected filters
 

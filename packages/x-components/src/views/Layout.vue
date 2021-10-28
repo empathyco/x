@@ -60,7 +60,7 @@
           'QueryLoadedFromUrl'
         ]"
       >
-        <MultiColumnMaxWidthLayout>
+        <MultiColumnMaxWidthLayout class="x-background--neutral-100">
           <template #header-middle>
             <div
               class="
@@ -224,14 +224,24 @@
                         <FiltersSearch>
                           <SlicedFilters
                             :max="controls.slicedFilters.max"
-                            :data-test="facet.label + '_sliced_filters'"
+                            :data-test="facet.label + '-sliced-filters'"
                           >
-                            <SelectedFilters :facetId="facet.id" />
-                            <FiltersList v-slot="{ filter }">
-                              <SimpleFilter :filter="filter" data-test="brand-filter" />
-                              <span data-test="brand-filter-total-results">
-                                {{ filter.totalResults }}
-                              </span>
+                            <FiltersList
+                              v-slot="{
+                                // eslint-disable-next-line vue/no-unused-vars
+                                filter
+                              }"
+                            >
+                              <SimpleFilter
+                                #label="{ filter }"
+                                :filter="filter"
+                                data-test="brand-filter"
+                              >
+                                {{ filter.label }}
+                                <span data-test="brand-filter-total-results">
+                                  {{ filter.totalResults }}
+                                </span>
+                              </SimpleFilter>
                             </FiltersList>
                           </SlicedFilters>
                         </FiltersSearch>
@@ -253,11 +263,11 @@
                       <SortedFilters>
                         <SlicedFilters
                           :max="controls.slicedFilters.max"
-                          :data-test="facet.label + '_sliced_filters'"
+                          :data-test="facet.label + '-sliced-filters'"
                         >
                           <SelectedFilters :facetId="facet.id" />
                           <FiltersList v-slot="{ filter }">
-                            <SimpleFilter :filter="filter" :data-test="facet.label + '_filter'" />
+                            <SimpleFilter :filter="filter" :data-test="facet.label + '-filter'" />
                             <span data-test="filter-total-results">{{ filter.totalResults }}</span>
                           </FiltersList>
                         </SlicedFilters>

@@ -17,5 +17,5 @@ Feature: Filters search component
     Then  filters in facet are refined with search, "<searchFiltersQuery>"
     And   searchable filters in facet contain refined filters
     Examples:
-      | query | facetName   | searchFiltersQuery |
-      | lego  | brand_facet | on                 |
+      | query  | searchFiltersQuery |
+      | lego   | on                 |

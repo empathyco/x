@@ -12,15 +12,15 @@ Feature: Base column pickers components
     And   start button is clicked
     When  "<query>" is searched
     Then  related results are displayed
-    Then  results are displayed in "<numberOfColumns2>" columns
-    When  "<numberOfColumns1>" columns are selected from the column picker list
-    Then  results are displayed in "<numberOfColumns1>" columns
-    When  "<numberOfColumns2>" columns are selected from the column picker list
-    Then  results are displayed in "<numberOfColumns2>" columns
-    When  "<numberOfColumns3>" columns are selected from the column picker list
-    Then  results are displayed in "<numberOfColumns3>" columns
-    When  "<numberOfColumns1>" columns are selected from the column picker list
-    Then  results are displayed in "<numberOfColumns1>" columns
+    Then  results are displayed in <numberOfColumns2> columns
+    When  <numberOfColumns1> columns are selected from the column picker list
+    Then  results are displayed in <numberOfColumns1> columns
+    When  <numberOfColumns2> columns are selected from the column picker list
+    Then  results are displayed in <numberOfColumns2> columns
+    When  <numberOfColumns3> columns are selected from the column picker list
+    Then  results are displayed in <numberOfColumns3> columns
+    When  <numberOfColumns1> columns are selected from the column picker list
+    Then  results are displayed in <numberOfColumns1> columns
     Examples:
       | query | numberOfColumns1 | numberOfColumns2 | numberOfColumns3 |
       | lego  | 6                | 4                | 0                |
