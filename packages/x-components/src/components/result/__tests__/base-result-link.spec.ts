@@ -56,16 +56,9 @@ describe('testing BaseResultLink component', () => {
       localVue,
       propsData: { result }
     });
-    resultLinkWrapper.vm.$x.on('UserClickedResultAddToCart', true).subscribe(listener);
+    resultLinkWrapper.vm.$x.on('UserClickedResultAddToCart').subscribe(listener);
     resultLinkWrapper.trigger('click');
-    expect(listener).toHaveBeenCalledWith({
-      eventPayload: result,
-      metadata: {
-        moduleName: null,
-        target: resultLinkWrapper.element,
-        origin: 'empty-search'
-      }
-    });
+    expect(listener).toHaveBeenCalledWith(result);
   });
 
   it('renders the content overriding default slot', () => {

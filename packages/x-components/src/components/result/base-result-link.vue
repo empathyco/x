@@ -19,10 +19,8 @@
   import { Result } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Inject, Prop } from 'vue-property-decorator';
-  import { Feature } from '../../types/origin';
   import { PropsWithType } from '../../utils/types';
   import { XEventsTypes } from '../../wiring/events.types';
-  import { WireMetadata } from '../../wiring/wiring.types';
 
   /**
    * Component to be reused that renders an `<a>` wrapping the result contents.
@@ -37,15 +35,7 @@
    */
   @Component
   export default class BaseResultLink extends Vue {
-    /**
-     * The origin to be sent as part of the `params` property in the
-     * {@link @empathyco/x-types#Tagging | tagging} information.
-     *
-     * @public
-     */
-    @Inject({ from: 'origin', default: 'default' })
-    protected origin!: Feature;
-
+    public $el!: HTMLElement;
     /**
      * The list of additional events to be emitted by the component when user clicks the link.
      *
@@ -63,29 +53,15 @@
     protected result!: Result;
 
     /**
-     * The metadata to emit the event.
-     *
-     * @public
-     */
-    protected metadata!: Omit<WireMetadata, 'moduleName'>;
-
-    mounted(): void {
-      this.metadata = {
-        target: this.$el as HTMLElement,
-        feature: this.origin
-      };
-    }
-
-    /**
      * Emits the {@link XEventsTypes.UserClickedAResult} when user clicks on the result, and also
      * additional events if have been injected in the component.
      *
      * @public
      */
     emitUserClickedAResult(): void {
-      this.$x.emit('UserClickedAResult', this.result, this.metadata);
+      this.$x.emit('UserClickedAResult', this.result, { target: this.$el });
       this.resultClickExtraEvents.forEach(event => {
-        this.$x.emit(event, this.result, this.metadata);
+        this.$x.emit(event, this.result, { target: this.$el });
       });
     }
 
@@ -95,7 +71,7 @@
      * @public
      */
     emitUserRightClickedAResult(): void {
-      this.$x.emit('UserRightClickedAResult', this.result, this.metadata);
+      this.$x.emit('UserRightClickedAResult', this.result, { target: this.$el });
     }
   }
 </script>
