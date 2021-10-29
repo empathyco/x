@@ -30,11 +30,6 @@ const routes: RouteConfig[] = [
     component: () => import('./views/design-system/design-system.vue')
   },
   {
-    path: '/empathize',
-    name: 'empathize',
-    component: () => import('./views/empathize.vue')
-  },
-  {
     path: '/full-no-empathize',
     name: 'full-no-empathize',
     component: () => import('./views/FullNoEmpathize.vue')
@@ -48,81 +43,6 @@ const routes: RouteConfig[] = [
     path: '/search',
     name: 'search',
     component: () => import('./views/Search.vue')
-  },
-  {
-    path: '/test/search-box',
-    name: 'Search Box',
-    component: () => import('./views/search-box.vue')
-  },
-  {
-    path: '/test/popular-searches',
-    name: 'Popular Searches',
-    component: () => import('./views/popular-searches.vue')
-  },
-  {
-    path: '/test/history-queries',
-    name: 'History Queries',
-    component: () => import('./views/history-queries.vue')
-  },
-  {
-    path: '/test/query-suggestions',
-    name: 'Query Suggestions',
-    component: () => import('./views/query-suggestions.vue')
-  },
-  {
-    path: '/test/recommendations',
-    name: 'Recommendations',
-    component: () => import('./views/recommendations.vue')
-  },
-  {
-    path: '/test/next-queries',
-    name: 'Next Queries',
-    component: () => import('./views/next-queries.vue')
-  },
-  {
-    path: '/test/related-tags',
-    name: 'Related Tags',
-    component: () => import('./views/related-tags.vue')
-  },
-  {
-    path: '/test/base-events-modal',
-    name: 'Events Modal',
-    component: () => import('./views/base-events-modal.vue')
-  },
-  {
-    path: '/test/base-result-image',
-    name: 'Result Image',
-    component: () => import('./views/base-result-image.vue')
-  },
-  {
-    path: '/test/keyboard-navigation',
-    name: 'Keyboard Navigation',
-    component: () => import('./views/keyboard-navigation.vue')
-  },
-  {
-    path: '/test/base-filters-search',
-    name: 'Filters Search',
-    component: () => import('./views/filters-search.vue')
-  },
-  {
-    path: '/test/sliding-panel',
-    name: 'Sliding Panel',
-    component: () => import('./views/sliding-panel.vue')
-  },
-  {
-    path: '/test/base-column-picker',
-    name: 'Base Column Picker',
-    component: () => import('./views/base-column-picker.vue')
-  },
-  {
-    path: '/test/sort',
-    name: 'Search Sort',
-    component: () => import('./views/sort.vue')
-  },
-  {
-    path: '/test/exclude-filters',
-    name: 'Exclude Filters',
-    component: () => import('./views/exclude-filters.vue')
   },
   {
     path: '/test/infinite-scroll',
@@ -144,31 +64,6 @@ const routes: RouteConfig[] = [
     path: '/infinite-scroll-body',
     name: 'Infinite Scroll Body',
     component: () => import('./views/infinite-scroll-body.vue')
-  },
-  {
-    path: '/test/sliced-filters',
-    name: 'Sliced Filters',
-    component: () => import('./views/sliced-filters.vue')
-  },
-  {
-    path: '/test/multiselect-filters',
-    name: 'MultiSelect Filters',
-    component: () => import('./views/multiselect-filters.vue')
-  },
-  {
-    path: '/test/identifier-results',
-    name: 'Identifier Results',
-    component: () => import('./views/identifier-results.vue')
-  },
-  {
-    path: '/test/partial-results',
-    name: 'Partial Results',
-    component: () => import('./views/partial-results.vue')
-  },
-  {
-    path: '/test/spellcheck',
-    name: 'Spellcheck',
-    component: () => import('./views/spellcheck.vue')
   }
 ];
 
