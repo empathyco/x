@@ -19,7 +19,7 @@ export const recommendationsXStoreModule: RecommendationsXStoreModule = {
       maxItemsToRequest: 24
     },
     origin: RECOMMENDATIONS_ORIGIN,
-    status: 'success',
+    status: '',
     recommendations: [],
     params: {}
   }),

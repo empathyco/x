@@ -21,7 +21,7 @@ export const relatedTagsXStoreModule: RelatedTagsXStoreModule = {
     query: '',
     relatedTags: [],
     selectedRelatedTags: [],
-    status: 'success',
+    status: '',
     config: {
       maxItemsToRequest: 10
     },

@@ -31,7 +31,7 @@ export interface StatusMutations {
  *
  * @public
  */
-export type RequestStatus = 'success' | 'loading' | 'error';
+export type RequestStatus = 'success' | 'loading' | 'error' | '';
 
 /**
  * Sets the request status. Can be used as a mutation.

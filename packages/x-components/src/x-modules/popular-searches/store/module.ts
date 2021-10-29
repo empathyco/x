@@ -17,7 +17,7 @@ export const popularSearchesXStoreModule: PopularSearchesXStoreModule = {
   state: () => ({
     popularSearches: [],
     searchedQueries: [],
-    status: 'success',
+    status: '',
     config: {
       hideSessionQueries: true,
       maxItemsToRequest: 20,

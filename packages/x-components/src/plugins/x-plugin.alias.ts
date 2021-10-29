@@ -74,7 +74,7 @@ export function getAliasAPI(
       return store.getters[getGetterPath('nextQueries', 'nextQueries')] ?? [];
     },
     get noResults() {
-      return !this.totalResults && !!this.query.search && this.status.search !== 'loading';
+      return !this.totalResults && !!this.query.search && this.status.search === 'success';
     },
     get partialResults() {
       return store.state.x.search?.partialResults ?? [];

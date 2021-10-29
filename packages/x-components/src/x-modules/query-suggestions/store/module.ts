@@ -19,7 +19,7 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
   state: () => ({
     query: '',
     suggestions: [],
-    status: 'success',
+    status: '',
     config: {
       debounceInMs: 200,
       maxItemsToRequest: 10,
