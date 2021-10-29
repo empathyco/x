@@ -12,7 +12,7 @@ import {
 } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
-import { Feature } from '../../../types/origin';
+import { Origin } from '../../../types/origin';
 import { UrlParams } from '../../../types/url-params';
 import { Dictionary } from '../../../utils/types';
 import { SearchConfig } from '../config.types';
@@ -32,7 +32,7 @@ export interface SearchState extends StatusState {
   /** A flag to indicate if new results are append to the current instead of replacing them. */
   isAppendResults: boolean;
   /** The origin property of the request. */
-  origin: Feature | null;
+  origin: Origin | null;
   /** The current page of the request. */
   page: number;
   /** The extra params property of the state. */
@@ -106,7 +106,7 @@ export interface SearchMutations extends StatusMutations {
    *
    * @param origin - The new origin.
    */
-  setOrigin(origin: Feature | undefined): void;
+  setOrigin(origin: Origin | undefined): void;
   /**
    * Sets the page of the module.
    *

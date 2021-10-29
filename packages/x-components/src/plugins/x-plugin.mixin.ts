@@ -91,15 +91,15 @@ export function getRootXComponent(component: Vue): XComponent | undefined {
 }
 
 /**
- * Creates an {@link Origin} string given a {@link Feature} and a {@link Location}. If it can't
- * create it, it will return `undefined`.
+ * Creates an {@link Origin} string given a {@link Feature} and a {@link FeatureLocation}. If it
+ * can't create it, it will return `undefined`.
  *
  * @param feature - The feature that originated the query, or `undefined` if the event is not
  * related with a query.
  * @param location - The location where the event has happened.
  * @returns The composed origin, or `undefined` if it is not able to create the origin.
  */
-export function createOrigin(
+function createOrigin(
   feature: Feature | undefined,
   location: FeatureLocation | undefined
 ): Origin | undefined {
