@@ -36,20 +36,20 @@ activate:
 
 ### Usage
 
-Add `plugin:@empathy/x` to the extends section of your `.eslintrc` configuration file followed by
+Add `plugin:@empathyco/x` to the extends section of your `.eslintrc` configuration file followed by
 the severity config that you want to activate `standard`, `recommended` or `all`. You can omit the
 `eslint-plugin-` prefix. 
 
 ```
-{ "extends": ["plugin:@empathy/x/standard"] }
+{ "extends": ["plugin:@empathyco/x/standard"] }
 ```
 or
 ```
-{ "extends": ["plugin:@empathy/x/recommended"] }
+{ "extends": ["plugin:@empathyco/x/recommended"] }
 ```
 or
 ```
-{ "extends": ["plugin:@empathy/x/all"] }
+{ "extends": ["plugin:@empathyco/x/all"] }
 ```
 
 ## Prettier
@@ -59,7 +59,7 @@ your custom prettier config file if you have. To use it is enough with reference
 `package.json`:
  
 ```
-"prettier": "@empathy/eslint-plugin-x/prettier-config"
+"prettier": "@empathyco/eslint-plugin-x/prettier-config"
 ```
 
 ## standard-version
@@ -73,6 +73,6 @@ extend your `.versionrc.js` configuration with this one.
 ```
 module.exports = {
   header: '# <PROJECT_NAME>',
-  ...require('@empathy/eslint-plugin-x/standard-version-config')
+  ...require('@empathyco/eslint-plugin-x/standard-version-config')
 }
 ```
