@@ -19,7 +19,7 @@
   import { Result } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Inject, Prop } from 'vue-property-decorator';
-  import { QueryOrigin } from '../../types/query-origin';
+  import { Feature } from '../../types/origin';
   import { PropsWithType } from '../../utils/types';
   import { XEventsTypes } from '../../wiring/events.types';
   import { WireMetadata } from '../../wiring/wiring.types';
@@ -44,7 +44,7 @@
      * @public
      */
     @Inject({ from: 'origin', default: 'default' })
-    protected origin!: QueryOrigin;
+    protected origin!: Feature;
 
     /**
      * The list of additional events to be emitted by the component when user clicks the link.
@@ -72,7 +72,7 @@
     mounted(): void {
       this.metadata = {
         target: this.$el as HTMLElement,
-        origin: this.origin
+        feature: this.origin
       };
     }
 

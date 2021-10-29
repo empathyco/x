@@ -1,9 +1,11 @@
 import { mount, shallowMount, Wrapper } from '@vue/test-utils';
 import { ComponentOptions, default as Vue } from 'vue';
-import { Component } from 'vue-property-decorator';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { xComponentMixin } from '../../components/x-component.mixin';
+import { Feature, FeatureLocation } from '../../types/origin';
+import { WireMetadata } from '../../wiring/wiring.types';
 import { searchBoxXModule } from '../../x-modules/search-box/x-module';
+import { XPlugin } from '../x-plugin';
 
 describe('testing $x component API global mixin', () => {
   const component: ComponentOptions<Vue> & ThisType<Vue> = {
@@ -26,54 +28,91 @@ describe('testing $x component API global mixin', () => {
   });
 
   describe('testing origin', () => {
-    it("doesn't include origin in the $x.emit metadata by default", () => {
-      const listener = jest.fn();
+    interface RenderOriginComponentOptions {
+      feature?: Feature;
+      location?: FeatureLocation;
+    }
 
-      componentInstance.vm.$x.on('UserIsTypingAQuery', true).subscribe(listener);
-      componentInstance.vm.$x.emit('UserIsTypingAQuery', 'So awesome, much quality, such skill');
+    interface RenderOriginComponentAPI {
+      busListener: jest.SpyInstance;
+      wrapper: Wrapper<Vue>;
+    }
 
-      expect(listener).toHaveBeenCalledTimes(1);
-      expect(listener).toHaveBeenCalledWith({
-        eventPayload: 'So awesome, much quality, such skill',
-        metadata: { moduleName: null }
-      });
-    });
-
-    it('overrides the origin in the $x.emit metadata', () => {
-      const listener = jest.fn();
-
-      @Component({
-        template: `<div><slot/></div>`,
-        provide: {
-          origin: 'origin-test'
-        }
-      })
-      class Provider extends Vue {}
-
-      @Component({ template: '<div>{{ $origin }}</div>' })
-      class Injector extends Vue {}
-
+    function renderOriginComponent({
+      feature,
+      location
+    }: RenderOriginComponentOptions = {}): RenderOriginComponentAPI {
+      const busListener = jest.spyOn(XPlugin.bus, 'emit');
       const wrapper = mount(
         {
-          template: `<Provider><Injector /></Provider>`,
+          template: `
+            <MyButton/>`,
           components: {
-            Provider,
-            Injector
+            MyButton: {
+              template: '<button @click="emit">Click me</button>',
+              methods: {
+                emit(this: Vue) {
+                  this.$x.emit('UserIsTypingAQuery', 'So awesome, much quality, such skill', {
+                    feature
+                  });
+                }
+              }
+            }
+          },
+          provide: {
+            location
           }
-        } as ComponentOptions<any> & ThisType<Vue>,
+        },
         {
           localVue
         }
       );
+      return { wrapper, busListener };
+    }
 
-      wrapper
-        .findComponent(Injector)
-        .vm.$x.emit('UserIsTypingAQuery', 'So awesome, much quality, such skill');
-      componentInstance.vm.$x.on('UserIsTypingAQuery', true).subscribe(listener);
+    it("doesn't include origin in the $x.emit if there is no location", () => {
+      const { wrapper, busListener } = renderOriginComponent({
+        feature: 'search_box',
+        location: undefined
+      });
+      wrapper.trigger('click');
 
-      expect(listener).toHaveBeenCalledTimes(1);
-      const { metadata } = listener.mock.calls[0][0];
-      expect(metadata.origin).toBe('origin-test');
+      expect(busListener).toHaveBeenCalledTimes(1);
+      expect(busListener).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.anything(),
+        expect.objectContaining<Partial<WireMetadata>>({ origin: undefined })
+      );
+    });
+
+    it("doesn't include origin in the $x.emit if there is no feature", () => {
+      const { wrapper, busListener } = renderOriginComponent({
+        feature: undefined,
+        location: 'predictive_layer'
+      });
+      wrapper.trigger('click');
+
+      expect(busListener).toHaveBeenCalledTimes(1);
+      expect(busListener).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.anything(),
+        expect.objectContaining<Partial<WireMetadata>>({ origin: undefined })
+      );
+    });
+
+    it('emits a valid origin when both location and feature are available', () => {
+      const { wrapper, busListener } = renderOriginComponent({
+        feature: 'search_box',
+        location: 'predictive_layer'
+      });
+      wrapper.trigger('click');
+
+      expect(busListener).toHaveBeenCalledTimes(1);
+      expect(busListener).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.anything(),
+        expect.objectContaining<Partial<WireMetadata>>({ origin: 'search_box:predictive_layer' })
+      );
     });
   });
 

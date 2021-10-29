@@ -51,7 +51,7 @@ describe('testing BaseResultLink component', () => {
     const resultLinkWrapper = mount(BaseResultLink, {
       provide: {
         resultClickExtraEvents: ['UserClickedResultAddToCart'],
-        origin: 'empty-search'
+        location: 'empty-search'
       },
       localVue,
       propsData: { result }

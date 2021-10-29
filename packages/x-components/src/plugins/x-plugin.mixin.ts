@@ -1,9 +1,9 @@
 import Vue, { ComponentOptions } from 'vue';
 import { XComponent } from '../components/x-component.types';
 import { getXComponentXModuleName, isXComponent } from '../components/x-component.utils';
+import { Feature, FeatureLocation, Origin } from '../types/origin';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
-import { QueryOrigin } from '../types/query-origin';
 import { XBus } from './x-bus.types';
 import { getAliasAPI } from './x-plugin.alias';
 import { XComponentAPI, XComponentBusAPI } from './x-plugin.types';
@@ -15,8 +15,8 @@ declare module 'vue/types/vue' {
 }
 
 interface PrivateExtendedVueComponent extends Vue {
+  $location: FeatureLocation;
   xComponent: XComponent | undefined;
-  $origin: QueryOrigin;
 }
 
 /**
@@ -33,8 +33,8 @@ export const createXComponentAPIMixin = (
   bus: XBus
 ): ComponentOptions<Vue> & ThisType<PrivateExtendedVueComponent> => ({
   inject: {
-    $origin: {
-      from: 'origin',
+    $location: {
+      from: 'location',
       default: undefined
     }
   },
@@ -60,11 +60,12 @@ export function getBusAPI(bus: XBus, component: PrivateExtendedVueComponent): XC
     emit: <Event extends XEvent>(
       event: Event,
       payload?: XEventPayload<Event>,
-      metadata: Omit<WireMetadata, 'moduleName'> = {}
+      metadata: Omit<WireMetadata, 'moduleName' | 'origin'> = {}
     ) => {
       const xComponent = component.xComponent;
       const moduleName = xComponent ? getXComponentXModuleName(xComponent) : null;
-      bus.emit(event, payload as any, { moduleName, origin: component.$origin, ...metadata });
+      const origin = createOrigin(metadata.feature, component.$location);
+      bus.emit(event, payload as any, { moduleName, origin, ...metadata });
       xComponent?.$emit(event, payload);
     },
     on: bus.on.bind(bus)
@@ -87,4 +88,22 @@ export function getRootXComponent(component: Vue): XComponent | undefined {
     component = component.$parent;
   }
   return xComponent;
+}
+
+/**
+ * Creates an {@link Origin} string given a {@link Feature} and a {@link Location}. If it can't
+ * create it, it will return `undefined`.
+ *
+ * @param feature - The feature that originated the query, or `undefined` if the event is not
+ * related with a query.
+ * @param location - The location where the event has happened.
+ * @returns The composed origin, or `undefined` if it is not able to create the origin.
+ */
+export function createOrigin(
+  feature: Feature | undefined,
+  location: FeatureLocation | undefined
+): Origin | undefined {
+  if (location && feature) {
+    return `${feature}:${location}`;
+  }
 }
