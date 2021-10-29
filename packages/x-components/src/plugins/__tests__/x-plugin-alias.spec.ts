@@ -97,7 +97,7 @@ describe('testing plugin alias', () => {
   });
 
   it('updates the status values when the module is registered', () => {
-    const REQUEST_STATUS_REGEX = /success|loading|error/;
+    const REQUEST_STATUS_REGEX = /success|loading|error|/;
 
     XPlugin.registerXModule(identifierResultsXModule);
     XPlugin.registerXModule(popularSearchesXModule);
