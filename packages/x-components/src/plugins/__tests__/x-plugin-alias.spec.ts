@@ -53,20 +53,23 @@ describe('testing plugin alias', () => {
         relatedTags: undefined,
         search: undefined
       },
-      nextQueries: [],
-      popularSearches: [],
-      historyQueries: [],
-      querySuggestions: [],
-      relatedTags: [],
-      selectedRelatedTags: [],
-      identifierResults: [],
-      recommendations: [],
-      facets: {},
-      selectedFilters: [],
-      totalResults: 0,
-      isEmpathizeOpen: false,
       device: null,
-      spellcheckedQuery: null
+      facets: {},
+      historyQueries: [],
+      identifierResults: [],
+      isEmpathizeOpen: false,
+      nextQueries: [],
+      noResults: false,
+      partialResults: [],
+      popularSearches: [],
+      querySuggestions: [],
+      recommendations: [],
+      redirections: [],
+      relatedTags: [],
+      selectedFilters: [],
+      selectedRelatedTags: [],
+      spellcheckedQuery: null,
+      totalResults: 0
     };
     expect(componentInstance.vm.$x).toMatchObject(defaultValues);
   });

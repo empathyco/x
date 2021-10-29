@@ -1,7 +1,7 @@
-import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 
-const initialRelatedTags: string[] = [];
-const finalRelatedTags: string[] = [];
+let initialRelatedTags: string[] = [];
+let finalRelatedTags: string[] = [];
 
 /**
  * Function to calculate if an element is visible inside a scroll.
@@ -22,10 +22,6 @@ function isElementVisible(element: HTMLElement, scrollContainer: HTMLElement): b
 
   return isVisible;
 }
-
-Given('no special config for sliding-panel view', () => {
-  cy.visit('/test/sliding-panel');
-});
 
 Then('{string} sliding panel arrow is displayed', (displayedArrows: string) => {
   switch (displayedArrows) {
@@ -58,16 +54,21 @@ Then('wait for the movement of the elements inside the sliding panel', () => {
 });
 
 Then('only some related tags are visible', () => {
+  initialRelatedTags = [];
   cy.getByDataTest('sliding-panel-scroll').then($scroll => {
-    cy.getByDataTest('item')
+    cy.getByDataTest('related-tag-item')
       .filter((_index, $element) => isElementVisible($element, $scroll.get(0)))
       .each($element => initialRelatedTags.push($element.get(0).textContent ?? ''));
   });
+  cy.getByDataTest('sliding-panel-scroll')
+    .getByDataTest('related-tag-item')
+    .should('have.length.gt', initialRelatedTags.length);
 });
 
 Then('visible related tags have changed', () => {
+  finalRelatedTags = [];
   cy.getByDataTest('sliding-panel-scroll').then($scroll => {
-    cy.getByDataTest('item')
+    cy.getByDataTest('related-tag-item')
       .filter((_index, $element) => isElementVisible($element, $scroll.get(0)))
       .each($element => finalRelatedTags.push($element.get(0).textContent ?? ''))
       .then(() => {

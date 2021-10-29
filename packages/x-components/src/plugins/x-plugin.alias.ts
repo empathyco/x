@@ -55,47 +55,56 @@ export function getAliasAPI(
   return {
     query,
     status,
-    get nextQueries() {
-      return store.getters[getGetterPath('nextQueries', 'nextQueries')] ?? [];
-    },
-    get popularSearches() {
-      return store.state.x.popularSearches?.popularSearches ?? [];
-    },
-    get historyQueries() {
-      return store.getters[getGetterPath('historyQueries', 'historyQueries')] ?? [];
-    },
-    get querySuggestions() {
-      return store.state.x.querySuggestions?.suggestions ?? [];
-    },
-    get relatedTags() {
-      return store.getters[getGetterPath('relatedTags', 'relatedTags')] ?? [];
-    },
-    get selectedRelatedTags() {
-      return store.state.x.relatedTags?.selectedRelatedTags ?? [];
-    },
-    get identifierResults() {
-      return store.state.x.identifierResults?.identifierResults ?? [];
-    },
-    get recommendations() {
-      return store.state.x.recommendations?.recommendations ?? [];
+    get device() {
+      return store.state.x.device?.name ?? null;
     },
     get facets() {
       return store.getters[getGetterPath('facets', 'facets')] ?? {};
     },
-    get selectedFilters() {
-      return store.getters[getGetterPath('facets', 'selectedFilters')] ?? [];
+    get historyQueries() {
+      return store.getters[getGetterPath('historyQueries', 'historyQueries')] ?? [];
     },
-    get totalResults() {
-      return store.state.x.search?.totalResults ?? 0;
+    get identifierResults() {
+      return store.state.x.identifierResults?.identifierResults ?? [];
     },
     get isEmpathizeOpen() {
       return store.state.x.empathize?.isOpen ?? false;
     },
-    get device() {
-      return store.state.x.device?.name ?? null;
+    get nextQueries() {
+      return store.getters[getGetterPath('nextQueries', 'nextQueries')] ?? [];
+    },
+    get noResults() {
+      return !this.totalResults && !!this.query.search && this.status.search !== 'loading';
+    },
+    get partialResults() {
+      return store.state.x.search?.partialResults ?? [];
+    },
+    get popularSearches() {
+      return store.state.x.popularSearches?.popularSearches ?? [];
+    },
+    get querySuggestions() {
+      return store.state.x.querySuggestions?.suggestions ?? [];
+    },
+    get recommendations() {
+      return store.state.x.recommendations?.recommendations ?? [];
+    },
+    get redirections() {
+      return store.state.x.search?.redirections ?? [];
+    },
+    get relatedTags() {
+      return store.getters[getGetterPath('relatedTags', 'relatedTags')] ?? [];
+    },
+    get selectedFilters() {
+      return store.getters[getGetterPath('facets', 'selectedFilters')] ?? [];
+    },
+    get selectedRelatedTags() {
+      return store.state.x.relatedTags?.selectedRelatedTags ?? [];
     },
     get spellcheckedQuery() {
       return store.state.x.search?.spellcheckedQuery ?? null;
+    },
+    get totalResults() {
+      return store.state.x.search?.totalResults ?? 0;
     }
   };
 }

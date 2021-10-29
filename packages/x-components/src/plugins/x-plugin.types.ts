@@ -4,6 +4,8 @@ import {
   Filter,
   HistoryQuery,
   NextQuery,
+  PartialResult,
+  Redirection,
   RelatedTag,
   Result,
   Suggestion
@@ -95,6 +97,10 @@ export interface XComponentAliasAPI {
   readonly isEmpathizeOpen: boolean;
   /** The {@link NextQueriesXModule} next queries. */
   readonly nextQueries: ReadonlyArray<NextQuery>;
+  /** The {@link SearchXModule} no results situation. */
+  readonly noResults: boolean;
+  /** The {@link SearchXModule} partial results. */
+  readonly partialResults: ReadonlyArray<PartialResult>;
   /** The {@link PopularSearchesXModule} popular searches. */
   readonly popularSearches: ReadonlyArray<Suggestion>;
   /** The query value of the different modules. */
@@ -103,6 +109,8 @@ export interface XComponentAliasAPI {
   readonly querySuggestions: ReadonlyArray<Suggestion>;
   /** The {@link RecommendationsXModule} recommendations. */
   readonly recommendations: ReadonlyArray<Result>;
+  /** The {@link SearchXModule} redirections. */
+  readonly redirections: ReadonlyArray<Redirection>;
   /** The {@link RelatedTagsXModule} related tags (Both selected and deselected). */
   readonly relatedTags: ReadonlyArray<RelatedTag>;
   /** The {@link FacetsXModule} selected filters. */

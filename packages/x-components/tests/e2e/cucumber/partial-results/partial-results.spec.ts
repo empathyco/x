@@ -49,10 +49,6 @@ Given('a results API with partial results', () => {
 });
 
 // Scenario 1
-Given('no special config for partial-results view', () => {
-  cy.visit('/?useMockedAdapter=true');
-});
-
 Then('at least {int} related results are displayed', (minResultsWithoutPartials: number) => {
   cy.getByDataTest('result-text')
     .should('be.visible')
