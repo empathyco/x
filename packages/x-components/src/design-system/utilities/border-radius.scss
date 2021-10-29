@@ -1,3 +1,4 @@
+@import '../base/size.tokens';
 @import '../mixins';
 
 .x-border-radius--00 {
@@ -8,7 +9,7 @@
 }
 
 .x-border-radius {
-  @for $i from 1 through 20 {
+  @for $i from 1 through $max-size-base-value {
     $i: zerofill($i);
     &--#{$i} {
       border-radius: var(--x-size-base-#{$i}) !important;

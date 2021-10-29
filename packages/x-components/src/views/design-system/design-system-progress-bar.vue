@@ -43,6 +43,6 @@
 
 <style lang="scss" scoped>
   .x-progress-bar__line {
-    transform: scaleX(0.3);
+    transform: translateX(-30%);
   }
 </style>

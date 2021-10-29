@@ -300,7 +300,7 @@
                 Your search matches a special place in our website, to visit it, your are being
                 redirected
               </p>
-              <a :href="redirection.url">{{ redirection.url }}</a>
+              <a @click="redirect" :href="redirection.url">{{ redirection.url }}</a>
               <div class="x-list x-list--horizontal x-list--gap-07">
                 <button
                   @click="abortRedirect"

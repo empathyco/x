@@ -19,6 +19,9 @@
     height: var(--x-size-height-progress-bar-line-default);
     width: var(--x-size-width-progress-bar-line-default);
 
+    // border
+    border-radius: var(--x-size-border-radius-progress-bar-default);
+
     // color
     background-color: var(--x-color-background-progress-bar-line-default);
   }
