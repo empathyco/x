@@ -152,39 +152,40 @@
   }
 </script>
 
-<docs>
-  #Example
+<docs lang="mdx">
+# Examples
 
-  This default suggestion component expects a suggestion to render and pass to its default slot, a
-  normalized query to compare with the suggestion's query and highlight its matching parts and
-  events to emit when the suggestion is selected.
+This default suggestion component expects a suggestion to render and pass to its default slot, a
+normalized query to compare with the suggestion's query and highlight its matching parts and events
+to emit when the suggestion is selected.
 
-  ## Default usage
+## Default usage
 
-  ```vue
-  <BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }"/>
-  ```
+```vue
+<BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }" />
+```
 
-  ## Customized usage
+## Customized usage
 
-  ```vue
-  <BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }">
-    <template #default="{ suggestion, queryHTML }">
-      <span
-        class="my-suggestion"
-        v-html="queryHTML"
-        :aria-label="suggestion.query"
-      />
-    </template>
-  </BaseSuggestion>
-  ```
-  ## Events
+```vue
+<BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }">
+  <template #default="{ suggestion, queryHTML }">
+    <span
+      class="my-suggestion"
+      v-html="queryHTML"
+      :aria-label="suggestion.query"
+    />
+  </template>
+</BaseSuggestion>
+```
 
-  A list of events that the component will emit:
+## Events
 
-  - `UserAcceptedAQuery`: the event is emitted after the user clicks the button. The event payload
-  is the suggestion query data.
-  - `UserSelectedASuggestion`: the event is emitted after the user clicks the button. The event
+A list of events that the component will emit:
+
+- `UserAcceptedAQuery`: the event is emitted after the user clicks the button. The event payload is
+  the suggestion query data.
+- `UserSelectedASuggestion`: the event is emitted after the user clicks the button. The event
   payload is the suggestion data.
-  - The component can emit more events on click using the `suggestionSelectedEvents` prop.
+- The component can emit more events on click using the `suggestionSelectedEvents` prop.
 </docs>

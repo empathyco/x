@@ -1,0 +1,26 @@
+name: Synchronize with eDocs
+on: [workflow_dispatch]
+jobs:
+  connect-with-edocs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout X mono-repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Get X Components Version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+        with:
+          path: packages/x-components
+      - name: Get branch name
+        uses: nelonoel/branch-name@v1.0.1
+      - name: Trigger eDocs repository action
+        run: |
+          curl --request POST \
+          -u empathyco:${GITHUB_TOKEN} \
+          --header 'content-type: application/json' \
+          --url https://api.github.com/repos/empathyco/docs-empathy-documentation/actions/workflows/14218449/dispatches \
+          --data '{"ref": "main",  "inputs": {"branchName": "${{ env.BRANCH_NAME }}", "version": "${{ steps.package-version.outputs.current-version }}"}}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.SUPPORT_TOKEN }}

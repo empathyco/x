@@ -405,16 +405,24 @@ used, and the different uses that can be given to it.
 It should have examples to show the `default`, `props` and `customized` usages.
 
 ```vue
-<docs>
-  # Example
-  ## Default usage
-  ## Prop 1
-  ## Prop 2
-  ## ...
-  ## Customized usage
-  ## Usage 1
-  ## Usage 2
-  ## ...
+<docs lang="mdx">
+# Example
+
+## Default usage
+
+## Prop 1
+
+## Prop 2
+
+## ...
+
+## Customized usage
+
+## Usage 1
+
+## Usage 2
+
+## ...
 </docs>
 ```
 
@@ -445,29 +453,20 @@ It renders a list of items using the default slot:
 </template>
 ```
 
-
 ### Events
 
-Each component must have an events section where it is explained what, how and when they are emitted.
+Each component must have an events section where it is explained what, how and when they are
+emitted.
 
 Each event must be written following the next template:
- - -`EventName`: the event is emitted when...(something happend). The event payload is ...:
+
+- -`EventName`: the event is emitted when...(something happend). The event payload is ...:
 
 This approach is the same for the Vue events emitted by the component.
+
 ```vue
-// ❌ Wrong
-
-## Events
-
-- The event is `UserClickedColumnPicker` and its emitted when the user clicks the component. The payload is
-the column number.
-
-// ✅ Good
-
-## Events
-
-- `UserClickedColumnPicker`: the event is emitted after the user clicks an item. The event payload
-is the number of columns that the clicked item represents.
-
+// ❌ Wrong ## Events - The event is `UserClickedColumnPicker` and its emitted when the user clicks
+the component. The payload is the column number. // ✅ Good ## Events - `UserClickedColumnPicker`:
+the event is emitted after the user clicks an item. The event payload is the number of columns that
+the clicked item represents.
 ```
-

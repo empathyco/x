@@ -4,8 +4,8 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Watch } from 'vue-property-decorator';
-  import { xComponentMixin, XInject } from '../../../components';
+  import { Component, Watch, Inject } from 'vue-property-decorator';
+  import { xComponentMixin } from '../../../components';
   import { Dictionary, forEach } from '../../../utils';
   import { SnippetConfig } from '../../../x-installer';
   import { extraParamsXModule } from '../x-module';
@@ -27,7 +27,7 @@
      *
      * @internal
      */
-    @XInject('snippetConfig')
+    @Inject('snippetConfig')
     public snippetConfig!: SnippetConfig;
 
     /**

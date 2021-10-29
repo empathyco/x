@@ -7,7 +7,12 @@ import { searchXStoreModule } from './module';
  * @internal
  */
 export const searchEmitters = createStoreEmitters(searchXStoreModule, {
-  FacetsChanged: state => state.facets,
+  FacetsChanged: {
+    selector: state => state.facets,
+    filter(newValue, oldValue): boolean {
+      return newValue.length !== 0 || oldValue.length !== 0;
+    }
+  },
   PageChanged: state => state.page,
   ResultsChanged: state => state.results,
   SearchRequestChanged: (_, getters) => getters.request,

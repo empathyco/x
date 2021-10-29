@@ -6,7 +6,7 @@ Feature: Identifier results component
     And   a next queries API with a known response
     And   a recommendations API with a known response
     And   a results API with no results
-    And   no special config for identifier results view
+    And   no special config for layout view
 
   Scenario Outline: 1. ID search with results is made
     Given an ID results API with a known response

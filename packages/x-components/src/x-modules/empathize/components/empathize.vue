@@ -129,14 +129,16 @@
   }
 </script>
 
-<docs>
-#Examples
+<docs lang="mdx">
+# Examples
 
-This component will listen to the configured events in eventsToOpenEmpathize and
-eventsToCloseEmpathize props and open/close itself accordingly. By default, those props values are:
-```eventsToOpenEmpathize=['UserFocusedSearchBox', 'UserIsTypingAQuery', 'UserClickedSearchBox']```
-and ```eventsToCloseEmpathize=['UserClosedEmpathize', 'UserSelectedASuggestion', 'UserPressedEnter',
-'UserBlurredSearchBox']```
+This component will listen to the configured events in `eventsToOpenEmpathize` and
+`eventsToCloseEmpathize` props and open/close itself accordingly. By default, those props values
+are:
+
+- Open: `UserFocusedSearchBox`, `'`UserIsTypingAQuery`, `'`UserClickedSearchBox` and
+- Close: `UserClosedEmpathize`, `UserSelectedASuggestion`, `UserPressedEnter`,
+  'UserBlurredSearchBox`
 
 ## Basic examples
 
@@ -159,8 +161,9 @@ Defining custom values for the events to open and close the Empathize. For examp
 the search box loses the focus and closing it when the search box receives the focus:
 
 ```vue
-<Empathize :eventsToOpenEmpathize="['UserBlurredSearchBox']"
-           :eventsToCloseEmpathize="['UserFocusedSearchBox']"
+<Empathize
+  :eventsToOpenEmpathize="['UserBlurredSearchBox']"
+  :eventsToCloseEmpathize="['UserFocusedSearchBox']"
 >
   <template #default>
     Please, type a query in the Search Box.
@@ -168,8 +171,8 @@ the search box loses the focus and closing it when the search box receives the f
 </Empathize>
 ```
 
-An animation can be used for the opening and closing using the `animation` prop. The animation,
-must be a Component with a `Transition` with a slot inside:
+An animation can be used for the opening and closing using the `animation` prop. The animation, must
+be a Component with a `Transition` with a slot inside:
 
 ```vue
 <Empathize :animation="collapseFromTop">
@@ -184,9 +187,9 @@ must be a Component with a `Transition` with a slot inside:
 A list of events that the component will emit:
 
 - `EmpathizeOpened`: the event is emitted after receiving an event to change the state `isOpen` to
-`true`. The event payload is undefined and can have a metadata with the module and the element that
-emitted it.
+  `true`. The event payload is undefined and can have a metadata with the module and the element
+  that emitted it.
 - `EmpathizeClosed`: the event is emitted after receiving an event to change the state `isOpen` to
-`false`. The event payload is undefined and can have a metadata with the module and the element that
-emitted it.
+  `false`. The event payload is undefined and can have a metadata with the module and the element
+  that emitted it.
 </docs>

@@ -1,6 +1,7 @@
 <template>
   <BaseSuggestions
     :suggestions="popularSearches"
+    :maxItemsToRender="maxItemsToRender"
     class="x-popular-searches"
     data-test="popular-searches"
     :animation="animation"
@@ -63,71 +64,72 @@
      *
      * @public
      */
-    @Prop({ default: 5 })
-    protected maxItemsToRender!: number;
+    @Prop()
+    protected maxItemsToRender?: number;
 
+    /**
+     * The list of popular searches.
+     *
+     * @internal
+     */
     @Getter('popularSearches', 'popularSearches')
-    public storedPopularSearches!: Suggestion[];
-
-    protected get popularSearches(): Suggestion[] {
-      return this.storedPopularSearches.slice(0, this.maxItemsToRender);
-    }
+    public popularSearches!: Suggestion[];
   }
 </script>
 
-<docs>
-  #Examples
+<docs lang="mdx">
+# Examples
 
-  ## Default Usage
+## Default Usage
 
-  You don't need to pass any props, or slots. Simply add the component, and when it has any
-  popular searches it will show them.
+You don't need to pass any props, or slots. Simply add the component, and when it has any popular
+searches it will show them.
 
-  ```vue
-  <PopularSearches/>
-  ```
+```vue
+<PopularSearches />
+```
 
-  The component has two optional props. `animation` to render the component with an animation and
-  `maxItemToRender` to limit the number of popular searches will be rendered (by default it is 5).
+The component has two optional props. `animation` to render the component with an animation and
+`maxItemToRender` to limit the number of popular searches will be rendered (by default it is 5).
 
-  ```vue
-  <PopularSearches :animation="FadeAndSlide" :maxItemsToRender="10"/>
-  ```
+```vue
+<PopularSearches :animation="FadeAndSlide" :maxItemsToRender="10" />
+```
 
-  ## Overriding Popular Search's Content
+## Overriding Popular Search's Content
 
-  You can use your custom implementation of the Popular Search's content.
-  In the example below, instead of using the default Popular Search's content, an icon
-  is added, as well as a span with the query of the Popular Search's suggestion.
+You can use your custom implementation of the Popular Search's content. In the example below,
+instead of using the default Popular Search's content, an icon is added, as well as a span with the
+query of the Popular Search's suggestion.
 
-  ```vue
-  <PopularSearches>
-    <template #suggestion-content="{ suggestion }">
-      <img class="x-popular-search__icon" src="./popular-search-icon.svg" />
-      <span class="x-popular-search__query">{{ suggestion.query }}</span>
-    </template>
-  </PopularSearches>
-  ```
+```vue
+<PopularSearches>
+  <template #suggestion-content="{ suggestion }">
+    <img class="x-popular-search__icon" src="./popular-search-icon.svg" />
+    <span class="x-popular-search__query">{{ suggestion.query }}</span>
+  </template>
+</PopularSearches>
+```
 
-  ## Adding a Custom Popular Search Item
+## Adding a Custom Popular Search Item
 
-  You can use your custom implementation for the whole Popular Search item.
-  In the example below, we change the default implementation of the Popular Search in Popular
-  Searches. A custom Popular Search implementation is added, it has an image and a span as content
-  (as in the previous example). Also, a button with a user customized behaviour is added at the
-  same hierarchical level as the Popular Search component.
+You can use your custom implementation for the whole Popular Search item. In the example below, we
+change the default implementation of the Popular Search in Popular Searches. A custom Popular Search
+implementation is added, it has an image and a span as content (as in the previous example). Also, a
+button with a user customized behaviour is added at the same hierarchical level as the Popular
+Search component.
 
-  ```vue
-  <PopularSearches>
-    <template #suggestion="{suggestion}">
-      <PopularSearch :suggestion="suggestion">
-        <template #default="{suggestion}">
-          <img class="x-popular-search__icon" src="./popular-search-icon.svg" />
-          <span class="x-popular-search__query">{{ suggestion.query }}</span>
-        </template>
-      </PopularSearch>
-      <button>Custom Behaviour</button>
-    </template>
-  </PopularSearches>
-  ```
+```vue
+<PopularSearches>
+  <template #suggestion="{suggestion}">
+    <PopularSearch :suggestion="suggestion">
+      <template #default="{suggestion}">
+        <img class="x-popular-search__icon" src="./popular-search-icon.svg" />
+        <span class="x-popular-search__query">{{ suggestion.query }}</span>
+      </template>
+    </PopularSearch>
+    <button>Custom Behaviour</button>
+  </template>
+</PopularSearches>
+```
 </docs>
