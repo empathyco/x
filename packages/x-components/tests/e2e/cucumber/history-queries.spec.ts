@@ -22,7 +22,7 @@ Given(
         }
       }
     };
-    cy.visit('/test/history-queries?useMockedAdapter=true', {
+    cy.visit('/?useMockedAdapter=true', {
       qs: {
         xModules: JSON.stringify(config)
       }
@@ -119,7 +119,9 @@ Then(
   'no history queries are displayed after {int} ms if {boolean} is false',
   (debounceInMs: number, instant: boolean) => {
     cy.wait(debounceInMs);
-    cy.clearSearchInput();
+    cy.clearSearchInput().then(() => {
+      cy.getByDataTest('search-input').click();
+    });
     if (!instant) {
       cy.getByDataTest('history-query').should('not.exist');
     } else {

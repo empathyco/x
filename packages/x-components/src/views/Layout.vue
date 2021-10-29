@@ -33,343 +33,409 @@
           data-test="popular-searches-max-to-render"
         />
       </li>
+      <li class="x-test-controls__item x-list__item">
+        <label>
+          <input
+            v-model="controls.slicedFilters.max"
+            type="number"
+            data-test="sliced-filters-max"
+          />
+          sliced-filters - max
+        </label>
+      </li>
+      <li class="x-test-controls__item x-list__item">
+        <label for="historyQueries.maxItemsToRender">history-queries - maxItemsToRender</label>
+        <input
+          v-model="controls.historyQueries.maxItemsToRender"
+          id="historyQueries.maxItemsToRender"
+          type="number"
+          data-test="history-queries-max-to-render"
+        />
+      </li>
     </ul>
-    <BaseEventsModal
-      :eventsToOpenModal="[
-        'UserClickedOpenEventsModal',
-        'UserOpenXProgrammatically',
-        'QueryLoadedFromUrl'
-      ]"
-    >
-      <MultiColumnMaxWidthLayout class="x-background--neutral-100">
-        <template #header-middle>
-          <div
-            class="
-              x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand
-            "
-          >
-            <div class="x-input-group x-input-group--card">
-              <SearchInput
-                aria-label="Search for products"
-                placeholder="Search"
-                :instant="controls.searchInput.instant"
-                :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
-              />
-              <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-              <SearchButton aria-label="Search" class="x-input-group__action">
-                <SearchIcon />
-              </SearchButton>
+    <BaseKeyboardNavigation>
+      <BaseEventsModal
+        :eventsToOpenModal="[
+          'UserClickedOpenEventsModal',
+          'UserOpenXProgrammatically',
+          'QueryLoadedFromUrl'
+        ]"
+      >
+        <MultiColumnMaxWidthLayout class="x-background--neutral-100">
+          <template #header-middle>
+            <div
+              class="
+                x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand
+              "
+            >
+              <div class="x-input-group x-input-group--card">
+                <SearchInput
+                  aria-label="Search for products"
+                  placeholder="Search"
+                  :instant="controls.searchInput.instant"
+                  :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
+                />
+                <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
+                <SearchButton aria-label="Search" class="x-input-group__action">
+                  <SearchIcon />
+                </SearchButton>
+              </div>
+
+              <!-- Spellcheck -->
+              <Spellcheck>
+                <template #default="{ query }">
+                  No results found for '{{ query }}'. We show you results for
+                  <SpellcheckButton />
+                </template>
+              </Spellcheck>
+
+              <SlidingPanel v-if="$x.relatedTags.length">
+                <template #sliding-panel-left-button>
+                  <ChevronLeft />
+                </template>
+                <RelatedTags class="x-tag--card x-list--gap-03" />
+                <template #sliding-panel-right-button>
+                  <ChevronRight />
+                </template>
+              </SlidingPanel>
             </div>
+          </template>
 
-            <SlidingPanel v-if="$x.relatedTags.length">
-              <template #sliding-panel-left-button>
-                <ChevronLeft />
-              </template>
-              <RelatedTags class="x-tag--card x-list--gap-03" />
-              <template #sliding-panel-right-button>
-                <ChevronRight />
-              </template>
-            </SlidingPanel>
-          </div>
-        </template>
+          <template #header-end>
+            <BaseEventsModalClose lass="x-button--ghost">
+              <CrossIcon />
+            </BaseEventsModalClose>
+          </template>
 
-        <template #header-end>
-          <BaseEventsModalClose lass="x-button--ghost">
-            <CrossIcon />
-          </BaseEventsModalClose>
-        </template>
-
-        <template #sub-header>
-          <Empathize
-            :animation="empathizeAnimation"
-            class="
-              x-list x-list--horizontal x-list--padding-05 x-list--padding-bottom x-list--gap-06
-            "
-          >
-            <PopularSearches max-items-to-render="10" />
-            <HistoryQueries max-items-to-render="10" />
-            <ClearHistoryQueries class="x-button--ghost x-button--ghost-start">
-              <CrossTinyIcon />
-              <span>Clear previous searches</span>
-            </ClearHistoryQueries>
-            <QuerySuggestions max-items-to-render="10" />
-            <NextQueries max-items-to-render="10" />
-          </Empathize>
-        </template>
-
-        <template #toolbar-aside>
-          <BaseIdTogglePanelButton
-            v-if="$x.totalResults > 0"
-            class="x-button x-button--ghost"
-            panelId="aside-panel"
-          >
-            Toggle Aside
-          </BaseIdTogglePanelButton>
-        </template>
-
-        <template #toolbar-body>
-          <div
-            v-if="$x.totalResults > 0"
-            class="x-list x-list--horizontal x-list--align-center x-list--gap-04"
-          >
-            <span>{{ $x.totalResults }} Results</span>
-            <BaseColumnPickerList
-              #default="{ column }"
-              v-model="selectedColumns"
-              :columns="columnPickerValues"
+          <template #sub-header>
+            <Empathize
+              :animation="empathizeAnimation"
+              class="
+                x-list x-list--horizontal x-list--padding-05 x-list--padding-bottom x-list--gap-06
+              "
             >
-              <template v-if="column === 0">
-                <ChevronTinyRight />
-                <Grid1Col />
-                <ChevronTinyLeft />
-              </template>
-              <Grid1Col v-else-if="column === 4" />
-              <Grid2Col v-else-if="column === 6" />
-            </BaseColumnPickerList>
-            <SortDropdown
-              :items="sortValues"
-              class="x-dropdown--round x-dropdown--right x-dropdown--l"
-              :animation="sortDropdownAnimation"
+              <PopularSearches max-items-to-render="10" />
+              <HistoryQueries :max-items-to-render="controls.historyQueries.maxItemsToRender" />
+              <ClearHistoryQueries class="x-button--ghost x-button--ghost-start">
+                <CrossTinyIcon />
+                <span>Clear previous searches</span>
+              </ClearHistoryQueries>
+              <QuerySuggestions max-items-to-render="10" />
+              <NextQueries max-items-to-render="10" />
+            </Empathize>
+          </template>
+
+          <template #toolbar-aside>
+            <BaseIdTogglePanelButton
+              v-if="$x.totalResults > 0"
+              class="x-button x-button--ghost"
+              panelId="aside-panel"
             >
-              <template #toggle="{ item }">
-                <span>{{ item || 'default' }}</span>
-                <ChevronTinyDown />
-              </template>
-              <template #item="{ item, isSelected }">
-                <ChevronTinyRight />
-                <span>{{ item || 'default' }}</span>
-                <CheckTiny v-if="isSelected" />
-              </template>
-            </SortDropdown>
+              Toggle Aside
+            </BaseIdTogglePanelButton>
+          </template>
 
-            <RenderlessExtraParams #default="{ value, updateValue }" name="store">
-              <BaseDropdown
-                @change="updateValue"
-                class="x-dropdown x-dropdown--round x-dropdown--right x-dropdown--l"
-                :value="value"
-                :items="stores"
-              />
-            </RenderlessExtraParams>
-          </div>
-        </template>
+          <template #toolbar-body>
+            <div
+              v-if="$x.totalResults > 0"
+              class="x-list x-list--horizontal x-list--align-center x-list--gap-04"
+            >
+              <span>{{ $x.totalResults }} Results</span>
+              <BaseColumnPickerList
+                #default="{ column }"
+                v-model="selectedColumns"
+                :columns="columnPickerValues"
+              >
+                <template v-if="column === 0">
+                  <ChevronTinyRight />
+                  <Grid1Col />
+                  <ChevronTinyLeft />
+                </template>
+                <Grid1Col v-else-if="column === 4" />
+                <Grid2Col v-else-if="column === 6" />
+              </BaseColumnPickerList>
+              <SortDropdown
+                :items="sortValues"
+                class="x-dropdown--round x-dropdown--right x-dropdown--l"
+                :animation="sortDropdownAnimation"
+              >
+                <template #toggle="{ item }">
+                  <span data-test="sort-dropdown-toggle">{{ item || 'default' }}</span>
+                  <ChevronTinyDown />
+                </template>
+                <template #item="{ item, isSelected }">
+                  <ChevronTinyRight />
+                  <span>{{ item || 'default' }}</span>
+                  <CheckTiny v-if="isSelected" />
+                </template>
+              </SortDropdown>
 
-        <template #main-aside>
-          <div
-            v-if="$x.totalResults > 0"
-            class="
-              x-list
-              x-list--padding-05
-              x-list--padding-top
-              x-list--gap-06
-              x-list--border
-              x-list--border-top
-            "
-          >
-            <FacetsProvider :facets="staticFacets" />
-            <ClearFilters />
-            <SelectedFiltersList>
-              <template #default="{ filter }">
-                <SimpleFilter :filter="filter" class="x-tag" />
-              </template>
-            </SelectedFiltersList>
+              <RenderlessExtraParams #default="{ value, updateValue }" name="store">
+                <BaseDropdown
+                  @change="updateValue"
+                  class="x-dropdown x-dropdown--round x-dropdown--right x-dropdown--l"
+                  :value="value"
+                  :items="stores"
+                />
+              </RenderlessExtraParams>
+            </div>
+          </template>
 
-            <!-- Facets -->
-            <Facets class="x-list--gap-06" renderable-facets="!rootCategories_facet">
-              <!--  Hierarchical Facet    -->
-              <template #hierarchical_category="{ facet }">
-                <BaseHeaderTogglePanel class="x-facet">
-                  <template #header-content>
-                    <span class="x-ellipsis">{{ facet.label }}</span>
-                    <ChevronDown />
-                  </template>
-                  <!-- Filters -->
-                  <SlicedFilters max="4" :filters="facet.filters">
-                    <FiltersList v-slot="{ filter }">
-                      <HierarchicalFilter :filter="filter" />
-                    </FiltersList>
-                  </SlicedFilters>
-                </BaseHeaderTogglePanel>
-              </template>
+          <template #main-aside>
+            <div
+              v-if="$x.totalResults > 0"
+              class="
+                x-list
+                x-list--padding-05
+                x-list--padding-top
+                x-list--gap-06
+                x-list--border
+                x-list--border-top
+              "
+            >
+              <FacetsProvider :facets="staticFacets" />
+              <ClearFilters />
+              <SelectedFiltersList>
+                <template #default="{ filter }">
+                  <SimpleFilter :filter="filter" class="x-tag" />
+                </template>
+              </SelectedFiltersList>
 
-              <!--  Brand Facet    -->
-              <template #brand_facet="{ facet }">
-                <BaseHeaderTogglePanel class="x-facet">
-                  <template #header-content>
-                    <span class="x-ellipsis">{{ facet.label }}</span>
-                    <ChevronDown />
-                  </template>
+              <!-- Facets -->
+              <Facets class="x-list--gap-06" renderable-facets="!rootCategories_facet">
+                <!--  Hierarchical Facet    -->
+                <template #hierarchical-category="{ facet }">
+                  <BaseHeaderTogglePanel class="x-facet">
+                    <template #header-content>
+                      <span class="x-ellipsis">{{ facet.label }}</span>
+                      <ChevronDown />
+                    </template>
+                    <!-- Filters -->
+                    <SlicedFilters max="4" :filters="facet.filters">
+                      <FiltersList v-slot="{ filter }">
+                        <HierarchicalFilter :filter="filter" />
+                      </FiltersList>
+                    </SlicedFilters>
+                  </BaseHeaderTogglePanel>
+                </template>
 
-                  <!-- Filters -->
-                  <ExcludeFiltersWithNoResults :filters="facet.filters">
-                    <SortedFilters>
-                      <FiltersSearch>
-                        <SlicedFilters max="4">
+                <!--  Brand Facet    -->
+                <template #brand-facet="{ facet }">
+                  <BaseHeaderTogglePanel class="x-facet">
+                    <template #header-content>
+                      <span :data-test="facet.label" class="x-ellipsis">{{ facet.label }}</span>
+                      <span data-test="total-filters">{{ facet.filters.length }}</span>
+                      <ChevronDown />
+                    </template>
+
+                    <!-- Filters -->
+                    <ExcludeFiltersWithNoResults :filters="facet.filters">
+                      <SortedFilters>
+                        <FiltersSearch>
+                          <SlicedFilters
+                            :max="controls.slicedFilters.max"
+                            :data-test="facet.label + '-sliced-filters'"
+                          >
+                            <FiltersList
+                              v-slot="{
+                                // eslint-disable-next-line vue/no-unused-vars
+                                filter
+                              }"
+                            >
+                              <SimpleFilter
+                                #label="{ filter }"
+                                :filter="filter"
+                                data-test="brand-filter"
+                              >
+                                {{ filter.label }}
+                                <span data-test="brand-filter-total-results">
+                                  {{ filter.totalResults }}
+                                </span>
+                              </SimpleFilter>
+                            </FiltersList>
+                          </SlicedFilters>
+                        </FiltersSearch>
+                      </SortedFilters>
+                    </ExcludeFiltersWithNoResults>
+                  </BaseHeaderTogglePanel>
+                </template>
+
+                <!--  Default Facet    -->
+                <template #default="{ facet }">
+                  <BaseHeaderTogglePanel class="x-facet">
+                    <template #header-content>
+                      <span :data-test="facet.label" class="x-ellipsis">{{ facet.label }}</span>
+                      <ChevronDown />
+                    </template>
+
+                    <!-- Filters -->
+                    <ExcludeFiltersWithNoResults :filters="facet.filters">
+                      <SortedFilters>
+                        <SlicedFilters
+                          :max="controls.slicedFilters.max"
+                          :data-test="facet.label + '-sliced-filters'"
+                        >
+                          <SelectedFilters :facetId="facet.id" />
                           <FiltersList v-slot="{ filter }">
-                            <SimpleFilter :filter="filter" />
+                            <SimpleFilter :filter="filter" :data-test="facet.label + '-filter'" />
+                            <span data-test="filter-total-results">{{ filter.totalResults }}</span>
                           </FiltersList>
                         </SlicedFilters>
-                      </FiltersSearch>
-                    </SortedFilters>
-                  </ExcludeFiltersWithNoResults>
-                </BaseHeaderTogglePanel>
-              </template>
-
-              <!--  Default Facet    -->
-              <template #default="{ facet }">
-                <BaseHeaderTogglePanel class="x-facet">
-                  <template #header-content>
-                    <span class="x-ellipsis">{{ facet.label }}</span>
-                    <ChevronDown />
-                  </template>
-
-                  <!-- Filters -->
-                  <ExcludeFiltersWithNoResults :filters="facet.filters">
-                    <SortedFilters>
-                      <SlicedFilters max="4">
-                        <FiltersList v-slot="{ filter }">
-                          <SimpleFilter :filter="filter" />
-                        </FiltersList>
-                      </SlicedFilters>
-                    </SortedFilters>
-                  </ExcludeFiltersWithNoResults>
-                </BaseHeaderTogglePanel>
-              </template>
-            </Facets>
-          </div>
-        </template>
-
-        <template #main-body>
-          <Redirection
-            #default="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
-            delayInSeconds="5"
-          >
-            <span>{{ redirection.url }}</span>
-            <button @click="redirect">Redirect now!</button>
-            <button @click="abortRedirect">Abort redirection!</button>
-            <AutoProgressBar :isLoading="isRedirecting" :durationInSeconds="delayInSeconds" />
-          </Redirection>
-          <!-- IdentifierResults -->
-          <IdentifierResults class="x-list x-list--horizontal">
-            <template #default="{ identifierResult }">
-              <article class="result">
-                <BaseResultImage :result="identifierResult" class="x-picture--colored">
-                  <template #placeholder>
-                    <div style="padding-top: 100%; background-color: lightgray"></div>
-                  </template>
-                  <template #fallback>
-                    <div style="padding-top: 100%; background-color: lightsalmon"></div>
-                  </template>
-                </BaseResultImage>
-                <h1 class="x-title3" data-test="result-text">{{ identifierResult.name }}</h1>
-              </article>
-            </template>
-          </IdentifierResults>
-
-          <!-- Recommendations -->
-          <Recommendations v-if="!$x.query.search" #layout="{ recommendations }">
-            <BaseVariableColumnGrid
-              #default="{ item: result }"
-              :animation="resultsAnimation"
-              :items="recommendations"
-            >
-              <article class="result" style="max-width: 300px">
-                <BaseResultImage :result="result" class="x-picture--colored">
-                  <template #placeholder>
-                    <div style="padding-top: 100%; background-color: lightgray"></div>
-                  </template>
-                  <template #fallback>
-                    <div style="padding-top: 100%; background-color: lightsalmon"></div>
-                  </template>
-                </BaseResultImage>
-                <h1 class="x-title3" data-test="recommendation-item">{{ result.name }}</h1>
-              </article>
-            </BaseVariableColumnGrid>
-          </Recommendations>
-
-          <!-- Results -->
-          <ResultsList v-infinite-scroll:main-scroll>
-            <BannersList>
-              <PromotedsList>
-                <NextQueriesList>
-                  <BaseVariableColumnGrid :animation="resultsAnimation">
-                    <template #result="{ item: result }">
-                      <article class="result" style="max-width: 300px">
-                        <BaseResultImage :result="result" class="x-picture--colored">
-                          <template #placeholder>
-                            <div style="padding-top: 100%; background-color: lightgray"></div>
-                          </template>
-                          <template #fallback>
-                            <div style="padding-top: 100%; background-color: lightsalmon"></div>
-                          </template>
-                        </BaseResultImage>
-                        <h1 class="x-title3" data-test="result-text">{{ result.name }}</h1>
-                      </article>
-                    </template>
-
-                    <template #banner="{ item: banner }">
-                      <Banner :banner="banner" />
-                    </template>
-
-                    <template #promoted="{ item: promoted }">
-                      <Promoted :promoted="promoted" />
-                    </template>
-
-                    <template #next-queries-group="{ item: { nextQueries } }">
-                      <div class="x-list x-list--gap-03">
-                        <h1 class="x-title2">What's next?</h1>
-                        <BaseSuggestions
-                          #default="{ suggestion }"
-                          :suggestions="nextQueries"
-                          class="x-list--gap-03"
-                        >
-                          <NextQuery #default="{ suggestion: nextQuery }" :suggestion="suggestion">
-                            <Nq1 />
-                            {{ nextQuery.query }}
-                          </NextQuery>
-                        </BaseSuggestions>
-                      </div>
-                    </template>
-                  </BaseVariableColumnGrid>
-                </NextQueriesList>
-              </PromotedsList>
-            </BannersList>
-          </ResultsList>
-
-          <!-- Partials -->
-          <PartialResultsList :animation="resultsAnimation">
-            <template #default="{ partialResult }">
-              <span data-test="partial-query">{{ partialResult.query }}</span>
-              <BaseGrid :animation="resultsAnimation" :columns="4" :items="partialResult.results">
-                <template #result="{ item }">
-                  <article class="result" style="max-width: 300px">
-                    <BaseResultImage :result="item" class="x-picture--colored">
-                      <template #placeholder>
-                        <div style="padding-top: 100%; background-color: lightgray"></div>
-                      </template>
-                      <template #fallback>
-                        <div style="padding-top: 100%; background-color: lightsalmon"></div>
-                      </template>
-                    </BaseResultImage>
-                    <span class="x-result__title" data-test="partial-result-item">
-                      {{ item.name }}
-                    </span>
-                  </article>
+                      </SortedFilters>
+                    </ExcludeFiltersWithNoResults>
+                  </BaseHeaderTogglePanel>
                 </template>
-              </BaseGrid>
-              <PartialQueryButton :query="partialResult.query">
-                <template #default="{ query }">Ver todos {{ query }}</template>
-              </PartialQueryButton>
-            </template>
-          </PartialResultsList>
-        </template>
+              </Facets>
+            </div>
+          </template>
 
-        <template #scroll-to-top>
-          <BaseScrollToTop :threshold-px="500" class="x-button--round" scroll-id="body-scroll">
-            <ChevronUp />
-          </BaseScrollToTop>
-        </template>
-      </MultiColumnMaxWidthLayout>
-    </BaseEventsModal>
+          <template #main-body>
+            <Redirection
+              #default="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
+              delayInSeconds="5"
+            >
+              <span>{{ redirection.url }}</span>
+              <button @click="redirect">Redirect now!</button>
+              <button @click="abortRedirect">Abort redirection!</button>
+              <AutoProgressBar :isLoading="isRedirecting" :durationInSeconds="delayInSeconds" />
+            </Redirection>
+            <!-- IdentifierResults -->
+            <IdentifierResults class="x-list x-list--horizontal">
+              <template #default="{ identifierResult }">
+                <article class="result">
+                  <BaseResultImage :result="identifierResult" class="x-picture--colored">
+                    <template #placeholder>
+                      <div style="padding-top: 100%; background-color: lightgray"></div>
+                    </template>
+                    <template #fallback>
+                      <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                    </template>
+                  </BaseResultImage>
+                  <h1 class="x-title3" data-test="result-text">{{ identifierResult.name }}</h1>
+                </article>
+              </template>
+            </IdentifierResults>
+
+            <!-- Recommendations -->
+            <Recommendations v-if="!$x.query.search" #layout="{ recommendations }">
+              <BaseVariableColumnGrid
+                #default="{ item: result }"
+                :animation="resultsAnimation"
+                :items="recommendations"
+              >
+                <article class="result" style="max-width: 300px">
+                  <BaseResultImage :result="result" class="x-picture--colored">
+                    <template #placeholder>
+                      <div style="padding-top: 100%; background-color: lightgray"></div>
+                    </template>
+                    <template #fallback>
+                      <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                    </template>
+                  </BaseResultImage>
+                  <h1 class="x-title3" data-test="recommendation-item">{{ result.name }}</h1>
+                </article>
+              </BaseVariableColumnGrid>
+            </Recommendations>
+
+            <!-- Results -->
+            <ResultsList v-infinite-scroll:main-scroll>
+              <BannersList>
+                <PromotedsList>
+                  <NextQueriesList>
+                    <BaseVariableColumnGrid :animation="resultsAnimation">
+                      <template #result="{ item: result }">
+                        <article class="result" style="max-width: 300px">
+                          <BaseResultLink :result="result" data-test="result-link">
+                            <BaseResultImage :result="result" class="x-picture--colored">
+                              <template #placeholder>
+                                <div
+                                  data-test="result-picture-placeholder"
+                                  style="padding-top: 100%; background-color: lightgray"
+                                ></div>
+                              </template>
+                              <template #fallback>
+                                <div
+                                  data-test="result-picture-fallback"
+                                  style="padding-top: 100%; background-color: lightsalmon"
+                                ></div>
+                              </template>
+                            </BaseResultImage>
+                            <h1 class="x-title3" data-test="result-text">{{ result.name }}</h1>
+                            <h1 class="x-title3" data-test="result-price">
+                              {{ result.price.value }}
+                            </h1>
+                          </BaseResultLink>
+                        </article>
+                      </template>
+
+                      <template #banner="{ item: banner }">
+                        <Banner :banner="banner" />
+                      </template>
+
+                      <template #promoted="{ item: promoted }">
+                        <Promoted :promoted="promoted" />
+                      </template>
+
+                      <template #next-queries-group="{ item: { nextQueries } }">
+                        <div class="x-list x-list--gap-03">
+                          <h1 class="x-title2">What's next?</h1>
+                          <BaseSuggestions
+                            #default="{ suggestion }"
+                            :suggestions="nextQueries"
+                            class="x-list--gap-03"
+                          >
+                            <NextQuery
+                              #default="{ suggestion: nextQuery }"
+                              :suggestion="suggestion"
+                            >
+                              <Nq1 />
+                              {{ nextQuery.query }}
+                            </NextQuery>
+                          </BaseSuggestions>
+                        </div>
+                      </template>
+                    </BaseVariableColumnGrid>
+                  </NextQueriesList>
+                </PromotedsList>
+              </BannersList>
+            </ResultsList>
+
+            <!-- Partials -->
+            <PartialResultsList :animation="resultsAnimation">
+              <template #default="{ partialResult }">
+                <span data-test="partial-query">{{ partialResult.query }}</span>
+                <BaseGrid :animation="resultsAnimation" :columns="4" :items="partialResult.results">
+                  <template #result="{ item }">
+                    <article class="result" style="max-width: 300px">
+                      <BaseResultImage :result="item" class="x-picture--colored">
+                        <template #placeholder>
+                          <div style="padding-top: 100%; background-color: lightgray"></div>
+                        </template>
+                        <template #fallback>
+                          <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                        </template>
+                      </BaseResultImage>
+                      <span class="x-result__title" data-test="partial-result-item">
+                        {{ item.name }}
+                      </span>
+                    </article>
+                  </template>
+                </BaseGrid>
+                <PartialQueryButton :query="partialResult.query">
+                  <template #default="{ query }">Ver todos {{ query }}</template>
+                </PartialQueryButton>
+              </template>
+            </PartialResultsList>
+          </template>
+
+          <template #scroll-to-top>
+            <BaseScrollToTop :threshold-px="500" class="x-button--round" scroll-id="body-scroll">
+              <ChevronUp />
+            </BaseScrollToTop>
+          </template>
+        </MultiColumnMaxWidthLayout>
+      </BaseEventsModal>
+    </BaseKeyboardNavigation>
   </div>
 </template>
 
@@ -378,6 +444,9 @@
   import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
+  // eslint-disable-next-line max-len
+  import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import CollapseHeight from '../components/animations/collapse-height.vue';
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
@@ -433,8 +502,6 @@
   import SortedFilters from '../x-modules/facets/components/lists/sorted-filters.vue';
   import { FilterEntityFactory } from '../x-modules/facets/entities/filter-entity.factory';
   import { SingleSelectModifier } from '../x-modules/facets/entities/single-select.modifier';
-  // eslint-disable-next-line max-len
-  import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
   import IdentifierResult from '../x-modules/identifier-results/components/identifier-result.vue';
   import IdentifierResults from '../x-modules/identifier-results/components/identifier-results.vue';
@@ -458,6 +525,8 @@
   import ResultsList from '../x-modules/search/components/results-list.vue';
   import SortDropdown from '../x-modules/search/components/sort-dropdown.vue';
   import SortList from '../x-modules/search/components/sort-list.vue';
+  import SpellcheckButton from '../x-modules/search/components/spellcheck-button.vue';
+  import Spellcheck from '../x-modules/search/components/spellcheck.vue';
   import UrlHandler from '../x-modules/url/components/url-handler.vue';
   import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
@@ -468,7 +537,7 @@
         xModules: deepMerge(customQueryConfig)
       });
       new XInstaller(configLayoutView).init(baseSnippetConfig);
-      ['hierarchical_category', 'brand_facet', 'age_facet', 'price_facet'].forEach(facetId =>
+      ['hierarchical_category', 'brand_facet', 'age_facet'].forEach(facetId =>
         FilterEntityFactory.instance.registerFilterModifier(facetId, [SingleSelectModifier])
       );
       next();
@@ -477,13 +546,14 @@
       infiniteScroll
     },
     components: {
+      BaseKeyboardNavigation,
+      BaseEventsModalClose,
       AutoProgressBar,
       Banner,
       BannersList,
       BaseColumnPickerList,
       BaseDropdown,
       BaseEventsModal,
-      BaseEventsModalClose,
       BaseEventsModalOpen,
       BaseGrid,
       BaseHeaderTogglePanel,
@@ -545,6 +615,8 @@
       SnippetConfigExtraParams,
       SortDropdown,
       SortedFilters,
+      Spellcheck,
+      SpellcheckButton,
       SortList,
       UrlHandler
     }
@@ -565,6 +637,12 @@
       },
       popularSearches: {
         maxItemsToRender: 10
+      },
+      slicedFilters: {
+        max: 4
+      },
+      historyQueries: {
+        maxItemsToRender: 5
       }
     };
     protected staticFacets: Facet[] = [
@@ -590,6 +668,6 @@
   .x-modal::v-deep .x-modal__content {
     overflow: hidden;
     width: 100%;
-    height: 100%;
+    height: 99%;
   }
 </style>

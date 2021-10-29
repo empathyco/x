@@ -1,7 +1,16 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
-Given('no special config for spellcheck view', () => {
-  cy.visit('/test/spellcheck');
+Given('a results API response for a misspelled word', () => {
+  cy.intercept('https://api.empathy.co/search', req => {
+    req.reply({
+      banners: [],
+      promoteds: [],
+      facets: [],
+      results: [],
+      totalResults: 7,
+      spellcheck: 'lego'
+    });
+  });
 });
 
 Then(
