@@ -23,5 +23,5 @@ Feature: Search sort components
     Then  search request contains the selected sort "<sortOption3>"
 
     Examples:
-      | query               | sortOption1    | sortOption2     | sortOption3 |
-      | lego                | priceSort asc  | priceSort desc  | default     |
+      | query  | sortOption1    | sortOption2     | sortOption3 |
+      | lego   | priceSort asc  | priceSort desc  | default     |

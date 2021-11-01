@@ -213,7 +213,7 @@
                     <!-- Filters -->
                     <SlicedFilters max="4" :filters="facet.filters">
                       <FiltersList v-slot="{ filter }">
-                        <HierarchicalFilter :filter="filter" />
+                        <HierarchicalFilter :filter="filter" :data-test="facet.label + '-filter'" />
                       </FiltersList>
                     </SlicedFilters>
                   </BaseHeaderTogglePanel>
@@ -245,7 +245,7 @@
                               <SimpleFilter
                                 #label="{ filter }"
                                 :filter="filter"
-                                data-test="brand-filter"
+                                :data-test="facet.label + '-filter'"
                               >
                                 {{ filter.label }}
                                 <span data-test="brand-filter-total-results">

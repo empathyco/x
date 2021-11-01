@@ -1,21 +1,4 @@
-import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
-
-/**
- * Click on a filter from a certain facet.
- *
- * @param facetName - Name of the facet which the filter to be clicked belongs to.
- * @param nthFilter - Position of the filter to be clicked.
- */
-function clickFacetNthFilter(facetName: string, nthFilter: number): void {
-  cy.getByDataTest(`${facetName}-filter`).eq(nthFilter).click().invoke('text').as('clickedFilter');
-}
-
-When(
-  'filter number {int} is selected in facet {string}',
-  (filterNumber: number, facetName: string) => {
-    clickFacetNthFilter(facetName, filterNumber);
-  }
-);
+import { And, Then } from 'cypress-cucumber-preprocessor/steps';
 
 And('waiting for search request intercept', () => {
   cy.intercept('https://api.empathy.co/search').as('requestWithFilter');
