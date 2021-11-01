@@ -11,12 +11,8 @@ When(
 );
 
 Then('search request contains the selected sort {string}', (sortOption: string) => {
-  cy.wait('@requestWithFilter')
+  cy.wait('@interceptedResults')
     .its('request.body')
-    .then(body => {
-      if (sortOption === 'default') {
-        sortOption = '';
-      }
-      expect(body).to.contain(`"sort":"${sortOption}"`);
-    });
+    .then(JSON.parse)
+    .should('have.property', 'sort', sortOption === 'default' ? '' : sortOption);
 });
