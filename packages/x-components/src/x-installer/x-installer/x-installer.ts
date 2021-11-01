@@ -172,17 +172,7 @@ export class XInstaller {
    *
    * @internal
    */
-  protected getAdapterConfig({
-    instance,
-    env,
-    lang,
-    searchLang,
-    scope,
-    consent,
-    currency,
-    documentDirection,
-    ...extraParams
-  }: SnippetConfig): unknown {
+  protected getAdapterConfig({ instance, env, lang, searchLang, scope }: SnippetConfig): unknown {
     return deepMerge(
       defaultAdapterConfig,
       cleanUndefined<DeepPartial<EmpathyAdapterConfig>>({
@@ -190,8 +180,7 @@ export class XInstaller {
         env,
         requestParams: {
           lang: searchLang ?? lang,
-          scope,
-          ...extraParams
+          scope
         }
       })
     );
@@ -307,7 +296,7 @@ export class XInstaller {
   ): Vue | undefined {
     if (this.options.app !== undefined) {
       const vue = this.getVue();
-      vue.observable(snippetConfig);
+      snippetConfig = vue.observable(snippetConfig);
       return new vue({
         ...extraPlugins,
         ...this.options.vueOptions,

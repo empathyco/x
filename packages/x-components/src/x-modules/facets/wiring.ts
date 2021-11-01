@@ -104,6 +104,8 @@ export const facetsWiring = createWiring({
     clearAllFiltersWire
   },
   ParamsLoadedFromUrl: {
+    // TODO: move this logic to Facets Service
+    clearAllFiltersWire,
     setFiltersFromUrl
   }
 });

@@ -13,7 +13,5 @@ export const setUrlParams: IdentifierResultsXStoreModule['actions']['setUrlParam
   { commit },
   { query }
 ) => {
-  if (query) {
-    commit('setQuery', query);
-  }
+  commit('setQuery', query);
 };

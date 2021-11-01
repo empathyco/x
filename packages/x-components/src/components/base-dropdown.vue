@@ -19,8 +19,10 @@
        @binding {string|number|Identifiable} item - The item data to render.
        @binding {boolean} isOpen - True if the dropdown is opened, and false if it is closed.
      -->
-      <slot v-if="$scopedSlots.toggle" :isOpen="isOpen" :item="value" name="toggle" />
-      <slot v-else :item="value" name="item" />
+      <slot v-if="$scopedSlots.toggle" :isOpen="isOpen" :item="value" name="toggle">
+        {{ value }}
+      </slot>
+      <slot v-else :item="value" name="item">{{ value }}</slot>
     </button>
 
     <component :is="animation">
@@ -57,7 +59,9 @@
               :isSelected="item === value"
               :item="item"
               name="item"
-            />
+            >
+              {{ item }}
+            </slot>
           </button>
         </li>
       </ul>

@@ -176,39 +176,41 @@ export const searchWiring = createWiring({
     setSearchQuery,
     cancelFetchAndSaveSearchResponseWire
   },
-  SearchRequestChanged: {
-    fetchAndSaveSearchResponseWire
+  UserClickedAFilter: {
+    resetPage
   },
-  SelectedRelatedTagsChanged: {
-    resetAppending,
-    setRelatedTags,
-    setOrigin
+  UserClickedASort: {
+    resetPage,
+    setSort
   },
   UserPickedARelatedTag: {
     resetPage
   },
-  UserClickedAFilter: {
-    resetPage
-  },
-  SelectedFiltersChanged: {
-    resetAppending,
-    setSelectedFilters
-  },
-  UserClickedASort: {
+  UserChangedExtraParams: {
     resetPage,
-    resetAppending,
-    setSort
-  },
-  SelectedSortProvided: {
-    setSort
+    resetSort,
+    resetFacets
   },
   UserReachedResultsListEnd: {
     increasePageAppendingResults
   },
+  SearchRequestChanged: {
+    fetchAndSaveSearchResponseWire
+  },
+  SelectedRelatedTagsChanged: {
+    setRelatedTags,
+    setOrigin
+  },
+  SelectedFiltersChanged: {
+    setSelectedFilters
+  },
+  ResultsChanged: {
+    resetAppending
+  },
+  SelectedSortProvided: {
+    setSort
+  },
   ExtraParamsChanged: {
-    resetPage,
-    resetSort,
-    resetFacets,
     setSearchExtraParams
   },
   ParamsLoadedFromUrl: {

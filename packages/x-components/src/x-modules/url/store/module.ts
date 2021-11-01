@@ -1,7 +1,7 @@
 import { urlParams } from './getters/url-params.getter';
 import { initialUrlState } from './initial-state';
+import { setParams } from './mutations/set-params.mutation';
 import { UrlXStoreModule } from './types';
-import { updateStoreFromUrl } from './actions/update-store-from-url.action';
 
 /**
  * {@link XStoreModule} For the URL module.
@@ -10,32 +10,29 @@ import { updateStoreFromUrl } from './actions/update-store-from-url.action';
  */
 export const urlXStoreModule: UrlXStoreModule = {
   state: () => ({
-    ...initialUrlState
+    ...initialUrlState,
+    initialExtraParams: {}
   }),
   getters: {
     urlParams
   },
   mutations: {
-    setExtraParams(state, extraParams) {
-      state.extraParams = { ...state.extraParams, ...extraParams };
-    },
-    setParams(state, params) {
-      state.params = { ...state.params, ...params };
-    },
+    setParams,
     setQuery(state, query) {
-      state.params.query = query;
+      state.query = query;
     },
     setRelatedTags(state, relatedTags) {
-      state.params.tag = relatedTags.map(relatedTag => relatedTag.tag);
+      state.tag = relatedTags.map(relatedTag => relatedTag.tag);
     },
     setFilters(state, newFilters) {
-      state.params.filter = newFilters.map(filter => filter.id as string);
+      state.filter = newFilters.map(filter => filter.id as string);
     },
     setPage(state, page) {
-      state.params.page = page;
+      state.page = page;
+    },
+    setInitialExtraParams(state, extraParams) {
+      state.initialExtraParams = extraParams;
     }
   },
-  actions: {
-    updateStoreFromUrl
-  }
+  actions: {}
 };

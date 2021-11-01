@@ -27,7 +27,7 @@ const routes: RouteConfig[] = [
   {
     path: '/design-system',
     name: 'Design System',
-    component: () => import('./views/design-system.vue')
+    component: () => import('./views/design-system/design-system.vue')
   },
   {
     path: '/full-no-empathize',

@@ -13,7 +13,5 @@ export const setUrlParams: HistoryQueriesXStoreModule['actions']['setUrlParams']
   { commit },
   { query }
 ) => {
-  if (query) {
-    commit('setQuery', query);
-  }
+  commit('setQuery', query);
 };

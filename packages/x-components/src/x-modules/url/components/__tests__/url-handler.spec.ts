@@ -13,27 +13,31 @@ import { UrlHandler } from '../index';
  *
  * @returns The API for testing the {@link UrlHandler} component.
  */
-function renderUrlHandler({ template = `<UrlHandler />` }: UrlHandlerOptions = {}): UrlHandlerAPI {
+function renderUrlHandler({
+  template = `<UrlHandler />`,
+  urlParams = ''
+}: UrlHandlerOptions = {}): UrlHandlerAPI {
   const [, localVue] = installNewXPlugin({ initialXModules: [urlXModule] });
-
+  setUrlParams(urlParams);
   const wrapperTemplate = mount({ template, components: { UrlHandler } }, { localVue });
   const wrapper = wrapperTemplate.findComponent(UrlHandler);
 
-  function dispatchWindowEvent(event: string): (urlParams: string) => void {
-    return function (urlParams: string): void {
-      const newUrl = new URL(window.location.href);
-      newUrl.search = urlParams;
-      window.history.replaceState(history.state, 'test', newUrl.href);
-      window.dispatchEvent(new Event(event));
-    };
+  function setUrlParams(urlParams: string): void {
+    const newUrl = new URL(window.location.href);
+    newUrl.search = urlParams;
+    window.history.replaceState(history.state, 'test', newUrl.href);
+  }
+
+  function popstateUrlWithParams(urlParams: string): void {
+    setUrlParams(urlParams);
+    window.dispatchEvent(new Event('popstate'));
   }
 
   return {
     wrapper,
     on: wrapperTemplate.vm.$x.on.bind(wrapperTemplate.vm.$x),
     emit: wrapperTemplate.vm.$x.emit.bind(wrapperTemplate.vm.$x),
-    loadUrlWithParams: dispatchWindowEvent('load'),
-    popstateUrlWithParams: dispatchWindowEvent('popstate'),
+    popstateUrlWithParams,
     getCurrentUrlParams(): URLSearchParams {
       return new URL(window.location.href).searchParams;
     }
@@ -47,16 +51,12 @@ describe('testing UrlHandler component', () => {
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('url');
   });
 
-  it('emits the `ParamsLoadedFromUrl` when the window is loaded', () => {
-    const { on, loadUrlWithParams } = renderUrlHandler();
+  it('emits the `ParamsLoadedFromUrl` when the component is created', () => {
+    const { on } = renderUrlHandler({
+      urlParams: 'query=lego&page=2&tag=marvel&sort=price desc&scroll=333&filter=brand:lego'
+    });
     const eventSpy = jest.fn();
     on('ParamsLoadedFromUrl').subscribe(eventSpy);
-
-    loadUrlWithParams('query=lego&page=2&tag=marvel&sort=price desc&scroll=333&filter=brand:lego');
-    loadUrlWithParams(
-      'query=playmobil&page=3&tag=harry potter' +
-        '&sort=price asc&scroll=444&filter=brand:playmobil'
-    );
 
     expect(eventSpy).toHaveBeenNthCalledWith(1, {
       query: 'lego',
@@ -65,15 +65,6 @@ describe('testing UrlHandler component', () => {
       sort: 'price desc',
       scroll: 333,
       tag: ['marvel']
-    } as UrlParams);
-
-    expect(eventSpy).toHaveBeenNthCalledWith(2, {
-      query: 'playmobil',
-      page: 3,
-      filter: ['brand:playmobil'],
-      sort: 'price asc',
-      scroll: 444,
-      tag: ['harry potter']
     } as UrlParams);
   });
 
@@ -90,7 +81,7 @@ describe('testing UrlHandler component', () => {
         '&sort=price asc&scroll=444&filter=brand:playmobil'
     );
 
-    expect(eventSpy).toHaveBeenNthCalledWith(1, {
+    expect(eventSpy).toHaveBeenNthCalledWith(2, {
       query: 'lego',
       page: 2,
       filter: ['brand:lego'],
@@ -99,7 +90,7 @@ describe('testing UrlHandler component', () => {
       tag: ['marvel']
     } as UrlParams);
 
-    expect(eventSpy).toHaveBeenNthCalledWith(2, {
+    expect(eventSpy).toHaveBeenNthCalledWith(3, {
       query: 'playmobil',
       page: 3,
       filter: ['brand:playmobil'],
@@ -116,92 +107,86 @@ describe('testing UrlHandler component', () => {
     popstateUrlWithParams('query=lego&page=2');
     popstateUrlWithParams('query=playmobil&page=3');
 
-    expect(eventSpy).toHaveBeenNthCalledWith(1, {
-      ...initialUrlState.params,
+    expect(eventSpy).toHaveBeenNthCalledWith(2, {
+      ...initialUrlState,
       query: 'lego',
       page: 2
     } as UrlParams);
 
-    expect(eventSpy).toHaveBeenNthCalledWith(2, {
-      ...initialUrlState.params,
+    expect(eventSpy).toHaveBeenNthCalledWith(3, {
+      ...initialUrlState,
       query: 'playmobil',
       page: 3
     } as UrlParams);
   });
 
   it('ignores `extra params` that are not configured in the component', () => {
-    const { on, loadUrlWithParams } = renderUrlHandler({
-      template: '<UrlHandler store="store" />'
+    const { on } = renderUrlHandler({
+      template: '<UrlHandler store="store" />',
+      urlParams: 'query=lego&page=2&warehouse=111&store=222'
     });
     const eventSpy = jest.fn();
     on('ParamsLoadedFromUrl').subscribe(eventSpy);
 
-    loadUrlWithParams('query=lego&page=2&warehouse=111&store=222');
-    loadUrlWithParams('query=playmobil&page=3&warehouse=111');
-
     expect(eventSpy).toHaveBeenNthCalledWith(1, {
-      ...initialUrlState.params,
+      ...initialUrlState,
       query: 'lego',
       page: 2,
       store: '222'
     });
-    expect(eventSpy).toHaveBeenNthCalledWith(2, {
-      ...initialUrlState.params,
-      query: 'playmobil',
-      page: 3
-    });
   });
 
   it('allows to configure the URL keys names', () => {
-    const { on, loadUrlWithParams } = renderUrlHandler({
-      template: '<UrlHandler query="q" page="p" />'
+    const { on } = renderUrlHandler({
+      template: '<UrlHandler query="q" page="p" />',
+      urlParams: 'q=lego&p=2'
     });
     const eventSpy = jest.fn();
     on('ParamsLoadedFromUrl').subscribe(eventSpy);
 
-    loadUrlWithParams('q=lego&p=2');
-    loadUrlWithParams('q=playmobil&p=3');
-
     expect(eventSpy).toHaveBeenNthCalledWith(1, {
-      ...initialUrlState.params,
+      ...initialUrlState,
       query: 'lego',
       page: 2
-    });
-    expect(eventSpy).toHaveBeenNthCalledWith(2, {
-      ...initialUrlState.params,
-      query: 'playmobil',
-      page: 3
     });
   });
 
   it('changes the URL params when `PushableUrlStateChanged` is emitted', () => {
-    const { emit, getCurrentUrlParams } = renderUrlHandler();
+    const { emit, getCurrentUrlParams } = renderUrlHandler({
+      template: '<UrlHandler store="store" />'
+    });
     emit('PushableUrlStateChanged', {
-      ...initialUrlState.params,
+      ...initialUrlState,
       query: 'lego',
       page: 2,
-      store: '111'
+      store: '111',
+      warehouse: '222'
     });
     const urlSearchParams = getCurrentUrlParams();
 
     expect(urlSearchParams.get('query')).toEqual('lego');
     expect(urlSearchParams.get('page')).toEqual('2');
     expect(urlSearchParams.get('store')).toEqual('111');
+    expect(urlSearchParams.get('warehouse')).toBeNull();
   });
 
   it('changes the URL params when `ReplaceableUrlStateChanged` is emitted', () => {
-    const { emit, getCurrentUrlParams } = renderUrlHandler();
+    const { emit, getCurrentUrlParams } = renderUrlHandler({
+      template: '<UrlHandler store="store" />'
+    });
     emit('ReplaceableUrlStateChanged', {
-      ...initialUrlState.params,
+      ...initialUrlState,
       query: 'lego',
       page: 2,
-      store: '111'
+      store: '111',
+      warehouse: '222'
     });
     const urlSearchParams = getCurrentUrlParams();
 
     expect(urlSearchParams.get('query')).toEqual('lego');
     expect(urlSearchParams.get('page')).toEqual('2');
     expect(urlSearchParams.get('store')).toEqual('111');
+    expect(urlSearchParams.get('warehouse')).toBeNull();
   });
 });
 
@@ -212,12 +197,6 @@ interface UrlHandlerAPI {
   on: XComponentBusAPI['on'];
   /** The {@link XComponentBusAPI.emit} method to emit events. */
   emit: XComponentBusAPI['emit'];
-  /**
-   * Changes the current URL params with the passed as parameter.
-   *
-   * @param urlParams - The URL params in format string: `query=lego&page=1&scroll=100`.
-   */
-  loadUrlWithParams: (urlParams: string) => void;
   /**
    * Changes the current URL params with the passed as parameter.
    *
@@ -234,4 +213,6 @@ interface UrlHandlerAPI {
 interface UrlHandlerOptions {
   /** The template to render. Receives the `params` via prop. */
   template?: string;
+  /** The URL params to set in URL. */
+  urlParams?: string;
 }

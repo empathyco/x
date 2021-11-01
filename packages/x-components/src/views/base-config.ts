@@ -6,6 +6,7 @@ import { realAdapter } from '../adapter/real-adapter';
 export const baseSnippetConfig: SnippetConfig = {
   instance: 'juguettos',
   lang: 'es',
+  env: 'staging',
   scope: 'x-components-development'
 };
 

@@ -15,8 +15,8 @@ When('{string} is typed in the filters search input', (searchFiltersQuery: strin
 Then('filters in facet are refined with search, {string}', (searchFiltersQuery: string) => {
   cy.getByDataTest('brand-filter')
     .should(filterElements => {
-      filterElements.each((_, e) => {
-        expect(e.innerText.toLowerCase()).to.contain(searchFiltersQuery);
+      filterElements.each((_, filterElement) => {
+        expect(filterElement.innerText.toLowerCase()).to.contain(searchFiltersQuery);
       });
     })
     .invoke('text')
@@ -26,9 +26,9 @@ Then('filters in facet are refined with search, {string}', (searchFiltersQuery: 
 And(
   'searchable filters in facet contain refined filters',
   function (this: { searchableFilters: string[] }) {
-    cy.getByDataTest('brand-filter').should(refinedFilter => {
-      refinedFilter.each((_, e) => {
-        expect(this.searchableFilters).to.contain(e.innerText);
+    cy.getByDataTest('brand-filter').should(refinedFilters => {
+      refinedFilters.each((_, refinedFilter) => {
+        expect(this.searchableFilters).to.contain(refinedFilter.textContent);
       });
     });
   }

@@ -4,12 +4,9 @@ When(
   'sort option {string} is selected from the sort {string}',
   (sortOption: string, sortMenu: string) => {
     if (sortMenu === 'dropdown') {
-      cy.getByDataTest(sortMenu + '-toggle').click();
+      cy.getByDataTest(`sort-${sortMenu}-toggle`).click();
     }
-    cy.getByDataTest('sort-' + sortMenu)
-      .children()
-      .contains(sortOption)
-      .click();
+    cy.getByDataTest(`sort-${sortMenu}`).children().contains(sortOption).click();
   }
 );
 

@@ -52,23 +52,6 @@ describe('testing RenderlessExtraParam component', () => {
   });
 
   // eslint-disable-next-line max-len
-  it("emits ExtraParamsProvided event when the component receives a default value and and it doesn't exist in the store", () => {
-    const extraParamsProvidedCallback = jest.fn();
-    const { wrapper } = renderRenderlessExtraParams({
-      defaultValue: 1234
-    });
-
-    wrapper.vm.$x.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
-
-    expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
-      eventPayload: { warehouse: 1234 },
-      metadata: { moduleName: 'extraParams' }
-    });
-
-    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
-  });
-
-  // eslint-disable-next-line max-len
   it("doesn't emit ExtraParamsProvided event when the component receives a default value if it's in the store", () => {
     const extraParamsProvidedCallback = jest.fn();
     const { wrapper } = renderRenderlessExtraParams({

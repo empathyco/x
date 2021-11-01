@@ -7,7 +7,24 @@ import { Dictionary } from '../../utils';
  * @public
  */
 export interface ExtraParamsXEvents {
+  /**
+   * The user changed the extra params.
+   * * Payload: The new extra params dictionary.
+   */
   UserChangedExtraParams: Dictionary<unknown>;
+  /**
+   * The Extra Params have been changed.
+   * * Payload: The new extra params dictionary.
+   */
   ExtraParamsChanged: Dictionary<unknown>;
+  /**
+   * The Extra Params have been provided.
+   * * Payload: The new extra params dictionary.
+   */
   ExtraParamsProvided: Dictionary<unknown>;
+  /**
+   * The Initial Extra Params have been loaded into the state.
+   * * Payload: The new extra params dictionary.
+   */
+  ExtraParamsInitialized: Dictionary<unknown>;
 }
