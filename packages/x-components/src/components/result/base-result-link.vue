@@ -35,11 +35,16 @@
    */
   @Component
   export default class BaseResultLink extends Vue {
+    /**
+     * The rendered DOM element.
+     *
+     * @internal
+     */
     public $el!: HTMLElement;
     /**
      * The list of additional events to be emitted by the component when user clicks the link.
      *
-     * @public
+     * @internal
      */
     @Inject({ from: 'resultClickExtraEvents', default: [] })
     protected resultClickExtraEvents!: PropsWithType<XEventsTypes, Result>[];
@@ -56,9 +61,9 @@
      * Emits the {@link XEventsTypes.UserClickedAResult} when user clicks on the result, and also
      * additional events if have been injected in the component.
      *
-     * @public
+     * @internal
      */
-    emitUserClickedAResult(): void {
+    protected emitUserClickedAResult(): void {
       this.$x.emit('UserClickedAResult', this.result, { target: this.$el });
       this.resultClickExtraEvents.forEach(event => {
         this.$x.emit(event, this.result, { target: this.$el });
@@ -68,9 +73,9 @@
     /**
      * Emits the {@link XEventsTypes.UserRightClickedAResult} when user right clicks on the result.
      *
-     * @public
+     * @internal
      */
-    emitUserRightClickedAResult(): void {
+    protected emitUserRightClickedAResult(): void {
       this.$x.emit('UserRightClickedAResult', this.result, { target: this.$el });
     }
   }

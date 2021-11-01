@@ -2,6 +2,7 @@ import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { createResultStub } from '../../../__stubs__/results-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
+import { FeatureLocation } from '../../../types/origin';
 import BaseResultLink from '../base-result-link.vue';
 
 describe('testing BaseResultLink component', () => {
@@ -51,7 +52,7 @@ describe('testing BaseResultLink component', () => {
     const resultLinkWrapper = mount(BaseResultLink, {
       provide: {
         resultClickExtraEvents: ['UserClickedResultAddToCart'],
-        location: 'empty-search'
+        location: <FeatureLocation>'no_query'
       },
       localVue,
       propsData: { result }

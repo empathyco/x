@@ -106,7 +106,7 @@ export interface SearchMutations extends StatusMutations {
    *
    * @param origin - The new origin.
    */
-  setOrigin(origin: Origin | undefined): void;
+  setOrigin(origin: Origin | undefined | null): void;
   /**
    * Sets the page of the module.
    *

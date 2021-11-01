@@ -97,8 +97,8 @@ export const searchXStoreModule: SearchXStoreModule = {
     setParams(state, params) {
       state.params = params;
     },
-    setOrigin(state, origin) {
-      state.origin = origin ?? null;
+    setOrigin(state, origin = null) {
+      state.origin = origin;
     },
     setRedirections(state, redirections) {
       state.redirections = redirections;

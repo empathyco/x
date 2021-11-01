@@ -23,20 +23,20 @@ export type FeatureLocation =
   | 'partial_results';
 
 /**
- * The tool that generated a query.
+ * The name of the feature that the event comes from.
  *
  * @public
  */
 export type Feature = QueryFeature | ClickFeature;
 
 /**
- * The name of the feature that the query comes from.
+ * The name of the tool that generated the query.
  *
  * @public
  */
 export type QueryFeature =
   | 'search_box'
-  | 'linked'
+  | 'url'
   | 'query_suggestion'
   | 'query_suggestion_with_facet'
   | 'next_query'

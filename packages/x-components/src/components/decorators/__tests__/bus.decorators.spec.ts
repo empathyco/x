@@ -152,7 +152,7 @@ describe('testing @XOn decorator', () => {
   });
 
   it('filters out callback based on multiple options passed to the decorator', () => {
-    component.vm.$x.emit('UserClickedCloseEventsModal', undefined, { feature: 'linked' });
+    component.vm.$x.emit('UserClickedCloseEventsModal', undefined, { feature: 'url' });
     expect(filteredWithMultipleOptionsListener).not.toHaveBeenCalled();
     component.vm.$x.emit('UserClickedCloseEventsModal', undefined, { feature: 'search_box' });
     expect(filteredWithMultipleOptionsListener).toHaveBeenCalled();

@@ -28,20 +28,26 @@ describe('testing $x component API global mixin', () => {
   });
 
   describe('testing origin', () => {
+    /** Options to render the component to test component's bus origin functionality. */
     interface RenderOriginComponentOptions {
+      /** The feature to be emitted. */
       feature?: Feature;
+      /** The location to be emitted. */
       location?: FeatureLocation;
     }
 
+    /** API returned by the component to test component's bus origin functionality. */
     interface RenderOriginComponentAPI {
+      /** The bus emit, to assert that it has been called with a proper origin. */
       busListener: jest.SpyInstance;
+      /** The component testing wrapper. Will emit a {@link XEvent} when clicked. */
       wrapper: Wrapper<Vue>;
     }
 
     function renderOriginComponent({
       feature,
       location
-    }: RenderOriginComponentOptions = {}): RenderOriginComponentAPI {
+    }: RenderOriginComponentOptions): RenderOriginComponentAPI {
       const busListener = jest.spyOn(XPlugin.bus, 'emit');
       const wrapper = mount(
         {
@@ -72,8 +78,7 @@ describe('testing $x component API global mixin', () => {
 
     it("doesn't include origin in the $x.emit if there is no location", () => {
       const { wrapper, busListener } = renderOriginComponent({
-        feature: 'search_box',
-        location: undefined
+        feature: 'search_box'
       });
       wrapper.trigger('click');
 
@@ -87,7 +92,6 @@ describe('testing $x component API global mixin', () => {
 
     it("doesn't include origin in the $x.emit if there is no feature", () => {
       const { wrapper, busListener } = renderOriginComponent({
-        feature: undefined,
         location: 'predictive_layer'
       });
       wrapper.trigger('click');

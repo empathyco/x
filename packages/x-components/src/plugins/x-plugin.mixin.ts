@@ -98,6 +98,7 @@ export function getRootXComponent(component: Vue): XComponent | undefined {
  * related with a query.
  * @param location - The location where the event has happened.
  * @returns The composed origin, or `undefined` if it is not able to create the origin.
+ * @internal
  */
 function createOrigin(
   feature: Feature | undefined,

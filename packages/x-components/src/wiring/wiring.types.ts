@@ -36,13 +36,13 @@ export type Wire<PayloadType> = (
 export interface WireMetadata {
   /** The {@link Feature} that originated the event. */
   feature?: Feature;
-  /** The composed {@link Origin} that originated the event. */
-  origin?: Origin;
   /** The id of the component origin. */
   id?: string;
   /** The {@link XModule} name that emitted the event or `null` if it has been emitted from an
    * unknown module. */
   moduleName: XModuleName | null;
+  /** The composed {@link Origin} that originated the event. */
+  origin?: Origin;
   /** The DOM element that triggered the event emission. */
   target?: HTMLElement;
 }
@@ -129,7 +129,8 @@ export interface WireService<SomeService> {
    *
    * @param method - The method to invoke.
    * @returns A Wire that expects to receive the function parameter as payload.
-   */ <SomeMethod extends PropsWithType<SomeService, MonadicFunction>>(method: SomeMethod): Wire<
+   */
+  <SomeMethod extends PropsWithType<SomeService, MonadicFunction>>(method: SomeMethod): Wire<
     FirstParameter<SomeService[SomeMethod]>
   >;
   /**
@@ -138,7 +139,8 @@ export interface WireService<SomeService> {
    * @param method - The method to invoke.
    * @param payload - The payload to invoke the service with.
    * @returns A Wire that can be used anywhere.
-   */ <SomeMethod extends PropsWithType<SomeService, MonadicFunction>>(
+   */
+  <SomeMethod extends PropsWithType<SomeService, MonadicFunction>>(
     method: SomeMethod,
     payload: FirstParameter<SomeService[SomeMethod]>
   ): AnyWire;
@@ -155,5 +157,6 @@ export interface WireServiceWithoutPayload<SomeService> {
    *
    * @param method - The method to invoke.
    * @returns A Wire that can be used anywhere.
-   */ <SomeMethod extends PropsWithType<SomeService, NiladicFunction>>(method: SomeMethod): AnyWire;
+   */
+  <SomeMethod extends PropsWithType<SomeService, NiladicFunction>>(method: SomeMethod): AnyWire;
 }
