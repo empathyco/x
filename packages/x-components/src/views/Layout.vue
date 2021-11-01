@@ -54,13 +54,7 @@
       </li>
     </ul>
     <BaseKeyboardNavigation>
-      <BaseEventsModal
-        :eventsToOpenModal="[
-          'UserClickedOpenEventsModal',
-          'UserOpenXProgrammatically',
-          'QueryLoadedFromUrl'
-        ]"
-      >
+      <BaseEventsModal :eventsToOpenModal="eventsToOpenModal">
         <MultiColumnMaxWidthLayout class="x-background--neutral-100">
           <template #header-middle>
             <div
@@ -444,15 +438,13 @@
   import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
-  // eslint-disable-next-line max-len
-  import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import CollapseHeight from '../components/animations/collapse-height.vue';
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
   import AutoProgressBar from '../components/auto-progress-bar.vue';
   import BaseDropdown from '../components/base-dropdown.vue';
   import BaseGrid from '../components/base-grid.vue';
+  import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
   import BaseVariableColumnGrid from '../components/base-variable-column-grid.vue';
   import BaseColumnPickerList from '../components/column-picker/base-column-picker-list.vue';
   import CheckTiny from '../components/icons/check-tiny.vue';
@@ -477,10 +469,12 @@
   import BaseIdTogglePanelButton from '../components/panels/base-id-toggle-panel-button.vue';
   import BaseIdTogglePanel from '../components/panels/base-id-toggle-panel.vue';
   import BaseResultImage from '../components/result/base-result-image.vue';
+  import BaseResultLink from '../components/result/base-result-link.vue';
   import BaseScrollToTop from '../components/scroll/base-scroll-to-top.vue';
   import SlidingPanel from '../components/sliding-panel.vue';
   import BaseSuggestions from '../components/suggestions/base-suggestions.vue';
   import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
+  import { XEvent } from '../wiring';
   import { XInstaller } from '../x-installer/x-installer';
   import Empathize from '../x-modules/empathize/components/empathize.vue';
   import ExtraParams from '../x-modules/extra-params/components/extra-params.vue';
@@ -498,10 +492,13 @@
   import FiltersList from '../x-modules/facets/components/lists/filters-list.vue';
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
   import SelectedFiltersList from '../x-modules/facets/components/lists/selected-filters-list.vue';
+  import SelectedFilters from '../x-modules/facets/components/lists/selected-filters.vue';
   import SlicedFilters from '../x-modules/facets/components/lists/sliced-filters.vue';
   import SortedFilters from '../x-modules/facets/components/lists/sorted-filters.vue';
   import { FilterEntityFactory } from '../x-modules/facets/entities/filter-entity.factory';
   import { SingleSelectModifier } from '../x-modules/facets/entities/single-select.modifier';
+  // eslint-disable-next-line max-len
+  import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
   import IdentifierResult from '../x-modules/identifier-results/components/identifier-result.vue';
   import IdentifierResults from '../x-modules/identifier-results/components/identifier-results.vue';
@@ -546,20 +543,21 @@
       infiniteScroll
     },
     components: {
-      BaseKeyboardNavigation,
-      BaseEventsModalClose,
       AutoProgressBar,
       Banner,
       BannersList,
       BaseColumnPickerList,
       BaseDropdown,
       BaseEventsModal,
+      BaseEventsModalClose,
       BaseEventsModalOpen,
       BaseGrid,
       BaseHeaderTogglePanel,
       BaseIdTogglePanel,
       BaseIdTogglePanelButton,
+      BaseKeyboardNavigation,
       BaseResultImage,
+      BaseResultLink,
       BaseScrollToTop,
       BaseSuggestions,
       BaseVariableColumnGrid,
@@ -608,16 +606,17 @@
       SearchButton,
       SearchIcon,
       SearchInput,
+      SelectedFilters,
       SelectedFiltersList,
       SimpleFilter,
       SlicedFilters,
       SlidingPanel,
       SnippetConfigExtraParams,
       SortDropdown,
+      SortList,
       SortedFilters,
       Spellcheck,
       SpellcheckButton,
-      SortList,
       UrlHandler
     }
   })
@@ -645,6 +644,10 @@
         maxItemsToRender: 5
       }
     };
+    protected eventsToOpenModal: XEvent[] = [
+      'UserClickedOpenEventsModal',
+      'UserOpenXProgrammatically'
+    ];
     protected staticFacets: Facet[] = [
       {
         modelName: 'SimpleFacet',

@@ -1,16 +1,16 @@
-import { PageableRequest } from '@empathyco/x-adapter';
+import { PageableRequest, SearchResponse } from '@empathyco/x-adapter';
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import '../cucumber/global-definitions';
 import {
+  createHierarchicalFacetStub,
+  createNumberRangeFacetStub,
   createResultStub,
+  createSimpleFacetStub,
   getNextQueriesStub,
   getPopularSearchesStub,
   getQuerySuggestionsStub,
   getRelatedTagsStub,
-  getResultsStub,
-  createSimpleFacetStub,
-  createNumberRangeFacetStub,
-  createHierarchicalFacetStub
+  getResultsStub
 } from '../../../src/__stubs__';
 
 let resultsList: string[] = [];
@@ -235,9 +235,16 @@ Given('an ID results API', () => {
 
 Given('a results API with a known response', () => {
   cy.intercept('https://api.empathy.co/search', req => {
-    req.reply({
+    req.reply(<SearchResponse>{
       banners: [],
       promoteds: [],
+      redirections: [],
+      partialResults: [],
+      queryTagging: {
+        url: 'https://analytics.com',
+        params: {}
+      },
+      spellcheck: '',
       facets: [
         createSimpleFacetStub('brand_facet', createSimpleFilter => [
           createSimpleFilter('Juguetes deportivos', false, 3),

@@ -3,7 +3,7 @@ import { getDataTestSelector } from '../../__tests__/utils';
 import AutoProgressBar from '../auto-progress-bar.vue';
 
 function renderAutoProgressBar({
-  template = '<AutoProgressBar :duration="duration" :isLoading="isLoading"/>',
+  template = '<AutoProgressBar :durationInSeconds="durationInSeconds" :isLoading="isLoading"/>',
   durationInSeconds = 1,
   isLoading = true
 }: RenderBaseAutoProgressBarOptions = {}): RenderAutoProgressBarAPI {
@@ -45,10 +45,10 @@ describe('testing AutoProgressBar component', () => {
   });
 
   it('render a progress bar component with an animation', () => {
-    const { wrapper } = renderAutoProgressBar({ durationInSeconds: 5 });
+    const { wrapper } = renderAutoProgressBar({ durationInSeconds: 2.5 });
 
     expect(wrapper.find(getDataTestSelector('progress-bar-line')).attributes().style).toBe(
-      'animation-duration: 5s;'
+      'animation-duration: 2.5s;'
     );
   });
 });

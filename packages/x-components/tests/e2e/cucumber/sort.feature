@@ -11,17 +11,15 @@ Feature: Search sort components
 
   Scenario Outline: 1. Search sort list and dropdown order the results
     When  "<query>" is searched
+    Then  search request contains the selected sort "<defaultSort>"
     Then  related results are displayed
-    When  waiting for search request intercept
-    And   sort option "<sortOption2>" is selected from the sort "dropdown"
+    When  sort option "<sortOption2>" is selected from the sort "dropdown"
     Then  search request contains the selected sort "<sortOption2>"
-    When  waiting for search request intercept
-    And   sort option "<sortOption1>" is selected from the sort "dropdown"
+    When  sort option "<sortOption1>" is selected from the sort "dropdown"
     Then  search request contains the selected sort "<sortOption1>"
-    When  waiting for search request intercept
-    And   sort option "<sortOption3>" is selected from the sort "dropdown"
-    Then  search request contains the selected sort "<sortOption3>"
+    When  sort option "<defaultSort>" is selected from the sort "dropdown"
+    Then  search request contains the selected sort "<defaultSort>"
 
     Examples:
-      | query  | sortOption1    | sortOption2     | sortOption3 |
-      | lego   | priceSort asc  | priceSort desc  | default     |
+      | query | sortOption1   | sortOption2    | defaultSort |
+      | lego  | priceSort asc | priceSort desc | default     |
