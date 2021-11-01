@@ -38,6 +38,11 @@ export class FilterEntityFactory {
    */
   protected modifiers: Record<Facet['id'], FilterEntityModifier[]> = {};
 
+  /**
+   * Contains the instantiated entities for each facet.
+   *
+   * @internal
+   */
   protected cache: Record<Facet['id'] | '__unknown-facet__', FilterEntity> = {};
 
   /**
@@ -55,6 +60,14 @@ export class FilterEntityFactory {
     );
   }
 
+  /**
+   * Creates a brand new {@link FilterEntity} for the given {@link Filter}.
+   *
+   * @param store - The store which should be mutated through the entity.
+   * @param filter - The filter to create the entity for.
+   * @returns A new {@link FilterEntity} for the given {@link Filter}.
+   * @internal
+   */
   protected instantiateFilterEntity(store: Store<RootXStoreState>, filter: Filter): FilterEntity {
     const filterEntityConstructor = this.entities.find(entity => entity.accepts(filter));
     if (!filterEntityConstructor) {
