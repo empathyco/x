@@ -50,7 +50,8 @@ export class FilterEntityFactory {
    *
    * @param store - The {@link https://vuex.vuejs.org/guide/ | Vuex Store} that the entity will
    * use.
-   * @param filter - The filter necesary to know what Entity to create.
+   * @param filter - The {@link @empathyco/x-types#Filter | Filter} necessary to know what
+   * {@link FilterEntity} to create.
    * @returns The {@link FilterEntity} created by the factory.
    */
   createFilterEntity(store: Store<RootXStoreState>, filter: Filter): FilterEntity {
@@ -61,11 +62,12 @@ export class FilterEntityFactory {
   }
 
   /**
-   * Creates a brand new {@link FilterEntity} for the given {@link Filter}.
+   * Creates a brand new {@link FilterEntity} for the given
+   * {@link @empathyco/x-types#Filter | Filter}.
    *
    * @param store - The store which should be mutated through the entity.
    * @param filter - The filter to create the entity for.
-   * @returns A new {@link FilterEntity} for the given {@link Filter}.
+   * @returns A new {@link FilterEntity} for the given {@link @empathyco/x-types#Filter | Filter}.
    * @internal
    */
   protected instantiateFilterEntity(store: Store<RootXStoreState>, filter: Filter): FilterEntity {
