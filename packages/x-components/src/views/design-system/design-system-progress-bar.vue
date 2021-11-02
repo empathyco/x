@@ -33,12 +33,9 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import SearchIcon from '../../components/icons/search.vue';
 
-  @Component({
-    components: { SearchIcon }
-  })
-  export default class DesignSystemButton extends Vue {}
+  @Component
+  export default class DesignSystemProgressBar extends Vue {}
 </script>
 
 <style lang="scss" scoped>
