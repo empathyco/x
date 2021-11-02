@@ -22,8 +22,8 @@ Feature: MultiSelect filters component
     And   filter "<filter2>" is shown in the selected filters list
     And   search request contains "<filter1>" filter
     And   search request contains "<filter2>" filter
-    And   clear-filters button should have 2 filters selected
+    And   clear-filters button should have <totalSelectedFilters> filters selected
 
     Examples:
-      | query | filter1       | filter2       | facetName   |
-      | lego  | From 30 to 40 | From 10 to 20 | price_facet |
+      | query | filter1       | filter2       | facetName   | totalSelectedFilters |
+      | lego  | From 30 to 40 | From 10 to 20 | price_facet | 2                    |

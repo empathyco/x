@@ -8,7 +8,7 @@ import { getXComponentXModuleName, isXComponent } from '../../../../../component
 import { XPlugin } from '../../../../../plugins';
 import { RootXStoreState } from '../../../../../store';
 import { DeepPartial } from '../../../../../utils';
-import { FilterEntityFactory } from '../../../entities/filter-entity.factory';
+import { resetFacetsService } from '../../../__tests__/utils';
 import { DefaultFacetsService } from '../../../service/facets.service';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
@@ -23,7 +23,7 @@ import SelectedFilters from '../selected-filters.vue';
 function renderSelectedFilters({
   template = '<SelectedFilters />'
 }: RenderSelectedFiltersOptions = {}): RenderSelectedFiltersAPI {
-  DefaultFacetsService.instance = new DefaultFacetsService(new FilterEntityFactory());
+  resetFacetsService();
 
   const facets: Record<Facet['id'], Facet> = {
     gender: createSimpleFacetStub('gender', createFilter => [
@@ -168,10 +168,10 @@ interface RenderSelectedFiltersOptions {
 }
 
 interface RenderSelectedFiltersAPI {
-  /** The wrapper of the container element. */
-  wrapper: Wrapper<Vue>;
   /** The `selectedFilters` wrapper component. */
   selectedFiltersWrapper: Wrapper<Vue>;
   /** Toggle nth filter of the facet provided. */
   toggleFacetNthFilter: (facetId: string, nth: number) => Promise<void>;
+  /** The wrapper of the container element. */
+  wrapper: Wrapper<Vue>;
 }

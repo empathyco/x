@@ -13,7 +13,7 @@ import { RootXStoreState } from '../../../../../store/store.types';
 import { arrayToObject } from '../../../../../utils/array';
 import { areFiltersDifferent } from '../../../../../utils/filters';
 import { DeepPartial, Dictionary } from '../../../../../utils/types';
-import { FilterEntityFactory } from '../../../entities/filter-entity.factory';
+import { resetFacetsService } from '../../../__tests__/utils';
 import { DefaultFacetsService } from '../../../service/facets.service';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
@@ -130,7 +130,7 @@ function renderFacetsProviderComponent({
   stateFacets = {},
   providedFacets
 }: FacetsRenderOptions = {}): FacetsComponentAPI {
-  DefaultFacetsService.instance = new DefaultFacetsService(new FilterEntityFactory());
+  resetFacetsService();
 
   const localVue = createLocalVue();
   localVue.use(Vuex);

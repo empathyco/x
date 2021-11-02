@@ -53,12 +53,12 @@ export class DefaultFacetsService implements FacetsService {
   }
 
   deselect(filter: Filter): void {
-    this.createEntity(filter).deselect(filter);
+    this.getFilterEntity(filter).deselect(filter);
   }
 
   select(filterOrFilters: Filter | Filter[]): void {
     const filters = Array.isArray(filterOrFilters) ? filterOrFilters : [filterOrFilters];
-    filters.forEach(filter => this.createEntity(filter).select(filter));
+    filters.forEach(filter => this.getFilterEntity(filter).select(filter));
   }
 
   toggle(filter: Filter): void {
@@ -76,8 +76,8 @@ export class DefaultFacetsService implements FacetsService {
    * @returns The filter entity.
    * @internal
    */
-  protected createEntity(filter: Filter): FilterEntity {
-    return this.filterEntityFactory.createFilterEntity(this.store, filter);
+  protected getFilterEntity(filter: Filter): FilterEntity {
+    return this.filterEntityFactory.getFilterEntity(this.store, filter);
   }
 
   /**
@@ -121,7 +121,7 @@ export class DefaultFacetsService implements FacetsService {
     if (!isArrayEmpty(newFilters)) {
       const newStateFiltersMap = arrayToObject(previousFilters ?? newFilters, 'id');
       newFilters.forEach(filter => {
-        const filterEntity = this.createEntity(filter);
+        const filterEntity = this.getFilterEntity(filter);
         if (newStateFiltersMap[filter.id]?.selected) {
           filterEntity.select(filter);
         } else {

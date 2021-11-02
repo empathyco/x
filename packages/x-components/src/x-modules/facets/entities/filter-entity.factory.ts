@@ -54,11 +54,9 @@ export class FilterEntityFactory {
    * {@link FilterEntity} to create.
    * @returns The {@link FilterEntity} created by the factory.
    */
-  createFilterEntity(store: Store<RootXStoreState>, filter: Filter): FilterEntity {
+  getFilterEntity(store: Store<RootXStoreState>, filter: Filter): FilterEntity {
     const cacheKey = isFacetFilter(filter) ? filter.facetId : '__unknown-facet__';
-    return (
-      this.cache[cacheKey] ?? (this.cache[cacheKey] = this.instantiateFilterEntity(store, filter))
-    );
+    return this.cache[cacheKey] ?? (this.cache[cacheKey] = this.createFilterEntity(store, filter));
   }
 
   /**
@@ -70,7 +68,7 @@ export class FilterEntityFactory {
    * @returns A new {@link FilterEntity} for the given {@link @empathyco/x-types#Filter | Filter}.
    * @internal
    */
-  protected instantiateFilterEntity(store: Store<RootXStoreState>, filter: Filter): FilterEntity {
+  protected createFilterEntity(store: Store<RootXStoreState>, filter: Filter): FilterEntity {
     const filterEntityConstructor = this.entities.find(entity => entity.accepts(filter));
     if (!filterEntityConstructor) {
       throw new Error(`Entity configuration for ${filter.modelName} not registered.`);

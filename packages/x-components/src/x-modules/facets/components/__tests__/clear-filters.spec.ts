@@ -11,7 +11,7 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components/x
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
-import { FilterEntityFactory } from '../../entities/filter-entity.factory';
+import { resetFacetsService } from '../../__tests__/utils';
 import { DefaultFacetsService } from '../../service/facets.service';
 import { facetsXModule } from '../../x-module';
 import ClearFilters from '../clear-filters.vue';
@@ -30,7 +30,7 @@ function renderClearFilters({
     </ClearFilters>
   `
 }: RenderFiltersOptions = {}): RenderFiltersAPI {
-  DefaultFacetsService.instance = new DefaultFacetsService(new FilterEntityFactory());
+  resetFacetsService();
 
   const facets = {
     category: createHierarchicalFacetStub('Category', createFilter => [
@@ -197,8 +197,6 @@ interface RenderFiltersOptions {
 }
 
 interface RenderFiltersAPI {
-  /** The wrapper of the container element.*/
-  wrapper: Wrapper<Vue>;
   /** The `clearFilters` wrapper component. */
   clearFiltersWrapper: Wrapper<Vue>;
   /**
@@ -213,4 +211,6 @@ interface RenderFiltersAPI {
    * @returns A promise that resolves after re-rendering the component.
    */
   setFacetsIds: (facetsIds: Array<Facet['id']>) => Promise<void>;
+  /** The wrapper of the container element.*/
+  wrapper: Wrapper<Vue>;
 }
