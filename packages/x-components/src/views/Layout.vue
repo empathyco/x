@@ -349,7 +349,10 @@
                                 <div style="padding-top: 100%; background-color: lightgray"></div>
                               </template>
                               <template #fallback>
-                                <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                                <div
+                                  data-test="result-picture-fallback"
+                                  style="padding-top: 100%; background-color: lightsalmon"
+                                ></div>
                               </template>
                             </BaseResultImage>
                             <h1 class="x-title3" data-test="result-text">{{ result.name }}</h1>
@@ -404,7 +407,10 @@
                             <div style="padding-top: 100%; background-color: lightgray"></div>
                           </template>
                           <template #fallback>
-                            <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                            <div
+                              data-test="result-picture-fallback"
+                              style="padding-top: 100%; background-color: lightsalmon"
+                            ></div>
                           </template>
                         </BaseResultImage>
                         <span class="x-result__title" data-test="partial-result-item">
@@ -435,7 +441,10 @@
                         <div style="padding-top: 100%; background-color: lightgray"></div>
                       </template>
                       <template #fallback>
-                        <div style="padding-top: 100%; background-color: lightsalmon"></div>
+                        <div
+                          data-test="result-picture-fallback"
+                          style="padding-top: 100%; background-color: lightsalmon"
+                        ></div>
                       </template>
                     </BaseResultImage>
                     <h1 class="x-title3" data-test="recommendation-item">{{ result.name }}</h1>

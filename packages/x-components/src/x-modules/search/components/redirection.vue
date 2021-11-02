@@ -71,7 +71,7 @@
      * @internal
      */
     protected get redirection(): RedirectionModel | null {
-      return this.redirections[0] ?? null;
+      return this.redirections?.[0] ?? null;
     }
 
     /**
