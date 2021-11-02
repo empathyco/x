@@ -54,13 +54,7 @@
       </li>
     </ul>
     <BaseKeyboardNavigation>
-      <BaseEventsModal
-        :eventsToOpenModal="[
-          'UserClickedOpenEventsModal',
-          'UserOpenXProgrammatically',
-          'QueryLoadedFromUrl'
-        ]"
-      >
+      <BaseEventsModal :eventsToOpenModal="eventsToOpenModal">
         <MultiColumnMaxWidthLayout class="x-background--neutral-100">
           <template #header-middle>
             <div
@@ -498,10 +492,12 @@
   import BaseIdTogglePanelButton from '../components/panels/base-id-toggle-panel-button.vue';
   import BaseIdTogglePanel from '../components/panels/base-id-toggle-panel.vue';
   import BaseResultImage from '../components/result/base-result-image.vue';
+  import BaseResultLink from '../components/result/base-result-link.vue';
   import BaseScrollToTop from '../components/scroll/base-scroll-to-top.vue';
   import SlidingPanel from '../components/sliding-panel.vue';
   import BaseSuggestions from '../components/suggestions/base-suggestions.vue';
   import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
+  import { XEvent } from '../wiring';
   import { XInstaller } from '../x-installer/x-installer';
   import Empathize from '../x-modules/empathize/components/empathize.vue';
   import ExtraParams from '../x-modules/extra-params/components/extra-params.vue';
@@ -519,6 +515,7 @@
   import FiltersList from '../x-modules/facets/components/lists/filters-list.vue';
   import FiltersSearch from '../x-modules/facets/components/lists/filters-search.vue';
   import SelectedFiltersList from '../x-modules/facets/components/lists/selected-filters-list.vue';
+  import SelectedFilters from '../x-modules/facets/components/lists/selected-filters.vue';
   import SlicedFilters from '../x-modules/facets/components/lists/sliced-filters.vue';
   import SortedFilters from '../x-modules/facets/components/lists/sorted-filters.vue';
   import { FilterEntityFactory } from '../x-modules/facets/entities/filter-entity.factory';
@@ -583,6 +580,7 @@
       BaseIdTogglePanelButton,
       BaseKeyboardNavigation,
       BaseResultImage,
+      BaseResultLink,
       BaseScrollToTop,
       BaseSuggestions,
       BaseVariableColumnGrid,
@@ -631,16 +629,17 @@
       SearchButton,
       SearchIcon,
       SearchInput,
+      SelectedFilters,
       SelectedFiltersList,
       SimpleFilter,
       SlicedFilters,
       SlidingPanel,
       SnippetConfigExtraParams,
       SortDropdown,
+      SortList,
       SortedFilters,
       Spellcheck,
       SpellcheckButton,
-      SortList,
       UrlHandler
     }
   })
@@ -668,6 +667,10 @@
         maxItemsToRender: 5
       }
     };
+    protected eventsToOpenModal: XEvent[] = [
+      'UserClickedOpenEventsModal',
+      'UserOpenXProgrammatically'
+    ];
     protected staticFacets: Facet[] = [
       {
         modelName: 'SimpleFacet',
