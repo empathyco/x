@@ -19,7 +19,7 @@ function renderSortList({
         {{ item }}
       </template>
    </SortList>`,
-  items = ['Relevance', 'Price low to high', 'Price high to low'],
+  items = ['', 'Price low to high', 'Price high to low'],
   selectedSort = items[0]
 }: RenderSortListOptions = {}): RenderSortListAPI {
   const localVue = createLocalVue();
@@ -110,7 +110,7 @@ describe('testing SortList component', () => {
   });
 
   // eslint-disable-next-line max-len
-  it('emits the first element of the `items` prop as the provided sort if no `value` is provided', () => {
+  it('emits the first element of the `items` prop as the provided sort', () => {
     const { onSelectedSortProvided } = renderSortList({
       items: ['price desc', 'price asc', '']
     });

@@ -40,6 +40,6 @@ export default class SortMixin extends Vue {
    */
   @XEmit('SelectedSortProvided')
   public get providedSelectedSort(): Sort {
-    return this.selectedSort ?? this.items[0];
+    return this.selectedSort;
   }
 }

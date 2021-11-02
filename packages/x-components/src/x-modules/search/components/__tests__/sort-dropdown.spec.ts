@@ -22,7 +22,7 @@ function renderSortDropdown({
         {{ item }}
       </template>
    </SortDropdown>`,
-  items = ['Relevance', 'Price low to high', 'Price high to low'],
+  items = ['', 'Price low to high', 'Price high to low'],
   selectedSort = items[0]
 }: RenderSortDropdownOptions = {}): RenderSortDropdownAPI {
   const localVue = createLocalVue();
@@ -124,7 +124,7 @@ describe('testing SortDropdown component', () => {
     });
   });
   // eslint-disable-next-line max-len
-  it('emits the first element of the `items` prop as the provided sort if no `value` is provided', () => {
+  it('returns a default empty string at first', () => {
     const { onSelectedSortProvided } = renderSortDropdown({
       items: ['price desc', 'price asc', '']
     });
@@ -159,7 +159,7 @@ describe('testing SortDropdown component', () => {
 
     it('allows to customize the toggle button', async () => {
       const { getToggleButton, clickToggleButton } = renderSortDropdown({
-        items: ['Relevance', 'Price low to high', 'Price high to low'],
+        items: ['', 'Price low to high', 'Price high to low'],
         template: `
           <SortDropdown v-bind="$attrs">
             <template #toggle="{ item, isOpen }">
