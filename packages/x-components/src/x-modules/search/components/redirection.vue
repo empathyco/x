@@ -1,5 +1,9 @@
 <template>
-  <div v-if="redirection" class="x-redirection" data-test="redirection">
+  <div
+    v-if="redirection && $scopedSlots.default"
+    class="x-redirection x-message"
+    data-test="redirection"
+  >
     <slot v-bind="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }" />
   </div>
 </template>
@@ -67,7 +71,7 @@
      * @internal
      */
     protected get redirection(): RedirectionModel | null {
-      return this.redirections[0] ?? null;
+      return this.redirections?.[0] ?? null;
     }
 
     /**

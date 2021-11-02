@@ -382,6 +382,15 @@
       </div>
     </article>
 
+    <article class="x-list x-list--vertical x-list--gap-06 x-padding-bottom--06">
+      <h2 class="x-title2">Font Weight</h2>
+      <div class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
+        <div class="x-list x-padding--06 x-font-weight--light">Font Weight Light</div>
+        <div class="x-list x-padding--06 x-font-weight--regular">Font Weight Regular</div>
+        <div class="x-list x-padding--06 x-font-weight--bold">Font Weight Bold</div>
+      </div>
+    </article>
+
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
       <h2 class="x-title2">Padding</h2>
       <div class="x-background--neutral-70 x-padding--00">

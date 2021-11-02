@@ -34,7 +34,7 @@ function renderComponent({ items = itemsStub }: RenderOptions = {}): RenderAPI {
     wrapper: wrapper,
     mountComponent,
     hasColumns(columns: number): boolean {
-      return wrapper.classes(`x-base-grid--cols-${columns}`);
+      return wrapper.classes(`x-grid--cols-${columns}`);
     },
     isScopedSlotOverridden(selector): boolean {
       return wrapper.find(getDataTestSelector(selector)).exists();
@@ -69,7 +69,7 @@ describe('testing BaseVariableColumnGrid component', () => {
     expect(hasColumns(6)).toBe(true);
 
     const wrapper2 = mountComponent();
-    expect(wrapper2.classes('x-base-grid--cols-6')).toBe(true);
+    expect(wrapper2.classes('x-grid--cols-6')).toBe(true);
   });
 });
 
