@@ -74,7 +74,7 @@ export interface XComponentBusAPI {
   emit<Event extends XEvent>(
     event: Event,
     payload: XEventPayload<Event>,
-    metadata?: Omit<WireMetadata, 'moduleName'>
+    metadata?: Omit<WireMetadata, 'moduleName' | 'origin'>
   ): void;
   /* eslint-enable jsdoc/require-description-complete-sentence */
 }

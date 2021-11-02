@@ -1,7 +1,8 @@
 import Vue, { ComponentOptions } from 'vue';
 import { XComponent } from '../components/x-component.types';
 import { getXComponentXModuleName, isXComponent } from '../components/x-component.utils';
-import { Feature, FeatureLocation, Origin } from '../types/origin';
+import { QueryFeature, QueryLocation, QueryOrigin } from '../types/query-origin';
+import { ResultLocation } from '../types/result-location';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
 import { XBus } from './x-bus.types';
@@ -15,7 +16,7 @@ declare module 'vue/types/vue' {
 }
 
 interface PrivateExtendedVueComponent extends Vue {
-  $location: FeatureLocation;
+  $location?: QueryLocation | ResultLocation;
   xComponent: XComponent | undefined;
 }
 
@@ -64,8 +65,14 @@ export function getBusAPI(bus: XBus, component: PrivateExtendedVueComponent): XC
     ) => {
       const xComponent = component.xComponent;
       const moduleName = xComponent ? getXComponentXModuleName(xComponent) : null;
-      const origin = createOrigin(metadata.feature, component.$location);
-      bus.emit(event, payload as any, { moduleName, origin, ...metadata });
+      // If we have `metadata.feature`, `this.$location` should be of type `QueryLocation`.
+      const origin = createQueryOrigin(metadata.feature, component.$location as QueryLocation);
+      bus.emit.call(event, payload as any, {
+        moduleName,
+        origin,
+        location: component.$location,
+        ...metadata
+      });
       xComponent?.$emit(event, payload);
     },
     on: bus.on.bind(bus)
@@ -91,8 +98,8 @@ export function getRootXComponent(component: Vue): XComponent | undefined {
 }
 
 /**
- * Creates an {@link Origin} string given a {@link Feature} and a {@link FeatureLocation}. If it
- * can't create it, it will return `undefined`.
+ * Creates a {@link QueryOrigin} string given a {@link QueryFeature} and a {@link QueryLocation}.
+ * If the {@link QueryOrigin} can't be created, it returns `undefined`.
  *
  * @param feature - The feature that originated the query, or `undefined` if the event is not
  * related with a query.
@@ -100,10 +107,10 @@ export function getRootXComponent(component: Vue): XComponent | undefined {
  * @returns The composed origin, or `undefined` if it is not able to create the origin.
  * @internal
  */
-function createOrigin(
-  feature: Feature | undefined,
-  location: FeatureLocation | undefined
-): Origin | undefined {
+function createQueryOrigin(
+  feature: QueryFeature | undefined,
+  location: QueryLocation | undefined
+): QueryOrigin | undefined {
   if (location && feature) {
     return `${feature}:${location}`;
   }

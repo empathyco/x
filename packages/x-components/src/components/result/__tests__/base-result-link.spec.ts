@@ -2,7 +2,8 @@ import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { createResultStub } from '../../../__stubs__/results-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
-import { FeatureLocation } from '../../../types/origin';
+import { QueryLocation } from '../../../types/query-origin';
+import { XEvent } from '../../../wiring/events.types';
 import BaseResultLink from '../base-result-link.vue';
 
 describe('testing BaseResultLink component', () => {
@@ -46,13 +47,12 @@ describe('testing BaseResultLink component', () => {
     expect(listener).toHaveBeenCalledWith(result);
   });
 
-  it('emits events provided from parent element with provided origin in metadata', () => {
-    // Using `UserClickedResultAddToCart` for testing purposes, needs to be an XEvent
+  it('emits events provided from parent element with provided location in metadata', () => {
     const listener = jest.fn();
     const resultLinkWrapper = mount(BaseResultLink, {
       provide: {
-        resultClickExtraEvents: ['UserClickedResultAddToCart'],
-        location: <FeatureLocation>'no_query'
+        resultClickExtraEvents: <XEvent[]>['UserClickedResultAddToCart'],
+        location: <QueryLocation>'no_query'
       },
       localVue,
       propsData: { result }
