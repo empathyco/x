@@ -73,6 +73,12 @@ export interface UrlMutations {
    */
   setPage(page: number): void;
   /**
+   * Sets the url scroll.
+   *
+   * @param scroll - The new first element visible in the scroll.
+   */
+  setScroll(scroll: string): void;
+  /**
    * Sets the initial extra params.
    *
    * @param extraParams - The new initial extra params.

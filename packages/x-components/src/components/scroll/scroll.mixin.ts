@@ -1,6 +1,10 @@
 import Vue from 'vue';
 import { Prop, Watch } from 'vue-property-decorator';
 import Component from 'vue-class-component';
+import { UrlParams } from '../../types/url-params';
+import { debounce } from '../../utils/debounce';
+import { throttle } from '../../utils/throttle';
+import { XOn } from '../decorators/bus.decorators';
 import { ScrollDirection } from './scroll.types';
 
 /**
@@ -10,6 +14,30 @@ import { ScrollDirection } from './scroll.types';
  */
 @Component
 export default class ScrollMixin extends Vue {
+  /**
+   * If `true`, sets this scroll instance to the main of the application. Being the main
+   * scroll implies that features like restoring the scroll when the query changes, or storing
+   * the scroll position in the URL will be enabled for this container.
+   *
+   * @public
+   */
+  @Prop({ default: false })
+  public main!: boolean;
+
+  /**
+   * If true (default), sets the scroll position to top when an
+   * {@link XEventsTypes.UserAcceptedAQuery} event is emitted.
+   *
+   * @public
+   */
+  @Prop({
+    type: Boolean,
+    default(this: { main: boolean }) {
+      return this.main;
+    }
+  })
+  protected resetOnQueryChange!: boolean;
+
   /**
    * Time duration to ignore the subsequent scroll events after an emission.
    * Higher values will decrease events precision but can prevent performance issues.
@@ -132,7 +160,7 @@ export default class ScrollMixin extends Vue {
    * @internal
    */
   @Watch('currentPosition')
-  emitScroll(_newScrollPosition: number, oldScrollPosition: number): void {
+  protected emitScroll(_newScrollPosition: number, oldScrollPosition: number): void {
     this.$emit('scroll', this.currentPosition);
     this.previousPosition = oldScrollPosition;
   }
@@ -144,7 +172,7 @@ export default class ScrollMixin extends Vue {
    * @internal
    */
   @Watch('scrollDirection')
-  emitScrollDirection(direction: ScrollDirection): void {
+  protected emitScrollDirection(direction: ScrollDirection): void {
     this.$emit('scroll:direction-change', direction);
   }
 
@@ -155,7 +183,7 @@ export default class ScrollMixin extends Vue {
    * @internal
    */
   @Watch('hasScrollReachedStart')
-  emitScrollReachedAtStart(isScrollAtStart: boolean): void {
+  protected emitScrollReachedAtStart(isScrollAtStart: boolean): void {
     if (isScrollAtStart) {
       this.$emit('scroll:at-start');
     }
@@ -168,7 +196,7 @@ export default class ScrollMixin extends Vue {
    * @internal
    */
   @Watch('hasScrollAlmostReachedEnd')
-  emitScrollAlmostAtEnd(isScrollAlmostAtEnd: boolean): void {
+  protected emitScrollAlmostAtEnd(isScrollAlmostAtEnd: boolean): void {
     if (isScrollAlmostAtEnd) {
       this.$emit('scroll:almost-at-end', this.distanceToEnd);
     }
@@ -181,9 +209,101 @@ export default class ScrollMixin extends Vue {
    * @internal
    */
   @Watch('hasScrollReachedEnd')
-  emitScrollAtEnd(isScrollAtEnd: boolean): void {
+  protected emitScrollAtEnd(isScrollAtEnd: boolean): void {
     if (isScrollAtEnd) {
       this.$emit('scroll:at-end');
+    }
+  }
+
+  /**
+   * It sets the scroll to top if the property `resetOnQueryChange` is true.
+   *
+   * @internal
+   */
+  @XOn([
+    'SearchBoxQueryChanged',
+    'SortChanged',
+    'SelectedFiltersChanged',
+    'SelectedRelatedTagsChanged'
+  ])
+  scrollToTop(): void {
+    if (this.resetOnQueryChange) {
+      this.$el?.scrollTo({ top: 0 });
+    }
+  }
+
+  protected observer?: MutationObserver;
+
+  @XOn('ParamsLoadedFromUrl')
+  storeUrlScrollPosition({ scroll }: UrlParams): void {
+    /* FIXME: If the scroll component is destroyed and remounted this logic will be executed again,
+     trying to scroll */
+    if (this.main && scroll) {
+      this.observer = new MutationObserver(
+        debounce((_entries, observer) => {
+          const scrollTarget = this.getScrollElement()?.querySelector<HTMLElement>(
+            `[data-scroll="${scroll}"]`
+          );
+          if (scrollTarget) {
+            scrollTarget?.scrollIntoView();
+            observer.disconnect();
+          }
+        }, 0)
+      );
+    }
+  }
+
+  protected getScrollElement(): HTMLElement | void {
+    // TODO Use empathy's logger.
+    // eslint-disable-next-line no-console
+    console.warn('[ScrollMixin] Scroll components must override getScrollElement() method.');
+  }
+
+  mounted(): void {
+    const element = this.getScrollElement();
+    if (!element) {
+      return;
+    }
+    this.storeScrollData(element);
+    if (this.main && this.observer) {
+      this.observer.observe(element, {
+        childList: true,
+        subtree: true
+      });
+    }
+  }
+
+  /**
+   * Throttled version of the function that stores the DOM scroll related properties.
+   * The duration of the throttle is configured through the
+   * {@link ScrollMixin.throttleMs}.
+   *
+   * @internal
+   */
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  protected throttledStoreScrollData = throttle(this.storeScrollData, this.throttleMs);
+
+  /**
+   * Updates scroll related properties.
+   *
+   * @param scrollElement - The scroll container HTML element.
+   * @internal
+   */
+  protected storeScrollData(scrollElement: HTMLElement = this.getScrollElement()!): void {
+    this.currentPosition = scrollElement.scrollTop;
+    this.scrollHeight = scrollElement.scrollHeight;
+    this.clientHeight = scrollElement.clientHeight;
+
+    // TODO - Move this logic
+    if (this.main) {
+      const firstElementInView = Array.from(
+        scrollElement.querySelectorAll<HTMLElement>('[data-scroll]')
+      ).find(
+        element => element.getBoundingClientRect().top > scrollElement.getBoundingClientRect().top
+      );
+      if (firstElementInView) {
+        this.$x.emit('UserScrolledToElement', firstElementInView.dataset.scroll!);
+      }
     }
   }
 }

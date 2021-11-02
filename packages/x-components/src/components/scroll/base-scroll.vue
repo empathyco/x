@@ -5,10 +5,8 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
-  import { throttle } from '../../utils/throttle';
-  import { XOn } from '../decorators/bus.decorators';
+  import { Component } from 'vue-property-decorator';
   import ScrollMixin from './scroll.mixin';
 
   /**
@@ -19,55 +17,8 @@
    */
   @Component
   export default class BaseScroll extends mixins(ScrollMixin) {
-    /**
-     * If true (default), sets the scroll position to top when an
-     * {@link XEventsTypes.UserAcceptedAQuery} event is emitted.
-     *
-     * @public
-     */
-    @Prop({ default: true })
-    protected resetOnQueryChange!: boolean;
-
-    /**
-     * Throttled version of the function that stores the DOM scroll related properties.
-     * The duration of the throttle is configured through the
-     * {@link ScrollMixin.throttleMs}.
-     *
-     * @internal
-     */
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    protected throttledStoreScrollData = throttle(this.storeScrollData, this.throttleMs);
-
-    mounted(): void {
-      this.storeScrollData();
-    }
-
-    /**
-     * Updates scroll related properties.
-     *
-     * @internal
-     */
-    protected storeScrollData(): void {
-      this.currentPosition = this.$el.scrollTop;
-      this.scrollHeight = this.$el.scrollHeight;
-      this.clientHeight = this.$el.clientHeight;
-    }
-
-    /**
-     * It sets the scroll to top if the property `resetOnQueryChange` is true.
-     *
-     * @internal
-     */
-    @XOn([
-      'SearchBoxQueryChanged',
-      'SortChanged',
-      'SelectedFiltersChanged',
-      'SelectedRelatedTagsChanged'
-    ])
-    scrollToTop(): void {
-      if (this.resetOnQueryChange) {
-        this.$el?.scrollTo({ top: 0 });
-      }
+    protected override getScrollElement(): HTMLElement | void {
+      return this.$el as HTMLElement;
     }
   }
 </script>

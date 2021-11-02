@@ -10,6 +10,7 @@
     :throttleMs="throttleMs"
     :distanceToBottom="distanceToBottom"
     :resetOnQueryChange="resetOnQueryChange"
+    :main="main"
   >
     <slot />
   </BaseScroll>
@@ -66,8 +67,11 @@
      *
      * @public
      */
-    @Prop({ default: true })
-    protected resetOnQueryChange!: boolean;
+    @Prop()
+    protected resetOnQueryChange?: boolean;
+
+    @Prop()
+    protected main?: boolean;
 
     /**
      * Emits the `UserScrolled` event.

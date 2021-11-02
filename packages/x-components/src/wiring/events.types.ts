@@ -185,6 +185,12 @@ export interface XEventsTypes
    * * Payload: The new position of scroll.
    */
   UserScrolled: number;
+
+  /**
+   * The user has scrolled to an element. This element is the first HTML element visible.
+   * * Payload: The `data-scroll` value of the first visible element.
+   */
+  UserScrolledToElement: string;
   /**
    * User selected any kind of suggestion (query-suggestion, popular-search...)
    * * Payload: The {@link @empathyco/x-types#Suggestion | suggestion} that the user selected.

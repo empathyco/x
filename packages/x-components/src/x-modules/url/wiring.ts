@@ -37,6 +37,13 @@ export const setUrlPage = wireCommit('setPage');
 export const setParams = wireCommit('setParams');
 
 /**
+ * Sets the scroll of the url module.
+ *
+ * @public
+ */
+export const setUrlScroll = wireCommit('setScroll');
+
+/**
  * Sets the initial provided extra params.
  *
  * @public
@@ -79,5 +86,8 @@ export const urlWiring = createWiring({
   },
   ExtraParamsInitialized: {
     setInitialExtraParams
+  },
+  UserScrolledToElement: {
+    setUrlScroll
   }
 });

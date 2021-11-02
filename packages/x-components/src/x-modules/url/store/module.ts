@@ -32,6 +32,9 @@ export const urlXStoreModule: UrlXStoreModule = {
     },
     setInitialExtraParams(state, extraParams) {
       state.initialExtraParams = extraParams;
+    },
+    setScroll(state, scroll) {
+      state.scroll = scroll;
     }
   },
   actions: {}

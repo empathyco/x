@@ -11,6 +11,7 @@
       v-for="{ slotName, item, cssClass } in gridItems"
       :key="item.id"
       :class="cssClass"
+      :data-scroll="item.id"
       class="x-grid__item x-base-grid__item"
     >
       <!--
