@@ -13,18 +13,17 @@ Feature: MultiSelect filters component
     When  "<query>" is searched
     Then  related results are displayed
     When  waiting for search request intercept
-    And   filter number <filterNumber1> is selected in facet "<facetName>"
-    Then  selected filter is shown in the selected filters list
-    And   search request contains selected filter
+    And   filter "<filter1>" is clicked in facet "<facetName>"
+    Then  filter "<filter1>" is shown in the selected filters list
+    And   search request contains "<filter1>" filter
     When  waiting for search request intercept
-    And   filter number <filterNumber2> is selected in facet "<facetName>"
-  # TODO  https://searchbroker.atlassian.net/browse/EX-4866
-  # Then  selected filter is shown in the selected filters list
-  # And   search request contains selected filter
-  # TODO  https://searchbroker.atlassian.net/browse/EX-4866
-  # And   clear-filters button displays the number of selected filters
+    And   filter "<filter2>" is clicked in facet "<facetName>"
+    Then  filter "<filter1>" is shown in the selected filters list
+    And   filter "<filter2>" is shown in the selected filters list
+    And   search request contains "<filter1>" filter
+    And   search request contains "<filter2>" filter
+    And   clear-filters button should have <totalSelectedFilters> filters selected
 
     Examples:
-
-      | query  | filterNumber1 | filterNumber2 | facetName    |
-      | lego   | 3             | 1             | price_facet  |
+      | query | filter1       | filter2       | facetName   | totalSelectedFilters |
+      | lego  | From 30 to 40 | From 10 to 20 | price_facet | 2                    |

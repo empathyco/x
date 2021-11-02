@@ -39,14 +39,36 @@ export class FilterEntityFactory {
   protected modifiers: Record<Facet['id'], FilterEntityModifier[]> = {};
 
   /**
+   * Contains the instantiated entities for each facet.
+   *
+   * @internal
+   */
+  protected cache: Record<Facet['id'] | '__unknown-facet__', FilterEntity> = {};
+
+  /**
    * Creates a new FilterEntity from a filter.
    *
    * @param store - The {@link https://vuex.vuejs.org/guide/ | Vuex Store} that the entity will
    * use.
-   * @param filter - The filter necesary to know what Entity to create.
+   * @param filter - The {@link @empathyco/x-types#Filter | Filter} necessary to know what
+   * {@link FilterEntity} to create.
    * @returns The {@link FilterEntity} created by the factory.
    */
-  createFilterEntity(store: Store<RootXStoreState>, filter: Filter): FilterEntity {
+  getFilterEntity(store: Store<RootXStoreState>, filter: Filter): FilterEntity {
+    const cacheKey = isFacetFilter(filter) ? filter.facetId : '__unknown-facet__';
+    return this.cache[cacheKey] ?? (this.cache[cacheKey] = this.createFilterEntity(store, filter));
+  }
+
+  /**
+   * Creates a brand new {@link FilterEntity} for the given
+   * {@link @empathyco/x-types#Filter | Filter}.
+   *
+   * @param store - The store which should be mutated through the entity.
+   * @param filter - The filter to create the entity for.
+   * @returns A new {@link FilterEntity} for the given {@link @empathyco/x-types#Filter | Filter}.
+   * @internal
+   */
+  protected createFilterEntity(store: Store<RootXStoreState>, filter: Filter): FilterEntity {
     const filterEntityConstructor = this.entities.find(entity => entity.accepts(filter));
     if (!filterEntityConstructor) {
       throw new Error(`Entity configuration for ${filter.modelName} not registered.`);
