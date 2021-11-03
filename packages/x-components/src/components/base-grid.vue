@@ -123,7 +123,7 @@
      * @internal
      */
     protected get cssClasses(): VueCSSClasses {
-      return this.columns ? `x-base-grid--cols-${this.columns}` : 'x-base-grid--cols-auto';
+      return this.columns ? `x-grid--cols-${this.columns}` : 'x-grid--cols-auto';
     }
 
     /**

@@ -221,7 +221,6 @@ Given('a results API with a known response', () => {
           ...createFilter('Muñecas', false, createFilter => [
             ...createFilter('Peluches', false),
             ...createFilter('Ropa y accesorios', false),
-            ...createFilter('Muñecas', false),
             ...createFilter('Playsets', false),
             ...createFilter('Bebés', false),
             ...createFilter('Carros', false)

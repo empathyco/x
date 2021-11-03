@@ -33,7 +33,9 @@ import { FacetsService } from '../types';
  * @param filterEntityFactory - The optional filterEntityFactory to use in the test.
  * @returns An object containing methods for testing {@link DefaultFacetsService}.
  */
-function prepareFacetsService(filterEntityFactory?: FilterEntityFactory): FacetsServiceTestAPI {
+function prepareFacetsService(
+  filterEntityFactory: FilterEntityFactory = new FilterEntityFactory()
+): FacetsServiceTestAPI {
   XPlugin.resetInstance();
   installNewXPlugin();
   XPlugin.registerXModule(facetsXModule);
@@ -209,8 +211,8 @@ describe('testing facets service', () => {
 
       [
         createRawFilter('size:l'),
-        createEditableNumberRangeFilter('category', { min: null, max: 30 }),
-        createNumberRangeFilter('category', { min: null, max: 10 }),
+        createEditableNumberRangeFilter('age', { min: null, max: 30 }),
+        createNumberRangeFilter('price', { min: null, max: 10 }),
         createHierarchicalFilter('category', 'shirt'),
         createSimpleFilter('color', 'red', false)
       ].forEach(filter => {
@@ -563,18 +565,6 @@ describe('testing facets service', () => {
         [priceFacet.id]: omitFiltersProperty(priceFacet),
         [shipmentFacet.id]: omitFiltersProperty(shipmentFacet)
       });
-
-      // Set a new Single Select facet with multiple selected values
-      const newSizeFacet = createSimpleFacetStub('size', createFilter => [
-        createFilter('s'),
-        createFilter('m', true),
-        createFilter('l', true)
-      ]);
-
-      service.setFacets({
-        id: 'backend',
-        facets: [newSizeFacet]
-      });
     });
 
     it('sets a new Single Select facet with multiple selected values', () => {
@@ -594,6 +584,55 @@ describe('testing facets service', () => {
       });
 
       expect(getSelectedFilters()).toHaveLength(1);
+    });
+
+    it('updates and sets facets with different configurations', () => {
+      const filterEntityFactory = new FilterEntityFactory();
+      filterEntityFactory.registerFilterModifier('gender', [SingleSelectModifier]);
+      const { service, getSelectedFilters } = prepareFacetsService(filterEntityFactory);
+
+      const genderFacet = createSimpleFacetStub('gender', createFilter => [
+        createFilter('women', true),
+        createFilter('men')
+      ]);
+
+      const sizeFacet = createSimpleFacetStub('size', createFilter => [
+        createFilter('s', true),
+        createFilter('m', true),
+        createFilter('l')
+      ]);
+
+      const [sizeSFilter, sizeMFilter] = sizeFacet.filters;
+      const [womenFilter] = genderFacet.filters;
+
+      service.setFacets({
+        id: 'backend',
+        facets: [genderFacet, sizeFacet]
+      });
+
+      expect(
+        areFiltersDifferent(getSelectedFilters(), [sizeSFilter, sizeMFilter, womenFilter])
+      ).toBe(false);
+
+      const newGenderFacet = createSimpleFacetStub('gender', createFilter => [
+        createFilter('women'),
+        createFilter('men')
+      ]);
+
+      const newSizeFacet = createSimpleFacetStub('size', createFilter => [
+        createFilter('s'),
+        createFilter('m'),
+        createFilter('l')
+      ]);
+
+      service.updateFacets({
+        id: 'backend',
+        facets: [newGenderFacet, newSizeFacet]
+      });
+
+      expect(
+        areFiltersDifferent(getSelectedFilters(), [sizeSFilter, sizeMFilter, womenFilter])
+      ).toBe(false);
     });
   });
 });

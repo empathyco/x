@@ -20,7 +20,7 @@ export const identifierResultsXStoreModule: IdentifierResultsXStoreModule = {
   state: () => ({
     query: '',
     identifierResults: [],
-    status: 'success',
+    status: 'initial',
     config: {
       debounceInMs: 600,
       maxItemsToRequest: 10,

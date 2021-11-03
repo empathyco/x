@@ -324,7 +324,7 @@
   .x-sliding-panel {
     max-width: 500px;
 
-    &__scroll {
+    ::v-deep .x-sliding-panel__scroll {
       gap: var(--x-size-base-03);
       @include safari-gap(var(--x-size-base-03));
     }

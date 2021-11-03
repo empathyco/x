@@ -85,9 +85,11 @@
     </main>
 
     <div v-if="hasContent('scroll-to-top')" class="x-layout__scroll-to-top">
-      <slot name="scroll-to-top">
-        <span v-if="devMode" class="slot-helper" style="height: 50px">SCROLL TO TOP</span>
-      </slot>
+      <div class="x-layout__scroll-to-top-content">
+        <slot name="scroll-to-top">
+          <span v-if="devMode" class="slot-helper" style="height: 50px">SCROLL TO TOP</span>
+        </slot>
+      </div>
     </div>
   </div>
 </template>
@@ -120,9 +122,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  @import '../../design-system/utilities/dev-mode';
-
+<style lang="scss">
   :root {
     //layout
     --x-size-min-margin-layout-columns: var(--x-size-base-06);
@@ -156,6 +156,10 @@
     --x-size-border-width-layout-columns-header: 0;
     --x-size-border-width-layout-columns-toolbar: 1px 0 0;
   }
+</style>
+
+<style lang="scss" scoped>
+  @import '../../design-system/utilities/dev-mode';
 
   .x-layout {
     // custom properties
@@ -415,9 +419,20 @@
     &__scroll-to-top {
       //layout
       grid-area: scroll-to-top;
-      margin-block-end: var(--x-size-margin-bottom-layout-columns-scroll-to-top, 10px);
-      margin-inline-start: var(--x-size-margin-left-layout-columns-scroll-to-top, 10px);
+      justify-content: flex-end;
+      width: 100%;
+      display: flex;
       z-index: 1;
+      pointer-events: none;
+    }
+
+    &__scroll-to-top-content {
+      flex: 1 0 auto;
+      padding-block-end: var(--x-size-margin-bottom-layout-columns-scroll-to-top, 10px);
+      padding-inline-start: var(--x-size-margin-left-layout-columns-scroll-to-top, 10px);
+      ::v-deep > * {
+        pointer-events: all;
+      }
     }
   }
 </style>
