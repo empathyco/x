@@ -64,7 +64,12 @@ export function getBusAPI(bus: XBus, component: PrivateExtendedVueComponent): XC
     ) => {
       const xComponent = component.xComponent;
       const moduleName = xComponent ? getXComponentXModuleName(xComponent) : null;
-      bus.emit(event, payload as any, { moduleName, origin: component.$origin, ...metadata });
+      bus.emit(event, payload as any, {
+        moduleName,
+        component,
+        origin: component.$origin,
+        ...metadata
+      });
       xComponent?.$emit(event, payload);
     },
     on: bus.on.bind(bus)

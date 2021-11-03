@@ -15,6 +15,7 @@ import { RelatedTagsXEvents } from '../x-modules/related-tags/events.types';
 import { SearchBoxXEvents } from '../x-modules/search-box/events.types';
 import { SearchXEvents } from '../x-modules/search/events.types';
 import { UrlXEvents } from '../x-modules/url/events.types';
+import { XModulesTree } from '../x-modules/x-modules.types';
 
 /**
  * Dictionary of all the {@link XEvent | XEvents}, where each key is the event name, and the value
@@ -190,6 +191,8 @@ export interface XEventsTypes
    * * Payload: The {@link @empathyco/x-types#Suggestion | suggestion} that the user selected.
    */
   UserSelectedASuggestion: Suggestion;
+
+  ModuleRegistered: keyof XModulesTree;
 }
 
 /**

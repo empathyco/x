@@ -2,6 +2,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { WireMetadata, WirePayload } from '../wiring/wiring.types';
+import { logDevtoolsXEvent } from './devtools/timeline.devtools';
 import { Emitter, Emitters, XBus } from './x-bus.types';
 
 /**
@@ -35,6 +36,7 @@ export class BaseXBus implements XBus {
       eventPayload: payload as any,
       metadata
     };
+    logDevtoolsXEvent(event, value);
     const emitter = this.getOrCreateEmitter(event);
     emitter.next(value);
   }
@@ -75,6 +77,6 @@ export class BaseXBus implements XBus {
   }
 }
 
-/** @internal The bus instance. Will be replaced by injection */
+/** @internal The bus instance. Will be replaced by injection. */
 export const bus: XBus = new BaseXBus();
 // TODO Remove this instantiation and replace with injection where used
