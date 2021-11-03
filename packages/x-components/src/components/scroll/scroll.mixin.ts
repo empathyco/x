@@ -161,7 +161,7 @@ export default class ScrollMixin extends Vue {
   }
 
   /**
-   * Emits the `[data-scroll]` value of the first visible HTML element.
+   * Saves the `[data-scroll]` value of the first visible HTML element.
    *
    * @internal
    */
@@ -179,11 +179,14 @@ export default class ScrollMixin extends Vue {
     }
   }
 
+  /**
+   * Emits the first visible element `[data-scroll]`.
+   *
+   * @internal
+   */
   @Watch('firstVisibleElement')
   protected emitFirstVisibleElement(): void {
-    if (this.firstVisibleElement) {
-      this.$emit('scroll:at-element', this.firstVisibleElement);
-    }
+    this.$emit('scroll:at-element', this.firstVisibleElement);
   }
 
   /**

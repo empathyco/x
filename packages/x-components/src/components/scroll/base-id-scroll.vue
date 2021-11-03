@@ -107,9 +107,9 @@
      * @param element - The `[data-scroll]` value of the first visible element.
      * @internal
      */
-    protected scrollAtElement(element: string): void {
+    protected scrollAtElement(element: string | null): void {
       if (this.main) {
-        this.emitEvent('UserScrolledToElement', element);
+        this.emitEvent('UserScrolledToElement', element ?? '');
       }
     }
 

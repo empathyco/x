@@ -9,6 +9,7 @@
     <li
       v-for="item in computedItems"
       :key="item.id"
+      :data-scroll="item.id"
       class="x-items-list__item"
       :class="item.class"
       :data-test="item.dataTest"
