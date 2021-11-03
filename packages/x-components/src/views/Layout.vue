@@ -719,6 +719,6 @@
   .x-modal::v-deep .x-modal__content {
     overflow: hidden;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 1px);
   }
 </style>
