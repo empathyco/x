@@ -125,9 +125,7 @@ describe('testing SortDropdown component', () => {
   });
   // eslint-disable-next-line max-len
   it('returns a default empty string at first', () => {
-    const { onSelectedSortProvided } = renderSortDropdown({
-      items: ['price desc', 'price asc', '']
-    });
+    const { onSelectedSortProvided } = renderSortDropdown();
 
     expect(onSelectedSortProvided).toHaveBeenCalledTimes(1);
     expect(onSelectedSortProvided).toHaveBeenCalledWith<[WirePayload<Sort>]>({
