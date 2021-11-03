@@ -2,7 +2,7 @@ import { mount, shallowMount, Wrapper } from '@vue/test-utils';
 import { ComponentOptions, default as Vue } from 'vue';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { xComponentMixin } from '../../components/x-component.mixin';
-import { Feature, QueryLocation } from '../../types/query-origin';
+import { QueryFeature, QueryLocation } from '../../types/query-origin';
 import { WireMetadata } from '../../wiring/wiring.types';
 import { searchBoxXModule } from '../../x-modules/search-box/x-module';
 import { XPlugin } from '../x-plugin';
@@ -31,7 +31,7 @@ describe('testing $x component API global mixin', () => {
     /** Options to render the component to test component's bus origin functionality. */
     interface RenderOriginComponentOptions {
       /** The feature to be emitted. */
-      feature?: Feature;
+      feature?: QueryFeature;
       /** The location to be emitted. */
       location?: QueryLocation;
     }
@@ -86,7 +86,7 @@ describe('testing $x component API global mixin', () => {
       expect(busListener).toHaveBeenCalledWith(
         expect.any(String),
         expect.anything(),
-        expect.objectContaining<Partial<WireMetadata>>({ origin: undefined })
+        expect.objectContaining<Partial<WireMetadata>>({ origin: undefined, feature: 'search_box' })
       );
     });
 
@@ -100,7 +100,10 @@ describe('testing $x component API global mixin', () => {
       expect(busListener).toHaveBeenCalledWith(
         expect.any(String),
         expect.anything(),
-        expect.objectContaining<Partial<WireMetadata>>({ origin: undefined })
+        expect.objectContaining<Partial<WireMetadata>>({
+          origin: undefined,
+          location: 'predictive_layer'
+        })
       );
     });
 

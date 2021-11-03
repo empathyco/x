@@ -5,6 +5,7 @@
  */
 export type ResultLocation =
   | 'recommendations'
+  | 'predictive_layer'
   | 'no_results'
   | 'results'
   | 'next_query'
