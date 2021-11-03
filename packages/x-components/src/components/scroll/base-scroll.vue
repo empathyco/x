@@ -17,8 +17,8 @@
    */
   @Component
   export default class BaseScroll extends mixins(ScrollMixin) {
-    protected override getScrollElement(): HTMLElement | void {
-      return this.$el as HTMLElement;
+    mounted(): void {
+      this.element = this.$el as HTMLElement;
     }
   }
 </script>

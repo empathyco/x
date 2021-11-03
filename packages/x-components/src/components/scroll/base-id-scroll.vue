@@ -5,11 +5,11 @@
     @scroll:at-start="scrollAtStart"
     @scroll:almost-at-end="scrollAlmostAtEnd"
     @scroll:at-end="scrollAtEnd"
+    @scroll:at-element="scrollAtElement"
     v-on="$listeners"
     :id="id"
     :throttleMs="throttleMs"
     :distanceToBottom="distanceToBottom"
-    :resetOnQueryChange="resetOnQueryChange"
     :main="main"
   >
     <slot />
@@ -17,11 +17,12 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
+  import { mixins } from 'vue-class-component';
   import { Component, Prop } from 'vue-property-decorator';
-  import { XOn } from '../decorators/bus.decorators';
   import { XEvent, XEventPayload } from '../../wiring';
+  import { XOn } from '../decorators/bus.decorators';
   import BaseScroll from './base-scroll.vue';
+  import MainScrollMixin from './main-scroll.mixin';
   import { ScrollDirection } from './scroll.types';
 
   /**
@@ -34,7 +35,7 @@
   @Component({
     components: { BaseScroll }
   })
-  export default class BaseIdScroll extends Vue {
+  export default class BaseIdScroll extends mixins(MainScrollMixin) {
     /**
      * Time duration to ignore the subsequent scroll events after an emission.
      * Higher values will decrease events precision but can prevent performance issues.
@@ -60,18 +61,6 @@
      */
     @Prop({ default: 'scrollId' })
     public id!: string;
-
-    /**
-     * If true (default), sets the scroll position of the {@link BaseScroll} component to top when
-     * an {@link XEventsTypes.UserAcceptedAQuery} event is emitted.
-     *
-     * @public
-     */
-    @Prop()
-    protected resetOnQueryChange?: boolean;
-
-    @Prop()
-    protected main?: boolean;
 
     /**
      * Emits the `UserScrolled` event.
@@ -110,6 +99,10 @@
      */
     protected scrollAlmostAtEnd(distance: number): void {
       this.emitEvent('UserAlmostReachedScrollEnd', distance);
+    }
+
+    protected scrollAtElement(element: string): void {
+      this.emitEvent('UserScrolledToElement', element);
     }
 
     /**
@@ -152,14 +145,18 @@
     /**
      * Scrolls to initial position when the user has clicked the scroll to top button.
      *
-     * @param payload - {@link XEventsTypes.UserClickedScrollToTop}.
+     * @param scrollId - {@link XEventsTypes.UserClickedScrollToTop}.
      * @internal
      */
     @XOn('UserClickedScrollToTop')
-    scrollToTop(payload: string): void {
-      if (payload === this.id && this.$el) {
+    scrollToTop(scrollId: string): void {
+      if (scrollId === this.id && this.$el) {
         this.$el?.scrollTo({ top: 0, behavior: 'smooth' });
       }
+    }
+
+    mounted(): void {
+      this.element = this.$el as HTMLElement;
     }
   }
 </script>
