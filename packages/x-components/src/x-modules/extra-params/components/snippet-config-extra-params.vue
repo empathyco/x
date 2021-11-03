@@ -50,7 +50,6 @@
     @Watch('snippetConfig', { deep: true, immediate: true })
     syncExtraParams({
       instance,
-      env,
       scope,
       lang,
       searchLang,

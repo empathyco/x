@@ -32,7 +32,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     totalResults: 0,
     spellcheckedQuery: '',
-    status: 'success',
+    status: 'initial',
     sort: '',
     page: 1,
     origin: null,
