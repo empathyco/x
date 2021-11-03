@@ -64,12 +64,9 @@ export function getBusAPI(bus: XBus, component: PrivateExtendedVueComponent): XC
       metadata: Omit<WireMetadata, 'moduleName' | 'origin'> = {}
     ) => {
       const xComponent = component.xComponent;
-      const moduleName = xComponent ? getXComponentXModuleName(xComponent) : null;
-      // If we have `metadata.feature`, `this.$location` should be of type `QueryLocation`.
-      const origin = createQueryOrigin(metadata.feature, component.$location as QueryLocation);
-      bus.emit.call(event, payload as any, {
-        moduleName,
-        origin,
+      bus.emit(event, payload as any, {
+        moduleName: xComponent ? getXComponentXModuleName(xComponent) : null,
+        origin: createQueryOrigin(metadata.feature, component.$location as QueryLocation),
         location: component.$location,
         ...metadata
       });
