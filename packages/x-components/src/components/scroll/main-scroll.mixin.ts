@@ -81,6 +81,17 @@ export default class MainScrollMixin extends Vue {
       : null;
   }
 
+  mounted(): void {
+    if (!this.element) {
+      // TODO Replace with Empathy's logger
+      // eslint-disable-next-line no-console
+      console.warn(
+        '[MainScrollMixin]',
+        'Components using this mixin must set `this.element` to the HTML node that is scrolling.'
+      );
+    }
+  }
+
   /**
    * Disconnects the previous mutation observer to avoid leaking it.
    *

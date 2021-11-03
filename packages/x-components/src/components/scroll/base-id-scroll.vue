@@ -101,8 +101,17 @@
       this.emitEvent('UserAlmostReachedScrollEnd', distance);
     }
 
+    /**
+     * Emits {@link XEventsTypes.UserScrolledToElement} with the new first visible element.
+     *
+     * @remarks It only emits this event if {@link BaseIdScroll.main} is `true`.
+     * @param element - The `[data-scroll]` value of the first visible element.
+     * @internal
+     */
     protected scrollAtElement(element: string): void {
-      this.emitEvent('UserScrolledToElement', element);
+      if (this.main) {
+        this.emitEvent('UserScrolledToElement', element);
+      }
     }
 
     /**
