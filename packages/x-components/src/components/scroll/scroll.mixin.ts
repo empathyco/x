@@ -1,6 +1,5 @@
 import Vue from 'vue';
-import Component from 'vue-class-component';
-import { Prop, Watch } from 'vue-property-decorator';
+import { Component, Prop, Watch } from 'vue-property-decorator';
 import { throttle } from '../../utils/throttle';
 import { ScrollDirection } from './scroll.types';
 
@@ -35,6 +34,12 @@ export default class ScrollMixin extends Vue {
    */
   @Prop({ default: 100 })
   public throttleMs!: number;
+  /**
+   * The scrolling container reference.
+   *
+   * @public
+   */
+  public $el!: HTMLElement;
   /**
    * Property for getting the client height of scroll.
    *
@@ -135,22 +140,39 @@ export default class ScrollMixin extends Vue {
     return this.scrollHeight - this.clientHeight;
   }
 
-  protected element: HTMLElement | null = null;
-
   mounted(): void {
     this.$nextTick().then(() => {
-      if (!this.element) {
+      if (!this.$el) {
         // TODO Replace with Empathy's logger
         // eslint-disable-next-line no-console
         console.warn(
           '[ScrollMixin]',
-          'Components using this mixin must set `this.element` to the HTML node that is scrolling.'
+          'Components using this mixin must set `this.$el` to the HTML node that is scrolling.'
         );
       } else {
         this.storeScrollData();
-        this.observeFirstVisibleElement(this.element);
+        this.observeFirstVisibleElement();
       }
     });
+  }
+
+  /**
+   * Emits the `[data-scroll]` value of the first visible HTML element.
+   *
+   * @internal
+   */
+  @Watch('currentPosition')
+  protected emitFirstVisibleElement(): void {
+    if (this.$el) {
+      const containerTop = this.$el.getBoundingClientRect().top - this.firstElementThresholdPx;
+      // FIXME: If the scroll items are moved using CSS this `.find` will return a wrong element.
+      const firstElementInView = Array.from(
+        this.$el.querySelectorAll<HTMLElement>('[data-scroll]')
+      ).find(childElement => childElement.getBoundingClientRect().top > containerTop);
+      if (firstElementInView) {
+        this.$emit('scroll:at-element', firstElementInView.dataset.scroll!);
+      }
+    }
   }
 
   /**
@@ -217,33 +239,16 @@ export default class ScrollMixin extends Vue {
   }
 
   /**
-   * Emits the `[data-scroll]` value of the first visible HTML element.
+   * Creates a mutation observer to set the first visible element.
    *
    * @internal
    */
-  @Watch('currentPosition')
-  protected emitFirstVisibleElement(): void {
-    if (this.element) {
-      const containerTop = this.element.getBoundingClientRect().top - this.firstElementThresholdPx;
-      // FIXME: If the scroll items are moved using CSS this `.find` will return a wrong element.
-      const firstElementInView = Array.from(
-        this.element.querySelectorAll<HTMLElement>('[data-scroll]')
-      ).find(childElement => childElement.getBoundingClientRect().top > containerTop);
-      if (firstElementInView) {
-        this.$emit('scroll:at-element', firstElementInView.dataset.scroll!);
-      }
-    }
-  }
-
-  /**
-   * Creates a mutation observer to replace the first visible element.
-   *
-   * @param element - The scrolling element to observe.
-   * @internal
-   */
-  protected observeFirstVisibleElement(element: HTMLElement): void {
+  protected observeFirstVisibleElement(): void {
     const observer = new MutationObserver(this.emitFirstVisibleElement);
-    observer.observe(element);
+    observer.observe(this.$el, {
+      childList: true,
+      subtree: true
+    });
     this.$on('hook:beforeDestroy', () => {
       observer.disconnect();
     });
@@ -255,10 +260,10 @@ export default class ScrollMixin extends Vue {
    * @internal
    */
   protected storeScrollData(): void {
-    if (this.element) {
-      this.currentPosition = this.element.scrollTop;
-      this.scrollHeight = this.element.scrollHeight;
-      this.clientHeight = this.element.clientHeight;
+    if (this.$el) {
+      this.currentPosition = this.$el.scrollTop;
+      this.scrollHeight = this.$el.scrollHeight;
+      this.clientHeight = this.$el.clientHeight;
     }
   }
 }

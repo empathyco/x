@@ -16,11 +16,7 @@
    * @public
    */
   @Component
-  export default class BaseScroll extends mixins(ScrollMixin) {
-    mounted(): void {
-      this.element = this.$el as HTMLElement;
-    }
-  }
+  export default class BaseScroll extends mixins(ScrollMixin) {}
 </script>
 
 <style lang="scss" scoped>

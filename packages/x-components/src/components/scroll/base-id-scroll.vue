@@ -162,10 +162,6 @@
         this.$el?.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
-
-    mounted(): void {
-      this.element = this.$el as HTMLElement;
-    }
   }
 </script>
 

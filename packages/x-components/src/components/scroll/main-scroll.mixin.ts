@@ -28,7 +28,7 @@ export default class MainScrollMixin extends Vue {
    *
    * @public
    */
-  protected element: HTMLElement | null = null;
+  public $el!: HTMLElement;
 
   /**
    * If true (default), sets the scroll position to top when an
@@ -69,7 +69,7 @@ export default class MainScrollMixin extends Vue {
   protected get observer(): MutationObserver | null {
     return this.main
       ? new MutationObserver((_entries, observer) => {
-          const scrollTarget = this.element!.querySelector<HTMLElement>(
+          const scrollTarget = this.$el.querySelector<HTMLElement>(
             `[data-scroll="${this.scrollTo!}"]`
           );
           if (scrollTarget) {
@@ -82,12 +82,12 @@ export default class MainScrollMixin extends Vue {
   }
 
   mounted(): void {
-    if (!this.element) {
+    if (!this.$el) {
       // TODO Replace with Empathy's logger
       // eslint-disable-next-line no-console
       console.warn(
         '[MainScrollMixin]',
-        'Components using this mixin must set `this.element` to the HTML node that is scrolling.'
+        'Components using this mixin must set `this.$el` to the HTML node that is scrolling.'
       );
     }
   }
@@ -119,7 +119,7 @@ export default class MainScrollMixin extends Vue {
   ])
   resetScroll(): void {
     if (this.resetOnQueryChange) {
-      this.element?.scrollTo({ top: 0 });
+      this.$el?.scrollTo({ top: 0 });
     }
   }
 
@@ -147,8 +147,8 @@ export default class MainScrollMixin extends Vue {
    */
   @Watch('scrollTo')
   protected tryRestoringScroll(): void {
-    if (this.element && this.scrollTo && this.observer) {
-      this.observer.observe(this.element, {
+    if (this.$el && this.scrollTo && this.observer) {
+      this.observer.observe(this.$el, {
         childList: true,
         subtree: true
       });
