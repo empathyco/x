@@ -1,22 +1,29 @@
 Feature: MultiSelect filters component
 
+  Background:
+    Given a results API with a known response
+    And   a recommendations API with a known response
+    And   a next queries API
+    And   a suggestions API
+    And   a related tags API
+    And   no special config for layout view
+    And   start button is clicked
+
   Scenario Outline: 1. Number of results and clear-filters button are updated accordingly when selecting multiple filters per facet
-    Given no special config for multiselect filters view
     When  "<query>" is searched
-    Then  number of results are stored
-    When  filter number <filterNumber1> is selected in facet "<facetName>"
-    Then  total number of results equals results from the filter <filterNumber1> in "<facetName>"
-    And   number of results are less than without filters
-    When  filter number <filterNumber2> is selected in facet "<facetName>"
-    Then  number of results increases compared with previous stored results
-    And   results from the filter <filterNumber2> in "<facetName>" are added to the total number of results
-    And   clear-filters button displays the number of selected filters
+    Then  related results are displayed
+    When  waiting for search request intercept
+    And   filter "<filter1>" is clicked in facet "<facetName>"
+    Then  filter "<filter1>" is shown in the selected filters list
+    And   search request contains "<filter1>" filter
+    When  waiting for search request intercept
+    And   filter "<filter2>" is clicked in facet "<facetName>"
+    Then  filter "<filter1>" is shown in the selected filters list
+    And   filter "<filter2>" is shown in the selected filters list
+    And   search request contains "<filter1>" filter
+    And   search request contains "<filter2>" filter
+    And   clear-filters button should have <totalSelectedFilters> filters selected
 
     Examples:
-
-      | query  | filterNumber1 | filterNumber2 | facetName             |
-    #  | muñeca | 0             | 2             | hierarchical_category |
-    #  | muñeca | 1             | 2             | rootCategories_facet  |
-    #  | muñeca | 2             | 5             | brand_facet           |
-    #  | muñeca | 4             | 0             | age_facet             |
-      | muñeca | 3             | 1             | price_facet           |
+      | query | filter1       | filter2       | facetName   | totalSelectedFilters |
+      | lego  | From 30 to 40 | From 10 to 20 | price_facet | 2                    |

@@ -17,8 +17,8 @@
         @load="flagImageLoaded"
         :alt="result.name"
         :src="imageSrc"
-        class="x-picture__image x-result-picture__image"
-        data-test="result-picture__image"
+        class="x-picture__image x-result-picture-image"
+        data-test="result-picture-image"
       />
       <NoElement v-else-if="hasAllImagesFailed" class="x-picture__image x-picture__image--fallback">
         <!--
@@ -227,10 +227,10 @@ displayed while the real one is loaded.
 ```vue
 <BaseResultImage :result="result">
   <template #placeholder>
-    <img class="x-result-picture__placeholder" src="./placeholder-image.svg"/>
+    <img class="x-result-picture-placeholder" src="./placeholder-image.svg"/>
   </template>
   <template #fallback>
-    <img class="x-result-picture__fallback" src="./fallback-image.svg"/>
+    <img class="x-result-picture-fallback" src="./fallback-image.svg"/>
   </template>
 </BaseResultImage>
 ```

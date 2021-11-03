@@ -1,0 +1,28 @@
+@import '../../mixins';
+
+.x-progress-bar {
+  // layout
+  display: inline-block;
+  overflow: hidden;
+
+  // color
+  background-color: var(--x-color-background-progress-bar-default);
+  border-color: var(--x-color-border-progress-bar-default);
+
+  // border
+  border-style: solid;
+  border-width: var(--x-size-border-width-progress-bar-default);
+  border-radius: var(--x-size-border-radius-progress-bar-default);
+
+  &__line {
+    //layout
+    height: var(--x-size-height-progress-bar-line-default);
+    width: var(--x-size-width-progress-bar-line-default);
+
+    // border
+    border-radius: var(--x-size-border-radius-progress-bar-default);
+
+    // color
+    background-color: var(--x-color-background-progress-bar-line-default);
+  }
+}

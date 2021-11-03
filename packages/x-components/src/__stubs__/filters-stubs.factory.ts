@@ -103,16 +103,22 @@ export function createRawFilter(id: string): RawFilter {
  * @param facetId - The facet id this filter belongs to.
  * @param label - The text that this filter should display.
  * @param selected - True when the filter is checked, false otherwise.
+ * @param totalResults - Number of results matching the filter.
  * @returns A stub for a {@link @empathyco/x-types#SimpleFilter | SimpleFilter}.
  */
-export function createSimpleFilter(facetId: string, label: string, selected = false): SimpleFilter {
+export function createSimpleFilter(
+  facetId: string,
+  label: string,
+  selected = false,
+  totalResults = 10
+): SimpleFilter {
   return {
     id: `${facetId}:${label}`,
     modelName: 'SimpleFilter',
     facetId,
-    totalResults: 10,
     label,
-    selected
+    selected,
+    totalResults
   };
 }
 

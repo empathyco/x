@@ -1,15 +1,21 @@
 Feature: Filters search component
 
+  Background:
+    Given a results API with a known response
+    And   a recommendations API with a known response
+    And   a next queries API
+    And   a suggestions API
+    And   a related tags API
+
   Scenario Outline: 1. Brand filters are updated based on regular and sifted queries
-    Given no special config for base-filters-search view
+    Given no special config for layout view
+    And   start button is clicked
     When  "<query>" is searched
-    Then  brand filters for the searched query are displayed
-    And   searchable brand filters are stored
-    When  "<siftedQuery>" is typed in the filters search input
-    Then  brand filters are refined with sifted search, "<siftedQuery>"
-    And   searchable brand filters contain refined brand filters
+    Then  facet has filters
+    And   searchable filters are stored
+    When  "<searchFiltersQuery>" is typed in the filters search input
+    Then  filters in facet are refined with search, "<searchFiltersQuery>"
+    And   searchable filters in facet contain refined filters
     Examples:
-      | query | siftedQuery |
-      | juego | as          |
-
-
+      | query  | searchFiltersQuery |
+      | lego   | on                 |

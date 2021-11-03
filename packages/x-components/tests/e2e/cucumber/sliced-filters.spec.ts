@@ -1,9 +1,9 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
-let totalFiltersByFacet: number[], slicedFiltersByFacet: number[], hiddenFiltersByFacet: number[];
+let totalFilters: number, hiddenFilters: number;
 
 Given('following config: max of sliced filters {int}', (slicedFiltersMax: number) => {
-  cy.visit('/test/sliced-filters');
+  cy.visit('/?useMockedAdapter=true');
   cy.getByDataTest('sliced-filters-max').clear().type(slicedFiltersMax.toString());
 });
 
@@ -11,53 +11,54 @@ And('filters are displayed', () => {
   cy.getByDataTest('base-filters').should('have.length', 5);
 });
 
-And('number of total filters per facet are stored', () => {
-  cy.getByDataTest('base-toggle-panel')
-    .getByDataTest('total-filters')
-    .should($totals => {
-      totalFiltersByFacet = $totals.toArray().map(totalElement => Number(totalElement.textContent));
+And('number of sliced filters in facet {string} are stored', (facetName: string) => {
+  cy.getByDataTest(`${facetName}-filter`).as('slicedFilters');
+});
+
+And(
+  'number of sliced filters match {int}',
+  function (this: { slicedFilters: string[] }, slicedFiltersMax: number) {
+    expect(this.slicedFilters.length).to.eq(slicedFiltersMax);
+  }
+);
+
+And('number of hidden filters in facet {string} are stored', (facetName: string) => {
+  cy.getByDataTest(`${facetName}-sliced-filters`)
+    .getByDataTest('show-more-amount')
+    .then($button => {
+      hiddenFilters = Number($button.text());
     });
 });
 
-And('number of sliced filters per facet are stored', () => {
-  cy.getByDataTest('base-toggle-panel')
-    .getByDataTest('filters-show-more')
-    .getByDataTest('sliced-filters')
-    .should($sliced => {
-      slicedFiltersByFacet = $sliced
-        .toArray()
-        .map(slicedElement => Number(slicedElement.textContent));
-    });
+Then('total filters per facet are calculated', function (this: { slicedFilters: string[] }) {
+  totalFilters = this.slicedFilters.length + hiddenFilters;
 });
 
-Then('hidden filters per facet are calculated', () => {
-  hiddenFiltersByFacet = totalFiltersByFacet
-    .map((number, index) => number - slicedFiltersByFacet[index])
-    .filter(hiddenFilters => hiddenFilters > 0);
+When('clicking in show more button {string}', (facetName: string) => {
+  cy.getByDataTest(`${facetName}-sliced-filters`)
+    .getByDataTest('sliced-filters-show-more-button')
+    .click();
 });
 
-Then('total filters - hidden filters per facet is displayed in show more button', () => {
-  hiddenFiltersByFacet.forEach((result, index) => {
-    cy.getByDataTest('sliced-filters-show-more-button').eq(index).should('contain', `${result}`);
-  });
-});
+Then(
+  'total filters match displayed + hidden filters',
+  function (this: { slicedFilters: string[] }) {
+    expect(totalFilters).to.eq(this.slicedFilters.length);
+  }
+);
 
 // Scenario 2
-And('show more buttons are clicked', () => {
-  cy.getByDataTest('sliced-filters-show-more-button').click({ multiple: true });
-});
+And(
+  'number of sliced filters are at most {int}',
+  function (this: { slicedFilters: string[] }, slicedFiltersMax: number) {
+    expect(this.slicedFilters.length).to.be.lte(slicedFiltersMax);
+  }
+);
 
-Then('numbers of sliced and total filters per facet match', () => {
-  expect(totalFiltersByFacet).to.deep.equal(slicedFiltersByFacet);
-});
-
-When('show less buttons are clicked', () => {
-  cy.getByDataTest('sliced-filters-show-less-button').click({ multiple: true });
-});
-
-And('show less button hides all filters above number {int}', (slicedFiltersMax: number) => {
-  totalFiltersByFacet.forEach((totalFilters, index) => {
-    expect(slicedFiltersByFacet[index]).lte(totalFilters);
-    expect(slicedFiltersByFacet[index]).lte(slicedFiltersMax);
-  });
+And('no show more / show less buttons are displayed in {string}', (facetName: string) => {
+  cy.getByDataTest(`${facetName}-sliced-filters`)
+    .getByDataTest('sliced-filters-show-more-button')
+    .should('not.exist')
+    .getByDataTest('sliced-filters-show-less-button')
+    .should('not.exist');
 });

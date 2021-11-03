@@ -8,7 +8,7 @@ Feature: Partial results component
 
   Scenario Outline:  1. Shows no partial results if there are enough results
     Given a results API
-    And   no special config for partial-results view
+    And   no special config for layout view
     And   start button is clicked
     When  "<query>" is searched
     Then  at least 4 related results are displayed
@@ -20,7 +20,7 @@ Feature: Partial results component
 
   Scenario Outline: 2. Show partial results if there are not enough results
     Given a results API with partial results
-    And   no special config for partial-results view
+    And   no special config for layout view
     And   start button is clicked
     When  "<query>" is searched
     Then  less than 4 related results are displayed
@@ -32,7 +32,7 @@ Feature: Partial results component
 
   Scenario Outline: 3. Click on partial query button launches new search
     Given a results API with partial results
-    And   no special config for partial-results view
+    And   no special config for layout view
     And   start button is clicked
     When  "<query>" is searched
     Then  less than 4 related results are displayed

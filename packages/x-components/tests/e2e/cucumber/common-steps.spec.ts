@@ -1,7 +1,10 @@
-import { PageableRequest } from '@empathyco/x-adapter';
+import { PageableRequest, SearchResponse } from '@empathyco/x-adapter';
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import {
+  createHierarchicalFacetStub,
+  createNumberRangeFacetStub,
   createResultStub,
+  createSimpleFacetStub,
   getNextQueriesStub,
   getPopularSearchesStub,
   getQuerySuggestionsStub,
@@ -12,6 +15,10 @@ import {
 let resultsList: string[] = [];
 
 // Init
+Given('no special config for layout view', () => {
+  cy.visit('/?useMockedAdapter=true');
+});
+
 When('start button is clicked', () => {
   cy.getByDataTest('open-modal').click();
 });
@@ -30,6 +37,10 @@ Then('no identifier results are displayed', () => {
 // History Queries
 When('clear history queries button is clicked', () => {
   cy.getByDataTest('clear-history-queries').click();
+});
+
+Then('history queries are displayed', () => {
+  cy.getByDataTest('history-query').should('have.length.at.least', 1);
 });
 
 Then(
@@ -80,6 +91,11 @@ Then('related results have changed', () => {
 });
 
 // Search Box
+
+When('search-input is focused', () => {
+  cy.focusSearchInput();
+});
+
 When('a {string} with results is typed', (query: string) => {
   cy.typeQuery(query).then(() => {
     cy.getByDataTest('search-input').invoke('val').as('searchedQuery');
@@ -147,42 +163,132 @@ Given('a results API', () => {
   }).as('interceptedRawResults');
 });
 
-Given('a results API with a known response', () => {
-  cy.intercept('https://api.empathy.co/search', req => {
-    req.reply({
-      banners: [],
-      promoteds: [],
-      results: [
-        createResultStub('LEGO Super Mario Pack Inicial: Aventuras con Mario - 71360', {
-          images: ['https://picsum.photos/seed/1/100/100']
-        }),
-        createResultStub('LEGO Duplo Classic Caja de Ladrillos - 1091', {
-          images: ['https://picsum.photos/seed/2/100/100']
-        }),
-        createResultStub('LEGO City Coche Patrulla de Policía - 60239', {
-          images: ['https://picsum.photos/seed/3/100/100']
-        }),
-        createResultStub('LEGO City Police Caja de Ladrillos - 60270', {
-          images: ['https://picsum.photos/seed/4/100/100']
-        }),
-        createResultStub('LEGO Friends Parque para Cachorros - 41396', {
-          images: ['https://picsum.photos/seed/5/100/100']
-        }),
-        createResultStub('LEGO Creator Ciberdrón - 31111', {
-          images: ['https://picsum.photos/seed/6/100/100']
-        }),
-        createResultStub('LEGO Technic Dragster - 42103', {
-          images: ['https://picsum.photos/seed/7/100/100']
-        })
-      ]
-    });
-  }).as('interceptedResults');
-});
-
 Given('an ID results API', () => {
   cy.intercept('https://api.empathy.co/searchById', req => {
     req.reply({
       results: getResultsStub()
     });
   });
+});
+
+Given('a results API with a known response', () => {
+  cy.intercept('https://api.empathy.co/search', req => {
+    req.reply(<SearchResponse>{
+      banners: [],
+      promoteds: [],
+      redirections: [],
+      partialResults: [],
+      queryTagging: {
+        url: 'https://analytics.com',
+        params: {}
+      },
+      spellcheck: '',
+      facets: [
+        createSimpleFacetStub('brand_facet', createSimpleFilter => [
+          createSimpleFilter('Juguetes deportivos', false, 3),
+          createSimpleFilter('Puzzles', false, 0),
+          createSimpleFilter('Construcción', false, 7),
+          createSimpleFilter('Construye', false, 6),
+          createSimpleFilter('Disfraces', false, 0)
+        ]),
+        createNumberRangeFacetStub('price_facet', createNumberRangeFilter => [
+          createNumberRangeFilter({ min: 0, max: 10 }, false),
+          createNumberRangeFilter({ min: 10, max: 20 }, false),
+          createNumberRangeFilter({ min: 20, max: 30 }, false),
+          createNumberRangeFilter({ min: 30, max: 40 }, false),
+          createNumberRangeFilter({ min: 40, max: 60 }, false),
+          createNumberRangeFilter({ min: 60, max: 100 }, false)
+        ]),
+        createNumberRangeFacetStub('age_facet', createNumberRangeFilter => [
+          createNumberRangeFilter({ min: 0, max: 1 }, false),
+          createNumberRangeFilter({ min: 1, max: 3 }, false),
+          createNumberRangeFilter({ min: 3, max: 6 }, false),
+          createNumberRangeFilter({ min: 6, max: 9 }, false),
+          createNumberRangeFilter({ min: 9, max: 12 }, false),
+          createNumberRangeFilter({ min: 12, max: 99 }, false)
+        ]),
+        createHierarchicalFacetStub('hierarchical_category', createFilter => [
+          ...createFilter('Vehículos y pistas', false, createFilter => [
+            ...createFilter('Radiocontrol', false)
+          ]),
+          ...createFilter('Juguetes electrónicos', false, createFilter => [
+            ...createFilter('Imagen y audio', false)
+          ]),
+          ...createFilter('Educativos', false, createFilter => [
+            ...createFilter('Juguetes educativos', false)
+          ]),
+          ...createFilter('Creativos', false, createFilter => [...createFilter('Crea', false)]),
+          ...createFilter('Muñecas', false, createFilter => [
+            ...createFilter('Peluches', false),
+            ...createFilter('Ropa y accesorios', false),
+            ...createFilter('Playsets', false),
+            ...createFilter('Bebés', false),
+            ...createFilter('Carros', false)
+          ]),
+          ...createFilter('Construcción', false, createFilter => [
+            ...createFilter('Construye', false)
+          ])
+        ])
+      ],
+      results: [
+        createResultStub('LEGO Super Mario Pack Inicial: Aventuras con Mario - 71360', {
+          images: ['https://picsum.photos/seed/1/100/100'],
+          price: {
+            hasDiscount: false,
+            originalValue: 59.99,
+            value: 59.99
+          }
+        }),
+        createResultStub('LEGO Duplo Classic Caja de Ladrillos - 1091', {
+          images: ['https://picsum.photos/seed/2/100/100'],
+          price: {
+            hasDiscount: false,
+            originalValue: 29.99,
+            value: 29.99
+          }
+        }),
+        createResultStub('LEGO City Coche Patrulla de Policía - 60239', {
+          images: ['https://picsum.photos/seed/3/100/100'],
+          price: {
+            hasDiscount: false,
+            originalValue: 11.99,
+            value: 11.99
+          }
+        }),
+        createResultStub('LEGO City Police Caja de Ladrillos - 60270', {
+          images: ['https://picsum.photos/seed/4/100/100'],
+          price: {
+            hasDiscount: false,
+            originalValue: 39.99,
+            value: 39.99
+          }
+        }),
+        createResultStub('LEGO Friends Parque para Cachorros - 41396', {
+          images: ['https://picsum.photos/seed/5/100/100'],
+          price: {
+            hasDiscount: false,
+            originalValue: 11.99,
+            value: 11.99
+          }
+        }),
+        createResultStub('LEGO Creator Ciberdrón - 31111', {
+          images: ['https://picsum.photos/seed/6/100/100'],
+          price: {
+            hasDiscount: false,
+            originalValue: 11.99,
+            value: 11.99
+          }
+        }),
+        createResultStub('LEGO Technic Dragster - 42103', {
+          images: ['https://picsum.photos/seed/7/100/100'],
+          price: {
+            hasDiscount: false,
+            originalValue: 22.99,
+            value: 22.99
+          }
+        })
+      ],
+      totalResults: 7
+    });
+  }).as('interceptedResults');
 });

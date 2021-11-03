@@ -1,21 +1,21 @@
 Feature: History queries component
 
   Background:
+    Given a results API with a known response
     Given a next queries API
     Given a suggestions API
     Given a related tags API
-    Given a results API
 
   Scenario Outline:  1. History query is clicked
     Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>
+    And   start button is clicked
     And   a "<list>" of queries already searched
-    When  history query number <historyQueryItem> is clicked
+    When  search-input is focused
+    And   history query number <historyQueryItem> is clicked
+    And   search-input is focused
     Then  the searched query is displayed in the search-box
     And   the searched query is not displayed in history queries if <hideIfEqualsQuery> is true
-    And   related results are displayed
-    And   query suggestions are displayed
-    And   next queries are displayed
-    And   related tags are displayed
+
     Examples:
       | hideIfEqualsQuery | debounceInMs | maxItemsToStore | maxItemsToRender | instant | historyQueryItem | list                                                                                                             |
       | true              | 150          | 15              | 8                | true    | 7                | puzzle, funko, puzzle 3d, funko pop, puzzle 3d harry, funko pop iron, puzzle 3d harry potter, funko pop iron man |
@@ -23,10 +23,13 @@ Feature: History queries component
 
   Scenario Outline: 2. History query delete button is clicked
     Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>
+    And   start button is clicked
     And   a "<list>" of queries already searched
-    When  the delete button of <historyQueryItem> is clicked
+    When  search-input is focused
+    And   the delete button of <historyQueryItem> is clicked
     Then  the deleted history query is removed from history queries
     And   the number of rendered history queries is <maxItemsToRender> - 1 if <maxItemsToStore> < <maxItemsToRender>
+
     Examples:
       | hideIfEqualsQuery | debounceInMs | maxItemsToStore | maxItemsToRender | instant | historyQueryItem | list                                                                                                             |
       | true              | 150          | 15              | 5                | true    | 0                | puzzle, funko, puzzle 3d, funko pop, puzzle 3d harry, funko pop iron, puzzle 3d harry potter, funko pop iron man |
@@ -34,8 +37,10 @@ Feature: History queries component
 
   Scenario Outline: 3. Clear history queries button is clicked
     Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>
+    And   start button is clicked
     And   a "<list>" of queries already searched
-    When  clear history queries button is clicked
+    When  search-input is focused
+    And   clear history queries button is clicked
     Then  no history queries are displayed
     And   clear history queries button is disabled
 
@@ -45,12 +50,12 @@ Feature: History queries component
 
   Scenario Outline: 4. Query containing a history query is typed
     Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>
+    And   start button is clicked
     And   no history queries are displayed
     When  "<query>" is searched
-    And   related results are displayed
     And   "<followingQuery>" is searched
-    And   the searched query is displayed in the search-box
-    And   clear search button is pressed
+    Then   the searched query is displayed in the search-box
+    When   clear search button is pressed
     Then  "<query>" is deleted from history queries, whereas "<followingQuery>" remains
 
     Examples:
@@ -59,7 +64,9 @@ Feature: History queries component
       | true              | 150          | 15              | 5                | true    | le    | go star wars   |
 
   Scenario Outline: 5. History query is not stored if instant search is false
+    Given a results API with a known response
     Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>
+    And   start button is clicked
     When  a "<query>" with results is typed
     Then  no history queries are displayed after <debounceInMs> ms if <instant> is false
     Examples:
@@ -69,9 +76,12 @@ Feature: History queries component
 
   Scenario Outline: 6. Number and order of rendered history queries
     Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>
+    And   start button is clicked
     And   a "<list>" of queries already searched
-    When  history query number <historyQueryItem> is clicked
+    When  search-input is focused
+    And   history query number <historyQueryItem> is clicked
     And   clear search button is pressed
+    And   search-input is focused
     Then  the searched query is removed from <historyQueryItem> position in history queries
     And   the searched query is the first item in history queries
     And   displayed history queries are min of number of queries already searched, max requested items <maxItemsToStore>, max rendered items <maxItemsToRender>

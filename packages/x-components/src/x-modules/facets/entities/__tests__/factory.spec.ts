@@ -22,7 +22,7 @@ describe('testing filters entity factory', () => {
     const store = prepareFacetsStore();
     const factory = new FilterEntityFactory();
     const rawFilter = createRawFilter('size:m');
-    const rawFilterEntity = factory.createFilterEntity(store, rawFilter);
+    const rawFilterEntity = factory.getFilterEntity(store, rawFilter);
 
     // Selecting a raw filter that is not in the store should add it.
     rawFilterEntity.select(rawFilter);
@@ -37,7 +37,7 @@ describe('testing filters entity factory', () => {
     const store = prepareFacetsStore();
     const factory = new FilterEntityFactory();
     const simpleFilter = createSimpleFilter('color', 'red');
-    const simpleFilterEntity = factory.createFilterEntity(store, simpleFilter);
+    const simpleFilterEntity = factory.getFilterEntity(store, simpleFilter);
 
     // Selecting a simple filter that is not in the store should add it.
     simpleFilterEntity.select(simpleFilter);
@@ -52,7 +52,7 @@ describe('testing filters entity factory', () => {
     const store = prepareFacetsStore();
     const factory = new FilterEntityFactory();
     const hierarchicalFilter = createHierarchicalFilter('category', 'shirts');
-    const hierarchicalFilterEntity = factory.createFilterEntity(store, hierarchicalFilter);
+    const hierarchicalFilterEntity = factory.getFilterEntity(store, hierarchicalFilter);
 
     // Selecting a hierarchical filter that is not in the store should add it.
     hierarchicalFilterEntity.select(hierarchicalFilter);
@@ -67,7 +67,7 @@ describe('testing filters entity factory', () => {
     const store = prepareFacetsStore();
     const factory = new FilterEntityFactory();
     const numberRangeFilter = createNumberRangeFilter('price', { min: 10, max: 20 });
-    const numberRangeFilterEntity = factory.createFilterEntity(store, numberRangeFilter);
+    const numberRangeFilterEntity = factory.getFilterEntity(store, numberRangeFilter);
 
     // Selecting a number range filter that is not in the store should add it.
     numberRangeFilterEntity.select(numberRangeFilter);
@@ -86,7 +86,7 @@ describe('testing filters entity factory', () => {
       min: 10,
       max: null
     });
-    const editableNumberRangeFilterEntity = factory.createFilterEntity(
+    const editableNumberRangeFilterEntity = factory.getFilterEntity(
       store,
       editableNumberRangeFilter
     );
@@ -138,9 +138,9 @@ describe('testing filters entity factory', () => {
       const factory = new FilterEntityFactory();
 
       const simpleFilter = createSimpleFilter('color', 'red');
-      const simpleFilterEntity = factory.createFilterEntity(store, simpleFilter);
+      const simpleFilterEntity = factory.getFilterEntity(store, simpleFilter);
       const rawFilter = createRawFilter(String(simpleFilter.id));
-      const rawFilterEntity = factory.createFilterEntity(store, rawFilter);
+      const rawFilterEntity = factory.getFilterEntity(store, rawFilter);
 
       rawFilterEntity.select(rawFilter);
       expect(isFilterSelected(store, rawFilter.id)).toBe(true);
@@ -156,9 +156,9 @@ describe('testing filters entity factory', () => {
       const factory = new FilterEntityFactory();
 
       const hierarchicalFilter = createHierarchicalFilter('category', 'shirts');
-      const hierarchicalFilterEntity = factory.createFilterEntity(store, hierarchicalFilter);
+      const hierarchicalFilterEntity = factory.getFilterEntity(store, hierarchicalFilter);
       const rawFilter = createRawFilter(String(hierarchicalFilter.id));
-      const rawFilterEntity = factory.createFilterEntity(store, rawFilter);
+      const rawFilterEntity = factory.getFilterEntity(store, rawFilter);
 
       rawFilterEntity.select(rawFilter);
       expect(isFilterSelected(store, rawFilter.id)).toBe(true);
@@ -179,9 +179,9 @@ describe('testing filters entity factory', () => {
       const factory = new FilterEntityFactory();
 
       const numberRangeFilter = createNumberRangeFilter('price', { min: 10, max: null });
-      const numberRangeFilterEntity = factory.createFilterEntity(store, numberRangeFilter);
+      const numberRangeFilterEntity = factory.getFilterEntity(store, numberRangeFilter);
       const rawFilter = createRawFilter(String(numberRangeFilter.id));
-      const rawFilterEntity = factory.createFilterEntity(store, rawFilter);
+      const rawFilterEntity = factory.getFilterEntity(store, rawFilter);
 
       rawFilterEntity.select(rawFilter);
       expect(isFilterSelected(store, rawFilter.id)).toBe(true);
@@ -207,8 +207,8 @@ describe('testing filters entity factory', () => {
       const mediumSizeFilter = createSimpleFilter('size', 'm');
       const largeSizeFilter = createSimpleFilter('size', 'l');
       factory.registerFilterModifier('color', [SingleSelectModifier]);
-      const colorEntity = factory.createFilterEntity(store, redColorFilter);
-      const sizeEntity = factory.createFilterEntity(store, mediumSizeFilter);
+      const colorEntity = factory.getFilterEntity(store, redColorFilter);
+      const sizeEntity = factory.getFilterEntity(store, mediumSizeFilter);
 
       colorEntity.select(redColorFilter);
       expect(isFilterSelected(store, redColorFilter.id)).toBe(true);
