@@ -3,6 +3,58 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.27...@empathyco/x-components@3.0.0-alpha.28) (2021-11-03)
+
+### Features
+
+- **components:** add new fixed header and aside layout
+  ([e2c0ed5](https://github.com/empathyco/x/commit/e2c0ed5ad2ea0015b7d6d330d97499ad64d8947c)),
+  closes [EX-4821](https://searchbroker.atlassian.net/browse/EX-4821)
+- **design-system:** Add Desing System Message and Progress Bar components
+  ([bba13c9](https://github.com/empathyco/x/commit/bba13c9b632bbe6dad40505bcd5382bfd2105f8e)),
+  closes [EX-4904](https://searchbroker.atlassian.net/browse/EX-4904)
+- **extra-params:** Add support to `UrlHandler` for handling `extra-params`
+  ([4788be1](https://github.com/empathyco/x/commit/4788be15c5c47525279d3fedc3e468aebb1e8610)),
+  closes [EX-4564](https://searchbroker.atlassian.net/browse/EX-4564)
+- **search:** add Redirection and AutoProgressBar components
+  ([14168eb](https://github.com/empathyco/x/commit/14168eb6bc9ead3c807f70765cc6f277532c2959)),
+  closes [EX-4297](https://searchbroker.atlassian.net/browse/EX-4297)
+- update x-components browserslist
+  ([0795ed3](https://github.com/empathyco/x/commit/0795ed3b2cca9d64069426e1b449bbcc725f0a09)),
+  closes [EX-3929](https://searchbroker.atlassian.net/browse/EX-3929)
+- **x-plugin:** Update Alias API with `noResults`, `redirections` and `partialResults`
+  ([c1ad042](https://github.com/empathyco/x/commit/c1ad0422822e88ec501f31e4b75bddf0ac2b3737)),
+  closes [EX-4946](https://searchbroker.atlassian.net/browse/EX-4946)
+
+### Bug Fixes
+
+- **facets:** now service uses only the first filter entity to update the facets.
+  ([c2a19cd](https://github.com/empathyco/x/commit/c2a19cddb3db399fa7d242b7557ea8b2dc760461)),
+  closes [EX-4867](https://searchbroker.atlassian.net/browse/EX-4867)
+- **url:** Fix URL clear query issue
+  ([57680ad](https://github.com/empathyco/x/commit/57680ada60c2d0748f09d029831718ec04660d81)),
+  closes [EX-4949](https://searchbroker.atlassian.net/browse/EX-4949)
+- **x-plugin:** fix no results message flash on load
+  ([33f534f](https://github.com/empathyco/x/commit/33f534f0343b4115e9ce4d506a9b3d299277976c)),
+  closes [EX-4951](https://searchbroker.atlassian.net/browse/EX-4951)
+
+### Code Refactoring
+
+- **design-system:** Refactor Design System View
+  ([f8faf3b](https://github.com/empathyco/x/commit/f8faf3b049160771fa657ac17be4154f434b558c)),
+  closes [EX-4944](https://searchbroker.atlassian.net/browse/EX-4944)
+
+### Testing
+
+- **e2e:** fix sort intercepted request
+  ([bfb56a8](https://github.com/empathyco/x/commit/bfb56a8a004fccdde20e4f2342b591e37679201c)),
+  closes [EX-4953](https://searchbroker.atlassian.net/browse/EX-4953)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.26...@empathyco/x-components@3.0.0-alpha.27) (2021-10-25)
 
 ### ⚠ BREAKING CHANGES

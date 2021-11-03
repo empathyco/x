@@ -22,4 +22,4 @@ Feature: Search sort components
 
     Examples:
       | query | sortOption1   | sortOption2    | defaultSort |
-      | lego  | priceSort asc | priceSort desc | default     |
+      | lego  | price asc     | price desc     | default     |
