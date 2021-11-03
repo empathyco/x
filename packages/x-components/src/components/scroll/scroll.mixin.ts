@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { Component, Prop, Watch } from 'vue-property-decorator';
+import { debounce } from '../../utils/debounce';
 import { throttle } from '../../utils/throttle';
 import { ScrollDirection } from './scroll.types';
 
@@ -70,6 +71,9 @@ export default class ScrollMixin extends Vue {
    * @internal
    */
   protected scrollHeight = 0;
+
+  protected firstVisibleElement: string | null = null;
+
   /**
    * Throttled version of the function that stores the DOM scroll related properties.
    * The duration of the throttle is configured through the
@@ -162,16 +166,23 @@ export default class ScrollMixin extends Vue {
    * @internal
    */
   @Watch('currentPosition')
-  protected emitFirstVisibleElement(): void {
+  protected updateFirstVisibleElement(): void {
     if (this.$el) {
       const containerTop = this.$el.getBoundingClientRect().top - this.firstElementThresholdPx;
       // FIXME: If the scroll items are moved using CSS this `.find` will return a wrong element.
-      const firstElementInView = Array.from(
+      const firstVisibleElement = Array.from(
         this.$el.querySelectorAll<HTMLElement>('[data-scroll]')
       ).find(childElement => childElement.getBoundingClientRect().top > containerTop);
-      if (firstElementInView) {
-        this.$emit('scroll:at-element', firstElementInView.dataset.scroll!);
-      }
+      this.firstVisibleElement = firstVisibleElement?.dataset.scroll ?? null;
+    } else {
+      this.firstVisibleElement = null;
+    }
+  }
+
+  @Watch('firstVisibleElement')
+  protected emitFirstVisibleElement(): void {
+    if (this.firstVisibleElement) {
+      this.$emit('scroll:at-element', this.firstVisibleElement);
     }
   }
 
@@ -244,7 +255,7 @@ export default class ScrollMixin extends Vue {
    * @internal
    */
   protected observeFirstVisibleElement(): void {
-    const observer = new MutationObserver(this.emitFirstVisibleElement);
+    const observer = new MutationObserver(debounce(this.updateFirstVisibleElement, 0));
     observer.observe(this.$el, {
       childList: true,
       subtree: true
