@@ -10,7 +10,6 @@
     :id="id"
     :throttleMs="throttleMs"
     :distanceToBottom="distanceToBottom"
-    :main="main"
   >
     <slot />
   </BaseScroll>
