@@ -1,4 +1,4 @@
 import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
-import { configureAdapterWithJuguettos } from './util';
+import { configureAdapterWithToysrus } from './util';
 
-export const realAdapter = configureAdapterWithJuguettos(new EmpathyAdapterBuilder()).build();
+export const realAdapter = configureAdapterWithToysrus(new EmpathyAdapterBuilder()).build();

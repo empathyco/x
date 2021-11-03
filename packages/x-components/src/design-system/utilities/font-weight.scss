@@ -1,0 +1,13 @@
+.x-font-weight {
+  &--light {
+    font-weight: var(--x-number-font-weight-base-light) !important;
+  }
+
+  &--regular {
+    font-weight: var(--x-number-font-weight-base-regular) !important;
+  }
+
+  &--bold {
+    font-weight: var(--x-number-font-weight-base-bold) !important;
+  }
+}

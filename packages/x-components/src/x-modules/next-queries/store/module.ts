@@ -20,7 +20,7 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     query: '',
     nextQueries: [],
     searchedQueries: [],
-    status: 'success',
+    status: 'initial',
     config: {
       maxItemsToRequest: 20,
       hideSessionQueries: true,

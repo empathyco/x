@@ -7,5 +7,5 @@ When('{int} columns are selected from the column picker list', (numberOfColumns:
 });
 
 Then('results are displayed in {int} columns', (numberOfColumns: number) => {
-  cy.getByDataTest('grid').should('have.class', `x-base-grid--cols-${numberOfColumns || 'auto'}`);
+  cy.getByDataTest('grid').should('have.class', `x-grid--cols-${numberOfColumns || 'auto'}`);
 });

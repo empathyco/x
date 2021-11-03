@@ -296,20 +296,34 @@ describe('testing search module actions', () => {
 
   describe('setUrlParams', () => {
     it('should set the params of the search module', async () => {
-      resetSearchStateWith(store, { query: 'funko', page: 1 });
+      resetSearchStateWith(store, { query: 'funko', page: 1, sort: '' });
 
-      await store.dispatch('setUrlParams', { query: 'lego', page: 2 } as UrlParams);
+      await store.dispatch('setUrlParams', {
+        query: 'lego',
+        page: 2,
+        sort: 'priceSort asc'
+      } as UrlParams);
 
       expect(store.state.query).toEqual('lego');
       expect(store.state.page).toEqual(2);
+      expect(store.state.sort).toEqual('priceSort asc');
     });
 
-    it('should set the query even if empty of the search module', async () => {
+    it('should set in the search module the query value even if empty', async () => {
       resetSearchStateWith(store, { query: 'funko' });
 
       await store.dispatch('setUrlParams', { page: 2, query: '' } as UrlParams);
 
       expect(store.state.query).toEqual('');
+      expect(store.state.page).toEqual(2);
+    });
+
+    it('should set in the search module the sort value even if empty', async () => {
+      resetSearchStateWith(store, { sort: 'priceSort asc' });
+
+      await store.dispatch('setUrlParams', { page: 2, sort: '' } as UrlParams);
+
+      expect(store.state.sort).toEqual('');
       expect(store.state.page).toEqual(2);
     });
   });

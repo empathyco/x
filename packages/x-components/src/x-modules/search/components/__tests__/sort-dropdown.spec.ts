@@ -22,8 +22,7 @@ function renderSortDropdown({
         {{ item }}
       </template>
    </SortDropdown>`,
-  items = ['Relevance', 'Price low to high', 'Price high to low'],
-  value,
+  items = ['', 'Price low to high', 'Price high to low'],
   selectedSort = items[0]
 }: RenderSortDropdownOptions = {}): RenderSortDropdownAPI {
   const localVue = createLocalVue();
@@ -52,8 +51,7 @@ function renderSortDropdown({
       localVue,
       store,
       propsData: {
-        items,
-        value
+        items
       }
     }
   );
@@ -81,11 +79,6 @@ function renderSortDropdown({
     },
     getHighlightedItem() {
       return sortDropdownWrapper.get('[aria-current=true]');
-    },
-    async setValue(sort) {
-      await wrapper.setProps({
-        value: sort
-      });
     },
     async setItems(items) {
       await wrapper.setProps({
@@ -130,71 +123,22 @@ describe('testing SortDropdown component', () => {
       metadata: { moduleName: 'search', target: wrapper.vm.$el as HTMLElement }
     });
   });
-
-  it('allows providing a selected sort value using props', async () => {
-    const { onSelectedSortProvided, setValue } = renderSortDropdown({
-      items: ['price desc', 'price asc', 'default'],
-      value: 'default'
-    });
-
-    expect(onSelectedSortProvided).toHaveBeenCalledTimes(1);
-    expect(onSelectedSortProvided).toHaveBeenCalledWith<[WirePayload<Sort>]>({
-      eventPayload: 'default',
-      // This event gets emitted immediately, before the component has been mounted
-      metadata: { moduleName: 'search' }
-    });
-
-    await setValue('price asc');
-
-    expect(onSelectedSortProvided).toHaveBeenCalledTimes(2);
-    expect(onSelectedSortProvided).toHaveBeenCalledWith<[WirePayload<Sort>]>({
-      eventPayload: 'price asc',
-      metadata: { moduleName: 'search' }
-    });
-  });
-
   // eslint-disable-next-line max-len
-  it('emits the first element of the `items` prop as the provided sort if no `value` is provided', () => {
-    const { onSelectedSortProvided } = renderSortDropdown({
-      items: ['price desc', 'price asc', 'default']
-    });
+  it('returns a default empty string at first', () => {
+    const { onSelectedSortProvided } = renderSortDropdown();
 
     expect(onSelectedSortProvided).toHaveBeenCalledTimes(1);
     expect(onSelectedSortProvided).toHaveBeenCalledWith<[WirePayload<Sort>]>({
-      eventPayload: 'price desc',
+      eventPayload: '',
       // This event gets emitted immediately, before the component has been mounted
       metadata: { moduleName: 'search', target: undefined }
     });
   });
 
-  // eslint-disable-next-line max-len
-  it('selects the first value of the items if they changed and there is not a provided value', async () => {
-    const { setItems, clickToggleButton, getSelectedItem } = renderSortDropdown({
-      items: ['price desc', 'price asc', 'default']
-    });
-
-    await setItems(['relevance', 'offers first']);
-    await clickToggleButton();
-    expect(getSelectedItem().text()).toEqual('relevance');
-  });
-
-  // eslint-disable-next-line max-len
-  it('does not change the sort value if the items change and there is a provided value', async () => {
-    const { setItems, clickToggleButton, getSelectedItem } = renderSortDropdown({
-      items: ['price desc', 'price asc', 'default'],
-      value: 'price asc'
-    });
-
-    await setItems(['popularity', 'price desc', 'price asc']);
-    await clickToggleButton();
-    expect(getSelectedItem().text()).toEqual('price asc');
-  });
-
   describe('slots', () => {
     it('allows to customize each item using the slots', async () => {
       const { getSelectedItem, getHighlightedItem, clickToggleButton } = renderSortDropdown({
-        items: ['Relevance', 'Price low to high', 'Price high to low'],
-        value: 'Relevance',
+        items: ['', 'Price low to high', 'Price high to low'],
         template: `
           <SortDropdown v-bind="$attrs">
             <template #item="{ item, isSelected, isHighlighted }">
@@ -207,14 +151,13 @@ describe('testing SortDropdown component', () => {
 
       await clickToggleButton();
 
-      expect(getSelectedItem().text()).toBe(`✅ 🟢 Relevance`);
-      expect(getHighlightedItem().text()).toBe(`✅ 🟢 Relevance`);
+      expect(getSelectedItem().text()).toBe(`✅ 🟢`);
+      expect(getHighlightedItem().text()).toBe(`✅ 🟢`);
     });
 
     it('allows to customize the toggle button', async () => {
       const { getToggleButton, clickToggleButton } = renderSortDropdown({
-        value: 'Relevance',
-        items: ['Relevance', 'Price low to high', 'Price high to low'],
+        items: ['', 'Price low to high', 'Price high to low'],
         template: `
           <SortDropdown v-bind="$attrs">
             <template #toggle="{ item, isOpen }">
@@ -223,11 +166,11 @@ describe('testing SortDropdown component', () => {
           </SortDropdown>`
       });
 
-      expect(getToggleButton().text()).toBe('Relevance 🔼');
+      expect(getToggleButton().text()).toBe('🔼');
 
       await clickToggleButton();
 
-      expect(getToggleButton().text()).toBe('Relevance 🔽');
+      expect(getToggleButton().text()).toBe('🔽');
     });
   });
 });
@@ -237,8 +180,6 @@ interface RenderSortDropdownOptions {
   template?: string;
   /** The possible values of the sort dropdown. Passed as prop to the `SortDropdown`. */
   items?: Sort[];
-  /** The selected sort value. Passed as prop to the `SortDropdown`. */
-  value?: Sort;
   /** The store selected sort value. The store state is reset with this sort in each test. */
   selectedSort?: Sort;
 }
@@ -279,12 +220,6 @@ interface RenderSortDropdownAPI {
    * @returns A promise that resolves after the view has been updated.
    */
   clickNthItem: (index: number) => Promise<void>;
-  /**
-   * Updates the `value` prop of the {@link SortDropdown} component.
-   *
-   * @returns A promise that resolves after the view has been updated.
-   */
-  setValue: (sort: Sort) => Promise<void>;
   /**
    * Updates the `items` prop of the {@link SortDropdown} component.
    *

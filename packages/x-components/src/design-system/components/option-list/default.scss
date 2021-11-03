@@ -78,7 +78,9 @@
       --x-color-border-button-default: var(--x-color-border-option-list-button-default);
       --x-color-text-button-default: var(--x-color-text-option-list-button-default);
 
-      // size
+
+      //layout
+      min-height: auto;
       --x-size-padding-button-default: var(--x-size-padding-option-list-button-default);
       --x-size-padding-top-button-default: var(--x-size-padding-top-option-list-button-default);
       --x-size-padding-right-button-default: var(--x-size-padding-right-option-list-button-default);
