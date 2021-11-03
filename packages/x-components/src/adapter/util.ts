@@ -10,7 +10,7 @@ import { Result } from '@empathyco/x-types';
  *
  * @internal
  */
-export function configureAdapterWithJuguettos(
+export function configureAdapterWithToysrus(
   adapterBuilder: EmpathyAdapterBuilder
 ): EmpathyAdapterBuilder {
   adapterBuilder
@@ -19,21 +19,18 @@ export function configureAdapterWithJuguettos(
       result.identifier.value = `${result.id}`;
       return result;
     }, 'results')
-    .setFeatureConfig('search', {
-      endpoint: 'https://api{env}.empathybroker.com/search/v1/query/juguettos/searchv2'
-    })
     .setFacetConfig(
       {
         modelName: 'HierarchicalFacet'
       },
-      'hierarchical_category'
+      'categories_facet'
     )
     .setFacetConfig(
       {
         modelName: 'NumberRangeFacet',
-        template: '<!tag=price_facet>priceSort:[<min> TO <max>]'
+        template: '<!tag=price_facet>price:[<min> TO <max>]'
       },
-      'price_facet'
+      'price'
     );
 
   return adapterBuilder;

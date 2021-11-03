@@ -198,7 +198,7 @@
               <!-- Facets -->
               <Facets class="x-list--gap-06" renderable-facets="!rootCategories_facet">
                 <!--  Hierarchical Facet    -->
-                <template #hierarchical-category="{ facet }">
+                <template #categories-facet="{ facet }">
                   <BaseHeaderTogglePanel class="x-facet">
                     <template #header-content>
                       <span class="x-ellipsis">{{ facet.label }}</span>
@@ -236,11 +236,7 @@
                                 filter
                               }"
                             >
-                              <SimpleFilter
-                                #label="{ filter }"
-                                :filter="filter"
-                                data-test="brand-filter"
-                              >
+                              <SimpleFilter #label :filter="filter" data-test="brand-filter">
                                 {{ filter.label }}
                                 <span data-test="brand-filter-total-results">
                                   {{ filter.totalResults }}
@@ -271,8 +267,24 @@
                         >
                           <SelectedFilters :facetId="facet.id" />
                           <FiltersList v-slot="{ filter }">
-                            <SimpleFilter :filter="filter" :data-test="facet.label + '-filter'" />
-                            <span data-test="filter-total-results">{{ filter.totalResults }}</span>
+                            <SimpleFilter
+                              #label
+                              :filter="filter"
+                              :data-test="facet.label + '-filter'"
+                            >
+                              <BasePriceFilterLabel
+                                v-if="facet.id === 'price'"
+                                :filter="filter"
+                                class="x-filter__label"
+                                lessThan="Less than {max}"
+                                fromTo="From {min} to {max}"
+                                from="More than {min}"
+                              />
+                              <span v-else class="x-filter__label">{{ filter.label }}</span>
+                              <span v-if="filter.totalResults" class="x-filter__count">
+                                ({{ filter.totalResults }})
+                              </span>
+                            </SimpleFilter>
                           </FiltersList>
                         </SlicedFilters>
                       </SortedFilters>
@@ -344,18 +356,20 @@
                       <BaseVariableColumnGrid :animation="resultsAnimation">
                         <template #result="{ item: result }">
                           <article class="result" style="max-width: 300px">
-                            <BaseResultImage :result="result" class="x-picture--colored">
-                              <template #placeholder>
-                                <div style="padding-top: 100%; background-color: lightgray"></div>
-                              </template>
-                              <template #fallback>
-                                <div
-                                  data-test="result-picture-fallback"
-                                  style="padding-top: 100%; background-color: lightsalmon"
-                                ></div>
-                              </template>
-                            </BaseResultImage>
-                            <h1 class="x-title3" data-test="result-text">{{ result.name }}</h1>
+                            <BaseResultLink :result="result">
+                              <BaseResultImage :result="result" class="x-picture--colored">
+                                <template #placeholder>
+                                  <div style="padding-top: 100%; background-color: lightgray"></div>
+                                </template>
+                                <template #fallback>
+                                  <div
+                                    data-test="result-picture-fallback"
+                                    style="padding-top: 100%; background-color: lightsalmon"
+                                  ></div>
+                                </template>
+                              </BaseResultImage>
+                              <h1 class="x-title3" data-test="result-text">{{ result.name }}</h1>
+                            </BaseResultLink>
                           </article>
                         </template>
 
@@ -455,7 +469,7 @@
           </template>
 
           <template #scroll-to-top>
-            <BaseScrollToTop :threshold-px="500" class="x-button--round" scroll-id="body-scroll">
+            <BaseScrollToTop :threshold-px="500" class="x-button--round" scroll-id="main-scroll">
               <ChevronUp />
             </BaseScrollToTop>
           </template>
@@ -479,6 +493,7 @@
   import BaseKeyboardNavigation from '../components/base-keyboard-navigation.vue';
   import BaseVariableColumnGrid from '../components/base-variable-column-grid.vue';
   import BaseColumnPickerList from '../components/column-picker/base-column-picker-list.vue';
+  import BasePriceFilterLabel from '../components/filters/labels/base-price-filter-label.vue';
   import CheckTiny from '../components/icons/check-tiny.vue';
   import ChevronDown from '../components/icons/chevron-down.vue';
   import ChevronLeft from '../components/icons/chevron-left.vue';
@@ -566,7 +581,7 @@
         xModules: deepMerge(customQueryConfig)
       });
       new XInstaller(configLayoutView).init(baseSnippetConfig);
-      ['hierarchical_category', 'brand_facet', 'age_facet'].forEach(facetId =>
+      ['categories_facet', 'brand_facet', 'age_facet'].forEach(facetId =>
         FilterEntityFactory.instance.registerFilterModifier(facetId, [SingleSelectModifier])
       );
       next();
@@ -575,6 +590,7 @@
       infiniteScroll
     },
     components: {
+      BasePriceFilterLabel,
       AutoProgressBar,
       Banner,
       BannersList,
@@ -660,7 +676,7 @@
     protected empathizeAnimation = CollapseFromTop;
     protected sortDropdownAnimation = CollapseHeight;
     protected selectedColumns = 4;
-    protected sortValues = ['', 'priceSort asc', 'priceSort desc'];
+    protected sortValues = ['', 'price asc', 'price desc'];
     protected controls = {
       searchInput: {
         instant: true,
@@ -689,7 +705,7 @@
           {
             facetId: 'offer',
             modelName: 'SimpleFilter',
-            id: 'priceSort:[0 TO 10]',
+            id: 'price:[0 TO 10]',
             selected: false,
             label: 'In Offer'
           } as SimpleFilterModel
@@ -703,6 +719,6 @@
   .x-modal::v-deep .x-modal__content {
     overflow: hidden;
     width: 100%;
-    height: 99%;
+    height: 100%;
   }
 </style>

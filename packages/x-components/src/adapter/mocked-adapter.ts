@@ -15,7 +15,7 @@ import {
   TopRecommendationsRequest,
   TopRecommendationsResponse
 } from '@empathyco/x-adapter';
-import { configureAdapterWithJuguettos } from './util';
+import { configureAdapterWithToysrus } from './util';
 
 declare global {
   interface Window {
@@ -74,7 +74,7 @@ class E2ETestsAdapter extends EmpathyAdapter {
   }
 }
 
-export const mockedAdapter = configureAdapterWithJuguettos(
+export const mockedAdapter = configureAdapterWithToysrus(
   new EmpathyAdapterBuilder(undefined, undefined, E2ETestsAdapter)
 ).build();
 

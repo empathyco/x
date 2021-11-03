@@ -4,16 +4,17 @@ import { mockedAdapter } from '../adapter/mocked-adapter';
 import { realAdapter } from '../adapter/real-adapter';
 
 export const baseSnippetConfig: SnippetConfig = {
-  instance: 'juguettos',
+  instance: 'toysrus',
   lang: 'es',
-  env: 'staging',
   scope: 'x-components-development'
 };
 
 const url = new URL(location.href);
 
+const adapter = url.searchParams.has('useMockedAdapter') ? (mockedAdapter as any) : realAdapter;
+
 export const baseInstallXOptions: InstallXOptions = {
-  adapter: url.searchParams.has('useMockedAdapter') ? (mockedAdapter as any) : realAdapter,
+  adapter,
   xModules: {
     identifierResults: {
       config: {
