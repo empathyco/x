@@ -2,21 +2,20 @@ import 'reflect-metadata';
 import Vue from 'vue';
 import App from './App.vue';
 import { setupDevtools } from './plugins/devtools/devtools.plugin';
-import { xPlugin } from './plugins/x-plugin';
 import router from './router';
-import { baseInstallXOptions } from './views/base-config';
+import { baseInstallXOptions, baseSnippetConfig } from './views/base-config';
+import { XInstaller } from './x-installer/x-installer/x-installer';
 
 Vue.config.productionTip = false;
-Vue.use(xPlugin, baseInstallXOptions);
-const app = new Vue({
-  router,
-  render: h => h(App)
-}).$mount('#app');
-setupDevtools(app);
-
-// Injecting XComponents into the global window object when Cypress is injected for testing purposes
-if (Object.prototype.hasOwnProperty.call(window, 'Cypress')) {
-  Object.defineProperty(window, 'xcomponents', {
-    value: app
+new XInstaller({
+  ...baseInstallXOptions,
+  app: App,
+  vueOptions: {
+    router
+  },
+  domElement: '#app'
+})
+  .init(baseSnippetConfig)
+  .then(({ app }) => {
+    setupDevtools(app!);
   });
-}

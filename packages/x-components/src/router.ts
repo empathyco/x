@@ -30,11 +30,6 @@ const routes: RouteConfig[] = [
     component: () => import('./views/design-system/design-system.vue')
   },
   {
-    path: '/full-no-empathize',
-    name: 'full-no-empathize',
-    component: () => import('./views/FullNoEmpathize.vue')
-  },
-  {
     path: '/result-app',
     name: 'result-app',
     component: () => import('./views/ResultApp.vue')
@@ -49,7 +44,6 @@ const routes: RouteConfig[] = [
     name: 'Infinite Scroll Container',
     component: () => import('./views/infinite-scroll.vue')
   },
-
   {
     path: '/infinite-scroll-document',
     name: 'Infinite Scroll Document',

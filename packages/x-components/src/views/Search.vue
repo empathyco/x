@@ -2,7 +2,9 @@
   <div class="search">
     <header class="header">
       <SearchInput />
-      <ClearSearchInput><CrossIcon /></ClearSearchInput>
+      <ClearSearchInput>
+        <CrossIcon />
+      </ClearSearchInput>
     </header>
     <aside class="aside">
       <template v-if="hasFacets">
@@ -69,30 +71,24 @@
 </template>
 
 <script lang="ts">
+  import { Result } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { Result } from '@empathyco/x-types';
+  import BaseDropdown from '../components/base-dropdown.vue';
   import { State } from '../components/decorators/store.decorators';
   import { CheckIcon, ChevronLeftIcon, CrossIcon } from '../components/icons/index';
-  import FiltersList from '../x-modules/facets/components/lists/filters-list.vue';
-  import HierarchicalFilter from '../x-modules/facets/components/filters/hierarchical-filter.vue';
-  import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
   import { XPlugin } from '../plugins/x-plugin';
-  import { XInstaller } from '../x-installer/x-installer/x-installer';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
   import Facets from '../x-modules/facets/components/facets/facets.vue';
+  import HierarchicalFilter from '../x-modules/facets/components/filters/hierarchical-filter.vue';
+  import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
+  import FiltersList from '../x-modules/facets/components/lists/filters-list.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import { searchXModule } from '../x-modules/search/x-module';
-  import BaseDropdown from '../components/base-dropdown.vue';
-  import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   XPlugin.registerXModule(searchXModule);
   @Component({
-    beforeRouteEnter(_to, _from, next: () => void): void {
-      new XInstaller(baseInstallXOptions).init(baseSnippetConfig);
-      next();
-    },
     components: {
       CheckIcon,
       CrossIcon,
