@@ -191,7 +191,10 @@ export interface XEventsTypes
    * * Payload: The {@link @empathyco/x-types#Suggestion | suggestion} that the user selected.
    */
   UserSelectedASuggestion: Suggestion;
-
+  /**
+   * A new {@link XModule} has been registered.
+   * * Payload: The name of the XModule that has been registered.
+   */
   ModuleRegistered: keyof XModulesTree;
 }
 
