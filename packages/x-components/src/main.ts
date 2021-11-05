@@ -10,6 +10,7 @@ Vue.config.productionTip = false;
 new XInstaller({
   ...baseInstallXOptions,
   app: App,
+  xModules: JSON.parse(new URL(location.href).searchParams.get('xModules') ?? '{}'),
   vueOptions: {
     router
   },
@@ -17,5 +18,7 @@ new XInstaller({
 })
   .init(baseSnippetConfig)
   .then(({ app }) => {
-    setupDevtools(app!);
+    if (process.env.NODE_ENV !== 'production') {
+      setupDevtools(app!);
+    }
   });

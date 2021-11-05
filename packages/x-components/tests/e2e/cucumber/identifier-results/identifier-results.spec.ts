@@ -1,9 +1,10 @@
 import { And, Given } from 'cypress-cucumber-preprocessor/steps';
+import { SearchByIdResponse } from '@empathyco/x-adapter';
 import { createResultStub } from '../../../../src/__stubs__/results-stubs.factory';
 
 Given('an ID results API with a known response', () => {
   cy.intercept('https://api.empathy.co/searchById', req => {
-    req.reply({
+    req.reply(<SearchByIdResponse>{
       results: [
         createResultStub('A0255072 - 9788467577112 - 160000', {
           images: ['https://picsum.photos/seed/20/100/100']

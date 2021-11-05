@@ -155,10 +155,19 @@ Given('a related tags API', () => {
 
 Given('a results API', () => {
   cy.intercept('https://api.empathy.co/search', req => {
-    req.reply({
+    req.reply(<SearchResponse>{
+      redirections: [],
       banners: [],
       promoteds: [],
-      results: getResultsStub()
+      results: getResultsStub(),
+      spellcheck: '',
+      totalResults: 1,
+      facets: [],
+      partialResults: [],
+      queryTagging: {
+        url: 'https://tagging.empathy.co',
+        params: {}
+      }
     });
   }).as('interceptedRawResults');
 });
