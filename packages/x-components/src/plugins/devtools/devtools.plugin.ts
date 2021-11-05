@@ -1,4 +1,4 @@
-import { setupDevtoolsPlugin } from '@vue/devtools-api';
+import { DevtoolsPluginApi, setupDevtoolsPlugin } from '@vue/devtools-api';
 import Vue from 'vue';
 import { setupTimelinePlugin } from './timeline.devtools';
 import { setupWiringDevtools } from './wiring.devtools';
@@ -23,9 +23,11 @@ export function setupDevtools(app: Vue): void {
       // @ts-expect-error
       app
     },
-    api => {
-      setupTimelinePlugin(api);
-      setupWiringDevtools(api);
+    (api?: DevtoolsPluginApi<void>) => {
+      if (api) {
+        setupTimelinePlugin(api);
+        setupWiringDevtools(api);
+      }
     }
   );
 }
