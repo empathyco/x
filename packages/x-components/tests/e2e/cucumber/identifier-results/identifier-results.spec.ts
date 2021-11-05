@@ -1,5 +1,5 @@
+import { SearchByIdResponse, SearchResponse } from '@empathyco/x-adapter';
 import { And, Given } from 'cypress-cucumber-preprocessor/steps';
-import { SearchByIdResponse } from '@empathyco/x-adapter';
 import { createResultStub } from '../../../../src/__stubs__/results-stubs.factory';
 
 Given('an ID results API with a known response', () => {
@@ -25,7 +25,7 @@ Given('an ID results API with a known response', () => {
 
 Given('an ID results API with no results', () => {
   cy.intercept('https://api.empathy.co/searchById', req => {
-    req.reply({
+    req.reply(<SearchByIdResponse>{
       results: []
     });
   }).as('interceptedNoIDResults');
@@ -33,8 +33,19 @@ Given('an ID results API with no results', () => {
 
 And('a results API with no results', () => {
   cy.intercept('https://api.empathy.co/search', req => {
-    req.reply({
-      results: []
+    req.reply(<SearchResponse>{
+      banners: [],
+      promoteds: [],
+      redirections: [],
+      partialResults: [],
+      queryTagging: {
+        url: 'https://analytics.com',
+        params: {}
+      },
+      spellcheck: '',
+      facets: [],
+      results: [],
+      totalResults: 0
     });
   }).as('interceptedNoResults');
 });
