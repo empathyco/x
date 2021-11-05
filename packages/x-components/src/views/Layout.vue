@@ -325,7 +325,7 @@
               <!-- IdentifierResults -->
               <IdentifierResults class="x-list x-list--horizontal">
                 <template #default="{ identifierResult }">
-                  <article class="result" style="background: red">
+                  <article class="result">
                     <BaseResultImage :result="identifierResult" class="x-picture--colored">
                       <template #placeholder>
                         <div style="padding-top: 100%; background-color: lightgray"></div>
