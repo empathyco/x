@@ -62,18 +62,38 @@ export function getBusAPI(bus: XBus, component: PrivateExtendedVueComponent): XC
       payload?: XEventPayload<Event>,
       metadata: Omit<WireMetadata, 'moduleName'> = {}
     ) => {
-      const xComponent = component.xComponent;
-      const moduleName = xComponent ? getXComponentXModuleName(xComponent) : null;
-      bus.emit(event, payload as any, {
-        moduleName,
-        component,
-        origin: component.$origin,
-        ...metadata
-      });
-      xComponent?.$emit(event, payload);
+      bus.emit(event, payload as any, createMetadata(component, metadata));
+      component.xComponent?.$emit(event, payload);
     },
     on: bus.on.bind(bus)
   };
+}
+
+/**
+ * Creates a {@link WireMetadata} object based on the passed component and extra metadata.
+ *
+ * @param component - The component to extract the metadata from.
+ * @param metadata - Extra metadata to be emitted.
+ * @returns An object containing metadata.
+ */
+function createMetadata(
+  component: PrivateExtendedVueComponent,
+  metadata: Partial<WireMetadata>
+): WireMetadata {
+  return Object.defineProperty(
+    {
+      moduleName: component.xComponent ? getXComponentXModuleName(component.xComponent) : null,
+      origin: component.$origin,
+      ...metadata
+    },
+    'component',
+    {
+      enumerable: false,
+      get() {
+        return component;
+      }
+    }
+  );
 }
 
 /**
