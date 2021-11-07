@@ -2,17 +2,17 @@ import 'reflect-metadata';
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
+import { baseInstallXOptions, baseSnippetConfig } from './views/base-config';
+import { XInstaller } from './x-installer/x-installer/x-installer';
 
 Vue.config.productionTip = false;
-
-const app = new Vue({
-  router,
-  render: h => h(App)
-}).$mount('#app');
-
-// Injecting XComponents into the global window object when Cypress is injected for testing purposes
-if (Object.prototype.hasOwnProperty.call(window, 'Cypress')) {
-  Object.defineProperty(window, 'xcomponents', {
-    value: app
-  });
-}
+const xModulesURLConfig = JSON.parse(new URL(location.href).searchParams.get('xModules') ?? '{}');
+new XInstaller({
+  ...baseInstallXOptions,
+  app: App,
+  xModules: xModulesURLConfig,
+  vueOptions: {
+    router
+  },
+  domElement: '#app'
+}).init(baseSnippetConfig);

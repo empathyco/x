@@ -108,18 +108,12 @@
   import { SingleColumnLayout } from '../../components';
   import FiltersIcon from '../../components/icons/filters.vue';
   import BaseIdModalOpen from '../../components/modals/base-id-modal-open.vue';
-  import { XInstaller } from '../../x-installer';
-  import { baseInstallXOptions, baseSnippetConfig } from '../base-config';
 
   @Component({
     components: {
       SingleColumnLayout,
       BaseIdModalOpen,
       FiltersIcon
-    },
-    beforeRouteEnter(_to, _from, next: () => void): void {
-      new XInstaller(baseInstallXOptions).init(baseSnippetConfig);
-      next();
     }
   })
   export default class MultiColumnLayoutView extends Vue {}
@@ -128,6 +122,7 @@
 <style lang="scss">
   .app {
     max-height: 100%;
+
     .x-layout {
       flex: 1 1 0%;
       min-height: 0;

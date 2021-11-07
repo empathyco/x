@@ -66,14 +66,8 @@
   import BaseRating from '../components/base-rating.vue';
   import BaseVariableColumnGrid from '../components/base-variable-column-grid.vue';
   import BaseColumnPickerList from '../components/column-picker/base-column-picker-list.vue';
-  import { XInstaller } from '../x-installer/x-installer';
-  import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
-    beforeRouteEnter(_to, _from, next: () => void): void {
-      new XInstaller(baseInstallXOptions).init(baseSnippetConfig);
-      next();
-    },
     components: {
       BaseColumnPickerList,
       BaseRating,
