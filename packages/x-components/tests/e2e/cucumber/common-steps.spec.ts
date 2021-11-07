@@ -1,4 +1,11 @@
-import { PageableRequest, SearchResponse } from '@empathyco/x-adapter';
+import {
+  NextQueriesResponse,
+  PageableRequest,
+  RelatedTagsResponse,
+  SearchByIdResponse,
+  SearchResponse,
+  SuggestionsResponse
+} from '@empathyco/x-adapter';
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import {
   createHierarchicalFacetStub,
@@ -131,7 +138,7 @@ Then(
 
 Given('a next queries API', () => {
   cy.intercept('https://api.empathy.co/getNextQueries', req => {
-    req.reply({
+    req.reply(<NextQueriesResponse>{
       nextQueries: getNextQueriesStub()
     });
   });
@@ -139,7 +146,7 @@ Given('a next queries API', () => {
 
 Given('a suggestions API', () => {
   cy.intercept('https://api.empathy.co/getSuggestions', req => {
-    req.reply({
+    req.reply(<SuggestionsResponse>{
       suggestions: req.body.query ? getQuerySuggestionsStub('rum') : getPopularSearchesStub()
     });
   });
@@ -147,7 +154,7 @@ Given('a suggestions API', () => {
 
 Given('a related tags API', () => {
   cy.intercept('https://api.empathy.co/getRelatedTags', req => {
-    req.reply({
+    req.reply(<RelatedTagsResponse>{
       relatedTags: getRelatedTagsStub()
     });
   });
@@ -155,17 +162,26 @@ Given('a related tags API', () => {
 
 Given('a results API', () => {
   cy.intercept('https://api.empathy.co/search', req => {
-    req.reply({
+    req.reply(<SearchResponse>{
+      redirections: [],
       banners: [],
       promoteds: [],
-      results: getResultsStub()
+      results: getResultsStub(),
+      spellcheck: '',
+      totalResults: 1,
+      facets: [],
+      partialResults: [],
+      queryTagging: {
+        url: 'https://tagging.empathy.co',
+        params: {}
+      }
     });
   }).as('interceptedRawResults');
 });
 
 Given('an ID results API', () => {
   cy.intercept('https://api.empathy.co/searchById', req => {
-    req.reply({
+    req.reply(<SearchByIdResponse>{
       results: getResultsStub()
     });
   });

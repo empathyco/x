@@ -1,13 +1,20 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { SearchResponse } from '@empathyco/x-adapter';
 
 Given('a results API response for a misspelled word', () => {
   cy.intercept('https://api.empathy.co/search', req => {
-    req.reply({
+    req.reply(<SearchResponse>{
       banners: [],
       promoteds: [],
       facets: [],
       results: [],
+      redirections: [],
+      partialResults: [],
       totalResults: 7,
+      queryTagging: {
+        url: 'https://tagging.empathy.co',
+        params: {}
+      },
       spellcheck: 'lego'
     });
   });

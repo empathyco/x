@@ -1,3 +1,4 @@
+import { SuggestionsResponse } from '@empathyco/x-adapter';
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { createPopularSearch } from '../../../../src/__stubs__';
 import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
@@ -5,7 +6,7 @@ import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
 // Background
 And('a popular searches API with a known response', () => {
   cy.intercept('https://api.empathy.co/getSuggestions', req => {
-    req.reply({
+    req.reply(<SuggestionsResponse>{
       suggestions: [
         createPopularSearch('playmobil'),
         createPopularSearch('lego'),
