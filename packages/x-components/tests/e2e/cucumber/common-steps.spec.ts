@@ -20,22 +20,23 @@ let resultsList: string[] = [];
  *
  * @param facetName - Name of the facet which the filter to be clicked belongs to.
  * @param nthFilter - Position of the filter to be clicked.
+ *
+ * @internal
  */
 function clickFacetNthFilter(facetName: string, nthFilter: number): void {
-  if (facetName === 'hierarchical_category') {
-    cy.getByDataTest(`${facetName}-filter`)
-      .getByDataTest('filter')
-      .eq(nthFilter)
-      .click()
-      .invoke('text')
-      .as(`clickedFilter${nthFilter}`);
-  } else {
-    cy.getByDataTest(`${facetName}-filter`)
-      .eq(nthFilter)
-      .click()
-      .invoke('text')
-      .as(`clickedFilter${nthFilter}`);
-  }
+  getElementBy(facetName).eq(nthFilter).click().invoke('text').as(`clickedFilter${nthFilter}`);
+}
+
+/**
+ * Finds an HTMLElement based on a facetName.
+ *
+ * @param facetName - Name of the facet which the filter to be clicked belongs to.
+ * @returns HTMLElement - The filter's element.
+ */
+function getElementBy(facetName: string): Cypress.Chainable<JQuery<HTMLElement>> {
+  return facetName === 'hierarchical_category'
+    ? cy.getByDataTest(`${facetName}-filter`).getByDataTest('filter')
+    : cy.getByDataTest(`${facetName}-filter`);
 }
 
 // Init
@@ -68,31 +69,19 @@ When(
 
 Then(
   'search request contains selected filter number {int} is {boolean}',
-  function (this: any, simpleFilter: number, isContained: boolean) {
+  function (this: any, simpleFilterIndex: number, isContained: boolean) {
     cy.wait('@requestWithFilter')
       .its('request.body')
-      .then(requestBody => {
-        if (isContained) {
-          expect(requestBody).to.contain(this['clickedFilter' + simpleFilter.toString()]);
-        } else {
-          expect(requestBody).not.to.contain(this['clickedFilter' + simpleFilter.toString()]);
-        }
-      });
+      .should(`${isContained ? '' : 'not.'}contain`, this[`clickedFilter${simpleFilterIndex}`]);
   }
 );
 
 Then(
-  'clicked filter {int} is selected in facet {string} is {boolean}',
-  function (this: any, simpleFilter: number, facetName: string, isSelected: boolean) {
+  'selection status of filter number {int} in facet {string} is {boolean}',
+  function (this: any, simpleFilterIndex: number, facetName: string, isSelected: boolean) {
     cy.getByDataTest(`${facetName}-filter`)
-      .contains(this['clickedFilter' + simpleFilter.toString()])
-      .then(filter => {
-        if (isSelected) {
-          expect(filter).to.have.class('x-filter--is-selected');
-        } else {
-          expect(filter).not.to.have.class('x-filter--is-selected');
-        }
-      });
+      .contains(this[`clickedFilter${simpleFilterIndex}`])
+      .should(`${isSelected ? '' : 'not.'}to.have.class`, 'x-filter--is-selected');
   }
 );
 
@@ -283,7 +272,6 @@ Given('a results API with a known response', () => {
           ...createFilter('Muñecas', false, createFilter => [
             ...createFilter('Peluches', false),
             ...createFilter('Ropa y accesorios', false),
-            ...createFilter('Muñecas', false),
             ...createFilter('Playsets', false),
             ...createFilter('Bebés', false),
             ...createFilter('Carros', false)
