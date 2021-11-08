@@ -67,7 +67,7 @@ function renderBaseGridComponent({
 describe('testing Base Grid', () => {
   it('allows configuring the number of columns and updates the css class accordingly', () => {
     const { wrapper } = renderBaseGridComponent({ columns: 5 });
-    expect(wrapper.classes()).toContain(`x-base-grid--cols-5`);
+    expect(wrapper.classes()).toContain(`x-grid--cols-5`);
   });
 
   it('allows customizing the default slot', () => {

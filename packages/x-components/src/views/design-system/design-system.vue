@@ -38,6 +38,10 @@
 
     <DesignSystemBadge />
 
+    <DesignSystemProgressBar />
+
+    <DesignSystemMessage />
+
     <DesignSystemUtilities />
 
     <button @click="toggleTokens" class="info x-button x-button--tertiary x-button--round">
@@ -58,8 +62,10 @@
   import DesignSystemInputGroup from './design-system-input-group.vue';
   import DesignSystemInput from './design-system-input.vue';
   import DesignSystemList from './design-system-list.vue';
+  import DesignSystemMessage from './design-system-message.vue';
   import DesignSystemOptionList from './design-system-option-list.vue';
   import DesignSystemPicture from './design-system-picture.vue';
+  import DesignSystemProgressBar from './design-system-progress-bar.vue';
   import DesignSystemResult from './design-system-result.vue';
   import DesignSystemRowItem from './design-system-row-item.vue';
   import DesignSystemRow from './design-system-row.vue';
@@ -72,26 +78,28 @@
 
   @Component({
     components: {
-      DesignSystemUtilities,
       DesignSystemBadge,
-      DesignSystemResult,
-      DesignSystemPicture,
-      DesignSystemRowItem,
-      DesignSystemRow,
-      DesignSystemList,
-      DesignSystemSlidingPanel,
-      DesignSystemOptionList,
+      DesignSystemButton,
       DesignSystemDropdown,
-      DesignSystemTag,
-      DesignSystemSuggestionGroup,
-      DesignSystemSuggestion,
       DesignSystemFacet,
       DesignSystemFilter,
-      DesignSystemInputGroup,
-      DesignSystemInput,
-      DesignSystemButton,
       DesignSystemIcon,
-      DesignSystemTypography
+      DesignSystemInput,
+      DesignSystemInputGroup,
+      DesignSystemList,
+      DesignSystemMessage,
+      DesignSystemOptionList,
+      DesignSystemPicture,
+      DesignSystemProgressBar,
+      DesignSystemResult,
+      DesignSystemRowItem,
+      DesignSystemRow,
+      DesignSystemSlidingPanel,
+      DesignSystemSuggestion,
+      DesignSystemSuggestionGroup,
+      DesignSystemTag,
+      DesignSystemTypography,
+      DesignSystemUtilities
     }
   })
   export default class DesignSystem extends Vue {

@@ -21,6 +21,16 @@ And('search request contains selected filter', function (this: { clickedFilter: 
   cy.wait('@requestWithFilter').its('request.body').should('include', this.clickedFilter);
 });
 
+And(
+  'selected filter number {int} in facet {string} list is clicked',
+  (selectedFilter: number, facetName: string) => {
+    cy.getByDataTest(`${facetName}-filter`)
+      .should('have.class', 'x-filter--is-selected')
+      .eq(selectedFilter)
+      .click();
+  }
+);
+
 And('clear-filters button displays the number of selected filters', () => {
   cy.get('.x-filter--is-selected').then($selectedFilters => {
     const selectedFiltersNumber = $selectedFilters.length;

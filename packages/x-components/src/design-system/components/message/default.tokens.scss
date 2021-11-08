@@ -1,0 +1,31 @@
+:root {
+  //layout
+  --x-string-justify-message-default: center;
+
+  // spacing
+  --x-size-gap-message-default: var(--x-size-base-03);
+  --x-size-padding-message-default: var(--x-size-base-06);
+
+  // color
+  --x-color-background-message-default: var(--x-color-base-neutral-95);
+  --x-color-border-message-default: var(--x-color-background-message-default);
+  --x-color-text-message-default: var(--x-color-text-default);
+
+  // border
+  --x-size-border-radius-message-default: var(--x-size-border-radius-base-m);
+  --x-size-border-radius-top-left-message-default: var(--x-size-border-radius-message-default);
+  --x-size-border-radius-top-right-message-default: var(--x-size-border-radius-message-default);
+  --x-size-border-radius-bottom-right-message-default: var(--x-size-border-radius-message-default);
+  --x-size-border-radius-bottom-left-message-default: var(--x-size-border-radius-message-default);
+
+  --x-size-border-width-message-default: var(--x-size-border-width-base);
+  --x-size-border-width-top-message-default: var(--x-size-border-width-message-default);
+  --x-size-border-width-right-message-default: var(--x-size-border-width-message-default);
+  --x-size-border-width-bottom-message-default: var(--x-size-border-width-message-default);
+  --x-size-border-width-left-message-default: var(--x-size-border-width-message-default);
+
+  // typography
+  --x-font-family-message-default: var(--x-font-family-title3);
+  --x-size-font-message-default: var(--x-size-font-title3);
+  --x-number-font-weight-message-default: var(--x-number-font-weight-title3);
+}

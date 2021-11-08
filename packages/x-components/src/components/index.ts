@@ -10,6 +10,7 @@ export * from './result';
 export * from './scroll';
 export * from './suggestions';
 
+export { default as AutoProgressBar } from './auto-progress-bar.vue';
 export { default as BaseEventButton } from './base-event-button.vue';
 export { default as BaseDropdown } from './base-dropdown.vue';
 export { default as BaseGrid } from './base-grid.vue';

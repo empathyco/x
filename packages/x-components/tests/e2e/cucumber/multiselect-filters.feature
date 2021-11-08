@@ -24,14 +24,14 @@ Feature: MultiSelect filters component
     And   search request contains selected filter number <multiselectFilter1> is true
     And   search request contains selected filter number <multiselectFilter2> is true
     When  waiting for search request intercept
-    And   filter number <multiselectFilter2> is clicked in facet "<facetName>"
+    And   selected filter number <selectedFilter> in facet "<facetName>" list is clicked
     Then  related results are displayed
-    And   selection status of filter number <multiselectFilter1> in facet "<facetName>" is true
-    And   selection status of filter number <multiselectFilter2> in facet "<facetName>" is false
-    And   search request contains selected filter number <multiselectFilter1> is true
-    And   search request contains selected filter number <multiselectFilter2> is false
+    And   selection status of filter number <multiselectFilter1> in facet "<facetName>" is false
+    And   selection status of filter number <multiselectFilter2> in facet "<facetName>" is true
+    And   search request contains selected filter number <multiselectFilter1> is false
+    And   search request contains selected filter number <multiselectFilter2> is true
     When  waiting for search request intercept
-    And   filter number <multiselectFilter1> is clicked in facet "<facetName>"
+    And   selected filter number <selectedFilter> in facet "<facetName>" list is clicked
     Then  related results are displayed
     And   selection status of filter number <multiselectFilter1> in facet "<facetName>" is false
     And   selection status of filter number <multiselectFilter2> in facet "<facetName>" is false
@@ -39,6 +39,5 @@ Feature: MultiSelect filters component
     And   search request contains selected filter number <multiselectFilter2> is false
 
     Examples:
-      | query  | multiselectFilter1 | multiselectFilter2 | facetName    |
-      | lego   | 3                  | 1                  | price_facet  |
-
+      | query  | multiselectFilter1 | multiselectFilter2 | facetName    | selectedFilter |
+      | lego   | 3                  | 1                  | price_facet  | 0              |
