@@ -117,9 +117,8 @@ The result prop is required. It will render a `<a></a>` with the href to the res
 A list of events that the component will emit:
 
 - `UserClickedAResult`: the event is emitted after the user clicks the element. The event payload is
-  the result data and the metadata with the target and the origin of the element that emitted it.
+  the result data..
 - `UserRightClickedAResult`: the event is emitted after the user right clicks the element. The event
-  payload is the result data and the metadata with the target and the origin of the element that
-  emitted it.
+  payload is the result data.
 - The component can emit more events on click using the `resultClickExtraEvents` prop.
 </docs>
