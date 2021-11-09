@@ -207,7 +207,7 @@
                     <!-- Filters -->
                     <SlicedFilters max="4" :filters="facet.filters">
                       <FiltersList v-slot="{ filter }">
-                        <HierarchicalFilter :filter="filter" :data-test="facet.label + '-filter'" />
+                        <HierarchicalFilter :filter="filter" :data-test="`${facet.label}-filter`" />
                       </FiltersList>
                     </SlicedFilters>
                   </BaseHeaderTogglePanel>
@@ -228,7 +228,7 @@
                         <FiltersSearch>
                           <SlicedFilters
                             :max="controls.slicedFilters.max"
-                            :data-test="facet.label + '-sliced-filters'"
+                            :data-test="`${facet.label}-sliced-filters`"
                           >
                             <FiltersList
                               v-slot="{
@@ -239,7 +239,7 @@
                               <SimpleFilter
                                 #label="{ filter }"
                                 :filter="filter"
-                                :data-test="facet.label + '-filter'"
+                                :data-test="`${facet.label}-filter`"
                               >
                                 {{ filter.label }}
                                 <span data-test="brand-filter-total-results">
@@ -267,14 +267,14 @@
                       <SortedFilters>
                         <SlicedFilters
                           :max="controls.slicedFilters.max"
-                          :data-test="facet.label + '-sliced-filters'"
+                          :data-test="`${facet.label}-sliced-filters`"
                         >
                           <SelectedFilters :facetId="facet.id" />
                           <FiltersList v-slot="{ filter }">
                             <SimpleFilter
                               #label
                               :filter="filter"
-                              :data-test="facet.label + '-filter'"
+                              :data-test="`${facet.label}-filter`"
                             >
                               <BasePriceFilterLabel
                                 v-if="facet.id === 'price'"
@@ -718,7 +718,9 @@
 <style lang="scss" scoped>
   .x-modal::v-deep .x-modal__content {
     overflow: hidden;
-    width: 100%;
-    height: 99%;
+    // Following is needed for closing the modal in base-events-modal.feature
+    width: calc(100% - 1px);
+    height: calc(100% - 1px);
+    margin: 10px;
   }
 </style>
