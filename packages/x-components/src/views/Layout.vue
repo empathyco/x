@@ -719,8 +719,8 @@
   .x-modal::v-deep .x-modal__content {
     overflow: hidden;
     // Following is needed for closing the modal in base-events-modal.feature
-    width: calc(100% - 1px);
-    height: calc(100% - 1px);
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
     margin: 10px;
   }
 </style>
