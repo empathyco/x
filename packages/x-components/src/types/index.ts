@@ -1,3 +1,2 @@
-export * from './query-origin';
-export * from './result-location';
+export * from './origin';
 export * from './url-params';
