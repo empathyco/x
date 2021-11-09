@@ -2,7 +2,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from 'vuex';
 import { XBus } from '../plugins/x-bus.types';
 import { RootStoreStateAndGetters, RootXStoreState } from '../store';
-import { Location, QueryFeature, Origin, ResultOrigin } from '../types/origin';
+import { Location, QueryFeature, QueryOrigin, ResultOrigin } from '../types/origin';
 import {
   Dictionary,
   FirstParameter,
@@ -43,8 +43,8 @@ export interface WireMetadata {
   /** The {@link XModule} name that emitted the event or `null` if it has been emitted from an
    * unknown module. */
   moduleName: XModuleName | null;
-  /** The composed {@link Origin} or {@link ResultOrigin} that originated the event. */
-  origin?: Origin | ResultOrigin;
+  /** The composed {@link QueryOrigin} or {@link ResultOrigin} that originated the event. */
+  origin?: QueryOrigin | ResultOrigin;
   /** The DOM element that triggered the event emission. */
   target?: HTMLElement;
 }

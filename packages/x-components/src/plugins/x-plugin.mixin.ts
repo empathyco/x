@@ -1,7 +1,7 @@
 import Vue, { ComponentOptions } from 'vue';
 import { XComponent } from '../components/x-component.types';
 import { getXComponentXModuleName, isXComponent } from '../components/x-component.utils';
-import { Location, QueryFeature, Origin, ResultOrigin } from '../types/origin';
+import { Location, QueryFeature, QueryOrigin, ResultOrigin } from '../types/origin';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { XBus } from './x-bus.types';
 import { getAliasAPI } from './x-plugin.alias';
@@ -93,8 +93,8 @@ export function getRootXComponent(component: Vue): XComponent | undefined {
 }
 
 /**
- * Creates a {@link Origin} string given a {@link QueryFeature} and a {@link Location}.
- * If the {@link Origin} can't be created, it returns `undefined`.
+ * Creates a {@link QueryOrigin} string given a {@link QueryFeature} and a {@link Location}.
+ * If the {@link QueryOrigin} can't be created, it returns `undefined`.
  *
  * @param feature - The feature that originated the query, or `undefined` if the event is not
  * related with a query.
@@ -105,7 +105,7 @@ export function getRootXComponent(component: Vue): XComponent | undefined {
 function createQueryOrigin(
   feature: QueryFeature | undefined,
   location: Location | undefined
-): Origin | ResultOrigin | undefined {
+): QueryOrigin | ResultOrigin | undefined {
   if (location && feature) {
     return `${feature}:${location}`;
   }

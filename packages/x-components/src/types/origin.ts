@@ -4,7 +4,7 @@
  *
  * @public
  */
-export type Origin = `${QueryFeature}:${Location}`;
+export type QueryOrigin = `${QueryFeature}:${Location}`;
 /**
  * Information to track the usefulness of a result in relation to the {@link ResultFeature} that
  * generated it, and the {@link Location} where it has been shown to the user.
