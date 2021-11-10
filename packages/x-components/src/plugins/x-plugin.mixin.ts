@@ -82,7 +82,7 @@ function createWireMetadata(
   metadata: Partial<WireMetadata>
 ): WireMetadata {
   return {
-    moduleName: getXComponentXModuleName(component),
+    moduleName: getXComponentXModuleName(component.xComponent),
     location: component.$location,
     ...metadata
   };
