@@ -3,7 +3,7 @@ import { MockedStorageService } from './utils/mock-storage.service';
 
 describe('testing session id service', () => {
   const prefix = 'test';
-  const mockedStorageService = new MockedStorageService(localStorage, prefix);
+  const mockedStorageService = new MockedStorageService(prefix);
   const sessionService = new DefaultSessionService(mockedStorageService, 1);
 
   afterEach(() => {

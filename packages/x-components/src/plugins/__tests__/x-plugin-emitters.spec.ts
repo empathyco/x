@@ -163,6 +163,11 @@ describe('testing X Plugin emitters', () => {
         xModules: {
           searchBox: {
             wiring
+          },
+          nextQueries: {
+            config: {
+              hideSessionQueries: false
+            }
           }
         },
         __PRIVATE__xModules: {
