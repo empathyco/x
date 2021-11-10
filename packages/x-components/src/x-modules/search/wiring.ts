@@ -1,4 +1,3 @@
-import { QueryOrigin } from '../../types/origin';
 import {
   namespacedWireCommit,
   namespacedWireDispatch,
@@ -47,7 +46,7 @@ export const cancelFetchAndSaveSearchResponseWire = wireDispatchWithoutPayload(
  *
  * @public
  */
-export const setOrigin = wireCommit('setOrigin', ({ metadata }) => metadata.origin as QueryOrigin);
+export const setOrigin = wireDispatch('saveOrigin', ({ metadata }) => metadata);
 
 /**
  * Requests and stores the search response.
