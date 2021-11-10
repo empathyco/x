@@ -2,7 +2,7 @@ import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { createResultStub } from '../../../__stubs__/results-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
-import { Location } from '../../../types/origin';
+import { FeatureLocation } from '../../../types/origin';
 import { XEvent } from '../../../wiring/events.types';
 import BaseResultLink from '../base-result-link.vue';
 
@@ -52,7 +52,7 @@ describe('testing BaseResultLink component', () => {
     const resultLinkWrapper = mount(BaseResultLink, {
       provide: {
         resultClickExtraEvents: <XEvent[]>['UserClickedResultAddToCart'],
-        location: <Location>'no_query'
+        location: <FeatureLocation>'no_query'
       },
       localVue,
       propsData: { result }

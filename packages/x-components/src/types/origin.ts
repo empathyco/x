@@ -2,18 +2,18 @@ import { WireMetadata } from '../wiring/wiring.types';
 
 /**
  * Information to track the usefulness of the query in relation to the {@link QueryFeature} that
- * generated it, and the {@link Location} where it has been shown to the user.
+ * generated it, and the {@link FeatureLocation} where it has been shown to the user.
  *
  * @public
  */
-export type QueryOrigin = `${QueryFeature}:${Location}`;
+export type QueryOrigin = `${QueryFeature}:${FeatureLocation}`;
 /**
  * Information to track the usefulness of a result in relation to the {@link ResultFeature} that
- * generated it, and the {@link Location} where it has been shown to the user.
+ * generated it, and the {@link FeatureLocation} where it has been shown to the user.
  *
  * @public
  */
-export type ResultOrigin = `${ResultFeature}:${Location}`;
+export type ResultOrigin = `${ResultFeature}:${FeatureLocation}`;
 
 /**
  * The name of the tool that generated the query.
@@ -54,7 +54,7 @@ export type ResultFeature =
  *
  * @public
  */
-export type Location =
+export type FeatureLocation =
   | 'external'
   | 'no_query'
   | 'no_results'
@@ -73,7 +73,7 @@ export type QueryOriginInit = Partial<Pick<WireMetadata, 'feature' | 'location'>
 
 /**
  * Creates a {@link QueryOrigin} or a {@link ResultOrigin} string given a {@link QueryFeature} and
- * a {@link Location}.
+ * a {@link FeatureLocation}.
  * If it can't be created, it returns `undefined`.
  *
  * @param originInit - An object containing the needed properties to create a {@link QueryOrigin} or

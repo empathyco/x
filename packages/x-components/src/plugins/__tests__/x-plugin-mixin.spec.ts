@@ -2,7 +2,7 @@ import { mount, shallowMount, Wrapper } from '@vue/test-utils';
 import { ComponentOptions, default as Vue } from 'vue';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { xComponentMixin } from '../../components/x-component.mixin';
-import { QueryFeature, Location } from '../../types/origin';
+import { QueryFeature, FeatureLocation } from '../../types/origin';
 import { WireMetadata } from '../../wiring/wiring.types';
 import { searchBoxXModule } from '../../x-modules/search-box/x-module';
 import { XPlugin } from '../x-plugin';
@@ -33,7 +33,7 @@ describe('testing $x component API global mixin', () => {
       /** The feature to be emitted. */
       feature?: QueryFeature;
       /** The location to be emitted. */
-      location?: Location;
+      location?: FeatureLocation;
     }
 
     /** API returned by the component to test component's bus origin functionality. */

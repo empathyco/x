@@ -1,8 +1,9 @@
 import Vue, { ComponentOptions } from 'vue';
 import { XComponent } from '../components/x-component.types';
 import { getXComponentXModuleName, isXComponent } from '../components/x-component.utils';
-import { Location } from '../types/origin';
 import { XEvent, XEventPayload } from '../wiring/events.types';
+import { WireMetadata } from '../wiring/wiring.types';
+import { FeatureLocation } from '../types/origin';
 import { XBus } from './x-bus.types';
 import { getAliasAPI } from './x-plugin.alias';
 import { XComponentAPI, XComponentBusAPI } from './x-plugin.types';
@@ -14,7 +15,7 @@ declare module 'vue/types/vue' {
 }
 
 interface PrivateExtendedVueComponent extends Vue {
-  $location?: Location;
+  $location?: FeatureLocation;
   xComponent: XComponent | undefined;
 }
 
@@ -59,17 +60,31 @@ export function getBusAPI(bus: XBus, component: PrivateExtendedVueComponent): XC
     emit: <Event extends XEvent>(
       event: Event,
       payload?: XEventPayload<Event>,
-      metadata: Parameters<XComponentBusAPI['emit']>[2] = {}
+      metadata: Omit<WireMetadata, 'moduleName'> = {}
     ) => {
-      const xComponent = component.xComponent;
-      bus.emit(event, payload as any, {
-        moduleName: xComponent ? getXComponentXModuleName(xComponent) : null,
-        location: component.$location,
-        ...metadata
-      });
-      xComponent?.$emit(event, payload);
+      bus.emit(event, payload as any, createWireMetadata(component, metadata));
+      component.xComponent?.$emit(event, payload);
     },
     on: bus.on.bind(bus)
+  };
+}
+
+/**
+ * Creates a wire metadata object based on the component and the provided metadata.
+ *
+ * @param component - The component this metadata belongs to.
+ * @param metadata - Additional metadata emitted by the component.
+ * @returns A {@link WireMetadata} object.
+ * @internal
+ */
+function createWireMetadata(
+  component: PrivateExtendedVueComponent,
+  metadata: Partial<WireMetadata>
+): WireMetadata {
+  return {
+    moduleName: getXComponentXModuleName(component),
+    location: component.$location,
+    ...metadata
   };
 }
 
