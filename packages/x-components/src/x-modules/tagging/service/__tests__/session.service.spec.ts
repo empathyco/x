@@ -26,7 +26,7 @@ describe('testing session id service', () => {
   });
 
   it('returns an existing session id', () => {
-    mockedStorageService.injectGetResponse('session-id');
+    mockedStorageService.injectGetResponse('abcd-1234');
     const session = sessionService.getSessionId();
     expect(mockedStorageService.getPrefix()).toBe(prefix);
     expect(mockedStorageService.getSessionIdSpy).toHaveBeenCalledTimes(1);
@@ -34,10 +34,10 @@ describe('testing session id service', () => {
     expect(mockedStorageService.removeSessionIdSpy).not.toHaveBeenCalled();
     expect(mockedStorageService.setSessionIdSpy).toHaveBeenCalledWith(
       'session-id',
-      'session-id',
+      'abcd-1234',
       expect.any(Number)
     );
-    expect(session).toBe('session-id');
+    expect(session).toBe('abcd-1234');
   });
 
   it('removes an existing session id', () => {
