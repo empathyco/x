@@ -165,7 +165,7 @@ export const searchWiring = createWiring({
     resetPage,
     resetSort,
     setSearchQuery,
-    setOrigin: saveOriginWire
+    saveOriginWire
   },
   UserAcceptedSpellcheckQuery: {
     resetPage,
