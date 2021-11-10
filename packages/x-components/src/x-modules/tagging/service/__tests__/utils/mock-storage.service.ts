@@ -1,8 +1,3 @@
-/**
- * Storage Service mock version.
- *
- * @internal
- */
 import { StorageService } from '@empathyco/x-storage-service';
 
 /**
