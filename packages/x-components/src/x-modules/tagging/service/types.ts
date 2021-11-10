@@ -19,10 +19,3 @@ export interface SessionService {
    */
   clearSessionId(): void;
 }
-
-export interface StorageService {
-  setItem(key: string, item: any, ttlInMs?: number): void;
-  getItem<T = any>(key: string): T | null;
-  removeItem<T = any>(key: string): T | null;
-  clear(): number;
-}

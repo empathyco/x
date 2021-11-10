@@ -1,50 +1,11 @@
 import { DefaultSessionService } from '../session.service';
-import { StorageService } from '../types';
-
-/**
- * Storage Service mock version.
- *
- * @internal
- */
-class MockedStorageService implements StorageService {
-  getSessionIdSpy = jest.fn();
-  setSessionIdSpy = jest.fn();
-  removeSessionIdSpy = jest.fn();
-
-  constructor(protected storage: Storage, protected prefix: string) {
-  }
-
-  getPrefix(): string {
-    return this.prefix;
-  }
-
-  injectGetResponse(key: string): void {
-    this.getSessionIdSpy.mockReturnValue(key);
-  }
-
-  getItem<T = any>(key: string): any {
-    return this.getSessionIdSpy(key);
-  }
-
-  setItem(key: string, item: any, ttlInMs?: number) {
-    this.setSessionIdSpy(key, item, ttlInMs);
-  }
-
-  removeItem<T = any>(key: string): any {
-    this.removeSessionIdSpy(key);
-    return key;
-  }
-
-  clear(): number {
-    return  0;
-  }
-}
-
-const prefix = 'test';
-const mockedStorageService = new MockedStorageService(localStorage, prefix);
-const sessionService  = new DefaultSessionService(mockedStorageService, 1);
+import { MockedStorageService } from './utils/mock-storage.service';
 
 describe('testing session id service', () => {
+  const prefix = 'test';
+  const mockedStorageService = new MockedStorageService(localStorage, prefix);
+  const sessionService = new DefaultSessionService(mockedStorageService, 1);
+
   afterEach(() => {
     jest.clearAllMocks();
   });

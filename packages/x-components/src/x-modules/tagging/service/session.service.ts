@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
-  import { StorageService as EmpathyStorageService } from '@empathyco/x-storage-service';
-import { SessionService, StorageService } from './types';
+import { StorageService } from '@empathyco/x-storage-service';
+import { SessionService } from './types';
 
 /**
  * Default implementation for the {@link SessionService}.
@@ -16,7 +16,7 @@ export class DefaultSessionService implements SessionService {
   public static instance: SessionService = new DefaultSessionService();
 
   public constructor(
-    protected storageService: StorageService = new EmpathyStorageService(localStorage, 'x'),
+    protected storageService: StorageService = new StorageService(localStorage, 'x'),
     protected ttlInMs = 1800 // 30m * 60s * 1000 = 1800_000ms
   ) {}
 
