@@ -313,4 +313,27 @@ describe('testing search module actions', () => {
       expect(store.state.page).toEqual(2);
     });
   });
+
+  describe('saveOrigin', () => {
+    it('saves valid origins', async () => {
+      resetSearchStateWith(store);
+
+      await store.dispatch('saveOrigin', { feature: 'search_box', location: 'predictive_layer' });
+
+      expect(store.state.origin).toEqual('search_box:predictive_layer');
+    });
+
+    it('saves `null` if it is impossible to create an origin', async () => {
+      resetSearchStateWith(store, { query: 'funko' });
+
+      await store.dispatch('saveOrigin', { location: 'predictive_layer' });
+      expect(store.state.origin).toBeNull();
+
+      await store.dispatch('saveOrigin', { feature: 'search_box' });
+      expect(store.state.origin).toBeNull();
+
+      await store.dispatch('saveOrigin', {});
+      expect(store.state.origin).toBeNull();
+    });
+  });
 });

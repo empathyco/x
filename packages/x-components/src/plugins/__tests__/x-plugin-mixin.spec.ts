@@ -47,7 +47,7 @@ describe('testing $x component API global mixin', () => {
     function renderOriginComponent({
       feature,
       location
-    }: RenderOriginComponentOptions): RenderOriginComponentAPI {
+    }: RenderOriginComponentOptions = {}): RenderOriginComponentAPI {
       const busListener = jest.spyOn(XPlugin.bus, 'emit');
       const wrapper = mount(
         {
@@ -76,8 +76,9 @@ describe('testing $x component API global mixin', () => {
       return { wrapper, busListener };
     }
 
-    it("doesn't include origin in the $x.emit if there is no location", () => {
+    it('emits location and feature in the metadata when they are available', () => {
       const { wrapper, busListener } = renderOriginComponent({
+        location: 'predictive_layer',
         feature: 'search_box'
       });
       wrapper.trigger('click');
@@ -86,39 +87,10 @@ describe('testing $x component API global mixin', () => {
       expect(busListener).toHaveBeenCalledWith(
         expect.any(String),
         expect.anything(),
-        expect.objectContaining<Partial<WireMetadata>>({ origin: undefined, feature: 'search_box' })
-      );
-    });
-
-    it("doesn't include origin in the $x.emit if there is no feature", () => {
-      const { wrapper, busListener } = renderOriginComponent({
-        location: 'predictive_layer'
-      });
-      wrapper.trigger('click');
-
-      expect(busListener).toHaveBeenCalledTimes(1);
-      expect(busListener).toHaveBeenCalledWith(
-        expect.any(String),
-        expect.anything(),
         expect.objectContaining<Partial<WireMetadata>>({
-          origin: undefined,
-          location: 'predictive_layer'
+          location: 'predictive_layer',
+          feature: 'search_box'
         })
-      );
-    });
-
-    it('emits a valid origin when both location and feature are available', () => {
-      const { wrapper, busListener } = renderOriginComponent({
-        feature: 'search_box',
-        location: 'predictive_layer'
-      });
-      wrapper.trigger('click');
-
-      expect(busListener).toHaveBeenCalledTimes(1);
-      expect(busListener).toHaveBeenCalledWith(
-        expect.any(String),
-        expect.anything(),
-        expect.objectContaining<Partial<WireMetadata>>({ origin: 'search_box:predictive_layer' })
       );
     });
   });

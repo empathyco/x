@@ -1,3 +1,5 @@
+import { WireMetadata } from '../wiring/wiring.types';
+
 /**
  * Information to track the usefulness of the query in relation to the {@link QueryFeature} that
  * generated it, and the {@link Location} where it has been shown to the user.
@@ -22,7 +24,6 @@ export type QueryFeature =
   | 'search_box'
   | 'url'
   | 'query_suggestion'
-  | 'query_suggestion_with_facet'
   | 'next_query'
   | 'popular_search'
   | 'history_query'
@@ -40,8 +41,7 @@ export type ResultFeature =
   | 'recommendations'
   | 'next_query_results'
   | 'partial_results'
-  | 'identifier_result'
-  | 'discovery_wall';
+  | 'identifier_result';
 
 /**
  * Indicates where the feature is placed.
@@ -63,3 +63,28 @@ export type Location =
   | 'pdp'
   | 'url_history'
   | 'url_history_pdp';
+
+/**
+ * Parameters to create a {@link QueryOrigin} or {@link ResultOrigin}.
+ */
+export type QueryOriginInit = Partial<Pick<WireMetadata, 'feature' | 'location'>>;
+
+/**
+ * Creates a {@link QueryOrigin} or a {@link ResultOrigin} string given a {@link QueryFeature} and
+ * a {@link Location}.
+ * If it can't be created, it returns `undefined`.
+ *
+ * @param originInit - An object containing the needed properties to create a {@link QueryOrigin} or
+ * a {@link ResultOrigin}.
+ * @returns The composed origin, or `undefined` if it is not able to create the origin.
+ * @internal
+ */
+export function createOrigin({
+  feature,
+  location
+}: QueryOriginInit): QueryOrigin | ResultOrigin | null {
+  if (location && feature) {
+    return `${feature}:${location}`;
+  }
+  return null;
+}

@@ -12,7 +12,7 @@ import {
 } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
-import { QueryOrigin } from '../../../types/origin';
+import { QueryOrigin, QueryOriginInit } from '../../../types/origin';
 import { UrlParams } from '../../../types/url-params';
 import { Dictionary } from '../../../utils/types';
 import { SearchConfig } from '../config.types';
@@ -221,6 +221,12 @@ export interface SearchActions {
    * @param urlParams - List of params from the url.
    */
   setUrlParams(urlParams: UrlParams): void;
+  /**
+   * Creates a {@link QueryOrigin} and saves it.
+   *
+   * @param originInit - The object to create the origin with.
+   */
+  saveOrigin(originInit: QueryOriginInit): void;
 }
 
 /**

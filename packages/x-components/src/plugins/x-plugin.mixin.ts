@@ -1,7 +1,7 @@
 import Vue, { ComponentOptions } from 'vue';
 import { XComponent } from '../components/x-component.types';
 import { getXComponentXModuleName, isXComponent } from '../components/x-component.utils';
-import { Location, QueryFeature, QueryOrigin, ResultOrigin } from '../types/origin';
+import { Location } from '../types/origin';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { XBus } from './x-bus.types';
 import { getAliasAPI } from './x-plugin.alias';
@@ -64,7 +64,6 @@ export function getBusAPI(bus: XBus, component: PrivateExtendedVueComponent): XC
       const xComponent = component.xComponent;
       bus.emit(event, payload as any, {
         moduleName: xComponent ? getXComponentXModuleName(xComponent) : null,
-        origin: createQueryOrigin(metadata.feature, component.$location),
         location: component.$location,
         ...metadata
       });
@@ -90,23 +89,4 @@ export function getRootXComponent(component: Vue): XComponent | undefined {
     component = component.$parent;
   }
   return xComponent;
-}
-
-/**
- * Creates a {@link QueryOrigin} string given a {@link QueryFeature} and a {@link Location}.
- * If the {@link QueryOrigin} can't be created, it returns `undefined`.
- *
- * @param feature - The feature that originated the query, or `undefined` if the event is not
- * related with a query.
- * @param location - The location where the event has happened.
- * @returns The composed origin, or `undefined` if it is not able to create the origin.
- * @internal
- */
-function createQueryOrigin(
-  feature: QueryFeature | undefined,
-  location: Location | undefined
-): QueryOrigin | ResultOrigin | undefined {
-  if (location && feature) {
-    return `${feature}:${location}`;
-  }
 }
