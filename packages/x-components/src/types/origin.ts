@@ -66,6 +66,8 @@ export type Location =
 
 /**
  * Parameters to create a {@link QueryOrigin} or {@link ResultOrigin}.
+ *
+ * @public
  */
 export type QueryOriginInit = Partial<Pick<WireMetadata, 'feature' | 'location'>>;
 
