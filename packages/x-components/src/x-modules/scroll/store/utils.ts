@@ -5,17 +5,17 @@ import { ScrollComponentState } from './types';
 /**
  * Initialises an {@link ScrollComponentState} object if it has not already been created.
  *
- * @param state - The state shere the new data should be added.
+ * @param componentsState - The state where the new data should be added.
  * @param id - The identifier for the {@link ScrollComponentState}.
  *
  * @internal
  */
 export function initScrollComponentState(
-  state: Dictionary<ScrollComponentState>,
+  componentsState: Dictionary<ScrollComponentState>,
   id: string
 ): void {
-  if (!state[id]) {
-    Vue.set<ScrollComponentState>(state, id, {
+  if (!componentsState[id]) {
+    Vue.set<ScrollComponentState>(componentsState, id, {
       hasReachedStart: false,
       hasReachedEnd: false,
       position: 0,

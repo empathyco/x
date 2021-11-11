@@ -34,14 +34,16 @@ import { UrlXEvents } from '../x-modules/url/events.types';
  * * {@link QuerySuggestionsXEvents},
  * * {@link RecommendationsXEvents}
  * * {@link RelatedTagsXEvents}
- * * {@link SearchXEvents},
+ * * {@link ScrollXEvents},
  * * {@link SearchBoxXEvents}
+ * * {@link SearchXEvents}
  * * {@link UrlXEvents}
  *
  * @public
  */
 export interface XEventsTypes
-  extends EmpathizeXEvents,
+  extends DeviceXEvents,
+    EmpathizeXEvents,
     ExtraParamsXEvents,
     FacetsXEvents,
     HistoryQueriesXEvents,
@@ -54,8 +56,7 @@ export interface XEventsTypes
     ScrollXEvents,
     SearchBoxXEvents,
     SearchXEvents,
-    UrlXEvents,
-    DeviceXEvents {
+    UrlXEvents {
   /**
    * The search adapter configuration has changed
    * * Payload: The new search adapter configuration.

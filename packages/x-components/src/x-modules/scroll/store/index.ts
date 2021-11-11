@@ -1,4 +1,4 @@
 export * from './emitters';
 export * from './module';
 export * from './types';
-export { initScrollComponentState } from './utils';
+export * from './utils';

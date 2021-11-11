@@ -38,7 +38,7 @@ export const setScrollDirectionWire = wireCommit(
  *
  * @public
  */
-export const setScrollReachedEndWire = wireCommit(
+export const setScrollHasReachedEndWire = wireCommit(
   'setScrollHasReachedEnd',
   ({ metadata, eventPayload }: WirePayload<boolean>) => ({
     value: eventPayload,
@@ -92,7 +92,7 @@ export const scrollWiring = createWiring({
     setScrollHasReachedStartWire
   },
   UserReachedScrollEnd: {
-    setScrollReachedEndWire
+    setScrollHasReachedEndWire
   },
   ParamsLoadedFromUrl: {
     setPendingScrollToWire
