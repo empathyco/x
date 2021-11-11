@@ -12,6 +12,7 @@ import { PopularSearchesXModule } from './popular-searches/x-module';
 import { QuerySuggestionsXModule } from './query-suggestions/x-module';
 import { RecommendationsXModule } from './recommendations/x-module';
 import { RelatedTagsXModule } from './related-tags/x-module';
+import { ScrollXModule } from './scroll/x-module';
 import { SearchBoxXModule } from './search-box/x-module';
 import { SearchXModule } from './search/x-module';
 import { TaggingXModule } from './tagging';
@@ -25,6 +26,7 @@ import { UrlXModule } from './url';
 export interface XModulesTree {
   device: DeviceXModule;
   empathize: EmpathizeXModule;
+  extraParams: ExtraParamsXModule;
   facets: FacetsXModule;
   historyQueries: HistoryQueriesXModule;
   identifierResults: IdentifierResultsXModule;
@@ -33,11 +35,11 @@ export interface XModulesTree {
   querySuggestions: QuerySuggestionsXModule;
   recommendations: RecommendationsXModule;
   relatedTags: RelatedTagsXModule;
+  scroll: ScrollXModule;
   search: SearchXModule;
   searchBox: SearchBoxXModule;
   tagging: TaggingXModule;
   url: UrlXModule;
-  extraParams: ExtraParamsXModule;
 }
 
 /**

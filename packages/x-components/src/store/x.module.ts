@@ -20,19 +20,20 @@ export const RootXStoreModule: Module<XModuleState, any> = {
   state: () => ({
     device: null,
     empathize: null,
+    extraParams: null,
+    facets: null,
+    historyQueries: null,
+    identifierResults: null,
     nextQueries: null,
     popularSearches: null,
-    searchBox: null,
     querySuggestions: null,
-    historyQueries: null,
     recommendations: null,
     relatedTags: null,
-    identifierResults: null,
+    scroll: null,
     search: null,
-    facets: null,
+    searchBox: null,
     tagging: null,
-    url: null,
-    extraParams: null
+    url: null
   }),
   namespaced: true
 };
