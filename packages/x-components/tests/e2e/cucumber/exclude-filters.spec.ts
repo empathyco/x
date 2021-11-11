@@ -16,7 +16,7 @@ And('{string} total filters are more than displayed filters', function (facetNam
     .getByDataTest('total-filters')
     .invoke('text')
     .then(totalFilters => {
-      cy.getByDataTest('brand-filter')
+      cy.getByDataTest(`${facetName}-filter`)
         .should('exist')
         .should('have.length.lt', parseInt(totalFilters));
     });

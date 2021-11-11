@@ -1,9 +1,11 @@
 import { mount, shallowMount, Wrapper } from '@vue/test-utils';
 import { ComponentOptions, default as Vue } from 'vue';
-import { Component } from 'vue-property-decorator';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { xComponentMixin } from '../../components/x-component.mixin';
+import { QueryFeature, FeatureLocation } from '../../types/origin';
+import { WireMetadata } from '../../wiring/wiring.types';
 import { searchBoxXModule } from '../../x-modules/search-box/x-module';
+import { XPlugin } from '../x-plugin';
 
 describe('testing $x component API global mixin', () => {
   const component: ComponentOptions<Vue> & ThisType<Vue> = {
@@ -26,54 +28,70 @@ describe('testing $x component API global mixin', () => {
   });
 
   describe('testing origin', () => {
-    it("doesn't include origin in the $x.emit metadata by default", () => {
-      const listener = jest.fn();
+    /** Options to render the component to test component's bus origin functionality. */
+    interface RenderOriginComponentOptions {
+      /** The feature to be emitted. */
+      feature?: QueryFeature;
+      /** The location to be emitted. */
+      location?: FeatureLocation;
+    }
 
-      componentInstance.vm.$x.on('UserIsTypingAQuery', true).subscribe(listener);
-      componentInstance.vm.$x.emit('UserIsTypingAQuery', 'So awesome, much quality, such skill');
+    /** API returned by the component to test component's bus origin functionality. */
+    interface RenderOriginComponentAPI {
+      /** The bus emit, to assert that it has been called with a proper origin. */
+      busListener: jest.SpyInstance;
+      /** The component testing wrapper. Will emit a {@link XEvent} when clicked. */
+      wrapper: Wrapper<Vue>;
+    }
 
-      expect(listener).toHaveBeenCalledTimes(1);
-      expect(listener).toHaveBeenCalledWith({
-        eventPayload: 'So awesome, much quality, such skill',
-        metadata: { moduleName: null }
-      });
-    });
-
-    it('overrides the origin in the $x.emit metadata', () => {
-      const listener = jest.fn();
-
-      @Component({
-        template: `<div><slot/></div>`,
-        provide: {
-          origin: 'origin-test'
-        }
-      })
-      class Provider extends Vue {}
-
-      @Component({ template: '<div>{{ $origin }}</div>' })
-      class Injector extends Vue {}
-
+    function renderOriginComponent({
+      feature,
+      location
+    }: RenderOriginComponentOptions = {}): RenderOriginComponentAPI {
+      const busListener = jest.spyOn(XPlugin.bus, 'emit');
       const wrapper = mount(
         {
-          template: `<Provider><Injector /></Provider>`,
+          template: `
+            <MyButton/>`,
           components: {
-            Provider,
-            Injector
+            MyButton: {
+              template: '<button @click="emit">Click me</button>',
+              methods: {
+                emit(this: Vue) {
+                  this.$x.emit('UserIsTypingAQuery', 'So awesome, much quality, such skill', {
+                    feature
+                  });
+                }
+              }
+            }
+          },
+          provide: {
+            location
           }
-        } as ComponentOptions<any> & ThisType<Vue>,
+        },
         {
           localVue
         }
       );
+      return { wrapper, busListener };
+    }
 
-      wrapper
-        .findComponent(Injector)
-        .vm.$x.emit('UserIsTypingAQuery', 'So awesome, much quality, such skill');
-      componentInstance.vm.$x.on('UserIsTypingAQuery', true).subscribe(listener);
+    it('emits location and feature in the metadata when they are available', () => {
+      const { wrapper, busListener } = renderOriginComponent({
+        location: 'predictive_layer',
+        feature: 'search_box'
+      });
+      wrapper.trigger('click');
 
-      expect(listener).toHaveBeenCalledTimes(1);
-      const { metadata } = listener.mock.calls[0][0];
-      expect(metadata.origin).toBe('origin-test');
+      expect(busListener).toHaveBeenCalledTimes(1);
+      expect(busListener).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.anything(),
+        expect.objectContaining<Partial<WireMetadata>>({
+          location: 'predictive_layer',
+          feature: 'search_box'
+        })
+      );
     });
   });
 
