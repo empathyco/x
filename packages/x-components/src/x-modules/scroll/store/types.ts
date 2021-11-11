@@ -55,10 +55,38 @@ export interface ScrollGetters {}
  * @public
  */
 export interface ScrollMutations {
+  /**
+   * Sets the identifier of the element that is pending to be scrolled into the view.
+   *
+   * @param pendingScrollTo - The identifier of the element that should be scrolled into view
+   * whenever it is loaded.
+   */
   setPendingScrollTo(pendingScrollTo: string): void;
+  /**
+   * Sets the scroll position of a certain panel.
+   *
+   * @param position - The new scroll position and the identifier of the panel it belongs.
+   */
   setScrollPosition(position: ScrollPositionPayload): void;
+  /**
+   * Sets the scroll direction of a certain panel.
+   *
+   * @param direction - The new scroll direction and the identifier of the panel it belongs.
+   */
   setScrollDirection(direction: ScrollDirectionPayload): void;
+  /**
+   * Sets if the scroll has reached the start position of a panel.
+   *
+   * @param hasReachedStart - An object containing if the scroll position is at the start and
+   * the identifier of this panel.
+   */
   setScrollHasReachedStart(hasReachedStart: ScrollPositionReachedPayload): void;
+  /**
+   * Sets if the scroll has reached the end position of a panel.
+   *
+   * @param hasReachedEnd - An object containing if the scroll position is at the end and
+   * the identifier of this panel.
+   */
   setScrollHasReachedEnd(hasReachedEnd: ScrollPositionReachedPayload): void;
 }
 
