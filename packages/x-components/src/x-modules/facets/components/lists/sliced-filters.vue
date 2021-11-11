@@ -161,8 +161,16 @@ filters list to their children, it is mandatory to send it as prop.
           <SimpleFilter :filter="filter" />
         </Filters>
       </template>
-      <template #show-more="{ difference }">Show {{ difference }} more filters</template>
-      <template #show-less="{ difference }">Show {{ difference }} less filters</template>
+      <template #show-more="{ difference }">
+        Show
+        <span data-test="show-more-amount">{{ difference }}</span>
+        more filters
+      </template>
+      <template #show-less="{ difference }">
+        Show
+        <span data-test="show-less-amount">{{ difference }}</span>
+        less filters
+      </template>
     </SlicedFilters>
   </Facets>
 </template>

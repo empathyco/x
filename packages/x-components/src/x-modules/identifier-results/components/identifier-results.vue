@@ -22,10 +22,12 @@
 
 <script lang="ts">
   import { Result } from '@empathyco/x-types';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Prop, Provide } from 'vue-property-decorator';
   import Vue from 'vue';
   import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { PropsWithType } from '../../../utils/types';
+  import { XEventsTypes } from '../../../wiring/events.types';
   import { identifierResultsXModule } from '../x-module';
 
   /**
@@ -54,6 +56,16 @@
      */
     @State('identifierResults', 'identifierResults')
     public identifierResults!: Result[];
+
+    /**
+     * The additional events to be emitted by the mandatory {@link BaseResultLink} component.
+     *
+     * @public
+     */
+    @Provide()
+    protected resultClickExtraEvents: PropsWithType<XEventsTypes, Result>[] = [
+      'UserClickedAIdentifierResult'
+    ];
   }
 </script>
 
