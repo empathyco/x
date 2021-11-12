@@ -140,7 +140,7 @@
     /**
      * Validates when the target scroll component has almost reached the end of the scroll.
      *
-     * @param _payload - {@link XEventsTypes.UserAlmostReachedScrollEnd}.
+     * @param _payload - {@link ScrollXEvents.UserAlmostReachedScrollEnd}.
      * @param metadata - Associated data of the event, including the id.
      * @internal
      */
