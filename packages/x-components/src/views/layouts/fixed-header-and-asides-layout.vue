@@ -87,13 +87,11 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import ChevronRight from '../../components/icons/chevron-right.vue';
-  import FiltersIcon from '../../components/icons/filters.vue';
   import Cross from '../../components/icons/cross.vue';
-  import BaseIdModalOpen from '../../components/modals/base-id-modal-open.vue';
+  import FiltersIcon from '../../components/icons/filters.vue';
   // eslint-disable-next-line max-len
   import FixedHeaderAndAsidesLayout from '../../components/layouts/fixed-header-and-asides-layout.vue';
-  import { XInstaller } from '../../x-installer';
-  import { baseInstallXOptions, baseSnippetConfig } from '../base-config';
+  import BaseIdModalOpen from '../../components/modals/base-id-modal-open.vue';
 
   @Component({
     components: {
@@ -102,10 +100,6 @@
       FixedHeaderAndAsidesLayout,
       BaseIdModalOpen,
       FiltersIcon
-    },
-    beforeRouteEnter(_to, _from, next: () => void): void {
-      new XInstaller(baseInstallXOptions).init(baseSnippetConfig);
-      next();
     }
   })
   export default class FixedHeaderAndAsidesLayoutView extends Vue {}
@@ -114,6 +108,7 @@
 <style lang="scss">
   .app {
     max-height: 100%;
+
     .x-layout {
       flex: 1 1 0%;
       min-height: 0;
