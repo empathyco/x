@@ -1,3 +1,4 @@
+import { Identifiable } from '@empathyco/x-types';
 import { ScrollDirection } from '../../../components/scroll/scroll.types';
 import { XStoreModule } from '../../../store';
 import { Dictionary } from '../../../utils/types';
@@ -95,15 +96,11 @@ export interface ScrollMutations {
  *
  * @public
  */
-export interface ScrollPositionPayload {
+export interface ScrollPositionPayload extends Identifiable<string> {
   /**
    * The amount of pixels scrolled.
    */
   position: number;
-  /**
-   * The identifier of the scroll element.
-   */
-  id: string;
 }
 
 /**
@@ -111,15 +108,11 @@ export interface ScrollPositionPayload {
  *
  * @public
  */
-export interface ScrollDirectionPayload {
+export interface ScrollDirectionPayload extends Identifiable<string> {
   /**
    * The current direction of the scroll.
    */
   direction: ScrollDirection;
-  /**
-   * The identifier of the scroll element.
-   */
-  id: string;
 }
 
 /**
@@ -128,15 +121,11 @@ export interface ScrollDirectionPayload {
  *
  * @public
  */
-export interface ScrollPositionReachedPayload {
+export interface ScrollPositionReachedPayload extends Identifiable<string> {
   /**
    * True if it has reached certain position. False otherwise.
    */
   value: boolean;
-  /**
-   * The identifier of the scroll element.
-   */
-  id: string;
 }
 
 /**
