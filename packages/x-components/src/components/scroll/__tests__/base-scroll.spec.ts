@@ -104,50 +104,56 @@ describe('testing Base Scroll Component', () => {
     const { wrapper, scroll } = await renderBaseScroll({
       throttleMs: 200
     });
+    expect(wrapper.emitted('scroll:direction-change')).toBeUndefined();
 
     await scroll({
       to: 300,
       durationMs: 200
     });
+    expect(wrapper.emitted('scroll:direction-change')).toEqual([['DOWN']]);
 
     await scroll({
       to: 500,
       durationMs: 200
     });
+    expect(wrapper.emitted('scroll:direction-change')).toEqual([['DOWN']]);
 
     await scroll({
       to: 200,
       durationMs: 200
     });
+    expect(wrapper.emitted('scroll:direction-change')).toEqual([['DOWN'], ['UP']]);
 
     await scroll({
       to: 100,
       durationMs: 200
     });
+    expect(wrapper.emitted('scroll:direction-change')).toEqual([['DOWN'], ['UP']]);
 
     expect(wrapper.emitted('scroll')).toEqual([[300], [500], [200], [100]]);
-    expect(wrapper.emitted('scroll:direction-change')).toEqual([['DOWN'], ['UP']]);
-    expect(wrapper.emitted('scroll:at-start')).toBeUndefined();
-    expect(wrapper.emitted('scroll:at-end')).toBeUndefined();
+    expect(wrapper.emitted('scroll:at-start')).toEqual([[false]]);
+    expect(wrapper.emitted('scroll:at-end')).toEqual([[false]]);
   });
 
   it('emits the `scroll:at-start` event when the user scrolls back to the top', async () => {
     const { wrapper, scroll } = await renderBaseScroll({
       throttleMs: 200
     });
+    expect(wrapper.emitted('scroll:at-start')).toBeUndefined();
 
     await scroll({
       to: 300,
       durationMs: 200
     });
+    expect(wrapper.emitted('scroll:at-start')).toEqual([[false]]);
 
     await scroll({
       to: 0,
       durationMs: 200
     });
+    expect(wrapper.emitted('scroll:at-start')).toEqual([[false], [true]]);
 
     expect(wrapper.emitted('scroll:direction-change')).toEqual([['DOWN'], ['UP']]);
-    expect(wrapper.emitted('scroll:at-start')).toHaveLength(1);
   });
 
   // eslint-disable-next-line max-len
@@ -156,31 +162,33 @@ describe('testing Base Scroll Component', () => {
       throttleMs: 200,
       scrollHeight: 800,
       clientHeight: 200,
-      distanceToBottom: 200
+      distanceToBottom: 300
     });
+    expect(wrapper.emitted('scroll:almost-at-end')).toBeUndefined();
 
     await scroll({
-      to: 520,
+      to: 550,
       durationMs: 200
     });
+    expect(wrapper.emitted('scroll:almost-at-end')).toEqual([[true]]);
 
     await scroll({
-      to: 600,
+      to: 501,
       durationMs: 200
     });
+    expect(wrapper.emitted('scroll:almost-at-end')).toEqual([[true]]);
 
     await scroll({
       to: 0,
       durationMs: 200
     });
+    expect(wrapper.emitted('scroll:almost-at-end')).toEqual([[true], [false]]);
 
     await scroll({
       to: 600,
       durationMs: 200
     });
-
-    expect(wrapper.emitted('scroll:almost-at-end')).toEqual([[80], [0]]);
-    expect(wrapper.emitted('scroll:at-end')).toHaveLength(2);
+    expect(wrapper.emitted('scroll:almost-at-end')).toEqual([[true], [false], [true]]);
   });
 });
 

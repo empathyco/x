@@ -15,12 +15,12 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Prop, Watch } from 'vue-property-decorator';
-  import { ScrollDirection, State, xComponentMixin, XOn } from '../../../components';
+  import { Component, Prop } from 'vue-property-decorator';
+  import { State, xComponentMixin } from '../../../components';
   import BaseEventButton from '../../../components/base-event-button.vue';
   import { NoElement } from '../../../components/no-element';
   import { Dictionary } from '../../../utils';
-  import { WireMetadata, XEventsTypes } from '../../../wiring';
+  import { XEventsTypes } from '../../../wiring';
   import { ScrollComponentState } from '../store';
   import { scrollXModule } from '../x-module';
 
@@ -129,37 +129,14 @@
       return this.useThresholdStrategy ? this.isThresholdReached : this.hasAlmostReachedScrollEnd;
     }
 
-    // TODO Migrate `hasAlmostReachedScrollEnd` to the module
     /**
-     * Whether if scroll has almost reached the scroll end or not in target scroll.
+     * Returns if the scroll has almost reached its end or not.
      *
+     * @returns True if the scroll has almost reached the end and the user is still scrolling down.
      * @internal
      */
-    protected hasAlmostReachedScrollEnd = false;
-
-    /**
-     * Validates when the target scroll component has almost reached the end of the scroll.
-     *
-     * @param _payload - {@link ScrollXEvents.UserAlmostReachedScrollEnd}.
-     * @param metadata - Associated data of the event, including the id.
-     * @internal
-     */
-    @XOn('UserAlmostReachedScrollEnd')
-    enableHasAlmostReachedScrollEnd(_payload: unknown, metadata: WireMetadata): void {
-      if (this.scrollId === metadata.id) {
-        this.hasAlmostReachedScrollEnd = true;
-      }
-    }
-
-    /**
-     * Checks if the scroll has almost reached the end when the scroll direction changes.
-     *
-     * @param scrollDirection - The new scroll direction.
-     * @internal
-     */
-    @Watch('scrollData.direction')
-    updateHasAlmostReachedScrollEnd(scrollDirection: ScrollDirection): void {
-      this.hasAlmostReachedScrollEnd = this.hasAlmostReachedScrollEnd && scrollDirection === 'DOWN';
+    protected get hasAlmostReachedScrollEnd(): boolean {
+      return this.scrollData.hasAlmostReachedEnd && this.scrollData.direction === 'DOWN';
     }
   }
 </script>

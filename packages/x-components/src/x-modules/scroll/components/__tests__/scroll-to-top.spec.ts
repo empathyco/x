@@ -43,14 +43,16 @@ function renderScrollToTop({
 describe('testing Scroll To Top component', () => {
   it('renders the content in the slot', async () => {
     const { scrollToTopWrapper, emitXEvent } = renderScrollToTop();
-    await emitXEvent('UserAlmostReachedScrollEnd', 100);
+    await emitXEvent('UserAlmostReachedScrollEnd', true);
+    await emitXEvent('UserChangedScrollDirection', 'DOWN');
     expect(scrollToTopWrapper.text()).toEqual('Top');
   });
 
   it('shows if a scroll is almost reaching the end and there is no threshold', async () => {
     const { scrollToTopWrapper, emitXEvent } = renderScrollToTop();
     expect(scrollToTopWrapper.html()).toBe('');
-    await emitXEvent('UserAlmostReachedScrollEnd', 100);
+    await emitXEvent('UserAlmostReachedScrollEnd', true);
+    await emitXEvent('UserChangedScrollDirection', 'DOWN');
     expect(scrollToTopWrapper.html()).not.toBe('');
   });
 
@@ -69,7 +71,8 @@ describe('testing Scroll To Top component', () => {
     const listener = jest.fn();
     scrollToTopWrapper.vm.$x.on('UserClickedScrollToTop').subscribe(listener);
 
-    await emitXEvent('UserAlmostReachedScrollEnd', 100);
+    await emitXEvent('UserAlmostReachedScrollEnd', true);
+    await emitXEvent('UserChangedScrollDirection', 'DOWN');
     await click();
 
     expect(listener).toHaveBeenCalledTimes(1);
@@ -81,7 +84,7 @@ describe('testing Scroll To Top component', () => {
     const { scrollToTopWrapper, emitXEvent } = renderScrollToTop();
 
     await emitXEvent('UserChangedScrollDirection', 'DOWN');
-    await emitXEvent('UserAlmostReachedScrollEnd', 100);
+    await emitXEvent('UserAlmostReachedScrollEnd', true);
     expect(scrollToTopWrapper.html()).not.toBe('');
 
     await emitXEvent('UserChangedScrollDirection', 'UP');

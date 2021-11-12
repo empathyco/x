@@ -1,10 +1,10 @@
 <template>
   <BaseScroll
-    @scroll="scroll"
-    @scroll:direction-change="scrollDirectionChange"
-    @scroll:at-start="scrollAtStart"
-    @scroll:almost-at-end="scrollAlmostAtEnd"
-    @scroll:at-end="scrollAtEnd"
+    @scroll="emitScroll"
+    @scroll:direction-change="emitScrollDirectionChange"
+    @scroll:at-start="emitScrollAtStart"
+    @scroll:almost-at-end="emitScrollAlmostAtEnd"
+    @scroll:at-end="emitScrollAtEnd"
     v-on="$listeners"
     :id="id"
     :throttleMs="throttleMs"
@@ -68,7 +68,7 @@
      * @param position - The new position of scroll.
      * @internal
      */
-    protected scroll(position: number): void {
+    protected emitScroll(position: number): void {
       this.$x.emit('UserScrolled', position, this.createEventMetadata());
     }
 
@@ -78,36 +78,38 @@
      * @param direction - The new direction of scroll.
      * @internal
      */
-    protected scrollDirectionChange(direction: ScrollDirection): void {
+    protected emitScrollDirectionChange(direction: ScrollDirection): void {
       this.$x.emit('UserChangedScrollDirection', direction, this.createEventMetadata());
     }
 
     /**
      * Emits the 'UserReachedScrollStart' event when the user reaches the start.
      *
+     * @param isAtStart - A boolean indicating if the scroll is at the ending position.
      * @internal
      */
-    protected scrollAtStart(): void {
-      this.$x.emit('UserReachedScrollStart', undefined, this.createEventMetadata());
+    protected emitScrollAtStart(isAtStart: boolean): void {
+      this.$x.emit('UserReachedScrollStart', isAtStart, this.createEventMetadata());
     }
 
     /**
      * Emits the 'UserAlmostReachedScrollEnd' event when the user is about to reach to end.
      *
-     * @param distance - A number for knowing the distance missing to end position position.
+     * @param isAlmostAtEnd - A boolean indicating if the scroll is almost at its ending position.
      * @internal
      */
-    protected scrollAlmostAtEnd(distance: number): void {
-      this.$x.emit('UserAlmostReachedScrollEnd', distance, this.createEventMetadata());
+    protected emitScrollAlmostAtEnd(isAlmostAtEnd: boolean): void {
+      this.$x.emit('UserAlmostReachedScrollEnd', isAlmostAtEnd, this.createEventMetadata());
     }
 
     /**
      * Emits the 'UserReachedScrollEnd' event when the user is about to reach to end.
      *
+     * @param isAtEnd - A boolean indicating if the scroll is at the ending position.
      * @internal
      */
-    protected scrollAtEnd(): void {
-      this.$x.emit('UserReachedScrollEnd', undefined, this.createEventMetadata());
+    protected emitScrollAtEnd(isAtEnd: boolean): void {
+      this.$x.emit('UserReachedScrollEnd', isAtEnd, this.createEventMetadata());
     }
 
     /**

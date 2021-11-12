@@ -177,6 +177,17 @@ export default class ScrollMixin extends Vue {
   }
 
   /**
+   * Emits the 'scroll:at-start' event when the user reaches the start.
+   *
+   * @param isScrollAtStart - For knowing if the user reaches at start.
+   * @internal
+   */
+  @Watch('hasScrollReachedStart')
+  protected emitScrollReachedAtStart(isScrollAtStart: boolean): void {
+    this.$emit('scroll:at-start', isScrollAtStart);
+  }
+
+  /**
    * Emits the 'scroll:almost-at-end' event when the user is about to reach to end.
    *
    * @param isScrollAlmostAtEnd - For knowing if the user is about to reach to end.
@@ -184,9 +195,7 @@ export default class ScrollMixin extends Vue {
    */
   @Watch('hasScrollAlmostReachedEnd')
   protected emitScrollAlmostAtEnd(isScrollAlmostAtEnd: boolean): void {
-    if (isScrollAlmostAtEnd) {
-      this.$emit('scroll:almost-at-end', this.distanceToEnd);
-    }
+    this.$emit('scroll:almost-at-end', isScrollAlmostAtEnd);
   }
 
   /**
@@ -197,9 +206,7 @@ export default class ScrollMixin extends Vue {
    */
   @Watch('hasScrollReachedEnd')
   protected emitScrollAtEnd(isScrollAtEnd: boolean): void {
-    if (isScrollAtEnd) {
-      this.$emit('scroll:at-end');
-    }
+    this.$emit('scroll:at-end', isScrollAtEnd);
   }
 
   /**
@@ -211,19 +218,6 @@ export default class ScrollMixin extends Vue {
   @Watch('scrollDirection')
   protected emitScrollDirection(direction: ScrollDirection): void {
     this.$emit('scroll:direction-change', direction);
-  }
-
-  /**
-   * Emits the 'scroll:at-start' event when the user reaches the start.
-   *
-   * @param isScrollAtStart - For knowing if the user reaches at start.
-   * @internal
-   */
-  @Watch('hasScrollReachedStart')
-  protected emitScrollReachedAtStart(isScrollAtStart: boolean): void {
-    if (isScrollAtStart) {
-      this.$emit('scroll:at-start');
-    }
   }
 
   /**

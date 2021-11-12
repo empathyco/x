@@ -14,6 +14,19 @@ async function renderWindowScroll({
   showComponent
 }: RenderWindowScrollOptions = {}): Promise<RenderWindowScrollAPI> {
   const [, localVue] = installNewXPlugin({ initialXModules: [scrollXModule] });
+
+  const html = document.documentElement;
+  html.scrollTop = 0;
+  jest.spyOn(html, 'clientHeight', 'get').mockImplementation(() => clientHeight);
+  jest.spyOn(html, 'scrollHeight', 'get').mockImplementation(() => scrollHeight);
+  jest.spyOn(html, 'removeEventListener');
+
+  const body = document.body;
+  body.scrollTop = 0;
+  jest.spyOn(body, 'clientHeight', 'get').mockImplementation(() => clientHeight);
+  jest.spyOn(body, 'scrollHeight', 'get').mockImplementation(() => scrollHeight);
+  jest.spyOn(body, 'removeEventListener');
+
   const wrapperContainer = mount(
     {
       props: ['throttleMs', 'distanceToBottom', 'tag'],
@@ -34,23 +47,12 @@ async function renderWindowScroll({
       localVue
     }
   );
-
-  const html = document.documentElement;
-  html.scrollTop = 0;
-  jest.spyOn(html, 'clientHeight', 'get').mockImplementation(() => clientHeight);
-  jest.spyOn(html, 'scrollHeight', 'get').mockImplementation(() => scrollHeight);
-  jest.spyOn(html, 'removeEventListener');
-
-  const body = document.body;
-  body.scrollTop = 0;
-  jest.spyOn(body, 'clientHeight', 'get').mockImplementation(() => clientHeight);
-  jest.spyOn(body, 'scrollHeight', 'get').mockImplementation(() => scrollHeight);
-  jest.spyOn(body, 'removeEventListener');
+  const wrapper = wrapperContainer.findComponent(WindowScroll);
 
   await localVue.nextTick();
 
   return {
-    wrapper: wrapperContainer.findComponent(WindowScroll),
+    wrapper,
     async scrollHtml(options: { to: number; durationMs: number }) {
       html.scrollTop = options.to;
       html.dispatchEvent(new Event('scroll'));
@@ -193,9 +195,17 @@ describe('testing Main Scroll Component', () => {
         durationMs: 200
       });
 
-      expect(listenerScrollStart).toHaveBeenCalledTimes(1);
+      expect(listenerScrollStart).toHaveBeenCalledTimes(2);
       expect(listenerScrollStart).toHaveBeenNthCalledWith(1, {
-        eventPayload: undefined,
+        eventPayload: false,
+        metadata: {
+          moduleName: 'scroll',
+          target: document.documentElement,
+          id: 'main-scroll'
+        }
+      });
+      expect(listenerScrollStart).toHaveBeenNthCalledWith(2, {
+        eventPayload: true,
         metadata: {
           moduleName: 'scroll',
           target: document.documentElement,
@@ -210,7 +220,7 @@ describe('testing Main Scroll Component', () => {
         throttleMs: 200,
         scrollHeight: 800,
         clientHeight: 200,
-        distanceToBottom: 200,
+        distanceToBottom: 300,
         tag: 'html'
       });
 
@@ -222,12 +232,22 @@ describe('testing Main Scroll Component', () => {
       wrapper.vm.$x.on('UserReachedScrollEnd', true).subscribe(listenerReachedScrollEnd);
 
       await scrollHtml({
-        to: 520,
+        to: 501,
         durationMs: 200
       });
 
+      expect(listenerAlmostReachedScrollEnd).toHaveBeenCalledTimes(1);
+      expect(listenerReachedScrollEnd).toHaveBeenCalledTimes(1);
       expect(listenerAlmostReachedScrollEnd).toHaveBeenNthCalledWith(1, {
-        eventPayload: 80,
+        eventPayload: true,
+        metadata: {
+          moduleName: 'scroll',
+          target: document.documentElement,
+          id: 'main-scroll'
+        }
+      });
+      expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(1, {
+        eventPayload: false,
         metadata: {
           moduleName: 'scroll',
           target: document.documentElement,
@@ -240,8 +260,10 @@ describe('testing Main Scroll Component', () => {
         durationMs: 200
       });
 
-      expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(1, {
-        eventPayload: undefined,
+      expect(listenerAlmostReachedScrollEnd).toHaveBeenCalledTimes(1);
+      expect(listenerReachedScrollEnd).toHaveBeenCalledTimes(2);
+      expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(2, {
+        eventPayload: true,
         metadata: {
           moduleName: 'scroll',
           target: document.documentElement,
@@ -254,21 +276,42 @@ describe('testing Main Scroll Component', () => {
         durationMs: 200
       });
 
-      await scrollHtml({
-        to: 600,
-        durationMs: 200
-      });
-
+      expect(listenerAlmostReachedScrollEnd).toHaveBeenCalledTimes(2);
+      expect(listenerReachedScrollEnd).toHaveBeenCalledTimes(3);
       expect(listenerAlmostReachedScrollEnd).toHaveBeenNthCalledWith(2, {
-        eventPayload: 0,
+        eventPayload: false,
         metadata: {
           moduleName: 'scroll',
           target: document.documentElement,
           id: 'main-scroll'
         }
       });
-      expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(2, {
-        eventPayload: undefined,
+      expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(3, {
+        eventPayload: false,
+        metadata: {
+          moduleName: 'scroll',
+          target: document.documentElement,
+          id: 'main-scroll'
+        }
+      });
+
+      await scrollHtml({
+        to: 600,
+        durationMs: 200
+      });
+
+      expect(listenerAlmostReachedScrollEnd).toHaveBeenCalledTimes(3);
+      expect(listenerReachedScrollEnd).toHaveBeenCalledTimes(4);
+      expect(listenerAlmostReachedScrollEnd).toHaveBeenNthCalledWith(3, {
+        eventPayload: true,
+        metadata: {
+          moduleName: 'scroll',
+          target: document.documentElement,
+          id: 'main-scroll'
+        }
+      });
+      expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(4, {
+        eventPayload: true,
         metadata: {
           moduleName: 'scroll',
           target: document.documentElement,
@@ -477,9 +520,17 @@ describe('testing Main Scroll Component', () => {
         durationMs: 200
       });
 
-      expect(listenerScrollStart).toHaveBeenCalledTimes(1);
+      expect(listenerScrollStart).toHaveBeenCalledTimes(2);
       expect(listenerScrollStart).toHaveBeenNthCalledWith(1, {
-        eventPayload: undefined,
+        eventPayload: false,
+        metadata: {
+          moduleName: 'scroll',
+          target: document.body,
+          id: 'main-scroll'
+        }
+      });
+      expect(listenerScrollStart).toHaveBeenNthCalledWith(2, {
+        eventPayload: true,
         metadata: {
           moduleName: 'scroll',
           target: document.body,
@@ -494,7 +545,7 @@ describe('testing Main Scroll Component', () => {
         throttleMs: 200,
         scrollHeight: 800,
         clientHeight: 200,
-        distanceToBottom: 200,
+        distanceToBottom: 300,
         tag: 'body'
       });
 
@@ -506,12 +557,22 @@ describe('testing Main Scroll Component', () => {
       wrapper.vm.$x.on('UserReachedScrollEnd', true).subscribe(listenerReachedScrollEnd);
 
       await scrollBody({
-        to: 520,
+        to: 501,
         durationMs: 200
       });
 
+      expect(listenerAlmostReachedScrollEnd).toHaveBeenCalledTimes(1);
+      expect(listenerReachedScrollEnd).toHaveBeenCalledTimes(1);
       expect(listenerAlmostReachedScrollEnd).toHaveBeenNthCalledWith(1, {
-        eventPayload: 80,
+        eventPayload: true,
+        metadata: {
+          moduleName: 'scroll',
+          target: document.body,
+          id: 'main-scroll'
+        }
+      });
+      expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(1, {
+        eventPayload: false,
         metadata: {
           moduleName: 'scroll',
           target: document.body,
@@ -524,8 +585,10 @@ describe('testing Main Scroll Component', () => {
         durationMs: 200
       });
 
-      expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(1, {
-        eventPayload: undefined,
+      expect(listenerAlmostReachedScrollEnd).toHaveBeenCalledTimes(1);
+      expect(listenerReachedScrollEnd).toHaveBeenCalledTimes(2);
+      expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(2, {
+        eventPayload: true,
         metadata: {
           moduleName: 'scroll',
           target: document.body,
@@ -538,21 +601,42 @@ describe('testing Main Scroll Component', () => {
         durationMs: 200
       });
 
-      await scrollBody({
-        to: 600,
-        durationMs: 200
-      });
-
+      expect(listenerAlmostReachedScrollEnd).toHaveBeenCalledTimes(2);
+      expect(listenerReachedScrollEnd).toHaveBeenCalledTimes(3);
       expect(listenerAlmostReachedScrollEnd).toHaveBeenNthCalledWith(2, {
-        eventPayload: 0,
+        eventPayload: false,
         metadata: {
           moduleName: 'scroll',
           target: document.body,
           id: 'main-scroll'
         }
       });
-      expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(2, {
-        eventPayload: undefined,
+      expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(3, {
+        eventPayload: false,
+        metadata: {
+          moduleName: 'scroll',
+          target: document.body,
+          id: 'main-scroll'
+        }
+      });
+
+      await scrollBody({
+        to: 600,
+        durationMs: 200
+      });
+
+      expect(listenerAlmostReachedScrollEnd).toHaveBeenCalledTimes(3);
+      expect(listenerReachedScrollEnd).toHaveBeenCalledTimes(4);
+      expect(listenerAlmostReachedScrollEnd).toHaveBeenNthCalledWith(3, {
+        eventPayload: true,
+        metadata: {
+          moduleName: 'scroll',
+          target: document.body,
+          id: 'main-scroll'
+        }
+      });
+      expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(4, {
+        eventPayload: true,
         metadata: {
           moduleName: 'scroll',
           target: document.body,

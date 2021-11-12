@@ -41,14 +41,18 @@
       this.$on('scroll:direction-change', (direction: ScrollDirection) => {
         this.$x.emit('UserChangedScrollDirection', direction, this.createXEventMetadata());
       });
-      this.$on('scroll:at-start', () => {
-        this.$x.emit('UserReachedScrollStart', undefined, this.createXEventMetadata());
+      this.$on('scroll:at-start', (hasReachedStart: boolean) => {
+        this.$x.emit('UserReachedScrollStart', hasReachedStart, this.createXEventMetadata());
       });
-      this.$on('scroll:almost-at-end', (distance: number) => {
-        this.$x.emit('UserAlmostReachedScrollEnd', distance, this.createXEventMetadata());
+      this.$on('scroll:almost-at-end', (hasAlmostReachedEnd: boolean) => {
+        this.$x.emit(
+          'UserAlmostReachedScrollEnd',
+          hasAlmostReachedEnd,
+          this.createXEventMetadata()
+        );
       });
-      this.$on('scroll:at-end', () => {
-        this.$x.emit('UserReachedScrollEnd', undefined, this.createXEventMetadata());
+      this.$on('scroll:at-end', (hasReachedEnd: boolean) => {
+        this.$x.emit('UserReachedScrollEnd', hasReachedEnd, this.createXEventMetadata());
       });
     }
 

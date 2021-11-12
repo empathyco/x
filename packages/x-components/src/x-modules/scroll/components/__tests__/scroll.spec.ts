@@ -180,9 +180,17 @@ describe('testing Scroll Component', () => {
       durationMs: 200
     });
 
-    expect(listenerScrollStart).toHaveBeenCalledTimes(1);
+    expect(listenerScrollStart).toHaveBeenCalledTimes(2);
     expect(listenerScrollStart).toHaveBeenNthCalledWith(1, {
-      eventPayload: undefined,
+      eventPayload: false,
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        moduleName: 'scroll',
+        target: scrollElement,
+        id: 'scrollResults'
+      })
+    });
+    expect(listenerScrollStart).toHaveBeenNthCalledWith(2, {
+      eventPayload: true,
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'scroll',
         target: scrollElement,
@@ -198,7 +206,7 @@ describe('testing Scroll Component', () => {
       id: 'scrollResults',
       scrollHeight: 800,
       clientHeight: 200,
-      distanceToBottom: 200
+      distanceToBottom: 300
     });
 
     const listenerAlmostReachedScrollEnd = jest.fn();
@@ -207,12 +215,22 @@ describe('testing Scroll Component', () => {
     wrapper.vm.$x.on('UserReachedScrollEnd', true).subscribe(listenerReachedScrollEnd);
 
     await scroll({
-      to: 520,
+      to: 501,
       durationMs: 200
     });
 
+    expect(listenerAlmostReachedScrollEnd).toHaveBeenCalledTimes(1);
     expect(listenerAlmostReachedScrollEnd).toHaveBeenNthCalledWith(1, {
-      eventPayload: 80,
+      eventPayload: true,
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        moduleName: 'scroll',
+        target: scrollElement,
+        id: 'scrollResults'
+      })
+    });
+    expect(listenerReachedScrollEnd).toHaveBeenCalledTimes(1);
+    expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(1, {
+      eventPayload: false,
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'scroll',
         target: scrollElement,
@@ -225,8 +243,10 @@ describe('testing Scroll Component', () => {
       durationMs: 200
     });
 
-    expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(1, {
-      eventPayload: undefined,
+    expect(listenerAlmostReachedScrollEnd).toHaveBeenCalledTimes(1);
+    expect(listenerReachedScrollEnd).toHaveBeenCalledTimes(2);
+    expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(2, {
+      eventPayload: true,
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'scroll',
         target: scrollElement,
@@ -239,21 +259,42 @@ describe('testing Scroll Component', () => {
       durationMs: 200
     });
 
-    await scroll({
-      to: 600,
-      durationMs: 200
-    });
-
+    expect(listenerAlmostReachedScrollEnd).toHaveBeenCalledTimes(2);
     expect(listenerAlmostReachedScrollEnd).toHaveBeenNthCalledWith(2, {
-      eventPayload: 0,
+      eventPayload: false,
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'scroll',
         target: scrollElement,
         id: 'scrollResults'
       })
     });
-    expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(2, {
-      eventPayload: undefined,
+    expect(listenerReachedScrollEnd).toHaveBeenCalledTimes(3);
+    expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(3, {
+      eventPayload: false,
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        moduleName: 'scroll',
+        target: scrollElement,
+        id: 'scrollResults'
+      })
+    });
+
+    await scroll({
+      to: 600,
+      durationMs: 200
+    });
+
+    expect(listenerAlmostReachedScrollEnd).toHaveBeenCalledTimes(3);
+    expect(listenerAlmostReachedScrollEnd).toHaveBeenNthCalledWith(3, {
+      eventPayload: true,
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        moduleName: 'scroll',
+        target: scrollElement,
+        id: 'scrollResults'
+      })
+    });
+    expect(listenerReachedScrollEnd).toHaveBeenCalledTimes(4);
+    expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(4, {
+      eventPayload: true,
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'scroll',
         target: scrollElement,
