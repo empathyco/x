@@ -9,7 +9,6 @@
     :id="id"
     :throttleMs="throttleMs"
     :distanceToBottom="distanceToBottom"
-    :resetOnQueryChange="resetOnQueryChange"
   >
     <slot />
   </BaseScroll>
@@ -18,10 +17,12 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { XOn } from '../decorators/bus.decorators';
-  import { XEvent, XEventPayload } from '../../wiring';
-  import BaseScroll from './base-scroll.vue';
-  import { ScrollDirection } from './scroll.types';
+  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { WireMetadata } from '../../../wiring/wiring.types';
+  import { XOn } from '../../../components/decorators/bus.decorators';
+  import BaseScroll from '../../../components/scroll/base-scroll.vue';
+  import { ScrollDirection } from '../../../components/scroll/scroll.types';
+  import { scrollXModule } from '../x-module';
 
   /**
    * Base scroll component that depending on base scroll component and the user interaction emits
@@ -31,9 +32,10 @@
    * @public
    */
   @Component({
+    mixins: [xComponentMixin(scrollXModule)],
     components: { BaseScroll }
   })
-  export default class BaseIdScroll extends Vue {
+  export default class Scroll extends Vue {
     /**
      * Time duration to ignore the subsequent scroll events after an emission.
      * Higher values will decrease events precision but can prevent performance issues.
@@ -61,22 +63,13 @@
     public id!: string;
 
     /**
-     * If true (default), sets the scroll position of the {@link BaseScroll} component to top when
-     * an {@link XEventsTypes.UserAcceptedAQuery} event is emitted.
-     *
-     * @public
-     */
-    @Prop({ default: true })
-    protected resetOnQueryChange!: boolean;
-
-    /**
      * Emits the `UserScrolled` event.
      *
      * @param position - The new position of scroll.
      * @internal
      */
     protected scroll(position: number): void {
-      this.emitEvent('UserScrolled', position);
+      this.$x.emit('UserScrolled', position, this.createEventMetadata());
     }
 
     /**
@@ -86,7 +79,7 @@
      * @internal
      */
     protected scrollDirectionChange(direction: ScrollDirection): void {
-      this.emitEvent('UserChangedScrollDirection', direction);
+      this.$x.emit('UserChangedScrollDirection', direction, this.createEventMetadata());
     }
 
     /**
@@ -95,7 +88,7 @@
      * @internal
      */
     protected scrollAtStart(): void {
-      this.emitEvent('UserReachedScrollStart');
+      this.$x.emit('UserReachedScrollStart', undefined, this.createEventMetadata());
     }
 
     /**
@@ -105,7 +98,7 @@
      * @internal
      */
     protected scrollAlmostAtEnd(distance: number): void {
-      this.emitEvent('UserAlmostReachedScrollEnd', distance);
+      this.$x.emit('UserAlmostReachedScrollEnd', distance, this.createEventMetadata());
     }
 
     /**
@@ -114,46 +107,28 @@
      * @internal
      */
     protected scrollAtEnd(): void {
-      this.emitEvent('UserReachedScrollEnd');
+      this.$x.emit('UserReachedScrollEnd', undefined, this.createEventMetadata());
     }
 
     /**
-     * Emits the event corresponding passed as parameter when the user has scrolled.
-     *
-     * @param event - Name of event to emit.
-     * @internal
-     */
-    protected emitEvent<Event extends XEvent>(event: Event): void;
-    /**
-     * Emits the event corresponding passed as parameter when the user has scrolled.
-     *
-     * @param event - Name of event to emit.
-     * @param payload - Data to send in the event like payload. {@link ScrollDirection | number}.
-     * @internal
-     */
-    protected emitEvent<Event extends XEvent>(event: Event, payload: XEventPayload<Event>): void;
-    /**
-     * Emits the event corresponding passed as parameter when the user has scrolled.
-     *
-     * @param event - Name of event to emit.
-     * @param payload - Optional data to send in the event like payload.
-     * {@link ScrollDirection | number}.
+     * Creates a {@link WireMetadata} metadata object for all the emitted events.
      *
      * @internal
+     * @returns A new {@link WireMetadata} object.
      */
-    protected emitEvent<Event extends XEvent>(event: Event, payload?: XEventPayload<Event>): void {
-      this.$x.emit(event, payload as any, { target: this.$el as HTMLElement, id: this.id });
+    protected createEventMetadata(): Partial<WireMetadata> {
+      return { target: this.$el as HTMLElement, id: this.id };
     }
 
     /**
      * Scrolls to initial position when the user has clicked the scroll to top button.
      *
-     * @param payload - {@link XEventsTypes.UserClickedScrollToTop}.
+     * @param scrollId - {@link XEventsTypes.UserClickedScrollToTop}.
      * @internal
      */
     @XOn('UserClickedScrollToTop')
-    scrollToTop(payload: string): void {
-      if (payload === this.id && this.$el) {
+    scrollToTop(scrollId: string): void {
+      if (scrollId === this.id && this.$el) {
         this.$el?.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
@@ -163,7 +138,7 @@
 <docs lang="mdx">
 # Example
 
-The BaseIdScroll is a component that wraps the BaseScroll and provides it for a unique id.
+The Scroll is a component that wraps the BaseScroll and provides it for a unique id.
 
 ## Events
 
@@ -186,21 +161,21 @@ It renders an element with scroll, with the content passed in the `default slot`
 
 ```vue
 <template>
-  <BaseIdScroll id="exampleScrollId" throttleMs="50" distanceToBottom="300">
+  <Scroll id="exampleScrollId" throttleMs="50" distanceToBottom="300">
     <div class="content-scroll">
       <span>content1</span>
       <span>content1</span>
     </div>
-  </BaseIdScroll>
+  </Scroll>
 </template>
 
 <script>
-  import { BaseIdScroll } from '@empathyco/x-components';
+  import { Scroll } from '@empathyco/x-components';
 
   export default {
     name: 'ScrollIdTest',
     components: {
-      BaseIdScroll
+      Scroll
     }
   };
 </script>
@@ -212,7 +187,7 @@ It renders an element with scroll, with the content passed in the `default slot`
 
 ```vue
 <template>
-  <BaseIdScroll
+  <Scroll
     @scroll="scroll"
     @scroll:direction-change="scrollDirectionChange"
     @scroll:at-start="scrollAtStart"
@@ -226,16 +201,16 @@ It renders an element with scroll, with the content passed in the `default slot`
       <span>content1</span>
       <span>content1</span>
     </div>
-  </BaseIdScroll>
+  </Scroll>
 </template>
 
 <script>
-  import { BaseIdScroll } from '@empathyco/x-components';
+  import { Scroll } from '@empathyco/x-components';
 
   export default {
     name: 'ScrollIdTest',
     components: {
-      BaseIdScroll
+      Scroll
     },
     methods: {
       scroll(position) {
@@ -266,21 +241,21 @@ You can use the XEvents subscribing to them.
 
 ```vue
 <template>
-  <BaseIdScroll throttleMs="50" distanceToBottom="300">
+  <Scroll throttleMs="50" distanceToBottom="300">
     <div class="content-scroll">
       <span>content1</span>
       <span>content1</span>
     </div>
-  </BaseIdScroll>
+  </Scroll>
 </template>
 
 <script>
-  import { BaseIdScroll } from '@empathyco/x-components';
+  import { Scroll } from '@empathyco/x-components';
 
   export default {
     name: 'ScrollIdTest',
     components: {
-      BaseIdScroll
+      Scroll
     },
     mounted() {
       this.$x.on('UserScrolled').subscribe(event => {
@@ -309,21 +284,21 @@ Set to false the reset scroll on query change feature which is true by default.
 
 ```vue
 <template>
-  <BaseIdScroll throttleMs="50" distanceToBottom="300" :resetOnQueryChange="false">
+  <Scroll throttleMs="50" distanceToBottom="300" :resetOnQueryChange="false">
     <div class="content-scroll">
       <span>content1</span>
       <span>content1</span>
     </div>
-  </BaseIdScroll>
+  </Scroll>
 </template>
 
 <script>
-  import { BaseIdScroll } from '@empathyco/x-components';
+  import { Scroll } from '@empathyco/x-components';
 
   export default {
     name: 'ScrollIdTest',
     components: {
-      BaseIdScroll
+      Scroll
     },
     mounted() {
       this.$x.on('UserScrolled').subscribe(event => {

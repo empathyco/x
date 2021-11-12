@@ -42,4 +42,9 @@ export interface ScrollXEvents {
    * * Payload: The new position of scroll.
    */
   UserScrolled: number;
+  /**
+   * The user has scrolled to an element with the given id.
+   * * Payload: The scroll identifier of the element.
+   */
+  UserScrolledToElement: string;
 }

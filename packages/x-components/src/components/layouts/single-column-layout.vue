@@ -30,12 +30,12 @@
     </div>
 
     <main v-if="hasContent('main')" class="x-layout__main x-list x-list--vertical">
-      <BaseIdScroll id="main-scroll">
+      <Scroll id="main-scroll">
         <!-- @slot Slot that can be used to insert content into the Main. -->
         <slot name="main">
           <span v-if="devMode" class="slot-helper">MAIN</span>
         </slot>
-      </BaseIdScroll>
+      </Scroll>
     </main>
 
     <div v-if="hasContent('floating')" class="x-layout__floating x-list x-list--horizontal">
@@ -70,9 +70,9 @@
   import Vue from 'vue';
   import { mixins } from 'vue-class-component';
   import { Component, Prop } from 'vue-property-decorator';
-  import BaseIdModal from '../modals/base-id-modal.vue';
+  import Scroll from '../../x-modules/scroll/components/scroll.vue';
   import TranslateFromRight from '../animations/translate-from-right.vue';
-  import BaseIdScroll from '../scroll/base-id-scroll.vue';
+  import BaseIdModal from '../modals/base-id-modal.vue';
   import BaseScroll from '../scroll/base-scroll.vue';
   import LayoutsMixin from './layouts.mixin';
 
@@ -82,7 +82,7 @@
    * @public
    */
   @Component({
-    components: { BaseIdScroll, BaseScroll, BaseIdModal }
+    components: { Scroll, BaseScroll, BaseIdModal }
   })
   export default class SingleColumnLayout extends mixins(LayoutsMixin) {
     /**
@@ -127,32 +127,40 @@
       min-height: 0;
       display: flex;
     }
+
     &__header {
       grid-row: header;
     }
+
     &__sub-header {
       grid-row: sub-header;
     }
+
     &__toolbar {
       grid-row: toolbar;
     }
+
     &__predictive {
       grid-row-start: header-end;
       grid-row-end: page-end;
       flex-flow: column nowrap;
       z-index: 2;
     }
+
     &__main {
       grid-row: main;
       flex-flow: column nowrap;
     }
+
     &__floating {
       grid-row: floating;
       z-index: 1;
     }
+
     &__footer {
       grid-row: footer;
     }
+
     &__aside {
       grid-row: page;
       z-index: 3;
@@ -163,17 +171,20 @@
         margin-inline-start: var(--x-size-margin-left-layout-single-column, 0);
       }
     }
+
     &__predictive,
     &__floating,
     &__aside,
     .slot-helper {
       pointer-events: none;
+
       ::v-deep > * {
         pointer-events: all;
       }
 
       ::v-deep .x-list {
         pointer-events: none;
+
         > * {
           pointer-events: all;
         }

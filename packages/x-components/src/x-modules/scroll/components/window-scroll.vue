@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { Component, Prop } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
-  import { throttle } from '../../utils/throttle';
-  import { XEvent, XEventPayload } from '../../wiring';
-  import ScrollMixin from './scroll.mixin';
-  import { ScrollDirection } from './scroll.types';
+  import { Component, Prop } from 'vue-property-decorator';
+  import { ScrollDirection, ScrollMixin, xComponentMixin } from '../../../components';
+  import { WireMetadata } from '../../../wiring';
+  import { scrollXModule } from '../x-module';
 
   type ScrollableTag = 'html' | 'body';
 
@@ -15,8 +14,10 @@
    *
    * @public
    */
-  @Component
-  export default class BaseMainScroll extends mixins(ScrollMixin) {
+  @Component({
+    mixins: [xComponentMixin(scrollXModule)]
+  })
+  export default class WindowScroll extends mixins(ScrollMixin) {
     /**
      * Tag to identify the main scrollable element.
      *
@@ -24,7 +25,6 @@
      */
     @Prop({ default: 'html' })
     protected tag!: ScrollableTag;
-
     /**
      * Id to identify the component.
      *
@@ -33,116 +33,55 @@
     @Prop({ default: 'main-scroll' })
     protected id!: string;
 
-    /**
-     * The HTMLElement to use as the scrollable element based on {@link BaseMainScroll.tag}.
-     *
-     * @public
-     */
-    protected element!: HTMLElement;
-
-    /**
-     * Main element of page for listening the event scroll.
-     *
-     * @internal
-     */
-    protected elementListener!: Document | HTMLElement;
-
-    /**
-     * Throttled version of the function that stores the DOM scroll related properties.
-     * The duration of the throttle is configured through the
-     * {@link ScrollMixin.throttleMs }.
-     *
-     * @internal
-     */
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    protected throttledStoreScrollData = throttle(this.storeScrollData, this.throttleMs);
-
     mounted(): void {
       this.initAndListenElement();
-
       this.$on('scroll', (position: number) => {
-        this.emitEvent('UserScrolled', position);
+        this.$x.emit('UserScrolled', position, this.createXEventMetadata());
       });
-
       this.$on('scroll:direction-change', (direction: ScrollDirection) => {
-        this.emitEvent('UserChangedScrollDirection', direction);
+        this.$x.emit('UserChangedScrollDirection', direction, this.createXEventMetadata());
       });
-
       this.$on('scroll:at-start', () => {
-        this.emitEvent('UserReachedScrollStart');
+        this.$x.emit('UserReachedScrollStart', undefined, this.createXEventMetadata());
       });
-
       this.$on('scroll:almost-at-end', (distance: number) => {
-        this.emitEvent('UserAlmostReachedScrollEnd', distance);
+        this.$x.emit('UserAlmostReachedScrollEnd', distance, this.createXEventMetadata());
       });
-
       this.$on('scroll:at-end', () => {
-        this.emitEvent('UserReachedScrollEnd');
+        this.$x.emit('UserReachedScrollEnd', undefined, this.createXEventMetadata());
       });
     }
 
     /**
-     * Get the element depends on {@link BaseMainScroll.tag} if is html or body
-     * and listen the event scroll.
+     * Sets the HTML element depending on {@link WindowScroll.tag}, and initialises its events.
      *
      * @internal
      */
     protected initAndListenElement(): void {
-      if (this.tag === 'html') {
-        this.element = document.documentElement;
-        this.elementListener = document;
-      } else {
-        this.element = document.body;
-        this.elementListener = document.body;
-      }
-
-      this.elementListener.addEventListener('scroll', this.throttledStoreScrollData);
-    }
-
-    /**
-     * Updates main scroll related properties.
-     *
-     * @internal
-     */
-    protected storeScrollData(): void {
-      this.currentPosition = this.element.scrollTop;
-      this.scrollHeight = this.element.scrollHeight;
-      this.clientHeight = this.element.clientHeight;
-    }
-
-    /**
-     * Emits the event corresponding passed as parameter when the user has scrolled.
-     *
-     * @param event - Name of event to emit.
-     * @internal
-     */
-    protected emitEvent<Event extends XEvent>(event: Event): void;
-    /**
-     * Emits the event corresponding passed as parameter when the user has scrolled.
-     *
-     * @param event - Name of event to emit.
-     * @param payload - Data to send in the event like payload. {@link ScrollDirection | number}.
-     * @internal
-     */
-    protected emitEvent<Event extends XEvent>(event: Event, payload: XEventPayload<Event>): void;
-    /**
-     * Emits the event corresponding passed as parameter when the user has scrolled.
-     *
-     * @param event - Name of event to emit.
-     * @param payload - Optional data to send in the event like payload.
-     * {@link ScrollDirection | number}.
-     *
-     * @internal
-     */
-    protected emitEvent<Event extends XEvent>(event: Event, payload?: XEventPayload<Event>): void {
-      this.$x.emit(event, payload as any, { target: this.element, id: this.id });
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      this.$el = this.tag === 'html' ? document.documentElement : document.body;
+      this.$el.addEventListener('scroll', this.throttledStoreScrollData);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     render(): void {}
 
+    /**
+     * Cleanup listeners.
+     */
     beforeDestroy(): void {
-      this.elementListener.removeEventListener('scroll', this.throttledStoreScrollData);
+      this.$el.removeEventListener('scroll', this.throttledStoreScrollData);
+    }
+
+    /**
+     * Creates the metadata for the events of this component.
+     *
+     * @returns A {@link WireMetadata} for the events emitted by this component.
+     * @internal
+     */
+    protected createXEventMetadata(): Partial<WireMetadata> {
+      return { target: this.$el, id: this.id };
     }
   }
 </script>
@@ -150,10 +89,10 @@
 <docs lang="mdx">
 # Example
 
-The BaseMainScroll is a component that manage the states of main scroll that can be document or
-body. The component does the necessary calculations for knowing the direction of scroll, if the
-scroll has reached to start or to end, and is about to reaching to end. The components emits the
-next events and XEvents depending of movement that realize the user:
+The WindowScroll is a component that manage the states of main scroll that can be document or body.
+The component does the necessary calculations for knowing the direction of scroll, if the scroll has
+reached to start or to end, and is about to reaching to end. The components emits the next events
+and XEvents depending of movement that realize the user:
 
 ## Customized usage
 
@@ -161,7 +100,7 @@ next events and XEvents depending of movement that realize the user:
 
 ```vue
 <template>
-  <BaseMainScroll
+  <WindowScroll
     @scroll="scroll"
     @scroll:direction-change="scrollDirectionChange"
     @scroll:at-start="scrollAtStart"
@@ -175,12 +114,12 @@ next events and XEvents depending of movement that realize the user:
 </template>
 
 <script>
-  import { BaseMainScroll } from '@empathyco/x-components';
+  import { WindowScroll } from '@empathyco/x-components';
 
   export default {
     name: 'ScrollIdTest',
     components: {
-      BaseMainScroll
+      WindowScroll
     },
     methods: {
       scroll(position) {
@@ -213,16 +152,16 @@ similar styles the corresponding style for tag body like in the next example.
 
 ```vue
 <template>
-  <BaseMainScroll id="example-main-scroll" throttleMs="100" distanceToBottom="300" tag="body" />
+  <WindowScroll id="example-main-scroll" throttleMs="100" distanceToBottom="300" tag="body" />
 </template>
 
 <script>
-  import { BaseMainScroll } from '@empathyco/x-components';
+  import { WindowScroll } from '@empathyco/x-components';
 
   export default {
     name: 'MainComponent',
     components: {
-      BaseMainScroll
+      WindowScroll
     },
     mounted() {
       this.$x.on('UserScrolled').subscribe(event => {

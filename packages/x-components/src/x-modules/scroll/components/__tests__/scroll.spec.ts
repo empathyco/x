@@ -1,20 +1,22 @@
 import { mount, Wrapper } from '@vue/test-utils';
-import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
-import BaseIdScroll from '../base-id-scroll.vue';
+import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
+import { WireMetadata } from '../../../../wiring/wiring.types';
+import { scrollXModule } from '../../x-module';
+import Scroll from '../scroll.vue';
 
-function renderBaseIdScroll({
-  template = '<BaseIdScroll :throttleMs="throttleMs" :id="id"/>',
+async function renderScroll({
+  template = '<Scroll :throttleMs="throttleMs" :id="id"/>',
   throttleMs = 200,
   id = 'scrollResults',
   scrollHeight = 800,
   clientHeight = 200,
   distanceToBottom = 100
-}: RenderBaseIdScrollOptions = {}): RenderBaseIdScrollAPI {
-  const [, localVue] = installNewXPlugin();
+}: RenderScrollOptions = {}): Promise<RenderScrollAPI> {
+  const [, localVue] = installNewXPlugin({ initialXModules: [scrollXModule] });
   const wrapperContainer = mount(
     {
       components: {
-        BaseIdScroll
+        Scroll: Scroll
       },
       props: ['throttleMs', 'id', 'distanceToBottom'],
       template
@@ -29,37 +31,41 @@ function renderBaseIdScroll({
     }
   );
 
-  const wrapper = wrapperContainer.findComponent(BaseIdScroll);
+  const wrapper = wrapperContainer.findComponent(Scroll);
   const scrollElement: HTMLElement = wrapperContainer.find(
     getDataTestSelector('base-scroll')
   ).element;
   jest.spyOn(scrollElement, 'clientHeight', 'get').mockImplementation(() => clientHeight);
   jest.spyOn(scrollElement, 'scrollHeight', 'get').mockImplementation(() => scrollHeight);
 
+  /* Because the scroll mixins uses a $nextTick in the mounted hook, we have to add a wait here
+  so it has really finish mounting */
+  await wrapper.vm.$nextTick();
+
   return {
     wrapper,
     scrollElement,
-    async scroll(options: { to: number; durationMs: number }) {
-      scrollElement.scrollTop = options.to;
+    async scroll({ to, durationMs }) {
+      scrollElement.scrollTop = to;
       wrapper.trigger('scroll');
-      jest.advanceTimersByTime(options.durationMs);
+      jest.advanceTimersByTime(durationMs);
       await wrapper.vm.$nextTick();
     }
   };
 }
 
-describe('testing Base Scroll Component', () => {
+describe('testing Scroll Component', () => {
   beforeAll(jest.useFakeTimers);
   afterEach(jest.clearAllTimers);
 
-  it('renders default slot contents', () => {
-    const { wrapper } = renderBaseIdScroll({
+  it('renders default slot contents', async () => {
+    const { wrapper } = await renderScroll({
       template: `
-        <BaseIdScroll :id="id">
+        <Scroll :id="id">
           <div data-test="content-scroll">
             <p>scroll content</p>
           </div>
-        </BaseIdScroll>`,
+        </Scroll>`,
       id: 'scrollResults'
     });
 
@@ -68,14 +74,14 @@ describe('testing Base Scroll Component', () => {
   });
 
   it('throttles the scroll event', async () => {
-    const { wrapper, scroll, scrollElement } = renderBaseIdScroll({
+    const { wrapper, scroll, scrollElement } = await renderScroll({
       throttleMs: 200,
       id: 'scrollResults'
     });
 
     const listenerScrolled = jest.fn();
     wrapper.vm.$x.on('UserScrolled', true).subscribe(listenerScrolled);
-    expect(listenerScrolled).toHaveBeenCalledTimes(0);
+    expect(listenerScrolled).not.toHaveBeenCalled();
 
     await scroll({
       to: 50,
@@ -96,17 +102,17 @@ describe('testing Base Scroll Component', () => {
     expect(listenerScrolled).toHaveBeenCalledTimes(1);
     expect(listenerScrolled).toHaveBeenNthCalledWith(1, {
       eventPayload: 150,
-      metadata: {
-        moduleName: null, // no module registered for this base component
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        moduleName: 'scroll',
         target: scrollElement,
         id: 'scrollResults'
-      }
+      })
     });
   });
 
   // eslint-disable-next-line max-len
   it('emits the `UserChangedScrollDirection` event when the user changes scrolling direction', async () => {
-    const { wrapper, scroll, scrollElement } = renderBaseIdScroll({
+    const { wrapper, scroll, scrollElement } = await renderScroll({
       throttleMs: 200,
       id: 'scrollResults'
     });
@@ -138,24 +144,24 @@ describe('testing Base Scroll Component', () => {
     expect(listenerChangeDirection).toHaveBeenCalledTimes(2);
     expect(listenerChangeDirection).toHaveBeenNthCalledWith(1, {
       eventPayload: 'DOWN',
-      metadata: {
-        moduleName: null, // no module registered for this base component
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        moduleName: 'scroll',
         target: scrollElement,
         id: 'scrollResults'
-      }
+      })
     });
     expect(listenerChangeDirection).toHaveBeenNthCalledWith(2, {
       eventPayload: 'UP',
-      metadata: {
-        moduleName: null, // no module registered for this base component
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        moduleName: 'scroll',
         target: scrollElement,
         id: 'scrollResults'
-      }
+      })
     });
   });
 
   it('emits the `UserReachedScrollStart` event when the user scrolls back to the top', async () => {
-    const { wrapper, scroll, scrollElement } = renderBaseIdScroll({
+    const { wrapper, scroll, scrollElement } = await renderScroll({
       throttleMs: 200,
       id: 'scrollResults'
     });
@@ -177,17 +183,17 @@ describe('testing Base Scroll Component', () => {
     expect(listenerScrollStart).toHaveBeenCalledTimes(1);
     expect(listenerScrollStart).toHaveBeenNthCalledWith(1, {
       eventPayload: undefined,
-      metadata: {
-        moduleName: null, // no module registered for this base component
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        moduleName: 'scroll',
         target: scrollElement,
         id: 'scrollResults'
-      }
+      })
     });
   });
 
   // eslint-disable-next-line max-len
   it('emits `UserAlmostReachedScrollEnd` and`UserReachedScrollEnd` when the user scrolls to the bottom', async () => {
-    const { wrapper, scroll, scrollElement } = renderBaseIdScroll({
+    const { wrapper, scroll, scrollElement } = await renderScroll({
       throttleMs: 200,
       id: 'scrollResults',
       scrollHeight: 800,
@@ -207,11 +213,11 @@ describe('testing Base Scroll Component', () => {
 
     expect(listenerAlmostReachedScrollEnd).toHaveBeenNthCalledWith(1, {
       eventPayload: 80,
-      metadata: {
-        moduleName: null, // no module registered for this base component
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        moduleName: 'scroll',
         target: scrollElement,
         id: 'scrollResults'
-      }
+      })
     });
 
     await scroll({
@@ -221,11 +227,11 @@ describe('testing Base Scroll Component', () => {
 
     expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(1, {
       eventPayload: undefined,
-      metadata: {
-        moduleName: null, // no module registered for this base component
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        moduleName: 'scroll',
         target: scrollElement,
         id: 'scrollResults'
-      }
+      })
     });
 
     await scroll({
@@ -240,24 +246,24 @@ describe('testing Base Scroll Component', () => {
 
     expect(listenerAlmostReachedScrollEnd).toHaveBeenNthCalledWith(2, {
       eventPayload: 0,
-      metadata: {
-        moduleName: null, // no module registered for this base component
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        moduleName: 'scroll',
         target: scrollElement,
         id: 'scrollResults'
-      }
+      })
     });
     expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(2, {
       eventPayload: undefined,
-      metadata: {
-        moduleName: null, // no module registered for this base component
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        moduleName: 'scroll',
         target: scrollElement,
         id: 'scrollResults'
-      }
+      })
     });
   });
 });
 
-interface RenderBaseIdScrollOptions {
+interface RenderScrollOptions {
   /** The template to be rendered. */
   template?: string;
   /** Number for throttle of scroll. */
@@ -272,7 +278,7 @@ interface RenderBaseIdScrollOptions {
   distanceToBottom?: number;
 }
 
-interface RenderBaseIdScrollAPI {
+interface RenderScrollAPI {
   /** The wrapper for the base scroll component. */
   wrapper: Wrapper<Vue>;
   /** The scroll element. */
