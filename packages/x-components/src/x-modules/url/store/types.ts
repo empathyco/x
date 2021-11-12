@@ -79,6 +79,12 @@ export interface UrlMutations {
    */
   setScroll(scroll: string): void;
   /**
+   * Sets the new sort.
+   *
+   * @param sort - The new sort of the url.
+   */
+  setSort(sort: string): void;
+  /**
    * Sets the initial extra params.
    *
    * @param extraParams - The new initial extra params.

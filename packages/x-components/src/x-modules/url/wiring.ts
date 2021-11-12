@@ -30,6 +30,13 @@ export const setUrlQuery = wireCommit('setQuery');
 export const setUrlPage = wireCommit('setPage');
 
 /**
+ * Sets the sort of the url module.
+ *
+ * @public
+ */
+export const setUrlSort = wireCommit('setSort');
+
+/**
  * Sets the extra params of the url module.
  *
  * @public
@@ -80,6 +87,9 @@ export const urlWiring = createWiring({
   },
   PageChanged: {
     setUrlPage
+  },
+  SortChanged: {
+    setUrlSort
   },
   ExtraParamsChanged: {
     setParams

@@ -134,7 +134,7 @@
     /**
      * Validates when the target scroll component has almost reached the end of the scroll.
      *
-     * @param _payload - {@link XEventsTypes.UserAlmostReachedScrollEnd}.
+     * @param _payload - {@link ScrollXEvents.UserAlmostReachedScrollEnd}.
      * @param metadata - Associated data of the event, including the id.
      * @internal
      */
@@ -148,7 +148,7 @@
     /**
      * Updates the scroll direction of the target scroll component.
      *
-     * @param scrollDirection - The last direction {@link XEventsTypes.UserChangedScrollDirection}.
+     * @param scrollDirection - The last direction {@link ScrollXEvents.UserChangedScrollDirection}.
      * @param metadata - Associated data of the event, including the id.
      * @internal
      */
@@ -163,7 +163,7 @@
      * Updates the scrollTop property with the value of the target scroll component.
      *
      * @param scrollPosition - The number of pixels that the target has been scrolled
-     * {@link XEventsTypes.UserScrolled}.
+     * {@link ScrollXEvents.UserScrolled}.
      * @param metadata - Associated data of the event, including the id.
      * @internal
      */

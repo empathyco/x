@@ -30,6 +30,9 @@ export const urlXStoreModule: UrlXStoreModule = {
     setPage(state, page) {
       state.page = page;
     },
+    setSort(state, sort) {
+      state.sort = sort;
+    },
     setInitialExtraParams(state, extraParams) {
       state.initialExtraParams = extraParams;
     },
