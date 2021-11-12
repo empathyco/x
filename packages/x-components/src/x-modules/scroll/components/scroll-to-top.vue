@@ -84,8 +84,9 @@
         : {
             position: 0,
             direction: 'UP',
-            hasReachedEnd: false,
-            hasReachedStart: false
+            hasReachedStart: false,
+            hasAlmostReachedEnd: false,
+            hasReachedEnd: false
           };
     }
 
