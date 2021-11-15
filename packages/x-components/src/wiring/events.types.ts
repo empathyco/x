@@ -1,5 +1,4 @@
 import { Result, Suggestion } from '@empathyco/x-types';
-import { ScrollDirection } from '../components/scroll/scroll.types';
 import { ArrowKey, PropsWithType } from '../utils';
 import { DeviceXEvents } from '../x-modules/device';
 import { EmpathizeXEvents } from '../x-modules/empathize/events.types';
@@ -12,6 +11,7 @@ import { PopularSearchesXEvents } from '../x-modules/popular-searches/events.typ
 import { QuerySuggestionsXEvents } from '../x-modules/query-suggestions/events.types';
 import { RecommendationsXEvents } from '../x-modules/recommendations/events.types';
 import { RelatedTagsXEvents } from '../x-modules/related-tags/events.types';
+import { ScrollXEvents } from '../x-modules/scroll/events.types';
 import { SearchBoxXEvents } from '../x-modules/search-box/events.types';
 import { SearchXEvents } from '../x-modules/search/events.types';
 import { UrlXEvents } from '../x-modules/url/events.types';
@@ -35,8 +35,9 @@ import { XModulesTree } from '../x-modules/x-modules.types';
  * * {@link QuerySuggestionsXEvents},
  * * {@link RecommendationsXEvents}
  * * {@link RelatedTagsXEvents}
- * * {@link SearchXEvents},
+ * * {@link ScrollXEvents},
  * * {@link SearchBoxXEvents}
+ * * {@link SearchXEvents}
  * * {@link UrlXEvents}
  *
  * @public
@@ -53,8 +54,9 @@ export interface XEventsTypes
     QuerySuggestionsXEvents,
     RecommendationsXEvents,
     RelatedTagsXEvents,
-    SearchXEvents,
+    ScrollXEvents,
     SearchBoxXEvents,
+    SearchXEvents,
     UrlXEvents {
   /**
    * The search adapter configuration has changed
@@ -87,55 +89,45 @@ export interface XEventsTypes
    */
   UserAcceptedSpellcheckQuery: string;
   /**
-   * The user has almost reached the scroll end.
-   * * Payload: The distance missing to end position position.
-   */
-  UserAlmostReachedScrollEnd: number;
-  /**
-   * The user has changed the direction of scroll.
-   * * Payload: The new {@link ScrollDirection} when user changes scroll direction.
-   */
-  UserChangedScrollDirection: ScrollDirection;
-  /**
    * The user has clicked on a result.
    * * Payload: The {@link @empathyco/x-types#Result | result} that the user clicked.
    */
   UserClickedAResult: Result;
-  /**
-   * The user clicked the button to close a modal.
-   * * Payload: the id of the modal to close.
-   */
-  UserClickedCloseModal: string;
   /**
    * The user clicked the button to close the events modal.
    * * Payload: none.
    */
   UserClickedCloseEventsModal: void;
   /**
+   * The user clicked the button to close a modal.
+   * * Payload: the id of the modal to close.
+   */
+  UserClickedCloseModal: string;
+  /**
    * The user clicked the button to select the number of columns.
    * * Payload: the column number.
    */
   UserClickedColumnPicker: number;
-  /**
-   * The user clicked the button to open a modal.
-   * * Payload: the id of the modal to open.
-   */
-  UserClickedOpenModal: string;
   /**
    * The user clicked the button to open the events modal.
    * * Payload: none.
    */
   UserClickedOpenEventsModal: void;
   /**
-   * The user clicked out of a modal while it was opened.
-   * * Payload: the id of the modal.
+   * The user clicked the button to open a modal.
+   * * Payload: the id of the modal to open.
    */
-  UserClickedOutOfModal: string;
+  UserClickedOpenModal: string;
   /**
    * The user clicked out of the events modal while it is opened.
    * * Payload: none.
    */
   UserClickedOutOfEventsModal: void;
+  /**
+   * The user clicked out of a modal while it was opened.
+   * * Payload: the id of the modal.
+   */
+  UserClickedOutOfModal: string;
   /**
    * The user clicked the button to toggle a panel.
    * * Payload: the id of the panel to toggle.
@@ -167,25 +159,10 @@ export interface XEventsTypes
    */
   UserReachedEmpathizeTop: void;
   /**
-   * The user has reached the scroll end.
-   * * Payload: none.
-   */
-  UserReachedScrollEnd: void;
-  /**
-   * The user has reached the scroll start.
-   * * Payload: none.
-   */
-  UserReachedScrollStart: void;
-  /**
    * The user has right clicked on a result.
    * * Payload: The {@link @empathyco/x-types#Result | result} that the user right clicked.
    */
   UserRightClickedAResult: Result;
-  /**
-   * The user has scrolled.
-   * * Payload: The new position of scroll.
-   */
-  UserScrolled: number;
   /**
    * User selected any kind of suggestion (query-suggestion, popular-search...)
    * * Payload: The {@link @empathyco/x-types#Suggestion | suggestion} that the user selected.

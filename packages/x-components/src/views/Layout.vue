@@ -198,7 +198,7 @@
               <!-- Facets -->
               <Facets class="x-list--gap-06" renderable-facets="!rootCategories_facet">
                 <!--  Hierarchical Facet    -->
-                <template #categories-facet="{ facet }">
+                <template #hierarchical-category="{ facet }">
                   <BaseHeaderTogglePanel class="x-facet">
                     <template #header-content>
                       <span class="x-ellipsis">{{ facet.label }}</span>
@@ -207,7 +207,7 @@
                     <!-- Filters -->
                     <SlicedFilters max="4" :filters="facet.filters">
                       <FiltersList v-slot="{ filter }">
-                        <HierarchicalFilter :filter="filter" />
+                        <HierarchicalFilter :filter="filter" :data-test="`${facet.label}-filter`" />
                       </FiltersList>
                     </SlicedFilters>
                   </BaseHeaderTogglePanel>
@@ -228,7 +228,7 @@
                         <FiltersSearch>
                           <SlicedFilters
                             :max="controls.slicedFilters.max"
-                            :data-test="facet.label + '-sliced-filters'"
+                            :data-test="`${facet.label}-sliced-filters`"
                           >
                             <FiltersList
                               v-slot="{
@@ -236,7 +236,11 @@
                                 filter
                               }"
                             >
-                              <SimpleFilter #label :filter="filter" data-test="brand-filter">
+                              <SimpleFilter
+                                #label="{ filter }"
+                                :filter="filter"
+                                :data-test="`${facet.label}-filter`"
+                              >
                                 {{ filter.label }}
                                 <span data-test="brand-filter-total-results">
                                   {{ filter.totalResults }}
@@ -263,14 +267,14 @@
                       <SortedFilters>
                         <SlicedFilters
                           :max="controls.slicedFilters.max"
-                          :data-test="facet.label + '-sliced-filters'"
+                          :data-test="`${facet.label}-sliced-filters`"
                         >
                           <SelectedFilters :facetId="facet.id" />
                           <FiltersList v-slot="{ filter }">
                             <SimpleFilter
                               #label
                               :filter="filter"
-                              :data-test="facet.label + '-filter'"
+                              :data-test="`${facet.label}-filter`"
                             >
                               <BasePriceFilterLabel
                                 v-if="facet.id === 'price'"
@@ -280,10 +284,6 @@
                                 fromTo="From {min} to {max}"
                                 from="More than {min}"
                               />
-                              <span v-else class="x-filter__label">{{ filter.label }}</span>
-                              <span v-if="filter.totalResults" class="x-filter__count">
-                                ({{ filter.totalResults }})
-                              </span>
                             </SimpleFilter>
                           </FiltersList>
                         </SlicedFilters>
@@ -702,7 +702,9 @@
 <style lang="scss" scoped>
   .x-modal::v-deep .x-modal__content {
     overflow: hidden;
-    width: 100%;
-    height: calc(100% - 1px);
+    // Following is needed for closing the modal in base-events-modal.feature
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    margin: 10px;
   }
 </style>

@@ -1,5 +1,6 @@
 import { PageableRequest, SearchResponse } from '@empathyco/x-adapter';
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import '../cucumber/global-definitions';
 import {
   createHierarchicalFacetStub,
   createNumberRangeFacetStub,
@@ -13,6 +14,30 @@ import {
 } from '../../../src/__stubs__';
 
 let resultsList: string[] = [];
+
+/**
+ * Click on a filter from a certain facet.
+ *
+ * @param facetName - Name of the facet which the filter to be clicked belongs to.
+ * @param nthFilter - Position of the filter to be clicked.
+ *
+ * @internal
+ */
+function clickFacetNthFilter(facetName: string, nthFilter: number): void {
+  getElementBy(facetName).eq(nthFilter).click().invoke('text').as(`clickedFilter${nthFilter}`);
+}
+
+/**
+ * Finds an HTMLElement based on a facetName.
+ *
+ * @param facetName - Name of the facet which the filter to be clicked belongs to.
+ * @returns HTMLElement - The filter's element.
+ */
+function getElementBy(facetName: string): Cypress.Chainable<JQuery<HTMLElement>> {
+  return facetName === 'hierarchical_category'
+    ? cy.getByDataTest(`${facetName}-filter`).getByDataTest('filter')
+    : cy.getByDataTest(`${facetName}-filter`);
+}
 
 // Init
 Given('no special config for layout view', () => {
@@ -33,6 +58,32 @@ Then('identifier results are displayed', () => {
 Then('no identifier results are displayed', () => {
   cy.getByDataTest('identifier-result-item').should('not.exist');
 });
+
+// Facets
+When(
+  'filter number {int} is clicked in facet {string}',
+  (filterNumber: number, facetName: string) => {
+    clickFacetNthFilter(facetName, filterNumber);
+  }
+);
+
+Then(
+  'search request contains selected filter number {int} is {boolean}',
+  function (this: any, simpleFilterIndex: number, isContained: boolean) {
+    cy.wait('@requestWithFilter')
+      .its('request.body')
+      .should(`${isContained ? '' : 'not.'}contain`, this[`clickedFilter${simpleFilterIndex}`]);
+  }
+);
+
+Then(
+  'selection status of filter number {int} in facet {string} is {boolean}',
+  function (this: any, simpleFilterIndex: number, facetName: string, isSelected: boolean) {
+    cy.getByDataTest(`${facetName}-filter`)
+      .contains(this[`clickedFilter${simpleFilterIndex}`])
+      .should(`${isSelected ? '' : 'not.'}to.have.class`, 'x-filter--is-selected');
+  }
+);
 
 // History Queries
 When('clear history queries button is clicked', () => {

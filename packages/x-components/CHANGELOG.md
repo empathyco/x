@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.28...@empathyco/x-components@3.0.0-alpha.29) (2021-11-09)
+
+### Features
+
+- **url:** set sort values and read them from the url
+  ([6d98ca3](https://github.com/empathyco/x/commit/6d98ca3e031a9075c27f436419818e2d85b610cc)),
+  closes [EX-3517](https://searchbroker.atlassian.net/browse/EX-3517)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.27...@empathyco/x-components@3.0.0-alpha.28) (2021-11-03)
 
 ### Features

@@ -3,7 +3,7 @@
  *
  * @public
  */
-export interface Identifiable {
+export interface Identifiable<ID = string | number> {
   /** A unique ID that identifies the Object. */
-  id: string | number;
+  id: ID;
 }
