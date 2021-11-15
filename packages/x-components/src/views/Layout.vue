@@ -480,7 +480,6 @@
 </template>
 
 <script lang="ts">
-  import { deepMerge } from '@empathyco/x-deep-merge';
   import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
@@ -522,7 +521,6 @@
   import BaseSuggestions from '../components/suggestions/base-suggestions.vue';
   import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
   import { XEvent } from '../wiring';
-  import { XInstaller } from '../x-installer/x-installer';
   import Empathize from '../x-modules/empathize/components/empathize.vue';
   import ExtraParams from '../x-modules/extra-params/components/extra-params.vue';
   // eslint-disable-next-line max-len
@@ -542,8 +540,6 @@
   import SelectedFilters from '../x-modules/facets/components/lists/selected-filters.vue';
   import SlicedFilters from '../x-modules/facets/components/lists/sliced-filters.vue';
   import SortedFilters from '../x-modules/facets/components/lists/sorted-filters.vue';
-  import { FilterEntityFactory } from '../x-modules/facets/entities/filter-entity.factory';
-  import { SingleSelectModifier } from '../x-modules/facets/entities/single-select.modifier';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
@@ -572,20 +568,8 @@
   import SpellcheckButton from '../x-modules/search/components/spellcheck-button.vue';
   import Spellcheck from '../x-modules/search/components/spellcheck.vue';
   import UrlHandler from '../x-modules/url/components/url-handler.vue';
-  import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
-    beforeRouteEnter(to, _from, next: () => void): void {
-      let customQueryConfig = JSON.parse(to.query.xModules?.toString() ?? '{}');
-      const configLayoutView = deepMerge(baseInstallXOptions, {
-        xModules: deepMerge(customQueryConfig)
-      });
-      new XInstaller(configLayoutView).init(baseSnippetConfig);
-      ['categories_facet', 'brand_facet', 'age_facet'].forEach(facetId =>
-        FilterEntityFactory.instance.registerFilterModifier(facetId, [SingleSelectModifier])
-      );
-      next();
-    },
     directives: {
       infiniteScroll
     },

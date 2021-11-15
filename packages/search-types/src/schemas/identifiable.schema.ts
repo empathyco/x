@@ -6,5 +6,5 @@ import { Identifiable } from '../identifiable.model';
  * @public
  */
 export const IdentifiableSchema: Identifiable = {
-  id: expect.anyOf([String, Number])
+  id: expect.anything()
 };
