@@ -6,10 +6,10 @@
 export interface SessionService {
   /**
    * Get the current session id from the storage:
-   * - If it's present then:
-   * - If it's valid just return it.
-   * - If it's outdated it will generate a new one.
-   * - If not creates a new one.
+   * * If it's present then:
+   * * * If it's valid just return it.
+   * * * If it's outdated it will generate a new one.
+   * * If not creates a new one.
    *
    * @returns The session id.
    */
