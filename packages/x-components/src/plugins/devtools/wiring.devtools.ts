@@ -4,7 +4,7 @@ import { XEvent } from '../../wiring/events.types';
 import { filter } from '../../wiring/wires.operators';
 import { AnyWire, Wiring } from '../../wiring/wiring.types';
 import { XModuleName } from '../../x-modules/x-modules.types';
-import { moduleColors } from './utils';
+import { hslToHex, moduleColors } from './utils';
 
 /** The full list of wiring nodes for the inspector. */
 const WiringNodes: Partial<Record<XEvent, CustomInspectorNode[]>> = {};
@@ -20,7 +20,11 @@ const WiresStatus: Record<string, boolean> = {};
 function createWireTags({ tags = [], id }: CustomInspectorNode): InspectorNodeTag[] {
   const newTags: InspectorNodeTag[] = [...tags];
   if (!WiresStatus[id]) {
-    newTags.push({ label: 'disabled', backgroundColor: 0x900909, textColor: 0xfbd0d0 });
+    newTags.push({
+      label: 'disabled',
+      backgroundColor: hslToHex(0, 88, 30),
+      textColor: hslToHex(0, 84, 90)
+    });
   }
   return newTags;
 }
@@ -91,6 +95,7 @@ export function setupWiringDevtools(api: DevtoolsPluginApi<void>): void {
  *
  * @param module - The module name this wiring belongs too.
  * @param wiring - The wiring to save.
+ * @internal
  */
 export function sendWiringToDevtools(module: XModuleName, wiring: Partial<Wiring>): void {
   if (process.env.NODE_ENV !== 'production') {

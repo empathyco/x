@@ -1,6 +1,7 @@
 import { DevtoolsPluginApi } from '@vue/devtools-api';
 import { XEvent, XEventPayload } from '../../wiring/events.types';
 import { WirePayload } from '../../wiring/wiring.types';
+import { hslToHex } from './utils';
 
 /**
  * Contains the devtools API.
@@ -63,7 +64,7 @@ export function setupTimelinePlugin(api: DevtoolsPluginApi<void>): void {
     api.addTimelineLayer({
       id: layer.id,
       label: layer.label,
-      color: 0xff0084
+      color: hslToHex(329, 100, 50)
     })
   );
   api.on.inspectTimelineEvent(payload => {

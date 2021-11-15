@@ -5,7 +5,11 @@ import { XModuleName } from '../../x-modules/x-modules.types';
 
 /** Unique text and background colors for each module. */
 type ModuleColors = Record<XModuleName, Pick<InspectorNodeTag, 'textColor' | 'backgroundColor'>>;
-/** Unique color values for the text and background of each module. */
+/**
+ * Unique color values for the text and background of each module.
+ *
+ * @internal
+ */
 export const moduleColors: ModuleColors = Object.keys(
   (RootXStoreModule.state as NiladicFunction)!()
 ).reduce((colors, moduleName, index, keys) => {
@@ -24,6 +28,7 @@ export const moduleColors: ModuleColors = Object.keys(
  * @param s - The saturation value, from 0 to 100.
  * @param l - The lightness value, from 0 to 100.
  * @returns The hex value of the color.
+ * @internal
  */
 export function hslToHex(h: number, s: number, l: number): number {
   l /= 100;
