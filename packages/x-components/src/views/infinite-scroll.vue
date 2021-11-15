@@ -13,18 +13,12 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { XInstaller } from '../x-installer/x-installer/x-installer';
+  import BaseScroll from '../components/scroll/base-scroll.vue';
+  import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import ResultsList from '../x-modules/search/components/results-list.vue';
-  import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
-  import BaseScroll from '../components/scroll/base-scroll.vue';
-  import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
-    beforeRouteEnter(_to, _from, next: () => void): void {
-      new XInstaller(baseInstallXOptions).init(baseSnippetConfig);
-      next();
-    },
     components: {
       BaseScroll,
       ResultsList,
@@ -44,6 +38,7 @@
     overflow-y: auto;
     border: 2px solid darkorange;
   }
+
   .x-results-list {
     margin: 10px;
     border: 2px solid darkcyan;

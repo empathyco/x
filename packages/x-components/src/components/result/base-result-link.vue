@@ -19,10 +19,8 @@
   import { Result } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Inject, Prop } from 'vue-property-decorator';
-  import { QueryOrigin } from '../../types/query-origin';
   import { PropsWithType } from '../../utils/types';
   import { XEventsTypes } from '../../wiring/events.types';
-  import { WireMetadata } from '../../wiring/wiring.types';
 
   /**
    * Component to be reused that renders an `<a>` wrapping the result contents.
@@ -38,18 +36,15 @@
   @Component
   export default class BaseResultLink extends Vue {
     /**
-     * The origin to be sent as part of the `params` property in the
-     * {@link @empathyco/x-types#Tagging | tagging} information.
+     * The rendered DOM element.
      *
-     * @public
+     * @internal
      */
-    @Inject({ from: 'origin', default: 'default' })
-    protected origin!: QueryOrigin;
-
+    public $el!: HTMLElement;
     /**
      * The list of additional events to be emitted by the component when user clicks the link.
      *
-     * @public
+     * @internal
      */
     @Inject({ from: 'resultClickExtraEvents', default: [] })
     protected resultClickExtraEvents!: PropsWithType<XEventsTypes, Result>[];
@@ -63,39 +58,25 @@
     protected result!: Result;
 
     /**
-     * The metadata to emit the event.
-     *
-     * @public
-     */
-    protected metadata!: Omit<WireMetadata, 'moduleName'>;
-
-    mounted(): void {
-      this.metadata = {
-        target: this.$el as HTMLElement,
-        origin: this.origin
-      };
-    }
-
-    /**
      * Emits the {@link XEventsTypes.UserClickedAResult} when user clicks on the result, and also
      * additional events if have been injected in the component.
      *
-     * @public
+     * @internal
      */
-    emitUserClickedAResult(): void {
-      this.$x.emit('UserClickedAResult', this.result, this.metadata);
+    protected emitUserClickedAResult(): void {
+      this.$x.emit('UserClickedAResult', this.result, { target: this.$el });
       this.resultClickExtraEvents.forEach(event => {
-        this.$x.emit(event, this.result, this.metadata);
+        this.$x.emit(event, this.result, { target: this.$el });
       });
     }
 
     /**
      * Emits the {@link XEventsTypes.UserRightClickedAResult} when user right clicks on the result.
      *
-     * @public
+     * @internal
      */
-    emitUserRightClickedAResult(): void {
-      this.$x.emit('UserRightClickedAResult', this.result, this.metadata);
+    protected emitUserRightClickedAResult(): void {
+      this.$x.emit('UserRightClickedAResult', this.result, { target: this.$el });
     }
   }
 </script>
@@ -136,9 +117,8 @@ The result prop is required. It will render a `<a></a>` with the href to the res
 A list of events that the component will emit:
 
 - `UserClickedAResult`: the event is emitted after the user clicks the element. The event payload is
-  the result data and the metadata with the target and the origin of the element that emitted it.
+  the result data.
 - `UserRightClickedAResult`: the event is emitted after the user right clicks the element. The event
-  payload is the result data and the metadata with the target and the origin of the element that
-  emitted it.
+  payload is the result data.
 - The component can emit more events on click using the `resultClickExtraEvents` prop.
 </docs>

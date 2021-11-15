@@ -7,6 +7,7 @@ import {
 } from './actions/fetch-and-save-search-response.action';
 import { fetchSearchResponse } from './actions/fetch-search-response.action';
 import { increasePageAppendingResults } from './actions/increase-page-apending-results.action';
+import { saveOrigin } from './actions/save-origin.action';
 import { setUrlParams } from './actions/set-url-params.action';
 import { request } from './getters/request.getter';
 import { SearchXStoreModule } from './types';
@@ -97,8 +98,8 @@ export const searchXStoreModule: SearchXStoreModule = {
     setParams(state, params) {
       state.params = params;
     },
-    setOrigin(state, origin) {
-      state.origin = origin ?? null;
+    setOrigin(state, origin = null) {
+      state.origin = origin;
     },
     setRedirections(state, redirections) {
       state.redirections = redirections;
@@ -109,6 +110,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     fetchSearchResponse,
     fetchAndSaveSearchResponse,
     increasePageAppendingResults,
-    setUrlParams
+    setUrlParams,
+    saveOrigin
   }
 };

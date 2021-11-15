@@ -28,8 +28,8 @@ export function setXComponentXModuleName(component: Vue, name: XModuleName): voi
  * x-component.
  * @internal
  */
-export function getXComponentXModuleName(component: Vue): XModuleName | null {
-  return (component as XComponent)[XComponentModule] ?? null;
+export function getXComponentXModuleName(component: Vue | undefined): XModuleName | null {
+  return (component as XComponent)?.[XComponentModule] ?? null;
 }
 
 /**
