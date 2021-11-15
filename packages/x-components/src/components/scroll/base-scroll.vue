@@ -94,7 +94,6 @@ Set to false the reset scroll on query change feature which is true by default.
     @scroll:at-start="scrollAtStart"
     @scroll:almost-at-end="scrollAlmostAtEnd"
     @scroll:at-end="scrollAtEnd"
-    :resetOnQueryChange="false"
     throttleMs="1000"
     distanceToBottom="200"
   >
