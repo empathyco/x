@@ -24,18 +24,18 @@ export const moduleColors: ModuleColors = Object.keys(
 /**
  * Transforms HSL values into a hex number.
  *
- * @param h - The hue value, from 0 to 360.
- * @param s - The saturation value, from 0 to 100.
- * @param l - The lightness value, from 0 to 100.
+ * @param hue - The hue value, from 0 to 360.
+ * @param saturation - The saturation value, from 0 to 100.
+ * @param lightness - The lightness value, from 0 to 100.
  * @returns The hex value of the color.
  * @internal
  */
-export function hslToHex(h: number, s: number, l: number): number {
-  l /= 100;
-  const a = (s * Math.min(l, 1 - l)) / 100;
+export function hslToHex(hue: number, saturation: number, lightness: number): number {
+  lightness /= 100;
+  const a = (saturation * Math.min(lightness, 1 - lightness)) / 100;
   const f = (n: number): string => {
-    const k = (n + h / 30) % 12;
-    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    const k = (n + hue / 30) % 12;
+    const color = lightness - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
     return Math.round(255 * color)
       .toString(16)
       .padStart(2, '0');

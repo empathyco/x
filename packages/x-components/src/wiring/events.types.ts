@@ -15,7 +15,7 @@ import { ScrollXEvents } from '../x-modules/scroll/events.types';
 import { SearchBoxXEvents } from '../x-modules/search-box/events.types';
 import { SearchXEvents } from '../x-modules/search/events.types';
 import { UrlXEvents } from '../x-modules/url/events.types';
-import { XModulesTree } from '../x-modules/x-modules.types';
+import { XModuleName } from '../x-modules/x-modules.types';
 
 /**
  * Dictionary of all the {@link XEvent | XEvents}, where each key is the event name, and the value
@@ -172,7 +172,7 @@ export interface XEventsTypes
    * A new {@link XModule} has been registered.
    * * Payload: The name of the XModule that has been registered.
    */
-  ModuleRegistered: keyof XModulesTree;
+  ModuleRegistered: XModuleName;
 }
 
 /**
