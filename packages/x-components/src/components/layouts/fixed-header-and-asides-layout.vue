@@ -1,5 +1,5 @@
 <template>
-  <BaseIdScroll
+  <Scroll
     @scroll="setPosition"
     id="main-scroll"
     class="x-layout x-layout--fixed-header-and-asides"
@@ -76,7 +76,7 @@
         <span v-if="devMode" class="slot-helper">SCROLL TO TOP</span>
       </slot>
     </div>
-  </BaseIdScroll>
+  </Scroll>
 </template>
 
 <script lang="ts">
@@ -84,7 +84,7 @@
   import { mixins } from 'vue-class-component';
   import { TranslateFromLeft, TranslateFromRight } from '../animations';
   import BaseIdModal from '../modals/base-id-modal.vue';
-  import BaseIdScroll from '../scroll/base-id-scroll.vue';
+  import Scroll from '../../x-modules/scroll/components/scroll.vue';
   import LayoutsMixin from './layouts.mixin';
 
   /**
@@ -95,7 +95,7 @@
   @Component({
     components: {
       BaseIdModal,
-      BaseIdScroll
+      Scroll
     }
   })
   export default class FixedHeaderAndAsidesLayout extends mixins(LayoutsMixin) {

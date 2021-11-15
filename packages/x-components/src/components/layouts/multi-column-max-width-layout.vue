@@ -59,24 +59,24 @@
         :animation="asideAnimation"
         class="x-layout__collapse-aside"
       >
-        <BaseIdScroll id="aside-scroll" class="x-layout__aside-scroll">
+        <Scroll id="aside-scroll" class="x-layout__aside-scroll">
           <div class="x-layout__main-aside x-list x-list--vertical">
             <!-- @slot Slot that can be used to insert content into the left side bar. -->
             <slot name="main-aside">
               <span v-if="devMode" class="slot-helper" style="height: 110vh">MAIN ASIDE</span>
             </slot>
           </div>
-        </BaseIdScroll>
+        </Scroll>
       </BaseIdTogglePanel>
 
-      <BaseIdScroll v-if="hasContent('main-body')" id="main-scroll" class="x-layout__body-scroll">
+      <Scroll v-if="hasContent('main-body')" id="main-scroll" class="x-layout__body-scroll">
         <section class="x-layout__main-body x-list x-list--vertical">
           <!-- @slot Slot that can be used to insert the body content. -->
           <slot name="main-body">
             <span v-if="devMode" class="slot-helper" style="height: 110vh">MAIN BODY</span>
           </slot>
         </section>
-      </BaseIdScroll>
+      </Scroll>
     </main>
 
     <div v-if="hasContent('scroll-to-top')" class="x-layout__scroll-to-top">
@@ -90,12 +90,12 @@
 </template>
 
 <script lang="ts">
+  import Vue from 'vue';
   import Component, { mixins } from 'vue-class-component';
   import { Prop } from 'vue-property-decorator';
-  import Vue from 'vue';
-  import BaseIdTogglePanel from '../panels/base-id-toggle-panel.vue';
-  import BaseIdScroll from '../scroll/base-id-scroll.vue';
+  import Scroll from '../../x-modules/scroll/components/scroll.vue';
   import AnimateWidth from '../animations/animate-width.vue';
+  import BaseIdTogglePanel from '../panels/base-id-toggle-panel.vue';
   import LayoutsMixin from './layouts.mixin';
 
   /**
@@ -104,7 +104,7 @@
    * @public
    */
   @Component({
-    components: { BaseIdTogglePanel, BaseIdScroll }
+    components: { BaseIdTogglePanel, Scroll }
   })
   export default class MultiColumnMaxWidthLayout extends mixins(LayoutsMixin) {
     /**
@@ -425,6 +425,7 @@
       flex: 1 0 auto;
       padding-block-end: var(--x-size-margin-bottom-layout-columns-scroll-to-top, 10px);
       padding-inline-start: var(--x-size-margin-left-layout-columns-scroll-to-top, 10px);
+
       ::v-deep > * {
         pointer-events: all;
       }

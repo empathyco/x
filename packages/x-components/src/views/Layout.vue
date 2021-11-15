@@ -469,9 +469,9 @@
           </template>
 
           <template #scroll-to-top>
-            <BaseScrollToTop :threshold-px="500" class="x-button--round" scroll-id="main-scroll">
+            <ScrollToTop :threshold-px="500" class="x-button--round" scroll-id="main-scroll">
               <ChevronUp />
-            </BaseScrollToTop>
+            </ScrollToTop>
           </template>
         </MultiColumnMaxWidthLayout>
       </BaseEventsModal>
@@ -516,7 +516,6 @@
   import BaseIdTogglePanel from '../components/panels/base-id-toggle-panel.vue';
   import BaseResultImage from '../components/result/base-result-image.vue';
   import BaseResultLink from '../components/result/base-result-link.vue';
-  import BaseScrollToTop from '../components/scroll/base-scroll-to-top.vue';
   import SlidingPanel from '../components/sliding-panel.vue';
   import BaseSuggestions from '../components/suggestions/base-suggestions.vue';
   import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
@@ -552,6 +551,7 @@
   import QuerySuggestions from '../x-modules/query-suggestions/components/query-suggestions.vue';
   import Recommendations from '../x-modules/recommendations/components/recommendations.vue';
   import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
+  import ScrollToTop from '../x-modules/scroll/components/scroll-to-top.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import SearchButton from '../x-modules/search-box/components/search-button.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
@@ -590,7 +590,7 @@
       BaseKeyboardNavigation,
       BaseResultImage,
       BaseResultLink,
-      BaseScrollToTop,
+      ScrollToTop,
       BaseSuggestions,
       BaseVariableColumnGrid,
       CheckTiny,

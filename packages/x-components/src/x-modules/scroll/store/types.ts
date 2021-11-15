@@ -34,6 +34,10 @@ export interface ScrollComponentState {
    */
   direction: ScrollDirection;
   /**
+   * True if the user has almost reached the end of the scroll panel.
+   */
+  hasAlmostReachedEnd: boolean;
+  /**
    * True if the user has already reached the end of the scroll panel.
    */
   hasReachedEnd: boolean;
@@ -66,29 +70,9 @@ export interface ScrollMutations {
   /**
    * Sets the scroll position of a certain panel.
    *
-   * @param position - The new scroll position and the identifier of the panel it belongs.
+   * @param partialState - An object with the fields to modify.
    */
-  setScrollPosition(position: ScrollPositionPayload): void;
-  /**
-   * Sets the scroll direction of a certain panel.
-   *
-   * @param direction - The new scroll direction and the identifier of the panel it belongs.
-   */
-  setScrollDirection(direction: ScrollDirectionPayload): void;
-  /**
-   * Sets if the scroll has reached the start position of a panel.
-   *
-   * @param hasReachedStart - An object containing if the scroll position is at the start and
-   * the identifier of this panel.
-   */
-  setScrollHasReachedStart(hasReachedStart: ScrollPositionReachedPayload): void;
-  /**
-   * Sets if the scroll has reached the end position of a panel.
-   *
-   * @param hasReachedEnd - An object containing if the scroll position is at the end and
-   * the identifier of this panel.
-   */
-  setScrollHasReachedEnd(hasReachedEnd: ScrollPositionReachedPayload): void;
+  setScrollComponentState(partialState: ScrollStatePayload): void;
 }
 
 /**
@@ -96,36 +80,11 @@ export interface ScrollMutations {
  *
  * @public
  */
-export interface ScrollPositionPayload extends Identifiable<string> {
+export interface ScrollStatePayload extends Identifiable<string> {
   /**
-   * The amount of pixels scrolled.
+   * A partial {@link ScrollComponentState} update to perform to the targeted panel.
    */
-  position: number;
-}
-
-/**
- * Payload object containing the identifier of the scroll and its direction.
- *
- * @public
- */
-export interface ScrollDirectionPayload extends Identifiable<string> {
-  /**
-   * The current direction of the scroll.
-   */
-  direction: ScrollDirection;
-}
-
-/**
- * Payload object containing the identifier of the scroll and a boolean indicating if
- * it has reached certain position.
- *
- * @public
- */
-export interface ScrollPositionReachedPayload extends Identifiable<string> {
-  /**
-   * True if it has reached certain position. False otherwise.
-   */
-  value: boolean;
+  newState: Partial<ScrollComponentState>;
 }
 
 /**
