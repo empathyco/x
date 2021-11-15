@@ -98,7 +98,7 @@ The component does the necessary calculations for knowing the direction of scrol
 reached to start or to end, and is about to reaching to end. The components emits the next events
 and XEvents depending of movement that realize the user:
 
-## Customized usage
+## Custom usage
 
 ### Overriding the properties and using document scroll events.
 
@@ -118,7 +118,7 @@ and XEvents depending of movement that realize the user:
 </template>
 
 <script>
-  import { WindowScroll } from '@empathyco/x-components';
+  import { WindowScroll } from '@empathyco/x-components/scroll';
 
   export default {
     name: 'ScrollIdTest',
@@ -133,13 +133,13 @@ and XEvents depending of movement that realize the user:
         console.log('scroll:direction-change', direction);
       },
       scrollAtStart() {
-        console.log('scroll:at-start');
+        console.log('scroll:at-start', isAtStart);
       },
-      scrollAlmostAtEnd(distance) {
-        console.log('scroll:almost-at-end', distance);
+      scrollAlmostAtEnd(isAlmostAtEnd) {
+        console.log('scroll:almost-at-end', isAlmostAtEnd);
       },
-      scrollAtEnd() {
-        console.log('scroll:at-end');
+      scrollAtEnd(isAtEnd) {
+        console.log('scroll:at-end', isAtEnd);
       }
     }
   };
@@ -160,7 +160,7 @@ similar styles the corresponding style for tag body like in the next example.
 </template>
 
 <script>
-  import { WindowScroll } from '@empathyco/x-components';
+  import { WindowScroll } from '@empathyco/x-components/scroll';
 
   export default {
     name: 'MainComponent',
@@ -168,20 +168,20 @@ similar styles the corresponding style for tag body like in the next example.
       WindowScroll
     },
     mounted() {
-      this.$x.on('UserScrolled').subscribe(event => {
-        console.log(event);
+      this.$x.on('UserScrolled').subscribe(distance => {
+        console.log(distance);
       });
-      this.$x.on('UserChangedScrollDirection').subscribe(event => {
-        console.log(event);
+      this.$x.on('UserChangedScrollDirection').subscribe(direction => {
+        console.log(direction);
       });
-      this.$x.on('UserReachedScrollStart').subscribe(event => {
-        console.log(event);
+      this.$x.on('UserReachedScrollStart').subscribe(isAtStart => {
+        console.log(isAtStart);
       });
-      this.$x.on('UserAlmostReachedScrollEnd').subscribe(event => {
-        console.log(event);
+      this.$x.on('UserAlmostReachedScrollEnd').subscribe(isAlmostAtEnd => {
+        console.log(isAlmostAtEnd);
       });
-      this.$x.on('UserReachedScrollEnd').subscribe(event => {
-        console.log(event);
+      this.$x.on('UserReachedScrollEnd').subscribe(isAtEnd => {
+        console.log(isAtEnd);
       });
     }
   };

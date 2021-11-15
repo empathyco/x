@@ -166,7 +166,7 @@ the scroll.
 </template>
 
 <script>
-  import { ScrollToTop } from '@empathyco/x-components';
+  import { ScrollToTop } from '@empathyco/x-components/scroll';
 
   export default {
     name: 'ScrollToTopTest',

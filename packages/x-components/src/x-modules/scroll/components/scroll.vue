@@ -172,7 +172,7 @@ It renders an element with scroll, with the content passed in the `default slot`
 </template>
 
 <script>
-  import { Scroll } from '@empathyco/x-components';
+  import { Scroll } from '@empathyco/x-components/scroll';
 
   export default {
     name: 'ScrollIdTest',
@@ -207,7 +207,7 @@ It renders an element with scroll, with the content passed in the `default slot`
 </template>
 
 <script>
-  import { Scroll } from '@empathyco/x-components';
+  import { Scroll } from '@empathyco/x-components/scroll';
 
   export default {
     name: 'ScrollIdTest',
@@ -221,14 +221,14 @@ It renders an element with scroll, with the content passed in the `default slot`
       scrollDirectionChange(direction) {
         console.log('scroll:direction-change', direction);
       },
-      scrollAtStart() {
-        console.log('scroll:at-start');
+      scrollAtStart(isAtStart) {
+        console.log('scroll:at-start', isAtStart);
       },
-      scrollAlmostAtEnd(distance) {
-        console.log('scroll:almost-at-end', distance);
+      scrollAlmostAtEnd(isAlmostAtEnd) {
+        console.log('scroll:almost-at-end', isAlmostAtEnd);
       },
-      scrollAtEnd() {
-        console.log('scroll:at-end');
+      scrollAtEnd(isAtEnd) {
+        console.log('scroll:at-end', isAtEnd);
       }
     }
   };
@@ -252,7 +252,7 @@ You can use the XEvents subscribing to them.
 </template>
 
 <script>
-  import { Scroll } from '@empathyco/x-components';
+  import { Scroll } from '@empathyco/x-components/scroll';
 
   export default {
     name: 'ScrollIdTest',
@@ -260,63 +260,20 @@ You can use the XEvents subscribing to them.
       Scroll
     },
     mounted() {
-      this.$x.on('UserScrolled').subscribe(event => {
-        console.log(event);
+      this.$x.on('UserScrolled').subscribe(distance => {
+        console.log(distance);
       });
-      this.$x.on('UserChangedScrollDirection').subscribe(event => {
-        console.log(event);
+      this.$x.on('UserChangedScrollDirection').subscribe(direction => {
+        console.log(direction);
       });
-      this.$x.on('UserReachedScrollStart').subscribe(event => {
-        console.log(event);
+      this.$x.on('UserReachedScrollStart').subscribe(isAtStart => {
+        console.log(isAtStart);
       });
-      this.$x.on('UserAlmostReachedScrollEnd').subscribe(event => {
-        console.log(event);
+      this.$x.on('UserAlmostReachedScrollEnd').subscribe(isAlmostAtEnd => {
+        console.log(isAlmostAtEnd);
       });
-      this.$x.on('UserReachedScrollEnd').subscribe(event => {
-        console.log(event);
-      });
-    }
-  };
-</script>
-```
-
-## Avoid reset scroll on query change
-
-Set to false the reset scroll on query change feature which is true by default.
-
-```vue
-<template>
-  <Scroll throttleMs="50" distanceToBottom="300" :resetOnQueryChange="false">
-    <div class="content-scroll">
-      <span>content1</span>
-      <span>content1</span>
-    </div>
-  </Scroll>
-</template>
-
-<script>
-  import { Scroll } from '@empathyco/x-components';
-
-  export default {
-    name: 'ScrollIdTest',
-    components: {
-      Scroll
-    },
-    mounted() {
-      this.$x.on('UserScrolled').subscribe(event => {
-        console.log(event);
-      });
-      this.$x.on('UserChangedScrollDirection').subscribe(event => {
-        console.log(event);
-      });
-      this.$x.on('UserReachedScrollStart').subscribe(event => {
-        console.log(event);
-      });
-      this.$x.on('UserAlmostReachedScrollEnd').subscribe(event => {
-        console.log(event);
-      });
-      this.$x.on('UserReachedScrollEnd').subscribe(event => {
-        console.log(event);
+      this.$x.on('UserReachedScrollEnd').subscribe(isAtEnd => {
+        console.log(isAtEnd);
       });
     }
   };
