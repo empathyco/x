@@ -121,8 +121,6 @@
   // eslint-disable-next-line max-len
   import MultiColumnMaxWidthLayout from '../../components/layouts/multi-column-max-width-layout.vue';
   import BaseIdTogglePanelButton from '../../components/panels/base-id-toggle-panel-button.vue';
-  import { XInstaller } from '../../x-installer';
-  import { baseInstallXOptions, baseSnippetConfig } from '../base-config';
 
   @Component({
     components: {
@@ -130,10 +128,6 @@
       BaseIdTogglePanelButton,
       FiltersIcon,
       ChevronUp
-    },
-    beforeRouteEnter(_to, _from, next: () => void): void {
-      new XInstaller(baseInstallXOptions).init(baseSnippetConfig);
-      next();
     }
   })
   export default class MultiColumnLayoutView extends Vue {}
@@ -142,6 +136,7 @@
 <style lang="scss">
   .app {
     max-height: 100%;
+
     .x-layout {
       flex: 1 1 0%;
       min-height: 0;

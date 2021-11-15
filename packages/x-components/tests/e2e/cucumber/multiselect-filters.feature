@@ -9,21 +9,35 @@ Feature: MultiSelect filters component
     And   no special config for layout view
     And   start button is clicked
 
-  Scenario Outline: 1. Number of results and clear-filters button are updated accordingly when selecting multiple filters per facet
+  Scenario Outline: 1. Testing multi-select filters
     When  "<query>" is searched
     Then  related results are displayed
     When  waiting for search request intercept
-    And   filter "<filter1>" is clicked in facet "<facetName>"
-    Then  filter "<filter1>" is shown in the selected filters list
-    And   search request contains "<filter1>" filter
+    And   filter number <multiselectFilter1> is clicked in facet "<facetName>"
+    Then  selection status of filter number <multiselectFilter1> in facet "<facetName>" is true
+    And   search request contains selected filter number <multiselectFilter1> is true
     When  waiting for search request intercept
-    And   filter "<filter2>" is clicked in facet "<facetName>"
-    Then  filter "<filter1>" is shown in the selected filters list
-    And   filter "<filter2>" is shown in the selected filters list
-    And   search request contains "<filter1>" filter
-    And   search request contains "<filter2>" filter
-    And   clear-filters button should have <totalSelectedFilters> filters selected
+    And   filter number <multiselectFilter2> is clicked in facet "<facetName>"
+    Then  related results are displayed
+    And   selection status of filter number <multiselectFilter1> in facet "<facetName>" is true
+    And   selection status of filter number <multiselectFilter2> in facet "<facetName>" is true
+    And   search request contains selected filter number <multiselectFilter1> is true
+    And   search request contains selected filter number <multiselectFilter2> is true
+    When  waiting for search request intercept
+    And   selected filter number <selectedFilter> in facet "<facetName>" list is clicked
+    Then  related results are displayed
+    And   selection status of filter number <multiselectFilter1> in facet "<facetName>" is false
+    And   selection status of filter number <multiselectFilter2> in facet "<facetName>" is true
+    And   search request contains selected filter number <multiselectFilter1> is false
+    And   search request contains selected filter number <multiselectFilter2> is true
+    When  waiting for search request intercept
+    And   selected filter number <selectedFilter> in facet "<facetName>" list is clicked
+    Then  related results are displayed
+    And   selection status of filter number <multiselectFilter1> in facet "<facetName>" is false
+    And   selection status of filter number <multiselectFilter2> in facet "<facetName>" is false
+    And   search request contains selected filter number <multiselectFilter1> is false
+    And   search request contains selected filter number <multiselectFilter2> is false
 
     Examples:
-      | query | filter1       | filter2       | facetName   | totalSelectedFilters |
-      | lego  | From 30 to 40 | From 10 to 20 | price_facet | 2                    |
+      | query  | multiselectFilter1 | multiselectFilter2 | facetName    | selectedFilter |
+      | lego   | 3                  | 1                  | price_facet  | 0              |

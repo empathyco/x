@@ -3,7 +3,7 @@ import { XComponent } from '../components/x-component.types';
 import { getXComponentXModuleName, isXComponent } from '../components/x-component.utils';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
-import { QueryOrigin } from '../types/query-origin';
+import { FeatureLocation } from '../types/origin';
 import { XBus } from './x-bus.types';
 import { getAliasAPI } from './x-plugin.alias';
 import { XComponentAPI, XComponentBusAPI } from './x-plugin.types';
@@ -15,8 +15,8 @@ declare module 'vue/types/vue' {
 }
 
 interface PrivateExtendedVueComponent extends Vue {
+  $location?: FeatureLocation;
   xComponent: XComponent | undefined;
-  $origin: QueryOrigin;
 }
 
 /**
@@ -33,8 +33,8 @@ export const createXComponentAPIMixin = (
   bus: XBus
 ): ComponentOptions<Vue> & ThisType<PrivateExtendedVueComponent> => ({
   inject: {
-    $origin: {
-      from: 'origin',
+    $location: {
+      from: 'location',
       default: undefined
     }
   },
@@ -62,12 +62,29 @@ export function getBusAPI(bus: XBus, component: PrivateExtendedVueComponent): XC
       payload?: XEventPayload<Event>,
       metadata: Omit<WireMetadata, 'moduleName'> = {}
     ) => {
-      const xComponent = component.xComponent;
-      const moduleName = xComponent ? getXComponentXModuleName(xComponent) : null;
-      bus.emit(event, payload as any, { moduleName, origin: component.$origin, ...metadata });
-      xComponent?.$emit(event, payload);
+      bus.emit(event, payload as any, createWireMetadata(component, metadata));
+      component.xComponent?.$emit(event, payload);
     },
     on: bus.on.bind(bus)
+  };
+}
+
+/**
+ * Creates a wire metadata object based on the component and the provided metadata.
+ *
+ * @param component - The component this metadata belongs to.
+ * @param metadata - Additional metadata emitted by the component.
+ * @returns A {@link WireMetadata} object.
+ * @internal
+ */
+function createWireMetadata(
+  component: PrivateExtendedVueComponent,
+  metadata: Partial<WireMetadata>
+): WireMetadata {
+  return {
+    moduleName: getXComponentXModuleName(component.xComponent),
+    location: component.$location,
+    ...metadata
   };
 }
 

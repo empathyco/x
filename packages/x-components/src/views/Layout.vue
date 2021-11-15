@@ -198,7 +198,7 @@
               <!-- Facets -->
               <Facets class="x-list--gap-06" renderable-facets="!rootCategories_facet">
                 <!--  Hierarchical Facet    -->
-                <template #categories-facet="{ facet }">
+                <template #hierarchical-category="{ facet }">
                   <BaseHeaderTogglePanel class="x-facet">
                     <template #header-content>
                       <span class="x-ellipsis">{{ facet.label }}</span>
@@ -207,7 +207,7 @@
                     <!-- Filters -->
                     <SlicedFilters max="4" :filters="facet.filters">
                       <FiltersList v-slot="{ filter }">
-                        <HierarchicalFilter :filter="filter" />
+                        <HierarchicalFilter :filter="filter" :data-test="`${facet.label}-filter`" />
                       </FiltersList>
                     </SlicedFilters>
                   </BaseHeaderTogglePanel>
@@ -228,7 +228,7 @@
                         <FiltersSearch>
                           <SlicedFilters
                             :max="controls.slicedFilters.max"
-                            :data-test="facet.label + '-sliced-filters'"
+                            :data-test="`${facet.label}-sliced-filters`"
                           >
                             <FiltersList
                               v-slot="{
@@ -236,7 +236,11 @@
                                 filter
                               }"
                             >
-                              <SimpleFilter #label :filter="filter" data-test="brand-filter">
+                              <SimpleFilter
+                                #label="{ filter }"
+                                :filter="filter"
+                                :data-test="`${facet.label}-filter`"
+                              >
                                 {{ filter.label }}
                                 <span data-test="brand-filter-total-results">
                                   {{ filter.totalResults }}
@@ -263,14 +267,14 @@
                       <SortedFilters>
                         <SlicedFilters
                           :max="controls.slicedFilters.max"
-                          :data-test="facet.label + '-sliced-filters'"
+                          :data-test="`${facet.label}-sliced-filters`"
                         >
                           <SelectedFilters :facetId="facet.id" />
                           <FiltersList v-slot="{ filter }">
                             <SimpleFilter
                               #label
                               :filter="filter"
-                              :data-test="facet.label + '-filter'"
+                              :data-test="`${facet.label}-filter`"
                             >
                               <BasePriceFilterLabel
                                 v-if="facet.id === 'price'"
@@ -280,10 +284,6 @@
                                 fromTo="From {min} to {max}"
                                 from="More than {min}"
                               />
-                              <span v-else class="x-filter__label">{{ filter.label }}</span>
-                              <span v-if="filter.totalResults" class="x-filter__count">
-                                ({{ filter.totalResults }})
-                              </span>
                             </SimpleFilter>
                           </FiltersList>
                         </SlicedFilters>
@@ -480,7 +480,6 @@
 </template>
 
 <script lang="ts">
-  import { deepMerge } from '@empathyco/x-deep-merge';
   import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
@@ -522,7 +521,6 @@
   import BaseSuggestions from '../components/suggestions/base-suggestions.vue';
   import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
   import { XEvent } from '../wiring';
-  import { XInstaller } from '../x-installer/x-installer';
   import Empathize from '../x-modules/empathize/components/empathize.vue';
   import ExtraParams from '../x-modules/extra-params/components/extra-params.vue';
   // eslint-disable-next-line max-len
@@ -542,8 +540,6 @@
   import SelectedFilters from '../x-modules/facets/components/lists/selected-filters.vue';
   import SlicedFilters from '../x-modules/facets/components/lists/sliced-filters.vue';
   import SortedFilters from '../x-modules/facets/components/lists/sorted-filters.vue';
-  import { FilterEntityFactory } from '../x-modules/facets/entities/filter-entity.factory';
-  import { SingleSelectModifier } from '../x-modules/facets/entities/single-select.modifier';
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
@@ -572,20 +568,8 @@
   import SpellcheckButton from '../x-modules/search/components/spellcheck-button.vue';
   import Spellcheck from '../x-modules/search/components/spellcheck.vue';
   import UrlHandler from '../x-modules/url/components/url-handler.vue';
-  import { baseInstallXOptions, baseSnippetConfig } from './base-config';
 
   @Component({
-    beforeRouteEnter(to, _from, next: () => void): void {
-      let customQueryConfig = JSON.parse(to.query.xModules?.toString() ?? '{}');
-      const configLayoutView = deepMerge(baseInstallXOptions, {
-        xModules: deepMerge(customQueryConfig)
-      });
-      new XInstaller(configLayoutView).init(baseSnippetConfig);
-      ['categories_facet', 'brand_facet', 'age_facet'].forEach(facetId =>
-        FilterEntityFactory.instance.registerFilterModifier(facetId, [SingleSelectModifier])
-      );
-      next();
-    },
     directives: {
       infiniteScroll
     },
@@ -718,7 +702,9 @@
 <style lang="scss" scoped>
   .x-modal::v-deep .x-modal__content {
     overflow: hidden;
-    width: 100%;
-    height: calc(100% - 1px);
+    // Following is needed for closing the modal in base-events-modal.feature
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    margin: 10px;
   }
 </style>
