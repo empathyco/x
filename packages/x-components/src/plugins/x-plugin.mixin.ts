@@ -3,7 +3,7 @@ import { XComponent } from '../components/x-component.types';
 import { getXComponentXModuleName, isXComponent } from '../components/x-component.utils';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
-import { QueryOrigin } from '../types/query-origin';
+import { FeatureLocation } from '../types/origin';
 import { XBus } from './x-bus.types';
 import { getAliasAPI } from './x-plugin.alias';
 import { XComponentAPI, XComponentBusAPI } from './x-plugin.types';
@@ -15,8 +15,8 @@ declare module 'vue/types/vue' {
 }
 
 interface PrivateExtendedVueComponent extends Vue {
+  $location?: FeatureLocation;
   xComponent: XComponent | undefined;
-  $origin: QueryOrigin;
 }
 
 /**
@@ -33,8 +33,8 @@ export const createXComponentAPIMixin = (
   bus: XBus
 ): ComponentOptions<Vue> & ThisType<PrivateExtendedVueComponent> => ({
   inject: {
-    $origin: {
-      from: 'origin',
+    $location: {
+      from: 'location',
       default: undefined
     }
   },
@@ -62,7 +62,7 @@ export function getBusAPI(bus: XBus, component: PrivateExtendedVueComponent): XC
       payload?: XEventPayload<Event>,
       metadata: Omit<WireMetadata, 'moduleName'> = {}
     ) => {
-      bus.emit(event, payload as any, createMetadata(component, metadata));
+      bus.emit(event, payload as any, createWireMetadata(component, metadata));
       component.xComponent?.$emit(event, payload);
     },
     on: bus.on.bind(bus)
@@ -70,20 +70,21 @@ export function getBusAPI(bus: XBus, component: PrivateExtendedVueComponent): XC
 }
 
 /**
- * Creates a {@link WireMetadata} object based on the passed component and extra metadata.
+ * Creates a wire metadata object based on the component and the provided metadata.
  *
- * @param component - The component to extract the metadata from.
- * @param metadata - Extra metadata to be emitted.
- * @returns An object containing metadata.
+ * @param component - The component this metadata belongs to.
+ * @param metadata - Additional metadata emitted by the component.
+ * @returns A {@link WireMetadata} object.
+ * @internal
  */
-function createMetadata(
+function createWireMetadata(
   component: PrivateExtendedVueComponent,
   metadata: Partial<WireMetadata>
 ): WireMetadata {
   return Object.defineProperty(
     {
-      moduleName: component.xComponent ? getXComponentXModuleName(component.xComponent) : null,
-      origin: component.$origin,
+      moduleName: getXComponentXModuleName(component.xComponent),
+      location: component.$location,
       ...metadata
     },
     'component',
