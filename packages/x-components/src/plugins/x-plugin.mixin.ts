@@ -81,10 +81,11 @@ function createWireMetadata(
   component: PrivateExtendedVueComponent,
   metadata: Partial<WireMetadata>
 ): WireMetadata {
-  return Object.defineProperty(
+  return Object.defineProperty<WireMetadata>(
     {
       moduleName: getXComponentXModuleName(component.xComponent),
       location: component.$location,
+      target: component.$el as HTMLElement,
       ...metadata
     },
     'component',
