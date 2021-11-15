@@ -62,7 +62,7 @@ describe('testing Scroll To Top component', () => {
     await emitXEvent('UserScrolled', 250);
     await emitXEvent('UserChangedScrollDirection', 'UP');
 
-    expect(scrollToTopWrapper.html()).toBe('');
+    expect(scrollToTopWrapper.html()).not.toBe('');
   });
 
   it("emits event with the component's id as payload when clicked", async () => {
