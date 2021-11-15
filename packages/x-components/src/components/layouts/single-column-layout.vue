@@ -82,7 +82,7 @@
    * @public
    */
   @Component({
-    components: { Scroll, BaseScroll, BaseIdModal }
+    components: { BaseIdModal, BaseScroll, Scroll }
   })
   export default class SingleColumnLayout extends mixins(LayoutsMixin) {
     /**

@@ -29,9 +29,8 @@ function renderScrollToTop({
 
   return {
     scrollToTopWrapper,
-    click() {
-      scrollToTopWrapper.trigger('click');
-      return localVue.nextTick();
+    async click() {
+      await scrollToTopWrapper.trigger('click');
     },
     emitXEvent(event, payload) {
       scrollToTopWrapper.vm.$x.emit(event, payload, { id: 'scrollId' });
@@ -63,7 +62,7 @@ describe('testing Scroll To Top component', () => {
     await emitXEvent('UserScrolled', 250);
     await emitXEvent('UserChangedScrollDirection', 'UP');
 
-    expect(scrollToTopWrapper.html()).not.toBe('');
+    expect(scrollToTopWrapper.html()).toBe('');
   });
 
   it("emits event with the component's id as payload when clicked", async () => {

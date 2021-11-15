@@ -29,7 +29,7 @@ export const setScrollDirectionWire = wireCommit(
   'setScrollComponentState',
   ({ metadata, eventPayload }: WirePayload<ScrollDirection>) => ({
     newState: { direction: eventPayload },
-    id: metadata.id as string
+    id: metadata.id!
   })
 );
 

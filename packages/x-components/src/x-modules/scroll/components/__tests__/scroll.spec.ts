@@ -7,7 +7,7 @@ import Scroll from '../scroll.vue';
 async function renderScroll({
   template = '<Scroll :throttleMs="throttleMs" :id="id"/>',
   throttleMs = 200,
-  id = 'scrollResults',
+  id = 'default-scroll',
   scrollHeight = 800,
   clientHeight = 200,
   distanceToBottom = 100
@@ -16,7 +16,7 @@ async function renderScroll({
   const wrapperContainer = mount(
     {
       components: {
-        Scroll: Scroll
+        Scroll
       },
       props: ['throttleMs', 'id', 'distanceToBottom'],
       template
@@ -66,7 +66,7 @@ describe('testing Scroll Component', () => {
             <p>scroll content</p>
           </div>
         </Scroll>`,
-      id: 'scrollResults'
+      id: 'main-scroll'
     });
 
     const contents = wrapper.find(getDataTestSelector('content-scroll'));
@@ -76,7 +76,7 @@ describe('testing Scroll Component', () => {
   it('throttles the scroll event', async () => {
     const { wrapper, scroll, scrollElement } = await renderScroll({
       throttleMs: 200,
-      id: 'scrollResults'
+      id: 'main-scroll'
     });
 
     const listenerScrolled = jest.fn();
@@ -105,7 +105,7 @@ describe('testing Scroll Component', () => {
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'scroll',
         target: scrollElement,
-        id: 'scrollResults'
+        id: 'main-scroll'
       })
     });
   });
@@ -114,7 +114,7 @@ describe('testing Scroll Component', () => {
   it('emits the `UserChangedScrollDirection` event when the user changes scrolling direction', async () => {
     const { wrapper, scroll, scrollElement } = await renderScroll({
       throttleMs: 200,
-      id: 'scrollResults'
+      id: 'main-scroll'
     });
 
     const listenerChangeDirection = jest.fn();
@@ -147,7 +147,7 @@ describe('testing Scroll Component', () => {
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'scroll',
         target: scrollElement,
-        id: 'scrollResults'
+        id: 'main-scroll'
       })
     });
     expect(listenerChangeDirection).toHaveBeenNthCalledWith(2, {
@@ -155,7 +155,7 @@ describe('testing Scroll Component', () => {
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'scroll',
         target: scrollElement,
-        id: 'scrollResults'
+        id: 'main-scroll'
       })
     });
   });
@@ -163,7 +163,7 @@ describe('testing Scroll Component', () => {
   it('emits the `UserReachedScrollStart` event when the user scrolls back to the top', async () => {
     const { wrapper, scroll, scrollElement } = await renderScroll({
       throttleMs: 200,
-      id: 'scrollResults'
+      id: 'main-scroll'
     });
 
     const listenerScrollStart = jest.fn();
@@ -186,7 +186,7 @@ describe('testing Scroll Component', () => {
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'scroll',
         target: scrollElement,
-        id: 'scrollResults'
+        id: 'main-scroll'
       })
     });
     expect(listenerScrollStart).toHaveBeenNthCalledWith(2, {
@@ -194,7 +194,7 @@ describe('testing Scroll Component', () => {
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'scroll',
         target: scrollElement,
-        id: 'scrollResults'
+        id: 'main-scroll'
       })
     });
   });
@@ -203,7 +203,7 @@ describe('testing Scroll Component', () => {
   it('emits `UserAlmostReachedScrollEnd` and`UserReachedScrollEnd` when the user scrolls to the bottom', async () => {
     const { wrapper, scroll, scrollElement } = await renderScroll({
       throttleMs: 200,
-      id: 'scrollResults',
+      id: 'main-scroll',
       scrollHeight: 800,
       clientHeight: 200,
       distanceToBottom: 300
@@ -225,7 +225,7 @@ describe('testing Scroll Component', () => {
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'scroll',
         target: scrollElement,
-        id: 'scrollResults'
+        id: 'main-scroll'
       })
     });
     expect(listenerReachedScrollEnd).toHaveBeenCalledTimes(1);
@@ -234,7 +234,7 @@ describe('testing Scroll Component', () => {
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'scroll',
         target: scrollElement,
-        id: 'scrollResults'
+        id: 'main-scroll'
       })
     });
 
@@ -250,7 +250,7 @@ describe('testing Scroll Component', () => {
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'scroll',
         target: scrollElement,
-        id: 'scrollResults'
+        id: 'main-scroll'
       })
     });
 
@@ -265,7 +265,7 @@ describe('testing Scroll Component', () => {
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'scroll',
         target: scrollElement,
-        id: 'scrollResults'
+        id: 'main-scroll'
       })
     });
     expect(listenerReachedScrollEnd).toHaveBeenCalledTimes(3);
@@ -274,7 +274,7 @@ describe('testing Scroll Component', () => {
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'scroll',
         target: scrollElement,
-        id: 'scrollResults'
+        id: 'main-scroll'
       })
     });
 
@@ -289,7 +289,7 @@ describe('testing Scroll Component', () => {
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'scroll',
         target: scrollElement,
-        id: 'scrollResults'
+        id: 'main-scroll'
       })
     });
     expect(listenerReachedScrollEnd).toHaveBeenCalledTimes(4);
@@ -298,7 +298,7 @@ describe('testing Scroll Component', () => {
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'scroll',
         target: scrollElement,
-        id: 'scrollResults'
+        id: 'main-scroll'
       })
     });
   });

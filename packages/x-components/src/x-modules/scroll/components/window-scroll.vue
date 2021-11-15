@@ -8,9 +8,9 @@
   type ScrollableTag = 'html' | 'body';
 
   /**
-   * Main scroll component that depending on the user interactivity emits different events for
-   * knowing when the user scrolls, the direction of scroll and if user reaches the start or end.
-   * All this about main scroll.
+   * The `WindowScroll` component listens to either the `html` or `body` DOM scroll events, and
+   * re-emits them as X Events. Additionally it also emits events related to the direction or
+   * current position of these elements scroll.
    *
    * @public
    */
@@ -93,10 +93,10 @@
 <docs lang="mdx">
 # Example
 
-The WindowScroll is a component that manage the states of main scroll that can be document or body.
-The component does the necessary calculations for knowing the direction of scroll, if the scroll has
-reached to start or to end, and is about to reaching to end. The components emits the next events
-and XEvents depending of movement that realize the user:
+The `WindowScroll` component manages the scroll state of the `body` or `html` elements. It does the
+necessary calculations for knowing the direction of scroll, if the scroll has reached its starting
+position, if it is about to reach its ending position or if it has already reached it end. Whenever
+this state changes, it emits the appropiate X Event to the rest of the application
 
 ## Custom usage
 

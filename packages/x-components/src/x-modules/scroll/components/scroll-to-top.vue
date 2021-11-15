@@ -25,11 +25,8 @@
   import { scrollXModule } from '../x-module';
 
   /**
-   * Renders a button with a default slot.
-   * This button will emit a UserClickedScrollToTop when clicked.
-   * The button will be shown either if it reaches a threshold and then the user scrolls up or
-   * just on the UserAlmostReachedScrollEnd event depending on whether the threshold config has been
-   * provided or not.
+   * The `ScrollToTop` component is a button that the user can click to make a container scroll
+   * up to its initial position.
    *
    * @public
    */
