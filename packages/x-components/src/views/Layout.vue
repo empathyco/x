@@ -269,7 +269,13 @@
                           :max="controls.slicedFilters.max"
                           :data-test="`${facet.label}-sliced-filters`"
                         >
-                          <SelectedFilters :facetId="facet.id" />
+                          <SelectedFilters :facetId="facet.id">
+                            <template #default="{ selectedFilters }">
+                              <span :data-test="`${facet.label}-selected-filters`">
+                                {{ selectedFilters.length }}
+                              </span>
+                            </template>
+                          </SelectedFilters>
                           <FiltersList v-slot="{ filter }">
                             <SimpleFilter
                               #label
@@ -581,7 +587,7 @@
         xModules: deepMerge(customQueryConfig)
       });
       new XInstaller(configLayoutView).init(baseSnippetConfig);
-      ['categories_facet', 'brand_facet', 'age_facet'].forEach(facetId =>
+      ['hierarchical_category', 'categories_facet', 'brand_facet', 'age_facet'].forEach(facetId =>
         FilterEntityFactory.instance.registerFilterModifier(facetId, [SingleSelectModifier])
       );
       next();

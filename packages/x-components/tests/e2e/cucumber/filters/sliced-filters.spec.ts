@@ -62,3 +62,21 @@ And('no show more / show less buttons are displayed in {string}', (facetName: st
     .getByDataTest('sliced-filters-show-less-button')
     .should('not.exist');
 });
+
+// Scenario 3
+When('clicking in show less button {string}', (facetName: string) => {
+  cy.getByDataTest(`${facetName}-sliced-filters`)
+    .getByDataTest('sliced-filters-show-less-button')
+    .click();
+});
+
+Then(
+  'number of selected filters in facet {string} are {int}',
+  (facetName: string, selectedFiltersNumber: number) => {
+    cy.getByDataTest(`${facetName}-selected-filters`)
+      .invoke('text')
+      .should(text => {
+        expect(text.trim()).to.eq(selectedFiltersNumber.toString());
+      });
+  }
+);
