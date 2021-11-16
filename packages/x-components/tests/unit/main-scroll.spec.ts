@@ -20,7 +20,7 @@ function renderMainScroll({ itemsCount = 10 }: RenderMainScrollOptions = {}): Re
   return mount(
     {
       components: {
-        Scroll: Scroll,
+        Scroll,
         MainScroll,
         MainScrollItem
       },
