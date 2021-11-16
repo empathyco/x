@@ -10,6 +10,7 @@ import { setupWiringDevtools } from './wiring.devtools';
  * - Wiring inspector. Events and its wires can be viewed and disabled.
  *
  * @param app - The Vue application the devtools should track.
+ * @beta
  */
 export function setupDevtools(app: Vue): void {
   setupDevtoolsPlugin(
