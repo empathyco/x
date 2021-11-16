@@ -2,7 +2,7 @@ import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { Component, Inject } from 'vue-property-decorator';
 import { FeatureLocation } from '../../types';
-import LocationInjector from '../location-injector.vue';
+import LocationProvider from '../location-provider.vue';
 
 @Component({
   template: `<button/>`
@@ -13,25 +13,25 @@ class Child extends Vue {
 }
 
 /**
- * Renders the {@link LocationInjector} component, exposing a basic API for testing.
+ * Renders the {@link LocationProvider} component, exposing a basic API for testing.
  *
  * @param options - The options to render the component with.
  *
- * @returns The API for testing the `LocationInjector` component.
+ * @returns The API for testing the `LocationProvider` component.
  */
-function renderLocationInjector({
+function renderLocationProvider({
   location
-}: RenderLocationInjectorOptions): RenderLocationInjectorAPI {
+}: RenderLocationProviderOptions): RenderLocationProviderAPI {
   const wrapper = mount(
     {
       components: {
-        LocationInjector,
+        LocationProvider,
         Child
       },
       template: `
-        <LocationInjector :location="location">
+        <LocationProvider :location="location">
           <Child />
-        </LocationInjector>`,
+        </LocationProvider>`,
       props: ['location']
     },
     {
@@ -46,9 +46,9 @@ function renderLocationInjector({
   };
 }
 
-describe('testing LocationInjector component', () => {
+describe('testing LocationProvider component', () => {
   it('provides a location to its child', () => {
-    const { child } = renderLocationInjector({
+    const { child } = renderLocationProvider({
       location: 'external'
     });
 
@@ -56,12 +56,12 @@ describe('testing LocationInjector component', () => {
   });
 });
 
-interface RenderLocationInjectorOptions {
-  /** The location to inject. */
+interface RenderLocationProviderOptions {
+  /** The location to provide. */
   location: FeatureLocation;
 }
 
-interface RenderLocationInjectorAPI {
-  /** The wrapper for the child component inside the location injector. */
+interface RenderLocationProviderAPI {
+  /** The wrapper for the child component inside the location provider. */
   child: Wrapper<Child>;
 }

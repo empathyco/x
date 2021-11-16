@@ -2,25 +2,22 @@
   import { Prop, Provide, Component } from 'vue-property-decorator';
   import { NoElement } from '../components/no-element';
   import { FeatureLocation } from '../types';
-  import BaseEventButton from './base-event-button.vue';
 
   /**
-   * Location Injector component.
+   * Location Provider component.
    * This component injects the location with value passed as prop.
    *
    * @public
    */
-  @Component({
-    components: { BaseEventButton }
-  })
-  export default class LocationInjector extends NoElement {
+  @Component
+  export default class LocationProvider extends NoElement {
     /**
-     * The {@link FeatureLocation} to inject.
+     * The {@link FeatureLocation} to provide.
      *
      * @public
      */
     @Prop({ required: true })
-    @Provide('location')
+    @Provide()
     protected location!: FeatureLocation;
   }
 </script>
@@ -28,24 +25,24 @@
 <docs lang="mdx">
 ## Play with props
 
-In this example, the location injector receives a prop with the location to provide to its child
+In this example, the location provider receives a prop with the location to provide to its child
 components.
 
 ```vue
 <template>
-  <LocationInjector location="external">
+  <LocationProvider location="external">
     <BaseEventButton :events="events" />
-  </LocationInjector>
+  </LocationProvider>
 </template>
 
 <script>
-  import { BaseEventButton, LocationInjector } from '@empathyco/x-components';
+  import { BaseEventButton, LocationProvider } from '@empathyco/x-components';
 
   export default {
-    name: 'LocationInjectorDemo',
+    name: 'LocationProviderDemo',
     components: {
       BaseEventButton,
-      LocationInjector
+      LocationProvider
     },
     data() {
       return {
