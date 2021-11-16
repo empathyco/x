@@ -158,7 +158,7 @@
     }
 
     /**
-     * Disconnects the {@link ScrollVisibilityObserver.intersectionObserver}.
+     * Disconnects the intersection observer.
      *
      * @internal
      */
