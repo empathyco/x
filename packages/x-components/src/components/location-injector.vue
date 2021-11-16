@@ -4,8 +4,8 @@
   import { FeatureLocation } from '../types';
 
   /**
-   * Location Injector component. This component inject the value passed as
-   * prop as the location.
+   * Location Injector component.
+   * This component injects the location with value passed as prop.
    *
    * @public
    */
