@@ -63,7 +63,7 @@ describe('testing UrlHandler component', () => {
       page: 2,
       filter: ['brand:lego'],
       sort: 'price desc',
-      scroll: 333,
+      scroll: '333',
       tag: ['marvel']
     } as UrlParams);
   });
@@ -86,7 +86,7 @@ describe('testing UrlHandler component', () => {
       page: 2,
       filter: ['brand:lego'],
       sort: 'price desc',
-      scroll: 333,
+      scroll: '333',
       tag: ['marvel']
     } as UrlParams);
 
@@ -95,7 +95,7 @@ describe('testing UrlHandler component', () => {
       page: 3,
       filter: ['brand:playmobil'],
       sort: 'price asc',
-      scroll: 444,
+      scroll: '444',
       tag: ['harry potter']
     } as UrlParams);
   });

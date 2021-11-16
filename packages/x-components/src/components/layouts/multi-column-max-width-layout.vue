@@ -69,14 +69,16 @@
         </Scroll>
       </BaseIdTogglePanel>
 
-      <Scroll v-if="hasContent('main-body')" id="main-scroll" class="x-layout__body-scroll">
-        <section class="x-layout__main-body x-list x-list--vertical">
-          <!-- @slot Slot that can be used to insert the body content. -->
-          <slot name="main-body">
-            <span v-if="devMode" class="slot-helper" style="height: 110vh">MAIN BODY</span>
-          </slot>
-        </section>
-      </Scroll>
+      <MainScroll>
+        <Scroll v-if="hasContent('main-body')" id="main-scroll" class="x-layout__body-scroll">
+          <section class="x-layout__main-body x-list x-list--vertical">
+            <!-- @slot Slot that can be used to insert the body content. -->
+            <slot name="main-body">
+              <span v-if="devMode" class="slot-helper" style="height: 110vh">MAIN BODY</span>
+            </slot>
+          </section>
+        </Scroll>
+      </MainScroll>
     </main>
 
     <div v-if="hasContent('scroll-to-top')" class="x-layout__scroll-to-top">
@@ -93,6 +95,7 @@
   import Vue from 'vue';
   import Component, { mixins } from 'vue-class-component';
   import { Prop } from 'vue-property-decorator';
+  import MainScroll from '../../x-modules/scroll/components/main-scroll.vue';
   import Scroll from '../../x-modules/scroll/components/scroll.vue';
   import AnimateWidth from '../animations/animate-width.vue';
   import BaseIdTogglePanel from '../panels/base-id-toggle-panel.vue';
@@ -104,7 +107,7 @@
    * @public
    */
   @Component({
-    components: { BaseIdTogglePanel, Scroll }
+    components: { BaseIdTogglePanel, Scroll, MainScroll }
   })
   export default class MultiColumnMaxWidthLayout extends mixins(LayoutsMixin) {
     /**
