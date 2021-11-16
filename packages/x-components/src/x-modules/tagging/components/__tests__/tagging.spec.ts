@@ -12,7 +12,7 @@ import Tagging from '../../../tagging/components/tagging.vue';
   template: `<div><slot/></div>`
 })
 class Provider extends Vue {
-  @Prop({default: baseSnippetConfig})
+  @Prop({ default: baseSnippetConfig })
   @Provide()
   public snippetConfig!: SnippetConfig;
 }
@@ -31,7 +31,7 @@ function renderTagging({
         Provider
       },
       props: ['consent', 'snippetConfig'],
-      template,
+      template
     },
     {
       propsData: {
@@ -44,9 +44,9 @@ function renderTagging({
 
   return {
     wrapper: wrapper.findComponent(Tagging),
-    on: wrapper.vm.$x.on.bind(wrapper.vm.$x),
+    on: wrapper.vm.$x.on.bind(wrapper.vm.$x)
   };
-};
+}
 
 describe('testing Tagging component', () => {
   it('is an XComponent which has an XModule', () => {
@@ -60,7 +60,7 @@ describe('testing Tagging component', () => {
     const eventSpy = jest.fn();
 
     on('ConsentProvided').subscribe(eventSpy);
-    expect(eventSpy).toHaveBeenNthCalledWith(1,true);
+    expect(eventSpy).toHaveBeenNthCalledWith(1, true);
   });
 
   it("doesn't emit ConsentProvided when the consent is undefined send it by prop", () => {
@@ -71,11 +71,12 @@ describe('testing Tagging component', () => {
     expect(eventSpy).not.toHaveBeenCalled();
   });
 
+  // eslint-disable-next-line max-len
   it('emits ConsentProvided when the consent is provided and send it using the snippet config', async () => {
     const snippet = Vue.observable({
       ...baseSnippetConfig,
       consent: false
-    } as SnippetConfig & {consent?: boolean});
+    } as SnippetConfig & { consent?: boolean });
     const { wrapper, on } = renderTagging({
       snippetConfig: snippet
     });
@@ -86,11 +87,11 @@ describe('testing Tagging component', () => {
 
     snippet.consent = true;
     await wrapper.vm.$nextTick();
-    expect(eventSpy).toHaveBeenNthCalledWith(1,true);
+    expect(eventSpy).toHaveBeenNthCalledWith(1, true);
 
     snippet.consent = false;
     await wrapper.vm.$nextTick();
-    expect(eventSpy).toHaveBeenNthCalledWith(2,false);
+    expect(eventSpy).toHaveBeenNthCalledWith(2, false);
 
     snippet.consent = undefined;
     await wrapper.vm.$nextTick();
@@ -103,12 +104,12 @@ interface RenderTaggingOptions {
   consent?: boolean;
   /** The template to be rendered. */
   template?: string;
-  /** The snippet config value */
+  /** The snippet config value. */
   snippetConfig?: SnippetConfig;
 }
 
 interface RenderTaggingAPI {
-  /** The wrapper of the container element.*/
+  /** The wrapper of the container element. */
   wrapper: Wrapper<Vue>;
   /** The {@link XComponentBusAPI.on} method to subscribe events. */
   on: XComponentBusAPI['on'];

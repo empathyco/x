@@ -9,6 +9,6 @@ import { taggingXStoreModule } from './module';
 export const taggingEmitters = createStoreEmitters(taggingXStoreModule, {
   ConsentChanged: {
     selector: state => state.consent!,
-    filter: consent => consent === false
+    filter: consent => !consent
   }
 });

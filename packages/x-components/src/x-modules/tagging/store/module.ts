@@ -12,7 +12,7 @@ export const taggingXStoreModule: TaggingXStoreModule = {
       queryTaggingDebounceMs: 200
     },
     consent: null
-}),
+  }),
   getters: {},
   mutations: {
     setConsent(state, consent) {
