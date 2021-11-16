@@ -108,15 +108,16 @@ describe('testing MainScroll component', () => {
     userScrolledToElementSpy().should('have.been.calledWith', 'item-6');
   });
 
-  it('allows configuring the bounds of the intersection', () => {
+  it.only('allows configuring the bounds of the intersection', () => {
     const { scrollToItem, userScrolledToElementSpy } = renderMainScroll({ margin: '-25px' });
 
     scrollToItem(5);
-    userScrolledToElementSpy().should('not.have.been.calledWith', 'item-5');
-    cy.getByDataTest('base-scroll').then($scroll => {
-      $scroll.scrollTop($scroll.scrollTop()! - 25);
-    });
     userScrolledToElementSpy().should('have.been.calledWith', 'item-5');
+    userScrolledToElementSpy().should('not.have.been.calledWith', 'item-6');
+    cy.getByDataTest('base-scroll').then($scroll => {
+      $scroll.scrollTop($scroll.scrollTop()! + 25);
+    });
+    userScrolledToElementSpy().should('have.been.calledWith', 'item-6');
   });
 });
 
