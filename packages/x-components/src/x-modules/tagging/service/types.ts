@@ -1,15 +1,14 @@
 /**
- * Service to manipulate the session id.
+ * Service to manage the session id.
  *
  * @public
  */
 export interface SessionService {
   /**
-   * Get the current session id from the storage:
-   * * If it's present then:
-   * * * If it's valid just return it.
-   * * * If it's outdated it will generate a new one.
-   * * If not creates a new one.
+   * Gets the current session id from the storage.
+   *
+   * @remarks If a session id is outdated or does not exist,
+   * a new one is created.
    *
    * @returns The session id.
    */

@@ -18,7 +18,7 @@ export class MockedStorageService extends StorageService {
     return this._prefix;
   }
 
-  injectGetResponse(key: string): void {
+  mockSessionIdValue(key: string): void {
     this.getSessionIdSpy.mockReturnValue(key);
   }
 
