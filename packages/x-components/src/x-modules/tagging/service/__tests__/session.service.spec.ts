@@ -6,16 +6,15 @@ describe('testing session id service', () => {
   const mockedStorageService = new MockedStorageService(prefix);
   const sessionService = new DefaultSessionService(mockedStorageService, 1);
 
-  afterEach(() => {
+  beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('creates a new session id', () => {
+  it('creates a new session id when calling getSessionId and a session does not exist', () => {
     const session = sessionService.getSessionId();
     expect(mockedStorageService.getPrefix()).toBe(prefix);
     expect(mockedStorageService.getSessionIdSpy).toHaveBeenCalledTimes(1);
     expect(mockedStorageService.setSessionIdSpy).toHaveBeenCalledTimes(1);
-    expect(mockedStorageService.removeSessionIdSpy).not.toHaveBeenCalled();
     expect(mockedStorageService.setSessionIdSpy).toHaveBeenCalledWith(
       'session-id',
       expect.any(String),
@@ -26,12 +25,11 @@ describe('testing session id service', () => {
   });
 
   it('returns an existing session id', () => {
-    mockedStorageService.injectGetResponse('abcd-1234');
+    mockedStorageService.mockSessionIdValue('abcd-1234');
     const session = sessionService.getSessionId();
     expect(mockedStorageService.getPrefix()).toBe(prefix);
     expect(mockedStorageService.getSessionIdSpy).toHaveBeenCalledTimes(1);
     expect(mockedStorageService.setSessionIdSpy).toHaveBeenCalledTimes(1);
-    expect(mockedStorageService.removeSessionIdSpy).not.toHaveBeenCalled();
     expect(mockedStorageService.setSessionIdSpy).toHaveBeenCalledWith(
       'session-id',
       'abcd-1234',
@@ -43,8 +41,6 @@ describe('testing session id service', () => {
   it('removes an existing session id', () => {
     sessionService.clearSessionId();
     expect(mockedStorageService.getPrefix()).toBe(prefix);
-    expect(mockedStorageService.getSessionIdSpy).not.toHaveBeenCalled();
-    expect(mockedStorageService.setSessionIdSpy).not.toHaveBeenCalled();
     expect(mockedStorageService.removeSessionIdSpy).toHaveBeenCalledTimes(1);
   });
 });

@@ -17,7 +17,7 @@ export class DefaultSessionService implements SessionService {
 
   public constructor(
     protected storageService: StorageService = new StorageService(localStorage, 'x'),
-    protected ttlInMs = 1800 // 30m * 60s * 1000 = 1800_000ms
+    protected ttlMs = 1800000 // 30m * 60s * 1000 = 1800_000ms
   ) {}
 
   /**
