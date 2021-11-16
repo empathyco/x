@@ -108,7 +108,7 @@ describe('testing MainScroll component', () => {
     userScrolledToElementSpy().should('have.been.calledWith', 'item-6');
   });
 
-  it.only('allows configuring the bounds of the intersection', () => {
+  it('allows configuring the bounds of the intersection', () => {
     const { scrollToItem, userScrolledToElementSpy } = renderMainScroll({ margin: '-25px' });
 
     scrollToItem(5);
