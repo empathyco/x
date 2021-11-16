@@ -4,4 +4,15 @@
  *
  * @public
  */
-export interface TaggingXEvents {}
+export interface TaggingXEvents {
+  /**
+   * Consent has changed.
+   * * Payload: The new consent value.
+   */
+  ConsentChanged: boolean;
+  /**
+   * Page has been provided.
+   * * Payload: The new consent value.
+   */
+  ConsentProvided: boolean;
+}

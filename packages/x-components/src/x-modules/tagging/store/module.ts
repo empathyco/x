@@ -7,9 +7,17 @@ import { TaggingXStoreModule } from './types';
  */
 export const taggingXStoreModule: TaggingXStoreModule = {
   state: () => ({
-    config: {}
-  }),
+    config: {
+      sessionTTLInMs: 30 * 60 * 1000,
+      queryTaggingDebounceMs: 200
+    },
+    consent: null
+}),
   getters: {},
-  mutations: {},
+  mutations: {
+    setConsent(state, consent) {
+      state.consent = consent;
+    }
+  },
   actions: {}
 };

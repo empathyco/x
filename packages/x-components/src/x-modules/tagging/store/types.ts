@@ -1,11 +1,21 @@
 import { XStoreModule } from '../../../store';
+import { TaggingConfig } from '../config.types';
 
 /**
  * Tagging store state.
  *
  * @public
  */
-export interface TaggingState {}
+export interface TaggingState {
+  /**
+   * The current consent for tracking.
+   */
+  consent: boolean | null;
+  /**
+   * Configuration for the `Tagging` module.
+   */
+  config: TaggingConfig;
+}
 
 /**
  * Tagging store getters.
@@ -19,7 +29,14 @@ export interface TaggingGetters {}
  *
  * @public
  */
-export interface TaggingMutations {}
+export interface TaggingMutations {
+  /**
+   * Sets the {@link TaggingState.consent } property.
+   *
+   * @param consent - The new {@link TaggingState.consent }.
+   */
+  setConsent(consent: boolean): void;
+}
 
 /**
  * Tagging store actions.
