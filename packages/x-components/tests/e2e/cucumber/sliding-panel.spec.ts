@@ -44,8 +44,8 @@ Then('{string} sliding panel arrow is displayed', (displayedArrows: string) => {
   }
 });
 
-When('right sliding panel arrow is clicked', () => {
-  cy.getByDataTest('sliding-panel-right-button').click();
+When('{string} sliding panel arrow is clicked', (direction: string) => {
+  cy.getByDataTest(`sliding-panel-${direction}-button`).click();
 });
 
 Then('wait for the movement of the elements inside the sliding panel', () => {
