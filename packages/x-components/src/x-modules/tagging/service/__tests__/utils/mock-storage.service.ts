@@ -26,8 +26,8 @@ export class MockedStorageService extends StorageService {
     return this.getSessionIdSpy(key);
   }
 
-  setItem(key: string, item: any, ttlInMs?: number): void {
-    this.setSessionIdSpy(key, item, ttlInMs);
+  setItem(key: string, item: any, ttlMs?: number): void {
+    this.setSessionIdSpy(key, item, ttlMs);
   }
 
   removeItem<T = any>(key: string): any {
