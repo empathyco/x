@@ -85,7 +85,6 @@ function createWireMetadata(
     {
       moduleName: getXComponentXModuleName(component.xComponent),
       location: component.$location,
-      target: component.$el as HTMLElement,
       ...metadata
     },
     'component',
