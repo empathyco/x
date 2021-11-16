@@ -1,12 +1,11 @@
-import { mount, Wrapper, VueClass } from '@vue/test-utils';
+import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { Component, Inject } from 'vue-property-decorator';
-import { getDataTestSelector } from '../../__tests__/utils';
 import { FeatureLocation } from '../../types';
 import LocationInjector from '../location-injector.vue';
 
 @Component({
-  template: `<div data-test="inject"/>`
+  template: `<button/>`
 })
 class Child extends Vue {
   @Inject('location')
@@ -14,9 +13,10 @@ class Child extends Vue {
 }
 
 /**
- * Renders the `LocationInjector` component, exposing a basic API for testing.
+ * Renders the {@link LocationInjector} component, exposing a basic API for testing.
  *
  * @param options - The options to render the component with.
+ *
  * @returns The API for testing the `LocationInjector` component.
  */
 function renderLocationInjector({
@@ -42,7 +42,7 @@ function renderLocationInjector({
   );
 
   return {
-    child: wrapper.find(getDataTestSelector('inject') as VueClass<Child>)
+    child: wrapper.findComponent<Child>(Child)
   };
 }
 
@@ -56,17 +56,11 @@ describe('testing LocationInjector component', () => {
   });
 });
 
-/**
- * Options to configure how the progress bar component should be rendered.
- */
 interface RenderLocationInjectorOptions {
   /** The location to inject. */
   location: FeatureLocation;
 }
 
-/**
- * Options to configure how the location injector component should be rendered.
- */
 interface RenderLocationInjectorAPI {
   /** The wrapper for the child component inside the location injector. */
   child: Wrapper<Child>;
