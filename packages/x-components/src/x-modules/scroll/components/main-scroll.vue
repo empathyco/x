@@ -106,15 +106,7 @@
      * @returns An intersection observer to detect elements visibility.
      * @internal
      */
-    protected get intersectionObserver(): IntersectionObserver | null {
-      return typeof IntersectionObserver === 'undefined'
-        ? null
-        : new IntersectionObserver(this.updateVisibleElements, {
-            root: this.useWindow ? undefined : this.$el,
-            threshold: this.threshold,
-            rootMargin: this.margin
-          });
-    }
+    protected intersectionObserver: IntersectionObserver | null = null;
 
     /**
      * Creates an `IntersectionObserver` to detect the first visible elements. Children of this
@@ -157,6 +149,16 @@
           });
     }
 
+    /**
+     * Initialise the observer after mounting the component.
+     */
+    mounted(): void {
+      this.intersectionObserver = new IntersectionObserver(this.updateVisibleElements, {
+        root: this.useWindow ? undefined : this.$el,
+        threshold: this.threshold,
+        rootMargin: this.margin
+      });
+    }
     /**
      * Disconnects the intersection observer.
      *

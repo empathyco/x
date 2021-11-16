@@ -17,7 +17,8 @@ import Scroll from '../../src/x-modules/scroll/components/scroll.vue';
 function renderMainScroll({
   itemsCount = 10,
   threshold,
-  margin
+  margin,
+  itemHeight = '50px'
 }: RenderMainScrollOptions = {}): RenderMainScrollAPI {
   const userScrolledToElementSpy = cy.spy();
   XPlugin.bus.on('UserScrolledToElement').subscribe(userScrolledToElementSpy);
@@ -36,7 +37,7 @@ function renderMainScroll({
           tag="article"
           :item="item"
           :data-test="item.id"
-          style="height:50px">
+          style="height:${itemHeight};">
           {{ item.id }}
         </MainScrollItem>
       </Scroll>
@@ -52,7 +53,7 @@ function renderMainScroll({
   });
   return {
     scrollToItem(index) {
-      cy.getByDataTest(`item-${index}`).scrollIntoView({ easing: 'linear', duration: 50 });
+      cy.getByDataTest(`item-${index}`).scrollIntoView({ easing: 'linear', duration: 1000 });
     },
     restoreScroll(index) {
       XPlugin.bus.emit('ParamsLoadedFromUrl', <UrlParams>{ scroll: `item-${index}` });
@@ -100,22 +101,35 @@ describe('testing MainScroll component', () => {
     const { scrollToItem, userScrolledToElementSpy } = renderMainScroll({ threshold: 1 });
 
     scrollToItem(5);
+    /* The 5th element should be top aligned now. Because of the thrshold=1, it still is the first
+    visible element.  */
     userScrolledToElementSpy().should('have.been.calledWith', 'item-5');
     userScrolledToElementSpy().should('not.have.been.calledWith', 'item-6');
     cy.getByDataTest('base-scroll').then($scroll => {
+      /* By just scrolling 1 px down, as we require the 100% of the element to intersect to be
+       considered visible, the 5th element does no longer meet this condition. Therefore the 6th
+       element is considered the first one.  */
       $scroll.scrollTop($scroll.scrollTop()! + 1);
     });
     userScrolledToElementSpy().should('have.been.calledWith', 'item-6');
   });
 
   it('allows configuring the bounds of the intersection', () => {
-    const { scrollToItem, userScrolledToElementSpy } = renderMainScroll({ margin: '-25px' });
+    const { scrollToItem, userScrolledToElementSpy } = renderMainScroll({
+      margin: '-25px 0px 0px 0px',
+      threshold: 0.5,
+      itemHeight: '50px'
+    });
 
     scrollToItem(5);
+    /* The 5th element should be top aligned now. Because of the 25px negative margin, the threshold
+     set at 0.5, and its 50px height, it should still be considered the first visible element.  */
     userScrolledToElementSpy().should('have.been.calledWith', 'item-5');
     userScrolledToElementSpy().should('not.have.been.calledWith', 'item-6');
     cy.getByDataTest('base-scroll').then($scroll => {
-      $scroll.scrollTop($scroll.scrollTop()! + 25);
+      /* With this configuration, by just scrolling 1 pixel down, the first visible item should be
+       considered the 6th element. */
+      $scroll.scrollTop($scroll.scrollTop()! + 1);
     });
     userScrolledToElementSpy().should('have.been.calledWith', 'item-6');
   });
@@ -132,6 +146,8 @@ interface RenderMainScrollOptions {
   margin?: string;
   /** The percentage of an element that should be visible to consider it the first one. */
   threshold?: number;
+  /** The height of each one of the items. */
+  itemHeight?: string;
 }
 
 /**
