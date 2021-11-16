@@ -62,8 +62,8 @@
      *
      * @public
      */
-    @Prop()
-    public margin?: string;
+    @Prop({ default: '' })
+    public margin!: string;
 
     /**
      * If true (default), sets the scroll position to top when an
@@ -111,7 +111,8 @@
         ? null
         : new IntersectionObserver(this.updateVisibleElements, {
             root: this.useWindow ? undefined : this.$el,
-            threshold: this.threshold
+            threshold: this.threshold,
+            rootMargin: this.margin
           });
     }
 

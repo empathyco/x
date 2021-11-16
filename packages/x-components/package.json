@@ -55,6 +55,7 @@
     "test:e2e:ci": "vue-cli-service test:e2e --headless --browser chrome",
     "test": "npm run test:unit && npm run test:e2e:ci",
     "cypress:open": "cypress open",
+    "cypress:open:component": "cypress open-ct",
     "release": "standard-version --no-verify",
     "release:alpha": "standard-version --no-verify --prerelease alpha"
   },
