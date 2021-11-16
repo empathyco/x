@@ -23,37 +23,34 @@
 </script>
 
 <docs lang="mdx">
-## Play with props
+## Events
 
-In this example, the location provider receives a prop with the location to provide to its child
-components.
+This component doesn't emit events. However, events emitted by child components, will include the
+`location` prop value in its metadata.
+
+## See it in action
+
+In this example, the `LocationProvider` component receives the `location` prop with the
+`predictive_layer` value. This value will then be combined with the `NextQueries` feature name,
+`next_query` to create a `QueryOrigin` string, which is used for tracking the performance of the
+different tools that generate the query.
 
 ```vue
 <template>
-  <LocationProvider location="external">
-    <BaseEventButton :events="events" />
+  <LocationProvider location="predictive_layer">
+    <NextQueries />
   </LocationProvider>
 </template>
-
 <script>
-  import { BaseEventButton, LocationProvider } from '@empathyco/x-components';
-
+  import { LocationProvider } from '@empathyco/x-components';
+  import { NextQueries } from '@empathyco/x-components/next-queries';
   export default {
     name: 'LocationProviderDemo',
     components: {
-      BaseEventButton,
-      LocationProvider
-    },
-    data() {
-      return {
-        events: ['UserAcceptedAQuery']
-      };
+      LocationProvider,
+      NextQueries
     }
   };
 </script>
 ```
-
-## Events
-
-This component doesn't emit events.
 </docs>
