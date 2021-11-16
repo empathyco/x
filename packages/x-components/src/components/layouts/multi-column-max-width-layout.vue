@@ -107,7 +107,7 @@
    * @public
    */
   @Component({
-    components: { BaseIdTogglePanel, Scroll, MainScroll }
+    components: { BaseIdTogglePanel, MainScroll, Scroll }
   })
   export default class MultiColumnMaxWidthLayout extends mixins(LayoutsMixin) {
     /**

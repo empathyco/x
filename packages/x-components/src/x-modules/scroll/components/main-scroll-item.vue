@@ -9,10 +9,7 @@
   import { Component, Prop } from 'vue-property-decorator';
   import { State, xComponentMixin } from '../../../components';
   import { XInject } from '../../../components/decorators/injection.decorators';
-  import { NoElement } from '../../../components/no-element';
-  import UrlHandler from '../../url/components/url-handler.vue';
   import { scrollXModule } from '../x-module';
-  import MainScroll from './main-scroll.vue';
   import { FirstVisibleItemObserverKey } from './scroll.const';
   import { ScrollVisibilityObserver } from './scroll.types';
 
@@ -23,8 +20,7 @@
    * @public
    */
   @Component({
-    mixins: [xComponentMixin(scrollXModule)],
-    components: { UrlHandler, MainScroll, NoElement }
+    mixins: [xComponentMixin(scrollXModule)]
   })
   export default class MainScrollItem extends Vue {
     /**
@@ -115,7 +111,7 @@
 
 This components emits the following events:
 
-- [`ScrollRestored`](./../../api/x-components.xeventstypes.md)
+- [`ScrollRestoreSucceeded`](./../../api/x-components.scrollxevents.md)
 
 ## See it in action
 
@@ -131,6 +127,7 @@ of all of these components. The URL is modified as the user scrolls.
   <div>
     <UrlHandler />
     <SearchInput />
+    <BaseResultLink />
     <MainScroll>
       <Scroll>
         <ResultsList #result="{ item }">

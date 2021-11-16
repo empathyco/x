@@ -71,10 +71,7 @@
      *
      * @public
      */
-    @Prop({
-      type: Boolean,
-      default: true
-    })
+    @Prop({ type: Boolean, default: true })
     protected resetOnQueryChange!: boolean;
 
     /**
@@ -318,7 +315,7 @@ default browser scroll, you can do so by using the `use-window-scroll` prop:
 
 ```vue
 <template>
-  <MainScroll use-window>
+  <MainScroll useWindow>
     <ul>
       <MainScrollItem v-for="item in 24" tag="li">Item {{ item }}</MainScrollItem>
     </ul>
@@ -350,7 +347,7 @@ when combined with the URL X Module.
 
 ```vue
 <template>
-  <MainScroll :restore-scroll-timeout-ms="1000">
+  <MainScroll :restoreScrollTimeoutMs="1000">
     <ul>
       <MainScrollItem v-for="item in 24" tag="li">Item {{ item }}</MainScrollItem>
     </ul>
