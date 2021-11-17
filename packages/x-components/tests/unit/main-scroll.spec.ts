@@ -6,7 +6,6 @@ import { XPlugin, xPlugin } from '../../src/plugins/x-plugin';
 import { UrlParams } from '../../src/types/url-params';
 import MainScrollItem from '../../src/x-modules/scroll/components/main-scroll-item.vue';
 import MainScroll from '../../src/x-modules/scroll/components/main-scroll.vue';
-import Scroll from '../../src/x-modules/scroll/components/scroll.vue';
 
 /**
  * Renders a {@link MainScroll} component with the provided options.
@@ -25,22 +24,21 @@ function renderMainScroll({
 
   mount({
     components: {
-      Scroll,
       MainScroll,
       MainScrollItem
     },
     template: `
-      <MainScroll style="height:200px" v-bind="{ threshold, margin }">
-      <Scroll>
-        <MainScrollItem
-          v-for="item in items"
-          tag="article"
-          :item="item"
-          :data-test="item.id"
-          style="height:${itemHeight};">
-          {{ item.id }}
-        </MainScrollItem>
-      </Scroll>
+      <MainScroll v-bind="{ threshold, margin }">
+        <div style="height:200px; overflow: auto;">
+          <MainScrollItem
+            v-for="item in items"
+            tag="article"
+            :item="item"
+            :data-test="item.id"
+            style="height:${itemHeight};">
+            {{ item.id }}
+          </MainScrollItem>
+        </div>
       </MainScroll>
     `,
     data() {
@@ -101,8 +99,8 @@ describe('testing MainScroll component', () => {
     const { scrollToItem, userScrolledToElementSpy } = renderMainScroll({ threshold: 1 });
 
     scrollToItem(5);
-    /* The 5th element should be top aligned now. Because of the thrshold=1, it still is the first
-    visible element.  */
+    /* The 5th element should be top aligned now. Because of the threshold=1, it still is the first
+     visible element.  */
     userScrolledToElementSpy().should('have.been.calledWith', 'item-5');
     userScrolledToElementSpy().should('not.have.been.calledWith', 'item-6');
     cy.getByDataTest('base-scroll').then($scroll => {

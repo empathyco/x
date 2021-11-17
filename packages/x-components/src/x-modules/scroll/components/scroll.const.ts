@@ -6,5 +6,5 @@ import { ScrollVisibilityObserver } from './scroll.types';
  *
  * @internal
  */
-export const FirstVisibleItemObserverKey: XInjectKey<ScrollVisibilityObserver | null> =
+export const ScrollObserverKey: XInjectKey<ScrollVisibilityObserver | null> =
   'firstVisibleItemObserverKey';

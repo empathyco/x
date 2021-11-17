@@ -6,7 +6,7 @@
   import { XProvide } from '../../../components/decorators/injection.decorators';
   import { NoElement } from '../../../components/no-element';
   import { scrollXModule } from '../x-module';
-  import { FirstVisibleItemObserverKey } from './scroll.const';
+  import { ScrollObserverKey } from './scroll.const';
   import { ScrollVisibilityObserver } from './scroll.types';
 
   /**
@@ -66,13 +66,12 @@
     public margin!: string;
 
     /**
-     * If true (default), sets the scroll position to top when an
-     * {@link XEventsTypes.UserAcceptedAQuery} event is emitted.
+     * If true (default), sets the scroll position to the top when certain events are emitted.
      *
      * @public
      */
     @Prop({ type: Boolean, default: true })
-    protected resetOnQueryChange!: boolean;
+    protected resetOnChange!: boolean;
 
     /**
      * The elements that are currently considered visible.
@@ -112,15 +111,15 @@
      * @returns The intersection observer.
      * @public
      */
-    @XProvide(FirstVisibleItemObserverKey)
-    public get firstVisibleElementObserver(): ScrollVisibilityObserver | null {
+    @XProvide(ScrollObserverKey)
+    public get visibleElementsObserver(): ScrollVisibilityObserver | null {
       const observer = this.intersectionObserver;
       return observer
         ? {
             observe: observer.observe.bind(observer),
             unobserve: element => {
               this.removeVisibleElement(element);
-              observer.observe(element);
+              observer.unobserve(element);
             }
           }
         : null;
@@ -221,7 +220,7 @@
       'SelectedRelatedTagsChanged'
     ])
     resetScroll(): void {
-      if (this.resetOnQueryChange) {
+      if (this.resetOnChange) {
         const target = this.useWindow ? window : this.$el;
         target.scrollTo({ top: 0 });
       }
@@ -311,7 +310,7 @@ it injects the needed utilities to determine the first visible item.
 #### Window scroll
 
 In case you aren't using a custom scrolling element like the `Scroll` panel, and want to use the
-default browser scroll, you can do so by using the `use-window-scroll` prop:
+default browser scroll, you can do so by using the `useWindow` prop:
 
 ```vue
 <template>

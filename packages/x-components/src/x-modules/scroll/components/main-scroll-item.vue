@@ -7,10 +7,10 @@
   import { Identifiable } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { State, xComponentMixin } from '../../../components';
+  import { NoElement, State, xComponentMixin } from '../../../components';
   import { XInject } from '../../../components/decorators/injection.decorators';
   import { scrollXModule } from '../x-module';
-  import { FirstVisibleItemObserverKey } from './scroll.const';
+  import { ScrollObserverKey } from './scroll.const';
   import { ScrollVisibilityObserver } from './scroll.types';
 
   /**
@@ -43,8 +43,8 @@
      *
      * @public
      */
-    @Prop({ default: 'NoElement' })
-    public tag!: string;
+    @Prop({ default: () => NoElement })
+    public tag!: string | typeof Vue;
 
     /**
      * Pending identifier scroll position to restore. If it matches the {@link MainScrollItem.item}
@@ -60,7 +60,7 @@
      *
      * @internal
      */
-    @XInject(FirstVisibleItemObserverKey)
+    @XInject(ScrollObserverKey)
     public firstVisibleItemObserver!: ScrollVisibilityObserver | null;
 
     /**
