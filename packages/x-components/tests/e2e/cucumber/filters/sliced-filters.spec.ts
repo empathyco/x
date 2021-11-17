@@ -76,7 +76,7 @@ Then(
     cy.getByDataTest(`${facetName}-selected-filters`)
       .invoke('text')
       .should(text => {
-        expect(text.trim()).to.eq(selectedFiltersNumber.toString());
+        expect(text).to.contain(selectedFiltersNumber);
       });
   }
 );

@@ -1,7 +1,11 @@
 Feature: Sliced Filters components
 
   Background:
-    Given a results API with a known response
+    Given a next queries API
+    And   a suggestions API
+    And   a related tags API
+    And   a recommendations API with a known response
+    And   a results API with a known response
 
   Scenario Outline: 1. Filters received in a facet are more than slicedFiltersMax
     Given following config: max of sliced filters <slicedFiltersMax>

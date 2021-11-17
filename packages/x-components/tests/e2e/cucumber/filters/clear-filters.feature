@@ -29,8 +29,7 @@ Feature: Clear selected filters
     And   filter number <filter> is clicked in facet "<facetName3>"
     Then  related results are displayed
     When  clear search button is pressed
-    Then  number of displayed recommendations are equal or less than <maxItemsToRequest>
-    And   no filters are selected
+    Then  no filters are selected
     Examples:
       | query | filter | facetName    | facetName2 | facetName3  | maxItemsToRequest |
       | lego  | 0      | brand_facet  | age_facet  | price_facet | 5                 |

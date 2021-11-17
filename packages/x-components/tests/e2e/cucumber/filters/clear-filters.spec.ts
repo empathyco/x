@@ -9,22 +9,16 @@ And(
   'filters {string} are shown in the selected filters list',
   function (this: any, clickedFiltersIndex: string) {
     const clickedFiltersIndexList = clickedFiltersIndex.split(', ');
-    for (let i = 0; i < clickedFiltersIndexList.length; i++) {
-      cy.getByDataTest('selected-filters-list').should(
-        'contain',
-        this[`clickedFilter${clickedFiltersIndexList[i]}`]
-      );
-    }
+    clickedFiltersIndexList.forEach(index => {
+      cy.getByDataTest('selected-filters-list').should('contain', this[`clickedFilter${index}`]);
+    });
   }
 );
 
 Then('no filters are selected', () => {
-  cy.getByDataTest('age_facet-filter').should('not.have.class', 'x-filter--is-selected');
-  cy.getByDataTest('price_facet-filter').should('not.have.class', 'x-filter--is-selected');
-  cy.getByDataTest('hierarchical_category-filter').should(
-    'not.have.class',
-    'x-filter--is-selected'
-  );
+  ['age_facet-filter', 'price_facet-filter', 'hierarchical_category-filter'].forEach(facetName => {
+    cy.getByDataTest(facetName).should('not.have.class', 'x-filter--is-selected');
+  });
 });
 
 // Scenario 3
