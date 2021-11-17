@@ -1,7 +1,6 @@
 import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 let initialRelatedTags: string[] = [];
-let finalRelatedTags: string[] = [];
 
 /**
  * Function to calculate if an element is visible inside a scroll.
@@ -66,14 +65,17 @@ Then('only some related tags are visible', () => {
 });
 
 Then('visible related tags have changed', () => {
-  finalRelatedTags = [];
   cy.getByDataTest('sliding-panel-scroll').then($scroll => {
     cy.getByDataTest('related-tag-item')
       .filter((_index, $element) => isElementVisible($element, $scroll.get(0)))
-      .each($element => finalRelatedTags.push($element.get(0).textContent ?? ''))
-      .then(() => {
-        const expected = initialRelatedTags.some(rt => !finalRelatedTags.includes(rt));
-        expect(expected).to.be.true;
+      .should($newRelatedTags => {
+        const newRelatedTags = $newRelatedTags
+          .map((_index, $relatedTag) => $relatedTag.textContent ?? '')
+          .toArray();
+        const areRelatedTagsDifferent = initialRelatedTags.some(
+          relatedTag => !newRelatedTags.includes(relatedTag)
+        );
+        expect(areRelatedTagsDifferent).to.be.true;
       });
   });
 });
