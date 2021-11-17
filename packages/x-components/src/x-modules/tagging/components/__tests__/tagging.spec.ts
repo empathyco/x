@@ -11,7 +11,8 @@ function renderTagging({
   template = `<Tagging
                 :consent="consent"
                 :sessionTTLMs="sessionTTLMs"
-                :queryTaggingDebounceMs="queryTaggingDebounceMs"/>`,
+                :queryTaggingDebounceMs="queryTaggingDebounceMs"
+              />`,
   consent,
   sessionTTLMs,
   queryTaggingDebounceMs,
@@ -25,7 +26,7 @@ function renderTagging({
       components: {
         Tagging
       },
-      props: ['consent', 'snippetConfig', 'sessionTTLMs', 'queryTaggingDebounceMs'],
+      props: ['consent', 'queryTaggingDebounceMs', 'sessionTTLMs', 'snippetConfig'],
       template
     },
     {
@@ -102,10 +103,10 @@ describe('testing Tagging component', () => {
   });
 
   it('emits ConsentProvided when the consent is set using the snippet config', async () => {
-    const snippet = Vue.observable<SnippetConfig>({
+    const snippet = {
       ...baseSnippetConfig,
       consent: false
-    });
+    };
 
     const { wrapper, on } = renderTagging({
       snippetConfig: snippet
@@ -126,19 +127,19 @@ describe('testing Tagging component', () => {
 interface RenderTaggingOptions {
   /** The consent value. */
   consent?: boolean;
-  /** The template to be rendered. */
-  template?: string;
+  /** The query tagging debounce value. */
+  queryTaggingDebounceMs?: number;
   /** The snippet config value. */
   snippetConfig?: SnippetConfig;
   /** The session duration value. */
   sessionTTLMs?: number;
-  /** The query tagging debounce value. */
-  queryTaggingDebounceMs?: number;
+  /** The template to be rendered. */
+  template?: string;
 }
 
 interface RenderTaggingAPI {
-  /** The wrapper of the container element. */
-  wrapper: Wrapper<Vue>;
   /** The {@link XComponentBusAPI.on} method to subscribe events. */
   on: XComponentBusAPI['on'];
+  /** The wrapper of the container element. */
+  wrapper: Wrapper<Vue>;
 }

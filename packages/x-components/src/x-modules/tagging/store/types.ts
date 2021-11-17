@@ -36,15 +36,15 @@ export interface TaggingMutations {
    */
   setConsent(consent: boolean): void;
   /**
-   * Sets the {@link TaggingState.config.sessionTTLMs } property.
+   * Sets the {@link TaggingConfig.sessionTTLMs } property.
    *
-   * @param sessionTTLMs - The new {@link TaggingState.config.sessionTTLMs }.
+   * @param sessionTTLMs - The new {@link TaggingConfig.sessionTTLMs }.
    */
   setSessionDuration(sessionTTLMs: number): void;
   /**
-   * Sets the {@link TaggingState.config.queryTaggingDebounceMs } property.
+   * Sets the {@link TaggingConfig.queryTaggingDebounceMs } property.
    *
-   * @param queryTaggingDebounceMs - The new {@link TaggingState.config.queryTaggingDebounceMs }.
+   * @param queryTaggingDebounceMs - The new {@link TaggingConfig.queryTaggingDebounceMs }.
    */
   setQueryTaggingDebounce(queryTaggingDebounceMs: number): void;
 }

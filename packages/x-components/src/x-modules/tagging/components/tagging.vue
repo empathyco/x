@@ -48,6 +48,9 @@
      * The active consent, selected from the `consent` prop and the `snippetConfig.consent`
      * property. False by default.
      *
+     * @remarks If the consent is undefined in the prop and in the snippetConfig, it will return
+     * false.
+     *
      * @returns A boolean that represents if the consent is accepted or not.
      */
     @XEmit('ConsentProvided')
@@ -94,9 +97,9 @@ doesn't render elements to the DOM.
 
 ### Play with props
 
-In this example, the `Tagging` component will emit `ConsentProvided` only if the consent is set to
-true, the `SessionDurationProvided` and `QueryTaggingDebounceProvided` events will be emitted only
-if the props are defined.
+In this example, the `Tagging` component will emit `ConsentProvided` with payload false by default
+if the consent is not provided, the `SessionDurationProvided` and `QueryTaggingDebounceProvided`
+events will be emitted only if the props are defined.
 
 ```vue
 <template>
