@@ -161,6 +161,7 @@ Given('a second results API with a known response', () => {
     req.reply(<SearchResponse>{
       banners: [],
       promoteds: [],
+      facets: [],
       results: [
         createResultStub('LEGO Duplo Disney Tren de Cumpleaños de Mickey y Minnie - 10941', {
           images: ['https://picsum.photos/seed/8/100/100']
@@ -168,7 +169,15 @@ Given('a second results API with a known response', () => {
         createResultStub('LEGO Disney Granja de Mickey Mouse y el Pato Donald - 10775', {
           images: ['https://picsum.photos/seed/10/100/100']
         })
-      ]
+      ],
+      redirections: [],
+      partialResults: [],
+      totalResults: 7,
+      queryTagging: {
+        url: 'https://tagging.empathy.co',
+        params: {}
+      },
+      spellcheck: ''
     });
   }).as('interceptedNewResults');
 });

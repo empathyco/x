@@ -46,8 +46,7 @@ Given('a results API with broken images', () => {
             value: 59.99
           }
         })
-      ],
-      totalResults: 3
+      ]
     });
   }).as('interceptedFallbackResults');
 });
