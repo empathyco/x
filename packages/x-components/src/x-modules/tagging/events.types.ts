@@ -11,8 +11,18 @@ export interface TaggingXEvents {
    */
   ConsentChanged: boolean;
   /**
-   * Page has been provided.
+   * Consent has been provided.
    * * Payload: The new consent value.
    */
   ConsentProvided: boolean;
+  /**
+   * Query tagging debounce has been provided.
+   * * Payload: The new query tagging debounce value.
+   */
+  QueryTaggingDebounceProvided: number;
+  /**
+   * Session duration has been provided.
+   * * Payload: The new session duration value.
+   */
+  SessionDurationProvided: number;
 }

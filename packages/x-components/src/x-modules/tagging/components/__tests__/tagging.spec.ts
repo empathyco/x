@@ -1,6 +1,5 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { Component, Prop, Provide } from 'vue-property-decorator';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XComponentBusAPI } from '../../../../plugins/x-plugin.types';
@@ -8,34 +7,35 @@ import { baseSnippetConfig } from '../../../../views/base-config';
 import { SnippetConfig } from '../../../../x-installer/api/api.types';
 import Tagging from '../../../tagging/components/tagging.vue';
 
-@Component({
-  template: `<div><slot/></div>`
-})
-class Provider extends Vue {
-  @Prop({ default: baseSnippetConfig })
-  @Provide()
-  public snippetConfig!: SnippetConfig;
-}
-
 function renderTagging({
-  template = `<Provider :snippetConfig="snippetConfig"><Tagging :consent="consent"/></Provider>`,
-  consent = undefined,
-  snippetConfig = baseSnippetConfig
+  template = `<Tagging
+                :consent="consent"
+                :sessionTTLMs="sessionTTLMs"
+                :queryTaggingDebounceMs="queryTaggingDebounceMs"/>`,
+  consent,
+  sessionTTLMs,
+  queryTaggingDebounceMs,
+  snippetConfig = { ...baseSnippetConfig, consent }
 }: RenderTaggingOptions = {}): RenderTaggingAPI {
   const [, localVue] = installNewXPlugin();
+  snippetConfig = localVue.observable(snippetConfig);
 
   const wrapper = mount(
     {
       components: {
-        Tagging,
-        Provider
+        Tagging
       },
-      props: ['consent', 'snippetConfig'],
+      props: ['consent', 'snippetConfig', 'sessionTTLMs', 'queryTaggingDebounceMs'],
       template
     },
     {
+      provide: {
+        snippetConfig
+      },
       propsData: {
         consent,
+        queryTaggingDebounceMs,
+        sessionTTLMs,
         snippetConfig
       },
       localVue
@@ -55,47 +55,71 @@ describe('testing Tagging component', () => {
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('tagging');
   });
 
-  it('emits ConsentProvided when the consent is set and send it by prop', () => {
+  it('emits ConsentProvided when the consent is set using the prop', () => {
     const { on } = renderTagging({ consent: true });
     const eventSpy = jest.fn();
 
     on('ConsentProvided').subscribe(eventSpy);
+
+    expect(eventSpy).toHaveBeenCalledTimes(1);
     expect(eventSpy).toHaveBeenNthCalledWith(1, true);
   });
 
-  it("doesn't emit ConsentProvided when the consent is undefined send it by prop", () => {
-    const { on } = renderTagging();
+  it('emits SessionDurationProvided when the session duration is set using the prop', () => {
+    const { on } = renderTagging({ sessionTTLMs: 100 });
     const eventSpy = jest.fn();
 
-    on('ConsentProvided').subscribe(eventSpy);
-    expect(eventSpy).not.toHaveBeenCalled();
+    on('SessionDurationProvided').subscribe(eventSpy);
+
+    expect(eventSpy).toHaveBeenCalledTimes(1);
+    expect(eventSpy).toHaveBeenNthCalledWith(1, 100);
+  });
+
+  it('emits QueryTaggingDebounceProvided when the query debounce is set using the prop', () => {
+    const { on } = renderTagging({ queryTaggingDebounceMs: 150 });
+    const eventSpy = jest.fn();
+
+    on('QueryTaggingDebounceProvided').subscribe(eventSpy);
+
+    expect(eventSpy).toHaveBeenCalledTimes(1);
+    expect(eventSpy).toHaveBeenNthCalledWith(1, 150);
   });
 
   // eslint-disable-next-line max-len
-  it('emits ConsentProvided when the consent is provided and send it using the snippet config', async () => {
-    const snippet = Vue.observable({
+  it('emits ConsentProvided with payload false when the consent prop and the snippet config consent are undefined', () => {
+    const { on } = renderTagging({
+      consent: undefined,
+      snippetConfig: {
+        ...baseSnippetConfig,
+        consent: undefined
+      }
+    });
+    const eventSpy = jest.fn();
+
+    on('ConsentProvided').subscribe(eventSpy);
+    expect(eventSpy).toHaveBeenCalledTimes(1);
+    expect(eventSpy).toHaveBeenNthCalledWith(1, false);
+  });
+
+  it('emits ConsentProvided when the consent is set using the snippet config', async () => {
+    const snippet = Vue.observable<SnippetConfig>({
       ...baseSnippetConfig,
       consent: false
-    } as SnippetConfig & { consent?: boolean });
+    });
+
     const { wrapper, on } = renderTagging({
       snippetConfig: snippet
     });
     const eventSpy = jest.fn();
 
     on('ConsentProvided').subscribe(eventSpy);
-    expect(eventSpy).not.toHaveBeenCalled();
+    expect(eventSpy).toHaveBeenCalledTimes(1);
+    expect(eventSpy).toHaveBeenNthCalledWith(1, false);
 
     snippet.consent = true;
     await wrapper.vm.$nextTick();
-    expect(eventSpy).toHaveBeenNthCalledWith(1, true);
-
-    snippet.consent = false;
-    await wrapper.vm.$nextTick();
-    expect(eventSpy).toHaveBeenNthCalledWith(2, false);
-
-    snippet.consent = undefined;
-    await wrapper.vm.$nextTick();
     expect(eventSpy).toHaveBeenCalledTimes(2);
+    expect(eventSpy).toHaveBeenNthCalledWith(2, true);
   });
 });
 
@@ -106,6 +130,10 @@ interface RenderTaggingOptions {
   template?: string;
   /** The snippet config value. */
   snippetConfig?: SnippetConfig;
+  /** The session duration value. */
+  sessionTTLMs?: number;
+  /** The query tagging debounce value. */
+  queryTaggingDebounceMs?: number;
 }
 
 interface RenderTaggingAPI {

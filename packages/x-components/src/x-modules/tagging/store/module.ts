@@ -8,13 +8,19 @@ import { TaggingXStoreModule } from './types';
 export const taggingXStoreModule: TaggingXStoreModule = {
   state: () => ({
     config: {
-      sessionTTLInMs: 30 * 60 * 1000,
+      sessionTTLMs: 30 * 60 * 1000,
       queryTaggingDebounceMs: 200
     },
     consent: null
   }),
   getters: {},
   mutations: {
+    setSessionDuration(state, sessionTTLMs) {
+      state.config.sessionTTLMs = sessionTTLMs;
+    },
+    setQueryTaggingDebounce(state, queryTaggingDebounceMs) {
+      state.config.queryTaggingDebounceMs = queryTaggingDebounceMs;
+    },
     setConsent(state, consent) {
       state.consent = consent;
     }

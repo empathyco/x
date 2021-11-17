@@ -1,69 +1,64 @@
 <script lang="ts">
-import Vue from 'vue';
-import { Component, Inject, Prop, Watch } from 'vue-property-decorator';
-import { xComponentMixin } from '../../../components/x-component.mixin';
-import { SnippetConfig } from '../../../x-installer/api/api.types';
-import { taggingXModule } from '../x-module';
+  import Vue from 'vue';
+  import { Component, Inject, Prop } from 'vue-property-decorator';
+  import { XEmit } from '../../../components/decorators/bus.decorators';
+  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { SnippetConfig } from '../../../x-installer/api/api.types';
+  import { taggingXModule } from '../x-module';
 
-@Component({
-  mixins: [xComponentMixin(taggingXModule)]
-})
-export default class Tagging extends Vue {
-  /**
-   * It injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
-   *
-   * @internal
-   */
-  @Inject('snippetConfig')
-  protected snippetConfig!: SnippetConfig;
+  @Component({
+    mixins: [xComponentMixin(taggingXModule)]
+  })
+  export default class Tagging extends Vue {
+    /**
+     * It injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
+     *
+     * @internal
+     */
+    @Inject('snippetConfig')
+    protected snippetConfig?: SnippetConfig;
 
-  /**
-   * The consent to be emitted.
-   *
-   * @public
-   */
-  @Prop({ default: undefined })
-  protected consent!: boolean | undefined;
+    /**
+     * The session TTL in milliseconds.
+     *
+     * @internal
+     */
+    @Prop()
+    @XEmit('SessionDurationProvided')
+    public sessionTTLMs: number | undefined;
 
-  /**
-   * Emits the consent passed as prop.
-   *
-   * @internal
-   */
-  mounted(): void {
-    this.emitConsentProvided(this.consent);
-  }
+    /**
+     * The debounce time in milliseconds to track the query.
+     *
+     * @internal
+     */
+    @Prop()
+    @XEmit('QueryTaggingDebounceProvided')
+    public queryTaggingDebounceMs: number | undefined;
 
-  /**
-   *  Emits the event {@link TaggingXEvents.ConsentProvided} when the snippet config consent changed.
-   *
-   * @param consent - The new consent value.
-   *
-   * @internal
-   */
-  @Watch('snippetConfig.consent')
-  consentChanged(consent: boolean): void {
-    this.emitConsentProvided(consent);
-  }
+    /**
+     * The consent to be emitted.
+     *
+     * @public
+     */
+    @Prop()
+    protected consent?: boolean;
 
-  /**
-   * Emits the event {@link TaggingXEvents.ConsentProvided} if it is not undefined.
-   *
-   * @param value - The consent to be emitted.
-   *
-   * @internal
-   */
-  protected emitConsentProvided(value: boolean): void {
-    if (value !== undefined) {
-      this.$x.emit('ConsentProvided', value);
+    /**
+     * The active consent, selected from the `consent` prop and the `snippetConfig.consent`
+     * property. False by default.
+     *
+     * @returns A boolean that represents if the consent is accepted or not.
+     */
+    @XEmit('ConsentProvided')
+    public get activeConsent(): boolean {
+      return this.consent ?? this.snippetConfig?.consent ?? false;
     }
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    render(): void {}
   }
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  render(): void {}
-}
 </script>
-
 
 <docs lang="mdx">
 ## Events
@@ -71,11 +66,14 @@ export default class Tagging extends Vue {
 This component emits the following events:
 
 - [`ConsentProvided`](./../../api/x-components.taggingxevents.consentprovided.md)
+- [`SessionDurationProvided`](./../../api/x-components.taggingxevents.sessiondurationprovided.md)
+- `QueryTaggingDebounceProvided`[1]
+  [1](./../../api/x-components.taggingxevents.querytaggingdebounceprovided.md)
 
 ## See it in action
 
-This component manages the tagging of the API to track the different features. This
-component doesn't render elements to the DOM.
+This component manages the tagging of the API to track the different features. This component
+doesn't render elements to the DOM.
 
 ```vue
 <template>
@@ -96,11 +94,13 @@ component doesn't render elements to the DOM.
 
 ### Play with props
 
-In this example, the `Tagging` component will emit `ConsentProvided` only if the consent is set to true.
+In this example, the `Tagging` component will emit `ConsentProvided` only if the consent is set to
+true, the `SessionDurationProvided` and `QueryTaggingDebounceProvided` events will be emitted only
+if the props are defined.
 
 ```vue
 <template>
-  <Tagging :consent="true" />
+  <Tagging :consent="true" :queryTaggingDebounceMs="300" :sessionDurationMs="30000" />
 </template>
 
 <script>
@@ -117,6 +117,12 @@ In this example, the `Tagging` component will emit `ConsentProvided` only if the
 
 ### Play with events
 
-The `Tagging` will emit the `ConsentProvided` when the component is loaded and the consent is set
-by the prop or getting the value from the snippet config.
+The `Tagging` will emit the `ConsentProvided` when the component is loaded and the consent is set by
+the prop or getting the value from the snippet config.
+
+The `Tagging` will emit the `SessionDurationProvided` when the component is loaded with a session
+duration using the prop.
+
+The `Tagging` will emit the `QueryTaggingDebounceProvided` when the component is loaded with query
+debounce using the prop.
 </docs>
