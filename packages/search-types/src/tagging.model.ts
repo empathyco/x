@@ -22,6 +22,8 @@ export interface Tagging {
   click?: TaggingInfo;
   /** {@link TaggingInfo | query tagging}. */
   query?: TaggingInfo;
+  /** {@link TaggingInfo | wishlist tagging}. */
+  wishlist?: TaggingInfo;
   /** Any other {@link TaggingInfo | tagging } key-value. */
   [key: string]: TaggingInfo | undefined;
 }

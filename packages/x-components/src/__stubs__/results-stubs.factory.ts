@@ -52,7 +52,7 @@ export function createResultStub(name: string, result?: Partial<Result>): Result
 }
 
 /**
- * Function to create a {@link @empathyco/x-types#TaggingInfo | result tagging} mocked object
+ * Function to create a {@link @empathyco/x-types#Tagging | result tagging} mocked object
  * based on result id.
  *
  * @param productId - Product id to build mocked params.
