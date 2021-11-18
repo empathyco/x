@@ -1,4 +1,11 @@
-import { BannerSchema, FacetSchema, PromotedSchema, RedirectionSchema, ResultSchema, TaggingSchema } from '@empathyco/x-types/schemas';
+import {
+  BannerSchema,
+  FacetSchema,
+  PromotedSchema,
+  RedirectionSchema,
+  ResultSchema,
+  TaggingInfoSchema
+} from '@empathyco/x-types/schemas';
 import { SearchResponse } from '../../../types';
 import { SearchWithPartialsResponse } from '../../__fixtures__/responses/search-with-partials.response';
 import { SearchSimpleResponse } from '../../__fixtures__/responses/search.response';
@@ -18,7 +25,7 @@ it('searches successfully', async () => {
 
   expect(response.totalResults).toEqual(SearchSimpleResponse.content.numFound);
   expect(response).not.toHaveProperty('spellcheck');
-  expect(response.queryTagging).toMatchObject(TaggingSchema);
+  expect(response.queryTagging).toMatchObject(TaggingInfoSchema);
   expect(response.results).everyItemToMatch(ResultSchema);
   expect(response.results.length).toBeGreaterThan(0);
   expect(response.results).toHaveLength(SearchSimpleResponse.content.docs.length);
@@ -37,7 +44,9 @@ it('searches partials successfully', async () => {
   const response = await adapter.search(baseRequest);
 
   expect(response.partialResults.length).toBeGreaterThan(0);
-  expect(response.partialResults).toHaveLength(SearchWithPartialsResponse.content.suggestions.length);
+  expect(response.partialResults).toHaveLength(
+    SearchWithPartialsResponse.content.suggestions.length
+  );
   expectEveryPartialResultToMatchSchema(response);
 });
 
