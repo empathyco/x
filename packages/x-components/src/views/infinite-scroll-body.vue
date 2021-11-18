@@ -59,6 +59,7 @@
 
   body {
     overflow: auto;
+    box-sizing: border-box;
     border: 2px solid darkorange;
   }
 
