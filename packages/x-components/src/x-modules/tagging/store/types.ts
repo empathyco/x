@@ -1,11 +1,20 @@
 import { XStoreModule } from '../../../store';
-
+import { TaggingConfig } from '../config.types';
 /**
  * Tagging store state.
  *
  * @public
  */
-export interface TaggingState {}
+export interface TaggingState {
+  /**
+   * The current consent for tracking.
+   */
+  consent: boolean | null;
+  /**
+   * Configuration for the `Tagging` module.
+   */
+  config: TaggingConfig;
+}
 
 /**
  * Tagging store getters.
@@ -19,7 +28,26 @@ export interface TaggingGetters {}
  *
  * @public
  */
-export interface TaggingMutations {}
+export interface TaggingMutations {
+  /**
+   * Sets the {@link TaggingState.consent } property.
+   *
+   * @param consent - The new {@link TaggingState.consent }.
+   */
+  setConsent(consent: boolean): void;
+  /**
+   * Sets the {@link TaggingConfig.sessionTTLMs } property.
+   *
+   * @param sessionTTLMs - The new {@link TaggingConfig.sessionTTLMs }.
+   */
+  setSessionDuration(sessionTTLMs: number): void;
+  /**
+   * Sets the {@link TaggingConfig.queryTaggingDebounceMs } property.
+   *
+   * @param queryTaggingDebounceMs - The new {@link TaggingConfig.queryTaggingDebounceMs }.
+   */
+  setQueryTaggingDebounce(queryTaggingDebounceMs: number): void;
+}
 
 /**
  * Tagging store actions.

@@ -5,6 +5,7 @@ module.exports = {
     project: 'tsconfig.eslint.json'
   },
   rules: {
-    'no-dupe-class-members': 'off'
+    'no-dupe-class-members': 'off',
+    '@typescript-eslint/no-unused-vars-experimental': 'off'
   }
 };

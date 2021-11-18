@@ -1,12 +1,21 @@
+import { SearchResponse } from '@empathyco/x-adapter';
 import { And, Given, Then } from 'cypress-cucumber-preprocessor/steps';
 import { createResultStub } from '../../../src/__stubs__/results-stubs.factory';
 
 Given('a results API with broken images', () => {
   cy.intercept('https://api.empathy.co/search', req => {
-    req.reply({
+    req.reply(<SearchResponse>{
       banners: [],
       promoteds: [],
+      redirections: [],
       facets: [],
+      totalResults: 3,
+      partialResults: [],
+      spellcheck: '',
+      queryTagging: {
+        url: 'https://tagging.empathy.co',
+        params: {}
+      },
       results: [
         createResultStub('Result 1', {
           images: ['https://picsum.photos/seed/18/100/100', 'https://picsum.photos/seed/2/100/100'],
@@ -37,8 +46,7 @@ Given('a results API with broken images', () => {
             value: 59.99
           }
         })
-      ],
-      totalResults: 3
+      ]
     });
   }).as('interceptedFallbackResults');
 });

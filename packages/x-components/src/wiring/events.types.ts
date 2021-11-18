@@ -14,6 +14,7 @@ import { RelatedTagsXEvents } from '../x-modules/related-tags/events.types';
 import { ScrollXEvents } from '../x-modules/scroll/events.types';
 import { SearchBoxXEvents } from '../x-modules/search-box/events.types';
 import { SearchXEvents } from '../x-modules/search/events.types';
+import { TaggingXEvents } from '../x-modules/tagging/events.types';
 import { UrlXEvents } from '../x-modules/url/events.types';
 
 /**
@@ -37,6 +38,7 @@ import { UrlXEvents } from '../x-modules/url/events.types';
  * * {@link ScrollXEvents},
  * * {@link SearchBoxXEvents}
  * * {@link SearchXEvents}
+ * * {@link TaggingXEvents}
  * * {@link UrlXEvents}
  *
  * @public
@@ -56,6 +58,7 @@ export interface XEventsTypes
     ScrollXEvents,
     SearchBoxXEvents,
     SearchXEvents,
+    TaggingXEvents,
     UrlXEvents {
   /**
    * The search adapter configuration has changed

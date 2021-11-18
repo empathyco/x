@@ -1,3 +1,4 @@
+import { RelatedTagsResponse } from '@empathyco/x-adapter';
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { createRelatedTagStub } from '../../../../src/__stubs__';
 
@@ -7,7 +8,7 @@ const secondRelatedTagsList: string[] = [];
 // Background
 Given('a related tags API with a known response', () => {
   cy.intercept('https://api.empathy.co/getRelatedTags', req => {
-    req.reply({
+    req.reply(<RelatedTagsResponse>{
       relatedTags: [
         createRelatedTagStub('lego', 'marvel'),
         createRelatedTagStub('lego', 'bombero'),
@@ -19,9 +20,9 @@ Given('a related tags API with a known response', () => {
 
 Given('a related tags API with a selected one', () => {
   cy.intercept('https://api.empathy.co/getRelatedTags', req => {
-    req.reply({
+    req.reply(<RelatedTagsResponse>{
       relatedTags: [
-        createRelatedTagStub('lego', 'bombero', true),
+        createRelatedTagStub('lego', 'bombero', { selected: true }),
         createRelatedTagStub('lego', 'policia'),
         createRelatedTagStub('lego', 'barbie')
       ]

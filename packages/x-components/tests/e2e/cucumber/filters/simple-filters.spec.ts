@@ -38,14 +38,3 @@ Then(
       .should(`${isSelected ? '' : 'not.'}to.have.class`, 'x-filter--is-selected');
   }
 );
-
-// Scenario 3
-When('clear filters button is clicked', () => {
-  cy.getByDataTest('clear-filters').click();
-});
-
-Then('no filters are selected', () => {
-  cy.getByDataTest('brand_facet-filter').should('not.have.class', 'x-filter--is-selected');
-  cy.getByDataTest('age_facet-filter').should('not.have.class', 'x-filter--is-selected');
-  cy.getByDataTest('price_facet-filter').should('not.have.class', 'x-filter--is-selected');
-});

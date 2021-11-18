@@ -23,6 +23,7 @@ export { default as ItemsList } from './items-list.vue';
 export { default as StaggeringTransitionGroup } from './staggering-transition-group.vue';
 export { default as MultiColumnMaxWidthLayout } from './layouts/multi-column-max-width-layout.vue';
 export { default as SingleColumnLayout } from './layouts/single-column-layout.vue';
+export { default as LocationProvider } from './location-provider.vue';
 
 // Utils
 export * from './decorators/bus.decorators';

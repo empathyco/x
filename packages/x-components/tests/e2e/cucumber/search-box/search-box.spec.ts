@@ -1,3 +1,4 @@
+import { SearchResponse } from '@empathyco/x-adapter';
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { createResultStub } from '../../../../src/__stubs__';
 import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
@@ -157,9 +158,10 @@ And('related tags are displayed after instantDebounceInMs is {boolean}', (instan
 // Scenario 4
 Given('a second results API with a known response', () => {
   cy.intercept('https://api.empathy.co/search', req => {
-    req.reply({
+    req.reply(<SearchResponse>{
       banners: [],
       promoteds: [],
+      facets: [],
       results: [
         createResultStub('LEGO Duplo Disney Tren de Cumpleaños de Mickey y Minnie - 10941', {
           images: ['https://picsum.photos/seed/8/100/100']
@@ -167,7 +169,15 @@ Given('a second results API with a known response', () => {
         createResultStub('LEGO Disney Granja de Mickey Mouse y el Pato Donald - 10775', {
           images: ['https://picsum.photos/seed/10/100/100']
         })
-      ]
+      ],
+      redirections: [],
+      partialResults: [],
+      totalResults: 7,
+      queryTagging: {
+        url: 'https://tagging.empathy.co',
+        params: {}
+      },
+      spellcheck: ''
     });
   }).as('interceptedNewResults');
 });

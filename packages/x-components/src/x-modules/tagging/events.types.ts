@@ -4,4 +4,25 @@
  *
  * @public
  */
-export interface TaggingXEvents {}
+export interface TaggingXEvents {
+  /**
+   * Consent has changed.
+   * * Payload: The new consent value.
+   */
+  ConsentChanged: boolean;
+  /**
+   * Consent has been provided.
+   * * Payload: The new consent value.
+   */
+  ConsentProvided: boolean;
+  /**
+   * Query tagging debounce has been provided.
+   * * Payload: The new query tagging debounce value.
+   */
+  QueryTaggingDebounceProvided: number;
+  /**
+   * Session duration has been provided.
+   * * Payload: The new session duration value.
+   */
+  SessionDurationProvided: number;
+}

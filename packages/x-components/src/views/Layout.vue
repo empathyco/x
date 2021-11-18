@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Tagging :consent="false" />
     <ExtraParams :values="initialExtraParams" />
     <UrlHandler query="q" store="store" />
     <BaseEventsModalOpen>Start</BaseEventsModalOpen>
@@ -269,7 +270,11 @@
                           :max="controls.slicedFilters.max"
                           :data-test="`${facet.label}-sliced-filters`"
                         >
-                          <SelectedFilters :facetId="facet.id" />
+                          <SelectedFilters #default="{ selectedFilters }" :facetId="facet.id">
+                            <span :data-test="`${facet.label}-selected-filters`">
+                              {{ selectedFilters.length }}
+                            </span>
+                          </SelectedFilters>
                           <FiltersList v-slot="{ filter }">
                             <SimpleFilter
                               #label
@@ -573,6 +578,7 @@
   import SortList from '../x-modules/search/components/sort-list.vue';
   import SpellcheckButton from '../x-modules/search/components/spellcheck-button.vue';
   import Spellcheck from '../x-modules/search/components/spellcheck.vue';
+  import Tagging from '../x-modules/tagging/components/tagging.vue';
   import UrlHandler from '../x-modules/url/components/url-handler.vue';
 
   @Component({
@@ -656,6 +662,7 @@
       SortedFilters,
       Spellcheck,
       SpellcheckButton,
+      Tagging,
       UrlHandler
     }
   })
