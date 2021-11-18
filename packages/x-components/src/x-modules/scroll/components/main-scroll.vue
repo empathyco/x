@@ -23,13 +23,6 @@
   /* eslint-disable @typescript-eslint/unbound-method */
   export default class MainScroll extends NoElement {
     /**
-     * The reference to the HTML node that has the scroll.
-     *
-     * @public
-     */
-    public $el!: HTMLElement;
-
-    /**
      * If `true`, sets this scroll instance to the main of the application. Being the main
      * scroll implies that features like restoring the scroll when the query changes, or storing
      * the scroll position in the URL will be enabled for this container.

@@ -127,13 +127,15 @@ of all of these components. The URL is modified as the user scrolls.
   <div>
     <UrlHandler />
     <SearchInput />
-    <BaseResultLink />
+
     <MainScroll>
       <Scroll>
         <ResultsList #result="{ item }">
-          <MainScrollItem :item="item">
-            <img :src="item.images[0]" />
-            <p>{{ item.title }}</p>
+          <MainScrollItem :item="item" tag="article">
+            <BaseResultLink :item="item">
+              <img :src="item.images[0]" />
+              <p>{{ item.title }}</p>
+            </BaseResultLink>
           </MainScrollItem>
         </ResultsList>
       </Scroll>
