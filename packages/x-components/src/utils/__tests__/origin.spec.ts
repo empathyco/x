@@ -22,7 +22,7 @@ describe(`testing ${createOrigin.name} utility method`, () => {
     ).toBeNull();
   });
 
-  it('returns `feature:location` when the feature or the location is provided', () => {
+  it('returns `feature:location` when the feature and the location are provided', () => {
     expect(
       createOrigin({
         feature: 'url',
