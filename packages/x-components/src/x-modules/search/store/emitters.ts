@@ -16,6 +16,7 @@ export const searchEmitters = createStoreEmitters(searchXStoreModule, {
   PageChanged: state => state.page,
   ResultsChanged: state => state.results,
   SearchRequestChanged: (_, getters) => getters.request,
+  SearchTaggingChanged: state => state.queryTagging,
   SpellcheckChanged: state => state.spellcheckedQuery,
   SortChanged: state => state.sort
 });

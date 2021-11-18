@@ -1,5 +1,5 @@
 import { SearchRequest } from '@empathyco/x-adapter';
-import { Facet, Result, Sort, Redirection } from '@empathyco/x-types';
+import { Facet, Result, Sort, Redirection, TaggingInfo } from '@empathyco/x-types';
 
 /**
  * Dictionary of the events of Search XModule, where each key is the event name, and the value is
@@ -29,6 +29,11 @@ export interface SearchXEvents {
    * to conform a valid request.
    */
   SearchRequestChanged: SearchRequest | null;
+  /**
+   * Query tagging has been changed.
+   * * Payload: The new query tagging object.
+   */
+  SearchTaggingChanged: TaggingInfo;
   /**
    * Sort has been changed.
    * * Payload: The new sort string.

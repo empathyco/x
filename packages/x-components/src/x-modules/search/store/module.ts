@@ -38,7 +38,11 @@ export const searchXStoreModule: SearchXStoreModule = {
     page: 1,
     origin: null,
     isAppendResults: false,
-    redirections: []
+    redirections: [],
+    queryTagging: {
+      url: '',
+      params: {}
+    }
   }),
   getters: {
     request
@@ -103,6 +107,9 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     setRedirections(state, redirections) {
       state.redirections = redirections;
+    },
+    setQueryTagging(state, queryTagging) {
+      state.queryTagging = queryTagging;
     }
   },
   actions: {
