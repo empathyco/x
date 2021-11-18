@@ -7,7 +7,7 @@ import { QueryOrigin, QueryOriginInit, ResultOrigin } from '../types/origin';
  *
  * @param originInit - An object containing the needed properties to create a {@link QueryOrigin} or
  * a {@link ResultOrigin}.
- * @returns The composed origin, or `undefined` if it is not able to create the origin.
+ * @returns The composed origin, or `null` if it is not able to create the origin.
  * @internal
  */
 export function createOrigin({
