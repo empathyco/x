@@ -1,19 +1,18 @@
 <template>
-  <BaseEventButton
+  <button
     v-if="spellcheckedQuery"
-    :events="events"
+    @click="emitEvents"
     class="x-spellcheck-button"
     data-test="set-spellcheck"
   >
     <slot v-bind="{ spellcheckedQuery }">{{ spellcheckedQuery }}</slot>
-  </BaseEventButton>
+  </button>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { BaseEventButton, State, xComponentMixin } from '../../../components';
-  import { XEventsTypes } from '../../../wiring';
+  import { State, xComponentMixin } from '../../../components';
   import { searchXModule } from '../x-module';
   /**
    * A button that when pressed emits the {@link XEventsTypes.UserAcceptedAQuery}
@@ -23,7 +22,6 @@
    * @public
    */
   @Component({
-    components: { BaseEventButton },
     mixins: [xComponentMixin(searchXModule)]
   })
   export default class SpellcheckButton extends Vue {
@@ -36,17 +34,17 @@
     public spellcheckedQuery!: string;
 
     /**
-     * Events list which are going to be emitted when the button is clicked.
-     *
-     * @returns The {@link XEvent | XEvents} to emit.
+     * Emits events when the button is clicked.
      *
      * @public
      */
-    protected get events(): Partial<XEventsTypes> {
-      return {
-        UserAcceptedAQuery: this.spellcheckedQuery,
-        UserAcceptedSpellcheckQuery: this.spellcheckedQuery
-      };
+    protected emitEvents(): void {
+      this.$x.emit('UserAcceptedAQuery', this.spellcheckedQuery, {
+        target: this.$el as HTMLElement
+      });
+      this.$x.emit('UserAcceptedSpellcheckQuery', this.spellcheckedQuery, {
+        target: this.$el as HTMLElement
+      });
     }
   }
 </script>
