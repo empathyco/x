@@ -1,6 +1,6 @@
 import { Promoted } from '../promoted.model';
 import { IdentifiableSchema } from './identifiable.schema';
-import { TaggingSchema } from './tagging.schema';
+import { TaggingInfoSchema } from './tagging.schema';
 
 /**
  * Jest schema for validating Promoted entities.
@@ -9,11 +9,11 @@ import { TaggingSchema } from './tagging.schema';
  */
 export const PromotedSchema: Promoted = {
   ...IdentifiableSchema,
+  tagging: {
+    click: TaggingInfoSchema
+  },
   image: expect.any(String),
   modelName: expect.any(String),
-  tagging: {
-    click: TaggingSchema
-  },
   title: expect.any(String),
   url: expect.any(String)
 };

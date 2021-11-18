@@ -1,6 +1,6 @@
 import { Identifiable } from './identifiable.model';
 import { NamedModel } from './named-model.model';
-import { Tagging } from './tagging.model';
+import { Taggable } from './tagging.model';
 
 /**
  * A promoted is an image with a title, that when clicked redirect the user to an URL.
@@ -8,16 +8,11 @@ import { Tagging } from './tagging.model';
  *
  * @public
  */
-export interface Promoted extends NamedModel<'Promoted'>, Identifiable {
+export interface Promoted extends NamedModel<'Promoted'>, Identifiable, Taggable {
   /** Promoted title. */
   title: string;
   /** URL to redirect. */
   url: string;
   /** Promoted image. */
   image: string;
-  /** Promoted tagging. */
-  tagging: {
-    /** {@link Tagging | Click tagging}. */
-    click: Tagging;
-  };
 }

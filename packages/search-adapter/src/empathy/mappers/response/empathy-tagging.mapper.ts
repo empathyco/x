@@ -1,4 +1,4 @@
-import { Tagging } from '@empathyco/x-types';
+import { TaggingInfo } from '@empathyco/x-types';
 import { injectable } from 'inversify';
 import { Dictionary } from '../../../types';
 import { ResponseMapper } from '../../empathy-adapter.types';
@@ -10,10 +10,10 @@ import { Logger } from '../../logger';
  * @public
  */
 @injectable()
-export class EmpathyTaggingMapper implements ResponseMapper<string, Tagging> {
+export class EmpathyTaggingMapper implements ResponseMapper<string, TaggingInfo> {
   private readonly logger = Logger.child('EmpathyTaggingMapper');
 
-  map(taggingUrl: string, tagging: Tagging): Tagging {
+  map(taggingUrl: string, tagging: TaggingInfo): TaggingInfo {
     try {
       const { url, params } = this.extractUrlParameters(taggingUrl);
       Object.assign(tagging, { url, params });
@@ -24,8 +24,8 @@ export class EmpathyTaggingMapper implements ResponseMapper<string, Tagging> {
     return tagging;
   }
 
-  private extractUrlParameters(taggingUrl: string): Dictionary<any> {
-    const params: Dictionary<any> = {};
+  private extractUrlParameters(taggingUrl: string): TaggingInfo {
+    const params: Dictionary = {};
     const url = new URL(taggingUrl);
     url.searchParams.forEach((value, key) => {
       if (Array.isArray(params[key])) {
@@ -38,7 +38,7 @@ export class EmpathyTaggingMapper implements ResponseMapper<string, Tagging> {
     });
     params.follow = false;
     return {
-      url: `${ url.origin }${ url.pathname }`,
+      url: `${url.origin}${url.pathname}`,
       params
     };
   }
