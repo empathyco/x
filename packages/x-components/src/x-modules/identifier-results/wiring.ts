@@ -70,6 +70,16 @@ export const cancelFetchAndSaveIdentifierResultsWire = wireDispatchWithoutPayloa
 );
 
 /**
+ * Sets the identifier results state `origin`.
+ *
+ * @public
+ */
+export const saveIdentifierResultsOriginWire = wireDispatch(
+  'saveOrigin',
+  ({ metadata }) => metadata
+);
+
+/**
  * Debounce function for the module.
  */
 const moduleDebounce = namespacedDebounce(moduleName);
@@ -88,7 +98,8 @@ export const identifierResultsWiring = createWiring({
     )
   },
   UserAcceptedAQuery: {
-    setIdentifierResultsQuery
+    setIdentifierResultsQuery,
+    saveIdentifierResultsOriginWire
   },
   UserClearedQuery: {
     clearIdentifierResultsQuery,

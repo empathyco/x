@@ -1,5 +1,6 @@
 export * from './actions/fetch-and-save-identifier-results.action';
 export * from './actions/fetch-identifier-results.action';
+export * from './actions/save-origin.action';
 export * from './actions/save-query.action';
 export * from './emitters';
 export * from './getters/identifier-detection-regexp.getter';
