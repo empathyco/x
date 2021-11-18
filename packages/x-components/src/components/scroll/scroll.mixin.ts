@@ -185,9 +185,11 @@ export default class ScrollMixin extends Vue {
     'SelectedRelatedTagsChanged'
   ])
   resetScroll(): void {
-    if (this.resetOnChange) {
-      this.$el.scrollTo({ top: 0 });
-    }
+    this.$nextTick().then(() => {
+      if (this.resetOnChange) {
+        this.$el.scrollTo({ top: 0 });
+      }
+    });
   }
 
   /**

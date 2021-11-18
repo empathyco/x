@@ -2,10 +2,12 @@ import { mount } from '@cypress/vue';
 import 'reflect-metadata';
 import Vue from 'vue';
 import { mockedAdapter } from '../../src/adapter/mocked-adapter';
-import { XPlugin, xPlugin } from '../../src/plugins/x-plugin';
+import { BaseXBus } from '../../src/plugins/x-bus';
+import { XPlugin } from '../../src/plugins/x-plugin';
 import { UrlParams } from '../../src/types/url-params';
 import MainScrollItem from '../../src/x-modules/scroll/components/main-scroll-item.vue';
 import MainScroll from '../../src/x-modules/scroll/components/main-scroll.vue';
+import { scrollXModule } from '../../src/x-modules/scroll/x-module';
 
 /**
  * Renders a {@link MainScroll} component with the provided options.
@@ -23,7 +25,7 @@ function renderMainScroll({
   windowScrollingElement
 }: RenderMainScrollOptions = {}): RenderMainScrollAPI {
   const userScrolledToElementSpy = cy.spy();
-  XPlugin.bus.on('UserScrolledToElement').subscribe(userScrolledToElementSpy);
+  XPlugin.resetInstance();
 
   document.body.dataset.test = document.documentElement.dataset.test = '';
   if (windowScrollingElement === 'body') {
@@ -31,6 +33,8 @@ function renderMainScroll({
   } else if (windowScrollingElement === 'html') {
     document.documentElement.dataset.test = 'scroll';
   }
+
+  let pendingScroll: number;
 
   cy.viewport(1920, 200);
   mount(
@@ -41,16 +45,16 @@ function renderMainScroll({
       },
       template: `
         <MainScroll v-bind="{ threshold, margin, useWindow, minScrollTrigger }">
-        <div class="container" ${!useWindow ? `data-test="scroll"` : ''}>
-          <MainScrollItem
-            v-for="item in items"
-            class="item"
-            tag="article"
-            :item="item"
-            :data-test="item.id">
-            {{ item.id }}
-          </MainScrollItem>
-        </div>
+          <div class="container" ${!useWindow ? `data-test="scroll"` : ''}>
+            <MainScrollItem
+              v-for="item in items"
+              class="item"
+              tag="article"
+              :item="item"
+              :data-test="item.id">
+              {{ item.id }}
+            </MainScrollItem>
+          </div>
         </MainScroll>
       `,
       data() {
@@ -61,9 +65,19 @@ function renderMainScroll({
           useWindow,
           minScrollTrigger
         };
+      },
+      beforeCreate() {
+        XPlugin.bus.on('UserScrolledToElement').subscribe(userScrolledToElementSpy);
+        if (pendingScroll) {
+          XPlugin.bus.emit('ParamsLoadedFromUrl', <UrlParams>{ scroll: `item-${pendingScroll}` });
+        }
       }
     },
     {
+      vue: Vue.extend({}),
+      plugins: [
+        [new XPlugin(new BaseXBus()), { adapter: mockedAdapter, initialXModules: [scrollXModule] }]
+      ],
       style: `
         ${windowScrollingElement === 'body' ? 'html { overflow: hidden; }' : ''}
 
@@ -75,7 +89,6 @@ function renderMainScroll({
           max-height: 100%;
         }
 
-
         [data-test='scroll'] {
           overflow: auto;
           height: 100%;
@@ -86,6 +99,7 @@ function renderMainScroll({
         }`
     }
   );
+
   return {
     scrollToItem(index) {
       cy.getByDataTest(`item-${index}`).then($0 => $0.get(0).scrollIntoView());
@@ -95,8 +109,8 @@ function renderMainScroll({
         $0.get(0).scrollBy(0, y);
       });
     },
-    restoreScroll(index) {
-      XPlugin.bus.emit('ParamsLoadedFromUrl', <UrlParams>{ scroll: `item-${index}` });
+    restoreScrollToItem(index) {
+      pendingScroll = index;
     },
     getItem(index) {
       return cy.getByDataTest(`item-${index}`);
@@ -107,10 +121,6 @@ function renderMainScroll({
     userScrolledToElementSpy: () => cy.wrap(userScrolledToElementSpy)
   };
 }
-
-before(() => {
-  Vue.use(xPlugin, { adapter: mockedAdapter });
-});
 
 describe('testing MainScroll component', () => {
   const cases: Array<Partial<RenderMainScrollOptions> & { description: string }> = [
@@ -146,9 +156,10 @@ describe('testing MainScroll component', () => {
       });
 
       it('restores the scroll', () => {
-        const { restoreScroll, getItem } = renderMainScroll(defaultParameters);
+        const { restoreScrollToItem, getItem } = renderMainScroll(defaultParameters);
 
-        restoreScroll(5);
+        restoreScrollToItem(5);
+
         cy.log('Item 5 should be the first one.');
         getItem(5).should($item5 => {
           expect($item5.get(0).getBoundingClientRect().top).to.be.eq(0);
@@ -239,7 +250,7 @@ interface RenderMainScrollAPI {
    *
    * @param index - The index of the element to restore the scroll to.
    */
-  restoreScroll: (index: number) => void;
+  restoreScrollToItem: (index: number) => void;
   /**
    * Scrolls the nth element in the view.
    *
