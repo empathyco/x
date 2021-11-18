@@ -1,17 +1,27 @@
+import { SearchResponse } from '@empathyco/x-adapter';
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { getFacetsStub } from '../../../../src/__stubs__/facets-stubs.factory';
 import { createResultStub } from '../../../../src/__stubs__/results-stubs.factory';
 
 // Background
 Given('a results API with partial results', () => {
   cy.intercept('https://api.empathy.co/search', req => {
-    req.reply({
+    req.reply(<SearchResponse>{
       banners: [],
       promoteds: [],
+      spellcheck: '',
+      totalResults: 1,
+      queryTagging: {
+        url: 'https://tagging.empathy.co/',
+        params: {}
+      },
+      redirections: [],
       results: [
         createResultStub('LEGO Super Mario Pack Inicial: Aventuras con Mario - 71360', {
           images: ['https://picsum.photos/seed/1/100/100']
         })
       ],
+      facets: getFacetsStub(),
       partialResults: [
         {
           query: 'verde azul',
