@@ -11,6 +11,7 @@
     :value="query"
     autocomplete="off"
     class="x-input x-search-input"
+    enterkeyhint="search"
     inputmode="search"
     type="search"
     data-test="search-input"

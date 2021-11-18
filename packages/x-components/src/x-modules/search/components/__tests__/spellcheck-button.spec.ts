@@ -2,7 +2,6 @@ import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
-import { BaseEventButton } from '../../../../components';
 import { RootXStoreState } from '../../../../store';
 import { DeepPartial } from '../../../../utils';
 import SpellcheckButton from '../spellcheck-button.vue';
@@ -35,7 +34,7 @@ function renderSpellcheckButton({
   return {
     wrapper,
     async clickEventButton() {
-      const eventButton = wrapper.findComponent(BaseEventButton);
+      const eventButton = wrapper.findComponent(SpellcheckButton);
       eventButton.trigger('click');
       await localVue.nextTick();
     }

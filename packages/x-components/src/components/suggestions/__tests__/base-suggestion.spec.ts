@@ -55,7 +55,7 @@ describe('testing Base Suggestion component', () => {
 
   it('emits suggestionSelectedEvent and the default events onclick', async () => {
     const target = { target: component.element };
-    const spyOn = jest.spyOn(component.vm.$children[0].$x, 'emit');
+    const spyOn = jest.spyOn(component.vm.$x, 'emit');
     component.trigger('click');
 
     await localVue.nextTick();

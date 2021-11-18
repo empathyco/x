@@ -1,7 +1,7 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
-import { BaseEventButton, getXComponentXModuleName, isXComponent } from '../../../../components';
+import { getXComponentXModuleName, isXComponent } from '../../../../components';
 import PartialQueryButton from '../partial-query-button.vue';
 
 function renderPartialQueryButton({
@@ -31,7 +31,7 @@ function renderPartialQueryButton({
   return {
     partialQueryButtonWrapper,
     async clickEventButton() {
-      const eventButton = wrapper.findComponent(BaseEventButton);
+      const eventButton = wrapper.findComponent(PartialQueryButton);
       eventButton.trigger('click');
       await localVue.nextTick();
     }
@@ -60,7 +60,7 @@ describe('testing PartialQueryButton component', () => {
     const { partialQueryButtonWrapper } = renderPartialQueryButton({
       query: 'lego',
       template: `
-      <PartialQueryButton :query="query" >      
+      <PartialQueryButton :query="query" >
         <template #default="{ query }">
           <span data-test="partial-query-button__text" class="x-partial-query-button__text">
             Set this partial query {{ query }} as the new query.
