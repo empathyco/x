@@ -386,4 +386,35 @@ and adjusting the element to be at least 75% intersecting.
   };
 </script>
 ```
+
+#### Avoid tracking the scroll for the first elements
+
+Tracking the first elements position might not be the desired behavior. That's why with the
+`minScrollTrigger` prop, you can define an amount of scrolled pixels to be ignored. Only elements
+positioned after this amount of pixels will be tracked.
+
+In this example, the user has to scroll at least for 1000 pixels, before the first item position is
+tracked.
+
+```vue
+<template>
+  <MainScroll :minScrollTrigger="1000" margin="-50px">
+    <ul>
+      <MainScrollItem v-for="item in 24" tag="li">Item {{ item }}</MainScrollItem>
+    </ul>
+  </MainScroll>
+</template>
+
+<script>
+  import { MainScroll, MainScrollItem } from '@empathyco/x-components/scroll';
+
+  export default {
+    name: 'MainScrollDemo',
+    components: {
+      MainScroll,
+      MainScrollItem
+    }
+  };
+</script>
+```
 </docs>
