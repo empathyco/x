@@ -1,9 +1,9 @@
 import { QueryOrigin } from '../../../../types/origin';
 import { createOrigin } from '../../../../utils/origin';
-import { SearchXStoreModule } from '../types';
+import { IdentifierResultsXStoreModule } from '../types';
 
 /**
- * Default implementation for the {@link SearchActions.saveOrigin}.
+ * Default implementation for the {@link IdentifierResultsActions.saveOrigin}.
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
@@ -11,7 +11,7 @@ import { SearchXStoreModule } from '../types';
  *
  * @public
  */
-export const saveOrigin: SearchXStoreModule['actions']['saveOrigin'] = (
+export const saveOrigin: IdentifierResultsXStoreModule['actions']['saveOrigin'] = (
   { commit },
   queryOriginInit
 ) => {
