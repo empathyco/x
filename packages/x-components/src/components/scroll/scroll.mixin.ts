@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import { Component, Prop, Watch } from 'vue-property-decorator';
 import { throttle } from '../../utils/throttle';
+import { XOn } from '../decorators/bus.decorators';
 import { ScrollDirection } from './scroll.types';
 
 /**
@@ -40,6 +41,14 @@ export default class ScrollMixin extends Vue {
    */
   @Prop({ default: 100 })
   public throttleMs!: number;
+
+  /**
+   * If true (default), sets the scroll position to the top when certain events are emitted.
+   *
+   * @public
+   */
+  @Prop({ type: Boolean, default: true })
+  protected resetOnChange!: boolean;
   /**
    * Property for getting the client height of scroll.
    *
@@ -70,6 +79,7 @@ export default class ScrollMixin extends Vue {
    * @internal
    */
   protected scrollHeight = 0;
+
   /**
    * Throttled version of the function that stores the DOM scroll related properties.
    * The duration of the throttle is configured through the
@@ -159,6 +169,25 @@ export default class ScrollMixin extends Vue {
         );
       } else {
         this.storeScrollData();
+      }
+    });
+  }
+
+  /**
+   * Resets the scroll position.
+   *
+   * @internal
+   */
+  @XOn([
+    'SearchBoxQueryChanged',
+    'SortChanged',
+    'SelectedFiltersChanged',
+    'SelectedRelatedTagsChanged'
+  ])
+  resetScroll(): void {
+    this.$nextTick().then(() => {
+      if (this.resetOnChange) {
+        this.$el.scrollTo({ top: 0 });
       }
     });
   }

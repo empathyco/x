@@ -285,6 +285,7 @@
                                 v-if="facet.id === 'price'"
                                 :filter="filter"
                                 class="x-filter__label"
+                                format="ii.dd €"
                                 lessThan="Less than {max}"
                                 fromTo="From {min} to {max}"
                                 from="More than {min}"
@@ -360,22 +361,26 @@
                     <NextQueriesList>
                       <BaseVariableColumnGrid :animation="resultsAnimation">
                         <template #result="{ item: result }">
-                          <article class="result" style="max-width: 300px">
-                            <BaseResultLink :result="result">
-                              <BaseResultImage :result="result" class="x-picture--colored">
-                                <template #placeholder>
-                                  <div style="padding-top: 100%; background-color: lightgray"></div>
-                                </template>
-                                <template #fallback>
-                                  <div
-                                    data-test="result-picture-fallback"
-                                    style="padding-top: 100%; background-color: lightsalmon"
-                                  ></div>
-                                </template>
-                              </BaseResultImage>
-                              <h1 class="x-title3" data-test="result-text">{{ result.name }}</h1>
-                            </BaseResultLink>
-                          </article>
+                          <MainScrollItem :item="result">
+                            <article class="result" style="max-width: 300px">
+                              <BaseResultLink :result="result">
+                                <BaseResultImage :result="result" class="x-picture--colored">
+                                  <template #placeholder>
+                                    <div
+                                      style="padding-top: 100%; background-color: lightgray"
+                                    ></div>
+                                  </template>
+                                  <template #fallback>
+                                    <div
+                                      data-test="result-picture-fallback"
+                                      style="padding-top: 100%; background-color: lightsalmon"
+                                    ></div>
+                                  </template>
+                                </BaseResultImage>
+                                <h1 class="x-title3" data-test="result-text">{{ result.name }}</h1>
+                              </BaseResultLink>
+                            </article>
+                          </MainScrollItem>
                         </template>
 
                         <template #banner="{ item: banner }">
@@ -556,6 +561,7 @@
   import QuerySuggestions from '../x-modules/query-suggestions/components/query-suggestions.vue';
   import Recommendations from '../x-modules/recommendations/components/recommendations.vue';
   import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
+  import MainScrollItem from '../x-modules/scroll/components/main-scroll-item.vue';
   import ScrollToTop from '../x-modules/scroll/components/scroll-to-top.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import SearchButton from '../x-modules/search-box/components/search-button.vue';
@@ -580,8 +586,6 @@
       infiniteScroll
     },
     components: {
-      Tagging,
-      BasePriceFilterLabel,
       AutoProgressBar,
       Banner,
       BannersList,
@@ -595,9 +599,9 @@
       BaseIdTogglePanel,
       BaseIdTogglePanelButton,
       BaseKeyboardNavigation,
+      BasePriceFilterLabel,
       BaseResultImage,
       BaseResultLink,
-      ScrollToTop,
       BaseSuggestions,
       BaseVariableColumnGrid,
       CheckTiny,
@@ -626,6 +630,7 @@
       HistoryQueries,
       IdentifierResult,
       IdentifierResults,
+      MainScrollItem,
       MultiColumnMaxWidthLayout,
       NextQueries,
       NextQueriesList,
@@ -642,6 +647,7 @@
       RelatedTags,
       RenderlessExtraParams,
       ResultsList,
+      ScrollToTop,
       SearchButton,
       SearchIcon,
       SearchInput,
@@ -656,6 +662,7 @@
       SortedFilters,
       Spellcheck,
       SpellcheckButton,
+      Tagging,
       UrlHandler
     }
   })

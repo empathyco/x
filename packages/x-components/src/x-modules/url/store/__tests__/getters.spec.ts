@@ -8,7 +8,7 @@ describe('testing url module getters', () => {
     tag: ['with eggs'],
     page: 1,
     sort: 'default',
-    scroll: 0,
+    scroll: '',
     warehouse: 12345,
     store: ''
   });
@@ -26,16 +26,16 @@ describe('testing url module getters', () => {
     resetUrlStateWith(store, {
       page: 2,
       query: 'doramion',
-      scroll: 444
+      scroll: '444'
     });
 
     expect(store.getters.urlParams).toEqual<Partial<UrlGetters['urlParams']>>({
       query: 'doramion',
       page: 2,
-      scroll: 444
+      scroll: '444'
     });
 
-    resetUrlStateWith(store, { page: 1, query: 'lego', scroll: 0 });
+    resetUrlStateWith(store, { page: 1, query: 'lego', scroll: '' });
 
     expect(store.getters.urlParams).toEqual<Partial<UrlGetters['urlParams']>>({
       query: 'lego'

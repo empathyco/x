@@ -359,3 +359,76 @@ Given('a results API with a known response', () => {
     });
   }).as('interceptedResults');
 });
+
+Given('a results API with {int} results', (resultsLength: number) => {
+  cy.intercept('https://api.empathy.co/search', req => {
+    req.reply(<SearchResponse>{
+      banners: [],
+      promoteds: [],
+      redirections: [],
+      partialResults: [],
+      queryTagging: {
+        url: 'https://analytics.com',
+        params: {}
+      },
+      spellcheck: '',
+      facets: [
+        createSimpleFacetStub('brand_facet', createSimpleFilter => [
+          createSimpleFilter('Juguetes deportivos', false, 3),
+          createSimpleFilter('Puzzles', false, 0),
+          createSimpleFilter('Construcción', false, 7),
+          createSimpleFilter('Construye', false, 6),
+          createSimpleFilter('Disfraces', false, 0)
+        ]),
+        createNumberRangeFacetStub('price_facet', createNumberRangeFilter => [
+          createNumberRangeFilter({ min: 0, max: 10 }, false),
+          createNumberRangeFilter({ min: 10, max: 20 }, false),
+          createNumberRangeFilter({ min: 20, max: 30 }, false),
+          createNumberRangeFilter({ min: 30, max: 40 }, false),
+          createNumberRangeFilter({ min: 40, max: 60 }, false),
+          createNumberRangeFilter({ min: 60, max: 100 }, false)
+        ]),
+        createNumberRangeFacetStub('age_facet', createNumberRangeFilter => [
+          createNumberRangeFilter({ min: 0, max: 1 }, false),
+          createNumberRangeFilter({ min: 1, max: 3 }, false),
+          createNumberRangeFilter({ min: 3, max: 6 }, false),
+          createNumberRangeFilter({ min: 6, max: 9 }, false),
+          createNumberRangeFilter({ min: 9, max: 12 }, false),
+          createNumberRangeFilter({ min: 12, max: 99 }, false)
+        ]),
+        createHierarchicalFacetStub('hierarchical_category', createFilter => [
+          ...createFilter('Vehículos y pistas', false, createFilter => [
+            ...createFilter('Radiocontrol', false)
+          ]),
+          ...createFilter('Juguetes electrónicos', false, createFilter => [
+            ...createFilter('Imagen y audio', false)
+          ]),
+          ...createFilter('Educativos', false, createFilter => [
+            ...createFilter('Juguetes educativos', false)
+          ]),
+          ...createFilter('Creativos', false, createFilter => [...createFilter('Crea', false)]),
+          ...createFilter('Muñecas', false, createFilter => [
+            ...createFilter('Peluches', false),
+            ...createFilter('Ropa y accesorios', false),
+            ...createFilter('Playsets', false),
+            ...createFilter('Bebés', false),
+            ...createFilter('Carros', false)
+          ]),
+          ...createFilter('Construcción', false, createFilter => [
+            ...createFilter('Construye', false)
+          ])
+        ])
+      ],
+      results: Array.from({ length: resultsLength }, (_, index) =>
+        createResultStub(`Result ${index}`, {
+          images: [`https://picsum.photos/seed/${index}/100/100`]
+        })
+      ),
+      totalResults: 24
+    });
+  }).as('interceptedResults');
+});
+
+When('tab is reloaded', () => {
+  cy.reload();
+});
