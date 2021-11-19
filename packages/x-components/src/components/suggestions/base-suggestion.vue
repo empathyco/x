@@ -56,8 +56,8 @@
      *
      * @public
      */
-    @Prop({ required: false }) //TODO: set to true when the suggestions components pass it.
-    protected feature!: QueryFeature;
+    @Prop() //TODO: set to true when the suggestions components pass it.
+    protected feature?: QueryFeature;
 
     /**
      * The {@link XEvent | XEvents} that will be emitted when selecting a suggestion.
@@ -92,7 +92,7 @@
      * @public
      */
     protected emitEvents(): void {
-      forEach<Partial<XEventsTypes>>(this.events, (event, payload) => {
+      forEach(this.events, (event, payload) => {
         this.$x.emit(event, payload, {
           target: this.$el as HTMLElement,
           feature: this.feature

@@ -101,6 +101,6 @@ interface RenderPartialQueryButtonOptions {
 interface RenderPartialQueryButtonAPI {
   /** The wrapper of the button element.*/
   partialQueryButtonWrapper: Wrapper<Vue>;
-  /** Clicks the event button and waits for the view to update. */
+  /** Clicks the button and waits for the view to update. */
   click: () => Promise<void>;
 }
