@@ -1,6 +1,6 @@
 <template>
-  <BaseEventButton
-    :events="events"
+  <button
+    @click="emitEvents"
     class="x-tag x-related-tag"
     data-test="related-tag"
     :class="dynamicClasses"
@@ -11,18 +11,16 @@
       @binding {boolean} isSelected - Related tag status.
       -->
     <slot v-bind="{ relatedTag, isSelected }">{{ relatedTag.tag }}</slot>
-  </BaseEventButton>
+  </button>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { RelatedTag as RelatedTagModel } from '@empathyco/x-types';
-  import BaseEventButton from '../../../components/base-event-button.vue';
   import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { VueCSSClasses } from '../../../utils/types';
-  import { RelatedTagsXEvents } from '../events.types';
   import { relatedTagsXModule } from '../x-module';
 
   /**
@@ -33,7 +31,6 @@
    * @public
    */
   @Component({
-    components: { BaseEventButton },
     mixins: [xComponentMixin(relatedTagsXModule)]
   })
   export default class RelatedTag extends Vue {
@@ -53,22 +50,23 @@
     public selectedRelatedTags!: RelatedTagModel[];
 
     /**
-     * Events list which is going to be emitted when a related tag is selected.
+     * Emits events when the button is clicked.
      *
-     * @returns The {@link XEvent | XEvents} to emit.
-     *
-     * @internal
+     * @public
      */
-    protected get events(): Partial<RelatedTagsXEvents> {
-      return this.isSelected
-        ? {
-            UserPickedARelatedTag: this.relatedTag,
-            UserDeselectedARelatedTag: this.relatedTag
-          }
-        : {
-            UserPickedARelatedTag: this.relatedTag,
-            UserSelectedARelatedTag: this.relatedTag
-          };
+    protected emitEvents(): void {
+      // We have to emit this events first to avoid the UserPickedARelatedTag wires to change the
+      // isSelected value before emiting this selection events.
+      this.$x.emit(
+        this.isSelected ? 'UserDeselectedARelatedTag' : 'UserSelectedARelatedTag',
+        this.relatedTag,
+        {
+          target: this.$el as HTMLElement
+        }
+      );
+      this.$x.emit('UserPickedARelatedTag', this.relatedTag, {
+        target: this.$el as HTMLElement
+      });
     }
 
     /**
