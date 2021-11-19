@@ -1,3 +1,4 @@
+import { trackTagging } from './actions/track-tagging.action';
 import { TaggingXStoreModule } from './types';
 
 /**
@@ -25,5 +26,7 @@ export const taggingXStoreModule: TaggingXStoreModule = {
       state.consent = consent;
     }
   },
-  actions: {}
+  actions: {
+    trackTagging
+  }
 };

@@ -1,6 +1,9 @@
-import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
+import {
+  namespacedWireCommit,
+  namespacedWireDispatch
+} from '../../wiring/namespaced-wires.factory';
 import { wireServiceWithoutPayload } from '../../wiring/wires.factory';
-import { filter } from '../../wiring/wires.operators';
+import { debounce, filter } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
 import { DefaultSessionService } from './service/session.service';
 
@@ -17,6 +20,13 @@ const moduleName = 'tagging';
  * @internal
  */
 const wireCommit = namespacedWireCommit(moduleName);
+
+/**
+ * WireDispatch for {@link SearchXModule}.
+ *
+ * @internal
+ */
+const wireDispatch = namespacedWireDispatch(moduleName);
 
 /**
  * Wires without payload factory for {@link DefaultSessionService}.
@@ -55,6 +65,13 @@ export const setQueryTaggingDebounce = wireCommit('setQueryTaggingDebounce');
 export const setSessionDuration = wireCommit('setSessionDuration');
 
 /**
+ * Tracks the tagging of the query.
+ *
+ * @public
+ */
+export const trackTaggingAction = debounce(wireDispatch('trackTagging'), 100);
+
+/**
  * Wiring configuration for the {@link TaggingXModule | tagging module}.
  *
  * @internal
@@ -71,5 +88,8 @@ export const taggingWiring = createWiring({
   },
   QueryTaggingDebounceProvided: {
     setQueryTaggingDebounce
+  },
+  SearchTaggingChanged: {
+    trackTaggingAction
   }
 });

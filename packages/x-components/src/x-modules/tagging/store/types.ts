@@ -1,3 +1,4 @@
+import { TaggingInfo } from '../../../../../search-types';
 import { XStoreModule } from '../../../store';
 import { TaggingConfig } from '../config.types';
 /**
@@ -54,7 +55,14 @@ export interface TaggingMutations {
  *
  * @public
  */
-export interface TaggingActions {}
+export interface TaggingActions {
+  /**
+   * Tracks the tagging of the query.
+   *
+   * @returns The new search response.
+   */
+  trackTagging(tagging: TaggingInfo | TaggingInfo[]): void;
+}
 
 /**
  * Tagging type safe store module.
