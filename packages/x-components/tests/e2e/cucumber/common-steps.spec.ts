@@ -63,7 +63,7 @@ Then('identifier results are displayed', () => {
 });
 
 Then('no identifier results are displayed', () => {
-  cy.getByDataTest('identifier-result-item').should('not.exist');
+  cy.getByDataTest('identifier-results-item').should('not.exist');
 });
 
 // Facets
