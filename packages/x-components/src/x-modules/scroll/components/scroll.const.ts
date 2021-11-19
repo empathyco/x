@@ -7,4 +7,9 @@ import { ScrollVisibilityObserver } from './scroll.types';
  * @internal
  */
 export const ScrollObserverKey: XInjectKey<ScrollVisibilityObserver | null> = 'ScrollObserverKey';
+/**
+ * The default scroll id for all the scroll components.
+ *
+ * @internal
+ */
 export const MainScrollId = 'main-scroll';
