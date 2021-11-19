@@ -76,7 +76,7 @@ class E2ETestsAdapter extends EmpathyAdapter {
   }
 
   searchById(request: SearchByIdRequest): Promise<SearchByIdResponse> {
-    return mockFetch(request, 'search');
+    return mockFetch(request, 'searchById');
   }
 }
 
