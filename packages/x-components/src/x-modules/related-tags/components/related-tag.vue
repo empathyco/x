@@ -55,9 +55,8 @@
      * @public
      */
     protected emitEvents(): void {
-      this.$x.emit('UserPickedARelatedTag', this.relatedTag, {
-        target: this.$el as HTMLElement
-      });
+      // We have to emit this events first to avoid the UserPickedARelatedTag wires to change the
+      // isSelected value before emiting this selection events.
       this.$x.emit(
         this.isSelected ? 'UserDeselectedARelatedTag' : 'UserSelectedARelatedTag',
         this.relatedTag,
@@ -65,6 +64,9 @@
           target: this.$el as HTMLElement
         }
       );
+      this.$x.emit('UserPickedARelatedTag', this.relatedTag, {
+        target: this.$el as HTMLElement
+      });
     }
 
     /**
