@@ -33,7 +33,7 @@ function renderSpellcheckButton({
 
   return {
     wrapper,
-    async clickEventButton() {
+    async click() {
       await wrapper.trigger('click');
     }
   };
@@ -74,13 +74,13 @@ describe('testing SpellcheckButton component', () => {
     const userAcceptedAQuery = jest.fn();
     const userAcceptSpellcheck = jest.fn();
     const spellcheckedQuery = 'coche';
-    const { wrapper, clickEventButton } = renderSpellcheckButton({ spellcheckedQuery });
+    const { wrapper, click } = renderSpellcheckButton({ spellcheckedQuery });
     const $x = wrapper.vm.$x;
 
     $x.on('UserAcceptedAQuery').subscribe(userAcceptedAQuery);
     $x.on('UserAcceptedSpellcheckQuery').subscribe(userAcceptSpellcheck);
 
-    clickEventButton();
+    click();
 
     expect(userAcceptedAQuery).toHaveBeenNthCalledWith(1, spellcheckedQuery);
     expect(userAcceptSpellcheck).toHaveBeenNthCalledWith(1, spellcheckedQuery);
@@ -98,5 +98,5 @@ interface RenderSpellcheckButtonAPI {
   /** The wrapper of the container element.*/
   wrapper: Wrapper<Vue>;
   /** Clicks the event button and waits for the view to update. */
-  clickEventButton: () => Promise<void>;
+  click: () => Promise<void>;
 }

@@ -30,7 +30,7 @@ function renderPartialQueryButton({
 
   return {
     partialQueryButtonWrapper,
-    async clickEventButton() {
+    async click() {
       await wrapper.trigger('click');
     }
   };
@@ -76,7 +76,7 @@ describe('testing PartialQueryButton component', () => {
     const userAcceptedAQuery = jest.fn();
     const UserClickedPartialQuery = jest.fn();
     const query = 'coche';
-    const { partialQueryButtonWrapper, clickEventButton } = renderPartialQueryButton({
+    const { partialQueryButtonWrapper, click } = renderPartialQueryButton({
       query
     });
     const $x = partialQueryButtonWrapper.vm.$x;
@@ -84,7 +84,7 @@ describe('testing PartialQueryButton component', () => {
     $x.on('UserAcceptedAQuery').subscribe(userAcceptedAQuery);
     $x.on('UserClickedPartialQuery').subscribe(UserClickedPartialQuery);
 
-    clickEventButton();
+    click();
 
     expect(userAcceptedAQuery).toHaveBeenNthCalledWith(1, query);
     expect(UserClickedPartialQuery).toHaveBeenNthCalledWith(1, query);
@@ -102,5 +102,5 @@ interface RenderPartialQueryButtonAPI {
   /** The wrapper of the button element.*/
   partialQueryButtonWrapper: Wrapper<Vue>;
   /** Clicks the event button and waits for the view to update. */
-  clickEventButton: () => Promise<void>;
+  click: () => Promise<void>;
 }
