@@ -23,6 +23,7 @@
   import BaseScroll from '../../../components/scroll/base-scroll.vue';
   import { ScrollDirection } from '../../../components/scroll/scroll.types';
   import { scrollXModule } from '../x-module';
+  import { MainScrollId } from './scroll.const';
 
   /**
    * Base scroll component that depending on base scroll component and the user interaction emits
@@ -59,7 +60,7 @@
      *
      * @public
      */
-    @Prop({ default: 'scrollId' })
+    @Prop({ default: MainScrollId })
     public id!: string;
 
     /**

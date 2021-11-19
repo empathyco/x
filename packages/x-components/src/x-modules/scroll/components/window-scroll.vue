@@ -4,6 +4,7 @@
   import { ScrollDirection, ScrollMixin, xComponentMixin } from '../../../components';
   import { WireMetadata } from '../../../wiring';
   import { scrollXModule } from '../x-module';
+  import { MainScrollId } from './scroll.const';
 
   type ScrollableTag = 'html' | 'body';
 
@@ -30,7 +31,7 @@
      *
      * @public
      */
-    @Prop({ default: 'main-scroll' })
+    @Prop({ default: MainScrollId })
     protected id!: string;
 
     mounted(): void {
@@ -64,7 +65,7 @@
     protected initAndListenElement(): void {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
-      this.$el = this.tag === 'html' ? document.documentElement : document.body;
+      this.$el = this.tag === 'body' ? document.body : document.documentElement;
       this.$el.addEventListener('scroll', this.throttledStoreScrollData);
     }
 

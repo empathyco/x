@@ -1,9 +1,10 @@
 <script lang="ts">
   import { Component, Prop, Watch } from 'vue-property-decorator';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { State } from '../../../components/decorators/store.decorators';
+  import { XEmit } from '../../../components/decorators/bus.decorators';
   import { XProvide } from '../../../components/decorators/injection.decorators';
+  import { State } from '../../../components/decorators/store.decorators';
   import { NoElement } from '../../../components/no-element';
+  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { scrollXModule } from '../x-module';
   import { ScrollObserverKey } from './scroll.const';
   import { ScrollVisibilityObserver } from './scroll.types';
@@ -58,17 +59,19 @@
     public margin!: string;
 
     /**
-     * Only observes the first visible item after at least this amount of pixels have been scrolled.
-     */
-    @Prop({ default: 100 })
-    public minScrollTrigger!: number;
-
-    /**
      * The elements that are currently considered visible.
      *
      * @internal
      */
     protected intersectingElements: HTMLElement[] = [];
+
+    /**
+     * Intersection observer to determine visibility of the elements.
+     *
+     * @returns An intersection observer to detect elements visibility.
+     * @internal
+     */
+    protected intersectionObserver: IntersectionObserver | null = null;
 
     /**
      * Stores the identifier of the timeout that will consider the scroll failed to restore.
@@ -85,14 +88,6 @@
      */
     @State('scroll', 'pendingScrollTo')
     public pendingScrollTo!: string;
-
-    /**
-     * Intersection observer to determine visibility of the elements.
-     *
-     * @returns An intersection observer to detect elements visibility.
-     * @internal
-     */
-    protected intersectionObserver: IntersectionObserver | null = null;
 
     /**
      * Creates an `IntersectionObserver` to detect the first visible elements. Children of this
@@ -121,7 +116,8 @@
      * @returns The first visible element in this component.
      * @internal
      */
-    protected get firstVisibleElement(): string | '' {
+    @XEmit('UserScrolledToElement')
+    public get firstVisibleElement(): string | '' {
       if (this.intersectingElements.length === 0) {
         return '';
       }
@@ -136,7 +132,10 @@
             : firstVisibleElement;
         }
       );
-      return firstVisibleElement.dataset.scroll ?? '';
+
+      return firstVisibleElement === this.$el.querySelector('[data-scroll]')
+        ? ''
+        : firstVisibleElement.dataset.scroll!;
     }
 
     /**
@@ -149,6 +148,7 @@
         rootMargin: this.margin
       });
     }
+
     /**
      * Disconnects the intersection observer.
      *
@@ -157,24 +157,6 @@
     beforeDestroy(): void {
       this.intersectionObserver?.disconnect();
       this.$x.emit('UserScrolledToElement', '');
-    }
-
-    /**
-     * Emits the first visible element `[data-scroll]`.
-     *
-     * @param element - The first visible element or `null` if there aren't any.
-     * @internal
-     */
-    @Watch('firstVisibleElement')
-    protected emitFirstVisibleElement(element: string): void {
-      const currentScrollTop = this.useWindow
-        ? document.body.scrollTop || document.documentElement.scrollTop
-        : this.$el.scrollTop;
-
-      this.$x.emit(
-        'UserScrolledToElement',
-        currentScrollTop > this.minScrollTrigger ? element : ''
-      );
     }
 
     /**
@@ -361,37 +343,6 @@ and adjusting the element to be at least 75% intersecting.
 ```vue
 <template>
   <MainScroll :threshold="0.75" margin="-50px">
-    <ul>
-      <MainScrollItem v-for="item in 24" tag="li">Item {{ item }}</MainScrollItem>
-    </ul>
-  </MainScroll>
-</template>
-
-<script>
-  import { MainScroll, MainScrollItem } from '@empathyco/x-components/scroll';
-
-  export default {
-    name: 'MainScrollDemo',
-    components: {
-      MainScroll,
-      MainScrollItem
-    }
-  };
-</script>
-```
-
-#### Avoid tracking the scroll for the first elements
-
-Tracking the first elements position might not be the desired behavior. That's why with the
-`minScrollTrigger` prop, you can define an amount of scrolled pixels to be ignored. Only elements
-positioned after this amount of pixels will be tracked.
-
-In this example, the user has to scroll at least for 1000 pixels, before the first item position is
-tracked.
-
-```vue
-<template>
-  <MainScroll :minScrollTrigger="1000" margin="-50px">
     <ul>
       <MainScrollItem v-for="item in 24" tag="li">Item {{ item }}</MainScrollItem>
     </ul>

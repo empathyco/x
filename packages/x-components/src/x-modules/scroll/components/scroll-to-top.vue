@@ -23,6 +23,7 @@
   import { XEventsTypes } from '../../../wiring';
   import { ScrollComponentState } from '../store';
   import { scrollXModule } from '../x-module';
+  import { MainScrollId } from './scroll.const';
 
   /**
    * The `ScrollToTop` component is a button that the user can click to make a container scroll
@@ -56,8 +57,8 @@
      *
      * @public
      */
-    @Prop()
-    public scrollId?: string;
+    @Prop({ default: MainScrollId })
+    public scrollId!: string;
 
     /**
      * State of all the scroll components in this module.
