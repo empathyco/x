@@ -1,9 +1,10 @@
+import { namespacedDebounce } from '../../wiring';
 import {
   namespacedWireCommit,
   namespacedWireDispatch
 } from '../../wiring/namespaced-wires.factory';
 import { wireServiceWithoutPayload } from '../../wiring/wires.factory';
-import { debounce, filter } from '../../wiring/wires.operators';
+import { filter } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
 import { DefaultSessionService } from './service/session.service';
 
@@ -13,6 +14,11 @@ import { DefaultSessionService } from './service/session.service';
  * @internal
  */
 const moduleName = 'tagging';
+
+/**
+ * Debounce function for the module.
+ */
+const moduleDebounce = namespacedDebounce(moduleName);
 
 /**
  * WireCommit for {@link TaggingXModule}.
@@ -65,11 +71,16 @@ export const setQueryTaggingDebounce = wireCommit('setQueryTaggingDebounce');
 export const setSessionDuration = wireCommit('setSessionDuration');
 
 /**
- * Tracks the tagging of the query.
+ * Tracks the tagging of the query using a debounce which ends if the user
+ * accepts a query.
  *
  * @public
  */
-export const trackTaggingAction = debounce(wireDispatch('trackTagging'), 100);
+export const trackTaggingAction = moduleDebounce(
+  wireDispatch('trackTagging'),
+  ({ state }) => state.config.queryTaggingDebounceMs,
+  'UserAcceptedAQuery'
+);
 
 /**
  * Wiring configuration for the {@link TaggingXModule | tagging module}.

@@ -59,7 +59,6 @@ export interface TaggingActions {
   /**
    * Tracks the tagging of the query.
    *
-   * @returns The new search response.
    */
   trackTagging(tagging: TaggingInfo | TaggingInfo[]): void;
 }

@@ -4,23 +4,23 @@ import { DefaultSessionService } from '../../service';
 import { TaggingXStoreModule } from '../types';
 
 /**
- * Default implementation for the {@link TaggingActions.trackQueryTagging}.
+ * Default implementation for the {@link TaggingActions.trackTagging}.
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- * @param taggingInfos - The taggingInfo.
+ * @param taggingInfo - The taggingInfo.
  *
  * @public
  */
 export const trackTagging: TaggingXStoreModule['actions']['trackTagging'] = (
   context,
-  taggingInfos
+  taggingInfo
 ) => {
   const consent = context.state.consent;
-  const sessionId = getSessionId(consent);
-  const tagging = Array.isArray(taggingInfos) ? taggingInfos : [taggingInfos];
+  const tagging = Array.isArray(taggingInfo) ? taggingInfo : [taggingInfo];
 
   tagging.forEach(({ url, params }: TaggingInfo) => {
+    const sessionId = getSessionId(consent);
     return XPlugin.adapter.track({
       url,
       params: {
@@ -36,7 +36,7 @@ export const trackTagging: TaggingXStoreModule['actions']['trackTagging'] = (
  *
  * @param consent - User consent to get the getSessionId.
  *
- * @returns SessionId - The user session id.
+ * @returns SessionId - The user session id or undefined.
  *
  * @internal
  */
