@@ -1,9 +1,11 @@
 import { Suggestion } from '@empathyco/x-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
+import { XPlugin } from '../../../plugins/x-plugin';
 import { normalizeString } from '../../../utils/normalize';
 import { XEventsTypes } from '../../../wiring/events.types';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
+import { WireMetadata } from '../../../wiring/wiring.types';
 import BaseSuggestion from '../base-suggestion.vue';
 
 describe('testing Base Suggestion component', () => {
@@ -54,8 +56,8 @@ describe('testing Base Suggestion component', () => {
   });
 
   it('emits suggestionSelectedEvent and the default events onclick', async () => {
-    const target = { target: component.element };
-    const spyOn = jest.spyOn(component.vm.$x, 'emit');
+    const target = expect.objectContaining<Partial<WireMetadata>>({ target: component.element });
+    const spyOn = jest.spyOn(XPlugin.bus, 'emit');
     component.trigger('click');
 
     await localVue.nextTick();

@@ -12,7 +12,8 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { State, xComponentMixin } from '../../../components';
+  import { State } from '../../../components/decorators/store.decorators';
+  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { searchXModule } from '../x-module';
   /**
    * A button that when pressed emits the {@link XEventsTypes.UserAcceptedAQuery}

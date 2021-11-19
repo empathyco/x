@@ -34,9 +34,7 @@ function renderSpellcheckButton({
   return {
     wrapper,
     async clickEventButton() {
-      const eventButton = wrapper.findComponent(SpellcheckButton);
-      eventButton.trigger('click');
-      await localVue.nextTick();
+      await wrapper.trigger('click');
     }
   };
 }

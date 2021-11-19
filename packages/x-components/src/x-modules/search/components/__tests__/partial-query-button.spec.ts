@@ -1,7 +1,7 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
-import { getXComponentXModuleName, isXComponent } from '../../../../components';
+import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import PartialQueryButton from '../partial-query-button.vue';
 
 function renderPartialQueryButton({
@@ -31,9 +31,7 @@ function renderPartialQueryButton({
   return {
     partialQueryButtonWrapper,
     async clickEventButton() {
-      const eventButton = wrapper.findComponent(PartialQueryButton);
-      eventButton.trigger('click');
-      await localVue.nextTick();
+      await wrapper.trigger('click');
     }
   };
 }

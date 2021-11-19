@@ -21,7 +21,6 @@
   import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { VueCSSClasses } from '../../../utils/types';
-  import { XEvent } from '../../../wiring';
   import { relatedTagsXModule } from '../x-module';
 
   /**
@@ -56,16 +55,16 @@
      * @public
      */
     protected emitEvents(): void {
-      const selectionEvent: XEvent = this.isSelected
-        ? 'UserDeselectedARelatedTag'
-        : 'UserSelectedARelatedTag';
-
       this.$x.emit('UserPickedARelatedTag', this.relatedTag, {
         target: this.$el as HTMLElement
       });
-      this.$x.emit(selectionEvent, this.relatedTag, {
-        target: this.$el as HTMLElement
-      });
+      this.$x.emit(
+        this.isSelected ? 'UserDeselectedARelatedTag' : 'UserSelectedARelatedTag',
+        this.relatedTag,
+        {
+          target: this.$el as HTMLElement
+        }
+      );
     }
 
     /**
