@@ -8,7 +8,7 @@ import {
   RelatedTag,
   Result,
   Suggestion,
-  Tagging
+  TaggingInfo
 } from '@empathyco/x-types';
 
 /**
@@ -44,7 +44,7 @@ export interface SearchByIdResponse {
  * @public
  */
 export interface TrackableShowResponse {
-  showTagging: Tagging;
+  showTagging: TaggingInfo;
 }
 
 /**
@@ -57,7 +57,7 @@ export interface SearchResponse {
   facets?: Facet[];
   partialResults: PartialResult[];
   promoteds: Promoted[];
-  queryTagging: Tagging;
+  queryTagging: TaggingInfo;
   redirections: Redirection[];
   results: Result[];
   spellcheck: string;

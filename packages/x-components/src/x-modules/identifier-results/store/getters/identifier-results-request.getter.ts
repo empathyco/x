@@ -10,13 +10,14 @@ import { IdentifierResultsXStoreModule } from '../types';
  */
 // eslint-disable-next-line max-len
 export const identifierResultsRequest: IdentifierResultsXStoreModule['getters']['identifierResultsRequest'] =
-  ({ query, config }) => {
+  ({ config, origin, query }) => {
+    const newOrigin = origin === null ? undefined : origin;
     return query.trim()
       ? {
           query,
           rows: config.maxItemsToRequest,
           start: 0,
-          origin: 'default' //TODO Remove origin parameter when added as optional in search adapter.
+          origin: newOrigin
         }
       : null;
   };

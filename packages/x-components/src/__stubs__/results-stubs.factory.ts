@@ -1,4 +1,4 @@
-import { Result, ResultTagging, Tagging } from '@empathyco/x-types';
+import { Result, Tagging, TaggingInfo } from '@empathyco/x-types';
 import { toKebabCase } from '../utils/string';
 
 /**
@@ -52,16 +52,16 @@ export function createResultStub(name: string, result?: Partial<Result>): Result
 }
 
 /**
- * Function to create a {@link @empathyco/x-types#ResultTagging | result tagging} mocked object
+ * Function to create a {@link @empathyco/x-types#Tagging | result tagging} mocked object
  * based on result id.
  *
  * @param productId - Product id to build mocked params.
  *
- * @returns ResultTagging mocked object.
+ * @returns Tagging mocked object.
  *
  * @internal
  */
-function getResultTagging(productId: string): ResultTagging {
+function getResultTagging(productId: string): Tagging {
   return {
     click: getTaggingByAction('click', { productId }),
     add2cart: getTaggingByAction('add2cart', { productId }),
@@ -70,16 +70,16 @@ function getResultTagging(productId: string): ResultTagging {
 }
 
 /**
- * Creates a {@link @empathyco/x-types#Tagging | result tagging} mocked object.
+ * Creates a {@link @empathyco/x-types#TaggingInfo | tagging info} mocked object.
  *
  * @param action - String with the action to tag.
  * @param params - Params to add to the tagging request.
  *
- * @returns Tagging mocked object.
+ * @returns TaggingInfo mocked object.
  *
  * @internal
  */
-function getTaggingByAction(action: string, params: Record<string, any>): Tagging {
+function getTaggingByAction(action: string, params: Record<string, any>): TaggingInfo {
   return {
     url: `http://x-components.com/tagging/${action}`,
     params: {

@@ -1,7 +1,7 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
-import { getXComponentXModuleName, isXComponent } from '../../../../components';
+import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import PartialQueryButton from '../partial-query-button.vue';
 
 function renderPartialQueryButton({
@@ -30,10 +30,8 @@ function renderPartialQueryButton({
 
   return {
     partialQueryButtonWrapper,
-    async clickEventButton() {
-      const eventButton = wrapper.findComponent(PartialQueryButton);
-      eventButton.trigger('click');
-      await localVue.nextTick();
+    async click() {
+      await wrapper.trigger('click');
     }
   };
 }
@@ -78,7 +76,7 @@ describe('testing PartialQueryButton component', () => {
     const userAcceptedAQuery = jest.fn();
     const UserClickedPartialQuery = jest.fn();
     const query = 'coche';
-    const { partialQueryButtonWrapper, clickEventButton } = renderPartialQueryButton({
+    const { partialQueryButtonWrapper, click } = renderPartialQueryButton({
       query
     });
     const $x = partialQueryButtonWrapper.vm.$x;
@@ -86,7 +84,7 @@ describe('testing PartialQueryButton component', () => {
     $x.on('UserAcceptedAQuery').subscribe(userAcceptedAQuery);
     $x.on('UserClickedPartialQuery').subscribe(UserClickedPartialQuery);
 
-    clickEventButton();
+    click();
 
     expect(userAcceptedAQuery).toHaveBeenNthCalledWith(1, query);
     expect(UserClickedPartialQuery).toHaveBeenNthCalledWith(1, query);
@@ -103,6 +101,6 @@ interface RenderPartialQueryButtonOptions {
 interface RenderPartialQueryButtonAPI {
   /** The wrapper of the button element.*/
   partialQueryButtonWrapper: Wrapper<Vue>;
-  /** Clicks the event button and waits for the view to update. */
-  clickEventButton: () => Promise<void>;
+  /** Clicks the button and waits for the view to update. */
+  click: () => Promise<void>;
 }

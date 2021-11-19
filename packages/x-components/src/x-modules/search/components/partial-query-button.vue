@@ -11,7 +11,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { xComponentMixin } from '../../../components';
+  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { searchXModule } from '../x-module';
 
   /**

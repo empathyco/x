@@ -1,6 +1,6 @@
 import { Identifiable } from './identifiable.model';
 import { NamedModel } from './named-model.model';
-import { Tagging } from './tagging.model';
+import { Taggable } from './tagging.model';
 
 /**
  * A banner is an image with a title, that when clicked redirect the user to an URL. Often it is
@@ -9,16 +9,11 @@ import { Tagging } from './tagging.model';
  *
  * @public
  */
-export interface Banner extends NamedModel<'Banner'>, Identifiable {
+export interface Banner extends NamedModel<'Banner'>, Identifiable, Taggable {
   /** Banner title. */
   title: string;
   /** URL to redirect. */
   url: string;
   /** Banner image. */
   image: string;
-  /** Banner tagging. */
-  tagging: {
-    /** {@link Tagging | Click tagging}. */
-    click: Tagging;
-  };
 }

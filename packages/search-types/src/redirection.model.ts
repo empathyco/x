@@ -1,6 +1,6 @@
 import { Identifiable } from './identifiable.model';
 import { NamedModel } from './named-model.model';
-import { Tagging } from './tagging.model';
+import { Taggable } from './tagging.model';
 
 /**
  * A redirection (AKA Direct Link) is simply a URL.
@@ -10,12 +10,7 @@ import { Tagging } from './tagging.model';
  *
  * @public
  */
-export interface Redirection extends NamedModel<'Redirection'>, Identifiable {
+export interface Redirection extends NamedModel<'Redirection'>, Identifiable, Taggable {
   /** URL to redirect. */
   url: string;
-  /** Redirect tagging. */
-  tagging: {
-    /** {@link Tagging | Click tagging}. */
-    click: Tagging;
-  };
 }

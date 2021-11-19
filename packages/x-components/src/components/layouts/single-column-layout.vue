@@ -30,12 +30,14 @@
     </div>
 
     <main v-if="hasContent('main')" class="x-layout__main x-list x-list--vertical">
-      <Scroll id="main-scroll">
-        <!-- @slot Slot that can be used to insert content into the Main. -->
-        <slot name="main">
-          <span v-if="devMode" class="slot-helper">MAIN</span>
-        </slot>
-      </Scroll>
+      <MainScroll>
+        <Scroll id="main-scroll">
+          <!-- @slot Slot that can be used to insert content into the Main. -->
+          <slot name="main">
+            <span v-if="devMode" class="slot-helper">MAIN</span>
+          </slot>
+        </Scroll>
+      </MainScroll>
     </main>
 
     <div v-if="hasContent('floating')" class="x-layout__floating x-list x-list--horizontal">
@@ -70,6 +72,7 @@
   import Vue from 'vue';
   import { mixins } from 'vue-class-component';
   import { Component, Prop } from 'vue-property-decorator';
+  import MainScroll from '../../x-modules/scroll/components/main-scroll.vue';
   import Scroll from '../../x-modules/scroll/components/scroll.vue';
   import TranslateFromRight from '../animations/translate-from-right.vue';
   import BaseIdModal from '../modals/base-id-modal.vue';
@@ -82,7 +85,7 @@
    * @public
    */
   @Component({
-    components: { BaseIdModal, BaseScroll, Scroll }
+    components: { BaseIdModal, BaseScroll, MainScroll, Scroll }
   })
   export default class SingleColumnLayout extends mixins(LayoutsMixin) {
     /**
