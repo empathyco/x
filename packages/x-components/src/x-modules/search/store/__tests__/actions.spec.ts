@@ -1,7 +1,8 @@
-import { SearchResponse } from '@empathyco/x-adapter';
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
+//eslint-disable-next-line max-len
+import { getEmptySearchResponseStub } from '../../../../__stubs__/empty-search-response-stubs.factory';
 import { getFacetsStub } from '../../../../__stubs__/facets-stubs.factory';
 import { getPromotedsStub } from '../../../../__stubs__/promoteds-stubs.factory';
 import { getRedirectionsStub } from '../../../../__stubs__/redirections-stubs.factory';
@@ -21,21 +22,7 @@ describe('testing search module actions', () => {
   const promotedsStub = getPromotedsStub();
   const redirectionsStub = getRedirectionsStub();
   const searchResponseStub = getSearchResponseStub();
-
-  const mockedEmptySearchResponse: SearchResponse = {
-    banners: [],
-    facets: [],
-    partialResults: [],
-    promoteds: [],
-    queryTagging: {
-      params: {},
-      url: ''
-    },
-    redirections: [],
-    results: [],
-    spellcheck: '',
-    totalResults: 0
-  };
+  const emptySearchResponseStub = getEmptySearchResponseStub();
 
   const adapter = getMockedAdapter({ search: searchResponseStub });
 
@@ -64,13 +51,13 @@ describe('testing search module actions', () => {
 
     it('should return empty search response if there is not request', async () => {
       const searchResponse = await store.dispatch('fetchSearchResponse', store.getters.request);
-      expect(searchResponse).toEqual(mockedEmptySearchResponse);
+      expect(searchResponse).toEqual(emptySearchResponseStub);
     });
   });
 
   describe('fetchAndSaveSearchResponse', () => {
     // eslint-disable-next-line max-len
-    it('should request and store results, facets, banners, promoteds and redirections in the state', async () => {
+    it('should request and store results, facets, banners, promoteds, redirections and query tagging in the state', async () => {
       resetSearchStateWith(store, {
         query: 'lego'
       });
@@ -86,25 +73,32 @@ describe('testing search module actions', () => {
       expect(store.state.page).toEqual(1);
       expect(store.state.config.pageSize).toEqual(24);
       expect(store.state.status).toEqual('success');
+      expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
     });
 
     // eslint-disable-next-line max-len
-    it('should clear results, facets, banners and promoteds in the state if the query is empty', async () => {
+    it('should clear results, facets, banners, promoteds, redirections and query tagging in the state if the query is empty', async () => {
       resetSearchStateWith(store, {
         results: resultsStub,
         facets: facetsStub,
         banners: bannersStub,
-        promoteds: promotedsStub
+        promoteds: promotedsStub,
+        redirections: redirectionsStub,
+        queryTagging: searchResponseStub.queryTagging
       });
       expect(store.state.results).toEqual(resultsStub);
       expect(store.state.facets).toEqual(facetsStub);
       expect(store.state.banners).toEqual(bannersStub);
       expect(store.state.promoteds).toEqual(promotedsStub);
+      expect(store.state.redirections).toEqual(redirectionsStub);
+      expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
       await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
       expect(store.state.results).toEqual([]);
       expect(store.state.facets).toEqual([]);
       expect(store.state.banners).toEqual([]);
       expect(store.state.promoteds).toEqual([]);
+      expect(store.state.redirections).toEqual([]);
+      expect(store.state.queryTagging).toEqual({ url: '', params: {} });
     });
 
     it('should request and store total results in the state', async () => {
@@ -113,7 +107,7 @@ describe('testing search module actions', () => {
       });
 
       adapter.search.mockResolvedValueOnce({
-        ...mockedEmptySearchResponse,
+        ...emptySearchResponseStub,
         totalResults: 116
       });
 
@@ -137,7 +131,7 @@ describe('testing search module actions', () => {
       });
 
       adapter.search.mockResolvedValueOnce({
-        ...mockedEmptySearchResponse,
+        ...emptySearchResponseStub,
         spellcheck: 'coche'
       });
 
@@ -165,7 +159,7 @@ describe('testing search module actions', () => {
         redirections: initialRedirections
       } = store.state;
       adapter.search.mockResolvedValueOnce({
-        ...mockedEmptySearchResponse,
+        ...emptySearchResponseStub,
         results: resultsStub.slice(0, 1),
         facets: facetsStub.slice(0, 1)
       });
@@ -256,7 +250,7 @@ describe('testing search module actions', () => {
       });
 
       adapter.search.mockResolvedValueOnce({
-        ...mockedEmptySearchResponse,
+        ...emptySearchResponseStub,
         results: resultsStub.slice(1, 2),
         banners: bannersStub.slice(0, 1),
         promoteds: promotedsStub.slice(1, 2)
@@ -280,7 +274,7 @@ describe('testing search module actions', () => {
       });
 
       adapter.search.mockResolvedValueOnce({
-        ...mockedEmptySearchResponse,
+        ...emptySearchResponseStub,
         results: resultsStub.slice(1, 2),
         banners: bannersStub.slice(1, 2),
         promoteds: promotedsStub.slice(1, 2)

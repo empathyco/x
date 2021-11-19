@@ -8,7 +8,8 @@ import {
   Redirection,
   RelatedTag,
   Result,
-  Sort
+  Sort,
+  TaggingInfo
 } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
@@ -43,6 +44,8 @@ export interface SearchState extends StatusState {
   promoteds: Promoted[];
   /** The internal query of the module. Used to request the search results. */
   query: string;
+  /** The query tagging used to track the search events. */
+  queryTagging: TaggingInfo;
   /** The redirections associated to the `query`. */
   redirections: Redirection[];
   /** The list of the related tags, related to the `query` property of the state. */
@@ -143,6 +146,12 @@ export interface SearchMutations extends StatusMutations {
    * @param newQuery - The new query to save to the state.
    */
   setQuery(newQuery: string): void;
+  /**
+   * Sets the query tagging of the module, which is used to track the query.
+   *
+   * @param queryTagging - The new query tagging object to save to the state.
+   */
+  setQueryTagging(queryTagging: TaggingInfo): void;
   /**
    * Sets the redirection of the module.
    *
