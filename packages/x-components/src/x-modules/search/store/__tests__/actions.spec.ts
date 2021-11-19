@@ -70,7 +70,7 @@ describe('testing search module actions', () => {
 
   describe('fetchAndSaveSearchResponse', () => {
     // eslint-disable-next-line max-len
-    it('should request and store results, facets, banners, promoteds and redirections in the state', async () => {
+    it('should request and store results, facets, banners, promoteds, redirections and query tagging in the state', async () => {
       resetSearchStateWith(store, {
         query: 'lego'
       });
@@ -86,25 +86,32 @@ describe('testing search module actions', () => {
       expect(store.state.page).toEqual(1);
       expect(store.state.config.pageSize).toEqual(24);
       expect(store.state.status).toEqual('success');
+      expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
     });
 
     // eslint-disable-next-line max-len
-    it('should clear results, facets, banners and promoteds in the state if the query is empty', async () => {
+    it('should clear results, facets, banners, promoteds, redirections and query tagging in the state if the query is empty', async () => {
       resetSearchStateWith(store, {
         results: resultsStub,
         facets: facetsStub,
         banners: bannersStub,
-        promoteds: promotedsStub
+        promoteds: promotedsStub,
+        redirections: redirectionsStub,
+        queryTagging: searchResponseStub.queryTagging
       });
       expect(store.state.results).toEqual(resultsStub);
       expect(store.state.facets).toEqual(facetsStub);
       expect(store.state.banners).toEqual(bannersStub);
       expect(store.state.promoteds).toEqual(promotedsStub);
+      expect(store.state.redirections).toEqual(redirectionsStub);
+      expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
       await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
       expect(store.state.results).toEqual([]);
       expect(store.state.facets).toEqual([]);
       expect(store.state.banners).toEqual([]);
       expect(store.state.promoteds).toEqual([]);
+      expect(store.state.redirections).toEqual([]);
+      expect(store.state.queryTagging).toEqual({ url: '', params: {} });
     });
 
     it('should request and store total results in the state', async () => {
