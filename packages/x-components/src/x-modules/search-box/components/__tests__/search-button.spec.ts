@@ -66,7 +66,8 @@ describe('testing search button component', () => {
       eventPayload: query,
       metadata: {
         moduleName: 'searchBox',
-        target: searchButtonWrapper.element
+        target: searchButtonWrapper.element,
+        feature: 'search_box'
       }
     };
     searchButtonWrapper.vm.$x.on('UserAcceptedAQuery', true).subscribe(mockedObserver);

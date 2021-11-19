@@ -14,6 +14,7 @@
   import { Component } from 'vue-property-decorator';
   import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { WireMetadata } from '../../../wiring/wiring.types';
   import { searchXModule } from '../x-module';
   /**
    * A button that when pressed emits the {@link XEventsTypes.UserAcceptedAQuery}
@@ -35,17 +36,26 @@
     public spellcheckedQuery!: string;
 
     /**
+     * Generates the {@link WireMetadata | event metadata} object omitting the moduleName.
+     *
+     * @returns The {@link WireMetadata} object omitting the moduleName.
+     * @internal
+     */
+    protected eventMetadata(): Omit<WireMetadata, 'moduleName'> {
+      return {
+        target: this.$el as HTMLElement,
+        feature: 'spellcheck'
+      };
+    }
+
+    /**
      * Emits events when the button is clicked.
      *
      * @public
      */
     protected emitEvents(): void {
-      this.$x.emit('UserAcceptedAQuery', this.spellcheckedQuery, {
-        target: this.$el as HTMLElement
-      });
-      this.$x.emit('UserAcceptedSpellcheckQuery', this.spellcheckedQuery, {
-        target: this.$el as HTMLElement
-      });
+      this.$x.emit('UserAcceptedAQuery', this.spellcheckedQuery, this.eventMetadata());
+      this.$x.emit('UserAcceptedSpellcheckQuery', this.spellcheckedQuery, this.eventMetadata());
     }
   }
 </script>

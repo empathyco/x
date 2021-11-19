@@ -37,7 +37,8 @@ describe('testing history-query component', () => {
       eventPayload: historyQuery,
       metadata: {
         target: suggestionButton.element,
-        moduleName: 'historyQueries'
+        moduleName: 'historyQueries',
+        feature: 'history_query'
       }
     });
   });

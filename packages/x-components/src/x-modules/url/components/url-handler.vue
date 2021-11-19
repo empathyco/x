@@ -105,8 +105,8 @@
      */
     protected emitEvents(): void {
       const { all, extra } = this.parseUrlParams();
-      this.$x.emit('ParamsLoadedFromUrl', all);
-      this.$x.emit('ExtraParamsLoadedFromUrl', extra);
+      this.$x.emit('ParamsLoadedFromUrl', all, { feature: 'url' });
+      this.$x.emit('ExtraParamsLoadedFromUrl', extra, { feature: 'url' });
       // TODO: Move this logic from here.
       if (all.query) {
         this.$x.emit('UserOpenXProgrammatically');

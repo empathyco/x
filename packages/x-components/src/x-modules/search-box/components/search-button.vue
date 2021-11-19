@@ -16,6 +16,7 @@
   import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { VueCSSClasses } from '../../../utils/types';
+  import { WireMetadata } from '../../../wiring/wiring.types';
   import { searchBoxXModule } from '../x-module';
 
   /**
@@ -40,18 +41,27 @@
     }
 
     /**
+     * Generates the {@link WireMetadata | event metadata} object omitting the moduleName.
+     *
+     * @returns The {@link WireMetadata} object omitting the moduleName.
+     * @internal
+     */
+    protected eventMetadata(): Omit<WireMetadata, 'moduleName'> {
+      return {
+        target: this.$el as HTMLElement,
+        feature: 'search_box'
+      };
+    }
+
+    /**
      * Emits events when the button is clicked.
      *
      * @public
      */
     protected emitEvents(): void {
       if (!this.isQueryEmpty) {
-        this.$x.emit('UserAcceptedAQuery', this.query, {
-          target: this.$el as HTMLElement
-        });
-        this.$x.emit('UserPressedSearchButton', this.query, {
-          target: this.$el as HTMLElement
-        });
+        this.$x.emit('UserAcceptedAQuery', this.query, this.eventMetadata());
+        this.$x.emit('UserPressedSearchButton', this.query, this.eventMetadata());
       }
     }
 

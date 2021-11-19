@@ -58,7 +58,8 @@ describe('testing query-suggestion component', () => {
       eventPayload: suggestion,
       metadata: {
         moduleName: 'querySuggestions',
-        target: button
+        target: button,
+        feature: 'query_suggestion'
       }
     });
   });

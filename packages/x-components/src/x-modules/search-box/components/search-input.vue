@@ -140,7 +140,8 @@
      */
     protected eventMetadata(): Omit<WireMetadata, 'moduleName'> {
       return {
-        target: this.$refs.input
+        target: this.$refs.input,
+        feature: 'search_box'
       };
     }
 
