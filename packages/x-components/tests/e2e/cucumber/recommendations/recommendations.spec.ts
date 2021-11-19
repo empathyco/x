@@ -1,20 +1,5 @@
-import { TopRecommendationsResponse } from '@empathyco/x-adapter';
 import { And, Given } from 'cypress-cucumber-preprocessor/steps';
-import { createResultStub } from '../../../../src/__stubs__';
 import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
-
-// Background
-Given('a recommendations API with a known response', () => {
-  cy.intercept('https://api.empathy.co/getTopRecommendations', req => {
-    req.reply(<TopRecommendationsResponse>{
-      results: [
-        createResultStub('Piscina 3 Anillos'),
-        createResultStub('Among Us Figura Acción'),
-        createResultStub('Barbie Sirenas Dreamtopia')
-      ]
-    });
-  }).as('interceptedRecommendations');
-});
 
 // Scenario 1
 Given('following config: max items to store is {int}', (maxItemsToRequest: number) => {

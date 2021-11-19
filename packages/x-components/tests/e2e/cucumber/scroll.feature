@@ -7,13 +7,13 @@ Feature: Exclude filters with no results component
 
   Scenario Outline: 1. Scroll is kept in the URL
     When  start button is clicked
-    And  "<query>" is searched
+    And   "<query>" is searched
     Then  related results are displayed
-    When scrolling down to result "<resultId>"
-    Then url is updated with result "<resultId>"
-    When tab is reloaded
+    When  scrolling down to result "<resultId>"
+    Then  url is updated with result "<resultId>"
+    When  tab is reloaded
     Then  related results are displayed
-    And first visible result is "<resultId>"
+    And   first visible result is "<resultId>"
 
     Examples:
       | query | resultId  |
