@@ -72,7 +72,7 @@ class E2ETestsAdapter extends EmpathyAdapter {
 
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   track(trackingRequest: TrackingRequest): Promise<void> {
-    return new Promise(resolve => resolve());
+    return Promise.resolve();
   }
 
   searchById(request: SearchByIdRequest): Promise<SearchByIdResponse> {
