@@ -1,4 +1,4 @@
-import { TaggingInfo } from '../../../../../search-types';
+import { TaggingInfo } from '@empathyco/x-types';
 import { XStoreModule } from '../../../store';
 import { TaggingConfig } from '../config.types';
 /**
