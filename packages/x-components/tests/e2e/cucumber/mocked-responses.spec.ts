@@ -16,7 +16,6 @@ import {
   createRelatedTagStub,
   createResultStub,
   createSimpleFacetStub,
-  getFacetsStub,
   getNextQueriesStub,
   getPopularSearchesStub,
   getQuerySuggestionsStub,
@@ -24,9 +23,18 @@ import {
   getResultsStub
 } from '../../../src/__stubs__';
 
+const mockedApiUrl = 'https://api.empathy.co';
+
+const searchByIdEndpoint = `${mockedApiUrl}/searchById`;
+const getNextQueriesEndpoint = `${mockedApiUrl}/getNextQueries`;
+const getRelatedTagsEndpoint = `${mockedApiUrl}/getRelatedTags`;
+const getSuggestionsEndpoint = `${mockedApiUrl}/getSuggestions`;
+const getTopRecommendationsEndpoint = `${mockedApiUrl}/getTopRecommendations`;
+const searchEndpoint = `${mockedApiUrl}/search`;
+
 // ID Results
 Given('an ID results API', () => {
-  cy.intercept('https://api.empathy.co/searchById', req => {
+  cy.intercept(searchByIdEndpoint, req => {
     req.reply(<SearchByIdResponse>{
       results: getResultsStub()
     });
@@ -34,7 +42,7 @@ Given('an ID results API', () => {
 });
 
 Given('an ID results API with a known response', () => {
-  cy.intercept('https://api.empathy.co/searchById', req => {
+  cy.intercept(searchByIdEndpoint, req => {
     req.reply(<SearchByIdResponse>{
       results: [
         createResultStub('A0255072 - 9788467577112 - 160000', {
@@ -55,7 +63,7 @@ Given('an ID results API with a known response', () => {
 });
 
 Given('an ID results API with no results', () => {
-  cy.intercept('https://api.empathy.co/searchById', req => {
+  cy.intercept(searchByIdEndpoint, req => {
     req.reply(<SearchByIdResponse>{
       results: []
     });
@@ -64,7 +72,7 @@ Given('an ID results API with no results', () => {
 
 // Next Queries
 Given('a next queries API', () => {
-  cy.intercept('https://api.empathy.co/getNextQueries', req => {
+  cy.intercept(getNextQueriesEndpoint, req => {
     req.reply(<NextQueriesResponse>{
       nextQueries: getNextQueriesStub()
     });
@@ -72,7 +80,7 @@ Given('a next queries API', () => {
 });
 
 Given('a next queries API with a known response', () => {
-  cy.intercept('https://api.empathy.co/getNextQueries', req => {
+  cy.intercept(getNextQueriesEndpoint, req => {
     req.reply(<NextQueriesResponse>{
       nextQueries: [
         createNextQueryStub('lego'),
@@ -85,7 +93,7 @@ Given('a next queries API with a known response', () => {
 
 // Partial Results
 Given('a results API with partial results', () => {
-  cy.intercept('https://api.empathy.co/search', req => {
+  cy.intercept(searchEndpoint, req => {
     req.reply(<SearchResponse>{
       banners: [],
       promoteds: [],
@@ -101,7 +109,7 @@ Given('a results API with partial results', () => {
           images: ['https://picsum.photos/seed/1/100/100']
         })
       ],
-      facets: getFacetsStub(),
+      facets: [],
       partialResults: [
         {
           query: 'verde azul',
@@ -140,7 +148,7 @@ Given('a results API with partial results', () => {
 
 // Popular Searches
 Given('a popular searches API with a known response', () => {
-  cy.intercept('https://api.empathy.co/getSuggestions', req => {
+  cy.intercept(getSuggestionsEndpoint, req => {
     req.reply(<SuggestionsResponse>{
       suggestions: [
         createPopularSearch('playmobil'),
@@ -155,7 +163,7 @@ Given('a popular searches API with a known response', () => {
 
 // Query Suggestions
 Given('a query suggestions API with a known response', () => {
-  cy.intercept('https://api.empathy.co/getSuggestions', req => {
+  cy.intercept(getSuggestionsEndpoint, req => {
     req.reply(<SuggestionsResponse>{
       suggestions: [
         createQuerySuggestion('lego'),
@@ -170,7 +178,7 @@ Given('a query suggestions API with a known response', () => {
 });
 
 Given('a query suggestions API with no query suggestions', () => {
-  cy.intercept('https://api.empathy.co/getSuggestions', req => {
+  cy.intercept(getSuggestionsEndpoint, req => {
     req.reply(<SuggestionsResponse>{
       suggestions: []
     });
@@ -179,7 +187,7 @@ Given('a query suggestions API with no query suggestions', () => {
 
 // Recommendations
 Given('a recommendations API with a known response', () => {
-  cy.intercept('https://api.empathy.co/getTopRecommendations', req => {
+  cy.intercept(getTopRecommendationsEndpoint, req => {
     req.reply(<TopRecommendationsResponse>{
       results: [
         createResultStub('Piscina 3 Anillos'),
@@ -192,7 +200,7 @@ Given('a recommendations API with a known response', () => {
 
 // Related Tags
 Given('a related tags API', () => {
-  cy.intercept('https://api.empathy.co/getRelatedTags', req => {
+  cy.intercept(getRelatedTagsEndpoint, req => {
     req.reply(<RelatedTagsResponse>{
       relatedTags: getRelatedTagsStub()
     });
@@ -200,7 +208,7 @@ Given('a related tags API', () => {
 });
 
 Given('a related tags API with a known response', () => {
-  cy.intercept('https://api.empathy.co/getRelatedTags', req => {
+  cy.intercept(getRelatedTagsEndpoint, req => {
     req.reply(<RelatedTagsResponse>{
       relatedTags: [
         createRelatedTagStub('lego', 'marvel'),
@@ -212,7 +220,7 @@ Given('a related tags API with a known response', () => {
 });
 
 Given('a related tags API with a selected one', () => {
-  cy.intercept('https://api.empathy.co/getRelatedTags', req => {
+  cy.intercept(getRelatedTagsEndpoint, req => {
     req.reply(<RelatedTagsResponse>{
       relatedTags: [
         createRelatedTagStub('lego', 'bombero', { selected: true }),
@@ -225,7 +233,7 @@ Given('a related tags API with a selected one', () => {
 
 // Results
 Given('a results API with a known response', () => {
-  cy.intercept('https://api.empathy.co/search', req => {
+  cy.intercept(searchEndpoint, req => {
     req.reply(<SearchResponse>{
       banners: [],
       promoteds: [],
@@ -347,7 +355,7 @@ Given('a results API with a known response', () => {
 });
 
 Given('a second results API with a known response', () => {
-  cy.intercept('https://api.empathy.co/search', req => {
+  cy.intercept(searchEndpoint, req => {
     req.reply(<SearchResponse>{
       banners: [],
       promoteds: [],
@@ -373,7 +381,7 @@ Given('a second results API with a known response', () => {
 });
 
 Given('a results API with {int} results', (resultsLength: number) => {
-  cy.intercept('https://api.empathy.co/search', req => {
+  cy.intercept(searchEndpoint, req => {
     req.reply(<SearchResponse>{
       banners: [],
       promoteds: [],
@@ -384,53 +392,7 @@ Given('a results API with {int} results', (resultsLength: number) => {
         params: {}
       },
       spellcheck: '',
-      facets: [
-        createSimpleFacetStub('brand_facet', createSimpleFilter => [
-          createSimpleFilter('Juguetes deportivos', false, 3),
-          createSimpleFilter('Puzzles', false, 0),
-          createSimpleFilter('Construcción', false, 7),
-          createSimpleFilter('Construye', false, 6),
-          createSimpleFilter('Disfraces', false, 0)
-        ]),
-        createNumberRangeFacetStub('price_facet', createNumberRangeFilter => [
-          createNumberRangeFilter({ min: 0, max: 10 }, false),
-          createNumberRangeFilter({ min: 10, max: 20 }, false),
-          createNumberRangeFilter({ min: 20, max: 30 }, false),
-          createNumberRangeFilter({ min: 30, max: 40 }, false),
-          createNumberRangeFilter({ min: 40, max: 60 }, false),
-          createNumberRangeFilter({ min: 60, max: 100 }, false)
-        ]),
-        createNumberRangeFacetStub('age_facet', createNumberRangeFilter => [
-          createNumberRangeFilter({ min: 0, max: 1 }, false),
-          createNumberRangeFilter({ min: 1, max: 3 }, false),
-          createNumberRangeFilter({ min: 3, max: 6 }, false),
-          createNumberRangeFilter({ min: 6, max: 9 }, false),
-          createNumberRangeFilter({ min: 9, max: 12 }, false),
-          createNumberRangeFilter({ min: 12, max: 99 }, false)
-        ]),
-        createHierarchicalFacetStub('hierarchical_category', createFilter => [
-          ...createFilter('Vehículos y pistas', false, createFilter => [
-            ...createFilter('Radiocontrol', false)
-          ]),
-          ...createFilter('Juguetes electrónicos', false, createFilter => [
-            ...createFilter('Imagen y audio', false)
-          ]),
-          ...createFilter('Educativos', false, createFilter => [
-            ...createFilter('Juguetes educativos', false)
-          ]),
-          ...createFilter('Creativos', false, createFilter => [...createFilter('Crea', false)]),
-          ...createFilter('Muñecas', false, createFilter => [
-            ...createFilter('Peluches', false),
-            ...createFilter('Ropa y accesorios', false),
-            ...createFilter('Playsets', false),
-            ...createFilter('Bebés', false),
-            ...createFilter('Carros', false)
-          ]),
-          ...createFilter('Construcción', false, createFilter => [
-            ...createFilter('Construye', false)
-          ])
-        ])
-      ],
+      facets: [],
       results: Array.from({ length: resultsLength }, (_, index) =>
         createResultStub(`Result ${index}`, {
           images: [`https://picsum.photos/seed/${index}/100/100`]
@@ -442,7 +404,7 @@ Given('a results API with {int} results', (resultsLength: number) => {
 });
 
 Given('a results API with no results', () => {
-  cy.intercept('https://api.empathy.co/search', req => {
+  cy.intercept(searchEndpoint, req => {
     req.reply(<SearchResponse>{
       banners: [],
       promoteds: [],
@@ -461,7 +423,7 @@ Given('a results API with no results', () => {
 });
 
 Given('a results API with broken images', () => {
-  cy.intercept('https://api.empathy.co/search', req => {
+  cy.intercept(searchEndpoint, req => {
     req.reply(<SearchResponse>{
       banners: [],
       promoteds: [],
@@ -509,26 +471,6 @@ Given('a results API with broken images', () => {
   }).as('interceptedFallbackResults');
 });
 
-// Spellcheck
-Given('a results API response for a misspelled word', () => {
-  cy.intercept('https://api.empathy.co/search', req => {
-    req.reply(<SearchResponse>{
-      banners: [],
-      promoteds: [],
-      facets: [],
-      results: [],
-      redirections: [],
-      partialResults: [],
-      totalResults: 7,
-      queryTagging: {
-        url: 'https://tagging.empathy.co',
-        params: {}
-      },
-      spellcheck: 'lego'
-    });
-  });
-});
-
 Given('a results API', () => {
   cy.intercept('https://api.empathy.co/search', req => {
     req.reply(<SearchResponse>{
@@ -548,9 +490,29 @@ Given('a results API', () => {
   }).as('interceptedRawResults');
 });
 
+// Spellcheck
+Given('a results API response for a misspelled word', () => {
+  cy.intercept(searchEndpoint, req => {
+    req.reply(<SearchResponse>{
+      banners: [],
+      promoteds: [],
+      facets: [],
+      results: [],
+      redirections: [],
+      partialResults: [],
+      totalResults: 7,
+      queryTagging: {
+        url: 'https://tagging.empathy.co',
+        params: {}
+      },
+      spellcheck: 'lego'
+    });
+  });
+});
+
 // Suggestions
 Given('a suggestions API', () => {
-  cy.intercept('https://api.empathy.co/getSuggestions', req => {
+  cy.intercept(getSuggestionsEndpoint, req => {
     req.reply(<SuggestionsResponse>{
       suggestions: req.body.query ? getQuerySuggestionsStub('rum') : getPopularSearchesStub()
     });
