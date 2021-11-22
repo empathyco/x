@@ -2,6 +2,7 @@ import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
+import { WireMetadata } from '../../../../wiring/wiring.types';
 import PartialQueryButton from '../partial-query-button.vue';
 
 function renderPartialQueryButton({
@@ -81,13 +82,25 @@ describe('testing PartialQueryButton component', () => {
     });
     const $x = partialQueryButtonWrapper.vm.$x;
 
-    $x.on('UserAcceptedAQuery').subscribe(userAcceptedAQuery);
-    $x.on('UserClickedPartialQuery').subscribe(UserClickedPartialQuery);
+    $x.on('UserAcceptedAQuery', true).subscribe(userAcceptedAQuery);
+    $x.on('UserClickedPartialQuery', true).subscribe(UserClickedPartialQuery);
 
     click();
 
-    expect(userAcceptedAQuery).toHaveBeenNthCalledWith(1, query);
-    expect(UserClickedPartialQuery).toHaveBeenNthCalledWith(1, query);
+    expect(userAcceptedAQuery).toHaveBeenNthCalledWith(1, {
+      eventPayload: query,
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        feature: 'partial_result',
+        target: partialQueryButtonWrapper.element
+      })
+    });
+    expect(UserClickedPartialQuery).toHaveBeenNthCalledWith(1, {
+      eventPayload: query,
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        feature: 'partial_result',
+        target: partialQueryButtonWrapper.element
+      })
+    });
   });
 });
 

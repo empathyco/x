@@ -56,7 +56,7 @@
      * @returns The {@link WireMetadata} object omitting the moduleName.
      * @internal
      */
-    protected eventMetadata(): Omit<WireMetadata, 'moduleName'> {
+    protected createEventMetadata(): Omit<WireMetadata, 'moduleName'> {
       return {
         target: this.$el as HTMLElement,
         feature: 'related_tag'
@@ -74,9 +74,9 @@
       this.$x.emit(
         this.isSelected ? 'UserDeselectedARelatedTag' : 'UserSelectedARelatedTag',
         this.relatedTag,
-        this.eventMetadata()
+        this.createEventMetadata()
       );
-      this.$x.emit('UserPickedARelatedTag', this.relatedTag, this.eventMetadata());
+      this.$x.emit('UserPickedARelatedTag', this.relatedTag, this.createEventMetadata());
     }
 
     /**

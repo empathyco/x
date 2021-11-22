@@ -40,7 +40,7 @@
      * @returns The {@link WireMetadata} object omitting the moduleName.
      * @internal
      */
-    protected eventMetadata(): Omit<WireMetadata, 'moduleName'> {
+    protected createEventMetadata(): Omit<WireMetadata, 'moduleName'> {
       return {
         target: this.$el as HTMLElement,
         feature: 'partial_result'
@@ -53,8 +53,8 @@
      * @public
      */
     protected emitEvents(): void {
-      this.$x.emit('UserAcceptedAQuery', this.query, this.eventMetadata());
-      this.$x.emit('UserClickedPartialQuery', this.query, this.eventMetadata());
+      this.$x.emit('UserAcceptedAQuery', this.query, this.createEventMetadata());
+      this.$x.emit('UserClickedPartialQuery', this.query, this.createEventMetadata());
     }
   }
 </script>

@@ -46,7 +46,7 @@
      * @returns The {@link WireMetadata} object omitting the moduleName.
      * @internal
      */
-    protected eventMetadata(): Omit<WireMetadata, 'moduleName'> {
+    protected createEventMetadata(): Omit<WireMetadata, 'moduleName'> {
       return {
         target: this.$el as HTMLElement,
         feature: 'search_box'
@@ -60,8 +60,8 @@
      */
     protected emitEvents(): void {
       if (!this.isQueryEmpty) {
-        this.$x.emit('UserAcceptedAQuery', this.query, this.eventMetadata());
-        this.$x.emit('UserPressedSearchButton', this.query, this.eventMetadata());
+        this.$x.emit('UserAcceptedAQuery', this.query, this.createEventMetadata());
+        this.$x.emit('UserPressedSearchButton', this.query, this.createEventMetadata());
       }
     }
 

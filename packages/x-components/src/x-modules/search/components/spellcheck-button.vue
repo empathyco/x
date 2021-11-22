@@ -41,7 +41,7 @@
      * @returns The {@link WireMetadata} object omitting the moduleName.
      * @internal
      */
-    protected eventMetadata(): Omit<WireMetadata, 'moduleName'> {
+    protected createEventMetadata(): Omit<WireMetadata, 'moduleName'> {
       return {
         target: this.$el as HTMLElement,
         feature: 'spellcheck'
@@ -54,8 +54,12 @@
      * @public
      */
     protected emitEvents(): void {
-      this.$x.emit('UserAcceptedAQuery', this.spellcheckedQuery, this.eventMetadata());
-      this.$x.emit('UserAcceptedSpellcheckQuery', this.spellcheckedQuery, this.eventMetadata());
+      this.$x.emit('UserAcceptedAQuery', this.spellcheckedQuery, this.createEventMetadata());
+      this.$x.emit(
+        'UserAcceptedSpellcheckQuery',
+        this.spellcheckedQuery,
+        this.createEventMetadata()
+      );
     }
   }
 </script>

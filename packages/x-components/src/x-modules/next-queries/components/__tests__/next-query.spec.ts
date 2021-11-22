@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils';
 import { createNextQueryStub } from '../../../../__stubs__/next-queries-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
+import { WireMetadata } from '../../../../wiring/wiring.types';
 import NextQuery from '../next-query.vue';
 
 describe('testing next query item component', () => {
@@ -17,11 +18,18 @@ describe('testing next query item component', () => {
 
   it('emits UserSelectedANextQuery when a next query is selected', () => {
     const listener = jest.fn();
-    nextQueryWrapper.vm.$x.on('UserSelectedANextQuery').subscribe(listener);
+    nextQueryWrapper.vm.$x.on('UserSelectedANextQuery', true).subscribe(listener);
     nextQueryWrapper.trigger('click');
 
     expect(listener).toHaveBeenCalled();
-    expect(listener).toHaveBeenCalledWith(suggestion);
+    expect(listener).toHaveBeenCalledWith({
+      eventPayload: suggestion,
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        moduleName: 'nextQueries',
+        target: nextQueryWrapper.element,
+        feature: 'next_query'
+      })
+    });
   });
 
   it('renders a button with the query of the next query (suggestion)', () => {
