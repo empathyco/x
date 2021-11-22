@@ -11,7 +11,7 @@ Feature: Popular searches component
     Given following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, rendered <maxItemsToRender>
     And   start button is clicked
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
-    And   at most <maxItemsToRender> popular searched are displayed
+    And   at most <maxItemsToRender> popular searches are displayed
     Examples:
       | hideSessionQueries | maxItemsToRequest | maxItemsToRender | request                    |
       | true               | 10                | 20               | interceptedPopularSearches |

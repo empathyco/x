@@ -7,11 +7,3 @@ defineParameterType({
     return string === 'true';
   }
 });
-
-defineParameterType({
-  name: 'intArray',
-  regexp: /\[[0-9]+(,\s?[0-9]+)*]/,
-  transformer(string) {
-    return string.slice(1, -1).split(',').map(Number);
-  }
-});

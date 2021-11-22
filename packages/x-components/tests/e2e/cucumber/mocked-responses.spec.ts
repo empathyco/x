@@ -7,7 +7,6 @@ import {
   TopRecommendationsResponse
 } from '@empathyco/x-adapter';
 import { Given } from 'cypress-cucumber-preprocessor/steps';
-import '../cucumber/global-definitions';
 import {
   createHierarchicalFacetStub,
   createNextQueryStub,
@@ -530,15 +529,6 @@ Given('a results API response for a misspelled word', () => {
   });
 });
 
-// Suggestions
-Given('a suggestions API', () => {
-  cy.intercept('https://api.empathy.co/getSuggestions', req => {
-    req.reply(<SuggestionsResponse>{
-      suggestions: req.body.query ? getQuerySuggestionsStub('rum') : getPopularSearchesStub()
-    });
-  });
-});
-
 Given('a results API', () => {
   cy.intercept('https://api.empathy.co/search', req => {
     req.reply(<SearchResponse>{
@@ -556,4 +546,13 @@ Given('a results API', () => {
       }
     });
   }).as('interceptedRawResults');
+});
+
+// Suggestions
+Given('a suggestions API', () => {
+  cy.intercept('https://api.empathy.co/getSuggestions', req => {
+    req.reply(<SuggestionsResponse>{
+      suggestions: req.body.query ? getQuerySuggestionsStub('rum') : getPopularSearchesStub()
+    });
+  });
 });

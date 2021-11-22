@@ -28,7 +28,7 @@ Given(
 );
 
 // Scenario 1
-Then('at most {int} popular searched are displayed', (maxItemsToRender: number) => {
+Then('at most {int} popular searches are displayed', (maxItemsToRender: number) => {
   cy.getByDataTest('popular-search')
     .should('have.length.at.least', 1)
     .and('have.length.at.most', maxItemsToRender);
