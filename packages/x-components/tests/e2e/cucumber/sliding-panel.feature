@@ -11,15 +11,16 @@ Feature: Sliding panel component
     When  "<query>" is searched
     Then  "right" sliding panel arrow is displayed
     And   only some related tags are visible
-    When  right sliding panel arrow is clicked
-    And   wait for the movement of the elements inside the sliding panel
+    When  "right" sliding panel arrow is clicked
     Then  visible related tags have changed
     And   "both" sliding panel arrow is displayed
     And   only some related tags are visible
-    When  right sliding panel arrow is clicked
-    And   wait for the movement of the elements inside the sliding panel
+    When  "right" sliding panel arrow is clicked
     Then  visible related tags have changed
     And   "left" sliding panel arrow is displayed
+    And   only some related tags are visible
+    When  "left" sliding panel arrow is clicked
+    Then  visible related tags have changed
 
     Examples:
       | query |

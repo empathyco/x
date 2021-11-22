@@ -1,7 +1,8 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
-import { BaseEventButton, getXComponentXModuleName, isXComponent } from '../../../../components';
+import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
+import { WireMetadata } from '../../../../wiring/wiring.types';
 import PartialQueryButton from '../partial-query-button.vue';
 
 function renderPartialQueryButton({
@@ -30,10 +31,8 @@ function renderPartialQueryButton({
 
   return {
     partialQueryButtonWrapper,
-    async clickEventButton() {
-      const eventButton = wrapper.findComponent(BaseEventButton);
-      eventButton.trigger('click');
-      await localVue.nextTick();
+    async click() {
+      await wrapper.trigger('click');
     }
   };
 }
@@ -60,7 +59,7 @@ describe('testing PartialQueryButton component', () => {
     const { partialQueryButtonWrapper } = renderPartialQueryButton({
       query: 'lego',
       template: `
-      <PartialQueryButton :query="query" >      
+      <PartialQueryButton :query="query" >
         <template #default="{ query }">
           <span data-test="partial-query-button__text" class="x-partial-query-button__text">
             Set this partial query {{ query }} as the new query.
@@ -78,18 +77,30 @@ describe('testing PartialQueryButton component', () => {
     const userAcceptedAQuery = jest.fn();
     const UserClickedPartialQuery = jest.fn();
     const query = 'coche';
-    const { partialQueryButtonWrapper, clickEventButton } = renderPartialQueryButton({
+    const { partialQueryButtonWrapper, click } = renderPartialQueryButton({
       query
     });
     const $x = partialQueryButtonWrapper.vm.$x;
 
-    $x.on('UserAcceptedAQuery').subscribe(userAcceptedAQuery);
-    $x.on('UserClickedPartialQuery').subscribe(UserClickedPartialQuery);
+    $x.on('UserAcceptedAQuery', true).subscribe(userAcceptedAQuery);
+    $x.on('UserClickedPartialQuery', true).subscribe(UserClickedPartialQuery);
 
-    clickEventButton();
+    click();
 
-    expect(userAcceptedAQuery).toHaveBeenNthCalledWith(1, query);
-    expect(UserClickedPartialQuery).toHaveBeenNthCalledWith(1, query);
+    expect(userAcceptedAQuery).toHaveBeenNthCalledWith(1, {
+      eventPayload: query,
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        feature: 'partial_result',
+        target: partialQueryButtonWrapper.element
+      })
+    });
+    expect(UserClickedPartialQuery).toHaveBeenNthCalledWith(1, {
+      eventPayload: query,
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        feature: 'partial_result',
+        target: partialQueryButtonWrapper.element
+      })
+    });
   });
 });
 
@@ -103,6 +114,6 @@ interface RenderPartialQueryButtonOptions {
 interface RenderPartialQueryButtonAPI {
   /** The wrapper of the button element.*/
   partialQueryButtonWrapper: Wrapper<Vue>;
-  /** Clicks the event button and waits for the view to update. */
-  clickEventButton: () => Promise<void>;
+  /** Clicks the button and waits for the view to update. */
+  click: () => Promise<void>;
 }

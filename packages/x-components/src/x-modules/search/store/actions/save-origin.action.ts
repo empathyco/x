@@ -1,4 +1,5 @@
-import { createOrigin, QueryOrigin } from '../../../../types/origin';
+import { QueryOrigin } from '../../../../types/origin';
+import { createOrigin } from '../../../../utils/origin';
 import { SearchXStoreModule } from '../types';
 
 /**

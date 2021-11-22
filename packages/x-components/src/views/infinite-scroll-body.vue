@@ -1,10 +1,19 @@
 <template>
   <div>
-    <h1>Infinite Scroll</h1>
+    <WindowScroll scrollableElement="body" />
+    <UrlHandler />
+    <h1>Infinite Scroll Body</h1>
     <header class="header">
       <SearchInput />
     </header>
-    <ResultsList v-infinite-scroll:body />
+    <MainScroll use-window>
+      <ResultsList #result="{ item }" v-infinite-scroll:body>
+        <MainScrollItem :item="item">
+          <img :src="item.images[0]" />
+          <p>{{ item.title }}</p>
+        </MainScrollItem>
+      </ResultsList>
+    </MainScroll>
   </div>
 </template>
 
@@ -12,11 +21,19 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
+  import MainScrollItem from '../x-modules/scroll/components/main-scroll-item.vue';
+  import MainScroll from '../x-modules/scroll/components/main-scroll.vue';
+  import WindowScroll from '../x-modules/scroll/components/window-scroll.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import ResultsList from '../x-modules/search/components/results-list.vue';
+  import UrlHandler from '../x-modules/url/components/url-handler.vue';
 
   @Component({
     components: {
+      MainScroll,
+      WindowScroll,
+      UrlHandler,
+      MainScrollItem,
       ResultsList,
       SearchInput
     },
@@ -42,6 +59,7 @@
 
   body {
     overflow: auto;
+    box-sizing: border-box;
     border: 2px solid darkorange;
   }
 

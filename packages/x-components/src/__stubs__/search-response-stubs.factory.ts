@@ -19,8 +19,13 @@ export function getSearchResponseStub(): SearchResponse {
     partialResults: [],
     promoteds: getPromotedsStub(),
     queryTagging: {
-      params: {},
-      url: ''
+      params: {
+        q: 'lego',
+        totalHits: '789',
+        lang: 'es',
+        follow: false
+      },
+      url: 'https://api.empathybroker.com/tagging/v1/track/query'
     },
     redirections: getRedirectionsStub(),
     results: getResultsStub(),

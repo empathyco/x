@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.5...@empathyco/x-adapter@7.0.0-alpha.6) (2021-11-22)
+
+### Features
+
+- update `Tagging` model
+  ([598915c](https://github.com/empathyco/x/commit/598915ced128e3fa5586ff6c870e68cfa2e016c3)),
+  closes [EX-4985](https://searchbroker.atlassian.net/browse/EX-4985)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [7.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.4...@empathyco/x-adapter@7.0.0-alpha.5) (2021-10-25)
 
 ### Features

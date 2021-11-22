@@ -16,7 +16,7 @@ Feature: Identifier results component
 
     Examples:
       | query |
-      | 01   |
+      | 01    |
 
   Scenario Outline: 2. ID search with no results is made
     Given an ID results API with no results
@@ -26,7 +26,7 @@ Feature: Identifier results component
 
     Examples:
       | query |
-      | 23  |
+      | 23    |
 
   Scenario Outline: 3. No ID search is made
     Given an ID results API with a known response
@@ -36,4 +36,4 @@ Feature: Identifier results component
 
     Examples:
       | query |
-      | lego    |
+      | lego  |

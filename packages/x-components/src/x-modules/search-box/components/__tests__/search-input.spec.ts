@@ -4,6 +4,7 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components/x
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
 import { installNewXPlugin } from '../../../../__tests__/utils';
+import { WireMetadata } from '../../../../wiring/wiring.types';
 import SearchInput from '../search-input.vue';
 import { resetXSearchBoxStateWith } from './utils';
 
@@ -143,8 +144,8 @@ describe('testing search input component', () => {
       const enterListener = jest.fn();
       const acceptedQueryListener = jest.fn();
       const query = 'water';
-      mockedSearchInput.vm.$x.on('UserPressedEnterKey').subscribe(enterListener);
-      mockedSearchInput.vm.$x.on('UserAcceptedAQuery').subscribe(acceptedQueryListener);
+      mockedSearchInput.vm.$x.on('UserPressedEnterKey', true).subscribe(enterListener);
+      mockedSearchInput.vm.$x.on('UserAcceptedAQuery', true).subscribe(acceptedQueryListener);
 
       mockedSearchInput.trigger('keydown.enter');
       expect(enterListener).not.toHaveBeenCalled();
@@ -152,8 +153,18 @@ describe('testing search input component', () => {
 
       input.value = query;
       mockedSearchInput.trigger('keydown.enter');
-      expect(enterListener).toHaveBeenCalledWith(query);
-      expect(acceptedQueryListener).toHaveBeenCalledWith(query);
+      expect(enterListener).toHaveBeenCalledWith({
+        eventPayload: query,
+        metadata: expect.objectContaining<Partial<WireMetadata>>({
+          feature: 'search_box'
+        })
+      });
+      expect(acceptedQueryListener).toHaveBeenCalledWith({
+        eventPayload: query,
+        metadata: expect.objectContaining<Partial<WireMetadata>>({
+          feature: 'search_box'
+        })
+      });
     }
   );
 });

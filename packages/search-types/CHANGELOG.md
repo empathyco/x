@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.10...@empathyco/x-types@10.0.0-alpha.11) (2021-11-22)
+
+### Features
+
+- make `Identifiable` type generic
+  ([6de6ab2](https://github.com/empathyco/x/commit/6de6ab270f5f2018468e56f5d3df4eb227853413)),
+  closes [EX-5001](https://searchbroker.atlassian.net/browse/EX-5001)
+- update `Tagging` model
+  ([598915c](https://github.com/empathyco/x/commit/598915ced128e3fa5586ff6c870e68cfa2e016c3)),
+  closes [EX-4985](https://searchbroker.atlassian.net/browse/EX-4985)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [10.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.9...@empathyco/x-types@10.0.0-alpha.10) (2021-10-25)
 
 ### Features

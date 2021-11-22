@@ -2,6 +2,7 @@ import { SearchByIdRequest } from '@empathyco/x-adapter';
 import { Result } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
+import { QueryOrigin, QueryOriginInit } from '../../../types/origin';
 import { UrlParams } from '../../../types/url-params';
 import { IdentifierResultsConfig } from '../config.types';
 
@@ -11,12 +12,14 @@ import { IdentifierResultsConfig } from '../config.types';
  * @public
  */
 export interface IdentifierResultsState extends StatusState {
-  /** The internal query of the module. Used to request the identifier results. */
-  query: string;
-  /** The list of the identifier results, related to the `query` property of the state. */
-  identifierResults: Result[];
   /** The configuration of the identifier results module. */
   config: IdentifierResultsConfig;
+  /** The list of the identifier results, related to the `query` property of the state. */
+  identifierResults: Result[];
+  /** The origin property of the request. */
+  origin: QueryOrigin | null;
+  /** The internal query of the module. Used to request the identifier results. */
+  query: string;
 }
 
 /**
@@ -42,17 +45,24 @@ export interface IdentifierResultsGetters {
  */
 export interface IdentifierResultsMutations extends StatusMutations {
   /**
-   * Sets the query of the module, which is used to retrieve the identifier-results.
-   *
-   * @param newQuery - The new query to save to the state.
-   */
-  setQuery(newQuery: string): void;
-  /**
    * Sets the identifier results of the module.
    *
    * @param identifierResults - The new identifier results to save to the state.
    */
   setIdentifierResults(identifierResults: Result[]): void;
+  /**
+   * Sets the origin of the module.
+   *
+   * @param origin - The new origin.
+   *
+   */
+  setOrigin(origin: QueryOrigin | undefined | null): void;
+  /**
+   * Sets the query of the module, which is used to retrieve the identifier-results.
+   *
+   * @param newQuery - The new query to save to the state.
+   */
+  setQuery(newQuery: string): void;
 }
 
 /**
@@ -76,6 +86,12 @@ export interface IdentifierResultsActions {
    * Requests a new set of identifier results and stores them in the module.
    */
   fetchAndSaveIdentifierResults(request: SearchByIdRequest | null): void;
+  /**
+   * Creates a {@link QueryOrigin} and saves it.
+   *
+   * @param originInit - The object to create the origin with.
+   */
+  saveOrigin(originInit: QueryOriginInit): void;
   /**
    * Stores the query in the module if it matches the regex.
    */

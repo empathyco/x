@@ -19,9 +19,10 @@ export interface ScrollXEvents {
   ScrollRestoreFailed: void;
   /**
    * The user has almost reached the scroll end.
-   * * Payload: The distance missing to end position position.
+   * * Payload: True if the user has almost reached the scroll end, false if it is no longer close
+   * to the end.
    */
-  UserAlmostReachedScrollEnd: number;
+  UserAlmostReachedScrollEnd: boolean;
   /**
    * The user has changed the direction of scroll.
    * * Payload: The new {@link ScrollDirection} when user changes scroll direction.
@@ -29,17 +30,24 @@ export interface ScrollXEvents {
   UserChangedScrollDirection: ScrollDirection;
   /**
    * The user has reached the scroll end.
-   * * Payload: none.
+   * * Payload: True if the user has reached the ending position of the scroll. False if he is
+   * no longer in that position.
    */
-  UserReachedScrollEnd: void;
+  UserReachedScrollEnd: boolean;
   /**
    * The user has reached the scroll start.
-   * * Payload: none.
+   * * Payload: True if the user has reached the starting position of the scroll. False if he is no
+   * longer in that position.
    */
-  UserReachedScrollStart: void;
+  UserReachedScrollStart: boolean;
   /**
    * The user has scrolled.
    * * Payload: The new position of scroll.
    */
   UserScrolled: number;
+  /**
+   * The user has scrolled to an element with the given id.
+   * * Payload: The scroll identifier of the element.
+   */
+  UserScrolledToElement: string;
 }

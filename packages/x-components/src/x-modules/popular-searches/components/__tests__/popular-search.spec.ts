@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils';
 import { createPopularSearch } from '../../../../__stubs__/popular-searches-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
+import { WireMetadata } from '../../../../wiring/wiring.types';
 import PopularSearch from '../popular-search.vue';
 
 describe('testing popular search item component', () => {
@@ -18,12 +19,19 @@ describe('testing popular search item component', () => {
 
   it('emits UserSelectedAPopularSearch when a popular search is selected', async () => {
     const listener = jest.fn();
-    popularSearchWrapper.vm.$x.on('UserSelectedAPopularSearch').subscribe(listener);
+    popularSearchWrapper.vm.$x.on('UserSelectedAPopularSearch', true).subscribe(listener);
 
     await popularSearchWrapper.trigger('click');
 
     expect(listener).toHaveBeenCalled();
-    expect(listener).toHaveBeenCalledWith(suggestion);
+    expect(listener).toHaveBeenCalledWith({
+      eventPayload: suggestion,
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        moduleName: 'popularSearches',
+        target: popularSearchWrapper.element,
+        feature: 'popular_search'
+      })
+    });
   });
 
   it('renders a button with the query of the popular search (suggestion)', () => {

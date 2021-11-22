@@ -9,6 +9,7 @@ import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
 import { getRelatedTagsStub } from '../../../../__stubs__/related-tags-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
+import { WireMetadata } from '../../../../wiring/wiring.types';
 import { relatedTagsXModule } from '../../x-module';
 import RelatedTagComponent from '../related-tag.vue';
 
@@ -94,24 +95,40 @@ describe('testing related tag item component', () => {
     const userPickedARelatedTagMock = jest.fn();
     const selectRelatedTagMock = jest.fn();
     const deselectRelatedTagMock = jest.fn();
-    const { $x, clickRelatedTag, relatedTag } = renderRelatedTag();
-    $x.on('UserPickedARelatedTag').subscribe(userPickedARelatedTagMock);
-    $x.on('UserSelectedARelatedTag').subscribe(selectRelatedTagMock);
-    $x.on('UserDeselectedARelatedTag').subscribe(deselectRelatedTagMock);
+    const { $x, clickRelatedTag, relatedTag, wrapper } = renderRelatedTag();
+    const expectedMetadata: Partial<WireMetadata> = {
+      target: wrapper.element,
+      feature: 'related_tag'
+    };
+    $x.on('UserPickedARelatedTag', true).subscribe(userPickedARelatedTagMock);
+    $x.on('UserSelectedARelatedTag', true).subscribe(selectRelatedTagMock);
+    $x.on('UserDeselectedARelatedTag', true).subscribe(deselectRelatedTagMock);
 
     await clickRelatedTag();
 
     expect(userPickedARelatedTagMock).toHaveBeenCalledTimes(1);
-    expect(userPickedARelatedTagMock).toHaveBeenNthCalledWith(1, relatedTag);
+    expect(userPickedARelatedTagMock).toHaveBeenNthCalledWith(1, {
+      eventPayload: relatedTag,
+      metadata: expect.objectContaining(expectedMetadata)
+    });
     expect(selectRelatedTagMock).toHaveBeenCalledTimes(1);
-    expect(selectRelatedTagMock).toHaveBeenNthCalledWith(1, relatedTag);
+    expect(selectRelatedTagMock).toHaveBeenNthCalledWith(1, {
+      eventPayload: relatedTag,
+      metadata: expect.objectContaining(expectedMetadata)
+    });
 
     await clickRelatedTag();
 
     expect(userPickedARelatedTagMock).toHaveBeenCalledTimes(2);
-    expect(userPickedARelatedTagMock).toHaveBeenNthCalledWith(2, relatedTag);
+    expect(userPickedARelatedTagMock).toHaveBeenNthCalledWith(2, {
+      eventPayload: relatedTag,
+      metadata: expect.objectContaining(expectedMetadata)
+    });
     expect(deselectRelatedTagMock).toHaveBeenCalledTimes(1);
-    expect(deselectRelatedTagMock).toHaveBeenNthCalledWith(1, relatedTag);
+    expect(deselectRelatedTagMock).toHaveBeenNthCalledWith(1, {
+      eventPayload: relatedTag,
+      metadata: expect.objectContaining(expectedMetadata)
+    });
   });
 });
 

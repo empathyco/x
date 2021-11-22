@@ -2,6 +2,7 @@ import { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types';
 import { mount } from '@vue/test-utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
+import { WireMetadata } from '../../../../wiring/wiring.types';
 import HistoryQuery from '../history-query.vue';
 
 describe('testing history-query component', () => {
@@ -35,10 +36,11 @@ describe('testing history-query component', () => {
 
     expect(listener).toHaveBeenCalledWith({
       eventPayload: historyQuery,
-      metadata: {
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
         target: suggestionButton.element,
-        moduleName: 'historyQueries'
-      }
+        moduleName: 'historyQueries',
+        feature: 'history_query'
+      })
     });
   });
 

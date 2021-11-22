@@ -5,6 +5,7 @@ import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/ut
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
+import { WireMetadata } from '../../../../wiring/wiring.types';
 import QuerySuggestion from '../query-suggestion.vue';
 import { resetXQuerySuggestionsStateWith } from './utils';
 
@@ -56,10 +57,11 @@ describe('testing query-suggestion component', () => {
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith({
       eventPayload: suggestion,
-      metadata: {
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'querySuggestions',
-        target: button
-      }
+        target: button,
+        feature: 'query_suggestion'
+      })
     });
   });
 });

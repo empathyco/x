@@ -4,6 +4,7 @@
     :suggestion="suggestion"
     :suggestionSelectedEvents="events"
     data-test="next-query"
+    feature="next_query"
   >
     <template #default="{ suggestion }">
       <!--

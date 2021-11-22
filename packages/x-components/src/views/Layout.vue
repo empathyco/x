@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Tagging :consent="false" />
     <ExtraParams :values="initialExtraParams" />
     <UrlHandler query="q" store="store" />
     <BaseEventsModalOpen>Start</BaseEventsModalOpen>
@@ -269,7 +270,11 @@
                           :max="controls.slicedFilters.max"
                           :data-test="`${facet.label}-sliced-filters`"
                         >
-                          <SelectedFilters :facetId="facet.id" />
+                          <SelectedFilters #default="{ selectedFilters }" :facetId="facet.id">
+                            <span :data-test="`${facet.label}-selected-filters`">
+                              {{ selectedFilters.length }}
+                            </span>
+                          </SelectedFilters>
                           <FiltersList v-slot="{ filter }">
                             <SimpleFilter
                               #label
@@ -280,6 +285,7 @@
                                 v-if="facet.id === 'price'"
                                 :filter="filter"
                                 class="x-filter__label"
+                                format="ii.dd €"
                                 lessThan="Less than {max}"
                                 fromTo="From {min} to {max}"
                                 from="More than {min}"
@@ -355,22 +361,26 @@
                     <NextQueriesList>
                       <BaseVariableColumnGrid :animation="resultsAnimation">
                         <template #result="{ item: result }">
-                          <article class="result" style="max-width: 300px">
-                            <BaseResultLink :result="result">
-                              <BaseResultImage :result="result" class="x-picture--colored">
-                                <template #placeholder>
-                                  <div style="padding-top: 100%; background-color: lightgray"></div>
-                                </template>
-                                <template #fallback>
-                                  <div
-                                    data-test="result-picture-fallback"
-                                    style="padding-top: 100%; background-color: lightsalmon"
-                                  ></div>
-                                </template>
-                              </BaseResultImage>
-                              <h1 class="x-title3" data-test="result-text">{{ result.name }}</h1>
-                            </BaseResultLink>
-                          </article>
+                          <MainScrollItem :item="result">
+                            <article class="result" style="max-width: 300px">
+                              <BaseResultLink :result="result">
+                                <BaseResultImage :result="result" class="x-picture--colored">
+                                  <template #placeholder>
+                                    <div
+                                      style="padding-top: 100%; background-color: lightgray"
+                                    ></div>
+                                  </template>
+                                  <template #fallback>
+                                    <div
+                                      data-test="result-picture-fallback"
+                                      style="padding-top: 100%; background-color: lightsalmon"
+                                    ></div>
+                                  </template>
+                                </BaseResultImage>
+                                <h1 class="x-title3" data-test="result-text">{{ result.name }}</h1>
+                              </BaseResultLink>
+                            </article>
+                          </MainScrollItem>
                         </template>
 
                         <template #banner="{ item: banner }">
@@ -469,9 +479,9 @@
           </template>
 
           <template #scroll-to-top>
-            <BaseScrollToTop :threshold-px="500" class="x-button--round" scroll-id="main-scroll">
+            <ScrollToTop :threshold-px="500" class="x-button--round" scroll-id="main-scroll">
               <ChevronUp />
-            </BaseScrollToTop>
+            </ScrollToTop>
           </template>
         </MultiColumnMaxWidthLayout>
       </BaseEventsModal>
@@ -516,7 +526,6 @@
   import BaseIdTogglePanel from '../components/panels/base-id-toggle-panel.vue';
   import BaseResultImage from '../components/result/base-result-image.vue';
   import BaseResultLink from '../components/result/base-result-link.vue';
-  import BaseScrollToTop from '../components/scroll/base-scroll-to-top.vue';
   import SlidingPanel from '../components/sliding-panel.vue';
   import BaseSuggestions from '../components/suggestions/base-suggestions.vue';
   import { infiniteScroll } from '../directives/infinite-scroll/infinite-scroll';
@@ -552,6 +561,8 @@
   import QuerySuggestions from '../x-modules/query-suggestions/components/query-suggestions.vue';
   import Recommendations from '../x-modules/recommendations/components/recommendations.vue';
   import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
+  import MainScrollItem from '../x-modules/scroll/components/main-scroll-item.vue';
+  import ScrollToTop from '../x-modules/scroll/components/scroll-to-top.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import SearchButton from '../x-modules/search-box/components/search-button.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
@@ -567,6 +578,7 @@
   import SortList from '../x-modules/search/components/sort-list.vue';
   import SpellcheckButton from '../x-modules/search/components/spellcheck-button.vue';
   import Spellcheck from '../x-modules/search/components/spellcheck.vue';
+  import Tagging from '../x-modules/tagging/components/tagging.vue';
   import UrlHandler from '../x-modules/url/components/url-handler.vue';
 
   @Component({
@@ -574,7 +586,6 @@
       infiniteScroll
     },
     components: {
-      BasePriceFilterLabel,
       AutoProgressBar,
       Banner,
       BannersList,
@@ -588,9 +599,9 @@
       BaseIdTogglePanel,
       BaseIdTogglePanelButton,
       BaseKeyboardNavigation,
+      BasePriceFilterLabel,
       BaseResultImage,
       BaseResultLink,
-      BaseScrollToTop,
       BaseSuggestions,
       BaseVariableColumnGrid,
       CheckTiny,
@@ -619,6 +630,7 @@
       HistoryQueries,
       IdentifierResult,
       IdentifierResults,
+      MainScrollItem,
       MultiColumnMaxWidthLayout,
       NextQueries,
       NextQueriesList,
@@ -635,6 +647,7 @@
       RelatedTags,
       RenderlessExtraParams,
       ResultsList,
+      ScrollToTop,
       SearchButton,
       SearchIcon,
       SearchInput,
@@ -649,6 +662,7 @@
       SortedFilters,
       Spellcheck,
       SpellcheckButton,
+      Tagging,
       UrlHandler
     }
   })

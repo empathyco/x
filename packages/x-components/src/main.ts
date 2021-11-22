@@ -8,7 +8,7 @@ import { FilterEntityFactory } from './x-modules/facets/entities/filter-entity.f
 import { SingleSelectModifier } from './x-modules/facets/entities/single-select.modifier';
 
 Vue.config.productionTip = false;
-['categories_facet', 'brand_facet', 'age_facet'].forEach(facetId =>
+['hierarchical_category', 'categories_facet', 'brand_facet', 'age_facet'].forEach(facetId =>
   FilterEntityFactory.instance.registerFilterModifier(facetId, [SingleSelectModifier])
 );
 const xModulesURLConfig = JSON.parse(new URL(location.href).searchParams.get('xModules') ?? '{}');

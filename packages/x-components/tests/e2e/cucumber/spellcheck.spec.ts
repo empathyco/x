@@ -1,18 +1,6 @@
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
-Given('a results API response for a misspelled word', () => {
-  cy.intercept('https://api.empathy.co/search', req => {
-    req.reply({
-      banners: [],
-      promoteds: [],
-      facets: [],
-      results: [],
-      totalResults: 7,
-      spellcheck: 'lego'
-    });
-  });
-});
-
+// Scenario 1
 Then(
   'spellcheck component is shown and its button contains the spellchecked query {string}',
   (spellcheckedQuery: string) => {

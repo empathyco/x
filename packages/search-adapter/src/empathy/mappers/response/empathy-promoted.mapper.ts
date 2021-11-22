@@ -1,4 +1,4 @@
-import { Promoted, Tagging } from '@empathyco/x-types';
+import { Promoted, TaggingInfo } from '@empathyco/x-types';
 import { injectable, multiInject } from 'inversify';
 import { DEPENDENCIES } from '../../container/container.const';
 import { MapFn, ResponseMapper, ResponseMapperContext } from '../../empathy-adapter.types';
@@ -12,10 +12,11 @@ import { pipeMappers } from '../pipe-mappers';
  */
 @injectable()
 export class EmpathyPromotedMapper implements ResponseMapper<EmpathyPromoted, Promoted> {
-  private readonly mapTagging: MapFn<string, Tagging>;
+  private readonly mapTagging: MapFn<string, TaggingInfo>;
 
   constructor(
-    @multiInject(DEPENDENCIES.ResponseMappers.queryTagging) taggingMappers: ResponseMapper<string, Tagging>[]
+    @multiInject(DEPENDENCIES.ResponseMappers.queryTagging)
+    taggingMappers: ResponseMapper<string, TaggingInfo>[]
   ) {
     this.mapTagging = pipeMappers(...taggingMappers);
   }
@@ -28,7 +29,7 @@ export class EmpathyPromotedMapper implements ResponseMapper<EmpathyPromoted, Pr
       url: rawPromoted.url,
       image: rawPromoted.imagename,
       tagging: {
-        click: this.mapTagging(rawPromoted.trackable_url, {} as Tagging, context)
+        click: this.mapTagging(rawPromoted.trackable_url, {} as TaggingInfo, context)
       }
     });
   }

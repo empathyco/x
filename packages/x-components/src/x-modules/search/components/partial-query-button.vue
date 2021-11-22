@@ -1,18 +1,18 @@
 <template>
-  <BaseEventButton
-    :events="events"
+  <button
+    @click="emitEvents"
     class="x-button x-partial-query-button"
     data-test="partial-query-button"
   >
     <slot v-bind="{ query }">{{ query }}</slot>
-  </BaseEventButton>
+  </button>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { BaseEventButton, xComponentMixin } from '../../../components';
-  import { XEventsTypes } from '../../../wiring';
+  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { WireMetadata } from '../../../wiring/wiring.types';
   import { searchXModule } from '../x-module';
 
   /**
@@ -23,7 +23,6 @@
    * @public
    */
   @Component({
-    components: { BaseEventButton },
     mixins: [xComponentMixin(searchXModule)]
   })
   export default class PartialQueryButton extends Vue {
@@ -36,17 +35,26 @@
     public query!: string;
 
     /**
-     * Events list which are going to be emitted when the button is clicked.
+     * Generates the {@link WireMetadata | event metadata} object omitting the moduleName.
      *
-     * @returns The {@link XEvent | XEvents} to emit.
+     * @returns The {@link WireMetadata} object omitting the moduleName.
+     * @internal
+     */
+    protected createEventMetadata(): Omit<WireMetadata, 'moduleName'> {
+      return {
+        target: this.$el as HTMLElement,
+        feature: 'partial_result'
+      };
+    }
+
+    /**
+     * Emits events when the button is clicked.
      *
      * @public
      */
-    protected get events(): Partial<XEventsTypes> {
-      return {
-        UserAcceptedAQuery: this.query,
-        UserClickedPartialQuery: this.query
-      };
+    protected emitEvents(): void {
+      this.$x.emit('UserAcceptedAQuery', this.query, this.createEventMetadata());
+      this.$x.emit('UserClickedPartialQuery', this.query, this.createEventMetadata());
     }
   }
 </script>

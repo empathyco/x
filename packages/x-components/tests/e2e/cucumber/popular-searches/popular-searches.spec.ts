@@ -1,22 +1,7 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { createPopularSearch } from '../../../../src/__stubs__';
 import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
 
 // Background
-And('a popular searches API with a known response', () => {
-  cy.intercept('https://api.empathy.co/getSuggestions', req => {
-    req.reply({
-      suggestions: [
-        createPopularSearch('playmobil'),
-        createPopularSearch('lego'),
-        createPopularSearch('mochila'),
-        createPopularSearch('barbie'),
-        createPopularSearch('dinosaurio')
-      ]
-    });
-  }).as('interceptedPopularSearches');
-});
-
 Given(
   'following config: hide session queries {boolean}, requested items {int}, rendered {int}',
   (hideSessionQueries: boolean, maxItemsToRequest: number, maxItemsToRender: number) => {
@@ -43,7 +28,7 @@ Given(
 );
 
 // Scenario 1
-Then('at most {int} popular searched are displayed', (maxItemsToRender: number) => {
+Then('at most {int} popular searches are displayed', (maxItemsToRender: number) => {
   cy.getByDataTest('popular-search')
     .should('have.length.at.least', 1)
     .and('have.length.at.most', maxItemsToRender);
