@@ -59,6 +59,7 @@ export interface TaggingActions {
   /**
    * Tracks a user interaction.
    *
+   * @param tagging - The information of the event to track.
    */
   track(tagging: TaggingInfo | TaggingInfo[]): void;
 }

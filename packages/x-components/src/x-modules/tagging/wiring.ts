@@ -79,7 +79,7 @@ export const setSessionDuration = wireCommit('setSessionDuration');
 export const trackWire = moduleDebounce(
   wireDispatch('track'),
   ({ state }) => state.config.queryTaggingDebounceMs,
-  'SearchTaggingChanged'
+  'UserIsTypingAQuery'
 );
 
 /**

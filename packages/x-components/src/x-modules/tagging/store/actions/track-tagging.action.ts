@@ -8,7 +8,7 @@ import { TaggingXStoreModule } from '../types';
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- * @param taggingInfo - The taggingInfo.
+ * @param taggingInfo - The information of the event to track.
  *
  * @public
  */
