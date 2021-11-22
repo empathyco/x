@@ -15,9 +15,9 @@ import { TaggingXStoreModule } from '../types';
 export const track: TaggingXStoreModule['actions']['track'] = (context, taggingInfo) => {
   const consent = context.state.consent;
   const tagging = Array.isArray(taggingInfo) ? taggingInfo : [taggingInfo];
+  const sessionId = getSessionId(consent);
 
   tagging.forEach(({ url, params }: TaggingInfo) => {
-    const sessionId = getSessionId(consent);
     return XPlugin.adapter.track({
       url,
       params: {
