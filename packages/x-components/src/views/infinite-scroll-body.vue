@@ -1,6 +1,6 @@
 <template>
   <div>
-    <WindowScroll tag="body" />
+    <WindowScroll scrollableElement="body" />
     <UrlHandler />
     <h1>Infinite Scroll Body</h1>
     <header class="header">

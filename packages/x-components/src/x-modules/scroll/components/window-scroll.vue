@@ -6,7 +6,7 @@
   import { scrollXModule } from '../x-module';
   import { MainScrollId } from './scroll.const';
 
-  type ScrollableTag = 'html' | 'body';
+  type ScrollableElement = 'html' | 'body';
 
   /**
    * The `WindowScroll` component listens to either the `html` or `body` DOM scroll events, and
@@ -25,7 +25,7 @@
      * @public
      */
     @Prop({ default: 'html' })
-    protected tag!: ScrollableTag;
+    protected scrollableElement!: ScrollableElement;
     /**
      * Id to identify the component.
      *
@@ -58,14 +58,15 @@
     }
 
     /**
-     * Sets the HTML element depending on {@link WindowScroll.tag}, and initialises its events.
+     * Sets the HTML element depending on {@link WindowScroll.scrollableElement}, and initialises
+     * its events.
      *
      * @internal
      */
     protected initAndListenElement(): void {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
-      this.$el = this.tag === 'body' ? document.body : document.documentElement;
+      this.$el = this.scrollableElement === 'body' ? document.body : document.documentElement;
       this.$el.addEventListener('scroll', this.throttledStoreScrollData);
     }
 
@@ -114,7 +115,7 @@ this state changes, it emits the appropiate X Event to the rest of the applicati
     id="example-main-scroll"
     throttleMs="100"
     distanceToBottom="300"
-    tag="document"
+    scrollableElement="body"
   />
 </template>
 
@@ -157,7 +158,12 @@ similar styles the corresponding style for tag body like in the next example.
 
 ```vue
 <template>
-  <WindowScroll id="example-main-scroll" throttleMs="100" distanceToBottom="300" tag="body" />
+  <WindowScroll
+    id="example-main-scroll"
+    throttleMs="100"
+    distanceToBottom="300"
+    scrollableElement="body"
+  />
 </template>
 
 <script>

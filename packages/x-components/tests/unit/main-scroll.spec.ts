@@ -139,11 +139,8 @@ describe('testing MainScroll component', () => {
         userScrolledToElementSpy().should('have.been.calledWith', 'item-5');
       });
 
-      it.only('ignores the first element of scroll', () => {
-        const { scrollToItem, userScrolledToElementSpy } = renderMainScroll({
-          ...defaultParameters,
-          itemHeight: '50px'
-        });
+      it('ignores the first element of scroll', () => {
+        const { scrollToItem, userScrolledToElementSpy } = renderMainScroll(defaultParameters);
         scrollToItem(1);
         userScrolledToElementSpy().should('have.been.calledWith', 'item-1');
         userScrolledToElementSpy().should('not.have.been.calledWith', 'item-0');
