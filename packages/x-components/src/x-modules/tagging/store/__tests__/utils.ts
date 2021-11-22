@@ -5,7 +5,7 @@ import { taggingXStoreModule } from '../module';
 import { TaggingState } from '../types';
 
 /**
- * Reset tagging module state with its original state and the partial state passes as
+ * Reset tagging module state with its original state and the partial state passed as
  * parameter.
  *
  * @param store - Tagging store state.

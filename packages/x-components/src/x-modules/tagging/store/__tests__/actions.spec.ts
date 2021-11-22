@@ -24,13 +24,12 @@ describe('testing tagging module actions', () => {
     jest.clearAllMocks();
   });
 
-  describe('trackTagging', () => {
+  /* eslint-disable @typescript-eslint/unbound-method */
+  describe('track', () => {
     it('should track without session id if the consent is not provided', async () => {
       await store.dispatch('track', queryTagging);
 
-      //eslint-disable-next-line @typescript-eslint/unbound-method
       expect(adapter.track).toHaveBeenCalled();
-      //eslint-disable-next-line @typescript-eslint/unbound-method
       expect(adapter.track).toHaveBeenCalledWith(queryTagging);
     });
 
@@ -38,9 +37,7 @@ describe('testing tagging module actions', () => {
       resetTaggingStateWith(store, { consent: false });
       await store.dispatch('track', queryTagging);
 
-      //eslint-disable-next-line @typescript-eslint/unbound-method
       expect(adapter.track).toHaveBeenCalled();
-      //eslint-disable-next-line @typescript-eslint/unbound-method
       expect(adapter.track).toHaveBeenCalledWith(queryTagging);
     });
 
@@ -49,9 +46,7 @@ describe('testing tagging module actions', () => {
 
       await store.dispatch('track', queryTagging);
 
-      //eslint-disable-next-line @typescript-eslint/unbound-method
       expect(adapter.track).toHaveBeenCalled();
-      //eslint-disable-next-line @typescript-eslint/unbound-method
       expect(adapter.track).toHaveBeenCalledWith({
         url: queryTagging.url,
         params: {
@@ -64,14 +59,11 @@ describe('testing tagging module actions', () => {
     it('should tracks multiple times if the tagging info is an array', async () => {
       await store.dispatch('track', [queryTagging, queryTagging, queryTagging]);
 
-      //eslint-disable-next-line @typescript-eslint/unbound-method
       expect(adapter.track).toHaveBeenCalledTimes(3);
-      //eslint-disable-next-line @typescript-eslint/unbound-method
       expect(adapter.track).toHaveBeenNthCalledWith(1, queryTagging);
-      //eslint-disable-next-line @typescript-eslint/unbound-method
       expect(adapter.track).toHaveBeenNthCalledWith(2, queryTagging);
-      //eslint-disable-next-line @typescript-eslint/unbound-method
       expect(adapter.track).toHaveBeenNthCalledWith(3, queryTagging);
     });
   });
+  /* eslint-enable @typescript-eslint/unbound-method */
 });

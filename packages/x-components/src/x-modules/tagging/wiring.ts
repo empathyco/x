@@ -28,7 +28,7 @@ const moduleDebounce = namespacedDebounce(moduleName);
 const wireCommit = namespacedWireCommit(moduleName);
 
 /**
- * WireDispatch for {@link SearchXModule}.
+ * WireDispatch for {@link TaggingXModule}.
  *
  * @internal
  */
@@ -76,7 +76,7 @@ export const setSessionDuration = wireCommit('setSessionDuration');
  *
  * @public
  */
-export const trackTaggingWire = moduleDebounce(
+export const trackWire = moduleDebounce(
   wireDispatch('track'),
   ({ state }) => state.config.queryTaggingDebounceMs,
   'SearchTaggingChanged'
@@ -101,6 +101,6 @@ export const taggingWiring = createWiring({
     setQueryTaggingDebounce
   },
   SearchTaggingChanged: {
-    trackTaggingAction: trackTaggingWire
+    trackWire
   }
 });

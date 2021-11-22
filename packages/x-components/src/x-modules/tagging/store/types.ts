@@ -57,7 +57,7 @@ export interface TaggingMutations {
  */
 export interface TaggingActions {
   /**
-   * Tracks the tagging of the query.
+   * Tracks a user interaction.
    *
    */
   track(tagging: TaggingInfo | TaggingInfo[]): void;

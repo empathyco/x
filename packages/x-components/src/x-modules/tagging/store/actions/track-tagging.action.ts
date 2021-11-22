@@ -12,13 +12,13 @@ import { TaggingXStoreModule } from '../types';
  *
  * @public
  */
-export const track: TaggingXStoreModule['actions']['track'] = (context, taggingInfo) => {
-  const consent = context.state.consent;
+export const track: TaggingXStoreModule['actions']['track'] = ({ state }, taggingInfo) => {
+  const { consent } = state;
   const tagging = Array.isArray(taggingInfo) ? taggingInfo : [taggingInfo];
   const sessionId = getSessionId(consent);
 
   tagging.forEach(({ url, params }: TaggingInfo) => {
-    return XPlugin.adapter.track({
+    XPlugin.adapter.track({
       url,
       params: {
         ...params,
@@ -33,7 +33,7 @@ export const track: TaggingXStoreModule['actions']['track'] = (context, taggingI
  *
  * @param consent - User consent to retrieve the session id.
  *
- * @returns SessionId - The user session id or undefined.
+ * @returns The user session id or undefined.
  *
  * @internal
  */
