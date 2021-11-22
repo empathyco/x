@@ -3,6 +3,74 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.29...@empathyco/x-components@3.0.0-alpha.30) (2021-11-22)
+
+### Features
+
+- **components:** add `LocationProvider` component
+  ([b005713](https://github.com/empathyco/x/commit/b0057130d99767efebcd8da6ef669bee81bac567)),
+  closes [EX-4639](https://searchbroker.atlassian.net/browse/EX-4639)
+- **components:** replace `BaseEventButton` for an html button
+  ([6028f16](https://github.com/empathyco/x/commit/6028f16374b794df9233a9aada78933502873864)),
+  closes [EX-5003](https://searchbroker.atlassian.net/browse/EX-5003)
+- **identifier-results:** add query origin in the identifier results search
+  ([9c75236](https://github.com/empathyco/x/commit/9c75236bd21b0c483e01a62eb42a070510ea3cf2)),
+  closes [EX-4873](https://searchbroker.atlassian.net/browse/EX-4873)
+- remove x installer from router hooks
+  ([46fc1cf](https://github.com/empathyco/x/commit/46fc1cf73fccb01d1e97cd80916e33be5d617cf8))
+- **scroll:** add `MainScroll` and `MainScrollItem`
+  ([477c804](https://github.com/empathyco/x/commit/477c804cc6bbd09b1558e1448ce4bfe94e56e85b)),
+  closes [EX-4998](https://searchbroker.atlassian.net/browse/EX-4998)
+- **scroll:** add empty `XModule`
+  ([18e3e6a](https://github.com/empathyco/x/commit/18e3e6a4c17fccc8fedf90b9d644de41b224f716)),
+  closes [EX-4996](https://searchbroker.atlassian.net/browse/EX-4996)
+- **scroll:** ignore first visible element when it is also the first one observed
+  ([4ae670c](https://github.com/empathyco/x/commit/4ae670c87c534ca551da2b6ee44596ff56505f92)),
+  closes [EX-5041](https://searchbroker.atlassian.net/browse/EX-5041)
+- **scroll:** move scroll related components to the `Scroll` `XModule`
+  ([be083fa](https://github.com/empathyco/x/commit/be083fa6f46d7fc1f6d7a2a4288f7d09644da042)),
+  closes [EX-4997](https://searchbroker.atlassian.net/browse/EX-4997)
+- **search:** add `SearchTaggingChanged` emitter and save coming `queryTagging` from the search
+  response
+  ([aeb8cea](https://github.com/empathyco/x/commit/aeb8cea22fbc5abe3e8144000984cbff0e9f37d6)),
+  closes [EX-3525](https://searchbroker.atlassian.net/browse/EX-3525)
+- **tagging:** add `SessionService`
+  ([b9fcbfc](https://github.com/empathyco/x/commit/b9fcbfc0d600a0a4b32245d56c5b00965217e5f5)),
+  closes [EX-4875](https://searchbroker.atlassian.net/browse/EX-4875)
+- update `Tagging` model
+  ([598915c](https://github.com/empathyco/x/commit/598915ced128e3fa5586ff6c870e68cfa2e016c3)),
+  closes [EX-4985](https://searchbroker.atlassian.net/browse/EX-4985)
+- **x-plugin:** Make XPluginMixin to add the component `location` to metadata.
+  ([eb2c03a](https://github.com/empathyco/x/commit/eb2c03a329cd78c42becf09bdf49b860dca74e40)),
+  closes [EX-4869](https://searchbroker.atlassian.net/browse/EX-4869)
+
+### Bug Fixes
+
+- **identifier-results:** provide resultClickExtraEvents so BaseResultLink emits them when clicked
+  ([da2da47](https://github.com/empathyco/x/commit/da2da47ed1a1fe431dfdfc5a16205967c2ec1f06)),
+  closes [EX-4980](https://searchbroker.atlassian.net/browse/EX-4980)
+
+### Testing
+
+- **e2e:** add typing to e2e stubs
+  ([d218b1b](https://github.com/empathyco/x/commit/d218b1bf4981194aecd9c21606eba01b74472a10))
+- **e2e:** complete filter tests scenarios
+  ([cc25bce](https://github.com/empathyco/x/commit/cc25bcec7dd4eadaec9fe67fae564dde5dcecbbf)),
+  closes [EX-3607](https://searchbroker.atlassian.net/browse/EX-3607)
+- **e2e:** fix invalid identifier results data test selector
+  ([0c1b780](https://github.com/empathyco/x/commit/0c1b780818ee244d506a603603b2e778e50c34f7))
+- **e2e:** remove sliding panel test wait
+  ([84e54ac](https://github.com/empathyco/x/commit/84e54ac582afb4698ef5451a63f272988b58596d)),
+  closes [EX-5009](https://searchbroker.atlassian.net/browse/EX-5009)
+- **search:** redefine old search tests
+  ([5142bb5](https://github.com/empathyco/x/commit/5142bb5fb61181f199fa1019cf7c910d9736deb8)),
+  closes [EX-3801](https://searchbroker.atlassian.net/browse/EX-3801)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.28...@empathyco/x-components@3.0.0-alpha.29) (2021-11-09)
 
 ### Features
