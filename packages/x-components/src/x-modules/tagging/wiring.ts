@@ -76,10 +76,10 @@ export const setSessionDuration = wireCommit('setSessionDuration');
  *
  * @public
  */
-export const trackTaggingAction = moduleDebounce(
-  wireDispatch('trackTagging'),
+export const trackTaggingWire = moduleDebounce(
+  wireDispatch('track'),
   ({ state }) => state.config.queryTaggingDebounceMs,
-  'UserAcceptedAQuery'
+  'SearchTaggingChanged'
 );
 
 /**
@@ -101,6 +101,6 @@ export const taggingWiring = createWiring({
     setQueryTaggingDebounce
   },
   SearchTaggingChanged: {
-    trackTaggingAction
+    trackTaggingAction: trackTaggingWire
   }
 });

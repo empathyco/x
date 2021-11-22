@@ -60,7 +60,7 @@ export interface TaggingActions {
    * Tracks the tagging of the query.
    *
    */
-  trackTagging(tagging: TaggingInfo | TaggingInfo[]): void;
+  track(tagging: TaggingInfo | TaggingInfo[]): void;
 }
 
 /**

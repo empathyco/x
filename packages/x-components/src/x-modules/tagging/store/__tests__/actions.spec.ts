@@ -1,7 +1,8 @@
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { getTaggingResponseStub } from '../../../../__stubs__/tagging-response-stubs.factory';
-import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
+import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
+import { installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
 import { taggingXStoreModule } from '../module';
 import { TaggingActions, TaggingGetters, TaggingMutations, TaggingState } from '../types';
@@ -9,7 +10,7 @@ import { resetTaggingStateWith } from './utils';
 
 describe('testing tagging module actions', () => {
   const queryTagging = getTaggingResponseStub();
-  const adapter = getMockedAdapter();
+  const adapter = SearchAdapterDummy;
   const localVue = createLocalVue();
   localVue.config.productionTip = false; // Silent production console messages.
   localVue.use(Vuex);
@@ -24,33 +25,34 @@ describe('testing tagging module actions', () => {
   });
 
   describe('trackTagging', () => {
-    it('should tracks without session id if the consent is not provided', async () => {
-      const spyOn = jest.spyOn(adapter, 'track');
+    it('should track without session id if the consent is not provided', async () => {
+      await store.dispatch('track', queryTagging);
 
-      await store.dispatch('trackTagging', queryTagging);
-
-      expect(spyOn).toHaveBeenCalled();
-      expect(spyOn).toHaveBeenCalledWith(queryTagging);
+      //eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(adapter.track).toHaveBeenCalled();
+      //eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(adapter.track).toHaveBeenCalledWith(queryTagging);
     });
 
-    it('should tracks without session id if the consent is false', async () => {
+    it('should track without session id if the consent is false', async () => {
       resetTaggingStateWith(store, { consent: false });
-      const spyOn = jest.spyOn(adapter, 'track');
+      await store.dispatch('track', queryTagging);
 
-      await store.dispatch('trackTagging', queryTagging);
-
-      expect(spyOn).toHaveBeenCalled();
-      expect(spyOn).toHaveBeenCalledWith(queryTagging);
+      //eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(adapter.track).toHaveBeenCalled();
+      //eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(adapter.track).toHaveBeenCalledWith(queryTagging);
     });
 
-    it('should tracks with a session id if the consent is true', async () => {
+    it('should track with a session id if the consent is true', async () => {
       resetTaggingStateWith(store, { consent: true });
-      const spyOn = jest.spyOn(adapter, 'track');
 
-      await store.dispatch('trackTagging', queryTagging);
+      await store.dispatch('track', queryTagging);
 
-      expect(spyOn).toHaveBeenCalled();
-      expect(spyOn).toHaveBeenCalledWith({
+      //eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(adapter.track).toHaveBeenCalled();
+      //eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(adapter.track).toHaveBeenCalledWith({
         url: queryTagging.url,
         params: {
           ...queryTagging.params,
@@ -60,11 +62,16 @@ describe('testing tagging module actions', () => {
     });
 
     it('should tracks multiple times if the tagging info is an array', async () => {
-      const spyOn = jest.spyOn(adapter, 'track');
+      await store.dispatch('track', [queryTagging, queryTagging, queryTagging]);
 
-      await store.dispatch('trackTagging', [queryTagging, queryTagging, queryTagging]);
-
-      expect(spyOn).toHaveBeenCalledTimes(3);
+      //eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(adapter.track).toHaveBeenCalledTimes(3);
+      //eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(adapter.track).toHaveBeenNthCalledWith(1, queryTagging);
+      //eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(adapter.track).toHaveBeenNthCalledWith(2, queryTagging);
+      //eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(adapter.track).toHaveBeenNthCalledWith(3, queryTagging);
     });
   });
 });

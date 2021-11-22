@@ -4,7 +4,7 @@ import { DefaultSessionService } from '../../service';
 import { TaggingXStoreModule } from '../types';
 
 /**
- * Default implementation for the {@link TaggingActions.trackTagging}.
+ * Default implementation for the {@link TaggingActions.track}.
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
@@ -12,10 +12,7 @@ import { TaggingXStoreModule } from '../types';
  *
  * @public
  */
-export const trackTagging: TaggingXStoreModule['actions']['trackTagging'] = (
-  context,
-  taggingInfo
-) => {
+export const track: TaggingXStoreModule['actions']['track'] = (context, taggingInfo) => {
   const consent = context.state.consent;
   const tagging = Array.isArray(taggingInfo) ? taggingInfo : [taggingInfo];
 
@@ -34,7 +31,7 @@ export const trackTagging: TaggingXStoreModule['actions']['trackTagging'] = (
 /**
  * Returns the session id if the consent is true.
  *
- * @param consent - User consent to get the getSessionId.
+ * @param consent - User consent to retrieve the session id.
  *
  * @returns SessionId - The user session id or undefined.
  *

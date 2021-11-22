@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Tagging :consent="true" />
+    <Tagging :consent="false" />
     <ExtraParams :values="initialExtraParams" />
     <UrlHandler query="q" store="store" />
     <BaseEventsModalOpen>Start</BaseEventsModalOpen>

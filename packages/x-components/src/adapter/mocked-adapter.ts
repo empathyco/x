@@ -13,8 +13,7 @@ import {
   SuggestionsRequest,
   SuggestionsResponse,
   TopRecommendationsRequest,
-  TopRecommendationsResponse,
-  TrackingRequest
+  TopRecommendationsResponse
 } from '@empathyco/x-adapter';
 import { configureAdapterWithToysrus } from './util';
 
@@ -70,8 +69,7 @@ class E2ETestsAdapter extends EmpathyAdapter {
     return mockFetch(request, 'search');
   }
 
-  //eslint-disable-next-line @typescript-eslint/no-unused-vars
-  track(trackingRequest: TrackingRequest): Promise<void> {
+  track(): Promise<void> {
     return Promise.resolve();
   }
 

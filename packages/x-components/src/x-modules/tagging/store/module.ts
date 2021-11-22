@@ -1,4 +1,4 @@
-import { trackTagging } from './actions/track-tagging.action';
+import { track } from './actions/track-tagging.action';
 import { TaggingXStoreModule } from './types';
 
 /**
@@ -27,6 +27,6 @@ export const taggingXStoreModule: TaggingXStoreModule = {
     }
   },
   actions: {
-    trackTagging
+    track
   }
 };
