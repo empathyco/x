@@ -1,20 +1,7 @@
-import { NextQueriesResponse } from '@empathyco/x-adapter';
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { createNextQueryStub } from '../../../../src/__stubs__';
 import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
 
 // Background
-Given('a next queries API with a known response', () => {
-  cy.intercept('https://api.empathy.co/getNextQueries', req => {
-    req.reply(<NextQueriesResponse>{
-      nextQueries: [
-        createNextQueryStub('lego'),
-        createNextQueryStub('camion'),
-        createNextQueryStub('marvel')
-      ]
-    });
-  }).as('interceptedNextQueries');
-});
 
 Given(
   'following config: hide session queries {boolean}, requested items {int}, loadOnInit {boolean}',
