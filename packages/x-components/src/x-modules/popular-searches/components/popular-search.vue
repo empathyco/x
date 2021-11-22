@@ -4,6 +4,7 @@
     :suggestion="suggestion"
     :suggestionSelectedEvents="events"
     data-test="popular-search"
+    feature="popular_search"
   >
     <template #default="{ suggestion }">
       <!--

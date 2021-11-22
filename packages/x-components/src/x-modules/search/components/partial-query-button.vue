@@ -12,6 +12,7 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { WireMetadata } from '../../../wiring/wiring.types';
   import { searchXModule } from '../x-module';
 
   /**
@@ -34,17 +35,26 @@
     public query!: string;
 
     /**
+     * Generates the {@link WireMetadata | event metadata} object omitting the moduleName.
+     *
+     * @returns The {@link WireMetadata} object omitting the moduleName.
+     * @internal
+     */
+    protected createEventMetadata(): Omit<WireMetadata, 'moduleName'> {
+      return {
+        target: this.$el as HTMLElement,
+        feature: 'partial_result'
+      };
+    }
+
+    /**
      * Emits events when the button is clicked.
      *
      * @public
      */
     protected emitEvents(): void {
-      this.$x.emit('UserAcceptedAQuery', this.query, {
-        target: this.$el as HTMLElement
-      });
-      this.$x.emit('UserClickedPartialQuery', this.query, {
-        target: this.$el as HTMLElement
-      });
+      this.$x.emit('UserAcceptedAQuery', this.query, this.createEventMetadata());
+      this.$x.emit('UserClickedPartialQuery', this.query, this.createEventMetadata());
     }
   }
 </script>

@@ -4,6 +4,7 @@
     :aria-label="suggestion.query"
     class="x-query-suggestion"
     data-test="query-suggestion"
+    feature="query_suggestion"
   >
     <template #default="{ suggestion, queryHTML }">
       <!-- eslint-disable max-len -->

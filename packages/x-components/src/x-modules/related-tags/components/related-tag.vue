@@ -21,6 +21,7 @@
   import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { VueCSSClasses } from '../../../utils/types';
+  import { WireMetadata } from '../../../wiring/wiring.types';
   import { relatedTagsXModule } from '../x-module';
 
   /**
@@ -50,23 +51,32 @@
     public selectedRelatedTags!: RelatedTagModel[];
 
     /**
+     * Generates the {@link WireMetadata | event metadata} object omitting the moduleName.
+     *
+     * @returns The {@link WireMetadata} object omitting the moduleName.
+     * @internal
+     */
+    protected createEventMetadata(): Omit<WireMetadata, 'moduleName'> {
+      return {
+        target: this.$el as HTMLElement,
+        feature: 'related_tag'
+      };
+    }
+
+    /**
      * Emits events when the button is clicked.
      *
      * @public
      */
     protected emitEvents(): void {
       // We have to emit this events first to avoid the UserPickedARelatedTag wires to change the
-      // isSelected value before emiting this selection events.
+      // isSelected value before emitting this selection events.
       this.$x.emit(
         this.isSelected ? 'UserDeselectedARelatedTag' : 'UserSelectedARelatedTag',
         this.relatedTag,
-        {
-          target: this.$el as HTMLElement
-        }
+        this.createEventMetadata()
       );
-      this.$x.emit('UserPickedARelatedTag', this.relatedTag, {
-        target: this.$el as HTMLElement
-      });
+      this.$x.emit('UserPickedARelatedTag', this.relatedTag, this.createEventMetadata());
     }
 
     /**

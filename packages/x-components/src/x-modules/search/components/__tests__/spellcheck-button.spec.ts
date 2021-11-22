@@ -4,6 +4,7 @@ import Vuex, { Store } from 'vuex';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { RootXStoreState } from '../../../../store';
 import { DeepPartial } from '../../../../utils';
+import { WireMetadata } from '../../../../wiring/wiring.types';
 import SpellcheckButton from '../spellcheck-button.vue';
 import { resetXSearchStateWith } from './utils';
 
@@ -77,13 +78,25 @@ describe('testing SpellcheckButton component', () => {
     const { wrapper, click } = renderSpellcheckButton({ spellcheckedQuery });
     const $x = wrapper.vm.$x;
 
-    $x.on('UserAcceptedAQuery').subscribe(userAcceptedAQuery);
-    $x.on('UserAcceptedSpellcheckQuery').subscribe(userAcceptSpellcheck);
+    $x.on('UserAcceptedAQuery', true).subscribe(userAcceptedAQuery);
+    $x.on('UserAcceptedSpellcheckQuery', true).subscribe(userAcceptSpellcheck);
 
     click();
 
-    expect(userAcceptedAQuery).toHaveBeenNthCalledWith(1, spellcheckedQuery);
-    expect(userAcceptSpellcheck).toHaveBeenNthCalledWith(1, spellcheckedQuery);
+    expect(userAcceptedAQuery).toHaveBeenNthCalledWith(1, {
+      eventPayload: spellcheckedQuery,
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        feature: 'spellcheck',
+        target: wrapper.element
+      })
+    });
+    expect(userAcceptSpellcheck).toHaveBeenNthCalledWith(1, {
+      eventPayload: spellcheckedQuery,
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        feature: 'spellcheck',
+        target: wrapper.element
+      })
+    });
   });
 });
 

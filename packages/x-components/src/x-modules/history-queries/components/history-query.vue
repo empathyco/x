@@ -4,6 +4,7 @@
       class="x-history-query__suggestion"
       v-bind="{ suggestion, suggestionSelectedEvents, query }"
       data-test="history-query"
+      feature="history_query"
     >
       <template #default="{ suggestion, queryHTML }">
         <!-- eslint-disable max-len -->

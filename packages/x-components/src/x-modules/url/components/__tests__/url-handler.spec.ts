@@ -4,6 +4,7 @@ import { installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components';
 import { XComponentBusAPI } from '../../../../plugins/x-plugin.types';
 import { UrlParams } from '../../../../types/url-params';
+import { WireMetadata } from '../../../../wiring/wiring.types';
 import { initialUrlState } from '../../store/initial-state';
 import { urlXModule } from '../../x-module';
 import { UrlHandler } from '../index';
@@ -56,16 +57,21 @@ describe('testing UrlHandler component', () => {
       urlParams: 'query=lego&page=2&tag=marvel&sort=price desc&scroll=333&filter=brand:lego'
     });
     const eventSpy = jest.fn();
-    on('ParamsLoadedFromUrl').subscribe(eventSpy);
+    on('ParamsLoadedFromUrl', true).subscribe(eventSpy);
 
     expect(eventSpy).toHaveBeenNthCalledWith(1, {
-      query: 'lego',
-      page: 2,
-      filter: ['brand:lego'],
-      sort: 'price desc',
-      scroll: '333',
-      tag: ['marvel']
-    } as UrlParams);
+      eventPayload: {
+        query: 'lego',
+        page: 2,
+        filter: ['brand:lego'],
+        sort: 'price desc',
+        scroll: '333',
+        tag: ['marvel']
+      } as UrlParams,
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        feature: 'url'
+      })
+    });
   });
 
   it('emits the `ParamsLoadedFromUrl` when the browser history is navigated', () => {
