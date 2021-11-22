@@ -5,12 +5,12 @@ import { scrollXModule } from '../../x-module';
 import WindowScroll from '../window-scroll.vue';
 
 async function renderWindowScroll({
-  template = `<WindowScroll :throttleMs="throttleMs" :tag="tag"/>`,
+  template = `<WindowScroll :throttleMs="throttleMs" :scrollableElement="scrollableElement"/>`,
   throttleMs = 200,
   scrollHeight = 800,
   clientHeight = 200,
   distanceToBottom = 100,
-  tag,
+  scrollableElement,
   showComponent
 }: RenderWindowScrollOptions = {}): Promise<RenderWindowScrollAPI> {
   const [, localVue] = installNewXPlugin({ initialXModules: [scrollXModule] });
@@ -29,7 +29,7 @@ async function renderWindowScroll({
 
   const wrapperContainer = mount(
     {
-      props: ['throttleMs', 'distanceToBottom', 'tag'],
+      props: ['throttleMs', 'distanceToBottom', 'scrollableElement'],
       components: {
         WindowScroll
       },
@@ -42,7 +42,7 @@ async function renderWindowScroll({
       propsData: {
         throttleMs,
         distanceToBottom,
-        tag
+        scrollableElement
       },
       localVue
     }
@@ -90,7 +90,7 @@ describe('testing Main Scroll Component', () => {
     it('throttles the scroll event', async () => {
       const { wrapper, scrollHtml } = await renderWindowScroll({
         throttleMs: 200,
-        tag: 'html'
+        scrollableElement: 'html'
       });
 
       const listenerScrolled = jest.fn();
@@ -128,7 +128,7 @@ describe('testing Main Scroll Component', () => {
     it('emits the `UserChangedScrollDirection` event when the user changes scrolling direction', async () => {
       const { wrapper, scrollHtml } = await renderWindowScroll({
         throttleMs: 200,
-        tag: 'html'
+        scrollableElement: 'html'
       });
 
       const listenerChangeDirection = jest.fn();
@@ -178,7 +178,7 @@ describe('testing Main Scroll Component', () => {
     it('emits the `UserReachedScrollStart` event when the user scrolls back to the top', async () => {
       const { wrapper, scrollHtml } = await renderWindowScroll({
         throttleMs: 200,
-        tag: 'html'
+        scrollableElement: 'html'
       });
 
       const listenerScrollStart = jest.fn();
@@ -221,7 +221,7 @@ describe('testing Main Scroll Component', () => {
         scrollHeight: 800,
         clientHeight: 200,
         distanceToBottom: 300,
-        tag: 'html'
+        scrollableElement: 'html'
       });
 
       const listenerAlmostReachedScrollEnd = jest.fn();
@@ -323,11 +323,11 @@ describe('testing Main Scroll Component', () => {
     it('does not trigger event when scrolling in body or other element', async () => {
       const { wrapper, scrollBody, scrollContent } = await renderWindowScroll({
         template: `<div>
-                    <WindowScroll :throttleMs="throttleMs" :tag="tag"/>
+                    <WindowScroll :throttleMs="throttleMs" :scrollableElement="scrollableElement"/>
                     <div data-test="content"></div>
                   </div>`,
         throttleMs: 200,
-        tag: 'html'
+        scrollableElement: 'html'
       });
 
       const listenerScrolled = jest.fn();
@@ -349,9 +349,14 @@ describe('testing Main Scroll Component', () => {
 
     it('does not emit event if component is not rendered or is destroyed', async () => {
       const { scrollHtml, setShowComponent } = await renderWindowScroll({
-        template: `<WindowScroll v-if="showComponent" :throttleMs="throttleMs" :tag="tag"/>`,
+        template: `
+          <WindowScroll
+            v-if="showComponent"
+            :throttleMs="throttleMs"
+            :scrollableElement="scrollableElement"
+          />`,
         throttleMs: 200,
-        tag: 'html',
+        scrollableElement: 'html',
         showComponent: false
       });
 
@@ -415,7 +420,7 @@ describe('testing Main Scroll Component', () => {
     it('throttles the scroll event', async () => {
       const { wrapper, scrollBody } = await renderWindowScroll({
         throttleMs: 200,
-        tag: 'body'
+        scrollableElement: 'body'
       });
 
       const listenerScrolled = jest.fn();
@@ -453,7 +458,7 @@ describe('testing Main Scroll Component', () => {
     it('emits the `UserChangedScrollDirection` event when the user changes scrolling direction', async () => {
       const { wrapper, scrollBody } = await renderWindowScroll({
         throttleMs: 200,
-        tag: 'body'
+        scrollableElement: 'body'
       });
 
       const listenerChangeDirection = jest.fn();
@@ -503,7 +508,7 @@ describe('testing Main Scroll Component', () => {
     it('emits the `UserReachedScrollStart` event when the user scrolls back to the top', async () => {
       const { wrapper, scrollBody } = await renderWindowScroll({
         throttleMs: 200,
-        tag: 'body'
+        scrollableElement: 'body'
       });
 
       const listenerScrollStart = jest.fn();
@@ -546,7 +551,7 @@ describe('testing Main Scroll Component', () => {
         scrollHeight: 800,
         clientHeight: 200,
         distanceToBottom: 300,
-        tag: 'body'
+        scrollableElement: 'body'
       });
 
       const listenerAlmostReachedScrollEnd = jest.fn();
@@ -648,11 +653,11 @@ describe('testing Main Scroll Component', () => {
     it('does not trigger event when scrolling in document or other element', async () => {
       const { wrapper, scrollHtml, scrollContent } = await renderWindowScroll({
         template: `<div>
-                    <WindowScroll :throttleMs="throttleMs" :tag="tag"/>
+                    <WindowScroll :throttleMs="throttleMs" :scrollableElement="scrollableElement"/>
                     <div data-test="content"></div>
                   </div>`,
         throttleMs: 200,
-        tag: 'body'
+        scrollableElement: 'body'
       });
 
       const listenerScrolled = jest.fn();
@@ -674,9 +679,14 @@ describe('testing Main Scroll Component', () => {
 
     it('does not emit event if component is not rendered or is destroyed', async () => {
       const { scrollBody, setShowComponent } = await renderWindowScroll({
-        template: `<WindowScroll v-if="showComponent" :throttleMs="throttleMs" :tag="tag"/>`,
+        template: `
+          <WindowScroll
+            v-if="showComponent"
+            :throttleMs="throttleMs"
+            :scrollableElement="scrollableElement"
+          />`,
         throttleMs: 200,
-        tag: 'body',
+        scrollableElement: 'body',
         showComponent: false
       });
 
@@ -748,8 +758,8 @@ interface RenderWindowScrollOptions {
   clientHeight?: number;
   /** Distance to the end of the main scroll. */
   distanceToBottom?: number;
-  /** Tag where apply the scroll. */
-  tag?: 'html' | 'body';
+  /** ScrollableElement where apply the scroll. */
+  scrollableElement?: 'html' | 'body';
   /** If it will show the WindowScroll or not. */
   showComponent?: boolean;
 }

@@ -20,7 +20,6 @@ function renderMainScroll({
   itemHeight = '50px',
   threshold,
   margin,
-  minScrollTrigger,
   useWindow,
   windowScrollingElement
 }: RenderMainScrollOptions = {}): RenderMainScrollAPI {
@@ -44,7 +43,7 @@ function renderMainScroll({
         MainScrollItem
       },
       template: `
-        <MainScroll v-bind="{ threshold, margin, useWindow, minScrollTrigger }">
+        <MainScroll v-bind="{ threshold, margin, useWindow }">
           <div class="container" ${!useWindow ? `data-test="scroll"` : ''}>
             <MainScrollItem
               v-for="item in items"
@@ -62,8 +61,7 @@ function renderMainScroll({
           items: Array.from({ length: itemsCount }, (_, index) => ({ id: `item-${index}` })),
           threshold,
           margin,
-          useWindow,
-          minScrollTrigger
+          useWindow
         };
       },
       beforeCreate() {
@@ -141,18 +139,14 @@ describe('testing MainScroll component', () => {
         userScrolledToElementSpy().should('have.been.calledWith', 'item-5');
       });
 
-      it('ignores the first pixels of scroll', () => {
-        const { scrollToItem, userScrolledToElementSpy } = renderMainScroll({
-          ...defaultParameters,
-          minScrollTrigger: 75,
-          itemHeight: '50px'
-        });
+      it('ignores the first element of scroll', () => {
+        const { scrollToItem, userScrolledToElementSpy } = renderMainScroll(defaultParameters);
         scrollToItem(1);
+        userScrolledToElementSpy().should('have.been.calledWith', 'item-1');
         userScrolledToElementSpy().should('not.have.been.calledWith', 'item-0');
-        userScrolledToElementSpy().should('not.have.been.calledWith', 'item-1');
 
-        scrollToItem(2);
-        userScrolledToElementSpy().should('have.been.calledWith', 'item-2');
+        scrollToItem(0);
+        userScrolledToElementSpy().should('not.have.been.calledWith', 'item-0');
       });
 
       it('restores the scroll', () => {
@@ -226,8 +220,6 @@ interface RenderMainScrollOptions {
   threshold?: number;
   /** The height of each one of the items. */
   itemHeight?: string;
-  /** The scroll amount in pixels to ignore the first visible element. */
-  minScrollTrigger?: number;
   /** Enables listening to the global scroll instead of the wrapping element scroll. */
   useWindow?: boolean;
   /** When `useWindow=true`, the element that should be scrollable. */
