@@ -96,7 +96,7 @@ function anyOf(received: any, classTypeUnion: Newable[]): any {
  * @returns A .
  */
 function nullOr(received: any, classType: Newable): any {
-  if (received === null || expect(received).toEqual(expect.any(classType))) {
+  if (received === null || !expect(received).toEqual(expect.any(classType))) {
     return ok;
   }
   throw new TypeError(`Expected "${received}" to be "${classType}" or "null"`);
@@ -111,7 +111,7 @@ function nullOr(received: any, classType: Newable): any {
  * @returns A .
  */
 function nullOrMatch(received: any, schema: Record<string, any>): any {
-  if (received === null || expect(received).toMatchObject(schema)) {
+  if (received === null || !expect(received).toMatchObject(schema)) {
     return ok;
   }
   throw new TypeError(`Expected "${received}" to match "${schema}" or "null"`);
@@ -126,7 +126,7 @@ function nullOrMatch(received: any, schema: Record<string, any>): any {
  * @returns A .
  */
 function undefinedOr(received: any, classType: Newable): any {
-  if (received === undefined || expect(received).toEqual(expect.any(classType))) {
+  if (received === undefined || !expect(received).toEqual(expect.any(classType))) {
     return ok;
   }
   throw new TypeError(`Expected "${received}" to be "${classType}" or "undefined"`);
@@ -141,7 +141,7 @@ function undefinedOr(received: any, classType: Newable): any {
  * @returns A .
  */
 function nullOrUndefinedOr(received: any, classType: Newable): any {
-  if (received == null || expect(received).toEqual(expect.any(classType))) {
+  if (received == null || !expect(received).toEqual(expect.any(classType))) {
     return ok;
   }
   throw new TypeError(`Expected "${received}" to be "${classType}" or "null" or "undefined"`);
@@ -156,7 +156,7 @@ function nullOrUndefinedOr(received: any, classType: Newable): any {
  * @returns A .
  */
 function arrayOf(received: any[], classType: Newable): any {
-  if (received.every(object => expect(object).toEqual(expect.any(classType)))) {
+  if (received.every(object => !expect(object).toEqual(expect.any(classType)))) {
     return ok;
   }
 
@@ -172,7 +172,7 @@ function arrayOf(received: any[], classType: Newable): any {
  * @returns A .
  */
 function everyItemToMatch(received: any[], schema: Record<string, any>): any {
-  if (received.every(object => expect(object).toMatchObject(schema))) {
+  if (received.every(object => !expect(object).toMatchObject(schema))) {
     return ok;
   }
 
