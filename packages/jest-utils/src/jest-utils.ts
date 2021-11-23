@@ -20,6 +20,7 @@ const extendOptions: Record<keyof (EmpathyExtendedExpect & EmpathyExtendedMatche
     nullOrMatch,
     nullOrAnyOf,
     undefinedOr,
+    undefinedOrMatch,
     nullOrUndefinedOr,
     arrayOf,
     anyOf,
@@ -36,7 +37,12 @@ const extendOptions: Record<keyof (EmpathyExtendedExpect & EmpathyExtendedMatche
 
 expect.extend(extendOptions as any);
 
-const ok = { pass: true, message: () => 'OK' };
+const ok: jest.CustomMatcherResult = { pass: true, message: () => 'OK' };
+const error = (msg: string): jest.CustomMatcherResult => ({
+  pass: false,
+  message: () => msg
+});
+
 /**
  * Checks if the value received is null or any of the types sent.
  *
@@ -45,18 +51,19 @@ const ok = { pass: true, message: () => 'OK' };
  *
  * @returns A .
  */
-function nullOrAnyOf(received: any, classTypeUnion: Newable[]): any {
-  try {
-    if (received === null || anyOf(received, classTypeUnion)) {
-      return ok;
+function nullOrAnyOf(received: any, classTypeUnion: Newable[]): jest.CustomMatcherResult {
+  if (received !== null) {
+    try {
+      anyOf(received, classTypeUnion);
+    } catch {
+      return error(
+        `Expected "${received}" to be "${classTypeUnion
+          .map(classType => classType.name)
+          .join(' | ')}" or null`
+      );
     }
-  } catch {
-    throw new TypeError(
-      `Expected "${received}" to be "${classTypeUnion
-        .map(classType => classType.name)
-        .join(' | ')}" or null`
-    );
   }
+  return ok;
 }
 
 /**
@@ -65,9 +72,9 @@ function nullOrAnyOf(received: any, classTypeUnion: Newable[]): any {
  * @param received - The value to check.
  * @param classTypeUnion - Array of types.
  *
- * @returns A .
+ * @returns .
  */
-function anyOf(received: any, classTypeUnion: Newable[]): any {
+function anyOf(received: any, classTypeUnion: Newable[]): jest.CustomMatcherResult {
   const isValid = classTypeUnion.some(classType => {
     try {
       expect(received).toEqual(expect.any(classType));
@@ -79,7 +86,7 @@ function anyOf(received: any, classTypeUnion: Newable[]): any {
   if (isValid) {
     return ok;
   } else {
-    throw new TypeError(
+    return error(
       `Expected "${received}" to be "${classTypeUnion
         .map(classType => classType.name)
         .join(' | ')}"`
@@ -95,11 +102,15 @@ function anyOf(received: any, classTypeUnion: Newable[]): any {
  *
  * @returns A .
  */
-function nullOr(received: any, classType: Newable): any {
-  if (received === null || !expect(received).toEqual(expect.any(classType))) {
-    return ok;
+function nullOr(received: any, classType: Newable): jest.CustomMatcherResult {
+  if (received !== null) {
+    try {
+      expect(received).toEqual(expect.any(classType));
+    } catch {
+      return error(`Expected "${received}" to be "${classType}" or "null"`);
+    }
   }
-  throw new TypeError(`Expected "${received}" to be "${classType}" or "null"`);
+  return ok;
 }
 
 /**
@@ -110,11 +121,34 @@ function nullOr(received: any, classType: Newable): any {
  *
  * @returns A .
  */
-function nullOrMatch(received: any, schema: Record<string, any>): any {
-  if (received === null || !expect(received).toMatchObject(schema)) {
-    return ok;
+function nullOrMatch(received: any, schema: Record<string, any>): jest.CustomMatcherResult {
+  if (received !== null) {
+    try {
+      expect(received).toMatchObject(schema);
+    } catch {
+      return error(`Expected "${received}" to match "${schema}" or "null"`);
+    }
   }
-  throw new TypeError(`Expected "${received}" to match "${schema}" or "null"`);
+  return ok;
+}
+
+/**
+ * Checks if the value received is undefined or match the schema sent.
+ *
+ * @param received - The value to check.
+ * @param schema - The schema.
+ *
+ * @returns A .
+ */
+function undefinedOrMatch(received: any, schema: Record<string, any>): jest.CustomMatcherResult {
+  if (received !== undefined) {
+    try {
+      expect(received).toMatchObject(schema);
+    } catch {
+      return error(`Expected "${received}" to match "${schema}" or "null"`);
+    }
+  }
+  return ok;
 }
 
 /**
@@ -125,11 +159,15 @@ function nullOrMatch(received: any, schema: Record<string, any>): any {
  *
  * @returns A .
  */
-function undefinedOr(received: any, classType: Newable): any {
-  if (received === undefined || !expect(received).toEqual(expect.any(classType))) {
-    return ok;
+function undefinedOr(received: any, classType: Newable): jest.CustomMatcherResult {
+  if (received !== undefined) {
+    try {
+      expect(received).toEqual(expect.any(classType));
+    } catch {
+      return error(`Expected "${received}" to be "${classType}" or "undefined"`);
+    }
   }
-  throw new TypeError(`Expected "${received}" to be "${classType}" or "undefined"`);
+  return ok;
 }
 
 /**
@@ -140,11 +178,15 @@ function undefinedOr(received: any, classType: Newable): any {
  *
  * @returns A .
  */
-function nullOrUndefinedOr(received: any, classType: Newable): any {
-  if (received == null || !expect(received).toEqual(expect.any(classType))) {
-    return ok;
+function nullOrUndefinedOr(received: any, classType: Newable): jest.CustomMatcherResult {
+  if (received != null) {
+    try {
+      expect(received).toEqual(expect.any(classType));
+    } catch {
+      return error(`Expected "${received}" to be "${classType}" or "null" or "undefined"`);
+    }
   }
-  throw new TypeError(`Expected "${received}" to be "${classType}" or "null" or "undefined"`);
+  return ok;
 }
 
 /**
@@ -155,12 +197,13 @@ function nullOrUndefinedOr(received: any, classType: Newable): any {
  *
  * @returns A .
  */
-function arrayOf(received: any[], classType: Newable): any {
-  if (received.every(object => !expect(object).toEqual(expect.any(classType)))) {
-    return ok;
+function arrayOf(received: any[], classType: Newable): jest.CustomMatcherResult {
+  try {
+    received.every(object => expect(object).toEqual(expect.any(classType)));
+  } catch {
+    return error(`Expected "${received}" to be an array of "${classType}"`);
   }
-
-  throw new TypeError(`Expected every item of "${received}" to be "${classType}"`);
+  return ok;
 }
 
 /**
@@ -171,12 +214,13 @@ function arrayOf(received: any[], classType: Newable): any {
  *
  * @returns A .
  */
-function everyItemToMatch(received: any[], schema: Record<string, any>): any {
-  if (received.every(object => !expect(object).toMatchObject(schema))) {
-    return ok;
+function everyItemToMatch(received: any[], schema: Record<string, any>): jest.CustomMatcherResult {
+  try {
+    received.every(object => expect(object).toMatchObject(schema));
+  } catch {
+    return error(`Expected every item of "${received}" to match "${schema}"`);
   }
-
-  throw new TypeError(`Expected every item of "${received}" to match "${schema}"`);
+  return ok;
 }
 
 /**
@@ -193,30 +237,15 @@ function toBeAValidURLWithExactQueryParameters(
   urlString: any,
   parameters: Record<string, string | string[]>
 ): any {
-  const url = new URL(urlString);
-  url.searchParams.forEach((value, key) => {
-    const expectedValue = parameters[key];
-    if (!(key in parameters)) {
-      throw new TypeError(
-        `Expected parameter "${key}" to equal value "${expectedValue}", but it is not present`
-      );
-    }
-    if (Array.isArray(expectedValue)) {
-      const received = url.searchParams.getAll(key);
-      try {
-        expect(received).toEqual(expectedValue);
-      } catch {
-        throw new TypeError(
-          `Expected parameters with key "${key}" to equal array "${expectedValue}", 
-          but it has value "${received}"`
-        );
-      }
-    } else if (value !== expectedValue) {
-      throw new TypeError(
-        `Expected parameter "${key}" to equal value "${expectedValue}", but it has value "${value}"`
-      );
-    }
-  });
+  const entries = Object.fromEntries(new URL(urlString).searchParams);
+  try {
+    expect(entries).toEqual(parameters);
+  } catch {
+    return error(
+      `Expected URL parameters "${JSON.stringify(parameters)}" to be "${JSON.stringify(entries)}",
+         but it is not present"`
+    );
+  }
   return ok;
 }
 
