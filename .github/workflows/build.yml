@@ -8,6 +8,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install lerna and all packages
         run: npm ci
+      - name: Run prettier in all packages
+        run: npm run prettier
       - name: Run linter in all packages
         run: npm run lint
       - name: Run tests in all packages
