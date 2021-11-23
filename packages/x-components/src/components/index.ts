@@ -24,6 +24,7 @@ export { default as StaggeringTransitionGroup } from './staggering-transition-gr
 export { default as MultiColumnMaxWidthLayout } from './layouts/multi-column-max-width-layout.vue';
 export { default as SingleColumnLayout } from './layouts/single-column-layout.vue';
 export { default as LocationProvider } from './location-provider.vue';
+export { default as GlobalXBus } from './global-x-bus.vue';
 
 // Utils
 export * from './decorators/bus.decorators';
