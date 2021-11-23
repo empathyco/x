@@ -1,4 +1,5 @@
 import { createStoreEmitters } from '../../../store';
+import { isStringEmpty } from '../../../utils/string';
 import { searchXStoreModule } from './module';
 
 /**
@@ -16,7 +17,10 @@ export const searchEmitters = createStoreEmitters(searchXStoreModule, {
   PageChanged: state => state.page,
   ResultsChanged: state => state.results,
   SearchRequestChanged: (_, getters) => getters.request,
-  SearchTaggingChanged: state => state.queryTagging,
+  SearchTaggingChanged: {
+    selector: state => state.queryTagging,
+    filter: ({ url }) => !isStringEmpty(url)
+  },
   SpellcheckChanged: state => state.spellcheckedQuery,
   SortChanged: state => state.sort
 });
