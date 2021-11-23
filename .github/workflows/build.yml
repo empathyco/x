@@ -10,6 +10,11 @@ jobs:
         run: npm ci
       - name: Run prettier in all packages
         run: npm run prettier
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 🤖 linting with autofix
+          branch: ${{ github.head_ref }}
       - name: Run linter in all packages
         run: npm run lint
       - name: Run tests in all packages
