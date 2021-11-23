@@ -80,7 +80,6 @@ export const trackWire = moduleDebounce(
   wireDispatch('track'),
   ({ state }) => state.config.queryTaggingDebounceMs,
   [
-    'SearchTaggingChanged',
     'UserClearedQuery',
     'UserIsTypingAQuery' // This event is necessary in case there is no instant search
   ]
