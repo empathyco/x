@@ -1,4 +1,5 @@
 module.exports = {
   preset: 'ts-jest',
-  testMatch: ['<rootDir>/src/**/*.spec.ts?(x)']
+  testMatch: ['<rootDir>/src/**/*.spec.ts?(x)'],
+  testEnvironment: 'jsdom'
 };
