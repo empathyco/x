@@ -15,7 +15,11 @@ function mountNewSearchInput(overrideProps: Partial<SearchInputProps> = {}): Tes
   installNewXPlugin({ store }, localVue);
   resetXSearchBoxStateWith(store);
 
+  const parent = document.createElement('div');
+  document.body.appendChild(parent);
+
   const wrapper = mount(SearchInput, {
+    attachTo: parent,
     store,
     localVue,
     propsData: overrideProps
