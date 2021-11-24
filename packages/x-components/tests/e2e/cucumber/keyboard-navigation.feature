@@ -15,14 +15,16 @@ Feature: Keyboard navigation component
     And   "<focusableElement>" element position is stored
     And   "right" arrow is pressed 1 times
     Then  next element position is "on the right"
-    When  "down" arrow is pressed 2 times
-    Then  next element position is "below"
-    When  "left" arrow is pressed 3 times
+    When  "left" arrow is pressed 1 times
     Then  next element position is "on the left"
+    When  "down" arrow is pressed 1 times
+    Then  next element position is "below"
+    When  "left" arrow is pressed 1 times
+    Then  next element position is "on the left"
+    When  "right" arrow is pressed 3 times
+    Then  next element position is "on the right"
     When  "up" arrow is pressed 1 times
     Then  next element position is "above"
-    When  "right" arrow is pressed 1 times
-    Then  next element position is "on the right"
 
     Examples:
       | query | focusableElement |
