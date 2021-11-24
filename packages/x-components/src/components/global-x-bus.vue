@@ -11,7 +11,7 @@
   >;
 
   /**
-   * A component which purpose is to receive callbacks associated with and events and handle the
+   * A component which purpose is to receive callbacks associated with events and handle the
    * subscriptions to the bus.
    *
    * @remarks
