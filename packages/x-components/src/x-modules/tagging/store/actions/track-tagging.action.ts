@@ -18,12 +18,14 @@ export const track: TaggingXStoreModule['actions']['track'] = ({ state }, taggin
   const sessionId = getSessionId(consent);
 
   tagging.forEach(({ url, params }: TaggingInfo) => {
+    if (sessionId !== undefined) {
+      Object.assign(params, {
+        session: sessionId
+      });
+    }
     XPlugin.adapter.track({
       url,
-      params: {
-        ...params,
-        session: sessionId
-      }
+      params
     });
   });
 };

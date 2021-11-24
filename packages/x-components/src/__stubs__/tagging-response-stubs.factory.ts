@@ -1,4 +1,4 @@
-import { TaggingInfo } from '../../../search-types';
+import { TaggingInfo } from '@empathyco/x-types';
 
 /**
  * Creates a {@link @empathyco/x-adapter#TaggingInfo | tagging response} stub.
