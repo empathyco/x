@@ -1,4 +1,4 @@
-import { track } from './actions/track-tagging.action';
+import { track } from './actions/track.action';
 import { TaggingXStoreModule } from './types';
 
 /**

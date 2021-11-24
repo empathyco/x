@@ -1,1 +1,1 @@
-export * from './track-tagging.action';
+export * from './track.action';
