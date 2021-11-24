@@ -11,7 +11,9 @@ type Direction = 'above' | 'below' | 'on the left' | 'on the right';
 
 // Scenario 1
 And('{string} element position is stored', (focusableElement: string) => {
-  cy.getByDataTest(focusableElement).focus().as('originalElement');
+  return focusableElement === 'search-input'
+    ? cy.getByDataTest(focusableElement).focus().as('originalElement')
+    : cy.getByDataTest(focusableElement).last().focus().as('originalElement');
 });
 
 Then('next element position is "{direction}"', (expectedPosition: Direction) => {
