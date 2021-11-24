@@ -18,6 +18,7 @@ export const track: TaggingXStoreModule['actions']['track'] = ({ state }, taggin
   const sessionId = getSessionId(consent);
 
   tagging.forEach(({ url, params }: TaggingInfo) => {
+    // TODO EX-5061 - Remove this validation when the adapter ignores undefined values.
     if (sessionId !== undefined) {
       Object.assign(params, {
         session: sessionId
