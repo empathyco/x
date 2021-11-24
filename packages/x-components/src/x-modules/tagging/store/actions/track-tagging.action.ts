@@ -1,4 +1,4 @@
-import { TaggingInfo } from '../../../../../../search-types';
+import { TaggingInfo } from '@empathyco/x-types';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { DefaultSessionService } from '../../service';
 import { TaggingXStoreModule } from '../types';
@@ -16,17 +16,15 @@ export const track: TaggingXStoreModule['actions']['track'] = ({ state }, taggin
   const { consent } = state;
   const tagging = Array.isArray(taggingInfo) ? taggingInfo : [taggingInfo];
   const sessionId = getSessionId(consent);
-
+  const session = sessionId && { session: sessionId };
   tagging.forEach(({ url, params }: TaggingInfo) => {
-    // TODO EX-5061 - Remove this validation when the adapter ignores undefined values.
-    if (sessionId !== undefined) {
-      Object.assign(params, {
-        session: sessionId
-      });
-    }
     XPlugin.adapter.track({
       url,
-      params
+      params: {
+        ...params,
+        // TODO EX-5061 - Remove this validation when the adapter ignores undefined values.
+        ...session
+      }
     });
   });
 };
