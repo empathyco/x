@@ -28,16 +28,16 @@
     public $listeners!: XEventListeners;
 
     created(): void {
-      this.handleEventSubscription();
+      this.handleXEventSubscription();
     }
 
     /**
-     * Subscribes to all the events provided in the listeners with the function that will
-     * execute the callback.
+     * Handles a subscription to all the events provided in the listeners with the function that
+     * will execute the callback. Also unsubscribes on beforeDestroy.
      *
      * @internal
      */
-    protected handleEventSubscription(): void {
+    protected handleXEventSubscription(): void {
       const subscription = reduce(
         this.$listeners,
         (subscription, eventName, callback) => {

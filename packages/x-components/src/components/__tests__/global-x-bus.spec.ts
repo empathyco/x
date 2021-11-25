@@ -9,7 +9,6 @@ function renderGlobalXBus({ listeners = {} }: RenderGlobalXBusOptions = {}): Ren
   const wrapper = mount(GlobalXBus, { listeners, localVue });
 
   return {
-    on: wrapper.vm.$x.on.bind(wrapper.vm.$x),
     emit: wrapper.vm.$x.emit.bind(wrapper.vm.$x)
   };
 }
@@ -49,8 +48,6 @@ interface RenderGlobalXBusOptions {
  * Options to configure how the global X bus component should be rendered.
  */
 interface RenderGlobalXBusAPI {
-  /** The {@link XComponentBusAPI.on} method to subscribe events. */
-  on: XComponentBusAPI['on'];
   /** The {@link XComponentBusAPI.emit} method to emit events. */
   emit: XComponentBusAPI['emit'];
 }
