@@ -49,7 +49,7 @@ const error = (msg: string): jest.CustomMatcherResult => ({
  * @param received - The value to check.
  * @param classTypeUnion - Array of types.
  *
- * @returns A .
+ * @returns Ok if the object is null or any of the types sent, error otherwise.
  */
 function nullOrAnyOf(received: any, classTypeUnion: Newable[]): jest.CustomMatcherResult {
   if (received !== null) {
@@ -72,7 +72,7 @@ function nullOrAnyOf(received: any, classTypeUnion: Newable[]): jest.CustomMatch
  * @param received - The value to check.
  * @param classTypeUnion - Array of types.
  *
- * @returns .
+ * @returns Ok if the element is any of the types sent, error otherwise.
  */
 function anyOf(received: any, classTypeUnion: Newable[]): jest.CustomMatcherResult {
   const isValid = classTypeUnion.some(classType => {
@@ -100,7 +100,7 @@ function anyOf(received: any, classTypeUnion: Newable[]): jest.CustomMatcherResu
  * @param received - The value to check.
  * @param classType - Type.
  *
- * @returns A .
+ * @returns Ok if the object is null or the type sent, error otherwise.
  */
 function nullOr(received: any, classType: Newable): jest.CustomMatcherResult {
   if (received !== null) {
@@ -119,7 +119,7 @@ function nullOr(received: any, classType: Newable): jest.CustomMatcherResult {
  * @param received - The value to check.
  * @param schema - The schema.
  *
- * @returns A .
+ * @returns Ok if the object is null or match the schema sent, error otherwise.
  */
 function nullOrMatch(received: any, schema: Record<string, any>): jest.CustomMatcherResult {
   if (received !== null) {
@@ -138,7 +138,7 @@ function nullOrMatch(received: any, schema: Record<string, any>): jest.CustomMat
  * @param received - The value to check.
  * @param schema - The schema.
  *
- * @returns A .
+ * @returns Ok if the object s undefined or match the schema sent, error otherwise.
  */
 function undefinedOrMatch(received: any, schema: Record<string, any>): jest.CustomMatcherResult {
   if (received !== undefined) {
@@ -157,7 +157,7 @@ function undefinedOrMatch(received: any, schema: Record<string, any>): jest.Cust
  * @param received - The value to check.
  * @param classType - Type.
  *
- * @returns A .
+ * @returns Ok if the object is undefined or the type sent, error otherwise.
  */
 function undefinedOr(received: any, classType: Newable): jest.CustomMatcherResult {
   if (received !== undefined) {
@@ -176,7 +176,7 @@ function undefinedOr(received: any, classType: Newable): jest.CustomMatcherResul
  * @param received - The value to check.
  * @param classType - Type.
  *
- * @returns A .
+ * @returns Ok if the object is null, undefined or the type sent, error otherwise.
  */
 function nullOrUndefinedOr(received: any, classType: Newable): jest.CustomMatcherResult {
   if (received != null) {
@@ -195,7 +195,7 @@ function nullOrUndefinedOr(received: any, classType: Newable): jest.CustomMatche
  * @param received - Array of values to check.
  * @param classType - Type.
  *
- * @returns A .
+ * @returns Ok if the object is an array of the type sent, error otherwise.
  */
 function arrayOf(received: any[], classType: Newable): jest.CustomMatcherResult {
   try {
@@ -212,7 +212,7 @@ function arrayOf(received: any[], classType: Newable): jest.CustomMatcherResult 
  * @param received - Array of values to check.
  * @param schema - Schema.
  *
- * @returns A .
+ * @returns Ok if the every value received matches to the schema sent, error otherwise.
  */
 function everyItemToMatch(received: any[], schema: Record<string, any>): jest.CustomMatcherResult {
   try {
@@ -231,7 +231,8 @@ function everyItemToMatch(received: any[], schema: Record<string, any>): jest.Cu
  * @param urlString - String that represents the url.
  * @param parameters - The query parameters that the url must have.
  *
- * @returns A.
+ * @returns Ok if the parameters of the url are exactly the same as the ones passed
+ * by parameter, error otherwise.
  */
 function toBeAValidURLWithExactQueryParameters(
   urlString: any,
@@ -255,7 +256,8 @@ function toBeAValidURLWithExactQueryParameters(
  * @param urlString - String that represents the url.
  * @param parameters - The query parameters that the url must contain.
  *
- * @returns A.
+ * @returns Ok if the parameters of the url are contain in the ones passed
+ * by parameter, error otherwise.
  */
 function toBeAValidURLWithQueryParameters(
   urlString: any,

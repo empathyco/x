@@ -19,6 +19,11 @@ function mountNewSearchInput(overrideProps: Partial<SearchInputProps> = {}): Tes
   document.body.appendChild(parent);
 
   const wrapper = mount(SearchInput, {
+    /*
+     * In order to make the input works after the jest 27 update,
+     * now is mandatory to attach the element to some parent in the
+     * DOM.
+     */
     attachTo: parent,
     store,
     localVue,
