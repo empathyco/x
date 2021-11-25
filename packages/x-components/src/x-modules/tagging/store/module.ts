@@ -1,3 +1,4 @@
+import { track } from './actions/track.action';
 import { TaggingXStoreModule } from './types';
 
 /**
@@ -9,7 +10,7 @@ export const taggingXStoreModule: TaggingXStoreModule = {
   state: () => ({
     config: {
       sessionTTLMs: 30 * 60 * 1000,
-      queryTaggingDebounceMs: 200
+      queryTaggingDebounceMs: 2000
     },
     consent: null
   }),
@@ -25,5 +26,7 @@ export const taggingXStoreModule: TaggingXStoreModule = {
       state.consent = consent;
     }
   },
-  actions: {}
+  actions: {
+    track
+  }
 };

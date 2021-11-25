@@ -4,6 +4,7 @@ import { getFacetsStub } from './facets-stubs.factory';
 import { getPromotedsStub } from './promoteds-stubs.factory';
 import { getRedirectionsStub } from './redirections-stubs.factory';
 import { getResultsStub } from './results-stubs.factory';
+import { getTaggingResponseStub } from './tagging-response-stubs.factory';
 
 /**
  * Creates a {@link @empathyco/x-adapter#SearchResponse | search response} stub.
@@ -18,15 +19,7 @@ export function getSearchResponseStub(): SearchResponse {
     facets: getFacetsStub(),
     partialResults: [],
     promoteds: getPromotedsStub(),
-    queryTagging: {
-      params: {
-        q: 'lego',
-        totalHits: '789',
-        lang: 'es',
-        follow: false
-      },
-      url: 'https://api.empathybroker.com/tagging/v1/track/query'
-    },
+    queryTagging: getTaggingResponseStub(),
     redirections: getRedirectionsStub(),
     results: getResultsStub(),
     spellcheck: '',
