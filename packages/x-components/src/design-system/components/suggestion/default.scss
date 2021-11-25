@@ -35,7 +35,7 @@
     flex: 1 1 auto;
   }
 
-  &__matching-part {
+  &__matching-part, .x-identifier-result__matching-part {
     // typography
     font-family: var(--x-font-family-suggestion-matching-part-default);
     font-size: var(--x-size-font-suggestion-matching-part-default);
@@ -57,5 +57,9 @@
 
     // color
     --x-color-text-suggestion-default: var(--x-color-text-suggestion-default-matching);
+  }
+
+  > .x-identifier-result{
+    flex: none;
   }
 }
