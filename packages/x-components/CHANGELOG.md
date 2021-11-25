@@ -3,6 +3,43 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.30...@empathyco/x-components@3.0.0-alpha.31) (2021-11-25)
+
+### Features
+
+- **design-system:** add identifier result in suggestion component
+  ([d4ce3c2](https://github.com/empathyco/x/commit/d4ce3c2eb1188e38e55e466f65c9da165bf9bfe7)),
+  closes [EX-5065](https://searchbroker.atlassian.net/browse/EX-5065)
+- **identifier-results:** add extra params in the x-module
+  ([6afff42](https://github.com/empathyco/x/commit/6afff426081b645bb0e878c77915a4c319b847d2)),
+  closes [EX-5066](https://searchbroker.atlassian.net/browse/EX-5066)
+- **tagging:** `track` query
+  ([594c656](https://github.com/empathyco/x/commit/594c65649cbf08f586dc9912b367ea39d9da2fa6)),
+  closes [EX-4989](https://searchbroker.atlassian.net/browse/EX-4989)
+- **tagging:** add feature hardcoded values
+  ([ee6db3a](https://github.com/empathyco/x/commit/ee6db3a360228528a109fedc732bd552ad5d5a61)),
+  closes [EX-5003](https://searchbroker.atlassian.net/browse/EX-5003)
+
+### Testing
+
+- **e2e:** Reduce command timeout and number of retries.
+  ([5e1521f](https://github.com/empathyco/x/commit/5e1521f53aad1e4bfc8f60c7e705422ab2af052c)),
+  closes [EX-5015](https://searchbroker.atlassian.net/browse/EX-5015)
+- **e2e:** reorder mocked responses
+  ([8cab691](https://github.com/empathyco/x/commit/8cab691b553af31d9b5bc80130e16886877f1b60)),
+  closes [EX-4923](https://searchbroker.atlassian.net/browse/EX-4923)
+
+### Documentation
+
+- add new static docs.
+  ([8a40986](https://github.com/empathyco/x/commit/8a409865fea2cd67e0c2daa5d4464f553ff33a2b)),
+  closes [EX-5033](https://searchbroker.atlassian.net/browse/EX-5033)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.29...@empathyco/x-components@3.0.0-alpha.30) (2021-11-22)
 
 ### Features
