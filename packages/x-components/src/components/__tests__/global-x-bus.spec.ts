@@ -47,6 +47,6 @@ interface RenderGlobalXBusOptions {
  * Options to configure how the global X bus component should be rendered.
  */
 interface RenderGlobalXBusAPI {
-  /** The wrapper for the modal component. */
+  /** The wrapper for the global X bus component. */
   wrapper: Wrapper<Vue>;
 }
