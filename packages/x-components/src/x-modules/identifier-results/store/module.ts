@@ -5,7 +5,6 @@ import {
 } from './actions/fetch-and-save-identifier-results.action';
 import { fetchIdentifierResults } from './actions/fetch-identifier-results.action';
 import { saveOrigin } from './actions/save-origin.action';
-import { setUrlParams } from './actions/set-url-params.action';
 import { saveQuery } from './actions/save-query.action';
 import { identifierDetectionRegexp } from './getters/identifier-detection-regexp.getter';
 import { identifierHighlightRegexp } from './getters/identifier-highlight-regexp.getter';
@@ -56,7 +55,6 @@ export const identifierResultsXStoreModule: IdentifierResultsXStoreModule = {
     fetchIdentifierResults,
     fetchAndSaveIdentifierResults,
     saveOrigin,
-    saveQuery,
-    setUrlParams
+    saveQuery
   }
 };

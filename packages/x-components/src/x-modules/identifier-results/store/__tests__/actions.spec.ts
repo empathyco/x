@@ -121,11 +121,26 @@ describe('testing identifier results module actions', () => {
       await store.dispatch('saveQuery', '1906');
       expect(store.state.query).toEqual('1906');
     });
-    it('should not store query in the state if it matches the regex', async () => {
+    it(`should not store query in the state if it doesn't match the regex`, async () => {
       resetIdentifierResultsStateWith(store, { config: { identifierDetectionRegexp } });
 
       await store.dispatch('saveQuery', '1 thousand nine hundred and 6');
       expect(store.state.query).toEqual('');
+    });
+
+    // eslint-disable-next-line max-len
+    it(`should removes the query and identifier results if the new query doesn't match the regex`, async () => {
+      resetIdentifierResultsStateWith(store, { config: { identifierDetectionRegexp } });
+
+      await store.dispatch('saveQuery', '1906');
+      await store.dispatch('fetchAndSaveIdentifierResults', store.getters.identifierResultsRequest);
+
+      expect(store.state.query).toEqual('1906');
+      expect(store.state.identifierResults).toHaveLength(mockedResults.length);
+
+      await store.dispatch('saveQuery', '1 thousand nine hundred and 6');
+      expect(store.state.query).toEqual('');
+      expect(store.state.identifierResults).toHaveLength(0);
     });
   });
 

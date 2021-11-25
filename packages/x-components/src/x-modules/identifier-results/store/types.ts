@@ -3,7 +3,6 @@ import { Result } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { QueryOrigin, QueryOriginInit } from '../../../types/origin';
-import { UrlParams } from '../../../types/url-params';
 import { Dictionary } from '../../../utils';
 import { IdentifierResultsConfig } from '../config.types';
 
@@ -105,12 +104,6 @@ export interface IdentifierResultsActions {
    * Stores the query in the module if it matches the regex.
    */
   saveQuery(query: string): void;
-  /**
-   * Checks if the url has a query on it and then updates the state with that value.
-   *
-   * @param urlParams - List of params from the url.
-   */
-  setUrlParams(urlParams: UrlParams): void;
 }
 
 /**
