@@ -80,6 +80,13 @@ export const saveIdentifierResultsOriginWire = wireDispatch(
 );
 
 /**
+ * Sets the identifier result state `params`.
+ *
+ * @public
+ */
+export const setIdentifierResultsExtraParams = wireCommit('setParams');
+
+/**
  * Debounce function for the module.
  */
 const moduleDebounce = namespacedDebounce(moduleName);
@@ -110,5 +117,8 @@ export const identifierResultsWiring = createWiring({
   },
   ParamsLoadedFromUrl: {
     setUrlParams
+  },
+  ExtraParamsChanged: {
+    setIdentifierResultsExtraParams
   }
 });

@@ -28,6 +28,7 @@ export const identifierResultsXStoreModule: IdentifierResultsXStoreModule = {
     identifierResults: [],
     origin: null,
     query: '',
+    params: {},
     status: 'initial'
   }),
   getters: {
@@ -41,6 +42,9 @@ export const identifierResultsXStoreModule: IdentifierResultsXStoreModule = {
     },
     setOrigin(state, origin = null) {
       state.origin = origin;
+    },
+    setParams(state, params) {
+      state.params = params;
     },
     setQuery(state, query) {
       state.query = query;

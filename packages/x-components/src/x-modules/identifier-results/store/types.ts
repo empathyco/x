@@ -4,6 +4,7 @@ import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { QueryOrigin, QueryOriginInit } from '../../../types/origin';
 import { UrlParams } from '../../../types/url-params';
+import { Dictionary } from '../../../utils';
 import { IdentifierResultsConfig } from '../config.types';
 
 /**
@@ -18,6 +19,8 @@ export interface IdentifierResultsState extends StatusState {
   identifierResults: Result[];
   /** The origin property of the request. */
   origin: QueryOrigin | null;
+  /** The extra params property of the state. */
+  params: Dictionary<unknown>;
   /** The internal query of the module. Used to request the identifier results. */
   query: string;
 }
@@ -57,6 +60,12 @@ export interface IdentifierResultsMutations extends StatusMutations {
    *
    */
   setOrigin(origin: QueryOrigin | undefined | null): void;
+  /**
+   * Sets the extra params of the module.
+   *
+   * @param params - The new extra params.
+   */
+  setParams(params: Dictionary<unknown>): void;
   /**
    * Sets the query of the module, which is used to retrieve the identifier-results.
    *
