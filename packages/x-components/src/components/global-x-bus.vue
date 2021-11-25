@@ -1,94 +1,71 @@
 <script lang="ts">
   import { Component } from 'vue-property-decorator';
   import { Subscription } from 'rxjs';
-  import { forEach } from '../utils';
+  import { reduce } from '../utils/object';
   import { WireMetadata, XEvent, XEventPayload } from '../wiring';
   import { NoElement } from './no-element';
 
-  type EventListeners = Record<
-    XEvent,
-    (payload: XEventPayload<XEvent>, metadata?: WireMetadata) => unknown
-  >;
+  /**
+   * Map type of every {@link XEvent} and a callback with the payload and metadata for that event.
+   */
+  type XEventListeners = {
+    [Event in XEvent]: (payload: XEventPayload<Event>, metadata: WireMetadata) => void;
+  };
 
   /**
-   * A component which purpose is to receive callbacks associated with events and handle the
-   * subscriptions to the bus.
-   *
-   * @remarks
-   * The component uses the listeners in a way it allows to associate a determinate callback with
-   * an {@link XEvent}. Example format: `@UserAcceptedAQuery="callback"`.
+   * This component helps subscribing to any {@link XEvent} with custom callbacks using Vue
+   * listeners API.
    *
    * @public
    */
   @Component
   export default class GlobalXBus extends NoElement {
     /**
-     * All the current event subscriptions.
+     * Object with the {@link XEvent} listeners.
      *
      * @internal
      */
-    protected eventSubscriptions = {} as Record<XEvent, Subscription>;
+    public $listeners!: XEventListeners;
 
-    /**
-     * Retrieves the listeners object.
-     *
-     * @returns The $listeners.
-     *
-     * @internal
-     */
-    protected get listeners(): EventListeners {
-      return this.$listeners as EventListeners;
+    created(): void {
+      this.handleEventSubscription();
     }
 
     /**
      * Subscribes to all the events provided in the listeners with the function that will
-     * execute the callback and will emit a {@link XEventsTypes.SnippetCallbackExecuted} event.
-     * All the subscriptions get stored in {@link GlobalXBus.eventSubscriptions}.
+     * execute the callback.
      *
      * @internal
      */
-    protected handleEventSubscriptions(): void {
-      forEach(this.listeners, (eventName, callback) => {
-        this.eventSubscriptions[eventName] = this.$x
-          .on(eventName, true)
-          .subscribe(({ eventPayload, metadata }) => {
-            const callbackReturn = callback(eventPayload, metadata);
-            this.$x.emit('SnippetCallbackExecuted', { event: eventName, callbackReturn });
-          });
-      });
-    }
+    protected handleEventSubscription(): void {
+      const subscription = reduce(
+        this.$listeners,
+        (subscription, eventName, callback) => {
+          return subscription.add(
+            this.$x.on(eventName, true).subscribe(({ eventPayload, metadata }) => {
+              callback(eventPayload as never, metadata);
+            })
+          );
+        },
+        new Subscription()
+      );
 
-    /**
-     * Unsubscribe to all subscriptions in {@link GlobalXBus.eventSubscriptions}.
-     *
-     * @internal
-     */
-    protected unsubscribeEvents(): void {
-      forEach(this.eventSubscriptions, (_, subscription) => {
+      this.$on('hook:beforeDestroy', () => {
         subscription.unsubscribe();
       });
-    }
-
-    mounted(): void {
-      this.handleEventSubscriptions();
-    }
-
-    beforeDestroy(): void {
-      this.unsubscribeEvents();
     }
   }
 </script>
 
 <docs lang="mdx">
-# Examples
+## Events
 
-## Basic example
+This component emits no own events, but you can subscribe to any X Event using Vue listeners
 
-This component does not render anything. Its only use is to associate an existing event with a
-function that you can provide and will act as a callback when the event is triggered. You can pass
-as many listeners as you want.
+## See it in action
 
-Once the component is destroyed, all the subscriptions get cancelled.
+This component does not render anything. Its only responsibility is to facilitate listening to any X
+Event by using Vue component listeners.
 
 ```vue
 <template>
@@ -97,7 +74,6 @@ Once the component is destroyed, all the subscriptions get cancelled.
 
 <script>
   import { GlobalXBus } from '@empathyco/x-components';
-
   export default {
     name: 'GlobalXBusTest',
     components: {
@@ -112,11 +88,4 @@ Once the component is destroyed, all the subscriptions get cancelled.
   };
 </script>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `SnippetCallbackExecuted`: the event is emitted when any of the provided callbacks is fired
-  because its associated event has been emitted.
 </docs>

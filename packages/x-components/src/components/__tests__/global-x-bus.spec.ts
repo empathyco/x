@@ -15,7 +15,7 @@ function renderGlobalXBus({ listeners = {} }: RenderGlobalXBusOptions = {}): Ren
 }
 
 describe('testing GlobalXBus component', function () {
-  it('executes a callback provided with the listeners when the event is emitted', function () {
+  it('executes a callback provided by the listeners when the event is emitted', function () {
     const acceptedAQueryCallback = jest.fn(payload => payload);
     const clickedColumnPickerCallback = jest.fn(payload => payload);
     const { emit } = renderGlobalXBus({
@@ -26,47 +26,19 @@ describe('testing GlobalXBus component', function () {
     });
 
     emit('UserAcceptedAQuery', 'lego');
-    emit('UserClickedColumnPicker', 2);
 
-    expect(acceptedAQueryCallback).toHaveBeenNthCalledWith(1, 'lego', {
+    expect(acceptedAQueryCallback).toHaveBeenCalledTimes(1);
+    expect(acceptedAQueryCallback).toHaveBeenCalledWith('lego', {
       location: undefined,
       moduleName: null
     });
-    expect(clickedColumnPickerCallback).toHaveBeenNthCalledWith(1, 2, {
-      location: undefined,
-      moduleName: null
-    });
-  });
 
-  it('emits a SnippetCallbackExecuted event when a callback is executed', function () {
-    const acceptedAQueryCallback = jest.fn(payload => payload);
-    const clickedColumnPickerCallback = jest.fn(payload => payload);
-    const { on, emit } = renderGlobalXBus({
-      listeners: {
-        UserAcceptedAQuery: acceptedAQueryCallback,
-        UserClickedColumnPicker: clickedColumnPickerCallback
-      }
-    });
-
-    const eventSpy = jest.fn();
-    on('SnippetCallbackExecuted').subscribe(eventSpy);
-
-    emit('UserAcceptedAQuery', 'playmobil');
-    expect(eventSpy).toHaveBeenNthCalledWith(1, {
-      event: 'UserAcceptedAQuery',
-      callbackReturn: 'playmobil'
-    });
-
-    emit('UserClickedColumnPicker', 3);
-    expect(eventSpy).toHaveBeenNthCalledWith(2, {
-      event: 'UserClickedColumnPicker',
-      callbackReturn: 3
-    });
+    expect(clickedColumnPickerCallback).not.toHaveBeenCalled();
   });
 });
 
 /**
- * Options to configure how the progress bar component should be rendered.
+ * Options to configure how the global X bus component should be rendered.
  */
 interface RenderGlobalXBusOptions {
   /** The listeners object in the component.*/
@@ -74,7 +46,7 @@ interface RenderGlobalXBusOptions {
 }
 
 /**
- * Options to configure how the progress bar component should be rendered.
+ * Options to configure how the global X bus component should be rendered.
  */
 interface RenderGlobalXBusAPI {
   /** The {@link XComponentBusAPI.on} method to subscribe events. */
