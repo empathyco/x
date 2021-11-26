@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { StorageService } from '@empathyco/x-storage-service';
+import { BrowserStorageService, StorageService } from '@empathyco/x-storage-service';
 import { SessionService } from './types';
 
 /**
@@ -8,7 +8,7 @@ import { SessionService } from './types';
  * @public
  */
 export class DefaultSessionService implements SessionService {
-  protected readonly SESSION_ID_KEY = 'session-id';
+  public readonly SESSION_ID_KEY = 'session-id';
 
   /**
    * Global instance of the {@link SessionService}.
@@ -16,7 +16,7 @@ export class DefaultSessionService implements SessionService {
   public static instance: SessionService = new DefaultSessionService();
 
   public constructor(
-    protected storageService: StorageService = new StorageService(localStorage, 'x'),
+    protected storageService: StorageService = new BrowserStorageService(localStorage, 'x'),
     protected ttlMs = 1800000 // 30m * 60s * 1000 = 1800_000ms
   ) {}
 
