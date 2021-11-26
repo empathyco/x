@@ -49,6 +49,8 @@ export interface XAPI {
 
 /**
  * Map type of every {@link XEvent} and a callback with the payload and metadata for that event.
+ *
+ * @public
  */
 export type XEventListeners = {
   [Event in XEvent]: (payload: XEventPayload<Event>, metadata: WireMetadata) => void;
