@@ -13,6 +13,12 @@
   import GlobalXBus from './global-x-bus.vue';
   import { NoElement } from './no-element';
 
+  /**
+   * This component subscribes to any {@link XEvent} with a custom callbacks provided by the snippet
+   * configuration.
+   *
+   * @public
+   */
   @Component({
     components: { NoElement, GlobalXBus }
   })
