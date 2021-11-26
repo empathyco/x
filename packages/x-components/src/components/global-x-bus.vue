@@ -2,15 +2,8 @@
   import { Component } from 'vue-property-decorator';
   import { Subscription } from 'rxjs';
   import { reduce } from '../utils/object';
-  import { WireMetadata, XEvent, XEventPayload } from '../wiring';
+  import { XEventListeners } from '../x-installer/api/api.types';
   import { NoElement } from './no-element';
-
-  /**
-   * Map type of every {@link XEvent} and a callback with the payload and metadata for that event.
-   */
-  type XEventListeners = {
-    [Event in XEvent]: (payload: XEventPayload<Event>, metadata: WireMetadata) => void;
-  };
 
   /**
    * This component helps subscribing to any {@link XEvent} with custom callbacks using Vue
