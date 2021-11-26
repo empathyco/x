@@ -1,6 +1,11 @@
 import { Logger, logger } from '@empathyco/x-logger';
 import { StorageService } from './storage-service';
 
+/**
+ * In browser implementation of the storage service.
+ *
+ * @public
+ */
 export class BrowserStorageService implements StorageService {
   protected logger: Logger;
 
@@ -8,6 +13,15 @@ export class BrowserStorageService implements StorageService {
     this.logger = logger.child(`[StorageService][${prefix}]`);
   }
 
+  /**
+   * Adds a new item in the browser storage.
+   *
+   * @param key - The key of the item.
+   * @param item - The item to save.
+   * @param ttlInMs - The TTL in ms of the item in the browser storage.
+   *
+   * @public
+   */
   setItem(key: string, item: any, ttlInMs?: number): void {
     if (item === undefined) {
       this.logger.warn(`Tried to store an undefined object with key ${key}`);
@@ -19,6 +33,14 @@ export class BrowserStorageService implements StorageService {
     }
   }
 
+  /**
+   * Retrieves an item by its key.
+   *
+   * @param key - The key of the item.
+   * @returns The founded item or null.
+   *
+   * @public
+   */
   getItem<T = any>(key: string): T | null {
     this.removeExpiredItems();
     const prefixedKey = this.prefixKey(key);
@@ -30,6 +52,14 @@ export class BrowserStorageService implements StorageService {
     return null;
   }
 
+  /**
+   * Removes an item by its key.
+   *
+   * @param key - The key of the item.
+   * @returns The removed item or null.
+   *
+   * @public
+   */
   removeItem<T = any>(key: string): T | null {
     const item = this.getItem(key);
     const prefixedKey = this.prefixKey(key);
@@ -37,6 +67,13 @@ export class BrowserStorageService implements StorageService {
     return item;
   }
 
+  /**
+   * Clears the storage..
+   *
+   * @returns The number of removed items.
+   *
+   * @public
+   */
   clear(): number {
     return this.getOwnKeys().reduce((removedCount, key) => {
       this.storage.removeItem(key);

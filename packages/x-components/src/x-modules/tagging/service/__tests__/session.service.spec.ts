@@ -3,11 +3,12 @@ import { DefaultSessionService } from '../session.service';
 
 describe('testing session id service', () => {
   const mockedStorageService = new InMemoryStorageService();
+  const sessionService = new DefaultSessionService(mockedStorageService, 1);
+  const storageKey = sessionService.SESSION_ID_KEY;
+
   const getItemSpy = jest.spyOn(mockedStorageService, 'getItem');
   const setItemSpy = jest.spyOn(mockedStorageService, 'setItem');
   const removeItemSpy = jest.spyOn(mockedStorageService, 'removeItem');
-  const sessionService = new DefaultSessionService(mockedStorageService, 1);
-  const storageKey = sessionService.SESSION_ID_KEY;
 
   beforeEach(() => {
     jest.clearAllMocks();

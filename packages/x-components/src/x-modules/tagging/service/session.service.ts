@@ -8,6 +8,11 @@ import { SessionService } from './types';
  * @public
  */
 export class DefaultSessionService implements SessionService {
+  /**
+   * Session id key to use as key in the storage.
+   *
+   * @public
+   */
   public readonly SESSION_ID_KEY = 'session-id';
 
   /**
@@ -20,12 +25,24 @@ export class DefaultSessionService implements SessionService {
     protected ttlMs = 1800000 // 30m * 60s * 1000 = 1800_000ms
   ) {}
 
+  /**
+   * Returns the session id of the storage.
+   *
+   * @returns The current session id.
+   *
+   * @public
+   */
   getSessionId(): string {
     const sessionId = this.storageService.getItem(this.SESSION_ID_KEY) ?? nanoid();
     this.storageService.setItem(this.SESSION_ID_KEY, sessionId, Date.now() + this.ttlMs);
     return sessionId;
   }
 
+  /**
+   * Removes the session if from the storage.
+   *
+   * @public
+   */
   clearSessionId(): void {
     this.storageService.removeItem(this.SESSION_ID_KEY);
   }

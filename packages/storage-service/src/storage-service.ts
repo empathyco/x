@@ -7,9 +7,9 @@ export interface StorageService<Item = any> {
   /**
    * Inserts a new item in the storage.
    *
-   * @param key - The Key of the item.
+   * @param key - The key of the item.
    * @param item - The item itself.
-   * @param ttlInMs - Time To Live of the item in the storage.
+   * @param ttlInMs - The TTL (Time To Live) of the item in the storage.
    *
    * @public
    */
