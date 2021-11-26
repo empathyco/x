@@ -32,7 +32,7 @@
     public snippetConfig!: SnippetConfig;
 
     /**
-     * It maps all the callbacks provided by the {@link snippetConfig} and adds an emit to each one.
+     * It maps all the callbacks provided by the snippetConfig and adds an emit to each one.
      *
      * @returns The event listeners with the {@link XEventsTypes.SnippetCallbackExecuted} emit in
      * the callback.
