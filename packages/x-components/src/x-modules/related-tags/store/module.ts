@@ -23,7 +23,8 @@ export const relatedTagsXStoreModule: RelatedTagsXStoreModule = {
     selectedRelatedTags: [],
     status: 'initial',
     config: {
-      maxItemsToRequest: 10
+      maxItemsToRequest: 10,
+      highlightCurated: false
     },
     params: {}
   }),

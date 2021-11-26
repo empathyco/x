@@ -16,15 +16,18 @@
         @slot Custom content that replaces the RelatedTag component.
         @binding {RelatedTag} relatedTag - Related tag data.
        -->
-      <slot name="related-tag" :relatedTag="relatedTag">
-        <RelatedTag :relatedTag="relatedTag">
-          <template #default="{ relatedTag, isSelected }">
+      <slot name="related-tag" :highlightCurated="highlightCurated" :relatedTag="relatedTag">
+        <RelatedTag :highlightCurated="highlightCurated" :relatedTag="relatedTag">
+          <template #default="{ relatedTag, isSelected, highlightCurated }">
             <!--
               @slot Custom content that replaces the RelatedTag default content.
               @binding {RelatedTag} relatedTag - Related tag data.
               @binding {boolean} isSelected - Related tag status.
             -->
-            <slot name="related-tag-content" v-bind="{ relatedTag, isSelected }" />
+            <slot
+              name="related-tag-content"
+              v-bind="{ relatedTag, isSelected, highlightCurated }"
+            />
           </template>
         </RelatedTag>
       </slot>
@@ -70,6 +73,14 @@
      */
     @Prop()
     protected maxItemsToRender?: number;
+
+    /**
+     * Flag to indicate if the curated tags should be display different.
+     *
+     * @public
+     */
+    @Prop({ default: false })
+    protected highlightCurated?: boolean;
 
     @Getter('relatedTags', 'relatedTags')
     public storedRelatedTags!: RelatedTagModel[];

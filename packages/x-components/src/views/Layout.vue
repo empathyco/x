@@ -88,7 +88,20 @@
                 <template #sliding-panel-left-button>
                   <ChevronLeft />
                 </template>
-                <RelatedTags class="x-tag--card x-list--gap-03" />
+                <RelatedTags
+                  #related-tag="{ relatedTag, highlightCurated }"
+                  class="x-tag--card x-list--gap-03"
+                >
+                  <RelatedTag
+                    #default="{ relatedTag, isHighlightCurated, isSelected }"
+                    :highlightCurated="highlightCurated"
+                    :relatedTag="relatedTag"
+                  >
+                    <TagIcon v-if="!isHighlightCurated" />
+                    {{ relatedTag.tag }}
+                    <CrossIcon v-if="isSelected" />
+                  </RelatedTag>
+                </RelatedTags>
                 <template #sliding-panel-right-button>
                   <ChevronRight />
                 </template>
@@ -493,6 +506,7 @@
   import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import { TagIcon } from '../components';
   import CollapseFromTop from '../components/animations/collapse-from-top.vue';
   import CollapseHeight from '../components/animations/collapse-height.vue';
   import StaggeredFadeAndSlide from '../components/animations/staggered-fade-and-slide.vue';
@@ -561,6 +575,7 @@
   import QuerySuggestions from '../x-modules/query-suggestions/components/query-suggestions.vue';
   import Recommendations from '../x-modules/recommendations/components/recommendations.vue';
   import RelatedTags from '../x-modules/related-tags/components/related-tags.vue';
+  import RelatedTag from '../x-modules/related-tags/components/related-tag.vue';
   import MainScrollItem from '../x-modules/scroll/components/main-scroll-item.vue';
   import ScrollToTop from '../x-modules/scroll/components/scroll-to-top.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
@@ -645,6 +660,7 @@
       Recommendations,
       Redirection,
       RelatedTags,
+      RelatedTag,
       RenderlessExtraParams,
       ResultsList,
       ScrollToTop,
@@ -663,6 +679,7 @@
       Spellcheck,
       SpellcheckButton,
       Tagging,
+      TagIcon,
       UrlHandler
     }
   })

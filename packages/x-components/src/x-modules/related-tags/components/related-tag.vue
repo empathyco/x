@@ -10,7 +10,7 @@
       @binding {RelatedTag} relatedTag - Related tag data.
       @binding {boolean} isSelected - Related tag status.
       -->
-    <slot v-bind="{ relatedTag, isSelected }">{{ relatedTag.tag }}</slot>
+    <slot v-bind="{ relatedTag, isSelected, isHighlightCurated }">{{ relatedTag.tag }}</slot>
   </button>
 </template>
 
@@ -35,6 +35,13 @@
     mixins: [xComponentMixin(relatedTagsXModule)]
   })
   export default class RelatedTag extends Vue {
+    /**
+     * Flag to indicate if the curated related tag should be highlighted.
+     *
+     * @public
+     */
+    @Prop({ required: true })
+    protected highlightCurated!: boolean;
     /**
      * The related tag model data.
      *
@@ -91,6 +98,17 @@
     }
 
     /**
+     * Check if the related tag is curated and should be highlighted.
+     *
+     * @returns If the related tag is curated and should be highlighted.
+     *
+     * @internal
+     */
+    protected get isHighlightCurated(): boolean {
+      return this.relatedTag.curated ? this.highlightCurated && this.relatedTag.curated : false;
+    }
+
+    /**
      * Adds the dynamic css classes to the component.
      *
      * @returns The class to be added to the component.
@@ -99,6 +117,8 @@
      */
     protected get dynamicClasses(): VueCSSClasses {
       return {
+        'x-tag--is-curated': true, // this.relatedTag.curated && this.highlightCurated,
+        'x-related-tag--is-curated': true, // this.relatedTag.curated && this.highlightCurated,
         'x-tag--is-selected': this.isSelected,
         'x-related-tag--is-selected': this.isSelected
       };
