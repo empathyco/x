@@ -5,12 +5,14 @@
 <script lang="ts">
   import Vue from 'vue';
   import GlobalEvents from 'vue-global-events';
-  import { Component } from 'vue-property-decorator';
+  import { Component, Inject } from 'vue-property-decorator';
   import { XOn } from '../../../components/decorators/bus.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { FeatureLocation, QueryOriginInit } from '../../../types/origin';
   import { UrlParams } from '../../../types/url-params';
   import { objectFilter } from '../../../utils/object';
   import { Dictionary } from '../../../utils/types';
+  import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { initialUrlState } from '../store/initial-state';
   import { UrlParamValue } from '../store/types';
   import { urlXModule } from '../x-module';
@@ -34,6 +36,8 @@
     mixins: [xComponentMixin(urlXModule)]
   })
   export default class UrlHandler extends Vue {
+    @Inject()
+    protected snippetConfig!: SnippetConfig;
     /**
      * Computed to know which params we must get from URL. It gets the params names from the initial
      * state, to get all default params names, and also from the `$attrs` to get the extra params
@@ -68,6 +72,13 @@
     protected urlLoaded = false;
 
     /**
+     * The current URL.
+     *
+     * @internal
+     */
+    protected url?: URL = undefined;
+
+    /**
      * To emit the Url events just when the URL is load, and before the components mounted events
      * and state changes, we do it in the created of this component.
      */
@@ -99,19 +110,61 @@
     /**
      * Emits the {@link UrlXEvents.ParamsLoadedFromUrl} XEvent,
      * the {@link UrlXEvents.ExtraParamsLoadedFromUrl} XEvent and, if there is query, also emits
-     * the  {@link XEventsTypes.UserOpenXProgrammatically}.
+     * the {@link XEventsTypes.UserOpenXProgrammatically}.
      *
      * @internal
      */
     protected emitEvents(): void {
       const { all, extra } = this.parseUrlParams();
-      this.$x.emit('ParamsLoadedFromUrl', all, { feature: 'url' });
-      this.$x.emit('ExtraParamsLoadedFromUrl', extra, { feature: 'url' });
+      const metadata = { ...this.createOrigin() };
+      this.$x.emit('ParamsLoadedFromUrl', all, metadata);
+      this.$x.emit('ExtraParamsLoadedFromUrl', extra, metadata);
       // TODO: Move this logic from here.
       if (all.query) {
-        this.$x.emit('UserOpenXProgrammatically');
+        this.$x.emit('UserOpenXProgrammatically', undefined, metadata);
       }
       this.urlLoaded = true;
+    }
+
+    /**
+     * Creates the origin for the emitted {@link XEvent | XEvents}.
+     *
+     * @returns The metadata.
+     * @internal
+     */
+    protected createOrigin(): QueryOriginInit {
+      return {
+        feature: 'url',
+        location: this.location()
+      };
+    }
+
+    /**
+     * Retrieves the {@link FeatureLocation | location} used to build the
+     * {@link QueryOriginInit | events metadata origin}.
+     *
+     * @returns The location.
+     * @internal
+     */
+    protected location(): FeatureLocation {
+      const currentUrl = new URL(window.location.href);
+      const navigationType = (
+        window.performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming
+      )?.type;
+      const isInternalNavigation =
+        this.url?.search !== currentUrl.search && this.url?.pathname === currentUrl.pathname;
+      const isNavigatingInSPA = !!this.snippetConfig.isSPA && navigationType === 'navigate';
+      const isNavigatingFromPDP = navigationType === 'back_forward' || isNavigatingInSPA;
+
+      this.url = currentUrl;
+
+      if (isInternalNavigation) {
+        return 'url_history';
+      } else if (isNavigatingFromPDP) {
+        return 'url_history_pdp';
+      }
+
+      return 'external';
     }
 
     /**
@@ -161,6 +214,7 @@
         if (url.href.replace(/\+/g, '%20') !== window.location.href) {
           historyMethod({ ...window.history.state }, document.title, url.href);
         }
+        this.url = url;
       }
     }
 
