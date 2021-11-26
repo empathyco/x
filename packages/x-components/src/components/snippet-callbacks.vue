@@ -9,8 +9,7 @@
   import Vue from 'vue';
   import { map } from '../utils/object';
   import { WireMetadata } from '../wiring';
-  import { SnippetConfig } from '../x-installer';
-  import { XEventListeners } from '../x-installer/api/api.types';
+  import { SnippetConfig, XEventListeners } from '../x-installer/api/api.types';
   import GlobalXBus from './global-x-bus.vue';
   import { NoElement } from './no-element';
 
@@ -31,6 +30,8 @@
      *
      * @returns The event listeners with the {@link XEventsTypes.SnippetCallbackExecuted} emit in
      * the callback.
+     *
+     * @internal
      *
      */
     protected get eventListeners(): XEventListeners {
