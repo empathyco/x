@@ -18,7 +18,7 @@
        -->
       <slot name="related-tag" :highlightCurated="highlightCurated" :relatedTag="relatedTag">
         <RelatedTag :highlightCurated="highlightCurated" :relatedTag="relatedTag">
-          <template #default="{ relatedTag, isSelected, highlightCurated }">
+          <template #default="{ relatedTag, isSelected, isHighlightCurated }">
             <!--
               @slot Custom content that replaces the RelatedTag default content.
               @binding {RelatedTag} relatedTag - Related tag data.
@@ -26,7 +26,7 @@
             -->
             <slot
               name="related-tag-content"
-              v-bind="{ relatedTag, isSelected, highlightCurated }"
+              v-bind="{ relatedTag, isSelected, isHighlightCurated }"
             />
           </template>
         </RelatedTag>

@@ -97,7 +97,7 @@
                     :highlightCurated="highlightCurated"
                     :relatedTag="relatedTag"
                   >
-                    <TagIcon v-if="!isHighlightCurated" />
+                    <TagIcon v-if="isHighlightCurated" />
                     {{ relatedTag.tag }}
                     <CrossIcon v-if="isSelected" />
                   </RelatedTag>
