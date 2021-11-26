@@ -6,10 +6,10 @@ import { RelatedTag } from '../query-signals/related-tag.model';
  * @public
  */
 export const RelatedTagSchema: RelatedTag = {
-  curated: expect.any(Boolean),
+  curated: expect.undefinedOr(Boolean),
   modelName: expect.any(String),
   query: expect.any(String),
-  position: expect.any(Number),
+  position: expect.undefinedOr(Number),
   previous: expect.any(String),
   selected: expect.any(Boolean),
   tag: expect.any(String)
