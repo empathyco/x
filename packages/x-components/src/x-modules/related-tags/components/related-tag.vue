@@ -40,8 +40,8 @@
      *
      * @public
      */
-    @Prop({ required: true })
-    protected highlightCurated!: boolean;
+    @Prop({ default: false })
+    protected highlightCurated?: boolean;
     /**
      * The related tag model data.
      *
@@ -100,12 +100,12 @@
     /**
      * Check if the related tag is curated and should be highlighted.
      *
-     * @returns If the related tag is curated and should be highlighted.
+     * @returns True if the related tag is curated and should be highlighted.
      *
      * @internal
      */
     protected get isHighlightCurated(): boolean {
-      return this.relatedTag.curated ? this.highlightCurated && this.relatedTag.curated : false;
+      return this.relatedTag.curated ? this.highlightCurated! && this.relatedTag.curated : false;
     }
 
     /**
