@@ -1,9 +1,9 @@
-import { StorageService } from '@empathyco/x-storage-service';
+import { BrowserStorageService } from '@empathyco/x-storage-service';
 import { getFetchMock, koFetchMock, okFetchMock } from '../__mocks__/fetch.mock';
 import { FetchHttpClient } from '../http-clients/fetch-http-client';
 import { EmpathyCacheService } from '../services/empathy-cache.service';
 
-const cache = new EmpathyCacheService(new StorageService(localStorage, 'empathy-cache'));
+const cache = new EmpathyCacheService(new BrowserStorageService(localStorage, 'empathy-cache'));
 const httpClient = new FetchHttpClient(cache);
 const endpoint = 'https://api.empathy.co/search';
 
@@ -20,12 +20,13 @@ it('creates well formed and valid URLs', async () => {
     rows: 12
   });
   expectFetchToBeCalledWithUrl(
-    `${ endpoint }?q=shirt&filter=long+sleeve&filter=dotted&filter=white&rows=12`);
+    `${endpoint}?q=shirt&filter=long+sleeve&filter=dotted&filter=white&rows=12`
+  );
 });
 
 it('allows URLs which already have parameters', async () => {
-  await httpClient.get(`${ endpoint }?additionalParam=true`, { q: 'shirt' });
-  expectFetchToBeCalledWithUrl(`${ endpoint }?additionalParam=true&q=shirt`);
+  await httpClient.get(`${endpoint}?additionalParam=true`, { q: 'shirt' });
+  expectFetchToBeCalledWithUrl(`${endpoint}?additionalParam=true&q=shirt`);
 });
 
 it('does not map undefined values', async () => {
@@ -36,31 +37,33 @@ it('does not map undefined values', async () => {
 it('cancels equal endpoint requests if no requestId parameter is passed', async () => {
   expect.hasAssertions();
   await Promise.all([
-    httpClient.get(endpoint, { q: 'shirt' })
+    httpClient
+      .get(endpoint, { q: 'shirt' })
       .catch(error => expect(error.code).toEqual(DOMException.ABORT_ERR)),
-    httpClient.get(endpoint, { q: 'jeans' })
-      .then(response => expect(response).toBeDefined())
+    httpClient.get(endpoint, { q: 'jeans' }).then(response => expect(response).toBeDefined())
   ]);
 });
 
 it('does not cancel equal endpoint requests if requestId parameter is passed', async () => {
   expect.hasAssertions();
-  const searchUrl = `${ endpoint }?additionalParam=true`;
+  const searchUrl = `${endpoint}?additionalParam=true`;
   const empathizeUrl = 'https://api.empathy.co/empathize?additionalParam=true';
   await Promise.all([
-    httpClient.get(searchUrl, { q: 'shirt' }, { requestId: 'search' })
+    httpClient
+      .get(searchUrl, { q: 'shirt' }, { requestId: 'search' })
       .catch(error => expect(error.code).toEqual(DOMException.ABORT_ERR)),
-    httpClient.get(empathizeUrl, { q: 'shirt' }, { requestId: 'search' })
+    httpClient
+      .get(empathizeUrl, { q: 'shirt' }, { requestId: 'search' })
       .then(response => expect(response).toBeDefined()),
-    httpClient.get(searchUrl, { q: 'jeans' })
-      .then(response => expect(response).toBeDefined())
+    httpClient.get(searchUrl, { q: 'jeans' }).then(response => expect(response).toBeDefined())
   ]);
 });
 
 it('throws an exception if the response status is not OK', async () => {
   expect.assertions(1);
   window.fetch = koFetchMock as any;
-  await httpClient.get(endpoint, { q: 'jeans' })
+  await httpClient
+    .get(endpoint, { q: 'jeans' })
     .catch(error => expect(error.response.ok).toBeFalsy());
 });
 
@@ -78,8 +81,11 @@ it('does not cache requests if ttlInMinutes parameter is 0', async () => {
 
 it('returns cached requests before their expiration', async () => {
   window.fetch = jest.fn(getFetchMock({ response: 'test' }));
-  const firstResponse = await httpClient.get(endpoint, { q: 'shirt' },
-    { requestId: 'A', ttlInMinutes: 1 });
+  const firstResponse = await httpClient.get(
+    endpoint,
+    { q: 'shirt' },
+    { requestId: 'A', ttlInMinutes: 1 }
+  );
   const secondResponse = await httpClient.get(endpoint, { q: 'shirt' }, { requestId: 'B' });
   expect(secondResponse).toEqual(firstResponse);
   expect(window.fetch).toHaveBeenCalledTimes(1);

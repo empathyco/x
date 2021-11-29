@@ -1,4 +1,4 @@
-import { StorageService } from '@empathyco/x-storage-service';
+import { BrowserStorageService } from '@empathyco/x-storage-service';
 import { inject, injectable } from 'inversify';
 import { DEPENDENCIES } from '../container/container.const';
 import { CacheService } from './cache-service.types';
@@ -10,13 +10,16 @@ import { CacheService } from './cache-service.types';
  */
 @injectable()
 export class EmpathyCacheService implements CacheService {
-
   constructor(
-    @inject(DEPENDENCIES.storageService) protected readonly storageService: StorageService
+    @inject(DEPENDENCIES.storageService) protected readonly storageService: BrowserStorageService
   ) {}
 
   setItem(key: string, item: any, ttlInMinutes: number): void {
-    this.storageService.setItem(this.transformKey(key), item, this.minutesToMilliseconds(ttlInMinutes));
+    this.storageService.setItem(
+      this.transformKey(key),
+      item,
+      this.minutesToMilliseconds(ttlInMinutes)
+    );
   }
 
   getItem<T = any>(key: string): T | null {
@@ -32,7 +35,7 @@ export class EmpathyCacheService implements CacheService {
   }
 
   protected transformKey(key: string) {
-    return `cache-${ this.hash(key) }`;
+    return `cache-${this.hash(key)}`;
   }
 
   protected hash(key: string): string {
@@ -40,7 +43,7 @@ export class EmpathyCacheService implements CacheService {
     let h = 0;
     for (let i = 0; i < key.length; i++) {
       // tslint:disable-next-line:no-bitwise
-      h = Math.imul(31, h) + key.charCodeAt(i) | 0;
+      h = (Math.imul(31, h) + key.charCodeAt(i)) | 0;
     }
     return h.toString();
   }
