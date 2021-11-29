@@ -1,4 +1,4 @@
-import { BrowserStorageService } from '@empathyco/x-storage-service';
+import { BrowserStorageService, StorageService } from '@empathyco/x-storage-service';
 import { noOp } from './function';
 
 /**
@@ -9,7 +9,7 @@ import { noOp } from './function';
  *
  * @internal
  */
-export const localStorageService =
+export const localStorageService: StorageService =
   typeof localStorage !== 'undefined'
     ? new BrowserStorageService(localStorage, 'x')
     : {

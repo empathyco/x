@@ -3,7 +3,7 @@
  *
  * @public
  */
-export interface StorageService<Item = any> {
+export interface StorageService {
   /**
    * Inserts a new item in the storage.
    *
@@ -13,7 +13,7 @@ export interface StorageService<Item = any> {
    *
    * @public
    */
-  setItem(key: string, item: Item, ttlInMs?: number): void;
+  setItem(key: string, item: any, ttlInMs?: number): void;
 
   /**
    * Retrieves an item from the storage by its key.
@@ -23,7 +23,7 @@ export interface StorageService<Item = any> {
    *
    * @public
    */
-  getItem(key: string): Item | null;
+  getItem<Item = any>(key: string): Item | null;
 
   /**
    * Removes an item in the storage find by its key.
@@ -33,7 +33,7 @@ export interface StorageService<Item = any> {
    *
    * @public
    */
-  removeItem(key: string): Item | null;
+  removeItem<Item = any>(key: string): Item | null;
 
   /**
    * Removes all the entries in the storage.

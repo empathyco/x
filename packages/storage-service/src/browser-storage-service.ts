@@ -41,7 +41,7 @@ export class BrowserStorageService implements StorageService {
    *
    * @public
    */
-  getItem<T = any>(key: string): T | null {
+  getItem<Item = any>(key: string): Item | null {
     this.removeExpiredItems();
     const prefixedKey = this.prefixKey(key);
     const serializedItem = this.storage.getItem(prefixedKey);
@@ -60,7 +60,7 @@ export class BrowserStorageService implements StorageService {
    *
    * @public
    */
-  removeItem<T = any>(key: string): T | null {
+  removeItem<Item = any>(key: string): Item | null {
     const item = this.getItem(key);
     const prefixedKey = this.prefixKey(key);
     this.storage.removeItem(prefixedKey);

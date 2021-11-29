@@ -4,7 +4,7 @@ import { DefaultSessionService } from '../session.service';
 describe('testing session id service', () => {
   const mockedStorageService = new InMemoryStorageService();
   const sessionService = new DefaultSessionService(mockedStorageService, 1);
-  const storageKey = sessionService.SESSION_ID_KEY;
+  const storageKey = DefaultSessionService.SESSION_ID_KEY;
 
   const getItemSpy = jest.spyOn(mockedStorageService, 'getItem');
   const setItemSpy = jest.spyOn(mockedStorageService, 'setItem');
@@ -12,6 +12,7 @@ describe('testing session id service', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    mockedStorageService.clear();
   });
 
   it('creates a new session id when calling getSessionId and a session does not exist', () => {
@@ -19,15 +20,7 @@ describe('testing session id service', () => {
     expect(getItemSpy).toHaveBeenCalledTimes(1);
     expect(setItemSpy).toHaveBeenCalledTimes(1);
     expect(setItemSpy).toHaveBeenCalledWith(storageKey, expect.any(String), expect.any(Number));
-    expect(session).toHaveLength(21);
     expect(session).toMatch(/[A-Za-z0-9_-]/);
-  });
-
-  it('returns an existing session id', () => {
-    sessionService.getSessionId();
-    expect(getItemSpy).toHaveBeenCalledTimes(1);
-    expect(setItemSpy).toHaveBeenCalledTimes(1);
-    expect(setItemSpy).toHaveBeenCalledWith(storageKey, expect.any(String), expect.any(Number));
   });
 
   it('removes an existing session id', () => {

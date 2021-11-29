@@ -13,7 +13,7 @@ export class DefaultSessionService implements SessionService {
    *
    * @public
    */
-  public readonly SESSION_ID_KEY = 'session-id';
+  public static readonly SESSION_ID_KEY = 'session-id';
 
   /**
    * Global instance of the {@link SessionService}.
@@ -33,8 +33,12 @@ export class DefaultSessionService implements SessionService {
    * @public
    */
   getSessionId(): string {
-    const sessionId = this.storageService.getItem(this.SESSION_ID_KEY) ?? nanoid();
-    this.storageService.setItem(this.SESSION_ID_KEY, sessionId, Date.now() + this.ttlMs);
+    const sessionId = this.storageService.getItem(DefaultSessionService.SESSION_ID_KEY) ?? nanoid();
+    this.storageService.setItem(
+      DefaultSessionService.SESSION_ID_KEY,
+      sessionId,
+      Date.now() + this.ttlMs
+    );
     return sessionId;
   }
 
@@ -44,6 +48,6 @@ export class DefaultSessionService implements SessionService {
    * @public
    */
   clearSessionId(): void {
-    this.storageService.removeItem(this.SESSION_ID_KEY);
+    this.storageService.removeItem(DefaultSessionService.SESSION_ID_KEY);
   }
 }

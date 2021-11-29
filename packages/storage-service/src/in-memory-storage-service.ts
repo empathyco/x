@@ -1,14 +1,12 @@
 import { StorageService } from './storage-service';
 
-type Dictionary<T = any> = Record<string, T>;
-
 /**
  * In memory implementation of the storage service.
  *
  * @public
  */
-export class InMemoryStorageService<Item = any> implements StorageService<Item> {
-  protected storage: Dictionary<Item> = {};
+export class InMemoryStorageService implements StorageService {
+  protected storage: Record<string, any> = {};
 
   /**
    * Adds a new item in the storage.
@@ -30,7 +28,7 @@ export class InMemoryStorageService<Item = any> implements StorageService<Item> 
    *
    * @public
    */
-  getItem(key: string): Item | null {
+  getItem<Item = any>(key: string): Item | null {
     return this.storage[key] ?? null;
   }
 
@@ -42,7 +40,7 @@ export class InMemoryStorageService<Item = any> implements StorageService<Item> 
    *
    * @public
    */
-  removeItem(key: string): Item | null {
+  removeItem<Item = any>(key: string): Item | null {
     const item = this.storage[key];
     delete this.storage[key];
     return item;
