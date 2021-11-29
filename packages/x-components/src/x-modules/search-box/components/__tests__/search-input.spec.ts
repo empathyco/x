@@ -175,4 +175,11 @@ describe('testing search input component', () => {
       });
     }
   );
+
+  it('focus the input when UserPressedClearSearchBoxButton was emitted', () => {
+    input.blur();
+    expect(input).not.toBe(document.activeElement);
+    mockedSearchInput.vm.$x.emit('UserPressedClearSearchBoxButton');
+    expect(input).toBe(document.activeElement);
+  });
 });

@@ -93,6 +93,15 @@
       this.$refs.input?.focus();
     }
 
+    /**
+     * Focus search input when the user clicks on the clear search button.
+     *
+     */
+    @XOn('UserPressedClearSearchBoxButton')
+    onUserPressedClearSearchBoxButton(): void {
+      this.focusInput();
+    }
+
     protected debouncedUserAcceptedAQuery!: DebouncedFunction<[string]>;
 
     /**
