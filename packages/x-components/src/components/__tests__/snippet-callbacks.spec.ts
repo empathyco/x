@@ -8,18 +8,12 @@ function renderSnippetCallbacks({
   callbacks = {}
 }: RenderSnippetCallbacksOptions = {}): RenderSnippetCallbacksAPI {
   const [, localVue] = installNewXPlugin();
-  const wrapper = mount(
-    {
-      components: { SnippetCallbacks },
-      template: '<SnippetCallbacks />'
+  const wrapper = mount(SnippetCallbacks, {
+    provide: {
+      snippetConfig: localVue.observable({ ...baseSnippetConfig, callbacks })
     },
-    {
-      provide: {
-        snippetConfig: localVue.observable({ ...baseSnippetConfig, callbacks })
-      },
-      localVue
-    }
-  );
+    localVue
+  });
 
   return {
     wrapper
@@ -81,8 +75,8 @@ describe('testing SnippetCallbacks component', () => {
  * Options to configure how the snippet callbacks component should be rendered.
  */
 interface RenderSnippetCallbacksOptions {
-  /** The snippet config value. */
-  callbacks?: Partial<XEventListeners>;
+  /** The callbacks value to be provided. */
+  callbacks?: XEventListeners;
 }
 
 /**

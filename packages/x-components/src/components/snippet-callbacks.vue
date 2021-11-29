@@ -1,7 +1,5 @@
 <template>
-  <NoElement>
-    <GlobalXBus v-on="eventListeners" />
-  </NoElement>
+  <GlobalXBus v-on="eventListeners" />
 </template>
 
 <script lang="ts">
@@ -11,7 +9,6 @@
   import { WireMetadata } from '../wiring';
   import { SnippetConfig, XEventListeners } from '../x-installer/api/api.types';
   import GlobalXBus from './global-x-bus.vue';
-  import { NoElement } from './no-element';
 
   /**
    * This component subscribes to any {@link XEvent} with a custom callbacks provided by the snippet
@@ -20,7 +17,7 @@
    * @public
    */
   @Component({
-    components: { NoElement, GlobalXBus }
+    components: { GlobalXBus }
   })
   export default class SnippetCallbacks extends Vue {
     /**

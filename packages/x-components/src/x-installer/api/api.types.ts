@@ -52,9 +52,11 @@ export interface XAPI {
  *
  * @public
  */
-export type XEventListeners = {
-  [Event in XEvent]: (payload: XEventPayload<Event>, metadata: WireMetadata) => void;
-};
+export type XEventListeners = Partial<
+  {
+    [Event in XEvent]: (payload: XEventPayload<Event>, metadata: WireMetadata) => void;
+  }
+>;
 
 /**
  * Interface with the possible parameters to receive through the snippet integration.
