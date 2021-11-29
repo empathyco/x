@@ -23,7 +23,7 @@ describe('testing related tags component', () => {
     const store = new Store<DeepPartial<RootXStoreState>>({});
     installNewXPlugin({ store }, localVue);
 
-    // Manually re-installing the xModule and updting its state
+    // Manually re-installing the xModule and updating its state
     XPlugin.registerXModule(relatedTagsXModule);
     resetStoreRelatedTagsState(store, { relatedTags });
 

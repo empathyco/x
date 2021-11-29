@@ -69,7 +69,11 @@ describe('testing related tag item component', () => {
     const { wrapper, clickRelatedTag, relatedTag } = renderRelatedTag({
       template: `
         <RelatedTag :relatedTag="relatedTag">
-          <template #default="{ relatedTag, isSelected }">
+          <template #default="{ relatedTag, isSelected, shouldHighlightCurated }">
+            <img
+              data-test="related-tag-chevron" 
+              src="./chevron-icon.svg"
+              v-if="shouldHighlightCurated"/>
             <span data-test="related-tag-label">{{ relatedTag.tag }}</span>
             <img data-test="related-tag-cross" src="./cross-icon.svg" v-if="isSelected"/>
           </template>
@@ -77,10 +81,12 @@ describe('testing related tag item component', () => {
     });
 
     const relatedTagWrapper = wrapper.find(getDataTestSelector('related-tag'));
+    const relatedTagChevronWrapper = wrapper.find(getDataTestSelector('related-tag-chevron'));
     const relatedTagLabelWrapper = wrapper.find(getDataTestSelector('related-tag-label'));
     let relatedTagCrossWrapper = wrapper.find(getDataTestSelector('related-tag-cross'));
     expect(relatedTagWrapper.exists()).toEqual(true);
     expect(relatedTagLabelWrapper.exists()).toEqual(true);
+    expect(relatedTagChevronWrapper.exists()).toEqual(false);
     expect(relatedTagLabelWrapper.text()).toEqual(relatedTag.tag);
     expect(relatedTagCrossWrapper.exists()).toEqual(false);
 

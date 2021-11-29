@@ -24,6 +24,7 @@
               @slot Custom content that replaces the RelatedTag default content.
               @binding {RelatedTag} relatedTag - Related tag data.
               @binding {boolean} isSelected - Related tag status.
+              @binding {Boolean} shouldHighlightCurated - Related tags flag.
             -->
             <slot
               name="related-tag-content"
@@ -76,11 +77,11 @@
     protected maxItemsToRender?: number;
 
     /**
-     * Flag to indicate if the curated tags should be display different.
+     * Flag to indicate if the curated tags should be displayed different.
      *
      * @public
      */
-    @Prop({ default: false })
+    @Prop({ default: false, type: Boolean })
     protected shouldHighlightCurated!: boolean;
 
     @Getter('relatedTags', 'relatedTags')
