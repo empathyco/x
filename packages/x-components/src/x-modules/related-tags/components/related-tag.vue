@@ -117,8 +117,8 @@
      */
     protected get dynamicClasses(): VueCSSClasses {
       return {
-        'x-tag--is-curated': true, // this.relatedTag.curated && this.highlightCurated,
-        'x-related-tag--is-curated': true, // this.relatedTag.curated && this.highlightCurated,
+        'x-tag--is-curated': this.isHighlightCurated,
+        'x-related-tag--is-curated': this.isHighlightCurated,
         'x-tag--is-selected': this.isSelected,
         'x-related-tag--is-selected': this.isSelected
       };
