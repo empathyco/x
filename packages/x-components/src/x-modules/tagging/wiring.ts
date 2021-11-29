@@ -46,7 +46,7 @@ const wireSessionServiceWithoutPayload = wireServiceWithoutPayload(DefaultSessio
  */
 const clearSessionWire = filter(
   wireSessionServiceWithoutPayload('clearSessionId'),
-  consent => !consent
+  ({ eventPayload: consent }) => !consent
 );
 
 /**
