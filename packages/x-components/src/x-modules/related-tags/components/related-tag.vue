@@ -9,8 +9,9 @@
       @slot Custom content that replaces the RelatedTag default content.
       @binding {RelatedTag} relatedTag - Related tag data.
       @binding {boolean} isSelected - Related tag status.
+      @binding {boolean} shouldHighlightCurated - Related tag type.
       -->
-    <slot v-bind="{ relatedTag, isSelected, isHighlightCurated }">{{ relatedTag.tag }}</slot>
+    <slot v-bind="{ relatedTag, isSelected, shouldHighlightCurated }">{{ relatedTag.tag }}</slot>
   </button>
 </template>
 
@@ -40,8 +41,8 @@
      *
      * @public
      */
-    @Prop({ default: false })
-    protected highlightCurated?: boolean;
+    @Prop({ default: false, type: Boolean })
+    protected highlightCurated!: boolean;
     /**
      * The related tag model data.
      *
@@ -104,8 +105,8 @@
      *
      * @internal
      */
-    protected get isHighlightCurated(): boolean {
-      return this.relatedTag.curated ? this.highlightCurated! && this.relatedTag.curated : false;
+    protected get shouldHighlightCurated(): boolean {
+      return this.highlightCurated && (this.relatedTag.curated ?? false);
     }
 
     /**
@@ -117,8 +118,8 @@
      */
     protected get dynamicClasses(): VueCSSClasses {
       return {
-        'x-tag--is-curated': this.isHighlightCurated,
-        'x-related-tag--is-curated': this.isHighlightCurated,
+        'x-tag--is-curated': this.shouldHighlightCurated,
+        'x-related-tag--is-curated': this.shouldHighlightCurated,
         'x-tag--is-selected': this.isSelected,
         'x-related-tag--is-selected': this.isSelected
       };
@@ -139,8 +140,10 @@
 <docs lang="mdx">
 ## Dynamic classes
 
-`RelatedTag` uses the `x-related-tag--is-selected` dynamic CSS class so you can style it when is
-selected.
+`RelatedTag` uses the following dynamic CSS classes so you can style it when is:
+
+- Selected: `x-related-tag--is-selected`.
+- Curated: `x-related-tag--is-curated`.
 
 ## Events
 

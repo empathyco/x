@@ -15,10 +15,11 @@
       <!--
         @slot Custom content that replaces the RelatedTag component.
         @binding {RelatedTag} relatedTag - Related tag data.
+        @binding {Boolean} shouldHighlightCurated - Related tags flag.
        -->
-      <slot name="related-tag" :highlightCurated="highlightCurated" :relatedTag="relatedTag">
-        <RelatedTag :highlightCurated="highlightCurated" :relatedTag="relatedTag">
-          <template #default="{ relatedTag, isSelected, isHighlightCurated }">
+      <slot name="related-tag" v-bind="{ relatedTag, shouldHighlightCurated }">
+        <RelatedTag :highlightCurated="shouldHighlightCurated" :relatedTag="relatedTag">
+          <template #default="{ relatedTag, isSelected, shouldHighlightCurated }">
             <!--
               @slot Custom content that replaces the RelatedTag default content.
               @binding {RelatedTag} relatedTag - Related tag data.
@@ -26,7 +27,7 @@
             -->
             <slot
               name="related-tag-content"
-              v-bind="{ relatedTag, isSelected, isHighlightCurated }"
+              v-bind="{ relatedTag, isSelected, shouldHighlightCurated }"
             />
           </template>
         </RelatedTag>
@@ -80,7 +81,7 @@
      * @public
      */
     @Prop({ default: false })
-    protected highlightCurated?: boolean;
+    protected shouldHighlightCurated!: boolean;
 
     @Getter('relatedTags', 'relatedTags')
     public storedRelatedTags!: RelatedTagModel[];

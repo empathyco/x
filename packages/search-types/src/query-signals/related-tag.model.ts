@@ -8,7 +8,7 @@ import { Previewable } from '../previewable.model';
  */
 export interface RelatedTag extends NamedModel<'RelatedTag'>, Previewable {
   /** If it's a curated related tag. */
-  curated?: boolean;
+  isCurated?: boolean;
   /** The term to add to the current query. */
   tag: string;
   /** If selection mode is enabled, tells if this related tag is selected or not. */
