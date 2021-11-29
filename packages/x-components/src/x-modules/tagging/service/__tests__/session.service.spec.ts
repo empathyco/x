@@ -28,4 +28,10 @@ describe('testing session id service', () => {
     expect(removeItemSpy).toHaveBeenCalledTimes(1);
     expect(removeItemSpy).toHaveBeenCalledWith(storageKey);
   });
+
+  it('returns an existing session id', () => {
+    const session1 = sessionService.getSessionId();
+    const session2 = sessionService.getSessionId();
+    expect(session1).toEqual(session2);
+  });
 });
