@@ -20,9 +20,8 @@ function mountNewSearchInput(overrideProps: Partial<SearchInputProps> = {}): Tes
 
   const wrapper = mount(SearchInput, {
     /*
-     * In order to make the input works after the jest 27 update,
-     * now is mandatory to attach the element to some parent in the
-     * DOM.
+     * In order to make the autofocus test work after the jest 27 update, now is mandatory to
+     * attach the element to some parent in the DOM, to emit the focus event.
      */
     attachTo: parent,
     store,
