@@ -337,9 +337,6 @@ describe('testing search module actions', () => {
       await store.dispatch('saveOrigin', { location: 'predictive_layer' });
       expect(store.state.origin).toBeNull();
 
-      await store.dispatch('saveOrigin', { feature: 'search_box' });
-      expect(store.state.origin).toBeNull();
-
       await store.dispatch('saveOrigin', {});
       expect(store.state.origin).toBeNull();
     });
