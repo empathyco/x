@@ -1,4 +1,4 @@
-import { BrowserStorageService } from '@empathyco/x-storage-service';
+import { StorageService } from '@empathyco/x-storage-service';
 import { inject, injectable } from 'inversify';
 import { DEPENDENCIES } from '../container/container.const';
 import { CacheService } from './cache-service.types';
@@ -11,7 +11,7 @@ import { CacheService } from './cache-service.types';
 @injectable()
 export class EmpathyCacheService implements CacheService {
   constructor(
-    @inject(DEPENDENCIES.storageService) protected readonly storageService: BrowserStorageService
+    @inject(DEPENDENCIES.storageService) protected readonly storageService: StorageService
   ) {}
 
   setItem(key: string, item: any, ttlInMinutes: number): void {
