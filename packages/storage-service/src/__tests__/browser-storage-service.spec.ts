@@ -1,3 +1,4 @@
+import { BrowserStorageService } from '../browser-storage-service';
 import { StorageService } from '../storage-service';
 
 let storage: StorageService;
@@ -7,10 +8,10 @@ const anotherKey = 'another-key';
 const item = { a: 'item', b: true, c: 288 };
 const startingTimestamp = 1563868724320;
 
-describe('testing StorageService', () => {
+describe('testing BrowserStorageService', () => {
   beforeEach(() => {
     localStorage.clear();
-    storage = new StorageService(localStorage);
+    storage = new BrowserStorageService(localStorage);
     Date.now = jest.fn(() => startingTimestamp);
   });
 
@@ -31,7 +32,7 @@ describe('testing StorageService', () => {
   });
 
   it('supports custom prefixes', () => {
-    storage = new StorageService(localStorage, prefix);
+    storage = new BrowserStorageService(localStorage, prefix);
     storage.setItem(key, item);
     expect(localStorage).toHaveLength(1);
     expect(localStorage.getItem(key)).toBeNull();
