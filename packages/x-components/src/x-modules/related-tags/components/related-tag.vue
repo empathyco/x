@@ -37,7 +37,7 @@
   })
   export default class RelatedTag extends Vue {
     /**
-     * Flag to indicate if the curated related tag should be highlighted.
+     * Indicates if the curated related tag should be highlighted.
      *
      * @public
      */
