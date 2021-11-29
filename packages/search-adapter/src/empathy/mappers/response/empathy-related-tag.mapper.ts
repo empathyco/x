@@ -12,7 +12,7 @@ import { EmpathyRelatedTag } from '../../models';
 export class EmpathyRelatedTagMapper implements ResponseMapper<EmpathyRelatedTag, RelatedTag> {
   map(rawRelatedTag: EmpathyRelatedTag, relatedTag: RelatedTag): RelatedTag {
     return Object.assign(relatedTag, {
-      curated: rawRelatedTag.source && rawRelatedTag.source === 'CURATED',
+      isCurated: rawRelatedTag.source && rawRelatedTag.source === 'CURATED',
       modelName: 'RelatedTag',
       tag: rawRelatedTag.tag,
       query: rawRelatedTag.query,
