@@ -40,6 +40,16 @@ describe('testing SnippetCallbacks component', () => {
     });
 
     expect(clickedColumnPickerCallback).not.toHaveBeenCalled();
+
+    wrapper.vm.$x.emit('UserClickedColumnPicker', 1);
+
+    expect(acceptedAQueryCallback).toHaveBeenCalledTimes(1);
+
+    expect(clickedColumnPickerCallback).toHaveBeenCalledTimes(1);
+    expect(clickedColumnPickerCallback).toHaveBeenCalledWith(1, {
+      location: undefined,
+      moduleName: null
+    });
   });
 
   it('emits a SnippetCallbackExecuted event when a callback is executed', () => {
