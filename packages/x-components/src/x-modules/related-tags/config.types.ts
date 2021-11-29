@@ -8,8 +8,4 @@ export interface RelatedTagsConfig {
    * Maximum number of related tags to request.
    */
   maxItemsToRequest: number;
-  /**
-   * Flag to highlight curated related tags.
-   */
-  highlightCurated: boolean;
 }
