@@ -12,3 +12,4 @@ export * from './redirections-stubs.factory';
 export * from './related-tags-stubs.factory';
 export * from './results-stubs.factory';
 export * from './search-response-stubs.factory';
+export * from './tagging-response-stubs.factory';

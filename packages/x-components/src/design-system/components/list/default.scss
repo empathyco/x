@@ -94,6 +94,10 @@
     flex: 1 1 auto;
   }
 
+  > .x-list__item--no-expand {
+    flex: 0 0 auto;
+  }
+
   &.x-list--horizontal {
     > .x-list__item--expand {
       min-width: 0;

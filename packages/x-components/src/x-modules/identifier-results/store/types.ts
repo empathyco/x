@@ -3,7 +3,7 @@ import { Result } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { QueryOrigin, QueryOriginInit } from '../../../types/origin';
-import { UrlParams } from '../../../types/url-params';
+import { Dictionary } from '../../../utils';
 import { IdentifierResultsConfig } from '../config.types';
 
 /**
@@ -18,6 +18,8 @@ export interface IdentifierResultsState extends StatusState {
   identifierResults: Result[];
   /** The origin property of the request. */
   origin: QueryOrigin | null;
+  /** The extra params property of the state. */
+  params: Dictionary<unknown>;
   /** The internal query of the module. Used to request the identifier results. */
   query: string;
 }
@@ -58,6 +60,12 @@ export interface IdentifierResultsMutations extends StatusMutations {
    */
   setOrigin(origin: QueryOrigin | undefined | null): void;
   /**
+   * Sets the extra params of the module.
+   *
+   * @param params - The new extra params.
+   */
+  setParams(params: Dictionary<unknown>): void;
+  /**
    * Sets the query of the module, which is used to retrieve the identifier-results.
    *
    * @param newQuery - The new query to save to the state.
@@ -96,12 +104,6 @@ export interface IdentifierResultsActions {
    * Stores the query in the module if it matches the regex.
    */
   saveQuery(query: string): void;
-  /**
-   * Checks if the url has a query on it and then updates the state with that value.
-   *
-   * @param urlParams - List of params from the url.
-   */
-  setUrlParams(urlParams: UrlParams): void;
 }
 
 /**

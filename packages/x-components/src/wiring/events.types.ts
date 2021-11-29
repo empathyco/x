@@ -170,6 +170,11 @@ export interface XEventsTypes
    * * Payload: The {@link @empathyco/x-types#Suggestion | suggestion} that the user selected.
    */
   UserSelectedASuggestion: Suggestion;
+  /**
+   * A callback from the snippet has been executed.
+   * * Payload: An object containing the event that executed the callback and the callback result.
+   */
+  SnippetCallbackExecuted: { event: XEvent; callbackReturn: unknown };
 }
 
 /**

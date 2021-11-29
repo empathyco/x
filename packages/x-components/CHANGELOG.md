@@ -3,6 +3,78 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.31...@empathyco/x-components@3.0.0-alpha.32) (2021-11-29)
+
+### ⚠ BREAKING CHANGES
+
+- **storage-service:** `StorageService` has been renamed to `BrowserStorageService`.
+
+### Features
+
+- **components:** Add `GlobalXBus `component
+  ([cc8e28b](https://github.com/empathyco/x/commit/cc8e28b5b5d7f1735c490c0b576d620f4f1dd103)),
+  closes [EX-3535](https://searchbroker.atlassian.net/browse/EX-3535)
+- **components:** add `SnippetCallbacks` component
+  ([0b89a9f](https://github.com/empathyco/x/commit/0b89a9ff0de60194567d47e768bf0f0fb654b998)),
+  closes [EX-5002](https://searchbroker.atlassian.net/browse/EX-5002)
+- **storage-service:** Rename `StorageService` to `BrowserStorageService`
+  ([6bf38fb](https://github.com/empathyco/x/commit/6bf38fb7d14323c84c949e21eaa9c692fb0014d7)),
+  closes [EX-5073](https://searchbroker.atlassian.net/browse/EX-5073)
+
+### Bug Fixes
+
+- **tagging:** now removing the session clears the session from the storage
+  ([9328aad](https://github.com/empathyco/x/commit/9328aadca920825bdaddeb565ee47ef0430f25fd)),
+  closes [EX-5074](https://searchbroker.atlassian.net/browse/EX-5074)
+
+### Build System
+
+- update jest dependencies
+  ([f3fee15](https://github.com/empathyco/x/commit/f3fee157d724292f5cbb7166908d48ef2fb4fe8c)),
+  closes [EX-5027](https://searchbroker.atlassian.net/browse/EX-5027)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.30...@empathyco/x-components@3.0.0-alpha.31) (2021-11-25)
+
+### Features
+
+- **design-system:** add identifier result in suggestion component
+  ([d4ce3c2](https://github.com/empathyco/x/commit/d4ce3c2eb1188e38e55e466f65c9da165bf9bfe7)),
+  closes [EX-5065](https://searchbroker.atlassian.net/browse/EX-5065)
+- **identifier-results:** add extra params in the x-module
+  ([6afff42](https://github.com/empathyco/x/commit/6afff426081b645bb0e878c77915a4c319b847d2)),
+  closes [EX-5066](https://searchbroker.atlassian.net/browse/EX-5066)
+- **tagging:** `track` query
+  ([594c656](https://github.com/empathyco/x/commit/594c65649cbf08f586dc9912b367ea39d9da2fa6)),
+  closes [EX-4989](https://searchbroker.atlassian.net/browse/EX-4989)
+- **tagging:** add feature hardcoded values
+  ([ee6db3a](https://github.com/empathyco/x/commit/ee6db3a360228528a109fedc732bd552ad5d5a61)),
+  closes [EX-5003](https://searchbroker.atlassian.net/browse/EX-5003)
+
+### Testing
+
+- **e2e:** Reduce command timeout and number of retries.
+  ([5e1521f](https://github.com/empathyco/x/commit/5e1521f53aad1e4bfc8f60c7e705422ab2af052c)),
+  closes [EX-5015](https://searchbroker.atlassian.net/browse/EX-5015)
+- **e2e:** reorder mocked responses
+  ([8cab691](https://github.com/empathyco/x/commit/8cab691b553af31d9b5bc80130e16886877f1b60)),
+  closes [EX-4923](https://searchbroker.atlassian.net/browse/EX-4923)
+
+### Documentation
+
+- add new static docs.
+  ([8a40986](https://github.com/empathyco/x/commit/8a409865fea2cd67e0c2daa5d4464f553ff33a2b)),
+  closes [EX-5033](https://searchbroker.atlassian.net/browse/EX-5033)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.29...@empathyco/x-components@3.0.0-alpha.30) (2021-11-22)
 
 ### Features

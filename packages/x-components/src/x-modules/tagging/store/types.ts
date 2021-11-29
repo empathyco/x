@@ -1,3 +1,4 @@
+import { TaggingInfo } from '@empathyco/x-types';
 import { XStoreModule } from '../../../store';
 import { TaggingConfig } from '../config.types';
 /**
@@ -54,7 +55,14 @@ export interface TaggingMutations {
  *
  * @public
  */
-export interface TaggingActions {}
+export interface TaggingActions {
+  /**
+   * Tracks a user interaction.
+   *
+   * @param tagging - The information of the event to track.
+   */
+  track(tagging: TaggingInfo | TaggingInfo[]): void;
+}
 
 /**
  * Tagging type safe store module.

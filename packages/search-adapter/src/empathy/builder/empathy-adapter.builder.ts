@@ -1,9 +1,13 @@
 import { UserInfo } from '@empathyco/x-types';
-import { StorageService } from '@empathyco/x-storage-service';
+import { BrowserStorageService, StorageService } from '@empathyco/x-storage-service';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { Container, injectable } from 'inversify';
 import { DeepPartial, FeatureNames, Newable } from '../../types';
-import { EmpathyAdapterConfig, FacetConfig, FeatureConfig } from '../config/empathy-adapter-config.types';
+import {
+  EmpathyAdapterConfig,
+  FacetConfig,
+  FeatureConfig
+} from '../config/empathy-adapter-config.types';
 import { ContainerConfigParser } from '../container/container-config-parser';
 import { BINDINGS } from '../container/container.bindings';
 import { DEPENDENCIES } from '../container/container.const';
@@ -59,7 +63,9 @@ export class EmpathyAdapterBuilder {
   }
 
   enableCache({
-    storageService = typeof localStorage !== 'undefined' ? new StorageService(localStorage) : undefined,
+    storageService = typeof localStorage !== 'undefined'
+      ? new BrowserStorageService(localStorage)
+      : undefined,
     cacheService = EmpathyCacheService
   }: EnableCacheOptions = {}): this {
     if (storageService && cacheService) {
@@ -71,7 +77,11 @@ export class EmpathyAdapterBuilder {
     return this;
   }
 
-  addClassMapper<Entity>(mapper: Newable<ResponseMapper<Entity>>, entity: EntityNames, feature?: FeatureNames): this {
+  addClassMapper<Entity>(
+    mapper: Newable<ResponseMapper<Entity>>,
+    entity: EntityNames,
+    feature?: FeatureNames
+  ): this {
     const mapperKey = DEPENDENCIES.ResponseMappers[entity];
     if (feature) {
       const requestorKey = DEPENDENCIES.Requestors[feature];
@@ -100,7 +110,10 @@ export class EmpathyAdapterBuilder {
     return this;
   }
 
-  addClassRequestMapper<Entity>(mapper: Newable<ResponseMapper<Entity>>, feature?: FeatureNames): this {
+  addClassRequestMapper<Entity>(
+    mapper: Newable<ResponseMapper<Entity>>,
+    feature?: FeatureNames
+  ): this {
     if (feature) {
       const requestorKey = DEPENDENCIES.Requestors[feature];
       this.container.bind(DEPENDENCIES.requestMappers).to(mapper).whenAnyAncestorIs(requestorKey);
@@ -127,8 +140,10 @@ export class EmpathyAdapterBuilder {
     return this;
   }
 
-  onResponseTransformed<RawResponseType = any, ResponseType = any>(hook: ResponseTransformed<RawResponseType, ResponseType>,
-    feature?: FeatureNames): this {
+  onResponseTransformed<RawResponseType = any, ResponseType = any>(
+    hook: ResponseTransformed<RawResponseType, ResponseType>,
+    feature?: FeatureNames
+  ): this {
     return this.addHook(hook, 'responseTransformed', feature);
   }
 
@@ -136,7 +151,10 @@ export class EmpathyAdapterBuilder {
     return this.addHook(hook, 'beforeRequest', feature);
   }
 
-  onBeforeResponseTransformed<RawResponseType = any>(hook: BeforeResponseTransform<RawResponseType>, feature?: FeatureNames): this {
+  onBeforeResponseTransformed<RawResponseType = any>(
+    hook: BeforeResponseTransform<RawResponseType>,
+    feature?: FeatureNames
+  ): this {
     return this.addHook(hook, 'beforeResponseTransformed', feature);
   }
 
@@ -175,12 +193,17 @@ export class EmpathyAdapterBuilder {
     return this;
   }
 
-  setFeatureConfig<Feature extends FeatureNames>(featureName: Feature, featureConfig: DeepPartial<FeatureConfig<Feature>>): this {
+  setFeatureConfig<Feature extends FeatureNames>(
+    featureName: Feature,
+    featureConfig: DeepPartial<FeatureConfig<Feature>>
+  ): this {
     deepMerge(this.config.features[featureName], featureConfig);
     return this;
   }
 
-  setResultTrackingConfig(resultTrackingConfig: DeepPartial<EmpathyAdapterConfig['mappings']['tracking']['result']>): this {
+  setResultTrackingConfig(
+    resultTrackingConfig: DeepPartial<EmpathyAdapterConfig['mappings']['tracking']['result']>
+  ): this {
     deepMerge(this.config.mappings.tracking.result, resultTrackingConfig);
     return this;
   }
@@ -224,22 +247,31 @@ export class EmpathyAdapterBuilder {
   }
 
   protected createMapperClass(mapFn: MapResponse): Newable<ResponseMapper> {
-    return injectable()
-    (class MockedMapper implements ResponseMapper {
-      map = mapFn;
-    });
+    return injectable()(
+      class MockedMapper implements ResponseMapper {
+        map = mapFn;
+      }
+    );
   }
 
   protected createRequestMapperClass(mapFn: MapRequest): Newable<RequestMapper> {
-    return injectable()
-    (class MockedMapper implements RequestMapper {
-      map = mapFn;
-    });
+    return injectable()(
+      class MockedMapper implements RequestMapper {
+        map = mapFn;
+      }
+    );
   }
 
-  protected addHook(hook: Function, hookName: keyof typeof DEPENDENCIES.Hooks, feature?: FeatureNames) {
+  protected addHook(
+    hook: Function,
+    hookName: keyof typeof DEPENDENCIES.Hooks,
+    feature?: FeatureNames
+  ) {
     if (feature) {
-      this.container.bind(DEPENDENCIES.Hooks[hookName]).toFunction(hook).whenInjectedInto(DEPENDENCIES.Requestors[feature]);
+      this.container
+        .bind(DEPENDENCIES.Hooks[hookName])
+        .toFunction(hook)
+        .whenInjectedInto(DEPENDENCIES.Requestors[feature]);
     } else {
       this.container.bind(DEPENDENCIES.Hooks[hookName]).toFunction(hook);
     }

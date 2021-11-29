@@ -1,6 +1,6 @@
 {
   "baseUrl": "http://localhost:8080",
-  "defaultCommandTimeout": 30000,
+  "defaultCommandTimeout": 7000,
   "viewportHeight": 1080,
   "viewportWidth": 1920,
   "screenshotOnRunFailure": false,
@@ -15,5 +15,5 @@
     "componentFolder": "tests/unit",
     "testFiles": "**/*.spec.ts"
   },
-  "retries": 2
+  "retries": 1
 }

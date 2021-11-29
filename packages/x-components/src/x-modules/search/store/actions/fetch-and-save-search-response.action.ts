@@ -39,7 +39,9 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
       commit('setFacets', facets);
     }
 
-    commit('setQueryTagging', queryTagging);
+    if (queryTagging) {
+      commit('setQueryTagging', queryTagging);
+    }
     commit('setTotalResults', totalResults);
     commit('setSpellcheck', spellcheck ?? '');
   }

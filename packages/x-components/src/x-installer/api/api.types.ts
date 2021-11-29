@@ -1,5 +1,7 @@
 import { XBus } from '../../plugins/x-bus.types';
 import { DocumentDirection } from '../../plugins/x-plugin.types';
+import { XEvent, XEventPayload } from '../../wiring/events.types';
+import { WireMetadata } from '../../wiring/wiring.types';
 
 /**
  * Interface with the API functions exposes as X
@@ -46,6 +48,17 @@ export interface XAPI {
 }
 
 /**
+ * Map type of every {@link XEvent} and a callback with the payload and metadata for that event.
+ *
+ * @public
+ */
+export type XEventListeners = Partial<
+  {
+    [Event in XEvent]: (payload: XEventPayload<Event>, metadata: WireMetadata) => void;
+  }
+>;
+
+/**
  * Interface with the possible parameters to receive through the snippet integration.
  *
  * @public
@@ -67,6 +80,8 @@ export interface SnippetConfig {
   documentDirection?: DocumentDirection;
   /** The currency name. There should be a currency format associated to this name in the app. */
   currency?: string;
+  /** Callbacks to be triggered when an XEvent is emitted. */
+  callbacks?: XEventListeners;
   /** Any extra param to send in all backend calls. */
   [extra: string]: any;
 }

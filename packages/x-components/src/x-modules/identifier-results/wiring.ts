@@ -51,7 +51,7 @@ export const clearIdentifierResultsQuery = wireCommit('setQuery', '');
  *
  * @public
  */
-const setUrlParams = wireDispatch('setUrlParams');
+const setUrlParams = wireDispatch('saveQuery', ({ eventPayload: { query } }) => query);
 
 /**
  * Requests and stores a new set of identifier results for the {@link IdentifierResultsState.query}.
@@ -78,6 +78,13 @@ export const saveIdentifierResultsOriginWire = wireDispatch(
   'saveOrigin',
   ({ metadata }) => metadata
 );
+
+/**
+ * Sets the identifier result state `params`.
+ *
+ * @public
+ */
+export const setIdentifierResultsExtraParams = wireCommit('setParams');
 
 /**
  * Debounce function for the module.
@@ -110,5 +117,8 @@ export const identifierResultsWiring = createWiring({
   },
   ParamsLoadedFromUrl: {
     setUrlParams
+  },
+  ExtraParamsChanged: {
+    setIdentifierResultsExtraParams
   }
 });
