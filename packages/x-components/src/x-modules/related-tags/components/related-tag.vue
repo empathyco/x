@@ -106,7 +106,7 @@
      * @internal
      */
     protected get shouldHighlightCurated(): boolean {
-      return this.highlightCurated && (this.relatedTag.curated ?? false);
+      return this.highlightCurated && (this.relatedTag.isCurated ?? false);
     }
 
     /**
