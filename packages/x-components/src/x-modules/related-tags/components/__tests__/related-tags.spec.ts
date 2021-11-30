@@ -122,16 +122,13 @@ describe('testing related tags component', () => {
     expect(crossWrapper.exists()).toEqual(true);
     unSelectedWrappers.forEach(expectToHaveOverriddenContent);
 
-    for (let i = 0; i < relatedTags.length; i++) {
-      relatedTags[i].isCurated = true;
-    }
+    relatedTags[relatedTags.length - 1].isCurated = true;
     await wrapper.setProps({ highlightCurated: true });
     relatedTagsWrappers = getRelatedTagItems();
-
-    relatedTagsWrappers.wrappers.forEach(relatedTagItemWrapper => {
-      const chevron = relatedTagItemWrapper.find(getDataTestSelector('related-tag-chevron'));
-      expect(chevron.exists()).toEqual(true);
-    });
+    const chevron = relatedTagsWrappers.wrappers[0].find(
+      getDataTestSelector('related-tag-chevron')
+    );
+    expect(chevron.exists()).toEqual(true);
   });
 
   it('allows changing the whole component for each related tag', async () => {

@@ -25,7 +25,7 @@
               @slot Custom content that replaces the RelatedTag default content.
               @binding {RelatedTag} relatedTag - Related tag data.
               @binding {boolean} isSelected - Related tag status.
-              @binding {boolean} highlightCurated - True if the curated RTs should be displayed.
+              @binding {boolean} shouldHighlightCurated - True if the curated RTs should be displayed.
             -->
             <slot
               name="related-tag-content"
