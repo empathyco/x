@@ -84,22 +84,14 @@
     public query!: string;
 
     /**
-     * Focus search input when the user navigates to the search input.
+     * Focus search input when the user navigates to the search input or
+     * when the user clicks on the clear search button.
      *
      * @internal
      */
-    @XOn('UserReachedEmpathizeTop')
+    @XOn(['UserReachedEmpathizeTop', 'UserPressedClearSearchBoxButton'])
     focusInput(): void {
       this.$refs.input?.focus();
-    }
-
-    /**
-     * Focus search input when the user clicks on the clear search button.
-     *
-     */
-    @XOn('UserPressedClearSearchBoxButton')
-    onUserPressedClearSearchBoxButton(): void {
-      this.focusInput();
     }
 
     protected debouncedUserAcceptedAQuery!: DebouncedFunction<[string]>;
