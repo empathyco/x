@@ -97,13 +97,13 @@
     protected debouncedUserAcceptedAQuery!: DebouncedFunction<[string]>;
 
     /**
-     * When event {@link XEventsTypes.UserAcceptedAQuery} is emitted the pending debounced emit
+     * When event {@link XEventsTypes.UserAcceptedAQuery} or {@link XEventsTypes.UserClearedQuery}
+     * are emitted the pending debounced emit
      * {@link XEvent} `UserAcceptedAQuery` is canceled.
      *
      * @internal
      */
-    @XOn('UserAcceptedAQuery')
-    @XOn('UserClearedQuery')
+    @XOn(['UserAcceptedAQuery', 'UserClearedQuery'])
     cancelDebouncedUserAcceptedAQuery(): void {
       this.debouncedUserAcceptedAQuery?.cancel();
     }
