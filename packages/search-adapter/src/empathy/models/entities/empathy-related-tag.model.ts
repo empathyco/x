@@ -5,7 +5,6 @@
  */
 export interface EmpathyRelatedTag {
   source?: 'CURATED' | 'ORGANIC' | 'ENRICHED';
-  position?: number;
   query: string;
   tag: string;
 }
