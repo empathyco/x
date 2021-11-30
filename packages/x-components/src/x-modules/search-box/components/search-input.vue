@@ -84,8 +84,9 @@
     public query!: string;
 
     /**
-     * Focus search input when the user navigates to the search input or
-     * when the user clicks on the clear search button.
+     * When event {@link XEventsTypes.UserReachedEmpathizeTop} or
+     * {@link XEventsTypes.UserPressedClearSearchBoxButton}
+     * are emitted the search in put is focused.
      *
      * @internal
      */
