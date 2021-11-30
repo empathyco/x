@@ -37,6 +37,7 @@ export { default as SearchIcon } from './search.vue';
 export { default as ShowIcon } from './show.vue';
 export { default as StarIcon } from './star.vue';
 export { default as SearchTinyIcon } from './search-tiny.vue';
+export { default as TagIcon } from './tag.vue';
 export { default as TrashOpenIcon } from './trash-open.vue';
 export { default as TrashIcon } from './trash.vue';
 export { default as TrendingTinyIcon } from './trending-tiny.vue';

@@ -16,7 +16,7 @@ import RelatedTagComponent from '../related-tag.vue';
 describe('testing related tag item component', () => {
   function renderRelatedTag({
     relatedTag = getRelatedTagsStub()[0],
-    template = '<RelatedTag :relatedTag="relatedTag"/>'
+    template = '<RelatedTag :relatedTag="relatedTag" />'
   }: RenderRelatedTagOptions = {}): RenderRelatedTagsAPI {
     const localVue = createLocalVue();
     localVue.use(Vuex);
@@ -27,7 +27,7 @@ describe('testing related tag item component', () => {
 
     const wrapperTemplate = mount(
       {
-        props: ['relatedTag'],
+        props: ['relatedTag', 'highlightCurated'],
         components: {
           RelatedTag: RelatedTagComponent
         },
@@ -69,7 +69,12 @@ describe('testing related tag item component', () => {
     const { wrapper, clickRelatedTag, relatedTag } = renderRelatedTag({
       template: `
         <RelatedTag :relatedTag="relatedTag">
-          <template #default="{ relatedTag, isSelected }">
+          <template #default="{ relatedTag, isSelected, shouldHighlightCurated }">
+            <img 
+              data-test="related-tag-chevron"
+              src="./chevron-icon.svg" 
+              v-if="shouldHighlightCurated"
+            />
             <span data-test="related-tag-label">{{ relatedTag.tag }}</span>
             <img data-test="related-tag-cross" src="./cross-icon.svg" v-if="isSelected"/>
           </template>
@@ -77,17 +82,23 @@ describe('testing related tag item component', () => {
     });
 
     const relatedTagWrapper = wrapper.find(getDataTestSelector('related-tag'));
+    let relatedTagChevronWrapper = wrapper.find(getDataTestSelector('related-tag-chevron'));
     const relatedTagLabelWrapper = wrapper.find(getDataTestSelector('related-tag-label'));
     let relatedTagCrossWrapper = wrapper.find(getDataTestSelector('related-tag-cross'));
     expect(relatedTagWrapper.exists()).toEqual(true);
     expect(relatedTagLabelWrapper.exists()).toEqual(true);
+    expect(relatedTagChevronWrapper.exists()).toEqual(false);
     expect(relatedTagLabelWrapper.text()).toEqual(relatedTag.tag);
     expect(relatedTagCrossWrapper.exists()).toEqual(false);
 
     await clickRelatedTag();
     relatedTagCrossWrapper = wrapper.find(getDataTestSelector('related-tag-cross'));
-
     expect(relatedTagCrossWrapper.exists()).toEqual(true);
+
+    relatedTag.isCurated = true;
+    await wrapper.setProps({ highlightCurated: true });
+    relatedTagChevronWrapper = wrapper.find(getDataTestSelector('related-tag-chevron'));
+    expect(relatedTagChevronWrapper.exists()).toEqual(true);
   });
 
   // eslint-disable-next-line max-len
