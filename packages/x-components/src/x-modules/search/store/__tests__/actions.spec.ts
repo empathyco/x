@@ -327,8 +327,10 @@ describe('testing search module actions', () => {
       resetSearchStateWith(store);
 
       await store.dispatch('saveOrigin', { feature: 'search_box', location: 'predictive_layer' });
-
       expect(store.state.origin).toEqual('search_box:predictive_layer');
+
+      await store.dispatch('saveOrigin', { feature: 'search_box' });
+      expect(store.state.origin).toEqual('search_box:none');
     });
 
     it('saves `null` if it is impossible to create an origin', async () => {
