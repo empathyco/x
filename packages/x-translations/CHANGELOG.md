@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.3...@empathyco/x-translations@1.1.0-alpha.4) (2021-11-29)
+
+### Build System
+
+- update jest dependencies
+  ([f3fee15](https://github.com/empathyco/x/commit/f3fee157d724292f5cbb7166908d48ef2fb4fe8c)),
+  closes [EX-5027](https://searchbroker.atlassian.net/browse/EX-5027)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.1.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.2...@empathyco/x-translations@1.1.0-alpha.3) (2021-10-25)
 
 ### Features

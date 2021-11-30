@@ -9,8 +9,9 @@
       @slot Custom content that replaces the RelatedTag default content.
       @binding {RelatedTag} relatedTag - Related tag data.
       @binding {boolean} isSelected - Related tag status.
+      @binding {boolean} shouldHighlightCurated - True if the curated RTs should be displayed.
       -->
-    <slot v-bind="{ relatedTag, isSelected }">{{ relatedTag.tag }}</slot>
+    <slot v-bind="{ relatedTag, isSelected, shouldHighlightCurated }">{{ relatedTag.tag }}</slot>
   </button>
 </template>
 
@@ -35,6 +36,13 @@
     mixins: [xComponentMixin(relatedTagsXModule)]
   })
   export default class RelatedTag extends Vue {
+    /**
+     * Indicates if the curated related tag should be highlighted.
+     *
+     * @public
+     */
+    @Prop({ default: false, type: Boolean })
+    protected highlightCurated!: boolean;
     /**
      * The related tag model data.
      *
@@ -91,6 +99,17 @@
     }
 
     /**
+     * Check if the related tag is curated and should be highlighted.
+     *
+     * @returns True if the related tag is curated and should be highlighted.
+     *
+     * @internal
+     */
+    protected get shouldHighlightCurated(): boolean {
+      return this.highlightCurated && (this.relatedTag.isCurated ?? false);
+    }
+
+    /**
      * Adds the dynamic css classes to the component.
      *
      * @returns The class to be added to the component.
@@ -99,6 +118,8 @@
      */
     protected get dynamicClasses(): VueCSSClasses {
       return {
+        'x-tag--is-curated': this.shouldHighlightCurated,
+        'x-related-tag--is-curated': this.shouldHighlightCurated,
         'x-tag--is-selected': this.isSelected,
         'x-related-tag--is-selected': this.isSelected
       };
@@ -119,8 +140,10 @@
 <docs lang="mdx">
 ## Dynamic classes
 
-`RelatedTag` uses the `x-related-tag--is-selected` dynamic CSS class so you can style it when is
-selected.
+`RelatedTag` uses the following dynamic CSS classes so you can style it when is:
+
+- Selected: `x-related-tag--is-selected`.
+- Curated: `x-related-tag--is-curated`.
 
 ## Events
 

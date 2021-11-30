@@ -23,13 +23,13 @@ describe('testing related tags component', () => {
     const store = new Store<DeepPartial<RootXStoreState>>({});
     installNewXPlugin({ store }, localVue);
 
-    // Manually re-installing the xModule and updting its state
+    // Manually re-installing the xModule and updating its state
     XPlugin.registerXModule(relatedTagsXModule);
     resetStoreRelatedTagsState(store, { relatedTags });
 
     const wrapperTemplate = mount(
       {
-        props: ['relatedTags'],
+        props: ['relatedTags', 'highlightCurated'],
         components: {
           RelatedTags: RelatedTags
         },
@@ -82,10 +82,15 @@ describe('testing related tags component', () => {
   });
 
   it('allows changing the content of each related tag', async () => {
-    const { relatedTags, clickNthRelatedTag, getRelatedTagItems } = renderRelatedTags({
+    const { relatedTags, clickNthRelatedTag, getRelatedTagItems, wrapper } = renderRelatedTags({
       template: `
         <RelatedTags>
-          <template #related-tag-content="{relatedTag, isSelected }">
+          <template #related-tag-content="{relatedTag, isSelected, shouldHighlightCurated }">
+            <img 
+              data-test="related-tag-chevron"
+              src="./chevron-icon.svg"
+              v-if="shouldHighlightCurated"
+            />
             <span data-test="related-tag-label">{{ relatedTag.tag }}</span>
             <img data-test="related-tag-cross" src="./cross-icon.svg" v-if="isSelected"/>
           </template>
@@ -98,8 +103,10 @@ describe('testing related tags component', () => {
     ): void {
       const labelWrapper = relatedTagItemWrapper.find(getDataTestSelector('related-tag-label'));
       const crossWrapper = relatedTagItemWrapper.find(getDataTestSelector('related-tag-cross'));
+      const chevronWrapper = relatedTagItemWrapper.find(getDataTestSelector('related-tag-chevron'));
       expect(labelWrapper.text()).toEqual(relatedTags[index].tag);
       expect(crossWrapper.exists()).toEqual(false);
+      expect(chevronWrapper.exists()).toEqual(false);
     }
 
     let relatedTagsWrappers = getRelatedTagItems();
@@ -114,14 +121,22 @@ describe('testing related tags component', () => {
     expect(labelWrapper.text()).toEqual(relatedTags[relatedTags.length - 1].tag);
     expect(crossWrapper.exists()).toEqual(true);
     unSelectedWrappers.forEach(expectToHaveOverriddenContent);
+
+    relatedTags[relatedTags.length - 1].isCurated = true;
+    await wrapper.setProps({ highlightCurated: true });
+    relatedTagsWrappers = getRelatedTagItems();
+    const chevron = relatedTagsWrappers.wrappers[0].find(
+      getDataTestSelector('related-tag-chevron')
+    );
+    expect(chevron.exists()).toEqual(true);
   });
 
-  it('allows changing the whole component for each related tag', () => {
-    const { getRelatedTagItems, relatedTags } = renderRelatedTags({
+  it('allows changing the whole component for each related tag', async () => {
+    const { getRelatedTagItems, relatedTags, wrapper } = renderRelatedTags({
       template: `
         <RelatedTags>
-          <template #related-tag="{relatedTag}">
-            <button data-test="custom-related-tag">
+          <template #related-tag="{relatedTag, highlightCurated}">
+            <button data-test="custom-related-tag" v-if="highlightCurated">
               {{ relatedTag.tag }}
             </button>
           </template>
@@ -129,6 +144,15 @@ describe('testing related tags component', () => {
     });
 
     const relatedTagsWrappers = getRelatedTagItems();
+
+    relatedTagsWrappers.wrappers.forEach(relatedTagItemWrapper => {
+      const customRelatedTagWrapper = relatedTagItemWrapper.find(
+        getDataTestSelector('custom-related-tag')
+      );
+      expect(customRelatedTagWrapper.exists()).toEqual(false);
+    });
+
+    await wrapper.setProps({ highlightCurated: true });
 
     relatedTagsWrappers.wrappers.forEach((relatedTagItemWrapper, index) => {
       const customRelatedTagWrapper = relatedTagItemWrapper.find(

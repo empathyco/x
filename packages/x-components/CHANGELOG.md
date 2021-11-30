@@ -3,6 +3,61 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.32...@empathyco/x-components@3.0.0-alpha.33) (2021-11-30)
+
+### Features
+
+- **related-tags:** add `isCurated` property to related tags
+  ([e063f45](https://github.com/empathyco/x/commit/e063f4560573bcb1bf32fbe49753f2fe6b235cc7)),
+  closes [EX-4940](https://searchbroker.atlassian.net/browse/EX-4940)
+- **search:** change `saveOriginWire` wire from `SelectedRelatedTagsChanged` to
+  `UserPickedARelatedTag` (#254)
+  ([86072b0](https://github.com/empathyco/x/commit/86072b0805a3dc61b75c0a5760cf2c70e125be34)),
+  closes [EX-5078](https://searchbroker.atlassian.net/browse/EX-5078)
+- **utils:** now `origin` only requires the `feature`
+  ([087d646](https://github.com/empathyco/x/commit/087d646a2b97f945e9c4f81112925a6783d66f41)),
+  closes [EX-5077](https://searchbroker.atlassian.net/browse/EX-5077)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.31...@empathyco/x-components@3.0.0-alpha.32) (2021-11-29)
+
+### ⚠ BREAKING CHANGES
+
+- **storage-service:** `StorageService` has been renamed to `BrowserStorageService`.
+
+### Features
+
+- **components:** Add `GlobalXBus `component
+  ([cc8e28b](https://github.com/empathyco/x/commit/cc8e28b5b5d7f1735c490c0b576d620f4f1dd103)),
+  closes [EX-3535](https://searchbroker.atlassian.net/browse/EX-3535)
+- **components:** add `SnippetCallbacks` component
+  ([0b89a9f](https://github.com/empathyco/x/commit/0b89a9ff0de60194567d47e768bf0f0fb654b998)),
+  closes [EX-5002](https://searchbroker.atlassian.net/browse/EX-5002)
+- **storage-service:** Rename `StorageService` to `BrowserStorageService`
+  ([6bf38fb](https://github.com/empathyco/x/commit/6bf38fb7d14323c84c949e21eaa9c692fb0014d7)),
+  closes [EX-5073](https://searchbroker.atlassian.net/browse/EX-5073)
+
+### Bug Fixes
+
+- **tagging:** now removing the session clears the session from the storage
+  ([9328aad](https://github.com/empathyco/x/commit/9328aadca920825bdaddeb565ee47ef0430f25fd)),
+  closes [EX-5074](https://searchbroker.atlassian.net/browse/EX-5074)
+
+### Build System
+
+- update jest dependencies
+  ([f3fee15](https://github.com/empathyco/x/commit/f3fee157d724292f5cbb7166908d48ef2fb4fe8c)),
+  closes [EX-5027](https://searchbroker.atlassian.net/browse/EX-5027)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.30...@empathyco/x-components@3.0.0-alpha.31) (2021-11-25)
 
 ### Features
