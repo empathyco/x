@@ -161,7 +161,6 @@ describe('testing related tags component', () => {
 });
 
 interface RenderRelatedTagsOptions {
-  shouldHighlightCurated?: boolean;
   /** The initial related tags to render. */
   relatedTags?: RelatedTag[];
   /** The template to render. Receives the `relatedTags` via prop, and has registered the
