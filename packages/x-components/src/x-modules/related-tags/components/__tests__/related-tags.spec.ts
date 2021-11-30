@@ -29,7 +29,7 @@ describe('testing related tags component', () => {
 
     const wrapperTemplate = mount(
       {
-        props: ['relatedTags', 'shouldHighlightCurated'],
+        props: ['relatedTags', 'highlightCurated'],
         components: {
           RelatedTags: RelatedTags
         },
@@ -120,8 +120,8 @@ describe('testing related tags component', () => {
     const { getRelatedTagItems, relatedTags, wrapper } = renderRelatedTags({
       template: `
         <RelatedTags>
-          <template #related-tag="{relatedTag, shouldHighlightCurated}">
-            <button data-test="custom-related-tag" v-if="shouldHighlightCurated">
+          <template #related-tag="{relatedTag, highlightCurated}">
+            <button data-test="custom-related-tag" v-if="highlightCurated">
               {{ relatedTag.tag }}
             </button>
           </template>
@@ -137,7 +137,7 @@ describe('testing related tags component', () => {
       expect(customRelatedTagWrapper.exists()).toEqual(false);
     });
 
-    await wrapper.setProps({ shouldHighlightCurated: true });
+    await wrapper.setProps({ highlightCurated: true });
 
     relatedTagsWrappers.wrappers.forEach((relatedTagItemWrapper, index) => {
       const customRelatedTagWrapper = relatedTagItemWrapper.find(

@@ -15,21 +15,21 @@
       <!--
         @slot Custom content that replaces the RelatedTag component.
         @binding {RelatedTag} relatedTag - Related tag data.
-        @binding {boolean} shouldHighlightCurated - True if the curated RTs should be displayed.
+        @binding {boolean} highlightCurated - True if the curated RTs should be displayed.
        -->
-      <slot name="related-tag" v-bind="{ relatedTag, shouldHighlightCurated }">
-        <RelatedTag :highlightCurated="shouldHighlightCurated" :relatedTag="relatedTag">
-          <template #default="{ relatedTag, isSelected, shouldHighlightCurated }">
+      <slot name="related-tag" v-bind="{ relatedTag, highlightCurated }">
+        <RelatedTag :highlightCurated="highlightCurated" :relatedTag="relatedTag">
+          <template #default="{ relatedTag, isSelected, highlightCurated }">
             <!-- eslint-disable max-len -->
             <!--
               @slot Custom content that replaces the RelatedTag default content.
               @binding {RelatedTag} relatedTag - Related tag data.
               @binding {boolean} isSelected - Related tag status.
-              @binding {boolean} shouldHighlightCurated - True if the curated RTs should be displayed.
+              @binding {boolean} highlightCurated - True if the curated RTs should be displayed.
             -->
             <slot
               name="related-tag-content"
-              v-bind="{ relatedTag, isSelected, shouldHighlightCurated }"
+              v-bind="{ relatedTag, isSelected, highlightCurated }"
             />
           </template>
         </RelatedTag>
@@ -83,7 +83,7 @@
      * @public
      */
     @Prop({ default: false, type: Boolean })
-    protected shouldHighlightCurated!: boolean;
+    protected highlightCurated!: boolean;
 
     @Getter('relatedTags', 'relatedTags')
     public storedRelatedTags!: RelatedTagModel[];
