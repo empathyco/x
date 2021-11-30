@@ -85,7 +85,7 @@
 
     /**
      * When event {@link XEventsTypes.UserReachedEmpathizeTop} or
-     * {@link XEventsTypes.UserPressedClearSearchBoxButton}
+     * {@link SearchBoxXEvents.UserPressedClearSearchBoxButton}
      * are emitted the search in put is focused.
      *
      * @internal
@@ -98,8 +98,8 @@
     protected debouncedUserAcceptedAQuery!: DebouncedFunction<[string]>;
 
     /**
-     * When event {@link XEventsTypes.UserAcceptedAQuery} or {@link XEventsTypes.UserClearedQuery}
-     * are emitted the pending debounced emit
+     * When event {@link XEventsTypes.UserAcceptedAQuery} or
+     * {@link SearchBoxXEvents.UserClearedQuery} are emitted the pending debounced emit
      * {@link XEvent} `UserAcceptedAQuery` is canceled.
      *
      * @internal
