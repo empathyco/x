@@ -9,11 +9,14 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   Result[]
 >({
   fetch({ dispatch, state }, request) {
-    return dispatch('fetchIdentifierResults', {
-      ...request!,
-      // eslint-disable-next-line @typescript-eslint/no-extra-parens
-      ...(state.origin && { origin: state.origin })
-    });
+    const newRequest = request
+      ? {
+          ...request,
+          // eslint-disable-next-line @typescript-eslint/no-extra-parens
+          ...(state.origin && { origin: state.origin })
+        }
+      : null;
+    return dispatch('fetchIdentifierResults', newRequest);
   },
   onSuccess({ commit }, identifierResults) {
     commit('setIdentifierResults', identifierResults);

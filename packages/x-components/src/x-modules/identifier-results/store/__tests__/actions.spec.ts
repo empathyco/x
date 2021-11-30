@@ -30,6 +30,7 @@ describe('testing identifier results module actions', () => {
 
   beforeEach(() => {
     resetIdentifierResultsStateWith(store);
+    jest.clearAllMocks();
   });
 
   describe('fetchIdentifierResults', () => {
@@ -53,9 +54,10 @@ describe('testing identifier results module actions', () => {
   });
 
   describe('fetchAndSaveIdentifierResults', () => {
+    const spiedSearchById = jest.spyOn(adapter, 'searchById');
+
     it('should include the origin in the request', async () => {
       resetIdentifierResultsStateWith(store, { query: 'xc', origin: 'search_box:external' });
-      const spiedSearchById = jest.spyOn(adapter, 'searchById');
       await store.dispatch('fetchAndSaveIdentifierResults', store.getters.identifierResultsRequest);
 
       expect(spiedSearchById).toHaveBeenCalledTimes(1);
@@ -63,7 +65,6 @@ describe('testing identifier results module actions', () => {
         ...store.getters.identifierResultsRequest,
         origin: 'search_box:external'
       });
-      jest.clearAllMocks();
       jest.restoreAllMocks();
     });
 
