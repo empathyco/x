@@ -18,15 +18,13 @@ describe('testing identifier results module getters', () => {
     it('should return a request object if there is a query', () => {
       resetIdentifierResultsStateWith(store, {
         query: 'shin chan',
-        params: { store: 'es' },
-        origin: 'search_box:external'
+        params: { store: 'es' }
       });
 
       expect(store.getters[gettersKeys.identifierResultsRequest]).toEqual({
         query: 'shin chan',
         rows: 10,
         start: 0,
-        origin: 'search_box:external',
         store: 'es'
       });
     });

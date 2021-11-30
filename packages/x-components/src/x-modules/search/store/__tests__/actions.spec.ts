@@ -37,6 +37,7 @@ describe('testing search module actions', () => {
 
   beforeEach(() => {
     resetSearchStateWith(store);
+    jest.clearAllMocks();
   });
 
   describe('fetchSearchResponse', () => {
@@ -56,6 +57,17 @@ describe('testing search module actions', () => {
   });
 
   describe('fetchAndSaveSearchResponse', () => {
+    it('should include the origin in the request', async () => {
+      resetSearchStateWith(store, { query: 'lego', origin: 'search_box:external' });
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
+
+      expect(adapter.search).toHaveBeenCalledTimes(1);
+      expect(adapter.search).toHaveBeenCalledWith({
+        ...store.getters.request,
+        origin: 'search_box:external'
+      });
+    });
+
     // eslint-disable-next-line max-len
     it('should request and store results, facets, banners, promoteds, redirections and query tagging in the state', async () => {
       resetSearchStateWith(store, {
@@ -144,8 +156,7 @@ describe('testing search module actions', () => {
       resetSearchStateWith(store, {
         spellcheckedQuery: 'coche'
       });
-      const actionPromise = store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
-      await actionPromise;
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
       expect(store.state.spellcheckedQuery).toBe('');
     });
 

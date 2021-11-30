@@ -7,7 +7,11 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   SearchRequest | null,
   SearchResponse
 >({
-  fetch({ dispatch }, request) {
+  fetch({ dispatch, state: { origin } }, request) {
+    if (request && origin) {
+      request.origin = origin;
+    }
+
     return dispatch('fetchSearchResponse', request);
   },
   onSuccess(

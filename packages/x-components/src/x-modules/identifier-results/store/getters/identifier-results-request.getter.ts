@@ -10,15 +10,13 @@ import { IdentifierResultsXStoreModule } from '../types';
  */
 // eslint-disable-next-line max-len
 export const identifierResultsRequest: IdentifierResultsXStoreModule['getters']['identifierResultsRequest'] =
-  ({ config, origin, query, params }) => {
-    const newOrigin = origin === null ? undefined : origin;
+  ({ config, query, params }) => {
     return query.trim()
       ? {
           query,
           ...params,
           rows: config.maxItemsToRequest,
-          start: 0,
-          origin: newOrigin
+          start: 0
         }
       : null;
   };
