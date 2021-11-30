@@ -57,18 +57,15 @@ describe('testing search module actions', () => {
   });
 
   describe('fetchAndSaveSearchResponse', () => {
-    const spiedSearch = jest.spyOn(adapter, 'search');
-
     it('should include the origin in the request', async () => {
       resetSearchStateWith(store, { query: 'lego', origin: 'search_box:external' });
       await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
 
-      expect(spiedSearch).toHaveBeenCalledTimes(1);
-      expect(spiedSearch).toHaveBeenCalledWith({
+      expect(adapter.search).toHaveBeenCalledTimes(1);
+      expect(adapter.search).toHaveBeenCalledWith({
         ...store.getters.request,
         origin: 'search_box:external'
       });
-      jest.restoreAllMocks();
     });
 
     // eslint-disable-next-line max-len
