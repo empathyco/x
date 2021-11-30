@@ -19,7 +19,7 @@
        -->
       <slot name="related-tag" v-bind="{ relatedTag, highlightCurated }">
         <RelatedTag :highlightCurated="highlightCurated" :relatedTag="relatedTag">
-          <template #default="{ relatedTag, isSelected, highlightCurated }">
+          <template #default="{ relatedTag, isSelected, shouldHighlightCurated }">
             <!-- eslint-disable max-len -->
             <!--
               @slot Custom content that replaces the RelatedTag default content.
@@ -29,7 +29,7 @@
             -->
             <slot
               name="related-tag-content"
-              v-bind="{ relatedTag, isSelected, highlightCurated }"
+              v-bind="{ relatedTag, isSelected, shouldHighlightCurated }"
             />
           </template>
         </RelatedTag>

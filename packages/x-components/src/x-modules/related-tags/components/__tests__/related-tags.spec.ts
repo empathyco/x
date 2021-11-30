@@ -82,10 +82,15 @@ describe('testing related tags component', () => {
   });
 
   it('allows changing the content of each related tag', async () => {
-    const { relatedTags, clickNthRelatedTag, getRelatedTagItems } = renderRelatedTags({
+    const { relatedTags, clickNthRelatedTag, getRelatedTagItems, wrapper } = renderRelatedTags({
       template: `
         <RelatedTags>
-          <template #related-tag-content="{relatedTag, isSelected }">
+          <template #related-tag-content="{relatedTag, isSelected, shouldHighlightCurated }">
+            <img 
+              data-test="related-tag-chevron"
+              src="./chevron-icon.svg"
+              v-if="shouldHighlightCurated"
+            />
             <span data-test="related-tag-label">{{ relatedTag.tag }}</span>
             <img data-test="related-tag-cross" src="./cross-icon.svg" v-if="isSelected"/>
           </template>
@@ -98,8 +103,10 @@ describe('testing related tags component', () => {
     ): void {
       const labelWrapper = relatedTagItemWrapper.find(getDataTestSelector('related-tag-label'));
       const crossWrapper = relatedTagItemWrapper.find(getDataTestSelector('related-tag-cross'));
+      const chevronWrapper = relatedTagItemWrapper.find(getDataTestSelector('related-tag-chevron'));
       expect(labelWrapper.text()).toEqual(relatedTags[index].tag);
       expect(crossWrapper.exists()).toEqual(false);
+      expect(chevronWrapper.exists()).toEqual(false);
     }
 
     let relatedTagsWrappers = getRelatedTagItems();
@@ -114,6 +121,17 @@ describe('testing related tags component', () => {
     expect(labelWrapper.text()).toEqual(relatedTags[relatedTags.length - 1].tag);
     expect(crossWrapper.exists()).toEqual(true);
     unSelectedWrappers.forEach(expectToHaveOverriddenContent);
+
+    for (let i = 0; i < relatedTags.length; i++) {
+      relatedTags[i].isCurated = true;
+    }
+    await wrapper.setProps({ highlightCurated: true });
+    relatedTagsWrappers = getRelatedTagItems();
+
+    relatedTagsWrappers.wrappers.forEach(relatedTagItemWrapper => {
+      const chevron = relatedTagItemWrapper.find(getDataTestSelector('related-tag-chevron'));
+      expect(chevron.exists()).toEqual(true);
+    });
   });
 
   it('allows changing the whole component for each related tag', async () => {
