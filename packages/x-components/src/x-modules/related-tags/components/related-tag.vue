@@ -9,7 +9,7 @@
       @slot Custom content that replaces the RelatedTag default content.
       @binding {RelatedTag} relatedTag - Related tag data.
       @binding {boolean} isSelected - Related tag status.
-      @binding {boolean} shouldHighlightCurated - Related tag type.
+      @binding {boolean} shouldHighlightCurated - True if the curated RTs should be displayed.
       -->
     <slot v-bind="{ relatedTag, isSelected, shouldHighlightCurated }">{{ relatedTag.tag }}</slot>
   </button>

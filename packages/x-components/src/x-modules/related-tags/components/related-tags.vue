@@ -15,16 +15,17 @@
       <!--
         @slot Custom content that replaces the RelatedTag component.
         @binding {RelatedTag} relatedTag - Related tag data.
-        @binding {Boolean} shouldHighlightCurated - Related tags flag.
+        @binding {boolean} shouldHighlightCurated - True if the curated RTs should be displayed.
        -->
       <slot name="related-tag" v-bind="{ relatedTag, shouldHighlightCurated }">
         <RelatedTag :highlightCurated="shouldHighlightCurated" :relatedTag="relatedTag">
           <template #default="{ relatedTag, isSelected, shouldHighlightCurated }">
+            <!-- eslint-disable max-len -->
             <!--
               @slot Custom content that replaces the RelatedTag default content.
               @binding {RelatedTag} relatedTag - Related tag data.
               @binding {boolean} isSelected - Related tag status.
-              @binding {Boolean} shouldHighlightCurated - Related tags flag.
+              @binding {boolean} shouldHighlightCurated - True if the curated RTs should be displayed.
             -->
             <slot
               name="related-tag-content"

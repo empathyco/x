@@ -29,7 +29,7 @@ describe('testing related tags component', () => {
 
     const wrapperTemplate = mount(
       {
-        props: ['relatedTags'],
+        props: ['relatedTags', 'shouldHighlightCurated'],
         components: {
           RelatedTags: RelatedTags
         },
@@ -116,12 +116,12 @@ describe('testing related tags component', () => {
     unSelectedWrappers.forEach(expectToHaveOverriddenContent);
   });
 
-  it('allows changing the whole component for each related tag', () => {
-    const { getRelatedTagItems, relatedTags } = renderRelatedTags({
+  it('allows changing the whole component for each related tag', async () => {
+    const { getRelatedTagItems, relatedTags, wrapper } = renderRelatedTags({
       template: `
         <RelatedTags>
-          <template #related-tag="{relatedTag}">
-            <button data-test="custom-related-tag">
+          <template #related-tag="{relatedTag, shouldHighlightCurated}">
+            <button data-test="custom-related-tag" v-if="shouldHighlightCurated">
               {{ relatedTag.tag }}
             </button>
           </template>
@@ -129,6 +129,15 @@ describe('testing related tags component', () => {
     });
 
     const relatedTagsWrappers = getRelatedTagItems();
+
+    relatedTagsWrappers.wrappers.forEach(relatedTagItemWrapper => {
+      const customRelatedTagWrapper = relatedTagItemWrapper.find(
+        getDataTestSelector('custom-related-tag')
+      );
+      expect(customRelatedTagWrapper.exists()).toEqual(false);
+    });
+
+    await wrapper.setProps({ shouldHighlightCurated: true });
 
     relatedTagsWrappers.wrappers.forEach((relatedTagItemWrapper, index) => {
       const customRelatedTagWrapper = relatedTagItemWrapper.find(
@@ -152,6 +161,7 @@ describe('testing related tags component', () => {
 });
 
 interface RenderRelatedTagsOptions {
+  shouldHighlightCurated?: boolean;
   /** The initial related tags to render. */
   relatedTags?: RelatedTag[];
   /** The template to render. Receives the `relatedTags` via prop, and has registered the
