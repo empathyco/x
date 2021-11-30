@@ -176,7 +176,7 @@ describe('testing search input component', () => {
     }
   );
 
-  it('focus the input when UserPressedClearSearchBoxButton was emitted', () => {
+  it('focus the input when UserPressedClearSearchBoxButton event is emitted', () => {
     input.blur();
     expect(input).not.toBe(document.activeElement);
     mockedSearchInput.vm.$x.emit('UserPressedClearSearchBoxButton');
