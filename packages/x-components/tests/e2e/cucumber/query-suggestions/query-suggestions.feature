@@ -32,7 +32,6 @@ Feature: Query-suggestions component
     And   the searched query is displayed in the search-box
     Then  all query suggestions contain the searched query
     When  clear search button is pressed
-    And   search-input is focused
     Then  the searched query is displayed in history queries
 
     Examples:
