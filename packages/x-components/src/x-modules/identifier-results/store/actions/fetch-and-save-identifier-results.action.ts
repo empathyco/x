@@ -1,7 +1,5 @@
 import { Result } from '@empathyco/x-types';
 import { SearchByIdRequest } from '@empathyco/x-adapter';
-
-// eslint-disable-next-line max-len
 import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
 import { IdentifierResultsActionsContext } from '../types';
 
@@ -10,8 +8,12 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   SearchByIdRequest | null,
   Result[]
 >({
-  fetch({ dispatch }, request) {
-    return dispatch('fetchIdentifierResults', request);
+  fetch({ dispatch, state }, request) {
+    return dispatch('fetchIdentifierResults', {
+      ...request!,
+      // eslint-disable-next-line @typescript-eslint/no-extra-parens
+      ...(state.origin && { origin: state.origin })
+    });
   },
   onSuccess({ commit }, identifierResults) {
     commit('setIdentifierResults', identifierResults);

@@ -7,8 +7,12 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   SearchRequest | null,
   SearchResponse
 >({
-  fetch({ dispatch }, request) {
-    return dispatch('fetchSearchResponse', request);
+  fetch({ dispatch, state }, request) {
+    return dispatch('fetchSearchResponse', {
+      ...request!,
+      // eslint-disable-next-line @typescript-eslint/no-extra-parens
+      ...(state.origin && { origin: state.origin })
+    });
   },
   onSuccess(
     { commit, state },

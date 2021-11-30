@@ -56,6 +56,20 @@ describe('testing search module actions', () => {
   });
 
   describe('fetchAndSaveSearchResponse', () => {
+    it('should include the origin in the request', async () => {
+      resetSearchStateWith(store, { query: 'lego', origin: 'search_box:external' });
+      const spiedSearch = jest.spyOn(adapter, 'search');
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
+
+      expect(spiedSearch).toHaveBeenCalledTimes(1);
+      expect(spiedSearch).toHaveBeenCalledWith({
+        ...store.getters.request,
+        origin: 'search_box:external'
+      });
+      jest.clearAllMocks();
+      jest.restoreAllMocks();
+    });
+
     // eslint-disable-next-line max-len
     it('should request and store results, facets, banners, promoteds, redirections and query tagging in the state', async () => {
       resetSearchStateWith(store, {
