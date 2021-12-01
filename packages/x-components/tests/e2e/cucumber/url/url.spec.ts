@@ -5,6 +5,10 @@ Given('a URL with query parameter {string}', (query: string) => {
   cy.visit(`/?useMockedAdapter=true&q=${query}`);
 });
 
+And('waiting for search request intercept with new origin', () => {
+  cy.intercept('https://api.empathy.co/search').as('requestWithOrigin');
+});
+
 Then('the search request contains the origin {string}', (origin: string) => {
   cy.wait('@requestWithOrigin')
     .its('request.body')
@@ -12,13 +16,9 @@ Then('the search request contains the origin {string}', (origin: string) => {
     .should('have.property', 'origin', origin);
 });
 
+// Scenario 2
 Then('navigate back', () => {
   cy.go(-1);
-});
-
-// Scenario 2
-And('waiting for search request intercept with new origin', () => {
-  cy.intercept('https://api.empathy.co/search').as('requestWithOrigin');
 });
 
 // Scenario 3

@@ -8,10 +8,12 @@
   import { Component, Inject } from 'vue-property-decorator';
   import { XOn } from '../../../components/decorators/bus.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { FeatureLocation, QueryOriginInit } from '../../../types/origin';
+  import { FeatureLocation } from '../../../types/origin';
   import { UrlParams } from '../../../types/url-params';
+  import { isArrayEmpty } from '../../../utils/array';
   import { objectFilter } from '../../../utils/object';
   import { Dictionary } from '../../../utils/types';
+  import { WireMetadata } from '../../../wiring/wiring.types';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { initialUrlState } from '../store/initial-state';
   import { UrlParamValue } from '../store/types';
@@ -37,7 +39,8 @@
   })
   export default class UrlHandler extends Vue {
     @Inject()
-    protected snippetConfig!: SnippetConfig;
+    protected snippetConfig?: SnippetConfig;
+
     /**
      * Computed to know which params we must get from URL. It gets the params names from the initial
      * state, to get all default params names, and also from the `$attrs` to get the extra params
@@ -76,7 +79,7 @@
      *
      * @internal
      */
-    protected url?: URL = undefined;
+    protected url?: URL;
 
     /**
      * To emit the Url events just when the URL is load, and before the components mounted events
@@ -116,7 +119,7 @@
      */
     protected emitEvents(): void {
       const { all, extra } = this.parseUrlParams();
-      const metadata = { ...this.createOrigin() };
+      const metadata = this.createWireMetadata();
       this.$x.emit('ParamsLoadedFromUrl', all, metadata);
       this.$x.emit('ExtraParamsLoadedFromUrl', extra, metadata);
       // TODO: Move this logic from here.
@@ -127,44 +130,77 @@
     }
 
     /**
-     * Creates the origin for the emitted {@link XEvent | XEvents}.
+     * Creates the wire metadata to include in every emitted {@link XEvent | XEvents}.
      *
-     * @returns The metadata.
+     * @returns The {@link WireMetadata | metadata}.
      * @internal
      */
-    protected createOrigin(): QueryOriginInit {
+    protected createWireMetadata(): Pick<WireMetadata, 'feature' | 'location'> {
       return {
         feature: 'url',
-        location: this.location()
+        location: this.detectLocation()
       };
     }
 
     /**
-     * Retrieves the {@link FeatureLocation | location} used to build the
+     * Detects the {@link FeatureLocation | location} used to build the
      * {@link QueryOriginInit | events metadata origin}.
      *
-     * @returns The location.
+     * @returns The {@link FeatureLocation | location}.
      * @internal
      */
-    protected location(): FeatureLocation {
+    protected detectLocation(): FeatureLocation {
       const currentUrl = new URL(window.location.href);
-      const navigationType = (
-        window.performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming
-      )?.type;
-      const isInternalNavigation =
-        this.url?.search !== currentUrl.search && this.url?.pathname === currentUrl.pathname;
-      const isNavigatingInSPA = !!this.snippetConfig.isSPA && navigationType === 'navigate';
-      const isNavigatingFromPDP = navigationType === 'back_forward' || isNavigatingInSPA;
-
+      const previousUrl = this.url;
       this.url = currentUrl;
 
+      const isInternalNavigation =
+        previousUrl?.search !== currentUrl.search && previousUrl?.pathname === currentUrl.pathname;
       if (isInternalNavigation) {
         return 'url_history';
-      } else if (isNavigatingFromPDP) {
+      }
+
+      const isNavigatingFromPDP = this.isNavigatingFromPdp();
+      if (isNavigatingFromPDP) {
         return 'url_history_pdp';
       }
 
       return 'external';
+    }
+
+    /**
+     * Check if the navigation is from a product page.
+     *
+     * @remarks Due to Safari 14 not supporting the new and standard PerformanceNavigationTiming
+     * API, we are falling back to the deprecated one, PerformanceNavigation. We also fallback to
+     * this API whenever we get a navigationType equal to reload, because Safari has a bug that the
+     * navigationType is permanently set to reload after you have reload the page and it never
+     * resets.
+     *
+     * @returns True if the navigation is from a product page, false otherwise.
+     * @internal
+     */
+    protected isNavigatingFromPdp(): boolean {
+      const navigationEntries = window.performance.getEntriesByType('navigation');
+      const navigationType = (navigationEntries[0] as PerformanceNavigationTiming)?.type;
+      const useFallbackStrategy =
+        window.performance.navigation &&
+        (isArrayEmpty(navigationEntries) || navigationType === 'reload');
+
+      if (useFallbackStrategy) {
+        const {
+          type: fallbackNavigationType,
+          TYPE_BACK_FORWARD,
+          TYPE_NAVIGATE
+        } = window.performance.navigation;
+        const isNavigatingInSPA =
+          this.snippetConfig?.isSPA === false && fallbackNavigationType === TYPE_NAVIGATE;
+        return fallbackNavigationType === TYPE_BACK_FORWARD || isNavigatingInSPA;
+      } else {
+        const isNavigatingInSPA =
+          this.snippetConfig?.isSPA === false && navigationType === 'navigate';
+        return navigationType === 'back_forward' || isNavigatingInSPA;
+      }
     }
 
     /**
@@ -173,7 +209,6 @@
      * @returns ParsedUrlParams obtained from URL.
      * @internal
      */
-
     protected parseUrlParams(): ParsedUrlParams {
       const urlSearchParams = new URL(window.location.href).searchParams;
       return this.managedParamsNames.reduce<ParsedUrlParams>(
