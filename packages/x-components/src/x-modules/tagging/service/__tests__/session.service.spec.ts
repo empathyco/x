@@ -1,46 +1,37 @@
+import { InMemoryStorageService } from '@empathyco/x-storage-service';
 import { DefaultSessionService } from '../session.service';
-import { MockedStorageService } from './utils/mock-storage.service';
 
 describe('testing session id service', () => {
-  const prefix = 'test';
-  const mockedStorageService = new MockedStorageService(prefix);
+  const mockedStorageService = new InMemoryStorageService();
   const sessionService = new DefaultSessionService(mockedStorageService, 1);
+  const storageKey = DefaultSessionService.SESSION_ID_KEY;
+
+  const getItemSpy = jest.spyOn(mockedStorageService, 'getItem');
+  const setItemSpy = jest.spyOn(mockedStorageService, 'setItem');
+  const removeItemSpy = jest.spyOn(mockedStorageService, 'removeItem');
 
   beforeEach(() => {
     jest.clearAllMocks();
+    mockedStorageService.clear();
   });
 
   it('creates a new session id when calling getSessionId and a session does not exist', () => {
     const session = sessionService.getSessionId();
-    expect(mockedStorageService.getPrefix()).toBe(prefix);
-    expect(mockedStorageService.getSessionIdSpy).toHaveBeenCalledTimes(1);
-    expect(mockedStorageService.setSessionIdSpy).toHaveBeenCalledTimes(1);
-    expect(mockedStorageService.setSessionIdSpy).toHaveBeenCalledWith(
-      'session-id',
-      expect.any(String),
-      expect.any(Number)
-    );
-    expect(session).toHaveLength(21);
+    expect(getItemSpy).toHaveBeenCalledTimes(1);
+    expect(setItemSpy).toHaveBeenCalledTimes(1);
+    expect(setItemSpy).toHaveBeenCalledWith(storageKey, expect.any(String), expect.any(Number));
     expect(session).toMatch(/[A-Za-z0-9_-]/);
-  });
-
-  it('returns an existing session id', () => {
-    mockedStorageService.mockSessionIdValue('abcd-1234');
-    const session = sessionService.getSessionId();
-    expect(mockedStorageService.getPrefix()).toBe(prefix);
-    expect(mockedStorageService.getSessionIdSpy).toHaveBeenCalledTimes(1);
-    expect(mockedStorageService.setSessionIdSpy).toHaveBeenCalledTimes(1);
-    expect(mockedStorageService.setSessionIdSpy).toHaveBeenCalledWith(
-      'session-id',
-      'abcd-1234',
-      expect.any(Number)
-    );
-    expect(session).toBe('abcd-1234');
   });
 
   it('removes an existing session id', () => {
     sessionService.clearSessionId();
-    expect(mockedStorageService.getPrefix()).toBe(prefix);
-    expect(mockedStorageService.removeSessionIdSpy).toHaveBeenCalledTimes(1);
+    expect(removeItemSpy).toHaveBeenCalledTimes(1);
+    expect(removeItemSpy).toHaveBeenCalledWith(storageKey);
+  });
+
+  it('returns an existing session id', () => {
+    const session1 = sessionService.getSessionId();
+    const session2 = sessionService.getSessionId();
+    expect(session1).toEqual(session2);
   });
 });

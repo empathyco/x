@@ -184,6 +184,7 @@ export const searchWiring = createWiring({
     setSort
   },
   UserPickedARelatedTag: {
+    saveOriginWire,
     resetPage
   },
   UserChangedExtraParams: {
@@ -198,8 +199,7 @@ export const searchWiring = createWiring({
     fetchAndSaveSearchResponseWire
   },
   SelectedRelatedTagsChanged: {
-    setRelatedTags,
-    saveOriginWire
+    setRelatedTags
   },
   SelectedFiltersChanged: {
     setSelectedFilters

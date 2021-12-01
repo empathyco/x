@@ -58,6 +58,7 @@ export type FeatureLocation =
   | 'external'
   | 'no_query'
   | 'no_results'
+  | 'none'
   | 'predictive_layer'
   | 'results'
   | 'pdp'

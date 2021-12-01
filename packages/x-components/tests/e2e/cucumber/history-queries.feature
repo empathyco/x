@@ -81,7 +81,6 @@ Feature: History queries component
     When  search-input is focused
     And   history query number <historyQueryItem> is clicked
     And   clear search button is pressed
-    And   search-input is focused
     Then  the searched query is removed from <historyQueryItem> position in history queries
     And   the searched query is the first item in history queries
     And   displayed history queries are min of number of queries already searched, max requested items <maxItemsToStore>, max rendered items <maxItemsToRender>

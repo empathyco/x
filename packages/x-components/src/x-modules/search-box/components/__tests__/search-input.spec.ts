@@ -15,7 +15,15 @@ function mountNewSearchInput(overrideProps: Partial<SearchInputProps> = {}): Tes
   installNewXPlugin({ store }, localVue);
   resetXSearchBoxStateWith(store);
 
+  const parent = document.createElement('div');
+  document.body.appendChild(parent);
+
   const wrapper = mount(SearchInput, {
+    /*
+     * In order to make the autofocus test work after the jest 27 update, now is mandatory to
+     * attach the element to some parent in the DOM, to emit the focus event.
+     */
+    attachTo: parent,
     store,
     localVue,
     propsData: overrideProps
@@ -167,4 +175,11 @@ describe('testing search input component', () => {
       });
     }
   );
+
+  it('focus the input when UserPressedClearSearchBoxButton event is emitted', () => {
+    input.blur();
+    expect(input).not.toBe(document.activeElement);
+    mockedSearchInput.vm.$x.emit('UserPressedClearSearchBoxButton');
+    expect(input).toBe(document.activeElement);
+  });
 });

@@ -6,6 +6,13 @@
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { taggingXModule } from '../x-module';
 
+  /**
+   * This component enables and manages the sending of information to the
+   * {@link https://empathy.co/docs/tagging-api/ | Empathy Tagging API}. It allows to enable or
+   * disable the session id management through the `consent` prop.
+   *
+   * @public
+   */
   @Component({
     mixins: [xComponentMixin(taggingXModule)]
   })

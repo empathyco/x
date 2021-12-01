@@ -7,7 +7,11 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   SearchRequest | null,
   SearchResponse
 >({
-  fetch({ dispatch }, request) {
+  fetch({ dispatch, state: { origin } }, request) {
+    if (request && origin) {
+      request.origin = origin;
+    }
+
     return dispatch('fetchSearchResponse', request);
   },
   onSuccess(
@@ -39,7 +43,9 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
       commit('setFacets', facets);
     }
 
-    commit('setQueryTagging', queryTagging);
+    if (queryTagging) {
+      commit('setQueryTagging', queryTagging);
+    }
     commit('setTotalResults', totalResults);
     commit('setSpellcheck', spellcheck ?? '');
   }

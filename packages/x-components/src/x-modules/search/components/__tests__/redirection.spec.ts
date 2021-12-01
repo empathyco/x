@@ -153,7 +153,7 @@ describe('testing Redirection component', () => {
 
     wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
     // The delay 0 runs so fast the we need to force the test to simulate a wait.
-    jest.runTimersToTime(1);
+    jest.advanceTimersByTime(1);
 
     expect(onUserClickedARedirection).toHaveBeenCalledTimes(1);
     expect(onUserClickedARedirection).toHaveBeenCalledWith<[WirePayload<RedirectionModel>]>({
