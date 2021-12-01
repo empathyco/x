@@ -194,11 +194,10 @@
           TYPE_NAVIGATE
         } = window.performance.navigation;
         const isNavigatingInSPA =
-          this.snippetConfig?.isSPA === false && fallbackNavigationType === TYPE_NAVIGATE;
+          !!this.snippetConfig?.isSPA && fallbackNavigationType === TYPE_NAVIGATE;
         return fallbackNavigationType === TYPE_BACK_FORWARD || isNavigatingInSPA;
       } else {
-        const isNavigatingInSPA =
-          this.snippetConfig?.isSPA === false && navigationType === 'navigate';
+        const isNavigatingInSPA = !!this.snippetConfig?.isSPA && navigationType === 'navigate';
         return navigationType === 'back_forward' || isNavigatingInSPA;
       }
     }
