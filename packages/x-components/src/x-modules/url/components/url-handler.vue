@@ -1,5 +1,5 @@
 <template>
-  <GlobalEvents @popstate="emitEvents" target="window" />
+  <GlobalEvents @pageshow="onPageShow" @popstate="emitEvents" target="window" />
 </template>
 
 <script lang="ts">
@@ -38,8 +38,34 @@
     mixins: [xComponentMixin(urlXModule)]
   })
   export default class UrlHandler extends Vue {
+    /**
+     * The {@link SnippetConfig} provided by an ancestor.
+     *
+     * @internal
+     */
     @Inject()
     protected snippetConfig?: SnippetConfig;
+
+    /**
+     * Flag to know if the params were already loaded from the URL.
+     *
+     * @internal
+     */
+    protected urlLoaded = false;
+
+    /**
+     * The page URL. It is used to compare against the current URL to check navigation state.
+     *
+     * @internal
+     */
+    protected url?: URL;
+
+    /**
+     * Flag to know if the page has been persisted by the browser's back-forward cache.
+     *
+     * @internal
+     */
+    protected isPagePersisted = false;
 
     /**
      * Computed to know which params we must get from URL. It gets the params names from the initial
@@ -68,20 +94,6 @@
     }
 
     /**
-     * Flag to know if the params were already loaded from the URL.
-     *
-     * @internal
-     */
-    protected urlLoaded = false;
-
-    /**
-     * The current URL.
-     *
-     * @internal
-     */
-    protected url?: URL;
-
-    /**
      * To emit the Url events just when the URL is load, and before the components mounted events
      * and state changes, we do it in the created of this component.
      */
@@ -108,6 +120,25 @@
     @XOn('ReplaceableUrlStateChanged')
     updateUrlWithReplace(newUrlParams: UrlParams): void {
       this.updateUrl(newUrlParams, window.history.replaceState.bind(window.history));
+    }
+
+    /**
+     * Handler of the pageshow {@link PageTransitionEvent}.
+     *
+     * @remarks The pageshow event is listened to check if the browser has performed a navigation
+     * using the back-forward cache. This information is available in the
+     * {@link PageTransitionEvent.persisted | persisted} property.
+     *
+     * @param event - The {@link PageTransitionEvent}.
+     * @internal
+     */
+    protected onPageShow(event: PageTransitionEvent): void {
+      this.isPagePersisted = event.persisted;
+      if (event.persisted) {
+        // The internal url is reset due to the back-forward cache storing the previous value which
+        // is no longer valid.
+        this.url = undefined;
+      }
     }
 
     /**
@@ -175,17 +206,22 @@
      * API, we are falling back to the deprecated one, PerformanceNavigation. We also fallback to
      * this API whenever we get a navigationType equal to reload, because Safari has a bug that the
      * navigationType is permanently set to reload after you have reload the page and it never
-     * resets.
+     * resets. As some browsers have a back-forward cache implemented, we also take into account if
+     * the page is persisted.
      *
      * @returns True if the navigation is from a product page, false otherwise.
      * @internal
      */
     protected isNavigatingFromPdp(): boolean {
+      const isPagePersisted = this.isPagePersisted;
       const navigationEntries = window.performance.getEntriesByType('navigation');
       const navigationType = (navigationEntries[0] as PerformanceNavigationTiming)?.type;
       const useFallbackStrategy =
         window.performance.navigation &&
         (isArrayEmpty(navigationEntries) || navigationType === 'reload');
+
+      // Reset internal isPagePersisted property value
+      this.isPagePersisted = false;
 
       if (useFallbackStrategy) {
         const {
@@ -195,10 +231,10 @@
         } = window.performance.navigation;
         const isNavigatingInSPA =
           !!this.snippetConfig?.isSPA && fallbackNavigationType === TYPE_NAVIGATE;
-        return fallbackNavigationType === TYPE_BACK_FORWARD || isNavigatingInSPA;
+        return fallbackNavigationType === TYPE_BACK_FORWARD || isNavigatingInSPA || isPagePersisted;
       } else {
         const isNavigatingInSPA = !!this.snippetConfig?.isSPA && navigationType === 'navigate';
-        return navigationType === 'back_forward' || isNavigatingInSPA;
+        return navigationType === 'back_forward' || isNavigatingInSPA || isPagePersisted;
       }
     }
 
