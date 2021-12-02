@@ -83,7 +83,7 @@ export interface SnippetConfig {
   /** Callbacks to be triggered when an XEvent is emitted. */
   callbacks?: XEventListeners;
   /** Flag determining if the page is a single page application or not. */
-  isSPA?: boolean;
+  isSpa?: boolean;
   /** Any extra param to send in all backend calls. */
   [extra: string]: any;
 }

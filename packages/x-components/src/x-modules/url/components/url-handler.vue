@@ -43,7 +43,7 @@
      *
      * @internal
      */
-    @Inject()
+    @Inject({ default: undefined })
     protected snippetConfig?: SnippetConfig;
 
     /**
@@ -193,8 +193,7 @@
         return 'url_history';
       }
 
-      const isNavigatingFromPDP = this.isNavigatingFromPdp();
-      if (isNavigatingFromPDP) {
+      if (this.isNavigatingFromPdp()) {
         return 'url_history_pdp';
       }
 
@@ -231,12 +230,12 @@
           TYPE_BACK_FORWARD,
           TYPE_NAVIGATE
         } = window.performance.navigation;
-        const isNavigatingInSPA =
-          !!this.snippetConfig?.isSPA && fallbackNavigationType === TYPE_NAVIGATE;
-        return fallbackNavigationType === TYPE_BACK_FORWARD || isNavigatingInSPA || isPagePersisted;
+        const isNavigatingInSpa =
+          !!this.snippetConfig?.isSpa && fallbackNavigationType === TYPE_NAVIGATE;
+        return fallbackNavigationType === TYPE_BACK_FORWARD || isNavigatingInSpa || isPagePersisted;
       } else {
-        const isNavigatingInSPA = !!this.snippetConfig?.isSPA && navigationType === 'navigate';
-        return navigationType === 'back_forward' || isNavigatingInSPA || isPagePersisted;
+        const isNavigatingInSpa = !!this.snippetConfig?.isSpa && navigationType === 'navigate';
+        return navigationType === 'back_forward' || isNavigatingInSpa || isPagePersisted;
       }
     }
 
