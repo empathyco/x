@@ -123,13 +123,15 @@
     }
 
     /**
-     * Handler of the pageshow {@link PageTransitionEvent}.
+     * Handler of the
+     * {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/pageshow_event | pageshow }
+     * event.
      *
      * @remarks The pageshow event is listened to check if the browser has performed a navigation
      * using the back-forward cache. This information is available in the
-     * {@link PageTransitionEvent.persisted | persisted} property.
+     * PageTransitionEvent.persisted property.
      *
-     * @param event - The {@link PageTransitionEvent}.
+     * @param event - The page transition event.
      * @internal
      */
     protected onPageShow(event: PageTransitionEvent): void {
