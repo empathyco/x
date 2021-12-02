@@ -26,10 +26,9 @@
    * Component to be reused that renders an `<a>` wrapping the result contents.
    *
    * @remarks
-   * It has the logic to emit {@link XEventsTypes.UserClickedAResult} and
-   * {@link XEventsTypes.UserRightClickedAResult} to the bus on click mouse events.
-   * Additionally, this component may be injected other events to be emitted on click event, so,
-   * depending where it's used its father component may provide this events.
+   * It has the logic to emit {@link XEventsTypes.UserClickedAResult} to the bus on click mouse
+   * events. Additionally, this component may be injected other events to be emitted on click
+   * event, so, depending where it's used its father component may provide this events.
    *
    * @public
    */
