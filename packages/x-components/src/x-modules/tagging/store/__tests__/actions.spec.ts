@@ -73,13 +73,6 @@ describe('testing tagging module actions', () => {
     it(`doesn't track is the tagging is undefined`, async () => {
       await store.dispatch('track', undefined!);
       expect(adapter.track).not.toHaveBeenCalled();
-      await store.dispatch('track', {} as TaggingInfo);
-      expect(adapter.track).not.toHaveBeenCalled();
-      await store.dispatch('track', { url: '', params: undefined! } as TaggingInfo);
-      expect(adapter.track).not.toHaveBeenCalled();
-      await store.dispatch('track', { url: undefined!, params: {} } as TaggingInfo);
-      expect(adapter.track).not.toHaveBeenCalled();
     });
   });
-  /* eslint-enable @typescript-eslint/unbound-method */
 });
