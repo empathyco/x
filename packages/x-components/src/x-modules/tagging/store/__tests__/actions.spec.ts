@@ -69,6 +69,17 @@ describe('testing tagging module actions', () => {
       expect(adapter.track).toHaveBeenNthCalledWith(2, queryTagging);
       expect(adapter.track).toHaveBeenNthCalledWith(3, queryTagging);
     });
+
+    it(`doesn't track is the tagging is undefined`, async () => {
+      await store.dispatch('track', undefined!);
+      expect(adapter.track).not.toHaveBeenCalled();
+      await store.dispatch('track', {} as TaggingInfo);
+      expect(adapter.track).not.toHaveBeenCalled();
+      await store.dispatch('track', { url: '', params: undefined! } as TaggingInfo);
+      expect(adapter.track).not.toHaveBeenCalled();
+      await store.dispatch('track', { url: undefined!, params: {} } as TaggingInfo);
+      expect(adapter.track).not.toHaveBeenCalled();
+    });
   });
   /* eslint-enable @typescript-eslint/unbound-method */
 });

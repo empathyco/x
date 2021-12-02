@@ -19,14 +19,17 @@ export const track: TaggingXStoreModule['actions']['track'] = ({ state }, taggin
   // TODO EX-5061 - Remove this validation when the adapter ignores undefined values.
   const session = sessionId && { session: sessionId };
 
-  tagging.forEach(({ url, params }: TaggingInfo) => {
-    XPlugin.adapter.track({
-      url,
-      params: {
-        ...params,
-        ...session
-      }
-    });
+  tagging.forEach(tagging => {
+    const { url, params }: TaggingInfo = tagging ?? {};
+    if (tagging && url && params) {
+      XPlugin.adapter.track({
+        url,
+        params: {
+          ...params,
+          ...session
+        }
+      });
+    }
   });
 };
 
