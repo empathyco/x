@@ -90,7 +90,7 @@ export const trackQueryWire = moduleDebounce(
  */
 export const trackResultClickedWire = mapWire(
   wireDispatch('track'),
-  ({ tagging }: Result) => tagging.wishlist!
+  ({ tagging }: Result) => tagging.click!
 );
 
 /**
