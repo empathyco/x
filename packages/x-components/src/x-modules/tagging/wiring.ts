@@ -1,4 +1,5 @@
-import { namespacedDebounce } from '../../wiring';
+import { Result } from '@empathyco/x-types';
+import { mapWire, namespacedDebounce } from '../../wiring';
 import {
   namespacedWireCommit,
   namespacedWireDispatch
@@ -83,6 +84,16 @@ export const trackWire = moduleDebounce(
 );
 
 /**
+ * Tracks the tagging of the add to cart.
+ *
+ * @public
+ */
+export const trackAddToCartWire = mapWire(
+  wireDispatch('track'),
+  ({ tagging }: Result) => tagging.add2cart!
+);
+
+/**
  * Wiring configuration for the {@link TaggingXModule | tagging module}.
  *
  * @internal
@@ -102,5 +113,8 @@ export const taggingWiring = createWiring({
   },
   SearchTaggingChanged: {
     trackWire
+  },
+  UserClickedResultAddToCart: {
+    trackAddToCartWire
   }
 });
