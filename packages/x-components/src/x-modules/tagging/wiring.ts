@@ -1,4 +1,5 @@
-import { namespacedDebounce } from '../../wiring';
+import { Result } from '@empathyco/x-types';
+import { mapWire, namespacedDebounce } from '../../wiring';
 import {
   namespacedWireCommit,
   namespacedWireDispatch
@@ -76,10 +77,20 @@ export const setSessionDuration = wireCommit('setSessionDuration');
  *
  * @public
  */
-export const trackWire = moduleDebounce(
+export const trackQueryWire = moduleDebounce(
   wireDispatch('track'),
   ({ state }) => state.config.queryTaggingDebounceMs,
   'UserClearedQuery'
+);
+
+/**
+ * Tracks the tagging of the result if the user clicks on it.
+ *
+ * @public
+ */
+export const trackResultClickedWire = mapWire(
+  wireDispatch('track'),
+  ({ tagging }: Result) => tagging.click!
 );
 
 /**
@@ -101,6 +112,9 @@ export const taggingWiring = createWiring({
     setQueryTaggingDebounce
   },
   SearchTaggingChanged: {
-    trackWire
+    trackQueryWire
+  },
+  UserClickedAResult: {
+    trackResultClickedWire
   }
 });
