@@ -4,10 +4,19 @@ import { installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components';
 import { XComponentBusAPI } from '../../../../plugins/x-plugin.types';
 import { UrlParams } from '../../../../types/url-params';
+import { baseSnippetConfig } from '../../../../views/base-config';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import { initialUrlState } from '../../store/initial-state';
 import { urlXModule } from '../../x-module';
-import { UrlHandler } from '../index';
+import UrlHandler from '../url-handler.vue';
+
+// Mock the window.performance.getEntriesByType function used to get the location. The location is
+// tested in an E2E test as navigation between different pages is needed.
+Object.defineProperty(window, 'performance', {
+  value: {
+    getEntriesByType: jest.fn().mockReturnValue([])
+  }
+});
 
 /**
  * Renders the {@link UrlHandler} component, exposing a basic API for testing.
@@ -20,7 +29,18 @@ function renderUrlHandler({
 }: UrlHandlerOptions = {}): UrlHandlerAPI {
   const [, localVue] = installNewXPlugin({ initialXModules: [urlXModule] });
   setUrlParams(urlParams);
-  const wrapperTemplate = mount({ template, components: { UrlHandler } }, { localVue });
+  const wrapperTemplate = mount(
+    {
+      template,
+      components: { UrlHandler },
+      provide: {
+        snippetConfig: {
+          ...baseSnippetConfig
+        }
+      }
+    },
+    { localVue }
+  );
   const wrapper = wrapperTemplate.findComponent(UrlHandler);
 
   function setUrlParams(urlParams: string): void {
