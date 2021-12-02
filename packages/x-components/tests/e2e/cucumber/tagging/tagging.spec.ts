@@ -25,11 +25,7 @@ Given('click the first result', () => {
 });
 
 Then('result click tagging request is triggered', () => {
-  cy.intercept(trackEndpoint, req => {
-    req.reply({});
-  }).as('resultTagging');
-
-  cy.wait('@resultTagging')
+  cy.wait('@queryTagging')
     .its('request.body')
     .then(JSON.parse)
     .should('have.property', 'url', 'http://x-components.com/tagging/click');
