@@ -96,20 +96,20 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 Provides a scoped slot with the selected filters from every facet, or from the facet which facet id
 is passed as property.
 
 The default slot renders the length of the selected filters array.
 
-## Basic usage
+### Basic usage
 
 ```vue
 <SelectedFilters />
 ```
 
-## Always visible
+### Always visible
 
 If "alwaysVisible" is true, the component is rendered no matter if there are some filter selected.
 If "alwaysVisible" is false (default), the component is rendered if there are some filter selected.
@@ -124,7 +124,7 @@ Output:
 <div class="x-selected-filters">1</div>
 ```
 
-## Customizing its content
+### Customizing its content
 
 In this example, renders a custom message using the default scoped slot.
 

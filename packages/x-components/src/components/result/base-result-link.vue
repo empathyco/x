@@ -88,9 +88,9 @@
 </style>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
-## Basic example
+### Basic example
 
 This component is a wrapper for the result contents (images, name, price...) It may be part of the
 search result page, recommendations or other section which needs to include results.

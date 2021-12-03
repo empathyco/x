@@ -41,12 +41,12 @@
 </script>
 
 <docs lang="mdx">
-# Example
+## Example
 
 The sorted filters component takes a list of filters and returns this new filters list sorted by the
 `selected` filter property.
 
-## Remarks
+### Remarks
 
 - The component can receive the filters list by property or using the XInjection feature.
 - It also provides the resultant list bound in the default slot or with the XProvide feature.
@@ -55,9 +55,9 @@ Both XInjection and XProvide features are from the extended FiltersInjectionMixi
 use XInjection and XProvide together, e.g. you can use pass the filters using a prop and then
 returns the result with XProvide.
 
-## Basic usage
+### Basic usage
 
-### Using props and binding the result
+#### Using props and binding the result
 
 ```vue
 <template>
@@ -83,7 +83,7 @@ returns the result with XProvide.
 </script>
 ```
 
-### Using XInject and XProvide
+#### Using XInject and XProvide
 
 ```vue
 <Facets v-slot="{ facet }">

@@ -73,17 +73,17 @@
 </script>
 
 <docs lang="mdx">
-# Example
+## Example
 
 Column picker dropdown component renders a dropdown component which options are the different
 columns you can set for a grid.
 
-## Usage
+### Usage
 
 Notice that the slots provided match with the `BaseDropdown` component. The `item` slot is required
 unlike the `toggle`, which renders the same `item` slot defined by default.
 
-### Default usage
+#### Default usage
 
 ```vue
 <template>

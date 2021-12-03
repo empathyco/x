@@ -468,9 +468,9 @@
 </style>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
-## Basic example
+### Basic example
 
 Apart from all the props and events that the classic transition group has, the staggering transition
 group also exposes a new `stagger` property, which allows to configure the delay for each one of the

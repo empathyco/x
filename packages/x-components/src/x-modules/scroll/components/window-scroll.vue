@@ -93,16 +93,16 @@
 </script>
 
 <docs lang="mdx">
-# Example
+## Example
 
 The `WindowScroll` component manages the scroll state of the `body` or `html` elements. It does the
 necessary calculations for knowing the direction of scroll, if the scroll has reached its starting
 position, if it is about to reach its ending position or if it has already reached it end. Whenever
 this state changes, it emits the appropiate X Event to the rest of the application
 
-## Custom usage
+### Custom usage
 
-### Overriding the properties and using document scroll events.
+#### Overriding the properties and using document scroll events.
 
 ```vue
 <template>
@@ -148,9 +148,9 @@ this state changes, it emits the appropiate X Event to the rest of the applicati
 </script>
 ```
 
-## Customized usage
+### Customized usage
 
-### Using body and XEvents.
+#### Using body and XEvents.
 
 If we want to listen scroll body we should do some changes in css for body. This is an example, so
 therefore the height of body can be get any value that you want. The template style should have a

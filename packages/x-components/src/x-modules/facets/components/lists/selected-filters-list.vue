@@ -115,7 +115,7 @@
 </script>
 
 <docs lang="mdx">
-# Example
+## Example
 
 This component renders a list of selected filters from every facet, or from the facet which facet id
 is passed as property. It uses the SelectedFilters component (state).
@@ -125,7 +125,7 @@ exposes the filter and renders the filter label by default.
 
 The property "alwaysVisible" handles if the component is rendered if no filters are selected.
 
-## Default usage
+### Default usage
 
 ```vue
 <template>
@@ -143,7 +143,7 @@ The property "alwaysVisible" handles if the component is rendered if no filters 
 </script>
 ```
 
-## Customized usage
+### Customized usage
 
 ```vue
 <template>
@@ -182,7 +182,7 @@ The property "alwaysVisible" handles if the component is rendered if no filters 
 </script>
 ```
 
-## Always visible
+#### Always visible
 
 If "alwaysVisible" is true, the component is rendered no matter if there are some filter selected.
 If "alwaysVisible" is false (default), the component is rendered if there are some filter selected.
@@ -199,7 +199,7 @@ Output:
 </div>
 ```
 
-## Providing a facet id
+#### Providing a facet id
 
 In this example, the selected filters computed are the ones that match the facet passed as property.
 

@@ -177,7 +177,7 @@
 </style>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This component renders a list of elements in different slots depending on their modelName. In order
 to achieve this, it exposes a scopedSlot for each different modelName. In case the items used do not
@@ -185,7 +185,7 @@ have modelName property, the default slot is used instead. It has a required pro
 to render, and an optional one, the number of `columns` the grid is divided in. If the number of
 columns is not specified, the grid automatically fills the rows with as many columns as it can fit.
 
-## Basic example
+### Basic example
 
 It renders a list of items using the default slot:
 
@@ -199,7 +199,7 @@ It renders a list of items using the default slot:
 </template>
 ```
 
-## Configuring the number of columns
+### Configuring the number of columns
 
 It renders a grid with 12 columns instead of 6, which is the default value:
 
@@ -213,7 +213,7 @@ It renders a grid with 12 columns instead of 6, which is the default value:
 </template>
 ```
 
-## Rendering usage
+### Rendering usage
 
 Configuring the number of columns.
 

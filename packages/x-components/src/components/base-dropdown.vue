@@ -456,7 +456,7 @@
 </style>
 
 <docs lang="mdx">
-# Example
+## Example
 
 The `Dropdown` component is a simple yet customizable select component. The component needs to work
 the list of items available to select, which are passed using the `items` prop, and the selected
