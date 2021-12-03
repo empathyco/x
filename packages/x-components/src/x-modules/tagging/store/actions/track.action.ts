@@ -14,14 +14,14 @@ import { TaggingXStoreModule } from '../types';
  */
 export const track: TaggingXStoreModule['actions']['track'] = ({ state }, taggingInfo) => {
   const { consent } = state;
-  const tagging = Array.isArray(taggingInfo) ? taggingInfo : [taggingInfo];
+  const taggingInfos = Array.isArray(taggingInfo) ? taggingInfo : [taggingInfo];
   const sessionId = getSessionId(consent);
   // TODO EX-5061 - Remove this validation when the adapter ignores undefined values.
   const session = sessionId && { session: sessionId };
 
-  tagging.forEach(tagging => {
-    if (tagging) {
-      const { url, params }: TaggingInfo = tagging;
+  taggingInfos.forEach(taggingInfo => {
+    if (taggingInfo) {
+      const { url, params }: TaggingInfo = taggingInfo;
       XPlugin.adapter.track({
         url,
         params: {

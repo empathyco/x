@@ -84,7 +84,7 @@ export const trackQueryWire = moduleDebounce(
 );
 
 /**
- * Tracks the tagging of the result if the user clicks on it.
+ * Tracks the tagging of the result.
  *
  * @public
  */

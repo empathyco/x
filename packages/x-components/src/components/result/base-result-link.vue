@@ -63,7 +63,9 @@
      * @internal
      */
     protected emitUserClickedAResult(): void {
-      this.$x.emit('UserClickedAResult', this.result, { target: this.$el });
+      if (this.result.tagging?.click) {
+        this.$x.emit('UserClickedAResult', this.result, { target: this.$el });
+      }
       this.resultClickExtraEvents.forEach(event => {
         this.$x.emit(event, this.result, { target: this.$el });
       });
@@ -78,15 +80,18 @@
 </style>
 
 <docs lang="mdx">
-# Examples
+## Events
 
-## Basic example
+This component emits the following event:
+
+- [`UserClickedAResult`](x-components.xeventstypes.userclickedaresult.md)
+
+The component can emit more events on click using the `resultClickExtraEvents` prop.
+
+## See it in action
 
 This component is a wrapper for the result contents (images, name, price...) It may be part of the
 search result page, recommendations or other section which needs to include results.
-
-This component will emit `UserClickedAResult` when the user clicks with the left, middle or right
-mouse buttons.
 
 Additionally, this component may be injected other events to be emitted on click event, so,
 depending where it's used its father component may provide this events.
@@ -101,12 +106,4 @@ The result prop is required. It will render a `<a></a>` with the href to the res
   </template>
 </BaseResultLink>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserClickedAResult`: the event is emitted after the user clicks the element with the left, middle
-  or right buttons. The event payload is the result data.
-- The component can emit more events on click using the `resultClickExtraEvents` prop.
 </docs>
