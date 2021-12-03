@@ -1,8 +1,8 @@
 <template>
   <a
     @click="emitUserClickedAResult"
+    @click.right="emitUserClickedAResult"
     @click.middle="emitUserClickedAResult"
-    @click.right="emitUserRightClickedAResult"
     :href="result.url"
     class="x-result-link"
     data-test="result-link"
@@ -26,10 +26,9 @@
    * Component to be reused that renders an `<a>` wrapping the result contents.
    *
    * @remarks
-   * It has the logic to emit {@link XEventsTypes.UserClickedAResult} and
-   * {@link XEventsTypes.UserRightClickedAResult} to the bus on click mouse events.
-   * Additionally, this component may be injected other events to be emitted on click event, so,
-   * depending where it's used its father component may provide this events.
+   * It has the logic to emit {@link XEventsTypes.UserClickedAResult} to the bus on click mouse
+   * events. Additionally, this component may be injected other events to be emitted on click
+   * event, so, depending where it's used its father component may provide this events.
    *
    * @public
    */
@@ -69,15 +68,6 @@
         this.$x.emit(event, this.result, { target: this.$el });
       });
     }
-
-    /**
-     * Emits the {@link XEventsTypes.UserRightClickedAResult} when user right clicks on the result.
-     *
-     * @internal
-     */
-    protected emitUserRightClickedAResult(): void {
-      this.$x.emit('UserRightClickedAResult', this.result, { target: this.$el });
-    }
   }
 </script>
 
@@ -88,15 +78,18 @@
 </style>
 
 <docs lang="mdx">
-# Examples
+## Events
 
-## Basic example
+This component emits the following event:
+
+- [`UserClickedAResult`](x-components.xeventstypes.userclickedaresult.md)
+
+The component can emit more events on click using the `resultClickExtraEvents` prop.
+
+## See it in action
 
 This component is a wrapper for the result contents (images, name, price...) It may be part of the
 search result page, recommendations or other section which needs to include results.
-
-This component will emit `UserClickedAResult` when clicked or middle clicked and
-`UserRightClickedAResult` when right clicked.
 
 Additionally, this component may be injected other events to be emitted on click event, so,
 depending where it's used its father component may provide this events.
@@ -111,14 +104,4 @@ The result prop is required. It will render a `<a></a>` with the href to the res
   </template>
 </BaseResultLink>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserClickedAResult`: the event is emitted after the user clicks the element. The event payload is
-  the result data.
-- `UserRightClickedAResult`: the event is emitted after the user right clicks the element. The event
-  payload is the result data.
-- The component can emit more events on click using the `resultClickExtraEvents` prop.
 </docs>
