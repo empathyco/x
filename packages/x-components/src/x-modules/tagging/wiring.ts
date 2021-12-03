@@ -88,9 +88,9 @@ export const trackQueryWire = moduleDebounce(
  *
  * @public
  */
-export const trackResultClickedWire = mapWire(
-  wireDispatch('track'),
-  ({ tagging }: Result) => tagging.click!
+export const trackResultClickedWire = filter(
+  mapWire(wireDispatch('track'), ({ tagging }: Result) => tagging.click!),
+  ({ eventPayload: { tagging } }) => !!tagging?.click
 );
 
 /**

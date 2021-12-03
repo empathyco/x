@@ -86,18 +86,4 @@ describe('testing BaseResultLink component', () => {
       result.name
     );
   });
-
-  it(`doesn't emit the 'UserClickedAResult' event if the tagging payload is undefined`, () => {
-    const listener = jest.fn();
-    resultLinkWrapper.vm.$x.on('UserClickedAResult').subscribe(listener);
-
-    resultLinkWrapper.setProps({
-      result: {
-        ...result,
-        tagging: undefined
-      }
-    });
-    resultLinkWrapper.trigger('click');
-    expect(listener).not.toHaveBeenCalled();
-  });
 });

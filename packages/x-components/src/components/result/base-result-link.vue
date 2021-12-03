@@ -63,9 +63,7 @@
      * @internal
      */
     protected emitUserClickedAResult(): void {
-      if (this.result.tagging?.click) {
-        this.$x.emit('UserClickedAResult', this.result, { target: this.$el });
-      }
+      this.$x.emit('UserClickedAResult', this.result, { target: this.$el });
       this.resultClickExtraEvents.forEach(event => {
         this.$x.emit(event, this.result, { target: this.$el });
       });
