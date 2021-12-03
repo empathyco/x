@@ -69,14 +69,5 @@ describe('testing tagging module actions', () => {
       expect(adapter.track).toHaveBeenNthCalledWith(2, queryTagging);
       expect(adapter.track).toHaveBeenNthCalledWith(3, queryTagging);
     });
-
-    it(`doesn't track if the payload is undefined`, async () => {
-      await store.dispatch('track', [queryTagging, queryTagging, queryTagging]);
-
-      expect(adapter.track).toHaveBeenCalledTimes(3);
-      expect(adapter.track).toHaveBeenNthCalledWith(1, queryTagging);
-      expect(adapter.track).toHaveBeenNthCalledWith(2, queryTagging);
-      expect(adapter.track).toHaveBeenNthCalledWith(3, queryTagging);
-    });
   });
 });
