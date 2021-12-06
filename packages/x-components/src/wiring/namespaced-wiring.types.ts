@@ -39,11 +39,11 @@ export type NamespacedTimeSelector<ModuleName extends XModuleName> = (
  *
  * @public
  */
-export type NamespacedTimeWireOperator<ModuleName extends XModuleName, Wire> = (
-  wire: Wire,
+export type NamespacedTimeWireOperator<ModuleName extends XModuleName> = <Payload>(
+  wire: Wire<Payload>,
   timeInMs: NamespacedTimeSelector<ModuleName>,
   options?: TimedWireOperatorOptions
-) => Wire;
+) => Wire<Payload>;
 
 /**
  * Namespaced payload to commit a mutation. Either a function that receives the

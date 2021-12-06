@@ -1,7 +1,6 @@
 import { XModuleName } from '../x-modules/x-modules.types';
 import { NamespacedTimeWireOperator } from './namespaced-wiring.types';
 import { debounce, throttle } from './wires.operators';
-import { AnyWire } from './wiring.types';
 import { getStateAndGettersFromModule } from './wiring.utils';
 
 /**
@@ -17,7 +16,7 @@ import { getStateAndGettersFromModule } from './wiring.utils';
  */
 export function namespacedDebounce<ModuleName extends XModuleName>(
   moduleName: ModuleName
-): NamespacedTimeWireOperator<ModuleName, AnyWire> {
+): NamespacedTimeWireOperator<ModuleName> {
   return createNamespacedTimeWireOperator(moduleName, debounce);
 }
 
@@ -34,7 +33,7 @@ export function namespacedDebounce<ModuleName extends XModuleName>(
  */
 export function namespacedThrottle<ModuleName extends XModuleName>(
   moduleName: ModuleName
-): NamespacedTimeWireOperator<ModuleName, AnyWire> {
+): NamespacedTimeWireOperator<ModuleName> {
   return createNamespacedTimeWireOperator(moduleName, throttle);
 }
 
@@ -51,7 +50,7 @@ export function namespacedThrottle<ModuleName extends XModuleName>(
 function createNamespacedTimeWireOperator<ModuleName extends XModuleName>(
   moduleName: ModuleName,
   timingOperator: typeof throttle | typeof debounce
-): NamespacedTimeWireOperator<ModuleName, AnyWire> {
+): NamespacedTimeWireOperator<ModuleName> {
   return (wire, timeSelector, options) =>
     timingOperator(
       wire,
