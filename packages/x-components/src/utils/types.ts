@@ -197,3 +197,8 @@ export interface DebounceOptions {
 export interface ThrottleFunction<Params extends any[]> {
   (...args: Params): void;
 }
+
+/**
+ * Alias for a type that might be an array or not.
+ */
+export type MaybeArray<Something> = Something | Array<Something>;

@@ -1,13 +1,18 @@
+import { of, race, timer } from 'rxjs';
 import {
   debounce as debounceRx,
+  delay,
   filter as filterRx,
   map,
+  switchMap,
+  switchMapTo,
+  takeUntil,
   throttle as throttleRx
 } from 'rxjs/operators';
+import { identity } from '../utils/function';
 import { XModuleName } from '../x-modules/x-modules.types';
-import { XEvent } from './events.types';
-import { handleTimedWire } from './utils/wire-racing-handling';
-import { TimeRetrieving, Wire, WireParams } from './wiring.types';
+import { mergeEvents, normalizeTime } from './wires-operators.utils';
+import { TimedWireOperatorOptions, TimeSelector, Wire, WireParams } from './wiring.types';
 
 /**
  * Creates a {@link Wire} that is only executed whenever the condition in the filterFn is true.
@@ -98,18 +103,40 @@ export function filterBlacklistedModules<Payload>(
  * @param wire - The wire to debounce.
  * @param timeInMs - The time in milliseconds to debounce the wire execution or a function to
  * retrieve it from the store.
- * @param raceEvent - The event or events that would prevent the wire execution if at least one
- * of them executes first.
+ * @param options - Options to configure this wire with, like an event to force it or cancel it.
  * @returns The Wire function with a debounced timing.
  *
  * @public
  */
 export function debounce<Payload>(
   wire: Wire<Payload>,
-  timeInMs: TimeRetrieving | number,
-  raceEvent: XEvent | XEvent[] = []
+  timeInMs: TimeSelector | number,
+  { cancelOn, forceOn }: TimedWireOperatorOptions = {}
 ): Wire<Payload> {
-  return handleTimedWire(wire, timeInMs, debounceRx, raceEvent);
+  return (observable, store, on) => {
+    if (cancelOn || forceOn) {
+      const cancelObservable = mergeEvents(cancelOn ?? [], on);
+      const forceObservable = mergeEvents(forceOn ?? [], on);
+      return wire(
+        observable.pipe(
+          switchMap(payload =>
+            race(
+              of(payload).pipe(switchMapTo(forceObservable, identity)),
+              of(payload).pipe(delay(normalizeTime(timeInMs, store)), takeUntil(cancelObservable))
+            )
+          )
+        ),
+        store,
+        on
+      );
+    } else {
+      return wire(
+        observable.pipe(debounceRx(() => timer(normalizeTime(timeInMs, store)))),
+        store,
+        on
+      );
+    }
+  };
 }
 
 /**
@@ -119,18 +146,41 @@ export function debounce<Payload>(
  * @param wire - The wire to throttle.
  * @param timeInMs - The time in milliseconds to throttle the wire execution or a function to
  * retrieve it from the store.
- * @param raceEvent - The event or events that would prevent the wire execution if at least one
- * of them executes first.
+ * @param options - Options to configure this wire with, like an event to force it or cancel it.
  * @returns The Wire function with a throttle timing.
  *
  * @public
  */
 export function throttle<Payload>(
   wire: Wire<Payload>,
-  timeInMs: TimeRetrieving | number,
-  raceEvent: XEvent | XEvent[] = []
+  timeInMs: TimeSelector | number,
+  { cancelOn, forceOn }: TimedWireOperatorOptions = {}
 ): Wire<Payload> {
-  return handleTimedWire(wire, timeInMs, throttleRx, raceEvent);
+  // TODO
+  return (observable, store, on) => {
+    if (cancelOn || forceOn) {
+      const cancelObservable = mergeEvents(cancelOn ?? [], on);
+      const forceObservable = mergeEvents(forceOn ?? [], on);
+      return wire(
+        observable.pipe(
+          switchMap(payload =>
+            race(
+              of(payload).pipe(switchMapTo(forceObservable, identity)),
+              of(payload).pipe(delay(normalizeTime(timeInMs, store)), takeUntil(cancelObservable))
+            )
+          )
+        ),
+        store,
+        on
+      );
+    } else {
+      return wire(
+        observable.pipe(throttleRx(() => timer(normalizeTime(timeInMs, store)))),
+        store,
+        on
+      );
+    }
+  };
 }
 
 /**

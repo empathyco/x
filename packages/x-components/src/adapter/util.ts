@@ -28,7 +28,7 @@ export function configureAdapterWithToysrus(
     .setFacetConfig(
       {
         modelName: 'NumberRangeFacet',
-        template: '<!tag=price>price:[<min> TO <max>]'
+        template: 'price:[<min> TO <max>]'
       },
       'price'
     );
