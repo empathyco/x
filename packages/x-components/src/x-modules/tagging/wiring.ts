@@ -77,10 +77,20 @@ export const setSessionDuration = wireCommit('setSessionDuration');
  *
  * @public
  */
-export const trackWire = moduleDebounce(
+export const trackQueryWire = moduleDebounce(
   wireDispatch('track'),
   ({ state }) => state.config.queryTaggingDebounceMs,
   'UserClearedQuery'
+);
+
+/**
+ * Tracks the tagging of the result.
+ *
+ * @public
+ */
+export const trackResultClickedWire = filter(
+  mapWire(wireDispatch('track'), ({ tagging }: Result) => tagging.click!),
+  ({ eventPayload: { tagging } }) => !!tagging?.click
 );
 
 /**
@@ -88,9 +98,9 @@ export const trackWire = moduleDebounce(
  *
  * @public
  */
-export const trackAddToCartWire = mapWire(
-  wireDispatch('track'),
-  ({ tagging }: Result) => tagging.add2cart!
+export const trackAddToCartWire = filter(
+  mapWire(wireDispatch('track'), ({ tagging }: Result) => tagging.add2cart!),
+  ({ eventPayload: { tagging } }) => !!tagging?.add2cart
 );
 
 /**
@@ -112,7 +122,10 @@ export const taggingWiring = createWiring({
     setQueryTaggingDebounce
   },
   SearchTaggingChanged: {
-    trackWire
+    trackQueryWire
+  },
+  UserClickedAResult: {
+    trackResultClickedWire
   },
   UserClickedResultAddToCart: {
     trackAddToCartWire

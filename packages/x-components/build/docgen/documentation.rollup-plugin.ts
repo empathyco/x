@@ -12,7 +12,6 @@ import {
 } from '@microsoft/api-extractor';
 import { Plugin } from 'rollup';
 import { copyFolderSync, ensureDirectoryPathExists, ensureFilePathExists } from '../build.utils';
-import { modifyDocForRunbooks } from './runbooks-integraton';
 
 const rootDir = path.resolve(__dirname, '../../');
 
@@ -45,7 +44,6 @@ export function apiDocumentation(options: APIDocumentationPluginOptions): Plugin
       try {
         await generateDocumentation();
         copyStaticDocumentation('static-docs', 'docs');
-        modifyDocForRunbooks('docs');
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(error);

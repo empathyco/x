@@ -380,6 +380,7 @@
                               </BaseResultImage>
                               <h1 class="x-title3" data-test="result-text">{{ result.name }}</h1>
                             </BaseResultLink>
+                            <BaseResultAddToCart :result="result" />
                           </article>
                         </MainScrollItem>
                       </template>
@@ -517,6 +518,7 @@
   import BaseHeaderTogglePanel from '../components/panels/base-header-toggle-panel.vue';
   import BaseIdTogglePanelButton from '../components/panels/base-id-toggle-panel-button.vue';
   import BaseIdTogglePanel from '../components/panels/base-id-toggle-panel.vue';
+  import BaseResultAddToCart from '../components/result/base-result-add-to-cart.vue';
   import BaseResultImage from '../components/result/base-result-image.vue';
   import BaseResultLink from '../components/result/base-result-link.vue';
   import SlidingPanel from '../components/sliding-panel.vue';
@@ -579,6 +581,7 @@
       infiniteScroll
     },
     components: {
+      BaseResultAddToCart,
       AutoProgressBar,
       Banner,
       BannersList,

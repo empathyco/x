@@ -31,6 +31,7 @@ const getRelatedTagsEndpoint = `${mockedApiUrl}/getRelatedTags`;
 const getSuggestionsEndpoint = `${mockedApiUrl}/getSuggestions`;
 const getTopRecommendationsEndpoint = `${mockedApiUrl}/getTopRecommendations`;
 const searchEndpoint = `${mockedApiUrl}/search`;
+const trackEndpoint = `${mockedApiUrl}/track`;
 
 // ID Results
 Given('an ID results API', () => {
@@ -516,5 +517,12 @@ Given('a suggestions API', () => {
     req.reply(<SuggestionsResponse>{
       suggestions: req.body.query ? getQuerySuggestionsStub('rum') : getPopularSearchesStub()
     });
+  });
+});
+
+// Suggestions
+Given('a query tagging', () => {
+  cy.intercept(trackEndpoint, req => {
+    req.reply({});
   });
 });

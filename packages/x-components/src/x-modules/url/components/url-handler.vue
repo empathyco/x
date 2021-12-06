@@ -1,16 +1,20 @@
 <template>
-  <GlobalEvents @popstate="emitEvents" target="window" />
+  <GlobalEvents @pageshow="onPageShow" @popstate="emitEvents" target="window" />
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import GlobalEvents from 'vue-global-events';
-  import { Component } from 'vue-property-decorator';
+  import { Component, Inject } from 'vue-property-decorator';
   import { XOn } from '../../../components/decorators/bus.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { FeatureLocation } from '../../../types/origin';
   import { UrlParams } from '../../../types/url-params';
+  import { isArrayEmpty } from '../../../utils/array';
   import { objectFilter } from '../../../utils/object';
   import { Dictionary } from '../../../utils/types';
+  import { WireMetadata } from '../../../wiring/wiring.types';
+  import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { initialUrlState } from '../store/initial-state';
   import { UrlParamValue } from '../store/types';
   import { urlXModule } from '../x-module';
@@ -34,6 +38,35 @@
     mixins: [xComponentMixin(urlXModule)]
   })
   export default class UrlHandler extends Vue {
+    /**
+     * The {@link SnippetConfig} provided by an ancestor.
+     *
+     * @internal
+     */
+    @Inject({ default: undefined })
+    protected snippetConfig?: SnippetConfig;
+
+    /**
+     * Flag to know if the params were already loaded from the URL.
+     *
+     * @internal
+     */
+    protected urlLoaded = false;
+
+    /**
+     * The page URL. It is used to compare against the current URL to check navigation state.
+     *
+     * @internal
+     */
+    protected url?: URL;
+
+    /**
+     * Flag to know if the page has been persisted by the browser's back-forward cache.
+     *
+     * @internal
+     */
+    protected isPagePersisted = false;
+
     /**
      * Computed to know which params we must get from URL. It gets the params names from the initial
      * state, to get all default params names, and also from the `$attrs` to get the extra params
@@ -59,13 +92,6 @@
     protected getUrlKey(paramName: string): string {
       return this.$attrs[paramName] ?? paramName;
     }
-
-    /**
-     * Flag to know if the params were already loaded from the URL.
-     *
-     * @internal
-     */
-    protected urlLoaded = false;
 
     /**
      * To emit the Url events just when the URL is load, and before the components mounted events
@@ -97,21 +123,120 @@
     }
 
     /**
+     * Handler of the
+     * {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/pageshow_event | pageshow }
+     * event.
+     *
+     * @remarks The pageshow event is listened to check if the browser has performed a navigation
+     * using the back-forward cache. This information is available in the
+     * PageTransitionEvent.persisted property.
+     *
+     * @param event - The page transition event.
+     * @internal
+     */
+    protected onPageShow(event: PageTransitionEvent): void {
+      this.isPagePersisted = event.persisted;
+      if (event.persisted) {
+        // The internal url is reset due to the back-forward cache storing the previous value which
+        // is no longer valid.
+        this.url = undefined;
+      }
+    }
+
+    /**
      * Emits the {@link UrlXEvents.ParamsLoadedFromUrl} XEvent,
      * the {@link UrlXEvents.ExtraParamsLoadedFromUrl} XEvent and, if there is query, also emits
-     * the  {@link XEventsTypes.UserOpenXProgrammatically}.
+     * the {@link XEventsTypes.UserOpenXProgrammatically}.
      *
      * @internal
      */
     protected emitEvents(): void {
       const { all, extra } = this.parseUrlParams();
-      this.$x.emit('ParamsLoadedFromUrl', all, { feature: 'url' });
-      this.$x.emit('ExtraParamsLoadedFromUrl', extra, { feature: 'url' });
+      const metadata = this.createWireMetadata();
+      this.$x.emit('ParamsLoadedFromUrl', all, metadata);
+      this.$x.emit('ExtraParamsLoadedFromUrl', extra, metadata);
       // TODO: Move this logic from here.
       if (all.query) {
-        this.$x.emit('UserOpenXProgrammatically');
+        this.$x.emit('UserOpenXProgrammatically', undefined, metadata);
       }
       this.urlLoaded = true;
+    }
+
+    /**
+     * Creates the wire metadata to include in every emitted {@link XEvent | XEvents}.
+     *
+     * @returns The {@link WireMetadata | metadata}.
+     * @internal
+     */
+    protected createWireMetadata(): Pick<WireMetadata, 'feature' | 'location'> {
+      return {
+        feature: 'url',
+        location: this.detectLocation()
+      };
+    }
+
+    /**
+     * Detects the {@link FeatureLocation | location} used to build the
+     * {@link QueryOriginInit | events metadata origin}.
+     *
+     * @returns The {@link FeatureLocation | location}.
+     * @internal
+     */
+    protected detectLocation(): FeatureLocation {
+      const currentUrl = new URL(window.location.href);
+      const previousUrl = this.url;
+      this.url = currentUrl;
+
+      const isInternalNavigation =
+        previousUrl?.search !== currentUrl.search && previousUrl?.pathname === currentUrl.pathname;
+      if (isInternalNavigation) {
+        return 'url_history';
+      }
+
+      if (this.isNavigatingFromPdp()) {
+        return 'url_history_pdp';
+      }
+
+      return 'external';
+    }
+
+    /**
+     * Check if the navigation is from a product page.
+     *
+     * @remarks Due to Safari 14 not supporting the new and standard PerformanceNavigationTiming
+     * API, we are falling back to the deprecated one, PerformanceNavigation. We also fallback to
+     * this API whenever we get a navigationType equal to reload, because Safari has a bug that the
+     * navigationType is permanently set to reload after you have reload the page and it never
+     * resets. As some browsers have a back-forward cache implemented, we also take into account if
+     * the page is persisted.
+     *
+     * @returns True if the navigation is from a product page, false otherwise.
+     * @internal
+     */
+    protected isNavigatingFromPdp(): boolean {
+      const isPagePersisted = this.isPagePersisted;
+      const navigationEntries = window.performance.getEntriesByType('navigation');
+      const navigationType = (navigationEntries[0] as PerformanceNavigationTiming)?.type;
+      const useFallbackStrategy =
+        window.performance.navigation &&
+        (isArrayEmpty(navigationEntries) || navigationType === 'reload');
+
+      // Reset internal isPagePersisted property value
+      this.isPagePersisted = false;
+
+      if (useFallbackStrategy) {
+        const {
+          type: fallbackNavigationType,
+          TYPE_BACK_FORWARD,
+          TYPE_NAVIGATE
+        } = window.performance.navigation;
+        const isNavigatingInSpa =
+          !!this.snippetConfig?.isSpa && fallbackNavigationType === TYPE_NAVIGATE;
+        return fallbackNavigationType === TYPE_BACK_FORWARD || isNavigatingInSpa || isPagePersisted;
+      } else {
+        const isNavigatingInSpa = !!this.snippetConfig?.isSpa && navigationType === 'navigate';
+        return navigationType === 'back_forward' || isNavigatingInSpa || isPagePersisted;
+      }
     }
 
     /**
@@ -120,7 +245,6 @@
      * @returns ParsedUrlParams obtained from URL.
      * @internal
      */
-
     protected parseUrlParams(): ParsedUrlParams {
       const urlSearchParams = new URL(window.location.href).searchParams;
       return this.managedParamsNames.reduce<ParsedUrlParams>(
@@ -161,6 +285,7 @@
         if (url.href.replace(/\+/g, '%20') !== window.location.href) {
           historyMethod({ ...window.history.state }, document.title, url.href);
         }
+        this.url = url;
       }
     }
 

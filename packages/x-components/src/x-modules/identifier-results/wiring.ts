@@ -116,7 +116,8 @@ export const identifierResultsWiring = createWiring({
     fetchAndSaveIdentifierResultsWire
   },
   ParamsLoadedFromUrl: {
-    setUrlParams
+    setUrlParams,
+    saveIdentifierResultsOriginWire
   },
   ExtraParamsChanged: {
     setIdentifierResultsExtraParams

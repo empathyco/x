@@ -70,5 +70,4 @@ describe('testing tagging module actions', () => {
       expect(adapter.track).toHaveBeenNthCalledWith(3, queryTagging);
     });
   });
-  /* eslint-enable @typescript-eslint/unbound-method */
 });
