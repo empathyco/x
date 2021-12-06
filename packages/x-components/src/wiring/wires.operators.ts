@@ -156,18 +156,21 @@ export function throttle<Payload>(
   timeInMs: TimeSelector | number,
   { cancelOn, forceOn }: TimedWireOperatorOptions = {}
 ): Wire<Payload> {
-  // TODO
   return (observable, store, on) => {
     if (cancelOn || forceOn) {
       const cancelObservable = mergeEvents(cancelOn ?? [], on);
       const forceObservable = mergeEvents(forceOn ?? [], on);
       return wire(
         observable.pipe(
-          switchMap(payload =>
-            race(
-              of(payload).pipe(switchMapTo(forceObservable, identity)),
-              of(payload).pipe(delay(normalizeTime(timeInMs, store)), takeUntil(cancelObservable))
-            )
+          throttleRx(
+            () =>
+              race(timer(normalizeTime(timeInMs, store)), forceObservable).pipe(
+                takeUntil(cancelObservable)
+              ),
+            {
+              leading: true,
+              trailing: true
+            }
           )
         ),
         store,
@@ -175,7 +178,9 @@ export function throttle<Payload>(
       );
     } else {
       return wire(
-        observable.pipe(throttleRx(() => timer(normalizeTime(timeInMs, store)))),
+        observable.pipe(
+          throttleRx(() => timer(normalizeTime(timeInMs, store)), { leading: true, trailing: true })
+        ),
         store,
         on
       );

@@ -14,6 +14,6 @@ export function noOp(): any {}
  * @returns The same value it was passed in.
  * @internal
  */
-export function identity<T>(value: T): T {
+export function identity<Something>(value: Something): Something {
   return value;
 }
