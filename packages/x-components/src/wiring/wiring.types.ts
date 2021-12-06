@@ -124,7 +124,9 @@ export type TimeSelector = (storeModule: Store<RootXStoreState>) => number;
  * @public
  */
 export interface TimedWireOperatorOptions {
+  /** Events that will prevent the next planned execution of the wire to be executed. */
   cancelOn?: MaybeArray<XEvent>;
+  /** Events that will make the next planned execution happen immediately. */
   forceOn?: MaybeArray<XEvent>;
 }
 

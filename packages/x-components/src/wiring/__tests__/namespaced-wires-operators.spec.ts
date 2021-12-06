@@ -39,7 +39,7 @@ describe('testing namespaced wires operators', () => {
     namespacedDebounce.name + ' allows creating wires with debounced time that race events',
     () => {
       const debounceSpyOn = jest.spyOn(operators, 'debounce');
-      namespacedDebounce(moduleName)(wire, jest.fn(), 'UserIsTypingAQuery');
+      namespacedDebounce(moduleName)(wire, jest.fn(), { cancelOn: 'UserIsTypingAQuery' });
       expect(debounceSpyOn).toHaveBeenCalledWith(wire, expect.any(Function), 'UserIsTypingAQuery');
     }
   );
