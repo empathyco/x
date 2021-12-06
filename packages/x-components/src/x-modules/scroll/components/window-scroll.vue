@@ -148,8 +148,6 @@ this state changes, it emits the appropiate X Event to the rest of the applicati
 </script>
 ```
 
-### Customized usage
-
 #### Using body and XEvents.
 
 If we want to listen scroll body we should do some changes in css for body. This is an example, so
@@ -205,7 +203,7 @@ similar styles the corresponding style for tag body like in the next example.
 </style>
 ```
 
-## Vue Events:
+## Vue Events
 
 - `scroll`: the event is emitted after the user scrolls in this container. The payload is the scroll
   top distance in pixels.

@@ -126,7 +126,7 @@
 <style lang="scss"></style>
 
 <docs lang="mdx">
-### Play with the component
+## Play with the component
 
 In this example, a query has been searched in the search input resulting in a case where the
 response has a redirection.
