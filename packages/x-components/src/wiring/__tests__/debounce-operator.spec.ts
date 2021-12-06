@@ -185,11 +185,10 @@ describe(`testing ${debounce.name} operator`, () => {
       expect(callback).not.toHaveBeenCalled();
 
       bus.emit('UserClearedQuery', '');
-      jest.advanceTimersByTime(250);
       bus.emit('UserClickedAResult', createResultStub('Random result'));
       expect(callback).toHaveBeenCalledTimes(0);
 
-      jest.advanceTimersByTime(250);
+      jest.advanceTimersByTime(500);
       expect(callback).toHaveBeenCalledTimes(0);
     });
   });

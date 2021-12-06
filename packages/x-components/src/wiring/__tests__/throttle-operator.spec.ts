@@ -32,7 +32,9 @@ describe(`testing ${throttle.name} operator`, () => {
 
   it('retrieves the throttle duration from the store', () => {
     const { wire, callback, emitWireEvent, registerWire } = createWire({
-      state: { querySuggestions: { config: { debounceInMs: 500 } } }
+      state: { querySuggestions: { config: { debounceInMs: 500 } } } /* Here it says debounce,
+       because we don't have yet any `throttleInMs` in the store. The name is irrelevant for the
+       test, we just need a variable of a number type. */
     });
     registerWire(throttle(wire, store => store.state.x.querySuggestions.config.debounceInMs));
     emitWireEvent('1', '2');
@@ -163,7 +165,7 @@ describe(`testing ${throttle.name} operator`, () => {
     it(`executes the effect immediately if any one of the forceOn events is emitted while the throttling is running`, () => {
       const { wire, callback, emitWireEvent, registerWire, bus } = createWire();
       /* Emitting the forceOn event to ensure that ReplaySubject does not trigger this wire
-       immediately if a previous forceOn event was emitted. */
+         immediately if a previous forceOn event was emitted. */
       bus.emit('UserClickedAResult', createResultStub('Random result'));
       registerWire(throttle(wire, 500, { forceOn: ['UserClickedAResult', 'UserScrolled'] }));
 
@@ -188,6 +190,44 @@ describe(`testing ${throttle.name} operator`, () => {
 
       jest.advanceTimersByTime(500);
       expect(callback).toHaveBeenCalledTimes(4);
+    });
+  });
+
+  describe('when both cancel and force events are provided', () => {
+    // eslint-disable-next-line max-len
+    it(`ignores the cancel event if it is emitted after the force event`, () => {
+      const { wire, callback, emitWireEvent, registerWire, bus } = createWire();
+      registerWire(
+        throttle(wire, 500, { forceOn: 'UserClickedAResult', cancelOn: 'UserClearedQuery' })
+      );
+      emitWireEvent('1', '2', '3');
+      expect(callback).toHaveBeenCalledTimes(1);
+      expect(callback).toHaveBeenCalledWith('1');
+
+      bus.emit('UserClickedAResult', createResultStub('Random result'));
+      bus.emit('UserClearedQuery', '');
+      expect(callback).toHaveBeenCalledTimes(2);
+      expect(callback).toHaveBeenCalledWith('3');
+
+      jest.advanceTimersByTime(500);
+      expect(callback).toHaveBeenCalledTimes(2);
+    });
+
+    it(`does not emit when the force event is emitted after cancel`, () => {
+      const { wire, callback, emitWireEvent, registerWire, bus } = createWire();
+      registerWire(
+        throttle(wire, 500, { forceOn: 'UserClickedAResult', cancelOn: 'UserClearedQuery' })
+      );
+      emitWireEvent('1', '2');
+      expect(callback).toHaveBeenCalledTimes(1);
+      expect(callback).toHaveBeenCalledWith('1');
+
+      bus.emit('UserClearedQuery', '');
+      bus.emit('UserClickedAResult', createResultStub('Random result'));
+      expect(callback).toHaveBeenCalledTimes(1);
+
+      jest.advanceTimersByTime(500);
+      expect(callback).toHaveBeenCalledTimes(1);
     });
   });
 });

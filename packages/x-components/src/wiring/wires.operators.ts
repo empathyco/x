@@ -1,15 +1,11 @@
-import { of, race, timer } from 'rxjs';
+import { race, timer } from 'rxjs';
 import {
   debounce as debounceRx,
-  delay,
   filter as filterRx,
   map,
-  switchMap,
-  switchMapTo,
   takeUntil,
   throttle as throttleRx
 } from 'rxjs/operators';
-import { identity } from '../utils/function';
 import { XModuleName } from '../x-modules/x-modules.types';
 import { mergeEvents, normalizeTime } from './wires-operators.utils';
 import { TimedWireOperatorOptions, TimeSelector, Wire, WireParams } from './wiring.types';
@@ -119,10 +115,9 @@ export function debounce<Payload>(
       const forceObservable = mergeEvents(forceOn ?? [], on);
       return wire(
         observable.pipe(
-          switchMap(payload =>
-            race(
-              of(payload).pipe(switchMapTo(forceObservable, identity)),
-              of(payload).pipe(delay(normalizeTime(timeInMs, store)), takeUntil(cancelObservable))
+          debounceRx(() =>
+            race(timer(normalizeTime(timeInMs, store)), forceObservable).pipe(
+              takeUntil(cancelObservable)
             )
           )
         ),
