@@ -21,30 +21,21 @@ describe('testing BaseResultLink component', () => {
     });
   });
 
-  it('emits UserClickedAResult when the user click on the component', () => {
+  // eslint-disable-next-line max-len
+  it('emits UserClickedAResult when the user clicks in the left, middle or right button on the component', () => {
     const listener = jest.fn();
     resultLinkWrapper.vm.$x.on('UserClickedAResult').subscribe(listener);
 
     resultLinkWrapper.trigger('click');
+    expect(listener).toHaveBeenNthCalledWith(1, result);
 
-    expect(listener).toHaveBeenCalledWith(result);
-  });
+    resultLinkWrapper.trigger('click', { button: 1 });
+    expect(listener).toHaveBeenNthCalledWith(2, result);
 
-  it('emits UserClickedAResult when the user middle click on the component', () => {
-    const listener = jest.fn();
-    resultLinkWrapper.vm.$x.on('UserClickedAResult').subscribe(listener);
+    resultLinkWrapper.trigger('click', { button: 2 });
+    expect(listener).toHaveBeenNthCalledWith(3, result);
 
-    resultLinkWrapper.trigger('mouseup', { button: 1 });
-
-    expect(listener).toHaveBeenCalledWith(result);
-  });
-
-  it('emits UserRightClickedAResult when the user right click on the component', () => {
-    const listener = jest.fn();
-    resultLinkWrapper.vm.$x.on('UserRightClickedAResult').subscribe(listener);
-
-    resultLinkWrapper.trigger('contextmenu');
-    expect(listener).toHaveBeenCalledWith(result);
+    expect(listener).toHaveBeenCalledTimes(3);
   });
 
   it('emits events provided from parent element with provided location in metadata', () => {
