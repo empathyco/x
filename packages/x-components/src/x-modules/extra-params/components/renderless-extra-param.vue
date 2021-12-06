@@ -65,12 +65,12 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 Renders default slot content. It binds to the default slot the name of the extra parameter and the
 default value of it.
 
-## Basic usage
+### Basic usage
 
 ```vue
 <template>

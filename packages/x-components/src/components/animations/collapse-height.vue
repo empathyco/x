@@ -40,7 +40,7 @@
 </style>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 The CollapseHeight component is intended to be used as animation to wrap an element with v-if or
 v-show and animate it. The animation consists on scale its height size from 0 to auto. This

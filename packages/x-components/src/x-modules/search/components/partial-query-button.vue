@@ -60,9 +60,9 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
-## Basic example
+### Basic example
 
 A button that when pressed emits the {@link XEventsTypes.UserAcceptedAQuery} and {@link
 SearchXEvents.UserClickedPartialQuery} events, expressing the user intention to set the partial
@@ -77,7 +77,7 @@ The component sets the current query as the new query and emits the `UserAccepte
 </template>
 ```
 
-## Customizing its contents
+### Customizing its contents
 
 ```vue
 <template>

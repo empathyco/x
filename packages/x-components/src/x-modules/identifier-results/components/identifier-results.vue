@@ -70,9 +70,9 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
-## Adding a IdentifierResult component within a BaseResultLink
+### Adding a IdentifierResult component within a BaseResultLink
 
 A IdentifierResult **must** be used inside the IdentifierResults component. In the example below the
 BaseResultLink is used as a wrapper and its default slot is filled with the IdentifierResult

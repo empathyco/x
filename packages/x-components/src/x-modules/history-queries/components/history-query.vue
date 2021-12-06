@@ -85,9 +85,9 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
-## Basic usage
+### Basic usage
 
 This component only requires a prop called `suggestion`
 
@@ -95,7 +95,7 @@ This component only requires a prop called `suggestion`
 <HistoryQuery :suggestion="historyQuery" />
 ```
 
-## Customizing slots content
+### Customizing slots content
 
 Suggestion and remove buttons contents can be customized.
 

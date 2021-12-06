@@ -134,18 +134,18 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This component renders a button, which on clicked emits the `UserClickedClearAllFilters` or
 `UserClickedClearAllFilters` event.
 
-## Basic usage
+### Basic usage
 
 ```vue
 <ClearFilters />
 ```
 
-## Customizing its contents
+### Customizing its contents
 
 In this example, show the custom message in button.
 

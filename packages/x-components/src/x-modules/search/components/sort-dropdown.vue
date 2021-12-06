@@ -76,7 +76,7 @@
 </script>
 
 <docs lang="mdx">
-# Sort Dropdown
+## Sort Dropdown
 
 The `SortDropdown` component can be used to change the way the search results are ordered.
 

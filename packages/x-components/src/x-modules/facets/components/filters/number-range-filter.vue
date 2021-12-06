@@ -66,18 +66,18 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This component renders a button, which on clicked emits the `UserClickedAFilter` and the
 `UserClickedANumberRangeFilter` events. By default, it renders the filter label as the button text.
 
-## Basic usage
+### Basic usage
 
 ```vue
 <NumberRangeFilter :filter="filter" />
 ```
 
-## Customizing its contents
+### Customizing its contents
 
 ```vue
 <NumberRangeFilter :filter="filter" v-slot="{ filter }">

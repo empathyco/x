@@ -97,9 +97,9 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
-## Basic usage
+### Basic usage
 
 Using default slot:
 

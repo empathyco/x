@@ -39,9 +39,9 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
-## Basic example
+### Basic example
 
 The event prop is required. It will render a <button></button> that emits the event passed as prop
 with the value as payload on click:

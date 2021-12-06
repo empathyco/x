@@ -88,13 +88,13 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This component renders a list of elements in different slots depending on the columns prop. Each
 element will emit the needed events to sync other instances of columns pickers, or grids with the
 number of columns that it is being selected when it is clicked.
 
-## Default usage
+### Default usage
 
 It is required to send the columns prop.
 
@@ -116,7 +116,7 @@ It is required to send the columns prop.
 </script>
 ```
 
-### Using v-model
+#### Using v-model
 
 It is possible to do two way binding in order to synchronize the value with the parents. It will be
 updated if it changed the value or if the parent changes it.
@@ -139,9 +139,9 @@ updated if it changed the value or if the parent changes it.
 </script>
 ```
 
-## Customized usage
+### Customized usage
 
-### Overriding the slots
+#### Overriding the slots
 
 It is possible to override the column picker button content.
 

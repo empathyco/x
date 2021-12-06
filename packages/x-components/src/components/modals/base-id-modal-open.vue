@@ -36,12 +36,12 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 Component containing an event button that emits `UserClickedOpenModal` when it is clicked with the
 modalId as payload. It has a default slot to customize its contents.
 
-## Basic example
+### Basic example
 
 The component rendering content passed to the default slot and opening the modal with modalId
 `my-modal`.

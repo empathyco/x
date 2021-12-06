@@ -60,9 +60,9 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
-## Basic example
+### Basic example
 
 This component shows the previous price formatted if it has discount. The component has two optional
 props. `format` to select the currency format to be applied.
@@ -71,7 +71,7 @@ props. `format` to select the currency format to be applied.
 <BaseResultPreviousPrice :value="result" :format="'i.iii,ddd €'" />
 ```
 
-## Overriding default slot
+### Overriding default slot
 
 ```vue
 <BaseResultPreviousPrice :result="result">

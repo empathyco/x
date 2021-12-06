@@ -81,11 +81,11 @@
 </style>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This component loops through an array of partials an exposed a slot to use customize each partial.
 
-## Basic example
+### Basic example
 
 It renders a list of partial results using the default slot:
 
@@ -99,7 +99,7 @@ It renders a list of partial results using the default slot:
 </template>
 ```
 
-## Configuring the number of partials
+### Configuring the number of partials
 
 It sets the maximum partials to show to 3.
 
@@ -113,7 +113,7 @@ It sets the maximum partials to show to 3.
 </template>
 ```
 
-## Rendering usage
+### Rendering usage
 
 It renders a list of partial results using the default slot. It will show the query, the partial
 results and a button to update the query with the partial one.

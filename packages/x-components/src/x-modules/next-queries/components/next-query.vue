@@ -60,12 +60,12 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This components expects just a suggestion as a prop to be rendered. It has a slot to override the
 content. By default, it renders the suggestion query of the next query.
 
-## Basic Usage
+### Basic Usage
 
 Using default slot:
 
@@ -73,7 +73,7 @@ Using default slot:
 <NextQuery :suggestion="suggestion" />
 ```
 
-## Overriding default slot.
+### Overriding default slot.
 
 The default slot allows you to replace the content of the suggestion button.
 

@@ -242,7 +242,7 @@
 </style>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This component allows for any other component or element inside it to be horizontally navigable. It
 also implements customizable buttons as well as other minor customizations to its general behavior.
@@ -250,7 +250,7 @@ The component uses the method `scrollBy` from `Element` to function, and it does
 all browsers. A polyfill for the `scrollBy` would be needed for the component to behave as expected
 in those browsers.
 
-## Default usage
+### Default usage
 
 Simplest implementation of the component, just a list-based component inside its slot.
 
@@ -260,7 +260,7 @@ Simplest implementation of the component, just a list-based component inside its
 </SlidingPanel>
 ```
 
-## Behavior customization
+### Behavior customization
 
 Edit how much the scroll travels when navigating with the buttons by changing the `scrollFactor`.
 
@@ -280,7 +280,7 @@ just by swiping.
 </SlidingPanel>
 ```
 
-## Overriding Button content
+### Overriding Button content
 
 By default the buttons show an arrow depicting the direction the scroll would go to when clicked,
 but this content can be customized with anything, from characters to SVG and images.
