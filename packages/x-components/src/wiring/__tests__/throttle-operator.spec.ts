@@ -84,7 +84,7 @@ describe(`testing ${throttle.name} operator`, () => {
 
   describe('when there are events that abort the throttle', () => {
     // eslint-disable-next-line max-len
-    it(`aborts the throttle if the cancelOn event is emitted while the throttling is running`, () => {
+    it('aborts the throttle if the cancelOn event is emitted while the throttling is running', () => {
       const { wire, callback, emitWireEvent, registerWire, bus } = createWire();
       registerWire(throttle(wire, 500, { cancelOn: 'UserClearedQuery' }));
       emitWireEvent('1');
@@ -105,7 +105,7 @@ describe(`testing ${throttle.name} operator`, () => {
     });
 
     // eslint-disable-next-line max-len
-    it(`cancels the emission if any of the the cancelOn events is emitted while the throttling is running`, () => {
+    it('cancels the emission if any of the the cancelOn events is emitted while the throttling is running', () => {
       const { wire, callback, emitWireEvent, registerWire, bus } = createWire();
       registerWire(throttle(wire, 500, { cancelOn: ['UserClearedQuery', 'UserAcceptedAQuery'] }));
 
@@ -134,7 +134,7 @@ describe(`testing ${throttle.name} operator`, () => {
 
   describe('when there are events that force the wire effect immediately', () => {
     // eslint-disable-next-line max-len
-    it(`executes the effect immediately if the forceOn event is emitted while the throttling is running`, () => {
+    it('executes the effect immediately if the forceOn event is emitted while the throttling is running', () => {
       const { wire, callback, emitWireEvent, registerWire, bus } = createWire();
       /* Emitting the forceOn event to ensure that ReplaySubject does not trigger this wire
          immediately if a previous forceOn event was emitted. */
@@ -162,7 +162,7 @@ describe(`testing ${throttle.name} operator`, () => {
     });
 
     // eslint-disable-next-line max-len
-    it(`executes the effect immediately if any one of the forceOn events is emitted while the throttling is running`, () => {
+    it('executes the effect immediately if any one of the forceOn events is emitted while the throttling is running', () => {
       const { wire, callback, emitWireEvent, registerWire, bus } = createWire();
       /* Emitting the forceOn event to ensure that ReplaySubject does not trigger this wire
          immediately if a previous forceOn event was emitted. */
@@ -195,7 +195,7 @@ describe(`testing ${throttle.name} operator`, () => {
 
   describe('when both cancel and force events are provided', () => {
     // eslint-disable-next-line max-len
-    it(`ignores the cancel event if it is emitted after the force event`, () => {
+    it('ignores the cancel event if it is emitted after the force event', () => {
       const { wire, callback, emitWireEvent, registerWire, bus } = createWire();
       registerWire(
         throttle(wire, 500, { forceOn: 'UserClickedAResult', cancelOn: 'UserClearedQuery' })
@@ -213,7 +213,7 @@ describe(`testing ${throttle.name} operator`, () => {
       expect(callback).toHaveBeenCalledTimes(2);
     });
 
-    it(`does not emit when the force event is emitted after cancel`, () => {
+    it('does not emit when the force event is emitted after cancel', () => {
       const { wire, callback, emitWireEvent, registerWire, bus } = createWire();
       registerWire(
         throttle(wire, 500, { forceOn: 'UserClickedAResult', cancelOn: 'UserClearedQuery' })
