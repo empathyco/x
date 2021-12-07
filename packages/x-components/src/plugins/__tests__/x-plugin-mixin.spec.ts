@@ -197,4 +197,40 @@ describe('testing $x component API global mixin', () => {
 
     expect(listener).toHaveBeenCalledTimes(1);
   });
+
+  it('reads the $x.api in a computed prop from a watch', () => {
+    const queryCallback = jest.fn();
+    const emitCallback = jest.fn();
+
+    componentInstance.vm.$x.on('UserAcceptedAQuery').subscribe(emitCallback);
+
+    mount(
+      {
+        computed: {
+          query(): string {
+            return this.$x.query.search;
+          },
+          emit(): string {
+            return this.$x.query.search;
+          }
+        },
+        watch: {
+          query: {
+            handler: queryCallback,
+            immediate: true
+          },
+          emit: {
+            handler: function emit(query) {
+              this.$x.emit('UserAcceptedAQuery', query);
+            },
+            immediate: true
+          }
+        }
+      } as ComponentOptions<any> & ThisType<Vue>,
+      { localVue }
+    );
+
+    expect(queryCallback).toHaveBeenCalledTimes(1);
+    expect(emitCallback).toHaveBeenCalledTimes(1);
+  });
 });

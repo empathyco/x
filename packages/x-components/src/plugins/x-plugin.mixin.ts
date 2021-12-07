@@ -1,6 +1,8 @@
 import Vue, { ComponentOptions } from 'vue';
+import { Store } from 'vuex';
 import { XComponent } from '../components/x-component.types';
 import { getXComponentXModuleName, isXComponent } from '../components/x-component.utils';
+import { RootXStoreState } from '../store/store.types';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
 import { FeatureLocation } from '../types/origin';
@@ -16,6 +18,7 @@ declare module 'vue/types/vue' {
 
 interface PrivateExtendedVueComponent extends Vue {
   $location?: FeatureLocation;
+  $store: Store<{ x: Partial<RootXStoreState['x']> }>;
   xComponent: XComponent | undefined;
 }
 
@@ -38,11 +41,13 @@ export const createXComponentAPIMixin = (
       default: undefined
     }
   },
-  created(): void {
-    this.xComponent = getRootXComponent(this);
-    const aliasAPI = getAliasAPI(this.$store);
+  beforeCreate(this: PrivateExtendedVueComponent) {
+    const aliasAPI = getAliasAPI(this);
     const busAPI = getBusAPI(bus, this);
     this.$x = Object.assign(aliasAPI, busAPI);
+  },
+  created() {
+    this.xComponent = getRootXComponent(this);
   }
 });
 

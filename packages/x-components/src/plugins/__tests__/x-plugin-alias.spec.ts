@@ -153,7 +153,7 @@ describe('testing plugin alias', () => {
       });
     }
 
-    const aliasKeys = Object.keys(getAliasAPI(new Store({ state: { x: {} } })));
+    const aliasKeys = Object.keys(getAliasAPI({ $store: new Store({ state: { x: {} } }) } as Vue));
 
     expect(isJSGetterOrDictionaryOfJSGetters(componentInstance.vm.$x, aliasKeys)).toEqual(true);
   });
