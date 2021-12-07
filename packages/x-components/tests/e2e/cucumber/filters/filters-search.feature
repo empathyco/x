@@ -6,6 +6,7 @@ Feature: Filters search component
     And   a next queries API
     And   a suggestions API
     And   a related tags API
+    And   a tracking API
 
   Scenario Outline: 1. Brand filters are updated based on regular and sifted queries
     Given no special config for layout view

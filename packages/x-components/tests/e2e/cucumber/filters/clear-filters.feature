@@ -6,6 +6,7 @@ Feature: Clear selected filters
     And   a related tags API
     And   a recommendations API with a known response
     And   a results API with a known response
+    And   a tracking API
     And   no special config for layout view
     And   start button is clicked
 

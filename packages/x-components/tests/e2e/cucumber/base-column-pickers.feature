@@ -6,6 +6,7 @@ Feature: Base column pickers components
     And   a next queries API
     And   a suggestions API
     And   a related tags API
+    And   a tracking API
 
   Scenario Outline: 1. Column picker dropdown sets Results columns
     Given no special config for layout view

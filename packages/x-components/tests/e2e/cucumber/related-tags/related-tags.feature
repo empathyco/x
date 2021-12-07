@@ -2,7 +2,8 @@ Feature: Related tags component
 
   Background:
     Given a related tags API with a known response
-    Given a results API with a known response
+    And   a results API with a known response
+    And   a tracking API
 
   Scenario Outline: 1. Related tag is selected
     Given following config: requested items <maxItemsToRequest>, add to search-box <addToSearchBox>
