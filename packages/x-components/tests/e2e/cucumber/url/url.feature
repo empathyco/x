@@ -29,7 +29,7 @@ Feature: Url component
   Scenario Outline: 3. Navigate back from pdp to serp sets the url origin as "<origin>"
     Given a URL with query parameter "lego"
     Then  the search request contains the origin "url:external"
-    When  click result in position 0
+    When  clicking result in position 0
     And   navigating back
     Then  the search request contains the origin "<origin>"
     Examples:
