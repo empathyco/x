@@ -20,7 +20,7 @@ Feature: Url component
     Then  the search request contains the origin "url:external"
     When  sort option "<sort>" is selected from the sort "dropdown"
     Then  the search request contains the origin "url:external"
-    Then  navigate back
+    When  navigating back
     Then  the search request contains the origin "<origin>"
     Examples:
       | sort      | origin          |
@@ -29,8 +29,8 @@ Feature: Url component
   Scenario Outline: 3. Navigate back from pdp to serp sets the url origin as "<origin>"
     Given a URL with query parameter "lego"
     Then  the search request contains the origin "url:external"
-    Then  click result in position 0
-    Then  navigate back
+    When  click result in position 0
+    And   navigating back
     Then  the search request contains the origin "<origin>"
     Examples:
       | origin              |

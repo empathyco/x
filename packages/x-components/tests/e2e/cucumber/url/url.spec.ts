@@ -1,4 +1,4 @@
-import { Given, Then } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 // Scenario 1
 Given('a URL with query parameter {string}', (query: string) => {
@@ -13,11 +13,11 @@ Then('the search request contains the origin {string}', (origin: string) => {
 });
 
 // Scenario 2
-Then('navigate back', () => {
+When('navigating back', () => {
   cy.go(-1);
 });
 
 // Scenario 3
-Then('click result in position {int}', (index: number) => {
+When('clicking result in position {int}', (index: number) => {
   cy.getByDataTest('result-link').eq(index).click();
 });
