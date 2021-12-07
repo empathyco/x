@@ -5,6 +5,7 @@ Feature: Spellcheck component
     And   a next queries API
     And   a suggestions API
     And   a related tags API
+    And   a tracking API
     And   no special config for layout view
     And   start button is clicked
 

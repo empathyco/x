@@ -520,8 +520,8 @@ Given('a suggestions API', () => {
   });
 });
 
-// Suggestions
-Given('a query tagging', () => {
+// Tracking
+Given('a tracking API', () => {
   cy.intercept(trackEndpoint, req => {
     req.reply({});
   });
