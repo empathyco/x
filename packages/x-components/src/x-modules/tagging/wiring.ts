@@ -89,7 +89,7 @@ export const trackQueryWire = moduleDebounce(
  *
  * @public
  */
-export const trackResultClickedWire = createTrackResultWire('query');
+export const trackResultClickedWire = createTrackResultWire('click');
 
 /**
  * Performs a track of a result added to the cart.
