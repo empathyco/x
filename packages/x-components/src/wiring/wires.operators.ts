@@ -1,13 +1,11 @@
-import { race, timer } from 'rxjs';
 import {
   debounce as debounceRx,
   filter as filterRx,
   map,
-  takeUntil,
   throttle as throttleRx
 } from 'rxjs/operators';
 import { XModuleName } from '../x-modules/x-modules.types';
-import { mergeEvents, normalizeTime } from './wires-operators.utils';
+import { createTimer, normalizeTime } from './wires-operators.utils';
 import { TimedWireOperatorOptions, TimeSelector, Wire, WireParams } from './wiring.types';
 
 /**
@@ -107,30 +105,14 @@ export function filterBlacklistedModules<Payload>(
 export function debounce<Payload>(
   wire: Wire<Payload>,
   timeInMs: TimeSelector | number,
-  { cancelOn, forceOn }: TimedWireOperatorOptions = {}
+  options: TimedWireOperatorOptions = {}
 ): Wire<Payload> {
   return (observable, store, on) => {
-    if (cancelOn || forceOn) {
-      const cancelObservable = mergeEvents(cancelOn ?? [], on);
-      const forceObservable = mergeEvents(forceOn ?? [], on);
-      return wire(
-        observable.pipe(
-          debounceRx(() =>
-            race(timer(normalizeTime(timeInMs, store)), forceObservable).pipe(
-              takeUntil(cancelObservable)
-            )
-          )
-        ),
-        store,
-        on
-      );
-    } else {
-      return wire(
-        observable.pipe(debounceRx(() => timer(normalizeTime(timeInMs, store)))),
-        store,
-        on
-      );
-    }
+    return wire(
+      observable.pipe(debounceRx(() => createTimer(normalizeTime(timeInMs, store), options, on))),
+      store,
+      on
+    );
   };
 }
 
@@ -149,37 +131,19 @@ export function debounce<Payload>(
 export function throttle<Payload>(
   wire: Wire<Payload>,
   timeInMs: TimeSelector | number,
-  { cancelOn, forceOn }: TimedWireOperatorOptions = {}
+  options: TimedWireOperatorOptions = {}
 ): Wire<Payload> {
   return (observable, store, on) => {
-    if (cancelOn || forceOn) {
-      const cancelObservable = mergeEvents(cancelOn ?? [], on);
-      const forceObservable = mergeEvents(forceOn ?? [], on);
-      return wire(
-        observable.pipe(
-          throttleRx(
-            () =>
-              race(timer(normalizeTime(timeInMs, store)), forceObservable).pipe(
-                takeUntil(cancelObservable)
-              ),
-            {
-              leading: true,
-              trailing: true
-            }
-          )
-        ),
-        store,
-        on
-      );
-    } else {
-      return wire(
-        observable.pipe(
-          throttleRx(() => timer(normalizeTime(timeInMs, store)), { leading: true, trailing: true })
-        ),
-        store,
-        on
-      );
-    }
+    return wire(
+      observable.pipe(
+        throttleRx(() => createTimer(normalizeTime(timeInMs, store), options, on), {
+          leading: true,
+          trailing: true
+        })
+      ),
+      store,
+      on
+    );
   };
 }
 

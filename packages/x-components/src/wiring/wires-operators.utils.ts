@@ -1,10 +1,11 @@
-import { Subject } from 'rxjs';
+import { Subject, Observable, timer, race } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Store } from 'vuex';
 import { XBus } from '../plugins/x-bus.types';
 import { RootXStoreState } from '../store/store.types';
 import { MaybeArray } from '../utils/types';
 import { XEvent } from './events.types';
-import { TimeSelector } from './wiring.types';
+import { TimedWireOperatorOptions, TimeSelector } from './wiring.types';
 
 /**
  * Creates the observable for the events that will be racing the wire's execution.
@@ -40,4 +41,30 @@ export function normalizeTime(
   store: Store<RootXStoreState>
 ): number {
   return typeof timeInMs === 'function' ? timeInMs(store) : timeInMs;
+}
+
+/**
+ * Creates a timer observable that depending on the provided options might be aborted or forced.
+ *
+ * @param durationInMs - The duration in ms for the timer.
+ * @param options - Options to configure the timer, like an events to force it or cancel it.
+ * @param on - The {@link XBus.on} method.
+ * @returns A timer observable that can be aborted or forced depending on the provided options.
+ * @internal
+ */
+export function createTimer(
+  durationInMs: number,
+  { cancelOn, forceOn }: TimedWireOperatorOptions,
+  on: XBus['on']
+): Observable<unknown> {
+  let timerObservable: Observable<unknown> = timer(durationInMs);
+  if (forceOn) {
+    timerObservable = race(timerObservable, mergeEvents(forceOn, on));
+  }
+
+  if (cancelOn) {
+    timerObservable = timerObservable.pipe(takeUntil(mergeEvents(cancelOn, on)));
+  }
+
+  return timerObservable;
 }

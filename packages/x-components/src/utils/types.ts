@@ -200,5 +200,7 @@ export interface ThrottleFunction<Params extends any[]> {
 
 /**
  * Alias for a type that might be an array or not.
+ *
+ * @public
  */
 export type MaybeArray<Something> = Something | Array<Something>;

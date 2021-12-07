@@ -32,10 +32,10 @@ export type NamespacedTimeSelector<ModuleName extends XModuleName> = (
  * @param ModuleName - The {@link XModuleName} of the module to create a namespaced
  * {@link NamespacedTimeSelector}.
  * @param Wire - The wire which will be piped with a timing operator.
- * @param timeRetrieving - Function that receives the State and the Getters of the namespace
- * {@link XStoreModule} to retrieve the time from there.
- * @param raceEvent - The event or events that would prevent the wire execution if at least one
- * of them executes first.
+ * @param timeInMs - Function that receives the state and the getters of the given module
+ * {@link XStoreModule} to retrieve the time.
+ * @param options - Options to configure events that should make the planned wire execution happen
+ * immediately or be aborted.
  *
  * @public
  */
