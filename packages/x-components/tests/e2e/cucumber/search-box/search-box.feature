@@ -6,7 +6,7 @@ Feature: Search-box component
     And   a related tags API
     And   a recommendations API with a known response
     And   a results API with a known response
-    And   a query tagging
+    And   a tracking API
 
   Scenario Outline: 1. Query with results is typed and <buttonOrKey> is clicked/pressed (search-box is empty)
     Given following config: hide if equals query <hideIfEqualsQuery>, instant search <instant>, debounce <instantDebounceInMs>
