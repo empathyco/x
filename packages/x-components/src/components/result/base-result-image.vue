@@ -202,9 +202,9 @@
 </style>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
-## Basic example
+### Basic example
 
 This component is for the result image. It may be part of the search result page, recommendations or
 other section which needs to include results.
@@ -215,7 +215,7 @@ The result prop is required. It will render a `<img/>` with the result image:
 <BaseResultImage :result="result" />
 ```
 
-## Customizing slots content
+### Customizing slots content
 
 Fallback and placeholder contents can be customized.
 

@@ -77,7 +77,7 @@
 </style>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 The CollapseTop component is intended to be used as animation to wrap an element with v-if or v-show
 and animate it. The animation consists on scale its vertical size from 0 to 1, and after this show

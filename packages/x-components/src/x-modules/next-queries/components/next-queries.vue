@@ -79,9 +79,9 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
-## Basic example
+### Basic example
 
 You don't need to pass any props, or slots. Simply add the component, and when it has any next
 queries it will show them
@@ -97,7 +97,7 @@ The component has two optional props. `animation` to render the component with a
 <NextQueries :animation="FadeAndSlide" :maxItemsToRender="10" />
 ```
 
-## Overriding Next Queries' Content
+### Overriding Next Queries' Content
 
 You can use your custom implementation of the Next Query's content. In the example below, instead of
 using the default Next Query's content, an icon is added, as well as a span with the query of the
@@ -112,7 +112,7 @@ Next Query suggestion.
 </NextQueries>
 ```
 
-## Adding a custom next query component
+### Adding a custom next query component
 
 You can use your custom implementation of a next query component. To work correctly, it should use
 the `emitNextQuerySelected` function when the next query is selected. In the example below, instead

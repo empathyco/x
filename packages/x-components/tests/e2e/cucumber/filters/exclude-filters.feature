@@ -6,6 +6,7 @@ Feature: Exclude filters with no results component
     And   a next queries API
     And   a suggestions API
     And   a related tags API
+    And   a tracking API
 
   Scenario Outline: 1. Filters with total results = 0 are not shown
     Given no special config for layout view

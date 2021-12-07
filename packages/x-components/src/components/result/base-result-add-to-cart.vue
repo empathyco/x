@@ -48,12 +48,12 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 Renders a button with a default slot. It receives the result with the data and emits an event
 `UserClickedResultAddToCart` to the bus on click mouse event.
 
-## Basic example
+### Basic example
 
 This component is a button to emit `UserClickedResultAddToCart` whe clicked by the user
 

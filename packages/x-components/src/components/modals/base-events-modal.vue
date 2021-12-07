@@ -114,13 +114,13 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 The `BaseEventsModal` component handles the modal open/close state via the events passed via props.
 Its configured by default to work as a modal for a whole search application, but if the events are
 changed, it can work as a modal that is opened/closed when the events it is listening are emitted.
 
-## Basic usage
+### Basic usage
 
 The component interacts with the open and close components, which are preconfigured by default to
 emit the same events that the `BaseEventsModal` component is listening to:
@@ -149,7 +149,7 @@ emit the same events that the `BaseEventsModal` component is listening to:
 </script>
 ```
 
-## Customizing the events
+### Customizing the events
 
 If needed, the events to open/close the modal can be changed. The modal can listen one or more
 events. To do so, the `eventsToCloseModal` and `eventsToOpenModal` props can be used. Below you can

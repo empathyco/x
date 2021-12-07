@@ -70,12 +70,12 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This component renders an identifier result value and highlights its matching part with the query
 from the state. Receives as prop the result data
 
-## Basic usage:
+### Basic usage:
 
 ```vue
 <IdentifierResult v-bind="{ result }" />

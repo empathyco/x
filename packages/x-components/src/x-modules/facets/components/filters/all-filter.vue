@@ -89,19 +89,19 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This component receives a required `facet` as prop and renders a button, which on clicked emits the
 UserClickedAllFilter event. By default the rendered button displays a message with the facet label
 but this content is customizable through the default slot.
 
-## Basic usage
+### Basic usage
 
 ```vue
 <AllFilter :facet="facet" />
 ```
 
-## Customizing its content
+### Customizing its content
 
 ```vue
 <AllFilter v-slot="{ facet }" :facet="facet">
@@ -109,7 +109,7 @@ but this content is customizable through the default slot.
 </AllFilter>
 ```
 
-## Basic example within facets
+### Basic example within facets
 
 ```vue
 <Facets>
@@ -122,7 +122,7 @@ but this content is customizable through the default slot.
 </Facets>
 ```
 
-## Custom example within facets
+### Custom example within facets
 
 ```vue
 <Facets>

@@ -93,13 +93,13 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 The `BaseIdModal` component reacts to the `UserClickedOpenModal`, `UserClickedCloseModal` and
 `UserClickedOutOfModal` to handle its open/close state. The component filters out the events which
 payload doesn't match its `modalId` prop and reacts only to those who match this criteria.
 
-## Basic usage
+### Basic usage
 
 The component interacts with both `BaseIdModalOpen` and `BaseIdModalClose` components, which have to
 share the same value in their `modalId` prop to work:

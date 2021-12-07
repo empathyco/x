@@ -50,9 +50,9 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
-## Basic Example
+### Basic Example
 
 You can customize the content that this component renders. To do so, simply use the default slot.
 

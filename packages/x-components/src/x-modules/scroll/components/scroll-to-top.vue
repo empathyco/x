@@ -141,9 +141,9 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
-## Basic example
+### Basic example
 
 The component renders whatever is passed to it in the default slot and scrolls to top the scroll
 with an id `scrollId`.

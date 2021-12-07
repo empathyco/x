@@ -106,15 +106,13 @@
 </script>
 
 <docs lang="mdx">
-# Example
+## Example
 
 Renders the value received as a property, which always must be a JavaScript number, with the proper
 format provided as string property. The rendered tag is a span in order to render a default inline
 HTML element.
 
-## Basic usage
-
-### Example
+### Basic usage
 
 ```vue
 <BaseCurrency :value="12345678.87654321" format="i.iii,ddd? €" />
