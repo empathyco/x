@@ -10,22 +10,21 @@ import { TimedWireOperatorOptions, TimeSelector } from './wiring.types';
 /**
  * Creates the observable for the events that will be racing the wire's execution.
  *
- * @param raceEvent - The event or events that would prevent the wire execution if at least one
- * of them executes first.
+ * @param events - The events to merge its observables.
  * @param on - The on function of the {@link XBus} where the events will run.
  * @returns The observable for the racing events.
  * @internal
  */
-export function mergeEvents(raceEvent: MaybeArray<XEvent>, on: XBus['on']): Subject<void> {
-  const raceObservable = new Subject<void>();
-  const raceEvents = Array.isArray(raceEvent) ? raceEvent : [raceEvent];
+export function mergeEvents(events: MaybeArray<XEvent>, on: XBus['on']): Observable<void> {
+  const subject = new Subject<void>();
+  const eventsList = Array.isArray(events) ? events : [events];
 
   /* Can't use RxJS `merge` function, as it immediately emits previously emitted values to new
    subscriptions due to the `ReplaySubject` of the bus. With this Subject we are still receiving
    those values immediately on subscription, but as there are no subscribers before the `return`
    happens we are fine. */
-  raceEvents.forEach(raceEvent => on(raceEvent).subscribe(() => raceObservable.next()));
-  return raceObservable;
+  eventsList.forEach(raceEvent => on(raceEvent).subscribe(() => subject.next()));
+  return subject;
 }
 
 /**
