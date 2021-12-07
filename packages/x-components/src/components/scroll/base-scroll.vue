@@ -26,7 +26,7 @@
 </style>
 
 <docs lang="mdx">
-# Example
+## Example
 
 The BaseScroll is a component that manage the states of scroll of a specified element. The component
 does the necessary calculations for knowing the direction of scroll, if the scroll has reached to
@@ -82,7 +82,7 @@ movement that realize the user:
 </script>
 ```
 
-## Avoid reset scroll on query change
+### Avoid reset scroll on query change
 
 Set to false the reset scroll on query change feature which is true by default.
 

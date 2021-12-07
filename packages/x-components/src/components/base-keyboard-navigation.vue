@@ -145,7 +145,7 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This component has a slot to inject other components inside it. The component expects a required
 prop, navigationHijacker, which is an array of objects containing: the xEvent to listen to, the
@@ -153,7 +153,7 @@ moduleName in charge of emitting the event and to which direction it should reac
 control of the navigation. It has another prop, optional in this case, to emit an xEvent when
 reaching the navigation limit in any direction.
 
-## Basic Usage
+### Basic Usage
 
 ```vue
 <KeyboardNavigation>
@@ -161,7 +161,7 @@ reaching the navigation limit in any direction.
 </KeyboardNavigation>
 ```
 
-## Defining multiple conditions to take navigation's control
+### Defining multiple conditions to take navigation's control
 
 ```vue
 <KeyboardNavigation
@@ -182,7 +182,7 @@ reaching the navigation limit in any direction.
 </KeyboardNavigation>
 ```
 
-## Defining events to emit when reaching a navigation limit
+### Defining events to emit when reaching a navigation limit
 
 ```vue
 <KeyboardNavigation

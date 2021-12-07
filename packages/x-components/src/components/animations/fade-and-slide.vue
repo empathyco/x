@@ -58,7 +58,7 @@
 </style>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 The FadeAndSlide component is intended to be used as a prop in animatable components but also works
 as a wrapper of a transition group that can receive the tag it will render to as a prop.

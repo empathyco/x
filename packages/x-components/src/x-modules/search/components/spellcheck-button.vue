@@ -65,9 +65,9 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
-## Basic example
+### Basic example
 
 The component sets the current spellcheckedQuery as the new query and emits the `UserAcceptedAQuery`
 and `UserAcceptedSpellcheckQuery` events.
@@ -76,7 +76,7 @@ and `UserAcceptedSpellcheckQuery` events.
 <SpellcheckButton />
 ```
 
-## Customizing its contents
+### Customizing its contents
 
 ```vue
 <SpellcheckButton>

@@ -124,7 +124,7 @@
 </style>
 
 <docs lang="mdx">
-# Example
+## Example
 
 This component allows to provide facets by prop, to add them to the state of the `Facets X-Module`.
 These facets will be added to the `Facets X-Module` state together with the facets emitted by the

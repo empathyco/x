@@ -64,18 +64,18 @@
 </script>
 
 <docs lang="mdx">
-# Example
+## Example
 
 Renders a label for a rating filter, allowing to override the elements used to paint the rating. The
 filter label must be a valid number string. For example: '3', '2.5', '0.25'
 
-## Basic usage
+### Basic usage
 
 ```vue
 <BaseRatingFilterLabel :filter="filter" />
 ```
 
-## Customizing color
+### Customizing color
 
 Its possible to change the default color directly with color CSS attribute. For more elaborated
 styles it's possible to style the inner svg icons.
@@ -84,7 +84,7 @@ styles it's possible to style the inner svg icons.
 <BaseRatingFilterLabel :filter="filter" style="color: gold" />
 ```
 
-## Customizing its contents
+### Customizing its contents
 
 The `max` prop can be used to set the max rating number. It will render as many icons as the this
 `max` value.

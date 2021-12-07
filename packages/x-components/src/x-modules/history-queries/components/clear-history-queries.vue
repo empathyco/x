@@ -77,9 +77,9 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
-## Basic example
+### Basic example
 
 The component exposes a single default slot, where you can add icons or text.
 

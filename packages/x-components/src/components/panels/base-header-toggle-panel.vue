@@ -87,12 +87,12 @@
 </style>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 Toggle panel which uses the base toggle panel, adds a header and manage the open / close state of
 the panel.
 
-## Basic usage
+### Basic usage
 
 ```vue
 <BaseHeaderTogglePanel :animation="collapseHeight" :start-collapsed="false">
@@ -105,7 +105,7 @@ the panel.
 </BaseHeaderTogglePanel>
 ```
 
-## Custom header
+### Custom header
 
 ```vue
 <BaseHeaderTogglePanel :animation="collapseHeight" :start-collapsed="true">
@@ -119,7 +119,7 @@ the panel.
 </BaseHeaderTogglePanel>
 ```
 
-## Vue Events
+## Events
 
 A list of events that the component will emit:
 

@@ -92,18 +92,18 @@
 </style>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 Renders a list with a list item per each filter in the filters prop array. Each list item has a
 scoped slot, passing the filter as slot prop.
 
-## Important
+### Important
 
 The component has two ways of receive the filters list, it can be injected by another component or
 be send it as a prop. If the component doesnt have a parent component that receive and exposed a
 filters list to their children, it is mandatory to send it as prop.
 
-## Basic usage
+### Basic usage
 
 Using default slot:
 

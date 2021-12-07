@@ -3,6 +3,7 @@ Feature: Exclude filters with no results component
   Background:
     Given a results API with 24 results
     And   a next queries API
+    And   a tracking API
     And   no special config for layout view
 
   Scenario Outline: 1. Scroll is kept in the URL

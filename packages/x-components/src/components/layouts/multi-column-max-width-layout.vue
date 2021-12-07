@@ -437,7 +437,7 @@
 </style>
 
 <docs lang="mdx">
-# Layout
+## Layout
 
 This component has the following layout with fixed headers and collapsible fixed asides:
 
@@ -448,7 +448,7 @@ This component has the following layout with fixed headers and collapsible fixed
 |  main-aside   |     main      |               |
 |               |               | scroll-to-top |
 
-# Design Tokens
+## Design Tokens
 
 The component has also the following `Design Tokens` to configure it:
 

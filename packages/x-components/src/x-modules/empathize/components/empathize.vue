@@ -130,7 +130,7 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This component will listen to the configured events in `eventsToOpenEmpathize` and
 `eventsToCloseEmpathize` props and open/close itself accordingly. By default, those props values
@@ -140,7 +140,7 @@ are:
 - Close: `UserClosedEmpathize`, `UserSelectedASuggestion`, `UserPressedEnter`,
   'UserBlurredSearchBox`
 
-## Basic examples
+### Basic examples
 
 The component rendering the query suggestions, popular searches and history queries with keyboard
 navigation.

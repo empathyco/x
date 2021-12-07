@@ -139,26 +139,13 @@
 </script>
 
 <docs lang="mdx">
-# Example
+## Example
 
 The Scroll is a component that wraps the BaseScroll and provides it for a unique id.
 
-## Events
+### Customized usage
 
-A list of events that the component will emit:
-
-- `UserScrolled`: emitted after the user scrolls in this container. The payload is the scroll top
-  distance in pixels.
-- `UserChangedScrollDirection`: emitted when the user changes the scroll direction. The payload is
-  the new scrolling direction.
-- `UserReachedScrollStart`: emitted when the user scrolls up to the initial position of the scroll.
-- `UserAlmostReachedScrollEnd`: emitted when the user is about to reach the bottom part of the
-  scroll.
-- `UserReachedScrollEnd`: emitted when the user has reached the bottom part of the scroll.
-
-## Customized usage
-
-### Overriding the properties
+#### Overriding the properties
 
 It renders an element with scroll, with the content passed in the `default slot`.
 
@@ -184,9 +171,7 @@ It renders an element with scroll, with the content passed in the `default slot`
 </script>
 ```
 
-## Customized usage
-
-### Using scroll events.
+#### Using scroll events.
 
 ```vue
 <template>
@@ -236,9 +221,7 @@ It renders an element with scroll, with the content passed in the `default slot`
 </script>
 ```
 
-## Customized usage
-
-### Using XEvents.
+#### Using XEvents.
 
 You can use the XEvents subscribing to them.
 
@@ -280,4 +263,17 @@ You can use the XEvents subscribing to them.
   };
 </script>
 ```
+
+## Events
+
+A list of events that the component will emit:
+
+- `UserScrolled`: emitted after the user scrolls in this container. The payload is the scroll top
+  distance in pixels.
+- `UserChangedScrollDirection`: emitted when the user changes the scroll direction. The payload is
+  the new scrolling direction.
+- `UserReachedScrollStart`: emitted when the user scrolls up to the initial position of the scroll.
+- `UserAlmostReachedScrollEnd`: emitted when the user is about to reach the bottom part of the
+  scroll.
+- `UserReachedScrollEnd`: emitted when the user has reached the bottom part of the scroll.
 </docs>
