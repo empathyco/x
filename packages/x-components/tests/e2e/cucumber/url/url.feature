@@ -12,14 +12,14 @@ Feature: Url component
     Given a URL with query parameter "lego"
     Then  the search request contains the origin "<origin>"
     Examples:
-      | origin        |
-      | url:external  |
+      | origin       |
+      | url:external |
 
   Scenario Outline: 2. Navigate back and forth in serp sets the url origin as "<origin>"
     Given a URL with query parameter "lego"
-    Then the search request contains the origin "url:external"
+    Then  the search request contains the origin "url:external"
     When  sort option "<sort>" is selected from the sort "dropdown"
-    Then the search request contains the origin "url:external"
+    Then  the search request contains the origin "url:external"
     Then  navigate back
     Then  the search request contains the origin "<origin>"
     Examples:
