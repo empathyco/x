@@ -1,6 +1,5 @@
 import { shallowMount, Wrapper } from '@vue/test-utils';
 import { ComponentOptions, default as Vue } from 'vue';
-import { Store } from 'vuex';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { identifierResultsXModule } from '../../x-modules/identifier-results/x-module';
 import { nextQueriesXModule } from '../../x-modules/next-queries/x-module';
@@ -8,8 +7,8 @@ import { popularSearchesXModule } from '../../x-modules/popular-searches/x-modul
 import { querySuggestionsXModule } from '../../x-modules/query-suggestions/x-module';
 import { recommendationsXModule } from '../../x-modules/recommendations/x-module';
 import { relatedTagsXModule } from '../../x-modules/related-tags/x-module';
-import { searchXModule } from '../../x-modules/search/x-module';
 import { searchBoxXModule } from '../../x-modules/search-box/x-module';
+import { searchXModule } from '../../x-modules/search/x-module';
 import { XPlugin } from '../x-plugin';
 import { getAliasAPI } from '../x-plugin.alias';
 import { XComponentAliasAPI } from '../x-plugin.types';
@@ -153,7 +152,7 @@ describe('testing plugin alias', () => {
       });
     }
 
-    const aliasKeys = Object.keys(getAliasAPI({ $store: new Store({ state: { x: {} } }) } as Vue));
+    const aliasKeys = Object.keys(getAliasAPI(componentInstance.vm));
 
     expect(isJSGetterOrDictionaryOfJSGetters(componentInstance.vm.$x, aliasKeys)).toEqual(true);
   });
