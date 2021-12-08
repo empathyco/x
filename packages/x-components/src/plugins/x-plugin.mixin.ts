@@ -1,11 +1,11 @@
 import Vue, { ComponentOptions } from 'vue';
 import { Store } from 'vuex';
-import { XComponent } from '../components/x-component.types';
 import { getXComponentXModuleName, isXComponent } from '../components/x-component.utils';
 import { RootXStoreState } from '../store/store.types';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
 import { FeatureLocation } from '../types/origin';
+import { XModuleName } from '../x-modules/x-modules.types';
 import { XBus } from './x-bus.types';
 import { getAliasAPI } from './x-plugin.alias';
 import { XComponentAPI, XComponentBusAPI } from './x-plugin.types';
@@ -16,10 +16,16 @@ declare module 'vue/types/vue' {
   }
 }
 
+declare module 'vue/types/options' {
+  export interface ComponentOptions<V, Data, Methods, Computed, PropsDef, Props> {
+    xModule?: XModuleName;
+  }
+}
+
 interface PrivateExtendedVueComponent extends Vue {
   $location?: FeatureLocation;
   $store: Store<{ x: Partial<RootXStoreState['x']> }>;
-  xComponent: XComponent | undefined;
+  xComponent: Vue | undefined;
 }
 
 /**
@@ -42,12 +48,10 @@ export const createXComponentAPIMixin = (
     }
   },
   beforeCreate(this: PrivateExtendedVueComponent) {
+    this.xComponent = getRootXComponent(this);
     const aliasAPI = getAliasAPI(this);
     const busAPI = getBusAPI(bus, this);
     this.$x = Object.assign(aliasAPI, busAPI);
-  },
-  created() {
-    this.xComponent = getRootXComponent(this);
   }
 });
 
@@ -100,8 +104,8 @@ function createWireMetadata(
  * @returns The root XComponent or undefined if it has not.
  * @public
  */
-export function getRootXComponent(component: Vue): XComponent | undefined {
-  let xComponent: XComponent | undefined;
+export function getRootXComponent(component: Vue): Vue | undefined {
+  let xComponent: Vue | undefined;
   while (component !== undefined && component !== null) {
     if (isXComponent(component)) {
       xComponent = component;

@@ -35,5 +35,4 @@ export * from './decorators/injection.decorators';
 export * from './decorators/store.decorators';
 export * from './items-list-injection.mixin';
 export * from './x-component.mixin';
-export * from './x-component.types';
 export * from './x-component.utils';
