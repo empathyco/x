@@ -7,12 +7,11 @@ import { popularSearchesXModule } from '../../x-modules/popular-searches/x-modul
 import { querySuggestionsXModule } from '../../x-modules/query-suggestions/x-module';
 import { recommendationsXModule } from '../../x-modules/recommendations/x-module';
 import { relatedTagsXModule } from '../../x-modules/related-tags/x-module';
-import { searchBoxXModule } from '../../x-modules/search-box/x-module';
 import { searchXModule } from '../../x-modules/search/x-module';
+import { searchBoxXModule } from '../../x-modules/search-box/x-module';
 import { XPlugin } from '../x-plugin';
 import { getAliasAPI } from '../x-plugin.alias';
 import { XComponentAliasAPI } from '../x-plugin.types';
-import getOwnPropertyDescriptor = Reflect.getOwnPropertyDescriptor;
 
 describe('testing plugin alias', () => {
   const component: ComponentOptions<Vue> & ThisType<Vue> = {
@@ -142,10 +141,12 @@ describe('testing plugin alias', () => {
       keys: string[]
     ): boolean {
       return keys.every(key => {
-        const descriptor = getOwnPropertyDescriptor(obj, key);
+        const descriptor = Object.getOwnPropertyDescriptor(obj, key);
         const value = obj[key as keyof typeof obj];
         return (
-          (descriptor?.set === undefined && descriptor?.value === undefined) ||
+          (descriptor?.set === undefined &&
+            descriptor?.value === undefined &&
+            descriptor?.get !== undefined) ||
           (typeof value === 'object' &&
             isJSGetterOrDictionaryOfJSGetters(value, Object.keys(value)))
         );
