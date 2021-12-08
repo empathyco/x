@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Facet, Filter } from '@empathyco/x-types';
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Prop, Watch } from 'vue-property-decorator';
   import { XOn } from '../../../../components';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
   import { areFiltersDifferent } from '../../../../utils/filters';
@@ -48,17 +48,6 @@
     protected selectedFilters: Filter[] | null = null;
 
     /**
-     * Creates a watcher for the `facetsGroup`, if they're set, emitting an
-     * event whenever they change. This is done this way because the {@link XBus} is not injected
-     * until the component is created.
-     *
-     * @internal
-     */
-    protected created(): void {
-      this.$watch('facetsGroup', this.provideFacets.bind(this), { immediate: true });
-    }
-
-    /**
      * A computed property to group the facets and the groupId. This is used by the watcher.
      *
      * @returns The FacetGroup with the facets and the group id.
@@ -92,6 +81,7 @@
      * {@link FacetsProvider.facetsGroup} as payload. It also extracts and saves the selected
      * filters.
      */
+    @Watch('facetsGroup', { immediate: true })
     provideFacets(): void {
       if (this.facetsGroup.facets) {
         this.$x.emit('FacetsGroupProvided', this.facetsGroup);

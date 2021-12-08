@@ -7,7 +7,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Prop, Watch } from 'vue-property-decorator';
   import { XOn } from '../decorators/bus.decorators';
   import { NoElement } from '../no-element';
   import BaseTogglePanel from './base-toggle-panel.vue';
@@ -40,15 +40,6 @@
 
     /** Whether the toggle panel is open or not. */
     protected isOpen = this.startOpen;
-
-    /**
-     * Creates the watcher over `isOpen` state to emit the event
-     * {@link XEventsTypes.TogglePanelStateChanged}.
-     */
-    created(): void {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      this.$watch('isOpen', this.emitStateEvent, { immediate: true });
-    }
 
     /**
      * Animation component that will be used to animate the panel content.
@@ -87,6 +78,7 @@
      * component.
      * @public
      */
+    @Watch('isOpen', { immediate: true })
     emitStateEvent(): void {
       this.$x.emit('TogglePanelStateChanged', this.isOpen, {
         id: this.panelId,
