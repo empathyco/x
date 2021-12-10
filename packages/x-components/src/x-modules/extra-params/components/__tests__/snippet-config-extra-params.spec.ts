@@ -13,7 +13,7 @@ describe('testing snippet config extra params component', () => {
     XPlugin.resetInstance();
     const [, localVue] = installNewXPlugin();
     XPlugin.registerXModule(extraParamsXModule);
-    const snippetConfig = Vue.observable({ warehouse: 1234 });
+    const snippetConfig = Vue.observable({ warehouse: 1234, callbacks: {} });
 
     const wrapper = mount(
       {
@@ -99,6 +99,20 @@ describe('testing snippet config extra params component', () => {
       2,
       expect.objectContaining({
         eventPayload: { warehouse: 45678 }
+      })
+    );
+  });
+
+  it('not includes the callback configuration as extra params', () => {
+    const { wrapper } = renderSnippetConfigExtraParams();
+    const extraParamsProvidedCallback = jest.fn();
+
+    wrapper.vm.$x.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
+
+    expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
+      1,
+      expect.not.objectContaining({
+        eventPayload: { callbacks: {} }
       })
     );
   });
