@@ -131,8 +131,10 @@ describe(`testing ${debounce.name} operator`, () => {
 
       emitWireEvent('3', '4');
       expect(callback).toHaveBeenCalledTimes(1);
+
       jest.advanceTimersByTime(500);
       expect(callback).toHaveBeenCalledTimes(2);
+      expect(callback).toHaveBeenCalledWith('4');
     });
 
     // eslint-disable-next-line max-len
@@ -186,10 +188,10 @@ describe(`testing ${debounce.name} operator`, () => {
 
       bus.emit('UserClearedQuery', '');
       bus.emit('UserClickedAResult', createResultStub('Random result'));
-      expect(callback).toHaveBeenCalledTimes(0);
+      expect(callback).not.toHaveBeenCalled();
 
       jest.advanceTimersByTime(500);
-      expect(callback).toHaveBeenCalledTimes(0);
+      expect(callback).not.toHaveBeenCalled();
     });
   });
 });

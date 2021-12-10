@@ -127,7 +127,7 @@ describe('testing wires operators', () => {
   });
 
   describe('testing operator ' + mapWire.name, () => {
-    test(mapWire.name + ' emits the valued transformed by the function passed by parameter', () => {
+    it('emits the valued transformed by the function passed by parameter', () => {
       const mappedWire = mapWire(wire, (payload: number) => payload + 1);
 
       mappedWire(subjectHandler.subject, storeMock, busOnMock);

@@ -116,12 +116,9 @@ describe(`testing ${throttle.name} operator`, () => {
       bus.emit('UserClearedQuery', '');
       expect(callback).toHaveBeenCalledTimes(1);
 
-      emitWireEvent('2');
+      emitWireEvent('2', '3');
       expect(callback).toHaveBeenCalledTimes(2);
       expect(callback).toHaveBeenCalledWith('2');
-
-      emitWireEvent('3');
-      expect(callback).toHaveBeenCalledTimes(2);
 
       bus.emit('UserAcceptedAQuery', 'jumper');
       expect(callback).toHaveBeenCalledTimes(2);
