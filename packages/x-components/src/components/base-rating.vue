@@ -85,14 +85,14 @@
     display: inline-block;
 
     &--empty {
-      overflow-x: hidden;
+      overflow: hidden;
       display: flex;
     }
 
     &--filled {
       display: flex;
       position: absolute;
-      overflow-x: hidden;
+      overflow: hidden;
       top: 0;
       left: 0;
     }
