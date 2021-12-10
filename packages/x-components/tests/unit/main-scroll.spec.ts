@@ -1,6 +1,7 @@
 import { mount } from '@cypress/vue';
 import 'reflect-metadata';
 import Vue from 'vue';
+import { FadeAndSlide } from '../../src/components/animations/index';
 import { mockedAdapter } from '../../src/adapter/mocked-adapter';
 import { BaseXBus } from '../../src/plugins/x-bus';
 import { XPlugin } from '../../src/plugins/x-plugin';
@@ -21,7 +22,21 @@ function renderMainScroll({
   threshold,
   margin,
   useWindow,
-  windowScrollingElement
+  windowScrollingElement,
+  template = `
+      <MainScroll v-bind="{ threshold, margin, useWindow }">
+        <div class="container" ${!useWindow ? `data-test="scroll"` : ''}>
+          <MainScrollItem
+            v-for="item in items"
+            class="item"
+            tag="article"
+            :item="item"
+            :data-test="item.id">
+            {{ item.id }}
+          </MainScrollItem>
+        </div>
+      </MainScroll>
+  `
 }: RenderMainScrollOptions = {}): RenderMainScrollAPI {
   const userScrolledToElementSpy = cy.spy();
   XPlugin.resetInstance();
@@ -40,22 +55,10 @@ function renderMainScroll({
     {
       components: {
         MainScroll,
-        MainScrollItem
+        MainScrollItem,
+        FadeAndSlide
       },
-      template: `
-        <MainScroll v-bind="{ threshold, margin, useWindow }">
-          <div class="container" ${!useWindow ? `data-test="scroll"` : ''}>
-            <MainScrollItem
-              v-for="item in items"
-              class="item"
-              tag="article"
-              :item="item"
-              :data-test="item.id">
-              {{ item.id }}
-            </MainScrollItem>
-          </div>
-        </MainScroll>
-      `,
+      template,
       data() {
         return {
           items: Array.from({ length: itemsCount }, (_, index) => ({ id: `item-${index}` })),
@@ -166,6 +169,44 @@ describe('testing MainScroll component', () => {
         });
       });
 
+      it('restores the scroll with transitions enabled', () => {
+        const template = `
+        <MainScroll v-bind="{ threshold, margin, useWindow }">
+          <div data-test="main-scroll">
+            <FadeAndSlide>
+              <MainScrollItem
+                v-for="item in items"
+                class="item"
+                tag="article"
+                :item="item"
+                :data-test="item.id">
+                {{ item.id }}
+              </MainScrollItem>
+            </FadeAndSlide>
+          </div>
+        </MainScroll>
+      `;
+        const { restoreScrollToItem, getItem } = renderMainScroll({
+          ...defaultParameters,
+          template
+        });
+
+        cy.getByDataTest('main-scroll').should('have.class', 'x-main-scroll--no-transition');
+        restoreScrollToItem(5);
+        cy.getByDataTest('main-scroll').should('not.have.class', 'x-main-scroll--no-transition');
+
+        cy.log('Item 5 should be the first one.');
+        getItem(5).should($item5 => {
+          expect($item5.get(0).getBoundingClientRect().top).to.be.eq(0);
+        });
+        cy.log("Item 4 shouldn't be visible");
+        getItem(4).should($item4 => {
+          const item4Bounds = $item4.get(0).getBoundingClientRect();
+          const item4Bottom = item4Bounds.top + item4Bounds.height;
+          expect(item4Bottom).to.be.eq(0);
+        });
+      });
+
       it('allows configuring when to consider an element visible', () => {
         const { scrollToItem, userScrolledToElementSpy, scrollBy } = renderMainScroll({
           ...defaultParameters,
@@ -220,6 +261,8 @@ interface RenderMainScrollOptions {
   threshold?: number;
   /** The height of each one of the items. */
   itemHeight?: string;
+  /** The template to render.*/
+  template?: string;
   /** Enables listening to the global scroll instead of the wrapping element scroll. */
   useWindow?: boolean;
   /** When `useWindow=true`, the element that should be scrollable. */
