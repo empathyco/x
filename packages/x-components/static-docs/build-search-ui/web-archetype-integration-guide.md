@@ -12,167 +12,165 @@ tags:
 
 # Integrate Interface X Archetype
 
-In this tutorial, you’ll learn how to integrate the Interface&nbsp;X&nbsp;Archetype project in your
-store in a matter of minutes so you can develop a search interface layer based on predefined
-features and components.
+Once you have finished developing your search interface using the Interface&nbsp;X&nbsp;Archetype
+project you will want to integrate it into your current website.
 
-For this tutorial, the Empathy Search API is used, but you can use any search API. This guide
-requires knowledge of JavaScript and Vue.js.
+The integration is a 2-steps process:
 
-::: note Before you begin
+- Load Interface&nbspX script.
+- Initialise the Interface&nbspX.
 
-To integrate Interface&nbsp;X&nbsp;Archetype as a search UI layer, you need:
+Depending on your business needs, there are 2 different ways of making this integration process.
 
-- **Empathy Search API** (or any search API that you use to retrieve search data).
-- **Empathy Search Adapter** to communicate with the Empathy Search API (or any search adapter to
-  connect with the search API you are using).
+## Auto initialisation
 
-:::
+This is the easiest way to integrate the Interface&nbspX project in a website. The way to do so is
+by first defining an initialisation object or function, and then loading the Interface&nbspX script.
 
-##### Steps to integrate X Archetype project:
+### 1. Add a snippet config
 
-1. **Clone** the X&nbsp;Archetype project and **initialize** your repository.
-2. Install the **project dependencies** and execute the project.
-3. Configure the **search adapter**.
-4. Configure the **xPlugin**.
+This will configure Interface&nbspX with certain parameters that it needs to work.
 
-## 1. Clone the project and initialize your repository
+If your configuration values are easy to retrieve or static, you can simply use an object.
 
-Clone the [X Archetype project](https://github.com/empathyco/x-archetype.git) from the GitHub
-repository to your target folder. You need a non-initialized repository, so make sure you remove the
-git folder from the cloned project.
-
-```batch
-// Clone the X Archetype project from GitHub
-git clone --depth 1 https://github.com/empathyco/x-archetype.git <your-target-folder>
-
-// Remove the git folder
-rm -rf .git
-```
-
-::: develop
-
-You can use [Degit](https://github.com/Rich-Harris/degit) to clone the git repository without
-downloading the entire git history:
-`npx degit https://github.com/empathyco/x-archetype.git <your-target-folder>`.
-
-:::
-
-Once you have cloned the project and removed the git history from the project, initialize the
-repository from the root directory.
-
-```batch
-// Initialize the repository
-git init
-git remote add origin <your-repository-url>
-git add .
-git commit -m "Initial X-Components Setup"
-git push -u origin main
-```
-
-Then, replace the current repository name (`@empathyco/x-archetype`) with the name of your
-repository in the `package.json` file.
-
-```json
-// Define your repository
-{
-   "name": "<your-repo>",
-   "author": "Empathy Systems Corporation S.L.",
-   …
- }
-
-```
-
-## 2. Install the dependencies and execute the project
-
-Install the project dependencies via `npm` in the root folder of your cloned repository. Then, you
-can run the project.
-
-```batch
-// Install the dependencies via npm
-npm install
-
-// Execute the project
-npm run serve
-```
-
-::: interact  
-For a full list of the project dependencies, check the
-[`package.json`](https://github.com/empathyco/x-archetype/blob/main/package.json) file in the
-Interface&nbsp;X&nbsp;Archetype repository. :::
-
-## 3. Configure the search adapter
-
-Before using your project, configure the Empathy Search Adapter in the
-`x-archetype/src/adapter/adapter.ts` file, using the Empathy Adapter Builder to make it work with
-the Empathy Search API. The Empathy Search Adapter contains a sample configuration for setup, global
-configurations, or mappers that points to a demo environment. You need to make some adjustments in
-the configuration according to the search features you use in your project.
-
-Export the required search adapter with your configuration as you will need it for the search
-[xPlugin configuration](web-archetype-integration-guide.md#_4-configure-the-plugin).
-
-::: interact For detailed information about other configuration options in the Empathy Search
-Adapter, go to the
-[x-adapter repository](https://github.com/empathyco/x/tree/main/packages/search-adapter). :::
-
-::: note Although you configure the values for the `instance`, `language`, `scope`, and `endpoint`
-options when integrating the project, you can still change these values when the project is
-deployed. Use the `/x-archetype/public/snippet-script.js` file to perform hot changes for `lang`,
-`store`, `device`, and `catalog` parameters.
-
-For example, you may configure the adapter to use EN as `lang` so that when you search, the results
-are displayed in English. However, if you want to deploy the application in Spain, you want the
-`lang` to be ES. You change these values in the `snippet-script.js` file.
-
-:::
-
-## 4. Configure the plugin
-
-The `xPlugin` initializes the properties needed by the X&nbsp;Components. It has key options that
-you can configure in the `/x-archetype/src/x-components/plugin.options.ts` file.
-
-Since the X&nbsp;Archetype project operates as a layer and is designed to be integrated on top of
-any kind of website regardless the chosen technology, the `XInstaller` utility and its
-`installXOptions` object are designed to install the xPlugin, adding the connection between the
-X&nbsp;Components and the search API and bootstrapping the entire application with powerful APIs
-that are available in the `window.X` object.
-
-To configure the xPlugin, run this code:
-
-```typescript
-import { InstallXOptions, XInstaller } from '@empathyco/x-components';
-import App from './App.vue';
-import store from './store';
-import { adapter } from '../adapter';
-
-export const installXOptions: InstallXOptions = {
-  adapter,
-  store,
-  app: App
+```js
+window.initX = {
+  instance: 'my-store',
+  env: 'live',
+  scope: 'desktop',
+  lang: 'en',
+  currency: 'EUR',
+  consent: false
 };
-
-new XInstaller(installXOptions).init({
-  instance: '<your-search-api-instance>',
-  lang: '<your-application-language>',
-  scope: '<your-application-scope>'
-});
 ```
 
----
+If you need to retrieve values dynamically, or execute any kind of logic before the initialisation,
+you can also use a function:
 
-### Next steps
+```js
+window.initX = function () {
+  return {
+    instance: 'my-store',
+    env: location.href.includes('.pre.') ? 'staging' : 'live',
+    scope: 'web',
+    lang: localStorage.get('lang'),
+    currency: localStorage.get('currency'),
+    consent: localStorage.get('consent')
+  };
+};
+```
 
-Once you have integrated the Interface&nbsp;X&nbsp;Archetype in your store, you're ready to start
-using the X&nbsp;Archetype as is or extend the search and discovery experience to meet your business
-needs:
+You can read more about the [snippet configuration](#snippet-configuration) below.
 
-- Change the configuration of [X Components](web-use-x-components-guide.md) or create new ones.
-- Adapt the
-  [design system](https://github.com/empathyco/x/blob/main/packages/x-components/contributing/design-system.md)
-  to your branding.
-- Manage
-  [internationalization options](https://github.com/empathyco/x-archetype/blob/main/docs/i18n.md) to
-  support different languages.
+### 2. Load the Interface&nbspX script
 
-<!-- add links to design system and internationalization content pages when ready-->
+Once you have defined your snippet configuration either as an object or a function, you can insert
+the Interface script. This script is hosted in a URL of this shape
+`https://x.<environment?>.empathy.co/<instance>/app.js`.
+
+For example, supposing that `my-store` is the instance, and you want to load the production script,
+you can add to your HTML the following scripts.
+
+```html
+<script>
+  window.initX = {
+    instance: 'my-store',
+    env: 'live',
+    scope: 'desktop',
+    lang: 'en',
+    currency: 'EUR',
+    consent: false
+  };
+</script>
+<script src="https://x.empathy.co/my-store/app.js"></script>
+```
+
+Or if you want to load the staging version:
+
+```html
+<script>
+  window.initX = {
+    instance: 'my-store',
+    env: 'live', // Note that here you are using production API with the staging version of Interface X
+    scope: 'desktop',
+    lang: 'en',
+    currency: 'EUR',
+    consent: false
+  };
+</script>
+<script src="https://x.staging.empathy.co/my-store/app.js"></script>
+```
+
+## Initialise on demand
+
+If you want to have more manual control on when the Interface&nbspX is loaded, you can still do so.
+Instead of defining an init object or function like in [Auto initialisation](#auto-initialisation),
+you can invoke a function with this options that will initialise Interface&nbspX.
+
+### 1. Load the Interface&nbspX script
+
+First, load the Interface&nbspX script. As you may know, it is hosted in a URL of this shape:
+`https://x.<environment?>.empathy.co/<instance>/app.js`.
+
+For example, supposing that `my-store` is the instance, and you want to load the production script,
+you can add to your HTML the following scripts.
+
+```html
+<script src="https://x.empathy.co/my-store/app.js"></script>
+```
+
+Or if you want to load the staging version:
+
+```html
+<script src="https://x.staging.empathy.co/my-store/app.js"></script>
+```
+
+### 1. Initialise Interface&nbspX
+
+Loading the Interface&nbspX script and not providing a `initX` configuration will make it create an
+initialisation function in the [X API](#x-api) that you can invoke whenever you want. In this
+example we are calling it immediately after loading the Interface&nbspX script, but it can be
+invoked at any time. Note that you should only call this function **once**.
+
+```html
+<script src="https://x.empathy.co/my-store/app.js"></script>
+<script>
+  window.X.init({
+    instance: 'my-store',
+    env: 'live',
+    scope: 'desktop',
+    lang: 'en',
+    currency: 'EUR',
+    consent: false
+  });
+</script>
+```
+
+## Snippet configuration
+
+The snippet configuration allows you to configure certain parts of the Interface&nbspX project like
+language, the currency, inform whether the user has given us his consent to process personal data.
+
+| Name                  | Type                                                                                 | Required | Description                                                                                                                                                                                                                                        |
+| --------------------- | ------------------------------------------------------------------------------------ | :------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| instance              | `string`                                                                             |    ✅    | The identifier of the API client instance                                                                                                                                                                                                          |
+| env                   | `'live'` &#124; `'staging'`                                                          |          | The API environment to use. Note that you can use the production version of your Interface&nbspX with the staging API, or viceversa.                                                                                                               |
+| scope                 | `string`                                                                             |          | The context name where the search interface is being executed. I.e. `mobile`, `mobile-app`, `tablet`, `desktop`                                                                                                                                    |
+| lang                  | `string`                                                                             |    ✅    | The language to use. By default this lang is used for both the front-end and the API requests                                                                                                                                                      |
+| searchLang            | `string`                                                                             |          | A language to use only for the API requests                                                                                                                                                                                                        |
+| consent               | `boolean`                                                                            |    ✅    | Whether the user has allowed to process its personal data or not. X-Components do not track or process any personal data. This parameter is used to generate a unique session id                                                                   |
+| documentDirection     | `'ltr'` &#124; `'rtl'`                                                               |          | The writing direction that the X Components should use                                                                                                                                                                                             |
+| currency              | `string`                                                                             |    ✅    | The currency identifier. Used to configure how prices are shown                                                                                                                                                                                    |
+| callbacks             | `Record<XEventName, (payload: XEventPayload<Event>, metadata: WireMetadata) => void` |          | A record of callbacks where the key is the event to listen, and the value is the callback to be executed whenever the event is emitted. For example: `{ UserAcceptedAQuery({ eventPayload }) { console.log('UserAcceptedAQuery', eventPayload); }` |
+| isSpa                 | `boolean`                                                                            |          | True when the X Components archetype is being run on top of an SPA.                                                                                                                                                                                |
+| &lt;extra parameters> | `any`                                                                                |          | Any other parameter to be sent directly to the API calls. For example, some times is needed to filter the search catalog with a warehouse parameter. In that case you can just add `warehouse: <your-warehouse-identifier>` to the snippet config. |
+
+## X API
+
+The X API allows your website to communicate with Interface&X. It is a set of utilities that helps
+to integrate Interface&X into your website.
+
+| Function | Parameters                                                                     | Description                                                 |
+| -------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------- |
+| init     | - [Snippet Configuration](#snippet-configuration) - The initialisation options | [Initialises Interface X on demand](#initialise-on-demand). |
+| search   | - query (Optional) - The query to open Interface&nbspX with                    | Opens Interface&nbspX with the given search query.          |
