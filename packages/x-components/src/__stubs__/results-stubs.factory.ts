@@ -81,7 +81,7 @@ function getResultTagging(productId: string): Tagging {
  */
 function getTaggingByAction(action: string, params: Record<string, any>): TaggingInfo {
   return {
-    url: `http://x-components.com/tagging/${action}`,
+    url: `https://api.empathy.co/track/${action}`,
     params: {
       lang: 'es',
       ...params

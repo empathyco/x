@@ -1,5 +1,13 @@
 import { SearchRequest } from '@empathyco/x-adapter';
-import { Facet, Result, Sort, Redirection, TaggingInfo } from '@empathyco/x-types';
+import {
+  Facet,
+  Result,
+  Sort,
+  Redirection,
+  TaggingInfo,
+  Promoted,
+  Banner
+} from '@empathyco/x-types';
 
 /**
  * Dictionary of the events of Search XModule, where each key is the event name, and the value is
@@ -71,6 +79,16 @@ export interface SearchXEvents {
    * * Payload: The clicked redirection.
    */
   UserClickedARedirection: Redirection;
+  /**
+   * The user has clicked a promoted.
+   * * Payload: The clicked promoted.
+   */
+  UserClickedAPromoted: Promoted;
+  /**
+   * The user has clicked a banner.
+   * * Payload: The clicked banner.
+   */
+  UserClickedABanner: Banner;
   /**
    * The user has aborted a redirection.
    */

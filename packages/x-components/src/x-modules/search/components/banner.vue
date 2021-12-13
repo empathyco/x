@@ -1,5 +1,5 @@
 <template>
-  <a :href="banner.url" class="x-banner" data-test="banner">
+  <a @click="emitClickEvent" :href="banner.url" class="x-banner" data-test="banner">
     <img :src="banner.image" class="x-banner__image" alt="" />
     <h2 class="x-banner__title">{{ banner.title }}</h2>
   </a>
@@ -30,6 +30,14 @@
      */
     @Prop({ required: true })
     public banner!: BannerModel;
+
+    /**
+     * Emits the promoted click event.
+     *
+     */
+    protected emitClickEvent(): void {
+      this.$x.emit('UserClickedABanner', this.banner);
+    }
   }
 </script>
 

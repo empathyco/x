@@ -1,5 +1,5 @@
 <template>
-  <a :href="promoted.url" class="x-promoted" data-test="promoted">
+  <a @click="emitClickEvent" :href="promoted.url" class="x-promoted" data-test="promoted">
     <img :src="promoted.image" class="x-promoted__image" alt="" />
     <h2 class="x-promoted__title">{{ promoted.title }}</h2>
   </a>
@@ -30,6 +30,14 @@
      */
     @Prop({ required: true })
     public promoted!: PromotedModel;
+
+    /**
+     * Emits the promoted click event.
+     *
+     */
+    protected emitClickEvent(): void {
+      this.$x.emit('UserClickedAPromoted', this.promoted);
+    }
   }
 </script>
 
