@@ -15,7 +15,7 @@ in your own project to craft enticing Vue search experiences for your shop in a 
 
 ::: interact If you are looking to use the ready-to-go project Interface&nbsp;X&nbsp;Archetype as
 your starting point, see
-**[Integrate Interface X Archetype project](/develop-empathy-platform/build-search-ui/web-archetype-integration-guide.md)**.
+**[Interface X Archetype Development](/develop-empathy-platform/build-search-ui/web-archetypedevelopment-guide.md)**.
 :::
 
 For this tutorial, the Empathy Search API is used, but you can use any search API. This step-by-step
@@ -164,9 +164,9 @@ Vue.use(xPlugin, { adapter, store });
 Watch how our frontend Team Lead, [Iván Tajes](https://github.com/tajespasarela), integrates the
 Interface&nbsp;X&nbsp;Components in a project from scratch.
 
-<VideoContent 
+<VideoContent
 title="Want to learn more?"
-source="/assets/media/videos/How-to-use-X-components-in-a-real-project.mp4" 
+source="/assets/media/videos/How-to-use-X-components-in-a-real-project.mp4"
 poster="/assets/media/videos/How-to-use-X-components-in-a-real-project.jpeg"
 :links="[
   {
