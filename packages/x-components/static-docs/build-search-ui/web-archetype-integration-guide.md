@@ -24,8 +24,6 @@ The integration is a 2-steps process:
 Depending on your business needs, there are 2 different ways of making this integration process:
 auto initialising, or initialising on demand.
 
-![Interface X integration process diagram][images/interface-x-integration-process.png]
-
 ## Auto initialisation
 
 This is the easiest way to integrate the Interface&nbspX project in a website. The way to do so is
