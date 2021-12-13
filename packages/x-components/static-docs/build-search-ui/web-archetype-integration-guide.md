@@ -1,5 +1,5 @@
 ---
-title: Integrate Interface X Archetype
+title: Integrate Interface X Archetype into an existing website
 tags:
   - integration
   - archetype
@@ -10,26 +10,30 @@ tags:
   - archetype integration
 ---
 
-# Integrate Interface X Archetype
+# Integrate Interface X Archetype into an existing website
 
-Once you have finished developing your search interface using the Interface&nbsp;X&nbsp;Archetype
-project you will want to integrate it into your current website.
+Once you have finished developing or extending your search interface using the
+Interface&nbsp;X&nbsp;Archetype project you will probably want to integrate it into your current
+store.
 
 The integration is a 2-steps process:
 
 - Load Interface&nbspX script.
 - Initialise the Interface&nbspX.
 
-Depending on your business needs, there are 2 different ways of making this integration process.
+Depending on your business needs, there are 2 different ways of making this integration process:
+auto initialising, or initialising on demand.
+
+![Interface X integration process diagram][images/interface-x-integration-process.png]
 
 ## Auto initialisation
 
 This is the easiest way to integrate the Interface&nbspX project in a website. The way to do so is
 by first defining an initialisation object or function, and then loading the Interface&nbspX script.
 
-### 1. Add a snippet config
+### 1. Add a snippet configuration
 
-The snippet config is needed by Interface&nbspX to know the API it must use, the language or
+The snippet configuration is needed by Interface&nbspX to know the API it must use, the language or
 currency it should display the texts in, or tagging parameters to enrich the data and provide better
 insights on how users search.
 
@@ -46,8 +50,8 @@ window.initX = {
 };
 ```
 
-If you need to retrieve values dynamically, or execute any kind of logic before the initialisation,
-you can also use a function:
+Otherwise, if you need to retrieve values dynamically, or execute any kind of logic before the
+initialisation you can also use a function:
 
 ```js
 window.initX = function () {
@@ -62,12 +66,12 @@ window.initX = function () {
 };
 ```
 
-You can read more about the [snippet configuration](#snippet-configuration) below.
+You can read more about the [Snippet Configuration](#snippet-configuration) below.
 
 ### 2. Load the Interface&nbspX script
 
 Once you have defined your snippet configuration either as an object or a function, you can insert
-the Interface script. This script is hosted in a URL of this shape
+the Interface&nbspX script. This script is hosted in a URL of this shape
 `https://x.<environment?>.empathy.co/<instance>/app.js`.
 
 For example, supposing that `my-store` is the instance, and you want to load the production script,
@@ -87,7 +91,8 @@ you can add to your HTML the following scripts.
 <script src="https://x.empathy.co/my-store/app.js"></script>
 ```
 
-Or if you want to load the staging version:
+Or if you want to load the staging version, you just have to change the script `src` attribute to
+point to the staging environment:
 
 ```html
 <script>
@@ -103,6 +108,9 @@ Or if you want to load the staging version:
 <script src="https://x.staging.empathy.co/my-store/app.js"></script>
 ```
 
+This way, when the Interface&nbspX JavaScript file is loaded, it will retrieve the configuration
+from the object or function that you defined before. Nothing else is required.
+
 ## Initialise on demand
 
 If you want to have more manual control on when the Interface&nbspX is loaded, you can still do so.
@@ -112,26 +120,26 @@ initialise Interface&nbspX.
 
 ### 1. Load the Interface&nbspX script
 
-First, load the Interface&nbspX script. As you may know, it is hosted in a URL of this shape:
-`https://x.<environment?>.empathy.co/<instance>/app.js`.
+First, load the Interface&nbspX script. As you may already know, it is hosted in a URL of this
+shape: `https://x.<environment?>.empathy.co/<instance>/app.js`.
 
 For example, supposing that `my-store` is the instance, and you want to load the production script,
-you can add to your HTML the following scripts.
+you can add to your HTML the following scripts:
 
 ```html
 <script src="https://x.empathy.co/my-store/app.js"></script>
 ```
 
-Or if you want to load the staging version:
+For loading the staging version simply change the `src` attribute to the staging environment:
 
 ```html
 <script src="https://x.staging.empathy.co/my-store/app.js"></script>
 ```
 
-### 1. Initialise Interface&nbspX
+### 2. Initialise Interface&nbspX
 
 Loading the Interface&nbspX script and not providing a `initX` configuration will make it create an
-initialisation function in the [X API](#x-api) that you can invoke whenever you want. In this
+initialisation function in the [X API](#x-api) object that you can invoke whenever you want. In this
 example we are calling it immediately after loading the Interface&nbspX script, but it can be
 invoked at any time. Note that you should only call this function **once**.
 
@@ -156,7 +164,7 @@ language, the currency, inform whether the user has given us his consent to proc
 
 | Name                  | Type                                                                                 | Required | Description                                                                                                                                                                                                                                                                                     |
 | --------------------- | ------------------------------------------------------------------------------------ | :------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| instance              | `string`                                                                             |    ✅    | The identifier of the API client instance                                                                                                                                                                                                                                                       |
+| instance              | `string`                                                                             |    ✅    | The identifier of the API client instance. Should be provided by Empathy                                                                                                                                                                                                                        |
 | env                   | `'live'` &#124; `'staging'`                                                          |          | The API environment to use. Note that you can use the production version of your Interface&nbspX with the staging API, or viceversa.                                                                                                                                                            |
 | scope                 | `string`                                                                             |          | The context name where the search interface is being executed. I.e. `mobile`, `mobile-app`, `tablet`, `desktop`                                                                                                                                                                                 |
 | lang                  | `string`                                                                             |    ✅    | The language to use. By default this lang is used for both the front-end and the API requests                                                                                                                                                                                                   |

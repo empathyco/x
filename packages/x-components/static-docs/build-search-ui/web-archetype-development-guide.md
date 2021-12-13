@@ -1,12 +1,13 @@
 ---
 title: Interface X Archetype Development
 tags:
-  - integration
+  - development
   - archetype
-  - X Components archetype integration
-  - x integration
+  - X Components archetype development
+  - x development
   - interface x
   - x components
+  - archetype development
   - archetype integration
 ---
 
@@ -29,7 +30,7 @@ To integrate Interface&nbsp;X&nbsp;Archetype as a search UI layer, you need:
 
 :::
 
-##### Steps to integrate X Archetype project:
+##### Steps to start developing in a X Archetype project:
 
 1. **Clone** the X&nbsp;Archetype project and **initialize** your repository.
 2. Install the **project dependencies** and execute the project.
@@ -162,10 +163,10 @@ new XInstaller(installXOptions).init({
 
 ### Next steps
 
-Once you have integrated the Interface&nbsp;X&nbsp;Archetype in your store, you're ready to start
-using the X&nbsp;Archetype as is or extend the search and discovery experience to meet your business
-needs:
+Once you have your Interface&nbsp;X&nbsp;Archetype project, you're ready to integrate it in your
+store, or extend the search and discovery experience to meet your business needs:
 
+- [Integrate an Interface&nbsp;X&nbsp;Archetype project into an existing website](web-archetype-integration-guide.md).
 - Change the configuration of [X Components](web-use-x-components-guide.md) or create new ones.
 - Adapt the
   [design system](https://github.com/empathyco/x/blob/main/packages/x-components/contributing/design-system.md)
