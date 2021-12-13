@@ -18,20 +18,21 @@ store.
 
 The integration is a 2-steps process:
 
-- Load Interface&nbspX script.
-- Initialise the Interface&nbspX.
+- Load Interface&nbsp;X script.
+- Initialise the Interface&nbsp;X.
 
 Depending on your business needs, there are 2 different ways of making this integration process:
 auto initialising, or initialising on demand.
 
 ## Auto initialisation
 
-This is the easiest way to integrate the Interface&nbspX project in a website. The way to do so is
-by first defining an initialisation object or function, and then loading the Interface&nbspX script.
+This is the easiest way to integrate the Interface&nbsp;X project in a website. The way to do so is
+by first defining an initialisation object or function, and then loading the Interface&nbsp;X
+script.
 
 ### 1. Add a snippet configuration
 
-The snippet configuration is needed by Interface&nbspX to know the API it must use, the language or
+The snippet configuration is needed by Interface&nbsp;X to know the API it must use, the language or
 currency it should display the texts in, or tagging parameters to enrich the data and provide better
 insights on how users search.
 
@@ -66,10 +67,10 @@ window.initX = function () {
 
 You can read more about the [Snippet Configuration](#snippet-configuration) below.
 
-### 2. Load the Interface&nbspX script
+### 2. Load the Interface&nbsp;X script
 
 Once you have defined your snippet configuration either as an object or a function, you can insert
-the Interface&nbspX script. This script is hosted in a URL of this shape
+the Interface&nbsp;X script. This script is hosted in a URL of this shape
 `https://x.<environment?>.empathy.co/<instance>/app.js`.
 
 For example, supposing that `my-store` is the instance, and you want to load the production script,
@@ -106,19 +107,19 @@ point to the staging environment:
 <script src="https://x.staging.empathy.co/my-store/app.js"></script>
 ```
 
-This way, when the Interface&nbspX JavaScript file is loaded, it will retrieve the configuration
+This way, when the Interface&nbsp;X JavaScript file is loaded, it will retrieve the configuration
 from the object or function that you defined before. Nothing else is required.
 
 ## Initialise on demand
 
-If you want to have more manual control on when the Interface&nbspX is loaded, you can still do so.
+If you want to have more manual control on when the Interface&nbsp;X is loaded, you can still do so.
 Instead of defining an initialisation object or function upfront like in
 [Auto initialisation](#auto-initialisation), you can invoke a function with these options that will
-initialise Interface&nbspX.
+initialise Interface&nbsp;X.
 
-### 1. Load the Interface&nbspX script
+### 1. Load the Interface&nbsp;X script
 
-First, load the Interface&nbspX script. As you may already know, it is hosted in a URL of this
+First, load the Interface&nbsp;X script. As you may already know, it is hosted in a URL of this
 shape: `https://x.<environment?>.empathy.co/<instance>/app.js`.
 
 For example, supposing that `my-store` is the instance, and you want to load the production script,
@@ -134,11 +135,11 @@ For loading the staging version simply change the `src` attribute to the staging
 <script src="https://x.staging.empathy.co/my-store/app.js"></script>
 ```
 
-### 2. Initialise Interface&nbspX
+### 2. Initialise Interface&nbsp;X
 
-Loading the Interface&nbspX script and not providing a `initX` configuration will make it create an
+Loading the Interface&nbsp;X script and not providing a `initX` configuration will make it create an
 initialisation function in the [X API](#x-api) object that you can invoke whenever you want. In this
-example we are calling it immediately after loading the Interface&nbspX script, but it can be
+example we are calling it immediately after loading the Interface&nbsp;X script, but it can be
 invoked at any time. Note that you should only call this function **once**.
 
 ```html
@@ -157,13 +158,13 @@ invoked at any time. Note that you should only call this function **once**.
 
 ## Snippet configuration
 
-The snippet configuration allows you to configure certain parts of the Interface&nbspX project like
+The snippet configuration allows you to configure certain parts of the Interface&nbsp;X project like
 language, the currency, inform whether the user has given us his consent to process personal data.
 
 | Name                  | Type                                                                                 | Required | Description                                                                                                                                                                                                                                                                                     |
 | --------------------- | ------------------------------------------------------------------------------------ | :------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | instance              | `string`                                                                             |    ✅    | The identifier of the API client instance. Should be provided by Empathy                                                                                                                                                                                                                        |
-| env                   | `'live'` &#124; `'staging'`                                                          |          | The API environment to use. Note that you can use the production version of your Interface&nbspX with the staging API, or viceversa.                                                                                                                                                            |
+| env                   | `'live'` &#124; `'staging'`                                                          |          | The API environment to use. Note that you can use the production version of your Interface&nbsp;X with the staging API, or viceversa.                                                                                                                                                           |
 | scope                 | `string`                                                                             |          | The context name where the search interface is being executed. I.e. `mobile`, `mobile-app`, `tablet`, `desktop`                                                                                                                                                                                 |
 | lang                  | `string`                                                                             |    ✅    | The language to use. By default this lang is used for both the front-end and the API requests                                                                                                                                                                                                   |
 | searchLang            | `string`                                                                             |          | A language to use only for the API requests                                                                                                                                                                                                                                                     |
@@ -182,4 +183,4 @@ to integrate Interface&X into your website.
 | Function | Parameters                                                                     | Description                                                 |
 | -------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------- |
 | init     | - [Snippet Configuration](#snippet-configuration) - The initialisation options | [Initialises Interface X on demand](#initialise-on-demand). |
-| search   | - query (Optional) - The query to open Interface&nbspX with                    | Opens Interface&nbspX with the given search query.          |
+| search   | - query (Optional) - The query to open Interface&nbsp;X with                   | Opens Interface&nbsp;X with the given search query.         |
