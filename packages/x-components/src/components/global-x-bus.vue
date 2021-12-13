@@ -34,11 +34,12 @@
       const subscription = reduce(
         this.$listeners,
         (subscription, eventName, callback) => {
-          return subscription.add(
+          subscription.add(
             this.$x.on(eventName, true).subscribe(({ eventPayload, metadata }) => {
               callback(eventPayload as never, metadata);
             })
           );
+          return subscription;
         },
         new Subscription()
       );

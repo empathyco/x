@@ -101,7 +101,7 @@ export const identifierResultsWiring = createWiring({
     setIdentifierResultsQueryDebounce: moduleDebounce(
       setIdentifierResultsQuery,
       ({ state }) => state.config.debounceInMs,
-      'UserAcceptedAQuery'
+      { cancelOn: 'UserAcceptedAQuery' }
     )
   },
   UserAcceptedAQuery: {

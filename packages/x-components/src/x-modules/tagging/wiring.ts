@@ -81,7 +81,7 @@ export const setSessionDuration = wireCommit('setSessionDuration');
 export const trackQueryWire = moduleDebounce(
   wireDispatch('track'),
   ({ state }) => state.config.queryTaggingDebounceMs,
-  'UserClearedQuery'
+  { cancelOn: 'UserClearedQuery' }
 );
 
 /**
