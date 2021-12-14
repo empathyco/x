@@ -37,10 +37,7 @@ Then('query tagging request has been triggered', () => {
 });
 
 Then('second page query tagging request is triggered', () => {
-  cy.wait('@queryTagging', { timeout: 10000 })
-    .its('request.body')
-    .then(JSON.parse)
-    .should('have.property', 'page', 2);
+  cy.wait('@queryTagging').its('request.body').then(JSON.parse).should('have.property', 'page', 2);
 });
 
 Then('results page number {int} is loaded', (page: number) => {
