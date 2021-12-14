@@ -34,6 +34,7 @@
     /**
      * Emits the promoted click event.
      *
+     * @internal
      */
     protected emitClickEvent(): void {
       this.$x.emit('UserClickedAPromoted', this.promoted);

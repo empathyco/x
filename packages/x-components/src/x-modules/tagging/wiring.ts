@@ -1,12 +1,12 @@
 import { Result } from '@empathyco/x-types';
-import { mapWire, filter } from '../../wiring/wires.operators';
-import { namespacedDebounce } from '../../wiring/namespaced-wires.operators';
-import { Wire } from '../../wiring/wiring.types';
 import {
   namespacedWireCommit,
   namespacedWireDispatch
 } from '../../wiring/namespaced-wires.factory';
+import { namespacedDebounce } from '../../wiring/namespaced-wires.operators';
 import { wireServiceWithoutPayload } from '../../wiring/wires.factory';
+import { filter } from '../../wiring/wires.operators';
+import { Wire } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 import { DefaultSessionService } from './service/session.service';
 
@@ -117,7 +117,7 @@ export const trackAddToCartWire = createTrackResultWire('add2cart');
  */
 function createTrackResultWire(property: keyof Result['tagging']): Wire<Result> {
   return filter(
-    mapWire(wireDispatch('track'), ({ tagging }) => tagging[property]!),
+    wireDispatch('track', ({ eventPayload: { tagging } }) => tagging[property]!),
     ({ eventPayload: { tagging } }) => !!tagging?.[property]
   );
 }

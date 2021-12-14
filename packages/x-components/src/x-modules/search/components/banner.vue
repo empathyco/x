@@ -32,8 +32,9 @@
     public banner!: BannerModel;
 
     /**
-     * Emits the promoted click event.
+     * Emits the banner click event.
      *
+     * @internal
      */
     protected emitClickEvent(): void {
       this.$x.emit('UserClickedABanner', this.banner);
