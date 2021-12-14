@@ -1,7 +1,7 @@
 import { mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue, { ComponentOptions } from 'vue';
-import { getDataTestSelector } from '../../__tests__/utils';
-import StaggeringTransitionGroup from '../animations/staggering-transition-group.vue';
+import { getDataTestSelector } from '../../../__tests__/utils';
+import StaggeringTransitionGroup from '../staggering-transition-group.vue';
 
 describe('testing Staggering Transition Group component', () => {
   const wrapper: ComponentOptions<Vue> = {
