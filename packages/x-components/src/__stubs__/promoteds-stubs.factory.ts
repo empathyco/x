@@ -24,7 +24,7 @@ export function createPromotedStub(identifier: string): Promoted {
   return {
     id: `xp-${identifier}`,
     title: `Promoted ${identifier}`,
-    url: `http://x-components-promoted-${identifier}.com`,
+    url: `/promoted/${identifier}`,
     image: `xp-${identifier}.jpg`,
     tagging: {
       click: {
