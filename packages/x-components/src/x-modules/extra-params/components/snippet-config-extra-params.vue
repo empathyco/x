@@ -41,6 +41,13 @@
     protected extraParams: Dictionary<unknown> = {};
 
     /**
+     * Collection of properties from the snippet config not allowed to be sent as extra params.
+     *
+     * @internal
+     */
+    protected notAllowedExtraParams: Array<keyof SnippetConfig> = ['callbacks'];
+
+    /**
      * Updates the extraParams object when the snippet config changes.
      *
      * @param snippetConfig - The new snippet config.
@@ -59,6 +66,9 @@
       ...snippetExtraParams
     }: SnippetConfig): void {
       forEach(snippetExtraParams, (name, value) => {
+        if (this.notAllowedExtraParams.includes(name)) {
+          return;
+        }
         this.$set(this.extraParams, name, value);
       });
     }

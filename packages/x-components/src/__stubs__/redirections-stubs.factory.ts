@@ -23,7 +23,7 @@ export function getRedirectionsStub(): Redirection[] {
 export function createRedirectionStub(id: string): Redirection {
   return {
     id: `xr-${id}`,
-    url: `https://picsum.photos/seed/${id}/500`,
+    url: `/redirection/${id}`,
     tagging: {
       click: {
         params: {},

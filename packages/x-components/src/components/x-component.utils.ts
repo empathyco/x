@@ -1,24 +1,5 @@
 import Vue from 'vue';
 import { XModuleName } from '../x-modules/x-modules.types';
-import { XComponent } from './x-component.types';
-
-/**
- * Symbol for storing the {@link XModule} that an X-Component belongs to.
- *
- * @internal
- */
-export const XComponentModule = Symbol.for('XComponentModule');
-
-/**
- * Sets the X-Component name.
- *
- * @param component - The x-component to set its name.
- * @param name - The name of the X-Component.
- * @internal
- */
-export function setXComponentXModuleName(component: Vue, name: XModuleName): void {
-  (component as XComponent)[XComponentModule] = name;
-}
 
 /**
  * Gets the X-Component name.
@@ -29,7 +10,7 @@ export function setXComponentXModuleName(component: Vue, name: XModuleName): voi
  * @internal
  */
 export function getXComponentXModuleName(component: Vue | undefined): XModuleName | null {
-  return (component as XComponent)?.[XComponentModule] ?? null;
+  return component?.$options.xModule ?? null;
 }
 
 /**
@@ -40,6 +21,6 @@ export function getXComponentXModuleName(component: Vue | undefined): XModuleNam
  * @returns A boolean which flags if a component is a X-Component.
  * @public
  */
-export function isXComponent(component: Vue): component is XComponent {
-  return !!(component as XComponent)[XComponentModule];
+export function isXComponent(component: Vue): boolean {
+  return !!getXComponentXModuleName(component);
 }

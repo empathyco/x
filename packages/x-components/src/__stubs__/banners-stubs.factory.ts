@@ -24,7 +24,7 @@ export function createBannerStub(identifier: string): Banner {
   return {
     id: `xb-${identifier}`,
     title: `Banner ${identifier}`,
-    url: `http://x-components-banner-${identifier}.com`,
+    url: `/banner/${identifier}`,
     image: `xb-${identifier}.jpg`,
     tagging: {
       click: {

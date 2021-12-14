@@ -54,7 +54,7 @@
      *
      * @internal
      */
-    protected timeoutId!: number;
+    protected timeoutId?: number;
 
     /**
      * Boolean flag which indicates if the redirection is running.

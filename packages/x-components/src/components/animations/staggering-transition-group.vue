@@ -1,7 +1,7 @@
 <script lang="ts">
   import Vue, { CreateElement, VNode } from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { noOp } from '../utils';
+  import { noOp } from '../../utils';
 
   /* eslint-disable @typescript-eslint/unbound-method */
   /**
