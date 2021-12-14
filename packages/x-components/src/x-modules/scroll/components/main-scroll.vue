@@ -63,7 +63,7 @@
      *
      * @public
      */
-    @Prop({ default: '' })
+    @Prop({ default: undefined })
     public margin!: string;
 
     /**

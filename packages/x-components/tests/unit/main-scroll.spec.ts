@@ -1,7 +1,7 @@
 import { mount } from '@cypress/vue';
 import 'reflect-metadata';
 import Vue from 'vue';
-import { FadeAndSlide } from '../../src/components/animations/index';
+import StaggeredFadeAndSlide from '../../src/components/animations/staggered-fade-and-slide.vue';
 import { mockedAdapter } from '../../src/adapter/mocked-adapter';
 import { BaseXBus } from '../../src/plugins/x-bus';
 import { XPlugin } from '../../src/plugins/x-plugin';
@@ -56,7 +56,7 @@ function renderMainScroll({
       components: {
         MainScroll,
         MainScrollItem,
-        FadeAndSlide
+        StaggeredFadeAndSlide
       },
       template,
       data() {
@@ -170,35 +170,35 @@ describe('testing MainScroll component', () => {
       });
 
       it('restores the scroll with transitions enabled', () => {
-        const template = `
-        <MainScroll v-bind="{ threshold, margin, useWindow }">
-          <div data-test="main-scroll">
-            <FadeAndSlide>
-              <MainScrollItem
-                v-for="item in items"
-                class="item"
-                tag="article"
-                :item="item"
-                :data-test="item.id">
-                {{ item.id }}
-              </MainScrollItem>
-            </FadeAndSlide>
-          </div>
-        </MainScroll>
-      `;
         const { restoreScrollToItem, getItem } = renderMainScroll({
           ...defaultParameters,
-          template
+          template: `
+            <MainScroll v-bind="{ threshold, margin, useWindow }">
+              <div data-test="main-scroll">
+                <StaggeredFadeAndSlide>
+                  <MainScrollItem
+                    v-for="item in items"
+                    class="item"
+                    tag="article"
+                    :item="item"
+                    :data-test="item.id"
+                    :key="item.id">
+                    {{ item.id }}
+                  </MainScrollItem>
+                </StaggeredFadeAndSlide>
+              </div>
+            </MainScroll>
+          `
         });
 
-        cy.getByDataTest('main-scroll').should('have.class', 'x-main-scroll--no-transition');
         restoreScrollToItem(5);
-        cy.getByDataTest('main-scroll').should('not.have.class', 'x-main-scroll--no-transition');
 
         cy.log('Item 5 should be the first one.');
-        getItem(5).should($item5 => {
-          expect($item5.get(0).getBoundingClientRect().top).to.be.eq(0);
-        });
+        getItem(5)
+          .should('be.visible')
+          .should($item5 => {
+            expect($item5.get(0).getBoundingClientRect().top).to.be.eq(0);
+          });
         cy.log("Item 4 shouldn't be visible");
         getItem(4).should($item4 => {
           const item4Bounds = $item4.get(0).getBoundingClientRect();
