@@ -43,3 +43,10 @@ Then('second page query tagging request is triggered', () => {
 Then('results page number {int} is loaded', (page: number) => {
   cy.getByDataTest('result-link').should('have.length', 24 * page);
 });
+
+Then('result click tagging includes location {string}', location => {
+  cy.get('@clickTagging')
+    .its('request.body')
+    .then(JSON.parse)
+    .should('have.property', 'location', location);
+});
