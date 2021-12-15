@@ -21,17 +21,25 @@ When('first redirection is clicked', () => {
 });
 
 When('scrolls down to next page', () => {
-  cy.getByDataTest('result-link').last().scrollIntoView();
+  cy.getByDataTest('result-link').last().scrollIntoView({ easing: 'linear', duration: 2000 });
 });
 
 Then('result click tagging request is triggered', () => {
-  cy.wait('@clickTagging');
+  cy.get('@clickTagging').should('exist');
 });
 
-Then('query tagging request is triggered', () => {
+Then('query tagging request should be triggered', () => {
   cy.wait('@queryTagging');
+});
+
+Then('query tagging request has been triggered', () => {
+  cy.get('@queryTagging').should('exist');
 });
 
 Then('second page query tagging request is triggered', () => {
   cy.wait('@queryTagging').its('request.body').then(JSON.parse).should('have.property', 'page', 2);
+});
+
+Then('results page number {int} is loaded', (page: number) => {
+  cy.getByDataTest('result-link').should('have.length', 24 * page);
 });
