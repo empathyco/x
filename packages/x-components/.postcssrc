@@ -1,7 +1,0 @@
-{
-  "plugins": {
-    "autoprefixer": {},
-    "postcss-logical":  {},
-    "postcss-dir-pseudo-class": {}
-  }
-}

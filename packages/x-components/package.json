@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-components",
-  "version": "3.0.0-alpha.34",
+  "version": "3.0.0-alpha.36",
   "description": "Empathy X Components",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -112,7 +112,6 @@
     "rollup": "~1.31.0",
     "rollup-plugin-copy": "~3.4.0",
     "rollup-plugin-delete": "~1.2.0",
-    "rollup-plugin-postcss": "~2.0.6",
     "rollup-plugin-rename": "~1.0.1",
     "rollup-plugin-scss": "~2.1.0",
     "rollup-plugin-sourcemaps": "~0.5.0",

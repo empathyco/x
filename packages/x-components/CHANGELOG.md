@@ -3,6 +3,77 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.35...@empathyco/x-components@3.0.0-alpha.36) (2021-12-15)
+
+### Build System
+
+- Load PostCSS plugins from rollup build (#272)
+  ([aaed2f3](https://github.com/empathyco/x/commit/aaed2f328b0b7252853922703283c77bcd1221d0)),
+  closes [EX-5162](https://searchbroker.atlassian.net/browse/EX-5162)
+
+### Testing
+
+- **e2e:** fix tagging tests (#270)
+  ([ff2ecba](https://github.com/empathyco/x/commit/ff2ecbac79fd3c16d72a05c133dbe0b60de606f7)),
+  closes [EX-5161](https://searchbroker.atlassian.net/browse/EX-5161)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.34...@empathyco/x-components@3.0.0-alpha.35) (2021-12-14)
+
+### Features
+
+- **components:** fix 'BaseRating' component styles (#264)
+  ([053447f](https://github.com/empathyco/x/commit/053447fdb2884f04f6099b6b78876c006568a644)),
+  closes [EX-5096](https://searchbroker.atlassian.net/browse/EX-5096)
+- **plugin:** move alias creation from created hook to beforeCreated
+  ([57f98e6](https://github.com/empathyco/x/commit/57f98e6587c0c589c4b6581a5f2c1da1a45757d8)),
+  closes [EX-4331](https://searchbroker.atlassian.net/browse/EX-4331)
+- **tagging:** track pending query
+  ([e6c8fd4](https://github.com/empathyco/x/commit/e6c8fd401b28b2e931ebf78697f218f53134cc5a)),
+  closes [EX-4963](https://searchbroker.atlassian.net/browse/EX-4963)
+- **tagging:** track result click events
+  ([81f009b](https://github.com/empathyco/x/commit/81f009b0a6264c44436082e457bcb4a12daf5d19)),
+  closes [EX-3527](https://searchbroker.atlassian.net/browse/EX-3527)
+- **tagging:** track the 'UserClickedResultAddToCart'event in tagging
+  ([873d345](https://github.com/empathyco/x/commit/873d345d67199a64fe9f10c70944b4f74f290405)),
+  closes [EX-3529](https://searchbroker.atlassian.net/browse/EX-3529)
+- **wiring:** add force and cancel support to debounce and throttle wire operators. Update rxjs to
+  v7. ([1fe2f29](https://github.com/empathyco/x/commit/1fe2f298589b1aa44798f3911379fe11905a43a9)),
+  closes [EX-5123](https://searchbroker.atlassian.net/browse/EX-5123)
+
+### Bug Fixes
+
+- **components:** Export missing layout components
+  ([15986f5](https://github.com/empathyco/x/commit/15986f56b8b78b49abe70936c0bd2ba6d85a6bbb)),
+  closes [EX-5160](https://searchbroker.atlassian.net/browse/EX-5160)
+- **extra-params:** prevent callbacks option from the snippet config to be taken as extra params
+  ([2940d2c](https://github.com/empathyco/x/commit/2940d2c7163904a193c459892792b2153de7d079)),
+  closes [EX-5104](https://searchbroker.atlassian.net/browse/EX-5104)
+
+### Testing
+
+- **e2e:** make url tests intercept tracking and wait for each request
+  ([393dbea](https://github.com/empathyco/x/commit/393dbea71648b010a4f3d197c180c91741c6054b)),
+  closes [EX-5127](https://searchbroker.atlassian.net/browse/EX-5127)
+
+### Documentation
+
+- add guide for integrating X Interface into an existing website
+  ([9e14a52](https://github.com/empathyco/x/commit/9e14a52389c77deede822643e50b34e5bbf78ddf)),
+  closes [EX-5143](https://searchbroker.atlassian.net/browse/EX-5143)
+- change h1 to be h2
+  ([a7e16c6](https://github.com/empathyco/x/commit/a7e16c616fe2593eccf93799f9a46c688857b35b)),
+  closes [EX-5064](https://searchbroker.atlassian.net/browse/EX-5064)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.33...@empathyco/x-components@3.0.0-alpha.34) (2021-12-03)
 
 ### Features
