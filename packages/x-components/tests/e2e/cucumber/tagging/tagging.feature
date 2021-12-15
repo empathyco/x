@@ -27,6 +27,7 @@ Feature: Tagging component
     And "lego" is searched
     And first result is clicked
     Then result click tagging request is triggered
+    And result click tagging includes location "results"
 
   Scenario: 4. Clicking a result triggers the query tagging
     Given a results API with a known response

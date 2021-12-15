@@ -360,63 +360,67 @@
             </div>
 
             <!-- Results -->
-            <ResultsList v-infinite-scroll:main-scroll>
-              <BannersList>
-                <PromotedsList>
-                  <NextQueriesList>
-                    <BaseVariableColumnGrid :animation="resultsAnimation">
-                      <template #result="{ item: result }">
-                        <MainScrollItem :item="result">
-                          <article class="result" style="max-width: 300px">
-                            <BaseResultLink :result="result">
-                              <BaseResultImage :result="result" class="x-picture--colored">
-                                <template #placeholder>
-                                  <div style="padding-top: 100%; background-color: lightgray"></div>
-                                </template>
-                                <template #fallback>
-                                  <div
-                                    data-test="result-picture-fallback"
-                                    style="padding-top: 100%; background-color: lightsalmon"
-                                  ></div>
-                                </template>
-                              </BaseResultImage>
-                              <h1 class="x-title3" data-test="result-text">{{ result.name }}</h1>
-                            </BaseResultLink>
-                          </article>
-                        </MainScrollItem>
-                      </template>
+            <LocationProvider location="results">
+              <ResultsList v-infinite-scroll:main-scroll>
+                <BannersList>
+                  <PromotedsList>
+                    <NextQueriesList>
+                      <BaseVariableColumnGrid :animation="resultsAnimation">
+                        <template #result="{ item: result }">
+                          <MainScrollItem :item="result">
+                            <article class="result" style="max-width: 300px">
+                              <BaseResultLink :result="result">
+                                <BaseResultImage :result="result" class="x-picture--colored">
+                                  <template #placeholder>
+                                    <div
+                                      style="padding-top: 100%; background-color: lightgray"
+                                    ></div>
+                                  </template>
+                                  <template #fallback>
+                                    <div
+                                      data-test="result-picture-fallback"
+                                      style="padding-top: 100%; background-color: lightsalmon"
+                                    ></div>
+                                  </template>
+                                </BaseResultImage>
+                                <h1 class="x-title3" data-test="result-text">{{ result.name }}</h1>
+                              </BaseResultLink>
+                            </article>
+                          </MainScrollItem>
+                        </template>
 
-                      <template #banner="{ item: banner }">
-                        <Banner :banner="banner" />
-                      </template>
+                        <template #banner="{ item: banner }">
+                          <Banner :banner="banner" />
+                        </template>
 
-                      <template #promoted="{ item: promoted }">
-                        <Promoted :promoted="promoted" />
-                      </template>
+                        <template #promoted="{ item: promoted }">
+                          <Promoted :promoted="promoted" />
+                        </template>
 
-                      <template #next-queries-group="{ item: { nextQueries } }">
-                        <div class="x-list x-list--gap-03">
-                          <h1 class="x-title2">What's next?</h1>
-                          <BaseSuggestions
-                            #default="{ suggestion }"
-                            :suggestions="nextQueries"
-                            class="x-list--gap-03"
-                          >
-                            <NextQuery
-                              #default="{ suggestion: nextQuery }"
-                              :suggestion="suggestion"
+                        <template #next-queries-group="{ item: { nextQueries } }">
+                          <div class="x-list x-list--gap-03">
+                            <h1 class="x-title2">What's next?</h1>
+                            <BaseSuggestions
+                              #default="{ suggestion }"
+                              :suggestions="nextQueries"
+                              class="x-list--gap-03"
                             >
-                              <Nq1 />
-                              {{ nextQuery.query }}
-                            </NextQuery>
-                          </BaseSuggestions>
-                        </div>
-                      </template>
-                    </BaseVariableColumnGrid>
-                  </NextQueriesList>
-                </PromotedsList>
-              </BannersList>
-            </ResultsList>
+                              <NextQuery
+                                #default="{ suggestion: nextQuery }"
+                                :suggestion="suggestion"
+                              >
+                                <Nq1 />
+                                {{ nextQuery.query }}
+                              </NextQuery>
+                            </BaseSuggestions>
+                          </div>
+                        </template>
+                      </BaseVariableColumnGrid>
+                    </NextQueriesList>
+                  </PromotedsList>
+                </BannersList>
+              </ResultsList>
+            </LocationProvider>
 
             <!-- Partials -->
             <PartialResultsList :animation="resultsAnimation">
@@ -513,6 +517,7 @@
   import Nq1 from '../components/icons/nq-1.vue';
   import SearchIcon from '../components/icons/search.vue';
   import MultiColumnMaxWidthLayout from '../components/layouts/multi-column-max-width-layout.vue';
+  import LocationProvider from '../components/location-provider.vue';
   import BaseEventsModalClose from '../components/modals/base-events-modal-close.vue';
   import BaseEventsModalOpen from '../components/modals/base-events-modal-open.vue';
   import BaseEventsModal from '../components/modals/base-events-modal.vue';
@@ -581,6 +586,7 @@
       infiniteScroll
     },
     components: {
+      LocationProvider,
       AutoProgressBar,
       Banner,
       BannersList,
