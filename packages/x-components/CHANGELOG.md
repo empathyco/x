@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.36...@empathyco/x-components@3.0.0-alpha.37) (2021-12-15)
+
+### Features
+
+- **scroll:** remove animations on pending element to scroll
+  ([7a33653](https://github.com/empathyco/x/commit/7a336531c4fedb2c38133a5464f9b7e9736cef68)),
+  closes [EX-5025](https://searchbroker.atlassian.net/browse/EX-5025)
+- **tagging:** Include 'location' parameter to track result events. (#273)
+  ([69bab4b](https://github.com/empathyco/x/commit/69bab4b81f85725f3fc0a9bdc3177db09dd46a40)),
+  closes [EX-5163](https://searchbroker.atlassian.net/browse/EX-5163)
+  [EX-5163](https://searchbroker.atlassian.net/browse/EX-5163)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.35...@empathyco/x-components@3.0.0-alpha.36) (2021-12-15)
 
 ### Build System
