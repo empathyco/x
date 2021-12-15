@@ -16,7 +16,7 @@ Then('first visible result is {string}', (resultId: string) => {
       const resultBottom = resultTop + $result.height()!;
       cy.get('#main-scroll').then($scroll => {
         const scrollTop = $scroll.offset()!.top;
-        expect(resultTop).to.be.lte(scrollTop);
+        expect(Math.round(resultTop)).to.be.lte(scrollTop);
         expect(resultBottom).to.be.gt(scrollTop);
       });
     });
