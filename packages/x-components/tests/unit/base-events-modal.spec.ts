@@ -17,7 +17,6 @@ import { XEvent } from '../../src/wiring/events.types';
  * @returns An API to test the component.
  */
 function mountBaseEventsModal({
-  defaultSlot = '<span data-test="default-slot">Modal</span>',
   bodyClickEvent,
   eventsToCloseModal,
   eventsToOpenModal
@@ -43,11 +42,16 @@ function mountBaseEventsModal({
     {
       vue: Vue.extend({}),
       plugins: [[new XPlugin(new BaseXBus()), { adapter: mockedAdapter }]],
-      propsData: { defaultSlot, bodyClickEvent, eventsToCloseModal, eventsToOpenModal }
+      propsData: { bodyClickEvent, eventsToCloseModal, eventsToOpenModal }
     }
   );
 
+  const getModalContent = (): Cypress.Chainable<JQuery> => {
+    return cy.getByDataTest('modal-content');
+  };
+
   return {
+    getModalContent,
     clickOpenModal() {
       cy.getByDataTest('open-modal').click();
     },
@@ -55,19 +59,16 @@ function mountBaseEventsModal({
       cy.getByDataTest('close-modal').click();
     },
     clickInModal() {
-      cy.getByDataTest('modal-content').click();
+      getModalContent().click();
     },
     clickOutsideModal() {
       cy.getByDataTest('modal').click('bottom');
-    },
-    getModalContent() {
-      return cy.getByDataTest('modal-content');
     }
   };
 }
 
 describe('testing Base Events Modal component', () => {
-  it('modal opens and closes when clicked out of its bounds', () => {
+  it('modal opens, remains open when clicked, and closes when clicked out of its bounds', () => {
     const { clickOpenModal, clickInModal, clickOutsideModal, getModalContent } =
       mountBaseEventsModal();
 
@@ -93,8 +94,6 @@ describe('testing Base Events Modal component', () => {
 });
 
 interface MountBaseEventsModalOptions {
-  /** The default slot to render. */
-  defaultSlot?: string;
   /** The event that should be emitted when the body is clicked. */
   bodyClickEvent?: XEvent;
   /** Events that when emitted should close the modal. */

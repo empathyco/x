@@ -1,5 +1,4 @@
 import { mount } from '@cypress/vue';
-import Vue from 'vue';
 import 'reflect-metadata';
 import { mockedAdapter } from '../../src/adapter/mocked-adapter';
 // eslint-disable-next-line max-len
@@ -15,7 +14,7 @@ import { XPlugin } from '../../src/plugins/x-plugin';
  * @param options - The options to render the component with.
  * @returns An API to test the component.
  */
-function renderBaseColumnPickerComponents({
+function mountBaseColumnPickerComponents({
   columns = [2, 4, 6],
   selectedColumns = 4
 }: BaseColumnPickerRenderOptions = {}): BaseColumnPickerComponentAPI {
@@ -47,13 +46,11 @@ function renderBaseColumnPickerComponents({
           </BaseColumnPickerDropdown>
         </div>
       `,
-      props: ['columns', 'selectedColumns'],
       data() {
         return { columns, selectedColumns };
       }
     },
     {
-      vue: Vue.extend({}),
       plugins: [[new XPlugin(new BaseXBus()), { adapter: mockedAdapter }]],
       propsData: { columns, selectedColumns }
     }
@@ -87,7 +84,7 @@ function renderBaseColumnPickerComponents({
 
 describe('testing Base Column Picker List and Dropdown', () => {
   it('Selects  different options from the column picker list', () => {
-    const { clickListNthItem, getListNthItem } = renderBaseColumnPickerComponents();
+    const { clickListNthItem, getListNthItem } = mountBaseColumnPickerComponents();
     getListNthItem(4).should('have.attr', 'aria-selected', 'true');
 
     clickListNthItem(2);
@@ -101,7 +98,7 @@ describe('testing Base Column Picker List and Dropdown', () => {
 
   it('Selects different options from the column picker dropdown', () => {
     const { clickDropdownNthItem, getDropdownNthItem, closeDropdown } =
-      renderBaseColumnPickerComponents();
+      mountBaseColumnPickerComponents();
     getDropdownNthItem(1).should('have.attr', 'aria-selected', 'true');
     closeDropdown();
 
