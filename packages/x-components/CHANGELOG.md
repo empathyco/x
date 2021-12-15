@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.35...@empathyco/x-components@3.0.0-alpha.36) (2021-12-15)
+
+### Build System
+
+- Load PostCSS plugins from rollup build (#272)
+  ([aaed2f3](https://github.com/empathyco/x/commit/aaed2f328b0b7252853922703283c77bcd1221d0)),
+  closes [EX-5162](https://searchbroker.atlassian.net/browse/EX-5162)
+
+### Testing
+
+- **e2e:** fix tagging tests (#270)
+  ([ff2ecba](https://github.com/empathyco/x/commit/ff2ecbac79fd3c16d72a05c133dbe0b60de606f7)),
+  closes [EX-5161](https://searchbroker.atlassian.net/browse/EX-5161)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.34...@empathyco/x-components@3.0.0-alpha.35) (2021-12-14)
 
 ### Features
