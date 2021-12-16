@@ -85,7 +85,6 @@ describe('testing plugin alias', () => {
     componentInstance.vm.$store.commit('x/querySuggestions/setQuery', 'working');
     componentInstance.vm.$store.commit('x/relatedTags/setQuery', 'properly');
     componentInstance.vm.$store.commit('x/search/setQuery', 'nice');
-    componentInstance.vm.$store.commit('x/search/setSort', 'super!');
 
     expect(componentInstance.vm.$x.query).toEqual({
       searchBox: 'this',
@@ -94,7 +93,6 @@ describe('testing plugin alias', () => {
       relatedTags: 'properly',
       search: 'nice'
     });
-    expect(componentInstance.vm.$x.selectedSort).toBe('super!');
   });
 
   it('updates the status values when the module is registered', () => {
