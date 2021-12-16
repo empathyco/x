@@ -103,6 +103,9 @@ export function getAliasAPI(component: Vue): XComponentAliasAPI {
     },
     get totalResults() {
       return component.$store.state.x.search?.totalResults ?? 0;
+    },
+    get selectedSort() {
+      return component.$store.state.x.search?.sort ?? '';
     }
   };
 }

@@ -67,7 +67,8 @@ describe('testing plugin alias', () => {
       selectedFilters: [],
       selectedRelatedTags: [],
       spellcheckedQuery: null,
-      totalResults: 0
+      totalResults: 0,
+      selectedSort: ''
     };
     expect(componentInstance.vm.$x).toMatchObject(defaultValues);
   });
