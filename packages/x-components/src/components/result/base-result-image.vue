@@ -4,6 +4,7 @@
       :is="animation"
       v-if="!hasImageLoaded && !hasAllImagesFailed"
       class="x-picture__image x-picture__image--placeholder"
+      data-test="result-picture-placeholder"
     >
       <!-- eslint-disable-next-line max-len -->
       <!-- @slot (Required) Loading image content. It will be rendered while the real image is not loaded -->
