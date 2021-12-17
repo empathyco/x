@@ -6,10 +6,9 @@
     padding: 0 !important;
   }
 
-  @for $i from 1 through $max-size-base-value {
-    $i: zerofill($i);
-    &--#{$i} {
-      padding: var(--x-size-base-#{$i}) !important;
+  @each $size, $size-value in $sizes {
+    &--#{$size} {
+      padding: var(--x-size-base-#{$size}) !important;
     }
   }
 
@@ -26,19 +25,18 @@
     padding-inline-start: 0 !important;
   }
 
-  @for $i from 1 through $max-size-base-value {
-    $i: zerofill($i);
-    &--top-#{$i} {
-      padding-block-start: var(--x-size-base-#{$i}) !important;
+  @each $size, $size-value in $sizes {
+    &--top-#{$size} {
+      padding-block-start: var(--x-size-base-#{$size}) !important;
     }
-    &--bottom-#{$i} {
-      padding-block-end: var(--x-size-base-#{$i}) !important;
+    &--bottom-#{$size} {
+      padding-block-end: var(--x-size-base-#{$size}) !important;
     }
-    &--right-#{$i} {
-      padding-inline-end: var(--x-size-base-#{$i}) !important;
+    &--right-#{$size} {
+      padding-inline-end: var(--x-size-base-#{$size}) !important;
     }
-    &--left-#{$i} {
-      padding-inline-start: var(--x-size-base-#{$i}) !important;
+    &--left-#{$size} {
+      padding-inline-start: var(--x-size-base-#{$size}) !important;
     }
   }
 }

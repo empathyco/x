@@ -1,23 +1,7 @@
-.x-font-color {
-  &--lead {
-    color: var(--x-color-base-lead) !important;
-  }
-  &--auxiliary {
-    color: var(--x-color-base-auxiliary) !important;
-  }
-  &--neutral-10 {
-    color: var(--x-color-base-neutral-10) !important;
-  }
-  &--neutral-35 {
-    color: var(--x-color-base-neutral-35) !important;
-  }
-  &--neutral-70 {
-    color: var(--x-color-base-neutral-70) !important;
-  }
-  &--neutral-95 {
-    color: var(--x-color-base-neutral-95) !important;
-  }
-  &--neutral-100 {
-    color: var(--x-color-base-neutral-100) !important;
+@import '../base/colors.tokens';
+
+@each $color-name, $color-value in $colors {
+  .x-font-color--#{$color-name} {
+    color: var(--x-color-base-#{$color-name}) !important;
   }
 }

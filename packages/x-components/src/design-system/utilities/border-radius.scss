@@ -9,38 +9,37 @@
 }
 
 .x-border-radius {
-  @for $i from 1 through $max-size-base-value {
-    $i: zerofill($i);
-    &--#{$i} {
-      border-radius: var(--x-size-base-#{$i}) !important;
+  @each $size, $size-value in $sizes {
+    &--#{$size} {
+      border-radius: var(--x-size-base-#{$size}) !important;
     }
-    &--top-#{$i} {
-      border-start-start-radius: var(--x-size-base-#{$i}) !important;
-      border-start-end-radius: var(--x-size-base-#{$i}) !important;
+    &--top-#{$size} {
+      border-start-start-radius: var(--x-size-base-#{$size}) !important;
+      border-start-end-radius: var(--x-size-base-#{$size}) !important;
     }
-    &--bottom-#{$i} {
-      border-end-start-radius: var(--x-size-base-#{$i}) !important;
-      border-end-end-radius: var(--x-size-base-#{$i}) !important;
+    &--bottom-#{$size} {
+      border-end-start-radius: var(--x-size-base-#{$size}) !important;
+      border-end-end-radius: var(--x-size-base-#{$size}) !important;
     }
-    &--right-#{$i} {
-      border-start-end-radius: var(--x-size-base-#{$i}) !important;
-      border-end-end-radius: var(--x-size-base-#{$i}) !important;
+    &--right-#{$size} {
+      border-start-end-radius: var(--x-size-base-#{$size}) !important;
+      border-end-end-radius: var(--x-size-base-#{$size}) !important;
     }
-    &--left-#{$i} {
-      border-start-start-radius: var(--x-size-base-#{$i}) !important;
-      border-end-start-radius: var(--x-size-base-#{$i}) !important;
+    &--left-#{$size} {
+      border-start-start-radius: var(--x-size-base-#{$size}) !important;
+      border-end-start-radius: var(--x-size-base-#{$size}) !important;
     }
-    &--top-left-#{$i} {
-      border-start-start-radius: var(--x-size-base-#{$i}) !important;
+    &--top-left-#{$size} {
+      border-start-start-radius: var(--x-size-base-#{$size}) !important;
     }
-    &--top-right-#{$i} {
-      border-start-end-radius: var(--x-size-base-#{$i}) !important;
+    &--top-right-#{$size} {
+      border-start-end-radius: var(--x-size-base-#{$size}) !important;
     }
-    &--bottom-left-#{$i} {
-      border-end-start-radius: var(--x-size-base-#{$i}) !important;
+    &--bottom-left-#{$size} {
+      border-end-start-radius: var(--x-size-base-#{$size}) !important;
     }
-    &--bottom-right-#{$i} {
-      border-end-end-radius: var(--x-size-base-#{$i}) !important;
+    &--bottom-right-#{$size} {
+      border-end-end-radius: var(--x-size-base-#{$size}) !important;
     }
   }
 }
