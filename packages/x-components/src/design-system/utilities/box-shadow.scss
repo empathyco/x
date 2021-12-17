@@ -4,7 +4,7 @@
   box-shadow: none !important;
 }
 .x-shadow {
-  @for $i from 0 through 10 {
+  @for $i from 1 through 10 {
     $i: zerofill($i);
     &--#{$i} {
       box-shadow: var(--x-string-box-shadow-#{$i}) !important;

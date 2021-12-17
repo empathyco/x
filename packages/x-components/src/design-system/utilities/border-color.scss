@@ -1,4 +1,4 @@
-@import '../base/colors.tokens';
+@import '../variables';
 
 @each $color-name, $color-value in $colors {
   .x-border-color--#{$color-name} {

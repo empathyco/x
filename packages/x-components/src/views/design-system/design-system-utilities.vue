@@ -19,7 +19,6 @@
     <article class="x-list x-list--vertical x-list--gap-06 x-padding-bottom--06">
       <h2 class="x-title2">Border Color</h2>
       <div class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
-        <div class="x-padding--06 x-border-width--01 x-border-color--lead">Border Color Lead</div>
         <div
           v-for="color in colors"
           :key="color"
@@ -35,7 +34,7 @@
       <h2 class="x-title2">Border Width</h2>
       <div class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
         <div
-          v-for="width in borderAndShadowSizes"
+          v-for="width in borderSizes"
           :key="width"
           class="x-padding--06 x-border-color--lead"
           :class="'x-border-width--' + width"
@@ -253,8 +252,9 @@
     <article class="x-list x-list--vertical x-list--gap-06 x-padding-bottom--06">
       <h2 class="x-title2">Shadow</h2>
       <div class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
+        <div class="x-padding--06 x-shadow--none">Shadow none</div>
         <div
-          v-for="size in borderAndShadowSizes"
+          v-for="size in shadowsSizes"
           :key="size"
           class="x-padding--06"
           :class="'x-shadow--' + size"
@@ -362,13 +362,15 @@
     protected maxSize = 20;
 
     protected get sizes(): string[] {
-      return Array.from({ length: this.maxSize + 1 }).map((_, index) =>
-        String(index).padStart(2, '0')
-      );
+      return Array.from({ length: this.maxSize + 1 }, (_, index) => String(index).padStart(2, '0'));
     }
 
-    protected get borderAndShadowSizes(): string[] {
+    protected get borderSizes(): string[] {
       return this.sizes.slice(0, 11);
+    }
+
+    protected get shadowsSizes(): string[] {
+      return this.sizes.slice(1, 11);
     }
   }
 </script>
