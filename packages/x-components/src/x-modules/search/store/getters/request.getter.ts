@@ -10,22 +10,19 @@ import { SearchXStoreModule } from '../types';
  * @public
  */
 export const request: SearchXStoreModule['getters']['request'] = ({
-  query,
+  page,
   params,
-  config,
+  query,
   relatedTags,
   selectedFilters,
-  sort,
-  page,
-  isAppendResults
+  sort
 }) => {
   return query.trim()
     ? {
         query,
         relatedTags,
         sort,
-        rows: isAppendResults ? config.pageSize : config.pageSize * page,
-        start: isAppendResults ? config.pageSize * (page - 1) : 0,
+        page,
         filters: selectedFilters,
         ...params
       }
