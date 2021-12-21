@@ -72,15 +72,20 @@ describe('testing search module actions', () => {
     });
 
     it('should calculate correctly the start and rows properties', async () => {
-      resetSearchStateWith(store, { query: 'lego', config: { pageSize: 48 } });
+      resetSearchStateWith(store, {
+        config: { pageSize: 48 },
+        page: 2,
+        query: 'lego',
+        results: getResultsStub(48)
+      });
       const { page, ...restRequest } = store.getters.request!;
       await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
 
       expect(adapter.search).toHaveBeenCalledTimes(1);
       expect(adapter.search).toHaveBeenCalledWith({
         ...restRequest,
-        start: 0,
-        rows: 24
+        start: 48,
+        rows: 48
       });
     });
 

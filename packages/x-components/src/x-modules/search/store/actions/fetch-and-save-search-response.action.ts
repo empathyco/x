@@ -1,11 +1,11 @@
 import { SearchResponse, SearchRequest } from '@empathyco/x-adapter';
 import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
-import { PageableSearchRequest } from '../../types';
+import { InternalSearchRequest } from '../../types';
 import { SearchActionContext, SearchState } from '../types';
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   SearchActionContext,
-  PageableSearchRequest | null,
+  InternalSearchRequest | null,
   SearchResponse
 >({
   fetch({ dispatch, state }, request) {
@@ -52,13 +52,13 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
  * Enriches the {@link SearchRequest} object with the origin and page properties taken from the
  * {@link SearchState | search state}.
  *
- * @param request - The {@link PageableSearchRequest}.
+ * @param request - The {@link InternalSearchRequest}.
  * @param state - {@link SearchState}.
  *
  * @returns The search request.
  * @internal
  */
-function enrichRequest(request: PageableSearchRequest, state: SearchState): SearchRequest {
+function enrichRequest(request: InternalSearchRequest, state: SearchState): SearchRequest {
   const { page, ...restRequest } = request;
   const {
     config: { pageSize },
@@ -72,7 +72,7 @@ function enrichRequest(request: PageableSearchRequest, state: SearchState): Sear
     // eslint-disable-next-line @typescript-eslint/no-extra-parens
     ...(origin && { origin }),
     start,
-    rows: pageSize * page! - start
+    rows: pageSize * page - start
   };
 }
 

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { map } from '../../../../utils';
-import { PageableSearchRequest } from '../../types';
+import { InternalSearchRequest } from '../../types';
 import { searchXStoreModule } from '../module';
 import { SearchState } from '../types';
 import { resetSearchStateWith } from './utils';
@@ -19,17 +19,18 @@ describe('testing search module getters', () => {
     it('should return a request object if there is a query with module properties', () => {
       resetSearchStateWith(store, {
         query: 'doraemon',
+        page: 3,
         params: {
           catalog: 'es'
         }
       });
 
-      expect(store.getters[gettersKeys.request]).toEqual<PageableSearchRequest>({
+      expect(store.getters[gettersKeys.request]).toEqual<InternalSearchRequest>({
         query: 'doraemon',
         relatedTags: [],
         filters: {},
         sort: '',
-        page: 1,
+        page: 3,
         catalog: 'es'
       });
     });

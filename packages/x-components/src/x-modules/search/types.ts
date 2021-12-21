@@ -1,11 +1,12 @@
 import { SearchRequest } from '@empathyco/x-adapter';
 
 /**
- * A pageable search request.
+ * An internal search request containing the page used to calculate the start and rows properties of
+ * a {@link SearchRequest}.
  *
  * @public
  */
-export interface PageableSearchRequest extends SearchRequest {
+export interface InternalSearchRequest extends SearchRequest {
   /** The page number. */
-  page?: number;
+  page: number;
 }
