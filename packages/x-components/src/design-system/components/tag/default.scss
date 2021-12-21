@@ -43,19 +43,22 @@
 
   &.x-filter {
     // color
-    --x-color-background-filter: transparent;
-    --x-size-border-width-filter: 0;
-    --x-color-text-filter: var(--x-color-text-tag-default);
+    --x-color-background-filter-default: transparent;
+    --x-size-border-width-filter-default: 0;
+    --x-color-text-filter-default: var(--x-color-text-tag-default);
 
     // size
-    --x-size-padding-filter: 0;
-    --x-size-gap-filter: var(--x-size-gap-tag-default);
+    --x-size-padding-top-filter-default: 0;
+    --x-size-padding-right-filter-default: var(--x-size-padding-right-tag-default);
+    --x-size-padding-bottom-filter-default: 0;
+    --x-size-padding-left-filter-default: var(--x-size-padding-left-tag-default);
+    --x-size-gap-filter-default: var(--x-size-gap-tag-default);
 
     // typography
-    --x-font-family-filter: var(--x-font-family-tag-default);
-    --x-size-font-filter: var(--x-size-font-tag-default);
-    --x-number-font-weight-filter: var(--x-number-font-weight-tag-default);
-    --x-size-line-height-filter: var(--x-size-line-height-tag-default);
+    --x-font-family-filter-default: var(--x-font-family-tag-default);
+    --x-size-font-filter-default: var(--x-size-font-tag-default);
+    --x-number-font-weight-filter-count-default: var(--x-number-font-weight-tag-default);
+    --x-size-line-height-filter-default: var(--x-size-line-height-tag-default);
   }
 
   // selected (the double .x-tag is to override specificity of the scoped component style)
@@ -73,13 +76,15 @@
 
     &.x-filter {
       // color
-      --x-color-text-filter: var(--x-color-text-tag-default-selected);
+      --x-color-text-filter-default-selected: var(--x-color-text-tag-default-selected);
 
       // typography
-      --x-font-family-filter: var(--x-font-family-tag-default-selected);
-      --x-size-font-filter: var(--x-size-font-tag-default-selected);
-      --x-number-font-weight-filter: var(--x-number-font-weight-tag-default-selected);
-      --x-size-line-height-filter: var(--x-size-line-height-tag-default-selected);
+      --x-font-family-filter-default-selected: var(--x-font-family-tag-default-selected);
+      --x-size-font-filter-default-selected: var(--x-size-font-tag-default-selected);
+      --x-number-font-weight-filter-count-default-selected: var(
+        --x-number-font-weight-tag-default-selected
+      );
+      --x-size-line-height-filter-default-selected: var(--x-size-line-height-tag-default-selected);
     }
   }
 }

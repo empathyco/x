@@ -1,5 +1,5 @@
 <template>
-  <span class="x-currency">{{ currency }}</span>
+  <span v-if="value !== undefined" class="x-currency">{{ currency }}</span>
 </template>
 
 <script lang="ts">

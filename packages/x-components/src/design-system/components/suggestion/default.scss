@@ -4,9 +4,9 @@
   // layout
   display: flex;
   flex-flow: row nowrap;
-  align-items: flex-start;
   box-sizing: border-box;
   text-align: start;
+  align-items: var(--x-string-align-items-suggestion-default);
 
   // color
   border: none;
@@ -35,7 +35,8 @@
     flex: 1 1 auto;
   }
 
-  &__matching-part, .x-identifier-result__matching-part {
+  &__matching-part,
+  .x-identifier-result__matching-part {
     // typography
     font-family: var(--x-font-family-suggestion-matching-part-default);
     font-size: var(--x-size-font-suggestion-matching-part-default);
@@ -59,7 +60,7 @@
     --x-color-text-suggestion-default: var(--x-color-text-suggestion-default-matching);
   }
 
-  > .x-identifier-result{
+  > .x-identifier-result {
     flex: none;
   }
 }
