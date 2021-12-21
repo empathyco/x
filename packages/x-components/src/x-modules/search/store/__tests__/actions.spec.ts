@@ -57,14 +57,35 @@ describe('testing search module actions', () => {
   });
 
   describe('fetchAndSaveSearchResponse', () => {
-    it('should include the origin in the request', async () => {
+    it('should include the origin, start and rows properties in the request', async () => {
       resetSearchStateWith(store, { query: 'lego', origin: 'search_box:external' });
+      const { page, ...restRequest } = store.getters.request!;
       await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
 
       expect(adapter.search).toHaveBeenCalledTimes(1);
       expect(adapter.search).toHaveBeenCalledWith({
-        ...store.getters.request,
-        origin: 'search_box:external'
+        ...restRequest,
+        origin: 'search_box:external',
+        start: 0,
+        rows: 24
+      });
+    });
+
+    it('should calculate correctly the start and rows properties', async () => {
+      resetSearchStateWith(store, {
+        config: { pageSize: 48 },
+        page: 2,
+        query: 'lego',
+        results: getResultsStub(48)
+      });
+      const { page, ...restRequest } = store.getters.request!;
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
+
+      expect(adapter.search).toHaveBeenCalledTimes(1);
+      expect(adapter.search).toHaveBeenCalledWith({
+        ...restRequest,
+        start: 48,
+        rows: 48
       });
     });
 

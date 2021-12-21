@@ -88,9 +88,6 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     setPage(state, page) {
       state.page = page;
-      if (page === 1) {
-        state.isAppendResults = false;
-      }
     },
     setPageSize(state, pageSize) {
       state.config.pageSize = pageSize;

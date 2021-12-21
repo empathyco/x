@@ -1,4 +1,3 @@
-import { SearchRequest } from '@empathyco/x-adapter';
 import {
   Facet,
   Result,
@@ -8,6 +7,7 @@ import {
   Promoted,
   Banner
 } from '@empathyco/x-types';
+import { InternalSearchRequest } from './types';
 
 /**
  * Dictionary of the events of Search XModule, where each key is the event name, and the value is
@@ -36,7 +36,7 @@ export interface SearchXEvents {
    * * Payload: The new search request or `null` if there is not enough data in the state
    * to conform a valid request.
    */
-  SearchRequestChanged: SearchRequest | null;
+  SearchRequestChanged: InternalSearchRequest | null;
   /**
    * Query tagging has been changed.
    * * Payload: The new query tagging object.

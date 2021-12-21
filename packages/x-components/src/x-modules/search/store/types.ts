@@ -17,6 +17,7 @@ import { QueryOrigin, QueryOriginInit } from '../../../types/origin';
 import { UrlParams } from '../../../types/url-params';
 import { Dictionary } from '../../../utils/types';
 import { SearchConfig } from '../config.types';
+import { InternalSearchRequest } from '../types';
 
 /**
  * Search store state.
@@ -71,7 +72,7 @@ export interface SearchState extends StatusState {
 export interface SearchGetters {
   /** The adapter request object for retrieving the results, or null if there is not
    * valid data to create a request. */
-  request: SearchRequest | null;
+  request: InternalSearchRequest | null;
 }
 
 /**
@@ -209,7 +210,7 @@ export interface SearchActions {
   /**
    * Fetches a new search response and stores them in the module state.
    */
-  fetchAndSaveSearchResponse(request: SearchRequest | null): void;
+  fetchAndSaveSearchResponse(request: InternalSearchRequest | null): void;
   /**
    * Fetches the search response and returns them.
    *
