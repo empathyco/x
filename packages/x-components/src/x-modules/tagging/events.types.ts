@@ -1,10 +1,11 @@
+import { TaggingInfo } from '@empathyco/x-types';
+
 /**
  * Dictionary of the events of Tagging XModule, where each key is the event name, and the value is
  * the event payload type or `void` if it has no payload.
  *
  * @public
  */
-import { TaggingInfo } from '@empathyco/x-types';
 
 export interface TaggingXEvents {
   /**
