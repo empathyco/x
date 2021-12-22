@@ -6,6 +6,7 @@
         <span v-if="devMode" class="slot-helper">HEADER</span>
       </slot>
     </header>
+
     <div v-if="hasContent('sub-header')" class="x-layout__sub-header x-list x-list--horizontal">
       <!-- @slot Slot that can be used to insert content into the Sub Header. -->
       <slot name="sub-header">
@@ -21,7 +22,7 @@
     </div>
 
     <div v-if="hasContent('predictive')" class="x-layout__predictive x-list x-list--vertical">
-      <BaseScroll>
+      <BaseScroll class="x-layout__predictive-scroll x-list x-list--vertical x-list__item--expand">
         <!-- @slot Slot that can be used to insert content into the Predictive Layer. -->
         <slot name="predictive">
           <span v-if="devMode" class="slot-helper">PREDICTIVE</span>
@@ -29,9 +30,9 @@
       </BaseScroll>
     </div>
 
-    <main v-if="hasContent('main')" class="x-layout__main x-list x-list--vertical">
+    <main v-if="hasContent('main')" class="x-layout__main">
       <MainScroll>
-        <Scroll id="main-scroll">
+        <Scroll id="main-scroll" class="x-layout__main-scroll x-list x-list--vertical">
           <!-- @slot Slot that can be used to insert content into the Main. -->
           <slot name="main">
             <span v-if="devMode" class="slot-helper">MAIN</span>
@@ -133,14 +134,17 @@
 
     &__header {
       grid-row: header;
+      z-index: 1;
     }
 
     &__sub-header {
       grid-row: sub-header;
+      z-index: 1;
     }
 
     &__toolbar {
       grid-row: toolbar;
+      z-index: 1;
     }
 
     &__predictive {
