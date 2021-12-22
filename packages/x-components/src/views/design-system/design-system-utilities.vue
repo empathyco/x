@@ -262,6 +262,18 @@
           Shadow {{ size }}
         </div>
       </div>
+
+      <h3 class="x-title3">Shadow Bottom</h3>
+      <div class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
+        <div
+          v-for="size in shadowsSizes"
+          :key="size"
+          class="x-padding--06"
+          :class="'x-shadow--bottom-' + size"
+        >
+          Shadow Bottom {{ size }}
+        </div>
+      </div>
     </article>
 
     <article class="x-list x-list--vertical x-list--gap-06 x-padding-bottom--06">
