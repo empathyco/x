@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.38...@empathyco/x-components@3.0.0-alpha.39) (2021-12-22)
+
+### Features
+
+- **design-system:** Add bottom variant to `x-shadow` utility in the Design System
+  ([a23552f](https://github.com/empathyco/x/commit/a23552f29d1ec1b7939c770862d91f9e2f3a4890)),
+  closes [EX-5184](https://searchbroker.atlassian.net/browse/EX-5184)
+
+### Bug Fixes
+
+- Fix multiple issues.
+  ([2f5515e](https://github.com/empathyco/x/commit/2f5515e5bcaca67f085ff3eef4fb52698041292c)),
+  closes [EX-5179](https://searchbroker.atlassian.net/browse/EX-5179)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.37...@empathyco/x-components@3.0.0-alpha.38) (2021-12-22)
 
 ### Features
