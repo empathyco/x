@@ -27,7 +27,6 @@ export interface TaggingXEvents {
    * * Payload: The new session duration value.
    */
   SessionDurationProvided: number;
-
   /**
    * Query tagging info has changed.
    * * Payload: The new query tagging info.
