@@ -21,3 +21,13 @@ Then('first visible result is {string}', (resultId: string) => {
       });
     });
 });
+
+Then('scroll position is at top', () => {
+  cy.get('#main-scroll').should(scrollContainer => {
+    expect(scrollContainer.scrollTop()).to.equal(0);
+  });
+});
+
+When('store is changed to {string}', (store: string) => {
+  cy.getByDataTest('store-selector').click().contains(store).click();
+});
