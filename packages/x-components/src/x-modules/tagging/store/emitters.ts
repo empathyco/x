@@ -1,4 +1,4 @@
-import { createStoreEmitters } from '../../../store';
+import { createStoreEmitters } from '../../../store/utils/store-emitters.utils';
 import { taggingXStoreModule } from './module';
 
 /**
