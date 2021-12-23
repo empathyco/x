@@ -165,9 +165,13 @@ export function mapWire<FromPayload, ToPayload>(
   return (observable, ...restWireParams) =>
     toWire(
       observable.pipe(
-        map(({ eventPayload, ...restWirePayload }) => ({
+        map(({ eventPayload, metadata: { oldValue, ...restMetadata } }) => ({
           eventPayload: mapFn(eventPayload),
-          ...restWirePayload
+          metadata: {
+            ...restMetadata,
+            // eslint-disable-next-line @typescript-eslint/no-extra-parens
+            ...(oldValue && mapFn(oldValue))
+          }
         }))
       ),
       ...restWireParams

@@ -38,6 +38,11 @@ export interface SearchXEvents {
    */
   SearchRequestChanged: InternalSearchRequest | null;
   /**
+   * Any property of the search request has been updated.
+   * * Payload: The new internal request object.
+   */
+  SearchRequestUpdated: InternalSearchRequest;
+  /**
    * Query tagging has been changed.
    * * Payload: The new query tagging object.
    */

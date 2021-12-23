@@ -254,7 +254,11 @@ describe('testing X Plugin emitters', () => {
       store.commit('x/searchBox/setQuery', 'wheat');
       await waitNextTick();
       expect(testWire).toHaveBeenCalledTimes(1);
-      expect(testWire).toHaveBeenCalledWith({ eventPayload: 'wheat', metadata, store });
+      expect(testWire).toHaveBeenCalledWith({
+        eventPayload: 'wheat',
+        metadata: expect.objectContaining(metadata),
+        store
+      });
 
       store.commit('x/searchBox/setQuery', 'whe');
       await waitNextTick();
@@ -263,7 +267,11 @@ describe('testing X Plugin emitters', () => {
       store.commit('x/searchBox/setQuery', 'wheat beer');
       await waitNextTick();
       expect(testWire).toHaveBeenCalledTimes(2);
-      expect(testWire).toHaveBeenCalledWith({ eventPayload: 'wheat beer', metadata, store });
+      expect(testWire).toHaveBeenCalledWith({
+        eventPayload: 'wheat beer',
+        metadata: expect.objectContaining(metadata),
+        store
+      });
     });
   });
 });

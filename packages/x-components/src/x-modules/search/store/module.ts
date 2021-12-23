@@ -1,6 +1,8 @@
 import { isFacetFilter } from '@empathyco/x-types';
 import { setStatus } from '../../../store/utils/status-store.utils';
 import { groupItemsBy } from '../../../utils/array';
+// eslint-disable-next-line max-len
+import { batchStateResetsAfterRequestUpdate } from './actions/batch-state-resets-after-request-update.action';
 import {
   cancelFetchAndSaveSearchResponse,
   fetchAndSaveSearchResponse
@@ -110,6 +112,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     }
   },
   actions: {
+    batchStateResetsAfterRequestUpdate,
     cancelFetchAndSaveSearchResponse,
     fetchSearchResponse,
     fetchAndSaveSearchResponse,
