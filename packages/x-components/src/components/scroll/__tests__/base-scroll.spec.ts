@@ -1,6 +1,6 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
-import { XEvent } from '../../../wiring/index';
+import { XEvent } from '../../../wiring/events.types';
 import BaseScroll from '../base-scroll.vue';
 
 /**
@@ -196,7 +196,7 @@ describe('testing Base Scroll Component', () => {
     expect(wrapper.emitted('scroll:almost-at-end')).toEqual([[true], [false], [true]]);
   });
 
-  it('resets the scroll', async () => {
+  it('resets the scroll when the given events are emitted', async () => {
     const { wrapper, scroll } = await renderBaseScroll({
       resetOn: ['UserAcceptedAQuery']
     });
@@ -212,7 +212,7 @@ describe('testing Base Scroll Component', () => {
     expect(wrapper.element.scrollTop).toEqual(0);
   });
 
-  it('allows disabling reseting the scroll', async () => {
+  it('allows disabling resetting the scroll when certain events are emitted', async () => {
     const { wrapper, scroll } = await renderBaseScroll({
       resetOn: ['UserAcceptedAQuery'],
       resetOnChange: false
@@ -225,6 +225,7 @@ describe('testing Base Scroll Component', () => {
     expect(wrapper.element.scrollTop).toEqual(300);
 
     wrapper.vm.$x.emit('UserAcceptedAQuery', 'milk');
+    await wrapper.vm.$nextTick();
     expect(wrapper.element.scrollTop).toEqual(300);
   });
 });
