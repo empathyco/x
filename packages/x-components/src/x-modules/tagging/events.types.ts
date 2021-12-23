@@ -26,7 +26,7 @@ export interface TaggingXEvents {
    * Query tagging info has changed.
    * * Payload: The new query tagging info.
    */
-  SearchTaggingEmitted: TaggingInfo;
+  SearchTaggingReceived: TaggingInfo;
   /**
    * Session duration has been provided.
    * * Payload: The new session duration value.

@@ -8,5 +8,5 @@ import { taggingXStoreModule } from './module';
  */
 export const taggingEmitters = createStoreEmitters(taggingXStoreModule, {
   ConsentChanged: state => state.consent!,
-  SearchTaggingEmitted: state => state.queryTaggingInfo!
+  SearchTaggingReceived: state => state.queryTaggingInfo!
 });

@@ -151,7 +151,7 @@ export const taggingWiring = createWiring({
   SearchTaggingChanged: {
     setQueryTaggingInfo
   },
-  SearchTaggingEmitted: {
+  SearchTaggingReceived: {
     trackQueryWire
   },
   SessionDurationProvided: {
