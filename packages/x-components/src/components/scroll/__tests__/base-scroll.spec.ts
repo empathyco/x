@@ -1,5 +1,6 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
+import { XEvent } from '../../../wiring/index';
 import BaseScroll from '../base-scroll.vue';
 
 /**
@@ -13,26 +14,30 @@ HTMLElement.prototype.scrollTo = function (options?: ScrollToOptions | number) {
 };
 
 async function renderBaseScroll({
-  template = '<BaseScroll :throttleMs="throttleMs"/>',
+  template = '<BaseScroll v-bind="$attrs" />',
   throttleMs = 200,
   scrollHeight = 800,
   clientHeight = 200,
-  distanceToBottom = 100
+  distanceToBottom = 100,
+  resetOnChange,
+  resetOn
 }: RenderBaseScrollOptions = {}): Promise<RenderBaseScrollAPI> {
   const [, localVue] = installNewXPlugin();
 
   const wrapperContainer = mount(
     {
-      props: ['throttleMs', 'distanceToBottom'],
       components: {
         BaseScroll
       },
-      template
+      template,
+      inheritAttrs: false
     },
     {
       propsData: {
         throttleMs,
-        distanceToBottom
+        distanceToBottom,
+        resetOnChange,
+        resetOn
       },
       localVue
     }
@@ -190,6 +195,38 @@ describe('testing Base Scroll Component', () => {
     });
     expect(wrapper.emitted('scroll:almost-at-end')).toEqual([[true], [false], [true]]);
   });
+
+  it('resets the scroll', async () => {
+    const { wrapper, scroll } = await renderBaseScroll({
+      resetOn: ['UserAcceptedAQuery']
+    });
+
+    await scroll({
+      to: 300,
+      durationMs: 200
+    });
+    expect(wrapper.element.scrollTop).toEqual(300);
+
+    wrapper.vm.$x.emit('UserAcceptedAQuery', 'milk');
+    await wrapper.vm.$nextTick();
+    expect(wrapper.element.scrollTop).toEqual(0);
+  });
+
+  it('allows disabling reseting the scroll', async () => {
+    const { wrapper, scroll } = await renderBaseScroll({
+      resetOn: ['UserAcceptedAQuery'],
+      resetOnChange: false
+    });
+
+    await scroll({
+      to: 300,
+      durationMs: 200
+    });
+    expect(wrapper.element.scrollTop).toEqual(300);
+
+    wrapper.vm.$x.emit('UserAcceptedAQuery', 'milk');
+    expect(wrapper.element.scrollTop).toEqual(300);
+  });
 });
 
 interface RenderBaseScrollOptions {
@@ -203,6 +240,11 @@ interface RenderBaseScrollOptions {
   clientHeight?: number;
   /** Distance to the end of the scroll. */
   distanceToBottom?: number;
+  /** Flag to enable or disable resetting the scroll when the events at {@link BaseScroll.resetOn}
+   * are emitted. */
+  resetOnChange?: boolean;
+  /** List of events to reset the scroll when they are emitted. */
+  resetOn?: XEvent[];
 }
 
 interface RenderBaseScrollAPI {

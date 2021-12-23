@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import { Component, Prop, Watch } from 'vue-property-decorator';
 import { throttle } from '../../utils/throttle';
+import { XEvent } from '../../wiring/index';
 import { XOn } from '../decorators/bus.decorators';
 import { ScrollDirection } from './scroll.types';
 
@@ -49,6 +50,23 @@ export default class ScrollMixin extends Vue {
    */
   @Prop({ type: Boolean, default: true })
   protected resetOnChange!: boolean;
+
+  /**
+   * List of events that should reset the scroll when emitted.
+   *
+   * @public
+   */
+  @Prop({
+    default: () => [
+      'SearchBoxQueryChanged',
+      'SortChanged',
+      'SelectedFiltersChanged',
+      'SelectedRelatedTagsChanged',
+      'UserChangedExtraParams'
+    ]
+  })
+  public resetOn!: XEvent;
+
   /**
    * Property for getting the client height of scroll.
    *
@@ -178,12 +196,7 @@ export default class ScrollMixin extends Vue {
    *
    * @internal
    */
-  @XOn([
-    'SearchBoxQueryChanged',
-    'SortChanged',
-    'SelectedFiltersChanged',
-    'SelectedRelatedTagsChanged'
-  ])
+  @XOn(instance => (instance as ScrollMixin).resetOn)
   resetScroll(): void {
     this.$nextTick().then(() => {
       if (this.resetOnChange) {
