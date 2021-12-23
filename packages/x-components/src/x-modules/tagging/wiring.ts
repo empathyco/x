@@ -145,22 +145,22 @@ export const taggingWiring = createWiring({
   ConsentChanged: {
     clearSessionWire
   },
-  SessionDurationProvided: {
-    setSessionDuration
-  },
   QueryTaggingDebounceProvided: {
     setQueryTaggingDebounce
   },
   SearchTaggingChanged: {
     setQueryTaggingInfo
   },
+  SearchTaggingEmitted: {
+    trackQueryWire
+  },
+  SessionDurationProvided: {
+    setSessionDuration
+  },
   UserClickedAResult: {
     trackResultClickedWire
   },
   UserClickedResultAddToCart: {
     trackAddToCartWire
-  },
-  SearchTaggingEmitted: {
-    trackQueryWire
   }
 });

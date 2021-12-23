@@ -6,7 +6,6 @@ import { TaggingInfo } from '@empathyco/x-types';
  *
  * @public
  */
-
 export interface TaggingXEvents {
   /**
    * Consent has changed.
@@ -24,13 +23,13 @@ export interface TaggingXEvents {
    */
   QueryTaggingDebounceProvided: number;
   /**
-   * Session duration has been provided.
-   * * Payload: The new session duration value.
-   */
-  SessionDurationProvided: number;
-  /**
    * Query tagging info has changed.
    * * Payload: The new query tagging info.
    */
   SearchTaggingEmitted: TaggingInfo;
+  /**
+   * Session duration has been provided.
+   * * Payload: The new session duration value.
+   */
+  SessionDurationProvided: number;
 }
