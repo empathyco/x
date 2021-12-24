@@ -117,7 +117,7 @@ Set to false the reset scroll on query change feature which is true by default.
 
 ### Reset scroll
 
-You can configure which events make the scroll position be reset using the `resetOn` prop.
+You can configure which events reset the scroll position using the `resetOn` prop.
 
 ```vue
 <template>

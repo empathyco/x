@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import { Component, Prop, Watch } from 'vue-property-decorator';
 import { throttle } from '../../utils/throttle';
-import { XEvent } from '../../wiring/index';
+import { XEvent } from '../../wiring/events.types';
 import { XOn } from '../decorators/bus.decorators';
 import { ScrollDirection } from './scroll.types';
 
