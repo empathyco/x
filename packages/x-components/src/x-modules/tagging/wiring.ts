@@ -73,13 +73,20 @@ export const setQueryTaggingDebounce = wireCommit('setQueryTaggingDebounce');
 export const setSessionDuration = wireCommit('setSessionDuration');
 
 /**
- * Tracks the tagging of the query using a debounce which ends if the user
+ * Tracks the tagging of the query.
+ *
+ * @public
+ */
+export const trackQueryWire = wireDispatch('track');
+
+/**
+ * Sets the tagging state of the query tagging info using a debounce which ends if the user
  * accepts a query.
  *
  * @public
  */
-export const trackQueryWire = moduleDebounce(
-  wireDispatch('track'),
+export const setQueryTaggingInfo = moduleDebounce(
+  wireCommit('setQueryTaggingInfo'),
   ({ state }) => state.config.queryTaggingDebounceMs,
   {
     cancelOn: 'UserClearedQuery',
@@ -138,14 +145,17 @@ export const taggingWiring = createWiring({
   ConsentChanged: {
     clearSessionWire
   },
-  SessionDurationProvided: {
-    setSessionDuration
-  },
   QueryTaggingDebounceProvided: {
     setQueryTaggingDebounce
   },
   SearchTaggingChanged: {
+    setQueryTaggingInfo
+  },
+  SearchTaggingReceived: {
     trackQueryWire
+  },
+  SessionDurationProvided: {
+    setSessionDuration
   },
   UserClickedAResult: {
     trackResultClickedWire
