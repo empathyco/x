@@ -12,7 +12,7 @@ import { SearchXStoreModule } from '../types';
 export const increasePageAppendingResults: SearchXStoreModule['actions']['increasePageAppendingResults'] =
   ({ commit, state }) => {
     const newPage = state.page + 1;
-    if (newPage >= 1 && newPage * state.config.pageSize <= state.totalResults) {
+    if (newPage >= 1 && state.page * state.config.pageSize < state.totalResults) {
       commit('setPage', newPage);
       commit('setIsAppendResults', true);
     }
