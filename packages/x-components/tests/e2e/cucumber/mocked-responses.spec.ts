@@ -20,6 +20,7 @@ import {
   createRelatedTagStub,
   createResultStub,
   createSimpleFacetStub,
+  getFacetsStub,
   getNextQueriesStub,
   getPopularSearchesStub,
   getQuerySuggestionsStub,
@@ -494,7 +495,7 @@ function createSearchResponse(partial?: Partial<SearchResponse>): SearchResponse
   return {
     banners: [],
     promoteds: [],
-    facets: [],
+    facets: getFacetsStub(),
     results: getResultsStub(),
     redirections: [],
     partialResults: [],
