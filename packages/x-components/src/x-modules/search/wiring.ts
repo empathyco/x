@@ -35,19 +35,6 @@ const wireDispatch = namespacedWireDispatch(moduleName);
 const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
 
 /**
- * Batches state resets after {@link SearchGetters.request} parameters update.
- *
- * @public
- */
-export const batchStateResetsAfterRequestUpdateWire = wireDispatch(
-  'batchStateResetsAfterRequestUpdate',
-  ({ metadata: { oldValue }, eventPayload }: WirePayload<InternalSearchRequest>) => ({
-    newRequest: eventPayload,
-    oldRequest: oldValue!
-  })
-);
-
-/**
  * Cancels the {@link SearchActions.fetchAndSaveSearchResponse} request promise.
  *
  * @public
@@ -150,6 +137,19 @@ export const setPageSize = wireCommit('setPageSize');
 export const resetAppending = wireCommit('setIsAppendResults', false);
 
 /**
+ * Batches state resets after {@link SearchGetters.request} parameters update.
+ *
+ * @public
+ */
+export const resetStateWire = wireDispatch(
+  'resetState',
+  ({ eventPayload: newRequest, metadata: { oldValue } }: WirePayload<InternalSearchRequest>) => ({
+    newRequest,
+    oldRequest: oldValue as InternalSearchRequest
+  })
+);
+
+/**
  * Search wiring.
  *
  * @internal
@@ -179,7 +179,7 @@ export const searchWiring = createWiring({
     fetchAndSaveSearchResponseWire
   },
   SearchRequestUpdated: {
-    batchStateResetsAfterRequestUpdateWire
+    resetStateWire
   },
   SelectedRelatedTagsChanged: {
     setRelatedTags

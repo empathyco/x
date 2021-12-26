@@ -2,13 +2,13 @@ import { isFacetFilter } from '@empathyco/x-types';
 import { setStatus } from '../../../store/utils/status-store.utils';
 import { groupItemsBy } from '../../../utils/array';
 // eslint-disable-next-line max-len
-import { batchStateResetsAfterRequestUpdate } from './actions/batch-state-resets-after-request-update.action';
 import {
   cancelFetchAndSaveSearchResponse,
   fetchAndSaveSearchResponse
 } from './actions/fetch-and-save-search-response.action';
 import { fetchSearchResponse } from './actions/fetch-search-response.action';
 import { increasePageAppendingResults } from './actions/increase-page-apending-results.action';
+import { resetState } from './actions/reset-state.action';
 import { saveOrigin } from './actions/save-origin.action';
 import { setUrlParams } from './actions/set-url-params.action';
 import { request } from './getters/request.getter';
@@ -112,11 +112,11 @@ export const searchXStoreModule: SearchXStoreModule = {
     }
   },
   actions: {
-    batchStateResetsAfterRequestUpdate,
     cancelFetchAndSaveSearchResponse,
     fetchSearchResponse,
     fetchAndSaveSearchResponse,
     increasePageAppendingResults,
+    resetState,
     setUrlParams,
     saveOrigin
   }

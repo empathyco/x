@@ -34,7 +34,7 @@ export type Wire<PayloadType> = (
  *
  * @public
  */
-export interface WireMetadata<PayloadType = any> {
+export interface WireMetadata {
   /** The {@link QueryFeature} that originated the event. */
   feature?: QueryFeature;
   /** The id of the component origin. */
@@ -45,7 +45,7 @@ export interface WireMetadata<PayloadType = any> {
    * unknown module. */
   moduleName: XModuleName | null;
   /** The old value of a watched selector triggering an emitter.  */
-  oldValue?: PayloadType;
+  oldValue?: unknown;
   /** The DOM element that triggered the event emission. */
   target?: HTMLElement;
 }
@@ -62,7 +62,7 @@ export interface WirePayload<PayloadType> {
   /** The payload of the event, which must be of type {@link XEventPayload}. */
   eventPayload: PayloadType;
   /** An object containing information about the emission of the event. */
-  metadata: WireMetadata<PayloadType>;
+  metadata: WireMetadata;
 }
 
 /**
@@ -73,7 +73,7 @@ export interface WirePayload<PayloadType> {
  */
 export type PayloadFactoryData<Payload> = RootStoreStateAndGetters & {
   eventPayload: Payload;
-  metadata: WireMetadata<Payload>;
+  metadata: WireMetadata;
 };
 
 /**

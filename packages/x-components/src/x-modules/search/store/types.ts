@@ -208,7 +208,7 @@ export interface SearchActions {
    *
    * @param watchedRequest - The watched internal search request object.
    */
-  batchStateResetsAfterRequestUpdate(watchedRequest: WatchedInternalSearchRequest): void;
+  resetState(watchedRequest: WatchedInternalSearchRequest): void;
   /**
    * Cancels / interrupt {@link SearchActions.fetchAndSaveSearchResponse} synchronous promise.
    */
