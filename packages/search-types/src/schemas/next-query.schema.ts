@@ -6,6 +6,7 @@ import { NextQuery } from '../query-signals/next-query.model';
  * @public
  */
 export const NextQuerySchema: NextQuery = {
+  isCurated: expect.undefinedOr(Boolean),
   modelName: expect.any(String),
   query: expect.any(String),
   facets: expect.any(Array),
