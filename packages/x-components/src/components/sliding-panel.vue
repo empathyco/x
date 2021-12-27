@@ -1,6 +1,5 @@
 <template>
   <div v-if="$slots.default" class="x-sliding-panel" :class="cssClasses" data-test="sliding-panel">
-    <GlobalEvents @resize="debouncedUpdateScrollPosition" />
     <button
       v-if="showButtons"
       @click="scrollLeft"
@@ -35,7 +34,6 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import GlobalEvents from 'vue-global-events';
   import { Component, Prop } from 'vue-property-decorator';
   import { VueCSSClasses } from '../utils/types';
   import { Debounce } from './decorators/debounce.decorators';
@@ -47,11 +45,8 @@
    *
    * @public
    */
-  @Component({
-    components: {
-      GlobalEvents
-    }
-  })
+  @Component
+  /* eslint-disable @typescript-eslint/unbound-method */
   export default class SlidingPanel extends Vue {
     /**
      * Scroll factor that will dictate how much the scroll moves when pressing a navigation button.
@@ -59,7 +54,7 @@
      * @public
      */
     @Prop({ default: 0.7 })
-    protected scrollFactor!: number;
+    public scrollFactor!: number;
 
     /**
      * Would make the navigation buttons visible when they're needed or always hide them.
@@ -67,14 +62,14 @@
      * @public
      */
     @Prop({ default: true })
-    protected showButtons!: boolean;
+    public showButtons!: boolean;
 
     /**
      *
      * @public
      */
     @Prop({ default: true })
-    protected resetOnContentChange!: boolean;
+    public resetOnContentChange!: boolean;
 
     /**
      * Indicates if the scroll is at the start of the sliding panel.
@@ -121,11 +116,10 @@
      * @internal
      */
     mounted(): void {
-      const contentChangedObserver = new MutationObserver(
-        // eslint-disable-next-line @typescript-eslint/unbound-method
-        this.restoreAndUpdateScroll
-      );
+      const resizeObserver = new ResizeObserver(this.debouncedUpdateScrollPosition);
+      resizeObserver.observe(this.$el);
 
+      const contentChangedObserver = new MutationObserver(this.restoreAndUpdateScroll);
       this.$watch(
         () => this.resetOnContentChange,
         shouldReset => {
@@ -144,6 +138,7 @@
       );
       this.$on('hook:beforeDestroy', () => {
         contentChangedObserver.disconnect();
+        resizeObserver.disconnect();
       });
 
       this.updateScrollPosition();
@@ -216,6 +211,7 @@
       });
     }
   }
+  /* eslint-enable @typescript-eslint/unbound-method */
 </script>
 
 <style lang="scss" scoped>
