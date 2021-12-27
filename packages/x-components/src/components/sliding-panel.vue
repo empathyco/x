@@ -65,6 +65,8 @@
     public showButtons!: boolean;
 
     /**
+     * When true, whenever the DOM content in the sliding panel slot changes, it will reset
+     * the scroll position to 0.
      *
      * @public
      */
