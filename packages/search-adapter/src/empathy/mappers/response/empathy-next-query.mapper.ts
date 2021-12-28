@@ -11,8 +11,8 @@ import { EmpathyNextQuery } from '../../models/entities/empathy-next-query.model
 @injectable()
 export class EmpathyNextQueryMapper implements ResponseMapper<EmpathyNextQuery, NextQuery> {
   map(rawNextQuery: EmpathyNextQuery, nextQuery: NextQuery): NextQuery {
-    return Object.assign(nextQuery, {
-      isCurated: rawNextQuery.source && rawNextQuery.source === 'CURATED',
+    return Object.assign<NextQuery, Partial<NextQuery>>(nextQuery, {
+      isCurated: rawNextQuery.source === 'CURATED',
       modelName: 'NextQuery',
       query: rawNextQuery.query,
       results: [],
