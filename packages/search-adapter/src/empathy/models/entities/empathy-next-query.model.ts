@@ -4,5 +4,6 @@
  * @public
  */
 export interface EmpathyNextQuery {
+  source?: 'CURATED' | 'ORGANIC' | 'ENRICHED';
   query: string;
 }
