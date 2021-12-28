@@ -44,6 +44,8 @@ export interface WireMetadata {
   /** The {@link XModule} name that emitted the event or `null` if it has been emitted from an
    * unknown module. */
   moduleName: XModuleName | null;
+  /** The old value of a watched selector triggering an emitter.  */
+  oldValue?: unknown;
   /** The DOM element that triggered the event emission. */
   target?: HTMLElement;
 }

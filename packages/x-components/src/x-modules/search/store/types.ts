@@ -17,7 +17,7 @@ import { QueryOrigin, QueryOriginInit } from '../../../types/origin';
 import { UrlParams } from '../../../types/url-params';
 import { Dictionary } from '../../../utils/types';
 import { SearchConfig } from '../config.types';
-import { InternalSearchRequest } from '../types';
+import { InternalSearchRequest, WatchedInternalSearchRequest } from '../types';
 
 /**
  * Search store state.
@@ -203,6 +203,12 @@ export interface SearchMutations extends StatusMutations {
  * @public
  */
 export interface SearchActions {
+  /**
+   * Batches state resets in a single action after {@link SearchGetters.request} parameters update.
+   *
+   * @param watchedRequest - The watched internal search request object.
+   */
+  resetState(watchedRequest: WatchedInternalSearchRequest): void;
   /**
    * Cancels / interrupt {@link SearchActions.fetchAndSaveSearchResponse} synchronous promise.
    */
