@@ -359,12 +359,120 @@ describe('testing search module actions', () => {
       );
     });
 
-    it('should reset the page when any parameter, aside the page, changes', async () => {
+    it('should not reset the page nor the sort when there are no changes', async () => {
+      resetSearchStateWith(store, { query: 'lego', page: 2, sort: 'desc' });
+      await store.dispatch('resetState', {
+        newRequest: {
+          query: 'lego',
+          page: 2,
+          sort: 'desc'
+        },
+        oldRequest: store.getters.request!
+      });
+
+      expect(store.state).toEqual(
+        expect.objectContaining<Partial<SearchState>>({
+          page: 2,
+          params: {},
+          query: 'lego',
+          relatedTags: [],
+          selectedFilters: {},
+          sort: 'desc'
+        })
+      );
+    });
+
+    it('should reset the page when the query changes', async () => {
       resetSearchStateWith(store, { query: 'lego', page: 2 });
       await store.dispatch('resetState', {
         newRequest: {
           query: 'playmobil',
           page: 2
+        },
+        oldRequest: store.getters.request!
+      });
+
+      expect(store.state).toEqual(
+        expect.objectContaining<Partial<SearchState>>({
+          page: 1,
+          params: {},
+          query: 'lego',
+          relatedTags: [],
+          selectedFilters: {},
+          sort: ''
+        })
+      );
+    });
+
+    it('should reset the page when the sort changes', async () => {
+      resetSearchStateWith(store, { query: 'lego', page: 2 });
+      await store.dispatch('resetState', {
+        newRequest: {
+          query: 'lego',
+          page: 2,
+          sort: 'desc'
+        },
+        oldRequest: store.getters.request!
+      });
+
+      expect(store.state).toEqual(
+        expect.objectContaining<Partial<SearchState>>({
+          page: 1,
+          params: {},
+          query: 'lego',
+          relatedTags: [],
+          selectedFilters: {},
+          sort: ''
+        })
+      );
+    });
+
+    it('should reset the page when the related tags change', async () => {
+      resetSearchStateWith(store, { query: 'lego', page: 2 });
+      await store.dispatch('resetState', {
+        newRequest: {
+          query: 'lego',
+          page: 2,
+          relatedTags: [
+            {
+              query: 'lego star wars',
+              modelName: 'RelatedTag',
+              previous: 'lego',
+              selected: false,
+              tag: 'star wars'
+            }
+          ]
+        },
+        oldRequest: store.getters.request!
+      });
+
+      expect(store.state).toEqual(
+        expect.objectContaining<Partial<SearchState>>({
+          page: 1,
+          params: {},
+          query: 'lego',
+          relatedTags: [],
+          selectedFilters: {},
+          sort: ''
+        })
+      );
+    });
+
+    it('should reset the page when the filters change', async () => {
+      resetSearchStateWith(store, { query: 'lego', page: 2 });
+      await store.dispatch('resetState', {
+        newRequest: {
+          query: 'lego',
+          page: 2,
+          filters: {
+            age_facet: [
+              {
+                id: '{!tag=age_facet}age_facet:"toddler"',
+                modelName: 'SimpleFilter',
+                selected: true
+              }
+            ]
+          }
         },
         oldRequest: store.getters.request!
       });
