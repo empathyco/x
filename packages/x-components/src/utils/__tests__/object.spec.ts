@@ -1,4 +1,4 @@
-import { cleanUndefined, forEach, getKeysWithDifferentValue, map, reduce } from '../object';
+import { cleanUndefined, forEach, getNewAndUpdatedKeys, map, reduce } from '../object';
 import { Dictionary } from '../types';
 
 class Person {
@@ -340,45 +340,57 @@ describe('testing object utils', () => {
       const newValue = undefined;
       const oldValue = undefined;
 
-      expect(getKeysWithDifferentValue(newValue, oldValue)).toEqual([]);
+      expect(getNewAndUpdatedKeys(newValue, oldValue)).toEqual([]);
     });
 
     it('returns an empty array when any of the objects is undefined', () => {
       const newValue = { a: 1 };
       const oldValue = undefined;
 
-      expect(getKeysWithDifferentValue(newValue, oldValue)).toEqual([]);
+      expect(getNewAndUpdatedKeys(newValue, oldValue)).toEqual([]);
 
       const anotherNewValue = undefined;
       const anotherOldValue = { a: '1' };
 
-      expect(getKeysWithDifferentValue(anotherNewValue, anotherOldValue)).toEqual([]);
+      expect(getNewAndUpdatedKeys(anotherNewValue, anotherOldValue)).toEqual([]);
     });
 
     it('returns an empty array when both objects are the same', () => {
       const newValue = {};
       const oldValue = newValue;
 
-      expect(getKeysWithDifferentValue(newValue, oldValue)).toEqual([]);
+      expect(getNewAndUpdatedKeys(newValue, oldValue)).toEqual([]);
 
       const anotherNewValue = { a: 1, b: '2' };
       const anotherOldValue = anotherNewValue;
 
-      expect(getKeysWithDifferentValue(anotherNewValue, anotherOldValue)).toEqual([]);
+      expect(getNewAndUpdatedKeys(anotherNewValue, anotherOldValue)).toEqual([]);
+    });
+
+    it('returns an empty array when both objects have same structure and values', () => {
+      const newValue = {};
+      const oldValue = {};
+
+      expect(getNewAndUpdatedKeys(newValue, oldValue)).toEqual([]);
+
+      const anotherNewValue = { a: 1, b: '2' };
+      const anotherOldValue = { a: 1, b: '2' };
+
+      expect(getNewAndUpdatedKeys(anotherNewValue, anotherOldValue)).toEqual([]);
     });
 
     it('returns an array with the keys that have different value', () => {
       const newValue = { a: 2, b: 'fried potatoe', c: 'same value' };
       const oldValue = { a: 1, b: 'potatoe', c: 'same value' };
 
-      expect(getKeysWithDifferentValue(newValue, oldValue)).toEqual(['a', 'b']);
+      expect(getNewAndUpdatedKeys(newValue, oldValue)).toEqual(['a', 'b']);
     });
 
     it('returns an array with the keys that were not present in the oldValue object', () => {
       const newValue = { a: 1, b: 'potatoe', c: 'not present' };
       const oldValue = { a: 1, b: 'potatoe' };
 
-      expect(getKeysWithDifferentValue(newValue, oldValue)).toEqual(['c']);
+      expect(getNewAndUpdatedKeys(newValue, oldValue)).toEqual(['c']);
     });
   });
 });

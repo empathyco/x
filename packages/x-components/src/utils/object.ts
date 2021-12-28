@@ -128,9 +128,9 @@ export function objectFilter<T extends Dictionary>(
  * @returns An array of keys.
  * @public
  */
-export function getKeysWithDifferentValue<ObjectType extends Dictionary>(
-  newValue?: ObjectType,
-  oldValue?: ObjectType
+export function getNewAndUpdatedKeys<ObjectType extends Dictionary>(
+  newValue: ObjectType | undefined,
+  oldValue: ObjectType | undefined
 ): (keyof ObjectType)[] {
   if (newValue === oldValue || !newValue || !oldValue) {
     return [];

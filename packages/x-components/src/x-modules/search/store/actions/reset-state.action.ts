@@ -1,5 +1,5 @@
 import { isArrayEmpty } from '../../../../utils/array';
-import { getKeysWithDifferentValue } from '../../../../utils/object';
+import { getNewAndUpdatedKeys } from '../../../../utils/object';
 import { SearchXStoreModule } from '../types';
 
 /**
@@ -14,9 +14,7 @@ export const resetState: SearchXStoreModule['actions']['resetState'] = (
   { commit, state },
   { newRequest, oldRequest }
 ) => {
-  const changedKeys = getKeysWithDifferentValue(newRequest, oldRequest);
-  const extraParamsKeys = Object.keys(state.params);
-  const haveExtraParamsChanged = changedKeys.some(key => extraParamsKeys.includes(key as string));
+  const changedKeys = getNewAndUpdatedKeys(newRequest, oldRequest);
 
   if (!isArrayEmpty(changedKeys)) {
     if (!changedKeys.includes('page')) {
@@ -25,6 +23,8 @@ export const resetState: SearchXStoreModule['actions']['resetState'] = (
     if (changedKeys.includes('query')) {
       commit('setSort', '');
     }
+
+    const haveExtraParamsChanged = changedKeys.some(key => key in state.params);
     if (haveExtraParamsChanged) {
       commit('setPage', 1);
       commit('setSort', '');

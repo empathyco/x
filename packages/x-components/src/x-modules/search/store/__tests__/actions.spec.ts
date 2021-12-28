@@ -335,6 +335,8 @@ describe('testing search module actions', () => {
   });
 
   describe('resetState', () => {
+    // Note that the following tests are meant for the resetState action, which
+    // does not modify all fields but only some of them.
     it('should not reset the page when the page parameter of the request changes', async () => {
       resetSearchStateWith(store, { query: 'lego', page: 2 });
       await store.dispatch('resetState', {
