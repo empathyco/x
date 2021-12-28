@@ -88,6 +88,9 @@ export const facetsWiring = createWiring({
   FacetsGroupProvided: {
     setFacetsGroupWire
   },
+  UserChangedExtraParams: {
+    clearAllFiltersWire
+  },
   UserClickedAFilter: {
     toggleFilterWire
   },
