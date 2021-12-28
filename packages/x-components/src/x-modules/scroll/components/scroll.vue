@@ -7,8 +7,7 @@
     @scroll:at-end="emitScrollAtEnd"
     v-on="$listeners"
     :id="id"
-    :throttleMs="throttleMs"
-    :distanceToBottom="distanceToBottom"
+    v-bind="$attrs"
   >
     <slot />
   </BaseScroll>
@@ -26,9 +25,8 @@
   import { MainScrollId } from './scroll.const';
 
   /**
-   * Base scroll component that depending on base scroll component and the user interaction emits
-   * different x events for knowing when the user scrolls, the direction of scroll and if user
-   * reaches the start or end.
+   * Scrollable container that emits scroll related X Events. It exposes all the listeners
+   * and props from the {@link BaseScroll} component.
    *
    * @public
    */
@@ -37,24 +35,6 @@
     components: { BaseScroll }
   })
   export default class Scroll extends Vue {
-    /**
-     * Time duration to ignore the subsequent scroll events after an emission.
-     * Higher values will decrease events precision but can prevent performance issues.
-     *
-     * @public
-     */
-    @Prop()
-    public throttleMs!: number;
-
-    /**
-     * Distance to the end of the scroll that when reached will emit the
-     * `scroll:about-to-end` event.
-     *
-     * @public
-     */
-    @Prop()
-    public distanceToBottom!: number;
-
     /**
      * Id to identify the component.
      *

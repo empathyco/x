@@ -1,4 +1,4 @@
-import { createStoreEmitters } from '../../../store';
+import { createStoreEmitters } from '../../../store/utils/store-emitters.utils';
 import { taggingXStoreModule } from './module';
 
 /**
@@ -7,5 +7,6 @@ import { taggingXStoreModule } from './module';
  * @internal
  */
 export const taggingEmitters = createStoreEmitters(taggingXStoreModule, {
-  ConsentChanged: state => state.consent!
+  ConsentChanged: state => state.consent!,
+  SearchTaggingReceived: state => state.queryTaggingInfo!
 });

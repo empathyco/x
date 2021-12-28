@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.38...@empathyco/x-components@3.0.0-alpha.39) (2021-12-22)
+
+### Features
+
+- **design-system:** Add bottom variant to `x-shadow` utility in the Design System
+  ([a23552f](https://github.com/empathyco/x/commit/a23552f29d1ec1b7939c770862d91f9e2f3a4890)),
+  closes [EX-5184](https://searchbroker.atlassian.net/browse/EX-5184)
+
+### Bug Fixes
+
+- Fix multiple issues.
+  ([2f5515e](https://github.com/empathyco/x/commit/2f5515e5bcaca67f085ff3eef4fb52698041292c)),
+  closes [EX-5179](https://searchbroker.atlassian.net/browse/EX-5179)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.37...@empathyco/x-components@3.0.0-alpha.38) (2021-12-22)
+
+### Features
+
+- **desing-system:** Add new color tokens. (#275)
+  ([e93fcc4](https://github.com/empathyco/x/commit/e93fcc4cea0e975441695f14a66b0863cb5896af)),
+  closes [EX-5171](https://searchbroker.atlassian.net/browse/EX-5171)
+- **test:** refactor base tests to cypress component testing
+  ([dc7a924](https://github.com/empathyco/x/commit/dc7a924b612411470742d222bcc6531fa656ce13)),
+  closes [EX-4928](https://searchbroker.atlassian.net/browse/EX-4928)
+- **x-plugin:** Add selected sort (#274)
+  ([b4c0d14](https://github.com/empathyco/x/commit/b4c0d140ca5eba8de189068fef5dd2a6249c1207)),
+  closes [EX-5165](https://searchbroker.atlassian.net/browse/EX-5165)
+
+### Bug Fixes
+
+- **components:** Fix infinite scroll not working in Android Chrome. (#277)
+  ([19c3d77](https://github.com/empathyco/x/commit/19c3d77f124a1bbc099bae0e5dbb80fb30a132a1)),
+  closes [EX-5181](https://searchbroker.atlassian.net/browse/EX-5181)
+- **search:** rows and start parameters calculations moved from getter to action to avoid multiple
+  requests
+  ([84752ba](https://github.com/empathyco/x/commit/84752ba3eb1ab728b6adf5cc62ea31646f42b959)),
+  closes [EX-5047](https://searchbroker.atlassian.net/browse/EX-5047)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.36...@empathyco/x-components@3.0.0-alpha.37) (2021-12-15)
 
 ### Features

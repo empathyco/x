@@ -172,6 +172,7 @@
               <BaseDropdown
                 @change="updateValue"
                 class="x-dropdown x-dropdown--round x-dropdown--right x-dropdown--l"
+                data-test="store-selector"
                 :value="value"
                 :items="stores"
               />

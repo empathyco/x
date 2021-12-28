@@ -271,6 +271,20 @@ describe('testing search module actions', () => {
       expect(store.state.page).toEqual(2);
     });
 
+    it('should increase page if the last page has less results than the page size', async () => {
+      resetSearchStateWith(store, { totalResults: 47, page: 1, config: { pageSize: 24 } });
+
+      await store.dispatch('increasePageAppendingResults');
+      expect(store.state.page).toEqual(2);
+    });
+
+    it('should increase page if the last page has only one result', async () => {
+      resetSearchStateWith(store, { totalResults: 25, page: 1, config: { pageSize: 24 } });
+
+      await store.dispatch('increasePageAppendingResults');
+      expect(store.state.page).toEqual(2);
+    });
+
     // eslint-disable-next-line max-len
     it('appends results to the state when the page increases and the isAppendResults is true', async () => {
       resetSearchStateWith(store, {
