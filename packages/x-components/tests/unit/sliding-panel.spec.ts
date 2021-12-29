@@ -102,7 +102,7 @@ function renderSlidingPanel({
       });
     },
     setItemsCount(itemsCountCount) {
-      cy.getByDataTest('items-count').type(itemsCountCount.toString());
+      cy.getByDataTest('items-count').type(`${itemsCountCount}`);
     }
   };
 }

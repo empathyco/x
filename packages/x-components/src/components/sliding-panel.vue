@@ -46,7 +46,6 @@
    * @public
    */
   @Component
-  /* eslint-disable @typescript-eslint/unbound-method */
   export default class SlidingPanel extends Vue {
     /**
      * Scroll factor that will dictate how much the scroll moves when pressing a navigation button.
@@ -118,9 +117,10 @@
      * @internal
      */
     mounted(): void {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       const resizeObserver = new ResizeObserver(this.debouncedUpdateScrollPosition);
       resizeObserver.observe(this.$el);
-
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       const contentChangedObserver = new MutationObserver(this.restoreAndUpdateScroll);
       this.$watch(
         () => this.resetOnContentChange,
@@ -213,7 +213,6 @@
       });
     }
   }
-  /* eslint-enable @typescript-eslint/unbound-method */
 </script>
 
 <style lang="scss" scoped>
