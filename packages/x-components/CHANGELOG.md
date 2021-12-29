@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.39...@empathyco/x-components@3.0.0-alpha.40) (2021-12-29)
+
+### Features
+
+- **tagging:** add new `SearchTaggingReceived` event for tracking the query
+  ([d58b697](https://github.com/empathyco/x/commit/d58b69730915ccd6fb2b0656ff7280450275b5be)),
+  closes [EX-5170](https://searchbroker.atlassian.net/browse/EX-5170)
+
+### Bug Fixes
+
+- **components:** `SlidingPanel` can now disable the resetting scroll … (#286)
+  ([788eb18](https://github.com/empathyco/x/commit/788eb18bf0e066d932484143d0412497f3dada6e)),
+  closes [EX-5197](https://searchbroker.atlassian.net/browse/EX-5197)
+- **related-tags:** clear selected related tags when user changes extra params
+  ([b2d9b94](https://github.com/empathyco/x/commit/b2d9b94053aebbbda41659dbc3e4602931fd1bb5)),
+  closes [EX-5188](https://searchbroker.atlassian.net/browse/EX-5188)
+- **search:** batch state reset calls after a search.request parameter changes (#283)
+  ([492e856](https://github.com/empathyco/x/commit/492e8566913428426459ada29ca4963730cfcd7c)),
+  closes [EX-5057](https://searchbroker.atlassian.net/browse/EX-5057)
+- **search:** next page is now requested if it has less than the page size results. (#284)
+  ([f574792](https://github.com/empathyco/x/commit/f5747923f60f81564ebf124d95cae8a5d92400d4)),
+  closes [EX-5194](https://searchbroker.atlassian.net/browse/EX-5194)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.38...@empathyco/x-components@3.0.0-alpha.39) (2021-12-22)
 
 ### Features
