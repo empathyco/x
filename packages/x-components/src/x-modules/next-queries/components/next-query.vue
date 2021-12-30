@@ -11,7 +11,7 @@
       <!--
         @slot Next Query content
             @binding {Suggestion} suggestion - Next Query suggestion data
-            @binding {boolean} highlightCurated - True if the curated NQ should be highlighted
+            @binding {boolean} shouldHighlightCurated - True if the curated NQ should be highlighted
       -->
       <slot v-bind="{ suggestion, shouldHighlightCurated }">{{ suggestion.query }}</slot>
     </template>
@@ -85,7 +85,7 @@
 
 This components expects just a suggestion as a prop to be rendered. It has a slot to override the
 content. By default, it renders the suggestion query of the next query. It also has an optional
-prop, `highlightCurated`, to indicate if the curated Next Queries should be differenciated with a
+prop, `highlightCurated`, to indicate if the curated Next Queries should be differentiated with a
 CSS class.
 
 ### Basic Usage

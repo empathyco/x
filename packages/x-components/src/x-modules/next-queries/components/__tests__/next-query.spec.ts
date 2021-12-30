@@ -5,7 +5,7 @@ import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/ut
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import { default as NextQueryComponent } from '../next-query.vue';
-import { XComponentAPI } from '../../../../plugins/index';
+import { XComponentAPI } from '../../../../plugins/x-plugin.types';
 
 describe('testing next query item component', () => {
   function renderNextQuery({

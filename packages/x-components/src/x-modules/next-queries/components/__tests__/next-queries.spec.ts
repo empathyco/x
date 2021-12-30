@@ -9,7 +9,7 @@ import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
 import NextQueries from '../next-queries.vue';
 import { default as NextQueryComponent } from '../next-query.vue';
-import { XPlugin } from '../../../../plugins/index';
+import { XPlugin } from '../../../../plugins/x-plugin';
 import { nextQueriesXModule } from '../../x-module';
 import { resetXNextQueriesStateWith } from './utils';
 
@@ -119,9 +119,9 @@ describe('testing next queries component', () => {
   it('renders a button, a highlighting icon & a custom Next Query', async () => {
     const template = `
         <NextQueries>
-          <template #suggestion="suggestionScope">
-            <NextQuery :suggestion="suggestionScope.suggestion" 
-                       :highlightCurated="suggestionScope.highlightCurated">
+          <template #suggestion="{ suggestion, highlightCurated, index }">
+            <NextQuery :suggestion="suggestion" 
+                       :highlightCurated="highlightCurated">
               <template #default="suggestionContentScope">
                 <span data-test="next-query-highlight">
                   <img 
@@ -135,8 +135,8 @@ describe('testing next queries component', () => {
                 <span
                   class="x-next-query__query"
                   data-test="query"
-                  :data-index="suggestionScope.index"
-                >{{ suggestionScope.suggestion.query }}</span>
+                  :data-index="index"
+                >{{ suggestion.query }}</span>
               </template>
             </NextQuery>
             <button data-test="custom-button">Custom Behaviour</button>
