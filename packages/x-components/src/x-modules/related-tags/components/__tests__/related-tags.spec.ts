@@ -72,11 +72,9 @@ describe('testing related tags component', () => {
   });
 
   it('renders a list of the related tags', () => {
-    const { wrapper, relatedTags } = renderRelatedTags();
+    const { relatedTags, getRelatedTagItems } = renderRelatedTags();
 
-    const relatedTagsWrappers = wrapper.findAll(getDataTestSelector('related-tag-item'));
-
-    relatedTagsWrappers.wrappers.forEach((relatedTagItemWrapper, index) => {
+    getRelatedTagItems().wrappers.forEach((relatedTagItemWrapper, index) => {
       expect(relatedTagItemWrapper.text()).toEqual(relatedTags[index].tag);
     });
   });
