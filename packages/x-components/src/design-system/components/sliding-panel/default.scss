@@ -1,4 +1,7 @@
 .x-sliding-panel {
+  // layout
+  z-index: 0;
+
   // color
   background-color: var(--x-color-background-sliding-panel);
 
@@ -64,6 +67,9 @@
       position: absolute;
       z-index: 1;
 
+      // color
+      background: var(--x-color-background-sliding-panel);
+
       // other
       content: '';
       pointer-events: none;
@@ -78,12 +84,7 @@
 
     &::before {
       // color
-      background: linear-gradient(
-        to right,
-        var(--x-color-background-sliding-panel) 43%,
-        var(--x-color-background-sliding-panel-middle) 67%,
-        var(--x-color-background-sliding-panel-end)
-      );
+      mask: linear-gradient(to right, black 43%, rgba(0, 0, 0, 0.8) 67%, rgba(0, 0, 0, 0));
 
       // layout
       left: 0;
@@ -91,12 +92,7 @@
 
     &::after {
       // color
-      background: linear-gradient(
-        to left,
-        var(--x-color-background-sliding-panel) 43%,
-        var(--x-color-background-sliding-panel-middle) 67%,
-        var(--x-color-background-sliding-panel-end)
-      );
+      mask: linear-gradient(to left, black 43%, rgba(0, 0, 0, 0.8) 67%, rgba(0, 0, 0, 0));
 
       // layout
       right: 0;
