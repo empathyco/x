@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.41](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.40...@empathyco/x-components@3.0.0-alpha.41) (2022-01-03)
+
+### Features
+
+- **next-queries:** add isCurated property
+  ([8b7b313](https://github.com/empathyco/x/commit/8b7b3132c7fa8aff095a92c84abdc150be705976)),
+  closes [EX-5152](https://searchbroker.atlassian.net/browse/EX-5152)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.39...@empathyco/x-components@3.0.0-alpha.40) (2021-12-29)
 
 ### Features
