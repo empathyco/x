@@ -76,6 +76,9 @@
       <li title="Grid2ColIcon">
         <Grid2ColIcon class="x-icon--s" />
       </li>
+      <li title="Grid2RowsIcon">
+        <Grid2RowsIcon class="x-icon--s" />
+      </li>
       <li title="HideIcon">
         <HideIcon class="x-icon--s" />
       </li>
@@ -211,6 +214,9 @@
       </li>
       <li title="Grid2ColIcon">
         <Grid2ColIcon class="x-icon--m" />
+      </li>
+      <li title="Grid2RowsIcon">
+        <Grid2RowsIcon class="x-icon--m" />
       </li>
       <li title="HideIcon">
         <HideIcon class="x-icon--m" />
@@ -348,6 +354,9 @@
       <li title="Grid2ColIcon">
         <Grid2ColIcon class="x-icon--l" />
       </li>
+      <li title="Grid2RowsIcon">
+        <Grid2RowsIcon class="x-icon--l" />
+      </li>
       <li title="HideIcon">
         <HideIcon class="x-icon--l" />
       </li>
@@ -484,6 +493,9 @@
       <li title="Grid2ColIcon">
         <Grid2ColIcon class="x-icon--xl" />
       </li>
+      <li title="Grid2RowsIcon">
+        <Grid2RowsIcon class="x-icon--xl" />
+      </li>
       <li title="HideIcon">
         <HideIcon class="x-icon--xl" />
       </li>
@@ -576,6 +588,7 @@
     FiltersIcon,
     Grid1ColIcon,
     Grid2ColIcon,
+    Grid2RowsIcon,
     HideIcon,
     HistoryTinyIcon,
     HistoryIcon,
@@ -626,6 +639,7 @@
       FiltersIcon,
       Grid1ColIcon,
       Grid2ColIcon,
+      Grid2RowsIcon,
       HideIcon,
       HistoryTinyIcon,
       HistoryIcon,
