@@ -61,47 +61,37 @@
   }
 
   &:not(.x-sliding-panel--no-gradient) {
-    &::before,
-    &::after {
-      // layout
-      position: absolute;
-      z-index: 1;
-
-      // color
-      background: var(--x-color-background-sliding-panel);
-
-      // other
-      content: '';
-      pointer-events: none;
-
-      // sizing
-      height: 100%;
-      width: var(--x-size-width-sliding-panel-gradient);
-
-      // visibility
-      opacity: 0;
+    .x-sliding-panel__scroll {
+      mask: linear-gradient(
+        to right,
+        transparent calc(0.43 * var(--x-size-width-sliding-panel-gradient)),
+        rgba(0, 0, 0, 0.8) calc(0.67 * var(--x-size-width-sliding-panel-gradient)),
+        black var(--x-size-width-sliding-panel-gradient),
+        rgba(0, 0, 0, 0.8) calc(100% - 0.67 * var(--x-size-width-sliding-panel-gradient)),
+        transparent calc(100% - 0.43 * var(--x-size-width-sliding-panel-gradient))
+      );
     }
 
-    &::before {
-      // color
-      mask: linear-gradient(to right, black 43%, rgba(0, 0, 0, 0.8) 67%, rgba(0, 0, 0, 0));
-
-      // layout
-      left: 0;
+    &.x-sliding-panel--at-start {
+      .x-sliding-panel__scroll {
+        mask: linear-gradient(
+          to right,
+          black var(--x-size-width-sliding-panel-gradient),
+          rgba(0, 0, 0, 0.8) calc(100% - 0.67 * var(--x-size-width-sliding-panel-gradient)),
+          transparent calc(100% - 0.43 * var(--x-size-width-sliding-panel-gradient))
+        );
+      }
     }
 
-    &::after {
-      // color
-      mask: linear-gradient(to left, black 43%, rgba(0, 0, 0, 0.8) 67%, rgba(0, 0, 0, 0));
-
-      // layout
-      right: 0;
-    }
-
-    &:not(.x-sliding-panel--at-start)::before,
-    &:not(.x-sliding-panel--at-end)::after {
-      // visibility
-      opacity: 1;
+    &.x-sliding-panel--at-end {
+      .x-sliding-panel__scroll {
+        mask: linear-gradient(
+          to left,
+          black var(--x-size-width-sliding-panel-gradient),
+          rgba(0, 0, 0, 0.8) calc(100% - 0.67 * var(--x-size-width-sliding-panel-gradient)),
+          transparent calc(100% - 0.43 * var(--x-size-width-sliding-panel-gradient))
+        );
+      }
     }
   }
 
