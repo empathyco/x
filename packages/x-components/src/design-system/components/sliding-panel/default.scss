@@ -9,12 +9,17 @@
     // size
     --x-size-padding-button: var(--x-size-padding-sliding-panel-button);
 
-    // other
-    z-index: 1;
+    // others
+    pointer-events: none;
   }
 
   &.x-sliding-panel--buttons-overflow {
     .x-sliding-panel {
+      &__button {
+        // others
+        pointer-events: all;
+      }
+
       &__button-left {
         // layout
         transform: translateX(
@@ -41,6 +46,9 @@
       .x-sliding-panel__button-left {
         // visibility
         opacity: 1;
+
+        // others
+        pointer-events: all;
       }
     }
 
@@ -48,6 +56,9 @@
       .x-sliding-panel__button-right {
         // visibility
         opacity: 1;
+
+        // others
+        pointer-events: all;
       }
     }
   }
