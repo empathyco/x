@@ -1,6 +1,9 @@
 :root {
   // color
   --x-color-text-option-list-button-bottom-hover: var(--x-color-base-neutral-10);
+  --x-color-text-option-list-button-bottom-selected-hover: var(
+    --x-color-text-option-list-button-bottom-selected
+  );
   --x-color-text-option-list-button-bottom: var(--x-color-base-neutral-35);
   --x-color-text-option-list-button-bottom-selected: var(--x-color-text-default);
 

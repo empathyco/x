@@ -90,7 +90,8 @@
     min-height: var(--x-size-height-input-group-default);
     // need negative margin equals to the border width to make
     // the child border to overlap the parent border.
-    margin: calc(#{var(--x-size-border-width-input-group-default)} * -1);
+    margin-block-start: calc(#{var(--x-size-border-width-input-group-default)} * -1);
+    margin-block-end: calc(#{var(--x-size-border-width-input-group-default)} * -1);
     &:first-child {
       margin-inline-end: 0;
     }
