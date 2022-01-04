@@ -1,6 +1,8 @@
 :root {
   // color
   --x-color-text-option-list-button-bottom-hover: var(--x-color-base-neutral-10);
+  --x-color-text-option-list-button-bottom: var(--x-color-base-neutral-35);
+  --x-color-text-option-list-button-bottom-selected: var(--x-color-text-default);
 
   --x-color-border-option-list-item-bottom: transparent;
   --x-color-border-top-option-list-item-bottom: var(--x-color-border-option-list-item-bottom);
@@ -40,6 +42,7 @@
 
   // typography
   --x-font-decoration-option-list-button-bottom-hover: none;
+  --x-number-font-weight-option-list-button-bottom: var(--x-number-font-weight-base-regular);
   --x-number-font-weight-option-list-button-bottom-selected: var(
     --x-number-font-weight-base-regular
   );
