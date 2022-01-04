@@ -6,6 +6,17 @@
     --x-color-text-option-list-button-bottom-hover
   );
 
+  // color
+  --x-color-border-option-list-item-default: var(--x-color-border-option-list-item-bottom);
+  --x-color-border-top-option-list-item-default: var(--x-color-border-top-option-list-item-bottom);
+  --x-color-border-right-option-list-item-default: var(
+    --x-color-border-top-option-list-item-bottom
+  );
+  --x-color-border-bottom-option-list-item-default: var(
+    --x-color-border-top-option-list-item-bottom
+  );
+  --x-color-border-left-option-list-item-default: var(--x-color-border-top-option-list-item-bottom);
+
   // border
   --x-size-border-width-option-list-item-default: var(
     --x-size-border-width-option-list-item-bottom
@@ -24,6 +35,24 @@
   );
 
   .x-option-list__item.x-option-list__item--is-selected {
+    // color
+    --x-color-border-option-list-item-default-selected: var(
+      --x-color-border-option-list-item-bottom-selected
+    );
+    --x-color-border-top-option-list-item-default-selected: var(
+      --x-color-border-top-option-list-item-bottom-selected
+    );
+    --x-color-border-right-option-list-item-default-selected: var(
+      --x-color-border-top-option-list-item-bottom-selected
+    );
+    --x-color-border-bottom-option-list-item-default-selected: var(
+      --x-color-border-bottom-option-list-item-bottom-selected
+    );
+    --x-color-border-left-option-list-item-default-selected: var(
+      --x-color-border-top-option-list-item-bottom-selected
+    );
+
+    // border
     --x-size-border-width-top-option-list-item-default: var(
       --x-size-border-width-top-option-list-item-bottom-selected
     );
@@ -45,4 +74,12 @@
   --x-number-font-weight-option-list-button-default-selected: var(
     --x-number-font-weight-option-list-button-bottom-selected
   );
+
+  .x-option-list__item:last-child{
+    --x-size-border-width-option-list-item-default: inherit;
+    --x-size-border-width-top-option-list-item-default: inherit;
+    --x-size-border-width-right-option-list-item-default: inherit;
+    --x-size-border-width-bottom-option-list-item-default: inherit;
+    --x-size-border-width-left-option-list-item-default: inherit;
+  }
 }
