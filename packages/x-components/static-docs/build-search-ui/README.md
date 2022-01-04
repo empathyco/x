@@ -22,13 +22,12 @@ Start building your search and discovery experience in a few simple steps:
 
 :::
 
-- **Discover more about the
-  [Interface X ecosystem](/develop-empathy-platform/build-search-ui/README.md#the-interface-x-ecosystem)**
-  and how Interface&nbsp;X works.
-- **[Integrate the Interface X Components](/develop-empathy-platform/build-search-ui/README.md#integrate-x-components)**
-  in your store web application.
-- **[Use & configure the Interface X Components](/develop-empathy-platform/build-search-ui/README.md#use-configure-the-x-components)**
-  in your project.
+- **Discover more about the [Interface X ecosystem](#the-interface-x-ecosystem)** and how
+  Interface&nbsp;X works.
+- **[Integrate the Interface X Components](#integrate-interface-x-components)** in your store web
+  application.
+- **[Use & configure the Interface X Components](#use-configure-the-interface-x-components)** in
+  your project.
 
 <!-- 3. Style your UI. 4. Translate your search experience-->
 <!-- HIDE VIDEO UNTIL CONTENT BOX FIXED <VideoContent title="Want to learn more?" :links="[{title:'How-to guide',link:'/develop-empathy-platform/build-search-ui/web-x-components-integration-guide'},{title:'Architecture',link:'/develop-empathy-platform/build-search-ui/x-architecture/'},{title:'UI reference',link:'/develop-empathy-platform/ui-reference/'}]"></VideoContent>-->
@@ -43,7 +42,7 @@ numerous components to choose from, and the catalog evolves quickly with new exp
 Check out the **[open source project in GitHub](https://github.com/empathyco/x)**.
 
 Interested in learning more about how Interface&nbsp;X works? Discover more about its
-**[architecture](/develop-empathy-platform/build-search-ui/x-architecture/)**.
+**[architecture](./x-architecture/README.md)**.
 
 ## Integrate Interface X Components
 
@@ -54,7 +53,11 @@ You can use the X&nbsp;Components in a project in two ways:
 - integrating the individual **Interface&nbsp;X&nbsp;Components** library in your Vue project for a
   more custom approach.
 
-::: note You can use Empathy Search API, Elasticsearch, or Solr endpoints with both approaches. :::
+::: note
+
+You can use Empathy Search API, Elasticsearch, or Solr endpoints with both approaches.
+
+:::
 
 ##### Integration via Interface X Archetype project
 

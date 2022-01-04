@@ -8,8 +8,9 @@
 
   /**
    * This component enables and manages the sending of information to the
-   * {@link https://empathy.co/docs/tagging-api/ | Empathy Tagging API}. It allows to enable or
-   * disable the session id management through the `consent` prop.
+   * {@link https://docs.empathy.co/develop-empathy-platform/api-reference/tagging-api.html |
+   * Empathy Tagging API}. It allows to enable or disable the session id management through the
+   * `consent` prop.
    *
    * @public
    */

@@ -177,8 +177,8 @@ language, the currency, inform whether the user has given us his consent to proc
 
 ## X API
 
-The X API allows your website to communicate with Interface&X. It is a set of utilities that helps
-to integrate Interface&X into your website.
+The X API allows your website to communicate with Interface X. It is a set of utilities that helps
+to integrate Interface X into your website.
 
 | Function | Parameters                                                                     | Description                                                 |
 | -------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------- |
