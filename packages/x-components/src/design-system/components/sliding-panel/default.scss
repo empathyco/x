@@ -96,6 +96,12 @@
         );
       }
     }
+
+    &.x-sliding-panel--at-start.x-sliding-panel--at-end {
+      .x-sliding-panel__scroll {
+        mask: none;
+      }
+    }
   }
 
   &__scroll {
