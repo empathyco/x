@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.41...@empathyco/x-components@3.0.0-alpha.42) (2022-01-05)
+
+### Features
+
+- **design-system:** Add more utility classes.
+  ([592e076](https://github.com/empathyco/x/commit/592e0761d201d80fdf62ba260ac4ef0847fb7f17)),
+  closes [EX-5241](https://searchbroker.atlassian.net/browse/EX-5241)
+- **desing-system:** Add `Grid2RowsIcon` component
+  ([cbd014f](https://github.com/empathyco/x/commit/cbd014fb1a07c2aa738c3ef828c9caf5ec9ded39)),
+  closes [EX-5238](https://searchbroker.atlassian.net/browse/EX-5238)
+
+### Bug Fixes
+
+- **design-system:** Fix grid styles to stretch cells.
+  ([3292229](https://github.com/empathyco/x/commit/32922290173cc87fe5c82934b9a9e01dc27b3c23)),
+  closes [EX-5239](https://searchbroker.atlassian.net/browse/EX-5239)
+- **design-system:** Fix Sliding Panel styles.
+  ([bcf2092](https://github.com/empathyco/x/commit/bcf20925c3baf7847792b7b77b07178d62a27e7e)),
+  closes [EX-5234](https://searchbroker.atlassian.net/browse/EX-5234)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.41](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.40...@empathyco/x-components@3.0.0-alpha.41) (2022-01-03)
 
 ### Features
