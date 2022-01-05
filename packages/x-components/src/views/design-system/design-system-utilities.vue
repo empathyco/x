@@ -368,7 +368,8 @@
       'neutral-100',
       'accent',
       'enable',
-      'disable'
+      'disable',
+      'transparent'
     ];
 
     protected maxSize = 20;
@@ -395,5 +396,9 @@
   .x-font-color--neutral-100,
   .x-font-color--neutral-95 {
     background-color: var(--x-color-base-neutral-70);
+  }
+
+  .x-font-color--transparent {
+    text-shadow: #888888 0px 0px;
   }
 </style>
