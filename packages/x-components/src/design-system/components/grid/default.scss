@@ -9,6 +9,11 @@
   padding: var(--x-size-padding-grid);
   gap: var(--x-size-gap-grid);
 
+  &__item {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+
   &--cols-auto .x-grid__item {
     // layout
     min-width: var(--x-size-min-width-grid-item);
