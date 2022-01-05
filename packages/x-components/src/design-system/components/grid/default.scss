@@ -12,6 +12,9 @@
   &__item {
     display: flex;
     flex-flow: column nowrap;
+    > * {
+      flex-grow: 1;
+    }
   }
 
   &--cols-auto .x-grid__item {

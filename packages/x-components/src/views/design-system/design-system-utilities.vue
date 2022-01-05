@@ -2,6 +2,68 @@
   <section class="x-list x-padding--07 x-list--gap-05 x-list--justify-start x-list--align-start">
     <h1 class="x-title1">Utilities</h1>
 
+    <article class="x-list x-list--vertical x-self-stretch x-list--gap-06 x-padding-bottom--06">
+      <h2 class="x-title2">Flex</h2>
+      <div
+        class="
+          x-list x-list--horizontal x-list--gap-03
+          x-self-stretch
+          x-padding--02
+          x-background--neutral-95
+        "
+      >
+        <div class="x-flex-1 x-background--auxiliary x-padding--03 x-font-color--neutral-100">
+          x-flex-1
+        </div>
+        <div class="x-flex-auto x-background--auxiliary x-padding--03 x-font-color--neutral-100">
+          x-flex-auto
+        </div>
+        <div class="x-flex-initial x-background--auxiliary x-padding--03 x-font-color--neutral-100">
+          x-flex-initial
+        </div>
+        <div class="x-flex-shrink x-background--auxiliary x-padding--03 x-font-color--neutral-100">
+          x-flex-shrink
+        </div>
+        <div class="x-flex-none x-background--auxiliary x-padding--03 x-font-color--neutral-100">
+          x-flex-none
+        </div>
+      </div>
+    </article>
+
+    <article class="x-list x-list--vertical x-self-stretch x-list--gap-06 x-padding-bottom--06">
+      <h2 class="x-title2">Self Align</h2>
+      <div
+        class="
+          x-list x-list--horizontal x-list--gap-03
+          x-self-stretch
+          x-padding--02
+          x-background--neutral-95
+        "
+        style="height: 100px"
+      >
+        <div class="x-self-auto x-background--auxiliary x-padding--03 x-font-color--neutral-100">
+          x-self-auto
+        </div>
+        <div class="x-self-start x-background--auxiliary x-padding--03 x-font-color--neutral-100">
+          x-self-start
+        </div>
+        <div class="x-self-end x-background--auxiliary x-padding--03 x-font-color--neutral-100">
+          x-self-end
+        </div>
+        <div class="x-self-center x-background--auxiliary x-padding--03 x-font-color--neutral-100">
+          x-self-center
+        </div>
+        <div class="x-self-stretch x-background--auxiliary x-padding--03 x-font-color--neutral-100">
+          x-self-stretch
+        </div>
+        <div
+          class="x-self-baseline x-background--auxiliary x-padding--03 x-font-color--neutral-100"
+        >
+          x-self-baseline
+        </div>
+      </div>
+    </article>
+
     <article class="x-list x-list--vertical x-list--gap-06 x-padding-bottom--06">
       <h2 class="x-title2">Background Color</h2>
       <div class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
@@ -299,6 +361,69 @@
       </div>
     </article>
 
+    <article class="x-list x-list--wrap x-list--gap-06 x-list--align-center">
+      <h2 class="x-title2">Font Size</h2>
+      <div v-for="size in fontSizes" :key="size" class="x-list" :class="' x-font-size--' + size">
+        Font Size {{ size }}
+      </div>
+    </article>
+
+    <article class="x-list x-list--vertical x-list--gap-06 x-padding-bottom--06">
+      <h2 class="x-title2">Line Height</h2>
+      <div class="x-list x-list--horizontal x-list--gap-06">
+        <div class="x-list x-line-height--none">
+          <span>Line Height None</span>
+          <span>Line Height None</span>
+          <span>Line Height None</span>
+        </div>
+        <div class="x-list x-line-height--tight">
+          <span>Line Height Tight</span>
+          <span>Line Height Tight</span>
+          <span>Line Height Tight</span>
+        </div>
+        <div class="x-list x-line-height--snug">
+          <span>Line Height Snug</span>
+          <span>Line Height Snug</span>
+          <span>Line Height Snug</span>
+        </div>
+        <div class="x-list x-line-height--normal">
+          <span>Line Height None</span>
+          <span>Line Height None</span>
+          <span>Line Height None</span>
+        </div>
+        <div class="x-list x-line-height--relaxed">
+          <span>Line Height Relaxed</span>
+          <span>Line Height Relaxed</span>
+          <span>Line Height Relaxed</span>
+        </div>
+        <div class="x-list x-line-height--loose">
+          <span>Line Height Loose</span>
+          <span>Line Height Loose</span>
+          <span>Line Height Loose</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="x-list x-list--vertical x-list--gap-06 x-padding-bottom--06">
+      <h2 class="x-title2">Text Decoration</h2>
+      <div class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
+        <div class="x-padding--06 x-underline">Underline</div>
+        <div class="x-padding--06 x-overline">Overline</div>
+        <div class="x-padding--06 x-line-through">Line Through</div>
+        <div class="x-padding--06 x-no-underline">No Underline</div>
+      </div>
+    </article>
+
+    <article class="x-list x-list--vertical x-list--gap-06 x-padding-bottom--06">
+      <h2 class="x-title2">Text Transform</h2>
+      <div class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
+        <div class="x-padding--06 x-uppercase">Uppercase</div>
+        <div class="x-padding--06 x-lowercase">Lowercase</div>
+        <div class="x-padding--06 x-capitalize">Capitalize</div>
+        <div class="x-padding--06 x-normal-case">Normal case</div>
+      </div>
+    </article>
+
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
       <h2 class="x-title2">Padding</h2>
       <div
@@ -380,6 +505,10 @@
 
     protected get borderSizes(): string[] {
       return this.sizes.slice(0, 11);
+    }
+
+    protected get fontSizes(): string[] {
+      return this.sizes.slice(1, 11);
     }
 
     protected get shadowsSizes(): string[] {

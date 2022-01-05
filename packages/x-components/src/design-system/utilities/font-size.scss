@@ -1,0 +1,10 @@
+@import '../variables';
+
+.x-font-size {
+  @each $size, $size-value in $sizes {
+    &--#{$size} {
+      font-size: var(--x-size-base-#{$size}) !important;
+      line-height: 1.5
+    }
+  }
+}
