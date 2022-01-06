@@ -4,8 +4,17 @@
 
     <h2 class="x-title2">Small</h2>
     <ul class="x-list x-list--wrap x-list--gap-06">
-      <li title="ArrowIcon">
-        <ArrowIcon class="x-icon--s" />
+      <li title="ArrowDownIcon">
+        <ArrowDownIcon class="x-icon--s" />
+      </li>
+      <li title="ArrowLeftIcon">
+        <ArrowLeftIcon class="x-icon--s" />
+      </li>
+      <li title="ArrowRightIcon">
+        <ArrowRightIcon class="x-icon--s" />
+      </li>
+      <li title="ArrowUpIcon">
+        <ArrowUpIcon class="x-icon--s" />
       </li>
       <li title="BagIcon">
         <BagIcon class="x-icon--s" />
@@ -143,8 +152,17 @@
 
     <h2 class="x-title2">Default</h2>
     <ul class="x-list x-list--wrap x-list--gap-05">
-      <li title="ArrowIcon">
-        <ArrowIcon class="x-icon--m" />
+      <li title="ArrowDownIcon">
+        <ArrowDownIcon class="x-icon--m" />
+      </li>
+      <li title="ArrowLeftIcon">
+        <ArrowLeftIcon class="x-icon--m" />
+      </li>
+      <li title="ArrowRightIcon">
+        <ArrowRightIcon class="x-icon--m" />
+      </li>
+      <li title="ArrowUpIcon">
+        <ArrowUpIcon class="x-icon--m" />
       </li>
       <li title="BagIcon">
         <BagIcon class="x-icon--m" />
@@ -282,8 +300,17 @@
 
     <h2 class="x-title2">Large</h2>
     <ul class="x-list x-list--wrap x-list--gap-03">
-      <li title="ArrowIcon">
-        <ArrowIcon class="x-icon--l" />
+      <li title="ArrowDownIcon">
+        <ArrowDownIcon class="x-icon--l" />
+      </li>
+      <li title="ArrowLeftIcon">
+        <ArrowLeftIcon class="x-icon--l" />
+      </li>
+      <li title="ArrowRightIcon">
+        <ArrowRightIcon class="x-icon--l" />
+      </li>
+      <li title="ArrowUpIcon">
+        <ArrowUpIcon class="x-icon--l" />
       </li>
       <li title="BagIcon">
         <BagIcon class="x-icon--l" />
@@ -421,8 +448,17 @@
 
     <h2 class="x-title2">Extra large</h2>
     <ul class="x-list x-list--wrap">
-      <li title="ArrowIcon">
-        <ArrowIcon class="x-icon--xl" />
+      <li title="ArrowDownIcon">
+        <ArrowDownIcon class="x-icon--xl" />
+      </li>
+      <li title="ArrowLeftIcon">
+        <ArrowLeftIcon class="x-icon--xl" />
+      </li>
+      <li title="ArrowRightIcon">
+        <ArrowRightIcon class="x-icon--xl" />
+      </li>
+      <li title="ArrowUpIcon">
+        <ArrowUpIcon class="x-icon--xl" />
       </li>
       <li title="BagIcon">
         <BagIcon class="x-icon--xl" />
@@ -564,7 +600,10 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import {
-    ArrowIcon,
+    ArrowDownIcon,
+    ArrowLeftIcon,
+    ArrowRightIcon,
+    ArrowUpIcon,
     BagIcon,
     BarCodeIcon,
     BarcodeTinyIcon,
@@ -615,7 +654,10 @@
   @Component({
     components: {
       DesignSystemTypography,
-      ArrowIcon,
+      ArrowDownIcon,
+      ArrowLeftIcon,
+      ArrowRightIcon,
+      ArrowUpIcon,
       BagIcon,
       BarCodeIcon,
       BarcodeTinyIcon,

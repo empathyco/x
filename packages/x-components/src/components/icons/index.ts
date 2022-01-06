@@ -1,4 +1,7 @@
-export { default as ArrowIcon } from './arrow.vue';
+export { default as ArrowDownIcon } from './arrow-down.vue';
+export { default as ArrowLeftIcon } from './arrow-left.vue';
+export { default as ArrowRightIcon } from './arrow-right.vue';
+export { default as ArrowUpIcon } from './arrow-up.vue';
 export { default as BagIcon } from './bag.vue';
 export { default as BarCodeIcon } from './bar-code.vue';
 export { default as BarcodeTinyIcon } from './barcode-tiny.vue';
