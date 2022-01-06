@@ -119,6 +119,18 @@
               </ClearHistoryQueries>
               <QuerySuggestions max-items-to-render="10" />
               <NextQueries max-items-to-render="10" />
+
+              <!-- IdentifierResults -->
+              <IdentifierResults #default="{ identifierResult }">
+                <BaseResultLink :result="identifierResult">
+                  <article class="x-suggestion">
+                    <IdentifierResult :result="identifierResult" />
+                    <span class="x-ellipsis" data-test="result-text">
+                      {{ identifierResult.name }}
+                    </span>
+                  </article>
+                </BaseResultLink>
+              </IdentifierResults>
             </Empathize>
           </BaseKeyboardNavigation>
         </template>
@@ -334,23 +346,6 @@
           </Redirection>
 
           <template v-if="!$x.redirections.length">
-            <!-- IdentifierResults -->
-            <IdentifierResults class="x-list x-list--horizontal">
-              <template #default="{ identifierResult }">
-                <article class="result">
-                  <BaseResultImage :result="identifierResult" class="x-picture--colored">
-                    <template #placeholder>
-                      <div style="padding-top: 100%; background-color: lightgray"></div>
-                    </template>
-                    <template #fallback>
-                      <div style="padding-top: 100%; background-color: lightsalmon"></div>
-                    </template>
-                  </BaseResultImage>
-                  <h1 class="x-title3" data-test="result-text">{{ identifierResult.name }}</h1>
-                </article>
-              </template>
-            </IdentifierResults>
-
             <!--  No Results Message  -->
             <div v-if="$x.noResults" class="x-message x-margin--top-03 x-margin--bottom-03">
               <p>
