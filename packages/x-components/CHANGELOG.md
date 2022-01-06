@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.42...@empathyco/x-components@3.0.0-alpha.43) (2022-01-06)
+
+### Features
+
+- **components:** Add icons for Arrows UP DOWN LEFT and RIGHT. (#295)
+  ([693b26f](https://github.com/empathyco/x/commit/693b26f8e2d250f97bcf0cce472299b2edcc4823)),
+  closes [EX-5245](https://searchbroker.atlassian.net/browse/EX-5245)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.41...@empathyco/x-components@3.0.0-alpha.42) (2022-01-05)
 
 ### Features
