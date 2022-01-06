@@ -133,6 +133,9 @@
       <li title="SearchTinyIcon">
         <SearchTinyIcon class="x-icon--s" />
       </li>
+      <li title="TagIcon">
+        <TagIcon class="x-icon--s" />
+      </li>
       <li title="TrashOpenIcon">
         <TrashOpenIcon class="x-icon--s" />
       </li>
@@ -280,6 +283,9 @@
       </li>
       <li title="SearchTinyIcon">
         <SearchTinyIcon class="x-icon--m" />
+      </li>
+      <li title="TagIcon">
+        <TagIcon class="x-icon--m" />
       </li>
       <li title="TrashOpenIcon">
         <TrashOpenIcon class="x-icon--m" />
@@ -429,6 +435,9 @@
       <li title="SearchTinyIcon">
         <SearchTinyIcon class="x-icon--l" />
       </li>
+      <li title="TagIcon">
+        <TagIcon class="x-icon--l" />
+      </li>
       <li title="TrashOpenIcon">
         <TrashOpenIcon class="x-icon--l" />
       </li>
@@ -577,6 +586,9 @@
       <li title="SearchTinyIcon">
         <SearchTinyIcon class="x-icon--xl" />
       </li>
+      <li title="TagIcon">
+        <TagIcon class="x-icon--xl" />
+      </li>
       <li title="TrashOpenIcon">
         <TrashOpenIcon class="x-icon--xl" />
       </li>
@@ -643,6 +655,7 @@
     ShowIcon,
     StarIcon,
     SearchTinyIcon,
+    TagIcon,
     TrashOpenIcon,
     TrashIcon,
     TrendingTinyIcon,
@@ -697,6 +710,7 @@
       ShowIcon,
       StarIcon,
       SearchTinyIcon,
+      TagIcon,
       TrashOpenIcon,
       TrashIcon,
       TrendingTinyIcon,
