@@ -111,16 +111,17 @@ Then('related tags are displayed', () => {
 // Results
 Then('related results are displayed', () => {
   resultsList = [];
-  cy.getByDataTest('result-text')
+  cy.getByDataTest('search-result')
     .should('be.visible')
     .should('have.length.at.least', 1)
-    .each($result => {
-      resultsList.push($result.text());
+    .getByDataTest('result-title')
+    .each($resultTitle => {
+      resultsList.push($resultTitle.text());
     });
 });
 
 Then('related results have changed', () => {
-  cy.getByDataTest('result-text')
+  cy.getByDataTest('search-result')
     .should('be.visible')
     .should($results => {
       const compoundResultsList = $results

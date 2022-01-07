@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="x">
     <Tagging :consent="false" />
     <ExtraParams :values="initialExtraParams" />
     <UrlHandler query="q" store="store" />
+    <SnippetCallbacks />
     <BaseEventsModalOpen>Start</BaseEventsModalOpen>
     <h1>Test controls</h1>
     <ul class="x-test-controls x-list x-list--gap-05">
@@ -487,6 +488,7 @@
   import BaseResultImage from '../../components/result/base-result-image.vue';
   import BaseResultLink from '../../components/result/base-result-link.vue';
   import SlidingPanel from '../../components/sliding-panel.vue';
+  import SnippetCallbacks from '../../components/snippet-callbacks.vue';
   import BaseSuggestions from '../../components/suggestions/base-suggestions.vue';
   import { infiniteScroll } from '../../directives/infinite-scroll/infinite-scroll';
   import { XEvent } from '../../wiring/index';
@@ -551,6 +553,7 @@
       infiniteScroll
     },
     components: {
+      SnippetCallbacks,
       LocationProvider,
       AutoProgressBar,
       Banner,

@@ -2,7 +2,7 @@ import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 // Scenario 1
 Then('at least {int} related results are displayed', (minResultsWithoutPartials: number) => {
-  cy.getByDataTest('result-text')
+  cy.getByDataTest('search-result')
     .should('be.visible')
     .should('have.length.at.least', minResultsWithoutPartials);
 });
@@ -13,7 +13,7 @@ And('no partial results are displayed', () => {
 
 // Scenario 2
 Then('less than {int} related results are displayed', (minResultsWithoutPartials: number) => {
-  cy.getByDataTest('result-text')
+  cy.getByDataTest('search-result')
     .should('be.visible')
     .should('have.length.at.most', minResultsWithoutPartials - 1);
 });
