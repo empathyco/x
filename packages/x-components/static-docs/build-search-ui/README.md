@@ -26,7 +26,7 @@ Start building your search and discovery experience in a few simple steps:
   Interface&nbsp;X works.
 - **[Integrate the Interface X Components](#integrate-interface-x-components)** in your store web
   application.
-- **[Use & configure the Interface X Components](#use-configure-the-interface-x-components)** in
+- **[Use & configure the Interface X Components](#use--configure-the-interface-x-components)** in
   your project.
 
 <!-- 3. Style your UI. 4. Translate your search experience-->
