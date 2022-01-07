@@ -17,7 +17,7 @@ in your own project to craft enticing Vue search experiences for your shop in a 
 
 If you are looking to use the ready-to-go project Interface&nbsp;X&nbsp;Archetype as your starting
 point, see
-**[Interface X Archetype Development](/develop-empathy-platform/build-search-ui/web-archetypedevelopment-guide.md)**.
+**[Interface X Archetype Development](web-archetype-development-guide.md)**.
 
 :::
 
