@@ -4,13 +4,13 @@ import { XPluginOptions } from '../../../../src/plugins/x-plugin.types';
 Given(
   'following config: identifier detection Regexp {string}',
   (identifierDetectionRegexp: string) => {
-    const config = {
+    const config: XPluginOptions['xModules'] = {
       identifierResults: {
         config: {
           identifierDetectionRegexp
         }
       }
-    } as XPluginOptions['xModules'];
+    };
 
     cy.visit('/?useMockedAdapter=true', {
       qs: {
