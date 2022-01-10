@@ -129,10 +129,10 @@ on this value.
 
 ```vue
 <BaseRating :value="7.15" :max="10">
-  <template #filledIcon>
+  <template #filled-icon>
     <TestIcon/>
   </template>
-  <template #emptyIcon>
+  <template #empty-icon>
     <TestIcon/>
   </template>
 </BaseRating>
