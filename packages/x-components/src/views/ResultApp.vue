@@ -30,8 +30,8 @@
       </BaseResultImage>
     </div>
     <BaseRating :value="2.5">
-      <template #filledIcon>◼</template>
-      <template #emptyIcon>◻</template>
+      <template #filled-icon>◼</template>
+      <template #empty-icon>◻</template>
     </BaseRating>
     <BaseColumnPickerList #default="{ column }" :columns="[2, 4, 6]">
       <span>{{ column }}⇋</span>
