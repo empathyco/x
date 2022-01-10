@@ -36,7 +36,10 @@ function renderBaseResultRating({
       wrapper.find(getDataTestSelector('rating-filled')).findAll(':scope > *'),
     getEmptyIcons: (): WrapperArray<Vue> =>
       wrapper.find(getDataTestSelector('rating-empty')).findAll(':scope > *'),
-    clickRating: () => await wrapper.findComponent(BaseResultRating).trigger('click'),
+    clickRating: async () => {
+      wrapper.findComponent(BaseResultRating).trigger('click');
+      return await wrapper.vm.$nextTick();
+    },
     on: wrapper.vm.$x.on
   };
 }
