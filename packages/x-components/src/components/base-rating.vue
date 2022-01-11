@@ -4,7 +4,7 @@
       <!--
         @slot The content to render as empty icon
       -->
-      <slot v-for="i in max" name="emptyIcon">
+      <slot v-for="i in max" name="empty-icon">
         <DefaultIcon :key="i" class="x-rating__default-icon x-rating__default-icon--empty" />
       </slot>
     </div>
@@ -16,7 +16,7 @@
       <!--
         @slot The content to render as filled icon
       -->
-      <slot v-for="i in max" name="filledIcon">
+      <slot v-for="i in max" name="filled-icon">
         <DefaultIcon :key="i" class="x-rating__default-icon x-rating__default-icon--filled" />
       </slot>
     </div>
@@ -87,14 +87,19 @@
     &--empty {
       overflow: hidden;
       display: flex;
+      flex-flow: row nowrap;
+      white-space: nowrap;
     }
 
     &--filled {
       display: flex;
+      flex-flow: row nowrap;
+      white-space: nowrap;
       position: absolute;
       overflow: hidden;
       top: 0;
       left: 0;
+      height: 100%;
     }
 
     &__default-icon {
@@ -124,10 +129,10 @@ on this value.
 
 ```vue
 <BaseRating :value="7.15" :max="10">
-  <template #filledIcon>
+  <template #filled-icon>
     <TestIcon/>
   </template>
-  <template #emptyIcon>
+  <template #empty-icon>
     <TestIcon/>
   </template>
 </BaseRating>
