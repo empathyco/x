@@ -10,6 +10,7 @@ import { WireMetadata } from '../../wiring/wiring.types';
  * @public
  */
 export interface XAPI {
+  addProductToCart(productId?: string): void;
   /**
    * To set the {@link XBus | bus} to the API. This bus will be used to emit the necessary
    * events.
@@ -84,6 +85,8 @@ export interface SnippetConfig {
   callbacks?: XEventListeners;
   /** Flag determining if the page is a single page application or not. */
   isSpa?: boolean;
+  /** */
+  productId?: string;
   /** Any extra param to send in all backend calls. */
   [extra: string]: any;
 }

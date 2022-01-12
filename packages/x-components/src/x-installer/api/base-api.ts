@@ -29,6 +29,14 @@ export class BaseXAPI implements XAPI {
    */
   protected initCallback!: (config: SnippetConfig) => any;
 
+  addProductToCart(productId?: string): void {
+    if (productId) {
+      this.bus?.emit('UserClickedPDPAddToCart', productId);
+    } else {
+      this.bus?.emit('UserClickedPDPAddToCart', null);
+    }
+  }
+
   /**
    * Setter for the {@link XBus}.
    *
