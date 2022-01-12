@@ -38,4 +38,6 @@ export interface TaggingXEvents {
   ClickedResultStorageKeyProvided: string;
 
   ResultURLTrackingEnabled: string | null;
+
+  PDPIsLoaded: string;
 }
