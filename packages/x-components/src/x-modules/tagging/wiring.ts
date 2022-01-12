@@ -4,11 +4,12 @@ import {
   namespacedWireDispatch
 } from '../../wiring/namespaced-wires.factory';
 import { namespacedDebounce } from '../../wiring/namespaced-wires.operators';
-import { wireServiceWithoutPayload } from '../../wiring/wires.factory';
+import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
 import { filter } from '../../wiring/wires.operators';
 import { Wire } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 import { DefaultSessionService } from './service/session.service';
+import { DefaultPDPAddToCartService } from './service/index';
 
 /**
  * `tagging` {@link XModuleName | XModule name}.
@@ -40,6 +41,12 @@ const wireDispatch = namespacedWireDispatch(moduleName);
  * Wires without payload factory for {@link DefaultSessionService}.
  */
 const wireSessionServiceWithoutPayload = wireServiceWithoutPayload(DefaultSessionService.instance);
+
+const wirePDPAddToCartService = wireService(DefaultPDPAddToCartService.instance);
+
+const storeClickedResultWire = wirePDPAddToCartService('storeResultClicked');
+const moveClickedResultToSessionWire = wirePDPAddToCartService('moveToSessionStorage');
+const trackClickedResultWire = wirePDPAddToCartService('trackResult');
 
 /**
  * Clears the session id.
@@ -155,8 +162,14 @@ export const taggingWiring = createWiring({
   ConsentChanged: {
     clearSessionWire
   },
+  PDPIsLoaded: {
+    moveClickedResultToSessionWire
+  },
   QueryTaggingDebounceProvided: {
     setQueryTaggingDebounce
+  },
+  ResultURLTrackingEnabled: {
+    moveClickedResultToSessionWire
   },
   SearchTaggingChanged: {
     setQueryTaggingInfo
@@ -168,9 +181,13 @@ export const taggingWiring = createWiring({
     setSessionDuration
   },
   UserClickedAResult: {
-    trackResultClickedWire
+    trackResultClickedWire,
+    storeClickedResultWire
   },
   UserClickedResultAddToCart: {
     trackAddToCartWire
+  },
+  UserClickedPDPAddToCart: {
+    trackClickedResultWire
   }
 });
