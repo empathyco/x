@@ -145,6 +145,8 @@ export interface XEventsTypes
    * * Payload: The {@link @empathyco/x-types#Result | result} that the user clicked.
    */
   UserClickedAResultRating: Result;
+  /** */
+  UserClickedPDPAddToCart: string | null;
   /**
    * The user has clicked the scroll to top button.
    * * Payload: The scroll id which has scrolled to top.
