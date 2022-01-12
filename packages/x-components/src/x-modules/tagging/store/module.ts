@@ -34,6 +34,9 @@ export const taggingXStoreModule: TaggingXStoreModule = {
     },
     setClickedResultStorageKey(state, clickedResultStorageKey) {
       state.config.clickedResultStorageKey = clickedResultStorageKey;
+    },
+    setClickedResultStorageTTL(state, clickedResultStorageTTL) {
+      state.config.clickedResultStorageTTLMs = clickedResultStorageTTL;
     }
   },
   actions: {

@@ -61,6 +61,7 @@ export interface TaggingMutations {
   setQueryTaggingInfo(queryTaggingInfo: TaggingInfo): void;
 
   setClickedResultStorageKey(clickedResultStorageKey: string): void;
+  setClickedResultStorageTTL(clickedResultStorageTTL: number): void;
 }
 
 /**

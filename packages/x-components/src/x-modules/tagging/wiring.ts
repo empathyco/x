@@ -60,6 +60,8 @@ export const setConsent = wireCommit('setConsent');
 
 export const setClickedResultStorageKey = wireCommit('setClickedResultStorageKey');
 
+export const setClickedResultStorageTTL = wireCommit('setClickedResultStorageTTL');
+
 /**
  * Sets the tagging state config `queryTaggingDebounceMs`.
  *
@@ -143,6 +145,9 @@ function createTrackResultWire(property: keyof Result['tagging']): Wire<Result> 
 export const taggingWiring = createWiring({
   ClickedResultStorageKeyProvided: {
     setClickedResultStorageKey
+  },
+  ClickedResultStorageDurationProvided: {
+    setClickedResultStorageTTL
   },
   ConsentProvided: {
     setConsent
