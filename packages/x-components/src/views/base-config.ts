@@ -6,7 +6,8 @@ import { realAdapter } from '../adapter/real-adapter';
 export const baseSnippetConfig: SnippetConfig = {
   instance: 'toysrus',
   lang: 'es',
-  scope: 'x-components-development'
+  scope: 'x-components-development',
+  productId: 'K1028983'
 };
 
 const url = new URL(location.href);
