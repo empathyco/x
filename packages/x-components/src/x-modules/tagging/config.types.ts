@@ -13,4 +13,7 @@ export interface TaggingConfig {
    * interaction, the session will be cleared.
    */
   sessionTTLMs: number;
+
+  clickedResultStorageTTLMs: number | null;
+  clickedResultStorageKey: string | null;
 }

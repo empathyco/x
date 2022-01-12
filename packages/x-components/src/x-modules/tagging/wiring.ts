@@ -58,6 +58,8 @@ const clearSessionWire = filter(
  */
 export const setConsent = wireCommit('setConsent');
 
+export const setClickedResultStorageKey = wireCommit('setClickedResultStorageKey');
+
 /**
  * Sets the tagging state config `queryTaggingDebounceMs`.
  *
@@ -139,6 +141,9 @@ function createTrackResultWire(property: keyof Result['tagging']): Wire<Result> 
  * @internal
  */
 export const taggingWiring = createWiring({
+  ClickedResultStorageKeyProvided: {
+    setClickedResultStorageKey
+  },
   ConsentProvided: {
     setConsent
   },

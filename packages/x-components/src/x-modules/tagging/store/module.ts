@@ -11,7 +11,9 @@ export const taggingXStoreModule: TaggingXStoreModule = {
   state: () => ({
     config: {
       sessionTTLMs: 30 * 60 * 1000,
-      queryTaggingDebounceMs: 2000
+      queryTaggingDebounceMs: 2000,
+      clickedResultStorageKey: null,
+      clickedResultStorageTTLMs: null
     },
     consent: null,
     queryTaggingInfo: null
