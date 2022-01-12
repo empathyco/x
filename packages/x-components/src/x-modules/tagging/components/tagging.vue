@@ -17,6 +17,14 @@
     mixins: [xComponentMixin(taggingXModule)]
   })
   export default class Tagging extends Vue {
+    @Prop({ default: 30 })
+    @XEmit('ClickedResultStorageDurationProvided')
+    public clickedResultStorageTTLMs!: number;
+
+    @Prop({ default: 'url' })
+    @XEmit('ClickedResultStorageKeyProvided')
+    public clickedResultStorageKey!: string;
+
     /**
      * It injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
      *

@@ -32,4 +32,10 @@ export interface TaggingXEvents {
    * * Payload: The new session duration value.
    */
   SessionDurationProvided: number;
+
+  ClickedResultStorageDurationProvided: number;
+
+  ClickedResultStorageKeyProvided: string;
+
+  ResultURLTrackingEnabled: string | null;
 }
