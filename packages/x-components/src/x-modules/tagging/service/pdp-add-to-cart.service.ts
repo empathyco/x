@@ -2,7 +2,7 @@ import { Store } from 'vuex';
 import { Result } from '@empathyco/x-types';
 import { BrowserStorageService, StorageService } from '@empathyco/x-storage-service';
 import { RootXStoreState } from '../../../store/index';
-import { XPlugin } from '../../../plugins/index';
+import { XBus, XPlugin } from '../../../plugins/index';
 import { PDPAddToCartService } from './types';
 
 export class DefaultPDPAddToCartService implements PDPAddToCartService {
@@ -25,6 +25,10 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
 
   protected get store(): Store<RootXStoreState> {
     return XPlugin.store;
+  }
+
+  protected get bus(): XBus {
+    return XPlugin.bus;
   }
 
   storeResultClicked(result: Result): void {
@@ -50,7 +54,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
     }
   }
 
-  trackResult(id?: string | null): Result | undefined {
+  trackResult(id?: string | null): void {
     if (!id) {
       // TODO use url has fallback
       return;
@@ -58,7 +62,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
     const clickedResultStorageKeyId = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${id}`;
     const result = this.sessionStorageService.getItem(clickedResultStorageKeyId) as Result;
     if (result) {
-      // console.log(result);
+      this.bus.emit('UserClickedResultAddToCart', result);
     }
   }
 }
