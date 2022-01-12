@@ -17,7 +17,7 @@
     mixins: [xComponentMixin(taggingXModule)]
   })
   export default class Tagging extends Vue {
-    @Prop({ default: 30 })
+    @Prop({ default: 30000 })
     @XEmit('ClickedResultStorageDurationProvided')
     public clickedResultStorageTTLMs!: number;
 
@@ -75,6 +75,16 @@
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     render(): void {}
+
+    created(): void {
+      this.emitEvents();
+    }
+
+    protected emitEvents(): void {
+      if (this.snippetConfig?.productId) {
+        this.$x.emit('PDPIsLoaded', this.snippetConfig.productId);
+      }
+    }
   }
 </script>
 
