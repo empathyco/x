@@ -31,6 +31,9 @@ export const taggingXStoreModule: TaggingXStoreModule = {
     },
     setQueryTaggingInfo(state, queryTaggingInfo: TaggingInfo) {
       state.queryTaggingInfo = queryTaggingInfo;
+    },
+    setClickedResultStorageKey(state, clickedResultStorageKey) {
+      state.config.clickedResultStorageKey = clickedResultStorageKey;
     }
   },
   actions: {
