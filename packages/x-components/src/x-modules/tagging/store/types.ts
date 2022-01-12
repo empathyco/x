@@ -59,6 +59,8 @@ export interface TaggingMutations {
    * @param queryTaggingInfo - The new {@link TaggingState.queryTaggingInfo}.
    */
   setQueryTaggingInfo(queryTaggingInfo: TaggingInfo): void;
+
+  setClickedResultStorageKey(clickedResultStorageKey: string): void;
 }
 
 /**
