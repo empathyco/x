@@ -1,4 +1,4 @@
-import { TaggingInfo } from '@empathyco/x-types';
+import { Result, TaggingInfo } from '@empathyco/x-types';
 import { XStoreModule } from '../../../store';
 import { TaggingConfig } from '../config.types';
 /**
@@ -76,6 +76,12 @@ export interface TaggingActions {
    * @param tagging - The information of the event to track.
    */
   track(tagging: TaggingInfo | TaggingInfo[]): void;
+  /**
+   * Tracks that a result was added to cart from PDP.
+   *
+   * @param result - The result added to cart.
+   */
+  trackPDPAddToCart(result: Result): void;
 }
 
 /**
