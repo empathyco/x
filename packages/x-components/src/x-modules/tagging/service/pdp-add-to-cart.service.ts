@@ -11,7 +11,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    *
    * @public
    */
-  public static readonly RESULT_CLICKED_ID_KEY = 'clicked-result';
+  public static readonly RESULT_CLICKED_ID_KEY = 'add-to-cart';
 
   /**
    * Global instance of the {@link PDPAddToCartService}.
