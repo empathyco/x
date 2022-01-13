@@ -46,7 +46,7 @@ const wirePDPAddToCartService = wireService(DefaultPDPAddToCartService.instance)
 
 const storeClickedResultWire = wirePDPAddToCartService('storeResultClicked');
 const moveClickedResultToSessionWire = wirePDPAddToCartService('moveToSessionStorage');
-const trackClickedResultWire = wirePDPAddToCartService('trackResult');
+const trackAddToCartFromSessionStorage = wirePDPAddToCartService('trackResult');
 
 /**
  * Clears the session id.
@@ -188,6 +188,6 @@ export const taggingWiring = createWiring({
     trackAddToCartWire
   },
   UserClickedPDPAddToCart: {
-    trackClickedResultWire
+    trackAddToCartFromSessionStorage
   }
 });
