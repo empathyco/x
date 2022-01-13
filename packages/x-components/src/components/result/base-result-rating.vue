@@ -76,7 +76,6 @@
 
 <style scoped lang="scss">
   .x-result-rating {
-    display: inline-block;
     color: inherit;
     text-decoration: none;
   }
