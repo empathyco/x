@@ -17,6 +17,7 @@ function renderSlidingPanel({
   scrollFactor,
   resetOnContentChange,
   showButtons,
+  buttonClass,
   slidingPanelWidthPx = 400,
   itemWidthPx = 100,
   template = `
@@ -51,7 +52,8 @@ function renderSlidingPanel({
       propsData: {
         scrollFactor,
         resetOnContentChange,
-        showButtons
+        showButtons,
+        buttonClass
       },
       style: `
         .wrapper {
@@ -256,6 +258,16 @@ describe('Testing sliding panel', () => {
     getLeftButton().should('be.visible');
     getRightButton().should('be.visible');
   });
+
+  it('allows adding CSS classes to the buttons', () => {
+    const { getLeftButton, getRightButton, scrollTo } = renderSlidingPanel({
+      buttonClass: 'test-x-button--round'
+    });
+
+    scrollTo(100);
+    getRightButton().should('be.visible').should('have.class', 'test-x-button--round');
+    getLeftButton().should('be.visible').should('have.class', 'test-x-button--round');
+  });
 });
 
 interface RenderSlidingPanelOptions {
@@ -273,6 +285,8 @@ interface RenderSlidingPanelOptions {
   resetOnContentChange?: boolean;
   /** The {@link SlidingPanel.showButtons} prop. */
   showButtons?: boolean;
+  /** The {@link SlidingPanel.buttonClass} prop. */
+  buttonClass?: string;
 }
 
 interface RenderSlidingPanelAPI {
