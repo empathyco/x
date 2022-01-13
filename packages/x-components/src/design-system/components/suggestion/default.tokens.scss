@@ -15,6 +15,19 @@
   --x-size-padding-left-suggestion-default: 0;
   --x-size-gap-suggestion-default: var(--x-size-base-03);
 
+  // border
+  --x-size-border-width-suggestion-default: var(--x-size-border-width-base);
+  --x-size-border-width-top-suggestion-default: var(--x-size-border-width-suggestion-default);
+  --x-size-border-width-right-suggestion-default: var(--x-size-border-width-suggestion-default);
+  --x-size-border-width-bottom-suggestion-default: var(--x-size-border-width-suggestion-default);
+  --x-size-border-width-left-suggestion-default: var(--x-size-border-width-suggestion-default);
+
+  --x-size-border-radius-suggestion-default: var(--x-size-border-radius-base-none);
+  --x-size-border-radius-top-left-suggestion-default: var(--x-size-border-radius-suggestion-default);
+  --x-size-border-radius-top-right-suggestion-default: var(--x-size-border-radius-suggestion-default);
+  --x-size-border-radius-bottom-right-suggestion-default: var(--x-size-border-radius-suggestion-default);
+  --x-size-border-radius-bottom-left-suggestion-default: var(--x-size-border-radius-suggestion-default);
+
   // typography
   --x-font-family-suggestion-default: var(--x-font-family-text);
   --x-size-font-suggestion-default: var(--x-size-font-text);

@@ -11,6 +11,19 @@
   --x-size-padding-left-suggestion-group-default: var(--x-size-padding-left-suggestion-default);
   --x-size-gap-suggestion-group-default: var(--x-size-gap-suggestion-default);
 
+  // border
+  --x-size-border-width-suggestion-group-default: var(--x-size-border-width-base);
+  --x-size-border-width-top-suggestion-group-default: var(--x-size-border-width-suggestion-default);
+  --x-size-border-width-right-suggestion-group-default: var(--x-size-border-width-suggestion-default);
+  --x-size-border-width-bottom-suggestion-group-default: var(--x-size-border-width-suggestion-default);
+  --x-size-border-width-left-suggestion-group-default: var(--x-size-border-width-suggestion-default);
+
+  --x-size-border-radius-suggestion-group-default: var(--x-size-border-radius-base-none);
+  --x-size-border-radius-top-left-suggestion-group-default: var(--x-size-border-radius-suggestion-default);
+  --x-size-border-radius-top-right-suggestion-group-default: var(--x-size-border-radius-suggestion-default);
+  --x-size-border-radius-bottom-right-suggestion-group-default: var(--x-size-border-radius-suggestion-default);
+  --x-size-border-radius-bottom-left-suggestion-group-default: var(--x-size-border-radius-suggestion-default);
+
   // typography
   --x-font-family-suggestion-group-default: var(--x-font-family-suggestion-default);
   --x-size-font-suggestion-group-default: var(--x-size-font-suggestion-default);

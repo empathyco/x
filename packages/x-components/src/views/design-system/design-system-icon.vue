@@ -76,6 +76,9 @@
       <li title="CrossIcon">
         <CrossIcon class="x-icon--s" />
       </li>
+      <li title="CuratedCheckIcon">
+        <CuratedCheckIcon class="x-icon--s" />
+      </li>
       <li title="FiltersIcon">
         <FiltersIcon class="x-icon--s" />
       </li>
@@ -90,6 +93,12 @@
       </li>
       <li title="HideIcon">
         <HideIcon class="x-icon--s" />
+      </li>
+      <li title="LightBulbOff">
+        <LightBulbOff class="x-icon--s" />
+      </li>
+      <li title="LightBulbOn">
+        <LightBulbOn class="x-icon--s" />
       </li>
       <li title="HistoryTinyIcon">
         <HistoryTinyIcon class="x-icon--s" />
@@ -227,6 +236,9 @@
       <li title="CrossIcon">
         <CrossIcon class="x-icon--m" />
       </li>
+      <li title="CuratedCheckIcon">
+        <CuratedCheckIcon class="x-icon--m" />
+      </li>
       <li title="FiltersIcon">
         <FiltersIcon class="x-icon--m" />
       </li>
@@ -247,6 +259,12 @@
       </li>
       <li title="HistoryIcon">
         <HistoryIcon class="x-icon--m" />
+      </li>
+      <li title="LightBulbOff">
+        <LightBulbOff class="x-icon--m" />
+      </li>
+      <li title="LightBulbOn">
+        <LightBulbOn class="x-icon--m" />
       </li>
       <li title="MenuIcon">
         <MenuIcon class="x-icon--m" />
@@ -378,6 +396,9 @@
       <li title="CrossIcon">
         <CrossIcon class="x-icon--l" />
       </li>
+      <li title="CuratedCheckIcon">
+        <CuratedCheckIcon class="x-icon--l" />
+      </li>
       <li title="FiltersIcon">
         <FiltersIcon class="x-icon--l" />
       </li>
@@ -398,6 +419,12 @@
       </li>
       <li title="HistoryIcon">
         <HistoryIcon class="x-icon--l" />
+      </li>
+      <li title="LightBulbOff">
+        <LightBulbOff class="x-icon--l" />
+      </li>
+      <li title="LightBulbOn">
+        <LightBulbOn class="x-icon--l" />
       </li>
       <li title="MenuIcon">
         <MenuIcon class="x-icon--l" />
@@ -529,6 +556,9 @@
       <li title="CrossIcon">
         <CrossIcon class="x-icon--xl" />
       </li>
+      <li title="CuratedCheckIcon">
+        <CuratedCheckIcon class="x-icon--xl" />
+      </li>
       <li title="FiltersIcon">
         <FiltersIcon class="x-icon--xl" />
       </li>
@@ -552,6 +582,12 @@
       </li>
       <li title="MenuIcon">
         <MenuIcon class="x-icon--xl" />
+      </li>
+      <li title="LightBulbOff">
+        <LightBulbOff class="x-icon--xl" />
+      </li>
+      <li title="LightBulbOn">
+        <LightBulbOn class="x-icon--xl" />
       </li>
       <li title="MinusTinyIcon">
         <MinusTinyIcon class="x-icon--xl" />
@@ -660,7 +696,10 @@
     TrashIcon,
     TrendingTinyIcon,
     TrendingIcon,
-    UserIcon
+    UserIcon,
+    CuratedCheckIcon,
+    LightBulbOff,
+    LightBulbOn
   } from '../../components/icons';
   import DesignSystemTypography from './design-system-typography.vue';
 
@@ -691,6 +730,7 @@
       ChevronUpIcon,
       CrossTinyIcon,
       CrossIcon,
+      CuratedCheckIcon,
       FiltersIcon,
       Grid1ColIcon,
       Grid2ColIcon,
@@ -698,6 +738,8 @@
       HideIcon,
       HistoryTinyIcon,
       HistoryIcon,
+      LightBulbOff,
+      LightBulbOn,
       MenuIcon,
       MinusTinyIcon,
       MinusIcon,
