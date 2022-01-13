@@ -1,10 +1,11 @@
 <template>
-  <a
+  <component
+    :is="link ? 'a' : 'div'"
     v-if="result.rating && result.rating.value"
     @click="emitClickedEvent"
+    :href="link"
     class="x-result-rating"
     data-test="result-rating"
-    :href="link"
   >
     <!--
       @slot To override the whole content
@@ -26,7 +27,7 @@
         </template>
       </BaseRating>
     </slot>
-  </a>
+  </component>
 </template>
 
 <script lang="ts">
