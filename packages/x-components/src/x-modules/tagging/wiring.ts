@@ -65,8 +65,18 @@ const clearSessionWire = filter(
  */
 export const setConsent = wireCommit('setConsent');
 
+/**
+ * Sets the tagging state `clickedResultStorageKey`.
+ *
+ * @public
+ */
 export const setClickedResultStorageKey = wireCommit('setClickedResultStorageKey');
 
+/**
+ * Sets the tagging state `clickedResultStorageTTLMs`.
+ *
+ * @public
+ */
 export const setClickedResultStorageTTL = wireCommit('setClickedResultStorageTTL');
 
 /**

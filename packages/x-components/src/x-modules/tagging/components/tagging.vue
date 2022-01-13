@@ -17,10 +17,21 @@
     mixins: [xComponentMixin(taggingXModule)]
   })
   export default class Tagging extends Vue {
+    /**
+     * The TTL in milliseconds for storing the clicked result info.
+     *
+     * @public
+     */
     @Prop({ default: 30000 })
     @XEmit('ClickedResultStorageDurationProvided')
     public clickedResultStorageTTLMs!: number;
 
+    /**
+     * The key of {@link @empathyco/x-types#Result | result} to get the value from
+     * in order to use it as id for storage.
+     *
+     * @public
+     */
     @Prop({ default: 'url' })
     @XEmit('ClickedResultStorageKeyProvided')
     public clickedResultStorageKey!: string;
