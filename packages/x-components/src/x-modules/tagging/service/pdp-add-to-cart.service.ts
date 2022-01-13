@@ -79,7 +79,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
 
     const result = this.sessionStorageService.getItem(clickedResultStorageKeyId) as Result;
     if (result) {
-      this.store.dispatch('x/tagging/trackPDPAddToCart', result);
+      this.store.dispatch('x/tagging/track', result.tagging.add2cart);
     } else {
       this.logger.warn(`No result info found for ${clickedResultStorageKeyId}`);
     }

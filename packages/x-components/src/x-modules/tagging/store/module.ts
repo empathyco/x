@@ -1,7 +1,6 @@
 import { TaggingInfo } from '@empathyco/x-types';
 import { track } from './actions/track.action';
 import { TaggingXStoreModule } from './types';
-import { trackPDPAddToCart } from './actions/track-pdp-add-to-cart.action';
 
 /**
  * {@link XStoreModule} For the tagging module.
@@ -41,7 +40,6 @@ export const taggingXStoreModule: TaggingXStoreModule = {
     }
   },
   actions: {
-    track,
-    trackPDPAddToCart
+    track
   }
 };
