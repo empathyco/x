@@ -6,6 +6,11 @@ import { RootXStoreState } from '../../../store/index';
 import { XPlugin } from '../../../plugins/index';
 import { PDPAddToCartService } from './types';
 
+/**
+ * Default implementation for the {@link PDPAddToCartService}.
+ *
+ * @public
+ */
 export class DefaultPDPAddToCartService implements PDPAddToCartService {
   protected logger: Logger;
   /**
@@ -62,7 +67,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
     }
   }
 
-  trackResult(id?: string | null): void {
+  trackAddToCart(id?: string | null): void {
     let clickedResultStorageKeyId: string;
 
     if (!id) {

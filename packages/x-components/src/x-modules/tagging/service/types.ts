@@ -43,5 +43,11 @@ export interface PDPAddToCartService {
    */
   moveToSessionStorage(id: string | null): void;
 
-  trackResult(id: string | null): void;
+  /**
+   * Checks if the session storage contains a result information for given id or the current url
+   * and tracks the add to cart if exists.
+   *
+   * @param id - The id of the result to track.
+   */
+  trackAddToCart(id: string | null): void;
 }

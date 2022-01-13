@@ -46,7 +46,7 @@ const wirePDPAddToCartService = wireService(DefaultPDPAddToCartService.instance)
 
 const storeClickedResultWire = wirePDPAddToCartService('storeResultClicked');
 const moveClickedResultToSessionWire = wirePDPAddToCartService('moveToSessionStorage');
-const trackAddToCartFromSessionStorage = wirePDPAddToCartService('trackResult');
+const trackAddToCartFromSessionStorage = wirePDPAddToCartService('trackAddToCart');
 
 /**
  * Clears the session id.
