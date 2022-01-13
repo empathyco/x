@@ -37,7 +37,7 @@ export interface TaggingXEvents {
 
   ClickedResultStorageKeyProvided: string;
 
-  ResultURLTrackingEnabled: string | null;
+  ResultURLTrackingEnabled: string;
 
   PDPIsLoaded: string;
 }

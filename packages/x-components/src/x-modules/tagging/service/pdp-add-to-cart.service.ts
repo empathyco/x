@@ -3,7 +3,7 @@ import { Result } from '@empathyco/x-types';
 import { BrowserStorageService, StorageService } from '@empathyco/x-storage-service';
 import { Logger, logger } from '@empathyco/x-logger';
 import { RootXStoreState } from '../../../store/index';
-import { XBus, XPlugin } from '../../../plugins/index';
+import { XPlugin } from '../../../plugins/index';
 import { PDPAddToCartService } from './types';
 
 export class DefaultPDPAddToCartService implements PDPAddToCartService {
@@ -31,27 +31,31 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
     return XPlugin.store;
   }
 
-  protected get bus(): XBus {
-    return XPlugin.bus;
-  }
-
   storeResultClicked(result: Result): void {
     const { clickedResultStorageKey, clickedResultStorageTTLMs } =
       this.store.state.x.tagging.config;
 
-    const key = result[clickedResultStorageKey as keyof Result];
-    const storageKey = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${key as string}`;
+    let key = result[clickedResultStorageKey as keyof Result] as string;
+
+    if (clickedResultStorageKey === 'url') {
+      key = key.replace(/\+/g, '%20');
+    }
+
+    const storageKey = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${key}`;
     this.localStorageService.setItem(storageKey, result, clickedResultStorageTTLMs as number);
   }
 
-  moveToSessionStorage(id: string | null): void {
-    if (!id) {
-      // TODO use url as fallback
-      return;
-    }
-    const clickedResultStorageKeyId = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${id}`;
-    const result = this.localStorageService.getItem(clickedResultStorageKeyId);
+  moveToSessionStorage(id: string): void {
+    let clickedResultStorageKeyId: string;
 
+    if (id === 'url') {
+      // eslint-disable-next-line max-len
+      clickedResultStorageKeyId = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${window.location.href}`;
+    } else {
+      clickedResultStorageKeyId = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${id}`;
+    }
+
+    const result = this.localStorageService.getItem(clickedResultStorageKeyId);
     if (result) {
       this.sessionStorageService.setItem(clickedResultStorageKeyId, result);
       this.localStorageService.removeItem(clickedResultStorageKeyId);
@@ -59,16 +63,20 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
   }
 
   trackResult(id?: string | null): void {
+    let clickedResultStorageKeyId: string;
+
     if (!id) {
-      // TODO use url has fallback
-      return;
+      // eslint-disable-next-line max-len
+      clickedResultStorageKeyId = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${window.location.href}`;
+    } else {
+      clickedResultStorageKeyId = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${id}`;
     }
-    const clickedResultStorageKeyId = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${id}`;
+
     const result = this.sessionStorageService.getItem(clickedResultStorageKeyId) as Result;
     if (result) {
-      this.bus.emit('UserClickedResultAddToCart', result);
+      this.store.dispatch('x/tagging/trackPDPAddToCart', result);
     } else {
-      this.logger.warn(`No result info found for ${id}`);
+      this.logger.warn(`No result info found for ${clickedResultStorageKeyId}`);
     }
   }
 }
