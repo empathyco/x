@@ -79,7 +79,7 @@ Then('related tag number {int} is shown as not selected', (relatedTagItem: numbe
 });
 
 And('raw related results are displayed', () => {
-  cy.getByDataTest('result-text').should('have.length', 4);
+  cy.getByDataTest('search-result').should('have.length', 4);
 });
 
 // Scenario 2

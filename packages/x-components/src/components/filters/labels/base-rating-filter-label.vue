@@ -1,12 +1,12 @@
 <template>
   <BaseRating class="x-rating-filter-label" data-test="rating-label" :value="value" :max="max">
-    <template #filledIcon>
+    <template #filled-icon>
       <!--
        @slot Filled icon content
      -->
       <slot name="rating-icon-filled" />
     </template>
-    <template #emptyIcon>
+    <template #empty-icon>
       <!--
        @slot Empty icon content
      -->

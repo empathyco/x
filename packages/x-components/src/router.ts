@@ -6,8 +6,8 @@ Vue.use(VueRouter);
 const routes: RouteConfig[] = [
   {
     path: '/',
-    name: 'Layout',
-    component: () => import('./views/Layout.vue')
+    name: 'Home',
+    component: () => import('./views/home/Home.vue')
   },
   {
     path: '/fixed-header-layout',

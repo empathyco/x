@@ -1,43 +1,44 @@
-import { mount } from '@vue/test-utils';
+import { mount, WrapperArray } from '@vue/test-utils';
 import { getDataTestSelector } from '../../__tests__/utils';
 import BaseRating from '../base-rating.vue';
 
+function renderBaseRating({ template }: RenderBaseRatingOptions): RenderBaseRatingApi {
+  const wrapper = mount({ template }, { components: { BaseRating } });
+
+  return {
+    getFilledIcons: (): WrapperArray<Vue> =>
+      wrapper.find(getDataTestSelector('rating-filled')).findAll(':scope > *'),
+    getEmptyIcons: (): WrapperArray<Vue> =>
+      wrapper.find(getDataTestSelector('rating-empty')).findAll(':scope > *')
+  };
+}
+
 describe('testing Rating component', () => {
-  it('renders a number of elements based on the max prop', () => {
-    const max = 10;
-    const overriddenSlotComponent = mount(BaseRating, {
-      propsData: {
-        value: 3.2,
-        max
-      }
+  it('renders the default icons a number of times based on the max prop', () => {
+    const { getFilledIcons, getEmptyIcons } = renderBaseRating({
+      template: `<BaseRating :value="2.5" :max="10" />`
     });
-    expect(overriddenSlotComponent.findAll('.x-rating__default-icon--filled')).toHaveLength(max);
-    expect(overriddenSlotComponent.findAll('.x-rating__default-icon--empty')).toHaveLength(max);
+    expect(getEmptyIcons()).toHaveLength(10);
+    expect(getFilledIcons()).toHaveLength(10);
   });
 
-  it('renders the content overriding filledIcon slot', () => {
-    const overriddenSlotComponent = mount(BaseRating, {
-      propsData: {
-        value: 3.2
-      },
-      scopedSlots: {
-        ['filledIcon']: '<span data-test="filled-icon" />'
-      }
+  it('renders the passed by slot icons a number of times based on the max prop', () => {
+    const { getFilledIcons, getEmptyIcons } = renderBaseRating({
+      template: `<BaseRating :value="2.5" :max="6" >
+                  <template #empty-icon><span class="test-empty-icon" /></template>
+                  <template #filled-icon><span class="test-filled-icon" /></template>
+                 </BaseRating>`
     });
-
-    expect(overriddenSlotComponent.find(getDataTestSelector('filled-icon')).element).toBeDefined();
-  });
-
-  it('renders the content overriding emptyIcon slot', () => {
-    const overriddenSlotComponent = mount(BaseRating, {
-      propsData: {
-        value: 3.2
-      },
-      scopedSlots: {
-        ['emptyIcon']: '<span data-test="empty-icon" />'
-      }
-    });
-
-    expect(overriddenSlotComponent.find(getDataTestSelector('empty-icon')).element).toBeDefined();
+    expect(getFilledIcons().filter(w => w.classes('test-filled-icon'))).toHaveLength(6);
+    expect(getEmptyIcons().filter(w => w.classes('test-empty-icon'))).toHaveLength(6);
   });
 });
+
+interface RenderBaseRatingOptions {
+  template: string;
+}
+
+interface RenderBaseRatingApi {
+  getFilledIcons: () => WrapperArray<Vue>;
+  getEmptyIcons: () => WrapperArray<Vue>;
+}
