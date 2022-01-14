@@ -3,7 +3,8 @@
     <button
       v-if="showButtons"
       @click="scrollLeft"
-      class="x-sliding-panel__button x-sliding-panel__button-left x-button x-button--round"
+      class="x-sliding-panel__button x-sliding-panel__button-left x-button"
+      :class="buttonClass"
       data-test="sliding-panel-left-button"
     >
       <!-- @slot Left button content -->
@@ -23,7 +24,8 @@
     <button
       v-if="showButtons"
       @click="scrollRight"
-      class="x-sliding-panel__button x-sliding-panel__button-right x-button x-button--round"
+      class="x-sliding-panel__button x-sliding-panel__button-right x-button"
+      :class="buttonClass"
       data-test="sliding-panel-right-button"
     >
       <!-- @slot Right button content -->
@@ -71,6 +73,14 @@
      */
     @Prop({ default: true })
     public resetOnContentChange!: boolean;
+
+    /**
+     * CSS classes to add to the buttons.
+     *
+     * @public
+     */
+    @Prop()
+    public buttonClass?: string;
 
     /**
      * Indicates if the scroll is at the start of the sliding panel.
