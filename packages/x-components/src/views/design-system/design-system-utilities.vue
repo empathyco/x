@@ -487,7 +487,7 @@
     <article class="positions x-list x-list--wrap x-list--gap-06 x-list--align-start">
       <h2 class="x-title2">Line Clamp</h2>
       <div v-for="lines in 5" :key="lines">
-        <h1 class="x-title3">Line Clamp {{ ++lines }}</h1>
+        <h3 class="x-title3">Line Clamp {{ ++lines }}</h3>
         <p class="x-background--neutral-95" :class="' x-line-clamp--' + lines">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas auctor ligula et
           tristique malesuada. Nullam fringilla orci quis euismod bibendum. Cras mattis volutpat
