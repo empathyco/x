@@ -80,7 +80,7 @@
      * @public
      */
     @Prop()
-    public buttonClass!: string;
+    public buttonClass?: string;
 
     /**
      * Indicates if the scroll is at the start of the sliding panel.
