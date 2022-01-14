@@ -43,7 +43,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
     let key = result[clickedResultStorageKey as keyof Result] as string;
 
     if (clickedResultStorageKey === 'url') {
-      key = key.replace(/\+/g, '%20');
+      key = key.replace(/\s|\+/g, '%20');
     }
 
     const storageKey = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${key}`;
@@ -54,8 +54,8 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
     let clickedResultStorageKeyId: string;
 
     if (id === 'url') {
-      // eslint-disable-next-line max-len
-      clickedResultStorageKeyId = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${window.location.href}`;
+      const url = window.location.href.replace(/\s|\+/g, '%20');
+      clickedResultStorageKeyId = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${url}`;
     } else {
       clickedResultStorageKeyId = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${id}`;
     }
@@ -71,8 +71,8 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
     let clickedResultStorageKeyId: string;
 
     if (!id) {
-      // eslint-disable-next-line max-len
-      clickedResultStorageKeyId = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${window.location.href}`;
+      const url = window.location.href.replace(/\s|\+/g, '%20');
+      clickedResultStorageKeyId = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${url}`;
     } else {
       clickedResultStorageKeyId = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${id}`;
     }
