@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.44](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.43...@empathyco/x-components@3.0.0-alpha.44) (2022-01-14)
+
+### ⚠ BREAKING CHANGES
+
+- **components:** `SlidingPanel` buttons do not have the round variant set by default.
+
+### Features
+
+- **components:** add `buttonClass` prop in `SlidingPanel`
+  ([fa554a2](https://github.com/empathyco/x/commit/fa554a2231ec9a00b5aea566970c2b7b0d34845f)),
+  closes [EX-5233](https://searchbroker.atlassian.net/browse/EX-5233)
+- **components:** add Result Rating component
+  ([db5cbb5](https://github.com/empathyco/x/commit/db5cbb5779e0e503ec934df4cda3dd241c49fc8e)),
+  closes [EX-5243](https://searchbroker.atlassian.net/browse/EX-5243)
+
+### Bug Fixes
+
+- **design-system:** Fix some style issues and add two missing utilities
+  ([c4ae728](https://github.com/empathyco/x/commit/c4ae728d78b36ee566ca283626e36bf9b6aed07f)),
+  closes [EX-5270](https://searchbroker.atlassian.net/browse/EX-5270)
+- **identifier-results:** Fix default plugin config. (#296)
+  ([68d4b93](https://github.com/empathyco/x/commit/68d4b93f3f8d439814a11055ac657c0bce5accfd)),
+  closes [EX-5247](https://searchbroker.atlassian.net/browse/EX-5247)
+  [EX-5247](https://searchbroker.atlassian.net/browse/EX-5247)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.42...@empathyco/x-components@3.0.0-alpha.43) (2022-01-06)
 
 ### Features
