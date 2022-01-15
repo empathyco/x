@@ -7,6 +7,7 @@ Feature: Tagging component
     And   a recommendations API with a known response
     And   a query tagging API
     And   a click tagging API
+    And   an add to cart tagging API
 
   Scenario: 1. Navigating to a URL with a query triggers the query tagging.
     Given a results API with a known response
@@ -71,3 +72,12 @@ Feature: Tagging component
     Then results page number 2 is loaded
     And query tagging request has been triggered
     And second page query tagging request is triggered
+
+  Scenario: 9. Tracking PDP add to cart
+    Given a results API with a known response
+    And no special config for layout view
+    When start button is clicked
+    And "lego" is searched
+    And first result is clicked
+    And add product to cart was called
+    Then add product to cart tagging request has been triggered

@@ -1,6 +1,6 @@
 <template>
   <div class="x">
-    <Tagging :consent="false" clicked-result-storage-key="id" />
+    <Tagging :consent="false" />
     <ExtraParams :values="initialExtraParams" />
     <UrlHandler query="q" store="store" />
     <SnippetCallbacks />

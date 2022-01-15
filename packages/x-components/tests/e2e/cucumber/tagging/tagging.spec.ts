@@ -50,3 +50,14 @@ Then('result click tagging includes location {string}', location => {
     .then(JSON.parse)
     .should('have.property', 'location', location);
 });
+
+When('add product to cart was called', () => {
+  cy.window().then(window => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    window.X?.addProductToCart();
+  });
+});
+
+Then('add product to cart tagging request has been triggered', () => {
+  cy.wait('@addToCartTagging').should('exist');
+});

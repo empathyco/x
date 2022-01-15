@@ -46,7 +46,7 @@ export function createResultStub(name: string, result?: Partial<Result>): Result
       value: 5
     },
     tagging: getResultTagging(kebabCaseName),
-    url: `/products/${kebabCaseName}`,
+    url: `${location.origin}/products/${kebabCaseName}`,
     ...result
   };
 }
