@@ -33,11 +33,29 @@ export interface TaggingXEvents {
    */
   SessionDurationProvided: number;
 
+  /**
+   * The time to store the information for a result clicked by the user has been provided.
+   * * Payload: The new result storage duration value.
+   */
   ClickedResultStorageDurationProvided: number;
 
+  /**
+   * The field of {@link @empathy/x-types#Result | result} to be use as id for
+   * storing the information.
+   * * Payload: The new id storage value.
+   */
   ClickedResultStorageKeyProvided: string;
 
+  /**
+   * ClickedResultStorageKeyProvided has been configured to use the
+   * {@link @empathy/x-types#Result | result} url.
+   * * Payload: The new clickedResultStorageKey.
+   */
   ResultURLTrackingEnabled: string;
 
+  /**
+   * A product description page has been loaded.
+   * Payload: the id of the product.
+   */
   PDPIsLoaded: string;
 }
