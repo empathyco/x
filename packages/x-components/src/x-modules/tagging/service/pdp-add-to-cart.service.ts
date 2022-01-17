@@ -82,6 +82,13 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
       this.store.dispatch('x/tagging/track', result.tagging.add2cart);
     } else {
       this.logger.warn(`No result info found for ${clickedResultStorageKeyId}`);
+
+      const { clickedResultStorageKey } = this.store.state.x.tagging.config;
+      if (!id && clickedResultStorageKey !== 'url') {
+        this.logger.warn(
+          'No product id was provided but the storage was not configured to use the url'
+        );
+      }
     }
   }
 }
