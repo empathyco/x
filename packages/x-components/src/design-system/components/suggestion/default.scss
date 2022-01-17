@@ -9,6 +9,7 @@
   align-items: var(--x-string-align-items-suggestion-default);
 
   // color
+  border: none;
   background-color: var(--x-color-background-suggestion-default);
   color: var(--x-color-text-suggestion-default);
 
@@ -28,17 +29,6 @@
   padding-inline-end: var(--x-size-padding-right-suggestion-default);
   gap: var(--x-size-gap-suggestion-default);
   @include safari-gap(var(--x-size-gap-suggestion-default));
-
-  // border
-  border: none;
-  border-block-start-width: var(--x-size-border-width-top-tag-default);
-  border-block-end-width: var(--x-size-border-width-bottom-tag-default);
-  border-inline-start-width: var(--x-size-border-width-left-tag-default);
-  border-inline-end-width: var(--x-size-border-width-right-tag-default);
-  border-radius: var(--x-size-border-radius-top-left-tag-default)
-  var(--x-size-border-radius-top-right-tag-default)
-  var(--x-size-border-radius-bottom-right-tag-default)
-  var(--x-size-border-radius-bottom-left-tag-default);
 
   &__query {
     // layout

@@ -1,11 +1,5 @@
 <template functional>
-  <svg
-    :class="['x-icon'].concat(data.staticClass, data.class)"
-    viewBox="0 0 16 16"
-    version="1.1"
-    xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-  >
+  <svg :class="['x-icon'].concat(data.staticClass, data.class)" viewBox="0 0 16 16">
     <g transform="translate(4.242357, 2.863380)">
       <circle cx="3.75764308" cy="6.31662026" r="1"></circle>
       <line x1="3.75741299" y1="6.56689109" x2="3.75741299" y2="8.81689109"></line>

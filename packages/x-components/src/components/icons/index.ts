@@ -39,7 +39,6 @@ export { default as Nq1Icon } from './nq-1.vue';
 export { default as Nq2Icon } from './nq-2.vue';
 export { default as Nq3Icon } from './nq-3.vue';
 export { default as Nq4Icon } from './nq-4.vue';
-export { default as Nq5Icon } from './light-bulb-on.vue';
 export { default as PlusIcon } from './plus.vue';
 export { default as SearchIcon } from './search.vue';
 export { default as ShowIcon } from './show.vue';

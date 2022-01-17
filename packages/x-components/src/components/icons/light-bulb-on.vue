@@ -1,13 +1,7 @@
 <template functional>
-  <svg
-    :class="['x-icon'].concat(data.staticClass, data.class)"
-    viewBox="0 0 16 16"
-    version="1.1"
-    xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-  >
-    <g fill="none" fill-rule="evenodd" transform="translate(2.242357, 0.863380)">
-      <circle id="Oval" cx="5.63368532" cy="8.18" r="1"></circle>
+  <svg :class="['x-icon'].concat(data.staticClass, data.class)" viewBox="0 0 16 16">
+    <g fill-rule="evenodd" transform="translate(2.242357, 0.863380)">
+      <circle cx="5.63368532" cy="8.18" r="1"></circle>
       <line x1="5.63345522" y1="8.43027083" x2="5.63345522" y2="10.6802708"></line>
       <line x1="3.84264074" y1="10.6802708" x2="7.44043714" y2="10.6802708"></line>
       <path
