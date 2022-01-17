@@ -51,6 +51,10 @@ Then('result click tagging includes location {string}', location => {
     .should('have.property', 'location', location);
 });
 
+Then('url matches {string}', (match: string) => {
+  cy.location('pathname').should('match', new RegExp(match));
+});
+
 When('add product to cart was called', () => {
   cy.window().then(window => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call

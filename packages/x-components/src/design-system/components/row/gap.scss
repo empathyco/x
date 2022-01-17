@@ -1,5 +1,7 @@
-@for $i from 2 through 6 {
-  .x-row--gap-0#{$i} {
-    --x-size-gap-row: var(--x-size-gap-row-0#{$i});
+@import '../../variables';
+
+@each $size, $size-value in $sizes {
+  .x-row--gap-#{$size} {
+    --x-size-gap-row: var(--x-size-gap-row-#{$size});
   }
 }

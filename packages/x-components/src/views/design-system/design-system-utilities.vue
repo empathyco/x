@@ -474,6 +474,46 @@
         <div class="x-background--neutral-100 x-margin--left-04">Margin Left 04</div>
       </div>
     </article>
+
+    <article class="positions x-list x-list--wrap x-list--gap-06 x-list--align-start">
+      <h2 class="x-title2">Position</h2>
+      <div class="x-background--neutral-95 x-padding--03 x-absolute">Absolute</div>
+      <div class="x-background--neutral-95 x-padding--03 x-static">Static</div>
+      <div class="x-background--neutral-95 x-padding--03 x-fixed">Fixed</div>
+      <div class="x-background--neutral-95 x-padding--03 x-relative">Relative</div>
+      <div class="x-background--neutral-95 x-padding--03 x-sticky">Sticky</div>
+    </article>
+
+    <article class="positions x-list x-list--wrap x-list--gap-06 x-list--align-start">
+      <h2 class="x-title2">Line Clamp</h2>
+      <div v-for="lines in 5" :key="lines">
+        <h3 class="x-title3">Line Clamp {{ ++lines }}</h3>
+        <p class="x-background--neutral-95" :class="' x-line-clamp--' + lines">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas auctor ligula et
+          tristique malesuada. Nullam fringilla orci quis euismod bibendum. Cras mattis volutpat
+          rutrum. Ut laoreet sagittis lorem ac fermentum. Sed sagittis metus nulla, sit amet
+          vestibulum nisl auctor eu. Donec lobortis sollicitudin commodo. Vivamus efficitur nibh vel
+          elementum mollis. Mauris eget odio lectus. Suspendisse potenti. Proin ornare pharetra
+          tempor. Cras sed neque eget odio lacinia sagittis. Cras a gravida velit. Ut porttitor,
+          neque sed volutpat lacinia, nisi massa cursus neque, vitae dictum quam enim quis ligula.
+          Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+          Nunc rhoncus ornare diam, ac venenatis sapien facilisis in. Integer vitae vulputate quam,
+          in imperdiet tortor. Nam lacus purus, porttitor eu turpis a, finibus malesuada dolor. Ut
+          massa lacus, sodales eget dictum sed, gravida sit amet lectus. Aliquam quis arcu dolor.
+          Duis volutpat lacus ac dolor scelerisque ultricies. Fusce finibus leo ut auctor bibendum.
+          Aliquam sed nisi dui. Fusce laoreet purus justo, vel eleifend tellus iaculis ac. Integer
+          eget consequat ex. Quisque in dictum ipsum. Mauris sit amet nisl feugiat, mattis magna
+          sed, vestibulum augue. Nunc non ante in nisi dictum luctus eu a nibh. Ut eleifend ipsum
+          tellus, sit amet dapibus est auctor a. Integer ante est, rhoncus et risus volutpat,
+          ultricies dictum urna. Duis sed cursus massa. Quisque ut tortor enim. Donec semper leo in
+          venenatis rhoncus. Phasellus eget blandit metus. Aenean nisl urna, interdum eget hendrerit
+          vitae, pellentesque at augue. Mauris condimentum tortor egestas, faucibus sem eu, rhoncus
+          massa. Suspendisse viverra dolor vitae enim accumsan volutpat. Duis id dictum enim, vitae
+          dapibus sapien. Phasellus interdum mi in lorem pretium hendrerit. Sed massa tellus,
+          volutpat quis rhoncus in, tempus et nisl. Proin lacinia ullamcorper nisi eu aliquet.
+        </p>
+      </div>
+    </article>
   </section>
 </template>
 
@@ -517,7 +557,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .x-background--neutral-10 {
     color: var(--x-color-base-neutral-100);
   }
@@ -529,5 +569,15 @@
 
   .x-font-color--transparent {
     text-shadow: #888888 0px 0px;
+  }
+
+  .positions {
+    .x-absolute,
+    .x-static,
+    .x-fixed,
+    .x-relative,
+    .x-sticky {
+      position: static !important;
+    }
   }
 </style>
