@@ -87,10 +87,19 @@
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     render(): void {}
 
+    /**
+     * To emit the event that PDP is loaded  just when the snippet config includes a product id.
+     */
     created(): void {
       this.emitEvents();
     }
 
+    /**
+     * Emits the {@link TaggingXEvents.PDPIsLoaded} XEvent if the snippet config contains
+     * a product id.
+     *
+     * @internal
+     */
     protected emitEvents(): void {
       if (this.snippetConfig?.productId) {
         this.$x.emit('PDPIsLoaded', this.snippetConfig.productId);
