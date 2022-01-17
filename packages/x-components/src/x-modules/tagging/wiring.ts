@@ -42,10 +42,30 @@ const wireDispatch = namespacedWireDispatch(moduleName);
  */
 const wireSessionServiceWithoutPayload = wireServiceWithoutPayload(DefaultSessionService.instance);
 
+/**
+ * Wires factory for {@link DefaultPDPAddToCartService}.
+ */
 const wirePDPAddToCartService = wireService(DefaultPDPAddToCartService.instance);
 
+/**
+ * Stores the given result on the local storage.
+ *
+ * @public
+ */
 const storeClickedResultWire = wirePDPAddToCartService('storeResultClicked');
+
+/**
+ * Moves the result information from the local storage to session storage.
+ *
+ * @public
+ */
 const moveClickedResultToSessionWire = wirePDPAddToCartService('moveToSessionStorage');
+
+/**
+ * Triggers the add to cart tracking.
+ *
+ * @public
+ */
 const trackAddToCartFromSessionStorage = wirePDPAddToCartService('trackAddToCart');
 
 /**

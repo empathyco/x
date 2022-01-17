@@ -60,7 +60,17 @@ export interface TaggingMutations {
    */
   setQueryTaggingInfo(queryTaggingInfo: TaggingInfo): void;
 
+  /**
+   * Sets the {@link TaggingConfig.clickedResultStorageKey} property.
+   *
+   * @param clickedResultStorageKey - The new {@link TaggingConfig.clickedResultStorageKey}.
+   */
   setClickedResultStorageKey(clickedResultStorageKey: string): void;
+  /**
+   * Sets the {@link TaggingConfig.clickedResultStorageTTLMs} property.
+   *
+   * @param clickedResultStorageTTLMs - The new {@link TaggingConfig.clickedResultStorageTTLMs}.
+   */
   setClickedResultStorageTTL(clickedResultStorageTTL: number): void;
 }
 
