@@ -80,9 +80,9 @@ Feature: Tagging component
 
   Scenario: 9. Tracking PDP add to cart
     Given a results API with a known response
-    And no special config for layout view
-    When start button is clicked
-    And "lego" is searched
-    And first result is clicked
-    And add product to cart was called
-    Then add product to cart tagging request has been triggered
+    And   no special config for layout view
+    When  start button is clicked
+    And   "lego" is searched
+    And   first result is clicked
+    And   add product to cart was called
+    Then  add product to cart tagging request has been triggered
