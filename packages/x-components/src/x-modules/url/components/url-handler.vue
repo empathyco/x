@@ -6,6 +6,7 @@
   import Vue from 'vue';
   import GlobalEvents from 'vue-global-events';
   import { Component, Inject } from 'vue-property-decorator';
+  import { State } from '../../../components';
   import { XOn } from '../../../components/decorators/bus.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { FeatureLocation } from '../../../types/origin';
@@ -79,6 +80,9 @@
     protected get managedParamsNames(): string[] {
       return Object.keys({ ...initialUrlState, ...this.$attrs });
     }
+
+    @State('url', 'initialExtraParams')
+    public initialExtraParams!: Dictionary<unknown>;
 
     /**
      * Returns the mapping of the param keys used in the URL is configured through $attrs. This way
@@ -260,7 +264,7 @@
           }
           return params;
         },
-        { all: { ...initialUrlState }, extra: {} }
+        { all: { ...initialUrlState }, extra: { ...this.initialExtraParams } }
       );
     }
 
