@@ -1,4 +1,4 @@
-import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 // Scenario 1
 Given('a URL with query parameter {string}', (query: string) => {
@@ -26,11 +26,11 @@ When('clicking result in position {int}', (index: number) => {
 });
 
 // Scenario 4
-Then("url doesn't contain parameter {string} with value {string}", (key: string, value: string) => {
+And("url doesn't contain parameter {string} with value {string}", (key: string, value: string) => {
   cy.location('search').should('not.contain', `${key}=${value}`);
 });
 
-Then('url contains parameter {string} with value {string}', (key: string, value: string) => {
+And('url contains parameter {string} with value {string}', (key: string, value: string) => {
   cy.location('search').should('contain', `${key}=${value}`);
 });
 
