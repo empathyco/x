@@ -50,3 +50,7 @@ Then('result click tagging includes location {string}', location => {
     .then(JSON.parse)
     .should('have.property', 'location', location);
 });
+
+Then('url matches {string}', (match: string) => {
+  cy.location('pathname').should('match', new RegExp(match));
+});
