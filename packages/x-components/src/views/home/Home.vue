@@ -378,12 +378,10 @@
                         </template>
 
                         <template #next-queries-group="{ item: { nextQueries } }">
-                          <div class="x-list x-padding--06 x-background--neutral-95">
-                            <div class="x-padding--00">
-                              <h1 class="x-title2 x-text--bold x-padding--bottom-03">
-                                You may be interested
-                              </h1>
-                              <p class="x-text x-font-size--05 x-margin--bottom-05">
+                          <div class="x-list x-padding--06 x-background--neutral-95 x-list--gap-06">
+                            <div class="x-list x-list--gap-03">
+                              <h1 class="x-title2 x-text--bold">You may be interested</h1>
+                              <p class="x-text x-font-size--05">
                                 This is what other shoppers searched after
                                 <span class="x-font-weight--bold">"{{ $x.query.search }}"</span>
                               </p>

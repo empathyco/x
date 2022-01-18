@@ -45,6 +45,7 @@
     // color
     --x-color-background-suggestion-default: var(--x-color-background-tag-default);
     --x-color-text-suggestion-default: var(--x-color-text-tag-default);
+    --x-color-border-suggestion-default: var(--x-color-border-tag-default);
 
     // size
     --x-size-padding-top-suggestion-default:  0;
@@ -52,6 +53,19 @@
     --x-size-padding-bottom-suggestion-default: 0;
     --x-size-padding-left-suggestion-default: var(--x-size-padding-left-tag-default);
     --x-size-gap-suggestion-default: var(--x-size-gap-tag-default);
+
+    // border
+    --x-size-border-width-suggestion-default: var(--x-size-border-width-tag-default);
+    --x-size-border-width-top-suggestion-default: var(--x-size-border-width-tag-default);
+    --x-size-border-width-right-suggestion-default: var(--x-size-border-width-tag-default);
+    --x-size-border-width-bottom-suggestion-default: var(--x-size-border-width-tag-default);
+    --x-size-border-width-left-suggestion-default: var(--x-size-border-width-tag-default);
+
+    --x-size-border-radius-suggestion-default: var(--x-size-border-radius-tag-default);
+    --x-size-border-radius-bottom-right-suggestion-default: var(--x-size-border-radius-bottom-right-tag-default);
+    --x-size-border-radius-bottom-left-suggestion-default: var(--x-size-border-radius-bottom-leftt-tag-default);
+    --x-size-border-radius-top-right-suggestion-default: var(--x-size-border-radius-top-right-tag-default);
+    --x-size-border-radius-top-left-suggestion-default: var(--x-size-border-radius-top-left-tag-default);
 
     // typography
     --x-font-family-suggestion-default: var(--x-font-family-tag-default);
@@ -64,6 +78,7 @@
     // color
     --x-color-background-suggestion-group-default: var(--x-color-background-tag-default);
     --x-color-text-suggestion-group-default: var(--x-color-text-tag-default);
+    --x-color-border-suggestion-group-default: var(--x-color-border-tag-default);
 
     // size
     --x-size-padding-top-suggestion-group-default:  0;
@@ -71,6 +86,19 @@
     --x-size-padding-bottom-suggestion-group-default: 0;
     --x-size-padding-left-suggestion-group-default: var(--x-size-padding-left-tag-default);
     --x-size-gap-suggestion-group-default: var(--x-size-gap-tag-default);
+
+    // border
+    --x-size-border-width-suggestion-group-default: var(--x-size-border-width-tag-default);
+    --x-size-border-width-top-suggestion-group-default: var(--x-size-border-width-tag-default);
+    --x-size-border-width-right-suggestion-group-default: var(--x-size-border-width-tag-default);
+    --x-size-border-width-bottom-suggestion-group-default: var(--x-size-border-width-tag-default);
+    --x-size-border-width-left-suggestion-group-default: var(--x-size-border-width-tag-default);
+
+    --x-size-border-radius-suggestion-group-default: var(--x-size-border-radius-tag-default);
+    --x-size-border-radius-bottom-right-suggestion-group-default: var(--x-size-border-radius-bottom-right-tag-default);
+    --x-size-border-radius-bottom-left-suggestion-group-default: var(--x-size-border-radius-bottom-leftt-tag-default);
+    --x-size-border-radius-top-right-suggestion-group-default: var(--x-size-border-radius-top-right-tag-default);
+    --x-size-border-radius-top-left-suggestion-group-default: var(--x-size-border-radius-top-left-tag-default);
 
     // typography
     --x-font-family-suggestion-group-default: var(--x-font-family-tag-default);

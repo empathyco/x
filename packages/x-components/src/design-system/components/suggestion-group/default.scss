@@ -9,6 +9,7 @@
   // color
   background-color: var(--x-color-background-suggestion-group-default);
   color: var(--x-color-text-suggestion-group-default);
+  border-color: var(--x-color-border-suggestion-group-default);
 
   // typography
   font-family: var(--x-font-family-suggestion-group-default);
@@ -26,6 +27,17 @@
   padding-inline-end: var(--x-size-padding-right-suggestion-group-default);
   gap: var(--x-size-gap-suggestion-group-default);
   @include safari-gap(var(--x-size-gap-suggestion-group-default));
+
+  // border
+  border: none;
+  border-block-start-width: var(--x-size-border-width-top-suggestion-group-default);
+  border-block-end-width: var(--x-size-border-width-bottom-suggestion-group-default);
+  border-inline-start-width: var(--x-size-border-width-left-suggestion-group-default);
+  border-inline-end-width: var(--x-size-border-width-right-suggestion-group-default);
+  border-radius: var(--x-size-border-radius-top-left-suggestion-group-default)
+  var(--x-size-border-radius-top-right-suggestion-group-default)
+  var(--x-size-border-radius-bottom-right-suggestion-group-default)
+  var(--x-size-border-radius-bottom-left-suggestion-group-default);
 
   .x-suggestion {
     // layout
