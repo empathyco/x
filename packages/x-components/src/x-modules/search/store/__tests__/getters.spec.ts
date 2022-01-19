@@ -1,11 +1,9 @@
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { SearchRequest } from '@empathyco/x-adapter';
 import { map } from '../../../../utils';
+import { InternalSearchRequest } from '../../types';
 import { searchXStoreModule } from '../module';
 import { SearchState } from '../types';
-import { getSelectedRelatedTagsStub } from '../../../../__stubs__/related-tags-stubs.factory';
-import { getSimpleFilterStub } from '../../../../__stubs__/filters-stubs.factory';
 import { resetSearchStateWith } from './utils';
 
 describe('testing search module getters', () => {
@@ -18,49 +16,22 @@ describe('testing search module getters', () => {
   });
 
   describe(`${gettersKeys.request} getter`, () => {
-    it('should return a request object if there is a query', () => {
+    it('should return a request object if there is a query with module properties', () => {
       resetSearchStateWith(store, {
         query: 'doraemon',
+        page: 3,
         params: {
           catalog: 'es'
         }
       });
 
-      expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
+      expect(store.getters[gettersKeys.request]).toEqual<InternalSearchRequest>({
         query: 'doraemon',
         relatedTags: [],
         filters: {},
         sort: '',
-        rows: 24,
-        start: 0,
+        page: 3,
         catalog: 'es'
-      });
-    });
-
-    it('calculates the search request with the module properties', () => {
-      const selectedFilters: SearchState['selectedFilters'] = { category: [getSimpleFilterStub()] };
-      const relatedTags = getSelectedRelatedTagsStub();
-      resetSearchStateWith(store, {
-        query: 'salchipapa',
-        sort: 'price-asc',
-        relatedTags,
-        selectedFilters,
-        config: {
-          pageSize: 48
-        },
-        params: {
-          warehouse: 1234
-        }
-      });
-
-      expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
-        query: 'salchipapa',
-        sort: 'price-asc',
-        filters: selectedFilters,
-        relatedTags,
-        rows: 48,
-        start: 0,
-        warehouse: 1234
       });
     });
 
@@ -73,89 +44,6 @@ describe('testing search module getters', () => {
         query: ' '
       });
       expect(store.getters[gettersKeys.request]).toBeNull();
-    });
-
-    it('calculates the start parameter correctly when the page changes', () => {
-      resetSearchStateWith(store, {
-        query: 'salchipapa',
-        page: 2,
-        config: {
-          pageSize: 24
-        }
-      });
-
-      expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
-        query: 'salchipapa',
-        filters: {},
-        relatedTags: [],
-        sort: '',
-        rows: 48,
-        start: 0
-      });
-
-      resetSearchStateWith(store, { query: 'salchipapa', page: 5 });
-
-      expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
-        query: 'salchipapa',
-        filters: {},
-        relatedTags: [],
-        sort: '',
-        rows: 120,
-        start: 0
-      });
-
-      resetSearchStateWith(store, { query: 'salchipapa', page: 1 });
-
-      expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
-        query: 'salchipapa',
-        filters: {},
-        relatedTags: [],
-        sort: '',
-        rows: 24,
-        start: 0
-      });
-    });
-
-    it('calculates the start and rows parameters correctly when there is scroll down', () => {
-      resetSearchStateWith(store, {
-        query: 'salchipapa',
-        page: 2,
-        config: {
-          pageSize: 24
-        },
-        isAppendResults: true
-      });
-
-      expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
-        query: 'salchipapa',
-        filters: {},
-        relatedTags: [],
-        sort: '',
-        rows: 24,
-        start: 24
-      });
-
-      resetSearchStateWith(store, { query: 'salchipapa', page: 5, isAppendResults: true });
-
-      expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
-        query: 'salchipapa',
-        filters: {},
-        relatedTags: [],
-        sort: '',
-        rows: 24,
-        start: 96
-      });
-
-      resetSearchStateWith(store, { query: 'salchipapa', page: 1, isAppendResults: true });
-
-      expect(store.getters[gettersKeys.request]).toEqual<SearchRequest>({
-        query: 'salchipapa',
-        filters: {},
-        relatedTags: [],
-        sort: '',
-        rows: 24,
-        start: 0
-      });
     });
   });
 });

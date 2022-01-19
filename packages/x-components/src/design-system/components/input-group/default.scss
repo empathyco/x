@@ -90,7 +90,15 @@
     min-height: var(--x-size-height-input-group-default);
     // need negative margin equals to the border width to make
     // the child border to overlap the parent border.
-    margin: calc(#{var(--x-size-border-width-input-group-default)} * -1);
+    margin-block-start: calc(#{var(--x-size-border-width-top-input-group-default)} * -1);
+    margin-block-end: calc(#{var(--x-size-border-width-bottom-input-group-default)} * -1);
+  }
+
+  > .x-button:not(.x-input-group__action) {
+    // typography
+    font-weight: var(--x-number-font-weight-input-group-default-button);
+
+    //layout
     &:first-child {
       margin-inline-end: 0;
     }
@@ -99,16 +107,17 @@
     }
   }
 
-  > .x-button:not(.x-input-group__action) {
-    // typography
-    font-weight: var(--x-number-font-weight-input-group-default-button);
-  }
-
   > .x-input-group__action {
     // size
     box-sizing: border-box;
     padding: 0 calc(#{var(--x-size-padding-input-group-default-action)} - 1px);
     min-width: var(--x-size-height-input-group-default);
+    &:first-child {
+      margin-inline-start: calc(#{var(--x-size-border-width-left-input-group-default)} * -1);
+    }
+    &:last-child {
+      margin-inline-end: calc(#{var(--x-size-border-width-right-input-group-default)} * -1);
+    }
 
     // border
     border-radius: var(--x-size-border-radius-top-left-input-group-default)

@@ -120,7 +120,7 @@ export const historyQueriesWiring = createWiring({
     setHistoryQueriesQueryDebounce: moduleDebounce(
       setHistoryQueriesQuery,
       ({ state }) => state.config.debounceInMs,
-      'UserAcceptedAQuery'
+      { cancelOn: 'UserAcceptedAQuery' }
     )
   },
   UserPressedClearHistoryQueries: {

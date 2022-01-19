@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-adapter",
-  "version": "7.0.0-alpha.7",
+  "version": "7.0.0-alpha.9",
   "description": "A search client for the Empathy search API ",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -44,7 +44,7 @@
     "@empathyco/x-get-safe-property-chain": "^1.3.0-alpha.1",
     "@empathyco/x-logger": "^1.1.0",
     "@empathyco/x-storage-service": "^2.0.0-alpha.0",
-    "@empathyco/x-types": "^10.0.0-alpha.12",
+    "@empathyco/x-types": "^10.0.0-alpha.14",
     "inversify": "~5.0.1",
     "reflect-metadata": "~0.1.13",
     "tslib": "~2.3.0"

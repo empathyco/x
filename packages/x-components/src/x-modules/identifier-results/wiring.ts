@@ -101,7 +101,7 @@ export const identifierResultsWiring = createWiring({
     setIdentifierResultsQueryDebounce: moduleDebounce(
       setIdentifierResultsQuery,
       ({ state }) => state.config.debounceInMs,
-      'UserAcceptedAQuery'
+      { cancelOn: 'UserAcceptedAQuery' }
     )
   },
   UserAcceptedAQuery: {
@@ -116,7 +116,8 @@ export const identifierResultsWiring = createWiring({
     fetchAndSaveIdentifierResultsWire
   },
   ParamsLoadedFromUrl: {
-    setUrlParams
+    setUrlParams,
+    saveIdentifierResultsOriginWire
   },
   ExtraParamsChanged: {
     setIdentifierResultsExtraParams

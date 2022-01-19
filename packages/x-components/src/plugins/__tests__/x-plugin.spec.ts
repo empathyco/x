@@ -417,9 +417,9 @@ describe('testing X Plugin', () => {
       expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(1);
       expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith({
         eventPayload: 'New York strip steak',
-        metadata: {
+        metadata: expect.objectContaining({
           moduleName: 'searchBox'
-        },
+        }),
         store
       });
     });
@@ -437,9 +437,9 @@ describe('testing X Plugin', () => {
         expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(1);
         expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith({
           eventPayload: 'Tomahawk steak',
-          metadata: {
+          metadata: expect.objectContaining({
             moduleName: 'searchBox'
-          },
+          }),
           store
         });
       }
@@ -460,9 +460,9 @@ describe('testing X Plugin', () => {
         expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(1);
         expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith({
           eventPayload: 'Tomahawk steak',
-          metadata: {
+          metadata: expect.objectContaining({
             moduleName: 'searchBox'
-          },
+          }),
           store
         });
       }

@@ -3,6 +3,296 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.44](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.43...@empathyco/x-components@3.0.0-alpha.44) (2022-01-14)
+
+### ⚠ BREAKING CHANGES
+
+- **components:** `SlidingPanel` buttons do not have the round variant set by default.
+
+### Features
+
+- **components:** add `buttonClass` prop in `SlidingPanel`
+  ([fa554a2](https://github.com/empathyco/x/commit/fa554a2231ec9a00b5aea566970c2b7b0d34845f)),
+  closes [EX-5233](https://searchbroker.atlassian.net/browse/EX-5233)
+- **components:** add Result Rating component
+  ([db5cbb5](https://github.com/empathyco/x/commit/db5cbb5779e0e503ec934df4cda3dd241c49fc8e)),
+  closes [EX-5243](https://searchbroker.atlassian.net/browse/EX-5243)
+
+### Bug Fixes
+
+- **design-system:** Fix some style issues and add two missing utilities
+  ([c4ae728](https://github.com/empathyco/x/commit/c4ae728d78b36ee566ca283626e36bf9b6aed07f)),
+  closes [EX-5270](https://searchbroker.atlassian.net/browse/EX-5270)
+- **identifier-results:** Fix default plugin config. (#296)
+  ([68d4b93](https://github.com/empathyco/x/commit/68d4b93f3f8d439814a11055ac657c0bce5accfd)),
+  closes [EX-5247](https://searchbroker.atlassian.net/browse/EX-5247)
+  [EX-5247](https://searchbroker.atlassian.net/browse/EX-5247)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.42...@empathyco/x-components@3.0.0-alpha.43) (2022-01-06)
+
+### Features
+
+- **components:** Add icons for Arrows UP DOWN LEFT and RIGHT. (#295)
+  ([693b26f](https://github.com/empathyco/x/commit/693b26f8e2d250f97bcf0cce472299b2edcc4823)),
+  closes [EX-5245](https://searchbroker.atlassian.net/browse/EX-5245)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.41...@empathyco/x-components@3.0.0-alpha.42) (2022-01-05)
+
+### Features
+
+- **design-system:** Add more utility classes.
+  ([592e076](https://github.com/empathyco/x/commit/592e0761d201d80fdf62ba260ac4ef0847fb7f17)),
+  closes [EX-5241](https://searchbroker.atlassian.net/browse/EX-5241)
+- **desing-system:** Add `Grid2RowsIcon` component
+  ([cbd014f](https://github.com/empathyco/x/commit/cbd014fb1a07c2aa738c3ef828c9caf5ec9ded39)),
+  closes [EX-5238](https://searchbroker.atlassian.net/browse/EX-5238)
+
+### Bug Fixes
+
+- **design-system:** Fix grid styles to stretch cells.
+  ([3292229](https://github.com/empathyco/x/commit/32922290173cc87fe5c82934b9a9e01dc27b3c23)),
+  closes [EX-5239](https://searchbroker.atlassian.net/browse/EX-5239)
+- **design-system:** Fix Sliding Panel styles.
+  ([bcf2092](https://github.com/empathyco/x/commit/bcf20925c3baf7847792b7b77b07178d62a27e7e)),
+  closes [EX-5234](https://searchbroker.atlassian.net/browse/EX-5234)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.41](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.40...@empathyco/x-components@3.0.0-alpha.41) (2022-01-03)
+
+### Features
+
+- **next-queries:** add isCurated property
+  ([8b7b313](https://github.com/empathyco/x/commit/8b7b3132c7fa8aff095a92c84abdc150be705976)),
+  closes [EX-5152](https://searchbroker.atlassian.net/browse/EX-5152)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.39...@empathyco/x-components@3.0.0-alpha.40) (2021-12-29)
+
+### Features
+
+- **tagging:** add new `SearchTaggingReceived` event for tracking the query
+  ([d58b697](https://github.com/empathyco/x/commit/d58b69730915ccd6fb2b0656ff7280450275b5be)),
+  closes [EX-5170](https://searchbroker.atlassian.net/browse/EX-5170)
+
+### Bug Fixes
+
+- **components:** `SlidingPanel` can now disable the resetting scroll … (#286)
+  ([788eb18](https://github.com/empathyco/x/commit/788eb18bf0e066d932484143d0412497f3dada6e)),
+  closes [EX-5197](https://searchbroker.atlassian.net/browse/EX-5197)
+- **related-tags:** clear selected related tags when user changes extra params
+  ([b2d9b94](https://github.com/empathyco/x/commit/b2d9b94053aebbbda41659dbc3e4602931fd1bb5)),
+  closes [EX-5188](https://searchbroker.atlassian.net/browse/EX-5188)
+- **search:** batch state reset calls after a search.request parameter changes (#283)
+  ([492e856](https://github.com/empathyco/x/commit/492e8566913428426459ada29ca4963730cfcd7c)),
+  closes [EX-5057](https://searchbroker.atlassian.net/browse/EX-5057)
+- **search:** next page is now requested if it has less than the page size results. (#284)
+  ([f574792](https://github.com/empathyco/x/commit/f5747923f60f81564ebf124d95cae8a5d92400d4)),
+  closes [EX-5194](https://searchbroker.atlassian.net/browse/EX-5194)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.38...@empathyco/x-components@3.0.0-alpha.39) (2021-12-22)
+
+### Features
+
+- **design-system:** Add bottom variant to `x-shadow` utility in the Design System
+  ([a23552f](https://github.com/empathyco/x/commit/a23552f29d1ec1b7939c770862d91f9e2f3a4890)),
+  closes [EX-5184](https://searchbroker.atlassian.net/browse/EX-5184)
+
+### Bug Fixes
+
+- Fix multiple issues.
+  ([2f5515e](https://github.com/empathyco/x/commit/2f5515e5bcaca67f085ff3eef4fb52698041292c)),
+  closes [EX-5179](https://searchbroker.atlassian.net/browse/EX-5179)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.37...@empathyco/x-components@3.0.0-alpha.38) (2021-12-22)
+
+### Features
+
+- **desing-system:** Add new color tokens. (#275)
+  ([e93fcc4](https://github.com/empathyco/x/commit/e93fcc4cea0e975441695f14a66b0863cb5896af)),
+  closes [EX-5171](https://searchbroker.atlassian.net/browse/EX-5171)
+- **test:** refactor base tests to cypress component testing
+  ([dc7a924](https://github.com/empathyco/x/commit/dc7a924b612411470742d222bcc6531fa656ce13)),
+  closes [EX-4928](https://searchbroker.atlassian.net/browse/EX-4928)
+- **x-plugin:** Add selected sort (#274)
+  ([b4c0d14](https://github.com/empathyco/x/commit/b4c0d140ca5eba8de189068fef5dd2a6249c1207)),
+  closes [EX-5165](https://searchbroker.atlassian.net/browse/EX-5165)
+
+### Bug Fixes
+
+- **components:** Fix infinite scroll not working in Android Chrome. (#277)
+  ([19c3d77](https://github.com/empathyco/x/commit/19c3d77f124a1bbc099bae0e5dbb80fb30a132a1)),
+  closes [EX-5181](https://searchbroker.atlassian.net/browse/EX-5181)
+- **search:** rows and start parameters calculations moved from getter to action to avoid multiple
+  requests
+  ([84752ba](https://github.com/empathyco/x/commit/84752ba3eb1ab728b6adf5cc62ea31646f42b959)),
+  closes [EX-5047](https://searchbroker.atlassian.net/browse/EX-5047)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.36...@empathyco/x-components@3.0.0-alpha.37) (2021-12-15)
+
+### Features
+
+- **scroll:** remove animations on pending element to scroll
+  ([7a33653](https://github.com/empathyco/x/commit/7a336531c4fedb2c38133a5464f9b7e9736cef68)),
+  closes [EX-5025](https://searchbroker.atlassian.net/browse/EX-5025)
+- **tagging:** Include 'location' parameter to track result events. (#273)
+  ([69bab4b](https://github.com/empathyco/x/commit/69bab4b81f85725f3fc0a9bdc3177db09dd46a40)),
+  closes [EX-5163](https://searchbroker.atlassian.net/browse/EX-5163)
+  [EX-5163](https://searchbroker.atlassian.net/browse/EX-5163)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.35...@empathyco/x-components@3.0.0-alpha.36) (2021-12-15)
+
+### Build System
+
+- Load PostCSS plugins from rollup build (#272)
+  ([aaed2f3](https://github.com/empathyco/x/commit/aaed2f328b0b7252853922703283c77bcd1221d0)),
+  closes [EX-5162](https://searchbroker.atlassian.net/browse/EX-5162)
+
+### Testing
+
+- **e2e:** fix tagging tests (#270)
+  ([ff2ecba](https://github.com/empathyco/x/commit/ff2ecbac79fd3c16d72a05c133dbe0b60de606f7)),
+  closes [EX-5161](https://searchbroker.atlassian.net/browse/EX-5161)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.34...@empathyco/x-components@3.0.0-alpha.35) (2021-12-14)
+
+### Features
+
+- **components:** fix 'BaseRating' component styles (#264)
+  ([053447f](https://github.com/empathyco/x/commit/053447fdb2884f04f6099b6b78876c006568a644)),
+  closes [EX-5096](https://searchbroker.atlassian.net/browse/EX-5096)
+- **plugin:** move alias creation from created hook to beforeCreated
+  ([57f98e6](https://github.com/empathyco/x/commit/57f98e6587c0c589c4b6581a5f2c1da1a45757d8)),
+  closes [EX-4331](https://searchbroker.atlassian.net/browse/EX-4331)
+- **tagging:** track pending query
+  ([e6c8fd4](https://github.com/empathyco/x/commit/e6c8fd401b28b2e931ebf78697f218f53134cc5a)),
+  closes [EX-4963](https://searchbroker.atlassian.net/browse/EX-4963)
+- **tagging:** track result click events
+  ([81f009b](https://github.com/empathyco/x/commit/81f009b0a6264c44436082e457bcb4a12daf5d19)),
+  closes [EX-3527](https://searchbroker.atlassian.net/browse/EX-3527)
+- **tagging:** track the 'UserClickedResultAddToCart'event in tagging
+  ([873d345](https://github.com/empathyco/x/commit/873d345d67199a64fe9f10c70944b4f74f290405)),
+  closes [EX-3529](https://searchbroker.atlassian.net/browse/EX-3529)
+- **wiring:** add force and cancel support to debounce and throttle wire operators. Update rxjs to
+  v7. ([1fe2f29](https://github.com/empathyco/x/commit/1fe2f298589b1aa44798f3911379fe11905a43a9)),
+  closes [EX-5123](https://searchbroker.atlassian.net/browse/EX-5123)
+
+### Bug Fixes
+
+- **components:** Export missing layout components
+  ([15986f5](https://github.com/empathyco/x/commit/15986f56b8b78b49abe70936c0bd2ba6d85a6bbb)),
+  closes [EX-5160](https://searchbroker.atlassian.net/browse/EX-5160)
+- **extra-params:** prevent callbacks option from the snippet config to be taken as extra params
+  ([2940d2c](https://github.com/empathyco/x/commit/2940d2c7163904a193c459892792b2153de7d079)),
+  closes [EX-5104](https://searchbroker.atlassian.net/browse/EX-5104)
+
+### Testing
+
+- **e2e:** make url tests intercept tracking and wait for each request
+  ([393dbea](https://github.com/empathyco/x/commit/393dbea71648b010a4f3d197c180c91741c6054b)),
+  closes [EX-5127](https://searchbroker.atlassian.net/browse/EX-5127)
+
+### Documentation
+
+- add guide for integrating X Interface into an existing website
+  ([9e14a52](https://github.com/empathyco/x/commit/9e14a52389c77deede822643e50b34e5bbf78ddf)),
+  closes [EX-5143](https://searchbroker.atlassian.net/browse/EX-5143)
+- change h1 to be h2
+  ([a7e16c6](https://github.com/empathyco/x/commit/a7e16c616fe2593eccf93799f9a46c688857b35b)),
+  closes [EX-5064](https://searchbroker.atlassian.net/browse/EX-5064)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.33...@empathyco/x-components@3.0.0-alpha.34) (2021-12-03)
+
+### Features
+
+- **search-box:** focus search input after clicking clear search button
+  ([d28994c](https://github.com/empathyco/x/commit/d28994c1995834a1adb19798060051089200d7f7)),
+  closes [EX-2242](https://searchbroker.atlassian.net/browse/EX-2242)
+- **tagging:** move `origin` from `request.getter` to `fetchAndSave.action`
+  ([b0bb40d](https://github.com/empathyco/x/commit/b0bb40de5e2ae7f65e2e2df032a1da9a51f0cb4d)),
+  closes [EX-5079](https://searchbroker.atlassian.net/browse/EX-5079)
+- **url:** set `origin` when navigating
+  ([02aa766](https://github.com/empathyco/x/commit/02aa7661a15c3718f4809d094a01b0f684a1f55d)),
+  closes [EX-3541](https://searchbroker.atlassian.net/browse/EX-3541)
+
+### Documentation
+
+- Remove docusaurus headers
+  ([6252165](https://github.com/empathyco/x/commit/62521658374eb5c78112314502606e2d82113a95)),
+  closes [EX-5081](https://searchbroker.atlassian.net/browse/EX-5081)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.32...@empathyco/x-components@3.0.0-alpha.33) (2021-11-30)
+
+### Features
+
+- **related-tags:** add `isCurated` property to related tags
+  ([e063f45](https://github.com/empathyco/x/commit/e063f4560573bcb1bf32fbe49753f2fe6b235cc7)),
+  closes [EX-4940](https://searchbroker.atlassian.net/browse/EX-4940)
+- **search:** change `saveOriginWire` wire from `SelectedRelatedTagsChanged` to
+  `UserPickedARelatedTag` (#254)
+  ([86072b0](https://github.com/empathyco/x/commit/86072b0805a3dc61b75c0a5760cf2c70e125be34)),
+  closes [EX-5078](https://searchbroker.atlassian.net/browse/EX-5078)
+- **utils:** now `origin` only requires the `feature`
+  ([087d646](https://github.com/empathyco/x/commit/087d646a2b97f945e9c4f81112925a6783d66f41)),
+  closes [EX-5077](https://searchbroker.atlassian.net/browse/EX-5077)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.31...@empathyco/x-components@3.0.0-alpha.32) (2021-11-29)
 
 ### ⚠ BREAKING CHANGES

@@ -174,19 +174,19 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This default suggestion component expects a suggestion to render and pass to its default slot, a
 normalized query to compare with the suggestion's query and highlight its matching parts and events
 to emit when the suggestion is selected.
 
-## Default usage
+### Default usage
 
 ```vue
 <BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }" />
 ```
 
-## Customized usage
+### Customized usage
 
 ```vue
 <BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }">

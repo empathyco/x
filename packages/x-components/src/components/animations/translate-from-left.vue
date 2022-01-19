@@ -34,7 +34,7 @@
 </style>
 
 <docs lang="mdx">
-# Example
+## Example
 
 The `TranslateFromRight` component is intended to be used as animation to wrap an element with v-if
 or v-show and animate it. The animation translates the item from/to left 100%.

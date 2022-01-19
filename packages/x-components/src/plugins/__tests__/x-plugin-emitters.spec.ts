@@ -2,7 +2,6 @@ import { createLocalVue } from '@vue/test-utils';
 import { default as Vue, VueConstructor } from 'vue';
 import Vuex, { Store } from 'vuex';
 import { createWireFromFunction } from '../../wiring/wires.factory';
-import { WireMetadata } from '../../wiring/wiring.types';
 import { SearchAdapterDummy } from '../../__tests__/adapter.dummy';
 import { createXModule } from '../../__tests__/utils';
 import { BaseXBus } from '../x-bus';
@@ -249,12 +248,18 @@ describe('testing X Plugin emitters', () => {
 
       XPlugin.registerXModule(xModule);
       localVue.use(plugin, pluginOptions);
-      const metadata: WireMetadata = { moduleName: 'searchBox' };
 
       store.commit('x/searchBox/setQuery', 'wheat');
       await waitNextTick();
       expect(testWire).toHaveBeenCalledTimes(1);
-      expect(testWire).toHaveBeenCalledWith({ eventPayload: 'wheat', metadata, store });
+      expect(testWire).toHaveBeenCalledWith({
+        eventPayload: 'wheat',
+        metadata: {
+          moduleName: 'searchBox',
+          oldValue: ''
+        },
+        store
+      });
 
       store.commit('x/searchBox/setQuery', 'whe');
       await waitNextTick();
@@ -263,7 +268,14 @@ describe('testing X Plugin emitters', () => {
       store.commit('x/searchBox/setQuery', 'wheat beer');
       await waitNextTick();
       expect(testWire).toHaveBeenCalledTimes(2);
-      expect(testWire).toHaveBeenCalledWith({ eventPayload: 'wheat beer', metadata, store });
+      expect(testWire).toHaveBeenNthCalledWith(2, {
+        eventPayload: 'wheat beer',
+        metadata: {
+          moduleName: 'searchBox',
+          oldValue: 'whe'
+        },
+        store
+      });
     });
   });
 });

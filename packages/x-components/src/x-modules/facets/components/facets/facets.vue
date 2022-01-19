@@ -206,7 +206,7 @@
 </style>
 
 <docs lang="mdx">
-# Example
+## Example
 
 This component renders the list of facets stored in the Facets module. Facets can be rendered
 differently based on their purpose and this can be achieved using the exposed slots:
@@ -217,7 +217,7 @@ differently based on their purpose and this can be achieved using the exposed sl
 
 Below, there are some examples showing how to use the component with its different configurations.
 
-## Default usage
+### Default usage
 
 The default slot of this component is mandatory. If no other slot is defined, every Facet will be
 rendered as specified in the default slot.
@@ -249,7 +249,7 @@ rendered as specified in the default slot.
 </script>
 ```
 
-## Customized usage
+### Customized usage
 
 Customized compositions for a specific Facet can be achieved by using a slot with the same id as the
 facet to customize. For example, the Facet with the id "color" requires a composition that differs
@@ -292,7 +292,7 @@ just to the "color" Facet. The other facets will fallback to the composition of 
 </script>
 ```
 
-## Render specific facets I
+### Render specific facets I
 
 By default, this component will render all existing facets. However, it has the renderableFacets
 prop to filter which facets will be rendered. Its value is a string containing the different facets
@@ -326,7 +326,7 @@ ones. In the following example, the component will only render color and categor
 </script>
 ```
 
-## Render specific facets II
+### Render specific facets II
 
 Exclude facets so the component does not render them. In the following example, the component will
 render every facet except color and price.
@@ -357,7 +357,7 @@ render every facet except color and price.
 </script>
 ```
 
-## Integrating with the filters components
+### Integrating with the filters components
 
 There are many components that will help you build your own awesome filters list. `Facets` just
 renders the list, but what to render for each facet is up to you. Below you can see an example. of

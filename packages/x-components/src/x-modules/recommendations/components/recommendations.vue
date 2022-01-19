@@ -111,16 +111,16 @@
 </style>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 It renders a list of recommendations from recommendations state by default. The component provides
 the slot layout which wraps the whole component with the recommendations bound. It also provides the
 default slot to customize the item, which is within the layout slot, with the recommendation bound.
 Each recommendation should be represented by a BaseResultLink component besides any other component.
 
-## Basic example
+### Basic example
 
-## Adding a custom BaseResultLink component
+### Adding a custom BaseResultLink component
 
 A BaseResultLink **must** be used inside the Recommendations component. In the example below the
 BaseResultLink default slot is filled with an image of the result and a span for the title. Besides
@@ -140,7 +140,7 @@ that, an additional button has been added.
 </Recommendations>
 ```
 
-## Overriding layout content
+### Overriding layout content
 
 It renders a list of recommendations customizing the layout slot. In the example below, instead of
 using the default Recommendations content, a BaseGrid component is used to render the

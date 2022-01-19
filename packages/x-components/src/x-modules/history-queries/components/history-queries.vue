@@ -96,11 +96,11 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This component renders a list of suggestions coming from the user queries history
 
-## Default usage
+### Default usage
 
 No props are required for the usage of this component.
 
@@ -115,7 +115,7 @@ The component has two optional props. `animation` to render the component with a
 <HistoryQueries :animation="FadeAndSlide" :maxItemsToRender="10" />
 ```
 
-## Overriding Suggestion component
+### Overriding Suggestion component
 
 The default `HistoryQuery` component that is used in every suggestion can be replaced. To do so, the
 `suggestion` slot is available, containing the history query data under the `suggestion` property.
@@ -131,7 +131,7 @@ to be implemented emitting the needed events.
 </HistoryQueries>
 ```
 
-## Overriding suggestion-content and suggestion-remove-content slot
+### Overriding suggestion-content and suggestion-remove-content slot
 
 The content of the `HistoryQuery` component can be overridden. For replacing the default suggestion
 content, the `suggestion-content` slot is available, containing the history query suggestion (in the

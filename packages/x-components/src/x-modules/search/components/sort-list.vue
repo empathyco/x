@@ -92,7 +92,7 @@
 </script>
 
 <docs lang="mdx">
-# Sort List
+## Sort List
 
 The `SortList` component can be used to change the way the search results are ordered.
 

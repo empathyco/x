@@ -1,10 +1,17 @@
+<template>
+  <NoElement :class="dynamicClasses">
+    <slot />
+  </NoElement>
+</template>
 <script lang="ts">
+  import Vue from 'vue';
   import { Component, Prop, Watch } from 'vue-property-decorator';
   import { XEmit } from '../../../components/decorators/bus.decorators';
   import { XProvide } from '../../../components/decorators/injection.decorators';
   import { State } from '../../../components/decorators/store.decorators';
   import { NoElement } from '../../../components/no-element';
   import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { VueCSSClasses } from '../../../utils/index';
   import { scrollXModule } from '../x-module';
   import { ScrollObserverKey } from './scroll.const';
   import { ScrollVisibilityObserver } from './scroll.types';
@@ -19,10 +26,11 @@
    * @public
    */
   @Component({
+    components: { NoElement },
     mixins: [xComponentMixin(scrollXModule)]
   })
   /* eslint-disable @typescript-eslint/unbound-method */
-  export default class MainScroll extends NoElement {
+  export default class MainScroll extends Vue {
     /**
      * If `true`, sets this scroll instance to the main of the application. Being the main
      * scroll implies that features like restoring the scroll when the query changes, or storing
@@ -55,7 +63,7 @@
      *
      * @public
      */
-    @Prop({ default: '' })
+    @Prop({ default: '0px' })
     public margin!: string;
 
     /**
@@ -220,8 +228,30 @@
         }
       });
     }
+
+    /**
+     * Adds the dynamic css classes to the component.
+     *
+     * @returns The class to be added to the component.
+     *
+     * @internal
+     */
+    protected get dynamicClasses(): VueCSSClasses {
+      return {
+        'x-main-scroll--no-transition': !!this.pendingScrollTo
+      };
+    }
   }
 </script>
+<style lang="scss">
+  .x-main-scroll--no-transition {
+    * {
+      transition: none !important;
+      transform: none !important;
+      opacity: 1 !important;
+    }
+  }
+</style>
 
 <docs lang="mdx">
 ## Events

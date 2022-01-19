@@ -141,6 +141,11 @@ export interface XEventsTypes
    */
   UserClickedResultAddToCart: Result;
   /**
+   * The user has clicked on the rating of a result.
+   * * Payload: The {@link @empathyco/x-types#Result | result} that the user clicked.
+   */
+  UserClickedAResultRating: Result;
+  /**
    * The user has clicked the scroll to top button.
    * * Payload: The scroll id which has scrolled to top.
    */
@@ -160,11 +165,6 @@ export interface XEventsTypes
    * * Payload: none.
    */
   UserReachedEmpathizeTop: void;
-  /**
-   * The user has right clicked on a result.
-   * * Payload: The {@link @empathyco/x-types#Result | result} that the user right clicked.
-   */
-  UserRightClickedAResult: Result;
   /**
    * User selected any kind of suggestion (query-suggestion, popular-search...)
    * * Payload: The {@link @empathyco/x-types#Suggestion | suggestion} that the user selected.

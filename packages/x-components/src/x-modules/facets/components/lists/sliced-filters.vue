@@ -130,7 +130,7 @@
 </script>
 
 <docs lang="mdx">
-# Example
+## Example
 
 The sliced filters component, takes a list of filters, and the maximum number of filters to render
 as prop. Then, it slices the list of filters using the `max` prop, and returns this new filters list
@@ -144,13 +144,13 @@ This component is usually integrated with the `Facets` and `Filters` component. 
 there are lots of available filters for a single facet, helping to improve the app performance, as
 less nodes are rendered.
 
-## Important
+### Important
 
 The component has two ways of receive the filters list, it can be injected by another component or
 be send it as a prop. If the component doesnt have a parent component that receive and exposed a
 filters list to their children, it is mandatory to send it as prop.
 
-## Basic usage
+### Basic usage
 
 ```vue
 <template>

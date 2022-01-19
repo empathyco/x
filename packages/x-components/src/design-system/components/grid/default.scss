@@ -4,9 +4,18 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--x-size-min-width-grid-item), auto));
   grid-auto-flow: dense;
+  align-items: stretch;
   list-style: none;
   padding: var(--x-size-padding-grid);
   gap: var(--x-size-gap-grid);
+
+  &__item {
+    display: flex;
+    flex-flow: column nowrap;
+    > * {
+      flex-grow: 1;
+    }
+  }
 
   &--cols-auto .x-grid__item {
     // layout

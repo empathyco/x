@@ -9,5 +9,8 @@
     &--#{$i} {
       box-shadow: var(--x-string-box-shadow-#{$i}) !important;
     }
+    &--bottom-#{$i} {
+      box-shadow: var(--x-string-box-shadow-bottom-#{$i}) !important;
+    }
   }
 }

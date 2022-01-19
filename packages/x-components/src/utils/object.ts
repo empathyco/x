@@ -117,3 +117,24 @@ export function objectFilter<T extends Dictionary>(
     {} as T
   );
 }
+
+/**
+ * Compares two objects of the same type, checking the values of their keys and retrieving
+ * those that were not present in the old value and/or those whose value has changed.
+ *
+ * @param newValue - The new object value.
+ * @param oldValue - The old object value.
+ *
+ * @returns An array of keys.
+ * @public
+ */
+export function getNewAndUpdatedKeys<ObjectType extends Dictionary>(
+  newValue: ObjectType | undefined,
+  oldValue: ObjectType | undefined
+): (keyof ObjectType)[] {
+  if (newValue === oldValue || !newValue || !oldValue) {
+    return [];
+  }
+
+  return Object.keys(newValue).filter(key => !(key in oldValue) || newValue[key] !== oldValue[key]);
+}

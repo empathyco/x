@@ -16,8 +16,18 @@ Then('first visible result is {string}', (resultId: string) => {
       const resultBottom = resultTop + $result.height()!;
       cy.get('#main-scroll').then($scroll => {
         const scrollTop = $scroll.offset()!.top;
-        expect(resultTop).to.be.lte(scrollTop);
+        expect(Math.round(resultTop)).to.be.lte(scrollTop);
         expect(resultBottom).to.be.gt(scrollTop);
       });
     });
+});
+
+Then('scroll position is at top', () => {
+  cy.get('#main-scroll').should(scrollContainer => {
+    expect(scrollContainer.scrollTop()).to.equal(0);
+  });
+});
+
+When('store is changed to {string}', (store: string) => {
+  cy.getByDataTest('store-selector').click().contains(store).click();
 });

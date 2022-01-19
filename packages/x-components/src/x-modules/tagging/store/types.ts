@@ -15,6 +15,10 @@ export interface TaggingState {
    * Configuration for the `Tagging` module.
    */
   config: TaggingConfig;
+  /**
+   * Tagging info for last accepted query.
+   */
+  queryTaggingInfo: TaggingInfo | null;
 }
 
 /**
@@ -48,6 +52,13 @@ export interface TaggingMutations {
    * @param queryTaggingDebounceMs - The new {@link TaggingConfig.queryTaggingDebounceMs }.
    */
   setQueryTaggingDebounce(queryTaggingDebounceMs: number): void;
+
+  /**
+   * Sets the {@link TaggingState.queryTaggingInfo} property.
+   *
+   * @param queryTaggingInfo - The new {@link TaggingState.queryTaggingInfo}.
+   */
+  setQueryTaggingInfo(queryTaggingInfo: TaggingInfo): void;
 }
 
 /**

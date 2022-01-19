@@ -38,7 +38,7 @@
 </style>
 
 <docs lang="mdx">
-# Example
+## Example
 
 The `CrossFade` component is intended to be used as animation to wrap an element with v-if or v-show
 and animate it. The animation fades the new element into the previous one.

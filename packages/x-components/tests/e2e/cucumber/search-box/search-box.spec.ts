@@ -121,11 +121,12 @@ And(
   'related results are displayed after {int} is {boolean}',
   (instantDebounceInMs: number, instant: boolean) => {
     if (instant) {
-      cy.getByDataTest('result-text')
+      cy.getByDataTest('search-result')
         .should('be.visible')
         .should('have.length.gt', resultsCount)
-        .each($result => {
-          resultsList.push($result.text());
+        .getByDataTest('result-title')
+        .each($resultTitle => {
+          resultsList.push($resultTitle.text());
         })
         .then(() => {
           interval = Date.now() - startQuery;
@@ -161,7 +162,7 @@ When('{string} is added to the search', (secondQuery: string) => {
 });
 
 Then('new related results are not displayed before {int}', (instantDebounceInMs: number) => {
-  cy.getByDataTest('result-text')
+  cy.getByDataTest('search-result')
     .should($results => {
       expect($results).to.have.length(resultsCount);
     })
@@ -175,11 +176,12 @@ And(
   'new related results are displayed after {int} is {boolean}',
   (instantDebounceInMs: number, instant: boolean) => {
     if (instant) {
-      cy.getByDataTest('result-text')
+      cy.getByDataTest('search-result')
         .should('be.visible')
         .should('have.length', 2)
-        .each($result => {
-          compoundResultsList.push($result.text());
+        .getByDataTest('result-title')
+        .each($resultTitle => {
+          compoundResultsList.push($resultTitle.text());
         })
         .then(() => {
           interval = Date.now() - startSecondQuery;
@@ -187,7 +189,7 @@ And(
           resultsCount = resultsList.length;
         });
     } else {
-      cy.getByDataTest('result-text').should('not.exist');
+      cy.getByDataTest('search-result').should('not.exist');
     }
   }
 );
@@ -205,7 +207,7 @@ When('{string} is deleted from the search', (secondQuery: string) => {
 });
 
 Then('old related results are not displayed before {int}', (instantDebounceInMs: number) => {
-  cy.getByDataTest('result-text')
+  cy.getByDataTest('search-result')
     .should('be.visible')
     .should('have.length', compoundResultsList.length)
     .then(() => {

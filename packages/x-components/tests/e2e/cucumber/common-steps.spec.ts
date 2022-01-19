@@ -37,17 +37,6 @@ When('start button is clicked', () => {
   cy.getByDataTest('open-modal').click();
 });
 
-// ID Results
-Then('identifier results are displayed', () => {
-  cy.getByDataTest('identifier-results-item')
-    .should('be.visible')
-    .should('have.length.at.least', 1);
-});
-
-Then('no identifier results are displayed', () => {
-  cy.getByDataTest('identifier-results-item').should('not.exist');
-});
-
 // Facets
 When(
   'filter number {int} is clicked in facet {string}',
@@ -111,16 +100,17 @@ Then('related tags are displayed', () => {
 // Results
 Then('related results are displayed', () => {
   resultsList = [];
-  cy.getByDataTest('result-text')
+  cy.getByDataTest('search-result')
     .should('be.visible')
     .should('have.length.at.least', 1)
-    .each($result => {
-      resultsList.push($result.text());
+    .getByDataTest('result-title')
+    .each($resultTitle => {
+      resultsList.push($resultTitle.text());
     });
 });
 
 Then('related results have changed', () => {
-  cy.getByDataTest('result-text')
+  cy.getByDataTest('search-result')
     .should('be.visible')
     .should($results => {
       const compoundResultsList = $results

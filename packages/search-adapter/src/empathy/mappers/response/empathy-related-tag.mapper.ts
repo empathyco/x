@@ -11,7 +11,8 @@ import { EmpathyRelatedTag } from '../../models';
 @injectable()
 export class EmpathyRelatedTagMapper implements ResponseMapper<EmpathyRelatedTag, RelatedTag> {
   map(rawRelatedTag: EmpathyRelatedTag, relatedTag: RelatedTag): RelatedTag {
-    return Object.assign(relatedTag, {
+    return Object.assign<RelatedTag, Partial<RelatedTag>>(relatedTag, {
+      isCurated: rawRelatedTag.source === 'CURATED',
       modelName: 'RelatedTag',
       tag: rawRelatedTag.tag,
       query: rawRelatedTag.query,

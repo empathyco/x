@@ -84,11 +84,13 @@
     public query!: string;
 
     /**
-     * Focus search input when the user navigates to the search input.
+     * When event {@link XEventsTypes.UserReachedEmpathizeTop} or
+     * {@link SearchBoxXEvents.UserPressedClearSearchBoxButton}
+     * are emitted the search in put is focused.
      *
      * @internal
      */
-    @XOn('UserReachedEmpathizeTop')
+    @XOn(['UserReachedEmpathizeTop', 'UserPressedClearSearchBoxButton'])
     focusInput(): void {
       this.$refs.input?.focus();
     }
@@ -96,13 +98,13 @@
     protected debouncedUserAcceptedAQuery!: DebouncedFunction<[string]>;
 
     /**
-     * When event {@link XEventsTypes.UserAcceptedAQuery} is emitted the pending debounced emit
+     * When event {@link XEventsTypes.UserAcceptedAQuery} or
+     * {@link SearchBoxXEvents.UserClearedQuery} are emitted the pending debounced emit
      * {@link XEvent} `UserAcceptedAQuery` is canceled.
      *
      * @internal
      */
-    @XOn('UserAcceptedAQuery')
-    @XOn('UserClearedQuery')
+    @XOn(['UserAcceptedAQuery', 'UserClearedQuery'])
     cancelDebouncedUserAcceptedAQuery(): void {
       this.debouncedUserAcceptedAQuery?.cancel();
     }

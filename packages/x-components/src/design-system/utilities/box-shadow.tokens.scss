@@ -2,6 +2,8 @@
     https://gist.github.com/serglo/f9f0be9a66fd6755a0bda85f9c64e85f
 */
 :root {
+  /* Shadow none */
+  --x-string-box-shadow-00: none;
   /* Shadow 1dp */
   --x-string-box-shadow-01: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12),
     0 1px 3px 0 rgba(0, 0, 0, 0.2);
@@ -32,4 +34,36 @@
   /* Shadow 24dp */
   --x-string-box-shadow-10: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12),
     0 11px 15px -7px rgba(0, 0, 0, 0.2);
+
+  /* BOTTOM ONLY SHADOW (not overflows on top of the element) */
+  /* Shadow 1dp */
+  --x-string-box-shadow-bottom-01: 0 2px 1px -1px rgba(0, 0, 0, 0.14),
+    0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 4px 3px -3px rgba(0, 0, 0, 0.2);
+  /* Shadow 2dp */
+  --x-string-box-shadow-bottom-02: 0 4px 2px -2px rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 6px 5px -5px rgba(0, 0, 0, 0.2);
+  /* Shadow 3dp */
+  --x-string-box-shadow-bottom-03: 0 7px 4px -4px rgba(0, 0, 0, 0.14),
+    0 4px 3px -3px rgba(0, 0, 0, 0.12), 0 9px 8px -8px rgba(0, 0, 0, 0.2);
+  /* Shadow 4dp */
+  --x-string-box-shadow-bottom-04: 0 9px 5px -5px rgba(0, 0, 0, 0.14),
+    0 11px 10px -10px rgba(0, 0, 0, 0.12), 0 5px 4px -4px rgba(0, 0, 0, 0.2);
+  /* Shadow 6dp */
+  --x-string-box-shadow-bottom-05: 0 16px 10px -10px rgba(0, 0, 0, 0.14),
+    0 19px 18px -18px rgba(0, 0, 0, 0.12), 0 8px 5px -6px rgba(0, 0, 0, 0.2);
+  /* Shadow 8dp */
+  --x-string-box-shadow-bottom-06: 0 19px 10px -10px rgba(0, 0, 0, 0.14),
+    0 19px 14px -14px rgba(0, 0, 0, 0.12), 0 7px 5px -5px rgba(0, 0, 0, 0.2);
+  /* Shadow 9dp */
+  --x-string-box-shadow-bottom-07: 0 22px 12px -12px rgba(0, 0, 0, 0.14),
+    0 21px 16px -16px rgba(0, 0, 0, 0.12), 0 8px 6px -6px rgba(0, 0, 0, 0.2);
+  /* Shadow 12dp */
+  --x-string-box-shadow-bottom-08: 0 31px 17px -17px rgba(0, 0, 0, 0.14),
+    0 27px 22px -22px rgba(0, 0, 0, 0.12), 0 11px 8px -8px rgba(0, 0, 0, 0.2);
+  /* Shadow 16dp */
+  --x-string-box-shadow-bottom-09: 0 22px 24px -4px rgba(0, 0, 0, 0.14),
+    0 21px 30px -10px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  /* Shadow 24dp */
+  --x-string-box-shadow-bottom-10: 0 34px 38px -7px rgba(0, 0, 0, 0.14),
+    0 29px 46px -12px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
 }

@@ -102,6 +102,9 @@ export const relatedTagsWiring = createWiring({
   UserPickedARelatedTag: {
     toggleRelatedTagWire
   },
+  UserChangedExtraParams: {
+    clearSelectedRelatedTags
+  },
   RelatedTagsRequestChanged: {
     fetchAndSaveRelatedTagsWire
   },

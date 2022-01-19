@@ -4,6 +4,7 @@
  * @public
  */
 export interface EmpathyRelatedTag {
+  source?: 'CURATED' | 'ORGANIC' | 'ENRICHED';
   query: string;
   tag: string;
 }

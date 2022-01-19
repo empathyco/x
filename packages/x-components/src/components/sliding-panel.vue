@@ -3,7 +3,8 @@
     <button
       v-if="showButtons"
       @click="scrollLeft"
-      class="x-sliding-panel__button x-sliding-panel__button-left x-button x-button--round"
+      class="x-sliding-panel__button x-sliding-panel__button-left x-button"
+      :class="buttonClass"
       data-test="sliding-panel-left-button"
     >
       <!-- @slot Left button content -->
@@ -23,7 +24,8 @@
     <button
       v-if="showButtons"
       @click="scrollRight"
-      class="x-sliding-panel__button x-sliding-panel__button-right x-button x-button--round"
+      class="x-sliding-panel__button x-sliding-panel__button-right x-button"
+      :class="buttonClass"
       data-test="sliding-panel-right-button"
     >
       <!-- @slot Right button content -->
@@ -39,8 +41,9 @@
   import { Debounce } from './decorators/debounce.decorators';
 
   /**
-   * Horizontal slide panel component. The content that is provided to this component would be
-   * navigable horizontally using two navigational buttons.
+   * This component allows for any other component or element inside it to be horizontally
+   * navigable. It also implements customizable buttons as well as other minor customizations to its
+   * general behavior.
    *
    * @public
    */
@@ -48,59 +51,109 @@
   export default class SlidingPanel extends Vue {
     /**
      * Scroll factor that will dictate how much the scroll moves when pressing a navigation button.
+     *
+     * @public
      */
     @Prop({ default: 0.7 })
-    protected scrollFactor!: number;
+    public scrollFactor!: number;
 
     /**
      * Would make the navigation buttons visible when they're needed or always hide them.
+     *
+     * @public
      */
     @Prop({ default: true })
-    protected showButtons!: boolean;
+    public showButtons!: boolean;
 
     /**
-     * MutationObserver that watches for changes inside the wrapping div to update
-     * the scroll position.
+     * When true, whenever the DOM content in the sliding panel slot changes, it will reset
+     * the scroll position to 0.
+     *
+     * @public
      */
-    protected scrollObserver = new MutationObserver(
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      this.restoreAndUpdateScroll
-    );
+    @Prop({ default: true })
+    public resetOnContentChange!: boolean;
+
+    /**
+     * CSS classes to add to the buttons.
+     *
+     * @public
+     */
+    @Prop()
+    public buttonClass?: string;
 
     /**
      * Indicates if the scroll is at the start of the sliding panel.
+     *
+     * @internal
      */
     protected isScrollAtStart = true;
 
     /**
      * Indicates if the scroll is at the end of the sliding panel.
+     *
+     * @internal
      */
     protected isScrollAtEnd = true;
 
     /**
      * HTMLElement referencing the scroll of the component.
+     *
+     * @internal
      */
     public $refs!: {
       scrollContainer: HTMLElement;
     };
 
-    mounted(): void {
-      this.scrollObserver.observe(this.$refs.scrollContainer, {
-        attributes: false,
-        childList: true,
-        subtree: true,
-        characterData: false
-      });
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      window?.addEventListener('resize', this.debouncedUpdateScrollPosition);
-
-      this.updateScrollPosition();
+    /**
+     * CSS classes to apply based on the scroll position.
+     *
+     * @returns The CSS classes to apply.
+     *
+     * @internal
+     */
+    protected get cssClasses(): VueCSSClasses {
+      return {
+        'x-sliding-panel--at-start': this.isScrollAtStart,
+        'x-sliding-panel--at-end': this.isScrollAtEnd
+      };
     }
 
-    beforeDestroy(): void {
-      this.scrollObserver.disconnect();
+    /**
+     * Initialises browser platform code:
+     * - Creates a mutation observer to detect content changes and reset scroll position.
+     * - Stores initial size and scroll position values.
+     *
+     * @internal
+     */
+    mounted(): void {
       // eslint-disable-next-line @typescript-eslint/unbound-method
-      window?.removeEventListener('resize', this.debouncedUpdateScrollPosition);
+      const resizeObserver = new ResizeObserver(this.debouncedUpdateScrollPosition);
+      resizeObserver.observe(this.$el);
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      const contentChangedObserver = new MutationObserver(this.restoreAndUpdateScroll);
+      this.$watch(
+        () => this.resetOnContentChange,
+        shouldReset => {
+          if (shouldReset) {
+            contentChangedObserver.observe(this.$refs.scrollContainer, {
+              attributes: false,
+              childList: true,
+              subtree: true,
+              characterData: false
+            });
+          } else {
+            contentChangedObserver.disconnect();
+          }
+        },
+        { immediate: true }
+      );
+      this.$on('hook:beforeDestroy', () => {
+        contentChangedObserver.disconnect();
+        resizeObserver.disconnect();
+      });
+
+      this.updateScrollPosition();
     }
 
     /**
@@ -161,8 +214,6 @@
      *
      * @param scrollValue - The value the scroll will go towards.
      *
-     * @remarks this function uses the scrollBy from Element and it's not available in all browsers.
-     *
      * @internal
      */
     protected scrollTo(scrollValue: number): void {
@@ -170,20 +221,6 @@
         left: scrollValue * this.scrollFactor,
         behavior: 'smooth'
       });
-    }
-
-    /**
-     * CSS classes to apply based on the scroll position.
-     *
-     * @returns The CSS classes to apply.
-     *
-     * @internal
-     */
-    protected get cssClasses(): VueCSSClasses {
-      return {
-        'x-sliding-panel--at-start': this.isScrollAtStart,
-        'x-sliding-panel--at-end': this.isScrollAtEnd
-      };
     }
   }
 </script>
@@ -232,6 +269,7 @@
         pointer-events: all;
       }
     }
+
     &:not(.x-sliding-panel--show-buttons-on-hover):not(.x-sliding-panel--at-end) {
       .x-sliding-panel__button-right {
         opacity: 1;
@@ -242,58 +280,215 @@
 </style>
 
 <docs lang="mdx">
-# Examples
+## Events
 
-This component allows for any other component or element inside it to be horizontally navigable. It
-also implements customizable buttons as well as other minor customizations to its general behavior.
-The component uses the method `scrollBy` from `Element` to function, and it doesn't work properly in
-all browsers. A polyfill for the `scrollBy` would be needed for the component to behave as expected
-in those browsers.
+This component emits no events.
 
-## Default usage
+## See it in action
 
 Simplest implementation of the component, just a list-based component inside its slot.
 
 ```vue
-<SlidingPanel>
-  <RelatedTags />
-</SlidingPanel>
+<template>
+  <SlidingPanel>
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 4</div>
+  </SlidingPanel>
+</template>
+
+<script>
+  import { SlidingPanel } from '@empathyco/x-components';
+
+  export default {
+    name: 'SlidingPanelDemo',
+    components: {
+      SlidingPanel
+    }
+  };
+</script>
+
+<style>
+  .x-sliding-panel {
+    width: 200px;
+  }
+
+  .item {
+    display: inline-block;
+    width: 100px;
+  }
+</style>
 ```
 
-## Behavior customization
+### Play with props
 
-Edit how much the scroll travels when navigating with the buttons by changing the `scrollFactor`.
+#### Modifying scroll buttons travel distance
+
+Edit how much the scroll travels when navigating with the buttons by changing the `scrollFactor`
+prop.
 
 ```vue
-<SlidingPanel :scrollFactor="1.2">
-  <RelatedTags />
-</SlidingPanel>
+<template>
+  <SlidingPanel :scrollFactor="1.5">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 4</div>
+  </SlidingPanel>
+</template>
+
+<script>
+  import { SlidingPanel } from '@empathyco/x-components';
+
+  export default {
+    name: 'SlidingPanelDemo',
+    components: {
+      SlidingPanel
+    }
+  };
+</script>
+
+<style>
+  .x-sliding-panel {
+    width: 200px;
+  }
+
+  .item {
+    display: inline-block;
+    width: 100px;
+  }
+</style>
 ```
+
+#### Hiding scroll buttons
 
 Hide the navigational buttons completely by setting the `showButtons` prop to `false`. This is
 intended to be used when other scrolling options are available, like in mobile, where you can scroll
 just by swiping.
 
 ```vue
-<SlidingPanel :showButtons="isMobile">
-  <RelatedTags />
-</SlidingPanel>
+<template>
+  <SlidingPanel :showButtons="false">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 4</div>
+  </SlidingPanel>
+</template>
+
+<script>
+  import { SlidingPanel } from '@empathyco/x-components';
+
+  export default {
+    name: 'SlidingPanelDemo',
+    components: {
+      SlidingPanel
+    }
+  };
+</script>
+
+<style>
+  .x-sliding-panel {
+    width: 200px;
+  }
+
+  .item {
+    display: inline-block;
+    width: 100px;
+  }
+</style>
 ```
 
-## Overriding Button content
+#### Disabling reset the scroll when content changes
+
+By default, whenever the content of the sliding panel changes, it auto resets its scroll position.
+You can disable this behavior setting the `resetOnContentChange` prop to `false`.
+
+```vue
+<template>
+  <div>
+    <button @click="items++">Add item</button>
+    <label>
+      <input type="checkbox" v-model="resetOnContentChange" />
+      Reset content onchange
+    </label>
+    <SlidingPanel :resetOnContentChange="resetOnContentChange">
+      <div class="item" v-for="item in items" :key="item">Item {{ item }}</div>
+    </SlidingPanel>
+  </div>
+</template>
+
+<script>
+  import { SlidingPanel } from '@empathyco/x-components';
+
+  export default {
+    name: 'SlidingPanelDemo',
+    components: {
+      SlidingPanel
+    },
+    data() {
+      return {
+        items: 4,
+        resetOnContentChange: false
+      };
+    }
+  };
+</script>
+
+<style>
+  .x-sliding-panel {
+    width: 200px;
+  }
+
+  .item {
+    display: inline-block;
+    width: 100px;
+  }
+</style>
+```
+
+## Extending the component
+
+### Overriding Button content
 
 By default the buttons show an arrow depicting the direction the scroll would go to when clicked,
 but this content can be customized with anything, from characters to SVG and images.
 
 ```vue
-<SlidingPanel>
-  <template #sliding-panel-left-button>
-    Left
-  </template>
-  <RelatedTags />
-  <template #sliding-panel-right-button>
-    Right
-  </template>
-</SlidingPanel>
+<template>
+  <SlidingPanel>
+    <template #sliding-panel-left-button>Left</template>
+    <template #default>
+      <div class="item">Item 1</div>
+      <div class="item">Item 2</div>
+      <div class="item">Item 3</div>
+      <div class="item">Item 4</div>
+    </template>
+    <template #sliding-panel-right-button>Right</template>
+  </SlidingPanel>
+</template>
+
+<script>
+  import { SlidingPanel } from '@empathyco/x-components';
+
+  export default {
+    name: 'SlidingPanelDemo',
+    components: {
+      SlidingPanel
+    }
+  };
+</script>
+
+<style>
+  .x-sliding-panel {
+    width: 200px;
+  }
+
+  .item {
+    display: inline-block;
+    width: 100px;
+  }
+</style>
 ```
 </docs>

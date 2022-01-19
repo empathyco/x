@@ -1,5 +1,13 @@
-import { SearchRequest } from '@empathyco/x-adapter';
-import { Facet, Result, Sort, Redirection, TaggingInfo } from '@empathyco/x-types';
+import {
+  Facet,
+  Result,
+  Sort,
+  Redirection,
+  TaggingInfo,
+  Promoted,
+  Banner
+} from '@empathyco/x-types';
+import { InternalSearchRequest } from './types';
 
 /**
  * Dictionary of the events of Search XModule, where each key is the event name, and the value is
@@ -28,7 +36,12 @@ export interface SearchXEvents {
    * * Payload: The new search request or `null` if there is not enough data in the state
    * to conform a valid request.
    */
-  SearchRequestChanged: SearchRequest | null;
+  SearchRequestChanged: InternalSearchRequest | null;
+  /**
+   * Any property of the search request has been updated.
+   * * Payload: The new internal request object.
+   */
+  SearchRequestUpdated: InternalSearchRequest;
   /**
    * Query tagging has been changed.
    * * Payload: The new query tagging object.
@@ -71,6 +84,16 @@ export interface SearchXEvents {
    * * Payload: The clicked redirection.
    */
   UserClickedARedirection: Redirection;
+  /**
+   * The user has clicked a promoted.
+   * * Payload: The clicked promoted.
+   */
+  UserClickedAPromoted: Promoted;
+  /**
+   * The user has clicked a banner.
+   * * Payload: The clicked banner.
+   */
+  UserClickedABanner: Banner;
   /**
    * The user has aborted a redirection.
    */

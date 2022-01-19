@@ -1,38 +1,30 @@
-import { mount } from '@vue/test-utils';
-import Vue, { CreateElement } from 'vue';
-import {
-  getXComponentXModuleName,
-  isXComponent,
-  setXComponentXModuleName
-} from '../x-component.utils';
+import { mount, Wrapper } from '@vue/test-utils';
+import Vue from 'vue';
+import { XModuleName } from '../../x-modules/x-modules.types';
+import { getXComponentXModuleName, isXComponent } from '../x-component.utils';
 
 describe('testing the x-component utils', () => {
-  const testComponent = {
-    render(h: CreateElement) {
-      return h();
-    }
-  };
-  let testXComponentWrapper: Vue;
-
-  beforeEach(() => {
-    testXComponentWrapper = mount(testComponent) as unknown as Vue;
-  });
-
+  function renderComponent(xModule?: XModuleName): Wrapper<Vue> {
+    return mount({
+      xModule,
+      render(h) {
+        return h();
+      }
+    });
+  }
   it('sets and gets as XComponent name the passed name parameter to the passed component', () => {
-    setXComponentXModuleName(testXComponentWrapper, 'searchBox');
-    expect(getXComponentXModuleName(testXComponentWrapper)).toBe('searchBox');
+    expect(getXComponentXModuleName(renderComponent('searchBox').vm)).toBe('searchBox');
   });
 
   it('returns null if the passed component is not an XComponent', () => {
-    expect(getXComponentXModuleName(testXComponentWrapper)).toBeNull();
+    expect(getXComponentXModuleName(renderComponent().vm)).toBeNull();
   });
 
   it('returns true if the passed component is an XComponent', () => {
-    setXComponentXModuleName(testXComponentWrapper, 'searchBox');
-    expect(isXComponent(testXComponentWrapper)).toBe(true);
+    expect(isXComponent(renderComponent('searchBox').vm)).toBe(true);
   });
 
   it('returns false if the passed component is not an XComponent', () => {
-    expect(isXComponent(testXComponentWrapper)).toBe(false);
+    expect(isXComponent(renderComponent().vm)).toBe(false);
   });
 });

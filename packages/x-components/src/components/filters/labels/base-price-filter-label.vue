@@ -88,7 +88,7 @@
 </script>
 
 <docs lang="mdx">
-# Example
+## Example
 
 Renders a label for a price filter, allowing to select different messages depending on the value of
 the filter.
@@ -103,7 +103,7 @@ the filter.
 This component uses internally the `BaseCurrency` one, so you can pass the same props to configure
 how the price should look like.
 
-## Basic usage
+### Basic usage
 
 ```vue
 <template>

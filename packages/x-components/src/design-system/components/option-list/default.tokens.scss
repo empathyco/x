@@ -35,6 +35,24 @@
 
   // color - list item
   --x-color-border-option-list-item-default: var(--x-color-base-neutral-70);
+  --x-color-border-top-option-list-item-default: var(--x-color-border-option-list-item-default);
+  --x-color-border-right-option-list-item-default: var(--x-color-border-option-list-item-default);
+  --x-color-border-bottom-option-list-item-default: var(--x-color-border-option-list-item-default);
+  --x-color-border-left-option-list-item-default: var(--x-color-border-option-list-item-default);
+
+  --x-color-border-option-list-item-default-selected: var(--x-color-base-neutral-70);
+  --x-color-border-top-option-list-item-default-selected: var(
+    --x-color-border-option-list-item-default-selected
+  );
+  --x-color-border-right-option-list-item-default-selected: var(
+    --x-color-border-option-list-item-default-selected
+  );
+  --x-color-border-bottom-option-list-item-default-selected: var(
+    --x-color-border-option-list-item-default-selected
+  );
+  --x-color-border-left-option-list-item-default-selected: var(
+    --x-color-border-option-list-item-default-selected
+  );
 
   // border
   --x-size-border-width-option-list-item-default: var(--x-size-border-width-base);
@@ -73,6 +91,7 @@
 
   // typography
   --x-font-decoration-option-list-button-default-hover: underline;
+  --x-size-font-option-list-button-default: var(--x-size-font-text);
   --x-number-font-weight-option-list-button-default: var(--x-number-font-weight-base-regular);
   --x-number-font-weight-option-list-button-default-selected: var(--x-number-font-weight-base-bold);
 }

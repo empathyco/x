@@ -11,11 +11,10 @@ Vue.config.productionTip = false;
 ['hierarchical_category', 'categories_facet', 'brand_facet', 'age_facet'].forEach(facetId =>
   FilterEntityFactory.instance.registerFilterModifier(facetId, [SingleSelectModifier])
 );
-const xModulesURLConfig = JSON.parse(new URL(location.href).searchParams.get('xModules') ?? '{}');
+
 new XInstaller({
   ...baseInstallXOptions,
   app: App,
-  xModules: xModulesURLConfig,
   vueOptions: {
     router
   },

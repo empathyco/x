@@ -11,9 +11,6 @@
       border-width: #{$i}px !important;
       border-style: solid !important;
     }
-  }
-  @for $i from 0 through 10 {
-    $j: zerofill($i);
     &--top-#{$j} {
       border-block-start-width: #{$i}px !important;
       border-style: solid !important;

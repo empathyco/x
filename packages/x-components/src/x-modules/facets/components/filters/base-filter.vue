@@ -85,19 +85,19 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This component receives a `filter` as prop and renders a button, which on clicked emits the
 `UserClickedAFilter` event. If more events are needed to be emitted they can be passed using the
 `clickEvents` prop. By default it renders the filter label as the button text.
 
-## Basic usage
+### Basic usage
 
 ```vue
 <BaseFilter :filter="filter" />
 ```
 
-## Customizing its contents
+### Customizing its contents
 
 ```vue
 <BaseFilter :filter="filter" v-slot="{ filter }">
@@ -106,7 +106,7 @@ This component receives a `filter` as prop and renders a button, which on clicke
 </BaseFilter>
 ```
 
-## Extending the emitted events
+### Extending the emitted events
 
 ```vue
 <template>

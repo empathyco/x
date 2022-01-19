@@ -78,9 +78,9 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
-## Default Usage
+### Default Usage
 
 You don't need to pass any props, or slots. Simply add the component, and when it has any popular
 searches it will show them.
@@ -96,7 +96,7 @@ The component has two optional props. `animation` to render the component with a
 <PopularSearches :animation="FadeAndSlide" :maxItemsToRender="10" />
 ```
 
-## Overriding Popular Search's Content
+### Overriding Popular Search's Content
 
 You can use your custom implementation of the Popular Search's content. In the example below,
 instead of using the default Popular Search's content, an icon is added, as well as a span with the
@@ -111,7 +111,7 @@ query of the Popular Search's suggestion.
 </PopularSearches>
 ```
 
-## Adding a Custom Popular Search Item
+### Adding a Custom Popular Search Item
 
 You can use your custom implementation for the whole Popular Search item. In the example below, we
 change the default implementation of the Popular Search in Popular Searches. A custom Popular Search

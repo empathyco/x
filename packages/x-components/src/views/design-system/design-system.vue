@@ -1,5 +1,5 @@
 <template>
-  <main class="x-design-system">
+  <main class="x-design-system x">
     <DesignSystemTypography />
 
     <DesignSystemIcon />

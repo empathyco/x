@@ -154,14 +154,14 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This component renders a button, which on clicked emits the `UserClickedAFilter` and
 `UserClickedAHierarchicalFilter` events. By default it renders the filter label as the button text.
 If the provided filter has children filters, this component will render them recursively. Changing
 the slot content will change it for all of the children.
 
-## Basic usage
+### Basic usage
 
 ```vue
 <template>
@@ -172,7 +172,7 @@ the slot content will change it for all of the children.
 </template>
 ```
 
-## Customizing the default slot content
+### Customizing the default slot content
 
 In this example, the child filters will also include the label and checkbox.
 
@@ -185,7 +185,7 @@ In this example, the child filters will also include the label and checkbox.
 </HierarchicalFilter>
 ```
 
-## Customizing the label slot content
+### Customizing the label slot content
 
 ```vue
 <HierarchicalFilter :filter="filter">

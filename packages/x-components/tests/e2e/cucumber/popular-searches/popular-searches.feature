@@ -6,6 +6,7 @@ Feature: Popular searches component
     And   a next queries API
     And   a recommendations API with a known response
     And   a related tags API
+    And   a tracking API
 
   Scenario Outline:  1. Popular searches are load together with the page
     Given following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, rendered <maxItemsToRender>

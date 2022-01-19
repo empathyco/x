@@ -1,5 +1,4 @@
-@import '../base/size.tokens';
-@import '../mixins';
+@import '../variables';
 
 .x-margin {
   &--auto {
@@ -8,10 +7,9 @@
   &--00 {
     margin: 0 !important;
   }
-  @for $i from 1 through $max-size-base-value {
-    $i: zerofill($i);
-    &--#{$i} {
-      margin: var(--x-size-base-#{$i}) !important;
+  @each $size, $size-value in $sizes {
+    &--#{$size} {
+      margin: var(--x-size-base-#{$size}) !important;
     }
   }
 
@@ -41,19 +39,18 @@
     margin-inline-start: 0 !important;
   }
 
-  @for $i from 1 through $max-size-base-value {
-    $i: zerofill($i);
-    &--top-#{$i} {
-      margin-block-start: var(--x-size-base-#{$i}) !important;
+  @each $size, $size-value in $sizes {
+    &--top-#{$size} {
+      margin-block-start: var(--x-size-base-#{$size}) !important;
     }
-    &--bottom-#{$i} {
-      margin-block-end: var(--x-size-base-#{$i}) !important;
+    &--bottom-#{$size} {
+      margin-block-end: var(--x-size-base-#{$size}) !important;
     }
-    &--right-#{$i} {
-      margin-inline-end: var(--x-size-base-#{$i}) !important;
+    &--right-#{$size} {
+      margin-inline-end: var(--x-size-base-#{$size}) !important;
     }
-    &--left-#{$i} {
-      margin-inline-start: var(--x-size-base-#{$i}) !important;
+    &--left-#{$size} {
+      margin-inline-start: var(--x-size-base-#{$size}) !important;
     }
   }
 }

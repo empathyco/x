@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.8...@empathyco/x-adapter@7.0.0-alpha.9) (2021-12-29)
+
+### Features
+
+- **next-queries:** add `isCurated` property to `NextQuery` model
+  ([fdd89f8](https://github.com/empathyco/x/commit/fdd89f84afe7e328cdcd121288142dc82e2000c8)),
+  closes [EX-5152](https://searchbroker.atlassian.net/browse/EX-5152)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [7.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.7...@empathyco/x-adapter@7.0.0-alpha.8) (2021-11-30)
+
+### Features
+
+- **related-tags:** add `isCurated` property to related tags
+  ([e063f45](https://github.com/empathyco/x/commit/e063f4560573bcb1bf32fbe49753f2fe6b235cc7)),
+  closes [EX-4940](https://searchbroker.atlassian.net/browse/EX-4940)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [7.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.6...@empathyco/x-adapter@7.0.0-alpha.7) (2021-11-29)
 
 ### ⚠ BREAKING CHANGES

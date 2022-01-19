@@ -123,6 +123,8 @@ export interface XComponentAliasAPI {
   readonly status: XComponentAliasStatusAPI;
   /** The {@link SearchXModule} total results. */
   readonly totalResults: number;
+  /** The {@link SearchXModule} selected sort. */
+  readonly selectedSort: string;
 }
 
 /**

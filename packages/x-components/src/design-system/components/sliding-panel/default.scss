@@ -1,10 +1,16 @@
 .x-sliding-panel {
+  // layout
+  z-index: 0;
+
   // color
   background-color: var(--x-color-background-sliding-panel);
 
   &__button.x-button {
     // size
     --x-size-padding-button: var(--x-size-padding-sliding-panel-button);
+
+    // others
+    pointer-events: none;
   }
 
   &.x-sliding-panel--buttons-overflow {
@@ -58,54 +64,43 @@
   }
 
   &:not(.x-sliding-panel--no-gradient) {
-    &::before,
-    &::after {
-      // layout
-      position: absolute;
-      z-index: 1;
-
-      // other
-      content: '';
-      pointer-events: none;
-
-      // sizing
-      height: 100%;
-      width: var(--x-size-width-sliding-panel-gradient);
-
-      // visibility
-      opacity: 0;
-    }
-
-    &::before {
-      // color
-      background: linear-gradient(
+    .x-sliding-panel__scroll {
+      mask: linear-gradient(
         to right,
-        var(--x-color-background-sliding-panel) 43%,
-        var(--x-color-background-sliding-panel-middle) 67%,
-        var(--x-color-background-sliding-panel-end)
+        transparent calc(0.43 * var(--x-size-width-sliding-panel-gradient)),
+        rgba(0, 0, 0, 0.8) calc(0.67 * var(--x-size-width-sliding-panel-gradient)),
+        black var(--x-size-width-sliding-panel-gradient),
+        rgba(0, 0, 0, 0.8) calc(100% - 0.67 * var(--x-size-width-sliding-panel-gradient)),
+        transparent calc(100% - 0.43 * var(--x-size-width-sliding-panel-gradient))
       );
-
-      // layout
-      left: 0;
     }
 
-    &::after {
-      // color
-      background: linear-gradient(
-        to left,
-        var(--x-color-background-sliding-panel) 43%,
-        var(--x-color-background-sliding-panel-middle) 67%,
-        var(--x-color-background-sliding-panel-end)
-      );
-
-      // layout
-      right: 0;
+    &.x-sliding-panel--at-start {
+      .x-sliding-panel__scroll {
+        mask: linear-gradient(
+          to left,
+          transparent calc(0.43 * var(--x-size-width-sliding-panel-gradient)),
+          rgba(0, 0, 0, 0.8) calc(0.67 * var(--x-size-width-sliding-panel-gradient)),
+          black var(--x-size-width-sliding-panel-gradient)
+        );
+      }
     }
 
-    &:not(.x-sliding-panel--at-start)::before,
-    &:not(.x-sliding-panel--at-end)::after {
-      // visibility
-      opacity: 1;
+    &.x-sliding-panel--at-end {
+      .x-sliding-panel__scroll {
+        mask: linear-gradient(
+          to right,
+          transparent calc(0.43 * var(--x-size-width-sliding-panel-gradient)),
+          rgba(0, 0, 0, 0.8) calc(0.67 * var(--x-size-width-sliding-panel-gradient)),
+          black var(--x-size-width-sliding-panel-gradient)
+        );
+      }
+    }
+
+    &.x-sliding-panel--at-start.x-sliding-panel--at-end {
+      .x-sliding-panel__scroll {
+        mask: none;
+      }
     }
   }
 
