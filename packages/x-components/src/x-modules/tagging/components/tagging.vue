@@ -27,8 +27,8 @@
     public clickedResultStorageTTLMs!: number;
 
     /**
-     * The key of {@link @empathyco/x-types#Result | result} to get the value from
-     * in order to use it as id for storage.
+     * The Object key of the {@link @empathyco/x-types#Result | result} clicked by the user
+     * that will be used as id for the storage. By default, the Result url will be used.
      *
      * @public
      */
