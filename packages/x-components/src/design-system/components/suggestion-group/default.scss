@@ -29,7 +29,7 @@
   @include safari-gap(var(--x-size-gap-suggestion-group-default));
 
   // border
-  border: none;
+  border-style: solid;
   border-block-start-width: var(--x-size-border-width-top-suggestion-group-default);
   border-block-end-width: var(--x-size-border-width-bottom-suggestion-group-default);
   border-inline-start-width: var(--x-size-border-width-left-suggestion-group-default);
@@ -43,6 +43,8 @@
     // layout
     padding: 0;
     flex: 1 1 auto;
+    // border
+    border: none;
   }
 
   .x-button {

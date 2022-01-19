@@ -3,7 +3,7 @@
   --x-color-text-suggestion-group-default: var(--x-color-text-suggestion-default);
   --x-color-text-suggestion-group-matching-part-default: var(--x-color-text-suggestion-matching-part-default);
   --x-color-background-suggestion-group-default: var(--x-color-background-suggestion-default);
-  --x-color-border-suggestion-group-default: var(--x-color-text-default);
+  --x-color-border-suggestion-group-default: var(--x-color-text-suggestion-group-default);
 
   // size
   --x-size-padding-top-suggestion-group-default: var(--x-size-padding-top-suggestion-default);
@@ -13,7 +13,7 @@
   --x-size-gap-suggestion-group-default: var(--x-size-gap-suggestion-default);
 
   // border
-  --x-size-border-width-suggestion-group-default: var(--x-size-border-width-base);
+  --x-size-border-width-suggestion-group-default: 0;
   --x-size-border-width-top-suggestion-group-default: var(--x-size-border-width-suggestion-default);
   --x-size-border-width-right-suggestion-group-default: var(--x-size-border-width-suggestion-default);
   --x-size-border-width-bottom-suggestion-group-default: var(--x-size-border-width-suggestion-default);

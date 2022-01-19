@@ -7,7 +7,7 @@
   --x-color-text-suggestion-matching-part-default: var(--x-color-base-neutral-35);
   --x-color-text-suggestion-default-matching: var(--x-color-text-suggestion-default);
   --x-color-background-suggestion-default: transparent;
-  --x-color-border-suggestion-default: var(--x-color-text-default);
+  --x-color-border-suggestion-default: var(--x-color-text-suggestion-default);
 
   // size
   --x-size-padding-top-suggestion-default: var(--x-size-base-01);
@@ -17,7 +17,7 @@
   --x-size-gap-suggestion-default: var(--x-size-base-03);
 
   // border
-  --x-size-border-width-suggestion-default: var(--x-size-border-width-base);
+  --x-size-border-width-suggestion-default: 0;
   --x-size-border-width-top-suggestion-default: var(--x-size-border-width-suggestion-default);
   --x-size-border-width-right-suggestion-default: var(--x-size-border-width-suggestion-default);
   --x-size-border-width-bottom-suggestion-default: var(--x-size-border-width-suggestion-default);

@@ -31,7 +31,7 @@
   @include safari-gap(var(--x-size-gap-suggestion-default));
 
   // border
-  border: none;
+  border-style: solid;
   border-block-start-width: var(--x-size-border-width-top-suggestion-default);
   border-block-end-width: var(--x-size-border-width-bottom-suggestion-default);
   border-inline-start-width: var(--x-size-border-width-left-suggestion-default);

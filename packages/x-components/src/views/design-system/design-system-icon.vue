@@ -15,6 +15,7 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import * as Icons from '../../components/icons';
+
   @Component
   export default class DesignSystemIcon extends Vue {
     protected icons = Icons;
