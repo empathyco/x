@@ -36,6 +36,12 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
     return XPlugin.store;
   }
 
+  /**
+   * Stores in the local storage the information from the Result clicked by the user
+   * in order to be able to track later on.
+   *
+   * @param result - The result to store.
+   */
   storeResultClicked(result: Result): void {
     const { clickedResultStorageKey, clickedResultStorageTTLMs } =
       this.store.state.x.tagging.config;
@@ -50,6 +56,12 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
     this.localStorageService.setItem(storageKey, result, clickedResultStorageTTLMs as number);
   }
 
+  /**
+   * Checks if the local storage contains a result information for the given id and moves
+   * the result info from the local storage to the session storage.
+   *
+   * @param id - The id of the result to move to the session storage.
+   */
   moveToSessionStorage(id: string): void {
     let clickedResultStorageKeyId: string;
 
@@ -67,6 +79,12 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
     }
   }
 
+  /**
+   * Checks if the session storage contains a result information for given id or the current url
+   * and tracks the add to cart if exists.
+   *
+   * @param id - The id of the result to track.
+   */
   trackAddToCart(id?: string | null): void {
     let clickedResultStorageKeyId: string;
 
