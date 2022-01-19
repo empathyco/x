@@ -9,9 +9,9 @@
   align-items: var(--x-string-align-items-suggestion-default);
 
   // color
-  border: none;
   background-color: var(--x-color-background-suggestion-default);
   color: var(--x-color-text-suggestion-default);
+  border-color: var(--x-color-border-suggestion-default);
 
   // typography
   font-family: var(--x-font-family-suggestion-default);
@@ -29,6 +29,17 @@
   padding-inline-end: var(--x-size-padding-right-suggestion-default);
   gap: var(--x-size-gap-suggestion-default);
   @include safari-gap(var(--x-size-gap-suggestion-default));
+
+  // border
+  border-style: solid;
+  border-block-start-width: var(--x-size-border-width-top-suggestion-default);
+  border-block-end-width: var(--x-size-border-width-bottom-suggestion-default);
+  border-inline-start-width: var(--x-size-border-width-left-suggestion-default);
+  border-inline-end-width: var(--x-size-border-width-right-suggestion-default);
+  border-radius: var(--x-size-border-radius-top-left-suggestion-default)
+  var(--x-size-border-radius-top-right-suggestion-default)
+  var(--x-size-border-radius-bottom-right-suggestion-default)
+  var(--x-size-border-radius-bottom-left-suggestion-default);
 
   &__query {
     // layout

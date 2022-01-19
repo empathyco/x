@@ -3,7 +3,7 @@
     <li
       v-for="(suggestion, index) in suggestionsToRender"
       :key="suggestionsKeys[index]"
-      class="x-suggestions__item"
+      class="x-list x-suggestions__item"
       data-test="suggestion-item"
     >
       <!--

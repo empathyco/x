@@ -77,6 +77,81 @@
         </div>
       </div>
     </article>
+    <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
+      <h2 class="x-title2">Default + Tag</h2>
+
+      <div class="x-suggestion-group x-tag">
+        <div class="x-suggestion">
+          <span class="x-suggestion__query">Suggestion</span>
+        </div>
+        <button class="x-button">
+          <CrossIcon />
+        </button>
+      </div>
+
+      <div class="x-suggestion-group x-tag">
+        <div class="x-suggestion x-suggestion--matching">
+          <span class="x-suggestion__query">
+            Suggestion
+            <span class="x-suggestion__matching-part">Query</span>
+          </span>
+        </div>
+        <button class="x-button">
+          <CrossIcon />
+        </button>
+      </div>
+
+      <div class="x-suggestion-group x-tag">
+        <button class="x-button">
+          <CrossIcon />
+        </button>
+        <div class="x-suggestion x-suggestion--matching">
+          <span class="x-suggestion__query">
+            Suggestion
+            <span class="x-suggestion__matching-part">Query</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="x-suggestion-group x-tag">
+        <div class="x-suggestion x-suggestion--matching">
+          <SearchIcon />
+          <span class="x-suggestion__query">
+            Suggestion
+            <span class="x-suggestion__matching-part">Query</span>
+          </span>
+        </div>
+        <button class="x-button">
+          <CrossIcon />
+        </button>
+      </div>
+
+      <div class="x-suggestion-group x-tag">
+        <button class="x-button">
+          <CrossIcon />
+        </button>
+        <div class="x-suggestion x-suggestion--matching">
+          <span class="x-suggestion__query">
+            Suggestion
+            <span class="x-suggestion__matching-part">Query</span>
+          </span>
+          <SearchIcon />
+        </div>
+      </div>
+
+      <div class="x-suggestion-group x-tag">
+        <button class="x-button">
+          <CrossIcon />
+        </button>
+        <div class="x-suggestion x-suggestion--matching">
+          <span class="x-suggestion__query">
+            Suggestion extra large name
+            <span class="x-suggestion__matching-part">Query</span>
+          </span>
+          <SearchIcon />
+        </div>
+      </div>
+    </article>
   </section>
 </template>
 

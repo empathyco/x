@@ -378,21 +378,30 @@
                         </template>
 
                         <template #next-queries-group="{ item: { nextQueries } }">
-                          <div class="x-list x-list--gap-03">
-                            <h1 class="x-title2">What's next?</h1>
-                            <BaseSuggestions
-                              #default="{ suggestion }"
+                          <div class="x-list x-padding--06 x-background--neutral-95 x-list--gap-06">
+                            <div class="x-list x-list--gap-03">
+                              <h1 class="x-title2 x-text--bold">You may be interested</h1>
+                              <p class="x-text x-font-size--05">
+                                This is what other shoppers searched after
+                                <span class="x-font-weight--bold">"{{ $x.query.search }}"</span>
+                              </p>
+                            </div>
+                            <NextQueries
+                              #suggestion="{ suggestion }"
                               :suggestions="nextQueries"
-                              class="x-list--gap-03"
+                              class="x-list--gap-06"
+                              :max-items-to-render="3"
                             >
                               <NextQuery
                                 #default="{ suggestion: nextQuery }"
                                 :suggestion="suggestion"
+                                class="x-tag x-tag--card"
                               >
-                                <Nq1 />
-                                {{ nextQuery.query }}
+                                <LightBulbOn class="x-icon--l" />
+                                <span class="x-flex-auto">{{ nextQuery.query }}</span>
+                                <ArrowRight class="x-icon--l" />
                               </NextQuery>
-                            </BaseSuggestions>
+                            </NextQueries>
                           </div>
                         </template>
                       </BaseVariableColumnGrid>
@@ -457,6 +466,7 @@
   import BaseVariableColumnGrid from '../../components/base-variable-column-grid.vue';
   import BaseColumnPickerList from '../../components/column-picker/base-column-picker-list.vue';
   import BasePriceFilterLabel from '../../components/filters/labels/base-price-filter-label.vue';
+  import ArrowRight from '../../components/icons/arrow-right.vue';
   import CheckTiny from '../../components/icons/check-tiny.vue';
   import ChevronDown from '../../components/icons/chevron-down.vue';
   import ChevronLeft from '../../components/icons/chevron-left.vue';
@@ -469,6 +479,7 @@
   import CrossIcon from '../../components/icons/cross.vue';
   import Grid1Col from '../../components/icons/grid-1-col.vue';
   import Grid2Col from '../../components/icons/grid-2-col.vue';
+  import LightBulbOn from '../../components/icons/light-bulb-on.vue';
   import Nq1 from '../../components/icons/nq-1.vue';
   import SearchIcon from '../../components/icons/search.vue';
   // eslint-disable-next-line max-len
@@ -548,8 +559,7 @@
       infiniteScroll
     },
     components: {
-      SnippetCallbacks,
-      LocationProvider,
+      ArrowRight,
       AutoProgressBar,
       Banner,
       BannersList,
@@ -594,6 +604,8 @@
       HistoryQueries,
       IdentifierResult,
       IdentifierResults,
+      LightBulbOn,
+      LocationProvider,
       MainScrollItem,
       MultiColumnMaxWidthLayout,
       NextQueries,
@@ -621,6 +633,7 @@
       SimpleFilter,
       SlicedFilters,
       SlidingPanel,
+      SnippetCallbacks,
       SnippetConfigExtraParams,
       SortDropdown,
       SortList,
