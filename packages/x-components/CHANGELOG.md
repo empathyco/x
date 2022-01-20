@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.45](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.44...@empathyco/x-components@3.0.0-alpha.45) (2022-01-20)
+
+### Features
+
+- **design-system:** allow suggestions to be tags
+  ([24c94bb](https://github.com/empathyco/x/commit/24c94bb604f87a2135a36be5a298f053eba80738)),
+  closes [EX-4917](https://searchbroker.atlassian.net/browse/EX-4917)
+
+### Bug Fixes
+
+- **url:** default `extra params` are now properly restored
+  ([5540929](https://github.com/empathyco/x/commit/554092985a394e1d2b6087b1129282993da7e8c6)),
+  closes [EX-5203](https://searchbroker.atlassian.net/browse/EX-5203)
+
+### Testing
+
+- **e2e:** make `tagging` tests wait for redirection before assertion
+  ([f98cd25](https://github.com/empathyco/x/commit/f98cd254084f60893b1eb723d4081bf0c0f44166)),
+  closes [EX-5273](https://searchbroker.atlassian.net/browse/EX-5273)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.44](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.43...@empathyco/x-components@3.0.0-alpha.44) (2022-01-14)
 
 ### ⚠ BREAKING CHANGES
