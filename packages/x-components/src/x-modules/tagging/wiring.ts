@@ -92,6 +92,8 @@ export const setConsent = wireCommit('setConsent');
  */
 export const setClickedResultStorageKey = wireCommit('setClickedResultStorageKey');
 
+export const setTaggingConfig = wireCommit('setTaggingConfig');
+
 /**
  * Sets the tagging state `clickedResultStorageTTLMs`.
  *
@@ -180,12 +182,6 @@ function createTrackResultWire(property: keyof Result['tagging']): Wire<Result> 
  * @internal
  */
 export const taggingWiring = createWiring({
-  ClickedResultStorageKeyProvided: {
-    setClickedResultStorageKey
-  },
-  ClickedResultStorageDurationProvided: {
-    setClickedResultStorageTTL
-  },
   ConsentProvided: {
     setConsent
   },
@@ -194,9 +190,6 @@ export const taggingWiring = createWiring({
   },
   PDPIsLoaded: {
     moveClickedResultToSessionWire
-  },
-  QueryTaggingDebounceProvided: {
-    setQueryTaggingDebounce
   },
   ResultURLTrackingEnabled: {
     moveClickedResultToSessionWire
@@ -207,8 +200,8 @@ export const taggingWiring = createWiring({
   SearchTaggingReceived: {
     trackQueryWire
   },
-  SessionDurationProvided: {
-    setSessionDuration
+  TaggingConfigProvided: {
+    setTaggingConfig
   },
   UserClickedAResult: {
     trackResultClickedWire,

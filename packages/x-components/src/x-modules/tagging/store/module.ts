@@ -20,23 +20,14 @@ export const taggingXStoreModule: TaggingXStoreModule = {
   }),
   getters: {},
   mutations: {
-    setSessionDuration(state, sessionTTLMs) {
-      state.config.sessionTTLMs = sessionTTLMs;
-    },
-    setQueryTaggingDebounce(state, queryTaggingDebounceMs) {
-      state.config.queryTaggingDebounceMs = queryTaggingDebounceMs;
-    },
     setConsent(state, consent) {
       state.consent = consent;
     },
     setQueryTaggingInfo(state, queryTaggingInfo: TaggingInfo) {
       state.queryTaggingInfo = queryTaggingInfo;
     },
-    setClickedResultStorageKey(state, clickedResultStorageKey) {
-      state.config.clickedResultStorageKey = clickedResultStorageKey;
-    },
-    setClickedResultStorageTTL(state, clickedResultStorageTTL) {
-      state.config.clickedResultStorageTTLMs = clickedResultStorageTTL;
+    setTaggingConfig(state, taggingConfig) {
+      Object.assign(state.config, taggingConfig);
     }
   },
   actions: {

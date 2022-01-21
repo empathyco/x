@@ -5,6 +5,7 @@
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { taggingXModule } from '../x-module';
+  import { TaggingConfig } from '../config.types';
 
   /**
    * This component enables and manages the sending of information to the
@@ -23,7 +24,6 @@
      * @public
      */
     @Prop({ default: 30000 })
-    @XEmit('ClickedResultStorageDurationProvided')
     public clickedResultStorageTTLMs!: number;
 
     /**
@@ -33,7 +33,6 @@
      * @public
      */
     @Prop({ default: 'url' })
-    @XEmit('ClickedResultStorageKeyProvided')
     public clickedResultStorageKey!: string;
 
     /**
@@ -50,7 +49,6 @@
      * @internal
      */
     @Prop()
-    @XEmit('SessionDurationProvided')
     public sessionTTLMs: number | undefined;
 
     /**
@@ -59,7 +57,6 @@
      * @internal
      */
     @Prop()
-    @XEmit('QueryTaggingDebounceProvided')
     public queryTaggingDebounceMs: number | undefined;
 
     /**
@@ -82,6 +79,16 @@
     @XEmit('ConsentProvided')
     public get activeConsent(): boolean {
       return this.consent ?? this.snippetConfig?.consent ?? false;
+    }
+
+    @XEmit('TaggingConfigProvided')
+    public get config(): TaggingConfig {
+      return {
+        queryTaggingDebounceMs: this.queryTaggingDebounceMs as number,
+        sessionTTLMs: this.sessionTTLMs as number,
+        clickedResultStorageTTLMs: this.clickedResultStorageTTLMs,
+        clickedResultStorageKey: this.clickedResultStorageKey
+      };
     }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function

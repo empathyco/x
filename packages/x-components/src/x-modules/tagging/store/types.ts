@@ -41,19 +41,6 @@ export interface TaggingMutations {
    */
   setConsent(consent: boolean): void;
   /**
-   * Sets the {@link TaggingConfig.sessionTTLMs } property.
-   *
-   * @param sessionTTLMs - The new {@link TaggingConfig.sessionTTLMs }.
-   */
-  setSessionDuration(sessionTTLMs: number): void;
-  /**
-   * Sets the {@link TaggingConfig.queryTaggingDebounceMs } property.
-   *
-   * @param queryTaggingDebounceMs - The new {@link TaggingConfig.queryTaggingDebounceMs }.
-   */
-  setQueryTaggingDebounce(queryTaggingDebounceMs: number): void;
-
-  /**
    * Sets the {@link TaggingState.queryTaggingInfo} property.
    *
    * @param queryTaggingInfo - The new {@link TaggingState.queryTaggingInfo}.
@@ -61,17 +48,11 @@ export interface TaggingMutations {
   setQueryTaggingInfo(queryTaggingInfo: TaggingInfo): void;
 
   /**
-   * Sets the {@link TaggingConfig.clickedResultStorageKey} property.
+   * Sets the {@link TaggingState.config} property.
    *
-   * @param clickedResultStorageKey - The new {@link TaggingConfig.clickedResultStorageKey}.
+   * @param taggingConfig - The new {@link TaggingState.config}.
    */
-  setClickedResultStorageKey(clickedResultStorageKey: string): void;
-  /**
-   * Sets the {@link TaggingConfig.clickedResultStorageTTLMs} property.
-   *
-   * @param clickedResultStorageTTLMs - The new {@link TaggingConfig.clickedResultStorageTTLMs}.
-   */
-  setClickedResultStorageTTL(clickedResultStorageTTL: number): void;
+  setTaggingConfig(taggingConfig: TaggingConfig): void;
 }
 
 /**

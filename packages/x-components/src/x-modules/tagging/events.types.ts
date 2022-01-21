@@ -1,4 +1,5 @@
 import { TaggingInfo } from '@empathyco/x-types';
+import { TaggingConfig } from './config.types';
 
 /**
  * Dictionary of the events of Tagging XModule, where each key is the event name, and the value is
@@ -7,17 +8,6 @@ import { TaggingInfo } from '@empathyco/x-types';
  * @public
  */
 export interface TaggingXEvents {
-  /**
-   * The time to store the information for a result clicked by the user has been provided.
-   * * Payload: The new result storage duration value.
-   */
-  ClickedResultStorageDurationProvided: number;
-  /**
-   * The field of {@link @empathy/x-types#Result | result} to be use as id for
-   * storing the information.
-   * * Payload: The new id storage value.
-   */
-  ClickedResultStorageKeyProvided: string;
   /**
    * Consent has changed.
    * * Payload: The new consent value.
@@ -34,12 +24,7 @@ export interface TaggingXEvents {
    */
   PDPIsLoaded: string;
   /**
-   * Query tagging debounce has been provided.
-   * * Payload: The new query tagging debounce value.
-   */
-  QueryTaggingDebounceProvided: number;
-  /**
-   * ClickedResultStorageKeyProvided has been configured to use the
+   * ClickedResultStorageKey has been configured to use the
    * {@link @empathy/x-types#Result | result} url.
    * * Payload: The new clickedResultStorageKey.
    */
@@ -50,13 +35,13 @@ export interface TaggingXEvents {
    */
   SearchTaggingReceived: TaggingInfo;
   /**
-   * Session duration has been provided.
-   * * Payload: The new session duration value.
-   */
-  SessionDurationProvided: number;
-  /**
    * The user has clicked on the add to cart button from PDP
    ** Payload: The id of the {@link @empathy/x-types#Result | result} that the user clicked.
    **/
   UserClickedPDPAddToCart: string | null;
+  /**
+   * The configuration for the tagging has been provided.
+   ** Payload: The configuration for the tagging.
+   */
+  TaggingConfigProvided: TaggingConfig;
 }
