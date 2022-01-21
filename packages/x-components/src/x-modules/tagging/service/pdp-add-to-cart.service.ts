@@ -59,7 +59,8 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    * @param id - The id of the result to move to the session storage.
    */
   moveToSessionStorage(id: string): void {
-    const storageKey = this.getStorageId(id);
+    const productId = id === 'url' ? window.location.href : id;
+    const storageKey = this.getStorageId(productId);
     const result = this.localStorageService.removeItem(storageKey);
     if (result) {
       this.sessionStorageService.setItem(storageKey, result);
@@ -73,7 +74,8 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    * @param id - The id of the result to track.
    */
   trackAddToCart(id?: string | null): void {
-    const storageId = this.getStorageId(id ?? 'url');
+    const productId = id ? id : window.location.href;
+    const storageId = this.getStorageId(productId);
     const result = this.sessionStorageService.getItem(storageId) as Result;
     if (result) {
       this.store.dispatch('x/tagging/track', result.tagging.add2cart);
@@ -84,8 +86,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
 
   private getStorageId(id: string): string {
     if (this.clickedResultStorageKey === 'url') {
-      const url =
-        id === 'url' ? window.location.href.replace(/\s|\+/g, '%20') : id.replace(/\s|\+/g, '%20');
+      const url = id.replace(/\s|\+/g, '%20');
       return `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${url}`;
     } else {
       return `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${id}`;
