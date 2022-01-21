@@ -45,6 +45,8 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    * in order to be able to track later on.
    *
    * @param result - The result to store.
+   *
+   * @public
    */
   storeResultClicked(result: Result): void {
     const key = result[this.clickedResultStorageKey as keyof Result] as string;
@@ -57,6 +59,8 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    * the result info from the local storage to the session storage.
    *
    * @param id - The id of the result to move to the session storage.
+   *
+   * @public
    */
   moveToSessionStorage(id: string): void {
     const productId = id === 'url' ? window.location.href : id;
@@ -72,6 +76,8 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    * and tracks the add to cart if exists.
    *
    * @param id - The id of the result to track.
+   *
+   * @public
    */
   trackAddToCart(id?: string | null): void {
     const productId = id ? id : window.location.href;
@@ -84,6 +90,15 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
     }
   }
 
+  /**
+   * Calculates the browser storage key for the given id.
+   *
+   * @param id - The id to be used for the storage key.
+   *
+   * @returns The complete key to be used for storage.
+   *
+   * @internal
+   */
   private getStorageId(id: string): string {
     if (this.clickedResultStorageKey === 'url') {
       const url = id.replace(/\s|\+/g, '%20');
@@ -93,6 +108,14 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
     }
   }
 
+  /**
+   * Logs a warning message in case the tracking cannot be done.
+   *
+   * @param storageId - The browser storage key used.
+   * @param id - The product id to track.
+   *
+   * @internal
+   */
   private showWarningMessage(storageId: string, id?: string | null): void {
     //TODO: add here logger
     //eslint-disable-next-line no-console
