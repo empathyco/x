@@ -22,7 +22,8 @@
     "husky": "~7.0.2",
     "lerna": "~4.0.0",
     "lint-staged": "~11.1.2",
-    "prettier": "~2.3.2"
+    "prettier": "~2.3.2",
+    "colors": "1.4.0"
   },
   "prettier": "@empathyco/eslint-plugin-x/prettier-config",
   "lint-staged": {
