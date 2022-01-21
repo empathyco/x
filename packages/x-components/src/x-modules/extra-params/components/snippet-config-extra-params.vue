@@ -45,7 +45,7 @@
      *
      * @internal
      */
-    protected notAllowedExtraParams: Array<keyof SnippetConfig> = ['callbacks'];
+    protected notAllowedExtraParams: Array<keyof SnippetConfig> = ['callbacks', 'productId'];
 
     /**
      * Updates the extraParams object when the snippet config changes.
