@@ -45,7 +45,6 @@ describe('testing pdp add to cart', () => {
   const { service, localStorageService, sessionStorageService, store } =
     preparePDPAddToCartService();
 
-  const localGetItemSpy = jest.spyOn(localStorageService, 'getItem');
   const localSetItemSpy = jest.spyOn(localStorageService, 'setItem');
   const localRemoveItemSpy = jest.spyOn(localStorageService, 'removeItem');
 
@@ -102,18 +101,16 @@ describe('testing pdp add to cart', () => {
     service.moveToSessionStorage(result.id as string);
     let id = `add-to-cart-${result.id}`;
 
-    expect(localGetItemSpy).toHaveBeenCalledWith(id);
-    expect(sessionSetItemSpy).toHaveBeenCalledWith(id, result);
     expect(localRemoveItemSpy).toHaveBeenCalledWith(id);
+    expect(sessionSetItemSpy).toHaveBeenCalledWith(id, result);
 
     store.commit('x/tagging/setClickedResultStorageKey', 'url');
     service.storeResultClicked(result);
     service.moveToSessionStorage('url');
     id = `add-to-cart-${encodedURL}`;
 
-    expect(localGetItemSpy).toHaveBeenCalledWith(id);
-    expect(sessionSetItemSpy).toHaveBeenCalledWith(id, result);
     expect(localRemoveItemSpy).toHaveBeenCalledWith(id);
+    expect(sessionSetItemSpy).toHaveBeenCalledWith(id, result);
   });
 
   it('dispatches the add to track tagging', () => {

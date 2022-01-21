@@ -32,6 +32,14 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
     return XPlugin.store;
   }
 
+  protected get clickedResultStorageKey(): string {
+    return this.store.state.x.tagging.config.clickedResultStorageKey as string;
+  }
+
+  protected get clickedResultStorageTTLMs(): number {
+    return this.store.state.x.tagging.config.clickedResultStorageTTLMs as number;
+  }
+
   /**
    * Stores in the local storage the information from the Result clicked by the user
    * in order to be able to track later on.
@@ -39,17 +47,9 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    * @param result - The result to store.
    */
   storeResultClicked(result: Result): void {
-    const { clickedResultStorageKey, clickedResultStorageTTLMs } =
-      this.store.state.x.tagging.config;
-
-    let key = result[clickedResultStorageKey as keyof Result] as string;
-
-    if (clickedResultStorageKey === 'url') {
-      key = key.replace(/\s|\+/g, '%20');
-    }
-
-    const storageKey = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${key}`;
-    this.localStorageService.setItem(storageKey, result, clickedResultStorageTTLMs as number);
+    const key = result[this.clickedResultStorageKey as keyof Result] as string;
+    const storageId = this.getStorageId(key);
+    this.localStorageService.setItem(storageId, result, this.clickedResultStorageTTLMs);
   }
 
   /**
@@ -59,19 +59,10 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    * @param id - The id of the result to move to the session storage.
    */
   moveToSessionStorage(id: string): void {
-    let clickedResultStorageKeyId: string;
-
-    if (id === 'url') {
-      const url = window.location.href.replace(/\s|\+/g, '%20');
-      clickedResultStorageKeyId = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${url}`;
-    } else {
-      clickedResultStorageKeyId = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${id}`;
-    }
-
-    const result = this.localStorageService.getItem(clickedResultStorageKeyId);
+    const storageKey = this.getStorageId(id);
+    const result = this.localStorageService.removeItem(storageKey);
     if (result) {
-      this.sessionStorageService.setItem(clickedResultStorageKeyId, result);
-      this.localStorageService.removeItem(clickedResultStorageKeyId);
+      this.sessionStorageService.setItem(storageKey, result);
     }
   }
 
@@ -82,31 +73,33 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    * @param id - The id of the result to track.
    */
   trackAddToCart(id?: string | null): void {
-    let clickedResultStorageKeyId: string;
-
-    if (!id) {
-      const url = window.location.href.replace(/\s|\+/g, '%20');
-      clickedResultStorageKeyId = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${url}`;
-    } else {
-      clickedResultStorageKeyId = `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${id}`;
-    }
-
-    const result = this.sessionStorageService.getItem(clickedResultStorageKeyId) as Result;
+    const storageId = this.getStorageId(id ?? 'url');
+    const result = this.sessionStorageService.getItem(storageId) as Result;
     if (result) {
       this.store.dispatch('x/tagging/track', result.tagging.add2cart);
     } else {
+      this.showWarningMessage(storageId, id);
+    }
+  }
+
+  private getStorageId(id: string): string {
+    if (this.clickedResultStorageKey === 'url') {
+      const url =
+        id === 'url' ? window.location.href.replace(/\s|\+/g, '%20') : id.replace(/\s|\+/g, '%20');
+      return `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${url}`;
+    } else {
+      return `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${id}`;
+    }
+  }
+
+  private showWarningMessage(storageId: string, id?: string | null): void {
+    //TODO: add here logger
+    //eslint-disable-next-line no-console
+    console.warn(`No result info found for ${storageId}`);
+    if (!id && this.clickedResultStorageKey !== 'url') {
       //TODO: add here logger
       //eslint-disable-next-line no-console
-      console.warn(`No result info found for ${clickedResultStorageKeyId}`);
-
-      const { clickedResultStorageKey } = this.store.state.x.tagging.config;
-      if (!id && clickedResultStorageKey !== 'url') {
-        //TODO: add here logger
-        //eslint-disable-next-line no-console
-        console.warn(
-          'No product id was provided but the storage was not configured to use the url'
-        );
-      }
+      console.warn('No product id was provided but the storage was not configured to use the url');
     }
   }
 }
