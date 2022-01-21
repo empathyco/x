@@ -35,11 +35,7 @@ export class BaseXAPI implements XAPI {
    * @param productId - The product id that was added to cart.
    */
   addProductToCart(productId?: string): void {
-    if (productId) {
-      this.bus?.emit('UserClickedPDPAddToCart', productId);
-    } else {
-      this.bus?.emit('UserClickedPDPAddToCart', null);
-    }
+    this.bus?.emit('UserClickedPDPAddToCart', productId ?? null);
   }
 
   /**
