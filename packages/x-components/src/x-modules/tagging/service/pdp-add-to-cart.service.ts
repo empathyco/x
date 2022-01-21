@@ -1,7 +1,6 @@
 import { Store } from 'vuex';
 import { Result } from '@empathyco/x-types';
 import { BrowserStorageService, StorageService } from '@empathyco/x-storage-service';
-import { Logger, logger } from '@empathyco/x-logger';
 import { RootXStoreState } from '../../../store/index';
 import { XPlugin } from '../../../plugins/index';
 import { PDPAddToCartService } from './types';
@@ -12,7 +11,6 @@ import { PDPAddToCartService } from './types';
  * @public
  */
 export class DefaultPDPAddToCartService implements PDPAddToCartService {
-  protected logger: Logger;
   /**
    * Session id key to use as key in the storage.
    *
@@ -28,9 +26,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
   public constructor(
     protected localStorageService: StorageService = new BrowserStorageService(localStorage, 'x'),
     protected sessionStorageService: StorageService = new BrowserStorageService(sessionStorage, 'x')
-  ) {
-    this.logger = logger.child(`[PDPAddToCartService]`);
-  }
+  ) {}
 
   protected get store(): Store<RootXStoreState> {
     return XPlugin.store;
@@ -99,11 +95,15 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
     if (result) {
       this.store.dispatch('x/tagging/track', result.tagging.add2cart);
     } else {
-      this.logger.warn(`No result info found for ${clickedResultStorageKeyId}`);
+      //TODO: add here logger
+      //eslint-disable-next-line no-console
+      console.warn(`No result info found for ${clickedResultStorageKeyId}`);
 
       const { clickedResultStorageKey } = this.store.state.x.tagging.config;
       if (!id && clickedResultStorageKey !== 'url') {
-        this.logger.warn(
+        //TODO: add here logger
+        //eslint-disable-next-line no-console
+        console.warn(
           'No product id was provided but the storage was not configured to use the url'
         );
       }
