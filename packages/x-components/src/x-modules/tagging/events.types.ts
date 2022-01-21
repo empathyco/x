@@ -8,6 +8,17 @@ import { TaggingInfo } from '@empathyco/x-types';
  */
 export interface TaggingXEvents {
   /**
+   * The time to store the information for a result clicked by the user has been provided.
+   * * Payload: The new result storage duration value.
+   */
+  ClickedResultStorageDurationProvided: number;
+  /**
+   * The field of {@link @empathy/x-types#Result | result} to be use as id for
+   * storing the information.
+   * * Payload: The new id storage value.
+   */
+  ClickedResultStorageKeyProvided: string;
+  /**
    * Consent has changed.
    * * Payload: The new consent value.
    */
@@ -18,10 +29,21 @@ export interface TaggingXEvents {
    */
   ConsentProvided: boolean;
   /**
+   * A product description page has been loaded.
+   * Payload: the id of the product.
+   */
+  PDPIsLoaded: string;
+  /**
    * Query tagging debounce has been provided.
    * * Payload: The new query tagging debounce value.
    */
   QueryTaggingDebounceProvided: number;
+  /**
+   * ClickedResultStorageKeyProvided has been configured to use the
+   * {@link @empathy/x-types#Result | result} url.
+   * * Payload: The new clickedResultStorageKey.
+   */
+  ResultURLTrackingEnabled: string;
   /**
    * Query tagging info has changed.
    * * Payload: The new query tagging info.
@@ -32,30 +54,9 @@ export interface TaggingXEvents {
    * * Payload: The new session duration value.
    */
   SessionDurationProvided: number;
-
   /**
-   * The time to store the information for a result clicked by the user has been provided.
-   * * Payload: The new result storage duration value.
-   */
-  ClickedResultStorageDurationProvided: number;
-
-  /**
-   * The field of {@link @empathy/x-types#Result | result} to be use as id for
-   * storing the information.
-   * * Payload: The new id storage value.
-   */
-  ClickedResultStorageKeyProvided: string;
-
-  /**
-   * ClickedResultStorageKeyProvided has been configured to use the
-   * {@link @empathy/x-types#Result | result} url.
-   * * Payload: The new clickedResultStorageKey.
-   */
-  ResultURLTrackingEnabled: string;
-
-  /**
-   * A product description page has been loaded.
-   * Payload: the id of the product.
-   */
-  PDPIsLoaded: string;
+   * The user has clicked on the add to cart button from PDP
+   ** Payload: The id of the {@link @empathy/x-types#Result | result} that the user clicked.
+   **/
+  UserClickedPDPAddToCart: string | null;
 }
