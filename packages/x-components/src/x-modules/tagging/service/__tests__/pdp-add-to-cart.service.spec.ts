@@ -7,14 +7,14 @@ import { taggingXModule } from '../../x-module';
 import { RootXStoreState } from '../../../../store/index';
 import { createResultStub } from '../../../../__stubs__/index';
 
-interface PDPdAddToCartServiceTestAPI {
+interface PDPAddToCartServiceTestAPI {
   service: DefaultPDPAddToCartService;
   localStorageService: InMemoryStorageService;
   sessionStorageService: InMemoryStorageService;
   store: Store<RootXStoreState>;
 }
 
-function preparePDPAddToCartService(): PDPdAddToCartServiceTestAPI {
+function preparePDPAddToCartService(): PDPAddToCartServiceTestAPI {
   XPlugin.resetInstance();
   installNewXPlugin();
   XPlugin.registerXModule(taggingXModule);
