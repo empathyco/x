@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.45...@empathyco/x-components@3.0.0-alpha.46) (2022-01-24)
+
+### Bug Fixes
+
+- **components:** Fix BaseGrid auto columns CSS. (#308)
+  ([77563f0](https://github.com/empathyco/x/commit/77563f0eb71d806fb2cefb88b750c4852918b8c0)),
+  closes [EX-5295](https://searchbroker.atlassian.net/browse/EX-5295)
+
+### Build System
+
+- Fix colors.js dependency issue
+  ([2ffcc22](https://github.com/empathyco/x/commit/2ffcc222f5666d7866c8d7cd3a0eec7c0bb1f938)),
+  closes [EX-5293](https://searchbroker.atlassian.net/browse/EX-5293)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.45](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.44...@empathyco/x-components@3.0.0-alpha.45) (2022-01-20)
 
 ### Features
