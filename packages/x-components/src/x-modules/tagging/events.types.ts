@@ -35,8 +35,8 @@ export interface TaggingXEvents {
    */
   SearchTaggingReceived: TaggingInfo;
   /**
-   * The user has clicked on the add to cart button from PDP
-   ** Payload: The id of the {@link @empathy/x-types#Result | result} that the user clicked.
+   * The user has clicked on the add to cart button from PDP.
+   * * Payload: The id of the {@link @empathy/x-types#Result | result} that the user clicked.
    **/
   UserClickedPDPAddToCart: string | null;
   /**

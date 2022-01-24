@@ -121,9 +121,7 @@
 This component emits the following events:
 
 - [`ConsentProvided`](./../../api/x-components.taggingxevents.consentprovided.md)
-- [`SessionDurationProvided`](./../../api/x-components.taggingxevents.sessiondurationprovided.md)
-- `QueryTaggingDebounceProvided`[1]
-  [1](./../../api/x-components.taggingxevents.querytaggingdebounceprovided.md)
+- [`TaggingConfigProvided`](./../../api/x-components.taggingxevents.taggingconfigprovided.md)
 
 ## See it in action
 
@@ -150,12 +148,24 @@ doesn't render elements to the DOM.
 ### Play with props
 
 In this example, the `Tagging` component will emit `ConsentProvided` with payload false by default
-if the consent is not provided, the `SessionDurationProvided` and `QueryTaggingDebounceProvided`
-events will be emitted only if the props are defined.
+if the consent is not provided, the `TaggingConfigProvided` event will be emitted only if the props
+`queryTaggingDebounceMs`, `sessionDurationMs`, `clickedResultStorageTTLMs` or
+`clickedResultStorageKey`are defined.
+
+Every time the user clicks a result the information for the clicked product will be stored on the
+browser during 60000 milliseconds which is the value for the prop `clickedResultStorageTTLMs`. To
+distinguish the storage information for the different results the product id will be used since
+`clickedResultStorageKey` value is set to 'id'.
 
 ```vue
 <template>
-  <Tagging :consent="true" :queryTaggingDebounceMs="300" :sessionDurationMs="30000" />
+  <Tagging
+    :consent="true"
+    :queryTaggingDebounceMs="300"
+    :sessionDurationMs="30000"
+    :clickedResultStorageTTLMs="60000"
+    :clickedResultStorageKey="'id'"
+  />
 </template>
 
 <script>
@@ -175,9 +185,6 @@ events will be emitted only if the props are defined.
 The `Tagging` will emit the `ConsentProvided` when the component is loaded and the consent is set by
 the prop or getting the value from the snippet config.
 
-The `Tagging` will emit the `SessionDurationProvided` when the component is loaded with a session
-duration using the prop.
-
-The `Tagging` will emit the `QueryTaggingDebounceProvided` when the component is loaded with query
-debounce using the prop.
+The `Tagging` will emit the `TaggingConfigProvided` when the component is loaded with the new
+[`TaggingConfig`](./../../api/x-components.taggingconfig.md) using the prop values.
 </docs>
