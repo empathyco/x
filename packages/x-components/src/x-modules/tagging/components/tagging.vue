@@ -153,19 +153,33 @@ if the consent is not provided, the `TaggingConfigProvided` event will be emitte
 `clickedResultStorageKey`are defined.
 
 Every time the user clicks a result the information for the clicked product will be stored on the
-browser during 60000 milliseconds which is the value for the prop `clickedResultStorageTTLMs`. To
-distinguish the storage information for the different results the product id will be used since
-`clickedResultStorageKey` value is set to 'id'.
+browser during 30 seconds which is the default value for the prop `clickedResultStorageTTLMs`. To
+distinguish the storage information for the different results the product url will be used since
+`clickedResultStorageKey` default value is 'url'.
 
 ```vue
 <template>
-  <Tagging
-    :consent="true"
-    :queryTaggingDebounceMs="300"
-    :sessionDurationMs="30000"
-    :clickedResultStorageTTLMs="60000"
-    :clickedResultStorageKey="'id'"
-  />
+  <Tagging :consent="true" :queryTaggingDebounceMs="300" :sessionDurationMs="30000" />
+</template>
+
+<script>
+  import { Tagging } from '@empathyco/x-components/tagging';
+
+  export default {
+    name: 'TaggingDemo',
+    components: {
+      Tagging
+    }
+  };
+</script>
+```
+
+In this example, the clicked result information will be stored on the browser during 60 seconds and
+the product id will be used as storage key.
+
+```vue
+<template>
+  <Tagging :clickedResultStorageTTLMs="60000" :clickedResultStorageKey="'id'" />
 </template>
 
 <script>
