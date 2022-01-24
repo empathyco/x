@@ -51,9 +51,10 @@ describe('testing pdp add to cart', () => {
   const sessionSetItemSpy = jest.spyOn(sessionStorageService, 'setItem');
   const storeDispatchSpy = jest.spyOn(store, 'dispatch');
 
-  const url = 'http://localhost:8080/?param=test&param2=&param3=t+e+s+t';
-  const encodedURL = 'http://localhost:8080/?param=test&param2=&param3=t%20e%20s%20t';
-  const URLWithSpaces = 'http://localhost:8080/?param=test&param2=&param3=t e s t';
+  const productPathName = '/products/1234';
+  const url = `http://localhost:8080${productPathName}?param=test`;
+  const encodedURL = `http://localhost:8080${productPathName}?param=test&param3=t%20e%20s%20t`;
+  const URLWithSpaces = `http://localhost:8080${productPathName}?param=t e st`;
 
   const result = createResultStub('Product 001', { url: URLWithSpaces });
 
@@ -91,7 +92,7 @@ describe('testing pdp add to cart', () => {
 
     service.storeResultClicked(result);
     expect(localSetItemSpy).toHaveBeenCalledWith(
-      `add-to-cart-${encodedURL}`,
+      `add-to-cart-${productPathName}`,
       result,
       clickedResultStorageTTLMs
     );
@@ -100,7 +101,7 @@ describe('testing pdp add to cart', () => {
 
     service.storeResultClicked(result);
     expect(localSetItemSpy).toHaveBeenCalledWith(
-      `add-to-cart-${encodedURL}`,
+      `add-to-cart-${productPathName}`,
       result,
       clickedResultStorageTTLMs
     );
@@ -121,7 +122,7 @@ describe('testing pdp add to cart', () => {
     commitTaggingConfig(store, { clickedResultStorageKey: 'url' });
     service.storeResultClicked(result);
     service.moveToSessionStorage('url');
-    id = `add-to-cart-${encodedURL}`;
+    id = `add-to-cart-${productPathName}`;
 
     expect(localRemoveItemSpy).toHaveBeenCalledWith(id);
     expect(sessionSetItemSpy).toHaveBeenCalledWith(id, result);
@@ -135,7 +136,7 @@ describe('testing pdp add to cart', () => {
     service.moveToSessionStorage('url');
     service.trackAddToCart();
 
-    expect(sessionGetItemSpy).toHaveBeenCalledWith(`add-to-cart-${encodedURL}`);
+    expect(sessionGetItemSpy).toHaveBeenCalledWith(`add-to-cart-${productPathName}`);
     expect(storeDispatchSpy).toHaveBeenCalledWith('x/tagging/track', result.tagging.add2cart);
 
     commitTaggingConfig(store, { clickedResultStorageKey: 'url', clickedResultStorageTTLMs });

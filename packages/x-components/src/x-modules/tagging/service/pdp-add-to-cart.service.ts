@@ -99,10 +99,11 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    *
    * @internal
    */
-  private getStorageId(id: string): string {
+  protected getStorageId(id: string): string {
     if (this.clickedResultStorageKey === 'url') {
       const url = id.replace(/\s|\+/g, '%20');
-      return `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${url}`;
+      const pathName = this.getPathName(url);
+      return `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${pathName}`;
     } else {
       return `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${id}`;
     }
@@ -116,7 +117,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    *
    * @internal
    */
-  private showWarningMessage(storageId: string, id?: string | null): void {
+  protected showWarningMessage(storageId: string, id?: string | null): void {
     //TODO: add here logger
     //eslint-disable-next-line no-console
     console.warn(`No result info found for ${storageId}`);
@@ -124,6 +125,32 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
       //TODO: add here logger
       //eslint-disable-next-line no-console
       console.warn('No product id was provided but the storage was not configured to use the url');
+    }
+  }
+
+  /**
+   * Returns the pathname for a given url.
+   *
+   * @param url - The url to get the pathname from.
+   *
+   * @returns The pathname of the url.
+   *
+   * @internal
+   */
+  protected getPathName(url: string): string {
+    let _url: URL;
+    try {
+      if (/^(\.\.\/|\.\/|\/)/.test(url)) {
+        _url = new URL(url, location.origin);
+      } else {
+        _url = new URL(url);
+      }
+      return _url.pathname;
+    } catch (e) {
+      //TODO: add here logger
+      //eslint-disable-next-line no-console
+      console.warn(`There was a problem with url ${url}`);
+      return url;
     }
   }
 }
