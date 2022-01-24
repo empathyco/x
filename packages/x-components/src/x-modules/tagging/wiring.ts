@@ -87,6 +87,8 @@ export const setConsent = wireCommit('setConsent');
 
 /**
  * Sets the tagging config state.
+ *
+ * @public
  */
 export const setTaggingConfig = wireCommit('setTaggingConfig');
 
