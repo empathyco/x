@@ -86,34 +86,9 @@ const clearSessionWire = filter(
 export const setConsent = wireCommit('setConsent');
 
 /**
- * Sets the tagging state `clickedResultStorageKey`.
- *
- * @public
+ * Sets the tagging config state.
  */
-export const setClickedResultStorageKey = wireCommit('setClickedResultStorageKey');
-
 export const setTaggingConfig = wireCommit('setTaggingConfig');
-
-/**
- * Sets the tagging state `clickedResultStorageTTLMs`.
- *
- * @public
- */
-export const setClickedResultStorageTTL = wireCommit('setClickedResultStorageTTL');
-
-/**
- * Sets the tagging state config `queryTaggingDebounceMs`.
- *
- * @public
- */
-export const setQueryTaggingDebounce = wireCommit('setQueryTaggingDebounce');
-
-/**
- * Sets the tagging state `sessionTTLMs`.
- *
- * @public
- */
-export const setSessionDuration = wireCommit('setSessionDuration');
 
 /**
  * Tracks the tagging of the query.
