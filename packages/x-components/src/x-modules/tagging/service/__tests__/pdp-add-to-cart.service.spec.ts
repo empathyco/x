@@ -6,6 +6,7 @@ import { installNewXPlugin } from '../../../../__tests__/utils';
 import { taggingXModule } from '../../x-module';
 import { RootXStoreState } from '../../../../store/index';
 import { createResultStub } from '../../../../__stubs__/index';
+import { TaggingConfig } from '../../config.types';
 
 interface PDPAddToCartServiceTestAPI {
   service: DefaultPDPAddToCartService;
@@ -32,13 +33,11 @@ function preparePDPAddToCartService(): PDPAddToCartServiceTestAPI {
   };
 }
 
-function commitClickResultStorageConfig(
+function commitTaggingConfig(
   store: Store<RootXStoreState>,
-  storageKey: string,
-  ttl: number
+  taggingConfig: Partial<TaggingConfig>
 ): void {
-  store.commit('x/tagging/setClickedResultStorageKey', storageKey);
-  store.commit('x/tagging/setClickedResultStorageTTL', ttl);
+  store.commit('x/tagging/setTaggingConfig', taggingConfig);
 }
 
 describe('testing pdp add to cart', () => {
@@ -70,32 +69,47 @@ describe('testing pdp add to cart', () => {
   });
 
   it('stores the result with the id as key and ttl', () => {
-    const storageKey = 'id';
-    const ttl = 30000;
-    commitClickResultStorageConfig(store, storageKey, ttl);
+    const clickedResultStorageKey = 'id';
+    const clickedResultStorageTTLMs = 30000;
+    commitTaggingConfig(store, {
+      clickedResultStorageKey,
+      clickedResultStorageTTLMs
+    });
 
     service.storeResultClicked(result);
-    expect(localSetItemSpy).toHaveBeenCalledWith(`add-to-cart-${result.id}`, result, ttl);
+    expect(localSetItemSpy).toHaveBeenCalledWith(
+      `add-to-cart-${result.id}`,
+      result,
+      clickedResultStorageTTLMs
+    );
   });
 
   it('stores the result using the url as id and ttl', () => {
-    const storageKey = 'url';
-    const ttl = 30;
-    commitClickResultStorageConfig(store, storageKey, ttl);
+    const clickedResultStorageKey = 'url';
+    const clickedResultStorageTTLMs = 30;
+    commitTaggingConfig(store, { clickedResultStorageKey, clickedResultStorageTTLMs });
 
     service.storeResultClicked(result);
-    expect(localSetItemSpy).toHaveBeenCalledWith(`add-to-cart-${encodedURL}`, result, ttl);
+    expect(localSetItemSpy).toHaveBeenCalledWith(
+      `add-to-cart-${encodedURL}`,
+      result,
+      clickedResultStorageTTLMs
+    );
 
     result.url = encodedURL;
 
     service.storeResultClicked(result);
-    expect(localSetItemSpy).toHaveBeenCalledWith(`add-to-cart-${encodedURL}`, result, ttl);
+    expect(localSetItemSpy).toHaveBeenCalledWith(
+      `add-to-cart-${encodedURL}`,
+      result,
+      clickedResultStorageTTLMs
+    );
   });
 
   it('moves the result to the session service', () => {
-    const storageKey = 'id';
-    const ttl = 30000;
-    commitClickResultStorageConfig(store, storageKey, ttl);
+    const clickedResultStorageKey = 'id';
+    const clickedResultStorageTTLMs = 30000;
+    commitTaggingConfig(store, { clickedResultStorageKey, clickedResultStorageTTLMs });
 
     service.storeResultClicked(result);
     service.moveToSessionStorage(result.id as string);
@@ -104,7 +118,7 @@ describe('testing pdp add to cart', () => {
     expect(localRemoveItemSpy).toHaveBeenCalledWith(id);
     expect(sessionSetItemSpy).toHaveBeenCalledWith(id, result);
 
-    store.commit('x/tagging/setClickedResultStorageKey', 'url');
+    commitTaggingConfig(store, { clickedResultStorageKey: 'url' });
     service.storeResultClicked(result);
     service.moveToSessionStorage('url');
     id = `add-to-cart-${encodedURL}`;
@@ -114,9 +128,9 @@ describe('testing pdp add to cart', () => {
   });
 
   it('dispatches the add to track tagging', () => {
-    const storageKey = 'url';
-    const ttl = 30000;
-    commitClickResultStorageConfig(store, storageKey, ttl);
+    const clickedResultStorageKey = 'url';
+    const clickedResultStorageTTLMs = 30000;
+    commitTaggingConfig(store, { clickedResultStorageKey, clickedResultStorageTTLMs });
     service.storeResultClicked(result);
     service.moveToSessionStorage('url');
     service.trackAddToCart();
@@ -124,7 +138,7 @@ describe('testing pdp add to cart', () => {
     expect(sessionGetItemSpy).toHaveBeenCalledWith(`add-to-cart-${encodedURL}`);
     expect(storeDispatchSpy).toHaveBeenCalledWith('x/tagging/track', result.tagging.add2cart);
 
-    commitClickResultStorageConfig(store, 'url', ttl);
+    commitTaggingConfig(store, { clickedResultStorageKey: 'url', clickedResultStorageTTLMs });
     service.storeResultClicked(result);
     const id = result.id as string;
     service.moveToSessionStorage(id);
