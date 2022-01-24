@@ -140,6 +140,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
   protected getPathName(url: string): string {
     let _url: URL;
     try {
+      // Check if the url is relative or absolute path
       if (/^(\.\.\/|\.\/|\/)/.test(url)) {
         _url = new URL(url, location.origin);
       } else {
