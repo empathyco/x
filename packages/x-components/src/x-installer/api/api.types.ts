@@ -14,6 +14,9 @@ export interface XAPI {
    * To track that a product was added to the cart from PDP.
    *
    * @param productId - The id of the product added to cart.
+   *
+   * @remarks if no productId is provided, then the current page url will be used as id for
+   * getting the previously stored result information.
    */
   addProductToCart(productId?: string): void;
   /**
