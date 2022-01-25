@@ -64,10 +64,10 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    */
   moveToSessionStorage(id: string): void {
     const productId = id === 'url' ? window.location.href : id;
-    const storageKey = this.getStorageId(productId);
-    const result = this.localStorageService.removeItem(storageKey);
+    const storageId = this.getStorageId(productId);
+    const result = this.localStorageService.removeItem(storageId);
     if (result) {
-      this.sessionStorageService.setItem(storageKey, result);
+      this.sessionStorageService.setItem(storageId, result);
     }
   }
 
@@ -79,14 +79,13 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    *
    * @public
    */
-  trackAddToCart(id?: string | null): void {
+  trackAddToCart(id?: string): void {
     const productId = id ? id : window.location.href;
     const storageId = this.getStorageId(productId);
-    const result = this.sessionStorageService.getItem(storageId) as Result;
-    if (result) {
+    const result = this.sessionStorageService.getItem<Result>(storageId);
+    if (result?.tagging?.add2cart) {
+      result.tagging.add2cart.params.location = 'pdp';
       this.store.dispatch('x/tagging/track', result.tagging.add2cart);
-    } else {
-      this.showWarningMessage(storageId, id);
     }
   }
 
@@ -138,15 +137,15 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    * @internal
    */
   protected getPathName(url: string): string {
-    let _url: URL;
+    let urlObject: URL;
     try {
       // Check if the url is relative or absolute path
       if (/^(\.\.\/|\.\/|\/)/.test(url)) {
-        _url = new URL(url, location.origin);
+        urlObject = new URL(url, location.origin);
       } else {
-        _url = new URL(url);
+        urlObject = new URL(url);
       }
-      return _url.pathname;
+      return urlObject.pathname;
     } catch (e) {
       //TODO: add here logger
       //eslint-disable-next-line no-console
