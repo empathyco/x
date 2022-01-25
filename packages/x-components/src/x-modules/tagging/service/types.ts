@@ -49,5 +49,5 @@ export interface PDPAddToCartService {
    *
    * @param id - The id of the result to track.
    */
-  trackAddToCart(id: string | null): void;
+  trackAddToCart(id?: string): void;
 }

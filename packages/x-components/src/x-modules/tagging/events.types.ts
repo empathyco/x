@@ -38,7 +38,7 @@ export interface TaggingXEvents {
    * The user has clicked on the add to cart button from PDP.
    * * Payload: The id of the {@link @empathy/x-types#Result | result} that the user clicked.
    **/
-  UserClickedPDPAddToCart: string | null;
+  UserClickedPDPAddToCart: string | undefined;
   /**
    * The configuration for the tagging has been provided.
    ** Payload: The configuration for the tagging.
