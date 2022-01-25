@@ -1,6 +1,5 @@
 <template>
   <div class="app">
-    <Tagging :consent="false" />
     <nav>
       <!-- Intentionally using an `a` element instead of `router-link` to perform a full refresh -->
       <a v-for="route in $router.options.routes" :key="route.name" class="link" :href="route.path">
@@ -12,13 +11,7 @@
 </template>
 
 <script>
-  import Tagging from './x-modules/tagging/components/tagging.vue';
-
-  export default {
-    components: {
-      Tagging
-    }
-  };
+  export default {};
 </script>
 
 <style lang="scss">

@@ -84,5 +84,5 @@ Feature: Tagging component
     When  start button is clicked
     And   "lego" is searched
     And   first result is clicked
-    And   add product to cart was called
+    When   pdp add to cart button is clicked
     Then  add product to cart tagging request has been triggered

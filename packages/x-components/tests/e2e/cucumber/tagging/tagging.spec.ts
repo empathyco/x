@@ -55,13 +55,6 @@ Then('url matches {string}', (match: string) => {
   cy.location('pathname').should('match', new RegExp(match));
 });
 
-When('add product to cart was called', () => {
-  cy.window().then(window => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    window.X?.addProductToCart();
-  });
-});
-
 Then('add product to cart tagging request has been triggered', () => {
   cy.wait('@addToCartTagging').should('exist');
 });
