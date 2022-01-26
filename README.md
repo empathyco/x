@@ -107,6 +107,8 @@ To prepare your development environment, proceed as follows:
 2. Install the dependencies in the root folder: `npm install`. This links all the projects.
 3. Run a build so that the linked projects work: `npm run build`.
 
+Have a look to [this article](https://medium.com/empathyco/moving-to-a-mono-repo-part-1-the-journey-eb63efd8ef64) to see why we moved to a mono repo and how we did it.
+
 ## How to implement Interface X
 
 Once you have installed the project, follow the step-by-step guide -
