@@ -121,7 +121,7 @@ describe('testing pdp add to cart', () => {
 
     commitTaggingConfig(store, { clickedResultStorageKey: 'url' });
     service.storeResultClicked(result);
-    service.moveToSessionStorage('url');
+    service.moveToSessionStorage();
     id = `add-to-cart-${productPathName}`;
 
     expect(localRemoveItemSpy).toHaveBeenCalledWith(id);
@@ -133,13 +133,13 @@ describe('testing pdp add to cart', () => {
     const clickedResultStorageTTLMs = 30000;
     commitTaggingConfig(store, { clickedResultStorageKey, clickedResultStorageTTLMs });
     service.storeResultClicked(result);
-    service.moveToSessionStorage('url');
+    service.moveToSessionStorage();
     service.trackAddToCart();
 
     expect(sessionGetItemSpy).toHaveBeenCalledWith(`add-to-cart-${productPathName}`);
     expect(storeDispatchSpy).toHaveBeenCalledWith('x/tagging/track', result.tagging.add2cart);
 
-    commitTaggingConfig(store, { clickedResultStorageKey: 'url', clickedResultStorageTTLMs });
+    commitTaggingConfig(store, { clickedResultStorageKey: 'id', clickedResultStorageTTLMs });
     service.storeResultClicked(result);
     const id = result.id as string;
     service.moveToSessionStorage(id);

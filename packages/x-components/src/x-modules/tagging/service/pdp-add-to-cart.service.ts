@@ -64,7 +64,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    *
    * @public
    */
-  moveToSessionStorage(id: string): void {
+  moveToSessionStorage(id?: string): void {
     const storageId = this.getStorageId(id);
     if (storageId) {
       const result = this.localStorageService.removeItem(storageId);
