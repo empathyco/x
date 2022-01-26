@@ -51,7 +51,9 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
   storeResultClicked(result: Result): void {
     const key = result[this.clickedResultStorageKey as keyof Result] as string;
     const storageId = this.getStorageId(key);
-    this.localStorageService.setItem(storageId, result, this.clickedResultStorageTTLMs);
+    if (storageId) {
+      this.localStorageService.setItem(storageId, result, this.clickedResultStorageTTLMs);
+    }
   }
 
   /**
@@ -65,9 +67,11 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
   moveToSessionStorage(id: string): void {
     const productId = id === 'url' ? window.location.href : id;
     const storageId = this.getStorageId(productId);
-    const result = this.localStorageService.removeItem(storageId);
-    if (result) {
-      this.sessionStorageService.setItem(storageId, result);
+    if (storageId) {
+      const result = this.localStorageService.removeItem(storageId);
+      if (result) {
+        this.sessionStorageService.setItem(storageId, result);
+      }
     }
   }
 
@@ -80,12 +84,13 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    * @public
    */
   trackAddToCart(id?: string): void {
-    const productId = id ? id : window.location.href;
-    const storageId = this.getStorageId(productId);
-    const result = this.sessionStorageService.getItem<Result>(storageId);
-    if (result?.tagging?.add2cart) {
-      result.tagging.add2cart.params.location = 'pdp';
-      this.store.dispatch('x/tagging/track', result.tagging.add2cart);
+    const storageId = this.getStorageId(id);
+    if (storageId) {
+      const result = this.sessionStorageService.getItem<Result>(storageId);
+      if (result?.tagging?.add2cart) {
+        result.tagging.add2cart.params.location = 'pdp';
+        this.store.dispatch('x/tagging/track', result.tagging.add2cart);
+      }
     }
   }
 
@@ -98,29 +103,26 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
    *
    * @internal
    */
-  protected getStorageId(id: string): string {
+  protected getStorageId(id?: string): string | null {
     if (this.clickedResultStorageKey === 'url') {
-      const url = id.replace(/\s|\+/g, '%20');
+      const url = id ? id.replace(/\s|\+/g, '%20') : window.location.href.replace(/\s|\+/g, '%20');
       const pathName = this.getPathName(url);
       return `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${pathName}`;
-    } else {
+    } else if (id) {
       return `${DefaultPDPAddToCartService.RESULT_CLICKED_ID_KEY}-${id}`;
+    } else {
+      this.showWarningMessage();
+      return null;
     }
   }
 
   /**
    * Logs a warning message in case the tracking cannot be done.
    *
-   * @param storageId - The browser storage key used.
-   * @param id - The product id to track.
-   *
    * @internal
    */
-  protected showWarningMessage(storageId: string, id?: string | null): void {
-    //TODO: add here logger
-    //eslint-disable-next-line no-console
-    console.warn(`No result info found for ${storageId}`);
-    if (!id && this.clickedResultStorageKey !== 'url') {
+  protected showWarningMessage(): void {
+    if (this.clickedResultStorageKey !== 'url') {
       //TODO: add here logger
       //eslint-disable-next-line no-console
       console.warn('No product id was provided but the storage was not configured to use the url');
