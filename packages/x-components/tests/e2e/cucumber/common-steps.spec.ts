@@ -162,3 +162,8 @@ Then(
 When('tab is reloaded', () => {
   cy.reload();
 });
+
+// PDP
+When('pdp add to cart button is clicked', () => {
+  cy.getByDataTest('pdp-add-to-cart-button').click();
+});

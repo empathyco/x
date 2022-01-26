@@ -54,3 +54,7 @@ Then('result click tagging includes location {string}', location => {
 Then('url matches {string}', (match: string) => {
   cy.location('pathname').should('match', new RegExp(match));
 });
+
+Then('add product to cart tagging request has been triggered', () => {
+  cy.wait('@addToCartTagging').should('exist');
+});
