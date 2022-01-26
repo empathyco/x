@@ -19,7 +19,6 @@
   })
   export default class Pdp extends Vue {
     addProductToCart(): void {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       window.X?.addProductToCart();
     }
   }

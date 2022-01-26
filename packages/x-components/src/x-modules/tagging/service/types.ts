@@ -41,7 +41,7 @@ export interface PDPAddToCartService {
    *
    * @param id - The id of the result to move to the session storage.
    */
-  moveToSessionStorage(id: string): void;
+  moveToSessionStorage(id?: string): void;
 
   /**
    * Checks if the session storage contains a result information for given id or the current url

@@ -5,7 +5,7 @@ import {
 } from '../../wiring/namespaced-wires.factory';
 import { namespacedDebounce } from '../../wiring/namespaced-wires.operators';
 import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
-import { filter } from '../../wiring/wires.operators';
+import { filter, mapWire } from '../../wiring/wires.operators';
 import { Wire } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 import { DefaultSessionService } from './service/session.service';
@@ -59,7 +59,12 @@ const storeClickedResultWire = wirePDPAddToCartService('storeResultClicked');
  *
  * @public
  */
-const moveClickedResultToSessionWire = wirePDPAddToCartService('moveToSessionStorage');
+const moveClickedResultToSessionWire = mapWire(
+  wirePDPAddToCartService('moveToSessionStorage'),
+  (payload: string) => {
+    return payload === 'url' ? undefined : payload;
+  }
+);
 
 /**
  * Triggers the add to cart tracking.
