@@ -4,7 +4,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Watch, Inject } from 'vue-property-decorator';
+  import { Component, Watch, Inject, Prop } from 'vue-property-decorator';
   import { xComponentMixin } from '../../../components';
   import { Dictionary, forEach } from '../../../utils';
   import { SnippetConfig } from '../../../x-installer';
@@ -29,6 +29,14 @@
      */
     @Inject('snippetConfig')
     public snippetConfig!: SnippetConfig;
+
+    /**
+     * A Dictionary where the keys are the extra param names and its values.
+     *
+     * @public
+     */
+    @Prop()
+    protected values?: Dictionary<unknown>;
 
     /**
      * Custom object containing the extra params from the snippet config.
@@ -65,7 +73,7 @@
       currency,
       ...snippetExtraParams
     }: SnippetConfig): void {
-      forEach(snippetExtraParams, (name, value) => {
+      forEach({ ...snippetExtraParams, ...this.values }, (name, value) => {
         if (this.notAllowedExtraParams.includes(name)) {
           return;
         }
