@@ -6,6 +6,13 @@
   --x-color-background-tag-default-selected: var(--x-color-base-neutral-95);
   --x-color-border-tag-default-selected: var(--x-color-border-tag-default);
   --x-color-text-tag-default-selected: var(--x-color-text-tag-default);
+  // color curated
+  --x-color-background-curated-tag-default: var(--x-color-base-neutral-100);
+  --x-color-border-curated-tag-default: var(--x-color-text-tag-default);
+  --x-color-text-curated-tag-default: var(--x-color-text-default);
+  --x-color-background-curated-tag-default-selected: var(--x-color-base-neutral-95);
+  --x-color-border-curated-tag-default-selected: var(--x-color-border-tag-default);
+  --x-color-text-curated-tag-default-selected: var(--x-color-text-tag-default);
 
   // border
   --x-size-border-width-tag-default: var(--x-size-border-width-base);
@@ -35,4 +42,14 @@
   --x-size-font-tag-default-selected: var(--x-size-font-tag-default);
   --x-size-line-height-tag-default-selected: var(--x-size-line-height-tag-default);
   --x-number-font-weight-tag-default-selected: var(--x-number-font-weight-tag-default);
+  // typography curated
+  --x-font-family-curated-tag-default: var(--x-font-family-text);
+  --x-size-font-curated-tag-default: var(--x-size-font-text);
+  --x-size-line-height-curaetd-tag-default: var(--x-size-line-height-text);
+  --x-number-font-weight-curated-tag-default: var(--x-number-font-weight-text);
+  --x-font-family-curated-tag-default-selected: var(--x-font-family-tag-default);
+  --x-size-font-curated-tag-default-selected: var(--x-size-font-tag-default);
+  --x-size-line-height-curated-tag-default-selected: var(--x-size-line-height-tag-default);
+  --x-number-font-weight-curated-tag-default-selected: var(--x-number-font-weight-tag-default);
+
 }

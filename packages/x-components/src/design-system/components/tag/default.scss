@@ -125,6 +125,19 @@
     --x-size-line-height-filter-default: var(--x-size-line-height-tag-default);
   }
 
+  &.x-tag.x-tag--is-curated {
+    // color
+    background-color: var(--x-color-background-curated-tag-default);
+    border-color: var(--x-color-border-curated-tag-default);
+    color: var(--x-color-text-curated-tag-default);
+
+    // typography
+    line-height: var(--x-size-line-height-curated-tag-default);
+    font-family: var(--x-font-family-curated-tag-default);
+    font-size: var(--x-size-font-curated-tag-default);
+    font-weight: var(--x-number-font-weight-curated-tag-default);
+  }
+
   // selected (the double .x-tag is to override specificity of the scoped component style)
   &.x-tag.x-tag--is-selected {
     // color
@@ -137,6 +150,19 @@
     font-family: var(--x-font-family-tag-default-selected);
     font-size: var(--x-size-font-tag-default-selected);
     font-weight: var(--x-number-font-weight-tag-default-selected);
+
+    &.x-tag--is-curated {
+      // color
+      background-color: var(--x-color-background-curated-tag-default-selected);
+      border-color: var(--x-color-border-curated-tag-default-selected);
+      color: var(--x-color-text-curated-tag-default-selected);
+
+      // typography
+      line-height: var(--x-size-line-height-tag-default-selected);
+      font-family: var(--x-font-family-tag-default-selected);
+      font-size: var(--x-size-font-tag-default-selected);
+      font-weight: var(--x-number-font-weight-tag-default-selected);
+    }
 
     &.x-filter {
       // color
