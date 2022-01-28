@@ -49,7 +49,6 @@
   import { VueCSSClasses } from '../../../../utils/types';
   import { XEventsTypes } from '../../../../wiring/events.types';
   import { facetsXModule } from '../../x-module';
-  import BaseFilter from './base-filter.vue';
   import RenderlessFilter from './renderless-filter.vue';
 
   /**
@@ -58,7 +57,7 @@
    * @public
    */
   @Component({
-    components: { RenderlessFilter, BaseFilter },
+    components: { RenderlessFilter },
     mixins: [xComponentMixin(facetsXModule)]
   })
   export default class SimpleFilter extends Vue {
