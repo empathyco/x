@@ -53,8 +53,8 @@ describe('testing SnippetCallbacks component', () => {
   });
 
   it('emits a SnippetCallbackExecuted event when a callback is executed', () => {
-    const acceptedAQueryCallback = jest.fn(payload => payload);
-    const clickedColumnPickerCallback = jest.fn(payload => payload);
+    const acceptedAQueryCallback = jest.fn((payload: string) => payload + '1');
+    const clickedColumnPickerCallback = jest.fn((payload: number) => payload + 1);
     const { wrapper } = renderSnippetCallbacks({
       callbacks: {
         UserAcceptedAQuery: acceptedAQueryCallback,
@@ -69,14 +69,18 @@ describe('testing SnippetCallbacks component', () => {
     expect(eventSpy).toHaveBeenCalledTimes(1);
     expect(eventSpy).toHaveBeenCalledWith({
       event: 'UserAcceptedAQuery',
-      callbackReturn: 'playmobil'
+      callbackReturn: 'playmobil1',
+      payload: 'playmobil',
+      metadata: expect.any(Object)
     });
 
     wrapper.vm.$x.emit('UserClickedColumnPicker', 3);
     expect(eventSpy).toHaveBeenCalledTimes(2);
     expect(eventSpy).toHaveBeenCalledWith({
       event: 'UserClickedColumnPicker',
-      callbackReturn: 3
+      callbackReturn: 4,
+      payload: 3,
+      metadata: expect.any(Object)
     });
   });
 });

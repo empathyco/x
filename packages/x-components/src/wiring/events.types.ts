@@ -1,4 +1,5 @@
 import { Result, Suggestion } from '@empathyco/x-types';
+import { ExtractPayload } from '../store/index';
 import { ArrowKey, PropsWithType } from '../utils';
 import { DeviceXEvents } from '../x-modules/device';
 import { EmpathizeXEvents } from '../x-modules/empathize/events.types';
@@ -16,6 +17,7 @@ import { SearchBoxXEvents } from '../x-modules/search-box/events.types';
 import { SearchXEvents } from '../x-modules/search/events.types';
 import { TaggingXEvents } from '../x-modules/tagging/events.types';
 import { UrlXEvents } from '../x-modules/url/events.types';
+import { WireMetadata } from './wiring.types';
 
 /**
  * Dictionary of all the {@link XEvent | XEvents}, where each key is the event name, and the value
@@ -174,7 +176,12 @@ export interface XEventsTypes
    * A callback from the snippet has been executed.
    * * Payload: An object containing the event that executed the callback and the callback result.
    */
-  SnippetCallbackExecuted: { event: XEvent; callbackReturn: unknown };
+  SnippetCallbackExecuted: {
+    event: XEvent;
+    callbackReturn: unknown;
+    payload: ExtractPayload<XEvent>;
+    metadata: WireMetadata;
+  };
 }
 
 /**
