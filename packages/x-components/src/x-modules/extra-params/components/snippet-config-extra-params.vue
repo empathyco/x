@@ -53,7 +53,16 @@
      *
      * @internal
      */
-    protected notAllowedExtraParams: Array<keyof SnippetConfig> = ['callbacks', 'productId'];
+    protected notAllowedExtraParams: Array<keyof SnippetConfig> = [
+      'callbacks',
+      'productId',
+      'instance',
+      'lang',
+      'searchLang',
+      'consent',
+      'documentDirection',
+      'currency'
+    ];
 
     /**
      * Updates the extraParams object when the snippet config changes.
@@ -63,17 +72,8 @@
      * @internal
      */
     @Watch('snippetConfig', { deep: true, immediate: true })
-    syncExtraParams({
-      instance,
-      scope,
-      lang,
-      searchLang,
-      consent,
-      documentDirection,
-      currency,
-      ...snippetExtraParams
-    }: SnippetConfig): void {
-      forEach({ ...snippetExtraParams, ...this.values }, (name, value) => {
+    syncExtraParams(snippetConfig: SnippetConfig): void {
+      forEach({ ...snippetConfig, ...this.values }, (name, value) => {
         if (this.notAllowedExtraParams.includes(name)) {
           return;
         }
