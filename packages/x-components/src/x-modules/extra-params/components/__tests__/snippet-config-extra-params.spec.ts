@@ -9,7 +9,7 @@ import { extraParamsXModule } from '../../x-module';
 import SnippetConfigExtraParams from '../snippet-config-extra-params.vue';
 
 describe('testing snippet config extra params component', () => {
-  function renderSnippetConfigExtraParams(): RenderExtraParamsApi {
+  function renderSnippetConfigExtraParams(values?: Dictionary<unknown>): RenderExtraParamsApi {
     XPlugin.resetInstance();
     const [, localVue] = installNewXPlugin();
     XPlugin.registerXModule(extraParamsXModule);
@@ -18,11 +18,12 @@ describe('testing snippet config extra params component', () => {
     const wrapper = mount(
       {
         template: `
-            <SnippetConfigExtraParams />
+            <SnippetConfigExtraParams :values="values"/>
         `,
         components: {
           SnippetConfigExtraParams
         },
+        props: ['values'],
         provide() {
           return {
             snippetConfig
@@ -30,7 +31,10 @@ describe('testing snippet config extra params component', () => {
         }
       },
       {
-        localVue
+        localVue,
+        propsData: {
+          values
+        }
       }
     );
 
@@ -71,6 +75,22 @@ describe('testing snippet config extra params component', () => {
       2,
       expect.objectContaining({
         eventPayload: { warehouse: 45678 }
+      })
+    );
+  });
+
+  // eslint-disable-next-line max-len
+  it('emits the ExtraParamsProvided event with the values from the snippet config and the extra params', () => {
+    const { wrapper } = renderSnippetConfigExtraParams({ scope: 'mobile' });
+
+    const extraParamsProvidedCallback = jest.fn();
+
+    wrapper.vm.$x.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
+
+    expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
+      1,
+      expect.objectContaining({
+        eventPayload: { warehouse: 1234, scope: 'mobile' }
       })
     );
   });
