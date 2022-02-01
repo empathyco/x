@@ -1,5 +1,6 @@
 <template>
   <BaseEventButton
+    v-on="$listeners"
     :events="events"
     class="x-button x-result-add-to-cart"
     data-test="result-add-to-cart"
