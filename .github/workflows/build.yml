@@ -22,6 +22,8 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.SUPPORT_TOKEN }}
+      - name: Install lerna and all packages
+        run: npm ci
       - name: Configure git user
         run: |
           git config --local user.email "x@empathy.co"
