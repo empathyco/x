@@ -174,7 +174,8 @@ export interface XEventsTypes
   UserSelectedASuggestion: Suggestion;
   /**
    * A callback from the snippet has been executed.
-   * * Payload: An object containing the event that executed the callback and the callback result.
+   * * Payload: An object containing the event that executed the callback, the callback result, and
+   * the original event payload and  metadata.
    */
   SnippetCallbackExecuted: {
     event: XEvent;
