@@ -45,7 +45,9 @@
               const callbackReturn = callback(payload as never, metadata);
               this.$x.emit('SnippetCallbackExecuted', {
                 event: eventName,
-                callbackReturn
+                callbackReturn,
+                payload: payload as never,
+                metadata
               });
             };
           })
