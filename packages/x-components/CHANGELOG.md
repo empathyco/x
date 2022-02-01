@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.47](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.46...@empathyco/x-components@3.0.0-alpha.47) (2022-02-01)
+
+### Features
+
+- **components:** Add `payload` and `metadata` to the `SnippetCallbackExecuted` event payload
+  ([a18b8fa](https://github.com/empathyco/x/commit/a18b8fafcc7607fef82d3c9fb1211669f3bbc8a3)),
+  closes [EX-5324](https://searchbroker.atlassian.net/browse/EX-5324)
+- **components:** Allow `BaseResultAddToCart` to use external listeners.
+  ([a596c07](https://github.com/empathyco/x/commit/a596c07c1ead0e8d3fcf169afddaf15ad6d92e47)),
+  closes [EX-5323](https://searchbroker.atlassian.net/browse/EX-5323)
+- **EX-3539:** track PDP add to cart (#306)
+  ([dcad4f6](https://github.com/empathyco/x/commit/dcad4f69ce6b267960f882b3831459e372086272)),
+  closes [EX-3539](https://searchbroker.atlassian.net/browse/EX-3539)
+  [EX-3538](https://searchbroker.atlassian.net/browse/EX-3538)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.45...@empathyco/x-components@3.0.0-alpha.46) (2022-01-24)
 
 ### Bug Fixes
