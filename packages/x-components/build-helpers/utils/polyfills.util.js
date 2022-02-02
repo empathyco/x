@@ -43,7 +43,7 @@ export function generateWrapperFunctionTuple({
       document.body.appendChild(polyfillsScript);
     }
 
-    function loadXComponents() {
+    async function loadXComponents() {
       /* <InsertXComponents> */
       const overrideOptions = options;
       if (window.initX !== undefined) {
