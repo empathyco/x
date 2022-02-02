@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.48](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.47...@empathyco/x-components@3.0.0-alpha.48) (2022-02-02)
+
+### ⚠ BREAKING CHANGES
+
+- **facets:** Remove `BaseFilter` component. Use `RenderlessFilter`instead.
+
+### Features
+
+- **design-system:** add curated tags (#311)
+  ([9f40c2b](https://github.com/empathyco/x/commit/9f40c2b17eb08353efc964dba075470877eead46)),
+  closes [EX-5089](https://searchbroker.atlassian.net/browse/EX-5089)
+- **extra-params:** add option to add more extra params using a prop in `SnippetConfigExtraParams`
+  component
+  ([7f9f8b2](https://github.com/empathyco/x/commit/7f9f8b2a7d2a78ed5a101f6e005fffa4f20d3594)),
+  closes [EX-5205](https://searchbroker.atlassian.net/browse/EX-5205)
+- **facets:** change `NumberRangeFilter` component to use `RenderlessFilter` instead of `BaseFilter`
+  ([f0edfac](https://github.com/empathyco/x/commit/f0edfac14a184ed7fefd27e1c1e700848ada4471)),
+  closes [EX-3953](https://searchbroker.atlassian.net/browse/EX-3953)
+- update polyfills plugin to work with chunks
+  ([54c1842](https://github.com/empathyco/x/commit/54c18420011e5e452bd8b48d640cbd067d0ce921)),
+  closes [EX-5278](https://searchbroker.atlassian.net/browse/EX-5278)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.47](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.46...@empathyco/x-components@3.0.0-alpha.47) (2022-02-01)
 
 ### Features
