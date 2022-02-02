@@ -234,6 +234,8 @@ export class XPlugin implements PluginObject<XPluginOptions> {
       const customizedXModule = this.customizeXModule(xModule);
       this.registerStoreModule(customizedXModule);
       this.registerStoreEmitters(customizedXModule);
+      // The wiring must be registered after the store emitters
+      // to allow lazy loaded modules work properly.
       this.registerWiring(customizedXModule);
       this.installedXModules.add(xModule.name);
     }
