@@ -1,0 +1,25 @@
+name: Release alpha version
+description: Runs npm script to release alpha version and pushes tags to github
+inputs:
+  npm-token:
+    description: Token to push code with
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Configure git user
+      run: |
+        git config --local user.email "x@empathy.co"
+        git config --local user.name "empathy/x"
+      shell: bash
+    - name: Create .npmrc file with authorization token
+      run: echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
+      shell: bash
+      env:
+        NPM_TOKEN: ${{ inputs.npm-token }}
+    - name: Publish release
+      run: npm run release:alpha
+      shell: bash
+    - name: Push changes to GitHub
+      run: git push --follow-tags
+      shell: bash
