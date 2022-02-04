@@ -97,6 +97,10 @@ const moduleDebounce = namespacedDebounce(moduleName);
  * @internal
  */
 export const identifierResultsWiring = createWiring({
+  ParamsLoadedFromUrl: {
+    setUrlParams,
+    saveIdentifierResultsOriginWire
+  },
   UserIsTypingAQuery: {
     setIdentifierResultsQueryDebounce: moduleDebounce(
       setIdentifierResultsQuery,
@@ -114,10 +118,6 @@ export const identifierResultsWiring = createWiring({
   },
   IdentifierResultsRequestChanged: {
     fetchAndSaveIdentifierResultsWire
-  },
-  ParamsLoadedFromUrl: {
-    setUrlParams,
-    saveIdentifierResultsOriginWire
   },
   ExtraParamsChanged: {
     setIdentifierResultsExtraParams

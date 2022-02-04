@@ -90,6 +90,9 @@ const moduleDebounce = namespacedDebounce(moduleName);
  * @internal
  */
 export const querySuggestionsWiring = createWiring({
+  ParamsLoadedFromUrl: {
+    setUrlParams
+  },
   UserIsTypingAQuery: {
     setQuerySuggestionsQueryDebounce: moduleDebounce(
       setQuerySuggestionsQuery,
@@ -109,8 +112,5 @@ export const querySuggestionsWiring = createWiring({
   },
   ExtraParamsChanged: {
     setQuerySuggestionsExtraParams
-  },
-  ParamsLoadedFromUrl: {
-    setUrlParams
   }
 });

@@ -72,6 +72,9 @@ export const setSearchedQueries = wireCommit('setSearchedQueries');
  * @internal
  */
 export const nextQueriesWiring = createWiring({
+  ParamsLoadedFromUrl: {
+    setUrlParams
+  },
   UserAcceptedAQuery: {
     setNextQueriesQuery
   },
@@ -85,8 +88,5 @@ export const nextQueriesWiring = createWiring({
   },
   ExtraParamsChanged: {
     setNextQueriesExtraParams
-  },
-  ParamsLoadedFromUrl: {
-    setUrlParams
   }
 });
