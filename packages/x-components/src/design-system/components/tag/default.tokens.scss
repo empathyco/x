@@ -7,12 +7,12 @@
   --x-color-border-tag-default-selected: var(--x-color-border-tag-default);
   --x-color-text-tag-default-selected: var(--x-color-text-tag-default);
   // color curated
-  --x-color-background-tag-default-curated: var(--x-color-base-neutral-100);
-  --x-color-border-tag-default-curated: var(--x-color-text-tag-default);
-  --x-color-text-tag-default-curated: var(--x-color-text-default);
-  --x-color-background-tag-default-curated-selected: var(--x-color-base-neutral-95);
-  --x-color-border-tag-default-curated-selected: var(--x-color-border-tag-default);
-  --x-color-text-tag-default-curated-selected: var(--x-color-text-tag-default);
+  --x-color-background-tag-default-curated: var(--x-color-background-tag-default);
+  --x-color-border-tag-default-curated: var(--x-color-border-tag-default);
+  --x-color-text-tag-default-curated: var(--x-color-text-tag-default);
+  --x-color-background-tag-default-curated-selected: var(--x-color-background-tag-default-selected);
+  --x-color-border-tag-default-curated-selected: var(--x-color-border-tag-default-selected);
+  --x-color-text-tag-default-curated-selected: var(--x-color-text-tag-default-selected);
 
   // border
   --x-size-border-width-tag-default: var(--x-size-border-width-base);
