@@ -42,13 +42,16 @@
   --x-size-font-tag-default-selected: var(--x-size-font-tag-default);
   --x-size-line-height-tag-default-selected: var(--x-size-line-height-tag-default);
   --x-number-font-weight-tag-default-selected: var(--x-number-font-weight-tag-default);
+
   // typography curated
-  --x-font-family-tag-default-curated: var(--x-font-family-text);
-  --x-size-font-tag-default-curated: var(--x-size-font-text);
-  --x-size-line-height-tag-default-curated: var(--x-size-line-height-text);
-  --x-number-font-weight-tag-default-curated: var(--x-number-font-weight-text);
-  --x-font-family-tag-default-curated-selected: var(--x-font-family-tag-default);
-  --x-size-font-tag-default-curated-selected: var(--x-size-font-tag-default);
-  --x-size-line-height-tag-default-curated-selected: var(--x-size-line-height-tag-default);
-  --x-number-font-weight-tag-default-curated-selected: var(--x-number-font-weight-tag-default);
+  --x-font-family-tag-default-curated: var(--x-font-family-tag-default);
+  --x-size-font-tag-default-curated: var(--x-size-font-tag-default);
+  --x-size-line-height-tag-default-curated: var(--x-size-line-height-tag-default);
+  --x-number-font-weight-tag-default-curated: var(--x-number-font-weight-tag-default);
+  --x-font-family-tag-default-curated-selected: var(--x-font-family-tag-default-selected);
+  --x-size-font-tag-default-curated-selected: var(--x-size-font-tag-default-selected);
+  --x-size-line-height-tag-default-curated-selected: var(--x-size-line-height-tag-default-selected);
+  --x-number-font-weight-tag-default-curated-selected: var(
+    --x-number-font-weight-tag-default-selected
+  );
 }
