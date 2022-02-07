@@ -15,8 +15,8 @@ export const moduleColors: ModuleColors = Object.keys(
 ).reduce((colors, moduleName, index, keys) => {
   const hue = Math.trunc((index * 360) / keys.length);
   colors[moduleName as XModuleName] = {
-    textColor: hslToHex(hue, 50, 90),
-    backgroundColor: hslToHex(hue, 85, 30)
+    textColor: hslToHex(hue, 25, 95),
+    backgroundColor: hslToHex(hue, 75, 40)
   };
   return colors;
 }, <ModuleColors>{});

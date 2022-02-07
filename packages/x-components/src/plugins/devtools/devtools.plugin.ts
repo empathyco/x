@@ -20,8 +20,6 @@ export function setupDevtools(app: Vue): void {
       packageName: '@empathyco/x-components',
       homepage: 'https://empathy.co',
       enableEarlyProxy: true,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       app
     },
     (api?: DevtoolsPluginApi<void>) => {

@@ -15,30 +15,31 @@ const TimelineLayers = [
   {
     id: 'x-components-module-registered-events',
     regex: /^ModuleRegistered$/,
-    label: 'X-Components registered modules'
+    label: 'X registered modules'
   },
   {
     id: 'x-components-user-events',
     regex: /^User/,
-    label: 'X-Components user events'
+    label: 'X user events'
+  },
+
+  {
+    id: 'x-components-request-events',
+    regex: /RequestChanged$/,
+    label: 'X request events'
   },
   {
     id: 'x-components-status-change-events',
-    regex: /RequestChanged$/,
-    label: 'X-Components status change events'
-  },
-  {
-    id: 'x-components-request-events',
     regex: /Changed$/,
-    label: 'X-Components request events'
+    label: 'X status change events'
   },
   {
     id: 'x-components-miscellanea-events',
     regex: /.*/,
-    label: 'X-Components miscellanea events'
+    label: 'X miscellanea events'
   }
 ];
-
+const timelineLayerColor = hslToHex(329, 100, 50);
 /** Set containing the different layer ids. */
 const layerIds = new Set(TimelineLayers.map(layer => layer.id));
 
@@ -64,15 +65,13 @@ export function setupTimelinePlugin(api: DevtoolsPluginApi<void>): void {
     api.addTimelineLayer({
       id: layer.id,
       label: layer.label,
-      color: hslToHex(329, 100, 50)
+      color: timelineLayerColor
     })
   );
   api.on.inspectTimelineEvent(payload => {
     if (layerIds.has(payload.layerId)) {
       const component = (<WirePayload<unknown>>payload.event.data).metadata.component;
       if (component) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
         api.highlightElement(component);
       }
     }
