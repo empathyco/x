@@ -1,0 +1,15 @@
+import './animate-clip-path.style.scss';
+import { animationAbstractFactory } from '../animation.abstract-factory';
+
+/**
+ * Returns a transition component to wrap an element passed in the default slot and animating its
+ * clip-path using inset and with the origin passed as parameter.
+ *
+ * @param animationOrigin - The origin of the animation. This means where the animation starts and
+ * ends. For example 'left' makes the element to animate from the left. If not provided the default
+ * value is 'top'.
+ * @returns A Transition Component.
+ *
+ * @public
+ */
+export const animateClipPath = animationAbstractFactory('animate-clip-path');

@@ -78,6 +78,7 @@ export const rollupConfig = createRollupOptions({
         ]
       }
     }),
+    styles({}),
     vue({
       css: true,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

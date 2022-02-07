@@ -55,7 +55,7 @@
         />
       </li>
     </ul>
-    <BaseEventsModal :eventsToOpenModal="eventsToOpenModal">
+    <BaseEventsModal :eventsToOpenModal="eventsToOpenModal" :animation="modalAnimation">
       <MultiColumnMaxWidthLayout class="x-background--neutral-100">
         <template #header-middle>
           <div
@@ -63,20 +63,18 @@
               x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand
             "
           >
-            <BaseKeyboardNavigation>
-              <div class="x-input-group x-input-group--card">
-                <SearchInput
-                  aria-label="Search for products"
-                  placeholder="Search"
-                  :instant="controls.searchInput.instant"
-                  :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
-                />
-                <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-                <SearchButton aria-label="Search" class="x-input-group__action">
-                  <SearchIcon />
-                </SearchButton>
-              </div>
-            </BaseKeyboardNavigation>
+            <div class="x-input-group x-input-group--card">
+              <SearchInput
+                aria-label="Search for products"
+                placeholder="Search"
+                :instant="controls.searchInput.instant"
+                :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
+              />
+              <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
+              <SearchButton aria-label="Search" class="x-input-group__action">
+                <SearchIcon />
+              </SearchButton>
+            </div>
 
             <!-- Spellcheck -->
             <Spellcheck>
@@ -105,35 +103,7 @@
         </template>
 
         <template #sub-header>
-          <BaseKeyboardNavigation>
-            <Empathize
-              :animation="empathizeAnimation"
-              class="
-                x-list x-list--horizontal x-list--padding-05 x-list--padding-bottom x-list--gap-06
-              "
-            >
-              <PopularSearches max-items-to-render="10" />
-              <HistoryQueries :max-items-to-render="controls.historyQueries.maxItemsToRender" />
-              <ClearHistoryQueries class="x-button--ghost x-button--ghost-start">
-                <CrossTinyIcon />
-                <span>Clear previous searches</span>
-              </ClearHistoryQueries>
-              <QuerySuggestions max-items-to-render="10" />
-              <NextQueries max-items-to-render="10" />
-
-              <!-- IdentifierResults -->
-              <IdentifierResults #default="{ identifierResult }">
-                <BaseResultLink :result="identifierResult">
-                  <article class="x-suggestion">
-                    <IdentifierResult :result="identifierResult" />
-                    <span class="x-ellipsis" data-test="result-text">
-                      {{ identifierResult.name }}
-                    </span>
-                  </article>
-                </BaseResultLink>
-              </IdentifierResults>
-            </Empathize>
-          </BaseKeyboardNavigation>
+          <PredictiveLayer :controls="controls" />
         </template>
 
         <template #toolbar-aside>
@@ -456,13 +426,13 @@
   import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import CollapseFromTop from '../../components/animations/collapse-from-top.vue';
+  // eslint-disable-next-line max-len
+  import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
   import CollapseHeight from '../../components/animations/collapse-height.vue';
   import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
   import AutoProgressBar from '../../components/auto-progress-bar.vue';
   import BaseDropdown from '../../components/base-dropdown.vue';
   import BaseGrid from '../../components/base-grid.vue';
-  import BaseKeyboardNavigation from '../../components/base-keyboard-navigation.vue';
   import BaseVariableColumnGrid from '../../components/base-variable-column-grid.vue';
   import BaseColumnPickerList from '../../components/column-picker/base-column-picker-list.vue';
   import BasePriceFilterLabel from '../../components/filters/labels/base-price-filter-label.vue';
@@ -475,7 +445,6 @@
   import ChevronTinyLeft from '../../components/icons/chevron-tiny-left.vue';
   import ChevronTinyRight from '../../components/icons/chevron-tiny-right.vue';
   import ChevronUp from '../../components/icons/chevron-up.vue';
-  import CrossTinyIcon from '../../components/icons/cross-tiny.vue';
   import CrossIcon from '../../components/icons/cross.vue';
   import Grid1Col from '../../components/icons/grid-1-col.vue';
   import Grid2Col from '../../components/icons/grid-2-col.vue';
@@ -492,13 +461,11 @@
   import BaseIdTogglePanelButton from '../../components/panels/base-id-toggle-panel-button.vue';
   import BaseIdTogglePanel from '../../components/panels/base-id-toggle-panel.vue';
   import BaseResultImage from '../../components/result/base-result-image.vue';
-  import BaseResultLink from '../../components/result/base-result-link.vue';
   import SlidingPanel from '../../components/sliding-panel.vue';
   import SnippetCallbacks from '../../components/snippet-callbacks.vue';
   import BaseSuggestions from '../../components/suggestions/base-suggestions.vue';
   import { infiniteScroll } from '../../directives/infinite-scroll/infinite-scroll';
   import { XEvent } from '../../wiring/index';
-  import Empathize from '../../x-modules/empathize/components/empathize.vue';
   // eslint-disable-next-line max-len
   import RenderlessExtraParams from '../../x-modules/extra-params/components/renderless-extra-param.vue';
   // eslint-disable-next-line max-len
@@ -519,17 +486,9 @@
   import SlicedFilters from '../../x-modules/facets/components/lists/sliced-filters.vue';
   import SortedFilters from '../../x-modules/facets/components/lists/sorted-filters.vue';
   // eslint-disable-next-line max-len
-  import ClearHistoryQueries from '../../x-modules/history-queries/components/clear-history-queries.vue';
-  import HistoryQueries from '../../x-modules/history-queries/components/history-queries.vue';
-  // eslint-disable-next-line max-len
-  import IdentifierResult from '../../x-modules/identifier-results/components/identifier-result.vue';
-  // eslint-disable-next-line max-len
-  import IdentifierResults from '../../x-modules/identifier-results/components/identifier-results.vue';
   import NextQueriesList from '../../x-modules/next-queries/components/next-queries-list.vue';
   import NextQueries from '../../x-modules/next-queries/components/next-queries.vue';
   import { NextQuery } from '../../x-modules/next-queries/index';
-  import PopularSearches from '../../x-modules/popular-searches/components/popular-searches.vue';
-  import QuerySuggestions from '../../x-modules/query-suggestions/components/query-suggestions.vue';
   import Recommendations from '../../x-modules/recommendations/components/recommendations.vue';
   import RelatedTags from '../../x-modules/related-tags/components/related-tags.vue';
   import MainScrollItem from '../../x-modules/scroll/components/main-scroll-item.vue';
@@ -551,6 +510,7 @@
   import Spellcheck from '../../x-modules/search/components/spellcheck.vue';
   import Tagging from '../../x-modules/tagging/components/tagging.vue';
   import UrlHandler from '../../x-modules/url/components/url-handler.vue';
+  import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
 
   @Component({
@@ -571,10 +531,8 @@
       BaseHeaderTogglePanel,
       BaseIdTogglePanel,
       BaseIdTogglePanelButton,
-      BaseKeyboardNavigation,
       BasePriceFilterLabel,
       BaseResultImage,
-      BaseResultLink,
       BaseSuggestions,
       BaseVariableColumnGrid,
       CheckTiny,
@@ -586,11 +544,8 @@
       ChevronTinyRight,
       ChevronUp,
       ClearFilters,
-      ClearHistoryQueries,
       ClearSearchInput,
       CrossIcon,
-      CrossTinyIcon,
-      Empathize,
       ExcludeFiltersWithNoResults,
       Facets,
       FacetsProvider,
@@ -599,9 +554,6 @@
       Grid1Col,
       Grid2Col,
       HierarchicalFilter,
-      HistoryQueries,
-      IdentifierResult,
-      IdentifierResults,
       LightBulbOn,
       LocationProvider,
       MainScrollItem,
@@ -612,10 +564,9 @@
       Nq1,
       PartialQueryButton,
       PartialResultsList,
-      PopularSearches,
+      PredictiveLayer,
       Promoted,
       PromotedsList,
-      QuerySuggestions,
       Recommendations,
       Redirection,
       RelatedTags,
@@ -647,7 +598,7 @@
     protected initialExtraParams = { store: 'Portugal' };
     protected columnPickerValues = [0, 4, 6];
     protected resultsAnimation = StaggeredFadeAndSlide;
-    protected empathizeAnimation = CollapseFromTop;
+    protected modalAnimation = animateClipPath();
     protected sortDropdownAnimation = CollapseHeight;
     protected selectedColumns = 4;
     protected sortValues = ['', 'price asc', 'price desc'];

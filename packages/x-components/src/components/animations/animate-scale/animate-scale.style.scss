@@ -1,0 +1,100 @@
+.x-animate-scale {
+  $p: &;
+
+  &--enter-active,
+  &--leave-active,
+  &--enter-active *,
+  &--leave-active * {
+    animation-duration: var(--x-duration-animation, 0.3s);
+    animation-timing-function: linear;
+  }
+
+  &--enter-active,
+  &--leave-active {
+    &#{$p}--top,
+    &#{$p}--bottom {
+      animation-name: containerAnimationY;
+    }
+    &#{$p}--left,
+    &#{$p}--right {
+      animation-name: containerAnimationX;
+    }
+    overflow: hidden;
+  }
+
+  &--enter-active,
+  &--leave-active {
+    &#{$p}--top > *,
+    &#{$p}--bottom > * {
+      animation-name: contentAnimationY;
+    }
+    &#{$p}--left > *,
+    &#{$p}--right > * {
+      animation-name: contentAnimationX;
+    }
+  }
+
+  &--leave-active,
+  &--leave-active > * {
+    animation-direction: reverse;
+  }
+
+  $origins: top, bottom, left, right;
+  @each $origin in $origins {
+    &--#{$origin} {
+      &#{$p}--enter-active,
+      &#{$p}--leave-active,
+      &#{$p}--enter-active > *,
+      &#{$p}--leave-active > * {
+        transform-origin: $origin center;
+      }
+    }
+  }
+}
+
+@function easeInOut($x) {
+  @if $x < 0.5 {
+    @return 8 * $x * $x * $x * $x;
+  } @else {
+    $x: $x - 1;
+    @return 1 - (8 * $x * $x * $x * $x);
+  }
+}
+
+@keyframes containerAnimationY {
+  @for $step from 0 through 100 {
+    $scale: easeInOut($step / 100);
+    #{$step}% {
+      transform: scaleY(#{$scale});
+    }
+  }
+}
+
+@keyframes contentAnimationY {
+  @for $step from 0 through 100 {
+    $scale: easeInOut($step / 100);
+    $invScale: if($scale > 0, 1 / $scale, 99999999);
+    #{$step}% {
+      transform: scaleY(#{$invScale});
+    }
+  }
+}
+
+@keyframes containerAnimationX {
+  @for $step from 0 through 100 {
+    $scale: easeInOut($step / 100);
+    #{$step}% {
+      transform: scaleX(#{$scale});
+    }
+  }
+}
+
+@keyframes contentAnimationX {
+  @for $step from 0 through 100 {
+    $scale: easeInOut($step / 100);
+    $invScale: if($scale > 0, 1 / $scale, 99999999);
+    #{$step}% {
+      transform: scaleX(#{$invScale});
+    }
+  }
+}

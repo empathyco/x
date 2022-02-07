@@ -1,0 +1,24 @@
+.x-animate-translate {
+  $p: &;
+
+  &--enter-active,
+  &--leave-active {
+    transition: transform var(--x-duration-animation, 0.3s) ease-out;
+  }
+  $p: &;
+  &--enter,
+  &--leave-to {
+    &#{$p}--top {
+      transform: translateY(-100%);
+    }
+    &#{$p}--bottom {
+      transform: translateY(100%);
+    }
+    &#{$p}--left {
+      transform: translateX(-100%);
+    }
+    &#{$p}--right {
+      transform: translateX(100%);
+    }
+  }
+}
