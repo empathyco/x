@@ -66,7 +66,8 @@ export const rollupConfig = createRollupOptions({
       tsconfig: path.resolve(rootDir, 'tsconfig.json'),
       tsconfigOverride: {
         compilerOptions: {
-          declarationDir: typesOutputDirectory
+          declarationDir: typesOutputDirectory,
+          target: 'es2020'
         },
         exclude: [
           'node_modules',
