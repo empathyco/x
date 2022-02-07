@@ -46,6 +46,12 @@ export interface InstallXOptions<API extends XAPI = XAPI> extends XPluginOptions
    */
   vueOptions?: VueConstructorPartialArgument;
   /**
+   * Callback to invoke after instantiating the app.
+   *
+   * @param app - The root vue instance containing the just created app.
+   */
+  onCreateApp?: (app: Vue) => void;
+  /**
    * Adds the option to install more Vue plugins, giving access to the {@link SnippetConfig} and
    * the {@link XBus}.
    *

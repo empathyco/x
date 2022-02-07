@@ -297,7 +297,7 @@ export class XInstaller {
     if (this.options.app !== undefined) {
       const vue = this.getVue();
       snippetConfig = vue.observable(snippetConfig);
-      return new vue({
+      const app = new vue({
         ...extraPlugins,
         ...this.options.vueOptions,
         provide() {
@@ -309,6 +309,8 @@ export class XInstaller {
         el: this.getMountingTarget(this.options.domElement),
         render: h => h(this.options.app)
       });
+      this.options.onCreateApp?.(app);
+      return app;
     }
   }
 
