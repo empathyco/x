@@ -30,13 +30,13 @@ export function registerStoreEmitters(
       event
     );
 
-    const emit = (value: unknown): void => {
-      bus.emit(event, value, { moduleName: name });
+    const emit = (value: unknown, oldValue?: unknown): void => {
+      bus.emit(event, value, { moduleName: name, oldValue });
     };
     const watcherSelector = (): unknown => selector(store.state.x[name], safeGettersProxy);
     const debouncedEffect = debounceWatcherEffect(event, (newValue, oldValue) => {
       if (filter(newValue, oldValue)) {
-        emit(newValue);
+        emit(newValue, oldValue);
       }
     });
 

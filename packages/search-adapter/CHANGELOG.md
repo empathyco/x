@@ -3,6 +3,68 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.8...@empathyco/x-adapter@7.0.0-alpha.9) (2021-12-29)
+
+### Features
+
+- **next-queries:** add `isCurated` property to `NextQuery` model
+  ([fdd89f8](https://github.com/empathyco/x/commit/fdd89f84afe7e328cdcd121288142dc82e2000c8)),
+  closes [EX-5152](https://searchbroker.atlassian.net/browse/EX-5152)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [7.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.7...@empathyco/x-adapter@7.0.0-alpha.8) (2021-11-30)
+
+### Features
+
+- **related-tags:** add `isCurated` property to related tags
+  ([e063f45](https://github.com/empathyco/x/commit/e063f4560573bcb1bf32fbe49753f2fe6b235cc7)),
+  closes [EX-4940](https://searchbroker.atlassian.net/browse/EX-4940)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [7.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.6...@empathyco/x-adapter@7.0.0-alpha.7) (2021-11-29)
+
+### ⚠ BREAKING CHANGES
+
+- **storage-service:** `StorageService` has been renamed to `BrowserStorageService`.
+
+### Features
+
+- **storage-service:** Rename `StorageService` to `BrowserStorageService`
+  ([6bf38fb](https://github.com/empathyco/x/commit/6bf38fb7d14323c84c949e21eaa9c692fb0014d7)),
+  closes [EX-5073](https://searchbroker.atlassian.net/browse/EX-5073)
+
+### Build System
+
+- update jest dependencies
+  ([f3fee15](https://github.com/empathyco/x/commit/f3fee157d724292f5cbb7166908d48ef2fb4fe8c)),
+  closes [EX-5027](https://searchbroker.atlassian.net/browse/EX-5027)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [7.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.5...@empathyco/x-adapter@7.0.0-alpha.6) (2021-11-22)
+
+### Features
+
+- update `Tagging` model
+  ([598915c](https://github.com/empathyco/x/commit/598915ced128e3fa5586ff6c870e68cfa2e016c3)),
+  closes [EX-4985](https://searchbroker.atlassian.net/browse/EX-4985)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [7.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.4...@empathyco/x-adapter@7.0.0-alpha.5) (2021-10-25)
 
 ### Features

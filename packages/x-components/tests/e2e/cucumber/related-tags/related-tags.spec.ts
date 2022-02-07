@@ -1,33 +1,7 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { createRelatedTagStub } from '../../../../src/__stubs__';
 
 let relatedTagsList: string[] = [];
 const secondRelatedTagsList: string[] = [];
-
-// Background
-Given('a related tags API with a known response', () => {
-  cy.intercept('https://api.empathy.co/getRelatedTags', req => {
-    req.reply({
-      relatedTags: [
-        createRelatedTagStub('lego', 'marvel'),
-        createRelatedTagStub('lego', 'bombero'),
-        createRelatedTagStub('lego', 'policia')
-      ]
-    });
-  }).as('interceptedRelatedTags');
-});
-
-Given('a related tags API with a selected one', () => {
-  cy.intercept('https://api.empathy.co/getRelatedTags', req => {
-    req.reply({
-      relatedTags: [
-        createRelatedTagStub('lego', 'bombero', true),
-        createRelatedTagStub('lego', 'policia'),
-        createRelatedTagStub('lego', 'barbie')
-      ]
-    });
-  }).as('interceptedRelatedTagsWithSelection');
-});
 
 // Scenario 1
 Given(
@@ -105,7 +79,7 @@ Then('related tag number {int} is shown as not selected', (relatedTagItem: numbe
 });
 
 And('raw related results are displayed', () => {
-  cy.getByDataTest('result-text').should('have.length', 4);
+  cy.getByDataTest('search-result').should('have.length', 4);
 });
 
 // Scenario 2

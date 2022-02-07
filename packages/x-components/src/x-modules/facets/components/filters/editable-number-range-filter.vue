@@ -295,7 +295,7 @@
 </style>
 
 <docs lang="mdx">
-# Example
+## Example
 
 Renders an editable number range filter. It has two input fields to handle min and max values,
 emitting the needed events when clicked.
@@ -309,7 +309,7 @@ to confirm to do it. False by default.
 If `clear` prop is true, clear button, which sets to null component min and max values, is rendered.
 True by default.
 
-## Basic usage
+### Basic usage
 
 ```vue
 <template>
@@ -341,7 +341,7 @@ True by default.
 </script>
 ```
 
-## Properties
+### Properties
 
 ```vue
 <template>
@@ -373,7 +373,7 @@ True by default.
 </script>
 ```
 
-## Customizing content slots
+### Customizing content slots
 
 ```vue
 <template>
@@ -408,7 +408,7 @@ True by default.
 </script>
 ```
 
-## Customizing default slot
+### Customizing default slot
 
 ```vue
 <template>

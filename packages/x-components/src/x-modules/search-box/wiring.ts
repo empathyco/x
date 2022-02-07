@@ -52,6 +52,9 @@ const setUrlParams = wireDispatch('setUrlParams');
  * @internal
  */
 export const searchBoxWiring = createWiring({
+  ParamsLoadedFromUrl: {
+    setUrlParams
+  },
   UserIsTypingAQuery: {
     setSearchBoxQuery
   },
@@ -60,8 +63,5 @@ export const searchBoxWiring = createWiring({
   },
   UserPressedClearSearchBoxButton: {
     clearSearchBoxQuery
-  },
-  ParamsLoadedFromUrl: {
-    setUrlParams
   }
 });

@@ -23,6 +23,9 @@
   "command": {
     "bootstrap": {
       "npmClientArgs": ["--legacy-peer-deps"]
+    },
+    "version": {
+      "message": "chore(release): publish"
     }
   }
 }

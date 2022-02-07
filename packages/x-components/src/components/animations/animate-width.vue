@@ -34,7 +34,7 @@
 </style>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 The AnimateWidth component is intended to be used as a prop in animatable components but also works
 as a transition to animate the width of an element.

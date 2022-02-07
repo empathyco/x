@@ -5,6 +5,7 @@ Feature: Partial results component
     And   a query suggestions API with a known response
     And   a next queries API with a known response
     And   a recommendations API with a known response
+    And   a tracking API
 
   Scenario Outline:  1. Shows no partial results if there are enough results
     Given a results API

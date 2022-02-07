@@ -183,7 +183,7 @@
 </style>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 The `BaseModal` is a simple component that serves to create complex modals. Its open state has to be
 passed via prop. It also accepts an animation to use for opening & closing.

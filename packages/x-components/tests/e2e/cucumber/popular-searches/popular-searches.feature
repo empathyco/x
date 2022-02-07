@@ -6,12 +6,13 @@ Feature: Popular searches component
     And   a next queries API
     And   a recommendations API with a known response
     And   a related tags API
+    And   a tracking API
 
   Scenario Outline:  1. Popular searches are load together with the page
     Given following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, rendered <maxItemsToRender>
     And   start button is clicked
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
-    And   at most <maxItemsToRender> popular searched are displayed
+    And   at most <maxItemsToRender> popular searches are displayed
     Examples:
       | hideSessionQueries | maxItemsToRequest | maxItemsToRender | request                    |
       | true               | 10                | 20               | interceptedPopularSearches |

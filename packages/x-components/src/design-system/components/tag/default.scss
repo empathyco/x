@@ -41,21 +41,101 @@
   // other
   cursor: pointer;
 
-  &.x-filter {
+  &.x-suggestion {
     // color
-    --x-color-background-filter: transparent;
-    --x-size-border-width-filter: 0;
-    --x-color-text-filter: var(--x-color-text-tag-default);
+    --x-color-background-suggestion-default: var(--x-color-background-tag-default);
+    --x-color-text-suggestion-default: var(--x-color-text-tag-default);
+    --x-color-border-suggestion-default: var(--x-color-border-tag-default);
 
     // size
-    --x-size-padding-filter: 0;
-    --x-size-gap-filter: var(--x-size-gap-tag-default);
+    --x-size-padding-top-suggestion-default:  0;
+    --x-size-padding-right-suggestion-default: var(--x-size-padding-right-tag-default);
+    --x-size-padding-bottom-suggestion-default: 0;
+    --x-size-padding-left-suggestion-default: var(--x-size-padding-left-tag-default);
+    --x-size-gap-suggestion-default: var(--x-size-gap-tag-default);
+
+    // border
+    --x-size-border-width-suggestion-default: var(--x-size-border-width-tag-default);
+    --x-size-border-width-top-suggestion-default: var(--x-size-border-width-tag-default);
+    --x-size-border-width-right-suggestion-default: var(--x-size-border-width-tag-default);
+    --x-size-border-width-bottom-suggestion-default: var(--x-size-border-width-tag-default);
+    --x-size-border-width-left-suggestion-default: var(--x-size-border-width-tag-default);
+
+    --x-size-border-radius-bottom-right-suggestion-default: var(--x-size-border-radius-bottom-right-tag-default);
+    --x-size-border-radius-bottom-left-suggestion-default: var(--x-size-border-radius-bottom-leftt-tag-default);
+    --x-size-border-radius-top-right-suggestion-default: var(--x-size-border-radius-top-right-tag-default);
+    --x-size-border-radius-top-left-suggestion-default: var(--x-size-border-radius-top-left-tag-default);
 
     // typography
-    --x-font-family-filter: var(--x-font-family-tag-default);
-    --x-size-font-filter: var(--x-size-font-tag-default);
-    --x-number-font-weight-filter: var(--x-number-font-weight-tag-default);
-    --x-size-line-height-filter: var(--x-size-line-height-tag-default);
+    --x-font-family-suggestion-default: var(--x-font-family-tag-default);
+    --x-size-font-suggestion-default: var(--x-size-font-tag-default);
+    --x-size-line-height-suggestion-default: var(--x-size-line-height-tag-default);
+    --x-number-font-weight-suggestion-default: var(--x-number-font-weight-tag-default);
+  }
+
+  &.x-suggestion-group {
+    // color
+    --x-color-background-suggestion-group-default: var(--x-color-background-tag-default);
+    --x-color-text-suggestion-group-default: var(--x-color-text-tag-default);
+    --x-color-border-suggestion-group-default: var(--x-color-border-tag-default);
+
+    // size
+    --x-size-padding-top-suggestion-group-default:  0;
+    --x-size-padding-right-suggestion-group-default: var(--x-size-padding-right-tag-default);
+    --x-size-padding-bottom-suggestion-group-default: 0;
+    --x-size-padding-left-suggestion-group-default: var(--x-size-padding-left-tag-default);
+    --x-size-gap-suggestion-group-default: var(--x-size-gap-tag-default);
+
+    // border
+    --x-size-border-width-suggestion-group-default: var(--x-size-border-width-tag-default);
+    --x-size-border-width-top-suggestion-group-default: var(--x-size-border-width-tag-default);
+    --x-size-border-width-right-suggestion-group-default: var(--x-size-border-width-tag-default);
+    --x-size-border-width-bottom-suggestion-group-default: var(--x-size-border-width-tag-default);
+    --x-size-border-width-left-suggestion-group-default: var(--x-size-border-width-tag-default);
+
+    --x-size-border-radius-bottom-right-suggestion-group-default: var(--x-size-border-radius-bottom-right-tag-default);
+    --x-size-border-radius-bottom-left-suggestion-group-default: var(--x-size-border-radius-bottom-leftt-tag-default);
+    --x-size-border-radius-top-right-suggestion-group-default: var(--x-size-border-radius-top-right-tag-default);
+    --x-size-border-radius-top-left-suggestion-group-default: var(--x-size-border-radius-top-left-tag-default);
+
+    // typography
+    --x-font-family-suggestion-group-default: var(--x-font-family-tag-default);
+    --x-size-font-suggestion-group-default: var(--x-size-font-tag-default);
+    --x-size-line-height-suggestion-group-default: var(--x-size-line-height-tag-default);
+    --x-number-font-weight-suggestion-group-default: var(--x-number-font-weight-tag-default);
+  }
+
+  &.x-filter {
+    // color
+    --x-color-background-filter-default: transparent;
+    --x-size-border-width-filter-default: 0;
+    --x-color-text-filter-default: var(--x-color-text-tag-default);
+
+    // size
+    --x-size-padding-top-filter-default: 0;
+    --x-size-padding-right-filter-default: var(--x-size-padding-right-tag-default);
+    --x-size-padding-bottom-filter-default: 0;
+    --x-size-padding-left-filter-default: var(--x-size-padding-left-tag-default);
+    --x-size-gap-filter-default: var(--x-size-gap-tag-default);
+
+    // typography
+    --x-font-family-filter-default: var(--x-font-family-tag-default);
+    --x-size-font-filter-default: var(--x-size-font-tag-default);
+    --x-number-font-weight-filter-count-default: var(--x-number-font-weight-tag-default);
+    --x-size-line-height-filter-default: var(--x-size-line-height-tag-default);
+  }
+
+  &.x-tag.x-tag--is-curated {
+    // color
+    background-color: var(--x-color-background-tag-default-curated);
+    border-color: var(--x-color-border-tag-default-curated);
+    color: var(--x-color-text-tag-default-curated);
+
+    // typography
+    line-height: var(--x-size-line-height-tag-default-curated);
+    font-family: var(--x-font-family-tag-default-curated);
+    font-size: var(--x-size-font-tag-default-curated);
+    font-weight: var(--x-number-font-weight-tag-default-curated);
   }
 
   // selected (the double .x-tag is to override specificity of the scoped component style)
@@ -71,15 +151,30 @@
     font-size: var(--x-size-font-tag-default-selected);
     font-weight: var(--x-number-font-weight-tag-default-selected);
 
-    &.x-filter {
+    &.x-tag--is-curated {
       // color
-      --x-color-text-filter: var(--x-color-text-tag-default-selected);
+      background-color: var(--x-color-background-tag-default-curated-selected);
+      border-color: var(--x-color-border-tag-default-curated-selected);
+      color: var(--x-color-text-tag-default-curated-selected);
 
       // typography
-      --x-font-family-filter: var(--x-font-family-tag-default-selected);
-      --x-size-font-filter: var(--x-size-font-tag-default-selected);
-      --x-number-font-weight-filter: var(--x-number-font-weight-tag-default-selected);
-      --x-size-line-height-filter: var(--x-size-line-height-tag-default-selected);
+      line-height: var(--x-size-line-height-tag-default-curated-selected);
+      font-family: var(--x-font-family-tag-default-curated-selected);
+      font-size: var(--x-size-font-tag-default-curated-selected);
+      font-weight: var(--x-number-font-weight-tag-default-curated-selected);
+    }
+
+    &.x-filter {
+      // color
+      --x-color-text-filter-default-selected: var(--x-color-text-tag-default-selected);
+
+      // typography
+      --x-font-family-filter-default-selected: var(--x-font-family-tag-default-selected);
+      --x-size-font-filter-default-selected: var(--x-size-font-tag-default-selected);
+      --x-number-font-weight-filter-count-default-selected: var(
+        --x-number-font-weight-tag-default-selected
+      );
+      --x-size-line-height-filter-default-selected: var(--x-size-line-height-tag-default-selected);
     }
   }
 }

@@ -1,7 +1,6 @@
 import Vue, { ComponentOptions } from 'vue';
 import { XPlugin } from '../plugins/x-plugin';
 import { AnyXModule } from '../x-modules/x-modules.types';
-import { setXComponentXModuleName } from './x-component.utils';
 
 /**
  * Initializes a component as an X-Component:
@@ -16,8 +15,6 @@ import { setXComponentXModuleName } from './x-component.utils';
 export function xComponentMixin(module: AnyXModule): ComponentOptions<Vue> {
   XPlugin.registerXModule(module);
   return {
-    beforeCreate(): void {
-      setXComponentXModuleName(this, module.name);
-    }
+    xModule: module.name
   };
 }

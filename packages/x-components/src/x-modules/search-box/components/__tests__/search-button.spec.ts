@@ -4,6 +4,7 @@ import { isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
 import { installNewXPlugin } from '../../../../__tests__/utils';
+import { WireMetadata } from '../../../../wiring/wiring.types';
 import SearchButton from '../search-button.vue';
 import { resetXSearchBoxStateWith } from './utils';
 
@@ -64,10 +65,11 @@ describe('testing search button component', () => {
     const mockedObserver = jest.fn();
     const mockedObserverCalledWith = {
       eventPayload: query,
-      metadata: {
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'searchBox',
-        target: searchButtonWrapper.element
-      }
+        target: searchButtonWrapper.element,
+        feature: 'search_box'
+      })
     };
     searchButtonWrapper.vm.$x.on('UserAcceptedAQuery', true).subscribe(mockedObserver);
     searchButtonWrapper.vm.$x.on('UserPressedSearchButton', true).subscribe(mockedObserver);

@@ -68,9 +68,9 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
-## Basic example
+### Basic example
 
 The component rendering content passed to the default slot and opening the panel toggle with panelId
 `my-toggle`.

@@ -103,6 +103,9 @@ const moduleDebounce = namespacedDebounce(moduleName);
  * @internal
  */
 export const historyQueriesWiring = createWiring({
+  ParamsLoadedFromUrl: {
+    setUrlParams
+  },
   HistoryQueriesQueryChanged: {
     refreshHistoryQueriesSession
   },
@@ -120,7 +123,7 @@ export const historyQueriesWiring = createWiring({
     setHistoryQueriesQueryDebounce: moduleDebounce(
       setHistoryQueriesQuery,
       ({ state }) => state.config.debounceInMs,
-      'UserAcceptedAQuery'
+      { cancelOn: 'UserAcceptedAQuery' }
     )
   },
   UserPressedClearHistoryQueries: {
@@ -128,8 +131,5 @@ export const historyQueriesWiring = createWiring({
   },
   UserPressedRemoveHistoryQuery: {
     removeHistoryQuery
-  },
-  ParamsLoadedFromUrl: {
-    setUrlParams
   }
 });

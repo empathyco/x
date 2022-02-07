@@ -4,13 +4,16 @@
     :suggestion="suggestion"
     :suggestionSelectedEvents="events"
     data-test="next-query"
+    feature="next_query"
+    :class="{ 'x-next-query--is-curated': shouldHighlightCurated }"
   >
     <template #default="{ suggestion }">
       <!--
         @slot Next Query content
             @binding {Suggestion} suggestion - Next Query suggestion data
+            @binding {boolean} shouldHighlightCurated - True if the curated NQ should be highlighted
       -->
-      <slot :suggestion="suggestion">{{ suggestion.query }}</slot>
+      <slot v-bind="{ suggestion, shouldHighlightCurated }">{{ suggestion.query }}</slot>
     </template>
   </BaseSuggestion>
 </template>
@@ -45,6 +48,14 @@
     protected suggestion!: NextQueryModel;
 
     /**
+     * Indicates if the curated next query should be highlighted.
+     *
+     * @public
+     */
+    @Prop({ default: false, type: Boolean })
+    protected highlightCurated!: boolean;
+
+    /**
      * Events list which are going to be emitted when a next query is selected.
      *
      * @returns The {@link XEvent | XEvents} to emit.
@@ -55,16 +66,29 @@
         UserSelectedANextQuery: this.suggestion
       };
     }
+
+    /**
+     * Checks if the next query is curated and if it should be highlighted.
+     *
+     * @returns True if the next query is curated and should be highlighted.
+     *
+     * @internal
+     */
+    protected get shouldHighlightCurated(): boolean {
+      return this.highlightCurated && (this.suggestion.isCurated ?? false);
+    }
   }
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This components expects just a suggestion as a prop to be rendered. It has a slot to override the
-content. By default, it renders the suggestion query of the next query.
+content. By default, it renders the suggestion query of the next query. It also has an optional
+prop, `highlightCurated`, to indicate if the curated Next Queries should be differentiated with a
+CSS class.
 
-## Basic Usage
+### Basic Usage
 
 Using default slot:
 
@@ -72,7 +96,7 @@ Using default slot:
 <NextQuery :suggestion="suggestion" />
 ```
 
-## Overriding default slot.
+### Overriding default slot.
 
 The default slot allows you to replace the content of the suggestion button.
 
@@ -84,6 +108,12 @@ The default slot allows you to replace the content of the suggestion button.
   </template>
 </NextQuery>
 ```
+
+## Dynamic Classes
+
+`NextQuery` uses the following dynamic CSS classes so you can style it when is:
+
+- Curated: `x-next-query--is-curated`.
 
 ## Events
 

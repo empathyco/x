@@ -13,8 +13,10 @@ import {
   SuggestionsRequest,
   SuggestionsResponse,
   TopRecommendationsRequest,
-  TopRecommendationsResponse
+  TopRecommendationsResponse,
+  TrackingRequest
 } from '@empathyco/x-adapter';
+import { noOp } from '../utils/index';
 import { configureAdapterWithToysrus } from './util';
 
 declare global {
@@ -67,6 +69,13 @@ class E2ETestsAdapter extends EmpathyAdapter {
 
   search(request: SearchRequest): Promise<SearchResponse> {
     return mockFetch(request, 'search');
+  }
+
+  track(request: TrackingRequest): Promise<void> {
+    return fetch(request.url, {
+      method: 'POST',
+      body: JSON.stringify(request.params)
+    }).then(noOp);
   }
 
   searchById(request: SearchByIdRequest): Promise<SearchByIdResponse> {

@@ -15,8 +15,9 @@ export function configureAdapterWithToysrus(
 ): EmpathyAdapterBuilder {
   adapterBuilder
     .addMapper((_, result: Result) => {
-      result.url = `./product_page.html?productId=${result.id}`;
+      result.url = `./products/${result.id}`;
       result.identifier.value = `${result.id}`;
+      result.rating = { value: Number(result.id.toString().slice(1)) % 6 };
       return result;
     }, 'results')
     .setFacetConfig(

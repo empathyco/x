@@ -1,90 +1,93 @@
 <template>
-  <BaseIdScroll
-    @scroll="setPosition"
-    id="main-scroll"
-    class="x-layout x-layout--fixed-header-and-asides"
-    :class="{ 'dev-mode': devMode }"
-  >
-    <div
-      key="header-backdrop"
-      class="x-layout__header-backdrop"
-      :class="{ 'x-layout__header-backdrop--is-visible': isBackdropVisible }"
-    />
-
-    <header
-      v-if="hasContent('header')"
-      key="header"
-      class="x-layout__header x-list x-list--horizontal"
+  <MainScroll>
+    <Scroll
+      @scroll="setPosition"
+      id="main-scroll"
+      class="x-layout x-layout--fixed-header-and-asides"
+      :class="{ 'dev-mode': devMode }"
     >
-      <!-- @slot Slot that is be used for insert content into the Header. -->
-      <slot name="header">
-        <span v-if="devMode" class="slot-helper">HEADER</span>
-      </slot>
-    </header>
+      <div
+        key="header-backdrop"
+        class="x-layout__header-backdrop"
+        :class="{ 'x-layout__header-backdrop--is-visible': isBackdropVisible }"
+      />
 
-    <div v-if="hasContent('sub-header')" key="sub-header" class="x-layout__sub-header">
-      <div class="x-layout__sub-header-content">
-        <!-- @slot Slot that can be used to insert content into below the header. -->
-        <slot name="sub-header">
-          <span v-if="devMode" class="slot-helper">SUB HEADER</span>
+      <header
+        v-if="hasContent('header')"
+        key="header"
+        class="x-layout__header x-list x-list--horizontal"
+      >
+        <!-- @slot Slot that is be used for insert content into the Header. -->
+        <slot name="header">
+          <span v-if="devMode" class="slot-helper">HEADER</span>
+        </slot>
+      </header>
+
+      <div v-if="hasContent('sub-header')" key="sub-header" class="x-layout__sub-header">
+        <div class="x-layout__sub-header-content">
+          <!-- @slot Slot that can be used to insert content into below the header. -->
+          <slot name="sub-header">
+            <span v-if="devMode" class="slot-helper">SUB HEADER</span>
+          </slot>
+        </div>
+      </div>
+
+      <section v-if="hasContent('toolbar')" key="toolbar" class="x-layout__toolbar">
+        <slot name="toolbar">
+          <!-- @slot Slot that can be used to insert content above the main. -->
+          <span v-if="devMode" class="slot-helper">TOOLBAR</span>
+        </slot>
+      </section>
+
+      <main v-if="hasContent('main')" key="main" class="x-layout__main x-list x-list--vertical">
+        <!-- @slot Slot that is be used for insert content into the Main. -->
+        <slot name="main">
+          <span v-if="devMode" class="slot-helper">MAIN</span>
+        </slot>
+      </main>
+
+      <BaseIdModal
+        v-if="hasContent('left-aside')"
+        key="left-aside"
+        :animation="leftAsideAnimation"
+        modalId="left-aside"
+        class="x-layout__aside x-layout__aside--left"
+      >
+        <!-- @slot Slot that is be used for insert content into the left aside. -->
+        <slot name="left-aside">
+          <span v-if="devMode" class="slot-helper">LEFT ASIDE</span>
+        </slot>
+      </BaseIdModal>
+
+      <BaseIdModal
+        v-if="hasContent('right-aside')"
+        key="right-aside"
+        :animation="rightAsideAnimation"
+        modalId="right-aside"
+        class="x-layout__aside x-layout__aside--right"
+      >
+        <!-- @slot Slot that is be used for insert content into the right aside. -->
+        <slot name="right-aside">
+          <span v-if="devMode" class="slot-helper">RIGHT ASIDE</span>
+        </slot>
+      </BaseIdModal>
+
+      <div v-if="hasContent('scroll-to-top')" key="scroll-to-top" class="x-layout__scroll-to-top">
+        <slot name="scroll-to-top">
+          <span v-if="devMode" class="slot-helper">SCROLL TO TOP</span>
         </slot>
       </div>
-    </div>
-
-    <section v-if="hasContent('toolbar')" key="toolbar" class="x-layout__toolbar">
-      <slot name="toolbar">
-        <!-- @slot Slot that can be used to insert content above the main. -->
-        <span v-if="devMode" class="slot-helper">TOOLBAR</span>
-      </slot>
-    </section>
-
-    <main v-if="hasContent('main')" key="main" class="x-layout__main x-list x-list--vertical">
-      <!-- @slot Slot that is be used for insert content into the Main. -->
-      <slot name="main">
-        <span v-if="devMode" class="slot-helper">MAIN</span>
-      </slot>
-    </main>
-
-    <BaseIdModal
-      v-if="hasContent('left-aside')"
-      key="left-aside"
-      :animation="leftAsideAnimation"
-      modalId="left-aside"
-      class="x-layout__aside x-layout__aside--left"
-    >
-      <!-- @slot Slot that is be used for insert content into the left aside. -->
-      <slot name="left-aside">
-        <span v-if="devMode" class="slot-helper">LEFT ASIDE</span>
-      </slot>
-    </BaseIdModal>
-
-    <BaseIdModal
-      v-if="hasContent('right-aside')"
-      key="right-aside"
-      :animation="rightAsideAnimation"
-      modalId="right-aside"
-      class="x-layout__aside x-layout__aside--right"
-    >
-      <!-- @slot Slot that is be used for insert content into the right aside. -->
-      <slot name="right-aside">
-        <span v-if="devMode" class="slot-helper">RIGHT ASIDE</span>
-      </slot>
-    </BaseIdModal>
-
-    <div v-if="hasContent('scroll-to-top')" key="scroll-to-top" class="x-layout__scroll-to-top">
-      <slot name="scroll-to-top">
-        <span v-if="devMode" class="slot-helper">SCROLL TO TOP</span>
-      </slot>
-    </div>
-  </BaseIdScroll>
+    </Scroll>
+  </MainScroll>
 </template>
 
 <script lang="ts">
   import { Component } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
+  import MainScroll from '../../x-modules/scroll/components/main-scroll.vue';
   import { TranslateFromLeft, TranslateFromRight } from '../animations';
   import BaseIdModal from '../modals/base-id-modal.vue';
-  import BaseIdScroll from '../scroll/base-id-scroll.vue';
+  import Scroll from '../../x-modules/scroll/components/scroll.vue';
   import LayoutsMixin from './layouts.mixin';
 
   /**
@@ -95,7 +98,8 @@
   @Component({
     components: {
       BaseIdModal,
-      BaseIdScroll
+      MainScroll,
+      Scroll
     }
   })
   export default class FixedHeaderAndAsidesLayout extends mixins(LayoutsMixin) {
@@ -257,7 +261,7 @@
 </style>
 
 <docs lang="mdx">
-# Layout
+## Layout
 
 This component has the following layout with fixed headers and collapsible fixed asides:
 
@@ -268,7 +272,7 @@ This component has the following layout with fixed headers and collapsible fixed
 |            |    main    |               |
 |            |            | scroll-to-top |
 
-# Design Tokens
+## Design Tokens
 
 The component has also the following `Design Tokens` to configure it:
 

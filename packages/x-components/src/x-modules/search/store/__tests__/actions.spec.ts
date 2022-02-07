@@ -1,7 +1,8 @@
-import { SearchResponse } from '@empathyco/x-adapter';
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
+//eslint-disable-next-line max-len
+import { getEmptySearchResponseStub } from '../../../../__stubs__/empty-search-response-stubs.factory';
 import { getFacetsStub } from '../../../../__stubs__/facets-stubs.factory';
 import { getPromotedsStub } from '../../../../__stubs__/promoteds-stubs.factory';
 import { getRedirectionsStub } from '../../../../__stubs__/redirections-stubs.factory';
@@ -21,21 +22,7 @@ describe('testing search module actions', () => {
   const promotedsStub = getPromotedsStub();
   const redirectionsStub = getRedirectionsStub();
   const searchResponseStub = getSearchResponseStub();
-
-  const mockedEmptySearchResponse: SearchResponse = {
-    banners: [],
-    facets: [],
-    partialResults: [],
-    promoteds: [],
-    queryTagging: {
-      params: {},
-      url: ''
-    },
-    redirections: [],
-    results: [],
-    spellcheck: '',
-    totalResults: 0
-  };
+  const emptySearchResponseStub = getEmptySearchResponseStub();
 
   const adapter = getMockedAdapter({ search: searchResponseStub });
 
@@ -50,6 +37,7 @@ describe('testing search module actions', () => {
 
   beforeEach(() => {
     resetSearchStateWith(store);
+    jest.clearAllMocks();
   });
 
   describe('fetchSearchResponse', () => {
@@ -64,13 +52,45 @@ describe('testing search module actions', () => {
 
     it('should return empty search response if there is not request', async () => {
       const searchResponse = await store.dispatch('fetchSearchResponse', store.getters.request);
-      expect(searchResponse).toEqual(mockedEmptySearchResponse);
+      expect(searchResponse).toEqual(emptySearchResponseStub);
     });
   });
 
   describe('fetchAndSaveSearchResponse', () => {
+    it('should include the origin, start and rows properties in the request', async () => {
+      resetSearchStateWith(store, { query: 'lego', origin: 'search_box:external' });
+      const { page, ...restRequest } = store.getters.request!;
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
+
+      expect(adapter.search).toHaveBeenCalledTimes(1);
+      expect(adapter.search).toHaveBeenCalledWith({
+        ...restRequest,
+        origin: 'search_box:external',
+        start: 0,
+        rows: 24
+      });
+    });
+
+    it('should calculate correctly the start and rows properties', async () => {
+      resetSearchStateWith(store, {
+        config: { pageSize: 48 },
+        page: 2,
+        query: 'lego',
+        results: getResultsStub(48)
+      });
+      const { page, ...restRequest } = store.getters.request!;
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
+
+      expect(adapter.search).toHaveBeenCalledTimes(1);
+      expect(adapter.search).toHaveBeenCalledWith({
+        ...restRequest,
+        start: 48,
+        rows: 48
+      });
+    });
+
     // eslint-disable-next-line max-len
-    it('should request and store results, facets, banners, promoteds and redirections in the state', async () => {
+    it('should request and store results, facets, banners, promoteds, redirections and query tagging in the state', async () => {
       resetSearchStateWith(store, {
         query: 'lego'
       });
@@ -86,25 +106,32 @@ describe('testing search module actions', () => {
       expect(store.state.page).toEqual(1);
       expect(store.state.config.pageSize).toEqual(24);
       expect(store.state.status).toEqual('success');
+      expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
     });
 
     // eslint-disable-next-line max-len
-    it('should clear results, facets, banners and promoteds in the state if the query is empty', async () => {
+    it('should clear results, facets, banners, promoteds, redirections and query tagging in the state if the query is empty', async () => {
       resetSearchStateWith(store, {
         results: resultsStub,
         facets: facetsStub,
         banners: bannersStub,
-        promoteds: promotedsStub
+        promoteds: promotedsStub,
+        redirections: redirectionsStub,
+        queryTagging: searchResponseStub.queryTagging
       });
       expect(store.state.results).toEqual(resultsStub);
       expect(store.state.facets).toEqual(facetsStub);
       expect(store.state.banners).toEqual(bannersStub);
       expect(store.state.promoteds).toEqual(promotedsStub);
+      expect(store.state.redirections).toEqual(redirectionsStub);
+      expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
       await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
       expect(store.state.results).toEqual([]);
       expect(store.state.facets).toEqual([]);
       expect(store.state.banners).toEqual([]);
       expect(store.state.promoteds).toEqual([]);
+      expect(store.state.redirections).toEqual([]);
+      expect(store.state.queryTagging).toEqual({ url: '', params: {} });
     });
 
     it('should request and store total results in the state', async () => {
@@ -113,7 +140,7 @@ describe('testing search module actions', () => {
       });
 
       adapter.search.mockResolvedValueOnce({
-        ...mockedEmptySearchResponse,
+        ...emptySearchResponseStub,
         totalResults: 116
       });
 
@@ -137,7 +164,7 @@ describe('testing search module actions', () => {
       });
 
       adapter.search.mockResolvedValueOnce({
-        ...mockedEmptySearchResponse,
+        ...emptySearchResponseStub,
         spellcheck: 'coche'
       });
 
@@ -150,8 +177,7 @@ describe('testing search module actions', () => {
       resetSearchStateWith(store, {
         spellcheckedQuery: 'coche'
       });
-      const actionPromise = store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
-      await actionPromise;
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
       expect(store.state.spellcheckedQuery).toBe('');
     });
 
@@ -165,7 +191,7 @@ describe('testing search module actions', () => {
         redirections: initialRedirections
       } = store.state;
       adapter.search.mockResolvedValueOnce({
-        ...mockedEmptySearchResponse,
+        ...emptySearchResponseStub,
         results: resultsStub.slice(0, 1),
         facets: facetsStub.slice(0, 1)
       });
@@ -245,6 +271,20 @@ describe('testing search module actions', () => {
       expect(store.state.page).toEqual(2);
     });
 
+    it('should increase page if the last page has less results than the page size', async () => {
+      resetSearchStateWith(store, { totalResults: 47, page: 1, config: { pageSize: 24 } });
+
+      await store.dispatch('increasePageAppendingResults');
+      expect(store.state.page).toEqual(2);
+    });
+
+    it('should increase page if the last page has only one result', async () => {
+      resetSearchStateWith(store, { totalResults: 25, page: 1, config: { pageSize: 24 } });
+
+      await store.dispatch('increasePageAppendingResults');
+      expect(store.state.page).toEqual(2);
+    });
+
     // eslint-disable-next-line max-len
     it('appends results to the state when the page increases and the isAppendResults is true', async () => {
       resetSearchStateWith(store, {
@@ -256,7 +296,7 @@ describe('testing search module actions', () => {
       });
 
       adapter.search.mockResolvedValueOnce({
-        ...mockedEmptySearchResponse,
+        ...emptySearchResponseStub,
         results: resultsStub.slice(1, 2),
         banners: bannersStub.slice(0, 1),
         promoteds: promotedsStub.slice(1, 2)
@@ -280,7 +320,7 @@ describe('testing search module actions', () => {
       });
 
       adapter.search.mockResolvedValueOnce({
-        ...mockedEmptySearchResponse,
+        ...emptySearchResponseStub,
         results: resultsStub.slice(1, 2),
         banners: bannersStub.slice(1, 2),
         promoteds: promotedsStub.slice(1, 2)
@@ -291,6 +331,216 @@ describe('testing search module actions', () => {
       expect(store.state.results).toEqual(resultsStub.slice(1, 2));
       expect(store.state.banners).toEqual(bannersStub.slice(1, 2));
       expect(store.state.promoteds).toEqual(promotedsStub.slice(1, 2));
+    });
+  });
+
+  describe('resetState', () => {
+    // Note that the following tests are meant for the resetState action, which
+    // does not modify all fields but only some of them.
+    it('should not reset the page when the page parameter of the request changes', async () => {
+      resetSearchStateWith(store, { query: 'lego', page: 2 });
+      await store.dispatch('resetState', {
+        newRequest: {
+          query: 'lego',
+          page: 3
+        },
+        oldRequest: store.getters.request!
+      });
+
+      expect(store.state).toEqual(
+        expect.objectContaining<Partial<SearchState>>({
+          page: 2,
+          params: {},
+          query: 'lego',
+          relatedTags: [],
+          selectedFilters: {},
+          sort: ''
+        })
+      );
+    });
+
+    it('should not reset the page nor the sort when there are no changes', async () => {
+      resetSearchStateWith(store, { query: 'lego', page: 2, sort: 'desc' });
+      await store.dispatch('resetState', {
+        newRequest: {
+          query: 'lego',
+          page: 2,
+          sort: 'desc'
+        },
+        oldRequest: store.getters.request!
+      });
+
+      expect(store.state).toEqual(
+        expect.objectContaining<Partial<SearchState>>({
+          page: 2,
+          params: {},
+          query: 'lego',
+          relatedTags: [],
+          selectedFilters: {},
+          sort: 'desc'
+        })
+      );
+    });
+
+    it('should reset the page when the query changes', async () => {
+      resetSearchStateWith(store, { query: 'lego', page: 2 });
+      await store.dispatch('resetState', {
+        newRequest: {
+          query: 'playmobil',
+          page: 2
+        },
+        oldRequest: store.getters.request!
+      });
+
+      expect(store.state).toEqual(
+        expect.objectContaining<Partial<SearchState>>({
+          page: 1,
+          params: {},
+          query: 'lego',
+          relatedTags: [],
+          selectedFilters: {},
+          sort: ''
+        })
+      );
+    });
+
+    it('should reset the page when the sort changes', async () => {
+      resetSearchStateWith(store, { query: 'lego', page: 2 });
+      await store.dispatch('resetState', {
+        newRequest: {
+          query: 'lego',
+          page: 2,
+          sort: 'desc'
+        },
+        oldRequest: store.getters.request!
+      });
+
+      expect(store.state).toEqual(
+        expect.objectContaining<Partial<SearchState>>({
+          page: 1,
+          params: {},
+          query: 'lego',
+          relatedTags: [],
+          selectedFilters: {},
+          sort: ''
+        })
+      );
+    });
+
+    it('should reset the page when the related tags change', async () => {
+      resetSearchStateWith(store, { query: 'lego', page: 2 });
+      await store.dispatch('resetState', {
+        newRequest: {
+          query: 'lego',
+          page: 2,
+          relatedTags: [
+            {
+              query: 'lego star wars',
+              modelName: 'RelatedTag',
+              previous: 'lego',
+              selected: false,
+              tag: 'star wars'
+            }
+          ]
+        },
+        oldRequest: store.getters.request!
+      });
+
+      expect(store.state).toEqual(
+        expect.objectContaining<Partial<SearchState>>({
+          page: 1,
+          params: {},
+          query: 'lego',
+          relatedTags: [],
+          selectedFilters: {},
+          sort: ''
+        })
+      );
+    });
+
+    it('should reset the page when the filters change', async () => {
+      resetSearchStateWith(store, { query: 'lego', page: 2 });
+      await store.dispatch('resetState', {
+        newRequest: {
+          query: 'lego',
+          page: 2,
+          filters: {
+            age_facet: [
+              {
+                id: '{!tag=age_facet}age_facet:"toddler"',
+                modelName: 'SimpleFilter',
+                selected: true
+              }
+            ]
+          }
+        },
+        oldRequest: store.getters.request!
+      });
+
+      expect(store.state).toEqual(
+        expect.objectContaining<Partial<SearchState>>({
+          page: 1,
+          params: {},
+          query: 'lego',
+          relatedTags: [],
+          selectedFilters: {},
+          sort: ''
+        })
+      );
+    });
+
+    it('should reset the sort when the query parameter of the request changes', async () => {
+      resetSearchStateWith(store, { query: 'lego', page: 1, sort: 'price asc' });
+      await store.dispatch('resetState', {
+        newRequest: {
+          query: 'playmobil',
+          page: 1
+        },
+        oldRequest: store.getters.request!
+      });
+
+      expect(store.state).toEqual(
+        expect.objectContaining<Partial<SearchState>>({
+          page: 1,
+          params: {},
+          query: 'lego',
+          relatedTags: [],
+          selectedFilters: {},
+          sort: ''
+        })
+      );
+    });
+
+    it('should reset the page and sort when any extra param of the request changes', async () => {
+      resetSearchStateWith(store, {
+        query: 'lego',
+        page: 2,
+        sort: 'price asc',
+        params: {
+          catalog: 'es'
+        }
+      });
+      await store.dispatch('resetState', {
+        newRequest: {
+          query: 'lego',
+          page: 2,
+          catalog: 'pt'
+        },
+        oldRequest: store.getters.request!
+      });
+
+      expect(store.state).toEqual(
+        expect.objectContaining<Partial<SearchState>>({
+          page: 1,
+          params: {
+            catalog: 'es'
+          },
+          query: 'lego',
+          relatedTags: [],
+          selectedFilters: {},
+          sort: ''
+        })
+      );
     });
   });
 
@@ -333,17 +583,16 @@ describe('testing search module actions', () => {
       resetSearchStateWith(store);
 
       await store.dispatch('saveOrigin', { feature: 'search_box', location: 'predictive_layer' });
-
       expect(store.state.origin).toEqual('search_box:predictive_layer');
+
+      await store.dispatch('saveOrigin', { feature: 'search_box' });
+      expect(store.state.origin).toEqual('search_box:none');
     });
 
     it('saves `null` if it is impossible to create an origin', async () => {
       resetSearchStateWith(store, { query: 'funko' });
 
       await store.dispatch('saveOrigin', { location: 'predictive_layer' });
-      expect(store.state.origin).toBeNull();
-
-      await store.dispatch('saveOrigin', { feature: 'search_box' });
       expect(store.state.origin).toBeNull();
 
       await store.dispatch('saveOrigin', {});

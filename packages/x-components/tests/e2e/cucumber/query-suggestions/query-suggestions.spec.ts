@@ -1,23 +1,7 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { createQuerySuggestion } from '../../../../src/__stubs__/query-suggestions-stubs.factory';
 import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
 
 // Background
-Given('a query suggestions API with a known response', () => {
-  cy.intercept('https://api.empathy.co/getSuggestions', req => {
-    req.reply({
-      suggestions: [
-        createQuerySuggestion('lego'),
-        createQuerySuggestion('lego marvel'),
-        createQuerySuggestion('lego friends'),
-        createQuerySuggestion('lego star wars'),
-        createQuerySuggestion('lego city'),
-        createQuerySuggestion('lego harry potter')
-      ]
-    });
-  }).as('interceptedQuerySuggestions');
-});
-
 Given(
   'following config: hide if equals query {boolean}, requested items {int}',
   (hideIfEqualsQuery: boolean, maxItemsToRequest: number) => {
@@ -62,14 +46,6 @@ And('all query suggestions contain the searched query', function (this: { search
       }
     });
   });
-});
-
-When('a query suggestions API with no query suggestions', () => {
-  cy.intercept('https://api.empathy.co/getSuggestions', req => {
-    req.reply({
-      suggestions: []
-    });
-  }).as('interceptedQuerySuggestions');
 });
 
 // Scenario 2

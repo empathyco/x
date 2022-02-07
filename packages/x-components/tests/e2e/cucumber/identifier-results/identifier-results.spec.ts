@@ -1,39 +1,31 @@
-import { And, Given } from 'cypress-cucumber-preprocessor/steps';
-import { createResultStub } from '../../../../src/__stubs__/results-stubs.factory';
+import { Given, Then } from 'cypress-cucumber-preprocessor/steps';
+import { XPluginOptions } from '../../../../src/plugins/x-plugin.types';
 
-Given('an ID results API with a known response', () => {
-  cy.intercept('https://api.empathy.co/searchById', req => {
-    req.reply({
-      results: [
-        createResultStub('A0255072 - 9788467577112 - 160000', {
-          images: ['https://picsum.photos/seed/20/100/100']
-        }),
-        createResultStub('A0273378 - 9788467579543 - 166664', {
-          images: ['https://picsum.photos/seed/21/100/100']
-        }),
-        createResultStub('A0291017 - 9788467579536 - 166663', {
-          images: ['https://picsum.photos/seed/22/100/100']
-        }),
-        createResultStub('A0246951 - 8437006044851 - 4001', {
-          images: ['https://picsum.photos/seed/23/100/100']
-        })
-      ]
+Given(
+  'following config: identifier detection Regexp {string}',
+  (identifierDetectionRegexp: string) => {
+    const config: XPluginOptions['xModules'] = {
+      identifierResults: {
+        config: {
+          identifierDetectionRegexp
+        }
+      }
+    };
+
+    cy.visit('/?useMockedAdapter=true', {
+      qs: {
+        xModules: JSON.stringify(config)
+      }
     });
-  }).as('interceptedIDResults');
+  }
+);
+
+Then('identifier results are displayed', () => {
+  cy.getByDataTest('identifier-results-item')
+    .should('be.visible')
+    .should('have.length.at.least', 1);
 });
 
-Given('an ID results API with no results', () => {
-  cy.intercept('https://api.empathy.co/searchById', req => {
-    req.reply({
-      results: []
-    });
-  }).as('interceptedNoIDResults');
-});
-
-And('a results API with no results', () => {
-  cy.intercept('https://api.empathy.co/search', req => {
-    req.reply({
-      results: []
-    });
-  }).as('interceptedNoResults');
+Then('no identifier results are displayed', () => {
+  cy.getByDataTest('identifier-results-item').should('not.exist');
 });

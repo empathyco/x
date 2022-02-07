@@ -13,9 +13,9 @@ const wireCommit = namespacedWireCommit(moduleName);
  * @public
  */
 export const setScrollPositionWire = wireCommit(
-  'setScrollPosition',
+  'setScrollComponentState',
   ({ metadata, eventPayload }: WirePayload<number>) => ({
-    position: eventPayload,
+    newState: { position: eventPayload },
     id: metadata.id as string
   })
 );
@@ -26,9 +26,22 @@ export const setScrollPositionWire = wireCommit(
  * @public
  */
 export const setScrollDirectionWire = wireCommit(
-  'setScrollDirection',
+  'setScrollComponentState',
   ({ metadata, eventPayload }: WirePayload<ScrollDirection>) => ({
-    direction: eventPayload,
+    newState: { direction: eventPayload },
+    id: metadata.id!
+  })
+);
+
+/**
+ * Saves a boolean indicating if the scroll has almost reached the end of a container to the store.
+ *
+ * @public
+ */
+export const setScrollHasAlmostReachedEndWire = wireCommit(
+  'setScrollComponentState',
+  ({ metadata, eventPayload }: WirePayload<boolean>) => ({
+    newState: { hasAlmostReachedEnd: eventPayload },
     id: metadata.id as string
   })
 );
@@ -39,9 +52,9 @@ export const setScrollDirectionWire = wireCommit(
  * @public
  */
 export const setScrollHasReachedEndWire = wireCommit(
-  'setScrollHasReachedEnd',
+  'setScrollComponentState',
   ({ metadata, eventPayload }: WirePayload<boolean>) => ({
-    value: eventPayload,
+    newState: { hasReachedEnd: eventPayload },
     id: metadata.id as string
   })
 );
@@ -52,9 +65,9 @@ export const setScrollHasReachedEndWire = wireCommit(
  * @public
  */
 export const setScrollHasReachedStartWire = wireCommit(
-  'setScrollHasReachedStart',
+  'setScrollComponentState',
   ({ metadata, eventPayload }: WirePayload<boolean>) => ({
-    value: eventPayload,
+    newState: { hasReachedStart: eventPayload },
     id: metadata.id as string
   })
 );
@@ -90,6 +103,9 @@ export const scrollWiring = createWiring({
   },
   UserReachedScrollStart: {
     setScrollHasReachedStartWire
+  },
+  UserAlmostReachedScrollEnd: {
+    setScrollHasAlmostReachedEndWire
   },
   UserReachedScrollEnd: {
     setScrollHasReachedEndWire

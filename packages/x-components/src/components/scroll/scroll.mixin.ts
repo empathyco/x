@@ -1,6 +1,8 @@
 import Vue from 'vue';
-import { Prop, Watch } from 'vue-property-decorator';
-import Component from 'vue-class-component';
+import { Component, Prop, Watch } from 'vue-property-decorator';
+import { throttle } from '../../utils/throttle';
+import { XEvent } from '../../wiring/events.types';
+import { XOn } from '../decorators/bus.decorators';
 import { ScrollDirection } from './scroll.types';
 
 /**
@@ -9,7 +11,29 @@ import { ScrollDirection } from './scroll.types';
  * @public
  */
 @Component
+/* eslint-disable @typescript-eslint/unbound-method */
 export default class ScrollMixin extends Vue {
+  /**
+   * The scrolling container reference.
+   *
+   * @public
+   */
+  public $el!: HTMLElement;
+  /**
+   * Distance to the end of the scroll that when reached will emit the
+   * `scroll:about-to-end` event.
+   *
+   * @public
+   */
+  @Prop({ default: 100 })
+  public distanceToBottom!: number;
+  /**
+   * Positive vertical distance to still consider that the an element is the first one visible.
+   * For example, if set to 100, after scrolling 100 pixels, the first rendered element
+   * will still be considered the first one.
+   */
+  @Prop({ default: 100 })
+  public firstElementThresholdPx!: number;
   /**
    * Time duration to ignore the subsequent scroll events after an emission.
    * Higher values will decrease events precision but can prevent performance issues.
@@ -20,28 +44,53 @@ export default class ScrollMixin extends Vue {
   public throttleMs!: number;
 
   /**
-   * Distance to the end of the scroll that when reached will emit the
-   * `scroll:about-to-end` event.
+   * If true (default), sets the scroll position to the top when certain events are emitted.
    *
    * @public
    */
-  @Prop({ default: 100 })
-  public distanceToBottom!: number;
+  @Prop({ type: Boolean, default: true })
+  protected resetOnChange!: boolean;
 
+  /**
+   * List of events that should reset the scroll when emitted.
+   *
+   * @public
+   */
+  @Prop({
+    default: () => [
+      'SearchBoxQueryChanged',
+      'SortChanged',
+      'SelectedFiltersChanged',
+      'SelectedRelatedTagsChanged',
+      'UserChangedExtraParams'
+    ]
+  })
+  public resetOn!: XEvent;
+
+  /**
+   * Property for getting the client height of scroll.
+   *
+   * @internal
+   */
+  protected clientHeight = 0;
   /**
    * Property for getting the current position of scroll.
    *
    * @internal
    */
   protected currentPosition = 0;
-
+  /**
+   * Property for getting the direction of scroll.
+   *
+   * @internal
+   */
+  protected direction!: ScrollDirection;
   /**
    * Property for getting the previous position of scroll.
    *
    * @internal
    */
   protected previousPosition = 0;
-
   /**
    * Property for getting the scroll height.
    *
@@ -50,27 +99,15 @@ export default class ScrollMixin extends Vue {
   protected scrollHeight = 0;
 
   /**
-   * Property for getting the client height of scroll.
+   * Throttled version of the function that stores the DOM scroll related properties.
+   * The duration of the throttle is configured through the
+   * {@link ScrollMixin.throttleMs}.
    *
+   * @returns A throttled version of the function to store the scroll data.
    * @internal
    */
-  protected clientHeight = 0;
-
-  /**
-   * Property for getting the direction of scroll.
-   *
-   * @internal
-   */
-  protected direction!: ScrollDirection;
-
-  /**
-   * Returns end position of scroll.
-   *
-   * @returns A number for knowing end position of scroll.
-   * @internal
-   */
-  protected get scrollEndPosition(): number {
-    return this.scrollHeight - this.clientHeight;
+  protected get throttledStoreScrollData(): () => void {
+    return throttle(this.storeScrollData, this.throttleMs);
   }
 
   /**
@@ -81,26 +118,6 @@ export default class ScrollMixin extends Vue {
    */
   protected get distanceToEnd(): number {
     return this.scrollEndPosition - this.currentPosition;
-  }
-
-  /**
-   * Returns `true` when the scroll is at the initial position.
-   *
-   * @returns A boolean for knowing if the user scrolls to the start.
-   * @internal
-   */
-  protected get hasScrollReachedStart(): boolean {
-    return this.currentPosition === 0;
-  }
-
-  /**
-   * Returns direction of scroll based in {@link ScrollDirection}.
-   *
-   * @returns The scroll direction.
-   * @internal
-   */
-  protected get scrollDirection(): ScrollDirection {
-    return this.currentPosition > this.previousPosition ? 'DOWN' : 'UP';
   }
 
   /**
@@ -125,6 +142,70 @@ export default class ScrollMixin extends Vue {
   }
 
   /**
+   * Returns `true` when the scroll is at the initial position.
+   *
+   * @returns A boolean for knowing if the user scrolls to the start.
+   * @internal
+   */
+  protected get hasScrollReachedStart(): boolean {
+    return this.currentPosition === 0;
+  }
+
+  /**
+   * Returns direction of scroll based in {@link ScrollDirection}.
+   *
+   * @returns The scroll direction.
+   * @internal
+   */
+  protected get scrollDirection(): ScrollDirection {
+    return this.currentPosition > this.previousPosition ? 'DOWN' : 'UP';
+  }
+
+  /**
+   * Returns end position of scroll.
+   *
+   * @returns A number for knowing end position of scroll.
+   * @internal
+   */
+  protected get scrollEndPosition(): number {
+    return this.scrollHeight - this.clientHeight;
+  }
+
+  /**
+   * Initialises DOM dependant scroll properties.
+   *
+   * @internal
+   */
+  mounted(): void {
+    this.$nextTick().then(() => {
+      if (!this.$el) {
+        // TODO Replace with Empathy's logger
+        // eslint-disable-next-line no-console
+        console.warn(
+          '[ScrollMixin]',
+          'Components using this mixin must set `this.$el` to the HTML node that is scrolling.'
+        );
+      } else {
+        this.storeScrollData();
+      }
+    });
+  }
+
+  /**
+   * Resets the scroll position.
+   *
+   * @internal
+   */
+  @XOn(instance => (instance as ScrollMixin).resetOn)
+  resetScroll(): void {
+    this.$nextTick().then(() => {
+      if (this.resetOnChange) {
+        this.$el.scrollTo({ top: 0 });
+      }
+    });
+  }
+
+  /**
    * Emits the `scroll` event.
    *
    * @param _newScrollPosition - The new position of scroll.
@@ -132,20 +213,9 @@ export default class ScrollMixin extends Vue {
    * @internal
    */
   @Watch('currentPosition')
-  emitScroll(_newScrollPosition: number, oldScrollPosition: number): void {
+  protected emitScroll(_newScrollPosition: number, oldScrollPosition: number): void {
     this.$emit('scroll', this.currentPosition);
     this.previousPosition = oldScrollPosition;
-  }
-
-  /**
-   * Emits the `scroll:direction-change` event when the scrolling direction has changed.
-   *
-   * @param direction - The new direction of scroll.
-   * @internal
-   */
-  @Watch('scrollDirection')
-  emitScrollDirection(direction: ScrollDirection): void {
-    this.$emit('scroll:direction-change', direction);
   }
 
   /**
@@ -155,10 +225,8 @@ export default class ScrollMixin extends Vue {
    * @internal
    */
   @Watch('hasScrollReachedStart')
-  emitScrollReachedAtStart(isScrollAtStart: boolean): void {
-    if (isScrollAtStart) {
-      this.$emit('scroll:at-start');
-    }
+  protected emitScrollReachedAtStart(isScrollAtStart: boolean): void {
+    this.$emit('scroll:at-start', isScrollAtStart);
   }
 
   /**
@@ -168,10 +236,8 @@ export default class ScrollMixin extends Vue {
    * @internal
    */
   @Watch('hasScrollAlmostReachedEnd')
-  emitScrollAlmostAtEnd(isScrollAlmostAtEnd: boolean): void {
-    if (isScrollAlmostAtEnd) {
-      this.$emit('scroll:almost-at-end', this.distanceToEnd);
-    }
+  protected emitScrollAlmostAtEnd(isScrollAlmostAtEnd: boolean): void {
+    this.$emit('scroll:almost-at-end', isScrollAlmostAtEnd);
   }
 
   /**
@@ -181,9 +247,32 @@ export default class ScrollMixin extends Vue {
    * @internal
    */
   @Watch('hasScrollReachedEnd')
-  emitScrollAtEnd(isScrollAtEnd: boolean): void {
-    if (isScrollAtEnd) {
-      this.$emit('scroll:at-end');
+  protected emitScrollAtEnd(isScrollAtEnd: boolean): void {
+    this.$emit('scroll:at-end', isScrollAtEnd);
+  }
+
+  /**
+   * Emits the `scroll:direction-change` event when the scrolling direction has changed.
+   *
+   * @param direction - The new direction of scroll.
+   * @internal
+   */
+  @Watch('scrollDirection')
+  protected emitScrollDirection(direction: ScrollDirection): void {
+    this.$emit('scroll:direction-change', direction);
+  }
+
+  /**
+   * Updates scroll related properties.
+   *
+   * @internal
+   */
+  protected storeScrollData(): void {
+    if (this.$el) {
+      this.currentPosition = this.$el.scrollTop;
+      this.scrollHeight = this.$el.scrollHeight;
+      this.clientHeight = this.$el.clientHeight;
     }
   }
 }
+/*  eslint-enable @typescript-eslint/unbound-method */

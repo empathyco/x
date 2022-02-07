@@ -3,7 +3,9 @@ import {
   namespacedWireDispatch,
   namespacedWireDispatchWithoutPayload
 } from '../../wiring/namespaced-wires.factory';
+import { WirePayload } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
+import { InternalSearchRequest } from './types';
 
 /**
  * `search` {@link XModuleName | XModule name}.
@@ -128,27 +130,6 @@ export const increasePageAppendingResults = wireDispatchWithoutPayload(
 export const setPageSize = wireCommit('setPageSize');
 
 /**
- * Sets 1 to the search state `page`.
- *
- * @public
- */
-export const resetPage = wireCommit('setPage', 1);
-
-/**
- * Sets empty value to the search state `sort`.
- *
- * @public
- */
-export const resetSort = wireCommit('setSort', '');
-
-/**
- * Sets empty value to the search state `facets`.
- *
- * @public
- */
-export const resetFacets = wireCommit('setFacets', []);
-
-/**
  * Resets the search state `isAppendingResults`.
  *
  * @public
@@ -156,40 +137,44 @@ export const resetFacets = wireCommit('setFacets', []);
 export const resetAppending = wireCommit('setIsAppendResults', false);
 
 /**
+ * Batches state resets after {@link SearchGetters.request} parameters update.
+ *
+ * @public
+ */
+export const resetStateWire = wireDispatch(
+  'resetState',
+  ({ eventPayload: newRequest, metadata: { oldValue } }: WirePayload<InternalSearchRequest>) => ({
+    newRequest,
+    oldRequest: oldValue as InternalSearchRequest
+  })
+);
+
+/**
  * Search wiring.
  *
  * @internal
  */
 export const searchWiring = createWiring({
+  ParamsLoadedFromUrl: {
+    setUrlParams,
+    saveOriginWire
+  },
   UserAcceptedAQuery: {
-    resetPage,
-    resetSort,
     setSearchQuery,
     saveOriginWire
   },
   UserAcceptedSpellcheckQuery: {
-    resetPage,
     resetSpellcheckQuery
   },
   UserClearedQuery: {
-    resetPage,
     setSearchQuery,
     cancelFetchAndSaveSearchResponseWire
   },
-  UserClickedAFilter: {
-    resetPage
-  },
   UserClickedASort: {
-    resetPage,
     setSort
   },
   UserPickedARelatedTag: {
-    resetPage
-  },
-  UserChangedExtraParams: {
-    resetPage,
-    resetSort,
-    resetFacets
+    saveOriginWire
   },
   UserReachedResultsListEnd: {
     increasePageAppendingResults
@@ -197,9 +182,11 @@ export const searchWiring = createWiring({
   SearchRequestChanged: {
     fetchAndSaveSearchResponseWire
   },
+  SearchRequestUpdated: {
+    resetStateWire
+  },
   SelectedRelatedTagsChanged: {
-    setRelatedTags,
-    saveOriginWire
+    setRelatedTags
   },
   SelectedFiltersChanged: {
     setSelectedFilters
@@ -212,8 +199,5 @@ export const searchWiring = createWiring({
   },
   ExtraParamsChanged: {
     setSearchExtraParams
-  },
-  ParamsLoadedFromUrl: {
-    setUrlParams
   }
 });

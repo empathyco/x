@@ -134,7 +134,7 @@
 </style>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 It renders an input and a list of filters passed as prop or being injected. The list of filters can
 be sifted with the query typed in the input. This component has also a debounce prop to set the time
@@ -143,13 +143,13 @@ customize the search triggering with three slot props; the query, a function to 
 sifting and a third one for cleaning the query. The second scoped slot is required and it is for
 displaying the list of filters sifted. It has a slot prop with these filters sifted.
 
-## Important
+### Important
 
 The component has two ways of receive the filters list, it can be injected by another component or
 be send it as a prop. If the component doesnt have a parent component that receive and exposed a
 filters list to their children, it is mandatory to send it as prop.
 
-## Basic usage
+### Basic usage
 
 Using default and required slot:
 

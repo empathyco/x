@@ -1,3 +1,5 @@
+import { TaggingInfo } from '@empathyco/x-types';
+import { track } from './actions/track.action';
 import { TaggingXStoreModule } from './types';
 
 /**
@@ -7,9 +9,28 @@ import { TaggingXStoreModule } from './types';
  */
 export const taggingXStoreModule: TaggingXStoreModule = {
   state: () => ({
-    config: {}
+    config: {
+      sessionTTLMs: 30 * 60 * 1000,
+      queryTaggingDebounceMs: 2000,
+      clickedResultStorageKey: null,
+      clickedResultStorageTTLMs: null
+    },
+    consent: null,
+    queryTaggingInfo: null
   }),
   getters: {},
-  mutations: {},
-  actions: {}
+  mutations: {
+    setConsent(state, consent) {
+      state.consent = consent;
+    },
+    setQueryTaggingInfo(state, queryTaggingInfo: TaggingInfo) {
+      state.queryTaggingInfo = queryTaggingInfo;
+    },
+    setTaggingConfig(state, taggingConfig) {
+      Object.assign(state.config, taggingConfig);
+    }
+  },
+  actions: {
+    track
+  }
 };

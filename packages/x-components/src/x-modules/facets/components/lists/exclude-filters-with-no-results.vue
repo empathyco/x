@@ -41,7 +41,7 @@
 </script>
 
 <docs lang="mdx">
-# Example
+## Example
 
 The `ExcludeFiltersWithNoResults` component filters the provided list of filter, excluding those
 which have the `totalResults` property exactly equal to `0`. It won't remove filters with no
@@ -50,13 +50,13 @@ which have the `totalResults` property exactly equal to `0`. It won't remove fil
 The new list of filters is bound to the default scoped slot. As this component does not render no
 root element, this default slot must contain a single root node.
 
-## Important
+### Important
 
 The component has two ways of receive the filters list, it can be injected by another component or
 be send it as a prop. If the component doesnt have a parent component that receive and exposed a
 filters list to their children, it is mandatory to send it as prop.
 
-## Basic Usage
+### Basic Usage
 
 ```vue
 <template>

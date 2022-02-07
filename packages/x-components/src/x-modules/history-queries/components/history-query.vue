@@ -4,6 +4,7 @@
       class="x-history-query__suggestion"
       v-bind="{ suggestion, suggestionSelectedEvents, query }"
       data-test="history-query"
+      feature="history_query"
     >
       <template #default="{ suggestion, queryHTML }">
         <!-- eslint-disable max-len -->
@@ -84,9 +85,9 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
-## Basic usage
+### Basic usage
 
 This component only requires a prop called `suggestion`
 
@@ -94,7 +95,7 @@ This component only requires a prop called `suggestion`
 <HistoryQuery :suggestion="historyQuery" />
 ```
 
-## Customizing slots content
+### Customizing slots content
 
 Suggestion and remove buttons contents can be customized.
 

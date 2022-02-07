@@ -1,7 +1,5 @@
 import { Result } from '@empathyco/x-types';
 import { SearchByIdRequest } from '@empathyco/x-adapter';
-
-// eslint-disable-next-line max-len
 import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
 import { IdentifierResultsActionsContext } from '../types';
 
@@ -10,7 +8,11 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   SearchByIdRequest | null,
   Result[]
 >({
-  fetch({ dispatch }, request) {
+  fetch({ dispatch, state: { origin } }, request) {
+    if (request && origin) {
+      request.origin = origin;
+    }
+
     return dispatch('fetchIdentifierResults', request);
   },
   onSuccess({ commit }, identifierResults) {

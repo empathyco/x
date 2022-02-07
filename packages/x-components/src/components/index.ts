@@ -4,6 +4,7 @@ export * from './column-picker';
 export * from './currency';
 export * from './filters';
 export * from './icons';
+export * from './layouts';
 export * from './modals';
 export * from './panels';
 export * from './result';
@@ -20,9 +21,9 @@ export { default as BaseVariableColumnGrid } from './base-variable-column-grid.v
 export { NoElement } from './no-element';
 export { default as SlidingPanel } from './sliding-panel.vue';
 export { default as ItemsList } from './items-list.vue';
-export { default as StaggeringTransitionGroup } from './staggering-transition-group.vue';
-export { default as MultiColumnMaxWidthLayout } from './layouts/multi-column-max-width-layout.vue';
-export { default as SingleColumnLayout } from './layouts/single-column-layout.vue';
+export { default as LocationProvider } from './location-provider.vue';
+export { default as GlobalXBus } from './global-x-bus.vue';
+export { default as SnippetCallbacks } from './snippet-callbacks.vue';
 
 // Utils
 export * from './decorators/bus.decorators';
@@ -32,5 +33,4 @@ export * from './decorators/injection.decorators';
 export * from './decorators/store.decorators';
 export * from './items-list-injection.mixin';
 export * from './x-component.mixin';
-export * from './x-component.types';
 export * from './x-component.utils';

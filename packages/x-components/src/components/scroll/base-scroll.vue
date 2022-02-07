@@ -1,14 +1,12 @@
 <template>
   <div @scroll="throttledStoreScrollData" class="x-scroll x-base-scroll" data-test="base-scroll">
-    <slot></slot>
+    <slot />
   </div>
 </template>
 
 <script lang="ts">
-  import { Component, Prop } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
-  import { throttle } from '../../utils/throttle';
-  import { XOn } from '../decorators/bus.decorators';
+  import { Component } from 'vue-property-decorator';
   import ScrollMixin from './scroll.mixin';
 
   /**
@@ -18,58 +16,7 @@
    * @public
    */
   @Component
-  export default class BaseScroll extends mixins(ScrollMixin) {
-    /**
-     * If true (default), sets the scroll position to top when an
-     * {@link XEventsTypes.UserAcceptedAQuery} event is emitted.
-     *
-     * @public
-     */
-    @Prop({ default: true })
-    protected resetOnQueryChange!: boolean;
-
-    /**
-     * Throttled version of the function that stores the DOM scroll related properties.
-     * The duration of the throttle is configured through the
-     * {@link ScrollMixin.throttleMs}.
-     *
-     * @internal
-     */
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    protected throttledStoreScrollData = throttle(this.storeScrollData, this.throttleMs);
-
-    mounted(): void {
-      this.storeScrollData();
-    }
-
-    /**
-     * Updates scroll related properties.
-     *
-     * @internal
-     */
-    protected storeScrollData(): void {
-      this.currentPosition = this.$el.scrollTop;
-      this.scrollHeight = this.$el.scrollHeight;
-      this.clientHeight = this.$el.clientHeight;
-    }
-
-    /**
-     * It sets the scroll to top if the property `resetOnQueryChange` is true.
-     *
-     * @internal
-     */
-    @XOn([
-      'SearchBoxQueryChanged',
-      'SortChanged',
-      'SelectedFiltersChanged',
-      'SelectedRelatedTagsChanged'
-    ])
-    scrollToTop(): void {
-      if (this.resetOnQueryChange) {
-        this.$el?.scrollTo({ top: 0 });
-      }
-    }
-  }
+  export default class BaseScroll extends mixins(ScrollMixin) {}
 </script>
 
 <style lang="scss" scoped>
@@ -79,12 +26,12 @@
 </style>
 
 <docs lang="mdx">
-# Example
+## Example
 
-The BaseScroll is a component that manage the states of scroll of a specified element. The component
-does the necessary calculations for knowing the direction of scroll, if the scroll has reached to
-start or to end, and is about to reaching to end. The components emits the next events depending of
-movement that realize the user:
+The `BaseScroll` is a component that manages the state of scroll of a specified element. The
+component does the necessary calculations for knowing the direction of scroll, if the scroll has
+reached to start or to end, and is about to reaching to end. The components emits the next events
+depending of movement that realize the user:
 
 ```vue
 <template>
@@ -94,8 +41,8 @@ movement that realize the user:
     @scroll:at-start="scrollAtStart"
     @scroll:almost-at-end="scrollAlmostAtEnd"
     @scroll:at-end="scrollAtEnd"
-    throttleMs="1000"
-    distanceToBottom="200"
+    :throttleMs="1000"
+    :distanceToBottom="200"
   >
     <template>
       <div class="content-scroll">
@@ -135,22 +82,13 @@ movement that realize the user:
 </script>
 ```
 
-## Avoid reset scroll on query change
+### Avoid reset scroll on query change
 
 Set to false the reset scroll on query change feature which is true by default.
 
 ```vue
 <template>
-  <BaseScroll
-    @scroll="scroll"
-    @scroll:direction-change="scrollDirectionChange"
-    @scroll:at-start="scrollAtStart"
-    @scroll:almost-at-end="scrollAlmostAtEnd"
-    @scroll:at-end="scrollAtEnd"
-    :resetOnQueryChange="false"
-    throttleMs="1000"
-    distanceToBottom="200"
-  >
+  <BaseScroll @scroll="scroll" :resetOnChange="false">
     <template>
       <div class="content-scroll">
         <span>content1</span>
@@ -171,18 +109,44 @@ Set to false the reset scroll on query change feature which is true by default.
     methods: {
       scroll(position) {
         console.log('scroll', position);
-      },
-      scrollDirectionChange(direction) {
-        console.log('scroll:direction-change', direction);
-      },
-      scrollAtStart() {
-        console.log('scroll:at-start');
-      },
-      scrollAlmostAtEnd(distance) {
-        console.log('scroll:almost-at-end', distance);
-      },
-      scrollAtEnd() {
-        console.log('scroll:at-end');
+      }
+    }
+  };
+</script>
+```
+
+### Reset scroll
+
+You can configure which events reset the scroll position using the `resetOn` prop.
+
+```vue
+<template>
+  <BaseScroll @scroll="scroll" :resetOn="resetScrollEvents">
+    <template>
+      <div class="content-scroll">
+        <span>content1</span>
+        <span>content1</span>
+      </div>
+    </template>
+  </BaseScroll>
+</template>
+
+<script>
+  import { BaseScroll } from '@empathyco/x-components';
+
+  export default {
+    name: 'ScrollTest',
+    components: {
+      BaseScroll
+    },
+    data() {
+      return {
+        resetScrollEvents: ['UserAcceptedAQuery']
+      };
+    },
+    methods: {
+      scroll(position) {
+        console.log('scroll', position);
       }
     }
   };

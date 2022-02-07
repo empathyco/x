@@ -72,7 +72,7 @@
 </script>
 
 <docs lang="mdx">
-# Example
+## Example
 
 The `BaseVariableColumnGrid` component is a wrapper of the `BaseGrid` component that listens to the
 `ColumnsNumberProvided` events and passes the selected amount of columns to the grid. It also allows

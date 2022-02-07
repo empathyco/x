@@ -1,4 +1,4 @@
-import { Redirection, Tagging } from '@empathyco/x-types';
+import { Redirection, TaggingInfo } from '@empathyco/x-types';
 import { injectable, multiInject } from 'inversify';
 import { DEPENDENCIES } from '../../container/container.const';
 import { MapFn, ResponseMapper, ResponseMapperContext } from '../../empathy-adapter.types';
@@ -12,21 +12,26 @@ import { pipeMappers } from '../pipe-mappers';
  */
 @injectable()
 export class EmpathyRedirectionMapper implements ResponseMapper<EmpathyDirect, Redirection> {
-  private readonly mapTagging: MapFn<string, Tagging>;
+  private readonly mapTagging: MapFn<string, TaggingInfo>;
 
   constructor(
-    @multiInject(DEPENDENCIES.ResponseMappers.queryTagging) taggingMappers: ResponseMapper<string, Tagging>[]
+    @multiInject(DEPENDENCIES.ResponseMappers.queryTagging)
+    taggingMappers: ResponseMapper<string, TaggingInfo>[]
   ) {
     this.mapTagging = pipeMappers(...taggingMappers);
   }
 
-  map(rawDirect: EmpathyDirect, redirection: Redirection, context: ResponseMapperContext): Redirection {
+  map(
+    rawDirect: EmpathyDirect,
+    redirection: Redirection,
+    context: ResponseMapperContext
+  ): Redirection {
     return Object.assign<Redirection, Partial<Redirection>>(redirection, {
       modelName: 'Redirection',
       id: rawDirect.id,
       url: rawDirect.url,
       tagging: {
-        click: this.mapTagging(rawDirect.trackable_url, {} as Tagging, context)
+        click: this.mapTagging(rawDirect.trackable_url, {} as TaggingInfo, context)
       }
     });
   }

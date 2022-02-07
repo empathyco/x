@@ -3,6 +3,61 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.13...@empathyco/x-types@10.0.0-alpha.14) (2021-12-29)
+
+### Features
+
+- **next-queries:** add `isCurated` property to `NextQuery` model
+  ([fdd89f8](https://github.com/empathyco/x/commit/fdd89f84afe7e328cdcd121288142dc82e2000c8)),
+  closes [EX-5152](https://searchbroker.atlassian.net/browse/EX-5152)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [10.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.12...@empathyco/x-types@10.0.0-alpha.13) (2021-11-30)
+
+### Features
+
+- **related-tags:** add `isCurated` property to related tags
+  ([e063f45](https://github.com/empathyco/x/commit/e063f4560573bcb1bf32fbe49753f2fe6b235cc7)),
+  closes [EX-4940](https://searchbroker.atlassian.net/browse/EX-4940)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [10.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.11...@empathyco/x-types@10.0.0-alpha.12) (2021-11-29)
+
+### Build System
+
+- update jest dependencies
+  ([f3fee15](https://github.com/empathyco/x/commit/f3fee157d724292f5cbb7166908d48ef2fb4fe8c)),
+  closes [EX-5027](https://searchbroker.atlassian.net/browse/EX-5027)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [10.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.10...@empathyco/x-types@10.0.0-alpha.11) (2021-11-22)
+
+### Features
+
+- make `Identifiable` type generic
+  ([6de6ab2](https://github.com/empathyco/x/commit/6de6ab270f5f2018468e56f5d3df4eb227853413)),
+  closes [EX-5001](https://searchbroker.atlassian.net/browse/EX-5001)
+- update `Tagging` model
+  ([598915c](https://github.com/empathyco/x/commit/598915ced128e3fa5586ff6c870e68cfa2e016c3)),
+  closes [EX-4985](https://searchbroker.atlassian.net/browse/EX-4985)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [10.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.9...@empathyco/x-types@10.0.0-alpha.10) (2021-10-25)
 
 ### Features

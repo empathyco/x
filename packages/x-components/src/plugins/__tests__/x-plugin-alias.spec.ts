@@ -1,6 +1,5 @@
 import { shallowMount, Wrapper } from '@vue/test-utils';
 import { ComponentOptions, default as Vue } from 'vue';
-import { Store } from 'vuex';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { identifierResultsXModule } from '../../x-modules/identifier-results/x-module';
 import { nextQueriesXModule } from '../../x-modules/next-queries/x-module';
@@ -13,7 +12,6 @@ import { searchBoxXModule } from '../../x-modules/search-box/x-module';
 import { XPlugin } from '../x-plugin';
 import { getAliasAPI } from '../x-plugin.alias';
 import { XComponentAliasAPI } from '../x-plugin.types';
-import getOwnPropertyDescriptor = Reflect.getOwnPropertyDescriptor;
 
 describe('testing plugin alias', () => {
   const component: ComponentOptions<Vue> & ThisType<Vue> = {
@@ -69,7 +67,8 @@ describe('testing plugin alias', () => {
       selectedFilters: [],
       selectedRelatedTags: [],
       spellcheckedQuery: null,
-      totalResults: 0
+      totalResults: 0,
+      selectedSort: ''
     };
     expect(componentInstance.vm.$x).toMatchObject(defaultValues);
   });
@@ -143,17 +142,19 @@ describe('testing plugin alias', () => {
       keys: string[]
     ): boolean {
       return keys.every(key => {
-        const descriptor = getOwnPropertyDescriptor(obj, key);
+        const descriptor = Object.getOwnPropertyDescriptor(obj, key);
         const value = obj[key as keyof typeof obj];
         return (
-          (descriptor?.set === undefined && descriptor?.value === undefined) ||
+          (descriptor?.set === undefined &&
+            descriptor?.value === undefined &&
+            descriptor?.get !== undefined) ||
           (typeof value === 'object' &&
             isJSGetterOrDictionaryOfJSGetters(value, Object.keys(value)))
         );
       });
     }
 
-    const aliasKeys = Object.keys(getAliasAPI(new Store({ state: { x: {} } })));
+    const aliasKeys = Object.keys(getAliasAPI(componentInstance.vm));
 
     expect(isJSGetterOrDictionaryOfJSGetters(componentInstance.vm.$x, aliasKeys)).toEqual(true);
   });

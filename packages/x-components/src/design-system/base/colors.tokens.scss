@@ -1,9 +1,7 @@
+@import '../variables';
+
 :root {
-  --x-color-base-lead: #36515b;
-  --x-color-base-auxiliary: #667981;
-  --x-color-base-neutral-10: #1a1a1a;
-  --x-color-base-neutral-35: #595959;
-  --x-color-base-neutral-70: #b3b3b3;
-  --x-color-base-neutral-95: #f2f2f2;
-  --x-color-base-neutral-100: #ffffff;
+  @each $color-name, $color-value in $colors {
+    --x-color-base-#{$color-name}: #{$color-value};
+  }
 }

@@ -1,26 +1,7 @@
-
-/* Update this value if adding more values */
-$max-size-base-value: 20;
+@import '../variables';
 
 :root {
-  --x-size-base-01: 2px;
-  --x-size-base-02: 4px;
-  --x-size-base-03: 8px;
-  --x-size-base-04: 12px;
-  --x-size-base-05: 16px;
-  --x-size-base-06: 24px;
-  --x-size-base-07: 32px;
-  --x-size-base-08: 40px;
-  --x-size-base-09: 48px;
-  --x-size-base-10: 56px;
-  --x-size-base-11: 64px;
-  --x-size-base-12: 72px;
-  --x-size-base-13: 80px;
-  --x-size-base-14: 96px;
-  --x-size-base-15: 112px;
-  --x-size-base-16: 144px;
-  --x-size-base-17: 176px;
-  --x-size-base-18: 208px;
-  --x-size-base-19: 240px;
-  --x-size-base-20: 272px;
+  @each $size, $size-value in $sizes {
+    --x-size-base-#{$size}: #{$size-value};
+  }
 }

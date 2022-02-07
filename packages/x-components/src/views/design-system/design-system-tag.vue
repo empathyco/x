@@ -143,15 +143,38 @@
         <span>text tag extra large name</span>
       </div>
     </article>
+    <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
+      <h2 class="x-title2">Curated</h2>
+      <div class="x-tag x-tag--is-curated">
+        <CuratedCheck />
+        <span>text tag</span>
+      </div>
+      <div class="x-tag x-tag--is-curated">
+        <CuratedCheck />
+        <span>text tag extra large name</span>
+      </div>
+    </article>
+    <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
+      <h2 class="x-title2">Curated Selected</h2>
+      <div class="x-tag x-tag--is-curated x-tag--is-selected">
+        <CuratedCheck />
+        <span>text tag</span>
+      </div>
+      <div class="x-tag x-tag--is-curated x-tag--is-selected">
+        <CuratedCheck />
+        <span>text tag extra large name</span>
+      </div>
+    </article>
   </section>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import CuratedCheck from '../../components/icons/curated-check.vue';
   import PlusIcon from '../../components/icons/plus.vue';
 
-  @Component({ components: { PlusIcon } })
+  @Component({ components: { CuratedCheck, PlusIcon } })
   export default class DesignSystemTag extends Vue {}
 </script>
 

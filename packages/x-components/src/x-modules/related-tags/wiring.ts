@@ -95,12 +95,18 @@ export const setUrlParamsWire = wireDispatch('setUrlParams');
  * @internal
  */
 export const relatedTagsWiring = createWiring({
+  ParamsLoadedFromUrl: {
+    setUrlParamsWire
+  },
   UserAcceptedAQuery: {
     setRelatedTagsQuery,
     clearSelectedRelatedTags
   },
   UserPickedARelatedTag: {
     toggleRelatedTagWire
+  },
+  UserChangedExtraParams: {
+    clearSelectedRelatedTags
   },
   RelatedTagsRequestChanged: {
     fetchAndSaveRelatedTagsWire
@@ -112,8 +118,5 @@ export const relatedTagsWiring = createWiring({
   },
   ExtraParamsChanged: {
     setRelatedTagsExtraParams
-  },
-  ParamsLoadedFromUrl: {
-    setUrlParamsWire
   }
 });

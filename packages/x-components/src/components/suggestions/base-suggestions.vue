@@ -3,7 +3,7 @@
     <li
       v-for="(suggestion, index) in suggestionsToRender"
       :key="suggestionsKeys[index]"
-      class="x-suggestions__item"
+      class="x-list x-suggestions__item"
       data-test="suggestion-item"
     >
       <!--
@@ -112,7 +112,7 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 For this component to work, you will need to set a list of suggestions as prop, and also to
 implement the component for single suggestion, which handles the click event. In the following

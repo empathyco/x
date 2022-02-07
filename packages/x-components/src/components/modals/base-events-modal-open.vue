@@ -37,11 +37,11 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This component serves to open the `BaseEventsModal`.
 
-## Basic example
+### Basic example
 
 On clicked, the component closes the `BaseEventsModal`. The only needed thing is the content that
 the button should render, that can be any thing: a text, an image, an icon, a combination of the two
@@ -67,7 +67,7 @@ of them...
 </script>
 ```
 
-## Defining another event to emit when clicking the button
+### Defining another event to emit when clicking the button
 
 By default it uses the same `openingEvent` that the `BaseEventsModal` is listening by default too.
 This event can be changed using the `openingEvent` prop, but remember to change it in the target

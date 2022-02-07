@@ -39,12 +39,12 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 Simple panel that receives its open state via prop, which is responsible of rendering default slot
 inside a configurable transition.
 
-## Basic usage
+### Basic usage
 
 Using default slot:
 

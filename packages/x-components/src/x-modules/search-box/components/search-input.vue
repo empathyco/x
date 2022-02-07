@@ -11,6 +11,7 @@
     :value="query"
     autocomplete="off"
     class="x-input x-search-input"
+    enterkeyhint="search"
     inputmode="search"
     type="search"
     data-test="search-input"
@@ -83,11 +84,13 @@
     public query!: string;
 
     /**
-     * Focus search input when the user navigates to the search input.
+     * When event {@link XEventsTypes.UserReachedEmpathizeTop} or
+     * {@link SearchBoxXEvents.UserPressedClearSearchBoxButton}
+     * are emitted the search in put is focused.
      *
      * @internal
      */
-    @XOn('UserReachedEmpathizeTop')
+    @XOn(['UserReachedEmpathizeTop', 'UserPressedClearSearchBoxButton'])
     focusInput(): void {
       this.$refs.input?.focus();
     }
@@ -95,13 +98,13 @@
     protected debouncedUserAcceptedAQuery!: DebouncedFunction<[string]>;
 
     /**
-     * When event {@link XEventsTypes.UserAcceptedAQuery} is emitted the pending debounced emit
+     * When event {@link XEventsTypes.UserAcceptedAQuery} or
+     * {@link SearchBoxXEvents.UserClearedQuery} are emitted the pending debounced emit
      * {@link XEvent} `UserAcceptedAQuery` is canceled.
      *
      * @internal
      */
-    @XOn('UserAcceptedAQuery')
-    @XOn('UserClearedQuery')
+    @XOn(['UserAcceptedAQuery', 'UserClearedQuery'])
     cancelDebouncedUserAcceptedAQuery(): void {
       this.debouncedUserAcceptedAQuery?.cancel();
     }
@@ -137,9 +140,10 @@
      * @returns The {@link WireMetadata} object omitting the moduleName.
      * @internal
      */
-    protected eventMetadata(): Omit<WireMetadata, 'moduleName'> {
+    protected createEventMetadata(): Omit<WireMetadata, 'moduleName'> {
       return {
-        target: this.$refs.input
+        target: this.$refs.input,
+        feature: 'search_box'
       };
     }
 
@@ -149,7 +153,7 @@
      * @internal
      */
     protected emitUserBlurredSearchBox(): void {
-      this.$x.emit('UserBlurredSearchBox', undefined, this.eventMetadata());
+      this.$x.emit('UserBlurredSearchBox', undefined, { target: this.$refs.input });
     }
 
     /**
@@ -158,7 +162,7 @@
      * @internal
      */
     protected emitUserClickedSearchBox(): void {
-      this.$x.emit('UserClickedSearchBox', undefined, this.eventMetadata());
+      this.$x.emit('UserClickedSearchBox', undefined, { target: this.$refs.input });
     }
 
     /**
@@ -167,7 +171,7 @@
      * @internal
      */
     protected emitUserFocusedSearchBox(): void {
-      this.$x.emit('UserFocusedSearchBox', undefined, this.eventMetadata());
+      this.$x.emit('UserFocusedSearchBox', undefined, { target: this.$refs.input });
     }
 
     /**
@@ -179,7 +183,7 @@
      */
     protected emitUserIsTypingAQueryEvents(): void {
       const query = this.$refs.input.value;
-      this.$x.emit('UserIsTypingAQuery', query, this.eventMetadata());
+      this.$x.emit('UserIsTypingAQuery', query, { target: this.$refs.input });
       if (query.trim()) {
         this.emitDebouncedUserAcceptedAQuery(query);
       } else {
@@ -194,7 +198,7 @@
      * @internal
      */
     protected emitUserPressedArrowKey(event: KeyboardEvent): void {
-      this.$x.emit('UserPressedArrowKey', event.key as ArrowKey, this.eventMetadata());
+      this.$x.emit('UserPressedArrowKey', event.key as ArrowKey, this.createEventMetadata());
     }
 
     /**
@@ -210,7 +214,7 @@
     protected emitUserPressedEnterKey(): void {
       const query = this.$refs.input.value.trim();
       if (query.length > 0) {
-        this.$x.emit('UserPressedEnterKey', query, this.eventMetadata());
+        this.$x.emit('UserPressedEnterKey', query, this.createEventMetadata());
         this.emitUserAcceptedAQuery(query);
       }
       this.$refs.input?.blur();
@@ -225,7 +229,7 @@
      * @param query - The query that will be emitted.
      */
     protected emitUserAcceptedAQuery(query: string): void {
-      this.$x.emit('UserAcceptedAQuery', query, this.eventMetadata());
+      this.$x.emit('UserAcceptedAQuery', query, this.createEventMetadata());
     }
   }
 </script>

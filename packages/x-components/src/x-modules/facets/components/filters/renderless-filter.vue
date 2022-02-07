@@ -95,18 +95,18 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 Renders default slot content. It binds to the default slot a filter, the events that will be emitted
 when clicking the content, the css classes and if the content should be disabled.
 
-## Basic usage
+### Basic usage
 
 ```vue
 <RenderlessFilter :filter="filter" />
 ```
 
-## Customizing its contents and adding new events
+### Customizing its contents and adding new events
 
 ```vue
 <template>

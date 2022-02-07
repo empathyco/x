@@ -15,5 +15,8 @@ export const saveQuery: IdentifierResultsXStoreModule['actions']['saveQuery'] = 
 ) => {
   if (getters.identifierDetectionRegexp.test(query)) {
     commit('setQuery', query);
+  } else {
+    commit('setQuery', '');
+    commit('setIdentifierResults', []);
   }
 };

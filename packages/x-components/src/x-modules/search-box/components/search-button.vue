@@ -1,23 +1,22 @@
 <template>
-  <BaseEventButton
-    :events="events"
+  <button
+    @click="emitEvents"
     class="x-button x-search-button"
     :class="dynamicClasses"
     data-test="search-button"
   >
     <!-- @slot _Required_. Button content (text, icon, or both) -->
     <slot><span class="x-icon">⌕</span></slot>
-  </BaseEventButton>
+  </button>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { State } from '../../../components/decorators/store.decorators';
-  import BaseEventButton from '../../../components/base-event-button.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { VueCSSClasses } from '../../../utils/types';
-  import { XEventsTypes } from '../../../wiring/events.types';
+  import { WireMetadata } from '../../../wiring/wiring.types';
   import { searchBoxXModule } from '../x-module';
 
   /**
@@ -31,8 +30,7 @@
    * @public
    */
   @Component({
-    mixins: [xComponentMixin(searchBoxXModule)],
-    components: { BaseEventButton }
+    mixins: [xComponentMixin(searchBoxXModule)]
   })
   export default class SearchButton extends Vue {
     @State('searchBox', 'query')
@@ -42,13 +40,29 @@
       return this.query.length === 0;
     }
 
-    protected get events(): Partial<XEventsTypes> {
-      return !this.isQueryEmpty
-        ? {
-            UserAcceptedAQuery: this.query,
-            UserPressedSearchButton: this.query
-          }
-        : {};
+    /**
+     * Generates the {@link WireMetadata | event metadata} object omitting the moduleName.
+     *
+     * @returns The {@link WireMetadata} object omitting the moduleName.
+     * @internal
+     */
+    protected createEventMetadata(): Omit<WireMetadata, 'moduleName'> {
+      return {
+        target: this.$el as HTMLElement,
+        feature: 'search_box'
+      };
+    }
+
+    /**
+     * Emits events when the button is clicked.
+     *
+     * @public
+     */
+    protected emitEvents(): void {
+      if (!this.isQueryEmpty) {
+        this.$x.emit('UserAcceptedAQuery', this.query, this.createEventMetadata());
+        this.$x.emit('UserPressedSearchButton', this.query, this.createEventMetadata());
+      }
     }
 
     protected get dynamicClasses(): VueCSSClasses {

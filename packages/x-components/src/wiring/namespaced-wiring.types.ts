@@ -10,8 +10,7 @@ import {
 } from '../store/store.types';
 import { PropsWithType } from '../utils/types';
 import { XModuleName, XModulesTree } from '../x-modules/x-modules.types';
-import { XEvent } from './events.types';
-import { AnyWire, Wire, WireMetadata } from './wiring.types';
+import { AnyWire, TimedWireOperatorOptions, Wire, WireMetadata } from './wiring.types';
 
 /**
  * Function type which receives the State and the Getters of the namespace {@link XStoreModule}
@@ -22,29 +21,29 @@ import { AnyWire, Wire, WireMetadata } from './wiring.types';
  *
  * @public
  */
-export type NamespacedTimeRetrieving<ModuleName extends XModuleName> = (
+export type NamespacedTimeSelector<ModuleName extends XModuleName> = (
   storeModule: StoreModuleStateAndGetters<ModuleName>
 ) => number;
 
 /**
- * Function type which receives the wire to modify and the {@link NamespacedTimeRetrieving} to
+ * Function type which receives the wire to modify and the {@link NamespacedTimeSelector} to
  * retrieve the time from the {@link XStoreModule}.
  *
  * @param ModuleName - The {@link XModuleName} of the module to create a namespaced
- * {@link NamespacedTimeRetrieving}.
+ * {@link NamespacedTimeSelector}.
  * @param Wire - The wire which will be piped with a timing operator.
- * @param timeRetrieving - Function that receives the State and the Getters of the namespace
- * {@link XStoreModule} to retrieve the time from there.
- * @param raceEvent - The event or events that would prevent the wire execution if at least one
- * of them executes first.
+ * @param timeInMs - Function that receives the state and the getters of the given module
+ * {@link XStoreModule} to retrieve the time.
+ * @param options - Options to configure events that should make the planned wire execution happen
+ * immediately or be aborted.
  *
  * @public
  */
-export type NamespacedTimeWireOperator<ModuleName extends XModuleName, Wire> = (
-  wire: Wire,
-  timeRetrieving: NamespacedTimeRetrieving<ModuleName>,
-  raceEvent?: XEvent | XEvent[]
-) => Wire;
+export type NamespacedTimeWireOperator<ModuleName extends XModuleName> = <Payload>(
+  wire: Wire<Payload>,
+  timeInMs: NamespacedTimeSelector<ModuleName>,
+  options?: TimedWireOperatorOptions
+) => Wire<Payload>;
 
 /**
  * Namespaced payload to commit a mutation. Either a function that receives the

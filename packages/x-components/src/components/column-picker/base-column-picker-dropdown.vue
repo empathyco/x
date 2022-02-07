@@ -73,17 +73,17 @@
 </script>
 
 <docs lang="mdx">
-# Example
+## Example
 
 Column picker dropdown component renders a dropdown component which options are the different
 columns you can set for a grid.
 
-## Usage
+### Usage
 
 Notice that the slots provided match with the `BaseDropdown` component. The `item` slot is required
 unlike the `toggle`, which renders the same `item` slot defined by default.
 
-### Default usage
+#### Default usage
 
 ```vue
 <template>
@@ -113,7 +113,7 @@ unlike the `toggle`, which renders the same `item` slot defined by default.
 </script>
 ```
 
-### Customizing toggle button
+#### Customizing toggle button
 
 ```vue
 <template>
@@ -144,7 +144,7 @@ unlike the `toggle`, which renders the same `item` slot defined by default.
 </script>
 ```
 
-### Using it without v-model / value
+#### Using it without v-model / value
 
 The component emits an X Event, `UserClickedColumnPicker`, on column change and it also listens to
 that event from outside, so you don't need to store the current column value to keep it synchronized

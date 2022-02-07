@@ -1,12 +1,14 @@
 import { isFacetFilter } from '@empathyco/x-types';
 import { setStatus } from '../../../store/utils/status-store.utils';
 import { groupItemsBy } from '../../../utils/array';
+// eslint-disable-next-line max-len
 import {
   cancelFetchAndSaveSearchResponse,
   fetchAndSaveSearchResponse
 } from './actions/fetch-and-save-search-response.action';
 import { fetchSearchResponse } from './actions/fetch-search-response.action';
 import { increasePageAppendingResults } from './actions/increase-page-apending-results.action';
+import { resetState } from './actions/reset-state.action';
 import { saveOrigin } from './actions/save-origin.action';
 import { setUrlParams } from './actions/set-url-params.action';
 import { request } from './getters/request.getter';
@@ -38,7 +40,11 @@ export const searchXStoreModule: SearchXStoreModule = {
     page: 1,
     origin: null,
     isAppendResults: false,
-    redirections: []
+    redirections: [],
+    queryTagging: {
+      url: '',
+      params: {}
+    }
   }),
   getters: {
     request
@@ -84,9 +90,6 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     setPage(state, page) {
       state.page = page;
-      if (page === 1) {
-        state.isAppendResults = false;
-      }
     },
     setPageSize(state, pageSize) {
       state.config.pageSize = pageSize;
@@ -103,6 +106,9 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     setRedirections(state, redirections) {
       state.redirections = redirections;
+    },
+    setQueryTagging(state, queryTagging) {
+      state.queryTagging = queryTagging;
     }
   },
   actions: {
@@ -110,6 +116,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     fetchSearchResponse,
     fetchAndSaveSearchResponse,
     increasePageAppendingResults,
+    resetState,
     setUrlParams,
     saveOrigin
   }

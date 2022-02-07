@@ -21,7 +21,7 @@ describe('testing Url module mutations', () => {
         tag: ['capucha', 'disney'],
         filter: [],
         sort: '',
-        scroll: 0,
+        scroll: '',
         warehouse: '01234',
         consent: true,
         initialExtraParams: {}

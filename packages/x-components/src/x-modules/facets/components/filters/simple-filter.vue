@@ -49,7 +49,6 @@
   import { VueCSSClasses } from '../../../../utils/types';
   import { XEventsTypes } from '../../../../wiring/events.types';
   import { facetsXModule } from '../../x-module';
-  import BaseFilter from './base-filter.vue';
   import RenderlessFilter from './renderless-filter.vue';
 
   /**
@@ -58,7 +57,7 @@
    * @public
    */
   @Component({
-    components: { RenderlessFilter, BaseFilter },
+    components: { RenderlessFilter },
     mixins: [xComponentMixin(facetsXModule)]
   })
   export default class SimpleFilter extends Vue {
@@ -94,13 +93,13 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This component renders a button, which on clicked emits the `UserClickedAFilter` and the
 `UserClickedASimpleFilter` events. By default, it renders a `button` with the `filter.label`
 property as text.
 
-## Basic usage
+### Basic usage
 
 ```vue
 <template>
@@ -131,7 +130,7 @@ property as text.
 </script>
 ```
 
-## Rendering an input
+### Rendering an input
 
 You can change the rendered control using the default slot. Note that because of the current Vue
 limitations, you must only render one single root node in this slot. There you will receive all the
@@ -172,7 +171,7 @@ data and methods needed:
 </script>
 ```
 
-## Changing default button content
+### Changing default button content
 
 You can change the content rendered by the default button using the `label` slot. There you will
 receive the filter data.

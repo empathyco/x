@@ -30,6 +30,15 @@ export class BaseXAPI implements XAPI {
   protected initCallback!: (config: SnippetConfig) => any;
 
   /**
+   * Tracks that a product was added to cart from PDP.
+   *
+   * @param productId - The product id that was added to cart.
+   */
+  addProductToCart(productId?: string): void {
+    this.bus?.emit('UserClickedPDPAddToCart', productId);
+  }
+
+  /**
    * Setter for the {@link XBus}.
    *
    * @param bus - The {@link XBus} received to emit events.

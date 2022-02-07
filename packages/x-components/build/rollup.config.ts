@@ -10,6 +10,7 @@ import styles from 'rollup-plugin-styles';
 import typescript from 'rollup-plugin-typescript2';
 import vue from 'rollup-plugin-vue';
 import packageJSON from '../package.json';
+import postcssConfig from '../.postcssrc';
 import { apiDocumentation } from './docgen/documentation.rollup-plugin';
 import {
   importTokens,
@@ -88,7 +89,10 @@ export const rollupConfig = createRollupOptions({
        * https://github.com/vuejs/rollup-plugin-vue/issues/262#issuecomment-655966620 */
       normalizer: '~vue-runtime-helpers/dist/normalize-component.js',
       /* Replace the component style injector because the default one outputs ES6 code */
-      styleInjector: '~vue-runtime-helpers/dist/inject-style/browser.js'
+      styleInjector: '~vue-runtime-helpers/dist/inject-style/browser.js',
+      style: {
+        postcssPlugins: postcssConfig.plugins
+      }
     }),
     buble({
       include: '**/*.vue'

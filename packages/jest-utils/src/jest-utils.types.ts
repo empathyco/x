@@ -6,6 +6,7 @@ export interface EmpathyExtendedExpect {
   nullOrMatch(schema: Record<string, any>): any;
   nullOrUndefinedOr(classType: Newable): any;
   undefinedOr(classType: Newable): any;
+  undefinedOrMatch(schema: Record<string, any>): any;
   anyOf(classTypeUnion: Newable[]): any;
 }
 

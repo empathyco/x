@@ -6,8 +6,8 @@ Vue.use(VueRouter);
 const routes: RouteConfig[] = [
   {
     path: '/',
-    name: 'Layout',
-    component: () => import('./views/Layout.vue')
+    name: 'Home',
+    component: () => import('./views/home/Home.vue')
   },
   {
     path: '/fixed-header-layout',
@@ -58,6 +58,11 @@ const routes: RouteConfig[] = [
     path: '/infinite-scroll-body',
     name: 'Infinite Scroll Body',
     component: () => import('./views/infinite-scroll-body.vue')
+  },
+  {
+    path: '/products/:id',
+    name: 'Product page',
+    component: () => import('./views/pdp.vue')
   }
 ];
 

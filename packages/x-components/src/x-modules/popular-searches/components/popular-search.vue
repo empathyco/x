@@ -4,6 +4,7 @@
     :suggestion="suggestion"
     :suggestionSelectedEvents="events"
     data-test="popular-search"
+    feature="popular_search"
   >
     <template #default="{ suggestion }">
       <!--
@@ -59,18 +60,18 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This components expects just a suggestion as a prop to be rendered. It has a slot to override the
 content. By default, it renders the suggestion query of the popular search.
 
-## Basic Usage
+### Basic Usage
 
 ```vue
 <PopularSearch :suggestion="suggestion" />
 ```
 
-## Custom Usage
+### Custom Usage
 
 ```vue
 <PopularSearch :suggestion="suggestion">

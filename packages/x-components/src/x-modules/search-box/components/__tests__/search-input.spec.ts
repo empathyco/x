@@ -4,6 +4,7 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components/x
 import { RootXStoreState } from '../../../../store/store.types';
 import { DeepPartial } from '../../../../utils/types';
 import { installNewXPlugin } from '../../../../__tests__/utils';
+import { WireMetadata } from '../../../../wiring/wiring.types';
 import SearchInput from '../search-input.vue';
 import { resetXSearchBoxStateWith } from './utils';
 
@@ -14,7 +15,15 @@ function mountNewSearchInput(overrideProps: Partial<SearchInputProps> = {}): Tes
   installNewXPlugin({ store }, localVue);
   resetXSearchBoxStateWith(store);
 
+  const parent = document.createElement('div');
+  document.body.appendChild(parent);
+
   const wrapper = mount(SearchInput, {
+    /*
+     * In order to make the autofocus test work after the jest 27 update, now is mandatory to
+     * attach the element to some parent in the DOM, to emit the focus event.
+     */
+    attachTo: parent,
     store,
     localVue,
     propsData: overrideProps
@@ -143,8 +152,8 @@ describe('testing search input component', () => {
       const enterListener = jest.fn();
       const acceptedQueryListener = jest.fn();
       const query = 'water';
-      mockedSearchInput.vm.$x.on('UserPressedEnterKey').subscribe(enterListener);
-      mockedSearchInput.vm.$x.on('UserAcceptedAQuery').subscribe(acceptedQueryListener);
+      mockedSearchInput.vm.$x.on('UserPressedEnterKey', true).subscribe(enterListener);
+      mockedSearchInput.vm.$x.on('UserAcceptedAQuery', true).subscribe(acceptedQueryListener);
 
       mockedSearchInput.trigger('keydown.enter');
       expect(enterListener).not.toHaveBeenCalled();
@@ -152,8 +161,25 @@ describe('testing search input component', () => {
 
       input.value = query;
       mockedSearchInput.trigger('keydown.enter');
-      expect(enterListener).toHaveBeenCalledWith(query);
-      expect(acceptedQueryListener).toHaveBeenCalledWith(query);
+      expect(enterListener).toHaveBeenCalledWith({
+        eventPayload: query,
+        metadata: expect.objectContaining<Partial<WireMetadata>>({
+          feature: 'search_box'
+        })
+      });
+      expect(acceptedQueryListener).toHaveBeenCalledWith({
+        eventPayload: query,
+        metadata: expect.objectContaining<Partial<WireMetadata>>({
+          feature: 'search_box'
+        })
+      });
     }
   );
+
+  it('focus the input when UserPressedClearSearchBoxButton event is emitted', () => {
+    input.blur();
+    expect(input).not.toBe(document.activeElement);
+    mockedSearchInput.vm.$x.emit('UserPressedClearSearchBoxButton');
+    expect(input).toBe(document.activeElement);
+  });
 });

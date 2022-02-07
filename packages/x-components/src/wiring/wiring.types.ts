@@ -6,6 +6,7 @@ import { FeatureLocation, QueryFeature } from '../types/origin';
 import {
   Dictionary,
   FirstParameter,
+  MaybeArray,
   MonadicFunction,
   NiladicFunction,
   PropsWithType
@@ -43,6 +44,8 @@ export interface WireMetadata {
   /** The {@link XModule} name that emitted the event or `null` if it has been emitted from an
    * unknown module. */
   moduleName: XModuleName | null;
+  /** The old value of a watched selector triggering an emitter.  */
+  oldValue?: unknown;
   /** The DOM element that triggered the event emission. */
   target?: HTMLElement;
   /** The component instance that triggered the event emission. */
@@ -117,7 +120,19 @@ export interface WireParams<Payload> extends WirePayload<Payload> {
  *
  * @public
  */
-export type TimeRetrieving = (storeModule: Store<RootXStoreState>) => number;
+export type TimeSelector = (storeModule: Store<RootXStoreState>) => number;
+
+/**
+ * Options for wire operators that delay subscribers.
+ *
+ * @public
+ */
+export interface TimedWireOperatorOptions {
+  /** Events that will prevent the next planned execution of the wire to be executed. */
+  cancelOn?: MaybeArray<XEvent>;
+  /** Events that will make the next planned execution happen immediately. */
+  forceOn?: MaybeArray<XEvent>;
+}
 
 /**
  * Wires factory to invoke methods from a given service.
@@ -131,7 +146,8 @@ export interface WireService<SomeService> {
    *
    * @param method - The method to invoke.
    * @returns A Wire that expects to receive the function parameter as payload.
-   */ <SomeMethod extends PropsWithType<SomeService, MonadicFunction>>(method: SomeMethod): Wire<
+   */
+  <SomeMethod extends PropsWithType<SomeService, MonadicFunction>>(method: SomeMethod): Wire<
     FirstParameter<SomeService[SomeMethod]>
   >;
   /**
@@ -140,7 +156,8 @@ export interface WireService<SomeService> {
    * @param method - The method to invoke.
    * @param payload - The payload to invoke the service with.
    * @returns A Wire that can be used anywhere.
-   */ <SomeMethod extends PropsWithType<SomeService, MonadicFunction>>(
+   */
+  <SomeMethod extends PropsWithType<SomeService, MonadicFunction>>(
     method: SomeMethod,
     payload: FirstParameter<SomeService[SomeMethod]>
   ): AnyWire;

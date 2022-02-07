@@ -62,6 +62,15 @@ describe('transform json to csv', () => {
   });
 });
 
+/**
+ * Resolves the full path of a given relative one.
+ *
+ * @param source - The relative path.
+ *
+ * @returns The full path.
+ *
+ * @internal
+ */
 function resolvePath(source: string): string {
   return path.resolve(process.cwd(), source);
 }

@@ -51,7 +51,7 @@ export const clearIdentifierResultsQuery = wireCommit('setQuery', '');
  *
  * @public
  */
-const setUrlParams = wireDispatch('setUrlParams');
+const setUrlParams = wireDispatch('saveQuery', ({ eventPayload: { query } }) => query);
 
 /**
  * Requests and stores a new set of identifier results for the {@link IdentifierResultsState.query}.
@@ -70,6 +70,23 @@ export const cancelFetchAndSaveIdentifierResultsWire = wireDispatchWithoutPayloa
 );
 
 /**
+ * Sets the identifier results state `origin`.
+ *
+ * @public
+ */
+export const saveIdentifierResultsOriginWire = wireDispatch(
+  'saveOrigin',
+  ({ metadata }) => metadata
+);
+
+/**
+ * Sets the identifier result state `params`.
+ *
+ * @public
+ */
+export const setIdentifierResultsExtraParams = wireCommit('setParams');
+
+/**
  * Debounce function for the module.
  */
 const moduleDebounce = namespacedDebounce(moduleName);
@@ -80,15 +97,20 @@ const moduleDebounce = namespacedDebounce(moduleName);
  * @internal
  */
 export const identifierResultsWiring = createWiring({
+  ParamsLoadedFromUrl: {
+    setUrlParams,
+    saveIdentifierResultsOriginWire
+  },
   UserIsTypingAQuery: {
     setIdentifierResultsQueryDebounce: moduleDebounce(
       setIdentifierResultsQuery,
       ({ state }) => state.config.debounceInMs,
-      'UserAcceptedAQuery'
+      { cancelOn: 'UserAcceptedAQuery' }
     )
   },
   UserAcceptedAQuery: {
-    setIdentifierResultsQuery
+    setIdentifierResultsQuery,
+    saveIdentifierResultsOriginWire
   },
   UserClearedQuery: {
     clearIdentifierResultsQuery,
@@ -97,7 +119,7 @@ export const identifierResultsWiring = createWiring({
   IdentifierResultsRequestChanged: {
     fetchAndSaveIdentifierResultsWire
   },
-  ParamsLoadedFromUrl: {
-    setUrlParams
+  ExtraParamsChanged: {
+    setIdentifierResultsExtraParams
   }
 });

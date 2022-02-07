@@ -54,7 +54,7 @@ const defaultAdapterConfig: DeepPartial<EmpathyAdapterConfig> = {
  * ```
  *
  *        2.2 If the API option is enabled (`createAPI` is `true` in {@link InstallXOptions}, or
- *            is not present as the default vlaue is `true`) then this init step can be done with
+ *            is not present as the default value is `true`) then this init step can be done with
  *            the Public API:
  *
  * ```

@@ -1,5 +1,5 @@
 <template>
-  <BaseEventButton :events="events" :class="dynamicCSSClasses" class="x-suggestion">
+  <button @click="emitEvents" :class="dynamicCSSClasses" class="x-suggestion">
     <!-- eslint-disable max-len -->
     <!--
       @slot Button content
@@ -10,31 +10,30 @@
     <slot v-bind="{ suggestion, queryHTML }">
       <span v-html="queryHTML" :aria-label="suggestion.query" class="x-suggestion__query" />
     </slot>
-  </BaseEventButton>
+  </button>
 </template>
 
 <script lang="ts">
   import { Suggestion } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
+  import { QueryFeature } from '../../types/origin';
+  import { forEach } from '../../utils/object';
   import { normalizeString } from '../../utils/normalize';
   import { sanitize } from '../../utils/sanitize';
   import { VueCSSClasses } from '../../utils/types';
   import { XEventsTypes } from '../../wiring/events.types';
-  import BaseEventButton from '../base-event-button.vue';
 
   /**
    * Renders a button with a default slot. It receives a query, which should be the query of the
-   * module using this component, a suggestion and the {@link XEvent | XEvents} that will be emitted
-   * on click.
+   * module using this component, a suggestion, the {@link XEvent | XEvents} that will be emitted
+   * on click with a given feature.
    *
    * The default slot receives the suggestion and the matched query has props.
    *
    * @public
    */
-  @Component({
-    components: { BaseEventButton }
-  })
+  @Component
   export default class BaseSuggestion extends Vue {
     /**
      * The normalized query of the module using this component.
@@ -51,6 +50,14 @@
      */
     @Prop({ required: true })
     protected suggestion!: Suggestion;
+
+    /**
+     * The feature from which the events will be emitted.
+     *
+     * @public
+     */
+    @Prop() //TODO: set to true when the suggestions components pass it.
+    protected feature?: QueryFeature;
 
     /**
      * The {@link XEvent | XEvents} that will be emitted when selecting a suggestion.
@@ -77,6 +84,20 @@
         UserSelectedASuggestion: this.suggestion,
         ...this.suggestionSelectedEvents
       };
+    }
+
+    /**
+     * Emits the events when the button is clicked.
+     *
+     * @public
+     */
+    protected emitEvents(): void {
+      forEach(this.events, (event, payload) => {
+        this.$x.emit(event, payload, {
+          target: this.$el as HTMLElement,
+          feature: this.feature
+        });
+      });
     }
 
     /**
@@ -153,19 +174,19 @@
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
 This default suggestion component expects a suggestion to render and pass to its default slot, a
 normalized query to compare with the suggestion's query and highlight its matching parts and events
 to emit when the suggestion is selected.
 
-## Default usage
+### Default usage
 
 ```vue
 <BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }" />
 ```
 
-## Customized usage
+### Customized usage
 
 ```vue
 <BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }">

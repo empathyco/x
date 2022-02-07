@@ -30,6 +30,7 @@ describe('testing identifier results module actions', () => {
 
   beforeEach(() => {
     resetIdentifierResultsStateWith(store);
+    jest.clearAllMocks();
   });
 
   describe('fetchIdentifierResults', () => {
@@ -53,6 +54,17 @@ describe('testing identifier results module actions', () => {
   });
 
   describe('fetchAndSaveIdentifierResults', () => {
+    it('should include the origin in the request', async () => {
+      resetIdentifierResultsStateWith(store, { query: 'xc', origin: 'search_box:external' });
+      await store.dispatch('fetchAndSaveIdentifierResults', store.getters.identifierResultsRequest);
+
+      expect(adapter.searchById).toHaveBeenCalledTimes(1);
+      expect(adapter.searchById).toHaveBeenCalledWith({
+        ...store.getters.identifierResultsRequest,
+        origin: 'search_box:external'
+      });
+    });
+
     it('should request and store identifier results in the state', async () => {
       resetIdentifierResultsStateWith(store, { query: 'xc' });
 
@@ -121,11 +133,48 @@ describe('testing identifier results module actions', () => {
       await store.dispatch('saveQuery', '1906');
       expect(store.state.query).toEqual('1906');
     });
-    it('should not store query in the state if it matches the regex', async () => {
+    it(`should not store query in the state if it doesn't match the regex`, async () => {
       resetIdentifierResultsStateWith(store, { config: { identifierDetectionRegexp } });
 
       await store.dispatch('saveQuery', '1 thousand nine hundred and 6');
       expect(store.state.query).toEqual('');
+    });
+
+    // eslint-disable-next-line max-len
+    it(`should removes the query and identifier results if the new query doesn't match the regex`, async () => {
+      resetIdentifierResultsStateWith(store, { config: { identifierDetectionRegexp } });
+
+      await store.dispatch('saveQuery', '1906');
+      await store.dispatch('fetchAndSaveIdentifierResults', store.getters.identifierResultsRequest);
+
+      expect(store.state.query).toEqual('1906');
+      expect(store.state.identifierResults).toHaveLength(mockedResults.length);
+
+      await store.dispatch('saveQuery', '1 thousand nine hundred and 6');
+      expect(store.state.query).toEqual('');
+      expect(store.state.identifierResults).toHaveLength(0);
+    });
+  });
+
+  describe('saveOrigin', () => {
+    it('saves valid origins', async () => {
+      resetIdentifierResultsStateWith(store);
+
+      await store.dispatch('saveOrigin', { feature: 'search_box', location: 'predictive_layer' });
+      expect(store.state.origin).toEqual('search_box:predictive_layer');
+
+      await store.dispatch('saveOrigin', { feature: 'search_box' });
+      expect(store.state.origin).toEqual('search_box:none');
+    });
+
+    it('saves `null` if it is impossible to create an origin', async () => {
+      resetIdentifierResultsStateWith(store, { query: 'funko' });
+
+      await store.dispatch('saveOrigin', { location: 'predictive_layer' });
+      expect(store.state.origin).toBeNull();
+
+      await store.dispatch('saveOrigin', {});
+      expect(store.state.origin).toBeNull();
     });
   });
 });

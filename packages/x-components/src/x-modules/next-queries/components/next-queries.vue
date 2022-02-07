@@ -11,17 +11,23 @@
         @slot Next Query item
             @binding {Suggestion} suggestion - Next Query suggestion data
             @binding {number} index - Next Query suggestion index
+            @binding {boolean} highlightCurated - True if the curated NQs should be highlighted
       -->
-      <slot name="suggestion" v-bind="{ suggestion, index }">
-        <NextQuery :suggestion="suggestion" class="x-next-queries__suggestion">
-          <template #default>
-            <!--
+      <slot name="suggestion" v-bind="{ suggestion, highlightCurated, index }">
+        <NextQuery
+          #default="{ suggestion, shouldHighlightCurated }"
+          :suggestion="suggestion"
+          :highlightCurated="highlightCurated"
+          class="x-next-queries__suggestion"
+        >
+          <!--
               @slot Next Query content
                   @binding {Suggestion} suggestion - Next Query suggestion data
+                  @binding {boolean} shouldHighlightCurated - True if the curated NQ should
+                  be highlighted
                   @binding {number} index - Next Query suggestion index
             -->
-            <slot name="suggestion-content" v-bind="{ suggestion, index }" />
-          </template>
+          <slot name="suggestion-content" v-bind="{ suggestion, shouldHighlightCurated, index }" />
         </NextQuery>
       </slot>
     </template>
@@ -75,13 +81,21 @@
      */
     @Getter('nextQueries', 'nextQueries')
     public nextQueries!: NextQueryModel[];
+
+    /**
+     * Flag to indicate if the curated next queries should be displayed different.
+     *
+     * @public
+     */
+    @Prop({ default: false, type: Boolean })
+    protected highlightCurated!: boolean;
   }
 </script>
 
 <docs lang="mdx">
-# Examples
+## Examples
 
-## Basic example
+### Basic example
 
 You don't need to pass any props, or slots. Simply add the component, and when it has any next
 queries it will show them
@@ -90,14 +104,15 @@ queries it will show them
 <NextQueries />
 ```
 
-The component has two optional props. `animation` to render the component with an animation and
-`maxItemToRender` to limit the number of next queries will be rendered (by default it is 5).
+The component has three optional props. `animation` to render the component with an animation,
+`maxItemToRender` to limit the number of next queries will be rendered (by default it is 5) and
+`highlightCurated` to indicate if the curated Next Queries inside the list should be highlighted.
 
 ```vue
-<NextQueries :animation="FadeAndSlide" :maxItemsToRender="10" />
+<NextQueries :animation="FadeAndSlide" :maxItemsToRender="10" :highlightCurated="true" />
 ```
 
-## Overriding Next Queries' Content
+### Overriding Next Queries' Content
 
 You can use your custom implementation of the Next Query's content. In the example below, instead of
 using the default Next Query's content, an icon is added, as well as a span with the query of the
@@ -112,7 +127,7 @@ Next Query suggestion.
 </NextQueries>
 ```
 
-## Adding a custom next query component
+### Adding a custom next query component
 
 You can use your custom implementation of a next query component. To work correctly, it should use
 the `emitNextQuerySelected` function when the next query is selected. In the example below, instead

@@ -2,6 +2,7 @@ Feature: Query-suggestions component
 
   Background:
     Given a query suggestions API with a known response
+    And   a tracking API
 
   Scenario Outline: 1. Query suggestions are displayed while typing a query
     Given following config: hide if equals query <hideIfEqualsQuery>, requested items <maxItemsToRequest>
@@ -32,7 +33,6 @@ Feature: Query-suggestions component
     And   the searched query is displayed in the search-box
     Then  all query suggestions contain the searched query
     When  clear search button is pressed
-    And   search-input is focused
     Then  the searched query is displayed in history queries
 
     Examples:

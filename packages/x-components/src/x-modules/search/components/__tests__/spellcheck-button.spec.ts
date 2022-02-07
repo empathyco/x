@@ -2,9 +2,9 @@ import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
-import { BaseEventButton } from '../../../../components';
 import { RootXStoreState } from '../../../../store';
 import { DeepPartial } from '../../../../utils';
+import { WireMetadata } from '../../../../wiring/wiring.types';
 import SpellcheckButton from '../spellcheck-button.vue';
 import { resetXSearchStateWith } from './utils';
 
@@ -34,10 +34,8 @@ function renderSpellcheckButton({
 
   return {
     wrapper,
-    async clickEventButton() {
-      const eventButton = wrapper.findComponent(BaseEventButton);
-      eventButton.trigger('click');
-      await localVue.nextTick();
+    async click() {
+      await wrapper.trigger('click');
     }
   };
 }
@@ -77,16 +75,28 @@ describe('testing SpellcheckButton component', () => {
     const userAcceptedAQuery = jest.fn();
     const userAcceptSpellcheck = jest.fn();
     const spellcheckedQuery = 'coche';
-    const { wrapper, clickEventButton } = renderSpellcheckButton({ spellcheckedQuery });
+    const { wrapper, click } = renderSpellcheckButton({ spellcheckedQuery });
     const $x = wrapper.vm.$x;
 
-    $x.on('UserAcceptedAQuery').subscribe(userAcceptedAQuery);
-    $x.on('UserAcceptedSpellcheckQuery').subscribe(userAcceptSpellcheck);
+    $x.on('UserAcceptedAQuery', true).subscribe(userAcceptedAQuery);
+    $x.on('UserAcceptedSpellcheckQuery', true).subscribe(userAcceptSpellcheck);
 
-    clickEventButton();
+    click();
 
-    expect(userAcceptedAQuery).toHaveBeenNthCalledWith(1, spellcheckedQuery);
-    expect(userAcceptSpellcheck).toHaveBeenNthCalledWith(1, spellcheckedQuery);
+    expect(userAcceptedAQuery).toHaveBeenNthCalledWith(1, {
+      eventPayload: spellcheckedQuery,
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        feature: 'spellcheck',
+        target: wrapper.element
+      })
+    });
+    expect(userAcceptSpellcheck).toHaveBeenNthCalledWith(1, {
+      eventPayload: spellcheckedQuery,
+      metadata: expect.objectContaining<Partial<WireMetadata>>({
+        feature: 'spellcheck',
+        target: wrapper.element
+      })
+    });
   });
 });
 
@@ -100,6 +110,6 @@ interface RenderSpellcheckButtonOptions {
 interface RenderSpellcheckButtonAPI {
   /** The wrapper of the container element.*/
   wrapper: Wrapper<Vue>;
-  /** Clicks the event button and waits for the view to update. */
-  clickEventButton: () => Promise<void>;
+  /** Clicks the button and waits for the view to update. */
+  click: () => Promise<void>;
 }

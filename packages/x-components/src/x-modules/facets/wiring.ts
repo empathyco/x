@@ -82,11 +82,19 @@ const setFiltersFromUrl = mapWire(wireFacetsService('select'), ({ filter }: UrlP
  * @internal
  */
 export const facetsWiring = createWiring({
+  ParamsLoadedFromUrl: {
+    // TODO: move this logic to Facets Service
+    clearAllFiltersWire,
+    setFiltersFromUrl
+  },
   FacetsChanged: {
     updateFacetsGroupWithSearchFacetsWire
   },
   FacetsGroupProvided: {
     setFacetsGroupWire
+  },
+  UserChangedExtraParams: {
+    clearAllFiltersWire
   },
   UserClickedAFilter: {
     toggleFilterWire
@@ -102,10 +110,5 @@ export const facetsWiring = createWiring({
   },
   UserClearedQuery: {
     clearAllFiltersWire
-  },
-  ParamsLoadedFromUrl: {
-    // TODO: move this logic to Facets Service
-    clearAllFiltersWire,
-    setFiltersFromUrl
   }
 });

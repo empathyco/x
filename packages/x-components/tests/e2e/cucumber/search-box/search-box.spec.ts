@@ -1,5 +1,4 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { createResultStub } from '../../../../src/__stubs__';
 import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
 
 let resultsCount = 0;
@@ -122,11 +121,12 @@ And(
   'related results are displayed after {int} is {boolean}',
   (instantDebounceInMs: number, instant: boolean) => {
     if (instant) {
-      cy.getByDataTest('result-text')
+      cy.getByDataTest('search-result')
         .should('be.visible')
         .should('have.length.gt', resultsCount)
-        .each($result => {
-          resultsList.push($result.text());
+        .getByDataTest('result-title')
+        .each($resultTitle => {
+          resultsList.push($resultTitle.text());
         })
         .then(() => {
           interval = Date.now() - startQuery;
@@ -155,23 +155,6 @@ And('related tags are displayed after instantDebounceInMs is {boolean}', (instan
 });
 
 // Scenario 4
-Given('a second results API with a known response', () => {
-  cy.intercept('https://api.empathy.co/search', req => {
-    req.reply({
-      banners: [],
-      promoteds: [],
-      results: [
-        createResultStub('LEGO Duplo Disney Tren de Cumpleaños de Mickey y Minnie - 10941', {
-          images: ['https://picsum.photos/seed/8/100/100']
-        }),
-        createResultStub('LEGO Disney Granja de Mickey Mouse y el Pato Donald - 10775', {
-          images: ['https://picsum.photos/seed/10/100/100']
-        })
-      ]
-    });
-  }).as('interceptedNewResults');
-});
-
 When('{string} is added to the search', (secondQuery: string) => {
   cy.typeQuery(` ${secondQuery}`).then(() => {
     startSecondQuery = Date.now();
@@ -179,7 +162,7 @@ When('{string} is added to the search', (secondQuery: string) => {
 });
 
 Then('new related results are not displayed before {int}', (instantDebounceInMs: number) => {
-  cy.getByDataTest('result-text')
+  cy.getByDataTest('search-result')
     .should($results => {
       expect($results).to.have.length(resultsCount);
     })
@@ -193,11 +176,12 @@ And(
   'new related results are displayed after {int} is {boolean}',
   (instantDebounceInMs: number, instant: boolean) => {
     if (instant) {
-      cy.getByDataTest('result-text')
+      cy.getByDataTest('search-result')
         .should('be.visible')
         .should('have.length', 2)
-        .each($result => {
-          compoundResultsList.push($result.text());
+        .getByDataTest('result-title')
+        .each($resultTitle => {
+          compoundResultsList.push($resultTitle.text());
         })
         .then(() => {
           interval = Date.now() - startSecondQuery;
@@ -205,7 +189,7 @@ And(
           resultsCount = resultsList.length;
         });
     } else {
-      cy.getByDataTest('result-text').should('not.exist');
+      cy.getByDataTest('search-result').should('not.exist');
     }
   }
 );
@@ -223,7 +207,7 @@ When('{string} is deleted from the search', (secondQuery: string) => {
 });
 
 Then('old related results are not displayed before {int}', (instantDebounceInMs: number) => {
-  cy.getByDataTest('result-text')
+  cy.getByDataTest('search-result')
     .should('be.visible')
     .should('have.length', compoundResultsList.length)
     .then(() => {

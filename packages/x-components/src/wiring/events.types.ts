@@ -1,4 +1,5 @@
 import { Result, Suggestion } from '@empathyco/x-types';
+import { ExtractPayload } from '../store/store.types';
 import { ArrowKey, PropsWithType } from '../utils';
 import { DeviceXEvents } from '../x-modules/device';
 import { EmpathizeXEvents } from '../x-modules/empathize/events.types';
@@ -14,8 +15,10 @@ import { RelatedTagsXEvents } from '../x-modules/related-tags/events.types';
 import { ScrollXEvents } from '../x-modules/scroll/events.types';
 import { SearchBoxXEvents } from '../x-modules/search-box/events.types';
 import { SearchXEvents } from '../x-modules/search/events.types';
+import { TaggingXEvents } from '../x-modules/tagging/events.types';
 import { UrlXEvents } from '../x-modules/url/events.types';
 import { XModuleName } from '../x-modules/x-modules.types';
+import { WireMetadata } from './wiring.types';
 
 /**
  * Dictionary of all the {@link XEvent | XEvents}, where each key is the event name, and the value
@@ -38,6 +41,7 @@ import { XModuleName } from '../x-modules/x-modules.types';
  * * {@link ScrollXEvents},
  * * {@link SearchBoxXEvents}
  * * {@link SearchXEvents}
+ * * {@link TaggingXEvents}
  * * {@link UrlXEvents}
  *
  * @public
@@ -57,6 +61,7 @@ export interface XEventsTypes
     ScrollXEvents,
     SearchBoxXEvents,
     SearchXEvents,
+    TaggingXEvents,
     UrlXEvents {
   /**
    * The search adapter configuration has changed
@@ -139,6 +144,11 @@ export interface XEventsTypes
    */
   UserClickedResultAddToCart: Result;
   /**
+   * The user has clicked on the rating of a result.
+   * * Payload: The {@link @empathyco/x-types#Result | result} that the user clicked.
+   */
+  UserClickedAResultRating: Result;
+  /**
    * The user has clicked the scroll to top button.
    * * Payload: The scroll id which has scrolled to top.
    */
@@ -159,15 +169,21 @@ export interface XEventsTypes
    */
   UserReachedEmpathizeTop: void;
   /**
-   * The user has right clicked on a result.
-   * * Payload: The {@link @empathyco/x-types#Result | result} that the user right clicked.
-   */
-  UserRightClickedAResult: Result;
-  /**
    * User selected any kind of suggestion (query-suggestion, popular-search...)
    * * Payload: The {@link @empathyco/x-types#Suggestion | suggestion} that the user selected.
    */
   UserSelectedASuggestion: Suggestion;
+  /**
+   * A callback from the snippet has been executed.
+   * * Payload: An object containing the event that executed the callback, the callback result, and
+   * the original event payload and  metadata.
+   */
+  SnippetCallbackExecuted: {
+    event: XEvent;
+    callbackReturn: unknown;
+    payload: ExtractPayload<XEvent>;
+    metadata: WireMetadata;
+  };
   /**
    * A new {@link XModule} has been registered.
    * * Payload: The name of the XModule that has been registered.

@@ -8,10 +8,11 @@ defineParameterType({
   }
 });
 type Direction = 'above' | 'below' | 'on the left' | 'on the right';
+type Move = 'up' | 'right' | 'bottom' | 'left';
 
 // Scenario 1
 And('{string} element position is stored', (focusableElement: string) => {
-  cy.getByDataTest(focusableElement).focus().as('originalElement');
+  return cy.getByDataTest(focusableElement).last().focus().as('originalElement');
 });
 
 Then('next element position is "{direction}"', (expectedPosition: Direction) => {
@@ -36,14 +37,11 @@ Then('next element position is "{direction}"', (expectedPosition: Direction) => 
   cy.focused().as('originalElement');
 });
 
-When(
-  '{string} arrow is pressed {int} times',
-  (direction: 'up' | 'right' | 'bottom' | 'right', pressedTimes: number) => {
-    for (let i = 0; i < pressedTimes; i++) {
-      cy.focused().type(`{${direction}arrow}`);
-    }
-  }
-);
+When('{string} arrow is pressed {int} times', (direction: Move, pressedTimes: number) => {
+  Array.from({ length: pressedTimes }).forEach(() => {
+    cy.focused().type(`{${direction}arrow}`);
+  });
+});
 
 // Scenario 2
 Then('top out of bounds is reached', () => {

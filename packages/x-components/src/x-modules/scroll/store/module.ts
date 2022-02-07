@@ -1,5 +1,5 @@
-import { ScrollXStoreModule } from './types';
-import { initScrollComponentState } from './utils';
+import Vue from 'vue';
+import { ScrollComponentState, ScrollXStoreModule } from './types';
 
 /**
  * {@link XStoreModule} For the scroll module.
@@ -13,21 +13,17 @@ export const scrollXStoreModule: ScrollXStoreModule = {
   }),
   getters: {},
   mutations: {
-    setScrollPosition(state, { id, position }) {
-      initScrollComponentState(state.data, id);
-      state.data[id].position = position;
-    },
-    setScrollDirection(state, { id, direction }) {
-      initScrollComponentState(state.data, id);
-      state.data[id].direction = direction;
-    },
-    setScrollHasReachedEnd(state, { id, value }) {
-      initScrollComponentState(state.data, id);
-      state.data[id].hasReachedEnd = value;
-    },
-    setScrollHasReachedStart(state, { id, value }) {
-      initScrollComponentState(state.data, id);
-      state.data[id].hasReachedStart = value;
+    setScrollComponentState(state, { id, newState }) {
+      if (!state.data[id]) {
+        Vue.set<ScrollComponentState>(state.data, id, {
+          hasReachedStart: false,
+          hasAlmostReachedEnd: false,
+          hasReachedEnd: false,
+          position: 0,
+          direction: 'UP'
+        });
+      }
+      Object.assign(state.data[id], newState);
     },
     setPendingScrollTo(state, pendingScrollTo) {
       state.pendingScrollTo = pendingScrollTo;

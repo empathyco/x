@@ -111,7 +111,8 @@ function createIntersectionObserver({
   vNode
 }: ObserverOptions): IntersectionObserver {
   // This hack allows the root element to always contain the observed element.
-  const rootMargin = `20000000px 0px ${margin}px`;
+  // not overpass the top margin more than 1700000 because it doesn't work in Android chrome
+  const rootMargin = `1000000% 0px ${margin}px 0px`;
 
   return new IntersectionObserver(
     ([entry]) => {

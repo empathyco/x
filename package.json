@@ -6,7 +6,7 @@
     "postci": "lerna bootstrap --hoist --ci && npm run build",
     "build": "lerna run build",
     "lint": "eslint packages --cache",
-    "lint:fix": "eslint packages --cache --fix",
+    "lint:fix": "eslint packages --fix",
     "test": "lerna run test --parallel",
     "serve": "lerna run serve --parallel",
     "prepare-release:stable": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes",
@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "@empathyco/eslint-plugin-x": "file:packages/eslint-plugin-x",
+    "colors": "1.4.0",
     "conventional-changelog-conventionalcommits": "~4.6.0",
     "cross-env": "~7.0.3",
     "eslint": "~7.18.0",
@@ -28,7 +29,7 @@
   "lint-staged": {
     "*.{ts,tsx,vue}": [
       "prettier --write",
-      "cross-env NODE_ENV=production eslint --cache --fix"
+      "cross-env NODE_ENV=production eslint --fix"
     ],
     "*.{md,js,json}": "prettier --write"
   }

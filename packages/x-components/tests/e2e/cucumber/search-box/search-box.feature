@@ -1,11 +1,12 @@
 Feature: Search-box component
 
   Background:
-    Given   a next queries API
+    Given a next queries API
     And   a suggestions API
     And   a related tags API
     And   a recommendations API with a known response
     And   a results API with a known response
+    And   a tracking API
 
   Scenario Outline: 1. Query with results is typed and <buttonOrKey> is clicked/pressed (search-box is empty)
     Given following config: hide if equals query <hideIfEqualsQuery>, instant search <instant>, debounce <instantDebounceInMs>
@@ -32,7 +33,6 @@ Feature: Search-box component
     When  the "<query>" is cleared by "<cleared>"
     Then  the search box is empty
     And   related results are cleared
-    When  search-input is focused
     Then  query suggestions are cleared
     And   next queries are not cleared
     And   related tags are cleared

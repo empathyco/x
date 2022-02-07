@@ -1,5 +1,7 @@
 import { XBus } from '../../plugins/x-bus.types';
 import { DocumentDirection } from '../../plugins/x-plugin.types';
+import { XEvent, XEventPayload } from '../../wiring/events.types';
+import { WireMetadata } from '../../wiring/wiring.types';
 
 /**
  * Interface with the API functions exposes as X
@@ -8,6 +10,15 @@ import { DocumentDirection } from '../../plugins/x-plugin.types';
  * @public
  */
 export interface XAPI {
+  /**
+   * To track that a product was added to the cart from PDP.
+   *
+   * @param productId - The id of the product added to cart.
+   *
+   * @remarks if no productId is provided, then the current page url will be used as id for
+   * getting the previously stored result information.
+   */
+  addProductToCart(productId?: string): void;
   /**
    * To set the {@link XBus | bus} to the API. This bus will be used to emit the necessary
    * events.
@@ -46,6 +57,17 @@ export interface XAPI {
 }
 
 /**
+ * Map type of every {@link XEvent} and a callback with the payload and metadata for that event.
+ *
+ * @public
+ */
+export type XEventListeners = Partial<
+  {
+    [Event in XEvent]: (payload: XEventPayload<Event>, metadata: WireMetadata) => void;
+  }
+>;
+
+/**
  * Interface with the possible parameters to receive through the snippet integration.
  *
  * @public
@@ -67,6 +89,12 @@ export interface SnippetConfig {
   documentDirection?: DocumentDirection;
   /** The currency name. There should be a currency format associated to this name in the app. */
   currency?: string;
+  /** Callbacks to be triggered when an XEvent is emitted. */
+  callbacks?: XEventListeners;
+  /** Flag determining if the page is a single page application or not. */
+  isSpa?: boolean;
+  /** The id for the current product when product page is loaded. */
+  productId?: string;
   /** Any extra param to send in all backend calls. */
   [extra: string]: any;
 }

@@ -1,23 +1,7 @@
-.x-background {
-  &--lead {
-    background-color: var(--x-color-base-lead) !important;
-  }
-  &--auxiliary {
-    background-color: var(--x-color-base-auxiliary) !important;
-  }
-  &--neutral-10 {
-    background-color: var(--x-color-base-neutral-10) !important;
-  }
-  &--neutral-35 {
-    background-color: var(--x-color-base-neutral-35) !important;
-  }
-  &--neutral-70 {
-    background-color: var(--x-color-base-neutral-70) !important;
-  }
-  &--neutral-95 {
-    background-color: var(--x-color-base-neutral-95) !important;
-  }
-  &--neutral-100 {
-    background-color: var(--x-color-base-neutral-100) !important;
+@import '../variables';
+
+@each $color-name, $color-value in $colors {
+  .x-background--#{$color-name} {
+    background-color: var(--x-color-base-#{$color-name}) !important;
   }
 }
