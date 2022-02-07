@@ -26,8 +26,8 @@ Start building your search and discovery experience in a few simple steps:
   Interface&nbsp;X works.
 - **[Integrate the Interface X Components](#integrate-interface-x-components)** in your store web
   application.
-- **[Use & configure the Interface X Components](#use-configure-the-interface-x-components)** in
-  your project.
+- **[Use and configure the Interface X Components](#use-and-configure-the-interface-x-components)**
+  in your project.
 
 <!-- 3. Style your UI. 4. Translate your search experience-->
 <!-- HIDE VIDEO UNTIL CONTENT BOX FIXED <VideoContent title="Want to learn more?" :links="[{title:'How-to guide',link:'/develop-empathy-platform/build-search-ui/web-x-components-integration-guide'},{title:'Architecture',link:'/develop-empathy-platform/build-search-ui/x-architecture/'},{title:'UI reference',link:'/develop-empathy-platform/ui-reference/'}]"></VideoContent>-->
@@ -93,7 +93,7 @@ go if you like to look under the hood!
 To get started with the X Components library, check out
 **[Integrate Interface X Components in your Vue application](web-x-components-integration-guide.md)**.
 
-## Use & configure the Interface X Components
+## Use and configure the Interface X Components
 
 Using the Interface&nbsp;X&nbsp;Components is a piece of cake! Just import and register the
 component, include it in your template, and you’re ready to go! What’s more, each component offers
