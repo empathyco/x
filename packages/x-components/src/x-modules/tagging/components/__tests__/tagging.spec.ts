@@ -6,17 +6,22 @@ import { XComponentBusAPI } from '../../../../plugins/x-plugin.types';
 import { baseSnippetConfig } from '../../../../views/base-config';
 import { SnippetConfig } from '../../../../x-installer/api/api.types';
 import Tagging from '../../../tagging/components/tagging.vue';
+import { TaggingConfig } from '../../config.types';
 
 function renderTagging({
   template = `<Tagging
                 :consent="consent"
                 :sessionTTLMs="sessionTTLMs"
                 :queryTaggingDebounceMs="queryTaggingDebounceMs"
+                :clickedResultStorageTTLMs="clickedResultStorageTTLMs"
+                :clickedResultStorageKey="clickedResultStorageKey"
               />`,
   consent,
   sessionTTLMs,
   queryTaggingDebounceMs,
-  snippetConfig = { ...baseSnippetConfig, consent }
+  snippetConfig = { ...baseSnippetConfig, consent },
+  clickedResultStorageTTLMs,
+  clickedResultStorageKey
 }: RenderTaggingOptions = {}): RenderTaggingAPI {
   const [, localVue] = installNewXPlugin();
   snippetConfig = localVue.observable(snippetConfig);
@@ -26,7 +31,14 @@ function renderTagging({
       components: {
         Tagging
       },
-      props: ['consent', 'queryTaggingDebounceMs', 'sessionTTLMs', 'snippetConfig'],
+      props: [
+        'consent',
+        'queryTaggingDebounceMs',
+        'sessionTTLMs',
+        'snippetConfig',
+        'clickedResultStorageTTLMs',
+        'clickedResultStorageKey'
+      ],
       template
     },
     {
@@ -37,7 +49,9 @@ function renderTagging({
         consent,
         queryTaggingDebounceMs,
         sessionTTLMs,
-        snippetConfig
+        snippetConfig,
+        clickedResultStorageTTLMs,
+        clickedResultStorageKey
       },
       localVue
     }
@@ -48,7 +62,10 @@ function renderTagging({
     on: wrapper.vm.$x.on.bind(wrapper.vm.$x)
   };
 }
-
+const defaultTaggingConfig: Partial<TaggingConfig> = {
+  clickedResultStorageTTLMs: 30000,
+  clickedResultStorageKey: 'url'
+};
 describe('testing Tagging component', () => {
   it('is an XComponent which has an XModule', () => {
     const { wrapper } = renderTagging();
@@ -66,24 +83,74 @@ describe('testing Tagging component', () => {
     expect(eventSpy).toHaveBeenNthCalledWith(1, true);
   });
 
-  it('emits SessionDurationProvided when the session duration is set using the prop', () => {
+  it('emits TaggingConfigProvided when the session duration is set using the prop', () => {
     const { on } = renderTagging({ sessionTTLMs: 100 });
     const eventSpy = jest.fn();
 
-    on('SessionDurationProvided').subscribe(eventSpy);
+    on('TaggingConfigProvided').subscribe(eventSpy);
 
     expect(eventSpy).toHaveBeenCalledTimes(1);
-    expect(eventSpy).toHaveBeenNthCalledWith(1, 100);
+    expect(eventSpy).toHaveBeenNthCalledWith(1, { ...defaultTaggingConfig, sessionTTLMs: 100 });
   });
 
-  it('emits QueryTaggingDebounceProvided when the query debounce is set using the prop', () => {
+  it('emits TaggingConfigProvided when the query debounce is set using the prop', () => {
     const { on } = renderTagging({ queryTaggingDebounceMs: 150 });
     const eventSpy = jest.fn();
 
-    on('QueryTaggingDebounceProvided').subscribe(eventSpy);
+    on('TaggingConfigProvided').subscribe(eventSpy);
 
     expect(eventSpy).toHaveBeenCalledTimes(1);
-    expect(eventSpy).toHaveBeenNthCalledWith(1, 150);
+    expect(eventSpy).toHaveBeenNthCalledWith(1, {
+      ...defaultTaggingConfig,
+      queryTaggingDebounceMs: 150
+    });
+  });
+
+  it('emits TaggingConfigProvided when clicked result storage ttl is set using the prop', () => {
+    const { on } = renderTagging({ clickedResultStorageTTLMs: 150 });
+    const eventSpy = jest.fn();
+
+    on('TaggingConfigProvided').subscribe(eventSpy);
+
+    expect(eventSpy).toHaveBeenCalledTimes(1);
+    expect(eventSpy).toHaveBeenNthCalledWith(1, {
+      ...defaultTaggingConfig,
+      clickedResultStorageTTLMs: 150
+    });
+  });
+
+  it('emits TaggingConfigProvided when clicked result storage key is set using the prop', () => {
+    const { on } = renderTagging({ clickedResultStorageKey: 'id' });
+    const eventSpy = jest.fn();
+
+    on('TaggingConfigProvided').subscribe(eventSpy);
+
+    expect(eventSpy).toHaveBeenCalledTimes(1);
+    expect(eventSpy).toHaveBeenNthCalledWith(1, {
+      ...defaultTaggingConfig,
+      clickedResultStorageKey: 'id'
+    });
+  });
+
+  // eslint-disable-next-line max-len
+  it('emits TaggingConfigProvided only once when multiple tagging config are set using the props', () => {
+    const { on } = renderTagging({
+      clickedResultStorageKey: 'id',
+      clickedResultStorageTTLMs: 150,
+      queryTaggingDebounceMs: 150,
+      sessionTTLMs: 100
+    });
+    const eventSpy = jest.fn();
+
+    on('TaggingConfigProvided').subscribe(eventSpy);
+
+    expect(eventSpy).toHaveBeenCalledTimes(1);
+    expect(eventSpy).toHaveBeenNthCalledWith(1, {
+      clickedResultStorageKey: 'id',
+      clickedResultStorageTTLMs: 150,
+      queryTaggingDebounceMs: 150,
+      sessionTTLMs: 100
+    });
   });
 
   // eslint-disable-next-line max-len
@@ -135,6 +202,10 @@ interface RenderTaggingOptions {
   sessionTTLMs?: number;
   /** The template to be rendered. */
   template?: string;
+  /** Time in milliseconds to keep the information for a result clicked by the user. */
+  clickedResultStorageTTLMs?: number;
+  /** The id ot use for storing the information. */
+  clickedResultStorageKey?: string;
 }
 
 interface RenderTaggingAPI {

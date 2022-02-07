@@ -5,11 +5,13 @@
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { taggingXModule } from '../x-module';
+  import { TaggingConfig } from '../config.types';
 
   /**
    * This component enables and manages the sending of information to the
-   * {@link https://empathy.co/docs/tagging-api/ | Empathy Tagging API}. It allows to enable or
-   * disable the session id management through the `consent` prop.
+   * {@link https://docs.empathy.co/develop-empathy-platform/api-reference/tagging-api.html |
+   * Empathy Tagging API}. It allows to enable or disable the session id management through the
+   * `consent` prop.
    *
    * @public
    */
@@ -17,6 +19,23 @@
     mixins: [xComponentMixin(taggingXModule)]
   })
   export default class Tagging extends Vue {
+    /**
+     * The TTL in milliseconds for storing the clicked result info.
+     *
+     * @public
+     */
+    @Prop({ default: 30000 })
+    public clickedResultStorageTTLMs!: number;
+
+    /**
+     * The Object key of the {@link @empathyco/x-types#Result | result} clicked by the user
+     * that will be used as id for the storage. By default, the Result url will be used.
+     *
+     * @public
+     */
+    @Prop({ default: 'url' })
+    public clickedResultStorageKey!: string;
+
     /**
      * It injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
      *
@@ -31,7 +50,6 @@
      * @internal
      */
     @Prop()
-    @XEmit('SessionDurationProvided')
     public sessionTTLMs: number | undefined;
 
     /**
@@ -40,7 +58,6 @@
      * @internal
      */
     @Prop()
-    @XEmit('QueryTaggingDebounceProvided')
     public queryTaggingDebounceMs: number | undefined;
 
     /**
@@ -65,8 +82,37 @@
       return this.consent ?? this.snippetConfig?.consent ?? false;
     }
 
+    @XEmit('TaggingConfigProvided')
+    public get config(): TaggingConfig {
+      return {
+        queryTaggingDebounceMs: this.queryTaggingDebounceMs as number,
+        sessionTTLMs: this.sessionTTLMs as number,
+        clickedResultStorageTTLMs: this.clickedResultStorageTTLMs,
+        clickedResultStorageKey: this.clickedResultStorageKey
+      };
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     render(): void {}
+
+    /**
+     * To emit the event that PDP is loaded  just when the snippet config includes a product id.
+     */
+    created(): void {
+      this.emitEvents();
+    }
+
+    /**
+     * Emits the {@link TaggingXEvents.PDPIsLoaded} XEvent if the snippet config contains
+     * a product id.
+     *
+     * @internal
+     */
+    protected emitEvents(): void {
+      if (this.snippetConfig?.productId) {
+        this.$x.emit('PDPIsLoaded', this.snippetConfig.productId);
+      }
+    }
   }
 </script>
 
@@ -76,9 +122,7 @@
 This component emits the following events:
 
 - [`ConsentProvided`](./../../api/x-components.taggingxevents.consentprovided.md)
-- [`SessionDurationProvided`](./../../api/x-components.taggingxevents.sessiondurationprovided.md)
-- `QueryTaggingDebounceProvided`[1]
-  [1](./../../api/x-components.taggingxevents.querytaggingdebounceprovided.md)
+- [`TaggingConfigProvided`](./../../api/x-components.taggingxevents.taggingconfigprovided.md)
 
 ## See it in action
 
@@ -105,12 +149,38 @@ doesn't render elements to the DOM.
 ### Play with props
 
 In this example, the `Tagging` component will emit `ConsentProvided` with payload false by default
-if the consent is not provided, the `SessionDurationProvided` and `QueryTaggingDebounceProvided`
-events will be emitted only if the props are defined.
+if the consent is not provided, the `TaggingConfigProvided` event will be emitted only if the props
+`queryTaggingDebounceMs`, `sessionDurationMs`, `clickedResultStorageTTLMs` or
+`clickedResultStorageKey`are defined.
+
+Every time the user clicks a result the information for the clicked product will be stored on the
+browser during 30 seconds which is the default value for the prop `clickedResultStorageTTLMs`. To
+distinguish the storage information for the different results the product url will be used since
+`clickedResultStorageKey` default value is 'url'.
 
 ```vue
 <template>
   <Tagging :consent="true" :queryTaggingDebounceMs="300" :sessionDurationMs="30000" />
+</template>
+
+<script>
+  import { Tagging } from '@empathyco/x-components/tagging';
+
+  export default {
+    name: 'TaggingDemo',
+    components: {
+      Tagging
+    }
+  };
+</script>
+```
+
+In this example, the clicked result information will be stored on the browser during 60 seconds and
+the product id will be used as storage key.
+
+```vue
+<template>
+  <Tagging :clickedResultStorageTTLMs="60000" :clickedResultStorageKey="'id'" />
 </template>
 
 <script>
@@ -130,9 +200,6 @@ events will be emitted only if the props are defined.
 The `Tagging` will emit the `ConsentProvided` when the component is loaded and the consent is set by
 the prop or getting the value from the snippet config.
 
-The `Tagging` will emit the `SessionDurationProvided` when the component is loaded with a session
-duration using the prop.
-
-The `Tagging` will emit the `QueryTaggingDebounceProvided` when the component is loaded with query
-debounce using the prop.
+The `Tagging` will emit the `TaggingConfigProvided` when the component is loaded with the new
+[`TaggingConfig`](./../../api/x-components.taggingconfig.md) using the prop values.
 </docs>

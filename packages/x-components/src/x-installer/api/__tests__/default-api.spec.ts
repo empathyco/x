@@ -15,4 +15,17 @@ describe('testing default X API', () => {
 
     expect(listener).toHaveBeenCalledWith(query);
   });
+
+  it('should emit `UserClickedPDPAddToCart` through the `addProductToCart` function', () => {
+    const listener = jest.fn();
+    bus.on('UserClickedPDPAddToCart').subscribe(listener);
+
+    defaultXAPI.addProductToCart();
+
+    expect(listener).toHaveBeenCalledTimes(1);
+
+    const productId = '123abc';
+    defaultXAPI.addProductToCart(productId);
+    expect(listener).toHaveBeenCalledWith(productId);
+  });
 });

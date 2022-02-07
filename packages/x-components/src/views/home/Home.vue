@@ -1,7 +1,7 @@
 <template>
   <div class="x">
     <Tagging :consent="false" />
-    <ExtraParams :values="initialExtraParams" />
+    <SnippetConfigExtraParams :values="initialExtraParams" />
     <UrlHandler query="q" store="store" />
     <SnippetCallbacks />
     <BaseEventsModalOpen>Start</BaseEventsModalOpen>
@@ -499,7 +499,6 @@
   import { infiniteScroll } from '../../directives/infinite-scroll/infinite-scroll';
   import { XEvent } from '../../wiring/index';
   import Empathize from '../../x-modules/empathize/components/empathize.vue';
-  import ExtraParams from '../../x-modules/extra-params/components/extra-params.vue';
   // eslint-disable-next-line max-len
   import RenderlessExtraParams from '../../x-modules/extra-params/components/renderless-extra-param.vue';
   // eslint-disable-next-line max-len
@@ -593,7 +592,6 @@
       CrossTinyIcon,
       Empathize,
       ExcludeFiltersWithNoResults,
-      ExtraParams,
       Facets,
       FacetsProvider,
       FiltersList,

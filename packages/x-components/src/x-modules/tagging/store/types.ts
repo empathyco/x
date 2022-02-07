@@ -41,24 +41,18 @@ export interface TaggingMutations {
    */
   setConsent(consent: boolean): void;
   /**
-   * Sets the {@link TaggingConfig.sessionTTLMs } property.
-   *
-   * @param sessionTTLMs - The new {@link TaggingConfig.sessionTTLMs }.
-   */
-  setSessionDuration(sessionTTLMs: number): void;
-  /**
-   * Sets the {@link TaggingConfig.queryTaggingDebounceMs } property.
-   *
-   * @param queryTaggingDebounceMs - The new {@link TaggingConfig.queryTaggingDebounceMs }.
-   */
-  setQueryTaggingDebounce(queryTaggingDebounceMs: number): void;
-
-  /**
    * Sets the {@link TaggingState.queryTaggingInfo} property.
    *
    * @param queryTaggingInfo - The new {@link TaggingState.queryTaggingInfo}.
    */
   setQueryTaggingInfo(queryTaggingInfo: TaggingInfo): void;
+
+  /**
+   * Sets the {@link TaggingState.config} property.
+   *
+   * @param taggingConfig - The new {@link TaggingState.config}.
+   */
+  setTaggingConfig(taggingConfig: TaggingConfig): void;
 }
 
 /**

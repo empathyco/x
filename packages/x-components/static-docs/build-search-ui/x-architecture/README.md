@@ -56,7 +56,8 @@ The API adapter can be customised and extended to meet the client requirements. 
 element that can be changed and adjusted to the specific client API, even when using other search
 services not based on the Empathy search API.
 
-::: note Architecture patterns  
+::: note Architecture patterns
+
 If you’re already experienced in the Vue universe, you’ll find the Interface&nbsp;X architecture
 somewhat familiar. Although the [ViewModel layer](https://012.vuejs.org/guide/#Introduction) of the
 **MVVM pattern** sprinkles traces all over the presentation tier, the Interface X architecture is
@@ -65,7 +66,9 @@ basically inspired by the
 the X&nbsp;Components emit events that dispatch actions in the business logic tier, these actions
 can commit mutations to modify the state of the store.  
 To sum up, the design of Interface&nbsp;X takes advantage of the MVVM and Flux patterns to design,
-develop, and configure each tier separately and independently. :::
+develop, and configure each tier separately and independently.
+
+:::
 
 ## Technical stack
 
@@ -121,8 +124,10 @@ building component-based UIs, Vue meets all the requirements:
 - Improved performance out of the box
 - Seamless maintenance. Framework or library-agnostic
 
-::: note  
+::: note
+
 Interface&nbsp;X can potentially be integrated in commerce shops built with React. In any case,
 Interface&nbsp;X can be used in any webpage, as long as it is integrated as an isolated search
-layer.  
+layer.
+
 :::

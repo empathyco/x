@@ -155,6 +155,10 @@ export const resetStateWire = wireDispatch(
  * @internal
  */
 export const searchWiring = createWiring({
+  ParamsLoadedFromUrl: {
+    setUrlParams,
+    saveOriginWire
+  },
   UserAcceptedAQuery: {
     setSearchQuery,
     saveOriginWire
@@ -195,9 +199,5 @@ export const searchWiring = createWiring({
   },
   ExtraParamsChanged: {
     setSearchExtraParams
-  },
-  ParamsLoadedFromUrl: {
-    setUrlParams,
-    saveOriginWire
   }
 });

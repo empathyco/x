@@ -2,11 +2,11 @@ import {
   NextQueriesResponse,
   RelatedTagsResponse,
   SearchByIdResponse,
+  SearchRequest,
   SearchResponse,
   SuggestionsResponse,
   TopRecommendationsResponse
 } from '@empathyco/x-adapter';
-import { SearchRequest } from '@empathyco/x-adapter/src/index';
 import { Given } from 'cypress-cucumber-preprocessor/steps';
 import {
   createBannerStub,
@@ -542,4 +542,10 @@ Given('a click tagging API', () => {
   cy.intercept(`${trackEndpoint}/click`, req => {
     req.reply({});
   }).as('clickTagging');
+});
+
+Given('an add to cart tagging API', () => {
+  cy.intercept(`${trackEndpoint}/add2cart*`, req => {
+    req.reply({});
+  }).as('addToCartTagging');
 });

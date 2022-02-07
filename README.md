@@ -84,7 +84,7 @@ We are working on many key features to consolidate Interface X, including these 
 - Support URL management to set X&nbsp;Components state based on URL parameters.
   [![Release Docs](https://img.shields.io/badge/Released-November%202021-brightgreen)](https://docs.empathy.co)
 - Create a tagging system to track session interactions without storing PII.
-  [![Release Docs](https://img.shields.io/badge/In%20Progress-November%202021-blue)](https://docs.empathy.co)
+  [![Release Docs](https://img.shields.io/badge/Released-December%202021-brightgreen)](https://docs.empathy.co)
 - Discovery Wall: A set of results carousels to help the shopper to discover interesting products at
   the search home (pre query).
 - Vertical Search: allows to select a given filter before performing a search.
@@ -106,6 +106,8 @@ To prepare your development environment, proceed as follows:
    `git clone https://github.com/empathyco/x.git`.
 2. Install the dependencies in the root folder: `npm install`. This links all the projects.
 3. Run a build so that the linked projects work: `npm run build`.
+
+Have a look to [this article](https://medium.com/empathyco/moving-to-a-mono-repo-part-1-the-journey-eb63efd8ef64) to see why we moved to a mono repo and how we did it.
 
 ## How to implement Interface X
 
@@ -131,8 +133,7 @@ the repo and provide the following information by filling in
 
 | <a href="https://github.com/tajespasarela"><img src="https://avatars.githubusercontent.com/u/5759712?v=4" width="100px;" alt=""/><br /><br /><b>Iván Tajes</b></a> | <a href="https://github.com/javieri-empathy"><img src="https://avatars.githubusercontent.com/u/68222542?v=4" width="100px;" alt=""/><br /><br /><b>Javier Iglesias</b></a> | <a href="https://github.com/joseacabaneros"><img src="https://avatars.githubusercontent.com/u/10746604?v=4" width="100px;" alt=""/><br /><br /><b>Jose Antonio Cabañeros</b></a> | <a href="https://github.com/LuisMartinez15"><img src="https://avatars.githubusercontent.com/u/6247440?v=4" width="100px;" alt=""/><br /><br /><b>Luís Martínez</b></a>  | <a href="https://github.com/tiborux"><img src="https://avatars.githubusercontent.com/u/6597815?v=4" width="100px;" alt=""/><br /><br /><b>Beltrán García</b></a> |
 | :----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| <a href="https://github.com/herrardo"><img src="https://avatars.githubusercontent.com/u/4663897?v=4" width="100px;" alt=""/><br /><br /><b>Gerardo Vázquez</b></a> |  <a href="https://github.com/CachedaCodes"><img src="https://avatars.githubusercontent.com/u/7124620?v=4" width="100px;" alt=""/><br /><br /><b>Guillermo Cacheda</b></a>  |            <a href="https://github.com/pmareke"><img src="https://avatars.githubusercontent.com/u/3502075?v=4" width="100px;" alt=""/><br /><br /><b>Pedro López</b>             | <a href="https://github.com/guillei10"><img src="https://avatars.githubusercontent.com/u/77337158?v=4" width="100px;" alt=""/><br /><br /><b>Guillermo Iglesias</b></a> | <a href="https://github.com/mavmaf"><img src="https://avatars.githubusercontent.com/u/77147901?v=4" width="100px;" alt=""/><br /><br /><b>Mavi Fernández</b></a> |
-|  <a href="https://github.com/diegopf"><img src="https://avatars.githubusercontent.com/u/7504736?v=4" width="100px;" alt=""/><br /><br /><b>Diego Pascual</b></a>   |
+| <a href="https://github.com/herrardo"><img src="https://avatars.githubusercontent.com/u/4663897?v=4" width="100px;" alt=""/><br /><br /><b>Gerardo Vázquez</b></a> |  <a href="https://github.com/CachedaCodes"><img src="https://avatars.githubusercontent.com/u/7124620?v=4" width="100px;" alt=""/><br /><br /><b>Guillermo Cacheda</b></a> | <a href="https://github.com/guillei10"><img src="https://avatars.githubusercontent.com/u/77337158?v=4" width="100px;" alt=""/><br /><br /><b>Guillermo Iglesias</b></a> | <a href="https://github.com/mavmaf"><img src="https://avatars.githubusercontent.com/u/77147901?v=4" width="100px;" alt=""/><br /><br /><b>Mavi Fernández</b></a> | <a href="https://github.com/diegopf"><img src="https://avatars.githubusercontent.com/u/7504736?v=4" width="100px;" alt=""/><br /><br /><b>Diego Pascual</b></a> |      
 
 ## License
 

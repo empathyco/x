@@ -20,12 +20,11 @@ export default function xComponentsPolyfillsWrapperPlugin(polyfillsOptions) {
       if (!chunk.isEntry) {
         return null;
       }
-      const appMagicString = new MagicString(code);
+      const importString = chunk.imports[0] ? `await import('./${chunk.imports[0]}')` : code;
+      const appMagicString = new MagicString(importString);
       const [header, footer] = generateWrapperFunctionTuple(polyfillsOptions);
 
-      appMagicString
-        .prepend(`(${ header }`)
-        .append(`${ footer })()`);
+      appMagicString.prepend(`(${header}`).append(`${footer})()`);
 
       return {
         code: appMagicString.toString(),
@@ -33,4 +32,4 @@ export default function xComponentsPolyfillsWrapperPlugin(polyfillsOptions) {
       };
     }
   };
-};
+}

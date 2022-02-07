@@ -70,14 +70,14 @@ export const setUrlFilters = wireCommit('setFilters');
  * @internal
  */
 export const urlWiring = createWiring({
+  ParamsLoadedFromUrl: {
+    setParams
+  },
   UserAcceptedAQuery: {
     setUrlQuery
   },
   UserClearedQuery: {
     setUrlQuery
-  },
-  ParamsLoadedFromUrl: {
-    setParams
   },
   SelectedRelatedTagsChanged: {
     setUrlRelatedTags

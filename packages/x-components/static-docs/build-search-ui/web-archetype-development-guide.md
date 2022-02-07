@@ -24,6 +24,8 @@ requires knowledge of JavaScript and Vue.js.
 
 To integrate Interface&nbsp;X&nbsp;Archetype as a search UI layer, you need:
 
+<br/>
+
 - **Empathy Search API** (or any search API that you use to retrieve search data).
 - **Empathy Search Adapter** to communicate with the Empathy Search API (or any search adapter to
   connect with the search API you are using).
@@ -97,9 +99,13 @@ npm install
 npm run serve
 ```
 
-::: interact For a full list of the project dependencies, check the
+::: interact
+
+For a full list of the project dependencies, check the
 [`package.json`](https://github.com/empathyco/x-archetype/blob/main/package.json) file in the
-Interface&nbsp;X&nbsp;Archetype repository. :::
+Interface&nbsp;X&nbsp;Archetype repository.
+
+:::
 
 ## 3. Configure the search adapter
 
@@ -112,14 +118,19 @@ the configuration according to the search features you use in your project.
 Export the required search adapter with your configuration as you will need it for the search
 [xPlugin configuration](web-archetype-integration-guide.md#_4-configure-the-plugin).
 
-::: interact For detailed information about other configuration options in the Empathy Search
-Adapter, go to the
-[x-adapter repository](https://github.com/empathyco/x/tree/main/packages/search-adapter). :::
+::: interact
 
-::: note Although you configure the values for the `instance`, `language`, `scope`, and `endpoint`
-options when integrating the project, you can still change these values when the project is
-deployed. Use the `/x-archetype/public/snippet-script.js` file to perform hot changes for `lang`,
-`store`, `device`, and `catalog` parameters.
+For detailed information about other configuration options in the Empathy Search Adapter, go to the
+[x-adapter repository](https://github.com/empathyco/x/tree/main/packages/search-adapter).
+
+:::
+
+::: note
+
+Although you configure the values for the `instance`, `language`, `scope`, and `endpoint` options
+when integrating the project, you can still change these values when the project is deployed. Use
+the `/x-archetype/public/snippet-script.js` file to perform hot changes for `lang`, `store`,
+`device`, and `catalog` parameters.
 
 For example, you may configure the adapter to use EN as `lang` so that when you search, the results
 are displayed in English. However, if you want to deploy the application in Spain, you want the

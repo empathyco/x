@@ -4,11 +4,12 @@ import {
   namespacedWireDispatch
 } from '../../wiring/namespaced-wires.factory';
 import { namespacedDebounce } from '../../wiring/namespaced-wires.operators';
-import { wireServiceWithoutPayload } from '../../wiring/wires.factory';
-import { filter } from '../../wiring/wires.operators';
+import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
+import { filter, mapWire } from '../../wiring/wires.operators';
 import { Wire } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 import { DefaultSessionService } from './service/session.service';
+import { DefaultPDPAddToCartService } from './service/index';
 
 /**
  * `tagging` {@link XModuleName | XModule name}.
@@ -42,6 +43,37 @@ const wireDispatch = namespacedWireDispatch(moduleName);
 const wireSessionServiceWithoutPayload = wireServiceWithoutPayload(DefaultSessionService.instance);
 
 /**
+ * Wires factory for {@link DefaultPDPAddToCartService}.
+ */
+const wirePDPAddToCartService = wireService(DefaultPDPAddToCartService.instance);
+
+/**
+ * Stores the given result on the local storage.
+ *
+ * @public
+ */
+const storeClickedResultWire = wirePDPAddToCartService('storeResultClicked');
+
+/**
+ * Moves the result information from the local storage to session storage.
+ *
+ * @public
+ */
+const moveClickedResultToSessionWire = mapWire(
+  wirePDPAddToCartService('moveToSessionStorage'),
+  (payload: string) => {
+    return payload === 'url' ? undefined : payload;
+  }
+);
+
+/**
+ * Triggers the add to cart tracking.
+ *
+ * @public
+ */
+const trackAddToCartFromSessionStorage = wirePDPAddToCartService('trackAddToCart');
+
+/**
  * Clears the session id.
  *
  * @public
@@ -59,18 +91,11 @@ const clearSessionWire = filter(
 export const setConsent = wireCommit('setConsent');
 
 /**
- * Sets the tagging state config `queryTaggingDebounceMs`.
+ * Sets the tagging config state.
  *
  * @public
  */
-export const setQueryTaggingDebounce = wireCommit('setQueryTaggingDebounce');
-
-/**
- * Sets the tagging state `sessionTTLMs`.
- *
- * @public
- */
-export const setSessionDuration = wireCommit('setSessionDuration');
+export const setTaggingConfig = wireCommit('setTaggingConfig');
 
 /**
  * Tracks the tagging of the query.
@@ -145,8 +170,11 @@ export const taggingWiring = createWiring({
   ConsentChanged: {
     clearSessionWire
   },
-  QueryTaggingDebounceProvided: {
-    setQueryTaggingDebounce
+  PDPIsLoaded: {
+    moveClickedResultToSessionWire
+  },
+  ResultURLTrackingEnabled: {
+    moveClickedResultToSessionWire
   },
   SearchTaggingChanged: {
     setQueryTaggingInfo
@@ -154,13 +182,17 @@ export const taggingWiring = createWiring({
   SearchTaggingReceived: {
     trackQueryWire
   },
-  SessionDurationProvided: {
-    setSessionDuration
+  TaggingConfigProvided: {
+    setTaggingConfig
   },
   UserClickedAResult: {
-    trackResultClickedWire
+    trackResultClickedWire,
+    storeClickedResultWire
   },
   UserClickedResultAddToCart: {
     trackAddToCartWire
+  },
+  UserClickedPDPAddToCart: {
+    trackAddToCartFromSessionStorage
   }
 });

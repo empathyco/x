@@ -59,6 +59,11 @@ const routes: RouteConfig[] = [
     path: '/infinite-scroll-body',
     name: 'Infinite Scroll Body',
     component: () => import('./views/infinite-scroll-body.vue')
+  },
+  {
+    path: '/products/:id',
+    name: 'Product page',
+    component: () => import('./views/pdp.vue')
   }
 ];
 

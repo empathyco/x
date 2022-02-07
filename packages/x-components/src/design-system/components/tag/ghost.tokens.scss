@@ -4,7 +4,12 @@
   --x-color-border-tag-ghost: transparent;
   --x-color-background-tag-selected-ghost: transparent;
   --x-color-border-tag-selected-ghost: transparent;
+  --x-color-background-tag-curated-ghost: transparent;
+  --x-color-border-tag-curated-ghost: transparent;
+  --x-color-background-tag-curated-selected-ghost: transparent;
+  --x-color-border-tag-curated-selected-ghost: transparent;
 
   //typography
   --x-number-font-weight-tag-selected-ghost: var(--x-number-font-weight-base-bold);
+  --x-number-font-weight-tag-curated-selected-ghost: var(--x-number-font-weight-base-bold);
 }

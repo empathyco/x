@@ -137,7 +137,7 @@
       return {
         gridTemplateColumns: this.columns
           ? `repeat(${this.columns}, minmax(0, 1fr))`
-          : 'repeat(auto-fill, minmax(var(--x-size-min-width-grid-item, 150px), auto))'
+          : 'repeat(auto-fill, minmax(var(--x-size-min-width-grid-item, 150px), 1fr))'
       };
     }
 

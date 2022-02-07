@@ -4,7 +4,6 @@ export { default as FacetsProvider } from './facets/facets-provider.vue';
 
 // Filters
 export { default as AllFilter } from './filters/all-filter.vue';
-export { default as BaseFilter } from './filters/base-filter.vue';
 export { default as EditableNumberRangeFilter } from './filters/editable-number-range-filter.vue';
 export { default as NumberRangeFilter } from './filters/number-range-filter.vue';
 export { default as HierarchicalFilter } from './filters/hierarchical-filter.vue';

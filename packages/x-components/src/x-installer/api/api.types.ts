@@ -11,6 +11,15 @@ import { WireMetadata } from '../../wiring/wiring.types';
  */
 export interface XAPI {
   /**
+   * To track that a product was added to the cart from PDP.
+   *
+   * @param productId - The id of the product added to cart.
+   *
+   * @remarks if no productId is provided, then the current page url will be used as id for
+   * getting the previously stored result information.
+   */
+  addProductToCart(productId?: string): void;
+  /**
    * To set the {@link XBus | bus} to the API. This bus will be used to emit the necessary
    * events.
    *
@@ -84,6 +93,8 @@ export interface SnippetConfig {
   callbacks?: XEventListeners;
   /** Flag determining if the page is a single page application or not. */
   isSpa?: boolean;
+  /** The id for the current product when product page is loaded. */
+  productId?: string;
   /** Any extra param to send in all backend calls. */
   [extra: string]: any;
 }

@@ -22,12 +22,11 @@ Start building your search and discovery experience in a few simple steps:
 
 :::
 
-- **Discover more about the
-  [Interface X ecosystem](/develop-empathy-platform/build-search-ui/README.md#the-interface-x-ecosystem)**
-  and how Interface&nbsp;X works.
-- **[Integrate the Interface X Components](/develop-empathy-platform/build-search-ui/README.md#integrate-x-components)**
-  in your store web application.
-- **[Use & configure the Interface X Components](/develop-empathy-platform/build-search-ui/README.md#use-configure-the-x-components)**
+- **Discover more about the [Interface X ecosystem](#the-interface-x-ecosystem)** and how
+  Interface&nbsp;X works.
+- **[Integrate the Interface X Components](#integrate-interface-x-components)** in your store web
+  application.
+- **[Use and configure the Interface X Components](#use-and-configure-the-interface-x-components)**
   in your project.
 
 <!-- 3. Style your UI. 4. Translate your search experience-->
@@ -43,7 +42,7 @@ numerous components to choose from, and the catalog evolves quickly with new exp
 Check out the **[open source project in GitHub](https://github.com/empathyco/x)**.
 
 Interested in learning more about how Interface&nbsp;X works? Discover more about its
-**[architecture](/develop-empathy-platform/build-search-ui/x-architecture/)**.
+**[architecture](./x-architecture/README.md)**.
 
 ## Integrate Interface X Components
 
@@ -54,7 +53,11 @@ You can use the X&nbsp;Components in a project in two ways:
 - integrating the individual **Interface&nbsp;X&nbsp;Components** library in your Vue project for a
   more custom approach.
 
-::: note You can use Empathy Search API, Elasticsearch, or Solr endpoints with both approaches. :::
+::: note
+
+You can use Empathy Search API, Elasticsearch, or Solr endpoints with both approaches.
+
+:::
 
 ##### Integration via Interface X Archetype project
 
@@ -90,7 +93,7 @@ go if you like to look under the hood!
 To get started with the X Components library, check out
 **[Integrate Interface X Components in your Vue application](web-x-components-integration-guide.md)**.
 
-## Use & configure the Interface X Components
+## Use and configure the Interface X Components
 
 Using the Interface&nbsp;X&nbsp;Components is a piece of cake! Just import and register the
 component, include it in your template, and you’re ready to go! What’s more, each component offers

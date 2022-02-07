@@ -3,6 +3,149 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.52](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.51...@empathyco/x-components@3.0.0-alpha.52) (2022-02-07)
+
+### Documentation
+
+- fix multiple broken links
+  ([226a2e5](https://github.com/empathyco/x/commit/226a2e54a4ed8832c7c47d26254e85c301913d98)),
+  closes [EX-5035](https://searchbroker.atlassian.net/browse/EX-5035)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.51](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.50...@empathyco/x-components@3.0.0-alpha.51) (2022-02-04)
+
+### Code Refactoring
+
+- change to the top of the wiring the ParamsLoadedFromUrl event.
+  ([26634c8](https://github.com/empathyco/x/commit/26634c8010bc4d2e795caceefc622c6329fad72c)),
+  closes [EX-5327](https://searchbroker.atlassian.net/browse/EX-5327)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.50](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.49...@empathyco/x-components@3.0.0-alpha.50) (2022-02-04)
+
+### Features
+
+- **design-system:** change curated tag toke values to reuse default ones.
+  ([2fd261a](https://github.com/empathyco/x/commit/2fd261ae54ec3de8eabdbcd5611bf5e1416d37f8)),
+  closes [EX-5354](https://searchbroker.atlassian.net/browse/EX-5354)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.49](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.48...@empathyco/x-components@3.0.0-alpha.49) (2022-02-03)
+
+### Continuous Integration
+
+- release alpha version on every push to main branch
+  ([f86e0b3](https://github.com/empathyco/x/commit/f86e0b3ad14e7a9bd6d659219fe12f6d94ebdb94)),
+  closes [EX-5263](https://searchbroker.atlassian.net/browse/EX-5263)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.48](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.47...@empathyco/x-components@3.0.0-alpha.48) (2022-02-02)
+
+### ⚠ BREAKING CHANGES
+
+- **facets:** Remove `BaseFilter` component. Use `RenderlessFilter`instead.
+
+### Features
+
+- **design-system:** add curated tags (#311)
+  ([9f40c2b](https://github.com/empathyco/x/commit/9f40c2b17eb08353efc964dba075470877eead46)),
+  closes [EX-5089](https://searchbroker.atlassian.net/browse/EX-5089)
+- **extra-params:** add option to add more extra params using a prop in `SnippetConfigExtraParams`
+  component
+  ([7f9f8b2](https://github.com/empathyco/x/commit/7f9f8b2a7d2a78ed5a101f6e005fffa4f20d3594)),
+  closes [EX-5205](https://searchbroker.atlassian.net/browse/EX-5205)
+- **facets:** change `NumberRangeFilter` component to use `RenderlessFilter` instead of `BaseFilter`
+  ([f0edfac](https://github.com/empathyco/x/commit/f0edfac14a184ed7fefd27e1c1e700848ada4471)),
+  closes [EX-3953](https://searchbroker.atlassian.net/browse/EX-3953)
+- update polyfills plugin to work with chunks
+  ([54c1842](https://github.com/empathyco/x/commit/54c18420011e5e452bd8b48d640cbd067d0ce921)),
+  closes [EX-5278](https://searchbroker.atlassian.net/browse/EX-5278)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.47](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.46...@empathyco/x-components@3.0.0-alpha.47) (2022-02-01)
+
+### Features
+
+- **components:** Add `payload` and `metadata` to the `SnippetCallbackExecuted` event payload
+  ([a18b8fa](https://github.com/empathyco/x/commit/a18b8fafcc7607fef82d3c9fb1211669f3bbc8a3)),
+  closes [EX-5324](https://searchbroker.atlassian.net/browse/EX-5324)
+- **components:** Allow `BaseResultAddToCart` to use external listeners.
+  ([a596c07](https://github.com/empathyco/x/commit/a596c07c1ead0e8d3fcf169afddaf15ad6d92e47)),
+  closes [EX-5323](https://searchbroker.atlassian.net/browse/EX-5323)
+- **EX-3539:** track PDP add to cart (#306)
+  ([dcad4f6](https://github.com/empathyco/x/commit/dcad4f69ce6b267960f882b3831459e372086272)),
+  closes [EX-3539](https://searchbroker.atlassian.net/browse/EX-3539)
+  [EX-3538](https://searchbroker.atlassian.net/browse/EX-3538)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.45...@empathyco/x-components@3.0.0-alpha.46) (2022-01-24)
+
+### Bug Fixes
+
+- **components:** Fix BaseGrid auto columns CSS. (#308)
+  ([77563f0](https://github.com/empathyco/x/commit/77563f0eb71d806fb2cefb88b750c4852918b8c0)),
+  closes [EX-5295](https://searchbroker.atlassian.net/browse/EX-5295)
+
+### Build System
+
+- Fix colors.js dependency issue
+  ([2ffcc22](https://github.com/empathyco/x/commit/2ffcc222f5666d7866c8d7cd3a0eec7c0bb1f938)),
+  closes [EX-5293](https://searchbroker.atlassian.net/browse/EX-5293)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.45](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.44...@empathyco/x-components@3.0.0-alpha.45) (2022-01-20)
+
+### Features
+
+- **design-system:** allow suggestions to be tags
+  ([24c94bb](https://github.com/empathyco/x/commit/24c94bb604f87a2135a36be5a298f053eba80738)),
+  closes [EX-4917](https://searchbroker.atlassian.net/browse/EX-4917)
+
+### Bug Fixes
+
+- **url:** default `extra params` are now properly restored
+  ([5540929](https://github.com/empathyco/x/commit/554092985a394e1d2b6087b1129282993da7e8c6)),
+  closes [EX-5203](https://searchbroker.atlassian.net/browse/EX-5203)
+
+### Testing
+
+- **e2e:** make `tagging` tests wait for redirection before assertion
+  ([f98cd25](https://github.com/empathyco/x/commit/f98cd254084f60893b1eb723d4081bf0c0f44166)),
+  closes [EX-5273](https://searchbroker.atlassian.net/browse/EX-5273)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.44](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.43...@empathyco/x-components@3.0.0-alpha.44) (2022-01-14)
 
 ### ⚠ BREAKING CHANGES

@@ -4,7 +4,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Watch, Inject } from 'vue-property-decorator';
+  import { Component, Watch, Inject, Prop } from 'vue-property-decorator';
   import { xComponentMixin } from '../../../components';
   import { Dictionary, forEach } from '../../../utils';
   import { SnippetConfig } from '../../../x-installer';
@@ -31,6 +31,14 @@
     public snippetConfig!: SnippetConfig;
 
     /**
+     * A Dictionary where the keys are the extra param names and its values.
+     *
+     * @public
+     */
+    @Prop()
+    protected values?: Dictionary<unknown>;
+
+    /**
      * Custom object containing the extra params from the snippet config.
      *
      * @remarks This object keeps manually the desired snippet config properties to avoid
@@ -45,7 +53,16 @@
      *
      * @internal
      */
-    protected notAllowedExtraParams: Array<keyof SnippetConfig> = ['callbacks'];
+    protected notAllowedExtraParams: Array<keyof SnippetConfig> = [
+      'callbacks',
+      'productId',
+      'instance',
+      'lang',
+      'searchLang',
+      'consent',
+      'documentDirection',
+      'currency'
+    ];
 
     /**
      * Updates the extraParams object when the snippet config changes.
@@ -55,17 +72,8 @@
      * @internal
      */
     @Watch('snippetConfig', { deep: true, immediate: true })
-    syncExtraParams({
-      instance,
-      scope,
-      lang,
-      searchLang,
-      consent,
-      documentDirection,
-      currency,
-      ...snippetExtraParams
-    }: SnippetConfig): void {
-      forEach(snippetExtraParams, (name, value) => {
+    syncExtraParams(snippetConfig: SnippetConfig): void {
+      forEach({ ...snippetConfig, ...this.values }, (name, value) => {
         if (this.notAllowedExtraParams.includes(name)) {
           return;
         }
