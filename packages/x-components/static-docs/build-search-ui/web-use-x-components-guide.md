@@ -54,9 +54,13 @@ Alternatively, you can **globally** register components in Vue directly in the `
 plan on using a component more than once in your app. By registering the components globally, you
 can use them in the template of any root Vue instance you create afterwards.
 
-::: develop Although you can register components globally, it should be done with caution as **it
-may impact future performance**. Remember if you register the components globally, the entire
-X&nbsp;Component module is loaded and registered each time this code line is run. :::
+::: develop
+
+Although you can register components globally, it should be done with caution as **it may impact
+future performance**. Remember if you register the components globally, the entire X&nbsp;Component
+module is loaded and registered each time this code line is run.
+
+:::
 
 ```typescript
 import { ComponentA, ComponentB, ComponentC } from './ModuleA';
@@ -113,8 +117,12 @@ The search-box module contains these components:
 - `SearchButton`
 - `ClearSearchInput`
 
-::: interact Learn more about the
-[Search Box UI](/explore-empathy-platform/experience-search-&-discovery/search-box.md) :::
+::: interact
+
+Learn more about the
+[Search Box UI](/explore-empathy-platform/experience-search-&-discovery/search-box.md)
+
+:::
 
 ### Importing the components from the search-box module
 
