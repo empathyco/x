@@ -1,4 +1,4 @@
-import { DevtoolsPluginApi, setupDevtoolsPlugin } from '@vue/devtools-api';
+import { setupDevtoolsPlugin } from '@vue/devtools-api';
 import Vue from 'vue';
 import { setupTimelinePlugin } from './timeline.devtools';
 import { setupWiringDevtools } from './wiring.devtools';
@@ -22,7 +22,7 @@ export function setupDevtools(app: Vue): void {
       enableEarlyProxy: true,
       app
     },
-    (api?: DevtoolsPluginApi<void>) => {
+    api => {
       if (api) {
         setupTimelinePlugin(api);
         setupWiringDevtools(api);

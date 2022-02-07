@@ -39,7 +39,7 @@ const TimelineLayers = [
     label: 'X miscellanea events'
   }
 ];
-const timelineLayerColor = hslToHex(329, 100, 50);
+
 /** Set containing the different layer ids. */
 const layerIds = new Set(TimelineLayers.map(layer => layer.id));
 
@@ -65,7 +65,7 @@ export function setupTimelinePlugin(api: DevtoolsPluginApi<void>): void {
     api.addTimelineLayer({
       id: layer.id,
       label: layer.label,
-      color: timelineLayerColor
+      color: hslToHex(329, 100, 50)
     })
   );
   api.on.inspectTimelineEvent(payload => {

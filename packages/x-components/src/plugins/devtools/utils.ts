@@ -1,6 +1,6 @@
 import { InspectorNodeTag } from '@vue/devtools-api';
-import { RootXStoreModule } from '../../store/x.module';
-import { NiladicFunction } from '../../utils/types';
+import { RootXStoreModule, XModuleState } from '../../store/x.module';
+import { map } from '../../utils/index';
 import { XModuleName } from '../../x-modules/x-modules.types';
 
 /** Unique text and background colors for each module. */
@@ -10,16 +10,24 @@ type ModuleColors = Record<XModuleName, Pick<InspectorNodeTag, 'textColor' | 'ba
  *
  * @internal
  */
-export const moduleColors: ModuleColors = Object.keys(
-  (RootXStoreModule.state as NiladicFunction)!()
-).reduce((colors, moduleName, index, keys) => {
-  const hue = Math.trunc((index * 360) / keys.length);
-  colors[moduleName as XModuleName] = {
-    textColor: hslToHex(hue, 25, 95),
-    backgroundColor: hslToHex(hue, 75, 40)
-  };
-  return colors;
-}, <ModuleColors>{});
+export const moduleColors = createModuleColors();
+
+/**
+ * Creates a dictionary with unique colors for each {@link XModule}.
+ *
+ * @returns A dictionary with unique text and background colors for every {@link XModule}.
+ */
+function createModuleColors(): ModuleColors {
+  const xState = (RootXStoreModule.state as () => XModuleState)();
+  const modulesCount = Object.keys(xState).length;
+  return map(xState, (moduleName, _, index) => {
+    const hue = Math.trunc((index * 360) / modulesCount);
+    return {
+      textColor: hslToHex(hue, 30, 97.5),
+      backgroundColor: hslToHex(hue, 80, 35)
+    };
+  });
+}
 
 /**
  * Transforms HSL values into a hex number.

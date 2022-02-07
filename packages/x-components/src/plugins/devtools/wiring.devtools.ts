@@ -1,4 +1,5 @@
 import { CustomInspectorNode, DevtoolsPluginApi, InspectorNodeTag } from '@vue/devtools-api';
+import { Dictionary } from '../../utils/index';
 import { forEach, reduce } from '../../utils/object';
 import { XEvent } from '../../wiring/events.types';
 import { filter } from '../../wiring/wires.operators';
@@ -42,44 +43,50 @@ export function setupWiringDevtools(api: DevtoolsPluginApi<void>): void {
     label: 'X-Components Wiring'
   });
   api.on.getInspectorTree(payload => {
-    if (payload.inspectorId === inspectorId) {
-      payload.rootNodes = reduce(
-        WiringNodes,
-        (nodes, event, eventWiring) => {
-          const children = payload.filter
-            ? eventWiring.filter(node =>
-                node.label.toLowerCase().includes(payload.filter.toLowerCase())
-              )
-            : eventWiring;
-          if (children.length) {
-            nodes.push({
-              id: event,
-              label: event,
-              children: children.map(wireNode => ({
-                ...wireNode,
-                tags: createWireTags(wireNode)
-              }))
-            });
-          }
-          return nodes;
-        },
-        <CustomInspectorNode[]>[]
-      );
+    if (payload.inspectorId !== inspectorId) {
+      return;
     }
+    const query = payload.filter.toLowerCase();
+    payload.rootNodes = reduce(
+      WiringNodes,
+      (nodes, event, eventWires) => {
+        const wiresNodes =
+          /* If there is no active search, or the event name includes the query, we include all the
+            available wires. */
+          !query || event.toLowerCase().includes(query)
+            ? eventWires
+            : eventWires.filter(node =>
+                node.label.toLowerCase().includes(payload.filter.toLowerCase())
+              );
+        if (wiresNodes.length) {
+          nodes.push({
+            id: event,
+            label: event,
+            children: wiresNodes.map(wireNode => ({
+              ...wireNode,
+              tags: createWireTags(wireNode)
+            }))
+          });
+        }
+        return nodes;
+      },
+      <CustomInspectorNode[]>[]
+    );
   });
 
   api.on.getInspectorState(payload => {
-    if (payload.inspectorId === inspectorId) {
-      payload.state = {
-        status: [
-          {
-            key: 'enabled',
-            value: WiresStatus[payload.nodeId],
-            editable: true
-          }
-        ]
-      };
+    if (payload.inspectorId !== inspectorId) {
+      return;
     }
+    payload.state = {
+      status: [
+        {
+          key: 'enabled',
+          value: WiresStatus[payload.nodeId],
+          editable: true
+        }
+      ]
+    };
   });
 
   api.on.editInspectorState(payload => {
@@ -99,12 +106,12 @@ export function setupWiringDevtools(api: DevtoolsPluginApi<void>): void {
  */
 export function sendWiringToDevtools(module: XModuleName, wiring: Partial<Wiring>): void {
   if (process.env.NODE_ENV !== 'production') {
-    forEach(wiring, (event, wires) => {
+    forEach(wiring, (event, wires: Dictionary<AnyWire>) => {
       const eventWiring = WiringNodes[event] ?? (WiringNodes[event] = []);
       forEach(wires, (wireName, wire) => {
         const id = `${module}-${event}-${wireName}`;
         WiresStatus[id] = true;
-        wires[wireName] = filter(wire as AnyWire, () => WiresStatus[id]);
+        wires[wireName] = filter(wire, () => WiresStatus[id]);
         eventWiring.push({
           id,
           label: wireName,
