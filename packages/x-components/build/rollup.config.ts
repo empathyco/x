@@ -78,7 +78,14 @@ export const rollupConfig = createRollupOptions({
         ]
       }
     }),
-    styles({}),
+    styles({
+      mode: [
+        'inject',
+        (varname: string, id: string) =>
+          // eslint-disable-next-line max-len
+          `import {createInjector} from 'vue-runtime-helpers';const injector=createInjector({});injector('${id}',{source:${varname}})`
+      ]
+    }),
     vue({
       css: true,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
