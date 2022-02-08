@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.14...@empathyco/x-types@10.0.0-alpha.15) (2022-02-08)
+
+### Build System
+
+- Fix colors.js dependency issue
+  ([2ffcc22](https://github.com/empathyco/x/commit/2ffcc222f5666d7866c8d7cd3a0eec7c0bb1f938)),
+  closes [EX-5293](https://searchbroker.atlassian.net/browse/EX-5293)
+
+### Continuous Integration
+
+- update rollup and plugins version
+  ([d240f3d](https://github.com/empathyco/x/commit/d240f3de8bc3e226d0bd8ac2d9bd4282cc660b86)),
+  closes [EX-5342](https://searchbroker.atlassian.net/browse/EX-5342)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [10.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.13...@empathyco/x-types@10.0.0-alpha.14) (2021-12-29)
 
 ### Features
