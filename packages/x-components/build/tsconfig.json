@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "target": "es6",
+    "target": "es2020",
     "module": "commonjs",
     "strict": true,
     "jsx": "preserve",
@@ -15,9 +15,7 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "baseUrl": ".",
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "paths": {},
     "lib": ["esnext", "dom", "scripthost"]
   },
