@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.9...@empathyco/x-adapter@7.0.0-alpha.10) (2022-02-08)
+
+### Build System
+
+- Fix colors.js dependency issue
+  ([2ffcc22](https://github.com/empathyco/x/commit/2ffcc222f5666d7866c8d7cd3a0eec7c0bb1f938)),
+  closes [EX-5293](https://searchbroker.atlassian.net/browse/EX-5293)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [7.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.8...@empathyco/x-adapter@7.0.0-alpha.9) (2021-12-29)
 
 ### Features

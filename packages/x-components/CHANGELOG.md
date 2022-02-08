@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.53](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.52...@empathyco/x-components@3.0.0-alpha.53) (2022-02-08)
+
+### Continuous Integration
+
+- update rollup and plugins version
+  ([d240f3d](https://github.com/empathyco/x/commit/d240f3de8bc3e226d0bd8ac2d9bd4282cc660b86)),
+  closes [EX-5342](https://searchbroker.atlassian.net/browse/EX-5342)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.52](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.51...@empathyco/x-components@3.0.0-alpha.52) (2022-02-07)
 
 ### Documentation
