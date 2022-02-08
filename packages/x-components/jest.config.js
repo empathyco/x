@@ -1,7 +1,8 @@
 module.exports = {
   preset: 'ts-jest',
   transform: {
-    '^.+\\.vue$': '@vue/vue2-jest'
+    '^.+\\.vue$': '@vue/vue2-jest',
+    '^.+\\.scss$': 'jest-scss-transform'
   },
   testMatch: ['<rootDir>/src/**/*.spec.ts'],
   setupFilesAfterEnv: ['./jest.setup.ts'],

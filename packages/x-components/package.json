@@ -104,6 +104,7 @@
     "cypress-plugin-tab": "~1.0.5",
     "glob": "~7.1.6",
     "jest": "~27.3.1",
+    "jest-scss-transform": "~1.0.1",
     "postcss-dir-pseudo-class": "~5.0.0",
     "postcss-logical": "~4.0.2",
     "rimraf": "~3.0.2",
