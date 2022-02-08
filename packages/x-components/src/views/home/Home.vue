@@ -63,18 +63,20 @@
               x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand
             "
           >
-            <div class="x-input-group x-input-group--card">
-              <SearchInput
-                aria-label="Search for products"
-                placeholder="Search"
-                :instant="controls.searchInput.instant"
-                :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
-              />
-              <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-              <SearchButton aria-label="Search" class="x-input-group__action">
-                <SearchIcon />
-              </SearchButton>
-            </div>
+            <BaseKeyboardNavigation>
+              <div class="x-input-group x-input-group--card">
+                <SearchInput
+                  aria-label="Search for products"
+                  placeholder="Search"
+                  :instant="controls.searchInput.instant"
+                  :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
+                />
+                <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
+                <SearchButton aria-label="Search" class="x-input-group__action">
+                  <SearchIcon />
+                </SearchButton>
+              </div>
+            </BaseKeyboardNavigation>
 
             <!-- Spellcheck -->
             <Spellcheck>
@@ -451,6 +453,7 @@
   import LightBulbOn from '../../components/icons/light-bulb-on.vue';
   import Nq1 from '../../components/icons/nq-1.vue';
   import SearchIcon from '../../components/icons/search.vue';
+  import { BaseKeyboardNavigation } from '../../components/index';
   // eslint-disable-next-line max-len
   import MultiColumnMaxWidthLayout from '../../components/layouts/multi-column-max-width-layout.vue';
   import LocationProvider from '../../components/location-provider.vue';
@@ -531,6 +534,7 @@
       BaseHeaderTogglePanel,
       BaseIdTogglePanel,
       BaseIdTogglePanelButton,
+      BaseKeyboardNavigation,
       BasePriceFilterLabel,
       BaseResultImage,
       BaseSuggestions,
