@@ -36,8 +36,12 @@ export class BeaconTrackingRequestor implements Requestor<TrackingRequest, void>
   }
 }
 
-function detectAdblock(): Promise<Response> {
+function detectAdblock(): Promise<Response | void> {
   const flaggedURL = 'https://google.com/pagead/js/adsbygoogle.js';
+
+  if (!fetch) {
+    return Promise.resolve();
+  }
 
   return fetch(
     new Request(flaggedURL, {
