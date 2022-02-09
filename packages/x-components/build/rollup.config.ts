@@ -1,5 +1,4 @@
 import path from 'path';
-import buble from '@rollup/plugin-buble';
 import commonjs from '@rollup/plugin-commonjs';
 import { sync as glob } from 'glob';
 import { RollupOptions } from 'rollup';
@@ -67,7 +66,8 @@ export const rollupConfig = createRollupOptions({
       tsconfig: path.resolve(rootDir, 'tsconfig.json'),
       tsconfigOverride: {
         compilerOptions: {
-          declarationDir: typesOutputDirectory
+          declarationDir: typesOutputDirectory,
+          target: 'es2020'
         },
         exclude: [
           'node_modules',
@@ -93,17 +93,9 @@ export const rollupConfig = createRollupOptions({
       // lang is set to ts:
       // https://github.com/vuejs/rollup-plugin-vue/issues/272#issuecomment-491721842
       needMap: false,
-      /* Replace the component normalizer because the default one outputs ES6 code:
-       * https://github.com/vuejs/rollup-plugin-vue/issues/262#issuecomment-655966620 */
-      normalizer: '~vue-runtime-helpers/dist/normalize-component.js',
-      /* Replace the component style injector because the default one outputs ES6 code */
-      styleInjector: '~vue-runtime-helpers/dist/inject-style/browser.js',
       style: {
         postcssPlugins: postcssConfig.plugins
       }
-    }),
-    buble({
-      include: '**/*.vue'
     }),
     generateEntryFiles({
       buildPath,
