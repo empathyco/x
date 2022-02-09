@@ -1,5 +1,4 @@
 import Vue, { VueConstructor } from 'vue';
-import { capitalize } from '../../utils/string';
 
 /**
  * Abstract Factory to create animations Factory. The returned animation factory uses the
@@ -15,7 +14,7 @@ export function createDirectionalAnimationFactory(
 ): (animationOrigin?: AnimationOrigin) => VueConstructor {
   return (animationOrigin = 'top') => {
     return Vue.extend({
-      name: `Transition${capitalize(animationName)}${capitalize(animationOrigin)}`,
+      name: `transition-${animationName}-${animationOrigin}`,
       render(h) {
         return h(
           'transition',

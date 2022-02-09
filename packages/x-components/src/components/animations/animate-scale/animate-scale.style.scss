@@ -1,3 +1,5 @@
+@use "sass:math" as *;
+
 .x-animate-scale {
   $p: &;
 
@@ -63,8 +65,8 @@
 $steps: 18;
 @keyframes containerAnimationY {
   @for $step from 0 through $steps {
-    $scale: easeInOut($step / $steps);
-    #{$step * (100/$steps)}% {
+    $scale: easeInOut(div($step, $steps));
+    #{$step * div(100, $steps)}% {
       transform: scaleY(#{$scale});
     }
   }
@@ -72,9 +74,9 @@ $steps: 18;
 
 @keyframes contentAnimationY {
   @for $step from 0 through $steps {
-    $scale: easeInOut($step / $steps);
-    $invScale: if($scale > 0, 1 / $scale, 99999999);
-    #{$step * (100/$steps)}% {
+    $scale: easeInOut(div($step, $steps));
+    $invScale: if($scale > 0, div(1, $scale), 99999999);
+    #{$step * div(100, $steps)}% {
       transform: scaleY(#{$invScale});
     }
   }
@@ -82,8 +84,8 @@ $steps: 18;
 
 @keyframes containerAnimationX {
   @for $step from 0 through $steps {
-    $scale: easeInOut($step / $steps);
-    #{$step * (100/$steps)}% {
+    $scale: easeInOut(div($step, $steps));
+    #{$step * div(100, $steps)}% {
       transform: scaleX(#{$scale});
     }
   }
@@ -91,9 +93,9 @@ $steps: 18;
 
 @keyframes contentAnimationX {
   @for $step from 0 through $steps {
-    $scale: easeInOut($step / $steps);
-    $invScale: if($scale > 0, 1 / $scale, 99999999);
-    #{$step * (100/$steps)}% {
+    $scale: easeInOut(div($step, $steps));
+    $invScale: if($scale > 0, div(1, $scale), 99999999);
+    #{$step * div(100, $steps)}% {
       transform: scaleX(#{$invScale});
     }
   }
