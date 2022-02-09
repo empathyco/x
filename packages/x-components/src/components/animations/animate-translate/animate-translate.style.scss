@@ -5,7 +5,7 @@
   &--leave-active {
     transition: transform var(--x-duration-animation, 0.3s) ease-out;
   }
-  $p: &;
+
   &--enter,
   &--leave-to {
     &#{$p}--top {

@@ -60,40 +60,40 @@
     @return 1 - (8 * $x * $x * $x * $x);
   }
 }
-
+$steps: 18;
 @keyframes containerAnimationY {
-  @for $step from 0 through 100 {
-    $scale: easeInOut($step / 100);
-    #{$step}% {
+  @for $step from 0 through $steps {
+    $scale: easeInOut($step / $steps);
+    #{$step * (100/$steps)}% {
       transform: scaleY(#{$scale});
     }
   }
 }
 
 @keyframes contentAnimationY {
-  @for $step from 0 through 100 {
-    $scale: easeInOut($step / 100);
+  @for $step from 0 through $steps {
+    $scale: easeInOut($step / $steps);
     $invScale: if($scale > 0, 1 / $scale, 99999999);
-    #{$step}% {
+    #{$step * (100/$steps)}% {
       transform: scaleY(#{$invScale});
     }
   }
 }
 
 @keyframes containerAnimationX {
-  @for $step from 0 through 100 {
-    $scale: easeInOut($step / 100);
-    #{$step}% {
+  @for $step from 0 through $steps {
+    $scale: easeInOut($step / $steps);
+    #{$step * (100/$steps)}% {
       transform: scaleX(#{$scale});
     }
   }
 }
 
 @keyframes contentAnimationX {
-  @for $step from 0 through 100 {
-    $scale: easeInOut($step / 100);
+  @for $step from 0 through $steps {
+    $scale: easeInOut($step / $steps);
     $invScale: if($scale > 0, 1 / $scale, 99999999);
-    #{$step}% {
+    #{$step * (100/$steps)}% {
       transform: scaleX(#{$invScale});
     }
   }

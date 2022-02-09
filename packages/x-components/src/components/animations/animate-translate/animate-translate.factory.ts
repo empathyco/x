@@ -1,5 +1,5 @@
 import './animate-translate.style.scss';
-import { animationAbstractFactory } from '../animation.abstract-factory';
+import { createDirectionalAnimationFactory } from '../create-directional-animation-factory';
 
 /**
  * Returns a transition component to wrap an element passed in the default slot and animating its
@@ -12,4 +12,4 @@ import { animationAbstractFactory } from '../animation.abstract-factory';
  *
  * @public
  */
-export const animateTranslate = animationAbstractFactory('animate-translate');
+export const animateTranslate = createDirectionalAnimationFactory('animate-translate');

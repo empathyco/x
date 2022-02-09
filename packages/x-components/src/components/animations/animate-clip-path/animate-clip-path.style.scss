@@ -1,23 +1,23 @@
 .x-animate-clip-path {
   &--enter-active,
   &--leave-active {
-    transition: clip-path var(--x-duration-animation, 0.3s) ease-out;
-    clip-path: inset(0 0 0 0);
+    transition: clip-path var(--x-duration-animation-clip-path, 0.3s) ease-out;
+    clip-path: inset(0 0 0 0 round var(--x-size-border-radius-animation, 0));
   }
   $p: &;
   &--enter,
   &--leave-to {
     &#{$p}--top {
-      clip-path: inset(0 0 100% 0);
+      clip-path: inset(0 0 100% 0 round var(--x-size-border-radius-animation-clip-path, 0));
     }
     &#{$p}--bottom {
-      clip-path: inset(100% 0 0 0);
+      clip-path: inset(100% 0 0 0 round var(--x-size-border-radius-animation-clip-path, 0));
     }
     &#{$p}--left {
-      clip-path: inset(0 100% 0 0);
+      clip-path: inset(0 100% 0 0 round var(--x-size-border-radius-animation-clip-path, 0));
     }
     &#{$p}--right {
-      clip-path: inset(0 0 0 100%);
+      clip-path: inset(0 0 0 100% round var(--x-size-border-radius-animation-clip-path, 0));
     }
   }
 }
