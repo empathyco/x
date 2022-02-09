@@ -1,5 +1,6 @@
 name: Check branch is releasable and release alpha on main branch update
 on: [push, pull_request]
+concurrency: ${{ github.workflow }}-${{ github.ref_name }}
 jobs:
   build:
     runs-on: ubuntu-latest
