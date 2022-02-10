@@ -8,23 +8,27 @@ import { Requestor } from '../empathy-adapter.types';
  * @public
  */
 @injectable()
-export class BeaconTrackingRequestor implements Requestor<TrackingRequest, void> {
-  constructor() {
-    this.detectAdblock()
-      .then(() => (this.isAdblockPresent = false))
-      .catch(() => (this.isAdblockPresent = true));
-  }
-
+export class BeaconTrackingRequestor implements Requestor<TrackingRequest, Response | void> {
   private isAdblockPresent = false;
 
-  request(trackingRequest: TrackingRequest): Promise<void> {
+  constructor() {
+    this.detectAdblock()
+      .then(() => {
+        this.isAdblockPresent = false;
+      })
+      .catch(() => {
+        this.isAdblockPresent = true;
+      });
+  }
+
+  request(trackingRequest: TrackingRequest): Promise<Response | void> {
     const url = this.buildUrl(trackingRequest);
 
     if (!this.isAdblockPresent && navigator.sendBeacon(url)) {
       return Promise.resolve();
     } else {
       if (this.isAdblockPresent) {
-        fetch(url);
+        return fetch(url);
       }
       return Promise.reject('Beacon not queued');
     }
