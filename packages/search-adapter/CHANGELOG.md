@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.10...@empathyco/x-adapter@7.0.0-alpha.11) (2022-02-10)
+
+### Features
+
+- **search-adapter:** detect adblockers and use fetch instead of beacon for tracking
+  ([ea6970f](https://github.com/empathyco/x/commit/ea6970f1e6411c3d432fe7a424845800c1b85d16)),
+  closes [EX-5372](https://searchbroker.atlassian.net/browse/EX-5372)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [7.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.9...@empathyco/x-adapter@7.0.0-alpha.10) (2022-02-08)
 
 ### Build System

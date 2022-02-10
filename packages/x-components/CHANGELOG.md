@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.55](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.54...@empathyco/x-components@3.0.0-alpha.55) (2022-02-10)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.54](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.53...@empathyco/x-components@3.0.0-alpha.54) (2022-02-09)
+
+### ⚠ BREAKING CHANGES
+
+- **components:** Removed `CollapseFromTop` Animation. Use `animateScale()` instead.
+- **components:** Removed `TranslateFromLeft` and `TranslateFromRight` components. Use
+  `animateTranslate('left')` and `animateTranslate('right')` instead.
+
+### Features
+
+- **components:** created abstract factory for animations
+  ([a6120c1](https://github.com/empathyco/x/commit/a6120c135f93e5993f8d41b2b823085a2bf3d291)),
+  closes [EX-5355](https://searchbroker.atlassian.net/browse/EX-5355)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.53](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.52...@empathyco/x-components@3.0.0-alpha.53) (2022-02-08)
 
 ### Continuous Integration
