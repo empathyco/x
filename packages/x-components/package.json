@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-components",
-  "version": "3.0.0-alpha.54",
+  "version": "3.0.0-alpha.55",
   "description": "Empathy X Components",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -58,7 +58,7 @@
     "cypress:open:component": "cypress open-ct"
   },
   "dependencies": {
-    "@empathyco/x-adapter": "^7.0.0-alpha.10",
+    "@empathyco/x-adapter": "^7.0.0-alpha.11",
     "@empathyco/x-deep-merge": "^1.3.0-alpha.1",
     "@empathyco/x-logger": "^1.2.0-alpha.1",
     "@empathyco/x-storage-service": "^2.0.0-alpha.0",
