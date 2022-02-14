@@ -29,6 +29,7 @@ function getElementBy(facetName: string): Cypress.Chainable<JQuery<HTMLElement>>
 }
 
 // Init
+
 Given('no special config for layout view', () => {
   cy.visit('/?useMockedAdapter=true');
 });

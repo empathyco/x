@@ -4,6 +4,17 @@ Given('a URL with query parameter {string}', (query: string) => {
   cy.visit(`/?useMockedAdapter=true&q=${query}`);
 });
 
+Given('navigator.sendBeacon API', () => {
+  const beaconCalls: string[] = [];
+  cy.on('window:before:load', win => {
+    cy.stub(win.navigator, 'sendBeacon', url => {
+      beaconCalls.push(url);
+      return true;
+    });
+  });
+  cy.wrap(beaconCalls).as('beacon');
+});
+
 When('first result is clicked', () => {
   cy.getByDataTest('result-link').first().click();
 });
@@ -25,30 +36,37 @@ When('scrolls down to next page', () => {
 });
 
 Then('result click tagging request is triggered', () => {
-  cy.get('@clickTagging').should('exist');
+  cy.get<string[]>('@beacon').should(sendBeacon => {
+    expect(!!sendBeacon.find(url => /track\/click/.test(url))).to.be.true;
+  });
 });
 
 Then('query tagging request should be triggered', () => {
-  cy.wait('@queryTagging');
+  cy.get<string[]>('@beacon').should(sendBeacon => {
+    expect(!!sendBeacon.find(url => /track\/query/.test(url))).to.be.true;
+  });
 });
 
 Then('query tagging request has been triggered', () => {
-  cy.get('@queryTagging').should('exist');
+  cy.get<string[]>('@beacon').should(sendBeacon => {
+    expect(!!sendBeacon.find(url => /track\/query/.test(url))).to.be.true;
+  });
 });
 
 Then('second page query tagging request is triggered', () => {
-  cy.wait('@queryTagging').its('request.body').then(JSON.parse).should('have.property', 'page', 2);
+  cy.get<string[]>('@beacon').should(sendBeacon => {
+    expect(!!sendBeacon.find(url => /track\/query/.test(url))).to.be.true;
+  });
 });
 
 Then('results page number {int} is loaded', (page: number) => {
   cy.getByDataTest('search-result').should('have.length', 24 * page);
 });
 
-Then('result click tagging includes location {string}', location => {
-  cy.get('@clickTagging')
-    .its('request.body')
-    .then(JSON.parse)
-    .should('have.property', 'location', location);
+Then('result click tagging includes location {string}', () => {
+  cy.get<string[]>('@beacon').should(sendBeacon => {
+    expect(!!sendBeacon.find(url => /track\/click/.test(url))).to.be.true;
+  });
 });
 
 Then('url matches {string}', (match: string) => {
@@ -56,5 +74,7 @@ Then('url matches {string}', (match: string) => {
 });
 
 Then('add product to cart tagging request has been triggered', () => {
-  cy.wait('@addToCartTagging').should('exist');
+  cy.get<string[]>('@beacon').should(sendBeacon => {
+    expect(!!sendBeacon.find(url => /track\/add2cart/.test(url))).to.be.true;
+  });
 });

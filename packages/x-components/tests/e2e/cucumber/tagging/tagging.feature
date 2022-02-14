@@ -5,9 +5,7 @@ Feature: Tagging component
     And   a suggestions API
     And   a related tags API
     And   a recommendations API with a known response
-    And   a query tagging API
-    And   a click tagging API
-    And   an add to cart tagging API
+    And navigator.sendBeacon API
 
   Scenario: 1. Navigating to a URL with a query triggers the query tagging.
     Given a results API with a known response
@@ -84,5 +82,5 @@ Feature: Tagging component
     When  start button is clicked
     And   "lego" is searched
     And   first result is clicked
-    When   pdp add to cart button is clicked
+    When  pdp add to cart button is clicked
     Then  add product to cart tagging request has been triggered
