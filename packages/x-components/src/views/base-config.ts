@@ -11,7 +11,10 @@ export const baseSnippetConfig: SnippetConfig = {
 
 const url = new URL(location.href);
 
-const adapter = url.searchParams.has('useMockedAdapter') ? (mockedAdapter as any) : realAdapter;
+const adapter =
+  url.searchParams.get('useMockedAdapter') === 'true' || 'Cypress' in window
+    ? mockedAdapter
+    : realAdapter;
 
 const xModulesURLConfig = JSON.parse(new URL(location.href).searchParams.get('xModules') ?? '{}');
 

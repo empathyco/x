@@ -138,3 +138,29 @@ export function getNewAndUpdatedKeys<ObjectType extends Dictionary>(
 
   return Object.keys(newValue).filter(key => !(key in oldValue) || newValue[key] !== oldValue[key]);
 }
+
+/**
+ * Ensures that the given condition is met in all the entries of the object.
+ *
+ * @param object - The object to check if every item meets the given condition.
+ * @param condition - The condition to check in each one of the entries of the object.
+ *
+ * @returns True when all the entries pass the condition. False otherwise.
+ * @public
+ */
+export function every<ObjectType extends Dictionary>(
+  object: ObjectType,
+  condition: (
+    key: keyof ObjectType,
+    value: Exclude<ObjectType[keyof ObjectType], undefined>,
+    index: number
+  ) => boolean
+): boolean {
+  return reduce(
+    object,
+    (paramsMatch, key, value, index) => {
+      return !paramsMatch || condition(key, value, index);
+    },
+    true as boolean
+  );
+}

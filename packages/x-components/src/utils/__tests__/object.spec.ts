@@ -1,4 +1,4 @@
-import { cleanUndefined, forEach, getNewAndUpdatedKeys, map, reduce } from '../object';
+import { cleanUndefined, every, forEach, getNewAndUpdatedKeys, map, reduce } from '../object';
 import { Dictionary } from '../types';
 
 class Person {
@@ -391,6 +391,16 @@ describe('testing object utils', () => {
       const oldValue = { a: 1, b: 'potatoe' };
 
       expect(getNewAndUpdatedKeys(newValue, oldValue)).toEqual(['c']);
+    });
+  });
+
+  describe('every', () => {
+    it('returns true when every entry of the given object passes the condition', () => {
+      expect(every({ a: 1, b: 2 }, (_key, value) => typeof value === 'number')).toBe(true);
+    });
+
+    it('returns false when every entry of the given object passes the condition', () => {
+      expect(every({ a: 1, b: '2' }, (_key, value) => typeof value === 'number')).toBe(false);
     });
   });
 });

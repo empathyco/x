@@ -71,9 +71,9 @@ class E2ETestsAdapter extends EmpathyAdapter {
   }
 
   track(request: TrackingRequest): Promise<void> {
-    return navigator.sendBeacon(request.url, JSON.stringify(request.params))
+    return navigator.sendBeacon(request.url, JSON.stringify(request.params ?? {}))
       ? Promise.resolve()
-      : Promise.reject();
+      : Promise.reject('sendBeacon rejected');
   }
 
   searchById(request: SearchByIdRequest): Promise<SearchByIdResponse> {

@@ -295,12 +295,9 @@
           <Redirection
             #default="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
             class="x-margin--top-03 x-margin--bottom-03"
-            delayInSeconds="5"
+            :delayInSeconds="5"
           >
-            <p>
-              Your search matches a special place in our website, to visit it, your are being
-              redirected
-            </p>
+            <p>Your search matches a special place in our website. You are being redirected to:</p>
             <a @click="redirect" :href="redirection.url" data-test="redirection-link">
               {{ redirection.url }}
             </a>
