@@ -70,7 +70,7 @@ Then('add product to cart tagging request has been triggered', () => {
 });
 
 /**
- * Waits before performing the next iteration to ensure that the {@link XEvent}s quey has
+ * Waits before performing the next iteration to ensure that the {@link XEvent}s queue has
  * been correctly processed.
  */
 function slowInteraction(): void {
