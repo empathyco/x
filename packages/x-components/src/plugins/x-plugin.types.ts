@@ -20,6 +20,7 @@ import { StoreEmitters } from '../store/utils/store-emitters.utils';
 import { DeepPartial, PropsWithType } from '../utils';
 import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
 import { WireMetadata, Wiring } from '../wiring/wiring.types';
+import { ScrollComponentState } from '../x-modules/scroll/index';
 import { AnyXModule, ExtractState, XModuleName, XModulesTree } from '../x-modules/x-modules.types';
 import { XBus } from './x-bus.types';
 
@@ -113,6 +114,8 @@ export interface XComponentAliasAPI {
   readonly redirections: ReadonlyArray<Redirection>;
   /** The {@link RelatedTagsXModule} related tags (Both selected and deselected). */
   readonly relatedTags: ReadonlyArray<RelatedTag>;
+  /** The {@link ScrollXModule} data state. */
+  readonly scroll: Record<string, ScrollComponentState>;
   /** The {@link FacetsXModule} selected filters. */
   readonly selectedFilters: Filter[];
   /** The {@link RelatedTagsXModule} selected related tags. */
