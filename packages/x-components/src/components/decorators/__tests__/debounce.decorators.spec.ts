@@ -80,6 +80,19 @@ describe('testing debounce decorator', () => {
     jest.advanceTimersByTime(defaultDebounceTime);
     expect(mockedDebouncedFunction).toHaveBeenCalledWith(mockedArgument);
   });
+
+  it('cancels pending debounced execution when the component is destroyed', () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    const { component, debounceTest, mockedDebouncedFunction } =
+      renderDebounceDecoratorComponent(defaultDebounceTime);
+
+    debounceTest();
+    expect(mockedDebouncedFunction).not.toHaveBeenCalled();
+
+    component.destroy();
+    jest.advanceTimersByTime(defaultDebounceTime);
+    expect(mockedDebouncedFunction).not.toHaveBeenCalled();
+  });
 });
 
 interface DebounceDecoratorComponentAPI {

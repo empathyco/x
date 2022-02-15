@@ -5,6 +5,8 @@ import { AnyFunction, DebounceOptions, DecoratorFor } from '../../utils/types';
 /**
  * Adds debounce to the method that the decorator is applied to.
  *
+ * @remarks Pending debounced execution is cancelled when the component is destroyed.
+ *
  * @param debounceTimeInMs - The time of debounce in ms.
  * @param debounceOptions - The options for the debounce strategy.
  *
@@ -27,5 +29,14 @@ export function Debounce(
     options.methods![key] = function debouncedWrapper(...args: unknown[]) {
       debouncedMethod(this, args);
     };
+
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    const originalBeforeDestroy = options.beforeDestroy;
+    Object.assign(options, {
+      beforeDestroy(this: Vue) {
+        originalBeforeDestroy?.apply(this);
+        debouncedMethod.cancel();
+      }
+    });
   });
 }
