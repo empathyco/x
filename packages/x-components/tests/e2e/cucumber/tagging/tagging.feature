@@ -5,7 +5,7 @@ Feature: Tagging component
     And   a suggestions API
     And   a related tags API
     And   a recommendations API with a known response
-    And a navigator.sendBeacon API
+    And   a tracking API with a known response
 
   Scenario: 1. Navigating to a URL with a query triggers the query tagging.
     Given a results API with a known response
