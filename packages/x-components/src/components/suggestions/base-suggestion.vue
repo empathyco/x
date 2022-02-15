@@ -68,6 +68,14 @@
     protected suggestionSelectedEvents!: Partial<XEventsTypes>;
 
     /**
+     * Indicates if the curated suggestion should be highlighted.
+     *
+     * @public
+     */
+    @Prop({ default: false, type: Boolean })
+    protected highlightCurated!: boolean;
+
+    /**
      * The event handler that will be triggered when clicking on a suggestion.
      *
      * @remarks
@@ -112,6 +120,17 @@
     }
 
     /**
+     * Checks if the suggestion is curated and if it should be highlighted.
+     *
+     * @returns True if the suggestion is curated and should be highlighted.
+     *
+     * @internal
+     */
+    protected get shouldHighlightCurated(): boolean {
+      return this.highlightCurated && (this.suggestion.isCurated ?? false);
+    }
+
+    /**
      * Generates css classes dynamically.
      *
      * @remarks
@@ -122,7 +141,8 @@
      */
     protected get dynamicCSSClasses(): VueCSSClasses {
       return {
-        'x-suggestion--matching': this.hasMatchingQuery
+        'x-suggestion--matching': this.hasMatchingQuery,
+        'x-suggestion--is-curated': this.shouldHighlightCurated,
       };
     }
 

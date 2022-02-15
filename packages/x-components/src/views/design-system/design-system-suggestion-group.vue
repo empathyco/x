@@ -152,17 +152,58 @@
         </div>
       </div>
     </article>
+    <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
+      <h2 class="x-title2">Curated</h2>
+
+      <div class="x-suggestion-group">
+        <div class="x-suggestion x-suggestion--is-curated">
+          <CuratedCheck />
+          <span class="x-suggestion__query">Suggestion</span>
+        </div>
+        <button class="x-button">
+          <CrossIcon />
+        </button>
+      </div>
+
+      <div class="x-suggestion-group">
+        <div class="x-suggestion x-suggestion--is-curated x-suggestion--matching">
+          <CuratedCheck />
+          <span class="x-suggestion__query">
+            Suggestion
+            <span class="x-suggestion__matching-part">Query</span>
+          </span>
+        </div>
+        <button class="x-button">
+          <CrossIcon />
+        </button>
+      </div>
+
+      <div class="x-suggestion-group">
+        <button class="x-button">
+          <CrossIcon />
+        </button>
+        <div class="x-suggestion x-suggestion--is-curated x-suggestion--matching">
+          <span class="x-suggestion__query">
+            Suggestion extra large name
+            <span class="x-suggestion__matching-part">Query</span>
+          </span>
+          <CuratedCheck />
+        </div>
+      </div>
+    </article>
   </section>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import CuratedCheck from '../../components/icons/curated-check.vue';
   import CrossIcon from '../../components/icons/cross.vue';
   import SearchIcon from '../../components/icons/search.vue';
 
   @Component({
     components: {
+      CuratedCheck,
       CrossIcon,
       SearchIcon
     }
