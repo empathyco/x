@@ -98,18 +98,18 @@
       // color
       color: var(--x-color-text-suggestion-matching-part-default-curated);
     }
-  }
 
-  &.x-suggestion--is-curated.x-suggestion--matching {
-    // typography
-    --x-font-family-suggestion-default-curated: var(--x-font-family-suggestion-default-matching-curated);
-    --x-size-font-suggestion-default-curated: var(--x-size-font-suggestion-default-matching-curated);
-    --x-size-line-height-suggestion-default-curated: var(--x-size-line-height-suggestion-default-matching-curated);
-    --x-number-font-weight-suggestion-default-curated: var(
-                    --x-number-font-weight-suggestion-default-matching-curated
-    );
+    &.x-suggestion--matching {
+      // typography
+      --x-font-family-suggestion-default-curated: var(--x-font-family-suggestion-default-matching-curated);
+      --x-size-font-suggestion-default-curated: var(--x-size-font-suggestion-default-matching-curated);
+      --x-size-line-height-suggestion-default-curated: var(--x-size-line-height-suggestion-default-matching-curated);
+      --x-number-font-weight-suggestion-default-curated: var(
+                      --x-number-font-weight-suggestion-default-matching-curated
+      );
 
-    // color
-    --x-color-text-suggestion-default-curated: var(--x-color-text-suggestion-default-matching-curated);
+      // color
+      --x-color-text-suggestion-default-curated: var(--x-color-text-suggestion-default-matching-curated);
+    }
   }
 }

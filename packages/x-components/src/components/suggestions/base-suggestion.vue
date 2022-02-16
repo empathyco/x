@@ -127,7 +127,7 @@
      * @internal
      */
     protected get shouldHighlightCurated(): boolean {
-      return this.highlightCurated && (this.suggestion.isCurated ?? false);
+      return this.highlightCurated && !!this.suggestion.isCurated;
     }
 
     /**

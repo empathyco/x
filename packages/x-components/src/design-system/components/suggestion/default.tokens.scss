@@ -8,12 +8,13 @@
   --x-color-text-suggestion-default-matching: var(--x-color-text-suggestion-default);
   --x-color-background-suggestion-default: transparent;
   --x-color-border-suggestion-default: var(--x-color-text-suggestion-default);
+
   // color curated
-  --x-color-text-suggestion-default-curated: var(--x-color-text-default);
-  --x-color-text-suggestion-matching-part-default-curated: var(--x-color-base-neutral-35);
-  --x-color-text-suggestion-default-matching-curated: var(--x-color-text-suggestion-default);
-  --x-color-background-suggestion-default-curated: transparent;
-  --x-color-border-suggestion-default-curated: var(--x-color-text-suggestion-default);
+  --x-color-text-suggestion-default-curated: var(--x-color-text-suggestion-default);
+  --x-color-text-suggestion-matching-part-default-curated: var(--x-color-text-suggestion-matching-part-default);
+  --x-color-text-suggestion-default-matching-curated: var(--x-color-text-suggestion-default-matching);
+  --x-color-background-suggestion-default-curated: var(--x-color-background-suggestion-default);
+  --x-color-border-suggestion-default-curated: var(--x-color-border-suggestion-default);
 
   // size
   --x-size-padding-top-suggestion-default: var(--x-size-base-01);
@@ -54,23 +55,26 @@
   --x-number-font-weight-suggestion-default-matching: var(
     --x-number-font-weight-suggestion-default
   );
+
   // typography curated
-  --x-font-family-suggestion-default-curated: var(--x-font-family-text);
-  --x-size-font-suggestion-default-curated: var(--x-size-font-text);
-  --x-size-line-height-suggestion-default-curated: var(--x-size-line-height-text);
-  --x-number-font-weight-suggestion-default-curated: var(--x-number-font-weight-text);
-  --x-font-family-suggestion-matching-part-default-curated: var(--x-font-family-suggestion-default);
-  --x-size-font-suggestion-matching-part-default-curated: var(--x-size-font-suggestion-default);
+  --x-font-family-suggestion-default-curated: var(--x-font-family-suggestion-default);
+  --x-size-font-suggestion-default-curated: var(--x-size-font-suggestion-default);
+  --x-size-line-height-suggestion-default-curated: var(--x-size-line-height-suggestion-default);
+  --x-number-font-weight-suggestion-default-curated: var(--x-number-font-weight-suggestion-default);
+  --x-font-family-suggestion-matching-part-default-curated: var(--x-font-family-suggestion-matching-part-default);
+  --x-size-font-suggestion-matching-part-default-curated: var(--x-size-font-suggestion-matching-part-default);
   --x-size-line-height-suggestion-matching-part-default-curated: var(
-                  --x-size-line-height-suggestion-default
+                  --x-size-line-height-suggestion-matching-part-default
   );
   --x-number-font-weight-suggestion-matching-part-default-curated: var(
-                  --x-number-font-weight-suggestion-default
+                  --x-number-font-weight-suggestion-matching-part-default
   );
-  --x-font-family-suggestion-default-matching-curated: var(--x-font-family-suggestion-default);
-  --x-size-font-suggestion-default-matching-curated: var(--x-size-font-suggestion-default);
-  --x-size-line-height-suggestion-default-matching-curated: var(--x-size-line-height-suggestion-default);
+  --x-font-family-suggestion-default-matching-curated: var(--x-font-family-suggestion-default-matching);
+  --x-size-font-suggestion-default-matching-curated: var(--x-size-font-suggestion-default-matching);
+  --x-size-line-height-suggestion-default-matching-curated: var(
+                  --x-size-line-height-suggestion-default-matching
+  );
   --x-number-font-weight-suggestion-default-matching-curated: var(
-                  --x-number-font-weight-suggestion-default
+                  --x-number-font-weight-suggestion-default-matching
   );
 }
