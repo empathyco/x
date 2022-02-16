@@ -34,7 +34,6 @@ Given('no special config for layout view', () => {
 });
 
 Given('a URL with query parameter {string}', (query: string) => {
-  cy.log(query);
   cy.visit('/', {
     qs: {
       q: query
