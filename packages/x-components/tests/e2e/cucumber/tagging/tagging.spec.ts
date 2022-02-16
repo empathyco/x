@@ -23,7 +23,7 @@ When('first banner is clicked', () => {
 
 When('first redirection is clicked', () => {
   slowInteraction();
-  cy.getByDataTest('redirection-link').first().should('exist', {}).click();
+  cy.getByDataTest('redirection-link').first().click();
 });
 
 When('scrolls down to next page', () => {
