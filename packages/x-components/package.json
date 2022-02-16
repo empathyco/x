@@ -29,6 +29,7 @@
   "sideEffects": [
     "./tests/**/*",
     "**/*.scss",
+    "**/*.scss.js",
     "**/*.css",
     "**/*.vue"
   ],
