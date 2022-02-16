@@ -16,7 +16,7 @@ const routes: RouteConfig[] = [
   }
 ];
 
-if (!('Cypress' in window)) {
+if (process.env.NODE_ENV !== 'production') {
   routes.push(
     {
       path: '/fixed-header-layout',

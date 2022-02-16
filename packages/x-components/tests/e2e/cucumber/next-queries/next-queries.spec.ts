@@ -21,7 +21,7 @@ Given(
       }
     };
 
-    cy.visit('/?useMockedAdapter=true', {
+    cy.visit('/?', {
       qs: {
         xModules: JSON.stringify(config)
       }

@@ -9,12 +9,7 @@ export const baseSnippetConfig: SnippetConfig = {
   scope: 'x-components-development'
 };
 
-const url = new URL(location.href);
-
-const adapter =
-  url.searchParams.get('useMockedAdapter') === 'true' || 'Cypress' in window
-    ? mockedAdapter
-    : realAdapter;
+const adapter = 'Cypress' in window ? mockedAdapter : realAdapter;
 
 const xModulesURLConfig = JSON.parse(new URL(location.href).searchParams.get('xModules') ?? '{}');
 

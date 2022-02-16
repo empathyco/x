@@ -1,9 +1,5 @@
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
-Given('a URL with query parameter {string}', (query: string) => {
-  cy.visit(`/?useMockedAdapter=true&q=${query}`);
-});
-
 Given('a tracking API with a known response', () => {
   cy.intercept('**/track/query', { statusCode: 200 }).as('queryTagging');
   cy.intercept('**/track/click', { statusCode: 200 }).as('clickTagging');
