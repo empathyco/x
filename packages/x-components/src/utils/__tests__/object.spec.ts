@@ -397,10 +397,12 @@ describe('testing object utils', () => {
   describe('every', () => {
     it('returns true when every entry of the given object passes the condition', () => {
       expect(every({ a: 1, b: 2 }, (_key, value) => typeof value === 'number')).toBe(true);
+      expect(every({ a: 1, b: undefined }, (_key, value) => typeof value === 'number')).toBe(true);
     });
 
-    it('returns false when every entry of the given object passes the condition', () => {
+    it('returns false when not every entry of the given object passes the condition', () => {
       expect(every({ a: 1, b: '2' }, (_key, value) => typeof value === 'number')).toBe(false);
+      expect(every({ a: '1', b: 2 }, (_key, value) => typeof value === 'number')).toBe(false);
     });
   });
 });

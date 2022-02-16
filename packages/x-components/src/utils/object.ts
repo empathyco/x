@@ -140,7 +140,7 @@ export function getNewAndUpdatedKeys<ObjectType extends Dictionary>(
 }
 
 /**
- * Ensures that the given condition is met in all the entries of the object.
+ * Ensures that the given condition is met in all the non-undefined entries of the object.
  *
  * @param object - The object to check if every item meets the given condition.
  * @param condition - The condition to check in each one of the entries of the object.
@@ -156,11 +156,7 @@ export function every<ObjectType extends Dictionary>(
     index: number
   ) => boolean
 ): boolean {
-  return reduce(
-    object,
-    (paramsMatch, key, value, index) => {
-      return !paramsMatch || condition(key, value, index);
-    },
-    true as boolean
-  );
+  return Object.entries(object)
+    .filter(([, value]) => value !== undefined)
+    .every(([key, value], index) => condition(key, value, index));
 }

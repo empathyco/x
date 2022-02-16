@@ -19,7 +19,7 @@ Given(
         }
       }
     };
-    cy.visit('/?', {
+    cy.visit('/', {
       qs: {
         xModules: JSON.stringify(config)
       }
