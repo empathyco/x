@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.59](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.58...@empathyco/x-components@3.0.0-alpha.59) (2022-02-17)
+
+### Features
+
+- **design-system:** add `curated` modifier to the `suggestion`
+  ([dd229fd](https://github.com/empathyco/x/commit/dd229fd3d64840ed3041bec618a1a23e3726430d)),
+  closes [EX-5290](https://searchbroker.atlassian.net/browse/EX-5290)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.58](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.57...@empathyco/x-components@3.0.0-alpha.58) (2022-02-16)
 
 ### Features
