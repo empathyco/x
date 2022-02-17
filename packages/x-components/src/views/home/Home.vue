@@ -2,7 +2,6 @@
   <div class="x">
     <Tagging :consent="false" />
     <SnippetConfigExtraParams :values="initialSnippetExtraParams" />
-    <ExtraParams :values="initialExtraParams" />
     <UrlHandler query="q" store="store" />
     <SnippetCallbacks />
     <BaseEventsModalOpen>Start</BaseEventsModalOpen>
@@ -602,7 +601,6 @@
   export default class App extends Vue {
     protected stores = ['Spain', 'Portugal', 'Italy'];
     protected initialSnippetExtraParams = { store: 'Portugal' };
-    protected initialExtraParams = { lang: 'es' };
     protected columnPickerValues = [0, 4, 6];
     protected resultsAnimation = StaggeredFadeAndSlide;
     protected modalAnimation = animateClipPath();

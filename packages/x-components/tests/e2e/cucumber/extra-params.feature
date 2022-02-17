@@ -1,4 +1,4 @@
-Feature: Tagging component
+Feature: Extra-params component
 
   Background:
     Given a next queries API
@@ -19,7 +19,6 @@ Feature: Tagging component
     Examples:
       | query | ExtraParamName | ExtraParamValue |
       | lego  | store          | Portugal        |
-      | lego  | lang           | es              |
 
   Scenario Outline: 2. Search request includes renderless extra-param
     When  start button is clicked
