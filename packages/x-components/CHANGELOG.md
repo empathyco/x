@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.58](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.57...@empathyco/x-components@3.0.0-alpha.58) (2022-02-16)
+
+### Features
+
+- **scroll:** add scroll data state to the alias API
+  ([7f5642c](https://github.com/empathyco/x/commit/7f5642cf5e60fe96a22c8fe9897c9ba73cbede55)),
+  closes [EX-5249](https://searchbroker.atlassian.net/browse/EX-5249)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.57](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.56...@empathyco/x-components@3.0.0-alpha.57) (2022-02-16)
+
+### Bug Fixes
+
+- **build:** Fix build side effects to include css.
+  ([f79d7b9](https://github.com/empathyco/x/commit/f79d7b9e738485e14ac8f88b343a97d8f55c51e6)),
+  closes [EX-5396](https://searchbroker.atlassian.net/browse/EX-5396)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.56](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.55...@empathyco/x-components@3.0.0-alpha.56) (2022-02-15)
 
 ### Bug Fixes

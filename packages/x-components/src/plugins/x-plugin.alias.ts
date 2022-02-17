@@ -92,6 +92,9 @@ export function getAliasAPI(component: Vue): XComponentAliasAPI {
     get relatedTags() {
       return component.$store.getters[getGetterPath('relatedTags', 'relatedTags')] ?? [];
     },
+    get scroll() {
+      return component.$store.state.x.scroll?.data ?? {};
+    },
     get selectedFilters() {
       return component.$store.getters[getGetterPath('facets', 'selectedFilters')] ?? [];
     },
