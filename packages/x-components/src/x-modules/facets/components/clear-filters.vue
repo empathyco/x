@@ -3,28 +3,27 @@
     v-if="show"
     class="x-button x-clear-filters"
     data-test="clear-filters"
-    :disabled="!areThereSelectedFilters"
+    :disabled="!hasSelectedFilters"
     :events="events"
     :class="cssClasses"
   >
-    <slot :selectedFilters="facetsSelectedFilters">
-      Clear Filters ({{ facetsSelectedFilters.length }})
-    </slot>
+    <slot :selectedFilters="selectedFilters">Clear Filters ({{ selectedFilters.length }})</slot>
   </BaseEventButton>
 </template>
 
 <script lang="ts">
-  import { Facet, Filter, isFacetFilter } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { Getter, xComponentMixin } from '../../../components';
+  import { Component } from 'vue-property-decorator';
+  import { xComponentMixin } from '../../../components';
   import BaseEventButton from '../../../components/base-event-button.vue';
   import { VueCSSClasses } from '../../../utils';
   import { XEventsTypes } from '../../../wiring';
+  import FacetsMixin from '../facets.mixin';
   import { facetsXModule } from '../x-module';
 
   /**
    * Renders a simple button, emitting the needed events when clicked.
+   *
+   * @remarks It extends {@link FacetsMixin}.
    *
    * @public
    */
@@ -32,76 +31,7 @@
     components: { BaseEventButton },
     mixins: [xComponentMixin(facetsXModule)]
   })
-  export default class ClearFilters extends Vue {
-    /**
-     * It handles if the ClearFilters button is always visible no matter if there are not
-     * filters selected. If false, the ClearFilters button is not visible whether
-     * there are no filters selected.
-     *
-     * @public
-     */
-    @Prop({ default: false })
-    public alwaysVisible!: boolean;
-
-    /**
-     * Array of facets ids that will be passed to event like payload.
-     *
-     * @public
-     */
-    @Prop()
-    public facetsIds?: Array<Facet['id']>;
-
-    /**
-     * Get the selected filters from store.
-     *
-     * @internal
-     */
-    @Getter('facets', 'selectedFilters')
-    public allSelectedFilters!: Filter[];
-
-    /**
-     * If alwaysVisible prop is true, ClearAllFilters button is always shown, but disabled
-     * if there are no filters selected.
-     * If alwaysVisible prop is false, ClearAllFilters button is shown whether there
-     * are some filter selected.
-     *
-     * @returns True if alwaysVisible is true or in the opposite case true or false depends
-     * on if there are selected filters or not.
-     *
-     * @internal
-     */
-    protected get show(): boolean {
-      return this.alwaysVisible || this.areThereSelectedFilters;
-    }
-
-    /**
-     * Get selected filters.
-     * If there are facets ids, get selected filters whose facet id match with some of facets ids.
-     * If there aren't facets ids, get selected filters.
-     *
-     * @returns Array of selected filters depends on there are facets ids or not.
-     * @internal
-     */
-    protected get facetsSelectedFilters(): Filter[] {
-      if (this.facetsIds) {
-        return this.allSelectedFilters.filter(
-          filter => isFacetFilter(filter) && this.facetsIds!.includes(filter.facetId)
-        );
-      } else {
-        return this.allSelectedFilters;
-      }
-    }
-
-    /**
-     * Check if there are selected filters.
-     *
-     * @returns True or false depends on if there are facets ids and if there are selected filters.
-     * @internal
-     */
-    protected get areThereSelectedFilters(): boolean {
-      return !!this.facetsSelectedFilters.length;
-    }
-
+  export default class ClearFilters extends FacetsMixin {
     /**
      * The events that will be emitted when the button clear filters is clicked.
      *
@@ -126,8 +56,8 @@
      */
     protected get cssClasses(): VueCSSClasses {
       return {
-        'x-clear-filters--has-not-selected-filters': !this.areThereSelectedFilters,
-        'x-clear-filters--has-selected-filters': this.areThereSelectedFilters
+        'x-clear-filters--has-not-selected-filters': !this.hasSelectedFilters,
+        'x-clear-filters--has-selected-filters': this.hasSelectedFilters
       };
     }
   }

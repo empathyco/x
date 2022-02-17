@@ -259,7 +259,7 @@
                         :max="controls.slicedFilters.max"
                         :data-test="`${facet.label}-sliced-filters`"
                       >
-                        <SelectedFilters #default="{ selectedFilters }" :facetId="facet.id">
+                        <SelectedFilters #default="{ selectedFilters }" :facetsIds="[facet.id]">
                           <span :data-test="`${facet.label}-selected-filters`">
                             {{ selectedFilters.length }}
                           </span>

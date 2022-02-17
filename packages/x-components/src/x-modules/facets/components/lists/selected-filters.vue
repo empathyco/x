@@ -5,12 +5,10 @@
 </template>
 
 <script lang="ts">
-  import { Facet, Filter } from '@empathyco/x-types';
-  import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { Getter } from '../../../../components/decorators/store.decorators';
+  import { Component } from 'vue-property-decorator';
   import { NoElement } from '../../../../components';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
-  import { FiltersByFacet } from '../../store/types';
+  import FacetsMixin from '../../facets.mixin';
   import { facetsXModule } from '../../x-module';
 
   /**
@@ -20,6 +18,8 @@
    * The default slot renders the length of the selected filters array.
    * The property "alwaysVisible" handles if the component is rendered if no filters are selected.
    *
+   * @remarks It extends {@link FacetsMixin}.
+   *
    * @public
    */
   @Component({
@@ -28,71 +28,7 @@
       NoElement
     }
   })
-  export default class SelectedFilters extends Vue {
-    /**
-     * If a facet id is passed as prop, the component filters the selected filters for that facet.
-     *
-     * @public
-     */
-    @Prop()
-    protected facetId: Facet['id'] | undefined;
-
-    /**
-     * It handles if the SelectedFilters component is always rendered no matter if no filters are
-     * selected.
-     * If true, the SelectedFilters component is always rendered.
-     * If false, the SelectedFilters component is not rendered whether no filters are selected.
-     *
-     * @public
-     */
-    @Prop({ default: false })
-    protected alwaysVisible!: boolean;
-
-    /**
-     * Array of selected filters from every facet.
-     *
-     * @public
-     */
-    @Getter('facets', 'selectedFilters')
-    public selectedFiltersGetter!: Filter[];
-
-    /**
-     * Dictionary of selected filters grouped by facet.
-     *
-     * @public
-     */
-    @Getter('facets', 'selectedFiltersByFacet')
-    public selectedFiltersByFacet!: FiltersByFacet;
-
-    /**
-     * It returns an array of selected filters. If a facet id is passed as prop to the component,
-     * only the selected filters of that facet are returned. If not, it returns selected filters of
-     * every facet.
-     *
-     * @returns Array of selected filters.
-     *
-     * @internal
-     */
-    protected get selectedFilters(): Filter[] {
-      return this.facetId === undefined
-        ? this.selectedFiltersGetter
-        : this.selectedFiltersByFacet[this.facetId] ?? [];
-    }
-
-    /**
-     * If "alwaysVisible" prop is true, returns true.
-     * If "alwaysVisible" prop is false, returns true or false depending on if there are some
-     * filter selected.
-     *
-     * @returns True if "alwaysVisible" is true. True or false depending on if there are some filter
-     * selected.
-     *
-     * @internal
-     */
-    protected get show(): boolean {
-      return this.alwaysVisible || this.selectedFilters.length > 0;
-    }
-  }
+  export default class SelectedFilters extends FacetsMixin {}
 </script>
 
 <docs lang="mdx">

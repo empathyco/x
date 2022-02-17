@@ -51,7 +51,7 @@
   import { toKebabCase } from '../../../../utils/string';
   import { map, objectFilter } from '../../../../utils/object';
   import { Dictionary } from '../../../../utils/types';
-  import { FiltersByFacet } from '../../store/types';
+  import FacetsMixin from '../../facets.mixin';
   import { facetsXModule } from '../../x-module';
 
   /**
@@ -71,12 +71,14 @@
    * - A custom slot for each facet with the facetId as its name. This allows each facet to be
    * rendered differently based on its needs.
    *
+   * @remarks It extends {@link FacetsMixin}.
+   *
    * @public
    */
   @Component({
     mixins: [xComponentMixin(facetsXModule)]
   })
-  export default class Facets extends Vue {
+  export default class Facets extends FacetsMixin {
     /**
      * Animation component that will be used to animate the facets.
      *
@@ -108,14 +110,6 @@
      */
     @Prop()
     public renderableFacets!: string | undefined;
-
-    /**
-     * Array of selected filters from every facet.
-     *
-     * @internal
-     */
-    @Getter('facets', 'selectedFiltersByFacet')
-    public selectedFiltersByFacet!: FiltersByFacet;
 
     /**
      * Dictionary of facets in the state.

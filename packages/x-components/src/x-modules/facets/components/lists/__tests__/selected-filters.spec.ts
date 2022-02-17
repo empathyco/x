@@ -21,7 +21,8 @@ import SelectedFilters from '../selected-filters.vue';
  * @returns The API for testing the `SelectedFilters` component.
  */
 function renderSelectedFilters({
-  template = '<SelectedFilters />'
+  template = '<SelectedFilters />',
+  facetsIds = []
 }: RenderSelectedFiltersOptions = {}): RenderSelectedFiltersAPI {
   resetFacetsService();
 
@@ -48,11 +49,15 @@ function renderSelectedFilters({
       components: {
         SelectedFilters
       },
-      template
+      template,
+      props: ['facetsIds']
     },
     {
       localVue,
-      store
+      store,
+      propsData: {
+        facetsIds
+      }
     }
   );
 
@@ -113,7 +118,8 @@ describe('testing SelectedFilters component', () => {
 
   it('renders "nth" by default of the facet id provided', async () => {
     const { selectedFiltersWrapper, toggleFacetNthFilter } = renderSelectedFilters({
-      template: '<SelectedFilters facetId="brand" :alwaysVisible="true" />'
+      template: '<SelectedFilters :facetsIds="facetsIds" :alwaysVisible="true" />',
+      facetsIds: ['brand']
     });
     expect(selectedFiltersWrapper.text()).toBe('0');
     await toggleFacetNthFilter('brand', 0);
@@ -127,11 +133,12 @@ describe('testing SelectedFilters component', () => {
   it('renders "nth selected" in its customized slot of the facet id provided', async () => {
     const { selectedFiltersWrapper, toggleFacetNthFilter } = renderSelectedFilters({
       template: `
-        <SelectedFilters facetId="brand" :alwaysVisible="true">
+        <SelectedFilters :facetsIds="facetsIds" :alwaysVisible="true">
           <template #default="{ selectedFilters }">
             {{ selectedFilters.length }} selected
           </template>
-        </SelectedFilters>`
+        </SelectedFilters>`,
+      facetsIds: ['brand']
     });
 
     expect(selectedFiltersWrapper.text()).toBe('0 selected');
@@ -165,6 +172,8 @@ describe('testing SelectedFilters component', () => {
 interface RenderSelectedFiltersOptions {
   /** The template to be rendered. */
   template?: string;
+  /** Array of facets ids. */
+  facetsIds?: Array<Facet['id']>;
 }
 
 interface RenderSelectedFiltersAPI {

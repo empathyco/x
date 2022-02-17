@@ -1,7 +1,7 @@
-import { Facet, Filter, isFacetFilter } from '@empathyco/x-types';
+import { isFacetFilter } from '@empathyco/x-types';
 import { groupItemsBy } from '../../../../utils/array';
 import { map } from '../../../../utils/object';
-import { FacetsXStoreModule } from '../types';
+import { FacetsXStoreModule, FiltersByFacet } from '../types';
 
 /**
  * Default implementation for the {@link FacetsGetters.selectedFiltersByFacet} getter.
@@ -20,9 +20,9 @@ import { FacetsXStoreModule } from '../types';
 export const selectedFiltersByFacet: FacetsXStoreModule['getters']['selectedFiltersByFacet'] = (
   state,
   getters
-): Record<Facet['id'], Filter[]> => {
+): FiltersByFacet => {
   // The `emptyRecord` is to return an empty array for those facets that haven't selected filters.
-  const emptyRecord: Record<Facet['id'], Filter[]> = map(state.facets, () => []);
+  const emptyRecord: FiltersByFacet = map(state.facets, () => []);
   const filtersByFacet = groupItemsBy(getters.selectedFilters, filter =>
     isFacetFilter(filter) ? filter.facetId : '__unknown-facet__'
   );

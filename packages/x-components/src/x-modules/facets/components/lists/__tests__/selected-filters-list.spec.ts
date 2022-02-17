@@ -19,7 +19,8 @@ import SelectedFiltersList from '../../lists/selected-filters-list.vue';
  * @returns The API for testing the `SelectedFiltersList` component.
  */
 function renderSelectedFiltersList({
-  template = '<SelectedFiltersList />'
+  template = '<SelectedFiltersList />',
+  facetsIds = []
 }: RenderSelectedFiltersListOptions = {}): RenderSelectedFiltersAPI {
   const facets: Record<Facet['id'], Facet> = {
     gender: createSimpleFacetStub('gender', createFilter => [
@@ -48,11 +49,15 @@ function renderSelectedFiltersList({
       components: {
         SelectedFiltersList
       },
-      template
+      template,
+      props: ['facetsIds']
     },
     {
       localVue,
-      store
+      store,
+      propsData: {
+        facetsIds
+      }
     }
   );
 
@@ -124,9 +129,10 @@ describe('testing SelectedFiltersList component', () => {
     expect(selectedFiltersItems).toHaveLength(3);
   });
 
-  it('renders selectedFilters of the facet id provided', async () => {
+  it('renders selectedFilters of the facets ids provided', async () => {
     const { selectedFiltersListWrapper, toggleFacetNthFilter } = renderSelectedFiltersList({
-      template: '<SelectedFiltersList facetId="brand" />'
+      template: '<SelectedFiltersList :facetsIds="facetsIds" />',
+      facetsIds: ['brand']
     });
     expect(selectedFiltersListWrapper.text()).toBe('');
     await toggleFacetNthFilter('brand', 0);
@@ -154,6 +160,8 @@ describe('testing SelectedFiltersList component', () => {
 interface RenderSelectedFiltersListOptions {
   /** The template to be rendered. */
   template?: string;
+  /** Array of facets ids. */
+  facetsIds?: Array<Facet['id']>;
 }
 
 interface RenderSelectedFiltersAPI {
