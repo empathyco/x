@@ -121,7 +121,6 @@ Then('related results have changed', () => {
 });
 
 // Search Box
-
 When('search-input is focused', () => {
   cy.focusSearchInput();
 });
@@ -161,6 +160,22 @@ Then(
 
 When('tab is reloaded', () => {
   cy.reload();
+});
+
+// Search Request
+Then(
+  'search request contains parameter {string} with value {string}',
+  (key: string, value: string | number) => {
+    cy.wait('@interceptedResults')
+      .its('request.body')
+      .then(JSON.parse)
+      .should('have.property', key, value);
+  }
+);
+
+// Store
+When('store is changed to {string}', (store: string) => {
+  cy.getByDataTest('store-selector').click().contains(store).click();
 });
 
 // PDP

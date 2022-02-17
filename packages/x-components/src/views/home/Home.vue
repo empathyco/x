@@ -1,7 +1,8 @@
 <template>
   <div class="x">
     <Tagging :consent="false" />
-    <SnippetConfigExtraParams :values="initialExtraParams" />
+    <SnippetConfigExtraParams :values="initialSnippetExtraParams" />
+    <ExtraParams :values="initialExtraParams" />
     <UrlHandler query="q" store="store" />
     <SnippetCallbacks />
     <BaseEventsModalOpen>Start</BaseEventsModalOpen>
@@ -473,6 +474,7 @@
   import RenderlessExtraParams from '../../x-modules/extra-params/components/renderless-extra-param.vue';
   // eslint-disable-next-line max-len
   import SnippetConfigExtraParams from '../../x-modules/extra-params/components/snippet-config-extra-params.vue';
+  import ExtraParams from '../../x-modules/extra-params/components/extra-params.vue';
   import ClearFilters from '../../x-modules/facets/components/clear-filters.vue';
   import FacetsProvider from '../../x-modules/facets/components/facets/facets-provider.vue';
   import Facets from '../../x-modules/facets/components/facets/facets.vue';
@@ -550,6 +552,7 @@
       ClearSearchInput,
       CrossIcon,
       ExcludeFiltersWithNoResults,
+      ExtraParams,
       Facets,
       FacetsProvider,
       FiltersList,
@@ -598,7 +601,8 @@
   })
   export default class App extends Vue {
     protected stores = ['Spain', 'Portugal', 'Italy'];
-    protected initialExtraParams = { store: 'Portugal' };
+    protected initialSnippetExtraParams = { store: 'Portugal' };
+    protected initialExtraParams = { lang: 'es' };
     protected columnPickerValues = [0, 4, 6];
     protected resultsAnimation = StaggeredFadeAndSlide;
     protected modalAnimation = animateClipPath();

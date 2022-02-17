@@ -27,7 +27,3 @@ Then('scroll position is at top', () => {
     expect(scrollContainer.scrollTop()).to.equal(0);
   });
 });
-
-When('store is changed to {string}', (store: string) => {
-  cy.getByDataTest('store-selector').click().contains(store).click();
-});
