@@ -81,11 +81,11 @@ Output:
 In this example, the selected filters computed are the ones that match the facet passed as property.
 
 ```vue
-<SelectedFilters facetId="brand_facet" />
+<SelectedFilters :facetsIds="['brand_facet']" />
 ```
 
 ```vue
-<SelectedFilters facetId="brand_facet">
+<SelectedFilters :facetsIds="['brand_facet']">
   <template #default="{ selectedFilters }">
     Selected filters: {{ selectedFilters.length }}
   </template>
