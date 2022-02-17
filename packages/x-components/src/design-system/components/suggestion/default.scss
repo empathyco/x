@@ -75,7 +75,7 @@
     flex: none;
   }
 
-  &.x-suggestion--is-curated {
+  &.x-suggestion.x-suggestion--is-curated {
     // color
     background-color: var(--x-color-background-suggestion-default-curated);
     color: var(--x-color-text-suggestion-default-curated);
