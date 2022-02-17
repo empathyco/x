@@ -12,6 +12,8 @@ export interface Suggestion extends NamedModel<'QuerySuggestion' | 'PopularSearc
   // eslint-disable-next-line jsdoc/require-description-complete-sentence
   /** {@inheritDoc Previewable.facets} */
   facets: Facet[];
+  /** If it's a curated suggestion. */
+  isCurated?: boolean;
   /**
    * Unique identifier of the suggestion.
    *
