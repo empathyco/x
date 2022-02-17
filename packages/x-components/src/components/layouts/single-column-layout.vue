@@ -75,7 +75,7 @@
   import { Component, Prop } from 'vue-property-decorator';
   import MainScroll from '../../x-modules/scroll/components/main-scroll.vue';
   import Scroll from '../../x-modules/scroll/components/scroll.vue';
-  import TranslateFromRight from '../animations/translate-from-right.vue';
+  import { animateTranslate } from '../animations/animate-translate/animate-translate.factory';
   import BaseIdModal from '../modals/base-id-modal.vue';
   import BaseScroll from '../scroll/base-scroll.vue';
   import LayoutsMixin from './layouts.mixin';
@@ -94,7 +94,7 @@
      *
      * @public
      */
-    @Prop({ default: () => TranslateFromRight })
+    @Prop({ default: () => animateTranslate('right') })
     protected asideAnimation!: Vue;
   }
 </script>

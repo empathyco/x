@@ -50,7 +50,7 @@ const defaultAdapterConfig: DeepPartial<EmpathyAdapterConfig> = {
  *        2.1 Using the created installer:
  *
  * ```
- *            installer.init(snipetConfig)
+ *            installer.init(snippetConfig)
  * ```
  *
  *        2.2 If the API option is enabled (`createAPI` is `true` in {@link InstallXOptions}, or

@@ -1,0 +1,23 @@
+{
+  "name": "@empathyco/x-adapter-next",
+  "version": "0.1.1-alpha.0",
+  "description": "A search client for the Empathy search API",
+  "author": "Empathy Systems Corporation S.L.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/x-adapter#readme",
+  "keywords": [
+    "search",
+    "adapter",
+    "client",
+    "fetch"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empathyco/x.git",
+    "directory": "packages/x-adapter"
+  },
+  "scripts": {},
+  "publishConfig": {
+    "access": "public"
+  }
+}

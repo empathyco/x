@@ -94,14 +94,40 @@
         <SearchIcon />
       </div>
     </article>
+    <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
+      <h2 class="x-title2">Curated</h2>
+
+      <div class="x-suggestion x-suggestion--is-curated">
+        <CuratedCheck />
+        <span class="x-suggestion__query">Suggestion</span>
+      </div>
+
+      <div class="x-suggestion x-suggestion--is-curated x-suggestion--matching">
+        <CuratedCheck />
+        <span class="x-suggestion__query">
+          Suggestion
+          <span class="x-suggestion__matching-part">Query</span>
+        </span>
+      </div>
+
+      <div class="x-suggestion x-suggestion--is-curated x-suggestion--matching">
+        <CuratedCheck />
+        <span class="x-suggestion__query">
+          Suggestion extra large name
+          <span class="x-suggestion__matching-part">Query</span>
+        </span>
+      </div>
+    </article>
   </section>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import CuratedCheck from '../../components/icons/curated-check.vue';
   import SearchIcon from '../../components/icons/search.vue';
-  @Component({ components: { SearchIcon } })
+
+  @Component({ components: { CuratedCheck, SearchIcon } })
   export default class DesignSystemSuggestion extends Vue {}
 </script>
 
