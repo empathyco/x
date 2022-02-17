@@ -58,7 +58,7 @@
 
   /**
    * This component renders a list of selected filters from every facet, or from the facet
-   * which facet id is passed as property. It uses the SelectedFilters component (state).
+   * ids passed as property. It uses the SelectedFilters component (state).
    *
    * It provides two slots: a scoped one which name is the filter facet id; and a default one.
    * Both exposes the filter and renders the filter label by default.
@@ -185,11 +185,12 @@ Output:
 </div>
 ```
 
-#### Providing a facet id
+#### Providing an array of facet ids
 
-In this example, the selected filters computed are the ones that match the facet passed as property.
+In this example, the selected filters computed are the ones that match the facet ids passed as
+properties.
 
 ```vue
-<SelectedFilters :facetsIds="['brand_facet']" />
+<SelectedFilters :facetsIds="['brand_facet', 'gender_facet']" />
 ```
 </docs>

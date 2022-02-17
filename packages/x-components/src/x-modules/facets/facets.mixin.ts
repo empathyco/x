@@ -14,7 +14,7 @@ import { FiltersByFacet } from './store/index';
 @Component
 export default class FacetsMixin extends Vue {
   /**
-   * Array of facets ids that will be passed to event like payload.
+   * Array of facets ids used to get the selected filters for those facets.
    *
    * @public
    */
@@ -22,9 +22,7 @@ export default class FacetsMixin extends Vue {
   public facetsIds?: Array<Facet['id']>;
 
   /**
-   * It handles if the component is always visible no matter if there are not
-   * filters selected. If false, the component is not visible whether
-   * there are no filters selected.
+   * Flag to render the component even if there are no filters selected.
    *
    * @public
    */
@@ -77,17 +75,14 @@ export default class FacetsMixin extends Vue {
   }
 
   /**
-   * If alwaysVisible prop is true, component is always shown, but disabled
-   * if there are no filters selected.
-   * If alwaysVisible prop is false, component is shown whether there
-   * are some filter selected.
+   * Flag representing if the component should be visible/rendered or not.
    *
-   * @returns True if alwaysVisible is true or in the opposite case true or false depends
-   * on if there are selected filters or not.
+   * @returns True whenever alwaysVisible is true or has selected filters. False
+   * otherwise.
    *
    * @internal
    */
-  protected get show(): boolean {
+  protected get isVisible(): boolean {
     return this.alwaysVisible || this.hasSelectedFilters;
   }
 }

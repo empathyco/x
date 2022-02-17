@@ -34,6 +34,10 @@ function renderSelectedFilters({
     brand: createSimpleFacetStub('brand', createFilter => [
       createFilter('Audi', false),
       createFilter('BMW', false)
+    ]),
+    color: createSimpleFacetStub('color', createFilter => [
+      createFilter('red', false),
+      createFilter('blue', false)
     ])
   };
 
@@ -116,10 +120,10 @@ describe('testing SelectedFilters component', () => {
     expect(selectedFiltersWrapper.text()).toBe('3 selected');
   });
 
-  it('renders "nth" by default of the facet id provided', async () => {
+  it('renders "nth" by default of the facet ids provided', async () => {
     const { selectedFiltersWrapper, toggleFacetNthFilter } = renderSelectedFilters({
       template: '<SelectedFilters :facetsIds="facetsIds" :alwaysVisible="true" />',
-      facetsIds: ['brand']
+      facetsIds: ['brand', 'gender']
     });
     expect(selectedFiltersWrapper.text()).toBe('0');
     await toggleFacetNthFilter('brand', 0);
@@ -127,7 +131,9 @@ describe('testing SelectedFilters component', () => {
     await toggleFacetNthFilter('brand', 1);
     expect(selectedFiltersWrapper.text()).toBe('2');
     await toggleFacetNthFilter('gender', 0);
-    expect(selectedFiltersWrapper.text()).toBe('2');
+    expect(selectedFiltersWrapper.text()).toBe('3');
+    await toggleFacetNthFilter('color', 0);
+    expect(selectedFiltersWrapper.text()).toBe('3');
   });
 
   it('renders "nth selected" in its customized slot of the facet id provided', async () => {

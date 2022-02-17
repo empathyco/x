@@ -132,13 +132,22 @@ describe('testing SelectedFiltersList component', () => {
   it('renders selectedFilters of the facets ids provided', async () => {
     const { selectedFiltersListWrapper, toggleFacetNthFilter } = renderSelectedFiltersList({
       template: '<SelectedFiltersList :facetsIds="facetsIds" />',
-      facetsIds: ['brand']
+      facetsIds: ['brand', 'gender']
     });
+
     expect(selectedFiltersListWrapper.text()).toBe('');
+
     await toggleFacetNthFilter('brand', 0);
-    expect(selectedFiltersListWrapper.text()).toBe('Audi');
+    await toggleFacetNthFilter('rootCategories', 1);
     await toggleFacetNthFilter('gender', 1);
-    expect(selectedFiltersListWrapper.text()).toBe('Audi');
+
+    const selectedFiltersItems = selectedFiltersListWrapper.findAll(
+      getDataTestSelector('selected-filters-list-item')
+    );
+
+    expect(selectedFiltersItems).toHaveLength(2);
+    expect(selectedFiltersItems.at(0).text()).toBe('Audi');
+    expect(selectedFiltersItems.at(1).text()).toBe('Women');
   });
 
   it('renders the component if alwaysVisible is true and no selected filters', () => {

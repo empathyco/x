@@ -1,6 +1,6 @@
 <template>
   <BaseEventButton
-    v-if="show"
+    v-if="isVisible"
     class="x-button x-clear-filters"
     data-test="clear-filters"
     :disabled="!hasSelectedFilters"
@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-  import { Component } from 'vue-property-decorator';
+  import Component from 'vue-class-component';
   import { xComponentMixin } from '../../../components';
   import BaseEventButton from '../../../components/base-event-button.vue';
   import { VueCSSClasses } from '../../../utils';

@@ -1,11 +1,11 @@
 <template>
-  <NoElement v-if="show" class="x-selected-filters">
+  <NoElement v-if="isVisible" class="x-selected-filters">
     <slot v-bind="{ selectedFilters }">{{ selectedFilters.length }}</slot>
   </NoElement>
 </template>
 
 <script lang="ts">
-  import { Component } from 'vue-property-decorator';
+  import Component from 'vue-class-component';
   import { NoElement } from '../../../../components';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
   import FacetsMixin from '../../facets.mixin';
@@ -78,14 +78,14 @@ Output:
 <div class="x-selected-filters">Selected filters: 1</div>
 ```
 
-In this example, the selected filters computed are the ones that match the facet passed as property.
+In this example, the selected filters are filtered by the facetsIds property.
 
 ```vue
 <SelectedFilters :facetsIds="['brand_facet']" />
 ```
 
 ```vue
-<SelectedFilters :facetsIds="['brand_facet']">
+<SelectedFilters :facetsIds="['brand_facet', 'gender_facet']">
   <template #default="{ selectedFilters }">
     Selected filters: {{ selectedFilters.length }}
   </template>
