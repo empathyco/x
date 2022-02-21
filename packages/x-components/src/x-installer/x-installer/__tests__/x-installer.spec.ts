@@ -157,61 +157,31 @@ describe('testing `XInstaller` utility', () => {
     expect(app?.$el).toHaveTextContent('test-2');
   });
 
-  it('installs the XPlugin and init XComponents if initX is a function available in window', () => {
-    Object.defineProperty(window, 'initX', {
-      value: jest.fn().mockReturnValue(snippetConfig),
-      configurable: true,
-      writable: true
+  describe('testing autoInit function', () => {
+    beforeEach(() => {
+      delete window.initX;
     });
 
-    new XInstaller({
-      adapter,
-      plugin,
-      store,
-      xModules,
-      __PRIVATE__xModules,
-      initialXModules: [initialXModule],
-      vue: createLocalVue()
+    it('auto initializes XComponents if window.initX is a function', () => {
+      window.initX = jest.fn().mockReturnValue(snippetConfig);
+
+      new XInstaller({ adapter, plugin, vue: createLocalVue() });
+
+      expect(mockedInit).toHaveBeenCalledWith(snippetConfig);
     });
 
-    expect(mockedInit).toHaveBeenCalled();
-  });
+    it('auto initializes XComponents if window.initX is an object', () => {
+      window.initX = snippetConfig;
 
-  it('installs the XPlugin and init XComponents if initX is an object available in window', () => {
-    Object.defineProperty(window, 'initX', {
-      value: snippetConfig,
-      configurable: true,
-      writable: true
-    });
-    new XInstaller({
-      adapter,
-      plugin,
-      store,
-      xModules,
-      __PRIVATE__xModules,
-      initialXModules: [initialXModule],
-      vue: createLocalVue()
+      new XInstaller({ adapter, plugin, vue: createLocalVue() });
+
+      expect(mockedInit).toHaveBeenCalledWith(snippetConfig);
     });
 
-    expect(mockedInit).toHaveBeenCalled();
-  });
-  it('does not installs the XPlugin if there is not initX available in window', () => {
-    Object.defineProperty(window, 'initX', {
-      value: undefined,
-      configurable: true,
-      writable: true
-    });
+    it('does not initialize XComponents when window.initX is not defined', () => {
+      new XInstaller({ adapter, plugin, vue: createLocalVue() });
 
-    new XInstaller({
-      adapter,
-      plugin,
-      store,
-      xModules,
-      __PRIVATE__xModules,
-      initialXModules: [initialXModule],
-      vue: createLocalVue()
+      expect(mockedInit).not.toHaveBeenCalled();
     });
-
-    expect(mockedInit).not.toHaveBeenCalled();
   });
 });

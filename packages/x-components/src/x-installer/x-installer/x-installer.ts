@@ -14,7 +14,7 @@ import { InstallXOptions, VueConstructorPartialArgument } from './types';
 declare global {
   interface Window {
     X?: XAPI;
-    initX?: () => SnippetConfig | SnippetConfig;
+    initX?: (() => SnippetConfig) | SnippetConfig;
   }
 }
 
@@ -104,6 +104,9 @@ export class XInstaller {
    * Receives the {@link InstallXOptions} and merges it with the default fallback options. Also
    * creates the public {@link XAPI}.
    *
+   * @remarks Auto initializes the Vue application if window.initX is defined as a function or
+   * object specifying the {@link SnippetConfig | snippet config}.
+   *
    * @param options - The {@link InstallXOptions}.
    *
    * @public
@@ -113,14 +116,6 @@ export class XInstaller {
     this.autoInit();
   }
 
-  protected autoInit(): void {
-    if (typeof window.initX === 'function') {
-      const snippetOptions = window.initX();
-      this.init(snippetOptions);
-    } else if (typeof window.initX === 'object') {
-      this.init(window.initX);
-    }
-  }
   /**
    * Creates the public {@link XAPI} using the `api` option from {@link InstallXOptions}. If this
    * `api` option is not passed, then a default {@link BaseXAPI} is created. To disable the API
@@ -134,6 +129,21 @@ export class XInstaller {
       this.api = api ?? new BaseXAPI();
       this.api.setInitCallback(this.init.bind(this));
       window.X = this.api;
+    }
+  }
+
+  /**
+   * Auto initializes the Vue application if there is a defined
+   * {@link SnippetConfig | snippet config}, either as a function or an object, in window.initX.
+   *
+   * @internal
+   */
+  protected autoInit(): void {
+    if (typeof window.initX === 'function') {
+      const snippetOptions = window.initX();
+      this.init(snippetOptions);
+    } else if (typeof window.initX === 'object') {
+      this.init(window.initX);
     }
   }
 
