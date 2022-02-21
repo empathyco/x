@@ -30,7 +30,15 @@ function getElementBy(facetName: string): Cypress.Chainable<JQuery<HTMLElement>>
 
 // Init
 Given('no special config for layout view', () => {
-  cy.visit('/?useMockedAdapter=true');
+  cy.visit('/');
+});
+
+Given('a URL with query parameter {string}', (query: string) => {
+  cy.visit('/', {
+    qs: {
+      q: query
+    }
+  });
 });
 
 When('start button is clicked', () => {
