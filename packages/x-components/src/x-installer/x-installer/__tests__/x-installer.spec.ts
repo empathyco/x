@@ -18,6 +18,11 @@ describe('testing `XInstaller` utility', () => {
   const __PRIVATE__xModules = {} as unknown as PrivateXModulesOptions;
   const initialXModule = {} as unknown as AnyXModule;
 
+  const snippetConfig = {
+    instance: 'test',
+    lang: 'test',
+    scope: 'test'
+  };
   const component: ComponentOptions<Vue> = {
     render(h) {
       return h('div');
@@ -25,11 +30,7 @@ describe('testing `XInstaller` utility', () => {
     mounted: jest.fn()
   };
 
-  const snippetConfig = {
-    instance: 'test',
-    lang: 'test',
-    scope: 'test'
-  };
+  const mockedInit = jest.spyOn(XInstaller.prototype as any, 'init');
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -154,5 +155,63 @@ describe('testing `XInstaller` utility', () => {
     snippetConfig.instance = 'test-2';
     await vue.nextTick();
     expect(app?.$el).toHaveTextContent('test-2');
+  });
+
+  it('installs the XPlugin and init XComponents if initX is a function available in window', () => {
+    Object.defineProperty(window, 'initX', {
+      value: jest.fn().mockReturnValue(snippetConfig),
+      configurable: true,
+      writable: true
+    });
+
+    new XInstaller({
+      adapter,
+      plugin,
+      store,
+      xModules,
+      __PRIVATE__xModules,
+      initialXModules: [initialXModule],
+      vue: createLocalVue()
+    });
+
+    expect(mockedInit).toHaveBeenCalled();
+  });
+
+  it('installs the XPlugin and init XComponents if initX is an object available in window', () => {
+    Object.defineProperty(window, 'initX', {
+      value: snippetConfig,
+      configurable: true,
+      writable: true
+    });
+    new XInstaller({
+      adapter,
+      plugin,
+      store,
+      xModules,
+      __PRIVATE__xModules,
+      initialXModules: [initialXModule],
+      vue: createLocalVue()
+    });
+
+    expect(mockedInit).toHaveBeenCalled();
+  });
+  it('does not installs the XPlugin if there is not initX available in window', () => {
+    Object.defineProperty(window, 'initX', {
+      value: undefined,
+      configurable: true,
+      writable: true
+    });
+
+    new XInstaller({
+      adapter,
+      plugin,
+      store,
+      xModules,
+      __PRIVATE__xModules,
+      initialXModules: [initialXModule],
+      vue: createLocalVue()
+    });
+
+    expect(mockedInit).not.toHaveBeenCalled();
   });
 });

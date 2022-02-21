@@ -14,6 +14,7 @@ import { InstallXOptions, VueConstructorPartialArgument } from './types';
 declare global {
   interface Window {
     X?: XAPI;
+    initX?: () => SnippetConfig | SnippetConfig;
   }
 }
 
@@ -109,8 +110,17 @@ export class XInstaller {
    */
   public constructor(protected readonly options: InstallXOptions) {
     this.createAPI();
+    this.autoInit();
   }
 
+  protected autoInit(): void {
+    if (typeof window.initX === 'function') {
+      const snippetOptions = window.initX();
+      this.init(snippetOptions);
+    } else if (typeof window.initX === 'object') {
+      this.init(window.initX);
+    }
+  }
   /**
    * Creates the public {@link XAPI} using the `api` option from {@link InstallXOptions}. If this
    * `api` option is not passed, then a default {@link BaseXAPI} is created. To disable the API
