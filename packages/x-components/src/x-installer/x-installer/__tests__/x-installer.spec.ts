@@ -155,4 +155,34 @@ describe('testing `XInstaller` utility', () => {
     await vue.nextTick();
     expect(app?.$el).toHaveTextContent('test-2');
   });
+
+  describe('testing autoInit function', () => {
+    const mockedInit = jest.spyOn(XInstaller.prototype as any, 'init');
+
+    beforeEach(() => {
+      delete window.initX;
+    });
+
+    it('auto initializes XComponents if window.initX is a function', () => {
+      window.initX = jest.fn().mockReturnValue(snippetConfig);
+
+      new XInstaller({ adapter, plugin, vue: createLocalVue() });
+
+      expect(mockedInit).toHaveBeenCalledWith(snippetConfig);
+    });
+
+    it('auto initializes XComponents if window.initX is an object', () => {
+      window.initX = snippetConfig;
+
+      new XInstaller({ adapter, plugin, vue: createLocalVue() });
+
+      expect(mockedInit).toHaveBeenCalledWith(snippetConfig);
+    });
+
+    it('does not initialize XComponents when window.initX is not defined', () => {
+      new XInstaller({ adapter, plugin, vue: createLocalVue() });
+
+      expect(mockedInit).not.toHaveBeenCalled();
+    });
+  });
 });
