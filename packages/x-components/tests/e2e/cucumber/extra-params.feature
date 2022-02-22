@@ -5,7 +5,6 @@ Feature: Extra-params component
     And   a suggestions API
     And   a related tags API
     And   a recommendations API with a known response
-    And   a query tagging API
     And   a click tagging API
     And   an add to cart tagging API
     And   a results API with a known response
