@@ -1,0 +1,15 @@
+version: 2
+updates:
+
+  # Maintain dependencies for the root package
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+
+  # Maintain dependencies for the eslint-plugin-x package
+  - package-ecosystem: "npm"
+    directory: "/packages/eslint-plugin-x"
+    schedule:
+      interval: "weekly"
