@@ -42,7 +42,7 @@
   import { Filter, isFacetFilter } from '@empathyco/x-types';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
   import { toKebabCase } from '../../../../utils/string';
-  import FacetsMixin from '../../facets.mixin';
+  import FacetsMixin from '../facets.mixin';
   import { facetsXModule } from '../../x-module';
   import SelectedFilters from './selected-filters.vue';
 

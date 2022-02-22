@@ -8,7 +8,7 @@
   import Component from 'vue-class-component';
   import { NoElement } from '../../../../components';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
-  import FacetsMixin from '../../facets.mixin';
+  import FacetsMixin from '../facets.mixin';
   import { facetsXModule } from '../../x-module';
 
   /**

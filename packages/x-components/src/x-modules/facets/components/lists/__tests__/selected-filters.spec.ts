@@ -54,7 +54,11 @@ function renderSelectedFilters({
         SelectedFilters
       },
       template,
-      props: ['facetsIds']
+      data() {
+        return {
+          facetsIds
+        };
+      }
     },
     {
       localVue,

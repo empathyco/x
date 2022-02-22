@@ -1,5 +1,5 @@
 import { BooleanFilter, Facet } from '@empathyco/x-types';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
+import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
@@ -19,8 +19,8 @@ import SelectedFiltersList from '../../lists/selected-filters-list.vue';
  * @returns The API for testing the `SelectedFiltersList` component.
  */
 function renderSelectedFiltersList({
-  template = '<SelectedFiltersList />',
-  facetsIds = []
+  template = '<SelectedFiltersList :facetsIds="facetsIds" />',
+  facetsIds = undefined
 }: RenderSelectedFiltersListOptions = {}): RenderSelectedFiltersAPI {
   const facets: Record<Facet['id'], Facet> = {
     gender: createSimpleFacetStub('gender', createFilter => [
@@ -50,7 +50,11 @@ function renderSelectedFiltersList({
         SelectedFiltersList
       },
       template,
-      props: ['facetsIds']
+      data() {
+        return {
+          facetsIds
+        };
+      }
     },
     {
       localVue,
@@ -70,6 +74,9 @@ function renderSelectedFiltersList({
       const filter = (store.getters['x/facets/facets']![facetId].filters as BooleanFilter[])[nth];
       filter.selected = !filter.selected;
       return localVue.nextTick();
+    },
+    selectedFiltersItems() {
+      return selectedFiltersListWrapper.findAll(getDataTestSelector('selected-filters-list-item'));
     }
   };
 }
@@ -110,7 +117,6 @@ describe('testing SelectedFiltersList component', () => {
           <template #default="{ filter }">{{ filter.label }} selected!</template>
           <template #brand="{ filter }">Which one? {{ filter.label }}</template>
           <template #root-categories="{ filter }">Much better: {{ filter.label }}</template>
-          <template #rootCategories="{ filter }">Much better: {{ filter.label }}</template>
         </SelectedFiltersList>
       `
     });
@@ -130,10 +136,10 @@ describe('testing SelectedFiltersList component', () => {
   });
 
   it('renders selectedFilters of the facets ids provided', async () => {
-    const { selectedFiltersListWrapper, toggleFacetNthFilter } = renderSelectedFiltersList({
-      template: '<SelectedFiltersList :facetsIds="facetsIds" />',
-      facetsIds: ['brand', 'gender']
-    });
+    const { selectedFiltersListWrapper, toggleFacetNthFilter, selectedFiltersItems } =
+      renderSelectedFiltersList({
+        facetsIds: ['brand', 'gender']
+      });
 
     expect(selectedFiltersListWrapper.text()).toBe('');
 
@@ -141,13 +147,9 @@ describe('testing SelectedFiltersList component', () => {
     await toggleFacetNthFilter('rootCategories', 1);
     await toggleFacetNthFilter('gender', 1);
 
-    const selectedFiltersItems = selectedFiltersListWrapper.findAll(
-      getDataTestSelector('selected-filters-list-item')
-    );
-
-    expect(selectedFiltersItems).toHaveLength(2);
-    expect(selectedFiltersItems.at(0).text()).toBe('Audi');
-    expect(selectedFiltersItems.at(1).text()).toBe('Women');
+    expect(selectedFiltersItems()).toHaveLength(2);
+    expect(selectedFiltersItems().at(0).text()).toBe('Audi');
+    expect(selectedFiltersItems().at(1).text()).toBe('Women');
   });
 
   it('renders the component if alwaysVisible is true and no selected filters', () => {
@@ -180,4 +182,7 @@ interface RenderSelectedFiltersAPI {
   selectedFiltersListWrapper: Wrapper<Vue>;
   /** Toggle nth filter of the facet provided. */
   toggleFacetNthFilter: (facetId: string, nth: number) => Promise<void>;
+  /** Retrieves the wrapper for the items of the list rendered by the {@link SelectedFiltersList}
+   * component. */
+  selectedFiltersItems: () => WrapperArray<Vue>;
 }

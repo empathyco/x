@@ -51,7 +51,7 @@
   import { toKebabCase } from '../../../../utils/string';
   import { map, objectFilter } from '../../../../utils/object';
   import { Dictionary } from '../../../../utils/types';
-  import FacetsMixin from '../../facets.mixin';
+  import FacetsMixin from '../facets.mixin';
   import { facetsXModule } from '../../x-module';
 
   /**

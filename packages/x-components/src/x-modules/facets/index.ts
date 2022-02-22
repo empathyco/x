@@ -6,4 +6,4 @@ export * from './entities';
 export * from './components';
 export * from './events.types';
 export * from './utils';
-export { default as FacetsMixin } from './facets.mixin';
+export { default as FacetsMixin } from './components/facets.mixin';

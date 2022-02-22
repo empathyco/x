@@ -2,9 +2,9 @@ import { Facet, Filter } from '@empathyco/x-types';
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import { Getter } from '../../components/index';
-import { isArrayEmpty } from '../../utils/index';
-import { FiltersByFacet } from './store/index';
+import { Getter } from '../../../components/index';
+import { isArrayEmpty } from '../../../utils/index';
+import { FiltersByFacet } from '../store/index';
 
 /**
  * Mixin to share Facets logic.
@@ -30,7 +30,7 @@ export default class FacetsMixin extends Vue {
   public alwaysVisible!: boolean;
 
   /**
-   * Array of selected filters from every facet.
+   * Dictionary of filters {@link FiltersByFacet} filtered by facet id.
    *
    * @internal
    */
