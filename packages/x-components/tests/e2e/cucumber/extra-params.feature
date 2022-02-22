@@ -11,7 +11,7 @@ Feature: Extra-params component
     And   a results API with a known response
     And   no special config for layout view
 
-  Scenario Outline: 1. Search request includes extra-params from Snippet Config and no-Snippet Config
+  Scenario Outline: 1. Search request includes extra-params from Snippet Config
     When  start button is clicked
     And   "<query>" is searched
     And   search request contains parameter "<ExtraParamName>" with value "<ExtraParamValue>"
