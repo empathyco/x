@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.60](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.59...@empathyco/x-components@3.0.0-alpha.60) (2022-02-24)
+
+### Features
+
+- **facets:** add facets mixin to share logic between components
+  ([c8a9046](https://github.com/empathyco/x/commit/c8a904612213cd12040dd6fa1348f6c9a7726eda)),
+  closes [EX-2899](https://searchbroker.atlassian.net/browse/EX-2899)
+
+### Testing
+
+- **e2e:** fix `tagging` using the `mockedAdapter` and replacing `fetch` for `sendBeacon`
+  ([cf06d2f](https://github.com/empathyco/x/commit/cf06d2f7e9aff3987bc14fa46cd65eace402e612)),
+  closes [EX-5374](https://searchbroker.atlassian.net/browse/EX-5374)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.59](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.58...@empathyco/x-components@3.0.0-alpha.59) (2022-02-17)
 
 ### Features
