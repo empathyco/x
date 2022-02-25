@@ -1,5 +1,7 @@
 import { Store } from 'vuex';
 import { RootXStoreState } from '../store/store.types';
+import { MonadicFunction } from '../utils/index';
+import { DefaultFacetsService } from '../x-modules/facets/index';
 import {
   AnyWire,
   PayloadFactoryData,
@@ -144,16 +146,50 @@ export function wireDispatchWithoutPayload(action: string): AnyWire {
  * @returns A factory to create wires that invoke the service methods.
  * @public
  */
-export function wireService<SomeService>(service: SomeService): WireService<SomeService> {
-  return (method, payload?) => {
+export function wireService<SomeService>(
+  service: SomeService
+): WireService<SubObject<SomeService>> {
+  return (method: keyof SubObject<SomeService>, payload?) => {
+    const serviceMethod = (service as unknown as SubObject<SomeService>)[method].bind(service);
     return observable =>
       observable.subscribe(
         payload !== undefined
-          ? () => service[method](payload)
-          : observablePayload => service[method](observablePayload.eventPayload)
+          ? () => serviceMethod(payload)
+          : observablePayload => serviceMethod(observablePayload.eventPayload)
       );
   };
 }
+
+export type SubObject<Something> = {
+  [Key in keyof Something as MonadicFunction extends Something[Key]
+    ? Key
+    : never]: MonadicFunction & Something[Key];
+};
+
+const createWire = wireService({
+  monadic1(a: string): void {
+    console.log(a);
+  },
+  monadic2(a?: number): void {
+    console.log(a);
+  },
+  maybemonadic(a: boolean, b?: string): void {
+    console.log(a, b);
+  },
+  niladic(): void {
+    console.log('niladic');
+  }
+});
+
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+const w1 = createWire('monadic1');
+const w2 = createWire('monadic2');
+const w2 = createWire('maybemonadic');
+// @ts-expect-error
+const w3 = createWire('niladic');
+// @ts-expect-error
+const w4 = createWire('unexistant');
+/* eslint-enable @typescript-eslint/ban-ts-comment */
 
 /**
  * Creates a wires factory that can create wires that will invoke the service methods but

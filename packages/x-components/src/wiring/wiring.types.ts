@@ -13,6 +13,7 @@ import {
 } from '../utils';
 import { XModuleName } from '../x-modules/x-modules.types';
 import { XEvent, XEventPayload } from './events.types';
+import { SubObject } from './wires.factory';
 
 /**
  * A Wire is a function that receives an observable, the store and the on function of the bus it
@@ -145,8 +146,8 @@ export interface WireService<SomeService> {
    * @param method - The method to invoke.
    * @returns A Wire that expects to receive the function parameter as payload.
    */
-  <SomeMethod extends PropsWithType<SomeService, MonadicFunction>>(method: SomeMethod): Wire<
-    FirstParameter<SomeService[SomeMethod]>
+  <SomeMethod extends keyof SubObject<SomeService>>(method: SomeMethod): Wire<
+    FirstParameter<SubObject<SomeService>[SomeMethod]>
   >;
   /**
    * Creates a wire that will invoke the given service function with the provided static payload.
@@ -155,9 +156,9 @@ export interface WireService<SomeService> {
    * @param payload - The payload to invoke the service with.
    * @returns A Wire that can be used anywhere.
    */
-  <SomeMethod extends PropsWithType<SomeService, MonadicFunction>>(
+  <SomeMethod extends keyof SubObject<SomeService>>(
     method: SomeMethod,
-    payload: FirstParameter<SomeService[SomeMethod]>
+    payload: FirstParameter<SubObject<SomeService>[SomeMethod]>
   ): AnyWire;
 }
 
@@ -172,5 +173,5 @@ export interface WireServiceWithoutPayload<SomeService> {
    *
    * @param method - The method to invoke.
    * @returns A Wire that can be used anywhere.
-   */ <SomeMethod extends PropsWithType<SomeService, NiladicFunction>>(method: SomeMethod): AnyWire;
+   */ <SomeMethod extends keyof PickNiladic<SomeService>>(method: SomeMethod): AnyWire;
 }

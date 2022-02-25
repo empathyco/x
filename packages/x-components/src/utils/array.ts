@@ -1,3 +1,4 @@
+import { HierarchicalFilter } from '@empathyco/x-types';
 import { PropsWithType } from './types';
 
 /**
@@ -178,26 +179,17 @@ export function groupItemsBy<ArrayType, ReturnType extends string | number>(
  *
  * @public
  */
-export function deepFilter<ArrayType, Key extends PropsWithType<ArrayType, ArrayType[]>>(
-  array: ArrayType[],
-  filter: (item: ArrayType) => boolean,
-  childrenKey: Key
-): ArrayType[] {
-  const filterArray = function (
-    currentArray: ArrayType[],
-    initialArray: ArrayType[] = []
-  ): ArrayType[] {
-    return currentArray.reduce((result, currentItem) => {
-      if (filter(currentItem)) {
-        result.push(currentItem);
-        filterArray(currentItem[childrenKey], result);
-      }
-
-      return result;
-    }, initialArray);
-  };
-
-  return filterArray(array);
+export function deepFilter<
+  ArrayType extends { [key in Key]?: ArrayType[] },
+  Key extends keyof ArrayType
+>(array: ArrayType[], filter: (item: ArrayType) => boolean, childrenKey: Key): ArrayType[] {
+  return array.reduce(function filterArray(filteredArray, item) {
+    if (filter(item)) {
+      filteredArray.push(item);
+      item[childrenKey]?.reduce(filterArray, filteredArray);
+    }
+    return filteredArray;
+  }, [] as ArrayType[]);
 }
 
 /**
@@ -214,45 +206,15 @@ export function deepFilter<ArrayType, Key extends PropsWithType<ArrayType, Array
  *
  * @public
  */
-export function deepFlat<ArrayType, Key extends PropsWithType<ArrayType, ArrayType[] | undefined>>(
-  array: ArrayType[],
-  childrenKey: Key
-): ArrayType[] {
-  /**
-   * Flats an array recursively. In each iteration:
-   * - If the currentItem is an array, flatArray is used to reduce it. So, the order of the
-   * flatArray arguments defined is important. This happens when the function is called passing an
-   * array as the second parameter.
-   * - If not, the item is pushed to the resultantArray.
-   * - Finally, flatArray function is called again with the currentItem children and the process
-   * starts again.
-   *
-   * It's the main function of the parent. See the description above
-   * for further information.
-   *
-   * @param resultantArray - Flattened array.
-   * @param currentItem - ArrayType object.
-   *
-   * @returns Flattened ArrayType[].
-   *
-   * @internal
-   */
-  function flatArray(
-    resultantArray: ArrayType[],
-    currentItem: ArrayType | ArrayType[]
-  ): ArrayType[] {
-    if (!currentItem) {
-      return resultantArray;
-    }
-
-    if (Array.isArray(currentItem)) {
-      return currentItem.reduce(flatArray, resultantArray);
-    }
-    resultantArray.push(currentItem);
-    return flatArray(resultantArray, currentItem[childrenKey]);
-  }
-
-  return flatArray([], array);
+export function deepFlat<
+  ArrayType extends { [key in Key]?: ArrayType[] },
+  Key extends keyof ArrayType
+>(array: ArrayType[], childrenKey: Key): ArrayType[] {
+  return array.reduce(function flat(flattenedArray, item) {
+    flattenedArray.push(item);
+    item[childrenKey]?.reduce(flat, flattenedArray);
+    return flattenedArray;
+  }, [] as ArrayType[]);
 }
 
 /**
