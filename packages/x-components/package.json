@@ -66,7 +66,7 @@
     "@empathyco/x-types": "^10.0.0-alpha.16",
     "@types/resize-observer-browser": "~0.1.5",
     "magic-string": "~0.25.7",
-    "nanoid": "~3.1.30",
+    "nanoid": "~3.1.31",
     "reflect-metadata": "~0.1.13",
     "rxjs": "~7.4.0",
     "tslib": "~2.3.0",
