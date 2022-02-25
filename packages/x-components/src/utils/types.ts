@@ -51,7 +51,8 @@ export type SubObject<SomeObject, TargetPropertyType> = {
  * ```
  * @public
  */
-export type PropsWithType<SomeObject, TargetItem> = keyof SubObject<SomeObject, TargetItem>;
+export type PropsWithType<SomeObject, TargetItem> = keyof SomeObject &
+  keyof SubObject<SomeObject, TargetItem>;
 
 /**
  * Makes all the properties of the T type optional in depth.

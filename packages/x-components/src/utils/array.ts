@@ -1,4 +1,3 @@
-import { HierarchicalFilter } from '@empathyco/x-types';
 import { PropsWithType } from './types';
 
 /**
@@ -61,13 +60,13 @@ export function arrayToObject<ArrayType, KeyType extends string | number>(
  *
  * @public
  */
-export function arrayToObject<ArrayType, KeyType extends string | number>(
+export function arrayToObject<ArrayType>(
   array: ArrayType[],
-  key?: PropsWithType<ArrayType, KeyType>
+  key?: PropsWithType<ArrayType, string>
 ): Record<string, ArrayType> {
   return array.reduce<Record<string, ArrayType>>((accumulator, current) => {
     if (key) {
-      accumulator[current[key] as unknown as string] = current;
+      accumulator[current[key] as any] = current;
     } else if (typeof current === 'string') {
       accumulator[current] = current;
     }
@@ -183,13 +182,13 @@ export function deepFilter<
   ArrayType extends { [key in Key]?: ArrayType[] },
   Key extends keyof ArrayType
 >(array: ArrayType[], filter: (item: ArrayType) => boolean, childrenKey: Key): ArrayType[] {
-  return array.reduce(function filterArray(filteredArray, item) {
+  return array.reduce<ArrayType[]>(function filterArray(filteredArray, item) {
     if (filter(item)) {
       filteredArray.push(item);
       item[childrenKey]?.reduce(filterArray, filteredArray);
     }
     return filteredArray;
-  }, [] as ArrayType[]);
+  }, []);
 }
 
 /**
@@ -210,11 +209,11 @@ export function deepFlat<
   ArrayType extends { [key in Key]?: ArrayType[] },
   Key extends keyof ArrayType
 >(array: ArrayType[], childrenKey: Key): ArrayType[] {
-  return array.reduce(function flat(flattenedArray, item) {
+  return array.reduce<ArrayType[]>(function flat(flattenedArray, item) {
     flattenedArray.push(item);
     item[childrenKey]?.reduce(flat, flattenedArray);
     return flattenedArray;
-  }, [] as ArrayType[]);
+  }, []);
 }
 
 /**

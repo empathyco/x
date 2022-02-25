@@ -51,8 +51,8 @@
   },
   "devDependencies": {
     "@empathyco/x-jest-utils": "^1.4.0-alpha.1",
-    "@microsoft/api-documenter": "~7.13.33",
-    "@microsoft/api-extractor": "~7.18.4",
+    "@microsoft/api-documenter": "~7.15.3",
+    "@microsoft/api-extractor": "~7.19.4",
     "@types/jest": "~27.0.3",
     "@types/node": "~12.7.5",
     "jest": "~27.3.1",
