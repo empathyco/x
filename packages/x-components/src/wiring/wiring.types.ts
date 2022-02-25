@@ -3,10 +3,9 @@ import { Store } from 'vuex';
 import { XBus } from '../plugins/x-bus.types';
 import { RootStoreStateAndGetters, RootXStoreState } from '../store';
 import { FeatureLocation, QueryFeature } from '../types/origin';
-import { Dictionary, FirstParameter, MaybeArray } from '../utils';
+import { Dictionary, FirstParameter, MaybeArray, MonadicFunction, NiladicFunction } from '../utils';
 import { XModuleName } from '../x-modules/x-modules.types';
 import { XEvent, XEventPayload } from './events.types';
-import { PickMonadic, PickNiladic } from './wires.factory';
 
 /**
  * A Wire is a function that receives an observable, the store and the on function of the bus it
@@ -93,7 +92,7 @@ export type AnyWire = Wire<any>;
  * @public
  */
 export type Wiring = {
-  [E in XEvent]: Dictionary<WireForEvent<E>>;
+  [Event in XEvent]: Dictionary<WireForEvent<Event>>;
 };
 
 /**
@@ -131,15 +130,16 @@ export interface TimedWireOperatorOptions {
  *
  * @public
  */
-export interface WireService<SomeService> {
+export interface WireService<SomeService extends Record<string, MonadicFunction>> {
   /**
    * Creates a wire that will invoke the given service function with the payload of the event it
    * is subscribed to.
    *
    * @param method - The method to invoke.
    * @returns A Wire that expects to receive the function parameter as payload.
-   */ <SomeMethod extends keyof PickMonadic<SomeService>>(method: SomeMethod): Wire<
-    FirstParameter<PickMonadic<SomeService>[SomeMethod]>
+   */
+  <SomeMethod extends keyof SomeService>(method: SomeMethod): Wire<
+    FirstParameter<SomeService[SomeMethod]>
   >;
   /**
    * Creates a wire that will invoke the given service function with the provided static payload.
@@ -147,9 +147,10 @@ export interface WireService<SomeService> {
    * @param method - The method to invoke.
    * @param payload - The payload to invoke the service with.
    * @returns A Wire that can be used anywhere.
-   */ <SomeMethod extends keyof PickMonadic<SomeService>>(
+   */
+  <SomeMethod extends keyof SomeService>(
     method: SomeMethod,
-    payload: FirstParameter<PickMonadic<SomeService>[SomeMethod]>
+    payload: FirstParameter<SomeService[SomeMethod]>
   ): AnyWire;
 }
 
@@ -158,11 +159,12 @@ export interface WireService<SomeService> {
  *
  * @public
  */
-export interface WireServiceWithoutPayload<SomeService> {
+export interface WireServiceWithoutPayload<SomeService extends Record<string, NiladicFunction>> {
   /**
    * Creates a wire that will invoke the given service function with no payload.
    *
    * @param method - The method to invoke.
    * @returns A Wire that can be used anywhere.
-   */ <SomeMethod extends keyof PickNiladic<SomeService>>(method: SomeMethod): AnyWire;
+   */
+  <SomeMethod extends keyof SomeService>(method: SomeMethod): AnyWire;
 }

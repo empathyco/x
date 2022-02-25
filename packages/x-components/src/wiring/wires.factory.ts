@@ -1,6 +1,6 @@
 import { Store } from 'vuex';
 import { RootXStoreState } from '../store/store.types';
-import { MonadicFunction, NiladicFunction } from '../utils/index';
+import { MonadicFunction, NiladicFunction, SubObject } from '../utils/index';
 import {
   AnyWire,
   PayloadFactoryData,
@@ -146,10 +146,10 @@ export function wireDispatchWithoutPayload(action: string): AnyWire {
  * @public
  */
 export function wireService<SomeService>(
-  service: SomeService
-): WireService<PickMonadic<SomeService>> {
-  return (method: keyof PickMonadic<SomeService>, payload?) => {
-    const serviceMethod = (service as unknown as PickMonadic<SomeService>)[method].bind(service);
+  service: SomeService & SubObject<SomeService, MonadicFunction>
+): WireService<SubObject<SomeService, MonadicFunction>> {
+  return (method, payload?) => {
+    const serviceMethod = service[method].bind(service);
     return observable =>
       observable.subscribe(
         payload !== undefined
@@ -158,18 +158,6 @@ export function wireService<SomeService>(
       );
   };
 }
-
-export type PickMonadic<Something> = {
-  [Key in keyof Something as Something[Key] extends MonadicFunction
-    ? Key
-    : never]: MonadicFunction & Something[Key];
-};
-
-export type PickNiladic<Something> = {
-  [Key in keyof Something as Something[Key] extends NiladicFunction
-    ? Key
-    : never]: NiladicFunction & Something[Key];
-};
 
 /**
  * Creates a wires factory that can create wires that will invoke the service methods but
@@ -180,11 +168,10 @@ export type PickNiladic<Something> = {
  * @public
  */
 export function wireServiceWithoutPayload<SomeService>(
-  service: SomeService
-): WireServiceWithoutPayload<SomeService> {
+  service: SomeService & SubObject<SomeService, NiladicFunction>
+): WireServiceWithoutPayload<SubObject<SomeService, NiladicFunction>> {
   return method => {
-    return observable =>
-      observable.subscribe(() => (service as unknown as PickNiladic<SomeService>)[method]());
+    return observable => observable.subscribe(() => service[method]());
   };
 }
 
