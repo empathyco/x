@@ -258,7 +258,7 @@ describe('testing wires factory', () => {
 
       // eslint-disable-next-line jest/expect-expect
       it("doesn't allow calling methods with multiple parameters", () => {
-        // This check is just
+        // This check is just to assert that we can't call a method with multiple parameters
         const wireTestService = wireService(new TestService());
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
@@ -302,7 +302,7 @@ describe('testing wires factory', () => {
 
       // eslint-disable-next-line jest/expect-expect
       it("doesn't allow calling methods with one or more parameters", () => {
-        // This check is just
+        // This check is just to assert that we can't call methods with compulsory parameters
         const wireTestService = wireServiceWithoutPayload(new TestService());
 
         /* eslint-disable @typescript-eslint/ban-ts-comment */

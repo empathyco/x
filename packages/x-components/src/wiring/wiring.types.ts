@@ -3,17 +3,10 @@ import { Store } from 'vuex';
 import { XBus } from '../plugins/x-bus.types';
 import { RootStoreStateAndGetters, RootXStoreState } from '../store';
 import { FeatureLocation, QueryFeature } from '../types/origin';
-import {
-  Dictionary,
-  FirstParameter,
-  MaybeArray,
-  MonadicFunction,
-  NiladicFunction,
-  PropsWithType
-} from '../utils';
+import { Dictionary, FirstParameter, MaybeArray } from '../utils';
 import { XModuleName } from '../x-modules/x-modules.types';
 import { XEvent, XEventPayload } from './events.types';
-import { SubObject } from './wires.factory';
+import { PickMonadic, PickNiladic } from './wires.factory';
 
 /**
  * A Wire is a function that receives an observable, the store and the on function of the bus it
@@ -145,9 +138,8 @@ export interface WireService<SomeService> {
    *
    * @param method - The method to invoke.
    * @returns A Wire that expects to receive the function parameter as payload.
-   */
-  <SomeMethod extends keyof SubObject<SomeService>>(method: SomeMethod): Wire<
-    FirstParameter<SubObject<SomeService>[SomeMethod]>
+   */ <SomeMethod extends keyof PickMonadic<SomeService>>(method: SomeMethod): Wire<
+    FirstParameter<PickMonadic<SomeService>[SomeMethod]>
   >;
   /**
    * Creates a wire that will invoke the given service function with the provided static payload.
@@ -155,10 +147,9 @@ export interface WireService<SomeService> {
    * @param method - The method to invoke.
    * @param payload - The payload to invoke the service with.
    * @returns A Wire that can be used anywhere.
-   */
-  <SomeMethod extends keyof SubObject<SomeService>>(
+   */ <SomeMethod extends keyof PickMonadic<SomeService>>(
     method: SomeMethod,
-    payload: FirstParameter<SubObject<SomeService>[SomeMethod]>
+    payload: FirstParameter<PickMonadic<SomeService>[SomeMethod]>
   ): AnyWire;
 }
 

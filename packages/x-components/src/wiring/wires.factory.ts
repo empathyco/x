@@ -1,7 +1,6 @@
 import { Store } from 'vuex';
 import { RootXStoreState } from '../store/store.types';
-import { MonadicFunction } from '../utils/index';
-import { DefaultFacetsService } from '../x-modules/facets/index';
+import { MonadicFunction, NiladicFunction } from '../utils/index';
 import {
   AnyWire,
   PayloadFactoryData,
@@ -148,9 +147,9 @@ export function wireDispatchWithoutPayload(action: string): AnyWire {
  */
 export function wireService<SomeService>(
   service: SomeService
-): WireService<SubObject<SomeService>> {
-  return (method: keyof SubObject<SomeService>, payload?) => {
-    const serviceMethod = (service as unknown as SubObject<SomeService>)[method].bind(service);
+): WireService<PickMonadic<SomeService>> {
+  return (method: keyof PickMonadic<SomeService>, payload?) => {
+    const serviceMethod = (service as unknown as PickMonadic<SomeService>)[method].bind(service);
     return observable =>
       observable.subscribe(
         payload !== undefined
@@ -160,36 +159,17 @@ export function wireService<SomeService>(
   };
 }
 
-export type SubObject<Something> = {
-  [Key in keyof Something as MonadicFunction extends Something[Key]
+export type PickMonadic<Something> = {
+  [Key in keyof Something as Something[Key] extends MonadicFunction
     ? Key
     : never]: MonadicFunction & Something[Key];
 };
 
-const createWire = wireService({
-  monadic1(a: string): void {
-    console.log(a);
-  },
-  monadic2(a?: number): void {
-    console.log(a);
-  },
-  maybemonadic(a: boolean, b?: string): void {
-    console.log(a, b);
-  },
-  niladic(): void {
-    console.log('niladic');
-  }
-});
-
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-const w1 = createWire('monadic1');
-const w2 = createWire('monadic2');
-const w2 = createWire('maybemonadic');
-// @ts-expect-error
-const w3 = createWire('niladic');
-// @ts-expect-error
-const w4 = createWire('unexistant');
-/* eslint-enable @typescript-eslint/ban-ts-comment */
+export type PickNiladic<Something> = {
+  [Key in keyof Something as Something[Key] extends NiladicFunction
+    ? Key
+    : never]: NiladicFunction & Something[Key];
+};
 
 /**
  * Creates a wires factory that can create wires that will invoke the service methods but
@@ -203,7 +183,8 @@ export function wireServiceWithoutPayload<SomeService>(
   service: SomeService
 ): WireServiceWithoutPayload<SomeService> {
   return method => {
-    return observable => observable.subscribe(() => service[method]());
+    return observable =>
+      observable.subscribe(() => (service as unknown as PickNiladic<SomeService>)[method]());
   };
 }
 
