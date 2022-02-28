@@ -9,7 +9,7 @@ import { cleanUndefined } from '../../utils/object';
 import { DeepPartial } from '../../utils/types';
 import { SnippetConfig, XAPI } from '../api/api.types';
 import { BaseXAPI } from '../api/base-api';
-import { InstallXOptions, VueConstructorPartialArgument } from './types';
+import { InitWrapper, InstallXOptions, VueConstructorPartialArgument } from './types';
 
 declare global {
   interface Window {
@@ -114,7 +114,6 @@ export class XInstaller {
    */
   public constructor(protected readonly options: InstallXOptions) {
     this.createAPI();
-    this.autoInit();
   }
 
   /**
@@ -134,53 +133,54 @@ export class XInstaller {
   }
 
   /**
-   * Auto initializes the Vue application if there is a defined
-   * {@link SnippetConfig | snippet config}, either as a function or an object, in window.initX.
+   * Retrieves the {@link SnippetConfig | snippet config} it is defined in the window.initX.
+   *
+   * @returns The snippet config if it is defined. Else undefined.
    *
    * @internal
    */
-  protected autoInit(): void {
+  private retrieveSnippetConfig(): SnippetConfig | undefined {
     if (typeof window.initX === 'function') {
-      const snippetOptions = window.initX();
-      this.init(snippetOptions);
+      return window.initX();
     } else if (typeof window.initX === 'object') {
-      this.init(window.initX);
+      return window.initX;
     }
   }
 
   /**
-   * Receives the {@link SnippetConfig | snippet config}, installs the plugin and initializes
-   * the Vue application.
+   * Receives the {@link SnippetConfig | snippet config} or retrieves it from window.initX and
+   * installs the plugin and initializes the Vue application.
    *
-   * @param snippetConfig - The {@link SnippetConfig} that receives from snippet
-   * integration.
+   * @param snippetConfig - The {@link SnippetConfig} that receives from snippet integration.
    *
-   * @returns Object with the {@link XAPI}, the {@link XBus}, the {@link XPlugin} and the Vue App
-   * used in the application.
+   * @returns If {@link SnippetConfig | snippet config} is passed or configured in window.initX,
+   * returns an object with the {@link XAPI}, the {@link XBus}, the {@link XPlugin} and the Vue App
+   * used in the application. Else, a rejected promise is returned.
    *
    * @public
    */
-  async init(snippetConfig: SnippetConfig): Promise<{
-    app: Vue | undefined;
-    api: XAPI | undefined;
-    bus: XBus;
-    plugin: PluginObject<XPluginOptions>;
-  }> {
-    const adapterConfig = this.getAdapterConfig(snippetConfig);
-    this.applyConfigToAdapter(adapterConfig);
-    const bus = this.createBus();
-    const pluginOptions = this.getPluginOptions();
-    const plugin = this.installPlugin(pluginOptions, bus);
-    const extraPlugins = await this.installExtraPlugins(snippetConfig, bus);
-    const app = this.createApp(extraPlugins, snippetConfig);
-    this.api?.setBus(bus);
+  async init(snippetConfig?: SnippetConfig): Promise<InitWrapper | void> {
+    const finalSnippetConfig = snippetConfig ?? this.retrieveSnippetConfig();
 
-    return {
-      api: this.api,
-      app,
-      bus,
-      plugin
-    };
+    if (finalSnippetConfig) {
+      const adapterConfig = this.getAdapterConfig(finalSnippetConfig);
+      this.applyConfigToAdapter(adapterConfig);
+      const bus = this.createBus();
+      const pluginOptions = this.getPluginOptions();
+      const plugin = this.installPlugin(pluginOptions, bus);
+      const extraPlugins = await this.installExtraPlugins(finalSnippetConfig, bus);
+      const app = this.createApp(extraPlugins, finalSnippetConfig);
+      this.api?.setBus(bus);
+
+      return {
+        api: this.api,
+        app,
+        bus,
+        plugin
+      };
+    }
+
+    return Promise.resolve();
   }
 
   /**
