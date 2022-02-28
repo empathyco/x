@@ -40,9 +40,9 @@ export function arrayToObject(array: string[]): Record<string, string>;
  *
  * @public
  */
-export function arrayToObject<ArrayType, KeyType extends string | number>(
+export function arrayToObject<ArrayType>(
   array: ArrayType[],
-  key: PropsWithType<ArrayType, KeyType>
+  key: PropsWithType<ArrayType, string>
 ): Record<string, ArrayType>;
 /**
  * Reduce an array to an object. The type of the object returned depends on the type of the params.
