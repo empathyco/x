@@ -38,6 +38,24 @@ export interface XAPI {
   setInitCallback(initCallback: (config: SnippetConfig) => void): void;
 
   /**
+   * To set or update any property of the {@link SnippetConfig}.
+   *
+   * @param config - The properties to be changed.
+   *
+   * @public
+   */
+  setSnippetConfig(config: Partial<SnippetConfig>): void;
+
+  /**
+   * To set the snippet config callback.
+   *
+   * @param callback - Hello.
+   *
+   * @internal
+   */
+  setSnippetConfigCallback(callback: (config: Partial<SnippetConfig>) => void): void;
+
+  /**
    * Dispatch a search with the query parameter.
    *
    * @param query - Query to be searched.

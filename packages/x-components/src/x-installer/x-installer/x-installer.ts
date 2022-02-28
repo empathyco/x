@@ -5,7 +5,7 @@ import { BaseXBus } from '../../plugins/x-bus';
 import { XBus } from '../../plugins/x-bus.types';
 import { XPlugin } from '../../plugins/x-plugin';
 import { XPluginOptions } from '../../plugins/x-plugin.types';
-import { cleanUndefined } from '../../utils/object';
+import { cleanUndefined, forEach } from '../../utils/object';
 import { DeepPartial } from '../../utils/types';
 import { SnippetConfig, XAPI } from '../api/api.types';
 import { BaseXAPI } from '../api/base-api';
@@ -100,6 +100,15 @@ export class XInstaller {
   private api?: XAPI;
 
   /**
+   * Creates the public {@link XAPI} using the `api` option from {@link InstallXOptions}. If this
+   * `api` option is not passed, then a default {@link BaseXAPI} is created. To disable the API
+   * creation the value `false` must be passed in the `api` option.
+   *
+   * @internal
+   */
+  protected snippetConfig!: SnippetConfig;
+
+  /**
    * Receives the {@link InstallXOptions} and merges it with the default fallback options. Also
    * creates the public {@link XAPI}.
    *
@@ -123,6 +132,7 @@ export class XInstaller {
     if (api !== false) {
       this.api = api ?? new BaseXAPI();
       this.api.setInitCallback(this.init.bind(this));
+      this.api.setSnippetConfigCallback(this.updateSnippetConfig.bind(this));
       window.X = this.api;
     }
   }
@@ -296,13 +306,14 @@ export class XInstaller {
   ): Vue | undefined {
     if (this.options.app !== undefined) {
       const vue = this.getVue();
-      snippetConfig = vue.observable(snippetConfig);
+      this.snippetConfig = vue.observable(snippetConfig);
+      const snippetConfigObservable = this.snippetConfig;
       return new vue({
         ...extraPlugins,
         ...this.options.vueOptions,
         provide() {
           return {
-            snippetConfig
+            snippetConfig: snippetConfigObservable
           };
         },
         store: this.options.store,
@@ -336,5 +347,22 @@ export class XInstaller {
     } else {
       return document.body.appendChild(document.createElement('div'));
     }
+  }
+
+  /**
+   * It updates all the provided properties from the current snippet config.
+   *
+   * @param snippetConfig - All the properties to be updated in the {@link SnippetConfig}.
+   *
+   * @internal
+   */
+  protected updateSnippetConfig(snippetConfig: Partial<SnippetConfig>): void {
+    forEach(snippetConfig, (name, value) => {
+      if (this.snippetConfig[name]) {
+        Object.assign(this.snippetConfig, { [name]: value });
+      } else {
+        Vue.set(this.snippetConfig, name, value);
+      }
+    });
   }
 }
