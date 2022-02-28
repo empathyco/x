@@ -150,9 +150,26 @@ describe('testing `XInstaller` utility', () => {
     expect(app?.$el).toHaveTextContent('test-2');
   });
 
-  it('initializes the app with the configured window.initX snippet config', async () => {
+  it('initializes the app when window.initX has the snippet config object', async () => {
     const vue = createLocalVue();
     window.initX = snippetConfig;
+    const { app } = (await new XInstaller({
+      adapter,
+      vue,
+      app: injectSnippetConfigComponent()
+    }).init()) as InitWrapper;
+
+    expect(app?.$el).toHaveTextContent(snippetConfig.instance);
+
+    snippetConfig.instance = 'test-2';
+    await vue.nextTick();
+    expect(app?.$el).toHaveTextContent('test-2');
+  });
+
+  // eslint-disable-next-line max-len
+  it('initializes the app when window.initX is a function retrieving the snippet config', async () => {
+    const vue = createLocalVue();
+    window.initX = () => snippetConfig;
     const { app } = (await new XInstaller({
       adapter,
       vue,
