@@ -135,7 +135,7 @@ export class XInstaller {
   /**
    * Retrieves the {@link SnippetConfig | snippet config} it is defined in the window.initX.
    *
-   * @returns The snippet config if it is defined. Else undefined.
+   * @returns The snippet config if it is defined or undefined otherwise.
    *
    * @internal
    */
@@ -159,17 +159,17 @@ export class XInstaller {
    *
    * @public
    */
-  async init(snippetConfig?: SnippetConfig): Promise<InitWrapper | void> {
-    const finalSnippetConfig = snippetConfig ?? this.retrieveSnippetConfig();
-
-    if (finalSnippetConfig) {
-      const adapterConfig = this.getAdapterConfig(finalSnippetConfig);
+  init(snippetConfig: SnippetConfig): Promise<InitWrapper>;
+  init(): Promise<InitWrapper | void>;
+  async init(snippetConfig = this.retrieveSnippetConfig()): Promise<InitWrapper | void> {
+    if (snippetConfig) {
+      const adapterConfig = this.getAdapterConfig(snippetConfig);
       this.applyConfigToAdapter(adapterConfig);
       const bus = this.createBus();
       const pluginOptions = this.getPluginOptions();
       const plugin = this.installPlugin(pluginOptions, bus);
-      const extraPlugins = await this.installExtraPlugins(finalSnippetConfig, bus);
-      const app = this.createApp(extraPlugins, finalSnippetConfig);
+      const extraPlugins = await this.installExtraPlugins(snippetConfig, bus);
+      const app = this.createApp(extraPlugins, snippetConfig);
       this.api?.setBus(bus);
 
       return {
