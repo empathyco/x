@@ -32,6 +32,7 @@ describe('testing `XInstaller` utility', () => {
   };
 
   beforeEach(() => {
+    delete window.initX;
     jest.clearAllMocks();
   });
 
