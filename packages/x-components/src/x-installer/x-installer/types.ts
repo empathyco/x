@@ -81,15 +81,15 @@ export interface ExtraPluginsOptions {
 export type VueConstructorPartialArgument = Partial<ConstructorParameters<VueConstructor>[0]>;
 
 /**
- * Interface for the returned type of the {@link XInstaller.init} function.
+ * Interface for the returned type of the {@link XInstaller.(init:1)} function.
  *
  * @public
  */
 export interface InitWrapper {
   /** The root Vue instance of the application. */
-  app: Vue;
+  app?: Vue;
   /** The {@link XAPI} to expose globally. */
-  api: XAPI;
+  api?: XAPI;
   /** The {@link XBus} used in the {@link XPlugin}. */
   bus: XBus;
   /** The installed {@link XPlugin} instance. */
