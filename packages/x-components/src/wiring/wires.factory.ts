@@ -149,12 +149,11 @@ export function wireService<SomeService>(
   service: SomeService & SubObject<SomeService, MonadicFunction>
 ): WireService<SubObject<SomeService, MonadicFunction>> {
   return (method, payload?) => {
-    const serviceMethod = service[method].bind(service);
     return observable =>
       observable.subscribe(
         payload !== undefined
-          ? () => serviceMethod(payload)
-          : observablePayload => serviceMethod(observablePayload.eventPayload)
+          ? () => service[method](payload)
+          : observablePayload => service[method](observablePayload.eventPayload)
       );
   };
 }
