@@ -1,7 +1,7 @@
 {
   "name": "@empathyco/eslint-plugin-x",
-  "version": "2.0.0-alpha.2",
-  "description": "ESLint, Prettier and standard-version rules and configurations",
+  "version": "2.0.0-alpha.3",
+  "description": "ESLint and Prettier rules and configurations",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/eslint-plugin-x#readme",
@@ -25,9 +25,7 @@
   },
   "scripts": {
     "build": "npm pack",
-    "commit": "git-cz",
-    "release": "standard-version",
-    "release:alpha": "standard-version --prerelease alpha"
+    "commit": "git-cz"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^3.1.0",
@@ -47,21 +45,11 @@
     "prettier": "^2.1.2",
     "standard-version": "^8.0.0"
   },
-  "devDependencies": {
-    "commitizen": "~4.1.2",
-    "cz-conventional-changelog": "~3.2.0"
-  },
   "peerDependencies": {
     "eslint": "^7.1.0 <7.19.0",
-    "prettier": "^2.0.5",
-    "standard-version": "^8.0.0"
+    "prettier": "^2.0.5"
   },
   "prettier": "./prettier-config.js",
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
   "publishConfig": {
     "access": "public"
   }

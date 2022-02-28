@@ -6,7 +6,6 @@ custom plugin, but it includes also style formatter and good practices outside E
 
 - [ESLint](https://eslint.org/) and third-party plugins
 - [Prettier](https://prettier.io/)
-- [standard-version](https://github.com/conventional-changelog/standard-version)
 
 ## ESLint
 
@@ -64,19 +63,4 @@ prettier config file if you have. To use it is enough with reference it in you `
 
 ```
 "prettier": "@empathyco/eslint-plugin-x/prettier-config"
-```
-
-## standard-version
-
-It is an util for versioning using [semver](https://semver.org/) and CHANGELOG generation powered by
-[Conventional Commits](https://www.conventionalcommits.org/).
-
-The configuration is available in the `standard-version-config.js` file. To use it you need to
-extend your `.versionrc.js` configuration with this one.
-
-```
-module.exports = {
-  header: '# <PROJECT_NAME>',
-  ...require('@empathyco/eslint-plugin-x/standard-version-config')
-}
 ```
