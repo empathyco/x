@@ -43,7 +43,7 @@
     "eslint-plugin-tsdoc": "^0.2.5",
     "eslint-plugin-vue": "^6.2.2",
     "prettier": "^2.1.2",
-    "standard-version": "^8.0.0"
+    "standard-version": "^9.3.2"
   },
   "peerDependencies": {
     "eslint": "^7.1.0 <7.19.0",
