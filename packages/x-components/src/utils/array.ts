@@ -42,7 +42,7 @@ export function arrayToObject(array: string[]): Record<string, string>;
  */
 export function arrayToObject<ArrayType>(
   array: ArrayType[],
-  key: PropsWithType<ArrayType, string>
+  key: PropsWithType<ArrayType, string | number>
 ): Record<string, ArrayType>;
 /**
  * Reduce an array to an object. The type of the object returned depends on the type of the params.
@@ -62,7 +62,7 @@ export function arrayToObject<ArrayType>(
  */
 export function arrayToObject<ArrayType>(
   array: ArrayType[],
-  key?: PropsWithType<ArrayType, string>
+  key?: PropsWithType<ArrayType, string | number>
 ): Record<string, ArrayType> {
   return array.reduce<Record<string, ArrayType>>((accumulator, current) => {
     if (key) {
