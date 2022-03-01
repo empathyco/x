@@ -165,9 +165,9 @@ export function mapWire<FromPayload, ToPayload>(
   return (observable, ...restWireParams) =>
     toWire(
       observable.pipe(
-        map(params => ({
-          ...params,
-          eventPayload: mapFn(params.eventPayload)
+        map(({ eventPayload, ...restWirePayload }) => ({
+          eventPayload: mapFn(eventPayload),
+          ...restWirePayload
         }))
       ),
       ...restWireParams
