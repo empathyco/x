@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.63](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.62...@empathyco/x-components@3.0.0-alpha.63) (2022-03-01)
+
+### Build System
+
+- remove `polyfills` support
+  ([a06fcf3](https://github.com/empathyco/x/commit/a06fcf333b06a4d26c32304127f02125d101a0fd)),
+  closes [EX-3559](https://searchbroker.atlassian.net/browse/EX-3559)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.62](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.61...@empathyco/x-components@3.0.0-alpha.62) (2022-02-28)
 
 **Note:** Version bump only for package @empathyco/x-components
