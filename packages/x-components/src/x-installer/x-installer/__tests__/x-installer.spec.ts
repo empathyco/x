@@ -97,12 +97,12 @@ describe('testing `XInstaller` utility', () => {
       router: new VueRouter({}),
       methods: { testMethod }
     };
-    const { app } = (await new XInstaller({
+    const { app } = await new XInstaller({
       adapter,
       vue,
       vueOptions,
       app: component
-    }).init(snippetConfig)) as InitWrapper;
+    }).init(snippetConfig);
 
     expect(app).toHaveProperty('testMethod');
     expect(app).toHaveProperty('$router');
@@ -110,7 +110,7 @@ describe('testing `XInstaller` utility', () => {
 
   it('allows to install more plugins', async () => {
     const vue = createLocalVue();
-    const { app } = (await new XInstaller({
+    const { app } = await new XInstaller({
       adapter,
       vue,
       installExtraPlugins({ bus, vue, snippet }) {
@@ -128,7 +128,7 @@ describe('testing `XInstaller` utility', () => {
         };
       },
       app: component
-    }).init(snippetConfig)) as InitWrapper;
+    }).init(snippetConfig);
 
     expect(app).toHaveProperty('$router');
     expect(app).toHaveProperty('bus');
@@ -137,11 +137,11 @@ describe('testing `XInstaller` utility', () => {
 
   it('initializes the app with the provided snippet config', async () => {
     const vue = createLocalVue();
-    const { app } = (await new XInstaller({
+    const { app } = await new XInstaller({
       adapter,
       vue,
       app: injectSnippetConfigComponent()
-    }).init(snippetConfig)) as InitWrapper;
+    }).init(snippetConfig);
 
     expect(app?.$el).toHaveTextContent(snippetConfig.instance);
 
