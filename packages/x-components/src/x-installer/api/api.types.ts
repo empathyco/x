@@ -49,7 +49,7 @@ export interface XAPI {
   /**
    * To set the snippet config callback.
    *
-   * @param callback - Hello.
+   * @param callback - Function to be called.
    *
    * @internal
    */
