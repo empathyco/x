@@ -2,6 +2,7 @@ import { createLocalVue } from '@vue/test-utils';
 import { SearchAdapterDummy } from '../../../__tests__/adapter.dummy';
 import { BaseXBus } from '../../../plugins/x-bus';
 import { XInstaller } from '../../x-installer/x-installer';
+import { SnippetConfig } from '../api.types';
 import { BaseXAPI } from '../base-api';
 
 describe('testing default X API', () => {
@@ -34,7 +35,7 @@ describe('testing default X API', () => {
 
   it('changes the `SnippetConfig` when calling the `setSnippetConfig` function', async () => {
     const vue = createLocalVue();
-    const snippetConfig = {
+    const snippetConfig: SnippetConfig = {
       instance: 'test',
       scope: 'test',
       lang: 'es'
@@ -44,7 +45,11 @@ describe('testing default X API', () => {
       render(h) {
         // Vue does not provide type safety for inject
         const lang = (this as any).snippetConfig.lang;
-        return h('h1', [lang]);
+        const store = (this as any).snippetConfig.store;
+        return h('div', [
+          h('h1', { class: 'lang-test' }, [lang]),
+          h('h1', { class: 'store-test' }, [store])
+        ]);
       }
     });
 
@@ -54,9 +59,17 @@ describe('testing default X API', () => {
       app: installerApp
     }).init(snippetConfig);
 
-    expect(app?.$el).toHaveTextContent(snippetConfig.lang);
+    const langElement = app?.$el.getElementsByClassName('lang-test')[0];
+    const storeElement = app?.$el.getElementsByClassName('store-test')[0];
+
+    expect(langElement).toHaveTextContent(snippetConfig.lang);
     api?.setSnippetConfig({ lang: 'en' });
     await vue.nextTick();
-    expect(app?.$el).toHaveTextContent('en');
+    expect(langElement).toHaveTextContent('en');
+
+    expect(storeElement).toHaveTextContent('');
+    api?.setSnippetConfig({ store: 'Portugal' });
+    await vue.nextTick();
+    expect(storeElement).toHaveTextContent('Portugal');
   });
 });

@@ -100,9 +100,7 @@ export class XInstaller {
   private api?: XAPI;
 
   /**
-   * Creates the public {@link XAPI} using the `api` option from {@link InstallXOptions}. If this
-   * `api` option is not passed, then a default {@link BaseXAPI} is created. To disable the API
-   * creation the value `false` must be passed in the `api` option.
+   * The configuration coming from the snippet {@link SnippetConfig}.
    *
    * @internal
    */
@@ -358,11 +356,7 @@ export class XInstaller {
    */
   protected updateSnippetConfig(snippetConfig: Partial<SnippetConfig>): void {
     forEach(snippetConfig, (name, value) => {
-      if (this.snippetConfig[name]) {
-        Object.assign(this.snippetConfig, { [name]: value });
-      } else {
-        Vue.set(this.snippetConfig, name, value);
-      }
+      this.getVue().set(this.snippetConfig, name, value);
     });
   }
 }
