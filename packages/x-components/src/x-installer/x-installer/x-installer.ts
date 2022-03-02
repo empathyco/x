@@ -305,13 +305,12 @@ export class XInstaller {
     if (this.options.app !== undefined) {
       const vue = this.getVue();
       this.snippetConfig = vue.observable(snippetConfig);
-      const snippetConfigObservable = this.snippetConfig;
       return new vue({
         ...extraPlugins,
         ...this.options.vueOptions,
         provide() {
           return {
-            snippetConfig: snippetConfigObservable
+            snippetConfig
           };
         },
         store: this.options.store,
