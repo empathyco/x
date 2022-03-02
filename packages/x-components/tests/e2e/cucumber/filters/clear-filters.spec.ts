@@ -24,6 +24,7 @@ Then('no filters are selected', () => {
 // Scenario 3
 When('filter number {int} is clicked in selected filters list', (selectedFilterItem: number) => {
   cy.getByDataTest('selected-filters-list-item')
+    .getByDataTest('filter')
     .eq(selectedFilterItem)
     .click()
     .invoke('text')
