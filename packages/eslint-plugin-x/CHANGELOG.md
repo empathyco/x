@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.3...@empathyco/eslint-plugin-x@2.0.0-alpha.4) (2022-03-02)
+
+### ⚠ BREAKING CHANGES
+
+- standard-version dependency has been removed from eslint-plugin-x package
+
+### Others
+
+- remove standard-version from eslint-plugin-x
+  ([256c9d0](https://github.com/empathyco/x/commit/256c9d051ca1d36cf465fa4ca9a00dfc1d986ae7)),
+  closes [EX-5526](https://searchbroker.atlassian.net/browse/EX-5526)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [2.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.2...@empathyco/eslint-plugin-x@2.0.0-alpha.3) (2022-02-28)
 
 ### Features
