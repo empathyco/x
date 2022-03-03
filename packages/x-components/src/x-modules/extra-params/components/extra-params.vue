@@ -20,7 +20,7 @@
      * values were already set by XComponents initialization (url, plugin config, etc.).
      */
     mounted(): void {
-      this.$x.emit('ExtraParamsInitialized', this.values);
+      this.$x.emit('ExtraParamsInitialized', { ...this.values });
       this.$x.emit('ExtraParamsProvided', { ...this.values, ...this.storeExtraParams });
     }
 
