@@ -12,17 +12,17 @@ import { XModuleName } from '../x-modules/x-modules.types';
 export type Dictionary<T = any> = Record<string, T>;
 
 /**
- * Extracts a sub-type with the properties of `SomeObject` that have the `TargetItem` type.
+ * Extracts a sub-type with the properties of `SomeObject` that have the `TargetPropertyType` type.
  *
  * @param SomeObject - The object type from whom extract the properties names.
- * @param TargetItem - The type of the properties to select.
+ * @param TargetPropertyType - The type of the properties to select.
  * @example
  * ```typescript
  *   interface Person {
  *     name: string,
  *     surname: string,
  *     age: number
- * }
+ *   }
  *
  *  type StringPersonProperties = SubObject<Person, string>; // { name: string; surname: string; };
  * ```
@@ -38,14 +38,14 @@ export type SubObject<SomeObject, TargetPropertyType> = {
  * Extracts the name of the properties of an object that match a type.
  *
  * @param SomeObject - The object type from whom extract the properties names.
- * @param TargetItem - The type of the properties to select.
+ * @param TargetPropertyType - The type of the properties to select.
  * @example
  * ```typescript
  *   interface Person {
  *     name: string,
  *     surname: string,
  *     age: number
- * }
+ *   }
  *
  *  type StringPersonProperties = PropsWithType<Person, string>; // "name" | "surname";
  * ```

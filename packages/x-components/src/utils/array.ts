@@ -99,13 +99,13 @@ export function groupItemsBy<ArrayType, ReturnType extends string | number>(
 }
 
 /**
- * Filters an array with all elements that pass the test implemented by the provided filter
- * function. It also does it recursively if the property accessed, whose name is the parameter
- * childrenKey, to the current iteration in an array.
+ * Filters an array with all elements that pass the test implemented by the given filter
+ * function. If an item has another list of items in the `childrenKey` property it recursively
+ * filters that new list, adding it to the returned one.
  *
  * @param array - Array to be filtered.
- * @param filter - Predicate function to test each element of the array. It should return true
- * to keep the element; or false otherwise.
+ * @param condition - Predicate function to test each element of the array. It should return `true`
+ * to keep the element; or `false` otherwise.
  * @param childrenKey - Property name within the array used to perform a recursive call.
  *
  * @example
@@ -173,43 +173,42 @@ export function groupItemsBy<ArrayType, ReturnType extends string | number>(
  *    ]
  * ```
  *
- * @returns A new array with the elements that pass the test, or an empty array if no one
+ * @returns A new array with the elements that pass the condition, or an empty array if no one
  * pass the test.
  *
  * @public
  */
-export function deepFilter<
-  ArrayType extends { [key in Key]?: ArrayType[] },
-  Key extends keyof ArrayType
->(array: ArrayType[], filter: (item: ArrayType) => boolean, childrenKey: Key): ArrayType[] {
-  return array.reduce<ArrayType[]>(function filterArray(filteredArray, item) {
-    if (filter(item)) {
+export function deepFilter<Item extends { [key in Key]?: Item[] }, Key extends keyof Item>(
+  array: Item[],
+  condition: (item: Item) => boolean,
+  childrenKey: Key
+): Item[] {
+  return array.reduce<Item[]>(function filter(filteredArray, item) {
+    if (condition(item)) {
       filteredArray.push(item);
-      item[childrenKey]?.reduce(filterArray, filteredArray);
+      item[childrenKey]?.reduce(filter, filteredArray);
     }
     return filteredArray;
   }, []);
 }
 
 /**
- * Flat an ArrayType[] recursively using the childrenKey passed as parameter to access to his nested
- * child which is also ArrayType[].
+ * Flat an `Item[]` deeply using the given `childrenKey` to access to his children.
  *
- * @param array - ArrayType[] which each ArrayType has a property childrenKey which value is also
- * an ArrayType[].
- * @param childrenKey - Key used to access to each ArrayType[childrenKey] value which is also
- * an ArrayType[].
+ * @param array - The list of items to flat. Each item may have another list of items of
+ * the same type to flat.
+ * @param childrenKey - Property name where each of the items of the given array may have another
+ * list of items to be flattened.
  *
- * @returns ArrayType[] with all the nested ArrayType, including the nested ones, at the same depth
- * level.
+ * @returns A flat list with all the found items.
  *
  * @public
  */
-export function deepFlat<
-  ArrayType extends { [key in Key]?: ArrayType[] },
-  Key extends keyof ArrayType
->(array: ArrayType[], childrenKey: Key): ArrayType[] {
-  return array.reduce<ArrayType[]>(function flat(flattenedArray, item) {
+export function deepFlat<Item extends { [key in Key]?: Item[] }, Key extends keyof Item>(
+  array: Item[],
+  childrenKey: Key
+): Item[] {
+  return array.reduce<Item[]>(function flat(flattenedArray, item) {
     flattenedArray.push(item);
     item[childrenKey]?.reduce(flat, flattenedArray);
     return flattenedArray;
