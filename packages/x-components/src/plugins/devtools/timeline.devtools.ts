@@ -59,7 +59,7 @@ function getTimelineLayer(event: XEvent): string {
  * @param api - Vue's devtools API.
  * @internal
  */
-export function setupTimelinePlugin(api: DevtoolsPluginApi<void>): void {
+export function setupTimelinePlugin(api: DevtoolsPluginApi<unknown>): void {
   DevtoolsAPI = api;
   TimelineLayers.forEach(layer =>
     api.addTimelineLayer({

@@ -36,7 +36,7 @@ function createWireTags({ tags = [], id }: CustomInspectorNode): InspectorNodeTa
  * @param api - Vue's devtools API.
  * @internal
  */
-export function setupWiringDevtools(api: DevtoolsPluginApi<void>): void {
+export function setupWiringDevtools(api: DevtoolsPluginApi<unknown>): void {
   const inspectorId = 'wiring-inspector';
   api.addInspector({
     id: inspectorId,

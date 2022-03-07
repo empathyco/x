@@ -20,7 +20,7 @@ export function setupDevtools(app: Vue): void {
       packageName: '@empathyco/x-components',
       homepage: 'https://empathy.co',
       enableEarlyProxy: true,
-      app
+      app: app as any
     },
     api => {
       if (api) {
