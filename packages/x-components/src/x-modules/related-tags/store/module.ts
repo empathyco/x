@@ -6,6 +6,7 @@ import {
 import { fetchRelatedTags } from './actions/fetch-related-tags.action';
 import { setUrlParams } from './actions/set-url-params.action';
 import { toggleRelatedTag } from './actions/toggle-related-tag.action';
+import { query } from './getters/query.getter';
 import { relatedTags } from './getters/related-tags.getter';
 import { request } from './getters/request.getter';
 import { RelatedTagsXStoreModule } from './types';
@@ -29,7 +30,8 @@ export const relatedTagsXStoreModule: RelatedTagsXStoreModule = {
   }),
   getters: {
     request,
-    relatedTags
+    relatedTags,
+    query
   },
   mutations: {
     setQuery(state, newQuery) {

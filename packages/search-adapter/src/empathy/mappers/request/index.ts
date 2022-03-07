@@ -1,7 +1,6 @@
 export * from './params/empathy-request-filters.mapper';
 export * from './params/empathy-request-filters-solr-syntax.mapper';
 export * from './params/empathy-request-query.mapper';
-export * from './params/empathy-request-related-tags-query.mapper';
 export * from './params/empathy-request-sort.mapper';
 
 export * from './empathy-clicks-recommendations-request.mapper';

@@ -11,8 +11,4 @@ export interface RelatedTag extends NamedModel<'RelatedTag'>, Previewable {
   isCurated?: boolean;
   /** The term to add to the current query. */
   tag: string;
-  /** If selection mode is enabled, tells if this related tag is selected or not. */
-  selected: boolean;
-  /** The query to refine. */
-  previous: string;
 }

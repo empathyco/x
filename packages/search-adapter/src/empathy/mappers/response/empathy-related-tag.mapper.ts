@@ -15,9 +15,7 @@ export class EmpathyRelatedTagMapper implements ResponseMapper<EmpathyRelatedTag
       isCurated: rawRelatedTag.source === 'CURATED',
       modelName: 'RelatedTag',
       tag: rawRelatedTag.tag,
-      query: rawRelatedTag.query,
-      previous: rawRelatedTag.query.replace(rawRelatedTag.tag, '').trim(),
-      selected: false
+      query: rawRelatedTag.query
     });
   }
 }
