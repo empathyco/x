@@ -1,6 +1,5 @@
 export * from './actions/fetch-and-save-related-tags.action';
 export * from './actions/fetch-related-tags.action';
-export * from './actions/set-url-params.action';
 export * from './actions/toggle-related-tag.action';
 export * from './emitters';
 export * from './getters/related-tags.getter';

@@ -2,7 +2,7 @@ import { createRelatedTagsQueryGetter } from '../../../../store/utils/query.util
 import { SearchXStoreModule } from '../types';
 
 /**
- * Default implementation for the {@link SearchXStoreModule.query} getter.
+ * Default implementation for the {@link SearchState.query} getter.
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the related
  * tags' module.

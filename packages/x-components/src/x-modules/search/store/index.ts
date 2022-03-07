@@ -1,9 +1,5 @@
 export * from './actions/fetch-and-save-search-response.action';
 export * from './actions/fetch-search-response.action';
-export * from './actions/increase-page-apending-results.action';
-export * from './actions/reset-state.action';
-export * from './actions/save-origin.action';
-export * from './actions/set-url-params.action';
 export * from './emitters';
 export { request as searchRequest } from './getters/request.getter';
 export { query as searchQuery } from './getters/query.getter';

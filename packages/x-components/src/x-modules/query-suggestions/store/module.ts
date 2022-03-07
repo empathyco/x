@@ -1,3 +1,4 @@
+import { setQuery } from '../../../store/utils/query.utils';
 import { setStatus } from '../../../store/utils/status-store.utils';
 import {
   cancelFetchAndSaveSuggestions,
@@ -34,9 +35,7 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
     querySuggestions
   },
   mutations: {
-    setQuery(state, newQuery) {
-      state.query = newQuery;
-    },
+    setQuery,
     setSuggestions(state, suggestions) {
       state.suggestions = suggestions;
     },

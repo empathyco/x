@@ -1,3 +1,4 @@
+import { setQuery } from '../../../store/utils/query.utils';
 import { setStatus } from '../../../store/utils/status-store.utils';
 import {
   cancelFetchAndSaveRelatedTags,
@@ -34,9 +35,7 @@ export const relatedTagsXStoreModule: RelatedTagsXStoreModule = {
     query
   },
   mutations: {
-    setQuery(state, newQuery) {
-      state.query = newQuery;
-    },
+    setQuery,
     setRelatedTags(state, relatedTags) {
       state.relatedTags = relatedTags;
     },
