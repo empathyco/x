@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-components",
-  "version": "3.0.0-alpha.62",
+  "version": "3.0.0-alpha.64",
   "description": "Empathy X Components",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -65,7 +65,6 @@
     "@empathyco/x-storage-service": "^2.0.0-alpha.0",
     "@empathyco/x-types": "^10.0.0-alpha.17",
     "@types/resize-observer-browser": "~0.1.5",
-    "magic-string": "~0.25.7",
     "nanoid": "~3.1.31",
     "reflect-metadata": "~0.1.13",
     "rxjs": "~7.4.0",

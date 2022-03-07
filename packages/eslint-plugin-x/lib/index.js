@@ -1,5 +1,5 @@
 /**
- * @fileoverview ESLint, Prettier and standard-version rules and configurations.
+ * @fileoverview ESLint and Prettier rules and configurations.
  * @author joseac
  */
 
