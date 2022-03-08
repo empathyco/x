@@ -17,6 +17,12 @@
     "directory": "packages/x-adapter"
   },
   "scripts": {},
+  "dependencies": {
+    "tslib": "~2.3.0"
+  },
+  "devDependencies": {
+    "typescript": "~4.3.5"
+  },
   "publishConfig": {
     "access": "public"
   }
