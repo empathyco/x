@@ -37,7 +37,7 @@ async function build(): Promise<any> {
     return removeTempFiles();
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('Build failed: ', error.message);
+    console.error('Build failed: ', (error as Error).message);
     process.exit(1);
   }
 }
