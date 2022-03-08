@@ -64,8 +64,6 @@
      * @internal
      */
     protected initAndListenElement(): void {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       this.$el = this.scrollableElement === 'body' ? document.body : document.documentElement;
       this.$el.addEventListener('scroll', this.throttledStoreScrollData);
     }
