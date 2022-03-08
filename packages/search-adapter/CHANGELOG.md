@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.13...@empathyco/x-adapter@7.0.0-alpha.14) (2022-03-08)
+
+### Features
+
+- update typescript
+  ([73edca6](https://github.com/empathyco/x/commit/73edca61c1cea39d82a7ab94bc18c8bff94c138c)),
+  closes [EX-5367](https://searchbroker.atlassian.net/browse/EX-5367)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [7.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.12...@empathyco/x-adapter@7.0.0-alpha.13) (2022-02-28)
 
 **Note:** Version bump only for package @empathyco/x-adapter
