@@ -12,25 +12,47 @@ import { XModuleName } from '../x-modules/x-modules.types';
 export type Dictionary<T = any> = Record<string, T>;
 
 /**
- * Extracts the name of the properties of an object that match a type.
+ * Extracts a sub-type with the properties of `SomeObject` that have the `TargetPropertyType` type.
  *
- * @param Type - The object type from whom extract the properties names.
- * @param PropType - The type of the properties to select.
+ * @param SomeObject - The object type from whom extract the properties names.
+ * @param TargetPropertyType - The type of the properties to select.
  * @example
  * ```typescript
  *   interface Person {
- *   name: string,
- *   surname: string,
- *   age: number
- * }
+ *     name: string,
+ *     surname: string,
+ *     age: number
+ *   }
+ *
+ *  type StringPersonProperties = SubObject<Person, string>; // { name: string; surname: string; };
+ * ```
+ * @public
+ */
+export type SubObject<SomeObject, TargetPropertyType> = {
+  [Key in keyof SomeObject as SomeObject[Key] extends TargetPropertyType
+    ? Key
+    : never]: TargetPropertyType & SomeObject[Key];
+};
+
+/**
+ * Extracts the name of the properties of an object that match a type.
+ *
+ * @param SomeObject - The object type from whom extract the properties names.
+ * @param TargetPropertyType - The type of the properties to select.
+ * @example
+ * ```typescript
+ *   interface Person {
+ *     name: string,
+ *     surname: string,
+ *     age: number
+ *   }
  *
  *  type StringPersonProperties = PropsWithType<Person, string>; // "name" | "surname";
  * ```
  * @public
  */
-export type PropsWithType<Type, PropType> = {
-  [Key in keyof Type]: Type[Key] extends PropType ? Key : never;
-}[keyof Type];
+export type PropsWithType<SomeObject, TargetItem> = keyof SomeObject &
+  keyof SubObject<SomeObject, TargetItem>;
 
 /**
  * Makes all the properties of the T type optional in depth.

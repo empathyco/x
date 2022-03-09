@@ -94,7 +94,7 @@ export function logDevtoolsXEvent<Event extends XEvent>(
       event: {
         title: event,
         data: value,
-        time: Date.now()
+        time: DevtoolsAPI?.now()
       },
       layerId: getTimelineLayer(event)
     });

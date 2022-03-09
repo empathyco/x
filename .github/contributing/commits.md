@@ -2,9 +2,8 @@
 
 All commits must follow the
 [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) specification syntax.
-The `CHANGELOG.md` file is generated automatically using
-[standard version](https://www.npmjs.com/package/standard-version) that requires the commits to be
-in a specific format in order to be parsed.
+The `CHANGELOG.md` file is generated automatically using [Lerna](https://github.com/lerna/lerna)
+that requires the commits to be in a specific format in order to be parsed.
 
 ```
 <type>[optional scope]: <description>

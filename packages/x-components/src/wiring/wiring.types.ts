@@ -3,14 +3,7 @@ import { Store } from 'vuex';
 import { XBus } from '../plugins/x-bus.types';
 import { RootStoreStateAndGetters, RootXStoreState } from '../store';
 import { FeatureLocation, QueryFeature } from '../types/origin';
-import {
-  Dictionary,
-  FirstParameter,
-  MaybeArray,
-  MonadicFunction,
-  NiladicFunction,
-  PropsWithType
-} from '../utils';
+import { Dictionary, FirstParameter, MaybeArray, MonadicFunction, NiladicFunction } from '../utils';
 import { XModuleName } from '../x-modules/x-modules.types';
 import { XEvent, XEventPayload } from './events.types';
 
@@ -101,7 +94,7 @@ export type AnyWire = Wire<any>;
  * @public
  */
 export type Wiring = {
-  [E in XEvent]: Dictionary<WireForEvent<E>>;
+  [Event in XEvent]: Dictionary<WireForEvent<Event>>;
 };
 
 /**
@@ -139,7 +132,7 @@ export interface TimedWireOperatorOptions {
  *
  * @public
  */
-export interface WireService<SomeService> {
+export interface WireService<SomeService extends Record<string, MonadicFunction>> {
   /**
    * Creates a wire that will invoke the given service function with the payload of the event it
    * is subscribed to.
@@ -147,7 +140,7 @@ export interface WireService<SomeService> {
    * @param method - The method to invoke.
    * @returns A Wire that expects to receive the function parameter as payload.
    */
-  <SomeMethod extends PropsWithType<SomeService, MonadicFunction>>(method: SomeMethod): Wire<
+  <SomeMethod extends keyof SomeService>(method: SomeMethod): Wire<
     FirstParameter<SomeService[SomeMethod]>
   >;
   /**
@@ -157,7 +150,7 @@ export interface WireService<SomeService> {
    * @param payload - The payload to invoke the service with.
    * @returns A Wire that can be used anywhere.
    */
-  <SomeMethod extends PropsWithType<SomeService, MonadicFunction>>(
+  <SomeMethod extends keyof SomeService>(
     method: SomeMethod,
     payload: FirstParameter<SomeService[SomeMethod]>
   ): AnyWire;
@@ -168,11 +161,12 @@ export interface WireService<SomeService> {
  *
  * @public
  */
-export interface WireServiceWithoutPayload<SomeService> {
+export interface WireServiceWithoutPayload<SomeService extends Record<string, NiladicFunction>> {
   /**
    * Creates a wire that will invoke the given service function with no payload.
    *
    * @param method - The method to invoke.
    * @returns A Wire that can be used anywhere.
-   */ <SomeMethod extends PropsWithType<SomeService, NiladicFunction>>(method: SomeMethod): AnyWire;
+   */
+  <SomeMethod extends keyof SomeService>(method: SomeMethod): AnyWire;
 }

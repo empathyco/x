@@ -20,7 +20,7 @@ export function setupDevtools(app: Vue): void {
       packageName: '@empathyco/x-components',
       homepage: 'https://empathy.co',
       enableEarlyProxy: true,
-      app: app as any
+      app: app as any // FIXME: Infinite loop with types when inferred as a Vue2 app.
     },
     api => {
       if (api) {
