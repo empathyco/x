@@ -24,8 +24,9 @@ Start building your search and discovery experience in a few simple steps:
 
 - **Discover more about the [Interface X ecosystem](#the-interface-x-ecosystem)** and how
   Interface&nbsp;X works.
-- **[Integrate the Interface X Components](#integrate-interface-x-components)** in your store web
+- **[Integrate the Interface X Archetype](#integrate-interface-x-archetype)** in your store web
   application.
+- **[Develop using the Interface X](#develop-with-interface-x)** inside your current project.
 - **[Use and configure the Interface X Components](#use-and-configure-the-interface-x-components)**
   in your project.
 
@@ -42,11 +43,21 @@ numerous components to choose from, and the catalog evolves quickly with new exp
 Check out the **[open source project in GitHub](https://github.com/empathyco/x)**.
 
 Interested in learning more about how Interface&nbsp;X works? Discover more about its
-**[architecture](./x-architecture/README.md)**.
+**[architecture](x-architecture/README.md)**.
 
-## Integrate Interface X Components
+## Integrate Interface X Archetype
 
-You can use the X&nbsp;Components in a project in two ways:
+Once you have finished developing or extending your search interface using the
+Interface&nbsp;X&nbsp;Archetype project you will probably want to integrate it into your current
+store. The integration of an existing Archetype into your project is pretty straightforward. You
+will need to load the generated Javascript into your website and initialise it.
+
+To start integrating an existent Archetype into your project please visit
+[extended guide about Archetype integration](web-archetype-integration-guide.md).
+
+## Develop with Interface X
+
+You can use the Interface X in a project in two ways:
 
 - using the separate **Interface&nbsp;X&nbsp;Archetype** project, an out-of-the-box project with all
   you need to get up and running fast, or
@@ -59,7 +70,7 @@ You can use Empathy Search API, Elasticsearch, or Solr endpoints with both appro
 
 :::
 
-##### Integration via Interface X Archetype project
+##### Develop via Interface X Archetype
 
 The **[Interface&nbsp;X&nbsp;Archetype](https://github.com/empathyco/x-archetype)** project is the
 perfect combination of all the existing X&nbsp;Components. Instead of starting from a completely
@@ -74,10 +85,10 @@ perfect solution for most cases. But don’t worry! It’s still super flexible!
 - Use the individual X&nbsp;Component internationalization tool or use your own tool.
 - Create new components or modify the existing ones.
 
-To start using the X&nbsp;Archetype project, see
-**[Integrate Interface X Archetype project](web-archetype-integration-guide.md)**.
+To start developing the X&nbsp;Archetype project, see
+**[Develop via Interface X Archetype](web-archetype-development-guide.md)**.
 
-##### Integration via Interface X Components library
+##### Develop via Interface X Components library
 
 This is the more deep and flexible use of the
 **[Interface X Components library](https://github.com/empathyco/x/tree/main/packages/x-components)**,
@@ -91,7 +102,7 @@ go if you like to look under the hood!
 - Determine styles using design tokens or custom CSS.
 
 To get started with the X Components library, check out
-**[Integrate Interface X Components in your Vue application](web-x-components-integration-guide.md)**.
+**[Develop using Interface X Components library](web-x-components-integration-guide.md)**.
 
 ## Use and configure the Interface X Components
 
