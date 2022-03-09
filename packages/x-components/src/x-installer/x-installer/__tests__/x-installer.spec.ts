@@ -1,12 +1,12 @@
 import { createLocalVue } from '@vue/test-utils';
-import { ComponentOptions, default as Vue } from 'vue';
+import { ComponentOptions, default as Vue, VueConstructor } from 'vue';
 import VueRouter from 'vue-router';
 import { Store } from 'vuex';
 import { XPlugin } from '../../../plugins/x-plugin';
 import { PrivateXModulesOptions, XModulesOptions } from '../../../plugins/x-plugin.types';
 import { SearchAdapterDummy } from '../../../__tests__/adapter.dummy';
 import { AnyXModule } from '../../../x-modules/x-modules.types';
-import { InstallXOptions } from '../types';
+import { InitWrapper, InstallXOptions } from '../types';
 import { XInstaller } from '../x-installer';
 
 describe('testing `XInstaller` utility', () => {
@@ -32,6 +32,7 @@ describe('testing `XInstaller` utility', () => {
   };
 
   beforeEach(() => {
+    delete window.initX;
     jest.clearAllMocks();
   });
 
@@ -134,19 +135,12 @@ describe('testing `XInstaller` utility', () => {
     expect(app).toHaveProperty('snippet', snippetConfig);
   });
 
-  it('provides the snippet config', async () => {
+  it('initializes the app with the provided snippet config', async () => {
     const vue = createLocalVue();
     const { app } = await new XInstaller({
       adapter,
       vue,
-      app: vue.extend({
-        inject: ['snippetConfig'],
-        render(h) {
-          // Vue does not provide type safety for inject
-          const instance = (this as any).snippetConfig.instance;
-          return h('h1', [instance]);
-        }
-      })
+      app: injectSnippetConfigComponent()
     }).init(snippetConfig);
 
     expect(app?.$el).toHaveTextContent(snippetConfig.instance);
@@ -155,4 +149,60 @@ describe('testing `XInstaller` utility', () => {
     await vue.nextTick();
     expect(app?.$el).toHaveTextContent('test-2');
   });
+
+  it('initializes the app when window.initX has the snippet config object', async () => {
+    const vue = createLocalVue();
+    window.initX = snippetConfig;
+    const { app } = (await new XInstaller({
+      adapter,
+      vue,
+      app: injectSnippetConfigComponent()
+    }).init()) as InitWrapper;
+
+    expect(app?.$el).toHaveTextContent(snippetConfig.instance);
+
+    snippetConfig.instance = 'test-2';
+    await vue.nextTick();
+    expect(app?.$el).toHaveTextContent('test-2');
+  });
+
+  // eslint-disable-next-line max-len
+  it('initializes the app when window.initX is a function retrieving the snippet config', async () => {
+    const vue = createLocalVue();
+    window.initX = () => snippetConfig;
+    const { app } = (await new XInstaller({
+      adapter,
+      vue,
+      app: injectSnippetConfigComponent()
+    }).init()) as InitWrapper;
+
+    expect(app?.$el).toHaveTextContent(snippetConfig.instance);
+
+    snippetConfig.instance = 'test-2';
+    await vue.nextTick();
+    expect(app?.$el).toHaveTextContent('test-2');
+  });
+
+  // eslint-disable-next-line max-len
+  it('does not initialize XComponents when no snippet config is passed and no window.initX is not defined', async () => {
+    expect(await new XInstaller({ adapter, plugin, vue: createLocalVue() }).init()).toBeUndefined();
+  });
 });
+
+/**
+ * Creates a Vue component injecting the snippet config.
+ *
+ * @returns A Vue component with the injected snippet config.
+ *
+ * @internal
+ */
+function injectSnippetConfigComponent(): VueConstructor {
+  return Vue.extend({
+    inject: ['snippetConfig'],
+    render(h) {
+      // Vue does not provide type safety for inject
+      const instance = (this as any).snippetConfig.instance;
+      return h('h1', [instance]);
+    }
+  });
+}

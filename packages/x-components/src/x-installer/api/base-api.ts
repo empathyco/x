@@ -30,6 +30,14 @@ export class BaseXAPI implements XAPI {
   protected initCallback!: (config: SnippetConfig) => any;
 
   /**
+   * Callback that allows to update the snippet config. The logic of initialization is out of this
+   * API since this API is just a facade.
+   *
+   * @internal
+   */
+  protected snippetCallback!: (config: Partial<SnippetConfig>) => void;
+
+  /**
    * Tracks that a product was added to cart from PDP.
    *
    * @param productId - The product id that was added to cart.
@@ -59,6 +67,28 @@ export class BaseXAPI implements XAPI {
   }
 
   /**
+   * Setter for the callback to modify the snippet config.
+   *
+   * @param snippetCallback - The callback to call.
+   *
+   * @internal
+   */
+  setSnippetConfigCallback(snippetCallback: (config: Partial<SnippetConfig>) => void): void {
+    this.snippetCallback = snippetCallback;
+  }
+
+  /**
+   * Sets or updates the snippet config.
+   *
+   * @param config - A part or all the snippet config.
+   *
+   * @public
+   */
+  setSnippetConfig(config: Partial<SnippetConfig>): void {
+    this?.snippetCallback(config);
+  }
+
+  /**
    * Searches the query parameter as user query.
    *
    * @param query - Query to be searched.
@@ -75,7 +105,7 @@ export class BaseXAPI implements XAPI {
   /**
    * Initializes the Application passing the {@link SnippetConfig}.
    *
-   * @param config - The config comming from the customer snippet.
+   * @param config - The config coming from the customer snippet.
    *
    * @public
    */

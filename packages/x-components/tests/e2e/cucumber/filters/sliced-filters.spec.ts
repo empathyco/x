@@ -3,7 +3,7 @@ import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 let totalFilters: number, hiddenFilters: number;
 
 Given('following config: max of sliced filters {int}', (slicedFiltersMax: number) => {
-  cy.visit('/?useMockedAdapter=true');
+  cy.visit('/');
   cy.getByDataTest('sliced-filters-max').clear().type(slicedFiltersMax.toString());
 });
 

@@ -1,5 +1,6 @@
 import { Store } from 'vuex';
 import { RootXStoreState } from '../store/store.types';
+import { MonadicFunction, NiladicFunction, SubObject } from '../utils/index';
 import {
   AnyWire,
   PayloadFactoryData,
@@ -144,7 +145,9 @@ export function wireDispatchWithoutPayload(action: string): AnyWire {
  * @returns A factory to create wires that invoke the service methods.
  * @public
  */
-export function wireService<SomeService>(service: SomeService): WireService<SomeService> {
+export function wireService<SomeService>(
+  service: SomeService & SubObject<SomeService, MonadicFunction>
+): WireService<SubObject<SomeService, MonadicFunction>> {
   return (method, payload?) => {
     return observable =>
       observable.subscribe(
@@ -164,8 +167,8 @@ export function wireService<SomeService>(service: SomeService): WireService<Some
  * @public
  */
 export function wireServiceWithoutPayload<SomeService>(
-  service: SomeService
-): WireServiceWithoutPayload<SomeService> {
+  service: SomeService & SubObject<SomeService, NiladicFunction>
+): WireServiceWithoutPayload<SubObject<SomeService, NiladicFunction>> {
   return method => {
     return observable => observable.subscribe(() => service[method]());
   };

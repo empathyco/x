@@ -1,10 +1,6 @@
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 // Scenario 1
-Given('a URL with query parameter {string}', (query: string) => {
-  cy.visit(`/?useMockedAdapter=true&q=${query}`);
-});
-
 Then(
   'search request contains parameter {string} with value {string}',
   (key: string, value: string) => {

@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.5...@empathyco/x-translations@1.1.0-alpha.6) (2022-03-08)
+
+### Features
+
+- update typescript
+  ([73edca6](https://github.com/empathyco/x/commit/73edca61c1cea39d82a7ab94bc18c8bff94c138c)),
+  closes [EX-5367](https://searchbroker.atlassian.net/browse/EX-5367)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.4...@empathyco/x-translations@1.1.0-alpha.5) (2022-02-28)
+
+### Build System
+
+- Fix colors.js dependency issue
+  ([2ffcc22](https://github.com/empathyco/x/commit/2ffcc222f5666d7866c8d7cd3a0eec7c0bb1f938)),
+  closes [EX-5293](https://searchbroker.atlassian.net/browse/EX-5293)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.1.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.3...@empathyco/x-translations@1.1.0-alpha.4) (2021-11-29)
 
 ### Build System

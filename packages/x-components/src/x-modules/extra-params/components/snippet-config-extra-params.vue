@@ -73,7 +73,7 @@
      */
     @Watch('snippetConfig', { deep: true, immediate: true })
     syncExtraParams(snippetConfig: SnippetConfig): void {
-      forEach({ ...snippetConfig, ...this.values }, (name, value) => {
+      forEach({ ...this.values, ...snippetConfig }, (name, value) => {
         if (this.notAllowedExtraParams.includes(name)) {
           return;
         }
