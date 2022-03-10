@@ -193,7 +193,8 @@ poster="/assets/media/videos/How-to-use-X-components-in-a-real-project.jpeg"
 Once you have integrated the Interface&nbsp;X&nbsp;Components in your project, you're ready to start
 building your search and discovery UI:
 
-- Change the configuration of the [X Components](web-use-x-components-guide.md) or create new ones.
+- Change the configuration of the [X Components](web-how-to-use-x-components-guide.md) or create new
+  ones.
 - Adapt the
   [design system](https://github.com/empathyco/x/blob/main/packages/x-components/contributing/design-system.md)
   to your branding.

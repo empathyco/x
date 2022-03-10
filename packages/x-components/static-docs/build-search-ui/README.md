@@ -27,7 +27,7 @@ Start building your search and discovery experience in a few simple steps:
 - **[Integrate the Interface X Archetype](#integrate-interface-x-archetype)** in your store web
   application.
 - **[Develop using the Interface X](#develop-with-interface-x)** inside your current project.
-- **[Use and configure the Interface X Components](#use-and-configure-the-interface-x-components)**
+- **[How to use and configure the Interface X Components](#how-to-use-and-configure-the-interface-x-components)**
   in your project.
 
 <!-- 3. Style your UI. 4. Translate your search experience-->
@@ -104,7 +104,7 @@ go if you like to look under the hood!
 To get started with the X Components library, check out
 **[Develop using Interface X Components library](web-x-components-integration-guide.md)**.
 
-## Use and configure the Interface X Components
+## How to use and configure the Interface X Components
 
 Using the Interface&nbsp;X&nbsp;Components is a piece of cake! Just import and register the
 component, include it in your template, and you’re ready to go! What’s more, each component offers
@@ -112,7 +112,7 @@ multiple configuration parameters to play around with, allowing you greater flex
 experience.
 
 Unsure how to start? Check out
-**[Use & configure Interface X Components in your project](web-use-x-components-guide.md)**.
+**[How to use & configure Interface X Components in your project](web-how-to-use-x-components-guide.md)**.
 
 <!--
 ## Style your UI

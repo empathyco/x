@@ -13,7 +13,7 @@ search UI experiences. The goal of using components is to include only the compo
 wherever you want. So, **just import the components, register, and go!**
 
 Once you’ve installed the
-[dependencies and the xPlugin](web-x-components-integration-guide.md#_1-install-the-dependencies),
+[dependencies and the xPlugin](web-x-components-integration-guide.md#1-install-the-dependencies),
 you’re ready to use X&nbsp;Components in your project.
 
 ## 1. Import and register the X Components
