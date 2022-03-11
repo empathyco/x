@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.18...@empathyco/x-types@10.0.0-alpha.19) (2022-03-11)
+
+### ⚠ BREAKING CHANGES
+
+- Remove `selected` and `previous` logic from related tags.
+- Remove `EmpathyRequestRelatedTagsQueryMapper`.
+
+### Features
+
+- move related tags concatenation logic (#365)
+  ([4e71797](https://github.com/empathyco/x/commit/4e717970198f67018a9b66ed6e47f511ecef4c62)),
+  closes [EX-5410](https://searchbroker.atlassian.net/browse/EX-5410)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [10.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.17...@empathyco/x-types@10.0.0-alpha.18) (2022-03-08)
 
 ### Features
