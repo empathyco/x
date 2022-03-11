@@ -10,18 +10,26 @@ import { pipeMappers } from '../pipe-mappers';
  * @public
  */
 @injectable()
-export class EmpathyQueryableRequestMapper implements RequestMapper<QueryableRequest & Dictionary<string>, Dictionary<string>> {
+export class EmpathyQueryableRequestMapper
+  implements RequestMapper<QueryableRequest & Dictionary<string>, Dictionary<string>>
+{
   private readonly mapQuery: MapRequest<QueryableRequest, string>;
 
-  constructor(@multiInject(DEPENDENCIES.RequestMappers.Parameters.query) queryMapper: RequestMapper<QueryableRequest, string>[]) {
+  constructor(
+    @multiInject(DEPENDENCIES.RequestMappers.Parameters.query)
+    queryMapper: RequestMapper<QueryableRequest, string>[]
+  ) {
     this.mapQuery = pipeMappers(...queryMapper);
   }
 
-  map({ query, relatedTags = [], ...rest }: QueryableRequest & Dictionary<string>, request: Dictionary<string>,
-    context: RequestMapperContext): Dictionary<string> {
+  map(
+    { query, ...rest }: QueryableRequest & Dictionary<string>,
+    request: Dictionary<string>,
+    context: RequestMapperContext
+  ): Dictionary<string> {
     return Object.assign(request, {
       ...rest,
-      q: query && this.mapQuery({ query, relatedTags }, query, context)
+      q: query && this.mapQuery({ query }, query, context)
     });
   }
 }

@@ -1,3 +1,4 @@
+import { setQuery } from '../../../store/utils/query.utils';
 import { setUrlParams } from './actions/set-url-params.action';
 import { SearchBoxXStoreModule } from './types';
 
@@ -16,9 +17,7 @@ export const searchBoxXStoreModule: SearchBoxXStoreModule = {
     }
   },
   mutations: {
-    setQuery(state, newQuery) {
-      state.query = newQuery;
-    }
+    setQuery
   },
   actions: {
     setUrlParams

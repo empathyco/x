@@ -8,7 +8,6 @@ import { Dictionary } from './utils.types';
  */
 export interface QueryableRequest {
   query: string;
-  relatedTags?: RelatedTag[];
 }
 
 /**
@@ -68,7 +67,7 @@ export interface RequestOptions {
  * @public
  */
 export interface ExtraParamsRequest {
-  [key: string]: unknown
+  [key: string]: unknown;
 }
 
 /**
@@ -76,7 +75,12 @@ export interface ExtraParamsRequest {
  *
  * @public
  */
-export interface SearchRequest extends QueryableRequest, FilterableRequest, PageableRequest, TrackableRequest, ExtraParamsRequest {
+export interface SearchRequest
+  extends QueryableRequest,
+    FilterableRequest,
+    PageableRequest,
+    TrackableRequest,
+    ExtraParamsRequest {
   sort?: Sort;
 }
 
@@ -85,14 +89,22 @@ export interface SearchRequest extends QueryableRequest, FilterableRequest, Page
  *
  * @public
  */
-export interface TopRecommendationsRequest extends Partial<QueryableRequest>, PageableRequest, TrackableRequest, ExtraParamsRequest {}
+export interface TopRecommendationsRequest
+  extends Partial<QueryableRequest>,
+    PageableRequest,
+    TrackableRequest,
+    ExtraParamsRequest {}
 
 /**
  * TODO https://searchbroker.atlassian.net/browse/EX-2163
  *
  * @public
  */
-export interface SectionRecommendationsRequest extends TrackableRequest, PageableRequest, UserContextRequest, ExtraParamsRequest {
+export interface SectionRecommendationsRequest
+  extends TrackableRequest,
+    PageableRequest,
+    UserContextRequest,
+    ExtraParamsRequest {
   section: string;
 }
 
@@ -101,7 +113,11 @@ export interface SectionRecommendationsRequest extends TrackableRequest, Pageabl
  *
  * @public
  */
-export interface QueriesRecommendationsRequest extends TrackableRequest, PageableRequest, UserContextRequest, ExtraParamsRequest {
+export interface QueriesRecommendationsRequest
+  extends TrackableRequest,
+    PageableRequest,
+    UserContextRequest,
+    ExtraParamsRequest {
   section?: string;
   queries: string[];
 }
@@ -111,7 +127,11 @@ export interface QueriesRecommendationsRequest extends TrackableRequest, Pageabl
  *
  * @public
  */
-export interface ClicksRecommendationsRequest extends TrackableRequest, PageableRequest, UserContextRequest, ExtraParamsRequest {
+export interface ClicksRecommendationsRequest
+  extends TrackableRequest,
+    PageableRequest,
+    UserContextRequest,
+    ExtraParamsRequest {
   section?: string;
   productIds: string[];
 }
@@ -121,7 +141,11 @@ export interface ClicksRecommendationsRequest extends TrackableRequest, Pageable
  *
  * @public
  */
-export interface UserRecommendationsRequest extends TrackableRequest, PageableRequest, UserContextRequest, ExtraParamsRequest {
+export interface UserRecommendationsRequest
+  extends TrackableRequest,
+    PageableRequest,
+    UserContextRequest,
+    ExtraParamsRequest {
   section?: string;
 }
 
@@ -130,14 +154,21 @@ export interface UserRecommendationsRequest extends TrackableRequest, PageableRe
  *
  * @public
  */
-export interface SearchByIdRequest extends QueryableRequest, PageableRequest, TrackableRequest, ExtraParamsRequest {}
+export interface SearchByIdRequest
+  extends QueryableRequest,
+    PageableRequest,
+    TrackableRequest,
+    ExtraParamsRequest {}
 
 /**
  * TODO https://searchbroker.atlassian.net/browse/EX-2163
  *
  * @public
  */
-export interface SuggestionsRequest extends Partial<QueryableRequest>, PageableRequest, ExtraParamsRequest {}
+export interface SuggestionsRequest
+  extends Partial<QueryableRequest>,
+    PageableRequest,
+    ExtraParamsRequest {}
 
 /**
  * TODO https://searchbroker.atlassian.net/browse/EX-2163

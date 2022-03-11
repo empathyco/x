@@ -1,6 +1,7 @@
 import { SearchByIdRequest } from '@empathyco/x-adapter';
 import { Result } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
+import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { QueryOrigin, QueryOriginInit } from '../../../types/origin';
 import { Dictionary } from '../../../utils';
@@ -11,7 +12,7 @@ import { IdentifierResultsConfig } from '../config.types';
  *
  * @public
  */
-export interface IdentifierResultsState extends StatusState {
+export interface IdentifierResultsState extends StatusState, QueryState {
   /** The configuration of the identifier results module. */
   config: IdentifierResultsConfig;
   /** The list of the identifier results, related to the `query` property of the state. */
@@ -45,7 +46,7 @@ export interface IdentifierResultsGetters {
  *
  * @public
  */
-export interface IdentifierResultsMutations extends StatusMutations {
+export interface IdentifierResultsMutations extends StatusMutations, QueryMutations {
   /**
    * Sets the identifier results of the module.
    *

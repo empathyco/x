@@ -1,3 +1,4 @@
+import { setQuery } from '../../../store/utils/query.utils';
 import { setStatus } from '../../../store/utils/status-store.utils';
 import {
   cancelFetchAndSaveNextQueries,
@@ -33,9 +34,7 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     nextQueries
   },
   mutations: {
-    setQuery(state, newQuery) {
-      state.query = newQuery;
-    },
+    setQuery,
     setNextQueries(state, nextQueries) {
       state.nextQueries = nextQueries;
     },

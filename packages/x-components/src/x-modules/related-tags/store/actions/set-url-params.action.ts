@@ -14,9 +14,7 @@ function createRelatedTags(tags: string[], query: string): RelatedTag[] {
   return tags.map(tag => ({
     tag,
     modelName: 'RelatedTag',
-    selected: true,
-    query: query ? `${query} ${tag}` : '',
-    previous: ''
+    query: query ? `${query} ${tag}` : ''
   }));
 }
 

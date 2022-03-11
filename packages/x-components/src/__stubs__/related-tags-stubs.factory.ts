@@ -16,15 +16,6 @@ export function getRelatedTagsStub(amount = 12): RelatedTag[] {
 }
 
 /**
- * Function to create selected related tags stub.
- *
- * @returns Array of selected related tags stub.
- */
-export function getSelectedRelatedTagsStub(): RelatedTag[] {
-  return [createRelatedTagStub('Related Tag Query', `Related Tag`, { selected: true })];
-}
-
-/**
  * Creates a related tag stub with the provided options.
  *
  * @param query - The query of the related tag.
@@ -39,10 +30,8 @@ export function createRelatedTagStub(
   relatedTag?: Partial<RelatedTag>
 ): RelatedTag {
   return {
-    previous: 'previous',
     query,
     tag,
-    selected: false,
     modelName: 'RelatedTag',
     ...relatedTag
   };

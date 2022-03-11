@@ -1,3 +1,4 @@
+import { setQuery } from '../../../store/utils/query.utils';
 import { setStatus } from '../../../store/utils/status-store.utils';
 import {
   cancelFetchAndSaveIdentifierResults,
@@ -45,9 +46,7 @@ export const identifierResultsXStoreModule: IdentifierResultsXStoreModule = {
     setParams(state, params) {
       state.params = params;
     },
-    setQuery(state, query) {
-      state.query = query;
-    },
+    setQuery,
     setStatus
   },
   actions: {
