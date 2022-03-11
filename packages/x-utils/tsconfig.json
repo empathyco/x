@@ -2,7 +2,8 @@
   "compilerOptions": {
     "target": "es2019",
     "module": "commonjs",
-    "outDir": "./dist",
+    "outDir": "./dist/cjs",
+    "declaration": true,
     "moduleResolution": "node",
     "strict": true,
     "esModuleInterop": true,
