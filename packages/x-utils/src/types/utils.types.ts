@@ -6,14 +6,14 @@
  *
  * @internal
  */
-type ObjectKeys<SomeObject, Type> = Extract<keyof SomeObject, Type>;
+type Keys<SomeObject, Type> = Extract<keyof SomeObject, Type>;
 
 /**
  * Record or Array with potential nested properties.
  *
  * @internal
  */
-type DeepInPropertyTypes = Record<string, unknown> | unknown[];
+type ArrayOrObject = Record<string, unknown> | unknown[];
 
 /**
  * All the possible string paths to properties for a given object.
@@ -37,8 +37,8 @@ type DeepInPropertyTypes = Record<string, unknown> | unknown[];
  * @public
  */
 export type PropertyPath<SomeObject> = SomeObject extends unknown[]
-  ? `${number}` | NestedPropertyPath<SomeObject, ObjectKeys<SomeObject, `${number}`>>
-  : ObjectKeys<SomeObject, string> | NestedPropertyPath<SomeObject, ObjectKeys<SomeObject, string>>;
+  ? `${number}` | NestedPropertyPath<SomeObject, Keys<SomeObject, `${number}`>>
+  : Keys<SomeObject, string> | NestedPropertyPath<SomeObject, Keys<SomeObject, string>>;
 
 /**
  * String path for child properties from a given object.
@@ -49,7 +49,7 @@ export type PropertyPath<SomeObject> = SomeObject extends unknown[]
  * @internal
  */
 type NestedPropertyPath<SomeObject, PropName extends string> = PropName extends keyof SomeObject
-  ? NonNullable<SomeObject[PropName]> extends DeepInPropertyTypes
+  ? NonNullable<SomeObject[PropName]> extends ArrayOrObject
     ? `${PropName}.${PropertyPath<SomeObject[PropName]>}`
     : never
   : never;
