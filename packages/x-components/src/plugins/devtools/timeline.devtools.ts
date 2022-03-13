@@ -1,4 +1,5 @@
 import { DevtoolsPluginApi } from '@vue/devtools-api';
+import { Dictionary } from '../../utils/index';
 import { XEvent, XEventPayload } from '../../wiring/events.types';
 import { WirePayload } from '../../wiring/wiring.types';
 import { hslToHex } from './utils';
@@ -6,7 +7,7 @@ import { hslToHex } from './utils';
 /**
  * Contains the devtools API.
  */
-let DevtoolsAPI: DevtoolsPluginApi<void> | undefined;
+let DevtoolsAPI: DevtoolsPluginApi<Dictionary> | undefined;
 
 /**
  * List of all the configured timeline layers for {@link XEvent}s.
@@ -59,7 +60,7 @@ function getTimelineLayer(event: XEvent): string {
  * @param api - Vue's devtools API.
  * @internal
  */
-export function setupTimelinePlugin(api: DevtoolsPluginApi<void>): void {
+export function setupTimelinePlugin(api: DevtoolsPluginApi<Dictionary>): void {
   DevtoolsAPI = api;
   TimelineLayers.forEach(layer =>
     api.addTimelineLayer({
