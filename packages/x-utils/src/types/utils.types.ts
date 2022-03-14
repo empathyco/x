@@ -36,8 +36,11 @@ type ArrayOrObject = Record<string, any> | any[];
  *
  * @public
  */
-export type PropertyPath<SomeObject> = SomeObject extends unknown[]
-  ? `${number}` | NestedPropertyPath<SomeObject, Keys<SomeObject, `${number}`>>
+export type PropertyPath<SomeObject> = SomeObject extends (infer ArrayType)[]
+  ?
+      | `${number}`
+      | `${number}.${PropertyPath<ArrayType>}`
+      | NestedPropertyPath<SomeObject, Keys<SomeObject, `${number}`>>
   : Keys<SomeObject, string> | NestedPropertyPath<SomeObject, Keys<SomeObject, string>>;
 
 /**
@@ -85,6 +88,10 @@ export type PropertyType<
   ? Property extends keyof SomeObject
     ? RemainingPath extends PropertyPath<NonNullable<SomeObject[Property]>>
       ? PropertyType<NonNullable<SomeObject[Property]>, RemainingPath>
+      : never
+    : SomeObject extends (infer ArrayType)[]
+    ? RemainingPath extends PropertyPath<ArrayType>
+      ? PropertyType<ArrayType, RemainingPath>
       : never
     : never
   : SomeObject extends (infer ArrayType)[]
