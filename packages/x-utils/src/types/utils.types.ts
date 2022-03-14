@@ -13,7 +13,7 @@ type Keys<SomeObject, Type> = Extract<keyof SomeObject, Type>;
  *
  * @internal
  */
-type ArrayOrObject = Record<string, unknown> | unknown[];
+type ArrayOrObject = Record<string, any> | any[];
 
 /**
  * All the possible string paths to properties for a given object.
