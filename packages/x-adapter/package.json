@@ -11,13 +11,25 @@
     "client",
     "fetch"
   ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empathyco/x.git",
     "directory": "packages/x-adapter"
   },
-  "scripts": {},
+  "scripts": {
+    "prebuild": "rimraf ./dist ./types",
+    "build": "tsc --project tsconfig.json && tsc --project tsconfig.esm.json",
+    "postbuild": "npm pack",
+    "prepublishOnly": "npm run build"
+  },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "typescript": "~4.6.2",
+    "rimraf": "~3.0.2"
   }
 }
