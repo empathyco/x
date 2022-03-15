@@ -11,6 +11,7 @@ Feature: Url component
   Scenario Outline: 1. Navigating to a URL from the outside sets the url origin as "<origin>"
     Given a URL with query parameter "lego"
     Then  search request contains parameter "origin" with value "<origin>"
+
     Examples:
       | origin       |
       | url:external |
@@ -21,20 +22,18 @@ Feature: Url component
     When  sort option "<sort>" is selected from the sort "dropdown"
     Then  search request contains parameter "origin" with value "url:external"
     When  navigating back
-    Then  search request contains parameter "origin" with value "<origin>"
-    Examples:
-      | sort      | origin          |
-      | price asc | url:url_history |
+    Then  search request contains parameter "origin" with value "url:url_history"
 
-  Scenario Outline: 3. Navigate back from pdp to serp sets the url origin as "<origin>"
+    Examples:
+      | sort      |
+      | price asc |
+
+  Scenario: 3. Navigate back from pdp to serp sets the url origin as "<origin>"
     Given a URL with query parameter "lego"
     Then  search request contains parameter "origin" with value "url:external"
     When  clicking result in position 0
     And   navigating back
-    Then  search request contains parameter "origin" with value "<origin>"
-    Examples:
-      | origin              |
-      | url:url_history_pdp |
+    Then  search request contains parameter "origin" with value "url:url_history_pdp"
 
   Scenario Outline: 4. Extra params are properly restored when navigating
     Given a URL with query parameter "lego"
@@ -55,7 +54,7 @@ Feature: Url component
 
     Examples:
       | defaultStore | store2 | store3 |
-      | Portugal    | Italy  | Spain  |
+      | Portugal     | Italy  | Spain  |
 
 
 

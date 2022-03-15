@@ -14,6 +14,7 @@ Feature: Exclude filters with no results component
     When  "<query>" is searched
     Then  only filters with totalResults undefined or greater than 0 are shown in facet
     And   "<facetName>" total filters are more than displayed filters
+
     Examples:
       | query     | facetName   |
       | lego      | brand_facet |

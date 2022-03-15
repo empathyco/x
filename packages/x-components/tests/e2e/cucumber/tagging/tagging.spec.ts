@@ -55,6 +55,10 @@ Then('url matches {string}', (match: string) => {
   cy.location('pathname').should('match', new RegExp(match));
 });
 
+When('pdp add to cart button is clicked', () => {
+  cy.getByDataTest('pdp-add-to-cart-button').click();
+});
+
 Then('add product to cart tagging request has been triggered', () => {
   cy.wait('@addToCartTagging').should('exist');
 });

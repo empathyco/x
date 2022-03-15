@@ -55,8 +55,8 @@ Feature: History queries component
     And   no history queries are displayed
     When  "<query>" is searched
     And   "<followingQuery>" is searched
-    Then   the searched query is displayed in the search-box
-    When   clear search button is pressed
+    Then  the searched query is displayed in the search-box
+    When  clear search button is pressed
     Then  "<query>" is deleted from history queries, whereas "<followingQuery>" remains
 
     Examples:
@@ -70,6 +70,7 @@ Feature: History queries component
     And   start button is clicked
     When  a "<query>" with results is typed
     Then  no history queries are displayed after <debounceInMs> ms if <instant> is false
+
     Examples:
       | hideIfEqualsQuery | debounceInMs | maxItemsToStore | maxItemsToRender | instant | query  |
       | true              | 1000         | 15              | 5                | true    | barbie |

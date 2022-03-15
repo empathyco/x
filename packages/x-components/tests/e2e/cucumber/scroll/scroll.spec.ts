@@ -8,6 +8,10 @@ Then('url is updated with result {string}', (resultId: string) => {
   cy.url().should('contain', `scroll=${resultId}`);
 });
 
+When('tab is reloaded', () => {
+  cy.reload();
+});
+
 Then('first visible result is {string}', (resultId: string) => {
   cy.get(`[data-scroll=${resultId}]`)
     .should('be.visible')
@@ -26,8 +30,4 @@ Then('scroll position is at top', () => {
   cy.get('#main-scroll').should(scrollContainer => {
     expect(scrollContainer.scrollTop()).to.equal(0);
   });
-});
-
-When('store is changed to {string}', (store: string) => {
-  cy.getByDataTest('store-selector').click().contains(store).click();
 });

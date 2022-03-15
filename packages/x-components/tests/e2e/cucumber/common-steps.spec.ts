@@ -45,6 +45,11 @@ When('start button is clicked', () => {
   cy.getByDataTest('open-modal').click();
 });
 
+// Extra params
+When('store is changed to {string}', (store: string) => {
+  cy.getByDataTest('store-selector').click().contains(store).click();
+});
+
 // Facets
 When(
   'filter number {int} is clicked in facet {string}',
@@ -105,6 +110,16 @@ Then('related tags are displayed', () => {
   cy.getByDataTest('related-tag').should('have.length.at.least', 1);
 });
 
+// Related Tags
+When('related tag number {int} is clicked', (relatedTagItem: number) => {
+  cy.getByDataTest('related-tag')
+    .should('have.length.gt', relatedTagItem)
+    .eq(relatedTagItem)
+    .click()
+    .invoke('text')
+    .as('clickedRelatedTag');
+});
+
 // Results
 Then('related results are displayed', () => {
   resultsList = [];
@@ -129,7 +144,6 @@ Then('related results have changed', () => {
 });
 
 // Search Box
-
 When('search-input is focused', () => {
   cy.focusSearchInput();
 });
@@ -167,11 +181,24 @@ Then(
   }
 );
 
-When('tab is reloaded', () => {
-  cy.reload();
-});
+// Sort
+When(
+  'sort option {string} is selected from the sort {string}',
+  (sortOption: string, sortMenu: string) => {
+    if (sortMenu === 'dropdown') {
+      cy.getByDataTest(`sort-${sortMenu}-toggle`).click();
+    }
+    cy.getByDataTest(`sort-${sortMenu}`).children().contains(sortOption).click();
+  }
+);
 
-// PDP
-When('pdp add to cart button is clicked', () => {
-  cy.getByDataTest('pdp-add-to-cart-button').click();
-});
+// URL
+Then(
+  'search request contains parameter {string} with value {string}',
+  (key: string, value: string) => {
+    cy.wait('@interceptedResults')
+      .its('request.body')
+      .then(JSON.parse)
+      .should('have.property', key, value);
+  }
+);

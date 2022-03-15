@@ -55,6 +55,7 @@ Feature: Simple filters
     When  filter number <hierarchicalFilter2> is clicked in facet "<facetName>"
     Then  selection status of child filter number <childFilter1> in facet "<facetName>" is false
     And   selection status of filter number <hierarchicalFilter1> in facet "<facetName>" is false
+
     Examples:
       | query | hierarchicalFilter1 | hierarchicalFilter2 | childFilter1 | facetName             |
       | lego  | 0                   | 2                   | 0            | hierarchical_category |

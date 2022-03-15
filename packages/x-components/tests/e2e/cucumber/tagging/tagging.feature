@@ -19,17 +19,7 @@ Feature: Tagging component
     And   "lego" is searched
     Then  query tagging request should be triggered
 
-  Scenario: 3. Clicking a result triggers the result click tagging.
-    Given a results API with a known response
-    And   no special config for layout view
-    When  start button is clicked
-    And   "lego" is searched
-    And   first result is clicked
-    Then  url matches "/products/"
-    And   result click tagging request is triggered
-    And   result click tagging includes location "results"
-
-  Scenario: 4. Clicking a result triggers the query tagging
+  Scenario: 3. Clicking a result triggers both the query and result click tagging.
     Given a results API with a known response
     And   no special config for layout view
     When  start button is clicked
@@ -37,8 +27,10 @@ Feature: Tagging component
     And   first result is clicked
     Then  url matches "/products/"
     And   query tagging request has been triggered
+    And   result click tagging request is triggered
+    And   result click tagging includes location "results"
 
-  Scenario: 5. Clicking a promoted triggers the query tagging
+  Scenario: 4. Clicking a promoted triggers the query tagging
     Given a results API with a promoted
     And   no special config for layout view
     When  start button is clicked
@@ -47,7 +39,7 @@ Feature: Tagging component
     Then  url matches "/promoted/"
     And   query tagging request has been triggered
 
-  Scenario: 6. Clicking a banner triggers the query tagging
+  Scenario: 5. Clicking a banner triggers the query tagging
     Given a results API with a banner
     And   no special config for layout view
     When  start button is clicked
@@ -56,7 +48,7 @@ Feature: Tagging component
     Then  url matches "/banner/"
     And   query tagging request has been triggered
 
-  Scenario: 7. A redirection triggers query tagging
+  Scenario: 6. A redirection triggers query tagging
     Given a results API with a redirection
     And   no special config for layout view
     When  start button is clicked
@@ -65,7 +57,7 @@ Feature: Tagging component
     Then  url matches "/redirection/"
     And   query tagging request has been triggered
 
-  Scenario: 8. Infinite scrolling triggers query tagging
+  Scenario: 7. Infinite scrolling triggers query tagging
     Given a results API with 2 pages
     And   no special config for layout view
     When  start button is clicked
@@ -76,7 +68,7 @@ Feature: Tagging component
     And   query tagging request has been triggered
     And   second page query tagging request is triggered
 
-  Scenario: 9. Tracking PDP add to cart
+  Scenario: 8. Tracking PDP add to cart
     Given a results API with a known response
     And   no special config for layout view
     When  start button is clicked

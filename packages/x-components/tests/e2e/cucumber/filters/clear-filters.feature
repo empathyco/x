@@ -19,6 +19,7 @@ Feature: Clear selected filters
     And   filters "<filter1>, <filter2>, <filter3>" are shown in the selected filters list
     When  clear filters button is clicked
     Then  no filters are selected
+
     Examples:
       | query | filter1 | filter2 | filter3 | facetName              | facetName2 | facetName3  |
       | lego  | 0       | 1       | 2       | hierarchical_category  | age_facet  | price_facet |
@@ -31,6 +32,7 @@ Feature: Clear selected filters
     Then  related results are displayed
     When  clear search button is pressed
     Then  no filters are selected
+
     Examples:
       | query | filter | facetName    | facetName2 | facetName3  | maxItemsToRequest |
       | lego  | 0      | brand_facet  | age_facet  | price_facet | 5                 |
@@ -43,6 +45,7 @@ Feature: Clear selected filters
     Then  related results are displayed
     When  filter number <filter> is clicked in selected filters list
     Then  filter is removed from selected filters list
+
     Examples:
       | query | filter | facetName    | facetName2 | facetName3  |
       | lego  | 0      | brand_facet  | age_facet  | price_facet |

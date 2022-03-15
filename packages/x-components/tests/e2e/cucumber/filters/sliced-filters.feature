@@ -20,6 +20,7 @@ Feature: Sliced Filters components
     When  clicking in show more button "<facetName>"
     Then  number of sliced filters in facet "<facetName>" are stored
     And   total filters match displayed + hidden filters
+
     Examples:
       | slicedFiltersMax | query  | facetName |
       | 2                | lego   | age_facet |
@@ -32,6 +33,7 @@ Feature: Sliced Filters components
     Then  number of sliced filters in facet "<facetName>" are stored
     And   number of sliced filters are at most <slicedFiltersMax>
     And   no show more / show less buttons are displayed in "<facetName>"
+
     Examples:
       | slicedFiltersMax | query  | facetName |
       | 10               | lego   | age_facet |
@@ -49,6 +51,7 @@ Feature: Sliced Filters components
     Then  number of selected filters in facet "<facetName>" are 3
     When  clicking in show more button "<facetName>"
     Then  number of selected filters in facet "<facetName>" are 3
+
     Examples:
       | slicedFiltersMax | query  | lastFilter | facetName   |
       | 2                | lego   | 5          | price_facet |

@@ -20,6 +20,7 @@ Feature: Search-box component
     Then  query suggestions are displayed
     And   next queries are displayed
     And   "<query>" is displayed in history queries is not <hideIfEqualsQuery>
+
     Examples:
       | hideIfEqualsQuery | instantDebounceInMs | instant | query     | buttonOrKey  |
       | true              | 500                 | false   | lego      | searchButton |
@@ -37,6 +38,7 @@ Feature: Search-box component
     And   next queries are not cleared
     And   related tags are cleared
     And   the searched query is displayed in history queries
+
     Examples:
       | hideIfEqualsQuery | instantDebounceInMs  | instant | query | cleared     |
       | true              | 1000                 | true    | lego  | clickButton |
@@ -51,6 +53,7 @@ Feature: Search-box component
     And   related results are displayed after <instantDebounceInMs> is <instant>
     And   next queries are displayed after instantDebounceInMs is <instant>
     And   related tags are displayed after instantDebounceInMs is <instant>
+
     Examples:
       | hideIfEqualsQuery | instantDebounceInMs | instant | query     |
       | true              | 1500                | true    | lego      |
@@ -73,6 +76,7 @@ Feature: Search-box component
     Then  old related results are not displayed before <instantDebounceInMs>
     And   related results are displayed after <instantDebounceInMs> is <instant>
     And   new related results are different from previous ones
+
     Examples:
       | hideIfEqualsQuery | instantDebounceInMs | instant | firstQuery | secondQuery |
       | true              | 2000                | true    | lego       | mickey      |

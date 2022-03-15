@@ -1,15 +1,4 @@
-import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
-
-// Scenario 1
-Then(
-  'search request contains parameter {string} with value {string}',
-  (key: string, value: string) => {
-    cy.wait('@interceptedResults')
-      .its('request.body')
-      .then(JSON.parse)
-      .should('have.property', key, value);
-  }
-);
+import { And, When } from 'cypress-cucumber-preprocessor/steps';
 
 // Scenario 2
 When('navigating back', () => {

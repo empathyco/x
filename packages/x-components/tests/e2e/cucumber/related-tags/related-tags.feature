@@ -24,6 +24,7 @@ Feature: Related tags component
     When  related tag number 0 is clicked
     Then  related tag number 0 is shown as not selected
     And   related results have changed
+
     Examples:
       | maxItemsToRequest | addToSearchBox | query | relatedTagItem | request                |
       | 9                 | false          | lego  | 1              | interceptedRelatedTags |

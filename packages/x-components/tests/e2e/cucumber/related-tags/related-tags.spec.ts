@@ -1,4 +1,4 @@
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { And, Given, Then } from 'cypress-cucumber-preprocessor/steps';
 
 let relatedTagsList: string[] = [];
 const secondRelatedTagsList: string[] = [];
@@ -34,15 +34,6 @@ And('at most {int} unselected related tags are displayed', (maxItemsToRequest: n
     .each($result => {
       relatedTagsList.push($result.text());
     });
-});
-
-When('related tag number {int} is clicked', (relatedTagItem: number) => {
-  cy.getByDataTest('related-tag')
-    .should('have.length.gt', relatedTagItem)
-    .eq(relatedTagItem)
-    .click()
-    .invoke('text')
-    .as('clickedRelatedTag');
 });
 
 Then(

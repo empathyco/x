@@ -13,6 +13,7 @@ Feature: Extra-params component
     And   "<query>" is searched
     And   search request contains parameter "<ExtraParamName>" with value "<ExtraParamValue>"
     And   related results are displayed
+
     Examples:
       | query | ExtraParamName | ExtraParamValue |
       | lego  | store          | Portugal        |
@@ -24,6 +25,7 @@ Feature: Extra-params component
     And   related results are displayed
     When  store is changed to "<RenderlessExtraParamValue>"
     Then  search request contains parameter "<RenderlessExtraParamName>" with value "<RenderlessExtraParamValue>"
+
     Examples:
       | query | RenderlessExtraParamName | InitialExtraParamValue | RenderlessExtraParamValue |
       | lego  | store                    | Portugal               | Spain                     |

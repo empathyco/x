@@ -28,7 +28,14 @@ And(
   }
 );
 
-And('each recommendation has an associated hyperlink containing image and text', () => {
-  cy.getByDataTest('result-link').getByDataTest('recommendation-image').should('exist');
-  cy.getByDataTest('result-link').getByDataTest('recommendation-text').should('exist');
+And('each recommendation has an associated hyperlink, image and text', () => {
+  cy.getByDataTest('recommendation-item').getByDataTest('result-link').should('have.attr', 'href');
+  cy.getByDataTest('recommendation-item')
+    .getByDataTest('result-link')
+    .getByDataTest('result-picture')
+    .should('exist');
+  cy.getByDataTest('recommendation-item')
+    .getByDataTest('result-link')
+    .getByDataTest('result-title')
+    .should('exist');
 });

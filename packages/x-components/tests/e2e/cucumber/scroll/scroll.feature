@@ -1,4 +1,4 @@
-Feature: Exclude filters with no results component
+Feature: Scroll component
 
   Background:
     Given a results API with 24 results
@@ -25,8 +25,8 @@ Feature: Exclude filters with no results component
     And   "<query1>" is searched
     Then  related results are displayed
     When  scrolling down to result "<resultId>"
-    And  "<query2>" is searched
-    Then scroll position is at top
+    And   "<query2>" is searched
+    Then  scroll position is at top
 
     Examples:
       | query1 | resultId  | query2         |
@@ -37,11 +37,11 @@ Feature: Exclude filters with no results component
     And   "<query1>" is searched
     Then  related results are displayed
     When  scrolling down to result "<resultId>"
-    And  filter number <filterIndex> is clicked in facet "<filterFacet>"
-    Then scroll position is at top
+    And   filter number <filterIndex> is clicked in facet "<filterFacet>"
+    Then  scroll position is at top
     When  scrolling down to result "<resultId>"
-    And  filter number <filterIndex> is clicked in facet "<filterFacet>"
-    Then scroll position is at top
+    And   filter number <filterIndex> is clicked in facet "<filterFacet>"
+    Then  scroll position is at top
 
     Examples:
       | query1 | resultId  | filterIndex | filterFacet |
@@ -53,11 +53,11 @@ Feature: Exclude filters with no results component
     And   "<query1>" is searched
     Then  related results are displayed
     When  scrolling down to result "<resultId>"
-    And  related tag number <relatedTagIndex> is clicked
-    Then scroll position is at top
-    When scrolling down to result "<resultId>"
-    And related tag number <relatedTagIndex> is clicked
-    Then scroll position is at top
+    And   related tag number <relatedTagIndex> is clicked
+    Then  scroll position is at top
+    When  scrolling down to result "<resultId>"
+    And   related tag number <relatedTagIndex> is clicked
+    Then  scroll position is at top
 
     Examples:
       | query1 | resultId  | relatedTagIndex |
@@ -68,8 +68,8 @@ Feature: Exclude filters with no results component
     And   "<query1>" is searched
     Then  related results are displayed
     When  scrolling down to result "<resultId>"
-    And  store is changed to "<store>"
-    Then scroll position is at top
+    And   store is changed to "<store>"
+    Then  scroll position is at top
 
     Examples:
       | query1 | resultId  | store |

@@ -8,8 +8,7 @@ Feature: Recommendations component
     And   start button is clicked
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
     And   number of displayed recommendations are equal or less than <maxItemsToRequest>
-    # to include once recommendations and results have hyperlinks
-    #  And   each recommendation has an associated hyperlink containing image and text
+    And   each recommendation has an associated hyperlink, image and text
 
     Examples:
       | maxItemsToRequest | request                    |
