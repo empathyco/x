@@ -85,8 +85,10 @@ export type PropertyType<
   ? SomeObject[Path]
   : Path extends `${infer Property}.${infer RemainingPath}`
   ? Property extends keyof SomeObject
-    ? RemainingPath extends PropertyPath<NonNullable<SomeObject[Property]>>
-      ? PropertyType<NonNullable<SomeObject[Property]>, RemainingPath>
+    ? SomeObject[Property] extends any | undefined
+      ? RemainingPath extends PropertyPath<NonNullable<SomeObject[Property]>>
+        ? PropertyType<NonNullable<SomeObject[Property]>, RemainingPath> | undefined
+        : never
       : never
     : SomeObject extends (infer ArrayType)[]
     ? RemainingPath extends PropertyPath<ArrayType>
