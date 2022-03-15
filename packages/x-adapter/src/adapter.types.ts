@@ -30,7 +30,7 @@ export interface EndpointAdapter<Request, Response> {
    * @param options - New options to extend the adapter with.
    */
   extends: <NewRequest, NewResponse>(
-    options: Partial<EndpointAdapterOptions<NewRequest, NewResponse>>
+    options: Partial<EndpointAdapterOptions<NewRequest, any, any, NewResponse>>
   ) => EndpointAdapter<Request & NewRequest, Response & NewResponse>;
 }
 
@@ -42,7 +42,7 @@ export interface EndpointAdapter<Request, Response> {
  * @public
  */
 export type EndpointAdapterFactory = <Request, Response>(
-  options: EndpointAdapterOptions<Request, Response>
+  options: EndpointAdapterOptions<Request, any, any, Response>
 ) => EndpointAdapter<Request, Response>;
 
 /**
@@ -50,7 +50,7 @@ export type EndpointAdapterFactory = <Request, Response>(
  *
  * @public
  */
-export interface EndpointAdapterOptions<Request, Response> {
+export interface EndpointAdapterOptions<Request, ApiRequest, ApiResponse, Response> {
   /**
    * The endpoint to request the information to. If the endpoint can only be decided at run-time you
    * can ignore this property and use {@link RequestOptions.endpoint} parameter.
@@ -64,10 +64,10 @@ export interface EndpointAdapterOptions<Request, Response> {
    * The {@link Mapper} in charge of adapting the request object so the backend API can
    * understand it.
    */
-  requestMapper: Mapper<Request, unknown>;
+  requestMapper: Mapper<Request, ApiRequest>;
   /**
    * The {@link Mapper} in charge of adapting the response object to whatever format or
    * shape it is needed.
    */
-  responseMapper: Mapper<unknown, Response>;
+  responseMapper: Mapper<ApiResponse, Response>;
 }
