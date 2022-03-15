@@ -13,6 +13,8 @@ export type HttpClient = <Response = unknown>(
 
 /**
  * A record of options to make the request with.
+ *
+ * @public
  */
 export interface RequestOptions {
   /**

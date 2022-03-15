@@ -39,6 +39,7 @@ export interface EndpointAdapter<Request, Response> {
  *
  * @param options - Options to create the adapter with.
  * @returns A brand-new {@link EndpointAdapter} instance.
+ * @public
  */
 export type EndpointAdapterFactory = <Request, Response>(
   options: EndpointAdapterOptions<Request, Response>
@@ -46,6 +47,8 @@ export type EndpointAdapterFactory = <Request, Response>(
 
 /**
  * Options to create an adapter with.
+ *
+ * @public
  */
 export interface EndpointAdapterOptions<Request, Response> {
   /**
