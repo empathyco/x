@@ -1,6 +1,8 @@
 /**
- * Transforms the given entry parameter.
+ * Converts an entry parameter into an output parameter.
  *
+ * @param from - The raw value that is going to be transformed.
+ * @returns A new value created using the data in the `context` or in the `from` parameters.
  * @public
  */
 export type Mapper<From, To> = (from: Readonly<From>, context: MapperContext) => To;
@@ -18,11 +20,11 @@ export interface MapperContext {
   requestParameters?: Record<string, string | boolean | number>;
   /**
    * When the mapper is used to transform a request or a response, the endpoint that
-   * was or is going be used.
+   * was or is going to be used.
    */
   endpoint?: string;
   /**
-   * If multiple mappers are taking charge of mapping the same property, the partial result of
+   * If multiple mappers are in charge of mapping the same property, the partial result of
    * applying them to it.
    */
   to?: unknown;
