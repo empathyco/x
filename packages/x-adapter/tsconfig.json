@@ -5,8 +5,10 @@
     "outDir": "./dist/cjs",
     "declaration": true,
     "declarationDir": "./types",
+    "sourceMap": true,
     "moduleResolution": "node",
     "strict": true,
+    "inlineSources": true,
     "esModuleInterop": true,
     "importHelpers": true,
     "lib": ["dom", "esnext"]
