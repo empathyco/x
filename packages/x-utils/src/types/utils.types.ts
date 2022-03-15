@@ -9,11 +9,11 @@
 type Keys<SomeObject, Type> = Extract<keyof SomeObject, Type>;
 
 /**
- * Record or Array with potential nested properties.
+ * TypeScript type primitives. Basically every type possible except objects or arrays.
  *
- * @internal
+ * @public
  */
-type ArrayOrObject = Record<string, any> | any[];
+export type Primitive = string | number | boolean | bigint | undefined | null | symbol;
 
 /**
  * All the possible string paths to properties for a given object.
@@ -52,9 +52,8 @@ export type PropertyPath<SomeObject> = SomeObject extends (infer ArrayType)[]
  * @internal
  */
 type NestedPropertyPath<SomeObject, PropName extends string> = PropName extends keyof SomeObject
-  ? NonNullable<SomeObject[PropName]> extends ArrayOrObject
-    ? `${PropName}.${PropertyPath<SomeObject[PropName]>}`
-    : never
+  ? // eslint-disable-next-line @typescript-eslint/ban-types
+    `${PropName}.${PropertyPath<Exclude<SomeObject[PropName], Function | Primitive>>}`
   : never;
 
 /**
