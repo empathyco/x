@@ -9,8 +9,7 @@
     "strict": true,
     "esModuleInterop": true,
     "importHelpers": true,
-    "types": ["node"],
-    "lib": ["esnext"]
+    "lib": ["dom", "esnext"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
