@@ -9,6 +9,8 @@
     "search",
     "utils"
   ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empathyco/x.git",
@@ -16,7 +18,9 @@
   },
   "scripts": {
     "build": "tsc && tsc --project tsconfig.esm.json",
-    "test": "jest"
+    "test": "jest",
+    "postbuild": "npm pack",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "tslib": "~2.3.0"
