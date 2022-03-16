@@ -2,12 +2,16 @@
   "compilerOptions": {
     "target": "es2019",
     "module": "commonjs",
-    "outDir": "./dist",
+    "outDir": "./dist/cjs",
+    "declaration": true,
+    "declarationDir": "./types",
+    "sourceMap": true,
     "moduleResolution": "node",
     "strict": true,
+    "inlineSources": true,
     "esModuleInterop": true,
-    "types": ["node", "jest"],
-    "lib": ["esnext"]
+    "importHelpers": true,
+    "lib": ["dom", "esnext"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
