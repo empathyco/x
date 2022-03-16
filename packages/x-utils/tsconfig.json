@@ -7,9 +7,11 @@
     "moduleResolution": "node",
     "strict": true,
     "esModuleInterop": true,
-    "types": ["node", "jest"],
-    "lib": ["esnext"]
+    "types": ["jest"],
+    "lib": ["esnext"],
+    "sourceMap": true,
+    "inlineSources": true
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "**/__tests__/**/*"]
 }
