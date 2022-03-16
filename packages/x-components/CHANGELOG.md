@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.68](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.67...@empathyco/x-components@3.0.0-alpha.68) (2022-03-16)
+
+### Bug Fixes
+
+- prevent node-ipc vulnerability
+  ([fc8b83c](https://github.com/empathyco/x/commit/fc8b83ce73bdbd7148ce99ad3a95d7a7658bd8ba))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.67](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.66...@empathyco/x-components@3.0.0-alpha.67) (2022-03-11)
 
 ### ⚠ BREAKING CHANGES
