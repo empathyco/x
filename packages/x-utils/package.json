@@ -15,12 +15,14 @@
     "directory": "packages/x-utils"
   },
   "scripts": {
-    "build": "tsc && tsc --project tsconfig.esm.json"
+    "build": "tsc && tsc --project tsconfig.esm.json",
+    "test": "jest"
   },
   "dependencies": {
     "tslib": "~2.3.0"
   },
   "devDependencies": {
+    "jest": "^27.5.1",
     "typescript": "~4.6.2"
   },
   "publishConfig": {
