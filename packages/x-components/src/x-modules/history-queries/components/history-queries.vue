@@ -152,7 +152,7 @@ it is 5).
 
 <script>
   import { HistoryQueries } from '@empathyco/x-components/history-queries';
-  import { FadeAndSlide } from '@empathyco/x-components/animations';
+  import { FadeAndSlide } from '@empathyco/x-components';
 
   export default {
     name: 'HistoryQueriesDemo',

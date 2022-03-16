@@ -46,7 +46,8 @@
   import { HistoryQuery } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { State, xComponentMixin } from '../../../components';
+  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { State } from '../../../components/decorators/store.decorators';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { historyQueriesXModule } from '../x-module';
   import HistoryQueryComponent from './history-query.vue';
@@ -120,7 +121,7 @@ Here you have a basic example of how the MyHistory is rendered.
 
 <script>
   import { MyHistory } from '@empathyco/x-components/history-queries';
-  import { FadeAndSlide } from '@empathyco/x-components/animations';
+  import { FadeAndSlide } from '@empathyco/x-components';
 
   export default {
     name: 'MyHistoryDemo',

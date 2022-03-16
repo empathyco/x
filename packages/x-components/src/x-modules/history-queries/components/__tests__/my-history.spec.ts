@@ -4,7 +4,7 @@ import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { createHistoryQueries } from '../../../../__stubs__/index';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
-import { getXComponentXModuleName, isXComponent } from '../../../../components/index';
+import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/index';
 import { DeepPartial } from '../../../../utils/index';
 import { historyQueriesXModule } from '../../x-module';
@@ -31,10 +31,7 @@ function renderMyHistory({
     },
     {
       localVue,
-      store,
-      propsData: {
-        historyQueries
-      }
+      store
     }
   );
   return {
@@ -73,25 +70,25 @@ describe('testing MyHistory component', () => {
     expect(suggestionsWrappers.at(0).text()).toEqual('lego ✕');
   });
 
-  describe('changing history query content', () => {
-    it('allows changing history query content and render the list of history queries', () => {
-      const historyQueries = createHistoryQueries(
-        'moura',
-        'calamares',
-        'rubia galega',
-        'pulpo',
-        'cachelos',
-        'navajas',
-        'croquetas',
-        'zamburiñas'
-      );
+  it('allows changing history query content and render the list of history queries', () => {
+    const historyQueries = createHistoryQueries(
+      'moura',
+      'calamares',
+      'rubia galega',
+      'pulpo',
+      'cachelos',
+      'navajas',
+      'croquetas',
+      'zamburiñas'
+    );
 
-      const { findAllInWrapper } = renderMyHistory({
-        template: `
+    const { findAllInWrapper } = renderMyHistory({
+      template: `
           <MyHistory>
             <template #suggestion-content="suggestionContentScope">
               <img src="./history-icon.svg" data-test="suggestion-history-icon"/>
               <span :data-index="suggestionContentScope.index"
+                    data-test="suggestion-content-slot"
                     v-html="suggestionContentScope.queryHTML"></span>
             </template>
             <template #suggestion-remove-content>
@@ -99,15 +96,16 @@ describe('testing MyHistory component', () => {
             </template>
           </MyHistory>
         `,
-        historyQueries
-      });
-
-      const suggestionContentWrappers = findAllInWrapper('suggestion-history-icon');
-      const suggestionRemoveWrappers = findAllInWrapper('suggestion-remove-icon');
-
-      expect(suggestionContentWrappers).toHaveLength(historyQueries.length);
-      expect(suggestionRemoveWrappers).toHaveLength(historyQueries.length);
+      historyQueries
     });
+
+    const suggestionContentWrappers = findAllInWrapper('suggestion-history-icon');
+    const suggestionRemoveWrappers = findAllInWrapper('suggestion-remove-icon');
+    const suggestionContentSlotWrappers = findAllInWrapper('suggestion-content-slot');
+
+    expect(suggestionContentWrappers).toHaveLength(historyQueries.length);
+    expect(suggestionRemoveWrappers).toHaveLength(historyQueries.length);
+    expect(suggestionContentSlotWrappers).toHaveLength(historyQueries.length);
   });
 });
 
