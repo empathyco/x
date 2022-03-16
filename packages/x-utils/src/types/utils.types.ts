@@ -37,10 +37,11 @@ export type Primitive = string | number | boolean | bigint | undefined | null | 
  * @public
  */
 export type PropertyPath<SomeObject> = SomeObject extends (infer ArrayType)[]
-  ?
-      | `${number}`
-      | `${number}.${PropertyPath<ArrayType>}`
-      | NestedPropertyPath<SomeObject, Keys<SomeObject, `${number}`>>
+  ? ArrayType extends Primitive
+    ? `${number}`
+    : Keys<SomeObject, `${number}`> extends never
+    ? `${number}` | `${number}.${PropertyPath<ArrayType>}`
+    : NestedPropertyPath<SomeObject, Keys<SomeObject, `${number}`>>
   : Keys<SomeObject, string> | NestedPropertyPath<SomeObject, Keys<SomeObject, string>>;
 
 /**
@@ -52,8 +53,12 @@ export type PropertyPath<SomeObject> = SomeObject extends (infer ArrayType)[]
  * @internal
  */
 type NestedPropertyPath<SomeObject, PropName extends string> = PropName extends keyof SomeObject
-  ? // eslint-disable-next-line @typescript-eslint/ban-types
-    `${PropName}.${PropertyPath<Exclude<SomeObject[PropName], Function | Primitive>>}`
+  ? SomeObject[PropName] extends SomeObject
+    ?
+        | `${PropName}.${Keys<SomeObject[PropName], string>}`
+        | `${PropName}.${Keys<SomeObject[PropName], string>}.${any}`
+    : // eslint-disable-next-line @typescript-eslint/ban-types
+      `${PropName}.${PropertyPath<Exclude<SomeObject[PropName], Function | Primitive>>}`
   : never;
 
 /**
