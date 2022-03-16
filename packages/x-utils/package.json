@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-utils",
-  "version": "0.1.1-alpha.0",
+  "version": "0.1.0-alpha.0",
   "description": "A utility package for Empathy search",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
