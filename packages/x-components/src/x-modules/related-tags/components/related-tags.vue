@@ -112,9 +112,9 @@ To use this component, the QuerySignals microservice must be implemented.
 
 This example shows how related tags can be rendered without any additional effects.
 
-_Search for a toy and press enter._
+_Search for a fashion term like "sandal" or "lipstick"._
 
-```vue
+```vue live
 <template>
   <div>
     <SearchInput></SearchInput>
@@ -141,13 +141,13 @@ _Search for a toy and press enter._
 In this example, the number of related tags rendered has been limited to 3. A fade and slide effect
 has been added so that the related tags appear with a delay, then slide upwards and fade.
 
-_Search for a toy and press Enter to see the related tags with the animation effect._
+_Search for a fashion term and see the related tags with the animation effect._
 
-```vue
+```vue live
 <template>
   <div>
     <SearchInput></SearchInput>
-    <RelatedTags animation="StaggeredFadeAndSlide" :maxItemsToRender="3"></RelatedTags>
+    <RelatedTags :animation="'StaggeredFadeAndSlide'" :maxItemsToRender="3"></RelatedTags>
   </div>
 </template>
 
@@ -157,6 +157,7 @@ _Search for a toy and press Enter to see the related tags with the animation eff
   import { RelatedTags } from '@empathyco/x-components/related-tags';
   import { StaggeredFadeAndSlide } from '@empathyco/x-components';
 
+  // Registering the animation as a global component
   Vue.component('StaggeredFadeAndSlide', StaggeredFadeAndSlide);
   export default {
     name: 'RelatedTagsDemo',
@@ -173,9 +174,9 @@ _Search for a toy and press Enter to see the related tags with the animation eff
 In this example, the [`RelatedTag`](./x-components.related-tag.md) component is passed in the
 `related-tag` slot (although any other component could potentially be passed).
 
-_Search for a toy and see how the related tags can be rendered._
+_Search for a fashion term and see how the related tags can be rendered._
 
-```vue
+```vue live
 <template>
   <div>
     <SearchInput></SearchInput>
@@ -206,9 +207,9 @@ To continue the previous example, the [`RelatedTag`](./x-components.related-tag.
 passed in the `related-tag-content` slot, but in addition, an HTML span tag for the text are also
 passed.
 
-_Search for a toy and see how the related tags are rendered._
+_Search for a fashion term and see how the related tags are rendered._
 
-```vue
+```vue live
 <template>
   <div>
     <SearchInput></SearchInput>
@@ -237,14 +238,18 @@ _Search for a toy and see how the related tags are rendered._
 Components can be combined and communicate with each other. The `RelatedTags` component can
 communicate with the [`SearchInput`](../search-box/x-components.search-input.md) as follows:
 
-_Search for a toy and see how the related tags can be rendered._
+_Search for a fashion term and see how the related tags can be rendered._
 
-```vue
+```vue live
 <template>
   <div>
     <SearchInput></SearchInput>
     <RelatedTags></RelatedTags>
-    <ResultsList></ResultsList>
+    <ResultsList #result="{ item }">
+      <span class="result">
+        {{ item.name }}
+      </span>
+    </ResultsList>
   </div>
 </template>
 

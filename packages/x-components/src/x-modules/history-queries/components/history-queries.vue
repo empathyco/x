@@ -50,6 +50,7 @@
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
+  import SearchInput from '../../search-box/components/search-input.vue';
   import { historyQueriesXModule } from '../x-module';
   import HistoryQuery from './history-query.vue';
 
@@ -65,7 +66,7 @@
    * @public
    */
   @Component({
-    components: { BaseSuggestions, HistoryQuery },
+    components: { SearchInput, BaseSuggestions, HistoryQuery },
     mixins: [xComponentMixin(historyQueriesXModule)]
   })
   export default class HistoryQueries extends Vue {
@@ -104,17 +105,22 @@ This component doesn't emit events.
 
 Here you have a basic example of how the HistoryQueries is rendered.
 
-```vue
+```vue live
 <template>
-  <HistoryQueries />
+  <div>
+    <SearchInput />
+    <HistoryQueries />
+  </div>
 </template>
 
 <script>
+  import { SearchInput } from '@empathyco/x-components/search-box';
   import { HistoryQueries } from '@empathyco/x-components/history-queries';
 
   export default {
     name: 'HistoryQueriesDemo',
     components: {
+      SearchInput,
       HistoryQueries
     }
   };
@@ -126,17 +132,22 @@ Here you have a basic example of how the HistoryQueries is rendered.
 In this example, the history queries have been limited to render a maximum of 10 queries (by default
 it is 5).
 
-```vue
+```vue live
 <template>
-  <HistoryQueries :maxItemsToRender="10" />
+  <div>
+    <SearchInput />
+    <HistoryQueries :maxItemsToRender="10" />
+  </div>
 </template>
 
 <script>
+  import { SearchInput } from '@empathyco/x-components/search-box';
   import { HistoryQueries } from '@empathyco/x-components/history-queries';
 
   export default {
     name: 'HistoryQueriesDemo',
     components: {
+      SearchInput,
       HistoryQueries
     }
   };
@@ -145,24 +156,27 @@ it is 5).
 
 ### Play with the animation
 
-```vue
+```vue live
 <template>
-  <HistoryQueries :animation="fadeAndSlide" />
+  <div>
+    <SearchInput />
+    <HistoryQueries :animation="'FadeAndSlide'" />
+  </div>
 </template>
 
 <script>
+  import Vue from 'vue';
+  import { SearchInput } from '@empathyco/x-components/search-box';
   import { HistoryQueries } from '@empathyco/x-components/history-queries';
   import { FadeAndSlide } from '@empathyco/x-components';
 
+  // Registering the animation as a global component
+  Vue.component('FadeAndSlide', FadeAndSlide);
   export default {
     name: 'HistoryQueriesDemo',
     components: {
+      SearchInput,
       HistoryQueries
-    },
-    data() {
-      return {
-        fadeAndSlide: FadeAndSlide
-      };
     }
   };
 </script>
@@ -173,19 +187,24 @@ it is 5).
 In this example, the [`HistoryQuery`](./x-components.history-query.md) component is passed in the
 `suggestion` slot (although any other component could potentially be passed).
 
-```vue
+```vue live
 <template>
-  <HistoryQueries #suggestion="{ suggestion }">
-    <HistoryQuery :suggestion="suggestion"></HistoryQuery>
-  </HistoryQueries>
+  <div>
+    <SearchInput />
+    <HistoryQueries #suggestion="{ suggestion }">
+      <HistoryQuery :suggestion="suggestion"></HistoryQuery>
+    </HistoryQueries>
+  </div>
 </template>
 
 <script>
+  import { SearchInput } from '@empathyco/x-components/search-box';
   import { HistoryQueries, HistoryQuery } from '@empathyco/x-components/history-queries';
 
   export default {
     name: 'HistoryQueriesDemo',
     components: {
+      SearchInput,
       HistoryQueries,
       HistoryQuery
     }
@@ -199,19 +218,24 @@ To continue the previous example, the [`HistoryQuery`](./x-components.history-qu
 passed in the `suggestion-content` slot, but in addition, an HTML span tag for the text are also
 passed.
 
-```vue
+```vue live
 <template>
-  <HistoryQueries #suggestion-content="{ suggestion }">
-    <span>{{ suggestion.query }}</span>
-  </HistoryQueries>
+  <div>
+    <SearchInput />
+    <HistoryQueries #suggestion-content="{ suggestion }">
+      <span>{{ suggestion.query }}</span>
+    </HistoryQueries>
+  </div>
 </template>
 
 <script>
+  import { SearchInput } from '@empathyco/x-components/search-box';
   import { HistoryQueries } from '@empathyco/x-components/history-queries';
 
   export default {
     name: 'HistoryQueriesDemo',
     components: {
+      SearchInput,
       HistoryQueries
     }
   };
@@ -224,20 +248,25 @@ To continue the previous example, the [`HistoryQuery`](./x-components.history-qu
 passed in the `suggestion-content` slot, but in addition, a cross icon is also passed to change the
 icon to remove the history query.
 
-```vue
+```vue live
 <template>
-  <HistoryQueries #suggestion-content-remove="{ suggestion }">
-    <CrossIcon />
-  </HistoryQueries>
+  <div>
+    <SearchInput />
+    <HistoryQueries #suggestion-remove-content="{ suggestion }">
+      <CrossIcon />
+    </HistoryQueries>
+  </div>
 </template>
 
 <script>
+  import { SearchInput } from '@empathyco/x-components/search-box';
   import { HistoryQueries } from '@empathyco/x-components/history-queries';
   import { CrossIcon } from '@empathyco/x-components';
 
   export default {
     name: 'HistoryQueriesDemo',
     components: {
+      SearchInput,
       HistoryQueries,
       CrossIcon
     }

@@ -83,10 +83,30 @@
 
 The component exposes a single default slot, where you can add icons or text.
 
-```vue
-<ClearHistoryQueries>
-  <img class="x-history-query__icon" src="./my-icon.svg"/>
-</ClearHistoryQueries>
+```vue live
+<template>
+  <SearchInput />
+  <ClearHistoryQueries>Clear history queries</ClearHistoryQueries>
+  <HistoryQueries :animation="'FadeAndSlide'" :maxItemsToRender="10" />
+</template>
+
+<script>
+  import Vue from 'vue';
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { HistoryQueries, ClearHistoryQueries } from '@empathyco/x-components/history-queries';
+  import { FadeAndSlide } from '@empathyco/x-components';
+
+  // Registering the animation as a global component
+  Vue.component('FadeAndSlide', FadeAndSlide);
+  export default {
+    name: 'ClearHistoryQueriesDemo',
+    components: {
+      SearchInput,
+      HistoryQueries,
+      ClearHistoryQueries
+    }
+  };
+</script>
 ```
 
 ## Events

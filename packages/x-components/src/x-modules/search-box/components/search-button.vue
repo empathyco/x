@@ -98,7 +98,7 @@ In this example, a clickable button is rendered.
 
 _Click the Search button to try it out!_
 
-```vue
+```vue live
 <template>
   <SearchButton />
 </template>
@@ -117,11 +117,11 @@ _Click the Search button to try it out!_
 
 ### Play with default slot
 
-Here an icon is passed in the default slot instead of text to customize the button content.
+Here text is passed in the default slot instead of an icon to customize the button content.
 
 _Click the icon button to try it out!_
 
-```vue
+```vue live
 <template>
   <SearchButton>Search</SearchButton>
 </template>
@@ -145,24 +145,34 @@ search term and click the Search button, the search term is displayed as a messa
 
 _Type any term in the input field and then click the Search button to try it out!_
 
-```vue
+```vue live
 <template>
-  <SearchButton
-    @UserPressedSearchButton="
-      query => {
-        message = query;
-      }
-    "
-  />
+  <div style="display: flex;">
+    <SearchInput />
+    <SearchButton
+      @UserPressedSearchButton="
+        query => {
+          message = query;
+        }
+      "
+    />
+  </div>
+  {{ message }}
 </template>
 
 <script>
-  import { SearchButton } from '@empathyco/x-components/search-box';
+  import { SearchInput, SearchButton } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'SearchButtonDemo',
     components: {
+      SearchInput,
       SearchButton
+    },
+    data() {
+      return {
+        message: ''
+      };
     }
   };
 </script>
@@ -176,10 +186,13 @@ you enter a search term and click the Search button, the â€œLooking for resultsâ
 
 _Type any term in the input field and then click the Search button to try it out!_
 
-```vue
+```vue live
 <template>
-  <SearchInput />
-  <SearchButton @UserAcceptedAQuery="message = 'looking for results'">Search</SearchButton>
+  <div style="display: flex;">
+    <SearchInput />
+    <SearchButton @UserAcceptedAQuery="message = 'looking for results'">Search</SearchButton>
+  </div>
+  {{ message }}
 </template>
 
 <script>
@@ -190,6 +203,11 @@ _Type any term in the input field and then click the Search button to try it out
     components: {
       SearchButton,
       SearchInput
+    },
+    data() {
+      return {
+        message: ''
+      };
     }
   };
 </script>

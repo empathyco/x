@@ -85,15 +85,45 @@
 You don't need to pass any props, or slots. Simply add the component, and when it has any popular
 searches it will show them.
 
-```vue
-<PopularSearches />
+```vue live
+<template>
+  <PopularSearches />
+</template>
+
+<script>
+  import { PopularSearches } from '@empathyco/x-components/popular-searches';
+  export default {
+    name: 'PopularSearchesDemo',
+    components: {
+      PopularSearches
+    }
+  };
+</script>
 ```
 
 The component has two optional props. `animation` to render the component with an animation and
 `maxItemToRender` to limit the number of popular searches will be rendered (by default it is 5).
 
-```vue
-<PopularSearches :animation="FadeAndSlide" :maxItemsToRender="10" />
+```vue live
+<template>
+  <PopularSearches :animation="'FadeAndSlide'" :maxItemsToRender="10" />
+</template>
+
+<script>
+  import Vue from 'vue';
+  import { PopularSearches } from '@empathyco/x-components/popular-searches';
+  import FadeAndSlide from '@empathyco/x-components';
+
+  // Registering the animation as a global component
+  Vue.component('FadeAndSlide', FadeAndSlide);
+  export default {
+    name: 'PopularSearchesDemo',
+    components: {
+      PopularSearches,
+      FadeAndSlide
+    }
+  };
+</script>
 ```
 
 ### Overriding Popular Search's Content
@@ -102,13 +132,25 @@ You can use your custom implementation of the Popular Search's content. In the e
 instead of using the default Popular Search's content, an icon is added, as well as a span with the
 query of the Popular Search's suggestion.
 
-```vue
-<PopularSearches>
-  <template #suggestion-content="{ suggestion }">
-    <img class="x-popular-search__icon" src="./popular-search-icon.svg" />
-    <span class="x-popular-search__query">{{ suggestion.query }}</span>
-  </template>
-</PopularSearches>
+```vue live
+<template>
+  <PopularSearches>
+    <template #suggestion-content="{ suggestion }">
+      <img class="x-popular-search__icon" src="/assets/icons/bulb.svg" />
+      <span class="x-popular-search__query">{{ suggestion.query }}</span>
+    </template>
+  </PopularSearches>
+</template>
+
+<script>
+  import { PopularSearches } from '@empathyco/x-components/popular-searches';
+  export default {
+    name: 'PopularSearchesDemo',
+    components: {
+      PopularSearches
+    }
+  };
+</script>
 ```
 
 ### Adding a Custom Popular Search Item
@@ -119,17 +161,29 @@ implementation is added, it has an image and a span as content (as in the previo
 button with a user customized behaviour is added at the same hierarchical level as the Popular
 Search component.
 
-```vue
-<PopularSearches>
-  <template #suggestion="{suggestion}">
-    <PopularSearch :suggestion="suggestion">
-      <template #default="{suggestion}">
-        <img class="x-popular-search__icon" src="./popular-search-icon.svg" />
-        <span class="x-popular-search__query">{{ suggestion.query }}</span>
-      </template>
-    </PopularSearch>
-    <button>Custom Behaviour</button>
-  </template>
-</PopularSearches>
+```vue live
+<template>
+  <PopularSearches>
+    <template #suggestion="{ suggestion }">
+      <PopularSearch :suggestion="suggestion">
+        <template #default="{ suggestion }">
+          <img class="x-popular-search__icon" src="/assets/icons/bulb.svg" />
+          <span class="x-popular-search__query">{{ suggestion.query }}</span>
+        </template>
+      </PopularSearch>
+      <button>Custom Behaviour</button>
+    </template>
+  </PopularSearches>
+</template>
+
+<script>
+  import { PopularSearches } from '@empathyco/x-components/popular-searches';
+  export default {
+    name: 'PopularSearchesDemo',
+    components: {
+      PopularSearches
+    }
+  };
+</script>
 ```
 </docs>

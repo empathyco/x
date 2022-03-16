@@ -165,7 +165,7 @@ In this example related tag data is passed as a prop.
 
 _Here you can see how the RelatedTag component is rendered._
 
-```vue
+```vue live
 <template>
   <RelatedTag :relatedTag="tag"></RelatedTag>
 </template>
@@ -182,10 +182,10 @@ _Here you can see how the RelatedTag component is rendered._
       return {
         tag: {
           modelName: 'RelatedTag',
-          previous: 'toy',
-          query: 'toy story',
+          previous: 'shoe',
+          query: 'high heel',
           selected: false,
-          tag: 'story'
+          tag: 'heels'
         }
       };
     }
@@ -199,7 +199,7 @@ In this example, an HTML span element is passed in the `default` slot.
 
 _See how the related tag can be rendered._
 
-```vue
+```vue live
 <template>
   <RelatedTag :relatedTag="tag" #default="{ relatedTag }">
     <span :aria-label="relatedTag.tag">{{ relatedTag.tag }}</span>
@@ -218,10 +218,10 @@ _See how the related tag can be rendered._
       return {
         tag: {
           modelName: 'RelatedTag',
-          previous: 'toy',
-          query: 'toy story',
+          previous: 'shoe',
+          query: 'high heel',
           selected: false,
-          tag: 'story'
+          tag: 'heels'
         }
       };
     }
@@ -236,7 +236,7 @@ event is implemented, as illustrated by the “Tag” message returned.
 
 _See how the event is triggered when the related tag is clicked._
 
-```vue
+```vue live
 <template>
   <RelatedTag :relatedTag="tag" @UserSelectedARelatedTag="alertRelatedTag"></RelatedTag>
 </template>
@@ -253,10 +253,10 @@ _See how the event is triggered when the related tag is clicked._
       return {
         tag: {
           modelName: 'RelatedTag',
-          previous: 'toy',
-          query: 'toy story',
+          previous: 'shoe',
+          query: 'high heel',
           selected: false,
-          tag: 'story'
+          tag: 'heels'
         }
       };
     },
