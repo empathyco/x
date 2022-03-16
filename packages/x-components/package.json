@@ -94,7 +94,7 @@
     "@vue/cli-plugin-typescript": "~4.5.16",
     "@vue/cli-plugin-vuex": "~4.5.16",
     "@vue/cli-service": "~4.5.16",
-    "@vue/test-utils": "~1.0.3",
+    "@vue/test-utils": "~1.3.0",
     "@vue/vue2-jest": "~27.0.0-alpha.3",
     "autoprefixer": "~9.7.4",
     "cypress": "~8.4.0",
