@@ -46,7 +46,7 @@ describe('PropertyPath', () => {
       // @ts-expect-error
       'complexUnion.toFixed'
     ];
-    expect(test[0]).toBe('user');
+    expect(test[0]).toBe('anString');
   });
 });
 
