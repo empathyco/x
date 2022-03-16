@@ -15,6 +15,13 @@
 const STRING_PARAMETERS = /{([^}]+)}/g;
 
 /**
+ * Shape of the optional head and tail parts of the {@link STRING_PARAMETER_CONTENT} regex.
+ * This can be anything wrapped into parentheses.
+ *
+ * @internal
+ */
+const HEAD_OR_TAIL = '(?:\\((.+)\\))?';
+/**
  * Syntax of a single string parameter. A string parameter shape is composed by
  * the name of the property that should be replaced. This property name can be preceded
  * or followed by an optional string to prepend or to append to the property value
@@ -30,7 +37,7 @@ const STRING_PARAMETERS = /{([^}]+)}/g;
  * ```
  * @internal
  */
-const STRING_PARAMETER_CONTENT = /^(?:\((.+)\))?([^(]+)(?:\((.+)\))?$/g;
+const STRING_PARAMETER_CONTENT = new RegExp(`^${HEAD_OR_TAIL}([^(]+)${HEAD_OR_TAIL}$`, 'g');
 
 /**
  * Interpolates different parameters into a string.
