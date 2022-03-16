@@ -33,7 +33,13 @@ export type Primitive = string | number | boolean | bigint | undefined | null | 
  *  type ResultPropertyPaths = PropertyPath<Result>;
  *  // "id" | "price" | "price.max" | "price.min" | "images" | `images.${number}`;
  * ```
+ * @remarks
+ * Be careful when using Records where the key name is typed only as string,
+ * since this type will not be able to infer the key name. Use always a union type with all the
+ * potential key name values when possible.
  *
+ * When trying to get the path to an array item, keep in mind that a number ending with a dot is a
+ * valid javascript syntax so this type will assume as safe getting the 'n.' element.
  * @public
  */
 export type PropertyPath<SomeObject> = SomeObject extends (infer ArrayType)[]
