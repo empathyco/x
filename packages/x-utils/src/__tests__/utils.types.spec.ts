@@ -83,9 +83,9 @@ describe('PropertyPath', () => {
 
 describe('PropertyType', () => {
   it('Returns the a boolean property', () => {
-    type bool = PropertyType<Example, 'anObject.something.deep'>;
+    type booleanProperty = PropertyType<Example, 'anObject.something.deep'>;
     // @ts-expect-error
-    let test: bool = {};
+    let test: booleanProperty = {};
     // @ts-expect-error
     test = 'some string';
     // @ts-expect-error
