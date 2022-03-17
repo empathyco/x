@@ -55,9 +55,11 @@ export type PropertyPath<SomeObject> = SomeObject extends (infer ArrayType)[]
  * @internal
  */
 type NestedPropertyPath<SomeObject, PropName extends string> = PropName extends keyof SomeObject
-  ? SomeObject[PropName] extends SomeObject
+  ? // eslint-disable-next-line max-len
+    SomeObject[PropName] extends SomeObject // Check that a child property is not from the same type as the parent to avoid infinite loops on recursive types
     ? `${PropName}.${Keys<SomeObject[PropName], string>}${any}`
-    : SomeObject[PropName] extends SomeObject[]
+    : // eslint-disable-next-line max-len
+    SomeObject[PropName] extends SomeObject[] // Check that a child property is not from the same type as the parent to avoid infinite loops on recursive types
     ? `${PropName}.${number}` | `${PropName}.${number}.${Keys<SomeObject, string>}${any}`
     : // eslint-disable-next-line @typescript-eslint/ban-types
       `${PropName}.${PropertyPath<Exclude<SomeObject[PropName], Function | Primitive>>}`
