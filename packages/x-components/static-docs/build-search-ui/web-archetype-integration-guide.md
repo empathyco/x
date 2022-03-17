@@ -24,6 +24,14 @@ The integration is a 2-steps process:
 Depending on your business needs, there are 2 different ways of making this integration process:
 auto initialising, or initialising on demand.
 
+::: note Frameworks & Libraries Integration
+
+As the Archetype is bundled including all the needed dependencies, then it is possible to integrate
+on top of any existing website, regardless of the technologies that it has been built with:
+**React**, **Vue**, **Svelte**...
+
+:::
+
 ## Auto initialisation
 
 This is the easiest way to integrate the Interface&nbsp;X project in a website. The way to do so is
@@ -227,5 +235,5 @@ to integrate Interface X into your website.
 | Function         | Parameters                                                                     | Description                                                                                                                                                       |
 | ---------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | init             | - [Snippet Configuration](#snippet-configuration) - The initialisation options | [Initialises Interface X on demand](#initialise-on-demand).                                                                                                       |
-| search           | - query (Optional) - The query to open Interface&nbsp;X with                   | Opens Interface&nbsp;X and triggers a search with the given query.                                                                                                               |
+| search           | - query (Optional) - The query to open Interface&nbsp;X with                   | Opens Interface&nbsp;X and triggers a search with the given query.                                                                                                |
 | setSnippetConfig | - [Snippet Configuration](#snippet-configuration) - The Initialisation options | Changes the options and all components react to the changes. Useful, for example, to change both search engine and displayed language without reloading the page. |
