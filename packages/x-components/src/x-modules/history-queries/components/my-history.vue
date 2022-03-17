@@ -17,16 +17,15 @@
           data-test="history-query-item"
           class="x-history-queries__item"
         >
-          <template #default="{ queryHTML }">
+          <template #default>
             <!-- eslint-disable max-len -->
             <!--
               @slot History Query content
                   @binding {Suggestion} suggestion - History Query suggestion data
-                  @binding {string} queryHTML - Suggestion's query with the matching part inside a span tag
                   @binding {number} index - History Query suggestion index
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="{ suggestion, index, queryHTML }" />
+            <slot name="suggestion-content" v-bind="{ suggestion, index }" />
           </template>
           <template #remove-button-content>
             <!--

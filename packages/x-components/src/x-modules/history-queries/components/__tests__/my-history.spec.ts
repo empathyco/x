@@ -2,11 +2,11 @@ import { HistoryQuery } from '@empathyco/x-types';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { createHistoryQueries } from '../../../../__stubs__/index';
+import { createHistoryQueries } from '../../../../__stubs__/history-queries-stubs.factory';
+import { RootXStoreState } from '../../../../store/store.types';
+import { DeepPartial } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { RootXStoreState } from '../../../../store/index';
-import { DeepPartial } from '../../../../utils/index';
 import { historyQueriesXModule } from '../../x-module';
 import MyHistory from '../my-history.vue';
 import { resetXHistoryQueriesStateWith } from './utils';
@@ -85,11 +85,11 @@ describe('testing MyHistory component', () => {
     const { findAllInWrapper } = renderMyHistory({
       template: `
           <MyHistory>
-            <template #suggestion-content="suggestionContentScope">
+            <template #suggestion-content="{suggestion, index}">
               <img src="./history-icon.svg" data-test="suggestion-history-icon"/>
-              <span :data-index="suggestionContentScope.index"
+              <span :data-index="index"
                     data-test="suggestion-content-slot"
-                    v-html="suggestionContentScope.queryHTML"></span>
+                    v-html="suggestion.query"></span>
             </template>
             <template #suggestion-remove-content>
               <img src="./remove-icon.svg" data-test="suggestion-remove-icon"/>
@@ -99,13 +99,17 @@ describe('testing MyHistory component', () => {
       historyQueries
     });
 
-    const suggestionContentWrappers = findAllInWrapper('suggestion-history-icon');
-    const suggestionRemoveWrappers = findAllInWrapper('suggestion-remove-icon');
-    const suggestionContentSlotWrappers = findAllInWrapper('suggestion-content-slot');
+    const suggestionIconWrappers = findAllInWrapper('suggestion-history-icon');
+    const suggestionRemoveIconWrappers = findAllInWrapper('suggestion-remove-icon');
+    const suggestionContentWrappers = findAllInWrapper('suggestion-content-slot');
 
+    expect(suggestionIconWrappers).toHaveLength(historyQueries.length);
+    expect(suggestionRemoveIconWrappers).toHaveLength(historyQueries.length);
     expect(suggestionContentWrappers).toHaveLength(historyQueries.length);
-    expect(suggestionRemoveWrappers).toHaveLength(historyQueries.length);
-    expect(suggestionContentSlotWrappers).toHaveLength(historyQueries.length);
+    suggestionContentWrappers.wrappers.forEach((contentWrapper, index) => {
+      expect(contentWrapper.attributes('data-index')).toEqual(index.toString());
+      expect(contentWrapper.text()).toEqual(historyQueries[index].query);
+    });
   });
 });
 

@@ -123,7 +123,7 @@ Here you have a basic example of how the HistoryQueries is rendered.
 
 ### Play with props
 
-In this example, the history queries has been limited to render a maximum of 10 queries (by default
+In this example, the history queries have been limited to render a maximum of 10 queries (by default
 it is 5).
 
 ```vue
