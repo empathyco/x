@@ -10,7 +10,8 @@
     "types": ["jest"],
     "lib": ["esnext"],
     "sourceMap": true,
-    "inlineSources": true
+    "inlineSources": true,
+    "importHelpers": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "**/__tests__/**/*"]
