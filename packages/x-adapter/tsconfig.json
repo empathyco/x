@@ -11,6 +11,7 @@
     "inlineSources": true,
     "esModuleInterop": true,
     "importHelpers": true,
+    "types": ["jest"],
     "lib": ["dom", "esnext"]
   },
   "include": ["src/**/*.ts"],
