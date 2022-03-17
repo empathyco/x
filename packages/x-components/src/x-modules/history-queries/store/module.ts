@@ -1,3 +1,4 @@
+import { setQuery } from '../../../store/utils/query.utils';
 import { addQueryToHistory } from './actions/add-query-to-history.action';
 // eslint-disable-next-line max-len
 import { loadHistoryQueriesFromBrowserStorage } from './actions/load-history-queries-from-browser-storage.action';
@@ -41,9 +42,7 @@ export const historyQueriesXStoreModule: HistoryQueriesXStoreModule = {
     setSessionTimeStamp(state, sessionTimeStamp) {
       state.sessionTimeStampInMs = sessionTimeStamp;
     },
-    setQuery(state, query) {
-      state.query = query;
-    }
+    setQuery
   },
   actions: {
     addQueryToHistory,

@@ -3,6 +3,49 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.68](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.67...@empathyco/x-components@3.0.0-alpha.68) (2022-03-16)
+
+### Bug Fixes
+
+- prevent node-ipc vulnerability
+  ([fc8b83c](https://github.com/empathyco/x/commit/fc8b83ce73bdbd7148ce99ad3a95d7a7658bd8ba))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.67](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.66...@empathyco/x-components@3.0.0-alpha.67) (2022-03-11)
+
+### ⚠ BREAKING CHANGES
+
+- Remove `selected` and `previous` logic from related tags.
+- Remove `EmpathyRequestRelatedTagsQueryMapper`.
+
+### Features
+
+- move related tags concatenation logic (#365)
+  ([4e71797](https://github.com/empathyco/x/commit/4e717970198f67018a9b66ed6e47f511ecef4c62)),
+  closes [EX-5410](https://searchbroker.atlassian.net/browse/EX-5410)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.66](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.65...@empathyco/x-components@3.0.0-alpha.66) (2022-03-09)
+
+### Testing
+
+- **e2e:** Fix E2E tests in Firefox
+  ([6d25577](https://github.com/empathyco/x/commit/6d25577ad383e6e82a3072eb22809872dc0dc865)),
+  closes [EX-5525](https://searchbroker.atlassian.net/browse/EX-5525)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.65](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.64...@empathyco/x-components@3.0.0-alpha.65) (2022-03-08)
 
 ### Features

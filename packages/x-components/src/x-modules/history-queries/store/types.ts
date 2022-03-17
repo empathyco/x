@@ -1,5 +1,6 @@
 import { HistoryQuery } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
+import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { UrlParams } from '../../../types/url-params';
 import { HistoryQueriesConfig } from '../config.types';
 
@@ -8,7 +9,7 @@ import { HistoryQueriesConfig } from '../config.types';
  *
  * @public
  */
-export interface HistoryQueriesState {
+export interface HistoryQueriesState extends QueryState {
   /**
    * Configuration for the `HistoryQueries` module.
    */
@@ -57,7 +58,7 @@ export interface HistoryQueriesGetters {
  *
  * @public
  */
-export interface HistoryQueriesMutations {
+export interface HistoryQueriesMutations extends QueryMutations {
   /**
    * Sets the {@link HistoryQueriesState.historyQueries} property.
    *

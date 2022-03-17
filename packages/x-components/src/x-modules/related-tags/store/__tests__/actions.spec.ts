@@ -152,16 +152,12 @@ describe('testing related tags module actions', () => {
         {
           modelName: 'RelatedTag',
           tag: 'pop',
-          query: 'funko pop',
-          previous: '',
-          selected: true
+          query: 'funko pop'
         },
         {
           modelName: 'RelatedTag',
           tag: 'lego',
-          query: 'funko lego',
-          previous: '',
-          selected: true
+          query: 'funko lego'
         }
       ]);
     });

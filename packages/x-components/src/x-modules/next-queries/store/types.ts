@@ -1,6 +1,7 @@
 import { NextQueriesRequest } from '@empathyco/x-adapter';
 import { HistoryQuery, NextQuery } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
+import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { UrlParams } from '../../../types/url-params';
 import { Dictionary } from '../../../utils';
@@ -11,7 +12,7 @@ import { NextQueriesConfig } from '../config.types';
  *
  * @public
  */
-export interface NextQueriesState extends StatusState {
+export interface NextQueriesState extends StatusState, QueryState {
   /** The internal query of the module. Used to request the next queries. */
   query: string;
   /** The list of the next queries, related to the `query` property of the state. */
@@ -43,7 +44,7 @@ export interface NextQueriesGetters {
  *
  * @public
  */
-export interface NextQueriesMutations extends StatusMutations {
+export interface NextQueriesMutations extends StatusMutations, QueryMutations {
   /**
    * Sets the query of the module, which is used to retrieve the next-queries.
    *

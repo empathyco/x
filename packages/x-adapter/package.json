@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-adapter-next",
-  "version": "0.1.1-alpha.0",
+  "version": "0.2.0-alpha.1",
   "description": "A search client for the Empathy search API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -11,12 +11,38 @@
     "client",
     "fetch"
   ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empathyco/x.git",
     "directory": "packages/x-adapter"
   },
-  "scripts": {},
+  "scripts": {
+    "prebuild": "rimraf ./dist ./types",
+    "build": "concurrently \"npm run build:*\"",
+    "build:cjs": "tsc --project tsconfig.json",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "test": "jest",
+    "postbuild": "npm pack",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "tslib": "~2.3.0"
+  },
+  "devDependencies": {
+    "@types/jest": "~27.0.3",
+    "concurrently": "~7.0.0",
+    "jest": "~27.3.1",
+    "rimraf": "~3.0.2",
+    "ts-jest": "~27.0.7",
+    "typescript": "~4.6.2"
+  },
   "publishConfig": {
     "access": "public"
   }

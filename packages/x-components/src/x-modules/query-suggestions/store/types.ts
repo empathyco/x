@@ -1,6 +1,7 @@
 import { SuggestionsRequest } from '@empathyco/x-adapter';
 import { Suggestion } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
+import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { UrlParams } from '../../../types/url-params';
 import { Dictionary } from '../../../utils';
@@ -11,7 +12,7 @@ import { QuerySuggestionsConfig } from '../config.types';
  *
  * @public
  */
-export interface QuerySuggestionsState extends StatusState {
+export interface QuerySuggestionsState extends StatusState, QueryState {
   /** The query of the query suggestions module. Used to request the suggestions. */
   query: string;
   /** The suggestions for the query of the state. */
@@ -42,7 +43,7 @@ export interface QuerySuggestionsGetters {
  *
  * @public
  */
-export interface QuerySuggestionsMutations extends StatusMutations {
+export interface QuerySuggestionsMutations extends StatusMutations, QueryMutations {
   /**
    * Sets the query of the query suggestions module.
    *
