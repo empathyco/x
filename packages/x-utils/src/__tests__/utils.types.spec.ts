@@ -83,9 +83,9 @@ describe('PropertyPath', () => {
 
 describe('PropertyType', () => {
   it('Returns the a boolean property', () => {
-    type booleanProperty = PropertyType<Example, 'anObject.something.deep'>;
+    type BooleanProperty = PropertyType<Example, 'anObject.something.deep'>;
     // @ts-expect-error
-    let test: booleanProperty = {};
+    let test: BooleanProperty = {};
     // @ts-expect-error
     test = 'some string';
     // @ts-expect-error
@@ -95,9 +95,9 @@ describe('PropertyType', () => {
   });
 
   it('Returns an array property', () => {
-    type arrayOfObjects = PropertyType<Example, 'anArray'>;
+    type ArrayOfObjects = PropertyType<Example, 'anArray'>;
     // @ts-expect-error
-    let testArray: arrayOfObjects = {};
+    let testArray: ArrayOfObjects = {};
     // @ts-expect-error
     testArray = true;
     // @ts-expect-error
@@ -107,9 +107,9 @@ describe('PropertyType', () => {
   });
 
   it('Returns a complex union property', () => {
-    type numberOrObjectWithProperty = PropertyType<Example, 'complexUnion'>;
+    type NumberOrObjectWithProperty = PropertyType<Example, 'complexUnion'>;
     // @ts-expect-error
-    let testComplexUnion: numberOrObjectWithProperty = 'some string';
+    let testComplexUnion: NumberOrObjectWithProperty = 'some string';
     // @ts-expect-error
     testComplexUnion = true;
     // @ts-expect-error
@@ -120,9 +120,9 @@ describe('PropertyType', () => {
   });
 
   it('Returns a recursive object', () => {
-    type recursiveObject = PropertyType<Example, 'recursive.recursive'>;
+    type RecursiveObject = PropertyType<Example, 'recursive.recursive'>;
     // @ts-expect-error
-    let testRecursiveObject: Partial<recursiveObject> = true;
+    let testRecursiveObject: Partial<RecursiveObject> = true;
     // @ts-expect-error
     testRecursiveObject = 'some string';
     // @ts-expect-error
@@ -134,14 +134,14 @@ describe('PropertyType', () => {
   });
 
   it('Returns a recursive number property', () => {
-    type recursiveFriendAge = PropertyType<
+    type RecursiveFriendAge = PropertyType<
       Example,
       // eslint-disable-next-line max-len
       'person.friends.0.friends.1.friends.2.friends.3.friends.4.friends.5.friends.6.friends.7.friends.8.friends.9.friends.10.age'
     >;
 
     // @ts-expect-error
-    let testRecursiveFriendAge: recursiveFriendAge = {};
+    let testRecursiveFriendAge: RecursiveFriendAge = {};
     // @ts-expect-error
     testRecursiveFriendAge = 'some string';
     // @ts-expect-error
@@ -153,14 +153,14 @@ describe('PropertyType', () => {
   });
 
   it('Returns a recursive string property', () => {
-    type recursiveFriendName = PropertyType<
+    type RecursiveFriendName = PropertyType<
       Example,
       // eslint-disable-next-line max-len
       'person.friends.0.friends.1.friends.2.friends.3.friends.4.friends.5.friends.6.friends.7.friends.8.friends.9.friends.10.name'
     >;
 
     // @ts-expect-error
-    let testRecursiveFriendName: recursiveFriendName = {};
+    let testRecursiveFriendName: RecursiveFriendName = {};
     // @ts-expect-error
     testRecursiveFriendName = 5;
     // @ts-expect-error
@@ -170,14 +170,14 @@ describe('PropertyType', () => {
   });
 
   it('Returns a deep recursive array item', () => {
-    type recursiveFriend = PropertyType<
+    type RecursiveFriend = PropertyType<
       Example,
       // eslint-disable-next-line max-len
       'person.friends.0.friends.1.friends.2.friends.3.friends.4.friends.5.friends.6.friends.7.friends.8.friends.9.friends.10'
     >;
 
     // @ts-expect-error
-    let testRecursiveFriend: Partial<recursiveFriend> = 5;
+    let testRecursiveFriend: Partial<RecursiveFriend> = 5;
     // @ts-expect-error
     testRecursiveFriend = true;
     // @ts-expect-error
