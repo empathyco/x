@@ -82,7 +82,7 @@ type NestedPropertyPath<SomeObject, PropName extends string> = PropName extends 
  *   }
  *
  *  type MaxPrice = PropertyType<Result, "price.max">; // number
- *  type FirstImageType = PropertyType<Result, "image.0">; // string
+ *  type FirstImageType = PropertyType<Result, "images.0">; // string
  * ```
  *
  * @public
