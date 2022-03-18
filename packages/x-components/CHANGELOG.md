@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.69](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.68...@empathyco/x-components@3.0.0-alpha.69) (2022-03-18)
+
+### Features
+
+- **history-queries:** add `my-history` component
+  ([a7de7f2](https://github.com/empathyco/x/commit/a7de7f297251bf4290787e362f46b2ab3ec6a428)),
+  closes [EX-3582](https://searchbroker.atlassian.net/browse/EX-3582)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.68](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.67...@empathyco/x-components@3.0.0-alpha.68) (2022-03-16)
 
 ### Bug Fixes
