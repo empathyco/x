@@ -1,10 +1,9 @@
 <template>
   <BaseSuggestions
     :suggestions="historyQueries"
-    class="x-history-queries"
-    data-test="history-queries"
+    class="x-my-history-queries"
+    data-test="my-history-queries"
     :animation="animation"
-    :maxItemsToRender="maxItemsToRender"
   >
     <template #default="{ suggestion, index }">
       <!--
@@ -18,16 +17,15 @@
           data-test="history-query-item"
           class="x-history-queries__item"
         >
-          <template #default="{ queryHTML }">
+          <template #default>
             <!-- eslint-disable max-len -->
             <!--
               @slot History Query content
                   @binding {Suggestion} suggestion - History Query suggestion data
-                  @binding {string} queryHTML - Suggestion's query with the matching part inside a span tag
                   @binding {number} index - History Query suggestion index
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="{ suggestion, index, queryHTML }" />
+            <slot name="suggestion-content" v-bind="{ suggestion, index }" />
           </template>
           <template #remove-button-content>
             <!--
@@ -44,17 +42,17 @@
 </template>
 
 <script lang="ts">
-  import { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types';
+  import { HistoryQuery } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
-  import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { State } from '../../../components/decorators/store.decorators';
+  import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { historyQueriesXModule } from '../x-module';
-  import HistoryQuery from './history-query.vue';
+  import HistoryQueryComponent from './history-query.vue';
 
   /**
-   * This component renders a list of suggestions coming from the user queries history.
+   * This component renders the complete list of suggestions coming from the user queries history.
    *
    * @remarks
    *
@@ -65,10 +63,10 @@
    * @public
    */
   @Component({
-    components: { BaseSuggestions, HistoryQuery },
+    components: { HistoryQuery: HistoryQueryComponent, BaseSuggestions },
     mixins: [xComponentMixin(historyQueriesXModule)]
   })
-  export default class HistoryQueries extends Vue {
+  export default class MyHistory extends Vue {
     /**
      * Animation component that will be used to animate the suggestions.
      *
@@ -78,20 +76,12 @@
     protected animation!: Vue;
 
     /**
-     * Maximum number of history queries to show. It should be a lower number than the
-     * {@link HistoryQueriesConfig.maxItemsToStore}. If it is not provided, it will show
-     * all the stored `HistoryQueries`.
-     */
-    @Prop()
-    protected maxItemsToRender?: number;
-
-    /**
-     * The filtered list of history queries.
+     * The list of history queries.
      *
      * @internal
      */
-    @Getter('historyQueries', 'historyQueries')
-    public historyQueries!: HistoryQueryModel[];
+    @State('historyQueries', 'historyQueries')
+    public historyQueries!: HistoryQuery[];
   }
 </script>
 
@@ -102,42 +92,20 @@ This component doesn't emit events.
 
 ## See it in action
 
-Here you have a basic example of how the HistoryQueries is rendered.
+Here you have a basic example of how the MyHistory is rendered.
 
 ```vue
 <template>
-  <HistoryQueries />
+  <MyHistory />
 </template>
 
 <script>
-  import { HistoryQueries } from '@empathyco/x-components/history-queries';
+  import { MyHistory } from '@empathyco/x-components/history-queries';
 
   export default {
-    name: 'HistoryQueriesDemo',
+    name: 'MyHistoryDemo',
     components: {
-      HistoryQueries
-    }
-  };
-</script>
-```
-
-### Play with props
-
-In this example, the history queries have been limited to render a maximum of 10 queries (by default
-it is 5).
-
-```vue
-<template>
-  <HistoryQueries :maxItemsToRender="10" />
-</template>
-
-<script>
-  import { HistoryQueries } from '@empathyco/x-components/history-queries';
-
-  export default {
-    name: 'HistoryQueriesDemo',
-    components: {
-      HistoryQueries
+      MyHistory
     }
   };
 </script>
@@ -147,17 +115,17 @@ it is 5).
 
 ```vue
 <template>
-  <HistoryQueries :animation="fadeAndSlide" />
+  <MyHistory :animation="fadeAndSlide" />
 </template>
 
 <script>
-  import { HistoryQueries } from '@empathyco/x-components/history-queries';
+  import { MyHistory } from '@empathyco/x-components/history-queries';
   import { FadeAndSlide } from '@empathyco/x-components';
 
   export default {
-    name: 'HistoryQueriesDemo',
+    name: 'MyHistoryDemo',
     components: {
-      HistoryQueries
+      MyHistory
     },
     data() {
       return {
@@ -175,18 +143,18 @@ In this example, the [`HistoryQuery`](./x-components.history-query.md) component
 
 ```vue
 <template>
-  <HistoryQueries #suggestion="{ suggestion }">
+  <MyHistory #suggestion="{ suggestion }">
     <HistoryQuery :suggestion="suggestion"></HistoryQuery>
-  </HistoryQueries>
+  </MyHistory>
 </template>
 
 <script>
-  import { HistoryQueries, HistoryQuery } from '@empathyco/x-components/history-queries';
+  import { MyHistory, HistoryQuery } from '@empathyco/x-components/history-queries';
 
   export default {
-    name: 'HistoryQueriesDemo',
+    name: 'MyHistoryDemo',
     components: {
-      HistoryQueries,
+      MyHistory,
       HistoryQuery
     }
   };
@@ -201,18 +169,18 @@ passed.
 
 ```vue
 <template>
-  <HistoryQueries #suggestion-content="{ suggestion }">
+  <MyHistory #suggestion-content="{ suggestion }">
     <span>{{ suggestion.query }}</span>
-  </HistoryQueries>
+  </MyHistory>
 </template>
 
 <script>
-  import { HistoryQueries } from '@empathyco/x-components/history-queries';
+  import { MyHistory } from '@empathyco/x-components/history-queries';
 
   export default {
-    name: 'HistoryQueriesDemo',
+    name: 'MyHistoryDemo',
     components: {
-      HistoryQueries
+      MyHistory
     }
   };
 </script>
@@ -226,19 +194,19 @@ icon to remove the history query.
 
 ```vue
 <template>
-  <HistoryQueries #suggestion-content-remove="{ suggestion }">
+  <MyHistory #suggestion-content-remove="{ suggestion }">
     <CrossIcon />
-  </HistoryQueries>
+  </MyHistory>
 </template>
 
 <script>
-  import { HistoryQueries } from '@empathyco/x-components/history-queries';
+  import { MyHistory } from '@empathyco/x-components/history-queries';
   import { CrossIcon } from '@empathyco/x-components';
 
   export default {
-    name: 'HistoryQueriesDemo',
+    name: 'MyHistoryDemo',
     components: {
-      HistoryQueries,
+      MyHistory,
       CrossIcon
     }
   };
