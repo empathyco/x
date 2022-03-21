@@ -142,7 +142,7 @@
     protected get dynamicCSSClasses(): VueCSSClasses {
       return {
         'x-suggestion--matching': this.hasMatchingQuery,
-        'x-suggestion--is-curated': this.shouldHighlightCurated,
+        'x-suggestion--is-curated': this.shouldHighlightCurated
       };
     }
 
