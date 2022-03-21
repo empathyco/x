@@ -75,9 +75,7 @@ describe('adapterFactory tests', () => {
 
     const extendedEndpoint = 'https://api.empathy.co/extended';
     const extendedRawResponse = { extendedQuery: 'patata', extendedHits: 10 };
-    const mockExtendedHttpClient = jest.fn(() => {
-      return new Promise(resolve => resolve(extendedRawResponse));
-    });
+    const mockExtendedHttpClient = jest.fn(() => Promise.resolve(extendedRawResponse));
     const mockExtendedRequestMapper = jest.fn(({ q, origin }: ExtendedTestRequest) => ({
       extendedQuery: q,
       extendedOrigin: origin
@@ -99,21 +97,14 @@ describe('adapterFactory tests', () => {
       hits: 10
     };
 
-    // Even though we could test this using the endpointAdapter, this assignment is needed so
-    // typings work as expected.
-    const extendedEndpointAdapter = endpointAdapter.extends<
-      ExtendedTestRequest,
-      ExtendedTestResponse
-    >({
+    endpointAdapter.extends<ExtendedTestRequest, ExtendedTestResponse>({
       endpoint: extendedEndpoint,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      httpClient: mockExtendedHttpClient,
+      httpClient: mockExtendedHttpClient as HttpClient,
       requestMapper: mockExtendedRequestMapper,
       responseMapper: mockExtendedResponseMapper
     });
 
-    const response = await extendedEndpointAdapter(extendedRequest);
+    const response = await endpointAdapter(extendedRequest);
 
     expect(mockExtendedRequestMapper).toHaveBeenCalledTimes(1);
     expect(mockExtendedRequestMapper).toHaveBeenCalledWith(extendedRequest, {
@@ -209,7 +200,7 @@ describe('adapterFactory tests', () => {
       });
     });
 
-    // eslint-disable-next-line max-len,jest/no-disabled-tests
+    // eslint-disable-next-line max-len
     it('should use the requestOptions.endpoint if no EndpointAdapterOptions.endpoint is provided', async () => {
       const requestOptions: RequestOptions = {
         endpoint: 'https://api.empathy.co/requestOptionsEndpoint'
