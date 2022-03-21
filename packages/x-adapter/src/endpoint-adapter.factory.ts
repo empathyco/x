@@ -45,7 +45,7 @@ export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response
      * omitting its endpoint.
      * @internal
      */
-    function getEndpoint(): [endpoint: string, requestOptions: Omit<RequestOptions, 'endpoint'>] {
+    function getOptions(): [endpoint: string, requestOptions: Omit<RequestOptions, 'endpoint'>] {
       const { endpoint: requestOptionsEndpoint, ...restRequestOptions } = requestOptions ?? {};
       let endpoint = requestOptionsEndpoint ?? '';
       if (typeof rawEndpoint === 'string') {
@@ -56,7 +56,7 @@ export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response
       return [endpoint, restRequestOptions];
     }
 
-    const [endpoint, restRequestOptions] = getEndpoint();
+    const [endpoint, restRequestOptions] = getOptions();
     /**
      * Object containing the {@link RequestOptions.parameters} used by the
      * {@link EndpointAdapterOptions.httpClient}.
