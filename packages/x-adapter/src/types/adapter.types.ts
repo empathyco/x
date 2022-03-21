@@ -55,7 +55,7 @@ export interface EndpointAdapterOptions<Request, Response> {
    * The endpoint to request the information to. If the endpoint can only be decided at run-time you
    * can ignore this property and use {@link RequestOptions.endpoint} parameter.
    */
-  endpoint?: string | Mapper<Request, string>;
+  endpoint?: string | Mapper<string, string>;
   /**
    * The {@link HttpClient} to use for the requests.
    */
