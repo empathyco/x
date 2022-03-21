@@ -15,7 +15,7 @@ And('{string} element position is stored', (focusableElement: string) => {
   return cy.getByDataTest(focusableElement).last().focus().as('originalElement');
 });
 
-Then('next element position is {string}', (expectedPosition: Direction) => {
+Then('next element position is "{direction}"', (expectedPosition: Direction) => {
   cy.focused().then($targetElement => {
     cy.get('@originalElement').should($originalElement => {
       switch (expectedPosition) {

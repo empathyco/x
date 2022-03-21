@@ -1,6 +1,6 @@
-import { PageableRequest } from '@empathyco/x-adapter';
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import '../cucumber/global-definitions';
+import { PageableRequest } from '../../../../search-adapter/types/index';
+import '../global/global-definitions';
 
 let resultsList: string[] = [];
 
@@ -182,15 +182,10 @@ Then(
 );
 
 // Sort
-When(
-  'sort option {string} is selected from the sort {string}',
-  (sortOption: string, sortMenu: string) => {
-    if (sortMenu === 'dropdown') {
-      cy.getByDataTest(`sort-${sortMenu}-toggle`).click();
-    }
-    cy.getByDataTest(`sort-${sortMenu}`).children().contains(sortOption).click();
-  }
-);
+When('sort option {string} is selected from the sort dropdown', (sortOption: string) => {
+  cy.getByDataTest(`sort-dropdown-toggle`).click();
+  cy.getByDataTest(`sort-dropdown`).children().contains(sortOption).click();
+});
 
 // URL
 Then(
@@ -199,6 +194,6 @@ Then(
     cy.wait('@interceptedResults')
       .its('request.body')
       .then(JSON.parse)
-      .should('have.property', key, value);
+      .should('have.property', key, value === 'default' ? '' : value);
   }
 );

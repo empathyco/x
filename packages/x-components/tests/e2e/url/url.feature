@@ -19,7 +19,7 @@ Feature: Url component
   Scenario Outline: 2. Navigate back and forth in serp sets the url origin as "<origin>"
     Given a URL with query parameter "lego"
     Then  search request contains parameter "origin" with value "url:external"
-    When  sort option "<sort>" is selected from the sort "dropdown"
+    When  sort option "<sort>" is selected from the sort dropdown
     Then  search request contains parameter "origin" with value "url:external"
     When  navigating back
     Then  search request contains parameter "origin" with value "url:url_history"

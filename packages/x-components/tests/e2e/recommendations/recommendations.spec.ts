@@ -1,5 +1,5 @@
 import { And, Given } from 'cypress-cucumber-preprocessor/steps';
-import { InstallXOptions } from '../../../../src/x-installer/x-installer/types';
+import { InstallXOptions } from '../../../src/x-installer/x-installer/types';
 
 // Scenario 1
 Given('following config: max items to store is {int}', (maxItemsToRequest: number) => {

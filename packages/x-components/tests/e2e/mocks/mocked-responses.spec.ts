@@ -1,3 +1,4 @@
+import { Given } from 'cypress-cucumber-preprocessor/steps';
 import {
   NextQueriesResponse,
   RelatedTagsResponse,
@@ -6,8 +7,7 @@ import {
   SearchResponse,
   SuggestionsResponse,
   TopRecommendationsResponse
-} from '@empathyco/x-adapter';
-import { Given } from 'cypress-cucumber-preprocessor/steps';
+} from '../../../../search-adapter/types/index';
 import {
   createBannerStub,
   createHierarchicalFacetStub,
@@ -26,7 +26,7 @@ import {
   getQuerySuggestionsStub,
   getRelatedTagsStub,
   getResultsStub
-} from '../../../src/__stubs__';
+} from '../../../src/__stubs__/index';
 
 const mockedApiUrl = 'https://api.empathy.co';
 
@@ -217,21 +217,21 @@ Given('a related tags API with a known response', () => {
   cy.intercept(getRelatedTagsEndpoint, req => {
     req.reply(<RelatedTagsResponse>{
       relatedTags: [
-        createRelatedTagStub('lego', 'marvel'),
-        createRelatedTagStub('lego', 'bombero'),
-        createRelatedTagStub('lego', 'policia')
+        createRelatedTagStub('funko', 'marvel'),
+        createRelatedTagStub('funko', 'pop'),
+        createRelatedTagStub('funko', 'harry')
       ]
     });
   }).as('interceptedRelatedTags');
 });
 
-Given('a related tags API with a selected one', () => {
+Given('a second related tags API with a known response', () => {
   cy.intercept(getRelatedTagsEndpoint, req => {
     req.reply(<RelatedTagsResponse>{
       relatedTags: [
-        createRelatedTagStub('lego', 'bombero', { selected: true }),
-        createRelatedTagStub('lego', 'policia'),
-        createRelatedTagStub('lego', 'barbie')
+        createRelatedTagStub('funko', 'spiderman'),
+        createRelatedTagStub('funko', 'deadpool'),
+        createRelatedTagStub('funko', 'loki')
       ]
     });
   }).as('interceptedRelatedTagsWithSelection');

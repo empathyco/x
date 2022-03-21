@@ -1,5 +1,5 @@
 import { Given, Then } from 'cypress-cucumber-preprocessor/steps';
-import { XPluginOptions } from '../../../../src/plugins/x-plugin.types';
+import { XPluginOptions } from '../../../src/plugins/x-plugin.types';
 
 Given(
   'following config: identifier detection Regexp {string}',

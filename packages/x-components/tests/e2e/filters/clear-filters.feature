@@ -19,6 +19,8 @@ Feature: Clear selected filters
     And   filters "<filter1>, <filter2>, <filter3>" are shown in the selected filters list
     When  clear filters button is clicked
     Then  no filters are selected
+    And   spellcheck component is not shown
+
 
     Examples:
       | query | filter1 | filter2 | filter3 | facetName              | facetName2 | facetName3  |
