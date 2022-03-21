@@ -91,15 +91,15 @@ export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response
     extendedOptions: Partial<EndpointAdapterOptions<NewRequest, NewResponse>>
   ) => {
     /**
-     * Merge {@link EndpointAdapterOptions | extendedOptions} into the existing
-     * {@link EndpointAdapterOptions | adapterOptions}.
+     * Merge {@link EndpointAdapterOptions | extendedOptions} with the existing
+     * {@link EndpointAdapterOptions | adapterOptions} into a new object.
      */
-    Object.assign(adapterOptions, extendedOptions);
-
-    return endpointAdapter as unknown as EndpointAdapter<
+    const newOptions = { ...adapterOptions, ...extendedOptions } as EndpointAdapterOptions<
       Request & NewRequest,
       Response & NewResponse
     >;
+
+    return endpointAdapterFactory<Request & NewRequest, Response & NewResponse>(newOptions);
   };
 
   return endpointAdapter;

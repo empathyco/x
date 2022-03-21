@@ -97,14 +97,17 @@ describe('adapterFactory tests', () => {
       hits: 10
     };
 
-    endpointAdapter.extends<ExtendedTestRequest, ExtendedTestResponse>({
+    const extendedEndpointAdapter = endpointAdapter.extends<
+      ExtendedTestRequest,
+      ExtendedTestResponse
+    >({
       endpoint: extendedEndpoint,
       httpClient: mockExtendedHttpClient as HttpClient,
       requestMapper: mockExtendedRequestMapper,
       responseMapper: mockExtendedResponseMapper
     });
 
-    const response = await endpointAdapter(extendedRequest);
+    const response = await extendedEndpointAdapter(extendedRequest);
 
     expect(mockExtendedRequestMapper).toHaveBeenCalledTimes(1);
     expect(mockExtendedRequestMapper).toHaveBeenCalledWith(extendedRequest, {
