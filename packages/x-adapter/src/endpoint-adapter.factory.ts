@@ -18,14 +18,8 @@ import {
 export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response>(
   options: EndpointAdapterOptions<Request, Response>
 ) => {
-  /**
-   * Local copy of the passed {@link EndpointAdapterOptions}, so they can be merged with the options
-   * passed to {@link EndpointAdapter.extends}.
-   */
-  const adapterOptions = { ...options };
-
   const endpointAdapter: EndpointAdapter<Request, Response> = (request, requestOptions) => {
-    const { endpoint: rawEndpoint, httpClient, requestMapper, responseMapper } = adapterOptions;
+    const { endpoint: rawEndpoint, httpClient, requestMapper, responseMapper } = options;
 
     /**
      * Returns a tuple with the endpoint to use, based on the {@link EndpointAdapterOptions} passed
@@ -57,26 +51,10 @@ export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response
     }
 
     const [endpoint, restRequestOptions] = getOptions();
-    /**
-     * Object containing the {@link RequestOptions.parameters} used by the
-     * {@link EndpointAdapterOptions.httpClient}.
-     *
-     * If {@link EndpointAdapterOptions.requestMapper} is defined, the request used is mapped.
-     * Otherwise, we fall back to the original request.
-     */
     const requestParameters =
       requestMapper?.(request, { endpoint }) ??
       (request as unknown as Record<string, string | boolean | number>);
 
-    /**
-     * Returns the response obtained by calling the {@link EndpointAdapterOptions.httpClient}.
-     *
-     * * If {@link EndpointAdapterOptions.httpClient} is defined:
-     * * * If {@link EndpointAdapterOptions.responseMapper} is defined, the response is mapped.
-     * * * Else, the raw response is returned.
-     *
-     * * Else, an empty object is returned as the response.
-     */
     return (
       httpClient?.<Response>(endpoint, {
         ...restRequestOptions,
@@ -89,18 +67,11 @@ export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response
 
   endpointAdapter.extends = <NewRequest, NewResponse>(
     extendedOptions: Partial<EndpointAdapterOptions<NewRequest, NewResponse>>
-  ) => {
-    /**
-     * Merge {@link EndpointAdapterOptions | extendedOptions} with the existing
-     * {@link EndpointAdapterOptions | adapterOptions} into a new object.
-     */
-    const newOptions = { ...adapterOptions, ...extendedOptions } as EndpointAdapterOptions<
-      Request & NewRequest,
-      Response & NewResponse
-    >;
-
-    return endpointAdapterFactory<Request & NewRequest, Response & NewResponse>(newOptions);
-  };
+  ) =>
+    endpointAdapterFactory<Request & NewRequest, Response & NewResponse>({
+      ...options,
+      ...extendedOptions
+    } as EndpointAdapterOptions<Request & NewRequest, Response & NewResponse>);
 
   return endpointAdapter;
 };
