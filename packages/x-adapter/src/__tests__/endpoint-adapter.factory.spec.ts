@@ -11,14 +11,13 @@ import { Mapper } from '../types/mapper.types';
  *
  * @returns The API for testing the {@link EndpointAdapter}.
  */
-function createEndpointAdapterFactoryOptions<Request, Response>(
-  {
-    options,
-    rawResponse = {} as Response
-  }: CreateEndpointAdapterFactoryOptions<Request, Response> = {
-    rawResponse: {} as Response
-  }
-): CreateEndpointAdapterFactoryAPI<Request, Response> {
+function createEndpointAdapterFactoryOptions<Request, Response>({
+  options,
+  rawResponse = {} as Response
+}: CreateEndpointAdapterFactoryOptions<Request, Response> = {}): CreateEndpointAdapterFactoryAPI<
+  Request,
+  Response
+> {
   const mockedHttpClient = jest.fn(() => Promise.resolve(rawResponse));
   const mockedRequestMapper = jest.fn(from => ({ ...from }));
   const mockedResponseMapper = jest.fn(from => ({ ...from }));
@@ -87,16 +86,6 @@ describe('adapterFactory tests', () => {
       })
     );
 
-    const extendedRequest: ExtendedTestRequest = { q: 'patata', origin: 'extended' };
-    const mappedExtendedRequest = {
-      extendedQuery: extendedRequest.q,
-      extendedOrigin: extendedRequest.origin
-    };
-    const extendedResponse: ExtendedTestResponse = {
-      query: 'patata',
-      hits: 10
-    };
-
     const extendedEndpointAdapter = endpointAdapter.extends<
       ExtendedTestRequest,
       ExtendedTestResponse
@@ -107,8 +96,13 @@ describe('adapterFactory tests', () => {
       responseMapper: mockExtendedResponseMapper
     });
 
+    const extendedRequest: ExtendedTestRequest = { q: 'patata', origin: 'extended' };
     const response = await extendedEndpointAdapter(extendedRequest);
 
+    const mappedExtendedRequest = {
+      extendedQuery: extendedRequest.q,
+      extendedOrigin: extendedRequest.origin
+    };
     expect(mockExtendedRequestMapper).toHaveBeenCalledTimes(1);
     expect(mockExtendedRequestMapper).toHaveBeenCalledWith(extendedRequest, {
       endpoint: extendedEndpoint
@@ -120,6 +114,10 @@ describe('adapterFactory tests', () => {
       parameters: mappedExtendedRequest
     });
 
+    const extendedResponse: ExtendedTestResponse = {
+      query: 'patata',
+      hits: 10
+    };
     expect(mockExtendedResponseMapper).toHaveBeenCalledTimes(1);
     expect(mockExtendedResponseMapper).toHaveBeenCalledWith(extendedRawResponse, {
       endpoint: extendedEndpoint,
@@ -181,11 +179,7 @@ describe('adapterFactory tests', () => {
 
     // eslint-disable-next-line max-len
     it('should combine the provided EndpointAdapterOptions.endpoint with the requestOptions.endpoint when the former is a function', async () => {
-      const requestOptions: RequestOptions = {
-        endpoint: 'https://api.empathy.co/test'
-      };
       const endpoint: Mapper<string, string> = from => from.replace(/test/g, 'mapped');
-      const expectedEndpoint = endpoint(requestOptions.endpoint!, {});
       const { endpointAdapter, mockedHttpClient } = createEndpointAdapterFactoryOptions<
         TestRequest,
         TestResponse
@@ -194,20 +188,19 @@ describe('adapterFactory tests', () => {
           endpoint
         }
       });
-
+      const requestOptions: RequestOptions = {
+        endpoint: 'https://api.empathy.co/test'
+      };
       await endpointAdapter(request, requestOptions);
 
       expect(mockedHttpClient).toHaveBeenCalledTimes(1);
-      expect(mockedHttpClient).toHaveBeenCalledWith(expectedEndpoint, {
+      expect(mockedHttpClient).toHaveBeenCalledWith(endpoint(requestOptions.endpoint, {}), {
         parameters: request
       });
     });
 
     // eslint-disable-next-line max-len
     it('should use the requestOptions.endpoint if no EndpointAdapterOptions.endpoint is provided', async () => {
-      const requestOptions: RequestOptions = {
-        endpoint: 'https://api.empathy.co/requestOptionsEndpoint'
-      };
       const { endpointAdapter, mockedHttpClient } = createEndpointAdapterFactoryOptions<
         TestRequest,
         TestResponse
@@ -216,6 +209,9 @@ describe('adapterFactory tests', () => {
           endpoint: undefined
         }
       });
+      const requestOptions: RequestOptions = {
+        endpoint: 'https://api.empathy.co/requestOptionsEndpoint'
+      };
 
       await endpointAdapter(request, requestOptions);
 
