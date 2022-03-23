@@ -21,7 +21,6 @@ Feature: Clear selected filters
     Then  no filters are selected
     And   spellcheck component is not shown
 
-
     Examples:
       | query | filter1 | filter2 | filter3 | facetName              | facetName2 | facetName3  |
       | lego  | 0       | 1       | 2       | hierarchical_category  | age_facet  | price_facet |

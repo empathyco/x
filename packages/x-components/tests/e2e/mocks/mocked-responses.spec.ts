@@ -7,7 +7,7 @@ import {
   SearchResponse,
   SuggestionsResponse,
   TopRecommendationsResponse
-} from '../../../../search-adapter/types/index';
+} from '@empathyco/x-adapter';
 import {
   createBannerStub,
   createHierarchicalFacetStub,
