@@ -5,7 +5,7 @@ import {
   EndpointAdapterFactory,
   EndpointAdapterOptions
 } from './types/adapter.types';
-import { Mapper } from './types/index';
+import { Mapper } from './types/mapper.types';
 import { interpolate } from './utils/interpolate';
 
 /**
