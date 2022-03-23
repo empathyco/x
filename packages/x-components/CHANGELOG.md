@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.72](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.71...@empathyco/x-components@3.0.0-alpha.72) (2022-03-23)
+
+### Documentation
+
+- Update documentation to differentiate integration from development
+  ([fc8d9fa](https://github.com/empathyco/x/commit/fc8d9faa57faafee90c0f4da159b6040294c099c)),
+  closes [EX-5608](https://searchbroker.atlassian.net/browse/EX-5608)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.71](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.70...@empathyco/x-components@3.0.0-alpha.71) (2022-03-23)
 
 ### Testing
