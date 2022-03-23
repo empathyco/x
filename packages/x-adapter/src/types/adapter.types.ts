@@ -30,7 +30,7 @@ export interface EndpointAdapter<Request, Response> {
    *
    * @param options - New options to extend the {@link EndpointAdapter} with.
    */
-  extends: <NewRequest, NewResponse>(
+  extends: <NewRequest = Request, NewResponse = Response>(
     options: Partial<EndpointAdapterOptions<NewRequest, NewResponse>>
   ) => EndpointAdapter<NewRequest, NewResponse>;
 }

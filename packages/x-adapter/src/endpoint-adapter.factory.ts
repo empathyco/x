@@ -32,27 +32,6 @@ export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response
       responseMapper = identityMapper
     } = options;
 
-    /**
-     * Returns an endpoint.
-     *
-     * @param endpoint - The endpoint to process.
-     * @param request - The request object.
-     *
-     * @returns The endpoint.
-     * @internal
-     */
-    function getEndpoint<Request>(
-      endpoint: string | Mapper<Request, string> | undefined,
-      request: Request
-    ): string {
-      if (!endpoint) {
-        throw Error('Tried to make a request without an endpoint');
-      }
-      return typeof endpoint === 'function'
-        ? endpoint(request, {})
-        : interpolate(endpoint, request as unknown as Record<string, string | number | boolean>);
-    }
-
     const endpoint = getEndpoint(rawEndpoint ?? requestEndpoint, request);
     const requestParameters = requestMapper(request, { endpoint });
 
@@ -72,3 +51,25 @@ export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response
 
   return endpointAdapter;
 };
+
+/**
+ * Returns an endpoint.
+ *
+ * @param endpoint - The endpoint to process.
+ * @param request - The request object.
+ *
+ * @returns The endpoint.
+ * @internal
+ */
+function getEndpoint<Request>(
+  endpoint: string | Mapper<Request, string> | undefined,
+  request: Request
+): string {
+  if (!endpoint) {
+    throw Error('Tried to make a request without an endpoint');
+  }
+
+  return typeof endpoint === 'function'
+    ? endpoint(request, {})
+    : interpolate(endpoint, request as Record<string, unknown>);
+}

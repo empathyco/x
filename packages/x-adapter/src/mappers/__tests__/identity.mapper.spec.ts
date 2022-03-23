@@ -10,11 +10,11 @@ describe('identityMapper tests', () => {
     const stringEntity = 'patata';
     const undefinedEntity = undefined;
 
-    expect(identityMapper(arrayEntity)).toEqual(arrayEntity);
+    expect(identityMapper(arrayEntity)).toBe(arrayEntity);
     expect(identityMapper(booleanEntity)).toEqual(booleanEntity);
     expect(identityMapper(nullEntity)).toEqual(nullEntity);
     expect(identityMapper(numberEntity)).toEqual(numberEntity);
-    expect(identityMapper(objectEntity)).toEqual(objectEntity);
+    expect(identityMapper(objectEntity)).toBe(objectEntity);
     expect(identityMapper(stringEntity)).toEqual(stringEntity);
     expect(identityMapper(undefinedEntity)).toEqual(undefinedEntity);
   });

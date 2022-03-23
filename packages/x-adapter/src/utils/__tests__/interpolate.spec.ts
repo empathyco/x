@@ -28,7 +28,7 @@ describe('testing interpolate function', () => {
     ).toBe('https://api-live.empathy.co/demo');
   });
 
-  it('hides values when the parameter is not passed', () => {
+  it('hides values when the parameter is not passed or its value is nullish', () => {
     expect(
       interpolate('https://{env}.empathy.co/{instance}', {
         env: 'live'
@@ -46,6 +46,18 @@ describe('testing interpolate function', () => {
     ).toBe('https://api.empathy.co/demo');
     expect(
       interpolate('https://search.{(api-)env(.)}empathy.co/{instance}', {
+        instance: 'demo'
+      })
+    ).toBe('https://search.empathy.co/demo');
+    expect(
+      interpolate('https://search.{(api-)env(.)}empathy.co/{instance}', {
+        env: null,
+        instance: 'demo'
+      })
+    ).toBe('https://search.empathy.co/demo');
+    expect(
+      interpolate('https://search.{(api-)env(.)}empathy.co/{instance}', {
+        env: undefined,
         instance: 'demo'
       })
     ).toBe('https://search.empathy.co/demo');
