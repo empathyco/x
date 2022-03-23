@@ -70,8 +70,15 @@ describe('adapterFactory tests', () => {
     expect(response).toEqual(rawResponse);
   });
 
-  it('should extend the initial endpointAdapter options with the new ones', async () => {
-    const { endpointAdapter } = createEndpointAdapterFactoryOptions<TestRequest, TestResponse>();
+  // eslint-disable-next-line max-len
+  it('should extend the endpointAdapter options with new ones, leaving the extended endpointAdapter untouched', async () => {
+    const {
+      endpointAdapter,
+      options,
+      mockedHttpClient,
+      mockedRequestMapper,
+      mockedResponseMapper
+    } = createEndpointAdapterFactoryOptions<TestRequest, TestResponse>();
 
     const extendedEndpoint = 'https://api.empathy.co/extended';
     const extendedRawResponse = { extendedQuery: 'patata', extendedHits: 10 };
@@ -98,7 +105,27 @@ describe('adapterFactory tests', () => {
     });
 
     const extendedRequest: ExtendedTestRequest = { q: 'patata', origin: 'extended' };
-    const response = await extendedEndpointAdapter(extendedRequest);
+    const extendedResponse = await extendedEndpointAdapter(extendedRequest);
+    const response = await endpointAdapter(request);
+
+    expect(mockedRequestMapper).toHaveBeenCalledTimes(1);
+    expect(mockedRequestMapper).toHaveBeenCalledWith(request, {
+      endpoint: options.endpoint
+    });
+
+    expect(mockedHttpClient).toHaveBeenCalledTimes(1);
+    expect(mockedHttpClient).toHaveBeenCalledWith(options.endpoint, {
+      parameters: request
+    });
+    expect(mockedResponseMapper).toHaveBeenCalledTimes(1);
+    expect(mockedResponseMapper).toHaveBeenCalledWith(
+      {},
+      {
+        endpoint: options.endpoint,
+        requestParameters: request
+      }
+    );
+    expect(response).toEqual({});
 
     const mappedExtendedRequest = {
       extendedQuery: extendedRequest.q,
@@ -115,7 +142,7 @@ describe('adapterFactory tests', () => {
       parameters: mappedExtendedRequest
     });
 
-    const extendedResponse: ExtendedTestResponse = {
+    const extendedMappedResponse: ExtendedTestResponse = {
       query: 'patata',
       hits: 10
     };
@@ -124,8 +151,8 @@ describe('adapterFactory tests', () => {
       endpoint: extendedEndpoint,
       requestParameters: mappedExtendedRequest
     });
-    expect(mockExtendedResponseMapper).toHaveReturnedWith(extendedResponse);
-    expect(response).toEqual(extendedResponse);
+    expect(mockExtendedResponseMapper).toHaveReturnedWith(extendedMappedResponse);
+    expect(extendedResponse).toEqual(extendedMappedResponse);
   });
 
   it('should use the raw request if no requestMapper is provided', async () => {

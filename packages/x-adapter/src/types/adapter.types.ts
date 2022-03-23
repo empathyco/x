@@ -25,13 +25,14 @@ export interface EndpointAdapter<Request, Response> {
   (request: Request, options?: RequestOptions): Promise<Response>;
 
   /**
-   * Modifies the current adapter, merging it with the new options.
+   * Extends the current adapter merging its options with the new ones creating a new
+   * {@link EndpointAdapter} object.
    *
-   * @param options - New options to extend the adapter with.
+   * @param options - New options to extend the {@link EndpointAdapter} with.
    */
   extends: <NewRequest, NewResponse>(
     options: Partial<EndpointAdapterOptions<NewRequest, NewResponse>>
-  ) => EndpointAdapter<Request & NewRequest, Response & NewResponse>;
+  ) => EndpointAdapter<NewRequest, NewResponse>;
 }
 
 /**

@@ -9,7 +9,7 @@ import { Mapper } from './types/mapper.types';
 import { interpolate } from './utils/interpolate';
 
 /**
- * Factory to create {@link EndpointAdapter | endpoint adapters} with the passed
+ * Factory to create {@link EndpointAdapter | endpoint adapters} with the given
  * {@link EndpointAdapterOptions | options}.
  *
  * @param options - The {@link EndpointAdapterOptions | options} to create a new
@@ -65,10 +65,10 @@ export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response
   endpointAdapter.extends = <NewRequest, NewResponse>(
     extendedOptions: Partial<EndpointAdapterOptions<NewRequest, NewResponse>>
   ) =>
-    endpointAdapterFactory<Request & NewRequest, Response & NewResponse>({
+    endpointAdapterFactory<NewRequest, NewResponse>({
       ...options,
       ...extendedOptions
-    } as EndpointAdapterOptions<Request & NewRequest, Response & NewResponse>);
+    } as EndpointAdapterOptions<NewRequest, NewResponse>);
 
   return endpointAdapter;
 };
