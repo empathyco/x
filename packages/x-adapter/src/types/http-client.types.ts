@@ -24,7 +24,7 @@ export interface RequestOptions {
   /**
    * A list of parameters to send to the API.
    */
-  parameters?: Record<string, string | boolean | number>;
+  parameters?: Record<string, unknown>;
   /**
    * HTTP headers to add to the request.
    */

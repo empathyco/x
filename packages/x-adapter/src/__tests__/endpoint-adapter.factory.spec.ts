@@ -1,4 +1,5 @@
 import { endpointAdapterFactory } from '../endpoint-adapter.factory';
+import { identityMapper } from '../mappers/identity.mapper';
 import { EndpointAdapter, EndpointAdapterOptions } from '../types/adapter.types';
 import { HttpClient, RequestOptions } from '../types/http-client.types';
 import { Mapper } from '../types/mapper.types';
@@ -19,8 +20,8 @@ function createEndpointAdapterFactoryOptions<Request, Response>({
   Response
 > {
   const mockedHttpClient = jest.fn(() => Promise.resolve(rawResponse));
-  const mockedRequestMapper = jest.fn(from => ({ ...from }));
-  const mockedResponseMapper = jest.fn(from => ({ ...from }));
+  const mockedRequestMapper = jest.fn(identityMapper);
+  const mockedResponseMapper = jest.fn(identityMapper);
 
   const adapterOptions: EndpointAdapterOptions<Request, Response> = {
     endpoint: 'https://api.empathy.co/test',
@@ -162,24 +163,29 @@ describe('adapterFactory tests', () => {
   });
 
   describe('endpoint scenarios', () => {
-    // eslint-disable-next-line max-len
-    it('should use the provided EndpointAdapterOptions.endpoint directly when it is a string', async () => {
-      const { endpointAdapter, options, mockedHttpClient } = createEndpointAdapterFactoryOptions<
+    it('should interpolate the endpoint using the request when it is a string', async () => {
+      const { endpointAdapter, mockedHttpClient } = createEndpointAdapterFactoryOptions<
         TestRequest,
         TestResponse
-      >();
+      >({
+        options: {
+          endpoint: 'https://api{(-)env}.empathy.co/test'
+        }
+      });
 
-      await endpointAdapter(request);
+      await endpointAdapter({ ...request, env: 'test' });
 
       expect(mockedHttpClient).toHaveBeenCalledTimes(1);
-      expect(mockedHttpClient).toHaveBeenCalledWith(options.endpoint, {
-        parameters: request
-      });
+      expect(mockedHttpClient).toHaveBeenCalledWith(
+        'https://api-test.empathy.co/test',
+        expect.anything()
+      );
     });
 
     // eslint-disable-next-line max-len
-    it('should combine the provided EndpointAdapterOptions.endpoint with the requestOptions.endpoint when the former is a function', async () => {
-      const endpoint: Mapper<string, string> = from => from.replace(/test/g, 'mapped');
+    it('should map the request to an endpoint when the provided endpoint is a function', async () => {
+      const endpoint: Mapper<TestRequest, string> = ({ env }) =>
+        env === 'test' ? 'api.internal.test.empathy.co/test' : 'api.empathy.co/test';
       const { endpointAdapter, mockedHttpClient } = createEndpointAdapterFactoryOptions<
         TestRequest,
         TestResponse
@@ -188,19 +194,17 @@ describe('adapterFactory tests', () => {
           endpoint
         }
       });
-      const requestOptions: RequestOptions = {
-        endpoint: 'https://api.empathy.co/test'
-      };
-      await endpointAdapter(request, requestOptions);
+
+      await endpointAdapter({ ...request, env: 'test' });
 
       expect(mockedHttpClient).toHaveBeenCalledTimes(1);
-      expect(mockedHttpClient).toHaveBeenCalledWith(endpoint(requestOptions.endpoint, {}), {
-        parameters: request
-      });
+      expect(mockedHttpClient).toHaveBeenCalledWith(
+        'api.internal.test.empathy.co/test',
+        expect.anything()
+      );
     });
 
-    // eslint-disable-next-line max-len
-    it('should use the requestOptions.endpoint if no EndpointAdapterOptions.endpoint is provided', async () => {
+    it('should use the requestOptions.endpoint if no endpoint is provided', async () => {
       const { endpointAdapter, mockedHttpClient } = createEndpointAdapterFactoryOptions<
         TestRequest,
         TestResponse
@@ -210,15 +214,13 @@ describe('adapterFactory tests', () => {
         }
       });
       const requestOptions: RequestOptions = {
-        endpoint: 'https://api.empathy.co/requestOptionsEndpoint'
+        endpoint: 'https://api.empathy.co/test'
       };
 
       await endpointAdapter(request, requestOptions);
 
       expect(mockedHttpClient).toHaveBeenCalledTimes(1);
-      expect(mockedHttpClient).toHaveBeenCalledWith(requestOptions.endpoint, {
-        parameters: request
-      });
+      expect(mockedHttpClient).toHaveBeenCalledWith(requestOptions.endpoint, expect.anything());
     });
   });
 });
@@ -246,6 +248,8 @@ interface CreateEndpointAdapterFactoryAPI<Request, Response> {
 interface TestRequest {
   /** The query. */
   q: string;
+  /** The environment. */
+  env?: string;
 }
 
 interface TestResponse {
