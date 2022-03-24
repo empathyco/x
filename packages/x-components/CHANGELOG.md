@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.73](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.72...@empathyco/x-components@3.0.0-alpha.73) (2022-03-24)
+
+### Features
+
+- **history-queries:** add toggle to enable/disable the history queries
+  ([655b55a](https://github.com/empathyco/x/commit/655b55a3f10788073a842d18f7849634e5f94376)),
+  closes [EX-5600](https://searchbroker.atlassian.net/browse/EX-5600)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.72](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.71...@empathyco/x-components@3.0.0-alpha.72) (2022-03-23)
 
 ### Documentation
