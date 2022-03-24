@@ -27,6 +27,10 @@ export interface HistoryQueriesState extends QueryState {
    * The current query for searching into the {@link HistoryQueriesState.historyQueries}.
    */
   query: string;
+  /**
+   * Whether the history queries are enabled or disabled.
+   */
+  isEnabled: boolean;
 }
 
 /**
@@ -77,6 +81,12 @@ export interface HistoryQueriesMutations extends QueryMutations {
    * @param query - The new {@link HistoryQueriesState.query }.
    */
   setQuery(query: string): void;
+  /**
+   * Sets the {@link HistoryQueriesState.isEnabled } property.
+   *
+   * @param isEnabled - The new {@link HistoryQueriesState.isEnabled }.
+   */
+  setIsEnabled(isEnabled: boolean): void;
 }
 /**
  * HistoryQueries store actions.
@@ -158,6 +168,13 @@ export interface HistoryQueriesActions {
    * @param urlParams - List of params from the url.
    */
   setUrlParams(urlParams: UrlParams): void;
+  /**
+   * Toggles the history queries and stores the state in the browser storage. It also cleans the
+   * history queries when disabling them.
+   *
+   * @param isEnabled - Whether to enable or disable the history queries.
+   */
+  toggleHistoryQueries(isEnabled: boolean): void;
 }
 /**
  * HistoryQueries type safe store module.
