@@ -32,7 +32,6 @@ describe('testing history queries module actions', () => {
   function resetStateWith(state: DeepPartial<HistoryQueriesState>): void {
     resetHistoryQueriesStateWith(store, state);
     localStorageService.setItem(store.getters.storageKey, store.state.historyQueries);
-    localStorageService.setItem(HISTORY_QUERIES_ENABLED_KEY, store.state.isEnabled);
   }
 
   function expectHistoryQueriesToEqual(historyQueries: HistoryQuery[]): void {
@@ -264,10 +263,10 @@ describe('testing history queries module actions', () => {
     });
 
     it('stores the enabled/disabled value in local storage', async () => {
-      expect(localStorageService.getItem<boolean>(HISTORY_QUERIES_ENABLED_KEY)).toBe(true);
-
-      await store.dispatch('toggleHistoryQueries', false);
       expect(localStorageService.getItem<boolean>(HISTORY_QUERIES_ENABLED_KEY)).toBe(false);
+
+      await store.dispatch('toggleHistoryQueries', true);
+      expect(localStorageService.getItem<boolean>(HISTORY_QUERIES_ENABLED_KEY)).toBe(true);
     });
   });
 });
