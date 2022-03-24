@@ -8,7 +8,7 @@ import {
 import { SafeStore } from '../../../../store/__tests__/utils';
 import { DeepPartial } from '../../../../utils';
 import { localStorageService } from '../../../../utils/storage';
-import { SESSION_TIME_STAMP_STORAGE_KEY } from '../constants';
+import { HISTORY_QUERIES_ENABLED_KEY, SESSION_TIME_STAMP_STORAGE_KEY } from '../constants';
 import { historyQueriesXStoreModule } from '../module';
 import {
   HistoryQueriesActions,
@@ -32,6 +32,7 @@ describe('testing history queries module actions', () => {
   function resetStateWith(state: DeepPartial<HistoryQueriesState>): void {
     resetHistoryQueriesStateWith(store, state);
     localStorageService.setItem(store.getters.storageKey, store.state.historyQueries);
+    localStorageService.setItem(HISTORY_QUERIES_ENABLED_KEY, store.state.isEnabled);
   }
 
   function expectHistoryQueriesToEqual(historyQueries: HistoryQuery[]): void {
@@ -236,6 +237,37 @@ describe('testing history queries module actions', () => {
       store.dispatch('loadHistoryQueriesFromBrowserStorage');
 
       expect(store.state.historyQueries).toEqual(historyQueries);
+    });
+  });
+
+  describe('toggleHistoryQueries', () => {
+    beforeEach(() => {
+      const historyQueries: HistoryQuery[] = createHistoryQueries('gato', 'perro');
+      resetStateWith({ historyQueries, isEnabled: true });
+    });
+
+    it("doesn't allow new history queries to be set on disabled", async () => {
+      await store.dispatch('toggleHistoryQueries', false);
+
+      const newHistoryQuery = createHistoryQuery({ query: 'caballo' });
+      await store.dispatch('setHistoryQueries', [newHistoryQuery]);
+
+      expectHistoryQueriesToEqual([]);
+    });
+
+    it('deletes the history queries when disabled', async () => {
+      const historyQueries: HistoryQuery[] = createHistoryQueries('gato', 'perro');
+      expectHistoryQueriesToEqual(historyQueries);
+
+      await store.dispatch('toggleHistoryQueries', false);
+      expectHistoryQueriesToEqual([]);
+    });
+
+    it('stores the enabled/disabled value in local storage', async () => {
+      expect(localStorageService.getItem<boolean>(HISTORY_QUERIES_ENABLED_KEY)).toBe(true);
+
+      await store.dispatch('toggleHistoryQueries', false);
+      expect(localStorageService.getItem<boolean>(HISTORY_QUERIES_ENABLED_KEY)).toBe(false);
     });
   });
 });
