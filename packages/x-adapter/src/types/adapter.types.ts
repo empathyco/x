@@ -25,13 +25,14 @@ export interface EndpointAdapter<Request, Response> {
   (request: Request, options?: RequestOptions): Promise<Response>;
 
   /**
-   * Modifies the current adapter, merging it with the new options.
+   * Extends the current adapter merging its options with the new ones creating a new
+   * {@link EndpointAdapter} object.
    *
-   * @param options - New options to extend the adapter with.
+   * @param options - New options to extend the {@link EndpointAdapter} with.
    */
-  extends: <NewRequest, NewResponse>(
+  extends: <NewRequest = Request, NewResponse = Response>(
     options: Partial<EndpointAdapterOptions<NewRequest, NewResponse>>
-  ) => EndpointAdapter<Request & NewRequest, Response & NewResponse>;
+  ) => EndpointAdapter<NewRequest, NewResponse>;
 }
 
 /**
@@ -64,7 +65,7 @@ export interface EndpointAdapterOptions<Request, Response> {
    * The {@link Mapper} in charge of adapting the request object so the backend API can
    * understand it.
    */
-  requestMapper?: Mapper<Request, Record<string, string | boolean | number>>;
+  requestMapper?: Mapper<Request, Record<string, unknown>>;
   /**
    * The {@link Mapper} in charge of adapting the response object to whatever format or
    * shape it is needed.

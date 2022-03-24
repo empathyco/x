@@ -17,7 +17,7 @@ export interface MapperContext {
   /**
    * When the mapper is used to transform a response, the request that triggered it.
    */
-  requestParameters?: Record<string, string | boolean | number>;
+  requestParameters?: Record<string, unknown>;
   /**
    * When the mapper is used to transform a request or a response, the endpoint that
    * was or is going to be used.

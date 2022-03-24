@@ -88,10 +88,7 @@ const STRING_PARAMETER_CONTENT = new RegExp(`^${HEAD_OR_TAIL}([^(]+)${HEAD_OR_TA
  * ```
  * @public
  */
-export function interpolate(
-  string: string,
-  parameters: Record<string, string | boolean | number>
-): string {
+export function interpolate(string: string, parameters: Record<string, unknown>): string {
   return string.replace(STRING_PARAMETERS, (_match, propertyToReplace: string) =>
     propertyToReplace.replace(
       STRING_PARAMETER_CONTENT,
@@ -99,8 +96,10 @@ export function interpolate(
         /* As the replacer function has a very dynamic signature, it is typed as a function with
          * `any` arguments. This makes it impossible for TS to infer the correct `string`
          * type that we are using as default values here. */
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        property in parameters ? `${head}${parameters[property].toString()}${tail}` : ''
+        parameters[property] != null
+          ? // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+            `${head}${String(parameters[property])}${tail}`
+          : ''
     )
   );
 }
