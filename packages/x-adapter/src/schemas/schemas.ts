@@ -1,20 +1,14 @@
-import { PropertyPath, PropertyType } from '@empathyco/x-utils';
+import { PropertyPath, PropertyType, Primitive } from '@empathyco/x-utils';
 
 type Schema<Source, Target> = {
-  [TargetKey in keyof Target]:
-    | PropertyPath<Source>
-    | Schema<Source, Target[TargetKey]>
-    | ((source: Source) => any)
-    | {
-        [k in keyof SubSchema]: k extends 'schema'
-          ?
-              | Schema<
-                  PropertyType<Source, PropertyPath<Source> & SubSchema['path']>,
-                  Target[TargetKey]
-                >
-              | '$self'
-          : SubSchema[k];
-      };
+  [TargetKey in keyof Target]: PropertyPath<Source> | Target[TargetKey] extends Primitive
+    ? PropertyPath<Source>
+    :
+        | Schema<Source, Target[TargetKey]>
+        | {
+            path: PropertyPath<Source>;
+            schema: Schema<PropertyType<Source, PropertyPath<Source>>, Target[TargetKey]>;
+          };
 };
 
 /*
@@ -25,9 +19,9 @@ type SubSchema<Source, Target, Path = PropertyPath<Source>> = {
 };
 */
 
-type SubSchema = {
-  path: string;
-  schema: any;
+type SubSchema<Source, Target, Path extends PropertyPath<Source>> = {
+  path: Path;
+  schema: Schema<PropertyType<Source, Path>, Target>;
   context?: any;
 };
 
@@ -39,7 +33,8 @@ const source = {
   facets: {
     filter: 'Soy un filter',
     count: 10
-  }
+  },
+  lista: [{ asdf: 'primerElemento' }]
 };
 
 type SourceTest = typeof source;
@@ -49,19 +44,20 @@ const filterSchema: Schema<SourceTest['facets'], TargetTest['filter']> = {
   num: 'count'
 };
 
-const schema: Schema<SourceTest, TargetTest> = defineSchema({
+const schema: Schema<SourceTest, TargetTest> = {
   name: {
     title: 'data.a'
   },
   count: 'data.b',
   filter: {
     path: 'facets',
-    schema: {
-      value: 'filter',
-      num: 'count'
-    }
+    schema: filterSchema
+  },
+  otra: {
+    cosa: 'lista.0.asdf',
+    numero: 'facets.count'
   }
-});
+};
 
 type TargetTest = typeof destination;
 
@@ -70,5 +66,9 @@ const destination = {
     title: 'a'
   },
   count: 1,
-  filter: { value: 'Soy un filter', num: 10 }
+  filter: { value: 'Soy un filter', num: 10 },
+  otra: {
+    cosa: 'cosa',
+    numero: 3
+  }
 };
