@@ -4,11 +4,11 @@ type Schema<Source, Target> = {
   [TargetKey in keyof Target]:
     | PropertyPath<Source>
     | ((source: Source) => any)
-    | Schema<Source, Exclude<Target[TargetKey], Function | Primitive | Array<any>>>
+    | Schema<Source, Exclude<Target[TargetKey], Function | Primitive>>
     | {
         path: PropertyPath<Source>;
         schema: Schema<
-          Exclude<PropertyType<Source, PropertyPath<Source>>, Function | Primitive | Array<any>>,
+          Exclude<PropertyType<Source, PropertyPath<Source>>, Function | Primitive>,
           Target[TargetKey]
         >;
       };
@@ -29,25 +29,32 @@ const source = {
 type SourceTest = typeof source;
 
 const filterSchema: Schema<SourceTest['facets'], TargetTest['filter']> = {
-  value: ({ filter }) => filter.toUpperCase(),
+  value: param => ('filter' in param ? param.filter : null),
   num: 'count'
 };
 
 const schema: Schema<SourceTest, TargetTest> = {
   name: {
-    title: 'data.a'
+    title: ({ data: { a } }) => a
   },
   count: 'data.b',
   filter: {
     path: 'facets',
     schema: {
-      value: 'filter',
+      value: param => ('filter' in param ? param.filter : null),
       num: 'count'
     }
   },
   otra: {
     cosa: 'lista.asdf',
-    numero: 'facets.count'
+    numero: 'facets.count',
+    filter: {
+      path: 'facets',
+      schema: {
+        value: param => ('filter' in param ? param.filter : null),
+        num: 'count'
+      }
+    }
   }
 };
 
@@ -61,6 +68,7 @@ const destination = {
   filter: { value: 'Soy un filter', num: 10 },
   otra: {
     cosa: 'cosa',
-    numero: 3
+    numero: 3,
+    filter: { value: 'Soy un filter', num: 10 }
   }
 };
