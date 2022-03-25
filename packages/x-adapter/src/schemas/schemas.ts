@@ -6,16 +6,29 @@ type Schema<Source, Target> = {
     | Schema<Source, Target[TargetKey]>
     | ((source: Source) => any)
     | {
-        path: Path;
-        schema: Schema<PropertyType<Source, Path>, Target[TargetKey]> | '$self';
-        context?: Schema<Source, any>;
+        [k in keyof SubSchema]: k extends 'schema'
+          ?
+              | Schema<
+                  PropertyType<Source, PropertyPath<Source> & SubSchema['path']>,
+                  Target[TargetKey]
+                >
+              | '$self'
+          : SubSchema[k];
       };
 };
 
+/*
 type SubSchema<Source, Target, Path = PropertyPath<Source>> = {
   path: Path;
   schema: Schema<PropertyType<Source, Path>, Target[TargetKey]> | '$self';
   context?: Schema<Source, any>;
+};
+*/
+
+type SubSchema = {
+  path: string;
+  schema: any;
+  context?: any;
 };
 
 const source = {
@@ -36,16 +49,19 @@ const filterSchema: Schema<SourceTest['facets'], TargetTest['filter']> = {
   num: 'count'
 };
 
-const schema: Schema<SourceTest, TargetTest> = {
+const schema: Schema<SourceTest, TargetTest> = defineSchema({
   name: {
     title: 'data.a'
   },
   count: 'data.b',
   filter: {
     path: 'facets',
-    schema: filterSchema
+    schema: {
+      value: 'filter',
+      num: 'count'
+    }
   }
-};
+});
 
 type TargetTest = typeof destination;
 
