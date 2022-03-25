@@ -3,12 +3,14 @@ import { PropertyPath, PropertyType, Primitive } from '@empathyco/x-utils';
 type Schema<Source, Target> = {
   [TargetKey in keyof Target]:
     | PropertyPath<Source>
-    | (Target[TargetKey] extends Primitive
-        ? PropertyPath<Source>
-        : Schema<Source, Target[TargetKey]>)
+    | ((source: Source) => any)
+    | Schema<Source, Exclude<Target[TargetKey], Function | Primitive | Array<any>>>
     | {
         path: PropertyPath<Source>;
-        schema: Schema<PropertyType<Source, PropertyPath<Source>>, Target[TargetKey]>;
+        schema: Schema<
+          Exclude<PropertyType<Source, PropertyPath<Source>>, Function | Primitive | Array<any>>,
+          Target[TargetKey]
+        >;
       };
 };
 
@@ -21,13 +23,13 @@ const source = {
     filter: 'Soy un filter',
     count: 10
   },
-  lista: [{ asdf: 'primerElemento' }]
+  lista: { asdf: 'primerElemento' }
 };
 
 type SourceTest = typeof source;
 
 const filterSchema: Schema<SourceTest['facets'], TargetTest['filter']> = {
-  value: 'filter',
+  value: ({ filter }) => filter.toUpperCase(),
   num: 'count'
 };
 
@@ -38,10 +40,13 @@ const schema: Schema<SourceTest, TargetTest> = {
   count: 'data.b',
   filter: {
     path: 'facets',
-    schema: filterSchema
+    schema: {
+      value: 'filter',
+      num: 'count'
+    }
   },
   otra: {
-    cosa: 'lista.0.asdf',
+    cosa: 'lista.asdf',
     numero: 'facets.count'
   }
 };
