@@ -1,18 +1,22 @@
 import { PropertyPath, PropertyType, Primitive } from '@empathyco/x-utils';
+import { MapperContext } from '../types/index';
 
-type Schema<Source, Target> = {
-  [TargetKey in keyof Target]:
-    | PropertyPath<Source>
-    | ((source: Source) => any)
-    | Schema<Source, Exclude<Target[TargetKey], Function | Primitive>>
-    | {
-        path: PropertyPath<Source>;
-        schema: Schema<
-          Exclude<PropertyType<Source, PropertyPath<Source>>, Function | Primitive>,
-          Target[TargetKey]
-        >;
-      };
+export type Schema<Source = any, Target = any> = {
+  [TargetKey in keyof Target]: SchemaTransformer<Source, Target, TargetKey>;
 };
+
+export type SchemaTransformer<Source, Target, TargetKey extends keyof Target> =
+  | PropertyPath<Source>
+  | ((source: Source, context?: MapperContext) => any)
+  | Schema<Source, Exclude<Target[TargetKey], Function | Primitive>>
+  | {
+      $context?: MapperContext;
+      $subschema: {
+        [Path in PropertyPath<Source>]?:
+          | Schema<PropertyType<Source, Path>, Target[TargetKey]>
+          | '$self';
+      };
+    };
 
 const source = {
   data: {
@@ -39,21 +43,18 @@ const schema: Schema<SourceTest, TargetTest> = {
   },
   count: 'data.b',
   filter: {
-    path: 'facets',
-    schema: {
-      value: param => ('filter' in param ? param.filter : null),
-      num: 'count'
-    }
+    $subschema: {
+      facets: filterSchema
+    },
+    $context: { miCosa: 'miCosa' }
   },
   otra: {
     cosa: 'lista.asdf',
     numero: 'facets.count',
     filter: {
-      path: 'facets',
-      schema: {
-        value: param => ('filter' in param ? param.filter : null),
-        num: 'count'
-      }
+      value: 'facets.filter',
+      num: 'facets.count',
+      $context: {}
     }
   }
 };
