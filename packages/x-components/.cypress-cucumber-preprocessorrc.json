@@ -1,4 +1,4 @@
 {
-  "nonGlobalStepDefinitions": false,
+  "nonGlobalStepDefinitions": true,
   "stepDefinitions": "tests/e2e"
 }

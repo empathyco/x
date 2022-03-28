@@ -187,6 +187,11 @@ When('sort option {string} is selected from the sort dropdown', (sortOption: str
   cy.getByDataTest(`sort-dropdown`).children().contains(sortOption).click();
 });
 
+// Spellcheck
+Then('spellcheck component is not shown', () => {
+  cy.getByDataTest('spellcheck').should('not.exist');
+});
+
 // URL
 Then(
   'search request contains parameter {string} with value {string}',
