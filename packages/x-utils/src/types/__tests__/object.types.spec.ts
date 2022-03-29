@@ -1,20 +1,20 @@
-import { TreeShakeObject } from '../object.types';
+import { PickByType } from '../object.types';
 
-interface Example {
-  stringKey: string;
-  optionalStringKey?: string;
-  numberKey: number;
-  booleanKey: boolean;
-  objectKey: {
-    innerStringKey: string;
-  };
-}
+describe('PickByType', () => {
+  interface Example {
+    stringKey: string;
+    optionalStringKey?: string;
+    numberKey: number;
+    booleanKey: boolean;
+    objectKey: {
+      innerStringKey: string;
+    };
+    functionKey: (random: any) => any;
+    arrayKey: string[];
+  }
 
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
-describe('TreeShakeObject', () => {
-  it('Returns a tree-shaken object with the keys that match the given type', () => {
-    const test: TreeShakeObject<Example, string> = {
+  it('Picks the keys from the provided object that match the given type', () => {
+    const test: PickByType<Example, string | undefined> = {
       objectKey: {
         innerStringKey: 'inner'
       },
@@ -24,29 +24,46 @@ describe('TreeShakeObject', () => {
       booleanKey: false
     };
 
-    expect(test).toMatchObject<TreeShakeObject<Example, string>>({
-      ...test
-    });
-  });
-
-  // eslint-disable-next-line max-len
-  it('Returns a tree-shaken object with the keys that match the given type excluding optionals', () => {
-    const test: TreeShakeObject<Example, string, true> = {
+    const anotherTest: PickByType<Example, string> = {
       objectKey: {
         innerStringKey: 'inner'
       },
-      stringKey: 'hi'
-      // TODO: Check how webstorm links tsconfig.json files to test files, as right now it is not
-      //  using our tsconfig.json because we are excluding tests files to avoid including them in
-      //  the build and types declarations.
-      /*// @ts-expect-error
-       optionalStringKey: 'optional'*/
+      stringKey: 'hi',
+      // @ts-expect-error
+      booleanKey: false
     };
 
-    expect(test).toMatchObject<TreeShakeObject<Example, string, true>>({
-      ...test
-    });
+    const yetAnotherTest: PickByType<Example, string> = {
+      objectKey: {
+        innerStringKey: 'inner'
+      },
+      stringKey: 'hi',
+      // @ts-expect-error
+      functionKey: random => random
+    };
+
+    const andOneMore: PickByType<Example, string> = {
+      objectKey: {
+        innerStringKey: 'inner'
+      },
+      stringKey: 'hi',
+      // @ts-expect-error
+      arrayKey: ['potatoe']
+    };
+
+    const theLastOne: PickByType<Example, string> = {
+      objectKey: {
+        innerStringKey: 'inner'
+      },
+      stringKey: 'hi',
+      // @ts-expect-error
+      optionalStringKey: 'potatoe'
+    };
+
+    expect(typeof test).toBe('object');
+    expect(typeof anotherTest).toBe('object');
+    expect(typeof yetAnotherTest).toBe('object');
+    expect(typeof andOneMore).toBe('object');
+    expect(typeof theLastOne).toBe('object');
   });
 });
-
-/* eslint-enable @typescript-eslint/ban-ts-comment */

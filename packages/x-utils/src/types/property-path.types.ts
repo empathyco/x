@@ -87,20 +87,30 @@ export type PropertyType<
   : never;
 
 /**
- * Extracts the paths of the provided object that match the given type.
- *
- * @remarks By default, ExcludeOptional is false, so optional properties are included.
+ * Extracts the property paths of the provided object that match the given type.
  *
  * @param SomeObject - The object to extract the property paths from.
  * @param Type - The type of the property paths to extract.
- * @param ExcludeOptional - Flag to exclude optional properties.
  *
+ * @example
+ * ```typescript
+ * interface Result {
+ *   id: string,
+ *   price: {
+ *     max: number,
+ *     min: number,
+ *     symbol: string;
+ *   },
+ *   images: string[]
+ * }
+ *
+ * type StringPaths = ExtractPaths<Result, string>; // { 'id': string; 'price.symbol': string; }}
+ * type NumberPaths = ExtractPaths<Result, number>; // { 'price.max': number; 'price.min': number;}}
+ * ```
  * @public
  */
-export type ExtractPaths<SomeObject, Type, ExcludeOptional extends boolean = false> = {
-  [Path in PropertyPath<SomeObject> as PropertyType<SomeObject, Path> extends (
-    ExcludeOptional extends true ? Type : Type | undefined
-  )
+export type ExtractPaths<SomeObject, Type> = {
+  [Path in PropertyPath<SomeObject> as PropertyType<SomeObject, Path> extends Type
     ? Path
     : never]: Type;
 };

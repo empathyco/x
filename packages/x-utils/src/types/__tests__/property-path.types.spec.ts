@@ -1,7 +1,5 @@
 import { ExtractPaths, PropertyPath, PropertyType } from '../property-path.types';
 
-type PotentialKeys = 'a' | 'b' | 'c';
-
 interface Example {
   anString: string;
   aNumber: number;
@@ -12,7 +10,7 @@ interface Example {
   };
   anArray: { property: string }[];
   aNumberArray: number[];
-  record: Record<PotentialKeys, { property: string }>;
+  record: Record<'a' | 'b' | 'c', { property: string }>;
   complexUnion: number | { property: string };
   unknown: unknown;
   optional?: { property: string };
@@ -30,18 +28,6 @@ interface Person {
   cars: { model: string; year: number }[];
   friends: Person[];
 }
-
-interface AnotherExample {
-  stringKey: string;
-  optionalStringKey?: string;
-  numberKey: number;
-  booleanKey: boolean;
-  objectKey: {
-    innerStringKey: string;
-  };
-}
-
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /**
  * The following tests might look like silly ones that are not doing anything at all. However,
@@ -199,17 +185,36 @@ describe('PropertyType', () => {
 });
 
 describe('ExtractPaths', () => {
-  it('Returns the paths of the provided object that match the given type', () => {
-    const test: (keyof ExtractPaths<AnotherExample, string>)[] = [
+  interface PathsExample {
+    stringKey: string;
+    optionalStringKey?: string;
+    numberKey: number;
+    booleanKey: boolean;
+    objectKey: {
+      innerStringKey: string;
+    };
+    functionKey: (random: any) => any;
+    arrayKey: string[];
+  }
+
+  it('Extracts the property paths of the provided object that match the given type', () => {
+    const test: (keyof ExtractPaths<PathsExample, string>)[] = [
       'stringKey',
-      'optionalStringKey',
       'objectKey.innerStringKey',
       // @ts-expect-error
-      'objectKey'
+      'optionalStringKey',
+      // @ts-expect-error
+      'numberKey',
+      // @ts-expect-error
+      'booleanKey',
+      // @ts-expect-error
+      'objectKey',
+      // @ts-expect-error
+      'functionKey',
+      // @ts-expect-error
+      'arrayKey'
     ];
 
     expect(typeof test).toBe('object');
   });
 });
-
-/* eslint-enable @typescript-eslint/ban-ts-comment */

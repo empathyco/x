@@ -23,7 +23,7 @@
   },
   "scripts": {
     "prebuild": "rimraf ./dist ./types",
-    "build": "tsc && tsc --project tsconfig.esm.json",
+    "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",
     "test": "jest",
     "postbuild": "npm pack",
     "prepublishOnly": "npm run build"

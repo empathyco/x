@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
     "target": "es2019",
-    "module": "commonjs",
     "moduleResolution": "node",
     "strict": true,
     "esModuleInterop": true,
-    "types": ["jest"],
+    "types": [],
     "lib": ["esnext"],
+    "sourceMap": true,
+    "inlineSources": true,
     "importHelpers": true
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "**/__tests__/**/*"]
 }

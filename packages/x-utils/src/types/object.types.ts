@@ -1,22 +1,31 @@
 /**
- * Tree-shakes the provided object returning another one with only the keys that match the given
- * type.
+ * Picks the keys from the provided object that match the given type.
  *
- * @remarks By default, ExcludeOptional is false, so optional properties are included.
+ * @param SomeObject - The object to pick the keys from.
+ * @param Type - The type of the properties to pick.
  *
- * @param SomeObject - The object to tree-shake.
- * @param Type - The type of the properties to preserve.
- * @param ExcludeOptional - Flag to exclude optional properties.
+ * @example
+ * ```typescript
+ * interface Result {
+ *   id: string,
+ *   price: {
+ *     max: number,
+ *     min: number,
+ *     symbol: string;
+ *   },
+ *   images: string[]
+ * }
+ *
+ * type ResultOnlyStrings = PickByType<Result, string>; // { id: string; price: { symbol: string; }}
+ * type ResultOnlyNumbers = PickByType<Result, number>; // { price: { max: number; min: number; }}
+ * ```
  *
  * @public
  */
-export type TreeShakeObject<SomeObject, Type, ExcludeOptional extends boolean = false> = {
-  [Property in keyof SomeObject as SomeObject[Property] extends (
-    ExcludeOptional extends true ? Type | object : Type | object | undefined
-  )
+export type PickByType<SomeObject, Type> = {
+  [Property in keyof SomeObject as SomeObject[Property] extends Type | Record<string, unknown>
     ? Property
-    : // eslint-disable-next-line @typescript-eslint/ban-types
-      never]: SomeObject[Property] extends object
-    ? TreeShakeObject<SomeObject[Property], Type, ExcludeOptional>
+    : never]: SomeObject[Property] extends Record<string, unknown>
+    ? PickByType<SomeObject[Property], Type>
     : SomeObject[Property];
 };
