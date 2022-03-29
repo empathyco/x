@@ -1,4 +1,4 @@
-import { PropertyPath, PropertyType } from '../types';
+import { ExtractPathsOfType, PropertyPath, PropertyType, TreeShakeObjectByType } from '../types';
 
 type PotentialKeys = 'a' | 'b' | 'c';
 
@@ -29,6 +29,16 @@ interface Person {
   age: number;
   cars: { model: string; year: number }[];
   friends: Person[];
+}
+
+interface AnotherExample {
+  stringKey: string;
+  optionalStringKey?: string;
+  numberKey: number;
+  booleanKey: boolean;
+  objectKey: {
+    innerStringKey: string;
+  };
 }
 
 /**
@@ -184,5 +194,56 @@ describe('PropertyType', () => {
     testRecursiveFriend = { randomKey: 5 };
     testRecursiveFriend = { name: 'Some team' };
     expect(typeof testRecursiveFriend).toBe('object');
+  });
+});
+
+describe('ExtractPathsOfType', () => {
+  it('Returns the paths of the provided object that match the given type', () => {
+    const test: (keyof ExtractPathsOfType<AnotherExample, string>)[] = [
+      'stringKey',
+      'optionalStringKey',
+      'objectKey.innerStringKey',
+      // @ts-expect-error
+      'objectKey'
+    ];
+
+    expect(typeof test).toBe('object');
+  });
+});
+
+describe('TreeShakeObjectByType', () => {
+  it('Returns a tree-shaken object with the keys that match the given type', () => {
+    const test: TreeShakeObjectByType<AnotherExample, string> = {
+      objectKey: {
+        innerStringKey: 'inner'
+      },
+      stringKey: 'hi',
+      optionalStringKey: 'optional',
+      // @ts-expect-error
+      booleanKey: false
+    };
+
+    expect(test).toMatchObject<TreeShakeObjectByType<AnotherExample, string>>({
+      ...test
+    });
+  });
+
+  // eslint-disable-next-line max-len
+  it('Returns a tree-shaken object with the keys that match the given type excluding optionals', () => {
+    const test: TreeShakeObjectByType<AnotherExample, string, true> = {
+      objectKey: {
+        innerStringKey: 'inner'
+      },
+      stringKey: 'hi'
+      // TODO: Check how webstorm links tsconfig.json files to test files, as right now it is not
+      //  using our tsconfig.json because we are excluding tests files to avoid including them in
+      //  the build and types declarations.
+      /*// @ts-expect-error
+      optionalStringKey: 'optional'*/
+    };
+
+    expect(test).toMatchObject<TreeShakeObjectByType<AnotherExample, string, true>>({
+      ...test
+    });
   });
 });

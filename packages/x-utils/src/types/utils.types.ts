@@ -100,3 +100,45 @@ export type PropertyType<
   : SomeObject extends any[]
   ? SomeObject[number]
   : never;
+
+/**
+ * Extracts the paths of the provided object that match the given type.
+ *
+ * @remarks By default, ExcludeOptional is false, so optional properties are included.
+ *
+ * @param SomeObject - The object to extract the property paths from.
+ * @param Type - The type of the property paths to extract.
+ * @param ExcludeOptional - Flag to exclude optional properties.
+ *
+ * @public
+ */
+export type ExtractPathsOfType<SomeObject, Type, ExcludeOptional extends boolean = false> = {
+  [Path in PropertyPath<SomeObject> as PropertyType<SomeObject, Path> extends (
+    ExcludeOptional extends true ? Type : Type | undefined
+  )
+    ? Path
+    : never]: Type;
+};
+
+/**
+ * Tree-shakes the provided object returning another one with only the keys that match the given
+ * type.
+ *
+ * @remarks By default, ExcludeOptional is false, so optional properties are included.
+ *
+ * @param SomeObject - The object to tree-shake.
+ * @param Type - The type of the properties to preserve.
+ * @param ExcludeOptional - Flag to exclude optional properties.
+ *
+ * @public
+ */
+export type TreeShakeObjectByType<SomeObject, Type, ExcludeOptional extends boolean = false> = {
+  [Property in keyof SomeObject as SomeObject[Property] extends (
+    ExcludeOptional extends true ? Type | object : Type | object | undefined
+  )
+    ? Property
+    : // eslint-disable-next-line @typescript-eslint/ban-types
+      never]: SomeObject[Property] extends object
+    ? TreeShakeObjectByType<SomeObject[Property], Type, ExcludeOptional>
+    : SomeObject[Property];
+};
