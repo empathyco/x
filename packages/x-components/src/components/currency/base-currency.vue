@@ -64,8 +64,8 @@
      *
      * @public
      */
-    @Prop()
-    protected format?: string;
+    @Prop({ default: 'i.iii,dd' })
+    protected format!: string;
 
     /**
      * The injected format as string.
@@ -83,13 +83,9 @@
      * @internal
      */
     protected get renderedFormat(): string {
-      return (
-        this.format ??
-        this.injectedFormat ??
-        //TODO: add here logger
-        //eslint-disable-next-line no-console
-        console.warn('It is necessary to pass a prop or inject the format')
-      );
+      return 'format' in this.$options.propsData!
+        ? this.format
+        : this.injectedFormat ?? this.format;
     }
 
     /**
@@ -115,6 +111,8 @@ HTML element.
 ### Basic usage
 
 ```vue
+<BaseCurrency :value="12345678.87654321" />
+<!-- output: '12.345.678,87' -->
 <BaseCurrency :value="12345678.87654321" format="i.iii,ddd? €" />
 <!-- output: '12.345.678,876 €' -->
 <BaseCurrency :value="12345678" format="i.iii,ddd? €" />

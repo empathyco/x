@@ -13,7 +13,46 @@ function renderBaseCurrency({ value, format }: RenderBaseCurrencyOptions): Wrapp
   });
 }
 
+function renderInjectedBaseCurrency({ value, format }: RenderBaseCurrencyOptions): Wrapper<any> {
+  @Component({
+    template: '<div><slot /></div>'
+  })
+  class Provider extends Vue {
+    @XProvide('currencyFormat')
+    public providedFormat = '$i,iii.ddd';
+  }
+
+  return mount(
+    {
+      template: `
+          <Provider>
+            <BaseCurrency v-bind="{ value, ...(format && { format }) }" />
+          </Provider>
+        `,
+      components: {
+        Provider,
+        BaseCurrency
+      }
+    },
+    {
+      data: function () {
+        return {
+          value,
+          format
+        };
+      }
+    }
+  );
+}
+
 describe('testing BaseCurrency component', () => {
+  it('renders the default format', () => {
+    const wrapper = renderBaseCurrency({
+      value: 12345678
+    });
+    expect(wrapper.text()).toEqual('12.345.678,00');
+  });
+
   it('renders the provided format correctly with "?" after the decimal separator', () => {
     const wrapper = renderBaseCurrency({
       value: 12345678,
@@ -118,37 +157,16 @@ describe('testing BaseCurrency component', () => {
     expect(wrapper.text()).toEqual('12.345.678 €');
   });
 
-  it('renders the injected format', () => {
-    @Component({
-      template: '<div><slot /></div>'
-    })
-    class Provider extends Vue {
-      @XProvide('currencyFormat')
-      public providedFormat = '$i,iii.ddd';
-    }
-
-    const wrapper = mount(
-      {
-        template: `
-          <Provider>
-            <BaseCurrency :value="value" />
-          </Provider>
-        `,
-        components: {
-          Provider,
-          BaseCurrency
-        }
-      },
-      {
-        data: function () {
-          return {
-            value: 12345678.87654321
-          };
-        }
-      }
-    );
+  it('renders the injected format over default format', () => {
+    const wrapper = renderInjectedBaseCurrency({ value: 12345678.87654321 });
 
     expect(wrapper.text()).toBe('$12,345,678.876');
+  });
+
+  it('renders the passed prop format over injected format', () => {
+    const wrapper = renderInjectedBaseCurrency({ value: 12345678.87654321, format: 'i.iii,dd €' });
+
+    expect(wrapper.text()).toBe('12.345.678,87 €');
   });
 });
 
@@ -156,5 +174,5 @@ interface RenderBaseCurrencyOptions {
   /** Number to be passed to the component. */
   value: number;
   /** Format for rendering the currency. */
-  format: string;
+  format?: string;
 }
