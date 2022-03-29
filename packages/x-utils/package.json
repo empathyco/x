@@ -22,6 +22,7 @@
     "directory": "packages/x-utils"
   },
   "scripts": {
+    "prebuild": "rimraf ./dist ./types",
     "build": "tsc && tsc --project tsconfig.esm.json",
     "test": "jest",
     "postbuild": "npm pack",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "@types/jest": "~27.0.3",
     "jest": "~27.3.1",
+    "rimraf": "~3.0.2",
     "ts-jest": "~27.0.7",
     "typescript": "~4.6.2"
   },
