@@ -1,25 +1,6 @@
-interface Source {
-  data: {
-    a: string;
-    b: number;
-  };
-  facets: {
-    filter: string;
-    count: number;
-  };
-  list: { id: string }[];
-}
+import { Schema } from '../schemas.types';
 
-interface Target {
-  count: number;
-  filter: {
-    value: string;
-    num: number;
-  };
-  name: {
-    title: string;
-  };
-}
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /**
  * The following tests might look like silly ones that are not doing anything at all. However,
@@ -28,7 +9,47 @@ interface Target {
  * typescript will complain when running the tests, and they will fail.
  */
 describe('Schema', () => {
+  interface Source {
+    data: {
+      a: string;
+      b: number;
+    };
+    facets: {
+      filter: string;
+      count: number;
+    };
+    list: { id: string }[];
+  }
+
+  interface Target {
+    count: number;
+    filter: {
+      value: string;
+      num: number;
+    };
+    name: {
+      title: string;
+    };
+  }
+
   it('Returns an schema', () => {
-    expect(true).toBe(true);
+    const schema: Schema<Source, Target> = {
+      count: source => Math.min(0, source.data.b),
+      filter: {
+        $path: 'facets',
+        $subschema: {
+          num: 'count',
+          value: 'filter'
+        }
+      },
+      name: {
+        // @ts-expect-error
+        title: 'data.b'
+      }
+    };
+
+    expect(typeof schema).toBe('object');
   });
 });
+
+/* eslint-enable @typescript-eslint/ban-ts-comment */
