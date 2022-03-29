@@ -1,5 +1,6 @@
 import { HistoryQuery } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
+import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { UrlParams } from '../../../types/url-params';
 import { HistoryQueriesConfig } from '../config.types';
 
@@ -8,7 +9,7 @@ import { HistoryQueriesConfig } from '../config.types';
  *
  * @public
  */
-export interface HistoryQueriesState {
+export interface HistoryQueriesState extends QueryState {
   /**
    * Configuration for the `HistoryQueries` module.
    */
@@ -26,6 +27,10 @@ export interface HistoryQueriesState {
    * The current query for searching into the {@link HistoryQueriesState.historyQueries}.
    */
   query: string;
+  /**
+   * Whether the history queries are enabled or disabled.
+   */
+  isEnabled: boolean;
 }
 
 /**
@@ -57,7 +62,7 @@ export interface HistoryQueriesGetters {
  *
  * @public
  */
-export interface HistoryQueriesMutations {
+export interface HistoryQueriesMutations extends QueryMutations {
   /**
    * Sets the {@link HistoryQueriesState.historyQueries} property.
    *
@@ -76,6 +81,12 @@ export interface HistoryQueriesMutations {
    * @param query - The new {@link HistoryQueriesState.query }.
    */
   setQuery(query: string): void;
+  /**
+   * Sets the {@link HistoryQueriesState.isEnabled } property.
+   *
+   * @param isEnabled - The new {@link HistoryQueriesState.isEnabled }.
+   */
+  setIsEnabled(isEnabled: boolean): void;
 }
 /**
  * HistoryQueries store actions.
@@ -157,6 +168,13 @@ export interface HistoryQueriesActions {
    * @param urlParams - List of params from the url.
    */
   setUrlParams(urlParams: UrlParams): void;
+  /**
+   * Toggles the history queries and stores the state in the browser storage. It also cleans the
+   * history queries when disabling them.
+   *
+   * @param isEnabled - Whether to enable or disable the history queries.
+   */
+  toggleHistoryQueries(isEnabled: boolean): void;
 }
 /**
  * HistoryQueries type safe store module.

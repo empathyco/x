@@ -1,3 +1,4 @@
+import { setQuery } from '../../../store/utils/query.utils';
 import { urlParams } from './getters/url-params.getter';
 import { initialUrlState } from './initial-state';
 import { setParams } from './mutations/set-params.mutation';
@@ -18,9 +19,7 @@ export const urlXStoreModule: UrlXStoreModule = {
   },
   mutations: {
     setParams,
-    setQuery(state, query) {
-      state.query = query;
-    },
+    setQuery,
     setRelatedTags(state, relatedTags) {
       state.tag = relatedTags.map(relatedTag => relatedTag.tag);
     },

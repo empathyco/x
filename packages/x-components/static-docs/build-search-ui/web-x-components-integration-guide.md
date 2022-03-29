@@ -35,6 +35,8 @@ To integrate the X&nbsp;Components in a frontend UI, you need:
 - **Empathy Search API** to retrieve search data (or any other search API)
 - A **search adapter** to communicate with the search API. You can use the Empathy Adapter and
   configure it with the `EmpathyAdapterBuilder`
+- You must be working on a **Vue** project, or on a **React** project using the
+  [React Wrapper](https://github.com/empathyco/x/tree/main/packages/react-wrapper).
 
 :::
 
@@ -193,7 +195,8 @@ poster="/assets/media/videos/How-to-use-X-components-in-a-real-project.jpeg"
 Once you have integrated the Interface&nbsp;X&nbsp;Components in your project, you're ready to start
 building your search and discovery UI:
 
-- Change the configuration of the [X Components](web-use-x-components-guide.md) or create new ones.
+- Change the configuration of the [X Components](web-how-to-use-x-components-guide.md) or create new
+  ones.
 - Adapt the
   [design system](https://github.com/empathyco/x/blob/main/packages/x-components/contributing/design-system.md)
   to your branding.

@@ -1,5 +1,6 @@
 import { Filter, RelatedTag } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
+import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { UrlParams } from '../../../types/url-params';
 import { Dictionary } from '../../../utils/types';
 
@@ -8,9 +9,9 @@ import { Dictionary } from '../../../utils/types';
  *
  * @public
  */
-export type UrlState = UrlParams & {
+export interface UrlState extends QueryState, UrlParams {
   initialExtraParams: Dictionary<unknown>;
-};
+}
 
 /**
  * URL store getters.
@@ -41,7 +42,7 @@ export type UrlParamValue = string | number | boolean | Array<string | number | 
  *
  * @public
  */
-export interface UrlMutations {
+export interface UrlMutations extends QueryMutations {
   /**
    * Sets the new params.
    *

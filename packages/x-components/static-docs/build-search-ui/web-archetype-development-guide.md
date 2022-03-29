@@ -77,13 +77,10 @@ Then, replace the current repository name (`@empathyco/x-archetype`) with the na
 repository in the `package.json` file.
 
 ```json
-// Define your repository
 {
-   "name": "<your-repo>",
-   "author": "Empathy Systems Corporation S.L.",
-   …
- }
-
+  "name": "<your-repo>",
+  "author": "Empathy Systems Corporation S.L."
+}
 ```
 
 ## 2. Install the dependencies and execute the project
@@ -116,7 +113,7 @@ configurations, or mappers that points to a demo environment. You need to make s
 the configuration according to the search features you use in your project.
 
 Export the required search adapter with your configuration as you will need it for the search
-[xPlugin configuration](web-archetype-integration-guide.md#_4-configure-the-plugin).
+[xPlugin configuration](#4-configure-the-plugin).
 
 ::: interact
 
@@ -178,7 +175,8 @@ Once you have your Interface&nbsp;X&nbsp;Archetype project, you're ready to inte
 store, or extend the search and discovery experience to meet your business needs:
 
 - [Integrate an Interface&nbsp;X&nbsp;Archetype project into an existing website](web-archetype-integration-guide.md).
-- Change the configuration of [X Components](web-use-x-components-guide.md) or create new ones.
+- Change the configuration of [X Components](web-how-to-use-x-components-guide.md) or create new
+  ones.
 - Adapt the
   [design system](https://github.com/empathyco/x/blob/main/packages/x-components/contributing/design-system.md)
   to your branding.

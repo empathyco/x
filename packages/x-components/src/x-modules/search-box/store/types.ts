@@ -1,4 +1,5 @@
 import { XStoreModule } from '../../../store';
+import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { UrlParams } from '../../../types/url-params';
 
 /**
@@ -6,7 +7,7 @@ import { UrlParams } from '../../../types/url-params';
  *
  * @public
  */
-export interface SearchBoxState {
+export interface SearchBoxState extends QueryState {
   /** The query of the search box input. */
   query: string;
 }
@@ -26,7 +27,7 @@ export interface SearchBoxGetters {
  *
  * @public
  */
-export interface SearchBoxMutations {
+export interface SearchBoxMutations extends QueryMutations {
   /**
    * Sets the new query of the search-box.
    *

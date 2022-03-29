@@ -43,4 +43,9 @@ export interface HistoryQueriesXEvents {
    * * Payload: The {@link @empathyco/x-types#HistoryQuery | history query} selected.
    */
   UserSelectedAHistoryQuery: HistoryQuery;
+  /**
+   * The user has toggled the history queries.
+   * * Payload: whether it has been set to enable or disable.
+   */
+  UserToggledHistoryQueries: boolean;
 }
