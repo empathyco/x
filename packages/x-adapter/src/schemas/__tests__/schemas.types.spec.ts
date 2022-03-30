@@ -1,13 +1,5 @@
 import { Schema } from '../schemas.types';
 
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
-/**
- * The following tests might look like silly ones that are not doing anything at all. However,
- * the goal of having them is to trigger typescript to check that the types are valid,
- * even if the assertions are not useful. So if we refactor the types and break something
- * typescript will complain when running the tests, and they will fail.
- */
 describe('Schema', () => {
   interface Source {
     data: {
@@ -18,6 +10,10 @@ describe('Schema', () => {
       filter: string;
       count: number;
     };
+    price: {
+      original: number;
+      sale: number;
+    };
     list: { id: string }[];
   }
 
@@ -27,12 +23,26 @@ describe('Schema', () => {
       value: string;
       num: number;
     };
+    price: {
+      hasDiscount: boolean;
+      discountPercentage: number;
+      original: number;
+      discounted: number;
+    };
     name: {
       title: string;
     };
   }
 
   it('Returns an schema', () => {
+    const priceSchema: Schema<Source['price'], Target['price']> = {
+      // eslint-disable-next-line @typescript-eslint/no-extra-parens
+      hasDiscount: (_, context) => (context.requestParameters?.q === 'potatoe' ? false : true),
+      discountPercentage: source => (1 - source.original / source.sale) * 100,
+      original: 'original',
+      discounted: 'sale'
+    };
+
     const schema: Schema<Source, Target> = {
       count: source => Math.min(0, source.data.b),
       filter: {
@@ -41,6 +51,10 @@ describe('Schema', () => {
           num: 'count',
           value: 'filter'
         }
+      },
+      price: {
+        $path: 'price',
+        $subschema: priceSchema
       },
       name: {
         // @ts-expect-error
@@ -51,5 +65,3 @@ describe('Schema', () => {
     expect(typeof schema).toBe('object');
   });
 });
-
-/* eslint-enable @typescript-eslint/ban-ts-comment */

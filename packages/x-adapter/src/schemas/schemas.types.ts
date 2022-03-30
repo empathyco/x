@@ -99,6 +99,7 @@ type SubSchema<Source, Target> = {
   };
 }[PropertyPath<Source>];
 
+// TODO: Remove type after merging EX-5763
 type ExtractPaths<SomeObject, Type> = {
   [Path in PropertyPath<SomeObject> as PropertyType<SomeObject, Path> extends Type
     ? Path
