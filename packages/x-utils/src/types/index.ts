@@ -1,2 +1,2 @@
-export * from './property-path.types';
+export * from './paths.types';
 export * from './utils.types';

@@ -15,7 +15,7 @@ import { Keys, Primitive } from './utils.types';
  *     images: string[]
  *   }
  *
- *  type ResultPropertyPaths = ExtractPropertyPath<Result>;
+ *  type ResultPropertyPaths = ExtractPath<Result>;
  *  // "id" | "price" | "price.max" | "price.min" | "images" | `images.${number}`;
  * ```
  * @remarks
@@ -27,9 +27,9 @@ import { Keys, Primitive } from './utils.types';
  * valid javascript syntax so this type will assume as safe getting the 'n.' element.
  * @public
  */
-export type ExtractPropertyPath<SomeObject> = SomeObject extends (infer ArrayType)[]
-  ? `${number}` | `${number}.${ExtractPropertyPath<ArrayType>}`
-  : Keys<SomeObject, string> | ExtractNestedPropertyPath<SomeObject, Keys<SomeObject, string>>;
+export type ExtractPath<SomeObject> = SomeObject extends (infer ArrayType)[]
+  ? `${number}` | `${number}.${ExtractPath<ArrayType>}`
+  : Keys<SomeObject, string> | ExtractNestedPath<SomeObject, Keys<SomeObject, string>>;
 
 /**
  * String path for child properties from a given object.
@@ -39,10 +39,7 @@ export type ExtractPropertyPath<SomeObject> = SomeObject extends (infer ArrayTyp
  *
  * @internal
  */
-type ExtractNestedPropertyPath<
-  SomeObject,
-  PropName extends string
-> = PropName extends keyof SomeObject
+type ExtractNestedPath<SomeObject, PropName extends string> = PropName extends keyof SomeObject
   ? // eslint-disable-next-line max-len
     SomeObject[PropName] extends SomeObject // Check that a child property is not from the same type as the parent to avoid infinite loops on recursive types
     ? `${PropName}.${Keys<SomeObject[PropName], string>}${any}`
@@ -50,7 +47,7 @@ type ExtractNestedPropertyPath<
     SomeObject[PropName] extends SomeObject[] // Check that a child property is not from the same type as the parent to avoid infinite loops on recursive types
     ? `${PropName}.${number}` | `${PropName}.${number}.${Keys<SomeObject, string>}${any}`
     : // eslint-disable-next-line @typescript-eslint/ban-types
-      `${PropName}.${ExtractPropertyPath<Exclude<SomeObject[PropName], Function | Primitive>>}`
+      `${PropName}.${ExtractPath<Exclude<SomeObject[PropName], Function | Primitive>>}`
   : never;
 
 /**
@@ -69,21 +66,21 @@ type ExtractNestedPropertyPath<
  *     images: string[]
  *   }
  *
- *  type MaxPrice = ExtractPropertyType<Result, "price.max">; // number
- *  type FirstImageType = ExtractPropertyType<Result, "images.0">; // string
+ *  type MaxPrice = ExtractType<Result, "price.max">; // number
+ *  type FirstImageType = ExtractType<Result, "images.0">; // string
  * ```
  *
  * @public
  */
-export type ExtractPropertyType<
+export type ExtractType<
   SomeObject,
-  Path extends ExtractPropertyPath<SomeObject>
+  Path extends ExtractPath<SomeObject>
 > = Path extends keyof SomeObject
   ? SomeObject[Path]
   : Path extends `${infer Property}.${infer RemainingPath}`
-  ? ExtractPropertyType<
+  ? ExtractType<
       SomeObject[keyof SomeObject & Property],
-      ExtractPropertyPath<SomeObject[keyof SomeObject & Property]> & RemainingPath
+      ExtractPath<SomeObject[keyof SomeObject & Property]> & RemainingPath
     >
   : SomeObject extends any[]
   ? SomeObject[number]
@@ -107,22 +104,19 @@ export type ExtractPropertyType<
  *   images: string[]
  * }
  *
- * type StringPaths = ExtractPropertyPathsByType<Result, string>[];
+ * type StringPaths = ExtractPathByType<Result, string>[];
  * // ['id', 'price.symbol', 'images']
- * type NumberPaths = ExtractPropertyPathsByType<Result, number>[];
+ * type NumberPaths = ExtractPathByType<Result, number>[];
  * // ['price.max', 'price.min']
  * ```
  * @public
  */
-export type ExtractPropertyPathsByType<SomeObject, Type> = keyof {
-  [Path in ExtractPropertyPath<SomeObject> as ExtractPropertyType<
-    SomeObject,
-    Path
-  > extends (infer ArrayType)[]
+export type ExtractPathByType<SomeObject, Type> = keyof {
+  [Path in ExtractPath<SomeObject> as ExtractType<SomeObject, Path> extends (infer ArrayType)[]
     ? ArrayType extends Type
-      ? Path
+      ? `${Path}\[.${number}|[${number}]\]`
       : never
-    : ExtractPropertyType<SomeObject, Path> extends Type
+    : ExtractType<SomeObject, Path> extends Type
     ? Path
     : never]: any;
 };
