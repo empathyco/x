@@ -48,7 +48,7 @@ export type Schema<Source = any, Target = any> = {
  * @public
  */
 export type SchemaTransformer<Source, Target, TargetKey extends keyof Target> =
-  | keyof ExtractPaths<Source, Target[TargetKey]>
+  | ExtractPathByType<Source, Target[TargetKey]>
   | ((source: Source, context?: MapperContext) => Target[TargetKey])
   // eslint-disable-next-line @typescript-eslint/ban-types
   | Schema<Source, Exclude<Target[TargetKey], Function | Primitive>>
@@ -100,8 +100,12 @@ type SubSchema<Source, Target> = {
 }[PropertyPath<Source>];
 
 // TODO: Remove type after merging EX-5763
-type ExtractPaths<SomeObject, Type> = {
-  [Path in PropertyPath<SomeObject> as PropertyType<SomeObject, Path> extends Type
+export type ExtractPathByType<SomeObject, Type> = keyof {
+  [Path in PropertyPath<SomeObject> as PropertyType<SomeObject, Path> extends (infer ArrayType)[]
+    ? ArrayType extends Type
+      ? `${Path}.${number}`
+      : never
+    : PropertyType<SomeObject, Path> extends Type
     ? Path
-    : never]: Type;
+    : never]: any;
 };
