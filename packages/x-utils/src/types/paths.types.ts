@@ -114,7 +114,7 @@ export type ExtractType<
 export type ExtractPathByType<SomeObject, Type> = keyof {
   [Path in ExtractPath<SomeObject> as ExtractType<SomeObject, Path> extends (infer ArrayType)[]
     ? ArrayType extends Type
-      ? `${Path}\[.${number}|[${number}]\]`
+      ? `${Path}.${number}`
       : never
     : ExtractType<SomeObject, Path> extends Type
     ? Path
