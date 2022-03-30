@@ -48,7 +48,7 @@ export type Schema<Source = any, Target = any> = {
  * @public
  */
 export type SchemaTransformer<Source, Target, TargetKey extends keyof Target> =
-  | keyof ExtractPathsOfType<TreeShakeObjectByType<Source, Target[TargetKey]>, Target[TargetKey]>
+  | keyof ExtractPaths<Source, Target[TargetKey]>
   | ((source: Source, context?: MapperContext) => Target[TargetKey])
   // eslint-disable-next-line @typescript-eslint/ban-types
   | Schema<Source, Exclude<Target[TargetKey], Function | Primitive>>
@@ -99,15 +99,8 @@ type SubSchema<Source, Target> = {
   };
 }[PropertyPath<Source>];
 
-type TreeShakeObjectByType<T, Type> = {
-  [P in keyof T as T[P] extends Type | object
-    ? P
-    : // eslint-disable-next-line @typescript-eslint/ban-types
-      never]: T[P] extends object ? TreeShakeObjectByType<T[P], Type> : T[P];
-};
-
-type ExtractPathsOfType<Source, KeyType> = {
-  [Path in PropertyPath<Source> as PropertyType<Source, Path> extends KeyType
+type ExtractPaths<SomeObject, Type> = {
+  [Path in PropertyPath<SomeObject> as PropertyType<SomeObject, Path> extends Type
     ? Path
-    : never]: KeyType;
+    : never]: Type;
 };
