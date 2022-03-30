@@ -1,4 +1,8 @@
-import { ExtractPaths, PropertyPath, PropertyType } from '../property-path.types';
+import {
+  ExtractPropertyPath,
+  ExtractPropertyPathsByType,
+  ExtractPropertyType
+} from '../property-path.types';
 
 interface Example {
   anString: string;
@@ -35,9 +39,9 @@ interface Person {
  * even if the assertions are not useful. So if we refactor the types and break something
  * typescript will complain when running the tests, and they will fail.
  */
-describe('PropertyPath', () => {
+describe('ExtractPropertyPath', () => {
   it('Safe types the string path to a property', () => {
-    const test: PropertyPath<Example>[] = [
+    const test: ExtractPropertyPath<Example>[] = [
       'anString',
       'anObject.something',
       'anObject.something.deep',
@@ -78,9 +82,9 @@ describe('PropertyPath', () => {
   });
 });
 
-describe('PropertyType', () => {
+describe('ExtractPropertyType', () => {
   it('Returns the a boolean property', () => {
-    type BooleanProperty = PropertyType<Example, 'anObject.something.deep'>;
+    type BooleanProperty = ExtractPropertyType<Example, 'anObject.something.deep'>;
     // @ts-expect-error
     let test: BooleanProperty = {};
     // @ts-expect-error
@@ -92,7 +96,7 @@ describe('PropertyType', () => {
   });
 
   it('Returns an array property', () => {
-    type ArrayOfObjects = PropertyType<Example, 'anArray'>;
+    type ArrayOfObjects = ExtractPropertyType<Example, 'anArray'>;
     // @ts-expect-error
     let testArray: ArrayOfObjects = {};
     // @ts-expect-error
@@ -104,7 +108,7 @@ describe('PropertyType', () => {
   });
 
   it('Returns a complex union property', () => {
-    type NumberOrObjectWithProperty = PropertyType<Example, 'complexUnion'>;
+    type NumberOrObjectWithProperty = ExtractPropertyType<Example, 'complexUnion'>;
     // @ts-expect-error
     let testComplexUnion: NumberOrObjectWithProperty = 'some string';
     // @ts-expect-error
@@ -117,7 +121,7 @@ describe('PropertyType', () => {
   });
 
   it('Returns a recursive object', () => {
-    type RecursiveObject = PropertyType<Example, 'recursive.recursive'>;
+    type RecursiveObject = ExtractPropertyType<Example, 'recursive.recursive'>;
     // @ts-expect-error
     let testRecursiveObject: Partial<RecursiveObject> = true;
     // @ts-expect-error
@@ -131,7 +135,7 @@ describe('PropertyType', () => {
   });
 
   it('Returns a recursive number property', () => {
-    type RecursiveFriendAge = PropertyType<
+    type RecursiveFriendAge = ExtractPropertyType<
       Example,
       // eslint-disable-next-line max-len
       'person.friends.0.friends.1.friends.2.friends.3.friends.4.friends.5.friends.6.friends.7.friends.8.friends.9.friends.10.age'
@@ -150,7 +154,7 @@ describe('PropertyType', () => {
   });
 
   it('Returns a recursive string property', () => {
-    type RecursiveFriendName = PropertyType<
+    type RecursiveFriendName = ExtractPropertyType<
       Example,
       // eslint-disable-next-line max-len
       'person.friends.0.friends.1.friends.2.friends.3.friends.4.friends.5.friends.6.friends.7.friends.8.friends.9.friends.10.name'
@@ -167,7 +171,7 @@ describe('PropertyType', () => {
   });
 
   it('Returns a deep recursive array item', () => {
-    type RecursiveFriend = PropertyType<
+    type RecursiveFriend = ExtractPropertyType<
       Example,
       // eslint-disable-next-line max-len
       'person.friends.0.friends.1.friends.2.friends.3.friends.4.friends.5.friends.6.friends.7.friends.8.friends.9.friends.10'
@@ -184,7 +188,7 @@ describe('PropertyType', () => {
   });
 });
 
-describe('ExtractPaths', () => {
+describe('ExtractPropertyPathsByType', () => {
   interface PathsExample {
     stringKey: string;
     optionalStringKey?: string;
@@ -198,9 +202,10 @@ describe('ExtractPaths', () => {
   }
 
   it('Extracts the property paths of the provided object that match the given type', () => {
-    const test: (keyof ExtractPaths<PathsExample, string>)[] = [
+    const test: ExtractPropertyPathsByType<PathsExample, string>[] = [
       'stringKey',
       'objectKey.innerStringKey',
+      'arrayKey',
       // @ts-expect-error
       'optionalStringKey',
       // @ts-expect-error
@@ -210,9 +215,7 @@ describe('ExtractPaths', () => {
       // @ts-expect-error
       'objectKey',
       // @ts-expect-error
-      'functionKey',
-      // @ts-expect-error
-      'arrayKey'
+      'functionKey'
     ];
 
     expect(typeof test).toBe('object');

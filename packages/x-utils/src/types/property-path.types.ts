@@ -1,7 +1,7 @@
 import { Keys, Primitive } from './utils.types';
 
 /**
- * All the possible string paths to properties for a given object.
+ * Extracts all the possible string paths to properties for a given object.
  *
  * @param SomeObject - The object type to extract the properties names from.
  * @example
@@ -15,7 +15,7 @@ import { Keys, Primitive } from './utils.types';
  *     images: string[]
  *   }
  *
- *  type ResultPropertyPaths = PropertyPath<Result>;
+ *  type ResultPropertyPaths = ExtractPropertyPath<Result>;
  *  // "id" | "price" | "price.max" | "price.min" | "images" | `images.${number}`;
  * ```
  * @remarks
@@ -27,9 +27,9 @@ import { Keys, Primitive } from './utils.types';
  * valid javascript syntax so this type will assume as safe getting the 'n.' element.
  * @public
  */
-export type PropertyPath<SomeObject> = SomeObject extends (infer ArrayType)[]
-  ? `${number}` | `${number}.${PropertyPath<ArrayType>}`
-  : Keys<SomeObject, string> | NestedPropertyPath<SomeObject, Keys<SomeObject, string>>;
+export type ExtractPropertyPath<SomeObject> = SomeObject extends (infer ArrayType)[]
+  ? `${number}` | `${number}.${ExtractPropertyPath<ArrayType>}`
+  : Keys<SomeObject, string> | ExtractNestedPropertyPath<SomeObject, Keys<SomeObject, string>>;
 
 /**
  * String path for child properties from a given object.
@@ -39,7 +39,10 @@ export type PropertyPath<SomeObject> = SomeObject extends (infer ArrayType)[]
  *
  * @internal
  */
-type NestedPropertyPath<SomeObject, PropName extends string> = PropName extends keyof SomeObject
+type ExtractNestedPropertyPath<
+  SomeObject,
+  PropName extends string
+> = PropName extends keyof SomeObject
   ? // eslint-disable-next-line max-len
     SomeObject[PropName] extends SomeObject // Check that a child property is not from the same type as the parent to avoid infinite loops on recursive types
     ? `${PropName}.${Keys<SomeObject[PropName], string>}${any}`
@@ -47,11 +50,11 @@ type NestedPropertyPath<SomeObject, PropName extends string> = PropName extends 
     SomeObject[PropName] extends SomeObject[] // Check that a child property is not from the same type as the parent to avoid infinite loops on recursive types
     ? `${PropName}.${number}` | `${PropName}.${number}.${Keys<SomeObject, string>}${any}`
     : // eslint-disable-next-line @typescript-eslint/ban-types
-      `${PropName}.${PropertyPath<Exclude<SomeObject[PropName], Function | Primitive>>}`
+      `${PropName}.${ExtractPropertyPath<Exclude<SomeObject[PropName], Function | Primitive>>}`
   : never;
 
 /**
- * Retrieves type of property for the given path from the provided object.
+ * Extracts the property type for the given path from the provided object.
  *
  * @param SomeObject - The object to extract the property type from.
  * @param Path - String property path.
@@ -66,21 +69,21 @@ type NestedPropertyPath<SomeObject, PropName extends string> = PropName extends 
  *     images: string[]
  *   }
  *
- *  type MaxPrice = PropertyType<Result, "price.max">; // number
- *  type FirstImageType = PropertyType<Result, "images.0">; // string
+ *  type MaxPrice = ExtractPropertyType<Result, "price.max">; // number
+ *  type FirstImageType = ExtractPropertyType<Result, "images.0">; // string
  * ```
  *
  * @public
  */
-export type PropertyType<
+export type ExtractPropertyType<
   SomeObject,
-  Path extends PropertyPath<SomeObject>
+  Path extends ExtractPropertyPath<SomeObject>
 > = Path extends keyof SomeObject
   ? SomeObject[Path]
   : Path extends `${infer Property}.${infer RemainingPath}`
-  ? PropertyType<
+  ? ExtractPropertyType<
       SomeObject[keyof SomeObject & Property],
-      PropertyPath<SomeObject[keyof SomeObject & Property]> & RemainingPath
+      ExtractPropertyPath<SomeObject[keyof SomeObject & Property]> & RemainingPath
     >
   : SomeObject extends any[]
   ? SomeObject[number]
@@ -104,13 +107,22 @@ export type PropertyType<
  *   images: string[]
  * }
  *
- * type StringPaths = ExtractPaths<Result, string>; // { 'id': string; 'price.symbol': string; }}
- * type NumberPaths = ExtractPaths<Result, number>; // { 'price.max': number; 'price.min': number;}}
+ * type StringPaths = ExtractPropertyPathsByType<Result, string>[];
+ * // ['id', 'price.symbol', 'images']
+ * type NumberPaths = ExtractPropertyPathsByType<Result, number>[];
+ * // ['price.max', 'price.min']
  * ```
  * @public
  */
-export type ExtractPaths<SomeObject, Type> = {
-  [Path in PropertyPath<SomeObject> as PropertyType<SomeObject, Path> extends Type
+export type ExtractPropertyPathsByType<SomeObject, Type> = keyof {
+  [Path in ExtractPropertyPath<SomeObject> as ExtractPropertyType<
+    SomeObject,
+    Path
+  > extends (infer ArrayType)[]
+    ? ArrayType extends Type
+      ? Path
+      : never
+    : ExtractPropertyType<SomeObject, Path> extends Type
     ? Path
-    : never]: Type;
+    : never]: any;
 };

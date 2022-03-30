@@ -1,15 +1,9 @@
 {
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "target": "es2019",
-    "moduleResolution": "node",
-    "strict": true,
-    "esModuleInterop": true,
     "types": [],
-    "lib": ["esnext"],
     "sourceMap": true,
-    "inlineSources": true,
-    "importHelpers": true
+    "inlineSources": true
   },
-  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "**/__tests__/**/*"]
 }
