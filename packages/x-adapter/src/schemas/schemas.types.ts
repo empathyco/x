@@ -1,4 +1,4 @@
-import { PropertyPath, PropertyType, Primitive } from '@empathyco/x-utils';
+import { ExtractPath, ExtractType, ExtractPathByType, Primitive } from '@empathyco/x-utils';
 import { MapperContext } from '../types/index';
 
 /**
@@ -48,7 +48,7 @@ export type Schema<Source = any, Target = any> = {
  * @public
  */
 export type SchemaTransformer<Source, Target, TargetKey extends keyof Target> =
-  | keyof ExtractPaths<Source, Target[TargetKey]>
+  | ExtractPathByType<Source, Target[TargetKey]>
   | ((source: Source, context?: MapperContext) => Target[TargetKey])
   // eslint-disable-next-line @typescript-eslint/ban-types
   | Schema<Source, Exclude<Target[TargetKey], Function | Primitive>>
@@ -92,16 +92,9 @@ export type SchemaTransformer<Source, Target, TargetKey extends keyof Target> =
  * @public
  */
 type SubSchema<Source, Target> = {
-  [Path in PropertyPath<Source>]: {
+  [Path in ExtractPath<Source>]: {
     $context?: MapperContext;
     $path: Path;
-    $subschema: Schema<PropertyType<Source, Path>, Target> | '$self';
+    $subschema: Schema<ExtractType<Source, Path>, Target> | '$self';
   };
-}[PropertyPath<Source>];
-
-// TODO: Remove type after merging EX-5763
-type ExtractPaths<SomeObject, Type> = {
-  [Path in PropertyPath<SomeObject> as PropertyType<SomeObject, Path> extends Type
-    ? Path
-    : never]: Type;
-};
+}[ExtractPath<Source>];

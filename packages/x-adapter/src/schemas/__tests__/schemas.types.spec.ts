@@ -1,6 +1,6 @@
 import { Schema } from '../schemas.types';
 
-describe('Schema', () => {
+describe('schema tests', () => {
   interface Source {
     data: {
       a: string;
