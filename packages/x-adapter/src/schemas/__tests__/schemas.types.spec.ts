@@ -36,7 +36,6 @@ describe('Schema', () => {
 
   it('Returns an schema', () => {
     const priceSchema: Schema<Source['price'], Target['price']> = {
-      // eslint-disable-next-line @typescript-eslint/no-extra-parens
       hasDiscount: (_, context) => !!(context?.requestParameters?.q === 'potatoe'),
       discountPercentage: source => (1 - source.original / source.sale) * 100,
       original: 'original',
