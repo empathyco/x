@@ -26,7 +26,7 @@ function renderInjectedBaseCurrency({ value, format }: RenderBaseCurrencyOptions
     {
       template: `
           <Provider>
-            <BaseCurrency v-bind="{ value, ...(format && { format }) }" />
+          <BaseCurrency v-bind="{ value, format }" />
           </Provider>
         `,
       components: {

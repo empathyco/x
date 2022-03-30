@@ -72,7 +72,7 @@ props. `format` to select the currency format to be applied.
 </template>
 
 <script>
-  import { BaseResultPreviousPrice } from '@empathyco/x-components/result';
+  import { BaseResultPreviousPrice } from '@empathyco/x-components';
 
   export default {
     name: 'BaseResultPreviousPriceDemo',
@@ -93,7 +93,7 @@ props. `format` to select the currency format to be applied.
 </template>
 
 <script>
-  import { BaseResultPreviousPrice } from '@empathyco/x-components/result';
+  import { BaseResultPreviousPrice } from '@empathyco/x-components';
 
   export default {
     name: 'BaseResultPreviousPriceDemo',

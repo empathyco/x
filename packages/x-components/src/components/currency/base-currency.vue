@@ -65,7 +65,7 @@
      * @public
      */
     @Prop()
-    protected format!: string;
+    protected format?: string;
 
     /**
      * The injected format as string.
@@ -115,7 +115,7 @@ HTML element.
 </template>
 
 <script>
-  import { BaseCurrency } from '@empathyco/x-components/currency';
+  import { BaseCurrency } from '@empathyco/x-components';
 
   export default {
     name: 'BaseCurrencyDemo',
@@ -133,7 +133,7 @@ HTML element.
 </template>
 
 <script>
-  import { BaseCurrency } from '@empathyco/x-components/currency';
+  import { BaseCurrency } from '@empathyco/x-components';
 
   export default {
     name: 'BaseCurrencyDemo',
@@ -151,7 +151,7 @@ HTML element.
 </template>
 
 <script>
-  import { BaseCurrency } from '@empathyco/x-components/currency';
+  import { BaseCurrency } from '@empathyco/x-components';
 
   export default {
     name: 'BaseCurrencyDemo',
@@ -169,7 +169,7 @@ HTML element.
 </template>
 
 <script>
-  import { BaseCurrency } from '@empathyco/x-components/currency';
+  import { BaseCurrency } from '@empathyco/x-components';
 
   export default {
     name: 'BaseCurrencyDemo',
@@ -187,7 +187,7 @@ HTML element.
 </template>
 
 <script>
-  import { BaseCurrency } from '@empathyco/x-components/currency';
+  import { BaseCurrency } from '@empathyco/x-components';
 
   export default {
     name: 'BaseCurrencyDemo',
@@ -205,7 +205,7 @@ HTML element.
 </template>
 
 <script>
-  import { BaseCurrency } from '@empathyco/x-components/currency';
+  import { BaseCurrency } from '@empathyco/x-components';
 
   export default {
     name: 'BaseCurrencyDemo',
@@ -223,7 +223,7 @@ HTML element.
 </template>
 
 <script>
-  import { BaseCurrency } from '@empathyco/x-components/currency';
+  import { BaseCurrency } from '@empathyco/x-components';
 
   export default {
     name: 'BaseCurrencyDemo',
@@ -241,7 +241,7 @@ HTML element.
 </template>
 
 <script>
-  import { BaseCurrency } from '@empathyco/x-components/currency';
+  import { BaseCurrency } from '@empathyco/x-components';
 
   export default {
     name: 'BaseCurrencyDemo',
@@ -259,7 +259,7 @@ HTML element.
 </template>
 
 <script>
-  import { BaseCurrency } from '@empathyco/x-components/currency';
+  import { BaseCurrency } from '@empathyco/x-components';
 
   export default {
     name: 'BaseCurrencyDemo',
@@ -277,7 +277,7 @@ HTML element.
 </template>
 
 <script>
-  import { BaseCurrency } from '@empathyco/x-components/currency';
+  import { BaseCurrency } from '@empathyco/x-components';
 
   export default {
     name: 'BaseCurrencyDemo',
@@ -295,7 +295,7 @@ HTML element.
 </template>
 
 <script>
-  import { BaseCurrency } from '@empathyco/x-components/currency';
+  import { BaseCurrency } from '@empathyco/x-components';
 
   export default {
     name: 'BaseCurrencyDemo',
@@ -313,7 +313,7 @@ HTML element.
 </template>
 
 <script>
-  import { BaseCurrency } from '@empathyco/x-components/currency';
+  import { BaseCurrency } from '@empathyco/x-components';
 
   export default {
     name: 'BaseCurrencyDemo',
@@ -331,7 +331,7 @@ HTML element.
 </template>
 
 <script>
-  import { BaseCurrency } from '@empathyco/x-components/currency';
+  import { BaseCurrency } from '@empathyco/x-components';
 
   export default {
     name: 'BaseCurrencyDemo',
@@ -349,7 +349,7 @@ HTML element.
 </template>
 
 <script>
-  import { BaseCurrency } from '@empathyco/x-components/currency';
+  import { BaseCurrency } from '@empathyco/x-components';
 
   export default {
     name: 'BaseCurrencyDemo',
@@ -367,7 +367,7 @@ HTML element.
 </template>
 
 <script>
-  import { BaseCurrency } from '@empathyco/x-components/currency';
+  import { BaseCurrency } from '@empathyco/x-components';
 
   export default {
     name: 'BaseCurrencyDemo',
