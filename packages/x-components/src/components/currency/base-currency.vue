@@ -64,7 +64,7 @@
      *
      * @public
      */
-    @Prop({ default: 'i.iii,dd' })
+    @Prop()
     protected format!: string;
 
     /**
@@ -83,9 +83,7 @@
      * @internal
      */
     protected get renderedFormat(): string {
-      return 'format' in this.$options.propsData!
-        ? this.format
-        : this.injectedFormat ?? this.format;
+      return this.format ?? this.injectedFormat ?? 'i.iii,dd';
     }
 
     /**
@@ -111,35 +109,272 @@ HTML element.
 ### Basic usage
 
 ```vue
-<BaseCurrency :value="12345678.87654321" />
-<!-- output: '12.345.678,87' -->
-<BaseCurrency :value="12345678.87654321" format="i.iii,ddd? €" />
-<!-- output: '12.345.678,876 €' -->
-<BaseCurrency :value="12345678" format="i.iii,ddd? €" />
-<!-- output: '12.345.678 €' -->
-<BaseCurrency :value="12345678.87654321" format="$ i.iii,dd" />
-<!-- output: '$ 12.345.678,87' -->
-<BaseCurrency :value="12345678.87654321" format="$i.iii,dd" />
-<!-- output: '$12.345.678,87' -->
-<BaseCurrency :value="12345678.87654321" format="i.iii,dd €" />
-<!-- output: '12.345.678,87 €' -->
-<BaseCurrency :value="12345678.87654321" format="i.iii,dd€" />
-<!-- output: '12.345.678,87€' -->
-<BaseCurrency :value="12345678.87654321" format="i,iii.dd €" />
-<!-- output: '12,345,678.87 €' -->
-<BaseCurrency :value="12345678.87654321" format="i iii.dd €" />
-<!-- output: '12 345 678.87 €' -->
-<BaseCurrency :value="12345678.87654321" format="i iii - dd €" />
-<!-- output: '12 345 678 - 87 €' -->
-<BaseCurrency :value="12345678.87654321" format="i.iii,dddddd €" />
-<!-- output: '12.345.678,876543 €' -->
-<BaseCurrency :value="12345678.87" format="i.iii,dddddd €" />
-<!-- output: '12.345.678,870000 €' -->
-<BaseCurrency :value="12345678" format="i.iii,dddddd €" />
-<!-- output: '12.345.678,000000 €' -->
-<BaseCurrency :value="12345678.87654321" format="i.iii,dd €" />
-<!-- output: '12.345.678,87 €' -->
-<BaseCurrency :value="12345678.87654321" format="i.iii €" />
-<!-- output: '12.345.678 €' -->
+<template>
+  <BaseCurrency :value="12345678.87654321" />
+  <!-- output: '12.345.678,87' -->
+</template>
+
+<script>
+  import { BaseCurrency } from '@empathyco/x-components/currency';
+
+  export default {
+    name: 'BaseCurrencyDemo',
+    components: {
+      BaseCurrency
+    }
+  };
+</script>
+```
+
+```vue
+<template>
+  <BaseCurrency :value="12345678.87654321" format="i.iii,ddd? €" />
+  <!-- output: '12.345.678,876 €' -->
+</template>
+
+<script>
+  import { BaseCurrency } from '@empathyco/x-components/currency';
+
+  export default {
+    name: 'BaseCurrencyDemo',
+    components: {
+      BaseCurrency
+    }
+  };
+</script>
+```
+
+```vue
+<template>
+  <BaseCurrency :value="12345678" format="i.iii,ddd? €" />
+  <!-- output: '12.345.678 €' -->
+</template>
+
+<script>
+  import { BaseCurrency } from '@empathyco/x-components/currency';
+
+  export default {
+    name: 'BaseCurrencyDemo',
+    components: {
+      BaseCurrency
+    }
+  };
+</script>
+```
+
+```vue
+<template>
+  <BaseCurrency :value="12345678.87654321" format="$ i.iii,dd" />
+  <!-- output: '$ 12.345.678,87' -->
+</template>
+
+<script>
+  import { BaseCurrency } from '@empathyco/x-components/currency';
+
+  export default {
+    name: 'BaseCurrencyDemo',
+    components: {
+      BaseCurrency
+    }
+  };
+</script>
+```
+
+```vue
+<template>
+  <BaseCurrency :value="12345678.87654321" format="$i.iii,dd" />
+  <!-- output: '$12.345.678,87' -->
+</template>
+
+<script>
+  import { BaseCurrency } from '@empathyco/x-components/currency';
+
+  export default {
+    name: 'BaseCurrencyDemo',
+    components: {
+      BaseCurrency
+    }
+  };
+</script>
+```
+
+```vue
+<template>
+  <BaseCurrency :value="12345678.87654321" format="i.iii,dd €" />
+  <!-- output: '12.345.678,87 €' -->
+</template>
+
+<script>
+  import { BaseCurrency } from '@empathyco/x-components/currency';
+
+  export default {
+    name: 'BaseCurrencyDemo',
+    components: {
+      BaseCurrency
+    }
+  };
+</script>
+```
+
+```vue
+<template>
+  <BaseCurrency :value="12345678.87654321" format="i.iii,dd€" />
+  <!-- output: '12.345.678,87€' -->
+</template>
+
+<script>
+  import { BaseCurrency } from '@empathyco/x-components/currency';
+
+  export default {
+    name: 'BaseCurrencyDemo',
+    components: {
+      BaseCurrency
+    }
+  };
+</script>
+```
+
+```vue
+<template>
+  <BaseCurrency :value="12345678.87654321" format="i,iii.dd €" />
+  <!-- output: '12,345,678.87 €' -->
+</template>
+
+<script>
+  import { BaseCurrency } from '@empathyco/x-components/currency';
+
+  export default {
+    name: 'BaseCurrencyDemo',
+    components: {
+      BaseCurrency
+    }
+  };
+</script>
+```
+
+```vue
+<template>
+  <BaseCurrency :value="12345678.87654321" format="i iii.dd €" />
+  <!-- output: '12 345 678.87 €' -->
+</template>
+
+<script>
+  import { BaseCurrency } from '@empathyco/x-components/currency';
+
+  export default {
+    name: 'BaseCurrencyDemo',
+    components: {
+      BaseCurrency
+    }
+  };
+</script>
+```
+
+```vue
+<template>
+  <BaseCurrency :value="12345678.87654321" format="i iii - dd €" />
+  <!-- output: '12 345 678 - 87 €' -->
+</template>
+
+<script>
+  import { BaseCurrency } from '@empathyco/x-components/currency';
+
+  export default {
+    name: 'BaseCurrencyDemo',
+    components: {
+      BaseCurrency
+    }
+  };
+</script>
+```
+
+```vue
+<template>
+  <BaseCurrency :value="12345678.87654321" format="i.iii,dddddd €" />
+  <!-- output: '12.345.678,876543 €' -->
+</template>
+
+<script>
+  import { BaseCurrency } from '@empathyco/x-components/currency';
+
+  export default {
+    name: 'BaseCurrencyDemo',
+    components: {
+      BaseCurrency
+    }
+  };
+</script>
+```
+
+```vue
+<template>
+  <BaseCurrency :value="12345678.87" format="i.iii,dddddd €" />
+  <!-- output: '12.345.678,870000 €' -->
+</template>
+
+<script>
+  import { BaseCurrency } from '@empathyco/x-components/currency';
+
+  export default {
+    name: 'BaseCurrencyDemo',
+    components: {
+      BaseCurrency
+    }
+  };
+</script>
+```
+
+```vue
+<template>
+  <BaseCurrency :value="12345678" format="i.iii,dddddd €" />
+  <!-- output: '12.345.678,000000 €' -->
+</template>
+
+<script>
+  import { BaseCurrency } from '@empathyco/x-components/currency';
+
+  export default {
+    name: 'BaseCurrencyDemo',
+    components: {
+      BaseCurrency
+    }
+  };
+</script>
+```
+
+```vue
+<template>
+  <BaseCurrency :value="12345678.87654321" format="i.iii,dd €" />
+  <!-- output: '12.345.678,87 €' -->
+</template>
+
+<script>
+  import { BaseCurrency } from '@empathyco/x-components/currency';
+
+  export default {
+    name: 'BaseCurrencyDemo',
+    components: {
+      BaseCurrency
+    }
+  };
+</script>
+```
+
+```vue
+<template>
+  <BaseCurrency :value="12345678.87654321" format="i.iii €" />
+  <!-- output: '12.345.678 €' -->
+</template>
+
+<script>
+  import { BaseCurrency } from '@empathyco/x-components/currency';
+
+  export default {
+    name: 'BaseCurrencyDemo',
+    components: {
+      BaseCurrency
+    }
+  };
+</script>
 ```
 </docs>

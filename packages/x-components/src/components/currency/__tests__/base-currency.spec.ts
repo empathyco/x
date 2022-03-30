@@ -35,7 +35,7 @@ function renderInjectedBaseCurrency({ value, format }: RenderBaseCurrencyOptions
       }
     },
     {
-      data: function () {
+      data() {
         return {
           value,
           format

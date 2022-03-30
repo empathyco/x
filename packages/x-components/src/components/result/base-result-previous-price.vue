@@ -9,7 +9,7 @@
          @binding {result} result - Result data
     -->
     <slot :result="result">
-      <BaseCurrency v-bind="{ value: result.price.originalValue, ...(format && { format }) }" />
+      <BaseCurrency :value="result.price.originalValue" :format="format" />
     </slot>
   </div>
 </template>
@@ -67,14 +67,40 @@ This component shows the previous price formatted if it has discount. The compon
 props. `format` to select the currency format to be applied.
 
 ```vue
-<BaseResultPreviousPrice :result="result" :format="'i.iii,ddd €'" />
+<template>
+  <BaseResultPreviousPrice :result="result" :format="'i.iii,ddd €'" />
+</template>
+
+<script>
+  import { BaseResultPreviousPrice } from '@empathyco/x-components/result';
+
+  export default {
+    name: 'BaseResultPreviousPriceDemo',
+    components: {
+      BaseResultPreviousPrice
+    }
+  };
+</script>
 ```
 
 ### Overriding default slot
 
 ```vue
-<BaseResultPreviousPrice :result="result">
-  <span class="custom-base-result-previous-price">{{ result.price.originalValue }}</span>
-</BaseResultPreviousPrice>
+<template>
+  <BaseResultPreviousPrice :result="result">
+    <span class="custom-base-result-previous-price">{{ result.price.originalValue }}</span>
+  </BaseResultPreviousPrice>
+</template>
+
+<script>
+  import { BaseResultPreviousPrice } from '@empathyco/x-components/result';
+
+  export default {
+    name: 'BaseResultPreviousPriceDemo',
+    components: {
+      BaseResultPreviousPrice
+    }
+  };
+</script>
 ```
 </docs>
