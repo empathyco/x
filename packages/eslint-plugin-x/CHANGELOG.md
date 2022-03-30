@@ -1,7 +1,7 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [2.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.3...@empathyco/eslint-plugin-x@2.0.0-alpha.4) (2022-03-02)
 
