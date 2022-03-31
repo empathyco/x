@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.74](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.73...@empathyco/x-components@3.0.0-alpha.74) (2022-03-31)
+
+### Bug Fixes
+
+- **base-currency:** format preference goes prop to be injected by default
+  ([29d5e8d](https://github.com/empathyco/x/commit/29d5e8d576019504ef642af6119c764292f44c51)),
+  closes [EX-5649](https://searchbroker.atlassian.net/browse/EX-5649)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.73](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.72...@empathyco/x-components@3.0.0-alpha.73) (2022-03-24)
 
 ### Features
