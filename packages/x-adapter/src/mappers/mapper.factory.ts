@@ -1,6 +1,6 @@
 import { PropertyPath, PropertyType } from '@empathyco/x-utils';
-import { Mapper, MapperContext } from '../types/index';
-import { Schema } from '../schemas/schemas.types';
+import { Mapper, MapperContext } from '../types';
+import { Schema, SchemaTransformer } from '../schemas/schemas.types';
 
 const isObject = (obj: any): obj is Record<string, unknown> => {
   return obj && typeof obj === 'object' && !Array.isArray(obj);
@@ -20,14 +20,19 @@ const isFunction = (func: any): func is Function => {
  *
  * @param source - I.
  * @param path - I.
+ * @param extraPath - I.
  *
- * @returns I.
+ * @returns Yes.
  */
 function getValueFromPath<Source>(
   source: Source,
-  path: PropertyPath<Source>
+  path: PropertyPath<Source>,
+  extraPath?: PropertyPath<Source>
 ): PropertyType<Source, PropertyPath<Source>> {
-  const [first, ...keys] = path.split('.') as [keyof Source, ...string[]];
+  const [first, ...keys] = path.replace(`${extraPath ? `${extraPath}.` : ''}`, '').split('.') as [
+    keyof Source,
+    ...string[]
+  ];
 
   if (!source[first]) {
     throw new Error('De locos');
@@ -69,29 +74,72 @@ function getPathValue<Source>(
 export function mapperFactory<Source, Target>(
   schema: Schema<Source, Target>
 ): Mapper<Source, Target> {
+  // const selfSubSchemasApplied: Record<string, boolean> = {};
+
   /**
+   *
    * I.
    *
    * @param source - I.
    * @param schema - I.
    * @param context - I.
+   * @param extraPath - I.
    *
-   * @returns I.
+   *@returns Yes.
    */
-  function mapSchema<Schema>(source: Source, schema: Schema, context: MapperContext): Target {
-    return reduce<Schema, Target>(
+  function mapSchema<Source, Target>(
+    source: Source,
+    schema: Schema<Source, Target>,
+    context: MapperContext,
+    extraPath?: PropertyPath<Source>
+  ): Target {
+    return reduce<Schema<Source, Target>, Target>(
       schema,
-      (target, key, transformer) => {
+      (target, key, transformer: SchemaTransformer<Source, Target, keyof Target>) => {
         if (typeof transformer === 'string') {
-          target[key as unknown as keyof Target] = getValueFromPath(
+          target[key] = getValueFromPath(
             source,
-            transformer as unknown as PropertyPath<Source>
+            transformer as unknown as PropertyPath<Source>,
+            extraPath
           ) as Target[keyof Target];
         } else if (isFunction(transformer)) {
-          target[key as unknown as keyof Target] = transformer(source, context);
+          target[key] = transformer(source, context);
         } else if (isObject(transformer)) {
-          // Schema<Source, Exclude<Target[TargetKey], Function | Primitive>>
-          // SubSchema<Source, Target[TargetKey]>;
+          if ('$path' in transformer) {
+            if (transformer.$subschema === '$self') {
+              // const subSchemaHash = `${transformer.$path}:${JSON.stringify(transformer)}`;
+              // if (selfSubSchemasApplied[subSchemaHash]) {
+              //   return target;
+              // }
+              //
+              // selfSubSchemasApplied[subSchemaHash] = true;
+
+              // const subSchema = { ...schema, [key]: undefined };
+              delete transformer.$subschema;
+              target[key] = mapSchema<Source, Target[keyof Target]>(
+                source,
+                schema as unknown as Schema<Source, Target[keyof Target]>,
+                context
+              );
+            } else {
+              if (!transformer.$subschema) {
+                return target;
+              }
+              const subSource = getValueFromPath(source, transformer['$path']);
+              target[key] = mapSchema<typeof subSource, Target[keyof Target]>(
+                subSource,
+                transformer.$subschema,
+                context,
+                transformer.$path as PropertyPath<typeof subSource>
+              );
+            }
+          } else {
+            target[key] = mapSchema<Source, Target[keyof Target]>(
+              source,
+              transformer as unknown as Schema<Source, Target[keyof Target]>,
+              context
+            );
+          }
         }
         return target;
       },
@@ -108,7 +156,7 @@ export function mapperFactory<Source, Target>(
    * @returns I.
    */
   function mapper(source: Source, context: MapperContext = {}): Target {
-    return mapSchema<Schema<Source, Target>>(source, schema, context);
+    return mapSchema<Source, Target>(source, schema, context);
   }
 
   return mapper;

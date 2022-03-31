@@ -95,7 +95,7 @@ type SubSchema<Source, Target> = {
   [Path in PropertyPath<Source>]: {
     $context?: MapperContext;
     $path: Path;
-    $subschema: Schema<PropertyType<Source, Path>, Target> | '$self';
+    $subschema?: Schema<PropertyType<Source, Path>, Target> | '$self';
   };
 }[PropertyPath<Source>];
 
