@@ -9,6 +9,7 @@ import styles from 'rollup-plugin-styles';
 import typescript from 'rollup-plugin-typescript2';
 import vue from 'rollup-plugin-vue';
 import packageJSON from '../package.json';
+import postcssConfig from '../.postcssrc';
 import { apiDocumentation } from './docgen/documentation.rollup-plugin';
 import {
   importTokens,
@@ -77,24 +78,24 @@ export const rollupConfig = createRollupOptions({
         ]
       }
     }),
+    styles({
+      mode: [
+        'inject',
+        (varname: string, id: string) =>
+          // eslint-disable-next-line max-len
+          `import {createInjector} from 'vue-runtime-helpers';const injector=createInjector({});injector('${id}',{source:${varname}})`
+      ]
+    }),
     vue({
-      css: false,
+      css: true,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore Undocumented option to disable vue sourcemap generation because it breaks if
       // lang is set to ts:
       // https://github.com/vuejs/rollup-plugin-vue/issues/272#issuecomment-491721842
       needMap: false,
       style: {
-        postcssCleanOptions: { disabled: true }
+        postcssPlugins: postcssConfig.plugins
       }
-    }),
-    styles({
-      mode: [
-        'inject',
-        (varname: string, id: string) =>
-          // eslint-disable-next-line max-len
-          `import {createInjector} from 'vue-runtime-helpers';/*holamundo*/const injector=createInjector({});injector('${id}',{source:${varname}})`
-      ]
     }),
     generateEntryFiles({
       buildPath,
