@@ -91,6 +91,12 @@ export const clearHistoryQueries = wireDispatch('setHistoryQueries', []);
  * @public
  */
 export const removeHistoryQuery = wireDispatch('removeFromHistory');
+/**
+ * Enables or disables history queries.
+ *
+ * @public
+ */
+export const toggleHistoryQueries = wireDispatch('toggleHistoryQueries');
 
 /**
  * Debounce function for the module.
@@ -131,5 +137,8 @@ export const historyQueriesWiring = createWiring({
   },
   UserPressedRemoveHistoryQuery: {
     removeHistoryQuery
+  },
+  UserToggledHistoryQueries: {
+    toggleHistoryQueries
   }
 });

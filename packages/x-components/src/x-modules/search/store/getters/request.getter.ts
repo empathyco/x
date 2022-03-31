@@ -9,18 +9,13 @@ import { SearchXStoreModule } from '../types';
  *
  * @public
  */
-export const request: SearchXStoreModule['getters']['request'] = ({
-  page,
-  params,
-  query,
-  relatedTags,
-  selectedFilters,
-  sort
-}) => {
-  return query.trim()
+export const request: SearchXStoreModule['getters']['request'] = (
+  { page, params, selectedFilters, sort },
+  { query }
+) => {
+  return query
     ? {
         query,
-        relatedTags,
         sort,
         page,
         filters: selectedFilters,

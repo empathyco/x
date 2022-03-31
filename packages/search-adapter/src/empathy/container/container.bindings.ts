@@ -10,7 +10,6 @@ import { EmpathyUserInfoMapper } from '../mappers/request/empathy-user-data-requ
 import { EmpathyRequestFiltersSolrSyntaxMapper } from '../mappers/request/params/empathy-request-filters-solr-syntax.mapper';
 import { EmpathyRequestFiltersMapper } from '../mappers/request/params/empathy-request-filters.mapper';
 import { EmpathyRequestQueryMapper } from '../mappers/request/params/empathy-request-query.mapper';
-import { EmpathyRequestRelatedTagsQueryMapper } from '../mappers/request/params/empathy-request-related-tags-query.mapper';
 import { EmpathyRequestSortMapper } from '../mappers/request/params/empathy-request-sort.mapper';
 import { ResponseMappers } from '../mappers/response.mappers';
 import { EmpathyBannerMapper } from '../mappers/response/empathy-banner.mapper';
@@ -85,15 +84,24 @@ export const BINDINGS: BindingDictionary = {
     whenInjectedInto: {
       [DEPENDENCIES.Requestors.nextQueries]: EmpathyQueryableRequestMapper,
       [DEPENDENCIES.Requestors.topRecommendations]: EmpathyQueryableRequestMapper,
-      [DEPENDENCIES.Requestors.sectionRecommendations]: [EmpathySectionRecommendationsRequestMapper, EmpathyUserInfoMapper],
-      [DEPENDENCIES.Requestors.clicksRecommendations]: [EmpathyClicksRecommendationsRequestMapper, EmpathyUserInfoMapper],
+      [DEPENDENCIES.Requestors.sectionRecommendations]: [
+        EmpathySectionRecommendationsRequestMapper,
+        EmpathyUserInfoMapper
+      ],
+      [DEPENDENCIES.Requestors.clicksRecommendations]: [
+        EmpathyClicksRecommendationsRequestMapper,
+        EmpathyUserInfoMapper
+      ],
       EmpathySectionRecommendationsRequestMapper,
       [DEPENDENCIES.Requestors.queriesRecommendations]: [
         EmpathyQueriesRecommendationsRequestMapper,
         EmpathySectionRecommendationsRequestMapper,
         EmpathyUserInfoMapper
       ],
-      [DEPENDENCIES.Requestors.userRecommendations]: [EmpathyUserInfoMapper, EmpathySectionRecommendationsRequestMapper],
+      [DEPENDENCIES.Requestors.userRecommendations]: [
+        EmpathyUserInfoMapper,
+        EmpathySectionRecommendationsRequestMapper
+      ],
       [DEPENDENCIES.Requestors.search]: EmpathySearchRequestMapper,
       [DEPENDENCIES.Requestors.relatedTags]: EmpathyQueryableRequestMapper,
       [DEPENDENCIES.Requestors.searchById]: EmpathyQueryableRequestMapper,
@@ -101,7 +109,7 @@ export const BINDINGS: BindingDictionary = {
     }
   },
   // Request params mappers
-  [DEPENDENCIES.RequestMappers.Parameters.query]: [EmpathyRequestRelatedTagsQueryMapper, EmpathyRequestQueryMapper],
+  [DEPENDENCIES.RequestMappers.Parameters.query]: EmpathyRequestQueryMapper,
   [DEPENDENCIES.RequestMappers.Parameters.filters]: EmpathyRequestFiltersMapper,
   [DEPENDENCIES.RequestMappers.Parameters.filtersValue]: EmpathyRequestFiltersSolrSyntaxMapper,
   [DEPENDENCIES.RequestMappers.Parameters.sort]: EmpathyRequestSortMapper,
@@ -113,9 +121,21 @@ export const BINDINGS: BindingDictionary = {
     EmpathyHierarchicalFacetMapper,
     EmpathyNumberRangeFacetMapper
   ],
-  [DEPENDENCIES.ResponseMappers.simpleFilter]: [EmpathyFacetFilterMapper, EmpathyBooleanFilterMapper, EmpathySimpleFilterMapper],
-  [DEPENDENCIES.ResponseMappers.hierarchicalFilter]: [EmpathyFacetFilterMapper, EmpathyBooleanFilterMapper, EmpathyHierarchicalFilterMapper],
-  [DEPENDENCIES.ResponseMappers.numberRangeFilter]: [EmpathyFacetFilterMapper, EmpathyBooleanFilterMapper, EmpathyNumberRangeFilterMapper],
+  [DEPENDENCIES.ResponseMappers.simpleFilter]: [
+    EmpathyFacetFilterMapper,
+    EmpathyBooleanFilterMapper,
+    EmpathySimpleFilterMapper
+  ],
+  [DEPENDENCIES.ResponseMappers.hierarchicalFilter]: [
+    EmpathyFacetFilterMapper,
+    EmpathyBooleanFilterMapper,
+    EmpathyHierarchicalFilterMapper
+  ],
+  [DEPENDENCIES.ResponseMappers.numberRangeFilter]: [
+    EmpathyFacetFilterMapper,
+    EmpathyBooleanFilterMapper,
+    EmpathyNumberRangeFilterMapper
+  ],
   [DEPENDENCIES.ResponseMappers.nextQueries]: EmpathyNextQueryMapper,
   [DEPENDENCIES.ResponseMappers.partialResults]: EmpathyPartialResultMapper,
   [DEPENDENCIES.ResponseMappers.promoteds]: EmpathyPromotedMapper,
@@ -131,7 +151,10 @@ export const BINDINGS: BindingDictionary = {
   },
   [DEPENDENCIES.ResponseMappers.showTagging]: EmpathyTaggingMapper,
   [DEPENDENCIES.ResponseMappers.spellcheck]: EmpathySimpleValueMapper,
-  [DEPENDENCIES.ResponseMappers.suggestions]: [EmpathySuggestionMapper, EmpathySuggestionFacetsMapper],
+  [DEPENDENCIES.ResponseMappers.suggestions]: [
+    EmpathySuggestionMapper,
+    EmpathySuggestionFacetsMapper
+  ],
   [DEPENDENCIES.ResponseMappers.totalResults]: EmpathySimpleValueMapper,
   // Response helpers
   [DEPENDENCIES.ResponseMappers.Helpers.tagging]: EmpathyTaggingMapper

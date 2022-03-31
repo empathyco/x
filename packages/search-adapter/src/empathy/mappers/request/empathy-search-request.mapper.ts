@@ -12,29 +12,36 @@ import { pipeMappers } from '../pipe-mappers';
  * @public
  */
 @injectable()
-export class EmpathySearchRequestMapper implements RequestMapper<SearchRequest, EmpathySearchRequest> {
+export class EmpathySearchRequestMapper
+  implements RequestMapper<SearchRequest, EmpathySearchRequest>
+{
   private readonly mapFilters: MapRequest<Dictionary<Filter[]>, string[]>;
   private readonly mapQuery: MapRequest<QueryableRequest, string>;
   private readonly mapSort: MapRequest<Sort | undefined, string | undefined>;
 
   constructor(
-    @multiInject(DEPENDENCIES.RequestMappers.Parameters.query) queryMapper: RequestMapper<QueryableRequest, string>[],
-    @multiInject(DEPENDENCIES.RequestMappers.Parameters.filters) filtersMapper: RequestMapper<Dictionary<Filter[]>, string[]>[],
-    @multiInject(DEPENDENCIES.RequestMappers.Parameters.sort) sortMappers: RequestMapper<Sort | undefined, string | undefined>[]
+    @multiInject(DEPENDENCIES.RequestMappers.Parameters.query)
+    queryMapper: RequestMapper<QueryableRequest, string>[],
+    @multiInject(DEPENDENCIES.RequestMappers.Parameters.filters)
+    filtersMapper: RequestMapper<Dictionary<Filter[]>, string[]>[],
+    @multiInject(DEPENDENCIES.RequestMappers.Parameters.sort)
+    sortMappers: RequestMapper<Sort | undefined, string | undefined>[]
   ) {
     this.mapQuery = pipeMappers(...queryMapper);
     this.mapFilters = pipeMappers(...filtersMapper);
     this.mapSort = pipeMappers(...sortMappers);
   }
 
-  map({ query, relatedTags = [], filters = {}, sort, ...rest }: SearchRequest, request: EmpathySearchRequest,
-    context: RequestMapperContext): EmpathySearchRequest {
+  map(
+    { query, relatedTags = [], filters = {}, sort, ...rest }: SearchRequest,
+    request: EmpathySearchRequest,
+    context: RequestMapperContext
+  ): EmpathySearchRequest {
     return Object.assign<EmpathySearchRequest, Partial<EmpathySearchRequest>>(request, {
-        ...rest,
-        q: query && this.mapQuery({ query, relatedTags }, query, context),
-        filter: this.mapFilters(filters, [], context),
-        sort: this.mapSort(sort, '', context)
-      }
-    );
+      ...rest,
+      q: query && this.mapQuery({ query }, query, context),
+      filter: this.mapFilters(filters, [], context),
+      sort: this.mapSort(sort, '', context)
+    });
   }
 }
