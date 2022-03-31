@@ -1,7 +1,11 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [7.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.15...@empathyco/x-adapter@7.0.0-alpha.16) (2022-03-31)
+
+**Note:** Version bump only for package @empathyco/x-adapter
 
 ## [7.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.14...@empathyco/x-adapter@7.0.0-alpha.15) (2022-03-11)
 

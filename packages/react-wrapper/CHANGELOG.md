@@ -1,7 +1,11 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [4.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.3...@empathyco/x-react-wrapper@4.0.0-alpha.4) (2022-03-31)
+
+**Note:** Version bump only for package @empathyco/x-react-wrapper
 
 ## [4.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.2...@empathyco/x-react-wrapper@4.0.0-alpha.3) (2022-03-08)
 

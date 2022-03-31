@@ -1,7 +1,11 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.75](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.74...@empathyco/x-components@3.0.0-alpha.75) (2022-03-31)
+
+**Note:** Version bump only for package @empathyco/x-components
 
 ## [3.0.0-alpha.74](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.73...@empathyco/x-components@3.0.0-alpha.74) (2022-03-31)
 
