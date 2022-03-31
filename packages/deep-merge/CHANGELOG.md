@@ -1,7 +1,7 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [1.3.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.2...@empathyco/x-deep-merge@1.3.0-alpha.3) (2022-03-08)
 
@@ -11,11 +11,6 @@ All notable changes to this project will be documented in this file. See
   ([73edca6](https://github.com/empathyco/x/commit/73edca61c1cea39d82a7ab94bc18c8bff94c138c)),
   closes [EX-5367](https://searchbroker.atlassian.net/browse/EX-5367)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [1.3.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.1...@empathyco/x-deep-merge@1.3.0-alpha.2) (2022-02-28)
 
 ### Build System
@@ -24,11 +19,6 @@ All notable changes to this project will be documented in this file. See
   ([2ffcc22](https://github.com/empathyco/x/commit/2ffcc222f5666d7866c8d7cd3a0eec7c0bb1f938)),
   closes [EX-5293](https://searchbroker.atlassian.net/browse/EX-5293)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [1.3.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.0...@empathyco/x-deep-merge@1.3.0-alpha.1) (2021-11-29)
 
 ### Build System
@@ -36,11 +26,6 @@ All notable changes to this project will be documented in this file. See
 - update jest dependencies
   ([f3fee15](https://github.com/empathyco/x/commit/f3fee157d724292f5cbb7166908d48ef2fb4fe8c)),
   closes [EX-5027](https://searchbroker.atlassian.net/browse/EX-5027)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [1.3.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.2.2-alpha.8...@empathyco/x-deep-merge@1.3.0-alpha.0) (2021-10-25)
 
