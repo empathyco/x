@@ -12,9 +12,9 @@ their flexibility.
 To start contributing on this project you need to understand how to see the X Components up and
 running.
 
-1. set `packages/x-components` as working directory at the terminal
-2. run `npm install`
-3. run `npm serve`
+1. run `npm ci` at the project root
+2. set `packages/x-components` as working directory at the terminal
+3. run `npm run serve`
 
 The app will be launch in localhost. Every view available at the top tabs is set in
 `packages/x-components/src/router.ts`.
