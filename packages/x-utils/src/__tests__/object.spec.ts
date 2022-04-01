@@ -1,4 +1,4 @@
-import { isObject } from '../../object';
+import { isObject } from '../object';
 
 describe('utils.types test', () => {
   it('should be true when object', () => {
