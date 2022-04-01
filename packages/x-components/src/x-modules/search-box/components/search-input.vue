@@ -321,12 +321,14 @@ _Type any term in the input field to try it out!_
 
 ```vue live
 <template>
-  <SearchInput
-    @UserPressedEnterKey="value = 'enter'"
-    @UserFocusedSearchBox="value = 'focus'"
-    @UserIsTypingAQuery="value = 'typing'"
-  />
-  {{ value }}
+  <div>
+    <SearchInput
+      @UserPressedEnterKey="value = 'enter'"
+      @UserFocusedSearchBox="value = 'focus'"
+      @UserIsTypingAQuery="value = 'typing'"
+    />
+    {{ value }}
+  </div>
 </template>
 
 <script>

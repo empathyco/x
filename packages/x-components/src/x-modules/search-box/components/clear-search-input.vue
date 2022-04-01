@@ -128,8 +128,10 @@ _Click the Clear button to try it out!_
 
 ```vue live
 <template>
-  <ClearSearchInput @UserPressedClearSearchBoxButton="message = 'clear'">Clear</ClearSearchInput>
-  {{ message }}
+  <div>
+    <ClearSearchInput @UserPressedClearSearchBoxButton="message = 'clear'">Clear</ClearSearchInput>
+    {{ message }}
+  </div>
 </template>
 
 <script>

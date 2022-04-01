@@ -102,8 +102,10 @@ queries it will show them
 
 ```vue live
 <template>
-  <SearchInput />
-  <NextQueries />
+  <div>
+    <SearchInput />
+    <NextQueries />
+  </div>
 </template>
 
 <script>
@@ -126,8 +128,10 @@ The component has three optional props. `animation` to render the component with
 
 ```vue live
 <template>
-  <SearchInput />
-  <NextQueries :animation="'FadeAndSlide'" :maxItemsToRender="10" :highlightCurated="true" />
+  <div>
+    <SearchInput />
+    <NextQueries :animation="'FadeAndSlide'" :maxItemsToRender="10" :highlightCurated="true" />
+  </div>
 </template>
 
 <script>
@@ -156,13 +160,15 @@ Next Query suggestion.
 
 ```vue live
 <template>
-  <SearchInput />
-  <NextQueries>
-    <template #suggestion-content="{ suggestion }">
-      <img src="/assets/icons/bulb.svg" class="x-next-query__icon" />
-      <span class="x-next-query__query">{{ suggestion.query }}</span>
-    </template>
-  </NextQueries>
+  <div>
+    <SearchInput />
+    <NextQueries>
+      <template #suggestion-content="{ suggestion }">
+        <img src="/assets/icons/bulb.svg" class="x-next-query__icon" />
+        <span class="x-next-query__query">{{ suggestion.query }}</span>
+      </template>
+    </NextQueries>
+  </div>
 </template>
 
 <script>
@@ -188,18 +194,20 @@ is wrapped in a `span`
 
 ```vue live
 <template>
-  <SearchInput />
-  <NextQueries>
-    <template #suggestion="{ suggestion }">
-      <NextQuery :suggestion="suggestion" class="x-next-queries__suggestion">
-        <template #default="{ suggestion }">
-          <img src="/assets/icons/bulb.svg" class="x-next-query__icon" />
-          <span class="x-next-query__query">{{ suggestion.query }}</span>
-        </template>
-      </NextQuery>
-      <button>Custom Behaviour</button>
-    </template>
-  </NextQueries>
+  <div>
+    <SearchInput />
+    <NextQueries>
+      <template #suggestion="{ suggestion }">
+        <NextQuery :suggestion="suggestion" class="x-next-queries__suggestion">
+          <template #default="{ suggestion }">
+            <img src="/assets/icons/bulb.svg" class="x-next-query__icon" />
+            <span class="x-next-query__query">{{ suggestion.query }}</span>
+          </template>
+        </NextQuery>
+        <button>Custom Behaviour</button>
+      </template>
+    </NextQueries>
+  </div>
 </template>
 
 <script>

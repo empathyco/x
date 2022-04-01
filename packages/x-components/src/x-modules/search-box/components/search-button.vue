@@ -147,17 +147,19 @@ _Type any term in the input field and then click the Search button to try it out
 
 ```vue live
 <template>
-  <div style="display: flex;">
-    <SearchInput />
-    <SearchButton
-      @UserPressedSearchButton="
-        query => {
-          message = query;
-        }
-      "
-    />
+  <div>
+    <div style="display: flex;">
+      <SearchInput />
+      <SearchButton
+        @UserPressedSearchButton="
+          query => {
+            message = query;
+          }
+        "
+      />
+    </div>
+    {{ message }}
   </div>
-  {{ message }}
 </template>
 
 <script>
@@ -188,11 +190,13 @@ _Type any term in the input field and then click the Search button to try it out
 
 ```vue live
 <template>
-  <div style="display: flex;">
-    <SearchInput />
-    <SearchButton @UserAcceptedAQuery="message = 'looking for results'">Search</SearchButton>
+  <div>
+    <div style="display: flex;">
+      <SearchInput />
+      <SearchButton @UserAcceptedAQuery="message = 'looking for results'">Search</SearchButton>
+    </div>
+    {{ message }}
   </div>
-  {{ message }}
 </template>
 
 <script>

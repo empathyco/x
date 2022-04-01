@@ -93,7 +93,6 @@ This component only requires a prop called `suggestion`
 
 ```vue live
 <template>
-  <SearchInput />
   <HistoryQuery :suggestion="suggestion" />
 </template>
 
@@ -131,7 +130,6 @@ that serves to remove this query from the history. This slot only has one proper
 
 ```vue live
 <template>
-  <SearchInput />
   <HistoryQuery :suggestion="suggestion">
     <template #default="{ suggestion, queryHTML }">
       <img class="x-history-query__history-icon" src="/assets/icons/bulb.svg"/>

@@ -85,9 +85,11 @@ The component exposes a single default slot, where you can add icons or text.
 
 ```vue live
 <template>
-  <SearchInput />
-  <ClearHistoryQueries>Clear history queries</ClearHistoryQueries>
-  <HistoryQueries :animation="'FadeAndSlide'" :maxItemsToRender="10" />
+  <div>
+    <SearchInput />
+    <ClearHistoryQueries>Clear history queries</ClearHistoryQueries>
+    <HistoryQueries :animation="'FadeAndSlide'" :maxItemsToRender="10" />
+  </div>
 </template>
 
 <script>
