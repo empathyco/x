@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-utils@0.1.0-alpha.4...@empathyco/x-utils@0.1.0-alpha.5) (2022-04-01)
+
+### Code Refactoring
+
+- move `object` utils from `x-components` to `x-utils`
+  ([512b350](https://github.com/empathyco/x/commit/512b350da4a3dd73ddbd78a7b2965a1e07735a8e)),
+  closes [EX-5793](https://searchbroker.atlassian.net/browse/EX-5793)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.1.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-utils@0.1.0-alpha.3...@empathyco/x-utils@0.1.0-alpha.4) (2022-04-01)
 
 ### Code Refactoring
