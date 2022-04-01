@@ -72,7 +72,7 @@ Empathy’s eDocs documentation portal.
 
 - [Overview of X Components](https://docs.empathy.co/explore-empathy-platform/experience-search-&-discovery/)
 - [Interface X architecture](https://docs.empathy.co/develop-empathy-platform/build-search-ui/x-architecture/)
-- [Full UI Reference](https://docs.empathy.co/empathy-for-developers/ui-reference)
+- [Full UI Reference](https://docs.empathy.co/develop-empathy-platform/ui-reference/)
 <!--- [Frequently Asked Questions](Content to be developed for GitHub project)--->
 
 ## Roadmap
