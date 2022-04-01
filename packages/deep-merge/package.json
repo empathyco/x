@@ -36,6 +36,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@empathyco/x-utils": "~0.1.0-alpha.3",
     "tslib": "~2.3.0"
   },
   "devDependencies": {
