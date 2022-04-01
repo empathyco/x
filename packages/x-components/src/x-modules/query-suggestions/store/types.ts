@@ -1,10 +1,10 @@
 import { SuggestionsRequest } from '@empathyco/x-adapter';
 import { Suggestion } from '@empathyco/x-types';
+import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { UrlParams } from '../../../types/url-params';
-import { Dictionary } from '../../../utils';
 import { QuerySuggestionsConfig } from '../config.types';
 
 /**

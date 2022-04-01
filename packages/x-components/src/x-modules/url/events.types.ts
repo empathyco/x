@@ -1,5 +1,5 @@
+import { Dictionary } from '@empathyco/x-utils';
 import { UrlParams } from '../../types/url-params';
-import { Dictionary } from '../../utils/types';
 
 /**
  * Dictionary of the events of URL XModule, where each key is the event name, and the value is

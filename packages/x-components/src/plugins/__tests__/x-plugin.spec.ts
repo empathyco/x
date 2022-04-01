@@ -1,8 +1,8 @@
+import { Dictionary } from '@empathyco/x-utils';
 import { createLocalVue, shallowMount, Wrapper } from '@vue/test-utils';
 import { default as Vue, VueConstructor } from 'vue';
 import Vuex, { Store } from 'vuex';
 import { createStoreEmitters, XStoreModule } from '../../store';
-import { Dictionary } from '../../utils/types';
 import { createWireFromFunction, wireCommit } from '../../wiring/wires.factory';
 import { AnyWire } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';

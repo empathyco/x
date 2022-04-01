@@ -1,13 +1,12 @@
 import { SearchAdapter } from '@empathyco/x-adapter';
 import { deepMerge } from '@empathyco/x-deep-merge';
-import { forEach } from '@empathyco/x-utils';
+import { forEach, Dictionary } from '@empathyco/x-utils';
 import { PluginObject, VueConstructor } from 'vue';
 import Vuex, { Module, Store } from 'vuex';
 import { FILTERS_REGISTRY } from '../filters/filters.registry';
 import { AnyXStoreModule, RootXStoreState } from '../store/store.types';
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
 import { RootXStoreModule } from '../store/x.module';
-import { Dictionary } from '../utils';
 import { AnyWire } from '../wiring/wiring.types';
 import { AnyXModule, XModuleName } from '../x-modules/x-modules.types';
 import { bus } from './x-bus';

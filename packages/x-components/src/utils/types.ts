@@ -1,16 +1,7 @@
 import { Identifiable, NamedModel } from '@empathyco/x-types';
-import { NonPrimitive, AnyFunction } from '@empathyco/x-utils';
+import { NonPrimitive, AnyFunction, Dictionary } from '@empathyco/x-utils';
 import { XEventsTypes } from '../wiring/events.types';
 import { XModuleName } from '../x-modules/x-modules.types';
-
-/**
- * Object where all its properties are strings, and the value of them is defined by the type of
- * the T property.
- *
- * @param T - The type of the properties of the object.
- * @public
- */
-export type Dictionary<T = any> = Record<string, T>;
 
 /**
  * Extracts a sub-type with the properties of `SomeObject` that have the `TargetPropertyType` type.

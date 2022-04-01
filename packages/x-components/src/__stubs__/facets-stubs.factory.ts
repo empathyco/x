@@ -10,8 +10,8 @@ import {
   SimpleFacet,
   SimpleFilter
 } from '@empathyco/x-types';
+import { Dictionary } from '@empathyco/x-utils';
 import { arrayToObject } from '../utils';
-import { Dictionary } from '../utils/types';
 import {
   createEditableNumberRangeFilter,
   CreateHierarchicalFilter,

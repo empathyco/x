@@ -1,5 +1,6 @@
 import { FeaturesResponseTypes, SearchAdapter } from '@empathyco/x-adapter';
 import { deepMerge } from '@empathyco/x-deep-merge';
+import { Dictionary } from '@empathyco/x-utils';
 import { createLocalVue } from '@vue/test-utils';
 import Vue from 'vue';
 import { Store } from 'vuex';
@@ -10,7 +11,7 @@ import { ActionsDictionary } from '../store/actions.types';
 import { MutationsDictionary } from '../store/mutations.types';
 import { RootXStoreState, XStoreModule } from '../store/store.types';
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
-import { DeepPartial, Dictionary } from '../utils/types';
+import { DeepPartial } from '../utils/types';
 import { ExtractState, XModule, XModuleName } from '../x-modules/x-modules.types';
 import { SearchAdapterDummy } from './adapter.dummy';
 import Mock = jest.Mock;

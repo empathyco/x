@@ -1,5 +1,6 @@
+import { Dictionary } from '@empathyco/x-utils';
 import { ActionContext } from 'vuex';
-import { Dictionary, PropsWithType } from '../utils';
+import { PropsWithType } from '../utils';
 import { MutationsDictionary } from './mutations.types';
 import { AnyXStoreModule, ExtractPayload, RootXStoreState } from './store.types';
 
