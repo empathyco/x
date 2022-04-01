@@ -1,5 +1,5 @@
 import { Store } from 'vuex';
-import { reduce } from '../../utils/object';
+import { reduce } from '@empathyco/x-utils';
 import { Dictionary } from '../../utils/types';
 import { ExtractGetters, XModuleName } from '../../x-modules/x-modules.types';
 import { AnyXStoreModule } from '../store.types';

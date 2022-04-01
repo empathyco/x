@@ -6,13 +6,13 @@
   import Vue from 'vue';
   import GlobalEvents from 'vue-global-events';
   import { Component, Inject } from 'vue-property-decorator';
+  import { objectFilter } from '@empathyco/x-utils';
   import { State } from '../../../components';
   import { XOn } from '../../../components/decorators/bus.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { FeatureLocation } from '../../../types/origin';
   import { UrlParams } from '../../../types/url-params';
   import { isArrayEmpty } from '../../../utils/array';
-  import { objectFilter } from '../../../utils/object';
   import { Dictionary } from '../../../utils/types';
   import { WireMetadata } from '../../../wiring/wiring.types';
   import { SnippetConfig } from '../../../x-installer/api/api.types';

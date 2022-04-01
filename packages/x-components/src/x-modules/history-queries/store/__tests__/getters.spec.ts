@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { map } from '../../../../utils';
+import { map } from '@empathyco/x-utils';
 import {
   createHistoryQueries,
   createHistoryQuery

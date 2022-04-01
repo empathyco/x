@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { forEach } from '../../../../utils/object';
+import { forEach } from '@empathyco/x-utils';
 import { UrlXStoreModule } from '../types';
 
 /**

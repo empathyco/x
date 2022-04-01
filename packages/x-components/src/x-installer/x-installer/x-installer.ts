@@ -1,11 +1,11 @@
 import { EmpathyAdapterConfig } from '@empathyco/x-adapter';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import Vue, { PluginObject, VueConstructor } from 'vue';
+import { cleanUndefined, forEach } from '@empathyco/x-utils';
 import { BaseXBus } from '../../plugins/x-bus';
 import { XBus } from '../../plugins/x-bus.types';
 import { XPlugin } from '../../plugins/x-plugin';
 import { XPluginOptions } from '../../plugins/x-plugin.types';
-import { cleanUndefined, forEach } from '../../utils/object';
 import { DeepPartial } from '../../utils/types';
 import { SnippetConfig, XAPI } from '../api/api.types';
 import { BaseXAPI } from '../api/base-api';

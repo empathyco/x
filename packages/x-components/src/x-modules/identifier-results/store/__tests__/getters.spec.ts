@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { map } from '../../../../utils/object';
+import { map } from '@empathyco/x-utils';
 import { identifierResultsXStoreModule } from '../module';
 import { IdentifierResultsState } from '../types';
 import { resetIdentifierResultsStateWith } from './utils';

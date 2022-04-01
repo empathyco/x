@@ -5,7 +5,7 @@
 <script lang="ts">
   import { Component, Inject } from 'vue-property-decorator';
   import Vue from 'vue';
-  import { map } from '../utils/object';
+  import { map } from '@empathyco/x-utils';
   import { WireMetadata } from '../wiring';
   import { SnippetConfig, XEventListeners } from '../x-installer/api/api.types';
   import GlobalXBus from './global-x-bus.vue';

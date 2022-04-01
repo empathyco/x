@@ -1,8 +1,8 @@
 import { Store } from 'vuex';
+import { forEach } from '@empathyco/x-utils';
 import { getGettersProxyFromModule } from '../store/utils/getters-proxy.utils';
 import { AnySimpleStateSelector, AnyStateSelector } from '../store/utils/store-emitters.utils';
 import { debounce } from '../utils/debounce';
-import { forEach } from '../utils/object';
 import { DebouncedFunction, Dictionary } from '../utils/types';
 import { XEvent } from '../wiring/events.types';
 import { AnyXModule } from '../x-modules/x-modules.types';

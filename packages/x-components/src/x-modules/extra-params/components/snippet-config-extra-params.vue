@@ -5,8 +5,9 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Watch, Inject, Prop } from 'vue-property-decorator';
+  import { forEach } from '@empathyco/x-utils';
   import { xComponentMixin } from '../../../components';
-  import { Dictionary, forEach } from '../../../utils';
+  import { Dictionary } from '../../../utils';
   import { SnippetConfig } from '../../../x-installer';
   import { extraParamsXModule } from '../x-module';
   import ExtraParams from './extra-params.vue';

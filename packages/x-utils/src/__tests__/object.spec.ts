@@ -63,6 +63,10 @@ describe('testing object utils', () => {
       expect(forEachCallback).not.toHaveBeenCalled();
     });
 
+    /**
+     * @param obj
+     * @param callback
+     */
     function expectForEachToHaveBeenCalledWithValidParameters(
       obj: Dictionary,
       callback = forEachCallback
@@ -75,6 +79,9 @@ describe('testing object utils', () => {
       });
     }
 
+    /**
+     * @param callback
+     */
     function expectForEachCallsToHaveValidIndexParameter(callback = forEachCallback): void {
       callback.mock.calls
         .map(function selectIndexParameter(call) {
@@ -148,6 +155,10 @@ describe('testing object utils', () => {
       expect(reducer).not.toHaveBeenCalled();
     });
 
+    /**
+     * @param obj
+     * @param callback
+     */
     function expectReduceToHaveBeenCalledWithValidParameters(
       obj: Dictionary,
       callback: jest.Mock = reducer
@@ -160,6 +171,9 @@ describe('testing object utils', () => {
       });
     }
 
+    /**
+     * @param callback
+     */
     function expectReduceCallsToHaveValidIndexParameter(callback: jest.Mock = reducer): void {
       callback.mock.calls
         .map(function selectIndexParameter(call) {
@@ -240,6 +254,10 @@ describe('testing object utils', () => {
       expect(mapCallback).not.toHaveBeenCalled();
     });
 
+    /**
+     * @param obj
+     * @param callback
+     */
     function expectMapToHaveBeenCalledWithValidParameters(
       obj: Dictionary,
       callback: jest.Mock = mapCallback
@@ -252,6 +270,9 @@ describe('testing object utils', () => {
       });
     }
 
+    /**
+     * @param callback
+     */
     function expectMapCallsToHaveValidIndexParameter(callback: jest.Mock = mapCallback): void {
       callback.mock.calls
         .map(function selectIndexParameter(call) {
@@ -330,6 +351,10 @@ describe('testing object utils', () => {
       expect(returnedValue.a).toEqual([undefined, 1]);
     });
 
+    /**
+     * @param obj
+     * @param key
+     */
     function hasProperty(obj: any, key: string): boolean {
       return key in obj;
     }
