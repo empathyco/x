@@ -1,7 +1,7 @@
 import 'cypress-plugin-tab';
+import { AnyFunction } from '@empathyco/x-utils';
 import { noOp } from '../../src/utils/function';
 import { forEach } from '../../src/utils/object';
-import { AnyFunction } from '../../src/utils/types';
 import { AdapterMockedResponses } from '../../src/adapter/mocked-adapter';
 
 declare global {
