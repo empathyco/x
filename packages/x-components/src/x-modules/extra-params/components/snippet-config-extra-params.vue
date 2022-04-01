@@ -3,9 +3,9 @@
 </template>
 
 <script lang="ts">
+  import { forEach } from '@empathyco/x-utils';
   import Vue from 'vue';
   import { Component, Watch, Inject, Prop } from 'vue-property-decorator';
-  import { forEach } from '@empathyco/x-utils';
   import { xComponentMixin } from '../../../components';
   import { Dictionary } from '../../../utils';
   import { SnippetConfig } from '../../../x-installer';

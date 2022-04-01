@@ -1,7 +1,7 @@
 import { NextQueriesRequest } from '@empathyco/x-adapter';
+import { map } from '@empathyco/x-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { map } from '@empathyco/x-utils';
 import { createHistoryQueries, getNextQueriesStub } from '../../../../__stubs__';
 import { nextQueriesXStoreModule } from '../module';
 import { NextQueriesState } from '../types';

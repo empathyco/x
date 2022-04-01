@@ -3,10 +3,10 @@
 </template>
 
 <script lang="ts">
+  import { objectFilter } from '@empathyco/x-utils';
   import Vue from 'vue';
   import GlobalEvents from 'vue-global-events';
   import { Component, Inject } from 'vue-property-decorator';
-  import { objectFilter } from '@empathyco/x-utils';
   import { State } from '../../../components';
   import { XOn } from '../../../components/decorators/bus.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';

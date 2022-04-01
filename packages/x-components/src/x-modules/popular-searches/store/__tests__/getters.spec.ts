@@ -1,8 +1,8 @@
 import { SuggestionsRequest } from '@empathyco/x-adapter';
+import { map } from '@empathyco/x-utils';
 import { createLocalVue } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { map } from '@empathyco/x-utils';
 import { createHistoryQueries } from '../../../../__stubs__/history-queries-stubs.factory';
 import { getPopularSearchesStub } from '../../../../__stubs__/popular-searches-stubs.factory';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';

@@ -1,6 +1,6 @@
 import { Facet } from '@empathyco/x-types';
-import { Store } from 'vuex';
 import { map } from '@empathyco/x-utils';
+import { Store } from 'vuex';
 import { resetStoreXModuleState } from '../../../../__tests__/utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { arrayToObject } from '../../../../utils/array';

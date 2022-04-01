@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { Plugin } from 'rollup';
 import { forEach } from '@empathyco/x-utils';
+import { Plugin } from 'rollup';
 import { ensureFilePathExists } from '../build.utils';
 
 /**

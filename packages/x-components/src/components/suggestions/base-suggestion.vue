@@ -15,9 +15,9 @@
 
 <script lang="ts">
   import { Suggestion } from '@empathyco/x-types';
+  import { forEach } from '@empathyco/x-utils';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { forEach } from '@empathyco/x-utils';
   import { QueryFeature } from '../../types/origin';
   import { normalizeString } from '../../utils/normalize';
   import { sanitize } from '../../utils/sanitize';

@@ -1,7 +1,7 @@
 <script lang="ts">
+  import { reduce } from '@empathyco/x-utils';
   import { Component } from 'vue-property-decorator';
   import { Subscription } from 'rxjs';
-  import { reduce } from '@empathyco/x-utils';
   import { XEventListeners } from '../x-installer/api/api.types';
   import { NoElement } from './no-element';
 

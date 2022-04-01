@@ -1,5 +1,5 @@
-import { mount } from '@vue/test-utils';
 import { forEach } from '@empathyco/x-utils';
+import { mount } from '@vue/test-utils';
 import { WireMetadata } from '../../wiring/wiring.types';
 import BaseEventButton from '../base-event-button.vue';
 

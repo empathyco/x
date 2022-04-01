@@ -1,5 +1,5 @@
-import { Store } from 'vuex';
 import { forEach } from '@empathyco/x-utils';
+import { Store } from 'vuex';
 import { getGettersProxyFromModule } from '../store/utils/getters-proxy.utils';
 import { AnySimpleStateSelector, AnyStateSelector } from '../store/utils/store-emitters.utils';
 import { debounce } from '../utils/debounce';

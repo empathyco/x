@@ -45,8 +45,8 @@
 
 <script lang="ts">
   import { Facet } from '@empathyco/x-types';
-  import { Component, Prop, Vue } from 'vue-property-decorator';
   import { map, objectFilter } from '@empathyco/x-utils';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
   import { Getter } from '../../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
   import { toKebabCase } from '../../../../utils/string';

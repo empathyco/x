@@ -14,15 +14,6 @@ module.exports = {
           }
         ]
       }
-    },
-    {
-      files: ['src/**/__tests__/*.spec.ts'],
-      rules: {
-        'jsdoc/require-description': 'off',
-        'jsdoc/require-param-description': 'off',
-        'jsdoc/require-returns': 'off',
-        'tsdoc/syntax': 'off'
-      }
     }
   ]
 };

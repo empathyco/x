@@ -64,8 +64,12 @@ describe('testing object utils', () => {
     });
 
     /**
-     * @param obj
-     * @param callback
+     * Expects forEach to have been called with valid parameters.
+     *
+     * @param obj - The object to iterate.
+     * @param callback - The callback to apply.
+     *
+     * @internal
      */
     function expectForEachToHaveBeenCalledWithValidParameters(
       obj: Dictionary,
@@ -80,7 +84,11 @@ describe('testing object utils', () => {
     }
 
     /**
-     * @param callback
+     * Expects forEach to have been called with valid index parameter.
+     *
+     * @param callback - The callback to apply.
+     *
+     * @internal
      */
     function expectForEachCallsToHaveValidIndexParameter(callback = forEachCallback): void {
       callback.mock.calls
@@ -156,8 +164,12 @@ describe('testing object utils', () => {
     });
 
     /**
-     * @param obj
-     * @param callback
+     * Expects reduce to have been called with valid parameters.
+     *
+     * @param obj - The object to iterate.
+     * @param callback - The callback to apply.
+     *
+     * @internal
      */
     function expectReduceToHaveBeenCalledWithValidParameters(
       obj: Dictionary,
@@ -172,7 +184,11 @@ describe('testing object utils', () => {
     }
 
     /**
-     * @param callback
+     * Expects reduce to have been called with valid index parameter.
+     *
+     * @param callback - The callback to apply.
+     *
+     * @internal
      */
     function expectReduceCallsToHaveValidIndexParameter(callback: jest.Mock = reducer): void {
       callback.mock.calls
@@ -255,8 +271,12 @@ describe('testing object utils', () => {
     });
 
     /**
-     * @param obj
-     * @param callback
+     * Expects map to have been called with valid parameters.
+     *
+     * @param obj - The object to iterate.
+     * @param callback - The callback to apply.
+     *
+     * @internal
      */
     function expectMapToHaveBeenCalledWithValidParameters(
       obj: Dictionary,
@@ -271,7 +291,11 @@ describe('testing object utils', () => {
     }
 
     /**
-     * @param callback
+     * Expects map to have been called with valid index parameter.
+     *
+     * @param callback - The callback to apply.
+     *
+     * @internal
      */
     function expectMapCallsToHaveValidIndexParameter(callback: jest.Mock = mapCallback): void {
       callback.mock.calls
@@ -352,8 +376,14 @@ describe('testing object utils', () => {
     });
 
     /**
-     * @param obj
-     * @param key
+     * Checks if the object has the given property.
+     *
+     * @param obj - The object to check.
+     * @param key - The property to check.
+     *
+     * @returns True if the property exists. Else, false.
+     *
+     * @internal
      */
     function hasProperty(obj: any, key: string): boolean {
       return key in obj;

@@ -1,7 +1,7 @@
 import { EmpathyAdapterConfig } from '@empathyco/x-adapter';
 import { deepMerge } from '@empathyco/x-deep-merge';
-import Vue, { PluginObject, VueConstructor } from 'vue';
 import { cleanUndefined, forEach } from '@empathyco/x-utils';
+import Vue, { PluginObject, VueConstructor } from 'vue';
 import { BaseXBus } from '../../plugins/x-bus';
 import { XBus } from '../../plugins/x-bus.types';
 import { XPlugin } from '../../plugins/x-plugin';

@@ -1,7 +1,7 @@
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
 import { TopRecommendationsRequest } from '@empathyco/x-adapter';
 import { map } from '@empathyco/x-utils';
+import Vue from 'vue';
+import Vuex, { Store } from 'vuex';
 import { RECOMMENDATIONS_ORIGIN } from '../constants';
 import { recommendationsXStoreModule } from '../module';
 import { RecommendationsState } from '../types';
