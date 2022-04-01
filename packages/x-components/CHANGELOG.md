@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.76](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.75...@empathyco/x-components@3.0.0-alpha.76) (2022-04-01)
+
+### Code Refactoring
+
+- move `NonPrimitive`, `Primitive` and `AnyFunction` types from `x-components` to `x-utils`
+  ([7efe460](https://github.com/empathyco/x/commit/7efe4605303492e2de6f42d844f1c3244e0bcef1)),
+  closes [EX-5792](https://searchbroker.atlassian.net/browse/EX-5792)
+
+### Documentation
+
+- fix links and update repository information and development setup for `x-components` (#394)
+  ([64d2118](https://github.com/empathyco/x/commit/64d2118f95673048df7e1a791ec3ae26da316ec9))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.75](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.74...@empathyco/x-components@3.0.0-alpha.75) (2022-03-31)
 
 **Note:** Version bump only for package @empathyco/x-components

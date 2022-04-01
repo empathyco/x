@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.4...@empathyco/x-deep-merge@1.3.0-alpha.5) (2022-04-01)
+
+### Code Refactoring
+
+- move `isObject` to `x-utils`
+  ([766c08c](https://github.com/empathyco/x/commit/766c08c60fdc3c0411c29c52e473439f0781fc42)),
+  closes [EX-5791](https://searchbroker.atlassian.net/browse/EX-5791)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.3.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.3...@empathyco/x-deep-merge@1.3.0-alpha.4) (2022-03-31)
 
 **Note:** Version bump only for package @empathyco/x-deep-merge
