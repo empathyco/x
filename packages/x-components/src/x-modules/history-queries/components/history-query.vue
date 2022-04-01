@@ -132,12 +132,12 @@ that serves to remove this query from the history. This slot only has one proper
 <template>
   <HistoryQuery :suggestion="suggestion">
     <template #default="{ suggestion, queryHTML }">
-      <img class="x-history-query__history-icon" src="/assets/icons/bulb.svg"/>
-      <span class="x-history-query__matching-part" v-html="queryHTML"/>
+      <img class="x-history-query__history-icon" src="/assets/icons/bulb.svg" />
+      <span class="x-history-query__matching-part" v-html="queryHTML" />
     </template>
 
     <template #remove-button-content="{ suggestion }">
-      <img class="x-history-query__remove-icon" src="/assets/icons/cross-dark.svg"/>
+      <img class="x-history-query__remove-icon" src="/assets/icons/cross-dark.svg" />
     </template>
   </HistoryQuery>
 </template>

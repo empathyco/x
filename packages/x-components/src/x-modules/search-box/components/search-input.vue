@@ -356,7 +356,8 @@ communicates with the [`SearchButton`](x-components.search-button.md) and the
 Furthermore, you can use it together with the [`QuerySuggestions`](query-suggestions.md) component
 to autocomplete the typed search term.
 
-_Type “trousers” or another fashion term in the input field and then click the clear icon to try it out!_
+_Type “trousers” or another fashion term in the input field and then click the clear icon to try it
+out!_
 
 ```vue live
 <template>
