@@ -75,6 +75,7 @@ export type DeepPartial<T> = {
  */
 export type NonPrimitive = Array<any> | Record<any, any>;
 
+// TODO: Move Primitive and AnyFunction to x-utils.
 /**
  * TypeScript type primitives. Basically every type possible except objects or arrays.
  *

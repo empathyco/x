@@ -2,17 +2,16 @@ import { PropertyPath, PropertyType } from '@empathyco/x-utils';
 import { Mapper, MapperContext } from '../types';
 import { Schema, SchemaTransformer } from '../schemas/schemas.types';
 
+// TODO: from deep-merge -> move to x-utils
 const isObject = (obj: any): obj is Record<string, unknown> => {
   return obj && typeof obj === 'object' && !Array.isArray(obj);
 };
 
-const isArray = (arr: any): arr is any[] => {
-  return arr && Array.isArray(arr);
-};
-
+// TODO: move AnyFunction from x-components to x-utils
+// TODO: move this to x-utils (change function to AnyFunction)
 // eslint-disable-next-line @typescript-eslint/ban-types
 const isFunction = (func: any): func is Function => {
-  return typeof func === 'function';
+  return func && typeof func === 'function';
 };
 
 /**
@@ -57,7 +56,7 @@ function getPathValue<Source>(
     return source as PropertyType<Source, PropertyPath<Source>>;
   }
   const value = source[first] as PropertyType<Source, PropertyPath<Source>>;
-  if (isObject(value) || isArray(value)) {
+  if (isObject(value) || Array.isArray(value)) {
     getPathValue(value, innerKeys);
   }
 
@@ -74,8 +73,6 @@ function getPathValue<Source>(
 export function mapperFactory<Source, Target>(
   schema: Schema<Source, Target>
 ): Mapper<Source, Target> {
-  // const selfSubSchemasApplied: Record<string, boolean> = {};
-
   /**
    *
    * I.
@@ -96,6 +93,7 @@ export function mapperFactory<Source, Target>(
     return reduce<Schema<Source, Target>, Target>(
       schema,
       (target, key, transformer: SchemaTransformer<Source, Target, keyof Target>) => {
+        // TODO: move this transformer logic to functions
         if (typeof transformer === 'string') {
           target[key] = getValueFromPath(
             source,
@@ -105,26 +103,15 @@ export function mapperFactory<Source, Target>(
         } else if (isFunction(transformer)) {
           target[key] = transformer(source, context);
         } else if (isObject(transformer)) {
-          if ('$path' in transformer) {
+          if ('$subschema' in transformer) {
             if (transformer.$subschema === '$self') {
-              // const subSchemaHash = `${transformer.$path}:${JSON.stringify(transformer)}`;
-              // if (selfSubSchemasApplied[subSchemaHash]) {
-              //   return target;
-              // }
-              //
-              // selfSubSchemasApplied[subSchemaHash] = true;
-
-              // const subSchema = { ...schema, [key]: undefined };
-              delete transformer.$subschema;
+              // TODO: fix infinite recursion when $self.
               target[key] = mapSchema<Source, Target[keyof Target]>(
                 source,
                 schema as unknown as Schema<Source, Target[keyof Target]>,
                 context
               );
             } else {
-              if (!transformer.$subschema) {
-                return target;
-              }
               const subSource = getValueFromPath(source, transformer['$path']);
               target[key] = mapSchema<typeof subSource, Target[keyof Target]>(
                 subSource,
@@ -204,6 +191,8 @@ export function mapperFactory<Source, Target>(
 //     : a => a;
 // }
 
+// TODO: move reduce and object functions from x-comp to x-utils.
+// TODO: move Dictionary type to x-utils.
 /**
  * I.
  *
