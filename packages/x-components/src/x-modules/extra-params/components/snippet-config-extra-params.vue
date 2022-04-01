@@ -3,10 +3,10 @@
 </template>
 
 <script lang="ts">
+  import { forEach, Dictionary } from '@empathyco/x-utils';
   import Vue from 'vue';
   import { Component, Watch, Inject, Prop } from 'vue-property-decorator';
   import { xComponentMixin } from '../../../components';
-  import { Dictionary, forEach } from '../../../utils';
   import { SnippetConfig } from '../../../x-installer';
   import { extraParamsXModule } from '../x-module';
   import ExtraParams from './extra-params.vue';

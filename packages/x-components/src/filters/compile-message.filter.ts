@@ -1,4 +1,4 @@
-import { Dictionary } from '../utils';
+import { Dictionary } from '@empathyco/x-utils';
 
 /**
  * Replaces a key in compiledMessage for the provided key's value.

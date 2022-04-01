@@ -1,8 +1,7 @@
 import 'cypress-plugin-tab';
-import { AnyFunction } from '@empathyco/x-utils';
-import { noOp } from '../../src/utils/function';
-import { forEach } from '../../src/utils/object';
+import { AnyFunction, forEach } from '@empathyco/x-utils';
 import { AdapterMockedResponses } from '../../src/adapter/mocked-adapter';
+import { noOp } from '../../src/utils/function';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace

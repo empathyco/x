@@ -1,4 +1,5 @@
 import { Facet } from '@empathyco/x-types';
+import { Dictionary } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -11,7 +12,7 @@ import {
 import { XPlugin } from '../../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../../store/store.types';
 import { toKebabCase } from '../../../../../utils/string';
-import { DeepPartial, Dictionary } from '../../../../../utils/types';
+import { DeepPartial } from '../../../../../utils/types';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
 import Facets from '../facets.vue';
