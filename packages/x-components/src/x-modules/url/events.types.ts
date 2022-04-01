@@ -15,7 +15,8 @@ export interface UrlXEvents {
   ParamsLoadedFromUrl: UrlParams;
   /**
    * Url loaded.
-   * * Payload: The extra params form URL in form of {@link Dictionary} with `unknown` values.
+   * * Payload: The extra params form URL in form of {@link @empathyco/x-utils#Dictionary
+   * | Dictionary} with `unknown` values.
    */
   ExtraParamsLoadedFromUrl: Dictionary<unknown>;
   /**
