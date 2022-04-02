@@ -1,4 +1,4 @@
-import { PropertyPath, PropertyType, Primitive } from '@empathyco/x-utils';
+import { ExtractPath, ExtractType, ExtractPathByType, Primitive } from '@empathyco/x-utils';
 import { MapperContext } from '../types/index';
 
 /**
@@ -92,20 +92,9 @@ export type SchemaTransformer<Source, Target, TargetKey extends keyof Target> =
  * @public
  */
 type SubSchema<Source, Target> = {
-  [Path in PropertyPath<Source>]: {
+  [Path in ExtractPath<Source>]: {
     $context?: MapperContext;
     $path: Path;
-    $subschema: Schema<PropertyType<Source, Path>, Target> | '$self';
+    $subschema: Schema<ExtractType<Source, Path>, Target> | '$self';
   };
-}[PropertyPath<Source>];
-
-// TODO: Remove type after merging EX-5763
-export type ExtractPathByType<SomeObject, Type> = keyof {
-  [Path in PropertyPath<SomeObject> as PropertyType<SomeObject, Path> extends (infer ArrayType)[]
-    ? ArrayType extends Type
-      ? `${Path}.${number}`
-      : never
-    : PropertyType<SomeObject, Path> extends Type
-    ? Path
-    : never]: any;
-};
+}[ExtractPath<Source>];

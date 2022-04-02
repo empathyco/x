@@ -1,15 +1,15 @@
+import { AnyFunction } from '@empathyco/x-utils';
+import { mount, Wrapper } from '@vue/test-utils';
+import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
+import { XEvent } from '../../../wiring';
+import BaseIdTogglePanelButton from '../base-id-toggle-panel-button.vue';
+
 /**
  * Renders the {@link BaseIdTogglePanelButton} with the provided options.
  *
  * @param options - The options to render the component with.
  * @returns An small API to test the component.
  */
-import { mount, Wrapper } from '@vue/test-utils';
-import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
-import { AnyFunction } from '../../../utils';
-import { XEvent } from '../../../wiring';
-import BaseIdTogglePanelButton from '../base-id-toggle-panel-button.vue';
-
 function renderBaseIdToggleButton({
   panelId = 'myToggle',
   scopedSlots = {

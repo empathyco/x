@@ -1,66 +1,111 @@
 import { Schema } from '../schemas.types';
 
-describe('Schema', () => {
+describe('schema tests', () => {
   interface Source {
-    data: {
-      a: string;
-      b: number;
-    };
-    facets: {
-      filter: string;
-      count: number;
-    };
-    price: {
-      original: number;
-      sale: number;
-    };
-    list: { id: string }[];
+    q: string;
+    count: number;
+    list: string[];
   }
 
   interface Target {
-    count: number;
-    filter: {
-      value: string;
-      num: number;
-    };
-    price: {
-      hasDiscount: boolean;
-      discountPercentage: number;
-      original: number;
-      discounted: number;
-    };
-    name: {
-      title: string;
-    };
+    query: string;
+    rows: number;
   }
 
-  it('Returns an schema', () => {
-    const priceSchema: Schema<Source['price'], Target['price']> = {
-      hasDiscount: (_, context) => !!(context?.requestParameters?.q === 'potatoe'),
-      discountPercentage: source => (1 - source.original / source.sale) * 100,
-      original: 'original',
-      discounted: 'sale'
-    };
+  interface ComposedSource {
+    response: Source;
+  }
 
-    const schema: Schema<Source, Target> = {
-      count: source => Math.min(0, source.data.b),
-      filter: {
-        $path: 'facets',
-        $subschema: {
-          num: 'count',
-          value: 'filter'
-        }
-      },
-      price: {
-        $path: 'price',
-        $subschema: priceSchema
-      },
-      name: {
+  interface ComposedTarget {
+    request: Target;
+    filter: string;
+  }
+
+  describe('Using schema with paths', () => {
+    it('Renames source properties matching type paths', () => {
+      const schema: Schema<Source, Target> = {
+        query: 'q',
         // @ts-expect-error
-        title: 'data.b'
-      }
-    };
+        rows: 'q'
+      };
 
-    expect(typeof schema).toBe('object');
+      expect(typeof schema.query).toBe('string');
+    });
+
+    it('Allows to use path to access an array', () => {
+      const schema: Schema<Source, Target> = {
+        query: 'list.0',
+        rows: 'count'
+      };
+
+      expect(typeof schema.rows).toBe('string');
+    });
+  });
+
+  describe('Using schema with functions', () => {
+    it('Allows to use function returning matching type', () => {
+      const schema: Schema<Source, Target> = {
+        rows: ({ q }) => Number(q),
+        // @ts-expect-error
+        query: () => 5
+      };
+
+      expect(typeof schema.rows).toBe('function');
+    });
+  });
+
+  describe('Using schema with composed types', () => {
+    it('Allows to use paths to inner properties', () => {
+      const schema: Schema<ComposedSource, ComposedTarget> = {
+        request: {
+          query: 'response.q',
+          // @ts-expect-error
+          rows: 'count'
+        },
+        filter: 'response.list.0'
+      };
+
+      expect(typeof schema.request).toBe('object');
+    });
+  });
+
+  describe('Using subSchema with composed types', () => {
+    it('Allows to use paths to inner properties', () => {
+      const subSchema: Schema<Source, Target> = {
+        query: 'q',
+        rows: 'count'
+      };
+
+      const schema: Schema<ComposedSource, ComposedTarget> = {
+        request: {
+          $path: 'response',
+          $subschema: subSchema
+        },
+        filter: 'response.list.0'
+      };
+
+      interface Pepe {
+        pepe: number;
+      }
+      interface Maria {
+        maria: string;
+      }
+      const wrongSubSchema: Schema<Pepe, Maria> = {
+        maria: ({ pepe }) => String(pepe)
+      };
+
+      const otherSchema: Schema<ComposedSource, ComposedTarget> = {
+        request: {
+          // @ts-expect-error
+          $path: 'response',
+          // @ts-expect-error
+          $subschema: wrongSubSchema
+        },
+        filter: 'response.list.0'
+      };
+
+      expect(typeof schema.request).toBe('object');
+      expect(typeof otherSchema.request).toBe('object');
+    });
   });
 });

@@ -46,7 +46,6 @@
      * - Decimal separator must be defined between the last 'i' and the first 'd'. It can be more
      * than one character.
      * - Set whatever you need around the integers and decimals marks.
-     * - Default mask: 'i.iii,dd' which returns '1.345,67'.
      *
      * @remarks The number of 'd', which is the maximum decimal length, MUST match with the length
      * of decimals provided from the adapter. Otherwise, when the component truncate the decimal
@@ -54,8 +53,8 @@
      *
      * @public
      */
-    @Prop({ default: 'i.iii,dd' })
-    protected format!: string;
+    @Prop()
+    protected format?: string;
   }
 </script>
 
@@ -68,14 +67,40 @@ This component shows the previous price formatted if it has discount. The compon
 props. `format` to select the currency format to be applied.
 
 ```vue
-<BaseResultPreviousPrice :value="result" :format="'i.iii,ddd €'" />
+<template>
+  <BaseResultPreviousPrice :result="result" :format="'i.iii,ddd €'" />
+</template>
+
+<script>
+  import { BaseResultPreviousPrice } from '@empathyco/x-components';
+
+  export default {
+    name: 'BaseResultPreviousPriceDemo',
+    components: {
+      BaseResultPreviousPrice
+    }
+  };
+</script>
 ```
 
 ### Overriding default slot
 
 ```vue
-<BaseResultPreviousPrice :result="result">
-  <span class="custom-base-result-previous-price">{{ result.price.originalValue }}</span>
-</BaseResultPreviousPrice>
+<template>
+  <BaseResultPreviousPrice :result="result">
+    <span class="custom-base-result-previous-price">{{ result.price.originalValue }}</span>
+  </BaseResultPreviousPrice>
+</template>
+
+<script>
+  import { BaseResultPreviousPrice } from '@empathyco/x-components';
+
+  export default {
+    name: 'BaseResultPreviousPriceDemo',
+    components: {
+      BaseResultPreviousPrice
+    }
+  };
+</script>
 ```
 </docs>

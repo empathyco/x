@@ -1,4 +1,4 @@
-import { objectFilter } from '../../../../utils/object';
+import { objectFilter } from '@empathyco/x-utils';
 import { initialUrlState } from '../initial-state';
 import { UrlParamValue, UrlXStoreModule } from '../types';
 

@@ -1,15 +1,7 @@
 import { Identifiable, NamedModel } from '@empathyco/x-types';
+import { NonPrimitive, AnyFunction, Dictionary } from '@empathyco/x-utils';
 import { XEventsTypes } from '../wiring/events.types';
 import { XModuleName } from '../x-modules/x-modules.types';
-
-/**
- * Object where all its properties are strings, and the value of them is defined by the type of
- * the T property.
- *
- * @param T - The type of the properties of the object.
- * @public
- */
-export type Dictionary<T = any> = Record<string, T>;
 
 /**
  * Extracts a sub-type with the properties of `SomeObject` that have the `TargetPropertyType` type.
@@ -67,28 +59,6 @@ export type DeepPartial<T> = {
       : DeepPartial<T[P]>
     : T[P];
 };
-
-/**
- * TypeScript type non-primitives. Array or Record with all possible types.
- *
- * @public
- */
-export type NonPrimitive = Array<any> | Record<any, any>;
-
-// TODO: Move Primitive and AnyFunction to x-utils.
-/**
- * TypeScript type primitives. Basically every type possible except objects or arrays.
- *
- * @public
- */
-export type Primitive = string | number | boolean | undefined | null | symbol | AnyFunction;
-
-/**
- * A function with 0 or more parameters of any type, which can return something or not.
- *
- * @public
- */
-export type AnyFunction = (...args: any[]) => any;
 
 /**
  * A function with no parameters that can return anything.

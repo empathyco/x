@@ -1,5 +1,5 @@
+import { Dictionary } from '@empathyco/x-utils';
 import { XStoreModule } from '../../../store';
-import { Dictionary } from '../../../utils';
 
 /**
  * ExtraParams store state.

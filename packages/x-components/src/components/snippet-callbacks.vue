@@ -3,9 +3,9 @@
 </template>
 
 <script lang="ts">
+  import { map } from '@empathyco/x-utils';
   import { Component, Inject } from 'vue-property-decorator';
   import Vue from 'vue';
-  import { map } from '../utils/object';
   import { WireMetadata } from '../wiring';
   import { SnippetConfig, XEventListeners } from '../x-installer/api/api.types';
   import GlobalXBus from './global-x-bus.vue';

@@ -3,6 +3,7 @@
 </template>
 
 <script lang="ts">
+  import { Dictionary, objectFilter } from '@empathyco/x-utils';
   import Vue from 'vue';
   import GlobalEvents from 'vue-global-events';
   import { Component, Inject } from 'vue-property-decorator';
@@ -12,8 +13,6 @@
   import { FeatureLocation } from '../../../types/origin';
   import { UrlParams } from '../../../types/url-params';
   import { isArrayEmpty } from '../../../utils/array';
-  import { objectFilter } from '../../../utils/object';
-  import { Dictionary } from '../../../utils/types';
   import { WireMetadata } from '../../../wiring/wiring.types';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { initialUrlState } from '../store/initial-state';

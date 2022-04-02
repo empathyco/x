@@ -1,4 +1,4 @@
-import { Dictionary } from '../../utils';
+import { Dictionary } from '@empathyco/x-utils';
 
 /**
  * Dictionary of the events of {@link ExtraParamsXModule}, where each key is the event name,

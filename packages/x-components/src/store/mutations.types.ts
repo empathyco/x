@@ -1,4 +1,4 @@
-import { Dictionary } from '../utils';
+import { Dictionary } from '@empathyco/x-utils';
 import { ExtractPayload } from './store.types';
 
 /**

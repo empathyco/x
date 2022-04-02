@@ -1,5 +1,5 @@
+import { Dictionary } from '@empathyco/x-utils';
 import { UrlParams } from '../../types/url-params';
-import { Dictionary } from '../../utils/types';
 
 /**
  * Dictionary of the events of URL XModule, where each key is the event name, and the value is
@@ -15,7 +15,8 @@ export interface UrlXEvents {
   ParamsLoadedFromUrl: UrlParams;
   /**
    * Url loaded.
-   * * Payload: The extra params form URL in form of {@link Dictionary} with `unknown` values.
+   * * Payload: The extra params form URL in form of {@link @empathyco/x-utils#Dictionary
+   * | Dictionary} with `unknown` values.
    */
   ExtraParamsLoadedFromUrl: Dictionary<unknown>;
   /**
