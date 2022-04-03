@@ -1,0 +1,39 @@
+import { isFunction, isObject } from '../typeguards';
+
+describe('typeguards test', () => {
+  const str = 'test';
+  const num = 0;
+  const bool = false;
+  // TODO: Migrate noOp function from x-components to x-utils
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  const func = (): any => {};
+  const arr = [1, 2, 3];
+  const obj = {
+    a: 1,
+    b: {
+      c: 'c'
+    }
+  };
+
+  describe('isFunction', () => {
+    it('should return true when the passed value is a Function', () => {
+      expect(isFunction(str)).toBe(false);
+      expect(isFunction(num)).toBe(false);
+      expect(isFunction(bool)).toBe(false);
+      expect(isFunction(func)).toBe(true);
+      expect(isFunction(arr)).toBe(false);
+      expect(isFunction(obj)).toBe(false);
+    });
+  });
+
+  describe('isObject', () => {
+    it('should return true when the passed value is an Object', () => {
+      expect(isObject(str)).toBe(false);
+      expect(isObject(num)).toBe(false);
+      expect(isObject(bool)).toBe(false);
+      expect(isObject(func)).toBe(false);
+      expect(isObject(arr)).toBe(false);
+      expect(isObject(obj)).toBe(true);
+    });
+  });
+});
