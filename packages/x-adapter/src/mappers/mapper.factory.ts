@@ -1,242 +1,130 @@
-import { PropertyPath, PropertyType } from '@empathyco/x-utils';
-import { Mapper, MapperContext } from '../types';
-import { Schema, SchemaTransformer } from '../schemas/schemas.types';
-
-// TODO: from deep-merge -> move to x-utils
-const isObject = (obj: any): obj is Record<string, unknown> => {
-  return obj && typeof obj === 'object' && !Array.isArray(obj);
-};
-
-// TODO: move AnyFunction from x-components to x-utils
-// TODO: move this to x-utils (change function to AnyFunction)
-// eslint-disable-next-line @typescript-eslint/ban-types
-const isFunction = (func: any): func is Function => {
-  return func && typeof func === 'function';
-};
+import { deepMerge } from '@empathyco/x-deep-merge';
+import { getSafePropertyChain } from '@empathyco/x-get-safe-property-chain';
+import { ExtractPath, isFunction, isObject, reduce } from '@empathyco/x-utils';
+import { Schema, SubSchemaTransformer } from '../schemas/schemas.types';
+import { Mapper, MapperContext } from '../types/mapper.types';
+import { extractValue } from '../utils/extract-value';
 
 /**
- * I.
+ * The 'mapperFactory' function creates a {@link Mapper | mapper function} for a given
+ * {@link Schema | schema}.
  *
- * @param source - I.
- * @param path - I.
- * @param extraPath - I.
+ * @param schema - The {@link Schema | schema} to apply in the {@link Mapper | mapper function}.
  *
- * @returns Yes.
- */
-function getValueFromPath<Source>(
-  source: Source,
-  path: PropertyPath<Source>,
-  extraPath?: PropertyPath<Source>
-): PropertyType<Source, PropertyPath<Source>> {
-  const [first, ...keys] = path.replace(`${extraPath ? `${extraPath}.` : ''}`, '').split('.') as [
-    keyof Source,
-    ...string[]
-  ];
-
-  if (!source[first]) {
-    throw new Error('De locos');
-  }
-  return getPathValue(source[first], keys) as PropertyType<Source, PropertyPath<Source>>;
-}
-
-/**
- * I.
+ * @returns A {@link Mapper | mapper function} that applies the given {@link Schema | schema}.
  *
- * @param source - I.
- * @param keys - I.
- *
- * @returns I.
- */
-function getPathValue<Source>(
-  source: Source,
-  keys: string[]
-): PropertyType<Source, PropertyPath<Source>> {
-  const [first, ...innerKeys] = keys as [keyof Source, ...string[]];
-  if (!first) {
-    return source as PropertyType<Source, PropertyPath<Source>>;
-  }
-  const value = source[first] as PropertyType<Source, PropertyPath<Source>>;
-  if (isObject(value) || Array.isArray(value)) {
-    getPathValue(value, innerKeys);
-  }
-
-  return value;
-}
-
-/**
- * I.
- *
- * @param schema - I.
- *
- * @returns I.
+ * @public
  */
 export function mapperFactory<Source, Target>(
   schema: Schema<Source, Target>
-): Mapper<Source, Target> {
-  /**
-   *
-   * I.
-   *
-   * @param source - I.
-   * @param schema - I.
-   * @param context - I.
-   * @param extraPath - I.
-   *
-   *@returns Yes.
-   */
-  function mapSchema<Source, Target>(
-    source: Source,
-    schema: Schema<Source, Target>,
-    context: MapperContext,
-    extraPath?: PropertyPath<Source>
-  ): Target {
-    return reduce<Schema<Source, Target>, Target>(
-      schema,
-      (target, key, transformer: SchemaTransformer<Source, Target, keyof Target>) => {
-        // TODO: move this transformer logic to functions
-        if (typeof transformer === 'string') {
-          target[key] = getValueFromPath(
+): Mapper<Source, Target | undefined> {
+  return function mapper(source: Source, context: MapperContext): Target | undefined {
+    return mapSchema(source, schema, context);
+  };
+}
+
+// TODO: Extract to x-utils
+function isPath<SomeObject>(obj: SomeObject, path: string): path is ExtractPath<SomeObject> {
+  return getSafePropertyChain(obj, path) !== undefined ? true : false;
+}
+
+/**
+ * The `mapSchema()` function creates a new object populated with the transformations defined by a
+ * {@link Schema} applied to a source object.
+ *
+ * @param source - The object to apply the transformations to.
+ * @param schema - The object that defines the transformations to apply.
+ * @param context - The {@link MapperContext | mapper context} to feed the transformations with.
+ *
+ * @returns A new object with each element being the result of the applied transformation.
+ *
+ * @internal
+ */
+function mapSchema<Source, Target>(
+  source: Source,
+  schema: Schema<Source, Target>,
+  context: MapperContext
+): Target | undefined {
+  if (!source) {
+    return undefined;
+  }
+  return reduce(
+    schema,
+    (target, key, transformer) => {
+      if (typeof transformer === 'string') {
+        if (isPath(source, transformer)) {
+          target[key] = extractValue(source, transformer) as Target[typeof key];
+        }
+      } else if (isFunction(transformer)) {
+        target[key] = transformer(source, context);
+      } else if (isObject(transformer)) {
+        if ('$subschema' in transformer) {
+          const value = applySubSchemaTransformer<Source, Target[typeof key]>(
             source,
-            transformer as unknown as PropertyPath<Source>,
-            extraPath
+            transformer as SubSchemaTransformer<Source, Target[typeof key]>,
+            context,
+            schema as unknown as Schema<Source, Target[typeof key]>
           ) as Target[keyof Target];
-        } else if (isFunction(transformer)) {
-          target[key] = transformer(source, context);
-        } else if (isObject(transformer)) {
-          if ('$subschema' in transformer) {
-            if (transformer.$subschema === '$self') {
-              // TODO: fix infinite recursion when $self.
-              target[key] = mapSchema<Source, Target[keyof Target]>(
-                source,
-                schema as unknown as Schema<Source, Target[keyof Target]>,
-                context
-              );
-            } else {
-              const subSource = getValueFromPath(source, transformer['$path']);
-              target[key] = mapSchema<typeof subSource, Target[keyof Target]>(
-                subSource,
-                transformer.$subschema,
-                context,
-                transformer.$path as PropertyPath<typeof subSource>
-              );
-            }
-          } else {
-            target[key] = mapSchema<Source, Target[keyof Target]>(
-              source,
-              transformer as unknown as Schema<Source, Target[keyof Target]>,
-              context
-            );
+
+          if (value) {
+            target[key] = value;
+          }
+        } else {
+          const value = mapSchema<Source, Target[typeof key]>(source, transformer, context);
+
+          if (value) {
+            target[key] = value;
           }
         }
-        return target;
-      },
-      {} as Target
-    );
-  }
-
-  /**
-   * I.
-   *
-   * @param source - I.
-   * @param context - I.
-   *
-   * @returns I.
-   */
-  function mapper(source: Source, context: MapperContext = {}): Target {
-    return mapSchema<Source, Target>(source, schema, context);
-  }
-
-  return mapper;
+      }
+      return target;
+    },
+    {} as Target
+  );
 }
 
-// function createMapperFromSchema<Source, Target>(
-//   schema: Schema<Source, Target>
-// ): Mapper<Source, Target> {
-//   const mapper = (source: Source, context: MapperContext = {}): Target => {
-//     if (Array.isArray(source)) {
-//       return source.map(reducer) as unknown as Target;
-//     } else {
-//       return reducer(source);
-//     }
-//
-//     function reducer(source: any): any {
-//       if (source === undefined || source === null) {
-//         return source;
-//       }
-//       return reduce(
-//         schema,
-//         (target, targetKey, transformer: SchemaTransformer<Source, Target, keyof Target>) => {
-//           const value = createMapperFromSchemaTransformer<Source, Target, keyof Target>(
-//             transformer,
-//             mapper
-//           )(source, context);
-//           if (value !== undefined) {
-//             target[targetKey] = value;
-//           }
-//           return target;
-//         },
-//         {} as Target
-//       );
-//     }
-//   };
-//   return mapper;
-// }
-//
-// function createMapperFromSchemaTransformer<Source, Target, TargetKey extends keyof Target>(
-//   schemaTransformer: SchemaTransformer<Source, Target, keyof Target>,
-//   parentMapper: Mapper<Source, Target>
-// ): Mapper<Source, Target[TargetKey]> {
-//   return typeof schemaTransformer === 'function'
-//     ? (source, context) => schemaTransformer(source, context)
-//     : a => a;
-// }
-
-// TODO: move reduce and object functions from x-comp to x-utils.
-// TODO: move Dictionary type to x-utils.
-/**
- * I.
- *
- * @param obj - I.
- * @param reducer - I.
- * @param initialValue - I.
- *
- * @returns I.
- */
-export function reduce<T extends Record<string, any>, V>(
-  obj: T | undefined | null,
-  reducer: (
-    accumulator: V,
-    key: keyof T,
-    value: Exclude<T[keyof T], undefined>,
-    index: number
-  ) => V,
-  initialValue: V
-): V {
-  let accumulator = initialValue;
-  forEach(obj, (key, value, index) => {
-    accumulator = reducer(accumulator, key, value, index);
-  });
-  return accumulator;
+// TODO: Extract to x-utils
+function isArrayOf<Type>(possibleArray: Type | Type[]): possibleArray is Type[] {
+  return Array.isArray(possibleArray);
 }
 
 /**
- * I.
+ * The `applySubSchemaTransformer()` function executes a `mapSchema()` function applying the defined
+ * {@link SubSchemaTransformer.$subschema}.
  *
- * @param obj - I.
- * @param callbackFn - I.
+ * @param source - The object to feed the schema.
+ * @param subSchemaTransformer - The {@link SubSchemaTransformer} object with a $path, $subschema
+ * and $context options.
+ * @param rawContext - The {@link MapperContext | mapper context} to feed the mapSchema function.
+ * @param schema - The {@link Schema} to apply.
+ *
+ * @returns The result of calling `mapSchema()` with the source, schema and context arguments.
+ *
+ * @internal
  */
-export function forEach<T extends Record<string, any>>(
-  obj: T | undefined | null,
-  callbackFn: (key: keyof T, value: Exclude<T[keyof T], undefined>, index: number) => void
-): void {
-  if (obj == null) {
-    return;
+function applySubSchemaTransformer<Source, Target>(
+  source: Source,
+  { $subschema, $path, $context }: SubSchemaTransformer<Source, Target>,
+  rawContext: MapperContext,
+  schema: Schema<Source, Target>
+): Target | Target[] | undefined {
+  const subSource = extractValue(source, $path);
+  if (!subSource) {
+    return undefined;
   }
 
-  let index = 0;
-  for (const key in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, key) && obj[key] !== undefined) {
-      callbackFn(key, obj[key], index++);
+  const context = deepMerge(rawContext, $context);
+  if ($subschema === '$self') {
+    if (isArrayOf(subSource)) {
+      return subSource.map(item => mapSchema(item as Source, schema, context) as Target);
+    } else {
+      return mapSchema(subSource as Source, schema, context);
+    }
+  } else {
+    if (isArrayOf(subSource)) {
+      return subSource.map(item => mapSchema(item, $subschema, context) as Target);
+    } else {
+      return mapSchema(subSource, $subschema, context);
     }
   }
 }

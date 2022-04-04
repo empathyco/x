@@ -1,3 +1,4 @@
+import { getSafePropertyChain } from '@empathyco/x-get-safe-property-chain';
 import { Dictionary, ExtractPath, ExtractType } from '@empathyco/x-utils';
 
 /**
@@ -10,18 +11,19 @@ import { Dictionary, ExtractPath, ExtractType } from '@empathyco/x-utils';
  *
  * @public
  */
-export function extractValue<SomeObject extends Dictionary>(
-  obj: SomeObject,
-  path: ExtractPath<SomeObject>
-): ExtractType<SomeObject, ExtractPath<SomeObject>> {
-  // eslint-disable-next-line @typescript-eslint/no-extra-parens
-  const value = path.split('.').reduce((acc, key) => (acc ? acc[key] : obj[key]), undefined);
-
-  if (value == null) {
-    throw new Error(
-      'Trying to extract the value of an invalid property path or a property with a nullish value'
-    );
+export function extractValue<SomeObject extends Dictionary, Path extends ExtractPath<SomeObject>>(
+  obj: SomeObject | SomeObject[],
+  path: Path
+): ExtractType<SomeObject, Path> | ExtractType<SomeObject, Path>[] | undefined {
+  const result = getSafePropertyChain(obj, path);
+  if (isArrayOf<ExtractType<SomeObject, Path>>(result)) {
+    return result;
+  } else {
+    return result as ExtractType<SomeObject, Path>;
   }
+}
 
-  return value;
+// TODO: Extract to x-utils
+function isArrayOf<Type>(possibleArray: Type | Type[]): possibleArray is Type[] {
+  return Array.isArray(possibleArray);
 }
