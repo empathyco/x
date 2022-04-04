@@ -1,4 +1,4 @@
-import { isFunction, isObject } from '../typeguards';
+import { isFunction, isObject, isPath } from '../typeguards';
 
 describe('typeguards test', () => {
   const str = 'test';
@@ -40,6 +40,15 @@ describe('typeguards test', () => {
       expect(isObject(obj)).toBe(true);
       expect(isObject(nil)).toBe(false);
       expect(isObject(undef)).toBe(false);
+    });
+  });
+
+  describe('isPath', () => {
+    // eslint-disable-next-line max-len
+    it('should return true when the passed path is a valid property path of the passed object', () => {
+      expect(isPath(obj, 'a')).toBe(true);
+      expect(isPath(obj, 'b.c')).toBe(true);
+      expect(isPath(obj, 'b.c.d')).toBe(false);
     });
   });
 });
