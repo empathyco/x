@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.4...@empathyco/x-react-wrapper@4.0.0-alpha.5) (2022-04-04)
+
+### Build System
+
+- **deps:** Upgrade Cypress and Vue Cli plugins versions. (#399)
+  ([630d6b0](https://github.com/empathyco/x/commit/630d6b0d767a3484140ecd252e2be10817e0900d)),
+  closes [EX-5417](https://searchbroker.atlassian.net/browse/EX-5417)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [4.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.3...@empathyco/x-react-wrapper@4.0.0-alpha.4) (2022-03-31)
 
 **Note:** Version bump only for package @empathyco/x-react-wrapper
