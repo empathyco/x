@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-utils@0.1.0-alpha.5...@empathyco/x-utils@0.1.0-alpha.6) (2022-04-04)
+
+### Features
+
+- **typeguards:** add isFunction (#403)
+  ([83a3b0f](https://github.com/empathyco/x/commit/83a3b0f549817a86f3358d50ee10171f63e2fb8e)),
+  closes [EX-5796](https://searchbroker.atlassian.net/browse/EX-5796)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-utils@0.1.0-alpha.4...@empathyco/x-utils@0.1.0-alpha.5) (2022-04-01)
 
 ### Code Refactoring

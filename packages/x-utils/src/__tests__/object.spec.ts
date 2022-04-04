@@ -1,12 +1,4 @@
-import {
-  cleanUndefined,
-  every,
-  forEach,
-  getNewAndUpdatedKeys,
-  isObject,
-  map,
-  reduce
-} from '../object';
+import { cleanUndefined, every, forEach, getNewAndUpdatedKeys, map, reduce } from '../object';
 import { Dictionary } from '../types/utils.types';
 
 class Person {
@@ -466,22 +458,6 @@ describe('testing object utils', () => {
     it('returns false when not every entry of the given object passes the condition', () => {
       expect(every({ a: 1, b: '2' }, (_key, value) => typeof value === 'number')).toBe(false);
       expect(every({ a: '1', b: 2 }, (_key, value) => typeof value === 'number')).toBe(false);
-    });
-  });
-
-  describe('utils.types test', () => {
-    it('should be true when object', () => {
-      const array = [1, 2, 3];
-      const object = {
-        id: 1,
-        name: 'test',
-        array
-      };
-      const testFunction = (): boolean => true;
-
-      expect(isObject(object)).toBe(true);
-      expect(isObject(array)).toBe(false);
-      expect(isObject(testFunction)).toBe(false);
     });
   });
 });
