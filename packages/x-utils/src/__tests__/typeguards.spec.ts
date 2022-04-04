@@ -14,6 +14,8 @@ describe('typeguards test', () => {
       c: 'c'
     }
   };
+  const nil = null;
+  const undef = undefined;
 
   describe('isFunction', () => {
     it('should return true when the passed value is a Function', () => {
@@ -23,6 +25,8 @@ describe('typeguards test', () => {
       expect(isFunction(func)).toBe(true);
       expect(isFunction(arr)).toBe(false);
       expect(isFunction(obj)).toBe(false);
+      expect(isFunction(nil)).toBe(false);
+      expect(isFunction(undef)).toBe(false);
     });
   });
 
@@ -34,6 +38,8 @@ describe('typeguards test', () => {
       expect(isObject(func)).toBe(false);
       expect(isObject(arr)).toBe(false);
       expect(isObject(obj)).toBe(true);
+      expect(isObject(nil)).toBe(false);
+      expect(isObject(undef)).toBe(false);
     });
   });
 });
