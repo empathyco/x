@@ -1,9 +1,9 @@
 import { SuggestionsRequest } from '@empathyco/x-adapter';
 import { HistoryQuery, Suggestion } from '@empathyco/x-types';
+import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { PopularSearchesConfig } from '../config.types';
-import { Dictionary } from '../../../utils/types';
 
 /**
  * Popular searches module state.

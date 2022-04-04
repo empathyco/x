@@ -45,12 +45,11 @@
 
 <script lang="ts">
   import { Facet } from '@empathyco/x-types';
+  import { Dictionary, map, objectFilter } from '@empathyco/x-utils';
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { Getter } from '../../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
   import { toKebabCase } from '../../../../utils/string';
-  import { map, objectFilter } from '../../../../utils/object';
-  import { Dictionary } from '../../../../utils/types';
   import FacetsMixin from '../facets.mixin';
   import { facetsXModule } from '../../x-module';
 

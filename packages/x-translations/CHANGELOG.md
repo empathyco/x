@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.8...@empathyco/x-translations@1.1.0-alpha.9) (2022-04-01)
+
+**Note:** Version bump only for package @empathyco/x-translations
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.1.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.7...@empathyco/x-translations@1.1.0-alpha.8) (2022-04-01)
+
+**Note:** Version bump only for package @empathyco/x-translations
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.1.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.6...@empathyco/x-translations@1.1.0-alpha.7) (2022-03-31)
+
+**Note:** Version bump only for package @empathyco/x-translations
+
 ## [1.1.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.5...@empathyco/x-translations@1.1.0-alpha.6) (2022-03-08)
 
 ### Features
@@ -10,11 +32,6 @@ All notable changes to this project will be documented in this file. See
 - update typescript
   ([73edca6](https://github.com/empathyco/x/commit/73edca61c1cea39d82a7ab94bc18c8bff94c138c)),
   closes [EX-5367](https://searchbroker.atlassian.net/browse/EX-5367)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [1.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.4...@empathyco/x-translations@1.1.0-alpha.5) (2022-02-28)
 
@@ -24,11 +41,6 @@ All notable changes to this project will be documented in this file. See
   ([2ffcc22](https://github.com/empathyco/x/commit/2ffcc222f5666d7866c8d7cd3a0eec7c0bb1f938)),
   closes [EX-5293](https://searchbroker.atlassian.net/browse/EX-5293)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [1.1.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.3...@empathyco/x-translations@1.1.0-alpha.4) (2021-11-29)
 
 ### Build System
@@ -36,11 +48,6 @@ All notable changes to this project will be documented in this file. See
 - update jest dependencies
   ([f3fee15](https://github.com/empathyco/x/commit/f3fee157d724292f5cbb7166908d48ef2fb4fe8c)),
   closes [EX-5027](https://searchbroker.atlassian.net/browse/EX-5027)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [1.1.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.2...@empathyco/x-translations@1.1.0-alpha.3) (2021-10-25)
 

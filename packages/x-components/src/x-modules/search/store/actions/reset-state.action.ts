@@ -1,5 +1,5 @@
+import { getNewAndUpdatedKeys } from '@empathyco/x-utils';
 import { isArrayEmpty } from '../../../../utils/array';
-import { getNewAndUpdatedKeys } from '../../../../utils/object';
 import { SearchXStoreModule } from '../types';
 
 /**

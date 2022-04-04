@@ -1,5 +1,13 @@
-import { cleanUndefined, every, forEach, getNewAndUpdatedKeys, map, reduce } from '../object';
-import { Dictionary } from '../types';
+import {
+  cleanUndefined,
+  every,
+  forEach,
+  getNewAndUpdatedKeys,
+  isObject,
+  map,
+  reduce
+} from '../object';
+import { Dictionary } from '../types/utils.types';
 
 class Person {
   public constructor(public name: string) {}
@@ -63,6 +71,14 @@ describe('testing object utils', () => {
       expect(forEachCallback).not.toHaveBeenCalled();
     });
 
+    /**
+     * Expects forEach to have been called with valid parameters.
+     *
+     * @param obj - The object to iterate.
+     * @param callback - The callback to apply.
+     *
+     * @internal
+     */
     function expectForEachToHaveBeenCalledWithValidParameters(
       obj: Dictionary,
       callback = forEachCallback
@@ -75,6 +91,13 @@ describe('testing object utils', () => {
       });
     }
 
+    /**
+     * Expects forEach to have been called with valid index parameter.
+     *
+     * @param callback - The callback to apply.
+     *
+     * @internal
+     */
     function expectForEachCallsToHaveValidIndexParameter(callback = forEachCallback): void {
       callback.mock.calls
         .map(function selectIndexParameter(call) {
@@ -148,6 +171,14 @@ describe('testing object utils', () => {
       expect(reducer).not.toHaveBeenCalled();
     });
 
+    /**
+     * Expects reduce to have been called with valid parameters.
+     *
+     * @param obj - The object to iterate.
+     * @param callback - The callback to apply.
+     *
+     * @internal
+     */
     function expectReduceToHaveBeenCalledWithValidParameters(
       obj: Dictionary,
       callback: jest.Mock = reducer
@@ -160,6 +191,13 @@ describe('testing object utils', () => {
       });
     }
 
+    /**
+     * Expects reduce to have been called with valid index parameter.
+     *
+     * @param callback - The callback to apply.
+     *
+     * @internal
+     */
     function expectReduceCallsToHaveValidIndexParameter(callback: jest.Mock = reducer): void {
       callback.mock.calls
         .map(function selectIndexParameter(call) {
@@ -240,6 +278,14 @@ describe('testing object utils', () => {
       expect(mapCallback).not.toHaveBeenCalled();
     });
 
+    /**
+     * Expects map to have been called with valid parameters.
+     *
+     * @param obj - The object to iterate.
+     * @param callback - The callback to apply.
+     *
+     * @internal
+     */
     function expectMapToHaveBeenCalledWithValidParameters(
       obj: Dictionary,
       callback: jest.Mock = mapCallback
@@ -252,6 +298,13 @@ describe('testing object utils', () => {
       });
     }
 
+    /**
+     * Expects map to have been called with valid index parameter.
+     *
+     * @param callback - The callback to apply.
+     *
+     * @internal
+     */
     function expectMapCallsToHaveValidIndexParameter(callback: jest.Mock = mapCallback): void {
       callback.mock.calls
         .map(function selectIndexParameter(call) {
@@ -330,6 +383,16 @@ describe('testing object utils', () => {
       expect(returnedValue.a).toEqual([undefined, 1]);
     });
 
+    /**
+     * Checks if the object has the given property.
+     *
+     * @param obj - The object to check.
+     * @param key - The property to check.
+     *
+     * @returns True if the property exists. Else, false.
+     *
+     * @internal
+     */
     function hasProperty(obj: any, key: string): boolean {
       return key in obj;
     }
@@ -403,6 +466,22 @@ describe('testing object utils', () => {
     it('returns false when not every entry of the given object passes the condition', () => {
       expect(every({ a: 1, b: '2' }, (_key, value) => typeof value === 'number')).toBe(false);
       expect(every({ a: '1', b: 2 }, (_key, value) => typeof value === 'number')).toBe(false);
+    });
+  });
+
+  describe('utils.types test', () => {
+    it('should be true when object', () => {
+      const array = [1, 2, 3];
+      const object = {
+        id: 1,
+        name: 'test',
+        array
+      };
+      const testFunction = (): boolean => true;
+
+      expect(isObject(object)).toBe(true);
+      expect(isObject(array)).toBe(false);
+      expect(isObject(testFunction)).toBe(false);
     });
   });
 });

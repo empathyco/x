@@ -5,10 +5,10 @@
 </template>
 
 <script lang="ts">
+  import { Dictionary } from '@empathyco/x-utils';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { NoElement, State, xComponentMixin } from '../../../components';
-  import { Dictionary } from '../../../utils';
   import { extraParamsXModule } from '../x-module';
 
   /**

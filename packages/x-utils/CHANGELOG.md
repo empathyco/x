@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-utils@0.1.0-alpha.4...@empathyco/x-utils@0.1.0-alpha.5) (2022-04-01)
+
+### Code Refactoring
+
+- move `object` utils from `x-components` to `x-utils`
+  ([512b350](https://github.com/empathyco/x/commit/512b350da4a3dd73ddbd78a7b2965a1e07735a8e)),
+  closes [EX-5793](https://searchbroker.atlassian.net/browse/EX-5793)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-utils@0.1.0-alpha.3...@empathyco/x-utils@0.1.0-alpha.4) (2022-04-01)
+
+### Code Refactoring
+
+- move `isObject` to `x-utils`
+  ([766c08c](https://github.com/empathyco/x/commit/766c08c60fdc3c0411c29c52e473439f0781fc42)),
+  closes [EX-5791](https://searchbroker.atlassian.net/browse/EX-5791)
+- move `NonPrimitive`, `Primitive` and `AnyFunction` types from `x-components` to `x-utils`
+  ([7efe460](https://github.com/empathyco/x/commit/7efe4605303492e2de6f42d844f1c3244e0bcef1)),
+  closes [EX-5792](https://searchbroker.atlassian.net/browse/EX-5792)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-utils@0.1.0-alpha.2...@empathyco/x-utils@0.1.0-alpha.3) (2022-03-31)
+
+**Note:** Version bump only for package @empathyco/x-utils
+
 ## [0.1.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-utils@0.1.0-alpha.1...@empathyco/x-utils@0.1.0-alpha.2) (2022-03-30)
 
 ### Features
