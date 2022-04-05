@@ -57,7 +57,6 @@ describe('typeguards test', () => {
       expect(isPath(arrayOfObj, '0.b.c')).toBe(true);
       expect(isPath(arrayOfObj, '0.b.c.d')).toBe(false);
       expect(isPath(arrayOfObj, '0.b.c.d')).toBe(false);
-      expect(isPath(arrayOfObj, '1.id')).toBe(true);
       expect(isPath(arrayOfObj, '1.x')).toBe(true);
       expect(isPath(arrayOfObj, '1.y')).toBe(true);
       expect(isPath(arrayOfObj, '1.z')).toBe(true);
