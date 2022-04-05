@@ -50,7 +50,6 @@
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
-  import SearchInput from '../../search-box/components/search-input.vue';
   import { historyQueriesXModule } from '../x-module';
   import HistoryQuery from './history-query.vue';
 
@@ -66,7 +65,7 @@
    * @public
    */
   @Component({
-    components: { SearchInput, BaseSuggestions, HistoryQuery },
+    components: { BaseSuggestions, HistoryQuery },
     mixins: [xComponentMixin(historyQueriesXModule)]
   })
   export default class HistoryQueries extends Vue {
