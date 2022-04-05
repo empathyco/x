@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-utils@0.1.0-alpha.6...@empathyco/x-utils@0.1.0-alpha.7) (2022-04-05)
+
+### Features
+
+- **typeguards:** Add isArray (#409)
+  ([527bfc9](https://github.com/empathyco/x/commit/527bfc9935ca5f5fecd68e15044e3e2852f5296f)),
+  closes [EX-5803](https://searchbroker.atlassian.net/browse/EX-5803)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.1.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-utils@0.1.0-alpha.5...@empathyco/x-utils@0.1.0-alpha.6) (2022-04-04)
 
 ### Features
