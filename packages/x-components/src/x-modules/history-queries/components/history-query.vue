@@ -97,12 +97,10 @@ This component only requires a prop called `suggestion`
 </template>
 
 <script>
-  import { SearchInput } from '@empathyco/x-components/search-box';
   import { HistoryQuery } from '@empathyco/x-components/history-queries';
   export default {
     name: 'HistoryQueryDemo',
     components: {
-      SearchInput,
       HistoryQuery
     },
     data() {
@@ -143,12 +141,10 @@ that serves to remove this query from the history. This slot only has one proper
 </template>
 
 <script>
-  import { SearchInput } from '@empathyco/x-components/search-box';
   import { HistoryQuery } from '@empathyco/x-components/history-queries';
   export default {
     name: 'HistoryQueryDemo',
     components: {
-      SearchInput,
       HistoryQuery
     },
     data() {
