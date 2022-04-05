@@ -1,4 +1,4 @@
-import { isFunction, isObject } from '../typeguards';
+import { isArray, isFunction, isObject, isPath } from '../typeguards';
 
 describe('typeguards test', () => {
   const str = 'test';
@@ -14,8 +14,22 @@ describe('typeguards test', () => {
       c: 'c'
     }
   };
+  const arrayOfObj = [obj, { x: 1, y: 5 }];
   const nil = null;
   const undef = undefined;
+
+  describe('isArray', () => {
+    it('should return true when the passed value is an array', () => {
+      expect(isArray(str)).toBe(false);
+      expect(isArray(num)).toBe(false);
+      expect(isArray(bool)).toBe(false);
+      expect(isArray(func)).toBe(false);
+      expect(isArray(arr)).toBe(true);
+      expect(isArray(obj)).toBe(false);
+      expect(isArray(nil)).toBe(false);
+      expect(isArray(undef)).toBe(false);
+    });
+  });
 
   describe('isFunction', () => {
     it('should return true when the passed value is a Function', () => {
@@ -40,6 +54,25 @@ describe('typeguards test', () => {
       expect(isObject(obj)).toBe(true);
       expect(isObject(nil)).toBe(false);
       expect(isObject(undef)).toBe(false);
+    });
+  });
+
+  describe('isPath', () => {
+    // eslint-disable-next-line max-len
+    it('should return true when the passed path is a valid property path of the passed object', () => {
+      expect(isPath(obj, 'a')).toBe(true);
+      expect(isPath(obj, 'b.c')).toBe(true);
+      expect(isPath(obj, 'b.c.d')).toBe(false);
+    });
+    // eslint-disable-next-line max-len
+    it('should return true when the passed path is a valid property path of the passed array', () => {
+      expect(isPath(arrayOfObj, '0.a')).toBe(true);
+      expect(isPath(arrayOfObj, '0.b.c')).toBe(true);
+      expect(isPath(arrayOfObj, '0.b.c.d')).toBe(false);
+      expect(isPath(arrayOfObj, '0.b.c.d')).toBe(false);
+      expect(isPath(arrayOfObj, '1.x')).toBe(true);
+      expect(isPath(arrayOfObj, '1.y')).toBe(true);
+      expect(isPath(arrayOfObj, '1.z')).toBe(false);
     });
   });
 });

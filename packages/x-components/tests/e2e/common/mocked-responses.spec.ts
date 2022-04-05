@@ -1,4 +1,4 @@
-import { Given } from 'cypress-cucumber-preprocessor/steps';
+import { And, Given } from 'cypress-cucumber-preprocessor/steps';
 import {
   NextQueriesResponse,
   RelatedTagsResponse,
@@ -483,6 +483,10 @@ Given('a results API with a redirection', () => {
   cy.intercept(searchEndpoint, req => {
     req.reply(createSearchResponse({ redirections: [createRedirectionStub('Redirection')] }));
   }).as('interceptedResults');
+});
+
+And('waiting for search request intercept', () => {
+  cy.intercept('https://api.empathy.co/search').as('requestWithFilter');
 });
 
 /**
