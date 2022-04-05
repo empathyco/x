@@ -4,6 +4,6 @@ module.exports = {
     require('tailwindcss/nesting'),
     require('tailwindcss'),
     require('autoprefixer'),
-    process.env.NODE_ENV === 'production' ? require('autoprefixer')() : false
+    process.env.NODE_ENV === 'production' ? require('cssnano')() : false
   ]
 };
