@@ -163,6 +163,14 @@ export type SubSchemaTransformer<Source, Target> = {
   [Path in ExtractPath<Source>]: {
     $context?: MapperContext;
     $path: Path;
-    $subschema: Schema<ExtractType<Source, Path>, Target> | '$self';
+    $subschema:
+      | (ExtractType<Source, Path> extends (infer SourceArrayType)[]
+          ? Target extends (infer TargetArrayType)[]
+            ? Schema<SourceArrayType, TargetArrayType>
+            : never
+          : Target extends (infer TargetArrayType)[]
+          ? never
+          : Schema<ExtractType<Source, Path>, Target>)
+      | '$self';
   };
 }[ExtractPath<Source>];

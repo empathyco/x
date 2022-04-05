@@ -124,7 +124,11 @@ function applySubSchemaTransformer<Source, Target>(
     if (isArrayOf(subSource)) {
       return subSource.map(item => mapSchema(item, $subschema, context) as Target);
     } else {
-      return mapSchema(subSource, $subschema, context);
+      return mapSchema<typeof subSource, Target>(
+        subSource,
+        $subschema as Schema<typeof subSource, Target>,
+        context
+      );
     }
   }
 }
