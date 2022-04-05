@@ -324,10 +324,12 @@ _Type any term in the input field to try it out!_
   <div>
     <SearchInput
       @UserPressedEnterKey="value = 'enter'"
-      @UserFocusedSearchBox="value = 'focus'"
+      @UserFocusedSearchBox="hasFocus = true"
+      @UserBlurredSearchBox="hasFocus = false"
       @UserIsTypingAQuery="value = 'typing'"
     />
-    {{ value }}
+    <strong>{{ value }}</strong>
+    {{ hasFocus ? 'focused' : 'unfocused' }}
   </div>
 </template>
 
@@ -341,7 +343,8 @@ _Type any term in the input field to try it out!_
     },
     data() {
       return {
-        value: ''
+        value: '',
+        hasFocus: false
       };
     }
   };
