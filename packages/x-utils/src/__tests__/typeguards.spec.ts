@@ -1,4 +1,4 @@
-import { isFunction, isObject } from '../typeguards';
+import { isArray, isFunction, isObject } from '../typeguards';
 
 describe('typeguards test', () => {
   const str = 'test';
@@ -16,6 +16,19 @@ describe('typeguards test', () => {
   };
   const nil = null;
   const undef = undefined;
+
+  describe('isArray', () => {
+    it('should return true when the passed value is an array', () => {
+      expect(isArray(str)).toBe(false);
+      expect(isArray(num)).toBe(false);
+      expect(isArray(bool)).toBe(false);
+      expect(isArray(func)).toBe(false);
+      expect(isArray(arr)).toBe(true);
+      expect(isArray(obj)).toBe(false);
+      expect(isArray(nil)).toBe(false);
+      expect(isArray(undef)).toBe(false);
+    });
+  });
 
   describe('isFunction', () => {
     it('should return true when the passed value is a Function', () => {
