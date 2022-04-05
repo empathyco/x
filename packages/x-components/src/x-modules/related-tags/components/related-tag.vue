@@ -182,10 +182,9 @@ _Here you can see how the RelatedTag component is rendered._
       return {
         tag: {
           modelName: 'RelatedTag',
-          previous: 'shoe',
           query: 'high heel',
-          selected: false,
-          tag: 'heels'
+          isCurated: false,
+          tag: 'heel'
         }
       };
     }
@@ -218,10 +217,9 @@ _See how the related tag can be rendered._
       return {
         tag: {
           modelName: 'RelatedTag',
-          previous: 'shoe',
           query: 'high heel',
-          selected: false,
-          tag: 'heels'
+          isCurated: false,
+          tag: 'heel'
         }
       };
     }
@@ -253,10 +251,9 @@ _See how the event is triggered when the related tag is clicked._
       return {
         tag: {
           modelName: 'RelatedTag',
-          previous: 'shoe',
           query: 'high heel',
-          selected: false,
-          tag: 'heels'
+          isCurated: false,
+          tag: 'heel'
         }
       };
     },
