@@ -3,6 +3,83 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.81](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.80...@empathyco/x-components@3.0.0-alpha.81) (2022-04-05)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.80](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.79...@empathyco/x-components@3.0.0-alpha.80) (2022-04-04)
+
+### Testing
+
+- Restructure files for non global step def (#382)
+  ([d212692](https://github.com/empathyco/x/commit/d21269273e87e58312fde996fd9be3e5883958b4)),
+  closes [EX-5739](https://searchbroker.atlassian.net/browse/EX-5739)
+  [EX-5739](https://searchbroker.atlassian.net/browse/EX-5739)
+  [EX-5739](https://searchbroker.atlassian.net/browse/EX-5739)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.79](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.78...@empathyco/x-components@3.0.0-alpha.79) (2022-04-04)
+
+### Build System
+
+- **deps:** Upgrade Cypress and Vue Cli plugins versions. (#399)
+  ([630d6b0](https://github.com/empathyco/x/commit/630d6b0d767a3484140ecd252e2be10817e0900d)),
+  closes [EX-5417](https://searchbroker.atlassian.net/browse/EX-5417)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.78](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.77...@empathyco/x-components@3.0.0-alpha.78) (2022-04-04)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.77](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.76...@empathyco/x-components@3.0.0-alpha.77) (2022-04-01)
+
+### Code Refactoring
+
+- move `object` utils from `x-components` to `x-utils`
+  ([512b350](https://github.com/empathyco/x/commit/512b350da4a3dd73ddbd78a7b2965a1e07735a8e)),
+  closes [EX-5793](https://searchbroker.atlassian.net/browse/EX-5793)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.76](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.75...@empathyco/x-components@3.0.0-alpha.76) (2022-04-01)
+
+### Code Refactoring
+
+- move `NonPrimitive`, `Primitive` and `AnyFunction` types from `x-components` to `x-utils`
+  ([7efe460](https://github.com/empathyco/x/commit/7efe4605303492e2de6f42d844f1c3244e0bcef1)),
+  closes [EX-5792](https://searchbroker.atlassian.net/browse/EX-5792)
+
+### Documentation
+
+- fix links and update repository information and development setup for `x-components` (#394)
+  ([64d2118](https://github.com/empathyco/x/commit/64d2118f95673048df7e1a791ec3ae26da316ec9))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.75](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.74...@empathyco/x-components@3.0.0-alpha.75) (2022-03-31)
 
 **Note:** Version bump only for package @empathyco/x-components

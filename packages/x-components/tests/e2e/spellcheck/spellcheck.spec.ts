@@ -12,11 +12,6 @@ Then(
   }
 );
 
-// Scenario 2
-Then('spellcheck component is not shown', () => {
-  cy.getByDataTest('spellcheck').should('not.exist');
-});
-
 // Scenario 3
 When('spellcheck button is clicked', () => {
   cy.getByDataTest('set-spellcheck').click().invoke('text').as('spellcheckedQuery');

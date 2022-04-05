@@ -11,12 +11,12 @@ import {
   Sort,
   TaggingInfo
 } from '@empathyco/x-types';
+import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { QueryOrigin, QueryOriginInit } from '../../../types/origin';
 import { UrlParams } from '../../../types/url-params';
-import { Dictionary } from '../../../utils/types';
 import { SearchConfig } from '../config.types';
 import { InternalSearchRequest, WatchedInternalSearchRequest } from '../types';
 

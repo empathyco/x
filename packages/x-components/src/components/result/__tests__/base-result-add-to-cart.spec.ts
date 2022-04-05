@@ -1,9 +1,9 @@
 import { Result } from '@empathyco/x-types';
+import { Dictionary } from '@empathyco/x-utils';
 import { mount, Wrapper } from '@vue/test-utils';
 import { createResultStub } from '../../../__stubs__/results-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import { XBus } from '../../../plugins/index';
-import { Dictionary } from '../../../utils/index';
 import BaseResultAddToCart from '../base-result-add-to-cart.vue';
 
 describe('testing BaseResultAddToCart component', () => {

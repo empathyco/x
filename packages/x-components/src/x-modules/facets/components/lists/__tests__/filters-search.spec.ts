@@ -1,8 +1,8 @@
 import { Filter } from '@empathyco/x-types';
+import { Dictionary } from '@empathyco/x-utils';
 import { mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
-import { Dictionary } from '../../../../../utils/types';
 import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector } from '../../../../../__tests__/utils';
 import FiltersSearch from '../filters-search.vue';

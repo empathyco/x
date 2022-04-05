@@ -1,9 +1,9 @@
+import { Dictionary } from '@empathyco/x-utils';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components';
 import { XPlugin } from '../../../../plugins';
-import { Dictionary } from '../../../../utils';
 import { WirePayload } from '../../../../wiring';
 import { extraParamsXModule } from '../../x-module';
 import SnippetConfigExtraParams from '../snippet-config-extra-params.vue';

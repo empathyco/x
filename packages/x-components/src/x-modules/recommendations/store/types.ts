@@ -1,8 +1,8 @@
 import { TopRecommendationsRequest } from '@empathyco/x-adapter';
 import { Result } from '@empathyco/x-types';
+import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
-import { Dictionary } from '../../../utils/types';
 import { RecommendationsConfig } from '../config.types';
 
 /**
