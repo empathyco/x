@@ -19,3 +19,13 @@ updates:
       day: "friday"
       time: "08:00"
       timezone: "Europe/Madrid"
+
+
+  # Maintain dependencies for the tailwind-x package
+  - package-ecosystem: "npm"
+    directory: "/packages/tailwind-x"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+      time: "08:00"
+      timezone: "Europe/Madrid"
