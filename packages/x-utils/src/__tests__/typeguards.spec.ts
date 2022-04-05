@@ -14,6 +14,7 @@ describe('typeguards test', () => {
       c: 'c'
     }
   };
+  const arrayOfObj = [obj, { x: 1, y: 5 }];
   const nil = null;
   const undef = undefined;
 
@@ -49,6 +50,17 @@ describe('typeguards test', () => {
       expect(isPath(obj, 'a')).toBe(true);
       expect(isPath(obj, 'b.c')).toBe(true);
       expect(isPath(obj, 'b.c.d')).toBe(false);
+    });
+    // eslint-disable-next-line max-len
+    it('should return true when the passed path is a valid property path of the passed array', () => {
+      expect(isPath(arrayOfObj, '0.a')).toBe(true);
+      expect(isPath(arrayOfObj, '0.b.c')).toBe(true);
+      expect(isPath(arrayOfObj, '0.b.c.d')).toBe(false);
+      expect(isPath(arrayOfObj, '0.b.c.d')).toBe(false);
+      expect(isPath(arrayOfObj, '1.id')).toBe(true);
+      expect(isPath(arrayOfObj, '1.x')).toBe(true);
+      expect(isPath(arrayOfObj, '1.y')).toBe(true);
+      expect(isPath(arrayOfObj, '1.z')).toBe(true);
     });
   });
 });

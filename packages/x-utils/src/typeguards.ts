@@ -42,7 +42,5 @@ export function isPath<SomeObject, Path extends ExtractPath<SomeObject>>(
   obj: SomeObject,
   path: string
 ): path is Path {
-  return getSafePropertyChain<ExtractType<SomeObject, Path>>(obj, path) !== undefined
-    ? true
-    : false;
+  return getSafePropertyChain<ExtractType<SomeObject, Path>>(obj, path) !== undefined;
 }
