@@ -177,11 +177,12 @@ Search component.
 </template>
 
 <script>
-  import { PopularSearches } from '@empathyco/x-components/popular-searches';
+  import { PopularSearches, PopularSearch } from '@empathyco/x-components/popular-searches';
   export default {
     name: 'PopularSearchesDemo',
     components: {
-      PopularSearches
+      PopularSearches,
+      PopularSearch
     }
   };
 </script>
