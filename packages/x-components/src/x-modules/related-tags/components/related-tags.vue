@@ -117,8 +117,8 @@ _Search for a fashion term like "sandal" or "lipstick"._
 ```vue live
 <template>
   <div>
-    <SearchInput></SearchInput>
-    <RelatedTags></RelatedTags>
+    <SearchInput />
+    <RelatedTags />
   </div>
 </template>
 
@@ -146,8 +146,8 @@ _Search for a fashion term and see the related tags with the animation effect._
 ```vue live
 <template>
   <div>
-    <SearchInput></SearchInput>
-    <RelatedTags :animation="'StaggeredFadeAndSlide'" :maxItemsToRender="3"></RelatedTags>
+    <SearchInput />
+    <RelatedTags :animation="'StaggeredFadeAndSlide'" :maxItemsToRender="3" />
   </div>
 </template>
 
@@ -179,9 +179,9 @@ _Search for a fashion term and see how the related tags can be rendered._
 ```vue live
 <template>
   <div>
-    <SearchInput></SearchInput>
+    <SearchInput />
     <RelatedTags #related-tag="{ relatedTag }">
-      <RelatedTag :relatedTag="relatedTag"></RelatedTag>
+      <RelatedTag :relatedTag="relatedTag" />
     </RelatedTags>
   </div>
 </template>
@@ -212,7 +212,7 @@ _Search for a fashion term and see how the related tags are rendered._
 ```vue live
 <template>
   <div>
-    <SearchInput></SearchInput>
+    <SearchInput />
     <RelatedTags #related-tag-content="{ relatedTag }">
       <span>{{ relatedTag.tag }}</span>
     </RelatedTags>
@@ -243,8 +243,8 @@ _Search for a fashion term and see how the related tags can be rendered._
 ```vue live
 <template>
   <div>
-    <SearchInput></SearchInput>
-    <RelatedTags></RelatedTags>
+    <SearchInput />
+    <RelatedTags />
     <ResultsList #result="{ item }">
       <span class="result">
         {{ item.name }}

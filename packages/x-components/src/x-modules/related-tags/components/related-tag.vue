@@ -167,7 +167,7 @@ _Here you can see how the RelatedTag component is rendered._
 
 ```vue live
 <template>
-  <RelatedTag :relatedTag="tag"></RelatedTag>
+  <RelatedTag :relatedTag="tag" />
 </template>
 
 <script>
@@ -236,7 +236,7 @@ _See how the event is triggered when the related tag is clicked._
 
 ```vue live
 <template>
-  <RelatedTag :relatedTag="tag" @UserSelectedARelatedTag="alertRelatedTag"></RelatedTag>
+  <RelatedTag :relatedTag="tag" @UserSelectedARelatedTag="alertRelatedTag" />
 </template>
 
 <script>
