@@ -9,11 +9,14 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "importHelpers": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "declarationMap": true
   },
   "include": ["src"],
   "exclude": ["node_modules"]
