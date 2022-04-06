@@ -33,6 +33,8 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
+    "@empathyco/x-deep-merge": "^1.3.0-alpha.9",
+    "@empathyco/x-get-safe-property-chain": "^1.3.0-alpha.3",
     "tslib": "~2.3.0"
   },
   "devDependencies": {
