@@ -10,6 +10,7 @@ import {
   Result,
   Suggestion
 } from '@empathyco/x-types';
+import { DeepPartial } from '@empathyco/x-utils';
 import { Store } from 'vuex';
 import { ActionsTree } from '../store/actions.types';
 import { GettersTree } from '../store/getters.types';
@@ -17,7 +18,7 @@ import { MutationsTree } from '../store/mutations.types';
 import { AnyXStoreModule, XStoreModule } from '../store/store.types';
 import { RequestStatus } from '../store/utils/status-store.utils';
 import { StoreEmitters } from '../store/utils/store-emitters.utils';
-import { DeepPartial, PropsWithType } from '../utils';
+import { PropsWithType } from '../utils';
 import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
 import { WireMetadata, Wiring } from '../wiring/wiring.types';
 import { ScrollComponentState } from '../x-modules/scroll/index';

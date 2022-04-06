@@ -1,5 +1,5 @@
 import { Identifiable, NamedModel } from '@empathyco/x-types';
-import { NonPrimitive, AnyFunction, Dictionary } from '@empathyco/x-utils';
+import { AnyFunction, Dictionary } from '@empathyco/x-utils';
 import { XEventsTypes } from '../wiring/events.types';
 import { XModuleName } from '../x-modules/x-modules.types';
 
@@ -45,20 +45,6 @@ export type SubObject<SomeObject, TargetPropertyType> = {
  */
 export type PropsWithType<SomeObject, TargetItem> = keyof SomeObject &
   keyof SubObject<SomeObject, TargetItem>;
-
-/**
- * Makes all the properties of the T type optional in depth.
- *
- * @param T - The type to make all its properties in depth optional.
- * @public
- */
-export type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends NonPrimitive
-    ? T[P] extends AnyFunction
-      ? T[P]
-      : DeepPartial<T[P]>
-    : T[P];
-};
 
 /**
  * A function with no parameters that can return anything.

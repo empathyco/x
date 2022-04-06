@@ -1,9 +1,9 @@
+import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { RootXStoreState } from '../../../../store';
-import { DeepPartial } from '../../../../utils';
 import Spellcheck from '../spellcheck.vue';
 import { resetXSearchStateWith } from './utils';
 

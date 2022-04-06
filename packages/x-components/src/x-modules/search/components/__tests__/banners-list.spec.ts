@@ -1,5 +1,5 @@
 import { Banner } from '@empathyco/x-types';
-import { Dictionary } from '@empathyco/x-utils';
+import { DeepPartial, Dictionary } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue, { VueConstructor, ComponentOptions } from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -8,7 +8,7 @@ import BaseGrid from '../../../../components/base-grid.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial, ListItem } from '../../../../utils/types';
+import { ListItem } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
 import BannersList from '../banners-list.vue';

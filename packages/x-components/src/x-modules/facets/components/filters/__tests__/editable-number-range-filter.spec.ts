@@ -1,4 +1,5 @@
 import { EditableNumberRangeFilter, RangeValue } from '@empathyco/x-types';
+import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -10,7 +11,6 @@ import {
   isXComponent
 } from '../../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../../store/store.types';
-import { DeepPartial } from '../../../../../utils/types';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
 import EditableNumberRangeFilterComponent from '../editable-number-range-filter.vue';
