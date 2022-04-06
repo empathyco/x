@@ -1,0 +1,34 @@
+{
+  "name": "tailwindcss-x",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Empathy X Tailwind plugin",
+  "author": "Empathy Systems Corporation S.L.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/tailwindcss-x#readme",
+  "keywords": [
+    "tailwind",
+    "design",
+    "system",
+    "empathy"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "autoprefixer": "~9.7.4",
+    "cssnano": "~5.0.15",
+    "postcss": "~8.4.12",
+    "postcss-import": "~14.1.0",
+    "tailwindcss": "~3.0.23",
+    "tslib": "~2.3.0",
+    "typescript": "~4.6.2",
+    "vite": "~2.9.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  }
+}
