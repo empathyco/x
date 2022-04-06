@@ -1,7 +1,7 @@
 import { Schema } from '../../schemas/schemas.types';
-import { mapperFactory } from '../mapper.factory';
+import { schemaMapperFactory } from '../schema-mapper.factory';
 
-describe('mapperFactory tests', () => {
+describe('schemaMapperFactory tests', () => {
   interface Facet {
     id: string;
     label: string;
@@ -32,7 +32,7 @@ describe('mapperFactory tests', () => {
     const source: Source = {
       q: 'potatoe',
       rows: 10,
-      facets: [{ id: 'brand', count: 1, label: 'Brand' }]
+      facets: []
     };
     const target: Target = {
       query: 'potatoe',
@@ -43,19 +43,33 @@ describe('mapperFactory tests', () => {
       hits: ({ rows }) => rows + 1
     };
 
-    const mapper = mapperFactory(schema);
+    const mapper = schemaMapperFactory(schema);
     expect(mapper(source, {})).toStrictEqual(target);
+  });
+
+  it('creates a mapper function given a simple schema and an empty object as source', () => {
+    const target: Target = {
+      query: 'test',
+      hits: 2
+    };
+
+    const schema: Schema<unknown, Target> = {
+      query: () => 'test',
+      hits: () => 2
+    };
+    const mapper = schemaMapperFactory(schema);
+    expect(mapper({}, {})).toStrictEqual(target);
   });
 
   it('creates a mapper function given a simple schema fed with mapper context data', () => {
     const source: Source = {
-      q: 'potatoe',
-      rows: 10,
-      facets: [{ id: 'brand', count: 1, label: 'Brand' }]
+      q: 'random',
+      rows: 5,
+      facets: []
     };
     const target: Target = {
-      query: 'potatoe',
-      hits: 10
+      query: 'random',
+      hits: 5
     };
     const schema: Schema<Source, Target> = {
       // eslint-disable-next-line @typescript-eslint/no-extra-parens
@@ -63,7 +77,7 @@ describe('mapperFactory tests', () => {
       hits: 'rows'
     };
 
-    const mapper = mapperFactory(schema);
+    const mapper = schemaMapperFactory(schema);
     expect(mapper(source, { endpoint: 'https://api.empathy.co/search' })).toStrictEqual(target);
   });
 
@@ -100,7 +114,7 @@ describe('mapperFactory tests', () => {
       }
     };
 
-    const mapper = mapperFactory(schema);
+    const mapper = schemaMapperFactory(schema);
     expect(mapper(source, {})).toStrictEqual(target);
   });
 
@@ -216,7 +230,7 @@ describe('mapperFactory tests', () => {
       }
     };
 
-    const mapper = mapperFactory(schema);
+    const mapper = schemaMapperFactory(schema);
     expect(mapper(source, { requestParameters: { addNumFound: 2 } })).toStrictEqual(target);
   });
 });

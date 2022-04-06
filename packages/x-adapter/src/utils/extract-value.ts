@@ -15,10 +15,24 @@ export function extractValue<SomeObject extends Dictionary, Path extends Extract
   obj: SomeObject | SomeObject[],
   path: Path
 ): ExtractType<SomeObject, Path> | ExtractType<SomeObject, Path>[] | undefined {
-  const result = getSafePropertyChain(obj, path);
-  if (isArray<ExtractType<SomeObject, Path>>(result)) {
-    return result;
-  } else {
-    return result as ExtractType<SomeObject, Path>;
+  const result = getSafePropertyChain<ReturnType<SomeObject, Path>>(obj, path);
+  if (result !== undefined) {
+    if (isArray<ExtractType<SomeObject, Path>>(result)) {
+      return result;
+    } else {
+      return result;
+    }
   }
 }
+
+/**
+ * Helper to narrow down the type of the returned value when calling `getSafePropertyChain()`.
+ *
+ * @param SomeObject - The object to check.
+ * @param Path - The path to check.
+ *
+ * @internal
+ */
+type ReturnType<SomeObject, Path extends ExtractPath<SomeObject>> =
+  | ExtractType<SomeObject, Path>
+  | ExtractType<SomeObject, Path>[];

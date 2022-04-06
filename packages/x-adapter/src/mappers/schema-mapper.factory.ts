@@ -5,7 +5,7 @@ import { Mapper, MapperContext } from '../types/mapper.types';
 import { extractValue } from '../utils/extract-value';
 
 /**
- * The 'mapperFactory' function creates a {@link Mapper | mapper function} for a given
+ * The 'schemaMapperFactory' function creates a {@link Mapper | mapper function} for a given
  * {@link Schema | schema}.
  *
  * @param schema - The {@link Schema | schema} to apply in the {@link Mapper | mapper function}.
@@ -14,7 +14,7 @@ import { extractValue } from '../utils/extract-value';
  *
  * @public
  */
-export function mapperFactory<Source, Target>(
+export function schemaMapperFactory<Source, Target>(
   schema: Schema<Source, Target>
 ): Mapper<Source, Target | undefined> {
   return function mapper(source: Source, context: MapperContext): Target | undefined {
@@ -46,27 +46,25 @@ function mapSchema<Source, Target>(
     schema,
     (target, key, transformer) => {
       if (typeof transformer === 'string' && isPath(source, transformer)) {
-        target[key] = extractValue(source, transformer) as Target[typeof key];
+        target[key] = extractValue(source, transformer) as TargetKey<Target>;
       } else if (isFunction(transformer)) {
         target[key] = transformer(source, context);
       } else if (isObject(transformer)) {
+        let value: Target[keyof Target] | undefined;
+
         if ('$subSchema' in transformer) {
-          const value = applySubSchemaTransformer<Source, Target[typeof key]>(
+          value = applySubSchemaTransformer<Source, Target[typeof key]>(
             source,
             transformer as SubSchemaTransformer<Source, Target[typeof key]>,
             context,
             schema as unknown as Schema<Source, Target[typeof key]>
           ) as Target[keyof Target];
-
-          if (value) {
-            target[key] = value;
-          }
         } else {
-          const value = mapSchema<Source, Target[typeof key]>(source, transformer, context);
+          value = mapSchema<Source, Target[typeof key]>(source, transformer, context);
+        }
 
-          if (value) {
-            target[key] = value;
-          }
+        if (value) {
+          target[key] = value;
         }
       }
       return target;
@@ -74,6 +72,8 @@ function mapSchema<Source, Target>(
     {} as Target
   );
 }
+
+type TargetKey<Target> = Target[keyof Target];
 
 /**
  * The `applySubSchemaTransformer()` function executes a `mapSchema()` function applying the defined

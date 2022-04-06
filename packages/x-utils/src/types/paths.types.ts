@@ -115,6 +115,10 @@ export type ExtractPathByType<SomeObject, Type> = keyof {
   [Path in ExtractPath<SomeObject> as ExtractType<SomeObject, Path> extends (infer ArrayType)[]
     ? ArrayType extends Type
       ? `${Path}.${number}`
+      : Type extends (infer TargetArrayType)[]
+      ? TargetArrayType extends ArrayType
+        ? Path
+        : never
       : never
     : ExtractType<SomeObject, Path> extends Type
     ? Path

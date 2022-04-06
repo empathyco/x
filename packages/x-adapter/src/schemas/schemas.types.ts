@@ -86,6 +86,12 @@ export type SchemaTransformer<Source, Target, TargetKey extends keyof Target> =
  *     title: 'id',
  *     hits: 'count'
  *   };
+ *
+ *   const wrongSubSchema: Schema<Source, Target> = {
+ *     // @ts-expect-error
+ *     title: 'count', // This raises a TS error
+ *     hits: 'count'
+ *   };
  * ```
  *
  * @public
@@ -152,7 +158,7 @@ export type FunctionTransformer<Source, Target> = (
  *     img: string[]
  *   }
  *
- *   const subSchema: Schema<Source['facets'], Target['filters']> = {
+ *   const subSchema: SubSchemaTransformer<Source, Target['filters']> = {
  *     $path: 'facets',
  *     $subSchema: {
  *       id: 'name',
