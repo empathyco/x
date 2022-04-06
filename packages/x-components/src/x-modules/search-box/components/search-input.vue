@@ -329,7 +329,7 @@ _Type any term in the input field to try it out!_
       @UserIsTypingAQuery="value = 'typing'"
     />
     <strong>{{ value }}</strong>
-    {{ hasFocus ? 'focused' : 'unfocused' }}
+    <span>{{ hasFocus ? 'focused' : 'unfocused' }}</span>
   </div>
 </template>
 
