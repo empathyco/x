@@ -126,7 +126,7 @@ The default slot allows you to replace the content of the suggestion button.
 <template>
   <NextQuery :suggestion="suggestion">
     <template #default="{ suggestion }">
-      <img class="x-next-query__icon" src="/assets/icons/bulb.svg" />
+      <Nq1Icon />
       <span class="x-next-query__query" :aria-label="suggestion.query">{{ suggestion.query }}</span>
     </template>
   </NextQuery>
@@ -134,11 +134,13 @@ The default slot allows you to replace the content of the suggestion button.
 
 <script>
   import { NextQuery } from '@empathyco/x-components/next-queries';
+  import { Nq1Icon } from '@empathyco/x-components';
 
   export default {
     name: 'NextQueryDemo',
     components: {
-      NextQuery
+      NextQuery,
+      Nq1Icon
     },
     data() {
       return {

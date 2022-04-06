@@ -98,9 +98,7 @@ content. By default, it renders the suggestion query of the popular search.
 <template>
   <PopularSearch :suggestion="suggestion">
     <template #default="{ suggestion }">
-      <svg height="10" width="10">
-        <circle cx="5" cy="5" r="4" stroke="black" />
-      </svg>
+      <TrendingIcon />
       <span :aria-label="suggestion.query">{{ suggestion.query }}</span>
     </template>
   </PopularSearch>
@@ -108,10 +106,13 @@ content. By default, it renders the suggestion query of the popular search.
 
 <script>
   import { PopularSearch } from '@empathyco/x-components/popular-searches';
+  import { TrendingIcon } from '@empathyco/x-components';
+
   export default {
     name: 'PopularSearchDemo',
     components: {
-      PopularSearch
+      PopularSearch,
+      TrendingIcon
     },
     data() {
       return {

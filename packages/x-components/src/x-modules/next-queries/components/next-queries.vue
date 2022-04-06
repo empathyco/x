@@ -164,7 +164,7 @@ Next Query suggestion.
     <SearchInput />
     <NextQueries>
       <template #suggestion-content="{ suggestion }">
-        <img src="/assets/icons/bulb.svg" class="x-next-query__icon" />
+        <Nq1Icon />
         <span class="x-next-query__query">{{ suggestion.query }}</span>
       </template>
     </NextQueries>
@@ -174,12 +174,14 @@ Next Query suggestion.
 <script>
   import { SearchInput } from '@empathyco/x-components/search-box';
   import { NextQueries } from '@empathyco/x-components/next-queries';
+  import { Nq1Icon } from '@empathyco/x-components';
 
   export default {
     name: 'NextQueriesDemo',
     components: {
       SearchInput,
-      NextQueries
+      NextQueries,
+      Nq1Icon
     }
   };
 </script>
@@ -200,7 +202,7 @@ is wrapped in a `span`
       <template #suggestion="{ suggestion }">
         <NextQuery :suggestion="suggestion" class="x-next-queries__suggestion">
           <template #default="{ suggestion }">
-            <img src="/assets/icons/bulb.svg" class="x-next-query__icon" />
+            <Nq1Icon />
             <span class="x-next-query__query">{{ suggestion.query }}</span>
           </template>
         </NextQuery>
@@ -213,13 +215,15 @@ is wrapped in a `span`
 <script>
   import { SearchInput } from '@empathyco/x-components/search-box';
   import { NextQueries, NextQuery } from '@empathyco/x-components/next-queries';
+  import { Nq1Icon } from '@empathyco/x-components';
 
   export default {
     name: 'NextQueriesDemo',
     components: {
       SearchInput,
       NextQueries,
-      NextQuery
+      NextQuery,
+      Nq1Icon
     }
   };
 </script>

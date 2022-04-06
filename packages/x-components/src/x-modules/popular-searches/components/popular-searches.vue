@@ -136,7 +136,7 @@ query of the Popular Search's suggestion.
 <template>
   <PopularSearches>
     <template #suggestion-content="{ suggestion }">
-      <img class="x-popular-search__icon" src="/assets/icons/bulb.svg" />
+      <TrendingIcon />
       <span class="x-popular-search__query">{{ suggestion.query }}</span>
     </template>
   </PopularSearches>
@@ -144,10 +144,13 @@ query of the Popular Search's suggestion.
 
 <script>
   import { PopularSearches } from '@empathyco/x-components/popular-searches';
+  import { TrendingIcon } from '@empathyco/x-components';
+
   export default {
     name: 'PopularSearchesDemo',
     components: {
-      PopularSearches
+      PopularSearches,
+      TrendingIcon
     }
   };
 </script>
@@ -167,7 +170,7 @@ Search component.
     <template #suggestion="{ suggestion }">
       <PopularSearch :suggestion="suggestion">
         <template #default="{ suggestion }">
-          <img class="x-popular-search__icon" src="/assets/icons/bulb.svg" />
+          <TrendingIcon />
           <span class="x-popular-search__query">{{ suggestion.query }}</span>
         </template>
       </PopularSearch>
@@ -178,11 +181,14 @@ Search component.
 
 <script>
   import { PopularSearches, PopularSearch } from '@empathyco/x-components/popular-searches';
+  import { TrendingIcon } from '@empathyco/x-components';
+
   export default {
     name: 'PopularSearchesDemo',
     components: {
       PopularSearches,
-      PopularSearch
+      PopularSearch,
+      TrendingIcon
     }
   };
 </script>
