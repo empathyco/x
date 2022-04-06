@@ -96,7 +96,7 @@ describe('mapperFactory tests', () => {
       // @ts-ignore
       filters: {
         $path: 'facets',
-        $subschema: filterSchema
+        $subSchema: filterSchema
       }
     };
 
@@ -202,18 +202,16 @@ describe('mapperFactory tests', () => {
       numFound: (_, context) => (context?.requestParameters?.addNumFound as number) + 2,
       filters: {
         $path: 'children',
-        $subschema: '$self'
+        $subSchema: '$self'
       }
     };
 
     const schema: Schema<ComplexSource, ComplexTarget> = {
       facet: {
         id: 'facets.name',
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
         filters: {
           $path: 'facets.filters',
-          $subschema: filtersSchema
+          $subSchema: filtersSchema
         }
       }
     };

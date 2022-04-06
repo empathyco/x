@@ -1,6 +1,5 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
-import { getSafePropertyChain } from '@empathyco/x-get-safe-property-chain';
-import { ExtractPath, isFunction, isObject, reduce } from '@empathyco/x-utils';
+import { isFunction, isObject, reduce, isPath, isArray } from '@empathyco/x-utils';
 import { Schema, SubSchemaTransformer } from '../schemas/schemas.types';
 import { Mapper, MapperContext } from '../types/mapper.types';
 import { extractValue } from '../utils/extract-value';
@@ -21,11 +20,6 @@ export function mapperFactory<Source, Target>(
   return function mapper(source: Source, context: MapperContext): Target | undefined {
     return mapSchema(source, schema, context);
   };
-}
-
-// TODO: Extract to x-utils
-function isPath<SomeObject>(obj: SomeObject, path: string): path is ExtractPath<SomeObject> {
-  return getSafePropertyChain(obj, path) !== undefined ? true : false;
 }
 
 /**
@@ -51,14 +45,12 @@ function mapSchema<Source, Target>(
   return reduce(
     schema,
     (target, key, transformer) => {
-      if (typeof transformer === 'string') {
-        if (isPath(source, transformer)) {
-          target[key] = extractValue(source, transformer) as Target[typeof key];
-        }
+      if (typeof transformer === 'string' && isPath(source, transformer)) {
+        target[key] = extractValue(source, transformer) as Target[typeof key];
       } else if (isFunction(transformer)) {
         target[key] = transformer(source, context);
       } else if (isObject(transformer)) {
-        if ('$subschema' in transformer) {
+        if ('$subSchema' in transformer) {
           const value = applySubSchemaTransformer<Source, Target[typeof key]>(
             source,
             transformer as SubSchemaTransformer<Source, Target[typeof key]>,
@@ -83,17 +75,12 @@ function mapSchema<Source, Target>(
   );
 }
 
-// TODO: Extract to x-utils
-function isArrayOf<Type>(possibleArray: Type | Type[]): possibleArray is Type[] {
-  return Array.isArray(possibleArray);
-}
-
 /**
  * The `applySubSchemaTransformer()` function executes a `mapSchema()` function applying the defined
- * {@link SubSchemaTransformer.$subschema}.
+ * {@link SubSchemaTransformer.$subSchema}.
  *
  * @param source - The object to feed the schema.
- * @param subSchemaTransformer - The {@link SubSchemaTransformer} object with a $path, $subschema
+ * @param subSchemaTransformer - The {@link SubSchemaTransformer} object with a $path, $subSchema
  * and $context options.
  * @param rawContext - The {@link MapperContext | mapper context} to feed the mapSchema function.
  * @param schema - The {@link Schema} to apply.
@@ -104,31 +91,21 @@ function isArrayOf<Type>(possibleArray: Type | Type[]): possibleArray is Type[] 
  */
 function applySubSchemaTransformer<Source, Target>(
   source: Source,
-  { $subschema, $path, $context }: SubSchemaTransformer<Source, Target>,
+  { $subSchema, $path, $context }: SubSchemaTransformer<Source, Target>,
   rawContext: MapperContext,
   schema: Schema<Source, Target>
 ): Target | Target[] | undefined {
   const subSource = extractValue(source, $path);
-  if (!subSource) {
-    return undefined;
-  }
-
   const context = deepMerge(rawContext, $context);
-  if ($subschema === '$self') {
-    if (isArrayOf(subSource)) {
-      return subSource.map(item => mapSchema(item as Source, schema, context) as Target);
-    } else {
-      return mapSchema(subSource as Source, schema, context);
-    }
-  } else {
-    if (isArrayOf(subSource)) {
-      return subSource.map(item => mapSchema(item, $subschema, context) as Target);
-    } else {
-      return mapSchema<typeof subSource, Target>(
-        subSource,
-        $subschema as Schema<typeof subSource, Target>,
-        context
-      );
-    }
+  const subSchema = $subSchema === '$self' ? schema : $subSchema;
+
+  if (subSource) {
+    return isArray(subSource)
+      ? subSource.map(item => mapSchema(item, subSchema, context) as Target)
+      : mapSchema<typeof subSource, Target>(
+          subSource,
+          subSchema as Schema<typeof subSource, Target>,
+          context
+        );
   }
 }

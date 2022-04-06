@@ -7,8 +7,12 @@ import {
 } from '@empathyco/x-utils';
 import { MapperContext } from '../types/index';
 
+// TODO: EX-5830 - Enhance Schema type to support optional properties in the Source object
 /**
  * Template object to transform a source object to a target object.
+ *
+ * @remarks The source object must not have optional properties, as it could cause infinite
+ * type instantiations.
  *
  * @param Source - The source object.
  * @param Target - The target object.
@@ -150,7 +154,7 @@ export type FunctionTransformer<Source, Target> = (
  *
  *   const subSchema: Schema<Source['facets'], Target['filters']> = {
  *     $path: 'facets',
- *     $subschema: {
+ *     $subSchema: {
  *       id: 'name',
  *       numFound: 'count'
  *     }
@@ -163,7 +167,7 @@ export type SubSchemaTransformer<Source, Target> = {
   [Path in ExtractPath<Source>]: {
     $context?: MapperContext;
     $path: Path;
-    $subschema:
+    $subSchema:
       | (ExtractType<Source, Path> extends (infer SourceArrayType)[]
           ? Target extends (infer TargetArrayType)[]
             ? Schema<SourceArrayType, TargetArrayType>

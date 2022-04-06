@@ -79,7 +79,7 @@ describe('schema tests', () => {
       const schema: Schema<ComposedSource, ComposedTarget> = {
         request: {
           $path: 'response',
-          $subschema: subSchema
+          $subSchema: subSchema
         },
         filter: 'response.list.0'
       };
@@ -99,7 +99,7 @@ describe('schema tests', () => {
           // @ts-expect-error
           $path: 'response',
           // @ts-expect-error
-          $subschema: wrongSubSchema
+          $subSchema: wrongSubSchema
         },
         filter: 'response.list.0'
       };
