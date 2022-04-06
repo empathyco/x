@@ -191,7 +191,7 @@ In this example, the [`HistoryQuery`](./x-components.history-query.md) component
   <div>
     <SearchInput />
     <HistoryQueries #suggestion="{ suggestion }">
-      <HistoryQuery :suggestion="suggestion"></HistoryQuery>
+      <HistoryQuery :suggestion="suggestion" />
     </HistoryQueries>
   </div>
 </template>
