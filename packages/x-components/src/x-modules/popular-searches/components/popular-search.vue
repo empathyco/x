@@ -67,21 +67,64 @@ content. By default, it renders the suggestion query of the popular search.
 
 ### Basic Usage
 
-```vue
-<PopularSearch :suggestion="suggestion" />
+```vue live
+<template>
+  <PopularSearch :suggestion="suggestion" />
+</template>
+
+<script>
+  import { PopularSearch } from '@empathyco/x-components/popular-searches';
+  export default {
+    name: 'PopularSearchDemo',
+    components: {
+      PopularSearch
+    },
+    data() {
+      return {
+        suggestion: {
+          modelName: 'PopularSearch',
+          query: 'tshirt',
+          facets: []
+        }
+      };
+    }
+  };
+</script>
 ```
 
 ### Custom Usage
 
-```vue
-<PopularSearch :suggestion="suggestion">
-  <template #default="{ suggestion }">
-    <svg height="10" width="10">
-      <circle cx="5" cy="5" r="4" stroke="black" />
-    </svg>
-    <span :aria-label="suggestion.query">{{ suggestion.query }}</span>
-  </template>
-</PopularSearch>
+```vue live
+<template>
+  <PopularSearch :suggestion="suggestion">
+    <template #default="{ suggestion }">
+      <TrendingIcon />
+      <span :aria-label="suggestion.query">{{ suggestion.query }}</span>
+    </template>
+  </PopularSearch>
+</template>
+
+<script>
+  import { PopularSearch } from '@empathyco/x-components/popular-searches';
+  import { TrendingIcon } from '@empathyco/x-components';
+
+  export default {
+    name: 'PopularSearchDemo',
+    components: {
+      PopularSearch,
+      TrendingIcon
+    },
+    data() {
+      return {
+        suggestion: {
+          modelName: 'PopularSearch',
+          query: 'tshirt',
+          facets: []
+        }
+      };
+    }
+  };
+</script>
 ```
 
 ## Events

@@ -92,21 +92,67 @@ CSS class.
 
 Using default slot:
 
-```vue
-<NextQuery :suggestion="suggestion" />
+```vue live
+<template>
+  <NextQuery :suggestion="suggestion" />
+</template>
+
+<script>
+  import { NextQuery } from '@empathyco/x-components/next-queries';
+
+  export default {
+    name: 'NextQueryDemo',
+    components: {
+      NextQuery
+    },
+    data() {
+      return {
+        suggestion: {
+          modelName: 'NextQuery',
+          query: 'tshirt',
+          facets: []
+        }
+      };
+    }
+  };
+</script>
 ```
 
 ### Overriding default slot.
 
 The default slot allows you to replace the content of the suggestion button.
 
-```vue
-<NextQuery :suggestion="suggestion">
-  <template #default="{ suggestion }">
-    <img class="x-next-query__icon" src="./next-query.svg" />
-    <span class="x-next-query__query" :aria-label="suggestion.query">{{ suggestion.query }}</span>
-  </template>
-</NextQuery>
+```vue live
+<template>
+  <NextQuery :suggestion="suggestion">
+    <template #default="{ suggestion }">
+      <Nq1Icon />
+      <span class="x-next-query__query" :aria-label="suggestion.query">{{ suggestion.query }}</span>
+    </template>
+  </NextQuery>
+</template>
+
+<script>
+  import { NextQuery } from '@empathyco/x-components/next-queries';
+  import { Nq1Icon } from '@empathyco/x-components';
+
+  export default {
+    name: 'NextQueryDemo',
+    components: {
+      NextQuery,
+      Nq1Icon
+    },
+    data() {
+      return {
+        suggestion: {
+          modelName: 'NextQuery',
+          query: 'tshirt',
+          facets: []
+        }
+      };
+    }
+  };
+</script>
 ```
 
 ## Dynamic Classes
