@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.83](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.82...@empathyco/x-components@3.0.0-alpha.83) (2022-04-07)
+
+### Code Refactoring
+
+- move DeepPartial type from x-components to x-utils
+  ([a26f0c5](https://github.com/empathyco/x/commit/a26f0c54317f17144b4262c60b0a0dc086883eb9)),
+  closes [EX-5835](https://searchbroker.atlassian.net/browse/EX-5835)
+
+### Documentation
+
+- activating ready live-examples
+  ([953e6c2](https://github.com/empathyco/x/commit/953e6c2ead73cd464fbb861bcc917134eac478a1)),
+  closes [EX-5705](https://searchbroker.atlassian.net/browse/EX-5705)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.82](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.81...@empathyco/x-components@3.0.0-alpha.82) (2022-04-05)
 
 **Note:** Version bump only for package @empathyco/x-components

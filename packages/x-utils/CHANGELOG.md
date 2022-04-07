@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-utils@0.1.0-alpha.8...@empathyco/x-utils@0.1.0-alpha.9) (2022-04-07)
+
+### Code Refactoring
+
+- move DeepPartial type from x-components to x-utils
+  ([a26f0c5](https://github.com/empathyco/x/commit/a26f0c54317f17144b4262c60b0a0dc086883eb9)),
+  closes [EX-5835](https://searchbroker.atlassian.net/browse/EX-5835)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.1.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-utils@0.1.0-alpha.7...@empathyco/x-utils@0.1.0-alpha.8) (2022-04-05)
 
 ### Features
