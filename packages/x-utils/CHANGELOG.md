@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-utils@0.1.0-alpha.9...@empathyco/x-utils@0.1.0-alpha.10) (2022-04-07)
+
+### Features
+
+- **mappers:** Add `schemaMapperFactory` (#411)
+  ([075b718](https://github.com/empathyco/x/commit/075b718372bccb4088edb29989ac8015758959b1)),
+  closes [EX-5419](https://searchbroker.atlassian.net/browse/EX-5419)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.1.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-utils@0.1.0-alpha.8...@empathyco/x-utils@0.1.0-alpha.9) (2022-04-07)
 
 ### Code Refactoring
