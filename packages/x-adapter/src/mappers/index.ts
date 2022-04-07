@@ -1,2 +1,2 @@
 export * from './identity.mapper';
-export * from './mapper.factory';
+export * from './schema-mapper.factory';
