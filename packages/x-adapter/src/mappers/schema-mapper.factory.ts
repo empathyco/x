@@ -45,22 +45,24 @@ function mapSchema<Source, Target>(
   return reduce(
     schema,
     (target, key, transformer) => {
+      type TargetKey = Target[keyof Target];
+
       if (typeof transformer === 'string' && isPath(source, transformer)) {
-        target[key] = extractValue(source, transformer) as TargetKey<Target>;
+        target[key] = extractValue(source, transformer) as TargetKey;
       } else if (isFunction(transformer)) {
         target[key] = transformer(source, context);
       } else if (isObject(transformer)) {
-        let value: Target[keyof Target] | undefined;
+        let value: TargetKey | undefined;
 
         if ('$subSchema' in transformer) {
-          value = applySubSchemaTransformer<Source, Target[typeof key]>(
+          value = applySubSchemaTransformer<Source, TargetKey>(
             source,
-            transformer as SubSchemaTransformer<Source, Target[typeof key]>,
+            transformer as SubSchemaTransformer<Source, TargetKey>,
             context,
-            schema as unknown as Schema<Source, Target[typeof key]>
-          ) as Target[keyof Target];
+            schema as unknown as Schema<Source, TargetKey>
+          ) as TargetKey;
         } else {
-          value = mapSchema<Source, Target[typeof key]>(source, transformer, context);
+          value = mapSchema<Source, TargetKey>(source, transformer, context);
         }
 
         if (value) {
@@ -72,8 +74,6 @@ function mapSchema<Source, Target>(
     {} as Target
   );
 }
-
-type TargetKey<Target> = Target[keyof Target];
 
 /**
  * The `applySubSchemaTransformer()` function executes a `mapSchema()` function applying the defined
