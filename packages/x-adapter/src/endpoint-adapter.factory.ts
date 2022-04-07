@@ -1,3 +1,4 @@
+import { deepMerge } from '@empathyco/x-deep-merge';
 import { fetchHttpClient } from './http-clients/fetch.http-client';
 import { identityMapper } from './mappers/identity.mapper';
 import {
@@ -29,14 +30,15 @@ export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response
       endpoint: rawEndpoint,
       httpClient = fetchHttpClient,
       requestMapper = identityMapper,
-      responseMapper = identityMapper
+      responseMapper = identityMapper,
+      defaultRequestOptions = {}
     } = options;
 
     const endpoint = getEndpoint(rawEndpoint ?? requestEndpoint, request);
     const requestParameters = requestMapper(request, { endpoint });
 
     return httpClient<Response>(endpoint, {
-      ...requestOptions,
+      ...deepMerge({}, defaultRequestOptions, requestOptions),
       parameters: requestParameters
     }).then(response => responseMapper(response, { endpoint, requestParameters }));
   };

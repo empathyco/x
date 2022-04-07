@@ -6,6 +6,8 @@
  * @returns A promise wrapped object containing the response.
  * @public
  */
+import { Dictionary } from '@empathyco/x-utils';
+
 export type HttpClient = <Response = unknown>(
   endpoint: string,
   options?: Omit<RequestOptions, 'endpoint'>
@@ -24,13 +26,19 @@ export interface RequestOptions {
   /**
    * A list of parameters to send to the API.
    */
-  parameters?: Record<string, unknown>;
+  parameters?: Dictionary<unknown>;
   /**
-   * HTTP headers to add to the request.
+   * The RequestInit object to create request with.
    */
-  httpHeaders?: Record<string, string | boolean | number>;
+  properties?: RequestInit;
   /**
    * The base endpoint that the request should use.
    */
   endpoint?: string;
+}
+
+export class RequestError extends Error {
+  constructor(public readonly message: string, public readonly response: Response) {
+    super(message);
+  }
 }
