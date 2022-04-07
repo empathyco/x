@@ -1,4 +1,5 @@
 import { PartialResult } from '@empathyco/x-types';
+import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -6,7 +7,6 @@ import { getPartialResultsStub } from '../../../../__stubs__/partials-results-st
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import PartialResultsList from '../partial-results-list.vue';
 import { resetXSearchStateWith } from './utils';

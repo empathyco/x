@@ -44,3 +44,17 @@ export type Keys<SomeObject, Type> = Extract<keyof SomeObject, Type>;
  * @public
  */
 export type Dictionary<T = any> = Record<string, T>;
+
+/**
+ * Makes all the properties of the T type optional in depth.
+ *
+ * @param T - The type to make all its properties in depth optional.
+ * @public
+ */
+export type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends NonPrimitive
+    ? T[P] extends AnyFunction
+      ? T[P]
+      : DeepPartial<T[P]>
+    : T[P];
+};

@@ -1,6 +1,6 @@
+import { DeepPartial } from '@empathyco/x-utils';
 import { Store } from 'vuex';
 import { resetStoreModuleState } from '../../../../__tests__/utils';
-import { DeepPartial } from '../../../../utils';
 import { taggingXStoreModule } from '../module';
 import { TaggingState } from '../types';
 

@@ -1,7 +1,7 @@
+import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial } from '../../../../utils/types';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import ClearHistoryQueries from '../clear-history-queries.vue';
 import { resetXHistoryQueriesStateWith } from './utils';

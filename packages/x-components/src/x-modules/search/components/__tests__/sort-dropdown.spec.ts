@@ -1,3 +1,4 @@
+import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { Sort } from '@empathyco/x-types';
@@ -5,7 +6,6 @@ import Vuex, { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import SortDropdown from '../sort-dropdown.vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
-import { DeepPartial } from '../../../../utils/types';
 import { RootXStoreState } from '../../../../store/store.types';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { searchXModule } from '../../x-module';
