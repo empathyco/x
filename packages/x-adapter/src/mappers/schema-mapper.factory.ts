@@ -52,18 +52,15 @@ function mapSchema<Source, Target>(
       } else if (isFunction(transformer)) {
         target[key] = transformer(source, context);
       } else if (isObject(transformer)) {
-        let value: TargetKey | undefined;
-
-        if ('$subSchema' in transformer) {
-          value = applySubSchemaTransformer<Source, TargetKey>(
-            source,
-            transformer as SubSchemaTransformer<Source, TargetKey>,
-            context,
-            schema as unknown as Schema<Source, TargetKey>
-          ) as TargetKey;
-        } else {
-          value = mapSchema<Source, TargetKey>(source, transformer, context);
-        }
+        const value =
+          '$subSchema' in transformer
+            ? (applySubSchemaTransformer<Source, TargetKey>(
+                source,
+                transformer as SubSchemaTransformer<Source, TargetKey>,
+                context,
+                schema as unknown as Schema<Source, TargetKey>
+              ) as TargetKey)
+            : mapSchema<Source, TargetKey>(source, transformer, context);
 
         if (value) {
           target[key] = value;
