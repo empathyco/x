@@ -1,19 +1,35 @@
-import { buildUrl } from '../utils';
+import { RequestError } from '../errors/request-error';
+import { buildUrl, toJson } from '../utils';
 
 describe('http-client utils tests', () => {
   describe('toJson tests', () => {
-    it('', () => {
-      /*const validResponse = {
+    const mockedJson = jest.fn(() => Promise.resolve({}));
+
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('transforms to json format if the response is ok', async () => {
+      const mockedResponse = {
         ok: true,
-        data: {
-          a: 1,
-          b: {
-            c: 'random'
-          }
-        }
+        json: mockedJson,
+        status: 200,
+        statusText: 'Ok'
       };
-      expect(toJson(validResponse as unknown as Response)).toReturnWith(Promise);*/
-      expect(true).toBe(true);
+      const response = await toJson(mockedResponse as unknown as Response).then(
+        response => response
+      );
+      expect(response).toEqual({});
+    });
+
+    it('throws a RequestError if the response is not ok', () => {
+      const mockedResponse = {
+        ok: false,
+        json: mockedJson,
+        status: 500,
+        statusText: 'Unexpected error'
+      };
+      expect(() => toJson(mockedResponse as unknown as Response)).toThrow(RequestError);
     });
   });
 
