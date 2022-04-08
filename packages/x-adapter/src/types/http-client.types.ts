@@ -1,3 +1,5 @@
+import { Dictionary } from '@empathyco/x-utils';
+
 /**
  * Makes a request to a backend API using the given parameters.
  *
@@ -6,8 +8,6 @@
  * @returns A promise wrapped object containing the response.
  * @public
  */
-import { Dictionary } from '@empathyco/x-utils';
-
 export type HttpClient = <Response = unknown>(
   endpoint: string,
   options?: Omit<RequestOptions, 'endpoint'>
@@ -28,17 +28,11 @@ export interface RequestOptions {
    */
   parameters?: Dictionary<unknown>;
   /**
-   * The RequestInit object to create request with.
+   * The RequestInit object to create the request with.
    */
   properties?: RequestInit;
   /**
    * The base endpoint that the request should use.
    */
   endpoint?: string;
-}
-
-export class RequestError extends Error {
-  constructor(public readonly message: string, public readonly response: Response) {
-    super(message);
-  }
 }
