@@ -1,4 +1,4 @@
-import { DeepPartial, TailwindHelpers } from './types';
+import { TailwindHelpers } from '../types';
 
 export default function components({ theme }: TailwindHelpers): any {
   return {
@@ -9,7 +9,7 @@ export default function components({ theme }: TailwindHelpers): any {
       alignContent: 'center',
       justifyContent: 'center',
       flexFlow: 'row wrap',
-      backgroundColor: theme('colors.neutral.75'),
+      backgroundColor: theme('colors.neutral.100'),
       color: theme('colors.neutral.0'),
       height: 'var(--x-size-height)',
       gap: theme('spacing.4'),
@@ -49,13 +49,3 @@ export default function components({ theme }: TailwindHelpers): any {
     }
   };
 }
-
-type VarSelector = `--${string}`;
-type ChildBlockKey = `.${string}` | `&${string}`;
-
-type ComponentsCSS = {
-  [Key: ChildBlockKey]: ComponentsCSS & Partial<CSSStyleDeclaration>;
-  [Key: VarSelector]: string;
-};
-
-export type ComponentsDefinition = DeepPartial<ReturnType<typeof components>> | ComponentsCSS;
