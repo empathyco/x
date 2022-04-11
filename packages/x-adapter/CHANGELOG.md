@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.11...@empathyco/x-adapter-next@0.2.0-alpha.12) (2022-04-11)
+
+### Features
+
+- **http-clients:** add `fetchHttpClient`
+  ([8040281](https://github.com/empathyco/x/commit/8040281c827f5f631260715007eb26194d6b7f10)),
+  closes [EX-5840](https://searchbroker.atlassian.net/browse/EX-5840)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.10...@empathyco/x-adapter-next@0.2.0-alpha.11) (2022-04-07)
 
 ### Features
