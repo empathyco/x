@@ -184,3 +184,8 @@ export type SubSchemaTransformer<Source, Target> = {
       | '$self';
   };
 }[ExtractPath<Source>];
+
+export type MutableSchema<S extends Schema> = S & {
+  replace: <ReplaceSchema extends Schema>(newSchema: ReplaceSchema) => ReplaceSchema;
+  override: <OverrideSchema extends Schema>(newSchema: OverrideSchema) => OverrideSchema;
+};
