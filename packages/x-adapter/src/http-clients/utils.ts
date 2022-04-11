@@ -25,7 +25,7 @@ export function toJson(response: Response): Promise<any> {
  * @param endpoint - The endpoint.
  * @param params - The request parameters.
  *
- * @returns The href property from the built URL object.
+ * @returns The `href` property of the newly built `URL` object.
  *
  * @public
  */
