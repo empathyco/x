@@ -1,3 +1,5 @@
+import { Dictionary } from '@empathyco/x-utils';
+
 /**
  * Makes a request to a backend API using the given parameters.
  *
@@ -24,11 +26,11 @@ export interface RequestOptions {
   /**
    * A list of parameters to send to the API.
    */
-  parameters?: Record<string, unknown>;
+  parameters?: Dictionary<unknown>;
   /**
-   * HTTP headers to add to the request.
+   * The RequestInit object to create the request with.
    */
-  httpHeaders?: Record<string, string | boolean | number>;
+  properties?: RequestInit;
   /**
    * The base endpoint that the request should use.
    */
