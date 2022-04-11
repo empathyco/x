@@ -1,12 +1,16 @@
+import { HttpClient } from '../../types/http-client.types';
 import { koFetchMock, okFetchMock } from '../__mocks__/fetch.mock';
-import { fetchHttpClient } from '../fetch.http-client';
 
 describe('fetch httpClient testing', () => {
   const endpoint = 'https://api.empathy.co/search';
 
-  beforeEach(() => {
+  let fetchHttpClient: HttpClient;
+
+  beforeEach(async () => {
+    fetchHttpClient = (await import('../fetch.http-client')).fetchHttpClient;
     window.fetch = okFetchMock as any;
     jest.clearAllMocks();
+    jest.resetModules();
   });
 
   it('creates well formed and valid URLs', async () => {
@@ -17,7 +21,9 @@ describe('fetch httpClient testing', () => {
         rows: 12
       }
     });
-    expectFetchCall(`${endpoint}?q=shirt&filter=long+sleeve&filter=dotted&filter=white&rows=12`);
+    expectFetchCallWith(
+      `${endpoint}?q=shirt&filter=long+sleeve&filter=dotted&filter=white&rows=12`
+    );
   });
 
   it('allows to pass headers to the request', () => {
@@ -37,7 +43,7 @@ describe('fetch httpClient testing', () => {
         q: 'shirt'
       }
     });
-    expectFetchCall(`${endpoint}?additionalParam=true&q=shirt`);
+    expectFetchCallWith(`${endpoint}?additionalParam=true&q=shirt`);
   });
 
   it('does not map undefined values', async () => {
@@ -46,11 +52,11 @@ describe('fetch httpClient testing', () => {
         q: undefined
       }
     });
-    expectFetchCall(endpoint);
+    expectFetchCallWith(endpoint);
   });
 
   it('cancels equal endpoint requests if no requestId parameter is passed', async () => {
-    expect.hasAssertions();
+    expect.assertions(2);
     await Promise.all([
       fetchHttpClient(endpoint, {
         parameters: {
@@ -65,8 +71,9 @@ describe('fetch httpClient testing', () => {
     ]);
   });
 
-  it('does not cancel equal endpoint requests if requestId parameter is passed', async () => {
-    expect.hasAssertions();
+  // eslint-disable-next-line max-len
+  it('does not cancel equal endpoint requests if a different requestId parameter is passed', async () => {
+    expect.assertions(3);
     const searchUrl = `${endpoint}?additionalParam=true`;
     const empathizeUrl = 'https://api.empathy.co/empathize?additionalParam=true';
     await Promise.all([
@@ -108,6 +115,7 @@ describe('fetch httpClient testing', () => {
  *
  * @internal
  */
-function expectFetchCall(url: string): void {
-  expect((window.fetch as jest.Mock).mock.calls[0][0]).toEqual(url);
+function expectFetchCallWith(url: string): void {
+  expect(window.fetch as jest.Mock).toHaveBeenCalledTimes(1);
+  expect(window.fetch as jest.Mock).toHaveBeenCalledWith(url, expect.anything());
 }
