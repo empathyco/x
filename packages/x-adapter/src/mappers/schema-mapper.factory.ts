@@ -1,11 +1,6 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { isFunction, isObject, reduce, isPath, isArray, AnyFunction } from '@empathyco/x-utils';
-import {
-  MutableSchema,
-  MutableSchemaMethods,
-  Schema,
-  SubSchemaTransformer
-} from '../schemas/schemas.types';
+import { MutableSchema, Schema, SubSchemaTransformer } from '../schemas/schemas.types';
 import { Mapper, MapperContext } from '../types/mapper.types';
 import { extractValue } from '../utils/extract-value';
 
@@ -120,5 +115,5 @@ function applySubSchemaTransformer<Source, Target>(
  * false otherwise.
  */
 function isMutableSchemaMethod(fn: AnyFunction): boolean {
-  return [...Object.values(MutableSchemaMethods)].includes(fn.name as MutableSchemaMethods);
+  return ['$replace', '$override'].includes(fn.name);
 }

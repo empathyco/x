@@ -1,5 +1,5 @@
 import { deepMerge, replaceBehaviour } from '@empathyco/x-deep-merge';
-import { MutableSchema, MutableSchemaMethods, Schema } from './schemas.types';
+import { MutableSchema, Schema } from './schemas.types';
 
 /**
  * Creates a {@link MutableSchema | mutable schema } version of a given {@link Schema | schema}.
@@ -13,14 +13,10 @@ import { MutableSchema, MutableSchemaMethods, Schema } from './schemas.types';
 export function makeSchemaMutable<T extends Schema>(schema: T): MutableSchema<T> {
   return {
     ...schema,
-    [MutableSchemaMethods.Replace]: function <Source = any, Target = any>(
-      newSchema: Schema<Source, Target>
-    ) {
+    $replace: function <Source = any, Target = any>(newSchema: Schema<Source, Target>) {
       deepMerge(this, replaceBehaviour(newSchema));
     },
-    [MutableSchemaMethods.Override]: function <Source = any, Target = any>(
-      newSchema: Schema<Source, Target>
-    ) {
+    $override: function <Source = any, Target = any>(newSchema: Schema<Source, Target>) {
       deepMerge(this, newSchema);
     }
   };
