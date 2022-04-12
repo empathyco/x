@@ -9,95 +9,113 @@ describe('MutableSchemas', () => {
     count: number;
   }
 
-  interface Source {
+  interface OriginalSource {
     q: string;
     rows: number;
     facets: Facet[];
   }
 
-  interface Target {
+  interface CustomSource {
+    data: {
+      query: string;
+      total: {
+        rows: number;
+      };
+    };
+  }
+
+  interface OriginalTarget {
     query: string;
     hits: number;
   }
 
   it('Creates a mutable schema', () => {
-    const originalSchema: Schema<Source, Target> = {
+    const originalSchema: Schema<OriginalSource, OriginalTarget> = {
       query: 'q',
       hits: 'rows'
     };
     const mutableSchema = makeSchemaMutable(originalSchema);
     expect(mutableSchema.query).toBe('q');
     expect(mutableSchema.hits).toBe('rows');
-    expect(mutableSchema.override).toBeTruthy();
-    expect(mutableSchema.replace).toBeTruthy();
+    expect(typeof mutableSchema.$replace).toBe('function');
+    expect(typeof mutableSchema.$override).toBe('function');
   });
 
   it('should replace a schema with a new one', () => {
-    const source: Source = {
+    const source: OriginalSource = {
       q: 'nintendo',
       rows: 1,
       facets: [{ id: 'brand', count: 99, label: 'Brand' }]
     };
 
-    const originalSchema: Schema<Source, Target> = {
+    const customSource: CustomSource = {
+      data: {
+        query: 'Sony',
+        total: {
+          rows: 24
+        }
+      }
+    };
+
+    const originalSchema: Schema<OriginalSource, OriginalTarget> = {
       query: 'q',
       hits: 'rows'
     };
 
-    const replaceSchema: Schema<Source, Target> = {
-      query: 'facets.0.label',
-      hits: 'facets.0.count'
+    const customSchema: Schema<CustomSource, OriginalTarget> = {
+      query: 'data.query',
+      hits: 'data.total.rows'
     };
 
-    const originalTarget: Target = {
+    const originalTarget: OriginalTarget = {
       query: 'nintendo',
       hits: 1
     };
 
-    const replaceTarget: Target = {
-      query: 'Brand',
-      hits: 99
+    const customTarget: OriginalTarget = {
+      query: 'Sony',
+      hits: 24
     };
 
-    const mapper = schemaMapperFactory(originalSchema);
     const mutableSchema = makeSchemaMutable(originalSchema);
+    const mapper = schemaMapperFactory<any, any>(mutableSchema);
     expect(mapper(source, {})).toStrictEqual(originalTarget);
 
-    mutableSchema.replace(replaceSchema);
-    expect(mapper(source, {})).toStrictEqual(replaceTarget);
+    mutableSchema.$replace(customSchema);
+    expect(mapper(customSource, {})).toStrictEqual(customTarget);
   });
 
   it('should override the original schema', () => {
-    const source: Source = {
+    const source: OriginalSource = {
       q: 'nintendo',
       rows: 1,
       facets: [{ id: 'brand', count: 99, label: 'Brand' }]
     };
 
-    const originalSchema: Schema<Source, Target> = {
+    const originalSchema: Schema<OriginalSource, OriginalTarget> = {
       query: 'q',
       hits: 'rows'
     };
 
-    const overrideSchema: Partial<Schema<Source, Target>> = {
+    const customSchema: Schema<OriginalSource, Partial<OriginalTarget>> = {
       query: 'facets.0.label'
     };
 
-    const originalTarget: Target = {
+    const originalTarget: OriginalTarget = {
       query: 'nintendo',
       hits: 1
     };
 
-    const overrideTarget: Target = {
+    const overrideTarget: OriginalTarget = {
       query: 'Brand',
       hits: 1
     };
 
-    const mapper = schemaMapperFactory(originalSchema);
     const mutableSchema = makeSchemaMutable(originalSchema);
+    const mapper = schemaMapperFactory(mutableSchema);
     expect(mapper(source, {})).toStrictEqual(originalTarget);
 
-    mutableSchema.override(overrideSchema);
+    mutableSchema.$override(customSchema);
     expect(mapper(source, {})).toStrictEqual(overrideTarget);
   });
 });
