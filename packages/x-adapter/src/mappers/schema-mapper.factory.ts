@@ -1,6 +1,11 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
-import { isFunction, isObject, reduce, isPath, isArray } from '@empathyco/x-utils';
-import { Schema, SubSchemaTransformer } from '../schemas/schemas.types';
+import { isFunction, isObject, reduce, isPath, isArray, AnyFunction } from '@empathyco/x-utils';
+import {
+  MutableSchema,
+  MutableSchemaMethods,
+  Schema,
+  SubSchemaTransformer
+} from '../schemas/schemas.types';
 import { Mapper, MapperContext } from '../types/mapper.types';
 import { extractValue } from '../utils/extract-value';
 
@@ -15,7 +20,7 @@ import { extractValue } from '../utils/extract-value';
  * @public
  */
 export function schemaMapperFactory<Source, Target>(
-  schema: Schema<Source, Target>
+  schema: Schema<Source, Target> | MutableSchema<Schema<Source, Target>>
 ): Mapper<Source, Target | undefined> {
   return function mapper(source: Source, context: MapperContext): Target | undefined {
     return mapSchema(source, schema, context);
@@ -46,10 +51,9 @@ function mapSchema<Source, Target>(
     schema,
     (target, key, transformer) => {
       type TargetKey = Target[keyof Target];
-
       if (typeof transformer === 'string' && isPath(source, transformer)) {
         target[key] = extractValue(source, transformer) as TargetKey;
-      } else if (isFunction(transformer)) {
+      } else if (isFunction(transformer) && !isMutableSchemaMethod(transformer)) {
         target[key] = transformer(source, context);
       } else if (isObject(transformer)) {
         const value =
@@ -105,4 +109,16 @@ function applySubSchemaTransformer<Source, Target>(
           context
         );
   }
+}
+
+/**
+ * Checks if the given function is an internal method of a {@link MutableSchema | mutableSchema}.
+ *
+ * @param fn - The function to check.
+ *
+ * @returns True if it is an internal method of a {@link MutableSchema | mutableSchema},
+ * false otherwise.
+ */
+function isMutableSchemaMethod(fn: AnyFunction): boolean {
+  return [...Object.values(MutableSchemaMethods)].includes(fn.name as MutableSchemaMethods);
 }

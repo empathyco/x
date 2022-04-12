@@ -185,7 +185,12 @@ export type SubSchemaTransformer<Source, Target> = {
   };
 }[ExtractPath<Source>];
 
+export enum MutableSchemaMethods {
+  Replace = '$replace',
+  Override = '$override'
+}
+
 export type MutableSchema<S extends Schema> = S & {
-  $replace: <Source, Target>(newSchema: Schema<Source, Target>) => void;
-  $override: <Source, Target>(newSchema: Schema<Source, Target>) => void;
+  [MutableSchemaMethods.Replace]: <Source, Target>(newSchema: Schema<Source, Target>) => void;
+  [MutableSchemaMethods.Override]: <Source, Target>(newSchema: Schema<Source, Target>) => void;
 };
