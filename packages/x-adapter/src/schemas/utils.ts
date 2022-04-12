@@ -1,4 +1,4 @@
-import { deepMerge } from '@empathyco/x-deep-merge';
+import { deepMerge, replaceBehaviour } from '@empathyco/x-deep-merge';
 import { MutableSchema, Schema } from './schemas.types';
 
 /**
@@ -13,9 +13,11 @@ import { MutableSchema, Schema } from './schemas.types';
 export function makeSchemaMutable<T extends Schema>(schema: T): MutableSchema<T> {
   return {
     ...schema,
-    replace: <ReplaceSchema extends Schema>(newSchema: ReplaceSchema) =>
-      Object.assign(schema, newSchema),
-    override: <OverrideSchema extends Schema>(newSchema: OverrideSchema) =>
-      deepMerge(schema, newSchema)
+    $replace: function <Source = any, Target = any>(newSchema: Schema<Source, Target>) {
+      deepMerge(this, replaceBehaviour(newSchema));
+    },
+    $override: function <Source = any, Target = any>(newSchema: Schema<Source, Target>) {
+      deepMerge(this, newSchema);
+    }
   };
 }
