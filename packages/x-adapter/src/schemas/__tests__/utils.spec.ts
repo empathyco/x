@@ -144,4 +144,167 @@ describe('MutableSchemas', () => {
       query: 'Sony'
     });
   });
+
+  it('should replace complex schemas', () => {
+    interface ComplexSourceFilter {
+      name: string;
+      children: [
+        {
+          name: string;
+          children: [
+            {
+              name: string;
+            }
+          ];
+        }
+      ];
+    }
+
+    interface CustomComplexSourceFilter {
+      label: string;
+      children: [
+        {
+          label: string;
+          children: [
+            {
+              label: string;
+            }
+          ];
+        }
+      ];
+    }
+
+    interface ComplexSource {
+      facets: {
+        name: string;
+        count: number;
+        filters: ComplexSourceFilter[];
+      };
+    }
+
+    interface CustomComplexSource {
+      data: {
+        facets: {
+          label: string;
+          total: number;
+          f: CustomComplexSourceFilter[];
+        };
+      };
+    }
+
+    const customSource: CustomComplexSource = {
+      data: {
+        facets: {
+          label: 'Talla',
+          total: 300788,
+          f: [
+            {
+              label: 'L',
+              children: [
+                {
+                  label: 'XL',
+                  children: [
+                    {
+                      label: 'XXL'
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    };
+
+    interface ComplexTargetFilter {
+      id: string;
+      numFound: number;
+      filters: [
+        {
+          id: string;
+          numFound: number;
+          filters: [
+            {
+              id: string;
+              numFound: number;
+            }
+          ];
+        }
+      ];
+    }
+
+    interface ComplexTarget {
+      facet: {
+        id: string;
+        filters: ComplexTargetFilter[];
+      };
+    }
+
+    const target: ComplexTarget = {
+      facet: {
+        id: 'Talla',
+        filters: [
+          {
+            id: 'L',
+            numFound: 12,
+            filters: [
+              {
+                id: 'XL',
+                numFound: 12,
+                filters: [
+                  {
+                    id: 'XXL',
+                    numFound: 12
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    };
+
+    const filtersSchema: Schema<ComplexSourceFilter, ComplexTargetFilter> = {
+      id: 'name',
+      numFound: (_, context) => (context?.requestParameters?.addNumFound as number) + 2,
+      filters: {
+        $path: 'children',
+        $subSchema: '$self'
+      }
+    };
+
+    const customFilterSchema: Schema<CustomComplexSourceFilter, ComplexTargetFilter> = {
+      id: 'label',
+      numFound: (_, context) => (context?.requestParameters?.addNumFound as number) + 10,
+      filters: {
+        $path: 'children',
+        $subSchema: '$self'
+      }
+    };
+
+    const schema: Schema<ComplexSource, ComplexTarget> = {
+      facet: {
+        id: 'facets.name',
+        filters: {
+          $path: 'facets.filters',
+          $subSchema: filtersSchema
+        }
+      }
+    };
+
+    const replaceSchema: Schema<CustomComplexSource, ComplexTarget> = {
+      facet: {
+        id: 'data.facets.label',
+        filters: {
+          $path: 'data.facets.f',
+          $subSchema: customFilterSchema
+        }
+      }
+    };
+
+    const mutable = makeSchemaMutable(schema);
+    const mapper = schemaMapperFactory<any, any>(mutable);
+    mutable.$replace(replaceSchema);
+    expect(mapper(customSource, { requestParameters: { addNumFound: 2 } })).toStrictEqual(target);
+  });
 });
