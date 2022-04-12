@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-adapter-next",
-  "version": "0.2.0-alpha.12",
+  "version": "0.2.0-alpha.13",
   "description": "A search client for the Empathy search API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
