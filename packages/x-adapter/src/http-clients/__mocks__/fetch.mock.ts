@@ -12,7 +12,7 @@ export const koFetchMock = jest.fn(() =>
 );
 
 /**
- * The `fetchMock()` method mocks a the `fetch` API.
+ * The `fetchMock()` method mocks a `fetch` API call.
  *
  * @param response - The expected response resolved by calling `fetch()`.
  * @returns A Promise object.
@@ -23,7 +23,7 @@ export function fetchMock(response: any): any {
   return (_url: string, { signal }: any) => {
     return new Promise((resolve: AnyFunction, reject: AnyFunction) => {
       setTimeout(() => {
-        if (signal.aborted) {
+        if (signal?.aborted) {
           reject(new DOMException('Aborted', 'AbortError'));
         } else {
           resolve({ ok: true, json: () => Promise.resolve(response) });
