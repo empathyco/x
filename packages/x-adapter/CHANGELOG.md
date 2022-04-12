@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.12...@empathyco/x-adapter-next@0.2.0-alpha.13) (2022-04-12)
+
+### Features
+
+- **http-clients:** Add `beaconHttpClient` (#420)
+  ([667958f](https://github.com/empathyco/x/commit/667958f667bf0e4612604d98c5dcf3091b6edeeb)),
+  closes [EX-5842](https://searchbroker.atlassian.net/browse/EX-5842)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.11...@empathyco/x-adapter-next@0.2.0-alpha.12) (2022-04-11)
+
+### Features
+
+- **http-clients:** add `fetchHttpClient`
+  ([8040281](https://github.com/empathyco/x/commit/8040281c827f5f631260715007eb26194d6b7f10)),
+  closes [EX-5840](https://searchbroker.atlassian.net/browse/EX-5840)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.10...@empathyco/x-adapter-next@0.2.0-alpha.11) (2022-04-07)
 
 ### Features
