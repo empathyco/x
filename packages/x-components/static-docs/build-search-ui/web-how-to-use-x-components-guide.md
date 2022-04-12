@@ -1,41 +1,46 @@
 ---
-title: Use & configure Interface X Components in your project
+title: How to use and configure Interface X Components in your project
 tags:
   - configuration
   - x configuration
   - x component configuration
+  - use x components
+  - how to
 ---
 
-# Use and configure Interface X Components in your project
+# How to use and configure Interface X Components in your project
 
 Interface&nbsp;X&nbsp;Components are like building blocks that you pick up and mix to craft your
 search UI experiences. The goal of using components is to include only the components you want,
-wherever you want. So, **just import the components, register, and go!**
+wherever you want. 
 
 Once you’ve installed the
 [dependencies and the xPlugin](web-x-components-integration-guide.md#1-install-the-dependencies),
 you’re ready to use X&nbsp;Components in your project.
+
+##### Steps to use X&nbsp;Components in your project:
+
+1. **Import and register** X&nbsp;Components from a module.
+
+2. **Configure the X&nbsp;Components behavior** to customize the search and discovery experience. 
 
 ## 1. Import and register the X Components
 
 Many of the X&nbsp;Components are distributed into modules to make them easier to manage. So you
 need to indicate from which module you’re importing each component as appropriate.
 
-For example, the `search-box` module contains the `SearchInput`, `SearchButton`, and
-`ClearSearchInput` components.
-
-### Import and register components from a module
+For example, the `search-box` module contains the `SearchInput`, `SearchButton`, and `ClearSearchInput` components. See [Using the search box components](#example-using-the-search-box-components) for an example on how to import and register the Search box components in a project.
 
 When importing the components, you can register each component **locally for each Vue instance** as
 you go.
 
 ```typescript
-//Import each component you'd like to use, before you register it.
+//Import every component you'd like to use.
 import { ComponentA } from './Module1';
 import { ComponentB } from './Module1';
 import { ComponentC } from './Module1';
 
-//Locally register each component.
+//Register the components locally.
 export default {
   components: {
     ComponentA,
@@ -48,19 +53,10 @@ export default {
 //The components are now ready to be used inside your template.
 ```
 
-### Import and register components globally
+:::develop Importing and registering components globally
 
-Alternatively, you can **globally** register components in Vue directly in the `main.js` file if you
-plan on using a component more than once in your app. By registering the components globally, you
+Alternatively, you can **globally** register components in Vue directly in the `main.js` file if you plan on using a component more than once in your app. By registering the components globally, you
 can use them in the template of any root Vue instance you create afterwards.
-
-::: develop
-
-Although you can register components globally, it should be done with caution as **it may impact
-future performance**. Remember if you register the components globally, the entire X&nbsp;Component
-module is loaded and registered each time this code line is run.
-
-:::
 
 ```typescript
 import { ComponentA, ComponentB, ComponentC } from './ModuleA';
@@ -70,11 +66,17 @@ Vue.component('ComponentBName', ComponentB);
 Vue.component('ComponentCName', ComponentC);
 ```
 
+Although you can register components globally, it should be done with caution as **it may impact
+future performance**. Remember if you register the components globally, the entire X&nbsp;Component
+module is loaded and registered each time this code line is run.
+
+:::
+
 ## 2. Configure the X Components
 
 You can configure some behaviors for each component to customize the search experience.
 
-To provide different project-specific behaviors, you can use:
+To provide different project-specific behaviors, you use:
 
 - **Props**: custom attributes to pass data into a component. It modifies the behavior or the
   properties in a component.
@@ -92,16 +94,17 @@ To provide different project-specific behaviors, you can use:
 <ClearSearchInput>Clear</ClearSearchInput>
 ```
 
-You can pass the configuration attributes documented in the
-[UI Reference](/develop-empathy-platform/ui-reference/) for the Interface&nbsp;X&nbsp;Components.
-
-You can combine components at your ease and use resource modules such as modals, panels, and
-animations. You can also use base components, i.e. standard Vue components that don’t have any
+You can pass the configuration attributes documented in the [UI Reference](/develop-empathy-platform/ui-reference/) for the Interface&nbsp;X&nbsp;Components. Combine components at your ease and use resource modules such as **modals**, **panels**, and
+**animations**. You also use **[base components](/develop-empathy-platform/ui-reference/components/base-components/)**, i.e. standard Vue components that don’t have any
 dependencies with the X&nbsp;Components. Use them as a foundation to build other components.
+
+::: develop Next steps
 
 Your components are ready to go, but you can provide your search UI with a friendly and fancy style
 and layout. For more information, see
 [Design tokens](https://github.com/empathyco/x/blob/main/packages/x-components/contributing/design-system.md).
+
+:::
 
 <!--If you want to support multiple languages, you can use the [x-translation](https://github.com/empathyco/x/tree/main/packages/x-translations) library to manage localization options.-->
 
@@ -111,7 +114,7 @@ To build your search UI, you need to provide at least a search field that allows
 query. Additionally, you can include a button to trigger the search and a button to delete the input
 query.
 
-The search-box module contains these components:
+The `search-box` module contains these components:
 
 - `SearchInput`
 - `SearchButton`
@@ -130,7 +133,7 @@ For this purpose, you need to import the `SearchInput`, `SearchButton`, and `Cle
 components from the `search-box` module to the desired app component. Then, register them and
 include them in the template.
 
-First, import and locally register the components.
+First, **import and locally register** the components.
 
 ```vue
 //Import the components from the corresponding module.

@@ -1,22 +1,23 @@
 ---
-title: Integrate Interface X Components in your Vue application
+title: Develop using the Interface X Components library
 tags:
   - integration
   - interface x components integration
   - web integration
   - x integration
   - interface x
+  - x components library
 ---
 
-# Integrate Interface X Components in your Vue application
+# Develop using the Interface X Components library
 
 In this tutorial, you’ll learn the basics to integrate the Interface&nbsp;X&nbsp;Components library
-in your own project to craft enticing Vue search experiences for your shop in a matter of minutes.
+in your own project to craft enticing Vue search experiences for your commerce store in a matter of minutes.
 
 ::: interact
 
 If you are looking to use the ready-to-go project Interface&nbsp;X&nbsp;Archetype as your starting
-point, see **[Interface X Archetype Development](web-archetype-development-guide.md)**.
+point, see **[Develop using Interface X Archetype](web-archetype-development-guide.md)**.
 
 :::
 
@@ -35,7 +36,7 @@ To integrate the X&nbsp;Components in a frontend UI, you need:
 - **Empathy Search API** to retrieve search data (or any other search API)
 - A **search adapter** to communicate with the search API. You can use the Empathy Adapter and
   configure it with the `EmpathyAdapterBuilder`
-- You must be working on a **Vue** project, or on a **React** project using the
+- Your commerce store built on a **Vue** project, or on a **React** project using the
   [React Wrapper](https://github.com/empathyco/x/tree/main/packages/react-wrapper).
 
 :::
@@ -170,37 +171,34 @@ Finally, the last step is to install and initialize the xPlugin. You need to do 
 Vue.use(xPlugin, { adapter, store });
 ```
 
----
-
-### Next steps
-
-Watch how our frontend Team Lead, [Iván Tajes](https://github.com/tajespasarela), integrates the
-Interface&nbsp;X&nbsp;Components in a project from scratch.
-
-<VideoContent
-title="Want to learn more?"
-source="/assets/media/videos/How-to-use-X-components-in-a-real-project.mp4"
-poster="/assets/media/videos/How-to-use-X-components-in-a-real-project.jpeg"
-:links="[
-  {
-    title:'Architecture',
-    path:'/develop-empathy-platform/build-search-ui/x-architecture/'
-  },
-  {
-    title:'UI reference',
-    path:'/develop-empathy-platform/ui-reference/'
-  }
-]">
+::: develop Next steps
 
 Once you have integrated the Interface&nbsp;X&nbsp;Components in your project, you're ready to start
 building your search and discovery UI:
 
-- Change the configuration of the [X Components](web-how-to-use-x-components-guide.md) or create new
+- Change the **configuration of the [X Components](web-how-to-use-x-components-guide.md)** or create new
   ones.
 - Adapt the
-  [design system](https://github.com/empathyco/x/blob/main/packages/x-components/contributing/design-system.md)
+  **[design system](https://github.com/empathyco/x/blob/main/packages/x-components/contributing/design-system.md)**
   to your branding.
+
+:::
+
+<!-- Manage [internationalization options](https://github.com/empathyco/x/tree/main/packages/x-translations) to support different languages.-->
+
+</br>
+
+---
+
+</br>
+<VideoContent
+source="/assets/media/videos/How-to-use-X-components-in-a-real-project.mp4"
+poster="/assets/media/videos/How-to-use-X-components-in-a-real-project.jpeg"
+>
+
+Watch how our frontend Team Lead, [Iván Tajes](https://github.com/tajespasarela), integrates the
+Interface&nbsp;X&nbsp;Components in a project from scratch.
+
 
 </VideoContent>
 
-<!-- Manage [internationalization options](https://github.com/empathyco/x/tree/main/packages/x-translations) to support different languages.-->
