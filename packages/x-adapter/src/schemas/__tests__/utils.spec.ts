@@ -22,11 +22,17 @@ describe('MutableSchemas', () => {
         rows: number;
       };
     };
+    rows?: number;
   }
 
   interface OriginalTarget {
     query: string;
     hits: number;
+  }
+
+  interface CustomTarget {
+    search: string;
+    total: number;
   }
 
   it('Creates a mutable schema', () => {
@@ -62,9 +68,9 @@ describe('MutableSchemas', () => {
       hits: 'rows'
     };
 
-    const customSchema: Schema<CustomSource, OriginalTarget> = {
-      query: 'data.query',
-      hits: 'data.total.rows'
+    const customSchema: Schema<CustomSource, CustomTarget> = {
+      search: 'data.query',
+      total: 'data.total.rows'
     };
 
     const originalTarget: OriginalTarget = {
@@ -72,9 +78,9 @@ describe('MutableSchemas', () => {
       hits: 1
     };
 
-    const customTarget: OriginalTarget = {
-      query: 'Sony',
-      hits: 24
+    const customTarget: CustomTarget = {
+      search: 'Sony',
+      total: 24
     };
 
     const mutableSchema = makeSchemaMutable(originalSchema);
@@ -92,13 +98,23 @@ describe('MutableSchemas', () => {
       facets: [{ id: 'brand', count: 99, label: 'Brand' }]
     };
 
+    const customSource: CustomSource = {
+      data: {
+        query: 'Sony',
+        total: {
+          rows: 24
+        }
+      },
+      rows: 99
+    };
+
     const originalSchema: Schema<OriginalSource, OriginalTarget> = {
       query: 'q',
       hits: 'rows'
     };
 
-    const customSchema: Schema<OriginalSource, Partial<OriginalTarget>> = {
-      query: 'facets.0.label'
+    const customSchema: Schema<CustomSource, Partial<OriginalTarget>> = {
+      query: 'data.query'
     };
 
     const originalTarget: OriginalTarget = {
@@ -107,15 +123,25 @@ describe('MutableSchemas', () => {
     };
 
     const overrideTarget: OriginalTarget = {
-      query: 'Brand',
-      hits: 1
+      query: 'Sony',
+      hits: 99
     };
 
     const mutableSchema = makeSchemaMutable(originalSchema);
-    const mapper = schemaMapperFactory(mutableSchema);
+    const mapper = schemaMapperFactory<any, any>(mutableSchema);
     expect(mapper(source, {})).toStrictEqual(originalTarget);
 
     mutableSchema.$override(customSchema);
-    expect(mapper(source, {})).toStrictEqual(overrideTarget);
+    expect(mapper(customSource, {})).toStrictEqual(overrideTarget);
+
+    const removeHitsFieldSchema: Schema<CustomSource, Partial<OriginalTarget>> = {
+      query: 'data.query',
+      hits: undefined
+    };
+
+    mutableSchema.$override(removeHitsFieldSchema);
+    expect(mapper(customSource, {})).toStrictEqual({
+      query: 'Sony'
+    });
   });
 });
