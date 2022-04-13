@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.13...@empathyco/x-adapter-next@0.2.0-alpha.14) (2022-04-13)
+
+### Build System
+
+- change `config`
+  ([37be26e](https://github.com/empathyco/x/commit/37be26e83dbf3a200fb3fe23f4fc7221a83ca7e8)),
+  closes [EX-5874](https://searchbroker.atlassian.net/browse/EX-5874)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.12...@empathyco/x-adapter-next@0.2.0-alpha.13) (2022-04-12)
 
 ### Features
