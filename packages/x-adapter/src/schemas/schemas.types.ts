@@ -49,6 +49,20 @@ export type Schema<Source = any, Target = any> = {
 };
 
 /**
+ * A {@link Schema | schema} with extended functionality. In addition to
+ * regular {@link Schema | schema} includes two methods to be able to either completely replace
+ * the original schema or to partially override it.
+ *
+ * @param OriginalSchema - The {@link Schema | schema} that will be mutable.
+ *
+ *
+ */
+export type MutableSchema<OriginalSchema extends Schema> = OriginalSchema & {
+  $replace: <Source, Target>(newSchema: Schema<Source, Target>) => void;
+  $override: <Source, Target>(newSchema: Schema<Source, Target>) => void;
+};
+
+/**
  * The possible transformers to apply to the target key.
  *
  * @param Source - The source object.
@@ -184,8 +198,3 @@ export type SubSchemaTransformer<Source, Target> = {
       | '$self';
   };
 }[ExtractPath<Source>];
-
-export type MutableSchema<S extends Schema> = S & {
-  $replace: <Source, Target>(newSchema: Schema<Source, Target>) => void;
-  $override: <Source, Target>(newSchema: Schema<Source, Target>) => void;
-};
