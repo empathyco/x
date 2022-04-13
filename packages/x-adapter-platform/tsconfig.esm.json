@@ -4,6 +4,8 @@
     "module": "esnext",
     "outDir": "./dist/esm",
     "declaration": false,
-    "declarationDir": null
-  }
+    "declarationDir": null,
+    "noEmit": false
+  },
+  "exclude": ["**/__tests__/**"]
 }

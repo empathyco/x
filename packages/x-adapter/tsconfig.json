@@ -12,8 +12,9 @@
     "esModuleInterop": true,
     "importHelpers": true,
     "types": ["jest"],
-    "lib": ["dom", "esnext"]
+    "lib": ["dom", "esnext"],
+    "noEmit": true
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "**/__tests__/**"]
+  "exclude": ["node_modules"]
 }

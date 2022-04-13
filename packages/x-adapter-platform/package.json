@@ -20,12 +20,12 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empathyco/x.git",
-    "directory": "packages/x-adapter"
+    "directory": "packages/x-adapter-platform"
   },
   "scripts": {
     "prebuild": "rimraf ./dist ./*.tgz",
     "build": "concurrently \"npm run build:*\"",
-    "build:cjs": "tsc --project tsconfig.json",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
     "test": "jest --passWithNoTests",
     "postbuild": "npm pack",

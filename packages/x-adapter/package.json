@@ -1,7 +1,7 @@
 {
   "name": "@empathyco/x-adapter-next",
   "version": "0.2.0-alpha.13",
-  "description": "A utils library to create a client for the any API",
+  "description": "A utils library to create a client for any API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/x-adapter#readme",
@@ -25,7 +25,7 @@
   "scripts": {
     "prebuild": "rimraf ./dist ./*.tgz",
     "build": "concurrently \"npm run build:*\"",
-    "build:cjs": "tsc --project tsconfig.json",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
     "test": "jest",
     "postbuild": "npm pack",
