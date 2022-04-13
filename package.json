@@ -20,6 +20,7 @@
     "conventional-changelog-conventionalcommits": "~4.6.0",
     "cross-env": "~7.0.3",
     "eslint": "~7.18.0",
+    "eslint-plugin-vuejs-accessibility": "~1.1.1",
     "husky": "~7.0.2",
     "lerna": "~4.0.0",
     "lint-staged": "~11.1.2",

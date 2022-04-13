@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: ['plugin:@empathyco/x/recommended'],
+  extends: ['plugin:@empathyco/x/recommended', 'plugin:vuejs-accessibility/recommended'],
   ignorePatterns: [
     '**/*.d.ts',
     '**/*.js',
