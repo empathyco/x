@@ -1,7 +1,13 @@
-import { TailwindHelpers } from '../types';
+import { StyleOptions, TailwindHelpers } from '../types';
 
-export default function components({ theme }: TailwindHelpers): any {
+/**
+ * Default component styles.
+ *
+ * @returns All the styles for each component.
+ */
+export default function components({ theme }: Partial<TailwindHelpers>): StyleOptions {
   return {
+    // TODO: replace this example styles with actual design styles
     '.btn': {
       '--x-size-height': theme('spacing.32'),
       display: 'flex',
@@ -9,7 +15,7 @@ export default function components({ theme }: TailwindHelpers): any {
       alignContent: 'center',
       justifyContent: 'center',
       flexFlow: 'row wrap',
-      backgroundColor: theme('colors.neutral.100'),
+      backgroundColor: theme('colors.secondary.25'),
       color: theme('colors.neutral.0'),
       height: 'var(--x-size-height)',
       gap: theme('spacing.4'),
@@ -31,21 +37,15 @@ export default function components({ theme }: TailwindHelpers): any {
       },
       '&-square': {
         width: 'var(--x-size-height)',
-        paddingInlineStart: 0,
-        paddingInlineEnd: 0
+        paddingInlineStart: '0',
+        paddingInlineEnd: '0'
       },
       '& > .icon': {
         alignSelf: 'center'
+      },
+      '&:hover': {
+        backgroundColor: theme('colors.secondary.50')
       }
-    },
-    '.icon': {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: theme('spacing.16'),
-      height: theme('spacing.16'),
-      color: 'currentColor',
-      fontSize: theme('spacing.8')
     }
   };
 }

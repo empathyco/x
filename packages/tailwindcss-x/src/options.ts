@@ -1,0 +1,71 @@
+import { StyleOptions, DynamicStylesOptions, PluginOptions } from './types';
+
+export const options: PluginOptions = {
+  components({ theme }): StyleOptions {
+    return {
+      '.icon': {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: theme('spacing.16'),
+        height: theme('spacing.16'),
+        color: 'currentColor',
+        fontSize: theme('spacing.8')
+      }
+    };
+  },
+  utilities({ theme }): StyleOptions {
+    return {
+      '.btn-height': {
+        '&-sm': {
+          height: theme('height.2')
+        },
+        '&-md': {
+          height: theme('height.4')
+        },
+        '&-lg': {
+          height: theme('height.8')
+        }
+      }
+    };
+  },
+  dynamicUtilities({ theme }): DynamicStylesOptions {
+    return {
+      'background-success': {
+        styles: (value: any) => ({
+          backgroundColor: value
+        }),
+        values: theme('colors.success')
+      },
+      'font-util': {
+        styles: (value: any) => ({
+          fontSize: value,
+          backgroundColor: 'red'
+        }),
+        values: theme('spacing')
+      },
+      'btn-height': {
+        styles: (value: any) => ({
+          height: value
+        })
+      }
+    };
+  },
+  dynamicComponents(): DynamicStylesOptions {
+    return {};
+  },
+  theme: {
+    colors: {
+      neutral: {
+        10: 'red',
+        20: 'orange'
+      }
+    },
+    height: {
+      1: '10px',
+      2: '20px',
+      4: '40px',
+      8: '80px'
+    }
+  }
+};

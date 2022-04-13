@@ -1,4 +1,5 @@
 export default {
+  // TODO: replace this example styles with actual design styles
   colors: {
     neutral: {
       0: '#FFFFFF',

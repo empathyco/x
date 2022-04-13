@@ -1,5 +1,6 @@
 import plugin from 'tailwindcss/plugin';
 import { deepMerge } from '@empathyco/x-deep-merge';
+import { forEach } from '../../x-utils';
 import dynamicComponents from './helpers/dynamic-components';
 import dynamicUtilities from './helpers/dynamic-utilities';
 import theme from './helpers/theme';
@@ -10,29 +11,26 @@ import utilities from './helpers/utilities';
 export default plugin.withOptions(
   function (options?: PluginOptions) {
     return function (tailwindHelpers) {
-      const { addComponents, matchComponents, addUtilities, matchUtilities } = tailwindHelpers;
-      const [componentValues, componentOptions] = dynamicComponents(tailwindHelpers);
-      const [utilitiesValues, utilitiesOptions] = dynamicUtilities(tailwindHelpers);
-      const [optionalComponents, optionalComponentsOptions] =
-        options?.dynamicComponents?.(tailwindHelpers) ?? [];
-      const [optionalUtilities, optionalUtilityOptions] =
-        options?.dynamicUtilities?.(tailwindHelpers) ?? [];
+      const { addComponents, matchComponents, addUtilities, matchUtilities, theme } =
+        tailwindHelpers;
 
-      addComponents(
-        deepMerge({}, components(tailwindHelpers), options?.components?.(tailwindHelpers))
+      forEach(
+        deepMerge({}, dynamicComponents({ theme }), options?.dynamicComponents?.({ theme })),
+        (key, { styles, values }) => {
+          matchComponents({ [key]: styles }, { values: values ?? undefined });
+        }
       );
-      matchComponents(
-        deepMerge({}, componentValues, optionalComponents),
-        deepMerge({}, componentOptions, optionalComponentsOptions)
+      addComponents(deepMerge({}, components({ theme }), options?.components?.({ theme })));
+
+      forEach(
+        deepMerge({}, dynamicUtilities({ theme }), options?.dynamicUtilities?.({ theme })),
+        (key, { styles, values }) => {
+          matchUtilities({ [key]: styles }, { values: values ?? undefined });
+        }
       );
-      addUtilities(
-        deepMerge({}, utilities(tailwindHelpers), options?.utilities?.(tailwindHelpers))
-      );
-      matchUtilities(
-        deepMerge({}, utilitiesValues, optionalUtilities),
-        deepMerge({}, utilitiesOptions, optionalUtilityOptions)
-      );
-      options?.extra?.(tailwindHelpers);
+      addUtilities(deepMerge({}, utilities({ theme }), options?.utilities?.({ theme })));
+
+      options?.extra?.({ theme });
     };
   },
   function (options) {

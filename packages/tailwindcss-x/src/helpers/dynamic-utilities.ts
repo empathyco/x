@@ -1,5 +1,20 @@
-import { DynamicOptions, TailwindHelpers } from '../types';
+import { DynamicStylesOptions, TailwindHelpers } from '../types';
 
-export default function dynamicUtilities(_tailwindHelpers: TailwindHelpers): DynamicOptions {
-  return [];
+/**
+ * Default dynamic utility styles.
+ *
+ * @returns All the styles for each utility and the values they are going to be generated with.
+ */
+export default function dynamicUtilities({
+  theme
+}: Partial<TailwindHelpers>): DynamicStylesOptions {
+  return {
+    // TODO: replace this example styles with actual design styles
+    'font-util': {
+      styles: (value: any) => ({
+        fontSize: value
+      }),
+      values: theme('spacing')
+    }
+  };
 }

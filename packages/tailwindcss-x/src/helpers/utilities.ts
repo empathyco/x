@@ -1,15 +1,17 @@
-import { TailwindHelpers } from '../types';
+import { StyleOptions, TailwindHelpers } from '../types';
 
-export default function utilities(_tailwindHelpers: TailwindHelpers): any {
+/**
+ * Default utility styles.
+ *
+ * @returns All the styles for each utility.
+ */
+export default function utilities({ theme }: Partial<TailwindHelpers>): StyleOptions {
   return {
-    '.content-auto': {
-      'content-visibility': 'auto'
-    },
-    '.content-hidden': {
-      'content-visibility': 'hidden'
-    },
-    '.content-visible': {
-      'content-visibility': 'visible'
+    // TODO: replace this example styles with actual design styles
+    '.border-large': {
+      borderStyle: 'solid',
+      borderWidth: theme('borderWidth.4'),
+      borderColor: theme('colors.neutral.100')
     }
   };
 }
