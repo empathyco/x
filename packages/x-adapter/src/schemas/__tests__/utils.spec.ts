@@ -1,3 +1,4 @@
+import { DeepPartial } from '@empathyco/x-utils';
 import { Schema } from '../schemas.types';
 import { makeSchemaMutable } from '../utils';
 import { schemaMapperFactory } from '../../mappers';
@@ -145,7 +146,7 @@ describe('MutableSchemas', () => {
     });
   });
 
-  it('should replace complex schemas', () => {
+  describe('should work with complex schemas', () => {
     interface ComplexSourceFilter {
       name: string;
       children: [
@@ -190,31 +191,10 @@ describe('MutableSchemas', () => {
           f: CustomComplexSourceFilter[];
         };
       };
+      facets?: {
+        name: string;
+      };
     }
-
-    const customSource: CustomComplexSource = {
-      data: {
-        facets: {
-          label: 'Talla',
-          total: 300788,
-          f: [
-            {
-              label: 'L',
-              children: [
-                {
-                  label: 'XL',
-                  children: [
-                    {
-                      label: 'XXL'
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      }
-    };
 
     interface ComplexTargetFilter {
       id: string;
@@ -240,30 +220,6 @@ describe('MutableSchemas', () => {
       };
     }
 
-    const target: ComplexTarget = {
-      facet: {
-        id: 'Talla',
-        filters: [
-          {
-            id: 'L',
-            numFound: 12,
-            filters: [
-              {
-                id: 'XL',
-                numFound: 12,
-                filters: [
-                  {
-                    id: 'XXL',
-                    numFound: 12
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    };
-
     const filtersSchema: Schema<ComplexSourceFilter, ComplexTargetFilter> = {
       id: 'name',
       numFound: (_, context) => (context?.requestParameters?.addNumFound as number) + 2,
@@ -282,29 +238,161 @@ describe('MutableSchemas', () => {
       }
     };
 
-    const schema: Schema<ComplexSource, ComplexTarget> = {
-      facet: {
-        id: 'facets.name',
-        filters: {
-          $path: 'facets.filters',
-          $subSchema: filtersSchema
+    it('should replace complex schemas', () => {
+      const customSource: CustomComplexSource = {
+        data: {
+          facets: {
+            label: 'Talla',
+            total: 300788,
+            f: [
+              {
+                label: 'L',
+                children: [
+                  {
+                    label: 'XL',
+                    children: [
+                      {
+                        label: 'XXL'
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
         }
-      }
-    };
+      };
 
-    const replaceSchema: Schema<CustomComplexSource, ComplexTarget> = {
-      facet: {
-        id: 'data.facets.label',
-        filters: {
-          $path: 'data.facets.f',
-          $subSchema: customFilterSchema
+      const target: ComplexTarget = {
+        facet: {
+          id: 'Talla',
+          filters: [
+            {
+              id: 'L',
+              numFound: 12,
+              filters: [
+                {
+                  id: 'XL',
+                  numFound: 12,
+                  filters: [
+                    {
+                      id: 'XXL',
+                      numFound: 12
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
-      }
-    };
+      };
 
-    const mutable = makeSchemaMutable(schema);
-    const mapper = schemaMapperFactory<any, any>(mutable);
-    mutable.$replace(replaceSchema);
-    expect(mapper(customSource, { requestParameters: { addNumFound: 2 } })).toStrictEqual(target);
+      const schema: Schema<ComplexSource, ComplexTarget> = {
+        facet: {
+          id: 'facets.name',
+          filters: {
+            $path: 'facets.filters',
+            $subSchema: filtersSchema
+          }
+        }
+      };
+
+      const replaceSchema: Schema<CustomComplexSource, ComplexTarget> = {
+        facet: {
+          id: 'data.facets.label',
+          filters: {
+            $path: 'data.facets.f',
+            $subSchema: customFilterSchema
+          }
+        }
+      };
+
+      const mutable = makeSchemaMutable(schema);
+      const mapper = schemaMapperFactory<any, any>(mutable);
+      mutable.$replace(replaceSchema);
+      expect(mapper(customSource, { requestParameters: { addNumFound: 2 } })).toStrictEqual(target);
+    });
+
+    it('should override complex schemas', () => {
+      const schema: Schema<ComplexSource, ComplexTarget> = {
+        facet: {
+          id: 'facets.name',
+          filters: {
+            $path: 'facets.filters',
+            $subSchema: filtersSchema
+          }
+        }
+      };
+
+      const overrideSchema: Schema<CustomComplexSource, DeepPartial<ComplexTarget>> = {
+        facet: {
+          filters: {
+            $path: 'data.facets.f',
+            $subSchema: customFilterSchema
+          }
+        }
+      };
+
+      const customSource: CustomComplexSource = {
+        data: {
+          facets: {
+            label: 'Talla',
+            total: 21289,
+            f: [
+              {
+                label: 'L',
+                children: [
+                  {
+                    label: 'XL',
+                    children: [
+                      {
+                        label: 'XXL'
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        facets: {
+          name: 'Sizes'
+        }
+      };
+
+      const target: ComplexTarget = {
+        facet: {
+          id: 'Sizes',
+          filters: [
+            {
+              id: 'L',
+              numFound: 12,
+              filters: [
+                {
+                  id: 'XL',
+                  numFound: 12,
+                  filters: [
+                    {
+                      id: 'XXL',
+                      numFound: 12
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      };
+
+      const mutable = makeSchemaMutable(schema);
+      const mapper = schemaMapperFactory<any, any>(mutable);
+      expect(mapper(customSource, { requestParameters: { addNumFound: 2 } })).toStrictEqual({
+        facet: {
+          id: 'Sizes'
+        }
+      });
+      mutable.$override(overrideSchema);
+      expect(mapper(customSource, { requestParameters: { addNumFound: 2 } })).toStrictEqual(target);
+    });
   });
 });
