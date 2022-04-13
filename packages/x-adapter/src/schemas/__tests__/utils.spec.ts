@@ -50,14 +50,14 @@ describe('MutableSchemas', () => {
 
   it('should replace a schema with a new one', () => {
     const source: OriginalSource = {
-      q: 'nintendo',
+      q: 'potatoes',
       rows: 1,
       facets: [{ id: 'brand', count: 99, label: 'Brand' }]
     };
 
     const customSource: CustomSource = {
       data: {
-        query: 'Sony',
+        query: 'chips',
         total: {
           rows: 24
         }
@@ -75,12 +75,12 @@ describe('MutableSchemas', () => {
     };
 
     const originalTarget: OriginalTarget = {
-      query: 'nintendo',
+      query: 'potatoes',
       hits: 1
     };
 
     const customTarget: CustomTarget = {
-      search: 'Sony',
+      search: 'chips',
       total: 24
     };
 
@@ -94,14 +94,14 @@ describe('MutableSchemas', () => {
 
   it('should override the original schema', () => {
     const source: OriginalSource = {
-      q: 'nintendo',
+      q: 'potatoes',
       rows: 1,
       facets: [{ id: 'brand', count: 99, label: 'Brand' }]
     };
 
     const customSource: CustomSource = {
       data: {
-        query: 'Sony',
+        query: 'chips',
         total: {
           rows: 24
         }
@@ -119,12 +119,12 @@ describe('MutableSchemas', () => {
     };
 
     const originalTarget: OriginalTarget = {
-      query: 'nintendo',
+      query: 'potatoes',
       hits: 1
     };
 
     const overrideTarget: OriginalTarget = {
-      query: 'Sony',
+      query: 'chips',
       hits: 99
     };
 
@@ -142,7 +142,7 @@ describe('MutableSchemas', () => {
 
     mutableSchema.$override(removeHitsFieldSchema);
     expect(mapper(customSource, {})).toStrictEqual({
-      query: 'Sony'
+      query: 'chips'
     });
   });
 
@@ -263,9 +263,8 @@ describe('MutableSchemas', () => {
         }
       };
 
-      const target: ComplexTarget = {
+      const target: DeepPartial<ComplexTarget> = {
         facet: {
-          id: 'Talla',
           filters: [
             {
               id: 'L',
@@ -297,9 +296,8 @@ describe('MutableSchemas', () => {
         }
       };
 
-      const replaceSchema: Schema<CustomComplexSource, ComplexTarget> = {
+      const replaceSchema: Schema<CustomComplexSource, DeepPartial<ComplexTarget>> = {
         facet: {
-          id: 'data.facets.label',
           filters: {
             $path: 'data.facets.f',
             $subSchema: customFilterSchema
