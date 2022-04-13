@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import { BrowserStorageService, StorageService } from '@empathyco/x-storage-service';
-import { SessionService } from './types';
+import { SessionService } from './service-types';
 
 /**
  * Default implementation for the {@link SessionService}.

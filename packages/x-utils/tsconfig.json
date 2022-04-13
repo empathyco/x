@@ -6,7 +6,7 @@
     "strict": true,
     "esModuleInterop": true,
     "types": ["jest"],
-    "lib": ["esnext"],
+    "lib": ["esnext", "dom"],
     "importHelpers": true
   },
   "include": ["src/**/*.ts"],

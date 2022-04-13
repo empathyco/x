@@ -1,4 +1,5 @@
 import { Result, TaggingInfo } from '@empathyco/x-types';
+import { DefaultSessionService } from '@empathyco/x-utils';
 import {
   namespacedWireCommit,
   namespacedWireDispatch
@@ -8,8 +9,7 @@ import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.facto
 import { filter, mapWire } from '../../wiring/wires.operators';
 import { Wire } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
-import { DefaultSessionService } from './service/session.service';
-import { DefaultPDPAddToCartService } from './service/index';
+import { DefaultPDPAddToCartService } from './service';
 
 /**
  * `tagging` {@link XModuleName | XModule name}.
