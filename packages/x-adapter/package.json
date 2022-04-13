@@ -1,7 +1,7 @@
 {
   "name": "@empathyco/x-adapter-next",
   "version": "0.2.0-alpha.13",
-  "description": "A search client for the Empathy search API",
+  "description": "A utils library to create a client for any API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/x-adapter#readme",
@@ -13,10 +13,9 @@
   ],
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "types": "types/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "files": [
-    "dist",
-    "types"
+    "dist"
   ],
   "repository": {
     "type": "git",
@@ -24,9 +23,9 @@
     "directory": "packages/x-adapter"
   },
   "scripts": {
-    "prebuild": "rimraf ./dist ./types",
+    "prebuild": "rimraf ./dist ./*.tgz",
     "build": "concurrently \"npm run build:*\"",
-    "build:cjs": "tsc --project tsconfig.json",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
     "test": "jest",
     "postbuild": "npm pack",
