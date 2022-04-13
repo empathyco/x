@@ -62,6 +62,10 @@ export interface EndpointAdapterOptions<Request, Response> {
    */
   httpClient?: HttpClient;
   /**
+   * The default {@link RequestOptions} to use every request.
+   */
+  defaultRequestOptions?: Omit<RequestOptions, 'endpoint'>;
+  /**
    * The {@link Mapper} in charge of adapting the request object so the backend API can
    * understand it.
    */

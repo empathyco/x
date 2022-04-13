@@ -1,8 +1,18 @@
-import { ExtractPath, ExtractType, ExtractPathByType, Primitive } from '@empathyco/x-utils';
+import {
+  AnyFunction,
+  ExtractPath,
+  ExtractPathByType,
+  ExtractType,
+  Primitive
+} from '@empathyco/x-utils';
 import { MapperContext } from '../types/index';
 
+// TODO: EX-5830 - Enhance Schema type to support optional properties in the Source object
 /**
  * Template object to transform a source object to a target object.
+ *
+ * @remarks The source object must not have optional properties, as it could cause infinite
+ * type instantiations.
  *
  * @param Source - The source object.
  * @param Target - The target object.
@@ -39,7 +49,7 @@ export type Schema<Source = any, Target = any> = {
 };
 
 /**
- * All the possible properties to map a schema property into.
+ * The possible transformers to apply to the target key.
  *
  * @param Source - The source object.
  * @param Target - The target object.
@@ -48,11 +58,79 @@ export type Schema<Source = any, Target = any> = {
  * @public
  */
 export type SchemaTransformer<Source, Target, TargetKey extends keyof Target> =
-  | ExtractPathByType<Source, Target[TargetKey]>
-  | ((source: Source, context?: MapperContext) => Target[TargetKey])
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  | Schema<Source, Exclude<Target[TargetKey], Function | Primitive>>
-  | SubSchema<Source, Target[TargetKey]>;
+  | PathTransformer<Source, Target[TargetKey]>
+  | FunctionTransformer<Source, Target[TargetKey]>
+  | SubSchemaTransformer<Source, Target[TargetKey]>
+  | Schema<Source, Exclude<Target[TargetKey], AnyFunction | Primitive>>;
+
+/**
+ * A function with the source object and mapper context as parameters that returns the value of a
+ * target's property.
+ *
+ * @param Source - The source object.
+ * @param Target - The target object.
+ *
+ * @example
+ * ```typescript
+ *  interface Source {
+ *     id: string;
+ *     count: number;
+ *   }
+ *
+ *   interface Target {
+ *     title: string;
+ *     hits: number;
+ *   }
+ *
+ *   const subSchema: Schema<Source, Target> = {
+ *     title: 'id',
+ *     hits: 'count'
+ *   };
+ *
+ *   const wrongSubSchema: Schema<Source, Target> = {
+ *     // @ts-expect-error
+ *     title: 'count', // This raises a TS error
+ *     hits: 'count'
+ *   };
+ * ```
+ *
+ * @public
+ */
+export type PathTransformer<Source, Target> = ExtractPathByType<Source, Target>;
+
+/**
+ * A function with the source object and mapper context as parameters that returns the value of a
+ * target's property.
+ *
+ * @param Source - The source object.
+ * @param Target - The target object.
+ *
+ * @example
+ * ```typescript
+ *  interface Source {
+ *     id: string;
+ *     count: number;
+ *   }
+ *
+ *   interface Target {
+ *     title: string;
+ *     hits: number;
+ *   }
+ *
+ *   const subSchema: Schema<Source, Target> = {
+ *     title: source => source.id,
+ *     hits: (source, context) => context.requestParameters.query === 'example'
+ *      ? source.count
+ *      : 0
+ *   };
+ * ```
+ *
+ * @public
+ */
+export type FunctionTransformer<Source, Target> = (
+  source: Source,
+  context?: MapperContext
+) => Target;
 
 /**
  * An object containing a schema narrowing its source object based on the given path.
@@ -80,9 +158,9 @@ export type SchemaTransformer<Source, Target, TargetKey extends keyof Target> =
  *     img: string[]
  *   }
  *
- *   const subSchema: Schema<Source['facets'], Target['filters']> = {
+ *   const subSchema: SubSchemaTransformer<Source, Target['filters']> = {
  *     $path: 'facets',
- *     $subschema: {
+ *     $subSchema: {
  *       id: 'name',
  *       numFound: 'count'
  *     }
@@ -91,10 +169,18 @@ export type SchemaTransformer<Source, Target, TargetKey extends keyof Target> =
  *
  * @public
  */
-type SubSchema<Source, Target> = {
+export type SubSchemaTransformer<Source, Target> = {
   [Path in ExtractPath<Source>]: {
     $context?: MapperContext;
     $path: Path;
-    $subschema: Schema<ExtractType<Source, Path>, Target> | '$self';
+    $subSchema:
+      | (ExtractType<Source, Path> extends (infer SourceArrayType)[]
+          ? Target extends (infer TargetArrayType)[]
+            ? Schema<SourceArrayType, TargetArrayType>
+            : never
+          : Target extends (infer TargetArrayType)[]
+          ? never
+          : Schema<ExtractType<Source, Path>, Target>)
+      | '$self';
   };
 }[ExtractPath<Source>];
