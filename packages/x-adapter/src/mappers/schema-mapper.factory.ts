@@ -1,8 +1,9 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
-import { isFunction, isObject, reduce, isPath, isArray, AnyFunction } from '@empathyco/x-utils';
+import { isFunction, isObject, reduce, isPath, isArray } from '@empathyco/x-utils';
 import { MutableSchema, Schema, SubSchemaTransformer } from '../schemas/schemas.types';
 import { Mapper, MapperContext } from '../types/mapper.types';
 import { extractValue } from '../utils/extract-value';
+import { isMutableSchemaInternalMethod } from '../schemas';
 
 /**
  * The 'schemaMapperFactory' function creates a {@link Mapper | mapper function} for a given
@@ -48,7 +49,7 @@ function mapSchema<Source, Target>(
       type TargetKey = Target[keyof Target];
       if (typeof transformer === 'string' && isPath(source, transformer)) {
         target[key] = extractValue(source, transformer) as TargetKey;
-      } else if (isFunction(transformer) && !isMutableSchemaMethod(transformer)) {
+      } else if (isFunction(transformer) && !isMutableSchemaInternalMethod(transformer.name)) {
         target[key] = transformer(source, context);
       } else if (isObject(transformer)) {
         const value =
@@ -104,16 +105,4 @@ function applySubSchemaTransformer<Source, Target>(
           context
         );
   }
-}
-
-/**
- * Checks if the given function is an internal method of a {@link MutableSchema | mutableSchema}.
- *
- * @param fn - The function to check.
- *
- * @returns True if it is an internal method of a {@link MutableSchema | mutableSchema},
- * false otherwise.
- */
-function isMutableSchemaMethod(fn: AnyFunction): boolean {
-  return ['$replace', '$override'].includes(fn.name);
 }
