@@ -11,7 +11,6 @@ import { Wire } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 import { DefaultPDPAddToCartService } from './service/pdp-add-to-cart.service';
 
-
 /**
  * `tagging` {@link XModuleName | XModule name}.
  *
