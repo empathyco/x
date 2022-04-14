@@ -1,25 +1,66 @@
 import { Dictionary } from '@empathyco/x-utils';
 import { TailwindPluginFn } from 'tailwindcss/plugin';
-import { AnyFunction } from '../../x-utils';
 
 /**
- * The variable name selector in CSS.
+ * Represents a `CSS` variable name.
+ *
+ * @example
+ * ```typescript
+ * const primaryColor: CSSVariable = '--color-primary';
+ * ```
+ *
+ * @internal
  */
-type VarSelector = `--${string}`;
+type CSSVariable = `--${string}`;
+
 /**
- * The child selector for a CSS element.
+ * Represents a `CSS` class selector.
+ *
+ * @example
+ * ```typescript
+ * const btnClass: CSSClassSelector = '.btn';
+ * ```
+ *
+ * @internal
  */
-type ChildBlockKey = `.${string}` | `&${string}`;
+type CSSClassSelector = `.${string}`;
 /**
- * The different possibles CSS keys for a component.
+ * Represents a `CSS` nested selector.
+ *
+ * @example
+ * ```typescript
+ * const nestedSelector: CSSNestedSelector = '&--primary';
+ * ```
+ *
+ * @internal
+ */
+type CSSNestedSelector = `&${string}`;
+
+/**
+ * Represents the different possible `CSS` styling options for a component.
+ *
+ * @example
+ * ```typescript
+ * const cssOptions: CSSStyleOptions = {
+ *   '--color-primary': 'blue',
+ *   '.btn': {
+ *     '&--primary': {
+ *       color: 'var(--color-primary)',
+ *       gap: theme('spacing.2')
+ *     }
+ *   }
+ * }
+ * ```
  */
 export type StyleOptions = {
-  [Key: ChildBlockKey]: StyleOptions & Partial<CSSStyleDeclaration>;
-  [Key: VarSelector]: string | AnyFunction;
+  [Key: CSSClassSelector | CSSNestedSelector]: StyleOptions | Partial<CSSStyleDeclaration>;
+  [Key: CSSVariable]: string & Partial<TailwindHelpers>;
 };
 
 /**
  * An object with the styles and values to create a dynamic component or utility with.
+ *
+ * @public
  */
 export type DynamicStylesOptions = Dictionary<{
   styles: (value: unknown) => StyleOptions;
@@ -28,6 +69,8 @@ export type DynamicStylesOptions = Dictionary<{
 
 /**
  * All the tailwind helpers provided by the plugin.
+ *
+ * @public
  */
 export type TailwindHelpers = Parameters<TailwindPluginFn>[0];
 

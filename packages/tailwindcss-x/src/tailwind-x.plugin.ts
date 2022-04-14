@@ -1,6 +1,6 @@
 import plugin from 'tailwindcss/plugin';
 import { deepMerge } from '@empathyco/x-deep-merge';
-import { forEach } from '../../x-utils';
+import { forEach } from '@empathyco/x-utils';
 import dynamicComponents from './helpers/dynamic-components';
 import dynamicUtilities from './helpers/dynamic-utilities';
 import theme from './helpers/theme';

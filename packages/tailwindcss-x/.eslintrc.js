@@ -7,8 +7,7 @@ module.exports = {
     {
       files: ['src/**/*.ts'],
       rules: {
-        '@typescript-eslint/no-unsafe-call': 'off',
-        '@typescript-eslint/no-unused-vars': 'off'
+        '@typescript-eslint/no-unsafe-call': 'off'
       }
     }
   ]
