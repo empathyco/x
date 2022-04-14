@@ -9,7 +9,8 @@ import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.facto
 import { filter, mapWire } from '../../wiring/wires.operators';
 import { Wire } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
-import { DefaultPDPAddToCartService } from './service';
+import { DefaultPDPAddToCartService } from './service/pdp-add-to-cart.service';
+
 
 /**
  * `tagging` {@link XModuleName | XModule name}.
