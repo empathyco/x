@@ -1,2 +1,2 @@
-export * from './service-types';
+export * from './service.types';
 export * from './session.service';
