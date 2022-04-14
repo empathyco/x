@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { BrowserStorageService, StorageService } from '@empathyco/x-storage-service';
+import { BrowserStorageService, InMemoryStorageService, StorageService } from '@empathyco/x-storage-service';
 import { SessionService } from './service-types';
 
 /**
@@ -21,7 +21,9 @@ export class DefaultSessionService implements SessionService {
   public static instance: SessionService = new DefaultSessionService();
 
   public constructor(
-    protected storageService: StorageService = new BrowserStorageService(localStorage, 'x'),
+    protected storageService: StorageService = typeof localStorage !== 'undefined'
+      ? new BrowserStorageService(localStorage, 'x')
+      : new InMemoryStorageService(),
     protected ttlMs = 1800000 // 30m * 60s * 1000 = 1800_000ms
   ) {}
 
@@ -37,7 +39,7 @@ export class DefaultSessionService implements SessionService {
     this.storageService.setItem(
       DefaultSessionService.SESSION_ID_KEY,
       sessionId,
-      Date.now() + this.ttlMs
+      this.ttlMs
     );
     return sessionId;
   }
