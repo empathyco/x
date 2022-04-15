@@ -28,7 +28,6 @@
     "prebuild": "rimraf ./dist ./types ./*.tgz",
     "build": "tsc --project tsconfig.build.json && tsc --project tsconfig.esm.json",
     "postbuild": "npm pack",
-    "preview": "vite preview",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
