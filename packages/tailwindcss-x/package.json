@@ -24,9 +24,9 @@
     "directory": "packages/tailwindcss-x"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite serve demo",
     "prebuild": "rimraf ./dist ./types ./*.tgz",
-    "build": "tsc && tsc --project tsconfig.esm.json",
+    "build": "tsc --project tsconfig.build.json && tsc --project tsconfig.esm.json",
     "postbuild": "npm pack",
     "preview": "vite preview",
     "prepublishOnly": "npm run build"

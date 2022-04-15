@@ -1,4 +1,4 @@
-import { StyleOptions, DynamicStylesOptions, PluginOptions } from './types';
+import { StyleOptions, DynamicStylesOptions, PluginOptions } from '../src/types';
 
 export const options: PluginOptions = {
   components({ theme }): StyleOptions {

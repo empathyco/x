@@ -5,7 +5,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['src/**/*.ts'],
+      files: ['{src,demo}/**/*.ts'],
       rules: {
         '@typescript-eslint/no-unsafe-call': 'off'
       }
