@@ -1,5 +1,5 @@
 import { options } from './src/options';
-import tailwindXPlugin from './src/tailwind-x.plugin';
+import plugin from './src/plugin';
 
 export default {
   content: ['./index.html', './src/**/*.ts'],
@@ -7,5 +7,5 @@ export default {
   theme: {
     extend: {}
   },
-  plugins: [tailwindXPlugin(options)]
+  plugins: [plugin(options)]
 };
