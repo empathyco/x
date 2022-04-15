@@ -1,12 +1,13 @@
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
+import tailwindcss from 'tailwindcss';
+import tailwindcssNesting from 'tailwindcss/nesting';
 import { defineConfig, loadEnv } from 'vite';
-const autoprefixer = require('autoprefixer');
-const tailwindcss = require('tailwindcss');
-const tailwindcssNesting = require('tailwindcss/nesting');
 import tailwindConfig from './tailwind.config.js';
-const cssNano = require('cssnano');
 
 export default defineConfig(({ mode }) => {
   const { env } = loadEnv(mode, process.cwd());
+
   return {
     css: {
       postcss: {
@@ -14,7 +15,7 @@ export default defineConfig(({ mode }) => {
           tailwindcss(tailwindConfig),
           tailwindcssNesting(),
           autoprefixer(),
-          ...(env === 'production' ? [cssNano()] : [])
+          ...(env === 'production' ? [cssnano()] : [])
         ]
       }
     }
