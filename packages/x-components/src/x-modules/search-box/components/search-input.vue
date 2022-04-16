@@ -7,6 +7,7 @@
     @input="emitUserIsTypingAQueryEvents"
     @keydown.enter="emitUserPressedEnterKey"
     @keydown.up.down.prevent="emitUserPressedArrowKey"
+    @keydown="preventSpecialKey"
     :maxlength="maxLength"
     :value="query"
     autocomplete="off"
@@ -230,6 +231,10 @@
      */
     protected emitUserAcceptedAQuery(query: string): void {
       this.$x.emit('UserAcceptedAQuery', query, this.createEventMetadata());
+    }
+
+    protected emitPreventSpecialKey(): void {
+      this.$refs.input.value.trim().replace(/[<>]/, '');
     }
   }
 </script>
