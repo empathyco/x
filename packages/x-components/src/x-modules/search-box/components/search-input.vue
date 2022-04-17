@@ -87,7 +87,7 @@
     /**
      * When event {@link XEventsTypes.UserReachedEmpathizeTop} or
      * {@link SearchBoxXEvents.UserPressedClearSearchBoxButton}
-     * are emitted the search in put is focused.
+     * are emitted the search input is focused.
      *
      * @internal
      */
@@ -233,8 +233,16 @@
       this.$x.emit('UserAcceptedAQuery', query, this.createEventMetadata());
     }
 
-    protected emitPreventSpecialKey(): void {
-      this.$refs.input.value.trim().replace(/[<>]/, '');
+    /**
+     * Prevents the user from typing special characters in the input field.
+     *
+     * @internal
+     */
+    protected preventSpecialKey(): void {
+      this.$refs.input.value = this.$refs.input.value
+        .trim()
+        .replace(/[>]/gi, '')
+        .replace(/[<]/gi, '');
     }
   }
 </script>
