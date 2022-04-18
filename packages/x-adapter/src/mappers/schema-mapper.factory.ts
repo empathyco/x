@@ -1,9 +1,9 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { isFunction, isObject, reduce, isPath, isArray } from '@empathyco/x-utils';
-import { MutableSchema, Schema, SubSchemaTransformer } from '../schemas/schemas.types';
+import { Schema, SubSchemaTransformer } from '../schemas/schemas.types';
 import { Mapper, MapperContext } from '../types/mapper.types';
 import { extractValue } from '../utils/extract-value';
-import { isMutableSchemaInternalMethod } from '../schemas';
+import { isInternalMethod } from '../schemas';
 
 /**
  * The 'schemaMapperFactory' function creates a {@link Mapper | mapper function} for a given
@@ -16,7 +16,7 @@ import { isMutableSchemaInternalMethod } from '../schemas';
  * @public
  */
 export function schemaMapperFactory<Source, Target>(
-  schema: Schema<Source, Target> | MutableSchema<Schema<Source, Target>>
+  schema: Schema<Source, Target>
 ): Mapper<Source, Target | undefined> {
   return function mapper(source: Source, context: MapperContext): Target | undefined {
     return mapSchema(source, schema, context);
@@ -49,7 +49,7 @@ function mapSchema<Source, Target>(
       type TargetKey = Target[keyof Target];
       if (typeof transformer === 'string' && isPath(source, transformer)) {
         target[key] = extractValue(source, transformer) as TargetKey;
-      } else if (isFunction(transformer) && !isMutableSchemaInternalMethod(transformer.name)) {
+      } else if (isFunction(transformer) && !isInternalMethod(transformer.name)) {
         target[key] = transformer(source, context);
       } else if (isObject(transformer)) {
         const value =

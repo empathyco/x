@@ -20,7 +20,7 @@ export function makeSchemaMutable<T extends Schema>(schema: T): MutableSchema<T>
     ...schema,
     $replace: function <Source = any, Target = any>(newSchema: Schema<Source, Target>) {
       Object.keys(this).forEach(key => {
-        if (isMutableSchemaInternalMethod(key)) {
+        if (isInternalMethod(key)) {
           return;
         }
         delete this[key];
@@ -41,6 +41,6 @@ export function makeSchemaMutable<T extends Schema>(schema: T): MutableSchema<T>
  * @returns True if it is an internal method of a {@link MutableSchema | mutableSchema},
  * false otherwise.
  */
-export function isMutableSchemaInternalMethod(name: string): boolean {
+export function isInternalMethod(name: string): boolean {
   return mutableSchemasInternalMethods.includes(name);
 }
