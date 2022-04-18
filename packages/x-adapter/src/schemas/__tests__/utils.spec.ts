@@ -304,13 +304,26 @@ describe('MutableSchemas', () => {
         }
       };
       const mutable = createMutableSchema(a);
-      // eslint-disable-next-line max-len
-      const mutableSerialized = `facet: { \n id: facets.name \n filters: { \n $path: facets.filters \n $subSchema: { \n id: name \n numFound: (_, context) => { var _a; return ((_a = context === null || context === void 0 ? void 0 : context.requestParameters) === null || _a === void 0 ? void 0 : _a.addNumFound) + 2; } \n filters: { \n $path: children \n$subSchema: $self \n } \n } \n } \n }`;
-      expect(mutable.$toString().trim()).toStrictEqual(mutableSerialized);
-      expect(mutable.$toString(true).trim()).toContain(mutableSerialized);
-      expect(mutable.$toString(true).trim()).toContain('$replace: function (newSchema) {');
-      expect(mutable.$toString(true).trim()).toContain('$override: function (newSchema) {');
-      expect(mutable.$toString(true).trim()).toContain('$extends: function (newSchema) {');
+      /* eslint-disable max-len */
+      const mutableSerialized = `facet: {
+  id: facets.name,
+  filters: {
+    $path: facets.filters,
+    $subSchema: {
+      id: name,
+      numFound: (_, context) => { var _a; return ((_a = context === null || context === void 0 ? void 0 : context.requestParameters) === null || _a === void 0 ? void 0 : _a.addNumFound) + 2; },
+      filters: {
+        $path: children,
+        $subSchema: $self,
+      },
+    },
+  },
+},`;
+      /* eslint-enable max-len */
+      expect(mutable.toString().trim()).toStrictEqual(mutableSerialized);
+      expect(mutable.toString(true).trim()).toContain('$replace: function (newSchema) {');
+      expect(mutable.toString(true).trim()).toContain('$override: function (newSchema) {');
+      expect(mutable.toString(true).trim()).toContain('$extends: function (newSchema) {');
     });
 
     it('should replace complex schemas', () => {

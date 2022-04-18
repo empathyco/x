@@ -94,7 +94,7 @@ export type MutableSchema<OriginalSchema extends Schema> = OriginalSchema & {
    *
    * @returns The string representation.
    */
-  $toString: (includeInternalMethods?: boolean) => string;
+  toString: (includeInternalMethods?: boolean) => string;
 };
 
 /**
