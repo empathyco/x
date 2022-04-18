@@ -235,6 +235,7 @@
 
     /**
      * Prevents the user from typing special characters in the input field.
+     * Checks the input query value and replaces special characters with whitespace.
      *
      * @internal
      */
