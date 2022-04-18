@@ -88,7 +88,11 @@ describe('MutableSchemas', () => {
     const mapper = schemaMapperFactory<any, any>(mutableSchema);
     expect(mapper(source, {})).toStrictEqual(originalTarget);
 
-    mutableSchema.$replace(customSchema);
+    const newSchema = mutableSchema.$replace(customSchema);
+    expect(newSchema.search).toBe('data.query');
+    expect(newSchema.total).toBe('data.total.rows');
+    expect(typeof newSchema.$override).toBe('function');
+    expect(typeof newSchema.$replace).toBe('function');
     expect(mapper(customSource, {})).toStrictEqual(customTarget);
   });
 
@@ -132,7 +136,11 @@ describe('MutableSchemas', () => {
     const mapper = schemaMapperFactory<any, any>(mutableSchema);
     expect(mapper(source, {})).toStrictEqual(originalTarget);
 
-    mutableSchema.$override(customSchema);
+    const newSchema = mutableSchema.$override(customSchema);
+    expect(newSchema.query).toBe('data.query');
+    expect(newSchema.hits).toBe('rows');
+    expect(typeof newSchema.$override).toBe('function');
+    expect(typeof newSchema.$replace).toBe('function');
     expect(mapper(customSource, {})).toStrictEqual(overrideTarget);
 
     const removeHitsFieldSchema: Schema<CustomSource, Partial<OriginalTarget>> = {
