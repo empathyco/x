@@ -154,6 +154,53 @@ describe('MutableSchemas', () => {
     });
   });
 
+  it('should extends the original schema without modifying it', () => {
+    const source: OriginalSource = {
+      q: 'potatoes',
+      rows: 1,
+      facets: [{ id: 'brand', count: 99, label: 'Brand' }]
+    };
+
+    const extendedSource = {
+      ...source,
+      someExtraField: 'extra'
+    };
+
+    interface ExtendedTarget extends OriginalTarget {
+      extra: string;
+    }
+
+    const originalSchema: Schema<OriginalSource, OriginalTarget> = {
+      query: 'q',
+      hits: 'rows'
+    };
+
+    const customSchema: Schema<typeof extendedSource, Partial<ExtendedTarget>> = {
+      extra: 'someExtraField'
+    };
+
+    const originalTarget: OriginalTarget = {
+      query: 'potatoes',
+      hits: 1
+    };
+
+    const extendedTarget: ExtendedTarget = {
+      ...originalTarget,
+      extra: 'extended'
+    };
+
+    const mutableSchema = makeSchemaMutable(originalSchema);
+    const mapperFromOriginal = schemaMapperFactory<any, any>(mutableSchema);
+    const extendedSchema = mutableSchema.$extends(customSchema);
+    const mapperFromExtended = schemaMapperFactory<any, any>(extendedSchema);
+    expect(mapperFromExtended({ ...source, someExtraField: 'extended' }, {})).toStrictEqual(
+      extendedTarget
+    );
+    expect(mapperFromOriginal({ ...source, someExtraField: 'extended' }, {})).toStrictEqual(
+      originalTarget
+    );
+  });
+
   describe('should work with complex schemas', () => {
     interface ComplexSourceFilter {
       name: string;

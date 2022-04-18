@@ -4,7 +4,7 @@ import { MutableSchema, Schema } from './schemas.types';
 /**
  * Collection of internal method names for {@link MutableSchema | mutable schemas}.
  */
-export const mutableSchemasInternalMethods = ['$replace', '$override'];
+export const mutableSchemasInternalMethods = ['$replace', '$override', '$extends'];
 
 /**
  * Creates a {@link MutableSchema | mutable schema } version of a given {@link Schema | schema}.
@@ -34,6 +34,11 @@ export function makeSchemaMutable<T extends Schema>(schema: T): MutableSchema<T>
       newSchema: Schema<Source, Target>
     ): MutableSchema<Schema<Source, Target>> {
       return deepMerge(this, newSchema);
+    },
+    $extends: function <Source = any, Target = any>(
+      newSchema: Schema<Source, Target>
+    ): MutableSchema<Schema<Source, Target>> {
+      return deepMerge({}, this, newSchema);
     }
   };
 }

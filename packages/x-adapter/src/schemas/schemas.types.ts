@@ -50,18 +50,41 @@ export type Schema<Source = any, Target = any> = {
 
 /**
  * A {@link Schema | schema} with extended functionality. In addition to
- * regular {@link Schema | schema} includes two methods to be able to either completely replace
- * the original schema or to partially override it.
+ * regular {@link Schema | schema} includes some methods to be able to completely replace
+ * the original schema, to partially override it or create a new one.
  *
  * @param OriginalSchema - The {@link Schema | schema} that will be mutable.
  *
  *
  */
 export type MutableSchema<OriginalSchema extends Schema> = OriginalSchema & {
+  /**
+   * Replaces all usages of the original {@link Schema | schema} with the given one.
+   *
+   * @param newSchema - The {@link Schema | schema} to use instead of the original one.
+   * @returns The new {@link Schema | schema} that will be used.
+   */
   $replace: <Source, Target>(
     newSchema: Schema<Source, Target>
   ) => MutableSchema<Schema<Source, Target>>;
+  /**
+   * Merges the original {@link Schema | schema} with the given one.
+   *
+   * @param newSchema - The {@link Schema | schema} to use to merge with the original one.
+   * @returns The {@link Schema | schema} returned by the merge.
+   */
   $override: <Source, Target>(
+    newSchema: Schema<Source, Target>
+  ) => MutableSchema<Schema<Source, Target>>;
+  /**
+   * Allows to create a new {@link Schema | schema} using the original one as starting point.
+   * The original {@link Schema | schema} will remain unchanged.
+   *
+   * @param newSchema - The {@link Schema | schema} to be used to extend the original one.
+   *
+   * @returns The {@link Schema | schema} created.
+   */
+  $extends: <Source, Target>(
     newSchema: Schema<Source, Target>
   ) => MutableSchema<Schema<Source, Target>>;
 };
