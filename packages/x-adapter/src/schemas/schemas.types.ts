@@ -87,6 +87,15 @@ export type MutableSchema<OriginalSchema extends Schema> = OriginalSchema & {
   $extends: <Source, Target>(
     newSchema: Schema<Source, Target>
   ) => MutableSchema<Schema<Source, Target>>;
+  /**
+   * Returns a string representing of the {@link Schema | schema}.
+   *
+   * @param includeInternalMethods - Flag to include in the string representation
+   * the internal methods. Disabled by default.
+   *
+   * @returns The string representation.
+   */
+  $toString: (includeInternalMethods?: boolean) => string;
 };
 
 /**
