@@ -76,7 +76,7 @@ export type MutableSchema<OriginalSchema extends Schema> = OriginalSchema & {
     newSchema: Schema<Source, Target>
   ) => MutableSchema<Schema<Source, Target>>;
   /**
-   * Allows to create a new {@link Schema | schema} using the original one as starting point.
+   * Creates a new {@link Schema | schema} using the original one as starting point.
    * The original {@link Schema | schema} will remain unchanged.
    *
    * @param newSchema - The {@link Schema | schema} to be used to extend the original one.

@@ -1,6 +1,6 @@
 import { DeepPartial } from '@empathyco/x-utils';
 import { Schema } from '../schemas.types';
-import { makeSchemaMutable } from '../utils';
+import { createMutableSchema } from '../utils';
 import { schemaMapperFactory } from '../../mappers';
 
 describe('MutableSchemas', () => {
@@ -41,7 +41,7 @@ describe('MutableSchemas', () => {
       query: 'q',
       hits: 'rows'
     };
-    const mutableSchema = makeSchemaMutable(originalSchema);
+    const mutableSchema = createMutableSchema(originalSchema);
     expect(mutableSchema.query).toBe('q');
     expect(mutableSchema.hits).toBe('rows');
     expect(typeof mutableSchema.$replace).toBe('function');
@@ -84,7 +84,7 @@ describe('MutableSchemas', () => {
       total: 24
     };
 
-    const mutableSchema = makeSchemaMutable(originalSchema);
+    const mutableSchema = createMutableSchema(originalSchema);
     const mapper = schemaMapperFactory<any, any>(mutableSchema);
     expect(mapper(source, {})).toStrictEqual(originalTarget);
 
@@ -132,7 +132,7 @@ describe('MutableSchemas', () => {
       hits: 99
     };
 
-    const mutableSchema = makeSchemaMutable(originalSchema);
+    const mutableSchema = createMutableSchema(originalSchema);
     const mapper = schemaMapperFactory<any, any>(mutableSchema);
     expect(mapper(source, {})).toStrictEqual(originalTarget);
 
@@ -189,7 +189,7 @@ describe('MutableSchemas', () => {
       extra: 'extended'
     };
 
-    const mutableSchema = makeSchemaMutable(originalSchema);
+    const mutableSchema = createMutableSchema(originalSchema);
     const mapperFromOriginal = schemaMapperFactory<any, any>(mutableSchema);
     const extendedSchema = mutableSchema.$extends(customSchema);
     const mapperFromExtended = schemaMapperFactory<any, any>(extendedSchema);
@@ -303,7 +303,7 @@ describe('MutableSchemas', () => {
           }
         }
       };
-      const mutable = makeSchemaMutable(a);
+      const mutable = createMutableSchema(a);
       // eslint-disable-next-line max-len
       const mutableSerialized = `facet: { \n id: facets.name \n filters: { \n $path: facets.filters \n $subSchema: { \n id: name \n numFound: (_, context) => { var _a; return ((_a = context === null || context === void 0 ? void 0 : context.requestParameters) === null || _a === void 0 ? void 0 : _a.addNumFound) + 2; } \n filters: { \n $path: children \n$subSchema: $self \n } \n } \n } \n }`;
       expect(mutable.$toString().trim()).toStrictEqual(mutableSerialized);
@@ -380,7 +380,7 @@ describe('MutableSchemas', () => {
         }
       };
 
-      const mutable = makeSchemaMutable(schema);
+      const mutable = createMutableSchema(schema);
       const mapper = schemaMapperFactory<any, any>(mutable);
       mutable.$replace(replaceSchema);
       expect(mapper(customSource, { requestParameters: { addNumFound: 2 } })).toStrictEqual(target);
@@ -457,7 +457,7 @@ describe('MutableSchemas', () => {
         }
       };
 
-      const mutable = makeSchemaMutable(schema);
+      const mutable = createMutableSchema(schema);
       const mapper = schemaMapperFactory<any, any>(mutable);
       expect(mapper(customSource, { requestParameters: { addNumFound: 2 } })).toStrictEqual({
         facet: {

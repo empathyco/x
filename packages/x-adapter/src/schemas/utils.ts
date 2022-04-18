@@ -15,7 +15,7 @@ const mutableSchemasInternalMethods = ['$replace', '$override', '$extends', '$to
  *
  * @public
  */
-export function makeSchemaMutable<T extends Schema>(schema: T): MutableSchema<T> {
+export function createMutableSchema<T extends Schema>(schema: T): MutableSchema<T> {
   return {
     ...schema,
     $replace: function <Source = any, Target = any>(
