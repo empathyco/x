@@ -1,4 +1,4 @@
-import { deepMerge, replaceBehaviour } from '@empathyco/x-deep-merge';
+import { deepMerge } from '@empathyco/x-deep-merge';
 import { MutableSchema, Schema } from './schemas.types';
 
 /**
@@ -18,17 +18,22 @@ export const mutableSchemasInternalMethods = ['$replace', '$override'];
 export function makeSchemaMutable<T extends Schema>(schema: T): MutableSchema<T> {
   return {
     ...schema,
-    $replace: function <Source = any, Target = any>(newSchema: Schema<Source, Target>) {
+    $replace: function <Source = any, Target = any>(
+      newSchema: Schema<Source, Target>
+    ): MutableSchema<Schema<Source, Target>> {
       Object.keys(this).forEach(key => {
         if (isInternalMethod(key)) {
           return;
         }
         delete this[key];
       });
-      deepMerge(this, replaceBehaviour(newSchema));
+      Object.assign(this, newSchema);
+      return this;
     },
-    $override: function <Source = any, Target = any>(newSchema: Schema<Source, Target>) {
-      deepMerge(this, newSchema);
+    $override: function <Source = any, Target = any>(
+      newSchema: Schema<Source, Target>
+    ): MutableSchema<Schema<Source, Target>> {
+      return deepMerge(this, newSchema);
     }
   };
 }

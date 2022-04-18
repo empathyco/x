@@ -58,8 +58,12 @@ export type Schema<Source = any, Target = any> = {
  *
  */
 export type MutableSchema<OriginalSchema extends Schema> = OriginalSchema & {
-  $replace: <Source, Target>(newSchema: Schema<Source, Target>) => void;
-  $override: <Source, Target>(newSchema: Schema<Source, Target>) => void;
+  $replace: <Source, Target>(
+    newSchema: Schema<Source, Target>
+  ) => MutableSchema<Schema<Source, Target>>;
+  $override: <Source, Target>(
+    newSchema: Schema<Source, Target>
+  ) => MutableSchema<Schema<Source, Target>>;
 };
 
 /**
