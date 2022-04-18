@@ -177,12 +177,12 @@ describe('testing search input component', () => {
   );
 
   it('prevents the query from containing special characters.', () => {
-    // const specialCharLimitListener = jest.fn();
-    const query = 'wa>ter';
-    input.value = query;
-    mockedSearchInput.trigger('keydown');
-    // mockedSearchInput.trigger('input');
-    expect(input.value).toEqual('water');
+    const queries: string[] = ['wa>ter', '<water', 'w<>ater', 'wa>ter>', '<>water', 'water><'];
+    for (const query of queries) {
+      input.value = query;
+      mockedSearchInput.trigger('keydown');
+      expect(input.value).toEqual('water');
+    }
   });
 
   it('focus the input when UserPressedClearSearchBoxButton event is emitted', () => {
