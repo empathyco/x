@@ -3,7 +3,7 @@ import { isFunction, isObject, reduce, isPath, isArray } from '@empathyco/x-util
 import { Schema, SubSchemaTransformer } from '../schemas/schemas.types';
 import { Mapper, MapperContext } from '../types/mapper.types';
 import { extractValue } from '../utils/extract-value';
-import { isInternalMethod } from '../schemas';
+import { isInternalMethod } from '../schemas/utils';
 
 /**
  * The 'schemaMapperFactory' function creates a {@link Mapper | mapper function} for a given

@@ -4,7 +4,7 @@ import { MutableSchema, Schema } from './schemas.types';
 /**
  * Collection of internal method names for {@link MutableSchema | mutable schemas}.
  */
-export const mutableSchemasInternalMethods = ['$replace', '$override', '$extends', '$toString'];
+const mutableSchemasInternalMethods = ['$replace', '$override', '$extends', '$toString'];
 
 /**
  * Creates a {@link MutableSchema | mutable schema } version of a given {@link Schema | schema}.
@@ -47,12 +47,14 @@ export function makeSchemaMutable<T extends Schema>(schema: T): MutableSchema<T>
 }
 
 /**
- * Checks if the given name refers to an internal method of a {@link MutableSchema | mutableSchema}.
+ * Checks if the given key is a {@link MutableSchema | mutableSchema} method.
  *
- * @param name - The property name to check.
+ * @param name - The key to check.
  *
- * @returns True if it is an internal method of a {@link MutableSchema | mutableSchema},
+ * @returns True if it is a {@link MutableSchema | mutableSchema} method,
  * false otherwise.
+ *
+ * @public
  */
 export function isInternalMethod(name: string): boolean {
   return mutableSchemasInternalMethods.includes(name);

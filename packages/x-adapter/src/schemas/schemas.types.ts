@@ -49,13 +49,12 @@ export type Schema<Source = any, Target = any> = {
 };
 
 /**
- * A {@link Schema | schema} with extended functionality. In addition to
- * regular {@link Schema | schema} includes some methods to be able to completely replace
- * the original schema, to partially override it or create a new one.
+ * A {@link Schema | schema} with extended functionality to: completely replace
+ * the original schema, partially override it or create a new one.
  *
  * @param OriginalSchema - The {@link Schema | schema} that will be mutable.
  *
- *
+ * @public
  */
 export type MutableSchema<OriginalSchema extends Schema> = OriginalSchema & {
   /**
