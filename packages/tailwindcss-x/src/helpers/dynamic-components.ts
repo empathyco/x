@@ -1,13 +1,13 @@
-import { DynamicStylesOptions, TailwindHelpers } from '../types';
+import { TailwindHelpers } from '../types';
 
 /**
  * Default dynamic component styles.
  *
  * @returns All the styles for each component and the values they are going to be generated with.
+ *
+ * @public
  */
-export default function dynamicComponents({
-  theme
-}: Partial<TailwindHelpers>): DynamicStylesOptions {
+export default function dynamicComponents({ theme }: Partial<TailwindHelpers>) {
   return {
     // TODO: replace this example styles with actual design styles
     'dynamic-button-gap': {
@@ -30,3 +30,10 @@ export default function dynamicComponents({
     }
   };
 }
+
+/**
+ * The return type of {@link dynamicComponents}.
+ *
+ * @public
+ */
+export type ReturnOfDynamicComponents = ReturnType<typeof dynamicComponents>;

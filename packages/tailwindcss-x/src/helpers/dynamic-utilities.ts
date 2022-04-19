@@ -1,13 +1,13 @@
-import { DynamicStylesOptions, TailwindHelpers } from '../types';
+import { TailwindHelpers } from '../types';
 
 /**
  * Default dynamic utility styles.
  *
  * @returns All the styles for each utility and the values they are going to be generated with.
+ *
+ * @public
  */
-export default function dynamicUtilities({
-  theme
-}: Partial<TailwindHelpers>): DynamicStylesOptions {
+export default function dynamicUtilities({ theme }: Partial<TailwindHelpers>) {
   return {
     // TODO: replace this example styles with actual design styles
     'font-util': {
@@ -18,3 +18,10 @@ export default function dynamicUtilities({
     }
   };
 }
+
+/**
+ * The return type of {@link dynamicUtilities}.
+ *
+ * @public
+ */
+export type ReturnOfDynamicUtilities = ReturnType<typeof dynamicUtilities>;

@@ -1,7 +1,13 @@
-import { StyleOptions, DynamicStylesOptions, PluginOptions } from '../src/types';
+import {
+  ComponentsDefinition,
+  DynamicComponentsDefinition,
+  DynamicUtilitiesDefinition,
+  PluginOptions,
+  UtilitiesDefinition
+} from '../src/types';
 
 export const options: PluginOptions = {
-  components({ theme }): StyleOptions {
+  components({ theme }): ComponentsDefinition {
     return {
       '.icon': {
         display: 'flex',
@@ -14,7 +20,7 @@ export const options: PluginOptions = {
       }
     };
   },
-  utilities({ theme }): StyleOptions {
+  utilities({ theme }): UtilitiesDefinition {
     return {
       '.btn-height': {
         '&-sm': {
@@ -29,7 +35,7 @@ export const options: PluginOptions = {
       }
     };
   },
-  dynamicUtilities({ theme }): DynamicStylesOptions {
+  dynamicUtilities({ theme }): DynamicUtilitiesDefinition {
     return {
       'background-success': {
         styles: (value: any) => ({
@@ -51,7 +57,7 @@ export const options: PluginOptions = {
       }
     };
   },
-  dynamicComponents(): DynamicStylesOptions {
+  dynamicComponents(): DynamicComponentsDefinition {
     return {};
   },
   theme: {

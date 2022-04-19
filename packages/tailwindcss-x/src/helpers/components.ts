@@ -1,11 +1,13 @@
-import { StyleOptions, TailwindHelpers } from '../types';
+import { TailwindHelpers } from '../types';
 
 /**
  * Default component styles.
  *
  * @returns All the styles for each component.
+ *
+ * @public
  */
-export default function components({ theme }: Partial<TailwindHelpers>): StyleOptions {
+export default function components({ theme }: Partial<TailwindHelpers>) {
   return {
     // TODO: replace this example styles with actual design styles
     '.btn': {
@@ -49,3 +51,10 @@ export default function components({ theme }: Partial<TailwindHelpers>): StyleOp
     }
   };
 }
+
+/**
+ * The return type of {@link components}.
+ *
+ * @public
+ */
+export type ReturnOfComponents = ReturnType<typeof components>;

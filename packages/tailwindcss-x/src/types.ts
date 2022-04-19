@@ -1,5 +1,9 @@
-import { Dictionary } from '@empathyco/x-utils';
+import { DeepPartial, Dictionary } from '@empathyco/x-utils';
 import { TailwindPluginFn } from 'tailwindcss/plugin';
+import { ReturnOfComponents } from './helpers/components';
+import { ReturnOfDynamicComponents } from './helpers/dynamic-components';
+import { ReturnOfDynamicUtilities } from './helpers/dynamic-utilities';
+import { ReturnOfUtilities } from './helpers/utilities';
 
 /**
  * Represents a `CSS` variable name.
@@ -37,11 +41,11 @@ type CSSClassSelector = `.${string}`;
 type CSSNestedSelector = `&${string}`;
 
 /**
- * Represents the different possible `CSS` styling options for a component.
+ * Represents the different `CSS` styling options for a component.
  *
  * @example
  * ```typescript
- * const cssOptions: StyleOptions = {
+ * const cssOptions: CSSStyleOptions = {
  *   '--color-primary': 'blue',
  *   '.btn': {
  *     '&--primary': {
@@ -54,8 +58,8 @@ type CSSNestedSelector = `&${string}`;
  *
  * @public
  */
-export type StyleOptions = {
-  [Key: CSSClassSelector | CSSNestedSelector]: StyleOptions | Partial<CSSStyleDeclaration>;
+export type CSSStyleOptions = {
+  [Key: CSSClassSelector | CSSNestedSelector]: CSSStyleOptions | Partial<CSSStyleDeclaration>;
   [Key: CSSVariable]: string & Partial<TailwindHelpers>;
 };
 
@@ -64,8 +68,8 @@ export type StyleOptions = {
  *
  * @public
  */
-export type DynamicStylesOptions = Dictionary<{
-  styles: (value: unknown) => StyleOptions;
+export type DynamicCSSStylesOptions = Dictionary<{
+  styles: (value: unknown) => CSSStyleOptions;
   values?: string;
 }>;
 
@@ -77,6 +81,38 @@ export type DynamicStylesOptions = Dictionary<{
 export type TailwindHelpers = Parameters<TailwindPluginFn>[0];
 
 /**
+ * Represents the return type of {@link PluginOptions.components}.
+ *
+ * @public
+ */
+export type ComponentsDefinition = DeepPartial<ReturnOfComponents> | CSSStyleOptions;
+
+/**
+ * Represents the return type of {@link PluginOptions.utilities}.
+ *
+ * @public
+ */
+export type UtilitiesDefinition = DeepPartial<ReturnOfUtilities> | CSSStyleOptions;
+
+/**
+ * Represents the return type of {@link PluginOptions.dynamicComponents}.
+ *
+ * @public
+ */
+export type DynamicComponentsDefinition =
+  | DeepPartial<ReturnOfDynamicComponents>
+  | DynamicCSSStylesOptions;
+
+/**
+ * Represents the return type of {@link PluginOptions.dynamicUtilities}.
+ *
+ * @public
+ */
+export type DynamicUtilitiesDefinition =
+  | DeepPartial<ReturnOfDynamicUtilities>
+  | DynamicCSSStylesOptions;
+
+/**
  * Options to create a plugin.
  *
  * @public
@@ -85,19 +121,19 @@ export interface PluginOptions {
   /**
    * Registers new static components or modify the existing ones.
    */
-  components?: (helpers: Partial<TailwindHelpers>) => StyleOptions;
+  components?: (helpers: Partial<TailwindHelpers>) => ComponentsDefinition;
   /**
    * Registers a new dynamic component styles or replaces the existing ones.
    */
-  dynamicComponents?: (helpers: Partial<TailwindHelpers>) => DynamicStylesOptions;
+  dynamicComponents?: (helpers: Partial<TailwindHelpers>) => DynamicComponentsDefinition;
   /**
    * Registers new static utilities or modify the existing ones.
    */
-  utilities?: (helpers: Partial<TailwindHelpers>) => StyleOptions;
+  utilities?: (helpers: Partial<TailwindHelpers>) => UtilitiesDefinition;
   /**
    * Registers a new dynamic utilities styles or replaces the existing ones.
    * */
-  dynamicUtilities?: (helpers: Partial<TailwindHelpers>) => DynamicStylesOptions;
+  dynamicUtilities?: (helpers: Partial<TailwindHelpers>) => DynamicUtilitiesDefinition;
   /**
    * Helper to add extra functionalities.
    */

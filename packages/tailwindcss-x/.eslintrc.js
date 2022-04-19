@@ -9,6 +9,12 @@ module.exports = {
       rules: {
         '@typescript-eslint/no-unsafe-call': 'off'
       }
+    },
+    {
+      files: ['src/helpers/*.ts'],
+      rules: {
+        '@typescript-eslint/explicit-function-return-type': 'off'
+      }
     }
   ]
 };
