@@ -234,16 +234,37 @@
     }
 
     /**
+     * Prevents the user from either typing or pasting special characters in the input field.
+     *
+     * @internal
+     * @param event - The event that will be checked for special characters.
+     */
+    protected preventSpecialKey(event: InputEvent): void {
+      this.preventTypingSpecialKey(event);
+      this.preventPastingSpecialKey();
+    }
+
+    /**
      * Prevents the user from typing special characters in the input field.
      * Checks the input query value and replaces special characters with whitespace.
      *
      * @internal
      */
-    protected preventSpecialKey(): void {
-      this.$refs.input.value = this.$refs.input.value
-        .trim()
-        .replace(/[>]/gi, '')
-        .replace(/[<]/gi, '');
+    protected preventPastingSpecialKey(): void {
+      this.$refs.input.value = this.$refs.input.value.replace(/[>]/gi, '').replace(/[<]/gi, '');
+    }
+
+    /**
+     * Prevents the user from typing special characters in the input field.
+     * Checks the input query value and replaces special characters with whitespace.
+     *
+     * @internal
+     * @param event - The event that will be checked for special characters.
+     */
+    protected preventTypingSpecialKey(event: InputEvent): void {
+      if (/[<>]/.test(event.data ?? '')) {
+        event.preventDefault();
+      }
     }
   }
 </script>
