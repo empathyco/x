@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.5...@empathyco/eslint-plugin-x@2.0.0-alpha.6) (2022-04-19)
+
+### Features
+
+- **eslint:** add `vuejs-accessibility` plugin (#427)
+  ([6789771](https://github.com/empathyco/x/commit/6789771ab88a909552da74095694a4c2a191a51d)),
+  closes [EX-5845](https://searchbroker.atlassian.net/browse/EX-5845)
+- extract SessionService to x-utils package
+  ([5268808](https://github.com/empathyco/x/commit/52688087e577dfd7ce9b0669b21ada75ae67053c))
+- **typeguards:** add isPath
+  ([3c23ed0](https://github.com/empathyco/x/commit/3c23ed0c094161d787d24b2327d0884e41531878)),
+  closes [EX-5802](https://searchbroker.atlassian.net/browse/EX-5802)
+
+### Build System
+
+- **deps:** Upgrade Cypress and Vue Cli plugins versions. (#399)
+  ([630d6b0](https://github.com/empathyco/x/commit/630d6b0d767a3484140ecd252e2be10817e0900d)),
+  closes [EX-5417](https://searchbroker.atlassian.net/browse/EX-5417)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [2.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.4...@empathyco/eslint-plugin-x@2.0.0-alpha.5) (2022-03-31)
 
 ### Features
