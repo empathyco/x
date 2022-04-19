@@ -67,7 +67,7 @@ window.initX = function () {
 ```
 ::: note
 
-You can cange the snippet configuration values once the project is deployed. Use the `/x-archetype/public/snippet-script.js` file to perform hot changes for the snippet parameters. For more information on the supported parameters, check out [Snippet configuration](#snippet-configuration).
+You can change the snippet configuration values once the project is deployed. Use the `/x-archetype/public/snippet-script.js` file to perform hot changes for the snippet parameters. For more information on the supported parameters, check out [Snippet configuration](#snippet-configuration).
 
 :::
 
