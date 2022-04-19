@@ -2,7 +2,12 @@
 
 module.exports = {
   vue: {
-    extends: ['plugin:vue/recommended', '@vue/prettier', '@vue/typescript'],
+    extends: [
+      'plugin:vue/recommended',
+      'plugin:vuejs-accessibility/recommended',
+      '@vue/prettier',
+      '@vue/typescript'
+    ],
     rules: {
       'vue/attribute-hyphenation': 'off',
       'vue/attributes-order': [
