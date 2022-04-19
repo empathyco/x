@@ -1,23 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "useDefineForClassFields": true,
+    "target": "es2019",
     "module": "commonjs",
-    "lib": ["ESNext", "DOM"],
-    "moduleResolution": "Node",
-    "strict": true,
-    "sourceMap": true,
-    "resolveJsonModule": true,
+    "lib": ["esnext"],
+    "moduleResolution": "node",
     "esModuleInterop": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "skipLibCheck": true,
     "importHelpers": true,
-    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "types": ["tailwindcss"],
+    "sourceMap": true,
+    "inlineSources": true,
     "declaration": true,
-    "declarationMap": true
+    "declarationDir": "./dist/types",
+    "noEmit": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*.ts", "demo/**/*.ts"]
 }
