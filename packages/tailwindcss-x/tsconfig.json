@@ -11,8 +11,8 @@
     "sourceMap": true,
     "inlineSources": true,
     "declaration": true,
-    "declarationDir": "./types",
-    "outDir": "./dist/cjs"
+    "declarationDir": "./dist/types",
+    "noEmit": true
   },
   "include": ["src/**/*.ts", "demo/**/*.ts"]
 }

@@ -15,8 +15,7 @@
   "module": "dist/esm/index.js",
   "types": "types/index.d.ts",
   "files": [
-    "dist",
-    "types"
+    "dist"
   ],
   "repository": {
     "type": "git",
@@ -25,8 +24,8 @@
   },
   "scripts": {
     "dev": "vite serve demo",
-    "prebuild": "rimraf ./dist ./types ./*.tgz",
-    "build": "tsc --project tsconfig.build.json && tsc --project tsconfig.esm.json",
+    "prebuild": "rimraf ./dist ./*.tgz",
+    "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",
     "postbuild": "npm pack",
     "prepublishOnly": "npm run build"
   },

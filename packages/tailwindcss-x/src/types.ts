@@ -41,7 +41,7 @@ type CSSNestedSelector = `&${string}`;
  *
  * @example
  * ```typescript
- * const cssOptions: CSSStyleOptions = {
+ * const cssOptions: StyleOptions = {
  *   '--color-primary': 'blue',
  *   '.btn': {
  *     '&--primary': {
@@ -51,6 +51,8 @@ type CSSNestedSelector = `&${string}`;
  *   }
  * }
  * ```
+ *
+ * @public
  */
 export type StyleOptions = {
   [Key: CSSClassSelector | CSSNestedSelector]: StyleOptions | Partial<CSSStyleDeclaration>;
