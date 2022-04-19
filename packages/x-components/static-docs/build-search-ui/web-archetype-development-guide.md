@@ -30,7 +30,7 @@ To use Interface&nbsp;X&nbsp;Archetype as a search UI layer, you need:
 ##### Steps to build a search layer using the X Archetype project:
 
 1. **Clone** the X&nbsp;Archetype project and **initialize** your repository.
-2. Install the **project dependencies** and execute the project.
+2. Install the **project dependencies** and run the project development server.
 3. Configure the **search adapter**.
 4. Configure the **xPlugin**.
 
