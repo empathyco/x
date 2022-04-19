@@ -121,7 +121,7 @@ For detailed information about other configuration options in the Empathy Search
 
 Although you configure the values for the `instance`, `language`, `scope`, and `endpoint` options
 when integrating the project, you can still change these values when the project is [deployed](web-archetype-integration-guide.md). Use
-the `/x-archetype/public/snippet-script.js` file to perform hot changes for `lang`, `store`,
+the `/x-archetype/public/snippet-script.js` file to initialize values for `lang`, `store`,
 `device`, and `catalog` parameters.
 
 For example, you may configure the adapter to use EN as `lang` so that when you search, the results
