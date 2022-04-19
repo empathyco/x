@@ -7,6 +7,7 @@ import { createHistoryQueries } from '../../../../__stubs__/history-queries-stub
 import { RootXStoreState } from '../../../../store/store.types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
+import { baseSnippetConfig } from '../../../../views/base-config';
 import { historyQueriesXModule } from '../../x-module';
 import MyHistory from '../my-history.vue';
 import { resetXHistoryQueriesStateWith } from './utils';
@@ -27,6 +28,12 @@ function renderMyHistory({
       template,
       components: {
         MyHistory
+      },
+      provide: {
+        snippetConfig: {
+          ...baseSnippetConfig,
+          lang: 'en'
+        }
       }
     },
     {
@@ -44,7 +51,7 @@ function renderMyHistory({
       return wrapper.findAll(getDataTestSelector('suggestion-item'));
     },
     findAllInWrapper(selector) {
-      return wrapper.findAll(getDataTestSelector(selector));
+      return wrapper.findAll(getDataTestSelector(selector)).wrappers;
     }
   };
 }
@@ -61,13 +68,60 @@ describe('testing MyHistory component', () => {
     expect(wrapper.html()).toEqual('');
   });
 
-  it('renders the list of searched queries', async () => {
-    const { search, getListItems } = renderMyHistory();
+  it('renders the list of searched queries group by date', () => {
+    const historyQueriesGroupByDate: HistoryQuery[] = [
+      {
+        query: 'lego',
+        timestamp: 1650286901802,
+        modelName: 'HistoryQuery'
+      },
+      {
+        query: 'barbie',
+        timestamp: 1650286895254,
+        modelName: 'HistoryQuery'
+      },
+      {
+        query: 'truck',
+        timestamp: 1649230515242,
+        modelName: 'HistoryQuery'
+      },
+      {
+        query: 'doll',
+        timestamp: 1649230513535,
+        modelName: 'HistoryQuery'
+      }
+    ];
 
-    await search('lego');
-    const suggestionsWrappers = getListItems();
-    expect(suggestionsWrappers.wrappers).toHaveLength(1);
-    expect(suggestionsWrappers.at(0).text()).toEqual('lego ✕');
+    const expectedResult: Record<string, HistoryQuery[]> = {
+      'Monday, April 18, 2022': [historyQueriesGroupByDate[0], historyQueriesGroupByDate[1]],
+      'Wednesday, April 6, 2022': [historyQueriesGroupByDate[2], historyQueriesGroupByDate[3]]
+    };
+
+    const { findAllInWrapper } = renderMyHistory({
+      historyQueries: historyQueriesGroupByDate
+    });
+
+    const historyWrappers = findAllInWrapper('my-history-item');
+
+    historyWrappers.forEach((dateWrapper, index) => {
+      const date = dateWrapper.find(getDataTestSelector('my-history-date')).text();
+      expect(Object.keys(expectedResult)[index]).toBe(date);
+      dateWrapper
+        .findAll(getDataTestSelector('my-history-query'))
+        .wrappers.forEach((wrapper, queryIndex) => {
+          expect(wrapper.text()).toEqual(expectedResult[date][queryIndex].query);
+        });
+      dateWrapper
+        .findAll(getDataTestSelector('my-history-time'))
+        .wrappers.forEach((wrapper, queryIndex) => {
+          expect(wrapper.text()).toEqual(
+            new Date(expectedResult[date][queryIndex].timestamp).toLocaleTimeString([], {
+              hour: '2-digit',
+              minute: '2-digit'
+            })
+          );
+        });
+    });
   });
 
   it('allows changing history query content and render the list of history queries', () => {
@@ -106,7 +160,7 @@ describe('testing MyHistory component', () => {
     expect(suggestionIconWrappers).toHaveLength(historyQueries.length);
     expect(suggestionRemoveIconWrappers).toHaveLength(historyQueries.length);
     expect(suggestionContentWrappers).toHaveLength(historyQueries.length);
-    suggestionContentWrappers.wrappers.forEach((contentWrapper, index) => {
+    suggestionContentWrappers.forEach((contentWrapper, index) => {
       expect(contentWrapper.attributes('data-index')).toEqual(index.toString());
       expect(contentWrapper.text()).toEqual(historyQueries[index].query);
     });
@@ -135,5 +189,5 @@ interface MyHistoryAPI {
    * component. */
   getListItems: () => WrapperArray<Vue>;
   /** Retrieves the wrapper for the items that matches with the selector. */
-  findAllInWrapper: (selector: string) => WrapperArray<Vue>;
+  findAllInWrapper: (selector: string) => Wrapper<Vue>[];
 }
