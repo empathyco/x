@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-utils@0.1.0-alpha.10...@empathyco/x-utils@0.1.0-alpha.11) (2022-04-14)
+
+### Features
+
+- extract SessionService to x-utils package
+  ([5268808](https://github.com/empathyco/x/commit/52688087e577dfd7ce9b0669b21ada75ae67053c))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.1.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-utils@0.1.0-alpha.9...@empathyco/x-utils@0.1.0-alpha.10) (2022-04-07)
 
 ### Features

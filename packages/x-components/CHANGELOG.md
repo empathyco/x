@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.85](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.84...@empathyco/x-components@3.0.0-alpha.85) (2022-04-14)
+
+### Features
+
+- extract SessionService to x-utils package
+  ([5268808](https://github.com/empathyco/x/commit/52688087e577dfd7ce9b0669b21ada75ae67053c))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.84](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.83...@empathyco/x-components@3.0.0-alpha.84) (2022-04-07)
 
 **Note:** Version bump only for package @empathyco/x-components

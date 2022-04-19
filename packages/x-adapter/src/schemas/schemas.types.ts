@@ -49,6 +49,55 @@ export type Schema<Source = any, Target = any> = {
 };
 
 /**
+ * A {@link Schema | schema} with extended functionality to: completely replace
+ * the original schema, partially override it or create a new one.
+ *
+ * @param OriginalSchema - The {@link Schema | schema} that will be mutable.
+ *
+ * @public
+ */
+export type MutableSchema<OriginalSchema extends Schema> = OriginalSchema & {
+  /**
+   * Replaces all usages of the original {@link Schema | schema} with the given one.
+   *
+   * @param newSchema - The {@link Schema | schema} to use instead of the original one.
+   * @returns The new {@link Schema | schema} that will be used.
+   */
+  $replace: <Source, Target>(
+    newSchema: Schema<Source, Target>
+  ) => MutableSchema<Schema<Source, Target>>;
+  /**
+   * Merges the original {@link Schema | schema} with the given one.
+   *
+   * @param newSchema - The {@link Schema | schema} to use to merge with the original one.
+   * @returns The {@link Schema | schema} returned by the merge.
+   */
+  $override: <Source, Target>(
+    newSchema: Schema<Source, Target>
+  ) => MutableSchema<Schema<Source, Target>>;
+  /**
+   * Creates a new {@link Schema | schema} using the original one as starting point.
+   * The original {@link Schema | schema} will remain unchanged.
+   *
+   * @param newSchema - The {@link Schema | schema} to be used to extend the original one.
+   *
+   * @returns The {@link Schema | schema} created.
+   */
+  $extends: <Source, Target>(
+    newSchema: Schema<Source, Target>
+  ) => MutableSchema<Schema<Source, Target>>;
+  /**
+   * Returns a string representing of the {@link Schema | schema}.
+   *
+   * @param includeInternalMethods - Flag to include in the string representation
+   * the internal methods. Disabled by default.
+   *
+   * @returns The string representation.
+   */
+  toString: (includeInternalMethods?: boolean) => string;
+};
+
+/**
  * The possible transformers to apply to the target key.
  *
  * @param Source - The source object.

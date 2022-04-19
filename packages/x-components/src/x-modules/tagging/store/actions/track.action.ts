@@ -1,6 +1,6 @@
 import { TaggingInfo } from '@empathyco/x-types';
+import { DefaultSessionService } from '@empathyco/x-utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { DefaultSessionService } from '../../service';
 import { TaggingXStoreModule } from '../types';
 
 /**

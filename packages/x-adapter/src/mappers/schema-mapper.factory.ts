@@ -3,6 +3,7 @@ import { isFunction, isObject, reduce, isPath, isArray } from '@empathyco/x-util
 import { Schema, SubSchemaTransformer } from '../schemas/schemas.types';
 import { Mapper, MapperContext } from '../types/mapper.types';
 import { extractValue } from '../utils/extract-value';
+import { isInternalMethod } from '../schemas/utils';
 
 /**
  * The 'schemaMapperFactory' function creates a {@link Mapper | mapper function} for a given
@@ -46,10 +47,9 @@ function mapSchema<Source, Target>(
     schema,
     (target, key, transformer) => {
       type TargetKey = Target[keyof Target];
-
       if (typeof transformer === 'string' && isPath(source, transformer)) {
         target[key] = extractValue(source, transformer) as TargetKey;
-      } else if (isFunction(transformer)) {
+      } else if (isFunction(transformer) && !isInternalMethod(transformer.name)) {
         target[key] = transformer(source, context);
       } else if (isObject(transformer)) {
         const value =

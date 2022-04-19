@@ -1,8 +1,8 @@
 .eslintcache
 .DS_Store
+.parcel-cache
 **/node_modules
 **/dist
-**/types
 **/docs
 **/*.tgz
 
