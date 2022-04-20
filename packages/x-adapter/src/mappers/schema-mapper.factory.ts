@@ -3,7 +3,7 @@ import { isFunction, isObject, reduce, isPath, isArray } from '@empathyco/x-util
 import { Schema, SubSchemaTransformer } from '../schemas/schemas.types';
 import { Mapper, MapperContext } from '../types/mapper.types';
 import { extractValue } from '../utils/extract-value';
-import { isInternalMethod } from '../schemas/utils';
+import { createMutableSchema, isInternalMethod } from '../schemas/utils';
 
 /**
  * The 'schemaMapperFactory' function creates a {@link Mapper | mapper function} for a given
@@ -39,9 +39,11 @@ function mapSchema<Source, Target>(
   source: Source,
   schema: Schema<Source, Target>,
   context: MapperContext
-): Target | undefined {
+): Target {
   if (!source) {
-    return undefined;
+    //eslint-disable-next-line no-console
+    console.warn('This schema cannot be applied', createMutableSchema(schema));
+    return undefined as any;
   }
   return reduce(
     schema,

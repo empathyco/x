@@ -37,10 +37,10 @@ export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response
     const endpoint = getEndpoint(rawEndpoint ?? requestEndpoint, request);
     const requestParameters = requestMapper(request, { endpoint });
 
-    return httpClient<Response>(
+    return httpClient(
       endpoint,
       deepMerge({}, defaultRequestOptions, requestOptions, { parameters: requestParameters })
-    ).then(response => responseMapper(response, { endpoint, requestParameters }));
+    ).then(response => responseMapper(response, { endpoint, requestParameters }) as Response);
   };
 
   endpointAdapter.extends = <NewRequest, NewResponse>(
