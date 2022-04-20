@@ -1,4 +1,4 @@
-import { Banner, Facet, Promoted, Redirection, Result, TaggingInfo } from '@empathyco/x-types';
+import { Banner, Facet, Promoted, Redirection, Result } from '@empathyco/x-types';
 
 export interface PlatformSearchResponse {
   banner: PlatformBanner;
@@ -24,5 +24,18 @@ export interface PlatformCatalog {
   facets: Facet[];
   numFound: number;
   spellchecked: string;
-  tagging: TaggingInfo;
+  tagging: {
+    query: string;
+  };
+}
+
+export interface SearchResponse {
+  results: Result[];
+  facets: Facet[];
+  totalResults: number;
+  spellcheck: string;
+  banners: Banner[];
+  promoteds: Promoted[];
+  redirections: Redirection[];
+  queryTagging: string;
 }
