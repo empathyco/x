@@ -52,7 +52,7 @@ You can use the Interface&nbsp;X in a project in two ways:
 
 - using the separate **Interface&nbsp;X&nbsp;Archetype** project, an out-of-the-box project with all
   you need to get up and running fast
-- integrating the individual **Interface&nbsp;X&nbsp;Components** library in your Vue project for a
+- importing the individual **Interface&nbsp;X&nbsp;Components** library in your Vue project for a
   more custom approach.
 
 ::: note
