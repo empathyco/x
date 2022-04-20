@@ -173,7 +173,7 @@ Check out the [X&nbsp;API](#x-api) section to learn more about the functions and
 To successfully integrate Interface&nbsp;X in your commerce store using the X&nbsp;Archetype, check out further information about:
 
 * **Initialization options** supported in [snippet configuration](#snippet-configuration)
-* **[Callbacks and X&nbsp;event&nbsp;types](#callbacks-interface-x-events-types)** available to subscribe to when initializing
+* **[Callbacks and X&nbsp;event&nbsp;types](#callbacks-and-interface-x-events-types)** available to subscribe to when initializing
 * **Functions supported by the [X&nbsp;API object](#x-api)** to initialize Interface&nbsp;X
 
 #### Snippet configuration
@@ -183,16 +183,16 @@ The [snippet configuration](https://github.com/empathyco/x-archetype/blob/main/p
 | Name                    | Type                                                                                 |  Description  |
 | ----------------------- | ------------------------------------------------------------------------------------ | ------ | 
 | `instance`                | `string`                                                                             | _Required._ ID of the API client instance. It's provided by Empathy. |
-| `env`                     | `'live'` &#124; `'staging'`              | API environment to use. You can use the Interface&nbsp;X  production version with the staging API, and vice versa.  |
-| `scope`                   | `string`    | Context where the search interface is executed, i.e. `mobile`, `mobile-app`, `tablet`, `desktop`.  |
+| `env`                     | `'live'` &#124; `'staging'`              | _Optional_. API environment to use. You can use the Interface&nbsp;X  production version with the staging API, and vice versa.  |
+| `scope`                   | `string`    | _Optional_. Context where the search interface is executed, i.e. `mobile`, `mobile-app`, `tablet`, `desktop`.  |
 | `lang`                    | `string`                                                                             | _Required._ Language to use. By default, it's used for both the frontend and the API requests.   |
-| `searchLang`              | `string`     | Language to use for the API requests **only**.  |
+| `searchLang`              | `string`     | _Optional_. Language to use for the API requests **only**.  |
 | `consent`                | `boolean`    |_Required._ Determines whether the shopper has accepted the use of cookies so that the `sessionId` is sent to the Empathy's Search and Tagging APIs or not.  |
-| `documentDirection`       | `'ltr'` &#124; `'rtl'`    | Writing direction script that the X Components should, i.e. left-to-right or right-to-left.   |
+| `documentDirection`       | `'ltr'` &#124; `'rtl'`    |_Optional_. Writing direction script that the X Components should, i.e. left-to-right or right-to-left.   |
 | `currency`                | `string`   |_Required._ Currency identifier to configure how prices are displayed.  |
-| [`callbacks`](#callbacks-interface-x-events-types) | `Record<XEventName, (payload: XEventPayload<Event>, metadata: WireMetadata) => void` |    Callback record where the _key_ is the event to listen and the _value_ is the callback to be executed whenever the event is emitted. E.g. to listen to the `UserAcceptedAQuery` event: `{ UserAcceptedAQuery({ eventPayload }) { console.log('UserAcceptedAQuery', eventPayload); }  |
-| `isSpa`                   | `boolean`    | Defines signgle-page application model. You set to `true` when the X&nbsp;Archetype runs on top of an SPA website.   |
-|`<extra parameters>`   | `any`         | Any other parameters to sent to the API calls directly. E.g. to filter the search catalogue with a warehouse parameter, you add `warehouse: <your-warehouse-identifier>` to the snippet configuration.   |
+| [`callbacks`](#callbacks-and-interface-x-events-types) | `Record<XEventName, (payload: XEventPayload<Event>, metadata: WireMetadata) => void` | _Optional_.   Callback record where the _key_ is the event to listen and the _value_ is the callback to be executed whenever the event is emitted. E.g. to listen to the `UserAcceptedAQuery` event: `{ UserAcceptedAQuery({ eventPayload }) { console.log('UserAcceptedAQuery', eventPayload); }`  |
+| `isSpa`                   | `boolean`    |_Optional_. Defines signgle-page application model. You set to `true` when the X&nbsp;Archetype runs on top of an SPA website.   |
+|`<extra parameters>`   | `any`         |_Optional_. Any other parameters to sent to the API calls directly. E.g. to filter the search catalogue with a warehouse parameter, you add `warehouse: <your-warehouse-identifier>` to the snippet configuration.   |
 
 ::: note Consent parameter
 
@@ -205,7 +205,7 @@ The [snippet configuration](https://github.com/empathyco/x-archetype/blob/main/p
 
 :::
 
-#### Callbacks & Interface X events types
+#### Callbacks and Interface X events types
 
 You can use a **callback** to subscribe to specific **X&nbsp;events&nbsp;types** to perform particular actions when triggered. 
 
@@ -243,7 +243,7 @@ The [X&nbsp;API](https://github.com/empathyco/x/blob/main/packages/x-components/
 
 | Function         | Parameters                                                                     | Description                                                                                                                                                       |
 | ---------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `init`             | [snippet configuration params](#snippet-configuration) - Initialization options | [Initializes Interface&nbsp;X on demand](#initializing-interface-x-project-on-demand).   |
-| `search`           | `query` - Query to open Interface&nbsp;X  | _Optional_. Executes Interface&nbsp;X and triggers a search with the given query.  |
-| `setSnippetConfig` | [snippet configuration params](#snippet-configuration) - Initialization options | Changes initialization options so that all components react to the changes, i.e. changing both search engine and language without reloading the page. |
-| `addProductToCart` | `productId` __Optional__ - The product identifier that has been added to the cart  | Sends tracking of the `AddToCart` event to the [Empathy Tagging microservice](https://docs.empathy.co/develop-empathy-platform/capture-interaction-signals/tagging-api-guide.html) for the product displayed on screen. This function is called from  the product detail page (PDP) when the shopper clicks on the add-to-cart button. If the `productId` is not provided, the URL will be used to detect if the user has discovered the product thanks to a search session. |
+| `init`             | [snippet configuration params](#snippet-configuration) - _Required_. Initialization options | [Initializes Interface&nbsp;X on demand](#initializing-interface-x-project-on-demand).   |
+| `search`           | `query` - _Optional_. Query to open Interface&nbsp;X  | Executes Interface&nbsp;X and triggers a search with the given query.  |
+| `setSnippetConfig` | [snippet configuration params](#snippet-configuration) - _Required_. Initialization options | Changes initialization options so that all components react to the changes, i.e. changing both search engine and language without reloading the page. |
+| `addProductToCart` | `productId` - _Optional._ Id of the product added to  cart  | Sends tracking of the `AddToCart` event to the [Empathy Tagging microservice](https://docs.empathy.co/develop-empathy-platform/capture-interaction-signals/tagging-api-guide.html) for the product displayed on screen. This function is called from  the product detail page (PDP) when the shopper clicks on the add-to-cart button. If the `productId` is not provided, the URL detects whether the shopper found the product via a search session or not. |
