@@ -7,7 +7,8 @@
     @input="emitUserIsTypingAQueryEvents"
     @keydown.enter="emitUserPressedEnterKey"
     @keydown.up.down.prevent="emitUserPressedArrowKey"
-    @keydown="preventSpecialKey"
+    @keydown="preventPastingSpecialKey"
+    @beforeInput="preventTypingSpecialKey"
     :maxlength="maxLength"
     :value="query"
     autocomplete="off"
@@ -231,17 +232,6 @@
      */
     protected emitUserAcceptedAQuery(query: string): void {
       this.$x.emit('UserAcceptedAQuery', query, this.createEventMetadata());
-    }
-
-    /**
-     * Prevents the user from either typing or pasting special characters in the input field.
-     *
-     * @internal
-     * @param event - The event that will be checked for special characters.
-     */
-    protected preventSpecialKey(event: InputEvent): void {
-      this.preventTypingSpecialKey(event);
-      this.preventPastingSpecialKey();
     }
 
     /**
