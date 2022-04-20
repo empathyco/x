@@ -15,7 +15,7 @@ search UI experiences. The goal of using components is to include only the compo
 wherever you want. 
 
 Once you’ve installed the
-[dependencies and the xPlugin](web-x-components-integration-guide.md#1-install-the-dependencies),
+[dependencies and the xPlugin](web-x-components-development-guide.md#1-install-the-dependencies),
 you’re ready to use X&nbsp;Components in your project.
 
 ##### Steps to use X&nbsp;Components in your project:
@@ -52,25 +52,6 @@ export default {
 
 //The components are now ready to be used inside your template.
 ```
-
-:::develop Importing and registering components globally
-
-Alternatively, you can **globally** register components in Vue directly in the `main.js` file if you plan on using a component more than once in your app. By registering the components globally, you
-can use them in the template of any root Vue instance you create afterwards.
-
-```typescript
-import { ComponentA, ComponentB, ComponentC } from './ModuleA';
-
-Vue.component('ComponentAName', ComponentA);
-Vue.component('ComponentBName', ComponentB);
-Vue.component('ComponentCName', ComponentC);
-```
-
-Although you can register components globally, it should be done with caution as **it may impact
-future performance**. Remember if you register the components globally, the entire X&nbsp;Component
-module is loaded and registered each time this code line is run.
-
-:::
 
 ## 2. Configure the X Components
 

@@ -11,9 +11,18 @@ tags:
 
 # Integrate Interface X Archetype into an existing website
 
-In this tutorial, you'll learn how to integrate the Interface&nbsp;X&nbsp;Archetype project in your commerce store in a matter of minutes. You can use the X&nbsp;Archetype as is or you can [extend the search and discovery interface experience](web-archetype-development-guide.md) to meet your business needs.
+In this tutorial, you'll learn how to integrate the Interface&nbsp;X&nbsp;Archetype project in your commerce store in a matter of minutes. You can use the X&nbsp;Archetype **as is** or you can **[extend](web-archetype-development-guide.md)** the search and discovery interface experience to meet your business needs.
 
 To integrate the Interface&nbsp;X&nbsp;Archetype layer in your commerce store, just **load** the generated Interface&nbsp;X JavaScript file and **initialize** it.
+
+::: note IMPORTANT 
+If the X&nbsp;Archetype script is hosted by Empathy, all the  X resources are provided by a CDN through the following environment URLs:
+* **Production**: https://x.empathy.co/{INSTANCE}/app.js  
+* **Staging**: https://x.staging.empathy.co/{INSTANCE}/app.js  
+
+Where `{INSTANCE}` is the name of your commerce store. If you require any assistance, contact [Empathy Support](mailto:support@empathy.co).
+
+:::
 
 Depending on your business needs, Interface&nbsp;X supports two initialization types:
 
@@ -159,10 +168,47 @@ Check out the [X&nbsp;API](#x-api) section to learn more about the functions and
 
 :::
 
-::: develop Initialization using callbacks
+## Notes on X Archetype integration
 
-You can use callbacks as an initialization option. You use a callback to subscribe to specific **[X&nbsp;events&nbsp;types](#interface-x-events-types)** to perform particular actions when triggered. 
-</br>
+To successfully integrate Interface&nbsp;X in your commerce store using the X&nbsp;Archetype, check out further information about:
+
+* **Initialization options** supported in [snippet configuration](#snippet-configuration)
+* **[Callbacks and X&nbsp;event&nbsp;types](#callbacks-interface-x-events-types)** available to subscribe to when initializing
+* **Functions supported by the [X&nbsp;API object](#x-api)** to initialize Interface&nbsp;X
+
+#### Snippet configuration
+
+The [snippet configuration](https://github.com/empathyco/x-archetype/blob/main/public/snippet-script.js) allows you to configure multiple initialization options for the Interface&nbsp;X project such as language, currency, and shopper's personal data consent. The snippet configuration supports the following configuration options:
+
+| Name                    | Type                                                                                 |  Description  |
+| ----------------------- | ------------------------------------------------------------------------------------ | ------ | 
+| `instance`                | `string`                                                                             | _Required._ ID of the API client instance. It's provided by Empathy. |
+| `env`                     | `'live'` &#124; `'staging'`              | API environment to use. You can use the Interface&nbsp;X  production version with the staging API, and vice versa.  |
+| `scope`                   | `string`    | Context where the search interface is executed, i.e. `mobile`, `mobile-app`, `tablet`, `desktop`.  |
+| `lang`                    | `string`                                                                             | _Required._ Language to use. By default, it's used for both the frontend and the API requests.   |
+| `searchLang`              | `string`     | Language to use for the API requests **only**.  |
+| `consent`                | `boolean`    |_Required._ Determines whether the shopper has accepted the use of cookies so that the `sessionId` is sent to the Empathy's Search and Tagging APIs or not.  |
+| `documentDirection`       | `'ltr'` &#124; `'rtl'`    | Writing direction script that the X Components should, i.e. left-to-right or right-to-left.   |
+| `currency`                | `string`   |_Required._ Currency identifier to configure how prices are displayed.  |
+| [`callbacks`](#callbacks-interface-x-events-types) | `Record<XEventName, (payload: XEventPayload<Event>, metadata: WireMetadata) => void` |    Callback record where the _key_ is the event to listen and the _value_ is the callback to be executed whenever the event is emitted. E.g. to listen to the `UserAcceptedAQuery` event: `{ UserAcceptedAQuery({ eventPayload }) { console.log('UserAcceptedAQuery', eventPayload); }  |
+| `isSpa`                   | `boolean`    | Defines signgle-page application model. You set to `true` when the X&nbsp;Archetype runs on top of an SPA website.   |
+|`<extra parameters>`   | `any`         | Any other parameters to sent to the API calls directly. E.g. to filter the search catalogue with a warehouse parameter, you add `warehouse: <your-warehouse-identifier>` to the snippet configuration.   |
+
+::: note Consent parameter
+
+ When the `Consent` parameter is set to `false`, the `sessionId` is not generated nor sent to the Tagging API. Only shoppers' behavioral data (wisdom of the crowd) is inferred from the current session. 
+ The `consent` parameter is set to `true` as soon as the shopper accepts the use of cookies. If page reload is not triggered after accepting cookies, update the `consent` parameter (`window.initX.consent = true`) to start tracking the current session. 
+ 
+ </br>
+ 
+ Although cookie acceptance is bound to the generation of the `sessionID` in local storage, Empathy does **not use any cookies** in its libraries.
+
+:::
+
+#### Callbacks & Interface X events types
+
+You can use a **callback** to subscribe to specific **X&nbsp;events&nbsp;types** to perform particular actions when triggered. 
+
 For example, you subscribe to the `UserClickedResultAddToCart` event to add a product result to the shopping cart:
 
 ```html
@@ -186,46 +232,6 @@ For example, you subscribe to the `UserClickedResultAddToCart` event to add a pr
   });
 </script>
 ``` 
-:::
-
-## Further considerations
-
-To successfully integrate Interface&nbsp;X in your commerce store using the X&nbsp;Archetype, check out further information about:
-
-* **Initialization options** supported in [snippet configuration](#snippet-configuration)
-* **[X&nbsp;event&nbsp;types](#interface-x-events-types)** available to subscribe to via callbacks
-* **[Functions supported by the X&nbsp;API object](#x-api)** to initialize Interface&nbsp;X
-
-#### Snippet configuration
-
-The [snippet configuration](https://github.com/empathyco/x-archetype/blob/main/public/snippet-script.js) allows you to configure multiple initialization options for the Interface&nbsp;X project such as language, currency, and shopper's personal data consent. The snippet configuration supports the following configuration options:
-
-| Name                    | Type                                                                                 |  Description  |
-| ----------------------- | ------------------------------------------------------------------------------------ | ------ | 
-| `instance`                | `string`                                                                             | _Required._ ID of the API client instance. It's provided by Empathy. |
-| `env`                     | `'live'` &#124; `'staging'`              | API environment to use. You can use the Interface&nbsp;X  production version with the staging API, and vice versa.  |
-| `scope`                   | `string`    | Context where the search interface is executed, i.e. `mobile`, `mobile-app`, `tablet`, `desktop`.  |
-| `lang`                    | `string`                                                                             | _Required._ Language to use. By default, it's used for both the frontend and the API requests.   |
-| `searchLang`              | `string`     | Language to use for the API requests **only**.  |
-| [`consent`](#consent)                | `boolean`    |_Required._ Determines whether the shopper has accepted the use of cookies so that the `sessionId` is sent to the Empathy's Search and Tagging APIs or not.  |
-| `documentDirection`       | `'ltr'` &#124; `'rtl'`    | Writing direction script that the X Components should, i.e. left-to-right or right-to-left.   |
-| `currency`                | `string`   |_Required._ Currency identifier to configure how prices are displayed.  |
-| [`callbacks`](#callbacks) | `Record<XEventName, (payload: XEventPayload<Event>, metadata: WireMetadata) => void` |    Callback record where the _key_ is the event to listen and the _value_ is the callback to be executed whenever the event is emitted. E.g. to listen to the `UserAcceptedAQuery` event: `{ UserAcceptedAQuery({ eventPayload }) { console.log('UserAcceptedAQuery', eventPayload); }  |
-| `isSpa`                   | `boolean`    | Defines signgle-page application model. You set to `true` when the X&nbsp;Archetype runs on top of an SPA website.   |
-|<a name="consent"></a> `<extra parameters>`   | `any`         | Any other parameters to sent to the API calls directly. E.g. to filter the search catalogue with a warehouse parameter, you add `warehouse: <your-warehouse-identifier>` to the snippet configuration.   |
-
-::: note Consent parameter
-
- When the `Consent` parameter is set to `false`, the `sessionId` is not generated nor sent to the Tagging API. Only shoppers' behavioral data (wisdom of the crowd) is inferred from the current session. 
- The `consent` parameter is set to `true` as soon as the shopper accepts the use of cookies. If page reload is not triggered after accepting cookies, update the `consent` parameter (`window.initX.consent = true`) to start tracking the current session. 
- 
- </br>
- 
- Although cookie acceptance is bound to the generation of the `sessionID` in local storage, Empathy does **not use any cookies** in its libraries.
-
-:::
-
-#### Interface X events types
 
 Interface&nbsp;X is built on an [event-based architecture](web-x-architecture.md). There are more than one hundred of events available to subscribe to via callbacks to trigger different actions in your app. Check out the complete **[X&nbsp;events types list](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)** in the open source repository in GitHub. 
 
@@ -240,3 +246,4 @@ The [X&nbsp;API](https://github.com/empathyco/x/blob/main/packages/x-components/
 | `init`             | [snippet configuration params](#snippet-configuration) - Initialization options | [Initializes Interface&nbsp;X on demand](#initializing-interface-x-project-on-demand).   |
 | `search`           | `query` - Query to open Interface&nbsp;X  | _Optional_. Executes Interface&nbsp;X and triggers a search with the given query.  |
 | `setSnippetConfig` | [snippet configuration params](#snippet-configuration) - Initialization options | Changes initialization options so that all components react to the changes, i.e. changing both search engine and language without reloading the page. |
+| `addProductToCart` | none | Sends tracking of the `AddToCartevent` to the [Empathy Tagging microservice](https://docs.empathy.co/develop-empathy-platform/capture-interaction-signals/tagging-api-guide.html) for the product displayed on screen. This function is called from  the product detail page (PDP) when the shopper clicks on the add-to-cart button. |
