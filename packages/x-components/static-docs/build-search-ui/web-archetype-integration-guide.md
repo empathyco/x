@@ -160,7 +160,6 @@ Since no initialization configuration was defined when loading the script, you n
 
 For this example, the initialization function is called immediately after loading the script, but it can be called at any time. Note that you need to call this function only **once**.
 
-<a name="callbacks"></a>
 
 ::: interact
 
