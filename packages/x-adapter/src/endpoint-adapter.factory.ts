@@ -32,12 +32,12 @@ export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response
       requestMapper = identityMapper,
       responseMapper = identityMapper,
       defaultRequestOptions = {}
-    } = options;
+    }: EndpointAdapterOptions<Request, Response> = options;
 
-    const endpoint = getEndpoint(rawEndpoint ?? requestEndpoint, request);
+    const endpoint = getEndpoint(requestEndpoint ?? rawEndpoint, request);
     const requestParameters = requestMapper(request, { endpoint });
 
-    return httpClient<Response>(
+    return httpClient(
       endpoint,
       deepMerge({}, defaultRequestOptions, requestOptions, { parameters: requestParameters })
     ).then(response => responseMapper(response, { endpoint, requestParameters }));

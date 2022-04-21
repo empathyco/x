@@ -64,9 +64,9 @@ somewhat familiar. Although the [ViewModel layer](https://012.vuejs.org/guide/#I
 basically inspired by the
 [**Flux pattern**](https://vuex.vuejs.org/#what-is-a-state-management-pattern) behind the state. As
 the X&nbsp;Components emit events that dispatch actions in the business logic tier, these actions
-can commit mutations to modify the state of the store.  
-To sum up, the design of Interface&nbsp;X takes advantage of the MVVM and Flux patterns to design,
-develop, and configure each tier separately and independently.
+can commit mutations to modify the state of the store. To sum up, the design of Interface&nbsp;X
+takes advantage of the MVVM and Flux patterns to design, develop, and configure each tier separately
+and independently.
 
 :::
 
@@ -76,55 +76,7 @@ develop, and configure each tier separately and independently.
 - JavaScript + [TypeScript](https://www.typescriptlang.org/) languages
 - [RxJS](https://rxjs.dev/) for the wiring configuration logic
 
-**The story so far**  
-Not long ago, exploring alternative options for the architecture design and technical stack became a
-must. There were several design challenges that needed to be overcome to make the frontend service
-easier to configure:
-
-- Improve reusability and performance that were hindered by the logic in components and the bundle
-  size
-- Facilitate setup by solving synchronicity and extendability problems
-- Provide easier maintenance over time, reducing regression issues
-
-After studying different approaches to build fast and reusable components, **Vue.js** (also Vue)
-seemed to be the best fit for the technical requirements and the level of abstraction required.
-
-Revamping the architecture and technical stack has helped the former frontend services to evolve
-into the latest Interface&nbsp;X application. Now, all the required **attributes and design
-principles** are combined to make the solution easy to implement, change, test, and reuse:
-
-- **Flexible**. Make changes to any element without impacting the rest of the app. For example, you
-  can modify a visual component without impacting the business logic.
-- **Customizable & extensible**. Add new custom components andor features.
-- **Lightweight**. The bundle includes only the modules you want. You’ll get only the code you
-  really need.
-- **Incremental**. The modules interact and communicate automatically with each other. The more
-  modules you use, the more features you get.
-- **Easy-to-integrate**. Install the library as an NPM dependency in Vue and React projects.
-  Interface X can be used in any webpage, as long as it is integrated as an isolated search layer.
-
-**Why Vue?**  
-Due to the flexibility required, using a library for the presentation layer instead of a
-full-fledged framework is the best choice. Among the state-of-the-art technologies available for
-building component-based UIs, Vue meets all the requirements:
-
-- Lightweight, flexible, and stand-alone library
-- Easy to learn and use with a user-friendly template syntax
-- Smooth dynamic components and composition creation
-- Outperformance with reactive approach, proxies, and interceptors
-- Out-of-the-box solution, allowing you to focus just on developing features
-- Small bundle size with no dependencies
-
-**How does Vue meet the design challenges?**
-
-- Stateless components. Centralised management through the Vuex library reduces the logic in
-  components.
-- Smooth setups. Dynamic component creation helps to track the modified data and re-render only the
-  required components.
-- Improved performance out of the box
-- Seamless maintenance. Framework or library-agnostic
-
-::: note
+::: develop
 
 Interface&nbsp;X can potentially be integrated in commerce shops built with React. In any case,
 Interface&nbsp;X can be used in any webpage, as long as it is integrated as an isolated search
