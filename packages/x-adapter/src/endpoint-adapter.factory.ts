@@ -32,7 +32,7 @@ export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response
       requestMapper = identityMapper,
       responseMapper = identityMapper,
       defaultRequestOptions = {}
-    } = options;
+    }: EndpointAdapterOptions<Request, Response> = options;
 
     const endpoint = getEndpoint(rawEndpoint ?? requestEndpoint, request);
     const requestParameters = requestMapper(request, { endpoint });
@@ -40,7 +40,7 @@ export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response
     return httpClient(
       endpoint,
       deepMerge({}, defaultRequestOptions, requestOptions, { parameters: requestParameters })
-    ).then(response => responseMapper(response, { endpoint, requestParameters }) as Response);
+    ).then(response => responseMapper(response, { endpoint, requestParameters }));
   };
 
   endpointAdapter.extends = <NewRequest, NewResponse>(
