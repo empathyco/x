@@ -10,9 +10,10 @@ tags:
   - archetype development
 ---
 
-# Develop using Interface X Archetype 
+# Develop using Interface X Archetype
 
-In this tutorial, you’ll learn how to build a search and discovery layer based on predefined features and components in a matter of minutes using the Interface&nbsp;X&nbsp;Archetype.
+In this tutorial, you’ll learn how to build a search and discovery layer based on predefined
+features and components in a matter of minutes using the Interface&nbsp;X&nbsp;Archetype.
 
 For this tutorial, the Empathy Search API is used, but you can use any search API. This guide
 requires knowledge of JavaScript and Vue.js.
@@ -104,8 +105,8 @@ Interface&nbsp;X&nbsp;Archetype repository.
 Before using your project, configure the Empathy Search Adapter in the
 `x-archetype/src/adapter/adapter.ts` file, using the Empathy Adapter Builder to make it work with
 the Empathy Search API. The Empathy Search Adapter contains a sample configuration for setup, global
-configurations, or mappers that points to a demo environment. You need to adjust
-the configuration according to the search features you use in your project.
+configurations, or mappers that points to a demo environment. You need to adjust the configuration
+according to the search features you use in your project.
 
 Export the required search adapter with your configuration as you will need it for the search
 [xPlugin configuration](#4-configure-the-plugin).
@@ -121,8 +122,8 @@ For detailed information about other configuration options in the Empathy Search
 
 Although you configure the values for the `instance`, `language`, `scope`, and `endpoint` options
 when integrating the project, you can still change these values when the project is deployed. Use
-the `/x-archetype/public/snippet-script.js` file to initialize values for `lang`, `store`,
-`device`, and `catalog` parameters.
+the `/x-archetype/public/snippet-script.js` file to initialize values for `lang`, `store`, `device`,
+and `catalog` parameters.
 
 For example, you may configure the adapter to use EN as `lang` so that when you search, the results
 are displayed in English. However, if you want to deploy the application in Spain, you want the
@@ -130,7 +131,8 @@ are displayed in English. However, if you want to deploy the application in Spai
 
 </br>
 
-For detailed information, see [Snippet configuration](web-archetype-integration-guide.md#snippet-configuration)
+For detailed information, see
+[Snippet configuration](web-archetype-integration-guide.md#snippet-configuration)
 
 :::
 
@@ -166,21 +168,21 @@ new XInstaller(installXOptions).init({
 });
 ```
 
-
 ::: develop Next steps
 
 Once you have your Interface&nbsp;X&nbsp;Archetype project, you're ready to **integrate** it in your
 store or **extend** the search and discovery experience to meet your business needs:
 
 - [**Integrate an Interface&nbsp;X&nbsp;Archetype project** into an existing website](web-archetype-integration-guide.md).
-- Change the **configuration of [X&nbsp;Components](web-how-to-use-x-components-guide.md)** or create new
-  ones.
+- Change the **configuration of [X&nbsp;Components](web-how-to-use-x-components-guide.md)** or
+  create new ones.
 - Adapt the
   **[design system](https://github.com/empathyco/x/blob/main/packages/x-components/contributing/design-system.md)**
   to your branding.
 - Manage
-  **[internationalization options](https://github.com/empathyco/x-archetype/blob/main/docs/i18n.md)** to
-  support different languages.
+  **[internationalization options](https://github.com/empathyco/x-archetype/blob/main/docs/i18n.md)**
+  to support different languages.
 
 :::
+
 <!-- add links to design system and internationalization content pages when ready-->

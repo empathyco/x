@@ -64,9 +64,9 @@ somewhat familiar. Although the [ViewModel layer](https://012.vuejs.org/guide/#I
 basically inspired by the
 [**Flux pattern**](https://vuex.vuejs.org/#what-is-a-state-management-pattern) behind the state. As
 the X&nbsp;Components emit events that dispatch actions in the business logic tier, these actions
-can commit mutations to modify the state of the store.  
-To sum up, the design of Interface&nbsp;X takes advantage of the MVVM and Flux patterns to design,
-develop, and configure each tier separately and independently.
+can commit mutations to modify the state of the store. To sum up, the design of Interface&nbsp;X
+takes advantage of the MVVM and Flux patterns to design, develop, and configure each tier separately
+and independently.
 
 :::
 
@@ -76,7 +76,7 @@ develop, and configure each tier separately and independently.
 - JavaScript + [TypeScript](https://www.typescriptlang.org/) languages
 - [RxJS](https://rxjs.dev/) for the wiring configuration logic
 
-::: develop  
+::: develop
 
 Interface&nbsp;X can potentially be integrated in commerce shops built with React. In any case,
 Interface&nbsp;X can be used in any webpage, as long as it is integrated as an isolated search

@@ -12,7 +12,7 @@ tags:
 
 Interface&nbsp;X&nbsp;Components are like building blocks that you pick up and mix to craft your
 search UI experiences. The goal of using components is to include only the components you want,
-wherever you want. 
+wherever you want.
 
 Once you’ve installed the
 [dependencies and the xPlugin](web-x-components-development-guide.md#1-install-the-dependencies),
@@ -22,14 +22,17 @@ you’re ready to use X&nbsp;Components in your project.
 
 1. **Import and register** X&nbsp;Components from a module.
 
-2. **Configure the X&nbsp;Components behavior** to customize the search and discovery experience. 
+2. **Configure the X&nbsp;Components behavior** to customize the search and discovery experience.
 
 ## 1. Import and register the X Components
 
 Many of the X&nbsp;Components are distributed into modules to make them easier to manage. So you
 need to indicate from which module you’re importing each component as appropriate.
 
-For example, the `search-box` module contains the `SearchInput`, `SearchButton`, and `ClearSearchInput` components. See [Using the search box components](#example-using-the-search-box-components) for an example on how to import and register the Search box components in a project.
+For example, the `search-box` module contains the `SearchInput`, `SearchButton`, and
+`ClearSearchInput` components. See
+[Using the search box components](#example-using-the-search-box-components) for an example on how to
+import and register the Search box components in a project.
 
 When importing the components, you can register each component **locally for each Vue instance** as
 you go.
@@ -75,9 +78,13 @@ To provide different project-specific behaviors, you use:
 <ClearSearchInput>Clear</ClearSearchInput>
 ```
 
-You can pass the configuration attributes documented in the [UI Reference](/develop-empathy-platform/ui-reference/) for the Interface&nbsp;X&nbsp;Components. Combine components at your ease and use resource modules such as **modals**, **panels**, and
-**animations**. You also use **[base components](/develop-empathy-platform/ui-reference/components/base-components/)**, i.e. standard Vue components that don’t have any
-dependencies with the X&nbsp;Components. Use them as a foundation to build other components.
+You can pass the configuration attributes documented in the
+[UI Reference](/develop-empathy-platform/ui-reference/) for the Interface&nbsp;X&nbsp;Components.
+Combine components at your ease and use resource modules such as **modals**, **panels**, and
+**animations**. You also use
+**[base components](/develop-empathy-platform/ui-reference/components/base-components/)**, i.e.
+standard Vue components that don’t have any dependencies with the X&nbsp;Components. Use them as a
+foundation to build other components.
 
 ::: develop Next steps
 

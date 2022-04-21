@@ -12,7 +12,7 @@ tags:
 
 ::: slot left-intro-column
 
-## Getting started with Interface X 
+## Getting started with Interface X
 
 Start building your search and discovery experience:
 
@@ -24,10 +24,11 @@ Start building your search and discovery experience:
 
 :::
 
-- **Discover the [Interface X ecosystem](#the-interface-x-ecosystem)** and how
-  Interface&nbsp;X works.
+- **Discover the [Interface X ecosystem](#the-interface-x-ecosystem)** and how Interface&nbsp;X
+  works.
 - **[Develop using Interface X](#develop-with-interface-x)** inside your project.
-- **[Integrate the Interface X Archetype](#integrate-interface-x-archetype)** in your store web application.
+- **[Integrate the Interface X Archetype](#integrate-interface-x-archetype)** in your store web
+  application.
 - **[Use and configure the Interface X Components](#use-and-configure-the-interface-x-components)**
   in your project.
 
@@ -63,9 +64,10 @@ You can use Empathy Search API, Elasticsearch, or Solr endpoints with both appro
 
 ##### Develop via Interface X Archetype
 
-The **[Interface&nbsp;X&nbsp;Archetype](https://github.com/empathyco/x-archetype)** project is the perfect combination of all the existing X&nbsp;Components. It allows you to ramp up quickly with an already working search and discovery experience, instead of starting from a completely
-blank canvas. This is the
-perfect solution for most cases as you can use it as a springboard to:
+The **[Interface&nbsp;X&nbsp;Archetype](https://github.com/empathyco/x-archetype)** project is the
+perfect combination of all the existing X&nbsp;Components. It allows you to ramp up quickly with an
+already working search and discovery experience, instead of starting from a completely blank canvas.
+This is the perfect solution for most cases as you can use it as a springboard to:
 
 - Change the default styles for styles that match your application through design tokens or custom
   CSS.
@@ -96,21 +98,23 @@ To get started with the X&nbsp;Components library, check out
 
 ## Integrate Interface X Archetype
 
-With the **[Interface&nbsp;X&nbsp;Archetype](https://github.com/empathyco/x-archetype)** you have an isolated search layer up and running in your store web application in a matter of minutes. 
+With the **[Interface&nbsp;X&nbsp;Archetype](https://github.com/empathyco/x-archetype)** you have an
+isolated search layer up and running in your store web application in a matter of minutes.
 
-To integrate the Interface&nbsp;X&nbsp;Archetype into your project, just **load** the generated JavaScript file into your website and **initialize** it.
+To integrate the Interface&nbsp;X&nbsp;Archetype into your project, just **load** the generated
+JavaScript file into your website and **initialize** it.
 
 Check out
-**[Integrate InterfaceX&nbsp;Archetype into an existing website](web-archetype-integration-guide.md)**, to integrate the X&nbsp;Archetype project.
+**[Integrate InterfaceX&nbsp;Archetype into an existing website](web-archetype-integration-guide.md)**,
+to integrate the X&nbsp;Archetype project.
 
 ## Use and configure the Interface X Components
 
-To use the Interface&nbsp;X&nbsp;Components, just **import** and **register** the
-component, **include** it in your template, and you’re ready to go. 
+To use the Interface&nbsp;X&nbsp;Components, just **import** and **register** the component,
+**include** it in your template, and you’re ready to go.
 
-What’s more, each component offers
-multiple configuration parameters to play around with, giving you greater flexibility over the
-experience.
+What’s more, each component offers multiple configuration parameters to play around with, giving you
+greater flexibility over the experience.
 
 Unsure how to start? Check out
 **[How to use and configure Interface&nbsp;X&nbsp;Components in your project](web-how-to-use-x-components-guide.md)**.

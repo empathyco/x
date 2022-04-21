@@ -12,7 +12,8 @@ tags:
 # Develop using the Interface X Components library
 
 In this tutorial, you’ll learn the basics to integrate the Interface&nbsp;X&nbsp;Components library
-in your own project to craft enticing Vue search experiences for your commerce store in a matter of minutes.
+in your own project to craft enticing Vue search experiences for your commerce store in a matter of
+minutes.
 
 ::: interact
 
@@ -176,8 +177,8 @@ Vue.use(xPlugin, { adapter, store });
 Once you have integrated the Interface&nbsp;X&nbsp;Components in your project, you're ready to start
 building your search and discovery UI:
 
-- Change the **configuration of the [X Components](web-how-to-use-x-components-guide.md)** or create new
-  ones.
+- Change the **configuration of the [X Components](web-how-to-use-x-components-guide.md)** or create
+  new ones.
 - Adapt the
   **[design system](https://github.com/empathyco/x/blob/main/packages/x-components/contributing/design-system.md)**
   to your branding.
@@ -199,6 +200,4 @@ poster="/assets/media/videos/How-to-use-X-components-in-a-real-project.jpeg"
 Watch how our frontend Team Lead, [Iván Tajes](https://github.com/tajespasarela), integrates the
 Interface&nbsp;X&nbsp;Components in a project from scratch.
 
-
 </VideoContent>
-
