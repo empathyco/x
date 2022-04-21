@@ -17,8 +17,8 @@ import { createMutableSchema, isInternalMethod } from '../schemas/utils';
  */
 export function schemaMapperFactory<Source, Target>(
   schema: Schema<Source, Target>
-): Mapper<Source, Target | undefined> {
-  return function mapper(source: Source, context: MapperContext): Target | undefined {
+): Mapper<Source, Target> {
+  return function mapper(source: Source, context: MapperContext): Target {
     return mapSchema(source, schema, context);
   };
 }
