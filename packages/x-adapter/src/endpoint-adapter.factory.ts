@@ -34,7 +34,7 @@ export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response
       defaultRequestOptions = {}
     }: EndpointAdapterOptions<Request, Response> = options;
 
-    const endpoint = getEndpoint(rawEndpoint ?? requestEndpoint, request);
+    const endpoint = getEndpoint(requestEndpoint ?? rawEndpoint, request);
     const requestParameters = requestMapper(request, { endpoint });
 
     return httpClient(

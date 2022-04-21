@@ -231,17 +231,13 @@ describe('adapterFactory tests', () => {
       );
     });
 
-    it('should use the requestOptions.endpoint if no endpoint is provided', async () => {
+    it('should use the requestOptions.endpoint if it is provided', async () => {
       const { endpointAdapter, mockedHttpClient } = createEndpointAdapterFactoryOptions<
         TestRequest,
         TestResponse
-      >({
-        options: {
-          endpoint: undefined
-        }
-      });
+      >();
       const requestOptions: RequestOptions = {
-        endpoint: 'https://api.empathy.co/test'
+        endpoint: 'https://api.empathy.co/staging'
       };
 
       await endpointAdapter(request, requestOptions);
