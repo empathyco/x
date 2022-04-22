@@ -5,7 +5,7 @@ import { searchResponseMapper } from '../mappers/response/search-response.mapper
 import { searchRequestMapper } from '../mappers/request/search-request.mapper';
 
 const adapterOptions: EndpointAdapterOptions<SearchRequest, SearchResponse> = {
-  endpoint: 'https://api.{env}.empathy.co/search/v1/query/empathy/search',
+  endpoint: 'https://api.{env(.)}empathy.co/search/v1/query/{instance}/search',
   responseMapper: searchResponseMapper,
   requestMapper: searchRequestMapper
 };
