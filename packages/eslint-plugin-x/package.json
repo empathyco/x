@@ -21,33 +21,33 @@
     "directory": "packages/eslint-plugin-x"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=14.17.0"
   },
   "scripts": {
     "build": "npm pack",
     "commit": "git-cz"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^3.1.0",
-    "@typescript-eslint/parser": "^3.1.0",
-    "@vue/eslint-config-prettier": "^6.0.0",
-    "@vue/eslint-config-typescript": "^5.0.2",
-    "eslint": "^7.1.0 <7.19.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-import-resolver-typescript": "^2.2.1",
-    "eslint-plugin-cypress": "^2.11.1",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-jest": "^23.13.2",
-    "eslint-plugin-jsdoc": "^24.0.6",
-    "eslint-plugin-prettier": "^3.1.3",
-    "eslint-plugin-tsdoc": "^0.2.5",
-    "eslint-plugin-vue": "^6.2.2",
-    "eslint-plugin-vuejs-accessibility": "^1.1.1",
-    "prettier": "^2.1.2"
+    "@typescript-eslint/eslint-plugin": "~5.20.0",
+    "@typescript-eslint/parser": "~5.20.0",
+    "@vue/eslint-config-prettier": "~7.0.0",
+    "@vue/eslint-config-typescript": "~10.0.0",
+    "eslint": "~8.13.0",
+    "eslint-config-prettier": "~8.5.0",
+    "eslint-import-resolver-typescript": "~2.7.1",
+    "eslint-plugin-cypress": "~2.12.1",
+    "eslint-plugin-import": "~2.26.0",
+    "eslint-plugin-jest": "~26.1.4",
+    "eslint-plugin-jsdoc": "~39.2.7",
+    "eslint-plugin-prettier": "~4.0.0",
+    "eslint-plugin-tsdoc": "~0.2.16",
+    "eslint-plugin-vue": "~8.6.0",
+    "eslint-plugin-vuejs-accessibility": "~1.1.1",
+    "prettier": "~2.6.2"
   },
   "peerDependencies": {
-    "eslint": "^7.1.0 <7.19.0",
-    "prettier": "^2.0.5"
+    "eslint": "~8.13.0",
+    "prettier": "~2.6.2"
   },
   "prettier": "./prettier-config.js",
   "publishConfig": {
