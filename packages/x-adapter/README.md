@@ -1,6 +1,11 @@
 # x-adapter
 
-`x-adapter` is a library to ease the communication with `empathy.co search API's`.
+`x-adapter` is a library of utils to ease the communication with any API. Some features that it
+provides:
+
+- Create an API request function based on a simple configuration.
+- Allow to configure the response/request mapping.
+- Create mapping functions based on Schemas.
 
 ### Contributing
 

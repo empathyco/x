@@ -69,6 +69,7 @@ As a starting point, this project uses the following scopes:
 - **wiring**: Changes that only affect the wiring operators or wiring factory.
 - **e2e**: For end-to-end tests.
 - **design-system**: For design tokens, CSS styling, etc.
+- **deps**: For upgrading and change dependencies.
 
 ### Description
 

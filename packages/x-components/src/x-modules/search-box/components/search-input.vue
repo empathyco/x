@@ -268,7 +268,7 @@ Here you have a basic example of how the search input is rendered.
 
 _Type any term in the input field to try it out!_
 
-```vue
+```vue live
 <template>
   <SearchInput />
 </template>
@@ -293,7 +293,7 @@ after 1000 milliseconds without typing.
 
 _Type a term with more than 5 characters to try it out!_
 
-```vue
+```vue live
 <template>
   <SearchInput :maxLength="5" :autofocus="false" :instant="true" :instantDebounceInMs="1000" />
 </template>
@@ -319,14 +319,18 @@ the message “enter” appears.
 
 _Type any term in the input field to try it out!_
 
-```vue
+```vue live
 <template>
-  <SearchInput
-    @UserPressedEnterKey="logUserPressedEnter"
-    @UserFocusedSearchBox="hasFocus = true"
-    @UserBlurredSearchBox="hasFocus = false"
-    @UserIsTypingAQuery="value = 'focus'"
-  />
+  <div>
+    <SearchInput
+      @UserPressedEnterKey="value = 'enter'"
+      @UserFocusedSearchBox="hasFocus = true"
+      @UserBlurredSearchBox="hasFocus = false"
+      @UserIsTypingAQuery="value = 'typing'"
+    />
+    <strong>{{ value }}</strong>
+    <span>{{ hasFocus ? 'focused' : 'unfocused' }}</span>
+  </div>
 </template>
 
 <script>
@@ -342,11 +346,6 @@ _Type any term in the input field to try it out!_
         value: '',
         hasFocus: false
       };
-    },
-    methods: {
-      logUserPressedEnter() {
-        console.log('User pressed enter');
-      }
     }
   };
 </script>
@@ -360,9 +359,10 @@ communicates with the [`SearchButton`](x-components.search-button.md) and the
 Furthermore, you can use it together with the [`QuerySuggestions`](query-suggestions.md) component
 to autocomplete the typed search term.
 
-_Type “puzzle” or another toy in the input field and then click the clear icon to try it out!_
+_Type “trousers” or another fashion term in the input field and then click the clear icon to try it
+out!_
 
-```vue
+```vue live
 <template>
   <div>
     <div style="display: flex; flex-flow: row nowrap;">
@@ -377,11 +377,7 @@ _Type “puzzle” or another toy in the input field and then click the clear ic
 </template>
 
 <script>
-  import {
-    SearchInput,
-    ClearSearchInput,
-    ClearSearchButton
-  } from '@empathyco/x-components/search-box';
+  import { SearchInput, ClearSearchInput, SearchButton } from '@empathyco/x-components/search-box';
   import { QuerySuggestions } from '@empathyco/x-components/query-suggestions';
 
   export default {
@@ -389,7 +385,7 @@ _Type “puzzle” or another toy in the input field and then click the clear ic
     components: {
       SearchInput,
       ClearSearchInput,
-      ClearSearchButton,
+      SearchButton,
       QuerySuggestions
     }
   };

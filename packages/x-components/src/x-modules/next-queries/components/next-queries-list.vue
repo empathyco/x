@@ -157,7 +157,7 @@ Usually, this component is going to be used together with the `ResultsList` one.
 will be inserted between the results, guiding users to discover new searches directly from the
 results list.
 
-```vue
+```vue live
 <template>
   <div>
     <SearchInput />
@@ -192,7 +192,7 @@ Finally, a third group will be inserted at index `192`. Because `maxGroups` is c
 more groups will be inserted. Each one of this groups will have up to `6` next queries
 (`maxNextQueriesPerGroup`).
 
-```vue
+```vue live
 <template>
   <div>
     <SearchInput />

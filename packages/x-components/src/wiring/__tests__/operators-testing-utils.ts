@@ -1,8 +1,8 @@
+import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { BaseXBus, XBus } from '../../plugins/index';
 import { RootXStoreState } from '../../store/index';
-import { DeepPartial } from '../../utils/index';
 import { XEvent, XEventPayload } from '../events.types';
 import { createWireFromFunction } from '../wires.factory';
 import { Wire } from '../wiring.types';

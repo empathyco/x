@@ -1,7 +1,7 @@
 import { Identifiable } from '@empathyco/x-types';
+import { Dictionary } from '@empathyco/x-utils';
 import { ScrollDirection } from '../../../components/scroll/scroll.types';
 import { XStoreModule } from '../../../store';
-import { Dictionary } from '../../../utils/types';
 
 /**
  * Scroll store state.

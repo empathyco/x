@@ -14,12 +14,12 @@
 </template>
 
 <script lang="ts">
+  import { Dictionary } from '@empathyco/x-utils';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { State, xComponentMixin } from '../../../components';
   import BaseEventButton from '../../../components/base-event-button.vue';
   import { NoElement } from '../../../components/no-element';
-  import { Dictionary } from '../../../utils';
   import { XEventsTypes } from '../../../wiring';
   import { ScrollComponentState } from '../store';
   import { scrollXModule } from '../x-module';

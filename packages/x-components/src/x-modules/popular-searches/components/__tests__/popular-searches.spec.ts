@@ -1,3 +1,4 @@
+import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -5,7 +6,6 @@ import { getPopularSearchesStub } from '../../../../__stubs__/popular-searches-s
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial } from '../../../../utils/types';
 import PopularSearch from '../popular-search.vue';
 import PopularSearches from '../popular-searches.vue';
 import { resetXPopularSearchesStateWith } from './utils';

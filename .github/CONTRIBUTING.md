@@ -35,6 +35,7 @@ you alongside!
   - [Documentation style guide](#documentation-style-guide)
   - [Testing style guide](#testing-style-guide)
 - [Any questions?](#any-questions)
+- [License](#license)
 
 ## Code of Conduct
 
@@ -74,6 +75,7 @@ evolves.
   into React components.
 - **[@empathyco/x-translations](/packages/x-translations)** - A project that allows you to import
   and export the translations.
+- **[@empathyco/x-utils](/packages/x-utils)** - provides utilities to ease the development.
 
 ## How to contribute
 
@@ -81,9 +83,10 @@ evolves.
 
 Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/).
 
-You can create an issue by filling in the [ bug template](./ISSUE_TEMPLATE/bug_report.yml). Before
-creating a new bug issue, do a quick check to make sure the issue hasn’t been discussed or created
-before in the project.
+You can create an issue by filling in the
+[Bug Report template](https://github.com/empathyco/x/issues/new/choose). Before creating a new bug
+issue, do a quick check to make sure the issue hasn’t been discussed or created before in the
+project.
 
 > **Note:** If you find a **closed** issue that seems to describe the same situation as that you're
 > experiencing, open a new issue and include a link to the original issue in the body.
@@ -94,7 +97,7 @@ We’d love to hear your suggestions for enhancements for Interface X, whether t
 features or minor improvements to existing functionality.
 
 To suggest any new feature, file a new issue using the
-[feature request template](./ISSUE_TEMPLATE/feature_request.yml).
+[Feature Request template](https://github.com/empathyco/x/issues/new/choose).
 
 ### Contribute code for the first time
 
@@ -103,8 +106,8 @@ Unsure where to start with Interface X? You can start by looking through these `
 
 - [Beginner issues](https://github.com/empathyco/x/labels/good%20first%20issue) - issues that should
   only require a few lines of code, and a test or two.
-- [Help wanted issues](https://github.com/empathyco/x/labels/help-wanted) - issues that are usually
-  a bit more involved than `beginner` issues.
+- [Help wanted issues](https://github.com/empathyco/x/labels/help%20wanted) - issues that are
+  usually a bit more involved than `beginner` issues.
 
 Both issue lists are sorted by the total number of comments. While not perfect, the number of
 comments is a reasonable proxy for determining the impact that a given change will have.
@@ -135,7 +138,7 @@ maintainers. All pull requests (PRs) must be approved by 2 reviewers to be merge
      think?” — Often by writing such questions, you actually find you can answer them yourself and
      self-reflection becomes part of your everyday coding thought process. In other words,
      internalizing this self-review process makes you a better developer.
-3. Follow all instructions given in [the PR template](./PULL_REQUEST_TEMPLATE.md).
+3. Follow all instructions given in [the PR template](PULL_REQUEST_TEMPLATE.md).
 4. Follow the [style guides](#style-guides).
 5. After you submit your PR, verify that all
    [status checks](https://help.github.com/articles/about-status-checks/) are passing.
@@ -145,7 +148,7 @@ maintainers. All pull requests (PRs) must be approved by 2 reviewers to be merge
 
 ### Git commit messages
 
-Please check the [commit section](./contributing/commits.md), based on the Conventional Commits
+Please check the [commit section](contributing/commits.md), based on the Conventional Commits
 specification.
 
 ### JavaScript style guide
@@ -154,12 +157,12 @@ All JavaScript code is linted using the
 [@empathyco/eslint-plugin-x](https://github.com/empathyco/x/tree/main/packages/eslint-plugin-x)
 package.
 
-In addition, follow the [naming guide](./contributing/base-naming.md) in every package inside this
-project, and the [Vue components style guide](./contributing/components.md) for components.
+In addition, follow the [naming guide](contributing/base-naming.md) in every package inside this
+project, and the [Vue components style guide](contributing/components.md) for components.
 
 ### Testing style guide
 
-Follow our [testing style guide](./contributing/tests.md).
+Follow our [testing style guide](contributing/tests.md).
 
 ### Documentation style guide
 

@@ -1,8 +1,8 @@
 import { Filter, RelatedTag } from '@empathyco/x-types';
+import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { UrlParams } from '../../../types/url-params';
-import { Dictionary } from '../../../utils/types';
 
 /**
  * URL store state.

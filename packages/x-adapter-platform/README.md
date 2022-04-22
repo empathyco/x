@@ -1,6 +1,7 @@
 # x-adapter-platform
 
-`x-adapter-platform` is a library to ease the communication with `empathy.co platform search API's`.
+`x-adapter-platform` is a library to ease the communication with
+**[empathy.co](https://empathy.co/)** Platform API.
 
 ### Contributing
 

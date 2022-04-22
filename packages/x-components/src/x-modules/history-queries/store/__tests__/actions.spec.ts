@@ -1,4 +1,5 @@
 import { HistoryQuery } from '@empathyco/x-types';
+import { DeepPartial } from '@empathyco/x-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import {
@@ -6,7 +7,6 @@ import {
   createHistoryQuery
 } from '../../../../__stubs__/history-queries-stubs.factory';
 import { SafeStore } from '../../../../store/__tests__/utils';
-import { DeepPartial } from '../../../../utils';
 import { localStorageService } from '../../../../utils/storage';
 import { HISTORY_QUERIES_ENABLED_KEY, SESSION_TIME_STAMP_STORAGE_KEY } from '../constants';
 import { historyQueriesXStoreModule } from '../module';

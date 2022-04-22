@@ -1,5 +1,5 @@
+import { DeepPartial } from '@empathyco/x-utils';
 import { Store } from 'vuex';
-import { DeepPartial } from '../../../../utils/types';
 import { resetStoreModuleState } from '../../../../__tests__/utils';
 import { searchXStoreModule } from '../module';
 import { SearchState } from '../types';

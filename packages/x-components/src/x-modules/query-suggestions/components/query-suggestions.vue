@@ -90,12 +90,12 @@ implemented.
 <!-- prettier-ignore-end -->
 
 In this example, a list of query suggestions is displayed. See how the suggestions change as you
-type “puzzle”. If you click on a suggestion, the search term in the search input is updated and the
+type “sandal”. If you click on a suggestion, the search term in the search input is updated and the
 query suggestions are changed to reflect the new search term.
 
-_Type “puzzle” or another toy in the input field to try it out!_
+_Type “sandal” or another fashion term in the input field to try it out!_
 
-```vue
+```vue live
 <template>
   <div>
     <SearchInput />
@@ -122,22 +122,23 @@ _Type “puzzle” or another toy in the input field to try it out!_
 In this example, an `StaggeredFadeAndSlide` animation component has been passed as prop, so that the
 matching query suggestions are shuffled with a slight delay as more letters of the term are typed.
 
-_Type “puzzle” or another toy in the input field to try it out!_
+_Type “lipstick” or another fashion term in the input field to try it out!_
 
-```vue
+```vue live
 <template>
   <div>
     <SearchInput />
-    <QuerySuggestions animation="StaggeredFadeAndSlide" />
+    <QuerySuggestions :animation="'StaggeredFadeAndSlide'" />
   </div>
 </template>
 
 <script>
+  import Vue from 'vue';
   import { QuerySuggestions } from '@empathyco/x-components/query-suggestions';
   import { SearchInput } from '@empathyco/x-components/search-box';
   import { StaggeredFadeAndSlide } from '@empathyco/x-components';
 
-  // Register the animation as a global component
+  // Registering the animation as a global component
   Vue.component('StaggeredFadeAndSlide', StaggeredFadeAndSlide);
   export default {
     name: 'QuerySuggestionsDemo',
@@ -153,9 +154,9 @@ _Type “puzzle” or another toy in the input field to try it out!_
 
 Here, the `suggestion` binding property passes the suggestion data.
 
-_Type “puzzle” or another toy in the input field to try it out!_
+_Type “bag” or another fashion term in the input field to try it out!_
 
-```vue
+```vue live
 <template>
   <div>
     <SearchInput />
@@ -186,7 +187,7 @@ If you're not using the [`QuerySuggestion`](./query-suggestion.md) component, th
 you must implement the `UserAcceptedAQuery` and `UserSelectedAQuerySuggestion` events in
 `QuerySuggestions`.
 
-```vue
+```vue live
 <template>
   <div>
     <SearchInput />
@@ -233,9 +234,9 @@ you must implement the `UserAcceptedAQuery` and `UserSelectedAQuerySuggestion` e
 In this example, the `suggestion` and `queryHTML` bindings have been passed in the
 `suggestion-content` slot to paint the resulting query suggestions in blue.
 
-_Type “puzzle” or another toy in the input field to try it out!_
+_Type “trousers” or another toy in the input field to try it out!_
 
-```vue
+```vue live
 <template>
   <div>
     <SearchInput />
@@ -265,9 +266,9 @@ Components can be combined and communicate with each other. Commonly, the `Query
 component communicates with the [`SearchInput`](../search-box/x-components.search-input.md),
 updating the term in the search input.
 
-_Type “puzzle” or another toy in the input field to try it out!_
+_Type “pants” or another toy in the input field to try it out!_
 
-```vue
+```vue live
 <template>
   <div>
     <SearchInput />

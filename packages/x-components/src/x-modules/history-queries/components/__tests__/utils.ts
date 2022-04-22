@@ -1,6 +1,6 @@
+import { DeepPartial } from '@empathyco/x-utils';
 import { Store } from 'vuex';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial } from '../../../../utils/types';
 import { resetStoreXModuleState } from '../../../../__tests__/utils';
 import { historyQueriesXStoreModule } from '../../store/module';
 import { HistoryQueriesState } from '../../store/types';

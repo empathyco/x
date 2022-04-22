@@ -25,7 +25,7 @@ craft your own UI bundle with the right components for your shop. There are nume
 choose from, and the catalog evolves quickly with new experiences.
 
 See an
-[overview of the Empathy Platform features](https://docs.empathy.co/explore-empathy-platform/search-features/)
+[overview of the Empathy Platform features](https://docs.empathy.co/explore-empathy-platform/features/)
 supported by Interface X.
 
 ## Highlights
@@ -71,8 +71,8 @@ Each component contains inline comments. Alternatively, you can read the product
 Empathy’s eDocs documentation portal.
 
 - [Overview of X Components](https://docs.empathy.co/explore-empathy-platform/experience-search-&-discovery/)
-- [Interface X architecture](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/x-architecture/)
-- [Full UI Reference](https://docs.empathy.co/empathy-for-developers/ui-reference)
+- [Interface X architecture](https://docs.empathy.co/develop-empathy-platform/build-search-ui/x-architecture/)
+- [Full UI Reference](https://docs.empathy.co/develop-empathy-platform/ui-reference/)
 <!--- [Frequently Asked Questions](Content to be developed for GitHub project)--->
 
 ## Roadmap
@@ -107,7 +107,9 @@ To prepare your development environment, proceed as follows:
 2. Install the dependencies in the root folder: `npm install`. This links all the projects.
 3. Run a build so that the linked projects work: `npm run build`.
 
-Have a look to [this article](https://medium.com/empathyco/moving-to-a-mono-repo-part-1-the-journey-eb63efd8ef64) to see why we moved to a mono repo and how we did it.
+Have a look to
+[this article](https://medium.com/empathyco/moving-to-a-mono-repo-part-1-the-journey-eb63efd8ef64)
+to see why we moved to a mono repo and how we did it.
 
 ## How to implement Interface X
 
@@ -123,17 +125,11 @@ We are building the Interface X ecosystem. If you are interested in helping us o
 the future of search experiences, please check our
 [contributing guidelines](./.github/CONTRIBUTING.md).
 
-## How to report issues
-
-Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/). Create an issue in
-the repo and provide the following information by filling in
-[the bug template](./.github/ISSUE_TEMPLATE/bug_report.yml).
-
 ## Core Team
 
-| <a href="https://github.com/tajespasarela"><img src="https://avatars.githubusercontent.com/u/5759712?v=4" width="100px;" alt=""/><br /><br /><b>Iván Tajes</b></a> | <a href="https://github.com/javieri-empathy"><img src="https://avatars.githubusercontent.com/u/68222542?v=4" width="100px;" alt=""/><br /><br /><b>Javier Iglesias</b></a> | <a href="https://github.com/joseacabaneros"><img src="https://avatars.githubusercontent.com/u/10746604?v=4" width="100px;" alt=""/><br /><br /><b>Jose Antonio Cabañeros</b></a> | <a href="https://github.com/LuisMartinez15"><img src="https://avatars.githubusercontent.com/u/6247440?v=4" width="100px;" alt=""/><br /><br /><b>Luís Martínez</b></a>  | <a href="https://github.com/tiborux"><img src="https://avatars.githubusercontent.com/u/6597815?v=4" width="100px;" alt=""/><br /><br /><b>Beltrán García</b></a> |
-| :----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| <a href="https://github.com/herrardo"><img src="https://avatars.githubusercontent.com/u/4663897?v=4" width="100px;" alt=""/><br /><br /><b>Gerardo Vázquez</b></a> |  <a href="https://github.com/CachedaCodes"><img src="https://avatars.githubusercontent.com/u/7124620?v=4" width="100px;" alt=""/><br /><br /><b>Guillermo Cacheda</b></a> | <a href="https://github.com/guillei10"><img src="https://avatars.githubusercontent.com/u/77337158?v=4" width="100px;" alt=""/><br /><br /><b>Guillermo Iglesias</b></a> | <a href="https://github.com/mavmaf"><img src="https://avatars.githubusercontent.com/u/77147901?v=4" width="100px;" alt=""/><br /><br /><b>Mavi Fernández</b></a> | <a href="https://github.com/diegopf"><img src="https://avatars.githubusercontent.com/u/7504736?v=4" width="100px;" alt=""/><br /><br /><b>Diego Pascual</b></a> |      
+| <a href="https://github.com/tajespasarela"><img src="https://avatars.githubusercontent.com/u/5759712?v=4" width="100px;" alt=""/><br /><br /><b>Iván Tajes</b></a> | <a href="https://github.com/javieri-empathy"><img src="https://avatars.githubusercontent.com/u/68222542?v=4" width="100px;" alt=""/><br /><br /><b>Javier Iglesias</b></a> | <a href="https://github.com/joseacabaneros"><img src="https://avatars.githubusercontent.com/u/10746604?v=4" width="100px;" alt=""/><br /><br /><b>Jose Antonio Cabañeros</b></a> | <a href="https://github.com/LuisMartinez15"><img src="https://avatars.githubusercontent.com/u/6247440?v=4" width="100px;" alt=""/><br /><br /><b>Luís Martínez</b></a> | <a href="https://github.com/tiborux"><img src="https://avatars.githubusercontent.com/u/6597815?v=4" width="100px;" alt=""/><br /><br /><b>Beltrán García</b></a> |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <a href="https://github.com/herrardo"><img src="https://avatars.githubusercontent.com/u/4663897?v=4" width="100px;" alt=""/><br /><br /><b>Gerardo Vázquez</b></a> |  <a href="https://github.com/CachedaCodes"><img src="https://avatars.githubusercontent.com/u/7124620?v=4" width="100px;" alt=""/><br /><br /><b>Guillermo Cacheda</b></a>  |     <a href="https://github.com/guillei10"><img src="https://avatars.githubusercontent.com/u/77337158?v=4" width="100px;" alt=""/><br /><br /><b>Guillermo Iglesias</b></a>      |    <a href="https://github.com/mavmaf"><img src="https://avatars.githubusercontent.com/u/77147901?v=4" width="100px;" alt=""/><br /><br /><b>Mavi Fernández</b></a>    | <a href="https://github.com/diegopf"><img src="https://avatars.githubusercontent.com/u/7504736?v=4" width="100px;" alt=""/><br /><br /><b>Diego Pascual</b></a>  |
 
 ## License
 

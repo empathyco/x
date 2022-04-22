@@ -3,6 +3,82 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.23...@empathyco/x-adapter@7.0.0-alpha.24) (2022-04-14)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [7.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.22...@empathyco/x-adapter@7.0.0-alpha.23) (2022-04-07)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [7.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.21...@empathyco/x-adapter@7.0.0-alpha.22) (2022-04-07)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [7.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.20...@empathyco/x-adapter@7.0.0-alpha.21) (2022-04-05)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [7.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.19...@empathyco/x-adapter@7.0.0-alpha.20) (2022-04-05)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [7.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.18...@empathyco/x-adapter@7.0.0-alpha.19) (2022-04-04)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [7.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.17...@empathyco/x-adapter@7.0.0-alpha.18) (2022-04-01)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [7.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.16...@empathyco/x-adapter@7.0.0-alpha.17) (2022-04-01)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [7.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.15...@empathyco/x-adapter@7.0.0-alpha.16) (2022-03-31)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
 ## [7.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.14...@empathyco/x-adapter@7.0.0-alpha.15) (2022-03-11)
 
 ### ⚠ BREAKING CHANGES
@@ -16,11 +92,6 @@ All notable changes to this project will be documented in this file. See
   ([4e71797](https://github.com/empathyco/x/commit/4e717970198f67018a9b66ed6e47f511ecef4c62)),
   closes [EX-5410](https://searchbroker.atlassian.net/browse/EX-5410)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [7.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.13...@empathyco/x-adapter@7.0.0-alpha.14) (2022-03-08)
 
 ### Features
@@ -29,28 +100,13 @@ All notable changes to this project will be documented in this file. See
   ([73edca6](https://github.com/empathyco/x/commit/73edca61c1cea39d82a7ab94bc18c8bff94c138c)),
   closes [EX-5367](https://searchbroker.atlassian.net/browse/EX-5367)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [7.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.12...@empathyco/x-adapter@7.0.0-alpha.13) (2022-02-28)
 
 **Note:** Version bump only for package @empathyco/x-adapter
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [7.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.11...@empathyco/x-adapter@7.0.0-alpha.12) (2022-02-17)
 
 **Note:** Version bump only for package @empathyco/x-adapter
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [7.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.10...@empathyco/x-adapter@7.0.0-alpha.11) (2022-02-10)
 
@@ -60,11 +116,6 @@ All notable changes to this project will be documented in this file. See
   ([ea6970f](https://github.com/empathyco/x/commit/ea6970f1e6411c3d432fe7a424845800c1b85d16)),
   closes [EX-5372](https://searchbroker.atlassian.net/browse/EX-5372)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [7.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.9...@empathyco/x-adapter@7.0.0-alpha.10) (2022-02-08)
 
 ### Build System
@@ -72,11 +123,6 @@ All notable changes to this project will be documented in this file. See
 - Fix colors.js dependency issue
   ([2ffcc22](https://github.com/empathyco/x/commit/2ffcc222f5666d7866c8d7cd3a0eec7c0bb1f938)),
   closes [EX-5293](https://searchbroker.atlassian.net/browse/EX-5293)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [7.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.8...@empathyco/x-adapter@7.0.0-alpha.9) (2021-12-29)
 
@@ -86,11 +132,6 @@ All notable changes to this project will be documented in this file. See
   ([fdd89f8](https://github.com/empathyco/x/commit/fdd89f84afe7e328cdcd121288142dc82e2000c8)),
   closes [EX-5152](https://searchbroker.atlassian.net/browse/EX-5152)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [7.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.7...@empathyco/x-adapter@7.0.0-alpha.8) (2021-11-30)
 
 ### Features
@@ -98,11 +139,6 @@ All notable changes to this project will be documented in this file. See
 - **related-tags:** add `isCurated` property to related tags
   ([e063f45](https://github.com/empathyco/x/commit/e063f4560573bcb1bf32fbe49753f2fe6b235cc7)),
   closes [EX-4940](https://searchbroker.atlassian.net/browse/EX-4940)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [7.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.6...@empathyco/x-adapter@7.0.0-alpha.7) (2021-11-29)
 
@@ -122,11 +158,6 @@ All notable changes to this project will be documented in this file. See
   ([f3fee15](https://github.com/empathyco/x/commit/f3fee157d724292f5cbb7166908d48ef2fb4fe8c)),
   closes [EX-5027](https://searchbroker.atlassian.net/browse/EX-5027)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [7.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.5...@empathyco/x-adapter@7.0.0-alpha.6) (2021-11-22)
 
 ### Features
@@ -134,11 +165,6 @@ All notable changes to this project will be documented in this file. See
 - update `Tagging` model
   ([598915c](https://github.com/empathyco/x/commit/598915ced128e3fa5586ff6c870e68cfa2e016c3)),
   closes [EX-4985](https://searchbroker.atlassian.net/browse/EX-4985)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [7.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.4...@empathyco/x-adapter@7.0.0-alpha.5) (2021-10-25)
 

@@ -1,10 +1,10 @@
 import { SearchByIdRequest } from '@empathyco/x-adapter';
+import { Dictionary } from '@empathyco/x-utils';
 import { Result } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { QueryOrigin, QueryOriginInit } from '../../../types/origin';
-import { Dictionary } from '../../../utils';
 import { IdentifierResultsConfig } from '../config.types';
 
 /**

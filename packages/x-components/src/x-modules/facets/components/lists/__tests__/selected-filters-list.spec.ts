@@ -1,4 +1,5 @@
 import { BooleanFilter, Facet } from '@empathyco/x-types';
+import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -7,7 +8,6 @@ import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import { XPlugin } from '../../../../../plugins';
 import { RootXStoreState } from '../../../../../store';
-import { DeepPartial } from '../../../../../utils';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
 import SelectedFiltersList from '../../lists/selected-filters-list.vue';

@@ -1,4 +1,5 @@
 import { Facet, Filter } from '@empathyco/x-types';
+import { DeepPartial, Dictionary } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -12,7 +13,6 @@ import { XPlugin } from '../../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../../store/store.types';
 import { arrayToObject } from '../../../../../utils/array';
 import { areFiltersDifferent } from '../../../../../utils/filters';
-import { DeepPartial, Dictionary } from '../../../../../utils/types';
 import { resetFacetsService } from '../../../__tests__/utils';
 import { DefaultFacetsService } from '../../../service/facets.service';
 import { facetsXModule } from '../../../x-module';

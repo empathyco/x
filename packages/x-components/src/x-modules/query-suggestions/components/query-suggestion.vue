@@ -86,7 +86,7 @@ implemented.
 
 Here you can see how a single query suggestion is rendered using the `suggestion` prop.
 
-```vue
+```vue live
 <template>
   <QuerySuggestion :suggestion="suggestion" />
 </template>
@@ -102,7 +102,7 @@ Here you can see how a single query suggestion is rendered using the `suggestion
       return {
         suggestion: {
           modelName: 'QuerySuggestion',
-          query: 'beer',
+          query: 'tshirt',
           facets: []
         }
       };
@@ -116,7 +116,7 @@ Here you can see how a single query suggestion is rendered using the `suggestion
 In this example, the query suggestion is painted in blue by passing a color style in the HTML span
 element.
 
-```vue
+```vue live
 <template>
   <QuerySuggestion :suggestion="suggestion" #default="{ queryHTML }">
     <span v-html="queryHTML" style="color: blue;" />
@@ -134,7 +134,7 @@ element.
       return {
         suggestion: {
           modelName: 'QuerySuggestion',
-          query: 'beer',
+          query: 'tshirt',
           facets: []
         }
       };
@@ -148,7 +148,7 @@ element.
 In this example, when you click on the query suggestion, a message is displayed to illustrate that
 the `UserSelectedAQuerySuggestion` event has been triggered.
 
-```vue
+```vue live
 <template>
   <QuerySuggestion :suggestion="suggestion" @UserSelectedAQuerySuggestion="alertSuggestion" />
 </template>
@@ -164,7 +164,7 @@ the `UserSelectedAQuerySuggestion` event has been triggered.
       return {
         suggestion: {
           modelName: 'QuerySuggestion',
-          query: 'beer',
+          query: 'tshirt',
           facets: []
         }
       };

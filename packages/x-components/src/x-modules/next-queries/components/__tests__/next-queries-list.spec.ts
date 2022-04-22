@@ -1,4 +1,5 @@
 import { NextQuery } from '@empathyco/x-types';
+import { DeepPartial, Dictionary } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue, { ComponentOptions, VueConstructor } from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -7,7 +8,7 @@ import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/ut
 import { ItemsListInjectionMixin } from '../../../../components/items-list-injection.mixin';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial, Dictionary, ListItem } from '../../../../utils/types';
+import { ListItem } from '../../../../utils/types';
 import { nextQueriesXModule } from '../../x-module';
 import NextQueriesList from '../next-queries-list.vue';
 import { resetXNextQueriesStateWith } from './utils';
