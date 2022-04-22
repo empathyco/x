@@ -1,7 +1,15 @@
 import { createMutableSchema, Schema } from '@empathyco/x-adapter-next';
-import { Result } from '@empathyco/x-types';
-import { Dictionary, extractUrlParameters } from '@empathyco/x-utils';
-import { PlatformResult } from '../types';
+import { Result, Tagging } from '@empathyco/x-types';
+import { extractUrlParameters } from '@empathyco/x-utils';
+import { PlatformResult, PlatformTagging } from '../types';
+
+export const resultTaggingSchema: Schema<PlatformTagging, Tagging> = {
+  add2cart: ({ add2cart }) => extractUrlParameters(add2cart),
+  checkout: ({ checkout }) => extractUrlParameters(checkout),
+  click: ({ click }) => extractUrlParameters(click)
+};
+
+export const resultTaggingMutableSchema = createMutableSchema(resultTaggingSchema);
 
 export const resultSchema: Schema<PlatformResult, Result> = {
   id: 'id',
@@ -22,18 +30,9 @@ export const resultSchema: Schema<PlatformResult, Result> = {
   type: () => 'Default',
   modelName: () => 'Result',
   isWishlisted: () => false,
-  tagging: ({ tagging }) => {
-    const mappedTagging: Dictionary = {};
-    if (tagging) {
-      Object.keys(tagging).forEach(key => {
-        const url: string = tagging[key];
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        mappedTagging[key] = extractUrlParameters(url);
-      });
-      return mappedTagging;
-    } else {
-      return {};
-    }
+  tagging: {
+    $path: 'tagging',
+    $subSchema: resultTaggingMutableSchema
   }
 };
 
