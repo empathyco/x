@@ -1,19 +1,29 @@
 import { createMutableSchema, Schema, schemaMapperFactory } from '@empathyco/x-adapter-next';
+import { extractUrlParameters } from '@empathyco/x-utils';
 import { PlatformSearchResponse, SearchResponse } from '../../types';
+import { resultMutableSchema } from '../../schemas';
+import { facetSchema } from '../../schemas/facet.schema';
 
-const searchResponseSchema: Schema<PlatformSearchResponse, SearchResponse> = {
-  results: 'catalog.content',
-  facets: 'catalog.facets',
+export const searchResponseSchema: Schema<PlatformSearchResponse, SearchResponse> = {
+  results: {
+    $path: 'catalog.content',
+    $subSchema: resultMutableSchema
+  },
+  facets: {
+    $path: 'catalog.facets',
+    $subSchema: facetSchema
+  },
   totalResults: 'catalog.numFound',
   spellcheck: 'catalog.spellchecked',
   banners: 'banner.content',
   promoteds: 'promoted.content',
   redirections: 'direct.content',
-  queryTagging: 'catalog.tagging.query'
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  queryTagging: ({ catalog }) => extractUrlParameters(catalog.tagging.query)
 };
 
 export const mutableSearchResponseSchema = createMutableSchema(searchResponseSchema);
 
-export const searchResponseMapper = schemaMapperFactory<PlatformSearchResponse, any>(
+export const searchResponseMapper = schemaMapperFactory<PlatformSearchResponse, SearchResponse>(
   mutableSearchResponseSchema
 );

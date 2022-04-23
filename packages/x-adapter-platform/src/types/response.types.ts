@@ -1,4 +1,4 @@
-import { Banner, Facet, Promoted, Redirection, Result } from '@empathyco/x-types';
+import { Banner, Promoted, Redirection, Result, TaggingInfo } from '@empathyco/x-types';
 
 export interface PlatformSearchResponse {
   banner: PlatformBanner;
@@ -20,8 +20,8 @@ export interface PlatformRedirection {
 }
 
 export interface PlatformCatalog {
-  content: Result[];
-  facets: Facet[];
+  content: PlatformResult[];
+  facets: PlatformFacet[];
   numFound: number;
   spellchecked: string;
   tagging: {
@@ -31,11 +31,56 @@ export interface PlatformCatalog {
 
 export interface SearchResponse {
   results: Result[];
-  facets: Facet[];
+  facets: any[];
   totalResults: number;
   spellcheck: string;
   banners: Banner[];
   promoteds: Promoted[];
   redirections: Redirection[];
-  queryTagging: string;
+  queryTagging: TaggingInfo;
+}
+
+export interface PlatformResult {
+  // categories?: string[];
+  // categoryIds?: string[];
+  // categoryPaths?: string[];
+  // color: string;
+  // gender: string;
+  // groupId?: string;
+  // image: string;
+  name: string;
+  // availability?: boolean;
+  averageRating?: number;
+  // popularity?: number;
+  // type?: string;
+  // description: string;
+  id: string;
+  images: string[];
+  // originalPrice: number;
+  price: number;
+  // score: number;
+  sku: string;
+  // source: string;
+  // sourceWebsite: string;
+  url: string;
+  tagging: PlatformTagging;
+}
+
+export interface PlatformFacet {
+  facet: string;
+  values: PlatformFacetFilter[];
+}
+
+export interface PlatformFacetFilter {
+  count: number;
+  filter: string;
+  id: string;
+  value: string;
+  children: Record<string, any>[];
+}
+
+export interface PlatformTagging {
+  add2cart: string;
+  checkout: string;
+  click: string;
 }
