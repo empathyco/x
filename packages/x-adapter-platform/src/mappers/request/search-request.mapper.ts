@@ -1,7 +1,9 @@
 import { createMutableSchema, Schema, schemaMapperFactory } from '@empathyco/x-adapter-next';
-import { SearchRequest } from '../../types/request.types';
+import { reduce } from '@empathyco/x-utils';
+import { Filter } from '@empathyco/x-types';
+import { PlatformSearchRequest, SearchRequest } from '../../types/request.types';
 
-const searchRequestSchema: Schema<SearchRequest, Record<string, unknown>> = {
+export const searchRequestSchema: Schema<SearchRequest, PlatformSearchRequest> = {
   device: 'device',
   query: 'query',
   env: 'env',
@@ -10,17 +12,30 @@ const searchRequestSchema: Schema<SearchRequest, Record<string, unknown>> = {
   start: 'start',
   rows: 'rows',
   lang: 'lang',
-  filter: ({ filters }) => {
-    return Object.values(filters).reduce((mappedFilters: any[], filters: any[]) => {
-      if (filters.length) {
-        mappedFilters.push(...filters.map(f => f.id));
-      }
-      return mappedFilters;
-    }, []);
-  }
+  filter: mapFilters
 };
 
-const searchRequestMutableSchema = createMutableSchema(searchRequestSchema);
-export const searchRequestMapper = schemaMapperFactory<SearchRequest, Record<string, unknown>>(
+export const searchRequestMutableSchema = createMutableSchema(searchRequestSchema);
+export const searchRequestMapper = schemaMapperFactory<SearchRequest, PlatformSearchRequest>(
   searchRequestMutableSchema
 );
+
+/**
+ * Converts the filters to the shape the Platform's API is expecting.
+ *
+ * @param filters - The filters from our internal request.
+ *
+ * @returns The filters ready for the API.
+ */
+function mapFilters({ filters }: SearchRequest): string[] {
+  return reduce(
+    filters,
+    (accumulator: string[], _, filters: Filter[]) => {
+      if (Array.isArray(filters)) {
+        accumulator.push(...filters.map(filter => filter.id.toString()));
+      }
+      return accumulator;
+    },
+    []
+  );
+}

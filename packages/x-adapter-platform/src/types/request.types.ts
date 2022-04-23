@@ -1,7 +1,10 @@
+import { Filter } from '@empathyco/x-types';
+import { Dictionary } from '@empathyco/x-utils';
+
 export interface SearchRequest {
   device: string;
   env: string;
-  filters: any[];
+  filters: Dictionary<Filter[]>;
   query: string;
   origin: string;
   relatedTags?: any[];
@@ -23,13 +26,4 @@ export interface PlatformSearchRequest {
   lang: string;
   filter?: string[];
   sort?: string;
-}
-
-/**
- * Interface to support extra params.
- *
- * @public
- */
-export interface ExtraParamsRequest {
-  [key: string]: unknown;
 }
