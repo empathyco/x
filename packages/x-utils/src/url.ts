@@ -1,5 +1,3 @@
-import { Dictionary } from './types';
-
 /**
  * Returns the base url path and an object with the query parameters.
  *
@@ -7,22 +5,53 @@ import { Dictionary } from './types';
  *
  * @returns The object with the url information.
  */
-export function extractUrlParameters(url: string): Record<string, any> {
-  const params: Dictionary = {};
-  const urlObject = new URL(url);
-  urlObject.searchParams.forEach((value, key) => {
-    if (Array.isArray(params[key])) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      params[key].push(value);
-    } else if (params[key]) {
-      params[key] = [params[key], value];
-    } else {
-      params[key] = value;
-    }
-  });
-  params.follow = false;
+export function extractUrlParameters(url: string): {
+  url: string;
+  params?: Record<string, string[] | string>;
+} {
+  const searchParams = new Map<string, string | string[]>();
+  try {
+    const urlObject = new URL(url);
+    urlObject.searchParams.forEach((value, key) => {
+      const param = searchParams.get(key);
+      if (Array.isArray(param)) {
+        searchParams.set(key, [...param, value]);
+      } else if (param) {
+        searchParams.set(key, [param, value]);
+      } else {
+        searchParams.set(key, value);
+      }
+    });
+    return {
+      url: `${urlObject.origin}${urlObject.pathname}`,
+      params: Object.fromEntries(searchParams)
+    };
+  } catch (e) {
+    //eslint-disable-next-line no-console
+    console.warn('Invalid url', url);
+    return {
+      url
+    };
+  }
+}
+
+/**
+ * Extracts the tagging info from an URL.
+ *
+ * @param taggingUrl - The url containing the tagging info.
+ *
+ * @returns The object with the tagging info.
+ */
+export function getTaggingInfoFromUrl(taggingUrl: string): {
+  url: string;
+  params?: Record<string, string[] | string | boolean>;
+} {
+  const { url, params } = extractUrlParameters(taggingUrl);
   return {
-    url: `${urlObject.origin}${urlObject.pathname}`,
-    params
+    url,
+    params: {
+      ...params,
+      follow: false
+    }
   };
 }
