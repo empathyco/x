@@ -8,15 +8,15 @@ export interface PlatformSearchResponse {
 }
 
 export interface PlatformBanner {
-  content: Banner[];
+  content: PlatformBannerItem[];
 }
 
 export interface PlatformPromoted {
-  content: Promoted[];
+  content: PlatformPromotedItem[];
 }
 
 export interface PlatformRedirection {
-  content: Redirection[];
+  content: PlatformRedirectionItem[];
 }
 
 export interface PlatformCatalog {
@@ -35,7 +35,7 @@ export interface SearchResponse {
   totalResults: number;
   spellcheck: string;
   banners: Banner[];
-  promoteds: Promoted[];
+  promoted: Promoted[];
   redirections: Redirection[];
   queryTagging: TaggingInfo;
 }
@@ -83,4 +83,30 @@ export interface PlatformTagging {
   add2cart: string;
   checkout: string;
   click: string;
+}
+
+export interface PlatformPromotedItem {
+  id: string;
+  title: string;
+  url: string;
+  image_url: string;
+  tagging: {
+    query: string;
+  };
+}
+export interface PlatformBannerItem {
+  id: string;
+  title: string;
+  url: string;
+  image_url: string;
+  tagging: {
+    query: string;
+  };
+}
+export interface PlatformRedirectionItem {
+  id: string;
+  url: string;
+  tagging: {
+    click: string;
+  };
 }

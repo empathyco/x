@@ -4,6 +4,9 @@ import { TaggingInfo } from '@empathyco/x-types';
 import { PlatformSearchResponse, SearchResponse } from '../../types';
 import { resultMutableSchema } from '../../schemas';
 import { facetSchema } from '../../schemas/facet.schema';
+import { promotedMutableSchema } from '../../schemas/promoted.schema';
+import { bannerMutableSchema } from '../../schemas/banner.schema';
+import { redirectionMutableSchema } from '../../schemas/redirection.schema';
 
 export const searchResponseSchema: Schema<PlatformSearchResponse, SearchResponse> = {
   results: {
@@ -16,9 +19,18 @@ export const searchResponseSchema: Schema<PlatformSearchResponse, SearchResponse
   },
   totalResults: 'catalog.numFound',
   spellcheck: 'catalog.spellchecked',
-  banners: 'banner.content',
-  promoteds: 'promoted.content',
-  redirections: 'direct.content',
+  banners: {
+    $path: 'banner.content',
+    $subSchema: bannerMutableSchema
+  },
+  promoted: {
+    $path: 'promoted.content',
+    $subSchema: promotedMutableSchema
+  },
+  redirections: {
+    $path: 'direct.content',
+    $subSchema: redirectionMutableSchema
+  },
   queryTagging: ({ catalog }) => getTaggingInfoFromUrl(catalog?.tagging?.query) as TaggingInfo
 };
 
