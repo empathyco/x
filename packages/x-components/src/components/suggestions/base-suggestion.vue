@@ -9,6 +9,9 @@
     <!-- eslint-enable max-len -->
     <slot v-bind="{ suggestion, queryHTML }">
       <span v-html="queryHTML" :aria-label="suggestion.query" class="x-suggestion__query" />
+      <span v-if="suggestion.facets && suggestion.facets.length" class="x-suggestion__facet">
+        {{ suggestion.facets[0].filters[0].label }}
+      </span>
     </slot>
   </button>
 </template>

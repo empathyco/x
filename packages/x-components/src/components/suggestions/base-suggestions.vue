@@ -106,7 +106,24 @@
      * @internal
      */
     protected get suggestionsToRender(): Suggestion[] {
-      return this.suggestions.slice(0, this.maxItemsToRender);
+      const suggestions = this.suggestions.slice(0, this.maxItemsToRender);
+      const suggestionsWithFacets: Suggestion[] = [];
+      suggestions.forEach(suggestion => {
+        if (!suggestion.facets?.length) {
+          suggestionsWithFacets.push(suggestion);
+        } else {
+          suggestion.facets.forEach(facet => {
+            facet.filters.forEach(filter => {
+              const plannedSuggestion = { ...suggestion };
+              const filterFacet = { ...facet };
+              filterFacet.filters = [filter];
+              plannedSuggestion.facets = [filterFacet];
+              suggestionsWithFacets.push(plannedSuggestion);
+            });
+          });
+        }
+      });
+      return suggestionsWithFacets;
     }
   }
 </script>
