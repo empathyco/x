@@ -90,11 +90,15 @@
      * @public
      */
     protected get events(): Partial<XEventsTypes> {
-      return {
+      const events = {
         UserAcceptedAQuery: this.suggestion.query,
         UserSelectedASuggestion: this.suggestion,
         ...this.suggestionSelectedEvents
       };
+      if (this.suggestion.facets[0]) {
+        events.UserClickedAFilter = this.suggestion.facets[0].filters[0];
+      }
+      return events;
     }
 
     /**
