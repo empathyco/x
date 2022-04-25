@@ -7,6 +7,7 @@ import { XPlugin } from '../../../../plugins';
 import { WirePayload } from '../../../../wiring';
 import { extraParamsXModule } from '../../x-module';
 import SnippetConfigExtraParams from '../snippet-config-extra-params.vue';
+import { SnippetConfig } from '../../../../x-installer/api/api.types';
 
 describe('testing snippet config extra params component', () => {
   function renderSnippetConfigExtraParams({
@@ -165,8 +166,15 @@ describe('testing snippet config extra params component', () => {
 });
 
 interface RenderSnippetConfigExtraParamsOptions {
+  /**
+   * Extra values to use as extra params, apart from the ones extracted from the
+   * {@link SnippetConfig}.
+   */
   values?: Dictionary<unknown>;
-  excludedExtraParams?: Array<string>;
+  /**
+   * Keys of the {@link SnippetConfig} to exclude from being sent as extra params.
+   */
+  excludedExtraParams?: Array<keyof SnippetConfig>;
 }
 
 interface RenderSnippetConfigExtraParamsApi {

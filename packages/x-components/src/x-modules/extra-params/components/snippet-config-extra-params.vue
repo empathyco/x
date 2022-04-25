@@ -6,8 +6,8 @@
   import { forEach, Dictionary } from '@empathyco/x-utils';
   import Vue from 'vue';
   import { Component, Watch, Inject, Prop } from 'vue-property-decorator';
-  import { xComponentMixin } from '../../../components';
-  import { SnippetConfig } from '../../../x-installer';
+  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { extraParamsXModule } from '../x-module';
   import ExtraParams from './extra-params.vue';
 
@@ -55,7 +55,7 @@
      * @public
      */
     @Prop({
-      default: () => [
+      default: (): Array<keyof SnippetConfig> => [
         'callbacks',
         'productId',
         'instance',
