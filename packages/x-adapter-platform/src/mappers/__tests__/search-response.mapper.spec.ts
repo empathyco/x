@@ -10,6 +10,7 @@ describe('search response mapper tests', () => {
       content: [
         {
           id: '51587-U',
+          image: 'https://assets.empathy.co/images-demo/51587.jpg',
           images: ['https://assets.empathy.co/images-demo/51587.jpg'],
           name: 'John Players Men Blue Jeans',
           url: 'https://assets.empathy.co/images-demo/42262.jpg',
@@ -148,7 +149,7 @@ describe('search response mapper tests', () => {
           ]
         }
       ],
-      promoteds: [],
+      promoted: [],
       queryTagging: {
         url: 'https://tagging.empathy.co/track/empathy/query',
         params: {
