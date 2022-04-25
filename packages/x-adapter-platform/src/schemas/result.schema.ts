@@ -13,7 +13,9 @@ export const resultTaggingMutableSchema = createMutableSchema(resultTaggingSchem
 
 export const resultSchema: Schema<PlatformResult, Result> = {
   id: 'id',
-  images: 'images',
+  images: ({ image }) => {
+    return image ? [image] : [];
+  },
   name: 'name',
   url: 'url',
   identifier: {

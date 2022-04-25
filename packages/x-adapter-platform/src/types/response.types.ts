@@ -41,27 +41,13 @@ export interface SearchResponse {
 }
 
 export interface PlatformResult {
-  // categories?: string[];
-  // categoryIds?: string[];
-  // categoryPaths?: string[];
-  // color: string;
-  // gender: string;
-  // groupId?: string;
-  // image: string;
   name: string;
-  // availability?: boolean;
   averageRating?: number;
-  // popularity?: number;
-  // type?: string;
-  // description: string;
   id: string;
   images: string[];
-  // originalPrice: number;
+  image: string;
   price: number;
-  // score: number;
   sku: string;
-  // source: string;
-  // sourceWebsite: string;
   url: string;
   tagging: PlatformTagging;
 }
