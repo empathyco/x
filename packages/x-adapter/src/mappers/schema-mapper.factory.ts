@@ -1,5 +1,13 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
-import { isFunction, isObject, reduce, isPath, isArray } from '@empathyco/x-utils';
+import {
+  isFunction,
+  isObject,
+  reduce,
+  isPath,
+  isArray,
+  ExtractPath,
+  Dictionary
+} from '@empathyco/x-utils';
 import { Schema, SubSchemaTransformer } from '../schemas/schemas.types';
 import { Mapper, MapperContext } from '../types/mapper.types';
 import { extractValue } from '../utils/extract-value';
@@ -95,7 +103,15 @@ function applySubSchemaTransformer<Source, Target>(
   schema: Schema<Source, Target>
 ): Target | Target[] | undefined {
   const subSource = extractValue(source, $path);
-  const context = deepMerge(rawContext, $context);
+
+  const extendedContext: Dictionary<any> = {};
+  if ($context) {
+    Object.keys($context).forEach(key => {
+      extendedContext[key] = extractValue(source, $context[key] as ExtractPath<typeof source>);
+    });
+  }
+
+  const context = deepMerge(rawContext, $context, extendedContext);
   let subSchema: typeof $subSchema | typeof schema;
   if ($subSchema === '$self') {
     subSchema = schema;
