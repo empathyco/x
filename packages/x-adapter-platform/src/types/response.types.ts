@@ -62,7 +62,10 @@ export interface PlatformFacetFilter {
   filter: string;
   id: string;
   value: string;
-  children: Record<string, any>[];
+}
+
+export interface PlatformHierarchicalFilter extends PlatformFacetFilter {
+  children: PlatformFacet;
 }
 
 export interface PlatformTagging {
