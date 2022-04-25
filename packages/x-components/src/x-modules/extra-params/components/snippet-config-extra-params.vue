@@ -49,20 +49,24 @@
     protected extraParams: Dictionary<unknown> = {};
 
     /**
-     * Collection of properties from the snippet config not allowed to be sent as extra params.
+     * Collection of properties from the snippet config to exclude from the
+     * extra params object.
      *
-     * @internal
+     * @public
      */
-    protected notAllowedExtraParams: Array<keyof SnippetConfig> = [
-      'callbacks',
-      'productId',
-      'instance',
-      'lang',
-      'searchLang',
-      'consent',
-      'documentDirection',
-      'currency'
-    ];
+    @Prop({
+      default: () => [
+        'callbacks',
+        'productId',
+        'instance',
+        'lang',
+        'searchLang',
+        'consent',
+        'documentDirection',
+        'currency'
+      ]
+    })
+    protected excludedExtraParams!: Array<keyof SnippetConfig>;
 
     /**
      * Updates the extraParams object when the snippet config changes.
@@ -74,7 +78,7 @@
     @Watch('snippetConfig', { deep: true, immediate: true })
     syncExtraParams(snippetConfig: SnippetConfig): void {
       forEach({ ...this.values, ...snippetConfig }, (name, value) => {
-        if (this.notAllowedExtraParams.includes(name)) {
+        if (this.excludedExtraParams.includes(name)) {
           return;
         }
         this.$set(this.extraParams, name, value);
