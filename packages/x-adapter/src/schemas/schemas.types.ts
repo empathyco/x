@@ -230,6 +230,15 @@ export type SubSchemaTransformer<Source, Target> = {
           : Target extends (infer TargetArrayType)[]
           ? never
           : Schema<ExtractType<Source, Path>, Target>)
-      | '$self';
+      | '$self'
+      | ((
+          source: Source
+        ) => ExtractType<Source, Path> extends (infer SourceArrayType)[]
+          ? Target extends (infer TargetArrayType)[]
+            ? Schema<SourceArrayType, TargetArrayType>
+            : never
+          : Target extends (infer TargetArrayType)[]
+          ? never
+          : Schema<ExtractType<Source, Path>, Target>);
   };
 }[ExtractPath<Source>];

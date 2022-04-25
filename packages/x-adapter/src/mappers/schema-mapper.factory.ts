@@ -96,7 +96,14 @@ function applySubSchemaTransformer<Source, Target>(
 ): Target | Target[] | undefined {
   const subSource = extractValue(source, $path);
   const context = deepMerge(rawContext, $context);
-  const subSchema = $subSchema === '$self' ? schema : $subSchema;
+  let subSchema: typeof $subSchema | typeof schema;
+  if ($subSchema === '$self') {
+    subSchema = schema;
+  } else if (isFunction($subSchema)) {
+    subSchema = $subSchema(source);
+  } else {
+    subSchema = $subSchema;
+  }
 
   if (subSource) {
     return isArray(subSource)
