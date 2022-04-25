@@ -52,6 +52,7 @@
      * @public
      */
     @Prop()
+    // eslint-disable-next-line no-undef
     protected animation?: Vue | string;
 
     /**

@@ -16,7 +16,8 @@ module.exports = {
           ]
         }
       ],
-      'import/order': 'error'
+      'import/order': 'error',
+      'import/no-named-as-default-member': 'off'
     },
     settings: {
       'import/resolver': {

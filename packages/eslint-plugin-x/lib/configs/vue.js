@@ -29,9 +29,13 @@ module.exports = {
         }
       ],
       'vue/eqeqeq': 'error',
+      'vue/multi-word-component-names': 'off',
       'vue/no-template-shadow': 'off',
       'vue/no-v-html': 'off',
-      'vue/v-on-function-call': 'error'
+      'vue/component-tags-order': 'off',
+      'vue/v-on-function-call': 'error',
+      'vue/v-slot-style': 'off',
+      'vue/valid-v-slot': 'off'
     }
   }
 };
