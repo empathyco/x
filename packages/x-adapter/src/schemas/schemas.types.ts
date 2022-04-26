@@ -223,22 +223,28 @@ export type SubSchemaTransformer<Source, Target> = {
     $context?: MapperContext;
     $path: Path;
     $subSchema:
-      | (ExtractType<Source, Path> extends (infer SourceArrayType)[]
-          ? Target extends (infer TargetArrayType)[]
-            ? Schema<SourceArrayType, TargetArrayType>
-            : never
-          : Target extends (infer TargetArrayType)[]
-          ? never
-          : Schema<ExtractType<Source, Path>, Target>)
+      | SubSchema<Source, Target, Path>
       | '$self'
-      | ((
-          source: Source
-        ) => ExtractType<Source, Path> extends (infer SourceArrayType)[]
-          ? Target extends (infer TargetArrayType)[]
-            ? Schema<SourceArrayType, TargetArrayType>
-            : never
-          : Target extends (infer TargetArrayType)[]
-          ? never
-          : Schema<ExtractType<Source, Path>, Target>);
+      | ((source: Source) => SubSchema<Source, Target, Path>);
   };
 }[ExtractPath<Source>];
+
+/**
+ * A {@link Schema | schema} that will be applied to an inner path of an object.
+ *
+ * @param Source - The source object.
+ * @param Target - The target object.
+ * @param Path - The path where the schema will be applied.
+ *
+ * @public
+ */
+export type SubSchema<Source, Target, Path extends ExtractPath<Source>> = ExtractType<
+  Source,
+  Path
+> extends (infer SourceArrayType)[]
+  ? Target extends (infer TargetArrayType)[]
+    ? Schema<SourceArrayType, TargetArrayType>
+    : never
+  : Target extends (infer TargetArrayType)[]
+  ? never
+  : Schema<ExtractType<Source, Path>, Target>;
