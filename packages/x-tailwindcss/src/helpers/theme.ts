@@ -91,7 +91,6 @@ export default {
     md: 1.5,
     lg: 2
   },
-  // TODO: Ask design about these values and replace these placeholders with them
   screens: {
     tablet: '800px',
     desktop: '1200px',
