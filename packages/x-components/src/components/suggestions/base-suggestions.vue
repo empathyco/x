@@ -24,7 +24,7 @@
 
 <script lang="ts">
   import { Component, Prop } from 'vue-property-decorator';
-  import { Suggestion, Facet, BooleanFilter } from '@empathyco/x-types';
+  import { Suggestion, Facet } from '@empathyco/x-types';
   import Vue from 'vue';
   import { isArrayEmpty } from '../../utils';
 
@@ -59,6 +59,9 @@
      */
     @Prop()
     protected maxItemsToRender?: number;
+
+    @Prop({ default: false })
+    protected showFacets!: boolean;
 
     /**
      * An array with the unique keys for each suggestion. Required by the `v-for` loop.
@@ -119,38 +122,26 @@
       return suggestionsWithFacets;
     }
 
+    /**
+     * Generates a copy of the original suggestion per facet and filter.
+     *
+     * @param suggestion - Suggestion with the facets.
+     *
+     * @returns - A list of suggestions, each one containing one facet and one filter.
+     * @internal
+     */
     protected generateSuggestionsFromFacets(suggestion: Suggestion): Suggestion[] {
-      this.getNestedObject(suggestion.facets, 'BooleanFilter' as unknown as BooleanFilter);
-      return [suggestion];
-
-      // const suggestions: Suggestion[] = [];
-      // suggestion.facets.forEach(facet => {
-      //   facet.filters.forEach(filter => {
-      //     const plannedSuggestion = { ...suggestion };
-      //     const filterFacet = { ...facet };
-      //     filterFacet.filters = [filter];
-      //     plannedSuggestion.facets = [filterFacet];
-      //     suggestions.push(plannedSuggestion);
-      //   });
-      // });
-      // return suggestions;
-    }
-
-    protected getNestedObject(
-      mainObject: Array<any> | Record<string, any>,
-      wantedType: Record<string, any>
-    ): any {
-      // console.log(wantedType);
-      if (mainObject instanceof Array) {
-        const objects: any[] = [];
-        mainObject.forEach(value => {
-          const object = this.getNestedObject(value, wantedType);
-          if (object) {
-            objects.push(object);
-          }
+      const suggestions: Suggestion[] = [];
+      suggestion.facets.forEach(facet => {
+        facet.filters.forEach(filter => {
+          const plannedSuggestion = { ...suggestion };
+          const filterFacet = { ...facet };
+          filterFacet.filters = [filter];
+          plannedSuggestion.facets = [filterFacet];
+          suggestions.push(plannedSuggestion);
         });
-        return objects ?? undefined;
-      }
+      });
+      return suggestions;
     }
   }
 </script>
