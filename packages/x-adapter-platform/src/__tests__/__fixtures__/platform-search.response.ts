@@ -1,0 +1,157 @@
+/*eslint-disable max-len*/
+export const platformSearchResponse = {
+  catalog: {
+    content: [],
+    numFound: 686,
+    spellchecked: '',
+    tagging: {
+      query:
+        'https://api.staging.empathy.co/tagging/v1/track/empathy/query?q=jeans&lang=en&scope=desktop&totalHits=686&page=1&origin=url%3Aexternal&filtered=true&spellcheck=false'
+    },
+    facets: [
+      {
+        facet: 'categoryPaths',
+        values: [
+          {
+            id: '78d9b7366',
+            value: 'Apparel',
+            count: 736,
+            filter: 'categoryIds:78d9b7366',
+            children: {
+              facet: 'categoryPaths_78d9b7366',
+              values: [
+                {
+                  id: '78d9b7366__8a4e61a33',
+                  value: 'Bottomwear',
+                  count: 637,
+                  filter: 'categoryIds:78d9b7366__8a4e61a33'
+                },
+                {
+                  id: '78d9b7366__e2f94a4ea',
+                  value: 'Topwear',
+                  count: 99,
+                  filter: 'categoryIds:78d9b7366__e2f94a4ea'
+                }
+              ]
+            }
+          },
+          {
+            id: 'b08648dbd',
+            value: 'Accessories',
+            count: 43,
+            filter: 'categoryIds:b08648dbd'
+          },
+          {
+            id: 'ffc61e1e9',
+            value: 'Personal Care',
+            count: 9,
+            filter: 'categoryIds:ffc61e1e9'
+          },
+          {
+            id: 'e5eef62d8',
+            value: 'Footwear',
+            count: 6,
+            filter: 'categoryIds:e5eef62d8'
+          }
+        ]
+      },
+      {
+        facet: 'price',
+        values: [
+          {
+            id: '10.0-20.0',
+            value: '10.0-20.0',
+            count: 97,
+            filter: 'price:10.0-20.0'
+          },
+          {
+            id: '20.0-30.0',
+            value: '20.0-30.0',
+            count: 80,
+            filter: 'price:20.0-30.0'
+          },
+          {
+            id: '30.0-40.0',
+            value: '30.0-40.0',
+            count: 85,
+            filter: 'price:30.0-40.0'
+          },
+          {
+            id: '40.0-50.0',
+            value: '40.0-50.0',
+            count: 75,
+            filter: 'price:40.0-50.0'
+          },
+          {
+            id: '50.0-60.0',
+            value: '50.0-60.0',
+            count: 88,
+            filter: 'price:50.0-60.0'
+          },
+          {
+            id: '60.0-70.0',
+            value: '60.0-70.0',
+            count: 62,
+            filter: 'price:60.0-70.0'
+          },
+          {
+            id: '70.0-80.0',
+            value: '70.0-80.0',
+            count: 84,
+            filter: 'price:70.0-80.0'
+          },
+          {
+            id: '80.0-90.0',
+            value: '80.0-90.0',
+            count: 86,
+            filter: 'price:80.0-90.0'
+          },
+          {
+            id: '90.0-100.0',
+            value: '90.0-100.0',
+            count: 79,
+            filter: 'price:90.0-100.0'
+          }
+        ]
+      },
+      {
+        facet: 'gender',
+        values: [
+          {
+            id: 'men',
+            value: 'men',
+            count: 421,
+            filter: 'gender:men'
+          },
+          {
+            id: 'women',
+            value: 'women',
+            count: 247,
+            filter: 'gender:women'
+          },
+          {
+            id: 'boys',
+            value: 'boys',
+            count: 35,
+            filter: 'gender:boys'
+          },
+          {
+            id: 'girls',
+            value: 'girls',
+            count: 28,
+            filter: 'gender:girls'
+          },
+          {
+            id: 'unisex',
+            value: 'unisex',
+            count: 5,
+            filter: 'gender:unisex'
+          }
+        ]
+      }
+    ]
+  },
+  banner: { content: [] },
+  promoted: { content: [] },
+  direct: { content: [] }
+};
