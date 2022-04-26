@@ -43,7 +43,7 @@ const mockedHttpClient = jest.fn(() =>
 window.fetch = mockedHttpClient as any;
 
 describe('platformAdapter tests', () => {
-  it('Should search', async () => {
+  it('Should call the search endpoint', async () => {
     const response = await platformAdapter.search({
       device: 'mobile',
       env: 'test',
@@ -101,13 +101,13 @@ describe('platformAdapter tests', () => {
       relatedTags: [],
       rows: 0,
       scope: 'mobile',
-      sort: '',
+      sort: 'price asc',
       start: 0
     });
     expect(mockedHttpClient).toHaveBeenCalledTimes(1);
     expect(mockedHttpClient).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.test.empathy.co/search/v1/query/empathy/search?device=mobile&query=chips&env=test&scope=mobile&origin=popular_search%3Apredictive_layer&start=0&rows=0&lang=es&filter=categoryIds%3Affc61e1e9__be257cb26&filter=gender%3Amen&filter=price%3A10.0-20.0',
+      'https://api.test.empathy.co/search/v1/query/empathy/search?device=mobile&query=chips&env=test&scope=mobile&origin=popular_search%3Apredictive_layer&start=0&rows=0&lang=es&sort=price+asc&filter=categoryIds%3Affc61e1e9__be257cb26&filter=gender%3Amen&filter=price%3A10.0-20.0',
       { signal: expect.anything() }
     );
     expect(response?.totalResults).toBe(0);
