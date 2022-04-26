@@ -8,8 +8,14 @@
     -->
     <!-- eslint-enable max-len -->
     <slot v-bind="{ suggestion, queryHTML }">
-      <span v-html="queryHTML" :aria-label="suggestion.query" class="x-suggestion__query" />
-      <span v-if="suggestion.facets && suggestion.facets.length" class="x-suggestion__facet">
+      <span
+        v-html="queryHTML"
+        :aria-label="suggestion.query"
+        class="x-suggestion__query x-flex-1"
+      />
+    </slot>
+    <slot name="suggestionFacet">
+      <span v-if="hasFacets" class="x-suggestion__facet x-lowercase x-flex-auto">
         {{ suggestion.facets[0].filters[0].label }}
       </span>
     </slot>
@@ -55,6 +61,14 @@
     protected suggestion!: Suggestion;
 
     /**
+     * Check if suggestion has facets to render.
+     *
+     * @public
+     */
+    @Prop({ default: true })
+    protected showFacets!: boolean;
+
+    /**
      * The feature from which the events will be emitted.
      *
      * @public
@@ -77,6 +91,15 @@
      */
     @Prop({ default: false, type: Boolean })
     protected highlightCurated!: boolean;
+
+    /**
+     * Updates facets visibility according to prop.
+     *
+     * @returns The boolean prop value.
+     */
+    protected get hasFacets(): boolean {
+      return this.suggestion.facets?.length ? this.showFacets : false;
+    }
 
     /**
      * The event handler that will be triggered when clicking on a suggestion.
