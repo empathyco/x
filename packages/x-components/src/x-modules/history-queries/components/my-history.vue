@@ -1,14 +1,16 @@
 <template>
-  <ul v-if="historyQueries.length > 0" class="x-my-history x-list">
+  <component :is="animation" v-if="hasHistoryQueries" class="x-my-history x-list" tag="ul">
     <li
-      v-for="(list, date) in historyQueriesGroupByDate"
+      v-for="(historyQueries, date) in groupByDate"
       :key="date"
       class="x-my-history-item"
       data-test="my-history-item"
     >
-      <span class="x-my-history-item__date" data-test="my-history-date">{{ date }}</span>
+      <slot name="date" :date="date">
+        <span class="x-my-history-item__date" data-test="my-history-date">{{ date }}</span>
+      </slot>
       <BaseSuggestions
-        :suggestions="list"
+        :suggestions="historyQueries"
         class="x-my-history-queries"
         data-test="my-history-queries"
         :animation="animation"
@@ -26,18 +28,15 @@
               class="x-history-queries__item"
             >
               <template #default>
-                <!-- eslint-disable max-len -->
                 <!--
               @slot History Query content
                   @binding {Suggestion} suggestion - History Query suggestion data
                   @binding {number} index - History Query suggestion index
             -->
-                <!-- eslint-enable max-len -->
                 <slot name="suggestion-content" v-bind="{ suggestion, index }">
-                  <HistoryTiny class="x-icon--l" />
                   <div class="x-list x-list--vertical">
-                    <span data-test="my-history-query">{{ suggestion.query }}</span>
-                    <span data-test="my-history-time">{{ formatTime(suggestion.timestamp) }}</span>
+                    <span>{{ suggestion.query }}</span>
+                    <span>{{ formatTime(suggestion.timestamp) }}</span>
                   </div>
                 </slot>
               </template>
@@ -54,25 +53,25 @@
         </template>
       </BaseSuggestions>
     </li>
-  </ul>
+  </component>
 </template>
 
 <script lang="ts">
   import { HistoryQuery } from '@empathyco/x-types';
+  import { Dictionary } from '@empathyco/x-utils';
   import Vue from 'vue';
   import { Component, Inject, Prop } from 'vue-property-decorator';
-  import HistoryTiny from '../../../components/icons/history-tiny.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { State } from '../../../components/decorators/store.decorators';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
-  import { groupItemsBy } from '../../../utils/index';
-  import { SnippetConfig } from '../../../x-installer/index';
+  import { groupItemsBy, isArrayEmpty } from '../../../utils/array';
+  import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { historyQueriesXModule } from '../x-module';
   import HistoryQueryComponent from './history-query.vue';
 
   /**
-   * This component renders the complete list of suggestions group by date that are coming from the
-   * user queries history.
+   * The component renders the full history of user searched queries grouped by the day
+   * they were performed.
    *
    * @remarks
    *
@@ -83,7 +82,7 @@
    * @public
    */
   @Component({
-    components: { HistoryTiny, HistoryQuery: HistoryQueryComponent, BaseSuggestions },
+    components: { HistoryQuery: HistoryQueryComponent, BaseSuggestions },
     mixins: [xComponentMixin(historyQueriesXModule)]
   })
   export default class MyHistory extends Vue {
@@ -92,8 +91,16 @@
      *
      * @public
      */
-    @Prop()
-    protected animation!: Vue;
+    @Prop({ default: 'ul' })
+    protected animation!: Vue | string;
+
+    /**
+     * The current locale.
+     *
+     * @public
+     */
+    @Prop({ default: 'en' })
+    protected locale!: string;
 
     /**
      * The list of history queries.
@@ -104,67 +111,84 @@
     public historyQueries!: HistoryQuery[];
 
     /**
-     * It injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
+     * The provided {@link SnippetConfig}.
      *
      * @internal
      */
     @Inject('snippetConfig')
-    public snippetConfig!: SnippetConfig;
+    public snippetConfig?: SnippetConfig;
 
     /**
-     * Returns history queries group by date.
+     * Returns a record of history queries grouped by date.
      *
      * @example
      * ```typescript
-     *  const historyQueriesGrouped = \{
-     *    "Monday, January 10th, 2022" : [
-     *      \{
-     *        query: 'lego',
-     *        modelName: 'HistoryQuery',
-     *        timestamp: 121312312
-     *      \}
-     *    ],
-     *     "Tuesday, January 11th, 2022" : [
-     *      \{
-     *        query: 'barbie',
-     *        modelName: 'HistoryQuery',
-     *        timestamp: 15221212
-     *      \}
-     *    ]
-     *  \}
+     *  const historyQueriesGrouped = {
+     *    'Monday, January 10th, 2022' : [{
+     *      query: 'lego',
+     *      modelName: 'HistoryQuery',
+     *      timestamp: 121312312
+     *    }],
+     *    'Tuesday, January 11th, 2022' : [{
+     *      query: 'barbie',
+     *      modelName: 'HistoryQuery',
+     *      timestamp: 15221212
+     *    }]
+     *  }
      * ```
      *
-     * @returns HistoryQueries - The history queries grouped by date.
+     * @returns The history queries grouped by date.
      *
      * @internal
      */
-    public get historyQueriesGroupByDate(): Record<string, HistoryQuery[]> {
+    protected get groupByDate(): Dictionary<HistoryQuery[]> {
       return groupItemsBy(this.historyQueries, current => {
-        return new Date(current.timestamp).toLocaleDateString(this.snippetConfig.lang, {
-          day: 'numeric',
-          weekday: 'long',
-          month: 'long',
-          year: 'numeric'
-        });
+        return new Date(current.timestamp).toLocaleDateString(
+          this.snippetConfig?.lang ?? this.locale,
+          {
+            day: 'numeric',
+            weekday: 'long',
+            month: 'long',
+            year: 'numeric'
+          }
+        );
       });
     }
 
     /**
-     * Format a timestamp to be a time in format 12 hours and using PM/AM.
+     * Formats a timestamp into `hh:mm [PM/AM]` format.
      *
-     * @example '01:23 PM'.
+     * @example
+     * ```typescript
+     * // locale 'es'
+     * console.log(formatTime(Date.now()) // '16:54'.
      *
-     * @param timestamp - The history query timestamp.
+     * // locale 'en'
+     * console.log(formatTime(Date.now()) // '16:54 PM'.
+     * ```
      *
-     * @returns Time - The formatted time.
+     * @param timestamp - The timestamp to format.
+     *
+     * @returns The formatted time.
      *
      * @internal
      */
     protected formatTime(timestamp: number): string {
-      return new Date(timestamp).toLocaleTimeString([], {
+      return new Date(timestamp).toLocaleTimeString(this.snippetConfig?.lang ?? this.locale, {
         hour: '2-digit',
         minute: '2-digit'
       });
+    }
+    /**
+     * The `hasHistoryQueries` computed property is a flag representing if there are history queries
+     * stored.
+     *
+     * @returns True if there are history queries; false otherwise.
+     *
+     * @internal
+     */
+    protected get hasHistoryQueries(): boolean {
+      return !isArrayEmpty(this.historyQueries);
     }
   }
 </script>

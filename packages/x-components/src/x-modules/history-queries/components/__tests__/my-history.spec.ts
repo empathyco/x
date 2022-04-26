@@ -1,5 +1,5 @@
 import { HistoryQuery } from '@empathyco/x-types';
-import { DeepPartial } from '@empathyco/x-utils';
+import { DeepPartial, forEach } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -69,7 +69,7 @@ describe('testing MyHistory component', () => {
   });
 
   it('renders the list of searched queries group by date', () => {
-    const historyQueriesGroupByDate: HistoryQuery[] = [
+    const historyQueries: HistoryQuery[] = [
       {
         query: 'lego',
         timestamp: 1650286901802,
@@ -92,36 +92,34 @@ describe('testing MyHistory component', () => {
       }
     ];
 
-    const expectedResult: Record<string, HistoryQuery[]> = {
-      'Monday, April 18, 2022': [historyQueriesGroupByDate[0], historyQueriesGroupByDate[1]],
-      'Wednesday, April 6, 2022': [historyQueriesGroupByDate[2], historyQueriesGroupByDate[3]]
-    };
-
     const { findAllInWrapper } = renderMyHistory({
-      historyQueries: historyQueriesGroupByDate
+      historyQueries: historyQueries
     });
 
     const historyWrappers = findAllInWrapper('my-history-item');
 
-    historyWrappers.forEach((dateWrapper, index) => {
-      const date = dateWrapper.find(getDataTestSelector('my-history-date')).text();
-      expect(Object.keys(expectedResult)[index]).toBe(date);
-      dateWrapper
-        .findAll(getDataTestSelector('my-history-query'))
-        .wrappers.forEach((wrapper, queryIndex) => {
-          expect(wrapper.text()).toEqual(expectedResult[date][queryIndex].query);
-        });
-      dateWrapper
-        .findAll(getDataTestSelector('my-history-time'))
-        .wrappers.forEach((wrapper, queryIndex) => {
-          expect(wrapper.text()).toEqual(
-            new Date(expectedResult[date][queryIndex].timestamp).toLocaleTimeString([], {
-              hour: '2-digit',
-              minute: '2-digit'
-            })
+    forEach(
+      {
+        'Monday, April 18, 2022': [historyQueries[0], historyQueries[1]],
+        'Wednesday, April 6, 2022': [historyQueries[2], historyQueries[3]]
+      },
+      (date, historyQueries, index) => {
+        const groupWrapper = historyWrappers.at(index);
+        const historyItemWrappers = groupWrapper?.findAll(
+          getDataTestSelector('history-query-item')
+        );
+        expect(groupWrapper?.find(getDataTestSelector('my-history-date')).text()).toBe(date);
+        historyQueries.forEach((historyQuery, historyQueryIndex) => {
+          const hour = new Date(historyQuery.timestamp).toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit'
+          });
+          expect(historyItemWrappers?.at(historyQueryIndex).text()).toEqual(
+            `${historyQuery.query} ${hour} ✕`
           );
         });
-    });
+      }
+    );
   });
 
   it('allows changing history query content and render the list of history queries', () => {
