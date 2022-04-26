@@ -208,5 +208,12 @@ export const platformSearchResponse = {
       }
     ]
   },
-  direct: { content: [] }
+  direct: {
+    content: [
+      {
+        id: 'bbf9223221c06701c2f98c1a',
+        url: 'https://api.staging.empathy.co'
+      }
+    ]
+  }
 };

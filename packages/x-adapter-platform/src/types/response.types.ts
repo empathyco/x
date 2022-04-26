@@ -95,7 +95,7 @@ export interface PlatformBannerItem {
 export interface PlatformRedirectionItem {
   id: string;
   url: string;
-  tagging: {
+  tagging?: {
     click: string;
   };
 }

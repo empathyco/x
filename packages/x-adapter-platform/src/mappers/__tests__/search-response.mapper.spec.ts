@@ -285,7 +285,21 @@ describe('search response mapper tests', () => {
         },
         url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/query'
       },
-      redirections: [],
+      redirections: [
+        {
+          id: 'bbf9223221c06701c2f98c1a',
+          url: 'https://api.staging.empathy.co',
+          modelName: 'Redirection',
+          tagging: {
+            click: {
+              url: '',
+              params: {
+                follow: false
+              }
+            }
+          }
+        }
+      ],
       results: [
         {
           id: '31335-U',

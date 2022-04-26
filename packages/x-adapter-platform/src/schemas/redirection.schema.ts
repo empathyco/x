@@ -8,7 +8,7 @@ const redirectionSchema: Schema<PlatformRedirectionItem, Redirection> = {
   url: 'url',
   modelName: () => 'Redirection',
   tagging: {
-    click: ({ tagging }) => getTaggingInfoFromUrl(tagging?.click) as TaggingInfo
+    click: ({ tagging }) => getTaggingInfoFromUrl(tagging?.click ?? '') as TaggingInfo
   }
 };
 
