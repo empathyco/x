@@ -12,6 +12,7 @@ export const searchRequestSchema: Schema<SearchRequest, PlatformSearchRequest> =
   start: 'start',
   rows: 'rows',
   lang: 'lang',
+  sort: 'sort',
   filter: mapFilters
 };
 

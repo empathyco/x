@@ -36,6 +36,36 @@ const filters: Dictionary<Filter[]> = {
         max: 10
       }
     } as NumberRangeFilter
+  ],
+  categoryPaths: [
+    {
+      facetId: 'categoryPaths',
+      id: 'categoryIds:ffc61e1e9__be257cb26',
+      label: 'Fragrance',
+      modelName: 'HierarchicalFilter',
+      parentId: 'categoryIds:ffc61e1e9',
+      selected: true,
+      totalResults: 1
+    } as Filter,
+    {
+      facetId: 'categoryPaths',
+      id: 'categoryIds:ffc61e1e9__fa5ef54f2',
+      label: 'Fragrance',
+      modelName: 'HierarchicalFilter',
+      parentId: 'categoryIds:ffc61e1e9',
+      selected: true,
+      totalResults: 1
+    } as Filter,
+    {
+      children: ['categoryIds:ffc61e1e9__be257cb26', 'categoryIds:ffc61e1e9__fa5ef54f2'],
+      facetId: 'categoryPaths',
+      id: 'categoryIds:ffc61e1e9',
+      label: 'Personal Care',
+      modelName: 'HierarchicalFilter',
+      parentId: null,
+      selected: true,
+      totalResults: 1
+    } as Filter
   ]
 };
 
@@ -43,10 +73,10 @@ describe('search platform request test', () => {
   const internalRequest: SearchRequest = {
     env: 'test',
     lang: 'en',
-    origin: '',
+    origin: 'url:external',
     rows: 2,
-    scope: '',
-    sort: '',
+    scope: 'mobile',
+    sort: 'price asc',
     start: 14,
     device: 'mobile',
     query: 'chips',
@@ -58,14 +88,17 @@ describe('search platform request test', () => {
       device: 'mobile',
       env: 'test',
       lang: 'en',
-      origin: '',
+      origin: 'url:external',
       query: 'chips',
       rows: 2,
-      scope: '',
+      scope: 'mobile',
+      sort: 'price asc',
       filter: [
         'price:[0 TO 10]',
         '{!tag=brand_facet}brand_facet:"Lego"',
-        '{!tag=price}price:[0 TO 10]'
+        '{!tag=price}price:[0 TO 10]',
+        'categoryIds:ffc61e1e9__be257cb26',
+        'categoryIds:ffc61e1e9__fa5ef54f2'
       ],
       start: 14
     };
