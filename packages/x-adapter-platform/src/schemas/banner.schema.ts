@@ -5,10 +5,10 @@ import { PlatformBannerItem } from '../types';
 
 export const bannerSchema: Schema<PlatformBannerItem, Banner> = {
   id: 'id',
-  modelName: () => 'Banner',
   title: 'title',
   url: 'url',
   image: 'image_url',
+  modelName: () => 'Banner',
   tagging: {
     query: ({ tagging }) => getTaggingInfoFromUrl(tagging?.query ?? '') as TaggingInfo
   }
