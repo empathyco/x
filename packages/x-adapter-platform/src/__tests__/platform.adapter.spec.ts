@@ -57,7 +57,7 @@ describe('platformAdapter tests', () => {
             parentId: 'categoryIds:ffc61e1e9',
             selected: true,
             totalResults: 1
-          },
+          } as Filter,
           {
             children: ['categoryIds:ffc61e1e9__be257cb26'],
             facetId: 'categoryPaths',
@@ -67,7 +67,9 @@ describe('platformAdapter tests', () => {
             parentId: null,
             selected: true,
             totalResults: 1
-          },
+          } as Filter
+        ],
+        gender: [
           {
             facetId: 'gender',
             id: 'gender:men',
@@ -75,7 +77,9 @@ describe('platformAdapter tests', () => {
             modelName: 'SimpleFilter',
             selected: true,
             totalResults: 1
-          },
+          } as Filter
+        ],
+        price: [
           {
             facetId: 'price',
             id: 'price:10.0-20.0',
@@ -88,7 +92,7 @@ describe('platformAdapter tests', () => {
             selected: true,
             totalResults: 1
           } as Filter
-        ] as Filter[]
+        ]
       },
       instance: 'empathy',
       lang: 'es',
