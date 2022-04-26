@@ -1,3 +1,3 @@
-# tailwindcss-x
+# x-tailwindcss
 
 Empathy X Tailwind plugin.

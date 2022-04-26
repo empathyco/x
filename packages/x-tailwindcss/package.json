@@ -1,10 +1,10 @@
 {
-  "name": "tailwindcss-x",
+  "name": "@empathyco/x-tailwindcss",
   "version": "0.2.0-alpha.0",
   "description": "Empathy X Tailwind plugin",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/empathyco/x/tree/main/packages/tailwindcss-x#readme",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/x-tailwindcss#readme",
   "keywords": [
     "tailwind",
     "design",
@@ -20,7 +20,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empathyco/x.git",
-    "directory": "packages/tailwindcss-x"
+    "directory": "packages/x-tailwindcss"
   },
   "scripts": {
     "dev": "vite serve demo",
