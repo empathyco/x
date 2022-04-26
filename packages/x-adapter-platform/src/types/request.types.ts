@@ -8,6 +8,7 @@ export interface SearchRequest {
   query: string;
   origin: string;
   relatedTags?: any[];
+  instance?: string;
   rows: number;
   scope: string;
   sort: string;
