@@ -16,22 +16,20 @@
     </slot>
     <slot name="suggestionFacet">
       <span v-if="hasFacets" class="x-suggestion__facet x-lowercase x-flex-auto">
-        {{ suggestion.facets[0].filters[0].label }}
+        {{ suggestionFilter.label }}
       </span>
     </slot>
   </button>
 </template>
 
 <script lang="ts">
-  import { Suggestion } from '@empathyco/x-types';
+  import { BooleanFilter, Suggestion } from '@empathyco/x-types';
   import { forEach } from '@empathyco/x-utils';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { QueryFeature } from '../../types/origin';
-  import { normalizeString } from '../../utils/normalize';
-  import { sanitize } from '../../utils/sanitize';
-  import { VueCSSClasses } from '../../utils/types';
-  import { XEventsTypes } from '../../wiring/events.types';
+  import { QueryFeature } from '../../types';
+  import { sanitize, VueCSSClasses, normalizeString } from '../../utils';
+  import { XEventsTypes } from '../../wiring';
 
   /**
    * Renders a button with a default slot. It receives a query, which should be the query of the
@@ -136,6 +134,19 @@
           feature: this.feature
         });
       });
+    }
+
+    /**
+     * Returns the suggestion filter object.
+     * It is a BooleanFilter because the label is needed.
+     * It returns only the first element because the facets and filters are being planned
+     * in the BaseSuggestions component.
+     *
+     * @returns The filter.
+     * @public
+     */
+    protected get suggestionFilter(): BooleanFilter {
+      return <BooleanFilter>this.suggestion.facets[0].filters[0];
     }
 
     /**

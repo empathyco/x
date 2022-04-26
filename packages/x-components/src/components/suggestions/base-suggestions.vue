@@ -26,7 +26,7 @@
   import { Component, Prop } from 'vue-property-decorator';
   import { Suggestion, Facet } from '@empathyco/x-types';
   import Vue from 'vue';
-  import { isArrayEmpty } from '../../utils/array';
+  import { isArrayEmpty } from '../../utils';
 
   /**
    * Paints a list of suggestions passed in by prop. Requires a component for a single suggestion
