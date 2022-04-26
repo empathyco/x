@@ -128,7 +128,7 @@ export interface FetchAndSaveHooks<
    *
    * @param error - The error that triggered this callback.
    */
-  onError(error: unknown): void;
+  onError?(error: unknown): void;
   /**
    * Synchronous callback executed when the request is cancelled. This can happen mainly for two
    * reasons:
