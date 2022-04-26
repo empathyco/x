@@ -3,7 +3,7 @@ import { getTaggingInfoFromUrl } from '@empathyco/x-utils';
 import { TaggingInfo } from '@empathyco/x-types';
 import { PlatformSearchResponse, SearchResponse } from '../../types';
 import { resultMutableSchema } from '../../schemas';
-import { facetSchema } from '../../schemas/facet.schema';
+import { facetMutableSchema } from '../../schemas/facet.schema';
 import { promotedMutableSchema } from '../../schemas/promoted.schema';
 import { bannerMutableSchema } from '../../schemas/banner.schema';
 import { redirectionMutableSchema } from '../../schemas/redirection.schema';
@@ -15,7 +15,7 @@ export const searchResponseSchema: Schema<PlatformSearchResponse, SearchResponse
   },
   facets: {
     $path: 'catalog.facets',
-    $subSchema: facetSchema
+    $subSchema: facetMutableSchema
   },
   totalResults: 'catalog.numFound',
   spellcheck: 'catalog.spellchecked',
