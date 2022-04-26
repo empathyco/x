@@ -24,7 +24,7 @@
 
 <script lang="ts">
   import { Component, Prop } from 'vue-property-decorator';
-  import { Suggestion, Facet } from '@empathyco/x-types';
+  import { Suggestion, Facet, BooleanFilter } from '@empathyco/x-types';
   import Vue from 'vue';
   import { isArrayEmpty } from '../../utils';
 
@@ -107,23 +107,50 @@
      */
     protected get suggestionsToRender(): Suggestion[] {
       const suggestions = this.suggestions.slice(0, this.maxItemsToRender);
-      const suggestionsWithFacets: Suggestion[] = [];
+      let suggestionsWithFacets: Suggestion[] = [];
       suggestions.forEach(suggestion => {
         if (!suggestion.facets?.length) {
           suggestionsWithFacets.push(suggestion);
         } else {
-          suggestion.facets.forEach(facet => {
-            facet.filters.forEach(filter => {
-              const plannedSuggestion = { ...suggestion };
-              const filterFacet = { ...facet };
-              filterFacet.filters = [filter];
-              plannedSuggestion.facets = [filterFacet];
-              suggestionsWithFacets.push(plannedSuggestion);
-            });
-          });
+          const facetsSuggestions = this.generateSuggestionsFromFacets(suggestion);
+          suggestionsWithFacets = [...suggestionsWithFacets, ...facetsSuggestions];
         }
       });
       return suggestionsWithFacets;
+    }
+
+    protected generateSuggestionsFromFacets(suggestion: Suggestion): Suggestion[] {
+      this.getNestedObject(suggestion.facets, 'BooleanFilter' as unknown as BooleanFilter);
+      return [suggestion];
+
+      // const suggestions: Suggestion[] = [];
+      // suggestion.facets.forEach(facet => {
+      //   facet.filters.forEach(filter => {
+      //     const plannedSuggestion = { ...suggestion };
+      //     const filterFacet = { ...facet };
+      //     filterFacet.filters = [filter];
+      //     plannedSuggestion.facets = [filterFacet];
+      //     suggestions.push(plannedSuggestion);
+      //   });
+      // });
+      // return suggestions;
+    }
+
+    protected getNestedObject(
+      mainObject: Array<any> | Record<string, any>,
+      wantedType: Record<string, any>
+    ): any {
+      // console.log(wantedType);
+      if (mainObject instanceof Array) {
+        const objects: any[] = [];
+        mainObject.forEach(value => {
+          const object = this.getNestedObject(value, wantedType);
+          if (object) {
+            objects.push(object);
+          }
+        });
+        return objects ?? undefined;
+      }
     }
   }
 </script>
@@ -167,7 +194,7 @@ export default {
 
 In this example, the suggestions has been limited to render a maximum of 3 items.
 
-_Type “puzzle” or another toy in the input field to try it out!_
+_Type "puzzle" or another toy in the input field to try it out!_
 
 ```vue
 <template>
