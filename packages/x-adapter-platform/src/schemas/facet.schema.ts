@@ -5,35 +5,11 @@ import {
   HierarchicalFacet,
   HierarchicalFilter,
   NumberRangeFacet,
-  NumberRangeFilter,
-  SimpleFacet,
-  SimpleFilter
+  SimpleFacet
 } from '@empathyco/x-types';
-import { PlatformFacet, PlatformFacetFilter, PlatformHierarchicalFilter } from '../types';
-
-export const numberFilterSchema: Schema<PlatformFacetFilter, NumberRangeFilter> = {
-  id: 'filter',
-  selected: () => false,
-  label: 'value',
-  modelName: () => 'NumberRangeFilter',
-  facetId: 'id',
-  range: {
-    min: ({ value }) => Number(value.split('-')[0]),
-    max: ({ value }) => Number(value.split('-')[1])
-  }
-};
-
-export const numberFilterMutableSchema = createMutableSchema(numberFilterSchema);
-
-export const simpleFilterSchema: Schema<PlatformFacetFilter, SimpleFilter> = {
-  facetId: 'filter',
-  label: 'value',
-  id: 'filter',
-  selected: () => false,
-  modelName: () => 'SimpleFilter'
-};
-
-export const simpleMutableFilterSchema = createMutableSchema(simpleFilterSchema);
+import { PlatformFacet, PlatformHierarchicalFilter } from '../types';
+import { numberFilterMutableSchema } from './filters/number-filter.schema';
+import { simpleMutableFilterSchema } from './filters/simple-filter.schema';
 
 export const facetSchema: Schema<
   PlatformFacet,
@@ -51,22 +27,22 @@ export const facetSchema: Schema<
   label: 'facet'
 };
 
+export const facetMutableSchema = createMutableSchema(facetSchema);
+
 export const hierarchicalFilterSchema: Schema<PlatformHierarchicalFilter, HierarchicalFilter> = {
   facetId: 'filter',
   label: 'value',
+  id: 'filter',
   parentId: (_, $context) => $context?.parentId as string,
   selected: () => false,
-  id: 'filter',
   modelName: () => 'HierarchicalFilter',
   children: {
     $path: 'children',
-    $subSchema: facetSchema as any
+    $subSchema: facetMutableSchema as any
   }
 };
 
 export const hierarchicalFilterMutableSchema = createMutableSchema(hierarchicalFilterSchema);
-
-export const facetMutableSchema = createMutableSchema(facetSchema);
 
 /**
  * Resolves the proper facet model name.
