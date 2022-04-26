@@ -31,7 +31,7 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
       commit('setResults', results);
       commit('setBanners', banners ?? []);
       commit('setPromoteds', promoteds ?? []);
-      commit('setRedirections', redirections);
+      commit('setRedirections', redirections ?? []);
     }
 
     commit('setPartialResults', partialResults ?? []);

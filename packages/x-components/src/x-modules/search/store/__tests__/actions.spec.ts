@@ -109,24 +109,27 @@ describe('testing search module actions', () => {
       expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
     });
 
-    // eslint-disable-next-line max-len
-    it('should set banners and promoteds to their default values if they are not defined in the response', async () => {
+    it('should set undefined response values to their default values', async () => {
       resetSearchStateWith(store, {
         query: 'lego'
       });
       adapter.search.mockResolvedValueOnce({
         ...searchResponseStub,
         banners: undefined,
-        promoteds: undefined
+        partialResults: undefined,
+        promoteds: undefined,
+        redirections: undefined,
+        spellcheck: undefined
       });
 
       await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
       expect(store.state.results).toEqual(resultsStub);
       expect(store.state.facets).toEqual(facetsStub);
       expect(store.state.banners).toEqual([]);
+      expect(store.state.partialResults).toEqual([]);
       expect(store.state.promoteds).toEqual([]);
       expect(store.state.spellcheckedQuery).toEqual('');
-      expect(store.state.redirections).toEqual(redirectionsStub);
+      expect(store.state.redirections).toEqual([]);
       expect(store.state.page).toEqual(1);
       expect(store.state.config.pageSize).toEqual(24);
       expect(store.state.status).toEqual('success');
