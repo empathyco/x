@@ -5,35 +5,35 @@
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
       <h2 class="x-title2">Default</h2>
       <picture class="x-picture">
-        <img class="x-picture__image" :src="standardImageUrl" />
+        <img class="x-picture__image" :src="standardImageUrl" alt="random image" />
       </picture>
     </article>
 
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
       <h2 class="x-title2">Card</h2>
       <picture class="x-picture x-picture--card">
-        <img class="x-picture__image" :src="standardImageUrl" />
+        <img class="x-picture__image" :src="standardImageUrl" alt="random image" />
       </picture>
     </article>
 
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
       <h2 class="x-title2">Cover</h2>
       <picture class="x-picture x-picture--cover">
-        <img class="x-picture__image" :src="whiteBackgroundImageUrl" />
+        <img class="x-picture__image" :src="whiteBackgroundImageUrl" alt="random image" />
       </picture>
     </article>
 
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
       <h2 class="x-title2">Colored</h2>
       <picture class="x-picture x-picture--colored">
-        <img class="x-picture__image" :src="whiteBackgroundImageUrl" />
+        <img class="x-picture__image" :src="whiteBackgroundImageUrl" alt="random image" />
       </picture>
     </article>
 
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
       <h2 class="x-title2">Fixed Ratio</h2>
       <picture class="x-picture x-picture--fixed-ratio">
-        <img class="x-picture__image" :src="whiteBackgroundImageUrl" />
+        <img class="x-picture__image" :src="whiteBackgroundImageUrl" alt="random image" />
       </picture>
     </article>
 
