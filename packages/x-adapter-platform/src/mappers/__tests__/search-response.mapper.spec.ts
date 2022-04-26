@@ -5,7 +5,23 @@ import { platformSearchResponse } from '../../__tests__/__fixtures__/platform-se
 describe('search response mapper tests', () => {
   it('should map the response', () => {
     const response: SearchResponse = {
-      banners: [],
+      banners: [
+        {
+          id: '61f9223221c06701c2f98c17',
+          image: 'https://assets.empathy.co/images-demo/31335.jpg',
+          title: 'Banner title',
+          url: 'https://assets.empathy.co/',
+          modelName: 'Banner',
+          tagging: {
+            query: {
+              url: '',
+              params: {
+                follow: false
+              }
+            }
+          }
+        }
+      ],
       facets: [
         {
           filters: [
@@ -238,7 +254,23 @@ describe('search response mapper tests', () => {
           modelName: 'SimpleFacet'
         }
       ],
-      promoted: [],
+      promoted: [
+        {
+          id: '61f9223221c06701c2f98c17',
+          image: 'https://assets.empathy.co/images-demo/31335.jpg',
+          title: 'Promoted title',
+          url: 'https://assets.empathy.co/',
+          modelName: 'Promoted',
+          tagging: {
+            query: {
+              url: '',
+              params: {
+                follow: false
+              }
+            }
+          }
+        }
+      ],
       queryTagging: {
         params: {
           filtered: 'true',

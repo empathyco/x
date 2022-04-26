@@ -79,7 +79,7 @@ export interface PlatformPromotedItem {
   title: string;
   url: string;
   image_url: string;
-  tagging: {
+  tagging?: {
     query: string;
   };
 }
@@ -88,7 +88,7 @@ export interface PlatformBannerItem {
   title: string;
   url: string;
   image_url: string;
-  tagging: {
+  tagging?: {
     query: string;
   };
 }

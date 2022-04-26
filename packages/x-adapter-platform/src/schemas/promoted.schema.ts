@@ -10,7 +10,7 @@ export const promotedSchema: Schema<PlatformPromotedItem, Promoted> = {
   image: 'image_url',
   modelName: () => 'Promoted',
   tagging: {
-    query: ({ tagging }) => getTaggingInfoFromUrl(tagging?.query) as TaggingInfo
+    query: ({ tagging }) => getTaggingInfoFromUrl(tagging?.query ?? '') as TaggingInfo
   }
 };
 

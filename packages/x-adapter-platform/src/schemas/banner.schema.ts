@@ -10,7 +10,7 @@ export const bannerSchema: Schema<PlatformBannerItem, Banner> = {
   url: 'url',
   image: 'image_url',
   tagging: {
-    query: ({ tagging }) => getTaggingInfoFromUrl(tagging?.query) as TaggingInfo
+    query: ({ tagging }) => getTaggingInfoFromUrl(tagging?.query ?? '') as TaggingInfo
   }
 };
 

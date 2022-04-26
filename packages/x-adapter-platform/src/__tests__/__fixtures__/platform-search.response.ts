@@ -188,7 +188,25 @@ export const platformSearchResponse = {
       }
     ]
   },
-  banner: { content: [] },
-  promoted: { content: [] },
+  banner: {
+    content: [
+      {
+        id: '61f9223221c06701c2f98c17',
+        image_url: 'https://assets.empathy.co/images-demo/31335.jpg',
+        title: 'Banner title',
+        url: 'https://assets.empathy.co/'
+      }
+    ]
+  },
+  promoted: {
+    content: [
+      {
+        id: '61f9223221c06701c2f98c17',
+        image_url: 'https://assets.empathy.co/images-demo/31335.jpg',
+        title: 'Promoted title',
+        url: 'https://assets.empathy.co/'
+      }
+    ]
+  },
   direct: { content: [] }
 };
