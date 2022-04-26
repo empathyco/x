@@ -53,10 +53,10 @@ export interface TrackableShowResponse {
  * @public
  */
 export interface SearchResponse {
-  banners: Banner[];
+  banners?: Banner[];
   facets?: Facet[];
   partialResults: PartialResult[];
-  promoteds: Promoted[];
+  promoteds?: Promoted[];
   queryTagging: TaggingInfo;
   redirections: Redirection[];
   results: Result[];

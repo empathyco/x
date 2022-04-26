@@ -110,6 +110,30 @@ describe('testing search module actions', () => {
     });
 
     // eslint-disable-next-line max-len
+    it('should set banners and promoteds to their default values if they are not defined in the response', async () => {
+      resetSearchStateWith(store, {
+        query: 'lego'
+      });
+      adapter.search.mockResolvedValueOnce({
+        ...searchResponseStub,
+        banners: undefined,
+        promoteds: undefined
+      });
+
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
+      expect(store.state.results).toEqual(resultsStub);
+      expect(store.state.facets).toEqual(facetsStub);
+      expect(store.state.banners).toEqual([]);
+      expect(store.state.promoteds).toEqual([]);
+      expect(store.state.spellcheckedQuery).toEqual('');
+      expect(store.state.redirections).toEqual(redirectionsStub);
+      expect(store.state.page).toEqual(1);
+      expect(store.state.config.pageSize).toEqual(24);
+      expect(store.state.status).toEqual('success');
+      expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
+    });
+
+    // eslint-disable-next-line max-len
     it('should clear results, facets, banners, promoteds, redirections and query tagging in the state if the query is empty', async () => {
       resetSearchStateWith(store, {
         results: resultsStub,
