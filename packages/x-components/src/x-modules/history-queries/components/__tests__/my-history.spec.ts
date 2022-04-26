@@ -8,13 +8,16 @@ import { RootXStoreState } from '../../../../store/store.types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { baseSnippetConfig } from '../../../../views/base-config';
+import { SnippetConfig } from '../../../../x-installer/api/api.types';
 import { historyQueriesXModule } from '../../x-module';
 import MyHistory from '../my-history.vue';
 import { resetXHistoryQueriesStateWith } from './utils';
 
 function renderMyHistory({
-  template = '<MyHistory />',
-  historyQueries = []
+  template = '<MyHistory :locale="locale" />',
+  historyQueries = [],
+  locale,
+  snippetConfig
 }: MyHistoryOptions = {}): MyHistoryAPI {
   const localVue = createLocalVue();
   localVue.use(Vuex);
@@ -30,15 +33,16 @@ function renderMyHistory({
         MyHistory
       },
       provide: {
-        snippetConfig: {
-          ...baseSnippetConfig,
-          lang: 'en'
-        }
-      }
+        snippetConfig
+      },
+      props: ['locale']
     },
     {
       localVue,
-      store
+      store,
+      propsData: {
+        locale
+      }
     }
   );
   return {
@@ -91,35 +95,52 @@ describe('testing MyHistory component', () => {
         modelName: 'HistoryQuery'
       }
     ];
-
+    const historyQueriesGroupedByDate = {
+      'Monday, April 18, 2022': [historyQueries[0], historyQueries[1]],
+      'Wednesday, April 6, 2022': [historyQueries[2], historyQueries[3]]
+    };
     const { findAllInWrapper } = renderMyHistory({
-      historyQueries: historyQueries
+      historyQueries: historyQueries,
+      snippetConfig: { ...baseSnippetConfig, lang: 'en' }
     });
 
-    const historyWrappers = findAllInWrapper('my-history-item');
+    checkHistory(historyQueriesGroupedByDate, findAllInWrapper);
+  });
 
-    forEach(
+  it('renders the date using the locale prop when there is no snippetConfig', () => {
+    const historyQueries: HistoryQuery[] = [
       {
-        'Monday, April 18, 2022': [historyQueries[0], historyQueries[1]],
-        'Wednesday, April 6, 2022': [historyQueries[2], historyQueries[3]]
+        query: 'lego',
+        timestamp: 1650286901802,
+        modelName: 'HistoryQuery'
       },
-      (date, historyQueries, index) => {
-        const groupWrapper = historyWrappers.at(index);
-        const historyItemWrappers = groupWrapper?.findAll(
-          getDataTestSelector('history-query-item')
-        );
-        expect(groupWrapper?.find(getDataTestSelector('my-history-date')).text()).toBe(date);
-        historyQueries.forEach((historyQuery, historyQueryIndex) => {
-          const hour = new Date(historyQuery.timestamp).toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit'
-          });
-          expect(historyItemWrappers?.at(historyQueryIndex).text()).toEqual(
-            `${historyQuery.query} ${hour} ✕`
-          );
-        });
+      {
+        query: 'barbie',
+        timestamp: 1650286895254,
+        modelName: 'HistoryQuery'
+      },
+      {
+        query: 'truck',
+        timestamp: 1649230515242,
+        modelName: 'HistoryQuery'
+      },
+      {
+        query: 'doll',
+        timestamp: 1649230513535,
+        modelName: 'HistoryQuery'
       }
-    );
+    ];
+    const historyQueriesGroupedByDate = {
+      'lunes, 18 de abril de 2022': [historyQueries[0], historyQueries[1]],
+      'miércoles, 6 de abril de 2022': [historyQueries[2], historyQueries[3]]
+    };
+    const locale = 'fr';
+    const { findAllInWrapper } = renderMyHistory({
+      historyQueries: historyQueries,
+      snippetConfig: { ...baseSnippetConfig, lang: 'en' },
+      locale
+    });
+    checkHistory(historyQueriesGroupedByDate, findAllInWrapper, locale);
   });
 
   it('allows changing history query content and render the list of history queries', () => {
@@ -163,6 +184,28 @@ describe('testing MyHistory component', () => {
       expect(contentWrapper.text()).toEqual(historyQueries[index].query);
     });
   });
+  function checkHistory(
+    historyQueriesGroupedByDate: Record<string, HistoryQuery[]>,
+    findAllInWrapper: MyHistoryAPI['findAllInWrapper'],
+    locale: [] | string = []
+  ): void {
+    const historyWrappers = findAllInWrapper('my-history-item');
+
+    forEach(historyQueriesGroupedByDate, (date, historyQueries, index) => {
+      const groupWrapper = historyWrappers[index];
+      const historyItemWrappers = groupWrapper?.findAll(getDataTestSelector('history-query-item'));
+      expect(groupWrapper?.find(getDataTestSelector('my-history-date')).text()).toBe(date);
+      historyQueries.forEach((historyQuery, historyQueryIndex) => {
+        const hour = new Date(historyQuery.timestamp).toLocaleTimeString(locale, {
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        expect(historyItemWrappers?.at(historyQueryIndex).text()).toEqual(
+          `${historyQuery.query} ${hour} ✕`
+        );
+      });
+    });
+  }
 });
 
 /**
@@ -173,6 +216,10 @@ interface MyHistoryOptions {
   template?: string;
   /** List of {@link HistoryQuery} that are going to be rendered. */
   historyQueries?: HistoryQuery[];
+  /** The locale to format the date.*/
+  locale?: string;
+  /** The provided {@link SnippetConfig}.*/
+  snippetConfig?: SnippetConfig;
 }
 
 /**

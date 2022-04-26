@@ -99,7 +99,7 @@
      *
      * @public
      */
-    @Prop({ default: 'en' })
+    @Prop({ default: () => this.snippetConfig?.lang ?? 'en' })
     protected locale!: string;
 
     /**
@@ -143,15 +143,12 @@
      */
     protected get groupByDate(): Dictionary<HistoryQuery[]> {
       return groupItemsBy(this.historyQueries, current => {
-        return new Date(current.timestamp).toLocaleDateString(
-          this.snippetConfig?.lang ?? this.locale,
-          {
-            day: 'numeric',
-            weekday: 'long',
-            month: 'long',
-            year: 'numeric'
-          }
-        );
+        return new Date(current.timestamp).toLocaleDateString(this.locale, {
+          day: 'numeric',
+          weekday: 'long',
+          month: 'long',
+          year: 'numeric'
+        });
       });
     }
 
@@ -174,7 +171,7 @@
      * @internal
      */
     protected formatTime(timestamp: number): string {
-      return new Date(timestamp).toLocaleTimeString(this.snippetConfig?.lang ?? this.locale, {
+      return new Date(timestamp).toLocaleTimeString(this.locale, {
         hour: '2-digit',
         minute: '2-digit'
       });
