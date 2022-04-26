@@ -254,9 +254,83 @@ describe('search response mapper tests', () => {
         url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/query'
       },
       redirections: [],
-      results: [],
+      results: [
+        {
+          id: '31335-U',
+          identifier: {
+            value: '31335-U'
+          },
+          images: ['https://assets.empathy.co/images-demo/31335.jpg'],
+          isWishlisted: false,
+          modelName: 'Result',
+          name: 'Locomotive Men Washed Blue Jeans',
+          price: {
+            hasDiscount: false,
+            originalValue: 10,
+            value: 10
+          },
+          rating: {
+            value: null
+          },
+          tagging: {
+            add2cart: {
+              params: {
+                filtered: 'false',
+                follow: false,
+                lang: 'en',
+                origin: 'url:external',
+                page: '1',
+                position: '1',
+                productId: '31335-U',
+                q: 'jeans',
+                scope: 'desktop',
+                spellcheck: 'false',
+                title: 'Locomotive Men Washed Blue Jeans',
+                url: 'https://assets.empathy.co/images-demo/31335.jpg'
+              },
+              url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/add2cart'
+            },
+            checkout: {
+              params: {
+                filtered: 'false',
+                follow: false,
+                lang: 'en',
+                origin: 'url:external',
+                page: '1',
+                position: '1',
+                productId: '31335-U',
+                q: 'jeans',
+                scope: 'desktop',
+                spellcheck: 'false',
+                title: 'Locomotive Men Washed Blue Jeans',
+                url: 'https://assets.empathy.co/images-demo/31335.jpg'
+              },
+              url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/checkout'
+            },
+            click: {
+              params: {
+                filtered: 'false',
+                follow: false,
+                lang: 'en',
+                origin: 'url:external',
+                page: '1',
+                position: '1',
+                productId: '31335-U',
+                q: 'jeans',
+                scope: 'desktop',
+                spellcheck: 'false',
+                title: 'Locomotive Men Washed Blue Jeans',
+                url: 'https://assets.empathy.co/images-demo/31335.jpg'
+              },
+              url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/click'
+            }
+          },
+          type: 'Default',
+          url: 'https://assets.empathy.co/images-demo/31335.jpg'
+        }
+      ],
       spellcheck: '',
-      totalResults: 686
+      totalResults: 1
     };
     expect(
       searchResponseMapper(platformSearchResponse as PlatformSearchResponse, {})

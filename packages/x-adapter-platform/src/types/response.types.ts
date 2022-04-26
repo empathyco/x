@@ -44,10 +44,10 @@ export interface PlatformResult {
   name: string;
   averageRating?: number;
   id: string;
-  images: string[];
+  images?: string[];
   image: string;
   price: number;
-  sku: string;
+  sku?: string;
   url: string;
   tagging: PlatformTagging;
 }

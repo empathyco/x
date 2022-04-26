@@ -19,10 +19,12 @@ export const resultSchema: Schema<PlatformResult, Result> = {
   name: 'name',
   url: 'url',
   identifier: {
-    value: 'sku'
+    value: 'id'
   },
   rating: {
-    value: ({ averageRating }) => Number(averageRating)
+    value: ({ averageRating }) => {
+      return averageRating ? Number(averageRating) : null;
+    }
   },
   price: {
     value: 'price',
