@@ -16,6 +16,7 @@ export const facetSchema: Schema<
   HierarchicalFacet | NumberRangeFacet | SimpleFacet | EditableNumberRangeFacet
 > = {
   id: 'facet',
+  label: 'facet',
   modelName: ({ facet }) => getFacetType(facet) as any,
   filters: {
     $path: 'values',
@@ -23,8 +24,7 @@ export const facetSchema: Schema<
     $context: {
       parentId: 'facet'
     }
-  },
-  label: 'facet'
+  }
 };
 
 export const facetMutableSchema = createMutableSchema(facetSchema);
@@ -33,6 +33,7 @@ export const hierarchicalFilterSchema: Schema<PlatformHierarchicalFilter, Hierar
   facetId: 'filter',
   label: 'value',
   id: 'filter',
+  totalResults: 'count',
   parentId: (_, $context) => $context?.parentId as string,
   selected: () => false,
   modelName: () => 'HierarchicalFilter',

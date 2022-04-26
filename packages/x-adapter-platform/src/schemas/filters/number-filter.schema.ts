@@ -6,6 +6,7 @@ export const numberFilterSchema: Schema<PlatformFacetFilter, NumberRangeFilter> 
   id: 'filter',
   facetId: 'id',
   label: 'value',
+  totalResults: 'count',
   selected: () => false,
   modelName: () => 'NumberRangeFilter',
   range: {

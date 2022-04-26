@@ -6,6 +6,7 @@ export const simpleFilterSchema: Schema<PlatformFacetFilter, SimpleFilter> = {
   facetId: 'filter',
   label: 'value',
   id: 'filter',
+  totalResults: 'count',
   selected: () => false,
   modelName: () => 'SimpleFilter'
 };

@@ -18,7 +18,8 @@ describe('search response mapper tests', () => {
                     label: 'Bottomwear',
                     modelName: 'HierarchicalFilter',
                     parentId: 'categoryPaths_78d9b7366',
-                    selected: false
+                    selected: false,
+                    totalResults: 637
                   },
                   {
                     facetId: 'categoryIds:78d9b7366__e2f94a4ea',
@@ -26,7 +27,8 @@ describe('search response mapper tests', () => {
                     label: 'Topwear',
                     modelName: 'HierarchicalFilter',
                     parentId: 'categoryPaths_78d9b7366',
-                    selected: false
+                    selected: false,
+                    totalResults: 99
                   }
                 ],
                 id: 'categoryPaths_78d9b7366',
@@ -38,7 +40,8 @@ describe('search response mapper tests', () => {
               label: 'Apparel',
               modelName: 'HierarchicalFilter',
               parentId: 'categoryPaths',
-              selected: false
+              selected: false,
+              totalResults: 736
             },
             {
               facetId: 'categoryIds:b08648dbd',
@@ -46,7 +49,8 @@ describe('search response mapper tests', () => {
               label: 'Accessories',
               modelName: 'HierarchicalFilter',
               parentId: 'categoryPaths_78d9b7366',
-              selected: false
+              selected: false,
+              totalResults: 43
             },
             {
               facetId: 'categoryIds:ffc61e1e9',
@@ -54,7 +58,8 @@ describe('search response mapper tests', () => {
               label: 'Personal Care',
               modelName: 'HierarchicalFilter',
               parentId: 'categoryPaths_78d9b7366',
-              selected: false
+              selected: false,
+              totalResults: 9
             },
             {
               facetId: 'categoryIds:e5eef62d8',
@@ -62,7 +67,8 @@ describe('search response mapper tests', () => {
               label: 'Footwear',
               modelName: 'HierarchicalFilter',
               parentId: 'categoryPaths_78d9b7366',
-              selected: false
+              selected: false,
+              totalResults: 6
             }
           ],
           id: 'categoryPaths',
@@ -80,7 +86,8 @@ describe('search response mapper tests', () => {
                 max: 20,
                 min: 10
               },
-              selected: false
+              selected: false,
+              totalResults: 97
             },
             {
               facetId: '20.0-30.0',
@@ -91,7 +98,8 @@ describe('search response mapper tests', () => {
                 max: 30,
                 min: 20
               },
-              selected: false
+              selected: false,
+              totalResults: 80
             },
             {
               facetId: '30.0-40.0',
@@ -102,7 +110,8 @@ describe('search response mapper tests', () => {
                 max: 40,
                 min: 30
               },
-              selected: false
+              selected: false,
+              totalResults: 85
             },
             {
               facetId: '40.0-50.0',
@@ -113,7 +122,8 @@ describe('search response mapper tests', () => {
                 max: 50,
                 min: 40
               },
-              selected: false
+              selected: false,
+              totalResults: 75
             },
             {
               facetId: '50.0-60.0',
@@ -124,7 +134,8 @@ describe('search response mapper tests', () => {
                 max: 60,
                 min: 50
               },
-              selected: false
+              selected: false,
+              totalResults: 88
             },
             {
               facetId: '60.0-70.0',
@@ -135,7 +146,8 @@ describe('search response mapper tests', () => {
                 max: 70,
                 min: 60
               },
-              selected: false
+              selected: false,
+              totalResults: 62
             },
             {
               facetId: '70.0-80.0',
@@ -146,7 +158,8 @@ describe('search response mapper tests', () => {
                 max: 80,
                 min: 70
               },
-              selected: false
+              selected: false,
+              totalResults: 84
             },
             {
               facetId: '80.0-90.0',
@@ -157,7 +170,8 @@ describe('search response mapper tests', () => {
                 max: 90,
                 min: 80
               },
-              selected: false
+              selected: false,
+              totalResults: 86
             },
             {
               facetId: '90.0-100.0',
@@ -168,7 +182,8 @@ describe('search response mapper tests', () => {
                 max: 100,
                 min: 90
               },
-              selected: false
+              selected: false,
+              totalResults: 79
             }
           ],
           id: 'price',
@@ -182,35 +197,40 @@ describe('search response mapper tests', () => {
               id: 'gender:men',
               label: 'men',
               modelName: 'SimpleFilter',
-              selected: false
+              selected: false,
+              totalResults: 421
             },
             {
               facetId: 'gender:women',
               id: 'gender:women',
               label: 'women',
               modelName: 'SimpleFilter',
-              selected: false
+              selected: false,
+              totalResults: 247
             },
             {
               facetId: 'gender:boys',
               id: 'gender:boys',
               label: 'boys',
               modelName: 'SimpleFilter',
-              selected: false
+              selected: false,
+              totalResults: 35
             },
             {
               facetId: 'gender:girls',
               id: 'gender:girls',
               label: 'girls',
               modelName: 'SimpleFilter',
-              selected: false
+              selected: false,
+              totalResults: 28
             },
             {
               facetId: 'gender:unisex',
               id: 'gender:unisex',
               label: 'unisex',
               modelName: 'SimpleFilter',
-              selected: false
+              selected: false,
+              totalResults: 5
             }
           ],
           id: 'gender',
