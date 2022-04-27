@@ -83,6 +83,7 @@
      * @internal
      */
     protected get suggestionsKeys(): string[] {
+      //TODO: Check if this method is needed
       return this.suggestions.map(suggestion =>
         isArrayEmpty(suggestion.facets)
           ? suggestion.query
@@ -123,13 +124,10 @@
      */
     protected get suggestionsToRender(): Suggestion[] {
       const suggestions = this.suggestions.slice(0, this.maxItemsToRender);
-      if (!this.showFacets) {
-        return suggestions;
-      }
-      let suggestionsWithFacets: Suggestion[] = [];
+      let suggestionsToRender: Suggestion[] = [];
       suggestions.forEach(suggestion => {
-        if (!suggestion.facets?.length) {
-          suggestionsWithFacets.push(suggestion);
+        if (!this.showFacets || !suggestion.facets?.length) {
+          suggestionsToRender.push({ ...suggestion, facets: [] });
         } else {
           const facetsSuggestions = this.generateSuggestionsFromFacets(suggestion);
           if (this.showQuery) {
@@ -138,10 +136,10 @@
               facets: []
             });
           }
-          suggestionsWithFacets = [...suggestionsWithFacets, ...facetsSuggestions];
+          suggestionsToRender = [...suggestionsToRender, ...facetsSuggestions];
         }
       });
-      return suggestionsWithFacets;
+      return suggestionsToRender;
     }
 
     /**

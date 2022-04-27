@@ -6,12 +6,14 @@
     data-test="popular-search"
     feature="popular_search"
   >
-    <template #default="{ suggestion }">
+    <template #default="{ suggestion, filter }">
       <!--
         @slot Popular Search's content
             @binding {Suggestion} suggestion - Popular Search suggestion data
       -->
-      <slot :suggestion="suggestion">{{ suggestion.query }}</slot>
+      <slot :suggestion="suggestion" :filter="filter">
+        {{ suggestion.query }} in {{ filter.label }}
+      </slot>
     </template>
   </BaseSuggestion>
 </template>

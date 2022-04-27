@@ -26,14 +26,6 @@ describe('testing Base Suggestion component', () => {
             selected: false,
             totalResults: 60,
             modelName: 'SimpleFilter'
-          },
-          {
-            facetId: 'rootCategories',
-            id: '{!tag=rootFilter}rootCategories_60361120_64009600:"SPECIAL PRICES"',
-            label: 'SPECIAL PRICES',
-            selected: false,
-            totalResults: 24,
-            modelName: 'SimpleFilter'
           }
         ]
       }
@@ -55,7 +47,7 @@ describe('testing Base Suggestion component', () => {
   beforeEach(() => {
     component = mount(BaseSuggestion, {
       localVue,
-      propsData: { query, suggestion, suggestionSelectedEvents, showFacets: true }
+      propsData: { query, suggestion, suggestionSelectedEvents }
     });
   });
 
@@ -110,7 +102,6 @@ describe('testing Base Suggestion component', () => {
   });
 
   it('emits UserClickedAFilter if the suggestions has a filter', async () => {
-    await component.setProps({ showFacets: true });
     const target = getWireMetadataObject(component);
     const spyOn = jest.spyOn(XPlugin.bus, 'emit');
     component.trigger('click');
