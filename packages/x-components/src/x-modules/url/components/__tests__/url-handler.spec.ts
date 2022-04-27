@@ -24,7 +24,7 @@ Object.defineProperty(window, 'performance', {
  * @param root0
  * @param root0.template
  * @param root0.urlParams
- * @returns UrlHandlerAPI - The API for testing the {@link UrlHandler} component.
+ * @returns The API for testing the {@link UrlHandler} component.
  */
 function renderUrlHandler({
   template = `<UrlHandler />`,

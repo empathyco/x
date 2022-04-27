@@ -227,8 +227,7 @@ export type SubSchemaTransformer<Source, Target> = {
           ? Target extends (infer TargetArrayType)[]
             ? Schema<SourceArrayType, TargetArrayType>
             : never
-          : // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          Target extends (infer TargetArrayType)[]
+          : Target extends []
           ? never
           : Schema<ExtractType<Source, Path>, Target>)
       | '$self';
