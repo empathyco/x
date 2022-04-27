@@ -41,10 +41,15 @@ describe('testing Base Suggestion component', () => {
     key: 'bebe lloron',
     modelName: 'QuerySuggestion'
   };
+
   const suggestionSelectedEvents: Partial<XEventsTypes> = {
     UserSelectedAQuerySuggestion: suggestion,
     UserTalked: 'belt'
   };
+
+  const getWireMetadataObject = (component: Wrapper<Vue>): Partial<WireMetadata> =>
+    expect.objectContaining<Partial<WireMetadata>>({ target: component.element });
+
   let component: Wrapper<Vue>;
 
   beforeEach(() => {
@@ -92,7 +97,7 @@ describe('testing Base Suggestion component', () => {
   });
 
   it('emits suggestionSelectedEvent and the default events onclick', async () => {
-    const target = expect.objectContaining<Partial<WireMetadata>>({ target: component.element });
+    const target = getWireMetadataObject(component);
     const spyOn = jest.spyOn(XPlugin.bus, 'emit');
     component.trigger('click');
 
@@ -102,5 +107,26 @@ describe('testing Base Suggestion component', () => {
     expect(spyOn).toHaveBeenNthCalledWith(2, 'UserSelectedASuggestion', suggestion, target);
     expect(spyOn).toHaveBeenNthCalledWith(3, 'UserSelectedAQuerySuggestion', suggestion, target);
     expect(spyOn).toHaveBeenNthCalledWith(4, 'UserTalked', 'belt', target);
+  });
+
+  it('emits UserClickedAFilter if the suggestions has a filter', async () => {
+    await component.setProps({ showFacets: true });
+    const target = getWireMetadataObject(component);
+    const spyOn = jest.spyOn(XPlugin.bus, 'emit');
+    component.trigger('click');
+    await localVue.nextTick();
+    expect(spyOn).toHaveBeenCalledWith(
+      'UserClickedAFilter',
+      suggestion.facets[0].filters[0],
+      target
+    );
+  });
+
+  it("won't emit UserClickedAFilter if showFacets is false", async () => {
+    await component.setProps({ showFacets: false });
+    const spyOn = jest.spyOn(XPlugin.bus, 'emit');
+    component.trigger('click');
+    await localVue.nextTick();
+    expect(spyOn).not.toHaveBeenCalledWith('UserClickedAFilter');
   });
 });
