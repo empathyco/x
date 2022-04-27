@@ -246,6 +246,12 @@ export interface SearchActions {
    * @param originInit - The object to create the origin with.
    */
   saveOrigin(originInit: QueryOriginInit): void;
+  /**
+   * Saves the {@link SearchResponse}.
+   *
+   * @param response - The {@link SearchResponse} to save.
+   */
+  saveSearchResponse(response: SearchResponse): void;
 }
 
 /**

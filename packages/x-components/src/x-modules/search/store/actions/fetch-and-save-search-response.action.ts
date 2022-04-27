@@ -11,40 +11,8 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   fetch({ dispatch, state }, request) {
     return dispatch('fetchSearchResponse', request ? enrichRequest(request, state) : null);
   },
-  onSuccess(
-    { commit, state },
-    {
-      results,
-      partialResults,
-      facets,
-      banners,
-      promoteds,
-      totalResults,
-      spellcheck,
-      redirections,
-      queryTagging
-    }
-  ) {
-    if (state.isAppendResults) {
-      commit('appendResults', results);
-    } else {
-      commit('setResults', results);
-      commit('setBanners', banners);
-      commit('setPromoteds', promoteds);
-      commit('setRedirections', redirections);
-    }
-
-    commit('setPartialResults', partialResults ?? []);
-
-    if (facets) {
-      commit('setFacets', facets);
-    }
-
-    if (queryTagging) {
-      commit('setQueryTagging', queryTagging);
-    }
-    commit('setTotalResults', totalResults);
-    commit('setSpellcheck', spellcheck ?? '');
+  onSuccess({ dispatch }, response) {
+    dispatch('saveSearchResponse', response);
   }
 });
 
