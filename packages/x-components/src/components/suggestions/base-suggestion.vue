@@ -8,9 +8,11 @@
     -->
     <!-- eslint-enable max-len -->
     <slot v-bind="{ suggestion, queryHTML, filter: suggestionFilter }">
-      <span v-html="queryHTML" :aria-label="suggestion.query" class="x-suggestion__query" />
-      <span v-if="hasFacets" class="x-suggestion__facet x-lowercase">
-        {{ suggestionFilter.label }}
+      <span class="x-flex-auto">
+        <span v-html="queryHTML" :aria-label="suggestion.query" class="x-suggestion__query" />
+        <span v-if="hasFacets" class="x-suggestion__facet x-lowercase">
+          {{ suggestionFilter.label }}
+        </span>
       </span>
     </slot>
   </button>
@@ -57,7 +59,7 @@
      *
      * @public
      */
-    @Prop({ default: false })
+    @Prop({ default: true })
     protected showFacets!: boolean;
 
     /**
@@ -110,7 +112,7 @@
         UserSelectedASuggestion: this.suggestion,
         ...this.suggestionSelectedEvents
       };
-      if (this.suggestion.facets[0]) {
+      if (this.showFacets && this.hasFacets) {
         events.UserClickedAFilter = this.suggestion.facets[0].filters[0];
       }
       return events;
