@@ -85,16 +85,16 @@ describe('testing Base Suggestions component', () => {
     expect(renderedSuggestions()).toHaveLength(suggestions.length);
   });
 
-  it('renders all suggestions filters', () => {
+  it('renders all suggestions filters if showFacets is true', () => {
     const wrapper = mount(BaseSuggestions, {
       propsData: {
         suggestions: [suggestionWithFacets],
         showFacets: true
       },
       scopedSlots: {
-        default({ suggestion }: { suggestion: Suggestion }) {
+        default({ suggestion, showFacets }: { suggestion: Suggestion; showFacets: boolean }) {
           const filterLabel = (<BooleanFilter>suggestion.facets[0].filters[0]).label;
-          return `${suggestion.query} - ${filterLabel}`;
+          return showFacets ? `${suggestion.query} - ${filterLabel}` : `${suggestion.query}`;
         }
       }
     });
@@ -102,6 +102,25 @@ describe('testing Base Suggestions component', () => {
     expect(data).toHaveLength(2);
     expect(data.at(0).element.textContent).toEqual('testQuery - DORMIR');
     expect(data.at(1).element.textContent).toEqual('testQuery - SPECIAL PRICES');
+  });
+
+  it("won't render suggestions with filters is showFacets is false", () => {
+    const wrapper = mount(BaseSuggestions, {
+      propsData: {
+        suggestions: [suggestionWithFacets],
+        showFacets: false
+      },
+      scopedSlots: {
+        default({ suggestion, showFacets }: { suggestion: Suggestion; showFacets: boolean }) {
+          const filterLabel = (<BooleanFilter>suggestion.facets[0].filters[0]).label;
+          expect(showFacets).toBeFalsy();
+          return showFacets ? `${suggestion.query} - ${filterLabel}` : `${suggestion.query}`;
+        }
+      }
+    });
+    const data = findTestDataById(wrapper, 'suggestion-item');
+    expect(data).toHaveLength(1);
+    expect(data.at(0).element.textContent).toEqual('testQuery');
   });
 
   function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {

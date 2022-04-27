@@ -11,7 +11,7 @@
             @binding {Suggestion} suggestion - Suggestion data
             @binding {number} index - Suggestion index
        -->
-      <slot v-bind="{ suggestion, index }" />
+      <slot v-bind="{ suggestion, index, showFacets }" />
     </li>
   </component>
 </template>
@@ -110,6 +110,9 @@
      */
     protected get suggestionsToRender(): Suggestion[] {
       const suggestions = this.suggestions.slice(0, this.maxItemsToRender);
+      if (!this.showFacets) {
+        return suggestions;
+      }
       let suggestionsWithFacets: Suggestion[] = [];
       suggestions.forEach(suggestion => {
         if (!suggestion.facets?.length) {
