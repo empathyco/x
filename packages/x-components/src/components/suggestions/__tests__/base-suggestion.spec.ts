@@ -101,11 +101,13 @@ describe('testing Base Suggestion component', () => {
     expect(spyOn).toHaveBeenNthCalledWith(4, 'UserTalked', 'belt', target);
   });
 
-  it('emits UserClickedAFilter if the suggestions has a filter', async () => {
+  it('emits UserClickedAFilter if the suggestion has a filter', async () => {
     const target = getWireMetadataObject(component);
     const spyOn = jest.spyOn(XPlugin.bus, 'emit');
     component.trigger('click');
+
     await localVue.nextTick();
+
     expect(spyOn).toHaveBeenCalledWith(
       'UserClickedAFilter',
       suggestion.facets[0].filters[0],
@@ -113,11 +115,18 @@ describe('testing Base Suggestion component', () => {
     );
   });
 
-  it("won't emit UserClickedAFilter if showFacets is false", async () => {
-    await component.setProps({ showFacets: false });
+  it('does not emit UserClickedAFilter if there is no filter', async () => {
+    await component.setProps({ suggestion: { ...suggestion, facets: [] } });
+    const target = getWireMetadataObject(component);
     const spyOn = jest.spyOn(XPlugin.bus, 'emit');
     component.trigger('click');
+
     await localVue.nextTick();
-    expect(spyOn).not.toHaveBeenCalledWith('UserClickedAFilter');
+
+    expect(spyOn).not.toHaveBeenCalledWith(
+      'UserClickedAFilter',
+      suggestion.facets[0].filters[0],
+      target
+    );
   });
 });
