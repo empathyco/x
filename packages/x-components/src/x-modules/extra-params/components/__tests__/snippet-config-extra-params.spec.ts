@@ -56,8 +56,8 @@ describe('testing snippet config extra params component', () => {
 
   it('is an XComponent which has an XModule', () => {
     const { wrapper } = renderSnippetConfigExtraParams();
-    expect(isXComponent(wrapper.vm)).toBe(true);
-    expect(getXComponentXModuleName(wrapper.vm)).toBe('extraParams');
+    expect(isXComponent(wrapper.vm)).toEqual(true);
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('extraParams');
   });
 
   // eslint-disable-next-line max-len
