@@ -13,6 +13,29 @@ import { historyQueriesXModule } from '../../x-module';
 import MyHistory from '../my-history.vue';
 import { resetXHistoryQueriesStateWith } from './utils';
 
+const historyQueries: HistoryQuery[] = [
+  {
+    query: 'lego',
+    timestamp: 1650286901802,
+    modelName: 'HistoryQuery'
+  },
+  {
+    query: 'barbie',
+    timestamp: 1650286895254,
+    modelName: 'HistoryQuery'
+  },
+  {
+    query: 'truck',
+    timestamp: 1649230515242,
+    modelName: 'HistoryQuery'
+  },
+  {
+    query: 'doll',
+    timestamp: 1649230513535,
+    modelName: 'HistoryQuery'
+  }
+];
+
 function renderMyHistory({
   template = '<MyHistory :locale="locale" />',
   historyQueries = [],
@@ -73,28 +96,6 @@ describe('testing MyHistory component', () => {
   });
 
   it('renders the list of searched queries group by date', () => {
-    const historyQueries: HistoryQuery[] = [
-      {
-        query: 'lego',
-        timestamp: 1650286901802,
-        modelName: 'HistoryQuery'
-      },
-      {
-        query: 'barbie',
-        timestamp: 1650286895254,
-        modelName: 'HistoryQuery'
-      },
-      {
-        query: 'truck',
-        timestamp: 1649230515242,
-        modelName: 'HistoryQuery'
-      },
-      {
-        query: 'doll',
-        timestamp: 1649230513535,
-        modelName: 'HistoryQuery'
-      }
-    ];
     const historyQueriesGroupedByDate = {
       'Monday, April 18, 2022': [historyQueries[0], historyQueries[1]],
       'Wednesday, April 6, 2022': [historyQueries[2], historyQueries[3]]
@@ -104,43 +105,20 @@ describe('testing MyHistory component', () => {
       snippetConfig: { ...baseSnippetConfig, lang: 'en' }
     });
 
-    checkHistory(historyQueriesGroupedByDate, findAllInWrapper);
+    expectValidHistoryContent(historyQueriesGroupedByDate, findAllInWrapper);
   });
 
   it('renders the date using the locale prop when there is no snippetConfig', () => {
-    const historyQueries: HistoryQuery[] = [
-      {
-        query: 'lego',
-        timestamp: 1650286901802,
-        modelName: 'HistoryQuery'
-      },
-      {
-        query: 'barbie',
-        timestamp: 1650286895254,
-        modelName: 'HistoryQuery'
-      },
-      {
-        query: 'truck',
-        timestamp: 1649230515242,
-        modelName: 'HistoryQuery'
-      },
-      {
-        query: 'doll',
-        timestamp: 1649230513535,
-        modelName: 'HistoryQuery'
-      }
-    ];
     const historyQueriesGroupedByDate = {
       'lunes, 18 de abril de 2022': [historyQueries[0], historyQueries[1]],
       'miércoles, 6 de abril de 2022': [historyQueries[2], historyQueries[3]]
     };
-    const locale = 'fr';
+    const locale = 'es';
     const { findAllInWrapper } = renderMyHistory({
       historyQueries: historyQueries,
-      snippetConfig: { ...baseSnippetConfig, lang: 'en' },
       locale
     });
-    checkHistory(historyQueriesGroupedByDate, findAllInWrapper, locale);
+    expectValidHistoryContent(historyQueriesGroupedByDate, findAllInWrapper, locale);
   });
 
   it('allows changing history query content and render the list of history queries', () => {
@@ -184,13 +162,13 @@ describe('testing MyHistory component', () => {
       expect(contentWrapper.text()).toEqual(historyQueries[index].query);
     });
   });
-  function checkHistory(
+
+  function expectValidHistoryContent(
     historyQueriesGroupedByDate: Record<string, HistoryQuery[]>,
     findAllInWrapper: MyHistoryAPI['findAllInWrapper'],
     locale: [] | string = []
   ): void {
     const historyWrappers = findAllInWrapper('my-history-item');
-
     forEach(historyQueriesGroupedByDate, (date, historyQueries, index) => {
       const groupWrapper = historyWrappers[index];
       const historyItemWrappers = groupWrapper?.findAll(getDataTestSelector('history-query-item'));

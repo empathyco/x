@@ -99,7 +99,10 @@
      *
      * @public
      */
-    @Prop({ default: () => this.snippetConfig?.lang ?? 'en' })
+    @Prop({
+      default: () =>
+        (this as unknown as Vue & { snippetConfig?: SnippetConfig }).snippetConfig?.lang ?? 'en'
+    })
     protected locale!: string;
 
     /**
