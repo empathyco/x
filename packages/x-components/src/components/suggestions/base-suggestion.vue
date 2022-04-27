@@ -7,15 +7,9 @@
           @binding {string} queryHTML - Suggestion's query with the matching part inside a `<span>` tag
     -->
     <!-- eslint-enable max-len -->
-    <slot v-bind="{ suggestion, queryHTML }">
-      <span
-        v-html="queryHTML"
-        :aria-label="suggestion.query"
-        class="x-suggestion__query x-flex-1"
-      />
-    </slot>
-    <slot name="suggestionFacet">
-      <span v-if="hasFacets" class="x-suggestion__facet x-lowercase x-flex-auto">
+    <slot v-bind="{ suggestion, queryHTML, filter: suggestionFilter }">
+      <span v-html="queryHTML" :aria-label="suggestion.query" class="x-suggestion__query" />
+      <span v-if="hasFacets" class="x-suggestion__facet x-lowercase">
         {{ suggestionFilter.label }}
       </span>
     </slot>
@@ -63,7 +57,7 @@
      *
      * @public
      */
-    @Prop({ default: true })
+    @Prop({ default: false })
     protected showFacets!: boolean;
 
     /**
@@ -145,8 +139,8 @@
      * @returns The filter.
      * @public
      */
-    protected get suggestionFilter(): BooleanFilter {
-      return <BooleanFilter>this.suggestion.facets[0].filters[0];
+    protected get suggestionFilter(): BooleanFilter | null {
+      return this.hasFacets ? <BooleanFilter>this.suggestion.facets[0].filters[0] : null;
     }
 
     /**
