@@ -27,8 +27,8 @@ function renderBaseGridComponent({
 }: BaseGridRenderOptions = {}): BaseGridComponentAPI {
   const searchResponse = getSearchResponseStub();
   const defaultItems = [
-    ...searchResponse.banners,
-    ...searchResponse.promoteds,
+    ...searchResponse.banners!,
+    ...searchResponse.promoteds!,
     ...searchResponse.results,
     {
       modelName: 'NextQueriesGroup',
