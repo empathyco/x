@@ -29,13 +29,13 @@ module.exports = {
         }
       ],
       'vue/eqeqeq': 'error',
-      'vue/multi-word-component-names': 'off',
+      'vue/multi-word-component-names': 'warn',
       'vue/no-template-shadow': 'off',
       'vue/no-v-html': 'off',
-      'vue/component-tags-order': 'off',
+      'vue/component-tags-order': 'warn',
       'vue/v-on-function-call': 'error',
-      'vue/v-slot-style': 'off',
-      'vue/valid-v-slot': 'off'
+      'vue/v-slot-style': 'warn',
+      'vue/valid-v-slot': 'warn'
     }
   }
 };

@@ -285,7 +285,10 @@
         const url = new URL(window.location.href);
         this.deleteUrlParameters(url);
         this.setUrlParameters(url, newUrlParams);
-        if (url.href.replace(/\+/g, '%20') !== window.location.href) {
+
+        url.href = url.href.replace(/\+/g, '%20');
+
+        if (url.href !== window.location.href) {
           historyMethod({ ...window.history.state }, document.title, url.href);
         }
         this.url = url;
@@ -297,7 +300,8 @@
      *
      * @param url - The URL to remove parameters from.
      * @internal
-     * **/
+     * *
+     */
     protected deleteUrlParameters(url: URL): void {
       this.managedParamsNames.forEach(paramName =>
         url.searchParams.delete(this.getUrlKey(paramName))
@@ -315,7 +319,8 @@
      * important for SEO purposes.
      *
      * @internal
-     * **/
+     * *
+     */
     protected setUrlParameters(url: URL, urlParams: UrlParams): void {
       const filteredParams = objectFilter(urlParams, paramName =>
         this.managedParamsNames.includes(paramName as string)

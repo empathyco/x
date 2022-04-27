@@ -10,10 +10,10 @@ module.exports = {
       extends: ['plugin:jest/recommended', 'plugin:jest/style'],
       rules: {
         'jest/expect-expect': ['error', { assertFunctionNames: ['expect*'] }],
-        'jest/prefer-to-be': 'off',
+        'jest/prefer-to-be': 'warn',
         'jest/prefer-lowercase-title': ['error', { ignore: ['test'] }],
         'jest/no-alias-methods': 'error',
-        'jest/no-conditional-expect': 'off',
+        'jest/no-conditional-expect': 'warn',
         'jest/no-commented-out-tests': 'error',
         'jest/no-disabled-tests': 'error',
         'jest/no-duplicate-hooks': 'error',

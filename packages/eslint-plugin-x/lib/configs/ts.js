@@ -15,7 +15,6 @@ const syntaxRules = {
   '@typescript-eslint/no-empty-interface': 'off',
   '@typescript-eslint/no-explicit-any': 'off',
   '@typescript-eslint/no-extra-parens': ['error', 'all', { nestedBinaryExpressions: false }],
-  '@typescript-eslint/no-loss-of-precision': 'off',
   '@typescript-eslint/no-non-null-assertion': 'off',
   '@typescript-eslint/no-unused-expressions': ['error'],
   '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
@@ -32,7 +31,7 @@ const typeRules = {
   '@typescript-eslint/no-unsafe-return': 'off', // TODO - Consider to enable
   '@typescript-eslint/prefer-nullish-coalescing': 'error',
   '@typescript-eslint/restrict-template-expressions': 'error',
-  '@typescript-eslint/no-unsafe-argument': 'off'
+  '@typescript-eslint/no-unsafe-argument': 'warn'
 };
 
 module.exports = {

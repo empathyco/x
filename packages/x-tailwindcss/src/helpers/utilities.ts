@@ -3,6 +3,8 @@ import { TailwindHelpers } from '../types';
 /**
  * Default utility styles.
  *
+ * @param root0
+ * @param root0.theme
  * @returns All the styles for each utility.
  *
  * @public

@@ -7,7 +7,7 @@ module.exports = {
       'jsdoc/check-alignment': 'error',
       'jsdoc/check-indentation': 'error',
       'jsdoc/check-param-names': [
-        'error',
+        'warn',
         {
           checkDestructured: false,
           useDefaultObjectProperties: false
@@ -19,16 +19,16 @@ module.exports = {
           definedTags: ['internal', 'remarks', 'typeParam', 'packageDocumentation']
         }
       ],
-      'jsdoc/empty-tags': 'off',
+      'jsdoc/empty-tags': 'warn',
       'jsdoc/implements-on-classes': 'off',
-      'jsdoc/multiline-blocks': 'off',
+      'jsdoc/multiline-blocks': 'warn',
       'jsdoc/newline-after-description': 'error',
       'jsdoc/no-multi-asterisks': 'off',
       'jsdoc/require-description': 'error',
-      'jsdoc/require-description-complete-sentence': 'off',
+      'jsdoc/require-description-complete-sentence': 'warn',
       'jsdoc/require-hyphen-before-param-description': 'error',
-      'jsdoc/require-param': 'off',
-      'jsdoc/require-param-description': 'error',
+      'jsdoc/require-param': 'warn',
+      'jsdoc/require-param-description': 'warn',
       'jsdoc/require-param-name': 'error',
       'jsdoc/require-param-type': 'off',
       'jsdoc/require-returns': 'error',
