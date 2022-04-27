@@ -247,9 +247,9 @@ export interface SearchActions {
    */
   saveOrigin(originInit: QueryOriginInit): void;
   /**
-   * Saves the {@link SearchResponse}.
+   * Saves the {@link @empathyco/x-adapter#SearchResponse}.
    *
-   * @param response - The {@link SearchResponse} to save.
+   * @param response - The {@link @empathyco/x-adapter#SearchResponse} to save.
    */
   saveSearchResponse(response: SearchResponse): void;
 }
