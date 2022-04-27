@@ -8,7 +8,7 @@
     -->
     <slot v-bind="{ items, animation }">
       <ItemsList :animation="animation" :items="items">
-        <template v-for="(_, slotName) in $scopedSlots" #[slotName]="{ item }">
+        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ item }">
           <slot :name="slotName" :item="item" />
         </template>
       </ItemsList>
