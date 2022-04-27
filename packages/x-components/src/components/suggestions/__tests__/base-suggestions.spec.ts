@@ -123,6 +123,26 @@ describe('testing Base Suggestions component', () => {
     expect(data.at(0).element.textContent).toEqual('testQuery');
   });
 
+  it('shows the query as well as the suggestion including facets', () => {
+    const wrapper = mount(BaseSuggestions, {
+      propsData: {
+        showFacets: true,
+        showQuery: true,
+        suggestions: [suggestionWithFacets]
+      },
+      scopedSlots: {
+        default({ suggestion }: { suggestion: Suggestion }) {
+          return `${suggestion.query}${
+            suggestion.facets.length ? (<BooleanFilter>suggestion.facets[0].filters[0]).label : ''
+          }`;
+        }
+      }
+    });
+    const data = findTestDataById(wrapper, 'suggestion-item');
+    expect(data).toHaveLength(3);
+    expect(data.at(2).element.textContent).toEqual(suggestionWithFacets.query);
+  });
+
   function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {
     return wrapper.findAll(getDataTestSelector(testDataId));
   }

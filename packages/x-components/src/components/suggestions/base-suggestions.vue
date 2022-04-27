@@ -60,8 +60,21 @@
     @Prop()
     protected maxItemsToRender?: number;
 
-    @Prop({ default: false })
+    /**
+     * Indicates if the suggestions must be rendered along with its facets.
+     *
+     * @public
+     */
+    @Prop({ default: true })
     protected showFacets!: boolean;
+
+    /**
+     * When showFacets is true, indicates if the query suggestion without facet must be rendered.
+     *
+     * @public
+     */
+    @Prop({ default: false })
+    protected showQuery!: boolean;
 
     /**
      * An array with the unique keys for each suggestion. Required by the `v-for` loop.
@@ -119,6 +132,12 @@
           suggestionsWithFacets.push(suggestion);
         } else {
           const facetsSuggestions = this.generateSuggestionsFromFacets(suggestion);
+          if (this.showQuery) {
+            facetsSuggestions.push({
+              ...suggestion,
+              facets: []
+            });
+          }
           suggestionsWithFacets = [...suggestionsWithFacets, ...facetsSuggestions];
         }
       });
