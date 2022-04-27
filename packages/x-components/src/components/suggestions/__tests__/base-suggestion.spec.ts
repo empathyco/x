@@ -1,11 +1,10 @@
-import { Suggestion } from '@empathyco/x-types';
+import { BooleanFilter, Suggestion } from '@empathyco/x-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { XPlugin } from '../../../plugins/x-plugin';
-import { normalizeString } from '../../../utils/normalize';
-import { XEventsTypes } from '../../../wiring/events.types';
+import { XPlugin } from '../../../plugins/index';
+import { normalizeString } from '../../../utils/index';
+import { WireMetadata, XEventsTypes } from '../../../wiring/index';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
-import { WireMetadata } from '../../../wiring/wiring.types';
 import BaseSuggestion from '../base-suggestion.vue';
 
 describe('testing Base Suggestion component', () => {
@@ -14,7 +13,31 @@ describe('testing Base Suggestion component', () => {
   const query = normalizeString('(b<ebé>)');
   const suggestion: Suggestion = {
     query: '(b<ebé>) lloron',
-    facets: [],
+    facets: [
+      {
+        id: 'rootCategories',
+        label: 'rootCategories',
+        modelName: 'SimpleFacet',
+        filters: <Array<BooleanFilter>>[
+          {
+            facetId: 'rootCategories',
+            id: '{!tag=rootFilter}rootCategories_60361120_64009600:"DORMIR"',
+            label: 'DORMIR',
+            selected: false,
+            totalResults: 60,
+            modelName: 'SimpleFilter'
+          },
+          {
+            facetId: 'rootCategories',
+            id: '{!tag=rootFilter}rootCategories_60361120_64009600:"SPECIAL PRICES"',
+            label: 'SPECIAL PRICES',
+            selected: false,
+            totalResults: 24,
+            modelName: 'SimpleFilter'
+          }
+        ]
+      }
+    ],
     key: 'bebe lloron',
     modelName: 'QuerySuggestion'
   };
@@ -27,12 +50,18 @@ describe('testing Base Suggestion component', () => {
   beforeEach(() => {
     component = mount(BaseSuggestion, {
       localVue,
-      propsData: { query, suggestion, suggestionSelectedEvents }
+      propsData: { query, suggestion, suggestionSelectedEvents, showFacets: true }
     });
   });
 
   it('passes the prop suggestion to the default slot', () => {
     expect(component.element.textContent).toContain(suggestion.query);
+  });
+
+  it('passes the prop suggestionFilter to the default slot', () => {
+    expect(component.element.textContent).toContain(
+      (<BooleanFilter>suggestion.facets[0].filters[0]).label
+    );
   });
 
   it('has suggestion query parts matching query passed as prop retaining accent marks', () => {
@@ -53,6 +82,13 @@ describe('testing Base Suggestion component', () => {
     const hasMatchingQuery = (component.vm as any).hasMatchingQuery;
 
     expect(hasMatchingQuery).toBe(false);
+  });
+
+  it('does not have a filter label if the suggestion has no facets', async () => {
+    await component.setProps({ suggestion: { ...suggestion, facets: [] } });
+    expect(component.element.textContent).not.toContain(
+      (<BooleanFilter>suggestion.facets[0].filters[0]).label
+    );
   });
 
   it('emits suggestionSelectedEvent and the default events onclick', async () => {
