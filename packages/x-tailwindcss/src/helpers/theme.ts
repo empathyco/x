@@ -38,6 +38,11 @@ export default {
       50: '#D44A6F',
       75: '#A42748'
     },
+    highlight: {
+      25: 'E2D8E3',
+      50: '8B6391',
+      75: '684A6D'
+    },
     success: {
       25: '#ECFDF5',
       50: '#10B981',
