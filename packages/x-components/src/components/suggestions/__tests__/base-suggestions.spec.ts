@@ -73,9 +73,10 @@ describe('testing Base Suggestions component', () => {
       }
     });
     const data = findTestDataById(wrapper, 'suggestion-item');
-    expect(data).toHaveLength(2);
+    expect(data).toHaveLength(3);
     expect(data.at(0).element.textContent).toEqual('testQuery - DORMIR');
     expect(data.at(1).element.textContent).toEqual('testQuery - SPECIAL PRICES');
+    expect(data.at(2).element.textContent).toEqual('testQuery - EXAMPLE');
   });
 
   it("won't render suggestions with filters if showFacets is false", () => {
@@ -112,8 +113,8 @@ describe('testing Base Suggestions component', () => {
       }
     });
     const data = findTestDataById(wrapper, 'suggestion-item');
-    expect(data).toHaveLength(3);
-    expect(data.at(2).element.textContent).toEqual(suggestionWithFacets.query);
+    expect(data).toHaveLength(4);
+    expect(data.at(3).element.textContent).toEqual(suggestionWithFacets.query);
   });
 
   function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {

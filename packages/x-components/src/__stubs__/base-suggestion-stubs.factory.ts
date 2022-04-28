@@ -39,6 +39,21 @@ export function createBaseSuggestionWithFacets(
             modelName: 'SimpleFilter'
           }
         ]
+      },
+      {
+        id: 'exampleFacet',
+        label: 'exampleFacet',
+        modelName: 'SimpleFacet',
+        filters: <Array<BooleanFilter>>[
+          {
+            facetId: 'exampleFacet',
+            id: '{!tag=exampleFacet}exampleFacet_60361120_64009600:"EXAMPLE"',
+            label: 'EXAMPLE',
+            selected: false,
+            totalResults: 60,
+            modelName: 'SimpleFilter'
+          }
+        ]
       }
     ],
     key: key,
