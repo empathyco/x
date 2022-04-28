@@ -151,17 +151,20 @@
      * @internal
      */
     protected generateSuggestionsFromFacets(suggestion: Suggestion): Suggestion[] {
-      const suggestions: Suggestion[] = [];
-      suggestion.facets.forEach(facet => {
+      return suggestion.facets.reduce((suggestions, facet) => {
         facet.filters.forEach(filter => {
-          const plannedSuggestion = { ...suggestion };
-          const filterFacet = { ...facet };
-          filterFacet.filters = [filter];
-          plannedSuggestion.facets = [filterFacet];
-          suggestions.push(plannedSuggestion);
+          suggestions.push({
+            ...suggestion,
+            facets: [
+              {
+                ...facet,
+                filters: [filter]
+              }
+            ]
+          });
         });
-      });
-      return suggestions;
+        return suggestions;
+      }, [] as Suggestion[]);
     }
   }
 </script>
