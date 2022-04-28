@@ -35,8 +35,10 @@ describe('testing popular search item component', () => {
   });
 
   it('renders a button with the query of the popular search (suggestion)', () => {
-    expect(popularSearchWrapper.find('span').element).toBeFalsy();
-    expect(popularSearchWrapper.element.innerHTML).toEqual(suggestion.query);
+    expect(popularSearchWrapper.find(getDataTestSelector('popular-search')).element).toBeInstanceOf(
+      HTMLButtonElement
+    );
+    expect(popularSearchWrapper.element.innerHTML).toContain(suggestion.query);
   });
 
   it('renders a button overriding the default content', () => {
