@@ -12,7 +12,7 @@
         v-html="queryHTML"
         :aria-label="suggestion.query"
         class="x-suggestion__query"
-        :class="{ 'x-flex-1': hasFacets }"
+        :class="{ 'x-flex-none': hasFacets }"
       />
       <span v-if="hasFacets" class="x-font-weight--regular x-font-size--04 x-line-height--tight">
         |
