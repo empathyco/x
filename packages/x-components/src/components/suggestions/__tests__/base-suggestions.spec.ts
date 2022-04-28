@@ -66,9 +66,9 @@ describe('testing Base Suggestions component', () => {
         showFacets: true
       },
       scopedSlots: {
-        default({ suggestion, showFacets }: { suggestion: Suggestion; showFacets: boolean }) {
+        default({ suggestion }: { suggestion: Suggestion }) {
           const filterLabel = (<BooleanFilter>suggestion.facets[0].filters[0]).label;
-          return showFacets ? `${suggestion.query} - ${filterLabel}` : `${suggestion.query}`;
+          return `${suggestion.query} - ${filterLabel}`;
         }
       }
     });
