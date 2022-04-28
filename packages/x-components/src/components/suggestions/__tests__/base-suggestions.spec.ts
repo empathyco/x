@@ -104,17 +104,16 @@ describe('testing Base Suggestions component', () => {
     expect(data.at(1).element.textContent).toEqual('testQuery - SPECIAL PRICES');
   });
 
-  it("won't render suggestions with filters is showFacets is false", () => {
+  it("won't render suggestions with filters if showFacets is false", () => {
     const wrapper = mount(BaseSuggestions, {
       propsData: {
         suggestions: [suggestionWithFacets],
         showFacets: false
       },
       scopedSlots: {
-        default({ suggestion, showFacets }: { suggestion: Suggestion; showFacets: boolean }) {
-          const filterLabel = (<BooleanFilter>suggestion.facets[0].filters[0]).label;
-          expect(showFacets).toBeFalsy();
-          return showFacets ? `${suggestion.query} - ${filterLabel}` : `${suggestion.query}`;
+        default({ suggestion }: { suggestion: Suggestion }) {
+          expect(suggestion.facets).toHaveLength(0);
+          return `${suggestion.query}`;
         }
       }
     });
