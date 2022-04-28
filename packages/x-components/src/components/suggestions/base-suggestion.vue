@@ -254,7 +254,7 @@ to emit when the suggestion is selected.
 
 ```vue
 <BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }">
-  <template #default="{ suggestion, queryHTML }">
+  <template #default="{ suggestion, queryHTML, filter }">
     <span
       class="my-suggestion"
       v-html="queryHTML"
@@ -272,5 +272,7 @@ A list of events that the component will emit:
   the suggestion query data.
 - `UserSelectedASuggestion`: the event is emitted after the user clicks the button. The event
   payload is the suggestion data.
+- `UserClickedAFilter`: the event is emitted after the user clicks the button if the suggestion
+  includes a filter. The event payload is the suggestion filter.
 - The component can emit more events on click using the `suggestionSelectedEvents` prop.
 </docs>
