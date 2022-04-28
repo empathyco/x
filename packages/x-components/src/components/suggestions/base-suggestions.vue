@@ -11,7 +11,7 @@
             @binding {Suggestion} suggestion - Suggestion data
             @binding {number} index - Suggestion index
        -->
-      <slot v-bind="{ suggestion, index, showFacets }" />
+      <slot v-bind="{ suggestion, index }" />
     </li>
   </component>
 </template>

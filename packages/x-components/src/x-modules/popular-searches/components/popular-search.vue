@@ -11,8 +11,12 @@
         @slot Popular Search's content
             @binding {Suggestion} suggestion - Popular Search suggestion data
       -->
+
       <slot :suggestion="suggestion" :filter="filter">
-        {{ suggestion.query }} in {{ filter.label }}
+        <span class="x-lowercase">
+          {{ suggestion.query }}
+          <span v-if="filter">in {{ filter.label }}</span>
+        </span>
       </slot>
     </template>
   </BaseSuggestion>
@@ -23,8 +27,8 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { XEventsTypes } from '../../../wiring/events.types';
+  import { xComponentMixin } from '../../../components';
+  import { XEventsTypes } from '../../../wiring';
   import { popularSearchesXModule } from '../x-module';
 
   /**
