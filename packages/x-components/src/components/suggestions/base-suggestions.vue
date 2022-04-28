@@ -83,8 +83,7 @@
      * @internal
      */
     protected get suggestionsKeys(): string[] {
-      //TODO: Check if this method is needed
-      return this.suggestions.map(suggestion =>
+      return this.suggestionsToRender.map(suggestion =>
         isArrayEmpty(suggestion.facets)
           ? suggestion.query
           : `${suggestion.query}-in-${this.getFacetsKey(suggestion.facets)}`
