@@ -12,12 +12,7 @@
             @binding {Suggestion} suggestion - Popular Search suggestion data
       -->
 
-      <slot :suggestion="suggestion" :filter="filter">
-        <span class="x-lowercase">
-          {{ suggestion.query }}
-          <span v-if="filter">in {{ filter.label }}</span>
-        </span>
-      </slot>
+      <slot :suggestion="suggestion" :filter="filter"></slot>
     </template>
   </BaseSuggestion>
 </template>

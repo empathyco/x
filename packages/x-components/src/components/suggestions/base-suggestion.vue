@@ -8,11 +8,26 @@
     -->
     <!-- eslint-enable max-len -->
     <slot v-bind="{ suggestion, queryHTML, filter: suggestionFilter }">
-      <span class="x-flex-auto">
-        <span v-html="queryHTML" :aria-label="suggestion.query" class="x-suggestion__query" />
-        <span v-if="hasFacets" class="x-suggestion__facet x-lowercase">
-          in {{ suggestionFilter.label }}
-        </span>
+      <span
+        v-html="queryHTML"
+        :aria-label="suggestion.query"
+        class="x-suggestion__query"
+        :class="{ 'x-flex-1': hasFacets }"
+      />
+      <span v-if="hasFacets" class="x-font-weight--regular x-font-size--04 x-line-height--tight">
+        |
+      </span>
+      <span
+        v-if="hasFacets"
+        class="
+          x-suggestion__facet
+          x-font-weight--regular
+          x-font-size--04
+          x-line-height--tight
+          x-flex-auto
+        "
+      >
+        {{ suggestionFilter.label }}
       </span>
     </slot>
   </button>
