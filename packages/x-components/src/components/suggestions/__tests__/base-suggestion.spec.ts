@@ -1,8 +1,9 @@
-import { BooleanFilter, Suggestion } from '@empathyco/x-types';
+import { BooleanFilter } from '@empathyco/x-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { XPlugin } from '../../../plugins/index';
 import { normalizeString } from '../../../utils/index';
+import { createBaseSuggestionWithFacets } from '../../../__stubs__/base-suggestion-stubs.factory';
 import { WireMetadata, XEventsTypes } from '../../../wiring/index';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseSuggestion from '../base-suggestion.vue';
@@ -11,28 +12,11 @@ describe('testing Base Suggestion component', () => {
   const [, localVue] = installNewXPlugin();
 
   const query = normalizeString('(b<ebé>)');
-  const suggestion: Suggestion = {
-    query: '(b<ebé>) lloron',
-    facets: [
-      {
-        id: 'rootCategories',
-        label: 'rootCategories',
-        modelName: 'SimpleFacet',
-        filters: <Array<BooleanFilter>>[
-          {
-            facetId: 'rootCategories',
-            id: '{!tag=rootFilter}rootCategories_60361120_64009600:"DORMIR"',
-            label: 'DORMIR',
-            selected: false,
-            totalResults: 60,
-            modelName: 'SimpleFilter'
-          }
-        ]
-      }
-    ],
-    key: 'bebe lloron',
-    modelName: 'QuerySuggestion'
-  };
+  const suggestion = createBaseSuggestionWithFacets(
+    '(b<ebé>) lloron',
+    'bebe lloron',
+    'QuerySuggestion'
+  );
 
   const suggestionSelectedEvents: Partial<XEventsTypes> = {
     UserSelectedAQuerySuggestion: suggestion,
