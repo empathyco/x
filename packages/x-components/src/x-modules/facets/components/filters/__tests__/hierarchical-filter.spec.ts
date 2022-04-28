@@ -5,12 +5,14 @@ import { createHierarchicalFacetStub } from '../../../../../__stubs__/facets-stu
 import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import { XPlugin } from '../../../../../plugins/x-plugin';
+import { XEventsTypes } from '../../../../../wiring/events.types';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
 import HierarchicalFilter from '../hierarchical-filter.vue';
 
 function renderHierarchicalFilter({
-  template = `<HierarchicalFilter :filter="filter" />`
+  template = `<HierarchicalFilter :filter="filter" :clickEvents="clickEvents" />`,
+  clickEvents
 }: HierarchicalFilterOptions = {}): HierarchicalFilterAPI {
   const facet = createHierarchicalFacetStub('category', createFilter => [
     // Partially selected
@@ -35,6 +37,9 @@ function renderHierarchicalFilter({
       computed: {
         filter() {
           return store.state.x.facets.filters['category:root'];
+        },
+        clickEvents() {
+          return clickEvents;
         }
       }
     },
@@ -123,10 +128,41 @@ describe('testing `HierarchicalFilter` component', () => {
     });
   });
 
+  it('emits configured events when clicked', () => {
+    const { getFilterWrapper, clickFilter, emit, getRootFilter } = renderHierarchicalFilter({
+      clickEvents: {
+        UserAcceptedAQuery: 'potato',
+        UserBlurredSearchBox: undefined
+      }
+    });
+    const filter = getRootFilter();
+    clickFilter();
+
+    expect(emit).toHaveBeenCalledTimes(4);
+    ['UserClickedAFilter', 'UserClickedAHierarchicalFilter'].forEach(event => {
+      expect(emit).toHaveBeenCalledWith(event, filter, {
+        target: getFilterWrapper().element,
+        moduleName: 'facets'
+      });
+    });
+    expect(emit).toHaveBeenCalledWith('UserAcceptedAQuery', 'potato', {
+      target: getFilterWrapper().element,
+      moduleName: 'facets'
+    });
+    expect(emit).toHaveBeenCalledWith('UserBlurredSearchBox', undefined, {
+      target: getFilterWrapper().element,
+      moduleName: 'facets'
+    });
+  });
+
   it('allows replacing the root element of the component', () => {
     const { hierarchicalFilterWrapper, getRootFilter, emit } = renderHierarchicalFilter({
       template: `
-        <HierarchicalFilter :filter="filter" v-slot="{ filter, clickFilter }">
+        <HierarchicalFilter
+          :filter="filter"
+          :clickEvents="clickEvents"
+          v-slot="{ filter, clickFilter }"
+          >
           <label data-test="custom-label">
             <input data-test="custom-input"
               type="checkbox"
@@ -158,7 +194,7 @@ describe('testing `HierarchicalFilter` component', () => {
   it('allows customizing the rendered label content with an slot', () => {
     const { getFilterWrapper, getRootFilter } = renderHierarchicalFilter({
       template: `
-        <HierarchicalFilter :filter="filter">
+        <HierarchicalFilter :filter="filter" :clickEvents="clickEvents">
           <template #label :filter="filter">
             <span data-test="custom-label">{{ filter.label }}</span>
           </template>
@@ -235,7 +271,7 @@ describe('testing `HierarchicalFilter` component', () => {
     it('allows customizing the slot for all the children', () => {
       const { getFiltersWrappers, getFilters } = renderHierarchicalFilter({
         template: `
-          <HierarchicalFilter :filter="filter" #label="{ filter }">
+          <HierarchicalFilter :filter="filter" :clickEvents="clickEvents" #label="{ filter }">
             Custom - {{ filter.label }}
           </HierarchicalFilter>`
       });
@@ -285,6 +321,37 @@ describe('testing `HierarchicalFilter` component', () => {
       });
     });
 
+    it('emits configured events when a child is clicked', () => {
+      const { getFiltersWrappers, emit } = renderHierarchicalFilter({
+        clickEvents: {
+          UserAcceptedAQuery: 'potato',
+          UserBlurredSearchBox: undefined
+        }
+      });
+      expect(getFiltersWrappers().wrappers.length).toBeGreaterThan(1);
+      getFiltersWrappers().wrappers.forEach(filterWrapper => {
+        emit.mockClear();
+        filterWrapper.trigger('click');
+        const filter = (filterWrapper.vm as any).filter;
+
+        expect(emit).toHaveBeenCalledTimes(4);
+        ['UserClickedAFilter', 'UserClickedAHierarchicalFilter'].forEach(event => {
+          expect(emit).toHaveBeenCalledWith(event, filter, {
+            target: filterWrapper.element,
+            moduleName: 'facets'
+          });
+        });
+        expect(emit).toHaveBeenCalledWith('UserAcceptedAQuery', 'potato', {
+          target: filterWrapper.element,
+          moduleName: 'facets'
+        });
+        expect(emit).toHaveBeenCalledWith('UserBlurredSearchBox', undefined, {
+          target: filterWrapper.element,
+          moduleName: 'facets'
+        });
+      });
+    });
+
     it('adds a CSS class when the filter is partially selected', () => {
       const { getFiltersWrappers, getPartiallySelectedFilters } = renderHierarchicalFilter();
       const partiallySelectedIds = getPartiallySelectedFilters().map(filter => filter.id);
@@ -308,6 +375,7 @@ describe('testing `HierarchicalFilter` component', () => {
         template: `
            <HierarchicalFilter
              :filter="filter"
+             :clickEvents="clickEvents"
              v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
              >
                <button
@@ -354,6 +422,7 @@ describe('testing `HierarchicalFilter` component', () => {
 });
 
 interface HierarchicalFilterOptions {
+  clickEvents?: Partial<XEventsTypes>;
   filter?: HierarchicalFilterModel;
   template?: string;
 }

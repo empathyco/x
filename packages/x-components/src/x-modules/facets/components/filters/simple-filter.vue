@@ -2,7 +2,7 @@
   <RenderlessFilter
     v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
     :class="cssClasses"
-    :clickEvents="clickEvents"
+    :clickEvents="_clickEvents"
     :filter="filter"
     class="x-simple-filter"
   >
@@ -66,15 +66,23 @@
     public filter!: SimpleFilterModel;
 
     /**
-     * Additional events to emit when the filter is clicked.
+     * Additional events, with their payload, to emit when the filter is clicked.
      *
-     * @returns A dictionary with the events to be emitted when the filter is clicked, and its
-     * payload.
+     * @public
+     */
+    @Prop()
+    public clickEvents?: Partial<XEventsTypes>;
+
+    /**
+     * The {@link clickEvents} to emit.
+     *
+     * @returns The events to emit when clicked.
      * @internal
      */
-    protected get clickEvents(): Partial<XEventsTypes> {
+    protected get _clickEvents(): Partial<XEventsTypes> {
       return {
-        UserClickedASimpleFilter: this.filter
+        UserClickedASimpleFilter: this.filter,
+        ...this.clickEvents
       };
     }
 

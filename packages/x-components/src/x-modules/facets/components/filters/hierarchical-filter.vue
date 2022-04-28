@@ -3,7 +3,7 @@
     <RenderlessFilter
       v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
       :class="cssClasses"
-      :clickEvents="clickEvents"
+      :clickEvents="_clickEvents"
       :filter="filter"
       class="x-hierarchical-filter"
     >
@@ -39,7 +39,11 @@
       class="x-hierarchical-filter__children"
       data-test="children-filters"
     >
-      <HierarchicalFilter :childrenAnimation="childrenAnimation" :filter="childFilter">
+      <HierarchicalFilter
+        :childrenAnimation="childrenAnimation"
+        :filter="childFilter"
+        :clickEvents="getChildFilterClickEvents(childFilter)"
+      >
         <template #default="{ filter, clickFilter, cssClasses, isDisabled }">
           <slot v-bind="{ filter, clickFilter, cssClasses, isDisabled }" />
         </template>
@@ -52,7 +56,12 @@
 </template>
 
 <script lang="ts">
-  import { Filter, HierarchicalFilter as HierarchicalFilterModel } from '@empathyco/x-types';
+  import {
+    Filter,
+    HierarchicalFilter as HierarchicalFilterModel,
+    isHierarchicalFilter
+  } from '@empathyco/x-types';
+  import { isObject } from '@empathyco/x-utils';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { State, xComponentMixin } from '../../../../components';
@@ -89,15 +98,23 @@
     public filters!: Record<Filter['id'], Filter>;
 
     /**
-     * Additional events to emit when the filter is clicked.
+     * Additional events, with their payload, to emit when the filter is clicked.
      *
-     * @returns A dictionary with the events to be emitted when the filter is clicked, and its
-     * payload.
+     * @public
+     */
+    @Prop()
+    public clickEvents!: Partial<XEventsTypes>;
+
+    /**
+     * The {@link clickEvents} to emit.
+     *
+     * @returns The events to emit when clicked.
      * @internal
      */
-    protected get clickEvents(): Partial<XEventsTypes> {
+    protected get _clickEvents(): Partial<XEventsTypes> {
       return {
-        UserClickedAHierarchicalFilter: this.filter
+        UserClickedAHierarchicalFilter: this.filter,
+        ...this.clickEvents
       };
     }
 
@@ -113,6 +130,33 @@
         'x-hierarchical-filter--is-selected': this.filter.selected,
         'x-filter--is-partially-selected': this.isPartiallySelected
       };
+    }
+
+    /**
+     * Gets the child filter click events, converting the payload of the events that have a
+     * {@link @empathyco/x-types#HierarchicalFilter} as payload to the corresponding child filter.
+     *
+     * @param childFilter - The child filter.
+     *
+     * @returns The events to emit when clicking a child.
+     * @internal
+     */
+    protected getChildFilterClickEvents(
+      childFilter: HierarchicalFilterModel
+    ): Partial<XEventsTypes> {
+      return Object.keys(this._clickEvents).reduce((clickEvents, event) => {
+        const payload = this._clickEvents[event as keyof XEventsTypes];
+
+        return {
+          ...clickEvents,
+          [event]:
+            isObject(payload) &&
+            isHierarchicalFilter(payload as unknown as Filter) &&
+            childFilter !== (payload as unknown as HierarchicalFilterModel)
+              ? childFilter
+              : payload
+        };
+      }, {} as Partial<XEventsTypes>);
     }
 
     /**
