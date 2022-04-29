@@ -79,8 +79,8 @@
     private resultsStub = getResultsStub();
     private searchResponse = getSearchResponseStub();
     protected searchResponseStub = [
-      ...this.searchResponse.banners,
-      ...this.searchResponse.promoteds,
+      ...this.searchResponse.banners!,
+      ...this.searchResponse.promoteds!,
       ...this.searchResponse.results
     ];
     protected resultWithImages = this.resultsStub[0];

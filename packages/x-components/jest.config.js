@@ -1,7 +1,7 @@
 module.exports = {
   preset: 'ts-jest',
   transform: {
-    '^.+\\.vue$': '@vue/vue2-jest',
+    '^.+\\.vue$': require.resolve('./vue-preprocessor'),
     '^.+\\.scss$': 'jest-scss-transform'
   },
   testMatch: ['<rootDir>/src/**/*.spec.ts'],
