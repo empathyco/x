@@ -6,7 +6,7 @@ module.exports = {
   },
   rules: {
     'no-dupe-class-members': 'off',
-    '@typescript-eslint/no-unused-vars-experimental': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
     'vuejs-accessibility/alt-text': 'warn',
     'vuejs-accessibility/anchor-has-content': 'warn',
     'vuejs-accessibility/aria-props': 'warn',

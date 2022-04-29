@@ -4,7 +4,7 @@ module.exports = {
   tsdoc: {
     plugins: ['tsdoc'],
     rules: {
-      'tsdoc/syntax': 'error'
+      'tsdoc/syntax': 'warn'
     }
   }
 };
