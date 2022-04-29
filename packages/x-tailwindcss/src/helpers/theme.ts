@@ -1,72 +1,6 @@
 export default {
-  // TODO: replace this example styles with actual design styles
-  colors: {
-    neutral: {
-      0: '#FFFFFF',
-      10: '#E0E0E0',
-      25: '#CBCBCB',
-      50: '#ACACAC',
-      75: '#5E5E5E',
-      90: '#131313',
-      100: '#000000'
-    },
-    primary: {
-      25: '#46768B',
-      50: '#36515B',
-      75: '#243D48'
-    },
-    secondary: {
-      25: '#06C1FF',
-      50: '#0086B2',
-      75: '#006485'
-    },
-    accent: {
-      25: '#EC9B89',
-      50: '#E67962',
-      75: '#D44122'
-    },
-    highlight: {
-      25: '#F5DEA3',
-      50: '#F2CF6C',
-      75: '#CB9C13'
-    },
-    success: {
-      25: '#F5DEA3',
-      50: '#F2CF6C',
-      75: '#CB9C13'
-    },
-    warning: {
-      25: '#46768B',
-      50: '#36515B',
-      400: '#243D48'
-    },
-    error: {
-      25: '#46768B',
-      50: '#36515B',
-      75: '#243D48'
-    }
-  },
-  spacing: {
-    1: '1px',
-    2: '2px',
-    4: '4px',
-    8: '8px',
-    12: '12px',
-    16: '16px',
-    20: '20px',
-    24: '24px',
-    32: '32px',
-    40: '40px',
-    48: '48px',
-    56: '56px',
-    64: '64px',
-    80: '80px',
-    96: '96px',
-    128: '128px',
-    156: '156px'
-  },
   borderRadius: {
-    none: '0px',
+    none: 0,
     xs: '2px',
     sm: '4px',
     md: '8px',
@@ -78,6 +12,59 @@ export default {
     1: '1px',
     2: '2px',
     4: '4px'
+  },
+  colors: {
+    neutral: {
+      0: '#FFFFFF',
+      10: '#E7E7E7',
+      25: '#BFBFBF',
+      50: '#808080',
+      75: '#404040',
+      90: '#1A1A1A',
+      100: '#000000'
+    },
+    primary: {
+      25: '#CDD3D6',
+      50: '#243D48',
+      75: '#1B2D36'
+    },
+    secondary: {
+      25: '#BFE1EC',
+      50: '#0086B2',
+      75: '#006485'
+    },
+    accent: {
+      25: '#F4D2DB',
+      50: '#D44A6F',
+      75: '#A42748'
+    },
+    highlight: {
+      25: 'E2D8E3',
+      50: '8B6391',
+      75: '684A6D'
+    },
+    success: {
+      25: '#ECFDF5',
+      50: '#10B981',
+      75: '#065F46'
+    },
+    warning: {
+      25: '#FFFBEB',
+      50: '#F59E0B',
+      75: '#92400E'
+    },
+    error: {
+      25: '#FEF2F2',
+      50: '#EF4444',
+      75: '#991B1B'
+    }
+  },
+  fontFamily: {
+    primary: 'Montserrat',
+    secondary: 'Lora',
+    auxiliary: 'Helvetica Neue',
+    special: 'Allan',
+    icon: 'font-awesome'
   },
   fontSize: {
     xxs: '10px',
@@ -99,27 +86,39 @@ export default {
     regular: 400,
     bold: 600
   },
-  fontFamily: {
-    primary: '',
-    secondary: '',
-    auxiliary: '',
-    special: '',
-    icons: ''
-  },
   letterSpacing: {
-    sm: '-0.05em',
-    md: '0em',
-    lg: '0.1em'
+    sm: '-1%',
+    md: 0,
+    lg: '2%'
   },
   lineHeight: {
-    sm: '1',
-    md: '1.5',
-    lg: '2'
+    sm: 1,
+    md: 1.5,
+    lg: 2
   },
   screens: {
     tablet: '800px',
     desktop: '1200px',
     large: '2800px'
+  },
+  spacing: {
+    'spacing-1': 1,
+    'spacing-2': 2,
+    'spacing-4': 4,
+    'spacing-8': 8,
+    'spacing-12': 12,
+    'spacing-16': 16,
+    'spacing-20': 20,
+    'spacing-24': 24,
+    'spacing-32': 32,
+    'spacing-40': 40,
+    'spacing-48': 48,
+    'spacing-56': 56,
+    'spacing-64': 64,
+    'spacing-80': 80,
+    'spacing-96': 96,
+    'spacing-128': 128,
+    'spacing-152': 152
   },
   extend: {}
 } as const;
