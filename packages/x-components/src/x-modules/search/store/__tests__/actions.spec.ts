@@ -4,6 +4,7 @@ import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
 //eslint-disable-next-line max-len
 import { getEmptySearchResponseStub } from '../../../../__stubs__/empty-search-response-stubs.factory';
 import { getFacetsStub } from '../../../../__stubs__/facets-stubs.factory';
+import { getPartialResultsStub } from '../../../../__stubs__/partials-results-stubs.factory';
 import { getPromotedsStub } from '../../../../__stubs__/promoteds-stubs.factory';
 import { getRedirectionsStub } from '../../../../__stubs__/redirections-stubs.factory';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
@@ -19,6 +20,7 @@ describe('testing search module actions', () => {
   const resultsStub = getResultsStub();
   const facetsStub = getFacetsStub();
   const bannersStub = getBannersStub();
+  const partialResultsStub = getPartialResultsStub();
   const promotedsStub = getPromotedsStub();
   const redirectionsStub = getRedirectionsStub();
   const searchResponseStub = getSearchResponseStub();
@@ -254,6 +256,47 @@ describe('testing search module actions', () => {
       expect(store.state.banners).toBe(banners);
       expect(store.state.promoteds).toBe(promoteds);
       expect(store.state.status).toEqual('error');
+    });
+  });
+
+  describe('saveSearchResponse', () => {
+    it('saves the search response in the search state', () => {
+      store.dispatch('saveSearchResponse', {
+        ...searchResponseStub,
+        partialResults: [...partialResultsStub]
+      });
+      expect(store.state.results).toEqual(resultsStub);
+      expect(store.state.facets).toEqual(facetsStub);
+      expect(store.state.banners).toEqual(bannersStub);
+      expect(store.state.partialResults).toEqual(partialResultsStub);
+      expect(store.state.promoteds).toEqual(promotedsStub);
+      expect(store.state.redirections).toEqual(redirectionsStub);
+      expect(store.state.spellcheckedQuery).toEqual('');
+      expect(store.state.page).toEqual(1);
+      expect(store.state.config.pageSize).toEqual(24);
+      expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
+    });
+
+    // eslint-disable-next-line max-len
+    it('saves default values of optional or undefined response properties in the search state', () => {
+      store.dispatch('saveSearchResponse', {
+        ...searchResponseStub,
+        partialResults: undefined,
+        redirections: undefined,
+        banners: undefined,
+        promoteds: undefined,
+        spellcheck: undefined
+      });
+      expect(store.state.results).toEqual(resultsStub);
+      expect(store.state.facets).toEqual(facetsStub);
+      expect(store.state.banners).toEqual([]);
+      expect(store.state.partialResults).toEqual([]);
+      expect(store.state.promoteds).toEqual([]);
+      expect(store.state.redirections).toEqual([]);
+      expect(store.state.spellcheckedQuery).toEqual('');
+      expect(store.state.page).toEqual(1);
+      expect(store.state.config.pageSize).toEqual(24);
+      expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
     });
   });
 

@@ -246,6 +246,12 @@ export interface SearchActions {
    * @param originInit - The object to create the origin with.
    */
   saveOrigin(originInit: QueryOriginInit): void;
+  /**
+   * Saves the {@link @empathyco/x-adapter#SearchResponse}.
+   *
+   * @param response - The {@link @empathyco/x-adapter#SearchResponse} to save.
+   */
+  saveSearchResponse(response: SearchResponse): void;
 }
 
 /**
