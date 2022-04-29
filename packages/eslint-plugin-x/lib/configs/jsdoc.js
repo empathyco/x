@@ -29,13 +29,6 @@ module.exports = {
       'jsdoc/require-returns-check': 'error',
       'jsdoc/require-returns-description': 'error',
       'jsdoc/require-returns-type': 'off',
-      'jsdoc/tag-lines': [
-        'error',
-        'any',
-        {
-          dropLines: 'true'
-        }
-      ],
       'jsdoc/valid-types': 'off'
     }
   }
