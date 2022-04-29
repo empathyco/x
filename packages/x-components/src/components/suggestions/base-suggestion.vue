@@ -8,27 +8,7 @@
     -->
     <!-- eslint-enable max-len -->
     <slot v-bind="{ suggestion, queryHTML, filter: suggestionFilter }">
-      <span
-        v-html="queryHTML"
-        :aria-label="suggestion.query"
-        class="x-suggestion__query"
-        :class="{ 'x-flex-none': hasFacets }"
-      />
-      <span v-if="hasFacets" class="x-font-weight--regular x-font-size--04 x-line-height--tight">
-        |
-      </span>
-      <span
-        v-if="hasFacets"
-        class="
-          x-suggestion__facet
-          x-font-weight--regular
-          x-font-size--04
-          x-line-height--tight
-          x-flex-auto
-        "
-      >
-        {{ suggestionFilter.label }}
-      </span>
+      <span v-html="queryHTML" :aria-label="suggestion.query" class="x-suggestion__query" />
     </slot>
   </button>
 </template>
@@ -191,30 +171,44 @@
     }
 
     /**
-     * Highlights the matching part of the suggestion query with the query passed as prop of the
-     * component putting it inside a `<span>` tag.
+     * Returns the HTML to render the query, including the matching part and the filter.
      *
      * @remarks
      * The query prop should be normalized.
      *
-     * @returns The suggestion's query with the matching part inside a `<span>` tag.
+     * @returns The suggestion's query HTML.
      * @public
      */
     protected get queryHTML(): string {
-      if (this.hasMatchingQuery) {
-        const matcherIndex = normalizeString(this.suggestion.query).indexOf(this.query);
-
-        const [beginning, matching, end] = this.splitAt(
-          this.suggestion.query,
-          matcherIndex,
-          this.query.length
-        );
-
-        const attrsMatching = 'data-test="matching-part" class="x-suggestion__matching-part"';
-        return `${beginning}<span ${attrsMatching}>${matching}</span>${end}`;
+      let query = this.hasMatchingQuery
+        ? this.queryMatchingPartHTML()
+        : sanitize(this.suggestion.query);
+      if (this.hasFacets && this.suggestionFilter) {
+        const attrsFacets =
+          'class="x-font-weight--regular x-font-size--04 x-line-height--tight x-margin--left-03"';
+        query +=
+          `<span ${attrsFacets}>|</span>` +
+          `<span ${attrsFacets}>${this.suggestionFilter.label}</span>`;
       }
+      return query;
+    }
 
-      return sanitize(this.suggestion.query);
+    /**
+     * Highlights the matching part of the suggestion query with the query passed as prop of the
+     * component putting it inside a `<span>` tag.
+     *
+     * @returns The suggestion's query with the matching part inside a `<span>` tag.
+     * @internal
+     */
+    protected queryMatchingPartHTML(): string {
+      const matcherIndex = normalizeString(this.suggestion.query).indexOf(this.query);
+      const [beginning, matching, end] = this.splitAt(
+        this.suggestion.query,
+        matcherIndex,
+        this.query.length
+      );
+      const attrsMatching = 'data-test="matching-part" class="x-suggestion__matching-part"';
+      return `${beginning}<span ${attrsMatching}>${matching}</span>${end}`;
     }
 
     /**
