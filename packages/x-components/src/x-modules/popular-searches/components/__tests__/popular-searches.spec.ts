@@ -27,7 +27,7 @@ describe('testing popular searches component', () => {
   });
 
   it('is an XComponent', () => {
-    expect(isXComponent(popularSearchesWrapper.vm)).toEqual(true);
+    expect(isXComponent(popularSearchesWrapper.vm)).toBe(true);
     expect(getXComponentXModuleName(popularSearchesWrapper.vm)).toBe('popularSearches');
   });
 
@@ -35,7 +35,7 @@ describe('testing popular searches component', () => {
     const eventButtonsList = findTestDataById(popularSearchesWrapper, 'popular-search');
 
     popularSearches.forEach((suggestion, index) => {
-      expect(eventButtonsList.at(index).element.innerHTML).toEqual(suggestion.query);
+      expect(eventButtonsList.at(index).element.innerHTML).toContain(suggestion.query);
     });
   });
 
@@ -116,7 +116,7 @@ describe('testing popular searches component', () => {
 
     await localVue.nextTick();
 
-    expect(popularSearchesWrapper.html()).toEqual('');
+    expect(popularSearchesWrapper.html()).toBe('');
   });
 
   it('renders at most the number of PopularSearch defined by `maxItemsToRender` prop', async () => {
