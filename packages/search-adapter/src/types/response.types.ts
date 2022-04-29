@@ -53,14 +53,14 @@ export interface TrackableShowResponse {
  * @public
  */
 export interface SearchResponse {
-  banners: Banner[];
+  banners?: Banner[];
   facets?: Facet[];
-  partialResults: PartialResult[];
-  promoteds: Promoted[];
+  partialResults?: PartialResult[];
+  promoteds?: Promoted[];
   queryTagging: TaggingInfo;
-  redirections: Redirection[];
+  redirections?: Redirection[];
   results: Result[];
-  spellcheck: string;
+  spellcheck?: string;
   totalResults: number;
 }
 
