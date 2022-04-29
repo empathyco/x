@@ -6,13 +6,7 @@ module.exports = {
     rules: {
       'jsdoc/check-alignment': 'error',
       'jsdoc/check-indentation': 'error',
-      'jsdoc/check-param-names': [
-        'error',
-        {
-          checkDestructured: false,
-          useDefaultObjectProperties: false
-        }
-      ],
+      'jsdoc/check-param-names': 'warn',
       'jsdoc/check-tag-names': [
         'error',
         {
