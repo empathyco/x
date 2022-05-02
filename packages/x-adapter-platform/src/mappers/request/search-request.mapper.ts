@@ -1,6 +1,6 @@
 import { createMutableSchema, Schema, schemaMapperFactory } from '@empathyco/x-adapter-next';
 import { reduce } from '@empathyco/x-utils';
-import { Filter, isHierarchicalFilter } from '@empathyco/x-types';
+import { isHierarchicalFilter } from '@empathyco/x-types';
 import { PlatformSearchRequest, SearchRequest } from '../../types/request.types';
 
 export const searchRequestSchema: Schema<SearchRequest, PlatformSearchRequest> = {
@@ -31,7 +31,7 @@ export const searchRequestMapper = schemaMapperFactory<SearchRequest, PlatformSe
 function mapFilters({ filters }: SearchRequest): string[] {
   return reduce(
     filters,
-    (accumulator: string[], _, filters: Filter[]) => {
+    (accumulator, _, filters) => {
       if (Array.isArray(filters)) {
         accumulator.push(
           ...filters
@@ -45,6 +45,6 @@ function mapFilters({ filters }: SearchRequest): string[] {
       }
       return accumulator;
     },
-    []
+    [] as string[]
   );
 }
