@@ -33,11 +33,11 @@
   },
   "dependencies": {
     "@empathyco/x-adapter-next": "^0.2.0-alpha.16",
+    "@empathyco/x-types": "^10.0.0-alpha.20",
+    "@empathyco/x-utils": "^0.1.0-alpha.11",
     "tslib": "~2.3.0"
   },
   "devDependencies": {
-    "@empathyco/x-types": "^10.0.0-alpha.20",
-    "@empathyco/x-utils": "^0.1.0-alpha.11",
     "@types/jest": "~27.0.3",
     "concurrently": "~7.0.0",
     "jest": "~27.3.1",
