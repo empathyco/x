@@ -17,6 +17,7 @@
 </template>
 
 <script lang="ts">
+  import Vue from 'vue';
   import { NextQuery } from '@empathyco/x-types';
   import { mixins } from 'vue-class-component';
   import { Component, Prop } from 'vue-property-decorator';

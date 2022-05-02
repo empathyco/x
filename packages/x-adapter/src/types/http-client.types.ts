@@ -11,7 +11,7 @@ import { Dictionary } from '@empathyco/x-utils';
 export type HttpClient = <Response = unknown>(
   endpoint: string,
   options?: Omit<RequestOptions, 'endpoint'>
-) => Promise<Response>;
+) => Promise<Readonly<Response>>;
 
 /**
  * A record of options to make the request with.
