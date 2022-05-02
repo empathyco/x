@@ -33,7 +33,7 @@
       <template #filled-icon>◼</template>
       <template #empty-icon>◻</template>
     </BaseRating>
-    <BaseColumnPickerList v-slot="{ column }" :columns="[2, 4, 6]">
+    <BaseColumnPickerList #default="{ column }" :columns="[2, 4, 6]">
       <span>{{ column }}⇋</span>
     </BaseColumnPickerList>
     <BaseVariableColumnGrid :items="searchResponseStub">

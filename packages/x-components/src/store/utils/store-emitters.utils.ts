@@ -39,6 +39,7 @@ export interface StateSelector<ReturnType, State extends Dictionary, Getters ext
    * @remarks
    * This function exist because Vue will not stop reactivity propagation if the observed variable
    * is an `object`, an `Array`, or the `deep` mode has been enabled.
+   *
    * @param newValue - The new value.
    * @param oldValue - The old value.
    * @returns True if the value has really changed.

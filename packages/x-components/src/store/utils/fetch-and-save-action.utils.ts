@@ -7,11 +7,6 @@ import { StatusMutations, StatusState } from './status-store.utils';
  * option to cancel the request at any moment. This factory provides with the standard flow
  * for requesting, cancelling, handling errors for a module, while also taking care of its status.
  *
- * @param root0
- * @param root0.fetch
- * @param root0.onSuccess
- * @param root0.onError
- * @param root0.onCancel
  * @public
  * @returns An action to fetch and save some data, and an action to cancel the last request.
  */

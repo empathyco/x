@@ -79,6 +79,7 @@
      *
      * @param payload - The payload of the {@link XEvent}, that is unused in this case.
      * @param metadata - The {@link WireMetadata} of the event, used to emit the Empathize XEvents.
+     *
      * @internal
      */
     @XOn(component => (component as Empathize).eventsToOpenEmpathize)
@@ -94,6 +95,7 @@
      *
      * @param payload - The payload of the {@link XEvent}, that is unused in this case.
      * @param metadata - The {@link WireMetadata} of the event, used to emit the Empathize XEvents.
+     *
      * @internal
      */
     @XOn(component => (component as Empathize).eventsToCloseEmpathize)
@@ -110,6 +112,7 @@
      * @param newOpenState - The new state to assign to {@link Empathize.isOpen}.
      * @param metadata - The {@link WireMetadata} to emit the {@link XEvent | XEvents}. If is
      * undefined, a this component is used as source of info for the metadata.
+     *
      * @internal
      */
     @Debounce(0)

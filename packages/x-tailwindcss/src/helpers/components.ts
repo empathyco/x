@@ -3,9 +3,8 @@ import { TailwindHelpers } from '../types';
 /**
  * Default component styles.
  *
- * @param root0
- * @param root0.theme
  * @returns All the styles for each component.
+ *
  * @public
  */
 export default function components({ theme }: Partial<TailwindHelpers>) {

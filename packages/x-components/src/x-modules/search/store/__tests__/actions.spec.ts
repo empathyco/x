@@ -98,16 +98,16 @@ describe('testing search module actions', () => {
       });
 
       const actionPromise = store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
-      expect(store.state.status).toBe('loading');
+      expect(store.state.status).toEqual('loading');
       await actionPromise;
       expect(store.state.results).toEqual(resultsStub);
       expect(store.state.facets).toEqual(facetsStub);
       expect(store.state.banners).toEqual(bannersStub);
       expect(store.state.promoteds).toEqual(promotedsStub);
       expect(store.state.redirections).toEqual(redirectionsStub);
-      expect(store.state.page).toBe(1);
-      expect(store.state.config.pageSize).toBe(24);
-      expect(store.state.status).toBe('success');
+      expect(store.state.page).toEqual(1);
+      expect(store.state.config.pageSize).toEqual(24);
+      expect(store.state.status).toEqual('success');
       expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
     });
 
@@ -130,11 +130,11 @@ describe('testing search module actions', () => {
       expect(store.state.banners).toEqual([]);
       expect(store.state.partialResults).toEqual([]);
       expect(store.state.promoteds).toEqual([]);
-      expect(store.state.spellcheckedQuery).toBe('');
+      expect(store.state.spellcheckedQuery).toEqual('');
       expect(store.state.redirections).toEqual([]);
-      expect(store.state.page).toBe(1);
-      expect(store.state.config.pageSize).toBe(24);
-      expect(store.state.status).toBe('success');
+      expect(store.state.page).toEqual(1);
+      expect(store.state.config.pageSize).toEqual(24);
+      expect(store.state.status).toEqual('success');
       expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
     });
 
@@ -229,7 +229,7 @@ describe('testing search module actions', () => {
       const secondRequest = store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
 
       await firstRequest;
-      expect(store.state.status).toBe('loading');
+      expect(store.state.status).toEqual('loading');
       expect(store.state.results).toBe(initialResults);
       expect(store.state.facets).toBe(initialFacets);
       expect(store.state.banners).toEqual(initialBanners);
@@ -237,7 +237,7 @@ describe('testing search module actions', () => {
       expect(store.state.promoteds).toEqual(initialPromoteds);
       expect(store.state.redirections).toEqual(initialRedirections);
       await secondRequest;
-      expect(store.state.status).toBe('success');
+      expect(store.state.status).toEqual('success');
       expect(store.state.results).toEqual(resultsStub);
       expect(store.state.facets).toEqual(facetsStub);
       expect(store.state.banners).toEqual(bannersStub);
@@ -255,7 +255,7 @@ describe('testing search module actions', () => {
       expect(store.state.facets).toBe(facets);
       expect(store.state.banners).toBe(banners);
       expect(store.state.promoteds).toBe(promoteds);
-      expect(store.state.status).toBe('error');
+      expect(store.state.status).toEqual('error');
     });
   });
 
@@ -271,9 +271,9 @@ describe('testing search module actions', () => {
       expect(store.state.partialResults).toEqual(partialResultsStub);
       expect(store.state.promoteds).toEqual(promotedsStub);
       expect(store.state.redirections).toEqual(redirectionsStub);
-      expect(store.state.spellcheckedQuery).toBe('');
-      expect(store.state.page).toBe(1);
-      expect(store.state.config.pageSize).toBe(24);
+      expect(store.state.spellcheckedQuery).toEqual('');
+      expect(store.state.page).toEqual(1);
+      expect(store.state.config.pageSize).toEqual(24);
       expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
     });
 
@@ -293,9 +293,9 @@ describe('testing search module actions', () => {
       expect(store.state.partialResults).toEqual([]);
       expect(store.state.promoteds).toEqual([]);
       expect(store.state.redirections).toEqual([]);
-      expect(store.state.spellcheckedQuery).toBe('');
-      expect(store.state.page).toBe(1);
-      expect(store.state.config.pageSize).toBe(24);
+      expect(store.state.spellcheckedQuery).toEqual('');
+      expect(store.state.page).toEqual(1);
+      expect(store.state.config.pageSize).toEqual(24);
       expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
     });
   });
@@ -317,7 +317,7 @@ describe('testing search module actions', () => {
       expect(store.state.facets).toEqual(previousFacets);
       expect(store.state.banners).toEqual(previousBanners);
       expect(store.state.promoteds).toEqual(previousPromoteds);
-      expect(store.state.status).toBe('success');
+      expect(store.state.status).toEqual('success');
     });
   });
 
@@ -327,7 +327,7 @@ describe('testing search module actions', () => {
 
       await store.dispatch('increasePageAppendingResults');
 
-      expect(store.state.page).toBe(2);
+      expect(store.state.page).toEqual(2);
     });
 
     // eslint-disable-next-line max-len
@@ -335,24 +335,24 @@ describe('testing search module actions', () => {
       resetSearchStateWith(store, { totalResults: 48, page: 1, config: { pageSize: 24 } });
 
       await store.dispatch('increasePageAppendingResults');
-      expect(store.state.page).toBe(2);
+      expect(store.state.page).toEqual(2);
 
       await store.dispatch('increasePageAppendingResults');
-      expect(store.state.page).toBe(2);
+      expect(store.state.page).toEqual(2);
     });
 
     it('should increase page if the last page has less results than the page size', async () => {
       resetSearchStateWith(store, { totalResults: 47, page: 1, config: { pageSize: 24 } });
 
       await store.dispatch('increasePageAppendingResults');
-      expect(store.state.page).toBe(2);
+      expect(store.state.page).toEqual(2);
     });
 
     it('should increase page if the last page has only one result', async () => {
       resetSearchStateWith(store, { totalResults: 25, page: 1, config: { pageSize: 24 } });
 
       await store.dispatch('increasePageAppendingResults');
-      expect(store.state.page).toBe(2);
+      expect(store.state.page).toEqual(2);
     });
 
     // eslint-disable-next-line max-len
@@ -624,9 +624,9 @@ describe('testing search module actions', () => {
         sort: 'priceSort asc'
       } as UrlParams);
 
-      expect(store.state.query).toBe('lego');
-      expect(store.state.page).toBe(2);
-      expect(store.state.sort).toBe('priceSort asc');
+      expect(store.state.query).toEqual('lego');
+      expect(store.state.page).toEqual(2);
+      expect(store.state.sort).toEqual('priceSort asc');
     });
 
     it('should set in the search module the query value even if empty', async () => {
@@ -634,8 +634,8 @@ describe('testing search module actions', () => {
 
       await store.dispatch('setUrlParams', { page: 2, query: '' } as UrlParams);
 
-      expect(store.state.query).toBe('');
-      expect(store.state.page).toBe(2);
+      expect(store.state.query).toEqual('');
+      expect(store.state.page).toEqual(2);
     });
 
     it('should set in the search module the sort value even if empty', async () => {
@@ -653,10 +653,10 @@ describe('testing search module actions', () => {
       resetSearchStateWith(store);
 
       await store.dispatch('saveOrigin', { feature: 'search_box', location: 'predictive_layer' });
-      expect(store.state.origin).toBe('search_box:predictive_layer');
+      expect(store.state.origin).toEqual('search_box:predictive_layer');
 
       await store.dispatch('saveOrigin', { feature: 'search_box' });
-      expect(store.state.origin).toBe('search_box:none');
+      expect(store.state.origin).toEqual('search_box:none');
     });
 
     it('saves `null` if it is impossible to create an origin', async () => {

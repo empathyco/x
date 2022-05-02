@@ -22,6 +22,7 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
  *
  * @param request - The {@link InternalSearchRequest}.
  * @param state - {@link SearchState}.
+ *
  * @returns The search request.
  * @internal
  */

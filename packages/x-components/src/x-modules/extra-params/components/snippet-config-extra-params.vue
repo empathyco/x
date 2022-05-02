@@ -43,6 +43,7 @@
      *
      * @remarks This object keeps manually the desired snippet config properties to avoid
      * unnecessary re-renders.
+     *
      * @internal
      */
     protected extraParams: Dictionary<unknown> = {};
@@ -71,6 +72,7 @@
      * Updates the extraParams object when the snippet config changes.
      *
      * @param snippetConfig - The new snippet config.
+     *
      * @internal
      */
     @Watch('snippetConfig', { deep: true, immediate: true })

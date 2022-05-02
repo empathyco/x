@@ -34,6 +34,7 @@ interface PrivateExtendedVueComponent extends Vue {
  *
  * @remarks It adds an injection property `origin` which value is included in the metadata of each
  * event emitted with `$x.emit`.
+ *
  * @param bus - The {@link XBus} to use inside the components for emitting events.
  * @returns Mixin options which registers the component as X-Component and the $x.
  * @internal
@@ -60,6 +61,7 @@ export const createXComponentAPIMixin = (
  *
  * @param bus - The global {@link XBus}.
  * @param component - The component instance.
+ *
  * @returns An object containing the {@link XComponentBusAPI}.
  * @internal
  */

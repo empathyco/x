@@ -73,6 +73,7 @@
      * names to take into account.
      *
      * @returns An array with the name of the params.
+     *
      * @internal
      */
     protected get managedParamsNames(): string[] {
@@ -88,6 +89,7 @@
      *
      * @param paramName - The param name to get the Url key.
      * @returns The key used in the URL for the `paramName` passed.
+     *
      * @internal
      */
     protected getUrlKey(paramName: string): string {
@@ -131,6 +133,7 @@
      * @remarks The pageshow event is listened to check if the browser has performed a navigation
      * using the back-forward cache. This information is available in the
      * PageTransitionEvent.persisted property.
+     *
      * @param event - The page transition event.
      * @internal
      */
@@ -209,6 +212,7 @@
      * navigationType is permanently set to reload after you have reload the page and it never
      * resets. As some browsers have a back-forward cache implemented, we also take into account if
      * the page is persisted.
+     *
      * @returns True if the navigation is from a product page, false otherwise.
      * @internal
      */
@@ -270,6 +274,7 @@
      *
      * @param newUrlParams - The new params to add to the browser URL.
      * @param historyMethod - The browser history method used to add the new URL.
+     *
      * @internal
      */
     protected updateUrl(
@@ -295,8 +300,7 @@
      *
      * @param url - The URL to remove parameters from.
      * @internal
-     * *
-     */
+     * **/
     protected deleteUrlParameters(url: URL): void {
       this.managedParamsNames.forEach(paramName =>
         url.searchParams.delete(this.getUrlKey(paramName))
@@ -312,9 +316,9 @@
      * managed by URL. This is defined by the `managedParamsNames` computed. Also, the parameters
      * are sorted Alphabetically to produce always the same URL with the same parameters.This is
      * important for SEO purposes.
+     *
      * @internal
-     * *
-     */
+     * **/
     protected setUrlParameters(url: URL, urlParams: UrlParams): void {
       const filteredParams = objectFilter(urlParams, paramName =>
         this.managedParamsNames.includes(paramName as string)
@@ -354,6 +358,7 @@
      * @param name - The name of the param in {@link UrlParams}.
      * @param value - The `URLSearchParams` value as an arry of strings.
      * @returns The parsed value.
+     *
      * @internal
      */
     protected parseUrlParam(name: string, value: string[]): UrlParamValue {

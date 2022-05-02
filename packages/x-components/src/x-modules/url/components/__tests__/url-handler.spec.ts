@@ -21,9 +21,6 @@ Object.defineProperty(window, 'performance', {
 /**
  * Renders the {@link UrlHandler} component, exposing a basic API for testing.
  *
- * @param root0
- * @param root0.template
- * @param root0.urlParams
  * @returns The API for testing the {@link UrlHandler} component.
  */
 function renderUrlHandler({
@@ -71,8 +68,8 @@ function renderUrlHandler({
 describe('testing UrlHandler component', () => {
   it('is an XComponent which has an XModule', () => {
     const { wrapper } = renderUrlHandler();
-    expect(isXComponent(wrapper.vm)).toBe(true);
-    expect(getXComponentXModuleName(wrapper.vm)).toBe('url');
+    expect(isXComponent(wrapper.vm)).toEqual(true);
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('url');
   });
 
   it('emits the `ParamsLoadedFromUrl` when the component is created', () => {
@@ -193,9 +190,9 @@ describe('testing UrlHandler component', () => {
     });
     const urlSearchParams = getCurrentUrlParams();
 
-    expect(urlSearchParams.get('query')).toBe('lego');
-    expect(urlSearchParams.get('page')).toBe('2');
-    expect(urlSearchParams.get('store')).toBe('111');
+    expect(urlSearchParams.get('query')).toEqual('lego');
+    expect(urlSearchParams.get('page')).toEqual('2');
+    expect(urlSearchParams.get('store')).toEqual('111');
     expect(urlSearchParams.get('warehouse')).toBeNull();
   });
 
@@ -212,9 +209,9 @@ describe('testing UrlHandler component', () => {
     });
     const urlSearchParams = getCurrentUrlParams();
 
-    expect(urlSearchParams.get('query')).toBe('lego');
-    expect(urlSearchParams.get('page')).toBe('2');
-    expect(urlSearchParams.get('store')).toBe('111');
+    expect(urlSearchParams.get('query')).toEqual('lego');
+    expect(urlSearchParams.get('page')).toEqual('2');
+    expect(urlSearchParams.get('store')).toEqual('111');
     expect(urlSearchParams.get('warehouse')).toBeNull();
   });
 
