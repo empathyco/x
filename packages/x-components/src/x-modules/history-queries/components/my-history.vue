@@ -78,7 +78,6 @@
    * Allows the user to select one of them, emitting the needed events.
    * A history query is just another type of suggestion that contains a query that the user has
    * made in the past.
-   *
    * @public
    */
   @Component({
@@ -99,10 +98,7 @@
      *
      * @public
      */
-    @Prop({
-      default: () =>
-        (this as unknown as Vue & { snippetConfig?: SnippetConfig }).snippetConfig?.lang ?? 'en'
-    })
+    @Prop({ default: 'en' })
     protected locale!: string;
 
     /**
@@ -139,14 +135,12 @@
      *    }]
      *  }
      * ```
-     *
      * @returns The history queries grouped by date.
-     *
      * @internal
      */
     protected get groupByDate(): Dictionary<HistoryQuery[]> {
       return groupItemsBy(this.historyQueries, current => {
-        return new Date(current.timestamp).toLocaleDateString(this.locale, {
+        return new Date(current.timestamp).toLocaleDateString(this.usedLocale, {
           day: 'numeric',
           weekday: 'long',
           month: 'long',
@@ -166,15 +160,12 @@
      * // locale 'en'
      * console.log(formatTime(Date.now()) // '16:54 PM'.
      * ```
-     *
      * @param timestamp - The timestamp to format.
-     *
      * @returns The formatted time.
-     *
      * @internal
      */
     protected formatTime(timestamp: number): string {
-      return new Date(timestamp).toLocaleTimeString(this.locale, {
+      return new Date(timestamp).toLocaleTimeString(this.usedLocale, {
         hour: '2-digit',
         minute: '2-digit'
       });
@@ -184,11 +175,20 @@
      * stored.
      *
      * @returns True if there are history queries; false otherwise.
-     *
      * @internal
      */
     protected get hasHistoryQueries(): boolean {
       return !isArrayEmpty(this.historyQueries);
+    }
+    /**
+     * The locale that it is going to be used. It can be the one send it by the snippet config or
+     * the one pass it using the prop.
+     *
+     * @returns The locale to be used.
+     * @internal
+     */
+    protected get usedLocale(): string {
+      return this.snippetConfig?.lang ?? this.locale;
     }
   }
 </script>
@@ -205,6 +205,27 @@ Here you have a basic example of how the MyHistory is rendered.
 ```vue
 <template>
   <MyHistory />
+</template>
+
+<script>
+  import { MyHistory } from '@empathyco/x-components/history-queries';
+
+  export default {
+    name: 'MyHistoryDemo',
+    components: {
+      MyHistory
+    }
+  };
+</script>
+```
+
+### Play with props
+
+In this example, the my history has been configured to use the 'es' locale.
+
+```vue
+<template>
+  <MyHistory :locale="es" />
 </template>
 
 <script>
@@ -279,6 +300,29 @@ passed.
 <template>
   <MyHistory #suggestion-content="{ suggestion }">
     <span>{{ suggestion.query }}</span>
+  </MyHistory>
+</template>
+
+<script>
+  import { MyHistory } from '@empathyco/x-components/history-queries';
+
+  export default {
+    name: 'MyHistoryDemo',
+    components: {
+      MyHistory
+    }
+  };
+</script>
+```
+
+### Play with suggestion-content slot
+
+In this example, an HTML span tag for the date are passed.
+
+```vue
+<template>
+  <MyHistory #date="{ date }">
+    <span>{{ date }}</span>
   </MyHistory>
 </template>
 
