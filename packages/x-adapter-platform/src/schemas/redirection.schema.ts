@@ -1,9 +1,9 @@
 import { createMutableSchema, Schema } from '@empathyco/x-adapter-next';
 import { Redirection, TaggingInfo } from '@empathyco/x-types';
 import { getTaggingInfoFromUrl } from '@empathyco/x-utils';
-import { PlatformRedirectionItem } from '../types';
+import { PlatformRedirection } from '../types/response.types';
 
-const redirectionSchema: Schema<PlatformRedirectionItem, Redirection> = {
+const redirectionSchema: Schema<PlatformRedirection, Redirection> = {
   id: 'id',
   url: 'url',
   modelName: () => 'Redirection',

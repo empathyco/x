@@ -1,9 +1,9 @@
 import { createMutableSchema, Schema } from '@empathyco/x-adapter-next';
 import { Banner, TaggingInfo } from '@empathyco/x-types';
 import { getTaggingInfoFromUrl } from '@empathyco/x-utils';
-import { PlatformBannerItem } from '../types';
+import { PlatformBanner } from '../types/response.types';
 
-export const bannerSchema: Schema<PlatformBannerItem, Banner> = {
+export const bannerSchema: Schema<PlatformBanner, Banner> = {
   id: 'id',
   title: 'title',
   url: 'url',

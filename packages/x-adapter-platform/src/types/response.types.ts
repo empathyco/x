@@ -1,26 +1,16 @@
 import { Banner, Promoted, Redirection, Result, TaggingInfo } from '@empathyco/x-types';
 
 export interface PlatformSearchResponse {
-  banner: PlatformBanner;
+  banner: Contentable<PlatformBanner>;
   catalog: PlatformCatalog;
-  direct: PlatformRedirection;
-  promoted: PlatformPromoted;
+  direct: Contentable<PlatformRedirection>;
+  promoted: Contentable<PlatformPromoted>;
+}
+export interface Contentable<T> {
+  content: T[];
 }
 
-export interface PlatformBanner {
-  content: PlatformBannerItem[];
-}
-
-export interface PlatformPromoted {
-  content: PlatformPromotedItem[];
-}
-
-export interface PlatformRedirection {
-  content: PlatformRedirectionItem[];
-}
-
-export interface PlatformCatalog {
-  content: PlatformResult[];
+export interface PlatformCatalog extends Contentable<PlatformResult> {
   facets: PlatformFacet[];
   numFound: number;
   spellchecked: string;
@@ -74,7 +64,7 @@ export interface PlatformTagging {
   click: string;
 }
 
-export interface PlatformPromotedItem {
+export interface PlatformPromoted {
   id: string;
   title: string;
   url: string;
@@ -83,7 +73,7 @@ export interface PlatformPromotedItem {
     query: string;
   };
 }
-export interface PlatformBannerItem {
+export interface PlatformBanner {
   id: string;
   title: string;
   url: string;
@@ -92,7 +82,7 @@ export interface PlatformBannerItem {
     query: string;
   };
 }
-export interface PlatformRedirectionItem {
+export interface PlatformRedirection {
   id: string;
   url: string;
   tagging?: {

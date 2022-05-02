@@ -1,8 +1,8 @@
 import { createMutableSchema, Schema, schemaMapperFactory } from '@empathyco/x-adapter-next';
 import { getTaggingInfoFromUrl } from '@empathyco/x-utils';
 import { TaggingInfo } from '@empathyco/x-types';
-import { PlatformSearchResponse, SearchResponse } from '../../types';
-import { resultMutableSchema } from '../../schemas';
+import { PlatformSearchResponse, SearchResponse } from '../../types/response.types';
+import { resultMutableSchema } from '../../schemas/result.schema';
 import { facetMutableSchema } from '../../schemas/facet.schema';
 import { promotedMutableSchema } from '../../schemas/promoted.schema';
 import { bannerMutableSchema } from '../../schemas/banner.schema';
