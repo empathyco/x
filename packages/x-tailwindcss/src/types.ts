@@ -12,7 +12,6 @@ import { ReturnOfUtilities } from './helpers/utilities';
  * ```typescript
  * const primaryColor: CSSVariable = '--color-primary';
  * ```
- *
  * @internal
  */
 type CSSVariable = `--${string}`;
@@ -24,7 +23,6 @@ type CSSVariable = `--${string}`;
  * ```typescript
  * const btnClass: CSSClassSelector = '.btn';
  * ```
- *
  * @internal
  */
 type CSSClassSelector = `.${string}`;
@@ -35,7 +33,6 @@ type CSSClassSelector = `.${string}`;
  * ```typescript
  * const nestedSelector: CSSNestedSelector = '&--primary';
  * ```
- *
  * @internal
  */
 type CSSNestedSelector = `&${string}`;
@@ -55,7 +52,6 @@ type CSSNestedSelector = `&${string}`;
  *   }
  * }
  * ```
- *
  * @public
  */
 export type CSSStyleOptions = {
@@ -132,7 +128,7 @@ export interface PluginOptions {
   utilities?: (helpers: Partial<TailwindHelpers>) => UtilitiesDefinition;
   /**
    * Registers a new dynamic utilities styles or replaces the existing ones.
-   * */
+   */
   dynamicUtilities?: (helpers: Partial<TailwindHelpers>) => DynamicUtilitiesDefinition;
   /**
    * Helper to add extra functionalities.

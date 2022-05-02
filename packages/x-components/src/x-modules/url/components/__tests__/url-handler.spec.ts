@@ -21,6 +21,9 @@ Object.defineProperty(window, 'performance', {
 /**
  * Renders the {@link UrlHandler} component, exposing a basic API for testing.
  *
+ * @param root0
+ * @param root0.template
+ * @param root0.urlParams
  * @returns The API for testing the {@link UrlHandler} component.
  */
 function renderUrlHandler({
@@ -68,8 +71,8 @@ function renderUrlHandler({
 describe('testing UrlHandler component', () => {
   it('is an XComponent which has an XModule', () => {
     const { wrapper } = renderUrlHandler();
-    expect(isXComponent(wrapper.vm)).toEqual(true);
-    expect(getXComponentXModuleName(wrapper.vm)).toEqual('url');
+    expect(isXComponent(wrapper.vm)).toBe(true);
+    expect(getXComponentXModuleName(wrapper.vm)).toBe('url');
   });
 
   it('emits the `ParamsLoadedFromUrl` when the component is created', () => {
@@ -190,9 +193,9 @@ describe('testing UrlHandler component', () => {
     });
     const urlSearchParams = getCurrentUrlParams();
 
-    expect(urlSearchParams.get('query')).toEqual('lego');
-    expect(urlSearchParams.get('page')).toEqual('2');
-    expect(urlSearchParams.get('store')).toEqual('111');
+    expect(urlSearchParams.get('query')).toBe('lego');
+    expect(urlSearchParams.get('page')).toBe('2');
+    expect(urlSearchParams.get('store')).toBe('111');
     expect(urlSearchParams.get('warehouse')).toBeNull();
   });
 
@@ -209,10 +212,27 @@ describe('testing UrlHandler component', () => {
     });
     const urlSearchParams = getCurrentUrlParams();
 
-    expect(urlSearchParams.get('query')).toEqual('lego');
-    expect(urlSearchParams.get('page')).toEqual('2');
-    expect(urlSearchParams.get('store')).toEqual('111');
+    expect(urlSearchParams.get('query')).toBe('lego');
+    expect(urlSearchParams.get('page')).toBe('2');
+    expect(urlSearchParams.get('store')).toBe('111');
     expect(urlSearchParams.get('warehouse')).toBeNull();
+  });
+
+  it('normalizes + characters into %20 for spaces when updating the url', () => {
+    const { emit } = renderUrlHandler({
+      template: '<UrlHandler store="store" />'
+    });
+    emit('PushableUrlStateChanged', {
+      ...initialUrlState,
+      query: 'lego city'
+    });
+    expect(window.location.href).toContain('query=lego%20city');
+
+    emit('ReplaceableUrlStateChanged', {
+      ...initialUrlState,
+      query: 'lego farm'
+    });
+    expect(window.location.href).toContain('query=lego%20farm');
   });
 });
 
@@ -229,7 +249,6 @@ interface UrlHandlerAPI {
    * @param urlParams - The URL params in format string: `query=lego&page=1&scroll=100`.
    */
   popstateUrlWithParams: (urlParams: string) => void;
-
   /**
    * Returns the current {@link URLSearchParams}.
    */

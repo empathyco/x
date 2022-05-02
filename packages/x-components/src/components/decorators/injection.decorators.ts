@@ -25,10 +25,9 @@ type InjectObjectConfig = Exclude<ComponentOptions<Vue>['inject'], string[] | un
  * @example
  * `const myKey: XInjectKey<Filter> = 'myFilter';`
  * `@XInject(myKey)`
- *
  * @public
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars-experimental
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface XInjectKey<Type> extends String {}
 
 /**
@@ -45,12 +44,10 @@ type AnyInjectKey<Type> = XInjectKey<Type> | string;
  * the parent provides the same key.
  *
  * @remarks The decorated property needs to be public for type inference to work.
- *
  * @param provideKey - The key used to provide. This key can be a 'string' or a 'XInject<Type>'.
  * This last type is to support type-safe injection. When this decorator is used, it is possible
  * to specify the type of the injected value. Take a look to the example below.
  * @returns Decorator with the provide configuration.
- *
  * @example
  * Type unsafe injection (but allowed):
  *     \@XProvide('myKey')
@@ -61,7 +58,6 @@ type AnyInjectKey<Type> = XInjectKey<Type> | string;
  *
  * This last one, you are specifying that the injected value with the key 'myKey' has the Date
  * type.
- *
  * @public
  */
 export function XProvide<Type>(provideKey: AnyInjectKey<Type>): DecoratorFor<Type> {
@@ -91,14 +87,11 @@ export function XProvide<Type>(provideKey: AnyInjectKey<Type>): DecoratorFor<Typ
  * property has finally the initial injected value.
  *
  * @remarks The decorated property needs to be public for type inference to work.
- *
  * @param injectKey - The key used to inject. This key can be a 'string' or a 'XInject<Type>'.
  * This last type is to support type-safe injection. When this decorator is used, it is possible
  * to specify the type of the injected value. Take a look to the example below.
  * @returns Decorator with the provide configuration.
- *
  * @param defaultValue - The default value to use if there is not value provided.
- *
  * @example
  * Type unsafe injection (but allowed):
  *     \@XInject('myKey')
@@ -106,7 +99,6 @@ export function XProvide<Type>(provideKey: AnyInjectKey<Type>): DecoratorFor<Typ
  * Type safe injection (recommended):
  *     const myKey: XInjectKey<Date> = 'myKey';
  *     \@XInject(myKey)
- *
  * @public
  */
 export function XInject<Type>(
@@ -133,7 +125,6 @@ export function XInject<Type>(
  * @param previousProvide - The {@link ComponentOptions.provide } configuration that exist before
  * applying this decorator.
  * @param componentInstance - A Vue Component instance to invoke the provide function.
- *
  * @returns {@link ProvideObjectConfig} With the provide configuration as an object.
  */
 function getPreviousProvideObject<ComponentInstance extends Vue>(
@@ -155,7 +146,6 @@ function getPreviousProvideObject<ComponentInstance extends Vue>(
  * @param componentKey - The name of the property decorated with {@link XProvide}.
  * @param componentInstance - The {@link Vue} instance of the component to invoke the provide
  * function.
- *
  * @returns {@link ProvideObjectConfig} The object with the key of the provideKey and the `value`
  * getter.
  */
@@ -184,7 +174,6 @@ function getNewProvideObject<ComponentInstance extends Vue>(
  * returned.
  *
  * @param previousInject - The previous inject configuration of the component instance.
- *
  * @returns {@link InjectObjectConfig} The object with the previous inject config in form of object.
  */
 function getPreviousInjectObject(
@@ -206,7 +195,6 @@ function getPreviousInjectObject(
  * @param injectKey - The key of the injected value.
  * @param componentKey - The name of the component key where the value will be injected.
  * @param defaultValue - The default value of the injection if the `injectKey` has no provide.
- *
  * @returns The object with the inject configuration.
  */
 function getNewInjectObject<DefaultValue>(
@@ -225,7 +213,6 @@ function getNewInjectObject<DefaultValue>(
  * @param computedKey - The key used for the computed.
  * @param privateComponentKey - The "private" component property where the value is actually
  * injected.
- *
  * @returns The computed config to assign/merge with the component options.
  */
 function getComputedProperty(

@@ -8,7 +8,7 @@
     -->
     <slot v-bind="{ items, animation }">
       <ItemsList :animation="animation" :items="items">
-        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ item }">
+        <template v-for="(_, slotName) in $scopedSlots" #[slotName]="{ item }">
           <slot :name="slotName" :item="item" />
         </template>
       </ItemsList>
@@ -17,6 +17,7 @@
 </template>
 
 <script lang="ts">
+  import Vue from 'vue';
   import { NextQuery } from '@empathyco/x-types';
   import { mixins } from 'vue-class-component';
   import { Component, Prop } from 'vue-property-decorator';

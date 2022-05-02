@@ -7,6 +7,11 @@ import { StatusMutations, StatusState } from './status-store.utils';
  * option to cancel the request at any moment. This factory provides with the standard flow
  * for requesting, cancelling, handling errors for a module, while also taking care of its status.
  *
+ * @param root0
+ * @param root0.fetch
+ * @param root0.onSuccess
+ * @param root0.onError
+ * @param root0.onCancel
  * @public
  * @returns An action to fetch and save some data, and an action to cancel the last request.
  */
@@ -19,7 +24,8 @@ export function createFetchAndSaveActions<
 >({
   fetch,
   onSuccess,
-  onError,
+  // eslint-disable-next-line no-console
+  onError = console.error,
   onCancel
 }: FetchAndSaveHooks<Context, Request, Response>): FetchAndSaveActions<Context, Request> {
   let cancelPreviousRequest: undefined | (() => void);
@@ -60,7 +66,7 @@ export function createFetchAndSaveActions<
   function handleError(context: Context, error: unknown): void {
     if (error !== CancelSymbol) {
       context.commit('setStatus', 'error');
-      onError?.(error);
+      onError(error);
     }
   }
 

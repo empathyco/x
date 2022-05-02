@@ -54,8 +54,10 @@ export interface SearchState extends StatusState, QueryState {
   relatedTags: RelatedTag[];
   /** The list of the results, related to the `query` property of the state. */
   results: Result[];
-  /** The dictionary of selected filters, used to perform the search request.
-   * The key is the facet id, and the value the list of filters for that facet. */
+  /**
+   * The dictionary of selected filters, used to perform the search request.
+   * The key is the facet id, and the value the list of filters for that facet.
+   */
   selectedFilters: Dictionary<Filter[]>;
   /** The way of ordering the results. */
   sort: Sort;
@@ -71,8 +73,10 @@ export interface SearchState extends StatusState, QueryState {
  * @public
  */
 export interface SearchGetters {
-  /** The adapter request object for retrieving the results, or null if there is not
-   * valid data to create a request. */
+  /**
+   * The adapter request object for retrieving the results, or null if there is not
+   * valid data to create a request.
+   */
   request: InternalSearchRequest | null;
   /** The combination of the query and the selected related tags. */
   query: string;
@@ -246,6 +250,12 @@ export interface SearchActions {
    * @param originInit - The object to create the origin with.
    */
   saveOrigin(originInit: QueryOriginInit): void;
+  /**
+   * Saves the {@link @empathyco/x-adapter#SearchResponse}.
+   *
+   * @param response - The {@link @empathyco/x-adapter#SearchResponse} to save.
+   */
+  saveSearchResponse(response: SearchResponse): void;
 }
 
 /**
