@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.6...@empathyco/eslint-plugin-x@2.0.0-alpha.7) (2022-04-29)
+
+### Build System
+
+- **deps:** update eslint-plugin dependencies (#447)
+  ([51d60f0](https://github.com/empathyco/x/commit/51d60f0e11fa9667a784bbdb10ba1f39159b382f)),
+  closes [EX-5383](https://searchbroker.atlassian.net/browse/EX-5383)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [2.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.5...@empathyco/eslint-plugin-x@2.0.0-alpha.6) (2022-04-19)
 
 ### Features
