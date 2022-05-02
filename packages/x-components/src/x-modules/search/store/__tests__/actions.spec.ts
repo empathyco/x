@@ -643,8 +643,8 @@ describe('testing search module actions', () => {
 
       await store.dispatch('setUrlParams', { page: 2, sort: '' } as UrlParams);
 
-      expect(store.state.sort).toBe('');
-      expect(store.state.page).toBe(2);
+      expect(store.state.sort).toEqual('');
+      expect(store.state.page).toEqual(2);
     });
   });
 
