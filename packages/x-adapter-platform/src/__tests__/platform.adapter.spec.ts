@@ -1,7 +1,7 @@
 import { DeepPartial } from '@empathyco/x-utils';
 import { Filter } from '@empathyco/x-types';
 import { platformAdapter } from '../platform.adapter';
-import { PlatformSearchResponse } from '../types';
+import { PlatformSearchResponse } from '../types/response.types';
 
 const rawResponse: DeepPartial<PlatformSearchResponse> = {
   banner: {

@@ -1,7 +1,7 @@
 import { Dictionary } from '@empathyco/x-utils';
-import { Filter, NumberRangeFilter, SimpleFilter } from '@empathyco/x-types';
+import { Filter, HierarchicalFilter, NumberRangeFilter, SimpleFilter } from '@empathyco/x-types';
 import { searchRequestMapper } from '../request/search-request.mapper';
-import { PlatformSearchRequest, SearchRequest } from '../../types';
+import { PlatformSearchRequest, SearchRequest } from '../../types/request.types';
 
 const filters: Dictionary<Filter[]> = {
   offer: [
@@ -46,7 +46,7 @@ const filters: Dictionary<Filter[]> = {
       parentId: 'categoryIds:ffc61e1e9',
       selected: true,
       totalResults: 1
-    } as Filter,
+    },
     {
       facetId: 'categoryPaths',
       id: 'categoryIds:ffc61e1e9__fa5ef54f2',
@@ -55,7 +55,7 @@ const filters: Dictionary<Filter[]> = {
       parentId: 'categoryIds:ffc61e1e9',
       selected: true,
       totalResults: 1
-    } as Filter,
+    },
     {
       children: ['categoryIds:ffc61e1e9__be257cb26', 'categoryIds:ffc61e1e9__fa5ef54f2'],
       facetId: 'categoryPaths',
@@ -65,8 +65,8 @@ const filters: Dictionary<Filter[]> = {
       parentId: null,
       selected: true,
       totalResults: 1
-    } as Filter
-  ]
+    }
+  ] as HierarchicalFilter[]
 };
 
 describe('search platform request test', () => {
