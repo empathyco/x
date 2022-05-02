@@ -101,13 +101,23 @@
 </script>
 
 <docs lang="mdx">
-## Examples
+## Events
+
+A list of events that the component will emit:
+
+- [`UserClickedAFilter`](x-components.xeventstypes.userclickedafilter.md): the event is emitted
+  after the user clicks the button, using the `filter` prop as its payload.
+- [`UserClickedASimpleFilter`[(x-components.xeventstypes.userclickedasimplefilter.md): the event is
+  emitted after the user clicks the button, using the `filter` prop as its payload.
+
+## See it in action
 
 This component renders a button, which on clicked emits the `UserClickedAFilter` and the
 `UserClickedASimpleFilter` events. By default, it renders a `button` with the `filter.label`
 property as text.
 
-### Basic usage
+The `filter` prop is required. The `clickEvents` prop is optional and allows configuring the events
+to emit on click.
 
 ```vue
 <template>
@@ -136,6 +146,16 @@ property as text.
     }
   };
 </script>
+```
+
+### Playing with props
+
+Configuring the events to emit when the filter is clicked.
+
+```vue
+<template>
+  <SimpleFilter :clickEvents="{ UserClickedASimpleFilter: filter }" :filter="filter" />
+</template>
 ```
 
 ### Rendering an input
@@ -218,11 +238,4 @@ receive the filter data.
   };
 </script>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserClickedASimpleFilter`: the event is emitted after the user clicks the button. The event
-  payload is the simple filter.
 </docs>

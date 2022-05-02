@@ -144,9 +144,7 @@
     protected getChildFilterClickEvents(
       childFilter: HierarchicalFilterModel
     ): Partial<XEventsTypes> {
-      return Object.keys(this._clickEvents).reduce((clickEvents, event) => {
-        const payload = this._clickEvents[event as keyof XEventsTypes];
-
+      return Object.entries(this._clickEvents).reduce((clickEvents, [event, payload]) => {
         return {
           ...clickEvents,
           [event]:
@@ -198,21 +196,39 @@
 </script>
 
 <docs lang="mdx">
-## Examples
+## Events
+
+A list of events that the component will emit:
+
+- [`UserClickedAFilter`](x-components.xeventstypes.userclickedafilter.md): the event is emitted
+  after the user clicks the button, using the `filter` prop as its payload.
+- [`UserClickedAHierarchicalFilter`](x-components.xeventstypes.userclickedahierarchicalfilter.md):
+  the event is emitted after the user clicks the button, using the `filter` prop as its payload.
+  filter.
+
+## See it in action
 
 This component renders a button, which on clicked emits the `UserClickedAFilter` and
 `UserClickedAHierarchicalFilter` events. By default it renders the filter label as the button text.
 If the provided filter has children filters, this component will render them recursively. Changing
 the slot content will change it for all of the children.
 
-### Basic usage
+The `filter` prop is required. The `clickEvents` prop is optional and allows configuring the events
+to emit on click.
 
 ```vue
 <template>
-  <HierarchicalFilter
-    :filter="filter"
-    v-slot="{ filter: slotFilter, clickFilter, cssClasses, isDisabled }"
-  />
+  <HierarchicalFilter :filter="filter" />
+</template>
+```
+
+### Playing with props
+
+Configuring the events to emit when the filter is clicked.
+
+```vue
+<template>
+  <HierarchicalFilter :clickEvents="{ UserClickedAHierarchicalFilter: filter }" :filter="filter" />
 </template>
 ```
 
@@ -238,11 +254,4 @@ In this example, the child filters will also include the label and checkbox.
   </template>
 </HierarchicalFilter>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserClickedAHierarchicalFilter`: the event is emitted after the user clicks the button. The event
-  payload is the hierarchical filter.
 </docs>

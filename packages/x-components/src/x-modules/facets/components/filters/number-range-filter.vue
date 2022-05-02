@@ -101,15 +101,33 @@
 </script>
 
 <docs lang="mdx">
-## Examples
+## Events
 
-This component renders a button, which on clicked emits the `UserClickedAFilter` and the
+This component emits the following events:
+
+- [`UserClickedAFilter`](x-components.xeventstypes.userclickedafilter.md): the event is emitted
+  after the user clicks the button, using the `filter` prop as its payload.
+- [`UserClickedANumberRangeFilter`](x-components.xeventstypes.userclickedanumberrangefilter.md): the
+  event is emitted after the user clicks the button, using the `filter` prop as its payload.
+
+## See it in action
+
+This component renders a button which, on clicked, emits the `UserClickedAFilter` and the
 `UserClickedANumberRangeFilter` events. By default, it renders the filter label as the button text.
 
-### Basic usage
+The `filter` prop is required. The `clickEvents` prop is optional and allows configuring the events
+to emit on click.
 
 ```vue
 <NumberRangeFilter :filter="filter" />
+```
+
+### Playing with props
+
+Configuring the events to emit when the filter is clicked.
+
+```vue
+<NumberRangeFilter :clickEvents="{ UserClickedANumberRangeFilter: filter }" :filter="filter" />
 ```
 
 ### Customizing its contents
@@ -120,11 +138,4 @@ This component renders a button, which on clicked emits the `UserClickedAFilter`
   <span>{{ filter.label }}</span>
 </NumberRangeFilter>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserClickedANumberRangeFilter`: the event is emitted after the user clicks the button. The event
-  payload is the number range filter.
 </docs>
