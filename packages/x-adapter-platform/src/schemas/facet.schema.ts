@@ -71,13 +71,11 @@ function getFacetType(facet: string): FacetModelName {
  * @returns The schema to apply.
  */
 function getFilterSchemaFromFacetType(facet: string): Schema {
-  const name = facet.split('_')[0];
-  const hierarchicalFacet = ['categoryPaths'];
-  const numberRangeFacet = ['price'];
-  if (hierarchicalFacet.includes(name)) {
+  const facetType = getFacetType(facet);
+  if (facetType === 'HierarchicalFacet') {
     return hierarchicalFilterMutableSchema;
   }
-  if (numberRangeFacet.includes(name)) {
+  if (facetType === 'NumberRangeFacet') {
     return numberFilterMutableSchema;
   }
   return simpleMutableFilterSchema;
