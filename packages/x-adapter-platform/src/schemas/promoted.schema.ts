@@ -1,7 +1,7 @@
 import { Promoted, TaggingInfo } from '@empathyco/x-types';
 import { createMutableSchema, Schema } from '@empathyco/x-adapter-next';
 import { getTaggingInfoFromUrl } from '@empathyco/x-utils';
-import { PlatformPromoted } from '../types/response.types';
+import { PlatformPromoted } from '../types/models.types';
 
 export const promotedSchema: Schema<PlatformPromoted, Promoted> = {
   id: 'id',

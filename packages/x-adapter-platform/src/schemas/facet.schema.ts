@@ -7,7 +7,7 @@ import {
   NumberRangeFacet,
   SimpleFacet
 } from '@empathyco/x-types';
-import { PlatformFacet, PlatformHierarchicalFilter } from '../types/response.types';
+import { PlatformFacet, PlatformHierarchicalFilter } from '../types/models.types';
 import { numberFilterMutableSchema } from './filters/number-filter.schema';
 import { simpleMutableFilterSchema } from './filters/simple-filter.schema';
 
