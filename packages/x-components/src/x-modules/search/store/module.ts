@@ -11,6 +11,7 @@ import { fetchSearchResponse } from './actions/fetch-search-response.action';
 import { increasePageAppendingResults } from './actions/increase-page-apending-results.action';
 import { resetState } from './actions/reset-state.action';
 import { saveOrigin } from './actions/save-origin.action';
+import { saveSearchResponse } from './actions/save-search-response.action';
 import { setUrlParams } from './actions/set-url-params.action';
 import { query } from './getters/query.getter';
 import { request } from './getters/request.getter';
@@ -118,6 +119,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     fetchAndSaveSearchResponse,
     increasePageAppendingResults,
     resetState,
+    saveSearchResponse,
     setUrlParams,
     saveOrigin
   }

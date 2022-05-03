@@ -94,7 +94,7 @@ describe(`testing ${createRawFilters.name}`, () => {
   it('returns a list of raw filters based on a list of filter ids', () => {
     const filterIds = [
       '{!tag=hierarchical_category}hierarchical_category:"catálogos"',
-      241008287272164729465721528295504357972
+      24100828727
     ];
     const rawFilters = createRawFilters(filterIds);
 
@@ -105,7 +105,7 @@ describe(`testing ${createRawFilters.name}`, () => {
         selected: true
       },
       {
-        id: 241008287272164729465721528295504357972,
+        id: 24100828727,
         modelName: 'RawFilter',
         selected: true
       }

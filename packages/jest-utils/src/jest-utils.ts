@@ -9,6 +9,7 @@ declare global {
   namespace jest {
     export interface Expect extends EmpathyExtendedExpect {}
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     export interface Matchers<R> extends EmpathyExtendedMatchers {}
   }
 }

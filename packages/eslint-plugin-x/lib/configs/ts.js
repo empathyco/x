@@ -18,7 +18,6 @@ const syntaxRules = {
   '@typescript-eslint/no-non-null-assertion': 'off',
   '@typescript-eslint/no-unused-expressions': ['error'],
   '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
-  '@typescript-eslint/no-unused-vars-experimental': 'error',
   '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
   '@typescript-eslint/prefer-optional-chain': 'error'
 };
@@ -31,7 +30,8 @@ const typeRules = {
   '@typescript-eslint/no-unsafe-member-access': 'off', // TODO - Consider to enable
   '@typescript-eslint/no-unsafe-return': 'off', // TODO - Consider to enable
   '@typescript-eslint/prefer-nullish-coalescing': 'error',
-  '@typescript-eslint/restrict-template-expressions': 'error'
+  '@typescript-eslint/restrict-template-expressions': 'error',
+  '@typescript-eslint/no-unsafe-argument': 'warn'
 };
 
 module.exports = {
