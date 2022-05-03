@@ -1,4 +1,13 @@
-import { Banner, Promoted, Redirection, Result, TaggingInfo } from '@empathyco/x-types';
+import {
+  Banner,
+  NextQuery,
+  Promoted,
+  Redirection,
+  RelatedTag,
+  Result,
+  Suggestion,
+  TaggingInfo
+} from '@empathyco/x-types';
 
 export interface PlatformSearchResponse {
   banner: Contentable<PlatformBanner>;
@@ -88,4 +97,78 @@ export interface PlatformRedirection {
   tagging?: {
     click: string;
   };
+}
+
+export interface PlatformEmpathizeResponse {
+  topTrends: {
+    content: PlatformSuggestion[];
+    spellcheck?: string;
+  };
+}
+
+export interface PlatformSuggestion {
+  title_raw: string;
+}
+
+export interface EmpathizeResponse {
+  suggestions: Suggestion[];
+  spellcheck?: string;
+}
+
+export interface PlatformTopClickedResponse {
+  topclicked: {
+    content: PlatformResult[];
+    numFound: number;
+  };
+}
+
+export interface TopClickedResponse {
+  results: Result[];
+}
+
+export interface NextQueriesResponse {
+  nextQueries: NextQuery[];
+}
+
+export interface PlatformNextQueriesResponse {
+  data: {
+    nextqueries: PlatformNextQuery[];
+  };
+}
+
+export interface PlatformNextQuery {
+  query: string;
+  source: string;
+  position: number;
+}
+
+export interface RelatedTagsResponse {
+  relatedTags: RelatedTag[];
+}
+
+export interface PlatformRelatedTagsResponse {
+  data: {
+    relatedtags: PlatformRelatedTag[];
+  };
+  status: number;
+}
+
+export interface PlatformRelatedTag {
+  query: string;
+  tag: string;
+  source: string;
+  position: number;
+}
+
+export interface PlatformSkuSearchResponse {
+  catalog: {
+    content: PlatformResult[];
+    tagging: {
+      query: string;
+    };
+  };
+}
+
+export interface SkuSearchResponse {
+  results: Result[];
 }

@@ -80,6 +80,7 @@ describe('search platform request test', () => {
     start: 14,
     device: 'mobile',
     query: 'chips',
+    instance: 'empathy',
     filters
   };
 
