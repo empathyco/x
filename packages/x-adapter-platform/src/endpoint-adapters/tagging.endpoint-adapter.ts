@@ -4,7 +4,7 @@ import {
   EndpointAdapterOptions,
   buildUrl
 } from '@empathyco/x-adapter-next';
-import { TaggingRequest } from '../types';
+import { TaggingRequest } from '../types/request.types';
 import { taggingRequestMapper } from '../mappers/request/tagging-request.mapper';
 
 export const taggingEndpointAdapterOptions: EndpointAdapterOptions<TaggingRequest, void> = {

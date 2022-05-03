@@ -1,6 +1,6 @@
 import { createMutableSchema, Schema, schemaMapperFactory } from '@empathyco/x-adapter-next';
-import { PlatformSkuSearchResponse, SkuSearchResponse } from '../../types';
-import { resultMutableSchema } from '../../schemas';
+import { PlatformSkuSearchResponse, SkuSearchResponse } from '../../types/response.types';
+import { resultMutableSchema } from '../../schemas/result.schema';
 
 export const skuSearchResponseSchema: Schema<PlatformSkuSearchResponse, SkuSearchResponse> = {
   results: {

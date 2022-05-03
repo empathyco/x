@@ -1,5 +1,5 @@
 import { createMutableSchema, Schema, schemaMapperFactory } from '@empathyco/x-adapter-next';
-import { TaggingRequest } from '../../types';
+import { TaggingRequest } from '../../types/request.types';
 
 export const taggingRequestSchema: Schema<TaggingRequest, any> = {};
 

@@ -1,5 +1,5 @@
 import { createMutableSchema, Schema, schemaMapperFactory } from '@empathyco/x-adapter-next';
-import { BaseRequest, PlatformBaseRequest } from '../../types';
+import { BaseRequest, PlatformBaseRequest } from '../../types/request.types';
 
 export const baseRequestSchema: Schema<BaseRequest, PlatformBaseRequest> = {
   device: 'device',

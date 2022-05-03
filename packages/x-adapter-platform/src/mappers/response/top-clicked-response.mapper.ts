@@ -1,6 +1,6 @@
 import { createMutableSchema, Schema, schemaMapperFactory } from '@empathyco/x-adapter-next';
-import { PlatformTopClickedResponse, TopClickedResponse } from '../../types';
-import { resultMutableSchema } from '../../schemas';
+import { PlatformTopClickedResponse, TopClickedResponse } from '../../types/response.types';
+import { resultMutableSchema } from '../../schemas/result.schema';
 
 export const topClickedResponseSchema: Schema<PlatformTopClickedResponse, TopClickedResponse> = {
   results: {

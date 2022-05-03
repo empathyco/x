@@ -1,6 +1,6 @@
 import { createMutableSchema, Schema, schemaMapperFactory } from '@empathyco/x-adapter-next';
-import { PlatformRelatedTagsResponse, RelatedTagsResponse } from '../../types';
-import { relatedTagMutableSchema } from '../../schemas';
+import { PlatformRelatedTagsResponse, RelatedTagsResponse } from '../../types/response.types';
+import { relatedTagMutableSchema } from '../../schemas/related-tag.schema';
 
 export const relatedTagsResponseSchema: Schema<PlatformRelatedTagsResponse, RelatedTagsResponse> = {
   relatedTags: {

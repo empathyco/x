@@ -1,6 +1,6 @@
-import { searchResponseMapper } from '../response/search-response.mapper';
-import { PlatformSearchResponse, SearchResponse } from '../../types';
-import { platformSearchResponse } from '../../__tests__/__fixtures__/platform-search.response';
+import { searchResponseMapper } from '../../response/search-response.mapper';
+import { PlatformSearchResponse, SearchResponse } from '../../../types/response.types';
+import { platformSearchResponse } from '../../../__tests__/__fixtures__/platform-search.response';
 
 describe('search response mapper tests', () => {
   it('should map the response', () => {

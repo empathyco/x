@@ -1,6 +1,6 @@
 import { createMutableSchema, Schema } from '@empathyco/x-adapter-next';
 import { RelatedTag } from '@empathyco/x-types';
-import { PlatformRelatedTag } from '../types';
+import { PlatformRelatedTag } from '../types/response.types';
 
 export const relatedTagSchema: Schema<PlatformRelatedTag, RelatedTag> = {
   query: 'query',

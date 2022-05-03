@@ -1,7 +1,7 @@
-import { skuSearchResponseMapper } from '../response/sku-search-response.mapper';
+import { skuSearchResponseMapper } from '../../response/sku-search-response.mapper';
 // eslint-disable-next-line max-len
-import { platformSkuSearchResponse } from '../../__tests__/__fixtures__/platform-sku-search.response';
-import { PlatformSkuSearchResponse } from '../../types';
+import { platformSkuSearchResponse } from '../../../__tests__/__fixtures__/platform-sku-search.response';
+import { PlatformSkuSearchResponse } from '../../../types/response.types';
 
 describe('sku search response mapper tests', () => {
   it('should map the sku search response', () => {

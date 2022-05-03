@@ -1,14 +1,13 @@
 import { DeepPartial } from '@empathyco/x-utils';
 import { Filter } from '@empathyco/x-types';
 import { platformAdapter } from '../platform.adapter';
+import { BaseRequest, TaggingRequest } from '../types/request.types';
 import {
-  BaseRequest,
   PlatformEmpathizeResponse,
   PlatformNextQueriesResponse,
   PlatformRelatedTagsResponse,
-  PlatformSearchResponse,
-  TaggingRequest
-} from '../types';
+  PlatformSearchResponse
+} from '../types/response.types';
 import { getFetchMock } from './__mocks__/fetch.mock';
 import { platformSkuSearchResponse } from './__fixtures__/platform-sku-search.response';
 import { platformTopClickedResponse } from './__fixtures__/platform-top-clicked.response';
@@ -117,7 +116,7 @@ describe('platformAdapter tests', () => {
       'https://api.test.empathy.co/search/v1/query/empathy/search?device=mobile&query=chips&env=test&scope=mobile&origin=popular_search%3Apredictive_layer&start=0&rows=0&lang=es&sort=price+asc&filter=categoryIds%3Affc61e1e9__be257cb26&filter=gender%3Amen&filter=price%3A10.0-20.0',
       { signal: expect.anything() }
     );
-    expect(response?.totalResults).toBe(0);
+    expect(response.totalResults).toBe(0);
     expect(response.facets).toStrictEqual([
       {
         id: 'price',

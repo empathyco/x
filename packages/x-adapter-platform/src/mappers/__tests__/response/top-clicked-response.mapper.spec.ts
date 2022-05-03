@@ -1,7 +1,7 @@
-import { PlatformTopClickedResponse } from '../../types';
-import { topClickedResponseMapper } from '../response';
+import { PlatformTopClickedResponse } from '../../../types/response.types';
+import { topClickedResponseMapper } from '../../response/top-clicked-response.mapper';
 // eslint-disable-next-line max-len
-import { platformTopClickedResponse } from '../../__tests__/__fixtures__/platform-top-clicked.response';
+import { platformTopClickedResponse } from '../../../__tests__/__fixtures__/platform-top-clicked.response';
 
 describe('top clicked response mapper tests', () => {
   it('should map the top clicked', () => {

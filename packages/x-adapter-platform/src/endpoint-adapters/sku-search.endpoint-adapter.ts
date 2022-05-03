@@ -1,5 +1,6 @@
 import { endpointAdapterFactory, EndpointAdapterOptions } from '@empathyco/x-adapter-next';
-import { BaseRequest, SkuSearchResponse } from '../types';
+import { BaseRequest } from '../types/request.types';
+import { SkuSearchResponse } from '../types/response.types';
 import { skuSearchResponseMapper } from '../mappers/response/sku-search-response.mapper';
 import { baseRequestMapper } from '../mappers/request/base-request.mapper';
 

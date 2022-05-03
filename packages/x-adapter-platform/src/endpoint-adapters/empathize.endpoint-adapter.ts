@@ -1,8 +1,8 @@
 import { endpointAdapterFactory, EndpointAdapterOptions } from '@empathyco/x-adapter-next';
-import { BaseRequest } from '../types/request.types';
-import { empathizeResponseMapper } from '../mappers/response/empathize-response.mapper';
-import { EmpathizeResponse } from '../types';
 import { baseRequestMapper } from '../mappers/request/base-request.mapper';
+import { empathizeResponseMapper } from '../mappers/response/empathize-response.mapper';
+import { BaseRequest } from '../types/request.types';
+import { EmpathizeResponse } from '../types/response.types';
 
 const endpointAdapterOptions: EndpointAdapterOptions<BaseRequest, EmpathizeResponse> = {
   endpoint: 'https://api.{env(.)}empathy.co/search/v1/query/{instance}/empathize',

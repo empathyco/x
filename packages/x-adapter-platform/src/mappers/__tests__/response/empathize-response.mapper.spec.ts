@@ -1,5 +1,5 @@
-import { empathizeResponseMapper } from '../response/empathize-response.mapper';
-import { EmpathizeResponse, PlatformEmpathizeResponse } from '../../types';
+import { empathizeResponseMapper } from '../../response/empathize-response.mapper';
+import { EmpathizeResponse, PlatformEmpathizeResponse } from '../../../types/response.types';
 
 describe('empathize response mapper tests', () => {
   it('should map the popular searches', () => {

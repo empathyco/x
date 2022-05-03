@@ -1,7 +1,7 @@
 import { Dictionary } from '@empathyco/x-utils';
 import { Filter, HierarchicalFilter, NumberRangeFilter, SimpleFilter } from '@empathyco/x-types';
-import { searchRequestMapper } from '../request/search-request.mapper';
-import { PlatformSearchRequest, SearchRequest } from '../../types/request.types';
+import { searchRequestMapper } from '../../request/search-request.mapper';
+import { PlatformSearchRequest, SearchRequest } from '../../../types/request.types';
 
 const filters: Dictionary<Filter[]> = {
   offer: [

@@ -1,5 +1,5 @@
-import { PlatformNextQueriesResponse } from '../../types';
-import { nextQueriesResponseMapper } from '../response';
+import { PlatformNextQueriesResponse } from '../../../types/response.types';
+import { nextQueriesResponseMapper } from '../../response/next-queries-response.mapper';
 
 describe('next queries response mapper', () => {
   it('should map the next queries', () => {

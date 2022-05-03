@@ -138,7 +138,7 @@ export interface PlatformNextQueriesResponse {
 
 export interface PlatformNextQuery {
   query: string;
-  source: string;
+  source: 'ORGANIC' | 'CURATED';
   position: number;
 }
 
@@ -156,7 +156,7 @@ export interface PlatformRelatedTagsResponse {
 export interface PlatformRelatedTag {
   query: string;
   tag: string;
-  source: string;
+  source: 'ORGANIC' | 'CURATED';
   position: number;
 }
 
