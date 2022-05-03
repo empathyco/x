@@ -9,7 +9,7 @@
     <MainScroll use-window>
       <ResultsList #result="{ item }" v-infinite-scroll>
         <MainScrollItem :item="item">
-          <img :src="item.images[0]" alt="result item image" />
+          <img :src="item.images[0]" :alt="item.name" />
           <p>{{ item.title }}</p>
         </MainScrollItem>
       </ResultsList>
