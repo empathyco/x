@@ -73,10 +73,11 @@
     @Prop({ default: false, type: Boolean })
     protected highlightCurated!: boolean;
 
-    /**
-     * Updates facets visibility according to prop.
+     /**
+     * Indicates if there are facets available.
      *
-     * @returns The boolean prop value.
+     * @returns True if there are facets available and false otherwise.
+     * @internal
      */
     protected get hasFacets(): boolean {
       return !!this.suggestion.facets?.length;
@@ -100,7 +101,7 @@
         ...this.suggestionSelectedEvents
       };
       if (this.hasFacets) {
-        events.UserClickedAFilter = this.suggestion.facets[0].filters[0];
+        events.UserClickedAFilter = this.filter;
       }
       return events;
     }
@@ -128,7 +129,9 @@
      * @returns The filter.
      * @public
      */
-    protected get suggestionFilter(): BooleanFilter | null {
+     protected get filter(): BooleanFilter {
+      return this.suggestion.facets[0]?.filters[0] as BooleanFilter;
+    }
       return this.hasFacets ? <BooleanFilter>this.suggestion.facets[0].filters[0] : null;
     }
 

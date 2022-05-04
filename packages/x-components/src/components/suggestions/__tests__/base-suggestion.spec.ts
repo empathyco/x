@@ -1,8 +1,8 @@
 import { BooleanFilter } from '@empathyco/x-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { XPlugin } from '../../../plugins/index';
-import { normalizeString } from '../../../utils/index';
+import { XPlugin } from '../../../plugins/x-plugin';
+import { normalizeString } from '../../../utils/normalize';
 import { createBaseSuggestionWithFacets } from '../../../__stubs__/base-suggestion-stubs.factory';
 import { WireMetadata, XEventsTypes } from '../../../wiring/index';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
@@ -67,8 +67,7 @@ describe('testing Base Suggestion component', () => {
 
   it('does not have a filter label if the suggestion has no facets', async () => {
     await component.setProps({ suggestion: { ...suggestion, facets: [] } });
-    expect(component.element.textContent).not.toContain(
-      (<BooleanFilter>suggestion.facets[0].filters[0]).label
+    expect(component.element.textContent).toBe(suggestion.query)
     );
   });
 

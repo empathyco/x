@@ -1,6 +1,6 @@
 import { BooleanFilter, Suggestion } from '@empathyco/x-types';
 import { mount, WrapperArray, Wrapper } from '@vue/test-utils';
-import { getPopularSearchesStub } from '../../../__stubs__/index';
+import { getPopularSearchesStub } from '../../../__stubs__/popular-searches-stubs.factory';
 import { getDataTestSelector } from '../../../__tests__/utils';
 import BaseSuggestions from '../base-suggestions.vue';
 import { createBaseSuggestionWithFacets } from '../../../__stubs__/base-suggestion-stubs.factory';

@@ -10,7 +10,7 @@ import { BooleanFilter, Suggestion } from '@empathyco/x-types';
  *
  * @internal
  */
-export function createBaseSuggestionWithFacets(
+export function createSuggestionWithFacets(
   query: string,
   key: string,
   modelName: string | any

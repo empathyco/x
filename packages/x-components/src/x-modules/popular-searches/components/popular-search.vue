@@ -12,7 +12,7 @@
             @binding {Suggestion} suggestion - Popular Search suggestion data
       -->
 
-      <slot :suggestion="suggestion" :filter="filter"></slot>
+      <slot :suggestion="suggestion" :filter="filter">{{ suggestion.query }</slot>
     </template>
   </BaseSuggestion>
 </template>
