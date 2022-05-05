@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.92](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.91...@empathyco/x-components@3.0.0-alpha.92) (2022-05-05)
+
+### Features
+
+- **facets:** expose `clickEvents` as a `prop` in filters components using a `RenderlessFilter`
+  ([013d83d](https://github.com/empathyco/x/commit/013d83d93ac734a1365bbf98a19ae15dc2f1a64b)),
+  closes [EX-5986](https://searchbroker.atlassian.net/browse/EX-5986)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.91](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.90...@empathyco/x-components@3.0.0-alpha.91) (2022-05-04)
 
 ### Features
