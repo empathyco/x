@@ -4,23 +4,26 @@ import Vue from 'vue';
 import { createNumberRangeFilter } from '../../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
+import { XEventsTypes } from '../../../../../wiring/index';
 import NumberRangeFilter from '../number-range-filter.vue';
 
 function renderNumberRangeFilter({
-  template = '<NumberRangeFilter :filter="filter"/>',
-  filter = createNumberRangeFilter('price', { min: 0, max: 20 })
+  template = '<NumberRangeFilter :filter="filter" :clickEvents="clickEvents" />',
+  filter = createNumberRangeFilter('price', { min: 0, max: 20 }),
+  clickEvents
 }: NumberRangeFilterWrapperData = {}): NumberRangeFilterAPI {
   Vue.observable(filter);
   const emit = jest.fn();
   const wrapper = mount(
     {
       components: { NumberRangeFilter },
-      props: ['filter'],
+      props: ['filter', 'clickEvents'],
       template
     },
     {
       propsData: {
-        filter
+        filter,
+        clickEvents
       },
       mocks: {
         $x: {
@@ -77,10 +80,26 @@ describe('testing NumberRangeFilter component', () => {
     });
   });
 
+  it('emits configured events when clicked', () => {
+    const { wrapper, clickFilter, emit, filter } = renderNumberRangeFilter({
+      clickEvents: { UserAcceptedAQuery: 'potato' }
+    });
+
+    clickFilter();
+
+    expect(emit).toHaveBeenCalledTimes(3);
+    ['UserClickedAFilter', 'UserClickedANumberRangeFilter'].forEach(event => {
+      expect(emit).toHaveBeenCalledWith(event, filter, { target: wrapper.element });
+    });
+    expect(emit).toHaveBeenNthCalledWith(3, 'UserAcceptedAQuery', 'potato', {
+      target: wrapper.element
+    });
+  });
+
   it('allows customizing the rendered content with an slot', () => {
     const { wrapper, filter } = renderNumberRangeFilter({
       template: `
-      <NumberRangeFilter :filter="filter" v-slot="{ filter }">
+      <NumberRangeFilter :filter="filter" :clickEvents="clickEvents" v-slot="{ filter }">
         <span data-test="custom-label">{{ filter.label }}</span>
       </NumberRangeFilter>
       `
@@ -104,6 +123,7 @@ describe('testing NumberRangeFilter component', () => {
 });
 
 interface NumberRangeFilterWrapperData {
+  clickEvents?: Partial<XEventsTypes>;
   filter?: NumberRangeFilterModel;
   template?: string;
 }
