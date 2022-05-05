@@ -61,7 +61,29 @@ export const platformSearchResponse = {
                   id: '78d9b7366__8a4e61a33',
                   value: 'Bottomwear',
                   count: 637,
-                  filter: 'categoryIds:78d9b7366__8a4e61a33'
+                  filter: 'categoryIds:78d9b7366__8a4e61a33',
+                  children: {
+                    facet: 'categoryPaths_78d9b7366__8a4e61a33',
+                    values: [
+                      {
+                        id: '78d9b7366__8a4e61a33_aa',
+                        value: 'Added',
+                        count: 1,
+                        filter: 'categoryIds:78d9b7366__8a4e61a33_aa',
+                        children: {
+                          facet: 'categoryPaths_78d9b7366__8a4e61a33_aa',
+                          values: [
+                            {
+                              id: '78d9b7366__8a4e61a33_aa_bb',
+                              value: 'Added 2',
+                              count: 1,
+                              filter: 'categoryIds:78d9b7366__8a4e61a33_aa_bb'
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
                 },
                 {
                   id: '78d9b7366__e2f94a4ea',
@@ -82,7 +104,18 @@ export const platformSearchResponse = {
             id: 'ffc61e1e9',
             value: 'Personal Care',
             count: 9,
-            filter: 'categoryIds:ffc61e1e9'
+            filter: 'categoryIds:ffc61e1e9',
+            children: {
+              facet: 'categoryPaths_ffc61e1e9',
+              values: [
+                {
+                  id: 'ffc61e1e9_aa',
+                  value: 'Added',
+                  count: 1,
+                  filter: 'categoryIds:ffc61e1e9_aa'
+                }
+              ]
+            }
           },
           {
             id: 'e5eef62d8',

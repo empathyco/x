@@ -18,9 +18,7 @@ import { createMutableSchema, isInternalMethod } from '../schemas/utils';
  * {@link Schema | schema}.
  *
  * @param schema - The {@link Schema | schema} to apply in the {@link Mapper | mapper function}.
- *
  * @returns A {@link Mapper | mapper function} that applies the given {@link Schema | schema}.
- *
  * @public
  */
 export function schemaMapperFactory<Source, Target>(
@@ -38,9 +36,7 @@ export function schemaMapperFactory<Source, Target>(
  * @param source - The object to apply the transformations to.
  * @param schema - The object that defines the transformations to apply.
  * @param context - The {@link MapperContext | mapper context} to feed the transformations with.
- *
  * @returns A new object with each element being the result of the applied transformation.
- *
  * @internal
  */
 function mapSchema<Source, Target>(
@@ -89,11 +85,12 @@ function mapSchema<Source, Target>(
  * @param source - The object to feed the schema.
  * @param subSchemaTransformer - The {@link SubSchemaTransformer} object with a $path, $subSchema
  * and $context options.
+ * @param subSchemaTransformer.$path
+ * @param subSchemaTransformer.$subSchema
  * @param rawContext - The {@link MapperContext | mapper context} to feed the mapSchema function.
+ * @param subSchemaTransformer.$context
  * @param schema - The {@link Schema} to apply.
- *
  * @returns The result of calling `mapSchema()` with the source, schema and context arguments.
- *
  * @internal
  */
 function applySubSchemaTransformer<Source, Target>(
@@ -103,6 +100,10 @@ function applySubSchemaTransformer<Source, Target>(
   schema: Schema<Source, Target>
 ): Target | Target[] | undefined {
   const subSource = extractValue(source, $path);
+
+  if (!subSource) {
+    return;
+  }
 
   const extendedContext: Dictionary<any> = {};
   if ($context) {
@@ -114,7 +115,7 @@ function applySubSchemaTransformer<Source, Target>(
     });
   }
 
-  const context = deepMerge(rawContext, $context, extendedContext);
+  const context = deepMerge({}, rawContext, $context, extendedContext);
   let subSchema: typeof $subSchema | typeof schema;
   if ($subSchema === '$self') {
     subSchema = schema;
@@ -123,14 +124,11 @@ function applySubSchemaTransformer<Source, Target>(
   } else {
     subSchema = $subSchema;
   }
-
-  if (subSource) {
-    return isArray(subSource)
-      ? subSource.map(item => mapSchema(item, subSchema, context) as Target)
-      : mapSchema<typeof subSource, Target>(
-          subSource,
-          subSchema as Schema<typeof subSource, Target>,
-          context
-        );
-  }
+  return isArray(subSource)
+    ? subSource.map(item => mapSchema(item, subSchema, context) as Target)
+    : mapSchema<typeof subSource, Target>(
+        subSource,
+        subSchema as Schema<typeof subSource, Target>,
+        context
+      );
 }
