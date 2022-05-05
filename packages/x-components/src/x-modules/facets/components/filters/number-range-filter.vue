@@ -119,7 +119,35 @@ The `filter` prop is required. The `clickEvents` prop is optional and allows con
 to emit on click.
 
 ```vue
-<NumberRangeFilter :filter="filter" />
+<template>
+  <NumberRangeFilter :filter="filter" />
+</template>
+
+<script>
+  import { NumberRangeFilter } from '@empathyco/x-components/facets';
+
+  export default {
+    name: 'NumberRangeFilterTest',
+    components: {
+      NumberRangeFilter
+    },
+    date() {
+      return {
+        filter: {
+          id: `price:1-10`,
+          modelName: 'NumberRangeFilter',
+          label: `From 1 to 10`,
+          facetId: 'price',
+          range: {
+            min: 1,
+            max: 10
+          },
+          selected: false
+        }
+      };
+    }
+  };
+</script>
 ```
 
 ### Playing with props
@@ -127,15 +155,71 @@ to emit on click.
 Configuring the events to emit when the filter is clicked.
 
 ```vue
-<NumberRangeFilter :clickEvents="{ UserClickedANumberRangeFilter: filter }" :filter="filter" />
+<template>
+  <NumberRangeFilter :clickEvents="{ UserClickedANumberRangeFilter: filter }" :filter="filter" />
+</template>
+
+<script>
+  import { NumberRangeFilter } from '@empathyco/x-components/facets';
+
+  export default {
+    name: 'NumberRangeFilterTest',
+    components: {
+      NumberRangeFilter
+    },
+    date() {
+      return {
+        filter: {
+          id: `price:1-10`,
+          modelName: 'NumberRangeFilter',
+          label: `From 1 to 10`,
+          facetId: 'price',
+          range: {
+            min: 1,
+            max: 10
+          },
+          selected: false
+        }
+      };
+    }
+  };
+</script>
 ```
 
 ### Customizing its contents
 
 ```vue
-<NumberRangeFilter :filter="filter" v-slot="{ filter }">
-  <img src="checkbox.png"/>
-  <span>{{ filter.label }}</span>
-</NumberRangeFilter>
+<template>
+  <NumberRangeFilter :filter="filter" v-slot="{ filter }">
+    <img src="checkbox.png" />
+    <span>{{ filter.label }}</span>
+  </NumberRangeFilter>
+</template>
+
+<script>
+  import { NumberRangeFilter } from '@empathyco/x-components/facets';
+
+  export default {
+    name: 'NumberRangeFilterTest',
+    components: {
+      NumberRangeFilter
+    },
+    date() {
+      return {
+        filter: {
+          id: `price:1-10`,
+          modelName: 'NumberRangeFilter',
+          label: `From 1 to 10`,
+          facetId: 'price',
+          range: {
+            min: 1,
+            max: 10
+          },
+          selected: false
+        }
+      };
+    }
+  };
+</script>
 ```
 </docs>

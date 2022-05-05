@@ -156,6 +156,29 @@ Configuring the events to emit when the filter is clicked.
 <template>
   <SimpleFilter :clickEvents="{ UserClickedASimpleFilter: filter }" :filter="filter" />
 </template>
+
+<script>
+  import { SimpleFilter } from '@empathyco/x-components/facets';
+
+  export default {
+    name: 'SimpleFilterTest',
+    components: {
+      SimpleFilter
+    },
+    data() {
+      return {
+        filter: {
+          modelName: 'SimpleFilter',
+          selected: false,
+          id: 'category:shirts',
+          value: 'category:shirts',
+          facetId: 'category',
+          totalResults: 10
+        }
+      };
+    }
+  };
+</script>
 ```
 
 ### Rendering an input

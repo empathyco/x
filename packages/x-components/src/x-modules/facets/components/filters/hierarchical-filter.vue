@@ -32,7 +32,7 @@
       </slot>
     </RenderlessFilter>
     <FiltersList
-      #default="{ filter: childFilter }"
+      v-slot="{ filter: childFilter }"
       :animation="childrenAnimation"
       :filters="renderedChildrenFilters"
       :parent-id="filter.id"
@@ -137,7 +137,6 @@
      * {@link @empathyco/x-types#HierarchicalFilter} as payload to the corresponding child filter.
      *
      * @param childFilter - The child filter.
-     *
      * @returns The events to emit when clicking a child.
      * @internal
      */
@@ -173,7 +172,6 @@
      * is empty it will return an empty array instead of inject the ones from the parent.
      *
      * @returns A list of filters.
-     *
      * @internal
      */
     protected get renderedChildrenFilters(): Filter[] {
@@ -220,6 +218,31 @@ to emit on click.
 <template>
   <HierarchicalFilter :filter="filter" />
 </template>
+
+<script>
+  import { HierarchicalFilter } from '@empathyco/x-components/facets';
+
+  export default {
+    name: 'HierarchicalFilterTest',
+    components: {
+      HierarchicalFilter
+    },
+    date() {
+      return {
+        filter: {
+          id: `categories:men`,
+          modelName: 'HierarchicalFilter',
+          label: `men`,
+          facetId: 'categories',
+          parentId: null,
+          totalResults: 10,
+          children: [],
+          selected: false
+        }
+      };
+    }
+  };
+</script>
 ```
 
 ### Playing with props
@@ -230,6 +253,31 @@ Configuring the events to emit when the filter is clicked.
 <template>
   <HierarchicalFilter :clickEvents="{ UserClickedAHierarchicalFilter: filter }" :filter="filter" />
 </template>
+
+<script>
+  import { HierarchicalFilter } from '@empathyco/x-components/facets';
+
+  export default {
+    name: 'HierarchicalFilterTest',
+    components: {
+      HierarchicalFilter
+    },
+    date() {
+      return {
+        filter: {
+          id: `categories:men`,
+          modelName: 'HierarchicalFilter',
+          label: `men`,
+          facetId: 'categories',
+          parentId: null,
+          totalResults: 10,
+          children: [],
+          selected: false
+        }
+      };
+    }
+  };
+</script>
 ```
 
 ### Customizing the default slot content
@@ -237,21 +285,75 @@ Configuring the events to emit when the filter is clicked.
 In this example, the child filters will also include the label and checkbox.
 
 ```vue
-<HierarchicalFilter :filter="filter" v-slot="{ filter, clickFilter, slotCSSClasses, isDisabled }">
-  <label :class="slotCSSClasses">
-    <input @change="clickFilter" :disabled="isDisabled">
-    {{ filter.label }}
-  </label>
-</HierarchicalFilter>
+<template>
+  <HierarchicalFilter :filter="filter" v-slot="{ filter, clickFilter, slotCSSClasses, isDisabled }">
+    <label :class="slotCSSClasses">
+      <input @change="clickFilter" :disabled="isDisabled" />
+      {{ filter.label }}
+    </label>
+  </HierarchicalFilter>
+</template>
+
+<script>
+  import { HierarchicalFilter } from '@empathyco/x-components/facets';
+
+  export default {
+    name: 'HierarchicalFilterTest',
+    components: {
+      HierarchicalFilter
+    },
+    date() {
+      return {
+        filter: {
+          id: `categories:men`,
+          modelName: 'HierarchicalFilter',
+          label: `men`,
+          facetId: 'categories',
+          parentId: null,
+          totalResults: 10,
+          children: [],
+          selected: false
+        }
+      };
+    }
+  };
+</script>
 ```
 
 ### Customizing the label slot content
 
 ```vue
-<HierarchicalFilter :filter="filter">
-  <template #label :filter="filter">
-    <span class="custom-class">{{ filter.label }}</span>
-  </template>
-</HierarchicalFilter>
+<template>
+  <HierarchicalFilter :filter="filter">
+    <template #label :filter="filter">
+      <span class="custom-class">{{ filter.label }}</span>
+    </template>
+  </HierarchicalFilter>
+</template>
+
+<script>
+  import { HierarchicalFilter } from '@empathyco/x-components/facets';
+
+  export default {
+    name: 'HierarchicalFilterTest',
+    components: {
+      HierarchicalFilter
+    },
+    date() {
+      return {
+        filter: {
+          id: `categories:men`,
+          modelName: 'HierarchicalFilter',
+          label: `men`,
+          facetId: 'categories',
+          parentId: null,
+          totalResults: 10,
+          children: [],
+          selected: false
+        }
+      };
+    }
+  };
+</script>
 ```
 </docs>
