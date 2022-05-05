@@ -8,7 +8,6 @@ import { TaggingRequest } from '../types/request.types';
 import { taggingRequestMapper } from '../mappers/request/tagging-request.mapper';
 
 export const taggingEndpointAdapterOptions: EndpointAdapterOptions<TaggingRequest, void> = {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   endpoint: ({ url, params }) => buildUrl(url, params),
   httpClient: beaconHttpClient,
   requestMapper: taggingRequestMapper

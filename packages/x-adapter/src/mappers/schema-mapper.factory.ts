@@ -105,13 +105,13 @@ function applySubSchemaTransformer<Source, Target>(
     return;
   }
 
-  const extendedContext: Dictionary<any> = {};
+  const extendedContext: Dictionary = {};
   if ($context) {
-    Object.keys($context).forEach(key => {
+    Object.entries($context).forEach(([key, value]) => {
       if (['requestParameters', 'endpoint', 'to'].includes(key)) {
         return;
       }
-      extendedContext[key] = extractValue(source, $context[key] as ExtractPath<typeof source>);
+      extendedContext[key] = extractValue(source, value as ExtractPath<typeof source>);
     });
   }
 
