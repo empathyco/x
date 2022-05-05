@@ -18,6 +18,7 @@ module.exports = {
       'jsdoc/multiline-blocks': 'warn',
       'jsdoc/newline-after-description': 'error',
       'jsdoc/no-multi-asterisks': 'warn',
+      'jsdoc/tag-lines': 'off',
       'jsdoc/require-description': 'error',
       'jsdoc/require-description-complete-sentence': 'warn',
       'jsdoc/require-hyphen-before-param-description': 'error',
