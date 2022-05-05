@@ -190,7 +190,8 @@ export const taggingWiring = createWiring({
     storeClickedResultWire
   },
   UserClickedResultAddToCart: {
-    trackAddToCartWire
+    trackAddToCartWire,
+    trackResultClickedWire
   },
   UserClickedPDPAddToCart: {
     trackAddToCartFromSessionStorage
