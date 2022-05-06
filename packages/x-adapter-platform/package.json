@@ -27,12 +27,14 @@
     "build": "concurrently \"npm run build:*\"",
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
-    "test": "jest --passWithNoTests",
+    "test": "jest",
     "postbuild": "npm pack",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@empathyco/x-adapter-next": "^0.2.0-alpha.20",
+    "@empathyco/x-types": "^10.0.0-alpha.20",
+    "@empathyco/x-utils": "^0.1.0-alpha.11",
     "tslib": "~2.3.0"
   },
   "devDependencies": {

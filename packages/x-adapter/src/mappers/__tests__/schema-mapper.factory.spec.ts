@@ -233,4 +233,67 @@ describe('schemaMapperFactory tests', () => {
     const mapper = schemaMapperFactory(schema);
     expect(mapper(source, { requestParameters: { addNumFound: 2 } })).toStrictEqual(target);
   });
+
+  it('should resolve the context from the source', () => {
+    interface Facet {
+      facet: string;
+      children: Filter[];
+    }
+
+    interface Filter {
+      id: string;
+      value: string;
+    }
+
+    interface TargetFacet {
+      id: string;
+      filters: TargetFilter[];
+    }
+
+    interface TargetFilter {
+      filterId: string;
+      parentId: string;
+      value: string;
+    }
+
+    const filterSchema: Schema<Filter, TargetFilter> = {
+      filterId: 'id',
+      value: 'value',
+      parentId: (_, $context) => $context?.parentId as string
+    };
+
+    const facetSchema: Schema<Facet, TargetFacet> = {
+      id: 'facet',
+      filters: {
+        $path: 'children',
+        $subSchema: filterSchema,
+        $context: {
+          parentId: 'facet'
+        }
+      }
+    };
+
+    const source: Facet = {
+      facet: 'parentFacet',
+      children: [
+        {
+          id: 'filter',
+          value: 'filterValue'
+        }
+      ]
+    };
+
+    const target: TargetFacet = {
+      id: 'parentFacet',
+      filters: [
+        {
+          filterId: 'filter',
+          value: 'filterValue',
+          parentId: 'parentFacet'
+        }
+      ]
+    };
+    const mapper = schemaMapperFactory(facetSchema);
+    expect(mapper(source, { requestParameters: { addNumFound: 2 } })).toStrictEqual(target);
+  });
 });
