@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.20...@empathyco/x-adapter-next@0.2.0-alpha.21) (2022-05-06)
+
+### Features
+
+- default implementation
+  ([3df8522](https://github.com/empathyco/x/commit/3df85225375f20c9c2808bdd4d885b3c7a62db6a)),
+  closes [EX-5983](https://searchbroker.atlassian.net/browse/EX-5983)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.19...@empathyco/x-adapter-next@0.2.0-alpha.20) (2022-04-29)
 
 ### Build System
