@@ -14,6 +14,7 @@
         type="search"
         class="x-input x-filters-search__input"
         data-test="filters-search-input"
+        aria-label="type the filter you want to refine by"
       />
     </slot>
     <!--
@@ -179,7 +180,8 @@ Replacing search triggering:
     <input
       @input="setQuery($event.target.value)"
       :value="query"
-      class="x-input x-filters-search__input"/>
+      class="x-input x-filters-search__input"
+      aria-label="type the filter you want to refine by"/>
     <button @click="clearQuery">X</button>
   </template>
   <template #default="{ siftedFilters }">
