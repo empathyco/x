@@ -76,4 +76,5 @@ Feature: Tagging component
     And   first result is clicked
     When  pdp add to cart button is clicked
     Then  add product to cart tagging request has been triggered
-    And   result click tagging request is triggered
+
+  # TODO: Add scenario checking tagging events when clicking addToCart in SERP
