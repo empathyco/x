@@ -24,7 +24,7 @@ export interface XAPI {
    * events.
    *
    * @internal
-   * */
+   */
   setBus(bus: XBus): void;
 
   /**
@@ -113,6 +113,8 @@ export interface SnippetConfig {
   isSpa?: boolean;
   /** The id for the current product when product page is loaded. */
   productId?: string;
+  /** The filters to be applied on the first request. */
+  filters?: string[];
   /** Any extra param to send in all backend calls. */
   [extra: string]: any;
 }

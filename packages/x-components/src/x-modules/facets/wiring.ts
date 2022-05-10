@@ -87,6 +87,9 @@ export const facetsWiring = createWiring({
     clearAllFiltersWire,
     setFiltersFromUrl
   },
+  PreselectedFiltersProvided: {
+    selectFilterWire
+  },
   FacetsChanged: {
     updateFacetsGroupWithSearchFacetsWire
   },
