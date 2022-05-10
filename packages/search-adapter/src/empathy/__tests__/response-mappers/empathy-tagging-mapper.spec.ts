@@ -1,4 +1,4 @@
-import { TaggingInfo } from '@empathyco/x-types';
+import { TrackingRequest } from '../../../types/requests.types';
 import { EmpathyTaggingMapper } from '../../mappers/response/empathy-tagging.mapper';
 
 const taggingMapper = new EmpathyTaggingMapper();
@@ -8,7 +8,7 @@ it('extracts parameters and endpoint adding the follow false parameter', () => {
   const url =
     'https://api.empathybroker.com/tagging/v1/track/juguettos/query?q=lego+star+wars&contextualizeEnabled=false&spellcheck=false&totalHits=72&catalog=default&origin=default&scope=desktop&store=default&page=1&lang=es&contextualizeApplied=none';
 
-  const tagging = taggingMapper.map(url, {} as TaggingInfo);
+  const tagging = taggingMapper.map(url, {} as TrackingRequest);
 
   expect(tagging.url).toEqual('https://api.empathybroker.com/tagging/v1/track/juguettos/query');
   expect(tagging.params).toEqual({

@@ -1,6 +1,5 @@
 import { createMutableSchema, Schema, schemaMapperFactory } from '@empathyco/x-adapter-next';
 import { getTaggingInfoFromUrl } from '@empathyco/x-utils';
-import { TaggingInfo } from '@empathyco/x-types';
 import { PlatformSearchResponse, SearchResponse } from '../../types/response.types';
 import { resultMutableSchema } from '../../schemas/result.schema';
 import { facetMutableSchema } from '../../schemas/facet.schema';
@@ -31,7 +30,7 @@ export const searchResponseSchema: Schema<PlatformSearchResponse, SearchResponse
     $path: 'direct.content',
     $subSchema: redirectionMutableSchema
   },
-  queryTagging: ({ catalog }) => getTaggingInfoFromUrl(catalog?.tagging?.query) as TaggingInfo
+  queryTagging: ({ catalog }) => getTaggingInfoFromUrl(catalog?.tagging?.query)
 };
 
 export const mutableSearchResponseSchema = createMutableSchema(searchResponseSchema);

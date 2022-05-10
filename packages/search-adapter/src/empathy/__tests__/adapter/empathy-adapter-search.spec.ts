@@ -4,7 +4,7 @@ import {
   PromotedSchema,
   RedirectionSchema,
   ResultSchema,
-  TaggingInfoSchema
+  TaggingRequestSchema
 } from '@empathyco/x-types/schemas';
 import { SearchWithPartialsResponse } from '../../__fixtures__/responses/search-with-partials.response';
 import { SearchSimpleResponse } from '../../__fixtures__/responses/search.response';
@@ -24,7 +24,7 @@ it('searches successfully', async () => {
 
   expect(response.totalResults).toEqual(SearchSimpleResponse.content.numFound);
   expect(response).not.toHaveProperty('spellcheck');
-  expect(response.queryTagging).toMatchObject(TaggingInfoSchema);
+  expect(response.queryTagging).toMatchObject(TaggingRequestSchema);
   expect(response.results).everyItemToMatch(ResultSchema);
   expect(response.results.length).toBeGreaterThan(0);
   expect(response.results).toHaveLength(SearchSimpleResponse.content.docs.length);

@@ -19,7 +19,7 @@ export const FilterSchema: Filter = {
 };
 
 /**
- * Jest schema for validating {@link FacetFilter} entities.
+ * Jest schema for validating FacetFilter entities.
  *
  * @public
  */

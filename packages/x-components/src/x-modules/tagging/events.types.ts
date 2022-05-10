@@ -1,4 +1,4 @@
-import { TaggingInfo } from '@empathyco/x-types';
+import { TaggingRequest } from '@empathyco/x-types';
 import { TaggingConfig } from './config.types';
 
 /**
@@ -10,12 +10,12 @@ import { TaggingConfig } from './config.types';
 export interface TaggingXEvents {
   /**
    * Consent has changed.
-   * * Payload: The new consent value.
+   * Payload: The new consent value.
    */
   ConsentChanged: boolean;
   /**
    * Consent has been provided.
-   * * Payload: The new consent value.
+   * Payload: The new consent value.
    */
   ConsentProvided: boolean;
   /**
@@ -25,23 +25,23 @@ export interface TaggingXEvents {
   PDPIsLoaded: string;
   /**
    * ClickedResultStorageKey has been configured to use the
-   * {@link @empathy/x-types#Result | result} url.
-   * * Payload: The new clickedResultStorageKey.
+   * {@link @empathyco/x-types#Result | result} url.
+   * Payload: The new clickedResultStorageKey.
    */
   ResultURLTrackingEnabled: string;
   /**
    * Query tagging info has changed.
-   * * Payload: The new query tagging info.
+   * Payload: The new query tagging info.
    */
-  SearchTaggingReceived: TaggingInfo;
+  SearchTaggingReceived: TaggingRequest;
   /**
    * The user has clicked on the add to cart button from PDP.
-   * * Payload: The id of the {@link @empathy/x-types#Result | result} that the user clicked.
-   **/
+   * Payload: The id of the {@link @empathyco/x-types#Result | result} that the user clicked.
+   */
   UserClickedPDPAddToCart: string | undefined;
   /**
    * The configuration for the tagging has been provided.
-   ** Payload: The configuration for the tagging.
+   * Payload: The tagging configuration.
    */
   TaggingConfigProvided: TaggingConfig;
 }
