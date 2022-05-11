@@ -1,4 +1,4 @@
-import { TaggingInfo } from '@empathyco/x-types';
+import { TaggingRequest } from '@empathyco/x-types';
 import { XStoreModule } from '../../../store';
 import { TaggingConfig } from '../config.types';
 /**
@@ -18,7 +18,7 @@ export interface TaggingState {
   /**
    * Tagging info for last accepted query.
    */
-  queryTaggingInfo: TaggingInfo | null;
+  queryTaggingInfo: TaggingRequest | null;
 }
 
 /**
@@ -45,7 +45,7 @@ export interface TaggingMutations {
    *
    * @param queryTaggingInfo - The new {@link TaggingState.queryTaggingInfo}.
    */
-  setQueryTaggingInfo(queryTaggingInfo: TaggingInfo): void;
+  setQueryTaggingInfo(queryTaggingInfo: TaggingRequest): void;
 
   /**
    * Sets the {@link TaggingState.config} property.
@@ -66,7 +66,7 @@ export interface TaggingActions {
    *
    * @param tagging - The information of the event to track.
    */
-  track(tagging: TaggingInfo | TaggingInfo[]): void;
+  track(tagging: TaggingRequest | TaggingRequest[]): void;
 }
 
 /**

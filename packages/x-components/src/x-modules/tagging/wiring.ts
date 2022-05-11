@@ -1,4 +1,4 @@
-import { Result, TaggingInfo } from '@empathyco/x-types';
+import { Result, TaggingRequest } from '@empathyco/x-types';
 import { DefaultSessionService } from '@empathyco/x-utils';
 import {
   namespacedWireCommit,
@@ -150,7 +150,7 @@ export const trackAddToCartWire = createTrackResultWire('add2cart');
 function createTrackResultWire(property: keyof Result['tagging']): Wire<Result> {
   return filter(
     wireDispatch('track', ({ eventPayload: { tagging }, metadata: { location } }) => {
-      const taggingInfo: TaggingInfo = tagging[property];
+      const taggingInfo: TaggingRequest = tagging[property];
       taggingInfo.params.location = location as string;
       return taggingInfo;
     }),

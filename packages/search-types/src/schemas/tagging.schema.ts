@@ -1,11 +1,12 @@
-import { Taggable, Tagging, TaggingInfo } from '../tagging.model';
+import { TaggingRequest } from '../request/tagging-request.model';
+import { Taggable, Tagging } from '../tagging.model';
 
 /**
- * Jest schema for validating TaggingInfo entities.
+ * Jest schema for validating TaggingRequest entities.
  *
  * @public
  */
-export const TaggingInfoSchema: TaggingInfo = {
+export const TaggingRequestSchema: TaggingRequest = {
   params: expect.any(Object),
   url: expect.any(String)
 };
@@ -16,10 +17,10 @@ export const TaggingInfoSchema: TaggingInfo = {
  * @public
  */
 export const TaggingSchema: Tagging = {
-  add2cart: TaggingInfoSchema,
-  checkout: TaggingInfoSchema,
-  click: TaggingInfoSchema,
-  query: TaggingInfoSchema
+  add2cart: TaggingRequestSchema,
+  checkout: TaggingRequestSchema,
+  click: TaggingRequestSchema,
+  query: TaggingRequestSchema
 };
 
 /**

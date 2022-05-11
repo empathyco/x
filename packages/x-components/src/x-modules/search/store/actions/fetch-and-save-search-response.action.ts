@@ -1,4 +1,5 @@
-import { SearchResponse, SearchRequest } from '@empathyco/x-adapter';
+import { SearchResponse } from '@empathyco/x-adapter';
+import { SearchRequest } from '@empathyco/x-types';
 import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
 import { InternalSearchRequest } from '../../types';
 import { SearchActionContext, SearchState } from '../types';

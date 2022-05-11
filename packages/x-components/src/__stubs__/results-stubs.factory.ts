@@ -1,4 +1,4 @@
-import { Result, Tagging, TaggingInfo } from '@empathyco/x-types';
+import { Result, Tagging, TaggingRequest } from '@empathyco/x-types';
 import { toKebabCase } from '../utils/string';
 
 /**
@@ -70,16 +70,16 @@ function getResultTagging(productId: string): Tagging {
 }
 
 /**
- * Creates a {@link @empathyco/x-types#TaggingInfo | tagging info} mocked object.
+ * Creates a {@link @empathyco/x-types#TaggingRequest | tagging request} mocked object.
  *
  * @param action - String with the action to tag.
  * @param params - Params to add to the tagging request.
  *
- * @returns TaggingInfo mocked object.
+ * @returns TaggingRequest mocked object.
  *
  * @internal
  */
-function getTaggingByAction(action: string, params: Record<string, any>): TaggingInfo {
+function getTaggingByAction(action: string, params: Record<string, any>): TaggingRequest {
   return {
     url: `https://api.empathy.co/track/${action}`,
     params: {

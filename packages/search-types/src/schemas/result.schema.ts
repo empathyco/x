@@ -1,6 +1,6 @@
 import { Result } from '../result/result.model';
 import { IdentifiableSchema } from './identifiable.schema';
-import { TaggingInfoSchema } from './tagging.schema';
+import { TaggingRequestSchema } from './tagging.schema';
 
 /**
  * Jest schema for validating Result entities.
@@ -24,10 +24,10 @@ export const ResultSchema: Result = {
     value: expect.nullOr(Number)
   },
   tagging: {
-    query: TaggingInfoSchema,
-    click: TaggingInfoSchema,
-    add2cart: TaggingInfoSchema,
-    checkout: TaggingInfoSchema
+    query: TaggingRequestSchema,
+    click: TaggingRequestSchema,
+    add2cart: TaggingRequestSchema,
+    checkout: TaggingRequestSchema
   },
   type: expect.any(String),
   url: expect.any(String),
@@ -56,9 +56,9 @@ export const RecommendationSchema: Result = {
     value: expect.nullOr(Number)
   },
   tagging: {
-    click: TaggingInfoSchema,
-    add2cart: TaggingInfoSchema,
-    checkout: TaggingInfoSchema
+    click: TaggingRequestSchema,
+    add2cart: TaggingRequestSchema,
+    checkout: TaggingRequestSchema
   },
   type: expect.any(String),
   url: expect.any(String),
