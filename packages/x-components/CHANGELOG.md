@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.95](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.94...@empathyco/x-components@3.0.0-alpha.95) (2022-05-11)
+
+### ⚠ BREAKING CHANGES
+
+- Request types moved to `x-types` package. Change the imports from `x-adapter` to `x-type`.
+- Removed `TaggingInfo` type. Use `TaggingRequest` from `@empathyco/x-types` instead.
+
+### Features
+
+- move `Request` types to `x-types` package
+  ([7cc85c1](https://github.com/empathyco/x/commit/7cc85c1d371b604b3188d8cc2076eab5fc9460e4)),
+  closes [EX-6066](https://searchbroker.atlassian.net/browse/EX-6066)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.94](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.93...@empathyco/x-components@3.0.0-alpha.94) (2022-05-09)
 
 **Note:** Version bump only for package @empathyco/x-components
