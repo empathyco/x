@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-adapter-platform",
-  "version": "0.1.1-alpha.6",
+  "version": "1.0.0-alpha.0",
   "description": "A search client for the Empathy Platform API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -27,12 +27,14 @@
     "build": "concurrently \"npm run build:*\"",
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
-    "test": "jest --passWithNoTests",
+    "test": "jest",
     "postbuild": "npm pack",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@empathyco/x-adapter-next": "^0.2.0-alpha.20",
+    "@empathyco/x-adapter-next": "^0.2.0-alpha.22",
+    "@empathyco/x-types": "^10.0.0-alpha.22",
+    "@empathyco/x-utils": "^1.0.0-alpha.0",
     "tslib": "~2.3.0"
   },
   "devDependencies": {

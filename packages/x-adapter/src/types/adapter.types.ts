@@ -69,7 +69,7 @@ export interface EndpointAdapterOptions<Request, Response> {
    * The {@link Mapper} in charge of adapting the request object so the backend API can
    * understand it.
    */
-  requestMapper?: Mapper<Request, Record<string, unknown>>;
+  requestMapper?: Mapper<Request, Record<string, any>>;
   /**
    * The {@link Mapper} in charge of adapting the response object to whatever format or
    * shape it is needed.

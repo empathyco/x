@@ -1,4 +1,4 @@
-import { SearchRequest } from '@empathyco/x-adapter';
+import { SearchRequest } from '@empathyco/x-types';
 
 /**
  * An internal search request containing the page used to calculate the start and rows properties of

@@ -5,12 +5,14 @@ import { SearchXStoreModule } from '../types';
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the search
  * module.
+ * @param getters - Current {@link https://vuex.vuejs.org/guide/getters.html | getters} of the
+ * search module.
  * @returns The search request to fetch data from the API.
  *
  * @public
  */
 export const request: SearchXStoreModule['getters']['request'] = (
-  { page, params, selectedFilters, sort },
+  { page, params, selectedFilters: filters, sort },
   { query }
 ) => {
   return query
@@ -18,7 +20,7 @@ export const request: SearchXStoreModule['getters']['request'] = (
         query,
         sort,
         page,
-        filters: selectedFilters,
+        filters,
         ...params
       }
     : null;

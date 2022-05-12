@@ -6,7 +6,7 @@ module.exports = {
     rules: {
       'jsdoc/check-alignment': 'error',
       'jsdoc/check-indentation': 'error',
-      'jsdoc/check-param-names': 'warn',
+      'jsdoc/check-param-names': ['warn', { checkDestructured: false }],
       'jsdoc/check-tag-names': [
         'error',
         {
@@ -18,10 +18,11 @@ module.exports = {
       'jsdoc/multiline-blocks': 'warn',
       'jsdoc/newline-after-description': 'error',
       'jsdoc/no-multi-asterisks': 'warn',
+      'jsdoc/tag-lines': 'off',
       'jsdoc/require-description': 'error',
       'jsdoc/require-description-complete-sentence': 'warn',
       'jsdoc/require-hyphen-before-param-description': 'error',
-      'jsdoc/require-param': 'warn',
+      'jsdoc/require-param': ['warn', { checkDestructured: false }],
       'jsdoc/require-param-description': 'warn',
       'jsdoc/require-param-name': 'error',
       'jsdoc/require-param-type': 'off',

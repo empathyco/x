@@ -1,5 +1,4 @@
-import { RelatedTagsRequest } from '@empathyco/x-adapter';
-import { RelatedTag } from '@empathyco/x-types';
+import { RelatedTag, RelatedTagsRequest } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
@@ -28,10 +27,13 @@ export interface RelatedTagsState extends StatusState, QueryState {
  * @public
  */
 export interface RelatedTagsGetters {
-  /** The adapter request object for retrieving the related tags, or null if there is not
-   * valid data to create a request. */
+  /**
+   * The adapter request object for retrieving the related tags, or null if there is not
+   * valid data to create a request.
+   */
   request: RelatedTagsRequest | null;
-  /** List that contains al the related tags, having the selected ones at the first positions
+  /**
+   * List that contains al the related tags, having the selected ones at the first positions
    * (if there are any), and then the unselected ones.
    */
   relatedTags: RelatedTag[];
