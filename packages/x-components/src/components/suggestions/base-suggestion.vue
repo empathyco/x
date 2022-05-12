@@ -7,7 +7,7 @@
           @binding {string} queryHTML - Suggestion's query with the matching part inside a `<span>` tag
     -->
     <!-- eslint-enable max-len -->
-    <slot v-bind="{ suggestion, queryHTML, filter: suggestionFilter }">
+    <slot v-bind="{ suggestion, queryHTML, filter }">
       <span v-html="queryHTML" :aria-label="suggestion.query" class="x-suggestion__query" />
     </slot>
   </button>
@@ -73,7 +73,7 @@
     @Prop({ default: false, type: Boolean })
     protected highlightCurated!: boolean;
 
-     /**
+    /**
      * Indicates if there are facets available.
      *
      * @returns True if there are facets available and false otherwise.
@@ -87,9 +87,9 @@
      * The event handler that will be triggered when clicking on a suggestion.
      *
      * @remarks
-     * * UserAcceptedAQuery: suggestion.query
-     * * UserSelectedASuggestion: suggestion
-     * * Merges the events defined in the suggestionSelectedEvents prop and also emits them
+     * UserAcceptedAQuery: suggestion.query
+     * UserSelectedASuggestion: suggestion
+     * Merges the events defined in the suggestionSelectedEvents prop and also emits them
      *
      * @returns The {@link XEvent | XEvents} to emit.
      * @public
@@ -129,10 +129,8 @@
      * @returns The filter.
      * @public
      */
-     protected get filter(): BooleanFilter {
+    protected get filter(): BooleanFilter {
       return this.suggestion.facets[0]?.filters[0] as BooleanFilter;
-    }
-      return this.hasFacets ? <BooleanFilter>this.suggestion.facets[0].filters[0] : null;
     }
 
     /**
@@ -186,12 +184,11 @@
       let query = this.hasMatchingQuery
         ? this.queryMatchingPartHTML()
         : sanitize(this.suggestion.query);
-      if (this.hasFacets && this.suggestionFilter) {
+      if (this.hasFacets && this.filter) {
         const attrsFacets =
           'class="x-font-weight--regular x-font-size--04 x-line-height--tight x-margin--left-03"';
         query +=
-          `<span ${attrsFacets}>|</span>` +
-          `<span ${attrsFacets}>${this.suggestionFilter.label}</span>`;
+          `<span ${attrsFacets}>|</span>` + `<span ${attrsFacets}>${this.filter.label}</span>`;
       }
       return query;
     }
