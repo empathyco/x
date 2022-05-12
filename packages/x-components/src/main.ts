@@ -8,8 +8,10 @@ import { FilterEntityFactory } from './x-modules/facets/entities/filter-entity.f
 import { SingleSelectModifier } from './x-modules/facets/entities/single-select.modifier';
 
 Vue.config.productionTip = false;
-['hierarchical_category', 'categories_facet', 'brand_facet', 'age_facet'].forEach(facetId =>
-  FilterEntityFactory.instance.registerFilterModifier(facetId, [SingleSelectModifier])
+FilterEntityFactory.instance.registerModifierByFacetId('age_facet', SingleSelectModifier);
+FilterEntityFactory.instance.registerModifierByFilterModelName(
+  'HierarchicalFilter',
+  SingleSelectModifier
 );
 
 new XInstaller({
