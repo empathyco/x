@@ -16,17 +16,11 @@
   </component>
 </template>
 
-<style lang="scss" scoped>
-  .x-suggestions {
-    list-style-type: none;
-  }
-</style>
-
 <script lang="ts">
   import { Component, Prop } from 'vue-property-decorator';
   import { Suggestion, Facet } from '@empathyco/x-types';
   import Vue from 'vue';
-  import { isArrayEmpty } from '../../utils';
+  import { isArrayEmpty } from '../../utils/array';
 
   /**
    * Paints a list of suggestions passed in by prop. Requires a component for a single suggestion
@@ -123,22 +117,38 @@
      */
     protected get suggestionsToRender(): Suggestion[] {
       const suggestions = this.suggestions.slice(0, this.maxItemsToRender);
-      let suggestionsToRender: Suggestion[] = [];
-      suggestions.forEach(suggestion => {
-        if (!this.showFacets || !suggestion.facets?.length) {
-          suggestionsToRender.push({ ...suggestion, facets: [] });
-        } else {
-          const facetsSuggestions = this.generateSuggestionsFromFacets(suggestion);
-          if (this.showQuery) {
-            facetsSuggestions.push({
-              ...suggestion,
-              facets: []
-            });
-          }
-          suggestionsToRender = [...suggestionsToRender, ...facetsSuggestions];
-        }
-      });
-      return suggestionsToRender;
+      return this.showFacets
+        ? this.mapSuggestionsWithFacets(suggestions)
+        : this.mapSuggestionsWithoutFacets(suggestions);
+    }
+
+    /**
+     * Returns the suggestions with only one facet and filter per item.
+     * If a suggestion has more than one facet/filter, it will return an instance
+     * for each one of the facets/filters.
+     *
+     * @param suggestions - Suggestions.
+     *
+     * @returns - The mapped suggestions with a facet and filter per item.
+     * @internal
+     */
+    protected mapSuggestionsWithFacets(suggestions: Suggestion[]): Suggestion[] {
+      return suggestions.reduce<Suggestion[]>(
+        (acc, suggestion) => [...acc, ...this.generateSuggestionsFromFacets(suggestion)],
+        []
+      );
+    }
+
+    /**
+     * Returns the suggestions with the facets array empty.
+     *
+     * @param suggestions - Suggestions.
+     *
+     * @returns - The suggestions with the facets array empty.
+     * @internal
+     */
+    protected mapSuggestionsWithoutFacets(suggestions: Suggestion[]): Suggestion[] {
+      return suggestions.map(suggestion => ({ ...suggestion, facets: [] }));
     }
 
     /**
@@ -150,7 +160,10 @@
      * @internal
      */
     protected generateSuggestionsFromFacets(suggestion: Suggestion): Suggestion[] {
-      return suggestion.facets.reduce((suggestions, facet) => {
+      if (!suggestion.facets || !suggestion.facets.length) {
+        return [{ ...suggestion, facets: [] }];
+      }
+      const suggestionsWithFacets = suggestion.facets.reduce<Suggestion[]>((suggestions, facet) => {
         facet.filters.forEach(filter => {
           suggestions.push({
             ...suggestion,
@@ -163,10 +176,20 @@
           });
         });
         return suggestions;
-      }, [] as Suggestion[]);
+      }, []);
+      if (this.showQuery) {
+        suggestionsWithFacets.unshift({ ...suggestion, facets: [] });
+      }
+      return suggestionsWithFacets;
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .x-suggestions {
+    list-style-type: none;
+  }
+</style>
 
 <docs lang="mdx">
 ## Examples
@@ -205,9 +228,8 @@ export default {
 
 ### Play with props
 
-In this example, the suggestions has been limited to render a maximum of 3 items.
-
-_Type "puzzle" or another toy in the input field to try it out!_
+In this example, the suggestions has been limited to render a maximum of 3 items. _Type "puzzle" or
+another toy in the input field to try it out!_
 
 ```vue
 <template>

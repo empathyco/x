@@ -3,121 +3,160 @@ import { mount, WrapperArray, Wrapper } from '@vue/test-utils';
 import { getPopularSearchesStub } from '../../../__stubs__/popular-searches-stubs.factory';
 import { getDataTestSelector } from '../../../__tests__/utils';
 import BaseSuggestions from '../base-suggestions.vue';
-import { createBaseSuggestionWithFacets } from '../../../__stubs__/base-suggestion-stubs.factory';
+import { createSuggestionWithFacets } from '../../../__stubs__/base-suggestion-stubs.factory';
 
-describe('testing Base Suggestions component', () => {
-  const suggestions = getPopularSearchesStub();
-  const suggestionWithFacets = createBaseSuggestionWithFacets(
-    'testQuery',
-    'testQuery',
-    'PopularSearch'
+const suggestionWithFacets = createSuggestionWithFacets('testQuery', 'testQuery', 'PopularSearch');
+
+function renderBaseSuggestions({
+  customSlot = '',
+  template = `<BaseSuggestions
+                :suggestions="suggestions"
+                :showFacets="showFacets"
+                :showQuery="showQuery">
+                  <template #default="{suggestion, index}">
+                    ${customSlot ?? ''}
+                  </template>
+                </BaseSuggestions>`,
+  suggestions = getPopularSearchesStub(),
+  showFacets = false,
+  showQuery = false
+}: BaseSuggestionsOptions = {}): BaseSuggestionsAPI {
+  const wrapper = mount(
+    {
+      template,
+      components: {
+        BaseSuggestions
+      },
+      props: ['suggestions', 'showFacets', 'showQuery']
+    },
+    {
+      propsData: { suggestions, showFacets, showQuery }
+    }
   );
 
-  it('renders a list of suggestions passed as props', () => {
-    const wrapper = mount(BaseSuggestions, {
-      propsData: { suggestions }
-    });
+  return {
+    wrapper: wrapper.findComponent(BaseSuggestions),
+    suggestions,
+    getSuggestionsItems() {
+      return wrapper.findAll(getDataTestSelector('suggestion-item'));
+    }
+  };
+}
 
-    expect(wrapper.findAll('li')).toHaveLength(suggestions.length);
+describe('testing Base Suggestions component', () => {
+  it('renders a list of suggestions passed as props', () => {
+    const { wrapper, suggestions, getSuggestionsItems } = renderBaseSuggestions();
+
+    expect(getSuggestionsItems()).toHaveLength(suggestions.length);
     // Expect generated keys to be unique
     const listItemKeys = new Set((wrapper.vm as any).suggestionsKeys);
     expect(listItemKeys.size).toEqual(suggestions.length);
   });
 
   it('has a default scoped slot to render each suggestion', () => {
-    const wrapper = mount(BaseSuggestions, {
-      propsData: { suggestions },
-      scopedSlots: {
-        default({ suggestion, index }: { suggestion: Suggestion; index: number }) {
-          return `${index} - ${suggestion.query}`;
-        }
-      }
+    const { suggestions, getSuggestionsItems } = renderBaseSuggestions({
+      customSlot: '<span>{{ index }} - {{ suggestion.query}}</span>'
     });
-
-    const liWrappers = wrapper.findAll('li');
-    suggestions.forEach((suggestion, index) =>
-      expect(liWrappers.at(index).element.textContent).toEqual(`${index} - ${suggestion.query}`)
+    getSuggestionsItems().wrappers.forEach((suggestionItemWrapper, index) =>
+      expect(suggestionItemWrapper.text()).toEqual(`${index} - ${suggestions[index].query}`)
     );
   });
 
   it('renders at most the number of suggestions defined by `maxItemsToRender` prop', async () => {
-    const wrapper = mount(BaseSuggestions, {
-      propsData: { suggestions }
-    });
-    const renderedSuggestions = (): WrapperArray<Vue> =>
-      findTestDataById(wrapper, 'suggestion-item');
+    const { wrapper, getSuggestionsItems, suggestions } = renderBaseSuggestions();
 
-    expect(renderedSuggestions()).toHaveLength(suggestions.length);
+    expect(getSuggestionsItems()).toHaveLength(suggestions.length);
 
     await wrapper.setProps({ maxItemsToRender: suggestions.length - 1 });
-    expect(renderedSuggestions()).toHaveLength(suggestions.length - 1);
+    expect(getSuggestionsItems()).toHaveLength(suggestions.length - 1);
 
     await wrapper.setProps({ maxItemsToRender: suggestions.length });
-    expect(renderedSuggestions()).toHaveLength(suggestions.length);
+    expect(getSuggestionsItems()).toHaveLength(suggestions.length);
 
     await wrapper.setProps({ maxItemsToRender: suggestions.length + 1 });
-    expect(renderedSuggestions()).toHaveLength(suggestions.length);
+    expect(getSuggestionsItems()).toHaveLength(suggestions.length);
   });
 
-  it('renders all suggestions filters if showFacets is true', () => {
-    const wrapper = mount(BaseSuggestions, {
-      propsData: {
-        suggestions: [suggestionWithFacets],
-        showFacets: true
-      },
-      scopedSlots: {
-        default({ suggestion }: { suggestion: Suggestion }) {
-          const filterLabel = (<BooleanFilter>suggestion.facets[0].filters[0]).label;
-          return `${suggestion.query} - ${filterLabel}`;
-        }
+  it('renders all suggestions with facets if showFacets is true', () => {
+    const { getSuggestionsItems } = renderBaseSuggestions({
+      customSlot:
+        '<span>{{ suggestion.query }} - {{ suggestion.facets[0].filters[0].label }}</span>',
+      showFacets: true,
+      suggestions: suggestionWithFacets
+    });
+    expect(getSuggestionsItems()).toHaveLength(3);
+
+    const filters = getFlattenFilters();
+
+    getSuggestionsItems().wrappers.forEach((suggestionItemWrapper, index) =>
+      expect(suggestionItemWrapper.text()).toBe(
+        `${suggestionWithFacets[0].query} - ${filters[index]}`
+      )
+    );
+  });
+
+  it("won't render suggestions with facets if showFacets is false", () => {
+    const { getSuggestionsItems } = renderBaseSuggestions({
+      customSlot: '<span>{{ suggestion.query }}{{ suggestion.facets[0] }}</span>',
+      showFacets: false,
+      suggestions: suggestionWithFacets
+    });
+
+    expect(getSuggestionsItems()).toHaveLength(1);
+    getSuggestionsItems().wrappers.forEach(suggestionItemWrapper =>
+      expect(suggestionItemWrapper.text()).toBe(suggestionWithFacets[0].query)
+    );
+  });
+
+  it('shows the suggestions with facets and the query itself', () => {
+    const { getSuggestionsItems } = renderBaseSuggestions({
+      customSlot: '<span>{{ suggestion.query }}{{ suggestion.facets[0]?.filters[0].label }}</span>',
+      showFacets: true,
+      showQuery: true,
+      suggestions: suggestionWithFacets
+    });
+    expect(getSuggestionsItems()).toHaveLength(4);
+    expect(getSuggestionsItems().wrappers[0].text()).toBe(suggestionWithFacets[0].query);
+
+    const filters = getFlattenFilters();
+    getSuggestionsItems().wrappers.forEach((suggestionItemWrapper, index) => {
+      if (index === 0) {
+        expect(suggestionItemWrapper.text()).toBe(suggestionWithFacets[0].query);
+      } else {
+        expect(suggestionItemWrapper.text()).toBe(
+          `${suggestionWithFacets[0].query}${filters[index - 1]}`
+        );
       }
     });
-    const data = findTestDataById(wrapper, 'suggestion-item');
-    expect(data).toHaveLength(3);
-    expect(data.at(0).element.textContent).toEqual('testQuery - DORMIR');
-    expect(data.at(1).element.textContent).toEqual('testQuery - SPECIAL PRICES');
-    expect(data.at(2).element.textContent).toEqual('testQuery - EXAMPLE');
   });
 
-  it("won't render suggestions with filters if showFacets is false", () => {
-    const wrapper = mount(BaseSuggestions, {
-      propsData: {
-        suggestions: [suggestionWithFacets],
-        showFacets: false
-      },
-      scopedSlots: {
-        default({ suggestion }: { suggestion: Suggestion }) {
-          expect(suggestion.facets).toHaveLength(0);
-          return `${suggestion.query}`;
-        }
+  function getFlattenFilters(): string[] {
+    const filters: string[] = [];
+    suggestionWithFacets[0].facets.forEach(facet => {
+      for (let i = 0; i < facet.filters.length; i++) {
+        filters.push((facet.filters[i] as BooleanFilter).label);
       }
     });
-    const data = findTestDataById(wrapper, 'suggestion-item');
-    expect(data).toHaveLength(1);
-    expect(data.at(0).element.textContent).toEqual('testQuery');
-  });
-
-  it('shows the query as well as the suggestion including facets', () => {
-    const wrapper = mount(BaseSuggestions, {
-      propsData: {
-        showFacets: true,
-        showQuery: true,
-        suggestions: [suggestionWithFacets]
-      },
-      scopedSlots: {
-        default({ suggestion }: { suggestion: Suggestion }) {
-          return `${suggestion.query}${
-            suggestion.facets.length ? (<BooleanFilter>suggestion.facets[0].filters[0]).label : ''
-          }`;
-        }
-      }
-    });
-    const data = findTestDataById(wrapper, 'suggestion-item');
-    expect(data).toHaveLength(4);
-    expect(data.at(3).element.textContent).toEqual(suggestionWithFacets.query);
-  });
-
-  function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {
-    return wrapper.findAll(getDataTestSelector(testDataId));
+    return filters;
   }
 });
+
+/**
+ * The options for the `renderBaseSuggestions` function.
+ */
+interface BaseSuggestionsOptions {
+  template?: string;
+  suggestions?: Suggestion[];
+  showFacets?: boolean;
+  showQuery?: boolean;
+  customSlot?: string;
+}
+
+/**
+ * Test API for the {@link BaseSuggestions} component.
+ */
+interface BaseSuggestionsAPI {
+  wrapper: Wrapper<Vue>;
+  suggestions: Suggestion[];
+  getSuggestionsItems: () => WrapperArray<Vue>;
+}
