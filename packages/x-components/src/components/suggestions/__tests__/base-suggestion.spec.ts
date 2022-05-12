@@ -1,80 +1,98 @@
-import { BooleanFilter } from '@empathyco/x-types';
+import { BooleanFilter, Facet, Suggestion } from '@empathyco/x-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { XPlugin } from '../../../plugins/x-plugin';
 import { normalizeString } from '../../../utils/normalize';
-import { createBaseSuggestionWithFacets } from '../../../__stubs__/base-suggestion-stubs.factory';
-import { WireMetadata, XEventsTypes } from '../../../wiring/index';
+import { createSuggestionWithFacets } from '../../../__stubs__/base-suggestion-stubs.factory';
+import { XEventsTypes } from '../../../wiring/events.types';
+import { WireMetadata } from '../../../wiring/wiring.types';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseSuggestion from '../base-suggestion.vue';
 
-describe('testing Base Suggestion component', () => {
+function renderBaseSuggestion({
+  query = normalizeString('(b<ebé>)'),
+  suggestion = createSuggestionWithFacets('(b<ebé>) lloron', 'bebe lloron', 'QuerySuggestion')[0],
+  suggestionFacets
+}: BaseSuggestionOptions = {}): BaseSuggestionAPI {
   const [, localVue] = installNewXPlugin();
 
-  const query = normalizeString('(b<ebé>)');
-  const suggestion = createBaseSuggestionWithFacets(
-    '(b<ebé>) lloron',
-    'bebe lloron',
-    'QuerySuggestion'
-  );
+  if (suggestionFacets !== undefined) {
+    suggestion.facets = suggestionFacets;
+  }
 
   const suggestionSelectedEvents: Partial<XEventsTypes> = {
     UserSelectedAQuerySuggestion: suggestion,
     UserTalked: 'belt'
   };
 
-  const getWireMetadataObject = (component: Wrapper<Vue>): Partial<WireMetadata> =>
-    expect.objectContaining<Partial<WireMetadata>>({ target: component.element });
-
-  let component: Wrapper<Vue>;
-
-  beforeEach(() => {
-    component = mount(BaseSuggestion, {
-      localVue,
-      propsData: { query, suggestion, suggestionSelectedEvents }
-    });
+  const wrapper = mount(BaseSuggestion, {
+    localVue,
+    propsData: {
+      query,
+      suggestion,
+      suggestionSelectedEvents
+    }
   });
 
+  const wireMetadataObject = expect.objectContaining<Partial<WireMetadata>>({
+    target: wrapper.element
+  });
+
+  return {
+    wrapper,
+    suggestion,
+    query,
+    localVue,
+    wireMetadataObject
+  };
+}
+
+describe('testing Base Suggestion component', () => {
   it('passes the prop suggestion to the default slot', () => {
-    expect(component.element.textContent).toContain(suggestion.query);
+    const { wrapper, suggestion } = renderBaseSuggestion();
+
+    expect(wrapper.element.textContent).toContain(suggestion.query);
   });
 
-  it('passes the prop suggestionFilter to the default slot', () => {
-    expect(component.element.textContent).toContain(
+  it('passes the prop filter to the default slot', () => {
+    const { wrapper, suggestion } = renderBaseSuggestion();
+
+    expect(wrapper.element.textContent).toContain(
       (<BooleanFilter>suggestion.facets[0].filters[0]).label
     );
   });
 
   it('has suggestion query parts matching query passed as prop retaining accent marks', () => {
-    const matchingPart = component.find(getDataTestSelector('matching-part')).text();
+    const { wrapper, suggestion, query } = renderBaseSuggestion();
+    const matchingPart = wrapper.find(getDataTestSelector('matching-part')).text();
 
     expect(normalizeString(matchingPart)).toEqual(query);
     expect(suggestion.query).toContain(matchingPart);
   });
 
   it('sanitizes the matching part of the suggestion query', () => {
-    const matchingPartHTML = component.find(getDataTestSelector('matching-part')).element.innerHTML;
+    const { wrapper } = renderBaseSuggestion();
+    const matchingPartHTML = wrapper.find(getDataTestSelector('matching-part')).element.innerHTML;
 
     expect(matchingPartHTML).toBe('(b&lt;ebé&gt;)');
   });
 
   it('does not have matched query if the query prop is empty', () => {
-    component.setProps({ query: '' });
-    const hasMatchingQuery = (component.vm as any).hasMatchingQuery;
+    const { wrapper } = renderBaseSuggestion({ query: '' });
+    const hasMatchingQuery = (wrapper.vm as any).hasMatchingQuery;
 
     expect(hasMatchingQuery).toBe(false);
   });
 
-  it('does not have a filter label if the suggestion has no facets', async () => {
-    await component.setProps({ suggestion: { ...suggestion, facets: [] } });
-    expect(component.element.textContent).toBe(suggestion.query)
-    );
+  it('does not have a filter label if the suggestion has no facets', () => {
+    const { wrapper, suggestion } = renderBaseSuggestion({ suggestionFacets: [] });
+    expect(wrapper.element.textContent!.trim()).toBe(suggestion.query);
   });
 
   it('emits suggestionSelectedEvent and the default events onclick', async () => {
-    const target = getWireMetadataObject(component);
+    const { wrapper, suggestion, localVue, wireMetadataObject: target } = renderBaseSuggestion();
     const spyOn = jest.spyOn(XPlugin.bus, 'emit');
-    component.trigger('click');
+    wrapper.trigger('click');
 
     await localVue.nextTick();
 
@@ -85,9 +103,9 @@ describe('testing Base Suggestion component', () => {
   });
 
   it('emits UserClickedAFilter if the suggestion has a filter', async () => {
-    const target = getWireMetadataObject(component);
+    const { wrapper, wireMetadataObject: target, localVue, suggestion } = renderBaseSuggestion();
     const spyOn = jest.spyOn(XPlugin.bus, 'emit');
-    component.trigger('click');
+    wrapper.trigger('click');
 
     await localVue.nextTick();
 
@@ -99,10 +117,10 @@ describe('testing Base Suggestion component', () => {
   });
 
   it('does not emit UserClickedAFilter if there is no filter', async () => {
-    await component.setProps({ suggestion: { ...suggestion, facets: [] } });
-    const target = getWireMetadataObject(component);
+    const { wrapper, suggestion, localVue, wireMetadataObject: target } = renderBaseSuggestion();
+    await wrapper.setProps({ suggestion: { ...suggestion, facets: [] } });
     const spyOn = jest.spyOn(XPlugin.bus, 'emit');
-    component.trigger('click');
+    wrapper.trigger('click');
 
     await localVue.nextTick();
 
@@ -113,3 +131,17 @@ describe('testing Base Suggestion component', () => {
     );
   });
 });
+
+interface BaseSuggestionOptions {
+  query?: string;
+  suggestion?: Suggestion;
+  suggestionFacets?: Facet[];
+}
+
+interface BaseSuggestionAPI {
+  wrapper: Wrapper<Vue>;
+  suggestion: Suggestion;
+  query: string;
+  localVue: typeof Vue;
+  wireMetadataObject: Partial<WireMetadata>;
+}
