@@ -12,7 +12,7 @@
             @binding {Suggestion} suggestion - Popular Search suggestion data
       -->
 
-      <slot :suggestion="suggestion" :filter="filter">{{ suggestion.query }</slot>
+      <slot :suggestion="suggestion" :filter="filter">{{ suggestion.query }}</slot>
     </template>
   </BaseSuggestion>
 </template>
@@ -22,8 +22,8 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
-  import { xComponentMixin } from '../../../components';
-  import { XEventsTypes } from '../../../wiring';
+  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { XEventsTypes } from '../../../wiring/events.types';
   import { popularSearchesXModule } from '../x-module';
 
   /**
