@@ -2,7 +2,7 @@ import { SearchRequest } from '@empathyco/x-types';
 
 /**
  * An internal search request containing the page used to calculate the start and rows properties of
- * a {@link @empathyco/x-adapter#SearchRequest}.
+ * a {@link @empathyco/x-types#SearchRequest}.
  *
  * @public
  */

@@ -1,5 +1,5 @@
-import { SearchResponse } from '@empathyco/x-adapter';
 import {
+  SearchResponse,
   SearchRequest,
   Banner,
   Facet,
@@ -252,9 +252,9 @@ export interface SearchActions {
    */
   saveOrigin(originInit: QueryOriginInit): void;
   /**
-   * Saves the {@link @empathyco/x-adapter#SearchResponse}.
+   * Saves the {@link @empathyco/x-types#SearchResponse}.
    *
-   * @param response - The {@link @empathyco/x-adapter#SearchResponse} to save.
+   * @param response - The {@link @empathyco/x-types#SearchResponse} to save.
    */
   saveSearchResponse(response: SearchResponse): void;
 }
