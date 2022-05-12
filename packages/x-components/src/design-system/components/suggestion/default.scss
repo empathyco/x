@@ -41,10 +41,6 @@
   var(--x-size-border-radius-bottom-right-suggestion-default)
   var(--x-size-border-radius-bottom-left-suggestion-default);
 
-  &__query {
-    // layout
-    flex: 1 1 auto;
-  }
 
   &__matching-part,
   .x-identifier-result__matching-part {

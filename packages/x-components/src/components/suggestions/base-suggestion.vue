@@ -8,7 +8,16 @@
     -->
     <!-- eslint-enable max-len -->
     <slot v-bind="{ suggestion, queryHTML, filter }">
-      <span v-html="queryHTML" :aria-label="suggestion.query" class="x-suggestion__query" />
+      <span
+        v-html="queryHTML"
+        :aria-label="suggestion.query"
+        class="x-suggestion__query"
+        :class="{ 'x-flex-1': !filter }"
+      />
+      <template v-if="filter">
+        <span class="x-suggestion__filter-separator">|</span>
+        <span class="x-suggestion__filter x-flex-1">{{ filter.label }}</span>
+      </template>
     </slot>
   </button>
 </template>
@@ -172,43 +181,30 @@
     }
 
     /**
-     * Returns the HTML to render the query, including the matching part and the filter.
+     * Highlights the matching part of the suggestion query with the query passed as prop of the
+     * component putting it inside a `<span>` tag.
      *
      * @remarks
      * The query prop should be normalized.
      *
-     * @returns The suggestion's query HTML.
+     * @returns The suggestion's query with the matching part inside a `<span>` tag.
      * @public
      */
     protected get queryHTML(): string {
-      let query = this.hasMatchingQuery
-        ? this.queryMatchingPartHTML()
-        : sanitize(this.suggestion.query);
-      if (this.hasFacets && this.filter) {
-        const attrsFacets =
-          'class="x-font-weight--regular x-font-size--04 x-line-height--tight x-margin--left-03"';
-        query +=
-          `<span ${attrsFacets}>|</span>` + `<span ${attrsFacets}>${this.filter.label}</span>`;
-      }
-      return query;
-    }
+      if (this.hasMatchingQuery) {
+        const matcherIndex = normalizeString(this.suggestion.query).indexOf(this.query);
 
-    /**
-     * Highlights the matching part of the suggestion query with the query passed as prop of the
-     * component putting it inside a `<span>` tag.
-     *
-     * @returns The suggestion's query with the matching part inside a `<span>` tag.
-     * @internal
-     */
-    protected queryMatchingPartHTML(): string {
-      const matcherIndex = normalizeString(this.suggestion.query).indexOf(this.query);
-      const [beginning, matching, end] = this.splitAt(
-        this.suggestion.query,
-        matcherIndex,
-        this.query.length
-      );
-      const attrsMatching = 'data-test="matching-part" class="x-suggestion__matching-part"';
-      return `${beginning}<span ${attrsMatching}>${matching}</span>${end}`;
+        const [beginning, matching, end] = this.splitAt(
+          this.suggestion.query,
+          matcherIndex,
+          this.query.length
+        );
+
+        const attrsMatching = 'data-test="matching-part" class="x-suggestion__matching-part"';
+        return `${beginning}<span ${attrsMatching}>${matching}</span>${end}`;
+      }
+
+      return sanitize(this.suggestion.query);
     }
 
     /**
