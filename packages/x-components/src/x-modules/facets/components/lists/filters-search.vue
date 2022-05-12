@@ -14,7 +14,7 @@
         type="search"
         class="x-input x-filters-search__input"
         data-test="filters-search-input"
-        aria-label="type the filter you want to refine by"
+        aria-label="search into the filter values"
       />
     </slot>
     <!--
