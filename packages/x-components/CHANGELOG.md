@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.96](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.95...@empathyco/x-components@3.0.0-alpha.96) (2022-05-13)
+
+### ⚠ BREAKING CHANGES
+
+- **facets:** Renamed method `registerFilterModifier` in `FilterEntityFactory` to
+  `registerModifierByFacetId`.
+- **facets:** Changed `modifiers` parameter of `registerFilterModifier` in `FilterEntityFactory`
+  from a single array in favour of rest parameters.
+
+### Features
+
+- **facets:** add `registerModifierByFilterModelName`
+  ([36956a1](https://github.com/empathyco/x/commit/36956a13b33cc5430381d33ac53cd33b706136da)),
+  closes [EX-6106](https://searchbroker.atlassian.net/browse/EX-6106)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.95](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.94...@empathyco/x-components@3.0.0-alpha.95) (2022-05-11)
 
 ### ⚠ BREAKING CHANGES
