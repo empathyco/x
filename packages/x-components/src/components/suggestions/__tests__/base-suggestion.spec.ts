@@ -132,12 +132,18 @@ describe('testing Base Suggestion component', () => {
   });
 });
 
+/**
+ * The options for the `renderBaseSuggestion` function.
+ */
 interface BaseSuggestionOptions {
   query?: string;
   suggestion?: Suggestion;
   suggestionFacets?: Facet[];
 }
 
+/**
+ * Test API for the {@link BaseSuggestion} component.
+ */
 interface BaseSuggestionAPI {
   wrapper: Wrapper<Vue>;
   suggestion: Suggestion;

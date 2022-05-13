@@ -12,14 +12,14 @@ function renderBaseSuggestions({
   template = `<BaseSuggestions
                 :suggestions="suggestions"
                 :showFacets="showFacets"
-                :showQuery="showQuery">
+                :appendSuggestionWithoutFilter="appendSuggestionWithoutFilter">
                   <template #default="{suggestion, index}">
                     ${customSlot ?? ''}
                   </template>
                 </BaseSuggestions>`,
   suggestions = getPopularSearchesStub(),
   showFacets = false,
-  showQuery = false
+  appendSuggestionWithoutFilter = false
 }: BaseSuggestionsOptions = {}): BaseSuggestionsAPI {
   const wrapper = mount(
     {
@@ -27,10 +27,10 @@ function renderBaseSuggestions({
       components: {
         BaseSuggestions
       },
-      props: ['suggestions', 'showFacets', 'showQuery']
+      props: ['suggestions', 'showFacets', 'appendSuggestionWithoutFilter']
     },
     {
-      propsData: { suggestions, showFacets, showQuery }
+      propsData: { suggestions, showFacets, appendSuggestionWithoutFilter }
     }
   );
 
@@ -112,7 +112,7 @@ describe('testing Base Suggestions component', () => {
     const { getSuggestionsItems } = renderBaseSuggestions({
       customSlot: '<span>{{ suggestion.query }}{{ suggestion.facets[0]?.filters[0].label }}</span>',
       showFacets: true,
-      showQuery: true,
+      appendSuggestionWithoutFilter: true,
       suggestions: suggestionWithFacets
     });
     expect(getSuggestionsItems()).toHaveLength(4);
@@ -148,7 +148,7 @@ interface BaseSuggestionsOptions {
   template?: string;
   suggestions?: Suggestion[];
   showFacets?: boolean;
-  showQuery?: boolean;
+  appendSuggestionWithoutFilter?: boolean;
   customSlot?: string;
 }
 

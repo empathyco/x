@@ -63,12 +63,13 @@
     protected showFacets!: boolean;
 
     /**
-     * When showFacets is true, indicates if the query suggestion without facet must be rendered.
+     * When showFacets is true, indicates if the suggestion without filter
+     * must be appended to the list.
      *
      * @public
      */
     @Prop({ default: false })
-    protected showQuery!: boolean;
+    protected appendSuggestionWithoutFilter!: boolean;
 
     /**
      * An array with the unique keys for each suggestion. Required by the `v-for` loop.
@@ -177,7 +178,7 @@
         });
         return suggestions;
       }, []);
-      if (this.showQuery) {
+      if (this.appendSuggestionWithoutFilter) {
         suggestionsWithFacets.unshift({ ...suggestion, facets: [] });
       }
       return suggestionsWithFacets;
