@@ -1,18 +1,20 @@
 <template>
   <BaseSuggestions
-    :suggestions="popularSearches"
-    :maxItemsToRender="maxItemsToRender"
     class="x-popular-searches"
     data-test="popular-searches"
+    :suggestions="popularSearches"
+    :maxItemsToRender="maxItemsToRender"
+    :showFacets="showFacets"
+    :appendSuggestionWithoutFilter="appendSuggestionWithoutFilter"
     :animation="animation"
   >
-    <template #default="{ suggestion, index }">
+    <template #default="{ suggestion, index, filter }">
       <!--
         @slot Popular Search item
             @binding {Suggestion} suggestion - Popular Search suggestion data
             @binding {number} index - Popular Search suggestion index
       -->
-      <slot name="suggestion" v-bind="{ suggestion, index }">
+      <slot name="suggestion" v-bind="{ suggestion, index, filter }">
         <PopularSearch :suggestion="suggestion" class="x-popular-searches__suggestion">
           <template #default>
             <!--
@@ -20,7 +22,7 @@
                   @binding {Suggestion} suggestion - Popular Search suggestion data
                   @binding {number} index - Popular Search suggestion index
             -->
-            <slot name="suggestion-content" v-bind="{ suggestion, index }" />
+            <slot name="suggestion-content" v-bind="{ suggestion, index, filter }" />
           </template>
         </PopularSearch>
       </slot>
@@ -66,6 +68,26 @@
      */
     @Prop()
     protected maxItemsToRender?: number;
+
+    /**
+     * Indicates if the suggestions must be rendered along with its facets.
+     *
+     * @public
+     */
+    @Prop({
+      type: Boolean,
+      default: false
+    })
+    protected showFacets!: boolean;
+
+    /**
+     * When showFacets is true, indicates if the suggestion without filter
+     * must be appended to the list.
+     *
+     * @public
+     */
+    @Prop({ default: false })
+    protected appendSuggestionWithoutFilter!: boolean;
 
     /**
      * The list of popular searches.

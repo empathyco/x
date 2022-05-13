@@ -10,6 +10,7 @@
       <!--
         @slot Popular Search's content
             @binding {Suggestion} suggestion - Popular Search suggestion data
+            @binding {Filter} filter - Suggestion's filter
       -->
 
       <slot :suggestion="suggestion" :filter="filter">{{ suggestion.query }}</slot>

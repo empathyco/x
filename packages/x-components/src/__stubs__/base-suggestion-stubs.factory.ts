@@ -1,4 +1,4 @@
-import { BooleanFilter, Suggestion } from '@empathyco/x-types';
+import { BooleanFilter, Facet, Suggestion } from '@empathyco/x-types';
 
 /**
  * Creates a base suggestion with facets.
@@ -17,51 +17,60 @@ export function createSuggestionWithFacets(
 ): Suggestion[] {
   return [
     {
-      facets: [
-        {
-          id: 'rootCategories',
-          label: 'rootCategories',
-          modelName: 'SimpleFacet',
-          filters: <Array<BooleanFilter>>[
-            {
-              facetId: 'rootCategories',
-              id: '{!tag=rootFilter}rootCategories_60361120_64009600:"DORMIR"',
-              label: 'DORMIR',
-              selected: false,
-              totalResults: 60,
-              modelName: 'SimpleFilter'
-            },
-            {
-              facetId: 'rootCategories',
-              id: '{!tag=rootFilter}rootCategories_60361120_64009600:"SPECIAL PRICES"',
-              label: 'SPECIAL PRICES',
-              selected: false,
-              totalResults: 24,
-              modelName: 'SimpleFilter'
-            }
-          ]
-        },
-        {
-          id: 'exampleFacet',
-          label: 'exampleFacet',
-          modelName: 'SimpleFacet',
-          filters: <Array<BooleanFilter>>[
-            {
-              facetId: 'exampleFacet',
-              id: '{!tag=exampleFacet}exampleFacet_60361120_64009600:"EXAMPLE"',
-              label: 'EXAMPLE',
-              selected: false,
-              totalResults: 60,
-              modelName: 'SimpleFilter'
-            }
-          ]
-        }
-      ],
+      facets: createSuggestionFacets(),
       key: key,
       query: query,
       totalResults: 10,
       results: [],
       modelName: modelName
+    }
+  ];
+}
+
+/**
+ * Returns an array containing Facets.
+ *
+ * @returns An array of facets.
+ */
+export function createSuggestionFacets(): Facet[] {
+  return [
+    {
+      id: 'rootCategories',
+      label: 'rootCategories',
+      modelName: 'SimpleFacet',
+      filters: <Array<BooleanFilter>>[
+        {
+          facetId: 'rootCategories',
+          id: '{!tag=rootFilter}rootCategories_60361120_64009600:"DORMIR"',
+          label: 'DORMIR',
+          selected: false,
+          totalResults: 60,
+          modelName: 'SimpleFilter'
+        },
+        {
+          facetId: 'rootCategories',
+          id: '{!tag=rootFilter}rootCategories_60361120_64009600:"SPECIAL PRICES"',
+          label: 'SPECIAL PRICES',
+          selected: false,
+          totalResults: 24,
+          modelName: 'SimpleFilter'
+        }
+      ]
+    },
+    {
+      id: 'exampleFacet',
+      label: 'exampleFacet',
+      modelName: 'SimpleFacet',
+      filters: <Array<BooleanFilter>>[
+        {
+          facetId: 'exampleFacet',
+          id: '{!tag=exampleFacet}exampleFacet_60361120_64009600:"EXAMPLE"',
+          label: 'EXAMPLE',
+          selected: false,
+          totalResults: 60,
+          modelName: 'SimpleFilter'
+        }
+      ]
     }
   ];
 }

@@ -10,15 +10,16 @@
         @slot (Required) List item content
             @binding {Suggestion} suggestion - Suggestion data
             @binding {number} index - Suggestion index
+            @binding {Filter} filter - Suggestion's filter
        -->
-      <slot v-bind="{ suggestion, index }" />
+      <slot v-bind="{ suggestion, index, filter: getSuggestionFilter(suggestion) }" />
     </li>
   </component>
 </template>
 
 <script lang="ts">
   import { Component, Prop } from 'vue-property-decorator';
-  import { Suggestion, Facet } from '@empathyco/x-types';
+  import { Suggestion, Facet, Filter } from '@empathyco/x-types';
   import Vue from 'vue';
   import { isArrayEmpty } from '../../utils/array';
 
@@ -182,6 +183,10 @@
         suggestionsWithFacets.unshift({ ...suggestion, facets: [] });
       }
       return suggestionsWithFacets;
+    }
+
+    protected getSuggestionFilter(suggestion: Suggestion): Filter {
+      return suggestion.facets[0]?.filters[0];
     }
   }
 </script>
