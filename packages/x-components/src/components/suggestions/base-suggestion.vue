@@ -5,6 +5,7 @@
       @slot Button content
           @binding {Suggestion} suggestion - Suggestion data
           @binding {string} queryHTML - Suggestion's query with the matching part inside a `<span>` tag
+          @binding {Filter} filter - Suggestion's filter
     -->
     <!-- eslint-enable max-len -->
     <slot v-bind="{ suggestion, queryHTML, filter }">
@@ -98,6 +99,7 @@
      * @remarks
      * UserAcceptedAQuery: suggestion.query
      * UserSelectedASuggestion: suggestion
+     * UserClickedAFilter: suggestion.facets[0].filters[0]
      * Merges the events defined in the suggestionSelectedEvents prop and also emits them
      *
      * @returns The {@link XEvent | XEvents} to emit.
@@ -143,7 +145,7 @@
     }
 
     /**
-     * Checks if the normalized suggestion query matches with the module's query so it has a
+     * Checks if the normalized suggestion query matches with the module's query, so it has a
      * matching part.
      *
      * @returns If the query has a matching part or not.
@@ -234,6 +236,8 @@ This default suggestion component expects a suggestion to render and pass to its
 normalized query to compare with the suggestion's query and highlight its matching parts and events
 to emit when the suggestion is selected.
 
+If the suggestion contains a filter, it is displayed next to the suggestion.
+
 ### Default usage
 
 ```vue
@@ -244,12 +248,27 @@ to emit when the suggestion is selected.
 
 ```vue
 <BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }">
+  <template #default="{ suggestion, queryHTML }">
+    <span
+      class="my-suggestion"
+      v-html="queryHTML"
+      :aria-label="suggestion.query"
+    />
+  </template>
+</BaseSuggestion>
+```
+
+### Customized usage with filter
+
+```vue
+<BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }">
   <template #default="{ suggestion, queryHTML, filter }">
     <span
       class="my-suggestion"
       v-html="queryHTML"
       :aria-label="suggestion.query"
     />
+    <span>{{ filter.label }}</span>
   </template>
 </BaseSuggestion>
 ```
