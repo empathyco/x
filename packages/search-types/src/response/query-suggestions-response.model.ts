@@ -1,7 +1,7 @@
 import { Suggestion } from '../suggestion.model';
 
 /**
- * Response for the suggestions endpoint.
+ * Response for the query suggestions endpoint.
  *
  * @public
  */

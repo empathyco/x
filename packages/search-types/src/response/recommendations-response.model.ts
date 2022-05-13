@@ -1,7 +1,7 @@
 import { Result } from '../result/result.model';
 
 /**
- * Response for the recommendations' endpoint.
+ * Response for the recommendations endpoint.
  *
  * @public
  */
