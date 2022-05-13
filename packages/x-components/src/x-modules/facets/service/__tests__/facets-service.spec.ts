@@ -569,7 +569,7 @@ describe('testing facets service', () => {
 
     it('sets a new Single Select facet with multiple selected values', () => {
       const filterEntityFactory = new FilterEntityFactory();
-      filterEntityFactory.registerFilterModifier('size', [SingleSelectModifier]);
+      filterEntityFactory.registerModifierByFacetId('size', SingleSelectModifier);
       const { service, getSelectedFilters } = prepareFacetsService(filterEntityFactory);
 
       const newSizeFacet = createSimpleFacetStub('size', createFilter => [
@@ -588,7 +588,7 @@ describe('testing facets service', () => {
 
     it('updates and sets facets with different configurations', () => {
       const filterEntityFactory = new FilterEntityFactory();
-      filterEntityFactory.registerFilterModifier('gender', [SingleSelectModifier]);
+      filterEntityFactory.registerModifierByFacetId('gender', SingleSelectModifier);
       const { service, getSelectedFilters } = prepareFacetsService(filterEntityFactory);
 
       const genderFacet = createSimpleFacetStub('gender', createFilter => [
