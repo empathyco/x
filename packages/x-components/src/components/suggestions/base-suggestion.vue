@@ -138,8 +138,8 @@
      * @returns The filter.
      * @public
      */
-    protected get filter(): BooleanFilter {
-      return this.suggestion.facets[0]?.filters[0] as BooleanFilter;
+    protected get filter(): BooleanFilter | undefined {
+      return this.hasFacets ? (this.suggestion.facets[0].filters[0] as BooleanFilter) : undefined;
     }
 
     /**
