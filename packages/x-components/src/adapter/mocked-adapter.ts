@@ -1,23 +1,19 @@
 import {
-  EmpathyAdapter,
-  EmpathyAdapterBuilder,
-  NextQueriesResponse,
-  RelatedTagsResponse,
-  SearchByIdResponse,
-  SearchResponse,
-  SearchAdapter,
-  SuggestionsResponse,
-  TopRecommendationsResponse,
-  TrackingRequest
-} from '@empathyco/x-adapter';
-import {
   IdentifierResultsRequest,
+  IdentifierResultsResponse,
   NextQueriesRequest,
-  RelatedTagsRequest,
+  NextQueriesResponse,
   QuerySuggestionsRequest,
   RecommendationsRequest,
-  SearchRequest
+  RecommendationsResponse,
+  RelatedTagsRequest,
+  RelatedTagsResponse,
+  SearchRequest,
+  SearchResponse,
+  QuerySuggestionsResponse,
+  TaggingRequest
 } from '@empathyco/x-types';
+import { EmpathyAdapter, EmpathyAdapterBuilder, SearchAdapter } from '@empathyco/x-adapter';
 import { configureAdapterWithToysrus } from './util';
 
 declare global {
@@ -56,12 +52,12 @@ class E2ETestsAdapter extends EmpathyAdapter {
     return mockFetch(request, 'getNextQueries');
   }
 
-  getTopRecommendations(request: RecommendationsRequest): Promise<TopRecommendationsResponse> {
+  getTopRecommendations(request: RecommendationsRequest): Promise<RecommendationsResponse> {
     return mockFetch(request, 'getTopRecommendations');
   }
 
   // TODO: split this method in two (for QuerySuggestions and for PopularSearches) with new Adapter.
-  getSuggestions(request: QuerySuggestionsRequest): Promise<SuggestionsResponse> {
+  getSuggestions(request: QuerySuggestionsRequest): Promise<QuerySuggestionsResponse> {
     return mockFetch(request, 'getSuggestions');
   }
 
@@ -73,13 +69,13 @@ class E2ETestsAdapter extends EmpathyAdapter {
     return mockFetch(request, 'search');
   }
 
-  track(request: TrackingRequest): Promise<void> {
+  track(request: TaggingRequest): Promise<void> {
     return navigator.sendBeacon(request.url, JSON.stringify(request.params ?? {}))
       ? Promise.resolve()
       : Promise.reject('sendBeacon rejected');
   }
 
-  searchById(request: IdentifierResultsRequest): Promise<SearchByIdResponse> {
+  searchById(request: IdentifierResultsRequest): Promise<IdentifierResultsResponse> {
     return mockFetch(request, 'searchById');
   }
 }
