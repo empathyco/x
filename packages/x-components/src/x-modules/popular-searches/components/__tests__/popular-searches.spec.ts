@@ -2,7 +2,7 @@ import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { BooleanFilter, Suggestion } from '@empathyco/x-types';
+import { Suggestion } from '@empathyco/x-types';
 import { getPopularSearchesStub } from '../../../../__stubs__/popular-searches-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
@@ -10,6 +10,7 @@ import { RootXStoreState } from '../../../../store/store.types';
 import PopularSearches from '../popular-searches.vue';
 import PopularSearch from '../popular-search.vue';
 import { createSuggestionFacets } from '../../../../__stubs__/base-suggestion-stubs.factory';
+import { getFlattenFilters } from '../../../query-suggestions/components/__tests__/utils';
 import { resetXPopularSearchesStateWith } from './utils';
 
 const popularSearches = getPopularSearchesStub();
@@ -160,7 +161,7 @@ describe('testing popular searches component', () => {
 
     expect(getPopularSearchItems()).toHaveLength(3);
 
-    const filters = getFlattenFilters(popularSearches);
+    const filters = getFlattenFilters(popularSearches[0]);
 
     getPopularSearchItems().wrappers.forEach((suggestionItemWrapper, index) =>
       expect(suggestionItemWrapper.text()).toBe(`${popularSearches[0].query} - ${filters[index]}`)
@@ -184,23 +185,13 @@ describe('testing popular searches component', () => {
     expect(getPopularSearchItems()).toHaveLength(4);
     expect(getPopularSearchItems().wrappers[0].text()).toBe(popularSearches[0].query);
 
-    const filters = getFlattenFilters(popularSearches);
+    const filters = getFlattenFilters(popularSearches[0]);
     getPopularSearchItems().wrappers.forEach((suggestionItemWrapper, index) => {
       expect(suggestionItemWrapper.text()).toBe(
         index === 0 ? popularSearches[0].query : `${popularSearches[0].query}${filters[index - 1]}`
       );
     });
   });
-
-  function getFlattenFilters(suggestions: Suggestion[]): string[] {
-    const filters: string[] = [];
-    suggestions[0].facets.forEach(facet => {
-      for (let i = 0; i < facet.filters.length; i++) {
-        filters.push((facet.filters[i] as BooleanFilter).label);
-      }
-    });
-    return filters;
-  }
 });
 
 /**

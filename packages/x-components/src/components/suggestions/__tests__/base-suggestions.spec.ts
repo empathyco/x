@@ -1,9 +1,10 @@
-import { BooleanFilter, Suggestion } from '@empathyco/x-types';
+import { Suggestion } from '@empathyco/x-types';
 import { mount, WrapperArray, Wrapper } from '@vue/test-utils';
 import { getPopularSearchesStub } from '../../../__stubs__/popular-searches-stubs.factory';
 import { getDataTestSelector } from '../../../__tests__/utils';
 import BaseSuggestions from '../base-suggestions.vue';
 import { createSuggestionWithFacets } from '../../../__stubs__/base-suggestion-stubs.factory';
+import { getFlattenFilters } from '../../../x-modules/query-suggestions/components/__tests__/utils';
 
 const suggestionWithFacets = createSuggestionWithFacets('testQuery', 'testQuery', 'PopularSearch');
 
@@ -86,7 +87,7 @@ describe('testing Base Suggestions component', () => {
     });
     expect(getSuggestionsItems()).toHaveLength(3);
 
-    const filters = getFlattenFilters();
+    const filters = getFlattenFilters(suggestionWithFacets[0]);
 
     getSuggestionsItems().wrappers.forEach((suggestionItemWrapper, index) =>
       expect(suggestionItemWrapper.text()).toBe(
@@ -118,27 +119,15 @@ describe('testing Base Suggestions component', () => {
     expect(getSuggestionsItems()).toHaveLength(4);
     expect(getSuggestionsItems().wrappers[0].text()).toBe(suggestionWithFacets[0].query);
 
-    const filters = getFlattenFilters();
+    const filters = getFlattenFilters(suggestionWithFacets[0]);
     getSuggestionsItems().wrappers.forEach((suggestionItemWrapper, index) => {
-      if (index === 0) {
-        expect(suggestionItemWrapper.text()).toBe(suggestionWithFacets[0].query);
-      } else {
-        expect(suggestionItemWrapper.text()).toBe(
-          `${suggestionWithFacets[0].query}${filters[index - 1]}`
-        );
-      }
+      expect(suggestionItemWrapper.text()).toBe(
+        index === 0
+          ? suggestionWithFacets[0].query
+          : `${suggestionWithFacets[0].query}${filters[index - 1]}`
+      );
     });
   });
-
-  function getFlattenFilters(): string[] {
-    const filters: string[] = [];
-    suggestionWithFacets[0].facets.forEach(facet => {
-      for (let i = 0; i < facet.filters.length; i++) {
-        filters.push((facet.filters[i] as BooleanFilter).label);
-      }
-    });
-    return filters;
-  }
 });
 
 /**
