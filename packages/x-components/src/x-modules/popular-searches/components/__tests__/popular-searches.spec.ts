@@ -2,13 +2,14 @@ import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { Suggestion } from '@empathyco/x-types';
+import { BooleanFilter, Suggestion } from '@empathyco/x-types';
 import { getPopularSearchesStub } from '../../../../__stubs__/popular-searches-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import PopularSearches from '../popular-searches.vue';
 import PopularSearch from '../popular-search.vue';
+import { createSuggestionFacets } from '../../../../__stubs__/base-suggestion-stubs.factory';
 import { resetXPopularSearchesStateWith } from './utils';
 
 const popularSearches = getPopularSearchesStub();
@@ -19,10 +20,6 @@ localVue.use(Vuex);
 const store: Store<DeepPartial<RootXStoreState>> = new Store({});
 
 installNewXPlugin({ store }, localVue);
-
-function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {
-  return wrapper.findAll(getDataTestSelector(testDataId));
-}
 
 function renderPopularSearches({
   customSlot = '',
@@ -60,11 +57,15 @@ function renderPopularSearches({
     }
   );
 
+  const findTestDataById = (selector: string): WrapperArray<Vue> =>
+    wrapper.findAll(getDataTestSelector(selector));
+
   return {
     wrapper: wrapper.findComponent(PopularSearches),
     suggestions,
     localVue,
-    findTestDataById: findTestDataById.bind(null, wrapper)
+    findTestDataById,
+    getPopularSearchItems: findTestDataById.bind(null, 'popular-search')
   };
 }
 
@@ -76,8 +77,8 @@ describe('testing popular searches component', () => {
   });
 
   it('renders a button with the query of the popular search (suggestion)', () => {
-    const { findTestDataById } = renderPopularSearches();
-    const eventButtonsList = findTestDataById('popular-search');
+    const { getPopularSearchItems } = renderPopularSearches();
+    const eventButtonsList = getPopularSearchItems();
 
     popularSearches.forEach((suggestion, index) => {
       expect(eventButtonsList.at(index).element.innerHTML).toContain(suggestion.query);
@@ -112,12 +113,12 @@ describe('testing popular searches component', () => {
         </PopularSearch>
         <button data-test="custom-button">Custom Behaviour</button>
       </template>`;
-    const { wrapper } = renderPopularSearches({ customSlot });
+    const { wrapper, findTestDataById } = renderPopularSearches({ customSlot });
     expect(wrapper.findComponent(PopularSearch)).toBeDefined();
 
-    const eventSpansList = findTestDataById(wrapper, 'query');
-    const iconsList = findTestDataById(wrapper, 'icon');
-    const customButtonList = findTestDataById(wrapper, 'custom-button');
+    const eventSpansList = findTestDataById('query');
+    const iconsList = findTestDataById('icon');
+    const customButtonList = findTestDataById('custom-button');
 
     popularSearches.forEach((suggestion, index) => {
       expect(eventSpansList.at(index).element.innerHTML).toEqual(suggestion.query);
@@ -144,6 +145,62 @@ describe('testing popular searches component', () => {
     await wrapper.setProps({ maxItemsToRender: 5 });
     expect(renderedPopularSearches()).toHaveLength(popularSearches.length);
   });
+
+  it('renders all suggestions with facets if showFacets is true', () => {
+    const popularSearches = getPopularSearchesStub(1);
+    popularSearches[0].facets = createSuggestionFacets();
+
+    const { getPopularSearchItems } = renderPopularSearches({
+      customSlot: `<template #suggestion="{suggestion, filter}">
+          <span data-test="popular-search">{{ suggestion.query }} - {{ filter.label }}</span>
+        </template>`,
+      showFacets: true,
+      suggestions: popularSearches
+    });
+
+    expect(getPopularSearchItems()).toHaveLength(3);
+
+    const filters = getFlattenFilters(popularSearches);
+
+    getPopularSearchItems().wrappers.forEach((suggestionItemWrapper, index) =>
+      expect(suggestionItemWrapper.text()).toBe(`${popularSearches[0].query} - ${filters[index]}`)
+    );
+  });
+
+  it('shows the suggestions with facets and the query itself', () => {
+    const popularSearches = getPopularSearchesStub(1);
+    popularSearches[0].facets = createSuggestionFacets();
+
+    const { getPopularSearchItems } = renderPopularSearches({
+      customSlot: `<template #suggestion="{suggestion, filter}">
+          <span data-test="popular-search">
+            {{ suggestion.query }}{{ filter ? filter.label : '' }}
+          </span>
+        </template>`,
+      showFacets: true,
+      appendSuggestionWithoutFilter: true,
+      suggestions: popularSearches
+    });
+    expect(getPopularSearchItems()).toHaveLength(4);
+    expect(getPopularSearchItems().wrappers[0].text()).toBe(popularSearches[0].query);
+
+    const filters = getFlattenFilters(popularSearches);
+    getPopularSearchItems().wrappers.forEach((suggestionItemWrapper, index) => {
+      expect(suggestionItemWrapper.text()).toBe(
+        index === 0 ? popularSearches[0].query : `${popularSearches[0].query}${filters[index - 1]}`
+      );
+    });
+  });
+
+  function getFlattenFilters(suggestions: Suggestion[]): string[] {
+    const filters: string[] = [];
+    suggestions[0].facets.forEach(facet => {
+      for (let i = 0; i < facet.filters.length; i++) {
+        filters.push((facet.filters[i] as BooleanFilter).label);
+      }
+    });
+    return filters;
+  }
 });
 
 /**
@@ -164,6 +221,7 @@ interface PopularSearchesOptions {
 interface PopularSearchesAPI {
   wrapper: Wrapper<Vue>;
   suggestions: Suggestion[];
-  findTestDataById: (testDataId: string) => WrapperArray<Vue>;
+  getPopularSearchItems: () => WrapperArray<Vue>;
+  findTestDataById: (selector: string) => WrapperArray<Vue>;
   localVue: typeof Vue;
 }
