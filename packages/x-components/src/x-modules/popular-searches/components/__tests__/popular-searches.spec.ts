@@ -23,12 +23,15 @@ const store: Store<DeepPartial<RootXStoreState>> = new Store({});
 installNewXPlugin({ store }, localVue);
 
 function renderPopularSearches({
+  customSlotName = 'suggestion',
   customSlot = '',
   template = `<PopularSearches
                 :maxItemsToRender="maxItemsToRender"
                 :showFacets="showFacets"
                 :appendSuggestionWithoutFilter="appendSuggestionWithoutFilter">
-                ${customSlot}
+                <template #${customSlotName}="{suggestion, index, filter}">
+                  ${customSlot}
+                </template>
               </PopularSearches>`,
   suggestions = getPopularSearchesStub(),
   maxItemsToRender = undefined,
@@ -87,12 +90,14 @@ describe('testing popular searches component', () => {
   });
 
   it('renders a span & and image overriding the default Popular Search content', () => {
-    const customSlot = `<template #suggestion-content="suggestionContentScope">
-            <img src="./popular-search-icon.svg" class="x-popular-search__icon" data-test="icon"/>
-            <span class="x-popular-search__query" :data-index="suggestionContentScope.index"
-                data-test="query">{{ suggestionContentScope.suggestion.query }}</span>
-        </template>`;
-    const { findTestDataById } = renderPopularSearches({ customSlot });
+    const customSlot = `
+        <img src="./popular-search-icon.svg" class="x-popular-search__icon" data-test="icon"/>
+        <span class="x-popular-search__query" :data-index="index"
+          data-test="query">{{ suggestion.query }}</span>`;
+    const { findTestDataById } = renderPopularSearches({
+      customSlot,
+      customSlotName: 'suggestion-content'
+    });
     const eventSpansList = findTestDataById('query');
     const iconsList = findTestDataById('icon');
     popularSearches.forEach((suggestion, index) => {
@@ -102,8 +107,7 @@ describe('testing popular searches component', () => {
   });
 
   it('renders a button & a custom Popular Search', () => {
-    const customSlot = `<template #suggestion="{suggestion}">
-        <PopularSearch :suggestion="suggestion">
+    const customSlot = `<PopularSearch :suggestion="suggestion">
           <template #default="{suggestion}">
             <img src="./popular-search-icon.svg"
                  class="x-popular-search__icon"
@@ -112,8 +116,7 @@ describe('testing popular searches component', () => {
                   data-test="query">{{ suggestion.query }}</span>
           </template>
         </PopularSearch>
-        <button data-test="custom-button">Custom Behaviour</button>
-      </template>`;
+        <button data-test="custom-button">Custom Behaviour</button>`;
     const { wrapper, findTestDataById } = renderPopularSearches({ customSlot });
     expect(wrapper.findComponent(PopularSearch)).toBeDefined();
 
@@ -152,9 +155,9 @@ describe('testing popular searches component', () => {
     popularSearches[0].facets = createSuggestionFacets();
 
     const { getPopularSearchItems } = renderPopularSearches({
-      customSlot: `<template #suggestion="{suggestion, filter}">
-          <span data-test="popular-search">{{ suggestion.query }} - {{ filter.label }}</span>
-        </template>`,
+      customSlot: `<span data-test="popular-search">
+          {{ suggestion.query }} - {{ filter.label }}
+        </span>`,
       showFacets: true,
       suggestions: popularSearches
     });
@@ -173,16 +176,15 @@ describe('testing popular searches component', () => {
     popularSearches[0].facets = createSuggestionFacets();
 
     const { getPopularSearchItems } = renderPopularSearches({
-      customSlot: `<template #suggestion="{suggestion, filter}">
-          <span data-test="popular-search">
-            {{ suggestion.query }}{{ filter ? filter.label : '' }}
-          </span>
-        </template>`,
+      customSlot: `<span data-test="popular-search">
+         {{ suggestion.query }}{{ filter ? filter.label : '' }}
+        </span>`,
       showFacets: true,
       appendSuggestionWithoutFilter: true,
       suggestions: popularSearches
     });
     expect(getPopularSearchItems()).toHaveLength(4);
+
     expect(getPopularSearchItems().wrappers[0].text()).toBe(popularSearches[0].query);
 
     const filters = getFlattenFilters(popularSearches[0]);
@@ -198,6 +200,7 @@ describe('testing popular searches component', () => {
  * The options for the `renderPopularSearches` function.
  */
 interface PopularSearchesOptions {
+  customSlotName?: 'suggestion' | 'suggestion-content';
   customSlot?: string;
   template?: string;
   suggestions?: Suggestion[];
