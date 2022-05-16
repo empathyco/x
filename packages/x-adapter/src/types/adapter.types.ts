@@ -44,24 +44,13 @@ export interface ExtendableEndpointAdapter<Request, Response>
 }
 
 /**
- * Creates an {@link EndpointAdapter} with the given options.
- *
- * @param options - Options to create the endpoint adapter with.
- * @returns A brand-new {@link EndpointAdapter} instance.
- * @public
- */
-export type EndpointAdapterFactory = <Request, Response>(
-  options: EndpointAdapterOptions<Request, Response>
-) => EndpointAdapter<Request, Response>;
-
-/**
  * Creates an {@link ExtendableEndpointAdapter} with the given options.
  *
- * @param options - Options to create the extendable endpoint adapter with.
+ * @param options - Options to create the endpoint adapter with.
  * @returns A brand-new {@link ExtendableEndpointAdapter} instance.
  * @public
  */
-export type ExtendableEndpointAdapterFactory = <Request, Response>(
+export type EndpointAdapterFactory = <Request, Response>(
   options: EndpointAdapterOptions<Request, Response>
 ) => ExtendableEndpointAdapter<Request, Response>;
 
