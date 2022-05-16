@@ -1,4 +1,4 @@
-import { SearchResponse } from '@empathyco/x-adapter';
+import { SearchResponse } from '@empathyco/x-types';
 import { getBannersStub } from './banners-stubs.factory';
 import { getFacetsStub } from './facets-stubs.factory';
 import { getPromotedsStub } from './promoteds-stubs.factory';
@@ -7,7 +7,7 @@ import { getResultsStub } from './results-stubs.factory';
 import { getTaggingResponseStub } from './tagging-response-stubs.factory';
 
 /**
- * Creates a {@link @empathyco/x-adapter#SearchResponse | search response} stub.
+ * Creates a {@link @empathyco/x-types#SearchResponse | search response} stub.
  *
  * @returns Object of search response stub.
  *

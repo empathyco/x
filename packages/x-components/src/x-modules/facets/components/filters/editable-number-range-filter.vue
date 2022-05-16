@@ -27,6 +27,7 @@
         "
         :value="min"
         data-test="range-min"
+        aria-label="minimum amount"
       />
 
       <input
@@ -39,6 +40,7 @@
         "
         :value="max"
         data-test="range-max"
+        aria-label="maximum amount"
       />
       <!-- eslint-enable max-len -->
 

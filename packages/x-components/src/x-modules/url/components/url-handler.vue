@@ -285,7 +285,10 @@
         const url = new URL(window.location.href);
         this.deleteUrlParameters(url);
         this.setUrlParameters(url, newUrlParams);
-        if (url.href.replace(/\+/g, '%20') !== window.location.href) {
+
+        url.href = url.href.replace(/\+/g, '%20');
+
+        if (url.href !== window.location.href) {
           historyMethod({ ...window.history.state }, document.title, url.href);
         }
         this.url = url;

@@ -7,8 +7,8 @@ import BaseVariableColumnGrid from '../base-variable-column-grid.vue';
 
 const searchResponse = getSearchResponseStub();
 const itemsStub = [
-  ...searchResponse.banners,
-  ...searchResponse.promoteds,
+  ...searchResponse.banners!,
+  ...searchResponse.promoteds!,
   ...searchResponse.results
 ];
 

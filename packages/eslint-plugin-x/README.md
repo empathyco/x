@@ -14,7 +14,7 @@ custom plugin, but it includes also style formatter and good practices outside E
 You can install the linter plugin using NPM:
 
 ```
-npm install @empathy/eslint-plugin-x --save-dev
+npm install @empathyco/eslint-plugin-x --save-dev
 ```
 
 The plugin offers different levels of configuration depending on the plugins and rules we want to

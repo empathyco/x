@@ -1,5 +1,4 @@
-import { NextQueriesRequest } from '@empathyco/x-adapter';
-import { HistoryQuery, NextQuery } from '@empathyco/x-types';
+import { HistoryQuery, NextQueriesRequest, NextQuery } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
@@ -32,8 +31,10 @@ export interface NextQueriesState extends StatusState, QueryState {
  * @public
  */
 export interface NextQueriesGetters {
-  /** Request object to retrieve the next queries using the search adapter, or null if there is
-   * not valid data to conform a valid request. */
+  /**
+   * Request object to retrieve the next queries using the search adapter, or null if there is
+   * not valid data to conform a valid request.
+   */
   request: NextQueriesRequest | null;
   /** List of next queries that have not been searched before. */
   nextQueries: NextQuery[];

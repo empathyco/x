@@ -15,6 +15,7 @@
     inputmode="search"
     type="search"
     data-test="search-input"
+    aria-label="type your query here"
   />
 </template>
 
@@ -206,8 +207,8 @@
      *
      * @remarks
      * Emitted events are:
-     * * {@link SearchBoxXEvents.UserPressedEnterKey}
-     * * {@link XEventsTypes.UserAcceptedAQuery}
+     * {@link SearchBoxXEvents.UserPressedEnterKey}
+     * {@link XEventsTypes.UserAcceptedAQuery}
      *
      * @internal
      */

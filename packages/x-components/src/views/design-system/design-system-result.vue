@@ -19,7 +19,11 @@
       <div class="x-result">
         <div class="x-result__picture">
           <picture class="x-picture x-picture--cover x-picture--colored">
-            <img class="x-picture__image" :src="whiteBackgroundImageUrl" />
+            <img
+              class="x-picture__image"
+              :src="whiteBackgroundImageUrl"
+              alt="Woman in blue flower print dress"
+            />
           </picture>
         </div>
         <div class="x-result__overlay x-list x-list--horizontal x-padding--02">
@@ -50,7 +54,11 @@
       <div class="x-result x-result--card">
         <div class="x-result__picture">
           <picture class="x-picture x-picture--cover x-picture--colored">
-            <img class="x-picture__image" :src="whiteBackgroundImageUrl" />
+            <img
+              class="x-picture__image"
+              :src="whiteBackgroundImageUrl"
+              alt="Woman in blue flower print dress"
+            />
           </picture>
         </div>
         <div class="x-result__overlay x-list x-list--horizontal x-padding--02">

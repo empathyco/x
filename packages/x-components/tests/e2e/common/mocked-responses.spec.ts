@@ -2,12 +2,12 @@ import { And, Given } from 'cypress-cucumber-preprocessor/steps';
 import {
   NextQueriesResponse,
   RelatedTagsResponse,
-  SearchByIdResponse,
+  IdentifierResultsResponse,
   SearchRequest,
   SearchResponse,
-  SuggestionsResponse,
-  TopRecommendationsResponse
-} from '@empathyco/x-adapter';
+  QuerySuggestionsResponse,
+  RecommendationsResponse
+} from '@empathyco/x-types';
 import {
   createBannerStub,
   createHierarchicalFacetStub,
@@ -41,7 +41,7 @@ const trackEndpoint = `${mockedApiUrl}/track`;
 // ID Results
 Given('an ID results API', () => {
   cy.intercept(searchByIdEndpoint, req => {
-    req.reply(<SearchByIdResponse>{
+    req.reply(<IdentifierResultsResponse>{
       results: getResultsStub()
     });
   });
@@ -49,7 +49,7 @@ Given('an ID results API', () => {
 
 Given('an ID results API with a known response', () => {
   cy.intercept(searchByIdEndpoint, req => {
-    req.reply(<SearchByIdResponse>{
+    req.reply(<IdentifierResultsResponse>{
       results: [
         createResultStub('A0255072 - 9788467577112 - 160000', {
           images: ['https://picsum.photos/seed/20/100/100']
@@ -70,7 +70,7 @@ Given('an ID results API with a known response', () => {
 
 Given('an ID results API with no results', () => {
   cy.intercept(searchByIdEndpoint, req => {
-    req.reply(<SearchByIdResponse>{
+    req.reply(<IdentifierResultsResponse>{
       results: []
     });
   }).as('interceptedNoIDResults');
@@ -155,7 +155,7 @@ Given('a results API with partial results', () => {
 // Popular Searches
 Given('a popular searches API with a known response', () => {
   cy.intercept(getSuggestionsEndpoint, req => {
-    req.reply(<SuggestionsResponse>{
+    req.reply(<QuerySuggestionsResponse>{
       suggestions: [
         createPopularSearch('playmobil'),
         createPopularSearch('lego'),
@@ -170,7 +170,7 @@ Given('a popular searches API with a known response', () => {
 // Query Suggestions
 Given('a query suggestions API with a known response', () => {
   cy.intercept(getSuggestionsEndpoint, req => {
-    req.reply(<SuggestionsResponse>{
+    req.reply(<QuerySuggestionsResponse>{
       suggestions: [
         createQuerySuggestion('lego'),
         createQuerySuggestion('lego marvel'),
@@ -185,7 +185,7 @@ Given('a query suggestions API with a known response', () => {
 
 Given('a query suggestions API with no query suggestions', () => {
   cy.intercept(getSuggestionsEndpoint, req => {
-    req.reply(<SuggestionsResponse>{
+    req.reply(<QuerySuggestionsResponse>{
       suggestions: []
     });
   }).as('interceptedQuerySuggestions');
@@ -194,7 +194,7 @@ Given('a query suggestions API with no query suggestions', () => {
 // Recommendations
 Given('a recommendations API with a known response', () => {
   cy.intercept(getTopRecommendationsEndpoint, req => {
-    req.reply(<TopRecommendationsResponse>{
+    req.reply(<RecommendationsResponse>{
       results: [
         createResultStub('Piscina 3 Anillos'),
         createResultStub('Among Us Figura Acción'),
@@ -523,7 +523,7 @@ Given('a results API response for a misspelled word', () => {
 // Suggestions
 Given('a suggestions API', () => {
   cy.intercept(getSuggestionsEndpoint, req => {
-    req.reply(<SuggestionsResponse>{
+    req.reply(<QuerySuggestionsResponse>{
       suggestions: req.body.query ? getQuerySuggestionsStub('rum') : getPopularSearchesStub()
     });
   });

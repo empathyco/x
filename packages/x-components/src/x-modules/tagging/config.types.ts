@@ -20,7 +20,8 @@ export interface TaggingConfig {
   clickedResultStorageTTLMs: number | null;
 
   /**
-   * Field of the {@link @empathy/x-types#Result | result} to use as id for storing the information.
+   * Field of the {@link @empathyco/x-types#Result | result} to use as id for storing the
+   * information.
    */
   clickedResultStorageKey: string | null;
 }

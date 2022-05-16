@@ -50,6 +50,8 @@ export type FilterModelName = BooleanFilterModelName | 'EditableNumberRangeFilte
 
 /**
  * Const to use in the {@link BooleanFilterModelName} Type definition and also in Type Guards.
+ *
+ * @public
  */
 export const BooleanFilterModelNames = [
   'SimpleFilter',

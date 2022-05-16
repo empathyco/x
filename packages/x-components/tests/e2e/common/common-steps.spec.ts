@@ -1,5 +1,5 @@
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { PageableRequest } from '@empathyco/x-adapter';
+import { PageableRequest } from '@empathyco/x-types';
 import '../global/global-definitions';
 
 let resultsList: string[] = [];

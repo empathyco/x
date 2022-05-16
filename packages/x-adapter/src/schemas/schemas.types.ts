@@ -13,10 +13,8 @@ import { MapperContext } from '../types/index';
  *
  * @remarks The source object must not have optional properties, as it could cause infinite
  * type instantiations.
- *
  * @param Source - The source object.
  * @param Target - The target object.
- *
  * @example
  * ```typescript
  *  interface Source {
@@ -53,7 +51,6 @@ export type Schema<Source = any, Target = any> = {
  * the original schema, partially override it or create a new one.
  *
  * @param OriginalSchema - The {@link Schema | schema} that will be mutable.
- *
  * @public
  */
 export type MutableSchema<OriginalSchema extends Schema> = OriginalSchema & {
@@ -80,7 +77,6 @@ export type MutableSchema<OriginalSchema extends Schema> = OriginalSchema & {
    * The original {@link Schema | schema} will remain unchanged.
    *
    * @param newSchema - The {@link Schema | schema} to be used to extend the original one.
-   *
    * @returns The {@link Schema | schema} created.
    */
   $extends: <Source, Target>(
@@ -91,7 +87,6 @@ export type MutableSchema<OriginalSchema extends Schema> = OriginalSchema & {
    *
    * @param includeInternalMethods - Flag to include in the string representation
    * the internal methods. Disabled by default.
-   *
    * @returns The string representation.
    */
   toString: (includeInternalMethods?: boolean) => string;
@@ -103,7 +98,6 @@ export type MutableSchema<OriginalSchema extends Schema> = OriginalSchema & {
  * @param Source - The source object.
  * @param Target - The target object.
  * @param TargetKey - The target key to apply the transformation.
- *
  * @public
  */
 export type SchemaTransformer<Source, Target, TargetKey extends keyof Target> =
@@ -118,7 +112,6 @@ export type SchemaTransformer<Source, Target, TargetKey extends keyof Target> =
  *
  * @param Source - The source object.
  * @param Target - The target object.
- *
  * @example
  * ```typescript
  *  interface Source {
@@ -142,7 +135,6 @@ export type SchemaTransformer<Source, Target, TargetKey extends keyof Target> =
  *     hits: 'count'
  *   };
  * ```
- *
  * @public
  */
 export type PathTransformer<Source, Target> = ExtractPathByType<Source, Target>;
@@ -153,7 +145,6 @@ export type PathTransformer<Source, Target> = ExtractPathByType<Source, Target>;
  *
  * @param Source - The source object.
  * @param Target - The target object.
- *
  * @example
  * ```typescript
  *  interface Source {
@@ -173,7 +164,6 @@ export type PathTransformer<Source, Target> = ExtractPathByType<Source, Target>;
  *      : 0
  *   };
  * ```
- *
  * @public
  */
 export type FunctionTransformer<Source, Target> = (
@@ -186,7 +176,6 @@ export type FunctionTransformer<Source, Target> = (
  *
  * @param Source - The source object.
  * @param Target - The target object.
- *
  * @example
  * ```typescript
  *  interface Source {
@@ -215,7 +204,6 @@ export type FunctionTransformer<Source, Target> = (
  *     }
  *   };
  * ```
- *
  * @public
  */
 export type SubSchemaTransformer<Source, Target> = {
@@ -223,13 +211,27 @@ export type SubSchemaTransformer<Source, Target> = {
     $context?: MapperContext;
     $path: Path;
     $subSchema:
-      | (ExtractType<Source, Path> extends (infer SourceArrayType)[]
-          ? Target extends (infer TargetArrayType)[]
-            ? Schema<SourceArrayType, TargetArrayType>
-            : never
-          : Target extends (infer TargetArrayType)[]
-          ? never
-          : Schema<ExtractType<Source, Path>, Target>)
-      | '$self';
+      | SubSchema<Source, Target, Path>
+      | '$self'
+      | ((source: Source) => SubSchema<Source, Target, Path>);
   };
 }[ExtractPath<Source>];
+
+/**
+ * A {@link Schema | schema} that will be applied to an inner path of an object.
+ *
+ * @param Source - The source object.
+ * @param Target - The target object.
+ * @param Path - The path where the schema will be applied.
+ * @public
+ */
+export type SubSchema<Source, Target, Path extends ExtractPath<Source>> = ExtractType<
+  Source,
+  Path
+> extends (infer SourceArrayType)[]
+  ? Target extends (infer TargetArrayType)[]
+    ? Schema<SourceArrayType, TargetArrayType>
+    : never
+  : Target extends []
+  ? never
+  : Schema<ExtractType<Source, Path>, Target>;

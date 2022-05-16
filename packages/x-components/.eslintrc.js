@@ -7,13 +7,11 @@ module.exports = {
   rules: {
     'no-dupe-class-members': 'off',
     '@typescript-eslint/no-unused-vars-experimental': 'off',
-    'vuejs-accessibility/alt-text': 'warn',
     'vuejs-accessibility/anchor-has-content': 'warn',
     'vuejs-accessibility/aria-props': 'warn',
     'vuejs-accessibility/aria-role': 'warn',
     'vuejs-accessibility/aria-unsupported-elements': 'warn',
     'vuejs-accessibility/click-events-have-key-events': 'warn',
-    'vuejs-accessibility/form-control-has-label': 'warn',
     'vuejs-accessibility/heading-has-content': 'warn',
     'vuejs-accessibility/iframe-has-title': 'warn',
     'vuejs-accessibility/interactive-supports-focus': 'warn',
