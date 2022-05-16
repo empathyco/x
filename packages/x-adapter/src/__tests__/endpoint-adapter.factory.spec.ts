@@ -1,8 +1,8 @@
+import { EndpointAdapter, EndpointAdapterOptions } from '../adapter.types';
 import { endpointAdapterFactory } from '../endpoint-adapter.factory';
+import { HttpClient, RequestOptions } from '../http-clients/http-client.types';
 import { identityMapper } from '../mappers/identity.mapper';
-import { EndpointAdapter, EndpointAdapterOptions } from '../types/adapter.types';
-import { HttpClient, RequestOptions } from '../types/http-client.types';
-import { Mapper } from '../types/mapper.types';
+import { Mapper } from '../mappers/mapper.types';
 
 /**
  * Creates an {@link EndpointAdapter} using the {@link endpointAdapterFactory} with the given

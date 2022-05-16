@@ -1,5 +1,5 @@
 import { Dictionary } from '@empathyco/x-utils';
-import { HttpClient } from '../types/http-client.types';
+import { HttpClient } from './http-client.types';
 import { buildUrl, toJson } from './utils';
 
 /**

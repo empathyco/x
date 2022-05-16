@@ -9,9 +9,9 @@ import {
   Dictionary
 } from '@empathyco/x-utils';
 import { Schema, SubSchemaTransformer } from '../schemas/schemas.types';
-import { Mapper, MapperContext } from '../types/mapper.types';
-import { extractValue } from '../utils/extract-value';
 import { createMutableSchema, isInternalMethod } from '../schemas/utils';
+import { extractValue } from '../utils/extract-value';
+import { Mapper, MapperContext } from './mapper.types';
 
 /**
  * The 'schemaMapperFactory' function creates a {@link Mapper | mapper function} for a given

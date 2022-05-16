@@ -1,12 +1,8 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
+import { EndpointAdapter, EndpointAdapterFactory, EndpointAdapterOptions } from './adapter.types';
 import { fetchHttpClient } from './http-clients/fetch.http-client';
 import { identityMapper } from './mappers/identity.mapper';
-import {
-  EndpointAdapter,
-  EndpointAdapterFactory,
-  EndpointAdapterOptions
-} from './types/adapter.types';
-import { Mapper } from './types/mapper.types';
+import { Mapper } from './mappers/mapper.types';
 import { interpolate } from './utils/interpolate';
 
 /**

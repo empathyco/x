@@ -1,5 +1,5 @@
-import { HttpClient, RequestOptions } from './http-client.types';
-import { Mapper } from './mapper.types';
+import { HttpClient, RequestOptions } from './http-clients/http-client.types';
+import { Mapper } from './mappers/mapper.types';
 
 /**
  * A facade containing all the different {@link EndpointAdapter} methods.

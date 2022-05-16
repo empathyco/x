@@ -1,5 +1,5 @@
-import { HttpClient, RequestOptions } from '../../types/http-client.types';
-import { koFetchMock, okFetchMock } from '../__mocks__/fetch.mock';
+import { HttpClient, RequestOptions } from '../http-client.types';
+import { koFetchMock, okFetchMock } from './__mocks__/fetch.mock';
 
 describe('beaconHttpClient testing', () => {
   const endpoint = 'https://api.empathy.co/tag/query';
