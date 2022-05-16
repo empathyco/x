@@ -4,7 +4,9 @@ import { identityMapper } from './mappers/identity.mapper';
 import {
   EndpointAdapter,
   EndpointAdapterFactory,
-  EndpointAdapterOptions
+  EndpointAdapterOptions,
+  ExtendableEndpointAdapter,
+  ExtendableEndpointAdapterFactory
 } from './types/adapter.types';
 import { Mapper } from './types/mapper.types';
 import { interpolate } from './utils/interpolate';
@@ -22,10 +24,7 @@ import { interpolate } from './utils/interpolate';
 export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response>(
   options: EndpointAdapterOptions<Request, Response>
 ) => {
-  const endpointAdapter: EndpointAdapter<Request, Response> = (
-    request,
-    { endpoint: requestEndpoint, ...requestOptions } = {}
-  ) => {
+  return ((request, { endpoint: requestEndpoint, ...requestOptions } = {}) => {
     const {
       endpoint: rawEndpoint,
       httpClient = fetchHttpClient,
@@ -41,7 +40,29 @@ export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response
       endpoint,
       deepMerge({}, defaultRequestOptions, requestOptions, { parameters: requestParameters })
     ).then(response => responseMapper(response, { endpoint, requestParameters }));
-  };
+  }) as EndpointAdapter<Request, Response>;
+};
+
+/**
+ * Factory to create {@link ExtendableEndpointAdapter | extendable endpoint adapters} with the given
+ * {@link EndpointAdapterOptions | options}.
+ *
+ * @param options - The {@link EndpointAdapterOptions | options} to create a new
+ * {@link ExtendableEndpointAdapter} with.
+ *
+ * @returns A brand new {@link ExtendableEndpointAdapter} object.
+ * @public
+ */
+export const extendableEndpointAdapterFactory: ExtendableEndpointAdapterFactory = <
+  Request,
+  Response
+>(
+  options: EndpointAdapterOptions<Request, Response>
+) => {
+  const endpointAdapter = endpointAdapterFactory(options) as ExtendableEndpointAdapter<
+    Request,
+    Response
+  >;
 
   endpointAdapter.extends = <NewRequest, NewResponse>(
     extendedOptions: Partial<EndpointAdapterOptions<NewRequest, NewResponse>>
