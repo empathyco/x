@@ -300,7 +300,7 @@
      *
      * @param url - The URL to remove parameters from.
      * @internal
-     * **/
+     */
     protected deleteUrlParameters(url: URL): void {
       this.managedParamsNames.forEach(paramName =>
         url.searchParams.delete(this.getUrlKey(paramName))
@@ -318,8 +318,12 @@
      * important for SEO purposes.
      *
      * @internal
-     * **/
+     */
     protected setUrlParameters(url: URL, urlParams: UrlParams): void {
+      // Only when there is a query the rest of the parameters are valid.
+      if (!urlParams.query) {
+        return;
+      }
       const filteredParams = objectFilter(urlParams, paramName =>
         this.managedParamsNames.includes(paramName as string)
       );
