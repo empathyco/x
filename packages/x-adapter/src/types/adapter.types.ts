@@ -33,14 +33,14 @@ export interface EndpointAdapter<Request, Response> {
 export interface ExtendableEndpointAdapter<Request, Response>
   extends EndpointAdapter<Request, Response> {
   /**
-   * Extends the current adapter merging its options with the new ones creating a new
-   * {@link EndpointAdapter} object.
+   * Extends the endpoint adapter, merging its options with the new ones, creating a new
+   * {@link ExtendableEndpointAdapter} object.
    *
-   * @param options - New options to extend the {@link EndpointAdapter} with.
+   * @param options - New options to extend the {@link ExtendableEndpointAdapter} with.
    */
   extends: <NewRequest = Request, NewResponse = Response>(
     options: Partial<EndpointAdapterOptions<NewRequest, NewResponse>>
-  ) => EndpointAdapter<NewRequest, NewResponse>;
+  ) => ExtendableEndpointAdapter<NewRequest, NewResponse>;
 }
 
 /**
