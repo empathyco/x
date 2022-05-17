@@ -5,10 +5,13 @@ import { MapFn, Mapper } from '../empathy-adapter.types';
  *
  * @public
  */
-export function pipeMappers<From, To, Context>(...mappers: Mapper<From, To, Context>[]): MapFn<From, To, Context> {
+export function pipeMappers<From, To, Context>(
+  ...mappers: Mapper<From, To, Context>[]
+): MapFn<From, To, Context> {
   if (mappers.length === 1) {
     return mappers[0].map.bind(mappers[0]);
   } else {
-    return (from: From, initialTo: To, context: Context) => mappers.reduce((to, mapper) => mapper.map(from, to, context), initialTo);
+    return (from: From, initialTo: To, context: Context) =>
+      mappers.reduce((to, mapper) => mapper.map(from, to, context), initialTo);
   }
 }
