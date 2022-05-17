@@ -21,7 +21,7 @@ Object.defineProperty(window, 'performance', {
 /**
  * Renders the {@link UrlHandler} component, exposing a basic API for testing.
  *
- * @param root0
+ * @param options - The options to render the component with.
  * @returns The API for testing the {@link UrlHandler} component.
  */
 function renderUrlHandler({
