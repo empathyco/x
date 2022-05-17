@@ -46,11 +46,14 @@ export interface SortableRequest {
 export interface TrackableRequest {
   origin?: string;
 }
+
 /**
  * Interface to support extra params in any request.
  *
  * @public
  */
 export interface ExtraParamsRequest {
-  [key: string]: any;
+  extraParams: {
+    [key: string]: any;
+  };
 }
