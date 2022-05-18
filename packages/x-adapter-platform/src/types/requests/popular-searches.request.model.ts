@@ -1,15 +1,14 @@
-import { PageableRequest } from '@empathyco/x-types';
-import { PlatformExtraParamsRequest } from './request.types';
+import { PlatformExtraParamsRequest, PlatformPageableRequest } from './request.types';
 
 /**
- * Base request for the Platform Popular Searches endpoint.
+ * Base request for the `popular searches` endpoint.
  *
  * @public
  */
-export interface BasePlatformPopularSearchesRequest extends PageableRequest {}
+export interface BasePlatformPopularSearchesRequest extends PlatformPageableRequest {}
 
 /**
- * Request for Platform Popular Searches endpoint with extra params.
+ * Request for the `popular searches` endpoint with `extra params`.
  *
  * @public
  */

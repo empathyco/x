@@ -1,15 +1,14 @@
-import { QueryableRequest } from '@empathyco/x-types';
-import { PlatformExtraParamsRequest } from './request.types';
+import { PlatformExtraParamsRequest, PlatformQueryableRequest } from './request.types';
 
 /**
- * Base request for the Platform Related Tags endpoint.
+ * Base request for the `related tags` endpoint.
  *
  * @public
  */
-export interface BasePlatformRelatedTagsRequest extends QueryableRequest {}
+export interface BasePlatformRelatedTagsRequest extends PlatformQueryableRequest {}
 
 /**
- * Request for Platform Related Tags endpoint with extra params.
+ * Request for the `related tags` endpoint with `extra params`.
  *
  * @public
  */

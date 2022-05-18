@@ -1,15 +1,20 @@
-import { PageableRequest, QueryableRequest } from '@empathyco/x-types';
-import { PlatformExtraParamsRequest } from './request.types';
+import {
+  PlatformExtraParamsRequest,
+  PlatformPageableRequest,
+  PlatformQueryableRequest
+} from './request.types';
 
 /**
- * Base request for the Platform Query Suggestions endpoint.
+ * Base request for the `query suggestions` endpoint.
  *
  * @public
  */
-export interface BaseQuerySuggestionsRequest extends QueryableRequest, PageableRequest {}
+export interface BaseQuerySuggestionsRequest
+  extends PlatformQueryableRequest,
+    PlatformPageableRequest {}
 
 /**
- * Request for Platform Query Suggestions endpoint with extra params.
+ * Request for `query suggestions` endpoint with `extra params`.
  *
  * @public
  */

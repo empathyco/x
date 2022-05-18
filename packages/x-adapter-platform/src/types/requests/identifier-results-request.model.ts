@@ -1,18 +1,22 @@
-import { PageableRequest, QueryableRequest, TrackableRequest } from '@empathyco/x-types';
-import { PlatformExtraParamsRequest } from './request.types';
+import {
+  PlatformExtraParamsRequest,
+  PlatformPageableRequest,
+  PlatformQueryableRequest,
+  PlatformTrackableRequest
+} from './request.types';
 
 /**
- * Base request for the Platform Identifier Results endpoint.
+ * Base request for the `identifier results` endpoint.
  *
  * @public
  */
 export interface BasePlatformIdentifierResultsRequest
-  extends QueryableRequest,
-    PageableRequest,
-    TrackableRequest {}
+  extends PlatformQueryableRequest,
+    PlatformPageableRequest,
+    PlatformTrackableRequest {}
 
 /**
- * Request for Platform Identifier Results endpoint with extra params.
+ * Request for the `identifier results` endpoint with `extra params`.
  *
  * @public
  */

@@ -1,15 +1,14 @@
-import { QueryableRequest } from '@empathyco/x-types';
-import { PlatformExtraParamsRequest } from './request.types';
+import { PlatformExtraParamsRequest, PlatformQueryableRequest } from './request.types';
 
 /**
- * Base request for Platform Next Queries endpoint.
+ * Base request for the `next queries` endpoint.
  *
  * @public
  */
-export interface BasePlatformNextQueriesRequest extends QueryableRequest {}
+export interface BasePlatformNextQueriesRequest extends PlatformQueryableRequest {}
 
 /**
- * Request for Platform Next Queries endpoint with extra params.
+ * Request for the `next queries` endpoint with `extra params`.
  *
  * @public
  */

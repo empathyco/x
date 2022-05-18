@@ -1,25 +1,26 @@
 import {
-  QueryableRequest,
-  PageableRequest,
-  SortableRequest,
-  TrackableRequest
-} from '@empathyco/x-types';
-import { PlatformExtraParamsRequest, PlatformFilterableRequest } from './request.types';
+  PlatformExtraParamsRequest,
+  PlatformFilterableRequest,
+  PlatformPageableRequest,
+  PlatformQueryableRequest,
+  PlatformSortableRequest,
+  PlatformTrackableRequest
+} from './request.types';
 
 /**
- * Request for Platform Search endpoint.
+ * Base request for the `search` endpoint.
  *
  * @public
  */
 export interface BasePlatformSearchRequest
-  extends QueryableRequest,
-    PageableRequest,
+  extends PlatformQueryableRequest,
+    PlatformPageableRequest,
     PlatformFilterableRequest,
-    TrackableRequest,
-    SortableRequest {}
+    PlatformTrackableRequest,
+    PlatformSortableRequest {}
 
 /**
- * Request for Platform Search endpoint with extra params.
+ * Request for the `search` endpoint with `extra params`.
  *
  * @public
  */
