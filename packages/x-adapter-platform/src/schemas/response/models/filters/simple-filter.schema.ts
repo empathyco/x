@@ -1,8 +1,8 @@
 import { createMutableSchema, Schema } from '@empathyco/x-adapter-next';
 import { SimpleFilter } from '@empathyco/x-types';
-import { PlatformFacetFilter } from '../../types';
+import { PlatformFilter } from '../../../../types/responses/models/facet.model';
 
-export const simpleFilterSchema: Schema<PlatformFacetFilter, SimpleFilter> = {
+export const simpleFilterSchema: Schema<PlatformFilter, SimpleFilter> = {
   facetId: 'filter',
   label: 'value',
   id: 'filter',

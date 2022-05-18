@@ -1,8 +1,8 @@
 import { createMutableSchema, Schema } from '@empathyco/x-adapter-next';
 import { NumberRangeFilter } from '@empathyco/x-types';
-import { PlatformFacetFilter } from '../../types';
+import { PlatformFilter } from '../../../../types/responses/models/facet.model';
 
-export const numberFilterSchema: Schema<PlatformFacetFilter, NumberRangeFilter> = {
+export const numberFilterSchema: Schema<PlatformFilter, NumberRangeFilter> = {
   id: 'filter',
   facetId: 'id',
   label: 'value',

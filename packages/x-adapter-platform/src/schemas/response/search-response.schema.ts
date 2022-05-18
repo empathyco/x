@@ -1,12 +1,12 @@
-import { getTaggingInfoFromUrl } from '@empathyco/x-utils';
 import { Schema, createMutableSchema } from '@empathyco/x-adapter-next';
+import { getTaggingInfoFromUrl } from '@empathyco/x-utils';
 import { SearchResponse } from '@empathyco/x-types';
 import { PlatformSearchResponse } from '../../types/responses/search-response.model';
-import { resultMutableSchema } from '../result.schema';
-import { facetMutableSchema } from '../facet.schema';
-import { bannerMutableSchema } from '../banner.schema';
-import { promotedMutableSchema } from '../promoted.schema';
-import { redirectionMutableSchema } from '../redirection.schema';
+import { bannerMutableSchema } from './models/banner.schema';
+import { facetMutableSchema } from './models/facet.schema';
+import { promotedMutableSchema } from './models/promoted.schema';
+import { redirectionMutableSchema } from './models/redirection.schema';
+import { resultMutableSchema } from './models/result.schema';
 
 export const searchResponseSchema: Schema<PlatformSearchResponse, SearchResponse> = {
   results: {
@@ -34,4 +34,4 @@ export const searchResponseSchema: Schema<PlatformSearchResponse, SearchResponse
   queryTagging: ({ catalog }) => getTaggingInfoFromUrl(catalog?.tagging?.query)
 };
 
-export const mutableSearchResponseSchema = createMutableSchema(searchResponseSchema);
+export const searchResponseMutableSchema = createMutableSchema(searchResponseSchema);

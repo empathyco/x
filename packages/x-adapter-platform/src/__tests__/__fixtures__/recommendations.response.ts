@@ -1,4 +1,4 @@
-export const platformTopClickedResponse = {
+export const platformRecommendationsResponse = {
   topclicked: {
     content: [
       {

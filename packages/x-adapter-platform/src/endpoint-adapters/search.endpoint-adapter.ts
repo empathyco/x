@@ -1,15 +1,10 @@
-import { endpointAdapterFactory, EndpointAdapterOptions } from '@empathyco/x-adapter-next';
-import { SearchResponse } from '../types/response.types';
-import { SearchRequest } from '../types/request.types';
-import { searchResponseMapper } from '../mappers/response/search-response.mapper';
+import { endpointAdapterFactory } from '@empathyco/x-adapter-next';
+import { SearchRequest, SearchResponse } from '@empathyco/x-types';
 import { searchRequestMapper } from '../mappers/request/search-request.mapper';
+import { searchResponseMapper } from '../mappers/response/search-response.mapper';
 
-const adapterOptions: EndpointAdapterOptions<SearchRequest, SearchResponse> = {
+export const searchEndpointAdapter = endpointAdapterFactory<SearchRequest, SearchResponse>({
   endpoint: 'https://api.{env(.)}empathy.co/search/v1/query/{instance}/search',
-  responseMapper: searchResponseMapper,
-  requestMapper: searchRequestMapper
-};
-
-export const searchEndpointAdapter = endpointAdapterFactory<SearchRequest, SearchResponse>(
-  adapterOptions
-);
+  requestMapper: searchRequestMapper,
+  responseMapper: searchResponseMapper
+});

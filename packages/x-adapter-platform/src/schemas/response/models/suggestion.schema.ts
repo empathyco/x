@@ -1,6 +1,6 @@
 import { createMutableSchema, Schema } from '@empathyco/x-adapter-next';
 import { Suggestion } from '@empathyco/x-types';
-import { PlatformSuggestion } from '../types/models.types';
+import { PlatformSuggestion } from '../../../types/responses/models/suggestion.model';
 
 export const suggestionSchema: Schema<PlatformSuggestion, Suggestion> = {
   query: 'title_raw',

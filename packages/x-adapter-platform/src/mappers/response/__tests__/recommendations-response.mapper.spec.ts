@@ -1,14 +1,14 @@
-import { PlatformTopClickedResponse } from '../../../types/responses/top-clicked-response.model';
-import { topClickedResponseMapper } from '../top-clicked-response.mapper';
 // eslint-disable-next-line max-len
-import { platformTopClickedResponse } from '../../../__tests__/__fixtures__/platform-top-clicked.response';
+import { platformRecommendationsResponse } from '../../../__tests__/__fixtures__/recommendations.response';
+// eslint-disable-next-line max-len
+import { PlatformRecommendationsResponse } from '../../../types/responses/recommendations-response.model';
+import { recommendationsResponseMapper } from '../recommendations-response.mapper';
 
-describe('top clicked response mapper tests', () => {
-  it('should map the top clicked', () => {
-    const response: PlatformTopClickedResponse =
-      platformTopClickedResponse as unknown as PlatformTopClickedResponse;
+describe('recommendationsResponseMapper tests', () => {
+  it('should map the response', () => {
+    const response = platformRecommendationsResponse as unknown as PlatformRecommendationsResponse;
 
-    expect(topClickedResponseMapper(response, {})).toStrictEqual({
+    expect(recommendationsResponseMapper(response, {})).toStrictEqual({
       results: [
         {
           id: '31335-U',

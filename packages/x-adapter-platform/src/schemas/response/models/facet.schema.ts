@@ -7,7 +7,10 @@ import {
   NumberRangeFacet,
   SimpleFacet
 } from '@empathyco/x-types';
-import { PlatformFacet, PlatformHierarchicalFilter } from '../types/models.types';
+import {
+  PlatformFacet,
+  PlatformHierarchicalFilter
+} from '../../../types/responses/models/facet.model';
 import { numberFilterMutableSchema } from './filters/number-filter.schema';
 import { simpleMutableFilterSchema } from './filters/simple-filter.schema';
 

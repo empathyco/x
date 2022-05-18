@@ -8,6 +8,5 @@ import { PlatformSuggestion } from './models/suggestion.model';
 export interface PlatformQuerySuggestionsResponse {
   topTrends: {
     content: PlatformSuggestion[];
-    spellcheck?: string;
   };
 }

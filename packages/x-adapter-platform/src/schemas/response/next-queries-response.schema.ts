@@ -1,7 +1,7 @@
 import { Schema, createMutableSchema } from '@empathyco/x-adapter-next';
 import { NextQueriesResponse } from '@empathyco/x-types';
-import { nextQueryMutableSchema } from '../next-query.schema';
 import { PlatformNextQueriesResponse } from '../../types/responses/next-queries-response.model';
+import { nextQueryMutableSchema } from './models/next-query.schema';
 
 export const nextQueriesResponseSchema: Schema<PlatformNextQueriesResponse, NextQueriesResponse> = {
   nextQueries: {

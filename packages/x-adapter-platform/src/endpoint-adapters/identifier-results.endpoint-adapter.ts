@@ -1,18 +1,15 @@
-import { endpointAdapterFactory, EndpointAdapterOptions } from '@empathyco/x-adapter-next';
+import { endpointAdapterFactory } from '@empathyco/x-adapter-next';
 import { IdentifierResultsRequest, IdentifierResultsResponse } from '@empathyco/x-types';
 // eslint-disable-next-line max-len
 import { identifierResultsRequestMapper } from '../mappers/request/identifier-results-request.mapper';
-import { skuSearchResponseMapper } from '../mappers/response/sku-search-response.mapper';
+// eslint-disable-next-line max-len
+import { identifierResultsResponseMapper } from '../mappers/response/identifier-results-response.mapper';
 
-const identifierResultsEndpointAdapterOptions: EndpointAdapterOptions<
+export const identifierResultsEndpointAdapter = endpointAdapterFactory<
   IdentifierResultsRequest,
   IdentifierResultsResponse
-> = {
+>({
   endpoint: 'https://api.{env(.)}empathy.co/search/v1/query/{instance}/skusearch',
   requestMapper: identifierResultsRequestMapper,
-  responseMapper: skuSearchResponseMapper
-};
-
-export const identifierResultsEndpointAdapter = endpointAdapterFactory(
-  identifierResultsEndpointAdapterOptions
-);
+  responseMapper: identifierResultsResponseMapper
+});
