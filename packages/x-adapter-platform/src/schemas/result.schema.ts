@@ -1,12 +1,12 @@
 import { createMutableSchema, Schema } from '@empathyco/x-adapter-next';
-import { Result, Tagging, TaggingInfo } from '@empathyco/x-types';
+import { Result, Tagging } from '@empathyco/x-types';
 import { getTaggingInfoFromUrl } from '@empathyco/x-utils';
 import { PlatformResult, PlatformTagging } from '../types/models.types';
 
 export const resultTaggingSchema: Schema<PlatformTagging, Tagging> = {
-  add2cart: ({ add2cart }) => getTaggingInfoFromUrl(add2cart) as TaggingInfo,
-  checkout: ({ checkout }) => getTaggingInfoFromUrl(checkout) as TaggingInfo,
-  click: ({ click }) => getTaggingInfoFromUrl(click) as TaggingInfo
+  add2cart: ({ add2cart }) => getTaggingInfoFromUrl(add2cart),
+  checkout: ({ checkout }) => getTaggingInfoFromUrl(checkout),
+  click: ({ click }) => getTaggingInfoFromUrl(click)
 };
 
 export const resultTaggingMutableSchema = createMutableSchema(resultTaggingSchema);

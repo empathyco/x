@@ -6,7 +6,7 @@ import {
   RelatedTag,
   Result,
   Suggestion,
-  TaggingInfo
+  TaggingRequest
 } from '@empathyco/x-types';
 
 import {
@@ -36,7 +36,7 @@ export interface SearchResponse {
   banners: Banner[];
   promoted: Promoted[];
   redirections: Redirection[];
-  queryTagging: TaggingInfo;
+  queryTagging: TaggingRequest;
 }
 
 export interface PlatformEmpathizeResponse {

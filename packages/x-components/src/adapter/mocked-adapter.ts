@@ -1,21 +1,19 @@
 import {
-  EmpathyAdapter,
-  EmpathyAdapterBuilder,
+  IdentifierResultsRequest,
+  IdentifierResultsResponse,
   NextQueriesRequest,
   NextQueriesResponse,
+  QuerySuggestionsRequest,
+  RecommendationsRequest,
+  RecommendationsResponse,
   RelatedTagsRequest,
   RelatedTagsResponse,
-  SearchByIdRequest,
-  SearchByIdResponse,
   SearchRequest,
   SearchResponse,
-  SearchAdapter,
-  SuggestionsRequest,
-  SuggestionsResponse,
-  TopRecommendationsRequest,
-  TopRecommendationsResponse,
-  TrackingRequest
-} from '@empathyco/x-adapter';
+  QuerySuggestionsResponse,
+  TaggingRequest
+} from '@empathyco/x-types';
+import { EmpathyAdapter, EmpathyAdapterBuilder, SearchAdapter } from '@empathyco/x-adapter';
 import { configureAdapterWithToysrus } from './util';
 
 declare global {
@@ -54,11 +52,12 @@ class E2ETestsAdapter extends EmpathyAdapter {
     return mockFetch(request, 'getNextQueries');
   }
 
-  getTopRecommendations(request: TopRecommendationsRequest): Promise<TopRecommendationsResponse> {
+  getTopRecommendations(request: RecommendationsRequest): Promise<RecommendationsResponse> {
     return mockFetch(request, 'getTopRecommendations');
   }
 
-  getSuggestions(request: SuggestionsRequest): Promise<SuggestionsResponse> {
+  // TODO: split this method in two (for QuerySuggestions and for PopularSearches) with new Adapter.
+  getSuggestions(request: QuerySuggestionsRequest): Promise<QuerySuggestionsResponse> {
     return mockFetch(request, 'getSuggestions');
   }
 
@@ -70,13 +69,13 @@ class E2ETestsAdapter extends EmpathyAdapter {
     return mockFetch(request, 'search');
   }
 
-  track(request: TrackingRequest): Promise<void> {
+  track(request: TaggingRequest): Promise<void> {
     return navigator.sendBeacon(request.url, JSON.stringify(request.params ?? {}))
       ? Promise.resolve()
       : Promise.reject('sendBeacon rejected');
   }
 
-  searchById(request: SearchByIdRequest): Promise<SearchByIdResponse> {
+  searchById(request: IdentifierResultsRequest): Promise<IdentifierResultsResponse> {
     return mockFetch(request, 'searchById');
   }
 }

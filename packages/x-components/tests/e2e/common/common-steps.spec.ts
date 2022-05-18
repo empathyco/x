@@ -1,5 +1,5 @@
 import { Given, Then, When, And } from 'cypress-cucumber-preprocessor/steps';
-import { PageableRequest } from '@empathyco/x-adapter';
+import { PageableRequest } from '@empathyco/x-types';
 import '../global/global-definitions';
 import 'reflect-metadata';
 import { baseSnippetConfig } from '../../../src/views/base-config';
@@ -254,4 +254,8 @@ When('the page is reloaded', () => {
 
 And('url contains parameter {string} with value {string}', (key: string, value: string) => {
   cy.location('search').should('contain', `${key}=${encodeURIComponent(value)}`);
+});
+
+When('navigating back', () => {
+  cy.go(-1);
 });

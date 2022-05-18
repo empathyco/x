@@ -10,7 +10,7 @@ export interface RawFilter extends Filter {
   id: string;
   /** Model name to indicate the filter type. */
   modelName: 'RawFilter';
-  /** Force {@link Filter#selected | Filter selected} property to true. */
+  /** Force {@link Filter | Filter} `selected` property to true. */
   selected: true;
 }
 

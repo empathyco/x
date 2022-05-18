@@ -5,7 +5,7 @@ import { SearchXStoreModule } from '../types';
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- * @param response - The {@link @empathyco/x-adapter#SearchResponse} to save.
+ * @param response - The {@link @empathyco/x-types#SearchResponse} to save.
  *
  * @public
  */

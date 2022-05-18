@@ -4,22 +4,22 @@
 
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
       <h2 class="x-title2">Default</h2>
-      <input type="text" class="x-input" placeholder="type here" />
+      <input type="text" class="x-input" placeholder="type here" aria-label="type here" />
     </article>
 
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-input--card">
       <h2 class="x-title2">Card</h2>
-      <input type="text" class="x-input" placeholder="type here" />
+      <input type="text" class="x-input" placeholder="type here" aria-label="type here" />
     </article>
 
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-input--line">
       <h2 class="x-title2">Line</h2>
-      <input type="text" class="x-input" placeholder="type here" />
+      <input type="text" class="x-input" placeholder="type here" aria-label="type here" />
     </article>
 
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-input--pill">
       <h2 class="x-title2">Pill</h2>
-      <input type="text" class="x-input" placeholder="type here" />
+      <input type="text" class="x-input" placeholder="type here" aria-label="type here" />
     </article>
   </section>
 </template>

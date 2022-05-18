@@ -1,3 +1,5 @@
+import { TaggingRequest } from '@empathyco/x-types';
+
 /**
  * Returns the base url path and an object with the query parameters.
  *
@@ -42,10 +44,7 @@ export function extractUrlParameters(url: string): {
  *
  * @returns The object with the tagging info.
  */
-export function getTaggingInfoFromUrl(taggingUrl: string): {
-  url: string;
-  params?: Record<string, string[] | string | boolean>;
-} {
+export function getTaggingInfoFromUrl(taggingUrl: string): TaggingRequest {
   const { url, params } = extractUrlParameters(taggingUrl);
   return {
     url,

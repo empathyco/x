@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.22...@empathyco/x-adapter-next@0.2.0-alpha.23) (2022-05-13)
+
+**Note:** Version bump only for package @empathyco/x-adapter-next
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.21...@empathyco/x-adapter-next@0.2.0-alpha.22) (2022-05-11)
+
+**Note:** Version bump only for package @empathyco/x-adapter-next
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.20...@empathyco/x-adapter-next@0.2.0-alpha.21) (2022-05-06)
 
 ### Features
