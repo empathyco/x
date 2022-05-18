@@ -1,15 +1,10 @@
-import { createMutableSchema, Schema, schemaMapperFactory } from '@empathyco/x-adapter-next';
-import { PlatformTopClickedResponse, TopClickedResponse } from '../../types/response.types';
-import { resultMutableSchema } from '../../schemas/result.schema';
-
-export const topClickedResponseSchema: Schema<PlatformTopClickedResponse, TopClickedResponse> = {
-  results: {
-    $path: 'topclicked.content',
-    $subSchema: resultMutableSchema
-  }
-};
-
-export const topClickedResponseMutableSchema = createMutableSchema(topClickedResponseSchema);
+import { schemaMapperFactory } from '@empathyco/x-adapter-next';
+import {
+  PlatformTopClickedResponse,
+  TopClickedResponse
+} from '../../types/responses/top-clicked-response.model';
+// eslint-disable-next-line max-len
+import { topClickedResponseMutableSchema } from '../../schemas/response/top-clicked-response.schema';
 
 export const topClickedResponseMapper = schemaMapperFactory<
   PlatformTopClickedResponse,

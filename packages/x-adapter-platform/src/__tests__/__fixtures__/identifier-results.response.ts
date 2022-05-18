@@ -1,4 +1,4 @@
-export const skuSearchResponse = {
+export const identifierResultsResponse = {
   results: [
     {
       id: '12345-U',

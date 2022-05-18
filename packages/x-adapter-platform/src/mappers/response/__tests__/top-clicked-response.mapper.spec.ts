@@ -1,5 +1,5 @@
-import { PlatformTopClickedResponse } from '../../../types/response.types';
-import { topClickedResponseMapper } from '../../response/top-clicked-response.mapper';
+import { PlatformTopClickedResponse } from '../../../types/responses/top-clicked-response.model';
+import { topClickedResponseMapper } from '../top-clicked-response.mapper';
 // eslint-disable-next-line max-len
 import { platformTopClickedResponse } from '../../../__tests__/__fixtures__/platform-top-clicked.response';
 

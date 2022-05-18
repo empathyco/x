@@ -1,15 +1,8 @@
-import { createMutableSchema, Schema, schemaMapperFactory } from '@empathyco/x-adapter-next';
-import { PlatformRelatedTagsResponse, RelatedTagsResponse } from '../../types/response.types';
-import { relatedTagMutableSchema } from '../../schemas/related-tag.schema';
-
-export const relatedTagsResponseSchema: Schema<PlatformRelatedTagsResponse, RelatedTagsResponse> = {
-  relatedTags: {
-    $path: 'data.relatedtags',
-    $subSchema: relatedTagMutableSchema
-  }
-};
-
-export const relatedTagsResponseMutableSchema = createMutableSchema(relatedTagsResponseSchema);
+import { schemaMapperFactory } from '@empathyco/x-adapter-next';
+import { RelatedTagsResponse } from '@empathyco/x-types';
+import { PlatformRelatedTagsResponse } from '../../types/responses/related-tags-response.model';
+// eslint-disable-next-line max-len
+import { relatedTagsResponseMutableSchema } from '../../schemas/response/related-tags-response.schema';
 
 export const relatedTagsResponseMapper = schemaMapperFactory<
   PlatformRelatedTagsResponse,
