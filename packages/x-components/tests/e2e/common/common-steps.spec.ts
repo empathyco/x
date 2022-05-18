@@ -80,15 +80,9 @@ And(
   }
 );
 
-And(
-  'filters {string} are shown in the selected filters',
-  function (this: any, clickedFiltersIndex: string) {
-    const clickedFiltersIndexList = clickedFiltersIndex.split(', ');
-    clickedFiltersIndexList.forEach(filter => {
-      cy.getByDataTest('selected-filters-list').should('contain.text', filter.split(':')[1]);
-    });
-  }
-);
+And('filter {string} is selected', function (filterLabel: string) {
+  cy.getByDataTest('selected-filters-list').should('contain.text', filterLabel);
+});
 
 // Extra params
 When('store is changed to {string}', (store: string) => {

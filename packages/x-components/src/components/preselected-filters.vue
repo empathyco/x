@@ -65,15 +65,16 @@ _See how the event is triggered when the component is rendered._
 </template>
 
 <script>
-  import { PreselectedFilters, baseSnippetConfig } from '@empathyco/x-components';
+  import { PreselectedFilters } from '@empathyco/x-components';
   export default {
     name: 'PreselectedFiltersDemo',
     components: {
       PreselectedFilters
     },
     provide: {
-      ...baseSnippetConfig,
-      filters: ['{!tag=brand_facet}brand_facet:"Lego"', '{!tag=age_facet}age_facet:"toddler"']
+      snippetConfig: {
+        filters: ['{!tag=brand_facet}brand_facet:"Lego"', '{!tag=age_facet}age_facet:"toddler"']
+      }
     }
   };
 </script>
