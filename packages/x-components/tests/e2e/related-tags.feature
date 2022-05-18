@@ -67,3 +67,19 @@ Feature: Related tags component
       | maxItemsToRequest | addToSearchBox | query | relatedTagItem | request                |
       | 9                 | false          | lego  | 2              | interceptedRelatedTags |
 
+  Scenario Outline: 4. Related tags are kept when navigating back
+    Given following config: requested items <maxItemsToRequest>, add to search-box <addToSearchBox>
+    And   start button is clicked
+    When  "<query>" is searched
+    Then related tags are displayed
+    Then related results have changed
+    When filter number 0 is clicked in facet "hierarchical_category"
+    Then related results have changed
+    When navigating back
+    Then related results have changed
+    Then related tags are displayed
+
+    Examples:
+      | maxItemsToRequest | addToSearchBox | query |
+      | 9                 | false          | lego  |
+

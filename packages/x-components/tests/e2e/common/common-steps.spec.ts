@@ -202,3 +202,7 @@ Then(
       .should('have.property', key, value === 'default' ? '' : value);
   }
 );
+
+When('navigating back', () => {
+  cy.go(-1);
+});
