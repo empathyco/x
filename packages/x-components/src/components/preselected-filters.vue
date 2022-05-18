@@ -6,7 +6,7 @@
   import { SnippetConfig } from '../x-installer/api/api.types';
 
   /**
-   * This component emits {@link XEventsTypes.PreselectedFiltersProvided} when a preselected filter
+   * This component emits {@link FacetsXEvents.PreselectedFiltersProvided} when a preselected filter
    * is set in the snippet config or by using the prop of the component.
    *
    * @public
@@ -53,7 +53,7 @@
 
 A list of events that the component will emit:
 
-[`PreselectedFiltersProvided`](./../../api/x-components.xeventstypes.preselectedfiltersprovided.md).
+[`PreselectedFiltersProvided`](./../../api/x-components.preselectedfiltersprovided.md).
 
 ## See it in action
 
