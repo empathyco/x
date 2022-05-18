@@ -1,3 +1,4 @@
+export * from './request';
 export * from './result.schema';
 export * from './banner.schema';
 export * from './facet.schema';

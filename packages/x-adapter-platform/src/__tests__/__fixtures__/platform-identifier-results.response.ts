@@ -1,5 +1,6 @@
 /*eslint-disable max-len*/
-export const platformSkuSearchResponse = {
+
+export const platformIdentifierResultsResponse = {
   catalog: {
     content: [
       {

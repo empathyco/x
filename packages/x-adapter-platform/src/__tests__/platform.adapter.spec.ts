@@ -1,5 +1,5 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { Filter } from '@empathyco/x-types';
+import { Filter, IdentifierResultsRequest } from '@empathyco/x-types';
 import { platformAdapter } from '../platform.adapter';
 import { BaseRequest, TaggingRequest } from '../types/request.types';
 import {
@@ -9,7 +9,8 @@ import {
   PlatformSearchResponse
 } from '../types/response.types';
 import { getFetchMock } from './__mocks__/fetch.mock';
-import { platformSkuSearchResponse } from './__fixtures__/platform-sku-search.response';
+// eslint-disable-next-line max-len
+import { platformIdentifierResultsResponse } from './__fixtures__/platform-identifier-results.response';
 import { platformTopClickedResponse } from './__fixtures__/platform-top-clicked.response';
 
 describe('platformAdapter tests', () => {
@@ -293,8 +294,8 @@ describe('platformAdapter tests', () => {
     });
   });
 
-  it('should call the sku search endpoint', async () => {
-    const skuSearchRequest: BaseRequest = {
+  it('should call the identifier results endpoint', async () => {
+    const identifierResultsRequest: IdentifierResultsRequest = {
       device: 'mobile',
       env: 'staging',
       lang: 'en',
@@ -306,9 +307,9 @@ describe('platformAdapter tests', () => {
       origin: 'search_box:none'
     };
 
-    const fetchMock = jest.fn(getFetchMock(platformSkuSearchResponse));
+    const fetchMock = jest.fn(getFetchMock(platformIdentifierResultsResponse));
     window.fetch = fetchMock as any;
-    const response = await platformAdapter.skuSearch(skuSearchRequest);
+    const response = await platformAdapter.identifierResults(identifierResultsRequest);
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len

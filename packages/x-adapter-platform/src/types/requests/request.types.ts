@@ -1,27 +1,12 @@
 import { Filter } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 
-export interface BaseRequest {
-  rows: number;
-  start: number;
-  env: string;
-  scope: string;
-  device: string;
-  lang: string;
+export interface PlatformExtraParamsRequest {
   instance: string;
-  query?: string;
-  origin?: string;
-}
-
-export interface PlatformBaseRequest {
-  rows: number;
-  start: number;
   env: string;
-  scope: string;
-  device: string;
   lang: string;
-  query?: string;
-  origin?: string;
+  device: string;
+  scope: string;
 }
 
 export interface SearchRequest extends BaseRequest {
@@ -38,9 +23,4 @@ export interface PlatformSearchRequest extends PlatformBaseRequest {
   query: string;
   filter?: string[];
   sort?: string;
-}
-
-export interface TaggingRequest {
-  url: string;
-  params: Record<string, string | number | boolean>;
 }
