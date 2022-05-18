@@ -1,6 +1,4 @@
-import { Filter } from '@empathyco/x-types';
-import { Dictionary } from '@empathyco/x-utils';
-
+// TODO: Check properties of this interface. Are they necessary?
 export interface PlatformExtraParamsRequest {
   instance: string;
   env: string;
@@ -9,18 +7,11 @@ export interface PlatformExtraParamsRequest {
   scope: string;
 }
 
-export interface SearchRequest extends BaseRequest {
-  filters: Dictionary<Filter[]>;
-  query: string;
-  origin: string;
-  relatedTags?: any[];
-  sort: string;
-  lang: string;
-}
-
-export interface PlatformSearchRequest extends PlatformBaseRequest {
-  origin: string;
-  query: string;
+/**
+ * Interface for any Request with a `filters` parameter.
+ *
+ * @public
+ */
+export interface PlatformFilterableRequest {
   filter?: string[];
-  sort?: string;
 }

@@ -1,7 +1,13 @@
 import { Dictionary } from '@empathyco/x-utils';
-import { Filter, HierarchicalFilter, NumberRangeFilter, SimpleFilter } from '@empathyco/x-types';
+import {
+  Filter,
+  HierarchicalFilter,
+  NumberRangeFilter,
+  SearchRequest,
+  SimpleFilter
+} from '@empathyco/x-types';
+import { PlatformSearchRequest } from '../../../types/requests/search-request.model';
 import { searchRequestMapper } from '../../request/search-request.mapper';
-import { PlatformSearchRequest, SearchRequest } from '../../../types/request.types';
 
 const filters: Dictionary<Filter[]> = {
   offer: [
@@ -11,8 +17,8 @@ const filters: Dictionary<Filter[]> = {
       id: 'price:[0 TO 10]',
       selected: true,
       label: 'In Offer'
-    } as SimpleFilter
-  ],
+    }
+  ] as SimpleFilter[],
   brand_facet: [
     {
       facetId: 'brand_facet',
@@ -21,8 +27,8 @@ const filters: Dictionary<Filter[]> = {
       selected: true,
       totalResults: 6,
       modelName: 'SimpleFilter'
-    } as SimpleFilter
-  ],
+    }
+  ] as SimpleFilter[],
   price: [
     {
       facetId: 'price',
@@ -35,8 +41,8 @@ const filters: Dictionary<Filter[]> = {
         min: null,
         max: 10
       }
-    } as NumberRangeFilter
-  ],
+    }
+  ] as NumberRangeFilter[],
   categoryPaths: [
     {
       facetId: 'categoryPaths',
@@ -69,30 +75,29 @@ const filters: Dictionary<Filter[]> = {
   ] as HierarchicalFilter[]
 };
 
-describe('search platform request test', () => {
+describe('searchRequestMapper tests', () => {
   const internalRequest: SearchRequest = {
-    env: 'test',
-    lang: 'en',
-    origin: 'url:external',
-    rows: 2,
-    scope: 'mobile',
-    sort: 'price asc',
-    start: 14,
-    device: 'mobile',
     query: 'chips',
-    instance: 'empathy',
-    filters
+    origin: 'url:external',
+    start: 14,
+    rows: 2,
+    sort: 'price asc',
+    filters,
+    extraParams: {
+      instance: 'empathy',
+      env: 'test',
+      lang: 'en',
+      device: 'mobile',
+      scope: 'mobile'
+    }
   };
 
   it('should map the request', () => {
     const request: PlatformSearchRequest = {
-      device: 'mobile',
-      env: 'test',
-      lang: 'en',
-      origin: 'url:external',
       query: 'chips',
+      origin: 'url:external',
+      start: 14,
       rows: 2,
-      scope: 'mobile',
       sort: 'price asc',
       filter: [
         'price:[0 TO 10]',
@@ -101,7 +106,11 @@ describe('search platform request test', () => {
         'categoryIds:ffc61e1e9__be257cb26',
         'categoryIds:ffc61e1e9__fa5ef54f2'
       ],
-      start: 14
+      instance: 'empathy',
+      env: 'test',
+      lang: 'en',
+      device: 'mobile',
+      scope: 'mobile'
     };
     expect(searchRequestMapper(internalRequest, {})).toStrictEqual(request);
   });
