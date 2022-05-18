@@ -25,7 +25,7 @@
      * A list of filters to preselect.
      *
      * @remarks Emits the {@link XEventsTypes.PreselectedFiltersProvided} when the
-     * component is rendered or the values changed.
+     * component is created.
      *
      * @public
      */
@@ -36,7 +36,7 @@
      * Emits the provided preselected filters prioritizing the {@link SnippetConfig} over the
      * filters prop.
      */
-    mounted(): void {
+    created(): void {
       const preselectedFilters = this.snippetConfig?.filters ?? this.filters;
       if (!isArrayEmpty(preselectedFilters)) {
         this.$x.emit('PreselectedFiltersProvided', createRawFilters(preselectedFilters));

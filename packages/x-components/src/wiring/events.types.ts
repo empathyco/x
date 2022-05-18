@@ -1,4 +1,4 @@
-import { RawFilter, Result, Suggestion } from '@empathyco/x-types';
+import { Result, Suggestion } from '@empathyco/x-types';
 import { ExtractPayload } from '../store/index';
 import { ArrowKey, PropsWithType } from '../utils';
 import { DeviceXEvents } from '../x-modules/device';
@@ -72,11 +72,6 @@ export interface XEventsTypes
    * Payload: the columns number.
    */
   ColumnsNumberProvided: number;
-  /**
-   * The selected filters provided in the {@link SnippetConfig}.
-   * Payload: the raw filters.
-   */
-  PreselectedFiltersProvided: RawFilter[];
   /**
    * Any kind of suggestions have been displayed (query-suggestions, popular searches...)
    * Payload: The displayed {@link @empathyco/x-types#Suggestion | suggestions}.
