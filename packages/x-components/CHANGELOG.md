@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.101](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.100...@empathyco/x-components@3.0.0-alpha.101) (2022-05-18)
+
+### Bug Fixes
+
+- **related-tags:** related tags are now kept when navigating back
+  ([db9f875](https://github.com/empathyco/x/commit/db9f87560000bca05ad3fe06fc449e170c3b9d08)),
+  closes [EX-6131](https://searchbroker.atlassian.net/browse/EX-6131)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.100](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.99...@empathyco/x-components@3.0.0-alpha.100) (2022-05-17)
 
 ### Bug Fixes
