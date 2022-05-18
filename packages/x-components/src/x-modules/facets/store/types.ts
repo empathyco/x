@@ -1,4 +1,4 @@
-import { Facet, Filter } from '@empathyco/x-types';
+import { Facet, Filter, RawFilter } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 
 /**
@@ -13,6 +13,8 @@ export interface FacetsState {
   groups: Record<Facet['id'], GroupId>;
   /** The facets without their filters. */
   facets: Record<Facet['id'], Omit<Facet, 'filters'>>;
+  /** Record of preselected filters indexed by its id. */
+  preselectedFilters: RawFilter[];
 }
 
 /**
@@ -72,6 +74,13 @@ export interface FacetsMutations {
    * @param filter - The filter to add.
    */
   setFilter(filter: Filter): void;
+  /**
+   * Adds a list of filters to the {@link FacetsState.preselectedFilters | preselectedFilters}
+   * record.
+   *
+   * @param filters - The filters to add.
+   */
+  setPreselectedFilters(filters: RawFilter[]): void;
   /**
    * Removes the facet from the {@link FacetsState.facets | facets} record.
    *

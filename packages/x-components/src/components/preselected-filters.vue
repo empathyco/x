@@ -22,7 +22,7 @@
     public snippetConfig?: SnippetConfig;
 
     /**
-     * A list of preselected filters.
+     * A list of filters to preselect.
      *
      * @remarks Emits the {@link XEventsTypes.PreselectedFiltersProvided} when the
      * component is rendered or the values changed.
@@ -42,6 +42,7 @@
         this.$x.emit('PreselectedFiltersProvided', createRawFilters(preselectedFilters));
       }
     }
+
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     render(): void {}
   }

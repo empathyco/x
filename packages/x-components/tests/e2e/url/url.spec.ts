@@ -12,11 +12,7 @@ When('clicking result in position {int}', (index: number) => {
 
 // Scenario 4
 And("url doesn't contain parameter {string} with value {string}", (key: string, value: string) => {
-  cy.location('search').should('not.contain', `${key}=${value}`);
-});
-
-And('url contains parameter {string} with value {string}', (key: string, value: string) => {
-  cy.location('search').should('contain', `${key}=${value}`);
+  cy.location('search').should('not.contain', `${key}=${encodeURIComponent(value)}`);
 });
 
 When('selecting store {string}', (store: string) => {

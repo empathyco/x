@@ -77,6 +77,20 @@ const setFiltersFromUrl = mapWire(wireFacetsService('select'), ({ filter }: UrlP
 );
 
 /**
+ * Saves the preselected filters.
+ *
+ * @public
+ */
+const updatePreselectedFilters = wireFacetsService('updatePreselectedFilters');
+
+/**
+ * Selects the preselected filters stored in the state.
+ *
+ * @public
+ */
+const selectPreselectedFilterWire = wireFacetsService('selectPreselectedFilters');
+
+/**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
  *
  * @internal
@@ -88,7 +102,7 @@ export const facetsWiring = createWiring({
     setFiltersFromUrl
   },
   PreselectedFiltersProvided: {
-    selectFilterWire
+    updatePreselectedFilters
   },
   FacetsChanged: {
     updateFacetsGroupWithSearchFacetsWire
@@ -113,5 +127,8 @@ export const facetsWiring = createWiring({
   },
   UserClearedQuery: {
     clearAllFiltersWire
+  },
+  UserClickedOpenX: {
+    selectPreselectedFilterWire
   }
 });

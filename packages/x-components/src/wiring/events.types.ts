@@ -36,12 +36,12 @@ import { WireMetadata } from './wiring.types';
  * {@link PopularSearchesXEvents}
  * {@link QuerySuggestionsXEvents},
  * {@link RecommendationsXEvents}
- * * {@link RelatedTagsXEvents}
- * * {@link ScrollXEvents},
- * * {@link SearchBoxXEvents}
- * * {@link SearchXEvents}
- * * {@link TaggingXEvents}
- * * {@link UrlXEvents}
+ * {@link RelatedTagsXEvents}
+ * {@link ScrollXEvents},
+ * {@link SearchBoxXEvents}
+ * {@link SearchXEvents}
+ * {@link TaggingXEvents}
+ * {@link UrlXEvents}
  *
  * @public
  */
@@ -113,6 +113,11 @@ export interface XEventsTypes
    */
   UserClickedCloseModal: string;
   /**
+   * The user clicked the button to close X.
+   * Payload: none.
+   */
+  UserClickedCloseX: void;
+  /**
    * The user clicked the button to select the number of columns.
    * Payload: the column number.
    */
@@ -127,6 +132,11 @@ export interface XEventsTypes
    * Payload: the id of the modal to open.
    */
   UserClickedOpenModal: string;
+  /**
+   * The user clicked the button to open X.
+   * Payload: none.
+   */
+  UserClickedOpenX: void;
   /**
    * The user clicked out of the events modal while it is opened.
    * Payload: none.

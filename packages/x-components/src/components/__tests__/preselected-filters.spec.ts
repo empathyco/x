@@ -35,6 +35,7 @@ describe('testing Preselected filters component', () => {
 
     expect(emit).not.toHaveBeenCalled();
   });
+
   it('emits the event when filters are provided in the snippet config', () => {
     const snippetFilters = [
       '{!tag=brand_facet}brand_facet:"Lego"',

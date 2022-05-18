@@ -1,6 +1,8 @@
-import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then, When, And } from 'cypress-cucumber-preprocessor/steps';
 import { PageableRequest } from '@empathyco/x-adapter';
 import '../global/global-definitions';
+import 'reflect-metadata';
+import { baseSnippetConfig } from '../../../src/views/base-config';
 
 let resultsList: string[] = [];
 
@@ -33,6 +35,19 @@ Given('no special config for layout view', () => {
   cy.visit('/');
 });
 
+Given('an application the {string} filter preselected', (preselectedFilter: string) => {
+  cy.visit('/', {
+    onBeforeLoad(win) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      win.initX = {
+        ...baseSnippetConfig,
+        filters: [preselectedFilter]
+      };
+    }
+  });
+});
+
 Given('a URL with query parameter {string}', (query: string) => {
   cy.visit('/', {
     qs: {
@@ -41,9 +56,39 @@ Given('a URL with query parameter {string}', (query: string) => {
   });
 });
 
+Given('a URL with a filter parameter {string}', (filter: string) => {
+  cy.visit('/', {
+    qs: {
+      filter
+    }
+  });
+});
+
 When('start button is clicked', () => {
   cy.getByDataTest('open-modal').click();
 });
+
+// Filters
+
+And(
+  'filters {string} are shown in the selected filters list',
+  function (this: any, clickedFiltersIndex: string) {
+    const clickedFiltersIndexList = clickedFiltersIndex.split(', ');
+    clickedFiltersIndexList.forEach(index => {
+      cy.getByDataTest('selected-filters-list').should('contain', this[`clickedFilter${index}`]);
+    });
+  }
+);
+
+And(
+  'filters {string} are shown in the selected filters',
+  function (this: any, clickedFiltersIndex: string) {
+    const clickedFiltersIndexList = clickedFiltersIndex.split(', ');
+    clickedFiltersIndexList.forEach(filter => {
+      cy.getByDataTest('selected-filters-list').should('contain.text', filter.split(':')[1]);
+    });
+  }
+);
 
 // Extra params
 When('store is changed to {string}', (store: string) => {
@@ -202,3 +247,11 @@ Then(
       .should('have.property', key, value === 'default' ? '' : value);
   }
 );
+
+When('the page is reloaded', () => {
+  cy.reload();
+});
+
+And('url contains parameter {string} with value {string}', (key: string, value: string) => {
+  cy.location('search').should('contain', `${key}=${encodeURIComponent(value)}`);
+});

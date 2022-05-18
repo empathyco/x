@@ -46,6 +46,14 @@ export class DefaultFacetsService implements FacetsService {
     this.updateFiltersSelectedState(newFilters, selectedFilters);
   }
 
+  updatePreselectedFilters(filters: Filter[]): void {
+    this.setPreselectedFilter(filters);
+  }
+
+  selectPreselectedFilters(): void {
+    this.select(this.store.state.x.facets.preselectedFilters);
+  }
+
   clearFilters(facetIds?: Array<Facet['id']>): void {
     this.getSelectedFilters()
       .filter(filter => !facetIds || (isFacetFilter(filter) && facetIds.includes(filter.facetId)))
@@ -180,6 +188,7 @@ export class DefaultFacetsService implements FacetsService {
    *
    * @param facet - The facet to store.
    *
+   * @param facet.filters
    * @internal
    */
   protected setFacet({ filters, ...restFacet }: Facet): void {
@@ -204,6 +213,16 @@ export class DefaultFacetsService implements FacetsService {
    */
   protected setFilters(filters: Filter[]): void {
     this.store.commit('x/facets/setFilters', filters);
+  }
+
+  /**
+   * Saves a list of preselected filters to the store without any state change logic applied.
+   *
+   * @param filters - The filters to save.
+   * @internal
+   */
+  protected setPreselectedFilter(filters: Filter[]): void {
+    this.store.commit('x/facets/setPreselectedFilters', filters);
   }
 
   /**

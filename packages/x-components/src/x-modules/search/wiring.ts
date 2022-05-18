@@ -184,9 +184,6 @@ export const searchWiring = createWiring({
   SelectedFiltersChanged: {
     setSelectedFilters
   },
-  PreselectedFiltersProvided: {
-    setSelectedFilters
-  },
   ResultsChanged: {
     resetAppending
   },
