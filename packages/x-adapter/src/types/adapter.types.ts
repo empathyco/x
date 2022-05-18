@@ -37,6 +37,7 @@ export interface ExtendableEndpointAdapter<Request, Response>
    * {@link ExtendableEndpointAdapter} object.
    *
    * @param options - New options to extend the {@link ExtendableEndpointAdapter} with.
+   * @returns A new adapter created by merging the new and old options.
    */
   extends: <NewRequest = Request, NewResponse = Response>(
     options: Partial<EndpointAdapterOptions<NewRequest, NewResponse>>
