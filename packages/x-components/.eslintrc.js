@@ -12,7 +12,6 @@ module.exports = {
     'vuejs-accessibility/aria-role': 'warn',
     'vuejs-accessibility/aria-unsupported-elements': 'warn',
     'vuejs-accessibility/click-events-have-key-events': 'warn',
-    'vuejs-accessibility/form-control-has-label': 'warn',
     'vuejs-accessibility/heading-has-content': 'warn',
     'vuejs-accessibility/iframe-has-title': 'warn',
     'vuejs-accessibility/interactive-supports-focus': 'warn',

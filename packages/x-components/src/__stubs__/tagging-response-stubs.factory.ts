@@ -1,13 +1,13 @@
-import { TaggingInfo } from '@empathyco/x-types';
+import { TaggingRequest } from '@empathyco/x-types';
 
 /**
- * Creates a {@link @empathyco/x-adapter#TaggingInfo | tagging response} stub.
+ * Creates a {@link @empathyco/x-types#TaggingRequest | tagging response} stub.
  *
  * @returns Object of tagging response stub.
  *
  * @internal
  */
-export function getTaggingResponseStub(): TaggingInfo {
+export function getTaggingResponseStub(): TaggingRequest {
   return {
     params: {
       q: 'lego',

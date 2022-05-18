@@ -81,7 +81,7 @@ export interface XAPI {
  */
 export type XEventListeners = Partial<
   {
-    [Event in XEvent]: (payload: XEventPayload<Event>, metadata: WireMetadata) => void;
+    [Event in XEvent]: (payload: XEventPayload<Event>, metadata: WireMetadata) => unknown;
   }
 >;
 

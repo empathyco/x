@@ -188,7 +188,6 @@ export class DefaultFacetsService implements FacetsService {
    *
    * @param facet - The facet to store.
    *
-   * @param facet.filters
    * @internal
    */
   protected setFacet({ filters, ...restFacet }: Facet): void {

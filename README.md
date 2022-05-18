@@ -71,7 +71,7 @@ Each component contains inline comments. Alternatively, you can read the product
 Empathy’s eDocs documentation portal.
 
 - [Overview of X Components](https://docs.empathy.co/explore-empathy-platform/experience-search-&-discovery/)
-- [Interface X architecture](https://docs.empathy.co/develop-empathy-platform/build-search-ui/x-architecture/)
+- [Interface X architecture](https://docs.empathy.co/develop-empathy-platform/build-search-ui/web-x-architecture/)
 - [Full UI Reference](https://docs.empathy.co/develop-empathy-platform/ui-reference/)
 <!--- [Frequently Asked Questions](Content to be developed for GitHub project)--->
 
@@ -81,17 +81,30 @@ We are working on many key features to consolidate Interface X, including these 
 
 - Publish extensive documentation covering functional and technical aspects.
   [![Release Docs](https://img.shields.io/badge/Released-August%202021-brightgreen)](https://docs.empathy.co)
-- Support URL management to set X&nbsp;Components state based on URL parameters.
-  [![Release Docs](https://img.shields.io/badge/Released-November%202021-brightgreen)](https://docs.empathy.co)
-- Create a tagging system to track session interactions without storing PII.
-  [![Release Docs](https://img.shields.io/badge/Released-December%202021-brightgreen)](https://docs.empathy.co)
+- Support
+  [URL management](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/url/) to
+  set X&nbsp;Components state based on URL parameters.
+  [![Release Docs](https://img.shields.io/badge/Released-November%202021-brightgreen)](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/url/)
+- Create a
+  [tagging module](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/tagging/)
+  to track session interactions without storing PII.
+  [![Release Docs](https://img.shields.io/badge/Released-December%202021-brightgreen)](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/tagging/)
+- Create the [x-adapter](https://github.com/empathyco/x/tree/main/packages/x-adapter) to connect to
+  any Search API based on schemas
+  [![Release Docs](https://img.shields.io/badge/Released-April%202022-brightgreen)](https://docs.empathy.co)
+- [My History](https://empathy.co/blog/development-journey-my-history/) feature, Control your search
+  history and have access to previous intentions.
+  [![Release Docs](https://img.shields.io/badge/In%20Progress-Q2%202022-yellow)](https://empathy.co/blog/development-journey-my-history/)
+- Use [accessibility eslint plugin](https://github.com/vue-a11y/eslint-plugin-vuejs-accessibility)
+  to improve components a11y.
+  [![Release Docs](https://img.shields.io/badge/In%20Progress-Q2%202022-yellow)](https://github.com/empathyco/x/commit/da5a10a236aae5fae96943fe0ad54849df15e7f5)
+- Evolution of the no code design system experience controls to tweak styles from the
+  [Playboard](https://docs.empathy.co/explore-empathy-platform/overview/playboard-overview.html).
+  ![Release Docs](https://img.shields.io/badge/In%20Progress-Q3%202022-yellow)
 - Discovery Wall: A set of results carousels to help the shopper to discover interesting products at
-  the search home (pre query).
+  the search home. This represents Empathy sciences for **Discovery** and **Cross-Selling**.
 - Vertical Search: allows to select a given filter before performing a search.
-- Module independence allowing to have different instances of the same component with different
-  data/source of truth.
 - Provide a No Network State for components depending on API requests.
-- Evolution of the no code design system through a visual editor.
 - Server Side Rendering.
 - Incorporate search box power-ups such as animated suggestions or forbidden character set to
   prevent code injection.
@@ -114,7 +127,7 @@ to see why we moved to a mono repo and how we did it.
 ## How to implement Interface X
 
 Once you have installed the project, follow the step-by-step guide -
-[How to build your search UI](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/interface-x-integration-guide.html).
+[How to build your search UI](https://docs.empathy.co/develop-empathy-platform/build-search-ui/).
 
 Watch Ivan Tajes’
 [explanation on how to build a search experience using the X Components](https://www.youtube.com/watch?v=JjjIaQlG9aE).

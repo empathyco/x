@@ -1,4 +1,4 @@
-import { SuggestionsRequest } from '@empathyco/x-adapter';
+import { PopularSearchesRequest } from '@empathyco/x-types';
 import { map } from '@empathyco/x-utils';
 import { createLocalVue } from '@vue/test-utils';
 import Vue from 'vue';
@@ -23,7 +23,7 @@ describe('testing popular searches module getters', () => {
           catalog: 'es'
         }
       });
-      expect(store.getters[gettersKeys.request]).toEqual<SuggestionsRequest>({
+      expect(store.getters[gettersKeys.request]).toEqual<PopularSearchesRequest>({
         rows: 3,
         start: 0,
         catalog: 'es'

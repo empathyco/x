@@ -1,5 +1,4 @@
-import { TopRecommendationsRequest } from '@empathyco/x-adapter';
-import { Result } from '@empathyco/x-types';
+import { RecommendationsRequest, Result } from '@empathyco/x-types';
 
 /**
  * Dictionary of the events of Recommendations XModule, where each key is the event name, and the
@@ -10,18 +9,18 @@ import { Result } from '@empathyco/x-types';
 export interface RecommendationsXEvents {
   /**
    * Recommendations have been changed.
-   * * Payload: The new {@link @empathyco/x-types#Result | recommendations}.
+   * Payload: The new {@link @empathyco/x-types#Result | recommendations}.
    */
   RecommendationsChanged: Result[];
   /**
    * Any property of the recommendations request has changed.
-   * * Payload: The new recommendations request or `null` if there is not enough data in the state
+   * Payload: The new recommendations request or `null` if there is not enough data in the state
    * to conform a valid request.
    */
-  RecommendationsRequestChanged: TopRecommendationsRequest;
+  RecommendationsRequestChanged: RecommendationsRequest;
   /**
    * A recommendation result has been clicked.
-   * * Payload: The {@link @empathyco/x-types#Result | result}.
+   * Payload: The {@link @empathyco/x-types#Result | result}.
    */
   UserClickedARecommendation: Result;
 }

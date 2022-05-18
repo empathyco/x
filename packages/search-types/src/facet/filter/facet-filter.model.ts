@@ -12,7 +12,7 @@ import { Filter } from './filter.model';
  */
 export interface FacetFilter extends Filter {
   /**
-   * The filter {@link ModelNameType | model name} excluding {@link RawFilter#modelName | RawFilter}
+   * The filter {@link ModelNameType | model name} excluding {@link RawFilter | RawFilter}
    * model name.
    */
   modelName: Exclude<FilterModelName, 'RawFilter'>;

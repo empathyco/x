@@ -24,7 +24,7 @@
     /**
      * A list of filters to preselect.
      *
-     * @remarks Emits the {@link XEventsTypes.PreselectedFiltersProvided} when the
+     * @remarks Emits the {@link FacetsXEvents.PreselectedFiltersProvided} when the
      * component is created.
      *
      * @public

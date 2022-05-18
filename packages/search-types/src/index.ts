@@ -1,5 +1,7 @@
 export * from './facet';
 export * from './query-signals';
+export * from './request';
+export * from './response';
 export * from './result';
 export * from './banner.model';
 export * from './identifiable.model';
