@@ -10,6 +10,7 @@ import typescript from 'rollup-plugin-typescript2';
 import vue from 'rollup-plugin-vue';
 import packageJSON from '../package.json';
 import postcssConfig from '../.postcssrc';
+import { normalizePath } from './build.utils';
 import { apiDocumentation } from './docgen/documentation.rollup-plugin';
 import {
   importTokens,
@@ -83,7 +84,9 @@ export const rollupConfig = createRollupOptions({
         'inject',
         (varname: string, id: string) =>
           // eslint-disable-next-line max-len
-          `import {createInjector} from 'vue-runtime-helpers';const injector=createInjector({});injector('${id}',{source:${varname}})`
+          `import {createInjector} from 'vue-runtime-helpers';const injector=createInjector({});injector('${normalizePath(
+            id
+          )}',{source:${varname}})`
       ]
     }),
     vue({

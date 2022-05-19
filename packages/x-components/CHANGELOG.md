@@ -3,6 +3,57 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.102](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.101...@empathyco/x-components@3.0.0-alpha.102) (2022-05-19)
+
+### Features
+
+- **facets:** add `PreselectedFilters` component
+  ([5496d78](https://github.com/empathyco/x/commit/5496d7868c77d8b9211fd532bf964770da1d6a3c)),
+  closes [EX-6023](https://searchbroker.atlassian.net/browse/EX-6023)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.101](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.100...@empathyco/x-components@3.0.0-alpha.101) (2022-05-18)
+
+### Bug Fixes
+
+- **related-tags:** related tags are now kept when navigating back
+  ([db9f875](https://github.com/empathyco/x/commit/db9f87560000bca05ad3fe06fc449e170c3b9d08)),
+  closes [EX-6131](https://searchbroker.atlassian.net/browse/EX-6131)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.100](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.99...@empathyco/x-components@3.0.0-alpha.100) (2022-05-17)
+
+### Bug Fixes
+
+- **build:** supports being built on Windows based machines
+  ([6e760fa](https://github.com/empathyco/x/commit/6e760fab8d39162897574abab95884cadd6252b8))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.99](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.98...@empathyco/x-components@3.0.0-alpha.99) (2022-05-17)
+
+### Bug Fixes
+
+- **url:** a `query` is required to store params in the `URL`
+  ([b105da3](https://github.com/empathyco/x/commit/b105da33b35aaa1e3796790d0ec88c74caf856e5)),
+  closes [EX-6134](https://searchbroker.atlassian.net/browse/EX-6134)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.98](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.97...@empathyco/x-components@3.0.0-alpha.98) (2022-05-13)
 
 ### Features
