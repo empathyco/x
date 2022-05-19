@@ -1,9 +1,9 @@
 <script lang="ts">
   import { Component, Inject, Prop } from 'vue-property-decorator';
   import Vue from 'vue';
-  import { createRawFilters } from '../utils/filters';
-  import { isArrayEmpty } from '../utils/array';
-  import { SnippetConfig } from '../x-installer/api/api.types';
+  import { createRawFilters } from '../../../utils/filters';
+  import { isArrayEmpty } from '../../../utils/array';
+  import { SnippetConfig } from '../../../x-installer/api/api.types';
 
   /**
    * This component emits {@link FacetsXEvents.PreselectedFiltersProvided} when a preselected filter
