@@ -22,7 +22,6 @@ export { default as GlobalXBus } from './global-x-bus.vue';
 export { default as ItemsList } from './items-list.vue';
 export { default as LocationProvider } from './location-provider.vue';
 export { NoElement } from './no-element';
-export { default as PreselectedFilters } from './preselected-filters.vue';
 export { default as SlidingPanel } from './sliding-panel.vue';
 export { default as SnippetCallbacks } from './snippet-callbacks.vue';
 

@@ -9,6 +9,7 @@ export { default as NumberRangeFilter } from './filters/number-range-filter.vue'
 export { default as HierarchicalFilter } from './filters/hierarchical-filter.vue';
 export { default as RenderlessFilter } from './filters/renderless-filter.vue';
 export { default as SimpleFilter } from './filters/simple-filter.vue';
+export { default as PreselectedFilters } from './preselected-filters.vue';
 
 // Lists
 // eslint-disable-next-line max-len

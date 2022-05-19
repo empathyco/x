@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
-import { createRawFilters } from '../../utils/filters';
-import { baseSnippetConfig } from '../../views/base-config';
+import { createRawFilters } from '../../../../utils/filters';
+import { baseSnippetConfig } from '../../../../views/base-config';
 import PreselectedFilters from '../preselected-filters.vue';
 
 function renderPreselectedFilters({
