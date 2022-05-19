@@ -9,7 +9,8 @@ export const identifierResultsEndpointAdapter = endpointAdapterFactory<
   IdentifierResultsRequest,
   IdentifierResultsResponse
 >({
-  endpoint: 'https://api.{env(.)}empathy.co/search/v1/query/{instance}/skusearch',
+  endpoint:
+    'https://api.{extraParams.env(.)}empathy.co/search/v1/query/{extraParams.instance}/skusearch',
   requestMapper: identifierResultsRequestMapper,
   responseMapper: identifierResultsResponseMapper
 });

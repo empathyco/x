@@ -8,7 +8,8 @@ export const querySuggestionsEndpointAdapter = endpointAdapterFactory<
   QuerySuggestionsRequest,
   QuerySuggestionsResponse
 >({
-  endpoint: 'https://api.{env(.)}empathy.co/search/v1/query/{instance}/empathize',
+  endpoint:
+    'https://api.{extraParams.env(.)}empathy.co/search/v1/query/{extraParams.instance}/empathize',
   requestMapper: querySuggestionsRequestMapper,
   responseMapper: querySuggestionsResponseMapper
 });

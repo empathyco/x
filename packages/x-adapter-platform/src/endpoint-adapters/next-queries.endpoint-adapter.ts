@@ -7,7 +7,7 @@ export const nextQueriesEndpointAdapter = endpointAdapterFactory<
   NextQueriesRequest,
   NextQueriesResponse
 >({
-  endpoint: 'https://api.{env(.)}empathy.co/nextqueries/{instance}',
+  endpoint: 'https://api.{extraParams.env(.)}empathy.co/nextqueries/{extraParams.instance}',
   requestMapper: nextQueriesRequestMapper,
   responseMapper: nextQueriesResponseMapper
 });

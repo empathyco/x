@@ -115,7 +115,7 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.test.empathy.co/search/v1/query/empathy/search?query=chips&origin=popular_search%3Apredictive_layer&start=0&rows=0&sort=price+asc&filter=categoryIds%3Affc61e1e9__be257cb26&filter=gender%3Amen&filter=price%3A10.0-20.0&instance=empathy&instance=empathy&env=test&lang=es&device=mobile&scope=mobile',
+      'https://api.test.empathy.co/search/v1/query/empathy/search?query=chips&origin=popular_search%3Apredictive_layer&start=0&rows=0&sort=price+asc&filter=categoryIds%3Affc61e1e9__be257cb26&filter=gender%3Amen&filter=price%3A10.0-20.0&instance=empathy&env=test&lang=es&device=mobile&scope=mobile',
       { signal: expect.anything() }
     );
 
@@ -241,7 +241,7 @@ describe('platformAdapter tests', () => {
           query: 'shoes',
           isCurated: false,
           facets: [],
-          modelName: 'PopularSearch',
+          modelName: 'QuerySuggestion',
           key: 'shoes'
         }
       ]

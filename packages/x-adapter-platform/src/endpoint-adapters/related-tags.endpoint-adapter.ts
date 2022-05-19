@@ -7,7 +7,7 @@ export const relatedTagsEndpointAdapter = endpointAdapterFactory<
   RelatedTagsRequest,
   RelatedTagsResponse
 >({
-  endpoint: 'https://api.{env(.)}empathy.co/relatedtags/{instance}',
+  endpoint: 'https://api.{extraParams.env(.)}empathy.co/relatedtags/{extraParams.instance}',
   requestMapper: relatedTagsRequestMapper,
   responseMapper: relatedTagsResponseMapper
 });
