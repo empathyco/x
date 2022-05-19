@@ -67,7 +67,9 @@ export interface RequestOptions {
  * @public
  */
 export interface ExtraParamsRequest {
-  [key: string]: unknown;
+  extraParams: {
+    [key: string]: unknown;
+  };
 }
 
 /**

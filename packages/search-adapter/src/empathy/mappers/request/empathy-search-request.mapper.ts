@@ -33,7 +33,7 @@ export class EmpathySearchRequestMapper
   }
 
   map(
-    { query, relatedTags = [], filters = {}, sort, ...rest }: SearchRequest,
+    { query, filters = {}, sort, ...rest }: SearchRequest,
     request: EmpathySearchRequest,
     context: RequestMapperContext
   ): EmpathySearchRequest {
