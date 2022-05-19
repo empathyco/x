@@ -8,7 +8,9 @@ const redirectionSchema: Schema<PlatformRedirection, Redirection> = {
   url: 'url',
   modelName: () => 'Redirection',
   tagging: {
-    click: ({ tagging }) => getTaggingInfoFromUrl(tagging?.click ?? '')
+    // eslint-disable-next-line @typescript-eslint/no-extra-parens
+    query: ({ tagging }) =>
+      tagging?.click ? getTaggingInfoFromUrl(tagging.click) : { url: '', params: {} }
   }
 };
 
