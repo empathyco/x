@@ -21,7 +21,7 @@ export const request: SearchXStoreModule['getters']['request'] = (
         sort,
         page,
         filters,
-        extraParams: { ...params }
+        extraParams: params
       }
     : null;
 };

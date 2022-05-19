@@ -16,7 +16,7 @@ export const identifierResultsRequest: IdentifierResultsXStoreModule['getters'][
           query,
           rows: config.maxItemsToRequest,
           start: 0,
-          extraParams: { ...params }
+          extraParams: params
         }
       : null;
   };
