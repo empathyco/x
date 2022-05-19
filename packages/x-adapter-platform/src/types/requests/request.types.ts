@@ -1,4 +1,4 @@
-// TODO: Check properties of this interface. Are they necessary?
+// TODO: Check PlatformExtraParamsRequest interface. Is it necessary?
 /**
  * Interface for any `request` with `extra parameters`.
  *

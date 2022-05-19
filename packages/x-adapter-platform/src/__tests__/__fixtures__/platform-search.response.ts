@@ -549,7 +549,7 @@ export const searchResponse = {
       modelName: 'SimpleFacet'
     }
   ],
-  promoted: [
+  promoteds: [
     {
       id: '61f9223221c06701c2f98c17',
       image: 'https://assets.empathy.co/images-demo/31335.jpg',
