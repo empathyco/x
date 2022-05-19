@@ -1,19 +1,9 @@
-import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 // Scenario 1
 When('clear filters button is clicked', () => {
   cy.getByDataTest('clear-filters').click();
 });
-
-And(
-  'filters {string} are shown in the selected filters list',
-  function (this: any, clickedFiltersIndex: string) {
-    const clickedFiltersIndexList = clickedFiltersIndex.split(', ');
-    clickedFiltersIndexList.forEach(index => {
-      cy.getByDataTest('selected-filters-list').should('contain', this[`clickedFilter${index}`]);
-    });
-  }
-);
 
 Then('no filters are selected', () => {
   ['age_facet-filter', 'price_facet-filter', 'hierarchical_category-filter'].forEach(facetName => {

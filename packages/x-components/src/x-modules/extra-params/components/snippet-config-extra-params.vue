@@ -63,7 +63,8 @@
         'searchLang',
         'consent',
         'documentDirection',
-        'currency'
+        'currency',
+        'filters'
       ]
     })
     protected excludedExtraParams!: Array<keyof SnippetConfig>;

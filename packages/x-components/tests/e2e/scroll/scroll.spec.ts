@@ -8,10 +8,6 @@ Then('url is updated with result {string}', (resultId: string) => {
   cy.url().should('contain', `scroll=${resultId}`);
 });
 
-When('tab is reloaded', () => {
-  cy.reload();
-});
-
 Then('first visible result is {string}', (resultId: string) => {
   cy.get(`[data-scroll=${resultId}]`)
     .should('be.visible')

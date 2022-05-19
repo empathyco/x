@@ -1,4 +1,4 @@
-import { Facet, Filter, isFacetFilter } from '@empathyco/x-types';
+import { Facet, FilterModelName, Filter, isFacetFilter } from '@empathyco/x-types';
 import { Store } from 'vuex';
 import { RootXStoreState } from '../../../store/store.types';
 import { EditableNumberRangeFilterEntity } from './editable-number-range-filter.entity';
@@ -36,7 +36,13 @@ export class FilterEntityFactory {
   /**
    * The registered modifiers grouped by the facetId to be applied.
    */
-  protected modifiers: Record<Facet['id'], FilterEntityModifier[]> = {};
+  protected modifiersByFacetId: Record<Facet['id'], FilterEntityModifier[]> = {};
+
+  /**
+   * The registered modifiers grouped by the filter `ModelName` to be applied.
+   */
+  protected modifiersByFilterModelName: Partial<Record<FilterModelName, FilterEntityModifier[]>> =
+    {};
 
   /**
    * Contains the instantiated entities for each facet.
@@ -74,7 +80,11 @@ export class FilterEntityFactory {
       throw new Error(`Entity configuration for ${filter.modelName} not registered.`);
     }
     const entity = new filterEntityConstructor(store);
-    const modifiers = isFacetFilter(filter) ? this.modifiers[filter.facetId] ?? [] : [];
+    const modifiers = isFacetFilter(filter)
+      ? this.modifiersByFacetId[filter.facetId] ??
+        this.modifiersByFilterModelName[filter.modelName] ??
+        []
+      : [];
     return modifiers.reduce(
       (modifiedEntity, modifier) => new modifier(store, modifiedEntity),
       entity
@@ -99,11 +109,40 @@ export class FilterEntityFactory {
    * @param facetId - The facet id whose Entities will be modified.
    * @param modifiers - The list of modifiers to be registered.
    */
-  registerFilterModifier(facetId: Facet['id'], modifiers: FilterEntityModifier[]): void {
-    if (!this.modifiers[facetId]) {
-      this.modifiers[facetId] = [];
+  registerModifierByFacetId(facetId: Facet['id'], ...modifiers: FilterEntityModifier[]): void {
+    this.updateModifiers(this.modifiersByFacetId, facetId, modifiers);
+  }
+
+  /**
+   * Registers a list of modifiers to be used with the {@link FilterEntity | FilterEntities} of a
+   * particular facet.
+   *
+   * @param filterModelName - The facet ModelName whose Entities will be modified.
+   * @param modifiers - The list of modifiers to be registered.
+   */
+  registerModifierByFilterModelName(
+    filterModelName: FilterModelName,
+    ...modifiers: FilterEntityModifier[]
+  ): void {
+    this.updateModifiers(this.modifiersByFilterModelName, filterModelName, modifiers);
+  }
+
+  /**
+   * Updates the modifiers for a particular facet.
+   *
+   * @param modifiersRecord - The map of modifiers to be updated.
+   * @param modifierKey - The id whose modifiers will be updated.
+   * @param modifiers - The list of new modifiers to be registered.
+   */
+  protected updateModifiers(
+    modifiersRecord: Record<string, FilterEntityModifier[]>,
+    modifierKey: string | number,
+    modifiers: FilterEntityModifier[]
+  ): void {
+    if (!modifiersRecord[modifierKey]) {
+      modifiersRecord[modifierKey] = [];
     }
-    const facetModifiers = this.modifiers[facetId];
+    const facetModifiers = modifiersRecord[modifierKey];
     const newModifiers = modifiers.filter(modifier => !facetModifiers.includes(modifier));
     facetModifiers.push(...newModifiers);
   }

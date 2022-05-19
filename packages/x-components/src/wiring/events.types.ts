@@ -26,22 +26,22 @@ import { WireMetadata } from './wiring.types';
  * @remarks
  * Aside from common {@link XEvent | XEvents}, this interface also extends the different XModule's
  * XEventsTypes:
- * * {@link DeviceXEvents}
- * * {@link EmpathizeXEvents}
- * * {@link ExtraParamsXEvents}
- * * {@link FacetsXEvents}
- * * {@link HistoryQueriesXEvents}
- * * {@link IdentifierResultsXEvents}
- * * {@link NextQueriesXEvents}
- * * {@link PopularSearchesXEvents}
- * * {@link QuerySuggestionsXEvents},
- * * {@link RecommendationsXEvents}
- * * {@link RelatedTagsXEvents}
- * * {@link ScrollXEvents},
- * * {@link SearchBoxXEvents}
- * * {@link SearchXEvents}
- * * {@link TaggingXEvents}
- * * {@link UrlXEvents}
+ * {@link DeviceXEvents}
+ * {@link EmpathizeXEvents}
+ * {@link ExtraParamsXEvents}
+ * {@link FacetsXEvents}
+ * {@link HistoryQueriesXEvents}
+ * {@link IdentifierResultsXEvents}
+ * {@link NextQueriesXEvents}
+ * {@link PopularSearchesXEvents}
+ * {@link QuerySuggestionsXEvents},
+ * {@link RecommendationsXEvents}
+ * {@link RelatedTagsXEvents}
+ * {@link ScrollXEvents},
+ * {@link SearchBoxXEvents}
+ * {@link SearchXEvents}
+ * {@link TaggingXEvents}
+ * {@link UrlXEvents}
  *
  * @public
  */
@@ -64,117 +64,127 @@ export interface XEventsTypes
     UrlXEvents {
   /**
    * The search adapter configuration has changed
-   * * Payload: The new search adapter configuration.
+   * Payload: The new search adapter configuration.
    */
   AdapterConfigChanged: unknown;
   /**
    * The number of columns of a grid has changed.
-   * * Payload: the columns number.
+   * Payload: the columns number.
    */
   ColumnsNumberProvided: number;
   /**
    * Any kind of suggestions have been displayed (query-suggestions, popular searches...)
-   * * Payload: The displayed {@link @empathyco/x-types#Suggestion | suggestions}.
+   * Payload: The displayed {@link @empathyco/x-types#Suggestion | suggestions}.
    */
   SuggestionsDisplayed: Suggestion[];
   /**
    * The `BaseToggleIdPanel` `isOpen` state changed.
-   * * Payload: the new state.
+   * Payload: the new state.
    */
   TogglePanelStateChanged: boolean;
   /**
    * The user has accepted a query
-   * * Payload: the accepted query.
+   * Payload: the accepted query.
    */
   UserAcceptedAQuery: string;
   /**
    * The user has accepted the spellcheck
-   * * Payload: the spellcheck query.
+   * Payload: the spellcheck query.
    */
   UserAcceptedSpellcheckQuery: string;
   /**
    * The user has clicked on a result.
-   * * Payload: The {@link @empathyco/x-types#Result | result} that the user clicked.
+   * Payload: The {@link @empathyco/x-types#Result | result} that the user clicked.
    */
   UserClickedAResult: Result;
   /**
    * The user clicked the button to close the events modal.
-   * * Payload: none.
+   * Payload: none.
    */
   UserClickedCloseEventsModal: void;
   /**
    * The user clicked the button to close a modal.
-   * * Payload: the id of the modal to close.
+   * Payload: the id of the modal to close.
    */
   UserClickedCloseModal: string;
   /**
+   * The user clicked the button to close X.
+   * Payload: none.
+   */
+  UserClickedCloseX: void;
+  /**
    * The user clicked the button to select the number of columns.
-   * * Payload: the column number.
+   * Payload: the column number.
    */
   UserClickedColumnPicker: number;
   /**
    * The user clicked the button to open the events modal.
-   * * Payload: none.
+   * Payload: none.
    */
   UserClickedOpenEventsModal: void;
   /**
    * The user clicked the button to open a modal.
-   * * Payload: the id of the modal to open.
+   * Payload: the id of the modal to open.
    */
   UserClickedOpenModal: string;
   /**
+   * The user clicked the button to open X.
+   * Payload: none.
+   */
+  UserClickedOpenX: void;
+  /**
    * The user clicked out of the events modal while it is opened.
-   * * Payload: none.
+   * Payload: none.
    */
   UserClickedOutOfEventsModal: void;
   /**
    * The user clicked out of a modal while it was opened.
-   * * Payload: the id of the modal.
+   * Payload: the id of the modal.
    */
   UserClickedOutOfModal: string;
   /**
    * The user clicked the button to toggle a panel.
-   * * Payload: the id of the panel to toggle.
+   * Payload: the id of the panel to toggle.
    */
   UserClickedPanelToggleButton: string;
   /**
    * The user has clicked on the add to cart button of a result.
-   * * Payload: The {@link @empathyco/x-types#Result | result} that the user clicked.
+   * Payload: The {@link @empathyco/x-types#Result | result} that the user clicked.
    */
   UserClickedResultAddToCart: Result;
   /**
    * The user has clicked on the rating of a result.
-   * * Payload: The {@link @empathyco/x-types#Result | result} that the user clicked.
+   * Payload: The {@link @empathyco/x-types#Result | result} that the user clicked.
    */
   UserClickedAResultRating: Result;
   /**
    * The user has clicked the scroll to top button.
-   * * Payload: The scroll id which has scrolled to top.
+   * Payload: The scroll id which has scrolled to top.
    */
   UserClickedScrollToTop: string;
   /**
    * The user opened X programmatically.
-   * * Payload: none.
+   * Payload: none.
    */
   UserOpenXProgrammatically: void;
   /**
    * The user pressed an {@link ArrowKey | arrow key} with the focus on the search-box.
-   * * Payload: the pressed {@link ArrowKey | arrow key}.
+   * Payload: the pressed {@link ArrowKey | arrow key}.
    */
   UserPressedArrowKey: ArrowKey;
   /**
    * The user has reached the top of the empathize and keeps navigating in that direction.
-   * * Payload: none.
+   * Payload: none.
    */
   UserReachedEmpathizeTop: void;
   /**
    * User selected any kind of suggestion (query-suggestion, popular-search...)
-   * * Payload: The {@link @empathyco/x-types#Suggestion | suggestion} that the user selected.
+   * Payload: The {@link @empathyco/x-types#Suggestion | suggestion} that the user selected.
    */
   UserSelectedASuggestion: Suggestion;
   /**
    * A callback from the snippet has been executed.
-   * * Payload: An object containing the event that executed the callback, the callback result, and
+   * Payload: An object containing the event that executed the callback, the callback result, and
    * the original event payload and  metadata.
    */
   SnippetCallbackExecuted: {

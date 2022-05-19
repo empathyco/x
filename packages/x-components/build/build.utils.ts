@@ -42,3 +42,13 @@ export function copyFolderSync(sourceFolder: string, targetFolder: string): void
     }
   });
 }
+
+/**
+ * Normalizes a string path replacing backslash by forward slashes.
+ *
+ * @param path - The path to normalize.
+ * @returns A normalized path.
+ */
+export function normalizePath(path: string): string {
+  return path.replace(/\\/g, '/');
+}
