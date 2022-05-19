@@ -10,9 +10,7 @@ export const bannerSchema: Schema<PlatformBanner, Banner> = {
   image: 'image_url',
   modelName: () => 'Banner',
   tagging: {
-    // eslint-disable-next-line @typescript-eslint/no-extra-parens
-    query: ({ tagging }) =>
-      tagging?.query ? getTaggingInfoFromUrl(tagging.query) : { url: '', params: {} }
+    query: ({ tagging }) => getTaggingInfoFromUrl(tagging?.query ?? '')
   }
 };
 
