@@ -26,7 +26,9 @@ describe('testing popular searches module getters', () => {
       expect(store.getters[gettersKeys.request]).toEqual<PopularSearchesRequest>({
         rows: 3,
         start: 0,
-        catalog: 'es'
+        extraParams: {
+          catalog: 'es'
+        }
       });
     });
   });

@@ -23,7 +23,9 @@ describe('testing query suggestions module getters', () => {
         query: 'dorito',
         rows: 10,
         start: 0,
-        catalog: 'es'
+        extraParams: {
+          catalog: 'es'
+        }
       });
     });
 

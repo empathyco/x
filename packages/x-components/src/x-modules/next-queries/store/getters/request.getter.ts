@@ -9,16 +9,10 @@ import { NextQueriesXStoreModule } from '../types';
  *
  * @public
  */
-export const request: NextQueriesXStoreModule['getters']['request'] = ({
-  query,
-  config,
-  params
-}) => {
+export const request: NextQueriesXStoreModule['getters']['request'] = ({ query, params }) => {
   return query.trim()
     ? {
         query,
-        rows: config.maxItemsToRequest,
-        start: 0,
         extraParams: params
       }
     : null;
