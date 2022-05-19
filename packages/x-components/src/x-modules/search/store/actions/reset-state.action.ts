@@ -8,7 +8,7 @@ import { SearchXStoreModule } from '../types';
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
  *
- * @param root0
+ * @param watchedRequest - The {@link WatchedInternalSearchRequest} object.
  * @public
  */
 export const resetState: SearchXStoreModule['actions']['resetState'] = (
