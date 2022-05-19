@@ -14,11 +14,16 @@ FilterEntityFactory.instance.registerModifierByFilterModelName(
   SingleSelectModifier
 );
 
-new XInstaller({
+const installer = new XInstaller({
   ...baseInstallXOptions,
   app: App,
   vueOptions: {
     router
   },
   domElement: '#app'
-}).init(baseSnippetConfig);
+});
+if (window.initX) {
+  installer.init();
+} else {
+  installer.init(baseSnippetConfig);
+}

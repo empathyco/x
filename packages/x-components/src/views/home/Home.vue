@@ -2,9 +2,10 @@
   <div class="x">
     <Tagging :consent="false" />
     <SnippetConfigExtraParams :values="initialExtraParams" />
+    <PreselectedFilters />
     <UrlHandler query="q" store="store" />
     <SnippetCallbacks />
-    <BaseEventsModalOpen>Start</BaseEventsModalOpen>
+    <BaseEventButton data-test="open-modal" :events="eventsToOpenX">Start</BaseEventButton>
     <h1>Test controls</h1>
     <ul class="x-test-controls x-list x-list--gap-05">
       <li class="x-test-controls__item x-list__item">
@@ -99,9 +100,9 @@
         </template>
 
         <template #header-end>
-          <BaseEventsModalClose lass="x-button--ghost">
+          <BaseEventButton class="x-button--ghost" :events="eventsToCloseX">
             <CrossIcon />
-          </BaseEventsModalClose>
+          </BaseEventButton>
         </template>
 
         <template #sub-header>
@@ -450,6 +451,7 @@
   import LightBulbOn from '../../components/icons/light-bulb-on.vue';
   import Nq1 from '../../components/icons/nq-1.vue';
   import SearchIcon from '../../components/icons/search.vue';
+  import BaseEventButton from '../../components/base-event-button.vue';
   import { BaseKeyboardNavigation } from '../../components/index';
   // eslint-disable-next-line max-len
   import MultiColumnMaxWidthLayout from '../../components/layouts/multi-column-max-width-layout.vue';
@@ -460,12 +462,13 @@
   import BaseHeaderTogglePanel from '../../components/panels/base-header-toggle-panel.vue';
   import BaseIdTogglePanelButton from '../../components/panels/base-id-toggle-panel-button.vue';
   import BaseIdTogglePanel from '../../components/panels/base-id-toggle-panel.vue';
+  import PreselectedFilters from '../../x-modules/facets/components/preselected-filters.vue';
   import BaseResultImage from '../../components/result/base-result-image.vue';
   import SlidingPanel from '../../components/sliding-panel.vue';
   import SnippetCallbacks from '../../components/snippet-callbacks.vue';
   import BaseSuggestions from '../../components/suggestions/base-suggestions.vue';
   import { infiniteScroll } from '../../directives/infinite-scroll/infinite-scroll';
-  import { XEvent } from '../../wiring/index';
+  import { XEvent, XEventsTypes } from '../../wiring/index';
   // eslint-disable-next-line max-len
   import RenderlessExtraParams from '../../x-modules/extra-params/components/renderless-extra-param.vue';
   // eslint-disable-next-line max-len
@@ -517,6 +520,8 @@
       infiniteScroll
     },
     components: {
+      BaseEventButton,
+      PreselectedFilters,
       ArrowRight,
       AutoProgressBar,
       Banner,
@@ -617,9 +622,20 @@
         maxItemsToRender: 5
       }
     };
+
+    protected eventsToOpenX: Partial<XEventsTypes> = {
+      UserClickedOpenX: undefined,
+      UserClickedOpenEventsModal: undefined
+    };
+    protected eventsToCloseX: Partial<XEventsTypes> = {
+      UserClickedCloseX: undefined,
+      UserClickedCloseEventsModal: undefined
+    };
+
     protected eventsToOpenModal: XEvent[] = [
       'UserClickedOpenEventsModal',
-      'UserOpenXProgrammatically'
+      'UserOpenXProgrammatically',
+      'UserClickedOpenX'
     ];
     protected staticFacets: Facet[] = [
       {

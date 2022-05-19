@@ -12,7 +12,7 @@ Feature: Scroll component
     Then  related results are displayed
     When  scrolling down to result "<resultId>"
     Then  url is updated with result "<resultId>"
-    When  tab is reloaded
+    When  the page is reloaded
     Then  related results are displayed
     And   first visible result is "<resultId>"
 
