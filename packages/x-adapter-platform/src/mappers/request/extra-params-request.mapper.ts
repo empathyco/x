@@ -5,5 +5,5 @@ import { PlatformExtraParamsRequest } from '../../types/requests/request.types';
 export const extraParamsRequestMapper: Mapper<ExtraParamsRequest, PlatformExtraParamsRequest> = ({
   extraParams
 }) => ({
-  ...(extraParams as PlatformExtraParamsRequest)
+  ...(extraParams as unknown as PlatformExtraParamsRequest)
 });
