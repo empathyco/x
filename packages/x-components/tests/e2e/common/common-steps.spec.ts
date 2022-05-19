@@ -202,3 +202,14 @@ Then(
       .should('have.property', key, value === 'default' ? '' : value);
   }
 );
+
+Then(
+  'search request contains extra parameter {string} with value {string}',
+  (key: string, value: string) => {
+    cy.wait('@interceptedResults')
+      .its('request.body')
+      .then(JSON.parse)
+      .its('extraParams')
+      .should('have.property', key, value === 'default' ? '' : value);
+  }
+);

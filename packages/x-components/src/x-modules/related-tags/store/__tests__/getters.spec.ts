@@ -39,6 +39,8 @@ describe('testing related tags module getters', () => {
 
       expect(store.getters.request).toEqual<RelatedTagsRequest>({
         query: 'doraemon',
+        rows: 10,
+        start: 0,
         extraParams: {
           catalog: 'es'
         }
@@ -56,6 +58,8 @@ describe('testing related tags module getters', () => {
 
       expect(store.getters.request).toEqual<RelatedTagsRequest>({
         query: 'barça nobita',
+        rows: 10,
+        start: 0,
         extraParams: {
           warehouse: 1234
         }

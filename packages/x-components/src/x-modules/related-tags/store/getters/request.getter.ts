@@ -11,10 +11,15 @@ import { RelatedTagsXStoreModule } from '../types';
  *
  * @public
  */
-export const request: RelatedTagsXStoreModule['getters']['request'] = ({ params }, { query }) => {
+export const request: RelatedTagsXStoreModule['getters']['request'] = (
+  { config, params },
+  { query }
+) => {
   return query.trim()
     ? {
         query,
+        rows: config.maxItemsToRequest,
+        start: 0,
         extraParams: params
       }
     : null;
