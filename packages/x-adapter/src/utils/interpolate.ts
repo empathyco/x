@@ -12,6 +12,8 @@
  * ```
  * @internal
  */
+import { extractValue } from './extract-value';
+
 const STRING_PARAMETERS = /{([^}]+)}/g;
 
 /**
@@ -92,14 +94,16 @@ export function interpolate(string: string, parameters: Record<string, unknown>)
   return string.replace(STRING_PARAMETERS, (_match, propertyToReplace: string) =>
     propertyToReplace.replace(
       STRING_PARAMETER_CONTENT,
-      (_match, head = '', property: string, tail = '') =>
+      (_match, head = '', property: string, tail = '') => {
+        const value = extractValue(parameters, property);
         /* As the replacer function has a very dynamic signature, it is typed as a function with
          * `any` arguments. This makes it impossible for TS to infer the correct `string`
          * type that we are using as default values here. */
-        parameters[property] != null
+        return value != null
           ? // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-            `${head}${String(parameters[property])}${tail}`
-          : ''
+            `${head}${String(value)}${tail}`
+          : '';
+      }
     )
   );
 }
