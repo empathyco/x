@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.23...@empathyco/x-adapter-next@0.2.0-alpha.24) (2022-05-20)
+
+### Features
+
+- split adapter interface into `EndpointAdapter` and `ExtendableEndpointAdapter`
+  ([2e8e287](https://github.com/empathyco/x/commit/2e8e287d00f3fe3c2ef6f02d4cc6a843d84d683b)),
+  closes [EX-6121](https://searchbroker.atlassian.net/browse/EX-6121)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.22...@empathyco/x-adapter-next@0.2.0-alpha.23) (2022-05-13)
 
 **Note:** Version bump only for package @empathyco/x-adapter-next
