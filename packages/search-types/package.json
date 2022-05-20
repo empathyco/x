@@ -45,7 +45,7 @@
     "@microsoft/api-extractor": "~7.19.4",
     "@types/jest": "~27.0.3",
     "jest": "~27.3.1",
-    "rollup": "~2.67.1",
+    "rollup": "~2.74.1",
     "rollup-plugin-delete": "~2.0.0",
     "rollup-plugin-typescript2": "~0.31.2",
     "tslint": "~5.16.0",
