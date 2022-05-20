@@ -13,7 +13,10 @@
             @binding {Filter} filter - Suggestion's filter
       -->
 
-      <slot :suggestion="suggestion" :filter="filter">{{ suggestion.query }}</slot>
+      <slot :suggestion="suggestion" :filter="filter">
+        <span>{{ suggestion.query }}</span>
+        <span v-if="filter">{{ filter.label }}</span>
+      </slot>
     </template>
   </BaseSuggestion>
 </template>
