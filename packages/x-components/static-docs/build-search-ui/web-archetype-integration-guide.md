@@ -19,11 +19,13 @@ meet your business needs.
 To integrate the Interface&nbsp;X&nbsp;Archetype layer in your commerce store, just **load** the
 generated Interface&nbsp;X JavaScript file and **initialize** it.
 
-::: note IMPORTANT If the X&nbsp;Archetype script is hosted by Empathy, all the X resources are
-provided by a CDN through the following environment URLs:
+::: note IMPORTANT
 
-- **Production**: https://x.empathy.co/{INSTANCE}/app.js
-- **Staging**: https://x.staging.empathy.co/{INSTANCE}/app.js
+If the X&nbsp;Archetype script is hosted by Empathy, all the X resources are provided by a CDN
+through the following environment URLs:
+
+- **Production**: `https://x.empathy.co/{INSTANCE}/app.js`
+- **Staging**: `https://x.staging.empathy.co/{INSTANCE}/app.js`
 
 Where `{INSTANCE}` is the name of your commerce store. If you require any assistance, contact
 [Empathy Support](mailto:support@empathy.co).
@@ -232,7 +234,7 @@ following configuration options:
 
 ::: note Consent parameter
 
-When the `Consent` parameter is set to `false`, the `sessionId` is not generated nor sent to the
+When the `consent` parameter is set to `false`, the `sessionId` is not generated nor sent to the
 Tagging API. Only shoppers' behavioral data (wisdom of the crowd) is inferred from the current
 session. The `consent` parameter is set to `true` as soon as the shopper accepts the use of cookies.
 If page reload is not triggered after accepting cookies, update the `consent` parameter

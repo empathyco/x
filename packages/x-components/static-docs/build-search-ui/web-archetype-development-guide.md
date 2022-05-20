@@ -132,7 +132,7 @@ are displayed in English. However, if you want to deploy the application in Spai
 </br>
 
 For detailed information, see
-[Snippet configuration](web-archetype-integration-guide.md#snippet-configuration)
+[Snippet configuration](web-archetype-integration-guide.md#snippet-configuration).
 
 :::
 
@@ -173,7 +173,8 @@ new XInstaller(installXOptions).init({
 Once you have your Interface&nbsp;X&nbsp;Archetype project, you're ready to **integrate** it in your
 store or **extend** the search and discovery experience to meet your business needs:
 
-- [**Integrate an Interface&nbsp;X&nbsp;Archetype project** into an existing website](web-archetype-integration-guide.md).
+- [**Integrate an Interface&nbsp;X&nbsp;Archetype project**](web-archetype-integration-guide.md)
+  into an existing website.
 - Change the **configuration of [X&nbsp;Components](web-how-to-use-x-components-guide.md)** or
   create new ones.
 - Adapt the
