@@ -2,27 +2,27 @@ import { deepMerge } from '@empathyco/x-deep-merge';
 import { fetchHttpClient } from './http-clients/fetch.http-client';
 import { identityMapper } from './mappers/identity.mapper';
 import {
-  EndpointAdapter,
   EndpointAdapterFactory,
-  EndpointAdapterOptions
+  EndpointAdapterOptions,
+  ExtendableEndpointAdapter
 } from './types/adapter.types';
 import { Mapper } from './types/mapper.types';
 import { interpolate } from './utils/interpolate';
 
 /**
- * Factory to create {@link EndpointAdapter | endpoint adapters} with the given
+ * Factory to create {@link ExtendableEndpointAdapter | endpoint adapters} with the given
  * {@link EndpointAdapterOptions | options}.
  *
  * @param options - The {@link EndpointAdapterOptions | options} to create a new
- * {@link EndpointAdapter} with.
+ * {@link ExtendableEndpointAdapter} with.
  *
- * @returns A brand new {@link EndpointAdapter} object.
+ * @returns A brand new {@link ExtendableEndpointAdapter} object.
  * @public
  */
 export const endpointAdapterFactory: EndpointAdapterFactory = <Request, Response>(
   options: EndpointAdapterOptions<Request, Response>
 ) => {
-  const endpointAdapter: EndpointAdapter<Request, Response> = (
+  const endpointAdapter: ExtendableEndpointAdapter<Request, Response> = (
     request,
     { endpoint: requestEndpoint, ...requestOptions } = {}
   ) => {
