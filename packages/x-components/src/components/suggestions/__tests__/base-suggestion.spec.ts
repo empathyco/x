@@ -133,11 +133,14 @@ describe('testing Base Suggestion component', () => {
 });
 
 /**
- * The options for the `renderBaseSuggestion` function.
+ * The options to render the {@link BaseSuggestion} component.
  */
 interface BaseSuggestionOptions {
+  /** The query introduced to find the suggestion. */
   query?: string;
+  /** The suggestion to be rendered. By default, a suggestion with facets is used. */
   suggestion?: Suggestion;
+  /** An array with facets to overwrite the suggestion ones. */
   suggestionFacets?: Facet[];
 }
 
@@ -145,9 +148,14 @@ interface BaseSuggestionOptions {
  * Test API for the {@link BaseSuggestion} component.
  */
 interface BaseSuggestionAPI {
+  /** The wrapper for base suggestion component. */
   wrapper: Wrapper<Vue>;
+  /** The rendered suggestion. */
   suggestion: Suggestion;
+  /** The query introduced to find the suggestion. */
   query: string;
+  /** The test Vue instance. */
   localVue: typeof Vue;
+  /** Metadata object used to keep track of the events fired to the bus. */
   wireMetadataObject: Partial<WireMetadata>;
 }
