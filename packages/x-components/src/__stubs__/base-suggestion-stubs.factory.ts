@@ -74,3 +74,28 @@ export function createSuggestionFacets(): Facet[] {
     }
   ];
 }
+
+/**
+ * Returns a facet with a filter.
+ *
+ * @returns A Facet with a filter.
+ */
+export function createFacetWithAFilter(): Facet[] {
+  return [
+    {
+      id: 'exampleFacet',
+      label: 'exampleFacet',
+      modelName: 'SimpleFacet',
+      filters: <Array<BooleanFilter>>[
+        {
+          facetId: 'exampleFacet',
+          id: '{!tag=exampleFacet}exampleFacet_60361120_64009600:"EXAMPLE"',
+          label: 'EXAMPLE',
+          selected: false,
+          totalResults: 60,
+          modelName: 'SimpleFilter'
+        }
+      ]
+    }
+  ];
+}
