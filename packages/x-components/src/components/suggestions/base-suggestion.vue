@@ -9,16 +9,8 @@
     -->
     <!-- eslint-enable max-len -->
     <slot v-bind="{ suggestion, queryHTML, filter }">
-      <span
-        v-html="queryHTML"
-        :aria-label="suggestion.query"
-        class="x-suggestion__query"
-        :class="{ 'x-flex-1': !filter }"
-      />
-      <template v-if="filter">
-        <span class="x-suggestion__filter-separator">|</span>
-        <span class="x-suggestion__filter x-flex-1">{{ filter.label }}</span>
-      </template>
+      <span v-html="queryHTML" :aria-label="suggestion.query" class="x-suggestion__query" />
+      <span v-if="filter" class="x-suggestion__filter">{{ filter.label }}</span>
     </slot>
   </button>
 </template>
