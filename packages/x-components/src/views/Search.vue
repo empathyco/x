@@ -3,15 +3,7 @@
     <header class="header">
       <div class="form-group">
         <SearchInput></SearchInput>
-        <SearchInputPlaceholder
-          :numberOfStrings="2"
-          :placeholdersArray="[
-            'Search for a product',
-            'Search for a category',
-            'Search for a brand',
-            'Search for a store'
-          ]"
-        />
+        <SearchInputPlaceholder />
         <ClearSearchInput>
           <CrossIcon />
         </ClearSearchInput>

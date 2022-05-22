@@ -21,9 +21,6 @@
     @Prop({ default: () => [''] })
     protected placeholdersArray!: string[];
 
-    @Prop({ default: 1 })
-    protected numberOfStrings!: number;
-
     protected get isQueryEmpty(): boolean {
       return this.query.length === 0;
     }
