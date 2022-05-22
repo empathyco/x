@@ -5,6 +5,8 @@
     @click="emitUserClickedSearchBox"
     @focus="emitUserFocusedSearchBox"
     @input="emitUserIsTypingAQueryEvents"
+    @mouseover="emitUserHoveringOverSearchBox"
+    @mouseout="emitUserHoveringOutOfSearchBox"
     @keydown.enter="emitUserPressedEnterKey"
     @keydown.up.down.prevent="emitUserPressedArrowKey"
     :maxlength="maxLength"
@@ -173,6 +175,13 @@
      */
     protected emitUserFocusedSearchBox(): void {
       this.$x.emit('UserFocusedSearchBox', undefined, { target: this.$refs.input });
+    }
+
+    protected emitUserHoveringOverSearchBox(): void {
+      this.$x.emit('UserHoveringOverSearchBox', undefined, { target: this.$refs.input });
+    }
+    protected emitUserHoveringOutOfSearchBox(): void {
+      this.$x.emit('UserHoveringOutOfSearchBox', undefined, { target: this.$refs.input });
     }
 
     /**
