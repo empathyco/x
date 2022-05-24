@@ -7,9 +7,7 @@ const syntaxRules = {
     'error',
     { overrides: { methods: 'no-public', properties: 'explicit' } }
   ],
-  // TODO - Activate rule when the bug is fixed
-  // https://github.com/typescript-eslint/typescript-eslint/issues/2183
-  '@typescript-eslint/explicit-module-boundary-types': 'off',
+  '@typescript-eslint/explicit-module-boundary-types': 'error',
   '@typescript-eslint/indent': 'off',
   '@typescript-eslint/no-empty-function': ['error', { allow: ['protected-constructors'] }],
   '@typescript-eslint/no-empty-interface': 'off',
