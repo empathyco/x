@@ -35,7 +35,7 @@ To use Interface&nbsp;X&nbsp;Archetype as a search UI layer, you need:
 3. Configure the **search adapter**.
 4. Configure the **xPlugin**.
 
-## 1. Clone the project and initialize your repository
+## Cloning the project and initializing your repository
 
 Clone the [X Archetype project](https://github.com/empathyco/x-archetype.git) from the GitHub
 repository to your target folder. You need a non-initialized repository, so make sure you remove the
@@ -79,7 +79,7 @@ repository in the `package.json` file.
 }
 ```
 
-## 2. Install the dependencies and execute the project
+## Installing the dependencies and executing the project
 
 Install the project dependencies via `npm` in the root folder of your cloned repository. Then, you
 can run the project.
@@ -100,7 +100,7 @@ Interface&nbsp;X&nbsp;Archetype repository.
 
 :::
 
-## 3. Configure the search adapter
+## Configuring the search adapter
 
 Before using your project, configure the Empathy Search Adapter in the
 `x-archetype/src/adapter/adapter.ts` file, using the Empathy Adapter Builder to make it work with
@@ -109,7 +109,7 @@ configurations, or mappers that points to a demo environment. You need to adjust
 according to the search features you use in your project.
 
 Export the required search adapter with your configuration as you will need it for the search
-[xPlugin configuration](#4-configure-the-plugin).
+[xPlugin configuration](#configuring-the-plugin).
 
 ::: interact
 
@@ -136,7 +136,7 @@ For detailed information, see
 
 :::
 
-## 4. Configure the plugin
+## Configuring the plugin
 
 The `xPlugin` initializes the properties needed by the X&nbsp;Components. It has key options that
 you can configure in the `/x-archetype/src/x-components/plugin.options.ts` file.

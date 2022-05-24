@@ -45,16 +45,18 @@ for a correct implementation.
 
 :::
 
-## Initializing Interface X project automatically
+## Initializing the Interface X project automatically
 
 Automatic initialization is the easiest way to integrate the Interface&nbsp;X project in a website.
 
-You first **configure the JavaScript snippet** to define either an initialization object or a
-function. Then, you **load and initialize the Interface&nbsp;X script**.
+**Steps to initialize the project automatically**
 
-### 1. Add the snippet configuration
+1. **Configure the JavaScript snippet** to define either an initialization object or a function.
+2. **Load and initialize** the Interface&nbsp;X script.
 
-First, configure the JavaScript snippet to define multiple initialization options, i.e. the API to
+#### Configuring the snippet  
+
+First, add the JavaScript snippet configuration to define multiple initialization options, i.e. the API to
 use, the language or currency to display, or even the tagging parameters to collect search-related
 data to generate conversational search features and analytics.
 
@@ -99,7 +101,7 @@ more information on the supported parameters, check out
 
 :::
 
-### 2. Load the script
+#### Loading the script
 
 Once the snippet configuration is ready, add the Interface&nbsp;X script to your webpage. The script
 is hosted in a URL with the following syntax:
@@ -142,14 +144,16 @@ attribute `src` so that it points to the staging environment as follows:
 Thus, when the Interface&nbsp;X JavaScript file is loaded, it retrieves the configuration from the
 defined object or function.
 
-## Initializing Interface X project on demand
+## Initializing the Interface X project on demand
 
 On-demand initialization allows you to control when Interface&nbsp;X is loaded.
 
-You first **load the Interface&nbsp;X script**. Then, you invoke a function with the required
-initialization options to **initialize Interface&nbsp;X**.
+**Steps to initialize the project on demand**
 
-### 1. Load the script
+1. **Load** the Interface&nbsp;X script. 
+2. **Initialize** Interface&nbsp;X.
+
+#### Loading the script
 
 Add the Interface&nbsp;X script hosted in a URL with the following syntax:
 `https://x.<environment?>.empathy.co/<instance>/app.js`.
@@ -168,9 +172,9 @@ attribute `src` so that it points to the staging environment as follows:
 <script src="https://x.staging.empathy.co/my-store/app.js"></script>
 ```
 
-### 2. Initialize Interface&nbsp;X
+#### Initializing Interface&nbsp;X
 
-Since no initialization configuration was defined when loading the script, you need to **invoke the
+Since no initialization configuration is defined when loading the script, you need to **invoke the
 initialization function** created automatically in the
 [X API](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-installer/api/base-api.ts)
 object to provide the initialization options:
