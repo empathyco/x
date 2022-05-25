@@ -4,7 +4,7 @@ import { PlatformFilter } from '../../../../types/responses/models/facet.model';
 
 export const numberFilterSchema: Schema<PlatformFilter, NumberRangeFilter> = {
   id: 'filter',
-  facetId: 'id',
+  facetId: (_, $context) => $context?.facetId as string,
   label: 'value',
   totalResults: 'count',
   selected: () => false,

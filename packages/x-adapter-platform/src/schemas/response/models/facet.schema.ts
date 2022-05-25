@@ -1,7 +1,6 @@
 import { createMutableSchema, Schema } from '@empathyco/x-adapter-next';
 import {
   EditableNumberRangeFacet,
-  FacetModelName,
   HierarchicalFacet,
   HierarchicalFilter,
   NumberRangeFacet,
@@ -11,8 +10,9 @@ import {
   PlatformFacet,
   PlatformHierarchicalFilter
 } from '../../../types/responses/models/facet.model';
-import { numberFilterMutableSchema } from './filters/number-filter.schema';
-import { simpleMutableFilterSchema } from './filters/simple-filter.schema';
+import { getFacetConfig, getFacetId } from './facets/utils';
+import { FacetsConfig } from './facets';
+import { numberFilterMutableSchema, simpleMutableFilterSchema } from './filters';
 
 export const facetSchema: Schema<
   PlatformFacet,
@@ -20,12 +20,15 @@ export const facetSchema: Schema<
 > = {
   id: 'facet',
   label: 'facet',
-  modelName: ({ facet }) => getFacetType(facet) as any,
+  modelName: source => {
+    return getFacetConfig(source.facet).modelName as any;
+  },
   filters: {
     $path: 'values',
-    $subSchema: ({ facet }) => getFilterSchemaFromFacetType(facet),
+    $subSchema: ({ facet }) => getFacetConfig(facet).getSchema() as any,
     $context: {
-      parentId: 'facet'
+      parentId: 'facet',
+      facetId: 'facet'
     }
   }
 };
@@ -33,53 +36,37 @@ export const facetSchema: Schema<
 export const facetMutableSchema = createMutableSchema(facetSchema);
 
 export const hierarchicalFilterSchema: Schema<PlatformHierarchicalFilter, HierarchicalFilter> = {
-  facetId: 'filter',
+  facetId: (_, $context) => getFacetId($context?.facetId as string),
   label: 'value',
   id: 'filter',
   totalResults: 'count',
-  parentId: (_, $context) => $context?.parentId as string,
+  // eslint-disable-next-line @typescript-eslint/no-extra-parens
+  parentId: (_, $context) => ($context?.isChild ? ($context?.parentId as string) : null),
   selected: () => false,
   modelName: () => 'HierarchicalFilter',
   children: {
     $path: 'children',
-    $subSchema: facetMutableSchema as any
+    $subSchema: facetMutableSchema as any,
+    $context: {
+      // TODO EX-6217 Replace with boolean value instead of using the value of `filter`
+      isChild: 'filter'
+    }
   }
 };
 
 export const hierarchicalFilterMutableSchema = createMutableSchema(hierarchicalFilterSchema);
 
-/**
- * Resolves the proper facet model name.
- *
- * @param facet - The facet to resolve the model name.
- * @returns The facet's model name.
- */
-function getFacetType(facet: string): FacetModelName {
-  const name = facet.split('_')[0];
-  const hierarchicalFacet = ['categoryPaths'];
-  const numberRangeFacet = ['price'];
-  if (hierarchicalFacet.includes(name)) {
-    return 'HierarchicalFacet';
+export const facetsConfig: FacetsConfig = {
+  categoryPaths: {
+    modelName: 'HierarchicalFacet',
+    getSchema: () => hierarchicalFilterMutableSchema
+  },
+  price: {
+    modelName: 'NumberRangeFacet',
+    getSchema: () => numberFilterMutableSchema
+  },
+  default: {
+    modelName: 'SimpleFacet',
+    getSchema: () => simpleMutableFilterSchema
   }
-  if (numberRangeFacet.includes(name)) {
-    return 'NumberRangeFacet';
-  }
-  return 'SimpleFacet';
-}
-
-/**
- * Returns the proper schema to apply to the given facet.
- *
- * @param facet - The facet to resolve the schema to apply.
- * @returns The schema to apply.
- */
-function getFilterSchemaFromFacetType(facet: string): Schema {
-  const facetType = getFacetType(facet);
-  if (facetType === 'HierarchicalFacet') {
-    return hierarchicalFilterMutableSchema;
-  }
-  if (facetType === 'NumberRangeFacet') {
-    return numberFilterMutableSchema;
-  }
-  return simpleMutableFilterSchema;
-}
+};

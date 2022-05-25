@@ -1,6 +1,7 @@
 export * from './banner.schema';
 export * from './facet.schema';
 export * from './filters';
+export * from './facets';
 export * from './next-query.schema';
 export * from './promoted.schema';
 export * from './redirection.schema';
