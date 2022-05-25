@@ -111,7 +111,9 @@ function applySubSchemaTransformer<Source, Target>(
       if (['requestParameters', 'endpoint', 'to'].includes(key)) {
         return;
       }
-      extendedContext[key] = extractValue(source, value as ExtractPath<typeof source>);
+      extendedContext[key] = isFunction(value)
+        ? value()
+        : extractValue(source, value as ExtractPath<typeof source>);
     });
   }
 

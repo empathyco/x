@@ -259,7 +259,8 @@ describe('schemaMapperFactory tests', () => {
     const filterSchema: Schema<Filter, TargetFilter> = {
       filterId: 'id',
       value: 'value',
-      parentId: (_, $context) => $context?.parentId as string
+      // eslint-disable-next-line @typescript-eslint/no-extra-parens
+      parentId: (_, $context) => ($context?.isChild ? ($context?.parentId as string) : '')
     };
 
     const facetSchema: Schema<Facet, TargetFacet> = {
@@ -268,32 +269,32 @@ describe('schemaMapperFactory tests', () => {
         $path: 'children',
         $subSchema: filterSchema,
         $context: {
-          parentId: 'facet'
+          parentId: 'facet',
+          isChild: () => true
         }
       }
     };
 
     const source: Facet = {
-      facet: 'parentFacet',
+      facet: 'category',
       children: [
         {
-          id: 'filter',
-          value: 'filterValue'
+          id: 'category:man',
+          value: 'man'
         }
       ]
     };
 
-    const target: TargetFacet = {
-      id: 'parentFacet',
+    const mapper = schemaMapperFactory(facetSchema);
+    expect(mapper(source, { requestParameters: { addNumFound: 2 } })).toStrictEqual<TargetFacet>({
+      id: 'category',
       filters: [
         {
-          filterId: 'filter',
-          value: 'filterValue',
-          parentId: 'parentFacet'
+          filterId: 'category:man',
+          value: 'man',
+          parentId: 'category'
         }
       ]
-    };
-    const mapper = schemaMapperFactory(facetSchema);
-    expect(mapper(source, { requestParameters: { addNumFound: 2 } })).toStrictEqual(target);
+    });
   });
 });
