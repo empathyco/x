@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.24...@empathyco/x-adapter-next@0.2.0-alpha.25) (2022-05-25)
+
+### Features
+
+- **mappers:** allow passing raw values to `subSchema.$context` using functions
+  ([b79f84e](https://github.com/empathyco/x/commit/b79f84e5fdf66d4c84df97c1098206314cbf68ae)),
+  closes [EX-6217](https://searchbroker.atlassian.net/browse/EX-6217)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.23...@empathyco/x-adapter-next@0.2.0-alpha.24) (2022-05-20)
 
 ### Features
