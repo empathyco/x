@@ -112,7 +112,7 @@ function applySubSchemaTransformer<Source, Target>(
         return;
       }
       extendedContext[key] = isFunction(value)
-        ? value()
+        ? value(source)
         : extractValue(source, value as ExtractPath<typeof source>);
     });
   }

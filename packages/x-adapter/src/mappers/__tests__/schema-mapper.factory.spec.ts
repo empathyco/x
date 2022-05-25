@@ -237,6 +237,7 @@ describe('schemaMapperFactory tests', () => {
   it('should resolve the context from the source', () => {
     interface Facet {
       facet: string;
+      isParent: boolean;
       children: Filter[];
     }
 
@@ -260,7 +261,7 @@ describe('schemaMapperFactory tests', () => {
       filterId: 'id',
       value: 'value',
       // eslint-disable-next-line @typescript-eslint/no-extra-parens
-      parentId: (_, $context) => ($context?.isChild ? ($context?.parentId as string) : '')
+      parentId: (_, $context) => ($context?.hasParent ? ($context?.parentId as string) : '')
     };
 
     const facetSchema: Schema<Facet, TargetFacet> = {
@@ -270,13 +271,14 @@ describe('schemaMapperFactory tests', () => {
         $subSchema: filterSchema,
         $context: {
           parentId: 'facet',
-          isChild: () => true
+          hasParent: ({ isParent }: Facet) => isParent
         }
       }
     };
 
     const source: Facet = {
       facet: 'category',
+      isParent: true,
       children: [
         {
           id: 'category:man',
