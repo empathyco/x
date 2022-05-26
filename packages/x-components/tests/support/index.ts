@@ -1,6 +1,5 @@
 import 'cypress-plugin-tab';
 import { AnyFunction, forEach } from '@empathyco/x-utils';
-import { AdapterMockedResponses } from '../../src/adapter/mocked-adapter';
 import { noOp } from '../../src/utils/function';
 
 declare global {
@@ -9,11 +8,6 @@ declare global {
     interface Chainable extends CustomCommands, CustomDualCommands {}
   }
 }
-
-import Loggable = Cypress.Loggable;
-import Shadow = Cypress.Shadow;
-import Timeoutable = Cypress.Timeoutable;
-import Withinable = Cypress.Withinable;
 
 interface CustomCommands {
   /**
@@ -99,12 +93,6 @@ interface CustomCommands {
    */
   waitForResultsToRender(): void;
   /**
-   * Mocks the search response with the provided value.
-   *
-   * @param searchResponse - The next response for the `search` adapter method.
-   */
-  fakeSearchResponse(searchResponse: Partial<AdapterMockedResponses['search']>): void;
-  /**
    * Checks if next-queries should contain or not a certain term.
    *
    * @param query - The query which should be checked.
@@ -140,7 +128,9 @@ interface ClickFilterOptions {
   filterShouldBe?: SelectedStatus;
 }
 
-export type CypressCommandOptions = Partial<Loggable & Timeoutable & Withinable & Shadow>;
+export type CypressCommandOptions = Partial<
+  Cypress.Loggable & Cypress.Timeoutable & Cypress.Withinable & Cypress.Shadow
+>;
 
 const customCommands: CustomCommands = {
   searchQuery: query => cy.typeQuery(query).type('{enter}'),
@@ -183,25 +173,6 @@ const customCommands: CustomCommands = {
   waitForResultsToRender() {
     cy.getByDataTest('loading').should('exist');
     cy.getByDataTest('loading').should('not.exist').then(noOp);
-  },
-  fakeSearchResponse: searchResponse => {
-    cy.window().then(window => {
-      window.__mockedAdapter.responses.search = {
-        banners: [],
-        facets: [],
-        partialResults: [],
-        promoteds: [],
-        queryTagging: {
-          params: {},
-          url: ''
-        },
-        redirections: [],
-        results: [],
-        spellcheck: '',
-        totalResults: 0,
-        ...searchResponse
-      };
-    });
   },
   checkNextQueries(query: string, toContain: boolean) {
     cy.getByDataTest('next-query').should(queries => {

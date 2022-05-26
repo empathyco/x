@@ -1,4 +1,3 @@
-import { SearchAdapter } from '@empathyco/x-adapter';
 import {
   Facet,
   Filter,
@@ -12,6 +11,7 @@ import {
 } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
 import { Store } from 'vuex';
+import { PlatformAdapter } from '@empathyco/x-adapter-platform';
 import { ActionsTree } from '../store/actions.types';
 import { GettersTree } from '../store/getters.types';
 import { MutationsTree } from '../store/mutations.types';
@@ -31,17 +31,21 @@ import { XBus } from './x-bus.types';
  * @public
  */
 export interface XPluginOptions {
-  /** The adapter transforms the request for the the search and tagging APIs and its responses. */
-  adapter: SearchAdapter;
-  /** A Vuex store to install the X module. If not passed a new one will be created and injected
-   * into every component. */
+  /** The adapter transforms the request for the search and tagging APIs and its responses. */
+  adapter: PlatformAdapter;
+  /**
+   * A Vuex store to install the X module. If not passed a new one will be created and injected
+   * into every component.
+   */
   store?: Store<any>;
   /** A {@link XModule | XModules} to be registered during the {@link XPlugin} installation. */
   initialXModules?: AnyXModule[];
   /** Override the {@link XModule | XModules} config state and its wiring. */
   xModules?: XModulesOptions;
-  /** Override the {@link XModule | XModules} store module and store emitters. It must be used
-   * only in exceptional cases. */
+  /**
+   * Override the {@link XModule | XModules} store module and store emitters. It must be used
+   * only in exceptional cases.
+   */
   __PRIVATE__xModules?: PrivateXModulesOptions;
 }
 
@@ -211,8 +215,10 @@ export type PrivateXModulesOptions = {
  * @public
  */
 export interface PrivateXModuleOptions<Module extends AnyXModule> {
-  /** The options to override events that will be emitted when a the getters value or the state
-   * of the store changes. */
+  /**
+   * The options to override events that will be emitted when the getters value or the state
+   * of the store changes.
+   */
   storeEmitters?: Partial<StoreEmitters<Module['storeModule']>>;
   /** The options to override the default store module configuration. */
   storeModule?: XStoreModuleOptions<Module['storeModule']>;

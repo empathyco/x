@@ -35,7 +35,7 @@ describe('testing search module actions', () => {
   const store: SafeStore<SearchState, SearchGetters, SearchMutations, SearchActions> = new Store(
     searchXStoreModule as any
   );
-  installNewXPlugin({ adapter, store }, localVue);
+  installNewXPlugin({ adapter, store } as any, localVue);
 
   beforeEach(() => {
     resetSearchStateWith(store);

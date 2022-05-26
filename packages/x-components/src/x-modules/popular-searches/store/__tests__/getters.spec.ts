@@ -37,11 +37,11 @@ describe('testing popular searches module getters', () => {
     const searchedQueries = createHistoryQueries('limes');
     const mockedSuggestions = getPopularSearchesStub();
 
-    const adapter = getMockedAdapter({ suggestions: { suggestions: mockedSuggestions } });
+    const adapter = getMockedAdapter(/*{ suggestions: { suggestions: mockedSuggestions } }*/);
     const localVue = createLocalVue();
     localVue.config.productionTip = false; // Silent production console messages.
     localVue.use(Vuex);
-    installNewXPlugin({ store, adapter }, localVue);
+    installNewXPlugin({ store, adapter } as any, localVue);
 
     it('should return the popular searches without the previously searched queries', () => {
       resetPopularSearchesStateWith(store, {

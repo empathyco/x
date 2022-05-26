@@ -1,6 +1,15 @@
-import { FeaturesResponseTypes, SearchAdapter } from '@empathyco/x-adapter';
+import { PlatformAdapter } from '@empathyco/x-adapter-platform';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { DeepPartial, Dictionary } from '@empathyco/x-utils';
+import {
+  IdentifierResultsResponse,
+  NextQueriesResponse,
+  RecommendationsResponse,
+  RelatedTagsResponse,
+  SearchResponse,
+  QuerySuggestionsResponse,
+  PopularSearchesResponse
+} from '@empathyco/x-types';
 import { createLocalVue } from '@vue/test-utils';
 import Vue from 'vue';
 import { Store } from 'vuex';
@@ -16,9 +25,9 @@ import { SearchAdapterDummy } from './adapter.dummy';
 import Mock = jest.Mock;
 
 export type MockedSearchAdapter = {
-  [Method in keyof Required<SearchAdapter>]: jest.Mock<
-    ReturnType<Required<SearchAdapter>[Method]>,
-    Parameters<Required<SearchAdapter>[Method]>
+  [Method in keyof Required<PlatformAdapter>]: jest.Mock<
+    ReturnType<Required<PlatformAdapter>[Method]>,
+    Parameters<Required<PlatformAdapter>[Method]>
   >;
 };
 
@@ -97,6 +106,17 @@ export function getMockedAdapterFunction<T>(whatReturns: T): Mock<Promise<T>> {
   );
 }
 
+interface PlatformResponseTypes {
+  identifierResults: IdentifierResultsResponse;
+  nextQueries: NextQueriesResponse;
+  popularSearches: PopularSearchesResponse;
+  querySuggestions: QuerySuggestionsResponse;
+  recommendations: RecommendationsResponse;
+  relatedTags: RelatedTagsResponse;
+  search: SearchResponse;
+  tagging: void;
+}
+
 /**
  * Mocks the {@link @empathyco/x-adapter#SearchAdapter | SearchAdapter} features with the
  * features responses passes as parameter. Features responses are not passes through the
@@ -109,28 +129,18 @@ export function getMockedAdapterFunction<T>(whatReturns: T): Mock<Promise<T>> {
  * @internal
  */
 export function getMockedAdapter(
-  responseFeatures?: Partial<Omit<FeaturesResponseTypes, 'track'>>
+  responseFeatures?: Partial<PlatformResponseTypes>
 ): MockedSearchAdapter {
   return {
     /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-    // Required functions
-    getNextQueries: getMockedAdapterFunction(responseFeatures?.nextQueries!),
-    getTopRecommendations: getMockedAdapterFunction(responseFeatures?.topRecommendations!),
-    getSectionRecommendations: getMockedAdapterFunction(responseFeatures?.sectionRecommendations!),
-    getQueriesRecommendations: getMockedAdapterFunction(responseFeatures?.queriesRecommendations!),
-    getClicksRecommendations: getMockedAdapterFunction(responseFeatures?.clicksRecommendations!),
-    getUserRecommendations: getMockedAdapterFunction(responseFeatures?.userRecommendations!),
-    getRelatedTags: getMockedAdapterFunction(responseFeatures?.relatedTags!),
-    getSuggestions: getMockedAdapterFunction(responseFeatures?.suggestions!),
+    identifierResults: getMockedAdapterFunction(responseFeatures?.identifierResults!),
+    nextQueries: getMockedAdapterFunction(responseFeatures?.nextQueries!),
+    popularSearches: getMockedAdapterFunction(responseFeatures?.popularSearches!),
+    querySuggestions: getMockedAdapterFunction(responseFeatures?.querySuggestions!),
+    recommendations: getMockedAdapterFunction(responseFeatures?.recommendations!),
+    relatedTags: getMockedAdapterFunction(responseFeatures?.relatedTags!),
     search: getMockedAdapterFunction(responseFeatures?.search!),
-    searchById: getMockedAdapterFunction(responseFeatures?.searchById!),
-    track: getMockedAdapterFunction(undefined),
-    /* eslint-enable @typescript-eslint/no-non-null-asserted-optional-chain */
-    // Optional functions
-    invalidateCache: jest.fn(),
-    setConfig: jest.fn(),
-    addConfigChangedListener: jest.fn(),
-    removeConfigChangedListener: jest.fn()
+    tagging: getMockedAdapterFunction(undefined)
   };
 }
 

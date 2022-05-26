@@ -1,15 +1,16 @@
+import { platformAdapter } from '@empathyco/x-adapter-platform';
 import { SnippetConfig } from '../x-installer/api/api.types';
 import { InstallXOptions } from '../x-installer/x-installer/types';
-import { mockedAdapter } from '../adapter/mocked-adapter';
-import { realAdapter } from '../adapter/real-adapter';
+import { e2eAdapter } from '../adapter/e2e-adapter';
 
 export const baseSnippetConfig: SnippetConfig = {
-  instance: 'toysrus',
-  lang: 'es',
-  scope: 'x-components-development'
+  instance: 'empathy',
+  lang: 'en',
+  scope: 'x-components-development',
+  env: 'staging'
 };
 
-const adapter = 'Cypress' in window ? mockedAdapter : realAdapter;
+const adapter = 'Cypress' in window ? e2eAdapter : platformAdapter;
 
 const xModulesURLConfig = JSON.parse(new URL(location.href).searchParams.get('xModules') ?? '{}');
 

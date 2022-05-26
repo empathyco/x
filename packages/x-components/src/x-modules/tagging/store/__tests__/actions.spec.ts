@@ -30,9 +30,10 @@ describe('testing tagging module actions', () => {
     it('should track without session id if the consent is not provided', async () => {
       await store.dispatch('track', queryTagging);
 
-      expect(adapter.track).toHaveBeenCalled();
-      expect(adapter.track).toHaveBeenCalledWith(queryTagging);
-      const payload: TaggingRequest = (adapter.track as jest.Mock<any, any>).mock.calls[0][0];
+      expect(adapter.tagging).toHaveBeenCalled();
+      expect(adapter.tagging).toHaveBeenCalledWith(queryTagging);
+      const payload: TaggingRequest = (adapter.tagging as unknown as jest.Mock<any, any>).mock
+        .calls[0][0];
       expect('session' in payload.params).toBe(false);
     });
 
@@ -40,9 +41,10 @@ describe('testing tagging module actions', () => {
       resetTaggingStateWith(store, { consent: false });
       await store.dispatch('track', queryTagging);
 
-      expect(adapter.track).toHaveBeenCalled();
-      expect(adapter.track).toHaveBeenCalledWith(queryTagging);
-      const payload: TaggingRequest = (adapter.track as jest.Mock<any, any>).mock.calls[0][0];
+      expect(adapter.tagging).toHaveBeenCalled();
+      expect(adapter.tagging).toHaveBeenCalledWith(queryTagging);
+      const payload: TaggingRequest = (adapter.tagging as unknown as jest.Mock<any, any>).mock
+        .calls[0][0];
       expect('session' in payload.params).toBe(false);
     });
 
@@ -51,8 +53,8 @@ describe('testing tagging module actions', () => {
 
       await store.dispatch('track', queryTagging);
 
-      expect(adapter.track).toHaveBeenCalled();
-      expect(adapter.track).toHaveBeenCalledWith({
+      expect(adapter.tagging).toHaveBeenCalled();
+      expect(adapter.tagging).toHaveBeenCalledWith({
         url: queryTagging.url,
         params: {
           ...queryTagging.params,
@@ -64,10 +66,10 @@ describe('testing tagging module actions', () => {
     it('should tracks multiple times if the tagging info is an array', async () => {
       await store.dispatch('track', [queryTagging, queryTagging, queryTagging]);
 
-      expect(adapter.track).toHaveBeenCalledTimes(3);
-      expect(adapter.track).toHaveBeenNthCalledWith(1, queryTagging);
-      expect(adapter.track).toHaveBeenNthCalledWith(2, queryTagging);
-      expect(adapter.track).toHaveBeenNthCalledWith(3, queryTagging);
+      expect(adapter.tagging).toHaveBeenCalledTimes(3);
+      expect(adapter.tagging).toHaveBeenNthCalledWith(1, queryTagging);
+      expect(adapter.tagging).toHaveBeenNthCalledWith(2, queryTagging);
+      expect(adapter.tagging).toHaveBeenNthCalledWith(3, queryTagging);
     });
   });
 });

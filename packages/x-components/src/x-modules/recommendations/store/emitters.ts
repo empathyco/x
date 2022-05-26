@@ -7,7 +7,6 @@ import { recommendationsXStoreModule } from './module';
  */
 export const recommendationsEmitters = createStoreEmitters(recommendationsXStoreModule, {
   RecommendationsRequestChanged: {
-    selector: (_, getters) => getters.request,
-    immediate: true
+    selector: (_, getters) => getters.request
   }
 });
