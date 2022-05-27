@@ -24,9 +24,12 @@
   },
   "scripts": {
     "prebuild": "rimraf ./dist ./*.tgz",
-    "build": "concurrently \"npm run build:*\"",
+    "build": "concurrently \"npm run build:*\" && npm run gen:docs",
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
+    "gen:model-docs": "api-extractor run -l",
+    "gen:typescript-docs": "api-documenter markdown -i report -o docs",
+    "gen:docs": "npm run gen:model-docs && npm run gen:typescript-docs",
     "test": "jest",
     "postbuild": "npm pack",
     "prepublishOnly": "npm run build"
@@ -38,6 +41,8 @@
     "tslib": "~2.3.0"
   },
   "devDependencies": {
+    "@microsoft/api-documenter": "~7.15.3",
+    "@microsoft/api-extractor": "~7.19.4",
     "@types/jest": "~27.0.3",
     "concurrently": "~7.0.0",
     "jest": "~27.3.1",

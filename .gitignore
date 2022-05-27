@@ -4,6 +4,7 @@
 **/node_modules
 **/dist
 **/docs
+**/report
 **/*.tgz
 
 **/tests/e2e/videos/
