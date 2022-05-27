@@ -4,6 +4,7 @@
 **/node_modules
 **/dist
 **/docs
+**/temp
 **/report
 **/*.tgz
 
