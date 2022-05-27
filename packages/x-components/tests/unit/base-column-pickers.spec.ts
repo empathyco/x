@@ -1,6 +1,6 @@
 import { mount } from '@cypress/vue';
 import 'reflect-metadata';
-import { mockedAdapter } from '../../src/adapter/mocked-adapter';
+import { e2eAdapter } from '../../src/adapter/e2e-adapter';
 // eslint-disable-next-line max-len
 import BaseColumnPickerDropdown from '../../src/components/column-picker/base-column-picker-dropdown.vue';
 import BaseColumnPickerList from '../../src/components/column-picker/base-column-picker-list.vue';
@@ -51,7 +51,7 @@ function mountBaseColumnPickerComponents({
       }
     },
     {
-      plugins: [[new XPlugin(new BaseXBus()), { adapter: mockedAdapter }]],
+      plugins: [[new XPlugin(new BaseXBus()), { adapter: e2eAdapter }]],
       propsData: { columns, selectedColumns }
     }
   );

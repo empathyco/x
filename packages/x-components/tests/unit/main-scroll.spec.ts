@@ -2,7 +2,7 @@ import { mount } from '@cypress/vue';
 import 'reflect-metadata';
 import Vue from 'vue';
 import StaggeredFadeAndSlide from '../../src/components/animations/staggered-fade-and-slide.vue';
-import { mockedAdapter } from '../../src/adapter/mocked-adapter';
+import { e2eAdapter } from '../../src/adapter/e2e-adapter';
 import { BaseXBus } from '../../src/plugins/x-bus';
 import { XPlugin } from '../../src/plugins/x-plugin';
 import { UrlParams } from '../../src/types/url-params';
@@ -77,7 +77,7 @@ function renderMainScroll({
     {
       vue: Vue.extend({}),
       plugins: [
-        [new XPlugin(new BaseXBus()), { adapter: mockedAdapter, initialXModules: [scrollXModule] }]
+        [new XPlugin(new BaseXBus()), { adapter: e2eAdapter, initialXModules: [scrollXModule] }]
       ],
       style: `
         ${windowScrollingElement === 'body' ? 'html { overflow: hidden; }' : ''}
@@ -119,7 +119,7 @@ function renderMainScroll({
     getScrollingElement() {
       return cy.getByDataTest('scroll');
     },
-    userScrolledToElementSpy: () => cy.wrap(userScrolledToElementSpy)
+    userScrolledToElementSpy: () => cy.wrap(userScrolledToElementSpy) as any
   };
 }
 
@@ -254,8 +254,10 @@ describe('testing MainScroll component', () => {
 interface RenderMainScrollOptions {
   /** Number of elements to render. */
   itemsCount?: number;
-  /** Bounds to adjust the size of the rect that the items should intersect with to be considered
-   * visible. */
+  /**
+   * Bounds to adjust the size of the rect that the items should intersect with to be considered
+   * visible.
+   */
   margin?: string;
   /** The percentage of an element that should be visible to consider it the first one. */
   threshold?: number;

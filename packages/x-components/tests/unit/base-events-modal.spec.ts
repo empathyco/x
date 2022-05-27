@@ -1,7 +1,7 @@
 import { mount } from '@cypress/vue';
 import 'reflect-metadata';
 import Vue from 'vue';
-import { mockedAdapter } from '../../src/adapter/mocked-adapter';
+import { e2eAdapter } from '../../src/adapter/e2e-adapter';
 import BaseEventsModalClose from '../../src/components/modals/base-events-modal-close.vue';
 import BaseEventsModalOpen from '../../src/components/modals/base-events-modal-open.vue';
 import BaseEventsModal from '../../src/components/modals/base-events-modal.vue';
@@ -41,7 +41,7 @@ function mountBaseEventsModal({
     },
     {
       vue: Vue.extend({}),
-      plugins: [[new XPlugin(new BaseXBus()), { adapter: mockedAdapter }]],
+      plugins: [[new XPlugin(new BaseXBus()), { adapter: e2eAdapter }]],
       propsData: { bodyClickEvent, eventsToCloseModal, eventsToOpenModal }
     }
   );
