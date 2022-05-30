@@ -24,12 +24,26 @@ import { ExtractState, XModule, XModuleName } from '../x-modules/x-modules.types
 import { SearchAdapterDummy } from './adapter.dummy';
 import Mock = jest.Mock;
 
-export type MockedSearchAdapter = {
+export type MockedPlatformAdapter = {
   [Method in keyof Required<PlatformAdapter>]: jest.Mock<
     ReturnType<Required<PlatformAdapter>[Method]>,
     Parameters<Required<PlatformAdapter>[Method]>
   >;
 };
+
+/**
+ * Interface containing the features responses that can be mocked.
+ */
+interface MockedAdapterFeatures {
+  identifierResults: IdentifierResultsResponse;
+  nextQueries: NextQueriesResponse;
+  popularSearches: PopularSearchesResponse;
+  querySuggestions: QuerySuggestionsResponse;
+  recommendations: RecommendationsResponse;
+  relatedTags: RelatedTagsResponse;
+  search: SearchResponse;
+  tagging: void;
+}
 
 /**
  * Creates a selector for a dataTest property.
@@ -106,31 +120,20 @@ export function getMockedAdapterFunction<T>(whatReturns: T): Mock<Promise<T>> {
   );
 }
 
-interface PlatformResponseTypes {
-  identifierResults: IdentifierResultsResponse;
-  nextQueries: NextQueriesResponse;
-  popularSearches: PopularSearchesResponse;
-  querySuggestions: QuerySuggestionsResponse;
-  recommendations: RecommendationsResponse;
-  relatedTags: RelatedTagsResponse;
-  search: SearchResponse;
-  tagging: void;
-}
-
 /**
- * Mocks the {@link @empathyco/x-adapter#SearchAdapter | SearchAdapter} features with the
- * features responses passes as parameter. Features responses are not passes through the
+ * Mocks the {@link @empathyco/x-adapter-platform#PlatformAdapter | PlatformAdapter} features with
+ * the features responses passes as parameter. Features responses are not passes through the
  * parameter will resolve the promise as empty.
  *
  * @param responseFeatures - The features responses available to be mocked.
- * @returns The {@link @empathyco/x-adapter#SearchAdapter | SearchAdapter} with the features
- * mocked.
+ * @returns The {@link @empathyco/x-adapter-platform#PlatformAdapter | PlatformAdapter} with the
+ * features mocked.
  *
  * @internal
  */
 export function getMockedAdapter(
-  responseFeatures?: Partial<PlatformResponseTypes>
-): MockedSearchAdapter {
+  responseFeatures?: Partial<MockedAdapterFeatures>
+): MockedPlatformAdapter {
   return {
     /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
     identifierResults: getMockedAdapterFunction(responseFeatures?.identifierResults!),

@@ -1,6 +1,5 @@
 import { PlatformAdapter } from '@empathyco/x-adapter-platform';
 
-// TODO Rename and change usages
 export const SearchAdapterDummy: PlatformAdapter = {
   identifierResults: jest.fn() as any,
   nextQueries: jest.fn() as any,
