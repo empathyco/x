@@ -22,7 +22,7 @@
             <img
               class="x-picture__image"
               :src="whiteBackgroundImageUrl"
-              alt="Woman in blue flower print dress"
+              :alt="whiteBackgroundImageMessage"
             />
           </picture>
         </div>
@@ -57,7 +57,7 @@
             <img
               class="x-picture__image"
               :src="whiteBackgroundImageUrl"
-              alt="Woman in blue flower print dress"
+              :alt="whiteBackgroundImageMessage"
             />
           </picture>
         </div>
@@ -83,6 +83,8 @@
     protected whiteBackgroundImageUrl =
       /* eslint-disable max-len */
       'https://images.unsplash.com/photo-1583345784606-9f59c99488de?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=clamp&w=200&q=80';
+
+    protected whiteBackgroundImageMessage = 'Woman in blue flower print dress';
   }
 </script>
 
