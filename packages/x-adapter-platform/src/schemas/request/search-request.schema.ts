@@ -75,20 +75,16 @@ export const searchRequestMutableSchema = createMutableSchema(searchRequestSchem
 function mapFilters({ filters }: SearchRequest): string[] {
   return reduce(
     filters,
-    (accumulator, _, filters) => {
-      if (Array.isArray(filters)) {
-        accumulator.push(
-          ...filters
-            .filter(
-              filter =>
-                !isHierarchicalFilter(filter) ||
-                !filters.some(f => isHierarchicalFilter(f) && f.parentId === filter.id)
-            )
-            .map(filter => filter.id.toString())
-        );
-      }
-      return accumulator;
-    },
+    (accumulator, _, filters) => [
+      ...accumulator,
+      ...filters
+        .filter(
+          filter =>
+            !isHierarchicalFilter(filter) ||
+            !filters.some(child => isHierarchicalFilter(child) && child.parentId === filter.id)
+        )
+        .map(filter => filter.id.toString())
+    ],
     [] as string[]
   );
 }

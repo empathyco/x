@@ -1,12 +1,9 @@
-// TODO: Check PlatformExtraParamsRequest interface. Is it necessary?
 /**
  * Interface for any `request` with `extra parameters`.
  *
  * @public
  */
 export interface PlatformExtraParamsRequest {
-  instance: string;
-  env: string;
   lang: string;
   device: string;
   scope: string;

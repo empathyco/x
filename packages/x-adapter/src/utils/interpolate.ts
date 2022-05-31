@@ -1,3 +1,5 @@
+import { extractValue } from './extract-value';
+
 /**
  * Syntax to detect and extract string parameters. A string parameter contains a property name
  * with an optional header or tail to concatenate wrapped in curly braces (`{}`).
@@ -12,8 +14,6 @@
  * ```
  * @internal
  */
-import { extractValue } from './extract-value';
-
 const STRING_PARAMETERS = /{([^}]+)}/g;
 
 /**
@@ -86,6 +86,12 @@ const STRING_PARAMETER_CONTENT = new RegExp(`^${HEAD_OR_TAIL}([^(]+)${HEAD_OR_TA
  *
  *  interpolate('https://search.{(api-)env(.)}empathy.co/{instance}', {
  *    instance: 'demo'
+ *  }) // 'https://search.empathy.co/demo'
+ *
+ *  interpolate('https://search.{(api-)env(.)}empathy.co/{extra.instance}', {
+ *    extra: {
+ *     instance: 'demo'
+ *    }
  *  }) // 'https://search.empathy.co/demo'
  * ```
  * @public

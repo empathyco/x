@@ -13,17 +13,10 @@ import { Mapper } from './mapper.types';
 export function combineMappers<From, To>(
   ...mappers: Mapper<From, DeepPartial<To>>[]
 ): Mapper<From, To> {
-  return mappers.length === 1
-    ? (mappers[0] as Mapper<From, To>)
-    : (from, context) => {
-        if (!context.to) {
-          context.to = {};
-        }
-
-        return mappers.reduce<DeepPartial<To>>((result, mapper) => {
-          const mappedResult = mapper(from, context);
-          deepMerge(context.to, mappedResult);
-          return deepMerge(result, mappedResult);
-        }, {}) as To;
-      };
+  return (from, context) =>
+    mappers.reduce((result, mapper) => {
+      const mappedResult = mapper(from, context);
+      context.to = deepMerge(result, mappedResult);
+      return result;
+    }, {}) as To;
 }
