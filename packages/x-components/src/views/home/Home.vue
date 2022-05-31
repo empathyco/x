@@ -9,51 +9,59 @@
     <h1>Test controls</h1>
     <ul class="x-test-controls x-list x-list--gap-05">
       <li class="x-test-controls__item x-list__item">
-        <label>
+        <label for="searchInput.instant">
+          search-input - instant
           <input
             v-model="controls.searchInput.instant"
+            id="searchInput.instant"
             type="checkbox"
             data-test="search-input-instant"
           />
-          search-input - instant
         </label>
       </li>
       <li class="x-test-controls__item x-list__item">
-        <label for="searchInput.instantDebounceInMs">search-input - debounce</label>
-        <input
-          v-model="controls.searchInput.instantDebounceInMs"
-          id="searchInput.instantDebounceInMs"
-          type="number"
-          data-test="search-input-debounce"
-        />
+        <label for="searchInput.instantDebounceInMs">
+          search-input - debounce
+          <input
+            v-model="controls.searchInput.instantDebounceInMs"
+            id="searchInput.instantDebounceInMs"
+            type="number"
+            data-test="search-input-debounce"
+          />
+        </label>
       </li>
       <li class="x-test-controls__item x-list__item">
-        <label for="popularSearches.maxItemsToRender">popular-searches - maxItemsToRender</label>
-        <input
-          v-model="controls.popularSearches.maxItemsToRender"
-          id="popularSearches.maxItemsToRender"
-          type="number"
-          data-test="popular-searches-max-to-render"
-        />
+        <label for="popularSearches.maxItemsToRender">
+          popular-searches - maxItemsToRender
+          <input
+            v-model="controls.popularSearches.maxItemsToRender"
+            id="popularSearches.maxItemsToRender"
+            type="number"
+            data-test="popular-searches-max-to-render"
+          />
+        </label>
       </li>
       <li class="x-test-controls__item x-list__item">
-        <label>
+        <label for="slicedFilters.max">
+          sliced-filters - max
           <input
             v-model="controls.slicedFilters.max"
+            id="slicedFilters.max"
             type="number"
             data-test="sliced-filters-max"
           />
-          sliced-filters - max
         </label>
       </li>
       <li class="x-test-controls__item x-list__item">
-        <label for="historyQueries.maxItemsToRender">history-queries - maxItemsToRender</label>
-        <input
-          v-model="controls.historyQueries.maxItemsToRender"
-          id="historyQueries.maxItemsToRender"
-          type="number"
-          data-test="history-queries-max-to-render"
-        />
+        <label for="historyQueries.maxItemsToRender">
+          history-queries - maxItemsToRender
+          <input
+            v-model="controls.historyQueries.maxItemsToRender"
+            id="historyQueries.maxItemsToRender"
+            type="number"
+            data-test="history-queries-max-to-render"
+          />
+        </label>
       </li>
     </ul>
     <BaseEventsModal :eventsToOpenModal="eventsToOpenModal" :animation="modalAnimation">
@@ -126,7 +134,7 @@
           >
             <span>{{ $x.totalResults }} Results</span>
             <BaseColumnPickerList
-              #default="{ column }"
+              v-slot="{ column }"
               v-model="selectedColumns"
               :columns="columnPickerValues"
             >
@@ -154,7 +162,7 @@
               </template>
             </SortDropdown>
 
-            <RenderlessExtraParams #default="{ value, updateValue }" name="store">
+            <RenderlessExtraParams v-slot="{ value, updateValue }" name="store">
               <BaseDropdown
                 @change="updateValue"
                 class="x-dropdown x-dropdown--round x-dropdown--right x-dropdown--l"
@@ -260,7 +268,7 @@
                         :max="controls.slicedFilters.max"
                         :data-test="`${facet.label}-sliced-filters`"
                       >
-                        <SelectedFilters #default="{ selectedFilters }" :facetsIds="[facet.id]">
+                        <SelectedFilters v-slot="{ selectedFilters }" :facetsIds="[facet.id]">
                           <span :data-test="`${facet.label}-selected-filters`">
                             {{ selectedFilters.length }}
                           </span>
@@ -294,7 +302,7 @@
         <template #main-body>
           <!--  Redirection  -->
           <Redirection
-            #default="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
+            v-slot="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
             class="x-margin--top-03 x-margin--bottom-03"
             :delayInSeconds="5"
           >
@@ -363,7 +371,7 @@
                               :max-items-to-render="3"
                             >
                               <NextQuery
-                                #default="{ suggestion: nextQuery }"
+                                v-slot="{ suggestion: nextQuery }"
                                 :suggestion="suggestion"
                                 class="x-tag x-tag--card"
                               >
@@ -402,7 +410,7 @@
             <!-- Recommendations -->
             <Recommendations v-if="!$x.query.search || $x.noResults" #layout="{ recommendations }">
               <BaseVariableColumnGrid
-                #default="{ item: result }"
+                v-slot="{ item: result }"
                 :animation="resultsAnimation"
                 :items="recommendations"
               >
