@@ -134,7 +134,7 @@
           >
             <span>{{ $x.totalResults }} Results</span>
             <BaseColumnPickerList
-              v-slot="{ column }"
+              #default="{ column }"
               v-model="selectedColumns"
               :columns="columnPickerValues"
             >
