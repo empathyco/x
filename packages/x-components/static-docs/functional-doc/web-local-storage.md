@@ -10,7 +10,7 @@ tags:
 
 # Interface X browser stored data and purposes
 
-The X Components _don't use cookies_ for storing data. Instead of that use Browser Local Storage to
+The X Components _don't use cookies_ for storing data. Instead of that, use Browser Local Storage to
 save technical data to provide the needed services associated to the Search Experience.
 
 The following table describes the data stored and the purpose of each piece:
