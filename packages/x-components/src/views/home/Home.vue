@@ -371,7 +371,7 @@
                               :max-items-to-render="3"
                             >
                               <NextQuery
-                                v-slot="{ suggestion: nextQuery }"
+                                #default="{ suggestion: nextQuery }"
                                 :suggestion="suggestion"
                                 class="x-tag x-tag--card"
                               >
