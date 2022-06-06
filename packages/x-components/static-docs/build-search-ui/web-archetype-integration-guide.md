@@ -34,8 +34,8 @@ Where `{INSTANCE}` is the name of your commerce store. If you require any assist
 
 Depending on your business needs, Interface&nbsp;X supports two initialization types:
 
-- **[Automatic initialization](#initializing-interface-x-project-automatically)**
-- **[On-demand initialization](#initializing-interface-x-project-on-demand)**
+- **[Automatic initialization](#initializing-the-interface-x-project-automatically)**
+- **[On-demand initialization](#initializing-the-interface-x-project-on-demand)**
 
 ::: develop Frameworks & libraries integration
 
