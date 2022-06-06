@@ -2,7 +2,10 @@ import { schemaMapperFactory, combineMappers, MapperContext } from '@empathyco/x
 import { SearchResponse, HierarchicalFilter, HierarchicalFacet } from '@empathyco/x-types';
 import { PlatformSearchResponse } from '../../types/responses/search-response.model';
 import { searchResponseMutableSchema } from '../../schemas/response/search-response.schema';
-import { AdapterHierarchicalFacet, AdapterHierarchicalFilter } from '../../types';
+import {
+  AdapterHierarchicalFacet,
+  AdapterHierarchicalFilter
+} from '../../types/responses/models/facet.model';
 
 export const searchResponseMapper = combineMappers(
   schemaMapperFactory<PlatformSearchResponse, SearchResponse>(searchResponseMutableSchema),
