@@ -410,7 +410,7 @@
             <!-- Recommendations -->
             <Recommendations v-if="!$x.query.search || $x.noResults" #layout="{ recommendations }">
               <BaseVariableColumnGrid
-                v-slot="{ item: result }"
+                #default="{ item: result }"
                 :animation="resultsAnimation"
                 :items="recommendations"
               >
