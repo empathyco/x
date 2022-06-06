@@ -302,7 +302,7 @@
         <template #main-body>
           <!--  Redirection  -->
           <Redirection
-            v-slot="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
+            #default="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
             class="x-margin--top-03 x-margin--bottom-03"
             :delayInSeconds="5"
           >
