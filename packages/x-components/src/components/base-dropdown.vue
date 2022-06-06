@@ -34,7 +34,7 @@
         :aria-expanded="isOpen.toString()"
         class="x-dropdown__items-list"
         role="listbox"
-        tabIndex="-1"
+        tabIndex="0"
       >
         <li v-for="(item, index) in items" :key="item.id || item" class="x-dropdown__list-item">
           <button
