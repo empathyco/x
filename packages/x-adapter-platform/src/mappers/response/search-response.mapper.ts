@@ -38,18 +38,9 @@ export function searchResponseFacetsMapper(
  * @returns The flattened hierarchical facet.
  */
 function flattenHierarchicalFacet(facet: AdapterHierarchicalFacet): HierarchicalFacet {
-  const filters: HierarchicalFilter[] = [];
-
-  facet.filters.forEach(rawFilter => {
-    mapHierarchicalFilter(
-      rawFilter,
-      {
-        facetId: facet.id,
-        parentId: null
-      },
-      filters
-    );
-  });
+  const filters = facet.filters.reduce((flattenedFilters, filter) => {
+    return mapHierarchicalFilter(filter, flattenedFilters);
+  }, [] as HierarchicalFilter[]);
 
   return {
     ...facet,
@@ -61,19 +52,18 @@ function flattenHierarchicalFacet(facet: AdapterHierarchicalFacet): Hierarchical
  * Map recursively the hierarchical facet filters.
  *
  * @param rawFilter - The hierarchical filter to map.
- * @param initialValues - The initial values for the filter.
  * @param filters - The filters array to fill with the facet filters.
  * @returns The filter id.
  */
 function mapHierarchicalFilter(
   rawFilter: AdapterHierarchicalFilter,
-  initialValues: Readonly<Partial<HierarchicalFilter>>,
   filters: HierarchicalFilter[]
-): HierarchicalFilter['id'] {
-  const filter = { ...rawFilter, ...initialValues } as HierarchicalFilter;
-  filter.children = rawFilter.children?.filters?.map(rawFilterChild =>
-    mapHierarchicalFilter(rawFilterChild, { ...initialValues, parentId: filter.id }, filters)
-  );
+): HierarchicalFilter[] {
+  const filter = { ...rawFilter } as HierarchicalFilter;
+  filter.children = rawFilter.children?.filters.map(rawFilterChild => {
+    mapHierarchicalFilter(rawFilterChild, filters);
+    return rawFilterChild.id;
+  });
   filters.push(filter);
-  return filter.id;
+  return filters;
 }
