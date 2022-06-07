@@ -12,7 +12,8 @@ import {
 } from '../../../types/responses/models/facet.model';
 import { getFacetConfig, getFacetId } from './facets/utils';
 import { FacetsConfig } from './facets';
-import { numberFilterMutableSchema, simpleMutableFilterSchema } from './filters';
+import { numberFilterMutableSchema } from './filters/number-filter.schema';
+import { simpleMutableFilterSchema } from './filters/simple-filter.schema';
 
 export const facetSchema: Schema<
   PlatformFacet,
