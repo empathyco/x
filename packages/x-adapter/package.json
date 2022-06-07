@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-adapter-next",
-  "version": "0.2.0-alpha.23",
+  "version": "0.2.0-alpha.25",
   "description": "A utils library to create a client for any API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",

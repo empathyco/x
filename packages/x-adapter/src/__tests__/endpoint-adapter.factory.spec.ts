@@ -1,16 +1,16 @@
 import { endpointAdapterFactory } from '../endpoint-adapter.factory';
 import { identityMapper } from '../mappers/identity.mapper';
-import { EndpointAdapter, EndpointAdapterOptions } from '../types/adapter.types';
+import { EndpointAdapterOptions, ExtendableEndpointAdapter } from '../types/adapter.types';
 import { HttpClient, RequestOptions } from '../types/http-client.types';
 import { Mapper } from '../types/mapper.types';
 
 /**
- * Creates an {@link EndpointAdapter} using the {@link endpointAdapterFactory} with the given
- * {@link EndpointAdapterOptions}, exposing a basic API for testing.
+ * Creates an {@link ExtendableEndpointAdapter} using the {@link endpointAdapterFactory} with the
+ * given {@link EndpointAdapterOptions}, exposing a basic API for testing.
  *
  * @param options - The CreateEndpointAdapterFactoryOptions to create the API with.
  *
- * @returns The API for testing the {@link EndpointAdapter}.
+ * @returns The API for testing the {@link ExtendableEndpointAdapter}.
  */
 function createEndpointAdapterFactoryOptions<Request, Response>({
   options,
@@ -251,13 +251,13 @@ describe('adapterFactory tests', () => {
 interface CreateEndpointAdapterFactoryOptions<Request, Response> {
   /** The {@link EndpointAdapterOptions} passed to {@link endpointAdapterFactory} function. */
   options?: Partial<EndpointAdapterOptions<Request, Response>>;
-  /** The raw response of calling the {@link EndpointAdapter}. */
+  /** The raw response of calling the {@link ExtendableEndpointAdapter}. */
   rawResponse?: Response;
 }
 
 interface CreateEndpointAdapterFactoryAPI<Request, Response> {
-  /** The created {@link EndpointAdapter} by the {@link endpointAdapterFactory}. */
-  endpointAdapter: EndpointAdapter<Request, Response>;
+  /** The created {@link ExtendableEndpointAdapter} by the {@link endpointAdapterFactory}. */
+  endpointAdapter: ExtendableEndpointAdapter<Request, Response>;
   /** The options passed to {@link endpointAdapterFactory} function. */
   options: EndpointAdapterOptions<Request, Response>;
   /** The mocked {@link EndpointAdapterOptions.httpClient}. */

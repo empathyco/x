@@ -15,7 +15,7 @@
     inputmode="search"
     type="search"
     data-test="search-input"
-    aria-label="type your query here"
+    :aria-label="searchInputMessage"
   />
 </template>
 
@@ -44,6 +44,8 @@
   })
   export default class SearchInput extends Vue {
     public $refs!: { input: HTMLInputElement };
+
+    protected searchInputMessage = 'type your query here';
 
     /**
      * Maximum characters allowed in the input search.

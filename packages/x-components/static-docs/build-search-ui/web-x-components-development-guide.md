@@ -32,8 +32,6 @@ You can find the X&nbsp;Components library in the
 
 To integrate the X&nbsp;Components in a frontend UI, you need:
 
-<br/>
-
 - **Empathy Search API** to retrieve search data (or any other search API)
 - A **search adapter** to communicate with the search API. You can use the Empathy Adapter and
   configure it with the `EmpathyAdapterBuilder`
@@ -49,7 +47,7 @@ To integrate the X&nbsp;Components in a frontend UI, you need:
 3. Configure the **xPlugin**.
 4. Install and **initialize the xPlugin**.
 
-## 1. Install the dependencies
+## Installing the dependencies
 
 To build your search and discovery UI, the following project dependencies are required:
 
@@ -78,7 +76,7 @@ Install the project dependencies via `npm` as follows:
 npm install --save @empathyco/x-components @empathyco/x-types @empathyco/x-adapter reflect-metadata
 ```
 
-## 2. Configure the search adapter
+## Configuring the search adapter
 
 ::: warning
 
@@ -88,7 +86,7 @@ have imported the `reflect-metadata` polyfill before executing any code of the s
 :::
 
 Next, construct the search adapter. You will need the search adapter in the
-[xPlugin configuration](#3-configure-the-plugin).
+[xPlugin configuration](#configuring-the-plugin).
 
 Empathy Search Adapter is a library for making it easier to consume search APIs. The project
 contains two main parts: an **implementation** to consume the Empathy Search API, and an
@@ -121,7 +119,7 @@ If you do not use the Empathy Search API, you need to build your own adapter.
 For more information, see
 [Using the Empathy Search Adapter](https://github.com/empathyco/x/tree/main/packages/search-adapter).
 
-## 3. Configure the plugin
+## Configuring the plugin
 
 Plugins are self-contained code that usually add global-level functionality to Vue projects. They’re
 specifically objects that expose an `install` method, allowing you to keep your components clear and
@@ -143,7 +141,7 @@ Then, **configure** the xPlugin. It has two key options you need to configure:
 1. **Adapter**: A search adapter is required to connect and communicate with the search API. Here
    you’re using the `EmpathyAdapterBuilder` to communicate specifically with the Empathy Search API.
    If you are not using the Empathy Search API, you need to build your own adapter. See
-   [Configure the search adapter](#2-configure-the-search-adapter).
+   [Configuring the search adapter](#configuring-the-search-adapter).
 
    ::: develop
 
@@ -162,7 +160,7 @@ Then, **configure** the xPlugin. It has two key options you need to configure:
 
    :::
 
-## 4. Install and initialize the plugin
+## Installing and initializing the plugin
 
 Finally, the last step is to install and initialize the xPlugin. You need to do this in the
 `main.ts` or `main.js file` of the project.

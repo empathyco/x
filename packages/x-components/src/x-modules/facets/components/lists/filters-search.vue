@@ -14,7 +14,7 @@
         type="search"
         class="x-input x-filters-search__input"
         data-test="filters-search-input"
-        aria-label="search into the filter values"
+        :aria-label="filtersSearchInputMessage"
       />
     </slot>
     <!--
@@ -51,6 +51,8 @@
 
     protected query = '';
     protected setQueryDebounced!: DebouncedFunction<[string]>;
+
+    protected filtersSearchInputMessage = 'search into the filter values';
 
     /**
      * Set the debounce function for setting the query debounced.
@@ -181,7 +183,7 @@ Replacing search triggering:
       @input="setQuery($event.target.value)"
       :value="query"
       class="x-input x-filters-search__input"
-      aria-label="type the filter you want to refine by"/>
+      :aria-label="filtersSearchInputMessage"/>
     <button @click="clearQuery">X</button>
   </template>
   <template #default="{ siftedFilters }">

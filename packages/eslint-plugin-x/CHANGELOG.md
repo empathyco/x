@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.9...@empathyco/eslint-plugin-x@2.0.0-alpha.10) (2022-06-06)
+
+### Features
+
+- disable v-slot-style
+  ([2e8c2d9](https://github.com/empathyco/x/commit/2e8c2d93605b6a694e84c98f955ee7acfdfd35e3)),
+  closes [EX-6284](https://searchbroker.atlassian.net/browse/EX-6284)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [2.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.8...@empathyco/eslint-plugin-x@2.0.0-alpha.9) (2022-05-11)
 
 ### ⚠ BREAKING CHANGES

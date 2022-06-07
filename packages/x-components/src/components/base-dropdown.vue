@@ -34,6 +34,7 @@
         :aria-expanded="isOpen.toString()"
         class="x-dropdown__items-list"
         role="listbox"
+        tabIndex="0"
       >
         <li v-for="(item, index) in items" :key="item.id || item" class="x-dropdown__list-item">
           <button
@@ -335,7 +336,8 @@
       this.searchBuffer = '';
     }
 
-    /** Updates the debounced function to reset the search.
+    /**
+     * Updates the debounced function to reset the search.
      *
      * @param searchTimeoutMs - The new milliseconds that have to pass without typing before
      * resetting the search.
