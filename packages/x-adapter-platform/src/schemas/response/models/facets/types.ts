@@ -1,12 +1,17 @@
-import { FacetModelName } from '@empathyco/x-types';
+import { FacetModelName, Facet } from '@empathyco/x-types';
 import { Schema } from '@empathyco/x-adapter-next';
 
 /**
  * Facet configuration containing the model name and the schema.
  */
-export type FacetConfig = { modelName: FacetModelName; getSchema: () => Schema };
+export interface FacetConfig {
+  modelName: FacetModelName;
+  schema: Schema;
+}
 
 /**
  * Dictionary grouping facets configurations.
  */
-export type FacetsConfig = Record<string, FacetConfig>;
+export interface FacetsConfig {
+  [key: Facet['id']]: FacetConfig;
+}

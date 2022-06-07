@@ -19,5 +19,5 @@ export function getFacetId(facet: string): string {
  */
 export function getFacetConfig(facet: string): FacetConfig {
   const name = getFacetId(facet);
-  return facetsConfig[name] ? facetsConfig[name] : facetsConfig.default;
+  return facetsConfig[name] ?? facetsConfig.default;
 }

@@ -26,7 +26,7 @@ export const facetSchema: Schema<
   },
   filters: {
     $path: 'values',
-    $subSchema: ({ facet }) => getFacetConfig(facet).getSchema() as any,
+    $subSchema: ({ facet }) => getFacetConfig(facet).schema as any,
     $context: {
       facetId: 'facet'
     }
@@ -57,14 +57,14 @@ export const hierarchicalFilterMutableSchema = createMutableSchema(hierarchicalF
 export const facetsConfig: FacetsConfig = {
   categoryPaths: {
     modelName: 'HierarchicalFacet',
-    getSchema: () => hierarchicalFilterMutableSchema
+    schema: hierarchicalFilterMutableSchema
   },
   price: {
     modelName: 'NumberRangeFacet',
-    getSchema: () => numberFilterMutableSchema
+    schema: numberFilterMutableSchema
   },
   default: {
     modelName: 'SimpleFacet',
-    getSchema: () => simpleMutableFilterSchema
+    schema: simpleMutableFilterSchema
   }
 };
