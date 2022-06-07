@@ -5,7 +5,6 @@
  */
 export interface PlatformExtraParamsRequest {
   lang: string;
-  device: string;
   scope: string;
 }
 
