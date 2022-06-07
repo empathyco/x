@@ -28,7 +28,6 @@ export const facetSchema: Schema<
     $path: 'values',
     $subSchema: ({ facet }) => getFacetConfig(facet).getSchema() as any,
     $context: {
-      parentId: 'facet',
       facetId: 'facet'
     }
   }
@@ -41,16 +40,14 @@ export const hierarchicalFilterSchema: Schema<PlatformHierarchicalFilter, Hierar
   label: 'value',
   id: 'filter',
   totalResults: 'count',
-  // eslint-disable-next-line @typescript-eslint/no-extra-parens
-  parentId: (_, $context) => ($context?.isChild ? ($context?.parentId as string) : null),
+  parentId: (_, $context) => ($context?.parentId as string) ?? null,
   selected: () => false,
   modelName: () => 'HierarchicalFilter',
   children: {
     $path: 'children',
     $subSchema: facetMutableSchema as any,
     $context: {
-      // TODO EX-6217 Replace with boolean value instead of using the value of `filter`
-      isChild: 'filter'
+      parentId: 'filter'
     }
   }
 };
