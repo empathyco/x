@@ -24,7 +24,7 @@ you’re ready to use X&nbsp;Components in your project.
 
 2. **Configure the X&nbsp;Components behavior** to customize the search and discovery experience.
 
-## 1. Import and register the X Components
+## Importing and registering the X Components
 
 Many of the X&nbsp;Components are distributed into modules to make them easier to manage. So you
 need to indicate from which module you’re importing each component as appropriate.
@@ -56,7 +56,7 @@ export default {
 //The components are now ready to be used inside your template.
 ```
 
-## 2. Configure the X Components
+## Configuring the X Components
 
 You can configure some behaviors for each component to customize the search experience.
 
@@ -115,7 +115,7 @@ Learn more about the
 
 :::
 
-### Importing the components from the search-box module
+**1. Importing the components from the search-box module**
 
 For this purpose, you need to import the `SearchInput`, `SearchButton`, and `ClearSearchInput`
 components from the `search-box` module to the desired app component. Then, register them and
@@ -147,7 +147,7 @@ Now, you’re ready to start using the component wherever you want in your templ
 </template>
 ```
 
-### Configuring the SearchInput component
+**2. Configuring the SearchInput component**
 
 Next, you want to configure the behavior of the `SearchInput` component. Here you use the
 `maxLength` prop to limit the maximum length to 20 characters.

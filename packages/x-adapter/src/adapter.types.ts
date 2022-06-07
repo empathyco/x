@@ -23,28 +23,37 @@ export interface EndpointAdapter<Request, Response> {
    * @returns A response promise.
    */
   (request: Request, options?: RequestOptions): Promise<Response>;
-
-  /**
-   * Extends the current adapter merging its options with the new ones creating a new
-   * {@link EndpointAdapter} object.
-   *
-   * @param options - New options to extend the {@link EndpointAdapter} with.
-   */
-  extends: <NewRequest = Request, NewResponse = Response>(
-    options: Partial<EndpointAdapterOptions<NewRequest, NewResponse>>
-  ) => EndpointAdapter<NewRequest, NewResponse>;
 }
 
 /**
- * Creates an {@link EndpointAdapter} with the given options.
+ * Adds extends functionality to an {@link EndpointAdapter}.
  *
- * @param options - Options to create the adapter with.
- * @returns A brand-new {@link EndpointAdapter} instance.
+ * @public
+ */
+export interface ExtendableEndpointAdapter<Request, Response>
+  extends EndpointAdapter<Request, Response> {
+  /**
+   * Extends the endpoint adapter, merging its options with the new ones, creating a new
+   * {@link ExtendableEndpointAdapter} object.
+   *
+   * @param options - New options to extend the {@link ExtendableEndpointAdapter} with.
+   * @returns A new adapter created by merging the new and old options.
+   */
+  extends: <NewRequest = Request, NewResponse = Response>(
+    options: Partial<EndpointAdapterOptions<NewRequest, NewResponse>>
+  ) => ExtendableEndpointAdapter<NewRequest, NewResponse>;
+}
+
+/**
+ * Creates an {@link ExtendableEndpointAdapter} with the given options.
+ *
+ * @param options - Options to create the endpoint adapter with.
+ * @returns A brand-new {@link ExtendableEndpointAdapter} instance.
  * @public
  */
 export type EndpointAdapterFactory = <Request, Response>(
   options: EndpointAdapterOptions<Request, Response>
-) => EndpointAdapter<Request, Response>;
+) => ExtendableEndpointAdapter<Request, Response>;
 
 /**
  * Options to create an adapter with.

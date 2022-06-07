@@ -9,51 +9,59 @@
     <h1>Test controls</h1>
     <ul class="x-test-controls x-list x-list--gap-05">
       <li class="x-test-controls__item x-list__item">
-        <label>
+        <label for="searchInput.instant">
+          search-input - instant
           <input
             v-model="controls.searchInput.instant"
+            id="searchInput.instant"
             type="checkbox"
             data-test="search-input-instant"
           />
-          search-input - instant
         </label>
       </li>
       <li class="x-test-controls__item x-list__item">
-        <label for="searchInput.instantDebounceInMs">search-input - debounce</label>
-        <input
-          v-model="controls.searchInput.instantDebounceInMs"
-          id="searchInput.instantDebounceInMs"
-          type="number"
-          data-test="search-input-debounce"
-        />
+        <label for="searchInput.instantDebounceInMs">
+          search-input - debounce
+          <input
+            v-model="controls.searchInput.instantDebounceInMs"
+            id="searchInput.instantDebounceInMs"
+            type="number"
+            data-test="search-input-debounce"
+          />
+        </label>
       </li>
       <li class="x-test-controls__item x-list__item">
-        <label for="popularSearches.maxItemsToRender">popular-searches - maxItemsToRender</label>
-        <input
-          v-model="controls.popularSearches.maxItemsToRender"
-          id="popularSearches.maxItemsToRender"
-          type="number"
-          data-test="popular-searches-max-to-render"
-        />
+        <label for="popularSearches.maxItemsToRender">
+          popular-searches - maxItemsToRender
+          <input
+            v-model="controls.popularSearches.maxItemsToRender"
+            id="popularSearches.maxItemsToRender"
+            type="number"
+            data-test="popular-searches-max-to-render"
+          />
+        </label>
       </li>
       <li class="x-test-controls__item x-list__item">
-        <label>
+        <label for="slicedFilters.max">
+          sliced-filters - max
           <input
             v-model="controls.slicedFilters.max"
+            id="slicedFilters.max"
             type="number"
             data-test="sliced-filters-max"
           />
-          sliced-filters - max
         </label>
       </li>
       <li class="x-test-controls__item x-list__item">
-        <label for="historyQueries.maxItemsToRender">history-queries - maxItemsToRender</label>
-        <input
-          v-model="controls.historyQueries.maxItemsToRender"
-          id="historyQueries.maxItemsToRender"
-          type="number"
-          data-test="history-queries-max-to-render"
-        />
+        <label for="historyQueries.maxItemsToRender">
+          history-queries - maxItemsToRender
+          <input
+            v-model="controls.historyQueries.maxItemsToRender"
+            id="historyQueries.maxItemsToRender"
+            type="number"
+            data-test="history-queries-max-to-render"
+          />
+        </label>
       </li>
     </ul>
     <BaseEventsModal :eventsToOpenModal="eventsToOpenModal" :animation="modalAnimation">
