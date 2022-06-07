@@ -1,5 +1,4 @@
 import { mount } from '@cypress/vue';
-import 'reflect-metadata';
 import Vue from 'vue';
 import { e2eAdapter } from '../../src/adapter/e2e-adapter';
 import BaseEventsModalClose from '../../src/components/modals/base-events-modal-close.vue';

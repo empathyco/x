@@ -1,5 +1,4 @@
 import { mount } from '@cypress/vue';
-import 'reflect-metadata';
 import Vue from 'vue';
 import { e2eAdapter } from '../../src/adapter/e2e-adapter';
 import SlidingPanel from '../../src/components/sliding-panel.vue';

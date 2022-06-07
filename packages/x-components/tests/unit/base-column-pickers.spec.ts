@@ -1,5 +1,4 @@
 import { mount } from '@cypress/vue';
-import 'reflect-metadata';
 import { e2eAdapter } from '../../src/adapter/e2e-adapter';
 // eslint-disable-next-line max-len
 import BaseColumnPickerDropdown from '../../src/components/column-picker/base-column-picker-dropdown.vue';

@@ -103,10 +103,7 @@ Interface&nbsp;X&nbsp;Archetype repository.
 ## 3. Configure the search adapter
 
 Before using your project, configure the Empathy Search Adapter in the
-`x-archetype/src/adapter/adapter.ts` file, using the Empathy Adapter Builder to make it work with
-the Empathy Search API. The Empathy Search Adapter contains a sample configuration for setup, global
-configurations, or mappers that points to a demo environment. You need to adjust the configuration
-according to the search features you use in your project.
+`x-archetype/src/adapter/adapter.ts` file to make it work with the Empathy Search API.
 
 Export the required search adapter with your configuration as you will need it for the search
 [xPlugin configuration](#4-configure-the-plugin).
@@ -114,7 +111,7 @@ Export the required search adapter with your configuration as you will need it f
 ::: interact
 
 For detailed information about other configuration options in the Empathy Search Adapter, go to the
-[x-adapter repository](https://github.com/empathyco/x/tree/main/packages/search-adapter).
+[x-adapter repository](https://github.com/empathyco/x/tree/main/packages/x-adapter).
 
 :::
 
