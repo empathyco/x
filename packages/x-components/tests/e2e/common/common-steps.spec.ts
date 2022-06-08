@@ -249,7 +249,7 @@ Then(
       .its('request.body')
       .then(JSON.parse)
       .its('extraParams')
-      .should('have.property', key, value === 'default' ? '' : value);
+      .should('have.property', key, value);
   }
 );
 
