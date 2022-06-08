@@ -1,6 +1,6 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { forEach, isFunction, isObject } from '@empathyco/x-utils';
-import { MutableSchema, Schema } from './schemas.types';
+import { MutableSchema, Schema } from './types';
 
 /**
  * Collection of internal method names for {@link MutableSchema | mutable schemas}.

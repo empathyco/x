@@ -1,5 +1,5 @@
-import { HttpClient } from '../../types/http-client.types';
 import { koFetchMock, okFetchMock } from '../__mocks__/fetch.mock';
+import { HttpClient } from '../types';
 
 describe('fetch httpClient testing', () => {
   const endpoint = 'https://api.empathy.co/search';

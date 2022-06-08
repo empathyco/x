@@ -1,4 +1,4 @@
-import { Schema } from '../schemas.types';
+import { Schema } from '../types';
 
 describe('schema tests', () => {
   interface Source {
