@@ -16,6 +16,7 @@ export const resetState: SearchXStoreModule['actions']['resetState'] = (
   { newRequest, oldRequest }
 ) => {
   const changedKeys = getNewAndUpdatedKeys(newRequest, oldRequest);
+  const changedExtraParams = getNewAndUpdatedKeys(newRequest.extraParams, oldRequest.extraParams);
 
   if (!isArrayEmpty(changedKeys)) {
     if (!changedKeys.includes('page')) {
@@ -24,7 +25,7 @@ export const resetState: SearchXStoreModule['actions']['resetState'] = (
     if (changedKeys.includes('query')) {
       commit('setSort', '');
     }
-    if (changedKeys.includes('extraParams')) {
+    if (isArrayEmpty(changedExtraParams)) {
       commit('setPage', 1);
       commit('setSort', '');
     }
