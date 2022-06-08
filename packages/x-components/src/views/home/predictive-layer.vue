@@ -10,7 +10,15 @@
           <CrossTinyIcon />
           <span>Clear previous searches</span>
         </ClearHistoryQueries>
-        <QuerySuggestions max-items-to-render="10" />
+        <QuerySuggestions max-items-to-render="10">
+          <template #suggestion-content="{ suggestion, filter }">
+            <span>{{ suggestion.query }}</span>
+            <template v-if="filter">
+              <span>|</span>
+              <span>{{ filter.label }}</span>
+            </template>
+          </template>
+        </QuerySuggestions>
         <NextQueries max-items-to-render="10" />
 
         <!-- IdentifierResults -->
