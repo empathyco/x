@@ -497,6 +497,25 @@ describe('testing search module actions', () => {
       );
     });
 
+    it('should reset the page when the related tags change', async () => {
+      resetSearchStateWith(store, { query: 'lego', page: 2 });
+      const oldRequest = store.getters.request!;
+      store.commit('setRelatedTags', [
+        { query: 'lego star wars', modelName: 'RelatedTag', tag: 'star wars' }
+      ]);
+      const newRequest = store.getters.request!;
+      await store.dispatch('resetState', { oldRequest, newRequest });
+      expect(store.state).toEqual(
+        expect.objectContaining<Partial<SearchState>>({
+          page: 1,
+          params: {},
+          query: 'lego',
+          selectedFilters: {},
+          sort: ''
+        })
+      );
+    });
+
     it('should reset the page when the filters change', async () => {
       resetSearchStateWith(store, { query: 'lego', page: 2 });
       await store.dispatch('resetState', {
