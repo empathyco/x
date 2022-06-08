@@ -1,10 +1,10 @@
+import { Filter, Facet, BooleanFilter } from '@empathyco/x-types';
+
 /**
  * Facet model for the `platform` API.
  *
  * @public
  */
-import { Filter, Facet, BooleanFilter } from '@empathyco/x-types';
-
 export interface PlatformFacet {
   facet: string;
   values: PlatformFilter[];
@@ -33,6 +33,8 @@ export interface PlatformHierarchicalFilter extends PlatformFilter {
 
 /**
  * Hierarchical Facet model used when combining search response mappers.
+ *
+ * @internal
  */
 export interface AdapterHierarchicalFacet extends Facet {
   /** Model name to indicate the facet type. */
@@ -43,6 +45,8 @@ export interface AdapterHierarchicalFacet extends Facet {
 
 /**
  * Hierarchical Filter model used when combining search response mappers.
+ *
+ * @internal
  */
 export interface AdapterHierarchicalFilter extends BooleanFilter {
   /** Model name to indicate the filter type. */
