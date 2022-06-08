@@ -59,11 +59,13 @@ function mapHierarchicalFilter(
   rawFilter: AdapterHierarchicalFilter,
   filters: HierarchicalFilter[]
 ): HierarchicalFilter[] {
-  const filter = { ...rawFilter } as HierarchicalFilter;
-  filter.children = rawFilter.children?.filters.map(rawFilterChild => {
-    mapHierarchicalFilter(rawFilterChild, filters);
-    return rawFilterChild.id;
-  });
+  const filter: HierarchicalFilter = {
+    ...rawFilter,
+    children: rawFilter.children?.filters.map(rawFilterChild => {
+      mapHierarchicalFilter(rawFilterChild, filters);
+      return rawFilterChild.id;
+    })
+  };
   filters.push(filter);
   return filters;
 }
