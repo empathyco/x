@@ -1,5 +1,4 @@
-import { Dictionary, forEach } from '@empathyco/x-utils';
-import { flatObject } from '@empathyco/x-utils/src/index';
+import { Dictionary, flatObject, forEach } from '@empathyco/x-utils';
 import { RequestError } from './errors/request-error';
 
 /**
