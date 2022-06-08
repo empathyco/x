@@ -32,7 +32,9 @@ describe('testing next queries module getters', () => {
         query: 'dorito',
         rows: 5,
         start: 0,
-        catalog: 'es'
+        extraParams: {
+          catalog: 'es'
+        }
       });
     });
 

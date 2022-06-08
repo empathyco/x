@@ -22,7 +22,9 @@ describe('testing recommendations module getters', () => {
         rows: 3,
         start: 0,
         origin: RECOMMENDATIONS_ORIGIN,
-        catalog: 'es'
+        extraParams: {
+          catalog: 'es'
+        }
       });
     });
   });

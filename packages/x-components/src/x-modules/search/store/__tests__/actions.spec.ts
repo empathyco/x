@@ -497,37 +497,6 @@ describe('testing search module actions', () => {
       );
     });
 
-    it('should reset the page when the related tags change', async () => {
-      resetSearchStateWith(store, { query: 'lego', page: 2 });
-      await store.dispatch('resetState', {
-        newRequest: {
-          query: 'lego',
-          page: 2,
-          relatedTags: [
-            {
-              query: 'lego star wars',
-              modelName: 'RelatedTag',
-              previous: 'lego',
-              selected: false,
-              tag: 'star wars'
-            }
-          ]
-        },
-        oldRequest: store.getters.request!
-      });
-
-      expect(store.state).toEqual(
-        expect.objectContaining<Partial<SearchState>>({
-          page: 1,
-          params: {},
-          query: 'lego',
-          relatedTags: [],
-          selectedFilters: {},
-          sort: ''
-        })
-      );
-    });
-
     it('should reset the page when the filters change', async () => {
       resetSearchStateWith(store, { query: 'lego', page: 2 });
       await store.dispatch('resetState', {
@@ -594,7 +563,9 @@ describe('testing search module actions', () => {
         newRequest: {
           query: 'lego',
           page: 2,
-          catalog: 'pt'
+          extraParams: {
+            catalog: 'pt'
+          }
         },
         oldRequest: store.getters.request!
       });

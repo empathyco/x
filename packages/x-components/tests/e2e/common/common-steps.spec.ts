@@ -242,6 +242,17 @@ Then(
   }
 );
 
+Then(
+  'search request contains extra parameter {string} with value {string}',
+  (key: string, value: string) => {
+    cy.wait('@interceptedResults')
+      .its('request.body')
+      .then(JSON.parse)
+      .its('extraParams')
+      .should('have.property', key, value === 'default' ? '' : value);
+  }
+);
+
 When('the page is reloaded', () => {
   cy.reload();
 });
