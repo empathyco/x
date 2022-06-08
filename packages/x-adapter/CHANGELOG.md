@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.25...@empathyco/x-adapter-next@0.2.0-alpha.26) (2022-06-08)
+
+### Features
+
+- add support for `object` params in `httpClients`
+  ([c51760b](https://github.com/empathyco/x/commit/c51760b07b2dac2e83f13964aac614d8fe6e8e8b)),
+  closes [EX-6293](https://searchbroker.atlassian.net/browse/EX-6293)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.24...@empathyco/x-adapter-next@0.2.0-alpha.25) (2022-05-25)
 
 ### Features

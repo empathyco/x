@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.1...@empathyco/x-utils@1.0.0-alpha.2) (2022-06-08)
+
+### Features
+
+- add support for `object` params in `httpClients`
+  ([c51760b](https://github.com/empathyco/x/commit/c51760b07b2dac2e83f13964aac614d8fe6e8e8b)),
+  closes [EX-6293](https://searchbroker.atlassian.net/browse/EX-6293)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.0...@empathyco/x-utils@1.0.0-alpha.1) (2022-05-13)
 
 **Note:** Version bump only for package @empathyco/x-utils
