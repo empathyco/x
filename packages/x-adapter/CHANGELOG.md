@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.26...@empathyco/x-adapter-next@0.2.0-alpha.27) (2022-06-08)
+
+### Features
+
+- Add suppport to interpolate deep paramteres in the endpoint. (#523)
+  ([b01f9e9](https://github.com/empathyco/x/commit/b01f9e94fdbe1cd2b001d77469afc8dd102eb796)),
+  closes [EX-6295](https://searchbroker.atlassian.net/browse/EX-6295)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.25...@empathyco/x-adapter-next@0.2.0-alpha.26) (2022-06-08)
 
 ### Features
