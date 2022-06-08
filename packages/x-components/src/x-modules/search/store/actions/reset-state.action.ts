@@ -25,9 +25,9 @@ export const resetState: SearchXStoreModule['actions']['resetState'] = (
     if (changedKeys.includes('query')) {
       commit('setSort', '');
     }
-    if (isArrayEmpty(changedExtraParams)) {
-      commit('setPage', 1);
-      commit('setSort', '');
-    }
+  }
+  if (!isArrayEmpty(changedExtraParams)) {
+    commit('setPage', 1);
+    commit('setSort', '');
   }
 };
