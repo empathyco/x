@@ -16,7 +16,7 @@ export function combineMappers<From, To>(
   return (from, context) =>
     mappers.reduce((value, mapper) => {
       const mappedValue = mapper(from, context);
-      context.to = deepMerge(value, mappedValue);
+      context.mappedValue = deepMerge(value, mappedValue);
       return value;
     }, {}) as To;
 }

@@ -22,7 +22,7 @@ describe('combineMappers util', () => {
       q: 'patata',
       c: 0
     });
-    expect(context).toStrictEqual({ to: { q: 'patata', c: 0 } });
+    expect(context).toStrictEqual({ mappedValue: { q: 'patata', c: 0 } });
   });
 
   it('combines multiple mappers', () => {
@@ -34,7 +34,7 @@ describe('combineMappers util', () => {
       e: 'croqueta'
     });
     expect(context).toStrictEqual({
-      to: {
+      mappedValue: {
         q: 'patata',
         c: 0,
         e: 'croqueta'
