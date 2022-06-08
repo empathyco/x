@@ -34,17 +34,24 @@ describe('http-client utils tests', () => {
   });
 
   describe('buildUrl tests', () => {
-    it('returns the href property from the built URL object', () => {
+    it('returns the href property from the built URL object flattening the objects', () => {
       const params = {
         str: 'string',
         num: 0,
         bool: false,
         arr: [1, 2],
         nil: null,
-        undef: undefined
+        undef: undefined,
+        obj: {
+          str2: 'string2',
+          obj2: {
+            arr2: [1, 2]
+          }
+        }
       };
       expect(buildUrl('https://api.empathy.co', params)).toBe(
-        'https://api.empathy.co/?str=string&num=0&bool=false&arr=1&arr=2&nil=null'
+        'https://api.empathy.co/?' +
+          'str=string&num=0&bool=false&arr=1&arr=2&nil=null&str2=string2&arr2=1&arr2=2'
       );
     });
   });
