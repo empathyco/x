@@ -1,6 +1,8 @@
 import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
+import { Suggestion } from '@empathyco/x-types';
+import Vue, { VueConstructor, ComponentOptions } from 'vue';
 import { getQuerySuggestionsStub } from '../../../../__stubs__/query-suggestions-stubs.factory';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
@@ -8,45 +10,59 @@ import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/ut
 import QuerySuggestions from '../query-suggestions.vue';
 import { resetXQuerySuggestionsStateWith } from './utils';
 
+const localVue = createLocalVue();
+localVue.use(Vuex);
+
+const store = new Store<DeepPartial<RootXStoreState>>({});
+installNewXPlugin({ store }, localVue);
+
+interface QuerySuggestionsOptions {
+  suggestions?: Suggestion[];
+  component?: VueConstructor | ComponentOptions<Vue>;
+}
+
+interface QuerySuggestionsAPI {
+  wrapper: Wrapper<Vue>;
+  suggestions: Suggestion[];
+}
+
+function renderQuerySuggestions({
+  suggestions = getQuerySuggestionsStub('gin'),
+  component = QuerySuggestions
+}: QuerySuggestionsOptions = {}): QuerySuggestionsAPI {
+  resetXQuerySuggestionsStateWith(store, { suggestions });
+
+  const wrapper = mount(<VueConstructor>component, { localVue, store });
+
+  return {
+    wrapper,
+    suggestions
+  };
+}
+
 describe('testing Query Suggestions component', () => {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
-  const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
-
-  const suggestions = getQuerySuggestionsStub('gin');
-
-  let querySuggestionsWrapper: Wrapper<Vue>;
-
-  beforeEach(() => {
-    querySuggestionsWrapper = mount(QuerySuggestions, { localVue, store });
-    resetXQuerySuggestionsStateWith(store, {});
-  });
-
   it('is an XComponent', () => {
-    expect(isXComponent(querySuggestionsWrapper.vm)).toEqual(true);
+    const { wrapper } = renderQuerySuggestions();
+    expect(isXComponent(wrapper.vm)).toEqual(true);
   });
 
   it('has QuerySuggestionModule as XModule', () => {
-    expect(getXComponentXModuleName(querySuggestionsWrapper.vm)).toEqual('querySuggestions');
+    const { wrapper } = renderQuerySuggestions();
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('querySuggestions');
   });
 
   it('does not render anything when suggestions are empty', () => {
-    expect(querySuggestionsWrapper.findAll('li')).toHaveLength(0);
+    const { wrapper } = renderQuerySuggestions({ suggestions: [] });
+    expect(wrapper.findAll('li')).toHaveLength(0);
   });
 
-  it('renders a list of suggestions passed as props', async () => {
-    resetXQuerySuggestionsStateWith(store, { suggestions });
-
-    await localVue.nextTick();
-
-    expect(querySuggestionsWrapper.findAll('li')).toHaveLength(suggestions.length);
+  it('renders a list of suggestions passed as props', () => {
+    const { wrapper, suggestions } = renderQuerySuggestions();
+    expect(wrapper.findAll('li')).toHaveLength(suggestions.length);
   });
 
   it('renders a custom query suggestion when overriding the suggestion slot', () => {
-    resetXQuerySuggestionsStateWith(store, { suggestions });
-
-    const suggestionSlotOverridden = {
+    const suggestionSlotOverridden: ComponentOptions<Vue> = {
       template: `
         <QuerySuggestions>
           <template #suggestion="suggestionContentScope">
@@ -67,12 +83,11 @@ describe('testing Query Suggestions component', () => {
       }
     };
 
-    const querySuggestions = mount(suggestionSlotOverridden, {
-      localVue,
-      store
+    const { wrapper, suggestions } = renderQuerySuggestions({
+      component: suggestionSlotOverridden
     });
 
-    const suggestionsItemWrappers = querySuggestions.findAll(
+    const suggestionsItemWrappers = wrapper.findAll(
       getDataTestSelector('suggestion-item')
     ).wrappers;
     expect(suggestionsItemWrappers).toHaveLength(suggestions.length);
@@ -84,9 +99,7 @@ describe('testing Query Suggestions component', () => {
   });
 
   it('renders custom content when overriding the suggestion-content slot', () => {
-    resetXQuerySuggestionsStateWith(store, { suggestions });
-
-    const suggestionContentSlotOverridden = {
+    const suggestionContentSlotOverridden: ComponentOptions<Vue> = {
       template: `
         <QuerySuggestions>
           <template #suggestion-content="{ suggestion, queryHTML }">
@@ -109,12 +122,11 @@ describe('testing Query Suggestions component', () => {
       }
     };
 
-    const querySuggestions = mount(suggestionContentSlotOverridden, {
-      localVue,
-      store
+    const { wrapper, suggestions } = renderQuerySuggestions({
+      component: suggestionContentSlotOverridden
     });
 
-    const suggestionsItemWrappers = findTestDataById(querySuggestions, 'query-suggestion').wrappers;
+    const suggestionsItemWrappers = findTestDataById(wrapper, 'query-suggestion').wrappers;
     expect(suggestionsItemWrappers).toHaveLength(suggestions.length);
 
     suggestionsItemWrappers.forEach((slot, index) => {
@@ -125,20 +137,21 @@ describe('testing Query Suggestions component', () => {
 
   // eslint-disable-next-line max-len
   it('renders at most the number of QuerySuggestion defined by `maxItemsToRender` prop', async () => {
-    resetXQuerySuggestionsStateWith(store, { suggestions });
+    const { wrapper, suggestions } = renderQuerySuggestions();
 
     const renderedQuerySuggestions = (): WrapperArray<Vue> =>
-      findTestDataById(querySuggestionsWrapper, 'query-suggestion');
+      findTestDataById(wrapper, 'query-suggestion');
 
-    await querySuggestionsWrapper.setProps({ maxItemsToRender: suggestions.length - 1 });
+    await wrapper.setProps({ maxItemsToRender: suggestions.length - 1 });
     expect(renderedQuerySuggestions()).toHaveLength(suggestions.length - 1);
 
-    await querySuggestionsWrapper.setProps({ maxItemsToRender: suggestions.length });
+    await wrapper.setProps({ maxItemsToRender: suggestions.length });
     expect(renderedQuerySuggestions()).toHaveLength(suggestions.length);
 
-    await querySuggestionsWrapper.setProps({ maxItemsToRender: suggestions.length + 1 });
+    await wrapper.setProps({ maxItemsToRender: suggestions.length + 1 });
     expect(renderedQuerySuggestions()).toHaveLength(suggestions.length);
   });
+
   function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {
     return wrapper.findAll(getDataTestSelector(testDataId));
   }
