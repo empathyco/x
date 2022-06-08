@@ -6,7 +6,7 @@
     data-test="query-suggestion"
     feature="query_suggestion"
   >
-    <template #default="{ suggestion, queryHTML }">
+    <template #default="{ suggestion, queryHTML, filter }">
       <!-- eslint-disable max-len -->
       <!--
         @slot Custom content that replaces the `QuerySuggestion` default content
@@ -14,7 +14,7 @@
             @binding {string} queryHTML - Suggestion’s query with the matching part wrapped in a HTML span tag
       -->
       <!-- eslint-enable max-len -->
-      <slot v-bind="{ suggestion, queryHTML }" />
+      <slot v-bind="{ suggestion, queryHTML, filter }" />
     </template>
   </BaseSuggestion>
 </template>

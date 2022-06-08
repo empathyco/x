@@ -5,14 +5,16 @@
     data-test="query-suggestions"
     :animation="animation"
     :maxItemsToRender="maxItemsToRender"
+    :showFacets="showFacets"
+    :appendSuggestionWithoutFilter="appendSuggestionWithoutFilter"
   >
-    <template #default="{ suggestion, index }">
+    <template #default="{ suggestion, index, filter }">
       <!--
         @slot Custom component that replaces the `QuerySuggestion` component
             @binding {Suggestion} suggestion - Query Suggestion data
             @binding {number} index - Query Suggestion index
       -->
-      <slot name="suggestion" v-bind="{ suggestion, index }">
+      <slot name="suggestion" v-bind="{ suggestion, index, filter }">
         <QuerySuggestion :suggestion="suggestion" class="x-query-suggestions__suggestion">
           <template #default="{ queryHTML }">
             <!-- eslint-disable max-len -->
@@ -23,7 +25,7 @@
                   @binding {number} index - Query Suggestion index
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="{ suggestion, index, queryHTML }" />
+            <slot name="suggestion-content" v-bind="{ suggestion, index, queryHTML, filter }" />
           </template>
         </QuerySuggestion>
       </slot>
@@ -76,6 +78,26 @@
      */
     @Prop()
     protected maxItemsToRender?: number;
+
+    /**
+     * Indicates if the suggestions must be rendered along with its facets.
+     *
+     * @public
+     */
+    @Prop({
+      type: Boolean,
+      default: true
+    })
+    protected showFacets!: boolean;
+
+    /**
+     * When showFacets is true, indicates if the suggestion without filter
+     * must be appended to the list.
+     *
+     * @public
+     */
+    @Prop({ default: false })
+    protected appendSuggestionWithoutFilter!: boolean;
   }
 </script>
 
