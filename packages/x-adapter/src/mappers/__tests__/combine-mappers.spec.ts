@@ -2,7 +2,7 @@ import { DeepPartial } from '@empathyco/x-utils';
 import { Mapper } from '../../types/mapper.types';
 import { combineMappers } from '../combine-mappers';
 
-describe('combineMappers tests', () => {
+describe('combineMappers util', () => {
   const testMapper: Mapper<TestFrom, DeepPartial<TestTo>> = ({ query, count }) => {
     return {
       q: query,
@@ -16,19 +16,29 @@ describe('combineMappers tests', () => {
   };
 
   it('combines a single mapper', () => {
+    const context = {};
     const combinedMappers = combineMappers<TestFrom, TestTo>(testMapper);
-    expect(combinedMappers({ query: 'patata', count: 0, extra: 'croqueta' }, {})).toEqual({
+    expect(combinedMappers({ query: 'patata', count: 0, extra: 'croqueta' }, context)).toEqual({
       q: 'patata',
       c: 0
     });
+    expect(context).toStrictEqual({ to: { q: 'patata', c: 0 } });
   });
 
   it('combines multiple mappers', () => {
+    const context = {};
     const combinedMappers = combineMappers<TestFrom, TestTo>(testMapper, extraMapper);
-    expect(combinedMappers({ query: 'patata', count: 0, extra: 'croqueta' }, {})).toEqual({
+    expect(combinedMappers({ query: 'patata', count: 0, extra: 'croqueta' }, context)).toEqual({
       q: 'patata',
       c: 0,
       e: 'croqueta'
+    });
+    expect(context).toStrictEqual({
+      to: {
+        q: 'patata',
+        c: 0,
+        e: 'croqueta'
+      }
     });
   });
 });
