@@ -202,17 +202,33 @@ describe('testing Query Suggestions component', () => {
   });
 });
 
+/**
+ * The options to render the {@link QuerySuggestions} component.
+ */
 interface QuerySuggestionsOptions {
+  /** The suggestions to render. */
   suggestions?: Suggestion[];
+  /** The name of the custom slot to be used. */
   customSlotName?: 'suggestion' | 'suggestion-content';
+  /** The content to be rendered in the custom slot. */
   customSlot?: string;
+  /** The template of the wrapper component. */
   template?: string;
+  /** Indicates if the suggestion's facets should be rendered. */
   showFacets?: boolean;
+  /** Indicates if the default suggestion must be rendered along the suggestions with facets. */
   appendSuggestionWithoutFilter?: boolean;
 }
 
 interface QuerySuggestionsAPI {
+  /** The wrapper for QuerySuggestions component. */
   wrapper: Wrapper<Vue>;
+  /** The rendered suggestions. */
   suggestions: Suggestion[];
+  /**
+   * Returns the rendered suggestions wrappers.
+   *
+   * @param suggestionDataTestId - The dataTest used to retrieve the suggestions.
+   */
   getSuggestionItems: (suggestionDataTestId?: string) => WrapperArray<Vue>;
 }
