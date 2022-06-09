@@ -65,9 +65,7 @@
 </script>
 
 <docs lang="mdx">
-## Examples
-
-### Default Usage
+## See it in action
 
 You don't need to pass any props, or slots. Simply add the component, and when it has any popular
 searches it will show them.
@@ -88,12 +86,59 @@ searches it will show them.
 </script>
 ```
 
-The component has two optional props. `animation` to render the component with an animation and
-`maxItemToRender` to limit the number of popular searches will be rendered (by default it is 5).
+### Play with props
+
+In this example, the popular searches has been limited to render a maximum of 3 items.
 
 ```vue live
 <template>
-  <PopularSearches :animation="'FadeAndSlide'" :maxItemsToRender="10" />
+  <PopularSearches :maxItemsToRender="3" />
+</template>
+
+<script>
+  import { PopularSearches } from '@empathyco/x-components/popular-searches';
+
+  export default {
+    name: 'PopularSearchesDemo',
+    components: {
+      PopularSearches
+    }
+  };
+</script>
+```
+
+In this example, the filters of the suggestion will be rendered along with the query.
+
+The `appendSuggestionWithoutFilter` prop can be used to indicate if the suggestion without filter
+must be rendered along with the suggestion with filters.
+
+This will render:
+
+- Chips //If `appendSuggestionWithoutFilter` is true
+- Chips EXAMPLE
+
+```vue
+<template>
+  <PopularSearches :suggestions="suggestions" showFacets appendSuggestionWithoutFilter />
+</template>
+
+<script>
+  import { PopularSearches } from '@empathyco/x-components';
+
+  export default {
+    name: 'PopularSearchesDemo',
+    components: {
+      PopularSearches
+    }
+  };
+</script>
+```
+
+### Play with the animation
+
+```vue live
+<template>
+  <PopularSearches :animation="'FadeAndSlide'" />
 </template>
 
 <script>
@@ -113,7 +158,7 @@ The component has two optional props. `animation` to render the component with a
 </script>
 ```
 
-### Overriding Popular Search's Content
+### Play with suggestion-content slot
 
 You can use your custom implementation of the Popular Search's content. In the example below,
 instead of using the default Popular Search's content, an icon is added, as well as a span with the
@@ -143,7 +188,7 @@ query of the Popular Search's suggestion.
 </script>
 ```
 
-### Adding a Custom Popular Search Item
+### Play with suggestion slot
 
 You can use your custom implementation for the whole Popular Search item. In the example below, we
 change the default implementation of the Popular Search in Popular Searches. A custom Popular Search
