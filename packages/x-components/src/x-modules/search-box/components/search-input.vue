@@ -240,8 +240,9 @@
      * @param event - The event that will be checked for special characters.
      */
     protected preventSpecialKey(event: InputEvent): void {
-      this.preventTypingSpecialKey(event);
-      this.preventPastingSpecialKey();
+      if (/[<>]/.test(event.data ?? '')) {
+        event.preventDefault();
+      }
     }
 
     /**
