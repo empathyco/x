@@ -22,11 +22,13 @@ describe('identifierResultsRequestMapper tests', () => {
       rows: 2,
       start: 14,
       origin: 'url:external',
-      instance: 'empathy',
-      env: 'test',
-      lang: 'en',
-      device: 'mobile',
-      scope: 'mobile'
+      extraParams: {
+        instance: 'empathy',
+        env: 'test',
+        lang: 'en',
+        device: 'mobile',
+        scope: 'mobile'
+      }
     });
   });
 });
