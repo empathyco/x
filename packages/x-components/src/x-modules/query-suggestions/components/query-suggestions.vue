@@ -137,6 +137,33 @@ _Type “lipstick” or another fashion term in the input field to try it out!_
 </script>
 ```
 
+In this example, the filters of the suggestion will be rendered along with the query.
+
+The `appendSuggestionWithoutFilter` prop can be used to indicate if the suggestion without filter
+must be rendered along with the suggestion with filters.
+
+This will render:
+
+- Chips //If `appendSuggestionWithoutFilter` is true
+- Chips EXAMPLE
+
+```vue
+<template>
+  <QuerySuggestions :suggestions="suggestions" showFacets appendSuggestionWithoutFilter />
+</template>
+
+<script>
+  import { QuerySuggestions } from '@empathyco/x-components';
+
+  export default {
+    name: 'QuerySuggestionsDemo',
+    components: {
+      QuerySuggestions
+    }
+  };
+</script>
+```
+
 ### Play with suggestion slot
 
 Here, the `suggestion` binding property passes the suggestion data.
