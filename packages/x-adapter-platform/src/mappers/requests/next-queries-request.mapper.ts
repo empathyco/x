@@ -1,7 +1,8 @@
 import { schemaMapperFactory } from '@empathyco/x-adapter-next';
 import { NextQueriesRequest } from '@empathyco/x-types';
-import { nextQueriesRequestMutableSchema } from '../../schemas/request/next-queries-request.schema';
-import { PlatformNextQueriesRequest } from '../../types/request/next-queries-request.model';
+// eslint-disable-next-line max-len
+import { nextQueriesRequestMutableSchema } from '../../schemas/requests/next-queries-request.schema';
+import { PlatformNextQueriesRequest } from '../../types/requests/next-queries-request.model';
 
 export const nextQueriesRequestMapper = schemaMapperFactory<
   NextQueriesRequest,

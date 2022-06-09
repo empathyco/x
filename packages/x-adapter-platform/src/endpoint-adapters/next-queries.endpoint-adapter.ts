@@ -1,7 +1,7 @@
 import { endpointAdapterFactory } from '@empathyco/x-adapter-next';
 import { NextQueriesRequest, NextQueriesResponse } from '@empathyco/x-types';
-import { nextQueriesRequestMapper } from '../mappers/request/next-queries-request.mapper';
-import { nextQueriesResponseMapper } from '../mappers/response/next-queries-response.mapper';
+import { nextQueriesRequestMapper } from '../mappers/requests/next-queries-request.mapper';
+import { nextQueriesResponseMapper } from '../mappers/responses/next-queries-response.mapper';
 
 /**
  * This endpoint does not support pagination in the request.

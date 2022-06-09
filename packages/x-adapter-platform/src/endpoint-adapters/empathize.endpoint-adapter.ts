@@ -1,6 +1,6 @@
 import { endpointAdapterFactory, EndpointAdapterOptions } from '@empathyco/x-adapter-next';
-import { baseRequestMapper } from '../mappers/request/base-request.mapper';
-import { empathizeResponseMapper } from '../mappers/response/empathize-response.mapper';
+import { baseRequestMapper } from '../mappers/requests/base-request.mapper';
+import { empathizeResponseMapper } from '../mappers/responses/empathize-response.mapper';
 import { BaseRequest } from '../types/request.types';
 import { EmpathizeResponse } from '../types/response.types';
 

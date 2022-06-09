@@ -1,4 +1,4 @@
-import { PlatformNextQueriesResponse } from '../../../types/response/next-queries-response.model';
+import { PlatformNextQueriesResponse } from '../../../types/responses/next-queries-response.model';
 import { nextQueriesResponseMapper } from '../next-queries-response.mapper';
 
 describe('nextQueriesResponseMapper tests', () => {

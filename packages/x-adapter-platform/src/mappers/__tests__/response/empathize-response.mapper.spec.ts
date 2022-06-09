@@ -1,4 +1,4 @@
-import { empathizeResponseMapper } from '../../response/empathize-response.mapper';
+import { empathizeResponseMapper } from '../../responses/empathize-response.mapper';
 import { EmpathizeResponse, PlatformEmpathizeResponse } from '../../../types/response.types';
 
 describe('empathize response mapper tests', () => {
