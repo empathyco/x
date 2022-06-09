@@ -243,4 +243,61 @@ another toy in the input field to try it out!_
   };
 </script>
 ```
+
+In this example, the filters of the suggestion will be rendered along with the query.
+
+The `appendSuggestionWithoutFilter` prop can be used to indicate if the suggestion without filter
+must be rendered along with the suggestion with filters.
+
+This will render:
+
+- Chips //If `appendSuggestionWithoutFilter` is true
+- Chips EXAMPLE
+
+```vue
+<template>
+  <BaseSuggestions :suggestions="suggestions" showFacets />
+</template>
+
+<script>
+  import { BaseSuggestions } from '@empathyco/x-components';
+
+  export default {
+    name: 'BaseSuggestionsDemo',
+    components: {
+      BaseSuggestions
+    },
+    data() {
+      return {
+        suggestions: [
+          {
+            facets: [
+              {
+                id: 'exampleFacet',
+                label: 'exampleFacet',
+                modelName: 'SimpleFacet',
+                filters: [
+                  {
+                    facetId: 'exampleFacet',
+                    id: '{!tag=exampleFacet}exampleFacet_60361120_64009600:"EXAMPLE"',
+                    label: 'EXAMPLE',
+                    selected: false,
+                    totalResults: 10,
+                    modelName: 'SimpleFilter'
+                  }
+                ]
+              }
+            ],
+            key: 'chips',
+            query: 'Chips',
+            totalResults: 10,
+            results: [],
+            modelName: 'PopularSearch'
+          }
+        ]
+      };
+    }
+  };
+</script>
+```
 </docs>

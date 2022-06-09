@@ -27,7 +27,7 @@ export class SuggestionsMixin extends Vue {
    *
    * @public
    */
-  @Prop({ default: true })
+  @Prop({ default: false, type: Boolean })
   protected showFacets!: boolean;
 
   /**
@@ -36,6 +36,6 @@ export class SuggestionsMixin extends Vue {
    *
    * @public
    */
-  @Prop({ default: false })
+  @Prop({ default: false, type: Boolean })
   protected appendSuggestionWithoutFilter!: boolean;
 }

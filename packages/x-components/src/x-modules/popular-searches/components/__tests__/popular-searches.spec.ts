@@ -159,7 +159,7 @@ describe('testing popular searches component', () => {
 
     const { getPopularSearchItems } = renderPopularSearches({
       customSlot: `<span data-test="popular-search">
-          {{ suggestion.query }} - {{ filter.label }}
+          {{ suggestion.query }} - {{ filter ? filter.label : '' }}
         </span>`,
       showFacets: true,
       suggestions: popularSearches
