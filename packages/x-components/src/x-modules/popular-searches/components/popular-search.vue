@@ -132,6 +132,57 @@ content. By default, it renders the suggestion query of the popular search.
 </script>
 ```
 
+### Custom usage with filter
+
+```vue live
+<template>
+  <PopularSearch :suggestion="suggestion">
+    <template #default="{ suggestion, filter }">
+      <TrendingIcon />
+      <span :aria-label="suggestion.query">{{ suggestion.query }} | {{ filter.label }}</span>
+    </template>
+  </PopularSearch>
+</template>
+
+<script>
+  import { PopularSearch } from '@empathyco/x-components/popular-searches';
+  import { TrendingIcon } from '@empathyco/x-components';
+
+  export default {
+    name: 'PopularSearchDemo',
+    components: {
+      PopularSearch,
+      TrendingIcon
+    },
+    data() {
+      return {
+        suggestion: {
+          modelName: 'PopularSearch',
+          query: 'tshirt',
+          facets: [
+            {
+              id: 'exampleFacet',
+              label: 'exampleFacet',
+              modelName: 'SimpleFacet',
+              filters: [
+                {
+                  facetId: 'exampleFacet',
+                  id: '{!tag=exampleFacet}exampleFacet_60361120_64009600:"black"',
+                  label: 'black',
+                  selected: false,
+                  totalResults: 10,
+                  modelName: 'SimpleFilter'
+                }
+              ]
+            }
+          ]
+        }
+      };
+    }
+  };
+</script>
+```
+
 ## Events
 
 A list of events that the component will emit:
