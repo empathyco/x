@@ -83,7 +83,3 @@ export interface PlatformRelatedTag {
   source: 'ORGANIC' | 'CURATED';
   position: number;
 }
-
-export interface PlatformSuggestion {
-  title_raw: string;
-}
