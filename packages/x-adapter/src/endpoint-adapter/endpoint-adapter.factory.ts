@@ -1,13 +1,9 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
-import { fetchHttpClient } from './http-clients/fetch.http-client';
-import { identityMapper } from './mappers/identity.mapper';
-import {
-  EndpointAdapterFactory,
-  EndpointAdapterOptions,
-  ExtendableEndpointAdapter
-} from './types/adapter.types';
-import { Mapper } from './types/mapper.types';
-import { interpolate } from './utils/interpolate';
+import { fetchHttpClient } from '../http-clients/fetch.http-client';
+import { identityMapper } from '../mappers/identity.mapper';
+import { Mapper } from '../mappers/types';
+import { interpolate } from '../utils/interpolate';
+import { EndpointAdapterFactory, EndpointAdapterOptions, ExtendableEndpointAdapter } from './types';
 
 /**
  * Factory to create {@link ExtendableEndpointAdapter | endpoint adapters} with the given

@@ -1,6 +1,6 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { DeepPartial } from '@empathyco/x-utils';
-import { Mapper } from '../types/mapper.types';
+import { Mapper } from './types';
 
 /**
  * Combines the given {@link Mapper | mappers} into a single {@link Mapper | mapper function}.

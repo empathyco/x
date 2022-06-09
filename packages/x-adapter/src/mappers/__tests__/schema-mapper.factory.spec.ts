@@ -1,4 +1,4 @@
-import { Schema } from '../../schemas/schemas.types';
+import { Schema } from '../../schemas/types';
 import { schemaMapperFactory } from '../schema-mapper.factory';
 
 describe('schemaMapperFactory tests', () => {
