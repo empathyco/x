@@ -53,6 +53,6 @@ export interface TrackableRequest {
  */
 export interface ExtraParamsRequest {
   extraParams: {
-    [key: string]: any;
+    [key: string]: unknown;
   };
 }
