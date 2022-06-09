@@ -33,11 +33,12 @@
 <script lang="ts">
   import { Suggestion } from '@empathyco/x-types';
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component } from 'vue-property-decorator';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { popularSearchesXModule } from '../x-module';
+  import { SuggestionsMixin } from '../../../components/suggestions/suggestions.mixin';
   import PopularSearch from './popular-search.vue';
 
   /**
@@ -50,45 +51,9 @@
    */
   @Component({
     components: { PopularSearch, BaseSuggestions },
-    mixins: [xComponentMixin(popularSearchesXModule)]
+    mixins: [xComponentMixin(popularSearchesXModule), SuggestionsMixin]
   })
   export default class PopularSearches extends Vue {
-    /**
-     * Animation component that will be used to animate the suggestions.
-     *
-     * @public
-     */
-    @Prop()
-    protected animation!: Vue;
-
-    /**
-     * Number of popular searches to be rendered.
-     *
-     * @public
-     */
-    @Prop()
-    protected maxItemsToRender?: number;
-
-    /**
-     * Indicates if the suggestions must be rendered along with its facets.
-     *
-     * @public
-     */
-    @Prop({
-      type: Boolean,
-      default: false
-    })
-    protected showFacets!: boolean;
-
-    /**
-     * When showFacets is true, indicates if the suggestion without filter
-     * must be appended to the list.
-     *
-     * @public
-     */
-    @Prop({ default: false })
-    protected appendSuggestionWithoutFilter!: boolean;
-
     /**
      * The list of popular searches.
      *

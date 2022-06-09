@@ -34,13 +34,14 @@
 </template>
 
 <script lang="ts">
-  import { Suggestion } from '@empathyco/x-types';
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Suggestion } from '@empathyco/x-types';
+  import { Component } from 'vue-property-decorator';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { querySuggestionsXModule } from '../x-module';
+  import { SuggestionsMixin } from '../../../components/suggestions/suggestions.mixin';
   import QuerySuggestion from './query-suggestion.vue';
 
   /**
@@ -52,7 +53,7 @@
    */
   @Component({
     components: { BaseSuggestions, QuerySuggestion },
-    mixins: [xComponentMixin(querySuggestionsXModule)]
+    mixins: [xComponentMixin(querySuggestionsXModule), SuggestionsMixin]
   })
   export default class QuerySuggestions extends Vue {
     /**
@@ -62,42 +63,6 @@
      */
     @Getter('querySuggestions', 'querySuggestions')
     public suggestions!: Suggestion[];
-
-    /**
-     * Animation component for `QuerySuggestions`.
-     *
-     * @public
-     */
-    @Prop()
-    protected animation!: Vue;
-
-    /**
-     * Number of query suggestions to be rendered.
-     *
-     * @public
-     */
-    @Prop()
-    protected maxItemsToRender?: number;
-
-    /**
-     * Indicates if the suggestions must be rendered along with its facets.
-     *
-     * @public
-     */
-    @Prop({
-      type: Boolean,
-      default: true
-    })
-    protected showFacets!: boolean;
-
-    /**
-     * When showFacets is true, indicates if the suggestion without filter
-     * must be appended to the list.
-     *
-     * @public
-     */
-    @Prop({ default: false })
-    protected appendSuggestionWithoutFilter!: boolean;
   }
 </script>
 
