@@ -1,4 +1,4 @@
-import { PlatformNextQuery } from './models/next-query.model';
+import { PlatformNextQuery } from '../models/next-query.model';
 
 /**
  * Response for the `next queries` endpoint.
