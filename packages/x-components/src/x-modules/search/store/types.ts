@@ -1,4 +1,4 @@
-import { SearchRequest } from '@empathyco/x-adapter';
+import { SearchRequest, SearchResponse } from '@empathyco/x-adapter';
 import {
   Banner,
   Facet,
@@ -8,7 +8,6 @@ import {
   Redirection,
   RelatedTag,
   Result,
-  SearchResponse,
   Sort,
   TaggingRequest
 } from '@empathyco/x-types';
