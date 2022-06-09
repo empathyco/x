@@ -173,6 +173,33 @@ describe('testing Query Suggestions component', () => {
       expect(suggestionItemWrapper.text()).toBe(`${suggestions[0].query} - ${filters[index]}`)
     );
   });
+
+  it('shows the suggestions with facets and the query itself', () => {
+    const suggestions: Suggestion[] = [
+      createQuerySuggestion('gin', {
+        facets: createSuggestionFacets()
+      })
+    ];
+
+    const { getSuggestionItems } = renderQuerySuggestions({
+      customSlot: `<span data-test="query-suggestion">
+         {{ suggestion.query }}{{ filter ? filter.label : '' }}
+        </span>`,
+      showFacets: true,
+      appendSuggestionWithoutFilter: true,
+      suggestions: suggestions
+    });
+    expect(getSuggestionItems()).toHaveLength(4);
+
+    expect(getSuggestionItems().wrappers[0].text()).toBe(suggestions[0].query);
+
+    const filters = getFlattenFilters(suggestions[0]);
+    getSuggestionItems().wrappers.forEach((suggestionItemWrapper, index) => {
+      expect(suggestionItemWrapper.text()).toBe(
+        index === 0 ? suggestions[0].query : `${suggestions[0].query}${filters[index - 1]}`
+      );
+    });
+  });
 });
 
 interface QuerySuggestionsOptions {
