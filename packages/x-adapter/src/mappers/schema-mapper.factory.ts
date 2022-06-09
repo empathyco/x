@@ -1,17 +1,17 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
 import {
+  Dictionary,
+  ExtractPath,
+  isArray,
   isFunction,
   isObject,
-  reduce,
   isPath,
-  isArray,
-  ExtractPath,
-  Dictionary
+  reduce
 } from '@empathyco/x-utils';
-import { Schema, SubSchemaTransformer } from '../schemas/schemas.types';
-import { Mapper, MapperContext } from '../types/mapper.types';
-import { extractValue } from '../utils/extract-value';
+import { Schema, SubSchemaTransformer } from '../schemas/types';
 import { createMutableSchema, isInternalMethod } from '../schemas/utils';
+import { extractValue } from '../utils/extract-value';
+import { Mapper, MapperContext } from './types';
 
 /**
  * The 'schemaMapperFactory' function creates a {@link Mapper | mapper function} for a given
@@ -108,7 +108,7 @@ function applySubSchemaTransformer<Source, Target>(
   const extendedContext: Dictionary = {};
   if ($context) {
     Object.entries($context).forEach(([key, value]) => {
-      if (['requestParameters', 'endpoint', 'to'].includes(key)) {
+      if (['requestParameters', 'endpoint', 'mappedValue'].includes(key)) {
         return;
       }
       extendedContext[key] = isFunction(value)

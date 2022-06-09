@@ -1,19 +1,21 @@
 import {
-  IdentifierResultsRequest,
-  IdentifierResultsResponse,
+  EmpathyAdapter,
+  EmpathyAdapterBuilder,
   NextQueriesRequest,
   NextQueriesResponse,
-  QuerySuggestionsRequest,
-  RecommendationsRequest,
-  RecommendationsResponse,
   RelatedTagsRequest,
   RelatedTagsResponse,
+  SearchAdapter,
+  SearchByIdRequest,
+  SearchByIdResponse,
   SearchRequest,
   SearchResponse,
-  QuerySuggestionsResponse,
-  TaggingRequest
-} from '@empathyco/x-types';
-import { EmpathyAdapter, EmpathyAdapterBuilder, SearchAdapter } from '@empathyco/x-adapter';
+  SuggestionsRequest,
+  SuggestionsResponse,
+  TopRecommendationsRequest,
+  TopRecommendationsResponse
+} from '@empathyco/x-adapter';
+import { TaggingRequest } from '@empathyco/x-types';
 import { configureAdapterWithToysrus } from './util';
 
 declare global {
@@ -52,12 +54,12 @@ class E2ETestsAdapter extends EmpathyAdapter {
     return mockFetch(request, 'getNextQueries');
   }
 
-  getTopRecommendations(request: RecommendationsRequest): Promise<RecommendationsResponse> {
+  getTopRecommendations(request: TopRecommendationsRequest): Promise<TopRecommendationsResponse> {
     return mockFetch(request, 'getTopRecommendations');
   }
 
   // TODO: split this method in two (for QuerySuggestions and for PopularSearches) with new Adapter.
-  getSuggestions(request: QuerySuggestionsRequest): Promise<QuerySuggestionsResponse> {
+  getSuggestions(request: SuggestionsRequest): Promise<SuggestionsResponse> {
     return mockFetch(request, 'getSuggestions');
   }
 
@@ -75,7 +77,7 @@ class E2ETestsAdapter extends EmpathyAdapter {
       : Promise.reject('sendBeacon rejected');
   }
 
-  searchById(request: IdentifierResultsRequest): Promise<IdentifierResultsResponse> {
+  searchById(request: SearchByIdRequest): Promise<SearchByIdResponse> {
     return mockFetch(request, 'searchById');
   }
 }

@@ -1,5 +1,5 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { Schema } from '../schemas.types';
+import { Schema } from '../types';
 import { createMutableSchema } from '../utils';
 import { schemaMapperFactory } from '../../mappers';
 

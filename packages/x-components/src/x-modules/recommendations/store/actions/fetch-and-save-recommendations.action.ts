@@ -1,11 +1,12 @@
-import { RecommendationsRequest, Result } from '@empathyco/x-types';
+import { TopRecommendationsRequest } from '@empathyco/x-adapter';
+import { Result } from '@empathyco/x-types';
 // eslint-disable-next-line max-len
 import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
 import { RecommendationsActionContext } from '../types';
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   RecommendationsActionContext,
-  RecommendationsRequest | null,
+  TopRecommendationsRequest | null,
   Result[]
 >({
   fetch({ dispatch }, request) {

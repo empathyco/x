@@ -1,4 +1,5 @@
-import { NextQueriesRequest, NextQuery } from '@empathyco/x-types';
+import { NextQueriesRequest } from '@empathyco/x-adapter';
+import { NextQuery } from '@empathyco/x-types';
 // eslint-disable-next-line max-len
 import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
 import { NextQueriesActionContext } from '../types';

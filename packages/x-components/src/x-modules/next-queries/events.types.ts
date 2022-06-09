@@ -1,4 +1,5 @@
-import { NextQueriesRequest, NextQuery } from '@empathyco/x-types';
+import { NextQueriesRequest } from '@empathyco/x-adapter';
+import { NextQuery } from '@empathyco/x-types';
 
 /**
  * Dictionary of the events of NextQueries XModule, where each key is the event name, and the value

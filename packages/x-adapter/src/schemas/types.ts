@@ -5,7 +5,7 @@ import {
   ExtractType,
   Primitive
 } from '@empathyco/x-utils';
-import { MapperContext } from '../types/index';
+import { MapperContext } from '../mappers/types';
 
 // TODO: EX-5830 - Enhance Schema type to support optional properties in the Source object
 /**
